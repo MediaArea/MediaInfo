@@ -58,11 +58,23 @@ const char* Cdp_cc_type(int8u cc_type)
     }
 }
 
-//***************************************************************************
-// Constants
-//***************************************************************************
-
-
+//---------------------------------------------------------------------------
+float32 Cdp_cdp_frame_rate(int8u cdp_frame_rate)
+{
+    switch (cdp_frame_rate)
+    {
+        case  1 : return (float32)23.976;
+        case  2 : return (float32)24.000;
+        case  3 : return (float32)25.000;
+        case  4 : return (float32)29.970;
+        case  5 : return (float32)30.000;
+        case  6 : return (float32)50.000;
+        case  7 : return (float32)59.940;
+        case  8 : return (float32)60.000;
+        default : return (float32) 0.000;
+    }
+}
+    
 //***************************************************************************
 //
 //***************************************************************************
@@ -83,6 +95,14 @@ File_Cdp::File_Cdp()
     Streams_Count=0;
 
     //In
+    AspectRatio=0;
+}
+
+//---------------------------------------------------------------------------
+File_Cdp::~File_Cdp()
+{
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        delete Streams[Pos]; //Streams[Pos]=NULL
 }
 
 //***************************************************************************
@@ -94,13 +114,22 @@ void File_Cdp::Streams_Fill()
 {
     //Filling
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser && Streams[Pos].Parser->Status[IsFilled])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
         {
-            Merge(*Streams[Pos].Parser);
+            Merge(*Streams[Pos]->Parser);
             if (Pos<2)
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
         }
+}
+
+//---------------------------------------------------------------------------
+void File_Cdp::Streams_Finish()
+{
+    //Filling
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
+            Finish(Streams[Pos]->Parser);
 }
 
 //***************************************************************************
@@ -112,8 +141,8 @@ void File_Cdp::Read_Buffer_Unsynched()
 {
     //Parsing
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser)
-            Streams[Pos].Parser->Open_Buffer_Unsynch();
+        if (Streams[Pos] && Streams[Pos]->Parser)
+            Streams[Pos]->Parser->Open_Buffer_Unsynch();
 }
 
 //***************************************************************************
@@ -154,10 +183,11 @@ void File_Cdp::Read_Buffer_Continue()
 void File_Cdp::cdp_header()
 {
     Element_Begin("cdp_header");
+    int8u cdp_frame_rate;
     Skip_B2(                                                    "cdp_identifier");
     Skip_B1(                                                    "cdp_length");
     BS_Begin();
-    Skip_S1(4,                                                  "cdp_frame_rate");
+    Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+_T(" fps"));
     Skip_S1(4,                                                  "Reserved");
     Skip_SB(                                                    "time_code_present");
     Skip_SB(                                                    "ccdata_present");
@@ -230,45 +260,48 @@ void File_Cdp::ccdata_section()
                 int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
                 //Parsing
-                if (Streams[Parser_Pos].Parser==NULL)
+                if (Streams[Parser_Pos]==NULL)
+                    Streams[Parser_Pos]=new stream;
+                if (Streams[Parser_Pos]->Parser==NULL)
                 {
                     if (cc_type<2)
                     {
-                        Streams[Parser_Pos].Parser=new File_Eia608();
+                        Streams[Parser_Pos]->Parser=new File_Eia608();
                     }
                     else
                     {
-                        Streams[Parser_Pos].Parser=new File_Eia708();
+                        Streams[Parser_Pos]->Parser=new File_Eia708();
                     }
-                    Open_Buffer_Init(Streams[Parser_Pos].Parser);
+                    Open_Buffer_Init(Streams[Parser_Pos]->Parser);
                 }
-                if (!Streams[Parser_Pos].Parser->Status[IsFinished])
+                if (!Streams[Parser_Pos]->Parser->Status[IsFinished])
                 {
-                    if (Streams[Parser_Pos].Parser->PTS_DTS_Needed)
+                    if (Streams[Parser_Pos]->Parser->PTS_DTS_Needed)
                     {
-                        Streams[Parser_Pos].Parser->PCR=PCR;
-                        Streams[Parser_Pos].Parser->PTS=PTS;
-                        Streams[Parser_Pos].Parser->DTS=DTS;
+                        Streams[Parser_Pos]->Parser->PCR=PCR;
+                        Streams[Parser_Pos]->Parser->PTS=PTS;
+                        Streams[Parser_Pos]->Parser->DTS=DTS;
                     }
                     if (Parser_Pos==2)
                     {
-                        ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
+                        ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
+                        ((File_Eia708*)Streams[Parser_Pos]->Parser)->AspectRatio=AspectRatio;
                     }
                     else
                     {
                     }
-                    Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
+                    Open_Buffer_Continue(Streams[Parser_Pos]->Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
                     Element_Offset+=2;
 
                     //Filled
-                    if (!Streams[Parser_Pos].IsFilled && Streams[Parser_Pos].Parser->Status[IsFilled])
+                    if (!Streams[Parser_Pos]->IsFilled && Streams[Parser_Pos]->Parser->Status[IsFilled])
                     {
                         if (Count_Get(Stream_General)==0)
                             Accept("CDP");
                         Streams_Count++;
                         if (Streams_Count==3)
                             Fill("CDP");
-                        Streams[Parser_Pos].IsFilled=true;
+                        Streams[Parser_Pos]->IsFilled=true;
                     }
                 }
                 else

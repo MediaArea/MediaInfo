@@ -37,10 +37,6 @@
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
-#ifdef MEDIAINFO_EVENTS
-    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
-    #include "MediaInfo/MediaInfo_Events_Internal.h"
-#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 namespace MediaInfoLib
 {
@@ -76,15 +72,17 @@ File_DtvccTransport::File_DtvccTransport()
 
     //In
     Format=Format_Unknown;
-    #ifdef MEDIAINFO_EVENTS
-        PID=(int16u)-1;
-        stream_id=(int8u)-1;
-        Frame_Number=(int64u)-1;
-    #endif MEDIAINFO_EVENTS
 
     //Temp
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
     Streams_Count=0;
+}
+
+//---------------------------------------------------------------------------
+File_DtvccTransport::~File_DtvccTransport()
+{
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        delete Streams[Pos]; //Streams[Pos]=NULL
 }
 
 //***************************************************************************
@@ -96,13 +94,22 @@ void File_DtvccTransport::Streams_Fill()
 {
     //Filling
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser && Streams[Pos].Parser->Status[IsFilled])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
         {
-            Merge(*Streams[Pos].Parser);
+            Merge(*Streams[Pos]->Parser);
             if (Pos<2)
                 Fill(Stream_Text, StreamPos_Last, Text_ID, (Format==Format_DVD?_T("DVD-"):_T("608-"))+Ztring::ToZtring(Pos));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?_T("DVD-Video"):_T("EIA-708"));
         }
+}
+
+//---------------------------------------------------------------------------
+void File_DtvccTransport::Streams_Finish()
+{
+    //Filling
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
+            Finish(Streams[Pos]->Parser);
 }
 
 //***************************************************************************
@@ -114,8 +121,8 @@ void File_DtvccTransport::Read_Buffer_Unsynched()
 {
     //Parsing
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser)
-            Streams[Pos].Parser->Open_Buffer_Unsynch();
+        if (Streams[Pos] && Streams[Pos]->Parser)
+            Streams[Pos]->Parser->Open_Buffer_Unsynch();
 }
 
 //***************************************************************************
@@ -158,10 +165,10 @@ void File_DtvccTransport::Read_Buffer_Continue()
             bool  cc_valid;
             BS_Begin();
             Mark_1();
-            Mark_1();
-            Mark_1();
-            Mark_1();
-            Mark_1();
+            Mark_1_NoTrustError();
+            Mark_1_NoTrustError();
+            Mark_1_NoTrustError();
+            Mark_1_NoTrustError();
             if (Format==Format_DVD)
             {
                 //Modified DTVCC Transport from DVD
@@ -184,46 +191,48 @@ void File_DtvccTransport::Read_Buffer_Continue()
                     int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
                     //Parsing
-                    if (Streams[Parser_Pos].Parser==NULL)
+                    if (Streams[Parser_Pos]==NULL)
+                        Streams[Parser_Pos]=new stream;
+                    if (Streams[Parser_Pos]->Parser==NULL)
                     {
                         if (cc_type<2)
                         {
-                            Streams[Parser_Pos].Parser=new File_Eia608();
+                            Streams[Parser_Pos]->Parser=new File_Eia608();
                         }
                         else
                         {
-                            Streams[Parser_Pos].Parser=new File_Eia708();
+                            Streams[Parser_Pos]->Parser=new File_Eia708();
                         }
-                        Open_Buffer_Init(Streams[Parser_Pos].Parser);
+                        Open_Buffer_Init(Streams[Parser_Pos]->Parser);
                     }
-                    if (!Streams[Parser_Pos].Parser->Status[IsFinished])
+                    if (!Streams[Parser_Pos]->Parser->Status[IsFinished])
                     {
                         //Parsing
-                        if (Streams[Parser_Pos].Parser->PTS_DTS_Needed)
+                        if (Streams[Parser_Pos]->Parser->PTS_DTS_Needed)
                         {
-                            Streams[Parser_Pos].Parser->PCR=PCR;
-                            Streams[Parser_Pos].Parser->PTS=PTS;
-                            Streams[Parser_Pos].Parser->DTS=DTS;
+                            Streams[Parser_Pos]->Parser->PCR=PCR;
+                            Streams[Parser_Pos]->Parser->PTS=PTS;
+                            Streams[Parser_Pos]->Parser->DTS=DTS;
                         }
                         if (Parser_Pos==2)
                         {
-                            ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
+                            ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
                         }
                         else
                         {
                         }
-                        Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
+                        Open_Buffer_Continue(Streams[Parser_Pos]->Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
                         Element_Offset+=2;
 
                         //Filled
-                        if (!Streams[Parser_Pos].IsFilled && Streams[Parser_Pos].Parser->Status[IsFilled])
+                        if (!Streams[Parser_Pos]->IsFilled && Streams[Parser_Pos]->Parser->Status[IsFilled])
                         {
                             if (Count_Get(Stream_General)==0)
                                 Accept("DTVCC Transport");
                             Streams_Count++;
                             if (Streams_Count==3)
                                 Fill("DTVCC Transport");
-                            Streams[Parser_Pos].IsFilled=true;
+                            Streams[Parser_Pos]->IsFilled=true;
                         }
                     }
                     else
@@ -238,7 +247,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
     else
         Skip_XX(cc_count*2,                                         "Junk");
 
-    if (Format==Fromat_A53_4_GA94_03)
+    if (Format==Format_A53_4_GA94_03)
     {
         //Normal DTVCC Transport
         BS_Begin();

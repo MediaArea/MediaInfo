@@ -133,15 +133,8 @@ private :
             }
         };
         #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-            buffer_data GA94_03;
+            buffer_data* GA94_03;
         #endif //MEDIAINFO_DTVCCTRANSPORT_YES
-        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-            buffer_data Cdp;
-        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-            buffer_data AfdBarData;
-        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-
 
         int8u  picture_coding_type;
 
@@ -154,9 +147,19 @@ private :
 
         temporalreference()
         {
+            #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                GA94_03=NULL;
+            #endif //MEDIAINFO_DTVCCTRANSPORT_YES
             picture_coding_type=(int8u)-1;
             IsValid=false;
             HasPictureCoding=false;
+        }
+
+        ~temporalreference()
+        {
+            #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                delete GA94_03; //GA94_03=NULL;
+            #endif //MEDIAINFO_DTVCCTRANSPORT_YES
         }
     };
     std::vector<temporalreference*> TemporalReference; //per temporal_reference

@@ -45,17 +45,19 @@ public :
     enum format
     {
         Format_Unknown,
-        Fromat_A53_4_GA94_03,   //MPEG_cc_data
+        Format_A53_4_GA94_03,   //MPEG_cc_data
         Format_DVD,             //Unknown standard
     };
     format Format;
 
     //Constructor/Destructor
     File_DtvccTransport();
+    ~File_DtvccTransport();
 
 private :
     //Streams management
     void Streams_Fill();
+    void Streams_Finish();
 
     //Synchro
     void Read_Buffer_Unsynched();
@@ -74,9 +76,14 @@ private :
             Parser=NULL;
             IsFilled=false;
         }
+
+        ~stream()
+        {
+            delete Parser; //Parser=NULL;
+        }
     };
-    std::vector<stream> Streams;
-    size_t              Streams_Count;
+    std::vector<stream*> Streams;
+    size_t               Streams_Count;
 };
 
 } //NameSpace

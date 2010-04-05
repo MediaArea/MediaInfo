@@ -758,6 +758,8 @@ void File_Mpegv::Read_Buffer_Unsynched()
     Time_End_Frames=(int8u)-1;
 
     temporal_reference_Old=(int16u)-1;
+    for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
+        delete TemporalReference[Pos]; //TemporalReference[Pos]=NULL;
     TemporalReference.clear();
     TemporalReference_Offset=0;
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -1044,60 +1046,6 @@ void File_Mpegv::picture_start()
                     Time_End_Frames++; //Frame repeated a third time
             }
         }
-
-        //CDP
-        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-            if (Cdp_Data && !Cdp_Data->empty())
-            {
-                Cdp_IsPresent=true;
-
-                Element_Begin("CDP");
-
-                //Parsing
-                if (Cdp_Parser==NULL)
-                {
-                    Cdp_Parser=new File_Cdp;
-                    Open_Buffer_Init(Cdp_Parser);
-                }
-                if (!Cdp_Parser->Status[IsFinished])
-                {
-                    if (Cdp_Parser->PTS_DTS_Needed)
-                        Cdp_Parser->DTS=DTS;
-                    ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
-                    Open_Buffer_Continue(Cdp_Parser, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
-                }
-
-                //Removing data from stack
-                Cdp_Data->erase(Cdp_Data->begin());
-
-                Element_End();
-            }
-        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-
-        //Active Format Description & Bar Data
-        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-            if (AfdBarData_Data && !AfdBarData_Data->empty())
-            {
-                Element_Begin("Active Format Description & Bar Data");
-
-                //Parsing
-                if (AfdBarData_Parser==NULL)
-                {
-                    AfdBarData_Parser=new File_AfdBarData;
-                    Open_Buffer_Init(AfdBarData_Parser);
-                    ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
-                }
-                if (AfdBarData_Parser->PTS_DTS_Needed)
-                    AfdBarData_Parser->DTS=DTS;
-                if (!AfdBarData_Parser->Status[IsFinished])
-                    Open_Buffer_Continue(AfdBarData_Parser, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
-
-                //Removing data from stack
-                AfdBarData_Data->erase(AfdBarData_Data->begin());
-
-                Element_End();
-            }
-        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 
         //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
@@ -1387,10 +1335,12 @@ void File_Mpegv::user_data_start_GA94_03()
             GA94_03_TemporalReference_Offset=Pos+1;
         }
 
-        TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03.Size=(size_t)(Element_Size-Element_Offset);
-        delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03.Data;
-        TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03.Data=new int8u[(size_t)(Element_Size-Element_Offset)];
-        std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03.Data, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        if (TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03==NULL)
+            TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03=new temporalreference::buffer_data;
+        TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03->Size=(size_t)(Element_Size-Element_Offset);
+        delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03->Data;
+        TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03->Data=new int8u[(size_t)(Element_Size-Element_Offset)];
+        std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03->Data, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
 
         //Parsing
         Skip_XX(Element_Size-Element_Offset,                    "CC data");
@@ -1398,7 +1348,7 @@ void File_Mpegv::user_data_start_GA94_03()
         //Parsing Captions after reordering
         bool CanBeParsed=true;
         for (size_t GA94_03_Pos=GA94_03_TemporalReference_Offset; GA94_03_Pos<TemporalReference.size(); GA94_03_Pos++)
-            if (TemporalReference[GA94_03_Pos]==NULL || !TemporalReference[GA94_03_Pos]->IsValid)
+            if (TemporalReference[GA94_03_Pos]==NULL || !TemporalReference[GA94_03_Pos]->IsValid || TemporalReference[GA94_03_Pos]->GA94_03==NULL)
                 CanBeParsed=false; //There is a missing field/frame
         if (CanBeParsed)
         {
@@ -1419,8 +1369,8 @@ void File_Mpegv::user_data_start_GA94_03()
                     GA94_03_Parser->PTS=PTS;
                     GA94_03_Parser->DTS=DTS;
                 }
-                Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03.Data, TemporalReference[GA94_03_Pos]->GA94_03.Size);
-                
+                Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
+
                 Element_End();
             }
             GA94_03_TemporalReference_Offset=TemporalReference.size();
@@ -1711,6 +1661,62 @@ void File_Mpegv::extension_start()
 
                         if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
                             Time_End_Frames--; //One frame
+
+                        //CDP
+                        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+                            if (Cdp_Data && !Cdp_Data->empty())
+                            {
+                                Cdp_IsPresent=true;
+
+                                Element_Begin("CDP");
+
+                                //Parsing
+                                if (Cdp_Parser==NULL)
+                                {
+                                    Cdp_Parser=new File_Cdp;
+                                    Open_Buffer_Init(Cdp_Parser);
+                                }
+                                if (!Cdp_Parser->Status[IsFinished])
+                                {
+                                    if (Cdp_Parser->PTS_DTS_Needed)
+                                        Cdp_Parser->DTS=DTS;
+                                    ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
+                                    Open_Buffer_Continue(Cdp_Parser, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
+                                }
+
+                                //Removing data from stack
+                                delete Cdp_Data[0]; //Cdp_Data[0]=NULL;
+                                Cdp_Data->erase(Cdp_Data->begin());
+
+                                Element_End();
+                            }
+                        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+
+                        //Active Format Description & Bar Data
+                        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+                            if (AfdBarData_Data && !AfdBarData_Data->empty())
+                            {
+                                Element_Begin("Active Format Description & Bar Data");
+
+                                //Parsing
+                                if (AfdBarData_Parser==NULL)
+                                {
+                                    AfdBarData_Parser=new File_AfdBarData;
+                                    Open_Buffer_Init(AfdBarData_Parser);
+                                    ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
+                                }
+                                if (AfdBarData_Parser->PTS_DTS_Needed)
+                                    AfdBarData_Parser->DTS=DTS;
+                                if (!AfdBarData_Parser->Status[IsFinished])
+                                    Open_Buffer_Continue(AfdBarData_Parser, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
+
+                                //Removing data from stack
+                                delete AfdBarData_Data[0]; //AfdBarData_Data[0]=NULL;
+                                AfdBarData_Data->erase(AfdBarData_Data->begin());
+
+                                Element_End();
+                            }
+                        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
                     FILLING_END();
                 }
                 break;

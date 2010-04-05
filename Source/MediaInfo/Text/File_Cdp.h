@@ -42,13 +42,16 @@ class File_Cdp : public File__Analyze
 {
 public :
     //In
+    float32 AspectRatio;
 
     //Constructor/Destructor
     File_Cdp();
+    ~File_Cdp();
 
 private :
     //Streams management
     void Streams_Fill();
+    void Streams_Finish();
 
     //Synchro
     void Read_Buffer_Unsynched();
@@ -75,9 +78,14 @@ private :
             Parser=NULL;
             IsFilled=false;
         }
+
+        ~stream()
+        {
+            delete Parser; //Parser=NULL;
+        }
     };
-    std::vector<stream> Streams;
-    size_t              Streams_Count;
+    std::vector<stream*> Streams;
+    size_t               Streams_Count;
 };
 
 } //NameSpace
