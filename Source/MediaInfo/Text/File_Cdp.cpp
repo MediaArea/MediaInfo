@@ -285,7 +285,7 @@ void File_Cdp::ccdata_section()
                     if (Parser_Pos==2)
                     {
                         ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
-                        ((File_Eia708*)Streams[Parser_Pos]->Parser)->AspectRatio=AspectRatio;
+                        ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
                     }
                     else
                     {

@@ -74,6 +74,7 @@ File_DtvccTransport::File_DtvccTransport()
 
     //In
     Format=Format_Unknown;
+    AspectRatio=0;
 
     //Temp
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
@@ -219,11 +220,13 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         if (Parser_Pos==2)
                         {
                             ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
+                            ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
                         }
                         else
                         {
                         }
                         Open_Buffer_Continue(Streams[Parser_Pos]->Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
+                        Element_Show();
                         Element_Offset+=2;
 
                         //Filled
@@ -253,14 +256,14 @@ void File_DtvccTransport::Read_Buffer_Continue()
     {
         //Normal DTVCC Transport
         BS_Begin();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
         BS_End();
 
         if (additional_data_flag)
