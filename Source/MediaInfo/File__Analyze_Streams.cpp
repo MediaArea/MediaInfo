@@ -653,7 +653,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         }
 
         //Display Aspect Ratio and Pixel Aspect Ratio
-        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio)
+        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio && !Value.empty())
         {
             float F1=Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
             Ztring C1;
@@ -672,16 +672,20 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 C1.FindAndReplace(_T(":"), _T("/"));
             Fill(Stream_Video, StreamPos, Video_DisplayAspectRatio_String, C1, true);
 
-            Clear                (Stream_Video, StreamPos, Video_PixelAspectRatio  );
-            float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
-            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.778"))
-                DAR=((float)16)/9; //More exact value
-            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.333"))
-                DAR=((float)4)/3; //More exact value
-            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
-            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
-            if (DAR && Height && Width)
-                Fill(Stream_Video, StreamPos, Video_PixelAspectRatio, DAR/(((float32)Width)/Height));
+            if (Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio).empty())
+            {
+                float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
+                float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+                float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+                if (DAR && Height && Width)
+                {
+                    if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.778"))
+                        DAR=((float)16)/9; //More exact value
+                    if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.333"))
+                        DAR=((float)4)/3; //More exact value
+                    Fill(Stream_Video, StreamPos, Video_PixelAspectRatio, DAR/(((float32)Width)/Height));
+                }
+            }
         }
         if (StreamKind==Stream_Video && Parameter==Video_PixelAspectRatio && Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).empty())
         {

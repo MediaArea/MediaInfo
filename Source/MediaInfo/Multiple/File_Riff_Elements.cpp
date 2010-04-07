@@ -1764,8 +1764,6 @@ void File_Riff::AVI__hdlr_strl_strh()
     {
         case Elements::AVI__hdlr_strl_strh_vids :
             if (FrameRate>0)  Fill(Stream_Video, StreamPos_Last, "FrameRate", FrameRate, 3);
-            if (fccHandler==0x64767364) //For "dvsd" but fccType is wrong
-                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio", 1.000);
         case Elements::AVI__hdlr_strl_strh_txts :
             if (Right-Left>0) Fill(Stream_Text, StreamPos_Last, "Width",  Right-Left, 10, true);
             if (Bottom-Top>0) Fill(Stream_Text, StreamPos_Last, "Height", Bottom-Top, 10, true);
