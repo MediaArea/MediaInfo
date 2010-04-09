@@ -135,6 +135,9 @@ const char* Mpegv_profile_and_level_indication_level[]=
 #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
     #include "MediaInfo/Text/File_DtvccTransport.h"
 #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+#if defined(MEDIAINFO_SCTE20_YES)
+    #include "MediaInfo/Text/File_Scte20.h"
+#endif //defined(MEDIAINFO_SCTE20_YES)
 #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
     #include "MediaInfo/Text/File_Cdp.h"
     #include <cstring>
@@ -295,7 +298,12 @@ File_Mpegv::File_Mpegv()
         GA94_03_IsPresent=false;
         CC___Parser=NULL;
         CC___IsPresent=false;
-    #endif //defined(MEDIAINFO_EIA608_YES)
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #if defined(MEDIAINFO_SCTE20_YES)
+        Scte_Parser=NULL;
+        Scte_TemporalReference_Offset=0;
+        Scte_IsPresent=false;
+    #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         DTG1_Parser=NULL;
         GA94_06_Parser=NULL;
@@ -324,7 +332,10 @@ File_Mpegv::~File_Mpegv()
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         delete GA94_03_Parser; //GA94_03_Parser=NULL;
         delete CC___Parser; //CC___Parser=NULL;
-    #endif //defined(MEDIAINFO_EIA608_YES)
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #if defined(MEDIAINFO_SCTE20_YES)
+        delete Scte_Parser; //Scte_Parser=NULL;
+    #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         delete DTG1_Parser; //DTG1_Parser=NULL;
         delete GA94_06_Parser; //GA94_06_Parser=NULL;
@@ -621,7 +632,14 @@ void File_Mpegv::Streams_Finish()
             Finish(CC___Parser);
             Merge(*CC___Parser);
         }
-    #endif //defined(MEDIAINFO_EIA608_YES)
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #if defined(MEDIAINFO_SCTE20_YES)
+        if (Scte_Parser && !Scte_Parser->Status[IsFinished] && Scte_Parser->Status[IsAccepted])
+        {
+            Finish(Scte_Parser);
+            Merge(*Scte_Parser);
+        }
+    #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         if (DTG1_Parser && !DTG1_Parser->Status[IsFinished] && DTG1_Parser->Status[IsAccepted])
         {
@@ -768,7 +786,12 @@ void File_Mpegv::Read_Buffer_Unsynched()
             GA94_03_Parser->Open_Buffer_Unsynch();
         if (CC___Parser)
             CC___Parser->Open_Buffer_Unsynch();
-    #endif //defined(MEDIAINFO_EIA608_YES)
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #if defined(MEDIAINFO_SCTE20_YES)
+        Scte_TemporalReference_Offset=0;
+        if (Scte_Parser)
+            Scte_Parser->Open_Buffer_Unsynch();
+    #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         if (DTG1_Parser)
             DTG1_Parser->Open_Buffer_Unsynch();
@@ -917,11 +940,11 @@ void File_Mpegv::Detect_EOF()
     if (IsSub && Status[IsFilled]
      || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01))
     {
-        if ((GA94_03_IsPresent || CC___IsPresent || Cdp_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
+        if ((GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent || Cdp_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
          && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
         {
             Streams[0x00].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
-            Streams[0xB2].Searching_Payload=GA94_03_IsPresent || CC___IsPresent;
+            Streams[0xB2].Searching_Payload=GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent;
             Streams[0xB3].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
             return;
         }
@@ -1098,7 +1121,7 @@ void File_Mpegv::slice_start()
         //Filling only if not already done
         if (Frame_Count==2 && !Status[IsAccepted])
             Accept("MPEG Video");
-        if (!Status[IsFilled] && (!CC___IsPresent && !GA94_03_IsPresent && !Cdp_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if (!Status[IsFilled] && (!CC___IsPresent && !Scte_IsPresent && !GA94_03_IsPresent && !Cdp_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
             Fill("MPEG Video");
     FILLING_END();
 }
@@ -1119,6 +1142,15 @@ void File_Mpegv::user_data_start()
             case 0x434301F8 :   user_data_start_CC(); return;
             case 0x44544731 :   user_data_start_DTG1(); return;
             case 0x47413934 :   user_data_start_GA94(); return;
+            default         :   {
+                                int8u SCTE20_Identifier;
+                                Peek_B1(SCTE20_Identifier);
+                                if (SCTE20_Identifier==0x03)
+                                {
+                                    user_data_start_3();
+                                    return;
+                                }
+                                }
         }
     }
 
@@ -1240,7 +1272,7 @@ void File_Mpegv::user_data_start_CC()
     Skip_B4(                                                    "identifier");
 
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-        Element_Info("DVD Captions");
+        Element_Info("SCTE20");
 
         //Parsing
         if (CC___Parser==NULL)
@@ -1261,6 +1293,79 @@ void File_Mpegv::user_data_start_CC()
     #else //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         Skip_XX(Element_Size-Element_Offset,                    "DVD Captions");
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+}
+
+//---------------------------------------------------------------------------
+// Packet "B2", 0x03 (SCTE20)
+void File_Mpegv::user_data_start_3()
+{
+    Skip_B1(                                                    "identifier");
+
+    #if defined(MEDIAINFO_SCTE20_YES)
+        Scte_IsPresent=true;
+
+        Element_Info("SCTE 20");
+
+        //Coherency
+        if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+            return;
+
+        //Purging too old orphelins
+        if (Scte_TemporalReference_Offset+8<TemporalReference_Offset+temporal_reference)
+        {
+            size_t Pos=TemporalReference_Offset+temporal_reference;
+            do
+            {
+                if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid)
+                    break;
+                Pos--;
+            }
+            while (Pos>0);
+            Scte_TemporalReference_Offset=Pos+1;
+        }
+
+        if (TemporalReference[TemporalReference_Offset+temporal_reference]->Scte==NULL)
+            TemporalReference[TemporalReference_Offset+temporal_reference]->Scte=new temporalreference::buffer_data;
+        TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Size=(size_t)(Element_Size-Element_Offset);
+        delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Data;
+        TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Data=new int8u[(size_t)(Element_Size-Element_Offset)];
+        std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Data, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+        //Parsing
+        Skip_XX(Element_Size-Element_Offset,                    "CC data");
+
+        //Parsing Captions after reordering
+        bool CanBeParsed=true;
+        for (size_t Scte_Pos=Scte_TemporalReference_Offset; Scte_Pos<TemporalReference.size(); Scte_Pos++)
+            if (TemporalReference[Scte_Pos]==NULL || !TemporalReference[Scte_Pos]->IsValid || TemporalReference[Scte_Pos]->Scte==NULL)
+                CanBeParsed=false; //There is a missing field/frame
+        if (CanBeParsed)
+        {
+            for (size_t Scte_Pos=Scte_TemporalReference_Offset; Scte_Pos<TemporalReference.size(); Scte_Pos++)
+            {
+                Element_Begin("SCTE 20 data");
+
+                //Parsing
+                if (Scte_Parser==NULL)
+                {
+                    Scte_Parser=new File_Scte20;
+                    Open_Buffer_Init(Scte_Parser);
+                }
+                if (Scte_Parser->PTS_DTS_Needed)
+                {
+                    Scte_Parser->PCR=PCR;
+                    Scte_Parser->PTS=PTS;
+                    Scte_Parser->DTS=DTS;
+                }
+                Open_Buffer_Continue(Scte_Parser, TemporalReference[Scte_Pos]->Scte->Data, TemporalReference[Scte_Pos]->Scte->Size);
+
+                Element_End();
+            }
+            Scte_TemporalReference_Offset=TemporalReference.size();
+        }
+    #else //defined(MEDIAINFO_SCTE20_YES)
+        Skip_XX(Element_Size-Element_Offset,                    "SCTE 20 data");
+    #endif //defined(MEDIAINFO_SCTE20_YES)
 }
 
 //---------------------------------------------------------------------------
@@ -1477,7 +1582,13 @@ void File_Mpegv::sequence_header()
                     GA94_03_TemporalReference_Offset-=0x400;
                 else
                     GA94_03_TemporalReference_Offset=0;
-            #endif //defined(MEDIAINFO_EIA608_YES)
+            #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+            #if defined(MEDIAINFO_SCTE20_YES)
+                if (0x400<Scte_TemporalReference_Offset)
+                    Scte_TemporalReference_Offset-=0x400;
+                else
+                    Scte_TemporalReference_Offset=0;
+            #endif //defined(MEDIAINFO_SCTE20_YES)
         }
 
         //Bit_rate

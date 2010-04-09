@@ -419,6 +419,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_N19.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scte20.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File__Tags.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_ApeTag.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Id3.cpp">

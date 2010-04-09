@@ -134,6 +134,7 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_N19.cpp
 	MediaInfo/Text/File_OtherText.cpp
 	MediaInfo/Text/File_Pgs.cpp
+	MediaInfo/Text/File_Scte20cpp
 	MediaInfo/Video/File_Avc.cpp
 	MediaInfo/Video/File_Avc_Duplicate.cpp
 	MediaInfo/Video/File_AvsV.cpp

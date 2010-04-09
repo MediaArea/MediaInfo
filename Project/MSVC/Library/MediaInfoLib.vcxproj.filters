@@ -420,6 +420,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scte20.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File__Tags.cpp">
       <Filter>Source Files\Tag</Filter>
     </ClCompile>

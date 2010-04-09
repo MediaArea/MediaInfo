@@ -1033,6 +1033,10 @@
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Scte20.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Tag"

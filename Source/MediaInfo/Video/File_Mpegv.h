@@ -86,6 +86,7 @@ private :
     void picture_start();
     void slice_start();
     void user_data_start();
+    void user_data_start_3();
     void user_data_start_CC();
     void user_data_start_DTG1();
     void user_data_start_GA94();
@@ -135,6 +136,9 @@ private :
         #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
             buffer_data* GA94_03;
         #endif //MEDIAINFO_DTVCCTRANSPORT_YES
+        #if defined(MEDIAINFO_SCTE20_YES)
+            buffer_data* Scte;
+        #endif //MEDIAINFO_SCTE20_YES
 
         int8u  picture_coding_type;
 
@@ -150,6 +154,9 @@ private :
             #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                 GA94_03=NULL;
             #endif //MEDIAINFO_DTVCCTRANSPORT_YES
+            #if defined(MEDIAINFO_SCTE20_YES)
+                Scte=NULL;
+            #endif //MEDIAINFO_SCTE20_YES
             picture_coding_type=(int8u)-1;
             IsValid=false;
             HasPictureCoding=false;
@@ -160,6 +167,9 @@ private :
             #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                 delete GA94_03; //GA94_03=NULL;
             #endif //MEDIAINFO_DTVCCTRANSPORT_YES
+            #if defined(MEDIAINFO_SCTE20_YES)
+                delete Scte; //Scte=NULL;
+            #endif //MEDIAINFO_SCTE20_YES
         }
     };
     std::vector<temporalreference*> TemporalReference; //per temporal_reference
@@ -170,7 +180,12 @@ private :
         bool                        GA94_03_IsPresent;
         File__Analyze*              CC___Parser;
         bool                        CC___IsPresent;
-    #endif //defined(MEDIAINFO_EIA608_YES)
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #if defined(MEDIAINFO_SCTE20_YES)
+        File__Analyze*              Scte_Parser;
+        size_t                      Scte_TemporalReference_Offset;
+        bool                        Scte_IsPresent;
+    #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         File__Analyze*              DTG1_Parser;
         File__Analyze*              GA94_06_Parser;
