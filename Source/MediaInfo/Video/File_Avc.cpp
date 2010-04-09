@@ -328,7 +328,7 @@ File_Avc::File_Avc()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=500; //Currently no 3:2 pulldown detection
+    Frame_Count_Valid=2; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
@@ -895,10 +895,10 @@ void File_Avc::Data_Parse()
         case 0x13 : Element_Name("slice_layer_without_partitioning"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
         case 0x14 : slice_layer_extension(); break;
         default :
-            if (Element_Code<=0x17)
+            if (Element_Code<0x18)
                 Element_Name("reserved");
             else
-                Trusted_IsNot("Unattended element!");
+                Element_Name("unspecified");
             Skip_XX(Element_Size-Element_Offset, "Data");
     }
 
