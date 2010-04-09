@@ -145,9 +145,6 @@ static inline int8u ReverseBits(int8u c)
 void File_Scte20::Read_Buffer_Continue()
 {
     //Parsing
-    if (File_Offset+Buffer_Offset>=0x42D63)
-        int A=0;
-
     Element_Begin("SCTE 20");
     int8u  cc_count;
     bool vbi_data_flag;
