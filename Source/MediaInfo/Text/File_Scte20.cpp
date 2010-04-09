@@ -76,7 +76,7 @@ File_Scte20::File_Scte20()
     AspectRatio=0;
 
     //Temp
-    Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
+    Streams.resize(4); //Forbidden, CEA-608 Field 1, CEA-608 Field 2, CEA-608 Field 3
     Streams_Count=0;
 }
 
