@@ -328,7 +328,7 @@ File_Avc::File_Avc()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=2; //Currently no 3:2 pulldown detection
+    Frame_Count_Valid=32; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
