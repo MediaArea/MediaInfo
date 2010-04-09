@@ -110,6 +110,9 @@ const char* Mpeg_Psi_stream_type_Format(int8u stream_type, int32u format_identif
         case 0x1B : return "AVC";
         case 0x1C : return "AAC";
         case 0x1D : return "Timed Text";
+        case 0x1E : return "MPEG Video"; //ISO/IEC 23002-3
+        case 0x1F : return "AVC";
+        case 0x20 : return "AVC";
         default :
             switch (format_identifier)
             {
@@ -171,6 +174,9 @@ const char* Mpeg_Psi_stream_type_Codec(int8u stream_type, int32u format_identifi
         case 0x1B : return "AVC";
         case 0x1C : return "AAC";
         case 0x1D : return "Text";
+        case 0x1E : return "MPEG-2V";
+        case 0x1F : return "AVC";
+        case 0x20 : return "AVC";
         default :
             switch (format_identifier)
             {
@@ -228,6 +234,9 @@ stream_t Mpeg_Psi_stream_type_StreamKind(int32u stream_type, int32u format_ident
         case 0x1B : return Stream_Video;
         case 0x1C : return Stream_Audio;
         case 0x1D : return Stream_Text;
+        case 0x1E : return Stream_Video;
+        case 0x1F : return Stream_Video;
+        case 0x20 : return Stream_Video;
         default :
             switch (format_identifier)
             {
@@ -317,6 +326,8 @@ const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifie
         case 0x1C : return "ISO/IEC 14496-3 Audio, without using any additional transport syntax";
         case 0x1D : return "ISO/IEC 14496-17 Text";
         case 0x1E : return "Auxiliary video data stream as defined in ISO/IEC 23002-3";
+        case 0x1F : return "SVC video sub-bitstream of an AVC video stream conforming to one or more profiles defined in Annex G of ITU-T Rec. H.264 | ISO/IEC 14496-10";
+        case 0x20 : return "MVC video sub-bitstream of an AVC video stream conforming to one or more profiles defined in Annex H of ITU-T Rec. H.264 | ISO/IEC 14496-10";
         case 0x7F : return "IPMP stream";
         default :
             if (stream_type<=0x7F) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";

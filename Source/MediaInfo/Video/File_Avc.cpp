@@ -363,14 +363,6 @@ void File_Avc::Streams_Fill()
     Width -=(frame_crop_left_offset+frame_crop_right_offset )*CropUnitX;
     Height-=(frame_crop_top_offset +frame_crop_bottom_offset)*CropUnitY;
 
-    //Calculating - Profile
-    Ztring ProfileS;
-    ProfileS.From_Local(Avc_profile_idc(profile_idc));
-
-    //Calculating - Level
-    Ztring LevelS;
-    LevelS.From_Number(((float)level_idc)/10, 1); //Level is Value*10, can have one digit example 5.1
-
     //Calculating - PixelAspectRatio
     float32 PixelAspectRatio;
     if (aspect_ratio_idc<Avc_PixelAspectRatio_Size)
@@ -385,19 +377,20 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
-    if (subset_seq_parameter_set_ids.empty())
-        Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
-    else
+    if (!seq_parameter_set_ids.empty())
     {
         std::map<int32u, seq_parameter_set_>::iterator seq_parameter_set_id=seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
+        Ztring Profile=Ztring().From_Local(Avc_profile_idc(seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)seq_parameter_set_id->second.level_idc)/10, 1);
+        Fill(Stream_Video, 0, Video_Format_Profile, Profile);
+        Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
+    }
+    if (!subset_seq_parameter_set_ids.empty())
+    {
         std::map<int32u, seq_parameter_set_>::iterator subset_seq_parameter_set_id=subset_seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
         Ztring Profile=Ztring().From_Local(Avc_profile_idc(subset_seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)subset_seq_parameter_set_id->second.level_idc)/10, 1);
         Fill(Stream_Video, 0, Video_Format_Profile, Profile);
-        Ztring BaseProfile=Ztring().From_Local(Avc_profile_idc(seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)seq_parameter_set_id->second.level_idc)/10, 1);
-        Fill(Stream_Video, 0, Video_MultiView_BaseProfile, BaseProfile);
         Fill(Stream_Video, 0, Video_MultiView_Count, num_views_minus1+1);
     }
-    Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
@@ -655,6 +648,7 @@ void File_Avc::Synched_Init()
     Streams[0x07].Searching_Payload=true; //seq_parameter_set
     Streams[0x09].Searching_Payload=true; //access_unit_delimiter
     Streams[0x0C].Searching_Payload=true; //filler_data
+    Streams[0x0F].Searching_Payload=true; //subset_seq_parameter_set
     for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 
@@ -1771,13 +1765,15 @@ void File_Avc::seq_parameter_set()
         NextCode_Add(0x08);
 
         //Autorisation of other streams
-        Streams[0x06].Searching_Payload=true; //sei
-        for (int8u Pos=0x08; Pos<=0x1F; Pos++)
-        {
-            Streams[Pos].Searching_Payload=true; //pic_parameter_set, access_unit_delimiter, end_of_seq, end_of_stream, filler_data, reserved
-            if (Streams[0x07].ShouldDuplicate)
-                Streams[Pos].ShouldDuplicate=true;
-        }
+        Streams[0x08].Searching_Payload=true; //pic_parameter_set
+        if (Streams[0x07].ShouldDuplicate)
+            Streams[0x08].ShouldDuplicate=true; //pic_parameter_set
+        Streams[0x0A].Searching_Payload=true; //end_of_seq
+        if (Streams[0x07].ShouldDuplicate)
+            Streams[0x0A].ShouldDuplicate=true; //end_of_seq
+        Streams[0x0B].Searching_Payload=true; //end_of_stream
+        if (Streams[0x07].ShouldDuplicate)
+            Streams[0x0B].ShouldDuplicate=true; //end_of_stream
 
         //Setting as OK
         SPS_IsParsed=true;
@@ -1896,13 +1892,24 @@ void File_Avc::pic_parameter_set()
         NextCode_Clear();
         NextCode_Add(0x05);
         NextCode_Add(0x06);
+        if (!subset_seq_parameter_set_ids.empty())
+            NextCode_Add(0x14); //slice_layer_extension
 
         //Autorisation of other streams
-        for (int8u Pos=0x01; Pos<=0x06; Pos++)
+        if (!seq_parameter_set_ids.empty())
         {
-            Streams[Pos].Searching_Payload=true; //Coded slice...
+            for (int8u Pos=0x01; Pos<=0x06; Pos++)
+            {
+                Streams[Pos].Searching_Payload=true; //Coded slice...
+                if (Streams[0x08].ShouldDuplicate)
+                    Streams[Pos].ShouldDuplicate=true;
+            }
+        }
+        if (!subset_seq_parameter_set_ids.empty())
+        {
+            Streams[0x14].Searching_Payload=true; //slice_layer_extension
             if (Streams[0x08].ShouldDuplicate)
-                Streams[Pos].ShouldDuplicate=true;
+                Streams[0x14].ShouldDuplicate=true; //slice_layer_extension
         }
 
         //Setting as OK
@@ -2000,6 +2007,18 @@ void File_Avc::subset_seq_parameter_set()
         //Filling
         subset_seq_parameter_set_ids[seq_parameter_set_id].profile_idc=profile_idc;
         subset_seq_parameter_set_ids[seq_parameter_set_id].level_idc=level_idc;
+
+        //NextCode
+        NextCode_Clear();
+        NextCode_Add(0x08);
+
+        //Autorisation of other streams
+        Streams[0x08].Searching_Payload=true; //pic_parameter_set
+        Streams[0x08].ShouldDuplicate=true; //pic_parameter_set
+        Streams[0x0A].Searching_Payload=true; //end_of_seq
+        Streams[0x0A].ShouldDuplicate=true; //end_of_seq
+        Streams[0x0B].Searching_Payload=true; //end_of_stream
+        Streams[0x0B].ShouldDuplicate=true; //end_of_stream
     FILLING_END();
 }
 
