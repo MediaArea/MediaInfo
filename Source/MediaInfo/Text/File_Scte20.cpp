@@ -73,10 +73,13 @@ File_Scte20::File_Scte20()
     PTS_DTS_Needed=true;
 
     //In
-    AspectRatio=0;
+    picture_structure=(int8u)-1;
+    progressive_frame=false;
+    top_field_first=false;
+    repeat_first_field=false;
 
     //Temp
-    Streams.resize(4); //Forbidden, CEA-608 Field 1, CEA-608 Field 2, CEA-608 Field 3
+    Streams.resize(2); //CEA-608 Field 1, CEA-608 Field 2
     Streams_Count=0;
 }
 
@@ -99,8 +102,8 @@ void File_Scte20::Streams_Fill()
         if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
         {
             Merge(*Streams[Pos]->Parser);
-            if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+            if (Pos<3)
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("SCTE 20"));
         }
 }
@@ -175,41 +178,58 @@ void File_Scte20::Read_Buffer_Continue()
             cc_data[1]=ReverseBits(cc_data_2);
             Param_Info(Ztring::ToZtring(cc_data[1], 16));
             Mark_1_NoTrustError();
-            Element_Begin("cc_data");
-                //Parsing
-                if (Streams[field_number]==NULL)
-                    Streams[field_number]=new stream;
-                if (Streams[field_number]->Parser==NULL)
-                {
-                    Streams[field_number]->Parser=new File_Eia608();
-                    Open_Buffer_Init(Streams[field_number]->Parser);
+            if (field_number!=0 && picture_structure!=(int8u)-1 && picture_structure!=0)
+            {
+                Element_Begin("cc_data");
+
+                //Finding the corresponding cc_type (CEA-608 1st field or 2nd field)
+                int8u cc_type;
+                if (progressive_frame)
+                    cc_type=0;
+                else if (picture_structure!=3)
+                    cc_type=picture_structure-1;
+                else if (field_number==2)
+                    cc_type=top_field_first?1:0;
+                else //if (field_number==1 || field_number==3)
+                    cc_type=top_field_first?0:1;
+                if (cc_type>1) {
+                    int A=0;
                 }
-                if (!Streams[field_number]->Parser->Status[IsFinished])
+                //Parsing
+                if (Streams[cc_type]==NULL)
+                    Streams[cc_type]=new stream;
+                if (Streams[cc_type]->Parser==NULL)
+                {
+                    Streams[cc_type]->Parser=new File_Eia608();
+                    Open_Buffer_Init(Streams[cc_type]->Parser);
+                }
+                if (!Streams[cc_type]->Parser->Status[IsFinished])
                 {
                     //Parsing
-                    if (Streams[field_number]->Parser->PTS_DTS_Needed)
+                    if (Streams[cc_type]->Parser->PTS_DTS_Needed)
                     {
-                        Streams[field_number]->Parser->PCR=PCR;
-                        Streams[field_number]->Parser->PTS=PTS;
-                        Streams[field_number]->Parser->DTS=DTS;
+                        Streams[cc_type]->Parser->PCR=PCR;
+                        Streams[cc_type]->Parser->PTS=PTS;
+                        Streams[cc_type]->Parser->DTS=DTS;
                     }
-                    Open_Buffer_Continue(Streams[field_number]->Parser, cc_data, 2);
+                    Open_Buffer_Continue(Streams[cc_type]->Parser, cc_data, 2);
                     Element_Show();
 
                     //Filled
-                    if (!Streams[field_number]->IsFilled && Streams[field_number]->Parser->Status[IsFilled])
+                    if (!Streams[cc_type]->IsFilled && Streams[cc_type]->Parser->Status[IsFilled])
                     {
                         if (Count_Get(Stream_General)==0)
                             Accept("SCTE 20");
                         Streams_Count++;
                         if (Streams_Count==3)
                             Fill("SCTE 20");
-                        Streams[field_number]->IsFilled=true;
+                        Streams[cc_type]->IsFilled=true;
                     }
                 }
                 else
                     Skip_XX(2,                                  "Data");
-            Element_End();
+                Element_End();
+            }
             Element_End();
         }
     }

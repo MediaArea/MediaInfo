@@ -118,7 +118,7 @@ void File_Cdp::Streams_Fill()
         {
             Merge(*Streams[Pos]->Parser);
             if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
         }
 }

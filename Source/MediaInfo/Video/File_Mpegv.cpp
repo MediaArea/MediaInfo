@@ -1357,6 +1357,10 @@ void File_Mpegv::user_data_start_3()
                     Scte_Parser->PTS=PTS;
                     Scte_Parser->DTS=DTS;
                 }
+                ((File_Scte20*)Scte_Parser)->picture_structure=TemporalReference[Scte_Pos]->picture_structure;
+                ((File_Scte20*)Scte_Parser)->progressive_frame=TemporalReference[Scte_Pos]->progressive_frame;
+                ((File_Scte20*)Scte_Parser)->top_field_first=TemporalReference[Scte_Pos]->top_field_first;
+                ((File_Scte20*)Scte_Parser)->repeat_first_field=TemporalReference[Scte_Pos]->repeat_first_field;
                 Open_Buffer_Continue(Scte_Parser, TemporalReference[Scte_Pos]->Scte->Data, TemporalReference[Scte_Pos]->Scte->Size);
 
                 Element_End();
@@ -1735,6 +1739,7 @@ void File_Mpegv::extension_start()
                                     TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
+                                TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->top_field_first=top_field_first;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
@@ -1764,6 +1769,7 @@ void File_Mpegv::extension_start()
                                     TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
+                                TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->top_field_first=top_field_first;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;

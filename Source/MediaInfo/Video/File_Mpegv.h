@@ -141,6 +141,7 @@ private :
         #endif //MEDIAINFO_SCTE20_YES
 
         int8u  picture_coding_type;
+        int8u  picture_structure;
 
         bool   IsValid;
         bool   HasPictureCoding;
@@ -158,6 +159,7 @@ private :
                 Scte=NULL;
             #endif //MEDIAINFO_SCTE20_YES
             picture_coding_type=(int8u)-1;
+            picture_structure=(int8u)-1;
             IsValid=false;
             HasPictureCoding=false;
         }
