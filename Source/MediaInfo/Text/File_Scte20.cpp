@@ -210,8 +210,7 @@ void File_Scte20::Read_Buffer_Continue()
                         Streams[cc_type]->Parser->PTS=PTS;
                         Streams[cc_type]->Parser->DTS=DTS;
                     }
-                    if (cc_type==1)
-                        Open_Buffer_Continue(Streams[cc_type]->Parser, cc_data, 2);
+                    Open_Buffer_Continue(Streams[cc_type]->Parser, cc_data, 2);
                     Element_Show();
 
                     //Filled
