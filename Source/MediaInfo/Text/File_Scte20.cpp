@@ -192,9 +192,7 @@ void File_Scte20::Read_Buffer_Continue()
                     cc_type=top_field_first?1:0;
                 else //if (field_number==1 || field_number==3)
                     cc_type=top_field_first?0:1;
-                if (cc_type>1) {
-                    int A=0;
-                }
+
                 //Parsing
                 if (Streams[cc_type]==NULL)
                     Streams[cc_type]=new stream;
@@ -212,7 +210,8 @@ void File_Scte20::Read_Buffer_Continue()
                         Streams[cc_type]->Parser->PTS=PTS;
                         Streams[cc_type]->Parser->DTS=DTS;
                     }
-                    Open_Buffer_Continue(Streams[cc_type]->Parser, cc_data, 2);
+                    if (cc_type==1)
+                        Open_Buffer_Continue(Streams[cc_type]->Parser, cc_data, 2);
                     Element_Show();
 
                     //Filled
