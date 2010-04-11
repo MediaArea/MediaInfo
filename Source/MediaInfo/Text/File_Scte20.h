@@ -43,6 +43,7 @@ class File_Scte20 : public File__Analyze
 public :
     //In
     int8u picture_structure;
+    bool  progressive_sequence;
     bool  progressive_frame;
     bool  top_field_first;
     bool  repeat_first_field;

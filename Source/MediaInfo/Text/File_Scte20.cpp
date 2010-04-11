@@ -74,6 +74,7 @@ File_Scte20::File_Scte20()
 
     //In
     picture_structure=(int8u)-1;
+    progressive_sequence=false;
     progressive_frame=false;
     top_field_first=false;
     repeat_first_field=false;
@@ -184,7 +185,7 @@ void File_Scte20::Read_Buffer_Continue()
 
                 //Finding the corresponding cc_type (CEA-608 1st field or 2nd field)
                 int8u cc_type;
-                if (progressive_frame)
+                if (progressive_sequence)
                     cc_type=0;
                 else if (picture_structure!=3)
                     cc_type=picture_structure-1;

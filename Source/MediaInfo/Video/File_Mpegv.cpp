@@ -1358,6 +1358,7 @@ void File_Mpegv::user_data_start_3()
                     Scte_Parser->DTS=DTS;
                 }
                 ((File_Scte20*)Scte_Parser)->picture_structure=TemporalReference[Scte_Pos]->picture_structure;
+                ((File_Scte20*)Scte_Parser)->progressive_sequence=progressive_sequence;
                 ((File_Scte20*)Scte_Parser)->progressive_frame=TemporalReference[Scte_Pos]->progressive_frame;
                 ((File_Scte20*)Scte_Parser)->top_field_first=TemporalReference[Scte_Pos]->top_field_first;
                 ((File_Scte20*)Scte_Parser)->repeat_first_field=TemporalReference[Scte_Pos]->repeat_first_field;
