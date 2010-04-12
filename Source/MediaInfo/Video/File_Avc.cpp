@@ -948,10 +948,10 @@ void File_Avc::slice_header()
 {
     //Parsing
     pic_order_cnt_lsb=(int32u)-1;
-    int32u slice_type, frame_num;
+    int32u first_mb_in_slice, slice_type, frame_num;
     bool   bottom_field_flag=0;
     BS_Begin();
-    Skip_UE(                                                    "first_mb_in_slice");
+    Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
     Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) {Param_Info(Avc_slice_type[slice_type]);Element_Info(Avc_slice_type[slice_type]);}
     Skip_UE(                                                    "pic_parameter_set_id");
     Get_BS (log2_max_frame_num_minus4+4, frame_num,             "frame_num");
@@ -1057,27 +1057,7 @@ void File_Avc::slice_header()
          //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-        bool AddOneFrame=true;
-        if (!frame_mbs_only_flag && field_pic_flag)
-        {
-            if (field_pic_flag_AlreadyDetected)
-            {
-                AddOneFrame=false;
-                field_pic_flag_AlreadyDetected=false;
-            }
-            else
-                field_pic_flag_AlreadyDetected=true;
-        }
-        if (pic_order_cnt_lsb_Last!=(int32u)-1)
-        {
-            if (pic_order_cnt_lsb==pic_order_cnt_lsb_Last)
-                AddOneFrame=false;
-            else
-                pic_order_cnt_lsb_Last=pic_order_cnt_lsb;
-        }
-        else
-            pic_order_cnt_lsb_Last=pic_order_cnt_lsb;
-        if (AddOneFrame)
+        if (first_mb_in_slice==0)
         {
             Frame_Count++;
             Frame_Count_InThisBlock++;
@@ -1085,7 +1065,6 @@ void File_Avc::slice_header()
 
         //Name
         Element_Info(Ztring::ToZtring(Frame_Count));
-
 
         //Duplicate
         if (Streams[(size_t)Element_Code].ShouldDuplicate)
