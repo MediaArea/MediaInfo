@@ -347,7 +347,7 @@ void File_MpegTs::Streams_Fill()
 
     #if defined(MEDIAINFO_BDAV_YES)
         //Handling of the SSIF file when parsing the M2TS file
-        if (BDAV_Size==4
+        if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get()
          && File_Name.size()>10
          && File_Name[File_Name.size()-1]==_T('s')
          && File_Name[File_Name.size()-2]==_T('t')
@@ -366,6 +366,7 @@ void File_MpegTs::Streams_Fill()
             int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
             MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
             MediaInfo_Internal MI;
+            MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
             if (MI.Open(SSIF_File))
             {
                 size_t StreamPos_Count=MI.Count_Get(Stream_Video);
@@ -386,8 +387,7 @@ void File_MpegTs::Streams_Fill()
         }
 
         //Handling of the M2TS file when parsing the SSIF file
-        /* TODO: if I activate it, infinite loop (M2TS --> SSIF --> M2TS --> SSIF --> ...), I must find a way to indicate that one of the file is already parsed.
-        if (BDAV_Size==4
+        if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get()
          && File_Name.size()>10+1+4
          && File_Name[File_Name.size()-1]==_T('f')
          && File_Name[File_Name.size()-2]==_T('i')
@@ -409,6 +409,7 @@ void File_MpegTs::Streams_Fill()
             int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
             MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
             MediaInfo_Internal MI;
+            MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
             if (MI.Open(M2TS_File))
             {
                 size_t StreamPos_Count=MI.Count_Get(Stream_Video);
@@ -420,14 +421,13 @@ void File_MpegTs::Streams_Fill()
                         Ztring Profile_Merged=MI.Get(Stream_Video, StreamPos, Video_Format_Profile);
                         Profile_Merged+=_T(" / ");
                         Profile_Merged+=Retrieve(Stream_Video, StreamPos, Video_Format_Profile);
-                        Fill(Stream_Video, StreamPos, Video_Format_Profile, Format_Profile, true);
+                        Fill(Stream_Video, StreamPos, Video_Format_Profile, Profile_Merged, true);
                         Fill(Stream_Video, StreamPos, "Source", M2TS_File);
                     }
                 }
             }
             MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
         }
-        */
     #endif //defined(MEDIAINFO_BDAV_YES)
 
     //Forcing updates (not done before because Status[IsFilled] was not set)
