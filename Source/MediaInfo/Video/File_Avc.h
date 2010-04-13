@@ -196,8 +196,14 @@ private :
     int8u  FrameRate_Divider;
 
     //From seq_parameter_set
-    std::vector<int32u> cpb_size_values_NAL;
-    std::vector<int32u> cpb_size_values_VCL;
+    struct xxl
+    {
+        int32u bit_rate_value;
+        int32u cpb_size_value;
+        bool   cbr_flag;
+    };
+    std::vector<xxl> NAL;
+    std::vector<xxl> VCL;
     Ztring Encoded_Library;
     Ztring Encoded_Library_Name;
     Ztring Encoded_Library_Version;
