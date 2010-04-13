@@ -1993,11 +1993,14 @@ void File_Avc::subset_seq_parameter_set()
 
         //Autorisation of other streams
         Streams[0x08].Searching_Payload=true; //pic_parameter_set
-        Streams[0x08].ShouldDuplicate=true; //pic_parameter_set
+        if (Streams[0x0F].ShouldDuplicate)
+            Streams[0x08].ShouldDuplicate=true; //pic_parameter_set
         Streams[0x0A].Searching_Payload=true; //end_of_seq
-        Streams[0x0A].ShouldDuplicate=true; //end_of_seq
+        if (Streams[0x0F].ShouldDuplicate)
+            Streams[0x0A].ShouldDuplicate=true; //end_of_seq
         Streams[0x0B].Searching_Payload=true; //end_of_stream
-        Streams[0x0B].ShouldDuplicate=true; //end_of_stream
+        if (Streams[0x0F].ShouldDuplicate)
+            Streams[0x0B].ShouldDuplicate=true; //end_of_stream
     FILLING_END();
 }
 
