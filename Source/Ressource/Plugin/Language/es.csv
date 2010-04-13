@@ -493,6 +493,7 @@ Go to WebSite;Ir al sitio Web
 h;h
 Header file;Cabecera
 Height;Alto
+Height_Original
 Help;Ayuda
 Hint;Pista
 How many audio streams?;¿Cuántas reproducciones de pistas de audio?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ir al sitio web de éste códec de video
 WebSite_Video_More;Ir al sitio web (%Url%) para buscar éste códec de video
 Width;Ancho
+Width_Original
 WriteMe;Escribir un mail al autor
 WriteToTranslator;Escribir al traductor
 Written_Date;Escrito el

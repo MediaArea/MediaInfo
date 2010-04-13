@@ -493,6 +493,7 @@ Go to WebSite;Ir ao web
 h;h
 Header file;Crear un arquivo cabeceira
 Height;Alto
+Height_Original
 Help;Axuda
 Hint;Pista
 How many audio streams?;Cantas pistas de audio?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Visita o sitio web deste codec de vídeo
 WebSite_Video_More;Vai a páxina (%Url%) para atopar este codec de vídeo
 Width;Ancho
+Width_Original
 WriteMe;Escríbeme
 WriteToTranslator;Escribe ao tradutor
 Written_Date;Escrito en data:

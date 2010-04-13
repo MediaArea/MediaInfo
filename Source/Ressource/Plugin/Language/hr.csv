@@ -493,6 +493,7 @@ Go to WebSite;Prijeći na spletni sadržaj
 h;h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
+Height_Original
 Help;Pomoć
 Hint;Naznaka
 How many audio streams?;Koliko zvučnih tokova?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Prijeći na spletnu stranicu tog video-kôdeka
 WebSite_Video_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog video-kôdeka
 Width;Širina
+Width_Original
 WriteMe;Poruka autoru
 WriteToTranslator;Poruka prevoditelju
 Written_Date;Nadnevak početka pisanja

@@ -493,6 +493,7 @@ Go to WebSite;A weblap meglátogatása
 h; óra
 Header file;Fejléc fájl létrehozása
 Height;Magasság
+Height_Original
 Help;Súgó
 Hint;Tipp
 How many audio streams?;Hány hangsáv?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;A képkódek weblapjának meglátogatása
 WebSite_Video_More;Látogassa meg a képkódek weblapját (%Url%)
 Width;Szélesség
+Width_Original
 WriteMe;Írjon
 WriteToTranslator;Írjon a fordítónak
 Written_Date;Írás dátuma
@@ -943,5 +945,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;91
+ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;97

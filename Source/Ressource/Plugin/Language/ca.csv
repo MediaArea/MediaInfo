@@ -493,6 +493,7 @@ Go to WebSite;Ves-hi a la pàgina
 h;h
 Header file;Capçalera de l'arxiu
 Height;Alçada
+Height_Original
 Help;Ajuda
 Hint
 How many audio streams?;Quantes pistes d'àudio?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Visiteu el web d'aquest tipus de còdec
 WebSite_Video_More;Aneu al web (%Url%)  per a trobar aquest tipus de còdec
 Width;Amplada
+Width_Original
 WriteMe;Escriviu-me
 WriteToTranslator;Escriviu al traductor
 Written_Date;Inseriu la data

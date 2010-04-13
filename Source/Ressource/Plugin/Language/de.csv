@@ -493,6 +493,7 @@ Go to WebSite;Zur Webseite gehen
 h;h
 Header file;Header-Datei erstellen
 Height;Höhe
+Height_Original
 Help;Hilfe
 Hint;Hinweis
 How many audio streams?;Wieviele Audio-Streams?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Zur Webseite dieses Video-Codecs gehen
 WebSite_Video_More;Zu dieser Webseite (%Url%) gehen um diesen Video-Codec zu finden
 Width;Breite
+Width_Original
 WriteMe;Mail an den Autor
 WriteToTranslator;Mail an den Übersetzer
 Written_Date;Datum des Schreibbeginns

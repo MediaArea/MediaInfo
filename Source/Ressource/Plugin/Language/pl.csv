@@ -493,6 +493,7 @@ Go to WebSite;Odwiedź stronę programu
 h;h
 Header file;Utwórz plik nagłówka
 Height;Wysokość
+Height_Original
 Help;Pomoc
 Hint;Wskazówka
 How many audio streams?;Ile strumieni audio?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Odwiedź witrynę tego kodeka wideo
 WebSite_Video_More;Odwiedź witrynę (%Url%) aby poszukać kodeka wideo
 Width;Szerokość
+Width_Original
 WriteMe;Napisz do mnie
 WriteToTranslator;Napisz do tłumacza
 Written_Date;Data

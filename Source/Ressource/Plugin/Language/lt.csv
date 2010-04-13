@@ -493,6 +493,7 @@ Go to WebSite;Eiti į internetinę svetainę
 h;v
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
+Height_Original
 Help;Pagalba
 Hint;Zyma
 How many audio streams?;Kiek audio srautų?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Eiti į šio video kodeko internetinį puslapį
 WebSite_Video_More;Eiti į internetinę svetainę (%Url%) kad rasti šį kodeką
 Width;Plotis
+Width_Original
 WriteMe;Parašyk man
 WriteToTranslator;Rašyti vertėjui
 Written_Date;Rašymo data

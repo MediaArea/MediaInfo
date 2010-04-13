@@ -493,6 +493,7 @@ Go to WebSite;Vai al sito internet
 h;h
 Header file;Estrae l'header del file
 Height;Altezza
+Height_Original
 Help;Aiuto
 Hint;Consiglio
 How many audio streams?;Quante sono le tracce audio?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Vai al sito internet del codec per questo video
 WebSite_Video_More;Vai al sito internet (%Url%) del codec per questo video
 Width;Larghezza
+Width_Original
 WriteMe;Scrivimi 
 WriteToTranslator;Scrivi al traduttore
 Written_Date;Data

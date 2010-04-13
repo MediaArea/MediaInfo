@@ -493,6 +493,7 @@ Go to WebSite;Перейти до сайту
 h; год.
 Header file;Створити заголовок
 Height;висота
+Height_Original
 Help;Допомога
 Hint;Підказка
 How many audio streams?;Скільки аудіопотоків?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Перейти на сайт цього відеокодеку
 WebSite_Video_More;Перейти на сайт (%Url%) цього відеокодеку
 Width;ширина
+Width_Original
 WriteMe;Написати автору
 WriteToTranslator;Написати перекладачу
 Written_Date;дата написання
@@ -943,5 +945,5 @@ Written_Location;місце написання
 WrittenBy;написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;90
+ZZ_Automatic_Percent;89
 ZZ_AutomaticLanguage_Percent;93

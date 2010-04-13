@@ -493,6 +493,7 @@ Go to WebSite;Shko te trualli në rrjetë
 h;h
 Header file;Krijo një kokë skede
 Height;Lartësia
+Height_Original
 Help;Ndihmë
 Hint;Këshillë
 How many audio streams?;Sa rryma të audios?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Shko te trualli në rrjetë i kodekut për video
 WebSite_Video_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për video
 Width;Gjerësia
+Width_Original
 WriteMe;Shkruaji autorit
 WriteToTranslator;Shkruaji përkthyesit
 Written_Date;Data e shkrimit
@@ -943,5 +945,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

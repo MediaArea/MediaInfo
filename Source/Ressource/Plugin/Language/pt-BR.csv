@@ -493,6 +493,7 @@ Go to WebSite;Ir para o site
 h;h
 Header file;Criar um arquivo de cabeçalho
 Height;Altura
+Height_Original
 Help;Ajuda
 Hint;Dica
 How many audio streams?;Quantas faixas de áudio?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ir até o site deste codec de vídeo
 WebSite_Video_More;No site (%Url%) você encontra este codec de vídeo
 Width;Largura
+Width_Original
 WriteMe;Me escreva
 WriteToTranslator;Escreva para o tradutor
 Written_Date;Data da escrita

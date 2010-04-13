@@ -493,6 +493,7 @@ Go to WebSite;访问网站
 h;小时
 Header file;创建头文件
 Height;画面高度
+Height_Original
 Help;帮助
 Hint;提示信息
 How many audio streams?;有多少个音轨?
@@ -936,6 +937,7 @@ WebSite_Url;网址http://mediainfo.sourceforge.net
 WebSite_Video;访问此视频编解码器的网页
 WebSite_Video_More;更多视频编解码器的网页(%Url%)
 Width;画面宽度
+Width_Original
 WriteMe;给作者写信
 WriteToTranslator;给译者写信
 Written_Date;写入日期

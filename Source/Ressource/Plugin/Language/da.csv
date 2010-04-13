@@ -493,6 +493,7 @@ Go to WebSite;Gå til websted
 h;t
 Header file;Opret en header-fil
 Height;Højde
+Height_Original
 Help;Hjælp
 Hint;Tip
 How many audio streams?;Hvor mange lydstrømme?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Gå til dette codecs websted
 WebSite_Video_More;Gå til webstedet (%Url%) for at finde dette video-codec
 Width;Bredde
+Width_Original
 WriteMe;Skriv e-mail til programmøren
 WriteToTranslator;Skriv til oversætteren
 Written_Date;Skrevet den

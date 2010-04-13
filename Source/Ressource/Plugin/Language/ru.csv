@@ -493,6 +493,7 @@ Go to WebSite;Перейти на сайт
 h; ч.
 Header file;Создать заголовок
 Height;Высота
+Height_Original
 Help;Помощь
 Hint;Подсказка
 How many audio streams?;Количество аудиопотоков?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Сайт видеокодека
 WebSite_Video_More;Перейти на сайт (%Url%) просмоторщика для этого видеокодека
 Width;Ширина
+Width_Original
 WriteMe;Написать автору
 WriteToTranslator;Написать переводчику
 Written_Date;Дата записи

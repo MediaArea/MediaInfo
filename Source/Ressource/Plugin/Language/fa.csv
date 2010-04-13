@@ -493,6 +493,7 @@ Go to WebSite;وب سایت
 h;h
 Header file;ایجاد فایل سر صفحه
 Height;بلندی
+Height_Original
 Help;راهنمایی
 Hint;اشارات
 How many audio streams?;تعداد استریم صوت?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;سایت ویدیو کدک
 WebSite_Video_More;به سایت (%Url%) برای پیدا کردن ویدیو کدک بروید
 Width;عرض
+Width_Original
 WriteMe;نوشته برای نویسنده
 WriteToTranslator;نوشته برای مترجم
 Written_Date;تاریخ نوشته

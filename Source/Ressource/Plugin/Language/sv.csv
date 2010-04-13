@@ -493,6 +493,7 @@ Go to WebSite; Besök hemsida
 h; h
 Header file; Skapa headerfil
 Height; Höjd
+Height_Original
 Help; Hjälp
 Hint
 How many audio streams?; Hur många ljudströmmar?
@@ -936,6 +937,7 @@ WebSite_Url; http://mediainfo.sourceforge.net
 WebSite_Video; Gå till hemsidan för detta videocodec
 WebSite_Video_More; Gå till denna sida (%Url%) för att hitta passande videocodec
 Width; Bredd
+Width_Original
 WriteMe; Maila mig
 WriteToTranslator; Maila översättaren
 Written_Date; Datum

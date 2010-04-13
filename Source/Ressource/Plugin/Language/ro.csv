@@ -493,6 +493,7 @@ Go to WebSite
 h;h
 Header file;Generare header fisier
 Height;Inaltime
+Height_Original
 Help;Ajutor
 Hint
 How many audio streams?;Cate fluxuri audio?
@@ -936,6 +937,7 @@ WebSite_Url
 WebSite_Video;Accesati site-ul web al acestui codec video
 WebSite_Video_More;Accesati site-ul web (%Url%) pentru a gasii acest codec video
 Width;Latime
+Width_Original
 WriteMe;Scrieti-mi
 WriteToTranslator;Scrieti-i traducatorului
 Written_Date;Data mesajului

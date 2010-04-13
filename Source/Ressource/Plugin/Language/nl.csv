@@ -493,6 +493,7 @@ Go to WebSite;Ga naar website
 h;h
 Header file;Headerbestand maken
 Height;Hoogte
+Height_Original
 Help;Help
 Hint;Hint
 How many audio streams?;Hoeveel audiostromen?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ga naar de website van deze videocodec
 WebSite_Video_More;Ga naar de website (%Url%) om deze videocodec te vinden
 Width;Breedte
+Width_Original
 WriteMe;Schrijf mij
 WriteToTranslator;Schrijf naar vertaler
 Written_Date;Datum van schrijven

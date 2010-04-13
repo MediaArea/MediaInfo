@@ -493,6 +493,7 @@ Go to WebSite;ไปที่เว็บไซต์
 h;h
 Header file;สร้างไฟล์ header
 Height;ความสูง
+Height_Original
 Help;ช่วยเหลือ
 Hint;คำแนะนำ
 How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;ไปที่เว็บไซต์ของ video codec นี้
 WebSite_Video_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา video codec นี้
 Width;Width
+Width_Original
 WriteMe;เขียนถึงฉัน
 WriteToTranslator;เขียนถึงผู้แปล
 Written_Date;วันที่เขียน
@@ -944,4 +946,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;91
+ZZ_AutomaticLanguage_Percent;90

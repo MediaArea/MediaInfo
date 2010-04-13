@@ -493,6 +493,7 @@ Go to WebSite;Web programu
 h;h
 Header file;Create a header file
 Height;Výška
+Height_Original
 Help;Nápověda
 Hint
 How many audio streams?;How many audio streams?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Jdi na stránky s tímto kodekem
 WebSite_Video_More;Go to the web site (%Url%) to find this video codec
 Width;Šířka
+Width_Original
 WriteMe;Napiš autorovi
 WriteToTranslator;Napiš překladateli
 Written_Date;Written date

@@ -493,6 +493,7 @@ Go to WebSite;Web sitesine git
 h;s
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
+Height_Original
 Help;Yardım
 Hint;İpucu
 How many audio streams?;Kaç tane seslendirme?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Bu görüntü kodek'inin web sitesine git
 WebSite_Video_More;Bu görüntü kodek'ini bulmak için (%Url%) web sitesine git
 Width;Genişlik
+Width_Original
 WriteMe;Bana yazın
 WriteToTranslator;Çevirmene yazın
 Written_Date;Yazıldığı tarih

@@ -493,6 +493,7 @@ Go to WebSite;前往網站
 h;時
 Header file;建立標頭檔案
 Height;畫面高度
+Height_Original
 Help;說明
 Hint;提示
 How many audio streams?;有多少音訊串流?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net/zh-TW
 WebSite_Video;前往此視訊編解碼器的網站
 WebSite_Video_More;前往網站 (%Url%) 找尋此視訊編解碼器
 Width;畫面寬度
+Width_Original
 WriteMe;寫信給作者
 WriteToTranslator;寫信給譯者
 Written_Date;撰寫日期

@@ -493,6 +493,7 @@ Go to WebSite;Web サイトへ移動
 h;時
 Header file;ヘッダーファイルを作成
 Height;高さ
+Height_Original
 Help;ヘルプ
 Hint;ヒント
 How many audio streams?;音声ストリームの数？
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;このビデオコーデックについて
 WebSite_Video_More; (%Url%) へ移動してこのビデオコーデックを探す
 Width;幅
+Width_Original
 WriteMe;メール送信
 WriteToTranslator;翻訳者
 Written_Date;作成日

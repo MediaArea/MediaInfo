@@ -493,6 +493,7 @@ Go to WebSite;Επίσκεψη του δυκτιακού τόπου
 h;h
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος
+Height_Original
 Help;Βοήθεια
 Hint
 How many audio streams?;Πόσες ροές ήχου?
@@ -936,6 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή video
 WebSite_Video_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this video codec
 Width;Πλάτος
+Width_Original
 WriteMe;Επικοινωνία μαζί μου
 WriteToTranslator;Επικοινωνία με τον μεταφραστή
 Written_Date;Ημερομηνία καταγραφής
