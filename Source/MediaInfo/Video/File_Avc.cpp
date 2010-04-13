@@ -510,46 +510,49 @@ void File_Avc::Streams_Fill()
     }
 
     //Buffer
-    int32u bit_rate_value=0;
-    bool   bit_rate_value_IsValid=true;
-    bool   cbr_flag=false;
-    bool   cbr_flag_IsSet=false;
-    bool   cbr_flag_IsValid=true;
-    for (size_t Pos=0; Pos<NAL.size(); Pos++)
+    if (!MustParse_SPS_PPS_Done)
     {
-        Fill(Stream_Video, 0, Video_BufferSize, NAL[Pos].cpb_size_value);
-        if (bit_rate_value && bit_rate_value!=NAL[Pos].bit_rate_value)
-            bit_rate_value_IsValid=false;
-        if (bit_rate_value==0)
-            bit_rate_value=NAL[Pos].bit_rate_value;
-        if (cbr_flag_IsSet==true && cbr_flag!=NAL[Pos].cbr_flag)
-            cbr_flag_IsValid=false;
-        if (cbr_flag_IsSet==0)
+        int32u bit_rate_value=0;
+        bool   bit_rate_value_IsValid=true;
+        bool   cbr_flag=false;
+        bool   cbr_flag_IsSet=false;
+        bool   cbr_flag_IsValid=true;
+        for (size_t Pos=0; Pos<NAL.size(); Pos++)
         {
-            cbr_flag=NAL[Pos].cbr_flag;
-            cbr_flag_IsSet=true;
+            Fill(Stream_Video, 0, Video_BufferSize, NAL[Pos].cpb_size_value);
+            if (bit_rate_value && bit_rate_value!=NAL[Pos].bit_rate_value)
+                bit_rate_value_IsValid=false;
+            if (bit_rate_value==0)
+                bit_rate_value=NAL[Pos].bit_rate_value;
+            if (cbr_flag_IsSet==true && cbr_flag!=NAL[Pos].cbr_flag)
+                cbr_flag_IsValid=false;
+            if (cbr_flag_IsSet==0)
+            {
+                cbr_flag=NAL[Pos].cbr_flag;
+                cbr_flag_IsSet=true;
+            }
         }
-    }
-    for (size_t Pos=0; Pos<VCL.size(); Pos++)
-    {
-        Fill(Stream_Video, 0, Video_BufferSize, VCL[Pos].cpb_size_value);
-        if (bit_rate_value && bit_rate_value!=VCL[Pos].bit_rate_value)
-            bit_rate_value_IsValid=false;
-        if (bit_rate_value==0)
-            bit_rate_value=VCL[Pos].bit_rate_value;
-        if (cbr_flag_IsSet==true && cbr_flag!=VCL[Pos].cbr_flag)
-            cbr_flag_IsValid=false;
-        if (cbr_flag_IsSet==0)
+        for (size_t Pos=0; Pos<VCL.size(); Pos++)
         {
-            cbr_flag=VCL[Pos].cbr_flag;
-            cbr_flag_IsSet=true;
+            Fill(Stream_Video, 0, Video_BufferSize, VCL[Pos].cpb_size_value);
+            if (bit_rate_value && bit_rate_value!=VCL[Pos].bit_rate_value)
+                bit_rate_value_IsValid=false;
+            if (bit_rate_value==0)
+                bit_rate_value=VCL[Pos].bit_rate_value;
+            if (cbr_flag_IsSet==true && cbr_flag!=VCL[Pos].cbr_flag)
+                cbr_flag_IsValid=false;
+            if (cbr_flag_IsSet==0)
+            {
+                cbr_flag=VCL[Pos].cbr_flag;
+                cbr_flag_IsSet=true;
+            }
         }
-    }
-    if (cbr_flag_IsSet && cbr_flag_IsValid)
-    {
-        Fill(Stream_Video, 0, Video_BitRate_Mode, cbr_flag?"CBR":"VBR");
-        if (bit_rate_value && bit_rate_value_IsValid)
-            Fill(Stream_Video, 0, cbr_flag?Video_BitRate_Nominal:Video_BitRate_Maximum, bit_rate_value);
+        if (cbr_flag_IsSet && cbr_flag_IsValid)
+        {
+            Fill(Stream_Video, 0, Video_BitRate_Mode, cbr_flag?"CBR":"VBR");
+            if (bit_rate_value && bit_rate_value_IsValid)
+                Fill(Stream_Video, 0, cbr_flag?Video_BitRate_Nominal:Video_BitRate_Maximum, bit_rate_value);
+        }
     }
 }
 
