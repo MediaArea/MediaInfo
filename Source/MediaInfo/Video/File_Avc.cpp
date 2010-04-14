@@ -431,11 +431,12 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
         Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
     }
-    std::string TempRef;
+    std::string TempRef, CodingType;
     for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
         if (TemporalReference[Pos].IsValid)
         {
             TempRef+=TemporalReference[Pos].IsTop?"T":"B";
+            CodingType+=Mpegv_picture_coding_type[TemporalReference[Pos]->picture_coding_type];
         }
     if (TempRef.find("TBTBTBTB")==0)
     {
@@ -1090,6 +1091,7 @@ void File_Avc::slice_header()
             if (TemporalReference_Offset_pic_order_cnt_lsb_Last>=TemporalReference.size())
                 TemporalReference.resize(TemporalReference_Offset_pic_order_cnt_lsb_Last+1);
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].frame_num=frame_num;
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].slice_type=slice_type;
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsTop=!bottom_field_flag;
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsField=field_pic_flag;
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsValid=true;

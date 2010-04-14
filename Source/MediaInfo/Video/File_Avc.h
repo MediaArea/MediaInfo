@@ -148,11 +148,13 @@ private :
         bool   IsValid;
 
         int32u frame_num;
+        int8u  slice_type;
         bool   IsTop;
         bool   IsField;
 
         temporalreference()
         {
+            slice_type=(int8u)-1;
             IsValid=false;
         }
     };

@@ -404,6 +404,8 @@ protected :
         stream_t StreamKind;
         float32 SampleRate;
         int32u LinkedTrackID;
+        int32u Width;
+        int32u Height;
         std::map<std::string, Ztring> Infos;
 
         descriptor()
@@ -411,6 +413,8 @@ protected :
             StreamKind=Stream_Max;
             SampleRate=0;
             LinkedTrackID=(int32u)-1;
+            Width=(int32u)-1;
+            Height=(int32u)-1;
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor

@@ -492,6 +492,10 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int64u &File_Siz
             StreamPos_Last=TrackIDs[Descriptor->second.LinkedTrackID].StreamPos;
         }
 
+        if (Descriptor->second.Width!=(int32u)-1)
+            Fill(Stream_Video, StreamPos_Last, Video_Width, Descriptor->second.Width, 10, true);
+        if (Descriptor->second.Height!=(int32u)-1)
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Descriptor->second.Height, 10, true);
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); Info++)
             Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
     }
@@ -2267,7 +2271,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredHeight()
     FILLING_BEGIN();
         if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
             Data*=2; //This is per field
-        Descriptors[InstanceUID].Infos["Height"].From_Number(Data);
+        if (Descriptors[InstanceUID].Height==(int32u)-1)
+            Descriptors[InstanceUID].Height=Data;
     FILLING_END();
 }
 
@@ -2280,7 +2285,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredWidth()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Descriptors[InstanceUID].Infos["Width"].From_Number(Data);
+        if (Descriptors[InstanceUID].Width==(int32u)-1)
+            Descriptors[InstanceUID].Width=Data;
     FILLING_END();
 }
 
@@ -2295,7 +2301,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledHeight()
     FILLING_BEGIN();
         if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
             Data*=2; //This is per field
-        Descriptors[InstanceUID].Infos["Height"].From_Number(Data);
+        Descriptors[InstanceUID].Height=Data;
     FILLING_END();
 }
 
@@ -2308,7 +2314,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledWidth()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Descriptors[InstanceUID].Infos["Width"].From_Number(Data);
+        Descriptors[InstanceUID].Width=Data;
     FILLING_END();
 }
 
