@@ -436,7 +436,7 @@ void File_Avc::Streams_Fill()
         if (TemporalReference[Pos].IsValid)
         {
             TempRef+=TemporalReference[Pos].IsTop?"T":"B";
-            CodingType+=Mpegv_picture_coding_type[TemporalReference[Pos]->picture_coding_type];
+            CodingType+=Avc_slice_type[TemporalReference[Pos].slice_type];
         }
     if (TempRef.find("TBTBTBTB")==0)
     {
