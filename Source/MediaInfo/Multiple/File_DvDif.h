@@ -90,6 +90,13 @@ protected :
     Ztring recdate();
     Ztring rectime();
 
+    //Streams
+    struct stream
+    {
+        std::map<std::string, Ztring> Infos;
+    };
+    std::vector<stream*> Streams_Audio;
+
     //Temp
     #if defined(MEDIAINFO_EIA608_YES)
         std::vector<File__Analyze*> CC_Parsers;
