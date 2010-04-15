@@ -449,6 +449,54 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_Interlacement, "BFF", Unlimited, true, true);
     }
 
+    //GOP
+    std::vector<Ztring> GOPs;
+    size_t GOP_Frame_Count=0;
+    size_t GOP_BFrames_Max=0;
+    size_t I_Pos1=CodingType.find(_T('I'));
+    while (I_Pos1!=std::string::npos)
+    {
+        size_t I_Pos2=CodingType.find(_T('I'), I_Pos1+1);
+        if (I_Pos2!=std::string::npos)
+        {
+            std::vector<size_t> P_Positions;
+            size_t P_Position=I_Pos1;
+            do
+            {
+                P_Position=CodingType.find(_T('P'), P_Position+1);
+                if (P_Position<I_Pos2)
+                    P_Positions.push_back(P_Position);
+            }
+            while (P_Position<I_Pos2);
+            Ztring GOP;
+            if (!P_Positions.empty())
+            {
+                GOP+=_T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+_T(", ");
+                if (P_Positions[0]-I_Pos1>GOP_BFrames_Max)
+                    GOP_BFrames_Max=P_Positions[0]-I_Pos1;
+            }
+            GOP+=_T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
+            GOPs.push_back(GOP);
+            GOP_Frame_Count+=I_Pos2-I_Pos1;
+        }
+        I_Pos1=I_Pos2;
+    }
+
+    if (GOP_Frame_Count+GOP_BFrames_Max>Frame_Count && !GOPs.empty())
+        GOPs.resize(GOPs.size()-1); //Removing the last one, there may have uncomplete B-frame filling
+
+    if (!GOPs.empty())
+    {
+        size_t Unique=0;
+        for (size_t Pos=1; Pos<GOPs.size(); Pos++)
+            if (GOPs[Pos]!=GOPs[0])
+                Unique++;
+        if ((Frame_Count<Frame_Count_Valid*10 && Unique) || Unique>2) //In order to accept some unsynch //TODO: change the method, synching with next I-Frame
+            GOPs.clear(); //Not a fixed GOP
+    }
+    if (!GOPs.empty())
+        Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOPs[0]);
+
     /*
     if (frame_mbs_only_flag)
     {

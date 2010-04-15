@@ -11,6 +11,7 @@ Version 0.7.31, 2010-
 --------------
 + SCTE 20 closed caption support
 + Difference between width/height in the container and in the raw stream
++ AVC: GOP structure
 x DV: less files without the right extension wrongly detected as DV
 
 Version 0.7.30, 2010-03-26
