@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.31, 2010-
 --------------
 + SCTE 20 closed caption support
++ Difference between width/height in the container and in the raw stream
 
 Version 0.7.30, 2010-03-26
 --------------

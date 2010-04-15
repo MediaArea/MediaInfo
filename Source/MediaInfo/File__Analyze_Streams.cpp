@@ -702,7 +702,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             Video_FrameRate_Rounding(StreamPos, (video)Parameter);
             if (Retrieve(Stream_Video, StreamPos, Video_FrameRate_Nominal)==Retrieve(Stream_Video, StreamPos, Video_FrameRate))
                 Clear(Stream_Video, StreamPos, Video_FrameRate_Nominal);
-            if (Retrieve(Stream_Video, StreamPos, Video_FrameRate_Original)==Retrieve(Stream_Video, StreamPos, Video_FrameRate))
+            if (Parameter!=Video_FrameRate_Original && Retrieve(Stream_Video, StreamPos, Video_FrameRate_Original)==Retrieve(Stream_Video, StreamPos, Video_FrameRate))
                 Clear(Stream_Video, StreamPos, Video_FrameRate_Original);
         }
 
@@ -1072,12 +1072,15 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Stream_Prepare(StreamKind);
 
     //Specific stuff
-    Ztring FrameRate_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp;
+    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp;
     if (StreamKind==Stream_Video)
     {
+        Width_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Width);
+        Height_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Height);
         PixelAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio); //We want to keep the PixelAspectRatio_Temp of the video stream
         DisplayAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio); //We want to keep the DisplayAspectRatio_Temp of the video stream
         FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
+        FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode); //We want to keep the FrameRate_Mode of AVI 120 fps
     }
 
     //Merging
@@ -1110,35 +1113,38 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     //Specific stuff
     if (StreamKind==Stream_Video)
     {
-        if (!PixelAspectRatio_Temp.empty() || !DisplayAspectRatio_Temp.empty())
+        Ztring PixelAspectRatio_Original=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
+        Ztring DisplayAspectRatio_Original=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
+
+        if (!Width_Temp.empty() && Width_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_Width))
         {
-            if (PixelAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio))
-            {
-                Ztring Temp=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
-                Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
-                Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original, Temp, true);
-            }
+            Fill(Stream_Video, StreamPos_Last, Video_Width_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_Width], true);
+            Fill(Stream_Video, StreamPos_Last, Video_Width, Width_Temp, true);
+        }
+        if (!Height_Temp.empty() && Height_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_Height))
+        {
+            Fill(Stream_Video, StreamPos_Last, Video_Height_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_Height], true);
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Height_Temp, true);
+        }
+        if (!PixelAspectRatio_Temp.empty() && PixelAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio))
+        {
+            Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original, PixelAspectRatio_Original, true);
             Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio_Temp, true);
         }
-        if (!DisplayAspectRatio_Temp.empty() || !PixelAspectRatio_Temp.empty())
+        if (!DisplayAspectRatio_Temp.empty() && DisplayAspectRatio_Temp!=DisplayAspectRatio_Original)
         {
-            if (DisplayAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio))
-            {
-                Ztring Temp=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
-                Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, Temp, true);
-            }
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, DisplayAspectRatio_Original, true);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, DisplayAspectRatio_Temp, true);
         }
-        if (!FrameRate_Temp.empty()) //Only if Original data is not already present
+        if (!FrameRate_Temp.empty() && FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
         {
-            if (FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
-            {
-                Ztring Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate);
-                Clear(Stream_Video, StreamPos_Last, Video_FrameRate);
-                Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Temp, true);
-            }
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_FrameRate], true);
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
+        }
+        if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
+        {
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_FrameRate_Mode], true);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
         }
     }
 
