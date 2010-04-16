@@ -12,6 +12,15 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.31, 2010-04-16
+--------------
++ SCTE 20 closed caption support
++ Difference between width/height in the container and in the raw stream
++ AVC: GOP structure
++ MXF: more raw stream formats are detected (MPEG-4 Visual, A-law...)
++ DV: Better detection of DVCPRO 50 and 100
+x DV: less files without the right extension wrongly detected as DV
+
 Version 0.7.30, 2010-03-26
 --------------
 + Russian language updated
