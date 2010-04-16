@@ -496,6 +496,8 @@ void File_Avc::Streams_Fill()
     }
     if (!GOPs.empty())
         Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOPs[0]);
+    else if (CodingType.size()==1 && Frame_Count>1)
+        Fill(Stream_Video, 0, Video_Format_Settings_GOP, "N=1"); //Only I-Frames, pic_order_cnt_lsb is always 0
 
     /*
     if (frame_mbs_only_flag)
@@ -539,8 +541,11 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
         Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
     }
-    Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
-    Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
+    if (num_ref_frames)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
+        Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
+    }
     if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
         Fill(Stream_Video, 0, Video_Resolution, bit_depth_luma_minus8+8);
 
@@ -2154,8 +2159,8 @@ void File_Avc::seq_parameter_set_data()
         Param_Info(Avc_Colorimetry_format_idc[chroma_format_idc]);
         if (chroma_format_idc==3)
             Skip_SB(                                            "residual_colour_transform_flag");
-        Skip_UE(                                                "bit_depth_luma_minus8");
-        Skip_UE(                                                "bit_depth_Colorimetry_minus8");
+        Get_UE (bit_depth_luma_minus8,                          "bit_depth_luma_minus8");
+        Get_UE (bit_depth_Colorimetry_minus8,                   "bit_depth_Colorimetry_minus8");
         Skip_SB(                                                "qpprime_y_zero_transform_bypass_flag");
         TEST_SB_SKIP(                                           "seq_scaling_matrix_present_flag");
             for (int32u Pos=0; Pos<8; Pos++)
