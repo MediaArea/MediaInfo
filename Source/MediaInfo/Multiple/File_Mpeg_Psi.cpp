@@ -267,7 +267,7 @@ stream_t Mpeg_Psi_stream_type_StreamKind(int32u stream_type, int32u format_ident
                             case 0xEA : return Stream_Video;
                             default   : return Stream_Max;
                         }
-                case Elements::TSHV : //Digital Video
+                case Elements::TSHV : //DV
                         switch (stream_type)
                         {
                             case 0xA0 : return Stream_General;
@@ -365,11 +365,11 @@ const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifie
                             case 0xEA : return "BluRay - VC-1";
                             default   : return "Bluray - Unknown";
                         }
-                case Elements::TSHV : //Digital Video
+                case Elements::TSHV : //DV
                         switch (stream_type)
                         {
-                            case 0xA0 : return "Digital Video - Data 0";
-                            case 0xA1 : return "Digital Video - Data 1";
+                            case 0xA0 : return "DV - Data 0";
+                            case 0xA1 : return "DV - Data 1";
                             default   : return "Bluray - Unknown";
                         }
                 case 0xFFFFFFFF : //Unknown

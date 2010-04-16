@@ -66,7 +66,7 @@ Ztring MediaInfo_Internal::Inform()
         }
     #endif //MEDIAINFO_MINIMIZESIZE
 
-    if (MediaInfoLib::Config.Inform_Get()==_T("MPEG-7"))
+    //if (MediaInfoLib::Config.Inform_Get()==_T("MPEG-7"))
         return Export_Mpeg7().Transform(*this);
     if (MediaInfoLib::Config.Inform_Get()==_T("PBCore") || MediaInfoLib::Config.Inform_Get()==_T("PBCore_1.2"))
         return Export_PBCore().Transform(*this);

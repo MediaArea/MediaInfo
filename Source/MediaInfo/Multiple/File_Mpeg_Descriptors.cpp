@@ -627,8 +627,8 @@ const char* Mpeg_Descriptors_registration_format_identifier_Format(int32u format
         case Elements::HDMV : return "Blu-ray";
         case Elements::KLVA : return "KLV";
         case Elements::S14A : return "ATSC - Satellite";
-        case Elements::SCTE : return "SCTE 54 2003 - Digital Video Service Multiplex and Transport System for Cable Television";
-        case Elements::TSHV : return "Digital Video";
+        case Elements::SCTE : return "SCTE 54 2003 - DV Service Multiplex and Transport System for Cable Television";
+        case Elements::TSHV : return "DV";
         case Elements::VC_1 : return "VC-1";
         case Elements::MANZ : return "Manzanita Systems"; //Manzanita Systems
         default :                     return "";

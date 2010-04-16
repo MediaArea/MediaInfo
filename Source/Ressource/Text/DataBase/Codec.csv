@@ -77,7 +77,7 @@ BXY2;Boxx YUV;4CC;V;;;BOXX 10-bit YUV;
 BXYV;Boxx YUV;4CC;V;;;BOXX YUV;
 CC12;Intel YUV;4CC;V;YUV;;Intel YUV12;
 CDV5;Canopus DV;4CC;V;DV;;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm
-CDVC;Canopus DV;4CC;V;DV;;Canopus Digital Video (DV);http://www.cineform.com/products/ConnectHD.htm
+CDVC;Canopus DV;4CC;V;DV;;Canopus DV (DV);http://www.cineform.com/products/ConnectHD.htm
 CDVH;Canopus DV;4CC;V;DV;;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm
 CFCC;Perception;4CC;V;;;DPS Perception M-JPEG (dummy format - only AVI header);
 CFHD;CineForm HD;4CC;V;;;CineForm 10-bit Visually Perfect HD (Wavelet);
@@ -141,7 +141,7 @@ DTNT;Media-100;4CC;V;;;Media-100
 DUCK;TrueMotion S;4CC;V;;;Duck Corporation True Motion S
 DV10;BlueFish;4CC;V;;;BlueFish444 (lossless RGBA, YUV 10-bit)
 DV25;DVCPro;4CC;V;DV;;Matrox DVCPRO
-DV50;DVCPro5;4CC;V;DV;;Matrox DVCPRO50
+DV50;DVCPro5;4CC;V;DV;;Matrox 
 DVAN;Pinnacle DV300;4CC;V;DV;;Pinnacle miroVideo DV300 SW only;
 DVC ;Apple DV NTSC;4CC;V;DV;;Apple QuickTime DV (DVCPRO NTSC);http://www.apple.com/quicktime/download/standalone.html
 dvc ;Apple DV NTSC;4CC;V;DV;;Apple QuickTime DV (DVCPRO NTSC);http://www.apple.com/quicktime/download/standalone.html
@@ -151,7 +151,7 @@ DVCS;MainConcept DV;4CC;V;DV;;MainConcept DV;
 DVE2;Insoft DVE-2;4CC;V;DV;;InSoft DVE-2 Videoconferencing;
 DVH1;Pinnacle DV;4CC;V;DV;;Pinnacle DVHD100;
 dvhd;DV HD;4CC;V;DV;;DV 1125 lines at 30.00 Hz or 1250 lines at 25.00 Hz;
-dvhd;DV HD;4CC;A;DV;;Sony Digital Video (DV), audio part;
+dvhd;DV HD;4CC;A;DV;;Sony DV (DV), audio part;
 DVIS;DualMoon DV;4CC;V;DV;;VSYNC DualMoon Iris DV;
 DVL ;Radius DV NTSC;4CC;V;DV;;Radius SoftDV 16:9 NTSC;
 DVLP;Radius DV PAL;4CC;V;DV;;Radius SoftDV 16:9 PAL;
@@ -164,10 +164,10 @@ DVR ;MPEG-2 Video;4CC;V;MPEG-2;;MPEG-2 Video in a ASF container;
 DVR1;Targa2000;4CC;V;;;TARGA2000;
 DVRS;DualMoon DV;4CC;V;DV;;VSYNC DualMoon Iris DV;
 DVSD;DV;4CC;V;DV;;IEC 61834 and SMPTE 314M;
-dvsd;Sony DV;4CC;V;DV;;Sony Digital Video (DV) 525 lines at 29.97 Hz or 625 lines at 25.00 Hz;
-dvsd;Sony DV;4CC;A;DV;;Sony Digital Video (DV), audio part;
-dvsl;Sony DV;4CC;V;DV;;Sony Digital Video (DV) 525 lines at 29.97 Hz or 625 lines at 25.00 Hz;
-dvsl;Sony DV;4CC;A;DV;;Sony Digital Video (DV), audio part;
+dvsd;Sony DV;4CC;V;DV;;Sony DV (DV) 525 lines at 29.97 Hz or 625 lines at 25.00 Hz;
+dvsd;Sony DV;4CC;A;DV;;Sony DV (DV), audio part;
+dvsl;Sony DV;4CC;V;DV;;Sony DV (DV) 525 lines at 29.97 Hz or 625 lines at 25.00 Hz;
+dvsl;Sony DV;4CC;A;DV;;Sony DV (DV), audio part;
 DVSL;DSL DV;4CC;V;DV;;DV compressed in SD (SDL);
 DVX1;DVX 1 SP;4CC;V;;;Lucent DVX1000SP Video Decoder;
 DVX2;DVX 2 S;4CC;V;;;Lucent DVX2000S Video Decoder;
@@ -510,7 +510,7 @@ SHR6;BitJazz SheerVideo;4CC;V;;;BitJazz SheerVideo (realtime lossless);
 SHR7;BitJazz SheerVideo;4CC;V;;;BitJazz SheerVideo (realtime lossless);
 SJPG;CuSeeMe;4CC;V;M-JPEG;;CuSeeMe;http://mirror01.iptelecom.net.ua/~video/codecs/CUseeMe.M-JPEG.CODEC.v1.17.exe
 SL25;SoftLab DVCPro;4CC;V;;;SoftLab-NSK DVCPRO;
-SL50;SoftLab DVCPro5;4CC;V;;;SoftLab-NSK DVCPRO50;
+SL50;SoftLab DVCPro5;4CC;V;;;SoftLab-NSK ;
 SLDV;SoftLab DV;4CC;V;;;SoftLab-NSK Forward DV Draw;
 SLIF;SoftLab MPEG-2;4CC;V;MPEG-V;;SoftLab-NSK MPEG-2 I-frames;
 SLMJ;SoftLab M-JPEG;4CC;V;M-JPEG;;SoftLab-NSK Forward M-JPEG;
@@ -620,7 +620,7 @@ VP72;VP7;4CC;V;;;On2 TrueMotion VP7;
 VQC1;Vector 1;4CC;V;;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;
 VQC2;Vector 2;4CC;V;;;Vector-quantised 2 (high robustness against channel errors) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;
 VQJP;VQ630;4CC;V;;;Dual-mode digital camera;
-VQS4;VQ110;4CC;V;;;Digital video camera;
+VQS4;VQ110;4CC;V;;;DV camera;
 VR21;BlckMagic YUV;4CC;V;YUV;;BlackMagic YUV (Quick Time);
 VSSH;AVC;4CC;V;AVC;;Vanguard VSS H.264;
 VSSV;Vanguard Video;4CC;V;;;Vanguard Software Solutions Video;

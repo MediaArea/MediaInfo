@@ -1679,7 +1679,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     }
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
-    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("Digital Video"))
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("DV"))
     {
         Stream[Stream_ID].Parser=new File_DvDif;
         ((File_DvDif*)Stream[Stream_ID].Parser)->IgnoreAudio=true;

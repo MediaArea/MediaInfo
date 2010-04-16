@@ -149,10 +149,10 @@ const char* Gxf_MediaTypes_Format(int8u Type)
         case 10 : return "PCM"; //16-bit
         case 11 : return "MPEG Video"; //525 lines
         case 12 : return "MPEG Video"; //625 lines
-        case 13 : return "Digital Video"; //25 Mbps, 525 lines
-        case 14 : return "Digital Video"; //25 Mbps, 625 lines
-        case 15 : return "Digital Video"; //50 Mbps, 525 lines
-        case 16 : return "Digital Video"; //50 Mbps, 625 lines
+        case 13 : return "DV"; //25 Mbps, 525 lines
+        case 14 : return "DV"; //25 Mbps, 625 lines
+        case 15 : return "DV"; //50 Mbps, 525 lines
+        case 16 : return "DV"; //50 Mbps, 625 lines
         case 17 : return "AC-3"; //16-bit
         case 18 : return "SMPTE 338M, table 1, data type 28"; //SMPTE 338M, table 1, data type 28
         case 20 : return "MPEG Video"; //HD, Main Profile at High Level

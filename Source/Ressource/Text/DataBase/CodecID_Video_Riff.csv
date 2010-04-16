@@ -47,10 +47,10 @@ AURA;YUV;;Auravision Aura 1;;;;YUV 4:1:1
 AUVX;AUVX;;USH GmbH;;;;
 AV1X;Avid 1:1;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;
 AVC1;AVC;;;http://ffdshow-tryout.sourceforge.net/;;;YUV 4:2:0
-AVD1;Digital Video;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV
+AVD1;DV;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV
 AVDJ;M-JPEG;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV 4:2:0
 AVDN;Avid HD;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;
-AVDV;Digital Video;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV
+AVDV;DV;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV
 AVI1;M-JPEG;MainConcept;;;;;YUV 4:2:0
 AVI2;M-JPEG;MainConcept;;;;;YUV 4:2:0
 AVID;M-JPEG;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV 4:2:0
@@ -81,9 +81,9 @@ BXRG;RGB;Boxx;;;;;RGB
 BXY2;YUV;Boxx;10-bit;;;;YUV
 BXYV;YUV;Boxx;;;;;YUV
 CC12;YUV;Intel;;;;;YUV
-CDV5;Digital Video;Canopus;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm;;;YUV
-CDVC;Digital Video;Canopus;Canopus Digital Video (DV);http://www.cineform.com/products/ConnectHD.htm;;;YUV
-CDVH;Digital Video;Canopus;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm;;;YUV
+CDV5;DV;Canopus;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm;;;YUV
+CDVC;DV;Canopus;Canopus DV (DV);http://www.cineform.com/products/ConnectHD.htm;;;YUV
+CDVH;DV;Canopus;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm;;;YUV
 CFCC;M-JPEG;DPS Perception;Dummy format - only AVI header;;;;YUV 4:2:0
 CFHD;CineForm HD;;CineForm 10-bit Visually Perfect HD (Wavelet);;;;
 CGDI;Camcorder;;Camcorder Video (MS Office 97);;;;
@@ -111,8 +111,8 @@ CYUY;YUV;ATI;;http://www.fourcc.org/indexyuv.htm;;;YUV 4:2:2
 D261;H.261;DEC;;;;;
 D263;H.263;DEC;;;;;
 DAVC;AVC;Dicas;;;;;YUV 4:2:0
-DC25;Digital Video;MainConcept;;;;;YUV
-DCAP;Digital Video;Pinnacle;;;;;YUV
+DC25;DV;MainConcept;;;;;YUV
+DCAP;DV;Pinnacle;;;;;YUV
 DCL1;Data Connextion;;Conferencing;;;;
 DCT0;WniWni;;;;;;
 DFSC;VFW;;DebugMode FrameServer VFW;;;;
@@ -140,35 +140,35 @@ DP98;YUV;Matsushita;With DPCM 8-bit compression;;;;YUV
 DP9L;YUV;Matsushita;With DPCM 6-bit compression;;;;YUV
 DPS0;M-JPEG;DPS Reality;Dummy format - only AVI header;;;;YUV 4:2:0
 DPSC;M-JPEG;DPS PAR;Dummy format - only AVI header;;;;YUV 4:2:0
-DRWX;Digital Video;Pinnacle;;;;;YUV
-DSVD;Digital Video;Microsoft;;;;;YUV
+DRWX;DV;Pinnacle;;;;;YUV
+DSVD;DV;Microsoft;;;;;YUV
 DTMT;Media-100;;;;;;
 DTNT;Media-100;;;;;;
 DUCK;TrueMotion S;Duck Corporation;;;;;
 DV10;RGB;BlueFish;BlueFish444 (lossless RGBA, YUV 10-bit);;;;RGB
-DV25;Digital Video;DVCPro;;;;;YUV
-DV50;Digital Video;DVCPro5;;;;;YUV
-DVAN;Digital Video;Pinnacle DV300;;;;;YUV
-DVC ;Digital Video;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;YUV
-DVCP;Digital Video;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;YUV
-DVCS;Digital Video;MainConcept;;;;;YUV
-DVE2;Digital Video;Insoft DVE-2;InSoft DVE-2 Videoconferencing;;;;YUV
-DVH1;Digital Video;Pinnacle;;;;;YUV
-dvhd;Digital Video;HD;;;;;YUV
-DVIS;Digital Video;DualMoon;;;;;YUV
-DVL ;Digital Video;Radius;;;;;YUV
-DVLP;Digital Video;Radius;;;;;YUV
-DVMA;Digital Video;Darim;;;;;YUV
+DV25;DV;DVCPro;;;;;YUV
+DV50;DV;DVCPro5;;;;;YUV
+DVAN;DV;Pinnacle DV300;;;;;YUV
+DVC ;DV;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;YUV
+DVCP;DV;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;YUV
+DVCS;DV;MainConcept;;;;;YUV
+DVE2;DV;Insoft DVE-2;InSoft DVE-2 Videoconferencing;;;;YUV
+DVH1;DV;Pinnacle;;;;;YUV
+dvhd;DV;HD;;;;;YUV
+DVIS;DV;DualMoon;;;;;YUV
+DVL ;DV;Radius;;;;;YUV
+DVLP;DV;Radius;;;;;YUV
+DVMA;DV;Darim;;;;;YUV
 DVNM;DVNM;;Matsushita Electric Industrial Co., Ltd.;;;;
 DVOR;RGB;BlueFish;BlueFish444 (lossless RGBA, YUV 10-bit);;;;RGB
-DVPN;Digital Video;Apple;;;;;YUV
-DVPP;Digital Video;Apple;;;;;YUV
+DVPN;DV;Apple;;;;;YUV
+DVPP;DV;Apple;;;;;YUV
 DVR ;MPEG Video;ASF;;;;;YUV 4:2:0
 DVR1;Targa2000;;;;;;
-DVRS;Digital Video;DualMoon;;;;;YUV
-dvsd;Digital Video;Sony;;;;;YUV
-dvsl;Digital Video;Sony;;;;;YUV
-DVSL;Digital Video;;;;;;YUV
+DVRS;DV;DualMoon;;;;;YUV
+dvsd;DV;Sony;;;;;YUV
+dvsl;DV;Sony;;;;;YUV
+DVSL;DV;;;;;;YUV
 DVX1;DVX 1 SP;;Lucent DVX1000SP Video Decoder;;;;
 DVX2;DVX 2 S;;Lucent DVX2000S Video Decoder;;;;
 DVX3;DVX 3 S;;Lucent DVX3000S Video Decoder;;;;
@@ -323,7 +323,7 @@ MC24;M-JPEG;MainConcept;;;;;YUV 4:2:0
 MCAM;ATI Motion;;ATI Motion Compensation Format;;;;
 MCZM;RGB;;Theory MicroCosm Lossless 64bit RGB with Alpha-channel;;;;RGB
 MDVD;MicroDVD;;Alex MicroDVD Video (hacked MS MPEG-4);;;;
-MDVF;Digital Video;Pinnacle;Pinnacle DV/DV50/DVHD100;;;;YUV
+MDVF;DV;Pinnacle;Pinnacle DV/DV50/DVHD100;;;;YUV
 MHFY;YUV;;A.M.Paredes mhuffyYUV (LossLess);http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe;;;YUV
 MJ2C;M-JPEG2000;;Morgan Multimedia JPEG2000 Compression;http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe;;;
 MJPA;M-JPEG;Pinacle;Pinnacle ReelTime MJPG hardware;http://mediaxw.sourceforge.net;;;YUV 4:2:0
@@ -419,7 +419,7 @@ NY12;YUV;Nogatech;;;;;YUV
 NYUV;YUV;Nogatech;;;;;YUV
 ONYX;VP7;On2;;http://www.on2.com/vp7.php3;;;
 PCLE;Studio400;Pinnacle;;;;;
-PDVC;Digital Video;Panasonic;;;;;YUV
+PDVC;DV;Panasonic;;;;;YUV
 PGVV;Radius Video Vision;;;;;;
 PHMO;Photomotion;IBM;;;;;
 PIM1;M-JPEG;Pegasus;Pinnacle DC1000 hardware (MPEG compression);http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe;;;YUV 4:2:0
@@ -440,8 +440,8 @@ QDRW;Palettized Video;;Apple;;;;
 QPEG;QPEG 1.1;;Q-Team QPEG 1.1;;;;
 QPEQ;QPEG 1.1;;Q-Team QPEG 1.1;;;;
 R210;YUV;;BlackMagic YUV (Quick Time);;;;YUV
-R411;Digital Video;Radius;Radius DV NTSC YUV;;;;YUV
-R420;Digital Video;Radius;Radius DV PAL YUV;;;;YUV
+R411;DV;Radius;Radius DV NTSC YUV;;;;YUV
+R420;DV;Radius;Radius DV PAL YUV;;;;YUV
 RAV_;MPEG-1;GroupTron;GroupTRON ReferenceAVI (dummy for MPEG compressor);;;;YUV 4:2:0
 RAVI;MPEG-1;GroupTron;GroupTRON ReferenceAVI (dummy for MPEG compressor);;;;YUV 4:2:0
 RAW ;RGB;;Full Frames (Uncompressed);;;;RGB
@@ -478,7 +478,7 @@ S422;YUV;VideoCap C210;VideoCap C210;;;;YUV
 SAN3;MPEG-4 Visual;;Direct copy of DivX 3.11;;;;YUV 4:2:0
 SANM;Smush v2;;LucasArts;http://www.lucasarts.com/;;;
 SCCD;SoftCam;;;;;;
-SDCC;Digital Video;Sun;Sun Digital Camera;;;;YUV 4:1:1
+SDCC;DV;Sun;Sun Digital Camera;;;;YUV 4:1:1
 SEDG;MPEG-4 Visual;Samsung;Samsung MPEG-4;;;;YUV 4:2:0
 SEG4;Cinepak;;;http://www.sega.com/;;;
 SEGA;Cinepak;;;http://www.sega.com/;;;
@@ -492,9 +492,9 @@ SHR5;BitJazz SheerVideo;;BitJazz SheerVideo (realtime lossless);;;;
 SHR6;BitJazz SheerVideo;;BitJazz SheerVideo (realtime lossless);;;;
 SHR7;BitJazz SheerVideo;;BitJazz SheerVideo (realtime lossless);;;;
 SJPG;M-JPEG;CuSeeMe;CuSeeMe;http://mirror01.iptelecom.net.ua/~video/codecs/CUseeMe.M-JPEG.CODEC.v1.17.exe;;;YUV 4:2:0
-SL25;Digital Video;SoftLab DVCPro;SoftLab-NSK DVCPRO;;;;YUV 4:1:1
-SL50;Digital Video;SoftLab DVCPro5;SoftLab-NSK DVCPRO50;;;;YUV 4:1:1
-SLDV;Digital Video;SoftLab;SoftLab-NSK Forward DV Draw;;;;YUV 4:1:1
+SL25;DV;SoftLab DVCPro;SoftLab-NSK DVCPRO;;;;YUV 4:1:1
+SL50;DV;SoftLab DVCPro5;SoftLab-NSK ;;;;YUV 4:1:1
+SLDV;DV;SoftLab;SoftLab-NSK Forward DV Draw;;;;YUV 4:1:1
 SLIF;MPEG Video;SoftLab;SoftLab-NSK MPEG-2 I-frames;;;;YUV 4:2:0
 SLMJ;M-JPEG;SoftLab;SoftLab-NSK Forward M-JPEG;;;;YUV 4:2:0
 smc ;SMC;;Apple Graphics (SMC);http://www.apple.com/quicktime/download/standalone.html;;;
@@ -602,7 +602,7 @@ VP72;VP7;On2;;;;;
 VQC1;Vector 1;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;;;;
 VQC2;Vector 2;;Vector-quantised 2 (high robustness against channel errors) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;;;;
 VQJP;VQ630;;Dual-mode digital camera;;;;
-VQS4;VQ110;;Digital video camera;;;;
+VQS4;VQ110;;DV camera;;;;
 VR21;YUV;BlckMagic;BlackMagic YUV (Quick Time);;;;YUV
 VSSH;AVC;Vanguard VSS;;;;;YUV 4:2:0
 VSSV;Vanguard Video;Vanguard VSS;;;;;

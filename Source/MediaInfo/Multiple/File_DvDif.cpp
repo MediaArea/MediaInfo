@@ -308,10 +308,10 @@ File_DvDif::~File_DvDif()
 //---------------------------------------------------------------------------
 void File_DvDif::Streams_Fill()
 {
-    Fill(Stream_General, 0, General_Format, "Digital Video", Unlimited, true, true);
+    Fill(Stream_General, 0, General_Format, "DV", Unlimited, true, true);
 
     Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "Digital Video");
+    Fill(Stream_Video, 0, Video_Format, "DV");
     Fill(Stream_Video, 0, Video_Codec, "DV");
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
@@ -854,7 +854,7 @@ void File_DvDif::Video()
                 Accept("DV DIF");
 
                 if (!IsSub)
-                    Fill(Stream_General, 0, General_Format, "Digital Video");
+                    Fill(Stream_General, 0, General_Format, "DV");
             }
             if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
                 #ifdef MEDIAINFO_DVDIF_ANALYZE_YES

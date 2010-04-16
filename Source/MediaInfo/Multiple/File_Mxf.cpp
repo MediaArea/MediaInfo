@@ -260,9 +260,9 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
         return _NAME; \
 
     if (0) {}
-    ELEMENT   (EssenceContainer_DV,                             "Digital Video")
-    ELEMENT   (EssenceContainer_DV2,                            "Digital Video")
-    ELEMENT   (EssenceContainer_DV3,                            "Digital Video")
+    ELEMENT   (EssenceContainer_DV,                             "DV")
+    ELEMENT   (EssenceContainer_DV2,                            "DV")
+    ELEMENT   (EssenceContainer_DV3,                            "DV")
     ELEMENT   (EssenceContainer_JPEG2000,                       "JPEG 2000 Picture")
     ELEMENT   (EssenceContainer_MPEG2,                          "MPEG-2 Video")
     ELEMENT   (EssenceContainer_RV24,                           "RV24 (RGBA?)")
@@ -319,7 +319,7 @@ const char* Mxf_EssenceCoding_Format(int128u EssenceContainer)
 
     if (0) {}
     ELEMENT(EssenceCoding_D10Video,                             "MPEG Video")
-    ELEMENT(EssenceCoding_DV,                                   "Digital Video")
+    ELEMENT(EssenceCoding_DV,                                   "DV")
     ELEMENT(EssenceCoding_JPEG2000,                             "M-JPEG 2000")
     ELEMENT(EssenceCoding_MPEG2Video,                           "MPEG Video")
     ELEMENT(EssenceCoding_MPEG4Visual,                          "MPEG-4 Visual")
@@ -520,9 +520,9 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
     }
 
-    //Special case - Digital Video
+    //Special case - DV
     #if defined(MEDIAINFO_DVDIF_YES)
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("Digital Video"))
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("DV"))
         {
             if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
                 Fill(Stream_General, 0, General_Recorded_Date, Essence->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
@@ -1146,8 +1146,8 @@ void File_Mxf::Data_Parse()
             case 0x16000300 : Element_Name("DV Audio (PCM)" ); break;
             case 0x16000500 : Element_Name("MPEG Audio"     ); break;
             case 0x16000A00 : Element_Name("A-law"          ); break;
-            case 0x18000100 : Element_Name("Digital Video"  ); break;
-            case 0x18000200 : Element_Name("Digital Video"  ); break; //One block
+            case 0x18000100 : Element_Name("DV"  ); break;
+            case 0x18000200 : Element_Name("DV"  ); break; //One block
             default         : Element_Name("Unknown stream" );
         }
 
@@ -1250,8 +1250,8 @@ void File_Mxf::Data_Parse()
                                     if (Streams_Count>0)
                                         Streams_Count--;
                                     break;
-                case 0x18000100 : //Digital Video
-                case 0x18000200 : //Digital Video
+                case 0x18000100 : //DV
+                case 0x18000200 : //DV
                                     Essences[Code_Compare4].StreamKind=Stream_Video;
                                     Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                     #if defined(MEDIAINFO_DVDIF_YES)
@@ -1267,7 +1267,7 @@ void File_Mxf::Data_Parse()
                                         Essences[Code_Compare4].Parser=new File_Unknown();
                                         Open_Buffer_Init(Essences[Code_Compare4].Parser);
                                         Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Video);
-                                        Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "Digital Video");
+                                        Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "DV");
                                         if (Streams_Count>0)
                                             Streams_Count--;
                                     #endif

@@ -2352,7 +2352,7 @@ void File_MpegPs::private_stream_2()
 //---------------------------------------------------------------------------
 void File_MpegPs::private_stream_2_TSHV_A0()
 {
-    Element_Name("Digital Video A0");
+    Element_Name("DV A0");
 
     //Parsing
     Skip_XX(Element_Size,                                       "Unknown");
@@ -2365,7 +2365,7 @@ void File_MpegPs::private_stream_2_TSHV_A0()
 //---------------------------------------------------------------------------
 void File_MpegPs::private_stream_2_TSHV_A1()
 {
-    Element_Name("Digital Video A1");
+    Element_Name("DV A1");
 
     //Parsing
     int8u day, month, year, second, minute, hour;

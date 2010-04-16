@@ -266,7 +266,7 @@ void File_Riff::Streams_Finish ()
             #endif
             #if defined(MEDIAINFO_DVDIF_YES)
                 if (StreamKind_Last==Stream_Video && (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("DV"))==0
-                                                   || Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("Digital Video")
+                                                   || Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("DV")
                                                    || Retrieve(Stream_Video, StreamPos_Last, Video_Codec)==_T("DV")))
                 {
                     if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())

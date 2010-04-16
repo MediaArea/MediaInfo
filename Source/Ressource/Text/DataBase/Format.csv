@@ -7,7 +7,7 @@ Blu-ray Index;;;M;Bdmv;;bdmv;;
 Blu-ray Movie object;;;M;Bdmv;;bdmv;;
 Blu-ray Playlist;;;M;Bdmv;;mpls;;
 CDXA;;;M;Cdxa;;dat;;
-Digital Video;;;M;DvdDif;;dv dif;video/DV;
+DV;;;M;DvdDif;;dv dif;video/DV;
 DivX;;;M;Riff;Hack of AVI;divx;video/vnd.avi;http://www.divx.com
 DPG;;;M;Dpg;Nintendo DS;dpg;;
 DVD Video;;;M;Dvdv;;ifo;;
