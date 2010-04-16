@@ -83,6 +83,7 @@ chmod 644 ${install_prefix}/include/MediaInfoDLL/*
 #bin
 install -d -m 755 ${install_prefix}/bin
 cp ../GNU/Library/libmediainfo-config ${install_prefix}/bin
+chmod 755 ${install_prefix}/bin/*
 #doc
 install -d -m 755 ${install_prefix}/share/doc/libmediainfo0-devel/Example
 cp ../../Source/Example/HowToUse_Dll* ${install_prefix}/share/doc/libmediainfo0-devel/Example
