@@ -129,6 +129,7 @@ protected :
     bool   FSC_WasSet;
     bool   FSP_WasNotSet;
     bool   video_sourcecontrol_IsParsed;
+    bool   audio_locked;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     bool Analyze_Activated;

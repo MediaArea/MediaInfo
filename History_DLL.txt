@@ -13,6 +13,7 @@ Version 0.7.31, 2010-
 + Difference between width/height in the container and in the raw stream
 + AVC: GOP structure
 + MXF: more raw stream formats are detected (MPEG-4 Visual, A-law...)
++ DV: Better detection of DVCPRO 50 and 100
 x DV: less files without the right extension wrongly detected as DV
 
 Version 0.7.30, 2010-03-26

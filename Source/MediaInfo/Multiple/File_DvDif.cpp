@@ -261,6 +261,7 @@ File_DvDif::File_DvDif()
     FSC_WasSet=false;
     FSP_WasNotSet=false;
     video_sourcecontrol_IsParsed=false;
+    audio_locked=false;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     Analyze_Activated=false;
@@ -388,15 +389,18 @@ void File_DvDif::Streams_Fill()
         if (FSC_WasSet)
         {
             if (FSP_WasNotSet)
-                OverallBitRate*=4; //DV100
+                OverallBitRate=0; //DV100, variable bitrate
             else
                 OverallBitRate*=2; //DV50
         }
-        Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
-        Fill(Stream_Video, 0, Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
+        if (OverallBitRate)
+        {
+            Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
+            Fill(Stream_Video, 0, Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
+        }
     }
 
-    for (size_t Pos=0; Pos<Streams_Audio.size(); Pos++) 
+    for (size_t Pos=0; Pos<Streams_Audio.size(); Pos++)
     {
         Stream_Prepare(Stream_Audio);
         for (std::map<std::string, Ztring>::iterator Info=Streams_Audio[Pos]->Infos.begin(); Info!=Streams_Audio[Pos]->Infos.end(); Info++)
@@ -405,6 +409,23 @@ void File_DvDif::Streams_Fill()
     
     //Library settings
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
+
+    //Profile
+    if (FSC_WasSet)
+    {
+        if (FSP_WasNotSet)
+        {
+            Fill(Stream_Video, 0, Video_Format_Profile, "DVCPRO HD");
+            Fill(Stream_Video, 0, Video_Resolution, 10, 10, true); //MXF files say that DVCPRO HD are 10 bits, exact?
+            Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR", Unlimited, true, true);
+        }
+        else
+            Fill(Stream_Video, 0, Video_Format_Profile, "DVCPRO 50");
+    }
+    else if (audio_locked || (Retrieve(Stream_Video, 0, Video_Standard)==_T("PAL") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:1:1")))
+    {
+        Fill(Stream_Video, 0, Video_Format_Profile, "DVCPRO");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -534,7 +555,7 @@ void File_DvDif::Header_Parse()
     SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
     Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;
     FSC =(Buffer[Buffer_Offset+1]&0x08)==0x08;
-    FSP =(Buffer[Buffer_Offset+1]&0x0F)==0x0F;
+    FSP =(Buffer[Buffer_Offset+1]&0x04)==0x04;
     DBN = Buffer[Buffer_Offset+2];
     Element_Offset+=3;
 
@@ -973,7 +994,7 @@ void File_DvDif::audio_source()
     int8u stype, SamplingRate, Resolution;
     BS_Begin();
     //PC1
-    Skip_SB(                                                    "LF - Locked mode");
+    Get_SB (   audio_locked,                                    "LF - Locked mode");
     Skip_SB(                                                    "Reserved");
     Skip_S1(6,                                                  "AF - Samples in this frame");
 
