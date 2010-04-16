@@ -1,23 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
 PackageCreate()
 {
 mkdir -p ${packagecreation_prefix}
 
 #checkinstall
-echo "#!/bin/sh" > ${packagecreation_prefix}/checkinstall
-echo "" >> ${packagecreation_prefix}/checkinstall
-echo "expected_platform=\042${processor}\042" >> ${packagecreation_prefix}/checkinstall
-echo "" >> ${packagecreation_prefix}/checkinstall
-echo "platform=\0140uname -p\0140" >> ${packagecreation_prefix}/checkinstall
-echo "" >> ${packagecreation_prefix}/checkinstall
-echo "if [ \044{platform} != \044{expected_platform} ]; then" >> ${packagecreation_prefix}/checkinstall
-echo "    echo \042\0134n\0134n\0134n\0134tThis package must be installer on a \044{expected_platform} architecture\0134n\042" >> ${packagecreation_prefix}/checkinstall
-echo "    echo \042\0134tAbording intallation.\0134n\0134n\0134n\042" >> ${packagecreation_prefix}/checkinstall
-echo "    exit 1" >> ${packagecreation_prefix}/checkinstall
-echo "fi" >> ${packagecreation_prefix}/checkinstall
-echo "" >> ${packagecreation_prefix}/checkinstall
-echo "exit 0" >> ${packagecreation_prefix}/checkinstall
+echo -e "#!/bin/sh" > ${packagecreation_prefix}/checkinstall
+echo -e "" >> ${packagecreation_prefix}/checkinstall
+echo -e "expected_platform=\042${processor}\042" >> ${packagecreation_prefix}/checkinstall
+echo -e "" >> ${packagecreation_prefix}/checkinstall
+echo -e "platform=\0140uname -p\0140" >> ${packagecreation_prefix}/checkinstall
+echo -e "" >> ${packagecreation_prefix}/checkinstall
+echo -e "if [ \044{platform} != \044{expected_platform} ]; then" >> ${packagecreation_prefix}/checkinstall
+echo -e "    echo \042\0134n\0134n\0134n\0134tThis package must be installer on a \044{expected_platform} architecture\0134n\042" >> ${packagecreation_prefix}/checkinstall
+echo -e "    echo \042\0134tAbording intallation.\0134n\0134n\0134n\042" >> ${packagecreation_prefix}/checkinstall
+echo -e "    exit 1" >> ${packagecreation_prefix}/checkinstall
+echo -e "fi" >> ${packagecreation_prefix}/checkinstall
+echo -e "" >> ${packagecreation_prefix}/checkinstall
+echo -e "exit 0" >> ${packagecreation_prefix}/checkinstall
 
 #prototype file
 echo "i pkginfo" > ${packagecreation_prefix}/prototype
