@@ -39,11 +39,11 @@ mkdir -p ${install_prefix}
 #Copying useful files
 #bin
 install -d -m 755 ${install_prefix}/bin
-cp -rP ../GNU/Library/.libs/mediainfo ${install_prefix}/bin
+cp -rP ../GNU/CLI/mediainfo ${install_prefix}/bin
 install -d -m 755 ${install_prefix}/share/doc/${name}
 cp ../../*.txt ${install_prefix}/share/doc/${name}
 cp ../../Release/ReadMe_CLI_Linux.txt ${install_prefix}/share/doc/${name}/ReadMe.txt
-mv ${install_prefix}/share/doc/${name}History_CLI.txt ${install_prefix}/share/doc/${name}History.txt
+mv ${install_prefix}/share/doc/${name}/History_CLI.txt ${install_prefix}/share/doc/${name}/History.txt
 cp ../../License.html ${install_prefix}/share/doc/${name}/
 chmod 644 ${install_prefix}/share/doc/${name}/*
 
