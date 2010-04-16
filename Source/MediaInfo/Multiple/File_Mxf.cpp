@@ -34,6 +34,12 @@
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
+#if defined(MEDIAINFO_MPEG4V_YES)
+    #include "MediaInfo/Video/File_Mpeg4v.h"
+#endif
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
@@ -146,10 +152,13 @@ namespace Elements
     //EssenceCoding
     UUID(EssenceCoding_D10Video,                                060E2B34, 04010101, 04010202, 01020101)
     UUID(EssenceCoding_DV,                                      060E2B34, 04010101, 04010202, 02020200)
-    UUID(EssenceCoding_JPEG2000,                                060E2B34, 04010107, 04010202, 03010100) //To be confirmed
     UUID(EssenceCoding_MPEG2Video,                              060E2B34, 04010103, 04010202, 01040300) //To be confirmed
+    UUID(EssenceCoding_MPEG4Visual,                             060E2B34, 04010103, 04010202, 01200204) //To be confirmed
+    UUID(EssenceCoding_Alaw,                                    060E2B34, 04010104, 04020202, 03010100) //To be confirmed
     UUID(EssenceCoding_RV24,                                    060E2B34, 04010101, 04010201, 7F000000) //?
     UUID(EssenceCoding_PCM,                                     060E2B34, 04010101, 04020201, 7F000000) //To be confirmed
+    UUID(EssenceCoding_JPEG2000,                                060E2B34, 04010107, 04010202, 03010100) //To be confirmed
+    UUID(EssenceCoding_AVC,                                     060E2B34, 0401010A, 04010202, 01323102)
 
     //Sequence
     UUID(Sequence_Time,                                         060E2B34, 04010101, 01030201, 01000000)
@@ -282,10 +291,13 @@ const char* Mxf_EssenceCoding(int128u EssenceContainer)
     if (0) {}
     ELEMENT(EssenceCoding_D10Video,                             "D-10 Video")
     ELEMENT(EssenceCoding_DV,                                   "DV")
-    ELEMENT(EssenceCoding_JPEG2000,                             "JPEG 2000")
     ELEMENT(EssenceCoding_PCM,                                  "PCM")
     ELEMENT(EssenceCoding_RV24,                                 "RV24")
     ELEMENT(EssenceCoding_MPEG2Video,                           "MPEG-2 Video")
+    ELEMENT(EssenceCoding_MPEG4Visual,                          "MPEG-4 Visual")
+    ELEMENT(EssenceCoding_Alaw,                                 "A-law")
+    ELEMENT(EssenceCoding_JPEG2000,                             "JPEG 2000")
+    ELEMENT(EssenceCoding_AVC,                                  "AVC")
     else
         return "";
 }
@@ -310,8 +322,11 @@ const char* Mxf_EssenceCoding_Format(int128u EssenceContainer)
     ELEMENT(EssenceCoding_DV,                                   "Digital Video")
     ELEMENT(EssenceCoding_JPEG2000,                             "M-JPEG 2000")
     ELEMENT(EssenceCoding_MPEG2Video,                           "MPEG Video")
+    ELEMENT(EssenceCoding_MPEG4Visual,                          "MPEG-4 Visual")
+    ELEMENT(EssenceCoding_Alaw,                                 "A-law")
     ELEMENT(EssenceCoding_PCM,                                  "PCM")
     ELEMENT(EssenceCoding_RV24,                                 "RV24")
+    ELEMENT(EssenceCoding_AVC,                                  "AVC")
     else
         return "";
 }
@@ -381,6 +396,8 @@ File_Mxf::File_Mxf()
     //Temp
     Streams_Count=(size_t)-1;
     Buffer_DataSizeToParse=0;
+    Preface_Current.hi=(int64u)-1;
+    Preface_Current.lo=(int64u)-1;
 }
 
 //***************************************************************************
@@ -390,73 +407,9 @@ File_Mxf::File_Mxf()
 //---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish()
 {
-    int64u File_Size_Total=File_Size;
+    File_Size_Total=File_Size;
 
-    //Per ContentStorage
-    for (contentstorages::iterator ContentStorage=ContentStorages.begin(); ContentStorage!=ContentStorages.end(); ContentStorage++)
-    {
-        //Per Package
-        for (size_t Packages_Pos=0; Packages_Pos<ContentStorage->second.Packages.size(); Packages_Pos++)
-        {
-            //Searching Package
-            packages::iterator Package=Packages.find(ContentStorage->second.Packages[Packages_Pos]);
-            if (Package!=Packages.end() && Package->second.IsSourcePackage)
-            {
-                Package->second.IsSourcePackage=false;
-
-                //Descriptor
-                Streams_Finish_Descriptor(Package->second.Descriptor, File_Size_Total);
-
-                //Temp
-                std::vector<size_t> Base_Positions;
-                Base_Positions.push_back(Count_Get(Stream_General));
-                Base_Positions.push_back(Count_Get(Stream_Video));
-                Base_Positions.push_back(Count_Get(Stream_Audio));
-
-                //Tracks
-                for(size_t Track_Pos=0; Track_Pos<Package->second.Tracks.size(); Track_Pos++)
-                {
-                    //Track
-                    Streams_Finish_Track(Package->second.Tracks[Track_Pos], Base_Positions);
-                }
-            }
-        }
-    }
-
-    //Per Identification
-    for (identifications::iterator Identification=Identifications.begin(); Identification!=Identifications.end(); Identification++)
-    {
-        if (!Identification->second.ProductName.empty())
-        {
-            Ztring Encoded_Library_Name;
-            if (!Identification->second.CompanyName.empty())
-            {
-                Encoded_Library_Name+=Identification->second.CompanyName;
-                Encoded_Library_Name+=_T(' ');
-            }
-            Encoded_Library_Name+=Identification->second.ProductName;
-            Ztring Encoded_Library_Version;
-            if (!Identification->second.ProductVersion.empty())
-            {
-                Encoded_Library_Version=Identification->second.ProductVersion;
-            }
-            else if (!Identification->second.VersionString.empty())
-            {
-                Encoded_Library_Version=Identification->second.VersionString;
-            }
-            Ztring Encoded_Application=Encoded_Library_Name;
-            if (!Encoded_Library_Version.empty())
-            {
-                Encoded_Application+=_T(' ');
-                Encoded_Application+=Encoded_Library_Version;
-            }
-            Fill(Stream_General, 0, General_Encoded_Application, Encoded_Application, true);
-            Fill(Stream_General, 0, General_Encoded_Library_Name, Encoded_Library_Name, true);
-            Fill(Stream_General, 0, General_Encoded_Library_Version, Encoded_Library_Version, true);
-        }
-        for (std::map<std::string, Ztring>::iterator Info=Identification->second.Infos.begin(); Info!=Identification->second.Infos.end(); Info++)
-            Fill(Stream_General, 0, Info->first.c_str(), Info->second, true);
-    }
+    Streams_Finish_Preface(Preface_Current);
 
     //File size handling
     if (File_Size_Total!=File_Size)
@@ -464,7 +417,174 @@ void File_Mxf::Streams_Finish()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int64u &File_Size_Total)
+void File_Mxf::Streams_Finish_Preface (int128u PrefaceUID)
+{
+    prefaces::iterator Preface=Prefaces.find(PrefaceUID);
+    if (Preface==Prefaces.end())
+        return;
+
+    //ContentStorage
+    Streams_Finish_ContentStorage(Preface->second.ContentStorage);
+
+    //Identifications
+    for (size_t Pos=0; Pos<Preface->second.Identifications.size(); Pos++)
+        Streams_Finish_Identification(Preface->second.Identifications[Pos]);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_ContentStorage (int128u ContentStorageUID)
+{
+    contentstorages::iterator ContentStorage=ContentStorages.find(ContentStorageUID);
+    if (ContentStorage==ContentStorages.end())
+        return;
+
+    for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
+        Streams_Finish_Package(ContentStorage->second.Packages[Pos]);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Package (int128u PackageUID)
+{
+    int64u File_Size_Total=File_Size;
+
+    packages::iterator Package=Packages.find(PackageUID);
+    if (Package==Packages.end())
+        return;
+
+    for (size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
+        Streams_Finish_Track(Package->second.Tracks[Pos]);
+
+    Streams_Finish_Descriptor(Package->second.Descriptor);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Track(int128u TrackUID)
+{
+    tracks::iterator Track=Tracks.find(TrackUID);
+    if (Track==Tracks.end() || Track->second.Stream_Finish_Done)
+        return;
+
+    Streams_Finish_Essence(Track->second.TrackNumber, TrackUID);
+
+    //Sequence
+    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate);
+
+    //Done
+    Track->second.Stream_Finish_Done=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
+{
+    essences::iterator Essence=Essences.find(EssenceUID);
+    if (Essence==Essences.end() || Essence->second.Stream_Finish_Done)
+        return;
+
+    if (Essence->second.Parser==NULL)
+        return;
+
+    Finish(Essence->second.Parser);
+    StreamKind_Last=Stream_Max;
+    if (Essence->second.Parser->Count_Get(Stream_Video))
+        Stream_Prepare(Stream_Video);
+    else if (Essence->second.Parser->Count_Get(Stream_Audio))
+        Stream_Prepare(Stream_Audio);
+    if (StreamKind_Last!=Stream_Max)
+    {
+        for (std::map<std::string, Ztring>::iterator Info=Essence->second.Infos.begin(); Info!=Essence->second.Infos.end(); Info++)
+            Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+        Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+    }
+
+    if (Tracks[TrackUID].TrackID!=(int32u)-1)
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, Tracks[TrackUID].TrackID);
+    else
+    {
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, Essence->first);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Ztring::ToZtring(Essence->first, 16), true);
+    }
+
+    //Interlacement management
+    if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==_T("Interlaced") && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("M-JPEG 2000"))
+    {
+        //M-JPEG 2000 has no complete frame height, but field height
+        int64u Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int64u();
+        Height*=2; //This is per field
+        if (Height)
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
+
+        //M-JPEG 2000 has no complete frame framerate, but field framerate
+        float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
+        FrameRate/=2; //This is per field
+        if (FrameRate)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
+    }
+
+    //Special case - Digital Video
+    #if defined(MEDIAINFO_DVDIF_YES)
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("Digital Video"))
+        {
+            if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
+                Fill(Stream_General, 0, General_Recorded_Date, Essence->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
+
+            //Video and Audio are together
+            size_t Audio_Count=Essence->second.Parser->Count_Get(Stream_Audio);
+            for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
+            {
+                size_t StreamPos_Video=StreamPos_Last;
+                Fill_Flush();
+                Stream_Prepare(Stream_Audio);
+                size_t Pos=Count_Get(Stream_Audio)-1;
+                Essence->second.Parser->Finish();
+                Merge(*Essence->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
+                if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
+                    Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format), true);
+                else
+                    Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
+                Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Duration));
+                Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1));
+                Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
+                Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
+                Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
+                Fill(Stream_Audio, Pos, Audio_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
+            }
+
+            StreamKind_Last=Stream_Video;
+            StreamPos_Last=Essence->second.StreamPos;
+        }
+    #endif
+
+    //Special case - MPEG Video + Captions
+    if (StreamKind_Last==Stream_Video && Essence->second.Parser && Essence->second.Parser->Count_Get(Stream_Text))
+    {
+        //Video and Text are together
+        size_t Text_Count=Essence->second.Parser->Count_Get(Stream_Text);
+        for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+        {
+            size_t StreamPos_Video=StreamPos_Last;
+            size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
+            Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
+            if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
+                Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format), true);
+            else
+                Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
+            if (!IsSub)
+                Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1));
+            Fill(Stream_Text, Pos, Text_StreamSize, 0);
+            Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
+            Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
+            Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+_T("-")+ID, true);
+            Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
+            Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+Retrieve(Stream_Text, Pos, Text_ID), true);
+        }
+    }
+
+    //Done
+    Essence->second.Stream_Finish_Done=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
 {
     descriptors::iterator Descriptor=Descriptors.find(DescriptorUID);
     if (Descriptor==Descriptors.end())
@@ -474,42 +594,72 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int64u &File_Siz
     if (!Descriptor->second.SubDescriptors.empty())
     {
         for (size_t Pos=0; Pos<Descriptor->second.SubDescriptors.size(); Pos++)
-            Streams_Finish_Descriptor(Descriptor->second.SubDescriptors[Pos], File_Size_Total);
+            Streams_Finish_Descriptor(Descriptor->second.SubDescriptors[Pos]);
         return; //Is not a real descriptor
     }
 
+    StreamKind_Last=Stream_Max;
+    StreamPos_Last=(size_t)-1;
     if (Descriptor->second.StreamKind!=Stream_Max)
     {
-        if (TrackIDs[Descriptor->second.LinkedTrackID].StreamKind==Stream_Max)
+        StreamKind_Last=Descriptor->second.StreamKind;
+        for (size_t Pos=0; Pos<Count_Get(StreamKind_Last); Pos++)
+            if (Ztring::ToZtring(Descriptor->second.LinkedTrackID)==Retrieve(StreamKind_Last, Pos, General_ID))
+            {
+                StreamPos_Last=Pos;
+                break;
+            }
+        if (StreamPos_Last==(size_t)-1)
         {
-            Stream_Prepare(Descriptor->second.StreamKind);
-            TrackIDs[Descriptor->second.LinkedTrackID].StreamKind=StreamKind_Last;
-            TrackIDs[Descriptor->second.LinkedTrackID].StreamPos=StreamPos_Last;
+            if (Count_Get(StreamKind_Last)==1)
+                StreamPos_Last=0;
+            else
+            {
+                Stream_Prepare(StreamKind_Last);
+                if (Descriptor->second.LinkedTrackID!=(int32u)-1)
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
+            }
         }
-        else
-        {
-            StreamKind_Last=TrackIDs[Descriptor->second.LinkedTrackID].StreamKind;
-            StreamPos_Last=TrackIDs[Descriptor->second.LinkedTrackID].StreamPos;
-        }
+    }
 
-        if (Descriptor->second.Width!=(int32u)-1)
+    if (StreamKind_Last!=Stream_Max && StreamPos_Last!=(size_t)-1)
+    {
+        if (Descriptor->second.Width!=(int32u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_Width).empty())
             Fill(Stream_Video, StreamPos_Last, Video_Width, Descriptor->second.Width, 10, true);
-        if (Descriptor->second.Height!=(int32u)-1)
+        if (Descriptor->second.Height!=(int32u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_Height).empty())
             Fill(Stream_Video, StreamPos_Last, Video_Height, Descriptor->second.Height, 10, true);
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); Info++)
-            Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+            if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
+                Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+
+        //Bitrate (PCM)
+        if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
+        {
+            int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
+            int64u SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_int64u();
+            int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
+            if (Channels && SamplingRate && Resolution)
+               Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, Channels*SamplingRate*Resolution);
+        }
+
+        //Bitrate (Video)
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_BitRate).empty())
+        {
+            //Until now, I only found CBR files
+            Fill(Stream_Video, StreamPos_Last, Video_BitRate, Retrieve(Stream_Video, StreamPos_Last, Video_BitRate_Nominal));
+        }
     }
 
     //Locators
     for (size_t Locator_Pos=0; Locator_Pos<Descriptor->second.Locators.size(); Locator_Pos++)
     {
         //Locator
-        Streams_Finish_Locator(Descriptor->second.Locators[Locator_Pos], File_Size_Total);
+        Streams_Finish_Locator(Descriptor->second.Locators[Locator_Pos]);
     }
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Total)
+void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
 {
     locators::iterator Locator=Locators.find(LocatorUID);
     if (Locator==Locators.end())
@@ -593,6 +743,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Tota
                 size_t Audio_Count=MI.Info->Count_Get(Stream_Audio);
                 for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
                 {
+                    size_t StreamPos_Video=StreamPos_Last;
                     Fill_Flush();
                     Stream_Prepare(Stream_Audio);
                     size_t Pos=Count_Get(Stream_Audio)-1;
@@ -601,7 +752,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Tota
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format), true);
                     else
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
-                    Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last_Essence+1), true);
+                    Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1), true);
                     Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Duration), true);
                     Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
                     Fill(Stream_Audio, Pos, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
@@ -611,6 +762,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Tota
                 size_t Text_Count=MI.Info->Count_Get(Stream_Text);
                 for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
                 {
+                    size_t StreamPos_Video=StreamPos_Last;
                     Fill_Flush();
                     Stream_Prepare(Stream_Text);
                     size_t Pos=Count_Get(Stream_Text)-1;
@@ -619,7 +771,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Tota
                         Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format), true);
                     else
                         Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
-                    Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last_Essence+1), true);
+                    Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1), true);
                     Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Duration), true);
                     Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
                     Fill(Stream_Text, Pos, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
@@ -632,144 +784,6 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Tota
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Track(int128u TrackUID, std::vector<size_t> &Base_Positions)
-{
-    tracks::iterator Track=Tracks.find(TrackUID);
-    if (Track==Tracks.end())
-        return;
-
-    //TrackID/TrackNumber exists?
-    if (TrackIDs[Track->second.TrackID].StreamKind==Stream_Max || Track->second.Stream_Finish_Done)
-        return;
-    StreamKind_Last=TrackIDs[Track->second.TrackID].StreamKind;
-    StreamPos_Last=TrackIDs[Track->second.TrackID].StreamPos;
-
-    //TrackNumber
-    if (Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
-        Fill(StreamKind_Last, StreamPos_Last, General_ID, Track->second.TrackID);
-    else
-        Fill(StreamKind_Last, StreamPos_Last, General_ID, Ztring::ToZtring(Track->second.TrackID)+_T("-")+Retrieve(StreamKind_Last, StreamPos_Last, General_ID), true);
-    for (size_t StreamKind=2; StreamKind<Stream_Max; StreamKind++)
-    {
-        for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
-        {
-            if (!(StreamKind==(size_t)StreamKind_Last && StreamPos==StreamPos_Last) && !Retrieve(StreamKind_Last, StreamPos_Last, "Source").empty() && Retrieve(StreamKind_Last, StreamPos_Last, "Source")==Retrieve((stream_t)StreamKind, StreamPos, "Source"))
-            {
-                if (Retrieve((stream_t)StreamKind, StreamPos, General_ID).empty())
-                    Fill((stream_t)StreamKind, StreamPos, General_ID, Track->second.TrackID);
-                else
-                    Fill((stream_t)StreamKind, StreamPos, General_ID, Ztring::ToZtring(Track->second.TrackID)+_T("-")+Retrieve((stream_t)StreamKind, StreamPos, General_ID), true);
-            }
-        }
-    }
-    essences::iterator Temp=Essences.find(Track->second.TrackNumber);
-    if (Temp!=Essences.end() && Retrieve(StreamKind_Last, StreamPos_Last, General_UniqueID).empty()) //if not yet done
-    {
-        for (std::map<std::string, Ztring>::iterator Info=Temp->second.Infos.begin(); Info!=Temp->second.Infos.end(); Info++)
-            Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
-        Fill(StreamKind_Last, StreamPos_Last, General_UniqueID, Temp->first);
-
-        Finish(Temp->second.Parser);
-        Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
-
-        //Bitrate (PCM)
-        if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
-        {
-            int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
-            int64u SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_int64u();
-            int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
-            if (Channels && SamplingRate && Resolution)
-               Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, Channels*SamplingRate*Resolution);
-        }
-
-        //Bitrate (Video)
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_BitRate).empty())
-        {
-            //Until now, I only found CBR files
-            Fill(Stream_Video, StreamPos_Last, Video_BitRate, Retrieve(Stream_Video, StreamPos_Last, Video_BitRate_Nominal));
-        }
-
-        //Interlacement management
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==_T("Interlaced") && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("M-JPEG 2000"))
-        {
-            //M-JPEG 2000 has no complete frame height, but field height
-            int64u Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int64u();
-            Height*=2; //This is per field
-            if (Height)
-                Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
-
-            //M-JPEG 2000 has no complete frame framerate, but field framerate
-            float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
-            FrameRate/=2; //This is per field
-            if (FrameRate)
-                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
-        }
-
-        //Special case - Digital Video
-        #if defined(MEDIAINFO_DVDIF_YES)
-            if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("Digital Video"))
-            {
-                if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
-                    Fill(Stream_General, 0, General_Recorded_Date, Temp->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
-
-                //Video and Audio are together
-                Ztring ID=Retrieve(Stream_Video, StreamPos_Last, Video_ID);
-                size_t Audio_Count=Temp->second.Parser->Count_Get(Stream_Audio);
-                for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
-                {
-                    Fill_Flush();
-                    Stream_Prepare(Stream_Audio);
-                    size_t Pos=Count_Get(Stream_Audio)-1;
-                    Temp->second.Parser->Finish();
-                    Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
-                    if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
-                        Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
-                    else
-                        Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
-                    Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                    Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
-                    Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
-                    Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+Retrieve(Stream_Audio, Pos, Audio_ID), true);
-                }
-
-                StreamKind_Last=Stream_Video;
-                StreamPos_Last=Temp->second.StreamPos;
-            }
-        #endif
-
-        //Special case - MPEG Video + Captions
-        if (StreamKind_Last==Stream_Video && Temp->second.Parser && Temp->second.Parser->Count_Get(Stream_Text))
-        {
-            //Video and Text are together
-            size_t Text_Count=Temp->second.Parser->Count_Get(Stream_Text);
-            for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
-            {
-                size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
-                Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
-                if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
-                    Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
-                else
-                    Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
-                if (!IsSub)
-                    Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1));
-                Fill(Stream_Text, Pos, Text_StreamSize, 0);
-                Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-                Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
-                Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+_T("-")+ID, true);
-                Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
-                Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+Retrieve(Stream_Text, Pos, Text_ID), true);
-            }
-        }
-    }
-
-    //Sequence
-    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate);
-
-    //Done
-    Track->second.Stream_Finish_Done=true;
-}
-
-//---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float32 EditRate)
 {
     components::iterator Component=Components.find(ComponentUID);
@@ -777,8 +791,48 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float32 EditRate)
         return;
 
     //Duration
-    if (EditRate)
+    if (EditRate && StreamKind_Last!=Stream_Max)
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Identification (int128u IdentificationUID)
+{
+    identifications::iterator Identification=Identifications.find(IdentificationUID);
+    if (Identification==Identifications.end())
+        return;
+
+    if (!Identification->second.ProductName.empty())
+    {
+        Ztring Encoded_Library_Name;
+        if (!Identification->second.CompanyName.empty())
+        {
+            Encoded_Library_Name+=Identification->second.CompanyName;
+            Encoded_Library_Name+=_T(' ');
+        }
+        Encoded_Library_Name+=Identification->second.ProductName;
+        Ztring Encoded_Library_Version;
+        if (!Identification->second.ProductVersion.empty())
+        {
+            Encoded_Library_Version=Identification->second.ProductVersion;
+        }
+        else if (!Identification->second.VersionString.empty())
+        {
+            Encoded_Library_Version=Identification->second.VersionString;
+        }
+        Ztring Encoded_Application=Encoded_Library_Name;
+        if (!Encoded_Library_Version.empty())
+        {
+            Encoded_Application+=_T(' ');
+            Encoded_Application+=Encoded_Library_Version;
+        }
+        Fill(Stream_General, 0, General_Encoded_Application, Encoded_Application, true);
+        Fill(Stream_General, 0, General_Encoded_Library_Name, Encoded_Library_Name, true);
+        Fill(Stream_General, 0, General_Encoded_Library_Version, Encoded_Library_Version, true);
+    }
+
+    for (std::map<std::string, Ztring>::iterator Info=Identification->second.Infos.begin(); Info!=Identification->second.Infos.end(); Info++)
+        Fill(Stream_General, 0, Info->first.c_str(), Info->second, true);
 }
 
 //***************************************************************************
@@ -815,18 +869,6 @@ void File_Mxf::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 bool File_Mxf::FileHeader_Begin()
 {
-    if (Buffer_Size<4)
-        return false;
-    if (CC4(Buffer)!=0x060E2B34)
-    {
-        Reject("MXF");
-        return false;
-    }
-
-    Accept("MXF");
-
-    Fill(Stream_General, 0, General_Format, "MXF");
-
     return true;
 }
 
@@ -838,12 +880,12 @@ bool File_Mxf::FileHeader_Begin()
 bool File_Mxf::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+16<=Buffer_Size
+    while (Buffer_Offset+4<=Buffer_Size
         && CC4(Buffer+Buffer_Offset)!=0x060E2B34)
         Buffer_Offset++;
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+5>Buffer_Size)
+    if (Buffer_Offset+4>Buffer_Size)
     {
         if (Buffer_Offset+4==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x060E2B34)
             Buffer_Offset++;
@@ -854,6 +896,13 @@ bool File_Mxf::Synchronize()
         if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x06)
             Buffer_Offset++;
         return false;
+    }
+
+    if (!Status[IsAccepted])
+    {
+        Accept("MXF");
+
+        Fill(Stream_General, 0, General_Format, "MXF");
     }
 
     //Synched is OK
@@ -1090,10 +1139,13 @@ void File_Mxf::Data_Parse()
             case 0x15000500 : Element_Name("MPEG Video"     ); break;
             case 0x15000800 : Element_Name("JPEG 2000"      ); break;
             case 0x06001000 : Element_Name("D-10 Audio"     ); break;
+            case 0x15000600 : Element_Name("AVC"            ); break;
+            case 0x15000700 : Element_Name("MPEG-4 Visual"  ); break;
             case 0x16000100 : Element_Name("BWF (PCM)"      ); break;
             case 0x16000200 : Element_Name("BWF (PCM)"      ); break;
             case 0x16000300 : Element_Name("DV Audio (PCM)" ); break;
             case 0x16000500 : Element_Name("MPEG Audio"     ); break;
+            case 0x16000A00 : Element_Name("A-law"          ); break;
             case 0x18000100 : Element_Name("Digital Video"  ); break;
             case 0x18000200 : Element_Name("Digital Video"  ); break; //One block
             default         : Element_Name("Unknown stream" );
@@ -1114,6 +1166,34 @@ void File_Mxf::Data_Parse()
                                         Open_Buffer_Init(Essences[Code_Compare4].Parser);
                                         Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Video);
                                         Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+                                        if (Streams_Count>0)
+                                            Streams_Count--;
+                                    #endif
+                                    break;
+                case 0x15000600 : //AVC
+                                    Essences[Code_Compare4].StreamKind=Stream_Video;
+                                    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                                    #if defined(MEDIAINFO_AVC_YES)
+                                        Essences[Code_Compare4].Parser=new File_Avc();
+                                    #else
+                                        Essences[Code_Compare4].Parser=new File_Unknown();
+                                        Open_Buffer_Init(Essences[Code_Compare4].Parser);
+                                        Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Video);
+                                        Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "AVC");
+                                        if (Streams_Count>0)
+                                            Streams_Count--;
+                                    #endif
+                                    break;
+                case 0x15000700 : //MPEG-4 Visual
+                                    Essences[Code_Compare4].StreamKind=Stream_Video;
+                                    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                                    #if defined(MEDIAINFO_MPEG4V_YES)
+                                        Essences[Code_Compare4].Parser=new File_Mpeg4v();
+                                    #else
+                                        Essences[Code_Compare4].Parser=new File_Unknown();
+                                        Open_Buffer_Init(Essences[Code_Compare4].Parser);
+                                        Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Video);
+                                        Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
                                         if (Streams_Count>0)
                                             Streams_Count--;
                                     #endif
@@ -1159,6 +1239,16 @@ void File_Mxf::Data_Parse()
                                         if (Streams_Count>0)
                                             Streams_Count--;
                                     #endif
+                                    break;
+                case 0x16000A00 : //A-law
+                                    Essences[Code_Compare4].StreamKind=Stream_Audio;
+                                    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                                    Essences[Code_Compare4].Parser=new File_Unknown();
+                                    Open_Buffer_Init(Essences[Code_Compare4].Parser);
+                                    Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Audio);
+                                    Essences[Code_Compare4].Parser->Fill(Stream_Audio, 0, Audio_Format, "A-law");
+                                    if (Streams_Count>0)
+                                        Streams_Count--;
                                     break;
                 case 0x18000100 : //Digital Video
                 case 0x18000200 : //Digital Video
@@ -1310,7 +1400,7 @@ void File_Mxf::ContentStorage()
         default: GenerationInterchangeObject();
     }
 
-    if (Code2==0x3C0A && InstanceUID==Preface_ContentStorage_Data) //InstanceIUD
+    if (Code2==0x3C0A && InstanceUID==Prefaces[Preface_Current].ContentStorage) //InstanceIUD
     {
         Element_Level--;
         Element_Info("Valid from Preface");
@@ -1553,7 +1643,7 @@ void File_Mxf::MaterialPackage()
 
     if (Code2==0x3C0A)
     {
-        if (InstanceUID==Preface_PrimaryPackage_Data) //InstanceIUD
+        if (InstanceUID==Prefaces[Preface_Current].PrimaryPackage) //InstanceIUD
         {
             Element_Level--;
             Element_Info("Primary package");
@@ -1669,6 +1759,11 @@ void File_Mxf::Preface()
         ELEMENT(3B0A, Preface_EssenceContainers,                "EssenceContainers")
         ELEMENT(3B0B, Preface_DMSchemes,                        "DMSchemes")
         default: GenerationInterchangeObject();
+    }
+
+    if (Code2==0x3C0A) //InstanceIUD
+    {
+        Preface_Current=InstanceUID;
     }
 }
 
@@ -1850,7 +1945,7 @@ void File_Mxf::Track()
     {
         for (packages::iterator Package=Packages.begin(); Package!=Packages.end(); Package++)
         {
-            if (Package->first==Preface_PrimaryPackage_Data) //InstanceIUD
+            if (Package->first==Prefaces[Preface_Current].PrimaryPackage) //InstanceIUD
             {
                 Element_Level--;
                 Element_Info("Primary package");
@@ -2028,7 +2123,7 @@ void File_Mxf::ContentStorage_Packages()
         Get_UL (Data,                                           "Data", NULL);
 
         FILLING_BEGIN();
-            if (Data==Preface_PrimaryPackage_Data)
+            if (Data==Prefaces[Preface_Current].PrimaryPackage)
                 Element_Info("Primary package");
             ContentStorages[InstanceUID].Packages.push_back(Data);
         FILLING_END();
@@ -2158,6 +2253,58 @@ void File_Mxf::InterchangeObject_InstanceUID()
 {
     //Parsing
     Get_UUID(InstanceUID,                                       "UUID");
+
+    FILLING_BEGIN();
+        //Putting the right UID for already parsed items
+        prefaces::iterator Preface=Prefaces.find(0);
+        if (Preface!=Prefaces.end())
+        {
+            Prefaces[InstanceUID]=Preface->second;
+            Prefaces.erase(Preface);
+        }
+        identifications::iterator Identification=Identifications.find(0);
+        if (Identification!=Identifications.end())
+        {
+            Identifications[InstanceUID]=Identification->second;
+            Identifications.erase(Identification);
+        }
+        contentstorages::iterator ContentStorage=ContentStorages.find(0);
+        if (ContentStorage!=ContentStorages.end())
+        {
+            ContentStorages[InstanceUID]=ContentStorage->second;
+            ContentStorages.erase(ContentStorage);
+        }
+        packages::iterator Package=Packages.find(0);
+        if (Package!=Packages.end())
+        {
+            Packages[InstanceUID]=Package->second;
+            Packages.erase(Package);
+        }
+        tracks::iterator Track=Tracks.find(0);
+        if (Track!=Tracks.end())
+        {
+            Tracks[InstanceUID]=Track->second;
+            Tracks.erase(Track);
+        }
+        descriptors::iterator Descriptor=Descriptors.find(0);
+        if (Descriptor!=Descriptors.end())
+        {
+            Descriptors[InstanceUID]=Descriptor->second;
+            Descriptors.erase(Descriptor);
+        }
+        locators::iterator Locator=Locators.find(0);
+        if (Locator!=Locators.end())
+        {
+            Locators[InstanceUID]=Locator->second;
+            Locators.erase(Locator);
+        }
+        components::iterator Component=Components.find(0);
+        if (Component!=Components.end())
+        {
+            Components[InstanceUID]=Component->second;
+            Components.erase(Component);
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3077,7 +3224,7 @@ void File_Mxf::Preface_ContentStorage()
     Get_UUID(Data,                                              "Data");
 
     FILLING_BEGIN();
-        Preface_ContentStorage_Data=Data;
+        Prefaces[Preface_Current].ContentStorage=Data;
     FILLING_END();
 }
 
@@ -3103,8 +3250,13 @@ void File_Mxf::Preface_Identifications()
     for (int32u Pos=0; Pos<Count; Pos++)
     {
         Element_Begin("Identification", Length);
-        Skip_UUID(                                              "UUID");
+        int128u Data;
+        Get_UUID(Data,                                          "UUID");
         Element_End();
+
+        FILLING_BEGIN();
+            Prefaces[Preface_Current].Identifications.push_back(Data);
+        FILLING_END();
     }
 }
 
@@ -3125,7 +3277,7 @@ void File_Mxf::Preface_PrimaryPackage()
     Get_UUID(Data,                                              "Data");
 
     FILLING_BEGIN();
-        Preface_PrimaryPackage_Data=Data;
+        Prefaces[Preface_Current].PrimaryPackage=Data;
     FILLING_END();
 }
 

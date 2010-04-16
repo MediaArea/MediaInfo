@@ -47,10 +47,15 @@ public :
 protected :
     //Streams management
     void Streams_Finish ();
-    void Streams_Finish_Descriptor (int128u DescriptorUID, int64u &File_Size_Total);
-    void Streams_Finish_Locator (int128u LocatorUID, int64u &File_Size_Total);
-    void Streams_Finish_Track (int128u TrackUID, std::vector<size_t> &Base_Positions);
+    void Streams_Finish_Preface (int128u PrefaceUID);
+    void Streams_Finish_ContentStorage (int128u ContentStorageUID);
+    void Streams_Finish_Package (int128u PackageUID);
+    void Streams_Finish_Track (int128u TrackUID);
+    void Streams_Finish_Essence (int32u EssenceUID, int128u TrackUID);
+    void Streams_Finish_Descriptor (int128u DescriptorUID);
+    void Streams_Finish_Locator (int128u LocatorUID);
     void Streams_Finish_Component (int128u ComponentUID, float32 EditRate);
+    void Streams_Finish_Identification (int128u IdentificationUID);
 
     //Buffer - Global
     void Read_Buffer_Continue ();
@@ -285,14 +290,44 @@ protected :
     size_t Streams_Count;
     int128u Code;
     int128u InstanceUID;
-    int128u Preface_PrimaryPackage_Data;
-    int128u Preface_ContentStorage_Data;
     int64u Buffer_DataSizeToParse;
     int16u Code2;
     int16u Length2;
+    int64u File_Size_Total; //Used only in Finish()
 
     //Primer
     std::map<int16u, int128u> Primer_Values;
+
+    //Preface
+    struct preface
+    {
+        int128u PrimaryPackage;
+        std::vector<int128u> Identifications;
+        int128u ContentStorage;
+
+        preface()
+        {
+            PrimaryPackage.hi=(int64u)-1;
+            PrimaryPackage.lo=(int64u)-1;
+            ContentStorage.hi=(int64u)-1;
+            ContentStorage.lo=(int64u)-1;
+        }
+    };
+    typedef std::map<int128u, preface> prefaces; //Key is InstanceUID of preface
+    prefaces Prefaces;
+    int128u  Preface_Current;
+
+    //Identification
+    struct identification
+    {
+        Ztring CompanyName;
+        Ztring ProductName;
+        Ztring ProductVersion;
+        Ztring VersionString;
+        std::map<std::string, Ztring> Infos;
+    };
+    typedef std::map<int128u, identification> identifications; //Key is InstanceUID of identification
+    identifications Identifications;
 
     //ContentStorage
     struct contentstorage
@@ -318,26 +353,6 @@ protected :
     typedef std::map<int128u, package> packages; //Key is InstanceUID of package
     packages Packages;
 
-    //Identification
-    struct identification
-    {
-        Ztring CompanyName;
-        Ztring ProductName;
-        Ztring ProductVersion;
-        Ztring VersionString;
-        std::map<std::string, Ztring> Infos;
-    };
-    typedef std::map<int128u, identification> identifications; //Key is InstanceUID of identification
-    identifications Identifications;
-
-    //Locator
-    struct locator
-    {
-        Ztring EssenceLocator;
-    };
-    typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
-    locators Locators;
-
     //Track
     struct track
     {
@@ -359,6 +374,67 @@ protected :
     typedef std::map<int128u, track> tracks; //Key is InstanceUID of the track
     tracks Tracks;
 
+    //Essence
+    struct essence
+    {
+        stream_t StreamKind;
+        size_t   StreamPos;
+        File__Analyze* Parser;
+        std::map<std::string, Ztring> Infos;
+        bool   Stream_Finish_Done;
+
+        essence()
+        {
+            StreamKind=Stream_Max;
+            StreamPos=(size_t)-1;
+            Parser=NULL;
+            Stream_Finish_Done=false;
+        }
+
+        ~essence()
+        {
+            delete Parser; //Parser=NULL;
+        }
+    };
+    typedef std::map<int32u, essence> essences; //Key is TrackNumber
+    essences Essences;
+
+    //Descriptor
+    struct descriptor
+    {
+        std::vector<int128u> SubDescriptors;
+        std::vector<int128u> Locators;
+
+        stream_t StreamKind;
+        float32 SampleRate;
+        int128u InstanceUID;
+        int32u LinkedTrackID;
+        int32u Width;
+        int32u Height;
+        std::map<std::string, Ztring> Infos;
+
+        descriptor()
+        {
+            StreamKind=Stream_Max;
+            SampleRate=0;
+            InstanceUID.hi=(int64u)-1;
+            InstanceUID.lo=(int64u)-1;
+            LinkedTrackID=(int32u)-1;
+            Width=(int32u)-1;
+            Height=(int32u)-1;
+        }
+    };
+    typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor
+    descriptors Descriptors;
+
+    //Locator
+    struct locator
+    {
+        Ztring EssenceLocator;
+    };
+    typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
+    locators Locators;
+
     //Component (Sequence, TimeCode, Source Clip)
     struct component
     {
@@ -372,68 +448,6 @@ protected :
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
     components Components;
 
-    //Essence
-    struct essence
-    {
-        stream_t StreamKind;
-        size_t   StreamPos;
-        File__Analyze* Parser;
-        std::map<std::string, Ztring> Infos;
-
-        essence()
-        {
-            StreamKind=Stream_Max;
-            StreamPos=(size_t)-1;
-            Parser=NULL;
-        }
-
-        ~essence()
-        {
-            delete Parser; //Parser=NULL;
-        }
-    };
-    typedef std::map<int32u, essence> essences;
-    essences Essences;
-
-    //Descriptor
-    struct descriptor
-    {
-        std::vector<int128u> SubDescriptors;
-        std::vector<int128u> Locators;
-
-        stream_t StreamKind;
-        float32 SampleRate;
-        int32u LinkedTrackID;
-        int32u Width;
-        int32u Height;
-        std::map<std::string, Ztring> Infos;
-
-        descriptor()
-        {
-            StreamKind=Stream_Max;
-            SampleRate=0;
-            LinkedTrackID=(int32u)-1;
-            Width=(int32u)-1;
-            Height=(int32u)-1;
-        }
-    };
-    typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor
-    descriptors Descriptors;
-
-    //IDs
-    struct id
-    {
-        stream_t StreamKind;
-        size_t   StreamPos;
-
-        id()
-        {
-            StreamKind=Stream_Max;
-            StreamPos=(size_t)-1;
-        }
-    };
-    typedef std::map<int32u, id> trackids; //Key is TrackID/LinkedTrackID
-    trackids TrackIDs;
 };
 
 } //NameSpace
