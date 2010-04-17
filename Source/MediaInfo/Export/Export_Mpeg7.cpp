@@ -63,8 +63,16 @@ const Char* Mpeg7_Type(MediaInfo_Internal &MI) //TO ADAPT
     }
     else if (MI.Count_Get(Stream_Audio))
         return _T("Audio");
-    else
-        return _T("NoKnown");
+
+    //Not known
+    const Ztring &Format=MI.Get(Stream_General, 0, General_Format);
+    if (Format==_T("AVI") || Format==_T("DV") || Format==_T("MPEG-4") || Format==_T("MPEG-PS") || Format==_T("MPEG-TS") || Format==_T("QuickTime") || Format==_T("Windows Media"))
+        return _T("Video");
+    if (Format==_T("MPEG Audio") || Format==_T("Wave"))
+        return _T("Audio");
+    if (Format==_T("BMP") || Format==_T("GIF") || Format==_T("JPEG") || Format==_T("JPEG 2000") || Format==_T("M-JPEG 2000") || Format==_T("PNG") || Format==_T("TIFF"))
+        return _T("Image");
+    return _T("Multimedia");
 }
 
 //---------------------------------------------------------------------------
@@ -86,8 +94,16 @@ int32u Mpeg7_ContentCS_termID(MediaInfo_Internal &MI)
     }
     else if (MI.Count_Get(Stream_Audio))
         return 10000;
-    else
-        return 0;
+
+    //Not known
+    const Ztring &Format=MI.Get(Stream_General, 0, General_Format);
+    if (Format==_T("AVI") || Format==_T("DV") || Format==_T("MPEG-4") || Format==_T("MPEG-PS") || Format==_T("MPEG-TS") || Format==_T("QuickTime") || Format==_T("Windows Media"))
+        return 40200;
+    if (Format==_T("MPEG Audio") || Format==_T("Wave"))
+        return 10000;
+    if (Format==_T("BMP") || Format==_T("GIF") || Format==_T("JPEG") || Format==_T("JPEG 2000") || Format==_T("M-JPEG 2000") || Format==_T("PNG") || Format==_T("TIFF"))
+        return 40100;
+    return 500000;
 }
 
 Ztring Mpeg7_ContentCS_Name(int32u termID, MediaInfo_Internal &) //xxyyzz: xx=main number, yy=sub-number, zz=sub-sub-number
@@ -103,8 +119,29 @@ Ztring Mpeg7_ContentCS_Name(int32u termID, MediaInfo_Internal &) //xxyyzz: xx=ma
                         case 2 : return _T("Video");
                         case 3 : return _T("Graphics");
                     }
+        case 50 : return Ztring(); //Unknown
         default : return Ztring();
     }
+}
+
+//---------------------------------------------------------------------------
+int32u Mpeg7_FileFormatCS_termID_MediaInfo(MediaInfo_Internal &MI)
+{
+    const Ztring &Format=MI.Get(Stream_General, 0, General_Format);
+
+    if (Format==_T("MPEG Audio"))
+    {
+        if (MI.Get(Stream_Audio, 0, Audio_Format_Profile).find(_T("2"))!=string::npos)
+            return 500000; //mp2
+        if (MI.Get(Stream_Audio, 0, Audio_Format_Profile).find(_T("1"))!=string::npos)
+            return 510000; //mp1
+        return 0;
+    }
+    if (Format==_T("Wave") && MI.Get(Stream_Audio, 0, Audio_Format_Profile)==_T("RF64"))
+        return 520000; //Wav (RF64)
+    if (Format==_T("Wave64"))
+        return 530000;
+    return 0;
 }
 
 //---------------------------------------------------------------------------
@@ -122,7 +159,7 @@ int32u Mpeg7_FileFormatCS_termID(MediaInfo_Internal &MI)
         return 60000;
     if (Format==_T("JPEG"))
         return 10000;
-    if (Format==_T("JPEG 200000") || Format==_T("M-JPEG 200000"))
+    if (Format==_T("JPEG 2000") || Format==_T("M-JPEG 2000"))
         return 20000;
     if (Format==_T("MPEG Audio"))
         return (MI.Get(Stream_Audio, 0, Audio_Format_Profile).find(_T("3"))!=string::npos)?40000:0;
@@ -149,27 +186,9 @@ int32u Mpeg7_FileFormatCS_termID(MediaInfo_Internal &MI)
         return 190000;
     if (Format==_T("ZIP"))
         return 100000;
-    return 0;
-}
 
-//---------------------------------------------------------------------------
-int32u Mpeg7_FileFormatCS_termID_MediaInfo(MediaInfo_Internal &MI)
-{
-    const Ztring &Format=MI.Get(Stream_General, 0, General_Format);
-
-    if (Format==_T("MPEG Audio"))
-    {
-        if (MI.Get(Stream_Audio, 0, Audio_Format_Profile).find(_T("2"))!=string::npos)
-            return 500000; //mp2
-        if (MI.Get(Stream_Audio, 0, Audio_Format_Profile).find(_T("1"))!=string::npos)
-            return 510000; //mp1
-        return 0;
-    }
-    if (Format==_T("Wave") && MI.Get(Stream_Audio, 0, Audio_Format_Profile)==_T("RF64"))
-        return 520000; //Wav (RF64)
-    if (Format==_T("Wave64"))
-        return 530000;
-    return 0;
+    //Out of specs
+    return Mpeg7_FileFormatCS_termID_MediaInfo(MI);
 }
 
 Ztring Mpeg7_FileFormatCS_Name(int32u termID, MediaInfo_Internal &MI) //xxyyzz: xx=main number, yy=sub-number, zz=sub-sub-number
@@ -206,7 +225,7 @@ Ztring Mpeg7_FileFormatCS_Name(int32u termID, MediaInfo_Internal &MI) //xxyyzz: 
         //Out of specs --> MediaInfo CS
         case 50 : return _T("mp1");
         case 51 : return _T("mp2");
-        case 52 : return _T("wav (RF64)");
+        case 52 : return _T("wav-rf64)");
         case 53 : return _T("wave64");
         default : return MI.Get(Stream_General, 0, General_Format);
     }
@@ -991,60 +1010,66 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
     //Content
     ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:Content");
     int32u ContentCS_termID=Mpeg7_ContentCS_termID(MI);
-    if (ContentCS_termID)
-    {
+    if (ContentCS_termID>=500000) //Out of spec
+        ToReturn+=_T(" href=\"urn:x-mpeg7-mediainfo:cs:ContentCS:2009:");
+    else
         ToReturn+=_T(" href=\"urn:mpeg:mpeg7:cs:ContentCS:2001:");
-        ToReturn+=Ztring::ToZtring(ContentCS_termID/10000);
-        if (ContentCS_termID%10000)
+    ToReturn+=Ztring::ToZtring(ContentCS_termID/10000);
+    if (ContentCS_termID%10000)
+    {
+        ToReturn+=_T(".");
+        ToReturn+=Ztring::ToZtring((ContentCS_termID%10000)/100);
+        if (ContentCS_termID%100)
         {
             ToReturn+=_T(".");
-            ToReturn+=Ztring::ToZtring((ContentCS_termID%10000)/100);
-            if (ContentCS_termID%100)
-            {
-                ToReturn+=_T(".");
-                ToReturn+=Ztring::ToZtring(ContentCS_termID%100);
-            }
+            ToReturn+=Ztring::ToZtring(ContentCS_termID%100);
         }
-        ToReturn+=_T("\"");
     }
+    ToReturn+=_T("\"");
     ToReturn+=_T(">\n");
     ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_ContentCS_Name(ContentCS_termID, MI); ToReturn+=_T("</mpeg7:Name>\n");
     ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:Content>\n");
 
     //FileFormat
-    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:FileFormat");
-    int32u FileFormatCS_termID=Mpeg7_FileFormatCS_termID(MI);
-    if (FileFormatCS_termID)
+    if (!MI.Get(Stream_General, 0, General_Format).empty())
     {
-        ToReturn+=_T(" href=\"urn:mpeg:mpeg7:cs:FileFormatCS:2001:");
-        ToReturn+=Ztring::ToZtring(FileFormatCS_termID/10000);
-        ToReturn+=_T("\"");
-    }
-    ToReturn+=_T(">\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name((FileFormatCS_termID/10000)*10000, MI); ToReturn+=_T("</mpeg7:Name>\n");
-    if (FileFormatCS_termID%10000)
-    {
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Term termID=\"");
-        ToReturn+=Ztring::ToZtring(FileFormatCS_termID/10000);
-        ToReturn+=_T(".");
-        ToReturn+=Ztring::ToZtring((FileFormatCS_termID%10000)/100);
-        ToReturn+=_T("\">\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name((FileFormatCS_termID/100)*100, MI); ToReturn+=_T("</mpeg7:Name>\n");
-        if (FileFormatCS_termID%100)
+        ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:FileFormat");
+        int32u FileFormatCS_termID=Mpeg7_FileFormatCS_termID(MI);
+        if (FileFormatCS_termID)
         {
-            ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Term termID=\"");
+            if (FileFormatCS_termID>=500000) //Out of spec
+                ToReturn+=_T(" href=\"urn:x-mpeg7-mediainfo:cs:FileFormatCS:2009:");
+            else
+                ToReturn+=_T(" href=\"urn:mpeg:mpeg7:cs:FileFormatCS:2001:");
+            ToReturn+=Ztring::ToZtring(FileFormatCS_termID/10000);
+            ToReturn+=_T("\"");
+        }
+        ToReturn+=_T(">\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name((FileFormatCS_termID/10000)*10000, MI); ToReturn+=_T("</mpeg7:Name>\n");
+        if (FileFormatCS_termID%10000)
+        {
+            ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Term termID=\"");
             ToReturn+=Ztring::ToZtring(FileFormatCS_termID/10000);
             ToReturn+=_T(".");
             ToReturn+=Ztring::ToZtring((FileFormatCS_termID%10000)/100);
-            ToReturn+=_T(".");
-            ToReturn+=Ztring::ToZtring(FileFormatCS_termID%100);
             ToReturn+=_T("\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name(FileFormatCS_termID, MI); ToReturn+=_T("</mpeg7:Name>\n");
-            ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Term>\n");
+            ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name((FileFormatCS_termID/100)*100, MI); ToReturn+=_T("</mpeg7:Name>\n");
+            if (FileFormatCS_termID%100)
+            {
+                ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Term termID=\"");
+                ToReturn+=Ztring::ToZtring(FileFormatCS_termID/10000);
+                ToReturn+=_T(".");
+                ToReturn+=Ztring::ToZtring((FileFormatCS_termID%10000)/100);
+                ToReturn+=_T(".");
+                ToReturn+=Ztring::ToZtring(FileFormatCS_termID%100);
+                ToReturn+=_T("\">\n");
+                ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name(FileFormatCS_termID, MI); ToReturn+=_T("</mpeg7:Name>\n");
+                ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Term>\n");
+            }
+            ToReturn+=_T("\t\t\t\t\t\t\t\t\t</mpeg7:Term>\n");
         }
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t</mpeg7:Term>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:FileFormat>\n");
     }
-    ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:FileFormat>\n");
 
     //FileSize
     ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:FileSize>"); ToReturn+=MI.Get(Stream_General, 0, General_FileSize); ToReturn+=_T("</mpeg7:FileSize>\n");
@@ -1076,27 +1101,30 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
     }
 
     //BitRate
-    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:BitRate");
-    bool IsCBR=true;
-    bool IsVBR=true;
-    for (size_t StreamKind=Stream_Video; StreamKind<=Stream_Audio; StreamKind++)
-        for (size_t StreamPos=0; StreamPos<MI.Count_Get((stream_t)StreamKind); StreamPos++)
-        {
-            if (IsCBR && MI.Get((stream_t)StreamKind, StreamPos, _T("BitRate_Mode"))==_T("VBR"))
-                IsCBR=false;
-            if (IsVBR && MI.Get((stream_t)StreamKind, StreamPos, _T("BitRate_Mode"))==_T("CBR"))
-                IsVBR=false;
-        }
-    if (IsCBR && IsVBR)
+    if (!MI.Get(Stream_General, 0, General_OverallBitRate).empty())
     {
-        IsCBR=false;
-        IsVBR=false;
+        ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:BitRate");
+        bool IsCBR=true;
+        bool IsVBR=true;
+        for (size_t StreamKind=Stream_Video; StreamKind<=Stream_Audio; StreamKind++)
+            for (size_t StreamPos=0; StreamPos<MI.Count_Get((stream_t)StreamKind); StreamPos++)
+            {
+                if (IsCBR && MI.Get((stream_t)StreamKind, StreamPos, _T("BitRate_Mode"))==_T("VBR"))
+                    IsCBR=false;
+                if (IsVBR && MI.Get((stream_t)StreamKind, StreamPos, _T("BitRate_Mode"))==_T("CBR"))
+                    IsVBR=false;
+            }
+        if (IsCBR && IsVBR)
+        {
+            IsCBR=false;
+            IsVBR=false;
+        }
+        if (IsCBR)
+            ToReturn+=_T(" variable=\"false\"");
+        if (IsVBR)
+            ToReturn+=_T(" variable=\"true\"");
+        ToReturn+=_T(">"); ToReturn+=MI.Get(Stream_General, 0, General_OverallBitRate); ToReturn+=_T("</mpeg7:BitRate>\n");
     }
-    if (IsCBR)
-        ToReturn+=_T(" variable=\"false\"");
-    if (IsVBR)
-        ToReturn+=_T(" variable=\"true\"");
-    ToReturn+=_T(">"); ToReturn+=MI.Get(Stream_General, 0, General_OverallBitRate); ToReturn+=_T("</mpeg7:BitRate>\n");
 
     //xxxCoding
     for (size_t Pos=0; Pos<MI.Count_Get(Stream_Video); Pos++)
@@ -1125,13 +1153,16 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
     ToReturn+=_T("\t\t\t\t\t</mpeg7:MediaProfile>\n");
     ToReturn+=_T("\t\t\t\t</mpeg7:MediaInformation>\n");
 
-    //MediaTimePoint
-    ToReturn+=_T("\t\t\t\t<mpeg7:MediaTime>\n");
-    ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaTimePoint>")+Mpeg7_MediaTimePoint(MI)+_T("</mpeg7:MediaTimePoint>\n");
+    if (MI.Count_Get(Stream_Video)==1 || MI.Count_Get(Stream_Audio)==1)
+    {
+        //MediaTimePoint
+        ToReturn+=_T("\t\t\t\t<mpeg7:MediaTime>\n");
+        ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaTimePoint>")+Mpeg7_MediaTimePoint(MI)+_T("</mpeg7:MediaTimePoint>\n");
 
-    //MediaDuration
-    ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaDuration>"); ToReturn+=Mpeg7_MediaDuration(MI); ToReturn+=_T("</mpeg7:MediaDuration>\n");
-    ToReturn+=_T("\t\t\t\t</mpeg7:MediaTime>\n");
+        //MediaDuration
+        ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaDuration>"); ToReturn+=Mpeg7_MediaDuration(MI); ToReturn+=_T("</mpeg7:MediaDuration>\n");
+        ToReturn+=_T("\t\t\t\t</mpeg7:MediaTime>\n");
+    }
 
     //Mpeg7 footer
     ToReturn+=_T("\t\t\t</mpeg7:"); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T(">\n");

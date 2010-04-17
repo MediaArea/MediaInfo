@@ -1162,6 +1162,10 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     if (Element_Offset+2<=Element_Size)
         Get_L2 (BitsPerSample,                                  "BitsPerSample");
 
+    //Coherency
+    if (Channels==0 || SamplesPerSec==0 || AvgBytesPerSec==0)
+        return;
+
     //Filling
     Stream_Prepare(Stream_Audio);
     Stream[Stream_ID].Compression=FormatTag;
