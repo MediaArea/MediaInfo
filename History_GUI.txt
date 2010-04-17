@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.31, 2010-
+--------------
++ Danish translation updated
+
 Version 0.7.31, 2010-04-16
 --------------
 + SCTE 20 closed caption support

@@ -149,7 +149,7 @@ Actor_Character;Rolle
 Added_Date;Tilføjet den
 Address;Adresse
 Advanced;Avanceret
-Advanced mode;Avanceret modus
+Advanced mode;Avanceret tilstand
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
@@ -325,8 +325,8 @@ Format_Settings_ITU;Formatindstillinger, ITU
 Format_Settings_SBR;Formatindstillinger, SBR
 Format_Settings_PS;Formatindstillinger, PS
 Format_Settings_Pulldown;Formatindstillinger, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
+Format_Settings_Mode;Tilstand
+Format_Settings_FrameMode;Billedtilstand
 Format_Settings_Emphasis
 Format_Version;Formatversion
 Format_Url;Weblink til format
@@ -493,7 +493,7 @@ Go to WebSite;Gå til websted
 h;t
 Header file;Opret en header-fil
 Height;Højde
-Height_Original
+Height_Original;Oprindelig højde
 Help;Hjælp
 Hint;Tip
 How many audio streams?;Hvor mange lydstrømme?
@@ -557,7 +557,7 @@ Language_cr
 Language_cs;Tjekkisk
 Language_cu
 Language_cv
-Language_cy
+Language_cy;Walisisk
 Language_da;Dansk
 Language_de;Tysk
 Language_dv
@@ -574,12 +574,12 @@ Language_eu;Basisk
 Language_fa;Persisk
 Language_ff
 Language_fi;Finsk
-Language_fj
+Language_fj;Fijiansk
 Language_fo;Færøsk
 Language_fr;Fransk
 Language_fy;Frisisk
 Language_ga;Irsk
-Language_gd
+Language_gd;Gælisk
 Language_gl
 Language_gn
 Language_gu
@@ -589,7 +589,7 @@ Language_he;Hebræisk
 Language_hi;Hindi
 Language_ho
 Language_hr;Kroatisk
-Language_ht
+Language_ht;Haitisk
 Language_hu;Ungarsk
 Language_hy;Armensk
 Language_hz
@@ -619,10 +619,10 @@ Language_kr
 Language_ks
 Language_ku;Kurdisk
 Language_kv
-Language_kw
+Language_kw;Kornisk
 Language_ky;Kirgisisk
 Language_la;Latin
-Language_lb
+Language_lb;Luxembourgsk 
 Language_lg
 Language_li
 Language_ln
@@ -638,7 +638,7 @@ Language_ml
 Language_mn;Mongolsk
 Language_mo;Moldavisk
 Language_mr
-Language_ms
+Language_ms;Malajisk 
 Language_mt;Maltesisk
 Language_mul
 Language_my;Burmesisk
@@ -728,7 +728,7 @@ Lyrics;Sangtekster
 Lyricist;Tekstforfatter
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
-matrix_coefficients
+matrix_coefficients;Matrix-coefficienter
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustrømme
@@ -909,7 +909,7 @@ TimeZone;Tidszone
 Total;Totalt
 Track;Spornavn
 Track_Count;Spornummer
-transfer_characteristics
+transfer_characteristics;Overførselskarakteristika
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
@@ -937,7 +937,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Gå til dette codecs websted
 WebSite_Video_More;Gå til webstedet (%Url%) for at finde dette video-codec
 Width;Bredde
-Width_Original
+Width_Original;Oprindelig bredde
 WriteMe;Skriv e-mail til programmøren
 WriteToTranslator;Skriv til oversætteren
 Written_Date;Skrevet den
@@ -945,5 +945,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;89
+ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;99
