@@ -323,7 +323,7 @@ void File_DvDif::Streams_Fill()
     }
     else if (stype==0xA || stype==0xB)
     {
-        Fill(Stream_Video, 0, Video_Width, system?1280:1440);
+        Fill(Stream_Video, 0, Video_Width, system?1440:1280);
         Fill(Stream_Video, 0, Video_Height, stype==0xA?1080:1035);
     }
     else
@@ -385,18 +385,18 @@ void File_DvDif::Streams_Fill()
     if (FrameSize_Theory)
     {
         float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*8;
-        if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate=DSF?28800000:28771229;
+        if (OverallBitRate>27360000 && OverallBitRate<=30240000) OverallBitRate=DSF?28800000:28771229;
         if (FSC_WasSet)
         {
             if (FSP_WasNotSet)
-                OverallBitRate=0; //DV100, variable bitrate
+                OverallBitRate*=4; //DV100
             else
                 OverallBitRate*=2; //DV50
         }
         if (OverallBitRate)
         {
             Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
-            Fill(Stream_Video, 0, Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
+            Fill(Stream_Video, 0, (FSC_WasSet && FSP_WasNotSet)?Video_BitRate_Maximum:Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
         }
     }
 

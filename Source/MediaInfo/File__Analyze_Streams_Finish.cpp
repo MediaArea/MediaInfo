@@ -156,6 +156,31 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
         else if (Retrieve(Stream_Video, Pos, Video_Height)==_T("480"))
             Fill(Stream_Video, Pos, Video_Standard, "NTSC");
     }
+
+    //Known bitrates
+    if (Count_Get(Stream_Video)==1 && Count_Get(Stream_Audio)==0 && Retrieve(Stream_General, 0, General_Format)==_T("MXF"))
+    {
+        int32u BitRate=Retrieve(Stream_Video, 0, Video_BitRate).To_int32u();
+        int32u BitRate_Sav=BitRate;
+
+        if (BitRate>= 54942720 && BitRate<= 57185280) BitRate= 56064000; //AVC-INTRA50
+        if (BitRate>=111390720 && BitRate<=115937280) BitRate=113664000; //AVC-INTRA100
+
+        if (BitRate!=BitRate_Sav)
+            Fill(Stream_Video, 0, Video_BitRate, BitRate, 0, true);
+    }
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, Video_Format)==_T("DV") && Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("DVCPRO HD"))
+    {
+        int32u BitRate=Retrieve(Stream_Video, 0, Video_BitRate).To_int32u();
+        int32u BitRate_Max=Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int32u();
+
+        if (BitRate_Max && BitRate>=BitRate_Max)
+        {
+            Clear(Stream_Video, 0, Video_BitRate_Maximum);
+            Fill(Stream_Video, 0, Video_BitRate, BitRate_Max, 10, true);
+            Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR", Unlimited, true, true);
+        }
+    }
 }
 
 //---------------------------------------------------------------------------

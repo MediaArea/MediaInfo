@@ -291,6 +291,7 @@ protected :
     int128u Code;
     int128u InstanceUID;
     int64u Buffer_DataSizeToParse;
+    int64u Buffer_DataSizeToParse_Complete;
     int16u Code2;
     int16u Length2;
     int64u File_Size_Total; //Used only in Finish()
@@ -381,6 +382,7 @@ protected :
         size_t   StreamPos;
         File__Analyze* Parser;
         std::map<std::string, Ztring> Infos;
+        int64u Stream_Size;
         bool   Stream_Finish_Done;
 
         essence()
@@ -388,6 +390,7 @@ protected :
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             Parser=NULL;
+            Stream_Size=(int64u)-1;
             Stream_Finish_Done=false;
         }
 

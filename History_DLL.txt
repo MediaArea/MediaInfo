@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.32, 2010-
 --------------
 + MPEG-7 output improvements
++ DV: Better detection of DVCPRO 50 and 100 (again), especially in MXF
 x AVC: some files were wrongly analyzed (frame rate...)
 
 Version 0.7.31, 2010-04-16

@@ -396,6 +396,7 @@ File_Mxf::File_Mxf()
     //Temp
     Streams_Count=(size_t)-1;
     Buffer_DataSizeToParse=0;
+    Buffer_DataSizeToParse_Complete=(int64u)-1;
     Preface_Current.hi=(int64u)-1;
     Preface_Current.lo=(int64u)-1;
 }
@@ -445,8 +446,6 @@ void File_Mxf::Streams_Finish_ContentStorage (int128u ContentStorageUID)
 //---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish_Package (int128u PackageUID)
 {
-    int64u File_Size_Total=File_Size;
-
     packages::iterator Package=Packages.find(PackageUID);
     if (Package==Packages.end())
         return;
@@ -578,6 +577,10 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+Retrieve(Stream_Text, Pos, Text_ID), true);
         }
     }
+
+    //Stream size
+    if (StreamKind_Last!=Stream_Max && Count_Get(Stream_Video)+Count_Get(Stream_Audio)==1 && Essence->second.Stream_Size!=(int64u)-1)
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Essence->second.Stream_Size);
 
     //Done
     Essence->second.Stream_Finish_Done=true;
@@ -946,9 +949,10 @@ void File_Mxf::Header_Parse()
     int8u Length;
     Get_UL(Code,                                                "Code", NULL);
     Get_B1(Length,                                              "Length");
+    int64u Length_Final;
     if (Length<0x80)
     {
-        Header_Fill_Size(Element_Offset+Length);
+        Length_Final=Length;
     }
     else
     {
@@ -959,75 +963,75 @@ void File_Mxf::Header_Parse()
                     {
                     int8u  Length1;
                     Get_B1(Length1,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length1);
+                    Length_Final=Length1;
                     }
                     break;
             case 2 :
                     {
                     int16u Length2;
                     Get_B2(Length2,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length2);
+                    Length_Final=Length2;
                     }
                     break;
             case 3 :
                     {
                     int32u Length3;
                     Get_B3(Length3,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length3);
+                    Length_Final=Length3;
                     }
                     break;
             case 4 :
                     {
                     int32u Length4;
                     Get_B4(Length4,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length4);
+                    Length_Final=Length4;
                     }
                     break;
             case 5 :
                     {
                     int64u Length5;
                     Get_B5(Length5,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length5);
+                    Length_Final=Length5;
                     }
                     break;
             case 6 :
                     {
                     int64u Length6;
                     Get_B6(Length6,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length6);
+                    Length_Final=Length6;
                     }
                     break;
             case 7 :
                     {
                     int64u Length7;
                     Get_B7(Length7,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length7);
+                    Length_Final=Length7;
                     }
                     break;
             case 8 :
                     {
                     int64u Length8;
                     Get_B8(Length8,                             "Length");
-                    Header_Fill_Size(Element_Offset+Length8);
+                    Length_Final=Length8;
                     }
                     break;
-            default: Header_Fill_Size(Element_Offset);
+            default: Length_Final=0; //Problem
         }
     }
 
     //Filling
-    if (Buffer_Size-Buffer_Offset<Element_TotalSize_Get(1))
+    if (Buffer_Offset+Length_Final>(size_t)-1 || Buffer_Offset+(size_t)Length_Final>Buffer_Size)
     {
         int32u Code_Compare1=Code.hi>>32;
         int32u Code_Compare2=(int32u)Code.hi;
         int32u Code_Compare3=Code.lo>>32;
-        //int32u Code_Compare4=(int32u)Code.lo;
-             if (Code_Compare1==0x060E2B34
-              && Code_Compare2==0x01020101
-              && Code_Compare3==0x0D010301)
+        if (Code_Compare1==0x060E2B34
+         && Code_Compare2==0x01020101
+         && Code_Compare3==0x0D010301)
         {
-            Buffer_DataSizeToParse=Element_TotalSize_Get(1)-(Buffer_Size-Buffer_Offset);
-            Header_Fill_Size(Element_Size);
+            Buffer_DataSizeToParse_Complete=Length_Final;
+            Length_Final=Buffer_Size-(Buffer_Offset+Element_Offset);
+            Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
         }
         else
         {
@@ -1035,8 +1039,8 @@ void File_Mxf::Header_Parse()
             return;
         }
     }
-    Ztring Temp=Ztring().From_Number(Code.hi, 16)+Ztring().From_Number(Code.lo, 16);
-    Header_Fill_Code(0, Temp);
+    Header_Fill_Code(0, Ztring::ToZtring(Code.hi, 16)+Ztring::ToZtring(Code.lo, 16));
+    Header_Fill_Size(Element_Offset+Length_Final);
 }
 
 //---------------------------------------------------------------------------
@@ -1275,6 +1279,10 @@ void File_Mxf::Data_Parse()
                 default         :   Essences[Code_Compare4].Parser=new File__Analyze();
             }
             Open_Buffer_Init(Essences[Code_Compare4].Parser);
+
+            //Stream size is sometime easy to find
+            if ((Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete)>=File_Size*0.98) //let imagine: if element size is 98% of file size, this is the only one element in the file
+                Essences[Code_Compare4].Stream_Size=(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete);
         }
 
         if (!(Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
