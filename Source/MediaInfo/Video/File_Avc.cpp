@@ -929,18 +929,15 @@ void File_Avc::Data_Parse()
     int64u Save_Element_Size=Element_Size;
     size_t Element_Offset_3Bytes=(size_t)Element_Offset;
     std::vector<size_t> ThreeByte_List;
-    if (!SizedBlocks || MustParse_SPS_PPS)
+    while (Element_Offset_3Bytes+3<=Element_Size)
     {
-        while (Element_Offset_3Bytes+3<=Element_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset+(size_t)Element_Offset_3Bytes)==0x000003)
-                ThreeByte_List.push_back(Element_Offset_3Bytes+2);
+        if (CC3(Buffer+Buffer_Offset+(size_t)Element_Offset_3Bytes)==0x000003)
+            ThreeByte_List.push_back(Element_Offset_3Bytes+2);
+        Element_Offset_3Bytes+=2;
+        while(Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes]!=0x00)
             Element_Offset_3Bytes+=2;
-            while(Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes]!=0x00)
-                Element_Offset_3Bytes+=2;
-            if (Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00 || Element_Offset_3Bytes>=Element_Size)
-                Element_Offset_3Bytes--;
-        }
+        if (Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00 || Element_Offset_3Bytes>=Element_Size)
+            Element_Offset_3Bytes--;
     }
 
     if (!ThreeByte_List.empty())
