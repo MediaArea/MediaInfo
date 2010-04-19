@@ -1043,6 +1043,17 @@ size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, bool)
 }
 
 //---------------------------------------------------------------------------
+size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool)
+{
+    size_t Pos_Count=ToAdd.Count_Get(StreamKind, StreamPos_From);
+    for (size_t Pos=0; Pos<Pos_Count; Pos++)
+        if (!ToAdd.Get(StreamKind, StreamPos_From, Pos).empty())
+            Fill(StreamKind, StreamPos_To, Ztring(ToAdd.Get((stream_t)StreamKind, StreamPos_From, Pos, Info_Name)).To_UTF8().c_str(), ToAdd.Get(StreamKind, StreamPos_From, Pos), true);
+
+    return 1;
+}
+
+//---------------------------------------------------------------------------
 size_t File__Analyze::Merge(File__Analyze &ToAdd, bool Erase)
 {
     size_t Count=0;

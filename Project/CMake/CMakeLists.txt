@@ -106,6 +106,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Nut.cpp
 	MediaInfo/Multiple/File_Ogg.cpp
 	MediaInfo/Multiple/File_Ogg_SubElement.cpp
+	MediaInfo/Multiple/File_P2_Clip.cpp
 	MediaInfo/Multiple/File_Riff.cpp
 	MediaInfo/Multiple/File_Riff_Elements.cpp
 	MediaInfo/Multiple/File_Rm.cpp
@@ -114,6 +115,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Umf.cpp
 	MediaInfo/Multiple/File_Wm.cpp
 	MediaInfo/Multiple/File_Wm_Elements.cpp
+	MediaInfo/Multiple/File_Xdcam_Xml.cpp
 	MediaInfo/Reader/Reader_Directory.cpp \
 	MediaInfo/Reader/Reader_File.cpp \
 	MediaInfo/Reader/Reader_libcurl.cpp \

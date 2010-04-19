@@ -163,6 +163,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_OGG_NO) && !defined(MEDIAINFO_OGG_YES)
     #define MEDIAINFO_OGG_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_P2_NO) && !defined(MEDIAINFO_P2_YES)
+    #define MEDIAINFO_P2_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_RIFF_NO) && !defined(MEDIAINFO_RIFF_YES)
     #define MEDIAINFO_RIFF_YES
 #endif
@@ -183,6 +186,9 @@
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_WM_NO) && !defined(MEDIAINFO_WM_YES)
     #define MEDIAINFO_WM_YES
+#endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_XDCAM_NO) && !defined(MEDIAINFO_XDCAM_YES)
+    #define MEDIAINFO_XDCAM_YES
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DPG_NO) && !defined(MEDIAINFO_DPG_YES)
     #define MEDIAINFO_DPG_YES

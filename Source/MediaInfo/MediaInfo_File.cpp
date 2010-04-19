@@ -77,6 +77,9 @@
 #if defined(MEDIAINFO_OGG_YES)
     #include "MediaInfo/Multiple/File_Ogg.h"
 #endif
+#if defined(MEDIAINFO_P2_YES)
+    #include "MediaInfo/Multiple/File_P2_Clip.h"
+#endif
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif
@@ -91,6 +94,9 @@
 #endif
 #if defined(MEDIAINFO_WM_YES)
     #include "MediaInfo/Multiple/File_Wm.h"
+#endif
+#if defined(MEDIAINFO_XDCAM_YES)
+    #include "MediaInfo/Multiple/File_Xdcam_Xml.h"
 #endif
 #if defined(MEDIAINFO_DPG_YES)
     #include "MediaInfo/Multiple/File_Dpg.h"
@@ -329,6 +335,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_OGG_YES)
         else if (Parser==_T("Ogg"))         Info=new File_Ogg();
     #endif
+    #if defined(MEDIAINFO_P2_YES)
+        else if (Parser==_T("P2_Clip"))     Info=new File_P2_Clip();
+    #endif
     #if defined(MEDIAINFO_RIFF_YES)
         else if (Parser==_T("Riff"))        Info=new File_Riff();
     #endif
@@ -343,6 +352,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
     #if defined(MEDIAINFO_WM_YES)
         else if (Parser==_T("Wm"))          Info=new File_Wm();
+    #endif
+    #if defined(MEDIAINFO_XDCAM_YES)
+        else if (Parser==_T("Xdcam_Xml"))   Info=new File_Xdcam_Xml();
     #endif
     #if defined(MEDIAINFO_DPG_YES)
         else if (Parser==_T("Dpg"))         Info=new File_Dpg();
@@ -566,6 +578,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #if defined(MEDIAINFO_OGG_YES)
         delete Info; Info=new File_Ogg();                if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
+    #if defined(MEDIAINFO_P2_YES)
+        delete Info; Info=new File_P2_Clip();            if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
     #if defined(MEDIAINFO_RIFF_YES)
         delete Info; Info=new File_Riff();               if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
@@ -583,6 +598,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_WM_YES)
         delete Info; Info=new File_Wm();                 if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_XDCAM_YES)
+        delete Info; Info=new File_Xdcam_Xml();          if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DPG_YES)
         delete Info; Info=new File_Dpg();                if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;

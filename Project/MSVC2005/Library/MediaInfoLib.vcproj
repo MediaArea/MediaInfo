@@ -343,6 +343,10 @@
 				Name="Video"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_AfdBarData.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.cpp"
 					>
 				</File>
@@ -352,10 +356,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Video\File_AfdBarData.cpp"
 					>
 				</File>
 				<File
@@ -507,6 +507,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Riff.cpp"
 					>
 				</File>
@@ -536,6 +540,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Xml.cpp"
 					>
 				</File>
 			</Filter>
@@ -1034,6 +1042,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Riff.h"
 					>
 				</File>
@@ -1057,20 +1069,24 @@
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Wm.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Xml.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Video"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h"
 					>
 				</File>
 				<File

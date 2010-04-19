@@ -1,5 +1,5 @@
-// Reader_Directory - All information about media files
-// Copyright (C) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
+// File_P2_Clip - Info for P2 Clip (XML) files
+// Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -17,49 +17,34 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Give information about a lot of media files
-// Dispatch the file to be tested by all containers
+// Information about Blu-ray Movie files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef Reader_DirectoryH
-#define Reader_DirectoryH
+#ifndef MediaInfo_File_P2_ClipH
+#define MediaInfo_File_P2_ClipH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/MediaInfo_Internal.h"
+#include "MediaInfo/File__Analyze.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
 //***************************************************************************
-/// @brief Reader_Directory
+// Class File_P2_Clip
 //***************************************************************************
 
-class Reader_Directory
+class File_P2_Clip : public File__Analyze
 {
-public :
-    //Format testing
-    static size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
-
-    //For the list
-    static void Directory_Cleanup(ZtringList &List);
-
 private :
-    //Bdmv
-    static int  Bdmv_Format_Test(MediaInfo_Internal* MI, const String &File_Name);
-    static void Bdmv_Directory_Cleanup(ZtringList &List);
-
-    //P2
-    static int  P2_Format_Test(MediaInfo_Internal* MI, const String &File_Name);
-    static void P2_Directory_Cleanup(ZtringList &List);
-
-    //XDCAM
-    static int  Xdcam_Format_Test(MediaInfo_Internal* MI, const String &File_Name);
-    static void Xdcam_Directory_Cleanup(ZtringList &List);
+    //Buffer - File header
+    bool FileHeader_Begin();
 };
 
 } //NameSpace
+
 #endif
+
