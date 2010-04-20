@@ -377,19 +377,19 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
-    if (!seq_parameter_set_ids.empty())
-    {
-        std::map<int32u, seq_parameter_set_>::iterator seq_parameter_set_id=seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
-        Ztring Profile=Ztring().From_Local(Avc_profile_idc(seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)seq_parameter_set_id->second.level_idc)/10, 1);
-        Fill(Stream_Video, 0, Video_Format_Profile, Profile);
-        Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
-    }
     if (!subset_seq_parameter_set_ids.empty())
     {
         std::map<int32u, seq_parameter_set_>::iterator subset_seq_parameter_set_id=subset_seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
         Ztring Profile=Ztring().From_Local(Avc_profile_idc(subset_seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)subset_seq_parameter_set_id->second.level_idc)/10, 1);
         Fill(Stream_Video, 0, Video_Format_Profile, Profile);
         Fill(Stream_Video, 0, Video_MultiView_Count, num_views_minus1+1);
+    }
+    if (!seq_parameter_set_ids.empty())
+    {
+        std::map<int32u, seq_parameter_set_>::iterator seq_parameter_set_id=seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
+        Ztring Profile=Ztring().From_Local(Avc_profile_idc(seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)seq_parameter_set_id->second.level_idc)/10, 1);
+        Fill(Stream_Video, 0, Video_Format_Profile, Profile);
+        Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
     }
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
