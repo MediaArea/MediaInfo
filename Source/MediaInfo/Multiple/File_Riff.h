@@ -76,9 +76,13 @@ public :
     ~File_Riff();
 
 private :
-    //Buffer
+    //Buffer - Global
+    void Read_Buffer_Continue ();
+
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
+
     bool BookMark_Needed();
 
     //Data
@@ -144,6 +148,7 @@ private :
     int64u WAVE_data_Size;  //RF64 WAVE_data real chunk size
     int64u WAVE_fact_samplesCount;  //RF64 WAVE_fact real samplesCount
     int64u Alignement_ExtraByte; //Padding from the container
+    int64u Buffer_DataSizeToParse;
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
@@ -243,6 +248,8 @@ private :
     void CMJP ();
     void CMP4 ();
     void IDVX ();
+    void INDX ();
+    void INDX_xxxx ();
     void JUNK ();
     void menu ();
     void MThd ();

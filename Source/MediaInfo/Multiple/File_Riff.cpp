@@ -97,6 +97,7 @@ File_Riff::File_Riff()
     //Temp
     WAVE_data_Size=0xFFFFFFFF;
     WAVE_fact_samplesCount=0xFFFFFFFF;
+    Buffer_DataSizeToParse=0;
     avih_FrameRate=0;
     avih_TotalFrame=0;
     dmlh_TotalFrame=0;
@@ -414,6 +415,33 @@ void File_Riff::Streams_Finish ()
 }
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Riff::Read_Buffer_Continue()
+{
+    if (Buffer_DataSizeToParse)
+    {
+        if (Buffer_Size<=Buffer_DataSizeToParse)
+        {
+            Element_Size=Buffer_Size; //All the buffer is used
+            Buffer_DataSizeToParse-=Buffer_Size;
+        }
+        else
+        {
+            Element_Size=Buffer_DataSizeToParse;
+            Buffer_DataSizeToParse=0;
+        }
+
+        Element_Begin();
+        AVI__movi_xxxx();
+        Element_Offset=Element_Size;
+        Element_End();
+    }
+}
+
+//***************************************************************************
 // Buffer
 //***************************************************************************
 
@@ -549,6 +577,16 @@ void File_Riff::Header_Parse()
     //Specific
     if (Name==Elements::ON2f)
         Name=Elements::AVI_;
+
+    //Filling
+    if (movi_Size && Size_Complete+8>=144000)
+        int A=0;
+    if (movi_Size && Element_Level==4 && Size_Complete+8>1024*1024)
+    {
+        Buffer_DataSizeToParse=Size_Complete+8;
+        Size_Complete=Buffer_Size-(Buffer_Offset+8);
+        Buffer_DataSizeToParse-=Size_Complete;
+    }
 
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));

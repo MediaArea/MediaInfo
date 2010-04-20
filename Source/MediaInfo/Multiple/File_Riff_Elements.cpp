@@ -390,6 +390,7 @@ namespace Elements
     const int32u CMJP=0x434D4A50;
     const int32u CMP4=0x434D5034;
     const int32u IDVX=0x49445658;
+    const int32u INDX=0x494E4458;
     const int32u JUNK=0x4A554E4B;
     const int32u menu=0x6D656E75;
     const int32u MThd=0x4D546864;
@@ -545,6 +546,10 @@ void File_Riff::Data_Parse()
         ATOM_END
     ATOM(CMP4)
     ATOM(IDVX)
+    LIST(INDX)
+        ATOM_BEGIN
+        ATOM_DEFAULT(INDX_xxxx)
+        ATOM_END_DEFAULT
     LIST_SKIP(JUNK)
     LIST_SKIP(menu)
     ATOM(MThd)
@@ -2442,6 +2447,48 @@ void File_Riff::CMP4()
 void File_Riff::IDVX()
 {
     Element_Name("Tags");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::INDX()
+{
+    Element_Name("Index (from which spec?)");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::INDX_xxxx()
+{
+    Stream_ID=(int32u)(Element_Code&0xFFFF0000);
+
+    if (Stream_ID==0x69780000) //ix..
+    {
+        //Index
+        int32u Entry_Count, ChunkId;
+        int16u LongsPerEntry;
+        int8u  IndexType, IndexSubType;
+        Get_L2 (LongsPerEntry,                                      "LongsPerEntry"); //Size of each entry in aIndex array
+        Get_L1 (IndexSubType,                                       "IndexSubType");
+        Get_L1 (IndexType,                                          "IndexType");
+        Get_L4 (Entry_Count,                                        "EntriesInUse"); //Index of first unused member in aIndex array
+        Get_C4 (ChunkId,                                            "ChunkId"); //FCC of what is indexed
+
+        Skip_L4(                                                    "Unknown");
+        Skip_L4(                                                    "Unknown");
+        Skip_L4(                                                    "Unknown");
+
+        for (int32u Pos=0; Pos<Entry_Count; Pos++)
+        {
+            Skip_L8(                                                "Offset");
+            Skip_L4(                                                "Size");
+            Skip_L4(                                                "Frame number?");
+            Skip_L4(                                                "Frame number?");
+            Skip_L4(                                                "Zero");
+        }
+    }
+
+    //Currently, we do not use the index
+    //TODO: use the index
+    Stream_Structure.clear();
 }
 
 //---------------------------------------------------------------------------

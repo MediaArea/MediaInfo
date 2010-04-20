@@ -14,6 +14,7 @@ Version 0.7.32, 2010-
 + P2: support of P2 XML files and P2 directory structure
 + XDCAM: support of XDCAM XML files and XDCAM directory structure
 x AVC: some files were wrongly analyzed (frame rate...)
+x AVI: better support of files with only one big data chunk (professional cameras)
 
 Version 0.7.31, 2010-04-16
 --------------
