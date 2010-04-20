@@ -79,7 +79,7 @@ const char* N19_DisplayStandardCode(int8u DSC)
 }
 
 //---------------------------------------------------------------------------
-const char* N19_DisplayStandardCode(int16u LC)
+const char* N19_LanguageCode(int16u LC)
 {
     switch (LC)
     {
@@ -223,7 +223,7 @@ void File_N19::FileHeader_Parse()
     Element_Name("General Subtitle Information");
 
     //Parsing
-    Ztring RD;
+    Ztring OPT, RD, TNS, MNC, MNR, CO, EN;
     string TCP;
     int64u DFC;
     int16u LC;
@@ -232,8 +232,8 @@ void File_N19::FileHeader_Parse()
     Get_C8    (    DFC,                                         "DFC - Disk Format Code"); Param_Info(N19_DiskFormatCode_FrameRate(DFC));
     Info_C1   (    DSC,                                         "DSC - Display Standard Code"); Param_Info(N19_DisplayStandardCode(DSC));
     Skip_C2   (                                                 "CCT - Character Code Table number");
-    Get_C2    (    LC,                                          "LC - Language Code");
-    Skip_Local(32,                                              "OPT - Original Programme Title");
+    Get_C2    (    LC,                                          "LC - Language Code"); Param_Info(N19_LanguageCode(LC));
+    Get_Local (32, OPT,                                         "OPT - Original Programme Title");
     Skip_Local(32,                                              "OET - Original Episode Title");
     Skip_Local(32,                                              "TPT - Translated Programme");
     Skip_Local(32,                                              "TET - Translated Episode");
@@ -244,18 +244,18 @@ void File_N19::FileHeader_Parse()
     Get_Local ( 6, RD,                                          "RD - Revision Date");
     Skip_C2   (                                                 "RN - Revision number");
     Skip_C5   (                                                 "TNB - Total Number of Text and Timing Information (TTI) blocks");
-    Skip_C5   (                                                 "TNS - Total Number of Subtitles");
+    Get_Local ( 5, TNS,                                         "TNS - Total Number of Subtitles");
     Skip_C3   (                                                 "TNG - Total Number of Subtitle Groups");
-    Skip_C2   (                                                 "MNC - Maximum Number of Displayable Characters in any text row");
-    Skip_C2   (                                                 "MNR - Maximum Number of Displayable Rows");
+    Get_Local ( 2, MNC,                                         "MNC - Maximum Number of Displayable Characters in any text row");
+    Get_Local ( 2, MNR,                                         "MNR - Maximum Number of Displayable Rows");
     Get_C1    (    TCS,                                         "TCS - Time Code: Status");
     Get_String( 8, TCP,                                         "TCP - Time Code: Start-of-Programme");
     Skip_Local( 8,                                              "TCF - Time Code: First In-Cue");
     Skip_C1   (                                                 "TND - Total Number of Disks");
     Skip_C1   (                                                 "DSN - Disk Sequence Number");
-    Skip_C3   (                                                 "CO - Country of Origin");
+    Get_Local ( 3, CO,                                          "CO - Country of Origin");
     Skip_Local(32,                                              "PUB - Publisher");
-    Skip_Local(32,                                              "EN - Editor's Name");
+    Get_Local (32, EN,                                          "EN - Editor's Name");
     Skip_Local(32,                                              "ECD - Editor's Contact Details");
     Skip_XX(75,                                                 "Spare Bytes");
     Skip_XX(576,                                                "UDA - User-Defined Area");
@@ -264,6 +264,13 @@ void File_N19::FileHeader_Parse()
         Accept("N19");
 
         Fill(Stream_General, 0, General_Format, "N19");
+        Fill(Stream_General, 0, General_Title, OPT);
+        RD.insert(0, _T("20"));
+        RD.insert(4, _T("-"));
+        RD.insert(7, _T("-"));
+        Fill(Stream_General, 0, General_Recorded_Date, RD);
+        Fill(Stream_General, 0, General_Country, Ztring(CO).MakeLowerCase());
+        Fill(Stream_General, 0, General_DistributedBy, EN);
 
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "N19");
@@ -298,6 +305,11 @@ void File_N19::FileHeader_Parse()
                 Fill(Stream_Text, 0, "Delay/String4", TCP);*/
             }
         }
+        Fill(Stream_Text, 0, Text_Width, MNC.To_int32u());
+        Fill(Stream_Text, 0, Text_Width_String, Ztring::ToZtring(MNC.To_int32u())+_T(" characters"), true);
+        Fill(Stream_Text, 0, Text_Height, MNR.To_int32u());
+        Fill(Stream_Text, 0, Text_Height_String, Ztring::ToZtring(MNR.To_int32u())+_T(" characters"), true);
+        Fill(Stream_Text, 0, Text_Language, N19_LanguageCode(LC));
 
         Finish("N19");
     FILLING_END();
