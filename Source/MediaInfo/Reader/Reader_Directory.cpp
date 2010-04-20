@@ -162,16 +162,20 @@ void Reader_Directory::P2_Directory_Cleanup(ZtringList &List)
             //This is a P2 CLIP
             Ztring Path_Begin=List[File_Pos];
             Path_Begin.resize(Path_Begin.size()-(1+8+1+4+1+10));
-            Path_Begin+=Ztring(1, PathSeparator)+_T("CONTENTS")+PathSeparator;
+            Path_Begin+=Ztring(1, PathSeparator);
+            bool HasChanged=false;
             for (size_t Pos=0; Pos<List.size(); Pos++)
             {
-                if (List[Pos].find(Path_Begin)==0 && List[Pos].find(Path_Begin+_T("CLIP")+PathSeparator)==string::npos) //Remove all subdirs of Path_Begin but not with CLIP
+                if (List[Pos].find(Path_Begin)==0 && List[Pos].find(Path_Begin+_T("CONTENTS")+PathSeparator+_T("CLIP")+PathSeparator)==string::npos) //Remove all subdirs of Path_Begin but not with CLIP
                 {
-                    //Removing the file in the blu-ray directory
+                    //Removing the file in the P2 directory
                     List.erase(List.begin()+Pos);
                     Pos--;
+                    HasChanged=true;
                 }
             }
+            if (HasChanged)
+                File_Pos=0;
         }
     }
 }
@@ -199,24 +203,31 @@ int Reader_Directory::Xdcam_Format_Test(MediaInfo_Internal* MI, const String &Fi
 void Reader_Directory::Xdcam_Directory_Cleanup(ZtringList &List)
 {
     //if there is a XDCAM/Clip folder, this is Xdcam
-    Ztring ToSearch=Ztring(1, PathSeparator)+_T("XDCAM")+PathSeparator+_T("Clip")+PathSeparator; //"/XDCAM/Clip/"
+    Ztring ToSearch=Ztring(1, PathSeparator)+_T("Clip")+PathSeparator; //"/Clip/"
     for (size_t File_Pos=0; File_Pos<List.size(); File_Pos++)
     {
         size_t Xdcam_Pos=List[File_Pos].find(ToSearch);
-        if (Xdcam_Pos!=string::npos && Xdcam_Pos!=0 && Xdcam_Pos+1+5+1+4+1+12==List[File_Pos].size())
+        if (Xdcam_Pos!=string::npos && Xdcam_Pos!=0 && Xdcam_Pos+1+4+1+12==List[File_Pos].size())
         {
             //This is a XDCAM CLIP
             Ztring Path_Begin=List[File_Pos];
-            Path_Begin.resize(Path_Begin.size()-(1+5+1+4+1+12));
-            Path_Begin+=Ztring(1, PathSeparator)+_T("XDCAM")+PathSeparator;
-            for (size_t Pos=0; Pos<List.size(); Pos++)
+            Path_Begin.resize(Path_Begin.size()-(1+4+1+12));
+            Path_Begin+=Ztring(1, PathSeparator);
+            if (Dir::Exists(Path_Begin+_T("Edit")) && Dir::Exists(Path_Begin+_T("General")) && Dir::Exists(Path_Begin+_T("Sub")))
             {
-                if (List[Pos].find(Path_Begin)==0 && (List[Pos].find(Path_Begin+_T("Clip")+PathSeparator)==string::npos || List[Pos].find(_T(".XML"))!=List[Pos].size()-4)) //Remove all subdirs of Path_Begin but not with the right XML
+                bool HasChanged=false;
+                for (size_t Pos=0; Pos<List.size(); Pos++)
                 {
-                    //Removing the file in the blu-ray directory
-                    List.erase(List.begin()+Pos);
-                    Pos--;
+                    if (List[Pos].find(Path_Begin)==0 && (List[Pos].find(Path_Begin+_T("Clip")+PathSeparator)==string::npos || (List[Pos].find(_T(".XML"))!=List[Pos].size()-4))) //Remove all subdirs of Path_Begin but not with the right XML
+                    {
+                        //Removing the file in the XDCAM directory
+                        List.erase(List.begin()+Pos);
+                        Pos--;
+                        HasChanged=true;
+                    }
                 }
+                if (HasChanged)
+                    File_Pos=0;
             }
         }
     }
