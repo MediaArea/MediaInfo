@@ -326,22 +326,22 @@ void File__Analyze::Streams_Finish_InterStreams()
         {
             GeneralBitRate_Ratio=0.99;
             GeneralBitRate_Minus=0;
-            VideoBitRate_Ratio  =0.94;
+            VideoBitRate_Ratio  =0.97;
             VideoBitRate_Minus  =0;
-            AudioBitRate_Ratio  =0.94;
+            AudioBitRate_Ratio  =0.96;
             AudioBitRate_Minus  =0;
-            TextBitRate_Ratio   =0.94;
+            TextBitRate_Ratio   =0.96;
             TextBitRate_Minus   =0;
         }
         if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-PS"))
         {
             GeneralBitRate_Ratio=0.99;
             GeneralBitRate_Minus=0;
-            VideoBitRate_Ratio  =0.97;
+            VideoBitRate_Ratio  =0.99;
             VideoBitRate_Minus  =0;
-            AudioBitRate_Ratio  =0.97;
+            AudioBitRate_Ratio  =0.99;
             AudioBitRate_Minus  =0;
-            TextBitRate_Ratio   =0.97;
+            TextBitRate_Ratio   =0.99;
             TextBitRate_Minus   =0;
         }
         if (MediaInfoLib::Config.Format_Get(Retrieve(Stream_General, 0, General_Format), InfoFormat_KindofFormat)==_T("MPEG-4"))
