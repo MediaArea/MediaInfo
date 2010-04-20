@@ -68,6 +68,9 @@
 #if defined(MEDIAINFO_OGG_YES)
     #include "MediaInfo/Multiple/File_Ogg.h"
 #endif
+#if defined(MEDIAINFO_P2_YES)
+    #include "MediaInfo/Multiple/File_P2_Clip.h"
+#endif
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif
@@ -82,6 +85,9 @@
 #endif
 #if defined(MEDIAINFO_WM_YES)
     #include "MediaInfo/Multiple/File_Wm.h"
+#endif
+#if defined(MEDIAINFO_XDCAM_YES)
+    #include "MediaInfo/Multiple/File_Xdcam_Xml.h"
 #endif
 
 //---------------------------------------------------------------------------
@@ -330,6 +336,9 @@ File__MultipleParsing::File__MultipleParsing()
     #if defined(MEDIAINFO_OGG_YES)
         Temp=new File_Ogg(); Parser.push_back(Temp);
     #endif
+    #if defined(MEDIAINFO_P2_YES)
+        Temp=new File_P2_Clip(); Parser.push_back(Temp);
+    #endif
     #if defined(MEDIAINFO_RIFF_YES)
         Temp=new File_Riff(); Parser.push_back(Temp);
     #endif
@@ -344,6 +353,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_WM_YES)
         Temp=new File_Wm(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_XDCAM_YES)
+        Temp=new File_Xdcam_Xml(); Parser.push_back(Temp);
     #endif
 
     // Video

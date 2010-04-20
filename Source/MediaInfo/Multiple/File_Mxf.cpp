@@ -135,6 +135,8 @@ namespace Elements
     UUID(EssenceContainer_RV24,                                 060E2B34, 04010101, 0D010301, 02050001)
     UUID(EssenceContainer_PCM,                                  060E2B34, 04010101, 0D010301, 02060100)
     UUID(EssenceContainer_PCM2,                                 060E2B34, 04010101, 0D010301, 02060200)
+    UUID(EssenceContainer_PCM3,                                 060E2B34, 04010101, 0D010301, 02060300)
+    UUID(EssenceContainer_PCM4,                                 060E2B34, 04010101, 0D010301, 02060400)
     UUID(EssenceContainer_Generic,                              060E2B34, 04010103, 0D010301, 027F0100)
 
     //MPEG2VideoDescriptor
@@ -268,6 +270,8 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
     ELEMENT   (EssenceContainer_RV24,                           "RV24 (RGBA?)")
     ELEMENT   (EssenceContainer_PCM,                            "PCM")
     ELEMENT   (EssenceContainer_PCM2,                           "PCM")
+    ELEMENT   (EssenceContainer_PCM3,                           "PCM")
+    ELEMENT   (EssenceContainer_PCM4,                           "PCM")
     ELEMENT   (EssenceContainer_Generic,                        "Generic")
     else
         return "";
@@ -1221,6 +1225,7 @@ void File_Mxf::Data_Parse()
                 case 0x16000100 : //BWF (PCM)
                 case 0x16000200 : //BWF (PCM)
                 case 0x16000300 : //DV Audio (PCM)
+                case 0x16000400 : //P2 Audio (PCM)
                                     Essences[Code_Compare4].StreamKind=Stream_Audio;
                                     Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                     Essences[Code_Compare4].Parser=new File_Unknown();
