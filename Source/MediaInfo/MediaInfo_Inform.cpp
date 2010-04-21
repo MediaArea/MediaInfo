@@ -196,7 +196,7 @@ Ztring MediaInfo_Internal::Inform()
                 }
             }
             if (HTML) Retour+=_T("</td>\n  </tr>");
-            if (XML) Retour+=_T(">\n");
+            if (XML) Retour+=_T(">");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
             Retour+=Inform((stream_t)StreamKind, StreamPos);
             Retour.FindAndReplace(_T("\\"), _T("|SC1|"), 0, Ztring_Recursive);

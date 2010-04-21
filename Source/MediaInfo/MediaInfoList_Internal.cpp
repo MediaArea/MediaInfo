@@ -301,7 +301,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
         bool XML=false;
         if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
             XML=true;
-        if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Mediainfo>\n");
+        if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")+MediaInfoLib::Config.LineSeparator_Get()+_T("<Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
         else Retour+=MediaInfo_Custom_View(Stream_Max+2, 1);//Page_Begin
         while (FilePos<Info.size())
         {
@@ -312,7 +312,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
             }
             FilePos++;
         }
-        if (XML) Retour+=_T("</Mediainfo>\n");
+        if (XML) Retour+=_T("</Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
         else Retour+=MediaInfo_Custom_View(Stream_Max+4, 1);//Page_End
         //Retour.FindAndReplace(_T("\\n"),_T( "\n"), 0, Ztring_Recursive);
         return Retour.c_str();
