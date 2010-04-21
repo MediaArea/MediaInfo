@@ -412,6 +412,27 @@ void File_Riff::Streams_Finish ()
         Stream_Structure.clear();
         delete DV_FromHeader; DV_FromHeader=NULL;
     }
+
+    //Commercial names
+    if (Count_Get(Stream_Video)==1)
+    {
+        Streams_Finish_StreamOnly();
+             if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("30000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "MPEG IMX 30");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "MPEG IMX 30");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("40000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "MPEG IMX 40");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "MPEG IMX 40");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "MPEG IMX 50");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "MPEG IMX 50");
+        }
+    }
 }
 
 //***************************************************************************
@@ -579,8 +600,6 @@ void File_Riff::Header_Parse()
         Name=Elements::AVI_;
 
     //Filling
-    if (movi_Size && Size_Complete+8>=144000)
-        int A=0;
     if (movi_Size && Element_Level==4 && Size_Complete+8>1024*1024)
     {
         Buffer_DataSizeToParse=Size_Complete+8;

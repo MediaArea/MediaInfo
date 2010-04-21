@@ -1,4 +1,4 @@
-// File_Xdcam_Xml - Info for XDCAM XML files
+// File_Xdcam_Clip - Info for XDCAM XML files
 // Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -30,7 +30,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/Multiple/File_Xdcam_Xml.h"
+#include "MediaInfo/Multiple/File_Xdcam_Clip.h"
 #include "MediaInfo/MediaInfo.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "ZenLib/Dir.h"
@@ -46,13 +46,13 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Xdcam_Xml::FileHeader_Begin()
+bool File_Xdcam_Clip::FileHeader_Begin()
 {
     //Element_Size
     if (File_Size>64*1024)
     {
-        Reject("Xdcam_Xml");
-        return false; //Xdcam_Xml XML files are not big
+        Reject("Xdcam_Clip");
+        return false; //Xdcam_Clip XML files are not big
     }
 
     //Element_Size
@@ -66,7 +66,7 @@ bool File_Xdcam_Xml::FileHeader_Begin()
      || Buffer[3]!='m'
      || Buffer[4]!='l')
     {
-        Reject("Xdcam_Xml");
+        Reject("Xdcam_Clip");
         return false;
     }
 
@@ -76,8 +76,8 @@ bool File_Xdcam_Xml::FileHeader_Begin()
         TiXmlElement* Root=document.FirstChildElement("NonRealTimeMeta");
         if (Root)
         {
-            Accept("Xdcam_Xml");
-            Fill(Stream_General, 0, General_Format, "XDCAM XML");
+            Accept("Xdcam_Clip");
+            Fill(Stream_General, 0, General_Format, "XDCAM Clip");
 
             TiXmlElement* Element;
 
@@ -132,6 +132,10 @@ bool File_Xdcam_Xml::FileHeader_Begin()
                         Merge(MI);
                         Fill(Stream_Video, StreamPos_Last, "Source", MXF_File);
                         File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
+
+                        //Commercial names
+                        if (StreamKind_Last==Stream_Video)
+                            Fill(Stream_General, 0, General_Format_Commercial_IfAny, MI.Get(Stream_General, 0, General_Format_Commercial_IfAny));
                     }
                     //else
                     //    MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
@@ -148,13 +152,13 @@ bool File_Xdcam_Xml::FileHeader_Begin()
         }
         else
         {
-            Reject("Xdcam_Xml");
+            Reject("Xdcam_Clip");
             return false;
         }
     }
     else
     {
-        Reject("Xdcam_Xml");
+        Reject("Xdcam_Clip");
         return false;
     }
 

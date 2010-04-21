@@ -415,16 +415,21 @@ void File_DvDif::Streams_Fill()
     {
         if (FSP_WasNotSet)
         {
-            Fill(Stream_Video, 0, Video_Format_Profile, "DVCPRO HD");
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO HD");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO HD");
             Fill(Stream_Video, 0, Video_Resolution, 10, 10, true); //MXF files say that DVCPRO HD are 10 bits, exact?
             Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR", Unlimited, true, true);
         }
         else
-            Fill(Stream_Video, 0, Video_Format_Profile, "DVCPRO 50");
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO 50");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO 50");
+        }
     }
     else if (audio_locked || (Retrieve(Stream_Video, 0, Video_Standard)==_T("PAL") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:1:1")))
     {
-        Fill(Stream_Video, 0, Video_Format_Profile, "DVCPRO");
+        Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO");
+        Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO");
     }
 }
 

@@ -168,6 +168,10 @@ bool File_P2_Clip::FileHeader_Begin()
                                         Merge(MI, Stream_Video, 0, StreamPos_Last);
                                         Fill(Stream_Video, StreamPos_Last, "Source", MXF_File);
                                         File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
+
+                                        //Commercial names
+                                        Fill(Stream_General, 0, General_Format_Commercial_IfAny, MI.Get(Stream_General, 0, General_Format_Commercial_IfAny), true);
+                                        Fill(Stream_General, 0, General_Format_Commercial, _T("P2 Clip ")+MI.Get(Stream_General, 0, General_Format_Commercial_IfAny), true);
                                     }
                                     //else
                                     //    MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
@@ -352,23 +356,6 @@ bool File_P2_Clip::FileHeader_Begin()
                             Fill(Stream_General, 0, "Object", Element->GetText());
                     }
                 }
-
-                /*
-                TiXmlElement* Core=ClipContent->FirstChildElement("Core");
-                if (Core)
-                {
-                    TiXmlElement* Element=Core->FirstChildElement();
-                    while (Element)
-                    {
-                        string Field=Element->ValueStr();
-                        string Value=Element->GetText();
-                        if (!Field.empty())
-                            In_Core_Add(FileName, Field=="TimeReference_translated"?"TimeReference (translated)":Field.c_str(), Value);
-                        Element=Element->NextSiblingElement();
-                    }
-                }
-                File=File->NextSiblingElement("File");
-                */
             }
         }
         else

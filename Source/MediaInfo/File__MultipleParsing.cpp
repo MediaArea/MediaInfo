@@ -87,7 +87,7 @@
     #include "MediaInfo/Multiple/File_Wm.h"
 #endif
 #if defined(MEDIAINFO_XDCAM_YES)
-    #include "MediaInfo/Multiple/File_Xdcam_Xml.h"
+    #include "MediaInfo/Multiple/File_Xdcam_Clip.h"
 #endif
 
 //---------------------------------------------------------------------------
@@ -355,7 +355,7 @@ File__MultipleParsing::File__MultipleParsing()
         Temp=new File_Wm(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_XDCAM_YES)
-        Temp=new File_Xdcam_Xml(); Parser.push_back(Temp);
+        Temp=new File_Xdcam_Clip(); Parser.push_back(Temp);
     #endif
 
     // Video

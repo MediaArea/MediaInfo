@@ -106,7 +106,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Umf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Wm.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Wm_Elements.cpp \
-                       ../../../Source/MediaInfo/Multiple/File_Xdcam_Xml.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Xdcam_Clip.cpp \
                        ../../../Source/MediaInfo/Reader/Reader_Directory.cpp \
                        ../../../Source/MediaInfo/Reader/Reader_File.cpp \
                        ../../../Source/MediaInfo/Reader/Reader_libcurl.cpp \

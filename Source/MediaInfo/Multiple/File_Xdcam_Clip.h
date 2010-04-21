@@ -1,4 +1,4 @@
-// File_Xdcam_Xml - Info for XDCAM XML files
+// File_Xdcam_Clip - Info for XDCAM Clip files
 // Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -17,13 +17,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about Blu-ray Movie files
+// Information about XDCAM Clip Movie files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_Xdcam_XmlH
-#define MediaInfo_File_Xdcam_XmlH
+#ifndef MediaInfo_File_Xdcam_ClipH
+#define MediaInfo_File_Xdcam_ClipH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -34,10 +34,10 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Xdcam_Xml
+// Class File_Xdcam_Clip
 //***************************************************************************
 
-class File_Xdcam_Xml : public File__Analyze
+class File_Xdcam_Clip : public File__Analyze
 {
 private :
     //Buffer - File header

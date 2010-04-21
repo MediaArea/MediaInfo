@@ -1282,7 +1282,8 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
     if (Retrieve(Stream_General, 0, General_Duration).empty() || Duration>Duration_Current || Duration+700<Duration_Current) //If superior or too different
         Fill(Stream_General, 0, General_Duration, Duration, 6, true); //Only if greater than the current duration
 
-    Fill(Stream_General, 0, General_OverallBitRate, (Complete_Stream->Streams[pid].TimeStamp_End_Offset-Complete_Stream->Streams[pid].TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
+    //TODO: I have small but annoying memory leaks with this version (on big files and Full parsing)
+    //Fill(Stream_General, 0, General_OverallBitRate, (Complete_Stream->Streams[pid].TimeStamp_End_Offset-Complete_Stream->Streams[pid].TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
 
     //Filling menu duration
     if (Count_Get(Stream_Menu))

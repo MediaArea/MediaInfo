@@ -96,7 +96,7 @@
     #include "MediaInfo/Multiple/File_Wm.h"
 #endif
 #if defined(MEDIAINFO_XDCAM_YES)
-    #include "MediaInfo/Multiple/File_Xdcam_Xml.h"
+    #include "MediaInfo/Multiple/File_Xdcam_Clip.h"
 #endif
 #if defined(MEDIAINFO_DPG_YES)
     #include "MediaInfo/Multiple/File_Dpg.h"
@@ -354,7 +354,7 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
         else if (Parser==_T("Wm"))          Info=new File_Wm();
     #endif
     #if defined(MEDIAINFO_XDCAM_YES)
-        else if (Parser==_T("Xdcam_Xml"))   Info=new File_Xdcam_Xml();
+        else if (Parser==_T("Xdcam_Clip"))   Info=new File_Xdcam_Clip();
     #endif
     #if defined(MEDIAINFO_DPG_YES)
         else if (Parser==_T("Dpg"))         Info=new File_Dpg();
@@ -600,7 +600,7 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
         delete Info; Info=new File_Wm();                 if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_XDCAM_YES)
-        delete Info; Info=new File_Xdcam_Xml();          if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
+        delete Info; Info=new File_Xdcam_Clip();         if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DPG_YES)
         delete Info; Info=new File_Dpg();                if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;

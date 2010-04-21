@@ -13,6 +13,8 @@ MenuID/String;;;Y NT;;;The menu ID for this stream in this file
 Format;;;Y YT;;;Format used
 Format/Info;;;Y NT;;;Info about the format
 Format/Url;;;N NT;;;Homepage of this format
+Format_Commercial;;;N NT;;;Commercial name used by vendor for theses setings or Format field if there is no difference
+Format_Commercial_IfAny;;;Y NT;;;Commercial name used by vendor for theses setings if there is one
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of this Format
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
@@ -124,12 +126,12 @@ Encoded_Library/Name;;;N NT;;;Info from the software
 Encoded_Library/Version;;;N NT;;;Version of software
 Encoded_Library/Date;;;N NT;;;Release date of software
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
-Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn)
+Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn);;
 Language/String;;;Y NT;;;Language (full);;
-Language/String1;;;Y NT;;;Language (full);;
-Language/String2;;;Y NT;;;Language (2-letter ISO 639-1 if exists, else empty);;
-Language/String3;;;Y NT;;;Language (3-letter ISO 639-2 if exists, else empty);;
-Language/String4;;;Y NT;;;Language (2-letter ISO 639-1 if exists with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn, else empty);;
+Language/String1;;;N NT;;;Language (full);;
+Language/String2;;;N NT;;;Language (2-letter ISO 639-1 if exists, else empty);;
+Language/String3;;;N NT;;;Language (3-letter ISO 639-2 if exists, else empty);;
+Language/String4;;;N NT;;;Language (2-letter ISO 639-1 if exists with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn, else empty);;
 Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
 Encoded_Date;;;Y YT;;;UTC time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;UTC time that the tags were done for this item.;;Temporal

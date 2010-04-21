@@ -405,6 +405,30 @@ void File_Mpeg4::Streams_Finish()
         Stream.clear();
         mdat_Pos.clear();
     }
+
+    //Commercial names
+    if (Count_Get(Stream_Video)==1)
+    {
+        Streams_Finish_StreamOnly();
+        if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV") && Retrieve(Stream_Video, 0, Video_Format_Commercial)==_T("DVCPRO HD"))
+        {
+            int32u BitRate=Retrieve(Stream_Video, 0, Video_BitRate).To_int32u();
+            int32u BitRate_Max=Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int32u();
+
+            if (BitRate_Max && BitRate>=BitRate_Max)
+            {
+                Clear(Stream_Video, 0, Video_BitRate_Maximum);
+                Fill(Stream_Video, 0, Video_BitRate, BitRate_Max, 10, true);
+                Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR", Unlimited, true, true);
+            }
+        }
+        if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("35000000")))
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 35");
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("50000000")))
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX422");
+    }
 }
 
 //***************************************************************************

@@ -543,7 +543,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Xml.cpp"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp"
 					>
 				</File>
 			</Filter>
@@ -1070,7 +1070,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Xml.h"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.h"
 					>
 				</File>
 			</Filter>

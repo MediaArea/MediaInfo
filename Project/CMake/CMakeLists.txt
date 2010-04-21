@@ -115,7 +115,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Umf.cpp
 	MediaInfo/Multiple/File_Wm.cpp
 	MediaInfo/Multiple/File_Wm_Elements.cpp
-	MediaInfo/Multiple/File_Xdcam_Xml.cpp
+	MediaInfo/Multiple/File_Xdcam_Clip.cpp
 	MediaInfo/Reader/Reader_Directory.cpp \
 	MediaInfo/Reader/Reader_File.cpp \
 	MediaInfo/Reader/Reader_libcurl.cpp \

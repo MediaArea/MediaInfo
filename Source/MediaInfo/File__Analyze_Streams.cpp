@@ -181,6 +181,12 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         return; //No streams
     }
 
+    //Some defaults
+    if (Parameter==Fill_Parameter(StreamKind, Generic_Format_Commercial))
+        Replace=true;
+    if (Parameter==Fill_Parameter(StreamKind, Generic_Format_Commercial_IfAny))
+        Replace=true;
+
     Ztring &Target=(*Stream)[StreamKind][StreamPos](Parameter);
     if (Target.empty() || Replace)
         Target=Value; //First value
@@ -244,6 +250,12 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         if (PAR && Height && Width)
             Fill(Stream_Video, StreamPos, Video_DisplayAspectRatio, ((float32)Width)/Height*PAR);
     }
+
+    //Commercial name
+    if (Parameter==Fill_Parameter(StreamKind, Generic_Format))
+        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Commercial), Value);
+    if (Parameter==Fill_Parameter(StreamKind, Generic_Format_Commercial_IfAny))
+        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Commercial), Value, true);
 
     if (!IsSub)
     {
@@ -1747,6 +1759,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format_Info : return General_Format_Info;
                                     case Generic_Format_Url : return General_Format_Url;
                                     case Generic_Format_Version : return General_Format_Version;
+                                    case Generic_Format_Commercial : return General_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return General_Format_Commercial_IfAny;
                                     case Generic_Format_Profile : return General_Format_Profile;
                                     case Generic_Format_Settings : return General_Format_Settings;
                                     case Generic_InternetMediaType : return General_InternetMediaType;
@@ -1780,6 +1794,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format : return Video_Format;
                                     case Generic_Format_Info : return Video_Format_Info;
                                     case Generic_Format_Url : return Video_Format_Url;
+                                    case Generic_Format_Commercial : return Video_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return Video_Format_Commercial_IfAny;
                                     case Generic_Format_Version : return Video_Format_Version;
                                     case Generic_Format_Profile : return Video_Format_Profile;
                                     case Generic_Format_Settings : return Video_Format_Settings;
@@ -1825,6 +1841,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format : return Audio_Format;
                                     case Generic_Format_Info : return Audio_Format_Info;
                                     case Generic_Format_Url : return Audio_Format_Url;
+                                    case Generic_Format_Commercial : return Audio_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return Audio_Format_Commercial_IfAny;
                                     case Generic_Format_Version : return Audio_Format_Version;
                                     case Generic_Format_Profile : return Audio_Format_Profile;
                                     case Generic_Format_Settings : return Audio_Format_Settings;
@@ -1870,6 +1888,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format : return Text_Format;
                                     case Generic_Format_Info : return Text_Format_Info;
                                     case Generic_Format_Url : return Text_Format_Url;
+                                    case Generic_Format_Commercial : return Text_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return Text_Format_Commercial_IfAny;
                                     case Generic_Format_Version : return Text_Format_Version;
                                     case Generic_Format_Profile : return Text_Format_Profile;
                                     case Generic_Format_Settings : return Text_Format_Settings;
@@ -1915,6 +1935,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format : return Image_Format;
                                     case Generic_Format_Info : return Image_Format_Info;
                                     case Generic_Format_Url : return Image_Format_Url;
+                                    case Generic_Format_Commercial : return Image_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return Image_Format_Commercial_IfAny;
                                     case Generic_Format_Version : return Image_Format_Version;
                                     case Generic_Format_Profile : return Image_Format_Profile;
                                     case Generic_InternetMediaType : return Image_InternetMediaType;
@@ -1944,6 +1966,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format : return Menu_Format;
                                     case Generic_Format_Info : return Menu_Format_Info;
                                     case Generic_Format_Url : return Menu_Format_Url;
+                                    case Generic_Format_Commercial : return Menu_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return Menu_Format_Commercial_IfAny;
                                     case Generic_Format_Version : return Menu_Format_Version;
                                     case Generic_Format_Profile : return Menu_Format_Profile;
                                     case Generic_Format_Settings : return Menu_Format_Settings;

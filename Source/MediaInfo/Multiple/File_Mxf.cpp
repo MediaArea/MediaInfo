@@ -419,6 +419,69 @@ void File_Mxf::Streams_Finish()
     //File size handling
     if (File_Size_Total!=File_Size)
         Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+
+    //Commercial names
+    if (Count_Get(Stream_Video)==1)
+    {
+        Streams_Finish_StreamOnly();
+             if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+            Fill(Stream_General, 0, General_Format_Commercial, _T("MXF ")+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny), true);
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("56064000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "AVC-Intra 50");
+            Fill(Stream_General, 0, General_Format_Commercial, "MXF AVC-Intra 50");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "AVC-Intra 50");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("113664000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "AVC-Intra 100");
+            Fill(Stream_General, 0, General_Format_Commercial, "MXF AVC-Intra 100");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "AVC-Intra 100");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("30000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM IMX 30");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM IMX 30");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("40000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM IMX 40");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM IMX 40");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM IMX 50");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM IMX 50");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV") && Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCAM");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCAM");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("18000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 18");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 18");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("25000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 25");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 25");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 35");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 35");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD422");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD422");
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1310,9 +1373,7 @@ void File_Mxf::Data_Parse()
 
     if (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
      || (Streams_Count==0 && !Descriptors.empty()))
-    {
         Finish("MXF");
-    }
 }
 
 //***************************************************************************
