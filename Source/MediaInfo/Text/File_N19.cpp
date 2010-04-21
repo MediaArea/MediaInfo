@@ -225,7 +225,6 @@ void File_N19::FileHeader_Parse()
     //Parsing
     Ztring OPT, RD, TNS, MNC, MNR, CO, EN;
     string TCP;
-    int64u DFC;
     int16u LC;
     int8u TCS;
     Info_C3   (    CPN,                                         "CPN - Code Page Number"); Param_Info(N19_CodePageNumber(CPN));
@@ -298,7 +297,7 @@ void File_N19::FileHeader_Parse()
                 Frames+=(((int8u)TCP[6])-'0')*10;
                 Frames+=(((int8u)TCP[7])-'0');
                 Delay+=float32_int32s(Frames*1000/N19_DiskFormatCode_FrameRate(DFC));
-                Fill(Stream_Text, 0, Text_Delay, Delay);
+                //Fill(Stream_Text, 0, Text_Delay, Delay); //TODO is 0???
                 /*TCP.insert(':', 2);
                 TCP.insert(':', 5);
                 TCP.insert(':', 8);
@@ -311,7 +310,62 @@ void File_N19::FileHeader_Parse()
         Fill(Stream_Text, 0, Text_Height_String, Ztring::ToZtring(MNR.To_int32u())+_T(" characters"), true);
         Fill(Stream_Text, 0, Text_Language, N19_LanguageCode(LC));
 
-        Finish("N19");
+        //Init
+        FirstFrame_TCI=(int64u)-1;
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_N19::Header_Parse()
+{
+    //Filling
+    Header_Fill_Size(128);
+    Header_Fill_Code(0, _T("TTI"));
+}
+
+//---------------------------------------------------------------------------
+void File_N19::Data_Parse()
+{
+    //Parsing
+    int32u TCI, TCO;
+    Skip_B1   (                                                 "SGN - Subtitle Group Number");
+    Skip_B2   (                                                 "SN - Subtitle Number");
+    Skip_B1   (                                                 "EBN - Extension Block Number");
+    Skip_B1   (                                                 "CS - Cumulative Status");
+    Get_B4    (TCI,                                             "TCI - Time Code In");
+    TCI=((TCI>>24)&0xFF)*60*60*1000
+      + ((TCI>>16)&0xFF)   *60*1000
+      + ((TCI>>8 )&0xFF)      *1000
+      +  float32_int32s((TCI     &0xFF)      *1000/N19_DiskFormatCode_FrameRate(DFC));
+    Param_Info(Ztring().Duration_From_Milliseconds((int64u)TCI));
+    Get_B4    (TCO,                                             "TCO - Time Code Out");
+    TCO=((TCO>>24)&0xFF)*60*60*1000
+      + ((TCO>>16)&0xFF)   *60*1000
+      + ((TCO>>8 )&0xFF)      *1000
+      +  float32_int32s((TCO     &0xFF)      *1000/N19_DiskFormatCode_FrameRate(DFC));
+    Param_Info(Ztring().Duration_From_Milliseconds((int64u)TCO));
+    Skip_B1   (                                                 "VP - Vertical Position");
+    Skip_B1   (                                                 "JC - Justification Code");
+    Skip_B1   (                                                 "CF - Comment Flag");
+    Skip_Local(112,                                             "TF - Text Field");
+
+    FILLING_BEGIN();
+        if (FirstFrame_TCI==(int64u)-1)
+        {
+            FirstFrame_TCI=TCI;
+            Fill(Stream_Text, 0, Text_Delay, TCI);
+        }
+        if (File_Offset+Buffer_Offset+Element_Size+128>File_Size)
+        {
+            Fill(Stream_Text, 0, Text_Duration, TCO-FirstFrame_TCI);
+        }
+        else
+            //Jumping
+            GoToFromEnd(128, "N19");
     FILLING_END();
 }
 

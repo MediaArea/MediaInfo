@@ -28,7 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-using namespace std;
+using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -44,6 +44,14 @@ private :
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
+
+    //Buffer - Per element
+    void Header_Parse();
+    void Data_Parse();
+
+    //Temp
+    int64u FirstFrame_TCI;
+    int64u DFC;
 };
 
 } //NameSpace
