@@ -601,73 +601,106 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         //-Find 2-digit language
         if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("Language"))
         {
-            ZtringList Languages, Languages_Translated;
+            //Removing old strings
+            Clear(StreamKind, StreamPos, Parameter+1); //String
+            Clear(StreamKind, StreamPos, Parameter+2); //String1
+            Clear(StreamKind, StreamPos, Parameter+3); //String2
+            Clear(StreamKind, StreamPos, Parameter+4); //String3
+            Clear(StreamKind, StreamPos, Parameter+5); //String4
+
+            ZtringListList Languages;
             Languages.Separator_Set(0, _T(" / "));
-            Languages_Translated.Separator_Set(0, _T(" / "));
-            size_t Languages_Count=1, Languages_Pos=0;
-            while ((Languages_Pos=(*Stream)[StreamKind][StreamPos][Parameter].find(_T(" / "), Languages_Pos))!=string::npos)
-            {
-                Languages_Pos+=3;
-                Languages_Count++;
-            }
+            Languages.Separator_Set(1, _T("-"));
             Languages.Write((*Stream)[StreamKind][StreamPos][Parameter]);
-            Languages.resize(Languages_Count);
-            ZtringList Languages_Orig=Languages;
+
+            //Canonizing
             for (size_t Pos=0; Pos<Languages.size(); Pos++)
             {
-                Languages[Pos].MakeLowerCase();
-                if (Languages[Pos].size()==3 && (Languages[Pos]==_T("mis") || Languages[Pos]==_T("und") || Languages[Pos]==_T("???") || Languages[Pos]==_T("   "))
-                 || Languages[Pos].size()==2 && Languages[Pos]==_T("  "))
-                {
-                    Languages[Pos].clear();
-                }
-                if (!Languages[Pos].empty() && !IsSub && MediaInfoLib::Config.ReadByHuman_Get())
-                {
-                    if (Languages[Pos].size()==3 && !MediaInfoLib::Config.Iso639_1_Get(Languages[Pos]).empty())
-                        Languages[Pos]=MediaInfoLib::Config.Iso639_1_Get(Languages[Pos]);
-                    if (Languages[Pos].size()>3 && !MediaInfoLib::Config.Iso639_Find(Languages[Pos]).empty())
-                        Languages[Pos]=MediaInfoLib::Config.Iso639_Find(Languages[Pos]);
+                Ztring Language_Orig;
 
-                    //Translate
-                    if (Languages[Pos].size()==2 || Languages[Pos].size()==3)
+                //Removing undefined languages
+                if (Languages[Pos].size()>=1)
+                {
+                    Language_Orig=Languages[Pos][0];
+                    Languages[Pos][0].MakeLowerCase();
+                    if (Languages[Pos][0].size()==3 && (Languages[Pos][0]==_T("mis") || Languages[Pos][0]==_T("und") || Languages[Pos][0]==_T("???") || Languages[Pos][0]==_T("   "))
+                     || Languages[Pos][0].size()==2 && Languages[Pos][0]==_T("  "))
+                        Languages[Pos].clear();
+                }
+
+                //Finding ISO-639-1 from ISO-639-2 or translated name
+                if (Languages[Pos].size()>=1)
+                {
+                    if (Languages[Pos][0].size()==3 && !MediaInfoLib::Config.Iso639_1_Get(Languages[Pos][0]).empty())
+                        Languages[Pos][0]=MediaInfoLib::Config.Iso639_1_Get(Languages[Pos][0]);
+                    if (Languages[Pos][0].size()>3 && !MediaInfoLib::Config.Iso639_Find(Languages[Pos][0]).empty())
+                        Languages[Pos][0]=MediaInfoLib::Config.Iso639_Find(Languages[Pos][0]);
+                    if (Languages[Pos][0].size()>3 && !MediaInfoLib::Config.Language_Get(_T("Language_")+Languages[Pos][0].substr(0, 2)).empty())
+                        Languages[Pos][0]=Languages[Pos][0].substr(0, 2);
+                    if (Languages[Pos][0].size()>3)
+                        Languages[Pos][0]=Language_Orig; //We failed to detect language, using the original version
+                }
+
+                //Country name
+                if (Languages[Pos].size()>=2)
+                    Languages[Pos][1].MakeLowerCase();
+            }
+
+            if (Languages.Read()!=Retrieve(StreamKind, StreamPos, Parameter))
+                Fill(StreamKind, StreamPos, Parameter, Languages.Read(), true);
+            else
+            {
+                ZtringList Language1; Language1.Separator_Set(0, _T(" / "));
+                ZtringList Language2; Language2.Separator_Set(0, _T(" / "));
+                ZtringList Language3; Language3.Separator_Set(0, _T(" / "));
+                ZtringList Language4; Language4.Separator_Set(0, _T(" / "));
+
+                for (size_t Pos=0; Pos<Languages.size(); Pos++)
+                {
+                    if (Languages[Pos].size()>=1)
                     {
-                        Ztring Temp=_T("Language_"); Temp+=Languages[Pos];
-                        const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-                        Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Languages[Pos]:Z3;
-                    }
-                    else if (Languages[Pos].size()==5 && Languages[Pos][2]==_T('-'))
-                    {
-                        Ztring Temp=_T("Language_"); Temp+=Languages[Pos].substr(0, 2);
-                        const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-                        Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Ztring(Languages[Pos].substr(0, 2)):Z3;
-                        Languages_Translated(Pos)+=_T(" (");
-                        Languages_Translated(Pos)+=Ztring(Languages[Pos].substr(3, 2)).MakeUpperCase();
-                        Languages_Translated(Pos)+=_T(")");
-                    }
-                    else if (Languages[Pos].size()>2)
-                    {
-                        Ztring Temp=_T("Language_"); Temp+=Languages[Pos].substr(0, 2);
-                        const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-                        Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Ztring(Languages_Orig[Pos]):Z3;
+                        Ztring Language_Translated=MediaInfoLib::Config.Language_Get(_T("Language_")+Languages[Pos][0]);
+                        if (Language_Translated.find(_T("Language_"))==0)
+                            Language_Translated=Languages[Pos][0]; //No translation found
+                        if (Languages[Pos].size()>=2)
+                        {
+                            Language_Translated+=_T(" (");
+                            Language_Translated+=Ztring(Languages[Pos][1]).MakeUpperCase();
+                            Language_Translated+=_T(")");
+                        }
+                        Language1.push_back(Language_Translated);
+                        if (Languages[Pos][0].size()==2)
+                        {
+                            Language2.push_back(Languages[Pos][0]);
+                            Language4.push_back(Languages[Pos].Read());
+                        }
+                        else
+                        {
+                            Language2.push_back(Ztring());
+                            Language4.push_back(Ztring());
+                        }
+                        if (Languages[Pos][0].size()==3)
+                            Language3.push_back(Languages[Pos][0]);
+                        else if (!MediaInfoLib::Config.Iso639_2_Get(Languages[Pos][0]).empty())
+                            Language3.push_back(MediaInfoLib::Config.Iso639_2_Get(Languages[Pos][0]));
+                        else
+                            Language3.push_back(Ztring());
                     }
                     else
-                        Languages_Translated(Pos)=Languages[Pos];
+                    {
+                        Language1.push_back(Ztring());
+                        Language2.push_back(Ztring());
+                        Language3.push_back(Ztring());
+                        Language4.push_back(Ztring());
+                    }
                 }
-                else
-                    Languages_Translated(Pos).clear();
+
+                Fill(StreamKind, StreamPos, Parameter+2, Language1.Read()); //String1
+                Fill(StreamKind, StreamPos, Parameter+3, Language2.Read()); //String2
+                Fill(StreamKind, StreamPos, Parameter+4, Language3.Read()); //String3
+                Fill(StreamKind, StreamPos, Parameter+5, Language4.Read()); //String4
+                Fill(StreamKind, StreamPos, Parameter+1, Retrieve(StreamKind, StreamPos, Parameter+2)); //String
             }
-            Ztring Languages_Temp, Languages_Translated_Temp;
-            for (size_t Pos=0; Pos<Languages.size(); Pos++)
-            {
-                Languages_Temp+=Languages[Pos]+_T(" / ");
-                Languages_Translated_Temp+=Languages_Translated[Pos]+_T(" / ");
-            }
-            if (Languages_Temp.size()>=3)
-                Languages_Temp.resize(Languages_Temp.size()-3);
-            if (Languages_Translated_Temp.size()>=3)
-                Languages_Translated_Temp.resize(Languages_Translated_Temp.size()-3);
-            (*Stream)[StreamKind][StreamPos](Parameter)=Languages_Temp;
-            Fill(StreamKind, StreamPos, Parameter+1, Languages_Translated_Temp); //"Language/String"
         }
 
         //ServiceName / ServiceProvider

@@ -13,6 +13,7 @@ Version 0.7.32, 2010-
 + DV: Better detection of DVCPRO 50 and 100 (again), especially in MXF
 + P2: support of P2 XML files and P2 directory structure
 + XDCAM: support of XDCAM XML files and XDCAM directory structure
++ ISO-639-2 3-letter standard for language field (for third-party software)
 x AVC: some files were wrongly analyzed (frame rate...)
 x AVI: better support of files with only one big data chunk (professional cameras)
 
