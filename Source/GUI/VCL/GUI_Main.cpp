@@ -1039,6 +1039,17 @@ void __fastcall TMainF::M_View_HTMLClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_XMLClick(TObject *Sender)
+{
+    //Language
+    I->Option_Static(_T("Language"), _T("raw"));
+
+    Prefs->Details[Prefs_Custom].Write(_T("XML"));
+    M_View_Custom->Checked=true;
+    ToolBar_View_Custom->Checked=true;
+    ChangePage(Page_Custom);
+}
+//---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 {
     Prefs->Details[Prefs_Custom].Write(_T("MPEG-7"));
@@ -1580,6 +1591,7 @@ void __fastcall TMainF::Donate___Click(TObject *Sender)
     ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
+//---------------------------------------------------------------------------
 void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
     ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);

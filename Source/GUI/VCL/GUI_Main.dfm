@@ -2153,6 +2153,10 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_HTMLClick
       end
+      object M_View_XML: TMenuItem
+        Caption = 'XML'
+        OnClick = M_View_XMLClick
+      end
       object M_View_MPEG7: TMenuItem
         Caption = 'MPEG-7'
         OnClick = M_View_MPEG7Click

@@ -192,6 +192,7 @@ __published:    // IDE-managed Components
     TBitBtn *Donate_zh_CN;
     TBitBtn *Donate_zh_TW;
     TMenuItem *M_NewVersion;
+    TMenuItem *M_View_XML;
     TMenuItem *M_View_MPEG7;
     TMenuItem *M_View_PBCore;
     void __fastcall FormResize(TObject *Sender);
@@ -249,6 +250,7 @@ __published:    // IDE-managed Components
     void __fastcall M_NewVersionClick(TObject *Sender);
     void __fastcall M_View_MPEG7Click(TObject *Sender);
     void __fastcall M_View_PBCoreClick(TObject *Sender);
+    void __fastcall M_View_XMLClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);
