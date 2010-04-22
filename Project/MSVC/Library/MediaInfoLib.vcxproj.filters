@@ -477,6 +477,12 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -856,6 +862,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze_MinimizeSize.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.h">
+      <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
