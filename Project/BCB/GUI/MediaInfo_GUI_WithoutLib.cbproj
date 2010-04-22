@@ -792,7 +792,7 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_P2_Clip.cpp">
 				<BuildOrder>175</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Xml.cpp">
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp">
 				<BuildOrder>176</BuildOrder>
 			</CppCompile>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences.dfm"/>

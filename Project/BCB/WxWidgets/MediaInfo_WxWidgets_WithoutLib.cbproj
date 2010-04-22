@@ -800,7 +800,7 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AfdBarData.cpp">
 				<BuildOrder>176</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Xml.cpp">
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp">
 				<BuildOrder>183</BuildOrder>
 			</CppCompile>
 			<BuildConfiguration Include="Base">
