@@ -422,12 +422,31 @@ void File_Mpeg4::Streams_Finish()
                 Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR", Unlimited, true, true);
             }
         }
-        if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+             if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+        {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("35000000")))
+            Fill(Stream_General, 0, General_Format_Commercial, Retrieve(Stream_General, 0, General_Format)+_T(' ')+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("18000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 18");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX 18");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("25000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 25");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX 25");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000"))
+        {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 35");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX 35");
+        }
         else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("50000000")))
+        {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX422");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX422");
+        }
     }
 }
 

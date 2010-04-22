@@ -427,7 +427,12 @@ void File_Mxf::Streams_Finish()
              if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
-            Fill(Stream_General, 0, General_Format_Commercial, _T("MXF ")+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny), true);
+            Fill(Stream_General, 0, General_Format_Commercial, _T("MXF ")+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DV");
+            Fill(Stream_General, 0, General_Format_Commercial, "MXF DV");
         }
         else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("56064000"))
         {
@@ -455,11 +460,6 @@ void File_Mxf::Streams_Finish()
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM IMX 50");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM IMX 50");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV") && Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCAM");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCAM");
         }
         else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("18000000"))
         {

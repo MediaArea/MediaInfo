@@ -2048,6 +2048,12 @@ void File_Riff::AVI__JUNK()
 {
     Element_Name("Garbage"); //Library defined size for padding, often used to store library name
 
+    if (Element_Size<8)
+    {
+        Skip_XX(Element_Size,                                   "Junk");
+        return;
+    }
+
     //Detect DivX files
          if (CC5(Buffer+Buffer_Offset)==CC5("DivX "))
     {
@@ -2056,6 +2062,9 @@ void File_Riff::AVI__JUNK()
     //MPlayer
     else if (CC8(Buffer+Buffer_Offset)==CC8("[= MPlay") && Retrieve(Stream_General, 0, General_Encoded_Library).empty())
         Fill(Stream_General, 0, General_Encoded_Library, "MPlayer");
+    //Scenalyzer
+    else if (CC8(Buffer+Buffer_Offset)==CC8("scenalyz") && Retrieve(Stream_General, 0, General_Encoded_Library).empty())
+        Fill(Stream_General, 0, General_Encoded_Library, "Scenalyzer");
     //FFMpeg broken files detection
     else if (CC8(Buffer+Buffer_Offset)==CC8("odmldmlh"))
         dmlh_TotalFrame=0; //this is not normal to have this string in a JUNK block!!! and in files tested, in this case TotalFrame is broken too

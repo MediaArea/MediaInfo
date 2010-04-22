@@ -417,7 +417,17 @@ void File_Riff::Streams_Finish ()
     if (Count_Get(Stream_Video)==1)
     {
         Streams_Finish_StreamOnly();
-             if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("30000000"))
+             if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+            Fill(Stream_General, 0, General_Format_Commercial, _T("AVI ")+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DV");
+            Fill(Stream_General, 0, General_Format_Commercial, "AVI DV");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("30000000"))
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "MPEG IMX 30");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "MPEG IMX 30");
