@@ -175,7 +175,7 @@ Ztring MediaInfo_Internal::Inform()
         for (size_t StreamPos=0; StreamPos<(size_t)Count_Get((stream_t)StreamKind); StreamPos++)
         {
             //Pour chaque stream
-            if (HTML) Retour+=_T("<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"border:1px solid Navy\">\n<tr>\n    <td width=\"150\">");
+            if (HTML) Retour+=_T("<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"border:1px solid Navy\">\n<tr>\n    <td width=\"150\"><h2>");
             if (XML) Retour+=_T("<track type=\"");
             Ztring A=Get((stream_t)StreamKind, StreamPos, _T("StreamKind/String"));
             Ztring B=Get((stream_t)StreamKind, StreamPos, _T("StreamKindPos"));
@@ -195,7 +195,7 @@ Ztring MediaInfo_Internal::Inform()
                     Retour+=_T("\"");
                 }
             }
-            if (HTML) Retour+=_T("</td>\n  </tr>");
+            if (HTML) Retour+=_T("</h2></td>\n  </tr>");
             if (XML) Retour+=_T(">");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
             Retour+=Inform((stream_t)StreamKind, StreamPos);
