@@ -1141,7 +1141,7 @@ void File_Avc::slice_header()
             if (TemporalReference_Offset_pic_order_cnt_lsb_Last>=TemporalReference.size())
                 TemporalReference.resize(TemporalReference_Offset_pic_order_cnt_lsb_Last+1);
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].frame_num=frame_num;
-            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].slice_type=slice_type;
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].slice_type=(int8u)slice_type;
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsTop=!bottom_field_flag;
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsField=field_pic_flag;
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsValid=true;
