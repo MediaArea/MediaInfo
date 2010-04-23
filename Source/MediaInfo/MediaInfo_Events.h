@@ -343,4 +343,3 @@ struct MediaInfo_Event_General_Move_Done_0
 #define MediaInfo_Parser_Scte20         0xF5
 
 #endif //MediaInfo_EventsH
-
