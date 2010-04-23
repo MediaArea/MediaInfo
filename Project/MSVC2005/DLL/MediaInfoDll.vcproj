@@ -57,7 +57,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfo.lib libcurl.lib ZenLib.lib zlib.lib"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
 				OutputFile="$(OutDir)\MediaInfo.dll"
 				AdditionalLibraryDirectories="&quot;..\..\..\..\curl\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\MediaInfoLib\Project\MSVC2005\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC2005\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC2005\$(PlatformName)\$(ConfigurationName)&quot;;$(NOINHERIT)"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
