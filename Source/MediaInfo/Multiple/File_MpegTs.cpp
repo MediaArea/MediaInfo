@@ -1271,6 +1271,13 @@ void File_MpegTs::Header_Parse_AdaptationField()
 #endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
+#ifdef MEDIAINFO_EVENTS
+void File_MpegTs::Header_Parse_Events()
+{
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
 #ifdef MEDIAINFO_MPEGTS_PCR_YES
 void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
 {
@@ -1305,6 +1312,13 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
     Status[User_16]=true;
 }
 #endif //MEDIAINFO_MPEGTS_PCR_YES
+
+//---------------------------------------------------------------------------
+#ifdef MEDIAINFO_EVENTS
+void File_MpegTs::Header_Parse_Events_Duration(int64u program_clock_reference)
+{
+}
+#endif //MEDIAINFO_EVENTS
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Data_Parse()
