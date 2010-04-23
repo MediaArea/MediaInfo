@@ -68,7 +68,45 @@
 #include "ZenLib/Conf.h"
 
 //***************************************************************************
-// Compilation conditions
+// General configuration
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+// Legacy
+#if defined(MEDIAINFO_MINIMIZESIZE)
+    #define MEDIAINFO_TRACE_NO
+    #define MEDIAINFO_EVENTS_NO
+#endif
+#if defined(MEDIAINFO_TRACE_NO)
+    #define MEDIAINFO_MINIMIZESIZE
+#endif
+#if defined(MEDIAINFO_EVENTS_YES) || !defined(MEDIAINFO_EVENTS_NO)
+    #define MEDIAINFO_EVENTS
+#endif
+
+//---------------------------------------------------------------------------
+// Special configurations
+#if defined(MEDIAINFO_MINIMAL)
+    #define MEDIAINFO_TRACE_NO
+    #define MEDIAINFO_EVENTS_NO
+    #define MEDIAINFO_DIRECTORY_NO
+    #define MEDIAINFO_LIBCURL_NO
+    #define MEDIAINFO_LIBMMS_NO
+    #define MEDIAINFO_DVDIF_ANALYZE_NO
+    #define MEDIAINFO_MPEGTS_DUPLICATE_NO
+#endif
+
+//---------------------------------------------------------------------------
+// Optional features
+#if !defined(MEDIAINFO_TRACE_NO) && !defined(MEDIAINFO_TRACE_YES)
+    #define MEDIAINFO_TRACE_YES
+#endif
+#if !defined(MEDIAINFO_EVENTS_NO) && !defined(MEDIAINFO_EVENTS_YES)
+    #define MEDIAINFO_EVENTS_YES
+#endif
+
+//***************************************************************************
+// Precise configuration
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -154,6 +192,9 @@
 #if defined(MEDIAINFO_MPEGTS_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_NO) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
     #define MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
 #endif
+#if defined(MEDIAINFO_MPEGTS_YES) && !defined(MEDIAINFO_MPEGTS_DUPLICATE_NO) && !defined(MEDIAINFO_MPEGTS_DUPLICATE_YES)
+    #define MEDIAINFO_MPEGTS_DUPLICATE_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_MXF_NO) && !defined(MEDIAINFO_MXF_YES)
     #define MEDIAINFO_MXF_YES
 #endif
@@ -220,7 +261,7 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC1_NO) && !defined(MEDIAINFO_VC1_YES)
     #define MEDIAINFO_VC1_YES
 #endif
-#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THORA_NO) && !defined(MEDIAINFO_THEORA_YES)
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THEORA_NO) && !defined(MEDIAINFO_THEORA_YES)
     #define MEDIAINFO_THEORA_YES
 #endif
 
@@ -445,5 +486,4 @@
 #if !defined(MEDIAINFO_UNKNOWN_NO)
     #define MEDIAINFO_UNKNOWN_YES
 #endif
-//---------------------------------------------------------------------------
 
