@@ -193,10 +193,8 @@ extern "C"
    | ((MediaInfo_int32u)EventVersion)    )
 
 /***************************************************************************/
-/* General                                                                 */
+/* Global                                                                  */
 /***************************************************************************/
-
-#define MediaInfo_Parser_None           0x00 
 
 /*-------------------------------------------------------------------------*/
 /* Generic                                                                 */
@@ -204,6 +202,27 @@ struct MediaInfo_Event_Generic
 {
     MediaInfo_int32u    EventCode;
 };
+
+/*-------------------------------------------------------------------------*/
+/* Demux                                                                   */
+#define MediaInfo_Event_Global_Demux 0xAF00
+struct MediaInfo_Event_Global_Demux_0
+{
+    MediaInfo_int32u    EventCode;
+    MediaInfo_int64u    Stream_Offset;
+    size_t              StreamIDs_Size;
+    MediaInfo_int64u*   StreamIDs;
+    size_t              ParserIDs_Size;
+    MediaInfo_int8u*    ParserIDs;
+    size_t              Content_Size;
+    const MediaInfo_int8u* Content;
+};
+
+/***************************************************************************/
+/* General                                                                 */
+/***************************************************************************/
+
+#define MediaInfo_Parser_None           0x00
 
 /*-------------------------------------------------------------------------*/
 /* Start                                                                   */
@@ -234,7 +253,7 @@ struct MediaInfo_Event_General_Parser_Selected_0
 
 /*-------------------------------------------------------------------------*/
 /* Move request                                                            */
-#define MediaInfo_Event_General_Move_Request 0x7004 
+#define MediaInfo_Event_General_Move_Request 0x7004
 struct MediaInfo_Event_General_Move_Request_0
 {
     MediaInfo_int32u    EventCode;
@@ -243,12 +262,85 @@ struct MediaInfo_Event_General_Move_Request_0
 
 /*-------------------------------------------------------------------------*/
 /* Move done                                                               */
-#define MediaInfo_Event_General_Move_Done 0x7005 
+#define MediaInfo_Event_General_Move_Done 0x7005
 struct MediaInfo_Event_General_Move_Done_0
 {
     MediaInfo_int32u    EventCode;
     MediaInfo_int64u    Stream_Offset;
 };
+
+/***************************************************************************/
+/* MPEG-TS / BDAV / TSP                                                    */
+/***************************************************************************/
+
+#define MediaInfo_Parser_MpegTs         0x01
+
+/***************************************************************************/
+/* MPEG-PS                                                                 */
+/***************************************************************************/
+
+#define MediaInfo_Parser_MpegPs         0x02
+
+/***************************************************************************/
+/* MPEG Video                                                              */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Mpegv      0x80
+
+/***************************************************************************/
+/* AVC                                                                     */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Avc        0x81
+
+/***************************************************************************/
+/* Active Format Description (AFD)                                         */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Afd            0x83
+
+/***************************************************************************/
+/* Bar Data                                                                */
+/***************************************************************************/
+
+#define MediaInfo_Parser_BarData        0x84
+
+/***************************************************************************/
+/* CEA-608 (formely IEA-608)                                               */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Eia608         0xF0
+
+/***************************************************************************/
+/* DTVCC Transport (CEA-708, formely IEA-708)                              */
+/***************************************************************************/
+
+#define MediaInfo_Parser_DtvccTransport 0xF1
+#define MediaInfo_Parser_Eia708         0xF1 /*Deprecated*/
+
+/***************************************************************************/
+/* DTVCC Caption (CEA-708, formely IEA-708)                                */
+/***************************************************************************/
+
+#define MediaInfo_Parser_DtvccCaption   0xF2
+
+/***************************************************************************/
+/* CDP                                                                     */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Cdp            0xF3
+
+/***************************************************************************/
+/* DVD CC                                                                  */
+/***************************************************************************/
+
+#define MediaInfo_Parser_DvdCc          0xF4
+
+/***************************************************************************/
+/* SCTE 20                                                                 */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Scte20         0xF5
 
 #endif //MediaInfo_EventsH
 
