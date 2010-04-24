@@ -284,13 +284,13 @@ struct MediaInfo_Event_General_Move_Done_0
 /* MPEG Video                                                              */
 /***************************************************************************/
 
-#define MediaInfo_Parser_Mpegv      0x80
+#define MediaInfo_Parser_Mpegv          0x80
 
 /***************************************************************************/
 /* AVC                                                                     */
 /***************************************************************************/
 
-#define MediaInfo_Parser_Avc        0x81
+#define MediaInfo_Parser_Avc            0x81
 
 /***************************************************************************/
 /* Active Format Description (AFD)                                         */
