@@ -985,7 +985,7 @@ public :
     bool MustSynchronize;
 
     //Events data
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         bool    MpegPs_PES_FirstByte_IsAvailable;
         bool    MpegPs_PES_FirstByte_Value;
     #endif //MEDIAINFO_EVENTS
