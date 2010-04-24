@@ -17,7 +17,6 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#ifdef MEDIAINFO_MINIMIZESIZE
 //---------------------------------------------------------------------------
 #include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
@@ -25,6 +24,7 @@
 #endif
 //---------------------------------------------------------------------------
 
+#if !MEDIAINFO_TRACE
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/MediaInfo_Config.h"
@@ -1245,5 +1245,5 @@ void File__Analyze::Mark_1_NoTrustError()
 }
 
 } //NameSpace
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 

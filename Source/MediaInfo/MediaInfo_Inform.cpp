@@ -56,7 +56,7 @@ Ztring MediaInfo_Internal::Inform()
     }
     CS.Leave();
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         if (MediaInfoLib::Config.DetailsLevel_Get() || MediaInfoLib::Config.Inform_Get()==_T("Details"))
         {
             if (!Details.empty())
@@ -64,7 +64,7 @@ Ztring MediaInfo_Internal::Inform()
             else if (Info)
                 return Info->Details_Get();
         }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     if (MediaInfoLib::Config.Inform_Get()==_T("MPEG-7"))
         return Export_Mpeg7().Transform(*this);

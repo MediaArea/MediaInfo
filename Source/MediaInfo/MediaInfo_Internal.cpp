@@ -384,11 +384,11 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
             Info_IsMultipleParsing=true;
         }
     }
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Info->Init(&Config, &Details, &Stream, &Stream_More);
-    #else //MEDIAINFO_MINIMIZESIZE
+    #else //MEDIAINFO_TRACE
         Info->Init(&Config, &Stream, &Stream_More);
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     if (!File_Name.empty())
         Info->File_Name=File_Name;
     Info->Open_Buffer_Init(File_Size_);
@@ -411,7 +411,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
         //Info->Open_Buffer_Unsynch();
     }
 
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         if (Info->Status[File__Analyze::IsAccepted])
         {
             struct MediaInfo_Event_General_Move_Done_0 Event;
@@ -764,7 +764,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
     {
         return _T("Option removed");
     }
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     else if (OptionLower.find(_T("file_details_clear"))==0)
     {
         if (Info)
@@ -772,7 +772,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
 
         return _T("");
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     else if (OptionLower.find(_T("file_"))==0)
     {
         Ztring ToReturn2=Config.Option(Option, Value);

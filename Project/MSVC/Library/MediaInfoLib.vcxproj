@@ -161,7 +161,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_MINIMIZESIZE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_TRACE_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
@@ -204,7 +204,7 @@
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -226,7 +226,7 @@
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -277,7 +277,7 @@
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>

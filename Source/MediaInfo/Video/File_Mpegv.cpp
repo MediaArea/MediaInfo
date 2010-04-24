@@ -1027,7 +1027,7 @@ void File_Mpegv::picture_start()
         TemporalReference[TemporalReference_Offset+temporal_reference]->IsValid=true;
 
         //Info
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
             Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
             Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
             Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
@@ -1058,7 +1058,7 @@ void File_Mpegv::picture_start()
                 }
                 Element_Info(_T("time_code ")+Time);
             }
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
 
         //Time
         if (Time_End_Seconds!=Error)

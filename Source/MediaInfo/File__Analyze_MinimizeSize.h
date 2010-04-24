@@ -880,10 +880,10 @@ protected :
     //***************************************************************************
 
 protected :
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         //Save for speed improvement
         float Config_Details;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     bool IsSub;
     
     //Configuration

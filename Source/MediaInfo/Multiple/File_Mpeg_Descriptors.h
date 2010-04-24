@@ -193,9 +193,9 @@ struct complete_stream
         table_ids                                   Table_IDs; //Key is table_id
         std::map<std::string, Ztring>               Infos;
         std::vector<Ztring>                         Captions_Language;
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
             Ztring Element_Info;
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
         stream_t                                    StreamKind;
         size_t                                      StreamPos;
         ts_kind                                     Kind;

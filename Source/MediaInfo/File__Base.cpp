@@ -47,9 +47,9 @@ extern MediaInfo_Config Config;
 File__Base::File__Base ()
 {
     //Init pointers
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Details=NULL;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     Stream=NULL;
     Stream_More=NULL;
     Stream_MustBeDeleted=false;
@@ -81,11 +81,11 @@ File__Base::~File__Base ()
 
 //---------------------------------------------------------------------------
 //Base
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, Ztring* Details_, std::vector<std::vector<ZtringList> > * Stream_, std::vector<std::vector<ZtringListList> > * Stream_More_)
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, std::vector<std::vector<ZtringList> > * Stream_, std::vector<std::vector<ZtringListList> > * Stream_More_)
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 {
     if (Config)
         return; //Already done
@@ -106,9 +106,9 @@ void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, std::vector<std::ve
     }
 
     Config=Config_;
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Details=Details_;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 
 //***************************************************************************
@@ -208,7 +208,7 @@ void File__Base::Language_Set()
 // Demux
 //***************************************************************************
 
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName)
 {
     if (!MediaInfoLib::Config.Demux_Get())
@@ -221,7 +221,7 @@ void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& S
     F.Open(File_Name+_T('.')+StreamName, File::Access_Write_Append);
     F.Write(Buffer, Buffer_Size);
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //***************************************************************************
 // Divers

@@ -77,32 +77,52 @@
     #define MEDIAINFO_TRACE_NO
     #define MEDIAINFO_EVENTS_NO
 #endif
-#if defined(MEDIAINFO_TRACE_NO)
-    #define MEDIAINFO_MINIMIZESIZE
-#endif
-#if defined(MEDIAINFO_EVENTS_YES) || !defined(MEDIAINFO_EVENTS_NO)
-    #define MEDIAINFO_EVENTS
+#if defined(MEDIAINFO_EVENTS)
+    #undef MEDIAINFO_EVENTS
+    #define MEDIAINFO_EVENTS_YES
 #endif
 
 //---------------------------------------------------------------------------
 // Special configurations
 #if defined(MEDIAINFO_MINIMAL)
-    #define MEDIAINFO_TRACE_NO
-    #define MEDIAINFO_EVENTS_NO
-    #define MEDIAINFO_DIRECTORY_NO
-    #define MEDIAINFO_LIBCURL_NO
-    #define MEDIAINFO_LIBMMS_NO
-    #define MEDIAINFO_DVDIF_ANALYZE_NO
-    #define MEDIAINFO_MPEGTS_DUPLICATE_NO
+    #if !defined (MEDIAINFO_TRACE_NO)
+        #define MEDIAINFO_TRACE_NO
+    #endif
+    #if !defined (MEDIAINFO_EVENTS_NO)
+        #define MEDIAINFO_EVENTS_NO
+    #endif
+    #if !defined (MEDIAINFO_DIRECTORY_NO)
+        #define MEDIAINFO_DIRECTORY_NO
+    #endif
+    #if !defined (MEDIAINFO_LIBCURL_NO)
+        #define MEDIAINFO_LIBCURL_NO
+    #endif
+    #if !defined (MEDIAINFO_LIBMMS_NO)
+        #define MEDIAINFO_LIBMMS_NO
+    #endif
+    #if !defined (MEDIAINFO_DVDIF_ANALYZE_NO)
+        #define MEDIAINFO_DVDIF_ANALYZE_NO
+    #endif
+    #if !defined (MEDIAINFO_MPEGTS_DUPLICATE_NO)
+        #define MEDIAINFO_MPEGTS_DUPLICATE_NO
+    #endif
 #endif
 
 //---------------------------------------------------------------------------
 // Optional features
-#if !defined(MEDIAINFO_TRACE_NO) && !defined(MEDIAINFO_TRACE_YES)
-    #define MEDIAINFO_TRACE_YES
+#if !defined(MEDIAINFO_TRACE)
+    #if defined(MEDIAINFO_TRACE_NO)
+        #define MEDIAINFO_TRACE 0
+    #else
+        #define MEDIAINFO_TRACE 1
+    #endif
 #endif
-#if !defined(MEDIAINFO_EVENTS_NO) && !defined(MEDIAINFO_EVENTS_YES)
-    #define MEDIAINFO_EVENTS_YES
+#if !defined(MEDIAINFO_EVENTS)
+    #if defined(MEDIAINFO_EVENTS_NO)
+        #define MEDIAINFO_EVENTS 0
+    #else
+        #define MEDIAINFO_EVENTS 1
+    #endif
 #endif
 
 //***************************************************************************

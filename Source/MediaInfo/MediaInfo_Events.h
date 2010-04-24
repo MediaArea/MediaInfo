@@ -212,7 +212,6 @@ struct MediaInfo_Event_Global_Demux_0
     MediaInfo_int64u    Stream_Offset;
     size_t              StreamIDs_Size;
     MediaInfo_int64u*   StreamIDs;
-    size_t              ParserIDs_Size;
     MediaInfo_int8u*    ParserIDs;
     size_t              Content_Size;
     const MediaInfo_int8u* Content;

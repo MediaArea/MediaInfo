@@ -46,7 +46,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileKeepInfo=false;
     FileStopAfterFilled=false;
     File_Filter_HasChanged_=false;
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         Event_CallBackFunction=NULL;
         Event_UserHandler=NULL;
     #endif //MEDIAINFO_EVENTS
@@ -173,7 +173,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_event_callbackfunction"))
     {
-        #ifdef MEDIAINFO_EVENTS
+        #if MEDIAINFO_EVENTS
             return Event_CallBackFunction_Set(Value);
         #else //MEDIAINFO_EVENTS
             return _T("Event manager is disabled due to compilation options");
@@ -402,7 +402,7 @@ void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztr
 // Event
 //***************************************************************************
 
-#ifdef MEDIAINFO_EVENTS
+#if MEDIAINFO_EVENTS
 Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Value)
 {
     ZtringList List=Value;

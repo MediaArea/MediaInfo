@@ -47,10 +47,10 @@ File__Analyze::File__Analyze ()
 :File__Base()
 {
     //Details
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Config_DetailsLevel=MediaInfoLib::Config.DetailsLevel_Get();
         Details_DoNotSave=false;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     IsSub=false;
 
     //In
@@ -108,7 +108,7 @@ File__Analyze::File__Analyze ()
     Element[0].WaitForMoreData=false;
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     if (Config_DetailsLevel!=0)
     {
         //ToShow part
@@ -117,7 +117,7 @@ File__Analyze::File__Analyze ()
         Element[0].ToShow.Details.clear();
         Element[0].ToShow.NoShow=false;
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     Element_Level_Base=0;
     Element_Level=0;
 
@@ -190,11 +190,11 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
         return;
 
     //Parsing
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Sub->Init(Config, Details);
-    #else //MEDIAINFO_MINIMIZESIZE
+    #else //MEDIAINFO_TRACE
         Sub->Init(Config);
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     Sub->IsSub=true;
     Sub->Open_Buffer_Init(File_Size_);
 }
@@ -366,7 +366,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     if (Sub->File_GoTo!=(int64u)-1)
         Sub->File_GoTo=(int64u)-1;
     Sub->File_Offset=File_Offset+Buffer_Offset+Element_Offset;
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
     #endif
 
@@ -379,7 +379,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         //Details handling
         if (!Sub->Element[0].ToShow.Details.empty() && !Details_DoNotSave)
         {
@@ -499,12 +499,12 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
         Buffer_Clear();
     }
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     if (Details && Details->empty())
         Details->assign(Element[0].ToShow.Details);
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         struct MediaInfo_Event_General_End_0 Event;
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_End, 0);
         Event.Stream_Bytes_Analyzed=Buffer_TotalBytes;
@@ -568,10 +568,10 @@ void File__Analyze::Buffer_Clear()
     Buffer_MinimumSize=0;
 
     //Details
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Element[Element_Level].WaitForMoreData=false; //We must finalize the details
         Element[Element_Level].IsComplete=true; //We must finalize the details
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
 }
 
@@ -749,9 +749,9 @@ bool File__Analyze::FileHeader_Manage()
     if (Element_IsWaitingForMoreData() || Element[Element_Level].UnTrusted) //Wait or problem
     {
         //The header is not complete, need more data
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
         Element[Element_Level].ToShow.Details.clear();
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
         return false;
     }
 
@@ -801,9 +801,9 @@ bool File__Analyze::Header_Manage()
         return false;
     Element_Offset=0;
     Element_Begin(); //Element
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Data_Level=Element_Level;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     Element_Begin("Header"); //Header
 
     //Header parsing
@@ -830,7 +830,7 @@ bool File__Analyze::Header_Manage()
     Element[Element_Level].IsComplete=true;
 
     //ToShow
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     if (Config_DetailsLevel!=0)
     {
         if (Element[Element_Level-1].ToShow.Name.empty())
@@ -839,7 +839,7 @@ bool File__Analyze::Header_Manage()
         Element[Element_Level].ToShow.Header_Size=0;
         Element[Element_Level-1].ToShow.Header_Size=Header_Size;
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     //Integrity
     if (Element[Element_Level-1].Next<(File_Offset+Buffer_Offset+Element_Offset))
@@ -872,7 +872,7 @@ void File__Analyze::Header_Parse()
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Header_Fill_Code(int64u Code, const Ztring &Name)
 {
     //Filling
@@ -886,7 +886,7 @@ void File__Analyze::Header_Fill_Code(int64u Code, const Ztring &Name)
         Element_Level++;
     }
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Header_Fill_Code(int64u Code)
 {
@@ -917,13 +917,13 @@ void File__Analyze::Header_Fill_Size(int64u Size)
     Element[Element_Level-1].IsComplete=true;
 
     //ToShow
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     if (Config_DetailsLevel!=0)
     {
         Element[Element_Level-1].ToShow.Pos=File_Offset+Buffer_Offset;
         Element[Element_Level-1].ToShow.Size=Element[Element_Level-1].Next-(File_Offset+Buffer_Offset);
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 
 //***************************************************************************
@@ -985,12 +985,12 @@ bool File__Analyze::Data_Manage()
     Element_Size=0;
     Element_Offset=0;
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     if (Element_Level>0)
         Element[Element_Level-1].ToShow.NoShow=Element[Element_Level].ToShow.NoShow; //If data must not be shown, we hide the header too
     else
         Element[0].ToShow.NoShow=false; //This should never happen, but in case of
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     Element_End(); //Element
     if (Element_WantNextLevel)
         Element_Level++;
@@ -1012,7 +1012,7 @@ bool File__Analyze::Data_Manage()
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Data_Info (const Ztring &Parameter)
 {
     size_t Element_Level_Temp=Element_Level;
@@ -1020,10 +1020,10 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
     Element_Info(Parameter);
     Element_Level=Element_Level_Temp;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Data_Accept (const char* ParserName)
 {
     if (Status[IsAccepted] || Status[IsFinished])
@@ -1034,10 +1034,10 @@ void File__Analyze::Data_Accept (const char* ParserName)
 
     Accept(ParserName);
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Data_Finish (const char* ParserName)
 {
     if (ShouldContinueParsing)
@@ -1052,10 +1052,10 @@ void File__Analyze::Data_Finish (const char* ParserName)
 
     Finish();
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Data_Reject (const char* ParserName)
 {
     Status[IsAccepted]=false;
@@ -1065,10 +1065,10 @@ void File__Analyze::Data_Reject (const char* ParserName)
     if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
         Info(Ztring(ParserName)+_T(", rejected"));
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 {
     Element_Show();
@@ -1099,10 +1099,10 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     if (!IsSub)
         File_GoTo=GoTo;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Data_GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 {
     if (GoToFromEnd>File_Size)
@@ -1114,7 +1114,7 @@ void File__Analyze::Data_GoToFromEnd (int64u GoToFromEnd, const char* ParserName
 
     Data_GoTo(File_Size-GoToFromEnd, ParserName);
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 
 //***************************************************************************
@@ -1156,7 +1156,7 @@ void File__Analyze::Element_Begin()
     Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
 
     //ToShow
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
     if (Config_DetailsLevel!=0)
     {
@@ -1167,11 +1167,11 @@ void File__Analyze::Element_Begin()
         Element[Element_Level].ToShow.Details.clear();
         Element[Element_Level].ToShow.NoShow=false;
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
 {
     //Level
@@ -1203,7 +1203,7 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
         Element[Element_Level].ToShow.NoShow=false;
     }
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Element_Begin(int64u Size)
 {
     //Level
@@ -1223,10 +1223,10 @@ void File__Analyze::Element_Begin(int64u Size)
     Element[Element_Level].UnTrusted=Element[Element_Level-1].UnTrusted;
     Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_Name(const Ztring &Name)
 {
     //ToShow
@@ -1246,10 +1246,10 @@ void File__Analyze::Element_Name(const Ztring &Name)
             Element[Element_Level].ToShow.Name=_T("(Empty)");
     }
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_Info(const Ztring &Parameter)
 {
     //Coherancy
@@ -1273,10 +1273,10 @@ void File__Analyze::Element_Info(const Ztring &Parameter)
     }
     Element[Element_Level].ToShow.Info+=Parameter2;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_End(const Ztring &Name, int64u Size)
 {
     //Element
@@ -1297,7 +1297,7 @@ void File__Analyze::Element_End(const Ztring &Name, int64u Size)
 
     Element_End_Common_Flush();
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Element_End(int64u Size)
 {
     //Element
@@ -1309,7 +1309,7 @@ void File__Analyze::Element_End(int64u Size)
 
     Element_End_Common_Flush();
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File__Analyze::Element_End()
@@ -1325,11 +1325,11 @@ void File__Analyze::Element_End()
 //---------------------------------------------------------------------------
 void File__Analyze::Element_End_Common_Flush()
 {
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     //Size if not filled
     if (File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get()<Element[Element_Level].Next)
         Element[Element_Level].ToShow.Size=File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get()-Element[Element_Level].ToShow.Pos;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     //Level
     if (Element_Level==0)
@@ -1342,12 +1342,12 @@ void File__Analyze::Element_End_Common_Flush()
     Element[Element_Level].UnTrusted=Element[Element_Level+1].UnTrusted;
     Element[Element_Level].WaitForMoreData=Element[Element_Level+1].WaitForMoreData;
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Element_End_Common_Flush_Details();
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 //---------------------------------------------------------------------------
 void File__Analyze::Element_End_Common_Flush_Details()
 {
@@ -1376,9 +1376,9 @@ void File__Analyze::Element_End_Common_Flush_Details()
         }
     }
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 //---------------------------------------------------------------------------
 Ztring File__Analyze::Element_End_Common_Flush_Build()
 {
@@ -1428,23 +1428,23 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
 
     return ToReturn;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File__Analyze::Element_Prepare (int64u Size)
 {
     Element_Offset=0;
     Element_Size=Size;
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     Element[Element_Level].ToShow.Size=Size;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 //***************************************************************************
 // Param
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
 {
     if (Config_DetailsLevel==0)
@@ -1504,14 +1504,14 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
         default                                         : ;
     }
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //***************************************************************************
 // Information
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
 {
     if (MediaInfoLib::Config.DetailsFormat_Get()==MediaInfo_Config::DetailsFormat_CSV)
@@ -1565,10 +1565,10 @@ void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
     Element[Element_Level_Final].ToShow.Details+=Offset;
     Element[Element_Level_Final].ToShow.Details+=Separator;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Param_Info (const Ztring &Text)
 {
     //Coherancy
@@ -1584,7 +1584,7 @@ void File__Analyze::Param_Info (const Ztring &Text)
     //Filling
     Element[Element_Level].ToShow.Details+=_T(" - ")+Text;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //***************************************************************************
 // Next code planning
@@ -1619,17 +1619,17 @@ bool File__Analyze::NextCode_Test ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Trusted_IsNot (const char* Reason)
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Trusted_IsNot ()
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 {
     if (!Element[Element_Level].UnTrusted)
     {
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
             Param(Reason, 0);
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
         Element_Offset=Element_Size;
         BS->Attach(NULL, 0);
 
@@ -1655,7 +1655,7 @@ void File__Analyze::Trusted_IsNot ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Accept (const char* ParserName)
 {
     if (Status[IsAccepted] || Status[IsFinished])
@@ -1675,7 +1675,7 @@ void File__Analyze::Accept (const char* ParserName)
     //if (!IsSub)
         Stream_Prepare(Stream_General);
 
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         struct MediaInfo_Event_General_Parser_Selected_0 Event;
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
         std::memset(Event.Name, 0, 16);
@@ -1684,7 +1684,7 @@ void File__Analyze::Accept (const char* ParserName)
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
     #endif //MEDIAINFO_EVENTS
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Accept ()
 {
     if (Status[IsAccepted] || Status[IsFinished])
@@ -1694,14 +1694,14 @@ void File__Analyze::Accept ()
     //if (!IsSub)
         Stream_Prepare(Stream_General);
 
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         struct MediaInfo_Event_General_Parser_Selected_0 Event;
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
         memset(Event.Name, 0, 16);
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
     #endif //MEDIAINFO_EVENTS
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Accept (File__Analyze* Parser)
 {
@@ -1712,7 +1712,7 @@ void File__Analyze::Accept (File__Analyze* Parser)
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Fill (const char* ParserName)
 {
     if (Status[IsFilled])
@@ -1735,7 +1735,7 @@ void File__Analyze::Fill (const char* ParserName)
         Status[IsUpdated]=true;
     }
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Fill ()
 {
     if (Status[IsFilled])
@@ -1748,7 +1748,7 @@ void File__Analyze::Fill ()
         Status[IsUpdated]=true;
     }
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Fill (File__Analyze* Parser)
 {
@@ -1759,7 +1759,7 @@ void File__Analyze::Fill (File__Analyze* Parser)
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Finish (const char* ParserName)
 {
     if (ShouldContinueParsing)
@@ -1797,7 +1797,7 @@ void File__Analyze::Finish (const char* ParserName)
     }
     Status[IsFinished]=true;
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Finish ()
 {
     if (ShouldContinueParsing)
@@ -1814,7 +1814,7 @@ void File__Analyze::Finish ()
     }
     Status[IsFinished]=true;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Finish (File__Analyze* Parser)
 {
@@ -1825,7 +1825,7 @@ void File__Analyze::Finish (File__Analyze* Parser)
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Reject (const char* ParserName)
 {
     Status[IsAccepted]=false;
@@ -1842,14 +1842,14 @@ void File__Analyze::Reject (const char* ParserName)
             Element_Level++;
     }
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Reject ()
 {
     Status[IsAccepted]=false;
     Status[IsFinished]=true;
     Clear();
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Reject (File__Analyze* Parser)
 {
@@ -1860,7 +1860,7 @@ void File__Analyze::Reject (File__Analyze* Parser)
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 {
     Element_Show();
@@ -1924,14 +1924,14 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     if (!IsSub)
         File_GoTo=GoTo;
 
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         struct MediaInfo_Event_General_Move_Request_0 Event;
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Move_Request, 0);
         Event.Stream_Offset=File_GoTo;
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Move_Request_0));
     #endif //MEDIAINFO_EVENTS
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo)
 {
     if (!Status[IsAccepted])
@@ -1965,10 +1965,10 @@ void File__Analyze::GoTo (int64u GoTo)
     if (!IsSub)
         File_GoTo=GoTo;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 {
     if (GoToFromEnd>File_Size)
@@ -1987,7 +1987,7 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 
     GoTo(File_Size-GoToFromEnd, ParserName);
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
 {
     if (GoToFromEnd>File_Size)
@@ -1995,7 +1995,7 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
 
     GoTo(File_Size-GoToFromEnd);
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 int64u File__Analyze::Element_Code_Get (size_t Level)
@@ -2029,47 +2029,47 @@ void File__Analyze::Element_WaitForMoreData ()
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_DoNotTrust (const char* Reason)
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 void File__Analyze::Element_DoNotTrust ()
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 {
     Element[Element_Level].WaitForMoreData=false;
     Element[Element_Level].IsComplete=true;
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Trusted_IsNot(Reason);
-    #else //MEDIAINFO_MINIMIZESIZE
+    #else //MEDIAINFO_TRACE
         Trusted_IsNot();
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_DoNotShow ()
 {
     Element[Element_Level].ToShow.NoShow=true;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_Show ()
 {
     Element[Element_Level].ToShow.NoShow=false;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 bool File__Analyze::Element_Show_Get ()
 {
     return !Element[Element_Level].ToShow.NoShow;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Element_Show_Add (const Ztring &ToShow)
 {
     if (ToShow.empty())
@@ -2082,7 +2082,7 @@ void File__Analyze::Element_Show_Add (const Ztring &ToShow)
     //From Sub
     Element[Element_Level].ToShow.Details+=ToShow;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //***************************************************************************
 // Status
@@ -2152,13 +2152,13 @@ void File__Analyze::BookMark_Get ()
 }
 
 //---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 void File__Analyze::Details_Clear()
 {
     Details->clear();
     Element[0].ToShow.Details.clear();
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 } //NameSpace
 

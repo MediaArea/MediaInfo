@@ -23,6 +23,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
+#include "MediaInfo/Setup.h"
 #include "MediaInfo/File__Base.h"
 #include "MediaInfo/File__Analyse_Automatic.h"
 #include "ZenLib/BitStream.h"
@@ -38,7 +39,7 @@ namespace MediaInfoLib
 
 class MediaInfo_Internal;
 
-#ifdef MEDIAINFO_MINIMIZESIZE
+#if !MEDIAINFO_TRACE
     #include "MediaInfo/File__Analyze_MinimizeSize.h"
 #else
 
@@ -979,7 +980,7 @@ public :
 //Helpers
 #define DETAILS_INFO(_DATA) _DATA
 
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 } //NameSpace
 

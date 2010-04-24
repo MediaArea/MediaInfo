@@ -486,7 +486,7 @@ void File_DvDif::Streams_Finish()
 
 //---------------------------------------------------------------------------
 void File_DvDif::Header_Parse()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 {
     if (AuxToAnalyze!=0x00)
     {
@@ -530,7 +530,7 @@ void File_DvDif::Header_Parse()
     Header_Fill_Code(SCT, Dv_sct[SCT]);
     Header_Fill_Size(80);
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 {
     if (AuxToAnalyze!=0x00)
     {
@@ -567,7 +567,7 @@ void File_DvDif::Header_Parse()
     Header_Fill_Code(SCT);
     Header_Fill_Size(80);
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File_DvDif::Data_Parse()
@@ -667,7 +667,7 @@ void File_DvDif::Data_Parse()
 
 //---------------------------------------------------------------------------
 void File_DvDif::Header()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 {
     BS_Begin();
     //3
@@ -714,7 +714,7 @@ void File_DvDif::Header()
         FrameCount++;
     FILLING_END();
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 {
     if (Element_Size<77)
     {
@@ -744,11 +744,11 @@ void File_DvDif::Header()
         FrameCount++;
     FILLING_END();
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 {
     //Present?
     if (TF3)
@@ -762,7 +762,7 @@ void File_DvDif::Subcode()
         Subcode_Ssyb(syb_num);
     Skip_XX(29,                                                 "Unused");
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 {
     if (TF3)
         return;
@@ -770,7 +770,7 @@ void File_DvDif::Subcode()
     for (int8u syb_num=0; syb_num<6; syb_num++)
         Subcode_Ssyb(syb_num);
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode_Ssyb(int8u syb_num)
@@ -833,7 +833,7 @@ void File_DvDif::Audio()
 //---------------------------------------------------------------------------
 void File_DvDif::Video()
 {
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     //Present?
     if (TF2)
     {
@@ -849,7 +849,7 @@ void File_DvDif::Video()
     Skip_S1(4,                                                  "QNO");
     BS_End();
     Skip_XX(Element_Size-Element_Offset,                        "Unknown");
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     FILLING_BEGIN();
         if (DBN==134)

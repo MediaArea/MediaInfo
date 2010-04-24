@@ -717,9 +717,9 @@ bool File_MpegTs::Synched_Test()
                         if (*Table_ID)
                         {
                             //Searching table_id_extension, version_number, section_number
-                            #ifndef MEDIAINFO_MINIMIZESIZE
+                            #if MEDIAINFO_TRACE
                                 Stream->Element_Info=Mpeg_Psi_table_id(table_id);
-                            #endif //MEDIAINFO_MINIMIZESIZE
+                            #endif //MEDIAINFO_TRACE
                             if (!(Buffer[Buffer_Offset+Version_Pos+1]&0x80)) //section_syntax_indicator
                                 return true; //No version
                             Version_Pos+=3; //Header size
@@ -955,7 +955,7 @@ bool File_MpegTs::FileHeader_Begin()
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 {
     //Parsing
     int8u transport_scrambling_control;
@@ -1008,7 +1008,7 @@ void File_MpegTs::Header_Parse()
 
     Header_Parse_Events();
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 {
     //Parsing
            payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
@@ -1035,11 +1035,11 @@ void File_MpegTs::Header_Parse()
 
     Header_Parse_Events();
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse_AdaptationField()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 {
     int64u Element_Pos_Save=Element_Offset;
     Element_Begin("adaptation_field");
@@ -1202,7 +1202,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
         Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "stuffing_bytes");
     Element_End(1+Adaptation_Size);
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 {
     int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
     #ifdef MEDIAINFO_MPEGTS_PCR_YES
@@ -1268,10 +1268,10 @@ void File_MpegTs::Header_Parse_AdaptationField()
     #endif //MEDIAINFO_MPEGTS_PCR_YES
     Element_Offset+=1+Adaptation_Size;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
-#ifdef MEDIAINFO_EVENTS
+#if MEDIAINFO_EVENTS
 void File_MpegTs::Header_Parse_Events()
 {
 }
@@ -1314,7 +1314,7 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
 #endif //MEDIAINFO_MPEGTS_PCR_YES
 
 //---------------------------------------------------------------------------
-#ifdef MEDIAINFO_EVENTS
+#if MEDIAINFO_EVENTS
 void File_MpegTs::Header_Parse_Events_Duration(int64u program_clock_reference)
 {
 }
@@ -1697,9 +1697,9 @@ void File_MpegTs::Detect_EOF()
             Complete_Stream->Streams[StreamID].Kind=complete_stream::stream::pes;
             Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(true);
             Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
-            #ifndef MEDIAINFO_MINIMIZESIZE
+            #if MEDIAINFO_TRACE
                 Complete_Stream->Streams[StreamID].Element_Info="PES";
-            #endif //MEDIAINFO_MINIMIZESIZE
+            #endif //MEDIAINFO_TRACE
             #ifdef MEDIAINFO_MPEGTS_PCR_YES
                 Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);
                 Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(false);

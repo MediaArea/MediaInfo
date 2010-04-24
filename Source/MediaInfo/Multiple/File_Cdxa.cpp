@@ -291,13 +291,13 @@ void File_Cdxa::Data_Parse()
         Info("CDXA, Jumping to end of file");
 
     //Details
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     if (MediaInfoLib::Config.DetailsLevel_Get())
     {
         if (!MI->Inform().empty())
             Element_Show_Add(MI->Inform());
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     //Demux
     Demux(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size), _T("xxx"));

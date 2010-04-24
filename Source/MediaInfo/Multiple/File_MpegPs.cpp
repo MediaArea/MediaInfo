@@ -818,7 +818,7 @@ void File_MpegPs::Read_Buffer_Continue()
 
 //---------------------------------------------------------------------------
 void File_MpegPs::Header_Parse()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#if MEDIAINFO_TRACE
 {
     //Reinit
     PTS=(int64u)-1;
@@ -836,7 +836,7 @@ void File_MpegPs::Header_Parse()
         return;
     }
 }
-#else //MEDIAINFO_MINIMIZESIZE
+#else //MEDIAINFO_TRACE
 {
     //Reinit
     PTS=(int64u)-1;
@@ -854,7 +854,7 @@ void File_MpegPs::Header_Parse()
         return;
     }
 }
-#endif //MEDIAINFO_MINIMIZESIZE
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 bool File_MpegPs::Header_Parse_Fill_Size()
@@ -1103,7 +1103,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     //Parsing
     int8u PTS_DTS_flags, PES_header_data_length;
     bool ESCR_flag, ES_rate_flag, DSM_trick_mode_flag, additional_copy_info_flag, PES_CRC_flag, PES_extension_flag;
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
     BS_Begin();
     Mark_1();
     Mark_0();
@@ -1121,7 +1121,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     Get_SB (PES_extension_flag,                                 "PES_extension_flag");
     BS_End();
     Get_B1 (PES_header_data_length,                             "PES_header_data_length");
-    #else //MEDIAINFO_MINIMIZESIZE
+    #else //MEDIAINFO_TRACE
     if (Element_Offset+3>=Element_Size)
     {
         Trusted_IsNot();
@@ -1144,13 +1144,13 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     Buffer_Pos_Flags++;
     PES_header_data_length      =Buffer[Buffer_Pos_Flags];
     Element_Offset+=3;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
     int64u Element_Pos_After_Data=Element_Offset+PES_header_data_length;
     
     //Options
     if (PTS_DTS_flags==0x2)
     {
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
         int16u PTS_29, PTS_14;
         int8u  PTS_32;
         Element_Begin("PTS_DTS_flags");
@@ -1173,7 +1173,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_Info_From_Milliseconds(PTS/90);
         Element_End();
         Element_End();
-        #else //MEDIAINFO_MINIMIZESIZE
+        #else //MEDIAINFO_TRACE
         if (Element_Offset+5>Element_Size)
         {
             Element_WaitForMoreData();
@@ -1191,7 +1191,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
           | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
           | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
         Element_Offset+=5;
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
 
         //Filling
         if (Streams[start_code].Searching_TimeStamp_End)
@@ -1208,7 +1208,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     }
     if (PTS_DTS_flags==0x3)
     {
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
         int16u PTS_29, PTS_14, DTS_29, DTS_14;
         int8u  PTS_32, DTS_32;
         Element_Begin("PTS_DTS_flags");
@@ -1230,7 +1230,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
           | (((int64u)PTS_14));
         Element_Info_From_Milliseconds(PTS/90);
         Element_End();
-        #else //MEDIAINFO_MINIMIZESIZE
+        #else //MEDIAINFO_TRACE
         if (Element_Offset+5>Element_Size)
         {
             Element_WaitForMoreData();
@@ -1248,7 +1248,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
           | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
           | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
         Element_Offset+=5;
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
 
         //Filling
         if (Streams[start_code].Searching_TimeStamp_End)
@@ -1262,7 +1262,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
             Streams[start_code].Searching_TimeStamp_Start=false;
         }
 
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
         Element_Begin("DTS");
         BS_Begin();
         Mark_0();
@@ -1282,7 +1282,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_Info_From_Milliseconds(DTS/90);
         Element_End();
         Element_End();
-        #else //MEDIAINFO_MINIMIZESIZE
+        #else //MEDIAINFO_TRACE
         if (Element_Offset+5>Element_Size)
         {
             Element_WaitForMoreData();
@@ -1300,7 +1300,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
           | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
           | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
         Element_Offset+=5;
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
 
         //Filling
         if (Streams[start_code].Searching_TimeStamp_End)
@@ -2880,10 +2880,10 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
         return;
     }
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         if (start_code==0xBD)
             private_stream_1_Element_Info();
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     if (1 //Temp.StreamKind==Stream_Video
     && ((DTS!=(int64u)-1 && Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1)
@@ -2904,15 +2904,15 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                     Temp.Parsers[Pos]->DTS=DTS*1000000/90;
             }
 
-            #ifndef MEDIAINFO_MINIMIZESIZE
+            #if MEDIAINFO_TRACE
                 if (Temp.Parsers.size()>1)
                     Element_Begin("Test");
-            #endif //MEDIAINFO_MINIMIZESIZE
+            #endif //MEDIAINFO_TRACE
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-            #ifndef MEDIAINFO_MINIMIZESIZE
+            #if MEDIAINFO_TRACE
                 if (Temp.Parsers.size()>1)
                     Element_End();
-            #endif //MEDIAINFO_MINIMIZESIZE
+            #endif //MEDIAINFO_TRACE
 
             if ((Temp.Parsers[Pos]->Status[IsAccepted] && Temp.Parsers[Pos]->Status[IsFinished])
              || (!Parsing_End_ForDTS && Temp.Parsers[Pos]->Status[IsFilled]))

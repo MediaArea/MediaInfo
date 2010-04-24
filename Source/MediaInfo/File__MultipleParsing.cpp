@@ -285,9 +285,9 @@ File__Analyze* File__MultipleParsing::Parser_Get()
 File__MultipleParsing::File__MultipleParsing()
 :File__Analyze()
 {
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Details_DoNotSave=true;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 
     File__Analyze* Temp;
     // Multiple
@@ -532,9 +532,9 @@ void File__MultipleParsing::Streams_Finish()
         return;
 
     Parser[0]->Open_Buffer_Finalize();
-    #ifndef MEDIAINFO_MINIMIZESIZE
+    #if MEDIAINFO_TRACE
         Details=Parser[0]->Details;
-    #endif //MEDIAINFO_MINIMIZESIZE
+    #endif //MEDIAINFO_TRACE
 }
 
 //***************************************************************************
@@ -548,11 +548,11 @@ void File__MultipleParsing::Read_Buffer_Init()
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
-        #ifndef MEDIAINFO_MINIMIZESIZE
+        #if MEDIAINFO_TRACE
             Parser[Pos]->Init(Config, Details, Stream, Stream_More);
-        #else //MEDIAINFO_MINIMIZESIZE
+        #else //MEDIAINFO_TRACE
             Parser[Pos]->Init(Config, Stream, Stream_More);
-        #endif //MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_TRACE
         Parser[Pos]->File_Name=File_Name;
         Parser[Pos]->Open_Buffer_Init(File_Size);
     }

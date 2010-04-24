@@ -108,7 +108,7 @@ private :
     int64u MpegTs_JumpTo_End;
     bool   Searching_TimeStamp_Start;
 
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         void Header_Parse_Events();
         void Header_Parse_Events_Duration(int64u program_clock_reference);
     #else //MEDIAINFO_EVENTS
