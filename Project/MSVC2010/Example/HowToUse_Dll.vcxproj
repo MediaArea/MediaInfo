@@ -167,7 +167,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -213,7 +213,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

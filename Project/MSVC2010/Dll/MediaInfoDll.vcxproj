@@ -179,7 +179,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;ws2_32.lib;wldap32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -210,7 +210,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -237,7 +237,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -261,7 +261,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -285,7 +285,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -304,7 +304,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
@@ -325,7 +325,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -340,7 +340,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>

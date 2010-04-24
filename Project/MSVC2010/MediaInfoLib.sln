@@ -11,9 +11,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoShellExt", "ShellE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HowToUse_Dll", "Example\HowToUse_Dll.vcxproj", "{51E7EE1D-D4DD-4374-976C-66519B3B94DF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC2010\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

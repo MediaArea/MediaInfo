@@ -583,10 +583,10 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj">
+    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj">
       <Project>{0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\zlib\projects\MSVC\zlib.vcxproj">
+    <ProjectReference Include="..\..\..\..\zlib\projects\MSVC2010\zlib.vcxproj">
       <Project>{fd328ae2-5136-460f-a622-12cfd4d4c131}</Project>
     </ProjectReference>
   </ItemGroup>
