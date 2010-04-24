@@ -54,6 +54,10 @@ File__Analyze::File__Analyze ()
     IsSub=false;
 
     //In
+    #if MEDIAINFO_EVENTS
+        ParserID=0x00;
+        StreamIDs_Size=0;
+    #endif //MEDIAINFO_EVENTS
     PTS_DTS_Needed=false;
     PTS_DTS_Offset_InThisBlock=0;
     PCR=(int64u)-1;
@@ -130,6 +134,11 @@ File__Analyze::File__Analyze ()
     Status[IsUpdated]=false;
     Status[IsFinished]=false;
     ShouldContinueParsing=false;
+
+    //Events data
+    #ifdef MEDIAINFO_EVENTS
+        MpegPs_PES_FirstByte_IsAvailable=false;
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------
@@ -197,6 +206,18 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
     #endif //MEDIAINFO_TRACE
     Sub->IsSub=true;
     Sub->Open_Buffer_Init(File_Size_);
+
+    #if MEDIAINFO_EVENTS
+        for (size_t Pos=0; Pos<StreamIDs_Size; Pos++)
+        {
+            Sub->ParserIDs[Pos]=ParserIDs[Pos];
+            Sub->StreamIDs[Pos]=StreamIDs[Pos];
+        }
+        Sub->ParserIDs[StreamIDs_Size]=ParserID;
+        Sub->StreamIDs[StreamIDs_Size]=Element_Code;
+        Sub->StreamIDs_Size=StreamIDs_Size+1;
+        Sub->File_Name_WithoutDemux=IsSub?File_Name_WithoutDemux:File_Name;
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------

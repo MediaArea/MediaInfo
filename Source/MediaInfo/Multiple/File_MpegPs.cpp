@@ -86,6 +86,10 @@
 #include "MediaInfo/File_Unknown.h"
 #include <ZenLib/Utils.h>
 #include <algorithm>
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
+#endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -192,6 +196,10 @@ File_MpegPs::File_MpegPs()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("MpegPs");
+    #if MEDIAINFO_EVENTS
+        ParserID=MediaInfo_Parser_MpegPs;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     Trusted_Multiplier=2;
@@ -735,6 +743,10 @@ void File_MpegPs::Read_Buffer_Unsynched()
     }
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;
+
+    #if MEDIAINFO_EVENTS
+        MpegPs_PES_FirstByte_IsAvailable=false;
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------
@@ -762,6 +774,14 @@ void File_MpegPs::Read_Buffer_Continue()
     //Video unlimited specific, we didn't wait for the end (because this is... unlimited)
     if (video_stream_Unlimited)
     {
+        #if MEDIAINFO_EVENTS
+            if (FromTS)
+            {
+                MpegPs_PES_FirstByte_IsAvailable=true;
+                MpegPs_PES_FirstByte_Value=false;
+            }
+        #endif //MEDIAINFO_EVENTS
+
         //Look for next Sync word
         size_t Buffer_Offset_Temp=0;
         while (Buffer_Offset_Temp+4<=Buffer_Size
@@ -820,6 +840,14 @@ void File_MpegPs::Read_Buffer_Continue()
 void File_MpegPs::Header_Parse()
 #if MEDIAINFO_TRACE
 {
+    #if MEDIAINFO_EVENTS
+        if (FromTS)
+        {
+            MpegPs_PES_FirstByte_IsAvailable=true;
+            MpegPs_PES_FirstByte_Value=true;
+        }
+    #endif //MEDIAINFO_EVENTS
+
     //Reinit
     PTS=(int64u)-1;
     DTS=(int64u)-1;
@@ -838,6 +866,14 @@ void File_MpegPs::Header_Parse()
 }
 #else //MEDIAINFO_TRACE
 {
+    #if MEDIAINFO_EVENTS
+        if (FromTS)
+        {
+            MpegPs_PES_FirstByte_IsAvailable=true;
+            MpegPs_PES_FirstByte_Value=true;
+        }
+    #endif //MEDIAINFO_EVENTS
+
     //Reinit
     PTS=(int64u)-1;
     DTS=(int64u)-1;
@@ -1531,6 +1567,10 @@ void File_MpegPs::Data_Parse()
     //Jumping to the last DTS if needed
     //if (!Parsing_End_ForDTS && File_Offset+Buffer_Offset==File_Size)
     //    Jump_DTS();
+
+    #if MEDIAINFO_EVENTS
+        MpegPs_PES_FirstByte_IsAvailable=false;
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------
@@ -2948,6 +2988,53 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
         Temp.FrameCount_AfterLast_TimeStamp_End+=Temp.Parsers[0]->Frame_Count_InThisBlock;
 
     Element_Show();
+
+    #if MEDIAINFO_EVENTS
+        //New PES
+        if (MpegPs_PES_FirstByte_IsAvailable && MpegPs_PES_FirstByte_Value)
+        {
+            struct MediaInfo_Event_MpegPs_PES_New_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_MpegPs, MediaInfo_Event_MpegPs_PES_New, 0);
+            Event.Stream_Offset=File_Offset+Buffer_Offset;
+            Event.PID=(int16u)-1;//PID;
+            Events_PCR(PCR, Event.PCR, Event.PCR_HR);
+            Event.stream_id=start_code;
+            Events_PTS(PTS*1000000/90, Event.PTS, Event.PTS_HR);
+            Events_DTS(DTS*1000000/90, Event.DTS, Event.DTS_HR);
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_MpegPs_PES_New_0));
+        }
+
+        //Demux
+        struct MediaInfo_Event_Global_Demux_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_MpegPs, MediaInfo_Event_Global_Demux, 0);
+        Event.Stream_Offset=File_Offset+Buffer_Offset;
+        Event.StreamIDs=NULL;
+        Event.ParserIDs=NULL;
+        try
+        {
+            Event.StreamIDs_Size=1+StreamIDs_Size;
+            Event.StreamIDs=new int64u[Event.StreamIDs_Size];
+            Event.ParserIDs=new int8u[Event.StreamIDs_Size];
+            for (size_t Pos=0; Pos<StreamIDs_Size; Pos++)
+            {
+                Event.ParserIDs[Pos]=ParserIDs[Pos];
+                Event.StreamIDs[Pos]=StreamIDs[Pos];
+            }
+            Event.ParserIDs[StreamIDs_Size]=ParserID;
+            Event.StreamIDs[StreamIDs_Size]=start_code;
+        }
+        catch(...)
+        {
+            Event.StreamIDs_Size=0;
+            delete[] Event.StreamIDs; Event.StreamIDs=NULL;
+            delete[] Event.ParserIDs; Event.ParserIDs=NULL;
+        }
+        Event.Content_Size=(size_t)(Element_Size-Element_Offset);
+        Event.Content=Buffer+Buffer_Offset+(size_t)Element_Offset;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
+        delete[] Event.StreamIDs; //Event.StreamIDs=NULL;
+        delete[] Event.ParserIDs; //Event.ParserIDs=NULL;
+    #endif //MEDIAINFO_EVENTS
 }
 
 //***************************************************************************

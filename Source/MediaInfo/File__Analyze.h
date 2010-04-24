@@ -78,6 +78,14 @@ public :
     //***************************************************************************
 
     //In
+    Ztring ParserName;
+    #if MEDIAINFO_EVENTS
+        int8u   ParserID;
+        size_t  StreamIDs_Size;
+        int64u  StreamIDs[16];
+        int8u   ParserIDs[16];
+        Ztring  File_Name_WithoutDemux;
+    #endif //MEDIAINFO_EVENTS
     bool   PTS_DTS_Needed;
     int64u PCR; //In nanoseconds
     int64u PTS; //In nanoseconds
@@ -975,6 +983,12 @@ public :
 
     //Configuration
     bool MustSynchronize;
+
+    //Events data
+    #ifdef MEDIAINFO_EVENTS
+        bool    MpegPs_PES_FirstByte_IsAvailable;
+        bool    MpegPs_PES_FirstByte_Value;
+    #endif //MEDIAINFO_EVENTS
 };
 
 //Helpers

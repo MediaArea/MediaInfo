@@ -39,6 +39,10 @@
 #include "ZenLib/File.h"
 #include <memory>
 #include <algorithm>
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
+#endif //MEDIAINFO_EVENTS
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -106,7 +110,11 @@ Ztring Decimal_Hexa(int64u Number)
 File_MpegTs::File_MpegTs()
 :File__Duplicate()
 {
-    //Config
+    //Configuration
+    ParserName=_T("MpegTs");
+    #if MEDIAINFO_EVENTS
+        ParserID=MediaInfo_Parser_MpegTs;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     Trusted_Multiplier=2;

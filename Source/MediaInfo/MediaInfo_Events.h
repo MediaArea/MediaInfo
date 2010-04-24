@@ -280,6 +280,23 @@ struct MediaInfo_Event_General_Move_Done_0
 
 #define MediaInfo_Parser_MpegPs         0x02
 
+/*-------------------------------------------------------------------------*/
+/* MediaInfo_Event_MpegPs_PES_New                                              */
+#define MediaInfo_Event_MpegPs_PES_New 0x100A
+struct MediaInfo_Event_MpegPs_PES_New_0
+{
+    MediaInfo_int32u    EventCode;
+    MediaInfo_int64u    Stream_Offset;
+    MediaInfo_int16u    PID;
+    MediaInfo_int64u    PCR;
+    char                PCR_HR[13];
+    MediaInfo_int8u     stream_id;
+    MediaInfo_int64u    PTS;
+    char                PTS_HR[13];
+    MediaInfo_int64u    DTS;
+    char                DTS_HR[13];
+};
+
 /***************************************************************************/
 /* MPEG Video                                                              */
 /***************************************************************************/
