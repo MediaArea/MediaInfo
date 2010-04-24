@@ -224,7 +224,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
 {
     //Integrity
     if (StreamKind>=Stream_Max || StreamPos>=Stream[StreamKind].size())
-        return _T("");
+        return Ztring();
 
     if (MediaInfoLib::Config.Inform_Get(_T("General")).empty()
      && MediaInfoLib::Config.Inform_Get(_T("Video")).empty()
@@ -247,10 +247,10 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
             //Pour chaque champ
             //Ztring A=Get((stream_t)4, 2, 0, Info_Measure_Text); // TODO Bug sinon? voir Ztring
             Ztring A=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text); // TODO Bug sinon? voir Ztring
-            if ((MediaInfoLib::Config.Complete_Get() || Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+            if ((MediaInfoLib::Config.Complete_Get() || Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && !Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text).empty())
             {
                 Ztring Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text);
-                if (Nom==_T(""))
+                if (Nom.empty())
                     Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
                 if (!HTML && !XML)
                 {
@@ -315,7 +315,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
     ZtringList Info;
 
     if (StreamKind>=Stream_Max)
-        return _T("");
+        return Ztring();
     Info=Stream[StreamKind][StreamPos];
 
     //Special characters
@@ -379,7 +379,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
     }
 
     //Gestion []
-    while (Retour.SubString(_T("["), _T("]"))!=_T(""))
+    while (!Retour.SubString(_T("["), _T("]")).empty())
     {
         Ztring Crochets=Retour.SubString(_T("["), _T("]"));
         Ztring ValueToFind=Crochets.SubString(_T("%"), _T("%"));
@@ -388,8 +388,8 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
         if (ValueToFind_Pos!=Error)
         {
             Ztring RemplacerPar=Info(ValueToFind_Pos);
-            if (RemplacerPar==_T(""))
-                Retour.FindAndReplace(ARemplacer, _T(""));
+            if (RemplacerPar.empty())
+                Retour.FindAndReplace(ARemplacer, Ztring());
             else
             {
                 //Formate l'interieur
@@ -401,7 +401,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
             }
         }
         else
-            Retour.FindAndReplace(ARemplacer, _T(""));
+            Retour.FindAndReplace(ARemplacer, Ztring());
     }
 
     //Gestion %xxx%
@@ -457,7 +457,7 @@ void MediaInfo_Internal::Traiter(Ztring &C)
         Total=C.SubString(_T("$if("), _T(")"), Position);
         ARemplacer=Ztring(_T("$if(")+Total+_T(")"));
         Total1.Write(Total);
-        if (Total1(0)==_T("")) //mettre champ2
+        if (Total1(0).empty()) //mettre champ2
             C.FindAndReplace(ARemplacer, Total1(2), Position);
         else
             C.FindAndReplace(ARemplacer, Total1(1), Position);

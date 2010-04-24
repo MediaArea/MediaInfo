@@ -128,7 +128,7 @@ void MediaInfo_Config::Init()
     TagSeparator=_T(" / ");
     Quote=_T("\"");
     DecimalPoint=_T(".");
-    ThousandsPoint=_T("");
+    ThousandsPoint=Ztring();
 
     CS.Leave();
 
@@ -176,27 +176,27 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
 
          if (Option_Lower.empty())
     {
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("charset_config"))
     {
-        return _T(""); //Only used in DLL, no Library action
+        return Ztring(); //Only used in DLL, no Library action
     }
     else if (Option_Lower==_T("charset_output"))
     {
-        return _T(""); //Only used in DLL, no Library action
+        return Ztring(); //Only used in DLL, no Library action
     }
     else if (Option_Lower==_T("complete"))
     {
         Complete_Set(Value.To_int8u()?true:false);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("complete_get"))
     {
         if (Complete_Get())
             return _T("1");
         else
-            return _T("");
+            return Ztring();
     }
     else if (Option_Lower==_T("blockmethod"))
     {
@@ -204,14 +204,14 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             BlockMethod_Set(0);
         else
             BlockMethod_Set(1);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("blockmethod_get"))
     {
         if (BlockMethod_Get())
             return _T("1");
         else
-            return _T("");
+            return Ztring();
     }
     else if (Option_Lower==_T("internet"))
     {
@@ -219,7 +219,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             Internet_Set(0);
         else
             Internet_Set(1);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("demux"))
     {
@@ -229,14 +229,14 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             Demux_Set(2);
         else
             Demux_Set(1);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("internet_get"))
     {
         if (Internet_Get())
             return _T("1");
         else
-            return _T("");
+            return Ztring();
     }
     else if (Option_Lower==_T("multiplevalues"))
     {
@@ -244,14 +244,14 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             MultipleValues_Set(0);
         else
             MultipleValues_Set(1);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("multiplevalues_get"))
     {
         if (MultipleValues_Get())
             return _T("1");
         else
-            return _T("");
+            return Ztring();
     }
     else if (Option_Lower==_T("parseunknownextensions"))
     {
@@ -259,24 +259,24 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             ParseUnknownExtensions_Set(0);
         else
             ParseUnknownExtensions_Set(1);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("parseunknownextensions_get"))
     {
         if (ParseUnknownExtensions_Get())
             return _T("1");
         else
-            return _T("");
+            return Ztring();
     }
     else if (Option_Lower==_T("showfiles_set"))
     {
         ShowFiles_Set(Value.c_str());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("readbyhuman"))
     {
         ReadByHuman_Set(Value.To_int8u()?true:false);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("readbyhuman_get"))
     {
@@ -285,7 +285,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("parsespeed"))
     {
         ParseSpeed_Set(Value.To_float32());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("parsespeed_get"))
     {
@@ -294,7 +294,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("verbosity"))
     {
         Verbosity_Set(Value.To_float32());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("verbosity_get"))
     {
@@ -303,7 +303,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("lineseparator"))
     {
         LineSeparator_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("lineseparator_get"))
     {
@@ -312,7 +312,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("version"))
     {
         Version_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("version_get"))
     {
@@ -321,7 +321,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("columnseparator"))
     {
         ColumnSeparator_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("columnseparator_get"))
     {
@@ -330,7 +330,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("tagseparator"))
     {
         TagSeparator_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("tagseparator_get"))
     {
@@ -339,7 +339,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("quote"))
     {
         Quote_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("quote_get"))
     {
@@ -348,7 +348,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("decimalpoint"))
     {
         DecimalPoint_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("decimalpoint_get"))
     {
@@ -357,7 +357,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("thousandspoint"))
     {
         ThousandsPoint_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("thousandspoint_get"))
     {
@@ -367,7 +367,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         ZtringListList StreamMax=Value.c_str();
         StreamMax_Set(StreamMax);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("streammax_get"))
     {
@@ -377,7 +377,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         ZtringListList Language=Value.c_str();
         Language_Set(Language);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("language_get"))
     {
@@ -386,7 +386,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("inform"))
     {
         Inform_Set(Value.c_str());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("inform_get"))
     {
@@ -395,7 +395,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("inform_replace"))
     {
         Inform_Replace_Set(Value.c_str());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("inform_replace_get"))
     {
@@ -404,7 +404,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("details")) //Legacy for detailslevel
     {
         DetailsLevel_Set(Value.To_float32());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("details_get")) //Legacy for detailslevel
     {
@@ -413,7 +413,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("detailslevel"))
     {
         DetailsLevel_Set(Value.To_float32());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("detailslevel_get"))
     {
@@ -429,7 +429,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             DetailsFormat_Set(DetailsFormat_CSV);
         else
             DetailsFormat_Set(DetailsFormat_Tree);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("detailsformat_get"))
     {
@@ -442,7 +442,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("detailsmodificator"))
     {
         DetailsModificator_Set(Value);
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("detailsmodificator_get"))
     {
@@ -465,7 +465,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
 
         ToReturn.Separator_Set(0, LineSeparator_Get());
         ToReturn.Separator_Set(1, _T(" "));
-        ToReturn.Quote_Set(_T(""));
+        ToReturn.Quote_Set(Ztring());
         return ToReturn.Read();
     }
     else if (Option_Lower==_T("info_parameters_csv"))
@@ -487,7 +487,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("formatdetection_maximumoffset"))
     {
         FormatDetection_MaximumOffset_Set(Value==_T("-1")?(int64u)-1:((Ztring*)&Value)->To_int64u());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("formatdetection_maximumoffset_get"))
     {
@@ -496,7 +496,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("mpegts_maximumoffset"))
     {
         MpegTs_MaximumOffset_Set(Value==_T("-1")?(int64u)-1:((Ztring*)&Value)->To_int64u());
-        return _T("");
+        return Ztring();
     }
     else if (Option_Lower==_T("mpegts_maximumoffset_get"))
     {
@@ -847,7 +847,7 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
         Language.Write(_T("  Config_Text_Separator"), _T(" : "));
         Language.Write(_T("  Config_Text_NumberTag"), _T(" #"));
         Language.Write(_T("  Config_Text_FloatSeparator"), _T("."));
-        Language.Write(_T("  Config_Text_ThousandsSeparator"), _T(""));
+        Language.Write(_T("  Config_Text_ThousandsSeparator"), Ztring());
     }
     //-Add custom language to English language
     else
@@ -860,7 +860,7 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
             if (NewValue[Pos].size()>=2)
                 Language.Write(NewValue[Pos][0], NewValue[Pos][1]);
             else if (NewValue[Pos].size()==1)
-                Language.Write(NewValue[Pos][0], _T(""));
+                Language.Write(NewValue[Pos][0], Ztring());
     }
 
     //Fill Info
@@ -880,21 +880,21 @@ void MediaInfo_Config::Language_Set (stream_t StreamKind)
         Ztring ToReplace=Info[StreamKind](Pos, Info_Name);
         if (!Language_Raw && ToReplace.find(_T("/String"))!=Error)
         {
-            ToReplace.FindAndReplace(_T("/String1"), _T(""));
-            ToReplace.FindAndReplace(_T("/String2"), _T(""));
-            ToReplace.FindAndReplace(_T("/String3"), _T(""));
-            ToReplace.FindAndReplace(_T("/String4"), _T(""));
-            ToReplace.FindAndReplace(_T("/String5"), _T(""));
-            ToReplace.FindAndReplace(_T("/String6"), _T(""));
-            ToReplace.FindAndReplace(_T("/String7"), _T(""));
-            ToReplace.FindAndReplace(_T("/String8"), _T(""));
-            ToReplace.FindAndReplace(_T("/String9"), _T(""));
-            ToReplace.FindAndReplace(_T("/String"),  _T(""));
+            ToReplace.FindAndReplace(_T("/String1"), Ztring());
+            ToReplace.FindAndReplace(_T("/String2"), Ztring());
+            ToReplace.FindAndReplace(_T("/String3"), Ztring());
+            ToReplace.FindAndReplace(_T("/String4"), Ztring());
+            ToReplace.FindAndReplace(_T("/String5"), Ztring());
+            ToReplace.FindAndReplace(_T("/String6"), Ztring());
+            ToReplace.FindAndReplace(_T("/String7"), Ztring());
+            ToReplace.FindAndReplace(_T("/String8"), Ztring());
+            ToReplace.FindAndReplace(_T("/String9"), Ztring());
+            ToReplace.FindAndReplace(_T("/String"),  Ztring());
         }
         if (!Language_Raw && ToReplace.find(_T("/"))!=Error) //Complex values, like XXX/YYY --> We translate both XXX and YYY
         {
-            Ztring ToReplace1=ToReplace.SubString(_T(""), _T("/"));
-            Ztring ToReplace2=ToReplace.SubString(_T("/"), _T(""));
+            Ztring ToReplace1=ToReplace.SubString(Ztring(), _T("/"));
+            Ztring ToReplace2=ToReplace.SubString(_T("/"), Ztring());
             Info[StreamKind](Pos, Info_Name_Text)=Language.Get(ToReplace1);
             Info[StreamKind](Pos, Info_Name_Text)+=_T("/");
             Info[StreamKind](Pos, Info_Name_Text)+=Language.Get(ToReplace2);
@@ -1414,7 +1414,7 @@ Ztring MediaInfo_Config::Info_Parameters_Get ()
 //---------------------------------------------------------------------------
 Ztring MediaInfo_Config::Info_Tags_Get () const
 {
-    return _T("");
+    return Ztring();
 }
 
 Ztring MediaInfo_Config::Info_Codecs_Get ()

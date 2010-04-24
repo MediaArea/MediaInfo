@@ -437,6 +437,37 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
 }
 #endif //MEDIAINFO_EVENTS
 
+void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name)
+{
+    CriticalSectionLocker CSL(CS);
+
+    if (Event_CallBackFunction)
+        Event_CallBackFunction ((unsigned char*)Data_Content, Data_Size, Event_UserHandler);
+    else
+    {
+        MediaInfo_Event_Generic* Event_Generic=(MediaInfo_Event_Generic*)Data_Content;
+        if ((Event_Generic->EventCode&0x00FFFF00)==(MediaInfo_Event_Global_Demux<<8))
+        {
+            if (!MediaInfoLib::Config.Demux_Get())
+                return;
+
+            if (File_Name.empty())
+                return;
+
+            MediaInfo_Event_Global_Demux_0* Event=(MediaInfo_Event_Global_Demux_0*)Data_Content;
+
+            Ztring File_Name_Final(File_Name);
+            for (size_t Pos=0; Pos<Event->StreamIDs_Size; Pos++)
+                File_Name_Final+=_T(".")+Ztring().From_Number(Event->StreamIDs[Pos], 16);
+            File_Name_Final+=_T(".raw");
+
+            File F;
+            F.Open(File_Name_Final, File::Access_Write_Append);
+            F.Write(Event->Content, Event->Content_Size);
+        }
+    }
+}
+
 //***************************************************************************
 // Force Parser
 //***************************************************************************

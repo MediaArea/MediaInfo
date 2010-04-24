@@ -29,7 +29,9 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Internal_Const.h"
 #if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config.h"
     #include "MediaInfo/MediaInfo_Events.h"
+    #include "ZenLib/File.h"
 #endif //MEDIAINFO_EVENTS
 #include "ZenLib/CriticalSection.h"
 #include "ZenLib/ZtringListList.h"
@@ -54,7 +56,7 @@ public :
     MediaInfo_Config_MediaInfo();
 
     //General
-    Ztring Option (const String &Option, const String &Value=_T(""));
+    Ztring Option (const String &Option, const String &Value=Ztring());
 
     void          File_IsSeekable_Set (bool NewValue);
     bool          File_IsSeekable_Get ();
@@ -86,6 +88,7 @@ public :
     #if MEDIAINFO_EVENTS
     Ztring        Event_CallBackFunction_Set (const Ztring &Value);
     void          Event_Send(const int8u* Data_Content, size_t Data_Size);
+    void          Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);
     #endif //MEDIAINFO_EVENTS
 
     //Specific
