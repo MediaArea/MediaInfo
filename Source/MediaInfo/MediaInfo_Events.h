@@ -281,7 +281,7 @@ struct MediaInfo_Event_General_Move_Done_0
 #define MediaInfo_Parser_MpegPs         0x02
 
 /*-------------------------------------------------------------------------*/
-/* MediaInfo_Event_MpegPs_PES_New                                              */
+/* MediaInfo_Event_MpegPs_PES_New                                          */
 #define MediaInfo_Event_MpegPs_PES_New 0x100A
 struct MediaInfo_Event_MpegPs_PES_New_0
 {
