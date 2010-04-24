@@ -37,6 +37,21 @@ namespace MediaInfoLib
         else
             memset(Event_PTS_HR, 0x00, 13);
     }
+
+    inline void Events_DTS(int64u DTS, int64u &Event_DTS, char* Event_DTS_HR)
+    {
+        Event_DTS=DTS;
+        if (DTS!=(int64u)-1)
+        {
+            string DTS_HR=Ztring().Duration_From_Milliseconds(DTS/1000000).To_UTF8();
+            if (DTS_HR.size()==12)
+                strcpy(Event_DTS_HR, DTS_HR.c_str());
+            else
+                memset(Event_DTS_HR, 0x00, 13);
+        }
+        else
+            memset(Event_DTS_HR, 0x00, 13);
+    }
 }
 
 #endif //MediaInfo_EventsH
