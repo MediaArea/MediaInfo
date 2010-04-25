@@ -729,7 +729,7 @@ void File_Vc1::FrameHeader()
         Streams[0x0F].Searching_Payload=true;
 
         //Filling only if not already done
-        if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
+        if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid && MediaInfoLib::Config.ParseSpeed_Get()<=0.01)
             Finish("VC-1");
     FILLING_END();
 }
