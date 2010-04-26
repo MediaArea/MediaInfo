@@ -714,6 +714,8 @@ bool File_MpegTs::Synched_Test()
                                     //This is the first PCR
                                     Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference;
                                     Complete_Stream->Streams[pid].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
+                                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference;
+                                    Complete_Stream->Streams[pid].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
                                     Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
                                     Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
                                     Complete_Stream->Streams_With_StartTimeStampCount++;
@@ -998,6 +1000,8 @@ void File_MpegTs::Header_Parse_AdaptationField()
                     //This is the first PCR
                     Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference;
                     Complete_Stream->Streams[pid].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
+                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference;
+                    Complete_Stream->Streams[pid].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
                     Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
                     Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
                     Complete_Stream->Streams_With_StartTimeStampCount++;
@@ -1143,6 +1147,8 @@ void File_MpegTs::Header_Parse_AdaptationField()
                     //This is the first PCR
                     Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference;
                     Complete_Stream->Streams[pid].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
+                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference;
+                    Complete_Stream->Streams[pid].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
                     Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
                     Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
                     Complete_Stream->Streams_With_StartTimeStampCount++;
