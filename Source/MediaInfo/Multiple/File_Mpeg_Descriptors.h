@@ -227,6 +227,7 @@ struct complete_stream
         bool                                        ShouldDuplicate;
         bool                                        IsRegistered;
         size_t                                      IsScrambled;
+        int16u                                      SubStream_pid;
 
         //Constructor/Destructor
         stream()
@@ -262,7 +263,8 @@ struct complete_stream
             EndTimeStampMoreThanxSeconds=false;
             ShouldDuplicate=false;
             IsRegistered=false;
-            IsScrambled=0;
+            IsScrambled=false;
+            SubStream_pid=0x0000;
         }
 
         ~stream()

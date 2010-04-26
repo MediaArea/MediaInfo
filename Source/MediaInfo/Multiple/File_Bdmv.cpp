@@ -35,6 +35,7 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
+using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -70,12 +71,12 @@ namespace Elements
 //---------------------------------------------------------------------------
 const char* Clpi_Offsets[]=
 {
-    "Unknown",
-    "Unknown",
-    "Streams",
-    "Unknown",
-    "Unknown",
-    "Unknown",
+    "ClipInfo",
+    "SequenceInfo",
+    "ProgramInfo",
+    "CPI",
+    "ClipMark",
+    "ExtensionData",
     "Reserved",
     "Reserved",
     "Reserved",
@@ -115,7 +116,7 @@ const char* Mpls_Offsets[]=
     "AppInfoPlayList",
     "PlayList",
     "PlayListMarks",
-    "Reserved",
+    "ExtensionData",
     "Reserved",
     "Reserved",
     "Reserved",
@@ -145,6 +146,8 @@ const char* Clpi_Format(int8u StreamType)
         case 0x02 : return "MPEG-2 Video";
         case 0x03 : return "MPEG-1 Audio";
         case 0x04 : return "MPEG-2 Audio";
+        case 0x1B : return "AVC";
+        case 0x20 : return "AVC";
         case 0x80 : return "PCM";
         case 0x81 : return "AC-3";
         case 0x82 : return "DTS";
@@ -155,7 +158,6 @@ const char* Clpi_Format(int8u StreamType)
         case 0x90 : return "PGS";
         case 0x91 : return "Interactive";
         case 0x92 : return "Subtitle";
-        case 0x1B : return "AVC";
         case 0xA1 : return "E-AC-3"; //Secondary
         case 0xA2 : return "DTS"; //Secondary
         case 0xEA : return "VC-1";
@@ -184,6 +186,8 @@ stream_t Clpi_Type(int8u StreamType)
         case 0x02 : return Stream_Video;
         case 0x03 : return Stream_Audio;
         case 0x04 : return Stream_Audio;
+        case 0x1B : return Stream_Video;
+        case 0x20 : return Stream_Video;
         case 0x80 : return Stream_Audio;
         case 0x81 : return Stream_Audio;
         case 0x82 : return Stream_Audio;
@@ -194,7 +198,6 @@ stream_t Clpi_Type(int8u StreamType)
         case 0x90 : return Stream_Text;
         case 0x91 : return Stream_Max;
         case 0x92 : return Stream_Text;
-        case 0x1B : return Stream_Video;
         case 0xA1 : return Stream_Audio;
         case 0xA2 : return Stream_Audio;
         case 0xEA : return Stream_Video;
@@ -478,6 +481,9 @@ bool File_Bdmv::FileHeader_Begin()
                               return false;
     }
 
+    //Init
+    Mpls_PlayList_IsParsed=false;
+
     //All should be OK...
     return true;
 }
@@ -551,7 +557,8 @@ void File_Bdmv::Read_Buffer_Continue()
                     case Elements::CLPI :
                                             switch(Type->second)
                                             {
-                                                case 2 : Clpi_Streams  (); break;
+                                                case 2 : Clpi_ProgramInfo(); break;
+                                                case 5 : Clpi_ExtensionData(); break;
                                                 default: ;
                                             }
                                             break;
@@ -578,6 +585,7 @@ void File_Bdmv::Read_Buffer_Continue()
                                                 case 0 : Mpls_AppInfoPlayList(); break;
                                                 case 1 : Mpls_PlayList(); break;
                                                 case 2 : Mpls_PlayListMarks (); break;
+                                                case 3 : Mpls_ExtensionData (); break;
                                                 default: ;
                                             }
                                             break;
@@ -613,8 +621,6 @@ void File_Bdmv::BDMV()
     int64u MaxDuration=0;
     if (Config->File_Bdmv_ParseTargetedFile_Get())
     {
-        int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-        MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
         for (size_t Pos=0; Pos<MIs.size(); Pos++)
         {
             MIs[Pos]=new MediaInfo_Internal();
@@ -627,19 +633,13 @@ void File_Bdmv::BDMV()
                 MaxDuration_Pos=Pos;
             }
         }
-        if (ReadByHuman)
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
     }
     
     if (MaxDuration_Pos!=(size_t)-1)
     {
         //Merging
         MediaInfo_Internal MI;
-        int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-        MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
         MI.Open(List[MaxDuration_Pos]); //Open it again for having the M2TS part
-        if (ReadByHuman)
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
         Merge(MI);
 
         Clear(Stream_General, 0, General_Format);
@@ -681,12 +681,12 @@ void File_Bdmv::BDMV()
 }
 
 //---------------------------------------------------------------------------
-void File_Bdmv::Clpi_Streams()
+void File_Bdmv::Clpi_ProgramInfo()
 {
     //Retrieving data from the M2TS file
     std::map<int16u, stream_t> PIDs_StreamKind;
     std::map<int16u, size_t> PIDs_StreamPos;
-	if (Config->File_Bdmv_ParseTargetedFile_Get() && File_Name.size()>10)
+    if (Config->File_Bdmv_ParseTargetedFile_Get() && File_Name.size()>10)
     {
         Ztring file=File_Name.substr(File_Name.size()-10, 5);
         Ztring M2TS_File=File_Name;
@@ -696,14 +696,10 @@ void File_Bdmv::Clpi_Streams()
         M2TS_File+=file;
         M2TS_File+=_T(".m2ts");
 
-        int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-        MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
         MediaInfo_Internal MI;
         MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
         if (MI.Open(M2TS_File))
             Merge(MI);
-        if (ReadByHuman)
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
 
         //Retrieving PID mapping
         for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
@@ -716,122 +712,119 @@ void File_Bdmv::Clpi_Streams()
     }
 
     //Parsing
-    int8u Count;
-    Skip_B4(                                                    "Unknown");
-    Skip_B4(                                                    "Unknown");
-    Get_B1 (Count,                                              "Streams count");
+    int8u number_of_program_sequences;
     Skip_B1(                                                    "Unknown");
-    for (int16u Pos=0; Pos<Count; Pos++)
+    Get_B1 (number_of_program_sequences,                        "number_of_program_sequences");
+    for (int8u program_sequence=0; program_sequence<number_of_program_sequences; program_sequence++)
     {
-        Element_Begin("Stream");
-        int16u PID;
-        int8u  Stream_Length;
-        Get_B2 (PID,                                            "PID");
-        Get_B1 (Stream_Length,                                  "Length");
-        int64u Stream_End=Element_Offset+Stream_Length;
-        StreamKind_Last=Stream_Max;
-        std::map<int16u, stream_t>::iterator PID_StreamKind=PIDs_StreamKind.find(PID);
-        if (PID_StreamKind!=PIDs_StreamKind.end())
+        int8u number_of_streams_in_ps;
+        Skip_B4(                                                "Unknown");
+        Skip_B2(                                                "program_map_PID");
+        Get_B1 (number_of_streams_in_ps,                        "number_of_streams_in_ps");
+        Skip_B1(                                                "Unknown");
+        for (int16u Pos=0; Pos<number_of_streams_in_ps; Pos++)
         {
-            StreamKind_Last=PID_StreamKind->second;
-            StreamPos_Last=PIDs_StreamPos.find(PID)->second;
-        }
-        Get_B1 (stream_type,                                    "Stream type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
-        switch (Clpi_Type(stream_type))
-        {
-            case Stream_Video : Clpi_Streams_Video(); break;
-            case Stream_Audio : Clpi_Streams_Audio(); break;
-            case Stream_Text  : Clpi_Streams_Text() ; break;
-            default           : ;
-        }
-
-        if (Stream_End-Element_Offset)
-            Skip_XX(Stream_End-Element_Offset,                  "Unknown");
-        Element_End();
-
-        FILLING_BEGIN();
-            if (StreamKind_Last!=Stream_Max)
+            Element_Begin("Stream");
+            int16u stream_PID;
+            int8u  Stream_Length;
+            Get_B2 (stream_PID,                                 "stream_PID");
+            Get_B1 (Stream_Length,                              "Length");
+            int64u Stream_End=Element_Offset+Stream_Length;
+            StreamKind_Last=Stream_Max;
+            std::map<int16u, stream_t>::iterator PID_StreamKind=PIDs_StreamKind.find(stream_PID);
+            if (PID_StreamKind!=PIDs_StreamKind.end())
             {
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, PID, 10, true);
-                Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(PID), true);
+                StreamKind_Last=PID_StreamKind->second;
+                StreamPos_Last=PIDs_StreamPos.find(stream_PID)->second;
             }
-        FILLING_END();
+            Get_B1 (stream_type,                                "Stream type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
+            switch (Clpi_Type(stream_type))
+            {
+                case Stream_Video : StreamCodingInfo_Video(); break;
+                case Stream_Audio : StreamCodingInfo_Audio(); break;
+                case Stream_Text  : StreamCodingInfo_Text() ; break;
+                default           : ;
+            }
+
+            if (Stream_End-Element_Offset)
+                Skip_XX(Stream_End-Element_Offset,              "Unknown");
+            Element_End();
+
+            FILLING_BEGIN();
+                if (StreamKind_Last!=Stream_Max)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID, stream_PID, 10, true);
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(stream_PID), true);
+                }
+            FILLING_END();
+        }
     }
 }
 
-//---------------------------------------------------------------------------
-void File_Bdmv::Clpi_Streams_Video()
+struct entry
 {
-    //Parsing
-    int8u Format, FrameRate, AspectRatio;
-    BS_Begin();
-    Get_S1 (4, Format,                                          "Format"); Param_Info(Clpi_Video_Format[Format]);
-    Get_S1 (4, FrameRate,                                       "Frame rate"); Param_Info(Clpi_Video_FrameRate[FrameRate]);
-    Get_S1 (4, AspectRatio,                                     "Aspect ratio"); Param_Info(Clpi_Video_AspectRatio[AspectRatio]);
-    Skip_BS(4,                                                  "Reserved");
-    BS_End();
-
-    FILLING_BEGIN();
-        if (StreamKind_Last==Stream_Max)
-        {
-            Stream_Prepare(Stream_Video);
-            Fill(Stream_Video, StreamPos_Last, Video_Format, Clpi_Format(stream_type));
-            if (Clpi_Video_Width[Format])
-                Fill(Stream_Video, StreamPos_Last, Video_Width, Clpi_Video_Width[Format]);
-            if (Clpi_Video_Height[Format])
-                Fill(Stream_Video, StreamPos_Last, Video_Height, Clpi_Video_Height[Format]);
-            Fill(Stream_Video, StreamPos_Last, Video_Interlacement, Clpi_Video_Interlacement[Format]);
-            Fill(Stream_Video, StreamPos_Last, Video_Standard, Clpi_Video_Standard[Format]);
-            if (Clpi_Video_FrameRate[FrameRate])
-                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Clpi_Video_FrameRate[FrameRate]);
-            if (Clpi_Video_Height[AspectRatio])
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Clpi_Video_AspectRatio[AspectRatio], 3, true);
-        }
-    FILLING_END();
-}
+    int16u ID1;
+    int16u ID2;
+    int32u Length;
+};
+typedef std::map<int32u, entry> entries; //Key is the start adress
 
 //---------------------------------------------------------------------------
-void File_Bdmv::Clpi_Streams_Audio()
+void File_Bdmv::Clpi_ExtensionData()
 {
-    //Parsing
-    int8u Channels, SamplingRate;
-    BS_Begin();
-    Get_S1 (4, Channels,                                        "Channel layout"); Param_Info(Clpi_Audio_Channels[Channels]);
-    Get_S1 (4, SamplingRate,                                    "Sampling Rate"); Param_Info(Clpi_Audio_SamplingRate[SamplingRate]);
-    BS_End();
-    Info_Local(3, Language,                                     "Language"); Element_Info(Language);
+    entries Entries; //Key is the start adress
 
-    FILLING_BEGIN();
-        if (StreamKind_Last==Stream_Max)
+    int32u Base_Pos=(int32u)Element_Offset-4;
+
+    int8u number_of_ext_data_entries;
+    Skip_B4(                                                    "Unknown");
+    Skip_B3(                                                    "Unknown");
+    Element_Begin("Offsets");
+    Get_B1 (number_of_ext_data_entries,                         "number_of_ext_data_entries");
+    for (size_t Start_Adress_Pos=0; Start_Adress_Pos<number_of_ext_data_entries; Start_Adress_Pos++)
+    {
+        int32u Start_Adress, Length;
+        int16u ID1, ID2;
+        Get_B2 (ID1,                                            "ID1");
+        Get_B2 (ID2,                                            "ID2");
+        Get_B4 (Start_Adress,                                   "Start_Adress");
+        Get_B4 (Length,                                         "Length");
+        Entries[Base_Pos+Start_Adress].ID1=ID1;
+        Entries[Base_Pos+Start_Adress].ID2=ID2;
+        Entries[Base_Pos+Start_Adress].Length=Length;
+    }
+    Element_End();
+
+    for (entries::iterator Entry=Entries.begin(); Entry!=Entries.end(); Entry++)
+    {
+        if (Entry->first>=Element_Offset) //If valid
         {
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format, Clpi_Format(stream_type));
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, Clpi_Format_Profile(stream_type));
-            if (Clpi_Audio_Channels[Channels])
-                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Clpi_Audio_Channels[Channels]);
-            if (Clpi_Audio_SamplingRate[SamplingRate])
-                Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Clpi_Audio_SamplingRate[SamplingRate]);
-        }
-        Fill(Stream_Audio, StreamPos_Last, Audio_Language, Language);
-    FILLING_END();
-}
+            if (Entry->first>Element_Offset)
+                Skip_XX(Entry->first-Element_Offset, "unknown");
 
-//---------------------------------------------------------------------------
-void File_Bdmv::Clpi_Streams_Text()
-{
-    //Parsing
-    if (stream_type==0x92) //Subtitle
-        Skip_B1(                                                "Unknown");
-    Info_Local(3, Language,                                     "Language"); Element_Info(Language);
-
-    FILLING_BEGIN();
-        if (StreamKind_Last==Stream_Max)
-        {
-            Stream_Prepare(Stream_Text);
-            Fill(Stream_Text, StreamPos_Last, Text_Format, Clpi_Format(stream_type));
+            Element_Begin("Entry");
+            int32u length;
+            Get_B4 (length,                                 "length");
+            int64u End=Element_Offset+length;
+            switch (Entry->second.ID1)
+            {
+                case 0x0002 :
+                                switch(Entry->second.ID2)
+                                {
+                                    case 0x0005 : Clpi_ProgramInfo(); break;
+                                    default: ;
+                                }
+                                break;
+                default             :   ;
+            }
+            if (End>Element_Offset)
+                Skip_XX(End-Element_Offset,                 "Unknown");
+            Element_End();
         }
-        Fill(Stream_Text, StreamPos_Last, Text_Language, Language);
-    FILLING_END();
+    }
+
+    if (Element_Size>Element_Offset)
+        Skip_XX(Element_Size-Element_Offset,                "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -1113,166 +1106,158 @@ void File_Bdmv::Mpls_AppInfoPlayList()
 void File_Bdmv::Mpls_PlayList()
 {
     //Parsing
-    int64u PlayItems_Duration=0;
+    Mpls_PlayList_Duration=0;
     int16u number_of_PlayItems, number_of_SubPaths;
     Skip_B2(                                                    "reserved");
     Get_B2 (number_of_PlayItems,                                "number_of_PlayItems");
     Get_B2 (number_of_SubPaths,                                 "number_of_SubPaths");
     for (int16u Pos=0; Pos<number_of_PlayItems; Pos++)
-    {
-        Element_Begin("PlayItem");
-        Ztring file;
-        int16u PlayItem_length;
-        Get_B2 (PlayItem_length,                                "length");
-        int64u PlayItem_End=Element_Offset+PlayItem_length;
-        Get_Local (5, file,                                     "file"); Element_Info(file);
-        Skip_Local(4,                                           "type");
-        Skip_B1(                                                "unknown");
-        BS_Begin();
-            Skip_S1(3,                                          "unknown");
-            Skip_SB(                                            "Angle?");
-            Skip_S1(4,                                          "Condition");
-        BS_End();
-        Skip_B1(                                                "Unknown");
-        Info_B4(Time_In,                                        "Time (In)"); Param_Info((float32)Time_In/45000);
-        Info_B4(Time_Out,                                       "Time (Out)"); Param_Info((float32)Time_Out/45000);
-        Skip_B4(                                                "UO1");
-        Skip_B4(                                                "UO2");
-        Skip_B4(                                                "An?");
+        Mpls_PlayList_PlayItem();
 
-        Element_Begin("STN"); {
-        int16u STN_length;
-        Get_B2 (STN_length,                                     "length");
-        int64u STN_End=Element_Offset+STN_length;
-        Skip_B2(                                                "unknown");
-        Skip_B1(                                                "Vi");
-        Skip_B1(                                                "Au");
-        Skip_B1(                                                "PG");
-        Skip_B1(                                                "IG");
-        Skip_B1(                                                "sV");
-        Skip_B1(                                                "sA");
-        Skip_B1(                                                "PIP");
-        Skip_B1(                                                "unknown");
-        Skip_B1(                                                "unknown");
-        Skip_B1(                                                "unknown");
-        Skip_B1(                                                "unknown");
-        Skip_B1(                                                "unknown");
-
-        while (Element_Offset+16<=STN_End)
-        {
-            Element_Begin();
-            Ztring language;
-            int16u mPID;
-            int8u IDs_length;
-            Skip_B1(                                            "type");
-            Skip_B1(                                            "unknown");
-            Get_B2 (mPID,                                       "mPID"); Element_Name(Ztring::ToZtring(mPID, 16));
-            Skip_B2(                                            "SPid");
-            Skip_B2(                                            "sCid");
-            Skip_B2(                                            "sPID");
-            Get_B1 (IDs_length,                                 "length");
-            int64u IDs_End=Element_Offset+IDs_length;
-            Get_B1 (stream_type,                                "stream_type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
-            switch (Clpi_Type(stream_type))
-            {
-                case Stream_Video : Mpls_PlayList_PlayItem_STN_Video(); break;
-                case Stream_Audio : Mpls_PlayList_PlayItem_STN_Audio(); break;
-                case Stream_Text  : Mpls_PlayList_PlayItem_STN_Text() ; break;
-                default           : StreamKind_Last=Stream_Max;
-            }
-            Get_Local(3, language,                              "language"); Element_Info(language);
-
-            if (IDs_End-Element_Offset)
-                Skip_XX(IDs_End-Element_Offset,                 "unknown");
-            Element_End();
-
-            FILLING_BEGIN();
-                if (StreamKind_Last!=Stream_Max)
-                {
-                    if (mPID)
-                    {
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID, mPID, 10, true);
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(mPID), true);
-                    }
-                    Fill(StreamKind_Last, StreamPos_Last, "Language", language);
-                }
-            FILLING_END();
-        }
-
-        if (STN_End>Element_Offset)
-            Skip_XX(STN_End-Element_Offset,                     "unknown");
-        Element_End(2+STN_length); }
-
-        if (PlayItem_End>Element_Offset)
-            Skip_XX(PlayItem_End-Element_Offset,                "unknown");
-        Element_End(2+PlayItem_length);
-
-        if (Time_Out>Time_In)
-            PlayItems_Duration+=Time_Out-Time_In;
-
-        if (number_of_PlayItems==1 && !File_Name.empty() && Config->File_Bdmv_ParseTargetedFile_Get())
-        {
-            Ztring CLPI_File=File_Name;
-            CLPI_File.resize(CLPI_File.size()-10-1-8);
-            CLPI_File+=_T("CLIPINF");
-            CLPI_File+=PathSeparator;
-            CLPI_File+=file;
-            CLPI_File+=_T(".clpi");
-
-            int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-            MediaInfo_Internal MI;
-            if (MI.Open(CLPI_File))
-                Merge(MI);
-            if (ReadByHuman)
-                MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
-        }
-    }
-
-    if (PlayItems_Duration)
-        Fill(Stream_General, 0, General_Duration, PlayItems_Duration/45);
+    if (Mpls_PlayList_Duration)
+        Fill(Stream_General, 0, General_Duration, Mpls_PlayList_Duration/45);
 
     for (int16u SubPath_Pos=0; SubPath_Pos<number_of_SubPaths; SubPath_Pos++)
     {
         Element_Begin("SubPath");
         int32u SubPath_length;
-        int16u number_of_items;
+        int16u number_of_SubPlayItems;
         Get_B4 (SubPath_length,                                 "length");
         int64u SubPath_End=Element_Offset+SubPath_length;
-        Skip_B2(                                                "type?");
+        Skip_B1(                                                "Unknown");
+        Skip_B1(                                                "SubPath_type");
         Skip_B2(                                                "repeat");
-        Get_B2 (number_of_items,                                "number_of_items");
-        for (int16u Item_Pos=0; Item_Pos<number_of_items; Item_Pos++)
-        {
-            Element_Begin("Item");
-            Ztring file;
-            int16u Item_length;
-            Get_B2 (Item_length,                               "length");
-            int64u Item_End=Element_Offset+Item_length;
-            Get_Local (5, file,                                 "file"); Element_Info(file);
-            Skip_Local(4,                                       "type");
-            Skip_B1(                                            "unknown");
-            Skip_B2(                                            "unknown");
-            Skip_B2(                                            "unknown");
-            Info_B4(Time_In,                                    "time (in)"); Param_Info((float32)Time_In/45000);
-            Info_B4(Time_Out,                                   "time (out)"); Param_Info((float32)Time_Out/45000);
-            Skip_B1(                                            "sync PI");
-            Skip_B4(                                            "sync PTS");
-            Skip_B1(                                            "An?");
-
-            if (Item_End>Element_Offset)
-                Skip_XX(Item_End-Element_Offset,             "unknown");
-            Element_End(2+Item_length);
-        }
+        Get_B2 (number_of_SubPlayItems,                         "number_of_SubPlayItems");
+        for (int16u SubPlayItem=0; SubPlayItem<number_of_SubPlayItems; SubPlayItem++)
+            Mpls_PlayList_SubPlayItem();
 
         if (SubPath_End>Element_Offset)
             Skip_XX(SubPath_End-Element_Offset,                 "unknown");
         Element_End(2+SubPath_length);
     }
+
+    FILLING_BEGIN();
+        if (!Mpls_PlayList_IsParsed)
+        {
+            Mpls_PlayList_number_of_SubPaths=number_of_SubPaths;
+            Mpls_PlayList_IsParsed=true;
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Bdmv::Mpls_PlayList_PlayItem_STN_Video()
+void File_Bdmv::Mpls_PlayList_PlayItem()
+{
+    Element_Begin("PlayItem");
+    Ztring Clip_Information_file_name;
+    int16u length;
+    Get_B2 (length,                                         "length");
+    int64u End=Element_Offset+length;
+    Get_Local (5, Clip_Information_file_name,               "Clip_Information_file_name"); Element_Info(Clip_Information_file_name);
+    Skip_Local(4,                                           "Clip_codec_identifier");
+    Skip_B2(                                                "unknown");
+    Skip_B1(                                                "Unknown");
+    Info_B4(Time_In,                                        "Time (In)"); Param_Info((float32)Time_In/45000);
+    Info_B4(Time_Out,                                       "Time (Out)"); Param_Info((float32)Time_Out/45000);
+    Skip_B4(                                                "UO1");
+    Skip_B4(                                                "UO2");
+    Skip_B4(                                                "An?");
+
+    if (Time_Out>Time_In)
+        Mpls_PlayList_Duration+=Time_Out-Time_In;
+
+    Mpls_PlayList_PlayItem_STN_table();
+
+    if (!File_Name.empty())
+    {
+        Ztring CLPI_File=File_Name;
+        CLPI_File.resize(CLPI_File.size()-10-1-8);
+        CLPI_File+=_T("CLIPINF");
+        CLPI_File+=PathSeparator;
+        CLPI_File+=Clip_Information_file_name;
+        CLPI_File+=_T(".clpi");
+
+        MediaInfo_Internal MI;
+        MI.Option(_T("File_Bdmv_ParseTargetedFile"), Config->File_Bdmv_ParseTargetedFile_Get()?_T("1"):_T("0"));
+        if (MI.Open(CLPI_File))
+            Merge(MI, Stream_Video, 0, 0);
+    }
+
+    if (End>Element_Offset)
+        Skip_XX(End-Element_Offset,                             "unknown");
+    Element_End(2+length);
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
+{
+    Element_Begin("STN");
+
+    int16u length;
+    Get_B2 (length,                                         "length");
+    int64u End=Element_Offset+length;
+    Skip_B2(                                                "unknown");
+    Skip_B1(                                                "Vi");
+    Skip_B1(                                                "Au");
+    Skip_B1(                                                "PG");
+    Skip_B1(                                                "IG");
+    Skip_B1(                                                "sV");
+    Skip_B1(                                                "sA");
+    Skip_B1(                                                "PIP");
+    Skip_B1(                                                "unknown");
+    Skip_B1(                                                "unknown");
+    Skip_B1(                                                "unknown");
+    Skip_B1(                                                "unknown");
+    Skip_B1(                                                "unknown");
+
+    while (Element_Offset+16<=End)
+    {
+        Element_Begin();
+        Ztring language;
+        int16u mPID;
+        int8u IDs_length;
+        Skip_B1(                                            "type");
+        Skip_B1(                                            "unknown");
+        Get_B2 (mPID,                                       "mPID"); Element_Name(Ztring::ToZtring(mPID, 16));
+        Skip_B2(                                            "SPid");
+        Skip_B2(                                            "sCid");
+        Skip_B2(                                            "sPID");
+        Get_B1 (IDs_length,                                 "length");
+        int64u IDs_End=Element_Offset+IDs_length;
+        Get_B1 (stream_type,                                "stream_type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
+        switch (Clpi_Type(stream_type))
+        {
+            case Stream_Video : Mpls_PlayList_PlayItem_STN_table_Video(); break;
+            case Stream_Audio : Mpls_PlayList_PlayItem_STN_table_Audio(); break;
+            case Stream_Text  : Mpls_PlayList_PlayItem_STN_table_Text() ; break;
+            default           : StreamKind_Last=Stream_Max;
+        }
+        Get_Local(3, language,                              "language"); Element_Info(language);
+
+        if (IDs_End-Element_Offset)
+            Skip_XX(IDs_End-Element_Offset,                 "unknown");
+        Element_End();
+
+        FILLING_BEGIN();
+            if (StreamKind_Last!=Stream_Max)
+            {
+                if (mPID)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID, mPID, 10, true);
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(mPID), true);
+                }
+                Fill(StreamKind_Last, StreamPos_Last, "Language", language);
+            }
+        FILLING_END();
+    }
+
+    if (End>Element_Offset)
+        Skip_XX(End-Element_Offset,                             "unknown");
+    Element_End(2+length);
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::Mpls_PlayList_PlayItem_STN_table_Video()
 {
     //Parsing
     int8u Format, FrameRate;
@@ -1296,7 +1281,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_Video()
 }
 
 //---------------------------------------------------------------------------
-void File_Bdmv::Mpls_PlayList_PlayItem_STN_Audio()
+void File_Bdmv::Mpls_PlayList_PlayItem_STN_table_Audio()
 {
     //Parsing
     int8u Channels, SamplingRate;
@@ -1317,7 +1302,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_Audio()
 }
 
 //---------------------------------------------------------------------------
-void File_Bdmv::Mpls_PlayList_PlayItem_STN_Text()
+void File_Bdmv::Mpls_PlayList_PlayItem_STN_table_Text()
 {
     //Parsing
     if (stream_type==0x92) //Subtitle
@@ -1326,6 +1311,59 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_Text()
     FILLING_BEGIN();
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, StreamPos_Last, Text_Format, Clpi_Format(stream_type));
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::Mpls_PlayList_SubPlayItem()
+{
+    Element_Begin("SubPlayItem");
+    Ztring Clip_Information_file_name;
+    int16u length;
+    Get_B2 (length,                                             "length");
+    int64u End=Element_Offset+length;
+    Get_Local (5, Clip_Information_file_name,                   "Clip_Information_file_name"); Element_Info(Clip_Information_file_name);
+    Skip_Local(4,                                               "Clip_codec_identifier");
+    Skip_B4(                                                    "unknown");
+    Skip_B1(                                                    "unknown");
+    Info_B4(Time_In,                                            "time (in)"); Param_Info((float32)Time_In/45000);
+    Info_B4(Time_Out,                                           "time (out)"); Param_Info((float32)Time_Out/45000);
+    Skip_B2(                                                    "sync PI");
+    Skip_B4(                                                    "sync PTS");
+
+    if (End>Element_Offset)
+        Skip_XX(End-Element_Offset,                             "unknown");
+    Element_End(2+length);
+
+    FILLING_BEGIN();
+        if (Mpls_PlayList_IsParsed)
+        {
+            if (!File_Name.empty())
+            {
+                Ztring CLPI_File=File_Name;
+                CLPI_File.resize(CLPI_File.size()-10-1-8);
+                CLPI_File+=_T("CLIPINF");
+                CLPI_File+=PathSeparator;
+                CLPI_File+=Clip_Information_file_name;
+                CLPI_File+=_T(".clpi");
+
+                MediaInfo_Internal MI;
+                MI.Option(_T("File_Bdmv_ParseTargetedFile"), Config->File_Bdmv_ParseTargetedFile_Get()?_T("1"):_T("0"));
+                if (MI.Open(CLPI_File))
+                {
+                    Ztring ID=Retrieve(Stream_Video, 0, Video_ID);
+                    Ztring ID_String=Retrieve(Stream_Video, 0, Video_ID_String);
+                    Ztring Format_Profile=Retrieve(Stream_Video, 0, Video_Format_Profile);
+                    Ztring BitRate=Retrieve(Stream_Video, 0, Video_BitRate);
+                    Fill(Stream_Video, 0, Video_ID, MI.Get(Stream_Video, 0, Video_ID)+_T(" / ")+ID, true);
+                    Fill(Stream_Video, 0, Video_ID_String, MI.Get(Stream_Video, 0, Video_ID_String)+_T(" / ")+ID_String, true);
+                    if (!Format_Profile.empty())
+                        Fill(Stream_Video, 0, Video_Format_Profile, MI.Get(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
+                    if (!BitRate.empty())
+                        Fill(Stream_Video, 0, Video_BitRate, Ztring::ToZtring(BitRate.To_int32u()+MI.Get(Stream_Video, 0, Video_BitRate).To_int32u())+_T(" / ")+BitRate, true);
+                }
+            }
+        }
     FILLING_END();
 }
 
@@ -1375,6 +1413,186 @@ void File_Bdmv::Mpls_PlayListMarks()
     }
 
     Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::Mpls_ExtensionData()
+{
+    entries Entries; //Key is the start adress
+
+    int32u Base_Pos=(int32u)Element_Offset-4;
+
+    int8u number_of_ext_data_entries;
+    Skip_B4(                                                    "Unknown");
+    Skip_B3(                                                    "Unknown");
+    Element_Begin("Offsets");
+    Get_B1 (number_of_ext_data_entries,                         "number_of_ext_data_entries");
+    for (size_t Start_Adress_Pos=0; Start_Adress_Pos<number_of_ext_data_entries; Start_Adress_Pos++)
+    {
+        int32u Start_Adress, Length;
+        int16u ID1, ID2;
+        Get_B2 (ID1,                                            "ID1");
+        Get_B2 (ID2,                                            "ID2");
+        Get_B4 (Start_Adress,                                   "Start_Adress");
+        Get_B4 (Length,                                         "Length");
+        Entries[Base_Pos+Start_Adress].ID1=ID1;
+        Entries[Base_Pos+Start_Adress].ID2=ID2;
+        Entries[Base_Pos+Start_Adress].Length=Length;
+    }
+    Element_End();
+
+    for (entries::iterator Entry=Entries.begin(); Entry!=Entries.end(); Entry++)
+    {
+        if (Entry->first>=Element_Offset) //If valid
+        {
+            if (Entry->first>Element_Offset)
+                Skip_XX(Entry->first-Element_Offset,            "unknown");
+
+            Element_Begin("Entry");
+            int32u length;
+            int64u End=Element_Offset+Entry->second.Length;
+            switch (Entry->second.ID1)
+            {
+                case 0x0001 :
+                                switch(Entry->second.ID2)
+                                {
+                                    case 0x0001 : break; //Mpls_ExtensionData_pip_metadata(); break;
+                                    default: ;
+                                }
+                                break;
+                case 0x0002 :
+                                switch(Entry->second.ID2)
+                                {
+                                    case 0x0001 : break; //Mpls_ExtensionData_STN_table(); break;
+                                    case 0x0002 : Mpls_ExtensionData_SubPath_entries(); break;
+                                    case 0x0003 : break; //Mpls_ExtensionData_active_video_window(); break;
+                                    default: ;
+                                }
+                                break;
+                default             :   ;
+            }
+            if (End>Element_Offset)
+                Skip_XX(End-Element_Offset,                     "Unknown");
+            Element_End();
+        }
+    }
+
+    if (Element_Size>Element_Offset)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::Mpls_ExtensionData_SubPath_entries()
+{
+    Element_Begin("SubPath_entries");
+    int32u length;
+    int16u number_of_SubPath_extensions;
+    int8u SubPath_type;
+    Get_B4 (length,                                             "length");
+    int64u End=Element_Offset+length;
+    Get_B2 (number_of_SubPath_extensions,                       "number_of_SubPath_extensions");
+    for (int8u SubPath_extension=0; SubPath_extension<number_of_SubPath_extensions+Mpls_PlayList_number_of_SubPaths; SubPath_extension++)
+    {
+        Element_Begin("SubPath_extension");
+        int32u SubPath_extension_length;
+        Get_B4 (SubPath_extension_length,                       "length");
+        int64u SubPath_extension_End=Element_Offset+SubPath_extension_length;
+        Skip_B1(                                                "Unknown");
+        Get_B1 (SubPath_type,                                   "SubPath_type");
+        switch(SubPath_type)
+        {
+            case 0x08 :
+                        {
+                        int8u number_of_SubPlayItems;
+                        Skip_B3(                                "Unknown");
+                        Get_B1 (number_of_SubPlayItems,         "number_of_SubPlayItems");
+                        for (int8u Pos=0; Pos<number_of_SubPlayItems; Pos++)
+                            Mpls_PlayList_SubPlayItem();
+                        }
+            default   : ;
+        }
+        if (SubPath_extension_End-Element_Offset)
+            Skip_XX(SubPath_extension_End-Element_Offset,       "Padding");
+        Element_End();
+    }
+    if (End-Element_Offset)
+        Skip_XX(End-Element_Offset,                             "Padding");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::StreamCodingInfo_Video()
+{
+    //Parsing
+    int8u Format, FrameRate, AspectRatio;
+    BS_Begin();
+    Get_S1 (4, Format,                                          "Format"); Param_Info(Clpi_Video_Format[Format]);
+    Get_S1 (4, FrameRate,                                       "Frame rate"); Param_Info(Clpi_Video_FrameRate[FrameRate]);
+    Get_S1 (4, AspectRatio,                                     "Aspect ratio"); Param_Info(Clpi_Video_AspectRatio[AspectRatio]);
+    Skip_BS(4,                                                  "Reserved");
+    BS_End();
+
+    FILLING_BEGIN();
+        if (StreamKind_Last==Stream_Max)
+        {
+            Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, StreamPos_Last, Video_Format, Clpi_Format(stream_type));
+            if (Clpi_Video_Width[Format])
+                Fill(Stream_Video, StreamPos_Last, Video_Width, Clpi_Video_Width[Format]);
+            if (Clpi_Video_Height[Format])
+                Fill(Stream_Video, StreamPos_Last, Video_Height, Clpi_Video_Height[Format]);
+            Fill(Stream_Video, StreamPos_Last, Video_Interlacement, Clpi_Video_Interlacement[Format]);
+            Fill(Stream_Video, StreamPos_Last, Video_Standard, Clpi_Video_Standard[Format]);
+            if (Clpi_Video_FrameRate[FrameRate])
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Clpi_Video_FrameRate[FrameRate]);
+            if (Clpi_Video_Height[AspectRatio])
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Clpi_Video_AspectRatio[AspectRatio], 3, true);
+        }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::StreamCodingInfo_Audio()
+{
+    //Parsing
+    int8u Channels, SamplingRate;
+    BS_Begin();
+    Get_S1 (4, Channels,                                        "Channel layout"); Param_Info(Clpi_Audio_Channels[Channels]);
+    Get_S1 (4, SamplingRate,                                    "Sampling Rate"); Param_Info(Clpi_Audio_SamplingRate[SamplingRate]);
+    BS_End();
+    Info_Local(3, Language,                                     "Language"); Element_Info(Language);
+
+    FILLING_BEGIN();
+        if (StreamKind_Last==Stream_Max)
+        {
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format, Clpi_Format(stream_type));
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, Clpi_Format_Profile(stream_type));
+            if (Clpi_Audio_Channels[Channels])
+                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Clpi_Audio_Channels[Channels]);
+            if (Clpi_Audio_SamplingRate[SamplingRate])
+                Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Clpi_Audio_SamplingRate[SamplingRate]);
+        }
+        Fill(Stream_Audio, StreamPos_Last, Audio_Language, Language);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Bdmv::StreamCodingInfo_Text()
+{
+    //Parsing
+    if (stream_type==0x92) //Subtitle
+        Skip_B1(                                                "Unknown");
+    Info_Local(3, Language,                                     "Language"); Element_Info(Language);
+
+    FILLING_BEGIN();
+        if (StreamKind_Last==Stream_Max)
+        {
+            Stream_Prepare(Stream_Text);
+            Fill(Stream_Text, StreamPos_Last, Text_Format, Clpi_Format(stream_type));
+        }
+        Fill(Stream_Text, StreamPos_Last, Text_Language, Language);
+    FILLING_END();
 }
 
 } //NameSpace

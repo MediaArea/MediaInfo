@@ -198,7 +198,7 @@ File_MpegPs::File_MpegPs()
     //Configuration
     ParserName=_T("MpegPs");
     #if MEDIAINFO_EVENTS
-        ParserID=MediaInfo_Parser_MpegPs;
+        ParserIDs[0]=MediaInfo_Parser_MpegPs;
     #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -863,6 +863,7 @@ void File_MpegPs::Header_Parse()
         Element_WaitForMoreData();
         return;
     }
+    Header_Fill_Code(start_code);
 }
 #else //MEDIAINFO_TRACE
 {
@@ -889,6 +890,7 @@ void File_MpegPs::Header_Parse()
         Element_WaitForMoreData();
         return;
     }
+    Header_Fill_Code(start_code);
 }
 #endif //MEDIAINFO_TRACE
 
@@ -3003,37 +3005,6 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             Events_DTS(DTS*1000000/90, Event.DTS, Event.DTS_HR);
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_MpegPs_PES_New_0));
         }
-
-        //Demux
-        struct MediaInfo_Event_Global_Demux_0 Event;
-        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_MpegPs, MediaInfo_Event_Global_Demux, 0);
-        Event.Stream_Offset=File_Offset+Buffer_Offset;
-        Event.StreamIDs=NULL;
-        Event.ParserIDs=NULL;
-        try
-        {
-            Event.StreamIDs_Size=1+StreamIDs_Size;
-            Event.StreamIDs=new int64u[Event.StreamIDs_Size];
-            Event.ParserIDs=new int8u[Event.StreamIDs_Size];
-            for (size_t Pos=0; Pos<StreamIDs_Size; Pos++)
-            {
-                Event.ParserIDs[Pos]=ParserIDs[Pos];
-                Event.StreamIDs[Pos]=StreamIDs[Pos];
-            }
-            Event.ParserIDs[StreamIDs_Size]=ParserID;
-            Event.StreamIDs[StreamIDs_Size]=start_code;
-        }
-        catch(...)
-        {
-            Event.StreamIDs_Size=0;
-            delete[] Event.StreamIDs; Event.StreamIDs=NULL;
-            delete[] Event.ParserIDs; Event.ParserIDs=NULL;
-        }
-        Event.Content_Size=(size_t)(Element_Size-Element_Offset);
-        Event.Content=Buffer+Buffer_Offset+(size_t)Element_Offset;
-        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
-        delete[] Event.StreamIDs; //Event.StreamIDs=NULL;
-        delete[] Event.ParserIDs; //Event.ParserIDs=NULL;
     #endif //MEDIAINFO_EVENTS
 }
 

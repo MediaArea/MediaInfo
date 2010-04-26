@@ -113,7 +113,7 @@ File_MpegTs::File_MpegTs()
     //Configuration
     ParserName=_T("MpegTs");
     #if MEDIAINFO_EVENTS
-        ParserID=MediaInfo_Parser_MpegTs;
+        ParserIDs[0]=MediaInfo_Parser_MpegTs;
     #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -313,131 +313,6 @@ void File_MpegTs::Streams_Fill()
         }
     }
 
-    #if defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
-        if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get()
-         && File_Name.size()>10+1+6
-         && File_Name[File_Name.size()-10-1]==PathSeparator
-         && File_Name[File_Name.size()-10-2]==_T('M')
-         && File_Name[File_Name.size()-10-3]==_T('A')
-         && File_Name[File_Name.size()-10-4]==_T('E')
-         && File_Name[File_Name.size()-10-5]==_T('R')
-         && File_Name[File_Name.size()-10-6]==_T('T')
-         && File_Name[File_Name.size()-10-7]==_T('S'))
-        {
-            Ztring file=File_Name.substr(File_Name.size()-10, 5);
-            Ztring CLPI_File=File_Name;
-            CLPI_File.resize(CLPI_File.size()-(10+1+6));
-            CLPI_File+=_T("CLIPINF");
-            CLPI_File+=PathSeparator;
-            CLPI_File+=file;
-            CLPI_File+=_T(".clpi");
-
-            int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-            MediaInfo_Internal MI;
-            MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
-            if (MI.Open(CLPI_File))
-            {
-                for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
-                {
-                    size_t StreamPos_Count=MI.Count_Get((stream_t)StreamKind);
-                    for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
-                    {
-                        int16u PID=Ztring(MI.Get((stream_t)StreamKind, StreamPos, _T("ID"))).To_int16u();
-                        if (Complete_Stream->Streams[PID].StreamKind!=Stream_Max)
-                            Fill(Complete_Stream->Streams[PID].StreamKind, Complete_Stream->Streams[PID].StreamPos, "Language", MI.Get((stream_t)StreamKind, StreamPos, _T("Language")));
-                    }
-                }
-            }
-            MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
-        }
-    #endif //defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
-
-    #if defined(MEDIAINFO_BDAV_YES)
-        //Handling of the SSIF file when parsing the M2TS file
-        if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get()
-         && File_Name.size()>10
-         && File_Name[File_Name.size()-1]==_T('s')
-         && File_Name[File_Name.size()-2]==_T('t')
-         && File_Name[File_Name.size()-3]==_T('2')
-         && File_Name[File_Name.size()-4]==_T('m')
-         && File_Name[File_Name.size()-5]==_T('.'))
-        {
-            Ztring file=File_Name.substr(File_Name.size()-10, 5); //xxxxx part of "Directory/xxxxx.m2ts"
-            Ztring SSIF_File=File_Name;
-            SSIF_File.resize(SSIF_File.size()-10);
-            SSIF_File+=_T("SSIF");
-            SSIF_File+=PathSeparator;
-            SSIF_File+=file;
-            SSIF_File+=_T(".ssif");
-
-            int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-            MediaInfo_Internal MI;
-            MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
-            if (MI.Open(SSIF_File))
-            {
-                size_t StreamPos_Count=MI.Count_Get(Stream_Video);
-                for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
-                {
-                    const Ztring &Format_Profile=MI.Get(Stream_Video, StreamPos, Video_Format_Profile);
-                    if (!Format_Profile.empty())
-                    {
-                        Fill(Stream_Video, StreamPos, Video_Format_Profile, Format_Profile);
-                        const Ztring &MultiView_Count=MI.Get(Stream_Video, StreamPos, Video_MultiView_Count);
-                        if (!MultiView_Count.empty())
-                            Fill(Stream_Video, StreamPos, Video_MultiView_Count, MultiView_Count);
-                        Fill(Stream_Video, StreamPos, "Source", SSIF_File);
-                    }
-                }
-            }
-            MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
-        }
-
-        //Handling of the M2TS file when parsing the SSIF file
-        if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get()
-         && File_Name.size()>10+1+4
-         && File_Name[File_Name.size()-1]==_T('f')
-         && File_Name[File_Name.size()-2]==_T('i')
-         && File_Name[File_Name.size()-3]==_T('s')
-         && File_Name[File_Name.size()-4]==_T('s')
-         && File_Name[File_Name.size()-5]==_T('.')
-         && File_Name[File_Name.size()-10-1]==PathSeparator
-         && File_Name[File_Name.size()-10-2]==_T('F')
-         && File_Name[File_Name.size()-10-3]==_T('I')
-         && File_Name[File_Name.size()-10-4]==_T('S')
-         && File_Name[File_Name.size()-10-5]==_T('S'))
-        {
-            Ztring file=File_Name.substr(File_Name.size()-10, 5);
-            Ztring M2TS_File=File_Name;
-            M2TS_File.resize(M2TS_File.size()-(10+1+4));
-            M2TS_File+=file;
-            M2TS_File+=_T(".m2ts");
-
-            int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-            MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-            MediaInfo_Internal MI;
-            MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
-            if (MI.Open(M2TS_File))
-            {
-                size_t StreamPos_Count=MI.Count_Get(Stream_Video);
-                for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
-                {
-                    const Ztring &Format_Profile=MI.Get(Stream_Video, StreamPos, Video_Format_Profile);
-                    if (!Format_Profile.empty())
-                    {
-                        Ztring Profile_Merged=MI.Get(Stream_Video, StreamPos, Video_Format_Profile);
-                        Profile_Merged+=_T(" / ");
-                        Profile_Merged+=Retrieve(Stream_Video, StreamPos, Video_Format_Profile);
-                        Fill(Stream_Video, StreamPos, Video_Format_Profile, Profile_Merged, true);
-                        Fill(Stream_Video, StreamPos, "Source", M2TS_File);
-                    }
-                }
-            }
-            MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
-        }
-    #endif //defined(MEDIAINFO_BDAV_YES)
-
     //Forcing updates (not done before because Status[IsFilled] was not set)
     PSI_EPG_Update();
     if (Complete_Stream->Duration_End_IsUpdated)
@@ -456,11 +331,17 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
     if (Temp.Kind!=complete_stream::stream::pes)
         return;
 
+    //No direct handling of Sub streams;
+    if (Temp.stream_type==0x20 && Temp.SubStream_pid) //Stereoscopic is not alone
+        return;
+
     //By the parser
     StreamKind_Last=Stream_Max;
     if (Temp.Parser && Temp.Parser->Status[IsAccepted])
     {
         Fill(Temp.Parser);
+        if (Temp.SubStream_pid!=0x0000) //With a substream
+            Fill(Complete_Stream->Streams[Temp.SubStream_pid].Parser);
         if (Temp.Parser->Count_Get(Stream_Video) && Temp.Parser->Count_Get(Stream_Text))
         {
             //Special case: Video and Text are together
@@ -546,8 +427,19 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
         Temp.Infos.clear();
 
         //Common
-        Fill(StreamKind_Last, StreamPos_Last, General_ID, PID, 10, true);
-        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Decimal_Hexa(PID), true);
+        if (Temp.SubStream_pid!=0x0000) //Wit a substream
+        {
+            Ztring Format_Profile=Retrieve(Stream_Video, StreamPos_Last, Video_Format_Profile);
+            Fill(Stream_Video, StreamPos_Last, Video_ID, Ztring::ToZtring(Temp.SubStream_pid)+_T(" / ")+Ztring::ToZtring(PID), true);
+            Fill(Stream_Video, StreamPos_Last, Video_ID_String, Decimal_Hexa(Temp.SubStream_pid)+_T(" / ")+Decimal_Hexa(PID), true);
+            if (!Format_Profile.empty())
+                Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, Complete_Stream->Streams[Temp.SubStream_pid].Parser->Retrieve(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
+        }
+        else
+        {
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, PID, 10, true);
+            Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Decimal_Hexa(PID), true);
+        }
         for (size_t Pos=0; Pos<Temp.program_numbers.size(); Pos++)
         {
             Fill(StreamKind_Last, StreamPos_Last, General_MenuID, Temp.program_numbers[Pos], 10, Pos==0);
@@ -580,6 +472,10 @@ void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &
 {
     //Only PES
     if (Temp.Kind!=complete_stream::stream::pes)
+        return;
+
+    //No direct handling of Sub streams;
+    if (Temp.stream_type==0x20 && Temp.SubStream_pid) //Stereoscopic is not alone
         return;
 
     //By the parser
@@ -1375,7 +1271,10 @@ void File_MpegTs::PES()
     DETAILS_INFO(if (Complete_Stream->transport_stream_id_IsValid) Element_Info(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid].stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier));)
 
     //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(pid, 16)+_T(".mpg"));
+    #if MEDIAINFO_DEMUX
+        Element_Code=pid;
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, _T(".mpg"));
+    #endif //MEDIAINFO_DEMUX
 
     //Exists
     if (!Complete_Stream->Streams[pid].IsRegistered)

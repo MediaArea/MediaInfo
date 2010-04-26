@@ -33,6 +33,8 @@
 #include "MediaInfo/Multiple/File_Mpeg_Psi.h"
 #include "MediaInfo/Multiple/File_Mpeg_Descriptors.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#include "MediaInfo/MediaInfo_Internal.h"
+#include "ZenLib/Dir.h"
 #include <memory>
 #include <algorithm>
 using namespace std;
@@ -1144,6 +1146,82 @@ void File_Mpeg_Psi::Table_02()
                     if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
                         Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
                 }
+            }
+
+            //Searching for hidden Stereoscopic stream
+            if (stream_type==0x20 && File_Name_WithoutDemux.size()>=4+1+6+1+4+1+10 && Config->File_Bdmv_ParseTargetedFile_Get())
+            {
+                //Searching the playlist with the PID
+                Ztring Name=File_Name_WithoutDemux;
+                Name.resize(Name.size()-(4+1+6+1+4+1+10)); //Removing BDMV/STREAM/SSIF/xxxxx.ssif
+                ZtringList List=Dir::GetAllFileNames(Name+_T("BDMV")+PathSeparator+_T("PLAYLIST")+PathSeparator+_T("*.mpls"), Dir::Include_Files);
+                std::vector<MediaInfo_Internal*> MIs;
+                MIs.resize(List.size());
+                size_t FileWithRightPID_Pos=(size_t)-1;
+                for (size_t Pos=0; Pos<MIs.size(); Pos++)
+                {
+                    MIs[Pos]=new MediaInfo_Internal();
+                    MIs[Pos]->Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
+                    MIs[Pos]->Open(List[Pos]);
+                    if (MIs[Pos]->Count_Get(Stream_Video)==1)
+                    {
+                        int16u PID=Ztring(MIs[Pos]->Get(Stream_Video, 0, Video_ID)).To_int16u();
+                        if (PID==elementary_PID)
+                        {
+                            FileWithRightPID_Pos=Pos;
+                            break;
+                        }
+                    }
+                }
+
+                if (FileWithRightPID_Pos!=(size_t)-1)
+                {
+                    ZtringList ID_List;
+                    ID_List.Separator_Set(0, _T(" / "));
+                    ID_List.Write(MIs[FileWithRightPID_Pos]->Get(Stream_Video, 0, Video_ID));
+                    if (ID_List.size()==2)
+                    {
+                        Complete_Stream->Streams[ID_List[1].To_int16u()].SubStream_pid=elementary_PID;
+                        Complete_Stream->Streams[elementary_PID].SubStream_pid=ID_List[1].To_int16u();
+
+                        elementary_PID=ID_List[1].To_int16u();
+                        stream_type=0x1B;
+
+                        bool IsAlreadyPresent=false;
+                        for (size_t Pos=0; Pos<Complete_Stream->Streams[elementary_PID].program_numbers.size(); Pos++)
+                            if (Complete_Stream->Streams[elementary_PID].program_numbers[Pos]==program_number)
+                                IsAlreadyPresent=true;
+                        if (!IsAlreadyPresent)
+                        {
+                            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].elementary_PIDs.push_back(elementary_PID);
+                            Complete_Stream->Streams[elementary_PID].program_numbers.push_back(program_number);
+                            Complete_Stream->Streams[elementary_PID].registration_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier;
+                        }
+                        if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::pes)
+                        {
+                            Complete_Stream->Streams_NotParsedCount++;
+                            Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
+                            Complete_Stream->Streams[elementary_PID].stream_type=stream_type;
+                            Complete_Stream->Streams[elementary_PID].Searching_Payload_Start_Set(true);
+                            #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                                Complete_Stream->Streams[elementary_PID].Searching_TimeStamp_Start_Set(true);
+                                Complete_Stream->Streams[elementary_PID].PCR_PID=PCR_PID;
+                            #endif //MEDIAINFO_MPEGTS_PCR_YES
+                            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                                //Complete_Stream->Streams[elementary_PID].Searching_ParserTimeStamp_Start_Set(true);
+                            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                            #if MEDIAINFO_TRACE
+                                Complete_Stream->Streams[elementary_PID].Element_Info="PES";
+                            #endif //MEDIAINFO_TRACE
+                            if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
+                                Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
+                        }
+                    }
+
+                }
+
+                for (size_t Pos=0; Pos<MIs.size(); Pos++)
+                    delete MIs[Pos]; //MIs[Pos]=NULL;
             }
         FILLING_END();
 
