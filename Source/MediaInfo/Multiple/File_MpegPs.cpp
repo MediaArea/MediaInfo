@@ -3008,16 +3008,6 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
         //New PES
         if (MpegPs_PES_FirstByte_IsAvailable && MpegPs_PES_FirstByte_Value)
         {
-            struct MediaInfo_Event_MpegPs_PES_New_0 Event;
-            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_MpegPs, MediaInfo_Event_MpegPs_PES_New, 0);
-            Event.Stream_Offset=File_Offset+Buffer_Offset;
-            Event.PID=(int16u)-1;//PID;
-            Events_PCR(PCR, Event.PCR, Event.PCR_HR);
-            Event.stream_id=start_code;
-            Events_PTS(PTS*1000000/90, Event.PTS, Event.PTS_HR);
-            Events_DTS(DTS*1000000/90, Event.DTS, Event.DTS_HR);
-            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_MpegPs_PES_New_0));
-
             //Demux of substream data
             if (FromTS_stream_type==0x1B && SubStream_Demux)
             {

@@ -200,7 +200,7 @@ extern "C"
 /* Generic                                                                 */
 struct MediaInfo_Event_Generic
 {
-    MediaInfo_int32u    EventCode;
+    MediaInfo_int32u        EventCode;
 };
 
 /*-------------------------------------------------------------------------*/
@@ -208,14 +208,14 @@ struct MediaInfo_Event_Generic
 #define MediaInfo_Event_Global_Demux 0xAF00
 struct MediaInfo_Event_Global_Demux_0
 {
-    MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Offset;
-    size_t              StreamIDs_Size;
-    MediaInfo_int64u*   StreamIDs;
-    MediaInfo_int8u*    ParserIDs;
-    int8u               Content_Type;
-    size_t              Content_Size;
-    const MediaInfo_int8u* Content;
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int64u        Stream_Offset;
+    size_t                  StreamIDs_Size;
+    MediaInfo_int64u*       StreamIDs;
+    MediaInfo_int8u*        ParserIDs;
+    MediaInfo_int8u         Content_Type;
+    size_t                  Content_Size;
+    const MediaInfo_int8u*  Content;
 };
 
 /***************************************************************************/
@@ -229,8 +229,8 @@ struct MediaInfo_Event_Global_Demux_0
 #define MediaInfo_Event_General_Start 0x7001
 struct MediaInfo_Event_General_Start_0
 {
-    MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Size;
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int64u        Stream_Size;
 };
 
 /*-------------------------------------------------------------------------*/
@@ -238,8 +238,8 @@ struct MediaInfo_Event_General_Start_0
 #define MediaInfo_Event_General_End 0x7002
 struct MediaInfo_Event_General_End_0
 {
-    MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Bytes_Analyzed;
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int64u        Stream_Bytes_Analyzed;
 };
 
 /*-------------------------------------------------------------------------*/
@@ -247,8 +247,8 @@ struct MediaInfo_Event_General_End_0
 #define MediaInfo_Event_General_Parser_Selected 0x7003
 struct MediaInfo_Event_General_Parser_Selected_0
 {
-    MediaInfo_int32u    EventCode;
-    char                Name[16];
+    MediaInfo_int32u        EventCode;
+    char                    Name[16];
 };
 
 /*-------------------------------------------------------------------------*/
@@ -256,8 +256,8 @@ struct MediaInfo_Event_General_Parser_Selected_0
 #define MediaInfo_Event_General_Move_Request 0x7004
 struct MediaInfo_Event_General_Move_Request_0
 {
-    MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Offset;
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int64u        Stream_Offset;
 };
 
 /*-------------------------------------------------------------------------*/
@@ -265,8 +265,8 @@ struct MediaInfo_Event_General_Move_Request_0
 #define MediaInfo_Event_General_Move_Done 0x7005
 struct MediaInfo_Event_General_Move_Done_0
 {
-    MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Offset;
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int64u        Stream_Offset;
 };
 
 /***************************************************************************/
@@ -280,23 +280,6 @@ struct MediaInfo_Event_General_Move_Done_0
 /***************************************************************************/
 
 #define MediaInfo_Parser_MpegPs         0x02
-
-/*-------------------------------------------------------------------------*/
-/* MediaInfo_Event_MpegPs_PES_New                                          */
-#define MediaInfo_Event_MpegPs_PES_New 0x100A
-struct MediaInfo_Event_MpegPs_PES_New_0
-{
-    MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Offset;
-    MediaInfo_int16u    PID;
-    MediaInfo_int64u    PCR;
-    char                PCR_HR[13];
-    MediaInfo_int8u     stream_id;
-    MediaInfo_int64u    PTS;
-    char                PTS_HR[13];
-    MediaInfo_int64u    DTS;
-    char                DTS_HR[13];
-};
 
 /***************************************************************************/
 /* MPEG Video                                                              */
