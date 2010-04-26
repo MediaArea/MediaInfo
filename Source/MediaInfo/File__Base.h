@@ -100,13 +100,6 @@ protected :
         Ztring* Details;
     #endif //MEDIAINFO_TRACE
 
-    //Demux
-    #if MEDIAINFO_TRACE
-        void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName);
-    #else //MEDIAINFO_TRACE
-        #define Demux(_A, _B, _C)
-    #endif //MEDIAINFO_TRACE
-
 public :
     #if MEDIAINFO_TRACE
         void   Details_Add(const char* Parameter);

@@ -205,25 +205,6 @@ void File__Base::Language_Set()
 }
 
 //***************************************************************************
-// Demux
-//***************************************************************************
-
-#if MEDIAINFO_TRACE
-void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName)
-{
-    if (!MediaInfoLib::Config.Demux_Get())
-        return;
-
-    if (File_Name.empty())
-        return;
-
-    File F;
-    F.Open(File_Name+_T('.')+StreamName, File::Access_Write_Append);
-    F.Write(Buffer, Buffer_Size);
-}
-#endif //MEDIAINFO_TRACE
-
-//***************************************************************************
 // Divers
 //***************************************************************************
 

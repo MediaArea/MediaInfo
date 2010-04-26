@@ -55,8 +55,7 @@ File__Analyze::File__Analyze ()
 
     //In
     #if MEDIAINFO_EVENTS
-        ParserID=0x00;
-        StreamIDs_Size=0;
+        StreamIDs_Size=1;
     #endif //MEDIAINFO_EVENTS
     PTS_DTS_Needed=false;
     PTS_DTS_Offset_InThisBlock=0;
@@ -208,16 +207,16 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
     Sub->Open_Buffer_Init(File_Size_);
 
     #if MEDIAINFO_EVENTS
+        Sub->ParserIDs[StreamIDs_Size]=Sub->ParserIDs[0];
+        Sub->StreamIDs[StreamIDs_Size]=Element_Code;
         for (size_t Pos=0; Pos<StreamIDs_Size; Pos++)
         {
             Sub->ParserIDs[Pos]=ParserIDs[Pos];
             Sub->StreamIDs[Pos]=StreamIDs[Pos];
         }
-        Sub->ParserIDs[StreamIDs_Size]=ParserID;
-        Sub->StreamIDs[StreamIDs_Size]=Element_Code;
         Sub->StreamIDs_Size=StreamIDs_Size+1;
-        Sub->File_Name_WithoutDemux=IsSub?File_Name_WithoutDemux:File_Name;
     #endif //MEDIAINFO_EVENTS
+    Sub->File_Name_WithoutDemux=IsSub?File_Name_WithoutDemux:File_Name;
 }
 
 //---------------------------------------------------------------------------
@@ -2180,6 +2179,42 @@ void File__Analyze::Details_Clear()
     Element[0].ToShow.Details.clear();
 }
 #endif //MEDIAINFO_TRACE
+
+//***************************************************************************
+// Demux
+//***************************************************************************
+
+#if MEDIAINFO_DEMUX
+void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, int8u Content_Type)
+{
+    if (!MediaInfoLib::Config.Demux_Get())
+        return;
+
+    /*
+    if (File_Name.empty())
+        return;
+
+    File F;
+    F.Open(File_Name+_T('.')+StreamName, File::Access_Write_Append);
+    F.Write(Buffer, Buffer_Size);
+    */
+
+    #if MEDIAINFO_EVENTS
+        //Demux
+        StreamIDs[StreamIDs_Size-1]=Element_Code;
+        struct MediaInfo_Event_Global_Demux_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_MpegPs, MediaInfo_Event_Global_Demux, 0);
+        Event.Stream_Offset=File_Offset+Buffer_Offset;
+        Event.StreamIDs_Size=StreamIDs_Size;
+        Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
+        Event.ParserIDs=(MediaInfo_int8u* )ParserIDs;
+        Event.Content_Type=Content_Type;
+        Event.Content_Size=Buffer_Size;
+        Event.Content=Buffer;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
+    #endif //MEDIAINFO_EVENTS
+}
+#endif //MEDIAINFO_DEMUX
 
 } //NameSpace
 

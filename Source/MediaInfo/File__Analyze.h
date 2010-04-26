@@ -80,12 +80,11 @@ public :
     //In
     Ztring ParserName;
     #if MEDIAINFO_EVENTS
-        int8u   ParserID;
         size_t  StreamIDs_Size;
         int64u  StreamIDs[16];
         int8u   ParserIDs[16];
-        Ztring  File_Name_WithoutDemux;
     #endif //MEDIAINFO_EVENTS
+    Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
     int64u PCR; //In nanoseconds
     int64u PTS; //In nanoseconds
@@ -983,6 +982,13 @@ public :
 
     //Configuration
     bool MustSynchronize;
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, int8u Content_Type=0x00);
+    #else //MEDIAINFO_DEMUX
+        #define Demux(_A, _B, _C)
+    #endif //MEDIAINFO_DEMUX
 
     //Events data
     #if MEDIAINFO_EVENTS
