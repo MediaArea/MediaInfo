@@ -1449,7 +1449,6 @@ void File_Bdmv::Mpls_ExtensionData()
                 Skip_XX(Entry->first-Element_Offset,            "unknown");
 
             Element_Begin("Entry");
-            int32u length;
             int64u End=Element_Offset+Entry->second.Length;
             switch (Entry->second.ID1)
             {
