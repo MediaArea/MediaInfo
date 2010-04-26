@@ -76,6 +76,7 @@
 #if defined(MEDIAINFO_MINIMIZESIZE)
     #define MEDIAINFO_TRACE_NO
     #define MEDIAINFO_EVENTS_NO
+    #define MEDIAINFO_DEMUX_NO
 #endif
 #if defined(MEDIAINFO_EVENTS)
     #undef MEDIAINFO_EVENTS
@@ -90,6 +91,9 @@
     #endif
     #if !defined (MEDIAINFO_EVENTS_NO)
         #define MEDIAINFO_EVENTS_NO
+    #endif
+    #if !defined (MEDIAINFO_DEMUX_NO)
+        #define MEDIAINFO_DEMUX_NO
     #endif
     #if !defined (MEDIAINFO_DIRECTORY_NO)
         #define MEDIAINFO_DIRECTORY_NO
@@ -122,6 +126,13 @@
         #define MEDIAINFO_EVENTS 0
     #else
         #define MEDIAINFO_EVENTS 1
+    #endif
+#endif
+#if !defined(MEDIAINFO_DEMUX)
+    #if defined(MEDIAINFO_DEMUX_NO)
+        #define MEDIAINFO_DEMUX 0
+    #else
+        #define MEDIAINFO_DEMUX 1
     #endif
 #endif
 
