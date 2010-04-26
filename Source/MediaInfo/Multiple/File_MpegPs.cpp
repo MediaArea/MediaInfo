@@ -215,6 +215,9 @@ File_MpegPs::File_MpegPs()
         DecSpecificInfoTag=NULL;
         SLConfig=NULL;
     #endif
+    #if MEDIAINFO_DEMUX
+        SubStream_Demux=NULL;
+    #endif //MEDIAINFO_DEMUX
 
     //Out
     HasTimeStamps=false;
@@ -231,6 +234,13 @@ File_MpegPs::File_MpegPs()
     program_mux_rate=(int32u)-1;
 
     BookMark_Set(); //for stream parsing in phase 2
+}
+
+//---------------------------------------------------------------------------
+File_MpegPs::~File_MpegPs()
+{
+    if (FromTS_stream_type==0x20) //If SubStream, this object owns the demux handler
+        delete SubStream_Demux; //SubStream_Demux=NULL;
 }
 
 //***************************************************************************
@@ -2992,6 +3002,9 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
     Element_Show();
 
     #if MEDIAINFO_EVENTS
+        if (DTS==(int64u)-1)
+            DTS=PTS;
+
         //New PES
         if (MpegPs_PES_FirstByte_IsAvailable && MpegPs_PES_FirstByte_Value)
         {
@@ -3004,6 +3017,44 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             Events_PTS(PTS*1000000/90, Event.PTS, Event.PTS_HR);
             Events_DTS(DTS*1000000/90, Event.DTS, Event.DTS_HR);
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_MpegPs_PES_New_0));
+
+            //Demux of substream data
+            if (FromTS_stream_type==0x1B && SubStream_Demux)
+            {
+                if (!SubStream_Demux->Buffers.empty() && SubStream_Demux->Buffers[0]->DTS<DTS)
+                {
+                    Demux(SubStream_Demux->Buffers[0]->Buffer, SubStream_Demux->Buffers[0]->Buffer_Size, _T(".h264"), 0x01);
+                    delete SubStream_Demux->Buffers[0]->Buffer; SubStream_Demux->Buffers[0]->Buffer=NULL;
+                    SubStream_Demux->Buffers.erase(SubStream_Demux->Buffers.begin()); //Moving 2nd Buffer to 1st position
+                }
+            }
+        }
+
+        //Demux of SubStream
+        if (FromTS_stream_type==0x20 && SubStream_Demux)
+        {
+            //Searching an available slot
+            size_t Buffers_Pos;
+            if (SubStream_Demux->Buffers.empty() || SubStream_Demux->Buffers[SubStream_Demux->Buffers.size()-1]->DTS!=DTS)
+            {
+                Buffers_Pos=SubStream_Demux->Buffers.size();
+                SubStream_Demux->Buffers.push_back(new demux::buffer);
+            }
+            else
+            {
+                Buffers_Pos=SubStream_Demux->Buffers.size()-1;
+            }
+
+            //Filling buffer
+            if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer==NULL)
+            {
+                SubStream_Demux->Buffers[Buffers_Pos]->DTS=DTS;
+                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max=128*1024;
+                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size=0;
+                SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
+            }
+            std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer+SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+=(size_t)(Element_Size-Element_Offset); //TODO: handling buffer underun
         }
     #endif //MEDIAINFO_EVENTS
 }

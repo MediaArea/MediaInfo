@@ -1334,6 +1334,24 @@ void File_MpegTs::PES()
         //Allocating an handle if needed
         #if defined(MEDIAINFO_MPEGPS_YES)
             Complete_Stream->Streams[pid].Parser=new File_MpegPs;
+            #if MEDIAINFO_DEMUX
+                if (MediaInfoLib::Config.Demux_Get())
+                {
+                    if (Complete_Stream->Streams[pid].stream_type==0x20 && Complete_Stream->Streams[pid].SubStream_pid)
+                    {
+                        //Creating the demux buffer
+                        ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->SubStream_Demux=new File_MpegPs::demux;
+                        //If main parser is already created, associating the new demux buffer
+                        if (Complete_Stream->Streams[Complete_Stream->Streams[pid].SubStream_pid].Parser)
+                            ((File_MpegPs*)Complete_Stream->Streams[Complete_Stream->Streams[pid].SubStream_pid].Parser)->SubStream_Demux=((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->SubStream_Demux;
+                    }
+                    if (Complete_Stream->Streams[pid].stream_type!=0x20 && Complete_Stream->Streams[pid].SubStream_pid && (File_MpegPs*)Complete_Stream->Streams[Complete_Stream->Streams[pid].SubStream_pid].Parser)
+                    {
+                        //If SubStream parser is already created, associating the SubStream demux buffer
+                        ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->SubStream_Demux=((File_MpegPs*)Complete_Stream->Streams[Complete_Stream->Streams[pid].SubStream_pid].Parser)->SubStream_Demux;
+                    }
+                }
+            #endif //MEDIAINFO_DEMUX
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 if (Searching_TimeStamp_Start)
                     Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(true);
@@ -1382,6 +1400,8 @@ void File_MpegTs::PES()
         {
             Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
+            if (Complete_Stream->Streams_NotParsedCount)
+                Complete_Stream->Streams_NotParsedCount--;
         }
         #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             if (Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start)
@@ -1390,9 +1410,6 @@ void File_MpegTs::PES()
             if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
                 Finish(Complete_Stream->Streams[pid].Parser);
         #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-
-        if (Complete_Stream->Streams_NotParsedCount)
-            Complete_Stream->Streams_NotParsedCount--;
     }
 }
 

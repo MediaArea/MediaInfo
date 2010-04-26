@@ -53,12 +53,50 @@ public :
         File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
         File_Mpeg4_Descriptors::slconfig* SLConfig;
     #endif
+    #if MEDIAINFO_DEMUX
+        struct demux
+        {
+            struct buffer
+            {
+                int64u  DTS;
+                size_t  Buffer_Size;
+                size_t  Buffer_Size_Max;
+                int8u*  Buffer;
+
+                buffer()
+                {
+                    DTS=(int64u)-1;
+                    Buffer_Size=0;
+                    Buffer_Size_Max=0;
+                    Buffer=NULL;
+                }
+
+                ~buffer()
+                {
+                    delete[] Buffer;
+                }
+            };
+            std::vector<buffer*> Buffers;
+
+            demux()
+            {
+            }
+
+            ~demux()
+            {
+                for (size_t Pos=0; Pos<Buffers.size(); Pos++)
+                    delete Buffers[Pos]; //Buffers[Pos]=NULL;
+            }
+        };
+        demux* SubStream_Demux;
+    #endif //MEDIAINFO_DEMUX
 
     //Out
     bool   HasTimeStamps;
 
     //Constructor/Destructor
     File_MpegPs();
+    ~File_MpegPs();
 
 private :
     //Streams management
