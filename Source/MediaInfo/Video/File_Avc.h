@@ -190,7 +190,6 @@ private :
     //Count of a Packets
     size_t Frame_Count;
     size_t Block_Count;
-    int32u frame_num_LastOne;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;
     size_t Structure_Field;
@@ -236,6 +235,7 @@ private :
     int32u initial_cpb_removal_delay;
     int32u initial_cpb_removal_delay_offset;
     int32u cpb_removal_delay;
+    int32u pic_order_cnt_lsb_Old;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;

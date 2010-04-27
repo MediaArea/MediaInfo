@@ -683,7 +683,7 @@ void File_Avc::Synched_Init()
     //Count of a Packets
     Frame_Count=0;
     Block_Count=0;
-    frame_num_LastOne=(int32u)-1;
+    pic_order_cnt_lsb_Old=(int32u)-1;
     Interlaced_Top=0;
     Interlaced_Bottom=0;
     Structure_Field=0;
@@ -1155,17 +1155,32 @@ void File_Avc::slice_header()
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsValid=true;
         }
 
-         //Counting
+        //Name
+        if (first_mb_in_slice!=0 || Element_Code==0x14)
+        {
+            Frame_Count--;
+            Frame_Count_InThisBlock--;
+        }
+        Element_Info(Ztring::ToZtring(Frame_Count));
+
+        //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-        if (first_mb_in_slice==0)
+        Frame_Count++;
+        Frame_Count_InThisBlock++;
+        if (pic_order_cnt_type==0)
         {
-            Frame_Count++;
-            Frame_Count_InThisBlock++;
+            if (pic_order_cnt_lsb==pic_order_cnt_lsb_Old)
+            {
+                if ((!frame_mbs_only_flag && Interlaced_Top!=Interlaced_Bottom) && !(first_mb_in_slice!=0 || Element_Code==0x14))
+                {
+                    Frame_Count--;
+                    Frame_Count_InThisBlock--;
+                }
+            }
+            else
+                pic_order_cnt_lsb_Old=pic_order_cnt_lsb;
         }
-
-        //Name
-        Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Duplicate
         if (Streams[(size_t)Element_Code].ShouldDuplicate)
