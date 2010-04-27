@@ -1168,18 +1168,10 @@ void File_Avc::slice_header()
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
-        if (pic_order_cnt_type==0)
+        if ((!frame_mbs_only_flag && Interlaced_Top!=Interlaced_Bottom) && !(first_mb_in_slice!=0 || Element_Code==0x14))
         {
-            if (pic_order_cnt_lsb==pic_order_cnt_lsb_Old)
-            {
-                if ((!frame_mbs_only_flag && Interlaced_Top!=Interlaced_Bottom) && !(first_mb_in_slice!=0 || Element_Code==0x14))
-                {
-                    Frame_Count--;
-                    Frame_Count_InThisBlock--;
-                }
-            }
-            else
-                pic_order_cnt_lsb_Old=pic_order_cnt_lsb;
+            Frame_Count--;
+            Frame_Count_InThisBlock--;
         }
 
         //Duplicate
