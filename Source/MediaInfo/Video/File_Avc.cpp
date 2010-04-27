@@ -712,12 +712,17 @@ void File_Avc::Synched_Init()
     bit_depth_luma_minus8=0;
     bit_depth_Colorimetry_minus8=0;
     pic_order_cnt_lsb=(int32u)-1;
+    cpb_cnt_minus1=0;
+    initial_cpb_removal_delay=0;
+    initial_cpb_removal_delay_offset=0;
+    cpb_removal_delay=0;
     sar_width=0;
     sar_height=0;
     profile_idc=0;
     level_idc=0;
     aspect_ratio_idc=0xFF;
     video_format=5;
+    initial_cpb_removal_delay_length_minus1=0;
     cpb_removal_delay_length_minus1=0;
     dpb_output_delay_length_minus1=0;
     time_offset_length=0;
@@ -732,7 +737,10 @@ void File_Avc::Synched_Init()
     pic_struct_present_flag=false;
     field_pic_flag=false;
     entropy_coding_mode_flag=false;
+    NalHrdBpPresentFlag=false;
+    VclHrdBpPresentFlag=false;
     CpbDpbDelaysPresentFlag=false;
+    CpbDpbDelaysPresentFlag_Parsed=false;
     mb_adaptive_frame_field_flag=false;
     pic_order_present_flag=false;
     field_pic_flag_AlreadyDetected=false;
@@ -1242,10 +1250,20 @@ void File_Avc::sei_message_buffering_period(int32u payloadSize)
     Element_Info("buffering_period");
 
     //Parsing
-    //BS_Begin();
-    //Skip_UE(                                                    "seq_parameter_set_id");
-    //TODO...
-    Skip_XX(payloadSize,                                        "data");
+    BS_Begin();
+    Skip_UE(                                                    "seq_parameter_set_id");
+    if (NalHrdBpPresentFlag)
+        for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
+        {
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(initial_cpb_removal_delay/90, " ms");
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(initial_cpb_removal_delay_offset/90, " ms");
+        }
+    if (VclHrdBpPresentFlag)
+        for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
+        {
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(initial_cpb_removal_delay/90, " ms");
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(initial_cpb_removal_delay_offset/90, " ms");
+        }
 }
 
 //---------------------------------------------------------------------------
@@ -1265,8 +1283,8 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
     BS_Begin();
     if (CpbDpbDelaysPresentFlag)
     {
-        Skip_S1(cpb_removal_delay_length_minus1+1,              "cpb_removal_delay");
-        Skip_S1(dpb_output_delay_length_minus1+1,               "dpb_output_delay");
+        Get_S4 (cpb_removal_delay_length_minus1+1, cpb_removal_delay, "cpb_removal_delay");
+        Skip_S4(dpb_output_delay_length_minus1+1,               "dpb_output_delay");
     }
     if (pic_struct_present_flag)
     {
@@ -2260,13 +2278,16 @@ void File_Avc::vui_parameters()
     TEST_SB_END();
     TEST_SB_GET (nal_hrd_parameters_present_flag,               "nal_hrd_parameters_present_flag");
         hrd_parameters(false);
+        NalHrdBpPresentFlag=true;
     TEST_SB_END();
     TEST_SB_GET (vcl_hrd_parameters_present_flag,               "vcl_hrd_parameters_present_flag");
         hrd_parameters(true);
+        VclHrdBpPresentFlag=true;
     TEST_SB_END();
     if(nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
     {
         CpbDpbDelaysPresentFlag=true;
+        CpbDpbDelaysPresentFlag_Parsed=false;
         Skip_SB(                                                "low_delay_hrd_flag");
     }
     Get_SB (pic_struct_present_flag,                            "pic_struct_present_flag");
@@ -2291,7 +2312,6 @@ void File_Avc::hrd_parameters(bool vcl)
         NAL.clear();
 
     //Parsing
-    int32u cpb_cnt_minus1;
     int8u  bit_rate_scale, cpb_size_scale;
     Get_UE (   cpb_cnt_minus1,                                  "cpb_cnt_minus1");
     Get_S1 (4, bit_rate_scale,                                  "bit_rate_scale");
@@ -2319,7 +2339,7 @@ void File_Avc::hrd_parameters(bool vcl)
         else
             NAL.push_back(Item);
     }
-    Skip_S1(5,                                                  "initial_cpb_removal_delay_length_minus1");
+    Get_S1 (5, initial_cpb_removal_delay_length_minus1,         "initial_cpb_removal_delay_length_minus1");
     Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");
     Get_S1 (5, dpb_output_delay_length_minus1,                  "dpb_output_delay_length_minus1");
     Get_S1 (5, time_offset_length,                              "time_offset_length");    

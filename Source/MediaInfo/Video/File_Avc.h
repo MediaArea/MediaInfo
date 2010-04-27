@@ -232,12 +232,17 @@ private :
     int32u pic_order_cnt_lsb_Last;
     int32u seq_parameter_set_id;
     int32u num_views_minus1;
+    int32u cpb_cnt_minus1;
+    int32u initial_cpb_removal_delay;
+    int32u initial_cpb_removal_delay_offset;
+    int32u cpb_removal_delay;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
     int8u  level_idc;
     int8u  aspect_ratio_idc;
     int8u  video_format;
+    int8u  initial_cpb_removal_delay_length_minus1;
     int8u  cpb_removal_delay_length_minus1;
     int8u  dpb_output_delay_length_minus1;
     int8u  time_offset_length;
@@ -255,7 +260,10 @@ private :
     bool   pic_struct_present_flag;
     bool   field_pic_flag;
     bool   entropy_coding_mode_flag;
+    bool   NalHrdBpPresentFlag;
+    bool   VclHrdBpPresentFlag;
     bool   CpbDpbDelaysPresentFlag;
+    bool   CpbDpbDelaysPresentFlag_Parsed;
     bool   mb_adaptive_frame_field_flag;
     bool   pic_order_present_flag;
     bool   svc_extension_flag;
