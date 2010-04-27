@@ -2203,7 +2203,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring
         //Demux
         StreamIDs[StreamIDs_Size-1]=Element_Code;
         struct MediaInfo_Event_Global_Demux_0 Event;
-        if (StreamIDs_Size)
+        if (StreamIDs_Size && StreamIDs_Size<17)
              Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 0);
         else
              Event.EventCode=MediaInfo_EventCode_Create(0x00, MediaInfo_Event_Global_Demux, 0);
