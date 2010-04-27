@@ -328,7 +328,7 @@ File_Avc::File_Avc()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=32; //Currently no 3:2 pulldown detection
+    Frame_Count_Valid=64; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
@@ -740,7 +740,6 @@ void File_Avc::Synched_Init()
     NalHrdBpPresentFlag=false;
     VclHrdBpPresentFlag=false;
     CpbDpbDelaysPresentFlag=false;
-    CpbDpbDelaysPresentFlag_Parsed=false;
     mb_adaptive_frame_field_flag=false;
     pic_order_present_flag=false;
     field_pic_flag_AlreadyDetected=false;
@@ -2289,7 +2288,6 @@ void File_Avc::vui_parameters()
     if(nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
     {
         CpbDpbDelaysPresentFlag=true;
-        CpbDpbDelaysPresentFlag_Parsed=false;
         Skip_SB(                                                "low_delay_hrd_flag");
     }
     Get_SB (pic_struct_present_flag,                            "pic_struct_present_flag");

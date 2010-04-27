@@ -263,7 +263,6 @@ private :
     bool   NalHrdBpPresentFlag;
     bool   VclHrdBpPresentFlag;
     bool   CpbDpbDelaysPresentFlag;
-    bool   CpbDpbDelaysPresentFlag_Parsed;
     bool   mb_adaptive_frame_field_flag;
     bool   pic_order_present_flag;
     bool   svc_extension_flag;
