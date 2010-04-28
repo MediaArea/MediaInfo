@@ -62,6 +62,9 @@ private :
     bool Synched_Test();
     void Synched_Init();
 
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parser_QuickSearch();

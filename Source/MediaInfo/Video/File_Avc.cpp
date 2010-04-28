@@ -759,6 +759,20 @@ void File_Avc::Synched_Init()
 }
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Avc::Read_Buffer_Unsynched()
+{
+    TemporalReference.clear();
+    TemporalReference_Offset=0;
+    TemporalReference_Offset_Moved=false;
+    TemporalReference_GA94_03_CC_Offset=0;
+    TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
+}
+
+//***************************************************************************
 // Buffer - Per element
 //***************************************************************************
 
@@ -1101,6 +1115,8 @@ void File_Avc::slice_header()
             // third  1/4: no change
             // fourth 1/4: all is before max_frame_num
             size_t max_frame_num=1<<(log2_max_frame_num_minus4+4)<<1;
+            if (TemporalReference_Offset>100)
+                int A=0;
             if (TemporalReference_Offset==0 || (!TemporalReference_Offset_Moved && pic_order_cnt_lsb==max_frame_num*3/4))
             {
                 TemporalReference_Offset+=max_frame_num;
@@ -1131,7 +1147,8 @@ void File_Avc::slice_header()
                 if (TemporalReference.size()>=max_frame_num*4)
                 {
                     TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+max_frame_num*2);
-                    TemporalReference_Offset-=max_frame_num*2;
+                    if (max_frame_num*2<TemporalReference_Offset)
+                        TemporalReference_Offset-=max_frame_num*2;
                     if (max_frame_num*2<TemporalReference_GA94_03_CC_Offset)
                         TemporalReference_GA94_03_CC_Offset-=max_frame_num*2;
                     else
@@ -1155,7 +1172,7 @@ void File_Avc::slice_header()
         }
 
         //Name
-        if (Frame_Count && ((!frame_mbs_only_flag && Interlaced_Top==Interlaced_Bottom) || first_mb_in_slice!=0 || (Element_Code==0x14 && !seq_parameter_set_ids.empty())))
+        if (Frame_Count && ((!frame_mbs_only_flag && Interlaced_Top==Interlaced_Bottom && field_pic_flag) || first_mb_in_slice!=0 || (Element_Code==0x14 && !seq_parameter_set_ids.empty())))
         {
             Frame_Count--;
             Frame_Count_InThisBlock--;
