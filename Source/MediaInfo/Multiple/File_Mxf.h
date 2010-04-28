@@ -295,6 +295,7 @@ protected :
     int16u Code2;
     int16u Length2;
     int64u File_Size_Total; //Used only in Finish()
+    bool   Track_Number_IsAvailable;
 
     //Primer
     std::map<int16u, int128u> Primer_Values;
@@ -384,6 +385,7 @@ protected :
         std::map<std::string, Ztring> Infos;
         int64u Stream_Size;
         bool   Stream_Finish_Done;
+        bool   Track_Number_IsMappedToTrack; //if !Track_Number_IsAvailable, is true when it was euristicly mapped
 
         essence()
         {
@@ -392,6 +394,7 @@ protected :
             Parser=NULL;
             Stream_Size=(int64u)-1;
             Stream_Finish_Done=false;
+            Track_Number_IsMappedToTrack=false;
         }
 
         ~essence()

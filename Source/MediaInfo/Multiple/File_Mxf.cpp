@@ -403,6 +403,7 @@ File_Mxf::File_Mxf()
     Buffer_DataSizeToParse_Complete=(int64u)-1;
     Preface_Current.hi=(int64u)-1;
     Preface_Current.lo=(int64u)-1;
+    Track_Number_IsAvailable=false;
 }
 
 //***************************************************************************
@@ -412,6 +413,31 @@ File_Mxf::File_Mxf()
 //---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish()
 {
+    if (!Track_Number_IsAvailable)
+    {
+        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+        {
+            //Searching the corresponding Descriptor
+            stream_t StreamKind=Stream_Max;
+            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                if (Descriptor->second.LinkedTrackID==Track->second.TrackID)
+                {
+                    StreamKind=Descriptor->second.StreamKind;
+                    break;
+                }
+            if (StreamKind!=Stream_Max)
+            {
+                for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
+                    if (Essence->second.StreamKind==StreamKind && !Essence->second.Track_Number_IsMappedToTrack)
+                    {
+                        Track->second.TrackNumber=Essence->first;
+                        Essence->second.Track_Number_IsMappedToTrack=true;
+                        break;
+                    }
+            }
+        }
+    }
+
     File_Size_Total=File_Size;
 
     Streams_Finish_Preface(Preface_Current);
@@ -2874,6 +2900,7 @@ void File_Mxf::GenericTrack_TrackNumber()
 
     FILLING_BEGIN();
         Tracks[InstanceUID].TrackNumber=Data;
+        Track_Number_IsAvailable=true;
     FILLING_END();
 }
 
