@@ -74,40 +74,48 @@
 //---------------------------------------------------------------------------
 // Legacy
 #if defined(MEDIAINFO_MINIMIZESIZE)
-    #define MEDIAINFO_TRACE_NO
-    #define MEDIAINFO_EVENTS_NO
-    #define MEDIAINFO_DEMUX_NO
+    #if !defined (MEDIAINFO_TRACE_NO) && !defined (MEDIAINFO_TRACE_YES) 
+        #define MEDIAINFO_TRACE_NO
+    #endif
+    #if !defined (MEDIAINFO_EVENTS_NO) && !defined (MEDIAINFO_EVENTS_YES)
+        #define MEDIAINFO_EVENTS_NO
+    #endif
+    #if !defined (MEDIAINFO_DEMUX_NO) && !defined (MEDIAINFO_DEMUX_YES)
+        #define MEDIAINFO_DEMUX_NO
+    #endif
 #endif
 #if defined(MEDIAINFO_EVENTS)
     #undef MEDIAINFO_EVENTS
-    #define MEDIAINFO_EVENTS_YES
+    #if !defined (MEDIAINFO_EVENTS_NO) && !defined (MEDIAINFO_EVENTS_YES)
+        #define MEDIAINFO_EVENTS_YES
+    #endif
 #endif
 
 //---------------------------------------------------------------------------
 // Special configurations
-#if defined(MEDIAINFO_MINIMAL)
-    #if !defined (MEDIAINFO_TRACE_NO)
+#if defined(MEDIAINFO_MINIMAL_YES)
+    #if !defined (MEDIAINFO_TRACE_NO) && !defined (MEDIAINFO_TRACE_YES) 
         #define MEDIAINFO_TRACE_NO
     #endif
-    #if !defined (MEDIAINFO_EVENTS_NO)
+    #if !defined (MEDIAINFO_EVENTS_NO) && !defined (MEDIAINFO_EVENTS_YES)
         #define MEDIAINFO_EVENTS_NO
     #endif
-    #if !defined (MEDIAINFO_DEMUX_NO)
+    #if !defined (MEDIAINFO_DEMUX_NO) && !defined (MEDIAINFO_DEMUX_YES)
         #define MEDIAINFO_DEMUX_NO
     #endif
-    #if !defined (MEDIAINFO_DIRECTORY_NO)
+    #if !defined (MEDIAINFO_DIRECTORY_NO) && !defined (MEDIAINFO_DIRECTORY_YES)
         #define MEDIAINFO_DIRECTORY_NO
     #endif
-    #if !defined (MEDIAINFO_LIBCURL_NO)
+    #if !defined (MEDIAINFO_LIBCURL_NO) && !defined (MEDIAINFO_LIBCURL_YES)
         #define MEDIAINFO_LIBCURL_NO
     #endif
-    #if !defined (MEDIAINFO_LIBMMS_NO)
+    #if !defined (MEDIAINFO_LIBMMS_NO) && !defined (MEDIAINFO_LIBMM_YES)
         #define MEDIAINFO_LIBMMS_NO
     #endif
-    #if !defined (MEDIAINFO_DVDIF_ANALYZE_NO)
+    #if !defined (MEDIAINFO_DVDIF_ANALYZE_NO) && !defined (MEDIAINFO_DVDIF_ANALYZE_YES)
         #define MEDIAINFO_DVDIF_ANALYZE_NO
     #endif
-    #if !defined (MEDIAINFO_MPEGTS_DUPLICATE_NO)
+    #if !defined (MEDIAINFO_MPEGTS_DUPLICATE_NO) && !defined (MEDIAINFO_MPEGTS_DUPLICATE_YES)
         #define MEDIAINFO_MPEGTS_DUPLICATE_NO
     #endif
 #endif
@@ -192,9 +200,9 @@
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DVDIF_NO) && !defined(MEDIAINFO_DVDIF_YES)
     #define MEDIAINFO_DVDIF_YES
-    #if !defined(MEDIAINFO_DVDIF_ANALYZE_NO) && !defined(MEDIAINFO_DVDIF_ANALYZE_YES)
-        #define MEDIAINFO_DVDIF_ANALYZE_YES
-    #endif
+#endif
+#if defined(MEDIAINFO_DVDIF_YES) && !defined(MEDIAINFO_DVDIF_ANALYZE_NO) && !defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    #define MEDIAINFO_DVDIF_ANALYZE_YES
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DVDV_NO) && !defined(MEDIAINFO_DVDV_YES)
     #define MEDIAINFO_DVDV_YES
@@ -403,7 +411,7 @@
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CMML_NO) && !defined(MEDIAINFO_CMML_YES)
     #define MEDIAINFO_CMML_YES
 #endif
-#if !defined(MEDIAINFO_DTVCCTRANSPORT_NO) && !defined(MEDIAINFO_DTVCCTRANSPORT_NO) && !defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_DTVCCTRANSPORT_NO) && !defined(MEDIAINFO_DTVCCTRANSPORT_YES)
     #define MEDIAINFO_DTVCCTRANSPORT_YES
 #endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_EIA608_NO) && !defined(MEDIAINFO_EIA608_YES)

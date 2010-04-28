@@ -239,8 +239,10 @@ File_MpegPs::File_MpegPs()
 //---------------------------------------------------------------------------
 File_MpegPs::~File_MpegPs()
 {
-    if (FromTS_stream_type==0x20) //If SubStream, this object owns the demux handler
-        delete SubStream_Demux; //SubStream_Demux=NULL;
+    #if MEDIAINFO_DEMUX
+        if (FromTS_stream_type==0x20) //If SubStream, this object owns the demux handler
+            delete SubStream_Demux; //SubStream_Demux=NULL;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************
@@ -2638,7 +2640,11 @@ void File_MpegPs::video_stream()
     }
 
     //Demux
-    if (!(FromTS_stream_type==0x20 && SubStream_Demux))
+    if (!(FromTS_stream_type==0x20
+        #if MEDIAINFO_DEMUX
+             && SubStream_Demux
+        #endif //MEDIAINFO_DEMUX
+        ))
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".mpv"));
 }
 

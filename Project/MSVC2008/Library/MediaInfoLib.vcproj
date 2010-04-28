@@ -47,7 +47,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_TRACE_NO"
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
@@ -1228,6 +1228,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Events.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Events_Internal.h"
 				>
 			</File>
 			<File

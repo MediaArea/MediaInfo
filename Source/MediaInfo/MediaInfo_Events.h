@@ -169,8 +169,12 @@
 
 
 /***************************************************************************/
-/* The callback function
+/* The callback function                                                   */
 /***************************************************************************/
+
+#if !defined(__WINDOWS__)
+    #define __stdcall
+#endif //!defined(__WINDOWS__)
 
 #ifdef __cplusplus
 extern "C"
@@ -184,7 +188,7 @@ extern "C"
 #endif /* __cplusplus */
 
 /***************************************************************************/
-/* EventCode management
+/* EventCode management                                                    */
 /***************************************************************************/
 
 #define MediaInfo_EventCode_Create(ParserID, EventID, EventVersion) \

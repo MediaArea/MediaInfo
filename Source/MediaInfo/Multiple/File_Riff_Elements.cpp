@@ -559,6 +559,7 @@ void File_Riff::Data_Parse()
         ATOM_BEGIN
         ATOM(QLCM_fmt_)
         ATOM_END
+    #if defined(MEDIAINFO_GXF_YES)
     LIST(rcrd)
         ATOM_BEGIN
         ATOM(rcrd_desc)
@@ -572,6 +573,7 @@ void File_Riff::Data_Parse()
             ATOM(rcrd_fld__finf)
             ATOM_END
         ATOM_END
+    #endif //defined(MEDIAINFO_GXF_YES)
     LIST_SKIP(RDIB)
     LIST_SKIP(RMID)
     LIST_SKIP(RMMP)

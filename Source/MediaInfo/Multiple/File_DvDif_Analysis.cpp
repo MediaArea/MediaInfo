@@ -663,8 +663,7 @@ void File_DvDif::Errors_Stats_Update()
 
         //RecDate/RecTime coherency, Rec start/end
         bool RecTime_Disrupted=false;
-        if (/*(!REC_IsValid || !REC_ST || !REC_END) &&*/
-            Speed_RecTime_Current.IsValid && Speed_RecTime_Current_Theory.IsValid
+        if (Speed_RecTime_Current.IsValid && Speed_RecTime_Current_Theory.IsValid
          && !(   Speed_RecTime_Current.Time.Seconds==Speed_RecTime_Current_Theory.Time.Seconds
               && Speed_RecTime_Current.Time.Minutes==Speed_RecTime_Current_Theory.Time.Minutes
               && Speed_RecTime_Current.Time.Hours  ==Speed_RecTime_Current_Theory.Time.Hours)

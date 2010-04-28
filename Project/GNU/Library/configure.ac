@@ -52,6 +52,10 @@ AC_ARG_ENABLE(arch-i386,        AC_HELP_STRING([--enable-arch-i386],        [Cre
 AC_ARG_ENABLE(arch-x86_64,      AC_HELP_STRING([--enable-arch-x86_64],      [Create Mac x86_64 architecture]),            , enable_arch_x86_64=no)
 AC_ARG_ENABLE(staticlibs,       AC_HELP_STRING([--enable-staticlibs],       [Use static libmediainfo and libzen]),        , enable_staticlibs=no)
 AC_ARG_ENABLE(minimize-size,    AC_HELP_STRING([--enable-minimize-size],    [Enable size optimisations]),                 MediaInfoMinimizeSize=$enableval, MediaInfoMinimizeSize=depend)
+AC_ARG_ENABLE(minimum,    		AC_HELP_STRING([--enable-minimum],    		[Enable minimum management]),                 MediaInfoMinimum=$enableval, MediaInfoMinimum=depend)
+AC_ARG_ENABLE(trace,    		AC_HELP_STRING([--enable-trace],    		[Enable trace management]),                   MediaInfoTrace=$enableval,   MediaInfoTrace=depend)
+AC_ARG_ENABLE(events,    		AC_HELP_STRING([--enable-events],    		[Enable events management]),                  MediaInfoEvents=$enableval,  MediaInfoEvents=depend)
+AC_ARG_ENABLE(demux,    		AC_HELP_STRING([--enable-demux],    		[Enable demux management]),                   MediaInfoDemux=$enableval,   MediaInfoDemux=depend)
 AC_ARG_ENABLE(all,     AC_HELP_STRING([--disable-all],     [Disable all parsers]),                                        MediaInfoAll=$enableval,     MediaInfoAll=depend)
 AC_ARG_ENABLE(archive, AC_HELP_STRING([--disable-archive], [Disable all archive parsers]),                                MediaInfoArchive=$enableval, MediaInfoArchive=depend)
 AC_ARG_ENABLE(audio,   AC_HELP_STRING([--disable-audio],   [Disable all audio parsers]),                                  MediaInfoAudio=$enableval,   MediaInfoAudio=depend)
@@ -158,6 +162,10 @@ dnl -------------------------------------------------------------------------
 dnl MediaInfo *
 dnl
 if test "$MediaInfoMinimizeSize" = "yes";  then AC_DEFINE(MEDIAINFO_MINIMIZESIZE) fi
+if test "$MediaInfoMinimal" = "no";  then AC_DEFINE(MEDIAINFO_MINIMAL_NO) fi; if test "$MediaInfoMinimal" = "yes"; then AC_DEFINE(MEDIAINFO_MINIMAL_YES) fi
+if test "$MediaInfoTrace"   = "no";  then AC_DEFINE(MEDIAINFO_TRACE_NO)   fi; if test "$MediaInfoTrace"   = "yes"; then AC_DEFINE(MEDIAINFO_TRACE_YES)   fi
+if test "$MediaInfoEvents"  = "no";  then AC_DEFINE(MEDIAINFO_EVENTS_NO)  fi; if test "$MediaInfoEvents"  = "yes"; then AC_DEFINE(MEDIAINFO_EVENTS_YES)  fi
+if test "$MediaInfoDemux"   = "no";  then AC_DEFINE(MEDIAINFO_DEMUX_NO)   fi; if test "$MediaInfoDemux"   = "yes"; then AC_DEFINE(MEDIAINFO_DEMUX_YES)   fi
 if test "$MediaInfoAll"     = "no";  then AC_DEFINE(MEDIAINFO_ALL_NO)     fi
 if test "$MediaInfoArchive" = "no";  then AC_DEFINE(MEDIAINFO_ARCHIVE_NO) fi
 if test "$MediaInfoAudio"   = "no";  then AC_DEFINE(MEDIAINFO_AUDIO_NO)   fi
