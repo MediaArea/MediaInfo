@@ -1115,8 +1115,6 @@ void File_Avc::slice_header()
             // third  1/4: no change
             // fourth 1/4: all is before max_frame_num
             size_t max_frame_num=1<<(log2_max_frame_num_minus4+4)<<1;
-            if (TemporalReference_Offset>100)
-                int A=0;
             if (TemporalReference_Offset==0 || (!TemporalReference_Offset_Moved && pic_order_cnt_lsb==max_frame_num*3/4))
             {
                 TemporalReference_Offset+=max_frame_num;
