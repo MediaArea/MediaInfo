@@ -135,7 +135,7 @@ File__Analyze::File__Analyze ()
     ShouldContinueParsing=false;
 
     //Events data
-    #ifdef MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         MpegPs_PES_FirstByte_IsAvailable=false;
     #endif //MEDIAINFO_EVENTS
 }

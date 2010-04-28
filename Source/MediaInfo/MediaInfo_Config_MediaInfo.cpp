@@ -427,7 +427,9 @@ Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Val
 
     return Ztring();
 }
+#endif //MEDIAINFO_EVENTS
 
+#if MEDIAINFO_EVENTS
 void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size)
 {
     CriticalSectionLocker CSL(CS);
@@ -437,6 +439,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
 }
 #endif //MEDIAINFO_EVENTS
 
+#if MEDIAINFO_EVENTS
 void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name)
 {
     CriticalSectionLocker CSL(CS);
@@ -467,6 +470,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
         }
     }
 }
+#endif //MEDIAINFO_EVENTS
 
 //***************************************************************************
 // Force Parser
