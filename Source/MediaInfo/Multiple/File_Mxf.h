@@ -289,6 +289,7 @@ protected :
 
     size_t Streams_Count;
     int128u Code;
+    int128u OperationalPattern;
     int128u InstanceUID;
     int64u Buffer_DataSizeToParse;
     int64u Buffer_DataSizeToParse_Complete;
@@ -453,7 +454,6 @@ protected :
     };
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
     components Components;
-
 };
 
 } //NameSpace

@@ -226,10 +226,11 @@ const char* Mxf_MPEG2_CodedContentType(int8u CodedContentType)
 //---------------------------------------------------------------------------
 const char* Mxf_OperationalPattern(int128u OperationalPattern)
 {
-    int32u Code_Compare1=OperationalPattern.hi>>32;
-    int32u Code_Compare2=(int32u)OperationalPattern.hi;
-    int32u Code_Compare3=OperationalPattern.lo>>32;
+    //int32u Code_Compare1=OperationalPattern.hi>>32;
+    //int32u Code_Compare2=(int32u)OperationalPattern.hi;
+    //int32u Code_Compare3=OperationalPattern.lo>>32;
     int32u Code_Compare4=(int32u)OperationalPattern.lo;
+    /*
     #undef ELEMENT
     #define ELEMENT(_ELEMENT, _NAME) \
     else if (Code_Compare1==Elements::_ELEMENT##1 \
@@ -244,6 +245,34 @@ const char* Mxf_OperationalPattern(int128u OperationalPattern)
     ELEMENT   (OP_SingleItem,                                   "Single-item")
     else
         return "";
+    */
+
+    //Item and Package Complexity
+    switch ((int8u)(Code_Compare4>>24))
+    {
+        case 0x01 : switch ((int8u)(Code_Compare4>>16))
+                    {
+                        case 0x01 : return "OP-1a";
+                        case 0x02 : return "OP-1b";
+                        case 0x03 : return "OP-1c";
+                        default   : return "";
+                    }
+        case 0x02 : switch ((int8u)(Code_Compare4>>16))
+                    {
+                        case 0x01 : return "OP-2a";
+                        case 0x02 : return "OP-2b";
+                        case 0x03 : return "OP-2c";
+                        default   : return "";
+                    }
+        case 0x03 : switch ((int8u)(Code_Compare4>>16))
+                    {
+                        case 0x01 : return "OP-3a";
+                        case 0x02 : return "OP-3b";
+                        case 0x03 : return "OP-3c";
+                        default   : return "";
+                    }
+        default   : return "";
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -399,6 +428,7 @@ File_Mxf::File_Mxf()
 
     //Temp
     Streams_Count=(size_t)-1;
+    OperationalPattern=0;
     Buffer_DataSizeToParse=0;
     Buffer_DataSizeToParse_Complete=(int64u)-1;
     Preface_Current.hi=(int64u)-1;
@@ -441,6 +471,9 @@ void File_Mxf::Streams_Finish()
     File_Size_Total=File_Size;
 
     Streams_Finish_Preface(Preface_Current);
+
+    //OperationalPattern
+    Fill(Stream_General, 0, General_Format_Profile, Mxf_OperationalPattern(OperationalPattern));
 
     //File size handling
     if (File_Size_Total!=File_Size)
@@ -3340,7 +3373,7 @@ void File_Mxf::PartitionMetadata()
     Skip_B4(                                                    "IndexSID");
     Skip_B8(                                                    "BodyOffset");
     Skip_B4(                                                    "BodySID");
-    Info_UL(OperationalPattern,                                 "OperationalPattern", Mxf_OperationalPattern);
+    Get_UL (OperationalPattern,                                 "OperationalPattern", Mxf_OperationalPattern);
 
     Element_Begin("EssenceContainers"); //Vector
         int32u Count, Length;
@@ -3424,7 +3457,7 @@ void File_Mxf::Preface_PrimaryPackage()
 void File_Mxf::Preface_OperationalPattern()
 {
     //Parsing
-    Info_UL(OperationalPattern,                                 "UUID", Mxf_OperationalPattern);
+    Get_UL (OperationalPattern,                                 "UUID", Mxf_OperationalPattern);
 }
 
 //---------------------------------------------------------------------------

@@ -17,6 +17,7 @@ Version 0.7.32, 2010-
 + ISO-639-2 3-letter standard for language field (for third-party software)
 + Additional commercial name of a stream or container (XDCAM IMX, DVCPRO, AVC-Intra 50...)
 + MXF: support of detection of files without Track number in the headers
++ MXF: Operational Pattern
 x AVC: some files were wrongly analyzed (frame rate...)
 x AVI: better support of files with only one big data chunk (professional cameras)
 
