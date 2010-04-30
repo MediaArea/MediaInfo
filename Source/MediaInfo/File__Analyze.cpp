@@ -1696,12 +1696,15 @@ void File__Analyze::Accept (const char* ParserName)
         Stream_Prepare(Stream_General);
 
     #if MEDIAINFO_EVENTS
-        struct MediaInfo_Event_General_Parser_Selected_0 Event;
-        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
-        std::memset(Event.Name, 0, 16);
-        if (ParserName)
-            strncpy(Event.Name, ParserName, 15);
-        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
+        if (!IsSub)
+        {
+            struct MediaInfo_Event_General_Parser_Selected_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
+            std::memset(Event.Name, 0, 16);
+            if (ParserName)
+                strncpy(Event.Name, ParserName, 15);
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
+        }
     #endif //MEDIAINFO_EVENTS
 }
 #else //MEDIAINFO_TRACE
@@ -1715,10 +1718,13 @@ void File__Analyze::Accept ()
         Stream_Prepare(Stream_General);
 
     #if MEDIAINFO_EVENTS
-        struct MediaInfo_Event_General_Parser_Selected_0 Event;
-        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
-        memset(Event.Name, 0, 16);
-        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
+        if (!IsSub)
+        {
+            struct MediaInfo_Event_General_Parser_Selected_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
+            memset(Event.Name, 0, 16);
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
+        }
     #endif //MEDIAINFO_EVENTS
 }
 #endif //MEDIAINFO_TRACE
