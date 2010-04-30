@@ -86,6 +86,7 @@ public :
     void          File__Duplicate_Memory_Indexes_Erase (const Ztring &ToFind);
 
     #if MEDIAINFO_EVENTS
+    bool          Event_CallBackFunction_IsSet ();
     Ztring        Event_CallBackFunction_Set (const Ztring &Value);
     void          Event_Send(const int8u* Data_Content, size_t Data_Size);
     void          Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);

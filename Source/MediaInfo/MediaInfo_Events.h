@@ -286,6 +286,26 @@ struct MediaInfo_Event_General_Move_Done_0
 #define MediaInfo_Parser_MpegPs         0x02
 
 /***************************************************************************/
+/* DV / DIF                                                                 */
+/***************************************************************************/
+
+#define MediaInfo_Parser_DvDif          0x03
+
+/*-------------------------------------------------------------------------*/
+/* Analysis                                                                */
+#define MediaInfo_Event_DvDif_Analysis_Frame 0xB001
+struct MediaInfo_Event_DvDif_Analysis_Frame_0
+{
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int32u        TimeCode;
+    MediaInfo_int32u        RecordedDateTime1;
+    MediaInfo_int16u        RecordedDateTime2;
+    MediaInfo_int8u         Arb;
+    MediaInfo_int8u         Verbosity;
+    char*                   Errors;
+};
+
+/***************************************************************************/
 /* MPEG Video                                                              */
 /***************************************************************************/
 

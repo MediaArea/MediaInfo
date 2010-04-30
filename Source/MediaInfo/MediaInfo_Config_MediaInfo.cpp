@@ -402,6 +402,17 @@ void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztr
 // Event
 //***************************************************************************
 
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+bool MediaInfo_Config_MediaInfo::Event_CallBackFunction_IsSet ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return Event_CallBackFunction?true:false;
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
 #if MEDIAINFO_EVENTS
 Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Value)
 {
@@ -429,6 +440,7 @@ Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Val
 }
 #endif //MEDIAINFO_EVENTS
 
+//---------------------------------------------------------------------------
 #if MEDIAINFO_EVENTS
 void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size)
 {
@@ -439,6 +451,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
 }
 #endif //MEDIAINFO_EVENTS
 
+//---------------------------------------------------------------------------
 #if MEDIAINFO_EVENTS
 void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name)
 {

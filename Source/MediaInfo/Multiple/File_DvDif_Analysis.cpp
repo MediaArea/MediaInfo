@@ -473,6 +473,18 @@ void File_DvDif::Errors_Stats_Update()
     Ztring Errors_Stats_Line;
     if (Speed_FrameCount) //We must have at least one complete frame
     {
+        #if MEDIAINFO_EVENTS
+            //Demux
+            struct MediaInfo_Event_DvDif_Analysis_Frame_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_DvDif, MediaInfo_Event_DvDif_Analysis_Frame, 0);
+            Event.TimeCode=0;
+            Event.RecordedDateTime1=0;
+            Event.RecordedDateTime2=0;
+            Event.Arb=0;
+            Event.Verbosity=0;
+            Event.Errors=NULL;
+        #endif //MEDIAINFO_EVENTS
+
         //Framerate computing
         float64 FrameRate=29.970;
         if (System_IsValid)
@@ -529,9 +541,24 @@ void File_DvDif::Errors_Stats_Update()
             }
             if (Speed_TimeStampsZ[0].First.FramePos==Speed_FrameCount)
                 Speed_TimeStampsZ[0].First.TimeCode=Speed_TimeCodeZ_Current;
+            #if MEDIAINFO_EVENTS
+                int32u Seconds=Speed_TimeCode_Current.Time.Hours  *60*60
+                             + Speed_TimeCode_Current.Time.Minutes   *60
+                             + Speed_TimeCode_Current.Time.Seconds      ;
+                Event.TimeCode|=Seconds<<8;
+                Event.TimeCode|=(!DSF && Speed_TimeCode_Current.Time.DropFrame)<<7;
+                Event.TimeCode|=Speed_TimeCode_Current.Time.Frames;
+            #endif //MEDIAINFO_EVENTS
         }
         else
+        {
             Errors_Stats_Line+=_T("XX:XX:XX:XX");
+            #if MEDIAINFO_EVENTS
+                Event.TimeCode|=0x7FFFF<<8;
+                //Event.TimeCode|=Speed_TimeCode_Current.Time.DropFrame<<7;
+                Event.TimeCode|=0x3F;
+            #endif //MEDIAINFO_EVENTS
+        }
         Errors_Stats_Line+=_T('\t');
 
         //Timecode order coherency
@@ -549,6 +576,9 @@ void File_DvDif::Errors_Stats_Update()
          && Speed_TimeCode_Current.Time.Hours  ==Speed_TimeCode_Last.Time.Hours)
         {
             Errors_Stats_Line+=_T('R');
+            #if MEDIAINFO_EVENTS
+                Event.TimeCode|=1<<31;
+            #endif //MEDIAINFO_EVENTS
             if (Speed_TimeCode_Current.Time.Hours
              || Speed_TimeCode_Current.Time.Seconds
              || Speed_TimeCode_Current.Time.Minutes
@@ -569,6 +599,9 @@ void File_DvDif::Errors_Stats_Update()
             Speed_TimeCodeZ[Speed_TimeCodeZ_Pos-1].Last.TimeCode=Speed_TimeCodeZ_Last;
 
             Errors_Stats_Line+=_T('N');
+            #if MEDIAINFO_EVENTS
+                Event.TimeCode|=1<<30;
+            #endif //MEDIAINFO_EVENTS
             Speed_TimeCode_Current_Theory=Speed_TimeCode_Current;
             TimeCode_Disrupted=true;
             Errors_AreDetected=true;
@@ -607,9 +640,21 @@ void File_DvDif::Errors_Stats_Update()
             }
             if (Speed_TimeStampsZ[0].First.FramePos==Speed_FrameCount)
                 Speed_TimeStampsZ[0].First.Date=Speed_RecDateZ_Current;
+            #if MEDIAINFO_EVENTS
+                Event.RecordedDateTime1|=Speed_RecDate_Current.Years<<17;
+                Event.RecordedDateTime2|=Speed_RecDate_Current.Months<<12;
+                Event.RecordedDateTime2|=Speed_RecDate_Current.Days<<8;
+            #endif //MEDIAINFO_EVENTS
         }
         else
+        {
             Errors_Stats_Line+=_T("XXXX-XX-XX");
+            #if MEDIAINFO_EVENTS
+                Event.RecordedDateTime1|=0x7F<<17;
+                Event.RecordedDateTime2|=0x0F<<12;
+                Event.RecordedDateTime2|=0x1F<<8;
+            #endif //MEDIAINFO_EVENTS
+        }
         Errors_Stats_Line+=_T(" ");
         if (Speed_RecTime_Current.IsValid)
         {
@@ -624,6 +669,12 @@ void File_DvDif::Errors_Stats_Update()
             Speed_RecTimeZ_Current+=_T(':');
             Speed_RecTimeZ_Current+=_T('0')+Speed_RecTime_Current.Time.Seconds/10;
             Speed_RecTimeZ_Current+=_T('0')+Speed_RecTime_Current.Time.Seconds%10;
+            #if MEDIAINFO_EVENTS
+                int32u Seconds=Speed_RecTime_Current.Time.Hours  *60*60
+                             + Speed_RecTime_Current.Time.Minutes   *60
+                             + Speed_RecTime_Current.Time.Seconds      ;
+                Event.RecordedDateTime1|=Seconds;
+            #endif //MEDIAINFO_EVENTS
             if (Speed_RecTime_Current.Time.Frames!=45)
             {
                 int32u Milliseconds;
@@ -637,9 +688,17 @@ void File_DvDif::Errors_Stats_Update()
                 Speed_RecTimeZ_Current+=_T('0')+(Char)(Milliseconds/100);
                 Speed_RecTimeZ_Current+=_T('0')+(Char)((Milliseconds%100)/10);
                 Speed_RecTimeZ_Current+=_T('0')+(Char)(Milliseconds%10);
+                #if MEDIAINFO_EVENTS
+                    Event.RecordedDateTime2|=Speed_RecTime_Current.Time.Frames;
+                #endif //MEDIAINFO_EVENTS
             }
             else
+            {
                 Speed_RecTimeZ_Current+=_T("    ");
+                #if MEDIAINFO_EVENTS
+                    Event.RecordedDateTime2|=0x7F;
+                #endif //MEDIAINFO_EVENTS
+            }
             Errors_Stats_Line+=Speed_RecTimeZ_Current;
             if (Speed_RecZ.empty() || Speed_RecZ[0].First.FramePos==Speed_FrameCount) //Empty or the same frame as RecDate
             {
@@ -658,7 +717,13 @@ void File_DvDif::Errors_Stats_Update()
                 Speed_TimeStampsZ[0].First.Time=Speed_RecTimeZ_Current;
         }
         else
+        {
             Errors_Stats_Line+=_T("XX:XX:XX.XXX");
+            #if MEDIAINFO_EVENTS
+                Event.RecordedDateTime1|=0x1FFFF;
+                Event.RecordedDateTime2|=0x7F;
+            #endif //MEDIAINFO_EVENTS
+        }
         Errors_Stats_Line+=_T('\t');
 
         //RecDate/RecTime coherency, Rec start/end
@@ -681,6 +746,9 @@ void File_DvDif::Errors_Stats_Update()
             Speed_RecZ[Speed_RecZ_Pos-1].Last.Time=Speed_RecTimeZ_Last;
 
             Errors_Stats_Line+=_T('N');
+            #if MEDIAINFO_EVENTS
+                Event.RecordedDateTime1|=1<<30;
+            #endif //MEDIAINFO_EVENTS
             if (!REC_IsValid || REC_ST)
             {
                 RecTime_Disrupted=true;
@@ -704,6 +772,10 @@ void File_DvDif::Errors_Stats_Update()
                     Biggest_Count=Speed_Arb_Current.Value_Counters[Pos];
                 }
             Errors_Stats_Line+=Ztring::ToZtring(Biggest_Pos, 16);
+            #if MEDIAINFO_EVENTS
+                Event.Arb|=Biggest_Pos;
+                Event.Arb|=1<<4;
+            #endif //MEDIAINFO_EVENTS
             Speed_Arb_Current.Value=Biggest_Pos;
         }
         else
@@ -718,6 +790,9 @@ void File_DvDif::Errors_Stats_Update()
          && Speed_Arb_Current.Value!=0xF)
         {
             Errors_Stats_Line+=_T('R');
+            #if MEDIAINFO_EVENTS
+                Event.Arb|=1<<7;
+            #endif //MEDIAINFO_EVENTS
             if (Speed_Arb_Current.Value!=0xF)
                 Arb_AreDetected=true;
 
@@ -727,6 +802,9 @@ void File_DvDif::Errors_Stats_Update()
               && Speed_Arb_Current.Value   != Speed_Arb_Current_Theory.Value)
         {
             Errors_Stats_Line+=_T('N');
+            #if MEDIAINFO_EVENTS
+                Event.Arb|=1<<6;
+            #endif //MEDIAINFO_EVENTS
             Speed_Arb_Current_Theory=Speed_Arb_Current;
             Arb_AreDetected=true;
         }
@@ -738,6 +816,9 @@ void File_DvDif::Errors_Stats_Update()
         if (REC_IsValid && !REC_ST)
         {
             Errors_Stats_Line+=_T('S');
+            #if MEDIAINFO_EVENTS
+                Event.RecordedDateTime1|=1<<29;
+            #endif //MEDIAINFO_EVENTS
             Infos_AreDetected=true;
         }
         else
@@ -748,6 +829,9 @@ void File_DvDif::Errors_Stats_Update()
         if (REC_IsValid && !REC_END)
         {
             Errors_Stats_Line+=_T('E');
+            #if MEDIAINFO_EVENTS
+                Event.RecordedDateTime1|=1<<28;
+            #endif //MEDIAINFO_EVENTS
             Infos_AreDetected=true;
         }
         else
@@ -1040,9 +1124,13 @@ void File_DvDif::Errors_Stats_Update()
 
         //Filling the main text if needed
         {
-            Errors_Stats_10+=Errors_Stats_Line;
-            Errors_Stats_10+=Errors_Stats_Line_Details;
-            Errors_Stats_10+=_T("&");
+            if (!Config->Event_CallBackFunction_IsSet())
+            {
+                Errors_Stats_10+=Errors_Stats_Line;
+                Errors_Stats_10+=Errors_Stats_Line_Details;
+                Errors_Stats_10+=_T("&");
+            }
+            Event.Verbosity=10;
         }
         if (Speed_FrameCount==1
          || Status[IsFinished]
@@ -1050,29 +1138,51 @@ void File_DvDif::Errors_Stats_Update()
          || Infos_AreDetected
          || Arb_AreDetected)
         {
-            Errors_Stats_09+=Errors_Stats_Line;
-            Errors_Stats_09+=Errors_Stats_Line_Details;
-            Errors_Stats_09+=_T("&");
+            if (!Config->Event_CallBackFunction_IsSet())
+            {
+                Errors_Stats_09+=Errors_Stats_Line;
+                Errors_Stats_09+=Errors_Stats_Line_Details;
+                Errors_Stats_09+=_T("&");
+            }
+            Event.Verbosity=9;
 
             if (Speed_FrameCount==1
              || Status[IsFinished]
              || Errors_AreDetected
              || Infos_AreDetected)
             {
-                Errors_Stats_05+=Errors_Stats_Line;
-                Errors_Stats_05+=Errors_Stats_Line_Details;
-                Errors_Stats_05+=_T("&");
+                if (!Config->Event_CallBackFunction_IsSet())
+                {
+                    Errors_Stats_05+=Errors_Stats_Line;
+                    Errors_Stats_05+=Errors_Stats_Line_Details;
+                    Errors_Stats_05+=_T("&");
+                }
+                Event.Verbosity=5;
 
                 if (Speed_FrameCount==1
                  || Status[IsFinished]
                  || Errors_AreDetected)
                 {
-                    Errors_Stats_03+=Errors_Stats_Line;
-                    Errors_Stats_03+=Errors_Stats_Line_Details;
-                    Errors_Stats_03+=_T("&");
+                    if (!Config->Event_CallBackFunction_IsSet())
+                    {
+                        Errors_Stats_03+=Errors_Stats_Line;
+                        Errors_Stats_03+=Errors_Stats_Line_Details;
+                        Errors_Stats_03+=_T("&");
+                    }
+                    Event.Verbosity=3;
                 }
              }
         }
+
+        #if MEDIAINFO_EVENTS
+            std::string Errors;
+            if (Errors_Stats_Line_Details.size()>10)
+            {
+                Errors=Errors_Stats_Line_Details.To_Local();
+                Event.Errors=(char*)Errors.c_str();
+            }
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_DvDif_Analysis_Frame_0));
+        #endif //MEDIAINFO_EVENTS
     }
 
     //Speed_TimeCode_Current
@@ -1098,7 +1208,7 @@ void File_DvDif::Errors_Stats_Update()
                 Speed_TimeCode_Current_Theory.Time.Seconds=0;
                 Speed_TimeCode_Current_Theory.Time.Minutes++;
 
-                if (Speed_TimeCode_Current_Theory.Time.DropFrame && Speed_TimeCode_Current_Theory.Time.Minutes%10)
+                if (!DSF && Speed_TimeCode_Current_Theory.Time.DropFrame && Speed_TimeCode_Current_Theory.Time.Minutes%10)
                     Speed_TimeCode_Current_Theory.Time.Frames=2; //frames 0 and 1 are dropped for every minutes except 00 10 20 30 40 50
 
                 if (Speed_TimeCode_Current_Theory.Time.Minutes>=60)
@@ -1388,18 +1498,18 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     //Stats
     if (Stats_Total)
     {
-        Errors_Stats_End_Lines+=_T("Percent of File with Error: ");
+        Errors_Stats_End_Lines+=_T("Percent of frames with Error: ");
         Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats_Total_WithoutArb*100)/Speed_FrameCount, 2);
         Errors_Stats_End_Lines+=_T("%");
         Errors_Stats_End_Lines+=_T('&');
-        Errors_Stats_End_Lines+=_T("Percent of File with Error (including Arbitrary bit inconsistency): ");
+        Errors_Stats_End_Lines+=_T("Percent of frames with Error (including Arbitrary bit inconsistency): ");
         Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats_Total*100)/Speed_FrameCount, 2);
         Errors_Stats_End_Lines+=_T("%");
         Errors_Stats_End_Lines+=_T('&');
 
         if (Stats[1])
         {
-            Errors_Stats_End_Lines+=_T("Percent of File with Video Error Concealment: ");
+            Errors_Stats_End_Lines+=_T("Percent of frames with Video Error Concealment: ");
             Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[1]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
@@ -1407,7 +1517,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 
         if (Stats[2])
         {
-            Errors_Stats_End_Lines+=_T("Percent of File with Audio Errors: ");
+            Errors_Stats_End_Lines+=_T("Percent of frames with Audio Errors: ");
             Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[2]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
@@ -1415,7 +1525,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 
         if (Stats[3])
         {
-            Errors_Stats_End_Lines+=_T("Percent of File with Timecode Incoherency: ");
+            Errors_Stats_End_Lines+=_T("Percent of frames with Timecode Incoherency: ");
             Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[3]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
@@ -1423,7 +1533,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 
         if (Stats[4])
         {
-            Errors_Stats_End_Lines+=_T("Percent of File with DIF Incoherency: ");
+            Errors_Stats_End_Lines+=_T("Percent of frames with DIF Incoherency: ");
             Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[4]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
@@ -1431,7 +1541,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 
         if (Stats[5])
         {
-            Errors_Stats_End_Lines+=_T("Percent of File with Arbitrary bit inconsistency: ");
+            Errors_Stats_End_Lines+=_T("Percent of frames with Arbitrary bit inconsistency: ");
             Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[5]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
@@ -1439,7 +1549,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 
         if (Stats[6])
         {
-            Errors_Stats_End_Lines+=_T("Percent of File with Stts Fluctuation: ");
+            Errors_Stats_End_Lines+=_T("Percent of frames with Stts Fluctuation: ");
             Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[6]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
@@ -1459,6 +1569,12 @@ void File_DvDif::Errors_Stats_Update_Finnish()
         Errors_Stats_End_03.resize(Errors_Stats_End_03.size()-2); //Removing last carriage returns
     if (Errors_Stats_End_05.size()>2)
         Errors_Stats_End_05.resize(Errors_Stats_End_05.size()-2); //Removing last carriage returns
+
+    if (Errors_Stats_End_03.empty())
+    {
+        Errors_Stats_End_03+=_T("No identified errors");
+        Errors_Stats_End_05+=_T("&&No identified errors");
+    }
 
     //Filling
     if (Count_Get(Stream_Video)==0)
