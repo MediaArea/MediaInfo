@@ -895,7 +895,12 @@ void File_Mpeg4::mdat()
                 size_t Chunk=0;
                 size_t stsc_Pos=0; //Sample to Chunk
                 int64u Position=(int64u)-1;
-                for (size_t stsz_Pos=0; stsz_Pos<Temp->second.stsz.size(); stsz_Pos++) //Sample Size
+                size_t stsz_Sample_Size;
+                if (Temp->second.stsz_Sample_Size)
+                    stsz_Sample_Size=(size_t)Temp->second.stsz_Sample_Size; //If stsz is not filled, this is a fixed sample size //TODO: handle 64-bit values on 32-bit OS
+                else
+                    stsz_Sample_Size=Temp->second.stsz.size();
+                for (size_t stsz_Pos=0; stsz_Pos<stsz_Sample_Size; stsz_Pos++) //Sample Size
                 {
                     //Changing stco/stsc if needed
                     if (SamplesPerChunk_Pos>=SamplesPerChunk)
@@ -923,9 +928,9 @@ void File_Mpeg4::mdat()
                     }
 
                     mdat_Pos[Position].StreamID=Temp->first;
-                    mdat_Pos[Position].Size=Temp->second.stsz[stsz_Pos];
+                    mdat_Pos[Position].Size=Temp->second.stsz_Sample_Size?Temp->second.stsz_Sample_Size:Temp->second.stsz[stsz_Pos];
 
-                    Position+=Temp->second.stsz[stsz_Pos];
+                    Position+=Temp->second.stsz_Sample_Size?Temp->second.stsz_Sample_Size:Temp->second.stsz[stsz_Pos];
                     SamplesPerChunk_Pos++;
                 }
             }
@@ -3440,8 +3445,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     {
         Stream_Size=Sample_Size; Stream_Size*=Sample_Count;
 
-        Stream[moov_trak_tkhd_TrackID].stsz.resize((Sample_Count<=300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)?Sample_Count:300, Sample_Size);
-
+        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Size=Sample_Size;
+        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Count=Sample_Count;
+        
         if (Sample_Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
             Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
 
