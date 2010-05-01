@@ -129,7 +129,7 @@ void Core::Menu_View_XML ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_Text ()
 {
-    MI->Option(_T("Inform"), _T(""));
+    MI->Option(_T("Inform"), String());
     Kind=Kind_Text;
     if (Details>0)
         Menu_Debug_Details(Details);
@@ -234,7 +234,7 @@ Core::kind Core::Kind_Get ()
 //---------------------------------------------------------------------------
 String Core::Inform_Get(size_t Pos, stream_t StreamKind, size_t StreamPos)
 {
-    MI->Option(_T("Inform"), _T(""));
+    MI->Option(_T("Inform"), String());
     return MI->Get(Pos, StreamKind, StreamPos, _T("Inform")).c_str();
 }
 
