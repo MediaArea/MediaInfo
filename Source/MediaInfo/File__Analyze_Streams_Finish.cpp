@@ -149,11 +149,18 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
         Fill(Stream_Video, Pos, Video_PixelAspectRatio, 1.000);
 
     //Standard
-    if (Retrieve(Stream_Video, Pos, Video_Standard).empty() && Retrieve(Stream_Video, Pos, Video_Width)==_T("720"))
+    if (Retrieve(Stream_Video, Pos, Video_Standard).empty() && (Retrieve(Stream_Video, Pos, Video_Width)==_T("720") || Retrieve(Stream_Video, Pos, Video_Width)==_T("704")))
     {
              if (Retrieve(Stream_Video, Pos, Video_Height)==_T("576"))
             Fill(Stream_Video, Pos, Video_Standard, "PAL");
         else if (Retrieve(Stream_Video, Pos, Video_Height)==_T("480"))
+            Fill(Stream_Video, Pos, Video_Standard, "NTSC");
+    }
+    if (Retrieve(Stream_Video, Pos, Video_Standard).empty() && Retrieve(Stream_Video, Pos, Video_Width)==_T("352"))
+    {
+             if (Retrieve(Stream_Video, Pos, Video_Height)==_T("576") || Retrieve(Stream_Video, Pos, Video_Height)==_T("288"))
+            Fill(Stream_Video, Pos, Video_Standard, "PAL");
+        else if (Retrieve(Stream_Video, Pos, Video_Height)==_T("480") || Retrieve(Stream_Video, Pos, Video_Height)==_T("240"))
             Fill(Stream_Video, Pos, Video_Standard, "NTSC");
     }
 
