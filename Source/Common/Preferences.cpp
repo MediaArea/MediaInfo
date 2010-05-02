@@ -820,6 +820,7 @@ int Preferences::ShellToolTip()
         ".dvr-ms;"
         ".eac3;"
         ".evo;"
+        ".f4v;"
         ".flac;"
         ".flv;"
         ".gvi;"

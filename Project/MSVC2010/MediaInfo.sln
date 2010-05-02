@@ -12,9 +12,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_GUI", "GUI\MediaI
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5} = {BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC2010\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "base", "..\..\..\wxMSW\build\msw\wx_base.vcxproj", "{C0C34BB1-9F6B-4C03-9938-092E5C2F7BD2}"
 EndProject
@@ -22,9 +22,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "..\..\..\wxMSW\buil
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "html", "..\..\..\wxMSW\build\msw\wx_html.vcxproj", "{7C68AA8F-5B49-4166-AB7E-53F6E7F557EB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "..\..\..\MediaInfoLib\Project\MSVC\Library\MediaInfoLib.vcxproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "..\..\..\MediaInfoLib\Project\MSVC2010\Library\MediaInfoLib.vcxproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "..\..\..\MediaInfoLib\Project\MSVC\Dll\MediaInfoDll.vcxproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "..\..\..\MediaInfoLib\Project\MSVC2010\Dll\MediaInfoDll.vcxproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
