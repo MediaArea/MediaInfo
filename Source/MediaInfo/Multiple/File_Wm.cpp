@@ -173,6 +173,14 @@ void File_Wm::Streams_Finish()
             if (Temp->second.StreamKind==Stream_Video)
                 Format_Profile=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format_Profile);
             Finish(Temp->second.Parser);
+            if (Temp->second.Parser->Get(Stream_Video, 0, Video_Format)==_T("MPEG Video"))
+                {
+                    //Width/Height are junk
+                    Clear(Stream_Video, Temp->second.StreamPos, Video_Width);
+                    Clear(Stream_Video, Temp->second.StreamPos, Video_Height);
+                    Clear(Stream_Video, Temp->second.StreamPos, Video_PixelAspectRatio);
+                    Clear(Stream_Video, Temp->second.StreamPos, Video_DisplayAspectRatio);
+                }
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             if (!Format_Profile.empty() && Format_Profile.find(Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format_Profile))==0)
                 Fill(Stream_Video, Temp->second.StreamPos, Video_Format_Profile, Format_Profile, true);
