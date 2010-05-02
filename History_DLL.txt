@@ -18,6 +18,7 @@ Version 0.7.32, 2010-
 + Additional commercial name of a stream or container (XDCAM IMX, DVCPRO, AVC-Intra 50...)
 + MXF: support of detection of files without Track number in the headers
 + MXF: Operational Pattern
++ MPEG-4: Aperture size support
 x AVC: some files were wrongly analyzed (frame rate...)
 x AVI: better support of files with only one big data chunk (professional cameras)
 x MPEG-4: Huge memory usage with some files (files with DV and PCM)

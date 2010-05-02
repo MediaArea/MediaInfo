@@ -3078,14 +3078,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_clap()
     Element_Name("Clean Aperture");
 
     //Parsing
-    Skip_B4(                                                    "apertureWidth_N");
-    Skip_B4(                                                    "apertureWidth_D");
-    Skip_B4(                                                    "apertureHeight_N");
-    Skip_B4(                                                    "apertureHeight_D");
+    int32u apertureWidth_N, apertureWidth_D, apertureHeight_N, apertureHeight_D;
+    Get_B4 (apertureWidth_N,                                    "apertureWidth_N");
+    Get_B4 (apertureWidth_D,                                    "apertureWidth_D");
+    Get_B4 (apertureHeight_N,                                   "apertureHeight_N");
+    Get_B4 (apertureHeight_D,                                   "apertureHeight_D");
     Skip_B4(                                                    "horizOff_N");
     Skip_B4(                                                    "horizOff_D");
     Skip_B4(                                                    "vertOff_N");
     Skip_B4(                                                    "vertOff_D");
+
+    FILLING_BEGIN();
+        Clear(Stream_Video, StreamPos_Last, Video_Width);
+        Clear(Stream_Video, StreamPos_Last, Video_Height);
+        Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, ((float)apertureWidth_N)/apertureWidth_D, 0);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, ((float)apertureHeight_N)/apertureHeight_D, 0);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
