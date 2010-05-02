@@ -57,6 +57,7 @@ install: build
 	install -m 644 Source/MediaInfo/MediaInfo.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
 	install -m 644 Source/MediaInfo/MediaInfoList.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
 	install -m 644 Source/MediaInfo/MediaInfo_Const.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
+	install -m 644 Source/MediaInfo/MediaInfo_Events.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
 	install -dm 755 $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.cs $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.def $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
