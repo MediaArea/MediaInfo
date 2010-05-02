@@ -106,7 +106,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;ws2_32.lib;wldap32.lib;wxbase28ud.lib;wxmsw28ud_core.lib;wxmsw28ud_html.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;comctl32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\curl\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\curl\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\MediaInfoLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -135,7 +135,7 @@
     <Link>
       <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;wxbase28ud.lib;wxmsw28ud_core.lib;wxmsw28ud_html.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;comctl32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -160,7 +160,7 @@
     <Link>
       <AdditionalDependencies>ZenLib.lib;zlib.lib;MediaInfo.lib;wxbase28u.lib;wxmsw28u_core.lib;wxmsw28u_html.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;comctl32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC\DLL\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2010\DLL\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -189,7 +189,7 @@
     <Link>
       <AdditionalDependencies>ZenLib.lib;zlib.lib;MediaInfo.lib;wxbase28u.lib;wxmsw28u_core.lib;wxmsw28u_html.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;comctl32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC\DLL\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2010\DLL\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\wxMSW\lib\vc_lib\\MSVC2010\$(Platform);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -237,7 +237,7 @@
     <ResourceCompile Include="MediaInfo_GUI.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\MediaInfoLib\Project\MSVC\Library\MediaInfoLib.vcxproj">
+    <ProjectReference Include="..\..\..\..\MediaInfoLib\Project\MSVC2010\Library\MediaInfoLib.vcxproj">
       <Project>{20e0f8d6-213c-460b-b361-9c725cb375c7}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\wxMSW\build\msw\wx_core.vcxproj">
@@ -246,10 +246,10 @@
     <ProjectReference Include="..\..\..\..\wxMSW\build\msw\wx_html.vcxproj">
       <Project>{7c68aa8f-5b49-4166-ab7e-53f6e7f557eb}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj">
+    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj">
       <Project>{0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\zlib\projects\MSVC\zlib.vcxproj">
+    <ProjectReference Include="..\..\..\..\zlib\projects\MSVC2010\zlib.vcxproj">
       <Project>{fd328ae2-5136-460f-a622-12cfd4d4c131}</Project>
     </ProjectReference>
   </ItemGroup>

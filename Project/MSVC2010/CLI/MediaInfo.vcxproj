@@ -102,7 +102,7 @@
     <Link>
       <AdditionalDependencies>ZenLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -127,7 +127,7 @@
     <Link>
       <AdditionalDependencies>ZenLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -146,7 +146,7 @@
     <Link>
       <AdditionalDependencies>ZenLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -169,7 +169,7 @@
     <Link>
       <AdditionalDependencies>ZenLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -195,10 +195,10 @@
     <ResourceCompile Include="MediaInfo_CLI.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\MediaInfoLib\Project\MSVC\Dll\MediaInfoDll.vcxproj">
+    <ProjectReference Include="..\..\..\..\MediaInfoLib\Project\MSVC2010\Dll\MediaInfoDll.vcxproj">
       <Project>{be6d3ef8-2f82-4f1e-956a-890c3614a2d5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj">
+    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj">
       <Project>{0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94}</Project>
     </ProjectReference>
   </ItemGroup>
