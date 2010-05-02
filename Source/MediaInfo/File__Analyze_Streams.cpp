@@ -245,6 +245,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             PAR=(float32)3/(float32)2;
         if (PAR>(float32)2/(float32)1*0.99 && PAR<(float32)2/(float32)1*1.01)
             PAR=(float32)2;
+        if (PAR>(float32)59/(float32)54*0.99 && PAR<(float32)59/(float32)54*1.01)
+            PAR=(float32)59/(float32)54;
         float32 Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
         float32 Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
         if (PAR && Height && Width)
