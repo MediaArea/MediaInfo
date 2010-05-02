@@ -6,7 +6,7 @@ rmdir MediaInfo_CLI_Windows_i386 /S /Q
 mkdir MediaInfo_CLI_Windows_i386
 
 rem --- Copying : Exe ---
-xcopy ..\Project\MSVC\CLI\Win32\Release\MediaInfo.exe MediaInfo_CLI_Windows_i386\ /S
+xcopy ..\Project\MSVC2008\CLI\Win32\Release\MediaInfo.exe MediaInfo_CLI_Windows_i386\ /S
 xcopy ..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaInfo_CLI_Windows_i386\ /S
 
 rem --- Copying : Plugins ---

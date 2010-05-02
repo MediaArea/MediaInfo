@@ -109,7 +109,7 @@ Section "SectionPrincipale" SEC01
   CreateDirectory "$SMPROGRAMS\MediaInfo"
   CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo ${PRODUCT_VERSION}"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe"
-  File "..\..\..\MediaInfoLib\Project\MSVC\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
+  File "..\..\..\MediaInfoLib\Project\MSVC2008\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
   File "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"

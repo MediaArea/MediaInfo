@@ -13,7 +13,7 @@ copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
 @rem --- Copying : Exe ---
 copy  ..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe MediaInfo_GUI_Windows_i386\MediaInfo.exe
 xcopy ..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_i386\ /S
-xcopy ..\..\MediaInfoLib\Project\MSVC\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC2008\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
 
 @rem --- Copying : Plugins ---
 xcopy ..\Source\Ressource\Plugin\* MediaInfo_GUI_Windows_i386\Plugin\ /S
