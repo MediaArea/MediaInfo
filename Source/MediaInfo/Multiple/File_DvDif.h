@@ -114,7 +114,8 @@ protected :
     int8u  Dseq_Old;
     int8u  DBN;
     int8u  DBN_Olds[8];
-    int8u  stype;
+    int8u  video_source_stype;
+    int8u  audio_source_stype;
     bool   FSC;
     bool   FSP;
     bool   DSF;

@@ -253,7 +253,8 @@ File_DvDif::File_DvDif()
     DBN_Olds[7]=0;
     DSF_IsValid=false;
     APT=0xFF; //Impossible
-    stype=0xFF;
+    video_source_stype=0xFF;
+    audio_source_stype=0xFF;
     TF1=false; //Valid by default, for direct analyze
     TF2=false; //Valid by default, for direct analyze
     TF3=false; //Valid by default, for direct analyze
@@ -316,20 +317,23 @@ void File_DvDif::Streams_Fill()
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
     Fill(Stream_Video, 0, Video_Resolution, 8);
-    if (stype==0xC)
+    switch (video_source_stype)
     {
-        Fill(Stream_Video, 0, Video_Width, 960);
-        Fill(Stream_Video, 0, Video_Height, 720);
-    }
-    else if (stype==0xA || stype==0xB)
-    {
-        Fill(Stream_Video, 0, Video_Width, system?1440:1280);
-        Fill(Stream_Video, 0, Video_Height, stype==0xA?1080:1035);
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Width, 720);
-        Fill(Stream_Video, 0, Video_Height, system?576:480);
+        case 0x00 :
+        case 0x04 :
+                    Fill(Stream_Video, 0, Video_Width, 720);
+                    Fill(Stream_Video, 0, Video_Height, system?576:480);
+                    break;
+        case 0x14 :
+        case 0x15 :
+                    Fill(Stream_Video, 0, Video_Width, system?1440:1280);
+                    Fill(Stream_Video, 0, Video_Height, video_source_stype==0x14?1080:1035);
+                    break;
+        case 0x18 :
+                    Fill(Stream_Video, 0, Video_Width, 960);
+                    Fill(Stream_Video, 0, Video_Height, 720);
+                    break;
+        default   : ;
     }
     Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
     Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
@@ -337,7 +341,19 @@ void File_DvDif::Streams_Fill()
     {
         if (FSC_WasSet && FSP_WasNotSet)
         {
-            //TODO: How to handle this in DV100?
+            switch (video_source_stype)
+            {
+                case 0x14 :
+                case 0x15 :
+                            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+                            Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+                            break;
+                case 0x18 :
+                            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+                            Fill(Stream_Video, 0, Video_Interlacement, "Progressive");
+                            break;
+                default   : ;
+            }
         }
         else
         {
@@ -358,23 +374,21 @@ void File_DvDif::Streams_Fill()
     {
         if (system==false) //NTSC
         {
-            switch (stype)
+            switch (video_source_stype)
             {
                 case  0 : Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1"); break; //NTSC 25 Mbps
-                case  4 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //NTSC 50 Mbps
                 default : ;
             }
         }
         else //PAL
         {
-            switch (stype)
+            switch (video_source_stype)
             {
-                case 0 : if (APT==0)
-                            Fill(Stream_Video, 0, Video_Colorimetry, "4:2:0");      //PAL 25 Mbps
-                         else
-                            Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");      //PAL 25 Mbps
-                         break;
-                case  4 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //PAL 50 Mbps
+                case  0 : if (APT==0)
+                            Fill(Stream_Video, 0, Video_Colorimetry, "4:2:0");      //PAL 25 Mbps (IEC 61834)
+                          else
+                            Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");      //PAL 25 Mbps (SMPTE 314M)
+                          break;
                 default : ;
             }
         }
@@ -996,7 +1010,7 @@ void File_DvDif::audio_source()
 
     Element_Name("audio_source");
 
-    int8u stype, SamplingRate, Resolution;
+    int8u SamplingRate, Resolution;
     BS_Begin();
     //PC1
     Get_SB (   audio_locked,                                    "LF - Locked mode");
@@ -1012,7 +1026,7 @@ void File_DvDif::audio_source()
     Skip_SB(                                                    "Reserved");
     Skip_SB(                                                    "ML - Multi-language");
     Skip_SB(                                                    "50/60");
-    Get_S1 (5, stype,                                           "STYPE - audio blocks per video frame"); Param_Info(stype==0?"2 channels":(stype==2?"4 channels":"Unknown")); //0=25 Mbps, 2=50 Mbps
+    Get_S1 (5, audio_source_stype,                              "STYPE - audio blocks per video frame"); Param_Info(audio_source_stype==0?"2 channels":(audio_source_stype==2?"4 channels":"Unknown")); //0=25 Mbps, 2=50 Mbps
 
     Skip_SB(                                                    "EF - Emphasis off");
     Skip_SB(                                                    "TC - Time constant of emphasis");
@@ -1025,9 +1039,9 @@ void File_DvDif::audio_source()
         {
             //Calculating the count of audio
             size_t Audio_Count=1;
-            if (stype==2 || (Resolution==1 && SamplingRate==2)) //stype=2 or (Resolution=12 bits and SamplingRate=32 KHz)
+            if (audio_source_stype==2 || (Resolution==1 && SamplingRate==2)) //stype=2 or (Resolution=12 bits and SamplingRate=32 KHz)
                 Audio_Count=2;
-            if (stype==3)
+            if (audio_source_stype==3)
                 Audio_Count=4;
 
             //Filling
@@ -1041,10 +1055,10 @@ void File_DvDif::audio_source()
                 Streams_Audio[Pos]->Infos["Format"]=_T("PCM");
                 Streams_Audio[Pos]->Infos["Codec"]=_T("PCM");
                 Streams_Audio[Pos]->Infos["BitRate_Mode"]=_T("CBR");
-                Streams_Audio[Pos]->Infos["Channel(s)"].From_Number(stype==3?1:2);
+                Streams_Audio[Pos]->Infos["Channel(s)"].From_Number(audio_source_stype==3?1:2);
                 Streams_Audio[Pos]->Infos["SamplingRate"].From_Number(Dv_Audio_SamplingRate[SamplingRate]);
                 Streams_Audio[Pos]->Infos["Resolution"].From_Number(Dv_Audio_Resolution[Resolution]);
-                Streams_Audio[Pos]->Infos["BitRate"].From_Number((stype==3?1:2)*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+                Streams_Audio[Pos]->Infos["BitRate"].From_Number((audio_source_stype==3?1:2)*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
             }
         }
     FILLING_END();
@@ -1143,7 +1157,7 @@ void File_DvDif::video_source()
     //PC3
     Skip_S1(2,                                                  "SRC");
     Get_SB (   system,                                          "50/60 - System");
-    Get_S1 (4, stype,                                           "STYPE - Signal type of video signal"); //0=not 4:2:2, 4=4:2:2
+    Get_S1 (5, video_source_stype,                              "STYPE - Signal type of video signal"); //0=not 4:2:2, 4=4:2:2
 
     //PC4
     BS_End();
