@@ -22,6 +22,10 @@ cp ../Source/Doc/Doxyfile MediaInfo_DLL_GNU_FromSource/Source/Doc/
 cp ../Source/Doc/Documentation.html MediaInfo_DLL_GNU_FromSource/Source/Doc/
 mkdir -p MediaInfo_DLL_GNU_FromSource/Source/Example
 cp ../Source/Example/HowToUse* MediaInfo_DLL_GNU_FromSource/Source/Example/
+mkdir -p MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo
+cp ../Source/MediaInfo/MediaInfo.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
+cp ../Source/MediaInfo/MediaInfo_Events.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
+cp ../Source/MediaInfo/MediaInfoList.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
 mkdir -p MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL
 cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/

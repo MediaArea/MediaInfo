@@ -39,14 +39,13 @@ mv ../Doc MediaInfo_DLL_$1_$2/Developpers/
 
 #-----------------------------------------------------------------------
 # Copying : Developpers, Source
-mkdir MediaInfo_DLL_$1_$2/Developpers/Source
-mkdir MediaInfo_DLL_$1_$2/Developpers/Source/Example
+mkdir -p MediaInfo_DLL_$1_$2/Developpers/Source/Example
 cp ../Source/Example/HowToUse* MediaInfo_DLL_$1_$2/Developpers/Source/Example/
-mkdir MediaInfo_DLL_$1_$2/Developpers/Include
-mkdir MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo
+mkdir -p MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo
 cp ../Source/MediaInfo/MediaInfo.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
+cp ../Source/MediaInfo/MediaInfo_Events.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
 cp ../Source/MediaInfo/MediaInfoList.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
-mkdir MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL
+mkdir -p MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL
 cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.cs MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/

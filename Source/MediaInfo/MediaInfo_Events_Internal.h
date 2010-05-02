@@ -3,7 +3,7 @@
 #ifndef MediaInfo_Events_InternalH
 #define MediaInfo_Events_InternalH
 
-#include <string>
+#include <cstring>
 using namespace std;
 
 namespace MediaInfoLib
