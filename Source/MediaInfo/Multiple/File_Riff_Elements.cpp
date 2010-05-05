@@ -2155,8 +2155,6 @@ void File_Riff::AVI__movi_xxxx()
 
     Stream_ID=(int32u)(Element_Code&0xFFFF0000);
 
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring().From_CC4((int32u)Element_Code)+_T(".raw"));
-
     if (Stream_ID==0x69780000) //ix..
     {
         //AVI Standard Index Chunk
@@ -2174,7 +2172,9 @@ void File_Riff::AVI__movi_xxxx()
         return;
     }
 
-    //Finished?
+     Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+
+   //Finished?
     if (!Stream[Stream_ID].SearchingPayload)
     {
         Element_DoNotShow();

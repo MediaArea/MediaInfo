@@ -967,7 +967,7 @@ void File_Mpeg4::mdat_xxxx()
         return;
     }
 
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring((int32u)Element_Code)+_T(".raw"));
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
 
     if (Stream[(int32u)Element_Code].Parser)
     {

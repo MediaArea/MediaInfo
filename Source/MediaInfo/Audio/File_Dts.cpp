@@ -33,6 +33,9 @@
 #include "MediaInfo/Audio/File_Dts.h"
 #include "ZenLib/Utils.h"
 #include "ZenLib/BitStream.h"
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -323,6 +326,11 @@ File_Dts::File_Dts()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("Dts");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Dts;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
 
@@ -692,6 +700,7 @@ void File_Dts::Read_Buffer_Continue()
             ((File_Dts*)Parser)->Frame_Count_Valid=Frame_Count_Valid;
             Open_Buffer_Init(Parser);
         }
+        Demux(Dest, Dest_Size, ContentType_MainStream);
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
         if (!Status[IsFinished] && Parser->Status[IsFinished])
         {
@@ -699,7 +708,6 @@ void File_Dts::Read_Buffer_Continue()
             Finish("DTS");
         }
 
-        Demux(Dest, Dest_Size, _T("extract"));
         delete[] Dest;
         Buffer_Offset+=Buffer_Size;
     }

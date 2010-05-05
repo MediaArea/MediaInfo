@@ -53,6 +53,9 @@
 #if defined(MEDIAINFO_RM_YES)
     #include "MediaInfo/Multiple/File_Rm.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 #include <algorithm>
 //---------------------------------------------------------------------------
 
@@ -376,6 +379,12 @@ const char* Flv_AACPacketType(int8u Value)
 File_Flv::File_Flv()
 :File__Analyze()
 {
+    //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Flv;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
+
     //Internal
     Stream.resize(3); //Null, Video, Audio
 
@@ -653,7 +662,7 @@ void File_Flv::video()
     BS_End();
     Element_End();
 
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), _T("video.raw"));
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
 
     if (Stream[Stream_Video].PacketCount==60) //2s
     {

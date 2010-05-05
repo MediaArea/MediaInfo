@@ -86,6 +86,9 @@ const char* Avc_profile_idc(int8u profile_idc)
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 using namespace std;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -323,6 +326,10 @@ File_Avc::File_Avc()
 :File__Duplicate()
 {
     //Config
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Avc;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
@@ -1567,9 +1574,9 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
 
                     //Demux
                     if (cc_type<2)
-                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
+                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, ContentType_MainStream);
                     else
-                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, _T("eia708"));
+                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, ContentType_MainStream);
                 }
             }
 

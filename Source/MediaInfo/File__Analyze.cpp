@@ -56,6 +56,7 @@ File__Analyze::File__Analyze ()
     //In
     #if MEDIAINFO_EVENTS
         StreamIDs_Size=1;
+        StreamIDs_Width[0]=(int8u)-1;
     #endif //MEDIAINFO_EVENTS
     PTS_DTS_Needed=false;
     PTS_DTS_Offset_InThisBlock=0;
@@ -209,10 +210,12 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
     #if MEDIAINFO_EVENTS
         Sub->ParserIDs[StreamIDs_Size]=Sub->ParserIDs[0];
         Sub->StreamIDs[StreamIDs_Size]=Element_Code;
+        Sub->StreamIDs_Width[StreamIDs_Size]=Sub->StreamIDs_Width[0];
         for (size_t Pos=0; Pos<StreamIDs_Size; Pos++)
         {
             Sub->ParserIDs[Pos]=ParserIDs[Pos];
             Sub->StreamIDs[Pos]=StreamIDs[Pos];
+            Sub->StreamIDs_Width[Pos]=StreamIDs_Width[Pos];
         }
         Sub->StreamIDs_Size=StreamIDs_Size+1;
     #endif //MEDIAINFO_EVENTS
@@ -1788,6 +1791,9 @@ void File__Analyze::Fill (File__Analyze* Parser)
 #if MEDIAINFO_TRACE
 void File__Analyze::Finish (const char* ParserName)
 {
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
+        return;
+
     if (ShouldContinueParsing)
     {
         if (ParserName)
@@ -1889,13 +1895,16 @@ void File__Analyze::Reject (File__Analyze* Parser)
 #if MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 {
-    Element_Show();
-
     if (!Status[IsAccepted])
     {
         Reject();
         return;
     }
+
+    Element_Show();
+
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
 
     if (GoTo==File_Size)
     {
@@ -1965,6 +1974,9 @@ void File__Analyze::GoTo (int64u GoTo)
         Reject();
         return;
     }
+
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
 
     if (GoTo==File_Size)
     {
@@ -2191,19 +2203,10 @@ void File__Analyze::Details_Clear()
 //***************************************************************************
 
 #if MEDIAINFO_DEMUX
-void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, int8u Content_Type)
+void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype Content_Type)
 {
     if (!MediaInfoLib::Config.Demux_Get())
         return;
-
-    /*
-    if (File_Name.empty())
-        return;
-
-    File F;
-    F.Open(File_Name+_T('.')+StreamName, File::Access_Write_Append);
-    F.Write(Buffer, Buffer_Size);
-    */
 
     #if MEDIAINFO_EVENTS
         //Demux
@@ -2216,8 +2219,9 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring
         Event.Stream_Offset=File_Offset+Buffer_Offset;
         Event.StreamIDs_Size=StreamIDs_Size;
         Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
+        Event.StreamIDs_Width=(MediaInfo_int8u*)StreamIDs_Width;
         Event.ParserIDs=(MediaInfo_int8u* )ParserIDs;
-        Event.Content_Type=Content_Type;
+        Event.Content_Type=(int8u)Content_Type;
         Event.Content_Size=Buffer_Size;
         Event.Content=Buffer;
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);

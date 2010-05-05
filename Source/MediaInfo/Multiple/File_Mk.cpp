@@ -82,6 +82,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 #include <cstring>
 #include <algorithm>
 //---------------------------------------------------------------------------
@@ -125,6 +128,10 @@ File_Mk::File_Mk()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Matroska;
+        StreamIDs_Width[0]=16;
+    #endif //MEDIAINFO_EVENTS
     DataMustAlwaysBeComplete=false;
 
     //Temp
@@ -1396,11 +1403,11 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                         Element_Offset-=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size; //This is an extra array, not in the stream
                         Open_Buffer_Continue(Stream[TrackNumber].Parser, Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size);
                         Element_Offset+=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size;
-                        Demux(Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+                        Demux(Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size, ContentType_MainStream);
                     }
 
                     //Parsing
-                    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+                    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
                     Open_Buffer_Continue(Stream[TrackNumber].Parser, (size_t)Laces[Pos]);
                     if (Stream[TrackNumber].Parser->Status[IsFilled]
                      || Stream[TrackNumber].Parser->Status[IsFinished]

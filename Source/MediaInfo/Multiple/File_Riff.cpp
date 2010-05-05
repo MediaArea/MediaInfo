@@ -46,6 +46,9 @@
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 #include <ZenLib/Utils.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -86,6 +89,10 @@ File_Riff::File_Riff()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Riff;
+        StreamIDs_Width[0]=17;
+    #endif //MEDIAINFO_EVENTS
     DataMustAlwaysBeComplete=false;
 
     //Data

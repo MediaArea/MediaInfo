@@ -82,6 +82,7 @@ public :
     #if MEDIAINFO_EVENTS
         size_t  StreamIDs_Size;
         int64u  StreamIDs[16];
+        int8u   StreamIDs_Width[16];
         int8u   ParserIDs[16];
     #endif //MEDIAINFO_EVENTS
     Ztring  File_Name_WithoutDemux;
@@ -984,8 +985,15 @@ public :
     bool MustSynchronize;
 
     //Demux
+    enum contenttype
+    {
+        ContentType_MainStream,
+        ContentType_SubStream,
+        ContentType_Header,
+        ContentType_Synchro
+    };
     #if MEDIAINFO_DEMUX
-        void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, int8u Content_Type=0x00);
+        void Demux (const int8u* Buffer, size_t Buffer_Size, contenttype ContentType);
     #else //MEDIAINFO_DEMUX
         #define Demux(_A, _B, _C)
     #endif //MEDIAINFO_DEMUX

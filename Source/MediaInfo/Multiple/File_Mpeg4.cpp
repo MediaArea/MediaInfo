@@ -41,6 +41,9 @@
 #endif
 #include "ZenLib/FileName.h"
 #include "MediaInfo/MediaInfo_Internal.h"
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -141,6 +144,10 @@ File_Mpeg4::File_Mpeg4()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Mpeg4;
+        StreamIDs_Width[0]=8;
+    #endif //MEDIAINFO_EVENTS
     DataMustAlwaysBeComplete=false;
 
     //Temp

@@ -90,6 +90,10 @@ public :
     Ztring        Event_CallBackFunction_Set (const Ztring &Value);
     void          Event_Send(const int8u* Data_Content, size_t Data_Size);
     void          Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);
+    #else //MEDIAINFO_EVENTS
+    bool          Event_CallBackFunction_IsSet () {return false;}
+    void          Event_Send(const int8u*, size_t) {};
+    void          Event_Send(const int8u*, size_t, const Ztring &) {};
     #endif //MEDIAINFO_EVENTS
 
     //Specific

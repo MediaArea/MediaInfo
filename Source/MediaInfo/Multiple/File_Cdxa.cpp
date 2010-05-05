@@ -33,6 +33,9 @@
 #include "MediaInfo/Multiple/File_Cdxa.h"
 #include "ZenLib/Utils.h"
 #include "MediaInfo/MediaInfo_Internal.h"
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -64,6 +67,10 @@ File_Cdxa::File_Cdxa()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Cdxa;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
 
     //Temp
@@ -300,7 +307,7 @@ void File_Cdxa::Data_Parse()
     #endif //MEDIAINFO_TRACE
 
     //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size), _T("xxx"));
+    Demux(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size), ContentType_MainStream);
 }
 
 } //NameSpace

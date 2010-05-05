@@ -114,6 +114,7 @@ File_MpegTs::File_MpegTs()
     ParserName=_T("MpegTs");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_MpegTs;
+        StreamIDs_Width[0]=4;
     #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -1279,7 +1280,7 @@ void File_MpegTs::PES()
     //Demux
     #if MEDIAINFO_DEMUX
         Element_Code=pid;
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, _T(".mpg"));
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
 
     //Exists

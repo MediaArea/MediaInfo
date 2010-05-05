@@ -199,6 +199,7 @@ File_MpegPs::File_MpegPs()
     ParserName=_T("MpegPs");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_MpegPs;
+        StreamIDs_Width[0]=2;
     #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -2028,15 +2029,15 @@ void File_MpegPs::private_stream_1()
             ((File_Aes3*)Streams_Private1[private_stream_1_ID].Parsers[0])->PTS=PTS;
     #endif
 
+    //Demux
+    if (Streams_Private1[private_stream_1_ID].Searching_Payload)
+        Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), ContentType_MainStream);
+
     //Parsing
     if (Element_Offset<private_stream_1_Offset)
         Skip_XX(private_stream_1_Offset-Element_Offset,         "DVD-Video data");
 
     xxx_stream_Parse(Streams_Private1[private_stream_1_ID], private_stream_1_Count);
-
-    //Demux
-    if (Streams_Private1[private_stream_1_ID].Searching_Payload)
-        Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), Ztring::ToZtring(start_code, 16)+_T(".")+Ztring::ToZtring(private_stream_1_ID, 16)+private_stream_1_ChooseExtension());
 }
 
 //---------------------------------------------------------------------------
@@ -2524,11 +2525,11 @@ void File_MpegPs::audio_stream()
         }
     }
 
+    //Demux
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+
     //Parsing
     xxx_stream_Parse(Streams[start_code], audio_stream_Count);
-
-    //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".mpa"));
 }
 
 //---------------------------------------------------------------------------
@@ -2603,6 +2604,14 @@ void File_MpegPs::video_stream()
         }
     }
 
+    //Demux
+    if (!(FromTS_stream_type==0x20
+        #if MEDIAINFO_DEMUX
+             && SubStream_Demux
+        #endif //MEDIAINFO_DEMUX
+        ))
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+
     //Parsing
     xxx_stream_Parse(Streams[start_code], video_stream_Count);
 
@@ -2638,14 +2647,6 @@ void File_MpegPs::video_stream()
         }
         video_stream_PTS_FrameCount=0;
     }
-
-    //Demux
-    if (!(FromTS_stream_type==0x20
-        #if MEDIAINFO_DEMUX
-             && SubStream_Demux
-        #endif //MEDIAINFO_DEMUX
-        ))
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".mpv"));
 }
 
 //---------------------------------------------------------------------------
@@ -2760,9 +2761,6 @@ void File_MpegPs::SL_packetized_stream()
         Skip_XX(Element_Size-Element_Offset,                    "AAC (raw)");
     }
 
-    //Parsing
-    xxx_stream_Parse(Streams[start_code], audio_stream_Count);
-
     //Demux
     if (MediaInfoLib::Config.Demux_Get())
     {
@@ -2783,9 +2781,12 @@ void File_MpegPs::SL_packetized_stream()
         A[5]=A[5]|((int8u)(Size>>8));
 
         //Demux
-        Demux(A, 7, Ztring::ToZtring(start_code, 16)+_T(".aac"));
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".aac"));
+        Demux(A, 7, ContentType_Header);
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     }
+
+    //Parsing
+    xxx_stream_Parse(Streams[start_code], audio_stream_Count);
 }
 
 //---------------------------------------------------------------------------
@@ -2857,6 +2858,10 @@ void File_MpegPs::extension_stream()
             Open_Buffer_Init(Streams_Extension[stream_id_extension].Parsers[Pos]);
     }
 
+    //Demux
+    if (Streams_Extension[stream_id_extension].Searching_Payload)
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+
     //Parsing
     if (stream_id_extension==0x72 && !(Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty()))
     {
@@ -2867,10 +2872,6 @@ void File_MpegPs::extension_stream()
     }
     else
         xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
-
-    //Demux
-    if (Streams_Extension[stream_id_extension].Searching_Payload)
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T('.')+Ztring::ToZtring(stream_id_extension, 16)+extension_stream_ChooseExtension());
 }
 
 //---------------------------------------------------------------------------
@@ -3020,7 +3021,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             {
                 if (!SubStream_Demux->Buffers.empty() && SubStream_Demux->Buffers[0]->DTS<DTS)
                 {
-                    Demux(SubStream_Demux->Buffers[0]->Buffer, SubStream_Demux->Buffers[0]->Buffer_Size, _T(".h264"), 0x01);
+                    Demux(SubStream_Demux->Buffers[0]->Buffer, SubStream_Demux->Buffers[0]->Buffer_Size, ContentType_SubStream);
                     delete SubStream_Demux->Buffers[0]->Buffer; SubStream_Demux->Buffers[0]->Buffer=NULL;
                     SubStream_Demux->Buffers.erase(SubStream_Demux->Buffers.begin()); //Moving 2nd Buffer to 1st position
                 }
@@ -3050,8 +3051,19 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                 SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size=0;
                 SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
             }
-            std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer+SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-            SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+=(size_t)(Element_Size-Element_Offset); //TODO: handling buffer underun
+            if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max>SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset) && SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max<=16*1024*1024)
+            {
+                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max*=2;
+                int8u* Temp=SubStream_Demux->Buffers[Buffers_Pos]->Buffer;
+                SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
+                std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer, Temp, SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size);
+                delete[] Temp; //Temp=NULL;
+            }
+            if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset)<=SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max)
+            {
+                std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer+SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+=(size_t)(Element_Size-Element_Offset);
+            }
         }
     #endif //MEDIAINFO_EVENTS
 }
