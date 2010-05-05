@@ -281,9 +281,13 @@ bool File__Tags_Helper::Synched_Test()
                     Base->Merge(*Parser, Stream_Audio  , 0, 0, false);
                     delete Parser; Parser=NULL;
                 }
-                else
+                else if (Parser_Streams_Fill==NULL) //Currently using only the first detected tag
                 {
                     Parser_Streams_Fill=Parser; Parser=NULL;
+                }
+                else
+                {
+                    delete Parser; Parser=NULL;
                 }
                 if (Parser_Buffer_Size)
                     Base->Skip_XX(Parser_Buffer_Size,           "Data continued");
