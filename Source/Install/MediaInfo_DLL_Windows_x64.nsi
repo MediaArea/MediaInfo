@@ -104,8 +104,8 @@ FunctionEnd
 Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
-  !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC\DLL\x64\Release\MediaInfo.dll" $SYSDIR\MediaInfo.dll $SYSDIR
-  !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC\ShellExtension\x64\Release\MediaInfo_InfoTip.dll" $INSTDIR\MediaInfo_InfoTip.dll $INSTDIR
+  !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC2010\DLL\x64\Release\MediaInfo.dll" $SYSDIR\MediaInfo.dll $SYSDIR
+  !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll" $INSTDIR\MediaInfo_InfoTip.dll $INSTDIR
 SectionEnd
 
 Section -Post
