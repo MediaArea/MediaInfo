@@ -883,6 +883,8 @@ void File_Mpega::Data_Parse()
             //CRC
             int16u CRC12_Calculated=0x0FFF;
             int8u* Data=(int8u*)Buffer+(size_t)(Buffer_Offset+Element_Offset_S+4);
+            if (Element_Offset_S+Surround_Size+4>=Element_Size)
+                break;
             for (int8u Surround_Pos=0; Surround_Pos<Surround_Size-4; Surround_Pos++)
                 CRC12_Calculated=0x0FFF & (((CRC12_Calculated<<8)&0xff00)^Mpega_CRC12_Table[((CRC12_Calculated>>4) ^ *Data++) & 0xff]);
             if (CRC12_Calculated!=CRC12)
