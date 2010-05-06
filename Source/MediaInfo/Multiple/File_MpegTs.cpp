@@ -471,6 +471,14 @@ void File_MpegTs::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &Temp)
 {
+    //Precise overall bit rate
+    if (Complete_Stream->Streams[PID].TimeStamp_End_Offset!=(int64u)-1)
+    {
+        float64 Duration=((float64)((int64s)(Complete_Stream->Streams[PID].TimeStamp_End-Complete_Stream->Streams[PID].TimeStamp_Start)))/27000;
+        if (Duration)
+            Fill(Stream_General, 0, General_OverallBitRate, (Complete_Stream->Streams[PID].TimeStamp_End_Offset-Complete_Stream->Streams[PID].TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
+    }
+
     //Only PES
     if (Temp.Kind!=complete_stream::stream::pes)
         return;
