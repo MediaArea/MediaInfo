@@ -746,6 +746,12 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
     }
 
     //Locators
+    size_t Before_Count[Stream_Max];
+    for (size_t Pos=0; Pos<Stream_Max; Pos++)
+        Before_Count[Pos]=(size_t)-1;
+    Before_Count[Stream_Video]=Count_Get(Stream_Video);
+    Before_Count[Stream_Audio]=Count_Get(Stream_Audio);
+    Before_Count[Stream_Text]=Count_Get(Stream_Text);
     for (size_t Locator_Pos=0; Locator_Pos<Descriptor->second.Locators.size(); Locator_Pos++)
     {
         //Locator
@@ -772,7 +778,15 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
         //ID
         if (Descriptor->second.LinkedTrackID!=(int32u)-1 && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
         {
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID); //TODO: handling of files with an ID
+            for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
+                for (size_t StreamPos=Before_Count[StreamKind]; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                {
+                    Ztring ID=Retrieve((stream_t)StreamKind, StreamPos, General_ID);
+                    if (ID.empty())
+                        Fill((stream_t)StreamKind, StreamPos, General_ID, Descriptor->second.LinkedTrackID);
+                    else
+                        Fill((stream_t)StreamKind, StreamPos, General_ID, Ztring::ToZtring(Descriptor->second.LinkedTrackID)+ID, true);
+                }
         }
 
         if (Descriptor->second.Width!=(int32u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_Width).empty())
@@ -910,6 +924,10 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                     Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Duration), true);
                     Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source"));
                     Fill(Stream_Audio, Pos, "Source_Info", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source_Info"));
+                    Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
+                    Ztring A=Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID);
+                    Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
+                    Fill(Stream_Audio, Pos, Audio_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
                 }
 
                 //Video and Text are together
@@ -926,6 +944,9 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                     Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Duration), true);
                     Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source"));
                     Fill(Stream_Text, Pos, "Source_Info", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source_Info"));
+                    Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
+                    Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
+                    Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
                 }
             }
         }
