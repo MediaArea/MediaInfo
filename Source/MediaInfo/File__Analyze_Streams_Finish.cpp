@@ -319,7 +319,7 @@ void File__Analyze::Streams_Finish_InterStreams()
         //Specific value depends of Container
         if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-TS"))
         {
-            GeneralBitRate_Ratio=0.99;
+            GeneralBitRate_Ratio=0.98;
             GeneralBitRate_Minus=0;
             VideoBitRate_Ratio  =0.97;
             VideoBitRate_Minus  =0;
