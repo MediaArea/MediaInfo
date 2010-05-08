@@ -301,6 +301,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
                 Element_End(); //This is Finish, must flush
+            Finish();
             return;
         }
     }
@@ -1679,12 +1680,15 @@ void File__Analyze::Trusted_IsNot ()
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Accept (const char* ParserName)
+void File__Analyze::Accept (const char* ParserName_Char)
 {
     if (Status[IsAccepted] || Status[IsFinished])
         return;
 
-    if (ParserName)
+    if (ParserName.empty())
+        ParserName.From_Local(ParserName_Char);
+
+    if (!ParserName.empty())
     {
         bool MustElementBegin=Element_Level?true:false;
         if (Element_Level>0)
@@ -1704,8 +1708,8 @@ void File__Analyze::Accept (const char* ParserName)
             struct MediaInfo_Event_General_Parser_Selected_0 Event;
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
             std::memset(Event.Name, 0, 16);
-            if (ParserName)
-                strncpy(Event.Name, ParserName, 15);
+            if (!ParserName.empty())
+                strncpy(Event.Name, ParserName.To_Local().c_str(), 15);
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
         }
     #endif //MEDIAINFO_EVENTS
@@ -1789,14 +1793,17 @@ void File__Analyze::Fill (File__Analyze* Parser)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Finish (const char* ParserName)
+void File__Analyze::Finish (const char* ParserName_Char)
 {
     if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
         return;
 
+    if (ParserName.empty())
+        ParserName.From_Local(ParserName_Char);
+
     if (ShouldContinueParsing)
     {
-        if (ParserName)
+        if (!ParserName.empty())
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
@@ -1811,12 +1818,12 @@ void File__Analyze::Finish (const char* ParserName)
     if (Status[IsFinished])
         return;
 
-    if (ParserName)
+    if (!ParserName.empty())
     {
         bool MustElementBegin=Element_Level?true:false;
         if (Element_Level>0)
             Element_End(); //Element
-        Info(Ztring(ParserName)+_T(", finished"));
+        Info(ParserName+_T(", finished"));
         if (MustElementBegin)
             Element_Level++;
     }
