@@ -423,6 +423,11 @@ File_Mxf::File_Mxf()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("MXF");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Mxf;
+        StreamIDs_Width[0]=8;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     DataMustAlwaysBeComplete=false;
 
@@ -1072,7 +1077,7 @@ bool File_Mxf::Synchronize()
 
     if (!Status[IsAccepted])
     {
-        Accept("MXF");
+        Accept();
 
         Fill(Stream_General, 0, General_Format, "MXF");
     }
@@ -1481,13 +1486,19 @@ void File_Mxf::Data_Parse()
         }
         else
             Skip_XX(Element_Size,                               "Data");
+
+        //Demux
+        #if MEDIAINFO_DEMUX
+            Element_Code=Code.lo;
+            Demux(Buffer+Buffer_Offset, Element_Size, ContentType_MainStream);
+        #endif MEDIAINFO_DEMUX
     }
     else
         Skip_XX(Element_Size,                                   "Unknown");
 
     if (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
      || (Streams_Count==0 && !Descriptors.empty()))
-        Finish("MXF");
+        Finish();
 }
 
 //***************************************************************************

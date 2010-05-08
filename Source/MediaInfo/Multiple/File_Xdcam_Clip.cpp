@@ -134,8 +134,13 @@ bool File_Xdcam_Clip::FileHeader_Begin()
                         File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
 
                         //Commercial names
-                        if (StreamKind_Last==Stream_Video)
-                            Fill(Stream_General, 0, General_Format_Commercial_IfAny, MI.Get(Stream_General, 0, General_Format_Commercial_IfAny));
+                        Fill(Stream_General, 0, General_Format_Commercial_IfAny, MI.Get(Stream_General, 0, General_Format_Commercial_IfAny));
+                        Ztring Format_Commercial=MI.Get(Stream_General, 0, General_Format_Commercial_IfAny);
+                        if (!Format_Commercial.empty())
+                        {
+                            Format_Commercial.FindAndReplace(_T("XDCAM "), Ztring());
+                            Fill(Stream_General, 0, General_Format_Commercial, _T("XDCAM Clip ")+Format_Commercial, true);
+                        }
                     }
                     //else
                     //    MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));

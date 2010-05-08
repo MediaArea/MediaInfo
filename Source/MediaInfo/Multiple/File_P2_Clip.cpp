@@ -82,21 +82,21 @@ bool File_P2_Clip::FileHeader_Begin()
             TiXmlElement* ClipContent=Root->FirstChildElement("ClipContent");
             if (ClipContent)
             {
-                TiXmlElement* Element;
+                TiXmlElement* ChildElement;
 
                 //ID
-                Element=ClipContent->FirstChildElement("GlobalClipID");
-                if (Element)
-                    Fill(Stream_General, 0, General_UniqueID, Element->GetText());
+                ChildElement=ClipContent->FirstChildElement("GlobalClipID");
+                if (ChildElement)
+                    Fill(Stream_General, 0, General_UniqueID, ChildElement->GetText());
 
                 //Duration
                 Ztring Duration, EditUnit;
-                Element=ClipContent->FirstChildElement("Duration");
-                if (Element)
-                    Duration=Element->GetText();
-                Element=ClipContent->FirstChildElement("EditUnit");
-                if (Element)
-                    EditUnit=Element->GetText();
+                ChildElement=ClipContent->FirstChildElement("Duration");
+                if (ChildElement)
+                    Duration=ChildElement->GetText();
+                ChildElement=ClipContent->FirstChildElement("EditUnit");
+                if (ChildElement)
+                    EditUnit=ChildElement->GetText();
                 int64u Duration_Frames=Duration.To_int64u();
                 int64u EditUnit_Numerator=EditUnit.SubString(Ztring(), _T("/")).To_int64u();
                 int64u EditUnit_Denominator=EditUnit.SubString(_T("/"), Ztring()).To_int64u();
@@ -117,10 +117,10 @@ bool File_P2_Clip::FileHeader_Begin()
                             Stream_Prepare(Stream_Video);
 
                             //CreationDate
-                            Element=Track->FirstChildElement("StartTimecode");
-                            if (Element)
+                            ChildElement=Track->FirstChildElement("StartTimecode");
+                            if (ChildElement)
                             {
-                                string Text=Element->GetText();
+                                string Text=ChildElement->GetText();
                                 if (Text.size()==11)
                                 {
                                     int32u ToFill=(Text[0]-'0')*10*60*60*1000
@@ -129,10 +129,10 @@ bool File_P2_Clip::FileHeader_Begin()
                                                 + (Text[4]-'0')      *60*1000
                                                 + (Text[6]-'0')      *10*1000
                                                 + (Text[7]-'0')         *1000;
-                                    Element=Track->FirstChildElement("FrameRate");
-                                    if (Element)
+                                    ChildElement=Track->FirstChildElement("FrameRate");
+                                    if (ChildElement)
                                     {
-                                        Ztring FrameRateS=Ztring(Element->GetText());
+                                        Ztring FrameRateS=Ztring(ChildElement->GetText());
                                         float32 FrameRate=FrameRateS.To_float32();
                                         if (FrameRateS.find('i')!=string::npos)
                                             FrameRate/=2;
@@ -233,10 +233,10 @@ bool File_P2_Clip::FileHeader_Begin()
                     if (Access)
                     {
                         //CreationDate
-                        Element=Access->FirstChildElement("CreationDate");
-                        if (Element)
+                        ChildElement=Access->FirstChildElement("CreationDate");
+                        if (ChildElement)
                         {
-                            Ztring Content=Element->GetText();
+                            Ztring Content=ChildElement->GetText();
                             if (Content.size()>=11 && Content[10]==_T('T'))
                                 Content[10]=_T(' ');
                             if (Content.find(_T("+00:00"))!=string::npos)
@@ -248,10 +248,10 @@ bool File_P2_Clip::FileHeader_Begin()
                         }
 
                         //CreationDate
-                        Element=Access->FirstChildElement("LastUpdateDate");
-                        if (Element)
+                        ChildElement=Access->FirstChildElement("LastUpdateDate");
+                        if (ChildElement)
                         {
-                            Ztring Content=Element->GetText();
+                            Ztring Content=ChildElement->GetText();
                             if (Content.size()>=11 && Content[10]==_T('T'))
                                 Content[10]=_T(' ');
                             if (Content.find(_T("+00:00"))!=string::npos)
@@ -277,10 +277,10 @@ bool File_P2_Clip::FileHeader_Begin()
                     if (Shoot)
                     {
                         //StartDate
-                        Element=Shoot->FirstChildElement("StartDate");
-                        if (Element)
+                        ChildElement=Shoot->FirstChildElement("StartDate");
+                        if (ChildElement)
                         {
-                            Ztring Content=Element->GetText();
+                            Ztring Content=ChildElement->GetText();
                             if (Content.size()>=11 && Content[10]==_T('T'))
                                 Content[10]=_T(' ');
                             if (Content.find(_T("+00:00"))!=string::npos)
@@ -292,10 +292,10 @@ bool File_P2_Clip::FileHeader_Begin()
                         }
 
                         //EndDate
-                        Element=Shoot->FirstChildElement("EndDate");
-                        if (Element)
+                        ChildElement=Shoot->FirstChildElement("EndDate");
+                        if (ChildElement)
                         {
-                            Ztring Content=Element->GetText();
+                            Ztring Content=ChildElement->GetText();
                             if (Content.size()>=11 && Content[10]==_T('T'))
                                 Content[10]=_T(' ');
                             if (Content.find(_T("+00:00"))!=string::npos)
@@ -322,38 +322,38 @@ bool File_P2_Clip::FileHeader_Begin()
                     if (Scenario)
                     {
                         //ProgramName
-                        Element=Scenario->FirstChildElement("ProgramName");
-                        if (Element)
-                            Fill(Stream_General, 0, General_Title, Element->GetText());
+                        ChildElement=Scenario->FirstChildElement("ProgramName");
+                        if (ChildElement)
+                            Fill(Stream_General, 0, General_Title, ChildElement->GetText());
 
                         //SceneNo.
-                        Element=Scenario->FirstChildElement("SceneNo.");
-                        if (Element)
-                            Fill(Stream_General, 0, "Scene Number", Element->GetText());
+                        ChildElement=Scenario->FirstChildElement("SceneNo.");
+                        if (ChildElement)
+                            Fill(Stream_General, 0, "Scene Number", ChildElement->GetText());
 
                         //TakeNo.
-                        Element=Scenario->FirstChildElement("TakeNo.");
-                        if (Element)
-                            Fill(Stream_General, 0, "Take Number", Element->GetText());
+                        ChildElement=Scenario->FirstChildElement("TakeNo.");
+                        if (ChildElement)
+                            Fill(Stream_General, 0, "Take Number", ChildElement->GetText());
                     }
 
                     TiXmlElement* News=ClipMetadata->FirstChildElement("News");
                     if (News)
                     {
                         //Reporter
-                        Element=News->FirstChildElement("Reporter");
-                        if (Element)
-                            Fill(Stream_General, 0, "Reporter", Element->GetText());
+                        ChildElement=News->FirstChildElement("Reporter");
+                        if (ChildElement)
+                            Fill(Stream_General, 0, "Reporter", ChildElement->GetText());
 
                         //Purpose
-                        Element=News->FirstChildElement("Purpose");
-                        if (Element)
-                            Fill(Stream_General, 0, "Purpose", Element->GetText());
+                        ChildElement=News->FirstChildElement("Purpose");
+                        if (ChildElement)
+                            Fill(Stream_General, 0, "Purpose", ChildElement->GetText());
 
                         //Object
-                        Element=News->FirstChildElement("Object");
-                        if (Element)
-                            Fill(Stream_General, 0, "Object", Element->GetText());
+                        ChildElement=News->FirstChildElement("Object");
+                        if (ChildElement)
+                            Fill(Stream_General, 0, "Object", ChildElement->GetText());
                     }
                 }
             }

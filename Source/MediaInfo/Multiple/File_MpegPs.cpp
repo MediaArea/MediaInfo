@@ -3054,10 +3054,10 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max>SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset) && SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max<=16*1024*1024)
             {
                 SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max*=2;
-                int8u* Temp=SubStream_Demux->Buffers[Buffers_Pos]->Buffer;
+                int8u* Buffer_Demux=SubStream_Demux->Buffers[Buffers_Pos]->Buffer;
                 SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
-                std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer, Temp, SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size);
-                delete[] Temp; //Temp=NULL;
+                std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer, Buffer_Demux, SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size);
+                delete[] Buffer_Demux; //Buffer_Demux=NULL;
             }
             if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset)<=SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max)
             {
