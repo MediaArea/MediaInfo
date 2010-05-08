@@ -543,15 +543,15 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "No");
         Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "No");
     }
-    if (num_ref_frames>0)
+    if (max_num_ref_frames>0)
     {
-        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
-        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
+        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring(max_num_ref_frames)+_T(" Ref Frames"));
+        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(max_num_ref_frames)+_T(" Ref Frames"));
     }
-    if (num_ref_frames)
+    if (max_num_ref_frames)
     {
-        Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
-        Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
+        Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, max_num_ref_frames);
+        Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, max_num_ref_frames);
     }
     if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
         Fill(Stream_Video, 0, Video_Resolution, bit_depth_luma_minus8+8);
@@ -713,7 +713,7 @@ void File_Avc::Synched_Init()
     frame_crop_right_offset=0;
     frame_crop_top_offset=0;
     frame_crop_bottom_offset=0;
-    num_ref_frames=0;
+    max_num_ref_frames=0;
     pic_order_cnt_type=0;
     pic_order_cnt_lsb_Last=(int32u)-1;
     bit_depth_luma_minus8=0;
@@ -2229,7 +2229,7 @@ void File_Avc::seq_parameter_set_data()
         for(int32u Pos=0; Pos<num_ref_frames_in_pic_order_cnt_cycle; Pos++)
             Skip_SE(                                            "offset_for_ref_frame");
     }
-    Get_UE (num_ref_frames,                                     "num_ref_frames");
+    Get_UE (max_num_ref_frames,                                 "max_num_ref_frames");
     Skip_SB(                                                    "gaps_in_frame_num_value_allowed_flag");
     Get_UE (pic_width_in_mbs_minus1,                            "pic_width_in_mbs_minus1");
     Get_UE (pic_height_in_map_units_minus1,                     "pic_height_in_map_units_minus1");

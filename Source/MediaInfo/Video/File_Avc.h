@@ -226,7 +226,7 @@ private :
     int32u frame_crop_right_offset;
     int32u frame_crop_top_offset;
     int32u frame_crop_bottom_offset;
-    int32u num_ref_frames;
+    int32u max_num_ref_frames;
     int32u pic_order_cnt_type;
     int32u bit_depth_luma_minus8;
     int32u bit_depth_Colorimetry_minus8;
