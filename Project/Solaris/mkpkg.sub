@@ -28,7 +28,7 @@ if test -e ${packagecreation_prefix}/depend; then
 fi
 cd ${install_prefix}
 find . -print > ${packagecreation_prefix}/files
-cat  ${packagecreation_prefix}/files | pkgproto | sed "s/ ${user} / ? /g" | sed "s/ ${group}/ ?/g" >> ${packagecreation_prefix}/prototype
+cat  ${packagecreation_prefix}/files | pkgproto | sed "s/ bin bin/ ? /g" | sed "s/ ${user} / ? /g" | sed "s/ ${group}/ ?/g" >> ${packagecreation_prefix}/prototype
 
 #pkginfo file
 echo "PKG=${pkgname}" > ${packagecreation_prefix}/pkginfo
@@ -40,11 +40,16 @@ echo "CLASSES=none" >> ${packagecreation_prefix}/pkginfo
 echo "CATEGORY=utility" >> ${packagecreation_prefix}/pkginfo
 echo "VENDOR=MediaArea.net" >> ${packagecreation_prefix}/pkginfo
 echo "EMAIL=Info@MediaArea.net" >> ${packagecreation_prefix}/pkginfo
-echo "BASEDIR=/" >> ${packagecreation_prefix}/pkginfo
+echo "BASEDIR=${basedir}" >> ${packagecreation_prefix}/pkginfo
 
 cd ${packagecreation_prefix}
 pkgmk -o -b ${install_prefix} -d . -f prototype
-tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.tgz
+echo tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.tar.gz
+tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.tar.gz
+echo pkgtrans ${packagecreation_prefix} ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg ${pkgname}
+pkgtrans ${packagecreation_prefix} ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg ${pkgname}
+echo gzip -9 -cf ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.gz
+gzip -9 -cf ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.gz
 
 #Removing files
 cd ${home}

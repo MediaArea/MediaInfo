@@ -13,6 +13,10 @@ version="0.7.32"
 Home=`pwd`
 install_prefix=${Home}/mk_package
 packagecreation_prefix=${Home}/create_package
+if test -z ${basedir}; then
+  basedir="/"
+fi
+
 
 #Common code
 . ./mkpkg.sub
