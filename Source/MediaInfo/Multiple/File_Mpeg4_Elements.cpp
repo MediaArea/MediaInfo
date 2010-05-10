@@ -2994,12 +2994,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
             if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
             {
                 Stream[moov_trak_tkhd_TrackID].Parser=new File_Avc;
+                #if MEDIAINFO_DEMUX
+                    Element_Code=moov_trak_tkhd_TrackID;
+                #endif //MEDIAINFO_DEMUX
                 Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
                 ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_SPS_PPS=true;
                 Stream[moov_trak_tkhd_TrackID].Parser->MustSynchronize=false;
                 mdat_MustParse=true; //Data is in MDAT
 
                 //Parsing
+                Demux(Buffer+(size_t)(Buffer_Offset+Element_Offset), (size_t)(Element_Size-Element_Offset), ContentType_Header);
                 Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser);
 
                 ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks

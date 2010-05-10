@@ -209,7 +209,6 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
 
     #if MEDIAINFO_EVENTS
         Sub->ParserIDs[StreamIDs_Size]=Sub->ParserIDs[0];
-        Sub->StreamIDs[StreamIDs_Size]=Element_Code;
         Sub->StreamIDs_Width[StreamIDs_Size]=Sub->StreamIDs_Width[0];
         for (size_t Pos=0; Pos<StreamIDs_Size; Pos++)
         {
@@ -217,6 +216,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
             Sub->StreamIDs[Pos]=StreamIDs[Pos];
             Sub->StreamIDs_Width[Pos]=StreamIDs_Width[Pos];
         }
+        Sub->StreamIDs[StreamIDs_Size-1]=Element_Code;
         Sub->StreamIDs_Size=StreamIDs_Size+1;
     #endif //MEDIAINFO_EVENTS
     Sub->File_Name_WithoutDemux=IsSub?File_Name_WithoutDemux:File_Name;

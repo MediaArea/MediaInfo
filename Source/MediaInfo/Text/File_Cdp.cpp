@@ -37,6 +37,9 @@
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -91,6 +94,11 @@ File_Cdp::File_Cdp()
 :File__Analyze()
 {
     //Temp
+    ParserName=_T("CDP");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Cdp;
+        StreamIDs_Width[0]=1;
+    #endif //MEDIAINFO_EVENTS
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
     Streams_Count=0;
 
@@ -260,6 +268,9 @@ void File_Cdp::ccdata_section()
                 int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
                 //Parsing
+                #if MEDIAINFO_DEMUX
+                    Element_Code=Parser_Pos;
+                #endif //MEDIAINFO_DEMUX
                 if (Streams[Parser_Pos]==NULL)
                     Streams[Parser_Pos]=new stream;
                 if (Streams[Parser_Pos]->Parser==NULL)
@@ -274,6 +285,7 @@ void File_Cdp::ccdata_section()
                     }
                     Open_Buffer_Init(Streams[Parser_Pos]->Parser);
                 }
+                Demux(Buffer+(size_t)(Buffer_Offset+Element_Offset), 2, ContentType_MainStream);
                 if (!Streams[Parser_Pos]->Parser->Status[IsFinished])
                 {
                     if (Streams[Parser_Pos]->Parser->PTS_DTS_Needed)

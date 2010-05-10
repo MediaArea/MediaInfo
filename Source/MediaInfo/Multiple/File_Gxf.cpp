@@ -43,6 +43,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -225,6 +228,11 @@ File_Gxf::File_Gxf()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("GXF");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Gxf;
+        StreamIDs_Width[0]=2;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
@@ -616,6 +624,9 @@ void File_Gxf::map()
                     Streams[TrackID].TrackID=TrackID;
 
                     //Parsers
+                    #if MEDIAINFO_DEMUX
+                        Element_Code=TrackID;
+                    #endif //MEDIAINFO_DEMUX
                     switch (MediaType)
                     {
                         case  9 :
@@ -836,6 +847,11 @@ void File_Gxf::media()
         TrackNumber&=0x3F;
     Element_End();
     Element_Info(TrackNumber);
+
+    #if MEDIAINFO_DEMUX
+        Element_Code=TrackNumber;
+        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
 
     //Needed?
     if (!Streams[TrackNumber].Searching_Payload)

@@ -37,6 +37,9 @@
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -56,7 +59,7 @@ const char* Scte20_field_number (int8u field_number)
         case  0 : return "Forbidden";
         case  1 : return "1st display field";
         case  2 : return "2nd display field";
-        case  3 : return "3rd display fieldt";
+        case  3 : return "3rd display field";
         default : return "";
     }
 }
@@ -70,6 +73,11 @@ File_Scte20::File_Scte20()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("SCTE 20");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Scte20;
+        StreamIDs_Width[0]=1;
+    #endif //MEDIAINFO_EVENTS
     PTS_DTS_Needed=true;
 
     //In
@@ -195,6 +203,9 @@ void File_Scte20::Read_Buffer_Continue()
                     cc_type=top_field_first?0:1;
 
                 //Parsing
+                #if MEDIAINFO_DEMUX
+                    Element_Code=cc_type;
+                #endif //MEDIAINFO_DEMUX
                 if (Streams[cc_type]==NULL)
                     Streams[cc_type]=new stream;
                 if (Streams[cc_type]->Parser==NULL)
@@ -202,6 +213,7 @@ void File_Scte20::Read_Buffer_Continue()
                     Streams[cc_type]->Parser=new File_Eia608();
                     Open_Buffer_Init(Streams[cc_type]->Parser);
                 }
+                Demux(cc_data, 2, ContentType_MainStream);
                 if (!Streams[cc_type]->Parser->Status[IsFinished])
                 {
                     //Parsing

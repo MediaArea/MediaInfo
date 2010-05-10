@@ -1331,6 +1331,10 @@ void File_Mxf::Data_Parse()
             default         : Element_Name("Unknown stream" );
         }
 
+        #if MEDIAINFO_DEMUX
+            Element_Code=Code.lo;
+        #endif MEDIAINFO_DEMUX
+
         if (Essences[Code_Compare4].Parser==NULL)
         {
             switch (Code_Compare4&0xFF00FF00)
@@ -1472,6 +1476,9 @@ void File_Mxf::Data_Parse()
                 Essences[Code_Compare4].Stream_Size=(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete);
         }
 
+        //Demux
+        Demux(Buffer+Buffer_Offset, Element_Size, ContentType_MainStream);
+
         if (!(Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
         {
             //Parsing
@@ -1486,12 +1493,6 @@ void File_Mxf::Data_Parse()
         }
         else
             Skip_XX(Element_Size,                               "Data");
-
-        //Demux
-        #if MEDIAINFO_DEMUX
-            Element_Code=Code.lo;
-            Demux(Buffer+Buffer_Offset, Element_Size, ContentType_MainStream);
-        #endif MEDIAINFO_DEMUX
     }
     else
         Skip_XX(Element_Size,                                   "Unknown");

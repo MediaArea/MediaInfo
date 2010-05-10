@@ -146,6 +146,9 @@ const char* Mpegv_profile_and_level_indication_level[]=
     #include "MediaInfo/Video/File_AfdBarData.h"
     #include <cstring>
 #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
 
 #undef FILLING_BEGIN
@@ -273,6 +276,11 @@ File_Mpegv::File_Mpegv()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("MPEG Video");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Mpegv;
+        StreamIDs_Width[0]=16;
+    #endif //MEDIAINFO_EVENTS
     Trusted_Multiplier=2;
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -1274,9 +1282,12 @@ void File_Mpegv::user_data_start_CC()
     Skip_B4(                                                    "identifier");
 
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-        Element_Info("SCTE20");
+        Element_Info("DVD Captions");
 
         //Parsing
+        #if MEDIAINFO_DEMUX
+            Element_Code=0x434301F800000000LL;
+        #endif //MEDIAINFO_DEMUX
         if (CC___Parser==NULL)
         {
             CC___IsPresent=true;
@@ -1290,6 +1301,7 @@ void File_Mpegv::user_data_start_CC()
             CC___Parser->PTS=PTS;
             CC___Parser->DTS=DTS;
         }
+        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         Open_Buffer_Continue(CC___Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Element_Offset=Element_Size;
     #else //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -1348,6 +1360,9 @@ void File_Mpegv::user_data_start_3()
                 Element_Begin("SCTE 20 data");
 
                 //Parsing
+                #if MEDIAINFO_DEMUX
+                    Element_Code=0x0000000300000000LL;
+                #endif //MEDIAINFO_DEMUX
                 if (Scte_Parser==NULL)
                 {
                     Scte_Parser=new File_Scte20;
@@ -1364,6 +1379,7 @@ void File_Mpegv::user_data_start_3()
                 ((File_Scte20*)Scte_Parser)->progressive_frame=TemporalReference[Scte_Pos]->progressive_frame;
                 ((File_Scte20*)Scte_Parser)->top_field_first=TemporalReference[Scte_Pos]->top_field_first;
                 ((File_Scte20*)Scte_Parser)->repeat_first_field=TemporalReference[Scte_Pos]->repeat_first_field;
+                Demux(TemporalReference[Scte_Pos]->Scte->Data, TemporalReference[Scte_Pos]->Scte->Size, ContentType_MainStream);
                 Open_Buffer_Continue(Scte_Parser, TemporalReference[Scte_Pos]->Scte->Data, TemporalReference[Scte_Pos]->Scte->Size);
 
                 Element_End();
@@ -1469,6 +1485,9 @@ void File_Mpegv::user_data_start_GA94_03()
                 Element_Begin("Reordered DTVCC Transport");
 
                 //Parsing
+                #if MEDIAINFO_DEMUX
+                    Element_Code=0x4741393400000003LL;
+                #endif //MEDIAINFO_DEMUX
                 if (GA94_03_Parser==NULL)
                 {
                     GA94_03_Parser=new File_DtvccTransport;
@@ -1481,6 +1500,7 @@ void File_Mpegv::user_data_start_GA94_03()
                     GA94_03_Parser->PTS=PTS;
                     GA94_03_Parser->DTS=DTS;
                 }
+                Demux(TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size, ContentType_MainStream);
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
 
                 Element_End();
@@ -1791,11 +1811,15 @@ void File_Mpegv::extension_start()
                                 Element_Begin("CDP");
 
                                 //Parsing
+                                #if MEDIAINFO_DEMUX
+                                    Element_Code=0x000000B500000000LL;
+                                #endif //MEDIAINFO_DEMUX
                                 if (Cdp_Parser==NULL)
                                 {
                                     Cdp_Parser=new File_Cdp;
                                     Open_Buffer_Init(Cdp_Parser);
                                 }
+                                Demux((*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size, ContentType_MainStream);
                                 if (!Cdp_Parser->Status[IsFinished])
                                 {
                                     if (Cdp_Parser->PTS_DTS_Needed)

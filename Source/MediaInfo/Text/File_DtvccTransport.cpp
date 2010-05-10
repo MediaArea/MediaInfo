@@ -37,6 +37,9 @@
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -70,6 +73,11 @@ File_DtvccTransport::File_DtvccTransport()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("DTVCC Transport");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_DtvccTransport;
+        StreamIDs_Width[0]=1;
+    #endif //MEDIAINFO_EVENTS
     PTS_DTS_Needed=true;
 
     //In
@@ -194,6 +202,9 @@ void File_DtvccTransport::Read_Buffer_Continue()
                     int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
                     //Parsing
+                    #if MEDIAINFO_DEMUX
+                        Element_Code=Parser_Pos;
+                    #endif //MEDIAINFO_DEMUX
                     if (Streams[Parser_Pos]==NULL)
                         Streams[Parser_Pos]=new stream;
                     if (Streams[Parser_Pos]->Parser==NULL)
@@ -216,6 +227,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         }
                         Open_Buffer_Init(Streams[Parser_Pos]->Parser);
                     }
+                    Demux(Buffer+(size_t)(Buffer_Offset+Element_Offset), 2, ContentType_MainStream);
                     if (!Streams[Parser_Pos]->Parser->Status[IsFinished])
                     {
                         //Parsing

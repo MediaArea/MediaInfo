@@ -116,7 +116,7 @@ void MediaInfo_Config::Init()
     ShowFiles_VideoOnly=1;
     ShowFiles_AudioOnly=1;
     ShowFiles_TextOnly=1;
-    ParseSpeed=(float32)0.0;
+    ParseSpeed=(float32)0.5;
     Verbosity=(float32)0.5;
     DetailsLevel=(float32)0.0;
     DetailsFormat=DetailsFormat_Tree;
