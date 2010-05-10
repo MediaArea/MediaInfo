@@ -13,6 +13,9 @@ version="0.7.32"
 Home=`pwd`
 install_prefix=${Home}/mk_package
 packagecreation_prefix=${Home}/create_package
+if test -z ${basedir}; then
+  basedir="/"
+fi
 
 #Common code
 . ./mkpkg.sub
@@ -39,7 +42,8 @@ mkdir -p ${install_prefix}
 #Copying useful files
 #bin
 install -d -m 755 ${install_prefix}/bin
-cp -rP ../GNU/CLI/.libs/mediainfo ${install_prefix}/bin
+cp -rP ../GNU/CLI/mediainfo ${install_prefix}/bin
+cp -rPf ../GNU/CLI/.libs/mediainfo ${install_prefix}/bin
 install -d -m 755 ${install_prefix}/share/doc/${name}
 cp ../../*.txt ${install_prefix}/share/doc/${name}
 cp ../../Release/ReadMe_CLI_Linux.txt ${install_prefix}/share/doc/${name}/ReadMe.txt
