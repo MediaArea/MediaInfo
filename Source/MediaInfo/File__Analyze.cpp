@@ -1839,6 +1839,9 @@ void File__Analyze::Finish (const char* ParserName_Char)
 #else //MEDIAINFO_TRACE
 void File__Analyze::Finish ()
 {
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
+        return;
+
     if (ShouldContinueParsing)
         return;
 
