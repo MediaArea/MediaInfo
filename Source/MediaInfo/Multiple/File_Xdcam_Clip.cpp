@@ -108,20 +108,23 @@ bool File_Xdcam_Clip::FileHeader_Begin()
             int64u File_Size_Total=File_Size;
 
             #if defined(MEDIAINFO_MXF_YES)
-                if (File_Name.size()>12+1+4
-                 && File_Name[File_Name.size()-12-1]==PathSeparator
-                 && File_Name[File_Name.size()-12-2]==_T('p')
-                 && File_Name[File_Name.size()-12-3]==_T('i')
-                 && File_Name[File_Name.size()-12-4]==_T('l')
-                 && File_Name[File_Name.size()-12-5]==_T('C'))
+                if (File_Name.size()>12
+                 && File_Name[File_Name.size()-7]==_T('M')
+                 && File_Name[File_Name.size()-6]==_T('0')
+                 && File_Name[File_Name.size()-5]==_T('1')
+                 && File_Name[File_Name.size()-4]==_T('.')
+                 && File_Name[File_Name.size()-3]==_T('X')
+                 && File_Name[File_Name.size()-2]==_T('M')
+                 && File_Name[File_Name.size()-1]==_T('L'))
                 {
                     Ztring file=File_Name.substr(File_Name.size()-12, 5);
                     Ztring MXF_File=File_Name;
-                    MXF_File.resize(MXF_File.size()-(12+1+4));
-                    MXF_File+=_T("Clip");
-                    MXF_File+=PathSeparator;
+                    MXF_File.resize(MXF_File.size()-12);
                     MXF_File+=file;
-                    MXF_File+=_T(".MXF");
+                    if (File::Exists(MXF_File+_T(".MXF")))
+                        MXF_File+=_T(".MXF");
+                    if (File::Exists(MXF_File+_T(".MP4")))
+                        MXF_File+=_T(".MP4");
 
                     //int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
                     //MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
