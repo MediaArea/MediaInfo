@@ -1332,7 +1332,17 @@ void File_Mxf::Data_Parse()
         }
 
         #if MEDIAINFO_DEMUX
-            Element_Code=Code.lo;
+            if (!Essences[Code_Compare4].TrackID_WasLookedFor)
+            {
+                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                    if (Track->second.TrackNumber==Code_Compare4)
+                        Essences[Code_Compare4].TrackID=Track->second.TrackID;
+                Essences[Code_Compare4].TrackID_WasLookedFor=true;
+            }
+            if (Essences[Code_Compare4].TrackID!=(int32u)-1)
+                Element_Code=Essences[Code_Compare4].TrackID;
+            else
+                Element_Code=Code.lo;
         #endif MEDIAINFO_DEMUX
 
         if (Essences[Code_Compare4].Parser==NULL)
@@ -1477,7 +1487,7 @@ void File_Mxf::Data_Parse()
         }
 
         //Demux
-        Demux(Buffer+Buffer_Offset, Element_Size, ContentType_MainStream);
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
 
         if (!(Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
         {

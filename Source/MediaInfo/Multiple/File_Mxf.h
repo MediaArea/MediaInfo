@@ -385,6 +385,8 @@ protected :
         File__Analyze* Parser;
         std::map<std::string, Ztring> Infos;
         int64u Stream_Size;
+        int32u TrackID;
+        bool   TrackID_WasLookedFor;
         bool   Stream_Finish_Done;
         bool   Track_Number_IsMappedToTrack; //if !Track_Number_IsAvailable, is true when it was euristicly mapped
 
@@ -394,6 +396,8 @@ protected :
             StreamPos=(size_t)-1;
             Parser=NULL;
             Stream_Size=(int64u)-1;
+            TrackID=(int32u)-1;
+            TrackID_WasLookedFor=false;
             Stream_Finish_Done=false;
             Track_Number_IsMappedToTrack=false;
         }

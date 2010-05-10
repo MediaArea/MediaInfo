@@ -488,6 +488,8 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
                     ID.From_Number(Event->StreamIDs[Pos], 16);
                     while (ID.size()<Event->StreamIDs_Width[Pos])
                         ID.insert(0,  1, _T('0'));
+                    if (ID.size()>Event->StreamIDs_Width[Pos])
+                        ID.erase(0, ID.size()-Event->StreamIDs_Width[Pos]);
                     File_Name_Final+=_T('.')+ID;
                 }
                 else
