@@ -2030,7 +2030,7 @@ void File_MpegPs::private_stream_1()
     #endif
 
     //Demux
-    #ifdef MEDIAINFO_DEMUX
+    #if MEDIAINFO_DEMUX
         if (Streams_Private1[private_stream_1_ID].Searching_Payload)
         {
             StreamIDs[StreamIDs_Size-1]=Element_Code;
@@ -2045,6 +2045,9 @@ void File_MpegPs::private_stream_1()
     #endif //MEDIAINFO_DEMUX
 
     //Parsing
+    #if MEDIAINFO_EVENTS
+        Element_Code=private_stream_1_ID;
+    #endif //MEDIAINFO_EVENTS
     if (Element_Offset<private_stream_1_Offset)
         Skip_XX(private_stream_1_Offset-Element_Offset,         "DVD-Video data");
 
@@ -2870,7 +2873,7 @@ void File_MpegPs::extension_stream()
     }
 
     //Demux
-    #ifdef MEDIAINFO_DEMUX
+    #if MEDIAINFO_DEMUX
         if (Streams_Extension[stream_id_extension].Searching_Payload)
         {
             StreamIDs[StreamIDs_Size-1]=Element_Code;
