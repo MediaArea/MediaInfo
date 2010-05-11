@@ -39,7 +39,13 @@ namespace MediaInfoLib
 
 class File_Rle : public File__Analyze
 {
+public :
+    File_Rle();
+
 private :
+    //Streams management
+    void Streams_Fill();
+
     //Buffer - Global
     void Read_Buffer_Continue ();
 };

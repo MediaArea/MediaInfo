@@ -210,6 +210,13 @@ struct MediaInfo_Event_Generic
 /*-------------------------------------------------------------------------*/
 /* Demux                                                                   */
 #define MediaInfo_Event_Global_Demux 0xAF00
+enum MediaInfo_Event_Global_Demux_0_contenttype
+{
+    MediaInfo_Event_Global_Demux_0_ContentType_MainStream,
+    MediaInfo_Event_Global_Demux_0_ContentType_SubStream,
+    MediaInfo_Event_Global_Demux_0_ContentType_Header,
+    MediaInfo_Event_Global_Demux_0_ContentType_Synchro
+};
 struct MediaInfo_Event_Global_Demux_0
 {
     MediaInfo_int32u        EventCode;
@@ -218,7 +225,7 @@ struct MediaInfo_Event_Global_Demux_0
     MediaInfo_int64u*       StreamIDs;
     MediaInfo_int8u*        StreamIDs_Width;
     MediaInfo_int8u*        ParserIDs;
-    MediaInfo_int8u         Content_Type;
+    MediaInfo_int8u         Content_Type; /*MediaInfo_Event_Global_Demux_0_contenttype*/
     size_t                  Content_Size;
     const MediaInfo_int8u*  Content;
 };
@@ -285,6 +292,7 @@ struct MediaInfo_Event_General_Move_Done_0
 /***************************************************************************/
 
 #define MediaInfo_Parser_MpegPs         0x02
+#define MediaInfo_Parser_MpegPs_Ext     0x70
 
 /***************************************************************************/
 /* DV / DIF                                                                 */

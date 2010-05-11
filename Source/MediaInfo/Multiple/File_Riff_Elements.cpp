@@ -2172,9 +2172,9 @@ void File_Riff::AVI__movi_xxxx()
         return;
     }
 
-     Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
 
-   //Finished?
+    //Finished?
     if (!Stream[Stream_ID].SearchingPayload)
     {
         Element_DoNotShow();

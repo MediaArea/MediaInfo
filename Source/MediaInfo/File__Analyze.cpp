@@ -1795,9 +1795,6 @@ void File__Analyze::Fill (File__Analyze* Parser)
 #if MEDIAINFO_TRACE
 void File__Analyze::Finish (const char* ParserName_Char)
 {
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
-        return;
-
     if (ParserName.empty())
         ParserName.From_Local(ParserName_Char);
 
@@ -1829,31 +1826,37 @@ void File__Analyze::Finish (const char* ParserName_Char)
     }
 
     if (Status[IsAccepted])
-    {
         Fill();
+
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
+        return;
+
+    if (Status[IsAccepted])
+    {
         Streams_Finish();
         Streams_Finish_Global();
     }
+
     Status[IsFinished]=true;
 }
 #else //MEDIAINFO_TRACE
 void File__Analyze::Finish ()
 {
+    if (ShouldContinueParsing || Status[IsFinished])
+        return;
+
+    if (Status[IsAccepted])
+        Fill();
+
     if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
-        return;
-
-    if (ShouldContinueParsing)
-        return;
-
-    if (Status[IsFinished])
         return;
 
     if (Status[IsAccepted])
     {
-        Fill();
         Streams_Finish();
         Streams_Finish_Global();
     }
+
     Status[IsFinished]=true;
 }
 #endif //MEDIAINFO_TRACE

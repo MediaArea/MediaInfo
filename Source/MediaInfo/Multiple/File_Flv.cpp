@@ -380,9 +380,10 @@ File_Flv::File_Flv()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("FLV");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Flv;
-        StreamIDs_Width[0]=0;
+        StreamIDs_Width[0]=2;
     #endif //MEDIAINFO_EVENTS
 
     //Internal
@@ -492,12 +493,12 @@ void File_Flv::FileHeader_Parse()
         //Integrity
         if (Signature!="FLV" || Version==0 || Size<9)
         {
-            Reject("FLV");
+            Reject();
             return;
         }
 
         //Filling
-        Accept("FLV");
+        Accept();
 
         Fill(Stream_General, 0, General_Format, "Flash Video");
         if (video_stream_Count)
@@ -512,7 +513,7 @@ void File_Flv::FileHeader_Parse()
 
         if (Version>1)
         {
-            Finish("FLV");
+            Finish();
             return; //Version more than 1 is not supported
         }
     FILLING_END();
@@ -582,7 +583,7 @@ void File_Flv::Data_Parse()
         case (int64u)-1 : GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
         default : if (Searching_Duration)
                   {
-                    Finish("FLV"); //This is surely a bad en of file, don't try anymore
+                    Finish(); //This is surely a bad en of file, don't try anymore
                     return;
                   }
 
@@ -590,14 +591,14 @@ void File_Flv::Data_Parse()
 
     if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && MediaInfoLib::Config.ParseSpeed_Get()<1) //All streams are parsed
     {
-        if (!Searching_Duration && (meta_filesize==(int64u)-1 || meta_filesize==0 || meta_filesize==File_Size) && Element_Code!=0x00)
+        if (!Searching_Duration && (meta_filesize==(int64u)-1 || meta_filesize==0 || meta_filesize==File_Size) && Element_Code!=0x00 &&!MediaInfoLib::Config.ParseSpeed_Get()!=1)
         {
             //Trying to find the last frame for duration
             Searching_Duration=true;
             GoToFromEnd(4, "FLV");
         }
         else
-            Finish("FLV");
+            Finish();
     }
 }
 
@@ -653,6 +654,8 @@ void File_Flv::video()
     if (Stream[Stream_Video].Delay==(int32u)-1)
         Stream[Stream_Video].Delay=Time;
 
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+
     //Parsing
     int8u Codec, FrameType;
     Element_Begin("Stream header");
@@ -661,8 +664,6 @@ void File_Flv::video()
     Get_S1 (4, Codec,                                           "codecID"); Param_Info(Flv_Codec_Video[Codec]); Element_Info(Flv_Codec_Video[Codec]);
     BS_End();
     Element_End();
-
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
 
     if (Stream[Stream_Video].PacketCount==60) //2s
     {
@@ -892,6 +893,8 @@ void File_Flv::audio()
     //Delay
     if (Stream[Stream_Audio].Delay==(int32u)-1)
         Stream[Stream_Audio].Delay=Time;
+
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
 
     //Parsing
     int8u  codec, sampling_rate;

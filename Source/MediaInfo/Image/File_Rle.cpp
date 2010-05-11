@@ -37,6 +37,33 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Rle::File_Rle()
+:File__Analyze()
+{
+    //Configuration
+    ParserName=_T("RLE");
+}
+
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Rle::Streams_Fill()
+{
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "RLE");
+
+    Stream_Prepare(Stream_Text); //TODO: This is currenlty only text
+    Fill(Stream_Text, 0, Text_Format, "RLE");
+    Fill(Stream_Text, 0, Text_Codec, "RLE");
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -44,15 +71,7 @@ namespace MediaInfoLib
 void File_Rle::Read_Buffer_Continue()
 {
     //Filling
-    Accept("RLE");
-
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "RLE");
-
-    Stream_Prepare(Stream_Text); //TODO: This is currenlty only text
-    Fill(Stream_Text, 0, Text_Format, "RLE");
-    Fill(Stream_Text, 0, Text_Codec, "RLE");
-
+    Accept();
     Finish("RLE");
 }
 

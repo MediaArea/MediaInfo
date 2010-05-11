@@ -219,9 +219,12 @@ void File_Pcm::Read_Buffer_Continue()
         //Filling
         Accept("PCM");
 
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "PCM");
-        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+        if (Count_Get(Stream_Audio)==0)
+        {
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format, "PCM");
+            Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+        }
 
         //Finished
         Finish("PCM");
@@ -280,15 +283,18 @@ void File_Pcm::VOB()
     FILLING_BEGIN();
         Accept("PCM");
 
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "PCM");
-        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-        Fill(Stream_Audio, 0, Audio_MuxingMode, "DVD-Video");
-        Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_VOB_Frequency[Frequency]);
-        Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusOne+1);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne+1));
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne+1));
-        Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
+        if (Count_Get(Stream_Audio)==0)
+        {
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format, "PCM");
+            Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+            Fill(Stream_Audio, 0, Audio_MuxingMode, "DVD-Video");
+            Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_VOB_Frequency[Frequency]);
+            Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusOne+1);
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne+1));
+            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne+1));
+            Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
+        }
 
         Finish("PCM");
     FILLING_END();
@@ -322,18 +328,21 @@ void File_Pcm::M2TS()
     FILLING_BEGIN();
         Accept("PCM");
 
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "PCM");
-        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-        Fill(Stream_Audio, 0, Audio_MuxingMode, "Blu-ray");
-        Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_Frequency[Frequency]);
-        Fill(Stream_Audio, 0, Audio_Resolution, Pcm_M2TS_Resolution[Resolution]);
-        Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannels);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannels));
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannels));
-        if (NumberOfChannels%2)
-            NumberOfChannels++; //Always by pair
-        Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannels)*Pcm_M2TS_Resolution[Resolution]);
+        if (Count_Get(Stream_Audio)==0)
+        {
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format, "PCM");
+            Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+            Fill(Stream_Audio, 0, Audio_MuxingMode, "Blu-ray");
+            Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_Frequency[Frequency]);
+            Fill(Stream_Audio, 0, Audio_Resolution, Pcm_M2TS_Resolution[Resolution]);
+            Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannels);
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannels));
+            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannels));
+            if (NumberOfChannels%2)
+                NumberOfChannels++; //Always by pair
+            Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannels)*Pcm_M2TS_Resolution[Resolution]);
+        }
 
         Finish("PCM");
     FILLING_END();

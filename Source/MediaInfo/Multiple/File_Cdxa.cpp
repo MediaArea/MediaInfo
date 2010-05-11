@@ -67,6 +67,7 @@ File_Cdxa::File_Cdxa()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("CDXA");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Cdxa;
         StreamIDs_Width[0]=0;

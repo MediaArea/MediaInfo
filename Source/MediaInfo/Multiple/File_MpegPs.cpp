@@ -2030,8 +2030,19 @@ void File_MpegPs::private_stream_1()
     #endif
 
     //Demux
-    if (Streams_Private1[private_stream_1_ID].Searching_Payload)
-        Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), ContentType_MainStream);
+    #ifdef MEDIAINFO_DEMUX
+        if (Streams_Private1[private_stream_1_ID].Searching_Payload)
+        {
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
+            Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
+            StreamIDs_Width[StreamIDs_Size]=2;
+            ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+            StreamIDs_Size++;
+            Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), ContentType_MainStream);
+            StreamIDs_Size--;
+            Element_Code=StreamIDs[StreamIDs_Size-1];
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing
     if (Element_Offset<private_stream_1_Offset)
@@ -2859,8 +2870,30 @@ void File_MpegPs::extension_stream()
     }
 
     //Demux
-    if (Streams_Extension[stream_id_extension].Searching_Payload)
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #ifdef MEDIAINFO_DEMUX
+        if (Streams_Extension[stream_id_extension].Searching_Payload)
+        {
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
+            if (stream_id_extension==0x72 && !(Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty()))
+            {
+                if (!Streams_Extension[0x71].Parsers.empty())
+                    Element_Code=0x71;
+                if (!Streams_Extension[0x76].Parsers.empty())
+                    Element_Code=0x76;
+            }
+            else
+                Element_Code=stream_id_extension; //The upper level ID is filled by Element_Code in the common code
+            StreamIDs_Width[StreamIDs_Size]=2;
+            ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+            StreamIDs_Size++;
+            if (stream_id_extension==0x72 && !(Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty()))
+                Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_SubStream);
+            else
+                Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+            StreamIDs_Size--;
+            Element_Code=StreamIDs[StreamIDs_Size-1];
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing
     if (stream_id_extension==0x72 && !(Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty()))
