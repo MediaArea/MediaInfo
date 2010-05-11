@@ -1996,6 +1996,9 @@ void File_MpegPs::private_stream_1()
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_End=true;
 
         //New parsers
+        #if MEDIAINFO_EVENTS
+            Element_Code=private_stream_1_ID;
+        #endif //MEDIAINFO_EVENTS
         Streams_Private1[private_stream_1_ID].Parsers.push_back(private_stream_1_ChooseParser());
         if (Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1])
             Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1]);
@@ -2045,9 +2048,6 @@ void File_MpegPs::private_stream_1()
     #endif //MEDIAINFO_DEMUX
 
     //Parsing
-    #if MEDIAINFO_EVENTS
-        Element_Code=private_stream_1_ID;
-    #endif //MEDIAINFO_EVENTS
     if (Element_Offset<private_stream_1_Offset)
         Skip_XX(private_stream_1_Offset-Element_Offset,         "DVD-Video data");
 
