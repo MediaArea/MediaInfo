@@ -1965,23 +1965,16 @@ void File_Avc::pic_parameter_set()
     Skip_SB(                                                    "constrained_intra_pred_flag");
     Skip_SB(                                                    "redundant_pic_cnt_present_flag");
     bool more_rbsp_data=false;
-    if (Data_BS_Remain()>8)
-        more_rbsp_data=true;
-    else
+    if (Element_Size)
     {
-        bool  Test;
-        Peek_SB(Test);
-        if (!Test) //Is 0, this is not the Marker
+        int64u Offset=Element_Size-1;
+        while (Offset && Buffer[Buffer_Offset+(size_t)Offset]==0x00) //Searching if there are NULL bytes at the end of the data
+            Offset--;
+        size_t Bit_Pos=7;
+        while (!(Buffer[Buffer_Offset+(size_t)Offset]&(1<<(7-Bit_Pos))))
+            Bit_Pos--;
+        if (Data_BS_Remain()>1+(7-Bit_Pos)+(Element_Size-Offset-1)*8)
             more_rbsp_data=true;
-        {
-            //Is 1, maybe Marker, maybe not
-            int8u After;
-            Peek_S1(Data_BS_Remain(), After);
-            After&=(0xFF>>(9-Data_BS_Remain()));
-            if (After)
-                more_rbsp_data=true; //More bits after...
-
-        }
     }
     if (more_rbsp_data)
     {
@@ -1995,10 +1988,20 @@ void File_Avc::pic_parameter_set()
                 TEST_SB_END();
             }
         TEST_SB_END();
-        Skip_SE(                                                "second_Colorimetry_qp_index_offset");
+        Skip_SE(                                                "second_chroma_qp_index_offset");
     }
     Mark_1(                                                     );
     BS_End();
+
+    while (Element_Offset<Element_Size) //Not always removed from the stream, ie in MPEG-4
+    {
+        int8u Padding;
+        Peek_B1(Padding);
+        if (!Padding)
+            Skip_B1(                                            "Padding");
+        else
+            break;
+    }
 
     FILLING_BEGIN_PRECISE();
         //NextCode
