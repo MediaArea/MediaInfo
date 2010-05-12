@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.33, 2010-
+--------------
++ Slovak language added
+
 Version 0.7.32, 2010-05-02
 --------------
 + Danish, French translations updated

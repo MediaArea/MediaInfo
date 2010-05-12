@@ -61,6 +61,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"pt-BR");
     Run_File(Dest, L"ro");
     Run_File(Dest, L"ru");
+    Run_File(Dest, L"sk");
     Run_File(Dest, L"sq");
     Run_File(Dest, L"sv");
     Run_File(Dest, L"th");
