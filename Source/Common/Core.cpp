@@ -142,9 +142,9 @@ void Core::Menu_Option_Preferences_Inform (const String& Inform)
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_Option_Preferences_Option (const String& Param, const String& Value)
+String Core::Menu_Option_Preferences_Option (const String& Param, const String& Value)
 {
-    MI->Option(Param, Value);
+    return MI->Option(Param, Value);
 }
 
 //---------------------------------------------------------------------------

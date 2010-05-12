@@ -63,7 +63,7 @@ public:
     void    Menu_View_XML                   ();
     void    Menu_View_Text                  ();
     void    Menu_Option_Preferences_Inform  (const MediaInfoNameSpace::String &Inform);
-    void    Menu_Option_Preferences_Option  (const MediaInfoNameSpace::String &Param, const MediaInfoNameSpace::String &Value);
+    String  Menu_Option_Preferences_Option  (const MediaInfoNameSpace::String &Param, const MediaInfoNameSpace::String &Value);
     void    Menu_Debug_Complete             (bool Value);
     void    Menu_Debug_Details              (float Value);
     void    Menu_Debug_Demux                (const MediaInfoNameSpace::String &Value);
