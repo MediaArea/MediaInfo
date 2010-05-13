@@ -155,7 +155,7 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring &Value, bool Replace)
 {
     //Integrity
-    if (!Status[IsAccepted] || StreamKind>Stream_Max)
+    if (!Status[IsAccepted] || StreamKind>Stream_Max || Parameter==(size_t)-1)
         return;
 
     //Handling values with \r\n inside
@@ -200,8 +200,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     //Deprecated
     //if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
     //    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
-    //if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
-    //    Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
+    if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
+        Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
 
     if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio && !Value.empty() && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio).empty())
     {
@@ -1749,6 +1749,9 @@ void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID_Url), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Url), true);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Version), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Version), true);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Profile), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Profile), true);
+    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_ColorSpace), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_ColorSpace), true);
+    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_ChromaSubsampling), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_ChromaSubsampling), true);
+    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_BitDepth), true);
 
     //Specific cases
     if (Value==_T("v210") || Value==_T("V210"))
@@ -1794,7 +1797,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_StreamSize_String4 : return General_StreamSize_String4;
                                     case Generic_StreamSize_String5 : return General_StreamSize_String5;
                                     case Generic_StreamSize_Proportion : return General_StreamSize_Proportion;
-                                    default: return General_ID_String; //Forcing display
+                                    default: return (size_t)-1;
                                 }
         case Stream_Video :
                                 switch (StreamPos)
@@ -1833,6 +1836,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Video_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Video_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Video_BitRate_Maximum_String;
+                                    case Generic_ColorSpace : return Video_ColorSpace;
+                                    case Generic_ChromaSubsampling : return Video_ChromaSubsampling;
                                     case Generic_Resolution : return Video_Resolution;
                                     case Generic_Resolution_String : return Video_Resolution_String;
                                     case Generic_BitDepth : return Video_BitDepth;
@@ -1845,7 +1850,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_StreamSize_String4 : return Video_StreamSize_String4;
                                     case Generic_StreamSize_String5 : return Video_StreamSize_String5;
                                     case Generic_StreamSize_Proportion : return Video_StreamSize_Proportion;
-                                    default: return Video_ID_String; //Forcing display
+                                    default: return (size_t)-1;
                                 }
         case Stream_Audio :
                                 switch (StreamPos)
@@ -1896,7 +1901,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_StreamSize_String4 : return Audio_StreamSize_String4;
                                     case Generic_StreamSize_String5 : return Audio_StreamSize_String5;
                                     case Generic_StreamSize_Proportion : return Audio_StreamSize_Proportion;
-                                    default: return Audio_ID_String; //Forcing display
+                                    default: return (size_t)-1;
                                 }
         case Stream_Text :
                                 switch (StreamPos)
@@ -1935,6 +1940,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Text_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Text_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Text_BitRate_Maximum_String;
+                                    case Generic_ColorSpace : return Text_ColorSpace;
+                                    case Generic_ChromaSubsampling : return Text_ChromaSubsampling;
                                     case Generic_Resolution : return Text_Resolution;
                                     case Generic_Resolution_String : return Text_Resolution_String;
                                     case Generic_BitDepth : return Text_BitDepth;
@@ -1947,7 +1954,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_StreamSize_String4 : return Text_StreamSize_String4;
                                     case Generic_StreamSize_String5 : return Text_StreamSize_String5;
                                     case Generic_StreamSize_Proportion : return Text_StreamSize_Proportion;
-                                    default: return Text_ID_String; //Forcing display
+                                    default: return (size_t)-1;
                                 }
         case Stream_Image :
                                 switch (StreamPos)
@@ -1969,6 +1976,8 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Codec_String : return Image_Codec_String;
                                     case Generic_Codec_Info : return Image_Codec_Info;
                                     case Generic_Codec_Url : return Image_Codec_Url;
+                                    case Generic_ColorSpace : return Image_ColorSpace;
+                                    case Generic_ChromaSubsampling : return Image_ChromaSubsampling;
                                     case Generic_Resolution : return Image_Resolution;
                                     case Generic_Resolution_String : return Image_Resolution_String;
                                     case Generic_BitDepth : return Image_BitDepth;
@@ -1981,9 +1990,9 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_StreamSize_String4 : return Image_StreamSize_String4;
                                     case Generic_StreamSize_String5 : return Image_StreamSize_String5;
                                     case Generic_StreamSize_Proportion : return Image_StreamSize_Proportion;
-                                    default: return Image_ID_String; //Forcing display
+                                    default: return (size_t)-1;
                                 }
-        case Stream_Chapters : return Chapters_ID_String; //Forcing display
+        case Stream_Chapters : return (size_t)-1;
         case Stream_Menu :
                                 switch (StreamPos)
                                 {
@@ -2004,9 +2013,14 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Codec_String : return Menu_Codec_String;
                                     case Generic_Codec_Info : return Menu_Codec_Info;
                                     case Generic_Codec_Url : return Menu_Codec_Url;
-                                    default: return Menu_ID_String; //Forcing display
+                                    case Generic_Duration : return Menu_Duration;
+                                    case Generic_Duration_String : return Menu_Duration_String;
+                                    case Generic_Duration_String1 : return Menu_Duration_String1;
+                                    case Generic_Duration_String2 : return Menu_Duration_String2;
+                                    case Generic_Duration_String3 : return Menu_Duration_String3;
+                                    default: return (size_t)-1;
                                 }
-        default: return General_ID_String; //Forcing display
+        default: return (size_t)-1;
     }
 }
 

@@ -33,6 +33,7 @@ BitRate_Nominal/String
 BitRate_Maximum
 BitRate_Maximum/String
 ColorSpace
+ChromaSubsampling
 Resolution
 Resolution/String
 BitDepth

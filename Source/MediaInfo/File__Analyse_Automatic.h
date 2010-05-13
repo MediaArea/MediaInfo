@@ -70,6 +70,7 @@ enum generic
     Generic_BitRate_Maximum,
     Generic_BitRate_Maximum_String,
     Generic_ColorSpace,
+    Generic_ChromaSubsampling,
     Generic_Resolution,
     Generic_Resolution_String,
     Generic_BitDepth,

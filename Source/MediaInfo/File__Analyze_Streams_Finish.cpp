@@ -400,7 +400,7 @@ void File__Analyze::Streams_Finish_InterStreams()
         //Testing
         int64s StreamSize=File_Size;
         bool StreamSizeIsValid=true;
-        for (size_t StreamKind_Pos=Stream_General+1; StreamKind_Pos<Stream_Max; StreamKind_Pos++)
+        for (size_t StreamKind_Pos=Stream_General+1; StreamKind_Pos<Stream_Menu; StreamKind_Pos++)
             for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind_Pos); Pos++)
             {
                 int64u StreamXX_StreamSize=Retrieve((stream_t)StreamKind_Pos, Pos, Fill_Parameter((stream_t)StreamKind_Pos, Generic_StreamSize)).To_int64u();
