@@ -198,8 +198,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     Status[IsUpdated]=true;
 
     //Deprecated
-    //if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
-    //    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
+    if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
+        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
     if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
         Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
 
@@ -353,9 +353,9 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
              || Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("Encoded_Library/Version")
              || Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("Encoded_Library/Date"))
             {
-                const Ztring& Name=Retrieve(StreamKind, StreamPos, "Encoded_Library/Name");
-                const Ztring& Version=Retrieve(StreamKind, StreamPos, "Encoded_Library/Version");
-                const Ztring& Date=Retrieve(StreamKind, StreamPos, "Encoded_Library/Date");
+                Ztring Name=Retrieve(StreamKind, StreamPos, "Encoded_Library/Name");
+                Ztring Version=Retrieve(StreamKind, StreamPos, "Encoded_Library/Version");
+                Ztring Date=Retrieve(StreamKind, StreamPos, "Encoded_Library/Date");
                 if (!Name.empty())
                 {
                     Ztring String=Name;
@@ -895,7 +895,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
 }
 
 //---------------------------------------------------------------------------
-const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
+const Ztring &File__Analyze::Retrieve_Const (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
 {
     //Integrity
     if (StreamKind>=Stream_Max
@@ -909,7 +909,44 @@ const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, si
 }
 
 //---------------------------------------------------------------------------
-const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo)
+Ztring File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
+{
+    //Integrity
+    if (StreamKind>=Stream_Max
+     || StreamPos>=(*Stream)[StreamKind].size()
+     || Parameter>=(*Stream)[StreamKind][StreamPos].size())
+        return MediaInfoLib::Config.EmptyString_Get();
+
+    if (KindOfInfo!=Info_Text)
+        return MediaInfoLib::Config.Info_Get(StreamKind, Parameter, KindOfInfo);
+    return (*Stream)[StreamKind][StreamPos](Parameter);
+}
+
+//---------------------------------------------------------------------------
+const Ztring &File__Analyze::Retrieve_Const (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo)
+{
+    //Integrity
+    if (StreamKind>=Stream_Max
+     || StreamPos>=(*Stream)[StreamKind].size()
+     || Parameter==NULL
+     || Parameter[0]=='\0')
+        return MediaInfoLib::Config.EmptyString_Get();
+
+    if (KindOfInfo!=Info_Text)
+        return MediaInfoLib::Config.Info_Get(StreamKind, Parameter, KindOfInfo);
+    size_t Parameter_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find(Ztring().From_Local(Parameter));
+    if (Parameter_Pos==Error)
+    {
+        Parameter_Pos=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_Local(Parameter));
+        if (Parameter_Pos==Error)
+            return MediaInfoLib::Config.EmptyString_Get();
+        return (*Stream_More)[StreamKind][StreamPos](Parameter_Pos, 1);
+    }
+    return (*Stream)[StreamKind][StreamPos](Parameter_Pos);
+}
+
+//---------------------------------------------------------------------------
+Ztring File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo)
 {
     //Integrity
     if (StreamKind>=Stream_Max
