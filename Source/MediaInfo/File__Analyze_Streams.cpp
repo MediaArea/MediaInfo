@@ -198,13 +198,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     Status[IsUpdated]=true;
 
     //Deprecated
-    if (!IsSub)
-    {
-        if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
-            Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
-        if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
-            Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
-    }
+    //if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
+    //    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
+    //if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
+    //    Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
 
     if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio && !Value.empty() && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio).empty())
     {
