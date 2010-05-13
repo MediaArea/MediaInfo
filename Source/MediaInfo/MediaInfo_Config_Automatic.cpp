@@ -372,6 +372,7 @@ void MediaInfo_Config_DefaultLanguage (Translation &Info)
     "Format_Settings_Mode;Mode\n"
     "Format_Settings_FrameMode;Frame mode\n"
     "Format_Settings_Emphasis;Emphasis\n"
+    "Format_Settings_ModeExtension;Mode extension\n"
     "Format_Settings_GOP;Format settings, GOP\n"
     "Format_Version;Format version\n"
     "Format_Url;Weblink for format\n"

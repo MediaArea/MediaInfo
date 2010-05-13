@@ -331,6 +331,7 @@ Format_Settings_Pulldown;Format settings, Pulldown
 Format_Settings_Mode;Mode
 Format_Settings_FrameMode;Frame mode
 Format_Settings_Emphasis;Emphasis
+Format_Settings_ModeExtension;Mode extension
 Format_Settings_GOP;Format settings, GOP
 Format_Version;Format version
 Format_Url;Weblink for format
