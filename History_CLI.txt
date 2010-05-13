@@ -7,6 +7,13 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.33, 2010-05-14
+--------------
++ Slovak language added
++ Colorimetry field is replaced by Color space and Chroma subsampling
+x Some word were not translatable
+x Solaris port was broken
+
 Version 0.7.32, 2010-05-02
 --------------
 + MPEG-7 output improvements

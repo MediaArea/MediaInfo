@@ -175,6 +175,7 @@ Author;Autor
 BarCode;Kod kreskowy
 Basic;Podstawowy
 Basic_Note;Uwaga: Aby uzyskać więcej informacji musisz wybrać inny widok (Karta, Drzewo...)
+BitDepth
 BitRate;Przepływność bitów
 BitRate_Maximum;Przwpływność maksymalna
 BitRate_Minimum;Przepływność minimalna
@@ -202,6 +203,7 @@ Choose filename;Wybierz preferowaną nazwę pliku
 Choose language;Wybierz preferowany język
 Choregrapher;Choreograf
 Chroma;Chrominancja
+ChromaSubsampling
 Close;Zamknij
 Close all before open;Zamykaj wszystko przed otwarciem pliku
 Codec;Kodek
@@ -226,6 +228,7 @@ CodecID;ID kodeka
 CodecID_Description;Opis kodeka
 Collection;Kolekcja
 Colorimetry;Kolorymetria
+ColorSpace
 colour_primaries
 Comment;Komentarz
 CommissionedBy;Powierzony przez
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Ustawienia formatu, rozwijany
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;Wersja formatu
 Format_Url;Adres sieciowy formatu
 FrameCount;Liczba klatek
@@ -946,4 +951,4 @@ WrittenBy;Napisał
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98

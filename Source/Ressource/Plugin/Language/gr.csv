@@ -175,6 +175,7 @@ Author;Author
 BarCode;BarCode
 Basic;Βασική
 Basic_Note;Σημείωση : για περισσότερες πληροφορίες σχετικά με το αρχείο, επιλέξτε διαφορετική προβολή (Φύλλο, Δένδρο...)
+BitDepth
 BitRate;Ρυθμός μετάδοσης δεδομένων
 BitRate_Maximum
 BitRate_Minimum
@@ -202,6 +203,7 @@ Choose filename;Επιλέξτε το επιθυμητό όνομα αρχείο
 Choose language;Επιλέξτε την επιθυμητή γλώσσα
 Choregrapher;Χορογράφος
 Chroma;Χρώμα
+ChromaSubsampling
 Close;Κλείσιμο
 Close all before open;Κλείστε όλα τα ανοιχτά αρχεία πριν το άνοιγμα νέων
 Codec;Συμπιεστής
@@ -226,6 +228,7 @@ CodecID
 CodecID_Description
 Collection;Συλλογή
 Colorimetry
+ColorSpace
 colour_primaries
 Comment;Σχόλιο
 CommissionedBy;Commissioned by
@@ -328,6 +331,8 @@ Format_Settings_Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version
 Format_Url
 FrameCount
@@ -946,4 +951,4 @@ WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
 ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;85
+ZZ_AutomaticLanguage_Percent;84

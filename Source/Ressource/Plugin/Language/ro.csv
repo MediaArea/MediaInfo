@@ -175,6 +175,7 @@ Author;Autor
 BarCode;Cod de bare
 Basic;Principal
 Basic_Note;Nota: pentru mai multe informatii despre acest fisier, tebuie sa selectati modul avansat
+BitDepth
 BitRate
 BitRate_Maximum
 BitRate_Minimum
@@ -202,6 +203,7 @@ Choose filename;Alegeti numele fisierului
 Choose language;Selectati limba dorita
 Choregrapher;Coregraf
 Chroma
+ChromaSubsampling
 Close;Inchideti
 Close all before open;Inchideti tot inainte de a deschide
 Codec;Codec
@@ -226,6 +228,7 @@ CodecID
 CodecID_Description
 Collection;Colectie
 Colorimetry
+ColorSpace
 colour_primaries
 Comment;Comentariu
 CommissionedBy
@@ -328,6 +331,8 @@ Format_Settings_Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version
 Format_Url
 FrameCount
@@ -946,4 +951,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;35
-ZZ_AutomaticLanguage_Percent;75
+ZZ_AutomaticLanguage_Percent;74

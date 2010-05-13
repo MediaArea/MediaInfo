@@ -175,6 +175,7 @@ Author;Autor
 BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota: para obtener más información acerca de éste archivo, debe seleccionar una vista diferente (Hoja, árbol ...)
+BitDepth
 BitRate;Tasa de bits
 BitRate_Maximum;Tasa de bits máxima
 BitRate_Minimum;Tasa de bits mínima
@@ -202,6 +203,7 @@ Choose filename;Elegir nombre de archivo
 Choose language;Elegir Idioma
 Choregrapher;Coreografía
 Chroma;Croma
+ChromaSubsampling
 Close;Cerrar
 Close all before open;Cerrar todo antes de abrir
 Codec;Códec
@@ -226,6 +228,7 @@ CodecID;ID Códec
 CodecID_Description;Descripción del códec
 Collection;Colección
 Colorimetry;Espacio de color
+ColorSpace
 colour_primaries
 Comment;Comentarios
 CommissionedBy;Encargado por
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Ajustes del formato, Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;Formato de la versión
 Format_Url;Vínculo web  del formato
 FrameCount;Contador de cuadro
@@ -945,5 +950,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;82
+ZZ_Automatic_Percent;81
 ZZ_AutomaticLanguage_Percent;97

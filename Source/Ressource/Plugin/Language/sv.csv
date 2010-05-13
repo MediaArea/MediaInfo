@@ -175,6 +175,7 @@ Author; Författare
 BarCode; Streckkod
 Basic; Enkel
 Basic_Note; OBS: För mer information om den här filen, måste du välja en annan vy (Tabell, Träd...)
+BitDepth
 BitRate; Bitrate
 BitRate_Maximum
 BitRate_Minimum
@@ -202,6 +203,7 @@ Choose filename; Välj önskat filmnamn
 Choose language; Välj önskat språk
 Choregrapher; Koreograf
 Chroma
+ChromaSubsampling
 Close; Stäng
 Close all before open; Stäng alla före öppna
 Codec; Codec
@@ -226,6 +228,7 @@ CodecID
 CodecID_Description
 Collection; Samling
 Colorimetry
+ColorSpace
 colour_primaries
 Comment; Kommentar
 CommissionedBy; Kommissionerad av
@@ -328,6 +331,8 @@ Format_Settings_Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version
 Format_Url
 FrameCount
@@ -946,4 +951,4 @@ WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
 ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;83
+ZZ_AutomaticLanguage_Percent;82

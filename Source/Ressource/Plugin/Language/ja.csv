@@ -175,6 +175,7 @@ Author;製作者
 BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
+BitDepth
 BitRate;ビットレート
 BitRate_Maximum;最大
 BitRate_Minimum;最小
@@ -202,6 +203,7 @@ Choose filename;ファイル名を選択してください
 Choose language;言語を選択してください
 Choregrapher;コアグラファー
 Chroma;クローマ
+ChromaSubsampling
 Close;閉じる
 Close all before open;すべて閉じて開く
 Codec;コーデック
@@ -226,6 +228,7 @@ CodecID;コーデック ID
 CodecID_Description;コーデック ID の説明
 Collection;コレクション
 Colorimetry;カラーリメトリ
+ColorSpace
 colour_primaries
 Comment;コメント
 CommissionedBy;コミッショナー
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;プルダウン
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;バージョン
 Format_Url;Url フォーマット
 FrameCount;フレーム数
@@ -945,5 +950,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

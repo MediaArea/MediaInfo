@@ -175,6 +175,7 @@ Author;Autore
 BarCode;Codice a barre
 Basic;Semplice
 Basic_Note;Nota: per maggiori informazioni seleziona Scheda, Albero....
+BitDepth
 BitRate;BitRate
 BitRate_Maximum;BitRate massimo
 BitRate_Minimum;BitRate minimo
@@ -202,6 +203,7 @@ Choose filename;Inserire il nome
 Choose language;Scegli la lingua
 Choregrapher;Coreografo
 Chroma;Croma
+ChromaSubsampling
 Close;Chiudi
 Close all before open;Chiudi tutto prima di aprire
 Codec;Codec
@@ -226,6 +228,7 @@ CodecID;Codec ID
 CodecID_Description;Descrizione del codec
 Collection;Collezione
 Colorimetry;Colorimetria
+ColorSpace
 colour_primaries
 Comment;Commenti
 CommissionedBy;Commissionato da
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Impostazioni del formato, Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;Versione del formato
 Format_Url;Sito del formato
 FrameCount;Numero di fotogrammi
@@ -945,5 +950,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

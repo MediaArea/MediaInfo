@@ -175,6 +175,7 @@ Author;Autor
 BarCode;BarCode
 Basic;Základné
 Basic_Note;Info : Pre viac detailov vyberte iný režim zobrazenia (List, Strom...)
+BitDepth
 BitRate;Dátový tok
 BitRate_Maximum;Maximálny dátový tok
 BitRate_Minimum;Minimálny dátový tok
@@ -202,6 +203,7 @@ Choose filename;Vybetre požadovaný názov súboru
 Choose language;Vybrať jazyk
 Choregrapher;Choregrapher
 Chroma;Chroma
+ChromaSubsampling
 Close;Zatvoriť
 Close all before open;Zatvoriť všetko pred otvorením nového
 Codec;Kodek
@@ -226,6 +228,7 @@ CodecID
 CodecID_Description;Popis kodeku
 Collection;Collection
 Colorimetry
+ColorSpace
 colour_primaries
 Comment;Komentár
 CommissionedBy;Commissioned by
@@ -328,6 +331,8 @@ Format_Settings_Pulldown
 Format_Settings_Mode;Režim
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version
 Format_Url
 FrameCount

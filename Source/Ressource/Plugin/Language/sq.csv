@@ -175,6 +175,7 @@ Author;Autori
 BarCode;BarCode
 Basic;Kryesor
 Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...) 
+BitDepth
 BitRate;Raporti i bitit
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit
@@ -202,6 +203,7 @@ Choose filename;Zgjedh emrin e skedës së dëshiruar
 Choose language;Zgjedh gjuhën e dëshiruar
 Choregrapher;Koreografi
 Chroma;Kroma
+ChromaSubsampling
 Close;Mbyll
 Close all before open;Mbyll infot para hapjes
 Codec;Kodeku
@@ -226,6 +228,7 @@ CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
 Collection;Koleksioni
 Colorimetry;Kolorimetria
+ColorSpace
 colour_primaries;Primarët e ngjyrës
 Comment;Komenti
 CommissionedBy;Autorizuar nga
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Vendosjet e formatit, Pulldown
 Format_Settings_Mode;Mënyra
 Format_Settings_FrameMode;Mënyra e Kuadrit
 Format_Settings_Emphasis;Emfaza
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;Versioni i formatit
 Format_Url;Lidhësi në rrjetë i formatit
 FrameCount;Numri i kuadrove

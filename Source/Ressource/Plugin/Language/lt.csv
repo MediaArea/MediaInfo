@@ -175,6 +175,7 @@ Author;Autorius
 BarCode;Brūkšninis kodas
 Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
+BitDepth
 BitRate;Bitų tempas
 BitRate_Maximum;Maksimalus bitų tempas
 BitRate_Minimum;Minimalus bitų tempas
@@ -202,6 +203,7 @@ Choose filename;Pasirinkite norimą failo pavadinimą
 Choose language;Pasirinkite savo norimą kalbą
 Choregrapher;Choreografas
 Chroma;Chromas
+ChromaSubsampling
 Close;Uždaryti
 Close all before open;Uždaryti visus prieš atveriant
 Codec;Kodekas
@@ -226,6 +228,7 @@ CodecID;Kodeko ID
 CodecID_Description
 Collection;Kolekcija
 Colorimetry;Kolorimetrija
+ColorSpace
 colour_primaries
 Comment;Komentaras
 CommissionedBy;Įgaliotas
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Formato nuostatos, Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;Formato versija
 Format_Url
 FrameCount
@@ -945,5 +950,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;90

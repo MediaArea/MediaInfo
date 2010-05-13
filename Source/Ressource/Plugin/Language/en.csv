@@ -175,6 +175,7 @@ Author;Author
 BarCode;BarCode
 Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
+BitDepth;Bit depth
 BitRate;Bit rate
 BitRate_Maximum;Maximum bit rate
 BitRate_Minimum;Minimum bit rate
@@ -202,6 +203,7 @@ Choose filename;Choose your desired filename
 Choose language;Choose your desired language
 Choregrapher;Choregrapher
 Chroma;Chroma
+ChromaSubsampling;Chroma subsampling
 Close;Close
 Close all before open;Close all before open
 Codec;Codec
@@ -226,6 +228,7 @@ CodecID;Codec ID
 CodecID_Description;Description of the codec
 Collection;Collection
 Colorimetry;Colorimetry
+ColorSpace;Color space
 colour_primaries;Color primaries
 Comment;Comment
 CommissionedBy;Commissioned by
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Format settings, Pulldown
 Format_Settings_Mode;Mode
 Format_Settings_FrameMode;Frame mode
 Format_Settings_Emphasis;Emphasis
+Format_Settings_ModeExtension;Mode extension
+Format_Settings_GOP;Format settings, GOP
 Format_Version;Format version
 Format_Url;Weblink for format
 FrameCount;Frame count

@@ -175,6 +175,7 @@ Author;作者
 BarCode;條碼
 Basic;基本
 Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同的視點 (表格, 樹狀圖 ...)
+BitDepth
 BitRate;流量
 BitRate_Maximum;最大流量
 BitRate_Minimum;最小流量
@@ -202,6 +203,7 @@ Choose filename;選擇你要的檔名
 Choose language;選擇你要的語系
 Choregrapher;動作指導
 Chroma;彩度
+ChromaSubsampling
 Close;關閉
 Close all before open;開啟前關閉其它檔案
 Codec;編解碼器
@@ -226,6 +228,7 @@ CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
 Collection;收藏
 Colorimetry;比色法
+ColorSpace
 colour_primaries;色彩原色
 Comment;註釋
 CommissionedBy;委託
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;格式設定, Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;格式版本
 Format_Url;該格式的網址
 FrameCount;影格數
@@ -945,5 +950,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

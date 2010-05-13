@@ -175,6 +175,7 @@ Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
+BitDepth
 BitRate;Stopa protoka podataka
 BitRate_Maximum;Maksimum protoka podataka
 BitRate_Minimum;Minimum protoka podataka
@@ -202,6 +203,7 @@ Choose filename;Odaberite naziv datoteke
 Choose language;Odaberite jezik
 Choregrapher;Koreograf
 Chroma;Kromatizam
+ChromaSubsampling
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
 Codec;Kôdek
@@ -226,6 +228,7 @@ CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
 Collection;Zbirka
 Colorimetry;Kolorimetrija
+ColorSpace
 colour_primaries
 Comment;Komentar
 CommissionedBy;Prema nalogu
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;Postavke oblika datoteke za Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;Inačica oblika datoteke
 Format_Url;Spletna poveznica oblika datoteke
 FrameCount;Broj sličica
@@ -945,5 +950,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

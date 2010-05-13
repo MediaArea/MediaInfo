@@ -175,6 +175,7 @@ Author;작가
 BarCode;바코드
 Basic;기본
 Basic_Note;노트 : 이 파일에 관한 더 자세한 정보를 원하시면 다른 보기를 선택하세요(시트, 트리...)
+BitDepth
 BitRate;비트레이트
 BitRate_Maximum;최고 비트레이트
 BitRate_Minimum;최소 비트레이트
@@ -202,6 +203,7 @@ Choose filename;원하는 파일명을 선택하세요
 Choose language;원하는 언어를 선택하세요
 Choregrapher;안무가
 Chroma;색차
+ChromaSubsampling
 Close;닫기
 Close all before open;열기 전에 모두 닫기
 Codec;코덱
@@ -226,6 +228,7 @@ CodecID;코덱 ID
 CodecID_Description;코덱 설명
 Collection;콜렉션
 Colorimetry;색체계
+ColorSpace
 colour_primaries
 Comment;주석
 CommissionedBy;의뢰
@@ -328,6 +331,8 @@ Format_Settings_Pulldown;포맷 설정, Pulldown
 Format_Settings_Mode
 Format_Settings_FrameMode
 Format_Settings_Emphasis
+Format_Settings_ModeExtension
+Format_Settings_GOP
 Format_Version;포맷 버전
 Format_Url;포맷 웹링크
 FrameCount;포맷 개수
@@ -945,5 +950,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

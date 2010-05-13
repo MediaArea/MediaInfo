@@ -20,6 +20,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
 			<IncludePath>..\..\..\Source\PreRelease\VCL;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease;$(IncludePath)</IncludePath>
 			<TASM_Defines>_RTLDLL;USEPACKAGES;NO_STRICT;UNICODE;$(TASM_Defines)</TASM_Defines>
 			<BRCC_Defines>_RTLDLL;USEPACKAGES;NO_STRICT;UNICODE;$(BRCC_Defines)</BRCC_Defines>
@@ -44,7 +45,7 @@
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<DynamicRTL>true</DynamicRTL>
 			<Multithreaded>true</Multithreaded>
-			<ILINK_LibraryPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\..\Shared\Library\BCB;..\..\..\Source\PreRelease;E:\Programmation\MediaInfo\Project\BCB\PreRelease;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>..\..\..\..\wxWidgets\lib\bcc_lib;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\..\Shared\Library\BCB;..\..\..\Source\PreRelease;E:\Programmation\MediaInfo\Project\BCB\PreRelease;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
 			<BCC_Defines>_DEBUG;$(BCC_Defines);$(BCC_Defines)</BCC_Defines>
@@ -73,21 +74,21 @@
 			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="PreRelease.cpp">
-				<BuildOrder>-1</BuildOrder>
-				<BuildOrder>0</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
+				<BuildOrder>7</BuildOrder>
+				<BuildOrder>2</BuildOrder>
 			</CppCompile>
 			<ResFiles Include="PreRelease.res">
 				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>1</BuildOrder>
 			</ResFiles>
+			<CppCompile Include="PreRelease.cpp">
+				<BuildOrder>-1</BuildOrder>
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\Source\PreRelease\Language_All.cpp">
 				<BuildOrder>7</BuildOrder>
 				<BuildOrder>2</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\PreRelease\Language_Others.cpp">
-				<BuildOrder>9</BuildOrder>
-				<BuildOrder>3</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\Source\PreRelease\VCL\PreRelease_.cpp">
 				<BuildOrder>8</BuildOrder>
@@ -95,25 +96,25 @@
 				<DependentOn>..\..\..\Source\PreRelease\VCL\PreRelease_.h</DependentOn>
 				<BuildOrder>4</BuildOrder>
 			</CppCompile>
-			<LibFiles Include="..\..\..\..\Shared\Library\BCB\ZenLib.lib">
-				<BuildOrder>5</BuildOrder>
-				<BuildOrder>1</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\Shared\Library\BCB\Zlib.lib">
-				<BuildOrder>6</BuildOrder>
-				<BuildOrder>0</BuildOrder>
-			</LibFiles>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
-				<BuildOrder>7</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</CppCompile>
-			<LibFiles Include="..\..\..\..\Shared\Library\BCB\wxmsw28u_core.lib">
-				<BuildOrder>8</BuildOrder>
-				<BuildOrder>4</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\Shared\Library\BCB\wxbase28u.lib">
+			<CppCompile Include="..\..\..\Source\PreRelease\Language_Others.cpp">
 				<BuildOrder>9</BuildOrder>
 				<BuildOrder>3</BuildOrder>
+			</CppCompile>
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>6</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>7</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\wxWidgets\lib\bcc_lib\wxmsw28u_core.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>8</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\wxWidgets\lib\bcc_lib\wxbase28u.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>9</BuildOrder>
 			</LibFiles>
 			<FormResources Include="..\..\..\Source\PreRelease\VCL\PreRelease_.dfm"/>
 			<BuildConfiguration Include="Base">
