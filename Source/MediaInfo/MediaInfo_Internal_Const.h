@@ -61,6 +61,8 @@ enum infocodecid_t
     InfoCodecID_Profile,            ///<
     InfoCodecID_Version,            ///<
     InfoCodecID_ColorSpace,         ///<
+    InfoCodecID_ChromaSubsampling,  ///<
+    InfoCodecID_BitDepth,           ///<
     InfoCodecID_Max
 };
 

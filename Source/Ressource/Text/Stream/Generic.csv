@@ -32,6 +32,11 @@ BitRate_Nominal
 BitRate_Nominal/String
 BitRate_Maximum
 BitRate_Maximum/String
+ColorSpace
+Resolution
+Resolution/String
+BitDepth
+BitDepth/String
 StreamSize
 StreamSize/String
 StreamSize/String1

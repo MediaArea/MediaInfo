@@ -64,8 +64,12 @@ FrameRate_Maximum/String;;;Y NT;;;Maximum Frames per second (with measurement)
 FrameRate_Original;; fps;N YF;;;Original (in the raw stream) Frames per second
 FrameRate_Original/String;;;Y NT;;;Original (in the raw stream) Frames per second (with measurement)
 FrameCount;;;N NI;;;Number of frames
-Resolution;; bit;N YI;;;
-Resolution/String;;;Y NT;;;
+ColorSpace;;;Y YT;;;
+ChromaSubsampling;;;Y YT;;;
+Resolution;; bit;N NI;;;Deprecated, do not use in new projects
+Resolution/String;;;N NT;;;Deprecated, do not use in new projects
+BitDepth;; bit;N YI;;;
+BitDepth/String;;;Y NT;;;
 Delay;; ms;N YI;;;Delay fixed in the stream (relative)
 Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
@@ -106,10 +110,10 @@ Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-
 Language/String;;;Y NT;;;Language (full)
 Language/String1;;;N NT;;;Language (full)
 Language/String2;;;N NT;;;Language (2-letter ISO 639-1 if exists, else empty)
-Language/String3;;;N NT;;;Language (3-letter ISO 639-2 if exists, else empty)
-Language/String4;;;N NT;;;Language (2-letter ISO 639-1 if exists with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn, else empty)
-Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment)
-Summary;;;N NT;;;
+Language/String3;;;N NT;;;Language (3-letter ISO 639-2 if exists, else empty);;
+Language/String4;;;N NT;;;Language (2-letter ISO 639-1 if exists with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn, else empty);;
+Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
+Summary;;;N NT;;;;;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
 Encryption;;;Y YT;;;;;

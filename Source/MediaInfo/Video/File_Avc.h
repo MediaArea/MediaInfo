@@ -229,7 +229,7 @@ private :
     int32u max_num_ref_frames;
     int32u pic_order_cnt_type;
     int32u bit_depth_luma_minus8;
-    int32u bit_depth_Colorimetry_minus8;
+    int32u bit_depth_chroma_minus8;
     int32u pic_order_cnt_lsb;
     int32u pic_order_cnt_lsb_Last;
     int32u seq_parameter_set_id;

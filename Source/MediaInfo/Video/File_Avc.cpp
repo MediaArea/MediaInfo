@@ -553,7 +553,8 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, max_num_ref_frames);
         Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, max_num_ref_frames);
     }
-    if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
+    Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
+    if (bit_depth_luma_minus8==bit_depth_chroma_minus8)
         Fill(Stream_Video, 0, Video_Resolution, bit_depth_luma_minus8+8);
 
     //Colour description
@@ -717,7 +718,7 @@ void File_Avc::Synched_Init()
     pic_order_cnt_type=0;
     pic_order_cnt_lsb_Last=(int32u)-1;
     bit_depth_luma_minus8=0;
-    bit_depth_Colorimetry_minus8=0;
+    bit_depth_chroma_minus8=0;
     pic_order_cnt_lsb=(int32u)-1;
     cpb_cnt_minus1=0;
     initial_cpb_removal_delay=0;
@@ -2201,7 +2202,7 @@ void File_Avc::seq_parameter_set_data()
         if (chroma_format_idc==3)
             Skip_SB(                                            "residual_colour_transform_flag");
         Get_UE (bit_depth_luma_minus8,                          "bit_depth_luma_minus8");
-        Get_UE (bit_depth_Colorimetry_minus8,                   "bit_depth_Colorimetry_minus8");
+        Get_UE (bit_depth_chroma_minus8,                        "bit_depth_chroma_minus8");
         Skip_SB(                                                "qpprime_y_zero_transform_bypass_flag");
         TEST_SB_SKIP(                                           "seq_scaling_matrix_present_flag");
             for (int32u Pos=0; Pos<8; Pos++)

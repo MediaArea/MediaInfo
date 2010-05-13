@@ -197,6 +197,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     }
     Status[IsUpdated]=true;
 
+    //Deprecated
+    if (!IsSub)
+    {
+        if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
+            Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
+        if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
+            Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
+    }
+
     if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio && !Value.empty() && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio).empty())
     {
         float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
@@ -1827,6 +1836,10 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Video_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Video_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Video_BitRate_Maximum_String;
+                                    case Generic_Resolution : return Video_Resolution;
+                                    case Generic_Resolution_String : return Video_Resolution_String;
+                                    case Generic_BitDepth : return Video_BitDepth;
+                                    case Generic_BitDepth_String : return Video_BitDepth_String;
                                     case Generic_StreamSize : return Video_StreamSize;
                                     case Generic_StreamSize_String : return Video_StreamSize_String;
                                     case Generic_StreamSize_String1 : return Video_StreamSize_String1;
@@ -1874,6 +1887,10 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Audio_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Audio_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Audio_BitRate_Maximum_String;
+                                    case Generic_Resolution : return Audio_Resolution;
+                                    case Generic_Resolution_String : return Audio_Resolution_String;
+                                    case Generic_BitDepth : return Audio_BitDepth;
+                                    case Generic_BitDepth_String : return Audio_BitDepth_String;
                                     case Generic_StreamSize : return Audio_StreamSize;
                                     case Generic_StreamSize_String : return Audio_StreamSize_String;
                                     case Generic_StreamSize_String1 : return Audio_StreamSize_String1;
@@ -1921,6 +1938,10 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Text_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Text_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Text_BitRate_Maximum_String;
+                                    case Generic_Resolution : return Text_Resolution;
+                                    case Generic_Resolution_String : return Text_Resolution_String;
+                                    case Generic_BitDepth : return Text_BitDepth;
+                                    case Generic_BitDepth_String : return Text_BitDepth_String;
                                     case Generic_StreamSize : return Text_StreamSize;
                                     case Generic_StreamSize_String : return Text_StreamSize_String;
                                     case Generic_StreamSize_String1 : return Text_StreamSize_String1;
@@ -1951,6 +1972,10 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Codec_String : return Image_Codec_String;
                                     case Generic_Codec_Info : return Image_Codec_Info;
                                     case Generic_Codec_Url : return Image_Codec_Url;
+                                    case Generic_Resolution : return Image_Resolution;
+                                    case Generic_Resolution_String : return Image_Resolution_String;
+                                    case Generic_BitDepth : return Image_BitDepth;
+                                    case Generic_BitDepth_String : return Image_BitDepth_String;
                                     case Generic_StreamSize : return Image_StreamSize;
                                     case Generic_StreamSize_String : return Image_StreamSize_String;
                                     case Generic_StreamSize_String1 : return Image_StreamSize_String1;
