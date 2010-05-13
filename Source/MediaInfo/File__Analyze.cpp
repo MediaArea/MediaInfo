@@ -1828,9 +1828,6 @@ void File__Analyze::Finish (const char* ParserName_Char)
     if (Status[IsAccepted])
         Fill();
 
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
-        return;
-
     if (Status[IsAccepted])
     {
         Streams_Finish();
@@ -1847,9 +1844,6 @@ void File__Analyze::Finish ()
 
     if (Status[IsAccepted])
         Fill();
-
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && File_Offset+Buffer_Offset+(size_t)Element_Size<File_Size)
-        return;
 
     if (Status[IsAccepted])
     {
