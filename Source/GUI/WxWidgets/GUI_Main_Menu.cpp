@@ -323,7 +323,7 @@ void GUI_Main::OnMenu_Debug_Demux_All(wxCommandEvent& WXUNUSED(event))
 void GUI_Main::OnMenu_Help_About(wxCommandEvent& WXUNUSED(event))
 {
     //Showing
-    wxString Version=C->Menu_Option_Preferences_Option(_T("Info_Version"), _T(""));
+    wxString Version=C->Menu_Option_Preferences_Option(_T("Info_Version"), _T("")).c_str();
     wxMessageBox(_T("This is the About dialog of the minimal MediaInfo sample.\n")+Version+_T("\nMediaInfo supplies technical and tag information about \na video or audio file.\nTo get more info's visit \nhttp://mediainfo.sourceforge.net"), _T("About Minimal"), wxOK | wxICON_INFORMATION, this);
 }
 
