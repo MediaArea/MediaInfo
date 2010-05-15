@@ -147,8 +147,9 @@ void File_Eia708::Data_Parse()
 void File_Eia708::Service()
 {
     if (service_number>=Streams.size())
-    {
         Streams.resize(service_number+1);
+    if (Streams[service_number]==NULL)
+    {
         Streams[service_number]=new stream;
         Streams[service_number]->Minimal.CC.resize(15);
         for (int8u Pos_Y=0; Pos_Y<15; Pos_Y++)

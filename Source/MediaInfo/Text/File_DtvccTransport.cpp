@@ -243,6 +243,8 @@ void File_DtvccTransport::Read_Buffer_Continue()
                                 ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
                                 ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
                             #endif
+                            if (cc_type==3)
+                                Streams[2]->Parser->Open_Buffer_Unsynch();
                         }
                         else
                         {
