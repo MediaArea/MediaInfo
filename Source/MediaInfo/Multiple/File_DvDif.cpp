@@ -866,7 +866,7 @@ void File_DvDif::Video()
     #endif //MEDIAINFO_TRACE
 
     FILLING_BEGIN();
-        if (DBN==134)
+        if (DBN==134 && video_source_stype!=(int8u)-1)
         {
             if (!Status[IsAccepted])
             {

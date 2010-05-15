@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.34, 2010-
+--------------
+x JPEG/M-JPEG: Resolution was in some random other field
+
 Version 0.7.33, 2010-05-14
 --------------
 + Colorimetry field is replaced by Color space and Chroma subsampling
