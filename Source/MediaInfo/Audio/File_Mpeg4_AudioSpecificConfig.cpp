@@ -374,8 +374,12 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         default : ;
     }
 
+    bool sbrData=false;
     if (extensionAudioObjectType!=0x05 && Data_BS_Remain()>=16)
+    {
+        sbrData=true;
         SBR();
+    }
 
     BS_End();
 
@@ -391,7 +395,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
             samplingFrequency*=2;
             sbrPresentFlag=true;
         }
-        if (!psPresentFlag && channelConfiguration<=1) //1 channel
+        if ((!sbrData || sbrPresentFlag) && !psPresentFlag && channelConfiguration<=1) //1 channel
             psPresentFlag=true;
     }
 
