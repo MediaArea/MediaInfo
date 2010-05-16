@@ -1047,6 +1047,8 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
         */
 
         //Faster method
+        if (Element_Offset+8>Element_Size)
+            break; //Malformed index
         int32u Offset=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
         int32u Size  =LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4)&0x7FFFFFFF;
         Element_Offset+=8;
