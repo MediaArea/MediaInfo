@@ -13,6 +13,7 @@ x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo
 x AVI: crash with some malformed files
+x AVI: Stream identifier was not filled in some cases
 
 Version 0.7.33, 2010-05-14
 --------------

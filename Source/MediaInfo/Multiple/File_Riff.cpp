@@ -301,6 +301,8 @@ void File_Riff::Streams_Finish ()
                 }
             #endif
         }
+        else if (StreamKind_Last!=Stream_General)
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
 
         //Duration
         if (Temp->second.PacketCount>0)
@@ -391,7 +393,7 @@ void File_Riff::Streams_Finish ()
                 }
             }
         }
-        
+
         Temp++;
     }
 
