@@ -326,7 +326,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         if (Buffer_Offset>Buffer_Size)
             File_GoTo=File_Offset+Buffer_Offset;
         if (!Status[IsFinished])
-            File_Offset+=Buffer_Offset;
+            File_Offset+=Buffer_Size;
         Buffer_Clear();
         return;
     }
