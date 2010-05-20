@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.34, 2010-
 --------------
++ WebM support
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo

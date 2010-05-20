@@ -1032,6 +1032,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "ShockWave;;;M;Swf;;swf;application/x-shockwave;http://www.macromedia.com/go/getflashplayer\n"
     "SKM;;;M;Skm;Sky Korean Mobilephone;skm;;http://www.isky.co.kr/html/cs/download.jsp\n"
     "Windows Media;;;M;Wm;;asf wmv wma;video/x-ms-wmv\n"
+    "WebM;;;M;Mkv;;webm;video/webm;http://www.webmproject.org/\n"
     "AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html\n"
     "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;;http://www.avs.org.cn/\n"
     "Dirac;;;V;Dirac;;drc;;http://diracvideo.org/\n"
@@ -1046,6 +1047,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES\n"
     "Theora;;;V\n"
     "VC-1;;;V;Vc1;;vc1;video/vc1\n"
+    "VP8;;;V;;;;;http://www.webmproject.org/\n"
     "AAC;;;A;;Advanced Audio Codec;aac\n"
     "AC-3;;;A;Ac3;Audio Coding 3;ac3\n"
     "ADIF;;;A;Adif;Audio Data Interchange Format;aac\n"
@@ -1212,6 +1214,7 @@ void MediaInfo_Config_CodecID_Video_Matroska (InfoMap &Info)
     "V_REAL/RV30;RealVideo 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com\n"
     "V_REAL/RV40;RealVideo 4;;RealVideo 4.0 aka RealVideo 9;http://www.real.com\n"
     "V_THEORA;Theora;;;http://www.theora.org\n"
+    "V_VP8;VP8;;;http://www.webmproject.org/\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
