@@ -699,7 +699,12 @@ void File_Bdmv::Clpi_ProgramInfo()
         MediaInfo_Internal MI;
         MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
         if (MI.Open(M2TS_File))
+        {
             Merge(MI);
+            for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                    Fill((stream_t)StreamKind, StreamPos, "Source", file+_T(".m2ts"));
+        }
 
         //Retrieving PID mapping
         for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
@@ -1355,12 +1360,15 @@ void File_Bdmv::Mpls_PlayList_SubPlayItem()
                     Ztring ID_String=Retrieve(Stream_Video, 0, Video_ID_String);
                     Ztring Format_Profile=Retrieve(Stream_Video, 0, Video_Format_Profile);
                     Ztring BitRate=Retrieve(Stream_Video, 0, Video_BitRate);
+                    Ztring Source=Retrieve(Stream_Video, 0, "Source");
                     Fill(Stream_Video, 0, Video_ID, MI.Get(Stream_Video, 0, Video_ID)+_T(" / ")+ID, true);
                     Fill(Stream_Video, 0, Video_ID_String, MI.Get(Stream_Video, 0, Video_ID_String)+_T(" / ")+ID_String, true);
                     if (!Format_Profile.empty())
                         Fill(Stream_Video, 0, Video_Format_Profile, MI.Get(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
                     if (!BitRate.empty())
                         Fill(Stream_Video, 0, Video_BitRate, Ztring::ToZtring(BitRate.To_int32u()+MI.Get(Stream_Video, 0, Video_BitRate).To_int32u())+_T(" / ")+BitRate, true);
+                    if (!Source.empty())
+                        Fill(Stream_Video, 0, "Source", Clip_Information_file_name +_T(".m2ts / ")+Source, true);
                 }
             }
         }
