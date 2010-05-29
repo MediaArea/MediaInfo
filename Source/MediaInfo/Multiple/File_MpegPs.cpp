@@ -3212,7 +3212,20 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     return false; //Not enough data
                 int16u Size=CC2(Buffer+Buffer_Offset+4);
                 if (Size>0)
+                {
                     Buffer_Offset+=6+Size;
+
+                    //Trailing 0xFF
+                    while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0xFF)
+                        Buffer_Offset++;
+
+                    //Trailing 0x00
+                    while(Buffer_Offset+3<=Buffer_Size
+                       && Buffer[Buffer_Offset+2]==0x00
+                       && Buffer[Buffer_Offset+1]==0x00
+                       && Buffer[Buffer_Offset  ]==0x00)
+                        Buffer_Offset++;
+                }
                 else
                 {
                     Buffer_Offset+=6;
