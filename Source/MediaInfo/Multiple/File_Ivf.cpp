@@ -64,7 +64,7 @@ void File_Ivf::FileHeader_Parse()
     int32u frame_rate_num, frame_rate_den, frame_count, unused, fourcc;
     int16u version, header_size, width, height;
 
-    Skip_C4 (                                                   "DKIF");
+    Skip_C4 (                                                   "Signature");
     Get_L2 (version,                                            "Version");
     Get_L2 (header_size,                                        "Header Size");
     Get_C4 (fourcc,                                             "Fourcc");
@@ -84,10 +84,10 @@ void File_Ivf::FileHeader_Parse()
         Fill(Stream_Video, 0, Video_Format, _T("VP8"));
         Fill(Stream_Video, 0, Video_Codec, _T("VP8"));
         Fill(Stream_Video, 0, Video_CodecID, Ztring().From_CC4(fourcc));
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, frame_rate_num / frame_rate_den);
+        Fill(Stream_Video, 0, Video_FrameRate, frame_rate_num / frame_rate_den);
         Fill(Stream_Video, 0, Video_FrameCount, frame_count);
-        Fill(Stream_Video, StreamPos_Last, Video_Width, width);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, height);
+        Fill(Stream_Video, 0, Video_Width, width);
+        Fill(Stream_Video, 0, Video_Height, height);
 
         //No more need data
         Finish("IVF");
