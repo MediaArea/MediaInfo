@@ -19,6 +19,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
 // From : http://www.webmproject.org/
+// Specs: http://wiki.multimedia.cx/index.php?title=IVF
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -66,28 +67,38 @@ void File_Ivf::FileHeader_Parse()
 
     Skip_C4 (                                                   "Signature");
     Get_L2 (version,                                            "Version");
-    Get_L2 (header_size,                                        "Header Size");
-    Get_C4 (fourcc,                                             "Fourcc");
-    Get_L2 (width,                                              "Width");
-    Get_L2 (height,                                             "Height");
-    Get_L4 (frame_rate_num,                                     "FrameRate Numerator");
-    Get_L4 (frame_rate_den,                                     "FrameRate Denominator");
-    Get_L4 (frame_count,                                        "Frame Count");
-    Get_L4 (unused,                                             "Unused");
+    if (version==0)
+    {
+        Get_L2 (header_size,                                    "Header Size");
+        if (header_size>=32)
+        {
+            Get_C4 (fourcc,                                     "Fourcc");
+            Get_L2 (width,                                      "Width");
+            Get_L2 (height,                                     "Height");
+            Get_L4 (frame_rate_num,                             "FrameRate Numerator");
+            Get_L4 (frame_rate_den,                             "FrameRate Denominator");
+            Get_L4 (frame_count,                                "Frame Count");
+            Get_L4 (unused,                                     "Unused");
+            if (header_size-32)
+                Skip_XX(header_size-32,                         "Unknown");
+        }
+    }
 
     FILLING_BEGIN();
         Accept("IVF");
 
-        Fill(Stream_General, 0, General_Format, "Ivf");
+        Fill(Stream_General, 0, General_Format, "IVF");
 
-        Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, 0, Video_Format, _T("VP8"));
-        Fill(Stream_Video, 0, Video_Codec, _T("VP8"));
-        Fill(Stream_Video, 0, Video_CodecID, Ztring().From_CC4(fourcc));
-        Fill(Stream_Video, 0, Video_FrameRate, frame_rate_num / frame_rate_den);
-        Fill(Stream_Video, 0, Video_FrameCount, frame_count);
-        Fill(Stream_Video, 0, Video_Width, width);
-        Fill(Stream_Video, 0, Video_Height, height);
+        if (version==0 && header_size>=32)
+        {
+            Stream_Prepare(Stream_Video);
+            CodecID_Fill(Ztring().From_CC4(fourcc), Stream_Video, 0, InfoCodecID_Format_Riff);
+            Fill(Stream_Video, 0, Video_FrameRate, (float)frame_rate_num / frame_rate_den);
+            Fill(Stream_Video, 0, Video_FrameCount, frame_count);
+            Fill(Stream_Video, 0, Video_Width, width);
+            Fill(Stream_Video, 0, Video_Height, height);
+            Fill(Stream_Video, 0, Video_StreamSize, File_Size-header_size-12*frame_count); //Overhead is 12 byte per frame
+        }
 
         //No more need data
         Finish("IVF");

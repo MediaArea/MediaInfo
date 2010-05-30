@@ -599,6 +599,7 @@ VP62;VP6.2;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_code
 VP70;VP7;On2;;;;;;
 VP71;VP7;On2;;;;;;
 VP72;VP7;On2;;;;;;
+VP80;VP8;;;http://www.webmproject.org;;;YUV;4:2:0
 VQC1;Vector 1;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;;;;;
 VQC2;Vector 2;;Vector-quantised 2 (high robustness against channel errors) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;;;;;
 VQJP;VQ630;;Dual-mode digital camera;;;;;
