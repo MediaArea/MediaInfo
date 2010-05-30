@@ -120,10 +120,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Other.cpp"
 				>
 			</File>
@@ -439,6 +435,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dvdv.cpp"
 					>
 				</File>
@@ -448,6 +448,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Gxf.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ivf.cpp"
 					>
 				</File>
 				<File
@@ -995,6 +999,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Gxf.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ivf.h"
 					>
 				</File>
 				<File

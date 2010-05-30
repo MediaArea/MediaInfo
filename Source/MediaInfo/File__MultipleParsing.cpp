@@ -47,6 +47,9 @@
 #if defined(MEDIAINFO_GXF_YES)
     #include "MediaInfo/Multiple/File_Gxf.h"
 #endif
+#if defined(MEDIAINFO_IVF_YES)
+    #include "MediaInfo/Multiple/File_Ivf.h"
+#endif
 #if defined(MEDIAINFO_MK_YES)
     #include "MediaInfo/Multiple/File_Mk.h"
 #endif
@@ -56,7 +59,7 @@
 #if defined(MEDIAINFO_MPEGPS_YES)
     #include "MediaInfo/Multiple/File_MpegPs.h"
 #endif
-#if defined(MEDIAINFO_MPEGTS_YES)
+#if defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
     #include "MediaInfo/Multiple/File_MpegTs.h"
 #endif
 #if defined(MEDIAINFO_MXF_YES)
@@ -311,6 +314,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_GXF_YES)
         Temp=new File_Gxf(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_IVF_YES)
+        Temp=new File_Ivf(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MK_YES)
         Temp=new File_Mk(); Parser.push_back(Temp);

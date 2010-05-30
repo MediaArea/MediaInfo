@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.34, 2010-
 --------------
 + WebM support
++ #3008704, IVF (Indeo Video Format) support
 + #3002376, Blu-ray: Source (.m2ts) for the .mpls parser
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field

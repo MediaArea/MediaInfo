@@ -363,6 +363,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_TwinVQ.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ivf.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp" />
@@ -470,6 +471,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Internal_Const.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ivf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\PreComp.h" />
