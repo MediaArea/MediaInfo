@@ -1964,6 +1964,7 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "VP70;VP7;On2\n"
     "VP71;VP7;On2\n"
     "VP72;VP7;On2\n"
+    "VP80;VP8;;;http://www.webmproject.org;;;YUV;4:2:0\n"
     "VQC1;Vector 1;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf\n"
     "VQC2;Vector 2;;Vector-quantised 2 (high robustness against channel errors) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf\n"
     "VQJP;VQ630;;Dual-mode digital camera\n"
