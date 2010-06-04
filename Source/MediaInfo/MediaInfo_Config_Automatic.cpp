@@ -1856,6 +1856,7 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "SHR5;BitJazz SheerVideo;;BitJazz SheerVideo (realtime lossless)\n"
     "SHR6;BitJazz SheerVideo;;BitJazz SheerVideo (realtime lossless)\n"
     "SHR7;BitJazz SheerVideo;;BitJazz SheerVideo (realtime lossless)\n"
+    "SIF1;SIF1;;;http://mysif.ru/SIF1_dd_Eng.htm\n"
     "SJPG;M-JPEG;CuSeeMe;CuSeeMe;http://mirror01.iptelecom.net.ua/~video/codecs/CUseeMe.M-JPEG.CODEC.v1.17.exe;;;YUV;4:2:0\n"
     "SL25;DV;SoftLab DVCPro;SoftLab-NSK DVCPRO;;;;YUV;4:1:1\n"
     "SL50;DV;SoftLab DVCPro5;SoftLab-NSK ;;;;YUV;4:1:1\n"
