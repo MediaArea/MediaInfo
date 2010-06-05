@@ -702,6 +702,8 @@ void File_Ac3::Streams_Fill()
         Fill(Stream_Audio, 0, "dynrng/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng/String"), Info_Options)=_T("N NT");
     }
+    Fill(Stream_Audio, 0, "bsid", bsid);
+    (*Stream_More)[Stream_Audio][0](Ztring().From_Local("bsid"), Info_Options)=_T("N NT");
 }
 
 //***************************************************************************
