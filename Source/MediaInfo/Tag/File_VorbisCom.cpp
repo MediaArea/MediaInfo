@@ -176,6 +176,11 @@ void File_VorbisCom::Data_Parse()
     //Parsing
     Ztring comment;
     Get_UTF8(Element_Size, comment,                             "comment");
+    if (Element_Size && comment.empty())
+    {
+        Element_Offset=0; //Retry
+        Get_Local(Element_Size, comment,                             "comment");
+    }
     Element_Name(comment);
 
     FILLING_BEGIN_PRECISE();
