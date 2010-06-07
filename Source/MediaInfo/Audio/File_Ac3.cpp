@@ -114,6 +114,7 @@ extern const int8u AC3_Channels[]=
 #include <vector>
 #include <cmath>
 using namespace ZenLib;
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -530,6 +531,7 @@ File_Ac3::File_Ac3()
     HD_MajorSync_Parsed=false;
     HD_AlreadyCounted=false;
     Core_IsPresent=false;
+    dynrnge_Exists=false;
 }
 
 //***************************************************************************
@@ -684,7 +686,7 @@ void File_Ac3::Streams_Fill()
     (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm/String"), Info_Options)=_T("N NT");
     if (FirstFrame_Dolby.compre)
     {
-        float64 Value=AC3_compr[FirstFrame_Dolby.compr>>4]+20*std::log(((float)(0x10+(FirstFrame_Dolby.compr&0x0F)))/32)/std::log((double)10); //std::log is natural logarithm;
+        float64 Value=AC3_compr[FirstFrame_Dolby.compr>>4]+20*std::log10(((float)(0x10+(FirstFrame_Dolby.compr&0x0F)))/32);
         Fill(Stream_Audio, 0, "compr", Value, 2);
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr"), Info_Options)=_T("N NT");
         Fill(Stream_Audio, 0, "compr/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
@@ -696,7 +698,7 @@ void File_Ac3::Streams_Fill()
         if (FirstFrame_Dolby.dynrng==0)
             Value=0; //Special case in the formula
         else
-            Value=AC3_dynrng[FirstFrame_Dolby.dynrng>>5]+20*std::log(((float)(0x20+(FirstFrame_Dolby.dynrng&0x1F)))/64)/std::log((double)10); //std::log is natural logarithm;
+            Value=AC3_dynrng[FirstFrame_Dolby.dynrng>>5]+20*std::log10(((float)(0x20+(FirstFrame_Dolby.dynrng&0x1F)))/64);
         Fill(Stream_Audio, 0, "dynrng", Value, 2);
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng"), Info_Options)=_T("N NT");
         Fill(Stream_Audio, 0, "dynrng/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
@@ -704,6 +706,133 @@ void File_Ac3::Streams_Fill()
     }
     Fill(Stream_Audio, 0, "bsid", bsid);
     (*Stream_More)[Stream_Audio][0](Ztring().From_Local("bsid"), Info_Options)=_T("N NT");
+}
+
+//---------------------------------------------------------------------------
+void File_Ac3::Streams_Finish()
+{
+    //Stats
+    if (!dialnorms.empty())
+    {
+        int8u Minimum_Raw=1;
+        int8u Maximum_Raw=31;
+        float64 Sum_Intensity=0;
+        int64u Count=0;
+        for (int8u Pos=0; Pos<dialnorms.size(); Pos++)
+            if (dialnorms[Pos])
+            {
+                if (Minimum_Raw<(Pos==0?31:Pos))
+                    Minimum_Raw=(Pos==0?31:Pos);
+                if (Maximum_Raw>(Pos==0?31:Pos))
+                    Maximum_Raw=(Pos==0?31:Pos);
+                Sum_Intensity+=dialnorms[Pos]*pow(10, -((float64)Pos)/10);
+                Count+=dialnorms[Pos];
+            }
+        float64 Average_dB=log10(Sum_Intensity/Count)*10;
+        Fill(Stream_Audio, 0, "dialnorm_Average", Average_dB, 0);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Average"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm_Average/String", Ztring::ToZtring(Average_dB, 0)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Average/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm_Minimum", -Minimum_Raw);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Minimum"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm_Minimum/String", Ztring::ToZtring(-Minimum_Raw)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Minimum/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm_Maximum", -Maximum_Raw);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Maximum"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm_Maximum/String", Ztring::ToZtring(-Maximum_Raw)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Maximum/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm_Count", Count);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm_Count"), Info_Options)=_T("N NT");
+    }
+    if (!comprs.empty())
+    {
+        float64 Minimum_dB=47.89;
+        float64 Maximum_dB=-48.16;
+        float64 Sum_Intensity=0;
+        int64u Count=0;
+        for (size_t Pos=0; Pos<comprs.size(); Pos++)
+            if (comprs[Pos])
+            {
+                float64 Value=AC3_compr[Pos>>4]+20*std::log10(((float)(0x10+(Pos&0x0F)))/32);
+                if (Minimum_dB>Value)
+                    Minimum_dB=Value;
+                if (Maximum_dB<Value)
+                    Maximum_dB=Value;
+                Sum_Intensity+=comprs[Pos]*pow(10, Value/10);
+                Count+=comprs[Pos];
+            }
+        float64 Average_dB=log10(Sum_Intensity/Count)*10;
+        Fill(Stream_Audio, 0, "compr_Average", Average_dB, 2);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Average"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "compr_Average/String", Ztring::ToZtring(Average_dB, 2)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Average/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "compr_Minimum", Minimum_dB, 2);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Minimum"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "compr_Minimum/String", Ztring::ToZtring(Minimum_dB, 2)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Minimum/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "compr_Maximum", Maximum_dB, 2);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Maximum"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "compr_Maximum/String", Ztring::ToZtring(Maximum_dB, 2)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Maximum/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "compr_Count", Count);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr_Count"), Info_Options)=_T("N NT");
+    }
+    if (dynrnge_Exists && !dynrngs.empty())
+    {
+        float64 Minimum_dB=23.95;
+        float64 Maximum_dB=-24.08;
+        float64 Sum_Intensity=0;
+        int64u Count=0;
+        for (size_t Pos=0; Pos<dynrngs.size(); Pos++)
+            if (dynrngs[Pos])
+            {
+                float64 Value;
+                if (Pos==0)
+                    Value=0; //Special case in the formula
+                else
+                    Value=AC3_dynrng[Pos>>5]+20*std::log10(((float)(0x20+(Pos&0x1F)))/64);
+                if (Minimum_dB>Value)
+                    Minimum_dB=Value;
+                if (Maximum_dB<Value)
+                    Maximum_dB=Value;
+                Sum_Intensity+=dynrngs[Pos]*pow(10, Value/10);
+                Count+=dynrngs[Pos];
+            }
+        float64 Average_dB=log10(Sum_Intensity/Count)*10;
+        Fill(Stream_Audio, 0, "dynrng_Average", Average_dB, 2);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Average"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dynrng_Average/String", Ztring::ToZtring(Average_dB, 2)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Average/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dynrng_Minimum", Minimum_dB, 2);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Minimum"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dynrng_Minimum/String", Ztring::ToZtring(Minimum_dB, 2)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Minimum/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dynrng_Maximum", Maximum_dB, 2);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Maximum"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dynrng_Maximum/String", Ztring::ToZtring(Maximum_dB, 2)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Maximum/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dynrng_Count", Count);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng_Count"), Info_Options)=_T("N NT");
+    }
+
+    //Duration
+    if (!IsSub)
+    {
+        int64u Frame_Count_ForDuration=0;
+        if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        {
+            Frame_Count_ForDuration=Frame_Count; //We have the exact count of frames
+            Fill(Stream_Audio, 0, Audio_StreamSize, File_Offset+Buffer_Offset+Element_Size-File_Offset_FirstSynched);
+        }
+        else if (bsid<=8 && frmsizecods.size()==1 && fscods.size()==1)
+        {
+            int16u Size=AC3_FrameSize_Get(frmsizecods.begin()->first, fscods.begin()->first);
+            Frame_Count_ForDuration=(File_Size-File_Offset_FirstSynched)/Size; //Only complete frames
+            Fill(Stream_Audio, 0, Audio_StreamSize, Frame_Count_ForDuration*Size);
+        }
+        if (Frame_Count_ForDuration)
+            Fill(Stream_Audio, 0, Audio_Duration, Frame_Count_ForDuration*32);
+    }
 }
 
 //***************************************************************************
@@ -955,6 +1084,8 @@ void File_Ac3::Header_Parse()
         frmsizecod= Buffer[(size_t)(Buffer_Offset+4)]&0x3F;
 
         //Filling
+        fscods[fscod]++;
+        frmsizecods[frmsizecod]++;
         Size=AC3_FrameSize_Get(frmsizecod, fscod);
     }
     else if (bsid>0x0A && bsid<=0x10)
@@ -1105,6 +1236,34 @@ void File_Ac3::Core()
                     FirstFrame_Dolby2.compre=compr2e;
                     FirstFrame_Dolby2.dynrnge=dynrng2e;
                 }
+            }
+
+            //Stats
+            if (dialnorms.empty())
+                dialnorms.resize(32);
+            dialnorms[dialnorm]++;
+            if (compre)
+            {
+                if (comprs.empty())
+                    comprs.resize(256);
+                comprs[compr]++;
+            }
+            if (dynrnge)
+            {
+                //Saving new value
+                dynrnge_Exists=true;
+                dynrng_Old=dynrng;
+            }
+            if (!dynrnge)
+                dynrng=0;
+            if (dynrngs.empty())
+                dynrngs.resize(256);
+            dynrngs[dynrng]++;
+            if (acmod==0) //1+1 mode
+            {
+                if (dialnorm2s.empty())
+                    dialnorm2s.resize(32);
+                dialnorm2s[dialnorm2]++;
             }
         FILLING_END();
     }
