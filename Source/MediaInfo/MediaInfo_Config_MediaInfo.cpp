@@ -145,12 +145,12 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_MpegTs_ForceMenu_Get()?"1":"0";
     }
-    else if (Option_Lower==_T("file_mpegts_stream_type_Trust"))
+    else if (Option_Lower==_T("file_mpegts_stream_type_trust"))
     {
         File_MpegTs_stream_type_Trust_Set(!(Value==_T("0") || Value.empty()));
         return _T("");
     }
-    else if (Option_Lower==_T("file_mpegts_stream_type_Trust_get"))
+    else if (Option_Lower==_T("file_mpegts_stream_type_trust_get"))
     {
         return File_MpegTs_stream_type_Trust_Get()?"1":"0";
     }
