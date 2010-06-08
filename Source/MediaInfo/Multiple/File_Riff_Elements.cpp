@@ -1162,7 +1162,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
 
     //Parsing
     int32u SamplesPerSec, AvgBytesPerSec;
-    int16u FormatTag, Channels, BitsPerSample=0;
+    int16u FormatTag, Channels;
+    BitsPerSample=0;
     Get_L2 (FormatTag,                                          "FormatTag");
     Get_L2 (Channels,                                           "Channels");
     Get_L4 (SamplesPerSec,                                      "SamplesPerSec");
@@ -1232,6 +1233,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         //Creating the parser
         File_Pcm MI;
         MI.Codec=Codec;
+        MI.BitDepth=BitsPerSample;
 
         //Parsing
         Open_Buffer_Init(&MI);
@@ -1419,6 +1421,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
                 //Creating the parser
                 File_Pcm MI;
                 MI.Codec=Ztring().From_Number((int16u)SubFormat.hi, 16);
+                MI.BitDepth=BitsPerSample;
 
                 //Parsing
                 Open_Buffer_Init(&MI);

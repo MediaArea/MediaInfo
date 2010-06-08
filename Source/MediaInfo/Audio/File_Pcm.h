@@ -41,7 +41,11 @@ class File_Pcm : public File__Analyze
 {
 public :
     //In
-    ZenLib::Ztring Codec;
+    ZenLib::Ztring  Codec;
+    int8u           BitDepth;
+
+    //Constructor/Destructor
+    File_Pcm();
 
 private :
     //Streams management

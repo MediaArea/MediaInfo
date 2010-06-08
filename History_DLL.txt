@@ -12,6 +12,7 @@ Version 0.7.34, 2010-
 + WebM support
 + #3008704, IVF (Indeo Video Format) support
 + #3002376, Blu-ray: Source (.m2ts) for the .mpls parser
++ Basic view, Bit Depth is added to the audio part
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo
@@ -19,6 +20,7 @@ x AVI: crash with some malformed files
 x AVI: Stream identifier was not filled in some cases
 x MPEG-PS: some files were not well detected
 x WAV: Bit Depth is back
+x WAV/PCM: Byte sign was wrong if Bit depth >8
 
 Version 0.7.33, 2010-05-14
 --------------

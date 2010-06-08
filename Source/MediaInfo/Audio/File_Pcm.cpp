@@ -106,6 +106,17 @@ int32u Pcm_M2TS_Resolution[]=
 };
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Pcm::File_Pcm()
+{
+    //In
+    BitDepth=0;
+}
+
+//***************************************************************************
 // Streams management
 //***************************************************************************
 
@@ -130,7 +141,14 @@ void File_Pcm::Streams_Fill()
     else if (Codec==_T("twos"))             {                   Endianness=_T("Big");    Sign=_T("Signed");}
     else if (Codec==_T("sowt"))             {                   Endianness=_T("Little"); Sign=_T("Signed");}
     else if (Codec==_T("SWF ADPCM"))        {Firm=_T("SWF");}
-    else if (Codec==_T("1"))                {                   Endianness=_T("Little"); Sign=_T("Unsigned");}
+    else if (Codec==_T("1"))                {   if (BitDepth)
+                                                {
+                                                    if (BitDepth>8)
+                                                    {           Endianness=_T("Little"); Sign=_T("Signed");}
+                                                    else
+                                                    {                                    Sign=_T("Unsigned");}
+                                                }
+                                            }
     else if (Codec==_T("2"))                {Firm=_T("Microsoft");}
     else if (Codec==_T("3"))                {                   Endianness=_T("Float");}
     else if (Codec==_T("10"))               {Firm=_T("OKI");}
