@@ -2689,31 +2689,52 @@ void File_MpegPs::SL_packetized_stream()
         Streams[start_code].Searching_TimeStamp_Start=true;
 
         //New parsers
-        switch (FromTS_stream_type)
-        {
-            case 0x0F :
-                        #if defined(MEDIAINFO_ADTS_YES)
-                        {
-                            File_Adts* Parser=new File_Adts;
-                            Parser->Frame_Count_Valid=1;
-                            Open_Buffer_Init(Parser);
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
-                        #endif
-                        break;
+        if (FromTS_stream_type)
+            switch (FromTS_stream_type)
+            {
+                case 0x0F :
+                            #if defined(MEDIAINFO_ADTS_YES)
+                            {
+                                File_Adts* Parser=new File_Adts;
+                                Parser->Frame_Count_Valid=1;
+                                Open_Buffer_Init(Parser);
+                                Streams[start_code].Parsers.push_back(Parser);
+                            }
+                            #endif
+                            break;
 
-            case 0x11 :
-                        #if defined(MEDIAINFO_MPEG4_YES)
-                        {
-                            File_Aac* Parser=new File_Aac;
-                            Parser->DecSpecificInfoTag=DecSpecificInfoTag;
-                            Parser->SLConfig=SLConfig;
-                            Open_Buffer_Init(Parser);
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
-                        #endif
-                        break;
-            default   : ;
+                case 0x11 :
+                            #if defined(MEDIAINFO_MPEG4_YES)
+                            {
+                                File_Aac* Parser=new File_Aac;
+                                Parser->DecSpecificInfoTag=DecSpecificInfoTag;
+                                Parser->SLConfig=SLConfig;
+                                Open_Buffer_Init(Parser);
+                                Streams[start_code].Parsers.push_back(Parser);
+                            }
+                            #endif
+                            break;
+                default   : ;
+            }
+        else
+        {
+            #if defined(MEDIAINFO_ADTS_YES)
+            {
+                File_Adts* Parser=new File_Adts;
+                Parser->Frame_Count_Valid=1;
+                Open_Buffer_Init(Parser);
+                Streams[start_code].Parsers.push_back(Parser);
+            }
+            #endif
+            #if defined(MEDIAINFO_MPEG4_YES)
+            {
+                File_Aac* Parser=new File_Aac;
+                Parser->DecSpecificInfoTag=DecSpecificInfoTag;
+                Parser->SLConfig=SLConfig;
+                Open_Buffer_Init(Parser);
+                Streams[start_code].Parsers.push_back(Parser);
+            }
+            #endif
         }
     }
 

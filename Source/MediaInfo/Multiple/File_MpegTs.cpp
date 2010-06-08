@@ -1334,7 +1334,8 @@ void File_MpegTs::PES()
          && Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[pid].stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier)==Stream_Max
          && Complete_Stream->Streams[pid].stream_type!=0x06 //Exception for private data
          && Complete_Stream->Streams[pid].stream_type<=0x7F //Exception for private data
-         && Mpeg_Descriptors_registration_format_identifier_StreamKind(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier)==Stream_Max) //From Descriptor
+         && Mpeg_Descriptors_registration_format_identifier_StreamKind(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier)==Stream_Max //From Descriptor
+         && !Config->File_MpegTs_DoNotTrust_stream_type_Get())
         {
             Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
@@ -1373,7 +1374,8 @@ void File_MpegTs::PES()
                 ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->Searching_TimeStamp_Start=Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start;
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS=true;
-            ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_stream_type=Complete_Stream->Streams[pid].stream_type;
+            if (!Config->File_MpegTs_DoNotTrust_stream_type_Get())
+                ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_stream_type=Complete_Stream->Streams[pid].stream_type;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_format_identifier=Complete_Stream->Streams[pid].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->MPEG_Version=2;
             complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[pid].FMC_ES_ID);
