@@ -42,7 +42,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.33");
+const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.34BETA");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version
@@ -1012,9 +1012,10 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value,
 
     //Replace dot and thousand separator
     Ztring ToReturn=Count;
-    size_t DotPos=ToReturn.find(_T('.'));
+    Ztring DecimalPoint=Ztring().From_Number(0.0, 1).substr(1, 1); //Getting Decimal point
+    size_t DotPos=ToReturn.find(DecimalPoint);
     if (DotPos!=string::npos)
-        ToReturn.FindAndReplace(_T("."), Language_Get(_T("  Config_Text_FloatSeparator")), DotPos);
+        ToReturn.FindAndReplace(DecimalPoint, Language_Get(_T("  Config_Text_FloatSeparator")), DotPos);
     else
         DotPos=ToReturn.size();
     if (DotPos>3)

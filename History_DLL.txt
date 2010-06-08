@@ -21,6 +21,7 @@ x AVI: Stream identifier was not filled in some cases
 x MPEG-PS: some files were not well detected
 x WAV: Bit Depth is back
 x WAV/PCM: Byte sign was wrong if Bit depth >8
+x Decimal point issues with some specific compilers/OS
 
 Version 0.7.33, 2010-05-14
 --------------
