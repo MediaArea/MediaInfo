@@ -1335,7 +1335,7 @@ void File_MpegTs::PES()
          && Complete_Stream->Streams[pid].stream_type!=0x06 //Exception for private data
          && Complete_Stream->Streams[pid].stream_type<=0x7F //Exception for private data
          && Mpeg_Descriptors_registration_format_identifier_StreamKind(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier)==Stream_Max //From Descriptor
-         && !Config->File_MpegTs_DoNotTrust_stream_type_Get())
+         && Config->File_MpegTs_stream_type_Trust_Get())
         {
             Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
@@ -1374,7 +1374,7 @@ void File_MpegTs::PES()
                 ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->Searching_TimeStamp_Start=Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start;
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS=true;
-            if (!Config->File_MpegTs_DoNotTrust_stream_type_Get())
+            if (Config->File_MpegTs_stream_type_Trust_Get())
                 ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_stream_type=Complete_Stream->Streams[pid].stream_type;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_format_identifier=Complete_Stream->Streams[pid].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->MPEG_Version=2;

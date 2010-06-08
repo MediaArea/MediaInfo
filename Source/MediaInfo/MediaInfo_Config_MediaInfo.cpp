@@ -53,7 +53,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 
     //Specific
     File_MpegTs_ForceMenu=false;
-    File_MpegTs_DoNotTrust_stream_type=false;
+    File_MpegTs_stream_type_Trust=true;
     File_Bdmv_ParseTargetedFile=true;
     File_DvDif_Analysis=false;
     State=0;
@@ -145,14 +145,14 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_MpegTs_ForceMenu_Get()?"1":"0";
     }
-    else if (Option_Lower==_T("file_mpegts_donottrust_stream_type"))
+    else if (Option_Lower==_T("file_mpegts_stream_type_Trust"))
     {
-        File_MpegTs_DoNotTrust_stream_type_Set(!(Value==_T("0") || Value.empty()));
+        File_MpegTs_stream_type_Trust_Set(!(Value==_T("0") || Value.empty()));
         return _T("");
     }
-    else if (Option_Lower==_T("file_mpegts_donottrust_stream_type_get"))
+    else if (Option_Lower==_T("file_mpegts_stream_type_Trust_get"))
     {
-        return File_MpegTs_DoNotTrust_stream_type_Get()?"1":"0";
+        return File_MpegTs_stream_type_Trust_Get()?"1":"0";
     }
     else if (Option_Lower==_T("file_bdmv_parsetargetedfile"))
     {
@@ -535,16 +535,16 @@ bool MediaInfo_Config_MediaInfo::File_MpegTs_ForceMenu_Get ()
 }
 
 //---------------------------------------------------------------------------
-void MediaInfo_Config_MediaInfo::File_MpegTs_DoNotTrust_stream_type_Set (bool NewValue)
+void MediaInfo_Config_MediaInfo::File_MpegTs_stream_type_Trust_Set (bool NewValue)
 {
     CriticalSectionLocker CSL(CS);
-    File_MpegTs_DoNotTrust_stream_type=NewValue;
+    File_MpegTs_stream_type_Trust=NewValue;
 }
 
-bool MediaInfo_Config_MediaInfo::File_MpegTs_DoNotTrust_stream_type_Get ()
+bool MediaInfo_Config_MediaInfo::File_MpegTs_stream_type_Trust_Get ()
 {
     CS.Enter();
-    bool Temp=File_MpegTs_DoNotTrust_stream_type;
+    bool Temp=File_MpegTs_stream_type_Trust;
     CS.Leave();
     return Temp;
 }

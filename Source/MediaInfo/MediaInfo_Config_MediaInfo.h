@@ -99,8 +99,8 @@ public :
     //Specific
     void          File_MpegTs_ForceMenu_Set (bool NewValue);
     bool          File_MpegTs_ForceMenu_Get ();
-    void          File_MpegTs_DoNotTrust_stream_type_Set (bool NewValue);
-    bool          File_MpegTs_DoNotTrust_stream_type_Get ();
+    void          File_MpegTs_stream_type_Trust_Set (bool NewValue);
+    bool          File_MpegTs_stream_type_Trust_Get ();
     void          File_Bdmv_ParseTargetedFile_Set (bool NewValue);
     bool          File_Bdmv_ParseTargetedFile_Get ();
     void          File_DvDif_Analysis_Set (bool NewValue);
@@ -134,7 +134,7 @@ private :
 
     //Specific
     bool                    File_MpegTs_ForceMenu;
-    bool                    File_MpegTs_DoNotTrust_stream_type;
+    bool                    File_MpegTs_stream_type_Trust;
     bool                    File_Bdmv_ParseTargetedFile;
     bool                    File_DvDif_Analysis;
 
