@@ -621,6 +621,7 @@ enum audio
     Audio_SamplingRate,
     Audio_SamplingRate_String,
     Audio_SamplingCount,
+    Audio_FrameCount,
     Audio_Resolution,
     Audio_Resolution_String,
     Audio_BitDepth,
