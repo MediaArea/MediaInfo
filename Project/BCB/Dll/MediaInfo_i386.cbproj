@@ -19,7 +19,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<IncludePath>..\..\..\Source\MediaInfoDLL;$(IncludePath)</IncludePath>
+			<IncludePath>..\..\..\Source\MediaInfoDLL\;..\..\..\Source\MediaInfoDLL;$(IncludePath)</IncludePath>
 			<TASM_Defines>_UNICODE _WIN32;$(TASM_Defines)</TASM_Defines>
 			<BRCC_Defines>_UNICODE;_WIN32;$(BRCC_Defines)</BRCC_Defines>
 			<BCC_PCHCache>true</BCC_PCHCache>
@@ -46,7 +46,7 @@
 			<NoVCL>true</NoVCL>
 			<BCC_UserSuppliedOptions> -a4 -Vx -d -Ve</BCC_UserSuppliedOptions>
 			<BCC_GenerateDLL>true</BCC_GenerateDLL>
-			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\Library\Release_Build;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\Source\MediaInfoDLL;$(BDS)\lib\obj;$(BDS)\lib;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\Library\Release_Build\;..\..\..\..\zlib\projects\BCB\Release_Build\;..\..\..\Source\MediaInfoDLL\;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\Library\Release_Build;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\Source\MediaInfoDLL;$(BDS)\lib\obj;$(BDS)\lib;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 			<DCC_ObjPath>..\..\..\Source\MediaInfoDLL;$(DCC_ObjPath)</DCC_ObjPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
@@ -74,6 +74,18 @@
 			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
+			<LibFiles Include="..\Library\Release_Build\MediaInfoLib.lib">
+				<BuildOrder>4</BuildOrder>
+				<BuildOrder>0</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<BuildOrder>5</BuildOrder>
+				<BuildOrder>1</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<BuildOrder>6</BuildOrder>
+				<BuildOrder>2</BuildOrder>
+			</LibFiles>
 			<ResFiles Include="MediaInfo_i386.res">
 				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>0</BuildOrder>
@@ -87,18 +99,6 @@
 				<BuildOrder>5</BuildOrder>
 				<BuildOrder>3</BuildOrder>
 			</DefFile>
-			<LibFiles Include="..\Library\Release_Build\MediaInfoLib.lib">
-				<BuildOrder>4</BuildOrder>
-				<BuildOrder>0</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
-				<BuildOrder>5</BuildOrder>
-				<BuildOrder>1</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
-				<BuildOrder>6</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</LibFiles>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
