@@ -147,7 +147,9 @@ DTNT;Media-100;;;;;;
 DUCK;TrueMotion S;Duck Corporation;;;;;
 DV10;RGB;BlueFish;BlueFish444 (lossless RGBA, YUV 10-bit);;;;RGB
 DV25;DV;DVCPro;;;;;YUV
+dv25;DV;DVCPro;;;;;YUV
 DV50;DV;DVCPro5;;;;;YUV
+dv50;DV;DVCPro5;;;;;YUV
 DVAN;DV;Pinnacle DV300;;;;;YUV
 DVC ;DV;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;YUV
 DVCP;DV;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;YUV

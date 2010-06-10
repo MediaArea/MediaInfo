@@ -42,7 +42,7 @@ class File_Pcm : public File__Analyze
 public :
     //In
     ZenLib::Ztring  Codec;
-    int8u           BitDepth;
+    int16u          BitDepth;
 
     //Constructor/Destructor
     File_Pcm();

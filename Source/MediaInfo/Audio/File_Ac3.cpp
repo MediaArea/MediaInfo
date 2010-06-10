@@ -596,6 +596,7 @@ void File_Ac3::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_Codec, "AC3");
         }
         Fill(Stream_Audio, 0, Audio_Format, "AC-3");
+        Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
         if (Ztring::ToZtring(AC3_SamplingRate[fscod])!=Retrieve(Stream_Audio, 0, Audio_SamplingRate))
             Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);
