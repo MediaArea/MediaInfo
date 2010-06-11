@@ -1859,6 +1859,12 @@ void File__Analyze::Finish ()
     }
 
     Status[IsFinished]=true;
+
+    //Real stream size
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && IsRawStream)
+    {
+        Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Buffer_TotalBytes, 10, true);
+    }
 }
 #endif //MEDIAINFO_TRACE
 
