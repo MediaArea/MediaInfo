@@ -146,8 +146,8 @@ protected :
     void Data_Accept        ()                                                  {Accept();}
     void Data_Reject        (const char*)                                       {Reject();}
     void Data_Reject        ()                                                  {Reject();}
-    void Data_Finish        (const char*)                                       {Finish();}
-    void Data_Finish        ()                                                  {Finish();}
+    void Data_Finish        (const char*)                                       {ForceFinish();}
+    void Data_Finish        ()                                                  {ForceFinish();}
     void Data_GoTo          (int64u GoTo_, const char*)                         {GoTo(GoTo_);}
     void Data_GoTo          (int64u GoTo_)                                      {GoTo(GoTo_);}
     void Data_GoToFromEnd   (int64u GoToFromEnd_, const char*)                  {GoToFromEnd(GoToFromEnd_);}
@@ -792,6 +792,9 @@ public :
     void Finish        (const char*)                                            {Finish();}
     void Finish        ();
     void Finish        (File__Analyze* Parser);
+    void ForceFinish   (const char*)                                            {ForceFinish();}
+    void ForceFinish   ();
+    void ForceFinish   (File__Analyze* Parser);
     void GoTo          (int64u GoTo_, const char*)                              {GoTo(GoTo_);}
     void GoTo          (int64u GoTo);
     void GoToFromEnd   (int64u GoToFromEnd_, const char*)                       {GoToFromEnd(GoToFromEnd_);}

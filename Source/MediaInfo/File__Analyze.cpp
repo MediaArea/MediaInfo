@@ -302,7 +302,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
                 Element_End(); //This is Finish, must flush
-            Finish();
+            ForceFinish();
             return;
         }
     }
@@ -337,7 +337,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     {
         if (File_Offset+Buffer_Size>=File_Size) //No more data will come
         {
-                Finish();
+                ForceFinish();
                 return;
         }
         if (Buffer_Temp_Size==0) //If there was no copy
@@ -377,7 +377,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Is it OK?
     if (Buffer_Size>Buffer_MaximumSize)
     {
-        Finish();
+        ForceFinish();
         return;
     }
 }
@@ -520,7 +520,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     Fill();
     if (!NoBufferModification)
     {
-        Finish();
+        ForceFinish();
         Buffer_Clear();
     }
 
@@ -1100,7 +1100,7 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (GoTo==File_Size)
     {
-        Finish();
+        ForceFinish();
         return;
     }
     if (File_GoTo!=(int64u)-1)
@@ -1794,7 +1794,40 @@ void File__Analyze::Fill (File__Analyze* Parser)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Finish (const char* ParserName_Char)
+void File__Analyze::Finish (const char* ParserName)
+{
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
+    ForceFinish(ParserName);
+}
+#else //MEDIAINFO_TRACE
+void File__Analyze::Finish ()
+{
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
+    ForceFinish();
+}
+#endif //MEDIAINFO_TRACE
+
+void File__Analyze::Finish (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    if (File_Offset+Buffer_Offset+Element_Size>=File_Size)
+    {
+        Element_Size=0;
+        Parser->Buffer_Offset=(size_t)(Parser->File_Size-Parser->File_Offset);
+    }
+
+    Parser->Finish();
+}
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_TRACE
+void File__Analyze::ForceFinish (const char* ParserName_Char)
 {
     if (ParserName.empty())
         ParserName.From_Local(ParserName_Char);
@@ -1844,7 +1877,7 @@ void File__Analyze::Finish (const char* ParserName_Char)
     }
 }
 #else //MEDIAINFO_TRACE
-void File__Analyze::Finish ()
+void File__Analyze::ForceFinish ()
 {
     if (ShouldContinueParsing || Status[IsFinished])
         return;
@@ -1868,7 +1901,7 @@ void File__Analyze::Finish ()
 }
 #endif //MEDIAINFO_TRACE
 
-void File__Analyze::Finish (File__Analyze* Parser)
+void File__Analyze::ForceFinish (File__Analyze* Parser)
 {
     if (Parser==NULL)
         return;
@@ -1879,7 +1912,7 @@ void File__Analyze::Finish (File__Analyze* Parser)
         Parser->Buffer_Offset=(size_t)(Parser->File_Size-Parser->File_Offset);
     }
 
-    Parser->Finish();
+    Parser->ForceFinish();
 }
 
 //---------------------------------------------------------------------------
@@ -1937,7 +1970,7 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
         if (!BookMark_Code.empty())
             BookMark_Get();
         if (File_GoTo==(int64u)-1)
-            Finish();
+            ForceFinish();
         return;
     }
     if (File_GoTo!=(int64u)-1)
