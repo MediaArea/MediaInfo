@@ -847,6 +847,7 @@ protected :
     //Save for speed improvement
     float Config_DetailsLevel;
     bool  IsSub;
+    bool  IsRawStream;
 
     //Configuration
     bool DataMustAlwaysBeComplete;  //Data must always be complete, else wait for more data

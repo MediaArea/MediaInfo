@@ -333,6 +333,7 @@ File_Avc::File_Avc()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     Frame_Count_Valid=64; //Currently no 3:2 pulldown detection

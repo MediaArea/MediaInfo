@@ -285,6 +285,7 @@ File_Mpegv::File_Mpegv()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     MPEG_Version=1;

@@ -895,7 +895,8 @@ protected :
         float Config_Details;
     #endif //MEDIAINFO_TRACE
     bool IsSub;
-    
+    bool IsRawStream;
+
     //Configuration
     bool DataMustAlwaysBeComplete;  //Data must always be complete, else wait for more data
     bool MustUseAlternativeParser;  //Must use the second parser (example: for Data part)

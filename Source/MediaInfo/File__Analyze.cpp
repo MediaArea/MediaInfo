@@ -52,6 +52,7 @@ File__Analyze::File__Analyze ()
         Details_DoNotSave=false;
     #endif //MEDIAINFO_TRACE
     IsSub=false;
+    IsRawStream=false;
 
     //In
     #if MEDIAINFO_EVENTS
@@ -1835,6 +1836,12 @@ void File__Analyze::Finish (const char* ParserName_Char)
     }
 
     Status[IsFinished]=true;
+
+    //Real stream size
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1 && IsRawStream)
+    {
+        Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Buffer_TotalBytes, 10, true);
+    }
 }
 #else //MEDIAINFO_TRACE
 void File__Analyze::Finish ()
