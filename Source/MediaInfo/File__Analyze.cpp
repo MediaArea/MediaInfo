@@ -1822,7 +1822,7 @@ void File__Analyze::Finish (File__Analyze* Parser)
         Parser->Buffer_Offset=(size_t)(Parser->File_Size-Parser->File_Offset);
     }
 
-    Parser->Finish();
+    Parser->ForceFinish(); //The base parser wants, and is prepared to it, so nothing can be cancelled --> ForceFinish() instead of Finish()
 }
 
 //---------------------------------------------------------------------------
