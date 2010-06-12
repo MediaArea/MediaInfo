@@ -469,6 +469,9 @@ void File_Wm::Header_StreamProperties_Video ()
         Open_Buffer_Init(Stream[Stream_Number].Parser);
         if (Data_Size>40)
         {
+            Element_Code=Stream_Number;
+            Demux(Buffer+(size_t)Element_Offset, (size_t)(Data_Size-40), ContentType_Header);
+
             Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)(Data_Size-40));
             if (Stream[Stream_Number].Parser->Status[IsFinished])
             {
@@ -1504,9 +1507,12 @@ void File_Wm::Data_Packet()
                 ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
             #endif
 
+            Element_Code=Stream_Number;
+            Demux(Buffer+(size_t)Element_Offset, (size_t)PayloadLength, ContentType_MainStream);
+
             Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)PayloadLength);
             if (Stream[Stream_Number].Parser->Status[IsFinished]
-             || Stream[Stream_Number].PresentationTime_Count>=300)
+             || (Stream[Stream_Number].PresentationTime_Count>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1))
             {
                 Stream[Stream_Number].Parser->Open_Buffer_Unsynch();
                 Stream[Stream_Number].SearchingPayload=false;
@@ -1532,7 +1538,7 @@ void File_Wm::Data_Packet()
         Skip_XX(Data_Parse_Padding,                             "Padding");
 
     //Jumping if needed
-    if (Streams_Count==0 || Packet_Count>=1000)
+    if (Streams_Count==0 || (Packet_Count>=1000 && MediaInfoLib::Config.ParseSpeed_Get()<1))
     {
         Info("Data, Jumping to end of chunk");
         GoTo(Data_AfterTheDataChunk, "Windows Media");

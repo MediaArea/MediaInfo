@@ -1954,6 +1954,9 @@ void File__Analyze::Reject (File__Analyze* Parser)
 #if MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 {
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
     if (!Status[IsAccepted])
     {
         Reject();
@@ -2028,6 +2031,9 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 #else //MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo)
 {
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
     if (!Status[IsAccepted])
     {
         Reject();
@@ -2068,6 +2074,9 @@ void File__Analyze::GoTo (int64u GoTo)
 #if MEDIAINFO_TRACE
 void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 {
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
     if (GoToFromEnd>File_Size)
     {
         if (ParserName)
@@ -2087,6 +2096,9 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 #else //MEDIAINFO_TRACE
 void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
 {
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
     if (GoToFromEnd>File_Size)
         return;
 

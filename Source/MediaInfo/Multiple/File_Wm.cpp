@@ -38,6 +38,9 @@
 #if defined(MEDIAINFO_MPEGPS_YES)
     #include "MediaInfo/Multiple/File_MpegPs.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 #include "ZenLib/Utils.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -54,6 +57,11 @@ File_Wm::File_Wm()
 :File__Analyze()
 {
     //Configuration
+    ParserName=_T("Wm");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Wm;
+        StreamIDs_Width[0]=2;
+    #endif //MEDIAINFO_EVENTS
     DataMustAlwaysBeComplete=false;
 
     //Stream
