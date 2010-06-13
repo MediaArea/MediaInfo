@@ -1096,6 +1096,9 @@ void File__Analyze::Data_Reject (const char* ParserName)
 #if MEDIAINFO_TRACE
 void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 {
+    if (IsSub && MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
     Element_Show();
 
     if (GoTo==File_Size)
@@ -1130,6 +1133,9 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 #if MEDIAINFO_TRACE
 void File__Analyze::Data_GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 {
+    if (IsSub && MediaInfoLib::Config.ParseSpeed_Get()==1)
+        return;
+
     if (GoToFromEnd>File_Size)
     {
         if (ParserName)
@@ -1954,9 +1960,6 @@ void File__Analyze::Reject (File__Analyze* Parser)
 #if MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 {
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
-        return;
-
     if (!Status[IsAccepted])
     {
         Reject();
@@ -1965,7 +1968,7 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 
     Element_Show();
 
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+    if (IsSub && MediaInfoLib::Config.ParseSpeed_Get()==1)
         return;
 
     if (GoTo==File_Size)
@@ -2031,16 +2034,13 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 #else //MEDIAINFO_TRACE
 void File__Analyze::GoTo (int64u GoTo)
 {
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
-        return;
-
     if (!Status[IsAccepted])
     {
         Reject();
         return;
     }
 
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
+    if (IsSub && MediaInfoLib::Config.ParseSpeed_Get()==1)
         return;
 
     if (GoTo==File_Size)
@@ -2074,9 +2074,6 @@ void File__Analyze::GoTo (int64u GoTo)
 #if MEDIAINFO_TRACE
 void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 {
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
-        return;
-
     if (GoToFromEnd>File_Size)
     {
         if (ParserName)
@@ -2096,9 +2093,6 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 #else //MEDIAINFO_TRACE
 void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
 {
-    if (MediaInfoLib::Config.ParseSpeed_Get()==1)
-        return;
-
     if (GoToFromEnd>File_Size)
         return;
 
