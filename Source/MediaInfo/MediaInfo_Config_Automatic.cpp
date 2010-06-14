@@ -1018,6 +1018,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com/go/getflashplayer\n"
     "GXF;;;M;Gxf;SMPTE 360M;gxf\n"
     "Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html\n"
+    "LXF;;;M;Lxf;;lxf;video/lxf\n"
     "Matroska;;;M;Mk;;mkv mka mks;;http://packs.matroska.org/\n"
     "MPEG-PS;;;M;MpegPs;;mpeg mpg m2p vob pss;video/MP2P\n"
     "MPEG-TS;;;M;MpegTs;;ts m2t m2s m4t m4s ts tp trp;video/MP2T\n"

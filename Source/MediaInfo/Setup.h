@@ -216,6 +216,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_IVF_NO) && !defined(MEDIAINFO_IVF_YES)
     #define MEDIAINFO_IVF_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_LXF_NO) && !defined(MEDIAINFO_LXF_YES)
+    #define MEDIAINFO_LXF_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_MK_NO) && !defined(MEDIAINFO_MK_YES)
     #define MEDIAINFO_MK_YES
 #endif

@@ -84,6 +84,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Flv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Gxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ivf.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Lxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mk.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4_Descriptors.cpp \

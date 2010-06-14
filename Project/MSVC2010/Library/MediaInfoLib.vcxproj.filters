@@ -486,6 +486,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ivf.cpp">
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Lxf.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -873,6 +876,9 @@
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ivf.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Lxf.h">
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>

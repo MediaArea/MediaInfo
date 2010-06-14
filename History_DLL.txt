@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.34, 2010-
 --------------
 + WebM support
++ LXF (Harris/Leitch) support
 + #3008704, IVF (Indeo Video Format) support
 + #3002376, Blu-ray: Source (.m2ts) for the .mpls parser
 + Basic view, Bit Depth is added to the audio part

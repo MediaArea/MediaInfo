@@ -92,6 +92,8 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Dvdv.cpp
 	MediaInfo/Multiple/File_Flv.cpp
 	MediaInfo/Multiple/File_Gxf.cpp
+	MediaInfo/Multiple/File_Ivf.cpp
+	MediaInfo/Multiple/File_Lxf.cpp
 	MediaInfo/Multiple/File_Mk.cpp
 	MediaInfo/Multiple/File_Mpeg4.cpp
 	MediaInfo/Multiple/File_Mpeg4_Descriptors.cpp

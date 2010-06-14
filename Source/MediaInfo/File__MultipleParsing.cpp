@@ -50,6 +50,9 @@
 #if defined(MEDIAINFO_IVF_YES)
     #include "MediaInfo/Multiple/File_Ivf.h"
 #endif
+#if defined(MEDIAINFO_LXF_YES)
+    #include "MediaInfo/Multiple/File_Lxf.h"
+#endif
 #if defined(MEDIAINFO_MK_YES)
     #include "MediaInfo/Multiple/File_Mk.h"
 #endif
@@ -317,6 +320,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_IVF_YES)
         Temp=new File_Ivf(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_LXF_YES)
+        Temp=new File_Lxf(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MK_YES)
         Temp=new File_Mk(); Parser.push_back(Temp);
