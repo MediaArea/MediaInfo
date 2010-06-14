@@ -231,6 +231,10 @@ const char*  Dv_consumer_camera_1_fcm[]=
 File_DvDif::File_DvDif()
 :File__Analyze()
 {
+    //Configuration
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
+
     //In
     Frame_Count_Valid=48; //(DV100 is up to 48 DIF sequences)
     AuxToAnalyze=0x00; //No Aux to analyze
@@ -300,6 +304,59 @@ File_DvDif::~File_DvDif()
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
         delete Mpeg4_stts; //Mpeg4_stts=NULL;
     #endif
+}
+
+//***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_DvDif::FileHeader_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Size<8)
+        return false; //Must wait for more data
+
+    //False positives detection: detect some headers from other files, DV parser is not smart enough
+    if (CC4(Buffer)==0x52494646  //RIFF
+     || CC4(Buffer+4)==0x66747970  //ftyp
+     || CC4(Buffer+4)==0x66726565  //free
+     || CC4(Buffer+4)==0x6D646174  //mdat
+     || CC4(Buffer+4)==0x6D646174  //moov
+     || CC4(Buffer+4)==0x736B6970  //skip
+     || CC4(Buffer+4)==0x77696465  //wide
+     || CC4(Buffer)==0x060E2B34) //MXF begin
+    {
+        Finish();
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_DvDif::Synchronize()
+{
+    while (Buffer_Offset+8*80<=Buffer_Size //8 blocks
+        && !((CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+          && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
+          && (CC3(Buffer+Buffer_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
+          && (CC3(Buffer+Buffer_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
+          && (CC3(Buffer+Buffer_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
+          && (CC3(Buffer+Buffer_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
+          && (CC3(Buffer+Buffer_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
+          && (CC3(Buffer+Buffer_Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
+            Buffer_Offset++;
+
+    if (Buffer_Offset+8*80>Buffer_Size)
+        return false;
+
+    return true;
 }
 
 //***************************************************************************
