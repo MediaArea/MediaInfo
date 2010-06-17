@@ -407,6 +407,32 @@ File_Flv::File_Flv()
 //---------------------------------------------------------------------------
 void File_Flv::Streams_Finish()
 {
+    //Trying to detect VFR
+    std::vector<int64u> video_stream_FrameRate_Between;
+    for (size_t Pos=1; Pos<video_stream_FrameRate.size(); Pos++)
+        video_stream_FrameRate_Between.push_back(video_stream_FrameRate[Pos]-video_stream_FrameRate[Pos-1]);
+    std::sort(video_stream_FrameRate_Between.begin(), video_stream_FrameRate_Between.end());
+    if (!video_stream_FrameRate_Between.empty())
+    {
+        if (video_stream_FrameRate_Between[0]*0.9<video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1]
+         && video_stream_FrameRate_Between[0]*1.1>video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1])
+        {
+            float Time;
+            if (video_stream_FrameRate.size()>30)
+                Time=((float)(video_stream_FrameRate[30]-video_stream_FrameRate[0]))/30; //30 frames for handling 30 fps rounding problems
+            else
+                Time=((float)(video_stream_FrameRate[video_stream_FrameRate.size()-1]-video_stream_FrameRate[0]))/(video_stream_FrameRate.size()-1); //30 frames for handling 30 fps rounding problems
+            if (Time)
+            {
+                Fill(Stream_Video, 0, Video_FrameRate, 1000/Time);
+                Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
+            }
+        }
+        else
+            Fill(Stream_Video, 0, Video_FrameRate_Mode, "VFR");
+    }
+
+    //Parsers
     if (Stream[Stream_Video].Parser!=NULL)
     {
         Finish(Stream[Stream_Video].Parser);
@@ -616,28 +642,10 @@ void File_Flv::video()
     //Handling FrameRate
     if (!video_stream_FrameRate_Detected)
     {
-        video_stream_FrameRate.push_back(Time);
+        if (video_stream_FrameRate.empty() || Time!=video_stream_FrameRate[video_stream_FrameRate.size()-1]) //if 2 block witht the same timestamp
+            video_stream_FrameRate.push_back(Time);
         if (video_stream_FrameRate.size()>30)
-        {
-            //Trying to detect VFR
-            std::vector<int64u> video_stream_FrameRate_Between;
-            for (size_t Pos=1; Pos<video_stream_FrameRate.size(); Pos++)
-                video_stream_FrameRate_Between.push_back(video_stream_FrameRate[Pos]-video_stream_FrameRate[Pos-1]);
-            std::sort(video_stream_FrameRate_Between.begin(), video_stream_FrameRate_Between.end());
-            if (video_stream_FrameRate_Between[0]*0.9<video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1]
-             && video_stream_FrameRate_Between[0]*1.1>video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1])
-            {
-                float Time=(float)(video_stream_FrameRate[30]-video_stream_FrameRate[0])/30; //30 frames for handling 30 fps rounding problems
-                if (Time)
-                {
-                    Fill(Stream_Video, 0, Video_FrameRate, 1000/Time);
-                    Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
-                }
-            }
-            else
-                Fill(Stream_Video, 0, Video_FrameRate_Mode, "VFR");
             video_stream_FrameRate_Detected=true;
-        }
     }
 
     //Needed?
@@ -1069,6 +1077,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="duration") meta_duration=Value*1000;
                 else if (StringData=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringData=="videoframerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="datasize") {}
                 else if (StringData=="lasttimestamp") {}
                 else if (StringData=="filesize") {meta_filesize=(int64u)Value;}
@@ -1091,6 +1100,8 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
                 if (!ValueS.empty()) Element_Info(ValueS);
                 Fill(StreamKind, 0, ToFill.c_str(), ValueS);
+                if (ToFill=="FrameRate")
+                    Fill(StreamKind, 0, "FrameRate_Mode", "CFR");
             }
             break;
         case 0x01 : //UI8

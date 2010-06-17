@@ -15,6 +15,7 @@ Version 0.7.34, 2010-
 + #3002376, Blu-ray: Source (.m2ts) for the .mpls parser
 + DV: handling of unsynched streams
 + Basic view, Bit Depth is added to the audio part
++ FLV: Framerate info for some not yet supported weird files
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo
