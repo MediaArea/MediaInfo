@@ -168,13 +168,16 @@ void File_Aac::libfaad()
         }
     #else
         //Filling
-        Accept("AAC");
+        if (!Status[IsAccepted])
+        {
+            Accept("AAC");
 
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "AAC");
-        Fill(Stream_Audio, 0, Audio_Codec, "AAC");
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format, "AAC");
+            Fill(Stream_Audio, 0, Audio_Codec, "AAC");
 
-        Finish("AAC");
+            Finish("AAC");
+        }
     #endif
 }
 
