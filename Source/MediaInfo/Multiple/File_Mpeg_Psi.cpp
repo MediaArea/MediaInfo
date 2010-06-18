@@ -1125,7 +1125,6 @@ void File_Mpeg_Psi::Table_02()
                 {
                     Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].elementary_PIDs.push_back(elementary_PID);
                     Complete_Stream->Streams[elementary_PID].program_numbers.push_back(program_number);
-                    Complete_Stream->Streams[elementary_PID].registration_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier;
                 }
                 if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::pes)
                 {

@@ -208,6 +208,7 @@ File_MpegPs::File_MpegPs()
     //In
     FromTS=false;
     FromTS_stream_type=0x00; //No info
+    FromTS_program_format_identifier=0x00000000; //No info
     FromTS_format_identifier=0x00000000; //No info
     FromTS_descriptor_tag=0x00; //No info
     MPEG_Version=0; //No info
@@ -2390,7 +2391,7 @@ void File_MpegPs::private_stream_2()
     //Filling
     if (FromTS)
     {
-        switch (FromTS_format_identifier)
+        switch (FromTS_program_format_identifier)
         {
             case 0x54534856 : //TSHV
                                 switch (FromTS_stream_type)

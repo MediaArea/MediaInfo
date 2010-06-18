@@ -1376,6 +1376,8 @@ void File_MpegTs::PES()
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS=true;
             if (Config->File_MpegTs_stream_type_Trust_Get())
                 ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_stream_type=Complete_Stream->Streams[pid].stream_type;
+            if (!Complete_Stream->Streams[pid].program_numbers.empty())
+                ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_program_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_format_identifier=Complete_Stream->Streams[pid].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->MPEG_Version=2;
             complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[pid].FMC_ES_ID);

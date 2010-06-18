@@ -45,6 +45,7 @@ public :
     //In
     bool   FromTS;                      //Indicate if stream comes from TS
     int8u  FromTS_stream_type;          //ID from TS
+    int32u FromTS_program_format_identifier; //Registration from TS
     int32u FromTS_format_identifier;    //Registration from TS
     int8u  FromTS_descriptor_tag;       //Descriptor from TS
     int8u  MPEG_Version;                //MPEG Version (or automaticly detected)
