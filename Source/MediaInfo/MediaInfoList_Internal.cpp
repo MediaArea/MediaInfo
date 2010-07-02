@@ -301,7 +301,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
         bool XML=false;
         if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
             XML=true;
-        if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")+MediaInfoLib::Config.LineSeparator_Get()+_T("<Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
+        if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")+MediaInfoLib::Config.LineSeparator_Get()+_T("<Mediainfo version=\"")+MediaInfoLib::Config.Info_Version_Get().SubString(_T(" v"), Ztring())+_T("\">")+MediaInfoLib::Config.LineSeparator_Get();
         else Retour+=MediaInfo_Custom_View(Stream_Max+2, 1);//Page_Begin
         while (FilePos<Info.size())
         {

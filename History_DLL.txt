@@ -17,6 +17,7 @@ Version 0.7.34, 2010-
 + Basic view, Bit Depth is added to the audio part
 + FLV: Framerate info for some not yet supported weird files
 + Demux (library only): demuxed packets can be forced to contain 1 complete frame
++ XML output: MediaInfo version
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo
