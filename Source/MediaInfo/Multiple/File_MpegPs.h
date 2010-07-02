@@ -234,6 +234,7 @@ private :
     std::vector<int64u> video_stream_PTS;
     size_t video_stream_PTS_FrameCount;
     bool video_stream_PTS_MustAddOffset;
+    bool Demux_Unpacketize;
 
     //Helpers
     bool Header_Parser_QuickSearch();

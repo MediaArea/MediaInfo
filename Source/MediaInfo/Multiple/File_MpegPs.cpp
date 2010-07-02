@@ -231,6 +231,7 @@ File_MpegPs::File_MpegPs()
     Parsing_End_ForDTS=false;
     video_stream_PTS_FrameCount=0;
     video_stream_PTS_MustAddOffset=false;
+    Demux_Unpacketize=MediaInfoLib::Config.Demux_Unpacketize_Get();
 
     //From packets
     program_mux_rate=(int32u)-1;
@@ -995,6 +996,13 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
     if (PES_packet_length==0 && Element_Offset<Element_Size)
         if (!Header_Parse_Fill_Size())
         {
+            //Return directly if we must unpack the elementary stream;
+            if (Demux_Unpacketize)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+
             //Next PS packet is not found, we will use all the buffer
             Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
             video_stream_Unlimited=true;
@@ -1005,6 +1013,13 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
     if (PES_packet_length!=0 && Element_Offset<Element_Size && (size_t)(6+PES_packet_length)>Buffer_Size-Buffer_Offset
      && ((start_code&0xE0)==0xC0 || (start_code&0xF0)==0xE0))
     {
+        //Return directly if we must unpack the elementary stream;
+        if (Demux_Unpacketize)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+
         Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
         Buffer_DataSizeToParse=6+PES_packet_length-(int16u)(Buffer_Size-Buffer_Offset);
         Buffer_Offset_Temp=0; //We use the buffer

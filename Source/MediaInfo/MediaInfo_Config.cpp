@@ -231,6 +231,14 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             Demux_Set(1);
         return Ztring();
     }
+    else if (Option_Lower==_T("demux_unpacketize"))
+    {
+        if (Value.empty())
+            Demux_Unpacketize_Set(false);
+        else
+            Demux_Unpacketize_Set(true);
+        return Ztring();
+    }
     else if (Option_Lower==_T("internet_get"))
     {
         if (Internet_Get())
@@ -723,6 +731,19 @@ int8u MediaInfo_Config::Demux_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Demux;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::Demux_Unpacketize_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_Unpacketize=NewValue;
+}
+
+bool MediaInfo_Config::Demux_Unpacketize_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_Unpacketize;
 }
 
 //---------------------------------------------------------------------------
