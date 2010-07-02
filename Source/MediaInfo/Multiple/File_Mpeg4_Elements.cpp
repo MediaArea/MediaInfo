@@ -3060,8 +3060,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_btrt()
     Get_B4 (avgBitrate,                                         "avgBitrate");
 
     FILLING_BEGIN();
-        if (avgBitrate)
-            Fill(StreamKind_Last, StreamPos_Last, "BitRate",         avgBitrate);
+        //if (avgBitrate)
+        //    Fill(StreamKind_Last, StreamPos_Last, "BitRate",         avgBitrate); //Not trustable enough, and we have precise bitrate from stream size with
         if (maxBitrate)
             Fill(StreamKind_Last, StreamPos_Last, "BitRate_Maximum", maxBitrate);
     FILLING_END();

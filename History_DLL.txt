@@ -26,6 +26,7 @@ x MPEG-PS: some files were not well detected
 x WAV: Bit Depth is back
 x WAV/PCM: Byte sign was wrong if Bit depth >8
 x Decimal point issues with some specific compilers/OS
+x MPEG-4: removing support of btrt atom for average bitrate, too many wrong values
 
 Version 0.7.33, 2010-05-14
 --------------
