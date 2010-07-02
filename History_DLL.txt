@@ -18,6 +18,7 @@ Version 0.7.34, 2010-
 + FLV: Framerate info for some not yet supported weird files
 + Demux (library only): demuxed packets can be forced to contain 1 complete frame
 + XML output: MediaInfo version
++ Parsing speed (Library only): option for a quicker analyzing, but with some missing features
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo

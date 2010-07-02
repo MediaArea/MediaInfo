@@ -86,7 +86,7 @@ File_Adts::File_Adts()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
-    Frame_Count_Valid=128;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
 
     //Temp
     Frame_Count=0;

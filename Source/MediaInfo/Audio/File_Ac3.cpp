@@ -509,7 +509,7 @@ File_Ac3::File_Ac3()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=64;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;
     MustParse_dac3=false;
     MustParse_dec3=false;
 

@@ -289,7 +289,7 @@ File_Mpegv::File_Mpegv()
 
     //In
     MPEG_Version=1;
-    Frame_Count_Valid=40;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?40:2;
     FrameIsAlwaysComplete=false;
     TimeCodeIsNotTrustable=false;
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)

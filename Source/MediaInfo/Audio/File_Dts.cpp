@@ -335,7 +335,7 @@ File_Dts::File_Dts()
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
 
     //In
-    Frame_Count_Valid=64;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;
 
     //Temp
     Parser=NULL;

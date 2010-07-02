@@ -238,7 +238,7 @@ File_Mpeg4v::File_Mpeg4v()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
-    Frame_Count_Valid=30;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?30:2;
     FrameIsAlwaysComplete=false;
 
     //Temp

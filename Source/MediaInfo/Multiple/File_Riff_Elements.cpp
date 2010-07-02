@@ -1677,7 +1677,8 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         Stream[Stream_ID].Parser=new File_Mpeg4v;
         Stream[Stream_ID].Specific_IsMpeg4v=true;
         ((File_Mpeg4v*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
-        Stream[Stream_ID].Parser->ShouldContinueParsing=true;
+        if (MediaInfoLib::Config.ParseSpeed_Get()>=0.5)
+            Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
     #if defined(MEDIAINFO_AVC_YES)

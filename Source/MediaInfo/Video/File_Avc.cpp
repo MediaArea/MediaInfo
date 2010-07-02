@@ -336,7 +336,7 @@ File_Avc::File_Avc()
     IsRawStream=true;
 
     //In
-    Frame_Count_Valid=64; //Currently no 3:2 pulldown detection
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?64:2; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;

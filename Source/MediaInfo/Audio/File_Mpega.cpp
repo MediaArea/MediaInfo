@@ -306,7 +306,7 @@ File_Mpega::File_Mpega()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=128;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
     FrameIsAlwaysComplete=false;
 
     //Temp - BitStream info
