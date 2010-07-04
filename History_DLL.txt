@@ -19,6 +19,9 @@ Version 0.7.34, 2010-
 + Demux (library only): demuxed packets can be forced to contain 1 complete frame
 + XML output: MediaInfo version
 + Parsing speed (Library only): option for a quicker analyzing, but with some missing features
++ AVI and Huffman (HFYU): Colorspace
++ AVI and Fraps: Colorspace
++ AVI and Lagarith: Colorspace
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo

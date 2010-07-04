@@ -202,7 +202,7 @@ FLV1;FFDS;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/;;;;
 FLV4;VP6;On2;;http://www.on2.com;;;;
 FMJP;M-JPEG;D-Vision;;;;;YUV;4:2:0
 FMP4;MPEG-4 Visual;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0
-FPS1;FRAPS;;;http://www.fraps.com/;;;;
+FPS1;Fraps;;;http://www.fraps.com/;;;;
 FRLE;M-JPEG;SoftLab-Nsk;SoftLab-NSK Y16 + Alpha RLE;;;;YUV;4:2:0
 FRWA;M-JPEG;SoftLab-Nsk;SoftLab-NSK Vision Forward M-JPEG with Alpha-channel;;;;YUV;4:2:0
 FRWD;M-JPEG;SoftLab-Nsk;SoftLab-NSK Vision Forward M-JPEG;;;;YUV;4:2:0
@@ -236,7 +236,7 @@ H268;H.268;;;;;;;
 H269;H.263;;;;;;;
 HD10;RGB;BlueFish;BlueFish444 (lossless RGBA, YUV 10-bit);;;;RGB;
 HDX4;Jomigo HDX4;;;;;;;
-HFYU;Huffman;;Huffman Lossless YUV and RGB formats (with Alpha-channel);;;;;
+HFYU;Huffman;;;;;;;
 HMCR;Rendition;;Rendition Motion Compensation Format;;;;;
 HMRR;Rendition;;Rendition Motion Compensation Format;;;;;
 i263;H.263;;;;;;;

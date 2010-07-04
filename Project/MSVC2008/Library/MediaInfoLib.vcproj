@@ -822,6 +822,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Fraps.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Lagarith.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp"
 					>
 				</File>
@@ -1615,6 +1623,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Flic.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Fraps.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Lagarith.h"
 					>
 				</File>
 				<File

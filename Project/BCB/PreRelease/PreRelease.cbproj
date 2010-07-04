@@ -42,7 +42,6 @@
 			<DCC_ObjPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\Source\PreRelease\WxWidgets;..\..\..\Source\PreRelease;E:\Programmation\MediaInfoLib\Project\BCB\PreRelease;$(DCC_ObjPath)</DCC_ObjPath>
 			<BCC_Defines>NO_STRICT;UNICODE;$(BCC_Defines)</BCC_Defines>
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
-			<DynamicRTL>true</DynamicRTL>
 			<Multithreaded>true</Multithreaded>
 			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\..\..\Source\PreRelease\VCL\;..\..\..\Source\PreRelease\;..\..\..\..\zlib\projects\BCB\Release_Build\;..\..\..\..\ZenLib\Source\ZenLib\;..\..\..\..\wxMSW\lib\bcc_lib\;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\wxMSW\lib\bcc_lib;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\Source\PreRelease\WxWidgets;..\..\..\Source\PreRelease;E:\Programmation\MediaInfoLib\Project\BCB\PreRelease;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>

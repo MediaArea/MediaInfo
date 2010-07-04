@@ -297,6 +297,12 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_FLIC_NO) && !defined(MEDIAINFO_FLIC_YES)
     #define MEDIAINFO_FLIC_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_FRAPS_NO) && !defined(MEDIAINFO_FRAPS_YES)
+    #define MEDIAINFO_FRAPS_YES
+#endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_LAGARITH_NO) && !defined(MEDIAINFO_LAGARITH_YES)
+    #define MEDIAINFO_LAGARITH_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_MPEG4V_NO) && !defined(MEDIAINFO_MPEG4V_YES)
     #define MEDIAINFO_MPEG4V_YES
 #endif

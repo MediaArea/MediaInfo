@@ -51,6 +51,12 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_FRAPS_YES)
+    #include "MediaInfo/Video/File_Fraps.h"
+#endif
+#if defined(MEDIAINFO_LAGARITH_YES)
+    #include "MediaInfo/Video/File_Lagarith.h"
+#endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
@@ -1700,6 +1706,28 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     {
         Stream[Stream_ID].Parser=new File_DvDif;
         ((File_DvDif*)Stream[Stream_ID].Parser)->IgnoreAudio=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_FRAPS_YES)
+    else if (Compression==0x46505331) //"FPS1"
+    {
+        Stream[Stream_ID].Parser=new File_Fraps;
+    }
+    #endif
+    else if (Compression==0x48465955) //"HFUY"
+    {
+        switch (Resolution)
+        {
+            case 16 : Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "YUV"); Fill(Stream_Video, StreamPos_Last, Video_ChromaSubsampling, "4:2:2"); Fill(Stream_Video, StreamPos_Last, Video_BitDepth, 8); break;
+            case 24 : Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "RGB"); Fill(Stream_Video, StreamPos_Last, Video_BitDepth, 8); break;
+            case 32 : Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "RGBA"); Fill(Stream_Video, StreamPos_Last, Video_BitDepth, 8); break;
+            default : ;
+        }
+    }
+    #if defined(MEDIAINFO_LAGARITH_YES)
+    else if (Compression==0x4C414753) //"LAGS"
+    {
+        Stream[Stream_ID].Parser=new File_Lagarith;
     }
     #endif
     Open_Buffer_Init(Stream[Stream_ID].Parser);

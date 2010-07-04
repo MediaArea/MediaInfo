@@ -136,6 +136,8 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_AfdBarData.cpp \
                        ../../../Source/MediaInfo/Video/File_Dirac.cpp \
                        ../../../Source/MediaInfo/Video/File_Flic.cpp \
+                       ../../../Source/MediaInfo/Video/File_Fraps.cpp \
+                       ../../../Source/MediaInfo/Video/File_Lagarith.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpeg4v.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpegv.cpp \
                        ../../../Source/MediaInfo/Video/File_Theora.cpp \
