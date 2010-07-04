@@ -1710,7 +1710,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
 
     //Filling
          if (0);
-    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("AVC"))
         AVI__hdlr_strl_strf_vids_Avc();
     else Skip_XX(Element_Size-Element_Offset,                   "Unknown");
 }

@@ -1413,6 +1413,7 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "AUVX;AUVX;;USH GmbH\n"
     "AV1X;Avid 1:1;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe\n"
     "AVC1;AVC;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0\n"
+    "avc1;AVC;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0\n"
     "AVD1;DV;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV\n"
     "AVDJ;M-JPEG;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV;4:2:0\n"
     "AVDN;Avid HD;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe\n"

@@ -47,6 +47,7 @@ AURA;YUV;;Auravision Aura 1;;;;YUV;4:1:1
 AUVX;AUVX;;USH GmbH;;;;;
 AV1X;Avid 1:1;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;;
 AVC1;AVC;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0;
+avc1;AVC;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0;
 AVD1;DV;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV;;
 AVDJ;M-JPEG;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;YUV;4:2:0;
 AVDN;Avid HD;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe;;;;;
