@@ -20,8 +20,8 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<IncludePath>..\..\..\Source\GUI\VCL;..\..\..\Source\Common;$(IncludePath)</IncludePath>
-			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclactnband.lib;vclx.lib;vcldb.lib;dbrtl.lib;dsnap.lib;xmlrtl.lib</LinkPackageStatics>
+			<IncludePath>..\..\..\Source\GUI\VCL\;..\..\..\Source\Common\;..\..\..\Source\GUI\VCL;..\..\..\Source\Common;$(IncludePath)</IncludePath>
+			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclx.lib;vcldb.lib;dbrtl.lib;dsnap.lib</LinkPackageStatics>
 			<BRCC_Defines>_RTLDLL;NO_STRICT;$(BRCC_Defines)</BRCC_Defines>
 			<PackageImports>vcl.bpi;rtl.bpi;vclx.bpi;xmlrtl.bpi;vclie.bpi;inet.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;dbrtl.bpi;dsnap.bpi;bcbie.bpi;vcldb.bpi;websnap.bpi;webdsnap.bpi;vclactnband.bpi</PackageImports>
 			<TASM_Defines>_RTLDLL;NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLL_STATIC;$(TASM_Defines)</TASM_Defines>
@@ -37,12 +37,12 @@
 			<OutputExt>exe</OutputExt>
 			<BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
 			<ILINK_ObjectSearchPath>..\..\..\..\Shared\Library\BCB;..\..\..\Source\Common;..\..\..\Source\GUI\VCL;D:\Programmation\MediaInfo\Project\BCB\GUI;$(ILINK_ObjectSearchPath)</ILINK_ObjectSearchPath>
-			<AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclactnband.lib;vclx.lib;vcldb.lib;dbrtl.lib;dsnap.lib;xmlrtl.lib</AllPackageLibs>
+			<AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclx.lib;vcldb.lib;dbrtl.lib;dsnap.lib</AllPackageLibs>
 			<BCC_Defines>WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLL_STATIC;$(BCC_Defines)</BCC_Defines>
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<DCC_ObjPath>..\..\..\Source\Common;..\..\..\Source\GUI\VCL;D:\Programmation\MediaInfo\Project\BCB\GUI;$(DCC_ObjPath)</DCC_ObjPath>
 			<Multithreaded>true</Multithreaded>
-			<ILINK_LibraryPath>$(BDS)\lib;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build;..\..\..\Source\Common;..\..\..\Source\GUI\VCL;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\..\..\Source\GUI\VCL\;..\..\..\Source\Common\;..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build\;C:\Program Files\CodeGear\RAD Studio\6.0\lib;$(BDS)\lib;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build;..\..\..\Source\Common;..\..\..\Source\GUI\VCL;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
 			<BCC_Defines>_DEBUG;$(BCC_Defines);$(BCC_Defines)</BCC_Defines>

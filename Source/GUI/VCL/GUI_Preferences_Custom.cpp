@@ -61,7 +61,7 @@ __fastcall TPreferences_CustomF::TPreferences_CustomF(TComponent* Owner)
 void __fastcall TPreferences_CustomF::ListeChange(TObject *Sender)
 {
     //Save modification
-    Ztring C1=Ztring().From_Local(Memo->Text.c_str());
+    Ztring C1=Memo->Text.c_str();
     C1.FindAndReplace(_T("\r\n"), _T("\\r\\n"));
     if (ItemIndex!=-1)
         EditedCustom(ItemIndex, 1)=C1;

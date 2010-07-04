@@ -129,3 +129,4 @@ void __fastcall TAboutF::WebSiteClick(TObject *Sender)
 
 #endif //MEDIAINFOGUI_ABOUT_NO
 
+

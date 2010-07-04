@@ -20,8 +20,8 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<ILINK_AdditionalOptions>-tWM</ILINK_AdditionalOptions>
-			<LinkPackageStatics>xmlrtl.lib;rtl.lib;vclactnband.lib;vclx.lib;vcl.lib;vclie.lib</LinkPackageStatics>
-			<IncludePath>..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\Source\Common;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\CLI;$(IncludePath)</IncludePath>
+			<LinkPackageStatics>xmlrtl.lib;rtl.lib;vclx.lib;vcl.lib;vclie.lib</LinkPackageStatics>
+			<IncludePath>..\..\..\Source\Common\;..\..\..\Source\CLI\;..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\Source\Common;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\CLI;$(IncludePath)</IncludePath>
 			<BRCC_Defines>_RTLDLL;NO_STRICT;_NO_VCL;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLLx;$(BRCC_Defines)</BRCC_Defines>
 			<PackageImports>vcl.bpi;rtl.bpi;vclx.bpi;xmlrtl.bpi;vclie.bpi;inet.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;dbrtl.bpi;dsnap.bpi;bcbie.bpi;vcldb.bpi;websnap.bpi;webdsnap.bpi;vclactnband.bpi;Jcl.bpi</PackageImports>
 			<TASM_Defines>_RTLDLL;NO_STRICT;_NO_VCL;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLLx;$(TASM_Defines)</TASM_Defines>
@@ -35,11 +35,11 @@
 			<OutputExt>exe</OutputExt>
 			<BCC_GenerateConsoleApp>true</BCC_GenerateConsoleApp>
 			<ILINK_ObjectSearchPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(ILINK_ObjectSearchPath)</ILINK_ObjectSearchPath>
-			<AllPackageLibs>xmlrtl.lib;rtl.lib;vclactnband.lib;vclx.lib;vcl.lib;vclie.lib</AllPackageLibs>
+			<AllPackageLibs>xmlrtl.lib;rtl.lib;vclx.lib;vcl.lib;vclie.lib</AllPackageLibs>
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<NoVCL>true</NoVCL>
 			<BCC_Defines>NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLLx;$(BCC_Defines)</BCC_Defines>
-			<ILINK_LibraryPath>..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\Shared\Library\BCB;..\..\..\..\MediaInfoLib\Release\BCB\Library;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\;..\..\..\Source\Common\;..\..\..\..\zlib\projects\BCB\Release_Build\;..\..\..\Source\CLI\;..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\Shared\Library\BCB;..\..\..\..\MediaInfoLib\Release\BCB\Library;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 			<DCC_ObjPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(DCC_ObjPath)</DCC_ObjPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
@@ -70,39 +70,39 @@
 			<DCC_AdditionalSwitches> -$O+</DCC_AdditionalSwitches>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="..\..\..\Source\Common\Core.cpp">
-				<BuildOrder>5</BuildOrder>
-				<DependentOn>..\..\..\Source\Common\Core.h</DependentOn>
-				<BuildOrder>4</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
-				<BuildOrder>5</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</CppCompile>
-			<ResFiles Include="MediaInfo_CLI.res">
-				<BuildOrder>-1</BuildOrder>
-				<BuildOrder>1</BuildOrder>
-			</ResFiles>
-			<CppCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp">
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<IgnorePath>true</IgnorePath>
 				<BuildOrder>7</BuildOrder>
-				<BuildOrder>4</BuildOrder>
-			</CppCompile>
+			</LibFiles>
 			<CppCompile Include="..\..\..\Source\CLI\Help.cpp">
 				<BuildOrder>8</BuildOrder>
 				<BuildOrder>3</BuildOrder>
 			</CppCompile>
-			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\MediaInfoLib.lib">
 				<IgnorePath>true</IgnorePath>
-				<BuildOrder>7</BuildOrder>
+				<BuildOrder>8</BuildOrder>
 			</LibFiles>
 			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
 				<IgnorePath>true</IgnorePath>
 				<BuildOrder>8</BuildOrder>
 			</LibFiles>
-			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\MediaInfoLib.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>8</BuildOrder>
-			</LibFiles>
+			<CppCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
+				<BuildOrder>5</BuildOrder>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Core.cpp">
+				<BuildOrder>5</BuildOrder>
+				<DependentOn>..\..\..\Source\Common\Core.h</DependentOn>
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp">
+				<BuildOrder>7</BuildOrder>
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<ResFiles Include="MediaInfo_CLI.res">
+				<BuildOrder>-1</BuildOrder>
+				<BuildOrder>1</BuildOrder>
+			</ResFiles>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

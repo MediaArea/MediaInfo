@@ -248,7 +248,7 @@ void __fastcall TMainF::FormShow(TObject *Sender)
         if (IsWin9X())
         {
             for (int I1=1; I1<=ParamCount(); I1++)
-                I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
+                I->Open(ParamStr(I1).c_str());
         }
         else
         {

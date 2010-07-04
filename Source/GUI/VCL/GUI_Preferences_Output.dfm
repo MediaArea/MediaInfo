@@ -20,7 +20,6 @@ object Preferences_OutputF: TPreferences_OutputF
     Top = 9
     Width = 216
     Height = 22
-    ItemHeight = 14
     ItemIndex = 0
     TabOrder = 0
     Text = 'General'
@@ -64,7 +63,6 @@ object Preferences_OutputF: TPreferences_OutputF
     Width = 260
     Height = 22
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 3
     OnChange = InfosChange
   end

@@ -98,7 +98,6 @@ object PreferencesF: TPreferencesF
         Width = 113
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 0
         OnChange = General_Language_SelChange
       end
@@ -108,7 +107,6 @@ object PreferencesF: TPreferencesF
         Width = 113
         Height = 22
         Style = csDropDownList
-        ItemHeight = 14
         TabOrder = 1
         OnChange = General_Output_SelChange
         Items.Strings = (
@@ -266,7 +264,6 @@ object PreferencesF: TPreferencesF
         Width = 242
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 0
         OnChange = Language_SelChange
       end
@@ -292,7 +289,6 @@ object PreferencesF: TPreferencesF
         Width = 242
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 0
         OnChange = Sheet_SelChange
       end
@@ -387,7 +383,6 @@ object PreferencesF: TPreferencesF
         Width = 242
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 3
         OnChange = Custom_SelChange
       end

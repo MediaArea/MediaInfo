@@ -24,7 +24,6 @@ object Preferences_CustomF: TPreferences_CustomF
     Width = 216
     Height = 22
     Style = csDropDownList
-    ItemHeight = 14
     ItemIndex = 0
     TabOrder = 0
     Text = 'General'
@@ -92,7 +91,6 @@ object Preferences_CustomF: TPreferences_CustomF
     Width = 260
     Height = 22
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 3
     OnChange = InfosChange
   end

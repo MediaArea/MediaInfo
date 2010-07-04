@@ -201,11 +201,11 @@ void __fastcall TPreferencesF::Sheet_NewClick(TObject *Sender)
     if (!InputQuery(_T("New sheet"), _T("Enter name of new sheet"), S1))
         return;
 
-    Prefs->Create(Prefs_Sheet, Ztring().From_Local(S1.c_str()));
+    Prefs->Create(Prefs_Sheet, S1.c_str());
     ComboBox_Update(Sheet_Sel, Prefs_Sheet);
 
     //Selecting and edit
-    Sheet_Sel->ItemIndex=Prefs->FilesList[Prefs_Sheet].Find(Ztring().From_Local(S1.c_str()));
+    Sheet_Sel->ItemIndex=Prefs->FilesList[Prefs_Sheet].Find(S1.c_str());
     Sheet_EditClick(Sender);
 }
 
@@ -320,12 +320,12 @@ void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
 	if (!InputQuery(_T("New language"), _T("Enter name of new language"), S1))
         return;
 
-    Prefs->Create(Prefs_Language, Ztring().From_Local(S1.c_str()));
+    Prefs->Create(Prefs_Language, S1.c_str());
     ComboBox_Update(General_Language_Sel, Prefs_Language);
     ComboBox_Update(Language_Sel, Prefs_Language);
 
     //Selecting and edit
-    Language_Sel->ItemIndex=Prefs->FilesList[Prefs_Language].Find(Ztring().From_Local(S1.c_str()));
+    Language_Sel->ItemIndex=Prefs->FilesList[Prefs_Language].Find(S1.c_str());
     Language_EditClick(Sender);
 }
 
@@ -344,11 +344,11 @@ void __fastcall TPreferencesF::Custom_NewClick(TObject *Sender)
 	if (!InputQuery(_T("New Output"), _T("Enter name of new Output"), S1))
         return;
 
-    Prefs->Create(Prefs_Custom, Ztring().From_Local(S1.c_str()));
+    Prefs->Create(Prefs_Custom, S1.c_str());
     ComboBox_Update(Custom_Sel, Prefs_Custom);
 
     //Selecting and edit
-    Custom_Sel->ItemIndex=Prefs->FilesList[Prefs_Custom].Find(Ztring().From_Local(S1.c_str()));
+    Custom_Sel->ItemIndex=Prefs->FilesList[Prefs_Custom].Find(S1.c_str());
     Custom_EditClick(Sender);
 }
 

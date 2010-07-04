@@ -74,7 +74,7 @@ __fastcall TPreferences_OutputF::TPreferences_OutputF(TComponent* Owner)
 
 void __fastcall TPreferences_OutputF::ListeChange(TObject *Sender)
 {
-    Ztring C1=Ztring().From_Local(Memo->Text.c_str());
+    Ztring C1=Memo->Text.c_str();
     C1.FindAndReplace(_T("\r\n"), _T("\\r\\n"));
     Output(AncienItemIndex, 1)=C1;
 

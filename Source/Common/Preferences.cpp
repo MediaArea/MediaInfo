@@ -120,7 +120,7 @@ int Preferences::Config_Load()
     int Retour=1;
 
     //Base folder
-    BaseFolder.From_Local(Application->ExeName.c_str());
+    BaseFolder=Application->ExeName.c_str();
     BaseFolder=BaseFolder.substr(0, BaseFolder.rfind(_T("\\"))+1);
     if (!Dir::Exists(BaseFolder+_T("Plugin")))
         Dir::Create(BaseFolder+_T("Plugin"));
@@ -891,11 +891,11 @@ int Preferences::ShellToolTip()
         if (ShellInfoTip)
         {
             //test if good writing
-            std::string DLL_Name=Application->ExeName.c_str();
+            std::string DLL_Name=Ztring(Application->ExeName.c_str()).To_Local();
             DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
             DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
-            std::string ShellInfoTip_Existing=Reg_User->ReadString(_T("")).c_str();
+            std::string ShellInfoTip_Existing=Ztring(Reg_User->ReadString(_T("")).c_str()).To_Local();
             if (ShellInfoTip_Existing!=ShellInfoTipToWtrite)
             {
                 //This is not the good shell extension, writing new one
@@ -932,7 +932,7 @@ int Preferences::ShellToolTip()
             try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
-            std::string DLL_Name=Application->ExeName.c_str();
+            std::string DLL_Name=Ztring(Application->ExeName.c_str()).To_Local();
             DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
             DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
