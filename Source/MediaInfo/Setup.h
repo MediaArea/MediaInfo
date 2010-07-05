@@ -123,6 +123,9 @@
 //---------------------------------------------------------------------------
 // Optional features
 #if !defined(MEDIAINFO_TRACE)
+    #if defined(MEDIAINFO_TRACE_NO) && defined(MEDIAINFO_TRACE_YES)
+		#undef MEDIAINFO_TRACE_NO //MEDIAINFO_TRACE_YES has priority
+	#endif
     #if defined(MEDIAINFO_TRACE_NO)
         #define MEDIAINFO_TRACE 0
     #else
@@ -130,6 +133,9 @@
     #endif
 #endif
 #if !defined(MEDIAINFO_EVENTS)
+    #if defined(MEDIAINFO_EVENTS_NO) && defined(MEDIAINFO_EVENTS_YES)
+		#undef MEDIAINFO_EVENTS_NO //MEDIAINFO_EVENTS_YES has priority
+	#endif
     #if defined(MEDIAINFO_EVENTS_NO)
         #define MEDIAINFO_EVENTS 0
     #else
@@ -137,11 +143,20 @@
     #endif
 #endif
 #if !defined(MEDIAINFO_DEMUX)
-    #if defined(MEDIAINFO_DEMUX_NO)
+    #if !defined(MEDIAINFO_DEMUX_YES) && !MEDIAINFO_EVENTS
+		#define MEDIAINFO_DEMUX_NO //MEDIAINFO_DEMUX is disabled by default if MEDIAINFO_EVENTS is set to 1
+	#endif
+    #if defined(MEDIAINFO_DEMUX_NO) && defined(MEDIAINFO_DEMUX_YES)
+		#undef MEDIAINFO_DEMUX_NO //MEDIAINFO_DEMUX_YES has priority
+	#endif
+	#if defined(MEDIAINFO_DEMUX_NO)
         #define MEDIAINFO_DEMUX 0
     #else
         #define MEDIAINFO_DEMUX 1
     #endif
+#endif
+#if MEDIAINFO_DEMUX && !MEDIAINFO_EVENTS
+	pragma error MEDIAINFO_DEMUX can be set to 1 only if MEDIAINFO_EVENTS is set to 1 
 #endif
 
 //***************************************************************************
