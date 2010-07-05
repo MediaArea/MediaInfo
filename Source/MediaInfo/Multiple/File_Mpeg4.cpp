@@ -659,6 +659,7 @@ void File_Mpeg4::Descriptors()
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
     MI.ftyps=ftyps;
+    MI.Channels_AreTrustable=Stream[moov_trak_tkhd_TrackID].Channels_AreTrustable;
     MI.Parser_DoNotFreeIt=true;
     Open_Buffer_Init(&MI);
 

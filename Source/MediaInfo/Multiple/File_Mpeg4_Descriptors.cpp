@@ -716,6 +716,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
                                 #if defined(MEDIAINFO_MPEG4_YES)
                                     delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
                                     ((File_Mpeg4_AudioSpecificConfig*)Parser)->ftyps=ftyps;
+                                    ((File_Mpeg4_AudioSpecificConfig*)Parser)->Channels_AreTrustable=Channels_AreTrustable;
                                 #endif
                                 break;
             default: ;
@@ -759,6 +760,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         #ifdef MEDIAINFO_MPEG4_YES
             delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
             ((File_Mpeg4_AudioSpecificConfig*)Parser)->ftyps=ftyps;
+            ((File_Mpeg4_AudioSpecificConfig*)Parser)->Channels_AreTrustable=Channels_AreTrustable;
             Open_Buffer_Init(Parser);
         #endif //MEDIAINFO_MPEG4_YES
     }

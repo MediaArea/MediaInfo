@@ -287,6 +287,7 @@ private :
         int64u                  stsz_Sample_Count;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
+        bool                    Channels_AreTrustable;
 
         stream()
         {
@@ -297,6 +298,7 @@ private :
             stsz_Sample_Count=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
+            Channels_AreTrustable=false;
         }
 
         ~stream()

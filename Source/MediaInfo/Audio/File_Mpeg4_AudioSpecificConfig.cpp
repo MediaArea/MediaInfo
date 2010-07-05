@@ -384,19 +384,22 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     BS_End();
 
     //Handling implicit SBR and PS
-    bool Is3GP=false;
-    for (size_t Pos=0; Pos<ftyps.size(); Pos++)
-        if ((ftyps[Pos]&0xFFFFFF00)==0x33677000)
-            Is3GP=true;
-    if (!Is3GP) //If this is not a 3GP file
+    if (!Channels_AreTrustable) //if not channel map in the container
     {
-        if (!sbrPresentFlag && samplingFrequency<=24000)
+        bool Is3GP=false;
+        for (size_t Pos=0; Pos<ftyps.size(); Pos++)
+            if ((ftyps[Pos]&0xFFFFFF00)==0x33677000)
+                Is3GP=true;
+        if (!Is3GP) //If this is not a 3GP file
         {
-            samplingFrequency*=2;
-            sbrPresentFlag=true;
+            if (!sbrPresentFlag && samplingFrequency<=24000)
+            {
+                samplingFrequency*=2;
+                sbrPresentFlag=true;
+            }
+            if ((!sbrData || sbrPresentFlag) && !psPresentFlag && channelConfiguration<=1) //1 channel
+                psPresentFlag=true;
         }
-        if ((!sbrData || sbrPresentFlag) && !psPresentFlag && channelConfiguration<=1) //1 channel
-            psPresentFlag=true;
     }
 
     FILLING_BEGIN()
@@ -408,7 +411,11 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 4");
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile(audioObjectType));
         if (audioObjectType==2) //LC
+        {
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "No");
+            if (Channels_AreTrustable && !psPresentFlag && channelConfiguration<=1)
+                Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
+        }
         if (!sbrPresentFlag && !psPresentFlag)
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile(audioObjectType));
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);

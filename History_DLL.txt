@@ -22,6 +22,7 @@ Version 0.7.34, 2010-
 + AVI and Huffman (HFYU): Colorspace
 + AVI and Fraps: Colorspace
 + AVI and Lagarith: Colorspace
++ MPEG-4: Channel map basic support
 x CEA-708: Skipping some malformed streams
 x JPEG/M-JPEG: Resolution was in some random other field
 x #3001707, AAC in MP4: mono aac file detected as stereo
@@ -33,6 +34,7 @@ x WAV/PCM: Byte sign was wrong if Bit depth >8
 x Decimal point issues with some specific compilers/OS
 x MPEG-4: removing support of btrt atom for average bitrate, too many wrong values
 x AVI: crash with some specific files (avc1 CodecID)
+x MPEG-4+AAC: Trying to better detect the (non)presence of PS if there is no PS header
 
 Version 0.7.33, 2010-05-14
 --------------

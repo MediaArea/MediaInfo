@@ -154,6 +154,28 @@ Ztring Mpeg4_Vendor(int32u Vendor)
     }
 }
 
+//---------------------------------------------------------------------------
+const char* Mpeg4_chan(int16u Ordering)
+{
+    //TODO: http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_spec/CAF_spec.html#//apple_ref/doc/uid/TP40001862-CH210-BCGECJAJ
+    switch(Ordering)
+    {
+        case 100 : return "Front: C";
+        case 101 : return "Front: L R";
+        case 102 : return "Front: L R"; //With headphones
+        case 103 : return "Front: L R"; //With matrix
+        case 104 : return "Front: MidSide";
+        case 105 : return "Front: XY";
+        case 106 : return "Front: Binaural";
+        case 107 : return "Front: WXYZ";
+        case 108 : return "Front: L R, Side: L R";
+        case 109 : return "Front: L C R, Rear: L R";
+        case 110 : return "Front: L C R, Rear: L C R";
+        case 111 : return "Front: L C R, Side: L R, Rear: L C R";
+        case 112 : return "Front: L R, TopFront: L R, Rear: L R, TopRear: L R";
+    }
+}
+
 //***************************************************************************
 // Constants
 //***************************************************************************
@@ -3070,10 +3092,42 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_btrt()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
 {
-    Element_Name("Channels");
+    NAME_VERSION_FLAG("Channels");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    //From http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_spec/CAF_spec.html#//apple_ref/doc/uid/TP40001862-CH210-DontLinkElementID_25
+    int32u ChannelLayoutTag, ChannelBitmap, NumberChannelDescriptions;
+    Get_B4 (ChannelLayoutTag,                                   "ChannelLayoutTag");
+    Get_B4 (ChannelBitmap,                                      "ChannelBitmap");
+    Get_B4 (NumberChannelDescriptions,                          "NumberChannelDescriptions");
+    for (int32u Pos=0; Pos<NumberChannelDescriptions; Pos++)
+    {
+        Skip_B1(                                                "ChannelLabel");
+        Skip_B1(                                                "ChannelFlags");
+        Skip_BF4(                                               "Coordinates (0)");
+        Skip_BF4(                                               "Coordinates (1)");
+        Skip_BF4(                                               "Coordinates (2)");
+    }
+
+    FILLING_BEGIN();
+        if (ChannelLayoutTag==0x10000) //kCAFChannelLayoutTag_UseChannelBitmap
+        {
+            int16u Channels=ChannelLayoutTag&0x0000FFFF;
+            int16u Ordering=(ChannelLayoutTag&0xFFFF0000)>16;
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Mpeg4_chan(Ordering), Unlimited, true, true);
+        }
+        else
+        {
+            size_t Channels=0;
+            for (size_t Bit=0; Bit<18; Bit++)
+                if (ChannelBitmap&(1<<Bit))
+                    Channels++;
+            if (Channels)
+                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+        }
+        Stream[moov_trak_tkhd_TrackID].Channels_AreTrustable=true;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

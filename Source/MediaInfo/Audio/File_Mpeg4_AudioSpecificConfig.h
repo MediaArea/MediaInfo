@@ -38,6 +38,7 @@ class File_Mpeg4_AudioSpecificConfig : public File__Analyze
 public :
     //In
     std::vector<int32u> ftyps;
+    bool Channels_AreTrustable;
 
 public :
     //Constructor/Destructor
