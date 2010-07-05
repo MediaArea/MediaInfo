@@ -173,6 +173,7 @@ const char* Mpeg4_chan(int16u Ordering)
         case 110 : return "Front: L C R, Rear: L C R";
         case 111 : return "Front: L C R, Side: L R, Rear: L C R";
         case 112 : return "Front: L R, TopFront: L R, Rear: L R, TopRear: L R";
+		default  : return "";
     }
 }
 
