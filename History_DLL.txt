@@ -35,6 +35,7 @@ x Decimal point issues with some specific compilers/OS
 x MPEG-4: removing support of btrt atom for average bitrate, too many wrong values
 x AVI: crash with some specific files (avc1 CodecID)
 x MPEG-4+AAC: Trying to better detect the (non)presence of PS if there is no PS header
+x MPEG-TS/PS: more precision on duration
 
 Version 0.7.33, 2010-05-14
 --------------

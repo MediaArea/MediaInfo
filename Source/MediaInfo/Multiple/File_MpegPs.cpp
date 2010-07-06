@@ -1326,7 +1326,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         if (Searching_TimeStamp_Start && Streams[start_code].Searching_TimeStamp_Start)
         {
             Streams[start_code].TimeStamp_Start.PTS.TimeStamp=PTS;
-            Streams[start_code].Searching_TimeStamp_Start=false;
+            //Streams[start_code].Searching_TimeStamp_Start=false;
         }
 
         #if MEDIAINFO_TRACE
