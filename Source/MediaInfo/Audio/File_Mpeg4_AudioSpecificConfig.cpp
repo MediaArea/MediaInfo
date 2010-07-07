@@ -224,6 +224,8 @@ const char* MP4_ChannelConfiguration2[]=
 File_Mpeg4_AudioSpecificConfig::File_Mpeg4_AudioSpecificConfig()
 :File__Analyze()
 {
+    //In
+    Channels_AreTrustable=false;
 }
 
 //***************************************************************************
