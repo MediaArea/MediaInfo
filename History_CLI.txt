@@ -7,6 +7,37 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.34, 2010-07-09
+--------------
++ New icons set, thanks to Kevin Redon, based on Gnome themes: Neu, Experience, Gnome 2.18
++ WebM support, sponsored by http://digi-metrics.com/
++ LXF (Harris/Leitch) support
++ #3008704, IVF (Indeo Video Format) support
++ #3002376, Blu-ray: Source (.m2ts) for the .mpls parser
++ DV: handling of unsynched streams
++ Basic view, Bit Depth is added to the audio part
++ FLV: Framerate info for some not yet supported weird files
++ Demux (library only): demuxed packets can be forced to contain 1 complete frame
++ XML output: MediaInfo version
++ Parsing speed (Library only): option for a quicker analyzing, but with some missing features
++ AVI and Huffman (HFYU): Colorspace
++ AVI and Fraps: Colorspace
++ AVI and Lagarith: Colorspace
++ MPEG-4: Channel map basic support
+x CEA-708: Skipping some malformed streams
+x JPEG/M-JPEG: Resolution was in some random other field
+x #3001707, AAC in MP4: mono aac file detected as stereo
+x AVI: crash with some malformed files
+x AVI: Stream identifier was not filled in some cases
+x MPEG-PS: some files were not well detected
+x WAV: Bit Depth is back
+x WAV/PCM: Byte sign was wrong if Bit depth >8
+x Decimal point issues with some specific compilers/OS
+x MPEG-4: removing support of btrt atom for average bitrate, too many wrong values
+x AVI: crash with some specific files (avc1 CodecID)
+x MPEG-4+AAC: Trying to better detect the (non)presence of PS if there is no PS header
+x MPEG-TS/PS: more precision on duration
+
 Version 0.7.33, 2010-05-14
 --------------
 + Slovak language added
