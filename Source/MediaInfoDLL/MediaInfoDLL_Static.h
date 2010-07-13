@@ -256,6 +256,8 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfo_Open_Buffer_Continue (void* 
 MEDIAINFO_EXP MediaInfo_int64u  __stdcall MediaInfo_Open_Buffer_Continue_GoTo_Get (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer, Finalize) */
 MEDIAINFO_EXP size_t            __stdcall MediaInfo_Open_Buffer_Finalize (void* Handle);
+/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (NextPacket) */
+MEDIAINFO_EXP size_t            __stdcall MediaInfo_Open_NextPacket (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Save */
 MEDIAINFO_EXP size_t            __stdcall MediaInfo_Save (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Close */
@@ -318,6 +320,8 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Open_Buffer_Continue (void*
 MEDIAINFO_EXP MediaInfo_int64u  __stdcall MediaInfoA_Open_Buffer_Continue_GoTo_Get (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer, Finalize) */
 MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Open_Buffer_Finalize (void* Handle);
+/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (NextPacket) */
+MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Open_NextPacket (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Save */
 MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Save (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Close */

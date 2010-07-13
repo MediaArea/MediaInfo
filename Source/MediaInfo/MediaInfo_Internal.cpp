@@ -236,6 +236,7 @@ MediaInfo_Internal::MediaInfo_Internal()
 
     BlockMethod=BlockMethod_Local;
     Info=NULL;
+    Reader=NULL;
     Info_IsMultipleParsing=false;
 
     Stream.resize(Stream_Max);
@@ -256,6 +257,7 @@ MediaInfo_Internal::~MediaInfo_Internal()
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Destruction");)
 
     delete Info; //Info=NULL;
+    delete Reader; //Reader=NULL;
     #ifdef MEDIAINFO_DEBUG_OUTPUT
         for (size_t Pos=0; Pos<Debug_Output_Pos_Stream.size(); Pos++)
         {
@@ -272,6 +274,8 @@ MediaInfo_Internal::~MediaInfo_Internal()
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open(const String &File_Name_)
 {
+    Close();
+    
     CS.Enter();
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open, File=");Debug+=Ztring(File_Name_).c_str();)
     File_Name=File_Name_;
@@ -319,7 +323,7 @@ void MediaInfo_Internal::Entry()
           && File_Name[3]==_T(':')
           && File_Name[4]==_T('/')
           && File_Name[5]==_T('/')))
-            Reader_libcurl::Format_Test(this, File_Name);
+            Reader_libcurl().Format_Test(this, File_Name);
     #endif //MEDIAINFO_LIBCURL_YES
 
     #if defined(MEDIAINFO_LIBMMS_YES)
@@ -338,17 +342,31 @@ void MediaInfo_Internal::Entry()
           && File_Name[4]==_T(':')
           && File_Name[5]==_T('/')
           && File_Name[6]==_T('/')))
-            Reader_libmms::Format_Test(this, File_Name);
+            Reader_libmms().Format_Test(this, File_Name);
     #endif //MEDIAINFO_LIBMMS_YES
 
     #if defined(MEDIAINFO_DIRECTORY_YES)
         else if (Dir::Exists(File_Name))
-            Reader_Directory::Format_Test(this, File_Name);
+            Reader_Directory().Format_Test(this, File_Name);
     #endif //MEDIAINFO_DIRECTORY_YES
 
     #if defined(MEDIAINFO_FILE_YES)
         else if (File::Exists(File_Name))
-            Reader_File::Format_Test(this, File_Name);
+        {
+            CS.Enter();
+            if (Reader)
+            {
+                CS.Leave();
+                return; //There is a problem
+            }
+            Reader=new Reader_File();
+            CS.Leave();
+
+            Reader->Format_Test(this, File_Name);
+
+            if (Config.NextPacket_Get())
+                return;
+        }
     #endif //MEDIAINFO_FILE_YES
 
     CS.Enter();
@@ -517,6 +535,17 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
 }
 
 //---------------------------------------------------------------------------
+std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    if (Info==NULL || !Info->Status[File__Analyze::IsFinished])
+        ((Reader_File*)Reader)->Format_Test_PerParser_Continue(this);
+
+    return Info==NULL?0:Info->Status;
+}
+
+//---------------------------------------------------------------------------
 void MediaInfo_Internal::Close()
 {
     if (IsRunning())
@@ -533,6 +562,7 @@ void MediaInfo_Internal::Close()
     Stream_More.clear();
     Stream_More.resize(Stream_Max);
     delete Info; Info=NULL;
+    delete Reader; Reader=NULL;
 }
 
 //***************************************************************************

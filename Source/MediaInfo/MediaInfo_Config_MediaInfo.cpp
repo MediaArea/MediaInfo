@@ -57,6 +57,11 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Bdmv_ParseTargetedFile=true;
     File_DvDif_Analysis=false;
     State=0;
+
+    //Internal to MediaInfo, not thread safe
+    #if MEDIAINFO_DEMUX
+        Demux_EventWasSent=false;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************
@@ -135,6 +140,26 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             return _T("1");
         //else
         //    return _T("");
+    }
+    else if (Option_Lower==_T("file_demux_unpacketize"))
+    {
+        #if MEDIAINFO_DEMUX
+            if (Value.empty())
+                Demux_Unpacketize_Set(false);
+            else
+                Demux_Unpacketize_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_nextpacket"))
+    {
+        if (Value.empty())
+            NextPacket_Set(false);
+        else
+            NextPacket_Set(true);
+        return Ztring();
     }
     else if (Option_Lower==_T("file_mpegts_forcemenu"))
     {
@@ -406,6 +431,42 @@ void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztr
     size_t Pos=File__Duplicate_Memory_Indexes.Find(Value);
     if (Pos!=Error)
         File__Duplicate_Memory_Indexes[Pos].clear();
+}
+
+//***************************************************************************
+// Demux
+//***************************************************************************
+
+#if MEDIAINFO_DEMUX
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Demux_Unpacketize_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_Unpacketize=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::Demux_Unpacketize_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_Unpacketize;
+}
+#endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
+// NextPacket
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::NextPacket_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    NextPacket=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::NextPacket_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return NextPacket;
 }
 
 //***************************************************************************

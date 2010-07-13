@@ -1343,7 +1343,7 @@ void File_Mxf::Data_Parse()
                 Element_Code=Essences[Code_Compare4].TrackID;
             else
                 Element_Code=Code.lo;
-        #endif MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX
 
         if (Essences[Code_Compare4].Parser==NULL)
         {

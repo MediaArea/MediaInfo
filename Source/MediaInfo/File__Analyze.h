@@ -85,6 +85,9 @@ public :
         int8u   StreamIDs_Width[16];
         int8u   ParserIDs[16];
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        int8u   Demux_Level; //bit 0=frame, bit 1=container, bit 2=elementary (eg MPEG-TS), default with frame set
+    #endif //MEDIAINFO_DEMUX
     Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
     int64u PCR; //In nanoseconds

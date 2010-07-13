@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.35, 2010-
+--------------
++ Library: "Per frame" interface, like ffmpeg
+
 Version 0.7.34, 2010-07-09
 --------------
 + WebM support, sponsored by http://digi-metrics.com/

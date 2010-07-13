@@ -115,6 +115,7 @@ File_MpegTs::File_MpegTs()
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_MpegTs;
         StreamIDs_Width[0]=4;
+        Demux_Level=4; //Intermediate
     #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;

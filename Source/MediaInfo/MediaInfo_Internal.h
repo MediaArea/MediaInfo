@@ -58,6 +58,7 @@ namespace MediaInfoLib
 
 class File__Analyze;
 class Internet__Base;
+class Reader__Base;
 
 //***************************************************************************
 /// @brief MediaInfo_Internal
@@ -80,6 +81,7 @@ public :
     ZenLib::int64u Open_Buffer_Continue_GoTo_Get ();
     bool   Open_Buffer_Position_Set(int64u File_Offset);
     size_t Open_Buffer_Finalize ();
+    std::bitset<32> Open_NextPacket ();
     void Close ();
 
     //General information
@@ -115,6 +117,7 @@ private :
     //Parsing handles
     File__Analyze*  Info;
     Internet__Base* Internet;
+    Reader__Base*   Reader;
     Ztring          File_Name;
 
     //Helpers

@@ -8,6 +8,7 @@ EXPORTS
     MediaInfo_Open_Buffer_Continue @65
     MediaInfo_Open_Buffer_Continue_GoTo_Get @66
     MediaInfo_Open_Buffer_Finalize @67
+    MediaInfo_Open_NextPacket      @76
     MediaInfo_Save                 @16
     MediaInfo_Close                @17
     MediaInfo_Inform               @18
@@ -29,6 +30,7 @@ EXPORTS
     MediaInfoA_Open_Buffer_Continue @69
     MediaInfoA_Open_Buffer_Continue_GoTo_Get @70
     MediaInfoA_Open_Buffer_Finalize @71
+    MediaInfoA_Open_NextPacket     @77
     MediaInfoA_Save                @10
     MediaInfoA_Close               @02
     MediaInfoA_Inform              @03
@@ -74,4 +76,4 @@ EXPORTS
     MediaInfoListA_State_Get       @60
     MediaInfoListA_Count_Get       @61
     MediaInfoListA_Count_Get_Files @63
-;Last item = 75
+;Last item = 77

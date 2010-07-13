@@ -126,7 +126,7 @@ size_t MediaInfoList_Internal::Open(const String &File_Name, const fileoptions_t
     else
         List=Dir::GetAllFileNames(File_Name, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
 
-    Reader_Directory::Directory_Cleanup(List);
+    Reader_Directory().Directory_Cleanup(List);
 
     //Registering files
     CS.Enter();
