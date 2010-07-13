@@ -57,6 +57,8 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Bdmv_ParseTargetedFile=true;
     File_DvDif_Analysis=false;
     State=0;
+    Demux_Unpacketize=false;
+    NextPacket=false;
 
     //Internal to MediaInfo, not thread safe
     #if MEDIAINFO_DEMUX

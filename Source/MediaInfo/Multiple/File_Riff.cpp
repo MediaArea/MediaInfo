@@ -93,6 +93,9 @@ File_Riff::File_Riff()
         ParserIDs[0]=MediaInfo_Parser_Riff;
         StreamIDs_Width[0]=17;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
     DataMustAlwaysBeComplete=false;
 
     //Data

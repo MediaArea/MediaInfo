@@ -58,8 +58,10 @@ File_Lxf::File_Lxf()
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Lxf;
         StreamIDs_Width[0]=4; //2 numbers for Code, 2 numbers for subcode
-        Demux_Level=2; //Container
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
 
     //Temp

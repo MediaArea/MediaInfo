@@ -385,6 +385,9 @@ File_Flv::File_Flv()
         ParserIDs[0]=MediaInfo_Parser_Flv;
         StreamIDs_Width[0]=2;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
 
     //Internal
     Stream.resize(3); //Null, Video, Audio

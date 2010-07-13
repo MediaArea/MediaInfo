@@ -1736,7 +1736,7 @@ void File__Analyze::Accept (const char* ParserName_Char)
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
 
             #ifdef MEDIAINFO_DEMUX
-                if (Config->Event_CallBackFunction_IsSet())
+                if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
                     Config->Demux_EventWasSent=true;
             #endif //MEDIAINFO_DEMUX
         }
@@ -1761,7 +1761,7 @@ void File__Analyze::Accept ()
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
 
             #ifdef MEDIAINFO_DEMUX
-                if (Config->Event_CallBackFunction_IsSet())
+                if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
                     Config->Demux_EventWasSent=true;
             #endif //MEDIAINFO_DEMUX
         }
@@ -2319,7 +2319,8 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         Event.Content_Size=Buffer_Size;
         Event.Content=Buffer;
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
-        Config->Demux_EventWasSent=true;
+        if (Config->NextPacket_Get())
+            Config->Demux_EventWasSent=true;
     #endif //MEDIAINFO_EVENTS
 }
 #endif //MEDIAINFO_DEMUX

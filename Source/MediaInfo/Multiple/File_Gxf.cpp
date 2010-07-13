@@ -233,6 +233,9 @@ File_Gxf::File_Gxf()
         ParserIDs[0]=MediaInfo_Parser_Gxf;
         StreamIDs_Width[0]=2;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 

@@ -428,6 +428,9 @@ File_Mxf::File_Mxf()
         ParserIDs[0]=MediaInfo_Parser_Mxf;
         StreamIDs_Width[0]=8;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
     DataMustAlwaysBeComplete=false;
 

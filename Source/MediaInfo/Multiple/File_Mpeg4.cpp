@@ -148,6 +148,9 @@ File_Mpeg4::File_Mpeg4()
         ParserIDs[0]=MediaInfo_Parser_Mpeg4;
         StreamIDs_Width[0]=8;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
     DataMustAlwaysBeComplete=false;
 
     //Temp

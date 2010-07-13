@@ -132,6 +132,9 @@ File_Mk::File_Mk()
         ParserIDs[0]=MediaInfo_Parser_Matroska;
         StreamIDs_Width[0]=16;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
     DataMustAlwaysBeComplete=false;
 
     //Temp
