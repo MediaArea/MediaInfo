@@ -579,7 +579,7 @@ bool File_Lxf::Video_Stream(size_t Pos)
 {
     Element_Begin("Stream");
 
-    Element_Code=0x0100+Pos;
+    Element_Code=0x0100; //+Pos (no Pos until we know what is the other stream)
     Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
 
     if (Video_Sizes[Pos]==120000)
