@@ -69,6 +69,7 @@ File_Lxf::File_Lxf()
     LookingForLastFrame=false;
     Stream_Count=0;
     Info_General_StreamSize=0;
+    Audio_Sizes_Pos=(size_t)-1;
 }
 
 //***************************************************************************
@@ -123,7 +124,6 @@ void File_Lxf::Streams_Finish()
             for (size_t Pos=0; Pos<Audios.size(); Pos++)
                 if (Audios[Pos].BytesPerFrame!=(int64u)-1)
                     Info_General_StreamSize+=Audios[Pos].BytesPerFrame*Retrieve(Stream_Audio, Pos, Audio_FrameCount).To_int64u();
-            int64u BitRate=(File_Size-Info_General_StreamSize)*8*1000/Duration;
             Fill(Stream_General, 0, General_StreamSize, Info_General_StreamSize);
             Fill(Stream_Video, 0, Video_StreamSize, File_Size-Info_General_StreamSize);
         }
@@ -178,6 +178,9 @@ bool File_Lxf::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Lxf::Synched_Test()
 {
+    if (Audio_Sizes_Pos<Audio_Sizes.size())
+        return true;
+
     //Must have enough buffer for having header
     if (Buffer_Offset+16>Buffer_Size)
         return false;
@@ -191,13 +194,26 @@ bool File_Lxf::Synched_Test()
 }
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//***************************************************************************
 // Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Lxf::Header_Parse()
 {
-    //parsing
+    if (Audio_Sizes_Pos<Audio_Sizes.size())
+    {
+        //Filling
+        Header_Fill_Code(0x010200+Audio_Sizes_Pos, _T("Stream"));
+        Header_Fill_Size(Audio_Sizes[Audio_Sizes_Pos]);
+        Audio_Sizes_Pos++;
+        return;
+    }
+
+    //Parsing
     int64u Code, BlockSize;
     Skip_C8(                                                    "Signature");
     Skip_L4(                                                    "Always 0x00000001");
@@ -207,25 +223,35 @@ void File_Lxf::Header_Parse()
     {
         case 0  :   //Video
                     {
-                    Sizes.resize(2);
+                    Video_Sizes.resize(2);
                     int64u Size;
                     BlockSize=0;
 
                     Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms");
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
-                    Skip_L4(                                    "Always same in data");
+                    Skip_L4(                                    "? (Always same in data)");
                     Get_L8(Size,                                "Block size");
-                    Sizes[1]=Size;
+                    Video_Sizes[1]=Size;
                     BlockSize+=Size;
                     Get_L8(Size,                                "Block size");
-                    Sizes[0]=Size;
+                    Video_Sizes[0]=Size;
                     BlockSize+=Size;
-                    Skip_L4(                                    "? (Always zero)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
                     Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info(((float64)Reverse)/720, 3, " ms");
                     if (Videos_Header.TimeStamp_Begin==(int64u)-1)
                         Videos_Header.TimeStamp_Begin=TimeStamp;
                     Videos_Header.TimeStamp_End=TimeStamp+Duration;
                     Videos_Header.Duration=Duration;
+
+                    //Cleanup of sizes
+                    for (size_t Pos=0; Pos<Video_Sizes.size(); Pos++)
+                        if (Video_Sizes[Pos]==0)
+                        {
+                            Video_Sizes.erase(Video_Sizes.begin()+Pos);
+                            Pos--;
+                        }
+                        else
+                            break;
                     }
                     break;
         case 1  :   //Audio
@@ -234,12 +260,12 @@ void File_Lxf::Header_Parse()
 
                     Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms");
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
-                    Skip_L4(                                    "? (Non-Zero, same in all blocks)");
+                    Skip_L4(                                    "? (Always same in data)");
                     Get_L4(Info,                                "Info?");
                     Get_L4(Size,                                "Block size (divided by ?)");
-                    Skip_L4(                                    "? (Always zero)");
-                    Skip_L4(                                    "? (Always zero)");
-                    Skip_L4(                                    "? (Always zero)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
                     Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info(((float64)Reverse)/720, 3, " ms");
 
                     size_t Multiplier;
@@ -249,49 +275,59 @@ void File_Lxf::Header_Parse()
                         case 0x0F : Multiplier=4; break;
                         default   : Multiplier=0; Trusted++; //Unknown size, will unsynch
                     }
-                    Sizes.resize(Multiplier);
-                    for (size_t Pos=0; Pos<Sizes.size(); Pos++)
-                        Sizes[Pos]=Size;
+                    Audio_Sizes.resize(Multiplier);
+                    for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
+                        Audio_Sizes[Pos]=Size;
                     BlockSize=Size*Multiplier;
                     if (Audios_Header.TimeStamp_Begin==(int64u)-1)
                         Audios_Header.TimeStamp_Begin=TimeStamp;
                     Audios_Header.TimeStamp_End=TimeStamp+Duration;
                     Audios_Header.Duration=Duration;
+
+                    //Cleanup of sizes
+                    for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
+                        if (Audio_Sizes[Pos]==0)
+                        {
+                            Audio_Sizes.erase(Audio_Sizes.begin()+Pos);
+                            Pos--;
+                        }
+                        else
+                            break;
                     }
                     break;
         case 2  :   //Header
                     {
-                    Sizes.resize(2);
+                    Header_Sizes.resize(2);
                     int32u Size;
                     BlockSize=0;
 
-                    Skip_L8(                                    "Always 0x00000000");
+                    Skip_L8(                                    "? (Always 0x00000000)");
                     Skip_L8(                                    "?");
-                    Skip_L4(                                    "?");
+                    Skip_L4(                                    "? (Always 0x00000001)");
                     Get_L4(Size,                                "Block size");
-                    Sizes[1]=Size;
+                    Header_Sizes[0]=Size;
                     BlockSize+=Size;
                     Get_L4(Size,                                "Block size");
-                    Sizes[0]=Size;
+                    Header_Sizes[1]=Size;
                     BlockSize+=Size;
-                    Skip_L4(                                    "? (Always zero)");
-                    Skip_L4(                                    "? (Always zero)");
-                    Skip_L4(                                    "? (Always zero)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
+                    Skip_L4(                                    "? (Always 0x00000000)");
                     Info_L8(Reverse,                            "Reverse TimeStamp?"); Param_Info(((float64)Reverse)/720, 3, " ms");
+
+                    //Cleanup of sizes
+                    for (size_t Pos=0; Pos<Header_Sizes.size(); Pos++)
+                        if (Header_Sizes[Pos]==0)
+                        {
+                            Header_Sizes.erase(Header_Sizes.begin()+Pos);
+                            Pos--;
+                        }
+                        else
+                            break;
                     }
                     break;
         default :   BlockSize=0;
     }
-
-    //Cleanup of sizes
-    for (size_t Pos=0; Pos<Sizes.size(); Pos++)
-        if (Sizes[Pos]==0)
-        {
-            Sizes.erase(Sizes.begin()+Pos);
-            Pos--;
-        }
-        else
-            break;
 
     //Filling
     Header_Fill_Code(Code, Ztring::ToZtring(Code));
@@ -306,7 +342,11 @@ void File_Lxf::Data_Parse()
         case 0  : Video(); break;
         case 1  : Audio(); break;
         case 2  : Header(); break;
-        default : Skip_XX(Element_Size,                         "Unknown");
+        default :
+                    if (Element_Code&0x010200)
+                        Audio_Stream(Element_Code&0xFF);
+                    else
+                        Skip_XX(Element_Size,                   "Unknown");
     }
 }
 
@@ -319,16 +359,16 @@ void File_Lxf::Header()
 {
     Element_Name("Header");
 
-    for (size_t Pos=0; Pos<Sizes.size(); Pos++)
+    for (size_t Pos=0; Pos<Header_Sizes.size(); Pos++)
     {
         switch(Pos)
         {
             case  0 : Header_Info(); break;
             case  1 : Header_Meta(); break;
-            default : Skip_XX(Sizes[Pos],                       "Data");
+            default : Skip_XX(Header_Sizes[Pos],                       "Data");
         }
     }
-    Sizes.clear();
+    Header_Sizes.clear();
 
     Info_General_StreamSize=0x48+Element_Size;
 }
@@ -339,27 +379,39 @@ void File_Lxf::Header_Info()
     Element_Begin("Info?");
 
     //Parsing
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_C8(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L8(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L3(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L4(                                                    "Unknown");
-    Skip_L8(                                                    "Unknown");
-    if (Sizes[0]>83)
-        Skip_XX(Sizes[0]-83,                                    "Extra?");
-
+    if (Element_Size==120)
+    {
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_C8(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L8(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
+    }
+    else
+        Skip_XX(120,                                            "Unknown");
     Element_End();
 }
 
@@ -371,7 +423,7 @@ void File_Lxf::Header_Meta()
     int64u Offset=0;
     int64u Pos=0;
 
-    while (Offset<Sizes[1])
+    while (Offset<Header_Sizes[1])
     {
         int8u Size;
         Get_L1 (Size,                                           "Size");
@@ -379,18 +431,53 @@ void File_Lxf::Header_Meta()
         {
             switch (Pos)
             {
-                case  2 :   //Channel?
+                case  0 :   //?
+                            {
+                            Skip_XX(Size,                         "? (8 opaque bytes)");
+                            }
+                            break;
+                case  1 :   //Library
+                            {
+                            Ztring Library;
+                            Get_UTF8(Size, Library,             "Library?");
+                            Fill(Stream_General, 0, General_Encoded_Library, Library);
+                            }
+                            break;
+                case  4 :   //?
+                            {
+                                if (Size==0x10)
+                                {
+                                    Skip_L4(                    "0x00000008");
+                                    Skip_L4(                    "0x00000000");
+                                    Skip_L4(                    "0x00000000");
+                                    Skip_L4(                    "0x00000092");
+                                }
+                                else
+                                    Skip_XX(Size,               "Data");
+                            }
+                            break;
+                case  7 :   //Channel?
                             {
                             Ztring Channel;
                             Get_UTF16L(Size, Channel,          "Channel?");
                             Fill(Stream_General, 0, General_ServiceName, Channel);
                             }
                             break;
-                case  7 :   //Title
+                case 12 :   //Title
                             {
                             Ztring Title;
                             Get_UTF16L(Size, Title,             "Title");
                             Fill(Stream_General, 0, General_Title, Title);
+                            }
+                            break;
+                case 13 :   //?
+                            {
+                            Skip_UTF16L(Size,                   "? (in UTF-16)");
+                            }
+                            break;
+                case 20 :   //?
+                            {
+                            Skip_XX(Size,                         "? (8 opaque bytes)");
                             }
                             break;
                 default : Skip_XX(Size,                         "Data");
@@ -408,28 +495,27 @@ void File_Lxf::Audio()
 {
     Element_Name("Audio");
 
-    for (size_t Pos=0; Pos<Sizes.size(); Pos++)
-        Audio_Stream(Pos);
-    Sizes.clear();
+    Audio_Sizes_Pos=0;
+    Element_ThisIsAList();
 }
 
 //---------------------------------------------------------------------------
-void File_Lxf::Audio_Stream(size_t Pos)
+bool File_Lxf::Audio_Stream(size_t Pos)
 {
     Element_Begin("Stream");
 
-    Element_Code=0x0100+Pos;
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, Sizes[Pos], ContentType_MainStream);
+    Element_Code=0x0200+Pos;
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
 
-    Skip_XX(Sizes[Pos],                                     Sizes.size()==2?"PCM":"Unknown format");
+    Skip_XX(Audio_Sizes[Pos],                                   Audio_Sizes.size()==2?"PCM":"Unknown format");
 
     if (Pos>=Audios.size())
         Audios.resize(Pos+1);
     if (Audios[Pos].Parser==NULL)
     {
         //Trying to detect if this is PCM
-        int64u BitRate=Sizes[Pos]*720000*8/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
-        Audios[Pos].BytesPerFrame=Sizes[Pos];
+        int64u BitRate=Audio_Sizes[Pos]*720000*8/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
+        Audios[Pos].BytesPerFrame=Audio_Sizes[Pos];
 
         Audios[Pos].Parser=new File__Analyze;
         Open_Buffer_Init(Audios[Pos].Parser);
@@ -454,6 +540,8 @@ void File_Lxf::Audio_Stream(size_t Pos)
     }
 
     Element_End();
+
+    return false;
 }
 
 //---------------------------------------------------------------------------
@@ -467,9 +555,9 @@ void File_Lxf::Video()
         return;
     }
 
-    for (size_t Pos=0; Pos<Sizes.size(); Pos++)
+    for (size_t Pos=0; Pos<Video_Sizes.size(); Pos++)
         Video_Stream(Pos);
-    Sizes.clear();
+    Video_Sizes.clear();
 
     FILLING_BEGIN();
         Frame_Count++;
@@ -487,14 +575,14 @@ void File_Lxf::Video()
 }
 
 //---------------------------------------------------------------------------
-void File_Lxf::Video_Stream(size_t Pos)
+bool File_Lxf::Video_Stream(size_t Pos)
 {
     Element_Begin("Stream");
 
-    Element_Code=0x0000+Pos;
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, Sizes[Pos], ContentType_MainStream);
+    Element_Code=0x0100+Pos;
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
 
-    if (Sizes.size()==1)
+    if (Video_Sizes[Pos]==120000)
     {
         #if defined(MEDIAINFO_DVDIF_YES)
             if (Pos>=Videos.size())
@@ -502,10 +590,11 @@ void File_Lxf::Video_Stream(size_t Pos)
             if (Videos[Pos].Parser==NULL)
             {
                 Videos[Pos].Parser=new File_DvDif;
+                ((File_DvDif*)Videos[Pos].Parser)->IgnoreAudio=true;
                 Open_Buffer_Init(Videos[Pos].Parser);
                 Stream_Count++;
             }
-            Open_Buffer_Continue(Videos[Pos].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Sizes[Pos]);
+            Open_Buffer_Continue(Videos[Pos].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos]);
             if (Videos[Pos].Parser->Status[IsFilled])
             {
                 if (Stream_Count>0)
@@ -537,10 +626,10 @@ void File_Lxf::Video_Stream(size_t Pos)
     {
         if (Pos==0)
         {
-            Skip_XX(Sizes[Pos],                                     "Unknown");
+            Skip_XX(Video_Sizes[Pos],                           "Unknown");
             if (Pos>=Videos.size())
                 Videos.resize(Pos+1);
-            Videos[Pos].BytesPerFrame=Sizes[Pos];
+            Videos[Pos].BytesPerFrame=Video_Sizes[Pos];
         }
         else
         {
@@ -553,14 +642,14 @@ void File_Lxf::Video_Stream(size_t Pos)
                     Open_Buffer_Init(Videos[Pos].Parser);
                     Stream_Count++;
                 }
-                Open_Buffer_Continue(Videos[Pos].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Sizes[Pos]);
+                Open_Buffer_Continue(Videos[Pos].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos]);
                 if (Videos[Pos].Parser->Status[IsFilled])
                 {
                     if (Stream_Count>0)
                         Stream_Count--;
                 }
             #else
-                Skip_XX(Sizes[Pos],                                     "MPEG Video");
+                Skip_XX(Sizes[Pos],                             "MPEG Video");
 
                 if (Pos>=Videos.size())
                     Videos.resize(Pos+1);
@@ -579,6 +668,8 @@ void File_Lxf::Video_Stream(size_t Pos)
     }
 
     Element_End();
+
+    return false;
 }
 
 } //NameSpace

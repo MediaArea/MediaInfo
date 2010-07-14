@@ -63,9 +63,9 @@ protected :
     void Header_Info();
     void Header_Meta();
     void Audio();
-    void Audio_Stream(size_t Pos);
+    bool Audio_Stream(size_t Pos);
     void Video();
-    void Video_Stream(size_t Pos);
+    bool Video_Stream(size_t Pos);
 
     //Streams
     struct stream
@@ -99,12 +99,16 @@ protected :
 
     //Temp
     int64u                  Frame_Count;
-    std::vector<int64u>     Sizes;
     bool                    LookingForLastFrame;
     int64u                  Stream_Count;
     int64u                  Info_General_StreamSize;
+    std::vector<int64u>     Header_Sizes;
+    std::vector<int64u>     Audio_Sizes;
+    size_t                  Audio_Sizes_Pos;
+    std::vector<int64u>     Video_Sizes;
 };
 
 } //NameSpace
 
 #endif
+
