@@ -103,6 +103,9 @@ private :
     bool   BigEndian;
     bool   ES;
     bool   Core_Exists;
+
+    //Helpers
+    float64 BitRate_Get();
 };
 
 } //NameSpace

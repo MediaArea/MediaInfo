@@ -563,15 +563,6 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, "transfer_characteristics", Avc_transfer_characteristics(transfer_characteristics));
     Fill(Stream_Video, 0, "matrix_coefficients", Avc_matrix_coefficients(matrix_coefficients));
 
-    if (File_Offset+Buffer_Size<File_Size)
-    {
-        NextCode_Clear();
-
-        //Autorisation of other streams
-        for (int8u Pos=0x00; Pos<0x20; Pos++)
-            Streams[Pos].Searching_Payload=false; //Coded slice...
-    }
-
     //Buffer
     if (!MustParse_SPS_PPS_Done)
     {
@@ -622,6 +613,9 @@ void File_Avc::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Avc::Streams_Finish()
 {
+    if (PTS_End!=(int64u)-1)
+        Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
+
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
         if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->Status[IsAccepted])
@@ -752,6 +746,8 @@ void File_Avc::Synched_Init()
     mb_adaptive_frame_field_flag=false;
     pic_order_present_flag=false;
     field_pic_flag_AlreadyDetected=false;
+    Field_Count_AfterLastCompleFrame=false;
+    RefFramesCount=0;
 
     //Default values
     Streams.resize(0x100);
@@ -779,6 +775,7 @@ void File_Avc::Read_Buffer_Unsynched()
     TemporalReference_Offset_Moved=false;
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
+    RefFramesCount=0;
 }
 
 //***************************************************************************
@@ -1183,7 +1180,11 @@ void File_Avc::slice_header()
         {
             Frame_Count--;
             Frame_Count_InThisBlock--;
+            if (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) //IFrame or PFrame
+                Field_Count_AfterLastCompleFrame=true;
         }
+        else if (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) //IFrame or PFrame
+            Field_Count_AfterLastCompleFrame=false;
         Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Counting
@@ -1191,6 +1192,20 @@ void File_Avc::slice_header()
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
+        if (RefFramesCount<2 && (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7))
+            RefFramesCount++;
+        if (PTS!=(int64u)-1)
+        {
+            if (PTS_Begin==(int64u)-1 && (slice_type==2 || slice_type==7)) //IFrame
+                PTS_Begin=PTS;
+            if ((slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) && Frame_Count_InThisBlock<=1 && !Field_Count_AfterLastCompleFrame) //IFrame or PFrame
+                PTS_End=PTS;
+            if ((slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) || (Frame_Count_InThisBlock>=2 && RefFramesCount>=2)) //IFrame or PFrame or more than 2 RefFrame for BFrames
+            {
+                if (timing_info_present_flag && first_mb_in_slice==0)
+                    PTS_End+=float64_int64s(((float64)1000000000)/((float)time_scale/num_units_in_tick/(pic_order_cnt_type==2?1:2)/FrameRate_Divider)/((!frame_mbs_only_flag && field_pic_flag)?2:1));
+            }
+        }
 
         //Duplicate
         if (Streams[(size_t)Element_Code].ShouldDuplicate)

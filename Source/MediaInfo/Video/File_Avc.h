@@ -270,6 +270,8 @@ private :
     bool   pic_order_present_flag;
     bool   svc_extension_flag;
     bool   field_pic_flag_AlreadyDetected;
+    bool   Field_Count_AfterLastCompleFrame;
+    size_t RefFramesCount;
 
     //Temp
     bool SPS_IsParsed;

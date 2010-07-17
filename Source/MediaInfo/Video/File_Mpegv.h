@@ -65,14 +65,16 @@ private :
     void Streams_Finish();
 
     //Buffer - File header
-    void Read_Buffer_Unsynched();
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
     //Buffer - Synchro
     bool Synchronize() {return Synchronize_0x000001();}
     bool Synched_Test();
     void Synched_Init();
-    
+
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parser_QuickSearch();
@@ -258,6 +260,10 @@ private :
     bool   Parsing_End_ForDTS;
     bool   bit_rate_value_IsValid;
     bool   profile_and_level_indication_escape;
+    size_t RefFramesCount;
+    size_t BVOPsSinceLastRefFrames;
+    bool   Field_Count_AfterLastCompleFrame;
+
 };
 
 } //NameSpace

@@ -95,8 +95,10 @@ public :
     int64u DTS; //In nanoseconds
 
     //Out
-    int64u PTS_DTS_Offset_InThisBlock; //In nanoseconds
+    int64u PTS_Begin;                  //In nanoseconds
+    int64u PTS_End;                    //In nanoseconds
     size_t Frame_Count_InThisBlock;
+    bool   Synched;                    //Data is synched
 
 protected :
     //***************************************************************************
@@ -860,7 +862,6 @@ protected :
 
     //Synchro
     bool MustParseTheHeaderFile;    //There is an header part, must parse it
-    bool Synched;                   //Data is synched
     size_t Trusted;
     size_t Trusted_Multiplier;
 
@@ -1007,10 +1008,8 @@ public :
     #endif //MEDIAINFO_DEMUX
 
     //Events data
-    #if MEDIAINFO_EVENTS
-        bool    MpegPs_PES_FirstByte_IsAvailable;
-        bool    MpegPs_PES_FirstByte_Value;
-    #endif //MEDIAINFO_EVENTS
+    bool    PES_FirstByte_IsAvailable;
+    bool    PES_FirstByte_Value;
 };
 
 //Helpers

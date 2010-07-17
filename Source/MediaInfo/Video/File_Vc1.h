@@ -62,6 +62,9 @@ private :
     bool Synched_Test();
     void Synched_Init();
 
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parser_QuickSearch();
@@ -144,7 +147,10 @@ private :
     size_t Height;
     size_t RatioValue;
     size_t BitRate;
+    int8u  start_code;
     bool   EntryPoint_Parsed;
+    float32 FrameRate;
+    size_t RefFramesCount;
 
     //Error controls
     std::vector<int8u> Frame_ShouldBe;

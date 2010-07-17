@@ -1402,6 +1402,13 @@ void File_MpegTs::PES()
         Open_Buffer_Init(Complete_Stream->Streams[pid].Parser);
     }
 
+    //If unsynched, waiting for first payload_unit_start_indicator
+    if (!Complete_Stream->Streams[pid].Parser->Synched && !payload_unit_start_indicator)
+    {
+        Element_DoNotShow(); //We don't want to show this item because there is no interessant info
+        return; //This is not the start of the PES
+    }
+
     //Parsing
     Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser);
     #if defined(MEDIAINFO_MPEGPS_YES) && defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)

@@ -97,6 +97,7 @@ private :
     std::map<int8u, int64u> frmsizecods;
     size_t Frame_Count;
     size_t HD_Count;
+    int16u Size;
     int16u chanmap;
     int16u frmsiz;
     int16u HD_BitRate_Max;

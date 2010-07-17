@@ -63,10 +63,11 @@ File__Analyze::File__Analyze ()
         Demux_Level=1; //Frame
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;
-    PTS_DTS_Offset_InThisBlock=0;
     PCR=(int64u)-1;
     PTS=(int64u)-1;
     DTS=(int64u)-1;
+    PTS_Begin=(int64u)-1;
+    PTS_End=(int64u)-1;
 
     //Out
     Frame_Count_InThisBlock=0;
@@ -140,9 +141,7 @@ File__Analyze::File__Analyze ()
     ShouldContinueParsing=false;
 
     //Events data
-    #if MEDIAINFO_EVENTS
-        MpegPs_PES_FirstByte_IsAvailable=false;
-    #endif //MEDIAINFO_EVENTS
+    PES_FirstByte_IsAvailable=false;
 }
 
 //---------------------------------------------------------------------------
@@ -229,7 +228,8 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    Frame_Count_InThisBlock=0; //Out
+    if (!PES_FirstByte_IsAvailable || (PES_FirstByte_IsAvailable && PES_FirstByte_Value))
+        Frame_Count_InThisBlock=0;
 
     //Integrity
     if (Status[IsFinished])
@@ -413,6 +413,8 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         Sub->File_Offset-=Sub->Buffer_Size;
 
     //Parsing
+    Sub->PES_FirstByte_IsAvailable=PES_FirstByte_IsAvailable;
+    Sub->PES_FirstByte_Value=PES_FirstByte_Value;
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
     #if MEDIAINFO_TRACE
@@ -447,7 +449,6 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     }
 
     //Parsing specific
-    Frame_Count_InThisBlock=0; //Out
     Element_Offset=0;
     Element_Size=Buffer_Size;
     Element[Element_Level].WaitForMoreData=false;
@@ -511,6 +512,7 @@ void File__Analyze::Open_Buffer_Unsynch ()
     }
 
     File_GoTo=(int64u)-1;
+    PTS_End=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -1689,7 +1691,7 @@ void File__Analyze::Trusted_IsNot ()
 
         Element[Element_Level].UnTrusted=true;
         Synched=false;
-        if (Trusted>0)
+        if (!Status[IsFilled] && Trusted>0)
             Trusted--;
     }
 
