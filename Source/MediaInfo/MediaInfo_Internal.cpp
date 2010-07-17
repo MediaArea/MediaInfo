@@ -539,10 +539,14 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
 {
     CriticalSectionLocker CSL(CS);
 
+    bool Demux_EventWasSent=false;
     if (Info==NULL || !Info->Status[File__Analyze::IsFinished])
-        ((Reader_File*)Reader)->Format_Test_PerParser_Continue(this);
+        Demux_EventWasSent=(((Reader_File*)Reader)->Format_Test_PerParser_Continue(this)==2);
 
-    return Info==NULL?0:Info->Status;
+    std::bitset<32> ToReturn=Info==NULL?std::bitset<32>(0x0F):Info->Status;
+    if (Demux_EventWasSent)
+        ToReturn[8]=true; //bit 8 is for the reception of a frame
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
