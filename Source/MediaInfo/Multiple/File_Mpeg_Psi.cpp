@@ -1145,6 +1145,8 @@ void File_Mpeg_Psi::Table_02()
                     if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
                         Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
                 }
+                if (stream_type==0x86 && Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier==Elements::CUEI)
+                    Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["SCTE35_PID"]=Ztring::ToZtring(elementary_PID);
             }
 
             //Searching for hidden Stereoscopic stream
