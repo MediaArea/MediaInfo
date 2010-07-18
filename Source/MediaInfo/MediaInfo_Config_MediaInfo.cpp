@@ -57,6 +57,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Bdmv_ParseTargetedFile=true;
     File_DvDif_Analysis=false;
     State=0;
+    Demux_ForceIds=false;
     Demux_Unpacketize=false;
     NextPacket=false;
 
@@ -142,6 +143,18 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             return _T("1");
         //else
         //    return _T("");
+    }
+    else if (Option_Lower==_T("file_demux_forceids"))
+    {
+        #if MEDIAINFO_DEMUX
+            if (Value.empty())
+                Demux_ForceIds_Set(false);
+            else
+                Demux_ForceIds_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
     }
     else if (Option_Lower==_T("file_demux_unpacketize"))
     {
@@ -440,6 +453,19 @@ void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztr
 //***************************************************************************
 
 #if MEDIAINFO_DEMUX
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Demux_ForceIds_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_ForceIds=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::Demux_ForceIds_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_ForceIds;
+}
+
 //---------------------------------------------------------------------------
 void MediaInfo_Config_MediaInfo::Demux_Unpacketize_Set (bool NewValue)
 {

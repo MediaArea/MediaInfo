@@ -83,6 +83,8 @@ public :
     bool          File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
 
     #if MEDIAINFO_DEMUX
+    void          Demux_ForceIds_Set (bool NewValue);
+    bool          Demux_ForceIds_Get ();
     void          Demux_Unpacketize_Set (bool NewValue);
     bool          Demux_Unpacketize_Get ();
     #endif //MEDIAINFO_DEMUX
@@ -139,6 +141,7 @@ private :
     std::vector<Ztring>     File__Duplicate_List;
     ZtringList              File__Duplicate_Memory_Indexes;
 
+    bool                    Demux_ForceIds;
     bool                    Demux_Unpacketize;
     bool                    NextPacket;
 

@@ -40,6 +40,9 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#if MEDIAINFO_DEMUX
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#endif //MEDIAINFO_DEMUX
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -92,6 +95,10 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
         return;
 
     Merge(*Parser);
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_ForceIds_Get())
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, (StreamKind_Last==Stream_Video?0x100:0x200)+StreamPos_Last);
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------

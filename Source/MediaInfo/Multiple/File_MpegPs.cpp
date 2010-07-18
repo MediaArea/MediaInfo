@@ -1656,7 +1656,7 @@ void File_MpegPs::Detect_EOF()
             Fill(Stream_General, 0, General_Format, "MPEG-PS");
     }
     Fill("MPEG-PS");
-    if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size)
+    if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
     {
         //Jumping
         GoToFromEnd(SizeToAnalyze, "MPEG-PS");
