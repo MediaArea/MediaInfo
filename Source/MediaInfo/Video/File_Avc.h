@@ -191,7 +191,6 @@ private :
     size_t Buffer_Size_ToSave;
 
     //Count of a Packets
-    size_t Frame_Count;
     size_t Block_Count;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;

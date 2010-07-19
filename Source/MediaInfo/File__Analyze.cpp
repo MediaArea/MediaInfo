@@ -70,6 +70,7 @@ File__Analyze::File__Analyze ()
     PTS_End=(int64u)-1;
 
     //Out
+    Frame_Count=0;
     Frame_Count_InThisBlock=0;
 
     //Configuration
@@ -740,7 +741,7 @@ bool File__Analyze::Synchro_Manage()
         {
             if (Status[IsFinished])
                 Finish(); //Finish
-            if (!IsSub && File_Offset_FirstSynched==(int64u)-1 && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
+            if (!IsSub && (File_Offset_FirstSynched==(int64u)-1 || Frame_Count==0) && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
                 Reject();
             return false; //Wait for more data
         }

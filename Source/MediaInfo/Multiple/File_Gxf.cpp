@@ -479,6 +479,9 @@ void File_Gxf::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Gxf::Data_Parse()
 {
+    //Counting
+    Frame_Count++;
+
     switch (Element_Code)
     {
         case 0x00 : Finish("GXF"); break;

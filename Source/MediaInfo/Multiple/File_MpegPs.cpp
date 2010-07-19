@@ -1576,6 +1576,9 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
 //---------------------------------------------------------------------------
 void File_MpegPs::Data_Parse()
 {
+    //Counting
+    Frame_Count++;
+
     //Needed?
     if (!Streams[start_code].Searching_Payload)
     {

@@ -208,7 +208,6 @@ private :
     Ztring Library_Version;
     Ztring Matrix_intra;
     Ztring Matrix_nonintra;
-    size_t Frame_Count;
     size_t BVOP_Count;
     size_t progressive_frame_Count;
     size_t Interlaced_Top;

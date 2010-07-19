@@ -340,7 +340,6 @@ File_Dts::File_Dts()
 
     //Temp
     Parser=NULL;
-    Frame_Count=0;
     HD_size=0;
     Primary_Frame_Byte_Size_minus_1=0;
     HD_SpeakerActivityMask=(int16u)-1;

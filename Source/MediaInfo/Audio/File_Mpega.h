@@ -83,7 +83,6 @@ private :
     size_t Channels_Count[4]; //Stereo, Join Stereo, Dual mono, mono
     size_t Extension_Count[4]; //No, IS, MS, IS+MS
     size_t Emphasis_Count[4]; //No, 50/15ms, Reserved, CCITT
-    size_t Frame_Count;
     size_t Scfsi; //Total
     size_t Scalefac; //Total
     size_t Reservoir; //Total

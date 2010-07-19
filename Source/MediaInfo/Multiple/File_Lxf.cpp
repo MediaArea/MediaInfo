@@ -68,7 +68,6 @@ File_Lxf::File_Lxf()
     MustSynchronize=true;
 
     //Temp
-    Frame_Count=0;
     LookingForLastFrame=false;
     Stream_Count=0;
     Info_General_StreamSize=0;

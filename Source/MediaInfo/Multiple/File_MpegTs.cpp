@@ -1245,6 +1245,9 @@ void File_MpegTs::Header_Parse_Events_Duration(int64u program_clock_reference)
 //---------------------------------------------------------------------------
 void File_MpegTs::Data_Parse()
 {
+    //Counting
+    Frame_Count++;
+
     //TSP specific
     if (TSP_Size)
         Element_Size-=TSP_Size;

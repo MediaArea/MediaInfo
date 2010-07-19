@@ -514,7 +514,6 @@ File_Ac3::File_Ac3()
     MustParse_dec3=false;
 
     //Temp
-    Frame_Count=0;
     HD_Count=0;
     chanmap=0;
     frmsiz=0;

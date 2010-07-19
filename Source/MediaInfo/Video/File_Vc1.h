@@ -85,7 +85,6 @@ private :
     void UserDefinedSequenceHeader();
 
     //Count
-    size_t Frame_Count;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;
     std::vector<size_t> PictureFormat_Count;

@@ -727,7 +727,6 @@ bool File_Mpegv::Synched_Test()
 void File_Mpegv::Synched_Init()
 {
     //Temp
-    Frame_Count=0;
     BVOP_Count=0;
     progressive_frame_Count=0;
     Interlaced_Top=0;

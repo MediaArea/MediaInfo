@@ -280,7 +280,6 @@ bool File_Mpeg4v::Synched_Test()
 void File_Mpeg4v::Synched_Init()
 {
     //Count of a Packets
-    Frame_Count=0;
     IVOP_Count=0;
     PVOP_Count=0;
     BVOP_Count=0;

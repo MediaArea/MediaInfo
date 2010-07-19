@@ -97,6 +97,7 @@ public :
     //Out
     int64u PTS_Begin;                  //In nanoseconds
     int64u PTS_End;                    //In nanoseconds
+    size_t Frame_Count;
     size_t Frame_Count_InThisBlock;
     bool   Synched;                    //Data is synched
 

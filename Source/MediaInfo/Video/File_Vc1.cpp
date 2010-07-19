@@ -398,7 +398,6 @@ bool File_Vc1::Synched_Test()
 void File_Vc1::Synched_Init()
 {
     //Count
-    Frame_Count=0;
     Interlaced_Top=0;
     Interlaced_Bottom=0;
     PictureFormat_Count.resize(4);

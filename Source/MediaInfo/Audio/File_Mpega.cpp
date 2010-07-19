@@ -326,7 +326,6 @@ File_Mpega::File_Mpega()
     Emphasis_Count[1]=0;
     Emphasis_Count[2]=0;
     Emphasis_Count[3]=0;
-    Frame_Count=0;
     Scfsi=0;
     Scalefac=0;
     Reservoir=0;

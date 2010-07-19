@@ -684,7 +684,6 @@ bool File_Avc::Synched_Test()
 void File_Avc::Synched_Init()
 {
     //Count of a Packets
-    Frame_Count=0;
     Block_Count=0;
     pic_order_cnt_lsb_Old=(int32u)-1;
     Interlaced_Top=0;
