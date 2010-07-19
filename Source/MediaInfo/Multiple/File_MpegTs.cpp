@@ -456,6 +456,31 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
         }
     }
 
+    //Teletext
+    if (StreamKind_Last==Stream_Max)
+    {
+        for (std::map<int16u, complete_stream::stream::teletext>::iterator Teletext=Temp.Teletexts.begin(); Teletext!=Temp.Teletexts.end(); Teletext++)
+        {
+            Stream_Prepare(Stream_Text);
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, Ztring::ToZtring(PID)+_T('-')+Ztring::ToZtring(Teletext->first), true);
+            Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Decimal_Hexa(PID)+_T('-')+Ztring::ToZtring(Teletext->first), true);
+
+            for (size_t Pos=0; Pos<Temp.program_numbers.size(); Pos++)
+            {
+                Fill(StreamKind_Last, StreamPos_Last, General_MenuID, Temp.program_numbers[Pos], 10, Pos==0);
+                Fill(StreamKind_Last, StreamPos_Last, General_MenuID_String, Decimal_Hexa(Temp.program_numbers[Pos]), Pos==0);
+            }
+
+            //TS info
+            for (std::map<std::string, ZenLib::Ztring>::iterator Info=Teletext->second.Infos.begin(); Info!=Teletext->second.Infos.end(); Info++)
+            {
+                if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
+                    Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
+            }
+            Teletext->second.Infos.clear();
+        }
+    }
+
     //Desactivating the stream (except for timestamp)
     Temp.Searching_Payload_Start_Set(false);
     Temp.Searching_Payload_Continue_Set(false);
@@ -469,6 +494,45 @@ void File_MpegTs::Streams_Finish()
         Streams_Finish_PerStream(PID, Complete_Stream->Streams[PID]);
 
     File__Duplicate_Streams_Finish();
+
+    //Filling language of subtitles
+    for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Text); StreamPos++)
+    {
+        if (Retrieve(Stream_Text, StreamPos, Text_Format).find(_T("EIA-"))!=string::npos)
+        {
+            //Retrieving IDs
+            Ztring ID_Complete=Retrieve(Stream_Text, StreamPos, Text_ID);
+            int16u ID_Video=ID_Complete.To_int16u();
+            int16u ID_Text=Ztring(ID_Complete.substr(ID_Complete.find(_T('-'))+1, string::npos)).To_int16u();
+            if (ID_Text==608) //CEA-608 caption
+                ID_Text=128+Ztring(ID_Complete.substr(ID_Complete.rfind(_T('-'))+1, string::npos)).To_int16u();
+
+            //ATSC EIT
+            for (size_t ProgramPos=0; ProgramPos<Complete_Stream->Streams[ID_Video].program_numbers.size(); ProgramPos++)
+            {
+                int16u source_id=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video].program_numbers[ProgramPos]].source_id;
+
+                bool IsFound=false;
+
+                for (int16u EpgPos=0; EpgPos<Complete_Stream->Sources[source_id].ATSC_EPG_Blocks.size(); EpgPos++)
+                {
+                    for (int16u EventPos=0; EventPos<Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[EpgPos].Events.size(); EventPos++)
+                    {
+                        if (!Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[EpgPos].Events[EventPos].Languages[ID_Text].empty())
+                        {
+                            Fill(Stream_Text, StreamPos, Text_Language, Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[EpgPos].Events[EventPos].Languages[ID_Text]);
+                            IsFound=true;
+                            break;
+                        }
+                        if (IsFound)
+                            break;
+                    }
+                    if (IsFound)
+                        break;
+                }
+            }
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -530,6 +594,7 @@ void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &
                 Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay), true);
 
                 //Language from ATSC EIT
+                /*
                 size_t ID_Pos;
                 if (ID==_T("608-0"))
                     ID_Pos=0;
@@ -545,6 +610,7 @@ void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &
                 }
                 if (ID_Pos<Temp.Captions_Language.size())
                     Fill(Stream_Text, StreamPos_Last, Text_Language, Temp.Captions_Language[ID_Pos]);
+                */
             }
 
             StreamKind_Last=Temp.StreamKind;

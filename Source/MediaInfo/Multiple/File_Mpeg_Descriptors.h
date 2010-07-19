@@ -192,7 +192,12 @@ struct complete_stream
         typedef std::vector<table_id*>              table_ids;
         table_ids                                   Table_IDs; //Key is table_id
         std::map<std::string, Ztring>               Infos;
-        std::vector<Ztring>                         Captions_Language;
+        std::map<int8u, Ztring>                     Languages; //Key is caption_service_number or 128+line21_field
+        struct teletext
+        {
+            std::map<std::string, Ztring>           Infos;
+        };
+        std::map<int16u, teletext>                  Teletexts; //Key is teletext_magazine_number
         #if MEDIAINFO_TRACE
             Ztring Element_Info;
         #endif //MEDIAINFO_TRACE
@@ -342,7 +347,7 @@ struct complete_stream
                 int32u  start_time;
                 Ztring  duration;
                 Ztring  title;
-                Ztring  language;
+                std::map<int8u, Ztring>  Languages; //Key is caption_service_number or 128+line21_field
                 std::map<int16u, Ztring> texts;
 
                 event()
