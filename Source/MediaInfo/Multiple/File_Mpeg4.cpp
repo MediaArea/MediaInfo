@@ -214,6 +214,23 @@ void File_Mpeg4::Streams_Finish()
                 //Temp->second.Parser->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
                 Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
 
+                if (Temp->second.CleanAperture_Width)
+                {
+                    Fill(Stream_Video, StreamPos_Last, Video_Width_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Width), true);
+                    Fill(Stream_Video, StreamPos_Last, Video_Height_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Height), true);
+                    Clear(Stream_Video, StreamPos_Last, Video_Width);
+                    Clear(Stream_Video, StreamPos_Last, Video_Height);
+                    Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
+                    Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
+                    Fill(Stream_Video, StreamPos_Last, Video_Width, Temp->second.CleanAperture_Width, 0, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_Height, Temp->second.CleanAperture_Height, 0, true);
+                    if (Temp->second.CleanAperture_PixelAspectRatio)
+                        Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, Temp->second.CleanAperture_PixelAspectRatio, 3, true);
+                }
+                else
+                {
+                }
+
                 //Hacks - After
                 if (StreamKind_Last==Stream_Video)
                 {

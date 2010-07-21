@@ -3148,11 +3148,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_clap()
     Skip_B4(                                                    "vertOff_D");
 
     FILLING_BEGIN();
-        Clear(Stream_Video, StreamPos_Last, Video_Width);
-        Clear(Stream_Video, StreamPos_Last, Video_Height);
-        Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
-        Fill(Stream_Video, StreamPos_Last, Video_Width, ((float)apertureWidth_N)/apertureWidth_D, 0);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, ((float)apertureHeight_N)/apertureHeight_D, 0);
+        Stream[moov_trak_tkhd_TrackID].CleanAperture_Width=((float)apertureWidth_N)/apertureWidth_D;
+        Stream[moov_trak_tkhd_TrackID].CleanAperture_Height=((float)apertureHeight_N)/apertureHeight_D;
     FILLING_END();
 }
 
@@ -3335,9 +3332,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_pasp()
     FILLING_BEGIN();
         if (vSpacing)
         {
-            float64 PixelAspectRatio=(float64)hSpacing/vSpacing;
+            float32 PixelAspectRatio=(float32)hSpacing/vSpacing;
             Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
             Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
+            Stream[moov_trak_tkhd_TrackID].CleanAperture_PixelAspectRatio=PixelAspectRatio; //This is the PAR of the clean aperture
         }
     FILLING_END();
 }
