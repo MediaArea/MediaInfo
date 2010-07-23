@@ -9,6 +9,9 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.35, 2010-
 --------------
++ Teletext subtitle support
++ DVB subtitle support
++ CEA-608/708: language
 + Library: "Per frame" interface, like ffmpeg
 
 Version 0.7.34, 2010-07-09
