@@ -13,6 +13,7 @@ Version 0.7.35, 2010-
 + DVB subtitle support
 + CEA-608/708: language
 + Library: "Per frame" interface, like ffmpeg
++ AFD: AFD value (in advanced mode)
 
 Version 0.7.34, 2010-07-09
 --------------

@@ -611,6 +611,17 @@ void File_Mpegv::Streams_Fill()
         Streams[0xB3].Searching_Payload=true;
         Streams[0xB5].Searching_Payload=true;
     }
+
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
+        if (DTG1_Parser)
+            Merge(*DTG1_Parser, Stream_Video, 0, 0);
+        if (GA94_06_Parser)
+            Merge(*GA94_06_Parser, Stream_Video, 0, 0);
+    #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+        if (AfdBarData_Parser)
+            Merge(*AfdBarData_Parser, Stream_Video, 0, 0);
+    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 }
 
 //---------------------------------------------------------------------------

@@ -92,6 +92,8 @@ void File_AfdBarData::Streams_Fill()
 {
     //Filling
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, "AFD", Stream.active_format);
+    (*Stream_More)[Stream_Video][0](Ztring().From_Local("AFD"), Info_Options)=_T("N NT");
 }
 
 //***************************************************************************
@@ -138,8 +140,11 @@ void File_AfdBarData::Read_Buffer_Continue()
         Stream.active_format=active_format;
         Stream.aspect_ratio=aspect_ratio;
 
-        if (!Status[IsFilled])
+        if (!Status[IsAccepted])
+        {
+            Accept("AfdBarData");
             Fill("AfdBarData");
+        }
         if (MediaInfoLib::Config.ParseSpeed_Get()<1)
             Finish("AfdBarData");
     FILLING_END();
