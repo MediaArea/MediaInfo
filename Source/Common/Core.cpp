@@ -24,7 +24,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "Common/Core.h"
+#include "Core.h"
 #include "ZenLib/Ztring.h"
 #include "ZenLib/File.h"
 #include <sstream>
@@ -238,4 +238,30 @@ String Core::Inform_Get(size_t Pos, stream_t StreamKind, size_t StreamPos)
     return MI->Get(Pos, StreamKind, StreamPos, _T("Inform")).c_str();
 }
 
+// Accessors
+size_t Core::Count_Get() {
+    return MI->Count_Get();
+}
 
+//---------------------------------------------------------------------------
+size_t Core::Count_Get(size_t File_Pos, stream_t StreamKind, size_t StreamNumber)
+{
+    return MI->Count_Get(File_Pos, StreamKind);
+}
+
+//---------------------------------------------------------------------------
+String Core::Summary_Get(int File_Pos, stream_t StreamKind, size_t StreamPos)
+{
+    MI->Option(_T("Inform"), _T("Summary"));
+    return MI->Get(File_Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+}
+
+//---------------------------------------------------------------------------
+String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind) {
+    return MI->Get(FilePos,StreamKind,StreamNumber,Parameter,InfoKind);
+}
+
+//---------------------------------------------------------------------------
+String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind) {
+    return MI->Get(FilePos,StreamKind,StreamNumber,Parameter,InfoKind);
+}

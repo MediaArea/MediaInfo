@@ -79,6 +79,13 @@ public:
     kind    Kind_Get();
     MediaInfoNameSpace::String  Inform_Get          (size_t Pos, stream_t StreamKind, size_t StreamPos);
 
+    //Accessors to MI
+    size_t Count_Get();
+    size_t Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=(size_t)-1);
+    String Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind=Info_Text);
+    String Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text);
+    String Summary_Get(int File_Pos, stream_t StreamKind, size_t StreamPos);
+
     //Temp
     void    Data_Prepare();
     MediaInfoNameSpace::String &Text_Get() {return Text;};

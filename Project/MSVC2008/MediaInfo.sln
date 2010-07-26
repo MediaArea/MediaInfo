@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WxWidgets", "WxWidgets", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{70DAF034-E8BA-4636-A42C-CC581B3ECC94}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_Qt", "MediaInfo_Qt\MediaInfo_Qt.vcproj", "{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -128,6 +130,12 @@ Global
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|Win32.Build.0 = Release|Win32
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.ActiveCfg = Release|x64
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.Build.0 = Release|x64
+		{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}.Debug|Win32.Build.0 = Debug|Win32
+		{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}.Debug|x64.ActiveCfg = Debug|x64
+		{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}.Release|Win32.ActiveCfg = Release|Win32
+		{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}.Release|Win32.Build.0 = Release|Win32
+		{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

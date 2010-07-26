@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Image/MediaInfo.ico</file>
+        <file>Image/MediaInfo.png</file>
+        <file>Image/MediaInfo.xpm</file>
+        <file>Image/Menu/K20/File_Export.svg</file>
+        <file>Image/Menu/K20/File_Open_Directory.svg</file>
+        <file>Image/Menu/K20/File_Open_File.svg</file>
+        <file>Image/Menu/K20/File_Save.svg</file>
+        <file>Image/Menu/K20/Help_About.svg</file>
+        <file>Image/Menu/K20/Options_Prefs.svg</file>
+        <file>Image/Menu/K20/View.svg</file>
+        <file>Image/Menu/K20/View2.svg</file>
+    </qresource>
+</RCC>
