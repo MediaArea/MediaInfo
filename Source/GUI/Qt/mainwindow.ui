@@ -48,9 +48,6 @@
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionText"/>
-    <addaction name="actionEasy"/>
-    <addaction name="actionHTML"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -61,11 +58,36 @@
     <addaction name="actionKnown_codecs"/>
     <addaction name="actionKnown_parameters"/>
    </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionPreferences"/>
+   </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <addaction name="actionAdvanced_Mode"/>
+   </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>Language</string>
+    </property>
+    <addaction name="actionEnglish"/>
+    <addaction name="actionFran_ais"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
+   <addaction name="menuOptions"/>
+   <addaction name="menuDebug"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuLanguage"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -83,10 +105,11 @@
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="actionOpen_Folder"/>
+   <addaction name="actionExport"/>
    <addaction name="separator"/>
    <addaction name="actionAbout"/>
    <addaction name="separator"/>
-   <addaction name="actionQuit"/>
+   <addaction name="actionPreferences"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
@@ -169,6 +192,51 @@
    </property>
    <property name="text">
     <string>HTML</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionFran_ais">
+   <property name="text">
+    <string>Français</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/new/prefix1/Image/Menu/K20/Options_Prefs.svg</normaloff>:/new/prefix1/Image/Menu/K20/Options_Prefs.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>:/new/prefix1/Image/Menu/K20/File_Export.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Export.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export</string>
+   </property>
+   <property name="toolTip">
+    <string>Export in a customized format</string>
+   </property>
+  </action>
+  <action name="actionAdvanced_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Advanced Mode</string>
    </property>
   </action>
  </widget>

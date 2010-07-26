@@ -3,16 +3,12 @@
 
 #include <QtGui/QMainWindow>
 #include "Common/Core.h"
+#include <QtCore/QSettings>
+#include "views.h"
 
 namespace Ui {
     class MainWindow;
 }
-
-typedef enum {
-    VIEW_TEXT,
-    VIEW_EASY,
-    VIEW_HTML
-} ViewMode;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -27,6 +23,8 @@ protected:
     void changeEvent(QEvent *e);
 
 private:
+    void defaultSettings();
+    void applySettings();
     QString  mediaInfoTest(QString filename);
     void refreshDisplay();
     void openFiles(QStringList fileNames);
@@ -36,13 +34,14 @@ private:
     //Non-GUI Elements
     Core* C;
     ViewMode view;
+    QSettings* settings;
 
 private slots:
+    void on_actionAdvanced_Mode_toggled(bool );
+    void on_actionExport_triggered();
+    void on_actionPreferences_triggered();
     void on_actionKnown_parameters_triggered();
-    void on_actionEasy_toggled(bool );
-    void on_actionHTML_toggled(bool );
-    void on_actionText_toggled(bool );
-    void on_actionHTML_triggered();
+    void on_actionView_toggled(QAction* view);
     void on_actionKnown_codecs_triggered();
     void on_actionKnown_formats_triggered();
     void on_actionAbout_triggered();

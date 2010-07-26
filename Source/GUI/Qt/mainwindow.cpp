@@ -7,7 +7,13 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
 #include <QtCore/QDir>
+#include <QtGui/QActionGroup>
+#include <QtGui/QTextBrowser>
+#include <QtCore/QSettings>
+#include <QtGui/QTreeWidget>
 #include "easyviewwidget.h"
+#include "preferences.h"
+#include "export.h"
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
@@ -21,14 +27,27 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->textBrowser->setText("Bienvenue dans MediaInfo");
     C = new Core();
-    view = VIEW_EASY;
 
+    settings = new QSettings("MediaInfo.net","MediaInfo");
+    defaultSettings();
+    applySettings();
+
+    view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
     // View menu:
-    QActionGroup* menuItemGroup = new QActionGroup(this); // Maybe it can be done directly in mainwindow.ui
-    menuItemGroup->addAction(ui->actionEasy);
-    menuItemGroup->addAction(ui->actionText);
-    menuItemGroup->addAction(ui->actionHTML);
+    QActionGroup* menuItemGroup = new QActionGroup(this);
+    for(int v=VIEW_EASY;v<NB_VIEW;v++) {
+        QAction* action = new QAction(nameView((ViewMode)v),ui->menuView);
+        action->setCheckable(true);
+        if(view==v)
+            action->setChecked(true);
+        action->setProperty("view",v);
+        ui->menuView->addAction(action);
+        menuItemGroup->addAction(action);
+    }
+    connect(menuItemGroup,SIGNAL(selected(QAction*)),SLOT(on_actionView_toggled(QAction*)));
     menuItemGroup->setParent(ui->menuView);
+
+    refreshDisplay();
 }
 
 MainWindow::~MainWindow()
@@ -68,11 +87,16 @@ void MainWindow::openDir(QString dirName) {
 
 void MainWindow::refreshDisplay() {
     QWidget* viewWidget;
+    if(C->Count_Get()>0)
+        ui->actionExport->setEnabled(true);
+    else
+        ui->actionExport->setEnabled(false);
     switch(view) {
     default:
     case VIEW_TEXT:
         viewWidget = new QTextBrowser();
         C->Menu_View_Text();
+        ((QTextBrowser*)viewWidget)->setFontFamily("mono");
         ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
         break;
     case VIEW_EASY:
@@ -83,8 +107,76 @@ void MainWindow::refreshDisplay() {
         C->Menu_View_HTML();
         ((QTextBrowser*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
         break;
+    case VIEW_TREE:
+        bool Commplete=ui->actionAdvanced_Mode->isChecked();
+        QTreeWidget* treeWidget = new QTreeWidget();
+        treeWidget->setHeaderHidden(true);
+        for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
+            //Pour chaque fichier
+            QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(wstring2QString(C->Get(FilePos, Stream_General, 0, _T("CompleteName")))));
+            treeWidget->addTopLevelItem(treeItem);
+
+            for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
+            {
+                //Pour chaque type de flux
+                QString StreamKindText=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind/String"), Info_Text));
+                unsigned StreamsCount=C->Count_Get(FilePos, (stream_t)StreamKind);
+                for (size_t StreamPos=Stream_General; StreamPos<StreamsCount; StreamPos++)
+                {
+                    //Pour chaque stream
+                    QString A=StreamKindText;
+                    QString B=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindPos"), Info_Text));
+                    if (!B.isEmpty())
+                    {
+                        A+=" #";
+                        A+=B;
+                    }
+                    //TTreeNode* Node=Page_Tree_Tree->Items->AddChild(Parent, A.c_str());
+                    QTreeWidgetItem* node = new QTreeWidgetItem(treeItem,QStringList(A));
+                    treeItem->addChild(node);
+                    unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
+                    for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
+                    {
+                        //Pour chaque champ
+                        QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text));
+                        A+=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text));
+
+                        if ((Commplete || C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+                        {
+                            //Quoi Refresh?
+                            QString D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text));
+                            if (D.isEmpty())
+                                D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
+                            //Affichage
+                            node->addChild(new QTreeWidgetItem(node,QStringList((D + ": " + A))));
+                            qDebug(("ajout de "+D + ": " + A).toStdString().c_str());
+                            //Page_Tree_Tree->Items->AddChild(Node, (D + _T(": ") + A.c_str()).c_str());
+                        }
+                    }
+                }
+            }
+        }
+        viewWidget = treeWidget;
+        break;
     }
     setCentralWidget(viewWidget);
+}
+
+void MainWindow::defaultSettings() {
+    if(!settings->contains("showMenu"))
+        settings->setValue("showMenu",true);
+    if(!settings->contains("showToolBar"))
+        settings->setValue("showToolBar",true);
+    if(!settings->contains("closeBeforeOpen"))
+        settings->setValue("closeBeforeOpen",true);
+    if(!settings->contains("defaultView"))
+        settings->setValue("defaultView",VIEW_EASY);
+    if(!settings->contains("checkForNewVersion"))
+        settings->setValue("checkForNewVersion",true);
+}
+
+void MainWindow::applySettings() {
+    ui->menuBar->setVisible(settings->value("showMenu",true).toBool());
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -158,28 +250,49 @@ void MainWindow::on_actionKnown_parameters_triggered()
     setCentralWidget(textBrowser);
 }
 
-void MainWindow::on_actionText_toggled(bool checked)
+void MainWindow::on_actionView_toggled(QAction* view)
 {
-    if(checked)
-        view=VIEW_TEXT;
+    this->view = (ViewMode)view->property("view").toInt();
     refreshDisplay();
 }
 
-void MainWindow::on_actionHTML_toggled(bool checked)
+void MainWindow::on_actionPreferences_triggered()
 {
-    if(checked)
-        view=VIEW_HTML;
-    refreshDisplay();
+    Preferences p(settings);
+    if(p.exec() == QDialog::Accepted) {
+        p.saveSettings();
+        applySettings();
+    } else
+        qDebug("annulation");
 }
 
-void MainWindow::on_actionEasy_toggled(bool checked)
+void MainWindow::on_actionExport_triggered()
 {
-    if(checked)
-        view=VIEW_EASY;
-    refreshDisplay();
+    Export e;
+    if(e.exec() == QDialog::Accepted) {
+        QFile file(e.getFileName());
+        if(!file.open(e.getOpenMode()))
+            QMessageBox::warning(this,"Error","The file cannot be open");
+        C->Menu_Debug_Complete(e.isAdvancedChecked());
+        switch(e.getExportMode()) {
+        case Export::TEXT_MODE:
+            C->Menu_View_Text();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::HTML_MODE:
+            C->Menu_View_HTML();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        default:
+            QMessageBox::warning(this,"Error","Please signal this error to the MediaInfo project team : Unkown export mode");
+            break;
+        }
+    } else
+        qDebug("annulation");
 }
 
-void MainWindow::on_actionHTML_triggered()
+void MainWindow::on_actionAdvanced_Mode_toggled(bool checked)
 {
-
+    C->Menu_Debug_Complete(checked);
+    refreshDisplay();
 }

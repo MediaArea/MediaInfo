@@ -41,10 +41,11 @@ void EasyViewWidget::refreshDisplay() {
 
     connect(fileChoice,SIGNAL(currentIndexChanged(int)),SLOT(changeFilePos(int)));
 
-    QGroupBox *box,*subBox;
+    QFrame *box;
+    QGroupBox *subBox;
     for (size_t StreamPos=0; StreamPos<Stream_Max; StreamPos++) {
         bool addBox = false;
-        box = new QGroupBox();
+        box = new QFrame();
         QHBoxLayout* boxLayout = new QHBoxLayout();
         box->setLayout(boxLayout);
         for (size_t Pos=0; Pos<Boxes_Count_Get(StreamPos); Pos++) {
