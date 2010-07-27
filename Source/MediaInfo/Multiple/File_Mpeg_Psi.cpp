@@ -349,6 +349,7 @@ const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifie
                             case 0x87 : return "ATSC - E-AC-3";
                             case 0x90 : return "DVB  - stream_type value for Time Slicing / MPE-FEC";
                             case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
+                            case 0xFC : return "SCTE - Splice";
                             default   : return "ATSC/SCTE - Unknown";
                         }
                 case Elements::HDMV : //Bluray
@@ -487,6 +488,7 @@ const char* Mpeg_Psi_table_id(int8u table_id)
         case 0xD8 : return "ATSC - Cable Emergency Alert";
         case 0xD9 : return "ATSC - Aggregate Data Event Table";
         case 0xDA : return "ATSC - Satellite VCT (SVCT)";
+        case 0xFC : return "SCTE - Splice";
         default :
             if (table_id>=0x06
              && table_id<=0x37) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
@@ -662,6 +664,22 @@ const char* Mpeg_Psi_running_status[]=
 //---------------------------------------------------------------------------
 extern const char* Mpeg_Descriptors_original_network_id(int16u original_network_id);
 
+//---------------------------------------------------------------------------
+const char* Mpeg_Psi_splice_command_type(int8u splice_command_type)
+{
+    switch (splice_command_type)
+    {
+        case 0x00 : return "splice_null";
+        case 0x04 : return "splice_schedule";
+        case 0x05 : return "splice_insert";
+        case 0x06 : return "time_signal";
+        case 0x07 : return "bandwidth_reservation";
+        default   : return "Reserved";
+    }
+};
+
+
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -784,7 +802,7 @@ void File_Mpeg_Psi::Data_Parse()
     }
 
     #define ELEMENT_CASE(_NAME, _DETAIL) \
-        case 0x##_NAME : Table_##_NAME(); break;
+        case 0x##_NAME : Element_Name(_DETAIL); Table_##_NAME(); break;
 
     switch (table_id)
     {
@@ -880,6 +898,7 @@ void File_Mpeg_Psi::Data_Parse()
         ELEMENT_CASE(D8, "ATSC - Cable Emergency Alert");
         ELEMENT_CASE(D9, "ATSC - Aggregate Data Event Table");
         ELEMENT_CASE(DA, "ATSC - Satellite VCT");
+        ELEMENT_CASE(FC, "SCTE - Splice");
         default :
             if (table_id>=0x06
              && table_id<=0x37) {Element_Name("ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved"); Skip_XX(Element_Size, "Unknown"); break;}
@@ -1125,11 +1144,27 @@ void File_Mpeg_Psi::Table_02()
                 {
                     Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].elementary_PIDs.push_back(elementary_PID);
                     Complete_Stream->Streams[elementary_PID].program_numbers.push_back(program_number);
+                    Complete_Stream->Streams[elementary_PID].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[elementary_PID].Table_IDs[0xFC]=new complete_stream::stream::table_id; //program_map_section
                 }
-                if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::pes)
+                if (Complete_Stream->Streams[elementary_PID].Kind==complete_stream::stream::unknown)
                 {
                     Complete_Stream->Streams_NotParsedCount++;
-                    Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
+                    if (stream_type==0x86 && Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier==Elements::CUEI)
+                    {
+                        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["SCTE35_PID"]=Ztring::ToZtring(elementary_PID);
+                        Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::psi;
+                        #if MEDIAINFO_TRACE
+                            Complete_Stream->Streams[elementary_PID].Element_Info="PSI";
+                        #endif //MEDIAINFO_TRACE
+                    }
+                    else
+                    {
+                        Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
+                        #if MEDIAINFO_TRACE
+                            Complete_Stream->Streams[elementary_PID].Element_Info="PES";
+                        #endif //MEDIAINFO_TRACE
+                    }
                     Complete_Stream->Streams[elementary_PID].stream_type=stream_type;
                     Complete_Stream->Streams[elementary_PID].Searching_Payload_Start_Set(true);
                     #ifdef MEDIAINFO_MPEGTS_PCR_YES
@@ -1139,14 +1174,9 @@ void File_Mpeg_Psi::Table_02()
                     #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                         //Complete_Stream->Streams[elementary_PID].Searching_ParserTimeStamp_Start_Set(true);
                     #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                    #if MEDIAINFO_TRACE
-                        Complete_Stream->Streams[elementary_PID].Element_Info="PES";
-                    #endif //MEDIAINFO_TRACE
                     if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
                         Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
                 }
-                if (stream_type==0x86 && Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier==Elements::CUEI)
-                    Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["SCTE35_PID"]=Ztring::ToZtring(elementary_PID);
             }
 
             //Searching for hidden Stereoscopic stream
@@ -1918,6 +1948,155 @@ void File_Mpeg_Psi::Table_D6()
     }
     else
         Skip_XX(Element_Size,                                   "reserved");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC()
+{
+    //Parsing
+    int16u splice_command_length;
+    int8u splice_command_type;
+    bool encrypted_packet;
+    Skip_B1(                                                    "protocol_version");
+    BS_Begin();
+    Get_SB (    encrypted_packet,                               "encrypted_packet");
+    Skip_S1( 6,                                                 "encryption_algorithm");
+    Skip_S5(33,                                                 "pts_adjustment");
+    Skip_S1( 8,                                                 "cw_index");
+    Skip_S2(12,                                                 "reserved");
+    Get_S2 (12, splice_command_length,                          "splice_command_length");
+    if (splice_command_length==0xFFF)
+        splice_command_length=(int16u)(Element_Size-4-Element_Offset);
+    Get_S1 ( 8, splice_command_type,                            "splice_command_type"); Param_Info(Mpeg_Psi_splice_command_type(splice_command_type));
+    BS_End();
+
+    Element_Begin();
+    #undef ELEMENT_CASE
+    #define ELEMENT_CASE(_NAME, _DETAIL) \
+        case 0x##_NAME : Element_Name(_DETAIL); Table_FC_##_NAME(); break;
+    switch (splice_command_type)
+    {
+        ELEMENT_CASE (00, "splice_null"); break;
+        ELEMENT_CASE (04, "splice_schedule"); break;
+        ELEMENT_CASE (05, "splice_insert"); break;
+        ELEMENT_CASE (06, "time_signal"); break;
+        ELEMENT_CASE (07, "bandwidth_reservation"); break;
+        default   : Skip_XX(splice_command_length,              "Unknown");
+    }
+    Element_End();
+
+    if (Element_Offset+4<Element_Size)
+    {
+        Get_B2 (Descriptors_Size,                               "descriptor_loop_length");
+        Descriptors();
+    }
+
+    if (Element_Offset+4<Element_Size)
+        Skip_XX(Element_Size-(Element_Offset+4),                "alignment_stuffing");
+    if (encrypted_packet)
+        Skip_B4(                                                "E_CRC_32");
+    Skip_B4(                                                    "CRC32");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_00()
+{
+    //Null
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_04()
+{
+    //TODO
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_05()
+{
+    //Parsing
+    bool splice_event_cancel_indicator;
+    Skip_B4(                                                    "splice_event_id");
+    BS_Begin();
+    Get_SB (    splice_event_cancel_indicator,                  "splice_event_cancel_indicator");
+    Skip_S1( 7,                                                 "reserved");
+    BS_End();
+    if (!splice_event_cancel_indicator)
+    {
+        bool program_splice_flag, duration_flag, splice_immediate_flag;
+        BS_Begin();
+        Skip_SB(                                                "out_of_network_indicator");
+        Get_SB (    program_splice_flag,                        "program_splice_flag");
+        Get_SB (    duration_flag,                              "duration_flag");
+        Get_SB (    splice_immediate_flag,                      "splice_immediate_flag");
+        Skip_S1( 4,                                             "reserved");
+        BS_End();
+        if(program_splice_flag && !splice_immediate_flag)
+            Table_FC_05_splice_time();
+        if (!program_splice_flag)
+        {
+            int8u component_count;
+            Get_B1(component_count,                             "component_count");
+            for (int8u component=0; component<component_count; component++)
+            {
+                Skip_B1(                                        "component_tag");
+                Table_FC_05_splice_time();
+            }
+        }
+        if(duration_flag)
+            Table_FC_05_break_duration();
+        Skip_B2(                                                "unique_program_id");
+        Skip_B1(                                                "avail_num");
+        Skip_B1(                                                "avails_expected");
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_05_break_duration()
+{
+    Element_Begin("break_duration");
+
+    //Parsing
+    BS_Begin();
+    Skip_SB(                                                    "auto_return");
+    Skip_S1( 6,                                                 "reserved");
+    Skip_S5(33,                                                 "duration");
+    BS_End();
+
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_05_splice_time()
+{
+    Element_Begin("splice_time");
+
+    //Parsing
+    bool time_specified_flag;
+    BS_Begin();
+    Get_SB (    time_specified_flag,                            "time_specified_flag");
+    if (time_specified_flag)
+    {
+        Skip_S1( 6,                                             "reserved");
+        Skip_S5(33,                                             "pts_time");
+
+    }
+    else
+        Skip_S5(7,                                              "reserved");
+    BS_End();
+
+   Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_06()
+{
+    //TODO
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_FC_07()
+{
+    //TODO
 }
 
 //***************************************************************************

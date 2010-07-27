@@ -573,6 +573,11 @@ private :
     void Descriptor_AA();
     void Descriptor_AB() {Skip_XX(Element_Size, "Data");};
 
+    //SCTE 35
+    void CUEI_00();
+    void CUEI_01();
+    void CUEI_02();
+
     //Helpers
     void ATSC_multiple_string_structure(Ztring &Value, const char* Info);
     void Get_DVB_Text(int64u Size, Ztring &Value, const char* Info);

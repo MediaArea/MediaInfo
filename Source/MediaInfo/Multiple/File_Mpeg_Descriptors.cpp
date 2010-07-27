@@ -1459,6 +1459,22 @@ void File_Mpeg_Descriptors::Data_Parse()
                      break;
         }
     }
+    else if (table_id==0xFC)
+    {
+        //SCTE 35
+        #undef ELEMENT_CASE
+        #define ELEMENT_CASE(_NAME, _DETAIL) \
+            case 0x##_NAME : Element_Name(_DETAIL); CUEI_##_NAME(); break;
+        switch (Element_Code)
+        {
+            ELEMENT_CASE(00, "SCTE35 - avail_descriptor");
+            ELEMENT_CASE(01, "SCTE35 - DTMF_descriptor");
+            ELEMENT_CASE(02, "SCTE35 - segmentation_descriptor");
+            default: Element_Info("SCTE35 - Reserved");
+                     Skip_XX(Element_Size,                          "Data");
+                     break;
+        }
+    }
     else
     {
         switch (Element_Code)
@@ -2800,6 +2816,25 @@ void File_Mpeg_Descriptors::Descriptor_AA()
 {
     //Parsing
     Skip_XX(Element_Size,                                       "rc_information");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::CUEI_00()
+{
+    Skip_C4(                                                    "identifier (\"CUEI\")"); //CUEI
+    Skip_B4(                                                    "provider_avail_id");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::CUEI_01()
+{
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::CUEI_02()
+{
+    Skip_XX(Element_Size,                                       "Data");
 }
 
 //***************************************************************************
