@@ -98,7 +98,6 @@ protected :
     stream_header Audios_Header;
 
     //Temp
-    int64u                  Frame_Count;
     bool                    LookingForLastFrame;
     int64u                  Stream_Count;
     int64u                  Info_General_StreamSize;
