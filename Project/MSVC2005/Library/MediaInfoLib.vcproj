@@ -116,6 +116,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.cpp"
 				>
 			</File>
@@ -720,6 +724,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\File__MultipleParsing.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h"
 				>
 			</File>
 			<File

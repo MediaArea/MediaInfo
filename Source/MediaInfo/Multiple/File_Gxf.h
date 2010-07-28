@@ -30,9 +30,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#if defined(MEDIAINFO_CDP_YES)
-    #include "MediaInfo/Multiple/File_Riff.h"
-#endif //MEDIAINFO_CDP_YES
+#if defined(MEDIAINFO_ANCILLARY_YES)
+    #include <MediaInfo/Multiple/File_Ancillary.h>;
+#endif //defined(MEDIAINFO_ANCILLARY_YES)
 #include <map>
 //---------------------------------------------------------------------------
 
@@ -49,15 +49,6 @@ public :
     //Constructor/Destructor
     File_Gxf();
     ~File_Gxf();
-
-    //In
-    #if defined(MEDIAINFO_CDP_YES)
-        std::vector<File_Riff::buffered_data*> Cdp_Data;
-    #endif //MEDIAINFO_CDP_YES
-    #if defined(MEDIAINFO_AFDBARDATA_YES)
-        std::vector<File_Riff::buffered_data*> AfdBarData_Data;
-    #endif //MEDIAINFO_AFDBARDATA_YES
-
 private :
     //Streams management
     void Streams_Finish();
@@ -78,6 +69,9 @@ private :
     void UMF_file();
 
     //Temp - Global
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        File_Ancillary* Ancillary;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
     int32u Material_Fields_First;
     int32u Material_Fields_Last;
     int32u Material_File_Size;

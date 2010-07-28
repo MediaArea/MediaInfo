@@ -15,6 +15,7 @@ Version 0.7.35, 2010-
 + Library: "Per frame" interface, like ffmpeg
 + AFD: AFD value (in advanced mode)
 + MPEG-TS: SCTE35 detection and parsing
++ MXF: Ancillary data (S436M) support
 
 Version 0.7.34, 2010-07-09
 --------------

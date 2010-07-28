@@ -28,9 +28,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#if defined(MEDIAINFO_GXF_YES) && (defined(MEDIAINFO_CDP_YES) || defined(MEDIAINFO_AFDBARDATA_YES))
-    #include "MediaInfo/Multiple/File_Riff.h"
-#endif //MEDIAINFO_CDP_YES
+#if defined(MEDIAINFO_ANCILLARY_YES)
+    #include <MediaInfo/Multiple/File_Ancillary.h>
+#endif //defined(MEDIAINFO_ANCILLARY_YES)
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -48,12 +48,9 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   TimeCodeIsNotTrustable;
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-        std::vector<File_Riff::buffered_data*>* Cdp_Data;
-    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-        std::vector<File_Riff::buffered_data*>* AfdBarData_Data;
-    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        File_Ancillary** Ancillary;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
     //Constructor/Destructor
     File_Mpegv();

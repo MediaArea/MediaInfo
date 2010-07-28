@@ -120,6 +120,7 @@ namespace Elements
     UUID(TimecodeComponent,                                     060E2B34, 02530101, 0D010101, 01011400)
     UUID(Track,                                                 060E2B34, 02530101, 0D010101, 01013B00)
     UUID(WaveAudioDescriptor,                                   060E2B34, 02530101, 0D010101, 01014800)
+    UUID(AncPacketsDescriptor,                                  060E2B34, 02530101, 0D010101, 01015C00)
 
     //OperationalPatterns
     UUID(OP_MultiTrack,                                         060E2B34, 04010101, 0D010201, 01010900)
@@ -167,6 +168,10 @@ namespace Elements
     UUID(Sequence_Picture,                                      060E2B34, 04010101, 01030202, 01000000)
     UUID(Sequence_Sound,                                        060E2B34, 04010101, 01030202, 02000000)
     UUID(Sequence_Data,                                         060E2B34, 04010101, 01030202, 03000000)
+
+    //Other
+    UUID(Filler,                                                060E2B34, 01010102, 03010210, 01000000)
+
 }
 
 //---------------------------------------------------------------------------
@@ -442,6 +447,17 @@ File_Mxf::File_Mxf()
     Preface_Current.hi=(int64u)-1;
     Preface_Current.lo=(int64u)-1;
     Track_Number_IsAvailable=false;
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        Ancillary_InstanceUID=(int128u)-1;
+        Ancillary_LinkedTrackID=(int32u)-1;
+        Ancillary_TrackNumber=(int32u)-1;
+        Ancillary=NULL;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
+}
+
+//---------------------------------------------------------------------------
+File_Mxf::~File_Mxf()
+{
 }
 
 //***************************************************************************
@@ -691,25 +707,31 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     if (StreamKind_Last==Stream_Video && Essence->second.Parser && Essence->second.Parser->Count_Get(Stream_Text))
     {
         //Video and Text are together
-        size_t Text_Count=Essence->second.Parser->Count_Get(Stream_Text);
-        for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+        File__Analyze* Parser=Essence->second.Parser;
+        size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
+        for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
         {
             size_t StreamPos_Video=StreamPos_Last;
-            size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
-            Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
-            if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
-                Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format), true);
+            Fill_Flush();
+            Stream_Prepare(Stream_Text);
+            Parser->Finish();
+            Merge(*Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+            Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Video, Video_Duration));
+            Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+            if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).find(_T("Ancillary"))!=string::npos)
+            {
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(Ancillary_LinkedTrackID)+_T("-")+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(Ancillary_LinkedTrackID)+_T("-")+ID, true);
+            }
             else
-                Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
-            if (!IsSub)
-                Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1));
-            Fill(Stream_Text, Pos, Text_StreamSize, 0);
-            Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-            Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
-            Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+_T("-")+ID, true);
-            Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
-            Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+Retrieve(Stream_Text, Pos, Text_ID), true);
+            {
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
+            }
         }
+
+        StreamKind_Last=Stream_Video;
+        StreamPos_Last=Essence->second.StreamPos;
     }
 
     //Stream size
@@ -928,7 +950,6 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Format), true);
                     else
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
-                    Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1), true);
                     Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Duration), true);
                     Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source"));
                     Fill(Stream_Audio, Pos, "Source_Info", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source_Info"));
@@ -939,22 +960,27 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                 }
 
                 //Video and Text are together
-                size_t Text_Count=MI.Info->Count_Get(Stream_Text);
-                for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+                File__Analyze* Parser=MI.Info;
+                size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
+                for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
                 {
                     size_t StreamPos_Video=StreamPos_Last;
-                    size_t Pos=Count_Get(Stream_Text)-1-Text_Pos;
-                    if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
-                        Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Format), true);
+                    Fill_Flush();
+                    Stream_Prepare(Stream_Text);
+                    Parser->Finish();
+                    Merge(*Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                    Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Video, Video_Duration));
+                    Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                    if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).find(_T("Ancillary"))!=string::npos)
+                    {
+                        Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(Ancillary_LinkedTrackID)+_T("-")+ID, true);
+                        Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(Ancillary_LinkedTrackID)+_T("-")+ID, true);
+                    }
                     else
-                        Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
-                    Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1), true);
-                    Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Duration), true);
-                    Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source"));
-                    Fill(Stream_Text, Pos, "Source_Info", Retrieve(Stream_Video, Count_Get(Stream_Video)-1, "Source_Info"));
-                    Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-                    Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
-                    Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
+                    {
+                        Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
+                        Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
+                    }
                 }
             }
         }
@@ -1309,6 +1335,8 @@ void File_Mxf::Data_Parse()
     ELEMENT(TimecodeComponent,                                  "Timecode Component")
     ELEMENT(Track,                                              "Track")
     ELEMENT(WaveAudioDescriptor,                                "Wave Audio Descriptor")
+    ELEMENT(AncPacketsDescriptor,                               "ANC Packets Descriptor")
+    ELEMENT(Filler,                                             "Filler")
     else if (Code_Compare1==0x060E2B34
           && Code_Compare2==0x01020101
           && Code_Compare3==0x0D010301)
@@ -1329,6 +1357,7 @@ void File_Mxf::Data_Parse()
             case 0x16000400 : Element_Name("BWF (PCM)"      ); break;
             case 0x16000500 : Element_Name("MPEG Audio"     ); break;
             case 0x16000A00 : Element_Name("A-law"          ); break;
+            case 0x17000200 : Element_Name("ANC"            ); break; //17="Data Item", 02="Frame-Wrapped ANC Data Element"
             case 0x18000100 : Element_Name("DV"  ); break;
             case 0x18000200 : Element_Name("DV"  ); break; //One block
             default         : Element_Name("Unknown stream" );
@@ -1358,6 +1387,7 @@ void File_Mxf::Data_Parse()
                                     Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                     #if defined(MEDIAINFO_MPEGV_YES)
                                         Essences[Code_Compare4].Parser=new File_Mpegv();
+                                        ((File_Mpegv*)Essences[Code_Compare4].Parser)->Ancillary=&Ancillary;
                                     #else
                                         Essences[Code_Compare4].Parser=new File_Unknown();
                                         Open_Buffer_Init(Essences[Code_Compare4].Parser);
@@ -1458,6 +1488,12 @@ void File_Mxf::Data_Parse()
                                     if (Streams_Count>0)
                                         Streams_Count--;
                                     break;
+                case 0x17000200 : //Ancillary
+                                    Essences[Code_Compare4].Parser=new File_Ancillary();
+                                    Open_Buffer_Init(Essences[Code_Compare4].Parser);
+                                    Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
+                                    Ancillary_TrackNumber=Code_Compare4;
+                                    break;
                 case 0x18000100 : //DV
                 case 0x18000200 : //DV
                                     Essences[Code_Compare4].StreamKind=Stream_Video;
@@ -1494,14 +1530,36 @@ void File_Mxf::Data_Parse()
 
         if (!(Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
         {
-            //Parsing
-            Open_Buffer_Continue(Essences[Code_Compare4].Parser);
-
-            //Disabling this Streams
-            if (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled])
+            if (Code_Compare4==0x17010201)
             {
-                if (Streams_Count>0)
-                    Streams_Count--;
+                //Ancillary with
+                int16u Count;
+                Get_B2 (Count,                                  "Number of ANC packets");
+                for (int16u Pos=0; Pos<Count; Pos++)
+                {
+                    Element_Begin("ANC packet");
+                    int16u Size;
+                    Skip_B2(                                    "Line Number");
+                    Skip_B1(                                    "Wrapping Type");
+                    Skip_B1(                                    "Payload Sample Coding");
+                    Get_B2 (Size,                               "Payload Sample Count");
+                    Skip_B4(                                    "Size?");
+                    Skip_B4(                                    "Count?");
+                    Open_Buffer_Continue(Essences[Code_Compare4].Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
+                    Element_End();
+                }
+            }
+            else
+            {
+                //Parsing
+                Open_Buffer_Continue(Essences[Code_Compare4].Parser);
+
+                //Disabling this Streams
+                if (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled])
+                {
+                    if (Streams_Count>0)
+                        Streams_Count--;
+                }
             }
         }
         else
@@ -2144,6 +2202,22 @@ void File_Mxf::WaveAudioDescriptor()
 }
 
 //---------------------------------------------------------------------------
+void File_Mxf::AncPacketsDescriptor()
+{
+    Ancillary_InstanceUID=InstanceUID;
+    switch(Code2)
+    {
+        default: GenericSoundEssenceDescriptor();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Filler()
+{
+    Skip_XX(Element_Size,                                       "Junk");
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::Track()
 {
     //Parsing
@@ -2458,6 +2532,8 @@ void File_Mxf::FileDescriptor_LinkedTrackID()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].LinkedTrackID=Data;
+        if (InstanceUID==Ancillary_InstanceUID)
+            Ancillary_LinkedTrackID=Data;
     FILLING_END();
 }
 

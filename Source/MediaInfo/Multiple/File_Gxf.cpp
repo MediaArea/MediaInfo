@@ -247,19 +247,17 @@ File_Gxf::File_Gxf()
     Material_Fields_Last_IsValid=false;
     Material_File_Size_IsValid=false;
     UMF_File=NULL;
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        Ancillary=NULL;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
     SizeToAnalyze=16*1024*1024;
 }
 
 //---------------------------------------------------------------------------
 File_Gxf::~File_Gxf()
 {
-    //In
-    for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
-        delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
-    for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
-        delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
-
     //Temp
+    delete Ancillary; //Ancillary=NULL;
     delete UMF_File; //UMF_File=NULL;
 }
 
@@ -353,11 +351,6 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
             for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
             {
                 size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
-                Ztring MuxingMode=Retrieve(Stream_Text, Text_Pos, "MuxingMode");
-                Fill(Stream_Text, Text_Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
-                if (!IsSub)
-                    Fill(Stream_Text, Text_Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp.StreamPos+1));
-                Fill(Stream_Video, Count_Get(Stream_Video)-1, General_ID, StreamID);
                 Ztring ID=Retrieve(Stream_Text, Text_Pos, Text_ID);
                 Fill(Stream_Text, Text_Pos, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
                 Fill(Stream_Text, Text_Pos, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
@@ -651,8 +644,7 @@ void File_Gxf::map()
                         case 22 :
                         case 23 :   //MPEG Video
                                     Streams[TrackID].Parser=new File_Mpegv();
-                                    ((File_Mpegv*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
-                                    ((File_Mpegv*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
+                                    ((File_Mpegv*)Streams[TrackID].Parser)->Ancillary=&Ancillary;
                                     Open_Buffer_Init(Streams[TrackID].Parser);
                                     Parsers_Count++;
                                     Streams[TrackID].Searching_Payload=true;
@@ -660,7 +652,7 @@ void File_Gxf::map()
                         case 13 :
                         case 14 :
                         case 15 :
-                        case 16 :   /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++; break;*/
+                        case 16 :   /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++;*/ break;
                         case 17 :   //AC-3
                                     Streams[TrackID].Parser=new File__Analyze; //Filling with following data
                                     Open_Buffer_Init(Streams[TrackID].Parser);
@@ -671,14 +663,17 @@ void File_Gxf::map()
                                     break;
                         case 21 :   //Ancillary Metadata
                                     Streams[TrackID].Parser=new File_Riff();
-                                    ((File_Riff*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
-                                    ((File_Riff*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
+                                    ((File_Riff*)Streams[TrackID].Parser)->Ancillary=&Ancillary;
                                     Open_Buffer_Init(Streams[TrackID].Parser);
                                     Parsers_Count++;
                                     Streams[TrackID].Searching_Payload=true;
+                                    Ancillary=new File_Ancillary;
+                                    Ancillary->WithTenBit=true;
+                                    Ancillary->WithChecksum=true;
+                                    Open_Buffer_Init(Ancillary);
+                                    AncillaryData_StreamID=TrackID;
                                     if (SizeToAnalyze<4*16*1024*1024)
                                         SizeToAnalyze*=4; //4x more, to be sure to find captions
-                                    AncillaryData_StreamID=TrackID;
                                     break;
                         default :   ;
                     }

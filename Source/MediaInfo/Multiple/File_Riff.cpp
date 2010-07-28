@@ -98,6 +98,11 @@ File_Riff::File_Riff()
     #endif //MEDIAINFO_DEMUX
     DataMustAlwaysBeComplete=false;
 
+    //In/Out
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        Ancillary=NULL;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
+
     //Data
     Interleaved0_1=0;
     Interleaved0_10=0;
@@ -124,15 +129,6 @@ File_Riff::File_Riff()
     IsWaveBroken=false;
     SecondPass=false;
     DV_FromHeader=NULL;
-    #if defined(MEDIAINFO_GXF_YES)
-        rcrd_Parsers_Count=0;
-        #if defined(MEDIAINFO_CDP_YES)
-            Cdp_Data=NULL;
-        #endif //MEDIAINFO_CDP_YES
-        #if defined(MEDIAINFO_AFDBARDATA_YES)
-            Cdp_Data=NULL;
-        #endif //MEDIAINFO_AFDBARDATA_YES
-    #endif //MEDIAINFO_GXF_YES
 
     //Pointers
     Stream_Structure_Temp=Stream_Structure.end();
@@ -144,12 +140,6 @@ File_Riff::~File_Riff()
     #ifdef MEDIAINFO_DVDIF_YES
         delete (File_DvDif*)DV_FromHeader; //DV_FromHeader=NULL
     #endif //MEDIAINFO_DVDIF_YES
-
-    #if defined(MEDIAINFO_GXF_YES)
-        for (size_t DataID=0; DataID<rcrd_Parsers.size(); DataID++)
-            for (size_t SecondaryDataID=0; SecondaryDataID<rcrd_Parsers[DataID].size(); SecondaryDataID++)
-                delete rcrd_Parsers[DataID][SecondaryDataID]; //rcrd_Parsers[DataID][SecondaryDataID]=NULL;
-    #endif //MEDIAINFO_GXF_YES
 }
 
 //***************************************************************************

@@ -28,6 +28,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#if defined(MEDIAINFO_ANCILLARY_YES)
+    #include <MediaInfo/Multiple/File_Ancillary.h>
+#endif //defined(MEDIAINFO_ANCILLARY_YES)
 #include <vector>
 //---------------------------------------------------------------------------
 
@@ -43,6 +46,7 @@ class File_Mxf : public File__Analyze
 public :
     //Constructor/Destructor
     File_Mxf();
+    ~File_Mxf();
 
 protected :
     //Streams management
@@ -115,6 +119,8 @@ protected :
     void TimecodeComponent();
     void Track();
     void WaveAudioDescriptor();
+    void AncPacketsDescriptor();
+    void Filler();
 
     //Complex types
     void AES3PCMDescriptor_AuxBitsMode();                       //3D08
@@ -458,6 +464,13 @@ protected :
     };
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
     components Components;
+
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        int128u         Ancillary_InstanceUID;
+        int32u          Ancillary_LinkedTrackID;
+        int32u          Ancillary_TrackNumber;
+        File_Ancillary* Ancillary;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
 };
 
 } //NameSpace

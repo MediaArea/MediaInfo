@@ -75,6 +75,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Image/File_Png.cpp \
                        ../../../Source/MediaInfo/Image/File_Rle.cpp \
                        ../../../Source/MediaInfo/Image/File_Tiff.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Ancillary.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Bdmv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Cdxa.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dpg.cpp \
