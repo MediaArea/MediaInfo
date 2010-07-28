@@ -14,6 +14,7 @@ Version 0.7.35, 2010-
 + CEA-608/708: language
 + Library: "Per frame" interface, like ffmpeg
 + AFD: AFD value (in advanced mode)
++ MPEG-TS: SCTE35 detection and parsing
 
 Version 0.7.34, 2010-07-09
 --------------
