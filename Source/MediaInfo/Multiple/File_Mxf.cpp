@@ -711,7 +711,6 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
         for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
         {
-            size_t StreamPos_Video=StreamPos_Last;
             Fill_Flush();
             Stream_Prepare(Stream_Text);
             Parser->Finish();
@@ -964,7 +963,6 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                 size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
                 for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
                 {
-                    size_t StreamPos_Video=StreamPos_Last;
                     Fill_Flush();
                     Stream_Prepare(Stream_Text);
                     Parser->Finish();

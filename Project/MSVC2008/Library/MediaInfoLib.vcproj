@@ -575,10 +575,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.cpp"
 				>
 			</File>
@@ -885,6 +881,10 @@
 			<Filter
 				Name="Multiple"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.cpp"
 					>
@@ -1227,10 +1227,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.h"
 				>
 			</File>
@@ -1497,6 +1493,10 @@
 			<Filter
 				Name="Multiple"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.h"
 					>

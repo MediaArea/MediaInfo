@@ -496,7 +496,7 @@
       <Filter>Source Files\Video</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Multiple</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -897,7 +897,7 @@
       <Filter>Header Files\Video</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
