@@ -105,6 +105,7 @@ protected :
     std::vector<int64u>     Audio_Sizes;
     size_t                  Audio_Sizes_Pos;
     std::vector<int64u>     Video_Sizes;
+    int8u                   SampleSize;
 };
 
 } //NameSpace

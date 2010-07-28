@@ -466,7 +466,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
 
         //ID
         if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("ID"))
-            Fill(StreamKind, StreamPos, General_ID_String, Value, true);
+            Fill(StreamKind, StreamPos, General_ID_String, Value, Replace);
 
         //Format
         if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("Format"))

@@ -43,10 +43,40 @@
 #if MEDIAINFO_DEMUX
     #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #endif //MEDIAINFO_DEMUX
+#include <bitset>
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
+
+const char* Lxf_Format_Video[16]=
+{
+    "M-JPEG",
+    "MPEG Video", //Version 1
+    "MPEG Video", //Version 2, 4:2:0
+    "MPEG Video", //Version 2, 4:2:2
+    "DV", //25 Mbps 4:1:1 or 4:2:0
+    "DV", //DVCPRO
+    "DV", //DVCPRO 50
+    "RGB", //RGB uncompressed
+    "Gray", //Gray uncompressed
+    "MPEG Video", //Version 2, 4:2:2, GOP=9
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Lxf_PictureType[4]=
+{
+    "I", //Closed
+    "I", //Open
+    "P",
+    "B",
+};
 
 //***************************************************************************
 // Constructor/Destructor
@@ -93,11 +123,31 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
     if (Parser==NULL)
         return;
 
-    Merge(*Parser);
-    #if MEDIAINFO_DEMUX
-        if (Config->Demux_ForceIds_Get())
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, (StreamKind_Last==Stream_Video?0x100:0x200)+StreamPos_Last);
-    #endif //MEDIAINFO_DEMUX
+    if (Parser->Count_Get(Stream_Audio))
+    {
+        if (Count_Get(Stream_Audio)==0)
+        {
+            Merge(*Parser);
+            Fill(Stream_Audio, 0, Audio_Channel_s_, Audio_Sizes.size(), 10, true);
+            int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate*Audio_Sizes.size(), 10, true);
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_ForceIds_Get())
+                {
+                    for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x200+Pos); //only 1 audio stream but with separated channels, artificial id
+                }
+            #endif //MEDIAINFO_DEMUX
+        }
+    }
+    else
+    {
+        Merge(*Parser);
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_ForceIds_Get())
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x100); //only 1 video stream, artificial id
+        #endif //MEDIAINFO_DEMUX
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -220,26 +270,35 @@ void File_Lxf::Header_Parse()
     }
 
     //Parsing
-    int64u Code, BlockSize;
+    int32u Type, BlockSize;
     Skip_C8(                                                    "Signature");
-    Skip_L4(                                                    "Always 0x00000001");
-    Skip_L4(                                                    "Always 0x00000048 (header size?)");
-    Get_L8 (Code,                                               "Code");
-    switch(Code)
+    Skip_L4(                                                    "Version"); //0=start and duration are in field, 1=in 27 MHz values
+    Skip_L4(                                                    "Header size");
+    Get_L4 (Type,                                               "Type");
+    Skip_L4(                                                    "Stream ID");
+    switch(Type)
     {
         case 0  :   //Video
                     {
                     Video_Sizes.resize(2);
                     int64u Size;
+                    int8u Format;
                     BlockSize=0;
 
                     Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms");
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
-                    Skip_L4(                                    "? (Always same in data)");
-                    Get_L8(Size,                                "Block size");
+                    BS_Begin_LE();
+                    Get_S1 (4, Format,                          "Format"); Param_Info(Lxf_Format_Video[Format]);
+                    Skip_S1(7,                                  "GOP (N)");
+                    Skip_S1(3,                                  "GOP (M)");
+                    Info_S1(8, BitRate,                         "Bit rate"); Param_Info(BitRate*1000000, " bps");
+                    Info_S1(2, PictureType,                     "Picture type"); Param_Info(Lxf_PictureType[PictureType]);
+                    BS_End_LE();
+                    Skip_L1(                                    "Reserved");
+                    Get_L8(Size,                                "Video data size");
                     Video_Sizes[1]=Size;
                     BlockSize+=Size;
-                    Get_L8(Size,                                "Block size");
+                    Get_L8(Size,                                "VBI data size");
                     Video_Sizes[0]=Size;
                     BlockSize+=Size;
                     Skip_L4(                                    "? (Always 0x00000000)");
@@ -263,28 +322,37 @@ void File_Lxf::Header_Parse()
         case 1  :   //Audio
                     {
                     int32u Info, Size;
+                    int8u Channels_Count=0;
+                    bitset<32> Channels;
 
                     Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms");
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
-                    Skip_L4(                                    "? (Always same in data)");
-                    Get_L4(Info,                                "Info?");
+                    BS_Begin_LE();
+                    Get_S1 ( 6, SampleSize,                     "Sample size");
+                    Skip_S1( 6,                                 "Sample precision");
+                    Skip_S1(20,                                 "Reserved");
+                    BS_End_LE();
+                    Element_Begin("Channels mask");
+                        BS_Begin_LE();
+                        for (size_t Pos=0; Pos<32; Pos++)
+                        {
+                            bool Channel;
+                            Get_SB(Channel,                     "Channel");
+                            Channels[Pos]=Channel;
+                            if (Channel)
+                                Channels_Count++;
+                        }
+                        BS_End_LE();
+                    Element_End();
                     Get_L4(Size,                                "Block size (divided by ?)");
-                    Skip_L4(                                    "? (Always 0x00000000)");
-                    Skip_L4(                                    "? (Always 0x00000000)");
-                    Skip_L4(                                    "? (Always 0x00000000)");
+                    Skip_L4(                                    "Reserved");
+                    Skip_L4(                                    "Reserved");
+                    Skip_L4(                                    "Reserved");
                     Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info(((float64)Reverse)/720, 3, " ms");
-
-                    size_t Multiplier;
-                    switch (Info)
-                    {
-                        case 0x03 : Multiplier=2; break;
-                        case 0x0F : Multiplier=4; break;
-                        default   : Multiplier=0; Trusted++; //Unknown size, will unsynch
-                    }
-                    Audio_Sizes.resize(Multiplier);
+                    Audio_Sizes.resize(Channels_Count);
                     for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
                         Audio_Sizes[Pos]=Size;
-                    BlockSize=Size*Multiplier;
+                    BlockSize=Size*Channels_Count;
                     if (Audios_Header.TimeStamp_Begin==(int64u)-1)
                         Audios_Header.TimeStamp_Begin=TimeStamp;
                     Audios_Header.TimeStamp_End=TimeStamp+Duration;
@@ -336,7 +404,7 @@ void File_Lxf::Header_Parse()
     }
 
     //Filling
-    Header_Fill_Code(Code, Ztring::ToZtring(Code));
+    Header_Fill_Code(Type, Ztring::ToZtring(Type));
     Header_Fill_Size(0x48+BlockSize);
 }
 
@@ -529,19 +597,10 @@ bool File_Lxf::Audio_Stream(size_t Pos)
         Audios[Pos].Parser->Stream_Prepare(Stream_Audio);
         Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BitRate);
         Audios[Pos].Parser->Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-        if (BitRate==768000)
-        {
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "PCM");
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 24000);
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2);
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
-        }
-        if (BitRate==960000)
-        {
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 48000);
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 4);
-            Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
-        }
+        Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "PCM");
+        Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 48000);
+        Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1);
+        Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize);
         Audios[Pos].Parser->Fill();
     }
 
