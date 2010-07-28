@@ -680,7 +680,6 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             size_t Audio_Count=Essence->second.Parser->Count_Get(Stream_Audio);
             for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
             {
-                size_t StreamPos_Video=StreamPos_Last;
                 Fill_Flush();
                 Stream_Prepare(Stream_Audio);
                 size_t Pos=Count_Get(Stream_Audio)-1;
@@ -691,7 +690,6 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 else
                     Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
                 Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Duration));
-                Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Video+1));
                 Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
                 Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                 Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
@@ -711,6 +709,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
         for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
         {
+            size_t StreamPos_Video=StreamPos_Last;
             Fill_Flush();
             Stream_Prepare(Stream_Text);
             Parser->Finish();
@@ -943,7 +942,6 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                 size_t Audio_Count=MI.Info->Count_Get(Stream_Audio);
                 for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
                 {
-                    size_t StreamPos_Video=StreamPos_Last;
                     size_t Pos=Count_Get(Stream_Audio)-1-Audio_Pos;
                     if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Format), true);
@@ -963,6 +961,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                 size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
                 for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
                 {
+                    size_t StreamPos_Video=StreamPos_Last;
                     Fill_Flush();
                     Stream_Prepare(Stream_Text);
                     Parser->Finish();
