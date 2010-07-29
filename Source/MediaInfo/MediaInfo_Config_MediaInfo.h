@@ -85,6 +85,8 @@ public :
     #if MEDIAINFO_DEMUX
     void          Demux_ForceIds_Set (bool NewValue);
     bool          Demux_ForceIds_Get ();
+    void          Demux_PCM_20bitTo16bit_Set (bool NewValue);
+    bool          Demux_PCM_20bitTo16bit_Get ();
     void          Demux_Unpacketize_Set (bool NewValue);
     bool          Demux_Unpacketize_Get ();
     #endif //MEDIAINFO_DEMUX
@@ -142,6 +144,7 @@ private :
     ZtringList              File__Duplicate_Memory_Indexes;
 
     bool                    Demux_ForceIds;
+    bool                    Demux_PCM_20bitTo16bit;
     bool                    Demux_Unpacketize;
     bool                    NextPacket;
 

@@ -58,6 +58,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_DvDif_Analysis=false;
     State=0;
     Demux_ForceIds=false;
+    Demux_PCM_20bitTo16bit=false;
     Demux_Unpacketize=false;
     NextPacket=false;
 
@@ -151,6 +152,18 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
                 Demux_ForceIds_Set(false);
             else
                 Demux_ForceIds_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_demux_pcm_20bitto16bit"))
+    {
+        #if MEDIAINFO_DEMUX
+            if (Value.empty())
+                Demux_PCM_20bitTo16bit_Set(false);
+            else
+                Demux_PCM_20bitTo16bit_Set(true);
             return Ztring();
         #else //MEDIAINFO_DEMUX
             return _T("Demux manager is disabled due to compilation options");
@@ -464,6 +477,19 @@ bool MediaInfo_Config_MediaInfo::Demux_ForceIds_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Demux_ForceIds;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Demux_PCM_20bitTo16bit_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_PCM_20bitTo16bit=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::Demux_PCM_20bitTo16bit_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_PCM_20bitTo16bit;
 }
 
 //---------------------------------------------------------------------------

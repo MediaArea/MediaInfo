@@ -579,7 +579,27 @@ bool File_Lxf::Audio_Stream(size_t Pos)
     Element_Begin("Stream");
 
     Element_Code=0x0200+Pos;
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
+    if (SampleSize==20 && Config->Demux_PCM_20bitTo16bit_Get())
+    {
+        //Removing bits 3-0 (Little endian)
+        int8u* SixteenBit=new int8u[Audio_Sizes[Pos]];
+        size_t SixteenBit_Pos=0;
+        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+        size_t Buffer_Max=Buffer_Offset+(size_t)Element_Offset+Audio_Sizes[Pos];
+
+        while (Buffer_Pos+5<=Buffer_Max)
+        {
+            int64u Temp=LittleEndian2int40u(Buffer+Buffer_Pos);
+            Temp=((Temp&0xFFFF000000)>>8)|((Temp&0xFFFF0)>>4);
+            int32s2LittleEndian(SixteenBit+SixteenBit_Pos, Temp);
+            SixteenBit_Pos+=4;
+            Buffer_Pos+=5;
+        }
+
+        Demux(SixteenBit, SixteenBit_Pos, ContentType_MainStream);
+    }
+    else
+        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
 
     Skip_XX(Audio_Sizes[Pos],                                   Audio_Sizes.size()==2?"PCM":"Unknown format");
 
