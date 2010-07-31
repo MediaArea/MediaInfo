@@ -280,6 +280,20 @@ void File_Mk::Streams_Finish()
         }
     }
 
+    //Language
+    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+    {
+        size_t StreamCount=Count_Get((stream_t)StreamKind);
+        for (size_t StreamPos=0; StreamPos<StreamCount; StreamPos++)
+        {
+            Ztring Language=Retrieve((stream_t)StreamKind, StreamPos, "Language");
+            if (Language.empty())
+                Fill((stream_t)StreamKind, StreamPos, "Language", "eng");
+            else if (Language==_T("und"))
+                Clear((stream_t)StreamKind, StreamPos, "Language");
+        }
+    }
+
     //Attachements
     for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
         Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
