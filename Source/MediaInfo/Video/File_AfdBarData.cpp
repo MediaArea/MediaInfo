@@ -243,11 +243,11 @@ void File_AfdBarData::bar_data()
     }
     if (!top_bar_flag && !bottom_bar_flag && !left_bar_flag && !right_bar_flag)
     {
-        Mark_1();
-        Mark_1();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
         Skip_S2(14,                                             "reserved");
-        Mark_1();
-        Mark_1();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
         Skip_S2(14,                                             "reserved");
     }
     BS_End();

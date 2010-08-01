@@ -70,6 +70,9 @@ public :
     void          File_StopAfterFilled_Set (bool NewValue);
     bool          File_StopAfterFilled_Get ();
 
+    void          File_Audio_MergeMonoStreams_Set (bool NewValue);
+    bool          File_Audio_MergeMonoStreams_Get ();
+
     void          File_ForceParser_Set (const Ztring &NewValue);
     Ztring        File_ForceParser_Get ();
 
@@ -134,6 +137,7 @@ private :
     bool                    FileIsSub;
     bool                    FileKeepInfo;
     bool                    FileStopAfterFilled;
+    bool                    Audio_MergeMonoStreams;
     Ztring                  File_ForceParser;
 
     //Extra

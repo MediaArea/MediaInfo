@@ -46,6 +46,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileKeepInfo=false;
     FileStopAfterFilled=false;
     File_Filter_HasChanged_=false;
+    Audio_MergeMonoStreams=false;
     #if MEDIAINFO_EVENTS
         Event_CallBackFunction=NULL;
         Event_UserHandler=NULL;
@@ -115,6 +116,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_stopafterfilled_get"))
     {
         return File_StopAfterFilled_Get()?"1":"0";
+    }
+    if (Option_Lower==_T("file_audio_mergemonostreams"))
+    {
+        File_Audio_MergeMonoStreams_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_audio_mergemonostreams_get"))
+    {
+        return File_Audio_MergeMonoStreams_Get()?"1":"0";
     }
     else if (Option_Lower==_T("file_forceparser"))
     {
@@ -312,6 +322,19 @@ bool MediaInfo_Config_MediaInfo::File_StopAfterFilled_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return FileStopAfterFilled;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_Audio_MergeMonoStreams_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Audio_MergeMonoStreams=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_Audio_MergeMonoStreams_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Audio_MergeMonoStreams;
 }
 
 //***************************************************************************

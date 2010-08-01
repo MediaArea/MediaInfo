@@ -46,6 +46,7 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -283,7 +284,7 @@ void File_Gxf::Streams_Finish()
                 Streams[StreamID].MediaName=Title;
             }
         }
-        if (Gxf_MediaTypes_StreamKind(Streams[StreamID].MediaType)==Stream_Audio)
+        if (Gxf_MediaTypes_StreamKind(Streams[StreamID].MediaType)==Stream_Audio && Config->File_Audio_MergeMonoStreams_Get())
         {
             Ztring Title=Streams[StreamID].MediaName;
             size_t Title_Extension_Offset=Title.find(_T(".A0"));
@@ -672,8 +673,8 @@ void File_Gxf::map()
                                     Ancillary->WithChecksum=true;
                                     Open_Buffer_Init(Ancillary);
                                     AncillaryData_StreamID=TrackID;
-                                    if (SizeToAnalyze<4*16*1024*1024)
-                                        SizeToAnalyze*=4; //4x more, to be sure to find captions
+                                    if (SizeToAnalyze<8*16*1024*1024)
+                                        SizeToAnalyze*=8; //10x more, to be sure to find captions
                                     break;
                         default :   ;
                     }

@@ -123,7 +123,7 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
     if (Parser==NULL)
         return;
 
-    if (Parser->Count_Get(Stream_Audio))
+    if (Parser->Count_Get(Stream_Audio) && Config->File_Audio_MergeMonoStreams_Get())
     {
         if (Count_Get(Stream_Audio)==0)
         {
@@ -135,7 +135,7 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
                 if (Config->Demux_ForceIds_Get())
                 {
                     for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x200+Pos); //only 1 audio stream but with separated channels, artificial id
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x200+Pos); //only 1 video stream or only 1 audio stream but with separated channels, artificial id
                 }
             #endif //MEDIAINFO_DEMUX
         }
@@ -145,7 +145,7 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
         Merge(*Parser);
         #if MEDIAINFO_DEMUX
             if (Config->Demux_ForceIds_Get())
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x100); //only 1 video stream, artificial id
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x100*StreamKind_Last+StreamPos_Last); //only 1 video stream or only 1 audio stream but with separated channels, artificial id
         #endif //MEDIAINFO_DEMUX
     }
 }
