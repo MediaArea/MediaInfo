@@ -214,23 +214,6 @@ void File_Mpeg4::Streams_Finish()
                 //Temp->second.Parser->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
                 Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
 
-                if (Temp->second.CleanAperture_Width)
-                {
-                    Fill(Stream_Video, StreamPos_Last, Video_Width_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Width), true);
-                    Fill(Stream_Video, StreamPos_Last, Video_Height_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Height), true);
-                    Clear(Stream_Video, StreamPos_Last, Video_Width);
-                    Clear(Stream_Video, StreamPos_Last, Video_Height);
-                    Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
-                    Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
-                    Fill(Stream_Video, StreamPos_Last, Video_Width, Temp->second.CleanAperture_Width, 0, true);
-                    Fill(Stream_Video, StreamPos_Last, Video_Height, Temp->second.CleanAperture_Height, 0, true);
-                    if (Temp->second.CleanAperture_PixelAspectRatio)
-                        Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, Temp->second.CleanAperture_PixelAspectRatio, 3, true);
-                }
-                else
-                {
-                }
-
                 //Hacks - After
                 if (StreamKind_Last==Stream_Video)
                 {
@@ -316,6 +299,9 @@ void File_Mpeg4::Streams_Finish()
                         Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
                         Fill(Stream_Text, Pos, "Source_Info", Retrieve(Stream_Video, Temp->second.StreamPos, "Source_Info"));
                     }
+
+                    StreamKind_Last=Temp->second.StreamKind;
+                    StreamPos_Last=Temp->second.StreamPos;
                 }
             }
         }
@@ -404,6 +390,36 @@ void File_Mpeg4::Streams_Finish()
             else
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Source_Info", "Missing");
 
+        }
+
+        //Aperture size
+        if (Temp->second.CleanAperture_Width)
+        {
+            Ztring CleanAperture_Width=Ztring().From_Number(Temp->second.CleanAperture_Width, 0);
+            Ztring CleanAperture_Height=Ztring().From_Number(Temp->second.CleanAperture_Height, 0);
+            if (CleanAperture_Width!=Retrieve(Stream_Video, StreamPos_Last, Video_Width))
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_Width_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Width), true);
+                Fill(Stream_Video, StreamPos_Last, Video_Width, Temp->second.CleanAperture_Width, 0, true);
+            }
+            if (CleanAperture_Height!=Retrieve(Stream_Video, StreamPos_Last, Video_Height))
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_Height_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Height), true);
+                Fill(Stream_Video, StreamPos_Last, Video_Height, Temp->second.CleanAperture_Height, 0, true);
+            }
+            if (Temp->second.CleanAperture_PixelAspectRatio)
+            {
+                Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
+                Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
+                Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, Temp->second.CleanAperture_PixelAspectRatio, 3, true);
+                if (Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio)==Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original))
+                    Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original);
+                if (Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio)==Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original))
+                {
+                    Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original);
+                    Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original_String);
+                }
+            }
         }
 
         Temp++;
