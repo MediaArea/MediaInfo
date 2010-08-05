@@ -500,8 +500,6 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
                 Stream_Prepare(Stream_Text);
                 Merge(*Temp.Parsers[0], Stream_Text, Text_Pos, StreamPos_Last);
 
-                Ztring MuxingMode=Retrieve(Stream_Text, StreamPos_Last, "MuxingMode");
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", Ztring(_T("MPEG Video / "))+MuxingMode, true);
                 if (!IsSub)
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp.StreamPos+1));
                 Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
