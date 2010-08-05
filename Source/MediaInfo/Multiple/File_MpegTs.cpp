@@ -592,6 +592,7 @@ void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp.StreamPos, Video_MenuID_String), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp.StreamPos, Video_Duration), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay_Source), true);
 
                 //Language from ATSC EIT
                 /*

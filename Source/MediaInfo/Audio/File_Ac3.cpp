@@ -512,6 +512,7 @@ File_Ac3::File_Ac3()
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;
     MustParse_dac3=false;
     MustParse_dec3=false;
+    CalculateDelay=false;
 
     //Temp
     HD_Count=0;
@@ -603,8 +604,11 @@ void File_Ac3::Streams_Fill()
         {
             int32u BitRate=AC3_BitRate[frmsizecod/2]*1000;
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
-            if (Buffer_TotalBytes_FirstSynched>100 && BitRate>0)
+            if (CalculateDelay && Buffer_TotalBytes_FirstSynched>100 && BitRate>0)
+            {
                 Fill(Stream_Audio, 0, Audio_Delay, (float)Buffer_TotalBytes_FirstSynched*8*1000/BitRate, 0);
+                Fill(Stream_Audio, 0, Audio_Delay_Source, "Stream");
+            }
         }
 
         if (acmod==0)

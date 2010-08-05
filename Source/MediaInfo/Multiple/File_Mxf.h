@@ -465,6 +465,9 @@ protected :
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
     components Components;
 
+    int64u TimeCode_StartTimecode;
+    int16u TimeCode_RoundedTimecodeBase;
+    bool   TimeCode_DropFrame;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         int128u         Ancillary_InstanceUID;
         int32u          Ancillary_LinkedTrackID;

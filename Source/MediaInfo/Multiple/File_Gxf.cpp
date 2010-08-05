@@ -252,6 +252,7 @@ File_Gxf::File_Gxf()
         Ancillary=NULL;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
     SizeToAnalyze=16*1024*1024;
+    TimeCode_First=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -342,24 +343,52 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         StreamKind_Last=Stream_Max;
         StreamPos_Last=(size_t)-1;
         Finish(Temp.Parser);
-        Merge(*Temp.Parser);
 
-        //Special cases
-        if (Temp.Parser->Count_Get(Stream_Video) && Temp.Parser->Count_Get(Stream_Text))
+        //Video
+        if (Temp.Parser->Count_Get(Stream_Video))
         {
-            //Video and Text are together
-            size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
-            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+            if (TimeCode_First!=(int64u)-1)
             {
-                size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
-                Ztring ID=Retrieve(Stream_Text, Text_Pos, Text_ID);
-                Fill(Stream_Text, Text_Pos, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
-                Fill(Stream_Text, Text_Pos, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
-                Fill(Stream_Text, Text_Pos, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
+                Fill(Stream_Video, 0, Video_Delay, TimeCode_First, 0, true);
+                Fill(Stream_Video, 0, Video_Delay_Source, "Container");
             }
 
-            StreamKind_Last=Stream_Video;
-            StreamPos_Last=Count_Get(Stream_Video)-1;
+            Merge(*Temp.Parser);
+
+            //Special cases
+            if (Temp.Parser->Count_Get(Stream_Text))
+            {
+                //Video and Text are together
+                size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
+                for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+                {
+                    size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
+                    Ztring ID=Retrieve(Stream_Text, Text_Pos, Text_ID);
+                    Fill(Stream_Text, Text_Pos, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                    Fill(Stream_Text, Text_Pos, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                    Fill(Stream_Text, Text_Pos, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
+                    Fill(Stream_Text, Text_Pos, Text_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
+                    Fill(Stream_Text, Text_Pos, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
+                    Fill(Stream_Text, Text_Pos, Text_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
+                }
+
+                StreamKind_Last=Stream_Video;
+                StreamPos_Last=Count_Get(Stream_Video)-1;
+            }
+        }
+
+        //Audio
+        if (Temp.Parser->Count_Get(Stream_Audio) && TimeCode_First!=(int64u)-1)
+        {
+            Stream_Prepare(Stream_Audio);
+
+            if (TimeCode_First!=(int64u)-1)
+            {
+                Fill(Stream_Audio, StreamPos_Last, Audio_Delay, TimeCode_First, 0, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
+            }
+
+            Merge(*Temp.Parser, Stream_Audio, 0, StreamPos_Last);
         }
 
         //Metadata
@@ -629,6 +658,15 @@ void File_Gxf::map()
                     #endif //MEDIAINFO_DEMUX
                     switch (MediaType)
                     {
+                        case  3 :
+                        case  4 :  //M-JPEG
+                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Streams[TrackID].Parser->Accept();
+                                    Streams[TrackID].Parser->Fill();
+                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Video);
+                                    Streams[TrackID].Parser->Fill(Stream_Video, 0, Video_Format, "M-JPEG");
+                                    break;
                         case  9 :
                         case 10 :
                         case 18 :  //PCM
@@ -732,6 +770,10 @@ void File_Gxf::map()
                 }
             FILLING_END();
 
+            int8u Hours=(int8u)-1, Minutes=(int8u)-1, Seconds=(int8u)-1, Frames=(int8u)-1;
+            bool  Invalid, DropFrame=true;
+            bool  TimeCode_Parsed=false;
+
             while (Element_Offset<Track_End)
             {
                 Element_Begin("Tag");
@@ -762,19 +804,20 @@ void File_Gxf::map()
                                     if (MediaType==7 || MediaType==8 || MediaType==24)
                                     {
                                         //TimeCode
-                                        Skip_B1(                "Frame");
-                                        Skip_B1(                "Second");
-                                        Skip_B1(                "Minute");
+                                        Get_B1 (Frames,         "Frame");
+                                        Get_B1 (Seconds,        "Second");
+                                        Get_B1 (Minutes,        "Minute");
                                         BS_Begin();
-                                        Skip_SB(                "Invalid");
+                                        Get_SB (   Invalid,     "Invalid");
                                         Skip_SB(                "Color frame");
-                                        Skip_SB(                "Drop frame");
-                                        Skip_S1(5,              "Hour");
+                                        Get_SB (   DropFrame,   "Drop frame");
+                                        Get_S1 (5, Hours,       "Hour");
                                         BS_End();
                                         Skip_B1(                "User bits");
                                         Skip_B1(                "User bits");
                                         Skip_B1(                "User bits");
                                         Skip_B1(                "User bits");
+                                        TimeCode_Parsed=true;
                                     }
                                     else
                                         Skip_B8(                "Content");
@@ -822,6 +865,21 @@ void File_Gxf::map()
                 Element_End();
             }
             Element_End();
+
+            //Test on TimeCode
+            if (TimeCode_Parsed)
+            {
+                if (TimeCode_First==(int64u)-1)
+                {
+                    float32 FrameRate=Gxf_FrameRate(Streams[TrackID].FrameRate_Code);
+                    if (DropFrame)
+                        FrameRate*=((float32)1000)/1001;
+                    TimeCode_First=Hours  *60*60*1000
+                                  +Minutes   *60*1000
+                                  +Seconds      *1000
+                                  +float32_int64s(Frames*1000/FrameRate);
+                }
+            }
         }
     Element_End();
     if (Element_Offset<Element_Size)

@@ -122,6 +122,7 @@ private :
     std::vector<stream> Streams;
     File__Analyze*      UMF_File;
     int64u              SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
+    int64u              TimeCode_First;
 
     //File__Analyze helpers
     void Streams_Finish_PerStream(size_t StreamID, stream &Temp);

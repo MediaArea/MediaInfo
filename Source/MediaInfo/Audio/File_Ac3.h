@@ -40,6 +40,7 @@ public :
     size_t Frame_Count_Valid;
     bool   MustParse_dac3;
     bool   MustParse_dec3;
+    bool   CalculateDelay;
 
     //Constructor/Destructor
     File_Ac3();

@@ -385,26 +385,15 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
 
         if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1)
         {
-            if (StreamKind_Last==Stream_Video)
-            {
-                if (!Retrieve(Stream_Video, Temp.StreamPos, Video_Delay).empty())
-                {
-                    Ztring Delay=Retrieve(Stream_Video, Temp.StreamPos, Video_Delay);
-                    Fill(Stream_Video, Temp.StreamPos, Video_Delay_Original, Delay);
-                }
-                if (!Retrieve(Stream_Video, Temp.StreamPos, Video_Delay_Settings).empty())
-                {
-                    Ztring Delay_Settings=Retrieve(Stream_Video, Temp.StreamPos, Video_Delay_Settings);
-                    Fill(Stream_Video, Temp.StreamPos, Video_Delay_Original_Settings, Delay_Settings);
-                }
-            }
-            Fill(StreamKind_Last, StreamPos_Last, "Delay", ((float64)Temp.TimeStamp_Start.PTS.TimeStamp)/90, 3, true);
-            Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", "", Unlimited, true, true);
-        }
-        else
-        {
-            Clear(StreamKind_Last, StreamPos_Last, "Delay");
-            Clear(StreamKind_Last, StreamPos_Last, "Delay_Settings");
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)), true);
+            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)), true);
+            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Settings), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Settings)), true);
+            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Settings));
+
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), ((float64)Temp.TimeStamp_Start.PTS.TimeStamp)/90, 3, true);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
         }
 
         //LATM

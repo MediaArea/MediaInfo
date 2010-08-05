@@ -308,6 +308,7 @@ File_Mpega::File_Mpega()
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
     FrameIsAlwaysComplete=false;
+    CalculateDelay=false;
 
     //Temp - BitStream info
     Surround_Frames=0;
@@ -388,8 +389,11 @@ void File_Mpega::Streams_Fill()
         BitRate=Mpega_BitRate[ID][layer][bitrate_index]*1000;
         Fill(Stream_General, 0, General_OverallBitRate, BitRate);
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
-        if (Buffer_TotalBytes_FirstSynched>10 && BitRate>0)
+        if (CalculateDelay && Buffer_TotalBytes_FirstSynched>10 && BitRate>0)
+        {
             Fill(Stream_Audio, 0, Audio_Delay, Buffer_TotalBytes_FirstSynched*8*1000/BitRate, 0);
+            Fill(Stream_Audio, 0, Audio_Delay_Source, "Stream");
+        }
     }
 
     //Bitrate mode
@@ -462,8 +466,11 @@ void File_Mpega::Streams_Finish()
             Fill(Stream_General, 0, General_Duration, VBR_FileSize*8*1000/BitRate, 10, true);
             Fill(Stream_General, 0, General_OverallBitRate, BitRate, 10, true);
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 10, true);
-            if (Buffer_TotalBytes_FirstSynched>10 && BitRate>0)
+            if (CalculateDelay && Buffer_TotalBytes_FirstSynched>10 && BitRate>0)
+            {
                 Fill(Stream_Audio, 0, Audio_Delay, Buffer_TotalBytes_FirstSynched*8*1000/BitRate, 0, true);
+                Fill(Stream_Audio, 0, Audio_Delay_Source, "Stream", Unlimited, true, true);
+            }
         }
         Fill(Stream_Audio, 0, Audio_StreamSize, VBR_FileSize);
     }

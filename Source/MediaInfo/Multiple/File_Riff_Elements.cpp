@@ -1109,7 +1109,10 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
     if (SamplesPerSec && TimeReference!=(int64u)-1)
+    {
         Fill(Stream_Audio, 0, Audio_Delay, TimeReference/SamplesPerSec);
+        Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
+    }
 
     //Creating the parser
          if (0);
@@ -1117,6 +1120,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("MPEG Audio"))
     {
         Stream[Stream_ID].Parser=new File_Mpega;
+        ((File_Mpega*)Stream[Stream_ID].Parser)->CalculateDelay=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
@@ -1125,6 +1129,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     {
         Stream[Stream_ID].Parser=new File_Ac3;
         ((File_Ac3*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
+        ((File_Ac3*)Stream[Stream_ID].Parser)->CalculateDelay=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif

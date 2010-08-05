@@ -447,6 +447,9 @@ File_Mxf::File_Mxf()
     Preface_Current.hi=(int64u)-1;
     Preface_Current.lo=(int64u)-1;
     Track_Number_IsAvailable=false;
+    TimeCode_StartTimecode=(int64u)-1;
+    TimeCode_RoundedTimecodeBase=0;
+    TimeCode_DropFrame=0;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         Ancillary_InstanceUID=(int128u)-1;
         Ancillary_LinkedTrackID=(int32u)-1;
@@ -642,6 +645,11 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     {
         for (std::map<std::string, Ztring>::iterator Info=Essence->second.Infos.begin(); Info!=Essence->second.Infos.end(); Info++)
             Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+        if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
+        {
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+        }
         Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
     }
 
@@ -684,6 +692,11 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 Stream_Prepare(Stream_Audio);
                 size_t Pos=Count_Get(Stream_Audio)-1;
                 Essence->second.Parser->Finish();
+                if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
+                    Fill(Stream_Audio, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+                }
                 Merge(*Essence->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
                 if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
                     Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format), true);
@@ -713,6 +726,11 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Fill_Flush();
             Stream_Prepare(Stream_Text);
             Parser->Finish();
+            if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
+            {
+                Fill(Stream_Text, Parser_Text_Pos, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
+                Fill(Stream_Text, Parser_Text_Pos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+            }
             Merge(*Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
             Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Video, Video_Duration));
             Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
@@ -965,6 +983,11 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                     Fill_Flush();
                     Stream_Prepare(Stream_Text);
                     Parser->Finish();
+                    if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
+                    {
+                        Fill(Stream_Text, Parser_Text_Pos, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
+                        Fill(Stream_Text, Parser_Text_Pos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+                    }
                     Merge(*Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
                     Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Video, Video_Duration));
                     Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
@@ -3764,7 +3787,13 @@ void File_Mxf::TextLocator_LocatorName()
 void File_Mxf::TimecodeComponent_StartTimecode()
 {
     //Parsing
-    Info_B8(Data,                                                "Data"); Element_Info(Data);
+    int64u Data;
+    Get_B8 (Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+            TimeCode_StartTimecode=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3772,7 +3801,13 @@ void File_Mxf::TimecodeComponent_StartTimecode()
 void File_Mxf::TimecodeComponent_RoundedTimecodeBase()
 {
     //Parsing
-    Info_B2(Data,                                                "Data"); Element_Info(Data);
+    int16u Data;
+    Get_B2 (Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+            TimeCode_RoundedTimecodeBase=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3780,7 +3815,13 @@ void File_Mxf::TimecodeComponent_RoundedTimecodeBase()
 void File_Mxf::TimecodeComponent_DropFrame()
 {
     //Parsing
-    Info_B1(Data,                                                "Data"); Element_Info(Data);
+    int8u Data;
+    Get_B1 (Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+            TimeCode_DropFrame=Data?true:false;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

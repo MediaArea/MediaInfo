@@ -1819,7 +1819,10 @@ void File_Mpeg4::moov_trak_edts_elst()
         Get_B4 (Duration,                                       "Track duration"); Param_Info((int64u)Duration*1000/TimeScale, " ms");
         Get_B4 (Time,                                           "Media time"); if (Time!=(int32u)-1) {Param_Info((int64u)Time*1000/TimeScale, " ms");}
         if (Time==(int32u)-1 && !NoMoreEmpty)
-            Fill(StreamKind_Last, StreamPos_Last, "Delay", (int64u)Duration*1000/TimeScale);
+        {
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), (int64u)Duration*1000/TimeScale);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+        }
         if (Time!=(int32u)-1)
             NoMoreEmpty=true;
         Info_B4(MediaRate,                                      "Media rate"); Param_Info(((float)MediaRate)/0x10000);

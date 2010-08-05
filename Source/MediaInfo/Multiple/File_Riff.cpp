@@ -238,6 +238,7 @@ void File_Riff::Streams_Finish ()
                 {
                     Delay+=((float)Temp->second.Start)*1000/Temp->second.Rate;
                     Fill(Stream_Audio, StreamPos_Last, Audio_Delay, Delay, 0, true);
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
                     Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             }

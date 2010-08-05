@@ -489,7 +489,10 @@ void File_Mpeg4v::Streams_Fill()
         if (user_data_start_SNC_Data[Pos][0]==_T("FrmRate"))
             Fill(Stream_Video, 0, Video_FrameRate, user_data_start_SNC_Data[Pos][1].To_float32(), 3);
         if (user_data_start_SNC_Data[Pos][0]==_T("TimStamp"))
+        {
             Fill(Stream_Video, 0, Video_Delay, user_data_start_SNC_Data[Pos][1].To_int64u());
+            Fill(Stream_Video, 0, Video_Delay_Source, "Stream");
+        }
         if (user_data_start_SNC_Data[Pos][0]==_T("CamPos") && user_data_start_SNC_Data[Pos][1].size()==16)
         {
             Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 3, 4)).To_int8u(16));

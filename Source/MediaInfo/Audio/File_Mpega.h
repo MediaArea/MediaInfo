@@ -41,6 +41,7 @@ public :
     //In
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
+    bool   CalculateDelay;
 
     //Constructor/Destructor
     File_Mpega();
