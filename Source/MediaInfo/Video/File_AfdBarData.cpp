@@ -65,6 +65,48 @@ const char* AfdBarData_active_format[]=
 };
 
 //---------------------------------------------------------------------------
+const char* AfdBarData_active_format_4_3[]=
+{
+    "", //Undefined
+    "Reserved",
+    "Letterbox 16:9 image (top)",
+    "Letterbox 14:9 image (top)",
+    "Letterbox image with an aspect ratio greater than 16:9",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Full frame 4:3 image",
+    "Full frame 4:3 image",
+    "Letterbox 16:9 image",
+    "Letterbox 14:9 image",
+    "Reserved",
+    "Full frame 4:3 image, with alternative 14:9 center",
+    "Letterbox 16:9 image, with alternative 14:9 center",
+    "Letterbox 16:9 image, with alternative 4:3 center",
+};
+
+//---------------------------------------------------------------------------
+const char* AfdBarData_active_format_16_9[]=
+{
+    "", //Undefined
+    "Reserved",
+    "Letterbox 16:9 image (top)",
+    "Pillarbox 14:9 image (top)",
+    "Letterbox image with an aspect ratio greater than 16:9",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Full frame 16:9 image",
+    "Pillarbox 4:3 image",
+    "Letterbox 16:9 image",
+    "Pillarbox 14:9 image",
+    "Reserved",
+    "Full frame 4:3 image, with alternative 14:9 center",
+    "Letterbox 16:9 image, with alternative 14:9 center",
+    "Letterbox 16:9 image, with alternative 4:3 center",
+};
+
+//---------------------------------------------------------------------------
 const char* AfdBarData_aspect_ratio[]=
 {
     "4:3",
@@ -92,8 +134,8 @@ void File_AfdBarData::Streams_Fill()
 {
     //Filling
     Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, "AFD", Stream.active_format);
-    (*Stream_More)[Stream_Video][0](Ztring().From_Local("AFD"), Info_Options)=_T("N NT");
+    Fill(Stream_Video, 0, Video_ActiveFormatDescription, Stream.active_format);
+    Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, Stream.aspect_ratio?AfdBarData_active_format_16_9[Stream.active_format]:AfdBarData_active_format_4_3[Stream.active_format]);
 }
 
 //***************************************************************************

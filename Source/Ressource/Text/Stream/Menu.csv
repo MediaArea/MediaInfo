@@ -34,11 +34,14 @@ Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
 Duration_Start;;;Y YT;;;
 Duration_End;;;Y YT;;;
-Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS
-Delay/String;;;N NT;;;Delay with measurement
-Delay/String1;;;N NT;;;Delay with measurement
-Delay/String2;;;N NT;;;Delay with measurement
-Delay/String3;;;N NT;;;format : HH:MM:SS.MMM
+Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS;
+Delay/String;;;N NT;;;Delay with measurement;
+Delay/String1;;;N NT;;;Delay with measurement;
+Delay/String2;;;N NT;;;Delay with measurement;
+Delay/String3;;;N NT;;;Delay in format : HH:MM:SS.MMM;
+Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
+Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
+Delay_Source;;;N NT;;;Delay source (Container or Stream or empty);
 List_StreamKind;;;N YT;;;List of programs available
 List_StreamPos;;;N YT;;;List of programs available
 List;;;N YT;;;List of programs available

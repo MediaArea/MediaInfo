@@ -663,6 +663,8 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
         return Get(Stream_General, StreamPos, _T("OverallBitRate_Maximum"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Maximum/String"))
         return Get(Stream_General, StreamPos, _T("OverallBitRate_Maximum/String"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("AFD"))
+        return Get(StreamKind, StreamPos, _T("ActiveFormatDescription"), KindOfInfo, KindOfSearch);
 
     CS.Enter();
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Get, StreamKind=");Debug+=Ztring::ToZtring((size_t)StreamKind);Debug+=_T(", StreamKind=");Debug+=Ztring::ToZtring(StreamPos);Debug+=_T(", Parameter=");Debug+=Ztring(Parameter);)
