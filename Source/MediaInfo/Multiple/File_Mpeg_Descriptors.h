@@ -102,11 +102,11 @@ struct complete_stream
                 {
                     struct segment
                     {
-                        bool Status; //If it is currently in the program
+                        int8u Status; //If it is currently in the program: 0=Running, 1=Ended, 2=Early termination
 
                         segment()
                         {
-                            Status=false;
+                            Status=(int8u)-1;
                         }
                     };
 

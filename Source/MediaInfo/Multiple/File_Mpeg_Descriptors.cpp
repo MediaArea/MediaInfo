@@ -2877,25 +2877,25 @@ void File_Mpeg_Descriptors::CUEI_02()
         Skip_B1(                                                "segments_expected");
 
         FILLING_BEGIN();
-            for (size_t Program=0; Program<Complete_Stream->Streams[pid].program_numbers.size(); Program++)
+            for (size_t Program_Pos=0; Program_Pos<Complete_Stream->Streams[pid].program_numbers.size(); Program_Pos++)
             {
-                complete_stream::transport_stream::program::scte35* Scte35=Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35;
+                complete_stream::transport_stream::program::scte35* Scte35=Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program_Pos]].Scte35;
                 if (Scte35)
                 {
-                    bool Paired_IsSecondItem=true;
+                    int8u Status=0; //Running
                     switch (segmentation_type_id)
                     {
-                        case 0x11 : segmentation_type_id=0x10; break; //Program Start/End
-                        case 0x12 : segmentation_type_id=0x10; break; //Program Start/Early Termination
-                        case 0x14 : segmentation_type_id=0x13; break; //Program Breakaway/Resumption
-                        case 0x21 : segmentation_type_id=0x20; break; //Chapter Start/End
-                        case 0x31 : segmentation_type_id=0x30; break; //Provider Advertisement Start/End
-                        case 0x33 : segmentation_type_id=0x32; break; //Distributor Advertisement Start/End
-                        case 0x41 : segmentation_type_id=0x40; break; //Unscheduled Event Start/End
-                        default   : Paired_IsSecondItem=false;
+                        case 0x11 : segmentation_type_id=0x10; Status=1; break; //Program Start/End
+                        case 0x12 : segmentation_type_id=0x10; Status=2; break; //Program Start/Early Termination
+                        case 0x14 : segmentation_type_id=0x13; Status=1; break; //Program Breakaway/Resumption
+                        case 0x21 : segmentation_type_id=0x20; Status=1; break; //Chapter Start/End
+                        case 0x31 : segmentation_type_id=0x30; Status=1; break; //Provider Advertisement Start/End
+                        case 0x33 : segmentation_type_id=0x32; Status=1; break; //Distributor Advertisement Start/End
+                        case 0x41 : segmentation_type_id=0x40; Status=1; break; //Unscheduled Event Start/End
+                        default   : ;
                     }
 
-                    Scte35->Segmentations[segmentation_event_id].Segments[segmentation_type_id].Status=Paired_IsSecondItem;
+                    Scte35->Segmentations[segmentation_event_id].Segments[segmentation_type_id].Status=Status;
                 }
             }
         FILLING_END();
