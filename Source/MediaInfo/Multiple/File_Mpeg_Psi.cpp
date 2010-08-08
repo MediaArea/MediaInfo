@@ -1993,6 +1993,7 @@ void File_Mpeg_Psi::Table_FC()
     if (Element_Offset+4<Element_Size)
     {
         Get_B2 (Descriptors_Size,                               "descriptor_loop_length");
+        transport_stream_id=Complete_Stream->transport_stream_id; //SCTE 35 is automaticly linked to the current transport_stream_id
         Descriptors();
     }
 
