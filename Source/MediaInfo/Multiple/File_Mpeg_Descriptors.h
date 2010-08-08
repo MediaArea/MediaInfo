@@ -95,6 +95,31 @@ struct complete_stream
             dvb_epg_blocks DVB_EPG_Blocks; //Key is table_id
             bool DVB_EPG_Blocks_IsUpdated;
 
+            //SCTE 35
+            struct scte35
+            {
+                struct segmentation
+                {
+                    struct segment
+                    {
+                        bool Status; //If it is currently in the program
+
+                        segment()
+                        {
+                            Status=false;
+                        }
+                    };
+
+                    typedef std::map<int8u, segment> segments; //Key is segmentation_type_id
+                    segments Segments;
+                    ;
+                };
+
+                typedef std::map<int32u, segmentation> segmentations; //Key is segmentation_event_id
+                segmentations Segmentations;
+            };
+            scte35* Scte35;
+
             //Constructor/Destructor
             program()
             {
@@ -108,6 +133,7 @@ struct complete_stream
                 IsParsed=false;
                 IsRegistered=false;
                 DVB_EPG_Blocks_IsUpdated=false;
+                Scte35=NULL;
             }
         };
         typedef std::map<int16u, program> programs; //Key is program_number

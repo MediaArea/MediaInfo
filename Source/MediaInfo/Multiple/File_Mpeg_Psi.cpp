@@ -346,10 +346,10 @@ const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifie
                             case 0x83 : return "SCTE - Isochronous Data";
                             case 0x84 : return "ATSC - Reserved";
                             case 0x85 : return "ATSC - Program Identifier";
+                            case 0x86 : return "SCTE - Splice";
                             case 0x87 : return "ATSC - E-AC-3";
                             case 0x90 : return "DVB  - stream_type value for Time Slicing / MPE-FEC";
                             case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
-                            case 0xFC : return "SCTE - Splice";
                             default   : return "ATSC/SCTE - Unknown";
                         }
                 case Elements::HDMV : //Bluray
@@ -2090,7 +2090,7 @@ void File_Mpeg_Psi::Table_FC_05_splice_time()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_FC_06()
 {
-    //TODO
+    Table_FC_05_splice_time();
 }
 
 //---------------------------------------------------------------------------

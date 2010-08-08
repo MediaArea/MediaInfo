@@ -2834,7 +2834,72 @@ void File_Mpeg_Descriptors::CUEI_01()
 //---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::CUEI_02()
 {
-    Skip_XX(Element_Size,                                       "Data");
+    //Parsing
+    int32u segmentation_event_id;
+    bool segmentation_event_cancel_indicator;
+    Skip_C4(                                                    "identifier (\"CUEI\")"); //CUEI
+    Get_B4 (segmentation_event_id,                              "segmentation_event_id");
+    BS_Begin();
+    Get_SB (    segmentation_event_cancel_indicator,            "segmentation_event_cancel_indicator");
+    Skip_S1( 7,                                                 "reserved");
+    BS_End();
+    if (!segmentation_event_cancel_indicator)
+    {
+        int8u segmentation_upid_length, segmentation_type_id;
+        bool program_segmentation_flag, segmentation_duration_flag;
+        BS_Begin();
+        Get_SB (    program_segmentation_flag,                  "program_segmentation_flag");
+        Get_SB (    segmentation_duration_flag,                 "segmentation_duration_flag");
+        Skip_S1( 6,                                             "reserved");
+        BS_End();
+        if (!program_segmentation_flag)
+        {
+            int8u component_count;
+            Get_B1 (component_count,                            "component_count");
+            for (int8u Pos=0; Pos<component_count; Pos++)
+            {
+                Skip_B1(                                        "component_tag");
+                BS_Begin();
+                Skip_S1( 7,                                     "reserved");
+                Skip_S5(33,                                     "pts_offset");
+                BS_End();
+            }
+        }
+        if (segmentation_duration_flag)
+        {
+            Skip_B5(                                            "segmentation_duration");
+        }
+        Skip_B1(                                                "segmentation_upid_type");
+        Get_B1 (segmentation_upid_length,                       "segmentation_upid_length");
+        Skip_XX(segmentation_upid_length,                       "segmentation_upid"); //TODO
+        Get_B1 (segmentation_type_id,                           "segmentation_type_id");
+        Skip_B1(                                                "segment_num");
+        Skip_B1(                                                "segments_expected");
+
+        FILLING_BEGIN();
+            for (size_t Program=0; Program<Complete_Stream->Streams[pid].program_numbers.size(); Program++)
+            {
+                if (Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35==NULL)
+                    Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35=new complete_stream::transport_stream::program::scte35;
+                complete_stream::transport_stream::program::scte35* Scte35=Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35;
+
+                bool Paired_IsSecondItem=true;
+                switch (segmentation_type_id)
+                {
+                    case 0x11 : segmentation_type_id=0x10; break; //Program Start/End
+                    case 0x12 : segmentation_type_id=0x10; break; //Program Start/Early Termination
+                    case 0x14 : segmentation_type_id=0x13; break; //Program Breakaway/Resumption
+                    case 0x21 : segmentation_type_id=0x20; break; //Chapter Start/End
+                    case 0x31 : segmentation_type_id=0x30; break; //Provider Advertisement Start/End
+                    case 0x33 : segmentation_type_id=0x32; break; //Distributor Advertisement Start/End
+                    case 0x41 : segmentation_type_id=0x40; break; //Unscheduled Event Start/End
+                    default   : Paired_IsSecondItem=false;
+                }
+
+                Scte35->Segmentations[segmentation_event_id].Segments[segmentation_type_id].Status=Paired_IsSecondItem;
+            }
+        FILLING_END();
+    }
 }
 
 //***************************************************************************
