@@ -117,6 +117,12 @@ struct complete_stream
 
                 typedef std::map<int32u, segmentation> segmentations; //Key is segmentation_event_id
                 segmentations Segmentations;
+                int16u  PID;
+
+                scte35()
+                {
+                    PID=(int16u)-1;
+                }
             };
             scte35* Scte35;
 

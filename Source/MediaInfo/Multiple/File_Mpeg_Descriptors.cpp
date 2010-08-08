@@ -2879,24 +2879,24 @@ void File_Mpeg_Descriptors::CUEI_02()
         FILLING_BEGIN();
             for (size_t Program=0; Program<Complete_Stream->Streams[pid].program_numbers.size(); Program++)
             {
-                if (Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35==NULL)
-                    Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35=new complete_stream::transport_stream::program::scte35;
                 complete_stream::transport_stream::program::scte35* Scte35=Complete_Stream->Transport_Streams[transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Program]].Scte35;
-
-                bool Paired_IsSecondItem=true;
-                switch (segmentation_type_id)
+                if (Scte35)
                 {
-                    case 0x11 : segmentation_type_id=0x10; break; //Program Start/End
-                    case 0x12 : segmentation_type_id=0x10; break; //Program Start/Early Termination
-                    case 0x14 : segmentation_type_id=0x13; break; //Program Breakaway/Resumption
-                    case 0x21 : segmentation_type_id=0x20; break; //Chapter Start/End
-                    case 0x31 : segmentation_type_id=0x30; break; //Provider Advertisement Start/End
-                    case 0x33 : segmentation_type_id=0x32; break; //Distributor Advertisement Start/End
-                    case 0x41 : segmentation_type_id=0x40; break; //Unscheduled Event Start/End
-                    default   : Paired_IsSecondItem=false;
-                }
+                    bool Paired_IsSecondItem=true;
+                    switch (segmentation_type_id)
+                    {
+                        case 0x11 : segmentation_type_id=0x10; break; //Program Start/End
+                        case 0x12 : segmentation_type_id=0x10; break; //Program Start/Early Termination
+                        case 0x14 : segmentation_type_id=0x13; break; //Program Breakaway/Resumption
+                        case 0x21 : segmentation_type_id=0x20; break; //Chapter Start/End
+                        case 0x31 : segmentation_type_id=0x30; break; //Provider Advertisement Start/End
+                        case 0x33 : segmentation_type_id=0x32; break; //Distributor Advertisement Start/End
+                        case 0x41 : segmentation_type_id=0x40; break; //Unscheduled Event Start/End
+                        default   : Paired_IsSecondItem=false;
+                    }
 
-                Scte35->Segmentations[segmentation_event_id].Segments[segmentation_type_id].Status=Paired_IsSecondItem;
+                    Scte35->Segmentations[segmentation_event_id].Segments[segmentation_type_id].Status=Paired_IsSecondItem;
+                }
             }
         FILLING_END();
     }

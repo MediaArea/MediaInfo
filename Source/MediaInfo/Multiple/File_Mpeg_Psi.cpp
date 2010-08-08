@@ -1154,6 +1154,11 @@ void File_Mpeg_Psi::Table_02()
                     {
                         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["SCTE35_PID"]=Ztring::ToZtring(elementary_PID);
                         Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::psi;
+                        if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35==NULL)
+                        {
+                            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35=new complete_stream::transport_stream::program::scte35;
+                            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35->PID=elementary_PID;
+                        }
                         #if MEDIAINFO_TRACE
                             Complete_Stream->Streams[elementary_PID].Element_Info="PSI";
                         #endif //MEDIAINFO_TRACE
