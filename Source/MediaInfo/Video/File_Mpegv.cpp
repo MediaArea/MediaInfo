@@ -698,7 +698,7 @@ void File_Mpegv::Streams_Finish()
         if (AfdBarData_Parser && !AfdBarData_Parser->Status[IsFinished] && AfdBarData_Parser->Status[IsAccepted])
         {
             Finish(AfdBarData_Parser);
-            Merge(*AfdBarData_Parser);
+            Merge(*AfdBarData_Parser, Stream_Video, 0, 0);
         }
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
