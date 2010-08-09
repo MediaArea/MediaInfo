@@ -680,8 +680,6 @@ void File_Gxf::map()
                         case  8 :
                         case 24 :  //TimeCode
                                     Streams[TrackID].Parser=new File_Gxf_TimeCode;
-                                    ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FrameRate_Code=Streams[0x00].FrameRate_Code;
-                                    ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FieldsPerFrame_Code=Streams[0x00].FrameRate_Code;
                                     Open_Buffer_Init(Streams[TrackID].Parser);
                                     Parsers_Count++;
                                     Streams[TrackID].Searching_Payload=true;
@@ -865,7 +863,9 @@ void File_Gxf::map()
                                 if (DataLength==4)
                                 {
                                     Get_B4 (Streams[TrackID].FrameRate_Code, "Content"); Param_Info(Gxf_FrameRate(Streams[TrackID].FrameRate_Code)); Element_Info(Gxf_FrameRate(Streams[TrackID].FrameRate_Code));
-                                }
+                                    if (TrackID==TimeCode_StreamID)
+                                        ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FrameRate_Code=Streams[0x00].FrameRate_Code;
+                                   }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
                                 break;
@@ -883,6 +883,8 @@ void File_Gxf::map()
                                     Get_B4 (Streams[TrackID].FieldsPerFrame_Code, "Content"); Param_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code)); Element_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code));
                                     if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Video)
                                         Material_Fields_FieldsPerFrame=Streams[TrackID].FieldsPerFrame_Code;
+                                    if (TrackID==TimeCode_StreamID)
+                                        ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FieldsPerFrame_Code=Streams[0x00].FieldsPerFrame_Code;
                                 }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
