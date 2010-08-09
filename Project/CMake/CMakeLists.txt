@@ -94,6 +94,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Dvdv.cpp
 	MediaInfo/Multiple/File_Flv.cpp
 	MediaInfo/Multiple/File_Gxf.cpp
+	MediaInfo/Multiple/File_Gxf_TimeCode.cpp
 	MediaInfo/Multiple/File_Ivf.cpp
 	MediaInfo/Multiple/File_Lxf.cpp
 	MediaInfo/Multiple/File_Mk.cpp

@@ -78,6 +78,7 @@ private :
     int32u Material_Fields_FieldsPerFrame;
     int8u  Parsers_Count;
     int8u  AncillaryData_StreamID;
+    int8u  TimeCode_StreamID;
     bool   Material_Fields_First_IsValid;
     bool   Material_Fields_Last_IsValid;
     bool   Material_File_Size_IsValid;

@@ -31,6 +31,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Gxf.h"
+#include "MediaInfo/Multiple/File_Gxf_TimeCode.h"
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif
@@ -244,6 +245,7 @@ File_Gxf::File_Gxf()
     Material_Fields_FieldsPerFrame=(int8u)-1;
     Parsers_Count=0;
     AncillaryData_StreamID=(int8u)-1;
+    TimeCode_StreamID=(int8u)-1;
     Material_Fields_First_IsValid=false;
     Material_Fields_Last_IsValid=false;
     Material_File_Size_IsValid=false;
@@ -270,6 +272,10 @@ File_Gxf::~File_Gxf()
 //---------------------------------------------------------------------------
 void File_Gxf::Streams_Finish()
 {
+    //TimeCode
+    if (TimeCode_First==(int64u)-1 && TimeCode_StreamID!=(int8u)-1 && Streams[TimeCode_StreamID].Parser)
+        TimeCode_First=Streams[TimeCode_StreamID].Parser->Retrieve(Stream_Video, 0, Video_Delay).To_int64u();
+
     //Merging audio if Title are same
     for (size_t StreamID=0; StreamID<Streams.size(); StreamID++)
     {
@@ -318,7 +324,7 @@ void File_Gxf::Streams_Finish()
     //Global
     if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_FieldsPerFrame!=(int8u)-1)
     {
-        Fill(Stream_Video, 0, Video_FrameCount, (Material_Fields_Last-Material_Fields_First)/(Material_Fields_FieldsPerFrame==2?2:1));
+        Fill(Stream_Video, 0, Video_FrameCount, (Material_Fields_Last+1-Material_Fields_First)/(Material_Fields_FieldsPerFrame==2?2:1));
 
         //We trust more the MPEG Video bitrate thant the rest
         //TODO: Chech why there is incohenrency (mainly about Material File size info in the sample)
@@ -345,15 +351,17 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         Finish(Temp.Parser);
 
         //Video
-        if (Temp.Parser->Count_Get(Stream_Video))
+        if (Temp.Parser->Count_Get(Stream_Video) && StreamID!=TimeCode_StreamID)
         {
+            Stream_Prepare(Stream_Video);
+
             if (TimeCode_First!=(int64u)-1)
             {
-                Fill(Stream_Video, 0, Video_Delay, TimeCode_First, 0, true);
-                Fill(Stream_Video, 0, Video_Delay_Source, "Container");
+                Fill(Stream_Video, StreamPos_Last, Video_Delay, TimeCode_First, 0, true);
+                Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "Container");
             }
 
-            Merge(*Temp.Parser);
+            Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
 
             //Special cases
             if (Temp.Parser->Count_Get(Stream_Text))
@@ -362,14 +370,15 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
                 for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
                 {
-                    size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
-                    Ztring ID=Retrieve(Stream_Text, Text_Pos, Text_ID);
-                    Fill(Stream_Text, Text_Pos, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
-                    Fill(Stream_Text, Text_Pos, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
-                    Fill(Stream_Text, Text_Pos, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
-                    Fill(Stream_Text, Text_Pos, Text_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
-                    Fill(Stream_Text, Text_Pos, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
-                    Fill(Stream_Text, Text_Pos, Text_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
+                    Stream_Prepare(Stream_Text);
+                    Merge(*Temp.Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                    Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                    Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
+                    Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
+                    Fill(Stream_Text, StreamPos_Last, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
+                    Fill(Stream_Text, StreamPos_Last, Text_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
                 }
 
                 StreamKind_Last=Stream_Video;
@@ -378,7 +387,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         }
 
         //Audio
-        if (Temp.Parser->Count_Get(Stream_Audio) && TimeCode_First!=(int64u)-1)
+        if (Temp.Parser->Count_Get(Stream_Audio) && StreamID!=TimeCode_StreamID)
         {
             Stream_Prepare(Stream_Audio);
 
@@ -667,6 +676,17 @@ void File_Gxf::map()
                                     Streams[TrackID].Parser->Stream_Prepare(Stream_Video);
                                     Streams[TrackID].Parser->Fill(Stream_Video, 0, Video_Format, "M-JPEG");
                                     break;
+                        case  7 :
+                        case  8 :
+                        case 24 :  //TimeCode
+                                    Streams[TrackID].Parser=new File_Gxf_TimeCode;
+                                    ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FrameRate_Code=Streams[0x00].FrameRate_Code;
+                                    ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FieldsPerFrame_Code=Streams[0x00].FrameRate_Code;
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Parsers_Count++;
+                                    Streams[TrackID].Searching_Payload=true;
+                                    TimeCode_StreamID=TrackID;
+                                    break;
                         case  9 :
                         case 10 :
                         case 18 :  //PCM
@@ -691,7 +711,14 @@ void File_Gxf::map()
                         case 13 :
                         case 14 :
                         case 15 :
-                        case 16 :   /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++;*/ break;
+                        case 16 :   //DV
+                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Streams[TrackID].Parser->Accept();
+                                    Streams[TrackID].Parser->Fill();
+                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Video);
+                                    Streams[TrackID].Parser->Fill(Stream_Video, 0, Video_Format, "DV");
+                                    break;
                         case 17 :   //AC-3
                                     Streams[TrackID].Parser=new File__Analyze; //Filling with following data
                                     Open_Buffer_Init(Streams[TrackID].Parser);
@@ -869,11 +896,9 @@ void File_Gxf::map()
             //Test on TimeCode
             if (TimeCode_Parsed)
             {
-                if (TimeCode_First==(int64u)-1)
+                if (!Invalid && TimeCode_First==(int64u)-1)
                 {
                     float32 FrameRate=Gxf_FrameRate(Streams[TrackID].FrameRate_Code);
-                    if (DropFrame)
-                        FrameRate*=((float32)1000)/1001;
                     TimeCode_First=Hours  *60*60*1000
                                   +Minutes   *60*1000
                                   +Seconds      *1000
