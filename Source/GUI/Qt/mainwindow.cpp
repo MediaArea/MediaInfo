@@ -13,7 +13,10 @@
 #include <QtGui/QTreeWidget>
 #include "easyviewwidget.h"
 #include "preferences.h"
+#include "about.h"
 #include "export.h"
+#include "sheetview.h"
+#include "sheet.h"
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
@@ -67,6 +70,13 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    settings->setValue("geometry", saveGeometry());
+    settings->setValue("windowState", saveState());
+    QMainWindow::closeEvent(e);
+}
+
 void MainWindow::openFiles(QStringList fileNames) {
     //Configuring
     C->Menu_File_Open_Files_Begin();
@@ -94,72 +104,78 @@ void MainWindow::refreshDisplay() {
     switch(view) {
     default:
     case VIEW_TEXT:
-        viewWidget = new QTextBrowser();
         C->Menu_View_Text();
+        viewWidget = new QTextBrowser();
         ((QTextBrowser*)viewWidget)->setFontFamily("mono");
         ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
         break;
     case VIEW_EASY:
+        C->Menu_View_Easy();
         viewWidget = new EasyViewWidget(C);
         break;
     case VIEW_HTML:
-        viewWidget = new QTextBrowser();
         C->Menu_View_HTML();
+        viewWidget = new QTextBrowser();
         ((QTextBrowser*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
         break;
     case VIEW_TREE:
-        bool Commplete=ui->actionAdvanced_Mode->isChecked();
-        QTreeWidget* treeWidget = new QTreeWidget();
-        treeWidget->setHeaderHidden(true);
-        for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
-            //Pour chaque fichier
-            QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(wstring2QString(C->Get(FilePos, Stream_General, 0, _T("CompleteName")))));
-            treeWidget->addTopLevelItem(treeItem);
+        C->Menu_View_Tree();
+        viewWidget = showTreeView(ui->actionAdvanced_Mode->isChecked());
+        break;
+    case VIEW_SHEET:
+        C->Menu_View_Sheet();
+        viewWidget = new SheetView(C,this);
+        break;
+    }
+    setCentralWidget(viewWidget);
+}
 
-            for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
+QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
+    QTreeWidget* treeWidget = new QTreeWidget();
+    treeWidget->setHeaderHidden(true);
+    for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
+        //Pour chaque fichier
+        QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(wstring2QString(C->Get(FilePos, Stream_General, 0, _T("CompleteName")))));
+        treeWidget->addTopLevelItem(treeItem);
+
+        for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
+        {
+            //Pour chaque type de flux
+            QString StreamKindText=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind/String"), Info_Text));
+            unsigned StreamsCount=C->Count_Get(FilePos, (stream_t)StreamKind);
+            for (size_t StreamPos=Stream_General; StreamPos<StreamsCount; StreamPos++)
             {
-                //Pour chaque type de flux
-                QString StreamKindText=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind/String"), Info_Text));
-                unsigned StreamsCount=C->Count_Get(FilePos, (stream_t)StreamKind);
-                for (size_t StreamPos=Stream_General; StreamPos<StreamsCount; StreamPos++)
+                //Pour chaque stream
+                QString A=StreamKindText;
+                QString B=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindPos"), Info_Text));
+                if (!B.isEmpty())
                 {
-                    //Pour chaque stream
-                    QString A=StreamKindText;
-                    QString B=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindPos"), Info_Text));
-                    if (!B.isEmpty())
-                    {
-                        A+=" #";
-                        A+=B;
-                    }
-                    //TTreeNode* Node=Page_Tree_Tree->Items->AddChild(Parent, A.c_str());
-                    QTreeWidgetItem* node = new QTreeWidgetItem(treeItem,QStringList(A));
-                    treeItem->addChild(node);
-                    unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
-                    for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
+                    A+=" #";
+                    A+=B;
+                }
+                QTreeWidgetItem* node = new QTreeWidgetItem(treeItem,QStringList(A));
+                treeItem->addChild(node);
+                unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
+
+                for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
+                {
+                    if ((completeDisplay || C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
                     {
                         //Pour chaque champ
                         QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text));
                         A+=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text));
-
-                        if ((Commplete || C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
-                        {
-                            //Quoi Refresh?
-                            QString D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text));
-                            if (D.isEmpty())
-                                D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
-                            //Affichage
-                            node->addChild(new QTreeWidgetItem(node,QStringList((D + ": " + A))));
-                            qDebug(("ajout de "+D + ": " + A).toStdString().c_str());
-                            //Page_Tree_Tree->Items->AddChild(Node, (D + _T(": ") + A.c_str()).c_str());
-                        }
+                        //Quoi Refresh?
+                        QString D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text));
+                        if (D.isEmpty())
+                            D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
+                        //Affichage
+                        node->addChild(new QTreeWidgetItem(node,QStringList((D + ": " + A))));
                     }
                 }
             }
         }
-        viewWidget = treeWidget;
-        break;
     }
-    setCentralWidget(viewWidget);
+    return treeWidget;
 }
 
 void MainWindow::defaultSettings() {
@@ -173,10 +189,27 @@ void MainWindow::defaultSettings() {
         settings->setValue("defaultView",VIEW_EASY);
     if(!settings->contains("checkForNewVersion"))
         settings->setValue("checkForNewVersion",true);
+    if(!settings->contains("rememberToolBarPosition"))
+        settings->setValue("rememberToolBarPosition",true);
+    if(!settings->contains("sheets")) {
+        Sheet::add("example");
+        Sheet::setDefault(0);
+        Sheet::getSheet()->addColumn("File Name",100,Stream_General,"CompleteName");
+        Sheet::save(settings);
+    } else {
+        Sheet::load(settings);
+    }
+
 }
 
 void MainWindow::applySettings() {
     ui->menuBar->setVisible(settings->value("showMenu",true).toBool());
+    ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
+    if(settings->value("rememberGeometry",false).toBool())
+        restoreGeometry(settings->value("geometry").toByteArray());
+    if(settings->value("rememberToolBarPosition",true).toBool())
+        restoreState(settings->value("windowState").toByteArray());
+
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -216,14 +249,8 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QString Version=wstring2QString(C->Menu_Option_Preferences_Option(_T("Info_Version"), String()));
-    QMessageBox::about(this, "About MediaInfo",
-            "This is the About dialog of the minimal MediaInfo sample.\n" \
-            "MediaInfoLib - v0.7.34\n" \
-            +Version+ \
-            "a video or audio file.\n" \
-            "To get more info's visit \n" \
-            "http://mediainfo.sourceforge.net");
+    About a(this);
+    a.exec();
 }
 
 void MainWindow::on_actionKnown_formats_triggered()
@@ -258,9 +285,11 @@ void MainWindow::on_actionView_toggled(QAction* view)
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    Preferences p(settings);
+    Preferences p(settings,this);
     if(p.exec() == QDialog::Accepted) {
         p.saveSettings();
+        settings->setValue("geometry", saveGeometry()); // we save positions and geometry as they might be restored in the applySettings function
+        settings->setValue("windowState", saveState());
         applySettings();
     } else
         qDebug("annulation");
@@ -268,7 +297,7 @@ void MainWindow::on_actionPreferences_triggered()
 
 void MainWindow::on_actionExport_triggered()
 {
-    Export e;
+    Export e(this);
     if(e.exec() == QDialog::Accepted) {
         QFile file(e.getFileName());
         if(!file.open(e.getOpenMode()))

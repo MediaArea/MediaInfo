@@ -23,6 +23,7 @@ private:
     Ui::Preferences *ui;
 
 private slots:
+    void on_showToolbar_pressed();
     void on_showMenu_toggled(bool checked);
     void on_showToolbar_toggled(bool checked);
     void on_treeWidget_itemSelectionChanged();

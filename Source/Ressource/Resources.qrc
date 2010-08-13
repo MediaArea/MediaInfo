@@ -11,5 +11,6 @@
         <file>Image/Menu/K20/Options_Prefs.svg</file>
         <file>Image/Menu/K20/View.svg</file>
         <file>Image/Menu/K20/View2.svg</file>
+        <file>Image/Menu/Help_About.png</file>
     </qresource>
 </RCC>

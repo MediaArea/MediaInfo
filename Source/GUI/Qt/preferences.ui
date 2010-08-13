@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -95,7 +98,7 @@
      <item>
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="Setup">
         <layout class="QFormLayout" name="formLayout">
@@ -157,29 +160,71 @@
         </layout>
        </widget>
        <widget class="QWidget" name="Advanced">
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QCheckBox" name="showToolbar">
-           <property name="text">
-            <string>Show toolbar</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showMenu">
-           <property name="text">
-            <string>Show menu</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="closeAllBeforeOpen">
-           <property name="text">
-            <string>Close all before open</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="showToolbar">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>10</y>
+           <width>112</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Show toolbar</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="showMenu">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>68</y>
+           <width>103</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Show menu</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="closeAllBeforeOpen">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>126</y>
+           <width>162</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Close all before open</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="rememberToolBarPosition">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>40</y>
+           <width>171</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Remember its position</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="rememberGeometry">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>97</y>
+           <width>271</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Remember Window Geometry</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="Sheet">
         <layout class="QVBoxLayout" name="verticalLayout_2">

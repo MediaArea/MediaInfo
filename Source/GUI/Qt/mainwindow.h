@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 #include "Common/Core.h"
 #include <QtCore/QSettings>
+#include <QtGui/QTreeWidget>
 #include "views.h"
 
 namespace Ui {
@@ -21,6 +22,7 @@ public:
 
 protected:
     void changeEvent(QEvent *e);
+    void closeEvent(QCloseEvent *e);
 
 private:
     void defaultSettings();
@@ -29,6 +31,8 @@ private:
     void refreshDisplay();
     void openFiles(QStringList fileNames);
     void openDir(QString dirName);
+    QTreeWidget* showTreeView(bool completeDisplay);
+
 
     Ui::MainWindow *ui;
     //Non-GUI Elements

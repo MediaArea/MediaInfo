@@ -21,6 +21,13 @@ Preferences::Preferences(QSettings* settings, QWidget *parent) :
     ui->closeAllBeforeOpen->setChecked(settings->value("closeBeforeOpen",true).toBool());
     ui->comboBox_defaultview->setCurrentIndex(settings->value("defaultView",VIEW_EASY).toInt());
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
+    ui->rememberToolBarPosition->setChecked(settings->value("rememberToolBarPosition",true).toBool());
+    ui->rememberGeometry->setChecked(settings->value("rememberGeometry",false).toBool());
+
+    QObject::connect(ui->showToolbar,SIGNAL(toggled(bool)),ui->rememberToolBarPosition,SLOT(setEnabled(bool)));
+    QObject::connect(ui->showToolbar,SIGNAL(toggled(bool)),ui->showMenu,SLOT(setEnabled(bool)));
+    QObject::connect(ui->showMenu,SIGNAL(toggled(bool)),ui->showToolbar,SLOT(setEnabled(bool)));
+    QObject::connect(ui->showMenu,SIGNAL(toggled(bool)),ui->rememberToolBarPosition,SLOT(setEnabled(bool)));
 }
 
 Preferences::~Preferences()
@@ -34,6 +41,8 @@ void Preferences::saveSettings() {
     settings->setValue("closeBeforeOpen",ui->closeAllBeforeOpen->isChecked());
     settings->setValue("checkForNewVersion",ui->checkForNewVersion->isChecked());
     settings->setValue("defaultView",ui->comboBox_defaultview->currentIndex());
+    settings->setValue("rememberToolBarPosition",ui->rememberToolBarPosition->isChecked());
+    settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
 }
 
 void Preferences::changeEvent(QEvent *e)
@@ -56,16 +65,12 @@ void Preferences::on_treeWidget_itemSelectionChanged()
 
 void Preferences::on_showToolbar_toggled(bool checked)
 {
-    if(!checked)
-        ui->showMenu->setEnabled(false);
-    else
-        ui->showMenu->setEnabled(true);
 }
 
 void Preferences::on_showMenu_toggled(bool checked)
 {
-    if(!checked)
-        ui->showToolbar->setEnabled(false);
-    else
-        ui->showToolbar->setEnabled(true);
+}
+
+void Preferences::on_showToolbar_pressed()
+{
 }
