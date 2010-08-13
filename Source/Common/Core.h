@@ -91,8 +91,8 @@ public:
     MediaInfoNameSpace::String &Text_Get() {return Text;};
     void* GUI_Main_Handler;
 
-protected:
     MediaInfoNameSpace::MediaInfoList* MI;
+protected:
     MediaInfoNameSpace::String  Text;
     kind    Kind;
     float   Details;

@@ -246,7 +246,7 @@ size_t Core::Count_Get() {
 //---------------------------------------------------------------------------
 size_t Core::Count_Get(size_t File_Pos, stream_t StreamKind, size_t StreamNumber)
 {
-    return MI->Count_Get(File_Pos, StreamKind);
+    return MI->Count_Get(File_Pos, StreamKind, StreamNumber);
 }
 
 //---------------------------------------------------------------------------
