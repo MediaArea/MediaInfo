@@ -133,47 +133,48 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
             bool  DropFrame;
             BS_Begin();
 
-            Skip_S1(4,                                              "BG1");
-            Get_S1 (4, Frames_Units,                                "Frames (Units)");
+            Skip_S1(4,                                          "BG1");
+            Get_S1 (4, Frames_Units,                            "Frames (Units)");
 
-            Skip_S1(4,                                              "BG2");
-            Skip_SB(                                                "CF - Color fame");
-            Get_SB (   DropFrame,                                   "DP - Drop frame");
-            Get_S1 (2, Frames_Tens,                                 "Frames (Tens)");
+            Skip_S1(4,                                          "BG2");
+            Skip_SB(                                            "CF - Color fame");
+            Get_SB (   DropFrame,                               "DP - Drop frame");
+            Get_S1 (2, Frames_Tens,                             "Frames (Tens)");
 
-            Skip_S1(4,                                              "BG3");
-            Get_S1 (4, Seconds_Units,                               "Seconds (Units)");
+            Skip_S1(4,                                          "BG3");
+            Get_S1 (4, Seconds_Units,                           "Seconds (Units)");
 
-            Skip_S1(4,                                              "BG4");
-            Skip_SB(                                                "FM - Frame Mark");
-            Get_S1 (3, Seconds_Tens,                                "Seconds (Tens)");
+            Skip_S1(4,                                          "BG4");
+            Skip_SB(                                            "FM - Frame Mark");
+            Get_S1 (3, Seconds_Tens,                            "Seconds (Tens)");
 
-            Skip_S1(4,                                              "BG5");
-            Get_S1 (4, Minutes_Units,                               "Minutes (Units)");
+            Skip_S1(4,                                          "BG5");
+            Get_S1 (4, Minutes_Units,                           "Minutes (Units)");
 
-            Skip_S1(4,                                              "BG6");
-            Skip_SB(                                                "BGF0");
-            Get_S1 (3, Minutes_Tens,                                "Minutes (Tens)");
+            Skip_S1(4,                                          "BG6");
+            Skip_SB(                                            "BGF0");
+            Get_S1 (3, Minutes_Tens,                            "Minutes (Tens)");
 
-            Skip_S1(4,                                              "BG7");
-            Get_S1 (4, Hours_Units,                                 "Hours (Units)");
+            Skip_S1(4,                                          "BG7");
+            Get_S1 (4, Hours_Units,                             "Hours (Units)");
 
-            Skip_S1(4,                                              "BG8");
-            Skip_SB(                                                "BGF2");
-            Skip_SB(                                                "BGF1");
-            Get_S1 (2, Hours_Tens,                                  "Hours (Tens)");
+            Skip_S1(4,                                          "BG8");
+            Skip_SB(                                            "BGF2");
+            Skip_SB(                                            "BGF1");
+            Get_S1 (2, Hours_Tens,                              "Hours (Tens)");
+
+            BS_End();
 
             int64u TimeCode=(int64u)(Hours_Tens     *10*60*60*1000
-                                   + Hours_Units       *60*60*1000
-                                   + Minutes_Tens      *10*60*1000
-                                   + Minutes_Units        *60*1000
-                                   + Seconds_Tens         *10*1000
-                                   + Seconds_Units           *1000
-                                   + (Gxf_FrameRate(FrameRate_Code)==0?0:((Frames_Tens*10+Frames_Units)*1000/float64_int32s(Gxf_FrameRate(FrameRate_Code)/(Gxf_FrameRate(FrameRate_Code)>30?2:1)))));
+                               + Hours_Units       *60*60*1000
+                               + Minutes_Tens      *10*60*1000
+                               + Minutes_Units        *60*1000
+                               + Seconds_Tens         *10*1000
+                               + Seconds_Units           *1000
+                               + (Gxf_FrameRate(FrameRate_Code)==0?0:((Frames_Tens*10+Frames_Units)*1000/float64_int32s(Gxf_FrameRate(FrameRate_Code)/(Gxf_FrameRate(FrameRate_Code)>30?2:1)))));
 
             Element_Info(Ztring().Duration_From_Milliseconds(TimeCode));
 
-            BS_End();
             Element_End();
 
             FILLING_BEGIN();
