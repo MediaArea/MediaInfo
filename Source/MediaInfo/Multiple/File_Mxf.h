@@ -63,6 +63,7 @@ protected :
 
     //Buffer - Global
     void Read_Buffer_Continue ();
+    void Read_Buffer_Unsynched();
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -78,11 +79,18 @@ protected :
     //Elements
     void AES3PCMDescriptor();
     void CDCIEssenceDescriptor();
-    void ClosedHeader();
-    void ClosedCompleteHeader();
-    void CompleteBody();
-    void CompleteFooter();
-    void CompleteHeader();
+    void OpenIncompleteHeaderPartition();
+    void ClosedIncompleteHeaderPartition();
+    void OpenCompleteHeaderPartition();
+    void ClosedCompleteHeaderPartition();
+    void OpenIncompleteBodyPartition();
+    void ClosedIncompleteBodyPartition();
+    void OpenCompleteBodyPartition();
+    void ClosedCompleteBodyPartition();
+    void OpenIncompleteFooterPartition();
+    void ClosedIncompleteFooterPartition();
+    void OpenCompleteFooterPartition();
+    void ClosedCompleteFooterPartition();
     void ContentStorage();
     void DMSegment();
     void EssenceContainerData();
@@ -103,8 +111,6 @@ protected :
     void MultipleDescriptor();
     void NetworkLocator();
     void PartitionMetadata();
-    void OpenCompleteBodyPartition();
-    void OpenHeader();
     void Padding();
     void Preface();
     void Primer();
@@ -121,6 +127,8 @@ protected :
     void WaveAudioDescriptor();
     void AncPacketsDescriptor();
     void Filler();
+    void TerminatingFiller();
+    void XmlDocumentText();
 
     //Complex types
     void AES3PCMDescriptor_AuxBitsMode();                       //3D08
@@ -290,9 +298,18 @@ protected :
     void Skip_UMID      ();
 
     void Get_UL (int128u &Value, const char* Name, const char* (*Param) (int128u));
+    void Info_UL_01xx01_Essences ();
+    void Info_UL_02xx01 ();
+    void Info_UL_040101_Labels ();
     void Skip_UL(const char* Name);
     #define Info_UL(_INFO, _NAME, _PARAM) int128u _INFO; Get_UL(_INFO, _NAME, _PARAM)
 
+    struct randomindexmetadata
+    {
+        int64u ByteOffset;
+        int32u BodySID;
+    };
+    std::vector<randomindexmetadata> RandomIndexMetadatas;
     size_t Streams_Count;
     int128u Code;
     int128u OperationalPattern;
@@ -303,6 +320,7 @@ protected :
     int16u Length2;
     int64u File_Size_Total; //Used only in Finish()
     bool   Track_Number_IsAvailable;
+    bool   IsParsingEnd;
 
     //Primer
     std::map<int16u, int128u> Primer_Values;
