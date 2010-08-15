@@ -322,7 +322,7 @@ void File_Gxf::Streams_Finish()
         Streams_Finish_PerStream(StreamID, Streams[StreamID]);
 
     //Global
-    if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_FieldsPerFrame!=(int8u)-1)
+    if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_FieldsPerFrame!=(int8u)-1 && Material_Fields_Last-Material_Fields_First)
     {
         Fill(Stream_Video, 0, Video_FrameCount, (Material_Fields_Last+1-Material_Fields_First)/(Material_Fields_FieldsPerFrame==2?2:1));
 
