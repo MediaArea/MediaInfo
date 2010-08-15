@@ -1143,8 +1143,10 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     }
 
     Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
+    Open_Buffer_Unsynch();
     if (!IsSub)
         File_GoTo=GoTo;
+    Element_Level--;
 }
 #endif //MEDIAINFO_TRACE
 
