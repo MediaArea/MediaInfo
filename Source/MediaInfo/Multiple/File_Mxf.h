@@ -129,6 +129,12 @@ protected :
     void Filler();
     void TerminatingFiller();
     void XmlDocumentText();
+    void SDTI_SystemMetadataPack();
+    void SDTI_PackageMetadataSet();
+    void SDTI_PictureMetadataSet();
+    void SDTI_SoundMetadataSet();
+    void SDTI_DataMetadataSet();
+    void SDTI_ControlMetadataSet();
 
     //Complex types
     void AES3PCMDescriptor_AuxBitsMode();                       //3D08
@@ -486,6 +492,7 @@ protected :
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;
+    int64u SDTI_TimeCode_StartTimecode;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         int128u         Ancillary_InstanceUID;
         int32u          Ancillary_LinkedTrackID;
