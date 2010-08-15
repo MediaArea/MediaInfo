@@ -280,20 +280,6 @@ void File_Mk::Streams_Finish()
         }
     }
 
-    //Language
-    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
-    {
-        size_t StreamCount=Count_Get((stream_t)StreamKind);
-        for (size_t StreamPos=0; StreamPos<StreamCount; StreamPos++)
-        {
-            Ztring Language=Retrieve((stream_t)StreamKind, StreamPos, "Language");
-            if (Language.empty())
-                Fill((stream_t)StreamKind, StreamPos, "Language", "eng");
-            else if (Language==_T("und"))
-                Clear((stream_t)StreamKind, StreamPos, "Language");
-        }
-    }
-
     //Attachements
     for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
         Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
@@ -1984,6 +1970,10 @@ void File_Mk::Segment_Tracks_TrackEntry()
 
     //Preparing
     Stream_Prepare(Stream_Max);
+
+    //Default values
+    Fill_Flush();
+    Fill(StreamKind_Last, StreamPos_Last, "Language", "eng");
 }
 
 //---------------------------------------------------------------------------
@@ -2086,6 +2076,7 @@ void File_Mk::Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compres
 
     FILLING_BEGIN();
         Stream[TrackNumber].ContentCompAlgo=Algo;
+        Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Mk_ContentCompAlgo(Algo));
     FILLING_END();
 }
 
@@ -2401,7 +2392,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Language()
     Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data, true);
     FILLING_END();
 }
 
