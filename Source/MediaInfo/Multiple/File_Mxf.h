@@ -419,6 +419,7 @@ protected :
         bool   TrackID_WasLookedFor;
         bool   Stream_Finish_Done;
         bool   Track_Number_IsMappedToTrack; //if !Track_Number_IsAvailable, is true when it was euristicly mapped
+        bool   IsFilled;
 
         essence()
         {
@@ -430,6 +431,7 @@ protected :
             TrackID_WasLookedFor=false;
             Stream_Finish_Done=false;
             Track_Number_IsMappedToTrack=false;
+            IsFilled=false;
         }
 
         ~essence()

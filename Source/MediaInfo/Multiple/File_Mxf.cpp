@@ -1777,7 +1777,7 @@ void File_Mxf::Data_Parse()
         //Demux
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
 
-        if (!(Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
+        if (!Essences[Code_Compare4].Parser->Status[IsFinished])
         {
             if (Code_Compare4==0x17010201)
             {
@@ -1804,10 +1804,11 @@ void File_Mxf::Data_Parse()
                 Open_Buffer_Continue(Essences[Code_Compare4].Parser);
 
                 //Disabling this Streams
-                if (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled])
+                if (Essences[Code_Compare4].IsFilled && (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
                 {
                     if (Streams_Count>0)
                         Streams_Count--;
+                    Essences[Code_Compare4].IsFilled=true;
                 }
             }
         }
