@@ -295,7 +295,7 @@ protected :
     void WaveAudioDescriptor_ChannelAssignment();               //3D31
 
     //Basic types
-    void Get_Rational(float32 &Value);
+    void Get_Rational(float64 &Value);
     void Skip_Rational();
     void Info_Rational();
     void Get_Timestamp (Ztring &Value);
@@ -447,7 +447,7 @@ protected :
         std::vector<int128u> Locators;
 
         stream_t StreamKind;
-        float32 SampleRate;
+        float64 SampleRate;
         int128u InstanceUID;
         int32u LinkedTrackID;
         int32u Width;

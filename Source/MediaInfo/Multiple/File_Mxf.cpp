@@ -2538,8 +2538,8 @@ void File_Mxf::XmlDocumentText()
 void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 {
     //Parsing
-    int8u SMB, Rate, Format;
-    bool SMB_UL_Present, SMB_CreationTimeStamp, SMB_UserTimeStamp, DropFrame;
+    int8u SMB, CPR_Rate, Format;
+    bool SMB_UL_Present, SMB_CreationTimeStamp, SMB_UserTimeStamp, CPR_DropFrame;
     Get_B1 (SMB,                                                "System Metadata Bitmap");
         Skip_Flags(SMB, 7,                                      "FEC Active");
         Get_Flags (SMB, 6, SMB_UL_Present,                      "SMPTE Label");
@@ -2552,8 +2552,8 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
     BS_Begin();
     Element_Begin("Content Package Rate");
     Skip_S1(2,                                                  "Reserved");
-    Get_S1 (5, Rate,                                            "Package Rate"); //See SMPTE 326M
-    Get_SB (   DropFrame,                                       "1.001 Flag");
+    Get_S1 (5, CPR_Rate,                                        "Package Rate"); //See SMPTE 326M
+    Get_SB (   CPR_DropFrame,                                   "1.001 Flag");
     Element_End();
     Element_Begin("Content Package Type");
     Skip_S1(3,                                                  "Stream Status");
@@ -2567,12 +2567,12 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 
     //Some computing
     float64 FrameRate;
-    switch (Rate) //See SMPTE 326M
+    switch (CPR_Rate) //See SMPTE 326M
     {
         case 0x02 : FrameRate=25; break;
         default   : FrameRate=30; break;    
     }
-    if (DropFrame)
+    if (CPR_DropFrame)
     {
         FrameRate*=1000;
         FrameRate/=1001;
@@ -3327,7 +3327,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_VideoLineMap()
 void File_Mxf::GenericPictureEssenceDescriptor_AspectRatio()
 {
     //Parsing
-    float32 Data;
+    float64 Data;
     Get_Rational(Data);
 
     FILLING_BEGIN();
@@ -3444,7 +3444,7 @@ void File_Mxf::GenericSoundEssenceDescriptor_Locked()
 void File_Mxf::GenericSoundEssenceDescriptor_AudioSamplingRate()
 {
     //Parsing
-    float32 Data;
+    float64 Data;
     Get_Rational(Data); Element_Info(Data);
 
     FILLING_BEGIN();
@@ -4300,7 +4300,7 @@ void File_Mxf::TimecodeComponent_DropFrame()
 void File_Mxf::Track_EditRate()
 {
     //Parsing
-    float32 Data;
+    float64 Data;
     Get_Rational(Data); Element_Info(Data);
 
     FILLING_BEGIN();
@@ -4430,7 +4430,7 @@ void File_Mxf::WaveAudioDescriptor_ChannelAssignment()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mxf::Get_Rational(float32 &Value)
+void File_Mxf::Get_Rational(float64 &Value)
 {
     //Parsing
     int32u N, D;
