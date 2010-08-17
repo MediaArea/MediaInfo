@@ -28,6 +28,9 @@
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -97,6 +100,9 @@
      <height>36</height>
     </size>
    </property>
+   <property name="floatable">
+    <bool>true</bool>
+   </property>
    <attribute name="toolBarArea">
     <enum>LeftToolBarArea</enum>
    </attribute>
@@ -110,10 +116,11 @@
    <addaction name="actionAbout"/>
    <addaction name="separator"/>
    <addaction name="actionPreferences"/>
+   <addaction name="actionView"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/new/prefix1/Image/Menu/K20/File_Open_File.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Open_File.svg</iconset>
    </property>
    <property name="text">
@@ -125,7 +132,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/new/prefix1/Image/Menu/K20/Help_About.svg</normaloff>:/new/prefix1/Image/Menu/K20/Help_About.svg</iconset>
    </property>
    <property name="text">
@@ -137,7 +144,7 @@
   </action>
   <action name="actionOpen_Folder">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/new/prefix1/Image/Menu/K20/File_Open_Directory.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Open_Directory.svg</iconset>
    </property>
    <property name="text">
@@ -167,33 +174,6 @@
     <string>Known parameters</string>
    </property>
   </action>
-  <action name="actionText">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Text</string>
-   </property>
-  </action>
-  <action name="actionEasy">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Easy</string>
-   </property>
-  </action>
-  <action name="actionHTML">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>HTML</string>
-   </property>
-  </action>
   <action name="actionEnglish">
    <property name="text">
     <string>English</string>
@@ -206,7 +186,7 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/new/prefix1/Image/Menu/K20/Options_Prefs.svg</normaloff>:/new/prefix1/Image/Menu/K20/Options_Prefs.svg</iconset>
    </property>
    <property name="text">
@@ -221,7 +201,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/new/prefix1/Image/Menu/K20/File_Export.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Export.svg</iconset>
    </property>
    <property name="text">
@@ -239,8 +219,22 @@
     <string>Advanced Mode</string>
    </property>
   </action>
+  <action name="actionView">
+   <property name="icon">
+    <iconset resource="../../Ressource/Resources.qrc">
+     <normaloff>:/new/prefix1/Image/Menu/K20/View.svg</normaloff>:/new/prefix1/Image/Menu/K20/View.svg</iconset>
+   </property>
+   <property name="text">
+    <string>view</string>
+   </property>
+   <property name="toolTip">
+    <string>select the view</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../../Ressource/Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

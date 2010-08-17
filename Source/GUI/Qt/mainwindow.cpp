@@ -47,8 +47,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         ui->menuView->addAction(action);
         menuItemGroup->addAction(action);
     }
-    connect(menuItemGroup,SIGNAL(selected(QAction*)),SLOT(on_actionView_toggled(QAction*)));
+    connect(menuItemGroup,SIGNAL(selected(QAction*)),SLOT(actionView_toggled(QAction*)));
     menuItemGroup->setParent(ui->menuView);
+
+    ui->actionView->setMenu(ui->menuView);
 
     refreshDisplay();
 }
@@ -175,6 +177,7 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
             }
         }
     }
+    treeWidget->expandAll();
     return treeWidget;
 }
 
@@ -191,25 +194,23 @@ void MainWindow::defaultSettings() {
         settings->setValue("checkForNewVersion",true);
     if(!settings->contains("rememberToolBarPosition"))
         settings->setValue("rememberToolBarPosition",true);
-    if(!settings->contains("sheets")) {
+    Sheet::load(settings);
+    if(Sheet::getNbSheets()==0) {
         Sheet::add("example");
         Sheet::setDefault(0);
         Sheet::getSheet()->addColumn("File Name",100,Stream_General,"CompleteName");
         Sheet::save(settings);
-    } else {
-        Sheet::load(settings);
     }
 
 }
 
 void MainWindow::applySettings() {
-    ui->menuBar->setVisible(settings->value("showMenu",true).toBool());
-    ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
     if(settings->value("rememberGeometry",false).toBool())
         restoreGeometry(settings->value("geometry").toByteArray());
-    if(settings->value("rememberToolBarPosition",true).toBool())
+    if(ui->toolBar->isVisible() && settings->value("rememberToolBarPosition",true).toBool())
         restoreState(settings->value("windowState").toByteArray());
-
+    ui->menuBar->setVisible(settings->value("showMenu",true).toBool());
+    ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -277,7 +278,7 @@ void MainWindow::on_actionKnown_parameters_triggered()
     setCentralWidget(textBrowser);
 }
 
-void MainWindow::on_actionView_toggled(QAction* view)
+void MainWindow::actionView_toggled(QAction* view)
 {
     this->view = (ViewMode)view->property("view").toInt();
     refreshDisplay();
@@ -285,7 +286,7 @@ void MainWindow::on_actionView_toggled(QAction* view)
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    Preferences p(settings,this);
+    Preferences p(settings,C,this);
     if(p.exec() == QDialog::Accepted) {
         p.saveSettings();
         settings->setValue("geometry", saveGeometry()); // we save positions and geometry as they might be restored in the applySettings function

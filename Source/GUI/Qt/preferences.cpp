@@ -2,12 +2,16 @@
 #include "_Automated/ui_preferences.h"
 #include <QtGui/QLabel>
 #include "views.h"
+#include "sheet.h"
+#include "editsheet.h"
 
-Preferences::Preferences(QSettings* settings, QWidget *parent) :
+Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Preferences)
 {
     this->settings=settings;
+    this->C = C;
+
     ui->setupUi(this);
     ui->treeWidget->setColumnHidden(1,true);
     ui->treeWidget->expandAll();
@@ -24,15 +28,23 @@ Preferences::Preferences(QSettings* settings, QWidget *parent) :
     ui->rememberToolBarPosition->setChecked(settings->value("rememberToolBarPosition",true).toBool());
     ui->rememberGeometry->setChecked(settings->value("rememberGeometry",false).toBool());
 
-    QObject::connect(ui->showToolbar,SIGNAL(toggled(bool)),ui->rememberToolBarPosition,SLOT(setEnabled(bool)));
-    QObject::connect(ui->showToolbar,SIGNAL(toggled(bool)),ui->showMenu,SLOT(setEnabled(bool)));
-    QObject::connect(ui->showMenu,SIGNAL(toggled(bool)),ui->showToolbar,SLOT(setEnabled(bool)));
-    QObject::connect(ui->showMenu,SIGNAL(toggled(bool)),ui->rememberToolBarPosition,SLOT(setEnabled(bool)));
+    refreshDisplay();
+
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 Preferences::~Preferences()
 {
     delete ui;
+}
+
+void Preferences::refreshDisplay() {
+    ui->comboBoxSheet->clear();
+    for(int i=0;i<Sheet::getNbSheets();i++) {
+        ui->comboBoxSheet->addItem(Sheet::get(i)->getName(),i);
+    }
+    ui->comboBoxSheet->setCurrentIndex(Sheet::getIndex());
+    ui->pushButton_deleteSheet->setEnabled(Sheet::getNbSheets()>1);
 }
 
 void Preferences::saveSettings() {
@@ -43,6 +55,8 @@ void Preferences::saveSettings() {
     settings->setValue("defaultView",ui->comboBox_defaultview->currentIndex());
     settings->setValue("rememberToolBarPosition",ui->rememberToolBarPosition->isChecked());
     settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
+    Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
+    Sheet::save(settings);
 }
 
 void Preferences::changeEvent(QEvent *e)
@@ -63,14 +77,30 @@ void Preferences::on_treeWidget_itemSelectionChanged()
         ui->stackedWidget->setCurrentIndex(ui->treeWidget->selectedItems().first()->data(1,Qt::DisplayRole).toInt());
 }
 
-void Preferences::on_showToolbar_toggled(bool checked)
+void Preferences::on_pushButton_editSheet_clicked()
 {
+    EditSheet es(Sheet::get(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt()), C, this);
+    if(es.exec() == QDialog::Accepted) {
+        es.apply();
+        refreshDisplay();
+    } else
+        qDebug("sheet editing cancelled");
 }
 
-void Preferences::on_showMenu_toggled(bool checked)
+void Preferences::on_pushButton_newSheet_clicked()
 {
+    EditSheet es(Sheet::add("newsheet"), C, this);
+    if(es.exec() == QDialog::Accepted) {
+        es.apply();
+        refreshDisplay();
+    } else {
+        Sheet::removeLast();
+        qDebug("new sheet cancelled");
+    }
 }
 
-void Preferences::on_showToolbar_pressed()
+void Preferences::on_pushButton_deleteSheet_clicked()
 {
+    Sheet::remove(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
+    refreshDisplay();
 }

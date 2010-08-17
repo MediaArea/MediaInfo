@@ -265,3 +265,7 @@ String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, size
 String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind) {
     return MI->Get(FilePos,StreamKind,StreamNumber,Parameter,InfoKind);
 }
+
+String Core::Parameters () {
+    return MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"));
+}

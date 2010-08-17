@@ -45,7 +45,7 @@ private slots:
     void on_actionExport_triggered();
     void on_actionPreferences_triggered();
     void on_actionKnown_parameters_triggered();
-    void on_actionView_toggled(QAction* view);
+    void actionView_toggled(QAction* view);
     void on_actionKnown_codecs_triggered();
     void on_actionKnown_formats_triggered();
     void on_actionAbout_triggered();

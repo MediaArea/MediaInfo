@@ -1,7 +1,7 @@
 #include "about.h"
-#include "_Automated\ui_about.h"
-#include <QtGui\QDesktopServices>
-#include <QtCore\QUrl>
+#include "_Automated/ui_about.h"
+#include <QtGui/QDesktopServices>
+#include <QtCore/QUrl>
 
 About::About(QWidget *parent) :
     QDialog(parent),

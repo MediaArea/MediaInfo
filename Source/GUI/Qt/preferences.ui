@@ -236,26 +236,26 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_3"/>
+          <widget class="QComboBox" name="comboBoxSheet"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="pushButton_deleteSheet">
              <property name="text">
               <string>Delete</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="pushButton_editSheet">
              <property name="text">
               <string>Edit</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushButton_newSheet">
              <property name="text">
               <string>New</string>
              </property>
@@ -401,6 +401,54 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showToolbar</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>rememberToolBarPosition</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>204</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showToolbar</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>showMenu</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>204</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>200</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showMenu</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>showToolbar</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>204</x>
+     <y>30</y>
     </hint>
    </hints>
   </connection>
