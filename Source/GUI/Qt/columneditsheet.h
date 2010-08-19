@@ -5,13 +5,17 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QToolButton>
 #include <QtGui/QComboBox>
+#include <QtGui/QSpinBox>
 
 class ColumnEditSheet : public QHBoxLayout
 {
 Q_OBJECT
 public:
-    explicit ColumnEditSheet(column c, int pos, Core* C, QWidget *parent = 0);
+    explicit ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *parent = 0);
     ~ColumnEditSheet();
+    QSpinBox* widthBox() {
+        return spinbox;
+    }
 
 signals:
     void somethingChanged();
@@ -24,9 +28,9 @@ public slots:
     void upButton();
     void downButton();
     void minusButton();
-    void posSwitched(int,int);
-    void posRemoved(int);
-    void posChanged();
+    void posSwitched(int,int,int);
+    void posRemoved(int,int);
+    void posChanged(int);
     void fillCombobox();
 
 private:
@@ -36,6 +40,7 @@ private:
     QToolButton* down;
     QComboBox* stream;
     QComboBox* combobox;
+    QSpinBox* spinbox;
     Core* C;
 };
 

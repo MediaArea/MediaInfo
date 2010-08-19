@@ -54,11 +54,18 @@ public:
     static void removeLast() {
         remove(sheets.size()-1);
     }
+    bool getAdaptColumns() {
+        return adaptColumns;
+    }
+    void setAdaptColumns(bool ac) {
+        adaptColumns = ac;
+    }
 
 private:
     Sheet(const char* name);
     QString name;
     QVector<column> columns;
+    bool adaptColumns;
 
     static QVector<Sheet*> sheets;
     static int indexDefault;

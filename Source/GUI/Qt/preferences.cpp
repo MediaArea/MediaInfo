@@ -1,4 +1,5 @@
 #include "preferences.h"
+#include "translate.h"
 #include "_Automated/ui_preferences.h"
 #include <QtGui/QLabel>
 #include "views.h"

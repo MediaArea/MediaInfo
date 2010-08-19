@@ -25,6 +25,7 @@ void Sheet::load(QSettings* settings) {
     for (int i = 0; i < size; ++i) {
         settings->setArrayIndex(i);
         Sheet* s = new Sheet(settings->value("name").toString().toStdString().c_str());
+        s->setAdaptColumns(settings->value("adaptColumns",false).toBool());
         qDebug(("...loading "+s->getName()).toStdString().c_str());
         int nbColumns = settings->value("nbColumns",0).toInt();
         for(int j=0;j<nbColumns;j++) {
@@ -43,6 +44,7 @@ void Sheet::save(QSettings* settings) {
         settings->setArrayIndex(i);
         qDebug(("...saving "+sheets[i]->getName()).toStdString().c_str());
         settings->setValue("name", sheets[i]->getName());
+        settings->setValue("adaptColumns", sheets[i]->getAdaptColumns());
         settings->setValue("nbColumns", sheets[i]->getNbColumns());
         for(int j=0;j<sheets[i]->getNbColumns();++j) {
             settings->setValue("nameCol"+j,sheets[i]->getColumn(j).name);

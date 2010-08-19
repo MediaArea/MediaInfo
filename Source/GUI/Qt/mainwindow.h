@@ -20,6 +20,8 @@ public:
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
 
+    static QString shortName(Core*C, QString name);
+
 protected:
     void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *e);
@@ -41,6 +43,7 @@ private:
     QSettings* settings;
 
 private slots:
+    void on_actionClose_All_triggered();
     void on_actionAdvanced_Mode_toggled(bool );
     void on_actionExport_triggered();
     void on_actionPreferences_triggered();

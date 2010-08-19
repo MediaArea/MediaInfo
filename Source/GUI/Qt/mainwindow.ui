@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/new/prefix1/Image/Menu/K20/MediaInfo.png</normaloff>:/new/prefix1/Image/Menu/K20/MediaInfo.png</iconset>
+    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -45,6 +45,8 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionOpen_Folder"/>
+    <addaction name="actionExport"/>
+    <addaction name="actionClose_All"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -66,6 +68,8 @@
      <string>Options</string>
     </property>
     <addaction name="actionPreferences"/>
+    <addaction name="actionReset_field_sizes"/>
+    <addaction name="actionAdapt_columns_to_content"/>
    </widget>
    <widget class="QMenu" name="menuDebug">
     <property name="title">
@@ -116,12 +120,11 @@
    <addaction name="actionAbout"/>
    <addaction name="separator"/>
    <addaction name="actionPreferences"/>
-   <addaction name="actionView"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../../Ressource/Resources.qrc">
-     <normaloff>:/new/prefix1/Image/Menu/K20/File_Open_File.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Open_File.svg</iconset>
+    <iconset>
+     <normaloff>:/icon/openfile.svg</normaloff>:/icon/openfile.svg</iconset>
    </property>
    <property name="text">
     <string>Open File(s)</string>
@@ -132,8 +135,8 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="../../Ressource/Resources.qrc">
-     <normaloff>:/new/prefix1/Image/Menu/K20/Help_About.svg</normaloff>:/new/prefix1/Image/Menu/K20/Help_About.svg</iconset>
+    <iconset>
+     <normaloff>:/icon/about.svg</normaloff>:/icon/about.svg</iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -144,8 +147,8 @@
   </action>
   <action name="actionOpen_Folder">
    <property name="icon">
-    <iconset resource="../../Ressource/Resources.qrc">
-     <normaloff>:/new/prefix1/Image/Menu/K20/File_Open_Directory.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Open_Directory.svg</iconset>
+    <iconset>
+     <normaloff>:/icon/opendir.svg</normaloff>:/icon/opendir.svg</iconset>
    </property>
    <property name="text">
     <string>Open Folder</string>
@@ -186,8 +189,8 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset resource="../../Ressource/Resources.qrc">
-     <normaloff>:/new/prefix1/Image/Menu/K20/Options_Prefs.svg</normaloff>:/new/prefix1/Image/Menu/K20/Options_Prefs.svg</iconset>
+    <iconset>
+     <normaloff>:/icon/prefs.svg</normaloff>:/icon/prefs.svg</iconset>
    </property>
    <property name="text">
     <string>Preferences</string>
@@ -201,8 +204,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../Ressource/Resources.qrc">
-     <normaloff>:/new/prefix1/Image/Menu/K20/File_Export.svg</normaloff>:/new/prefix1/Image/Menu/K20/File_Export.svg</iconset>
+    <iconset>
+     <normaloff>:/icon/export.svg</normaloff>:/icon/export.svg</iconset>
    </property>
    <property name="text">
     <string>Export</string>
@@ -219,22 +222,26 @@
     <string>Advanced Mode</string>
    </property>
   </action>
-  <action name="actionView">
-   <property name="icon">
-    <iconset resource="../../Ressource/Resources.qrc">
-     <normaloff>:/new/prefix1/Image/Menu/K20/View.svg</normaloff>:/new/prefix1/Image/Menu/K20/View.svg</iconset>
-   </property>
+  <action name="actionReset_field_sizes">
    <property name="text">
-    <string>view</string>
+    <string>reset columns sizes</string>
    </property>
-   <property name="toolTip">
-    <string>select the view</string>
+  </action>
+  <action name="actionAdapt_columns_to_content">
+   <property name="text">
+    <string>adapt columns to content</string>
+   </property>
+  </action>
+  <action name="actionClose_All">
+   <property name="text">
+    <string>Close All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+W</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../../Ressource/Resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

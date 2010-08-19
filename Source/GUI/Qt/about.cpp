@@ -1,3 +1,4 @@
+#include "translate.h"
 #include "about.h"
 #include "_Automated/ui_about.h"
 #include <QtGui/QDesktopServices>

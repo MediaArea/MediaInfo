@@ -22,7 +22,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../Ressource/Resources.qrc">:/new/prefix1/Image/MediaInfo.png</pixmap>
+        <pixmap resource="../../Ressource/Resources.qrc">:/icon/icon.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -59,7 +59,7 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../Ressource/Resources.qrc">:/new/prefix1/Image/Menu/Help_About.png</pixmap>
+        <pixmap resource="../../Ressource/Resources.qrc">:/icon/aboutmail.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -104,6 +104,9 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Translator : Zen</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>

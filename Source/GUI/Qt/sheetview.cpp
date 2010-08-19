@@ -1,6 +1,10 @@
 #include "sheetview.h"
+#include "translate.h"
 #include "_Automated/ui_sheetview.h"
 #include "sheet.h"
+#include "mainwindow.h"
+#include <QtGui/QDesktopServices>
+#include <QtCore/QUrl>
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
@@ -39,9 +43,22 @@ void SheetView::refreshDisplay() {
         //ui->tableWidget->setItem(FilePos,0,new QTableWidgetItem(wstring2QString(C->Get(FilePos, Stream_General, 0, _T("CompleteName")))));
         for(int i=0;i<Sheet::getSheet()->getNbColumns();++i) {
             column c = Sheet::getSheet()->getColumn(i);
-            ui->tableWidget->setItem(FilePos,i,new QTableWidgetItem(wstring2QString(C->Get(FilePos,c.stream,0,QString2wstring(c.key)))));
+            QString itemText = wstring2QString(C->Get(FilePos,c.stream,0,QString2wstring(c.key)));
+            if(c.key=="CompleteName")
+                itemText=MainWindow::shortName(C,itemText);
+            ui->tableWidget->setItem(FilePos,i,new QTableWidgetItem(itemText));
         }
     }
+    if(Sheet::getSheet()->getAdaptColumns())
+        ui->tableWidget->resizeColumnsToContents();
+}
+
+void SheetView::adaptColumnsToContent() {
+    ui->tableWidget->resizeColumnsToContents();
+}
+
+void SheetView::resetColumnsSizes() {
+    refreshDisplay();
 }
 
 void SheetView::changeEvent(QEvent *e)
@@ -81,4 +98,13 @@ void SheetView::on_comboBox_currentIndexChanged(int index)
     stream_t kind = (stream_t)ui->comboBox->itemData(index).toPoint().x();
     int pos = ui->comboBox->itemData(index).toPoint().y();
     ui->label->setText(wstring2QString(C->Inform_Get(filePos,kind,pos)));
+    url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, _T("CodecID/Url")));
+    if(url.isEmpty())
+        url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, _T("Format/Url")));
+    ui->toolButton->setEnabled(!url.isEmpty());
+}
+
+void SheetView::on_toolButton_clicked()
+{
+    QDesktopServices::openUrl(QUrl(url));
 }

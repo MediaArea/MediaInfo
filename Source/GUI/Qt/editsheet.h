@@ -23,8 +23,9 @@ public slots:
     void refreshDisplay();
 
 signals:
-    void switchPos(int,int);
-    void deletePos(int);
+    void switchPos(int,int,int);
+    void deletePos(int,int);
+    void newPos(int);
 
 protected:
     void changeEvent(QEvent *e);

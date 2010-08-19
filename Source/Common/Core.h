@@ -53,7 +53,7 @@ public:
 
     //Menu
     size_t  Menu_File_Open_File             (const MediaInfoNameSpace::String &FileName);
-    void    Menu_File_Open_Files_Begin      ();
+    void    Menu_File_Open_Files_Begin      (bool close=true);
     size_t  Menu_File_Open_Files_Continue   (const MediaInfoNameSpace::String &FileName);
     void    Menu_File_Open_Directory        (const MediaInfoNameSpace::String &DirectoryName);
     void    Menu_View_Easy                  ();

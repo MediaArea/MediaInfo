@@ -59,15 +59,40 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <family>Monospace</family>
-      </font>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
-     <property name="text">
-      <string>no selection</string>
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>378</width>
+        <height>82</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <family>Monospace</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>no selection</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

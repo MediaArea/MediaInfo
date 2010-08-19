@@ -4,6 +4,7 @@
 #include <QtGui/QSpinBox>
 #include <QtGui/QComboBox>
 #include <QtGui/QToolButton>
+#include "translate.h"
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
@@ -12,7 +13,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-ColumnEditSheet::ColumnEditSheet(column c, int pos, Core* C, QWidget *parent) :
+ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *parent) :
     QHBoxLayout(parent)
 {
     this->pos = pos;
@@ -21,16 +22,16 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, Core* C, QWidget *parent) :
 
     QLineEdit* lineedit = new QLineEdit(c.name);
     this->addWidget(lineedit);
-    QSpinBox* spinbox = new QSpinBox();
+    spinbox = new QSpinBox();
     spinbox->setMinimum(0);
     spinbox->setMaximum(500);
     spinbox->setValue(c.width);
     this->addWidget(spinbox);
     stream = new QComboBox();
-    stream->addItem(tr("General"),Stream_General);
-    stream->addItem(tr("Video"),Stream_Video);
-    stream->addItem(tr("Audio"),Stream_Audio);
-    stream->addItem(tr("Text"),Stream_Text);
+    stream->addItem(Tr("General"),Stream_General);
+    stream->addItem(Tr("Video"),Stream_Video);
+    stream->addItem(Tr("Audio"),Stream_Audio);
+    stream->addItem(Tr("Text"),Stream_Text);
     stream->setCurrentIndex(c.stream);
     this->addWidget(stream);
     combobox = new QComboBox();
@@ -59,7 +60,7 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, Core* C, QWidget *parent) :
 
     fillCombobox();
 
-    posChanged();
+    posChanged(nb);
 }
 
 ColumnEditSheet::~ColumnEditSheet() {
@@ -98,21 +99,22 @@ void ColumnEditSheet::minusButton() {
     emit removeMe(pos);
 }
 
-void ColumnEditSheet::posSwitched(int p1, int p2) {
+void ColumnEditSheet::posSwitched(int p1, int p2, int nb) {
     if(pos==p1)
         pos=p2;
     else if(pos==p2)
         pos=p1;
-    posChanged();
+    posChanged(nb);
 }
 
-void ColumnEditSheet::posRemoved(int p) {
+void ColumnEditSheet::posRemoved(int p, int nb) {
     if(pos>p)
         pos--;
-    posChanged();
+    posChanged(nb);
 }
 
-void ColumnEditSheet::posChanged() {
+void ColumnEditSheet::posChanged(int nb) {
     up->setEnabled(pos!=0);
+    down->setEnabled(pos!=(nb-1));
     emit somethingChanged();
 }

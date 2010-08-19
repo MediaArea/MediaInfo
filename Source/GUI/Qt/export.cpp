@@ -1,4 +1,5 @@
 #include "export.h"
+#include "translate.h"
 #include "_Automated/ui_export.h"
 #include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
@@ -29,7 +30,7 @@ void Export::changeEvent(QEvent *e)
 
 void Export::on_toolButton_pressed()
 {
-    ui->lineEdit->setText(QFileDialog::getOpenFileName(this,tr(""),QDir::home().absolutePath(),tr("All files (*.*)")));
+    ui->lineEdit->setText(QFileDialog::getOpenFileName(this,"",QDir::home().absolutePath(),Tr("All files (*.*)")));
 }
 
 int Export::getExportMode() {

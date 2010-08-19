@@ -1,3 +1,4 @@
+#include "translate.h"
 #include "editsheet.h"
 #include "_Automated/ui_editsheet.h"
 #include "sheet.h"
@@ -22,6 +23,7 @@ EditSheet::EditSheet(Sheet* s, Core* C, QWidget *parent) :
     initDisplay();
     refreshDisplay();
     connect(ui->pushButton,SIGNAL(clicked()),SLOT(addColumn()));
+    ui->checkBoxAdapt->setChecked(s->getAdaptColumns());
 }
 
 EditSheet::~EditSheet()
@@ -33,6 +35,7 @@ void EditSheet::initDisplay() {
     ui->lineEdit->setText(sheet->getName());
     for(int i=0;i<sheet->getNbColumns();i++) {
         ui->verticalLayout->addLayout(createColumn(sheet->getColumn(i)));
+        emit newPos(ui->verticalLayout->count());
     }
     ui->tableWidget->setRowCount(1);
 }
@@ -52,32 +55,35 @@ void EditSheet::refreshDisplay() {
 }
 
 QLayout* EditSheet::createColumn(column c) {
-    QHBoxLayout* col = new ColumnEditSheet(c,ui->verticalLayout->count(),C);
+    ColumnEditSheet* col = new ColumnEditSheet(c,ui->verticalLayout->count(),ui->verticalLayout->count()+1,C);
 
     connect(col,SIGNAL(somethingChanged()),SLOT(refreshDisplay()));
     connect(col,SIGNAL(moveMeUp(int)),SLOT(upCol(int)));
     connect(col,SIGNAL(moveMeDown(int)),SLOT(downCol(int)));
     connect(col,SIGNAL(removeMe(int)),SLOT(delCol(int)));
-    connect(this,SIGNAL(switchPos(int,int)),col,SLOT(posSwitched(int,int)));
-    connect(this,SIGNAL(deletePos(int)),col,SLOT(posRemoved(int)));
+    connect(this,SIGNAL(switchPos(int,int,int)),col,SLOT(posSwitched(int,int,int)));
+    connect(this,SIGNAL(deletePos(int,int)),col,SLOT(posRemoved(int,int)));
+    connect(this,SIGNAL(newPos(int)),col,SLOT(posChanged(int)));
+    connect(ui->checkBoxAdapt,SIGNAL(toggled(bool)),col->widthBox(),SLOT(setDisabled(bool)));
 
     col->setContentsMargins(0,0,0,0);
     col->setSpacing(0);
     col->setMargin(0);
+
     return col;
 }
 
 void EditSheet::upCol(int i) {
     if(i>0) {
         ui->verticalLayout->insertLayout(i-1,((QLayout*)ui->verticalLayout->takeAt(i)));
-        emit switchPos(i,i-1);
+        emit switchPos(i,i-1,ui->verticalLayout->count());
     }
 }
 
 void EditSheet::downCol(int i) {
     if(i<ui->verticalLayout->count()-1) {
         ui->verticalLayout->insertLayout(i+1,((QLayout*)ui->verticalLayout->takeAt(i)));
-        emit switchPos(i,i+1);
+        emit switchPos(i,i+1,ui->verticalLayout->count());
     }
 }
 
@@ -85,16 +91,17 @@ void EditSheet::delCol(int i) {
     qDebug(("supression de "+QString::number(i)).toStdString().c_str());
     ColumnEditSheet* c = (ColumnEditSheet*)ui->verticalLayout->takeAt(i);
     delete c;
-    emit deletePos(i);
+    emit deletePos(i,ui->verticalLayout->count());
 }
 
 void EditSheet::addColumn() {
     column c;
-    c.name = tr("Unamed");
+    c.name = Tr("Unamed");
     c.width = 50;
     c.stream = Stream_General;
     c.key = "CompleteName";
     ui->verticalLayout->addLayout(createColumn(c));
+    emit newPos(ui->verticalLayout->count());
     refreshDisplay();
 }
 
@@ -121,4 +128,5 @@ void EditSheet::apply() {
         sheet->addColumn(c);
     }
     sheet->setName(ui->lineEdit->text().toStdString().c_str());
+    sheet->setAdaptColumns(ui->checkBoxAdapt->isChecked());
 }
