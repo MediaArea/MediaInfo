@@ -126,6 +126,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_Audio_MergeMonoStreams_Get()?"1":"0";
     }
+    else if (Option_Lower==_T("file_filename"))
+    {
+        File_ForceParser_Set(Value);
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_filename_get"))
+    {
+        return File_ForceParser_Get();
+    }
     else if (Option_Lower==_T("file_forceparser"))
     {
         File_ForceParser_Set(Value);
@@ -335,6 +344,23 @@ bool MediaInfo_Config_MediaInfo::File_Audio_MergeMonoStreams_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Audio_MergeMonoStreams;
+}
+
+//***************************************************************************
+// File name from somewhere else
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_FileName_Set (const Ztring &NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_FileName=NewValue;
+}
+
+Ztring MediaInfo_Config_MediaInfo::File_FileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_FileName;
 }
 
 //***************************************************************************

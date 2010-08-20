@@ -409,6 +409,8 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
     #endif //MEDIAINFO_TRACE
     if (!File_Name.empty())
         Info->File_Name=File_Name;
+    else
+        Info->File_Name=Config.File_FileName_Get();
     Info->Open_Buffer_Init(File_Size_);
 
     return 1;
