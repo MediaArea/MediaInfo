@@ -21,6 +21,7 @@ SheetView::SheetView(Core *C, QWidget *parent) :
 
     ui->setupUi(this);
     refreshDisplay();
+    ui->tableWidget->selectRow(0);
 }
 
 SheetView::~SheetView()
@@ -46,7 +47,9 @@ void SheetView::refreshDisplay() {
             QString itemText = wstring2QString(C->Get(FilePos,c.stream,0,QString2wstring(c.key)));
             if(c.key=="CompleteName")
                 itemText=MainWindow::shortName(C,itemText);
-            ui->tableWidget->setItem(FilePos,i,new QTableWidgetItem(itemText));
+            QTableWidgetItem* twi = new QTableWidgetItem(itemText);
+            twi->setData(Qt::UserRole,FilePos);
+            ui->tableWidget->setItem(FilePos,i,twi);
         }
     }
     if(Sheet::getSheet()->getAdaptColumns())
@@ -78,7 +81,7 @@ void SheetView::on_tableWidget_itemSelectionChanged()
     ui->comboBox->clear();
     if(ui->tableWidget->selectedItems().isEmpty())
         return;
-    int filePos = ui->tableWidget->selectedItems().at(0)->row();
+    int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
     for(int streamKind=0;streamKind<Stream_Max;++streamKind) {
         if(C->Count_Get(filePos,(stream_t)streamKind) && ui->comboBox->count())
             ui->comboBox->insertSeparator(ui->comboBox->count());
@@ -92,9 +95,10 @@ void SheetView::on_comboBox_currentIndexChanged(int index)
 {
     if(ui->tableWidget->selectedItems().isEmpty()) {
         ui->label->setText("no selection");
+        ui->toolButton->setEnabled(false);
         return;
     }
-    int filePos = ui->tableWidget->selectedItems().at(0)->row();
+    int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
     stream_t kind = (stream_t)ui->comboBox->itemData(index).toPoint().x();
     int pos = ui->comboBox->itemData(index).toPoint().y();
     ui->label->setText(wstring2QString(C->Inform_Get(filePos,kind,pos)));

@@ -11,7 +11,7 @@ namespace Ui {
 class Export : public QDialog {
     Q_OBJECT
 public:
-    Export(QWidget *parent = 0);
+    Export(QString filename, QWidget *parent = 0);
     ~Export();
     int getExportMode();
     QString getFileName();

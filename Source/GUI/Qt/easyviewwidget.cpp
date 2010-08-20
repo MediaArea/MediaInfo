@@ -115,9 +115,9 @@ QGroupBox* EasyViewWidget::createBox(stream_t StreamKind, int StreamPos) {
 
     QGroupBox* box = new QGroupBox(Title_Get(StreamKind));
     if(StreamKind==Stream_General)
-        box->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
-    else
         box->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
+    else
+        box->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Maximum);
     QHBoxLayout* boxLayout = new QHBoxLayout();
     box->setLayout(boxLayout);
     QLabel* label = new QLabel(Temp);

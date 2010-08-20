@@ -72,6 +72,7 @@ ColumnEditSheet::~ColumnEditSheet() {
 void ColumnEditSheet::fillCombobox() {
     combobox->clear();
     QString s = wstring2QString(C->Parameters());
+    s.replace("\r\n","\n");
     s.remove(0,s.indexOf(stream->currentText()+"\n"));
     s.truncate(s.indexOf("\n\n"));
     QStringList sl = s.split("\n");

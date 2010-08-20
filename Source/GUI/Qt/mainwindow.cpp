@@ -11,6 +11,7 @@
 #include <QtGui/QActionGroup>
 #include <QtGui/QTextBrowser>
 #include <QtCore/QSettings>
+#include <QtXml/QDomDocument>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QToolButton>
 #include "easyviewwidget.h"
@@ -75,6 +76,13 @@ MainWindow::~MainWindow()
 
 QString MainWindow::shortName(Core*C, QString name) {
     //Elminating unuseful info from filenames
+    qDebug(("File path : "+name).toStdString().c_str());
+    qDebug(("Common dir : "+getCommonDir(C).absolutePath()).toStdString().c_str());
+    qDebug(("Short name : "+getCommonDir(C).relativeFilePath(name)).toStdString().c_str());
+    return getCommonDir(C).relativeFilePath(name);
+}
+
+QDir MainWindow::getCommonDir(Core*C) {
     QList<QStringList> list;
     QStringList dirName;
     for(unsigned int filePos=0;filePos<C->Count_Get();filePos++)
@@ -91,7 +99,7 @@ QString MainWindow::shortName(Core*C, QString name) {
             dirName.append(list[0][i]);
     }
     QDir dir(dirName.join(QDir::separator ()));
-    return dir.relativeFilePath(name);
+    return dir;
 }
 
 void MainWindow::changeEvent(QEvent *e)
@@ -139,6 +147,7 @@ void MainWindow::refreshDisplay() {
         ui->actionExport->setEnabled(true);
     else
         ui->actionExport->setEnabled(false);
+    QDomDocument* xis;
     switch(view) {
         default:
         case VIEW_TEXT:
@@ -150,7 +159,9 @@ void MainWindow::refreshDisplay() {
         case VIEW_XML:
             C->Menu_View_XML();
             viewWidget = new QTextBrowser();
-            ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+            xis = new QDomDocument();
+            xis->setContent(wstring2QString(C->Inform_Get()));
+            ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
             break;
         case VIEW_EASY:
             C->Menu_View_Easy();
@@ -176,6 +187,13 @@ void MainWindow::refreshDisplay() {
             break;
     }
     setCentralWidget(viewWidget);
+    if(C->Count_Get()>0)
+        if(C->Count_Get()==1)
+            this->setWindowTitle("MediaInfo - "+shortName(C,wstring2QString(C->Get(0, Stream_General, 0, _T("CompleteName")))));
+        else
+            this->setWindowTitle(Tr("MediaInfo - %n files","window title",C->Count_Get()));
+    else
+        this->setWindowTitle(Tr("MediaInfo"));
 }
 
 QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
@@ -260,7 +278,7 @@ void MainWindow::defaultSettings() {
 void MainWindow::applySettings() {
     if(settings->value("rememberGeometry",false).toBool())
         restoreGeometry(settings->value("geometry").toByteArray());
-    if(ui->toolBar->isVisible() && settings->value("rememberToolBarPosition",true).toBool())
+    if(settings->value("showToolbar",true).toBool() && settings->value("rememberToolBarPosition",true).toBool())
         restoreState(settings->value("windowState").toByteArray());
     ui->menuBar->setVisible(settings->value("showMenu",true).toBool());
     ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
@@ -339,19 +357,29 @@ void MainWindow::actionView_toggled(QAction* view)
 
 void MainWindow::on_actionPreferences_triggered()
 {
+    ViewMode oldView = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
     Preferences p(settings,C,this);
     if(p.exec() == QDialog::Accepted) {
         p.saveSettings();
         settings->setValue("geometry", saveGeometry()); // we save positions and geometry as they might be restored in the applySettings function
         settings->setValue("windowState", saveState());
         applySettings();
+        if(settings->value("defaultView",VIEW_EASY)!=oldView) {
+            this->view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
+        }
+        refreshDisplay();
     } else
         qDebug("annulation");
 }
 
 void MainWindow::on_actionExport_triggered()
 {
-    Export e(this);
+    QString name;
+    if(C->Count_Get()==1)
+        name = wstring2QString(C->Get(0, Stream_General, 0, _T("CompleteName")))+".txt";
+    else
+        name = getCommonDir(C).absoluteFilePath("MediaInfo.txt");
+    Export e(name,this);
     if(e.exec() == QDialog::Accepted) {
         QFile file(e.getFileName());
         if(!file.open(e.getOpenMode()))

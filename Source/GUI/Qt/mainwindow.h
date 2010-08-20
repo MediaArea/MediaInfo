@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 #include "Common/Core.h"
 #include <QtCore/QSettings>
+#include <QtCore/QDir>
 #include <QtGui/QTreeWidget>
 #include "views.h"
 
@@ -21,6 +22,8 @@ public:
     void dragEnterEvent(QDragEnterEvent *event);
 
     static QString shortName(Core*C, QString name);
+    static QDir getCommonDir(Core*C);
+
 
 protected:
     void changeEvent(QEvent *e);

@@ -4,11 +4,12 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
 
-Export::Export(QWidget *parent) :
+Export::Export(QString filename, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Export)
 {
     ui->setupUi(this);
+    ui->lineEdit->setText(filename);
 }
 
 Export::~Export()
