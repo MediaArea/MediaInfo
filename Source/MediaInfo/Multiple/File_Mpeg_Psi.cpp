@@ -124,6 +124,7 @@ const char* Mpeg_Psi_stream_type_Format(int8u stream_type, int32u format_identif
                 case Elements::S14A : //ATSC
                         switch (stream_type)
                         {
+                            case 0x80 : return "MPEG Video";
                             case 0x81 : return "AC-3";
                             case 0x82 : return "Text";
                             case 0x87 : return "E-AC-3";
@@ -188,6 +189,7 @@ const char* Mpeg_Psi_stream_type_Codec(int8u stream_type, int32u format_identifi
                 case Elements::S14A : //ATSC
                         switch (stream_type)
                         {
+                            case 0x80 : return "MPEG-2V";
                             case 0x81 : return "AC3";
                             case 0x82 : return "Text";
                             case 0x87 : return "AC3+";
@@ -248,6 +250,7 @@ stream_t Mpeg_Psi_stream_type_StreamKind(int32u stream_type, int32u format_ident
                 case Elements::S14A : //ATSC
                         switch (stream_type)
                         {
+                            case 0x80 : return Stream_Video;
                             case 0x81 : return Stream_Audio;
                             case 0x82 : return Stream_Text;
                             case 0x87 : return Stream_Audio;
@@ -341,6 +344,7 @@ const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifie
                 case Elements::SCTE : //SCTE
                         switch (stream_type)
                         {
+                            case 0x80 : return "SCTE - MPEG Video";
                             case 0x81 : return "ATSC - AC-3";
                             case 0x82 : return "SCTE - Standard Subtitle";
                             case 0x83 : return "SCTE - Isochronous Data";
