@@ -476,6 +476,12 @@ protected :
     struct locator
     {
         Ztring EssenceLocator;
+        bool   IsTextLocator;
+
+        locator()
+        {
+            IsTextLocator=true;
+        }
     };
     typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
     locators Locators;

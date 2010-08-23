@@ -1089,8 +1089,10 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
     if (Locator==Locators.end())
         return;
 
+    Fill(StreamKind_Last, StreamPos_Last, "Source", Locator->second.EssenceLocator);
+
     //External file name specific
-    if (!Locator->second.EssenceLocator.empty())
+    if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty())
     {
         //Preparing
         stream_t StreamKind_Last_Essence=StreamKind_Last;
@@ -1105,7 +1107,6 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
         MediaInfo_Internal MI;
         MI.Option(_T("File_StopAfterFilled"), _T("1"));
         MI.Option(_T("File_KeepInfo"), _T("1"));
-        Fill(StreamKind_Last_Essence, StreamPos_Last_Essence, "Source", Locator->second.EssenceLocator);
 
         if (MI.Open(AbsoluteName))
         {
@@ -4324,6 +4325,11 @@ void File_Mxf::TextLocator_LocatorName()
 {
     //Parsing
     Info_UTF16B(Length2, Data,                                  "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Locators[InstanceUID].EssenceLocator=Data;
+        Locators[InstanceUID].IsTextLocator=true;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
