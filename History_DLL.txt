@@ -17,6 +17,7 @@ Version 0.7.35, 2010-
 + MPEG-TS: SCTE35 detection and parsing
 + MXF: Ancillary data (S436M) support
 x #3036119, MKV: default language value is eng
+x DV: weird display with some DV with synch problems.
 
 Version 0.7.34, 2010-07-09
 --------------
