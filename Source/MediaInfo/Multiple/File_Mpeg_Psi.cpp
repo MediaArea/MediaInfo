@@ -996,6 +996,7 @@ void File_Mpeg_Psi::program_stream_map()
 
         FILLING_BEGIN();
             Complete_Stream->Streams[elementary_stream_id].stream_type=stream_type;
+            Complete_Stream->Streams[elementary_stream_id].Infos["CodecID"].From_Number(stream_type);
         FILLING_END();
     }
 }
@@ -1166,6 +1167,7 @@ void File_Mpeg_Psi::Table_02()
                     else
                     {
                         Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
+                        Complete_Stream->Streams[elementary_PID].Infos["CodecID"].From_Number(stream_type);
                         #if MEDIAINFO_TRACE
                             Complete_Stream->Streams[elementary_PID].Element_Info="PES";
                         #endif //MEDIAINFO_TRACE

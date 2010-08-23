@@ -16,6 +16,7 @@ Version 0.7.35, 2010-
 + AFD: AFD (Active Format Description) value and detail
 + MPEG-TS: SCTE35 detection and parsing
 + MXF: Ancillary data (S436M) support
++ MPEG-TS: Codec ID (stream_type)
 x #3036119, MKV: default language value is eng
 x DV: weird display with some DV with synch problems.
 
