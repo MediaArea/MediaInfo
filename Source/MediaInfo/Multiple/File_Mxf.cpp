@@ -1804,11 +1804,13 @@ void File_Mxf::Data_Parse()
                 Open_Buffer_Continue(Essences[Code_Compare4].Parser);
 
                 //Disabling this Streams
-                if (Essences[Code_Compare4].IsFilled && (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
+                if (!Essences[Code_Compare4].IsFilled && (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
                 {
                     if (Streams_Count>0)
                         Streams_Count--;
                     Essences[Code_Compare4].IsFilled=true;
+                    if (!Essences[Code_Compare4].Parser->Status[IsFinished] && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+                        Essences[Code_Compare4].Parser->Finish();
                 }
             }
         }
@@ -2051,15 +2053,23 @@ void File_Mxf::IndexTableSegment()
 {
     switch(Code2)
     {
-        ELEMENT(3F05, IndexTableSegment_EditUnitByteCount,      "EditUnitByteCount")
+        ELEMENT(3F05, IndexTableSegment_EditUnitByteCount,      "Edit Unit Byte Count")
         ELEMENT(3F06, IndexTableSegment_IndexSID,               "IndexSID")
         ELEMENT(3F07, IndexTableSegment_BodySID,                "BodySID")
-        ELEMENT(3F08, IndexTableSegment_SliceCount,             "SliceCount")
-        ELEMENT(3F0B, IndexTableSegment_IndexEditRate,          "IndexEditRate")
-        ELEMENT(3F0C, IndexTableSegment_IndexStartPosition,     "IndexStartPosition")
-        ELEMENT(3F0D, IndexTableSegment_IndexDuration,          "IndexDuration")
-        ELEMENT(3F0E, IndexTableSegment_PosTableCount ,         "PosTableCount ")
+        ELEMENT(3F08, IndexTableSegment_SliceCount,             "Slice Count")
+        ELEMENT(3F09, IndexTableSegment_DeltaEntryArray,        "Delta Entry Array")
+        ELEMENT(3F0A, IndexTableSegment_IndexEntryArray,        "Index Entry Array")
+        ELEMENT(3F0B, IndexTableSegment_IndexEditRate,          "Index Edit Rate")
+        ELEMENT(3F0C, IndexTableSegment_IndexStartPosition,     "Index Start Position")
+        ELEMENT(3F0D, IndexTableSegment_IndexDuration,          "Index Duration")
+        ELEMENT(3F0E, IndexTableSegment_PosTableCount,          "PosTableCount")
         default: InterchangeObject();
+    }
+
+    if (Code2==0x3C0A) //InstanceIUD
+    {
+        IndexTable_NSL=0;
+        IndexTable_NPE=0;
     }
 }
 
@@ -2570,8 +2580,19 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
     float64 FrameRate;
     switch (CPR_Rate) //See SMPTE 326M
     {
+        case 0x01 : FrameRate=24; break;
         case 0x02 : FrameRate=25; break;
-        default   : FrameRate=30; break;    
+        case 0x03 : FrameRate=30; break;
+        case 0x04 : FrameRate=48; break;
+        case 0x05 : FrameRate=50; break;
+        case 0x06 : FrameRate=60; break;
+        case 0x07 : FrameRate=72; break;
+        case 0x08 : FrameRate=75; break;
+        case 0x09 : FrameRate=90; break;
+        case 0x0A : FrameRate=96; break;
+        case 0x0B : FrameRate=100; break;
+        case 0x0C : FrameRate=120; break;
+        default   : FrameRate=0; break;    
     }
     if (CPR_DropFrame)
     {
@@ -2592,41 +2613,41 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
         Skip_XX(17,                                             "Junk");
     if (SMB_UserTimeStamp)
     {
-        Get_B1 (Format,                                         "Format"); //0x81=timecode, 0x82=date-timecode
+        Get_B1 (Format,                                         "Format"); //0x81=timecode, 0x82=date-timecode, SMPTE 331M
         Element_Begin("TimeCode");
         int8u Frames_Units, Frames_Tens, Seconds_Units, Seconds_Tens, Minutes_Units, Minutes_Tens, Hours_Units, Hours_Tens;
         bool  DropFrame;
         BS_Begin();
 
-        Skip_S1(4,                                              "BG1");
-        Get_S1 (4, Frames_Units,                                "Frames (Units)");
-
-        Skip_S1(4,                                              "BG2");
         Skip_SB(                                                "CF - Color fame");
         Get_SB (   DropFrame,                                   "DP - Drop frame");
         Get_S1 (2, Frames_Tens,                                 "Frames (Tens)");
+        Get_S1 (4, Frames_Units,                                "Frames (Units)");
 
-        Skip_S1(4,                                              "BG3");
+        Skip_SB(                                                "FP - Field Phase / BGF0");
+        Get_S1 (3, Seconds_Tens,                                "Seconds (Tens)");
         Get_S1 (4, Seconds_Units,                               "Seconds (Units)");
 
-        Skip_S1(4,                                              "BG4");
-        Skip_SB(                                                "FM - Frame Mark");
-        Get_S1 (3, Seconds_Tens,                                "Seconds (Tens)");
-
-        Skip_S1(4,                                              "BG5");
+        Skip_SB(                                                "BGF0 / BGF2");
+        Get_S1 (3, Minutes_Tens,                                "Minutes (Tens)");
         Get_S1 (4, Minutes_Units,                               "Minutes (Units)");
 
-        Skip_S1(4,                                              "BG6");
-        Skip_SB(                                                "BGF0");
-        Get_S1 (3, Minutes_Tens,                                "Minutes (Tens)");
-
-        Skip_S1(4,                                              "BG7");
-        Get_S1 (4, Hours_Units,                                 "Hours (Units)");
-
-        Skip_S1(4,                                              "BG8");
-        Skip_SB(                                                "BGF2");
+        Skip_SB(                                                "BGF2 / Field Phase");
         Skip_SB(                                                "BGF1");
         Get_S1 (2, Hours_Tens,                                  "Hours (Tens)");
+        Get_S1 (4, Hours_Units,                                 "Hours (Units)");
+
+        Skip_S1(4,                                              "BG2");
+        Skip_S1(4,                                              "BG1");
+
+        Skip_S1(4,                                              "BG4");
+        Skip_S1(4,                                              "BG3");
+
+        Skip_S1(4,                                              "BG6");
+        Skip_S1(4,                                              "BG5");
+
+        Skip_S1(4,                                              "BG8");
+        Skip_S1(4,                                              "BG7");
 
         BS_End();
 
@@ -2636,7 +2657,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
                                + Minutes_Units        *60*1000
                                + Seconds_Tens         *10*1000
                                + Seconds_Units           *1000
-                               + float64_int32s((Frames_Tens*10+Frames_Units)*1000/FrameRate));
+                               + FrameRate?float64_int32s((Frames_Tens*10+Frames_Units)*1000/FrameRate):0);
 
         Element_Info(Ztring().Duration_From_Milliseconds(TimeCode));
 
@@ -3005,7 +3026,7 @@ void File_Mxf::FileDescriptor_EssenceContainer()
         int8u Code7=(int8u)((EssenceContainer.lo&0x000000000000FF00LL)>> 8);
         int8u Code8=(int8u)((EssenceContainer.lo&0x00000000000000FFLL)    );
 
-        Descriptors[InstanceUID].Infos["FormatSettings_Wrapping"].From_UTF8(Mxf_EssenceContainer_Mapping(Code6, Code7, Code8));
+        Descriptors[InstanceUID].Infos["Format_Settings_Wrapping"].From_UTF8(Mxf_EssenceContainer_Mapping(Code6, Code7, Code8));
     FILLING_END();
 
 }
@@ -3693,7 +3714,53 @@ void File_Mxf::IndexTableSegment_BodySID()
 void File_Mxf::IndexTableSegment_SliceCount()
 {
     //Parsing
-    Info_B1(Data,                                                "Data"); Element_Info(Data);
+    int8u Data;
+    Get_B1(Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        IndexTable_NSL=Data;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+// 0x3F09
+void File_Mxf::IndexTableSegment_DeltaEntryArray()
+{
+    //Parsing
+    int32u NDE, Length;
+    Get_B4(NDE,                                                 "NDE");
+    Get_B4(Length,                                              "Length");
+    for (int32u Pos=0; Pos<NDE; Pos++)
+    {
+        Element_Begin("Delta Entry");
+        Skip_B1(                                                "PosTableIndex");    
+        Skip_B1(                                                "Slice");    
+        Skip_B4(                                                "Element Delta");
+        Element_End();    
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x3F0A
+void File_Mxf::IndexTableSegment_IndexEntryArray()
+{
+    //Parsing
+    int32u NIE, Length;
+    Get_B4(NIE,                                                 "NIE");
+    Get_B4(Length,                                              "Length");
+    for (int32u Pos=0; Pos<NIE; Pos++)
+    {
+        Element_Begin("Index Entry");
+        Skip_B1(                                                "Temporal Offset");    
+        Skip_B1(                                                "Key-Frame Offset");    
+        Skip_B1(                                                "Flags");    
+        Skip_B8(                                                "Stream Offset");    
+        for (int32u NSL_Pos=0; NSL_Pos<IndexTable_NSL; NSL_Pos++)
+            Skip_B4(                                            "SliceOffset");    
+        for (int32u NPE_Pos=0; NPE_Pos<IndexTable_NPE; NPE_Pos++)
+            Skip_B4(                                            "PosTable");    
+        Element_End();    
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -3725,7 +3792,12 @@ void File_Mxf::IndexTableSegment_IndexDuration()
 void File_Mxf::IndexTableSegment_PosTableCount()
 {
     //Parsing
-    Info_B1(Data,                                                "Data"); Element_Info(Data);
+    int8u Data;
+    Get_B1(Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        IndexTable_NPE=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

@@ -223,6 +223,8 @@ protected :
     void IndexTableSegment_IndexSID();                          //3F06
     void IndexTableSegment_BodySID();                           //3F07
     void IndexTableSegment_SliceCount();                        //3F08
+    void IndexTableSegment_DeltaEntryArray();                   //3F09
+    void IndexTableSegment_IndexEntryArray();                   //3F0A
     void IndexTableSegment_IndexEditRate();                     //3F0B
     void IndexTableSegment_IndexStartPosition();                //3F0C
     void IndexTableSegment_IndexDuration();                     //3F0D
@@ -495,6 +497,8 @@ protected :
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;
     int64u SDTI_TimeCode_StartTimecode;
+    int32u IndexTable_NSL;
+    int32u IndexTable_NPE;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         int128u         Ancillary_InstanceUID;
         int32u          Ancillary_LinkedTrackID;
