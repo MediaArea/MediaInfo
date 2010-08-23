@@ -321,7 +321,7 @@ void File_Lxf::Header_Parse()
                     break;
         case 1  :   //Audio
                     {
-                    int32u Info, Size;
+                    int32u Size;
                     int8u Channels_Count=0;
                     bitset<32> Channels;
 
@@ -590,7 +590,7 @@ bool File_Lxf::Audio_Stream(size_t Pos)
         while (Buffer_Pos+5<=Buffer_Max)
         {
             int64u Temp=LittleEndian2int40u(Buffer+Buffer_Pos);
-            Temp=((Temp&0xFFFF000000)>>8)|((Temp&0xFFFF0)>>4);
+            Temp=((Temp&0xFFFF000000LL)>>8)|((Temp&0xFFFF0LL)>>4);
             int32s2LittleEndian(SixteenBit+SixteenBit_Pos, Temp);
             SixteenBit_Pos+=4;
             Buffer_Pos+=5;

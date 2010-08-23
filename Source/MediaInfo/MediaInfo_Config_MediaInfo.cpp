@@ -128,12 +128,12 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_filename"))
     {
-        File_ForceParser_Set(Value);
+        File_FileName_Set(Value);
         return _T("");
     }
     else if (Option_Lower==_T("file_filename_get"))
     {
-        return File_ForceParser_Get();
+        return File_FileName_Get();
     }
     else if (Option_Lower==_T("file_forceparser"))
     {
