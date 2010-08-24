@@ -9,6 +9,7 @@ About::About(QWidget *parent) :
     ui(new Ui::About)
 {
     ui->setupUi(this);
+    ui->logoMail->setPixmap(ui->logoMail->pixmap()->scaled(ui->logoMail->pixmap()->size()/2.0,Qt::KeepAspectRatio));
 }
 
 About::~About()

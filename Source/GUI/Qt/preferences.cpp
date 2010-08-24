@@ -90,7 +90,9 @@ void Preferences::on_pushButton_editSheet_clicked()
 
 void Preferences::on_pushButton_newSheet_clicked()
 {
-    EditSheet es(Sheet::add("newsheet"), C, this);
+    Sheet* s = Sheet::add("newsheet");
+    s->addColumn(Tr("File Name").toStdString().c_str(),300,Stream_General,"CompleteName");
+    EditSheet es(s, C, this);
     if(es.exec() == QDialog::Accepted) {
         es.apply();
         refreshDisplay();

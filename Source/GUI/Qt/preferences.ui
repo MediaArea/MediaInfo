@@ -98,7 +98,7 @@
      <item>
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="Setup">
         <layout class="QFormLayout" name="formLayout">
@@ -143,17 +143,17 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="shellExtension">
-           <property name="text">
-            <string>Shell extension</string>
-           </property>
-          </widget>
-         </item>
          <item row="4" column="0">
           <widget class="QCheckBox" name="shellInfoTip">
            <property name="text">
             <string>Shell InfoTip</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="shellExtension">
+           <property name="text">
+            <string>Shell extension</string>
            </property>
           </widget>
          </item>

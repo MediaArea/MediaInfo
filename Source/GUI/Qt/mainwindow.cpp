@@ -86,7 +86,7 @@ QDir MainWindow::getCommonDir(Core*C) {
     QList<QStringList> list;
     QStringList dirName;
     for(unsigned int filePos=0;filePos<C->Count_Get();filePos++)
-        list.append(wstring2QString(C->Get(filePos,Stream_General, 0, _T("CompleteName"))).split(QDir::separator ()));
+        list.append(QDir::toNativeSeparators(wstring2QString(C->Get(filePos,Stream_General, 0, _T("CompleteName")))).split(QDir::separator ()));
     for(int i=0;i<list[0].size()-1;++i) {
         int j;
         for(j=1;(j<list.size())&&(list[j].size()>i);++j) {
@@ -123,6 +123,9 @@ void MainWindow::closeEvent(QCloseEvent *e)
 
 void MainWindow::openFiles(QStringList fileNames) {
     //Configuring
+    for(int i=0;i<fileNames.size();i++) {
+        fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
+    }
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool());
     for (int Pos=0; Pos<fileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[(size_t)Pos]));
@@ -133,6 +136,7 @@ void MainWindow::openFiles(QStringList fileNames) {
 void MainWindow::openDir(QString dirName) {
 
     //Configuring
+    dirName = QDir::toNativeSeparators(dirName);
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool());
     C->Menu_File_Open_Files_Continue(QString2wstring(dirName));
 
@@ -155,6 +159,20 @@ void MainWindow::refreshDisplay() {
             viewWidget = new QTextBrowser();
             ((QTextBrowser*)viewWidget)->setFontFamily("mono");
             ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+            break;
+        case VIEW_PBCORE:
+            C->Menu_View_PBCore();
+            viewWidget = new QTextBrowser();
+            xis = new QDomDocument();
+            xis->setContent(wstring2QString(C->Inform_Get()));
+            ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+            break;
+        case VIEW_MPEG7:
+            C->Menu_View_MPEG7();
+            viewWidget = new QTextBrowser();
+            xis = new QDomDocument();
+            xis->setContent(wstring2QString(C->Inform_Get()));
+            ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
             break;
         case VIEW_XML:
             C->Menu_View_XML();
@@ -270,7 +288,14 @@ void MainWindow::defaultSettings() {
     if(Sheet::getNbSheets()==0) {
         Sheet::add("example");
         Sheet::setDefault(0);
-        Sheet::getSheet()->addColumn("File Name",300,Stream_General,"CompleteName");
+        Sheet::getSheet()->addColumn(Tr("File Name").toStdString().c_str(),300,Stream_General,"CompleteName");
+        Sheet::getSheet()->addColumn(Tr("Format").toStdString().c_str(),100,Stream_General,"Format");
+        Sheet::getSheet()->addColumn(Tr("Video Codec List").toStdString().c_str(),100,Stream_General,"Video_Codec_List");
+        Sheet::getSheet()->addColumn(Tr("Audio Codec List").toStdString().c_str(),100,Stream_General,"Audio_Codec_List");
+        Sheet::getSheet()->addColumn(Tr("Text Codec List").toStdString().c_str(),100,Stream_General,"Text_Codec_List");
+        Sheet::getSheet()->addColumn(Tr("Video Format").toStdString().c_str(),100,Stream_Video,"Format");
+        Sheet::getSheet()->addColumn(Tr("Audio Duration").toStdString().c_str(),100,Stream_Audio,"Duration");
+        Sheet::getSheet()->addColumn(Tr("Text Width").toStdString().c_str(),100,Stream_Text,"Width");
     }
 
 }
@@ -369,7 +394,7 @@ void MainWindow::on_actionPreferences_triggered()
         }
         refreshDisplay();
     } else
-        qDebug("annulation");
+        qDebug("preferences cancelled");
 }
 
 void MainWindow::on_actionExport_triggered()
@@ -399,7 +424,7 @@ void MainWindow::on_actionExport_triggered()
             break;
         }
     } else
-        qDebug("annulation");
+        qDebug("export cancelled");
 }
 
 void MainWindow::on_actionAdvanced_Mode_toggled(bool checked)

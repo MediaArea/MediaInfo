@@ -29,7 +29,7 @@ void Sheet::load(QSettings* settings) {
         qDebug(("...loading "+s->getName()).toStdString().c_str());
         int nbColumns = settings->value("nbColumns",0).toInt();
         for(int j=0;j<nbColumns;j++) {
-            s->addColumn(settings->value("nameCol"+j).toString().toStdString().c_str(),settings->value("widthCol"+j).toInt(),settings->value("streamCol"+j).toInt(),settings->value("keywordCol"+j).toString().toStdString().c_str());
+            s->addColumn(settings->value("nameCol"+QString::number(j)).toString().toStdString().c_str(),settings->value("widthCol"+j).toInt(),settings->value("streamCol"+j).toInt(),settings->value("keywordCol"+j).toString().toStdString().c_str());
         }
         sheets.append(s);
     }
@@ -47,10 +47,10 @@ void Sheet::save(QSettings* settings) {
         settings->setValue("adaptColumns", sheets[i]->getAdaptColumns());
         settings->setValue("nbColumns", sheets[i]->getNbColumns());
         for(int j=0;j<sheets[i]->getNbColumns();++j) {
-            settings->setValue("nameCol"+j,sheets[i]->getColumn(j).name);
-            settings->setValue("widthCol"+j,sheets[i]->getColumn(j).width);
-            settings->setValue("streamCol"+j,(int)sheets[i]->getColumn(j).stream);
-            settings->setValue("keywordCol"+j,sheets[i]->getColumn(j).key);
+            settings->setValue("nameCol"+QString::number(j),sheets[i]->getColumn(j).name);
+            settings->setValue("widthCol"+QString::number(j),sheets[i]->getColumn(j).width);
+            settings->setValue("streamCol"+QString::number(j),(int)sheets[i]->getColumn(j).stream);
+            settings->setValue("keywordCol"+QString::number(j),sheets[i]->getColumn(j).key);
         }
     }
     settings->endArray();

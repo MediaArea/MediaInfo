@@ -38,6 +38,7 @@ private:
     column col;
     QToolButton* up;
     QToolButton* down;
+    QToolButton* minus;
     QComboBox* stream;
     QComboBox* combobox;
     QSpinBox* spinbox;

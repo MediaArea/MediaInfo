@@ -61,6 +61,7 @@ void EasyViewWidget::refreshDisplay() {
         }
 
     }
+    layout->addStretch();
 }
 
 QGroupBox* EasyViewWidget::createBox(stream_t StreamKind, int StreamPos) {

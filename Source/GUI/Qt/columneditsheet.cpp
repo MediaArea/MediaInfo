@@ -47,15 +47,15 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     down->setMaximumHeight(spinbox->height());
     //qDebug(QString::number(spinbox->height()).toStdString().c_str());
     this->addWidget(down);
-    QToolButton* remove = new QToolButton();
-    remove->setText("-");
-    this->addWidget(remove);
+    minus = new QToolButton();
+    minus->setText("-");
+    this->addWidget(minus);
 
     connect(lineedit,SIGNAL(textChanged(QString)),SLOT(contentChanged()));
     connect(spinbox,SIGNAL(valueChanged(int)),SLOT(contentChanged()));
     connect(up,SIGNAL(clicked()),SLOT(upButton()));
     connect(down,SIGNAL(clicked()),SLOT(downButton()));
-    connect(remove,SIGNAL(clicked()),SLOT(minusButton()));
+    connect(minus,SIGNAL(clicked()),SLOT(minusButton()));
     connect(stream,SIGNAL(currentIndexChanged(int)),SLOT(fillCombobox()));
 
     fillCombobox();
@@ -117,5 +117,6 @@ void ColumnEditSheet::posRemoved(int p, int nb) {
 void ColumnEditSheet::posChanged(int nb) {
     up->setEnabled(pos!=0);
     down->setEnabled(pos!=(nb-1));
+    minus->setEnabled(nb>1);
     emit somethingChanged();
 }
