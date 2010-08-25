@@ -21,38 +21,16 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QTabWidget" name="tabWidget">
-        <property name="currentIndex">
-         <number>0</number>
+       <widget class="QComboBox" name="comboBoxMode"/>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBoxConfig"/>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBoxAdvanced">
+        <property name="text">
+         <string>Advanced mode</string>
         </property>
-        <widget class="QWidget" name="Text">
-         <attribute name="title">
-          <string>Text</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QCheckBox" name="textAdvanced">
-            <property name="text">
-             <string>Advanced mode</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="HTML">
-         <attribute name="title">
-          <string>HTML</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QCheckBox" name="htmlAdvanced">
-            <property name="text">
-             <string>Advanced mode</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
        </widget>
       </item>
      </layout>

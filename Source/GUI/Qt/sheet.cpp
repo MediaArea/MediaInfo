@@ -2,29 +2,21 @@
 
 int Sheet::indexDefault = 0;
 QVector<Sheet*> Sheet::sheets = QVector<Sheet*>();
+QStringList Sheet::names = QStringList();
 
-Sheet::Sheet(const char* name)
+Sheet::Sheet(QString name)
 {
-    this->name = QString(name);
+    this->name = name;
 }
-void Sheet::addColumn(const char* name, const int width, const int stream, const char* keyw) {
-    column c;
-    c.key = QString(keyw);
-    c.name = QString(name);
-    c.stream = (stream_t)stream;
-    c.width = width;
-    addColumn(c);
-}
-void Sheet::addColumn(column c) {
-    columns.append(c);
-}
+
+/* STATIC FUNCTIONS */
 
 void Sheet::load(QSettings* settings) {
     qDebug("loading sheets");
     int size = settings->beginReadArray("sheets");
     for (int i = 0; i < size; ++i) {
         settings->setArrayIndex(i);
-        Sheet* s = new Sheet(settings->value("name").toString().toStdString().c_str());
+        Sheet* s = new Sheet(settings->value("name").toString());
         s->setAdaptColumns(settings->value("adaptColumns",false).toBool());
         qDebug(("...loading "+s->getName()).toStdString().c_str());
         int nbColumns = settings->value("nbColumns",0).toInt();
@@ -32,8 +24,10 @@ void Sheet::load(QSettings* settings) {
             s->addColumn(settings->value("nameCol"+QString::number(j)).toString().toStdString().c_str(),settings->value("widthCol"+j).toInt(),settings->value("streamCol"+j).toInt(),settings->value("keywordCol"+j).toString().toStdString().c_str());
         }
         sheets.append(s);
+        names.append(s->getName());
     }
     settings->endArray();
+    indexDefault = settings->value("SheetIndexDefault",0).toInt();
     qDebug("end loading");
 }
 
@@ -54,24 +48,91 @@ void Sheet::save(QSettings* settings) {
         }
     }
     settings->endArray();
+    settings->setValue("SheetIndexDefault",indexDefault);
     qDebug("end saving");
 }
 
-column Sheet::getColumn(int i)  {
-    return columns[i];
+void Sheet::remove(int i) {
+    sheets.remove(i);
+    if(getIndex()>=sheets.size())
+        setDefault(sheets.size()-1);
+}
+
+void Sheet::removeLast() {
+    remove(sheets.size()-1);
+}
+
+Sheet* Sheet::get(int i) {
+    return sheets[i];
 }
 
 Sheet* Sheet::getSheet() {
-    return sheets[indexDefault];
+    return get(indexDefault);
+}
+
+int Sheet::getNbSheets() {
+    return sheets.size();
 }
 
 void Sheet::setDefault(int i) {
     indexDefault = i;
 }
 
-Sheet* Sheet::add(const char* name) {
+int Sheet::getIndex() {
+    return indexDefault;
+}
+
+Sheet* Sheet::add(QString name) {
+    if(names.contains(name)) {
+        int n;
+        for(n=2;names.contains(name+QString::number(n));n++);
+        name.append(QString::number(n));
+    }
     Sheet* s = new Sheet(name);
     sheets.append(s);
+    names.append(s->getName());
     setDefault(sheets.size()-1);
     return s;
+}
+
+/* METHODS */
+
+void Sheet::addColumn(const char* name, const int width, const int stream, const char* keyw) {
+    column c;
+    c.key = QString(keyw);
+    c.name = QString(name);
+    c.stream = (stream_t)stream;
+    c.width = width;
+    addColumn(c);
+}
+void Sheet::addColumn(column c) {
+    columns.append(c);
+}
+
+column Sheet::getColumn(int i)  {
+    return columns[i];
+}
+
+void Sheet::resetColumns() {
+    columns.clear();
+}
+
+int Sheet::getNbColumns() {
+    return columns.size();
+}
+
+QString Sheet::getName() {
+    return name;
+}
+
+void Sheet::setName(QString n) {
+    name = n;
+}
+
+bool Sheet::getAdaptColumns() {
+    return adaptColumns;
+}
+
+void Sheet::setAdaptColumns(bool ac) {
+    adaptColumns = ac;
 }

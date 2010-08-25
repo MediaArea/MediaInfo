@@ -26,6 +26,10 @@ private:
     Core* C;
 
 private slots:
+    void on_treeTextComboBox_currentIndexChanged(int index);
+    void on_pushButton_deleteTreeText_clicked();
+    void on_pushButton_newTreeText_clicked();
+    void on_pushButton_editTreeText_clicked();
     void on_pushButton_deleteSheet_clicked();
     void on_pushButton_newSheet_clicked();
     void on_pushButton_editSheet_clicked();

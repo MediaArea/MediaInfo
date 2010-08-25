@@ -92,6 +92,9 @@
          <property name="text">
           <string>no selection</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
          <property name="wordWrap">
           <bool>true</bool>
          </property>

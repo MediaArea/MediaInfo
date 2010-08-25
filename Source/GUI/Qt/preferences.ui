@@ -98,7 +98,7 @@
      <item>
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="Setup">
         <layout class="QFormLayout" name="formLayout">
@@ -268,11 +268,39 @@
        <widget class="QWidget" name="TreeText">
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="treeTextLabel">
            <property name="text">
-            <string>Unavailable</string>
+            <string>Select your desired configuration</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="treeTextComboBox"/>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="treeTextLayout">
+           <item>
+            <widget class="QPushButton" name="pushButton_deleteTreeText">
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_editTreeText">
+             <property name="text">
+              <string>Edit</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_newTreeText">
+             <property name="text">
+              <string>New</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>

@@ -41,10 +41,13 @@ void EditSheet::initDisplay() {
 }
 
 void EditSheet::refreshDisplay() {
+    qDebug((QString::number(ui->verticalLayout->count())+" columns :").toStdString().c_str());
     ui->tableWidget->setColumnCount(ui->verticalLayout->count());
     for(int i=0;i<ui->verticalLayout->count();++i) {
         //column c = sheet->getColumn(i);
-        ui->tableWidget->setColumnWidth(i,((QSpinBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->widget())->value());
+        qDebug((QString::number(i)+" : "+((QLineEdit*)ui->verticalLayout->itemAt(i)->layout()->itemAt(0)->widget())->text()).toStdString().c_str());
+        if(!ui->checkBoxAdapt)
+            ui->tableWidget->setColumnWidth(i,((QSpinBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->widget())->value());
         if(ui->tableWidget->horizontalHeaderItem(i))
             ui->tableWidget->horizontalHeaderItem(i)->setText(((QLineEdit*)ui->verticalLayout->itemAt(i)->layout()->itemAt(0)->widget())->text());
         else {
@@ -52,6 +55,8 @@ void EditSheet::refreshDisplay() {
             ui->tableWidget->setHorizontalHeaderItem(i,header);
         }
     }
+    if(ui->checkBoxAdapt)
+        ui->tableWidget->resizeColumnsToContents();
 }
 
 QLayout* EditSheet::createColumn(column c) {
@@ -65,6 +70,8 @@ QLayout* EditSheet::createColumn(column c) {
     connect(this,SIGNAL(deletePos(int,int)),col,SLOT(posRemoved(int,int)));
     connect(this,SIGNAL(newPos(int)),col,SLOT(posChanged(int)));
     connect(ui->checkBoxAdapt,SIGNAL(toggled(bool)),col->widthBox(),SLOT(setDisabled(bool)));
+
+    col->widthBox()->setDisabled(ui->checkBoxAdapt->isChecked());
 
     col->setContentsMargins(0,0,0,0);
     col->setSpacing(0);

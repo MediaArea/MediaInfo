@@ -58,15 +58,17 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="../../../Source"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib qtsvgd.lib qsvg.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
+				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib QtXml.lib qtsvgd.lib qsvg.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC2008\$(PlatformName)\$(ConfigurationName)&quot;;&quot;../../../../Qt/lib/$(PlatformName)\$(ConfigurationName)&quot;;../../../../Qt\plugins\imageformats"
+				IgnoreDefaultLibraryNames="libcmt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -133,6 +135,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="../../../Source"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -208,6 +211,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="../../../Source"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -286,6 +290,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="../../../Source"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -341,11 +346,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\GUI\Qt\configtreetext.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Common\Core.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\GUI\Qt\easyviewwidget.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\GUI\Qt\editconfigtreetext.cpp"
 				>
 			</File>
 			<File
@@ -396,7 +409,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\_Automated\moc_configtreetext.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\_Automated\moc_easyviewwidget.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\_Automated\moc_editconfigtreetext.cpp"
 					>
 				</File>
 				<File
@@ -439,11 +460,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\GUI\Qt\configtreetext.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Common\Core.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\GUI\Qt\easyviewwidget.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\GUI\Qt\editconfigtreetext.h"
 				>
 			</File>
 			<File
@@ -486,6 +515,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\_Automated\ui_editconfigtreetext.h"
+					>
+				</File>
+				<File
 					RelativePath=".\_Automated\ui_editsheet.h"
 					>
 				</File>
@@ -494,11 +527,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\_Automated\ui_mainwindow.h"
+					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
+					RelativePath=".\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
@@ -516,14 +549,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-			<File
-				RelativePath="..\..\..\Source\GUI\VCL\Manifest.rc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\GUI\VCL\Manifest.xml"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

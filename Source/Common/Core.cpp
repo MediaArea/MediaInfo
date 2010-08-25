@@ -101,6 +101,7 @@ void Core::Menu_View_Easy ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_Sheet ()
 {
+    MI->Option(_T("Inform"), String());
     Text=_T("Sheet");
     Kind=Kind_Sheet;
 }
@@ -126,6 +127,20 @@ void Core::Menu_View_XML ()
 {
     MI->Option(_T("Inform"), _T("XML"));
     Kind=Kind_XML;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_PBCore ()
+{
+    MI->Option(_T("Inform"), _T("PBCore"));
+    Kind=Kind_PBCore;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_MPEG7 ()
+{
+    MI->Option(_T("Inform"), _T("MPEG-7"));
+    Kind=Kind_MPEG7;
 }
 
 //---------------------------------------------------------------------------

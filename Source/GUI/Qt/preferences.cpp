@@ -4,7 +4,9 @@
 #include <QtGui/QLabel>
 #include "views.h"
 #include "sheet.h"
+#include "configtreetext.h"
 #include "editsheet.h"
+#include "editconfigtreetext.h"
 
 Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     QDialog(parent),
@@ -40,6 +42,12 @@ Preferences::~Preferences()
 }
 
 void Preferences::refreshDisplay() {
+    // Text&Tree
+    ConfigTreeText::fillComboBox(ui->treeTextComboBox);
+    ui->pushButton_editTreeText->setEnabled(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt()>0);
+    ui->pushButton_deleteTreeText->setEnabled( (ConfigTreeText::getNbConfigTreeTexts()>1) && (ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt()>0) );
+
+    // Sheets
     ui->comboBoxSheet->clear();
     for(int i=0;i<Sheet::getNbSheets();i++) {
         ui->comboBoxSheet->addItem(Sheet::get(i)->getName(),i);
@@ -58,6 +66,8 @@ void Preferences::saveSettings() {
     settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
     Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     Sheet::save(settings);
+    ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());
+    ConfigTreeText::save(settings);
 }
 
 void Preferences::changeEvent(QEvent *e)
@@ -106,4 +116,39 @@ void Preferences::on_pushButton_deleteSheet_clicked()
 {
     Sheet::remove(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     refreshDisplay();
+}
+
+void Preferences::on_pushButton_editTreeText_clicked()
+{
+    EditConfigTreeText ectt(ConfigTreeText::get(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt()), C, this);
+    if(ectt.exec() == QDialog::Accepted) {
+        ectt.apply();
+        refreshDisplay();
+    } else
+        qDebug("config editing cancelled");
+}
+
+void Preferences::on_pushButton_newTreeText_clicked()
+{
+    ConfigTreeText* ctt = ConfigTreeText::add("newconfig");
+    EditConfigTreeText ectt(ctt, C, this);
+    if(ectt.exec() == QDialog::Accepted) {
+        ectt.apply();
+        refreshDisplay();
+    } else {
+        ConfigTreeText::removeLast();
+        qDebug("new config cancelled");
+    }
+}
+
+void Preferences::on_pushButton_deleteTreeText_clicked()
+{
+    ConfigTreeText::remove(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());
+    refreshDisplay();
+}
+
+void Preferences::on_treeTextComboBox_currentIndexChanged(int index)
+{
+    ui->pushButton_editTreeText->setEnabled(index>0);
+    ui->pushButton_deleteTreeText->setEnabled( (ConfigTreeText::getNbConfigTreeTexts()>1) && (index>0) );
 }

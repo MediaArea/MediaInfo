@@ -20,6 +20,7 @@
 #include "export.h"
 #include "sheetview.h"
 #include "sheet.h"
+#include "configtreetext.h"
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
@@ -158,7 +159,24 @@ void MainWindow::refreshDisplay() {
             C->Menu_View_Text();
             viewWidget = new QTextBrowser();
             ((QTextBrowser*)viewWidget)->setFontFamily("mono");
-            ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+            if(ConfigTreeText::getIndex()==0)
+                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+            else {
+                for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
+                    for (int streamKind=0;streamKind<4;streamKind++) {
+                        if(!ConfigTreeText::getConfigTreeText()->getFields(streamKind).isEmpty())
+                            ((QTextBrowser*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, _T("StreamKind/String"), Info_Text)));
+                        for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
+                        {
+                            foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
+                                qDebug(("field : "+field).toStdString().c_str());
+                                QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
+                                ((QTextBrowser*)viewWidget)->append(field+" : "+A);
+                            }
+                        }
+                    }
+                }
+            }
             break;
         case VIEW_PBCORE:
             C->Menu_View_PBCore();
@@ -245,22 +263,31 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                 treeItem->addChild(node);
                 unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
 
-                for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
-                {
-                    if ((completeDisplay || C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+                if(ConfigTreeText::getIndex()==0) {
+                    for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
                     {
-                        //Pour chaque champ
-                        QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text));
-                        A+=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text));
-                        //Quoi Refresh?
-                        QString D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text));
-                        if (D.isEmpty())
-                            D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
-                        //Affichage
-                        QStringList sl = QStringList(D);
+                        if ((completeDisplay || C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+                        {
+                            //Pour chaque champ
+                            QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text));
+                            A+=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text));
+                            //Quoi Refresh?
+                            QString D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text));
+                            if (D.isEmpty())
+                                D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
+                            //Affichage
+                            QStringList sl = QStringList(D);
+                            sl.append(A);
+                            node->addChild(new QTreeWidgetItem(node,sl));
+                        }
+                    }
+                } else {
+                    foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(StreamKind)) {
+                        qDebug(("field : "+field).toStdString().c_str());
+                        QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, QString2wstring(field)));
+                        QStringList sl = QStringList(field);
                         sl.append(A);
                         node->addChild(new QTreeWidgetItem(node,sl));
-
                     }
                 }
             }
@@ -296,6 +323,11 @@ void MainWindow::defaultSettings() {
         Sheet::getSheet()->addColumn(Tr("Video Format").toStdString().c_str(),100,Stream_Video,"Format");
         Sheet::getSheet()->addColumn(Tr("Audio Duration").toStdString().c_str(),100,Stream_Audio,"Duration");
         Sheet::getSheet()->addColumn(Tr("Text Width").toStdString().c_str(),100,Stream_Text,"Width");
+    }
+    ConfigTreeText::load(settings);
+    if(ConfigTreeText::getNbConfigTreeTexts()==0) {
+        ConfigTreeText::add("Default");
+        ConfigTreeText::setDefault(0);
     }
 
 }
@@ -411,18 +443,48 @@ void MainWindow::on_actionExport_triggered()
             QMessageBox::warning(this,"Error","The file cannot be open");
         C->Menu_Debug_Complete(e.isAdvancedChecked());
         switch(e.getExportMode()) {
-        case Export::TEXT_MODE:
+        case Export::TEXT:
             C->Menu_View_Text();
+            if(e.getExportConfig()==0)
+                file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            else {
+                for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
+                    for (int streamKind=0;streamKind<4;streamKind++) {
+                        if(!ConfigTreeText::getConfigTreeText()->getFields(streamKind).isEmpty())
+                            file.write(("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, _T("StreamKind/String"), Info_Text))+"\n").toStdString().c_str());
+                        for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
+                        {
+                            foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
+                                qDebug(("field : "+field).toStdString().c_str());
+                                QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
+                                file.write((field+" : "+A+"\n").toStdString().c_str());
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        case Export::HTML:
+            C->Menu_View_HTML();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
-        case Export::HTML_MODE:
-            C->Menu_View_HTML();
+        case Export::XML:
+            C->Menu_View_XML();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::PBCORE:
+            C->Menu_View_PBCore();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::MPEG7:
+            C->Menu_View_MPEG7();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
         default:
             QMessageBox::warning(this,"Error","Please signal this error to the MediaInfo project team : Unkown export mode");
             break;
         }
+
     } else
         qDebug("export cancelled");
 }
