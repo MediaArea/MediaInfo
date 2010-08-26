@@ -186,6 +186,10 @@ namespace Elements
     UUID(SDTI_SoundMetadataSet,                                 060E2B34, 02430101, 0D010301, 04010400)
     UUID(SDTI_DataMetadataSet,                                  060E2B34, 02430101, 0D010301, 04010500)
     UUID(SDTI_ControlMetadataSet,                               060E2B34, 02630101, 0D010301, 04010600)
+
+    //Private
+    UUID(Omneon_010201010100,                                   060E2B34, 02530105, 0E0B0102, 01010100)
+    UUID(Omneon_010201020100,                                   060E2B34, 02530105, 0E0B0102, 01020100)
 }
 
 //---------------------------------------------------------------------------
@@ -802,13 +806,13 @@ void File_Mxf::Streams_Finish_ContentStorage (int128u ContentStorageUID)
 void File_Mxf::Streams_Finish_Package (int128u PackageUID)
 {
     packages::iterator Package=Packages.find(PackageUID);
-    if (Package==Packages.end())
+    if (Package==Packages.end() || !Package->second.IsSourcePackage)
         return;
 
     for (size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
         Streams_Finish_Track(Package->second.Tracks[Pos]);
 
-    Streams_Finish_Descriptor(Package->second.Descriptor);
+    Streams_Finish_Descriptor(Package->second.Descriptor, PackageUID);
 }
 
 //---------------------------------------------------------------------------
@@ -859,7 +863,35 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
     }
 
-    if (Tracks[TrackUID].TrackID!=(int32u)-1)
+    //Looking for Material package TrackID
+    int32u ID=(int32u)-1;
+    for (packages::iterator SourcePackage=Packages.begin(); SourcePackage!=Packages.end(); SourcePackage++)
+        if (SourcePackage->second.PackageUID.hi.hi) //Looking fo a SourcePackage with PackageUID only
+        {
+            //Testing if the Track is in this SourcePackage
+            for (size_t Tracks_Pos=0; Tracks_Pos<SourcePackage->second.Tracks.size(); Tracks_Pos++)
+                if (SourcePackage->second.Tracks[Tracks_Pos]==TrackUID)
+                {
+                    //We have the the right PackageUID, looking for SourceClip from Sequence from Track from MaterialPackage
+                    for (components::iterator SourceClip=Components.begin(); SourceClip!=Components.end(); SourceClip++)
+                        if (SourceClip->second.SourcePackageID.lo==SourcePackage->second.PackageUID.lo && SourceClip->second.SourceTrackID==Essence->second.TrackID) //int256u doesn't support yet ==
+                        {
+                            //We have the right SourceClip, looking for the Sequence from Track from MaterialPackage
+                            for (components::iterator Sequence=Components.begin(); Sequence!=Components.end(); Sequence++)
+                                for (size_t StructuralComponents_Pos=0; StructuralComponents_Pos<Sequence->second.StructuralComponents.size(); StructuralComponents_Pos++)
+                                    if (Sequence->second.StructuralComponents[StructuralComponents_Pos]==SourceClip->first)
+                                    {
+                                        //We have the right Sequence, looking for Track from MaterialPackage
+                                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                                            if (Track->second.Sequence==Sequence->first)
+                                                ID=Track->second.TrackID;
+                                    }
+                        }
+                }
+        }
+    if (ID!=(int32u)-1)
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
+    else if (Tracks[TrackUID].TrackID!=(int32u)-1)
         Fill(StreamKind_Last, StreamPos_Last, General_ID, Tracks[TrackUID].TrackID);
     else
     {
@@ -965,7 +997,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
+void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageUID)
 {
     descriptors::iterator Descriptor=Descriptors.find(DescriptorUID);
     if (Descriptor==Descriptors.end())
@@ -975,7 +1007,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
     if (!Descriptor->second.SubDescriptors.empty())
     {
         for (size_t Pos=0; Pos<Descriptor->second.SubDescriptors.size(); Pos++)
-            Streams_Finish_Descriptor(Descriptor->second.SubDescriptors[Pos]);
+            Streams_Finish_Descriptor(Descriptor->second.SubDescriptors[Pos], PackageUID);
         return; //Is not a real descriptor
     }
 
@@ -997,7 +1029,35 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
             else
             {
                 Stream_Prepare(Descriptor->second.StreamKind);
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
+                if (Descriptor->second.LinkedTrackID!=(int32u)-1)
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
+                else
+                {
+                    //Looking for Material package TrackID
+                    int32u ID=(int32u)-1;
+                    packages::iterator SourcePackage=Packages.find(PackageUID);
+                    //We have the the right PackageUID, looking for SourceClip from Sequence from Track from MaterialPackage
+                    for (components::iterator SourceClip=Components.begin(); SourceClip!=Components.end(); SourceClip++)
+                        if (SourceClip->second.SourcePackageID.lo==SourcePackage->second.PackageUID.lo) //int256u doesn't support yet ==
+                        {
+                            //We have the right SourceClip, looking for the Sequence from Track from MaterialPackage
+                            for (components::iterator Sequence=Components.begin(); Sequence!=Components.end(); Sequence++)
+                                for (size_t StructuralComponents_Pos=0; StructuralComponents_Pos<Sequence->second.StructuralComponents.size(); StructuralComponents_Pos++)
+                                    if (Sequence->second.StructuralComponents[StructuralComponents_Pos]==SourceClip->first)
+                                    {
+                                        //We have the right Sequence, looking for Track from MaterialPackage
+                                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                                        {
+                                            int64u A=Sequence->first.hi;
+                                            int64u B=Track->first.hi;
+                                            if (Track->second.Sequence==Sequence->first)
+                                                ID=Track->second.TrackID;
+                                        }
+                                    }
+                        }
+                    if (ID!=(int32u)-1)
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, 10, true);
+                }
             }
         }
     }
@@ -1112,6 +1172,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
         {
             //Hacks - Before
             Ztring CodecID=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
+            Ztring ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
 
             Merge(*MI.Info, StreamKind_Last, 0, StreamPos_Last);
             File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
@@ -1124,6 +1185,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                 CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
                 Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
             }
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
 
             //Special case: MXF in MXF
             if (MI.Info && MI.Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
@@ -1218,7 +1280,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float32 EditRate)
         return;
 
     //Duration
-    if (EditRate && StreamKind_Last!=Stream_Max)
+    if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1)
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
 }
 
@@ -1593,6 +1655,8 @@ void File_Mxf::Data_Parse()
     ELEMENT(TerminatingFiller,                                  "Terminating Filler")
     ELEMENT(XmlDocumentText,                                    "XML Document Text")
     ELEMENT(SDTI_SystemMetadataPack,                            "SDTI System Metadata Pack")
+    ELEMENT(Omneon_010201010100,                                "Omneon (010201010100)")
+    ELEMENT(Omneon_010201020100,                                "Omneon (010201020100)")
     else if (Code_Compare1==0x060E2B34
           && ((Code_Compare2)&0xFFBFFFFF)==0x02030101 //0x43 or 0x63
           && Code_Compare3==0x0D010301
@@ -1990,6 +2054,7 @@ void File_Mxf::DMSegment()
 {
     switch(Code2)
     {
+        ELEMENT(6101, DMSegment_DMFramework,                    "DM Framework")
         default: StructuralComponent();
     }
 }
@@ -2727,6 +2792,26 @@ void File_Mxf::SDTI_ControlMetadataSet()
 }
 
 //---------------------------------------------------------------------------
+void File_Mxf::Omneon_010201010100()
+{
+    //Parsing
+    switch(Code2)
+    {
+        default: GenerationInterchangeObject();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Omneon_010201020100()
+{
+    //Parsing
+    switch(Code2)
+    {
+        default: GenerationInterchangeObject();
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::Track()
 {
     //Parsing
@@ -2942,6 +3027,14 @@ void File_Mxf::ContentStorage_EssenceContainerData()
 }
 
 //---------------------------------------------------------------------------
+// 0x6101
+void File_Mxf::DMSegment_DMFramework()
+{
+    //Parsing
+    Info_UUID(Data,                                             "DM Framework"); Element_Info(Ztring().From_UUID(Data));
+}
+
+//---------------------------------------------------------------------------
 // 0x2701
 void File_Mxf::EssenceContainerData_LinkedPackageUID()
 {
@@ -3046,7 +3139,8 @@ void File_Mxf::FileDescriptor_LinkedTrackID()
     Get_B4 (Data,                                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Descriptors[InstanceUID].LinkedTrackID=Data;
+        if (Descriptors[InstanceUID].LinkedTrackID==(int32u)-1)
+            Descriptors[InstanceUID].LinkedTrackID=Data;
         if (InstanceUID==Ancillary_InstanceUID)
             Ancillary_LinkedTrackID=Data;
     FILLING_END();
@@ -3148,7 +3242,12 @@ void File_Mxf::GenericDescriptor_Locators()
 void File_Mxf::GenericPackage_PackageUID()
 {
     //Parsing
-    Skip_UMID();
+    int256u Data;
+    Get_UMID (Data,                                             "PackageUID");
+
+    FILLING_BEGIN();
+        Packages[InstanceUID].PackageUID=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3532,7 +3631,8 @@ void File_Mxf::GenericTrack_TrackID()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Tracks[InstanceUID].TrackID=Data;
+        if (Tracks[InstanceUID].TrackID==(int32u)-1)
+            Tracks[InstanceUID].TrackID=Data;
     FILLING_END();
 }
 
@@ -3550,7 +3650,7 @@ void File_Mxf::GenericTrack_Sequence()
 {
     //Parsing
     int128u Data;
-    Get_UUID(Data,                                              "Data");
+    Get_UUID(Data,                                              "Data"); Element_Info(Ztring::ToZtring(Data, 16));
 
     FILLING_BEGIN();
         Tracks[InstanceUID].Sequence=Data;
@@ -4253,7 +4353,12 @@ void File_Mxf::Sequence_StructuralComponents()
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Skip_UUID(                                              "StructuralComponent");
+        int128u Data;
+        Get_UUID (Data,                                         "StructuralComponent");
+
+        FILLING_BEGIN();
+            Components[InstanceUID].StructuralComponents.push_back(Data);
+        FILLING_END();
     }
 }
 
@@ -4262,7 +4367,12 @@ void File_Mxf::Sequence_StructuralComponents()
 void File_Mxf::SourceClip_SourcePackageID()
 {
     //Parsing
-    Skip_UMID();
+    int256u Data;
+    Get_UMID(Data,                                              "SourcePackageID");
+
+    FILLING_BEGIN();
+        Components[InstanceUID].SourcePackageID=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4270,7 +4380,12 @@ void File_Mxf::SourceClip_SourcePackageID()
 void File_Mxf::SourceClip_SourceTrackID()
 {
     //Parsing
-    Info_B4(Data,                                                "ID"); Element_Info(Data);
+    Info_B4(Data,                                                "SourceTrackID"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Components[InstanceUID].SourceTrackID==(int32u)-1)
+            Components[InstanceUID].SourceTrackID=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4278,7 +4393,7 @@ void File_Mxf::SourceClip_SourceTrackID()
 void File_Mxf::SourceClip_StartPosition()
 {
     //Parsing
-    Info_B8(Duration,                                           "Duration"); Element_Info(Duration); //units of edit rate
+    Info_B8(Data,                                               "StartPosition"); Element_Info(Data); //units of edit rate
 }
 
 //---------------------------------------------------------------------------
@@ -4338,7 +4453,7 @@ void File_Mxf::TimecodeComponent_StartTimecode()
     Get_B8 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+        if (Data!=0xFFFFFFFFFFFFFFFFLL && TimeCode_StartTimecode==(int64u)-1) //Using first TimeCode
             TimeCode_StartTimecode=Data;
     FILLING_END();
 }
@@ -4983,6 +5098,12 @@ void File_Mxf::Info_UL_02xx01()
             }
             }
             break;
+        case 0x0E :
+            {
+            Param_Info("User Organisation Registered For Private Use");
+            Skip_B7(                                            "Private");
+            break;
+            }
         default   :
             Skip_B7(                                            "Unknown");
     }
@@ -5426,6 +5547,16 @@ void File_Mxf::Skip_UL(const char* Name)
         int128u Value;
         Get_UL(Value, Name, NULL);
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Get_UMID(int256u &Value, const char* Name)
+{
+    Element_Name(Name);
+
+    //Parsing
+    Get_UUID (Value.hi,                                         "Fixed");
+    Get_UUID (Value.lo,                                         "UUID"); Element_Info(Ztring().From_UUID(Value.lo));
 }
 
 //---------------------------------------------------------------------------

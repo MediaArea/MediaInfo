@@ -48,6 +48,24 @@ public :
     File_Mxf();
     ~File_Mxf();
 
+    //int256u
+    class int256u
+    {
+        public:
+            // Binary correct representation of signed 256bit integer
+            int128u lo;
+            int128u hi;
+
+            int256u()
+            {
+                lo.lo=0;
+                lo.hi=0;
+                hi.lo=0;
+                hi.lo=0;
+            }
+    };
+
+
 protected :
     //Streams management
     void Streams_Finish ();
@@ -56,7 +74,7 @@ protected :
     void Streams_Finish_Package (int128u PackageUID);
     void Streams_Finish_Track (int128u TrackUID);
     void Streams_Finish_Essence (int32u EssenceUID, int128u TrackUID);
-    void Streams_Finish_Descriptor (int128u DescriptorUID);
+    void Streams_Finish_Descriptor (int128u DescriptorUID, int128u PackageUID);
     void Streams_Finish_Locator (int128u LocatorUID);
     void Streams_Finish_Component (int128u ComponentUID, float32 EditRate);
     void Streams_Finish_Identification (int128u IdentificationUID);
@@ -135,6 +153,8 @@ protected :
     void SDTI_SoundMetadataSet();
     void SDTI_DataMetadataSet();
     void SDTI_ControlMetadataSet();
+    void Omneon_010201010100();
+    void Omneon_010201020100();
 
     //Complex types
     void AES3PCMDescriptor_AuxBitsMode();                       //3D08
@@ -156,6 +176,7 @@ protected :
     void CDCIEssenceDescriptor_ReversedByteOrder();             //330B
     void ContentStorage_Packages();                             //1901
     void ContentStorage_EssenceContainerData();                 //1902
+    void DMSegment_DMFramework();                               //6101
     void EssenceContainerData_LinkedPackageUID();               //2701
     void EssenceContainerData_IndexSID();                       //3F06
     void EssenceContainerData_BodySID();                        //3F07
@@ -303,6 +324,7 @@ protected :
     void Get_Timestamp (Ztring &Value);
     void Skip_Timestamp();
     void Info_Timestamp();
+    void Get_UMID       (int256u &Value, const char* Name);
     void Skip_UMID      ();
 
     void Get_UL (int128u &Value, const char* Name, const char* (*Param) (int128u));
@@ -375,6 +397,7 @@ protected :
     //Package
     struct package
     {
+        int256u PackageUID;
         int128u Descriptor;
         std::vector<int128u> Tracks;
         bool IsSourcePackage;
@@ -490,10 +513,14 @@ protected :
     struct component
     {
         int64u Duration;
+        int256u SourcePackageID; //Sequence from SourcePackage only
+        int32u  SourceTrackID;
+        std::vector<int128u> StructuralComponents; //Sequence from MaterialPackage only
 
         component()
         {
-            Duration=0;
+            Duration=(int64u)-1;
+            SourceTrackID=0;
         }
     };
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
