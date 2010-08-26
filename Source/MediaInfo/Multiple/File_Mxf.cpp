@@ -4253,9 +4253,7 @@ void File_Mxf::Sequence_StructuralComponents()
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("StructuralComponent", Length);
-        Skip_UUID(                                              "UUID");
-        Element_End();
+        Skip_UUID(                                              "StructuralComponent");
     }
 }
 
