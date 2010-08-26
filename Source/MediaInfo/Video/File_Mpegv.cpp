@@ -1195,7 +1195,13 @@ void File_Mpegv::slice_start()
         if (!Status[IsAccepted])
             Accept("MPEG Video");
         if (!Status[IsFilled] && (!CC___IsPresent && !Scte_IsPresent && !GA94_03_IsPresent && !Cdp_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        {
             Fill("MPEG Video");
+            if (File_Size==(int64u)-1)
+                Finish("MPEG Video");
+            else if (!IsSub && 2*(File_Offset+Buffer_Size)<File_Size && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+                GoToFromEnd(File_Offset+Buffer_Size);
+        }
     FILLING_END();
 }
 
