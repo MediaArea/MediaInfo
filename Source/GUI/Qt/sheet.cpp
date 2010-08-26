@@ -21,7 +21,7 @@ void Sheet::load(QSettings* settings) {
         qDebug(("...loading "+s->getName()).toStdString().c_str());
         int nbColumns = settings->value("nbColumns",0).toInt();
         for(int j=0;j<nbColumns;j++) {
-            s->addColumn(settings->value("nameCol"+QString::number(j)).toString().toStdString().c_str(),settings->value("widthCol"+j).toInt(),settings->value("streamCol"+j).toInt(),settings->value("keywordCol"+j).toString().toStdString().c_str());
+            s->addColumn(settings->value("nameCol"+QString::number(j)).toString().toStdString().c_str(),settings->value("widthCol"+QString::number(j)).toInt(),settings->value("streamCol"+QString::number(j)).toInt(),settings->value("keywordCol"+QString::number(j)).toString().toStdString().c_str());
         }
         sheets.append(s);
         names.append(s->getName());

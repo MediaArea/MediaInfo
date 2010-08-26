@@ -28,10 +28,10 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     spinbox->setValue(c.width);
     this->addWidget(spinbox);
     stream = new QComboBox();
-    stream->addItem(Tr("General"),Stream_General);
-    stream->addItem(Tr("Video"),Stream_Video);
-    stream->addItem(Tr("Audio"),Stream_Audio);
-    stream->addItem(Tr("Text"),Stream_Text);
+    for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
+    {
+        stream->addItem(wstring2QString(C->StreamName((stream_t)StreamKind)),StreamKind);
+    }
     stream->setCurrentIndex(c.stream);
     this->addWidget(stream);
     combobox = new QComboBox();
@@ -74,7 +74,7 @@ void ColumnEditSheet::fillCombobox() {
     QString s = wstring2QString(C->Parameters());
     s.replace("\r\n","\n");
     s.remove(0,s.indexOf(stream->currentText()+"\n"));
-    s.truncate(s.indexOf("\n\n"));
+    s.truncate((s.indexOf("\n\n")==-1?s.size():s.indexOf("\n\n")));
     QStringList sl = s.split("\n");
     sl.removeAt(0);
     sl.replaceInStrings(QRegExp(";(.*)"),"");

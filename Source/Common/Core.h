@@ -88,6 +88,8 @@ public:
     String Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text);
     String Summary_Get(int File_Pos, stream_t StreamKind, size_t StreamPos);
     String Parameters();
+    String StreamName (stream_t StreamKind);
+    int State_Get();
 
     //Temp
     void    Data_Prepare();

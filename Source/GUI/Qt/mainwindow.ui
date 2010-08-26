@@ -17,7 +17,7 @@
    <string>MediaInfo</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../Ressource/Resources.qrc">
     <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -70,11 +70,6 @@
     <addaction name="actionPreferences"/>
     <addaction name="actionReset_field_sizes"/>
     <addaction name="actionAdapt_columns_to_content"/>
-   </widget>
-   <widget class="QMenu" name="menuDebug">
-    <property name="title">
-     <string>Debug</string>
-    </property>
     <addaction name="actionAdvanced_Mode"/>
    </widget>
    <widget class="QMenu" name="menuLanguage">
@@ -87,7 +82,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuOptions"/>
-   <addaction name="menuDebug"/>
    <addaction name="menuHelp"/>
    <addaction name="menuLanguage"/>
   </widget>
@@ -123,7 +117,7 @@
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/icon/openfile.svg</normaloff>:/icon/openfile.svg</iconset>
    </property>
    <property name="text">
@@ -135,7 +129,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/icon/about.svg</normaloff>:/icon/about.svg</iconset>
    </property>
    <property name="text">
@@ -147,7 +141,7 @@
   </action>
   <action name="actionOpen_Folder">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/icon/opendir.svg</normaloff>:/icon/opendir.svg</iconset>
    </property>
    <property name="text">
@@ -189,7 +183,7 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/icon/prefs.svg</normaloff>:/icon/prefs.svg</iconset>
    </property>
    <property name="text">
@@ -204,7 +198,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="../../Ressource/Resources.qrc">
      <normaloff>:/icon/export.svg</normaloff>:/icon/export.svg</iconset>
    </property>
    <property name="text">
@@ -242,6 +236,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../../Ressource/Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

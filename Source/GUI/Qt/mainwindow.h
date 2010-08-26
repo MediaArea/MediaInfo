@@ -6,6 +6,8 @@
 #include <QtCore/QSettings>
 #include <QtCore/QDir>
 #include <QtGui/QTreeWidget>
+#include <QtGui/QProgressDialog>
+#include <QtCore/QTimer>
 #include "views.h"
 
 namespace Ui {
@@ -44,8 +46,12 @@ private:
     Core* C;
     ViewMode view;
     QSettings* settings;
+    QProgressDialog* progressDialog;
+    QTimer* timer;
+    void openTimerInit ();
 
 private slots:
+    void updateProgressBar ();
     void on_actionClose_All_triggered();
     void on_actionAdvanced_Mode_toggled(bool );
     void on_actionExport_triggered();

@@ -67,6 +67,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->actionExport->setIcon(QIcon::fromTheme("document-save",QIcon(":/icon/export.svg")));
     ui->actionAbout->setIcon(QIcon::fromTheme("help-about",QIcon(":/icon/about.svg")));
 
+    timer=NULL;
+    progressDialog=NULL;
+
     refreshDisplay();
 }
 
@@ -129,9 +132,45 @@ void MainWindow::openFiles(QStringList fileNames) {
     }
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool());
     for (int Pos=0; Pos<fileNames.size(); Pos++)
-        C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[(size_t)Pos]));
+        C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[Pos]));
+    openTimerInit();
 
     refreshDisplay();
+}
+
+void MainWindow::openTimerInit ()
+{
+    progressDialog=new QProgressDialog(Tr("Opening files..."), Tr("Abort Opening"), 0, 10000, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setMinimumDuration(0);
+    progressDialog->setWindowTitle("MediaInfo");
+
+    if (timer==NULL)
+    {
+        timer=new QTimer();
+        connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
+        timer->start(100);
+    }
+}
+
+void MainWindow::updateProgressBar ()
+{
+    if (progressDialog==NULL)
+        return;
+
+    progressDialog->setValue(C->State_Get());
+
+    if (C->State_Get()==10000 || progressDialog->wasCanceled())
+    {
+        progressDialog->hide();
+        timer->stop();
+
+        delete progressDialog; progressDialog=NULL;
+        delete timer; timer=NULL;
+
+        //Showing
+        refreshDisplay();
+    }
 }
 
 void MainWindow::openDir(QString dirName) {
@@ -139,7 +178,8 @@ void MainWindow::openDir(QString dirName) {
     //Configuring
     dirName = QDir::toNativeSeparators(dirName);
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool());
-    C->Menu_File_Open_Files_Continue(QString2wstring(dirName));
+    C->Menu_File_Open_Directory(QString2wstring(dirName));
+    openTimerInit();
 
     refreshDisplay();
 }
@@ -169,9 +209,11 @@ void MainWindow::refreshDisplay() {
                         for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                         {
                             foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
-                                qDebug(("field : "+field).toStdString().c_str());
                                 QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
-                                ((QTextBrowser*)viewWidget)->append(field+" : "+A);
+                                QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
+                                if (B.isEmpty())
+                                    B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
+                                ((QTextBrowser*)viewWidget)->append(B+" : "+A);
                             }
                         }
                     }
@@ -244,16 +286,16 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
         QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(shortName(C,wstring2QString(C->Get(FilePos, Stream_General, 0, _T("CompleteName"))))));
         treeWidget->addTopLevelItem(treeItem);
 
-        for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
+        for (int streamKind=(int)Stream_General; streamKind<(int)Stream_Max; streamKind++)
         {
             //Pour chaque type de flux
-            QString StreamKindText=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind/String"), Info_Text));
-            unsigned StreamsCount=C->Count_Get(FilePos, (stream_t)StreamKind);
-            for (size_t StreamPos=Stream_General; StreamPos<StreamsCount; StreamPos++)
+            QString StreamKindText=wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, _T("StreamKind/String"), Info_Text));
+            unsigned StreamsCount=C->Count_Get(FilePos, (stream_t)streamKind);
+            for (size_t streamPos=Stream_General; streamPos<StreamsCount; streamPos++)
             {
                 //Pour chaque stream
                 QString A=StreamKindText;
-                QString B=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindPos"), Info_Text));
+                QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, _T("StreamKindPos"), Info_Text));
                 if (!B.isEmpty())
                 {
                     A+=" #";
@@ -261,20 +303,20 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                 }
                 QTreeWidgetItem* node = new QTreeWidgetItem(treeItem,QStringList(A));
                 treeItem->addChild(node);
-                unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
+                unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)streamKind, streamPos);
 
                 if(ConfigTreeText::getIndex()==0) {
                     for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
                     {
-                        if ((completeDisplay || C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+                        if ((completeDisplay || C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text)!=_T(""))
                         {
                             //Pour chaque champ
-                            QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text));
-                            A+=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text));
+                            QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text));
+                            A+=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Measure_Text));
                             //Quoi Refresh?
-                            QString D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text));
+                            QString D=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name_Text));
                             if (D.isEmpty())
-                                D=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
+                                D=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
                             //Affichage
                             QStringList sl = QStringList(D);
                             sl.append(A);
@@ -282,10 +324,12 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                         }
                     }
                 } else {
-                    foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(StreamKind)) {
-                        qDebug(("field : "+field).toStdString().c_str());
-                        QString A=wstring2QString(C->Get(FilePos, (stream_t)StreamKind, StreamPos, QString2wstring(field)));
-                        QStringList sl = QStringList(field);
+                    foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
+                        QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
+                        QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
+                        if (B.isEmpty())
+                            B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
+                        QStringList sl = QStringList(B);
                         sl.append(A);
                         node->addChild(new QTreeWidgetItem(node,sl));
                     }
@@ -293,7 +337,8 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
             }
         }
     }
-    treeWidget->expandAll();
+    if(C->Count_Get()<=1)
+        treeWidget->expandAll();
     treeWidget->resizeColumnToContents(0);
     return treeWidget;
 }
@@ -436,7 +481,7 @@ void MainWindow::on_actionExport_triggered()
         name = wstring2QString(C->Get(0, Stream_General, 0, _T("CompleteName")))+".txt";
     else
         name = getCommonDir(C).absoluteFilePath("MediaInfo.txt");
-    Export e(name,this);
+    Export e(name,settings->value("exportMode",Export::TEXT).toInt(),this);
     if(e.exec() == QDialog::Accepted) {
         QFile file(e.getFileName());
         if(!file.open(e.getOpenMode()))
@@ -455,7 +500,6 @@ void MainWindow::on_actionExport_triggered()
                         for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                         {
                             foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
-                                qDebug(("field : "+field).toStdString().c_str());
                                 QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
                                 file.write((field+" : "+A+"\n").toStdString().c_str());
                             }
@@ -485,6 +529,7 @@ void MainWindow::on_actionExport_triggered()
             break;
         }
 
+        settings->setValue("exportMode",e.getExportMode());
     } else
         qDebug("export cancelled");
 }

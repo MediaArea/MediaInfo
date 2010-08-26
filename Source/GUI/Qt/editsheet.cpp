@@ -95,7 +95,6 @@ void EditSheet::downCol(int i) {
 }
 
 void EditSheet::delCol(int i) {
-    qDebug(("supression de "+QString::number(i)).toStdString().c_str());
     ColumnEditSheet* c = (ColumnEditSheet*)ui->verticalLayout->takeAt(i);
     delete c;
     emit deletePos(i,ui->verticalLayout->count());
@@ -103,7 +102,7 @@ void EditSheet::delCol(int i) {
 
 void EditSheet::addColumn() {
     column c;
-    c.name = Tr("Unamed");
+    c.name = Tr("CompleteName");
     c.width = 50;
     c.stream = Stream_General;
     c.key = "CompleteName";

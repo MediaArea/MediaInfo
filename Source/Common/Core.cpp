@@ -75,6 +75,7 @@ size_t Core::Menu_File_Open_File (const String& FileName)
 //---------------------------------------------------------------------------
 void Core::Menu_File_Open_Files_Begin (bool close)
 {
+    MI->Option(_T("Thread"), _T("1"));
     if(close)
         MI->Close();
 }
@@ -283,6 +284,32 @@ String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, cons
     return MI->Get(FilePos,StreamKind,StreamNumber,Parameter,InfoKind);
 }
 
+//---------------------------------------------------------------------------
+String Core::StreamName (stream_t StreamKind) {
+    switch(StreamKind) {
+    case Stream_General: return _T("General");
+        break;
+    case Stream_Audio: return _T("Audio");
+        break;
+    case Stream_Video: return _T("Video");
+        break;
+    case Stream_Chapters: return _T("Chapters");
+        break;
+    case Stream_Image: return _T("Image");
+        break;
+    case Stream_Menu: return _T("Menu");
+        break;
+    case Stream_Text: return _T("Text");
+        break;
+    default: return _T("Unknown stream");
+        break;
+    }
+}
+
 String Core::Parameters () {
     return MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"));
+}
+
+int Core::State_Get() {
+    return MI->State_Get();
 }

@@ -5,14 +5,16 @@
 #include <QtGui/QMessageBox>
 #include "configtreetext.h"
 
-Export::Export(QString filename, QWidget *parent) :
+Export::Export(QString filename, int mode, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Export)
 {
     ui->setupUi(this);
-    ui->lineEdit->setText(filename);
+    ui->lineEdit->setText(QDir::toNativeSeparators(filename));
     for(int i=0;i<Export::NB_EXPORT_MODE;i++) {
         ui->comboBoxMode->addItem(name(i),i);
+        if(i==mode)
+            ui->comboBoxMode->setCurrentIndex(ui->comboBoxMode->count()-1);
     }
     ConfigTreeText::fillComboBox(ui->comboBoxConfig);
 }
