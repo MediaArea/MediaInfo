@@ -480,7 +480,7 @@ protected :
 
         locator()
         {
-            IsTextLocator=true;
+            IsTextLocator=false;
         }
     };
     typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator

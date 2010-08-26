@@ -2915,17 +2915,14 @@ void File_Mxf::ContentStorage_Packages()
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Package", Length);
         int128u Data;
-        Get_UL (Data,                                           "Data", NULL);
+        Get_UUID(Data,                                          "Package");
 
         FILLING_BEGIN();
             if (Data==Prefaces[Preface_Current].PrimaryPackage)
                 Element_Info("Primary package");
             ContentStorages[InstanceUID].Packages.push_back(Data);
         FILLING_END();
-
-        Element_End();
     }
 }
 
@@ -3060,7 +3057,7 @@ void File_Mxf::FileDescriptor_LinkedTrackID()
 void File_Mxf::InterchangeObject_InstanceUID()
 {
     //Parsing
-    Get_UUID(InstanceUID,                                       "UUID");
+    Get_UUID(InstanceUID,                                       "UUID"); Element_Info(Ztring().From_UUID(InstanceUID));
 
     FILLING_BEGIN();
         //Putting the right UID for already parsed items
@@ -4080,7 +4077,7 @@ void File_Mxf::Preface_ContentStorage()
 {
     //Parsing
     int128u Data;
-    Get_UUID(Data,                                              "Data");
+    Get_UUID(Data,                                              "Data"); Element_Info(Ztring().From_UUID(Data));
 
     FILLING_BEGIN();
         Prefaces[Preface_Current].ContentStorage=Data;
@@ -4110,7 +4107,7 @@ void File_Mxf::Preface_Identifications()
     {
         Element_Begin("Identification", Length);
         int128u Data;
-        Get_UUID(Data,                                          "UUID");
+        Get_UUID(Data,                                          "UUID"); Element_Info(Ztring().From_UUID(Data));
         Element_End();
 
         FILLING_BEGIN();
@@ -4145,7 +4142,7 @@ void File_Mxf::Preface_PrimaryPackage()
 void File_Mxf::Preface_OperationalPattern()
 {
     //Parsing
-    Get_UL (OperationalPattern,                                 "UUID", Mxf_OperationalPattern);
+    Get_UL (OperationalPattern,                                 "UUID", Mxf_OperationalPattern); Element_Info(Mxf_OperationalPattern(OperationalPattern));
 }
 
 //---------------------------------------------------------------------------
@@ -4174,7 +4171,9 @@ void File_Mxf::Preface_DMSchemes()
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
         if (Length==16)
-            Skip_UL(                                            "DMScheme");
+        {
+            Info_UL(Data,                                       "DMScheme", NULL); Element_Info(Ztring().From_UUID(Data));
+        }
         else
             Skip_XX(Length,                                     "DMScheme");
 }
@@ -4290,7 +4289,7 @@ void File_Mxf::SourcePackage_Descriptor()
 {
     //Parsing
     int128u Data;
-    Get_UUID(Data,                                              "Data");
+    Get_UUID(Data,                                              "Data"); Element_Info(Ztring().From_UUID(Data));
 
     FILLING_BEGIN();
         Packages[InstanceUID].Descriptor=Data;
@@ -5436,7 +5435,7 @@ void File_Mxf::Skip_UMID()
 {
     //Parsing
     Skip_UUID(                                                  "Fixed");
-    Skip_UUID(                                                  "UUID");
+    Info_UUID(Data,                                             "UUID"); Element_Info(Ztring().From_UUID(Data));
 }
 
 //---------------------------------------------------------------------------
