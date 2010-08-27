@@ -564,49 +564,47 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, "matrix_coefficients", Avc_matrix_coefficients(matrix_coefficients));
 
     //Buffer
-    if (!MustParse_SPS_PPS_Done)
+    int32u bit_rate_value=(int32u)-1;
+    bool   bit_rate_value_IsValid=true;
+    bool   cbr_flag=false;
+    bool   cbr_flag_IsSet=false;
+    bool   cbr_flag_IsValid=true;
+    for (size_t Pos=0; Pos<NAL.size(); Pos++)
     {
-        int32u bit_rate_value=0;
-        bool   bit_rate_value_IsValid=true;
-        bool   cbr_flag=false;
-        bool   cbr_flag_IsSet=false;
-        bool   cbr_flag_IsValid=true;
-        for (size_t Pos=0; Pos<NAL.size(); Pos++)
-        {
+        if (NAL[Pos].cpb_size_value!=(int32u)-1)
             Fill(Stream_Video, 0, Video_BufferSize, NAL[Pos].cpb_size_value);
-            if (bit_rate_value && bit_rate_value!=NAL[Pos].bit_rate_value)
-                bit_rate_value_IsValid=false;
-            if (bit_rate_value==0)
-                bit_rate_value=NAL[Pos].bit_rate_value;
-            if (cbr_flag_IsSet==true && cbr_flag!=NAL[Pos].cbr_flag)
-                cbr_flag_IsValid=false;
-            if (cbr_flag_IsSet==0)
-            {
-                cbr_flag=NAL[Pos].cbr_flag;
-                cbr_flag_IsSet=true;
-            }
-        }
-        for (size_t Pos=0; Pos<VCL.size(); Pos++)
+        if (bit_rate_value!=(int32u)-1 && bit_rate_value!=NAL[Pos].bit_rate_value)
+            bit_rate_value_IsValid=false;
+        if (bit_rate_value==(int32u)-1)
+            bit_rate_value=NAL[Pos].bit_rate_value;
+        if (cbr_flag_IsSet==true && cbr_flag!=NAL[Pos].cbr_flag)
+            cbr_flag_IsValid=false;
+        if (cbr_flag_IsSet==0)
         {
-            Fill(Stream_Video, 0, Video_BufferSize, VCL[Pos].cpb_size_value);
-            if (bit_rate_value && bit_rate_value!=VCL[Pos].bit_rate_value)
-                bit_rate_value_IsValid=false;
-            if (bit_rate_value==0)
-                bit_rate_value=VCL[Pos].bit_rate_value;
-            if (cbr_flag_IsSet==true && cbr_flag!=VCL[Pos].cbr_flag)
-                cbr_flag_IsValid=false;
-            if (cbr_flag_IsSet==0)
-            {
-                cbr_flag=VCL[Pos].cbr_flag;
-                cbr_flag_IsSet=true;
-            }
+            cbr_flag=NAL[Pos].cbr_flag;
+            cbr_flag_IsSet=true;
         }
-        if (cbr_flag_IsSet && cbr_flag_IsValid)
+    }
+    for (size_t Pos=0; Pos<VCL.size(); Pos++)
+    {
+        Fill(Stream_Video, 0, Video_BufferSize, VCL[Pos].cpb_size_value);
+        if (bit_rate_value!=(int32u)-1 && bit_rate_value!=VCL[Pos].bit_rate_value)
+            bit_rate_value_IsValid=false;
+        if (bit_rate_value==(int32u)-1)
+            bit_rate_value=VCL[Pos].bit_rate_value;
+        if (cbr_flag_IsSet==true && cbr_flag!=VCL[Pos].cbr_flag)
+            cbr_flag_IsValid=false;
+        if (cbr_flag_IsSet==0)
         {
-            Fill(Stream_Video, 0, Video_BitRate_Mode, cbr_flag?"CBR":"VBR");
-            if (bit_rate_value && bit_rate_value_IsValid)
-                Fill(Stream_Video, 0, cbr_flag?Video_BitRate_Nominal:Video_BitRate_Maximum, bit_rate_value);
+            cbr_flag=VCL[Pos].cbr_flag;
+            cbr_flag_IsSet=true;
         }
+    }
+    if (cbr_flag_IsSet && cbr_flag_IsValid)
+    {
+        Fill(Stream_Video, 0, Video_BitRate_Mode, cbr_flag?"CBR":"VBR");
+        if (bit_rate_value!=(int32u)-1 && bit_rate_value_IsValid)
+            Fill(Stream_Video, 0, cbr_flag?Video_BitRate_Nominal:Video_BitRate_Maximum, bit_rate_value);
     }
 }
 
@@ -2368,9 +2366,11 @@ void File_Avc::hrd_parameters(bool vcl)
         xxl Item;
         int32u bit_rate_value_minus1, cpb_size_value_minus1;
         Get_UE (bit_rate_value_minus1,                          "bit_rate_value_minus1");
-        Item.bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(Item.bit_rate_value, " bps");
+        if (bit_rate_value_minus1)
+            Item.bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(Item.bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
-        Item.cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, cpb_size_scale)); Param_Info(Item.cpb_size_value, " bytes");
+        if (cpb_size_value_minus1)
+            Item.cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, cpb_size_scale)); Param_Info(Item.cpb_size_value, " bytes");
         Get_SB (Item.cbr_flag,                                  "cbr_flag");
         Element_End();
 

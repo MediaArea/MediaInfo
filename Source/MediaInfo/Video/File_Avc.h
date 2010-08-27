@@ -204,6 +204,13 @@ private :
         int32u bit_rate_value;
         int32u cpb_size_value;
         bool   cbr_flag;
+
+        xxl()
+        {
+            bit_rate_value=(int32u)-1;
+            cpb_size_value=(int32u)-1;
+            cbr_flag=true;
+        }
     };
     std::vector<xxl> NAL;
     std::vector<xxl> VCL;

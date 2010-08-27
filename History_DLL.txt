@@ -19,6 +19,7 @@ Version 0.7.35, 2010-
 + MPEG-TS: Codec ID (stream_type)
 x #3036119, MKV: default language value is eng
 x DV: weird display with some DV with synch problems.
+x AVC: wrong detection of bitrate mode for AVC in MP4
 
 Version 0.7.34, 2010-07-09
 --------------
