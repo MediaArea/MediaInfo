@@ -2040,14 +2040,16 @@ void File_MpegPs::private_stream_1()
                 Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
             }
             #endif
+            #if defined(MEDIAINFO_AES3_YES)
+            {
+                File_Aes3* Parser=new File_Aes3;
+                Parser->From_MpegPs=true;
+                Open_Buffer_Init(Parser);
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
+            }
+            #endif
         }
     }
-
-    //Specific
-    #if defined(MEDIAINFO_AES3_YES)
-        if (FromTS && FromTS_format_identifier==0x42535344 && PTS!=(int64u)-1) //"BSSD"
-            ((File_Aes3*)Streams_Private1[private_stream_1_ID].Parsers[0])->PTS=PTS;
-    #endif
 
     //Demux
     #if MEDIAINFO_DEMUX
