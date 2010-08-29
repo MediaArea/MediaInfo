@@ -200,7 +200,9 @@ File_MpegPs::File_MpegPs()
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_MpegPs;
         StreamIDs_Width[0]=2;
-        Demux_Level=2; //Container
+        #if MEDIAINFO_DEMUX
+            Demux_Level=2; //Container
+        #endif //MEDIAINFO_DEMUX
     #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -3047,57 +3049,59 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             DTS=PTS;
 
         //New PES
-        if (PES_FirstByte_IsAvailable && PES_FirstByte_Value)
-        {
-            //Demux of substream data
-            if (FromTS_stream_type==0x1B && SubStream_Demux)
+        #if MEDIAINFO_DEMUX
+            if (PES_FirstByte_IsAvailable && PES_FirstByte_Value)
             {
-                if (!SubStream_Demux->Buffers.empty() && SubStream_Demux->Buffers[0]->DTS<DTS)
+                //Demux of substream data
+                if (FromTS_stream_type==0x1B && SubStream_Demux)
                 {
-                    Demux(SubStream_Demux->Buffers[0]->Buffer, SubStream_Demux->Buffers[0]->Buffer_Size, ContentType_SubStream);
-                    delete SubStream_Demux->Buffers[0]->Buffer; SubStream_Demux->Buffers[0]->Buffer=NULL;
-                    SubStream_Demux->Buffers.erase(SubStream_Demux->Buffers.begin()); //Moving 2nd Buffer to 1st position
+                    if (!SubStream_Demux->Buffers.empty() && SubStream_Demux->Buffers[0]->DTS<DTS)
+                    {
+                        Demux(SubStream_Demux->Buffers[0]->Buffer, SubStream_Demux->Buffers[0]->Buffer_Size, ContentType_SubStream);
+                        delete SubStream_Demux->Buffers[0]->Buffer; SubStream_Demux->Buffers[0]->Buffer=NULL;
+                        SubStream_Demux->Buffers.erase(SubStream_Demux->Buffers.begin()); //Moving 2nd Buffer to 1st position
+                    }
                 }
             }
-        }
 
-        //Demux of SubStream
-        if (FromTS_stream_type==0x20 && SubStream_Demux)
-        {
-            //Searching an available slot
-            size_t Buffers_Pos;
-            if (SubStream_Demux->Buffers.empty() || SubStream_Demux->Buffers[SubStream_Demux->Buffers.size()-1]->DTS!=DTS)
+            //Demux of SubStream
+            if (FromTS_stream_type==0x20 && SubStream_Demux)
             {
-                Buffers_Pos=SubStream_Demux->Buffers.size();
-                SubStream_Demux->Buffers.push_back(new demux::buffer);
-            }
-            else
-            {
-                Buffers_Pos=SubStream_Demux->Buffers.size()-1;
-            }
+                //Searching an available slot
+                size_t Buffers_Pos;
+                if (SubStream_Demux->Buffers.empty() || SubStream_Demux->Buffers[SubStream_Demux->Buffers.size()-1]->DTS!=DTS)
+                {
+                    Buffers_Pos=SubStream_Demux->Buffers.size();
+                    SubStream_Demux->Buffers.push_back(new demux::buffer);
+                }
+                else
+                {
+                    Buffers_Pos=SubStream_Demux->Buffers.size()-1;
+                }
 
-            //Filling buffer
-            if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer==NULL)
-            {
-                SubStream_Demux->Buffers[Buffers_Pos]->DTS=DTS;
-                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max=128*1024;
-                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size=0;
-                SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
+                //Filling buffer
+                if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer==NULL)
+                {
+                    SubStream_Demux->Buffers[Buffers_Pos]->DTS=DTS;
+                    SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max=128*1024;
+                    SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size=0;
+                    SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
+                }
+                if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max>SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset) && SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max<=16*1024*1024)
+                {
+                    SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max*=2;
+                    int8u* Buffer_Demux=SubStream_Demux->Buffers[Buffers_Pos]->Buffer;
+                    SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
+                    std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer, Buffer_Demux, SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size);
+                    delete[] Buffer_Demux; //Buffer_Demux=NULL;
+                }
+                if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset)<=SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max)
+                {
+                    std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer+SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                    SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+=(size_t)(Element_Size-Element_Offset);
+                }
             }
-            if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max>SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset) && SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max<=16*1024*1024)
-            {
-                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max*=2;
-                int8u* Buffer_Demux=SubStream_Demux->Buffers[Buffers_Pos]->Buffer;
-                SubStream_Demux->Buffers[Buffers_Pos]->Buffer=new int8u[SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max];
-                std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer, Buffer_Demux, SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size);
-                delete[] Buffer_Demux; //Buffer_Demux=NULL;
-            }
-            if (SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+(size_t)(Element_Size-Element_Offset)<=SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size_Max)
-            {
-                std::memcpy(SubStream_Demux->Buffers[Buffers_Pos]->Buffer+SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-                SubStream_Demux->Buffers[Buffers_Pos]->Buffer_Size+=(size_t)(Element_Size-Element_Offset);
-            }
-        }
+        #endif //MEDIAINFO_DEMUX
     #endif //MEDIAINFO_EVENTS
 }
 
