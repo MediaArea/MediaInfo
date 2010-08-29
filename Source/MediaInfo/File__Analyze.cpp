@@ -1740,7 +1740,7 @@ void File__Analyze::Accept (const char* ParserName_Char)
                 strncpy(Event.Name, ParserName.To_Local().c_str(), 15);
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
 
-            #ifdef MEDIAINFO_DEMUX
+            #if MEDIAINFO_DEMUX
                 if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
                     Config->Demux_EventWasSent=true;
             #endif //MEDIAINFO_DEMUX
@@ -1765,7 +1765,7 @@ void File__Analyze::Accept ()
             memset(Event.Name, 0, 16);
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
 
-            #ifdef MEDIAINFO_DEMUX
+            #if MEDIAINFO_DEMUX
                 if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
                     Config->Demux_EventWasSent=true;
             #endif //MEDIAINFO_DEMUX
