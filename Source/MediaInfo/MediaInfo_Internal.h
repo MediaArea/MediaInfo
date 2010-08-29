@@ -117,7 +117,9 @@ private :
     //Parsing handles
     File__Analyze*  Info;
     Internet__Base* Internet;
-    Reader__Base*   Reader;
+    #if defined(MEDIAINFO_READER_NO)
+        Reader__Base*   Reader;
+    #endif //defined(MEDIAINFO_READER_NO)
     Ztring          File_Name;
 
     //Helpers

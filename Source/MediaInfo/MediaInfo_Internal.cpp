@@ -257,7 +257,9 @@ MediaInfo_Internal::~MediaInfo_Internal()
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Destruction");)
 
     delete Info; //Info=NULL;
-    delete Reader; //Reader=NULL;
+    #if !defined(MEDIAINFO_READER_NO)
+        delete Reader; //Reader=NULL;
+    #endif //defined(MEDIAINFO_READER_NO)
     #ifdef MEDIAINFO_DEBUG_OUTPUT
         for (size_t Pos=0; Pos<Debug_Output_Pos_Stream.size(); Pos++)
         {
@@ -541,7 +543,11 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
 
     bool Demux_EventWasSent=false;
     if (Info==NULL || !Info->Status[File__Analyze::IsFinished])
-        Demux_EventWasSent=(((Reader_File*)Reader)->Format_Test_PerParser_Continue(this)==2);
+    {
+        #if !defined(MEDIAINFO_READER_NO)
+            Demux_EventWasSent=(((Reader_File*)Reader)->Format_Test_PerParser_Continue(this)==2);
+        #endif //defined(MEDIAINFO_READER_NO)
+    }
 
     std::bitset<32> ToReturn=Info==NULL?std::bitset<32>(0x0F):Info->Status;
     if (Demux_EventWasSent)
@@ -566,7 +572,9 @@ void MediaInfo_Internal::Close()
     Stream_More.clear();
     Stream_More.resize(Stream_Max);
     delete Info; Info=NULL;
-    delete Reader; Reader=NULL;
+    #if !defined(MEDIAINFO_READER_NO)
+        delete Reader; Reader=NULL;
+    #endif //defined(MEDIAINFO_READER_NO)
 }
 
 //***************************************************************************
