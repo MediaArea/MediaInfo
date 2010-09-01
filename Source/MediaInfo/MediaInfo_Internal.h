@@ -117,7 +117,7 @@ private :
     //Parsing handles
     File__Analyze*  Info;
     Internet__Base* Internet;
-    #if defined(MEDIAINFO_READER_NO)
+    #if !defined(MEDIAINFO_READER_NO)
         Reader__Base*   Reader;
     #endif //defined(MEDIAINFO_READER_NO)
     Ztring          File_Name;
@@ -137,7 +137,11 @@ private :
 
 public :
     bool SelectFromExtension (const String &Parser); //Select File_* from the parser name
-    int  ListFormats(const String &File_Name=String());
+    #if !defined(MEDIAINFO_READER_NO)
+        int  ListFormats(const String &File_Name=String());
+    #else //!defined(MEDIAINFO_READER_NO)
+        int  ListFormats(const String &File_Name=String()) {return 0;}
+    #endif //!defined(MEDIAINFO_READER_NO)
     MediaInfo_Config_MediaInfo Config;
 
 private :

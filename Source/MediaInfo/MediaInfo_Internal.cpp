@@ -236,7 +236,9 @@ MediaInfo_Internal::MediaInfo_Internal()
 
     BlockMethod=BlockMethod_Local;
     Info=NULL;
-    Reader=NULL;
+    #if !defined(MEDIAINFO_READER_NO)
+        Reader=NULL;
+    #endif //!defined(MEDIAINFO_READER_NO)
     Info_IsMultipleParsing=false;
 
     Stream.resize(Stream_Max);
@@ -259,7 +261,7 @@ MediaInfo_Internal::~MediaInfo_Internal()
     delete Info; //Info=NULL;
     #if !defined(MEDIAINFO_READER_NO)
         delete Reader; //Reader=NULL;
-    #endif //defined(MEDIAINFO_READER_NO)
+    #endif //!defined(MEDIAINFO_READER_NO)
     #ifdef MEDIAINFO_DEBUG_OUTPUT
         for (size_t Pos=0; Pos<Debug_Output_Pos_Stream.size(); Pos++)
         {
