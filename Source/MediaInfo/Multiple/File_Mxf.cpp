@@ -672,6 +672,8 @@ File_Mxf::File_Mxf()
     TimeCode_RoundedTimecodeBase=0;
     TimeCode_DropFrame=0;
     SDTI_TimeCode_StartTimecode=(int64u)-1;
+    SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
+    SystemScheme1_FrameRateFromDescriptor=0;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         Ancillary_InstanceUID=(int128u)-1;
         Ancillary_LinkedTrackID=(int32u)-1;
@@ -873,9 +875,9 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
         }
         if (SDTI_TimeCode_StartTimecode!=(int64u)-1)
-        {
             Fill(StreamKind_Last, StreamPos_Last, "Delay_SDTI", SDTI_TimeCode_StartTimecode);
-        }
+        if (SystemScheme1_TimeCodeArray_StartTimecode!=(int64u)-1)
+            Fill(StreamKind_Last, StreamPos_Last, "Delay_SystemScheme1", SystemScheme1_TimeCodeArray_StartTimecode);
         Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
     }
 
@@ -4527,11 +4529,15 @@ void File_Mxf::SystemScheme1_TimeCodeArray()
                                + Minutes_Units        *60*1000
                                + Seconds_Tens         *10*1000
                                + Seconds_Units           *1000
-                               /*+ FrameRate?float64_int32s((Frames_Tens*10+Frames_Units)*1000/FrameRate):0*/);
+                               + (SystemScheme1_FrameRateFromDescriptor?float64_int32s((Frames_Tens*10+Frames_Units)*1000/SystemScheme1_FrameRateFromDescriptor):0));
 
         Element_Info(Ztring().Duration_From_Milliseconds(TimeCode));
 
         Element_End();
+
+        //TimeCode
+        if (SystemScheme1_TimeCodeArray_StartTimecode==(int64u)-1)
+            SystemScheme1_TimeCodeArray_StartTimecode=TimeCode;
     }
 }
 
