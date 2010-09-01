@@ -214,7 +214,7 @@
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
 						<VersionInfoKeys Name="ProductName">MediaInfo</VersionInfoKeys>
-						<VersionInfoKeys Name="ProductVersion">0.7</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">0.7.34.0</VersionInfoKeys>
 					</VersionInfoKeys>
 					<Debugging>
 						<Debugging Name="DebugSourceDirs"/>
@@ -244,6 +244,9 @@
 						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
 						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
 					</ProjectProperties>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclDataSnapServer140.bpl">Composants serveur DBExpress DataSnap Embarcadero</Excluded_Packages>
+					</Excluded_Packages>
 				</CPlusPlusBuilder.Personality>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>

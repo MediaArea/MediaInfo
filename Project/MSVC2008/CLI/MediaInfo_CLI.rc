@@ -17,14 +17,14 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "http://mediainfo.sourceforge.net"
-            VALUE "FileDescription", "MediaInfo Command Line Interface"
-            VALUE "FileVersion", "0,7,34,0"
-            VALUE "InternalName", "MediaInfoLib - CLI - MSVC 2008"
-            VALUE "LegalCopyright", "GPL"
+            VALUE "CompanyName", "MediaArea.net"
+            VALUE "FileDescription", "All about your audio and video files"
+            VALUE "FileVersion", "0.7.34.0"
+            VALUE "InternalName", "MediaInfo - CLI - MSVC 2010"
+            VALUE "LegalCopyright", "MediaArea.net"
             VALUE "OriginalFilename", "MediaInfo.exe"
-            VALUE "ProductName", "MediaInfo_CLI"
-            VALUE "ProductVersion", "0,7,34,0"
+            VALUE "ProductName", "MediaInfo"
+            VALUE "ProductVersion", "0.7.34.0"
         END
     END
     BLOCK "VarFileInfo"
