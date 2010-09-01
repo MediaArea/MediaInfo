@@ -25,7 +25,7 @@ SetCompressor /FINAL /SOLID lzma
 ; Modern UI
 !include "MUI2.nsh"
 !define MUI_ABORTWARNING
-!define MUI_ICON "..\..\Source\Ressource\Image\MediaInfo_TinyOnly.ico"
+!define MUI_ICON "..\..\Source\Ressource\Image\MediaInfo.ico"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
@@ -75,20 +75,20 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Info
 VIProductVersion "${PRODUCT_VERSION4}"
-VIAddVersionKey "ProductName" "${PRODUCT_NAME} (GUI Windows x64)" 
-VIAddVersionKey "Comments" "All about your audio and video files"
-VIAddVersionKey "CompanyName" "MediaArea.net"
-VIAddVersionKey "LegalTrademarks" "GPL license" 
-VIAddVersionKey "LegalCopyright" "" 
+VIAddVersionKey "CompanyName" "${PRODUCT_PUBLISHER}"
+VIAddVersionKey "ProductName" "${PRODUCT_NAME}" 
+VIAddVersionKey "ProductVersion" "${PRODUCT_VERSION4}"
 VIAddVersionKey "FileDescription" "All about your audio and video files"
-VIAddVersionKey "FileVersion" "${PRODUCT_VERSION}"
+VIAddVersionKey "FileVersion" "${PRODUCT_VERSION4}"
+VIAddVersionKey "LegalCopyright" "${PRODUCT_PUBLISHER}"
+VIAddVersionKey "OriginalFilename" "${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_x64.exe"
 BrandingText " "
 
 ; Modern UI end
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "..\..\Release\MediaInfo_GUI_${PRODUCT_VERSION}_Windows_x64.exe"
-InstallDir "$PROGRAMFILES64\MediaInfo"
+OutFile "..\..\Release\${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_x64.exe"
+InstallDir "$PROGRAMFILES64\${PRODUCT_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails nevershow
 ShowUnInstDetails nevershow
