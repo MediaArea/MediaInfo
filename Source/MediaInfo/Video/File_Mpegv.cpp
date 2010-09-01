@@ -40,16 +40,16 @@ namespace MediaInfoLib
 using namespace ZenLib;
 
 //---------------------------------------------------------------------------
-extern const float32 Mpegv_frame_rate[]=
+extern const float32 Mpegv_frame_rate[16]=
 {
     (float32) 0,
-    (float32)23.976,
+    (float32)24000/(float32)1001,
     (float32)24,
     (float32)25,
-    (float32)29.97,
+    (float32)30000/(float32)1001,
     (float32)30,
     (float32)50,
-    (float32)59.94,
+    (float32)60000/(float32)1001,
     (float32)60,
     (float32) 0,
     (float32) 0,
@@ -61,7 +61,7 @@ extern const float32 Mpegv_frame_rate[]=
 };
 
 //---------------------------------------------------------------------------
-const char* Mpegv_Colorimetry_format[]=
+const char* Mpegv_Colorimetry_format[4]=
 {
     "",
     "4:2:0",
