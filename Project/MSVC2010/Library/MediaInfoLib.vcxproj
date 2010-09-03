@@ -204,7 +204,7 @@
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_READER_NO;MEDIAINFO_DIRECTORY_NO;CURL_STATICLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -302,6 +302,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" />
@@ -459,6 +460,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze_MinimizeSize.h" />

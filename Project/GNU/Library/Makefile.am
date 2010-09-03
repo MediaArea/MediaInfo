@@ -43,6 +43,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Ape.cpp \
                        ../../../Source/MediaInfo/Audio/File_Au.cpp \
                        ../../../Source/MediaInfo/Audio/File_Dts.cpp \
+                       ../../../Source/MediaInfo/Audio/File_DolbyE.cpp \
                        ../../../Source/MediaInfo/Audio/File_ExtendedModule.cpp \
                        ../../../Source/MediaInfo/Audio/File_Flac.cpp \
                        ../../../Source/MediaInfo/Audio/File_ImpulseTracker.cpp \

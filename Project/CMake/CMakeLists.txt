@@ -53,6 +53,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Ape.cpp
 	MediaInfo/Audio/File_Au.cpp
 	MediaInfo/Audio/File_Dts.cpp
+	MediaInfo/Audio/File_DolbyE.cpp
 	MediaInfo/Audio/File_ExtendedModule.cpp
 	MediaInfo/Audio/File_Flac.cpp
 	MediaInfo/Audio/File_ImpulseTracker.cpp

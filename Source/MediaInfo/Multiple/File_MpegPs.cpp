@@ -705,9 +705,9 @@ void File_MpegPs::Synched_Init()
 //---------------------------------------------------------------------------
 void File_MpegPs::Read_Buffer_Init()
 {
-	#if MEDIAINFO_DEMUX
-		Demux_Unpacketize=Config->Demux_Unpacketize_Get();
-	#endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_DEMUX
+         Demux_Unpacketize=Config->Demux_Unpacketize_Get();
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -974,13 +974,13 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
         if (!Header_Parse_Fill_Size())
         {
             //Return directly if we must unpack the elementary stream;
-			#if MEDIAINFO_DEMUX
-				if (Demux_Unpacketize)
-				{
-					Element_WaitForMoreData();
-					return;
-				}
-			#endif //MEDIAINFO_DEMUX
+            #if MEDIAINFO_DEMUX
+                if (Demux_Unpacketize)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+            #endif //MEDIAINFO_DEMUX
 
             //Next PS packet is not found, we will use all the buffer
             Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
@@ -993,13 +993,13 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
      && ((start_code&0xE0)==0xC0 || (start_code&0xF0)==0xE0))
     {
         //Return directly if we must unpack the elementary stream;
-		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
-			{
-				Element_WaitForMoreData();
-				return;
-			}
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_Unpacketize)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+        #endif //MEDIAINFO_DEMUX
 
         Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
         Buffer_DataSizeToParse=6+PES_packet_length-(int16u)(Buffer_Size-Buffer_Offset);
@@ -2044,8 +2044,7 @@ void File_MpegPs::private_stream_1()
             #endif
             #if defined(MEDIAINFO_AES3_YES)
             {
-                File_Aes3* Parser=new File_Aes3;
-                Parser->From_MpegPs=true;
+                File__Analyze* Parser=ChooseParser_AES3();
                 Open_Buffer_Init(Parser);
                 Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
             }
@@ -3535,7 +3534,8 @@ File__Analyze* File_MpegPs::ChooseParser_AES3()
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
-        File__Analyze* Handle=new File_Aes3();
+        File_Aes3* Handle=new File_Aes3();
+        Handle->From_MpegPs=true;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

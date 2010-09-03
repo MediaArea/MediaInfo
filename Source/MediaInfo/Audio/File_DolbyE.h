@@ -1,5 +1,5 @@
-// File_Aes3 - Info Info for AES3 packetized streams
-// Copyright (C) 2008-2010 MediaArea.net SARL, Info@MediaArea.net
+// File_DolbyE - Info Info for Dolby E
+// Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -17,13 +17,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about PCM files
+// Information about Dolby E files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_Aes3H
-#define MediaInfo_File_Aes3H
+#ifndef MediaInfo_File_DolbyEH
+#define MediaInfo_File_DolbyEH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -34,52 +34,29 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Aes3
+// Class File_DolbyE
 //***************************************************************************
 
-class File_Aes3 : public File__Analyze
+class File_DolbyE : public File__Analyze
 {
 public :
-    //In
-    bool    From_MpegPs;
-
     //Constructor/Destructor
-    File_Aes3();
+    File_DolbyE();
 
 private :
     //Streams management
     void Streams_Fill();
 
-    //Buffer - Global
-    void Read_Buffer_Continue ();
+    //Buffer - File header
+    bool FileHeader_Begin();
 
-    //Buffer - Synchro
+	//Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
 
     //Buffer - Per element
-    void Header_Parse();
-    void Data_Parse();
-
-    //Elements
-    void Frame();
-    void Frame_WithPadding();
-    void Frame_FromMpegPs();
-
-    //Temp
-    int64u  Frame_Last_Size;
-    int64u  Frame_Last_PTS;
-    int8u   number_channels;
-    int8u   bits_per_sample;
-    int8u   Container_Bits;
-    int8u   Stream_Bits;
-    int8u   data_type;
-    bool    Endianess; //false=BE, true=LE
-    bool    IsParsingNonPcm;
-
-    //Parser
-    File__Analyze* Parser;
-    void Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Size);
+	void Header_Parse();
+	void Data_Parse();
 };
 
 } //NameSpace
