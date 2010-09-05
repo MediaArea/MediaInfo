@@ -72,13 +72,13 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Info
 VIProductVersion "${PRODUCT_VERSION4}"
-VIAddVersionKey "ProductName" "${PRODUCT_NAME}.dll" 
-VIAddVersionKey "Comments" "All about your audio and video files"
-VIAddVersionKey "CompanyName" "MediaArea.net"
-VIAddVersionKey "LegalTrademarks" "LGPL license" 
-VIAddVersionKey "LegalCopyright" "" 
+VIAddVersionKey "CompanyName" "${PRODUCT_PUBLISHER}"
+VIAddVersionKey "ProductName" "${PRODUCT_NAME}" 
+VIAddVersionKey "ProductVersion" "${PRODUCT_VERSION4}"
 VIAddVersionKey "FileDescription" "All about your audio and video files"
-VIAddVersionKey "FileVersion" "${PRODUCT_VERSION}"
+VIAddVersionKey "FileVersion" "${PRODUCT_VERSION4}"
+VIAddVersionKey "LegalCopyright" "${PRODUCT_PUBLISHER}"
+VIAddVersionKey "OriginalFilename" "${PRODUCT_NAME}_DLL_${PRODUCT_VERSION}_Windows_i386.exe"
 BrandingText " "
 
 ; Modern UI end
