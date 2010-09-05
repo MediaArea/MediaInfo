@@ -28,9 +28,11 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     spinbox->setValue(c.width);
     this->addWidget(spinbox);
     stream = new QComboBox();
-    for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
+    for (int streamKind=(int)Stream_General; streamKind<(int)Stream_Max; streamKind++)
     {
-        stream->addItem(wstring2QString(C->StreamName((stream_t)StreamKind)),StreamKind);
+        if(streamKind==Stream_Chapters)
+            continue;
+        stream->addItem(wstring2QString(C->StreamName((stream_t)streamKind)),streamKind);
     }
     stream->setCurrentIndex(c.stream);
     this->addWidget(stream);

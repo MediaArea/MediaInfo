@@ -49,6 +49,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{70DAF034-E8BA-4636-A42C-CC581B3ECC94}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_Qt", "MediaInfo_Qt\MediaInfo_Qt.vcproj", "{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94} = {0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

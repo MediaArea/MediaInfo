@@ -73,10 +73,11 @@ size_t Core::Menu_File_Open_File (const String& FileName)
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_File_Open_Files_Begin (bool close)
+void Core::Menu_File_Open_Files_Begin (bool Close, bool WithThread)
 {
-    MI->Option(_T("Thread"), _T("1"));
-    if(close)
+    if(WithThread)
+        MI->Option(_T("Thread"), _T("1"));
+    if(Close)
         MI->Close();
 }
 

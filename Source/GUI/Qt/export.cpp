@@ -111,17 +111,20 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
 
     switch(index) {
     default:
-    case TEXT: ui->comboBoxConfig->setDisabled(ui->checkBoxAdvanced->isChecked());
+    case TEXT:
+        ui->comboBoxConfig->setDisabled(ui->checkBoxAdvanced->isChecked());
+        ui->checkBoxAdvanced->setEnabled(true);
         break;
-    case HTML: ui->comboBoxConfig->setEnabled(false);
+    case XML:
+    case PBCORE:
+    case MPEG7:
+        ui->comboBoxConfig->setEnabled(false);
+        ui->checkBoxAdvanced->setEnabled(false);
         break;
-    case XML: ui->comboBoxConfig->setEnabled(false);
-        break;
-    case PBCORE: ui->comboBoxConfig->setEnabled(false);
-        break;
-    case MPEG7: ui->comboBoxConfig->setEnabled(false);
-        break;
-    case CSV: ui->comboBoxConfig->setEnabled(false);
+    case CSV:
+    case HTML:
+        ui->comboBoxConfig->setEnabled(false);
+        ui->checkBoxAdvanced->setEnabled(true);
         break;
     }
 }

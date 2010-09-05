@@ -32,6 +32,8 @@ void EditConfigTreeText::fillToolBox() {
     for(;ui->toolBox->count()>0;ui->toolBox->removeItem(0));
 
     for (int streamKind=0; streamKind<(int)Stream_Max; streamKind++) {
+        if(streamKind==Stream_Chapters)
+            continue;
         QFrame* box = new QFrame();
         qDebug(("adding "+wstring2QString(C->StreamName((stream_t)streamKind))).toStdString().c_str());
         ui->toolBox->addItem(box,wstring2QString(C->StreamName((stream_t)streamKind)));

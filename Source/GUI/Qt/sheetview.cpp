@@ -22,6 +22,10 @@ SheetView::SheetView(Core *C, QWidget *parent) :
     ui->setupUi(this);
     refreshDisplay();
     ui->tableWidget->selectRow(0);
+
+    QFont font = ui->label->font();
+    font.setStyleHint(QFont::TypeWriter);
+    ui->label->setFont(font);
 }
 
 SheetView::~SheetView()

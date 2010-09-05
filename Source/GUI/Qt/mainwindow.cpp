@@ -78,30 +78,34 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+QString MainWindow::shortName(QDir d, QString name) {
+    //Elminating unuseful info from filenames
+    return d.relativeFilePath(name);
+}
+
 QString MainWindow::shortName(Core*C, QString name) {
     //Elminating unuseful info from filenames
-    qDebug(("File path : "+name).toStdString().c_str());
-    qDebug(("Common dir : "+getCommonDir(C).absolutePath()).toStdString().c_str());
-    qDebug(("Short name : "+getCommonDir(C).relativeFilePath(name)).toStdString().c_str());
-    return getCommonDir(C).relativeFilePath(name);
+    return shortName(getCommonDir(C),name);
 }
 
 QDir MainWindow::getCommonDir(Core*C) {
     QList<QStringList> list;
     QStringList dirName;
-    for(unsigned int filePos=0;filePos<C->Count_Get();filePos++)
+    unsigned fileCount = C->Count_Get();
+    for(unsigned filePos=0;filePos<fileCount;filePos++)
         list.append(QDir::toNativeSeparators(wstring2QString(C->Get(filePos,Stream_General, 0, _T("CompleteName")))).split(QDir::separator ()));
-    for(int i=0;i<list[0].size()-1;++i) {
-        int j;
-        for(j=1;(j<list.size())&&(list[j].size()>i);++j) {
-            if(list[j][i]!=list[0][i])
+    if(!list.isEmpty())
+        for(int i=0;i<list[0].size()-1;++i) {
+            int j;
+            for(j=1;(j<list.size())&&(list[j].size()>i);++j) {
+                if(list[j][i]!=list[0][i])
+                    break;
+            }
+            if((j<list.size())&&(list[j].size()>=i))
                 break;
+            else
+                dirName.append(list[0][i]);
         }
-        if((j<list.size())&&(list[j].size()>=i))
-            break;
-        else
-            dirName.append(list[0][i]);
-    }
     QDir dir(dirName.join(QDir::separator ()));
     return dir;
 }
@@ -185,6 +189,9 @@ void MainWindow::openDir(QString dirName) {
 }
 
 void MainWindow::refreshDisplay() {
+    QFont font("Mono");
+    font.setStyleHint(QFont::TypeWriter);
+
     ui->actionAdapt_columns_to_content->setVisible(false);
     ui->actionReset_field_sizes->setVisible(false);
     QWidget* viewWidget;
@@ -198,7 +205,7 @@ void MainWindow::refreshDisplay() {
         case VIEW_TEXT:
             C->Menu_View_Text();
             viewWidget = new QTextBrowser();
-            ((QTextBrowser*)viewWidget)->setFontFamily("mono");
+            ((QTextBrowser*)viewWidget)->setFont(font);
             if(ConfigTreeText::getIndex()==0)
                 ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
             else {
@@ -281,43 +288,44 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
     QStringList headers = QStringList(Tr("key"));
     headers.append(Tr("value"));
     treeWidget->setHeaderLabels(headers);
-    for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
+    unsigned fileCount = C->Count_Get();
+
+    QDir dir = getCommonDir(C);
+    for (size_t filePos=0; filePos<fileCount; filePos++) {
         //Pour chaque fichier
-        QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(shortName(C,wstring2QString(C->Get(FilePos, Stream_General, 0, _T("CompleteName"))))));
+        QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(shortName(dir,wstring2QString(C->Get(filePos, Stream_General, 0, _T("CompleteName"))))));
         treeWidget->addTopLevelItem(treeItem);
 
         for (int streamKind=(int)Stream_General; streamKind<(int)Stream_Max; streamKind++)
         {
             //Pour chaque type de flux
-            QString StreamKindText=wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, _T("StreamKind/String"), Info_Text));
-            unsigned StreamsCount=C->Count_Get(FilePos, (stream_t)streamKind);
+            QString StreamKindText=wstring2QString(C->Get(filePos, (stream_t)streamKind, 0, _T("StreamKind/String"), Info_Text));
+            unsigned StreamsCount=C->Count_Get(filePos, (stream_t)streamKind);
             for (size_t streamPos=Stream_General; streamPos<StreamsCount; streamPos++)
             {
                 //Pour chaque stream
                 QString A=StreamKindText;
-                QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, _T("StreamKindPos"), Info_Text));
+                QString B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, _T("StreamKindPos"), Info_Text));
                 if (!B.isEmpty())
                 {
-                    A+=" #";
-                    A+=B;
+                    A+=" #"+B;
                 }
                 QTreeWidgetItem* node = new QTreeWidgetItem(treeItem,QStringList(A));
                 treeItem->addChild(node);
-                unsigned ChampsCount=C->Count_Get(FilePos, (stream_t)streamKind, streamPos);
 
                 if(ConfigTreeText::getIndex()==0) {
+                    unsigned ChampsCount=C->Count_Get(filePos, (stream_t)streamKind, streamPos);
                     for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
                     {
-                        if ((completeDisplay || C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text)!=_T(""))
+                        if ((completeDisplay || C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text)!=_T(""))
                         {
-                            //Pour chaque champ
-                            QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text));
-                            A+=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Measure_Text));
-                            //Quoi Refresh?
-                            QString D=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name_Text));
+                            QString A=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text));
+                            A+=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Measure_Text));
+
+                            QString D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name_Text));
                             if (D.isEmpty())
-                                D=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
-                            //Affichage
+                                D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
+
                             QStringList sl = QStringList(D);
                             sl.append(A);
                             node->addChild(new QTreeWidgetItem(node,sl));
@@ -325,10 +333,11 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                     }
                 } else {
                     foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
-                        QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
-                        QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
+                        QString A=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Text));
+                        A+=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Measure_Text));
+                        QString B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
                         if (B.isEmpty())
-                            B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
+                            B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
                         QStringList sl = QStringList(B);
                         sl.append(A);
                         node->addChild(new QTreeWidgetItem(node,sl));

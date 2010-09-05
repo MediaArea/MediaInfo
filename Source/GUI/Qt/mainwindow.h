@@ -23,6 +23,7 @@ public:
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
 
+    static QString shortName(QDir d, QString name);
     static QString shortName(Core*C, QString name);
     static QDir getCommonDir(Core*C);
 
