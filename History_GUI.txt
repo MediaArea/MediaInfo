@@ -14,6 +14,7 @@ Known bugs
 
 Version 0.7.35, 2010-09-05
 --------------
++ Arabic language added
 + Teletext subtitle support
 + DVB subtitle support
 + CEA-608/708: language
