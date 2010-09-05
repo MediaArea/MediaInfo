@@ -44,6 +44,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_UNPAGE_FINISH
 
 ; Language files
+!insertmacro MUI_LANGUAGE "Arabic"
 !insertmacro MUI_LANGUAGE "Albanian"
 !insertmacro MUI_LANGUAGE "Belarusian"
 !insertmacro MUI_LANGUAGE "Catalan"
