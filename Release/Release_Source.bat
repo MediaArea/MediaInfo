@@ -25,14 +25,14 @@ xcopy ..\Source\Install\*.nsi MediaInfo_Source\Source\Install\
 xcopy ..\Source\*.sh  MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.png MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.xpm MediaInfo_Source\Source\ /S
+xcopy ..\Source\*.svg MediaInfo_Source\Source\ /S
+xcopy ..\Source\*.qrc MediaInfo_Source\Source\ /S
+xcopy ..\Source\*.ui MediaInfo_Source\Source\ /S
 
 @rem --- Copying : Projects ---
 xcopy ..\Project\*.bpg MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bpf MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bpr MediaInfo_Source\Project\ /S
-xcopy ..\Project\*.cpp MediaInfo_Source\Project\ /S
-xcopy ..\Project\*.c MediaInfo_Source\Project\ /S
-xcopy ..\Project\*.h MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bdsgroup MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bdsproj MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.groupproj MediaInfo_Source\Project\ /S
@@ -50,9 +50,20 @@ xcopy ..\Project\*.def MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.idl MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.rgs MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bat MediaInfo_Source\Project\ /S
+xcopy ..\Project\*.pro MediaInfo_Source\Project\ /S
 xcopy ..\Project\BCB\MediaInfo*.res MediaInfo_Source\Project\BCB /S
-xcopy ..\Project\MSVC\*.rc MediaInfo_Source\Project\MSVC\ /S
+xcopy ..\Project\MSVC2005\*.cpp MediaInfo_Source\Project\MSVC2005\ /S
+xcopy ..\Project\MSVC2005\*.c MediaInfo_Source\Project\MSVC2005\ /S
+xcopy ..\Project\MSVC2005\*.h MediaInfo_Source\Project\MSVC2005\ /S
+xcopy ..\Project\MSVC2005\*.rc MediaInfo_Source\Project\MSVC2005\ /S
+xcopy ..\Project\MSVC2008\*.cpp MediaInfo_Source\Project\MSVC2008\ /S
+xcopy ..\Project\MSVC2008\*.c MediaInfo_Source\Project\MSVC2008\ /S
+xcopy ..\Project\MSVC2008\*.h MediaInfo_Source\Project\MSVC2008\ /S
 xcopy ..\Project\MSVC2008\*.rc MediaInfo_Source\Project\MSVC2008\ /S
+xcopy ..\Project\MSVC2010\*.cpp MediaInfo_Source\Project\MSVC2010\ /S
+xcopy ..\Project\MSVC2010\*.c MediaInfo_Source\Project\MSVC2010\ /S
+xcopy ..\Project\MSVC2010\*.h MediaInfo_Source\Project\MSVC2010\ /S
+xcopy ..\Project\MSVC2010\*.rc MediaInfo_Source\Project\MSVC2010\ /S
 xcopy ..\Project\GNU\* MediaInfo_Source\Project\GNU\ /S
 xcopy ..\Project\Solaris\* MediaInfo_Source\Project\Solaris\ /S
 
