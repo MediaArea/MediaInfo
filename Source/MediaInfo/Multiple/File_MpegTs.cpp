@@ -916,6 +916,14 @@ void File_MpegTs::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 bool File_MpegTs::FileHeader_Begin()
 {
+    if (Buffer_Size<8)
+        return false; //Wait for more data
+    if (CC8(Buffer+Buffer_Offset)==0x444C472056312E30LL)
+    {
+        Reject("MPEG-TS");
+        return true;
+    }
+
     //Configuring
     #if defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
         TS_Size=188
@@ -1316,7 +1324,7 @@ void File_MpegTs::Data_Parse()
     Frame_Count++;
 
     //TSP specific
-    if (TSP_Size)
+    if (TSP_Size && Element_Size>TSP_Size)
         Element_Size-=TSP_Size;
 
     //File__Duplicate
@@ -1341,7 +1349,7 @@ void File_MpegTs::Data_Parse()
         }
 
     //TSP specific
-    if (TSP_Size)
+    if (TSP_Size && Element_Size>TSP_Size)
     {
         Element_Size+=TSP_Size;
         Skip_B4(                                                "TSP"); //TSP supplement
