@@ -16,7 +16,7 @@ Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
-Packager:		Jerome Martinez <zen@mediaarea.net>
+Packager:		MediaArea.net <info@mediaarea.net>
 Source0:		libmediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
@@ -142,6 +142,6 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.35-0
+* Tue Jan 01 2009 MediaArea.net <info@mediaarea.net> - 0.7.35-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>

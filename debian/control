@@ -1,6 +1,6 @@
 Source: libmediainfo
 Priority: optional
-Maintainer: Jerome Martinez <zen@mediaarea.net>
+Maintainer: MediaArea.net <info@mediaarea.net>
 Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev (>= 0.4.14), zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
