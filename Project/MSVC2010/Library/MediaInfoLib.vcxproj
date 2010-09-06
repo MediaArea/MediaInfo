@@ -506,7 +506,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Amv.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ape.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Au.h" />
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Dirac.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Dts.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ExtendedModule.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Flac.h" />

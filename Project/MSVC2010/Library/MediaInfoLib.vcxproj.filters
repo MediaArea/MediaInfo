@@ -617,9 +617,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Au.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Dirac.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Dts.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
