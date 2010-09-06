@@ -49,14 +49,14 @@ Download_Global()
 {
 #-----------------------------------------------------------------------
 # Clean up
-rm download/binary/mediainfo/$mediainfov/*.rpm -f
-rm download/binary/mediainfo/$mediainfov/*.deb -f
-rm download/binary/mediainfo-gui/$mediainfov/*.rpm -f
-rm download/binary/mediainfo-gui/$mediainfov/*.deb -f
-rm download/binary/libmediainfo0/$libmediainfov/*.rpm -f
-rm download/binary/libmediainfo0/$libmediainfov/*.deb -f
-rm download/binary/libzen0/$libzen/*.rpm -f
-rm download/binary/libzen0/$libzen/*.deb -f
+#rm download/binary/mediainfo/$mediainfov/*.rpm -f
+#rm download/binary/mediainfo/$mediainfov/*.deb -f
+#rm download/binary/mediainfo-gui/$mediainfov/*.rpm -f
+#rm download/binary/mediainfo-gui/$mediainfov/*.deb -f
+#rm download/binary/libmediainfo0/$libmediainfov/*.rpm -f
+#rm download/binary/libmediainfo0/$libmediainfov/*.deb -f
+#rm download/binary/libzen0/$libzen/*.rpm -f
+#rm download/binary/libzen0/$libzen/*.deb -f
 mkdir download/binary/mediainfo/$mediainfov
 mkdir download/binary/mediainfo-gui/$mediainfov
 mkdir download/binary/libmediainfo0/$libmediainfov
@@ -71,14 +71,16 @@ Download_Packages 1  1  1  x x x   Debian_4      i586   _i386
 Download_Packages 1  1  1  x x x   Debian_4      x86_64 _amd64
 Download_Packages 1  1  1  x x x   Debian_5      i586   _i386
 Download_Packages 1  1  1  x x x   Debian_5      x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_6.06   i586   _i386
+Download_Packages 1  1  1  x x x   Ubuntu_6.06   x86_64 _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_8.04   i586   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_8.04   x86_64 _amd64
-Download_Packages 1  1  1  x x x   Ubuntu_8.10   i586   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_8.10   x86_64 _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   i586   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   x86_64 _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.10   i586   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_9.10   x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_10.04  i586   _i386
+Download_Packages 1  1  1  x x x   Ubuntu_10.04  x86_64 _amd64
 
 type="rpm"
 devext="devel"
@@ -87,38 +89,42 @@ Download_Packages $1 $2 $3 x x x   CentOS_4        i586   .i386
 Download_Packages $1 $2 $3 x x x   CentOS_4        x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   CentOS_5        i586   .i386
 Download_Packages $1 $2 $3 x x x   CentOS_5        x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Fedora_9        i586   .i386
-Download_Packages $1 $2 $3 x x x   Fedora_9        x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Fedora_10       i586   .i386
-Download_Packages $1 $2 $3 x x x   Fedora_10       x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Fedora_11       i586   .i386
-Download_Packages $1 $2 $3 x x x   Fedora_11       x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Fedora_12       i586   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_12       x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Fedora_13       i586   .i386
+Download_Packages $1 $2 $3 x x x   Fedora_13       x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2008   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2008   x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Mandriva_2009   i586   .i586
-Download_Packages $1 $2 $3 x x x   Mandriva_2009   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2010   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2010   x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 i586   .i586
+Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_4          i586   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_4          x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_5          i586   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_5          x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   openSUSE_11.0   i586   .i586
-Download_Packages $1 $2 $3 x x x   openSUSE_11.0   x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   SLES_9          i586   .i586
+Download_Packages $1 $2 $3 x x x   SLES_9          x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   SLE_10          i586   .i586
+Download_Packages $1 $2 $3 x x x   SLE_10          x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   SLE_11          i586   .i586
+Download_Packages $1 $2 $3 x x x   SLE_11          x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   SLE_11_SP1      i586   .i586
+Download_Packages $1 $2 $3 x x x   SLE_11_SP1      x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   openSUSE_11.1   i586   .i586
 Download_Packages $1 $2 $3 x x x   openSUSE_11.1   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   openSUSE_11.2   i586   .i586
 Download_Packages $1 $2 $3 x x x   openSUSE_11.2   x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   openSUSE_11.3   i586   .i586
+Download_Packages $1 $2 $3 x x x   openSUSE_11.3   x86_64 .x86_64
 }
 
 
-mediainfov="0.7.26"
-libmediainfov="0.7.26"
-libzenv="0.4.9"
+mediainfov="0.7.35"
+libmediainfov="0.7.35"
+libzenv="0.4.14"
 destversion="1"
 
-Download_Global 2.1 14.1 4.1
+Download_Global 3.1 8.1 11.1
