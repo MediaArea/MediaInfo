@@ -40,6 +40,7 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#include <cstring>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
