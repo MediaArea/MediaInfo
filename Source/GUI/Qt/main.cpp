@@ -2,8 +2,10 @@
 #include <QtCore/QtPlugin>
 #include "mainwindow.h"
 
-Q_IMPORT_PLUGIN(qsvg)
-     
+#ifdef _WIN32
+	Q_IMPORT_PLUGIN(qsvg)
+#endif //_WIN32
+ 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

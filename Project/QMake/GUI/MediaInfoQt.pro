@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-07-23T13:03:11
 # -------------------------------------------------
-TARGET = MediaInfoQt
+TARGET = mediainfo-gui
 TEMPLATE = app
 
 # QT += webkit

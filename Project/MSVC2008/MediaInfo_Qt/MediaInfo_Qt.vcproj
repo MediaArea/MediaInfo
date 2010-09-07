@@ -198,8 +198,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../Source;../../../../Qt/include/;../../../../Qt/include/QtCore;../../../../Qt/include/QtGui;../../../../MediaInfoLib/Source;../../../../ZenLib/Source"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../Qt/include;./"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_DLL_RUNTIME"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -218,9 +218,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore.lib QtGui.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib shlwapi.lib"
+				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib QtXml.lib qtsvg.lib qsvg.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../../../Qt/lib/$(PlatformName)\$(ConfigurationName)"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC2008\$(PlatformName)\$(ConfigurationName)&quot;;&quot;../../../../Qt/lib/$(PlatformName)\$(ConfigurationName)&quot;;../../../../Qt\plugins\imageformats"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -527,11 +527,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
+					RelativePath=".\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
-					RelativePath=".\_Automated\ui_mainwindow.h"
+					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File

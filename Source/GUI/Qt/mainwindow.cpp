@@ -61,11 +61,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     tb->setIcon(QIcon(":/icon/view.svg"));
     ui->toolBar->addWidget(tb);
 
-    QIcon::setThemeName("gnome-dust");
+    /* TODO
+	QIcon::setThemeName("gnome-dust");
     ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
     ui->actionOpen->setIcon(QIcon::fromTheme("document-open",QIcon(":/icon/openfile.svg")));
     ui->actionExport->setIcon(QIcon::fromTheme("document-save",QIcon(":/icon/export.svg")));
     ui->actionAbout->setIcon(QIcon::fromTheme("help-about",QIcon(":/icon/about.svg")));
+    */
 
     timer=NULL;
     progressDialog=NULL;
