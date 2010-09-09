@@ -1,5 +1,6 @@
 #include "configtreetext.h"
 #include "Common/Core.h"
+#include <QtCore/QDebug>
 
 int ConfigTreeText::indexDefault = 0;
 QVector<ConfigTreeText*> ConfigTreeText::configs = QVector<ConfigTreeText*>();
@@ -16,7 +17,7 @@ ConfigTreeText::ConfigTreeText(QString name)
 /* STATIC FUNCTIONS */
 
 void ConfigTreeText::load(QSettings* settings) {
-    qDebug("loading configs");
+    qDebug() << "loading configs";
     int size = settings->beginReadArray("configs");
     for (int i = 0; i < size; ++i) {
         settings->setArrayIndex(i);
@@ -127,5 +128,10 @@ void ConfigTreeText::addField(int i, QString f) {
 }
 
 void ConfigTreeText::removeField(int i, QString f) {
+#if QT_VERSION >= 0x404000
     fields[i].removeOne(f);
+#else
+    if(fields[i].indexOf(f))
+        fields[i].removeAt(fields[i].indexOf(f));
+#endif
 }

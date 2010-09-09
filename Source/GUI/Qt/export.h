@@ -3,6 +3,7 @@
 
 #include <QtGui/QDialog>
 #include <QtCore/QIODevice>
+#include <QtCore/QDebug>
 
 namespace Ui {
     class Export;

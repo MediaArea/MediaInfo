@@ -3,6 +3,7 @@
 
 #include <QtGui/QFrame>
 #include "Common/Core.h"
+#include <QtCore/QDebug>
 
 namespace Ui {
     class SheetView;

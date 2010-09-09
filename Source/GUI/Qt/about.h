@@ -2,6 +2,7 @@
 #define ABOUT_H
 
 #include <QtGui/QDialog>
+#include <QtCore/QDebug>
 
 namespace Ui {
     class About;

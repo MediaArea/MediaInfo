@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>EditSheet</class>
  <widget class="QDialog" name="EditSheet">
@@ -50,7 +49,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="vboxLayout">
      <property name="spacing">
       <number>0</number>
      </property>

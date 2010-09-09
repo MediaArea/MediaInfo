@@ -3,6 +3,7 @@
 
 #include <QtGui/QDialog>
 #include "sheet.h"
+#include <QtCore/QDebug>
 
 namespace Ui {
     class EditSheet;

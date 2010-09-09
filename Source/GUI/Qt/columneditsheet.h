@@ -6,6 +6,7 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QComboBox>
 #include <QtGui/QSpinBox>
+#include <QtCore/QDebug>
 
 class ColumnEditSheet : public QHBoxLayout
 {

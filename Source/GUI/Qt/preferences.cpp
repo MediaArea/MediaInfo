@@ -31,6 +31,10 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->rememberToolBarPosition->setChecked(settings->value("rememberToolBarPosition",true).toBool());
     ui->rememberGeometry->setChecked(settings->value("rememberGeometry",false).toBool());
 
+    ui->showToolbar->setEnabled(ui->showMenu->isChecked());
+    ui->showMenu->setEnabled(ui->showToolbar->isChecked());
+    ui->rememberToolBarPosition->setEnabled(ui->showToolbar->isChecked());
+
     refreshDisplay();
 
     ui->stackedWidget->setCurrentIndex(0);

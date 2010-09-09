@@ -5,6 +5,7 @@
 #include <QtGui/QDialog>
 #include "Common/Core.h"
 #include "configtreetext.h"
+#include <QtCore/QDebug>
 
 namespace Ui {
     class editConfigTreeText;

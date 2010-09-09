@@ -6,6 +6,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QSettings>
 #include "Common/Core.h"
+#include <QtCore/QDebug>
 
 typedef struct {
     QString name;

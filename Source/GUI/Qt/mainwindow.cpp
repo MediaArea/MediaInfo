@@ -133,6 +133,8 @@ void MainWindow::closeEvent(QCloseEvent *e)
 
 void MainWindow::openFiles(QStringList fileNames) {
     //Configuring
+    if(fileNames.isEmpty())
+        return;
     for(int i=0;i<fileNames.size();i++) {
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
@@ -180,6 +182,9 @@ void MainWindow::updateProgressBar ()
 }
 
 void MainWindow::openDir(QString dirName) {
+
+    if(dirName.isEmpty())
+        return;
 
     //Configuring
     dirName = QDir::toNativeSeparators(dirName);

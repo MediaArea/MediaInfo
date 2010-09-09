@@ -6,6 +6,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QSettings>
 #include <QtGui/QComboBox>
+#include <QtCore/QDebug>
 
 class ConfigTreeText
 {

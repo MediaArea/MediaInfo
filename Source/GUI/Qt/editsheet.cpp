@@ -34,24 +34,24 @@ EditSheet::~EditSheet()
 void EditSheet::initDisplay() {
     ui->lineEdit->setText(sheet->getName());
     for(int i=0;i<sheet->getNbColumns();i++) {
-        ui->verticalLayout->addLayout(createColumn(sheet->getColumn(i)));
-        emit newPos(ui->verticalLayout->count());
+        ui->vboxLayout->addLayout(createColumn(sheet->getColumn(i)));
+        emit newPos(ui->vboxLayout->count());
     }
     ui->tableWidget->setRowCount(1);
 }
 
 void EditSheet::refreshDisplay() {
-    qDebug((QString::number(ui->verticalLayout->count())+" columns :").toStdString().c_str());
-    ui->tableWidget->setColumnCount(ui->verticalLayout->count());
-    for(int i=0;i<ui->verticalLayout->count();++i) {
+    qDebug((QString::number(ui->vboxLayout->count())+" columns :").toStdString().c_str());
+    ui->tableWidget->setColumnCount(ui->vboxLayout->count());
+    for(int i=0;i<ui->vboxLayout->count();++i) {
         //column c = sheet->getColumn(i);
-        qDebug((QString::number(i)+" : "+((QLineEdit*)ui->verticalLayout->itemAt(i)->layout()->itemAt(0)->widget())->text()).toStdString().c_str());
+        qDebug((QString::number(i)+" : "+((QLineEdit*)ui->vboxLayout->itemAt(i)->layout()->itemAt(0)->widget())->text()).toStdString().c_str());
         if(!ui->checkBoxAdapt)
-            ui->tableWidget->setColumnWidth(i,((QSpinBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->widget())->value());
+            ui->tableWidget->setColumnWidth(i,((QSpinBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(1)->widget())->value());
         if(ui->tableWidget->horizontalHeaderItem(i))
-            ui->tableWidget->horizontalHeaderItem(i)->setText(((QLineEdit*)ui->verticalLayout->itemAt(i)->layout()->itemAt(0)->widget())->text());
+            ui->tableWidget->horizontalHeaderItem(i)->setText(((QLineEdit*)ui->vboxLayout->itemAt(i)->layout()->itemAt(0)->widget())->text());
         else {
-            QTableWidgetItem* header = new QTableWidgetItem(((QLineEdit*)ui->verticalLayout->itemAt(i)->layout()->itemAt(0)->widget())->text());
+            QTableWidgetItem* header = new QTableWidgetItem(((QLineEdit*)ui->vboxLayout->itemAt(i)->layout()->itemAt(0)->widget())->text());
             ui->tableWidget->setHorizontalHeaderItem(i,header);
         }
     }
@@ -60,7 +60,7 @@ void EditSheet::refreshDisplay() {
 }
 
 QLayout* EditSheet::createColumn(column c) {
-    ColumnEditSheet* col = new ColumnEditSheet(c,ui->verticalLayout->count(),ui->verticalLayout->count()+1,C);
+    ColumnEditSheet* col = new ColumnEditSheet(c,ui->vboxLayout->count(),ui->vboxLayout->count()+1,C);
 
     connect(col,SIGNAL(somethingChanged()),SLOT(refreshDisplay()));
     connect(col,SIGNAL(moveMeUp(int)),SLOT(upCol(int)));
@@ -73,7 +73,9 @@ QLayout* EditSheet::createColumn(column c) {
 
     col->widthBox()->setDisabled(ui->checkBoxAdapt->isChecked());
 
+#if QT_VERSION >= 0x403000
     col->setContentsMargins(0,0,0,0);
+#endif
     col->setSpacing(0);
     col->setMargin(0);
 
@@ -82,22 +84,22 @@ QLayout* EditSheet::createColumn(column c) {
 
 void EditSheet::upCol(int i) {
     if(i>0) {
-        ui->verticalLayout->insertLayout(i-1,((QLayout*)ui->verticalLayout->takeAt(i)));
-        emit switchPos(i,i-1,ui->verticalLayout->count());
+        ui->vboxLayout->insertLayout(i-1,((QLayout*)ui->vboxLayout->takeAt(i)));
+        emit switchPos(i,i-1,ui->vboxLayout->count());
     }
 }
 
 void EditSheet::downCol(int i) {
-    if(i<ui->verticalLayout->count()-1) {
-        ui->verticalLayout->insertLayout(i+1,((QLayout*)ui->verticalLayout->takeAt(i)));
-        emit switchPos(i,i+1,ui->verticalLayout->count());
+    if(i<ui->vboxLayout->count()-1) {
+        ui->vboxLayout->insertLayout(i+1,((QLayout*)ui->vboxLayout->takeAt(i)));
+        emit switchPos(i,i+1,ui->vboxLayout->count());
     }
 }
 
 void EditSheet::delCol(int i) {
-    ColumnEditSheet* c = (ColumnEditSheet*)ui->verticalLayout->takeAt(i);
+    ColumnEditSheet* c = (ColumnEditSheet*)ui->vboxLayout->takeAt(i);
     delete c;
-    emit deletePos(i,ui->verticalLayout->count());
+    emit deletePos(i,ui->vboxLayout->count());
 }
 
 void EditSheet::addColumn() {
@@ -106,8 +108,8 @@ void EditSheet::addColumn() {
     c.width = 50;
     c.stream = Stream_General;
     c.key = "CompleteName";
-    ui->verticalLayout->addLayout(createColumn(c));
-    emit newPos(ui->verticalLayout->count());
+    ui->vboxLayout->addLayout(createColumn(c));
+    emit newPos(ui->vboxLayout->count());
     refreshDisplay();
 }
 
@@ -125,12 +127,12 @@ void EditSheet::changeEvent(QEvent *e)
 
 void EditSheet::apply() {
     sheet->resetColumns();
-    for(int i=0;i<ui->verticalLayout->count();++i) {
+    for(int i=0;i<ui->vboxLayout->count();++i) {
         column c;
-        c.name = ((QLineEdit*)ui->verticalLayout->itemAt(i)->layout()->itemAt(0)->widget())->text();
-        c.width = ((QSpinBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->widget())->value();
-        c.stream = (stream_t)((QComboBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(2)->widget())->itemData(((QComboBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(2)->widget())->currentIndex()).toInt();
-        c.key = ((QComboBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(3)->widget())->itemData(((QComboBox*)ui->verticalLayout->itemAt(i)->layout()->itemAt(3)->widget())->currentIndex()).toString();
+        c.name = ((QLineEdit*)ui->vboxLayout->itemAt(i)->layout()->itemAt(0)->widget())->text();
+        c.width = ((QSpinBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(1)->widget())->value();
+        c.stream = (stream_t)((QComboBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(2)->widget())->itemData(((QComboBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(2)->widget())->currentIndex()).toInt();
+        c.key = ((QComboBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(3)->widget())->itemData(((QComboBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(3)->widget())->currentIndex()).toString();
         sheet->addColumn(c);
     }
     sheet->setName(ui->lineEdit->text().toStdString().c_str());

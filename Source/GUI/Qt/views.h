@@ -1,6 +1,7 @@
 #ifndef VIEWS_H
 #define VIEWS_H
 #include <QtCore/QString>
+#include <QtCore/QDebug>
 
 typedef enum {
     VIEW_EASY=0,

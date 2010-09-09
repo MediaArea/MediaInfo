@@ -4,6 +4,7 @@
 #include <QtGui/QDialog>
 #include <QtCore/QSettings>
 #include "Common/Core.h"
+#include <QtCore/QDebug>
 
 namespace Ui {
     class Preferences;

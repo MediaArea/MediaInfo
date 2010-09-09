@@ -9,6 +9,7 @@
 #include <QtGui/QProgressDialog>
 #include <QtCore/QTimer>
 #include "views.h"
+#include <QtCore/QDebug>
 
 namespace Ui {
     class MainWindow;

@@ -87,8 +87,10 @@ void SheetView::on_tableWidget_itemSelectionChanged()
         return;
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
     for(int streamKind=0;streamKind<Stream_Max;++streamKind) {
+#if QT_VERSION >= 0x404000
         if(C->Count_Get(filePos,(stream_t)streamKind) && ui->comboBox->count())
             ui->comboBox->insertSeparator(ui->comboBox->count());
+#endif
         for(unsigned int streamPos=0;streamPos<C->Count_Get(filePos,(stream_t)streamKind);++streamPos) {
             ui->comboBox->addItem(wstring2QString(C->Summary_Get(filePos,(stream_t)streamKind, streamPos)),QPoint(streamKind,streamPos));
         }

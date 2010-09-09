@@ -4,6 +4,7 @@
 #include <QtGui/QWidget>
 #include "Common/Core.h"
 #include <QtGui/QGroupBox>
+#include <QtCore/QDebug>
 
 class EasyViewWidget : public QWidget
 {
