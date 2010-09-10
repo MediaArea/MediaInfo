@@ -11,6 +11,7 @@ fl64;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
 ima4;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html;
 in24;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
 in32;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
+lpcm;PCM;;;;
 MAC3;MACE 3;;;;
 MAC6;MACE 6;;;;
 NONE;PCM;;;http://www.apple.com/quicktime/download/standalone.html;

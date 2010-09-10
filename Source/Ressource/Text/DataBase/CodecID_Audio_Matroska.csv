@@ -19,7 +19,7 @@ A_REAL/COOK;Cooker;;Real Audio Cook Codec (codename: Gecko);http://www.real.com
 A_REAL/SIPR;G.729;;Real & Sipro Voice Codec;http://www.real.com
 A_REAL/RALF;RealAudio Lossless;;Real Audio Lossless Format;http://www.real.com
 A_REAL/ATRC;Atrac;;Real & Sony Atrac3 Codec;http://www.real.com
-A_TRUEHD;TrueHD;;Dolby TrueHD;http://www.dolby.com/consumer/technology/trueHD.html
+A_TRUEHD;TrueHD;;;http://www.dolby.com/consumer/technology/trueHD.html
 A_MLP;MLP;;Meridian Lossless Packing;http://www.meridian-audio.com
 A_AAC;AAC;;;
 A_AAC/MPEG2/MAIN;AAC;;;
