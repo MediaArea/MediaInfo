@@ -7,6 +7,11 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.36, 2010-
+--------------
++ Raw TrueHD support
+x MKV: AVC "unknown profile" removal
+
 Version 0.7.35, 2010-09-05
 --------------
 + Teletext subtitle support
