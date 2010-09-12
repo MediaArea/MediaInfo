@@ -9,7 +9,6 @@ About::About(QWidget *parent) :
     ui(new Ui::About)
 {
     ui->setupUi(this);
-    ui->logoMail->setPixmap(ui->logoMail->pixmap()->scaled(ui->logoMail->pixmap()->size()/2.0,Qt::KeepAspectRatio));
 }
 
 About::~About()
@@ -41,7 +40,7 @@ void About::on_website_clicked()
 
 void About::on_mail_clicked()
 {
-    QDesktopServices::openUrl(QUrl("mailto:mediainfo@yopmail.com"));
+    QDesktopServices::openUrl(QUrl("mailto:info@mediaarea.net"));
 }
 
 void About::on_donate_clicked()

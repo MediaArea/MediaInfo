@@ -16,8 +16,9 @@
    <string>MediaInfo</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../Ressource/Resources.qrc">
-    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+   <iconset>
+    <normaloff/>
+   </iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout">
