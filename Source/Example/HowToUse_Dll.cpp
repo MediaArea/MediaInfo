@@ -55,7 +55,7 @@ int main (int argc, Char *argv[])
 
     //An example of how to use the library
     To_Display += _T("\r\n\r\nOpen\r\n");
-    MI.Open(_T("Example.ogg"));
+    MI.Open(_T("ftp://a.a/Example.ogg"));
 
     To_Display += _T("\r\n\r\nInform with Complete=false\r\n");
     MI.Option(_T("Complete"));
