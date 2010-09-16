@@ -11,6 +11,7 @@ Version 0.7.36, 2010-
 --------------
 + Raw TrueHD support
 + MP4: "lpcm" (PCM from DVD) Support (with channel positions)
++ MKV: compression mode (zlib...) display
 x MKV: AVC "unknown profile" removal
 x AVC: some frame rates were reported as twice the real frame rate
 
