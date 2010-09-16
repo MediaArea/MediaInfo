@@ -311,6 +311,6 @@ String Core::Parameters () {
     return MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"));
 }
 
-int Core::State_Get() {
+size_t Core::State_Get() {
     return MI->State_Get();
 }
