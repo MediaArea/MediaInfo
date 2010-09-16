@@ -10,6 +10,12 @@
 #include <QtCore/QTimer>
 #include "views.h"
 #include <QtCore/QDebug>
+#include <QtCore/QUrl>
+#ifdef NEW_VERSION
+    #include <QtNetwork/QNetworkAccessManager.h>
+    #include <QtNetwork/QNetworkReply.h>
+    #include <QtCore/QTemporaryFile.h>
+#endif //NEW_VERSION
 
 namespace Ui {
     class MainWindow;
@@ -28,6 +34,8 @@ public:
     static QString shortName(Core*C, QString name);
     static QDir getCommonDir(Core*C);
 
+    void checkForNewVersion();
+
 
 protected:
     void changeEvent(QEvent *e);
@@ -45,6 +53,12 @@ private:
 
     Ui::MainWindow *ui;
     //Non-GUI Elements
+#ifdef NEW_VERSION
+    QUrl url;
+    QNetworkAccessManager qnam;
+    QNetworkReply *reply;
+    QTemporaryFile *file;
+#endif
     Core* C;
     ViewMode view;
     QSettings* settings;
@@ -66,6 +80,9 @@ private slots:
     void on_actionOpen_Folder_triggered();
     void on_actionQuit_triggered();
     void on_actionOpen_triggered();
+    void toolBarOptions(QPoint);
+    void httpFinished();
+    void httpReadyRead();
 };
 
 #endif // MAINWINDOW_H

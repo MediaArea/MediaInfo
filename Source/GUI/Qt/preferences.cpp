@@ -27,7 +27,11 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->showToolbar->setChecked(settings->value("showToolbar",true).toBool());
     ui->closeAllBeforeOpen->setChecked(settings->value("closeBeforeOpen",true).toBool());
     ui->comboBox_defaultview->setCurrentIndex(settings->value("defaultView",VIEW_EASY).toInt());
+#ifdef NEW_VERSION
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
+#else
+    ui->checkForNewVersion->setVisible(false);
+#endif
     ui->rememberToolBarPosition->setChecked(settings->value("rememberToolBarPosition",true).toBool());
     ui->rememberGeometry->setChecked(settings->value("rememberGeometry",false).toBool());
 

@@ -34,7 +34,7 @@ SheetView::~SheetView()
 }
 
 void SheetView::refreshDisplay() {
-    ui->tableWidget->setRowCount(C->Count_Get());
+    ui->tableWidget->setRowCount((int)C->Count_Get());
     ui->tableWidget->setColumnCount(Sheet::getSheet()->getNbColumns());
     for(int i=0;i<Sheet::getSheet()->getNbColumns();++i) {
         column c = Sheet::getSheet()->getColumn(i);

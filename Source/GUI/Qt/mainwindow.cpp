@@ -24,11 +24,14 @@
 #include "configtreetext.h"
 
 #include <ZenLib/Ztring.h>
+#include <ZenLib/ZtringListList.h>
 using namespace ZenLib;
 #define wstring2QString(_DATA) \
     QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
+    
+#define VERSION "0.7.35"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -60,7 +63,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     tb->setText("view");
     tb->setPopupMode(QToolButton::InstantPopup);
     tb->setIcon(QIcon(":/icon/view.svg"));
+    connect(ui->toolBar,SIGNAL(toolButtonStyleChanged(Qt::ToolButtonStyle)),tb,SLOT(setToolButtonStyle(Qt::ToolButtonStyle)));
     ui->toolBar->addWidget(tb);
+
+    ui->toolBar->setContextMenuPolicy(Qt::CustomContextMenu);
+    this->connect(ui->toolBar,SIGNAL(customContextMenuRequested(QPoint)),SLOT(toolBarOptions(QPoint)));
 
     /* TODO
 	QIcon::setThemeName("gnome-dust");
@@ -81,11 +88,118 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         openFiles(files);
     }
 
+#ifdef NEW_VERSION
+    if(settings->value("checkForNewVersion",true).toBool()) {
+        checkForNewVersion();
+    }
+#endif
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+#ifdef NEW_VERSION
+
+void MainWindow::checkForNewVersion() {
+    QString version = VERSION;
+    //QString filename = "changelog_"+version+".bin";
+    QUrl url = QUrl("http://mediaarea.net/mediainfo_check/changelog_"+version+".bin");
+    QFileInfo fileInfo(url.path());
+    QString fileName = fileInfo.fileName();
+    file = new QTemporaryFile(fileName);
+    file->open();
+    reply = qnam.get(QNetworkRequest(url));
+    qDebug() << "downloading " << url.toString();
+
+     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
+     connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
+
+}
+#endif //NEW_VERSION
+
+void MainWindow::httpFinished()
+{
+    #ifdef NEW_VERSION
+        file->flush();
+         if (reply->error()) {
+             qDebug("Download failed");
+         } else {
+             QString fileName = file->fileName();
+             qDebug() << ("Downloaded "+fileName+" to temp directory.").toStdString().c_str();
+         }
+
+         ZtringListList X;
+         file->reset();
+    /*TODO #warning test à chager! */
+         X.Write(file->readAll().data());
+         if (X("NewVersion")>Ztring(VERSION)) {
+             qDebug("New version is available.");
+             qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
+         } else {
+             qDebug("No new version available.");
+             qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
+         }
+         /*
+         - LaVersionActuelle="0.7.35"
+         - lire "http://mediaarea.net/mediainfo_check/changelog_"+LaVersionActuelle+".bin"
+         - ZtringListList X; X.Write(le contenu du fichier)
+         - if (X("NewVersion")>LaVersionActuelle) mettre un truc dans le menu, voir capture d'écran.
+         - rajouter dans les prefs une case "Check for new version (requires an Internet connexion)"
+         - Mettre le tout dans un #ifdef, pour qu'on puisse le désactiver facilement (pour les repos etc...)
+         */
+
+         file->close();
+         reply->deleteLater();
+         reply = 0;
+         delete file;
+         file = 0;
+    #endif //NEW_VERSION
+}
+
+void MainWindow::httpReadyRead()
+{
+    #ifdef NEW_VERSION
+        if (file)
+            file->write(reply->readAll());
+    #endif //NEW_VERSION
+}
+
+void MainWindow::toolBarOptions(QPoint p) {
+    QMenu menu("toolbar options",ui->toolBar);
+    QMenu *menuI = new QMenu(Tr("Icon size"));
+    QMenu *menuT = new QMenu(Tr("Text position"));
+    menu.addMenu(menuT);
+    menuT->addAction(Tr("Icons only"));
+    menuT->addAction(Tr("Text only"));
+    menuT->addAction(Tr("Text under icons"));
+    menuT->addAction(Tr("Text beside icons"));
+    menu.addMenu(menuI);
+    menuI->addAction(Tr("Default"));
+    menuI->addAction(Tr("Small(16x16)"));
+    menuI->addAction(Tr("Medium(22x22)"));
+    menuI->addAction(Tr("Big(32x32)"));
+    menuI->addAction(Tr("Huge(48x48)"));
+    QAction* a = menu.exec(QCursor::pos());
+/*TODO #warning système à peaufiner! */
+    if(a->text() == Tr("Small(16x16)"))
+        ui->toolBar->setIconSize(QSize(16,16));
+    if(a->text() == Tr("Medium(22x22)"))
+        ui->toolBar->setIconSize(QSize(22,22));
+    if(a->text() == Tr("Big(32x32)")||a->text() == Tr("Default"))
+        ui->toolBar->setIconSize(QSize(32,32));
+    if(a->text() == Tr("Huge(48x48)"))
+        ui->toolBar->setIconSize(QSize(48,48));
+    if(a->text() == Tr("Icons only"))
+        ui->toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    if(a->text() == Tr("Text only"))
+        ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    if(a->text() == Tr("Text under icons")||a->text() == Tr("Default"))
+        ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    if(a->text() == Tr("Text beside icons"))
+        ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 }
 
 QString MainWindow::shortName(QDir d, QString name) {
@@ -101,7 +215,7 @@ QString MainWindow::shortName(Core*C, QString name) {
 QDir MainWindow::getCommonDir(Core*C) {
     QList<QStringList> list;
     QStringList dirName;
-    unsigned fileCount = C->Count_Get();
+    unsigned fileCount = (unsigned)C->Count_Get();
     for(unsigned filePos=0;filePos<fileCount;filePos++)
         list.append(QDir::toNativeSeparators(wstring2QString(C->Get(filePos,Stream_General, 0, _T("CompleteName")))).split(QDir::separator ()));
     if(!list.isEmpty())
@@ -174,7 +288,7 @@ void MainWindow::updateProgressBar ()
     if (progressDialog==NULL)
         return;
 
-    progressDialog->setValue(C->State_Get());
+    progressDialog->setValue((int)C->State_Get());
 
     if (C->State_Get()==10000 || progressDialog->wasCanceled())
     {
@@ -293,7 +407,7 @@ void MainWindow::refreshDisplay() {
         if(C->Count_Get()==1)
             this->setWindowTitle("MediaInfo - "+shortName(C,wstring2QString(C->Get(0, Stream_General, 0, _T("CompleteName")))));
         else
-            this->setWindowTitle(Tr("MediaInfo - %n files","window title",C->Count_Get()));
+            this->setWindowTitle(Tr("MediaInfo - %n files","window title",(int)C->Count_Get()));
     else
         this->setWindowTitle(Tr("MediaInfo"));
 }
@@ -305,7 +419,7 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
     QStringList headers = QStringList(Tr("key"));
     headers.append(Tr("value"));
     treeWidget->setHeaderLabels(headers);
-    unsigned fileCount = C->Count_Get();
+    unsigned fileCount = (unsigned)C->Count_Get();
 
     QDir dir = getCommonDir(C);
     for (size_t filePos=0; filePos<fileCount; filePos++) {
@@ -317,7 +431,7 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
         {
             //Pour chaque type de flux
             QString StreamKindText=wstring2QString(C->Get(filePos, (stream_t)streamKind, 0, _T("StreamKind/String"), Info_Text));
-            unsigned StreamsCount=C->Count_Get(filePos, (stream_t)streamKind);
+            size_t StreamsCount=C->Count_Get(filePos, (stream_t)streamKind);
             for (size_t streamPos=Stream_General; streamPos<StreamsCount; streamPos++)
             {
                 //Pour chaque stream
@@ -331,7 +445,7 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                 treeItem->addChild(node);
 
                 if(ConfigTreeText::getIndex()==0) {
-                    unsigned ChampsCount=C->Count_Get(filePos, (stream_t)streamKind, streamPos);
+                    size_t ChampsCount=C->Count_Get(filePos, (stream_t)streamKind, streamPos);
                     for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
                     {
                         if ((completeDisplay || C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text)!=_T(""))
