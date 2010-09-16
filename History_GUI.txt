@@ -14,6 +14,10 @@ Known bugs
 
 Version 0.7.35, 2010-09-05
 --------------
+x Windows x64 explorer tooltip is back!
+
+Version 0.7.35, 2010-09-05
+--------------
 + Arabic language added
 + Teletext subtitle support
 + DVB subtitle support
