@@ -14,6 +14,7 @@ Version 0.7.36, 2010-
 + MKV: compression mode (zlib...) display
 x MKV: AVC "unknown profile" removal
 x AVC: some frame rates were reported as twice the real frame rate
+x #3029308, Id3v2: support of frames with Unsynchronisation bit set
 
 Version 0.7.35, 2010-09-05
 --------------
