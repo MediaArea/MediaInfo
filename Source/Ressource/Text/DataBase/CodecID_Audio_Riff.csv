@@ -219,6 +219,7 @@ AAC;AAC;;;;
 676F;Vorbis;;;http://www.vorbis.com;;Mode 1+
 6770;Vorbis;;;http://www.vorbis.com;;Mode 2+
 6771;Vorbis;;;http://www.vorbis.com;;Mode 2+
+8180;AAC
 7A21;AMR;;GSM-AMR (CBR, no SID);http://www.microsoft.com;;
 7A22;AMR;;GSM-AMR (VBR, including SID);http://www.microsoft.com;;
 A100;G.723.1;;;;;
