@@ -16,6 +16,7 @@ Version 0.7.36, 2010-
 x MKV: AVC "unknown profile" removal
 x AVC: some frame rates were reported as twice the real frame rate
 x #3029308, Id3v2: support of frames with Unsynchronisation bit set
+x #3065114, MPEG-Video: duration calculation issues with raw streams and open GOPs
 
 Version 0.7.35, 2010-09-05
 --------------
