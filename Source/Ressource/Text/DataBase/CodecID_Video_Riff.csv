@@ -29,7 +29,7 @@ AEIK;Indeo 3.2;;Vector Quantization;;;;;
 AEMI;MPEG Video;VideoONE;MPEG-1-I Capture;http://www.array.com;;;YUV;4:2:0
 AFLC;FLC;Autodesk;;http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe;;;;
 AFLI;FLI;Autodesk;;http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe;;;;
-AHDV;Wavelet;CineForm HD;;http://www.cineform.com/products/ConnectHD.htm;;;;
+AHDV;CineForm;CineForm HD;;http://www.cineform.com/products/ConnectHD.htm;;;;
 AJPG;M-JPEG;;22fps for digital cameras;;;;YUV;4:2:0
 ALPH;Ziracom;;Ziracom Digital Communications Inc.;;;;;
 AMPG;MPEG-1;VideoONE;;http://www.array.com;;;YUV;4:2:0
@@ -86,7 +86,7 @@ CDV5;DV;Canopus;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm
 CDVC;DV;Canopus;Canopus DV (DV);http://www.cineform.com/products/ConnectHD.htm;;;YUV;
 CDVH;DV;Canopus;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm;;;YUV;
 CFCC;M-JPEG;DPS Perception;Dummy format - only AVI header;;;;YUV;4:2:0
-CFHD;CineForm HD;;CineForm 10-bit Visually Perfect HD (Wavelet);;;;;
+CFHD;CineForm;;CineForm 10-bit Visually Perfect HD (Wavelet);;;;;
 CGDI;Camcorder;;Camcorder Video (MS Office 97);;;;;
 CHAM;Champagne;;Winnov Caviara Champagne;;;;;
 CJPG;M-JPEG;Creative;Creative Video Blaster Webcam Go JPEG;;;;YUV;4:2:0

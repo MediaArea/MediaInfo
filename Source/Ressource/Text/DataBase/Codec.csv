@@ -24,7 +24,7 @@ AEIK;Indeo 3.2;4CC;V;;;Intel Indeo Video 3.2 (Vector Quantization);
 AEMI;VideoONE;4CC;V;MPEG-V;;Array VideoONE MPEG-1-I Capture. Array's used for I frame only MPEG-1 AVI files;http://www.array.com
 AFLC;Autodesk;4CC;V;;;Autodesk Animator Studio FLI (256 color) (warning: this is a discoutinued product);http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe
 AFLI;Autodesk;4CC;V;;;Autodesk Animator Studio FLI (256 color) (warning: this is a discoutinued product);http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe
-AHDV;CineForm HD;4CC;V;Wavelet;;CineForm 10-bit Visually Perfect HD (Wavelet);http://www.cineform.com/products/ConnectHD.htm
+AHDV;CineForm;4CC;V;Wavelet;;CineForm 10-bit Visually Perfect HD (Wavelet);http://www.cineform.com/products/ConnectHD.htm
 AJPG;M-JPEG;4CC;V;M-JPEG;;22fps JPEG-based for digital cameras;
 ALPH;Ziracom;4CC;V;;;Ziracom Digital Communications Inc.;
 AMPG;VideoONE;4CC;V;MPEG-1;;Array VideoONE MPEG;http://www.array.com
@@ -80,7 +80,7 @@ CDV5;Canopus DV;4CC;V;DV;;Canopus SD50/DVHD;http://www.cineform.com/products/Con
 CDVC;Canopus DV;4CC;V;DV;;Canopus DV (DV);http://www.cineform.com/products/ConnectHD.htm
 CDVH;Canopus DV;4CC;V;DV;;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm
 CFCC;Perception;4CC;V;;;DPS Perception M-JPEG (dummy format - only AVI header);
-CFHD;CineForm HD;4CC;V;;;CineForm 10-bit Visually Perfect HD (Wavelet);
+CFHD;CineForm;4CC;V;;;CineForm 10-bit Visually Perfect HD (Wavelet);
 CGDI;Camcorder;4CC;V;;;Camcorder Video (MS Office 97);
 CHAM;Champagne;4CC;V;;;Winnov Caviara Champagne;
 CJPG;Creative M-JPEG;4CC;V;M-JPEG;;Creative Video Blaster Webcam Go JPEG;
