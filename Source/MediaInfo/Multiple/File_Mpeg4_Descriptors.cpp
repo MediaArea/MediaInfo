@@ -295,6 +295,7 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
     Parser_DoNotFreeIt=false;
     DecSpecificInfoTag_DoNotFreeIt=false;
     SLConfig_DoNotFreeIt=false;
+    Channels_AreTrustable=false;
 
     //Out
     Parser=NULL;
