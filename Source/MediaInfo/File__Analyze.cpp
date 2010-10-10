@@ -1804,6 +1804,13 @@ void File__Analyze::Fill (const char* ParserName)
         Streams_Fill();
         Status[IsFilled]=true;
         Status[IsUpdated]=true;
+
+        //Instantaneous bitrate at the "fill" level
+        if (File_Size==(int64u)-1 && PTS_End!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
+        {
+            Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(PTS_End-PTS_Begin));
+            (*Stream_More)[StreamKind_Last][0](Ztring().From_Local("BitRate_Instantaneous"), Info_Options)=_T("N NI");
+        }
     }
 }
 #else //MEDIAINFO_TRACE
@@ -1817,6 +1824,13 @@ void File__Analyze::Fill ()
         Streams_Fill();
         Status[IsFilled]=true;
         Status[IsUpdated]=true;
+
+        //Instantaneous bitrate at the "fill" level
+        if (File_Size==(int64u)-1 && PTS_End!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
+        {
+            Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(PTS_End-PTS_Begin));
+            (*Stream_More)[StreamKind_Last][0](Ztring().From_Local("BitRate_Instantaneous"), Info_Options)=_T("N NI");
+        }
     }
 }
 #endif //MEDIAINFO_TRACE
