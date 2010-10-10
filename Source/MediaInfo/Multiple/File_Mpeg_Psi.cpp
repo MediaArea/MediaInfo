@@ -1149,8 +1149,6 @@ void File_Mpeg_Psi::Table_02()
                 {
                     Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].elementary_PIDs.push_back(elementary_PID);
                     Complete_Stream->Streams[elementary_PID].program_numbers.push_back(program_number);
-                    Complete_Stream->Streams[elementary_PID].Table_IDs.resize(0x100);
-                    Complete_Stream->Streams[elementary_PID].Table_IDs[0xFC]=new complete_stream::stream::table_id; //program_map_section
                 }
                 if (Complete_Stream->Streams[elementary_PID].Kind==complete_stream::stream::unknown)
                 {
@@ -1159,6 +1157,8 @@ void File_Mpeg_Psi::Table_02()
                     {
                         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["SCTE35_PID"]=Ztring::ToZtring(elementary_PID);
                         Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::psi;
+                        Complete_Stream->Streams[elementary_PID].Table_IDs.resize(0x100);
+                        Complete_Stream->Streams[elementary_PID].Table_IDs[0xFC]=new complete_stream::stream::table_id; //Splice
                         if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35==NULL)
                         {
                             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35=new complete_stream::transport_stream::program::scte35;
