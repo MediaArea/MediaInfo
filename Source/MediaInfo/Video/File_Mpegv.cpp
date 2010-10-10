@@ -1519,6 +1519,31 @@ void File_Mpegv::user_data_start_DTG1()
             DTG1_Parser=new File_AfdBarData;
             Open_Buffer_Init(DTG1_Parser);
             ((File_AfdBarData*)DTG1_Parser)->Format=File_AfdBarData::Format_A53_4_DTG1;
+
+            //Aspect ratio for AFD
+            float32 DAR=0;
+            if (MPEG_Version==2)
+            {
+                if (aspect_ratio_information==0)
+                    ; //Forbidden
+                else if (aspect_ratio_information==1)
+                    DAR=((float32)(0x1000*horizontal_size_extension+horizontal_size_value))/(0x1000*vertical_size_extension+vertical_size_value);
+                else if (display_horizontal_size && display_vertical_size)
+                {
+                    if (vertical_size_value && Mpegv_aspect_ratio2[aspect_ratio_information])
+                        DAR=((float32)(0x1000*horizontal_size_extension+horizontal_size_value))/(0x1000*vertical_size_extension+vertical_size_value)
+                                                                                     *Mpegv_aspect_ratio2[aspect_ratio_information]/((float32)display_horizontal_size/display_vertical_size);
+                }
+                else if (Mpegv_aspect_ratio2[aspect_ratio_information])
+                    DAR=Mpegv_aspect_ratio2[aspect_ratio_information];
+            }
+            else //Version 1
+            {
+                if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information])
+                    DAR=((float32)(0x1000*horizontal_size_extension+horizontal_size_value))/(0x1000*vertical_size_extension+vertical_size_value)/Mpegv_aspect_ratio1[aspect_ratio_information];
+            }
+            if (DAR>=1.330 && DAR<1.336) ((File_AfdBarData*)DTG1_Parser)->aspect_ratio_FromContainer=0; //4/3
+            if (DAR>=1.774 && DAR<1.780) ((File_AfdBarData*)DTG1_Parser)->aspect_ratio_FromContainer=1; //16/9
         }
         if (DTG1_Parser->PTS_DTS_Needed)
         {
