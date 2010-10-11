@@ -46,7 +46,7 @@ public :
     bool     Parser_DoNotFreeIt; //If you want to keep the Parser
     bool     DecSpecificInfoTag_DoNotFreeIt; //If you want to keep the DecSpecificInfoTag
     bool     SLConfig_DoNotFreeIt; //If you want to keep the SLConfig
-    bool     Channels_AreTrustable;
+    bool     Channels;
 
     //Out
     File__Analyze* Parser;

@@ -15,6 +15,7 @@ Version 0.7.36, 2010-
 + MKV: compression mode (zlib...) display
 + WAV: support of AAC (ADTS) with CodecID 0x8180
 + WMV: Handling of weird Aspect Ratio information in Extended Content Description
+x AAC: removal of empirical detection of SBR and PS (too many problems)
 x AVI: trusting in priority frame count from index of indexes with broken files
 x MKV: AVC "unknown profile" removal
 x AVC: some frame rates were reported as twice the real frame rate
