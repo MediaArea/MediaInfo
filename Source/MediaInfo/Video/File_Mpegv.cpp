@@ -1737,6 +1737,8 @@ void File_Mpegv::sequence_header()
         TemporalReference_Offset=TemporalReference.size();
         if (TemporalReference_Offset>=0x800)
         {
+            for (size_t Pos=0; Pos<0x400; Pos++)
+                delete TemporalReference[Pos]; //TemporalReference[Pos]=NULL;
             TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+0x400);
             if (0x400<TemporalReference_Offset)
                 TemporalReference_Offset-=0x400;
