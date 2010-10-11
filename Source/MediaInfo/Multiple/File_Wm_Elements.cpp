@@ -1039,7 +1039,6 @@ void File_Wm::Header_ExtendedContentDescription()
     Element_Name("Extended Content Description");
 
     //Parsing
-    int64u AspectRatioX=0, AspectRatioY=0;
     int16u Count;
     Get_L2 (Count,                                              "Content Descriptors Count");
     for (int16u Pos=0; Pos<Count; Pos++)
