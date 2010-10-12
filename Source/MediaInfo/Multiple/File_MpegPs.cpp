@@ -1648,7 +1648,7 @@ void File_MpegPs::Detect_EOF()
             Fill(Stream_General, 0, General_Format, "MPEG-PS");
     }
     Fill("MPEG-PS");
-    if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+    if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && Config_ParseSpeed<1.0)
     {
         //Jumping
         GoToFromEnd(SizeToAnalyze, "MPEG-PS");
@@ -1660,7 +1660,7 @@ void File_MpegPs::Detect_EOF()
 //Jumping to the last DTS if needed
 bool File_MpegPs::BookMark_Needed()
 {
-    if (IsSub || Streams.empty() || MediaInfoLib::Config.ParseSpeed_Get()>=1.0)
+    if (IsSub || Streams.empty() || Config_ParseSpeed>=1.0)
         return false;
 
     int64u ToJump=(int64u)-1;
@@ -2792,7 +2792,7 @@ void File_MpegPs::SL_packetized_stream()
     #endif //MEDIAINFO_MPEG4_YES
 
     //Demux
-    if (MediaInfoLib::Config.Demux_Get())
+    if (Config_Demux)
     {
         int8u A[7];
         //TODO: Only for 24KHz stuff, should be modified... output is ADTS

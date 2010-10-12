@@ -1447,7 +1447,7 @@ void File_MpegTs::PES()
         #if defined(MEDIAINFO_MPEGPS_YES)
             Complete_Stream->Streams[PID].Parser=new File_MpegPs;
             #if MEDIAINFO_DEMUX
-                if (MediaInfoLib::Config.Demux_Get())
+                if (Config_Demux)
                 {
                     if (Complete_Stream->Streams[PID].stream_type==0x20 && Complete_Stream->Streams[PID].SubStream_pid)
                     {
@@ -1518,7 +1518,7 @@ void File_MpegTs::PES()
     if (Complete_Stream->Streams[PID].Parser->Status[IsFilled]
      || Complete_Stream->Streams[PID].Parser->Status[IsFinished])
     {
-        if ((Complete_Stream->Streams[PID].Searching_Payload_Start || Complete_Stream->Streams[PID].Searching_Payload_Continue) && MediaInfoLib::Config.ParseSpeed_Get()<1)
+        if ((Complete_Stream->Streams[PID].Searching_Payload_Start || Complete_Stream->Streams[PID].Searching_Payload_Continue) && Config_ParseSpeed<1)
         {
             Complete_Stream->Streams[PID].Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[PID].Searching_Payload_Continue_Set(false);
@@ -1529,7 +1529,7 @@ void File_MpegTs::PES()
             if (Complete_Stream->Streams[PID].Searching_ParserTimeStamp_Start)
                 Complete_Stream->Streams[PID].Searching_ParserTimeStamp_Start_Set(false);
         #else //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-            if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+            if (Config_ParseSpeed<1.0)
                 Finish(Complete_Stream->Streams[PID].Parser);
         #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
     }

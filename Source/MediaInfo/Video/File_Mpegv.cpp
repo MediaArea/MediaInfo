@@ -289,7 +289,7 @@ File_Mpegv::File_Mpegv()
 
     //In
     MPEG_Version=1;
-    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?40:2;
+    Frame_Count_Valid=Config_ParseSpeed>=0.3?40:2;
     FrameIsAlwaysComplete=false;
     TimeCodeIsNotTrustable=false;
     #if defined(MEDIAINFO_ANCILLARY_YES)
@@ -602,7 +602,7 @@ void File_Mpegv::Streams_Fill()
         Streams[0x00].Searching_TimeStamp_End=true;
 
     //Caption may be in user_data, must be activated if full parsing is requested
-    if (MediaInfoLib::Config.ParseSpeed_Get()>=1)
+    if (Config_ParseSpeed>=1)
     {
         Streams[0x00].Searching_Payload=true;
         Streams[0xB2].Searching_Payload=true;
@@ -1024,7 +1024,7 @@ void File_Mpegv::Data_Parse()
 void File_Mpegv::Detect_EOF()
 {
     if (IsSub && Status[IsFilled]
-     || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.5))
+     || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && Config_ParseSpeed<=0.5))
     {
         if ((GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent || Cdp_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
          && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
@@ -1243,7 +1243,7 @@ void File_Mpegv::slice_start()
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)
                 Finish("MPEG Video");
-            else if (!IsSub && 2*(File_Offset+Buffer_Size)<File_Size && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+            else if (!IsSub && 2*(File_Offset+Buffer_Size)<File_Size && Config_ParseSpeed<1.0)
                 GoToFromEnd(File_Offset+Buffer_Size);
         }
     FILLING_END();
