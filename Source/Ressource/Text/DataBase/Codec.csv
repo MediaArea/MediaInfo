@@ -238,7 +238,7 @@ HFYU;Huffman;4CC;V;;;Huffman Lossless YUV and RGB formats (with Alpha-channel)
 HMCR;Rendition;4CC;V;;;Rendition Motion Compensation Format
 HMRR;Rendition;4CC;V;;;Rendition Motion Compensation Format
 i263;Intel H.263;4CC;V;;;Intel H.263
-I420;YUV;4CC;V;;;Intel Indeo 4 H.263
+I420;YUV;4CC;V;;;
 IAN ;Indeo 4;4CC;V;;;Intel Indeo 4
 ICLB;CellB;4CC;V;;;InSoft CellB Videoconferencing
 IDM0;Wavelets 2;4CC;V;;;IDM Motion Wavelets 2.0

@@ -240,7 +240,7 @@ HFYU;Huffman;;;;;;;
 HMCR;Rendition;;Rendition Motion Compensation Format;;;;;
 HMRR;Rendition;;Rendition Motion Compensation Format;;;;;
 i263;H.263;;;;;;;
-I420;H.263;;;;;;;
+I420;YUV;;8 bit Y plane followed by 8 bit 2x2 subsampled U and V planes.;;;;;
 IAN ;Indeo 4;;;;;;;
 ICLB;CellB;;InSoft CellB Videoconferencing;;;;;
 IDM0;Wavelets 2;;IDM Motion Wavelets 2.0;;;;;
