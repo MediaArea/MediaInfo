@@ -473,6 +473,7 @@ int Preferences::ExplorerShell()
         ".m2ts;m2tsFile\r\n"
         ".m2v;mpegFile\r\n"
         ".m4a;mpeg4File\r\n"
+        ".m4b;mpeg4File\r\n"
         ".m4v;mpeg4File\r\n"
         ".mac;APEFile\r\n"
         ".mka;MKAFile\r\n"
@@ -536,19 +537,19 @@ int Preferences::ExplorerShell()
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\Media Info\\Command"), 0, 0);
+            Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\Media Info\\Command"));
         }
         Result=RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\Media Info"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\Media Info"), 0, 0);
+            Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\Media Info"));
         }
         Result=RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\MediaInfo"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\MediaInfo"), 0, 0);
+            Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\MediaInfo"));
         }
     }
 
@@ -761,6 +762,36 @@ int Preferences::ExplorerShell()
 }
 
 //---------------------------------------------------------------------------
+// RegDeleteKeyEx dynamic load for WinXP 32-bit
+typedef void (WINAPI* _GetNativeSystemInfo_Prototype)(LPSYSTEM_INFO lpSystemInfo);
+typedef LONG (WINAPI* _RegDeleteKeyEx_Prototype)(HKEY hKey, LPCTSTR lpSubKey, REGSAM samDesired, DWORD Reserved);
+_GetNativeSystemInfo_Prototype _GetNativeSystemInfo;
+_RegDeleteKeyEx_Prototype _RegDeleteKeyEx;
+HINSTANCE Kernel32;
+HINSTANCE AdvAPI32;
+void Dynamic_Load()
+{
+    Kernel32=LoadLibrary(_T("Kernel32.dll"));
+    if (Kernel32)
+        _GetNativeSystemInfo=(_GetNativeSystemInfo_Prototype)GetProcAddress(Kernel32 , "GetNativeSystemInfo");
+    AdvAPI32=LoadLibrary(_T("AdvAPI32.dll"));
+    if (AdvAPI32)
+    {
+        #ifdef _UNICODE
+            _RegDeleteKeyEx=(_RegDeleteKeyEx_Prototype)GetProcAddress(AdvAPI32 , "RegDeleteKeyExW");
+        #else //_UNICODE
+            _RegDeleteKeyEx=(_RegDeleteKeyEx_Prototype)GetProcAddress(AdvAPI32 , "RegDeleteKeyExA");
+        #endif //_UNICODE
+    }
+}
+
+void Dynamic_Free()
+{
+   FreeLibrary(Kernel32);
+   FreeLibrary(AdvAPI32);
+}
+
+//---------------------------------------------------------------------------
 int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsChanged, TRegistry* Reg)
 {
     ::HKEY Key;
@@ -807,21 +838,21 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
         {
             //Should not be here, deleting
             RegCloseKey(Key);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo\\Command").c_str()).c_str(), 0, 0);
+            Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo\\Command").c_str()).c_str());
             if (Result!=ERROR_SUCCESS)
             {
                 char lpMsgBuf[1000];
                 FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, Result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), lpMsgBuf, 1000, NULL);
                 return 0;
             }
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo").c_str()).c_str(), 0, 0);
+            Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo").c_str()).c_str());
             if (Result!=ERROR_SUCCESS)
             {
                 char lpMsgBuf[1000];
                 FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, Result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), lpMsgBuf, 1000, NULL);
                 return 0;
             }
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell").c_str()).c_str(), 0, 0); //Clear it if empty
+            Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell").c_str()).c_str()); //Clear it if empty
 
             IsChanged=true;
         }
@@ -935,6 +966,7 @@ int Preferences::ShellToolTip()
         ".m2ts;m2tsFile\r\n"
         ".m2v;mpegFile\r\n"
         ".m4a;mpeg4File\r\n"
+        ".m4b;mpeg4File\r\n"
         ".m4v;mpeg4File\r\n"
         ".mac;APEFile\r\n"
         ".mka;MKAFile\r\n"
@@ -1021,25 +1053,65 @@ int Preferences::ShellToolTip()
         {
             RegCloseKey(Key);
 
-            //Should not be here, deleting
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\VersionIndependentProgID"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\TypeLib"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CurVer"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CLSID"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID"), KEY_WOW64_64KEY, 0);
-            Result=RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1"), KEY_WOW64_64KEY, 0);
-            for (size_t I1=0; I1<Liste.size(); I1++)
+            //Retrieving if it is 64-bit OS
+            bool RegDeleteKeyEx_ShouldUse=false;
+            Dynamic_Load();
+            if (Kernel32)
             {
-                //Remove
-                if (!Liste(I1, 0).empty())
+                SYSTEM_INFO NativeSystemInfo;
+                _GetNativeSystemInfo(&NativeSystemInfo);
+                if (NativeSystemInfo.wProcessorArchitecture!=PROCESSOR_ARCHITECTURE_INTEL //32-bit
+                 && _RegDeleteKeyEx)
                 {
-                    Result=RegDeleteKeyEx(HKEY_CURRENT_USER, (_T("Software\\Classes\\")+Liste(I1, 0)+_T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str(), KEY_WOW64_64KEY, 0);
-                    //Result=RegDeleteKeyEx(HKEY_CURRENT_USER, (_T("Software\\Classes\\")+Liste(I1, 0)+_T("\\shellex")).c_str(), KEY_WOW64_64KEY, 0);
+                    RegDeleteKeyEx_ShouldUse=true;
+                }
+            }
+            if (RegDeleteKeyEx_ShouldUse)
+            {
+                //Should not be here, deleting
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\VersionIndependentProgID"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\TypeLib"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CurVer"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CLSID"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID"), KEY_WOW64_64KEY, 0);
+                Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1"), KEY_WOW64_64KEY, 0);
+                for (size_t I1=0; I1<Liste.size(); I1++)
+                {
+                    //Remove
+                    if (!Liste(I1, 0).empty())
+                    {
+                        Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, (_T("Software\\Classes\\")+Liste(I1, 0)+_T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str(), KEY_WOW64_64KEY, 0);
+                        //Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, (_T("Software\\Classes\\")+Liste(I1, 0)+_T("\\shellex")).c_str(), KEY_WOW64_64KEY, 0);
+                    }
+                }
+            }
+            else
+            {
+                //Should not be here, deleting
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\VersionIndependentProgID"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\TypeLib"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CurVer"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CLSID"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID"));
+                Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1"));
+                for (size_t I1=0; I1<Liste.size(); I1++)
+                {
+                    //Remove
+                    if (!Liste(I1, 0).empty())
+                    {
+                        Result=RegDeleteKey(HKEY_CURRENT_USER, (_T("Software\\Classes\\")+Liste(I1, 0)+_T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str());
+                        //Result=RegDeleteKey(HKEY_CURRENT_USER, (_T("Software\\Classes\\")+Liste(I1, 0)+_T("\\shellex")).c_str());
+                    }
                 }
             }
 
