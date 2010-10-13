@@ -182,6 +182,7 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".m2ts"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".m2v"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".m4a"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".m4b"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".m4v"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".mac"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".mka"
