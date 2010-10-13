@@ -24,6 +24,7 @@ x #3029308, Id3v2: support of frames with Unsynchronisation bit set
 x #3065114, MPEG-Video: duration calculation issues with raw streams and open GOPs
 x AFD: crash with malformed streams
 x MPEG-7 output: missing references for MPEG-4 Visual and RF64
+x #3086701, ID3: freeze/crash with ID3 tag at the end of the the file
 
 Version 0.7.35, 2010-09-05
 --------------
