@@ -128,6 +128,8 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
             Partial_Begin=float64_int64s(F.Size_Get()*Config_Partial_Begin.To_float64()/100);
         else
             Partial_Begin=Config_Partial_Begin.To_int64u();
+        if (Partial_Begin)
+            F.GoTo(Partial_Begin);
     }
     else
         Partial_Begin=0;
@@ -205,7 +207,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                  if (!F.GoTo(Partial_Begin+MI->Open_Buffer_Continue_GoTo_Get()))
                     break; //File is not seekable
 
-                MI->Open_Buffer_Init((int64u)-1, F.Position_Get());
+                MI->Open_Buffer_Init((int64u)-1, F.Position_Get()-Partial_Begin);
             }
         }
 
