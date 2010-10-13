@@ -4,8 +4,8 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.35"
-!define PRODUCT_VERSION4 "0.7.35.0"
+!define PRODUCT_VERSION "0.7.36BETA"
+!define PRODUCT_VERSION4 "0.7.35.99"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
 !define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo"
@@ -35,7 +35,7 @@ SetCompressor /FINAL /SOLID lzma
 ; Installer pages
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
-!define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe"
+; !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe" //Removing it because it is run in admin privileges
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_WELCOME
@@ -157,6 +157,7 @@ SectionEnd
 
 
 Section Uninstall
+  SetRegView 64
   !insertmacro MediaInfo_Extensions_Uninstall
   Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /u /s'
   Sleep 3000
