@@ -26,6 +26,10 @@
 !macroend
 
 !macro MediaInfo_Extensions_Install
+  ;Removing Atak_Snajpera's "MediaInfoLite" stuff in registry (not supported by MediaArea.net, but MediaInfo official website has bug reports about this software) 
+  DeleteRegKey HKCU "Software\\Classes\\*\\Shell\\Media Info"
+  DeleteRegKey HKCU "Software\\MediaInfo"
+  
   ; Per item
   !insertmacro MediaInfo_Extensions_Install_I ".264"
   !insertmacro MediaInfo_Extensions_Install_I ".3gp"
