@@ -923,6 +923,9 @@ void File_Mpeg_Psi::Data_Parse()
         Skip_B4(                                                "CRC32");
     }
 
+    if (table_id>=0x40 && Complete_Stream->Streams_NotParsedCount!=(size_t)-1 && Complete_Stream->Streams_NotParsedCount!=0)
+        Complete_Stream->Streams_NotParsedCount=(size_t)-1; //Disabling speed up for detection in case of DVB/ATSC tables, we want all of them.
+
     Status[IsAccepted]=true; //Accept("PSI");
     Status[IsFinished]=true; //Finish("PSI");
 }
@@ -1152,6 +1155,8 @@ void File_Mpeg_Psi::Table_02()
                 }
                 if (Complete_Stream->Streams[elementary_PID].Kind==complete_stream::stream::unknown)
                 {
+                    if (Complete_Stream->Streams_NotParsedCount==(size_t)-1)
+                        Complete_Stream->Streams_NotParsedCount=0;
                     Complete_Stream->Streams_NotParsedCount++;
                     if (stream_type==0x86 && Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier==Elements::CUEI)
                     {
@@ -1241,6 +1246,8 @@ void File_Mpeg_Psi::Table_02()
                         }
                         if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::pes)
                         {
+                            if (Complete_Stream->Streams_NotParsedCount==(size_t)-1)
+                                Complete_Stream->Streams_NotParsedCount=0;
                             Complete_Stream->Streams_NotParsedCount++;
                             Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
                             Complete_Stream->Streams[elementary_PID].stream_type=stream_type;
