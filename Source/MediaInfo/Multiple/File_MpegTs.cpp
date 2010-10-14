@@ -326,6 +326,17 @@ void File_MpegTs::Streams_Fill()
             if (Complete_Stream->Streams[PID].IsPCR && Complete_Stream->Streams[PID].TimeStamp_End!=(int64u)-1)
                 Header_Parse_AdaptationField_Duration_Update();
     #endif //MEDIAINFO_MPEGTS_PCR_YES
+
+    //Commercial name
+    if (Count_Get(Stream_Video)==1
+     && Count_Get(Stream_Audio)==1
+     && Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video")
+     && Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).find(_T("HDV"))==0
+     && Retrieve(Stream_Audio, 0, Audio_Format)==_T("MPEG Audio")
+     && Retrieve(Stream_Audio, 0, Audio_Format_Version)==_T("Version 1")
+     && Retrieve(Stream_Audio, 0, Audio_Format_Profile)==_T("Layer 2")
+     && Retrieve(Stream_Audio, 0, Audio_BitRate)==_T("384000"))
+        Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
 }
 
 //---------------------------------------------------------------------------
@@ -482,17 +493,6 @@ void File_MpegTs::Streams_Fill_PerStream()
             Teletext->second.Infos.clear();
         }
     }
-
-    //Commercial name
-    if (Count_Get(Stream_Video)==1
-     && Count_Get(Stream_Audio)==1
-     && Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video")
-     && Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).find(_T("HDV"))==0
-     && Retrieve(Stream_Audio, 0, Audio_Format)==_T("MPEG Audio")
-     && Retrieve(Stream_Audio, 0, Audio_Format_Version)==_T("Version 1")
-     && Retrieve(Stream_Audio, 0, Audio_Format_Profile)==_T("Layer 2")
-     && Retrieve(Stream_Audio, 0, Audio_BitRate)==_T("384000"))
-        Fill(Stream_General, 0, Video_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
 
     //Desactivating the stream (except for timestamp)
     Temp.Searching_Payload_Start_Set(false);
