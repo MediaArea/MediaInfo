@@ -570,7 +570,11 @@ U<Y ;Discreet YUV;4CC;V;YUV;;Discreet UC YUV 4:2:2:4 10 bit;
 U<YA;Discreet YUV;4CC;V;;;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel);
 U263;UB H.263;4CC;V;;;UB Video H.263/H.263+/H.263++ Decoder;http://eMajix.com
 UCOD;ClearVideo;4CC;V;;;ClearVideo (fractal compression-based);
+ULRA;RGBA;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGBA;4:4:4:4
+ULRG;RGB;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGB;4:4:4 
 ULTI;Ultimotion;4CC;V;;;IBM Ultimotion;
+ULY0;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:2
+ULY2;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:0 
 UMP4;UB MPEG-4;4CC;V;MPEG-4V;;UB Video MPEG 4;http://www.fourcc.org/indexyuv.htm
 UYNV;YUV;4CC;V;YUV;;Nvidia 16bpp. A direct copy of UYVY registered by Nvidia to work around problems in some olds which did not like hardware which offered more than 2 UYVY surfaces.;http://www.fourcc.org/indexyuv.htm
 UYVP;YUV;4CC;V;YUV;;Evans & Sutherland 24bpp. YCbCr 4:2:2 extended precision 10-bits per component in U0Y0V0Y1 order;
