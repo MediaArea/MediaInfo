@@ -18,6 +18,7 @@ Version 0.7.36, 2010-
 + File interface: possibility to indicate begin and end offset of the analysis (partial analysis)
 + 3082158, .m4b file extension support
 + 3087674, Ut Video Lossless support
++ 3087677, WebP: basic support (detection only)
 x AAC: removal of empirical detection of SBR and PS (too many problems)
 x AVI: trusting in priority frame count from index of indexes with broken files
 x MKV: AVC "unknown profile" removal
