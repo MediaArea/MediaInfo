@@ -691,6 +691,18 @@ bool File_MpegTs::Synched_Test()
         complete_stream::streams::iterator Stream=Complete_Stream->Streams.begin()+PID;
         if (Stream->Searching)
         {
+            //Trace config
+            #if MEDIAINFO_TRACE
+                if (Stream->Kind==complete_stream::stream::pes)
+                {
+                    Trace_Levels.reset(); Trace_Levels.set(8); //Stream
+                }
+                else
+                {
+                    Trace_Levels.set(IsSub?1:0);
+                }
+            #endif //MEDIAINFO_TRACE
+
             payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
             if (payload_unit_start_indicator)
             {
@@ -922,6 +934,15 @@ void File_MpegTs::Read_Buffer_Unsynched()
     Clear(Stream_General, 0, General_Duration_End);
     for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Menu); StreamPos++)
         Clear(Stream_Menu, StreamPos, Menu_Duration);
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Read_Buffer_Continue()
+{
+    if (Buffer_TotalBytes>MpegTs_JumpTo_Begin+MpegTs_JumpTo_End)
+        Config->State_Set((float)0.99); //Nearly the end
+    else
+        Config->State_Set(((float)Buffer_TotalBytes)/(MpegTs_JumpTo_Begin+MpegTs_JumpTo_End));
 }
 
 //***************************************************************************

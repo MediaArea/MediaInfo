@@ -927,6 +927,10 @@ void File_Mpeg4::jp2h_ihdr()
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat()
 {
+    #if MEDIAINFO_TRACE
+        Trace_Levels.reset(); Trace_Levels.set(8); //Stream
+    #endif //MEDIAINFO_TRACE
+
     if (!Status[IsAccepted])
     {
         Data_Accept("MPEG-4");
@@ -990,6 +994,12 @@ void File_Mpeg4::mdat()
             }
         }
     }
+
+    //Trace
+    #if MEDIAINFO_TRACE
+        Trace_Levels.set(); //All
+    #endif //MEDIAINFO_TRACE
+
     if (!mdat_Pos.empty() && mdat_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
     {
         //Next piece of data

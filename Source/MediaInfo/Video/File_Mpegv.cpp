@@ -281,6 +281,9 @@ File_Mpegv::File_Mpegv()
         ParserIDs[0]=MediaInfo_Parser_Mpegv;
         StreamIDs_Width[0]=16;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_TRACE
+        Trace_Levels.reset(); Trace_Levels.set(8); //Stream
+    #endif //MEDIAINFO_TRACE
     Trusted_Multiplier=2;
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
