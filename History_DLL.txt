@@ -22,6 +22,7 @@ Version 0.7.36, 2010-
 + #3072929, MP4: DTS Express support
 + MPEG-4: Handling of external files referenced by "code" atom
 + M-JPEG and M-JPEG 2000 are renamed JPEG and JPEG 2000
++ MP4 and HDV 1080i: detecting containers lying about width (saying 1920 but it is 1440)
 x AAC: removal of empirical detection of SBR and PS (too many problems)
 x AVI: trusting in priority frame count from index of indexes with broken files
 x MKV: AVC "unknown profile" removal
