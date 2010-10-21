@@ -1,5 +1,5 @@
  BIT;RGB;4CC;V;RGB;;Uncompressed;
- JPG;M-JPEG;4CC;V;M-JPEG;;;
+ JPG;JPEG;4CC;V;JPEG;;;
  PNG;PNG;4CC;V;RGB;;;
  RAW;RGB;4CC;V;RGB;;Uncompressed;http://www.fourcc.org/indexrgb.htm
  RGB;RGB;4CC;V;RGB;;Uncompressed. Basic Windows bitmap format. 1, 4 and 8 bpp versions are palettised. 16, 24 and 32bpp contain Uncompressed RGB samples.;http://www.fourcc.org/indexrgb.htm
@@ -19,13 +19,13 @@ AASC;Autodesk;4CC;V;RGB;;Autodesk Animator Studio RLE (warning: this is a discou
 ABYR;Kensigton low;4CC;V;;;Kensington (low resolution, low frame rate (6fps) for digital cameras);
 ACTL;ACT-L2;4CC;V;;;Streambox ACT-L2;http://www.streambox.com/products/act-L2_codec.htm
 ADV1;WaveCodec;4CC;V;Wavelet;;Loronix WaveCodec;http://www.loronix.com/products/video_clips/wavecodec.asp
-ADVJ;Avid;4CC;V;M-JPEG;;Avid M-JPEG. Aka AVRn;
+ADVJ;Avid;4CC;V;JPEG;;Avid JPEG. Aka AVRn;
 AEIK;Indeo 3.2;4CC;V;;;Intel Indeo Video 3.2 (Vector Quantization);
 AEMI;VideoONE;4CC;V;MPEG-V;;Array VideoONE MPEG-1-I Capture. Array's used for I frame only MPEG-1 AVI files;http://www.array.com
 AFLC;Autodesk;4CC;V;;;Autodesk Animator Studio FLI (256 color) (warning: this is a discoutinued product);http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe
 AFLI;Autodesk;4CC;V;;;Autodesk Animator Studio FLI (256 color) (warning: this is a discoutinued product);http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe
 AHDV;CineForm;4CC;V;Wavelet;;CineForm 10-bit Visually Perfect HD (Wavelet);http://www.cineform.com/products/ConnectHD.htm
-AJPG;M-JPEG;4CC;V;M-JPEG;;22fps JPEG-based for digital cameras;
+AJPG;JPEG;4CC;V;JPEG;;22fps JPEG-based for digital cameras;
 ALPH;Ziracom;4CC;V;;;Ziracom Digital Communications Inc.;
 AMPG;VideoONE;4CC;V;MPEG-1;;Array VideoONE MPEG;http://www.array.com
 AMR ;AMR;4CC;V;;;Speech codec;
@@ -43,17 +43,17 @@ AUVX;AUVX;4CC;V;;;USH GmbH;
 AV1X;Avid 1:1;4CC;V;;;Avid 1:1x (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVC1;AVC;4CC;V;AVC;;Advanced Video Codec;http://ffdshow-tryout.sourceforge.net/
 AVD1;Avid DV;4CC;V;DV;;Avid DV (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVDJ;Avid JFIF;4CC;V;M-JPEG;;Avid Meridien JFIF with Alpha-channel;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
+AVDJ;Avid JFIF;4CC;V;JPEG;;Avid Meridien JFIF with Alpha-channel;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVDN;Avid HD;4CC;V;;;Avid DNxHD (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVDV;Avid DV;4CC;V;DV;;Avid DV;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVI1;MainConcept;4CC;V;M-JPEG;;MainConcept M-JPEG;
-AVI2;MainConcept;4CC;V;M-JPEG;;MainConcept M-JPEG;
-AVID;Avid M-JPEG;4CC;V;M-JPEG;;Avid M-JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
+AVI1;MainConcept;4CC;V;JPEG;;MainConcept JPEG;
+AVI2;MainConcept;4CC;V;JPEG;;MainConcept JPEG;
+AVID;Avid JPEG;4CC;V;JPEG;;Avid JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVIS;AviSynth;4CC;V;;;Wrapper for AviSynth (Dummy);http://ffdshow-tryout.sourceforge.net/
 AVMP;Avid IMX;4CC;V;;;Avid IMX (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVR ;Avid NuVista;4CC;V;M-JPEG;;Avid ABVB/NuVista M-JPEG with Alpha-channel;
-AVRn;Avid M-JPEG;4CC;V;M-JPEG;;Avid M-JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVRN;Avid M-JPEG;4CC;V;M-JPEG;;Avid M-JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
+AVR ;Avid NuVista;4CC;V;JPEG;;Avid ABVB/NuVista JPEG with Alpha-channel;
+AVRn;Avid JPEG;4CC;V;JPEG;;Avid JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
+AVRN;Avid JPEG;4CC;V;JPEG;;Avid JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVUI;Avid;4CC;V;;;Avid Meridien Uncompressed with Alpha-channel;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVUP;Avid;4CC;V;;;Avid 10bit Packed (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AYUV;YUV;4CC;V;YUV;;4:4:4 YUV (AYUV);
@@ -79,11 +79,11 @@ CC12;Intel YUV;4CC;V;YUV;;Intel YUV12;
 CDV5;Canopus DV;4CC;V;DV;;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm
 CDVC;Canopus DV;4CC;V;DV;;Canopus DV (DV);http://www.cineform.com/products/ConnectHD.htm
 CDVH;Canopus DV;4CC;V;DV;;Canopus SD50/DVHD;http://www.cineform.com/products/ConnectHD.htm
-CFCC;Perception;4CC;V;;;DPS Perception M-JPEG (dummy format - only AVI header);
+CFCC;Perception;4CC;V;;;DPS Perception JPEG (dummy format - only AVI header);
 CFHD;CineForm;4CC;V;;;CineForm 10-bit Visually Perfect HD (Wavelet);
 CGDI;Camcorder;4CC;V;;;Camcorder Video (MS Office 97);
 CHAM;Champagne;4CC;V;;;Winnov Caviara Champagne;
-CJPG;Creative M-JPEG;4CC;V;M-JPEG;;Creative Video Blaster Webcam Go JPEG;
+CJPG;Creative JPEG;4CC;V;JPEG;;Creative Video Blaster Webcam Go JPEG;
 CLJR;YUV;4CC;V;YUV;;Cirrus Logic YUV 4:1:1;http://www.fourcc.org/indexyuv.htm
 CLLC;Canopus;4CC;V;;;Canopus LossLess;
 CLPL;YUV;4CC;V;YUV;;Format similar to YV12 but including a level of indirection.;
@@ -119,10 +119,10 @@ DIV5;DivX 5;4CC;V;MPEG-4V;;;http://www.divx.com
 DIV6;MS MPEG-4 v3;4CC;V;MPEG-4V;;MS MPEG-4 v3;http://ffdshow-tryout.sourceforge.net/
 DIVX;DivX 4;4CC;V;MPEG-4V;;Project Mayo DivX 4;http://www.divx.com
 divx;DivX;4CC;V;MPEG-4V;;Mainly used by Google;http://www.divx.com
-DJPG;Broadway 101;4CC;V;M-JPEG;;Data Translation, Inc.;
+DJPG;Broadway 101;4CC;V;JPEG;;Data Translation, Inc.;
 DM4V;Dicas;4CC;V;MPEG-4V;;Dicas MPEGable MPEG-4;
-DMB1;Rainbow;4CC;V;M-JPEG;;Matrox Rainbow Runner hardware compression;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.MJPG.v2.10.27.codec.exe
-DMB2;Paradigm M-JPEG;4CC;V;M-JPEG;;M-JPEG used by Paradigm;
+DMB1;Rainbow;4CC;V;JPEG;;Matrox Rainbow Runner hardware compression;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.MJPG.v2.10.27.codec.exe
+DMB2;Paradigm JPEG;4CC;V;JPEG;;JPEG used by Paradigm;
 DMK2;V36 PDA;4CC;V;;;ViewSonic V36 PDA Video;
 DP02;DynaPel;4CC;V;MPEG-4V;;DynaPel MPEG-4;
 DP16;YUV411;4CC;V;YUV;;Matsushita Electric Industrial Co., Ltd. (With DPCM 6-bit compression);
@@ -132,8 +132,8 @@ DP28;YUV422;4CC;V;YUV;;Matsushita Electric Industrial Co., Ltd. (With DPCM 8-bit
 DP96;YVU9;4CC;V;YUV;;Matsushita Electric Industrial Co., Ltd. (With DPCM 6-bit compression)
 DP98;YVU9;4CC;V;YUV;;Matsushita Electric Industrial Co., Ltd. (With DPCM 8-bit compression)
 DP9L;YVU9;4CC;V;YUV;;Matsushita Electric Industrial Co., Ltd. (With DPCM 6-bit compression)
-DPS0;DPS Reality;4CC;V;M-JPEG;;DPS Reality M-JPEG (dummy format - only AVI header)
-DPSC;DPS PAR;4CC;V;M-JPEG;;DPS PAR M-JPEG (dummy format - only AVI header)
+DPS0;DPS Reality;4CC;V;JPEG;;DPS Reality JPEG (dummy format - only AVI header)
+DPSC;DPS PAR;4CC;V;JPEG;;DPS PAR JPEG (dummy format - only AVI header)
 DRWX;Pinnacle DV25;4CC;V;DV;;Pinnacle DV25
 DSVD;DV;4CC;V;DV;;Microsoft DirectShow DV
 DTMT;Media-100;4CC;V;;;Media-100
@@ -196,28 +196,28 @@ FFDS;FFDS;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
 FFV1;FFV1;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
 FFVH;FFVH;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
 FLIC;FLI/FLC;4CC;V;;;Autodesk FLI/FLC Animation;
-FLJP;DField M-JPEG;4CC;V;;;D-Vision Field Encoded M-JPEG with LSI (or Targa emulation);
+FLJP;DField JPEG;4CC;V;;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);
 FLV1;FFDS;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
 FLV4;VP6;4CC;V;;;Flash, On2 Technologies;http://www.on2.com
-FMJP;D-Vision M-JPEG;4CC;V;;;D-Vision fieldbased ISO M-JPEG;
+FMJP;D-Vision JPEG;4CC;V;;;D-Vision fieldbased ISO JPEG;
 FMP4;MPEG-4 Visual;4CC;V;MPEG-4V;;;http://ffdshow-tryout.sourceforge.net/
 FPS1;FRAPS;4CC;V;;;;http://www.fraps.com/
-FRLE;SoftLab-Nsk M-JPEG;4CC;V;;;SoftLab-NSK Y16 + Alpha RLE;
-FRWA;SoftLab-Nsk M-JPEG (w Alpha);4CC;V;;;SoftLab-NSK Vision Forward M-JPEG with Alpha-channel;
-FRWD;SoftLab-Nsk M-JPEG;4CC;V;;;SoftLab-NSK Vision Forward M-JPEG;
-FRWT;SoftLab-Nsk M-JPEG;4CC;V;;;SoftLab-NSK Vision Forward M-JPEG with Alpha-channel;
-FRWU;SoftLab-Nsk M-JPEG;4CC;V;;;SoftLab-NSK Vision Forward Uncompressed;
+FRLE;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Y16 + Alpha RLE;
+FRWA;SoftLab-Nsk JPEG (w Alpha);4CC;V;;;SoftLab-NSK Vision Forward JPEG with Alpha-channel;
+FRWD;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Vision Forward JPEG;
+FRWT;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Vision Forward JPEG with Alpha-channel;
+FRWU;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Vision Forward Uncompressed;
 FVF1;Itered Fractal;4CC;V;;;Iterated Systems Fractal Video Frame;
 FVFW;FVFW;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
 FXT1;3DFX;4CC;V;;;3dfx Interactive, Inc.;
 G2M2;GoToMeeting2;4CC;V;;;Citrix Systems, Inc.;http://www.gotomeeting.com/
 G2M3;GoToMeeting3;4CC;V;;;Citrix Systems, Inc.;http://www.gotomeeting.com/
-GEPJ;White Pine M-JPEG;4CC;V;;;White Pine M-JPEG;
+GEPJ;White Pine JPEG;4CC;V;;;White Pine JPEG;
 GJPG;Grand Tech GT891x;4CC;V;;;Grand Tech GT891x;
 GLCC;GigaLink;4CC;V;;;GigaLink AV Capture;
 GLZW;Gabest;4CC;V;;;Motion LZW by Gabest;http://sourceforge.net/project/showfiles.php?group_id=82303&package_id=84358
-GPEG;Gabest;4CC;V;M-JPEG;;M-JPEG by Gabest (with floating point);http://sourceforge.net/project/showfiles.php?group_id=82303&package_id=84358
-GPJM;Pinnacle M-JPEG;4CC;V;M-JPEG;;Pinnacle ReelTime M-JPEG;
+GPEG;Gabest;4CC;V;JPEG;;JPEG by Gabest (with floating point);http://sourceforge.net/project/showfiles.php?group_id=82303&package_id=84358
+GPJM;Pinnacle JPEG;4CC;V;JPEG;;Pinnacle ReelTime JPEG;
 GREY;YUV;4CC;V;YUV;;Simple grayscale video;http://www.fourcc.org/indexyuv.htm
 GWLT;MS GWLT;4CC;V;;;Microsoft Greyscale WLT DIB;
 GXVE;ViVD V2;4CC;V;;;SoftMedia;
@@ -245,7 +245,7 @@ IDM0;Wavelets 2;4CC;V;;;IDM Motion Wavelets 2.0
 IF09;H.261;4CC;V;;;Microsoft H.261
 IFO9;YUV9;4CC;V;YUV;;Intel
 IGOR;PowerDVD;4CC;V;;;Power DVD
-IJPG;Intergraph M-JPEG;4CC;V;M-JPEG;;Intergraph
+IJPG;Intergraph JPEG;4CC;V;JPEG;;Intergraph
 ILVC;Layered Video;4CC;V;;;Intel Layered Video
 ILVR;H.263+;4CC;V;;;Intel H.263+
 IMAC;MotionComp;4CC;V;;;Intel hardware motion compensation.
@@ -254,9 +254,9 @@ IMC2;YUV;4CC;V;YUV;;Similar to IMC1, except that the U and V lines are interleav
 IMC3;YUV;4CC;V;YUV;;As IMC1, except that U and V are swapped
 IMC4;YUV;4CC;V;YUV;;As IMC2, except that U and V are swapped
 IMG ;YUV;4CC;V;YUV;;
-IMJG;Accom M-JPEG;4CC;V;;;Accom SphereOUS M-JPEG with Alpha-channel;
+IMJG;Accom JPEG;4CC;V;;;Accom SphereOUS JPEG with Alpha-channel;
 IPDV;I-O DV;4CC;V;;;I-O Data Device Giga AVI DV;
-IPJ2;JPEG2000;4CC;V;;;Image Power JPEG2000;
+IPJ2;JPEG 2000;4CC;V;;;Image Power JPEG 2000;
 IR21;Indeo 2.1;4CC;V;;;Intel Indeo 2.1;
 IRAW;YUV;4CC;V;YUV;;Intel YUV Uncompressed;http://www.fourcc.org/indexyuv.htm
 ISME;ISME;4CC;V;;;Intel;
@@ -287,11 +287,11 @@ IYU1;YUV;4CC;V;YUV;;IEEE1394 12bpp. 12 bit format used in mode 2 of the IEEE 139
 IYU2;YUV;4CC;V;YUV;;IEEE1394 24bpp. 24 bit format used in mode 2 of the IEEE 1394 Digital Camera 1.04 spec;
 IYUV;YUV;4CC;V;YUV;;Intel Indeo iYUV 4:2:0;
 JBYR;Kensington;4CC;V;;;Kensington Video;http://ffdshow-tryout.sourceforge.net/
-JFIF;M-JPEG;4CC;V;M-JPEG;;FFDShow supported;
-JPEG;M-JPEG;4CC;V;M-JPEG;;JPEG compressed;http://www.apple.com/quicktime/download/standalone.html
-jpeg;M-JPEG;4CC;V;M-JPEG;;JPEG compressed;
-JPG;M-JPEG;4CC;V;M-JPEG;;JPEG compressed;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
-JPGL;Pegasus M-JPEG;4CC;V;;;DIVIO JPEG Light for WebCams (Pegasus Lossless JPEG);
+JFIF;JPEG;4CC;V;JPEG;;FFDShow supported;
+JPEG;JPEG;4CC;V;JPEG;;JPEG compressed;http://www.apple.com/quicktime/download/standalone.html
+jpeg;JPEG;4CC;V;JPEG;;JPEG compressed;
+JPG;JPEG;4CC;V;JPEG;;JPEG compressed;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
+JPGL;Pegasus JPEG;4CC;V;;;DIVIO JPEG Light for WebCams (Pegasus Lossless JPEG);
 KMVC;Karl;4CC;V;;;Karl Morton's Video (presumably);http://www.apple.com/quicktime/download/standalone.html
 kpcd;Photo CD;4CC;V;;;Kodak Photo CD;
 L261;H.261;4CC;V;;;Lead Technologies H.261;
@@ -299,13 +299,13 @@ L263;H.263+;4CC;V;;;Lead Technologies H.263;
 LAGS;Lagarith;4CC;V;;;Lagarith LossLess;
 LBYR;Creative WebCam;4CC;V;;;Creative WebCam;
 LCMW;Lead CMW;4CC;V;;;Lead Technologies Motion CMW;
-LCW2;Lead MCMW;4CC;V;;;LEADTools MCMW 9Motion Wavelet;http://mirror01.iptelecom.net.ua/~video/codecs/LEAD.MCMP-M-JPEG.v1.016.codec.exe
+LCW2;Lead MCMW;4CC;V;;;LEADTools MCMW 9Motion Wavelet;http://mirror01.iptelecom.net.ua/~video/codecs/LEAD.MCMP-JPEG.v1.016.codec.exe
 LEAD;Lead Video;4CC;V;;;LEAD Video;
 LGRY;Lead GrayScale;4CC;V;;;Lead Technologies Grayscale Image;
 LIA1;Liafail;4CC;V;;;Liafail, Inc.;
-LJ2K;Lead JPEG2000;4CC;V;;;LEADTools JPEG2000;http://mirror01.iptelecom.net.ua/~video/codecs/LEAD.MCMP-M-JPEG.v1.016.codec.exe
-LJPG;Lead M-JPEG;4CC;V;M-JPEG;;LEAD M-JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/LEAD.MCMP-M-JPEG.v1.016.codec.exe
-Ljpg;Lead M-JPEG;4CC;V;M-JPEG;;LEAD M-JPEG;
+LJ2K;Lead JPEG 2000;4CC;V;;;LEADTools JPEG 2000;http://mirror01.iptelecom.net.ua/~video/codecs/LEAD.MCMP-JPEG.v1.016.codec.exe
+LJPG;Lead JPEG;4CC;V;JPEG;;LEAD JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/LEAD.MCMP-JPEG.v1.016.codec.exe
+Ljpg;Lead JPEG;4CC;V;JPEG;;LEAD JPEG;
 LMP2;Lead MPEG-2;4CC;V;;;LEADTools MPEG-2;
 LOCO;LOCO;4CC;V;;;LOCO Lossless;
 LSCR;Lead Screen capture;4CC;V;;;LEAD Screen Capture;
@@ -321,18 +321,18 @@ M263;H.263;4CC;V;;;Microsoft H.263;
 M4CC;ESS Divo;4CC;V;MPEG-4V;;ESS MPEG-4 Divio;
 M4S2;FFmpeg MPEG-4;4CC;V;;;Microsoft MPEG-4 (hacked MS MPEG-4);
 MC12;ATI Motion;4CC;V;;;ATI Motion Compensation Format;
-MC24;MainConcept M-JPEG;4CC;V;M-JPEG;;MainConcept M-JPEG;
+MC24;MainConcept JPEG;4CC;V;JPEG;;MainConcept JPEG;
 MCAM;ATI Motion;4CC;V;;;ATI Motion Compensation Format;
 MCZM;RGB;4CC;V;RGB;;Theory MicroCosm Lossless 64bit RGB with Alpha-channel;
 MDVD;MicroDVD;4CC;V;;;Alex MicroDVD Video (hacked MS MPEG-4);
 MDVF;Pinnacle DV;4CC;V;DV;;Pinnacle DV/DV50/DVHD100;
 MHFY;YUB;4CC;V;YUV;;A.M.Paredes mhuffyYUV (LossLess);http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe
-MJ2C;JPEG2000;4CC;V;;;Morgan Multimedia JPEG2000 Compression;http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe
-MJPA;Pinacle M-JPEG A;4CC;V;;;Pinnacle ReelTime MJPG hardware;http://mediaxw.sourceforge.net
-MJPB;Pinacle M-JPEG B;4CC;V;M-JPEG;;M-JPEG;
-MJPG;M-JPEG;4CC;V;M-JPEG;;M-JPEG including Huffman Tables;
-mJPG;IBM M-JPEG (w Huffman);4CC;V;M-JPEG;;IBM M-JPEG including Huffman Tables;
-MJPX;Pegasus M-JPEG;4CC;V;;;Pegasus PICVideo M-JPEG;
+MJ2C;JPEG 2000;4CC;V;;;Morgan Multimedia JPEG 2000 Compression;http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe
+MJPA;Pinacle JPEG A;4CC;V;;;Pinnacle ReelTime MJPG hardware;http://mediaxw.sourceforge.net
+MJPB;Pinacle JPEG B;4CC;V;JPEG;;JPEG;
+MJPG;JPEG;4CC;V;JPEG;;JPEG including Huffman Tables;
+mJPG;IBM JPEG (w Huffman);4CC;V;JPEG;;IBM JPEG including Huffman Tables;
+MJPX;Pegasus JPEG;4CC;V;;;Pegasus PICVideo JPEG;
 ML20;Webcam;4CC;V;;;Mimic MSN Messenger Webcam;
 MMES;Matrox MPEG-2;4CC;V;MPEG-V;;Matrox MPEG-2 I-frame;
 MMIF;Matrox MPEG-2;4CC;V;MPEG-V;;Matrox MPEG-2 I-frame;
@@ -369,15 +369,15 @@ MSV1;Microsoft Video 1;4CC;V;;;Microsoft Video 1;
 MSVC;Microsoft Video 1;4CC;V;;;Microsoft Video 1
 MSZH;AVImszh;4CC;V;;;Lossless (ZIP compression)
 MTGA;TGA;4CC;V;RGB;;Motion TGA images (24, 32 bpp)
-MTX1;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX2;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX3;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX4;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX5;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX6;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX7;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX8;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
-MTX9;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
+MTX1;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX2;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX3;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX4;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX5;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX6;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX7;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX8;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
+MTX9;Matrox JPEG;4CC;V;JPEG;;Matrox JPEG
 MV10;Nokia;4CC;V;;;Nokia Mobile Phones
 MV11;Nokia;4CC;V;;;Nokia Mobile Phones
 MV12;MVI;4CC;V;;;Motion Pixels (old)
@@ -429,10 +429,10 @@ PCLE;Studio400;4CC;V;;;Pinnacle Systems, Inc.;
 PDVC;Panasonic DV;4CC;V;DV;;Panasonic DV;
 PGVV;Radius Video Vision;4CC;V;;;Radius Video Vision Telecast (adaptive JPEG);
 PHMO;Photomotion;4CC;V;;;IBM Photomotion;
-PIM1;Pegasus M-JPEG;4CC;V;M-JPEG;;Pinnacle DC1000 hardware (MPEG compression);http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
-PIM2;Pegasus M-JPEG;4CC;V;M-JPEG;;Pegasus Imaging;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
-PIMJ;Pegasus M-JPEG;4CC;V;M-JPEG;;Pegasus Imaging PICvideo Lossless JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
-PIXL;Miro M-JPEG;4CC;V;M-JPEG;;MiroVideo XL (M-JPEG);
+PIM1;Pegasus JPEG;4CC;V;JPEG;;Pinnacle DC1000 hardware (MPEG compression);http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
+PIM2;Pegasus JPEG;4CC;V;JPEG;;Pegasus Imaging;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
+PIMJ;Pegasus JPEG;4CC;V;JPEG;;Pegasus Imaging PICvideo Lossless JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
+PIXL;Miro JPEG;4CC;V;JPEG;;MiroVideo XL (JPEG);
 PNG;PNG;4CC;V;RGB;;;
 PNG1;PNG;4CC;V;RGB;;Corecodec.org CorePNG;
 PVEZ;PowerEZ;4CC;V;;;Horizons Technology PowerEZ;
@@ -508,12 +508,12 @@ SHR4;BitJazz SheerVideo;4CC;V;;;BitJazz SheerVideo (realtime lossless);
 SHR5;BitJazz SheerVideo;4CC;V;;;BitJazz SheerVideo (realtime lossless);
 SHR6;BitJazz SheerVideo;4CC;V;;;BitJazz SheerVideo (realtime lossless);
 SHR7;BitJazz SheerVideo;4CC;V;;;BitJazz SheerVideo (realtime lossless);
-SJPG;CuSeeMe;4CC;V;M-JPEG;;CuSeeMe;http://mirror01.iptelecom.net.ua/~video/codecs/CUseeMe.M-JPEG.CODEC.v1.17.exe
+SJPG;CuSeeMe;4CC;V;JPEG;;CuSeeMe;http://mirror01.iptelecom.net.ua/~video/codecs/CUseeMe.JPEG.CODEC.v1.17.exe
 SL25;SoftLab DVCPro;4CC;V;;;SoftLab-NSK DVCPRO;
 SL50;SoftLab DVCPro5;4CC;V;;;SoftLab-NSK ;
 SLDV;SoftLab DV;4CC;V;;;SoftLab-NSK Forward DV Draw;
 SLIF;SoftLab MPEG-2;4CC;V;MPEG-V;;SoftLab-NSK MPEG-2 I-frames;
-SLMJ;SoftLab M-JPEG;4CC;V;M-JPEG;;SoftLab-NSK Forward M-JPEG;
+SLMJ;SoftLab JPEG;4CC;V;JPEG;;SoftLab-NSK Forward JPEG;
 smc ;SMC;4CC;V;;;Apple Graphics (SMC);http://www.apple.com/quicktime/download/standalone.html
 SMSC;Radius;4CC;V;;;;
 SMSD;Radius;4CC;V;;;;
@@ -543,7 +543,7 @@ SV10;Sorenson;4CC;V;;;Sorenson Media Video R1
 SVQ1;Sorenson 1;4CC;V;;;Sorenson Media Video 1 (Apple QuickTime 3)
 SVQ2;Sorenson 2;4CC;V;;;Sorenson Media Video 2 (Apple QuickTime 4)
 SVQ3;Sorenson 3;4CC;V;;;Sorenson Media Video 3 (Apple QuickTime 5)
-SWC1;MainConcept M-JPEG;4CC;V;M-JPEG;;MainConcept M-JPEG
+SWC1;MainConcept JPEG;4CC;V;JPEG;;MainConcept JPEG
 T420;Toshiba YUV;4CC;V;YUV;;Toshiba YUV 4:2:0
 TGA ;Apple TGA;4CC;V;;;Apple TGA (with Alpha-channel)
 THEO;Theora;4CC;V;;;FFVFW Supported
@@ -561,8 +561,8 @@ TR20;Duck TM RT2;4CC;V;;;Duck TrueMotion RT 2.0
 TRLE;Akula;4CC;V;;;Akula Alpha Pro Custom AVI (LossLess);
 TSCC;TechSmith;4CC;V;;;TechSmith Screen Capture;
 TV10;Tecomac;4CC;V;;;Tecomac Low-Bit Rate;
-TVJP;Pinnacle/Truevision;4CC;V;;;TrueVision Field Encoded M-JPEG (Targa emulation);
-TVMJ;Pinnacle/Truevision;4CC;V;;;Truevision TARGA M-JPEG Hardware (or Targa emulation);
+TVJP;Pinnacle/Truevision;4CC;V;;;TrueVision Field Encoded JPEG (Targa emulation);
+TVMJ;Pinnacle/Truevision;4CC;V;;;Truevision TARGA JPEG Hardware (or Targa emulation);
 TY0N;Trident;4CC;V;;;Trident Decompression Driver;
 TY2C;Trident;4CC;V;;;Trident Decompression Driver;
 TY2N;Trident;4CC;V;;;Trident Decompression Driver;
@@ -607,8 +607,8 @@ VIFP;VFAPI;4CC;V;;;Virtual Frame API (VFAPI dummy format);
 VIV1;H.263;4CC;V;;;Vivo H.263;
 VIV2;H.263;4CC;V;;;Vivo H.263;
 VIVO;H.263;4CC;V;;;Vivo H.263;
-VIXL;Miro XL;4CC;V;M-JPEG;;Miro Video XL;http://mirror01.iptelecom.net.ua/~video/codecs/miroVIDEO-XL.codec.v2.2.exe
-VJPG;JPEG;4CC;V;M-JPEG;;;
+VIXL;Miro XL;4CC;V;JPEG;;Miro Video XL;http://mirror01.iptelecom.net.ua/~video/codecs/miroVIDEO-XL.codec.v2.2.exe
+VJPG;JPEG;4CC;V;JPEG;;;
 VLV1;Videologic;4CC;V;;;;
 VMNC;Vmware;4CC;V;;;;http://www.vmware.com/
 VP30;VP3;4CC;V;;;On2 VP3;
@@ -638,7 +638,7 @@ VYUY;YUV;4CC;V;YUV;;ATI Packed YUV Data;
 WBVC;W9960;4CC;V;;;Winbond Electronics W9960;
 WHAM;Microsoft Video 1;4CC;V;;;;
 WINX;Winnov;4CC;V;;;;
-WJPG;Winbond M-JPEG;4CC;V;M-JPEG;;Winbond JPEG (AverMedia USB devices);
+WJPG;Winbond JPEG;4CC;V;JPEG;;Winbond JPEG (AverMedia USB devices);
 WMV1;WMV1;4CC;V;;;Windows Media Video 7;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 WMV2;WMV2;4CC;V;;;Windows Media Video 8;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 WMV3;WMV3;4CC;V;VC-1;;Windows Media Video 9;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
@@ -659,7 +659,7 @@ X263;H.263;4CC;V;;;Xirlink H.263;
 x263;Xirlink;4CC;V;;;;
 X264;AVC;4CC;V;AVC;;XiWave GNU GPL x264 MPEG-4;
 x264;AVC;4CC;V;AVC;;XiWave GNU GPL x264 MPEG-4;
-XJPG;Xirlink;4CC;V;M-JPEG;;Xirlink, Inc.;
+XJPG;Xirlink;4CC;V;JPEG;;Xirlink, Inc.;
 XLV0;NetXL Video;4CC;V;;;NetXL Inc. XL Video Decoder;
 XMPG;Xing MPEG;4CC;V;MPEG-V;;XING MPEG (I frame only);
 XVID;XviD;4CC;V;MPEG-4V;;XviD project;http://www.xvid.org/Downloads.15.0.html

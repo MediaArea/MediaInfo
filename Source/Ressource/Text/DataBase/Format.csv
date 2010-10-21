@@ -38,8 +38,6 @@ FLI;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html
 FLIC;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html
 H.261;;;V;;;h261;video/H261;
 H.263;;;V;;;h263;video/H263;
-M-JPEG;;;V;;;;video/JPEG;
-M-JPEG 2000;;;V;;;;video/MJ2;
 MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;video/MPV;
 MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES;
 Theora;;;V;;;;;
@@ -92,7 +90,7 @@ GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif;
 ICO;;;I;Ico;;ico;image/vnd.microsoft.icon;
 JNG;;;I;Jng;JPEG Network Graphic;jng;;
 JPEG;;;I;Jpeg;;jpeg jpg jpe;image/jpeg;
-JPEG2000;;;I;Jpeg;;jp2;image/jp2;http://www.morgan-multimedia.com/JPEG2000/
+JPEG 2000;;;I;Jpeg;;jp2;image/jp2;http://www.morgan-multimedia.com/JPEG 2000/
 LZ77;;;I;;;;;
 MNG;;;I;Mng;Multiple-Image Network Graphic;mng;;
 PNG;;;I;Png;Portable Network Graphic;png;image/png;
