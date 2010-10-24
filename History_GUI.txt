@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.36, 2010-10-24
 --------------
-+ Installers are digitally signed
++ Binaries (libraries, programs and installers) are digitally signed
 + HDV 720p/1080i/1080p commercial names support, sponsored by http://www.chyro.fr/
 + Raw TrueHD support
 + MP4: "lpcm" (PCM from DVD) Support (with channel positions)
