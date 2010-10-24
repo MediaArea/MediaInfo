@@ -53,3 +53,5 @@ UI_SOURCES_DIR = _Automated
 INCLUDEPATH = ../../../Source
 QMAKE_UIC += -tr \
     Tr
+target.path = /usr/bin
+INSTALLS += target
