@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../Qt/include;./"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MEDIAINFO_DLL_RUNTIME"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MEDIAINFO_DLL_RUNTIME;NEW_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib QtXml.lib qtsvgd.lib qsvg.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
+				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib QtXml.lib QtNetwork.lib qtsvgd.lib qsvg.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC2008\$(PlatformName)\$(ConfigurationName)&quot;;&quot;../../../../Qt/lib/$(PlatformName)\$(ConfigurationName)&quot;;../../../../Qt\plugins\imageformats"
 				IgnoreDefaultLibraryNames="libcmt.lib"
@@ -142,7 +142,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib qsvgd.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
+				AdditionalDependencies="ZenLib.lib QtCore.lib QtGui.lib qtsvgd.lib qsvg.lib qtmain.lib winmm.lib ws2_32.lib imm32.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC2008\$(PlatformName)\$(ConfigurationName)&quot;;&quot;../../../../Qt/lib/$(PlatformName)\$(ConfigurationName)&quot;;../../../../Qt\plugins\imageformats"
 				GenerateDebugInformation="true"
@@ -527,11 +527,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\_Automated\ui_mainwindow.h"
+					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
+					RelativePath=".\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
