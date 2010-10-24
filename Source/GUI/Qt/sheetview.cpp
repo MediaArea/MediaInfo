@@ -83,6 +83,11 @@ void SheetView::changeEvent(QEvent *e)
 void SheetView::on_tableWidget_itemSelectionChanged()
 {
     ui->comboBox->clear();
+    ui->comboBox->addItem(Tr("Summary"),QPoint(-1,-1));
+#if QT_VERSION >= 0x404000
+        if(C->Count_Get(filePos,(stream_t)streamKind) && ui->comboBox->count())
+            ui->comboBox->insertSeparator(ui->comboBox->count());
+#endif
     if(ui->tableWidget->selectedItems().isEmpty())
         return;
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
@@ -106,11 +111,22 @@ void SheetView::on_comboBox_currentIndexChanged(int index)
     }
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
     stream_t kind = (stream_t)ui->comboBox->itemData(index).toPoint().x();
-    int pos = ui->comboBox->itemData(index).toPoint().y();
-    ui->label->setText(wstring2QString(C->Inform_Get(filePos,kind,pos)));
-    url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, _T("CodecID/Url")));
-    if(url.isEmpty())
-        url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, _T("Format/Url")));
+    if(kind==-1) {
+        QString str="";
+        for(int streamKind=0;streamKind<Stream_Max;++streamKind) {
+            for(unsigned int streamPos=0;streamPos<C->Count_Get(filePos,(stream_t)streamKind);++streamPos) {
+                str.append(wstring2QString(C->Summary_Get(filePos,(stream_t)streamKind, streamPos))+"\n");
+            }
+        }
+        ui->label->setText(str);
+        url = "";
+    } else {
+        int pos = ui->comboBox->itemData(index).toPoint().y();
+        ui->label->setText(wstring2QString(C->Inform_Get(filePos,kind,pos)));
+        url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, _T("CodecID/Url")));
+        if(url.isEmpty())
+            url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, _T("Format/Url")));
+    }
     ui->toolButton->setEnabled(!url.isEmpty());
 }
 

@@ -88,6 +88,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         openFiles(files);
     }
 
+    /*
+    qDebug() << "0.7 " << "0.7.5 " << isNewer("0.7","0.7.5");
+    qDebug() << "0.7.4 " << "0.7.5 " << isNewer("0.7.4","0.7.5");
+    qDebug() << "0.7.5 " << "0.7.4 " << isNewer("0.7.5","0.7.4");
+    qDebug() << "0.7.4 " << "0.7 " << isNewer("0.7.4","0.7");
+    qDebug() << "0.7.5 " << "0.7.5 " << isNewer("0.7.5","0.7.5");
+    */
+
 #ifdef NEW_VERSION
     if(settings->value("checkForNewVersion",true).toBool()) {
         checkForNewVersion();
@@ -103,14 +111,25 @@ MainWindow::~MainWindow()
 
 #ifdef NEW_VERSION
 
+bool MainWindow::isNewer(QString distant, QString local) {
+    QStringList local_list = local.split(".");
+    QStringList distant_list = distant.split(".");
+    int i;
+    for(i=0;i<local_list.size();i++) {
+        if(i>=distant_list.size())
+            return false;
+        if(local_list[i].toInt()>distant_list[i].toInt())
+            return false;
+        else if (local_list[i].toInt()<distant_list[i].toInt())
+            return true;
+    }
+    return !(i>=distant_list.size());
+}
+
 void MainWindow::checkForNewVersion() {
     QString version = VERSION;
-    //QString filename = "changelog_"+version+".bin";
     QUrl url = QUrl("http://mediaarea.net/mediainfo_check/changelog_"+version+".bin");
-    QFileInfo fileInfo(url.path());
-    QString fileName = fileInfo.fileName();
-    file = new QTemporaryFile(fileName);
-    file->open();
+    file = "";
     reply = qnam.get(QNetworkRequest(url));
     qDebug() << "downloading " << url.toString();
 
@@ -123,23 +142,19 @@ void MainWindow::checkForNewVersion() {
 void MainWindow::httpFinished()
 {
     #ifdef NEW_VERSION
-        file->flush();
          if (reply->error()) {
-             qDebug("Download failed");
+             qDebug() << "Download failed";
          } else {
-             QString fileName = file->fileName();
-             qDebug() << ("Downloaded "+fileName+" to temp directory.").toStdString().c_str();
+             qDebug() << "Downloaded file to temp string.";
          }
 
          ZtringListList X;
-         file->reset();
-    /*TODO #warning test à chager! */
-         X.Write(file->readAll().data());
-         if (X("NewVersion")>Ztring(VERSION)) {
-             qDebug("New version is available.");
+         X.Write(file.toStdString().c_str());
+         if (isNewer(wstring2QString(X("NewVersion")),QString(VERSION))) {
+             qDebug() << "New version is available.";
              qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
          } else {
-             qDebug("No new version available.");
+             qDebug() << "No new version available.";
              qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
          }
          /*
@@ -151,19 +166,16 @@ void MainWindow::httpFinished()
          - Mettre le tout dans un #ifdef, pour qu'on puisse le désactiver facilement (pour les repos etc...)
          */
 
-         file->close();
          reply->deleteLater();
          reply = 0;
-         delete file;
-         file = 0;
+         file = "";
     #endif //NEW_VERSION
 }
 
 void MainWindow::httpReadyRead()
 {
     #ifdef NEW_VERSION
-        if (file)
-            file->write(reply->readAll());
+        file.append(reply->readAll());
     #endif //NEW_VERSION
 }
 
@@ -531,9 +543,7 @@ void MainWindow::dropEvent(QDropEvent *event)
     QStringList files;
     for(int i=0;i<event->mimeData()->urls().size();i++) {
         files.push_back(event->mimeData()->urls().at(i).toLocalFile());
-        qDebug("adding ");
-        qDebug(files.last().toStdString().c_str());
-        qDebug("to the list");
+        qDebug() << "adding " << files.last().toStdString().c_str() << "to the list";
     }
     openFiles(files);
     event->acceptProposedAction();
@@ -611,7 +621,7 @@ void MainWindow::on_actionPreferences_triggered()
         }
         refreshDisplay();
     } else
-        qDebug("preferences cancelled");
+        qDebug() << "preferences cancelled";
 }
 
 void MainWindow::on_actionExport_triggered()
@@ -671,7 +681,7 @@ void MainWindow::on_actionExport_triggered()
 
         settings->setValue("exportMode",e.getExportMode());
     } else
-        qDebug("export cancelled");
+        qDebug() << "export cancelled";
 }
 
 void MainWindow::on_actionAdvanced_Mode_toggled(bool checked)

@@ -8,7 +8,6 @@ QString Tr(const char* string, const char * disambiguation, int n) {
         if(text[i]=="%n")
             text[i] = QString::number(n);
         else if((qrand()%3==0)&&(!text[i].contains(QRegExp("[\,|\.|\(|\)|\{|\}]")))) {
-            //qDebug(text[i].toStdString().c_str());
             text[i] = text[i].toUpper();
         }
     }

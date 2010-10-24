@@ -41,11 +41,11 @@ void EditSheet::initDisplay() {
 }
 
 void EditSheet::refreshDisplay() {
-    qDebug((QString::number(ui->vboxLayout->count())+" columns :").toStdString().c_str());
+    qDebug() << ui->vboxLayout->count() << " columns :";
     ui->tableWidget->setColumnCount(ui->vboxLayout->count());
     for(int i=0;i<ui->vboxLayout->count();++i) {
         //column c = sheet->getColumn(i);
-        qDebug((QString::number(i)+" : "+((QLineEdit*)ui->vboxLayout->itemAt(i)->layout()->itemAt(0)->widget())->text()).toStdString().c_str());
+        qDebug() << i << " : " << ((QLineEdit*)ui->vboxLayout->itemAt(i)->layout()->itemAt(0)->widget())->text();
         if(!ui->checkBoxAdapt)
             ui->tableWidget->setColumnWidth(i,((QSpinBox*)ui->vboxLayout->itemAt(i)->layout()->itemAt(1)->widget())->value());
         if(ui->tableWidget->horizontalHeaderItem(i))

@@ -103,7 +103,7 @@ void Preferences::on_pushButton_editSheet_clicked()
         es.apply();
         refreshDisplay();
     } else
-        qDebug("sheet editing cancelled");
+        qDebug() << "sheet editing cancelled";
 }
 
 void Preferences::on_pushButton_newSheet_clicked()
@@ -116,7 +116,7 @@ void Preferences::on_pushButton_newSheet_clicked()
         refreshDisplay();
     } else {
         Sheet::removeLast();
-        qDebug("new sheet cancelled");
+        qDebug() << "new sheet cancelled";
     }
 }
 
@@ -133,7 +133,7 @@ void Preferences::on_pushButton_editTreeText_clicked()
         ectt.apply();
         refreshDisplay();
     } else
-        qDebug("config editing cancelled");
+        qDebug() << "config editing cancelled";
 }
 
 void Preferences::on_pushButton_newTreeText_clicked()
@@ -145,7 +145,7 @@ void Preferences::on_pushButton_newTreeText_clicked()
         refreshDisplay();
     } else {
         ConfigTreeText::removeLast();
-        qDebug("new config cancelled");
+        qDebug() << "new config cancelled";
     }
 }
 

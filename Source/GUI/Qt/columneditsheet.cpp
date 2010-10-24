@@ -47,7 +47,6 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     down->setArrowType(Qt::DownArrow);
     down->setBaseSize(480,480);
     down->setMaximumHeight(spinbox->height());
-    //qDebug(QString::number(spinbox->height()).toStdString().c_str());
     this->addWidget(down);
     minus = new QToolButton();
     minus->setText("-");

@@ -22,7 +22,7 @@ void ConfigTreeText::load(QSettings* settings) {
     for (int i = 0; i < size; ++i) {
         settings->setArrayIndex(i);
         ConfigTreeText* ctt = new ConfigTreeText(settings->value("name").toString());
-        qDebug(("...loading "+ctt->getName()).toStdString().c_str());
+        qDebug() << "...loading " << ctt->getName();
         for(int j=0;j<4;j++)
             ctt->setFields(j,settings->value("fields"+QString::number(j),QStringList()).toStringList());
         configs.append(ctt);
@@ -30,22 +30,22 @@ void ConfigTreeText::load(QSettings* settings) {
     }
     settings->endArray();
     indexDefault = settings->value("ConfigTreeTextIndexDefault",0).toInt();
-    qDebug("end loading");
+    qDebug() << "end loading";
 }
 
 void ConfigTreeText::save(QSettings* settings) {
-    qDebug("saving configs");
+    qDebug() << "saving configs";
     settings->beginWriteArray("configs");
     for (int i = 0; i < configs.size(); ++i) {
         settings->setArrayIndex(i);
-        qDebug(("...saving "+configs[i]->getName()).toStdString().c_str());
+        qDebug() << "...saving " << configs[i]->getName();
         settings->setValue("name", configs[i]->getName());
         for(int j=0;j<4;j++)
             settings->setValue("fields"+QString::number(j),configs[i]->getFields(j));
     }
     settings->endArray();
     settings->setValue("ConfigTreeTextIndexDefault",indexDefault);
-    qDebug("end saving");
+    qDebug() << "end saving";
 }
 
 void ConfigTreeText::remove(int i) {

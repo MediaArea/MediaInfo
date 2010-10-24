@@ -12,13 +12,13 @@ Sheet::Sheet(QString name)
 /* STATIC FUNCTIONS */
 
 void Sheet::load(QSettings* settings) {
-    qDebug("loading sheets");
+    qDebug() << "loading sheets";
     int size = settings->beginReadArray("sheets");
     for (int i = 0; i < size; ++i) {
         settings->setArrayIndex(i);
         Sheet* s = new Sheet(settings->value("name").toString());
         s->setAdaptColumns(settings->value("adaptColumns",false).toBool());
-        qDebug(("...loading "+s->getName()).toStdString().c_str());
+        qDebug() << "...loading " << s->getName();
         int nbColumns = settings->value("nbColumns",0).toInt();
         for(int j=0;j<nbColumns;j++) {
             s->addColumn(settings->value("nameCol"+QString::number(j)).toString().toStdString().c_str(),settings->value("widthCol"+QString::number(j)).toInt(),settings->value("streamCol"+QString::number(j)).toInt(),settings->value("keywordCol"+QString::number(j)).toString().toStdString().c_str());
@@ -28,15 +28,15 @@ void Sheet::load(QSettings* settings) {
     }
     settings->endArray();
     indexDefault = settings->value("SheetIndexDefault",0).toInt();
-    qDebug("end loading");
+    qDebug() << "end loading";
 }
 
 void Sheet::save(QSettings* settings) {
-    qDebug("saving sheets");
+    qDebug() << "saving sheets";
     settings->beginWriteArray("sheets");
     for (int i = 0; i < sheets.size(); ++i) {
         settings->setArrayIndex(i);
-        qDebug(("...saving "+sheets[i]->getName()).toStdString().c_str());
+        qDebug() << "...saving " << sheets[i]->getName();
         settings->setValue("name", sheets[i]->getName());
         settings->setValue("adaptColumns", sheets[i]->getAdaptColumns());
         settings->setValue("nbColumns", sheets[i]->getNbColumns());
@@ -49,7 +49,7 @@ void Sheet::save(QSettings* settings) {
     }
     settings->endArray();
     settings->setValue("SheetIndexDefault",indexDefault);
-    qDebug("end saving");
+    qDebug() << "end saving";
 }
 
 void Sheet::remove(int i) {

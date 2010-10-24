@@ -35,7 +35,7 @@ void EditConfigTreeText::fillToolBox() {
         if(streamKind==Stream_Chapters)
             continue;
         QFrame* box = new QFrame();
-        qDebug(("adding "+wstring2QString(C->StreamName((stream_t)streamKind))).toStdString().c_str());
+        qDebug() << "adding " << wstring2QString(C->StreamName((stream_t)streamKind));
         ui->toolBox->addItem(box,wstring2QString(C->StreamName((stream_t)streamKind)));
         QString s = wstring2QString(C->Parameters());
         s.replace("\r\n","\n");
@@ -72,12 +72,12 @@ void EditConfigTreeText::apply() {
         for (int j=0; j<ui->toolBox->widget(i)->layout()->count(); ++j) {
             if(((QCheckBox*)ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->isChecked()) {
                 ctt->addField(i,((QCheckBox*)ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->text());
-                qDebug(ctt->getFields(i).join(", ").toStdString().c_str());
+                qDebug() << ctt->getFields(i).join(", ");
             } else {
                 ctt->removeField(i,((QCheckBox*)ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->text());
             }
         }
     }
 
-    qDebug("Applying settings");
+    qDebug() << "Applying settings";
 }

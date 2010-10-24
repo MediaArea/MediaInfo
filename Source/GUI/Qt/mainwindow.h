@@ -12,9 +12,9 @@
 #include <QtCore/QDebug>
 #include <QtCore/QUrl>
 #ifdef NEW_VERSION
-    #include <QtNetwork/QNetworkAccessManager.h>
-    #include <QtNetwork/QNetworkReply.h>
-    #include <QtCore/QTemporaryFile.h>
+    #include <QtNetwork/QNetworkAccessManager>
+    #include <QtNetwork/QNetworkReply>
+    #include <QtCore/QTemporaryFile>
 #endif //NEW_VERSION
 
 namespace Ui {
@@ -33,6 +33,9 @@ public:
     static QString shortName(QDir d, QString name);
     static QString shortName(Core*C, QString name);
     static QDir getCommonDir(Core*C);
+#ifdef NEW_VERSION
+    static bool isNewer(QString distant, QString local);
+#endif //NEW_VERSION
 
     void checkForNewVersion();
 
@@ -57,7 +60,7 @@ private:
     QUrl url;
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
-    QTemporaryFile *file;
+    QString file;
 #endif
     Core* C;
     ViewMode view;
