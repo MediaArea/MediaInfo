@@ -23,6 +23,7 @@ Version 0.7.36, 2010-
 + MPEG-4: Handling of external files referenced by "code" atom
 + M-JPEG and M-JPEG 2000 are renamed JPEG and JPEG 2000
 + MP4 and HDV 1080i: detecting containers lying about width (saying 1920 but it is 1440)
++ DTVCC Transport and SCTE20: Option for displaying empty streams
 x #3034092, MPEG-TS: hang up if program is modified (zapping) in the file
 x AAC: removal of empirical detection of SBR and PS (too many problems)
 x AVI: trusting in priority frame count from index of indexes with broken files
