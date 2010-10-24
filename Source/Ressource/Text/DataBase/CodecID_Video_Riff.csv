@@ -5,7 +5,7 @@
 1978;RGB;A.M.Paredes predictor;;http://www.pegasusimaging.com/cgi-bin/download2.cgi?LVIDB;;;RGB;;
  BIT;RGB;;;;;;RGB;;
  JPG;JPEG;;;;;;YUV
- PNG;M-PNG;;;;;;RGB;;
+ PNG;PNG;;;;;;RGB;;
  RAW;RGB;;;http://www.fourcc.org/indexrgb.htm;;;RGB;;
  raw;RGB;;;http://www.fourcc.org/indexrgb.htm;;;RGB;;
  RGB;RGB;;;http://www.fourcc.org/indexrgb.htm;;;RGB;;
@@ -354,7 +354,7 @@ mpg2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/;
 MPG3;MPEG-4 Visual;FFmpeg DivX 3;(MPEG-4) MS MPEG-4 v3;;;;YUV;4:2:0
 MPG4;MPEG-4 Visual;MS MPEG-4 v1;Microsoft MPEG-4 v1;;;;YUV;4:2:0
 MPGI;MPEG Video;Sigma;Sigma Design MPEG-1 I-frame;;;;YUV;4:2:0
-MPNG;M-PNG;;Motion PNG;;;;;
+MPNG;PNG;;Motion PNG;;;;;
 MRCA;Mrcodec;;FAST Multimedia;;;;;
 MRLE;RLE;;Microsoft RLE;;;;RGB;
 MSS1;Screen Video;Windows;Windows Screen Video;;;;;
@@ -429,8 +429,8 @@ PIM1;JPEG;Pegasus;Pinnacle DC1000 hardware (MPEG compression);http://mirror01.ip
 PIM2;JPEG;Pegasus;Pegasus Imaging;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe;;;YUV
 PIMJ;JPEG;Pegasus;Pegasus Imaging PICvideo Lossless JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe;;;YUV
 PIXL;JPEG;Miro;MiroVideo XL (JPEG);;;;YUV
-PNG;M-PNG;;;;;;;
-PNG1;M-PNG;;Corecodec.org CorePNG;;;;;
+PNG;PNG;;;;;;;
+PNG1;PNG;;Corecodec.org CorePNG;;;;;
 PVEZ;PowerEZ;;Horizons Technology PowerEZ;;;;;
 PVMM;MPEG-4 Visual;Pegasus;PacketVideo Corporation MPEG-4;;;;YUV;4:2:0
 PVW2;Wavelet;Pegasus;Pegasus Imaging Wavelet 2000;;;;;
