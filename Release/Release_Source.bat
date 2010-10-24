@@ -71,6 +71,8 @@ xcopy ..\Project\BCB\*.h MediaInfo_Lib_Source\Project\BCB\ /S
 xcopy ..\Project\CMake\*.txt MediaInfo_Lib_Source\Project\CMake\ /S
 xcopy ..\Project\MSVC\*.h MediaInfo_Lib_Source\Project\MSVC\ /S
 xcopy ..\Project\MSVC2008\*.h MediaInfo_Lib_Source\Project\MSVC2008\ /S
+xcopy ..\Project\MSCS\*.aspx MediaInfo_Lib_Source\Project\MSCS2010\ /S
+xcopy ..\Project\MSCS\*.config MediaInfo_Lib_Source\Project\MSCS2010\ /S
 xcopy ..\Project\BCB\*.res MediaInfo_Lib_Source\Project\BCB /S
 xcopy ..\Project\Delphi\*.res MediaInfo_Lib_Source\Project\Delphi /S
 xcopy ..\Project\MSVB\*.rc MediaInfo_Lib_Source\Project\MSVB\ /S
