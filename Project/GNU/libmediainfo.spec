@@ -6,7 +6,7 @@
 
 # norootforbuild
 
-%define libmediainfo_version	0.7.35
+%define libmediainfo_version	0.7.36
 %define libzen_version			0.4.14
 
 Name:			libmediainfo0
@@ -142,6 +142,6 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net <info@mediaarea.net> - 0.7.35-0
+* Tue Jan 01 2009 MediaArea.net <info@mediaarea.net> - 0.7.36-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
