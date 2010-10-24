@@ -808,6 +808,24 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Lagarith.cpp">
 				<BuildOrder>182</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ancillary.cpp">
+				<BuildOrder>181</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ancillary.h">
+				<BuildOrder>182</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp">
+				<BuildOrder>183</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h">
+				<BuildOrder>184</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_DolbyE.cpp">
+				<BuildOrder>185</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_DolbyE.h">
+				<BuildOrder>186</BuildOrder>
+			</None>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Export.dfm"/>
