@@ -7,6 +7,36 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.36, 2010-10-24
+--------------
++ HDV 720p/1080i/1080p commercial names support, sponsored by http://www.chyro.fr/
++ Raw TrueHD support
++ MP4: "lpcm" (PCM from DVD) Support (with channel positions)
++ MKV: compression mode (zlib...) display
++ WAV: support of AAC (ADTS) with CodecID 0x8180
++ WMV: Handling of weird Aspect Ratio information in Extended Content Description
++ #3087674, Ut Video Lossless support
++ #3087677, WebP: basic support (detection only)
++ #3072929, MP4: DTS Express support
++ MPEG-4: Handling of external files referenced by "code" atom
++ M-JPEG and M-JPEG 2000 are renamed JPEG and JPEG 2000
++ MP4 and HDV 1080i: detecting containers lying about width (saying 1920 but it is 1440)
++ DTVCC Transport and SCTE20: Option for displaying empty streams
++ DPX format detection
+x #3034092, MPEG-TS: hang up if program is modified (zapping) in the file
+x AAC: removal of empirical detection of SBR and PS (too many problems)
+x AVI: trusting in priority frame count from index of indexes with broken files
+x MKV: AVC "unknown profile" removal
+x AVC: some frame rates were reported as twice the real frame rate
+x #3029308, Id3v2: support of frames with Unsynchronisation bit set
+x #3065114, MPEG-Video: duration calculation issues with raw streams and open GOPs
+x AFD: crash with malformed streams
+x MPEG-7 output: missing references for MPEG-4 Visual and RF64
+x #3086701, ID3: freeze/crash with ID3 tag at the end of the the file
+x LXF: some files were not completely analyzed (missing video)
+x JPEG: Chroma subsampling value was always set to 4:2:0, wrong
+x MP4 with MPEG Video: do not trust anymore raw stream timecode
+
 Version 0.7.35, 2010-09-05
 --------------
 + Arabic language added
