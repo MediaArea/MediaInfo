@@ -314,6 +314,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\File_Dummy.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File_Other.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File_Unknown.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Dpx.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config_Automatic.cpp" />
@@ -470,6 +471,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\File_Dummy.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File_Other.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File_Unknown.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dpx.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h" />

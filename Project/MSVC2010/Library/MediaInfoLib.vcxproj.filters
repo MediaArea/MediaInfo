@@ -504,6 +504,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Dpx.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -907,6 +910,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.h">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dpx.h">
+      <Filter>Header Files\Image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

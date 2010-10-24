@@ -1089,6 +1089,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Wave64;;;A;Riff;;w64\n"
     "WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com\n"
     "Bitmap;;;I;Bmp;;bmp;image/bmp\n"
+    "DPX;;;I;Dpx;;dpx\n"
     "DIB;;;I;Riff;RIFF Device Independent Bitmap\n"
     "GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif\n"
     "ICO;;;I;Ico;;ico;image/vnd.microsoft.icon\n"

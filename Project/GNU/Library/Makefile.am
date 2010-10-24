@@ -70,6 +70,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Export/Export_Mpeg7.cpp \
                        ../../../Source/MediaInfo/Export/Export_PBCore.cpp \
                        ../../../Source/MediaInfo/Image/File_Bmp.cpp \
+                       ../../../Source/MediaInfo/Image/File_Dpx.cpp \
                        ../../../Source/MediaInfo/Image/File_Gif.cpp \
                        ../../../Source/MediaInfo/Image/File_Ico.cpp \
                        ../../../Source/MediaInfo/Image/File_Jpeg.cpp \

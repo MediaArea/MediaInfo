@@ -85,6 +85,7 @@ Wave;;;A;Riff;;wav;audio/vnd.wave;
 Wave64;;;A;Riff;;w64;;
 WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com
 Bitmap;;;I;Bmp;;bmp;image/bmp;
+DPX;;;I;Dpx;;dpx
 DIB;;;I;Riff;RIFF Device Independent Bitmap;;;
 GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif;
 ICO;;;I;Ico;;ico;image/vnd.microsoft.icon;
