@@ -15,8 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\P
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC2010\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mess-it-up", "Mess-it-up\Mess-it-up.vcxproj", "{122BABFC-A49F-4C18-A29F-F7299CE70116}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -125,18 +123,6 @@ Global
 		{FD328AE2-5136-460F-A622-12CFD4D4C131}.ReleaseA|Win32.Build.0 = Release|Win32
 		{FD328AE2-5136-460F-A622-12CFD4D4C131}.ReleaseA|x64.ActiveCfg = Release|x64
 		{FD328AE2-5136-460F-A622-12CFD4D4C131}.ReleaseA|x64.Build.0 = Release|x64
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.Debug|Win32.ActiveCfg = Debug|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.Debug|Win32.Build.0 = Debug|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.Debug|x64.ActiveCfg = Debug|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.DebugA|Win32.ActiveCfg = Debug|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.DebugA|Win32.Build.0 = Debug|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.DebugA|x64.ActiveCfg = Debug|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.Release|Win32.ActiveCfg = Release|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.Release|Win32.Build.0 = Release|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.Release|x64.ActiveCfg = Release|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.ReleaseA|Win32.ActiveCfg = Release|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.ReleaseA|Win32.Build.0 = Release|Win32
-		{122BABFC-A49F-4C18-A29F-F7299CE70116}.ReleaseA|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
