@@ -32,8 +32,10 @@ AFLI;FLI;Autodesk;;http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Anima
 AHDV;CineForm;CineForm HD;;http://www.cineform.com/products/ConnectHD.htm;;;;
 AJPG;JPEG;;22fps for digital cameras;;;;YUV
 ALPH;Ziracom;;Ziracom Digital Communications Inc.;;;;;
+AMM2;AMV2 MT;AMV2 MT Video Codec Version 2;;http://amamaman.hp.infoseek.co.jp/english/amv2_e.html;;;;
 AMPG;MPEG-1;VideoONE;;http://www.array.com;;;YUV;4:2:0
 AMR ;AMR;;Speech codec;;;;;
+AMV3;AMV3;AMV3 Video Codec Version 3;;http://amamaman.hp.infoseek.co.jp/english/amv2_e.html;;;YUV;4:2:0
 ANIM;RDX;Intel;;;;;;
 AP41;MPEG-4 Visual;AngelPotion;Hack of MS MPEG-4 v3;http://www.divxity.com/download/ap4v1-702.exe;;;YUV;4:2:0
 AP42;MPEG-4 Visual;AngelPotion;Hack of MS MPEG-4 v3;http://www.divxity.com/download/ap4v1-702.exe;;;YUV;4:2:0
@@ -335,6 +337,7 @@ MJPG;JPEG;;;;;;YUV
 mJPG;JPEG;IBM;Including Huffman Tables;;;;YUV
 MJPX;JPEG;Pegasus;Pegasus PICVideo JPEG;;;;YUV
 ML20;Webcam;;Mimic MSN Messenger Webcam;;;;;
+MLCY;MLC;;MLC Lossless Codec;http://www.linek.sk/mlc/;;;;;;Lossless
 MMES;MPEG Video;Matrox;I-frame;;;;YUV;4:2:0
 MMIF;MPEG Video;Matrox;I-frame;;;;YUV;4:2:0
 MNVD;MindVid;;MindBend MindVid LossLess;;;;;
