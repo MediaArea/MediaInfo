@@ -108,6 +108,7 @@ StreamSize_Proportion;;;N NT;;;Stream size divided by file size
 HeaderSize;;;N NI;;;
 DataSize;;;N NI;;;
 FooterSize;;;N NI;;;
+IsStreamable;;;N NT;;;
 Album_ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playback
 Album_ReplayGain_Gain/String;;;Y YT;;;
 Album_ReplayGain_Peak;;;Y YT;;;The maximum absolute peak value of the item;;

@@ -949,6 +949,18 @@ void File_Mpeg4::mdat()
     }
     Element_Name("Data");
 
+    //Sizes
+    if (Retrieve(Stream_General, 0, General_HeaderSize).empty())
+    {
+        Fill(Stream_General, 0, General_HeaderSize, File_Offset+Buffer_Offset-Header_Size);
+        Fill(Stream_General, 0, General_DataSize, Element_TotalSize_Get()+Header_Size);
+        if (File_Size!=(int64u)-1)
+            Fill(Stream_General, 0, General_FooterSize, File_Size-(File_Offset+Buffer_Offset+Element_TotalSize_Get()));
+        Fill(Stream_General, 0, General_IsStreamable, "Yes");
+    }
+    else
+        Fill(Stream_General, 0, General_IsStreamable, "No", Unlimited, true, true);
+
     //In case of second pass
     if (mdat_MustParse && mdat_Pos.empty())
     {

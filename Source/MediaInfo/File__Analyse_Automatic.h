@@ -223,6 +223,7 @@ enum general
     General_HeaderSize,
     General_DataSize,
     General_FooterSize,
+    General_IsStreamable,
     General_Album_ReplayGain_Gain,
     General_Album_ReplayGain_Gain_String,
     General_Album_ReplayGain_Peak,

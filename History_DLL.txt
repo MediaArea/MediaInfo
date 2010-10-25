@@ -13,6 +13,7 @@ Version 0.7.37, 2010-
 + #3095129, AVI: MLC Lossless codec support
 + #3095136, AVI: AMV Video Codec support
 + IFO: chapter information
++ MPEG-4: header size / data size / footer size information (in advanced mode)
 
 Version 0.7.36, 2010-10-24
 --------------
