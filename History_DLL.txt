@@ -9,7 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.37, 2010-
 --------------
-+ Compression mode (Lossy / Lossless) information
++ Compression mode (Lossy / Lossless) information (note: JPEG 2000 "profile" is moved to this new field)
 
 Version 0.7.36, 2010-10-24
 --------------

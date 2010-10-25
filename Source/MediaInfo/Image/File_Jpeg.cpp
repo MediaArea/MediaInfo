@@ -381,8 +381,8 @@ void File_Jpeg::COD()
     FILLING_BEGIN();
         switch (MultipleComponentTransform)
         {
-            case 0x01 : Fill(Stream_Image, 0, Image_Format_Profile, "Reversible"); break;
-            case 0x02 : Fill(Stream_Image, 0, Image_Format_Profile, "Irreversible"); break;
+            case 0x01 : Fill(Stream_Image, 0, Image_Compression_Mode, "Lossless"); break;
+            case 0x02 : Fill(Stream_Image, 0, Image_Compression_Mode, "Lossy"); break;
             default   : ;
         }
     FILLING_END();

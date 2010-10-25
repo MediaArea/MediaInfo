@@ -435,6 +435,7 @@ void File_Wvpk::Data_Parse()
                 Element_Name(Ztring().From_CC1(id));
                 switch (id)
                 {
+                    case 0x07 : id_07(); break;
                     case 0x0D : id_0D(); break;
                     case 0x25 : id_25(); break;
                     default   : if (word_size)
@@ -575,6 +576,18 @@ void File_Wvpk::Data_Parse_Fill()
 //***************************************************************************
 // Elements
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Wvpk::id_07()
+{
+    //Parsing
+    Skip_XX(Size,                                               "Data (Not decoded yet)");
+
+    FILLING_BEGIN();
+        if (Retrieve(Stream_Audio, 0, Audio_Compression_Mode).empty())
+            Fill(Stream_Audio, 0, Audio_Compression_Mode, "Lossless");
+    FILLING_END();
+}
 
 //---------------------------------------------------------------------------
 void File_Wvpk::id_0D()

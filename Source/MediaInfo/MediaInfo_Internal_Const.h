@@ -47,7 +47,7 @@ enum infoformat_t
     InfoFormat_Extensions,          ///<
     InfoFormat_InternetMediaType,   ///<
     InfoFormat_Url,                 ///<
-    InfoFormat_Compression_Mode,     ///<
+    InfoFormat_Compression_Mode,    ///<
     InfoFormat_Max
 };
 
@@ -64,6 +64,7 @@ enum infocodecid_t
     InfoCodecID_ColorSpace,         ///<
     InfoCodecID_ChromaSubsampling,  ///<
     InfoCodecID_BitDepth,           ///<
+    InfoCodecID_Compression_Mode,   ///<
     InfoCodecID_Max
 };
 

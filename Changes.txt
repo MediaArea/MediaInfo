@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.36 --> 0.7.37
+-----------------
+- JPEG 2000: Format_Profile=Reversible --> Compression_Mode=Lossless and Format_Profile=Irreversible --> Compression_Mode=Lossy
+
 0.7.35 --> 0.7.36
 -----------------
 - M-JPEG format is renamed JPEG, M-JPEG 2000 format is renamed JPEG 2000 (difference between video and image is made by the stream kind)
