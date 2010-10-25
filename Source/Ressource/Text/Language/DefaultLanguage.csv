@@ -234,7 +234,10 @@ Comment;Comment
 CommissionedBy;Commissioned by
 CompleteName;Complete name
 Composer;Composer
-CompressionRatio;Compression ratio
+Compression_Mode;Compression mode
+Compression_Mode_Lossless;Lossless
+Compression_Mode_Lossy;Lossy
+Compression_Ratio;Compression ratio
 Conductor;Conductor
 Container and general information;Container and general information
 ContentType;ContentType
@@ -952,3 +955,4 @@ Yes;Yes
 Your system;Your system
 ZZ_Automatic_Percent;100
 ZZ_AutomaticLanguage_Percent;100
+CompressionRatio;Compression ratio

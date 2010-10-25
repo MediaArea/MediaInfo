@@ -67,7 +67,7 @@ void File_Als::Streams_Finish()
     float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
 
     Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
-    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_Compression_Ratio, CompressionRatio);
 
     File__Tags_Helper::Streams_Finish();
 }

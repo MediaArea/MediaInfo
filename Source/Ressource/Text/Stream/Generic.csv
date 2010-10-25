@@ -38,6 +38,9 @@ Resolution
 Resolution/String
 BitDepth
 BitDepth/String
+Compression_Mode
+Compression_Mode/String
+Compression_Ratio
 Delay
 Delay/String
 Delay/String1

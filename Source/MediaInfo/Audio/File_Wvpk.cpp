@@ -152,7 +152,7 @@ void File_Wvpk::Streams_Finish()
         float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
         Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize, 3, true);
         Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
-        Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio, 3, true);
+        Fill(Stream_Audio, 0, Audio_Compression_Ratio, CompressionRatio, 3, true);
     }
 
     File__Tags_Helper::Streams_Finish();

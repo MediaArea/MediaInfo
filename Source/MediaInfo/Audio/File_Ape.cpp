@@ -94,7 +94,7 @@ void File_Ape::Streams_Finish()
     float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
     int64u BitRate=Duration?(CompressedSize*8*1000/Duration):0;
 
-    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_Compression_Ratio, CompressionRatio);
     Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
     File__Tags_Helper::Streams_Finish();

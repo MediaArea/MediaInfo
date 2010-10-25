@@ -415,6 +415,13 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("FrameRate_Mode_"))+Value);
                 Fill(Stream_Video, StreamPos, Video_FrameRate_Mode_String, Translated.find(_T("FrameRate_Mode_"))?Translated:Value, true);
             }
+
+            //Compression_Mode
+            if (Parameter==Fill_Parameter(StreamKind, Generic_Compression_Mode))
+            {
+                Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Compression_Mode_"))+Value);
+                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Compression_Mode_String), Translated.find(_T("Compression_Mode_"))?Translated:Value, true);
+            }
         }
 
         //Filling Lists & Counts
@@ -474,7 +481,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Info), MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_Info), true);
             Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Url) , MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_Url ), true);
             if (StreamKind!=Stream_Menu)
+            {
                 Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_InternetMediaType), MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_InternetMediaType), true);
+                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Compression_Mode), MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_Compression_Mode), true);
+            }
             if (StreamKind==Stream_General)
             {
                 Fill(Stream_General, 0, General_Format_Extensions, MediaInfoLib::Config.Format_Get(Value, InfoFormat_Extensions), true);
@@ -1907,6 +1917,9 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Resolution_String : return Video_Resolution_String;
                                     case Generic_BitDepth : return Video_BitDepth;
                                     case Generic_BitDepth_String : return Video_BitDepth_String;
+                                    case Generic_Compression_Mode : return Video_Compression_Mode;
+                                    case Generic_Compression_Mode_String : return Video_Compression_Mode_String;
+                                    case Generic_Compression_Ratio : return Video_Compression_Ratio;
                                     case Generic_Delay : return Video_Delay;
                                     case Generic_Delay_String : return Video_Delay_String;
                                     case Generic_Delay_String1 : return Video_Delay_String1;
@@ -1974,6 +1987,9 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Resolution_String : return Audio_Resolution_String;
                                     case Generic_BitDepth : return Audio_BitDepth;
                                     case Generic_BitDepth_String : return Audio_BitDepth_String;
+                                    case Generic_Compression_Mode : return Audio_Compression_Mode;
+                                    case Generic_Compression_Mode_String : return Audio_Compression_Mode_String;
+                                    case Generic_Compression_Ratio : return Audio_Compression_Ratio;
                                     case Generic_Delay : return Audio_Delay;
                                     case Generic_Delay_String : return Audio_Delay_String;
                                     case Generic_Delay_String1 : return Audio_Delay_String1;
@@ -2048,6 +2064,9 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Resolution_String : return Text_Resolution_String;
                                     case Generic_BitDepth : return Text_BitDepth;
                                     case Generic_BitDepth_String : return Text_BitDepth_String;
+                                    case Generic_Compression_Mode : return Text_Compression_Mode;
+                                    case Generic_Compression_Mode_String : return Text_Compression_Mode_String;
+                                    case Generic_Compression_Ratio : return Text_Compression_Ratio;
                                     case Generic_Delay : return Text_Delay;
                                     case Generic_Delay_String : return Text_Delay_String;
                                     case Generic_Delay_String1 : return Text_Delay_String1;
@@ -2105,6 +2124,9 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Resolution_String : return Image_Resolution_String;
                                     case Generic_BitDepth : return Image_BitDepth;
                                     case Generic_BitDepth_String : return Image_BitDepth_String;
+                                    case Generic_Compression_Mode : return Image_Compression_Mode;
+                                    case Generic_Compression_Mode_String : return Image_Compression_Mode_String;
+                                    case Generic_Compression_Ratio : return Image_Compression_Ratio;
                                     case Generic_StreamSize : return Image_StreamSize;
                                     case Generic_StreamSize_String : return Image_StreamSize_String;
                                     case Generic_StreamSize_String1 : return Image_StreamSize_String1;

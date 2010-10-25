@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.37, 2010-
+--------------
++ Compression mode (Lossy / Lossless) information
+
 Version 0.7.36, 2010-10-24
 --------------
 + HDV 720p/1080i/1080p commercial names support, sponsored by http://www.chyro.fr/
