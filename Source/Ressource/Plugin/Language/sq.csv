@@ -234,7 +234,10 @@ Comment;Komenti
 CommissionedBy;Autorizuar nga
 CompleteName;Emri i plotë
 Composer;Kompozitori
-CompressionRatio;Raporti i kompresimit
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Raporti i kompresimit
 Conductor;Dirigjenti
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
@@ -950,5 +953,6 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Raporti i kompresimit

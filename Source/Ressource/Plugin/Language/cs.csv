@@ -234,7 +234,10 @@ Comment;Komentář
 CommissionedBy;Commissioned by
 CompleteName;Celý název a cesta
 Composer;Composer
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;Conductor
 Container and general information;Hlavní informace
 ContentType;ContentType
@@ -951,4 +954,5 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;84
+ZZ_AutomaticLanguage_Percent;83
+CompressionRatio

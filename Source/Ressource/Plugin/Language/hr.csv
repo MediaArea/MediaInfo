@@ -234,7 +234,10 @@ Comment;Komentar
 CommissionedBy;Prema nalogu
 CompleteName;Potpuni naziv
 Composer;Skladatelj
-CompressionRatio;Omjer sažimanja
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Omjer sažimanja
 Conductor;Ravnatelj
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
@@ -952,3 +955,4 @@ Yes;Da
 Your system;Informacije o Vašem sustavu
 ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Omjer sažimanja

@@ -234,7 +234,10 @@ Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 CompleteName;ชื่อเต็ม
 Composer;ผู้เรียบเรียง
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;ผู้อำนวยเพลง
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
 ContentType;ชนิดที่บรรจุ
@@ -950,5 +953,6 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;86
+ZZ_Automatic_Percent;85
 ZZ_AutomaticLanguage_Percent;90
+CompressionRatio

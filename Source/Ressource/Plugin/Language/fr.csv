@@ -234,7 +234,10 @@ Comment;Commentaire
 CommissionedBy;Commanditaire
 CompleteName;Nom complet
 Composer;Compositeur
-CompressionRatio;Taux de compression
+Compression_Mode;Mode de compression
+Compression_Mode_Lossless;Sans perte
+Compression_Mode_Lossy;Avec perte
+Compression_Ratio;Taux de compression
 Conductor;Chef d'orchestre
 Container and general information;Conteneur et informations générales
 ContentType;Type de contenu
@@ -952,3 +955,4 @@ Yes;Oui
 Your system;Votre système
 ZZ_Automatic_Percent;100
 ZZ_AutomaticLanguage_Percent;100
+CompressionRatio;Taux de compression

@@ -234,7 +234,10 @@ Comment;примітка
 CommissionedBy;поручитель
 CompleteName;повна назва
 Composer;композитор
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;диригент
 Container and general information;загальна інформація
 ContentType;тип вмісту
@@ -951,4 +954,5 @@ WrittenBy;написано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;93
+ZZ_AutomaticLanguage_Percent;92
+CompressionRatio

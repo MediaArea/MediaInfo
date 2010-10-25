@@ -234,7 +234,10 @@ Comment;Σχόλιο
 CommissionedBy;Commissioned by
 CompleteName;Πλήρες όνομα
 Composer;Composer
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;Conductor
 Container and general information;Container και γενικές πληροφορίες
 ContentType;Είδος περιεχόμενου
@@ -950,5 +953,6 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;80
+ZZ_Automatic_Percent;79
 ZZ_AutomaticLanguage_Percent;84
+CompressionRatio

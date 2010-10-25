@@ -234,7 +234,10 @@ Comment;Kommentar
 CommissionedBy;Bestilt af
 CompleteName;Fulde navn
 Composer;Komponist
-CompressionRatio;Komprimeringsforhold
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Komprimeringsforhold
 Conductor;Dirigent
 Container and general information;Container og generel information
 ContentType;Indholdstype
@@ -951,4 +954,5 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Komprimeringsforhold

@@ -234,7 +234,10 @@ Comment;تعليق
 CommissionedBy;مصاند من طرف
 CompleteName;الاسم الكامل
 Composer;ملحن
-CompressionRatio;نسبة الضغط
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;نسبة الضغط
 Conductor;قائد الاوركسترا
 Container and general information;حاوية ومعلومات عامة
 ContentType;نوع المحتوى
@@ -950,5 +953,6 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
+CompressionRatio;نسبة الضغط

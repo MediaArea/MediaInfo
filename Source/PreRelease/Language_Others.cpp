@@ -40,6 +40,7 @@ Ztring Language_Others_Run ()
 
     Run_File(Dest, L"ar");
     Run_File(Dest, L"be");
+    Run_File(Dest, L"bg");
     Run_File(Dest, L"ca");
     Run_File(Dest, L"cs");
     Run_File(Dest, L"da");

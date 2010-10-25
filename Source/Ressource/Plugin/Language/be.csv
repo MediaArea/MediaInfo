@@ -234,7 +234,10 @@ Comment;Каментар
 CommissionedBy;Даручальнік
 CompleteName;Поўнае імя
 Composer;Кампазітар
-CompressionRatio;Ступень сціску
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Ступень сціску
 Conductor;Дырыжор
 Container and general information;Агульная інфармацыя
 ContentType;Тып змесціва
@@ -950,5 +953,6 @@ Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Ступень сціску

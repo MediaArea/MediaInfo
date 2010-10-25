@@ -234,7 +234,10 @@ Comment;توضيح
 CommissionedBy;مجاز توسط
 CompleteName;نام کامل
 Composer;سراينده 
-CompressionRatio;نرخ فشردگی
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;نرخ فشردگی
 Conductor;رهبر اکسترر 
 Container and general information;محتوی و اطلاعات کلی
 ContentType;نوع محتوا
@@ -952,3 +955,4 @@ Yes;بلی
 Your system;سیستم شما
 ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;نرخ فشردگی

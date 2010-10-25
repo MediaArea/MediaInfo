@@ -234,7 +234,10 @@ Comment;주석
 CommissionedBy;의뢰
 CompleteName;전체 이름
 Composer;작곡가
-CompressionRatio;압축률
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;압축률
 Conductor;지휘자
 Container and general information;컨테이너와 일반 정보
 ContentType;내용 종류
@@ -952,3 +955,4 @@ Yes;예
 Your system;이 시스템
 ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;압축률

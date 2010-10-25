@@ -234,7 +234,10 @@ Comment;Comentário
 CommissionedBy;Representado por
 CompleteName;Nome completo
 Composer;Compositor
-CompressionRatio;Taxa de Compressão
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Taxa de Compressão
 Conductor;Regente
 Container and general information;Container e informações gerais
 ContentType;Conteúdo
@@ -952,3 +955,4 @@ Yes;Sim
 Your system;Seu sistema
 ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Taxa de Compressão

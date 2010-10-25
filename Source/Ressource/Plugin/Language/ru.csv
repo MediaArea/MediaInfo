@@ -234,7 +234,10 @@ Comment;Примечание
 CommissionedBy;Поручитель
 CompleteName;Полное имя
 Composer;Композитор
-CompressionRatio;Степень сжатия
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Степень сжатия
 Conductor;Дирижёр
 Container and general information;Общая информация
 ContentType;Тип содержимого
@@ -950,5 +953,6 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Степень сжатия

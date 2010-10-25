@@ -234,7 +234,10 @@ Comment;Komentaras
 CommissionedBy;Įgaliotas
 CompleteName;Pilnas pavadinimas
 Composer;Kūrėjas
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;Konduktorius
 Container and general information;Talpykla ir pagrindinė informacija
 ContentType;TurinioTipas
@@ -952,3 +955,4 @@ Yes;Taip
 Your system;Jūsų sistema
 ZZ_Automatic_Percent;86
 ZZ_AutomaticLanguage_Percent;90
+CompressionRatio

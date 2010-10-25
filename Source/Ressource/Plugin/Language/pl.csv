@@ -234,7 +234,10 @@ Comment;Komentarz
 CommissionedBy;Powierzony przez
 CompleteName;Pełna ścieżka
 Composer;Kompozytor
-CompressionRatio;Stopień kompresji
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Stopień kompresji
 Conductor;Dyrygent
 Container and general information;Zawartość i informacje ogólne
 ContentType;Rodzaj zawartosci
@@ -950,5 +953,6 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;88
+ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Stopień kompresji

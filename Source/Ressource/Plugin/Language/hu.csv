@@ -234,7 +234,10 @@ Comment;Megjegyzés
 CommissionedBy;Megbízó
 CompleteName;Teljes név
 Composer;Zeneszerző
-CompressionRatio;Tömörítési arány
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Tömörítési arány
 Conductor;Vezényel
 Container and general information;Gyűjtő és általános adatok
 ContentType;Tartalom típusa
@@ -952,3 +955,4 @@ Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;96
+CompressionRatio;Tömörítési arány

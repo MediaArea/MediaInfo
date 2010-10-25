@@ -234,7 +234,10 @@ Comment;Comentario
 CommissionedBy;Encargado por
 CompleteName;Nome completo
 Composer;Compositor
-CompressionRatio;Ratio de compresión
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Ratio de compresión
 Conductor;Condutor
 Container and general information;Contedor e información xeral
 ContentType;Tipo de contido
@@ -952,3 +955,4 @@ Yes;Si
 Your system;O teu sistema
 ZZ_Automatic_Percent;82
 ZZ_AutomaticLanguage_Percent;86
+CompressionRatio;Ratio de compresión

@@ -234,7 +234,10 @@ Comment;Comentari
 CommissionedBy;Commissionat per
 CompleteName;Nom complet
 Composer;Compositor
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;Conductor
 Container and general information;Contenidor i informació general
 ContentType;Tipus de contingut
@@ -950,5 +953,6 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;85
+ZZ_Automatic_Percent;84
 ZZ_AutomaticLanguage_Percent;89
+CompressionRatio

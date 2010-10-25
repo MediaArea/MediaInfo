@@ -234,7 +234,10 @@ Comment;Yorum
 CommissionedBy;Görevlendiren
 CompleteName;Tam isim
 Composer;Besteci
-CompressionRatio;Sıkıştırma oranı
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio;Sıkıştırma oranı
 Conductor;Orkestra şefi
 Container and general information;Kalıp ve genel bilgi
 ContentType;İçerik Türü
@@ -952,3 +955,4 @@ Yes;Evet
 Your system;Sisteminiz
 ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;98
+CompressionRatio;Sıkıştırma oranı

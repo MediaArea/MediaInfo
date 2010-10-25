@@ -234,7 +234,10 @@ Comment;Comentário
 CommissionedBy;Representado por
 CompleteName;Nome completo
 Composer;Compositor
-CompressionRatio
+Compression_Mode
+Compression_Mode_Lossless
+Compression_Mode_Lossy
+Compression_Ratio
 Conductor;Regente
 Container and general information;Container e informação geral
 ContentType;Conteúdo
@@ -950,5 +953,6 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;80
+ZZ_Automatic_Percent;79
 ZZ_AutomaticLanguage_Percent;84
+CompressionRatio
