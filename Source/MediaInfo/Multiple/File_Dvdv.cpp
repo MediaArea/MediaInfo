@@ -1157,25 +1157,28 @@ Ztring File_Dvdv::Time_ADT(int32u)
     */
 }
 
-void File_Dvdv::Time_BCD(const Ztring &Name)
+void File_Dvdv::Get_Duration(int64u  &Duration, const Ztring &Name)
 {
     int32u FrameRate, FF;
     int8u HH, MM, SS;
     Element_Begin(Name, 4);
-        Get_B1 (HH,                                     "hh (BCD)");
-        Get_B1 (MM,                                     "mm (BCD)");
-        Get_B1 (SS,                                     "ss (BCD)");
+        Get_B1 (HH,                                     "Hours (BCD)");
+        Get_B1 (MM,                                     "Minutes (BCD)");
+        Get_B1 (SS,                                     "Seconds (BCD)");
         BS_Begin();
-        Get_BS (2, FrameRate,                           "framerate (BCD)"); Param_Info(IFO_PlaybackTime_FrameRate[FrameRate], " fps");
-        Get_BS (6, FF,                                  "ff (BCD)");
+        Get_BS (2, FrameRate,                           "Frame rate"); Param_Info(IFO_PlaybackTime_FrameRate[FrameRate], " fps");
+        Get_BS (6, FF,                                  "Frames (BCD)");
         BS_End();
-        Time_String=Ztring::ToZtring(HH, 16)+_T(":") //BCD
-                  + Ztring::ToZtring(MM, 16)+_T(":") //BCD
-                  + Ztring::ToZtring(SS, 16)+_T(".") //BCD
-                  + Ztring::ToZtring(Ztring::ToZtring(FF, 16).To_int32u()*1000/IFO_PlaybackTime_FrameRate[FrameRate], 10); //BCD
-        Element_Info(Time_String);
+
+        Duration= Ztring::ToZtring(HH, 16).To_int64u() * 60 * 60 * 1000 //BCD
+                + Ztring::ToZtring(MM, 16).To_int64u()      * 60 * 1000 //BCD
+                + Ztring::ToZtring(SS, 16).To_int64u()           * 1000 //BCD
+                + Ztring::ToZtring(FF, 16).To_int64u()           * 1000/IFO_PlaybackTime_FrameRate[FrameRate]; //BCD
+
+        Element_Info(Ztring::ToZtring(Duration));
     Element_End();
 }
+
 
 void File_Dvdv::PGC(int64u Offset, bool Title)
 {
@@ -1184,6 +1187,8 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         vector<int8u> Stream_Control_SubPicture_Wide;
         vector<int8u> Stream_Control_SubPicture_Letterbox;
         vector<int8u> Stream_Control_SubPicture_PanScan;
+        vector<int64u> CellDurations;
+        vector<int8u> ProgramMap;
 
         //VTS_PGC
         Element_Begin("PGC");
@@ -1192,10 +1197,11 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         Element_Begin("Header", 236);
             int32u Flags;
             int8u Cells;
+            int64u TotalDuration;
             Skip_B2(                                            "Unknown");
             Get_B1 (Program_Count,                              "number of programs");
             Get_B1 (Cells,                                      "number of cells");
-            Time_BCD("playback time");
+            Get_Duration(TotalDuration,                         "Duration");
             Get_B4 (Flags,                                      "prohibited user ops");
                 /*Skip_Flags(Flags,  0,                           "Time play or search");
                 Skip_Flags(Flags,  1, PTT play or search);
@@ -1358,8 +1364,8 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
             }
             if (PostCommands_Count>0)
             {
-                Element_Begin("Post commands", PreCommands_Count*8);
-                    for (int16u Pos=0; Pos<PreCommands_Count; Pos++)
+                Element_Begin("Post commands", PostCommands_Count*8);
+                    for (int16u Pos=0; Pos<PostCommands_Count; Pos++)
                     {
                         Element_Begin("Post command", 8);
                         Skip_XX(8,                              "Post command");
@@ -1369,8 +1375,8 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
             }
             if (CellCommands_Count>0)
             {
-                Element_Begin("Cell commands", PreCommands_Count*8);
-                    for (int16u Pos=0; Pos<PreCommands_Count; Pos++)
+                Element_Begin("Cell commands", CellCommands_Count*8);
+                    for (int16u Pos=0; Pos<CellCommands_Count; Pos++)
                     {
                         Element_Begin("Cell command", 8);
                         Skip_XX(8,                              "Cell command");
@@ -1390,7 +1396,10 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
             for (int8u Pos=0; Pos<Program_Count; Pos++)
             {
                 Element_Begin("Entry", 8);
-                Skip_B1(                                        "Entry cell number");
+                int8u entry;
+                Get_B1( entry,  "Entry cell number");
+                ProgramMap.push_back(entry);
+                //Skip_B1(                                        "Entry cell number");
                 Element_End();
             }
             Element_End();
@@ -1400,19 +1409,22 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         if (cell_playback>0)
         {
             if (Element_Offset<Offset+cell_playback)
-                Skip_XX(Offset+cell_playback-Element_Offset,        "Unknown");
+                Skip_XX(Offset+cell_playback-Element_Offset,        "Unknown");            
             Element_Begin("cell playback", Cells*24);
             for (int8u Pos=0; Pos<Cells; Pos++)
             {
+                int64u CellDuration;
                 Element_Begin("cell", 24);
                 Skip_XX(4,                                      "ToDo");
-                Time_BCD("Time");
+                Get_Duration(CellDuration,                      "Time");
                 Skip_B4(                                        "first VOBU start sector");
                 Skip_B4(                                        "first ILVU end sector");
                 Skip_B4(                                        "last VOBU start sector");
                 Skip_B4(                                        "last VOBU end sector");
-                Element_Info(Ztring::ToZtring(Pos)); Element_Info(Time_String);
+                Element_Info(Ztring::ToZtring(Pos)); Element_Info(Ztring::ToZtring(CellDuration));
                 Element_End();
+
+                CellDurations.push_back(CellDuration);
             }
             Element_End();
         }
@@ -1436,10 +1448,31 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
 
         Element_End(Element_Offset-Offset);
 
-        //FILLING_BEGIN();
+        FILLING_BEGIN();
             if (Title)
             {
                 Stream_Prepare(Stream_Menu);
+
+                int64u ProgramTotalDuration=0;
+                Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                for (int8u Pos=0; Pos<Program_Count; Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, Ztring().Duration_From_Milliseconds(ProgramTotalDuration).To_Local().c_str(), Ztring(_T("Chapter "))+Ztring::ToZtring(Pos+1));
+
+                    int8u End;
+                    if (Pos+1>=Program_Count)
+                        End=Cells+1;
+                    else
+                        End=ProgramMap[Pos+1];
+
+                    int64u ProgramDuration=0;
+                    for (int8u CellPos=ProgramMap[Pos]; CellPos<End; CellPos++)
+                        ProgramDuration+=CellDurations[CellPos-1];
+                    ProgramTotalDuration+=ProgramDuration;
+                }
+                Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                Fill(Stream_Menu, StreamPos_Last, Menu_Duration, TotalDuration);
+
                 for (size_t Pos=0; Pos<Stream_Control_Audio.size(); Pos++)
                 {
                     Fill(StreamKind_Last, StreamPos_Last, "List (Audio)", Stream_Control_Audio[Pos]);
@@ -1461,7 +1494,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                     Fill(StreamKind_Last, StreamPos_Last, "List (Subtitles Pan&Scan)", Stream_Control_SubPicture_PanScan[Pos]);
                 }
             }
-        //FILLING_END();
+        FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -1539,4 +1572,3 @@ void File_Dvdv::VMGM_VOBU_ADMAP()
 } //NameSpace
 
 #endif //MEDIAINFO_DVDV_YES
-

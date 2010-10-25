@@ -109,7 +109,7 @@ private :
     Ztring Time_ADT(int32u Value);
     size_t Program_Pos;
     size_t Time_Pos;
-    void Time_BCD(const Ztring &Name);
+    void Get_Duration(int64u  &Duration, const Ztring &Name);
     Ztring Time_String; //Value from Time_*()
     void PGC(int64u Offset, bool Title=false);
 };
