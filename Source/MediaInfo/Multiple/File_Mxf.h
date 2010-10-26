@@ -80,6 +80,7 @@ protected :
     void Streams_Finish_Identification (int128u IdentificationUID);
 
     //Buffer - Global
+    void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
     void Read_Buffer_Unsynched();
 
@@ -543,6 +544,9 @@ protected :
     int64u SystemScheme1_FrameRateFromDescriptor;
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
+	#if MEDIAINFO_DEMUX
+		bool Demux_Unpacketize;
+	#endif //MEDIAINFO_DEMUX
     #if defined(MEDIAINFO_ANCILLARY_YES)
         int128u         Ancillary_InstanceUID;
         int32u          Ancillary_LinkedTrackID;

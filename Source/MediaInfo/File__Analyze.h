@@ -75,6 +75,14 @@ public :
     void    Open_Buffer_Finalize    (File__Analyze* Sub);
 
     //***************************************************************************
+    // Demux
+    //***************************************************************************
+
+    #if MEDIAINFO_DEMUX
+        virtual int64u  Demux_Unpacketize(File__Analyze* Source); //Return the size of the packet, Buffer size if not implemented
+    #endif //MEDIAINFO_DEMUX
+
+    //***************************************************************************
     // In/Out (for parsers)
     //***************************************************************************
 

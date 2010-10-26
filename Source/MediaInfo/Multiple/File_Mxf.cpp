@@ -1362,10 +1362,21 @@ void File_Mxf::Streams_Finish_Identification (int128u IdentificationUID)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Mxf::Read_Buffer_Init()
+{
+    #if MEDIAINFO_DEMUX
+         Demux_Unpacketize=Config->Demux_Unpacketize_Get();
+    #endif //MEDIAINFO_DEMUX
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::Read_Buffer_Continue()
 {
     if (Buffer_DataSizeToParse)
     {
+        if (Demux_Unpacketize)
+            return;
+
         if (Buffer_Size<=Buffer_DataSizeToParse)
         {
             Element_Size=Buffer_Size; //All the buffer is used
@@ -1425,6 +1436,11 @@ bool File_Mxf::FileHeader_Begin()
 //---------------------------------------------------------------------------
 bool File_Mxf::Synchronize()
 {
+    #if MEDIAINFO_DEMUX
+        if (Demux_Unpacketize && Buffer_DataSizeToParse)
+            return true;
+    #endif //MEDIAINFO_DEMUX
+
     //Synchronizing
     while (Buffer_Offset+4<=Buffer_Size
         && CC4(Buffer+Buffer_Offset)!=0x060E2B34)
@@ -1458,6 +1474,11 @@ bool File_Mxf::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Mxf::Synched_Test()
 {
+    #if MEDIAINFO_DEMUX
+        if (Demux_Unpacketize && Buffer_DataSizeToParse)
+            return true;
+    #endif //MEDIAINFO_DEMUX
+
     //Trailing 0x00
     while(Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
         Buffer_Offset++;
@@ -1488,6 +1509,31 @@ bool File_Mxf::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Mxf::Header_Parse()
 {
+    #if MEDIAINFO_DEMUX
+        if (Buffer_DataSizeToParse && Demux_Unpacketize)
+        {
+            if (Element_Size<16)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+
+            int32u Code_Compare4=(int32u)Code.lo;
+            if (Essences[Code_Compare4].Parser)
+            {
+                int64u Size=Essences[Code_Compare4].Parser->Demux_Unpacketize(this);
+                if (Buffer_Offset+Size>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+                Header_Fill_Code(0, Ztring::ToZtring(Code.hi, 16)+Ztring::ToZtring(Code.lo, 16));
+                Header_Fill_Size(Size);
+                return;
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //Parsing
     int8u Length;
     Get_UL(Code,                                                "Code", NULL);
@@ -1572,9 +1618,26 @@ void File_Mxf::Header_Parse()
          && Code_Compare2==0x01020101
          && Code_Compare3==0x0D010301)
         {
-            Buffer_DataSizeToParse_Complete=Length_Final;
-            Length_Final=Buffer_Size-(Buffer_Offset+Element_Offset);
-            Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
+            #if MEDIAINFO_DEMUX
+                if (Demux_Unpacketize)
+                {
+                    //Demuxing per frame is requested
+                    if (Length_Final>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+                    {
+                        Buffer_DataSizeToParse_Complete=Length_Final; //TODO: header is not displayed
+                        Length_Final=0;
+                        Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
+                    }
+                }
+                else
+                {
+            #endif //MEDIAINFO_DEMUX
+                    Buffer_DataSizeToParse_Complete=Length_Final;
+                    Length_Final=Buffer_Size-(Buffer_Offset+Element_Offset);
+                    Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
+            #if MEDIAINFO_DEMUX
+                }
+            #endif //MEDIAINFO_DEMUX
         }
         else
         {
@@ -3175,7 +3238,6 @@ void File_Mxf::FileDescriptor_EssenceContainer()
 
         Descriptors[InstanceUID].Infos["Format_Settings_Wrapping"].From_UTF8(Mxf_EssenceContainer_Mapping(Code6, Code7, Code8));
     FILLING_END();
-
 }
 
 //---------------------------------------------------------------------------

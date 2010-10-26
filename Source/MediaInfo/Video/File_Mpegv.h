@@ -61,6 +61,9 @@ private :
     void Streams_Fill();
     void Streams_Finish();
 
+    //Buffer - Demux
+    ZenLib::int64u  Demux_Unpacketize(File__Analyze* Source);
+
     //Buffer - File header
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 

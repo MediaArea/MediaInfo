@@ -765,6 +765,34 @@ void File_Mpegv::Streams_Finish()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+int64u File_Mpegv::Demux_Unpacketize(File__Analyze* Source2)
+{
+    File_Mpegv* Source=(File_Mpegv*)Source2;
+
+    size_t Offset=Source->Buffer_Offset;
+    int8u Sequence_Count=0;
+    while (Offset+4<=Source->Buffer_Size)
+    {
+        if (CC4(Source->Buffer+Offset)==0x0000001B3)
+        {
+            Sequence_Count++;
+            if (Sequence_Count>=2)
+                break;
+        }
+        Offset++;
+    }
+
+    if (Offset+4>Source->Buffer_Size)
+        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
+
+    return Offset-Source->Buffer_Offset;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 bool File_Mpegv::Synched_Test()
 {
     //Trailing 0xFF

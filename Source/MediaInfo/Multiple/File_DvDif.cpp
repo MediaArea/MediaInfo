@@ -301,6 +301,34 @@ File_DvDif::~File_DvDif()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+int64u File_DvDif::Demux_Unpacketize(File__Analyze* Source2)
+{
+    File_DvDif* Source=(File_DvDif*)Source2;
+
+    size_t Offset=Source->Buffer_Offset+1;
+
+    while (Offset+8*80<=Source->Buffer_Size //8 blocks
+        && !((CC3(Source->Buffer+Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+          && (CC3(Source->Buffer+Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
+          && (CC3(Source->Buffer+Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
+          && (CC3(Source->Buffer+Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
+          && (CC3(Source->Buffer+Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
+          && (CC3(Source->Buffer+Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
+          && (CC3(Source->Buffer+Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
+          && (CC3(Source->Buffer+Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
+            Offset++;
+
+    if (Offset+8*80>Source->Buffer_Size)
+        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
+
+    return Offset-Source->Buffer_Offset;
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
