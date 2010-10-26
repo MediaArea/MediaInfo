@@ -1172,16 +1172,30 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
         size_t StreamPos_Last_Essence=StreamPos_Last;
 
         //Configuring file name
-        Ztring AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
-        if (!AbsoluteName.empty())
-            AbsoluteName+=ZenLib::PathSeparator;
-        AbsoluteName+=Locator->second.EssenceLocator;
+        Ztring Name=Locator->second.EssenceLocator;
+        if (Name.find(_T("file:"))==0)
+        {
+            Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
+            Name.FindAndReplace(_T("%20"), _T(" "), 0, Ztring_Recursive); //URL encoded values
+        }
+        Ztring AbsoluteName;
+        if (Name.find(_T(':'))==1 || Name.find(_T("//"))==0) //If absolute Windows path
+            AbsoluteName=Name;
+        else
+        {
+            AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
+            if (!AbsoluteName.empty())
+                AbsoluteName+=ZenLib::PathSeparator;
+            AbsoluteName+=Name;
+        }
 
         MediaInfo_Internal MI;
         MI.Option(_T("File_StopAfterFilled"), _T("1"));
         MI.Option(_T("File_KeepInfo"), _T("1"));
 
-        if (MI.Open(AbsoluteName))
+        if (AbsoluteName==File_Name)
+            Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Circular");
+        else if (MI.Open(AbsoluteName))
         {
             //Hacks - Before
             Ztring CodecID=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
@@ -4943,6 +4957,25 @@ void File_Mxf::Info_UL_01xx01_Essences()
                             Info_B1(Code4,                      "Code (4)");
                             switch (Code4)
                             {
+                                case 0x10 :
+                                    {
+                                    Param_Info("KLV Interpretations");
+                                    Info_B1(Code5,              "Code (5)");
+                                    switch (Code5)
+                                    {
+                                        case 0x01 :
+                                            {
+                                            Param_Info("Filler Data");
+                                            Info_B1(Code6,      "Unknown");
+                                            Info_B1(Code7,      "Unknown");
+                                            Info_B1(Code8,      "Unknown");
+                                            }
+                                            break;
+                                       default   :
+                                            Skip_B3(            "Unknown");
+                                    }
+                                    }
+                                    break;
                                 case 0x20 :
                                     {
                                     Param_Info("XML Constructs and Interpretations");
