@@ -1177,6 +1177,9 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
         {
             Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
             Name.FindAndReplace(_T("%20"), _T(" "), 0, Ztring_Recursive); //URL encoded values
+            #ifdef __WINDOWS__
+                Name.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //URL encoded values
+            #endif //__WINDOWS__
         }
         Ztring AbsoluteName;
         if (Name.find(_T(':'))==1 || Name.find(_T("//"))==0) //If absolute Windows path
