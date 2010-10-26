@@ -30,7 +30,7 @@ ShockWave;;;M;Swf;;swf;application/x-shockwave;http://www.macromedia.com/go/getf
 SKM;;;M;Skm;Sky Korean Mobilephone;skm;;http://www.isky.co.kr/html/cs/download.jsp;
 Windows Media;;;M;Wm;;asf wmv wma;video/x-ms-wmv;;
 WebM;;;M;Mkv;;webm;video/webm;http://www.webmproject.org/;
-AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html;Lossy
+AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html
 AVS Video;;;V;AvsV;Audio Video Standart, Video part;;;http://www.avs.org.cn/;Lossy
 Dirac;;;V;Dirac;;drc;;http://diracvideo.org/;Lossy
 FLC;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html;Lossy
@@ -64,7 +64,7 @@ G.723;;;A;;;;audio/G723;;Lossy
 G.729;;;A;;;;audio/G729;;Lossy
 G.729.1;;;A;;;;audio/G7291;;Lossy
 Impulse Tracker;;;A;ImpulseTracker;;it;;;
-LA;;;A;La;Lossless Audio Codec;la;;http://www.lossless-audio.com/;
+LA;;;A;La;Lossless Audio Codec;la;;http://www.lossless-audio.com/;Lossless
 MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;midi mid kar;audio/midi;;
 Module;;;A;Module;;mod;;;
 Monkey's Audio;;;A;Ape;;ape mac;;http://www.monkeysaudio.com/;Lossless
@@ -74,10 +74,10 @@ Musepack SV8;;;A;Mpc;;mp+;;http://www.musepack.net;Lossy
 QCELP;;;A;;;;audio/QCELP;;
 RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;;;
 Scream Tracker 3;;;A;S3m;;s3m;;;
-Shorten;;;A;;;shn;;http://etree.org/shnutils/shorten/;
-SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm;Lossy
+Shorten;;;A;;;shn;;http://etree.org/shnutils/shorten/;Lossless
+SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm;Lossless
 Speex;;;A;;;;audio/speex;;Lossy
-TAK;;;A;;;tak;;http://thbeck.de/Tak/Tak.html;
+TAK;;;A;;;tak;;http://thbeck.de/Tak/Tak.html;Lossless
 TrueHD;;;A;Ac3;;dts;;;Lossless
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;;http://www.twinvq.org/english/index_en.html;
 Vorbis;;;A;;;;audio/vorbis;;Lossy
@@ -91,7 +91,7 @@ GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif;;Lossless
 ICO;;;I;Ico;;ico;image/vnd.microsoft.icon;;Lossless
 JNG;;;I;Jng;JPEG Network Graphic;jng;;;Lossy
 JPEG;;;I;Jpeg;;jpeg jpg jpe;image/jpeg;;Lossy
-JPEG 2000;;;I;Jpeg;;jp2;image/jp2;http://www.morgan-multimedia.com/JPEG 2000/;Lossy
+JPEG 2000;;;I;Jpeg;;jp2;image/jp2;http://www.morgan-multimedia.com/JPEG 2000/;
 LZ77;;;I;;;;;;
 MNG;;;I;Mng;Multiple-Image Network Graphic;mng;;;Lossless
 PNG;;;I;Png;Portable Network Graphic;png;image/png;;Lossless

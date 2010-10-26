@@ -91,8 +91,8 @@ const char* MP4_Format(int8u ID)
         case   34 : return "Layer-3";
         case   35 : return "DST";
         case   36 : return "ALS";
-        case   37 : return "SLS";
-        case   38 : return "SLS non-core";
+        case   37 :
+        case   38 : return "SLS";
         case   39 : return "ER AAC ELD";
         case   40 : return "SMR Simple";
         case   41 : return "SMR Main";
@@ -111,6 +111,7 @@ const char* MP4_Format_Profile(int8u ID)
         case    4 : return "LTP";
         case   17 : return "LC";
         case   19 : return "LTP";
+        case   37 : return "non-core";
         default   : return "";
     }
 }
