@@ -1374,8 +1374,10 @@ void File_Mxf::Read_Buffer_Continue()
 {
     if (Buffer_DataSizeToParse)
     {
-        if (Demux_Unpacketize)
-            return;
+		#if MEDIAINFO_DEMUX
+			if (Demux_Unpacketize)
+				return;
+		#endif //MEDIAINFO_DEMUX
 
         if (Buffer_Size<=Buffer_DataSizeToParse)
         {
@@ -1964,7 +1966,7 @@ void File_Mxf::Data_Parse()
                     Element_End();
                 }
             }
-            else
+            else if (Element_Size)
             {
                 //Parsing
                 Open_Buffer_Continue(Essences[Code_Compare4].Parser);

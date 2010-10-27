@@ -769,10 +769,12 @@ bool File__Analyze::Synchro_Manage()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
 int64u File__Analyze::Demux_Unpacketize(File__Analyze* Source)
 {
     return Source->Buffer_Size-Source->Buffer_Offset;
 }
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // File Header
