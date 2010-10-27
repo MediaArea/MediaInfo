@@ -148,6 +148,43 @@ File_Jpeg::File_Jpeg()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+int64u File_Jpeg::Demux_Unpacketize(File__Analyze* Source2)
+{
+    File_Jpeg* Source=(File_Jpeg*)Source2;
+
+    size_t Offset=Source->Buffer_Offset+2; //2 first byte are the start
+    while (Offset+2<=Source->Buffer_Size)
+    {
+        if (Source->Buffer[Offset]==0xFF)
+        {
+            bool MustBreak;
+            switch (Source->Buffer[Offset+1])
+            {
+                case 0x4F :
+                case 0xD8 :
+                            MustBreak=true;
+                            break;
+                default   : MustBreak=false;
+            }
+            if (MustBreak)
+                break; //while() loop
+        }
+        Offset++;
+    }
+
+    if (Offset+2>Source->Buffer_Size)
+        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
+
+    return Offset-Source->Buffer_Offset;
+}
+#endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
 // Static stuff
 //***************************************************************************
 

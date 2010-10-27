@@ -46,6 +46,9 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if defined(MEDIAINFO_PCM_YES)
+    #include "MediaInfo/Audio/File_Pcm.h"
+#endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
@@ -1879,12 +1882,17 @@ void File_Mxf::Data_Parse()
                 case 0x16000400 : //P2 Audio (PCM)
                                     Essences[Code_Compare4].StreamKind=Stream_Audio;
                                     Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                    Essences[Code_Compare4].Parser=new File_Unknown();
-                                    Open_Buffer_Init(Essences[Code_Compare4].Parser);
-                                    Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Audio);
-                                    Essences[Code_Compare4].Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
-                                    if (Streams_Count>0)
-                                        Streams_Count--;
+                                    #if defined(MEDIAINFO_PCM_YES)
+                                        Essences[Code_Compare4].Parser=new File_Pcm();
+                                        ((File_Pcm*)Essences[Code_Compare4].Parser)->IsRawPcm=true;
+                                    #else
+                                        Essences[Code_Compare4].Parser=new File_Unknown();
+                                        Open_Buffer_Init(Essences[Code_Compare4].Parser);
+                                        Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Audio);
+                                        Essences[Code_Compare4].Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+                                        if (Streams_Count>0)
+                                            Streams_Count--;
+                                    #endif
                                     break;
                 case 0x16000500 : //MPEG Audio
                                     Essences[Code_Compare4].StreamKind=Stream_Audio;

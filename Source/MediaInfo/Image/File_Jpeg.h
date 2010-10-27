@@ -47,6 +47,11 @@ public :
     File_Jpeg();
 
 private :
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+        int64u  Demux_Unpacketize(File__Analyze* Source);
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - File header
     bool FileHeader_Begin();
 

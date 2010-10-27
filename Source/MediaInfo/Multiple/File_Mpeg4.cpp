@@ -348,6 +348,8 @@ void File_Mpeg4::Streams_Finish()
 
                 //Hacks - Before
                 Ztring CodecID=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
+                Ztring Source=Retrieve(StreamKind_Last, StreamPos_Last, "Source");
+                Ztring Source_Info=Retrieve(StreamKind_Last, StreamPos_Last, "Source_Info");
 
                 Merge(*(MI.Info), Temp->second.StreamKind, 0, Temp->second.StreamPos);
                 File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
@@ -359,6 +361,21 @@ void File_Mpeg4::Streams_Finish()
                         CodecID+=_T(" / ");
                     CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
                     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
+                }
+                if (Source!=Retrieve(StreamKind_Last, StreamPos_Last, "Source"))
+                {
+                    Ztring Source_Original=Retrieve(StreamKind_Last, StreamPos_Last, "Source");
+                    Ztring Source_Original_Info=Retrieve(StreamKind_Last, StreamPos_Last, "Source_Info");
+                    Fill(StreamKind_Last, StreamPos_Last, "Source", Source, true);
+                    Fill(StreamKind_Last, StreamPos_Last, "Source_Info", Source_Info, true);
+                    Fill(StreamKind_Last, StreamPos_Last, "Source_Original", Source_Original, true);
+                    Fill(StreamKind_Last, StreamPos_Last, "Source_Original_Info", Source_Original_Info, true);
+                }
+
+                //Special case: MXF in MXF
+                if (MI.Info && MI.Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
                 }
 
                 //Special case: DV with Audio or/and Text in the video stream

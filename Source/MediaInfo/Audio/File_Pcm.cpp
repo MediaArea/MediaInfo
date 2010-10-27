@@ -114,6 +114,7 @@ File_Pcm::File_Pcm()
 {
     //In
     BitDepth=0;
+    IsRawPcm=false;
 }
 
 //***************************************************************************
@@ -123,6 +124,12 @@ File_Pcm::File_Pcm()
 //---------------------------------------------------------------------------
 void File_Pcm::Streams_Fill()
 {
+    if (IsRawPcm)
+    {
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        return;
+    }
+
     //Filling
     Ztring Firm, Endianness, Sign, ITU, Resolution;
          if (Codec==_T("EVOB"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("16");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
@@ -222,13 +229,33 @@ void File_Pcm::Streams_Fill()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+int64u File_Pcm::Demux_Unpacketize(File__Analyze* Source2)
+{
+    return 32768; //Arbitrary value
+}
+#endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Pcm::Read_Buffer_Continue()
 {
-    if (Codec!=_T("VOB")
+    if (IsRawPcm)
+    {
+        Accept("PCM");
+
+        Skip_XX(Element_Size,                                   "Data");
+
+        Finish("PCM");
+    }
+    else if (Codec!=_T("VOB")
      && Codec!=_T("EVOB")
      && Codec!=_T("M2TS")) //No need of data
     {

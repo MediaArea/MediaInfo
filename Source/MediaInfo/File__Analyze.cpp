@@ -2338,6 +2338,9 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
     if (!(Config_Demux&Demux_Level))
         return;
 
+    if (!Buffer_Size)
+        return;
+
     #if MEDIAINFO_EVENTS
         //Demux
         StreamIDs[StreamIDs_Size-1]=Element_Code;

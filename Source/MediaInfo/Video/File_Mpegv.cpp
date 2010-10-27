@@ -765,6 +765,7 @@ void File_Mpegv::Streams_Finish()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
 int64u File_Mpegv::Demux_Unpacketize(File__Analyze* Source2)
 {
     File_Mpegv* Source=(File_Mpegv*)Source2;
@@ -816,6 +817,7 @@ int64u File_Mpegv::Demux_Unpacketize(File__Analyze* Source2)
 
     return Offset-Source->Buffer_Offset;
 }
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Synchro

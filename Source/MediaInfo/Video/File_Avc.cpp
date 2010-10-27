@@ -634,6 +634,74 @@ void File_Avc::Streams_Finish()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+int64u File_Avc::Demux_Unpacketize(File__Analyze* Source2)
+{
+    File_Avc* Source=(File_Avc*)Source2;
+
+    size_t Offset=Source->Buffer_Offset;
+    bool   picture_start_Found=false;
+    while (Offset+4<=Source->Buffer_Size)
+    {
+        //Synchronizing
+        while(Offset+3<=Source->Buffer_Size && (Source->Buffer[Offset  ]!=0x00
+                                            || Source->Buffer[Offset+1]!=0x00
+                                            || Source->Buffer[Offset+2]!=0x01))
+        {
+            Offset+=2;
+            while(Offset<Buffer_Size && Source->Buffer[Buffer_Offset]!=0x00)
+                Offset+=2;
+            if (Offset<Source->Buffer_Size && Source->Buffer[Offset-1]==0x00 || Offset>=Source->Buffer_Size)
+                Offset--;
+        }
+
+        if (Offset+4<=Source->Buffer_Size)
+        {
+            if (picture_start_Found)
+            {
+                bool MustBreak;
+                switch (Source->Buffer[Offset+3])
+                {
+                    case 0x05 :
+                    case 0x06 :
+                    case 0x07 :
+                    case 0x08 :
+                    case 0x09 :
+                    case 0xB8 :
+                                MustBreak=true;
+                                break;
+                    default   : MustBreak=false;
+                }
+                if (MustBreak)
+                    break; //while() loop
+            }
+            else
+            {
+                switch (Source->Buffer[Offset+3])
+                {
+                    case 0x01 :
+                    case 0x05 :
+                                picture_start_Found=true;
+                                break;
+                    default   : ;
+                }
+            }
+        }
+        Offset++;
+    }
+
+    if (Offset+4>Source->Buffer_Size)
+        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
+
+    return Offset-Source->Buffer_Offset;
+}
+#endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
