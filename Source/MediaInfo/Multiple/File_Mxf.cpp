@@ -1530,7 +1530,16 @@ void File_Mxf::Header_Parse()
                     return;
                 }
                 Header_Fill_Code(0, Ztring::ToZtring(Code.hi, 16)+Ztring::ToZtring(Code.lo, 16));
-                Header_Fill_Size(Size);
+                if (Size>Buffer_DataSizeToParse)
+                {
+                    Header_Fill_Size(Buffer_DataSizeToParse);
+                    Buffer_DataSizeToParse=0;
+                }
+                else
+                {
+                    Header_Fill_Size(Size);
+                    Buffer_DataSizeToParse-=Size;
+                }
                 return;
             }
         }

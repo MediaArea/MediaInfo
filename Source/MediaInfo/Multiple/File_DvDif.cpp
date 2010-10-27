@@ -312,7 +312,8 @@ int64u File_DvDif::Demux_Unpacketize(File__Analyze* Source2)
     size_t Offset=Source->Buffer_Offset+1;
 
     while (Offset+8*80<=Source->Buffer_Size //8 blocks
-        && !((CC3(Source->Buffer+Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+        && !((Source->Buffer[Offset]&0xE0)==0x00   //Speed up the parsing
+          && (CC3(Source->Buffer+Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
           && (CC3(Source->Buffer+Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
           && (CC3(Source->Buffer+Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
           && (CC3(Source->Buffer+Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
