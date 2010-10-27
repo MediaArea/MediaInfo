@@ -1867,6 +1867,8 @@ void File__Analyze::Fill (File__Analyze* Parser)
 #if MEDIAINFO_TRACE
 void File__Analyze::Finish (const char* ParserName)
 {
+    Fill();
+
     if (Config_ParseSpeed==1)
         return;
 
@@ -1875,6 +1877,8 @@ void File__Analyze::Finish (const char* ParserName)
 #else //MEDIAINFO_TRACE
 void File__Analyze::Finish ()
 {
+    Fill();
+
     if (Config_ParseSpeed==1)
         return;
 

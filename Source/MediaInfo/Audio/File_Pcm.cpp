@@ -112,6 +112,9 @@ int32u Pcm_M2TS_Resolution[]=
 //---------------------------------------------------------------------------
 File_Pcm::File_Pcm()
 {
+    //Configuration
+    ParserName=_T("PCM");
+
     //In
     BitDepth=0;
     IsRawPcm=false;
@@ -124,11 +127,15 @@ File_Pcm::File_Pcm()
 //---------------------------------------------------------------------------
 void File_Pcm::Streams_Fill()
 {
-    if (IsRawPcm)
+    if (Count_Get(Stream_Audio)==0)
     {
+        Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
-        return;
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
     }
+
+    if (IsRawPcm)
+        return;
 
     //Filling
     Ztring Firm, Endianness, Sign, ITU, Resolution;
@@ -234,7 +241,7 @@ void File_Pcm::Streams_Fill()
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_DEMUX
-int64u File_Pcm::Demux_Unpacketize(File__Analyze* Source2)
+int64u File_Pcm::Demux_Unpacketize(File__Analyze*)
 {
     return 32768; //Arbitrary value
 }
@@ -248,29 +255,15 @@ int64u File_Pcm::Demux_Unpacketize(File__Analyze* Source2)
 void File_Pcm::Read_Buffer_Continue()
 {
     if (IsRawPcm)
+        Skip_XX(Element_Size,                                   "Data"); //No parsing of the block
+
+    if (IsRawPcm
+     || (Codec!=_T("VOB")
+      && Codec!=_T("EVOB")
+      && Codec!=_T("M2TS"))) //No need of data
     {
-        Accept("PCM");
-
-        Skip_XX(Element_Size,                                   "Data");
-
-        Finish("PCM");
-    }
-    else if (Codec!=_T("VOB")
-     && Codec!=_T("EVOB")
-     && Codec!=_T("M2TS")) //No need of data
-    {
-        //Filling
-        Accept("PCM");
-
-        if (Count_Get(Stream_Audio)==0)
-        {
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Audio_Format, "PCM");
-            Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-        }
-
-        //Finished
-        Finish("PCM");
+        Accept();
+        Finish();
     }
 }
 
@@ -289,6 +282,8 @@ void File_Pcm::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Pcm::Data_Parse()
 {
+    Accept();
+
     //Parsing
     if (Codec==_T("VOB") || Codec==_T("EVOB"))
         VOB();
@@ -297,8 +292,7 @@ void File_Pcm::Data_Parse()
     else
         Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
 
-    Accept("PCM");
-    Finish("PCM");
+    Finish();
 }
 
 //***************************************************************************
@@ -324,8 +318,6 @@ void File_Pcm::VOB()
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 
     FILLING_BEGIN();
-        Accept("PCM");
-
         if (Count_Get(Stream_Audio)==0)
         {
             Stream_Prepare(Stream_Audio);
@@ -338,8 +330,6 @@ void File_Pcm::VOB()
             Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne+1));
             Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
         }
-
-        Finish("PCM");
     FILLING_END();
 }
 
