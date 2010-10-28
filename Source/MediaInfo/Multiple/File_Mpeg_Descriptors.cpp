@@ -1683,7 +1683,9 @@ void File_Mpeg_Descriptors::Descriptor_0A()
             case 0x02 : //program_map_section
                         if (elementary_PID_IsValid)
                         {
-                            Ztring ISO_639_2; ISO_639_2.From_CC3(ISO_639_language_code);
+                            Ztring ISO_639_2;
+                            if (ISO_639_language_code)
+                                ISO_639_2.From_CC3(ISO_639_language_code);
                             const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
                             Complete_Stream->Streams[elementary_PID].Infos["Language"]=ISO_639_1.empty()?ISO_639_2:ISO_639_1;
                             if (audio_type)
