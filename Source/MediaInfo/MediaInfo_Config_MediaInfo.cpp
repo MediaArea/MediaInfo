@@ -65,6 +65,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     Demux_PCM_20bitTo16bit=false;
     Demux_Unpacketize=false;
     NextPacket=false;
+    SubFile_StreamID=(int64u)-1;
 
     //Internal to MediaInfo, not thread safe
     #if MEDIAINFO_DEMUX
@@ -78,6 +79,8 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 
 Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &Value)
 {
+    SubFile_Config(Option)=Value;
+
     String Option_Lower(Option);
     size_t Egal_Pos=Option_Lower.find(_T('='));
     if (Egal_Pos==string::npos)
@@ -227,6 +230,11 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             NextPacket_Set(false);
         else
             NextPacket_Set(true);
+        return Ztring();
+    }
+    else if (Option_Lower==_T("file_subfile_streamid_set"))
+    {
+        SubFile_StreamID_Set(Ztring(Value).To_int64u());
         return Ztring();
     }
     else if (Option_Lower==_T("file_mpegts_forcemenu"))
@@ -648,6 +656,34 @@ bool MediaInfo_Config_MediaInfo::NextPacket_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return NextPacket;
+}
+
+//***************************************************************************
+// SubFile
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+ZtringListList MediaInfo_Config_MediaInfo::SubFile_Config_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return SubFile_Config;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::SubFile_StreamID_Set (int64u Value)
+{
+    CriticalSectionLocker CSL(CS);
+
+    SubFile_StreamID=Value;
+}
+
+//---------------------------------------------------------------------------
+int64u MediaInfo_Config_MediaInfo::SubFile_StreamID_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return SubFile_StreamID;
 }
 
 //***************************************************************************

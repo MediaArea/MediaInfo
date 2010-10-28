@@ -165,6 +165,7 @@ File_Mpeg4::File_Mpeg4()
     Vendor=0x00000000;
     IsParsing_mdat=false;
     moov_trak_tkhd_TrackID=(int32u)-1;
+    File_Name_NextPacket_Handler=NULL;
 }
 
 //***************************************************************************
@@ -329,18 +330,23 @@ void File_Mpeg4::Streams_Finish()
         //External file name specific
         if (!Temp->second.File_Name.empty())
         {
+            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Source", Temp->second.File_Name);
+
             //Configuring file name
             Ztring AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
             if (!AbsoluteName.empty())
                 AbsoluteName+=ZenLib::PathSeparator;
             AbsoluteName+=Temp->second.File_Name;
 
-            MediaInfo_Internal MI;
-            MI.Option(_T("File_StopAfterFilled"), _T("1"));
-            MI.Option(_T("File_KeepInfo"), _T("1"));
-            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Source", Temp->second.File_Name);
+            if (!Temp->second.File_Name_NextPacket_IsParsed)
+            {
+                Temp->second.File_Name_NextPacket_Handler=new MediaInfo_Internal;
+                Temp->second.File_Name_NextPacket_Handler->Option(_T("File_StopAfterFilled"), _T("1"));
+                Temp->second.File_Name_NextPacket_Handler->Option(_T("File_KeepInfo"), _T("1"));
+                Temp->second.File_Name_NextPacket_IsParsed=Temp->second.File_Name_NextPacket_Handler->Open(AbsoluteName)?true:false;
+            }
 
-            if (MI.Open(AbsoluteName))
+            if (Temp->second.File_Name_NextPacket_IsParsed)
             {
                 //Preparing
                 StreamKind_Last=Temp->second.StreamKind;
@@ -351,8 +357,8 @@ void File_Mpeg4::Streams_Finish()
                 Ztring Source=Retrieve(StreamKind_Last, StreamPos_Last, "Source");
                 Ztring Source_Info=Retrieve(StreamKind_Last, StreamPos_Last, "Source_Info");
 
-                Merge(*(MI.Info), Temp->second.StreamKind, 0, Temp->second.StreamPos);
-                File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
+                Merge(*(Temp->second.File_Name_NextPacket_Handler->Info), Temp->second.StreamKind, 0, Temp->second.StreamPos);
+                File_Size_Total+=Ztring(Temp->second.File_Name_NextPacket_Handler->Get(Stream_General, 0, General_FileSize)).To_int64u();
 
                 //Hacks - After
                 if (CodecID!=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID)))
@@ -373,22 +379,22 @@ void File_Mpeg4::Streams_Finish()
                 }
 
                 //Special case: MXF in MXF
-                if (MI.Info && MI.Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
+                if (Temp->second.File_Name_NextPacket_Handler->Info && Temp->second.File_Name_NextPacket_Handler->Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
                 {
                     Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
                 }
 
                 //Special case: DV with Audio or/and Text in the video stream
-                if (StreamKind_Last==Stream_Video && MI.Info && (MI.Info->Count_Get(Stream_Audio) || MI.Info->Count_Get(Stream_Text)))
+                if (StreamKind_Last==Stream_Video && Temp->second.File_Name_NextPacket_Handler->Info && (Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Audio) || Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Text)))
                 {
                     //Video and Audio are together
-                    size_t Audio_Count=MI.Info->Count_Get(Stream_Audio);
+                    size_t Audio_Count=Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Audio);
                     for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
                     {
                         Fill_Flush();
                         Stream_Prepare(Stream_Audio);
                         size_t Pos=Count_Get(Stream_Audio)-1;
-                        Merge(*MI.Info, Stream_Audio, Audio_Pos, StreamPos_Last);
+                        Merge(*Temp->second.File_Name_NextPacket_Handler->Info, Stream_Audio, Audio_Pos, StreamPos_Last);
                         if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
                             Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
                         else
@@ -403,13 +409,13 @@ void File_Mpeg4::Streams_Finish()
                     }
 
                     //Video and Text are together
-                    size_t Text_Count=MI.Info->Count_Get(Stream_Text);
+                    size_t Text_Count=Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Text);
                     for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
                     {
                         Fill_Flush();
                         Stream_Prepare(Stream_Text);
                         size_t Pos=Count_Get(Stream_Text)-1;
-                        Merge(*MI.Info, Stream_Text, Text_Pos, StreamPos_Last);
+                        Merge(*Temp->second.File_Name_NextPacket_Handler->Info, Stream_Text, Text_Pos, StreamPos_Last);
                         if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
                             Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
                         else
@@ -537,6 +543,20 @@ void File_Mpeg4::Streams_Finish()
 //---------------------------------------------------------------------------
 bool File_Mpeg4::Header_Begin()
 {
+    #if MEDIAINFO_DEMUX
+        if (File_Name_NextPacket_Handler)
+        {
+            bitset<32> Result=File_Name_NextPacket_Handler->Open_NextPacket();
+            if (Result[8])
+            {
+                Config->Demux_EventWasSent=true;
+                return false;
+            }
+            Stream[moov_trak_tkhd_TrackID].File_Name_NextPacket_Handler=File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+            Stream[moov_trak_tkhd_TrackID].File_Name_NextPacket_IsParsed=true;
+        }
+    #endif //MEDIAINFO_DEMUX
+    
     if (IsParsing_mdat && Element_Level==0)
         Element_Begin();
 

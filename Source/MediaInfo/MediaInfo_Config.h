@@ -175,6 +175,8 @@ public :
           void      MpegTs_MaximumOffset_Set (int64u Value);
           int64u    MpegTs_MaximumOffset_Get ();
 
+    ZtringListList  SubFile_Config_Get ();
+
 private :
     int64u          FormatDetection_MaximumOffset;
     int64u          MpegTs_MaximumOffset;
@@ -216,6 +218,8 @@ private :
     InfoMap         Iso639_1;
     InfoMap         Iso639_2;
     ZtringListList  Info[Stream_Max]; //General info
+
+    ZtringListList  SubFile_Config;
 
     ZenLib::CriticalSection CS;
 

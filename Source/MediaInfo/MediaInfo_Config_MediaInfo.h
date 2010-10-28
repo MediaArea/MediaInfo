@@ -105,6 +105,10 @@ public :
     void          NextPacket_Set (bool NewValue);
     bool          NextPacket_Get ();
 
+    ZtringListList SubFile_Config_Get ();
+    void          SubFile_StreamID_Set(int64u Value);
+    int64u        SubFile_StreamID_Get();
+
     size_t        File__Duplicate_Memory_Indexes_Get (const Ztring &ToFind);
     void          File__Duplicate_Memory_Indexes_Erase (const Ztring &ToFind);
 
@@ -168,6 +172,9 @@ private :
     bool                    Demux_PCM_20bitTo16bit;
     bool                    Demux_Unpacketize;
     bool                    NextPacket;
+
+    ZtringListList          SubFile_Config;
+    int64u                  SubFile_StreamID;
 
     //Event
     #if MEDIAINFO_EVENTS

@@ -141,6 +141,8 @@ void MediaInfo_Config::Init()
 
 Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
 {
+    SubFile_Config(Option)=Value_Raw;
+
     String Option_Lower(Option);
     size_t Egal_Pos=Option_Lower.find(_T('='));
     if (Egal_Pos==string::npos)
@@ -1530,6 +1532,18 @@ int64u MediaInfo_Config::MpegTs_MaximumOffset_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return MpegTs_MaximumOffset;
+}
+
+//***************************************************************************
+// SubFile
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+ZtringListList MediaInfo_Config::SubFile_Config_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return SubFile_Config;
 }
 
 } //NameSpace

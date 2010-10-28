@@ -195,6 +195,17 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
         Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
     if (Config->File_IsSub_Get())
         IsSub=true;
+    #if MEDIAINFO_EVENTS
+        int64u SubFile_StreamID=Config->SubFile_StreamID_Get();
+        if (SubFile_StreamID!=(int64u)-1)
+        {
+            StreamIDs_Size=2;
+            StreamIDs[1]=StreamIDs[0];
+            StreamIDs_Width[1]=StreamIDs_Width[0];
+            StreamIDs[0]=SubFile_StreamID;
+            StreamIDs_Width[0]=8;
+        }
+    #endif //MEDIAINFO_EVENTS
 }
 
 void File__Analyze::Open_Buffer_Init (File__Analyze* Sub)
@@ -1042,10 +1053,10 @@ bool File__Analyze::Data_Manage()
     Element_Size=0;
     Element_Offset=0;
 
-	#if MEDIAINFO_DEMUX
-		if (Config->Demux_EventWasSent)
-			return false;
-	#endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+            return false;
+    #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_TRACE
     if (Element_Level>0)

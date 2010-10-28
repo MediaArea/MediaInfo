@@ -24,6 +24,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/MediaInfo_Internal.h"
 #include <map>
 class File_MpegPs;
 //---------------------------------------------------------------------------
@@ -274,6 +275,8 @@ private :
     struct stream
     {
         Ztring                  File_Name;
+        MediaInfo_Internal*     File_Name_NextPacket_Handler;
+        bool                    File_Name_NextPacket_IsParsed;
         File__Analyze*          Parser;
         stream_t                StreamKind;
         size_t                  StreamPos;
@@ -295,6 +298,8 @@ private :
 
         stream()
         {
+            File_Name_NextPacket_Handler=NULL;
+            File_Name_NextPacket_IsParsed=false;
             Parser=NULL;
             StreamKind=Stream_Max;
             StreamPos=0;
@@ -309,6 +314,7 @@ private :
 
         ~stream()
         {
+            delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
             delete Parser; //Parser=NULL;
         }
     };
@@ -322,6 +328,7 @@ private :
     };
     std::map<int64u, mdat_Pos_Type> mdat_Pos;
     bool IsParsing_mdat;
+    MediaInfo_Internal* File_Name_NextPacket_Handler;
 };
 
 } //NameSpace

@@ -173,7 +173,7 @@ const char* Mpeg4_chan(int16u Ordering)
         case 110 : return "Front: L C R, Rear: L C R";
         case 111 : return "Front: L C R, Side: L R, Rear: L C R";
         case 112 : return "Front: L R, TopFront: L R, Rear: L R, TopRear: L R";
-		default  : return "";
+        default  : return "";
     }
 }
 
@@ -2132,6 +2132,23 @@ void File_Mpeg4::moov_trak_mdia_minf_code_sean_RU_A()
     Get_Local(Element_Size-Element_Offset, Path,                "Path?");
 
     FILLING_BEGIN();
+        if (Config_Demux && !Stream[moov_trak_tkhd_TrackID].File_Name_NextPacket_IsParsed && Config->NextPacket_Get())
+        {
+            delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=new MediaInfo_Internal;
+            ZtringListList Options;
+            Options=MediaInfoLib::Config.SubFile_Config_Get();
+            for (size_t Pos=0; Pos<Options.size(); Pos++)
+                File_Name_NextPacket_Handler->Option(Options[Pos][0], Options[Pos][1]);
+            Options=Config->SubFile_Config_Get();
+            for (size_t Pos=0; Pos<Options.size(); Pos++)
+                File_Name_NextPacket_Handler->Option(Options[Pos][0], Options[Pos][1]);
+            File_Name_NextPacket_Handler->Option(_T("File_SubFile_StreamId_Set"), Ztring::ToZtring(moov_trak_tkhd_TrackID));
+            if (!File_Name_NextPacket_Handler->Open(Path))
+            {
+                delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+            }
+        }
+
         Stream[moov_trak_tkhd_TrackID].File_Name=Path;
     FILLING_END();
 }
@@ -2285,6 +2302,23 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
                 Stream[moov_trak_tkhd_TrackID].File_Name+=ZenLib::PathSeparator;
             }
             Stream[moov_trak_tkhd_TrackID].File_Name+=file_name_string;
+
+            if (Config_Demux && !Stream[moov_trak_tkhd_TrackID].File_Name_NextPacket_IsParsed && Config->NextPacket_Get())
+            {
+                delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=new MediaInfo_Internal;
+                ZtringListList Options;
+                Options=MediaInfoLib::Config.SubFile_Config_Get();
+                for (size_t Pos=0; Pos<Options.size(); Pos++)
+                    File_Name_NextPacket_Handler->Option(Options[Pos][0], Options[Pos][1]);
+                Options=Config->SubFile_Config_Get();
+                for (size_t Pos=0; Pos<Options.size(); Pos++)
+                    File_Name_NextPacket_Handler->Option(Options[Pos][0], Options[Pos][1]);
+                File_Name_NextPacket_Handler->Option(_T("File_SubFile_StreamId_Set"), Ztring::ToZtring(moov_trak_tkhd_TrackID));
+                if (!File_Name_NextPacket_Handler->Open(file_name_string))
+                {
+                    delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+                }
+            }
         }
     FILLING_END();
 }
