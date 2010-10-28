@@ -88,7 +88,7 @@ public :
 
           void      Trace_Level_Set (const ZtringListList &NewDetailsLevel);
           float32   Trace_Level_Get ();
-          std::bitset<32> Trace_Levels_Get ();
+          std::bitset<32> Trace_Layers_Get ();
 
           enum trace_Format
           {
@@ -191,7 +191,7 @@ private :
     float32         ParseSpeed;
     float32         Verbosity;
     float32         Trace_Level;
-    std::bitset<32> Trace_Levels; //0-7: Container, 8: Stream
+    std::bitset<32> Trace_Layers; //0-7: Container, 8: Stream
     std::map<Ztring, bool> Trace_Modificators; //If we want to add/remove some details
     bool            Language_Raw;
     bool            ReadByHuman;

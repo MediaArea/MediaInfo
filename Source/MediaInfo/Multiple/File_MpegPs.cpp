@@ -205,7 +205,7 @@ File_MpegPs::File_MpegPs()
         Demux_Level=2; //Container
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_TRACE
-        Trace_Levels.reset(); Trace_Levels.set(0); //Container1
+        Trace_Layers.reset(); Trace_Layers.set(0); //Container1
     #endif //MEDIAINFO_TRACE
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
@@ -3215,11 +3215,11 @@ bool File_MpegPs::Header_Parser_QuickSearch()
         #if MEDIAINFO_TRACE
             if (start_code==0xC0 || start_code==0xE0)
             {
-                Trace_Levels.reset(); Trace_Levels.set(8); //Stream
+                Trace_Layers.reset(); Trace_Layers.set(8); //Stream
             }
             else
             {
-                Trace_Levels.set(IsSub?1:0);
+                Trace_Layers.set(IsSub?1:0);
             }
         #endif //MEDIAINFO_TRACE
 

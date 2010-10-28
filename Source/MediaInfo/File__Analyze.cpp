@@ -49,10 +49,10 @@ File__Analyze::File__Analyze ()
     //Info for speed optimization
     #if MEDIAINFO_TRACE
         Config_Trace_Level=MediaInfoLib::Config.Trace_Level_Get();
-        Config_Trace_Levels=MediaInfoLib::Config.Trace_Levels_Get();
+        Config_Trace_Layers=MediaInfoLib::Config.Trace_Layers_Get();
         Config_Trace_Format=MediaInfoLib::Config.Trace_Format_Get();
         Trace_DoNotSave=false;
-        Trace_Levels.set();
+        Trace_Layers.set();
     #endif //MEDIAINFO_TRACE
     Config_Demux=MediaInfoLib::Config.Demux_Get();
     Config_ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
@@ -888,7 +888,7 @@ bool File__Analyze::Header_Manage()
 
     //ToShow
     #if MEDIAINFO_TRACE
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         if (Element[Element_Level-1].ToShow.Name.empty())
             Element[Element_Level-1].ToShow.Name=_T("Unknown");
@@ -975,7 +975,7 @@ void File__Analyze::Header_Fill_Size(int64u Size)
 
     //ToShow
     #if MEDIAINFO_TRACE
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         Element[Element_Level-1].ToShow.Pos=File_Offset+Buffer_Offset;
         Element[Element_Level-1].ToShow.Size=Element[Element_Level-1].Next-(File_Offset+Buffer_Offset);
@@ -1230,7 +1230,7 @@ void File__Analyze::Element_Begin()
     //ToShow
     #if MEDIAINFO_TRACE
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
@@ -1265,7 +1265,7 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
 
     //ToShow
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
@@ -1302,7 +1302,7 @@ void File__Analyze::Element_Begin(int64u Size)
 void File__Analyze::Element_Name(const Ztring &Name)
 {
     //ToShow
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         if (!Name.empty())
         {
@@ -1325,7 +1325,7 @@ void File__Analyze::Element_Name(const Ztring &Name)
 void File__Analyze::Element_Info(const Ztring &Parameter)
 {
     //Coherancy
-    if (Config_Trace_Level==0 || !(Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()) || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
+    if (Config_Trace_Level==0 || !(Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()) || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
         return;
 
     //Needed?
@@ -1360,7 +1360,7 @@ void File__Analyze::Element_End(const Ztring &Name, int64u Size)
     }
 
     //ToShow
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-Element[Element_Level].ToShow.Pos;
         if (!Name.empty())
@@ -1424,7 +1424,7 @@ void File__Analyze::Element_End_Common_Flush()
 void File__Analyze::Element_End_Common_Flush_Details()
 {
     Element[Element_Level].ToShow.NoShow=Element[Element_Level+1].ToShow.NoShow;
-    if (Config_Trace_Level!=0 && (Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
     {
         if (!Element[Element_Level+1].WaitForMoreData && (Element[Element_Level+1].IsComplete || !Element[Element_Level+1].UnTrusted) && !Element[Element_Level+1].ToShow.NoShow)// && Config_Trace_Level!=0 && Element[Element_Level].ToShow.Details.size()<=64*1024*1024)
         {
@@ -1519,7 +1519,7 @@ void File__Analyze::Element_Prepare (int64u Size)
 #if MEDIAINFO_TRACE
 void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
 {
-    if (Config_Trace_Level==0 || !(Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level==0 || !(Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
         return;
 
     //Position
@@ -1602,7 +1602,7 @@ void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
         Element_Level_Final-=Element_Level_Minus;
     }
 
-    if (Config_Trace_Level==0 || !(Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()))
+    if (Config_Trace_Level==0 || !(Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
         return;
 
     //Coherancy
@@ -1646,7 +1646,7 @@ void File__Analyze::Param_Info (const Ztring &Text)
     //Coherancy
     if (Element[Element_Level].UnTrusted)
         return;
-    if (Config_Trace_Level==0 || !(Trace_Levels.to_ulong()&Config_Trace_Levels.to_ulong()) || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
+    if (Config_Trace_Level==0 || !(Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()) || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
         return;
 
     //Needed?

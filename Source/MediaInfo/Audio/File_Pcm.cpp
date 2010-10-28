@@ -114,6 +114,10 @@ File_Pcm::File_Pcm()
 {
     //Configuration
     ParserName=_T("PCM");
+    #if MEDIAINFO_TRACE
+        Trace_Layers.reset(); Trace_Layers.set(8); //Stream
+    #endif //MEDIAINFO_TRACE
+    IsRawStream=true;
 
     //In
     BitDepth=0;

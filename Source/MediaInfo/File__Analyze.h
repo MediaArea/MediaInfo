@@ -863,7 +863,7 @@ protected :
 protected :
     //Save for speed improvement
     float                           Config_Trace_Level;
-    std::bitset<32>                 Config_Trace_Levels;
+    std::bitset<32>                 Config_Trace_Layers;
     MediaInfo_Config::trace_Format  Config_Trace_Format;
     float                           Config_ParseSpeed;
     int8u                           Config_Demux;
@@ -938,7 +938,7 @@ public : //TO CHANGE
     void   Details_Clear();
 protected :
     bool Trace_DoNotSave;
-    std::bitset<32> Trace_Levels;
+    std::bitset<32> Trace_Layers;
 private :
 
     //Elements

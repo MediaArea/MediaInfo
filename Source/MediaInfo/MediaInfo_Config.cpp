@@ -695,20 +695,21 @@ void MediaInfo_Config::Trace_Level_Set (const ZtringListList &NewTrace_Level)
     if (NewTrace_Level.size()==1 && NewTrace_Level[0].size()==1)
     {
         Trace_Level=NewTrace_Level[0][0].To_float32();
-        Trace_Levels.set();
+        if (Trace_Layers.to_ulong()==0) //if not set to a specific layer
+            Trace_Layers.set();
         return;
     }
 
     //Per item
     else
     {
-        Trace_Levels.reset();
+        Trace_Layers.reset();
         for (size_t Pos=0; Pos<NewTrace_Level.size(); Pos++)
         {
             if (NewTrace_Level[Pos].size()==2)
             {
                 if (NewTrace_Level[Pos][0]==_T("Container1"))
-                    Trace_Levels.set(0, NewTrace_Level[Pos][1].To_int64u()?true:false);
+                    Trace_Layers.set(0, NewTrace_Level[Pos][1].To_int64u()?true:false);
             }
         }
     }
@@ -720,10 +721,10 @@ float32 MediaInfo_Config::Trace_Level_Get ()
     return Trace_Level;
 }
 
-std::bitset<32> MediaInfo_Config::Trace_Levels_Get ()
+std::bitset<32> MediaInfo_Config::Trace_Layers_Get ()
 {
     CriticalSectionLocker CSL(CS);
-    return Trace_Levels;
+    return Trace_Layers;
 }
 
 //---------------------------------------------------------------------------

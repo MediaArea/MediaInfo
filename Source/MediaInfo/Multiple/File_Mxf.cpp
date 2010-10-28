@@ -1503,6 +1503,23 @@ bool File_Mxf::Synched_Test()
     if (!Synched && !Synchronize())
         return false;
 
+    //Trace config
+    #if MEDIAINFO_TRACE
+        int64u Compare=CC8(Buffer+Buffer_Offset+ 4);
+        if (Compare==0x010201010D010301LL //Raw stream
+         || (Compare==0x0101010203010210LL && CC1(Buffer+Buffer_Offset+12)==0x01) //Filler
+         || (Compare==0x020501010D010301LL && CC3(Buffer+Buffer_Offset+12)==0x040101) //SDTI Package Metadata Pack
+         || (Compare==0x024301010D010301LL && CC3(Buffer+Buffer_Offset+12)==0x040102) //SDTI Package Metadata Set
+         || (Compare==0x025301010D010301LL && CC3(Buffer+Buffer_Offset+12)==0x140201)) //System Scheme 1
+        {
+            Trace_Layers.reset(); Trace_Layers.set(8); //Stream
+        }
+        else
+        {
+            Trace_Layers.set(0);
+        }
+    #endif //MEDIAINFO_TRACE
+
     //We continue
     return true;
 }
