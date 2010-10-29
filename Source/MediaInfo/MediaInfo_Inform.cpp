@@ -60,7 +60,11 @@ Ztring MediaInfo_Internal::Inform()
         if (MediaInfoLib::Config.Trace_Level_Get() || MediaInfoLib::Config.Inform_Get()==_T("Details"))
         {
             if (!Details.empty())
+            {
+                Ztring Content=Details;
+
                 return Details;
+            }
             else if (Info)
                 return Info->Details_Get();
         }
@@ -161,10 +165,13 @@ Ztring MediaInfo_Internal::Inform()
     Ztring Retour;
     bool HTML=false;
     bool XML=false;
+    bool CSV=false;
     if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
         HTML=true;
     if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
         XML=true;
+    if (MediaInfoLib::Config.Inform_Get()==_T("CSV"))
+        CSV=true;
 
     if (HTML) Retour+=_T("<html>\n\n<head>\n<META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head>\n<body>\n");
     if (XML)  Retour+=_T("<File>\n");
@@ -181,7 +188,10 @@ Ztring MediaInfo_Internal::Inform()
             Ztring B=Get((stream_t)StreamKind, StreamPos, _T("StreamKindPos"));
             if (!XML && !B.empty())
             {
-                A+=MediaInfoLib::Config.Language_Get(_T("  Config_Text_NumberTag"));
+                if (CSV)
+                    A+=_T(";");
+                else
+                    A+=MediaInfoLib::Config.Language_Get(_T("  Config_Text_NumberTag"));
                 A+=B;
             }
             Retour+=A;
@@ -216,6 +226,7 @@ Ztring MediaInfo_Internal::Inform()
     Retour.FindAndReplace(_T("\r"), _T("\n"), 0, Ztring_Recursive);
     Retour.FindAndReplace(_T("\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
     Retour.FindAndReplace(_T("|SC1|"), _T("\\"), 0, Ztring_Recursive);
+
     return Retour;
 }
 
@@ -237,10 +248,13 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
         Ztring Retour;
         bool HTML=false;
         bool XML=false;
+        bool CSV=false;
         if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
             HTML=true;
         if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
             XML=true;
+        if (MediaInfoLib::Config.Inform_Get()==_T("CSV"))
+            CSV=true;
         size_t Size=Count_Get(StreamKind, StreamPos);
         for (size_t Champ_Pos=0; Champ_Pos<Size; Champ_Pos++)
         {
@@ -252,7 +266,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                 Ztring Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text);
                 if (Nom.empty())
                     Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
-                if (!HTML && !XML)
+                if (!HTML && !XML && !CSV)
                 {
                      int8u Nom_Size=MediaInfoLib::Config.Language_Get(_T("  Config_Text_ColumnSize")).To_int8u();
                      if (Nom_Size==0)
@@ -294,6 +308,12 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                     Retour+=_T("</");
                     Retour+=Nom;
                     Retour+=_T(">");
+                }
+                else if (CSV)
+                {
+                    Retour+=Nom;
+                    Retour+=_T(";");
+                    Retour+=Valeur;
                 }
                 else
                     Retour+=Nom + MediaInfoLib::Config.Language_Get(_T("  Config_Text_Separator")) + Valeur;
