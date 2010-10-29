@@ -251,6 +251,24 @@ bool File_Lxf::Synched_Test()
 // Buffer - Global
 //***************************************************************************
 
+//---------------------------------------------------------------------------
+void File_Lxf::Read_Buffer_Unsynched()
+{
+    Video_Sizes.clear();
+    Audio_Sizes.clear();
+}
+
+//---------------------------------------------------------------------------
+size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
+{
+    switch (Method)
+    {
+        case 0  : File_GoTo=Value; return 1;
+        case 1  : File_GoTo=File_Size*Value/10000; return 1;
+        default : return (size_t)-1;
+	}
+}
+
 //***************************************************************************
 // Buffer - Per element
 //***************************************************************************

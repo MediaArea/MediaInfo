@@ -430,7 +430,6 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     {
         CriticalSectionLocker CSL(CS);
         Info->Open_Buffer_Position_Set(File_Offset_);
-        //Info->Open_Buffer_Unsynch();
     }
 
     #if MEDIAINFO_EVENTS
@@ -451,6 +450,18 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     #endif //MEDIAINFO_EVENTS
 
     EXECUTE_SIZE_T(1, Debug+=_T("Open_Buffer_Init, will return 1");)
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Internal::Open_Buffer_Unsynch ()
+{
+    MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open_Buffer_Unsynch");)
+
+    if (Info==NULL)
+        return;
+
+    CriticalSectionLocker CSL(CS);
+    Info->Open_Buffer_Unsynch();
 }
 
 //---------------------------------------------------------------------------
@@ -508,6 +519,7 @@ int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
     return Info->File_GoTo;
 }
 
+//---------------------------------------------------------------------------
 bool MediaInfo_Internal::Open_Buffer_Position_Set(int64u File_Offset)
 {
     CriticalSectionLocker CSL(CS);
@@ -517,6 +529,18 @@ bool MediaInfo_Internal::Open_Buffer_Position_Set(int64u File_Offset)
     Info->Open_Buffer_Position_Set(File_Offset);
 
     return true;
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfo_Internal::Open_Buffer_Seek (size_t Method, int64u Value)
+{
+    CriticalSectionLocker CSL(CS);
+    if (Info==NULL)
+        return false;
+
+    Info->Open_Buffer_Seek(Method, Value);
+
+    return 1;
 }
 
 //---------------------------------------------------------------------------
@@ -547,7 +571,7 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
     if (Info==NULL || !Info->Status[File__Analyze::IsFinished])
     {
         #if !defined(MEDIAINFO_READER_NO)
-            Demux_EventWasSent=(((Reader_File*)Reader)->Format_Test_PerParser_Continue(this)==2);
+            Demux_EventWasSent=(Reader->Format_Test_PerParser_Continue(this)==2);
         #endif //defined(MEDIAINFO_READER_NO)
     }
 
@@ -819,6 +843,24 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
         return _T("");
     }
     #endif //MEDIAINFO_TRACE
+    else if (OptionLower.find(_T("file_seek"))==0)
+    {
+        if (Reader==NULL)
+            return _T("Error: Reader pointer is empty");
+
+        size_t Result=(size_t)-1;
+        if (!Value.empty() && Value.find(_T('%'))==Value.size()-1)
+            Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*10000));
+        else if (!Value.empty() && Value.find_first_not_of(_T("0123456789"))==string::npos)
+            Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*10000));
+
+        switch (Result)
+        {
+            case 1  : return _T("");
+            case (size_t)-1 : return _T("Feature not supported");
+            default : return _T("Unknown error");
+        }
+    }
     else if (OptionLower.find(_T("file_"))==0)
     {
         Ztring ToReturn2=Config.Option(Option, Value);

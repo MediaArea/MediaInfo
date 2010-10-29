@@ -46,6 +46,8 @@ public :
 
     //Format testing
     virtual size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name)=0;
+    virtual size_t Format_Test_PerParser_Continue (MediaInfo_Internal* MI) {return 0;};
+    virtual size_t Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value) {return 0;};
 };
 
 } //NameSpace

@@ -258,6 +258,15 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
     return 1;
 }
 
+//---------------------------------------------------------------------------
+size_t Reader_File::Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value)
+{
+    MI->Open_Buffer_Unsynch();
+    MI->Open_Buffer_Seek(Method, Value);
+
+    return 1;
+}
+
 } //NameSpace
 
 

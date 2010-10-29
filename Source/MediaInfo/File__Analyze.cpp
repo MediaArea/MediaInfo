@@ -502,6 +502,12 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 }
 
 //---------------------------------------------------------------------------
+size_t File__Analyze::Open_Buffer_Seek (size_t Method, int64u Value)
+{
+    return Read_Buffer_Seek(Method, Value);
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
 {
     if (File_Offset_==(int64u)-1)

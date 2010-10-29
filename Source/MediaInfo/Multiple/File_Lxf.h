@@ -54,6 +54,10 @@ protected :
     bool Synchronize();
     bool Synched_Test();
 
+    //Buffer - Global
+    size_t Read_Buffer_Seek (size_t Method, int64u Value);
+    void Read_Buffer_Unsynched();
+
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
