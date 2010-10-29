@@ -106,6 +106,8 @@ void MediaInfo_Config::Init()
     //Filling
     FormatDetection_MaximumOffset=0;
     MpegTs_MaximumOffset=16*1024*1024;
+    MpegTs_MaximumScanDuration=16000000000LL;
+    MpegTs_ForceStreamDisplay=false;
     Complete=0;
     BlockMethod=0;
     Internet=0;
@@ -525,6 +527,24 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("mpegts_maximumoffset_get"))
     {
         return MpegTs_MaximumOffset_Get()==(int64u)-1?Ztring(_T("-1")):Ztring::ToZtring(MpegTs_MaximumOffset_Get());
+    }
+    else if (Option_Lower==_T("mpegts_maximumscanduration"))
+    {
+        MpegTs_MaximumScanDuration_Set(float64_int64s((((Ztring*)&Value)->To_float64())*1000000000));
+        return Ztring();
+    }
+    else if (Option_Lower==_T("mpegts_maximumscanduration_get"))
+    {
+        return MpegTs_MaximumScanDuration_Get()==(int64u)-1?Ztring(_T("-1")):Ztring::ToZtring(MpegTs_MaximumOffset_Get());
+    }
+    else if (Option_Lower==_T("mpegts_forcestreamdisplay"))
+    {
+        MpegTs_ForceStreamDisplay_Set(Value.To_int8u()?true:false);
+        return Ztring();
+    }
+    else if (Option_Lower==_T("mpegts_forcestreamdisplay_get"))
+    {
+        return MpegTs_ForceStreamDisplay_Get()?_T("1"):_T("0");
     }
     else
         return _T("Option not known");
@@ -1532,6 +1552,30 @@ int64u MediaInfo_Config::MpegTs_MaximumOffset_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return MpegTs_MaximumOffset;
+}
+
+void MediaInfo_Config::MpegTs_MaximumScanDuration_Set (int64u Value)
+{
+    CriticalSectionLocker CSL(CS);
+    MpegTs_MaximumScanDuration=Value;
+}
+
+int64u MediaInfo_Config::MpegTs_MaximumScanDuration_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return MpegTs_MaximumScanDuration;
+}
+
+void MediaInfo_Config::MpegTs_ForceStreamDisplay_Set (bool Value)
+{
+    CriticalSectionLocker CSL(CS);
+    MpegTs_ForceStreamDisplay=Value;
+}
+
+bool MediaInfo_Config::MpegTs_ForceStreamDisplay_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return MpegTs_ForceStreamDisplay;
 }
 
 //***************************************************************************

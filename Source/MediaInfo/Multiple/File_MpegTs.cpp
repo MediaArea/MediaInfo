@@ -136,6 +136,8 @@ File_MpegTs::File_MpegTs()
     MpegTs_JumpTo_End=16*1024*1024;
     Searching_TimeStamp_Start=true;
     Complete_Stream=NULL;
+    Begin_MaxDuration=MediaInfoLib::Config.MpegTs_MaximumScanDuration_Get()*27/1000;
+    ForceStreamDisplay=MediaInfoLib::Config.MpegTs_ForceStreamDisplay_Get();
 }
 
 File_MpegTs::~File_MpegTs ()
@@ -413,7 +415,7 @@ void File_MpegTs::Streams_Fill_PerStream()
     }
 
     //By the StreamKind
-    if (StreamKind_Last==Stream_Max && Temp.StreamKind!=Stream_Max && Temp.IsRegistered)
+    if (StreamKind_Last==Stream_Max && Temp.StreamKind!=Stream_Max && (Temp.IsRegistered || ForceStreamDisplay))
     {
         Stream_Prepare(Temp.StreamKind);
     }
@@ -832,7 +834,7 @@ bool File_MpegTs::Synched_Test()
                                 {
                                     if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
                                         program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
-                                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)/27000>16000)
+                                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
                                     {
                                         Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
                                         Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
@@ -1135,7 +1137,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
                         program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
-                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)/27000>16000)
+                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
                     {
                         Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
                         Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
@@ -1282,7 +1284,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
                         program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
-                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)/27000>16000)
+                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
                     {
                         Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
                         Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;

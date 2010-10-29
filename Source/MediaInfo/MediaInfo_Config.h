@@ -174,12 +174,18 @@ public :
 
           void      MpegTs_MaximumOffset_Set (int64u Value);
           int64u    MpegTs_MaximumOffset_Get ();
+          void      MpegTs_MaximumScanDuration_Set (int64u Value);
+          int64u    MpegTs_MaximumScanDuration_Get ();
+          void      MpegTs_ForceStreamDisplay_Set (bool Value);
+          bool      MpegTs_ForceStreamDisplay_Get ();
 
     ZtringListList  SubFile_Config_Get ();
 
 private :
     int64u          FormatDetection_MaximumOffset;
     int64u          MpegTs_MaximumOffset;
+    int64u          MpegTs_MaximumScanDuration;
+    bool            MpegTs_ForceStreamDisplay;
     size_t          Complete;
     size_t          BlockMethod;
     size_t          Internet;

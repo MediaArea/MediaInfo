@@ -107,6 +107,8 @@ private :
     #endif
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
+    int64u Begin_MaxDuration; //in 27 MHz
+    bool   ForceStreamDisplay;
     bool   Searching_TimeStamp_Start;
 
     #if MEDIAINFO_EVENTS
