@@ -850,9 +850,9 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
 
         size_t Result=(size_t)-1;
         if (!Value.empty() && Value.find(_T('%'))==Value.size()-1)
-            Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*10000));
+            Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*100));
         else if (!Value.empty() && Value.find_first_not_of(_T("0123456789"))==string::npos)
-            Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*10000));
+            Result=Reader->Format_Test_PerParser_Seek(this, 0, Ztring(Value).To_int64u());
 
         switch (Result)
         {

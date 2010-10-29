@@ -302,7 +302,7 @@ void File_Lxf::Header_Parse()
                     int8u Format;
                     BlockSize=0;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms");
+                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=(int64u)((float64)TimeStamp)*1000000/720;
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
                     BS_Begin_LE();
                     Get_S1 (4, Format,                          "Format"); Param_Info(Lxf_Format_Video[Format]);
@@ -332,7 +332,7 @@ void File_Lxf::Header_Parse()
                     int8u Channels_Count=0;
                     bitset<32> Channels;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms");
+                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=(int64u)((float64)TimeStamp)*1000000/720;
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
                     BS_Begin_LE();
                     Get_S1 ( 6, SampleSize,                     "Sample size");
