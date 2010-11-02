@@ -272,7 +272,7 @@ public :
             return Ztring().From_Local(Value, Value_Size);
     }
     #define VALUE(Value) \
-        Ztring::ToZtring(Value, 16).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")")
+        Ztring::ToZtring(Value).MakeUpperCase()+_T(" (0x")+Ztring::ToZtring(Value, 16).MakeUpperCase()+_T(")")
 
     //Param - Main
     void Param      (const Ztring &Parameter, const Ztring& Value);

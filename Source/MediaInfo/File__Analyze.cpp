@@ -1356,8 +1356,8 @@ void File__Analyze::Element_Info(const Ztring &Parameter)
     Parameter2.FindAndReplace(_T("\n"), _T(" / "));
     switch (Config_Trace_Format)
     {
-        case MediaInfo_Config::Trace_Format_Tree        : Element[Element_Level].ToShow.Info+=_T(" - "); break;
-        case MediaInfo_Config::Trace_Format_CSV         : Element[Element_Level].ToShow.Info+=_T(','); break;
+        case MediaInfo_Config::Trace_Format_Tree        :
+        case MediaInfo_Config::Trace_Format_CSV         : Element[Element_Level].ToShow.Info+=_T(" - "); break;
         default                                         : ;
     }
     Element[Element_Level].ToShow.Info+=Parameter2;

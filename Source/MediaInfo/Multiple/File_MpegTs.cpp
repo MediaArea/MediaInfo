@@ -163,8 +163,8 @@ void File_MpegTs::Streams_Fill()
     Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
     if (Complete_Stream->transport_stream_id_IsValid)
     {
-        Fill(Stream_General, 0, General_ID, Complete_Stream->transport_stream_id, 16);
-        Fill(Stream_General, 0, General_ID_String, /*Decimal_Hexa(*/Complete_Stream->transport_stream_id/*)*/, 16, true);
+        Fill(Stream_General, 0, General_ID, Complete_Stream->transport_stream_id);
+        Fill(Stream_General, 0, General_ID_String, Decimal_Hexa(Complete_Stream->transport_stream_id), true);
     }
     if (!Complete_Stream->network_name.empty())
         Fill(Stream_General, 0, General_NetworkName, Complete_Stream->network_name);
@@ -1006,6 +1006,7 @@ void File_MpegTs::Header_Parse()
     BS_End();
 
     //Info
+    /* Trace: used to display program number(s)
     if (!Complete_Stream->Streams[PID].program_numbers.empty())
     {
         Ztring Program_Numbers;
@@ -1017,6 +1018,7 @@ void File_MpegTs::Header_Parse()
     }
     else
         Data_Info("    ");
+    */
     Data_Info(Complete_Stream->Streams[PID].Element_Info);
 
     //Adaptation

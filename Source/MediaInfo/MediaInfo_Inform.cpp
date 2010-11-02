@@ -312,7 +312,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                 else if (CSV)
                 {
                     Retour+=Nom;
-                    Retour+=_T(";");
+                    Retour+=_T(",");
                     Retour+=Valeur;
                 }
                 else
