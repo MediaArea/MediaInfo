@@ -1767,7 +1767,13 @@ void File_Mk::Segment_Info_SegmentUID()
     Element_Name("SegmentUID");
 
     //Parsing
-    UInteger_Info();
+    int128u Data;
+    Data=UInteger16_Get();
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, General_UniqueID, Ztring().From_Local(Data.toString(10)));
+        Fill(Stream_General, 0, General_UniqueID_String, Ztring().From_Local(Data.toString(10))+_T(" (0x")+Ztring().From_Local(Data.toString(16))+_T(')'));
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2827,6 +2833,70 @@ int64u File_Mk::UInteger_Get()
                 {
                     int64u Data;
                     Get_B8 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        default :   Skip_XX(Element_Size,                       "Data");
+                    return 0;
+    }
+}
+
+//---------------------------------------------------------------------------
+int128u File_Mk::UInteger16_Get()
+{
+    switch (Element_Size)
+    {
+        case 1 :
+                {
+                    int8u Data;
+                    Get_B1 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 2 :
+                {
+                    int16u Data;
+                    Get_B2 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 3 :
+                {
+                    int32u Data;
+                    Get_B3 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 4 :
+                {
+                    int32u Data;
+                    Get_B4 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 5 :
+                {
+                    int64u Data;
+                    Get_B5 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 6 :
+                {
+                    int64u Data;
+                    Get_B6 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 7 :
+                {
+                    int64u Data;
+                    Get_B7 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 8 :
+                {
+                    int64u Data;
+                    Get_B8 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 16:
+                {
+                    int128u Data;
+                    Get_B16(Data,                               "Data"); Element_Info(Data);
                     return Data;
                 }
         default :   Skip_XX(Element_Size,                       "Data");

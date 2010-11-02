@@ -8,6 +8,7 @@ Inform;;;N NT;;;Last **Inform** call;;
 ID;;;N YI;;;The ID of this stream in this file;;
 ID/String;;;Y NT;;;The ID of this stream in this file;;
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy;;
+UniqueID/String;;;Y NT;;;A unique ID for this stream, should be copied with stream copy
 MenuID;;;N YI;;;The menu ID for this stream in this file;;
 MenuID/String;;;Y NT;;;The menu ID for this stream in this file;;
 Format;;;Y YT;;;Format used;;

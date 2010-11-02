@@ -273,6 +273,7 @@ private :
 
     //Data
     int64u   UInteger_Get();
+    int128u  UInteger16_Get();
     void     UInteger_Info();
 
     float64  Float_Get();
