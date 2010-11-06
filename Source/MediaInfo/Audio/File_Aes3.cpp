@@ -732,6 +732,11 @@ void File_Aes3::Frame_FromMpegPs()
                 Element_Offset+=5;
             }
 
+            #if MEDIAINFO_DEMUX
+                Demux_Level=2; //Container
+                Demux(Info, Info_Offset, ContentType_MainStream);
+            #endif //MEDIAINFO_DEMUX
+
             if (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F)
             {
                 Parser_Parse(Info, Info_Offset);

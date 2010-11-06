@@ -3642,6 +3642,9 @@ File__Analyze* File_MpegPs::ChooseParser_AES3()
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Handle=new File_Aes3();
         Handle->From_MpegPs=true;
+        #if MEDIAINFO_DEMUX
+            Demux_Level=4; //Intermediate
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
