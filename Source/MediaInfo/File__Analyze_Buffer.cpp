@@ -1660,7 +1660,14 @@ void File__Analyze::Skip_BS(size_t Bits, const char* Name)
         }
     }
     else
+    {
+        while(Bits>32)
+        {
+            BS->Skip(32);
+            Bits-=32;
+        }
         BS->Skip(Bits);
+    }
 }
 
 //---------------------------------------------------------------------------
