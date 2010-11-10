@@ -1060,7 +1060,7 @@ bool File__Analyze::Data_Manage()
     Element_Offset=0;
 
     #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent)
+        if (!IsSub && Config->Demux_EventWasSent)
             return false;
     #endif //MEDIAINFO_DEMUX
 
