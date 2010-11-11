@@ -1724,10 +1724,7 @@ void File__Analyze::Trusted_IsNot ()
 
         //Enough data?
         if (!Element[Element_Level].IsComplete)
-        {
-            Element[Element_Level].WaitForMoreData=true;
             return;
-        }
 
         Element[Element_Level].UnTrusted=true;
         Synched=false;
