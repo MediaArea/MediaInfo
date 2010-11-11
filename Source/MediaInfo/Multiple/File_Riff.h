@@ -268,6 +268,7 @@ private :
     void WAVE_fact ();
     void WAVE_fmt_ ();
     void WAVE_ID3_ ();
+    void WAVE_id3_ () {WAVE_ID3_();}
     void WAVE_INFO() {AVI__INFO();}
     void WAVE_INFO_xxxx() {AVI__INFO_xxxx ();}
     void WAVE_iXML ();
