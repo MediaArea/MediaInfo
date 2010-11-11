@@ -844,7 +844,6 @@ void File_MpegPs::Read_Buffer_Continue()
 
 //---------------------------------------------------------------------------
 void File_MpegPs::Header_Parse()
-#if MEDIAINFO_TRACE
 {
     PES_FirstByte_IsAvailable=true;
     PES_FirstByte_Value=true;
@@ -853,12 +852,25 @@ void File_MpegPs::Header_Parse()
     PTS=(int64u)-1;
     DTS=(int64u)-1;
 
-    //Parsing
-    Skip_B3(                                                    "synchro");
-    Get_B1 (start_code,                                         "start_code");
+    #if MEDIAINFO_TRACE
+        //Parsing
+        Skip_B3(                                                    "synchro");
+        Get_B1 (start_code,                                         "start_code");
+        start_code; //start_code is for old code, all should be replaced by stream_id
+    #else //MEDIAINFO_TRACE
+        //Parsing
+        start_code=Buffer[Buffer_Offset+3];
+        Element_Offset+=4;
+    #endif //MEDIAINFO_TRACE
 
     if (start_code!=0xB9 && start_code!=0xBA) //MPEG_program_end or pack_start have no PES
-        Header_Parse_PES_packet(start_code);
+    {
+        if (!Header_Parse_PES_packet(start_code))
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+    }
     else if (!Header_Parse_Fill_Size()) //MPEG_program_end or pack_start specific
     {
         Element_WaitForMoreData();
@@ -866,29 +878,6 @@ void File_MpegPs::Header_Parse()
     }
     Header_Fill_Code(start_code);
 }
-#else //MEDIAINFO_TRACE
-{
-    PES_FirstByte_IsAvailable=true;
-    PES_FirstByte_Value=true;
-
-    //Reinit
-    PTS=(int64u)-1;
-    DTS=(int64u)-1;
-
-    //Parsing
-    start_code=Buffer[Buffer_Offset+3];
-    Element_Offset+=4;
-
-    if (start_code!=0xB9 && start_code!=0xBA) //MPEG_program_end or pack_start have no PES
-        Header_Parse_PES_packet(start_code);
-    else if (!Header_Parse_Fill_Size()) //MPEG_program_end or pack_start specific
-    {
-        Element_WaitForMoreData();
-        return;
-    }
-    Header_Fill_Code(start_code);
-}
-#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 bool File_MpegPs::Header_Parse_Fill_Size()
@@ -939,14 +928,36 @@ bool File_MpegPs::Header_Parse_Fill_Size()
 }
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
+bool File_MpegPs::Header_Parse_PES_packet(int8u start_code)
 {
     //Parsing
     int16u PES_packet_length;
     Get_B2 (PES_packet_length,                                  "PES_packet_length");
+    #if MEDIAINFO_DEMUX
+        if (Demux_Unpacketize && Buffer_Offset+6+PES_packet_length>Buffer_Size)
+            return false;
+    #endif //MEDIAINFO_DEMUX
 
-    //Filling
-    Header_Fill_Size(6+PES_packet_length);
+    //Video unlimited specific
+    if (PES_packet_length==0)
+    {
+        if (!Header_Parse_Fill_Size())
+        {
+            //Return directly if we must unpack the elementary stream;
+            #if MEDIAINFO_DEMUX
+                if (Demux_Unpacketize)
+                    return false;
+            #endif //MEDIAINFO_DEMUX
+
+            //Next PS packet is not found, we will use all the buffer
+            Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
+            video_stream_Unlimited=true;
+            Buffer_Offset_Temp=0; //We use the buffer
+        }
+    }
+    else
+        //Filling
+        Header_Fill_Size(6+PES_packet_length);
 
     //Parsing
     switch (start_code)
@@ -961,7 +972,7 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
         case 0xF2 : //DSMCC Streams
         case 0xF8 : //ITU-T Rec. H .222.1 type E
         case 0xFF : //Program Streams directory
-            return;
+            return true;
 
         //Element with PES Header
         default :
@@ -973,25 +984,6 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
             }
     }
 
-    //Video unlimited specific
-    if (PES_packet_length==0 && Element_Offset<Element_Size)
-        if (!Header_Parse_Fill_Size())
-        {
-            //Return directly if we must unpack the elementary stream;
-            #if MEDIAINFO_DEMUX
-                if (Demux_Unpacketize)
-                {
-                    Element_WaitForMoreData();
-                    return;
-                }
-            #endif //MEDIAINFO_DEMUX
-
-            //Next PS packet is not found, we will use all the buffer
-            Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
-            video_stream_Unlimited=true;
-            Buffer_Offset_Temp=0; //We use the buffer
-        }
-
     //Can be cut in small chunks
     if (PES_packet_length!=0 && Element_Offset<Element_Size && (size_t)(6+PES_packet_length)>Buffer_Size-Buffer_Offset
      && ((start_code&0xE0)==0xC0 || (start_code&0xF0)==0xE0))
@@ -999,16 +991,15 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
         //Return directly if we must unpack the elementary stream;
         #if MEDIAINFO_DEMUX
             if (Demux_Unpacketize)
-            {
-                Element_WaitForMoreData();
-                return;
-            }
+                return false;
         #endif //MEDIAINFO_DEMUX
 
         Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
         Buffer_DataSizeToParse=6+PES_packet_length-(int16u)(Buffer_Size-Buffer_Offset);
         Buffer_Offset_Temp=0; //We use the buffer
     }
+
+	return true;
 }
 
 //---------------------------------------------------------------------------

@@ -120,7 +120,7 @@ private :
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parse_Fill_Size();
-    void Header_Parse_PES_packet(int8u start_code);
+    bool Header_Parse_PES_packet(int8u start_code);
     void Header_Parse_PES_packet_MPEG1(int8u start_code);
     void Header_Parse_PES_packet_MPEG2(int8u start_code);
     void Data_Parse();
