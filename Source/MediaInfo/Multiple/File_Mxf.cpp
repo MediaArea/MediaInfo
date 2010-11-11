@@ -720,6 +720,8 @@ void File_Mxf::Streams_Finish()
     }
 
     File_Size_Total=File_Size;
+    StreamKind_Last=Stream_Max;
+    StreamPos_Last=(size_t)-1;
 
     Streams_Finish_Preface(Preface_Current);
 
