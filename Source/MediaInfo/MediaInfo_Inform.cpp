@@ -189,7 +189,7 @@ Ztring MediaInfo_Internal::Inform()
             if (!XML && !B.empty())
             {
                 if (CSV)
-                    A+=_T(";");
+                    A+=_T(",");
                 else
                     A+=MediaInfoLib::Config.Language_Get(_T("  Config_Text_NumberTag"));
                 A+=B;
