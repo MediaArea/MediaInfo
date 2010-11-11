@@ -571,7 +571,9 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
     if (Info==NULL || !Info->Status[File__Analyze::IsFinished])
     {
         #if !defined(MEDIAINFO_READER_NO)
+            CS.Leave();
             Demux_EventWasSent=(Reader->Format_Test_PerParser_Continue(this)==2);
+            CS.Enter();
         #endif //defined(MEDIAINFO_READER_NO)
     }
 
