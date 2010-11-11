@@ -102,7 +102,7 @@ File__Analyze::File__Analyze ()
         Buffer_TotalBytes_FirstSynched_Max=1024*1024;
 
     //EOF
-    EOF_AlreadyDetected=false;
+    EOF_AlreadyDetected=(Config_ParseSpeed==1.0)?true:false;
 
     //Synchro
     MustParseTheHeaderFile=true;
