@@ -43,6 +43,14 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Tar::Read_Buffer_Continue()
 {
+    if (File_Size<257)
+    {
+        Reject();
+        return;
+    }
+    if (Buffer_Size<257)
+        return; //Wait for more data
+
     //Parsing
     Ztring ChecksumO;
     Skip_Local(100,                                             "File name");
