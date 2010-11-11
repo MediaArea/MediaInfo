@@ -333,9 +333,16 @@ void File_Mpeg4::Streams_Finish()
             Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Source", Temp->second.File_Name);
 
             //Configuring file name
-            Ztring AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
-            if (!AbsoluteName.empty())
-                AbsoluteName+=ZenLib::PathSeparator;
+            Ztring AbsoluteName;
+            if (!Temp->second.File_Name.empty()
+             && Temp->second.File_Name[0]!=_T('\\') //Windows style
+             && Temp->second.File_Name[0]!=_T('/') //Linux/Mac style
+            )
+            {
+                AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
+                if (!AbsoluteName.empty())
+                    AbsoluteName+=ZenLib::PathSeparator;
+            }
             AbsoluteName+=Temp->second.File_Name;
 
             if (!Temp->second.File_Name_NextPacket_IsParsed)
