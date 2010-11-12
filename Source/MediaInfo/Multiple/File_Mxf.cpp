@@ -1036,6 +1036,8 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
     if (Descriptor->second.StreamKind!=Stream_Max)
     {
         StreamKind_Last=Descriptor->second.StreamKind;
+        Ztring A=Ztring::ToZtring(Descriptor->second.LinkedTrackID);
+        Ztring B=Retrieve(StreamKind_Last, 0, General_ID);
         for (size_t Pos=0; Pos<Count_Get(StreamKind_Last); Pos++)
             if (Ztring::ToZtring(Descriptor->second.LinkedTrackID)==Retrieve(StreamKind_Last, Pos, General_ID))
             {
@@ -1048,6 +1050,9 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                 StreamPos_Last=0;
             else
             {
+                if (Descriptor->second.LinkedTrackID==(int32u)-1)
+                    return;
+
                 Stream_Prepare(Descriptor->second.StreamKind);
                 if (Descriptor->second.LinkedTrackID!=(int32u)-1)
                     Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
@@ -1533,6 +1538,9 @@ bool File_Mxf::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Mxf::Header_Parse()
 {
+    if (File_Offset+Buffer_Offset>=0x2200)
+        int A=0;
+
     #if MEDIAINFO_DEMUX
         if (Buffer_DataSizeToParse && Demux_Unpacketize)
         {
@@ -1660,6 +1668,11 @@ void File_Mxf::Header_Parse()
                         Buffer_DataSizeToParse_Complete=Length_Final; //TODO: header is not displayed
                         Length_Final=0;
                         Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
+                    }
+                    else if (Buffer_Offset+Element_Offset+Length_Final>Buffer_Size)
+                    {
+                        Element_WaitForMoreData();
+                        return;
                     }
                 }
                 else
@@ -1912,6 +1925,8 @@ void File_Mxf::Data_Parse()
                                         if (Streams_Count>0)
                                             Streams_Count--;
                                     #endif
+                                    if ((Code_Compare4&0xFF00FF00)==0x6001000)
+                                        Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame (D-10)");
                                     break;
                 case 0x16000500 : //MPEG Audio
                                     Essences[Code_Compare4].StreamKind=Stream_Audio;
