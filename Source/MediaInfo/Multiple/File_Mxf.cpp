@@ -1519,11 +1519,11 @@ bool File_Mxf::Synched_Test()
          || (Compare==0x024301010D010301LL && CC3(Buffer+Buffer_Offset+12)==0x040102) //SDTI Package Metadata Set
          || (Compare==0x025301010D010301LL && CC3(Buffer+Buffer_Offset+12)==0x140201)) //System Scheme 1
         {
-            Trace_Layers.reset(); Trace_Layers.set(8); //Stream
+            Trace_Layers_Update(8); //Stream
         }
         else
         {
-            Trace_Layers.set(0);
+            Trace_Layers_Update(0); //Container1
         }
     #endif //MEDIAINFO_TRACE
 

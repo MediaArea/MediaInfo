@@ -939,7 +939,9 @@ public : //TO CHANGE
     void   Details_Clear();
 protected :
     bool Trace_DoNotSave;
+    bool Trace_Activated;
     std::bitset<32> Trace_Layers;
+    void Trace_Layers_Update (size_t Layer=(size_t)-1);
 private :
 
     //Elements

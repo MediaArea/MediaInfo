@@ -695,13 +695,15 @@ bool File_MpegTs::Synched_Test()
         {
             //Trace config
             #if MEDIAINFO_TRACE
-                if (Stream->Kind==complete_stream::stream::pes)
+                if (Config_Trace_Level)
                 {
-                    Trace_Layers.reset(); Trace_Layers.set(8); //Stream
-                }
-                else
-                {
-                    Trace_Layers.set(IsSub?1:0);
+                    if (Stream->Kind==complete_stream::stream::pes)
+                    {
+                        if (!Trace_Layers[8])
+                            Trace_Layers_Update(8); //Stream
+                    }
+                    else
+                        Trace_Layers_Update(IsSub?1:0);
                 }
             #endif //MEDIAINFO_TRACE
 

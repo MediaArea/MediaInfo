@@ -282,7 +282,7 @@ File_Mpegv::File_Mpegv()
         StreamIDs_Width[0]=16;
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_TRACE
-        Trace_Layers.reset(); Trace_Layers.set(8); //Stream
+        Trace_Layers_Update(8); //Stream
     #endif //MEDIAINFO_TRACE
     Trusted_Multiplier=2;
     MustSynchronize=true;

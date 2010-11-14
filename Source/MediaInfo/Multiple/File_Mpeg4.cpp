@@ -152,7 +152,7 @@ File_Mpeg4::File_Mpeg4()
         Demux_Level=2; //Container
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_TRACE
-        Trace_Layers.reset(); Trace_Layers.set(0); //Container1
+        Trace_Layers_Update(0); //Container1
     #endif //MEDIAINFO_TRACE
 
     DataMustAlwaysBeComplete=false;

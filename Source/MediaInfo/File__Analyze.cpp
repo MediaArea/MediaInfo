@@ -53,6 +53,7 @@ File__Analyze::File__Analyze ()
         Config_Trace_Format=MediaInfoLib::Config.Trace_Format_Get();
         Trace_DoNotSave=false;
         Trace_Layers.set();
+        Trace_Layers_Update();
     #endif //MEDIAINFO_TRACE
     Config_Demux=MediaInfoLib::Config.Demux_Get();
     Config_ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
@@ -905,7 +906,7 @@ bool File__Analyze::Header_Manage()
 
     //ToShow
     #if MEDIAINFO_TRACE
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         if (Element[Element_Level-1].ToShow.Name.empty())
             Element[Element_Level-1].ToShow.Name=_T("Unknown");
@@ -992,7 +993,7 @@ void File__Analyze::Header_Fill_Size(int64u Size)
 
     //ToShow
     #if MEDIAINFO_TRACE
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         Element[Element_Level-1].ToShow.Pos=File_Offset+Buffer_Offset;
         Element[Element_Level-1].ToShow.Size=Element[Element_Level-1].Next-(File_Offset+Buffer_Offset);
@@ -1247,7 +1248,7 @@ void File__Analyze::Element_Begin()
     //ToShow
     #if MEDIAINFO_TRACE
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
@@ -1282,7 +1283,7 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
 
     //ToShow
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
@@ -1319,7 +1320,7 @@ void File__Analyze::Element_Begin(int64u Size)
 void File__Analyze::Element_Name(const Ztring &Name)
 {
     //ToShow
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         if (!Name.empty())
         {
@@ -1377,7 +1378,7 @@ void File__Analyze::Element_End(const Ztring &Name, int64u Size)
     }
 
     //ToShow
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-Element[Element_Level].ToShow.Pos;
         if (!Name.empty())
@@ -1441,7 +1442,7 @@ void File__Analyze::Element_End_Common_Flush()
 void File__Analyze::Element_End_Common_Flush_Details()
 {
     Element[Element_Level].ToShow.NoShow=Element[Element_Level+1].ToShow.NoShow;
-    if (Config_Trace_Level!=0 && (Trace_Layers.to_ulong()&Config_Trace_Layers.to_ulong()))
+    if (Trace_Activated)
     {
         if (!Element[Element_Level+1].WaitForMoreData && (Element[Element_Level+1].IsComplete || !Element[Element_Level+1].UnTrusted) && !Element[Element_Level+1].ToShow.NoShow)// && Config_Trace_Level!=0 && Element[Element_Level].ToShow.Details.size()<=64*1024*1024)
         {
@@ -2267,6 +2268,18 @@ void File__Analyze::Element_Show_Add (const Ztring &ToShow)
 
     //From Sub
     Element[Element_Level].ToShow.Details+=ToShow;
+}
+#endif //MEDIAINFO_TRACE
+
+#if MEDIAINFO_TRACE
+void File__Analyze::Trace_Layers_Update(size_t Layer)
+{
+    if (Layer!=(size_t)-1)
+    {
+        Trace_Layers.reset();
+        Trace_Layers.set(Layer);
+    }
+    Trace_Activated=(Config_Trace_Level!=0 && (Trace_Layers&Config_Trace_Layers)!=0);
 }
 #endif //MEDIAINFO_TRACE
 

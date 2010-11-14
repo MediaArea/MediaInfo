@@ -331,7 +331,7 @@ File_Avc::File_Avc()
         StreamIDs_Width[0]=0;
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_TRACE
-        Trace_Layers.reset(); Trace_Layers.set(8); //Stream
+        Trace_Layers_Update(8); //Stream
     #endif //MEDIAINFO_TRACE
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
