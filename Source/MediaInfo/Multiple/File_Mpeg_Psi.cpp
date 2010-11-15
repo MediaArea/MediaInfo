@@ -83,7 +83,7 @@ const char* Mpeg_Psi_ATSC_table_type(int16u ID)
              && ID<=0x017F) return "Event Information Table (EIT)";
             if (ID>=0x0200
              && ID<=0x027F) return "Event Extended Text Table (EETT)";
-            if (ID>=0x301
+            if (ID>=0x0300
              && ID<=0x03FF) return "Rating Region Table (RRT)";
             if (ID>=0x0400
              && ID<=0x0FFF) return "User private";
@@ -1638,6 +1638,8 @@ void File_Mpeg_Psi::Table_C7()
             Descriptors();
 
         Element_Info(Mpeg_Psi_ATSC_table_type(table_type));
+        if (table_type>=0x0100)
+            Element_Info(table_type%0x100);
         Element_End(Ztring::ToZtring_From_CC2(table_type_PID), 11+Descriptors_Size);
 
         FILLING_BEGIN();
