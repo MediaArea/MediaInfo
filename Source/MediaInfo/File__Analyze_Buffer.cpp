@@ -166,7 +166,15 @@ void File__Analyze::Get_B4(int32u &Info, const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
     Info=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-    if (Config_Trace_Level && (Trace_Layers&Config_Trace_Layers)!=0) Param(Name, Info);
+    if (Config_Trace_Level && (Trace_Layers&Config_Trace_Layers)!=0)
+    {
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(8-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
     Element_Offset+=4;
 }
 
@@ -351,7 +359,16 @@ void File__Analyze::Skip_B3(const char* Name)
 void File__Analyze::Skip_B4(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(4);
-    if (Config_Trace_Level && (Trace_Layers&Config_Trace_Layers)!=0) Param(Name, BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    if (Config_Trace_Level && (Trace_Layers&Config_Trace_Layers)!=0)
+    {
+        int32u Info=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(8-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
     Element_Offset+=4;
 }
 

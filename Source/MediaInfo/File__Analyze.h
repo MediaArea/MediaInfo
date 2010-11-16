@@ -281,15 +281,15 @@ public :
     inline void Param      (const char*   Parameter, const char*   Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, ToZtring(Value, Value_Size, Utf8));}
     inline void Param      (const char*   Parameter, const int8u*  Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, (const char*)Value, Value_Size, Utf8);}
     inline void Param      (const char*   Parameter, bool   Value) {if (Value) Param(Parameter, "Yes"); else Param(Parameter, "No");}
-    inline void Param      (const char*   Parameter, int8u  Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int8s  Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int16u Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int16s Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int32u Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int32s Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int64u Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int64s Value) {Param(Parameter, VALUE(Value));}
-    inline void Param      (const char*   Parameter, int128u Value){Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int8u  Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring().From_CC1(Value)+_T(")"));}
+    inline void Param      (const char*   Parameter, int8s  Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring().From_CC1(Value)+_T(")"));}
+    inline void Param      (const char*   Parameter, int16u Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring().From_CC2(Value)+_T(")"));}
+    inline void Param      (const char*   Parameter, int16s Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring().From_CC2(Value)+_T(")"));}
+    inline void Param      (const char*   Parameter, int32u Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring().From_CC4(Value)+_T(")"));}
+    inline void Param      (const char*   Parameter, int32s Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring().From_CC4(Value)+_T(")"));}
+    inline void Param      (const char*   Parameter, int64u Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring::ToZtring(Value, 16)+_T(")"));}
+    inline void Param      (const char*   Parameter, int64s Value) {Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring::ToZtring(Value, 16)+_T(")"));}
+    inline void Param      (const char*   Parameter, int128u Value){Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring::ToZtring(Value, 16)+_T(")"));}
     inline void Param_GUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_GUID(Value));}
     inline void Param_UUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_UUID(Value));}
     #ifdef NEED_SIZET

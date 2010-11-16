@@ -1038,7 +1038,7 @@ void File_MpegTs::Header_Parse()
         Skip_XX(TS_Size-Element_Offset,                         "Junk");
 
     //Filling
-    Header_Fill_Code(PID, Ztring().From_CC2(PID));
+    Header_Fill_Code(PID, _T("0x")+Ztring().From_CC2(PID));
     Header_Fill_Size(TS_Size);
 
     Header_Parse_Events();
