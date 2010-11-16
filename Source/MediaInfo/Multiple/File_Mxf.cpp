@@ -1036,8 +1036,6 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
     if (Descriptor->second.StreamKind!=Stream_Max)
     {
         StreamKind_Last=Descriptor->second.StreamKind;
-        Ztring A=Ztring::ToZtring(Descriptor->second.LinkedTrackID);
-        Ztring B=Retrieve(StreamKind_Last, 0, General_ID);
         for (size_t Pos=0; Pos<Count_Get(StreamKind_Last); Pos++)
             if (Ztring::ToZtring(Descriptor->second.LinkedTrackID)==Retrieve(StreamKind_Last, Pos, General_ID))
             {
@@ -1538,9 +1536,6 @@ bool File_Mxf::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Mxf::Header_Parse()
 {
-    if (File_Offset+Buffer_Offset>=0x2200)
-        int A=0;
-
     #if MEDIAINFO_DEMUX
         if (Buffer_DataSizeToParse && Demux_Unpacketize)
         {
