@@ -1504,16 +1504,19 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
         {
             case MediaInfo_Config::Trace_Format_Tree        :
                     ToReturn+=_T(" (");
-                    ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size);
-                    if (Element[Element_Level+1].ToShow.Header_Size>0)
-                    {
-                        ToReturn+=_T("/");
-                        ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size-Element[Element_Level+1].ToShow.Header_Size);
-                    }
-                    ToReturn+=_T(" bytes)");
+                    break;
+            case MediaInfo_Config::Trace_Format_CSV         :
+                    ToReturn+=_T(",(");
                     break;
             default                                         : ;
         }
+        ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size);
+        if (Element[Element_Level+1].ToShow.Header_Size>0)
+        {
+            ToReturn+=_T("/");
+            ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size-Element[Element_Level+1].ToShow.Header_Size);
+        }
+        ToReturn+=_T(" bytes)");
     }
 
     return ToReturn;
