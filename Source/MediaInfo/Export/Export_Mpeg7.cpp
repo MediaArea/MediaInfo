@@ -505,9 +505,9 @@ int32u Mpeg7_VisualCodingFormatCS_termID(MediaInfo_Internal &MI, size_t StreamPo
         return 60000;
     }
     if (Format==_T("H.261"))
-        return 50000;
+        return 70000;
     if (Format==_T("H.263"))
-        return 50000;
+        return 80000;
 
     return 0;
 }
