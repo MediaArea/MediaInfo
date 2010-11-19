@@ -1062,7 +1062,10 @@ bool File__Analyze::Data_Manage()
 
     #if MEDIAINFO_DEMUX
         if (!IsSub && Config->Demux_EventWasSent)
+        {
+            Element_End();
             return false;
+        }
     #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_TRACE
