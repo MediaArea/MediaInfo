@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.37, 2010-
 --------------
++ DPX format support
 + Compression mode (Lossy / Lossless) information (note: JPEG 2000 "profile" is moved to this new field)
 + #3095129, AVI: MLC Lossless codec support
 + #3095136, AVI: AMV Video Codec support

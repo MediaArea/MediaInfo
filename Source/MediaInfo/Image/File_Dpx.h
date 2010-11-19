@@ -41,8 +41,9 @@ namespace MediaInfoLib
 class File_Dpx : public File__Analyze
 {
 public :
+    //Constructor/Destructor
     File_Dpx();
-
+    
 private :
     //Streams management
     void Streams_Finish();
@@ -50,8 +51,20 @@ private :
     //Buffer - File header
     bool FileHeader_Begin();
 
-    //Buffer - Global
-    void Read_Buffer_Continue ();
+    //Buffer - Per element
+    void Header_Parse();
+    void Data_Parse();
+
+    //Elements
+    void FileInformationHeader();
+    void GenericSectionHeader();
+    void GenericSectionHeader_ImageElement();
+    void IndustrySpecificHeader();
+    void UserDefinedHeader();
+
+    //Temp
+    std::vector<int32u> Sizes;
+    size_t              Sizes_Pos;
 };
 
 } //NameSpace
