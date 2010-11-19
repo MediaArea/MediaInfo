@@ -157,7 +157,15 @@ void File__Analyze::Get_B3(int32u &Info, const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST_INT(3);
     Info=BigEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-    if (Trace_Activated) Param(Name, Info);
+    if (Trace_Activated)
+    {
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(6-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
     Element_Offset+=3;
 }
 
@@ -645,7 +653,7 @@ void File__Analyze::Skip_L4(const char* Name)
         int32u Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Ztring Pos1; Pos1.From_Number(Info, 16);
         Ztring Temp;
-        Temp.resize(6-Pos1.size(), _T('0'));
+        Temp.resize(8-Pos1.size(), _T('0'));
         Temp.append(Pos1);
         Temp.MakeUpperCase();
         Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
