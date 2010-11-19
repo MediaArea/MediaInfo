@@ -42,6 +42,7 @@
 #endif //MEDIAINFO_EVENTS
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <bitset>
+#include <MediaInfo/MediaInfo_Internal.h>
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -100,6 +101,9 @@ File_Lxf::File_Lxf()
     Stream_Count=0;
     Info_General_StreamSize=0;
     Audio_Sizes_Pos=(size_t)-1;
+
+    //Seek
+    SeekRequest=(int64u)-1;
 }
 
 //***************************************************************************
@@ -225,6 +229,28 @@ bool File_Lxf::Synchronize()
         Fill(Stream_General, 0, General_Format, "LXF");
     }
 
+    //TimeStamp
+    if (SeekRequest!=(int64u)-1)
+    {
+        if (TimeOffsets.find(File_Offset+Buffer_Offset)==TimeOffsets.end()) //Not already saved
+        {
+            if (Buffer_Offset+0x48>=Buffer_Size)
+                return false;
+            int32u Type       =LittleEndian2int32u(Buffer+Buffer_Offset+16);
+            if (Type==0) //Video
+            {
+                //Filling with the new frame
+                int64u TimeStamp  =LittleEndian2int64u(Buffer+Buffer_Offset+24);
+                int64u Duration   =LittleEndian2int64u(Buffer+Buffer_Offset+32);
+                int8u  PictureType=(LittleEndian2int8u (Buffer+Buffer_Offset+42)&0xC0)>>6;
+                TimeOffsets[File_Offset+Buffer_Offset]=stream_header(TimeStamp, TimeStamp+Duration, Duration, PictureType);
+                SeekRequest_Divider=2;
+            }
+        }
+        if (Read_Buffer_Seek(2, (int64u)-1))
+            return false;
+    }
+
     //Synched is OK
     return true;
 }
@@ -263,9 +289,80 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
 {
     switch (Method)
     {
-        case 0  : File_GoTo=Value; return 1;
-        case 1  : File_GoTo=File_Size*Value/10000; return 1;
-        default : return (size_t)-1;
+        case 0  :   File_GoTo=Value; return 1;
+        case 1  :   File_GoTo=File_Size*Value/10000; return 1;
+        case 2  :   //Timestamp
+                    {
+                    //Init
+                    if (TimeOffsets.size()<=1)
+                    {
+                        MediaInfo_Internal MI;
+                        MI.Option(_T("File_KeepInfo"), _T("1"));
+                        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+                        MI.Option(_T("ParseSpeed"), _T("0"));
+                        size_t MiOpenResult=MI.Open(File_Name);
+                        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                        if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("LXF"))
+                            return 0;
+                        TimeOffsets=((File_Lxf*)MI.Info)->TimeOffsets;
+                        int64u Duration=float64_int64s(Ztring(MI.Get(Stream_General, 0, _T("Duration"))).To_float64()*720);
+                        TimeOffsets[File_Size]=stream_header(Duration, Duration, 0, (int8u)-1);
+                        SeekRequest_Divider=2;
+                    }
+                    if (Value!=(int64u)-1)
+                    {
+                        Value=float64_int64s((float64)Value*720/1000000); //Convert in LXF unit (1/720000)
+                        time_offsets::iterator End=TimeOffsets.end();
+                        End--;
+                        if (Value>=End->second.TimeStamp_End)
+                            return 0; //Higher than total size    
+                        SeekRequest=Value;
+                    }
+ 
+                    //Looking if we already have the timestamp
+                    int64u SeekRequest_Mini=SeekRequest; if (SeekRequest_Mini>1000000) SeekRequest_Mini-=720; //-1ms
+                    int64u SeekRequest_Maxi=SeekRequest+720; //+1ms
+                    for (time_offsets::iterator TimeOffset=TimeOffsets.begin(); TimeOffset!=TimeOffsets.end(); TimeOffset++)
+                    {
+                        if (TimeOffset->second.TimeStamp_Begin<=SeekRequest_Maxi && TimeOffset->second.TimeStamp_End+TimeOffset->second.Duration>=SeekRequest_Mini) //If it is found in a frame we know
+                        {
+                            //Looking for the corresponding I-Frame
+                            while (TimeOffset->second.PictureType&0x2) //Not an I-Frame
+                            {
+                                time_offsets::iterator Previous=TimeOffset;
+                                Previous--;
+                                if (Previous->second.TimeStamp_End!=TimeOffset->second.TimeStamp_Begin) //Testing if the previous frame is not known.
+                                {
+                                    SeekRequest=TimeOffset->second.TimeStamp_Begin-(720+1); //1ms+1, so we are sure to not synch on the current frame again
+                                    File_GoTo=(Previous->first+TimeOffset->first)/2;
+                                    return 1; //Looking for previous frame
+
+                                }
+                                TimeOffset=Previous;
+                            }
+
+                            //We got the right I-Frame
+                            File_GoTo=TimeOffset->first;
+                            SeekRequest=(int64u)-1;
+                            return 1;
+                        }
+
+                        if (TimeOffset->second.TimeStamp_Begin>SeekRequest_Maxi) //Testing if too far
+                        {
+                            time_offsets::iterator Previous=TimeOffset; Previous--;
+                            int64u ReferenceOffset;
+                            if (File_Offset+Buffer_Offset==TimeOffset->first && TimeOffset->second.TimeStamp_Begin>SeekRequest) //If current frame is already too far
+                                ReferenceOffset=File_Offset+Buffer_Offset;
+                            else
+                                ReferenceOffset=TimeOffset->first;
+                            File_GoTo=Previous->first+(ReferenceOffset-Previous->first)/SeekRequest_Divider;
+                            SeekRequest_Divider*=2;
+                            return 1;
+                        }
+                    }
+                    }
+                    return 0;
+        default :   return 0;
 	}
 }
 
@@ -302,7 +399,7 @@ void File_Lxf::Header_Parse()
                     int8u Format;
                     BlockSize=0;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=(int64u)((float64)TimeStamp)*1000000/720;
+                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
                     BS_Begin_LE();
                     Get_S1 (4, Format,                          "Format"); Param_Info(Lxf_Format_Video[Format]);
@@ -324,6 +421,7 @@ void File_Lxf::Header_Parse()
                         Videos_Header.TimeStamp_Begin=TimeStamp;
                     Videos_Header.TimeStamp_End=TimeStamp+Duration;
                     Videos_Header.Duration=Duration;
+                    TimeOffsets[File_Offset+Buffer_Offset]=stream_header(TimeStamp, TimeStamp+Duration, Duration, PictureType);
                     }
                     break;
         case 1  :   //Audio
@@ -332,7 +430,7 @@ void File_Lxf::Header_Parse()
                     int8u Channels_Count=0;
                     bitset<32> Channels;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=(int64u)((float64)TimeStamp)*1000000/720;
+                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms");
                     BS_Begin_LE();
                     Get_S1 ( 6, SampleSize,                     "Sample size");
@@ -364,6 +462,7 @@ void File_Lxf::Header_Parse()
                         Audios_Header.TimeStamp_Begin=TimeStamp;
                     Audios_Header.TimeStamp_End=TimeStamp+Duration;
                     Audios_Header.Duration=Duration;
+                    //TimeOffsets[File_Offset+Buffer_Offset]=stream_header(float64_int64s(((float64)TimeStamp)*1000000/720), float64_int64s(((float64)TimeStamp+(float64)Duration)*1000000/720), float64_int64s(((float64)Duration)*1000000/720));
                     }
                     break;
         case 2  :   //Header
@@ -386,6 +485,7 @@ void File_Lxf::Header_Parse()
                     Skip_L4(                                    "? (Always 0x00000000)");
                     Info_L8(Reverse,                            "Reverse TimeStamp?"); Param_Info(((float64)Reverse)/720, 3, " ms");
                     }
+                    TimeOffsets[File_Offset+Buffer_Offset+0x48+BlockSize]=stream_header(0, (int64u)-1, (int64u)-1, (int8u)-1);
                     break;
         default :   BlockSize=0;
     }
@@ -565,29 +665,32 @@ bool File_Lxf::Audio_Stream(size_t Pos)
 {
     Element_Begin("Stream");
 
-    Element_Code=0x0200+Pos;
     #if MEDIAINFO_DEMUX
-        if (SampleSize==20 && Config->Demux_PCM_20bitTo16bit_Get())
+        if (SeekRequest==(int64u)-1)
         {
-            //Removing bits 3-0 (Little endian)
-            int8u* SixteenBit=new int8u[(size_t)Audio_Sizes[Pos]];
-            size_t SixteenBit_Pos=0;
-            size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-            size_t Buffer_Max=Buffer_Offset+(size_t)(Element_Offset+Audio_Sizes[Pos]);
-
-            while (Buffer_Pos+5<=Buffer_Max)
+            Element_Code=0x0200+Pos;
+            if (SampleSize==20 && Config->Demux_PCM_20bitTo16bit_Get())
             {
-                int64u Temp=LittleEndian2int40u(Buffer+Buffer_Pos);
-                Temp=((Temp&0xFFFF000000LL)>>8)|((Temp&0xFFFF0LL)>>4);
-                int32s2LittleEndian(SixteenBit+SixteenBit_Pos, (int32s)Temp);
-                SixteenBit_Pos+=4;
-                Buffer_Pos+=5;
-            }
+                //Removing bits 3-0 (Little endian)
+                int8u* SixteenBit=new int8u[(size_t)Audio_Sizes[Pos]];
+                size_t SixteenBit_Pos=0;
+                size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+                size_t Buffer_Max=Buffer_Offset+(size_t)(Element_Offset+Audio_Sizes[Pos]);
 
-            Demux(SixteenBit, SixteenBit_Pos, ContentType_MainStream);
+                while (Buffer_Pos+5<=Buffer_Max)
+                {
+                    int64u Temp=LittleEndian2int40u(Buffer+Buffer_Pos);
+                    Temp=((Temp&0xFFFF000000LL)>>8)|((Temp&0xFFFF0LL)>>4);
+                    int32s2LittleEndian(SixteenBit+SixteenBit_Pos, (int32s)Temp);
+                    SixteenBit_Pos+=4;
+                    Buffer_Pos+=5;
+                }
+
+                Demux(SixteenBit, SixteenBit_Pos, ContentType_MainStream);
+            }
+            else
+                Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
         }
-        else
-            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
 
     Skip_XX(Audio_Sizes[Pos],                                   Audio_Sizes.size()==2?"PCM":"Unknown format");
@@ -656,8 +759,13 @@ bool File_Lxf::Video_Stream(size_t Pos)
 {
     Element_Begin("Stream");
 
-    Element_Code=0x0100; //+Pos (no Pos until we know what is the other stream)
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
+    #if MEDIAINFO_DEMUX
+        if (SeekRequest==(int64u)-1)
+        {
+            Element_Code=0x0100; //+Pos (no Pos until we know what is the other stream)
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
+        }
+    #endif //MEDIAINFO_DEMUX
 
     if (Video_Sizes[Pos]==120000)
     {

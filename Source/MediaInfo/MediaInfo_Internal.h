@@ -113,6 +113,7 @@ public :
 private :
     friend class File_Bdmv;  //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
     friend class File_Cdxa;  //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
+    friend class File_Lxf;   //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
     friend class File_Mpeg4; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
     friend class File_Mxf;   //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
 

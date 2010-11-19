@@ -90,12 +90,21 @@ protected :
         int64u          TimeStamp_Begin;
         int64u          TimeStamp_End;
         int64u          Duration;
+        int8u           PictureType;
 
         stream_header()
         {
             TimeStamp_Begin=(int64u)-1;
             TimeStamp_End=(int64u)-1;
             Duration=(int64u)-1;
+            PictureType=(int8u)-1;
+        }
+        stream_header(int64u TimeStamp_Begin_, int64u TimeStamp_End_, int64u Duration_, int8u PictureType_)
+        {
+            TimeStamp_Begin=TimeStamp_Begin_;
+            TimeStamp_End=TimeStamp_End_;
+            Duration=Duration_;
+            PictureType=PictureType_;
         }
     };
     stream_header Videos_Header;
@@ -110,6 +119,12 @@ protected :
     size_t                  Audio_Sizes_Pos;
     std::vector<int64u>     Video_Sizes;
     int8u                   SampleSize;
+
+    //Seek
+    typedef std::map<int64u, stream_header> time_offsets;
+    time_offsets            TimeOffsets;
+    int64u                  SeekRequest_Divider;
+    int64u                  SeekRequest;
 };
 
 } //NameSpace
