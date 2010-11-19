@@ -351,7 +351,16 @@ void File__Analyze::Skip_B2(const char* Name)
 void File__Analyze::Skip_B3(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(3);
-    if (Trace_Activated) Param(Name, BigEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    if (Trace_Activated)
+    {
+        int32u Info=BigEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(6-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
     Element_Offset+=3;
 }
 
@@ -614,7 +623,16 @@ void File__Analyze::Skip_L2(const char* Name)
 void File__Analyze::Skip_L3(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(3);
-    if (Trace_Activated) Param(Name, LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    if (Trace_Activated)
+    {
+        int32u Info=LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(6-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
     Element_Offset+=3;
 }
 
@@ -622,7 +640,16 @@ void File__Analyze::Skip_L3(const char* Name)
 void File__Analyze::Skip_L4(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(4);
-    if (Trace_Activated) Param(Name, LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    if (Trace_Activated)
+    {
+        int32u Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(6-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
     Element_Offset+=4;
 }
 
