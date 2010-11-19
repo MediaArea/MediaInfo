@@ -913,6 +913,8 @@ bool File__Analyze::Header_Manage()
         Element[Element_Level].ToShow.Size=Element_Offset;
         Element[Element_Level].ToShow.Header_Size=0;
         Element[Element_Level-1].ToShow.Header_Size=Header_Size;
+        if (Element_Offset==0)
+            Element_DoNotShow();
     }
     #endif //MEDIAINFO_TRACE
 
@@ -1444,7 +1446,6 @@ void File__Analyze::Element_End_Common_Flush()
 //---------------------------------------------------------------------------
 void File__Analyze::Element_End_Common_Flush_Details()
 {
-    Element[Element_Level].ToShow.NoShow=Element[Element_Level+1].ToShow.NoShow;
     if (Trace_Activated)
     {
         if (!Element[Element_Level+1].WaitForMoreData && (Element[Element_Level+1].IsComplete || !Element[Element_Level+1].UnTrusted) && !Element[Element_Level+1].ToShow.NoShow)// && Config_Trace_Level!=0 && Element[Element_Level].ToShow.Details.size()<=64*1024*1024)
