@@ -502,6 +502,7 @@ void File_Dpx::GenericSectionHeader_ImageElement()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, StreamPos_Last, Image_Format, "DPX");
         Fill(Stream_Image, StreamPos_Last, Image_ID, StreamPos_Last); //No specific ID
         Fill(Stream_Image, StreamPos_Last, Image_BitDepth, BitDephs);
     FILLING_END();
