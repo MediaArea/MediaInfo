@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.37, 2010-
+Version 0.7.37, 2010-11-22
 --------------
 + DPX format support
 + Compression mode (Lossy / Lossless) information (note: JPEG 2000 "profile" is moved to this new field)

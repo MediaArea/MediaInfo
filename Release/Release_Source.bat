@@ -69,7 +69,7 @@ xcopy ..\Project\*.def MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.idl MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\BCB\*.h MediaInfo_Lib_Source\Project\BCB\ /S
 xcopy ..\Project\CMake\*.txt MediaInfo_Lib_Source\Project\CMake\ /S
-xcopy ..\Project\MSVC\*.h MediaInfo_Lib_Source\Project\MSVC\ /S
+xcopy ..\Project\MSVC2010\*.h MediaInfo_Lib_Source\Project\MSVC2010\ /S
 xcopy ..\Project\MSVC2008\*.h MediaInfo_Lib_Source\Project\MSVC2008\ /S
 xcopy ..\Project\MSCS\*.aspx MediaInfo_Lib_Source\Project\MSCS2010\ /S
 xcopy ..\Project\MSCS\*.config MediaInfo_Lib_Source\Project\MSCS2010\ /S
@@ -106,7 +106,7 @@ xcopy *.ogg MediaInfo_Lib_Source\Release\
 xcopy *.sh  MediaInfo_Lib_Source\Release\
 xcopy *.sub MediaInfo_Lib_Source\Release\
 xcopy BCB\*.txt MediaInfo_Lib_Source\Release\BCB\ /S
-xcopy MSVC\*.txt MediaInfo_Lib_Source\Release\MSVC\ /S
+xcopy MSVC2010\*.txt MediaInfo_Lib_Source\Release\MSVC2010\ /S
 xcopy GCC_MinGW32\*.txt MediaInfo_Lib_Source\Release\GCC_MinGW32\ /S
 xcopy GCC_Linux_i386\*.txt MediaInfo_Lib_Source\Release\GCC_Linux_i386\ /S
 
