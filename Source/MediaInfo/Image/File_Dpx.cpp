@@ -1,4 +1,4 @@
-﻿// File_Dpx - Info for DPX (SMPTE 268M) files
+// File_Dpx - Info for DPX (SMPTE 268M) files
 // Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
