@@ -365,10 +365,6 @@
 				<BuildOrder>86</BuildOrder>
 				<BuildOrder>22</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac.cpp">
-				<BuildOrder>86</BuildOrder>
-				<BuildOrder>28</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp">
 				<BuildOrder>74</BuildOrder>
 				<BuildOrder>140</BuildOrder>
@@ -514,10 +510,6 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adts.cpp">
 				<BuildOrder>89</BuildOrder>
 				<BuildOrder>22</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp">
-				<BuildOrder>9</BuildOrder>
-				<BuildOrder>105</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp">
 				<BuildOrder>8</BuildOrder>
@@ -825,6 +817,12 @@
 				<BuildOrder>186</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Dpx.cpp">
+				<BuildOrder>190</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac.cpp">
+				<BuildOrder>196</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp">
 				<BuildOrder>190</BuildOrder>
 			</CppCompile>
 			<BuildConfiguration Include="Base">

@@ -12,6 +12,17 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.37, 2010-11-22
+--------------
++ DPX format support
++ Compression mode (Lossy / Lossless) information (note: JPEG 2000 "profile" is moved to this new field)
++ #3095129, AVI: MLC Lossless codec support
++ #3095136, AVI: AMV Video Codec support
++ IFO: chapter information (thanks to Bastian Wegener)
++ MPEG-4: header size / data size / footer size information (in advanced mode)
++ MPEG-4: AVmp CodecID (.mov referencing .mxf) support
+x MXF: avoiding infinite loop due to circular reference
+
 Version 0.7.36, 2010-10-24
 --------------
 + Binaries (libraries, programs and installers) are digitally signed
