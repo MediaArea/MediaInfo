@@ -218,7 +218,6 @@
     <ClCompile Include="..\..\..\Source\CLI\Help.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\GUI\WxWidgets\resource.h" />
     <ClInclude Include="..\..\..\Source\Common\Core.h" />
     <ClInclude Include="..\..\..\Source\GUI\Common\GUI_Main_Common_Core.h" />
     <ClInclude Include="..\..\..\Source\GUI\Common\GUI_Main_Easy_Box_Core.h" />

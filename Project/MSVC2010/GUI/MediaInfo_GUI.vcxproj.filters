@@ -95,9 +95,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\GUI\WxWidgets\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\Common\Core.h">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
