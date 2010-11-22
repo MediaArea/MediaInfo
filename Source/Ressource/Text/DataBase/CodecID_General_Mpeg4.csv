@@ -45,7 +45,7 @@ mp71;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;ISO 14496-
 mp7b;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;ISO 14496-12 MPEG-7 meta data
 qt  ;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;QuickTime
 SDV ;MPEG-4;;;http://www.sdcard.org/;SD Memory Card Video
-M4A ;MPEG-4;;;http://www.apple.com/itunes/;Apple AAC audio with iTunes info
+M4A ;MPEG-4;;;http://www.apple.com/itunes/;Apple audio with iTunes info
 M4B ;MPEG-4;;;http://www.apple.com/itunes/;Apple audio with iTunes position
 M4P ;MPEG-4;;;http://www.apple.com/itunes/;AES encrypted audio
 M4VP;MPEG-4;;;http://www.apple.com/iphone/;Apple iPhone

@@ -1180,7 +1180,7 @@ void MediaInfo_Config_CodecID_General_Mpeg4 (InfoMap &Info)
     "mp7b;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;ISO 14496-12 MPEG-7 meta data\n"
     "qt  ;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;QuickTime\n"
     "SDV ;MPEG-4;;;http://www.sdcard.org/;SD Memory Card Video\n"
-    "M4A ;MPEG-4;;;http://www.apple.com/itunes/;Apple AAC audio with iTunes info\n"
+    "M4A ;MPEG-4;;;http://www.apple.com/itunes/;Apple audio with iTunes info\n"
     "M4B ;MPEG-4;;;http://www.apple.com/itunes/;Apple audio with iTunes position\n"
     "M4P ;MPEG-4;;;http://www.apple.com/itunes/;AES encrypted audio\n"
     "M4VP;MPEG-4;;;http://www.apple.com/iphone/;Apple iPhone\n"
