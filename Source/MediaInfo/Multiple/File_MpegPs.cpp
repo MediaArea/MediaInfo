@@ -328,6 +328,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
 {
     //By the parser
     StreamKind_Last=Stream_Max;
+    size_t Count=0;
     if (!Temp.Parsers.empty() && Temp.Parsers[0] && Temp.Parsers[0]->Status[IsAccepted])
     {
         Fill(Temp.Parsers[0]);
@@ -336,10 +337,10 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         {
             //Special case: Video and Text are together
             Stream_Prepare(Stream_Video);
-            Merge(*Temp.Parsers[0], Stream_Video, 0, StreamPos_Last);
+            Count=Merge(*Temp.Parsers[0], Stream_Video, 0, StreamPos_Last);
         }
         else
-            Merge(*Temp.Parsers[0]);
+            Count=Merge(*Temp.Parsers[0]);
     }
 
     //By the TS stream_type
@@ -357,7 +358,10 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         }
 
         if (Temp.stream_type!=0)
+        {
             Stream_Prepare(Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, 0x00000000));
+            Count=1;
+        }
     }
 
     //By StreamIsRegistred
@@ -366,56 +370,62 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         if (Temp.StreamIsRegistred)
         {
             if (StreamID>=0xC0 && StreamID<=0xDF)
+            {
                 Stream_Prepare(Stream_Audio);
+                Count=1;
+            }
             if (StreamID>=0xE0 && StreamID<=0xEF)
+            {
                 Stream_Prepare(Stream_Video);
+                Count=1;
+            }
         }
     }
 
     //More info
-    if (StreamKind_Last!=Stream_Max) //Found
+    for (size_t StreamPos=Count_Get(StreamKind_Last)-Count; StreamPos<Count_Get(StreamKind_Last); StreamPos++)
     {
         ///Saving StreamKind and Stream_Pos
         Temp.StreamKind=StreamKind_Last;
         Temp.StreamPos=StreamPos_Last;
 
         //Common
-        Fill(StreamKind_Last, StreamPos_Last, General_ID, StreamID);
+        Fill(StreamKind_Last, StreamPos, General_ID, StreamID);
         Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
-        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
-        if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format)).empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
-        if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec)).empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
+        Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+        if (Retrieve(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Format)).empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
+        if (Retrieve(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Codec)).empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
 
         if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1)
         {
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)), true);
-            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay));
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)), true);
-            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source));
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Settings), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Settings)), true);
-            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Settings));
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay)), true);
+            Clear(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay));
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)), true);
+            Clear(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source));
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Settings), Retrieve(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Settings)), true);
+            Clear(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Settings));
 
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), ((float64)Temp.TimeStamp_Start.PTS.TimeStamp)/90, 3, true);
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay), ((float64)Temp.TimeStamp_Start.PTS.TimeStamp)/90, 3, true);
+            Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
         }
 
         //LATM
         if (StreamKind_Last==Stream_Audio && StreamID==0xFA && FromTS_stream_type==0x11)
             Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
-    }
 
-    //Bitrate calculation
-    if (PTS!=(int64u)-1 && (StreamKind_Last==Stream_Video || StreamKind_Last==Stream_Audio))
-    {
-        int64u BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate").To_int64u();
-        if (BitRate==0)
-            BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Nominal").To_int64u();
-        if (BitRate==0)
-            PTS=(int64u)-1;
-        else
-            PTS+=BitRate; //Saving global BitRate
+        //Bitrate calculation
+        if (PTS!=(int64u)-1 && (StreamKind_Last==Stream_Video || StreamKind_Last==Stream_Audio))
+        {
+            int64u BitRate=Retrieve(StreamKind_Last, StreamPos, "BitRate").To_int64u();
+            if (BitRate==0)
+                BitRate=Retrieve(StreamKind_Last, StreamPos, "BitRate_Nominal").To_int64u();
+            if (BitRate==0)
+                PTS=(int64u)-1;
+            else
+                PTS+=BitRate; //Saving global BitRate
+        }
     }
 }
 

@@ -356,6 +356,7 @@ void File_MpegTs::Streams_Fill_PerStream()
 
     //By the parser
     StreamKind_Last=Stream_Max;
+    size_t Count=0;
     if (Temp.Parser && Temp.Parser->Status[IsAccepted])
     {
         Fill(Temp.Parser);
@@ -365,10 +366,10 @@ void File_MpegTs::Streams_Fill_PerStream()
         {
             //Special case: Video and Text are together
             Stream_Prepare(Stream_Video);
-            Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
+            Count=Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
         }
         else
-            Merge(*Temp.Parser);
+            Count=Merge(*Temp.Parser);
 
         //More from the FMC parser
         if (Temp.FMC_ES_ID_IsValid)
@@ -377,7 +378,7 @@ void File_MpegTs::Streams_Fill_PerStream()
             if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.Parser)
             {
                 Finish(IOD_ES->second.Parser);
-                Merge(*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
+                Count=Merge(*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
             }
         }
     }
@@ -393,6 +394,7 @@ void File_MpegTs::Streams_Fill_PerStream()
             Stream_Prepare(StreamKind_Last);
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+            Count=1;
         }
     }
 
@@ -411,6 +413,7 @@ void File_MpegTs::Streams_Fill_PerStream()
             Stream_Prepare(StreamKind_Last);
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Psi_stream_type_Format(Temp.stream_type, format_identifier));
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Psi_stream_type_Codec(Temp.stream_type, format_identifier));
+            Count=1;
         }
     }
 
@@ -418,51 +421,45 @@ void File_MpegTs::Streams_Fill_PerStream()
     if (StreamKind_Last==Stream_Max && Temp.StreamKind!=Stream_Max && (Temp.IsRegistered || ForceStreamDisplay))
     {
         Stream_Prepare(Temp.StreamKind);
+        Count=1;
     }
 
     //More info
-    if (StreamKind_Last!=Stream_Max) //Found
+    for (size_t StreamPos=Count_Get(StreamKind_Last)-Count; StreamPos<Count_Get(StreamKind_Last); StreamPos++)
     {
-        //Special cases
-        if (StreamKind_Last==Stream_Text && Temp.Parser && Temp.Parser->Count_Get(Stream_Video))
-        {
-            StreamKind_Last=Stream_Video;
-            StreamPos_Last=Count_Get(Stream_Video)-1;
-        }
-
         Temp.StreamKind=StreamKind_Last;
-        Temp.StreamPos=StreamPos_Last;
+        Temp.StreamPos=StreamPos;
 
         //Encryption
         if (Temp.IsScrambled>16)
-            Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
+            Fill(StreamKind_Last, StreamPos, "Encryption", "Encrypted");
 
         //TS info
         for (std::map<std::string, ZenLib::Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); Info++)
         {
-            if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
-                Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
+            if (Retrieve(StreamKind_Last, StreamPos, Info->first.c_str()).empty())
+                Fill(StreamKind_Last, StreamPos, Info->first.c_str(), Info->second);
         }
         Temp.Infos.clear();
 
         //Common
         if (Temp.SubStream_pid!=0x0000) //Wit a substream
         {
-            Ztring Format_Profile=Retrieve(Stream_Video, StreamPos_Last, Video_Format_Profile);
-            Fill(Stream_Video, StreamPos_Last, Video_ID, Ztring::ToZtring(Temp.SubStream_pid)+_T(" / ")+Ztring::ToZtring(PID), true);
-            Fill(Stream_Video, StreamPos_Last, Video_ID_String, Decimal_Hexa(Temp.SubStream_pid)+_T(" / ")+Decimal_Hexa(PID), true);
+            Ztring Format_Profile=Retrieve(Stream_Video, StreamPos, Video_Format_Profile);
+            Fill(Stream_Video, StreamPos, Video_ID, Ztring::ToZtring(Temp.SubStream_pid)+_T(" / ")+Ztring::ToZtring(PID), true);
+            Fill(Stream_Video, StreamPos, Video_ID_String, Decimal_Hexa(Temp.SubStream_pid)+_T(" / ")+Decimal_Hexa(PID), true);
             if (!Format_Profile.empty())
-                Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, Complete_Stream->Streams[Temp.SubStream_pid].Parser->Retrieve(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
+                Fill(Stream_Video, StreamPos, Video_Format_Profile, Complete_Stream->Streams[Temp.SubStream_pid].Parser->Retrieve(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
         }
         else
         {
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, PID, 10, true);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Decimal_Hexa(PID), true);
+            Fill(StreamKind_Last, StreamPos, General_ID, PID, 10, true);
+            Fill(StreamKind_Last, StreamPos, General_ID_String, Decimal_Hexa(PID), true);
         }
         for (size_t Pos=0; Pos<Temp.program_numbers.size(); Pos++)
         {
-            Fill(StreamKind_Last, StreamPos_Last, General_MenuID, Temp.program_numbers[Pos], 10, Pos==0);
-            Fill(StreamKind_Last, StreamPos_Last, General_MenuID_String, Decimal_Hexa(Temp.program_numbers[Pos]), Pos==0);
+            Fill(StreamKind_Last, StreamPos, General_MenuID, Temp.program_numbers[Pos], 10, Pos==0);
+            Fill(StreamKind_Last, StreamPos, General_MenuID_String, Decimal_Hexa(Temp.program_numbers[Pos]), Pos==0);
         }
 
         //Special cases

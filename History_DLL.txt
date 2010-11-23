@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.38
 --------------
 + uClibc compatibility, thanks to Metin KAYA <metin@EnderUNIX.org>
++ MPEG-TS: ID in all streams if a TS streams contains several substreams
 
 Version 0.7.37, 2010-11-22
 --------------
