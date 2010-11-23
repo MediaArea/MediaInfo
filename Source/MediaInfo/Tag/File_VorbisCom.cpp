@@ -135,8 +135,8 @@ void File_VorbisCom::FileHeader_Parse()
                 Library_Version=Library_Date;
             if (Library_Date.size()==8)
             {
-                Library_Date.insert(Library_Date.begin()+6, _T('-'));
-                Library_Date.insert(Library_Date.begin()+4, _T('-'));
+                Library_Date.insert(6, 1, _T('-'));
+                Library_Date.insert(4, 1, _T('-'));
                 Library_Date.insert(0, _T("UTC "));
             }
         }

@@ -5961,34 +5961,32 @@ void File_Mxf::Get_Timestamp(Ztring &Value)
     Ztring Temp;
     Temp.From_Number(Month);
     if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
+        Temp.insert(0, 1, _T('0'));
     Value+=Temp;
     Value+=_T('-');
     Temp.From_Number(Day);
     if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
+        Temp.insert(0, 1, _T('0'));
     Value+=Temp;
     Value+=_T(' ');
     Temp.From_Number(Hours);
     if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
+        Temp.insert(0, 1, _T('0'));
     Value+=Temp;
     Value+=_T(':');
     Temp.From_Number(Minutes);
     if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
+        Temp.insert(0, 1, _T('0'));
     Value+=Temp;
     Value+=_T(':');
     Temp.From_Number(Seconds);
     if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
+        Temp.insert(0, 1, _T('0'));
     Value+=Temp;
     Value+=_T('.');
     Temp.From_Number(Milliseconds*4);
-    if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
-    if (Temp.size()<2)
-        Temp.insert(Temp.begin(), _T('0'));
+    if (Temp.size()<3)
+        Temp.insert(0, 3-Temp.size(), _T('0'));
     Value+=Temp;
 }
 

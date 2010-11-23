@@ -464,7 +464,7 @@ void File_Wvpk::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Format, "WavPack");
     Ztring Version_Minor=Ztring::ToZtring(version%0x100);
     if (Version_Minor.size()==1)
-        Version_Minor.insert(Version_Minor.begin(), _T('0'));
+        Version_Minor.insert(0, 1, _T('0'));
     Fill(Stream_Audio, 0, Audio_Format_Profile, Ztring::ToZtring(version/0x100)+_T('.')+Version_Minor);
     Fill(Stream_Audio, 0, Audio_Codec, "Wavpack");
     Fill(Stream_Audio, 0, Audio_Resolution, Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]);
