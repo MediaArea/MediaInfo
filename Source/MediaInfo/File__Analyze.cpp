@@ -73,6 +73,7 @@ File__Analyze::File__Analyze ()
     PCR=(int64u)-1;
     PTS=(int64u)-1;
     DTS=(int64u)-1;
+    DUR=(int64u)-1;
     PTS_Begin=(int64u)-1;
     PTS_End=(int64u)-1;
 
@@ -2382,15 +2383,16 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
     #if MEDIAINFO_EVENTS
         //Demux
         StreamIDs[StreamIDs_Size-1]=Element_Code;
-        struct MediaInfo_Event_Global_Demux_0 Event;
+        struct MediaInfo_Event_Global_Demux_1 Event;
         if (StreamIDs_Size && StreamIDs_Size<17)
-             Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 0);
+             Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 1);
         else
-             Event.EventCode=MediaInfo_EventCode_Create(0x00, MediaInfo_Event_Global_Demux, 0);
+             Event.EventCode=MediaInfo_EventCode_Create(0x00, MediaInfo_Event_Global_Demux, 1);
         Event.Stream_Offset=File_Offset+Buffer_Offset;
         Event.PCR=PCR;
         Event.DTS=(DTS==(int64u)-1?PTS:DTS);
         Event.PTS=PTS;
+        Event.DUR=DUR;
         Event.StreamIDs_Size=StreamIDs_Size;
         Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
         Event.StreamIDs_Width=(MediaInfo_int8u*)StreamIDs_Width;
@@ -2398,6 +2400,8 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         Event.Content_Type=(int8u)Content_Type;
         Event.Content_Size=Buffer_Size;
         Event.Content=Buffer;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_1), IsSub?File_Name_WithoutDemux:File_Name);
+        Event.EventCode&=0xFFFFFF00; //Force to version 0
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
         if (Config->NextPacket_Get())
             Config->Demux_EventWasSent=true;

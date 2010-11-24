@@ -57,6 +57,7 @@ public :
     int64u PCR; //In nanoseconds
     int64u PTS; //In nanoseconds
     int64u DTS; //In nanoseconds
+    int64u DUR; //In nanoseconds
 
     //Out
     int64u PTS_Begin;                  //In nanoseconds
