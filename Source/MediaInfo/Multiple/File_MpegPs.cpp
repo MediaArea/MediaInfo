@@ -948,6 +948,31 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u start_code)
             return false;
     #endif //MEDIAINFO_DEMUX
 
+    //Parsing
+    switch (start_code)
+    {
+        //Header is only Size
+        case 0xBB : //system_header_start
+        case 0xBC : //program_stream_map
+        case 0xBE : //padding_stream
+        case 0xBF : //private_stream_2
+        case 0xF0 : //ECM
+        case 0xF1 : //EMM
+        case 0xF2 : //DSMCC Streams
+        case 0xF8 : //ITU-T Rec. H .222.1 type E
+        case 0xFF : //Program Streams directory
+            break;
+
+        //Element with PES Header
+        default :
+            switch (MPEG_Version)
+            {
+                case 1  : Header_Parse_PES_packet_MPEG1(start_code); break;
+                case 2  : Header_Parse_PES_packet_MPEG2(start_code); break;
+                default : ; //We don't know what to parse...
+            }
+    }
+
     //Video unlimited specific
     if (PES_packet_length==0)
     {
@@ -968,31 +993,6 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u start_code)
     else
         //Filling
         Header_Fill_Size(6+PES_packet_length);
-
-    //Parsing
-    switch (start_code)
-    {
-        //Header is only Size
-        case 0xBB : //system_header_start
-        case 0xBC : //program_stream_map
-        case 0xBE : //padding_stream
-        case 0xBF : //private_stream_2
-        case 0xF0 : //ECM
-        case 0xF1 : //EMM
-        case 0xF2 : //DSMCC Streams
-        case 0xF8 : //ITU-T Rec. H .222.1 type E
-        case 0xFF : //Program Streams directory
-            return true;
-
-        //Element with PES Header
-        default :
-            switch (MPEG_Version)
-            {
-                case 1  : Header_Parse_PES_packet_MPEG1(start_code); break;
-                case 2  : Header_Parse_PES_packet_MPEG2(start_code); break;
-                default : ; //We don't know what to parse...
-            }
-    }
 
     //Can be cut in small chunks
     if (PES_packet_length!=0 && Element_Offset<Element_Size && (size_t)(6+PES_packet_length)>Buffer_Size-Buffer_Offset
