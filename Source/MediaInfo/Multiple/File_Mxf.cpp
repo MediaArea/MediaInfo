@@ -89,8 +89,54 @@ namespace MediaInfoLib
 
 namespace Elements
 {
-    UUID(AES3PCMDescriptor,                                     060E2B34, 02530101, 0D010101, 01014700)
+    //Elements - Interpretive - Fundamental - Data Interpretations and Definitions - KLV Interpretations
+    UUID(Filler01,                                              060E2B34, 01010101, 03010210, 01000000)
+    UUID(Filler02,                                              060E2B34, 01010102, 03010210, 01000000)
+    UUID(TerminatingFiller,                                     060E2B34, 01010102, 03010210, 05000000)
+
+    //Elements - Interpretive - Fundamental - Data Interpretations and Definitions - XML Constructs and Interpretations
+    UUID(XmlDocumentText,                                       060E2B34, 01010105, 03010220, 01000000)
+
+    //Elements - Parametric - Video and Image Essence Characteristics - Digital Video and Image Compression Parameters - MPEG Coding Parameters - MPEG-2 Coding Parameters
+    UUID(MPEG2VideoDescriptor_SingleSequence,                   060E2B34, 01010105, 04010602, 01020000)
+    UUID(MPEG2VideoDescriptor_ConstantBFrames,                  060E2B34, 01010105, 04010602, 01030000)
+    UUID(MPEG2VideoDescriptor_CodedContentType,                 060E2B34, 01010105, 04010602, 01040000)
+    UUID(MPEG2VideoDescriptor_LowDelay,                         060E2B34, 01010105, 04010602, 01050000)
+    UUID(MPEG2VideoDescriptor_ClosedGOP,                        060E2B34, 01010105, 04010602, 01060000)
+    UUID(MPEG2VideoDescriptor_IdenticalGOP,                     060E2B34, 01010105, 04010602, 01070000)
+    UUID(MPEG2VideoDescriptor_MaxGOP,                           060E2B34, 01010105, 04010602, 01080000)
+    UUID(MPEG2VideoDescriptor_BPictureCount,                    060E2B34, 01010105, 04010602, 01090000)
+    UUID(MPEG2VideoDescriptor_ProfileAndLevel,                  060E2B34, 01010105, 04010602, 010A0000)
+    UUID(MPEG2VideoDescriptor_BitRate,                          060E2B34, 01010105, 04010602, 010B0000)
+
+    //Elements - User organization registred for public use - AAF Association - AAF Attributes - AAF Information Attributes - Version 1 - Enumerated Attributes
+    UUID(Sequence,                                              060E2B34, 02530101, 0D010101, 01010F00)
+    UUID(SourceClip,                                            060E2B34, 02530101, 0D010101, 01011100)
+    UUID(TimecodeComponent,                                     060E2B34, 02530101, 0D010101, 01011400)
+    UUID(ContentStorage,                                        060E2B34, 02530101, 0D010101, 01011800)
+    UUID(EssenceContainerData,                                  060E2B34, 02530101, 0D010101, 01012300)
     UUID(CDCIEssenceDescriptor,                                 060E2B34, 02530101, 0D010101, 01012800)
+    UUID(RGBAEssenceDescriptor,                                 060E2B34, 02530101, 0D010101, 01012900)
+    UUID(Preface,                                               060E2B34, 02530101, 0D010101, 01012F00)
+    UUID(Identification,                                        060E2B34, 02530101, 0D010101, 01013000)
+    UUID(NetworkLocator,                                        060E2B34, 02530101, 0D010101, 01013200)
+    UUID(TextLocator,                                           060E2B34, 02530101, 0D010101, 01013300)
+    UUID(MaterialPackage,                                       060E2B34, 02530101, 0D010101, 01013600)
+    UUID(SourcePackage,                                         060E2B34, 02530101, 0D010101, 01013700)
+    UUID(EventTrack,                                            060E2B34, 02530101, 0D010101, 01013900)
+    UUID(StaticTrack,                                           060E2B34, 02530101, 0D010101, 01013A00)
+    UUID(Track,                                                 060E2B34, 02530101, 0D010101, 01013B00)
+    UUID(DMSegment,                                             060E2B34, 02530101, 0D010101, 01014100)
+    UUID(GenericSoundEssenceDescriptor,                         060E2B34, 02530101, 0D010101, 01014200)
+    UUID(MultipleDescriptor,                                    060E2B34, 02530101, 0D010101, 01014400)
+    UUID(AES3PCMDescriptor,                                     060E2B34, 02530101, 0D010101, 01014700)
+    UUID(WaveAudioDescriptor,                                   060E2B34, 02530101, 0D010101, 01014800)
+    UUID(MPEG2VideoDescriptor,                                  060E2B34, 02530101, 0D010101, 01015100)
+    UUID(JPEG2000PictureSubDescriptor,                          060E2B34, 02530101, 0D010101, 01015A00)
+    UUID(Unknown1,                                              060E2B34, 02530101, 0D010101, 01015B00)
+    UUID(AncPacketsDescriptor,                                  060E2B34, 02530101, 0D010101, 01015C00)
+
+    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
     UUID(OpenIncompleteHeaderPartition,                         060E2B34, 02050101, 0D010201, 01020100)
     UUID(ClosedIncompleteHeaderPartition,                       060E2B34, 02050101, 0D010201, 01020200)
     UUID(OpenCompleteHeaderPartition,                           060E2B34, 02050101, 0D010201, 01020300)
@@ -103,87 +149,17 @@ namespace Elements
     UUID(ClosedIncompleteFooterPartition,                       060E2B34, 02050101, 0D010201, 01040200)
     UUID(OpenCompleteFooterPartition,                           060E2B34, 02050101, 0D010201, 01040300)
     UUID(ClosedCompleteFooterPartition,                         060E2B34, 02050101, 0D010201, 01040400)
-    UUID(ContentStorage,                                        060E2B34, 02530101, 0D010101, 01011800)
-    UUID(DMSegment,                                             060E2B34, 02530101, 0D010101, 01014100)
-    UUID(EssenceContainerData,                                  060E2B34, 02530101, 0D010101, 01012300)
-    UUID(EventTrack,                                            060E2B34, 02530101, 0D010101, 01013900)
-    UUID(GenericSoundEssenceDescriptor,                         060E2B34, 02530101, 0D010101, 01014200)
-    UUID(Identification,                                        060E2B34, 02530101, 0D010101, 01013000)
-    UUID(IndexTableSegment,                                     060E2B34, 02530101, 0D010201, 01100100)
-    UUID(JPEG2000PictureSubDescriptor,                          060E2B34, 02530101, 0D010101, 01015A00)
-    UUID(MaterialPackage,                                       060E2B34, 02530101, 0D010101, 01013600)
-    UUID(MPEG2VideoDescriptor,                                  060E2B34, 02530101, 0D010101, 01015100)
-    UUID(MultipleDescriptor,                                    060E2B34, 02530101, 0D010101, 01014400)
-    UUID(NetworkLocator,                                        060E2B34, 02530101, 0D010101, 01013200)
-    UUID(Padding,                                               060E2B34, 01010101, 03010210, 01000000)
-    UUID(Preface,                                               060E2B34, 02530101, 0D010101, 01012F00)
-    UUID(RandomIndexMetadata,                                   060E2B34, 02050101, 0D010201, 01110100)
-    UUID(RGBAEssenceDescriptor,                                 060E2B34, 02530101, 0D010101, 01012900)
+
+    //Elements - User organization registred for public use - AAF Association - ?  - Version 1 - ?
     UUID(Primer,                                                060E2B34, 02050101, 0D010201, 01050100)
-    UUID(Sequence,                                              060E2B34, 02530101, 0D010101, 01010F00)
-    UUID(SourceClip,                                            060E2B34, 02530101, 0D010101, 01011100)
-    UUID(SourcePackage,                                         060E2B34, 02530101, 0D010101, 01013700)
-    UUID(StaticTrack,                                           060E2B34, 02530101, 0D010101, 01013A00)
-    UUID(SystemScheme1,                                         060E2B34, 02530101, 0D010301, 14020100) //SMPTE 405M
-    UUID(TextLocator,                                           060E2B34, 02530101, 0D010101, 01013300)
-    UUID(TimecodeComponent,                                     060E2B34, 02530101, 0D010101, 01011400)
-    UUID(Track,                                                 060E2B34, 02530101, 0D010101, 01013B00)
-    UUID(WaveAudioDescriptor,                                   060E2B34, 02530101, 0D010101, 01014800)
-    UUID(AncPacketsDescriptor,                                  060E2B34, 02530101, 0D010101, 01015C00)
 
-    //OperationalPatterns
-    UUID(OP_MultiTrack,                                         060E2B34, 04010101, 0D010201, 01010900)
-    UUID(OP_SingleTrack,                                        060E2B34, 04010101, 0D010201, 01010100)
-    UUID(OP_SingleItem,                                         060E2B34, 04010101, 0D010201, 01020F00)
+    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
+    UUID(IndexTableSegment,                                     060E2B34, 02530101, 0D010201, 01100100)
 
-    //EssenceContainer
-    UUID(EssenceContainer_DV,                                   060E2B34, 04010101, 0D010301, 02025001)
-    UUID(EssenceContainer_DV2,                                  060E2B34, 04010101, 0D010301, 02020101)
-    UUID(EssenceContainer_DV3,                                  060E2B34, 04010101, 0D010301, 02025002)
-    UUID(EssenceContainer_JPEG2000,                             060E2B34, 04010107, 0D010301, 020C0100)
-    UUID(EssenceContainer_MPEG2,                                060E2B34, 04010102, 0D010301, 02046001)
-    UUID(EssenceContainer_RV24,                                 060E2B34, 04010101, 0D010301, 02050001)
-    UUID(EssenceContainer_PCM,                                  060E2B34, 04010101, 0D010301, 02060100)
-    UUID(EssenceContainer_PCM2,                                 060E2B34, 04010101, 0D010301, 02060200)
-    UUID(EssenceContainer_PCM3,                                 060E2B34, 04010101, 0D010301, 02060300)
-    UUID(EssenceContainer_PCM4,                                 060E2B34, 04010101, 0D010301, 02060400)
-    UUID(EssenceContainer_Generic,                              060E2B34, 04010103, 0D010301, 027F0100)
+    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
+    UUID(RandomIndexMetadata,                                   060E2B34, 02050101, 0D010201, 01110100)
 
-    //MPEG2VideoDescriptor
-    UUID(MPEG2VideoDescriptor_SingleSequence,                   060E2B34, 01010105, 04010602, 01020000)
-    UUID(MPEG2VideoDescriptor_ConstantBFrames,                  060E2B34, 01010105, 04010602, 01030000)
-    UUID(MPEG2VideoDescriptor_CodedContentType,                 060E2B34, 01010105, 04010602, 01040000)
-    UUID(MPEG2VideoDescriptor_LowDelay,                         060E2B34, 01010105, 04010602, 01050000)
-    UUID(MPEG2VideoDescriptor_ClosedGOP,                        060E2B34, 01010105, 04010602, 01060000)
-    UUID(MPEG2VideoDescriptor_IdenticalGOP,                     060E2B34, 01010105, 04010602, 01070000)
-    UUID(MPEG2VideoDescriptor_MaxGOP,                           060E2B34, 01010105, 04010602, 01080000)
-    UUID(MPEG2VideoDescriptor_BPictureCount,                    060E2B34, 01010105, 04010602, 01090000)
-    UUID(MPEG2VideoDescriptor_ProfileAndLevel,                  060E2B34, 01010105, 04010602, 010A0000)
-    UUID(MPEG2VideoDescriptor_BitRate,                          060E2B34, 01010105, 04010602, 010B0000)
-
-    //EssenceCoding
-    UUID(EssenceCoding_RV24,                                    060E2B34, 04010101, 04010201, 7F000000)
-    UUID(EssenceCoding_D10Video,                                060E2B34, 04010101, 04010202, 01020101)
-    UUID(EssenceCoding_MPEG2Video,                              060E2B34, 04010103, 04010202, 01040300)
-    UUID(EssenceCoding_MPEG4Visual,                             060E2B34, 04010103, 04010202, 01200204)
-    UUID(EssenceCoding_DV,                                      060E2B34, 04010101, 04010202, 02020200)
-    UUID(EssenceCoding_JPEG2000,                                060E2B34, 04010107, 04010202, 03010100)
-    UUID(EssenceCoding_AVC,                                     060E2B34, 0401010A, 04010202, 01323102)
-    UUID(EssenceCoding_PCM,                                     060E2B34, 04010101, 04020201, 7F000000)
-    UUID(EssenceCoding_Alaw,                                    060E2B34, 04010104, 04020202, 03010100)
-
-    //Sequence
-    UUID(Sequence_Time,                                         060E2B34, 04010101, 01030201, 01000000)
-    UUID(Sequence_Picture,                                      060E2B34, 04010101, 01030202, 01000000)
-    UUID(Sequence_Sound,                                        060E2B34, 04010101, 01030202, 02000000)
-    UUID(Sequence_Data,                                         060E2B34, 04010101, 01030202, 03000000)
-
-    //Other
-    UUID(Filler,                                                060E2B34, 01010102, 03010210, 01000000)
-    UUID(TerminatingFiller,                                     060E2B34, 01010102, 03010210, 05000000)
-    UUID(XmlDocumentText,                                       060E2B34, 01010105, 03010220, 01000000)
-
-    //SDTI-CP (SMPTE 385M)
+    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ? (SDTI-CP (SMPTE 385M))
     UUID(SDTI_SystemMetadataPack,                               060E2B34, 02050101, 0D010301, 04010100)
     UUID(SDTI_PackageMetadataSet,                               060E2B34, 02430101, 0D010301, 04010200)
     UUID(SDTI_PictureMetadataSet,                               060E2B34, 02430101, 0D010301, 04010300)
@@ -191,7 +167,10 @@ namespace Elements
     UUID(SDTI_DataMetadataSet,                                  060E2B34, 02430101, 0D010301, 04010500)
     UUID(SDTI_ControlMetadataSet,                               060E2B34, 02630101, 0D010301, 04010600)
 
-    //Private
+    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ? (SystemScheme (SMPTE 405M))
+    UUID(SystemScheme1,                                         060E2B34, 02530101, 0D010301, 14020100)
+
+    //Elements - User organization registred for private use - Omneon Video Networks
     UUID(Omneon_010201010100,                                   060E2B34, 02530105, 0E0B0102, 01010100)
     UUID(Omneon_010201020100,                                   060E2B34, 02530105, 0E0B0102, 01020100)
 }
@@ -224,9 +203,9 @@ const char* Mxf_Registry(int8u Category, int8u Registry)
         case 0x02 : //"Group (Set/Pack)"
                     switch(Registry)
                     {
-                        case 0x05 : return "Contains a fixed number of predefined items with no tag of value indicators";
+                        case 0x05 : return "Predefined items";
                         case 0x43 : return "1-byte tag, 2-byte length";
-                        case 0x53 : return "The value of this KLV block contains other KLV-items with a two-byte tag and a two-byte length indicator";
+                        case 0x53 : return "2-byte tag, 2-byte length";
                         case 0x63 : return "1-byte tag, 4-byte length";
                         default   : return "";
                     }
@@ -255,28 +234,8 @@ const char* Mxf_MPEG2_CodedContentType(int8u CodedContentType)
 //---------------------------------------------------------------------------
 const char* Mxf_OperationalPattern(int128u OperationalPattern)
 {
-    //int32u Code_Compare1=OperationalPattern.hi>>32;
-    //int32u Code_Compare2=(int32u)OperationalPattern.hi;
-    //int32u Code_Compare3=OperationalPattern.lo>>32;
-    int32u Code_Compare4=(int32u)OperationalPattern.lo;
-    /*
-    #undef ELEMENT
-    #define ELEMENT(_ELEMENT, _NAME) \
-    else if (Code_Compare1==Elements::_ELEMENT##1 \
-     && Code_Compare2==Elements::_ELEMENT##2 \
-     && Code_Compare3==Elements::_ELEMENT##3 \
-     && Code_Compare4==Elements::_ELEMENT##4) \
-        return _NAME; \
-
-    if (0) {}
-    ELEMENT   (OP_MultiTrack,                                   "Multi-track")
-    ELEMENT   (OP_SingleTrack,                                  "Single-track")
-    ELEMENT   (OP_SingleItem,                                   "Single-item")
-    else
-        return "";
-    */
-
     //Item and Package Complexity
+    int32u Code_Compare4=(int32u)OperationalPattern.lo;
     switch ((int8u)(Code_Compare4>>24))
     {
         case 0x01 : switch ((int8u)(Code_Compare4>>16))
@@ -329,6 +288,12 @@ const char* Mxf_EssenceElement(int128u EssenceElement)
                     }
         case 0x07 : //CP Data (SMPTE 326M)
                     return "";
+        case 0x14 : //MXF in MXF?
+                    switch (Code7)
+                    {
+                        case 0x01 : return "MXF in MXF?";
+                        default   : return "Unknown stream";
+                    }
         case 0x15 : //GC Picture
                     switch (Code7)
                     {
@@ -402,6 +367,7 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
                                                                                         case 0x06 : return "PCM";
                                                                                         case 0x04 : return "MPEG ES mappings with Stream ID";
                                                                                         case 0x0A : return "A-law";
+                                                                                        case 0x0C : return "JPEG 2000";
                                                                                         default   : return "";
                                                                                     }
                                                                         default   : return "";
@@ -507,7 +473,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                         case 0x03 : //Individual Picture Coding Schemes
                                                                     switch (Code6)
                                                                     {
-                                                                        case 0x01 : return "JPEG-2000";
+                                                                        case 0x01 : return "JPEG 2000";
                                                                         default   : return "";
                                                                     }
                                                         default   : return "";
@@ -539,7 +505,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                                         case 0x09 : return "MPEG-TS";
                                                                         case 0x0A : return "A-law";
                                                                         case 0x0B : return "Encrypted";
-                                                                        case 0x0C : return "JPEG-2000";
+                                                                        case 0x0C : return "JPEG 2000";
                                                                         case 0x7F : return "Generic";
                                                                         default   : return "";
                                                                     }
@@ -614,25 +580,22 @@ const char* Mxf_EssenceCompression_Version(int128u EssenceCompression)
 //---------------------------------------------------------------------------
 const char* Mxf_Sequence_DataDefinition(int128u DataDefinition)
 {
-    int32u Code_Compare1=DataDefinition.hi>>32;
-    int32u Code_Compare2=(int32u)DataDefinition.hi;
-    int32u Code_Compare3=DataDefinition.lo>>32;
-    int32u Code_Compare4=(int32u)DataDefinition.lo;
-    #undef ELEMENT
-    #define ELEMENT(_ELEMENT, _NAME) \
-    else if (Code_Compare1==Elements::_ELEMENT##1 \
-     && Code_Compare2==Elements::_ELEMENT##2 \
-     && Code_Compare3==Elements::_ELEMENT##3 \
-     && Code_Compare4==Elements::_ELEMENT##4) \
-        return _NAME; \
+    int8u Code4=(int8u)((DataDefinition.lo&0x000000FF00000000LL)>>32);
+    int8u Code5=(int8u)((DataDefinition.lo&0x00000000FF000000LL)>>24);
 
-    if (0) {}
-    ELEMENT(Sequence_Time,                                      "Time")
-    ELEMENT(Sequence_Picture,                                   "Picture")
-    ELEMENT(Sequence_Sound,                                     "Sound")
-    ELEMENT(Sequence_Data,                                      "Data")
-    else
-        return "";
+    switch (Code4)
+    {
+        case 0x01 : return "Time";
+        case 0x02 :
+                    switch (Code5)
+                    {
+                        case 0x01 : return "Picture";
+                        case 0x02 : return "Sound";
+                        case 0x03 : return "Data";
+                        default   : return "";
+                    }
+        default   : return "";
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -867,21 +830,21 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Stream_Prepare(Stream_Video);
     else if (Essence->second.Parser->Count_Get(Stream_Audio))
         Stream_Prepare(Stream_Audio);
-    if (StreamKind_Last!=Stream_Max)
+    else
+        return;
+
+    for (std::map<std::string, Ztring>::iterator Info=Essence->second.Infos.begin(); Info!=Essence->second.Infos.end(); Info++)
+        Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+    if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
     {
-        for (std::map<std::string, Ztring>::iterator Info=Essence->second.Infos.begin(); Info!=Essence->second.Infos.end(); Info++)
-            Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
-        if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
-        {
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
-        }
-        if (SDTI_TimeCode_StartTimecode!=(int64u)-1)
-            Fill(StreamKind_Last, StreamPos_Last, "Delay_SDTI", SDTI_TimeCode_StartTimecode);
-        if (SystemScheme1_TimeCodeArray_StartTimecode!=(int64u)-1)
-            Fill(StreamKind_Last, StreamPos_Last, "Delay_SystemScheme1", SystemScheme1_TimeCodeArray_StartTimecode);
-        Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
     }
+    if (SDTI_TimeCode_StartTimecode!=(int64u)-1)
+        Fill(StreamKind_Last, StreamPos_Last, "Delay_SDTI", SDTI_TimeCode_StartTimecode);
+    if (SystemScheme1_TimeCodeArray_StartTimecode!=(int64u)-1)
+        Fill(StreamKind_Last, StreamPos_Last, "Delay_SystemScheme1", SystemScheme1_TimeCodeArray_StartTimecode);
+    Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
 
     //Looking for Material package TrackID
     int32u TrackID=(int32u)-1;
@@ -892,23 +855,12 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             for (size_t Tracks_Pos=0; Tracks_Pos<SourcePackage->second.Tracks.size(); Tracks_Pos++)
                 if (SourcePackage->second.Tracks[Tracks_Pos]==TrackUID)
                 {
-                    //We have the the right PackageUID, looking for SourceClip from Sequence from Track from MaterialPackage
-                    for (components::iterator SourceClip=Components.begin(); SourceClip!=Components.end(); SourceClip++)
-                        if (SourceClip->second.SourcePackageID.lo==SourcePackage->second.PackageUID.lo && SourceClip->second.SourceTrackID==Essence->second.TrackID) //int256u doesn't support yet ==
-                        {
-                            //We have the right SourceClip, looking for the Sequence from Track from MaterialPackage
-                            for (components::iterator Sequence=Components.begin(); Sequence!=Components.end(); Sequence++)
-                                for (size_t StructuralComponents_Pos=0; StructuralComponents_Pos<Sequence->second.StructuralComponents.size(); StructuralComponents_Pos++)
-                                    if (Sequence->second.StructuralComponents[StructuralComponents_Pos]==SourceClip->first)
-                                    {
-                                        //We have the right Sequence, looking for Track from MaterialPackage
-                                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
-                                            if (Track->second.Sequence==Sequence->first)
-                                                TrackID=Track->second.TrackID;
-                                    }
-                        }
+                    tracks::iterator Track=Tracks.find(SourcePackage->second.Tracks[Tracks_Pos]);
+                    if (Track!=Tracks.end())
+                        TrackID=Track->second.TrackID;
                 }
         }
+
     if (TrackID!=(int32u)-1)
         Fill(StreamKind_Last, StreamPos_Last, General_ID, TrackID);
     else if (Tracks[TrackUID].TrackID!=(int32u)-1)
@@ -1747,8 +1699,35 @@ void File_Mxf::Data_Parse()
 
 
     if (0) {}
-    ELEMENT(AES3PCMDescriptor,                                  "AES3 Descriptor")
+    ELEMENT(Filler01,                                           "Filler")
+    ELEMENT(Filler02,                                           "Padding")
+    ELEMENT(TerminatingFiller,                                  "Terminating Filler")
+    ELEMENT(XmlDocumentText,                                    "XML Document Text")
+    ELEMENT(Sequence,                                           "Sequence")
+    ELEMENT(SourceClip,                                         "Source Clip")
+    ELEMENT(TimecodeComponent,                                  "Timecode Component")
+    ELEMENT(ContentStorage,                                     "Content Storage")
+    ELEMENT(EssenceContainerData,                               "Essence Container Data")
     ELEMENT(CDCIEssenceDescriptor,                              "CDCI Essence Descriptor")
+    ELEMENT(RGBAEssenceDescriptor,                              "RGBA Essence Descriptor")
+    ELEMENT(Preface,                                            "Preface")
+    ELEMENT(Identification,                                     "Identification")
+    ELEMENT(NetworkLocator,                                     "Network Locator")
+    ELEMENT(TextLocator,                                        "Text Locator")
+    ELEMENT(MaterialPackage,                                    "Material Package")
+    ELEMENT(SourcePackage,                                      "Source Package")
+    ELEMENT(EventTrack,                                         "Event track")
+    ELEMENT(StaticTrack,                                        "Static Track")
+    ELEMENT(Track,                                              "Track")
+    ELEMENT(DMSegment,                                          "Descriptive Metadata Segment")
+    ELEMENT(GenericSoundEssenceDescriptor,                      "Generic Sound Essence Descriptor")
+    ELEMENT(MultipleDescriptor,                                 "Multiple Descriptor")
+    ELEMENT(AES3PCMDescriptor,                                  "AES3 Descriptor")
+    ELEMENT(WaveAudioDescriptor,                                "Wave Audio Descriptor")
+    ELEMENT(MPEG2VideoDescriptor,                               "MPEG-2 Video Descriptor")
+    ELEMENT(JPEG2000PictureSubDescriptor,                       "JPEG 2000 Picture Sub Descriptor")
+    ELEMENT(Unknown1,                                           "Unknown Descriptor")
+    ELEMENT(AncPacketsDescriptor,                               "ANC Packets Descriptor")
     ELEMENT(OpenIncompleteHeaderPartition,                      "Open and Incomplete Header Partition Pack")
     ELEMENT(ClosedIncompleteHeaderPartition,                    "Closed and Iomplete Header Partition Pack")
     ELEMENT(OpenCompleteHeaderPartition,                        "Open and Complete Header Partition Pack")
@@ -1761,40 +1740,10 @@ void File_Mxf::Data_Parse()
     ELEMENT(ClosedIncompleteFooterPartition,                    "Closed and Iomplete Footer Partition Pack")
     ELEMENT(OpenCompleteFooterPartition,                        "Open and Complete Footer Partition Pack")
     ELEMENT(ClosedCompleteFooterPartition,                      "Closed and Complete Footer Partition Pack")
-    ELEMENT(ContentStorage,                                     "Content Storage")
-    ELEMENT(DMSegment,                                          "Descriptive Metadata Segment")
-    ELEMENT(EssenceContainerData,                               "Essence Container Data")
-    ELEMENT(EventTrack,                                         "Event track")
-    ELEMENT(GenericSoundEssenceDescriptor,                      "Generic Sound Essence Descriptor")
-    ELEMENT(Identification,                                     "Identification")
-    ELEMENT(IndexTableSegment,                                  "Index Table (Segment)")
-    ELEMENT(JPEG2000PictureSubDescriptor,                       "JPEG 2000 Picture Sub Descriptor")
-    ELEMENT(MaterialPackage,                                    "Material Package")
-    ELEMENT(MultipleDescriptor,                                 "Multiple Descriptor")
-    ELEMENT(MPEG2VideoDescriptor,                               "MPEG-2 Video Descriptor")
-    ELEMENT(NetworkLocator,                                     "Network Locator")
-    ELEMENT(OpenCompleteBodyPartition,                          "OpenCompleteBodyPartition")
-    ELEMENT(Preface,                                            "Preface")
-    ELEMENT(Padding,                                            "Padding")
     ELEMENT(Primer,                                             "Primer")
-    ELEMENT(RGBAEssenceDescriptor,                              "RGBA Essence Descriptor")
+    ELEMENT(IndexTableSegment,                                  "Index Table (Segment)")
     ELEMENT(RandomIndexMetadata,                                "Random Index Metadata")
-    ELEMENT(Sequence,                                           "Sequence")
-    ELEMENT(SourceClip,                                         "Source Clip")
-    ELEMENT(SourcePackage,                                      "Source Package")
-    ELEMENT(StaticTrack,                                        "Static Track")
-    ELEMENT(SystemScheme1,                                      "System Scheme 1") //SMPTE 405M
-    ELEMENT(TextLocator,                                        "Text Locator")
-    ELEMENT(TimecodeComponent,                                  "Timecode Component")
-    ELEMENT(Track,                                              "Track")
-    ELEMENT(WaveAudioDescriptor,                                "Wave Audio Descriptor")
-    ELEMENT(AncPacketsDescriptor,                               "ANC Packets Descriptor")
-    ELEMENT(Filler,                                             "Filler")
-    ELEMENT(TerminatingFiller,                                  "Terminating Filler")
-    ELEMENT(XmlDocumentText,                                    "XML Document Text")
     ELEMENT(SDTI_SystemMetadataPack,                            "SDTI System Metadata Pack")
-    ELEMENT(Omneon_010201010100,                                "Omneon (010201010100)")
-    ELEMENT(Omneon_010201020100,                                "Omneon (010201020100)")
     else if (Code_Compare1==0x060E2B34
           && ((Code_Compare2)&0xFFBFFFFF)==0x02030101 //0x43 or 0x63
           && Code_Compare3==0x0D010301
@@ -1808,6 +1757,9 @@ void File_Mxf::Data_Parse()
         ELEMENT(SDTI_DataMetadataSet,                           "SDTI Data Metadata Set")
         ELEMENT(SDTI_ControlMetadataSet,                        "SDTI Control Metadata Set")
     }
+    ELEMENT(SystemScheme1,                                      "System Scheme 1") //SMPTE 405M
+    ELEMENT(Omneon_010201010100,                                "Omneon (010201010100)")
+    ELEMENT(Omneon_010201020100,                                "Omneon (010201020100)")
     else if (Code_Compare1==0x060E2B34
           && Code_Compare2==0x01020101
           && Code_Compare3==0x0D010301)
@@ -1833,6 +1785,9 @@ void File_Mxf::Data_Parse()
         {
             switch (Code_Compare4&0xFF00FF00)
             {
+                case 0x14000100 : //MXF in MXF?
+                                    Essences[Code_Compare4].Parser=new File_Mxf();
+                                    break;
                 case 0x05000100 : //D-10 Video, SMPTE 386M
                 case 0x15000500 : //MPEG Video
                                     Essences[Code_Compare4].StreamKind=Stream_Video;
@@ -2523,14 +2478,6 @@ void File_Mxf::NetworkLocator()
 }
 
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-void File_Mxf::Padding()
-{
-    //Parsing
-    Skip_XX(Element_Size,                                       "Padding");
-}
-
-//---------------------------------------------------------------------------
 void File_Mxf::Preface()
 {
     switch(Code2)
@@ -2740,6 +2687,15 @@ void File_Mxf::WaveAudioDescriptor()
         ELEMENT(3D31, WaveAudioDescriptor_PeakEnvelopeData ,    "Peak envelope data")
         ELEMENT(3D32, WaveAudioDescriptor_ChannelAssignment,    "Channel assignment in use")
         default: GenericSoundEssenceDescriptor();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Unknown1()
+{
+    switch(Code2)
+    {
+        default: FileDescriptor();
     }
 }
 
@@ -4974,7 +4930,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
     Peek_B8(Value_lo);
     switch (Category)
     {
-        case 0x01 : //Elements
+        case 0x01 : //Item
                     {
                     switch (Registry)
                     {
@@ -4984,7 +4940,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                                     {
                                         case 0x01 : //Standard
                                                     Param_Info("Essence element"); //SMPTE 379M
-                                                    Info_UL_01xx01_Essences();
+                                                    Info_UL_01xx01_Items();
                                                     break;
                                         default   :
                                                     Skip_B8(    "Unknown");
@@ -4993,7 +4949,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                     }
                     }
                     break;
-        case 0x02 :
+        case 0x02 : //Group
                     {
                     switch (Registry)
                     {
@@ -5002,7 +4958,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                                     switch (Structure)
                                     {
                                         case 0x01 :
-                                                    Info_UL_02xx01();
+                                                    Info_UL_02xx01_Groups();
                                                     break;
                                         default   :
                                                     Skip_B8(    "Unknown");
@@ -5011,7 +4967,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                     }
                     }
                     break;
-        case 0x04 : //Labels
+        case 0x04 : //Value
                     {
                     switch (Registry)
                     {
@@ -5021,7 +4977,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                                     switch (Structure)
                                     {
                                         case 0x01 :
-                                                    Info_UL_040101_Labels();
+                                                    Info_UL_040101_Values();
                                                     break;
                                         default   :
                                                     Skip_B8(   "Unknown");
@@ -5047,7 +5003,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Info_UL_01xx01_Essences()
+void File_Mxf::Info_UL_01xx01_Items()
 {
     Info_B1(Code1,                                              "Item Designator");
     switch (Code1)
@@ -5078,10 +5034,18 @@ void File_Mxf::Info_UL_01xx01_Essences()
                                     {
                                         case 0x01 :
                                             {
-                                            Param_Info("Filler Data");
-                                            Info_B1(Code6,      "Unknown");
-                                            Info_B1(Code7,      "Unknown");
-                                            Info_B1(Code8,      "Unknown");
+                                            Param_Info("Filler");
+                                            Info_B1(Code6,      "Reserved");
+                                            Info_B1(Code7,      "Reserved");
+                                            Info_B1(Code8,      "Reserved");
+                                            }
+                                            break;
+                                        case 0x05 :
+                                            {
+                                            Param_Info("Terminating Filler");
+                                            Info_B1(Code6,      "Reserved");
+                                            Info_B1(Code7,      "Reserved");
+                                            Info_B1(Code8,      "Reserved");
                                             }
                                             break;
                                        default   :
@@ -5098,9 +5062,9 @@ void File_Mxf::Info_UL_01xx01_Essences()
                                         case 0x01 :
                                             {
                                             Param_Info("XML Document Text");
-                                            Info_B1(Code6,      "Unknown");
-                                            Info_B1(Code7,      "Unknown");
-                                            Info_B1(Code8,      "Unknown");
+                                            Info_B1(Code6,      "Reserved");
+                                            Info_B1(Code7,      "Reserved");
+                                            Info_B1(Code8,      "Reserved");
                                             }
                                             break;
                                        default   :
@@ -5143,13 +5107,14 @@ void File_Mxf::Info_UL_01xx01_Essences()
                             {
                                 case 0x01 :
                                     {
-                                    Param_Info("MXF-GC Version 1");
+                                    Param_Info("Version 1");
                                     Info_B1(Code5,              "Item Type Identifier");
                                     switch (Code5)
                                     {
                                         case 0x05 : Param_Info("CP Picture (SMPTE 326M)"); break;
                                         case 0x06 : Param_Info("CP Sound (SMPTE 326M)"); break;
                                         case 0x07 : Param_Info("CP Data (SMPTE 326M)"); break;
+                                        case 0x14 : Param_Info("MXF in MXF? (To confirm)"); break;
                                         case 0x15 : Param_Info("GC Picture"); break;
                                         case 0x16 : Param_Info("GC Sound"); break;
                                         case 0x17 : Param_Info("GC Data"); break;
@@ -5182,7 +5147,7 @@ void File_Mxf::Info_UL_01xx01_Essences()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Info_UL_02xx01()
+void File_Mxf::Info_UL_02xx01_Groups()
 {
     Info_B1(Code1,                                              "Item Designator");
     switch (Code1)
@@ -5467,7 +5432,7 @@ void File_Mxf::Info_UL_02xx01()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Info_UL_040101_Labels()
+void File_Mxf::Info_UL_040101_Values()
 {
     Info_B1(Code1,                                              "Item Designator");
     switch (Code1)
