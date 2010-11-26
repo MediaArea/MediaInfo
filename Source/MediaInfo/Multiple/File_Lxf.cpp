@@ -104,6 +104,7 @@ File_Lxf::File_Lxf()
 
     //Seek
     SeekRequest=(int64u)-1;
+    Duration_Detected=false;
 }
 
 //***************************************************************************
@@ -294,7 +295,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
         case 2  :   //Timestamp
                     {
                     //Init
-                    if (TimeOffsets.size()<=1)
+                    if (!Duration_Detected)
                     {
                         MediaInfo_Internal MI;
                         MI.Option(_T("File_KeepInfo"), _T("1"));
@@ -308,6 +309,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                         int64u Duration=float64_int64s(Ztring(MI.Get(Stream_General, 0, _T("Duration"))).To_float64()*720);
                         TimeOffsets[File_Size]=stream_header(Duration, Duration, 0, (int8u)-1);
                         SeekRequest_Divider=2;
+                        Duration_Detected=true;
                     }
                     if (Value!=(int64u)-1)
                     {
@@ -324,7 +326,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                     int64u SeekRequest_Maxi=SeekRequest+720; //+1ms
                     for (time_offsets::iterator TimeOffset=TimeOffsets.begin(); TimeOffset!=TimeOffsets.end(); TimeOffset++)
                     {
-                        if (TimeOffset->second.TimeStamp_Begin<=SeekRequest_Maxi && TimeOffset->second.TimeStamp_End+TimeOffset->second.Duration>=SeekRequest_Mini) //If it is found in a frame we know
+                        if (TimeOffset->second.TimeStamp_Begin<=SeekRequest_Maxi && TimeOffset->second.TimeStamp_End>=SeekRequest_Mini) //If it is found in a frame we know
                         {
                             //Looking for the corresponding I-Frame
                             while (TimeOffset->second.PictureType&0x2) //Not an I-Frame

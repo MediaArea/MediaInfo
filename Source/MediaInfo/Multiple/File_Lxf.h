@@ -125,6 +125,7 @@ protected :
     time_offsets            TimeOffsets;
     int64u                  SeekRequest_Divider;
     int64u                  SeekRequest;
+    bool                    Duration_Detected;
 };
 
 } //NameSpace
