@@ -1169,13 +1169,13 @@ void File_Mpegv::picture_start()
             if (Time_Begin_Seconds==Error)
             {
                 Time_Begin_Seconds=Time_Current_Seconds;
-                Time_Begin_Frames =Time_Current_Frames+temporal_reference;
+                Time_Begin_Frames =Time_Current_Frames+(int8u)temporal_reference;
             }
         }
         if (!Time_End_NeedComplete && (Time_End_Seconds==Error || Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference>Time_End_Seconds*FrameRate+Time_End_Frames))
         {
             Time_End_Seconds=Time_Current_Seconds;
-            Time_End_Frames =Time_Current_Frames+temporal_reference;
+            Time_End_Frames =Time_Current_Frames+(int8u)temporal_reference;
         }
 
         if (temporal_reference==temporal_reference_Old)
