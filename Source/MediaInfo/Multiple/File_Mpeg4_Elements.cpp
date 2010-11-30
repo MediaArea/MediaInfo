@@ -3134,6 +3134,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                     Merge(MI, Stream_Video, 0, StreamPos_Last);
                 }
             #endif
+            #if defined(MEDIAINFO_JPEG_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("JPEG"))
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Jpeg;
+                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                    mdat_MustParse=true; //Data is in MDAT
+                }
+            #endif
         }
 
         //Descriptors or a list (we can see both!)
