@@ -876,7 +876,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
             TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*1000*1000*1000;
             ValueZ.erase(0, Value_Pos+1);
             if (!ValueZ.empty())
-                TimeStamp+=Ztring(ValueZ).To_int64u()*1000*1000*1000/pow(10.0, (int)ValueZ.size());
+                TimeStamp+=Ztring(ValueZ).To_int64u()*1000*1000*1000/(int64u)pow(10.0, (int)ValueZ.size());
             Result=Reader->Format_Test_PerParser_Seek(this, 2, TimeStamp);
         }
 
