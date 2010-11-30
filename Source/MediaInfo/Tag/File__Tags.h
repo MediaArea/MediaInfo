@@ -75,9 +75,9 @@ public :
     //End
     void GoTo           (int64u GoTo, const char* ParserName=NULL);
     void GoToFromEnd    (int64u GoToFromEnd=0, const char* ParserName=NULL);
-    void Accept         (const char* ParserName);
-    void Reject         (const char* ParserName);
-    void Finish         (const char* ParserName);
+    void Accept         (const char* ParserName=NULL);
+    void Reject         (const char* ParserName=NULL);
+    void Finish         (const char* ParserName=NULL);
 
 private :
     //Temp

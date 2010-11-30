@@ -198,7 +198,7 @@ bool File__Tags_Helper::Synched_Test()
         {
             //Must have enough buffer for having header
             if (Base->Buffer_Offset+3>Base->Buffer_Size)
-                return false;
+                return Base->IsSub; //If IsSub, we consider this is a complete block
 
             //Quick test of synchro
             int32u ID=CC3(Base->Buffer+Base->Buffer_Offset);
