@@ -134,14 +134,11 @@
 
 //---------------------------------------------------------------------------
 // Audio
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
-#endif
-#if defined(MEDIAINFO_ADIF_YES)
-    #include "MediaInfo/Audio/File_Adif.h"
-#endif
-#if defined(MEDIAINFO_ADTS_YES)
-    #include "MediaInfo/Audio/File_Adts.h"
 #endif
 #if defined(MEDIAINFO_AES3_YES)
     #include "MediaInfo/Audio/File_Aes3.h"
@@ -405,8 +402,11 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
 
     // Audio
-    #if defined(MEDIAINFO_ADTS_YES)
-        else if (Parser==_T("Aac"))         Info=new File_Adts();
+    #if defined(MEDIAINFO_AAC_YES)
+        else if (Parser==_T("Aac"))         {Info=new File_Aac(); ((File_Aac*)Info)->Mode=File_Aac::Mode_ADIF;}
+    #endif
+    #if defined(MEDIAINFO_AAC_YES)
+        else if (Parser==_T("Aac"))         {Info=new File_Aac(); ((File_Aac*)Info)->Mode=File_Aac::Mode_ADTS;}
     #endif
     #if defined(MEDIAINFO_AC3_YES)
         else if (Parser==_T("Ac3"))         Info=new File_Ac3();
@@ -667,14 +667,11 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
 
     // Audio
+    #if defined(MEDIAINFO_AAC_YES)
+        delete Info; Info=new File_Aac();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
     #if defined(MEDIAINFO_AC3_YES)
         delete Info; Info=new File_Ac3();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_ADIF_YES)
-        delete Info; Info=new File_Adif();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_ADTS_YES)
-        delete Info; Info=new File_Adts();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_AES3_YES)
         delete Info; Info=new File_Aes3();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

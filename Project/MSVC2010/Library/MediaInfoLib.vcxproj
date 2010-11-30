@@ -302,6 +302,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_Main.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_Others.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
@@ -335,9 +340,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Zip.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp" />
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp" />
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Als.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Amr.cpp" />
@@ -349,12 +352,10 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Flac.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ImpulseTracker.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_La.cpp" />
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Latm.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Midi.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Module.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.cpp" />
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpega.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ps2Audio.cpp" />
@@ -461,6 +462,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />
@@ -499,9 +503,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Zip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.h" />
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adif.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h" />
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adts.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Als.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Amr.h" />
@@ -513,12 +515,10 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Flac.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ImpulseTracker.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_La.h" />
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Latm.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Midi.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Module.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.h" />
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpega.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ps2Audio.h" />

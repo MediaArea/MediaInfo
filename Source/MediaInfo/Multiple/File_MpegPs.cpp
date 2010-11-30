@@ -62,17 +62,11 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
-#if defined(MEDIAINFO_ADTS_YES)
-    #include "MediaInfo/Audio/File_Adts.h"
-#endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
 #if defined(MEDIAINFO_AES3_YES)
     #include "MediaInfo/Audio/File_Aes3.h"
-#endif
-#if defined(MEDIAINFO_LATM_YES)
-    #include "MediaInfo/Audio/File_Latm.h"
 #endif
 #if defined(MEDIAINFO_PS2A_YES)
     #include "MediaInfo/Audio/File_Ps2Audio.h"
@@ -2565,7 +2559,7 @@ void File_MpegPs::audio_stream()
         }
 
         //If we have no Streams map --> Registering the Streams as MPEG Audio
-        if (Streams[start_code].stream_type==0)
+        if (Streams[start_code].stream_type==0 && !FromTS)
         {
             if (MPEG_Version==2)
                 Streams[start_code].stream_type=0x04; //MPEG-2 Audio
@@ -2597,9 +2591,10 @@ void File_MpegPs::audio_stream()
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
-                        #if defined(MEDIAINFO_ADTS_YES)
+                        #if defined(MEDIAINFO_AAC_YES)
                         {
-                            File_Adts* Parser=new File_Adts;
+                            File_Aac* Parser=new File_Aac;
+                            Parser->Mode=File_Aac::Mode_ADTS;
                             Open_Buffer_Init(Parser);
                             Streams[start_code].Parsers.push_back(Parser);
                         }
@@ -2756,10 +2751,10 @@ void File_MpegPs::SL_packetized_stream()
             switch (FromTS_stream_type)
             {
                 case 0x0F :
-                            #if defined(MEDIAINFO_ADTS_YES)
+                            #if defined(MEDIAINFO_AAC_YES)
                             {
-                                File_Adts* Parser=new File_Adts;
-                                Parser->Frame_Count_Valid=1;
+                                File_Aac* Parser=new File_Aac;
+                                Parser->Mode=File_Aac::Mode_ADTS;
                                 Open_Buffer_Init(Parser);
                                 Streams[start_code].Parsers.push_back(Parser);
                             }
@@ -2767,11 +2762,10 @@ void File_MpegPs::SL_packetized_stream()
                             break;
 
                 case 0x11 :
-                            #if defined(MEDIAINFO_MPEG4_YES)
+                            #if defined(MEDIAINFO_AAC_YES)
                             {
                                 File_Aac* Parser=new File_Aac;
-                                Parser->DecSpecificInfoTag=DecSpecificInfoTag;
-                                Parser->SLConfig=SLConfig;
+                                Parser->Mode=File_Aac::Mode_LATM;
                                 Open_Buffer_Init(Parser);
                                 Streams[start_code].Parsers.push_back(Parser);
                             }
@@ -2781,19 +2775,19 @@ void File_MpegPs::SL_packetized_stream()
             }
         else
         {
-            #if defined(MEDIAINFO_ADTS_YES)
+            #if defined(MEDIAINFO_AAC_YES)
             {
-                File_Adts* Parser=new File_Adts;
+                File_Aac* Parser=new File_Aac;
+                Parser->Mode=File_Aac::Mode_ADTS;
                 Parser->Frame_Count_Valid=1;
                 Open_Buffer_Init(Parser);
                 Streams[start_code].Parsers.push_back(Parser);
             }
             #endif
-            #if defined(MEDIAINFO_MPEG4_YES)
+            #if defined(MEDIAINFO_AAC_YES)
             {
                 File_Aac* Parser=new File_Aac;
-                Parser->DecSpecificInfoTag=DecSpecificInfoTag;
-                Parser->SLConfig=SLConfig;
+                Parser->Mode=File_Aac::Mode_LATM;
                 Open_Buffer_Init(Parser);
                 Streams[start_code].Parsers.push_back(Parser);
             }
@@ -3491,8 +3485,9 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
 File__Analyze* File_MpegPs::ChooseParser_Adts()
 {
     //Filling
-    #if defined(MEDIAINFO_ADTS_YES)
-        File__Analyze* Handle=new File_Adts;
+    #if defined(MEDIAINFO_AAC_YES)
+        File_Aac* Handle=new File_Aac;
+        Handle->Mode=File_Aac::Mode_ADTS;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3565,9 +3560,8 @@ File__Analyze* File_MpegPs::ChooseParser_SDDS()
 File__Analyze* File_MpegPs::ChooseParser_AAC()
 {
     //Filling
-    #if defined(MEDIAINFO_ADTS_YES)
-        //Filling
-        File__Analyze* Handle=new File_Aac();
+    #if defined(MEDIAINFO_AAC_YES)
+        File_Aac* Handle=new File_Aac;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

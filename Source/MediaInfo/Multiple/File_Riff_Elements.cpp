@@ -60,17 +60,14 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
 #if defined(MEDIAINFO_DTS_YES)
     #include "MediaInfo/Audio/File_Dts.h"
-#endif
-#if defined(MEDIAINFO_MPEG4_YES)
-    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
-#endif
-#if defined(MEDIAINFO_ADTS_YES)
-    #include "MediaInfo/Audio/File_Adts.h"
 #endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
@@ -1156,11 +1153,12 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
-    #if defined(MEDIAINFO_ADTS_YES)
+    #if defined(MEDIAINFO_AAC_YES)
     else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("AAC"))
     {
-        Stream[Stream_ID].Parser=new File_Adts;
-        ((File_Adts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
+        Stream[Stream_ID].Parser=new File_Aac;
+        ((File_Aac*)Stream[Stream_ID].Parser)->Mode=File_Aac::Mode_ADTS;
+        ((File_Aac*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
@@ -1256,8 +1254,9 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Aac()
 {
     //Parsing
     Element_Begin("AAC options");
-    #if defined(MEDIAINFO_MPEG4_YES)
-        File_Mpeg4_AudioSpecificConfig MI;
+    #if defined(MEDIAINFO_AAC_YES)
+        File_Aac MI;
+        MI.Mode=File_Aac::Mode_AudioSpecificConfig;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI);
         Finish(&MI);

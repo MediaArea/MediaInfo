@@ -44,8 +44,8 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
-#if defined(MEDIAINFO_MPEG4_YES)
-    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
 #endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
@@ -1006,7 +1006,8 @@ void File_Flv::audio_AAC()
                 #if defined(MEDIAINFO_MPEG4_YES)
                     if (Stream[Stream_Audio].Parser==NULL)
                     {
-                        Stream[Stream_Audio].Parser=new File_Mpeg4_AudioSpecificConfig;
+                        Stream[Stream_Audio].Parser=new File_Aac;
+                        ((File_Aac*)Stream[Stream_Audio].Parser)->Mode=File_Aac::Mode_AudioSpecificConfig;
                         Open_Buffer_Init(Stream[Stream_Audio].Parser);
                     }
 

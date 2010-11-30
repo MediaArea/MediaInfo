@@ -32,10 +32,13 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Archive/File_Tar.cpp \
                        ../../../Source/MediaInfo/Archive/File_Zip.cpp \
                        ../../../Source/MediaInfo/Audio/File_Aac.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Aac_GeneralAudio.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Aac_GeneralAudio_Sbr.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Aac_GeneralAudio_Sbr_Ps.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Aac_Main.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Aac_Others.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ac3.cpp \
-                       ../../../Source/MediaInfo/Audio/File_Adif.cpp \
                        ../../../Source/MediaInfo/Audio/File_Adpcm.cpp \
-                       ../../../Source/MediaInfo/Audio/File_Adts.cpp \
                        ../../../Source/MediaInfo/Audio/File_Aes3.cpp \
                        ../../../Source/MediaInfo/Audio/File_Als.cpp \
                        ../../../Source/MediaInfo/Audio/File_Amr.cpp \
@@ -48,12 +51,10 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Flac.cpp \
                        ../../../Source/MediaInfo/Audio/File_ImpulseTracker.cpp \
                        ../../../Source/MediaInfo/Audio/File_La.cpp \
-                       ../../../Source/MediaInfo/Audio/File_Latm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Midi.cpp \
                        ../../../Source/MediaInfo/Audio/File_Module.cpp \
                        ../../../Source/MediaInfo/Audio/File_Mpc.cpp \
                        ../../../Source/MediaInfo/Audio/File_MpcSv8.cpp \
-                       ../../../Source/MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.cpp \
                        ../../../Source/MediaInfo/Audio/File_Mpega.cpp \
                        ../../../Source/MediaInfo/Audio/File_Pcm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ps2Audio.cpp \

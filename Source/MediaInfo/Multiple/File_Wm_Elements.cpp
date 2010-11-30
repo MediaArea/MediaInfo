@@ -47,9 +47,6 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
-#if defined(MEDIAINFO_LATM_YES)
-   #include "MediaInfo/Audio/File_Latm.h"
-#endif
 #include "ZenLib/Utils.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------

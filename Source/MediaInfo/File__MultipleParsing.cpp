@@ -122,14 +122,11 @@
 
 //---------------------------------------------------------------------------
 // Audio
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
-#endif
-#if defined(MEDIAINFO_ADIF_YES)
-    #include "MediaInfo/Audio/File_Adif.h"
-#endif
-#if defined(MEDIAINFO_ADTS_YES)
-    #include "MediaInfo/Audio/File_Adts.h"
 #endif
 #if defined(MEDIAINFO_ALS_YES)
     #include "MediaInfo/Audio/File_Als.h"
@@ -394,14 +391,14 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
 
     // Audio
+    #if defined(MEDIAINFO_AAC_YES)
+        Temp=new File_Aac(); ((File_Aac*)Temp)->Mode=File_Aac::Mode_ADIF; Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_AAC_YES)
+        Temp=new File_Aac(); ((File_Aac*)Temp)->Mode=File_Aac::Mode_ADTS; Parser.push_back(Temp);
+    #endif
     #if defined(MEDIAINFO_AC3_YES)
         Temp=new File_Ac3(); Parser.push_back(Temp);
-    #endif
-    #if defined(MEDIAINFO_ADIF_YES)
-        Temp=new File_Adif(); Parser.push_back(Temp);
-    #endif
-    #if defined(MEDIAINFO_ADTS_YES)
-        Temp=new File_Adts(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_ALS_YES)
         Temp=new File_Als(); Parser.push_back(Temp);

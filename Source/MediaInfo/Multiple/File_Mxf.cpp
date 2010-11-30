@@ -1083,9 +1083,28 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             Fill(Stream_Video, StreamPos_Last, Video_Width, Descriptor->second.Width, 10, true);
         if (Descriptor->second.Height!=(int32u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_Height).empty())
             Fill(Stream_Video, StreamPos_Last, Video_Height, Descriptor->second.Height, 10, true);
+        bool InterlacementAlreadyKnown=true;
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("JPEG 2000") && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)!=_T("Interlaced"))
+            InterlacementAlreadyKnown=false;
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); Info++)
             if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
                 Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+
+        //Interlacement management
+        if (!InterlacementAlreadyKnown && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==_T("Interlaced"))
+        {
+            //JPEG 2000 has no complete frame height, but field height
+            int64u Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int64u();
+            Height*=2; //This is per field
+            if (Height)
+                Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
+
+            //JPEG 2000 has no complete frame framerate, but field framerate
+            float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
+            FrameRate/=2; //This is per field
+            if (FrameRate)
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
+        }
 
         //Bitrate (PCM)
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))

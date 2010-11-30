@@ -168,13 +168,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp">
@@ -210,9 +204,6 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_La.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Latm.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Midi.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
@@ -223,9 +214,6 @@
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpega.cpp">
@@ -507,6 +495,21 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Dpx.cpp">
       <Filter>Source Files\Image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_Main.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_Others.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -593,13 +596,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adif.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adts.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h">
@@ -635,9 +632,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_La.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Latm.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Midi.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
@@ -648,9 +642,6 @@
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpega.h">
@@ -913,6 +904,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dpx.h">
       <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.h">
+      <Filter>Header Files\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

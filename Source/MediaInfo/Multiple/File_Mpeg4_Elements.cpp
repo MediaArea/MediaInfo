@@ -2880,6 +2880,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx()
         case Stream_Video : moov_trak_mdia_minf_stbl_stsd_xxxxVideo(); break;
         default : Skip_XX(Element_TotalSize_Get(),              "Unknown");
     }
+
+    FILLING_BEGIN();
+        if (Stream[moov_trak_tkhd_TrackID].Parser && !Retrieve(StreamKind_Last, StreamPos_Last, "Encryption").empty())
+        {
+            Finish(Stream[moov_trak_tkhd_TrackID].Parser);
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

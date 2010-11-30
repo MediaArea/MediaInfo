@@ -52,8 +52,8 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
-#if defined(MEDIAINFO_ADTS_YES)
-    #include "MediaInfo/Audio/File_Adts.h"
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
 #endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
@@ -63,12 +63,6 @@
 #endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
-#endif
-#if defined(MEDIAINFO_MPEG4_YES)
-    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
-#endif
-#if defined(MEDIAINFO_AAC_YES)
-    #include "MediaInfo/Audio/File_Aac.h"
 #endif
 #if defined(MEDIAINFO_FLAC_YES)
     #include "MediaInfo/Audio/File_Flac.h"
@@ -3069,20 +3063,50 @@ void File_Mk::CodecID_Manage()
     #if defined(MEDIAINFO_MPEG4_YES)
     else if (CodecID==(_T("A_AAC")))
     {
-        Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
+        Stream[TrackNumber].Parser=new File_Aac;
+        ((File_Aac*)Stream[TrackNumber].Parser)->Mode=File_Aac::Mode_AudioSpecificConfig;
     }
     #endif
     #if defined(MEDIAINFO_AAC_YES)
     else if (CodecID.find(_T("A_AAC/"))==0)
     {
-        Stream[TrackNumber].Parser=new File_Aac;
-        ((File_Aac*)Stream[TrackNumber].Parser)->Codec=CodecID;
+        Ztring Profile;
+        int8u Version=0, SBR=2, PS=2;
+             if (CodecID==_T("A_AAC/MPEG2/MAIN"))     {Version=2; Profile=_T("Main");}
+        else if (CodecID==_T("A_AAC/MPEG2/LC"))       {Version=2; Profile=_T("LC");   SBR=0;}
+        else if (CodecID==_T("A_AAC/MPEG2/LC/SBR"))   {Version=2; Profile=_T("LC");   SBR=1;}
+        else if (CodecID==_T("A_AAC/MPEG2/SSR"))      {Version=2; Profile=_T("SSR");}
+        else if (CodecID==_T("A_AAC/MPEG4/MAIN"))     {Version=4; Profile=_T("Main");}
+        else if (CodecID==_T("A_AAC/MPEG4/LC"))       {Version=4; Profile=_T("LC");   SBR=0;}
+        else if (CodecID==_T("A_AAC/MPEG4/LC/SBR"))   {Version=4; Profile=_T("LC");   SBR=1; PS=0;}
+        else if (CodecID==_T("A_AAC/MPEG4/LC/SBR/PS")){Version=4; Profile=_T("LC");   SBR=1; PS=1;}
+        else if (CodecID==_T("A_AAC/MPEG4/SSR"))      {Version=4; Profile=_T("SSR");}
+        else if (CodecID==_T("A_AAC/MPEG4/LTP"))      {Version=4; Profile=_T("LTP");}
+        else if (CodecID==_T("raac"))                 {           Profile=_T("LC");}
+        else if (CodecID==_T("racp"))                 {           Profile=_T("LC");   SBR=1; PS=0;}
+
+        if (Version>0)
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Version==2?"Version 2":"Version 4");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, Profile);
+        if (SBR!=2)
+        {
+            if (SBR)
+                Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, SBR?"Yes":"No");
+        }
+        if (PS!=2)
+        {
+            if (PS)
+                Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, PS?"Yes":"No");
+        }
     }
     #endif
-    #if defined(MEDIAINFO_ADTS_YES)
+    #if defined(MEDIAINFO_AAC_YES)
     else if (Format==(_T("AAC")))
     {
-        Stream[TrackNumber].Parser=new File_Adts;
+        Stream[TrackNumber].Parser=new File_Aac;
+        ((File_Aac*)Stream[TrackNumber].Parser)->Mode=File_Aac::Mode_ADTS;
     }
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)

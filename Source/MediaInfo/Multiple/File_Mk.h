@@ -244,6 +244,7 @@ private :
         int64u                  ContentCompAlgo;
         size_t                  ContentCompSettings_Buffer_Size;
         int8u*                  ContentCompSettings_Buffer;
+        std::map<std::string, Ztring> Infos;
 
         stream()
         {

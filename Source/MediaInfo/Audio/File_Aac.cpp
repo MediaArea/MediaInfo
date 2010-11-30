@@ -37,31 +37,158 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Infos
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+extern const int32u Aac_sampling_frequency[];
+extern const char* Aac_Format(int8u ID);
+extern const char* Aac_Format_Profile(int8u ID);
+
+//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 File_Aac::File_Aac()
+:File__Analyze(), File__Tags_Helper()
 {
+    //File__Tags_Helper
+    Base=this;
+
+    //Configuration
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
+
     //In
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
+    Mode=Mode_Unknown;
     #ifdef MEDIAINFO_MPEG4_YES
         DecSpecificInfoTag=NULL;
         SLConfig=NULL;
     #endif
 
-    //libfaad specific
-    #ifdef MEDIAINFO_FAAD_YES
-        hAac=NULL;
-    #endif
+    audioObjectType=(int8u)-1;
+    extensionAudioObjectType=(int8u)-1;
+    channelConfiguration=(int8u)-1;
+    frame_length=1024;
+    sampling_frequency_index=(int8u)-1;
+    sampling_frequency=(int32u)-1;
+    extension_sampling_frequency_index=(int8u)-1;
+    extension_sampling_frequency=(int32u)-1;
+    aacSpectralDataResilienceFlag=false;
+    aacSectionDataResilienceFlag=false;
+    aacScalefactorDataResilienceFlag=false;
+
+    //Temp - Main
+    muxConfigPresent=true;
+    audioMuxVersionA=false;
+
+    //Temp - General Audio
+    sbr=NULL;
+    ps=NULL;
 }
 
 //---------------------------------------------------------------------------
 File_Aac::~File_Aac()
 {
-    //libfaad specific
-    #ifdef MEDIAINFO_FAAD_YES
-        NeAACDecClose(hAac); //hAac=NULL;
-    #endif
+    delete sbr;
+    delete ps;
+}
+
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Aac::Streams_Fill()
+{
+    for (std::map<std::string, Ztring>::iterator Info=Infos_General.begin(); Info!=Infos_General.end(); Info++)
+        Fill(Stream_General, 0, Info->first.c_str(), Info->second);
+    File__Tags_Helper::Stream_Prepare(Stream_Audio);
+    for (std::map<std::string, Ztring>::iterator Info=Infos.begin(); Info!=Infos.end(); Info++)
+        Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second);
+
+    switch(Mode)
+    {
+        case Mode_ADTS    : File__Tags_Helper::Streams_Fill(); break;
+        default           : ;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Streams_Finish()
+{
+    switch(Mode)
+    {
+        case Mode_ADIF    :
+        case Mode_ADTS    : File__Tags_Helper::Streams_Finish(); break;
+        default           : ;
+    }
+}
+
+//***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Aac::FileHeader_Begin()
+{
+    switch(Mode)
+    {
+        case Mode_AudioSpecificConfig :
+        case Mode_ADIF                :
+                                        MustSynchronize=false; break;
+        default                       : ; //Synchronization is requested, and this is the default
+    }
+
+    switch(Mode)
+    {
+        case Mode_Unknown             :
+        case Mode_ADIF                :
+        case Mode_ADTS                :
+                                        break;
+        default                       : return true; //no file header test with other modes
+    }
+
+    //Tags
+    if (!File__Tags_Helper::FileHeader_Begin())
+        return false;
+
+    //Testing
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+    if (CC4(Buffer+Buffer_Offset)==0x41444946) //"ADIF"
+    {
+        Mode=Mode_ADIF;
+        File__Tags_Helper::Accept("ADIF");
+        MustSynchronize=false;
+    }
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::FileHeader_Parse()
+{
+    switch (Mode)
+    {
+        case Mode_ADIF    : FileHeader_Parse_ADIF(); break;
+        default           : ; //no file header test with other modes
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::FileHeader_Parse_ADIF()
+{
+    adif_header();
+    BS_Begin();
+    raw_data_block();
+    BS_End();
+
+    FILLING_BEGIN();
+        File__Tags_Helper::Finish();
+    FILLING_END();
 }
 
 //***************************************************************************
@@ -71,113 +198,378 @@ File_Aac::~File_Aac()
 //---------------------------------------------------------------------------
 void File_Aac::Read_Buffer_Continue()
 {
-    if (!Codec.empty())
-        From_Codec(); //It is impossible to detect... Default is no detection, only filling
-    else
-        libfaad(); //Trying libfaad if available
+    switch(Mode)
+    {
+        case Mode_AudioSpecificConfig : Read_Buffer_Continue_AudioSpecificConfig(); break;
+        case Mode_raw_data_block      : Read_Buffer_Continue_raw_data_block(); break;
+        case Mode_ADIF                :
+        case Mode_ADTS                : File__Tags_Helper::Read_Buffer_Continue(); break;
+        default                       : ;
+    }
 }
 
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
 //---------------------------------------------------------------------------
-void File_Aac::From_Codec()
+void File_Aac::Read_Buffer_Continue_AudioSpecificConfig()
 {
-    //Filling
-    Accept("AAC");
+    File__Analyze::Accept(); //We automaticly trust it
 
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "AAC");
-    Fill(Stream_Audio, 0, Audio_Codec, Codec);
-    Ztring Profile;
-    int8u Version=0, SBR=2, PS=2;
-         if (Codec==_T("A_AAC/MPEG2/MAIN"))     {Version=2; Profile=_T("Main");}
-    else if (Codec==_T("A_AAC/MPEG2/LC"))       {Version=2; Profile=_T("LC");   SBR=0;}
-    else if (Codec==_T("A_AAC/MPEG2/LC/SBR"))   {Version=2; Profile=_T("LC");   SBR=1;}
-    else if (Codec==_T("A_AAC/MPEG2/SSR"))      {Version=2; Profile=_T("SSR");}
-    else if (Codec==_T("A_AAC/MPEG4/MAIN"))     {Version=4; Profile=_T("Main");}
-    else if (Codec==_T("A_AAC/MPEG4/LC"))       {Version=4; Profile=_T("LC");   SBR=0;}
-    else if (Codec==_T("A_AAC/MPEG4/LC/SBR"))   {Version=4; Profile=_T("LC");   SBR=1; PS=0;}
-    else if (Codec==_T("A_AAC/MPEG4/LC/SBR/PS")){Version=4; Profile=_T("LC");   SBR=1; PS=1;}
-    else if (Codec==_T("A_AAC/MPEG4/SSR"))      {Version=4; Profile=_T("SSR");}
-    else if (Codec==_T("A_AAC/MPEG4/LTP"))      {Version=4; Profile=_T("LTP");}
-    else if (Codec==_T("raac"))                 {           Profile=_T("LC");}
-    else if (Codec==_T("racp"))                 {           Profile=_T("LC");   SBR=1; PS=0;}
+    BS_Begin();
+    AudioSpecificConfig(0); //Up to the end of the block
+    BS_End();
 
-    if (Version>0)
-        Fill(Stream_Audio, 0, Audio_Format_Version, Version==2?"Version 2":"Version 4");
-    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
-    if (SBR!=2)
-    {
-        if (SBR)
-            Fill(Stream_Audio, 0, Audio_Format_Settings, "SBR");
-        Fill(Stream_Audio, 0, Audio_Format_Settings_SBR, SBR?"Yes":"No");
-    }
-    if (PS!=2)
-    {
-        if (PS)
-            Fill(Stream_Audio, 0, Audio_Format_Settings, "PS");
-        Fill(Stream_Audio, 0, Audio_Format_Settings_PS, PS?"Yes":"No");
-    }
-
-    Finish("AAC");
+    Mode=Mode_raw_data_block; //Mode_AudioSpecificConfig only once
 }
 
-//***************************************************************************
-// libfaad specific
-//***************************************************************************
-
 //---------------------------------------------------------------------------
-void File_Aac::libfaad()
+void File_Aac::Read_Buffer_Continue_raw_data_block()
 {
-    #if defined(MEDIAINFO_FAAD_YES) && defined(MEDIAINFO_MPEG4_YES)
-        unsigned long samplerate;
-        unsigned char channels;
+    if (Frame_Count>Frame_Count_Valid)
+    {
+        Skip_XX(Element_Size,                                   "Data");
+        return; //Parsing completely only the 1st frame
+    }
 
-        //Open the library
-        if (hAac==NULL)
-        {
-            hAac = NeAACDecOpen();
-            // Initialise the library using one of the initialization functions
-            char err = NeAACDecInit2(hAac, (unsigned char *)DecSpecificInfoTag->Buffer, DecSpecificInfoTag->Buffer_Size, &samplerate, &channels);
-            if (err != 0)
-            {
-                //
-                // Handle error
-                //
-            }
-        }
+    BS_Begin();
+    raw_data_block();
+    BS_End();
 
-        //Decode the frame in buffer
-        void* samplebuffer;
-        NeAACDecFrameInfo hInfo;
-        samplebuffer = NeAACDecDecode(hAac, &hInfo, (unsigned char *)Buffer, Buffer_Size);
-        if ((hInfo.error == 0) && (hInfo.samples > 0))
-        {
-            //
-            // do what you need to do with the decoded samples
-            //
-        }
-        else if (hInfo.error != 0)
-        {
-            //
-            // Some error occurred while decoding this frame
-            //
-        }
-    #else
+    FILLING_BEGIN();
+        //Counting
+        Frame_Count++;
+        Element_Info(Ztring::ToZtring(Frame_Count));
+
         //Filling
-        if (!Status[IsAccepted])
+        if (Frame_Count)// >=Frame_Count_Valid)
         {
-            Accept("AAC");
-
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Audio_Format, "AAC");
-            Fill(Stream_Audio, 0, Audio_Codec, "AAC");
-
-            Finish("AAC");
+            //No more need data
+            File__Analyze::Finish();
         }
-    #endif
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Aac::Synchronize()
+{
+    switch (Mode)
+    {
+        case Mode_Unknown     : if (Synchronize_ADTS()) return true; return Synchronize_LATM();
+        case Mode_ADTS        : return Synchronize_ADTS();
+        case Mode_LATM        : return Synchronize_LATM();
+        default               : return true; //No synchro
+    }
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Synchronize_ADTS()
+{
+    //Tags
+    bool Tag_Found;
+    if (!File__Tags_Helper::Synchronize(Tag_Found))
+        return false;
+    if (Tag_Found)
+        return true;
+
+    //Synchronizing
+    while (Buffer_Offset+6<=Buffer_Size)
+    {
+         while (Buffer_Offset+6<=Buffer_Size
+             && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+            Buffer_Offset++;
+
+        if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
+        {
+            //Testing next start, to be sure
+            int16u aac_frame_length=(CC3(Buffer+Buffer_Offset+3)>>5)&0x1FFF;
+            if (IsSub && Buffer_Offset+aac_frame_length==Buffer_Size)
+                break;
+            if (File_Offset+Buffer_Offset+aac_frame_length!=File_Size-File_EndTagSize)
+            {
+                if (Buffer_Offset+aac_frame_length+2>Buffer_Size)
+                    return false; //Need more data
+
+                //Testing
+                if (aac_frame_length<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length)&0xFFF6)!=0xFFF0)
+                    Buffer_Offset++;
+                else
+                {
+                    //Testing next start, to be sure
+                    int16u aac_frame_length2=(CC3(Buffer+Buffer_Offset+aac_frame_length+3)>>5)&0x1FFF;
+                    if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2!=File_Size-File_EndTagSize)
+                    {
+                        if (Buffer_Offset+aac_frame_length+aac_frame_length2+2>Buffer_Size)
+                            return false; //Need more data
+
+                        //Testing
+                        if (aac_frame_length<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2)&0xFFF6)!=0xFFF0)
+                            Buffer_Offset++;
+                        else
+                            break; //while()
+                    }
+                    else
+                        break; //while()
+                }
+            }
+            else
+                break; //while()
+        }
+    }
+
+    //Parsing last bytes if needed
+    if (Buffer_Offset+6>Buffer_Size)
+    {
+        if (Buffer_Offset+5==Buffer_Size && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+            Buffer_Offset++;
+        if (Buffer_Offset+4==Buffer_Size && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+            Buffer_Offset++;
+        if (Buffer_Offset+3==Buffer_Size && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+            Buffer_Offset++;
+        if (Buffer_Offset+2==Buffer_Size && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+            Buffer_Offset++;
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0xFF)
+            Buffer_Offset++;
+        return false;
+    }
+
+    //Synched is OK
+    Mode=Mode_ADTS;
+    File__Tags_Helper::Accept("ADTS");
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Synchronize_LATM()
+{
+    //Synchronizing
+    while (Buffer_Offset+3<=Buffer_Size)
+    {
+         while (Buffer_Offset+3<=Buffer_Size
+             && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+            Buffer_Offset++;
+
+        if (Buffer_Offset+3<=Buffer_Size)//Testing if size is coherant
+        {
+            //Testing next start, to be sure
+            int16u audioMuxLengthBytes=CC2(Buffer+Buffer_Offset+1)&0x1FFF;
+            if (IsSub && Buffer_Offset+3+audioMuxLengthBytes==Buffer_Size)
+                break;
+            if (File_Offset+Buffer_Offset+3+audioMuxLengthBytes!=File_Size)
+            {
+                if (Buffer_Offset+3+audioMuxLengthBytes+3>Buffer_Size)
+                    return false; //Need more data
+
+                //Testing
+                if ((CC2(Buffer+Buffer_Offset+3+audioMuxLengthBytes)&0xFFE0)!=0x56E0)
+                    Buffer_Offset++;
+                else
+                {
+                    //Testing next start, to be sure
+                    int16u audioMuxLengthBytes2=CC2(Buffer+Buffer_Offset+3+audioMuxLengthBytes+1)&0x1FFF;
+                    if (File_Offset+Buffer_Offset+3+audioMuxLengthBytes+3+audioMuxLengthBytes2!=File_Size)
+                    {
+                        if (Buffer_Offset+3+audioMuxLengthBytes+3+audioMuxLengthBytes2+3>Buffer_Size)
+                            return false; //Need more data
+
+                        //Testing
+                        if ((CC2(Buffer+Buffer_Offset+3+audioMuxLengthBytes+3+audioMuxLengthBytes2)&0xFFE0)!=0x56E0)
+                            Buffer_Offset++;
+                        else
+                            break; //while()
+                    }
+                    else
+                        break; //while()
+                }
+            }
+            else
+                break; //while()
+        }
+    }
+
+
+    //Synchronizing
+    while (Buffer_Offset+2<=Buffer_Size
+        && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+        Buffer_Offset++;
+    if (Buffer_Offset+2>=Buffer_Size)
+        return false;
+
+    //Synched is OK
+    Mode=Mode_LATM;
+    File__Analyze::Accept("LATM");
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Synched_Test()
+{
+    switch (Mode)
+    {
+        case Mode_ADTS        : return Synched_Test_ADTS();
+        case Mode_LATM        : return Synched_Test_LATM();
+        default               : return true; //No synchro
+    }
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Synched_Test_ADTS()
+{
+    //Tags
+    if (!File__Tags_Helper::Synched_Test())
+        return false;
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+2>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if ((CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+        Synched=false;
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Synched_Test_LATM()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+2>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+        Synched=false;
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Aac::Header_Begin()
+{
+    switch (Mode)
+    {
+        case Mode_ADTS        : return Header_Begin_ADTS();
+        case Mode_LATM        : return Header_Begin_LATM();
+        default               : return true; //No header
+    }
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Header_Begin_ADTS()
+{
+    //There is no real header in ADTS, retrieving only the frame length
+    if (Buffer_Offset+8>Buffer_Size) //size of adts_fixed_header + adts_variable_header
+        return false;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Aac::Header_Begin_LATM()
+{
+    if (Buffer_Offset+3>Buffer_Size) //fixed 24-bit header
+        return false;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Header_Parse()
+{
+    switch (Mode)
+    {
+        case Mode_ADTS        : Header_Parse_ADTS(); break;
+        case Mode_LATM        : Header_Parse_LATM(); break;
+        default               : ; //No header
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Header_Parse_ADTS()
+{
+    //There is no "header" in ADTS, retrieving only the frame length
+    int16u aac_frame_length=(BigEndian2int24u(Buffer+Buffer_Offset+3)>>5)&0x1FFF; //13 bits
+
+    //Filling
+    Header_Fill_Size(aac_frame_length);
+    Header_Fill_Code(0, "adts_frame");
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Header_Parse_LATM()
+{
+    int16u audioMuxLengthBytes;
+    BS_Begin();
+    Skip_S2(11,                                                 "syncword");
+    Get_S2 (13, audioMuxLengthBytes,                            "audioMuxLengthBytes");
+    BS_End();
+
+    //Filling
+    Header_Fill_Size(3+audioMuxLengthBytes);
+    Header_Fill_Code(0, "LATM");
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Data_Parse()
+{
+    if (Frame_Count>Frame_Count_Valid)
+    {
+        Skip_XX(Element_Size,                                   "Data");
+        return; //Parsing completely only the 1st frame
+    }
+
+    switch (Mode)
+    {
+        case Mode_ADTS        : Data_Parse_ADTS(); break;
+        case Mode_LATM        : Data_Parse_LATM(); break;
+        default               : ; //No header
+    }
+
+    FILLING_BEGIN();
+        //Counting
+        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count++;
+        Element_Info(Ztring::ToZtring(Frame_Count));
+
+        //Filling
+        if (Frame_Count)// >=Frame_Count_Valid)
+        {
+            //No more need data
+            switch (Mode)
+            {
+                case Mode_ADTS        : File__Tags_Helper::Finish(); break;
+                case Mode_LATM        : File__Analyze::Finish(); break;
+                default               : ; //No header
+            }
+
+        }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Data_Parse_ADTS()
+{
+    //Parsing
+    BS_Begin();
+    adts_frame();
+	BS_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::Data_Parse_LATM()
+{
+    BS_Begin();
+    AudioMuxElement();
+    BS_End();
 }
 
 //***************************************************************************
@@ -187,3 +579,4 @@ void File_Aac::libfaad()
 } //NameSpace
 
 #endif //MEDIAINFO_AAC_YES
+

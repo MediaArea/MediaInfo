@@ -42,10 +42,13 @@ set(mediainfo_SRCS
 	MediaInfo/Archive/File_Tar.cpp
 	MediaInfo/Archive/File_Zip.cpp
 	MediaInfo/Audio/File_Aac.cpp
+	MediaInfo/Audio/File_Aac_GeneralAudio.cpp
+	MediaInfo/Audio/File_Aac_GeneralAudio_Sbr.cpp
+	MediaInfo/Audio/File_Aac_GeneralAudio_Sbr_Ps.cpp
+	MediaInfo/Audio/File_Aac_Main.cpp
+	MediaInfo/Audio/File_Aac_Others.cpp
 	MediaInfo/Audio/File_Ac3.cpp
-	MediaInfo/Audio/File_Adif.cpp
 	MediaInfo/Audio/File_Adpcm.cpp
-	MediaInfo/Audio/File_Adts.cpp
 	MediaInfo/Audio/File_Aes3.cpp
 	MediaInfo/Audio/File_Als.cpp
 	MediaInfo/Audio/File_Amr.cpp
@@ -58,12 +61,10 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Flac.cpp
 	MediaInfo/Audio/File_ImpulseTracker.cpp
 	MediaInfo/Audio/File_La.cpp
-	MediaInfo/Audio/File_Latm.cpp
 	MediaInfo/Audio/File_Midi.cpp
 	MediaInfo/Audio/File_Module.cpp
 	MediaInfo/Audio/File_Mpc.cpp
 	MediaInfo/Audio/File_MpcSv8.cpp
-	MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.cpp
 	MediaInfo/Audio/File_Mpega.cpp
 	MediaInfo/Audio/File_Pcm.cpp
 	MediaInfo/Audio/File_Ps2Audio.cpp

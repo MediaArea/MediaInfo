@@ -211,19 +211,31 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_Main.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_Others.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp"
 					>
 				</File>
 				<File
@@ -275,10 +287,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Latm.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Midi.cpp"
 					>
 				</File>
@@ -292,10 +300,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp"
 					>
 				</File>
 				<File
@@ -838,19 +842,23 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Ac3.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adif.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adts.h"
 					>
 				</File>
 				<File
@@ -906,10 +914,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Latm.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Midi.h"
 					>
 				</File>
@@ -923,10 +927,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.h"
 					>
 				</File>
 				<File
