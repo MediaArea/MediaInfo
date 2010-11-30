@@ -764,8 +764,8 @@ public :
     void Reject        (File__Analyze* Parser);
     void Fill          (const char* ParserName=NULL);
     void Fill          (File__Analyze* Parser);
-    void Finish         (const char* ParserName=NULL);
-    void Finish         (File__Analyze* Parser);
+    void Finish        (const char* ParserName=NULL);
+    void Finish        (File__Analyze* Parser);
     void ForceFinish   (const char* ParserName=NULL);
     void ForceFinish   (File__Analyze* Parser);
     void GoTo          (int64u GoTo, const char* ParserName=NULL);

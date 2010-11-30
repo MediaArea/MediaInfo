@@ -641,7 +641,7 @@ public :
     void Skip_S6(size_t Bits);
     void Skip_S7(size_t Bits);
     void Skip_S8(size_t Bits);
-    inline void Skip_BS(size_t Bits,                const char*) {BS->Skip8(Bits);}
+    inline void Skip_BS(size_t Bits,                const char*) {BS->Skip(Bits);}
     inline void Skip_SB(                            const char*) {BS->Skip1(1);}
     inline void Skip_S1(size_t Bits,                const char*) {BS->Skip1(Bits);}
     inline void Skip_S2(size_t Bits,                const char*) {BS->Skip2(Bits);}

@@ -1698,28 +1698,16 @@ void File__Analyze::Skip_BS(size_t Bits, const char* Name)
     INTEGRITY(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
     if (Trace_Activated)
     {
-        if (Bits<=32) //TODO: in BitStream.h, handle >32 bit skips
+        if (Bits<=32) //TODO: in BitStream.h, handle >32 bit gets
             Param(Name, BS->Get(Bits));
         else
         {
             Param(Name, "(Data)");
-            while(Bits>32)
-            {
-                BS->Skip(32);
-                Bits-=32;
-            }
             BS->Skip(Bits);
         }
     }
     else
-    {
-        while(Bits>32)
-        {
-            BS->Skip(32);
-            Bits-=32;
-        }
         BS->Skip(Bits);
-    }
 }
 
 //---------------------------------------------------------------------------

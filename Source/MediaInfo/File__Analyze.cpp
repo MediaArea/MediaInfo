@@ -814,6 +814,8 @@ bool File__Analyze::FileHeader_Manage()
     Element_Size=Buffer_Size;
     Element_Begin("File Header");
     FileHeader_Parse();
+    if (Element_Offset==0)
+        Element_DoNotShow();
     Element_End();
     if (Status[IsFinished]) //Newest parsers set this bool if there is an error
     {
@@ -1733,7 +1735,10 @@ void File__Analyze::Trusted_IsNot ()
 
         //Enough data?
         if (!Element[Element_Level].IsComplete)
+        {
+            Element_WaitForMoreData();
             return;
+        }
 
         Element[Element_Level].UnTrusted=true;
         Synched=false;
