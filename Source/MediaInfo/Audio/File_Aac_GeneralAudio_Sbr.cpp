@@ -325,11 +325,16 @@ void File_Aac::sbr_extension_data(size_t End, int8u id_aac, bool crc_flag)
     FILLING_BEGIN();
         if (Infos["Format_Settings_SBR"].empty())
         {
-            Infos["Format_Settings"]=_T("SBR");
+            Infos["Format_Profile"]=_T("HE-AAC");
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["SamplingRate"].From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10);
+            if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
+            {
+                Infos["Format_Profile"]+=_T(" / LC");
+                Infos["SamplingRate"]+=_T(" / ")+SamplingRate;
+            }
             Infos["Format_Settings_SBR"]=_T("Yes (Implicit)");
             Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
-            Ztring SamplingRate=Infos["SamplingRate"];
-            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
         }
     FILLING_END();
 

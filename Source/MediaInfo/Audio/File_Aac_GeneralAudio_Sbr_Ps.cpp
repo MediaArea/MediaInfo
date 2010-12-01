@@ -45,15 +45,22 @@ void File_Aac::ps_data(size_t End)
     FILLING_BEGIN();
         if (Infos["Format_Settings_PS"].empty())
         {
-            Infos["Channel(s)"]=_T("2 / 1 / 1");
-            Infos["Format_Settings"]+=(_T(" / PS"));
+            Infos["Format_Profile"]=_T("HE-AACv2");
+            Ztring Channels=Infos["Channel(s)"];
+            Ztring ChannelPositions=Infos["ChannelPositions"];
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["Channel(s)"]=_T("2");
+            Infos["ChannelPositions"]=_T("Front: L R");
+            if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
+            {
+                Infos["Format_Profile"]+=_T(" / HE-AAC / LC");
+                Infos["Channel(s)"]+=_T(" / ")+Channels+_T(" / ")+Channels;
+                Infos["ChannelPositions"]+=_T(" / ")+ChannelPositions+_T(" / ")+ChannelPositions;
+                Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+            }
             Infos["Format_Settings_PS"]=_T("Yes (Implicit)");
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
             Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
-            Ztring SamplingRate=Infos["SamplingRate"];
-            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
-            Ztring ChannelPositions=Infos["ChannelPositions"];
-            Infos["ChannelPositions"]=_T("Front: L R / ")+ChannelPositions+_T(" / ")+ChannelPositions;
         }
     FILLING_END();
 

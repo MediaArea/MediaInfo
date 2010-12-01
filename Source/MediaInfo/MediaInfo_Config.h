@@ -80,6 +80,9 @@ public :
           void      ReadByHuman_Set (bool NewValue);
           bool      ReadByHuman_Get ();
 
+          void      LegacyStreamDisplay_Set (bool Value);
+          bool      LegacyStreamDisplay_Get ();
+
           void      ParseSpeed_Set (float32 NewValue);
           float32   ParseSpeed_Get ();
 
@@ -182,9 +185,9 @@ public :
     ZtringListList  SubFile_Config_Get ();
 
 private :
+    int64u          MpegTs_MaximumScanDuration;
     int64u          FormatDetection_MaximumOffset;
     int64u          MpegTs_MaximumOffset;
-    int64u          MpegTs_MaximumScanDuration;
     bool            MpegTs_ForceStreamDisplay;
     size_t          Complete;
     size_t          BlockMethod;
@@ -203,6 +206,7 @@ private :
     std::map<Ztring, bool> Trace_Modificators; //If we want to add/remove some details
     bool            Language_Raw;
     bool            ReadByHuman;
+    bool            LegacyStreamDisplay;
     int8u           Demux;
     Ztring          Version;
     Ztring          ColumnSeparator;

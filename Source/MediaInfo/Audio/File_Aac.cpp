@@ -540,7 +540,7 @@ void File_Aac::Header_Parse_LATM()
 //---------------------------------------------------------------------------
 void File_Aac::Data_Parse()
 {
-    if (Frame_Count>Frame_Count_Valid)
+    if (Frame_Count>Frame_Count_Valid || CanFill)
     {
         Skip_XX(Element_Size,                                   "Data");
         return; //Parsing completely only the 1st frame

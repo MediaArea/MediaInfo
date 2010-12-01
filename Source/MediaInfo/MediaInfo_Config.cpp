@@ -124,6 +124,7 @@ void MediaInfo_Config::Init()
     Trace_Format=Trace_Format_Tree;
     Language_Raw=false;
     ReadByHuman=true;
+    LegacyStreamDisplay=true;
     Demux=0;
     LineSeparator=EOL;
     ColumnSeparator=_T(";");
@@ -292,6 +293,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("readbyhuman_get"))
     {
         return ReadByHuman_Get()?_T("1"):_T("0");
+    }
+    else if (Option_Lower==_T("legacystreamdisplay"))
+    {
+        LegacyStreamDisplay_Set(Value.To_int8u()?true:false);
+        return Ztring();
+    }
+    else if (Option_Lower==_T("legacystreamdisplay_get"))
+    {
+        return LegacyStreamDisplay_Get()?_T("1"):_T("0");
     }
     else if (Option_Lower==_T("parsespeed"))
     {
@@ -706,6 +716,19 @@ bool MediaInfo_Config::ReadByHuman_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return ReadByHuman;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::LegacyStreamDisplay_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    LegacyStreamDisplay=NewValue;
+}
+
+bool MediaInfo_Config::LegacyStreamDisplay_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return LegacyStreamDisplay;
 }
 
 //---------------------------------------------------------------------------
