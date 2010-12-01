@@ -360,8 +360,9 @@ protected :
     // Temp
     //***********************************************************************
 
-    std::map<std::string, Ztring> Infos_General;
-    std::map<std::string, Ztring> Infos;
+    std::map<std::string, Ztring>   Infos_General;
+    std::map<std::string, Ztring>   Infos;
+    bool                            CanFill;
 };
 
 } //NameSpace

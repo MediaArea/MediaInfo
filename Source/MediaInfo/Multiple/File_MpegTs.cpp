@@ -381,6 +381,11 @@ void File_MpegTs::Streams_Fill_PerStream()
                 Count=Merge(*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
             }
         }
+
+        //LATM
+        int8u A=Complete_Stream->Streams[PID].stream_type;
+        if (Complete_Stream->Streams[PID].stream_type==0x11 && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
+            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
     }
 
     //By the descriptors

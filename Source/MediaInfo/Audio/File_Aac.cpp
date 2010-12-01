@@ -40,11 +40,6 @@ namespace MediaInfoLib
 // Infos
 //***************************************************************************
 
-//---------------------------------------------------------------------------
-extern const int32u Aac_sampling_frequency[];
-extern const char* Aac_Format(int8u ID);
-extern const char* Aac_Format_Profile(int8u ID);
-
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -87,6 +82,9 @@ File_Aac::File_Aac()
     //Temp - General Audio
     sbr=NULL;
     ps=NULL;
+
+    //Temp
+    CanFill=false;
 }
 
 //---------------------------------------------------------------------------
@@ -103,6 +101,12 @@ File_Aac::~File_Aac()
 //---------------------------------------------------------------------------
 void File_Aac::Streams_Fill()
 {
+    switch(Mode)
+    {
+        case Mode_LATM                : Fill(Stream_General, 0, General_Format, "LATM"); if (IsSub) Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM"); break;
+        default                       : ;
+    }
+
     for (std::map<std::string, Ztring>::iterator Info=Infos_General.begin(); Info!=Infos_General.end(); Info++)
         Fill(Stream_General, 0, Info->first.c_str(), Info->second);
     File__Tags_Helper::Stream_Prepare(Stream_Audio);
@@ -256,7 +260,7 @@ bool File_Aac::Synchronize()
 {
     switch (Mode)
     {
-        case Mode_Unknown     : if (Synchronize_ADTS()) return true; return Synchronize_LATM();
+        case Mode_Unknown     : if (Synchronize_LATM()) return true; Buffer_Offset=0; return Synchronize_ADTS();
         case Mode_ADTS        : return Synchronize_ADTS();
         case Mode_LATM        : return Synchronize_LATM();
         default               : return true; //No synchro
@@ -304,10 +308,26 @@ bool File_Aac::Synchronize_ADTS()
                             return false; //Need more data
 
                         //Testing
-                        if (aac_frame_length<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2)&0xFFF6)!=0xFFF0)
+                        if (aac_frame_length2<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2)&0xFFF6)!=0xFFF0)
                             Buffer_Offset++;
                         else
-                            break; //while()
+                        {
+                            //Testing next start, to be sure
+                            int16u aac_frame_length3=(CC3(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2+3)>>5)&0x1FFF;
+                            if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3!=File_Size-File_EndTagSize)
+                            {
+                                if (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2>Buffer_Size)
+                                    return false; //Need more data
+
+                                //Testing
+                                if (aac_frame_length3<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3)&0xFFF6)!=0xFFF0)
+                                    Buffer_Offset++;
+                                else
+                                    break; //while()
+                            }
+                            else
+                                break; //while()
+                        }
                     }
                     else
                         break; //while()
@@ -541,7 +561,7 @@ void File_Aac::Data_Parse()
         Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Filling
-        if (Frame_Count)// >=Frame_Count_Valid)
+        if (Frame_Count>=Frame_Count_Valid || CanFill)
         {
             //No more need data
             switch (Mode)

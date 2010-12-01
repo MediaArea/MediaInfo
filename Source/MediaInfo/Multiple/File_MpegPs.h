@@ -246,6 +246,7 @@ private :
     File__Analyze* ChooseParser_Dirac();
     File__Analyze* ChooseParser_Mpega();
     File__Analyze* ChooseParser_Adts();
+    File__Analyze* ChooseParser_Latm();
     File__Analyze* ChooseParser_AC3();
     File__Analyze* ChooseParser_DTS();
     File__Analyze* ChooseParser_SDDS();

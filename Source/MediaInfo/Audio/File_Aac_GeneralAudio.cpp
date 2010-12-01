@@ -86,153 +86,7 @@ void File_Aac::GASpecificConfig ()
         Skip_S2(14,                                             "coreCoderDelay");
     Get_SB (   extensionFlag,                                   "extensionFlag");
     if (channelConfiguration==0)
-    {
-        Element_Begin("Extension");
-        int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
-        int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
-        Skip_S1(4,                                              "element_instance_tag");
-        Skip_S1(2,                                              "object_type");
-        Skip_S1(4,                                              "sampling_frequency_index"); //Not used, is often 0
-        Get_S1 (4, num_front_channel_elements,                  "num_front_channel_elements");
-        Get_S1 (4, num_side_channel_elements,                   "num_side_channel_elements");
-        Get_S1 (4, num_back_channel_elements,                   "num_back_channel_elements");
-        Get_S1 (2, num_lfe_channel_elements,                    "num_lfe_channel_elements");
-        Get_S1 (3, num_assoc_data_elements,                     "num_assoc_data_elements");
-        Get_S1 (4, num_valid_cc_elements,                       "num_valid_cc_elements");
-        TEST_SB_SKIP(                                           "mono_mixdown_present");
-            Skip_S1(4,                                          "mono_mixdown_element_number");
-        TEST_SB_END();
-        TEST_SB_SKIP(                                           "stereo_mixdown_present");
-            Skip_S1(4,                                          "stereo_mixdown_element_number");
-        TEST_SB_END();
-        TEST_SB_SKIP(                                           "matrix_mixdown_idx_present");
-            Skip_S1(2,                                          "matrix_mixdown_idx");
-            Skip_SB(                                            "pseudo_surround_enable");
-        TEST_SB_END();
-        for (int8u Pos=0; Pos<num_front_channel_elements; Pos++)
-        {
-            Element_Begin("Front channel");
-            bool front_element_is_cpe;
-            Get_SB (   front_element_is_cpe,                    "front_element_is_cpe");
-            Skip_S1(4,                                          "front_element_tag_select");
-            if (front_element_is_cpe)
-            {
-                Channels_Front+=2;
-                Channels+=2;
-            }
-            else
-            {
-                Channels_Front++;
-                Channels++;
-            }
-            Element_End();
-        }
-        for (int8u Pos=0; Pos<num_side_channel_elements; Pos++)
-        {
-            Element_Begin("Side channel");
-            bool side_element_is_cpe;
-            Get_SB (   side_element_is_cpe,                     "side_element_is_cpe");
-            Skip_S1(4,                                          "side_element_tag_select");
-            if (side_element_is_cpe)
-            {
-                Channels_Side+=2;
-                Channels+=2;
-            }
-            else
-            {
-                Channels_Side++;
-                Channels++;
-            }
-            Element_End();
-        }
-        for (int8u Pos=0; Pos<num_back_channel_elements; Pos++)
-        {
-            Element_Begin("Back channel");
-            bool back_element_is_cpe;
-            Get_SB (   back_element_is_cpe,                     "back_element_is_cpe");
-            Skip_S1(4,                                          "back_element_tag_select");
-            if (back_element_is_cpe)
-            {
-                Channels_Back+=2;
-                Channels+=2;
-            }
-            else
-            {
-                Channels_Back++;
-                Channels++;
-            }
-            Element_End();
-        }
-        for (int8u Pos=0; Pos<num_lfe_channel_elements; Pos++)
-        {
-            Element_Begin("LFE");
-            Skip_S1(4,                                          "lfe_element_tag_select");
-            Channels_LFE++;
-            Channels++;
-            Element_End();
-        }
-        for (int8u Pos=0; Pos<num_assoc_data_elements; Pos++)
-        {
-            Element_Begin("assoc_data_element");
-            Skip_S1(4,                                          "assoc_data_element_tag_select");
-            Element_End();
-        }
-        for (int8u Pos=0; Pos<num_valid_cc_elements; Pos++)
-        {
-            Element_Begin("valid_cc_element");
-            Skip_SB(                                            "cc_element_is_ind_sw");
-            Skip_S1(4,                                          "valid_cc_element_tag_select");
-            Element_End();
-        }
-        BS_End(); //Byte align
-        Get_B1 (comment_field_bytes,                            "comment_field_bytes");
-        if (comment_field_bytes)
-            Skip_XX(comment_field_bytes,                        "comment_field_data");
-        BS_Begin(); //The stream needs continuity in the bitstream
-        Element_End();
-
-        //Filling
-        Ztring Channels_Positions, Channels_Positions2;
-        switch (Channels_Front)
-        {
-            case  0 : break;
-            case  1 : Channels_Positions+=_T("Front: C"); break;
-            case  2 : Channels_Positions+=_T("Front: L R"); break;
-            case  3 : Channels_Positions+=_T("Front: L C R"); break;
-            default : Channels_Positions+=_T("Front: "); Channels_Positions+=Ztring::ToZtring(Channels_Front); //Which config?
-        }
-        switch (Channels_Side)
-        {
-            case  0 : break;
-            case  1 : Channels_Positions+=_T(", Side: C"); break;
-            case  2 : Channels_Positions+=_T(", Side: L R"); break;
-            case  3 : Channels_Positions+=_T(", Side: L C R"); break;
-            default : Channels_Positions+=_T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
-        }
-        switch (Channels_Back)
-        {
-            case  0 : break;
-            case  1 : Channels_Positions+=_T(", Back: C"); break;
-            case  2 : Channels_Positions+=_T(", Back: L R"); break;
-            case  3 : Channels_Positions+=_T(", Back: L C R"); break;
-            default : Channels_Positions+=_T(", Back: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
-        }
-        switch (Channels_LFE)
-        {
-            case  0 : break;
-            case  1 : Channels_Positions+=_T(", LFE"); break;
-            default : Channels_Positions+=_T(", LFE= "); Channels_Positions+=Ztring::ToZtring(Channels_LFE); //Which config?
-        }
-        Channels_Positions2=Ztring::ToZtring(Channels_Front)+_T('/')
-                           +Ztring::ToZtring(Channels_Side)+_T('/')
-                           +Ztring::ToZtring(Channels_Back)
-                           +(Channels_LFE?_T(".1"):_T(""));
-
-        //Filling
-        Infos["Channel(s)"].From_Number(Channels_Front+Channels_Side+Channels_Back+Channels_LFE);
-        Infos["ChannelPositions"]=Channels_Positions;
-        Infos["ChannelPositions/String2"]=Channels_Positions2;
-    }
+        program_config_element();
     if (audioObjectType==06 || audioObjectType==20)
         Skip_S1(3,                                              "layerNr");
     if (extensionFlag)
@@ -264,7 +118,9 @@ void File_Aac::GASpecificConfig ()
 //---------------------------------------------------------------------------
 void File_Aac::program_config_element()
 {
+    Element_Begin("program_config_element");
     Ztring comment_field_data;
+    int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
     int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
     Skip_S1(4,                                                  "element_instance_tag");
     Get_S1 (2, audioObjectType,                                 "object_type"); audioObjectType++; Param_Info(Aac_audioObjectType(audioObjectType));
@@ -283,66 +139,126 @@ void File_Aac::program_config_element()
     TEST_SB_END();
     TEST_SB_SKIP(                                               "matrix_mixdown_idx_present");
         Skip_S1(2,                                              "matrix_mixdown_idx");
-        Skip_S1(2,                                              "pseudo_surround_enable");
+        Skip_SB(                                                "pseudo_surround_enable");
     TEST_SB_END();
-    size_t Channels=0;
-    for (int8u Pos2=0; Pos2<num_front_channel_elements; Pos2++)
+    for (int8u Pos=0; Pos<num_front_channel_elements; Pos++)
     {
-        Element_Begin("front_channel_element");
+        Element_Begin("front_element");
         bool front_element_is_cpe;
         Get_SB (   front_element_is_cpe,                        "front_element_is_cpe");
         Skip_S1(4,                                              "front_element_tag_select");
+        if (front_element_is_cpe)
+        {
+            Channels_Front+=2;
+            Channels+=2;
+        }
+        else
+        {
+            Channels_Front++;
+            Channels++;
+        }
         Element_End();
-
-        //Filling
-        Channels+=front_element_is_cpe?2:1;
     }
-    for (int8u Pos2=0; Pos2<num_side_channel_elements; Pos2++)
+    for (int8u Pos=0; Pos<num_side_channel_elements; Pos++)
     {
-        Element_Begin("side_channel_element");
+        Element_Begin("side_element");
         bool side_element_is_cpe;
         Get_SB (   side_element_is_cpe,                         "side_element_is_cpe");
         Skip_S1(4,                                              "side_element_tag_select");
+        if (side_element_is_cpe)
+        {
+            Channels_Side+=2;
+            Channels+=2;
+        }
+        else
+        {
+            Channels_Side++;
+            Channels++;
+        }
         Element_End();
-
-        //Filling
-        Channels+=side_element_is_cpe?2:1;
     }
-    for (int8u Pos2=0; Pos2<num_back_channel_elements; Pos2++)
+    for (int8u Pos=0; Pos<num_back_channel_elements; Pos++)
     {
-        Element_Begin("back_channel_element");
+        Element_Begin("back_element");
         bool back_element_is_cpe;
         Get_SB (   back_element_is_cpe,                         "back_element_is_cpe");
         Skip_S1(4,                                              "back_element_tag_select");
+        if (back_element_is_cpe)
+        {
+            Channels_Back+=2;
+            Channels+=2;
+        }
+        else
+        {
+            Channels_Back++;
+            Channels++;
+        }
         Element_End();
-
-        //Filling
-        Channels+=back_element_is_cpe?2:1;
     }
-    for (int8u Pos2=0; Pos2<num_lfe_channel_elements; Pos2++)
+    for (int8u Pos=0; Pos<num_lfe_channel_elements; Pos++)
     {
-        Element_Begin("lfe_channel_element");
+        Element_Begin("lfe_element");
         Skip_S1(4,                                              "lfe_element_tag_select");
+        Channels_LFE++;
+        Channels++;
         Element_End();
     }
-    for (int8u Pos2=0; Pos2<num_assoc_data_elements; Pos2++)
+    for (int8u Pos=0; Pos<num_assoc_data_elements; Pos++)
     {
         Element_Begin("assoc_data_element");
         Skip_S1(4,                                              "assoc_data_element_tag_select");
         Element_End();
     }
-    for (int8u Pos2=0; Pos2<num_valid_cc_elements; Pos2++)
+    for (int8u Pos=0; Pos<num_valid_cc_elements; Pos++)
     {
         Element_Begin("valid_cc_element");
         Skip_SB(                                                "cc_element_is_ind_sw");
         Skip_S1(4,                                              "valid_cc_element_tag_select");
         Element_End();
     }
-    BS_End();
+    BS_End(); //Byte align
     Get_B1 (comment_field_bytes,                                "comment_field_bytes");
-    if (comment_field_bytes>0)
+    if (comment_field_bytes)
         Get_Local(comment_field_bytes, comment_field_data,      "comment_field_data");
-    BS_Begin();
+    BS_Begin(); //The stream needs continuity in the bitstream
+    Element_End();
+
+    //Filling
+    Ztring Channels_Positions, Channels_Positions2;
+    switch (Channels_Front)
+    {
+        case  0 : break;
+        case  1 : Channels_Positions+=_T("Front: C"); break;
+        case  2 : Channels_Positions+=_T("Front: L R"); break;
+        case  3 : Channels_Positions+=_T("Front: L C R"); break;
+        default : Channels_Positions+=_T("Front: "); Channels_Positions+=Ztring::ToZtring(Channels_Front); //Which config?
+    }
+    switch (Channels_Side)
+    {
+        case  0 : break;
+        case  1 : Channels_Positions+=_T(", Side: C"); break;
+        case  2 : Channels_Positions+=_T(", Side: L R"); break;
+        case  3 : Channels_Positions+=_T(", Side: L C R"); break;
+        default : Channels_Positions+=_T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
+    }
+    switch (Channels_Back)
+    {
+        case  0 : break;
+        case  1 : Channels_Positions+=_T(", Back: C"); break;
+        case  2 : Channels_Positions+=_T(", Back: L R"); break;
+        case  3 : Channels_Positions+=_T(", Back: L C R"); break;
+        default : Channels_Positions+=_T(", Back: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
+    }
+    switch (Channels_LFE)
+    {
+        case  0 : break;
+        case  1 : Channels_Positions+=_T(", LFE"); break;
+        default : Channels_Positions+=_T(", LFE= "); Channels_Positions+=Ztring::ToZtring(Channels_LFE); //Which config?
+    }
+    Channels_Positions2=Ztring::ToZtring(Channels_Front)+_T('/')
+                       +Ztring::ToZtring(Channels_Side)+_T('/')
+                       +Ztring::ToZtring(Channels_Back)
+                       +(Channels_LFE?_T(".1"):_T(""));
 
     FILLING_BEGIN();
         if (Aac_sampling_frequency[sampling_frequency_index]==0)
@@ -357,7 +273,27 @@ void File_Aac::program_config_element()
         Infos["Format_Profile"].From_Local(Aac_Format_Profile(audioObjectType));
         Infos["Codec"].From_Local(Aac_audioObjectType(audioObjectType));
         Infos["SamplingRate"].From_Number(Aac_sampling_frequency[sampling_frequency_index]);
-        Infos["Channel(s)"].From_Number(Channels+num_lfe_channel_elements);
+        Infos["Channel(s)"].From_Number(Channels);
+        Infos["ChannelPositions"]=Channels_Positions;
+        Infos["ChannelPositions/String2"]=Channels_Positions2;
+
+        if (!Infos["Format_Settings_SBR"].empty())
+        {
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+        }
+
+        if (!Infos["Format_Settings_PS"].empty())
+        {
+            Infos["Channel(s)"]=_T("2 / 1 / 1");
+            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+            Ztring ChannelPositions=Infos["ChannelPositions"];
+            Infos["ChannelPositions"]=_T("Front: L R / ")+ChannelPositions+_T(" / ")+ChannelPositions;
+        }
     FILLING_END();
 }
 
@@ -1035,11 +971,14 @@ void File_Aac::extension_payload(size_t End, int8u id_aac)
         case 13 :   sbr_extension_data(End, id_aac, 0); break;  //EXT_SBR_DATA
         case 14 :   sbr_extension_data(End, id_aac, 1); break;  //EXT_SBR_DATA_CRC
         case  1 :   //EXT_FILL_DATA
-                    Skip_S1(4,                                  "fill_nibble");Param_Info("must be ‘0000’");
-                    Element_Begin("fill_byte");
-                    while (Data_BS_Remain()>End)
-                        Skip_S1(8,                              "fill_byte[i]");Param_Info("must be ‘10100101’");
-                    Element_End();
+                    Skip_S1(4,                                  "fill_nibble"); Param_Info("must be 0000");
+                    if (Data_BS_Remain()>End)
+                    {
+                        Element_Begin("fill_byte");
+                        while (Data_BS_Remain()>End)
+                            Skip_S1(8,                          "fill_byte[i]"); Param_Info("must be 10100101");
+                        Element_End();
+                    }
                     break;
         case  2 :   //EXT_DATA_ELEMENT
                     int8u data_element_version;

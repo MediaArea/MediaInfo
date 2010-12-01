@@ -3485,6 +3485,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
 
     FILLING_BEGIN();
         Descriptors();
+        if (Stream[moov_trak_tkhd_TrackID].Parser && !Retrieve(StreamKind_Last, StreamPos_Last, "Encryption").empty())
+        {
+            Finish(Stream[moov_trak_tkhd_TrackID].Parser);
+        }
     FILLING_END();
 }
 

@@ -405,10 +405,6 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
             Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
         }
 
-        //LATM
-        if (StreamKind_Last==Stream_Audio && StreamID==0xFA && FromTS_stream_type==0x11)
-            Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
-
         //Bitrate calculation
         if (PTS!=(int64u)-1 && (StreamKind_Last==Stream_Video || StreamKind_Last==Stream_Audio))
         {
@@ -2580,6 +2576,7 @@ void File_MpegPs::audio_stream()
         switch (Streams[start_code].stream_type)
         {
             case 0x0F : Streams[start_code].Parsers.push_back(ChooseParser_Adts()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x11 : Streams[start_code].Parsers.push_back(ChooseParser_Latm()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
             case 0x03 :
             case 0x04 : Streams[start_code].Parsers.push_back(ChooseParser_Mpega()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
             default   :
@@ -2594,7 +2591,6 @@ void File_MpegPs::audio_stream()
                         #if defined(MEDIAINFO_AAC_YES)
                         {
                             File_Aac* Parser=new File_Aac;
-                            Parser->Mode=File_Aac::Mode_ADTS;
                             Open_Buffer_Init(Parser);
                             Streams[start_code].Parsers.push_back(Parser);
                         }
@@ -3495,6 +3491,26 @@ File__Analyze* File_MpegPs::ChooseParser_Adts()
         Handle->Stream_Prepare(Stream_Audio);
         Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
         Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        Handle->Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
+    #endif
+    return Handle;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_Latm()
+{
+    //Filling
+    #if defined(MEDIAINFO_AAC_YES)
+        File_Aac* Handle=new File_Aac;
+        Handle->Mode=File_Aac::Mode_LATM;
+    #else
+        //Filling
+        File__Analyze* Handle=new File_Unknown();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
+        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        Handle->Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
     #endif
     return Handle;
 }

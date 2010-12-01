@@ -12,6 +12,8 @@ Version 0.7.38
 + uClibc compatibility, thanks to Metin KAYA <metin@EnderUNIX.org>
 + MPEG-TS: ID in all streams if a TS streams contains several substreams
 + JPEG in MOV: Scan type
++ AAC: implicit SBR and implicit PS detection
++ LATM: more details (channels, profile...)
 x #3111584, MXF: phantom track with weird result if an unknown track is found
 
 Version 0.7.37, 2010-11-22

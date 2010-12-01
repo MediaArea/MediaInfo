@@ -473,29 +473,32 @@ void File_Aac::AudioSpecificConfig (size_t End)
 
         if (sbrPresentFlag)
         {
-            Infos["Format_Settings"].From_Local("SBR");
-            Infos["Format_Settings_SBR"].From_Local("Yes");
-            Infos["Format_Settings_PS"].From_Local("No");
+            Infos["Format_Settings"]=_T("SBR");
+            Infos["Format_Settings_SBR"]=_T("Yes (Explicit)");
             Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
-            Infos["SamplingRate"].From_Number(extension_sampling_frequency, 10);
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
         }
         else if (sbrData)
-            Infos["Format_Settings_SBR"].From_Local("No");
+            Infos["Format_Settings_SBR"]=_T("No (Explicit)");
 
         if (psPresentFlag)
         {
-            Infos["Channel(s)"].From_Number(2);
+            Infos["Channel(s)"]=_T("2 / 1 / 1");
             Infos["Format_Settings"]+=(_T(" / PS"));
-            Infos["Format_Settings_PS"].From_Local("Yes");
+            Infos["Format_Settings_PS"]=_T("Yes (Explicit)");
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+(sbrPresentFlag?_T("-SBR"):_T(""))+_T("/PS");
-            Infos["ChannelPositions"].From_Local("Front: L R");
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+            Ztring ChannelPositions=Infos["ChannelPositions"];
+            Infos["ChannelPositions"]=_T("Front: L R / ")+ChannelPositions+_T(" / ")+ChannelPositions;
         }
         else if (psData)
-            Infos["Format_Settings_PS"].From_Local("No");
+            Infos["Format_Settings_PS"]=_T("No (Explicit)");
 
         //Parsing the rest
-        if (audioObjectType!=2) //We continue only if AAC LC (in order dto detect SBR and PS)
+        if (audioObjectType!=2) //We continue only if AAC LC (in order to detect SBR and PS)
         {
             File__Analyze::Finish();
             Frame_Count=(int64u)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
@@ -681,6 +684,10 @@ void File_Aac::StreamMuxConfig()
         Element_End();
     }
     Element_End();
+
+    FILLING_BEGIN();
+        CanFill=true;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -995,15 +1002,18 @@ void File_Aac::adts_fixed_header()
     Element_End();
 
     FILLING_BEGIN();
-        Infos_General["Format"].From_Local("ADTS");
+        if (Infos["Format"].empty())
+        {
+            Infos_General["Format"].From_Local("ADTS");
 
-        Infos["Format"].From_Local("AAC");
-        Infos["Format_Version"].From_Local(id?"Version 2":"Version 4");
-        Infos["Format_Profile"].From_Local(Aac_Format_Profile(audioObjectType));
-        Infos["Codec"].From_Local(Aac_audioObjectType(audioObjectType));
-        Infos["SamplingRate"].From_Number(Aac_sampling_frequency[sampling_frequency_index]);
-        Infos["Channel(s)"].From_Number(channelConfiguration);
-        Infos["MuxingMode"].From_Local("ADTS");
+            Infos["Format"].From_Local("AAC");
+            Infos["Format_Version"].From_Local(id?"Version 2":"Version 4");
+            Infos["Format_Profile"].From_Local(Aac_Format_Profile(audioObjectType));
+            Infos["Codec"].From_Local(Aac_audioObjectType(audioObjectType));
+            Infos["SamplingRate"].From_Number(Aac_sampling_frequency[sampling_frequency_index]);
+            Infos["Channel(s)"].From_Number(channelConfiguration);
+            Infos["MuxingMode"].From_Local("ADTS");
+        }
     FILLING_END();
 }
 

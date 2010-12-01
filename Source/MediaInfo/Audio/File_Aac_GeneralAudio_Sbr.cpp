@@ -42,6 +42,9 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
+extern const char* Aac_audioObjectType(int8u audioObjectType);
+
+//---------------------------------------------------------------------------
 int8u Aac_AudioSpecificConfig_sampling_frequency_index(const int32u sampling_frequency);
 
 //---------------------------------------------------------------------------
@@ -319,11 +322,23 @@ int16u File_Aac::sbr_huff_dec(sbr_huffman Table, const char* Name)
 //---------------------------------------------------------------------------
 void File_Aac::sbr_extension_data(size_t End, int8u id_aac, bool crc_flag)
 {
+    FILLING_BEGIN();
+        if (Infos["Format_Settings_SBR"].empty())
+        {
+            Infos["Format_Settings"]=_T("SBR");
+            Infos["Format_Settings_SBR"]=_T("Yes (Implicit)");
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
+            Ztring SamplingRate=Infos["SamplingRate"];
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+        }
+    FILLING_END();
+
     Element_Begin("sbr_extension_data");
     bool bs_header_flag;
     if (crc_flag)
         Skip_S2(10,                                             "bs_sbr_crc_bits");
-    //~ if (sbr_layer != SBR_STEREO_ENHANCE) {
+    //~ if (sbr_layer != SBR_STEREO_ENHANCE)
+    //~ {
         Get_SB(bs_header_flag,                                  "bs_header_flag");
         if (bs_header_flag)
         {
