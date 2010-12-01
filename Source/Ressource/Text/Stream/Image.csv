@@ -22,7 +22,8 @@ Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
 Format_Settings_Wrapping;;;Y YT;;;Wrapping mode (Frame wrapped or Clip wrapped)
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
-CodecID;;;Y YT;;;Codec ID (found in some containers)
+CodecID;;;Y NT;;;Codec ID (found in some containers);;
+CodecID/String;;;Y NT;;;Codec ID (found in some containers);;
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
 CodecID/Url;;;N NT;;;A link for more details about this codec ID

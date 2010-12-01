@@ -23,7 +23,8 @@ Format_Settings_Wrapping;;;Y YT;;;Wrapping mode (Frame wrapped or Clip wrapped)
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
 MuxingMode;;;Y NT;;;How this stream is muxed in the container
 MuxingMode_MoreInfo;;;Y NT;;;More info (text) about the muxing mode
-CodecID;;;Y YT;;;Codec ID (found in some containers)
+CodecID;;;Y NT;;;Codec ID (found in some containers);;
+CodecID/String;;;Y NT;;;Codec ID (found in some containers);;
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
 CodecID/Url;;;N NT;;;A link for more details about this codec ID

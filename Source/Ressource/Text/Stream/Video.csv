@@ -41,7 +41,8 @@ Format_Settings_FrameStructures;;;Y YT;;;Settings needed for decoder used, detai
 Format_Settings_Wrapping;;;Y YT;;;Wrapping mode (Frame wrapped or Clip wrapped)
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
 MuxingMode;;;Y NT;;;How this file is muxed in the container
-CodecID;;;Y YT;;;Codec ID (found in some containers)
+CodecID;;;Y NT;;;Codec ID (found in some containers);;
+CodecID/String;;;Y NT;;;Codec ID (found in some containers);;
 CodecID/Info;;;Y NT;;;Info on the codec
 CodecID/Hint;;;Y NT;;;Hint/popular name for this codec
 CodecID/Url;;;N NT;;;Homepage for more details about this codec

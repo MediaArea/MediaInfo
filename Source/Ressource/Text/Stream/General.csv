@@ -57,7 +57,8 @@ Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
-CodecID;;;Y YT;;;Codec ID (found in some containers)
+CodecID;;;Y NT;;;Codec ID (found in some containers);;
+CodecID/String;;;Y NT;;;Codec ID (found in some containers);;
 CodecID/Info;;;Y NT;;;Info about this codec
 CodecID/Hint;;;Y NT;;;A hint/popular name for this codec
 CodecID/Url;;;N NT;;;A link to more details about this codec ID
