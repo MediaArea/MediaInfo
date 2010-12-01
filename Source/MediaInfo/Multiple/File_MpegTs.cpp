@@ -383,7 +383,9 @@ void File_MpegTs::Streams_Fill_PerStream()
         }
 
         //LATM
-        int8u A=Complete_Stream->Streams[PID].stream_type;
+        complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[PID].FMC_ES_ID);
+        if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
+            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
         if (Complete_Stream->Streams[PID].stream_type==0x11 && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
             Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
     }
@@ -1508,7 +1510,7 @@ void File_MpegTs::PES()
             complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[PID].FMC_ES_ID);
             if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
             {
-                #ifdef FILE_MPEG4_YES
+                #ifdef MEDIAINFO_MPEG4_YES
                     ((File_MpegPs*)Complete_Stream->Streams[PID].Parser)->DecSpecificInfoTag=IOD_ES->second.DecSpecificInfoTag;
                     ((File_MpegPs*)Complete_Stream->Streams[PID].Parser)->SLConfig=IOD_ES->second.SLConfig;
                 #endif
