@@ -384,7 +384,7 @@ void File_MpegTs::Streams_Fill_PerStream()
 
         //LATM
         complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[PID].FMC_ES_ID);
-        if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
+        if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.SLConfig && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
             Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
         if (Complete_Stream->Streams[PID].stream_type==0x11 && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
             Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
