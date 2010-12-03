@@ -418,8 +418,8 @@ void File_Jpeg::COD()
     FILLING_BEGIN();
         switch (MultipleComponentTransform)
         {
-            case 0x01 : Fill(Stream_Image, 0, Image_Compression_Mode, "Lossless"); break;
-            case 0x02 : Fill(Stream_Image, 0, Image_Compression_Mode, "Lossy"); break;
+            case 0x01 : Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Compression_Mode:(size_t)Video_Compression_Mode, "Lossless"); break;
+            case 0x02 : Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Compression_Mode:(size_t)Video_Compression_Mode, "Lossy"); break;
             default   : ;
         }
     FILLING_END();
