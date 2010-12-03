@@ -737,8 +737,9 @@ void File_Aes3::Frame_FromMpegPs()
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
-            if (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F)
+            if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
             {
+                IsParsingNonPcm=true;
                 Parser_Parse(Info, Info_Offset);
             }
 
@@ -767,6 +768,11 @@ void File_Aes3::Frame_FromMpegPs()
                 Info_Offset+=6;
                 Element_Offset+=6;
             }
+
+            #if MEDIAINFO_DEMUX
+                Demux_Level=2; //Container
+                Demux(Info, Info_Offset, ContentType_MainStream);
+            #endif //MEDIAINFO_DEMUX
 
             if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
             {
@@ -800,8 +806,14 @@ void File_Aes3::Frame_FromMpegPs()
                 Element_Offset+=7;
             }
 
-            if (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F)
+            #if MEDIAINFO_DEMUX
+                Demux_Level=2; //Container
+                Demux(Info, Info_Offset, ContentType_MainStream);
+            #endif //MEDIAINFO_DEMUX
+
+            if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
             {
+                IsParsingNonPcm=true;
                 Parser_Parse(Info, Info_Offset);
             }
 
