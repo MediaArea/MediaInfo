@@ -197,6 +197,7 @@ ETV2;eTreppid 2;;eTreppid Video 2
 ETVC;eTreppid C;;eTreppid Video C
 FFDS;FFDS;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FFV1;FFV1;;;http://ffdshow-tryout.sourceforge.net/;;;;
+FFV2;FFV2;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FLIC;FLI/FLC;Autodesk;;;;;;
 FLJP;DField JPEG;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);;;;;
