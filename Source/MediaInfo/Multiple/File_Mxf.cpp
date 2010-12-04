@@ -1351,6 +1351,12 @@ void File_Mxf::Read_Buffer_Init()
 //---------------------------------------------------------------------------
 void File_Mxf::Read_Buffer_Continue()
 {
+    if (!IsSub)
+    {
+        if (Config_ParseSpeed>=1.0)
+            Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
+    }
+
     if (Buffer_DataSizeToParse)
     {
 		#if MEDIAINFO_DEMUX
@@ -3995,7 +4001,7 @@ void File_Mxf::IndexTableSegment_IndexEntryArray()
         Skip_B1(                                                "Flags");    
         Skip_B8(                                                "Stream Offset");    
         for (int32u NSL_Pos=0; NSL_Pos<IndexTable_NSL; NSL_Pos++)
-            Skip_B4(                                            "SliceOffset");    
+            Skip_B4(                                            "SliceOffset");
         for (int32u NPE_Pos=0; NPE_Pos<IndexTable_NPE; NPE_Pos++)
             Skip_B4(                                            "PosTable");    
         Element_End();    

@@ -130,7 +130,7 @@ File_MpegTs::File_MpegTs()
     #if defined(MEDIAINFO_TSP_YES)
         TSP_Size=0; //No TSP footer
     #endif
-    
+
     //Data
     MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
     MpegTs_JumpTo_End=16*1024*1024;
@@ -729,17 +729,41 @@ bool File_MpegTs::Synched_Test()
                         if (Version_Pos>=BDAV_Size+188)
                             return true; //There is a problem with this block, accelerated parsing disabled
                         int8u table_id=Buffer[Buffer_Offset+Version_Pos]; //table_id
+                        #if MEDIAINFO_TRACE
+                            Stream->Element_Info=Mpeg_Psi_table_id(table_id);
+                        #endif //MEDIAINFO_TRACE
                         if (table_id==0xCD) //specifc case for ATSC STT
+                        {
+                            if (Config_Trace_TimeSection_OnlyFirstOccurrence)
+                            {
+                                if (!TimeSection_FirstOccurrenceParsed)
+                                    TimeSection_FirstOccurrenceParsed=true;
+                                else
+                                {
+                                    Trace_Layers.reset(); //We do not want to display data about other occurences
+                                    Trace_Layers_Update();
+                                }
+                            }
                             return true; //Version has no meaning
+                        }
                         complete_stream::stream::table_ids::iterator Table_ID=Stream->Table_IDs.begin()+table_id;
                         if (*Table_ID)
                         {
                             //Searching table_id_extension, version_number, section_number
-                            #if MEDIAINFO_TRACE
-                                Stream->Element_Info=Mpeg_Psi_table_id(table_id);
-                            #endif //MEDIAINFO_TRACE
                             if (!(Buffer[Buffer_Offset+Version_Pos+1]&0x80)) //section_syntax_indicator
+                            {
+                                if (table_id==0x70 && Config_Trace_TimeSection_OnlyFirstOccurrence)
+                                {
+                                    if (!TimeSection_FirstOccurrenceParsed)
+                                        TimeSection_FirstOccurrenceParsed=true;
+                                    else
+                                    {
+                                        Trace_Layers.reset(); //We do not want to display data about other occurences
+                                        Trace_Layers_Update();
+                                    }
+                                }
                                 return true; //No version
+                            }
                             Version_Pos+=3; //Header size
                             if (Version_Pos+5>=BDAV_Size+188)
                                 return true; //Not able to detect version (too far)
@@ -759,6 +783,8 @@ bool File_MpegTs::Synched_Test()
                             }
                             else if (Table_ID_Extension->second.version_number!=version_number)
                             {
+                                if (Table_ID_Extension->second.version_number!=(int8u)-1 && Config_Trace_TimeSection_OnlyFirstOccurrence)
+                                    break;
                                 Table_ID_Extension->second.version_number=version_number;
                                 Table_ID_Extension->second.Section_Numbers.clear();
                                 Table_ID_Extension->second.Section_Numbers.resize(0x100);
@@ -869,7 +895,7 @@ bool File_MpegTs::Synched_Test()
         }
 
         Header_Parse_Events();
-        
+
         Buffer_Offset+=TS_Size;
     }
 
@@ -900,6 +926,10 @@ void File_MpegTs::Synched_Init()
         MpegTs_JumpTo_Begin=File_Size;
         MpegTs_JumpTo_End=File_Size;
     }
+
+    //Config
+    Config_Trace_TimeSection_OnlyFirstOccurrence=MediaInfoLib::Config.Trace_TimeSection_OnlyFirstOccurrence_Get();
+    TimeSection_FirstOccurrenceParsed=false;
 
     //Continue, again, for Duplicate and Filter
     Option_Manage();
@@ -947,10 +977,15 @@ void File_MpegTs::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_Continue()
 {
-    if (Buffer_TotalBytes>MpegTs_JumpTo_Begin+MpegTs_JumpTo_End)
-        Config->State_Set((float)0.99); //Nearly the end
-    else
-        Config->State_Set(((float)Buffer_TotalBytes)/(MpegTs_JumpTo_Begin+MpegTs_JumpTo_End));
+    if (!IsSub)
+    {
+        if (Config_ParseSpeed>=1.0)
+            Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
+        else if (Buffer_TotalBytes>MpegTs_JumpTo_Begin+MpegTs_JumpTo_End)
+            Config->State_Set((float)0.99); //Nearly the end
+        else
+            Config->State_Set(((float)Buffer_TotalBytes)/(MpegTs_JumpTo_Begin+MpegTs_JumpTo_End));
+    }
 }
 
 //***************************************************************************
@@ -992,326 +1027,342 @@ bool File_MpegTs::FileHeader_Begin()
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse()
-#if MEDIAINFO_TRACE
 {
-    //Parsing
-    int8u transport_scrambling_control;
-    bool  adaptation, payload;
-    if (BDAV_Size)
-        Skip_B4(                                                "BDAV"); //BDAV supplement
-    Skip_B1(                                                    "sync_byte");
-    BS_Begin();
-    Skip_SB(                                                    "transport_error_indicator");
-    Get_SB (    payload_unit_start_indicator,                   "payload_unit_start_indicator");
-    Skip_SB(                                                    "transport_priority");
-    Get_S2 (13, PID,                                            "PID");
-    Get_S1 ( 2, transport_scrambling_control,                   "transport_scrambling_control");
-    Get_SB (    adaptation,                                     "adaptation_field_control (adaptation)");
-    Get_SB (    payload,                                        "adaptation_field_control (payload)");
-    Skip_S1( 4,                                                 "continuity_counter");
-    BS_End();
-
-    //Info
-    /* Trace: used to display program number(s)
-    if (!Complete_Stream->Streams[PID].program_numbers.empty())
+    #if MEDIAINFO_TRACE
+    if (Trace_Activated)
     {
-        Ztring Program_Numbers;
-        for (size_t Pos=0; Pos<Complete_Stream->Streams[PID].program_numbers.size(); Pos++)
-            Program_Numbers+=Ztring::ToZtring_From_CC2(Complete_Stream->Streams[PID].program_numbers[Pos])+_T('/');
-        if (!Program_Numbers.empty())
-            Program_Numbers.resize(Program_Numbers.size()-1);
-        Data_Info(Program_Numbers);
+        //Parsing
+        int8u transport_scrambling_control;
+        bool  adaptation, payload;
+        if (BDAV_Size)
+            Skip_B4(                                                "BDAV"); //BDAV supplement
+        Skip_B1(                                                    "sync_byte");
+        BS_Begin();
+        Skip_SB(                                                    "transport_error_indicator");
+        Get_SB (    payload_unit_start_indicator,                   "payload_unit_start_indicator");
+        Skip_SB(                                                    "transport_priority");
+        Get_S2 (13, PID,                                            "PID");
+        Get_S1 ( 2, transport_scrambling_control,                   "transport_scrambling_control");
+        Get_SB (    adaptation,                                     "adaptation_field_control (adaptation)");
+        Get_SB (    payload,                                        "adaptation_field_control (payload)");
+        Skip_S1( 4,                                                 "continuity_counter");
+        BS_End();
+
+        //Info
+        /* Trace: used to display program number(s)
+        if (!Complete_Stream->Streams[PID].program_numbers.empty())
+        {
+            Ztring Program_Numbers;
+            for (size_t Pos=0; Pos<Complete_Stream->Streams[PID].program_numbers.size(); Pos++)
+                Program_Numbers+=Ztring::ToZtring_From_CC2(Complete_Stream->Streams[PID].program_numbers[Pos])+_T('/');
+            if (!Program_Numbers.empty())
+                Program_Numbers.resize(Program_Numbers.size()-1);
+            Data_Info(Program_Numbers);
+        }
+        else
+            Data_Info("    ");
+        */
+        Data_Info(Complete_Stream->Streams[PID].Element_Info);
+
+        //Adaptation
+        if (adaptation)
+            Header_Parse_AdaptationField();
+        else
+        {
+        }
+
+        //Data
+        if (payload)
+        {
+            //Encryption
+            if (transport_scrambling_control>0)
+                Complete_Stream->Streams[PID].IsScrambled++;
+        }
+        else if (Element_Offset<TS_Size)
+            Skip_XX(TS_Size-Element_Offset,                         "Junk");
+
+        //Filling
+        Header_Fill_Code(PID, _T("0x")+Ztring().From_CC2(PID));
+        Header_Fill_Size(TS_Size);
+
+        Header_Parse_Events();
     }
     else
-        Data_Info("    ");
-    */
-    Data_Info(Complete_Stream->Streams[PID].Element_Info);
-
-    //Adaptation
-    if (adaptation)
-        Header_Parse_AdaptationField();
-
-    //Data
-    if (payload)
     {
-        //Encryption
-        if (transport_scrambling_control>0)
-            Complete_Stream->Streams[PID].IsScrambled++;
+    #endif //MEDIAINFO_TRACE
+        //Parsing
+               payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
+        int8u  transport_scrambling_control= Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
+        bool   adaptation=                  (Buffer[Buffer_Offset+BDAV_Size+3]&0x20)!=0;
+        bool   payload=                     (Buffer[Buffer_Offset+BDAV_Size+3]&0x10)!=0;
+        Element_Offset+=BDAV_Size+4;
+
+        //Adaptation
+        if (adaptation)
+            Header_Parse_AdaptationField();
+        else
+        {
+        }
+
+        //Data
+        if (payload)
+        {
+            //Encryption
+            if (transport_scrambling_control>0)
+                Complete_Stream->Streams[PID].IsScrambled++;
+        }
+
+        //Filling
+        /*Element[1].Next=File_Offset+Buffer_Offset+TS_Size;  //*/Header_Fill_Size(TS_Size);
+        //Element[1].IsComplete=true;                         //Header_Fill_Size(TS_Size);
+
+        Header_Parse_Events();
+    #if MEDIAINFO_TRACE
     }
-    else if (Element_Offset<TS_Size)
-        Skip_XX(TS_Size-Element_Offset,                         "Junk");
-
-    //Filling
-    Header_Fill_Code(PID, _T("0x")+Ztring().From_CC2(PID));
-    Header_Fill_Size(TS_Size);
-
-    Header_Parse_Events();
+    #endif //MEDIAINFO_TRACE
 }
-#else //MEDIAINFO_TRACE
-{
-    //Parsing
-           payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
-    int8u  transport_scrambling_control= Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
-    bool   adaptation=                  (Buffer[Buffer_Offset+BDAV_Size+3]&0x20)!=0;
-    bool   payload=                     (Buffer[Buffer_Offset+BDAV_Size+3]&0x10)!=0;
-    Element_Offset+=BDAV_Size+4;
-
-    //Adaptation
-    if (adaptation)
-        Header_Parse_AdaptationField();
-
-    //Data
-    if (payload)
-    {
-        //Encryption
-        if (transport_scrambling_control>0)
-            Complete_Stream->Streams[PID].IsScrambled++;
-    }
-
-    //Filling
-    Element[1].Next=File_Offset+Buffer_Offset+TS_Size;  //Header_Fill_Size(TS_Size);
-    Element[1].IsComplete=true;                         //Header_Fill_Size(TS_Size);
-
-    Header_Parse_Events();
-}
-#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse_AdaptationField()
-#if MEDIAINFO_TRACE
 {
-    int64u Element_Pos_Save=Element_Offset;
-    Element_Begin("adaptation_field");
-    int8u Adaptation_Size;
-    Get_B1 (Adaptation_Size,                                    "adaptation_field_length");
-    if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
+    #if MEDIAINFO_TRACE
+    if (Trace_Activated)
     {
-        Adaptation_Size=188-4-1;
-        Skip_XX(188-4-1,                                        "stuffing_bytes");
-    }
-    else if (Adaptation_Size>0)
-    {
-        bool PCR_flag, OPCR_flag, splicing_point_flag, transport_private_data_flag, adaptation_field_extension_flag;
-        BS_Begin();
-        Skip_SB(                                                "discontinuity_indicator");
-        Skip_SB(                                                "random_access_indicator");
-        Skip_SB(                                                "elementary_stream_priority_indicator");
-        Get_SB (    PCR_flag,                                   "PCR_flag");
-        Get_SB (    OPCR_flag,                                  "OPCR_flag");
-        Get_SB (    splicing_point_flag,                        "splicing_point_flag");
-        Get_SB (    transport_private_data_flag,                "transport_private_data_flag");
-        Get_SB (    adaptation_field_extension_flag,            "adaptation_field_extension_flag");
-        BS_End();
-        if (PCR_flag)
-        {
-            #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                BS_Begin();
-                int64u program_clock_reference_base;
-                int16u program_clock_reference_extension;
-                Get_S8 (33, program_clock_reference_base,           "program_clock_reference_base"); Param_Info_From_Milliseconds(program_clock_reference_base/90);
-                Data_Info_From_Milliseconds(program_clock_reference_base/90);
-                Skip_S1( 6,                                         "reserved");
-                Get_S2 ( 9, program_clock_reference_extension,      "program_clock_reference_extension");
-                int64u program_clock_reference=program_clock_reference_base*300+program_clock_reference_extension;
-                Param_Info(program_clock_reference);
-                BS_End();
-                if (Complete_Stream->Streams[PID].Searching_TimeStamp_End
-                #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                 && (!Complete_Stream->Streams[PID].Searching_ParserTimeStamp_End
-                  || Complete_Stream->Streams[PID].IsPCR) //If PCR, we always want it.
-                #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                 )
-                {
-                    Header_Parse_Events_Duration(program_clock_reference);
-                    Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
-                    Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
-                    if (Status[IsFilled])
-                        Header_Parse_AdaptationField_Duration_Update();
-                }
-                if (Complete_Stream->Streams[PID].Searching_TimeStamp_Start)
-                {
-                    //This is the first PCR
-                    Complete_Stream->Streams[PID].TimeStamp_Start=program_clock_reference;
-                    Complete_Stream->Streams[PID].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
-                    Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
-                    Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
-                    Complete_Stream->Streams[PID].Searching_TimeStamp_Start_Set(false);
-                    Complete_Stream->Streams[PID].Searching_TimeStamp_End_Set(true);
-                    Complete_Stream->Streams_With_StartTimeStampCount++;
-                }
-
-                //Test if we can find the TS bitrate
-                if (!Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[PID].TimeStamp_Start!=(int64u)-1)
-                {
-                    if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
-                        program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
-                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
-                    {
-                        Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
-                        Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
-                        if (Complete_Stream->Streams_NotParsedCount
-                         && Complete_Stream->Streams_With_StartTimeStampCount>0
-                         && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
-                        {
-                            //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
-                        }
-                    }
-                }
-            #else //MEDIAINFO_MPEGTS_PCR_YES
-                Skip_B6(                                        "program_clock_reference");
-            #endif //MEDIAINFO_MPEGTS_PCR_YES
-        }
-        if (OPCR_flag)
-        {
-            BS_Begin();
-            Skip_S8(33,                                         "original_program_clock_reference_base");
-            Skip_S1( 6,                                         "reserved");
-            Skip_S2( 9,                                         "original_program_clock_reference_extension");
-            BS_End();
-        }
-        if (splicing_point_flag)
-        {
-            Skip_B1(                                            "splice_countdown");
-        }
-        if (transport_private_data_flag)
-        {
-            int8u transport_private_data_length;
-            Get_B1 (transport_private_data_length,              "transport_private_data_length");
-            if (Element_Offset+transport_private_data_length<=Element_Pos_Save+1+Adaptation_Size)
-                Skip_XX(transport_private_data_length,          "transport_private_data");
-            else
-                Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
-        }
-        if (adaptation_field_extension_flag)
-        {
-            int8u adaptation_field_extension_length;
-            Get_B1 (adaptation_field_extension_length,          "adaptation_field_extension_length");
-            if (Element_Offset+adaptation_field_extension_length<=Element_Pos_Save+1+Adaptation_Size)
-            {
-                Element_Begin("adaptation_field_extension", adaptation_field_extension_length);
-                int64u End=Element_Offset+adaptation_field_extension_length;
-                bool ltw_flag, piecewise_rate_flag, seamless_splice_flag;
-                BS_Begin();
-                Get_SB (    ltw_flag,                                   "ltw_flag");
-                Get_SB (    piecewise_rate_flag,                        "piecewise_rate_flag");
-                Get_SB (    seamless_splice_flag,                       "seamless_splice_flag");
-                Skip_S1( 5,                                             "reserved");
-                if (ltw_flag)
-                {
-                    Skip_SB(                                            "ltw_valid_flag");
-                    Skip_S2(15,                                         "ltw_offset");
-                }
-                if (piecewise_rate_flag)
-                {
-                    Skip_S1( 2,                                         "reserved");
-                    Skip_S3(22,                                         "piecewise_rate");
-                }
-                if (seamless_splice_flag)
-                {
-                    Skip_S1( 4,                                         "splice_type");
-                    int16u DTS_29, DTS_14;
-                    int8u  DTS_32;
-                    Element_Begin("DTS");
-                    Get_S1 ( 3, DTS_32,                                 "DTS_32");
-                    Mark_1();
-                    Get_S2 (15, DTS_29,                                 "DTS_29");
-                    Mark_1();
-                    Get_S2 (15, DTS_14,                                 "DTS_14");
-                    Mark_1();
-
-                    //Filling
-                    int64u DTS;
-                    DTS=(((int64u)DTS_32)<<30)
-                      | (((int64u)DTS_29)<<15)
-                      | (((int64u)DTS_14));
-                    Element_Info_From_Milliseconds(DTS/90);
-                    Element_End();
-                }
-                BS_End();
-                if (Element_Offset<End)
-                    Skip_XX(End-Element_Offset,                         "reserved");
-                Element_End();
-            }
-            else
-                Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
-        }
-    }
-
-    if (Element_Offset<Element_Pos_Save+1+Adaptation_Size)
-        Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "stuffing_bytes");
-    Element_End(1+Adaptation_Size);
-}
-#else //MEDIAINFO_TRACE
-{
-    int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
-    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+        int64u Element_Pos_Save=Element_Offset;
+        Element_Begin("adaptation_field");
+        int8u Adaptation_Size;
+        Get_B1 (Adaptation_Size,                                    "adaptation_field_length");
         if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
-            Adaptation_Size=188-4-1;
-        else if (Adaptation_Size)
         {
-            bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
+            Adaptation_Size=188-4-1;
+            Skip_XX(188-4-1,                                        "stuffing_bytes");
+        }
+        else if (Adaptation_Size>0)
+        {
+            bool PCR_flag, OPCR_flag, splicing_point_flag, transport_private_data_flag, adaptation_field_extension_flag;
+            BS_Begin();
+            Skip_SB(                                                "discontinuity_indicator");
+            Skip_SB(                                                "random_access_indicator");
+            Skip_SB(                                                "elementary_stream_priority_indicator");
+            Get_SB (    PCR_flag,                                   "PCR_flag");
+            Get_SB (    OPCR_flag,                                  "OPCR_flag");
+            Get_SB (    splicing_point_flag,                        "splicing_point_flag");
+            Get_SB (    transport_private_data_flag,                "transport_private_data_flag");
+            Get_SB (    adaptation_field_extension_flag,            "adaptation_field_extension_flag");
+            BS_End();
             if (PCR_flag)
             {
-                int64u program_clock_reference=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
-                                                | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
-                                                | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
-                                                | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
-                                                | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
-                program_clock_reference*=300;
-                program_clock_reference+=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+10]&0x01)<<8)
-                                          | (((int64u)Buffer[Buffer_Offset+BDAV_Size+11])   ));
-                if (Complete_Stream->Streams[PID].Searching_TimeStamp_End
-                #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                 && (!Complete_Stream->Streams[PID].Searching_ParserTimeStamp_End
-                  || Complete_Stream->Streams[PID].IsPCR) //If PCR, we always want it.
-                #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                 )
-                {
-                    Header_Parse_Events_Duration(program_clock_reference);
-                    Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
-                    Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
-                    if (Status[IsFilled])
-                        Header_Parse_AdaptationField_Duration_Update();
-                }
-                if (Complete_Stream->Streams[PID].Searching_TimeStamp_Start)
-                {
-                    //This is the first PCR
-                    Complete_Stream->Streams[PID].TimeStamp_Start=program_clock_reference;
-                    Complete_Stream->Streams[PID].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
-                    Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
-                    Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
-                    Complete_Stream->Streams[PID].Searching_TimeStamp_Start_Set(false);
-                    Complete_Stream->Streams[PID].Searching_TimeStamp_End_Set(true);
-                    Complete_Stream->Streams_With_StartTimeStampCount++;
-                }
-
-                //Test if we can find the TS bitrate
-                if (!Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[PID].TimeStamp_Start!=(int64u)-1)
-                {
-                    if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
-                        program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
-                    if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
+                #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                    BS_Begin();
+                    int64u program_clock_reference_base;
+                    int16u program_clock_reference_extension;
+                    Get_S8 (33, program_clock_reference_base,           "program_clock_reference_base"); Param_Info_From_Milliseconds(program_clock_reference_base/90);
+                    Data_Info_From_Milliseconds(program_clock_reference_base/90);
+                    Skip_S1( 6,                                         "reserved");
+                    Get_S2 ( 9, program_clock_reference_extension,      "program_clock_reference_extension");
+                    int64u program_clock_reference=program_clock_reference_base*300+program_clock_reference_extension;
+                    Param_Info(program_clock_reference);
+                    BS_End();
+                    if (Complete_Stream->Streams[PID].Searching_TimeStamp_End
+                    #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                     && (!Complete_Stream->Streams[PID].Searching_ParserTimeStamp_End
+                      || Complete_Stream->Streams[PID].IsPCR) //If PCR, we always want it.
+                    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                     )
                     {
-                        Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
-                        Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
-                        if (Complete_Stream->Streams_NotParsedCount
-                         && Complete_Stream->Streams_With_StartTimeStampCount>0
-                         && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                        Header_Parse_Events_Duration(program_clock_reference);
+                        Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
+                        Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
+                        if (Status[IsFilled])
+                            Header_Parse_AdaptationField_Duration_Update();
+                    }
+                    if (Complete_Stream->Streams[PID].Searching_TimeStamp_Start)
+                    {
+                        //This is the first PCR
+                        Complete_Stream->Streams[PID].TimeStamp_Start=program_clock_reference;
+                        Complete_Stream->Streams[PID].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
+                        Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
+                        Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
+                        Complete_Stream->Streams[PID].Searching_TimeStamp_Start_Set(false);
+                        Complete_Stream->Streams[PID].Searching_TimeStamp_End_Set(true);
+                        Complete_Stream->Streams_With_StartTimeStampCount++;
+                    }
+
+                    //Test if we can find the TS bitrate
+                    if (!Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[PID].TimeStamp_Start!=(int64u)-1)
+                    {
+                        if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
+                            program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
+                        if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
                         {
-                            //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
+                            Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
+                            Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                            if (Complete_Stream->Streams_NotParsedCount
+                             && Complete_Stream->Streams_With_StartTimeStampCount>0
+                             && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                            {
+                                //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
+                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
+                            }
+                        }
+                    }
+                #else //MEDIAINFO_MPEGTS_PCR_YES
+                    Skip_B6(                                        "program_clock_reference");
+                #endif //MEDIAINFO_MPEGTS_PCR_YES
+            }
+            if (OPCR_flag)
+            {
+                BS_Begin();
+                Skip_S8(33,                                         "original_program_clock_reference_base");
+                Skip_S1( 6,                                         "reserved");
+                Skip_S2( 9,                                         "original_program_clock_reference_extension");
+                BS_End();
+            }
+            if (splicing_point_flag)
+            {
+                Skip_B1(                                            "splice_countdown");
+            }
+            if (transport_private_data_flag)
+            {
+                int8u transport_private_data_length;
+                Get_B1 (transport_private_data_length,              "transport_private_data_length");
+                if (Element_Offset+transport_private_data_length<=Element_Pos_Save+1+Adaptation_Size)
+                    Skip_XX(transport_private_data_length,          "transport_private_data");
+                else
+                    Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
+            }
+            if (adaptation_field_extension_flag)
+            {
+                int8u adaptation_field_extension_length;
+                Get_B1 (adaptation_field_extension_length,          "adaptation_field_extension_length");
+                if (Element_Offset+adaptation_field_extension_length<=Element_Pos_Save+1+Adaptation_Size)
+                {
+                    Element_Begin("adaptation_field_extension", adaptation_field_extension_length);
+                    int64u End=Element_Offset+adaptation_field_extension_length;
+                    bool ltw_flag, piecewise_rate_flag, seamless_splice_flag;
+                    BS_Begin();
+                    Get_SB (    ltw_flag,                                   "ltw_flag");
+                    Get_SB (    piecewise_rate_flag,                        "piecewise_rate_flag");
+                    Get_SB (    seamless_splice_flag,                       "seamless_splice_flag");
+                    Skip_S1( 5,                                             "reserved");
+                    if (ltw_flag)
+                    {
+                        Skip_SB(                                            "ltw_valid_flag");
+                        Skip_S2(15,                                         "ltw_offset");
+                    }
+                    if (piecewise_rate_flag)
+                    {
+                        Skip_S1( 2,                                         "reserved");
+                        Skip_S3(22,                                         "piecewise_rate");
+                    }
+                    if (seamless_splice_flag)
+                    {
+                        Skip_S1( 4,                                         "splice_type");
+                        int16u DTS_29, DTS_14;
+                        int8u  DTS_32;
+                        Element_Begin("DTS");
+                        Get_S1 ( 3, DTS_32,                                 "DTS_32");
+                        Mark_1();
+                        Get_S2 (15, DTS_29,                                 "DTS_29");
+                        Mark_1();
+                        Get_S2 (15, DTS_14,                                 "DTS_14");
+                        Mark_1();
+
+                        //Filling
+                        int64u DTS;
+                        DTS=(((int64u)DTS_32)<<30)
+                          | (((int64u)DTS_29)<<15)
+                          | (((int64u)DTS_14));
+                        Element_Info_From_Milliseconds(DTS/90);
+                        Element_End();
+                    }
+                    BS_End();
+                    if (Element_Offset<End)
+                        Skip_XX(End-Element_Offset,                         "reserved");
+                    Element_End();
+                }
+                else
+                    Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
+            }
+        }
+
+        if (Element_Offset<Element_Pos_Save+1+Adaptation_Size)
+            Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "stuffing_bytes");
+        Element_End(1+Adaptation_Size);
+    }
+    else
+    {
+    #endif //MEDIAINFO_TRACE
+        int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
+                Adaptation_Size=188-4-1;
+            else if (Adaptation_Size)
+            {
+                bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
+                if (PCR_flag)
+                {
+                    int64u program_clock_reference=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
+                                                    | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
+                                                    | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
+                                                    | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
+                                                    | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
+                    program_clock_reference*=300;
+                    program_clock_reference+=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+10]&0x01)<<8)
+                                              | (((int64u)Buffer[Buffer_Offset+BDAV_Size+11])   ));
+                    if (Complete_Stream->Streams[PID].Searching_TimeStamp_End
+                    #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                     && (!Complete_Stream->Streams[PID].Searching_ParserTimeStamp_End
+                      || Complete_Stream->Streams[PID].IsPCR) //If PCR, we always want it.
+                    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                     )
+                    {
+                        Header_Parse_Events_Duration(program_clock_reference);
+                        Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
+                        Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
+                        if (Status[IsFilled])
+                            Header_Parse_AdaptationField_Duration_Update();
+                    }
+                    if (Complete_Stream->Streams[PID].Searching_TimeStamp_Start)
+                    {
+                        //This is the first PCR
+                        Complete_Stream->Streams[PID].TimeStamp_Start=program_clock_reference;
+                        Complete_Stream->Streams[PID].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
+                        Complete_Stream->Streams[PID].TimeStamp_End=program_clock_reference;
+                        Complete_Stream->Streams[PID].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
+                        Complete_Stream->Streams[PID].Searching_TimeStamp_Start_Set(false);
+                        Complete_Stream->Streams[PID].Searching_TimeStamp_End_Set(true);
+                        Complete_Stream->Streams_With_StartTimeStampCount++;
+                    }
+
+                    //Test if we can find the TS bitrate
+                    if (!Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[PID].TimeStamp_Start!=(int64u)-1)
+                    {
+                        if (program_clock_reference<Complete_Stream->Streams[PID].TimeStamp_Start)
+                            program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
+                        if ((program_clock_reference-Complete_Stream->Streams[PID].TimeStamp_Start)>Begin_MaxDuration)
+                        {
+                            Complete_Stream->Streams[PID].EndTimeStampMoreThanxSeconds=true;
+                            Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                            if (Complete_Stream->Streams_NotParsedCount
+                             && Complete_Stream->Streams_With_StartTimeStampCount>0
+                             && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                            {
+                                //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
+                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
+                            }
                         }
                     }
                 }
             }
-        }
-    #endif //MEDIAINFO_MPEGTS_PCR_YES
-    Element_Offset+=1+Adaptation_Size;
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
+        Element_Offset+=1+Adaptation_Size;
+    #if MEDIAINFO_TRACE
+    }
+    #endif //MEDIAINFO_TRACE
 }
-#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_EVENTS
@@ -1775,7 +1826,8 @@ void File_MpegTs::Detect_EOF()
             Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(true);
             Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
             #if MEDIAINFO_TRACE
-                Complete_Stream->Streams[StreamID].Element_Info="PES";
+                if (Trace_Activated)
+                    Complete_Stream->Streams[StreamID].Element_Info="PES";
             #endif //MEDIAINFO_TRACE
             #ifdef MEDIAINFO_MPEGTS_PCR_YES
                 Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);

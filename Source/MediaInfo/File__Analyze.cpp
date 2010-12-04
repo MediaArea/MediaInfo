@@ -438,21 +438,24 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
     #if MEDIAINFO_TRACE
-        //Details handling
-        if (!Sub->Element[0].ToShow.Details.empty() && !Trace_DoNotSave)
+        if (Trace_Activated)
         {
-            //Line separator
-            if (!Element[Element_Level].ToShow.Details.empty())
-                Element[Element_Level].ToShow.Details+=Config_LineSeparator;
+            //Details handling
+            if (!Sub->Element[0].ToShow.Details.empty() && !Trace_DoNotSave)
+            {
+                //Line separator
+                if (!Element[Element_Level].ToShow.Details.empty())
+                    Element[Element_Level].ToShow.Details+=Config_LineSeparator;
 
-            //From Sub
-            while(Sub->Element_Level)
-                Sub->Element_End();
-            Element[Element_Level].ToShow.Details+=Sub->Element[0].ToShow.Details;
-            Sub->Element[0].ToShow.Details.clear();
+                //From Sub
+                while(Sub->Element_Level)
+                    Sub->Element_End();
+                Element[Element_Level].ToShow.Details+=Sub->Element[0].ToShow.Details;
+                Sub->Element[0].ToShow.Details.clear();
+            }
+            else
+                Element[Element_Level].ToShow.NoShow=true; //We don't want to show this item because there is no info in it
         }
-        else
-            Element[Element_Level].ToShow.NoShow=true; //We don't want to show this item because there is no info in it
     #endif
 }
 

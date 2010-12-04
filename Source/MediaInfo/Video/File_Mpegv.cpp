@@ -1201,35 +1201,38 @@ void File_Mpegv::picture_start()
 
         //Info
         #if MEDIAINFO_TRACE
-            Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
-            Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
-            Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
-            if (PTS!=(int64u)-1 && FrameRate)
-                Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
-            if (DTS!=(int64u)-1 && FrameRate)
-                Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
-            if (Time_End_Seconds!=Error)
+            if (Trace_Activated)
             {
-                int32u Time_End  =Time_End_Seconds  *1000;
-                if (FrameRate)
-                    Time_End  +=(int32u)float32_int32s((Time_Current_Frames+temporal_reference)*1000/FrameRate);
-                size_t Hours  = Time_End/60/60/1000;
-                size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
-                size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
-                size_t Milli  =(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
-
-                Ztring Time;
-                Time+=Ztring::ToZtring(Hours);
-                Time+=_T(':');
-                Time+=Ztring::ToZtring(Minutes);
-                Time+=_T(':');
-                Time+=Ztring::ToZtring(Seconds);
-                if (FrameRate!=0)
+                Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+                Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
+                Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
+                if (PTS!=(int64u)-1 && FrameRate)
+                    Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
+                if (DTS!=(int64u)-1 && FrameRate)
+                    Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
+                if (Time_End_Seconds!=Error)
                 {
-                    Time+=_T('.');
-                    Time+=Ztring::ToZtring(Milli);
+                    int32u Time_End  =Time_End_Seconds  *1000;
+                    if (FrameRate)
+                        Time_End  +=(int32u)float32_int32s((Time_Current_Frames+temporal_reference)*1000/FrameRate);
+                    size_t Hours  = Time_End/60/60/1000;
+                    size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
+                    size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
+                    size_t Milli  =(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
+
+                    Ztring Time;
+                    Time+=Ztring::ToZtring(Hours);
+                    Time+=_T(':');
+                    Time+=Ztring::ToZtring(Minutes);
+                    Time+=_T(':');
+                    Time+=Ztring::ToZtring(Seconds);
+                    if (FrameRate!=0)
+                    {
+                        Time+=_T('.');
+                        Time+=Ztring::ToZtring(Milli);
+                    }
+                    Element_Info(_T("time_code ")+Time);
                 }
-                Element_Info(_T("time_code ")+Time);
             }
         #endif //MEDIAINFO_TRACE
 

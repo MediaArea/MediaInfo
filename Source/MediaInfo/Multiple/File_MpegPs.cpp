@@ -763,6 +763,16 @@ void File_MpegPs::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_MpegPs::Read_Buffer_Continue()
 {
+    if (!IsSub)
+    {
+        if (Config_ParseSpeed>=1.0)
+            Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
+        else if (Buffer_TotalBytes>2*SizeToAnalyze)
+            Config->State_Set((float)0.99); //Nearly the end
+        else
+            Config->State_Set(((float)Buffer_TotalBytes)/(2*SizeToAnalyze));
+    }
+
     if (Buffer_DataSizeToParse)
     {
         if (Buffer_Size<=Buffer_DataSizeToParse)
@@ -853,14 +863,20 @@ void File_MpegPs::Header_Parse()
     DTS=(int64u)-1;
 
     #if MEDIAINFO_TRACE
+    if (Trace_Activated)
+    {
         //Parsing
         Skip_B3(                                                    "synchro");
         Get_B1 (start_code,                                         "start_code");
-        start_code; //start_code is for old code, all should be replaced by stream_id
-    #else //MEDIAINFO_TRACE
+    }
+    else
+    {
+    #endif //MEDIAINFO_TRACE
         //Parsing
         start_code=Buffer[Buffer_Offset+3];
         Element_Offset+=4;
+    #if MEDIAINFO_TRACE
+    }
     #endif //MEDIAINFO_TRACE
 
     if (start_code!=0xB9 && start_code!=0xBA) //MPEG_program_end or pack_start have no PES
@@ -1167,93 +1183,112 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     int8u PTS_DTS_flags, PES_header_data_length;
     bool ESCR_flag, ES_rate_flag, DSM_trick_mode_flag, additional_copy_info_flag, PES_CRC_flag, PES_extension_flag;
     #if MEDIAINFO_TRACE
-    BS_Begin();
-    Mark_1();
-    Mark_0();
-    Skip_S1(2,                                                  "PES_scrambling_control");
-    Skip_SB(                                                    "PES_priority");
-    Skip_SB(                                                    "data_alignment_indicator");
-    Skip_SB(                                                    "copyright");
-    Skip_SB(                                                    "original_or_copy");
-    Get_S1 (2, PTS_DTS_flags,                                   "PTS_DTS_flags");
-    Get_SB (ESCR_flag,                                          "ESCR_flag");
-    Get_SB (ES_rate_flag,                                       "ES_rate_flag");
-    Get_SB (DSM_trick_mode_flag,                                "DSM_trick_mode_flag");
-    Get_SB (additional_copy_info_flag,                          "additional_copy_info_flag");
-    Get_SB (PES_CRC_flag,                                       "PES_CRC_flag");
-    Get_SB (PES_extension_flag,                                 "PES_extension_flag");
-    BS_End();
-    Get_B1 (PES_header_data_length,                             "PES_header_data_length");
-    #else //MEDIAINFO_TRACE
-    if (Element_Offset+3>=Element_Size)
+    if (Trace_Activated)
     {
-        Trusted_IsNot();
-        return;
+        BS_Begin();
+        Mark_1();
+        Mark_0();
+        Skip_S1(2,                                                  "PES_scrambling_control");
+        Skip_SB(                                                    "PES_priority");
+        Skip_SB(                                                    "data_alignment_indicator");
+        Skip_SB(                                                    "copyright");
+        Skip_SB(                                                    "original_or_copy");
+        Get_S1 (2, PTS_DTS_flags,                                   "PTS_DTS_flags");
+        Get_SB (ESCR_flag,                                          "ESCR_flag");
+        Get_SB (ES_rate_flag,                                       "ES_rate_flag");
+        Get_SB (DSM_trick_mode_flag,                                "DSM_trick_mode_flag");
+        Get_SB (additional_copy_info_flag,                          "additional_copy_info_flag");
+        Get_SB (PES_CRC_flag,                                       "PES_CRC_flag");
+        Get_SB (PES_extension_flag,                                 "PES_extension_flag");
+        BS_End();
+        Get_B1 (PES_header_data_length,                             "PES_header_data_length");
     }
-    size_t Buffer_Pos_Flags=Buffer_Offset+(size_t)Element_Offset;
-    if ((Buffer[Buffer_Pos_Flags]&0xC0)!=0x80) //bit 6 and 7 are 01
+    else
     {
-        Element_DoNotTrust(); //Mark bits are wrong
-        return;
+    #endif //MEDIAINFO_TRACE
+        if (Element_Offset+3>=Element_Size)
+        {
+            Trusted_IsNot("");
+            return;
+        }
+        size_t Buffer_Pos_Flags=Buffer_Offset+(size_t)Element_Offset;
+        if ((Buffer[Buffer_Pos_Flags]&0xC0)!=0x80) //bit 6 and 7 are 01
+        {
+            Element_DoNotTrust(""); //Mark bits are wrong
+            return;
+        }
+        Buffer_Pos_Flags++;
+        PTS_DTS_flags               =Buffer[Buffer_Pos_Flags]>>6;
+        ESCR_flag                   =Buffer[Buffer_Pos_Flags]&0x20?true:false;
+        ES_rate_flag                =Buffer[Buffer_Pos_Flags]&0x10?true:false;
+        DSM_trick_mode_flag         =Buffer[Buffer_Pos_Flags]&0x08?true:false;
+        additional_copy_info_flag   =Buffer[Buffer_Pos_Flags]&0x04?true:false;
+        PES_CRC_flag                =Buffer[Buffer_Pos_Flags]&0x02?true:false;
+        PES_extension_flag          =Buffer[Buffer_Pos_Flags]&0x01?true:false;
+        Buffer_Pos_Flags++;
+        PES_header_data_length      =Buffer[Buffer_Pos_Flags];
+        Element_Offset+=3;
+    #if MEDIAINFO_TRACE
     }
-    Buffer_Pos_Flags++;
-    PTS_DTS_flags               =Buffer[Buffer_Pos_Flags]>>6;
-    ESCR_flag                   =Buffer[Buffer_Pos_Flags]&0x20?true:false;
-    ES_rate_flag                =Buffer[Buffer_Pos_Flags]&0x10?true:false;
-    DSM_trick_mode_flag         =Buffer[Buffer_Pos_Flags]&0x08?true:false;
-    additional_copy_info_flag   =Buffer[Buffer_Pos_Flags]&0x04?true:false;
-    PES_CRC_flag                =Buffer[Buffer_Pos_Flags]&0x02?true:false;
-    PES_extension_flag          =Buffer[Buffer_Pos_Flags]&0x01?true:false;
-    Buffer_Pos_Flags++;
-    PES_header_data_length      =Buffer[Buffer_Pos_Flags];
-    Element_Offset+=3;
     #endif //MEDIAINFO_TRACE
     int64u Element_Pos_After_Data=Element_Offset+PES_header_data_length;
-    
+    if (Element_Pos_After_Data>Element_Size)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+
     //Options
     if (PTS_DTS_flags==0x2)
     {
         #if MEDIAINFO_TRACE
-        int16u PTS_29, PTS_14;
-        int8u  PTS_32;
-        Element_Begin("PTS_DTS_flags");
-        Element_Begin("PTS");
-        BS_Begin();
-        Mark_0();
-        Mark_0();
-        Mark_1_NoTrustError(); //Is "0" in one sample
-        Mark_0_NoTrustError(); //Is "1" in one sample
-        Get_S1 ( 3, PTS_32,                                     "PTS_32");
-        Mark_1();
-        Get_S2 (15, PTS_29,                                     "PTS_29");
-        Mark_1();
-        Get_S2 (15, PTS_14,                                     "PTS_14");
-        Mark_1();
-        BS_End();
-        PTS=(((int64u)PTS_32)<<30)
-          | (((int64u)PTS_29)<<15)
-          | (((int64u)PTS_14));
-        Element_Info_From_Milliseconds(PTS/90);
-        Element_End();
-        Element_End();
-        #else //MEDIAINFO_TRACE
-        if (Element_Offset+5>Element_Size)
+        if (Trace_Activated)
         {
-            Element_WaitForMoreData();
-            return;
+            int16u PTS_29, PTS_14;
+            int8u  PTS_32;
+            Element_Begin("PTS_DTS_flags");
+            Element_Begin("PTS");
+            BS_Begin();
+            Mark_0();
+            Mark_0();
+            Mark_1_NoTrustError(); //Is "0" in one sample
+            Mark_0_NoTrustError(); //Is "1" in one sample
+            Get_S1 ( 3, PTS_32,                                     "PTS_32");
+            Mark_1();
+            Get_S2 (15, PTS_29,                                     "PTS_29");
+            Mark_1();
+            Get_S2 (15, PTS_14,                                     "PTS_14");
+            Mark_1();
+            BS_End();
+            PTS=(((int64u)PTS_32)<<30)
+              | (((int64u)PTS_29)<<15)
+              | (((int64u)PTS_14));
+            Element_Info_From_Milliseconds(PTS/90);
+            Element_End();
+            Element_End();
         }
-        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
-         || (Buffer[Buffer_Pos+2]&0x01)!=0x01
-         || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+        else
         {
-            Element_DoNotTrust(); //Mark bits are wrong
-            return;
+        #endif //MEDIAINFO_TRACE
+            if (Element_Offset+5>Element_Size)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+            size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+            if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
+             || (Buffer[Buffer_Pos+2]&0x01)!=0x01
+             || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+            {
+                Element_DoNotTrust(""); //Mark bits are wrong
+                return;
+            }
+            PTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
+              | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
+              | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
+            Element_Offset+=5;
+        #if MEDIAINFO_TRACE
         }
-        PTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
-          | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
-          | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
-        Element_Offset+=5;
         #endif //MEDIAINFO_TRACE
 
         //Filling
@@ -1277,45 +1312,53 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     else if (PTS_DTS_flags==0x3)
     {
         #if MEDIAINFO_TRACE
+        size_t Buffer_Pos;
         int16u PTS_29, PTS_14, DTS_29, DTS_14;
         int8u  PTS_32, DTS_32;
-        Element_Begin("PTS_DTS_flags");
-        Element_Begin("PTS");
-        BS_Begin();
-        Mark_0();
-        Mark_0();
-        Mark_1_NoTrustError(); //Is "0" in one sample
-        Mark_0_NoTrustError(); //Is "1" in one sample
-        Get_S1 ( 3, PTS_32,                                     "PTS_32");
-        Mark_1();
-        Get_S2 (15, PTS_29,                                     "PTS_29");
-        Mark_1();
-        Get_S2 (15, PTS_14,                                     "PTS_14");
-        Mark_1();
-        BS_End();
-        PTS=(((int64u)PTS_32)<<30)
-          | (((int64u)PTS_29)<<15)
-          | (((int64u)PTS_14));
-        Element_Info_From_Milliseconds(PTS/90);
-        Element_End();
-        #else //MEDIAINFO_TRACE
-        if (Element_Offset+5>Element_Size)
+        if (Trace_Activated)
         {
-            Element_WaitForMoreData();
-            return;
+            Element_Begin("PTS_DTS_flags");
+            Element_Begin("PTS");
+            BS_Begin();
+            Mark_0();
+            Mark_0();
+            Mark_1_NoTrustError(); //Is "0" in one sample
+            Mark_0_NoTrustError(); //Is "1" in one sample
+            Get_S1 ( 3, PTS_32,                                     "PTS_32");
+            Mark_1();
+            Get_S2 (15, PTS_29,                                     "PTS_29");
+            Mark_1();
+            Get_S2 (15, PTS_14,                                     "PTS_14");
+            Mark_1();
+            BS_End();
+            PTS=(((int64u)PTS_32)<<30)
+              | (((int64u)PTS_29)<<15)
+              | (((int64u)PTS_14));
+            Element_Info_From_Milliseconds(PTS/90);
+            Element_End();
         }
-        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
-         || (Buffer[Buffer_Pos+2]&0x01)!=0x01
-         || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+        else
         {
-            Element_DoNotTrust(); //Mark bits are wrong
-            return;
+        #endif //MEDIAINFO_TRACE
+            if (Element_Offset+5>Element_Size)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+            Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+            if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
+             || (Buffer[Buffer_Pos+2]&0x01)!=0x01
+             || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+            {
+                Element_DoNotTrust(""); //Mark bits are wrong
+                return;
+            }
+            PTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
+              | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
+              | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
+            Element_Offset+=5;
+        #if MEDIAINFO_TRACE
         }
-        PTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
-          | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
-          | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
-        Element_Offset+=5;
         #endif //MEDIAINFO_TRACE
 
         //Filling
@@ -1336,43 +1379,50 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         PTS=PTS*1000000/90; //In ns
 
         #if MEDIAINFO_TRACE
-        Element_Begin("DTS");
-        BS_Begin();
-        Mark_0();
-        Mark_0();
-        Mark_1_NoTrustError(); //Is "0" in one sample
-        Mark_0_NoTrustError(); //Is "1" in one sample
-        Get_S1 ( 3, DTS_32,                                     "DTS_32");
-        Mark_1();
-        Get_S2 (15, DTS_29,                                     "DTS_29");
-        Mark_1();
-        Get_S2 (15, DTS_14,                                     "DTS_14");
-        Mark_1();
-        BS_End();
-        DTS=(((int64u)DTS_32)<<30)
-          | (((int64u)DTS_29)<<15)
-          | (((int64u)DTS_14));
-        Element_Info_From_Milliseconds(DTS/90);
-        Element_End();
-        Element_End();
-        #else //MEDIAINFO_TRACE
-        if (Element_Offset+5>Element_Size)
+        if (Trace_Activated)
         {
-            Element_WaitForMoreData();
-            return;
+            Element_Begin("DTS");
+            BS_Begin();
+            Mark_0();
+            Mark_0();
+            Mark_1_NoTrustError(); //Is "0" in one sample
+            Mark_0_NoTrustError(); //Is "1" in one sample
+            Get_S1 ( 3, DTS_32,                                     "DTS_32");
+            Mark_1();
+            Get_S2 (15, DTS_29,                                     "DTS_29");
+            Mark_1();
+            Get_S2 (15, DTS_14,                                     "DTS_14");
+            Mark_1();
+            BS_End();
+            DTS=(((int64u)DTS_32)<<30)
+              | (((int64u)DTS_29)<<15)
+              | (((int64u)DTS_14));
+            Element_Info_From_Milliseconds(DTS/90);
+            Element_End();
+            Element_End();
         }
-        Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
-         || (Buffer[Buffer_Pos+2]&0x01)!=0x01
-         || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+        else
         {
-            Element_DoNotTrust(); //Mark bits are wrong
-            return;
+        #endif //MEDIAINFO_TRACE
+            if (Element_Offset+5>Element_Size)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+            Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+            if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
+             || (Buffer[Buffer_Pos+2]&0x01)!=0x01
+             || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+            {
+                Element_DoNotTrust(""); //Mark bits are wrong
+                return;
+            }
+            DTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
+              | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
+              | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
+            Element_Offset+=5;
+        #if MEDIAINFO_TRACE
         }
-        DTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
-          | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
-          | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
-        Element_Offset+=5;
         #endif //MEDIAINFO_TRACE
 
         //Filling
@@ -1439,7 +1489,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
                     }
                     break;
             case 1 :{ //slow_motion
-                        Skip_S1(5,                              "rep_cntrl");
+                        int8u rep_cntrl;
+                        Get_S1 (5, rep_cntrl,                   "rep_cntrl");
                     }
                     break;
             case 2 :{ //freeze_frame
@@ -1454,7 +1505,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
                     }
                     break;
             case 4 :{ //slow_reverse
-                        Skip_S1(5,                              "rep_cntrl");
+                        int8u rep_cntrl;
+                        Get_S1 (5, rep_cntrl,                   "rep_cntrl");
                     }
                     break;
             default:{
@@ -1473,17 +1525,17 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         BS_End();
         Element_End();
     }
-    if (additional_copy_info_flag && Element_Offset<Element_Pos_After_Data)
+    if (PES_CRC_flag && Element_Offset<Element_Pos_After_Data)
     {
-        Element_Begin("additional_copy_info_flag");
+        Element_Begin("PES_CRC_flag");
         Skip_B2(                                                "previous_PES_packet_CRC");
         Element_End();
     }
+    bool PES_private_data_flag=false, pack_header_field_flag=false, program_packet_sequence_counter_flag=false, p_STD_buffer_flag=false, PES_extension_flag_2=false; //Need it for DCA event
     if (PES_extension_flag && Element_Offset<Element_Pos_After_Data)
     {
         Element_Begin("PES_extension_flag");
         BS_Begin();
-        bool PES_private_data_flag, pack_header_field_flag, program_packet_sequence_counter_flag, p_STD_buffer_flag, PES_extension_flag_2;
         Get_SB (PES_private_data_flag,                          "PES_private_data_flag");
         Get_SB (pack_header_field_flag,                         "pack_header_field_flag");
         Get_SB (program_packet_sequence_counter_flag,           "program_packet_sequence_counter_flag");
@@ -1508,22 +1560,25 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         if (program_packet_sequence_counter_flag)
         {
             Element_Begin("program_packet_sequence_counter_flag");
+            int8u   program_packet_sequence_counter, original_stuff_length;
+            bool    MPEG1_MPEG2_identifier;
             BS_Begin();
             Mark_1();
-            Skip_S1(7,                                          "program_packet_sequence_counter");
+            Get_S1 (7, program_packet_sequence_counter,         "program_packet_sequence_counter");
             Mark_1();
-            Skip_SB(                                            "MPEG1_MPEG2_identifier");
-            Skip_S1(6,                                          "original_stuff_length");
+            Get_SB (   MPEG1_MPEG2_identifier,                  "MPEG1_MPEG2_identifier");
+            Get_S1 (6, original_stuff_length,                   "original_stuff_length");
             BS_End();
             Element_End();
         }
         if (p_STD_buffer_flag)
         {
             Element_Begin("p_STD_buffer_flag");
+            bool P_STD_buffer_scale;
             BS_Begin();
             Mark_0();
             Skip_SB(                                            "Should be 1"); //But I saw a file with "0"
-            Skip_SB(                                            "P-STD_buffer_scale");
+            Get_SB (    P_STD_buffer_scale,                     "P-STD_buffer_scale");
             Skip_S2(13,                                         "P-STD_buffer_size");
             BS_End();
             Element_End();

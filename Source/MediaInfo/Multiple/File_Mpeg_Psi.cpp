@@ -1931,8 +1931,8 @@ void File_Mpeg_Psi::Table_CD()
     Element_Begin("daylight_savings", 2);
         BS_Begin();
         Skip_SB(                                                "DS_status");
-        Mark_1();
-        Mark_1();
+        Skip_SB(                                                "Reserved");
+        Skip_SB(                                                "Reserved");
         Skip_S1(5,                                              "DS_day_of_month");
         BS_End();
         Skip_B1(                                                "DS_hour");

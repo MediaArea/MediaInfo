@@ -132,6 +132,10 @@ private :
     size_t Output_Buffer_Get (const String &Value);
     size_t Output_Buffer_Get (size_t Pos);
     std::vector<int16u> Output_Buffer_Get_Pos;
+
+    //Config
+    bool Config_Trace_TimeSection_OnlyFirstOccurrence;
+    bool TimeSection_FirstOccurrenceParsed;
 };
 
 } //NameSpace

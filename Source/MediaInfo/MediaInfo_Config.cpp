@@ -121,6 +121,7 @@ void MediaInfo_Config::Init()
     ParseSpeed=(float32)0.5;
     Verbosity=(float32)0.5;
     Trace_Level=(float32)0.0;
+    Trace_TimeSection_OnlyFirstOccurrence=false;
     Trace_Format=Trace_Format_Tree;
     Language_Raw=false;
     ReadByHuman=true;
@@ -447,6 +448,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         return Ztring::ToZtring(Trace_Level_Get());
     }
+    else if (Option_Lower==_T("trace_timesection_onlyfirstoccurrence"))
+    {
+        Trace_TimeSection_OnlyFirstOccurrence_Set(Value.To_int64u()?true:false);
+        return Ztring();
+    }
+    else if (Option_Lower==_T("trace_timesection_onlyfirstoccurrence_get"))
+    {
+        return Trace_TimeSection_OnlyFirstOccurrence_Get()?_T("1"):_T("0");
+    }
     else if (Option_Lower==_T("detailsformat")) //Legacy for trace_format
     {
         return MediaInfo_Config::Option(_T("Trace_Format"), Value);
@@ -770,6 +780,19 @@ std::bitset<32> MediaInfo_Config::Trace_Layers_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Trace_Layers;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::Trace_TimeSection_OnlyFirstOccurrence_Set (bool Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Trace_TimeSection_OnlyFirstOccurrence=Value;
+}
+
+bool MediaInfo_Config::Trace_TimeSection_OnlyFirstOccurrence_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Trace_TimeSection_OnlyFirstOccurrence;
 }
 
 //---------------------------------------------------------------------------

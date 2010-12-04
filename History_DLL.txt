@@ -15,6 +15,7 @@ Version 0.7.38
 + AAC: implicit SBR and implicit PS detection
 + AAC/LATM: more details (channels, profile...)
 + AAC/SL: better detection of the SL muxing mode
++ MPEG-TS and MPEG-PS with trace feature activated (Linux/Mac by default): speed improvement
 x #3111584, MXF: phantom track with weird result if an unknown track is found
 
 Version 0.7.37, 2010-11-22
