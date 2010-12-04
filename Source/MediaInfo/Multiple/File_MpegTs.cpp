@@ -730,7 +730,8 @@ bool File_MpegTs::Synched_Test()
                             return true; //There is a problem with this block, accelerated parsing disabled
                         int8u table_id=Buffer[Buffer_Offset+Version_Pos]; //table_id
                         #if MEDIAINFO_TRACE
-                            Stream->Element_Info=Mpeg_Psi_table_id(table_id);
+                            if (Trace_Activated)
+                                Stream->Element_Info=Mpeg_Psi_table_id(table_id);
                         #endif //MEDIAINFO_TRACE
                         if (table_id==0xCD) //specifc case for ATSC STT
                         {
@@ -738,11 +739,13 @@ bool File_MpegTs::Synched_Test()
                             {
                                 if (!TimeSection_FirstOccurrenceParsed)
                                     TimeSection_FirstOccurrenceParsed=true;
+                                #if MEDIAINFO_TRACE
                                 else
                                 {
                                     Trace_Layers.reset(); //We do not want to display data about other occurences
                                     Trace_Layers_Update();
                                 }
+                                #endif //MEDIAINFO_TRACE
                             }
                             return true; //Version has no meaning
                         }
@@ -756,11 +759,13 @@ bool File_MpegTs::Synched_Test()
                                 {
                                     if (!TimeSection_FirstOccurrenceParsed)
                                         TimeSection_FirstOccurrenceParsed=true;
+                                    #if MEDIAINFO_TRACE
                                     else
                                     {
                                         Trace_Layers.reset(); //We do not want to display data about other occurences
                                         Trace_Layers_Update();
                                     }
+                                    #endif //MEDIAINFO_TRACE
                                 }
                                 return true; //No version
                             }

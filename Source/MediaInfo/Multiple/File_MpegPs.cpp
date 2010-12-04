@@ -1311,8 +1311,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     }
     else if (PTS_DTS_flags==0x3)
     {
-        #if MEDIAINFO_TRACE
         size_t Buffer_Pos;
+        #if MEDIAINFO_TRACE
         int16u PTS_29, PTS_14, DTS_29, DTS_14;
         int8u  PTS_32, DTS_32;
         if (Trace_Activated)
