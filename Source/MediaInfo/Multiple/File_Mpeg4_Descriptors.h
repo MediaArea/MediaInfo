@@ -43,26 +43,11 @@ public :
     //In
     stream_t KindOfStream;
     bool     Parser_DoNotFreeIt; //If you want to keep the Parser
-    bool     DecSpecificInfoTag_DoNotFreeIt; //If you want to keep the DecSpecificInfoTag
     bool     SLConfig_DoNotFreeIt; //If you want to keep the SLConfig
 
     //Out
     File__Analyze* Parser;
     int16u ES_ID;
-    struct decspecificinfotag
-    {
-        int8u* Buffer;
-        size_t Buffer_Size;
-        decspecificinfotag()
-        {
-            Buffer=NULL;
-            Buffer_Size=0;
-        }
-        ~decspecificinfotag()
-        {
-            delete[] Buffer; //Buffer=NULL;
-        }
-    };
 
     struct slconfig
     {
@@ -92,7 +77,6 @@ public :
         int64u startCompositionTimeStamp;
     };
 
-    decspecificinfotag* DecSpecificInfoTag;
     slconfig* SLConfig;
 
 public :

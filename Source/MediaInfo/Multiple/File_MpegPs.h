@@ -51,7 +51,7 @@ public :
     int8u  MPEG_Version;                //MPEG Version (or automaticly detected)
     bool   Searching_TimeStamp_Start;
     #ifdef MEDIAINFO_MPEG4_YES
-        File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
+        File__Analyze* ParserFromTs;
         File_Mpeg4_Descriptors::slconfig* SLConfig;
     #endif
     #if MEDIAINFO_DEMUX

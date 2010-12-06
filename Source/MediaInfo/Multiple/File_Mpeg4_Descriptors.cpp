@@ -291,13 +291,11 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
     //In
     KindOfStream=Stream_Max;
     Parser_DoNotFreeIt=false;
-    DecSpecificInfoTag_DoNotFreeIt=false;
     SLConfig_DoNotFreeIt=false;
 
     //Out
     Parser=NULL;
     ES_ID=0x0000;
-    DecSpecificInfoTag=NULL;
     SLConfig=NULL;
 
     //Temp
@@ -309,8 +307,6 @@ File_Mpeg4_Descriptors::~File_Mpeg4_Descriptors()
 {
     if (!Parser_DoNotFreeIt)
         delete Parser;// Parser=NULL;
-    if (!DecSpecificInfoTag_DoNotFreeIt)
-        delete DecSpecificInfoTag; //DecSpecificInfoTag=NULL
     if (!SLConfig_DoNotFreeIt)
         delete SLConfig;// SLConfig=NULL;
 }
@@ -742,16 +738,6 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         default: ;
     }
 
-    //Specific cases
-    if (ObjectTypeId==0x40) //Audio ISO/IEC 14496-3 (AAC)
-    {
-        //IOD backup
-        delete DecSpecificInfoTag; DecSpecificInfoTag=new decspecificinfotag;
-        DecSpecificInfoTag->Buffer=new int8u[(size_t)Element_Size];
-        DecSpecificInfoTag->Buffer_Size=(size_t)Element_Size;
-        std::memcpy(DecSpecificInfoTag->Buffer, Buffer+Buffer_Offset, (size_t)Element_Size);
-    }
-
     //Parsing
     Open_Buffer_Continue(Parser);
 
@@ -801,9 +787,9 @@ void File_Mpeg4_Descriptors::Descriptor_06()
                     Get_B4 (SLConfig->timeStampResolution,      "timeStampResolution");
                     Get_B4( SLConfig->OCRResolution,            "OCRResolution");
                     Get_B1 (SLConfig->timeStampLength,          "timeStampLength");
-                    Get_B1 (SLConfig->AU_Length,                "OCRLength");
-                    Get_B1 (SLConfig->instantBitrateLength,     "AU_Length");
-                    Get_B1 (SLConfig->degradationPriorityLength,"instantBitrateLength");
+                    Get_B1 (SLConfig->OCRLength,                "OCRLength");
+                    Get_B1 (SLConfig->AU_Length,                "AU_Length");
+                    Get_B1 (SLConfig->instantBitrateLength,     "instantBitrateLength");
                     BS_Begin();
                     Get_S1 (4, SLConfig->degradationPriorityLength, "degradationPriorityLength");
                     Get_S1 (5, SLConfig->AU_seqNumLength,       "AU_seqNumLength");
@@ -813,79 +799,60 @@ void File_Mpeg4_Descriptors::Descriptor_06()
             }
             break;
         case 0x01 :
-                    SLConfig->useAccessUnitStartFlag          =false;
-                    SLConfig->useAccessUnitEndFlag            =false;
-                    SLConfig->useRandomAccessPointFlag        =false;
-                    SLConfig->hasRandomAccessUnitsOnlyFlag    =false;
-                    SLConfig->usePaddingFlag                  =false;
-                    SLConfig->useTimeStampsFlag               =false;
-                    SLConfig->useIdleFlag                     =false;
-                    SLConfig->durationFlag                    =false; //-
-                    SLConfig->timeStampResolution             =1000;
-                    SLConfig->OCRResolution                   =0; //-
-                    SLConfig->timeStampLength                 =32;
-                    SLConfig->AU_Length                       =0;
-                    SLConfig->instantBitrateLength            =0; //-
-                    SLConfig->degradationPriorityLength       =0;
-                    SLConfig->AU_seqNumLength                 =0;
-                    SLConfig->packetSeqNumLength              =0;
-
-                    SLConfig->timeScale                       =0; //-
-                    SLConfig->accessUnitDuration              =0; //-
-                    SLConfig->compositionUnitDuration         =0; //-
-
-                    SLConfig->startDecodingTimeStamp          =0; //-
-                    SLConfig->startCompositionTimeStamp       =0; //-
+                    SLConfig->useAccessUnitStartFlag            =false;
+                    SLConfig->useAccessUnitEndFlag              =false;
+                    SLConfig->useRandomAccessPointFlag          =false;
+                    SLConfig->hasRandomAccessUnitsOnlyFlag      =false;
+                    SLConfig->usePaddingFlag                    =false;
+                    SLConfig->useTimeStampsFlag                 =false;
+                    SLConfig->useIdleFlag                       =false;
+                    SLConfig->durationFlag                      =false; //-
+                    SLConfig->timeStampResolution               =1000;
+                    SLConfig->OCRResolution                     =0; //-
+                    SLConfig->timeStampLength                   =32;
+                    SLConfig->OCRLength                         =0; //-
+                    SLConfig->AU_Length                         =0;
+                    SLConfig->instantBitrateLength              =0; //-
+                    SLConfig->degradationPriorityLength         =0;
+                    SLConfig->AU_seqNumLength                   =0;
+                    SLConfig->packetSeqNumLength                =0;
                     break;
         case 0x02 :
-                    SLConfig->useAccessUnitStartFlag          =false;
-                    SLConfig->useAccessUnitEndFlag            =false;
-                    SLConfig->useRandomAccessPointFlag        =false;
-                    SLConfig->hasRandomAccessUnitsOnlyFlag    =false;
-                    SLConfig->usePaddingFlag                  =false;
-                    SLConfig->useTimeStampsFlag               =true;
-                    SLConfig->useIdleFlag                     =false;
-                    SLConfig->durationFlag                    =false;
-                    SLConfig->timeStampResolution             =0; //-
-                    SLConfig->OCRResolution                   =0; //-
-                    SLConfig->timeStampLength                 =32;
-                    SLConfig->AU_Length                       =0;
-                    SLConfig->instantBitrateLength            =0;
-                    SLConfig->degradationPriorityLength       =0;
-                    SLConfig->AU_seqNumLength                 =0;
-                    SLConfig->packetSeqNumLength              =0;
-
-                    SLConfig->timeScale                       =0; //-
-                    SLConfig->accessUnitDuration              =0; //-
-                    SLConfig->compositionUnitDuration         =0; //-
-
-                    SLConfig->startDecodingTimeStamp          =0; //-
-                    SLConfig->startCompositionTimeStamp       =0; //-
+                    SLConfig->useAccessUnitStartFlag            =false;
+                    SLConfig->useAccessUnitEndFlag              =false;
+                    SLConfig->useRandomAccessPointFlag          =false;
+                    SLConfig->hasRandomAccessUnitsOnlyFlag      =false;
+                    SLConfig->usePaddingFlag                    =false;
+                    SLConfig->useTimeStampsFlag                 =true;
+                    SLConfig->useIdleFlag                       =false;
+                    SLConfig->durationFlag                      =false;
+                    SLConfig->timeStampResolution               =0; //-
+                    SLConfig->OCRResolution                     =0; //-
+                    SLConfig->timeStampLength                   =0;
+                    SLConfig->OCRLength                         =0;
+                    SLConfig->AU_Length                         =0;
+                    SLConfig->instantBitrateLength              =0;
+                    SLConfig->degradationPriorityLength         =0;
+                    SLConfig->AU_seqNumLength                   =0;
+                    SLConfig->packetSeqNumLength                =0;
                     break;
         default   :
-                    SLConfig->useAccessUnitStartFlag          =false;
-                    SLConfig->useAccessUnitEndFlag            =false;
-                    SLConfig->useRandomAccessPointFlag        =false;
-                    SLConfig->hasRandomAccessUnitsOnlyFlag    =false;
-                    SLConfig->usePaddingFlag                  =false;
-                    SLConfig->useTimeStampsFlag               =false;
-                    SLConfig->useIdleFlag                     =false;
-                    SLConfig->durationFlag                    =false;
-                    SLConfig->timeStampResolution             =0;
-                    SLConfig->OCRResolution                   =0;
-                    SLConfig->timeStampLength                 =0;
-                    SLConfig->AU_Length                       =0;
-                    SLConfig->instantBitrateLength            =0;
-                    SLConfig->degradationPriorityLength       =0;
-                    SLConfig->AU_seqNumLength                 =0;
-                    SLConfig->packetSeqNumLength              =0;
-
-                    SLConfig->timeScale                       =0;
-                    SLConfig->accessUnitDuration              =0;
-                    SLConfig->compositionUnitDuration         =0;
-
-                    SLConfig->startDecodingTimeStamp          =0;
-                    SLConfig->startCompositionTimeStamp       =0;
+                    SLConfig->useAccessUnitStartFlag            =false;
+                    SLConfig->useAccessUnitEndFlag              =false;
+                    SLConfig->useRandomAccessPointFlag          =false;
+                    SLConfig->hasRandomAccessUnitsOnlyFlag      =false;
+                    SLConfig->usePaddingFlag                    =false;
+                    SLConfig->useTimeStampsFlag                 =false;
+                    SLConfig->useIdleFlag                       =false;
+                    SLConfig->durationFlag                      =false;
+                    SLConfig->timeStampResolution               =0;
+                    SLConfig->OCRResolution                     =0;
+                    SLConfig->timeStampLength                   =0;
+                    SLConfig->AU_Length                         =0;
+                    SLConfig->instantBitrateLength              =0;
+                    SLConfig->degradationPriorityLength         =0;
+                    SLConfig->AU_seqNumLength                   =0;
+                    SLConfig->packetSeqNumLength                =0;
     }
     if (SLConfig->durationFlag)
     {
@@ -893,12 +860,23 @@ void File_Mpeg4_Descriptors::Descriptor_06()
         Get_B2 (SLConfig->accessUnitDuration,                   "accessUnitDuration");
         Get_B2 (SLConfig->compositionUnitDuration,              "compositionUnitDuration");
     }
+    else
+    {
+                SLConfig->timeScale                             =0; //-
+                SLConfig->accessUnitDuration                    =0; //-
+                SLConfig->compositionUnitDuration               =0; //-
+    }
     if (!SLConfig->useTimeStampsFlag)
     {
         BS_Begin();
         Get_S8 (SLConfig->timeStampLength, SLConfig->startDecodingTimeStamp, "startDecodingTimeStamp");
         Get_S8 (SLConfig->timeStampLength, SLConfig->startCompositionTimeStamp, "startCompositionTimeStamp");
         BS_End();
+    }
+    else
+    {
+                SLConfig->startDecodingTimeStamp                =0; //-
+                SLConfig->startCompositionTimeStamp             =0; //-
     }
 }
 

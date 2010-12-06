@@ -1567,8 +1567,8 @@ void File_MpegTs::PES()
             if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
             {
                 #ifdef MEDIAINFO_MPEG4_YES
-                    ((File_MpegPs*)Complete_Stream->Streams[PID].Parser)->DecSpecificInfoTag=IOD_ES->second.DecSpecificInfoTag;
-                    ((File_MpegPs*)Complete_Stream->Streams[PID].Parser)->SLConfig=IOD_ES->second.SLConfig;
+                    ((File_MpegPs*)Complete_Stream->Streams[PID].Parser)->ParserFromTs=IOD_ES->second.Parser; IOD_ES->second.Parser=NULL;
+                    ((File_MpegPs*)Complete_Stream->Streams[PID].Parser)->SLConfig=IOD_ES->second.SLConfig; IOD_ES->second.SLConfig=NULL;
                 #endif
             }
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES

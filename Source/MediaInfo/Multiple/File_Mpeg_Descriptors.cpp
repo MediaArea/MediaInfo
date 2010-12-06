@@ -1823,13 +1823,11 @@ void File_Mpeg_Descriptors::Descriptor_1D()
         {
             File_Mpeg4_Descriptors MI;
             MI.Parser_DoNotFreeIt=true;
-            MI.DecSpecificInfoTag_DoNotFreeIt=true;
             MI.SLConfig_DoNotFreeIt=true;
             Open_Buffer_Init(&MI);
             Open_Buffer_Continue(&MI);
             Finish(&MI);
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].Parser=MI.Parser;
-            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].DecSpecificInfoTag=MI.DecSpecificInfoTag;
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].SLConfig=MI.SLConfig;
         }
     #else
@@ -2173,7 +2171,7 @@ void File_Mpeg_Descriptors::Descriptor_56()
             switch (table_id)
             {
                 case 0x02 : //program_map_section
-                            if (elementary_PID_IsValid && (teletext_type==2 || teletext_type==5)) //Subtitles are the only supported format
+                            if (elementary_PID_IsValid /*&& (teletext_type==2 || teletext_type==5)*/) //Subtitles are the only supported format
                             {
                                 int16u ID=(teletext_magazine_number==0?8:teletext_magazine_number)*100+teletext_page_number_1*10+teletext_page_number_2;
                                 Complete_Stream->Streams[elementary_PID].Teletexts[ID].Infos["Language"]=MediaInfoLib::Config.Iso639_1_Get(ISO_639_language_code);

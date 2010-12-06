@@ -151,7 +151,6 @@ struct complete_stream
         {
             File__Analyze*                                  Parser;
             #ifdef MEDIAINFO_MPEG4_YES
-                File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
                 File_Mpeg4_Descriptors::slconfig*           SLConfig;
             #endif
 
@@ -160,7 +159,6 @@ struct complete_stream
             {
                 Parser=NULL;
                 #ifdef MEDIAINFO_MPEG4_YES
-                    DecSpecificInfoTag=NULL;
                     SLConfig=NULL;
                 #endif
             }
@@ -169,7 +167,6 @@ struct complete_stream
             {
                 delete Parser; //Parser=NULL;
                 #ifdef MEDIAINFO_MPEG4_YES
-                    delete DecSpecificInfoTag; //DecSpecificInfoTag=NULL;
                     delete SLConfig; //SLConfig=NULL;
                 #endif
             }

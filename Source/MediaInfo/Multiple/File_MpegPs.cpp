@@ -214,7 +214,7 @@ File_MpegPs::File_MpegPs()
     MPEG_Version=0; //No info
     Searching_TimeStamp_Start=true;
     #ifdef MEDIAINFO_MPEG4_YES
-        DecSpecificInfoTag=NULL;
+        ParserFromTs=NULL;
         SLConfig=NULL;
     #endif
     #if MEDIAINFO_DEMUX
@@ -242,6 +242,10 @@ File_MpegPs::~File_MpegPs()
         if (FromTS_stream_type==0x20) //If SubStream, this object owns the demux handler
             delete SubStream_Demux; //SubStream_Demux=NULL;
     #endif //MEDIAINFO_DEMUX
+    #ifdef MEDIAINFO_MPEG4_YES
+        delete ParserFromTs; //ParserFromTs=NULL;
+        delete SLConfig; //SLConfig=NULL;
+    #endif
 }
 
 //***************************************************************************
@@ -375,6 +379,9 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
             }
         }
     }
+
+    if (StreamKind_Last==Stream_Audio && SLConfig)
+        Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
 
     //More info
     for (size_t StreamPos=Count_Get(StreamKind_Last)-Count; StreamPos<Count_Get(StreamKind_Last); StreamPos++)
@@ -2798,7 +2805,11 @@ void File_MpegPs::SL_packetized_stream()
         Streams[start_code].Searching_TimeStamp_Start=true;
 
         //New parsers
-        if (FromTS_stream_type)
+        if (ParserFromTs)
+        {
+            Streams[start_code].Parsers.push_back(ParserFromTs); ParserFromTs=NULL;
+        }
+        else if (FromTS_stream_type)
             switch (FromTS_stream_type)
             {
                 case 0x0F :
@@ -2848,14 +2859,14 @@ void File_MpegPs::SL_packetized_stream()
 
     //Parsing
     #ifdef MEDIAINFO_MPEG4_YES
-        if (SLConfig) //LATM
+        if (SLConfig) //SL
         {
             BS_Begin();
             int8u paddingBits=0;
-            bool paddingFlag=false, idleFlag=false/*not in spec*/, DegPrioflag=false/*not ins specs*/, OCRflag=false,
-                 accessUnitStartFlag=false/*should be "previous-SL packet has accessUnitEndFlag"*/, accessUnitEndFlag=false/*Should be "subsequent-SL packet has accessUnitStartFlag"*/,
-                 decodingTimeStampFlag=false/*not in spec*/, compositionTimeStampFlag=false/*not in spec*/,
-                 instantBitrateFlag=false/*not in spec*/;
+            bool paddingFlag=false, idleFlag=false, DegPrioflag=false, OCRflag=false,
+                 accessUnitStartFlag=false, accessUnitEndFlag=false,
+                 decodingTimeStampFlag=false, compositionTimeStampFlag=false,
+                 instantBitrateFlag=false;
             if (SLConfig->useAccessUnitStartFlag)
                 Get_SB (accessUnitStartFlag,                        "accessUnitStartFlag");
             if (SLConfig->useAccessUnitEndFlag)
@@ -2902,7 +2913,6 @@ void File_MpegPs::SL_packetized_stream()
                 }
             }
             BS_End();
-            Skip_XX(Element_Size-Element_Offset,                    "AAC (raw)");
         }
     #else //MEDIAINFO_MPEG4_YES
         Skip_XX(Element_Size,                                       "LATM (not decoded)");

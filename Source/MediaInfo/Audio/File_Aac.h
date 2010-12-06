@@ -83,10 +83,6 @@ class File_Aac : public File__Analyze, public File__Tags_Helper
 public :
     //In
     int64u  Frame_Count_Valid;
-    #ifdef MEDIAINFO_MPEG4_YES
-        File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
-        File_Mpeg4_Descriptors::slconfig* SLConfig;
-    #endif
     enum mode
     {
         Mode_Unknown,

@@ -58,10 +58,6 @@ File_Aac::File_Aac()
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
     Mode=Mode_Unknown;
-    #ifdef MEDIAINFO_MPEG4_YES
-        DecSpecificInfoTag=NULL;
-        SLConfig=NULL;
-    #endif
 
     audioObjectType=(int8u)-1;
     extensionAudioObjectType=(int8u)-1;
