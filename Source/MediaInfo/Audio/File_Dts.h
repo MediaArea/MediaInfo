@@ -89,6 +89,7 @@ private :
     int8u  channel_arrangement;
     int8u  channel_arrangement_XCh;
     int8u  sample_frequency;
+    int8u  sample_frequency_X96k;
     int8u  bit_rate;
     int8u  lfe_effects;
     int8u  bits_per_sample;
@@ -104,7 +105,7 @@ private :
     bool   Core_Exists;
 
     //Helpers
-    float64 BitRate_Get();
+    float64 BitRate_Get(bool WithHD=false);
 };
 
 } //NameSpace

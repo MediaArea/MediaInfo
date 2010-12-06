@@ -556,11 +556,13 @@ void File_Ac3::Streams_Fill()
             {
                 Fill(Stream_General, 0, General_Format_Profile, "TrueHD / Core");
                 Fill(Stream_Audio, 0, Audio_Format_Profile, "TrueHD / Core");
+                Fill(Stream_Audio, 0, Audio_Compression_Mode, "Lossless / Lossy", Unlimited, true, true);
             }
             else
             {
                 Fill(Stream_General, 0, General_Format, "TrueHD");
                 Fill(Stream_Audio, 0, Audio_Format, "TrueHD");
+                Fill(Stream_Audio, 0, Audio_Compression_Mode, "Lossless", Unlimited, true, true);
             }
             Fill(Stream_Audio, 0, Audio_Codec, "TrueHD");
             Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");

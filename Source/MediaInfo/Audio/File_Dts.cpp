@@ -83,8 +83,8 @@ const int8u DTS_Resolution[]=
 //---------------------------------------------------------------------------
 const char*  DTS_ChannelPositions[]=
 {
-    "Mono",
-    "Dual mono",
+    "Front: C",
+    "Front: C C",
     "Front: L R",
     "Front: L R",
     "Front: L R",
@@ -349,6 +349,7 @@ File_Dts::File_Dts()
     channel_arrangement=(int8u)-1;
     channel_arrangement_XCh=(int8u)-1;
     sample_frequency=(int8u)-1;
+    sample_frequency_X96k=(int8u)-1;
     bit_rate=(int8u)-1;
     lfe_effects=(int8u)-1;
     bits_per_sample=(int8u)-1;
@@ -376,11 +377,7 @@ File_Dts::~File_Dts()
 //---------------------------------------------------------------------------
 void File_Dts::Streams_Fill()
 {
-    if (!IsSub)
-    {
-        Fill(Stream_General, 0, General_Format, "DTS");
-        Fill(Stream_General, 0, General_Format_Profile, Profile);
-    }
+    Fill(Stream_General, 0, General_Format, "DTS");
 
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "DTS");
@@ -388,20 +385,14 @@ void File_Dts::Streams_Fill()
     if (Parser) //LE or 14-bit
         return; //filled by the parser
 
-    if (Profile.empty() && ES)
-        Profile="ES";
-    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
+    if (!Profile.empty())
+        Fill(Stream_Audio, 0, Audio_Format_Profile, Profile+(Core_Exists?_T(" / Core"):_T("")));
+    else if (ES)
+        Fill(Stream_Audio, 0, Audio_Format_Profile, "ES");
+    Fill(Stream_General, 0, General_Format_Profile, Retrieve(Stream_Audio, 0, Audio_Format_Profile));
     Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
-    Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (Profile!=_T("MA") && (bit_rate<29 || Profile==_T("Express")))
-        Fill(Stream_Audio, 0, Audio_BitRate, BitRate_Get(), 0);
-    else if (bit_rate==29)
-        Fill(Stream_Audio, 0, Audio_BitRate, "Open");
-    else if (bit_rate==30)
-        Fill(Stream_Audio, 0, Audio_BitRate, "Variable");
-    else if (bit_rate==31)
-        Fill(Stream_Audio, 0, Audio_BitRate, "LossLess");
+
+    //HD data
     if ((ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3 || ExtensionAudioDescriptor==6)))
     {
         switch(channel_arrangement_XCh)
@@ -421,6 +412,46 @@ void File_Dts::Streams_Fill()
     }
     else
     {
+        if (HD_SpeakerActivityMask!=(int16u)-1)
+        {
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str());
+            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(HD_SpeakerActivityMask).c_str());
+        }
+        if(HD_BitResolution!=(int8u)-1)
+            Fill(Stream_Audio, 0, Audio_Resolution, HD_BitResolution);
+        if(HD_MaximumSampleRate!=(int8u)-1)
+            Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]);
+        else if (sample_frequency_X96k!=(int8u)-1)
+            Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency_X96k]);
+        if(HD_TotalNumberChannels!=(int8u)-1)
+            Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels);
+        if (bit_rate<29 || Profile==_T("Express"))
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate_Get(true), 0);
+        if (Profile==_T("Express"))
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+    }
+
+    //Core data
+    if (Core_Exists)
+    {
+        if ((Profile.find(_T("MA"))==0?_T("VBR"):_T("CBR"))!=Retrieve(Stream_Audio, 0, Audio_BitRate_Mode))
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
+        if (DTS_SamplingRate[sample_frequency]!=Retrieve(Stream_Audio, 0, Audio_SamplingRate).To_int32u())
+            Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
+        Ztring BitRate;
+        if (bit_rate<29 || Profile==_T("Express"))
+            BitRate=Ztring::ToZtring(BitRate_Get(), 0);
+        else if (bit_rate==29)
+            BitRate=_T("Open");
+        else if (bit_rate==30)
+            BitRate=_T("Variable");
+        else if (bit_rate==31)
+            BitRate=_T("LossLess");
+        if (BitRate!=Retrieve(Stream_Audio, 0, Audio_BitRate))
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+        if (Profile.find(_T("MA"))==0 || bit_rate==31)
+            Fill(Stream_Audio, 0, Audio_Compression_Mode, "Lossless / Lossy", Unlimited, true, true);
+
         int8u Channels;
         Ztring ChannelPositions, ChannelPositions2;
         if (channel_arrangement<16)
@@ -439,24 +470,15 @@ void File_Dts::Streams_Fill()
             ChannelPositions+=_T(", LFE");
             ChannelPositions2+=_T(".1");
         }
-        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
+        if (Channels!=Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int8u())
+            Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+        if (ChannelPositions!=Retrieve(Stream_Audio, 0, Audio_ChannelPositions))
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
+        if (ChannelPositions2!=Retrieve(Stream_Audio, 0, Audio_ChannelPositions_String2))
+            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
+        if (DTS_Resolution[bits_per_sample]!=Retrieve(Stream_Audio, 0, Audio_Resolution).To_int8u())
+            Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
     }
-    Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
-
-    //Priority on HD data
-    if (HD_SpeakerActivityMask!=(int16u)-1)
-    {
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
-    }
-    if(HD_BitResolution!=(int8u)-1)
-        Fill(Stream_Audio, 0, Audio_Resolution, HD_BitResolution, 10, true);
-    if(HD_MaximumSampleRate!=(int8u)-1)
-        Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], 10, true);
-    if(HD_TotalNumberChannels!=(int8u)-1)
-        Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
 }
 
 //---------------------------------------------------------------------------
@@ -466,8 +488,8 @@ void File_Dts::Streams_Finish()
     {
         Parser->Finish();
         Merge(*Parser, Stream_Audio, 0, 0);
-        if (!BigEndian) Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
-        if (!Word)      Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
+        Fill(Stream_Audio, 0, Audio_MuxingMode, BigEndian?"BE":"LE");
+        Fill(Stream_Audio, 0, Audio_MuxingMode, Word?"16":"14");
         return;
     }
 
@@ -1078,7 +1100,7 @@ void File_Dts::Core_X96k(int64u Size)
     Skip_XX(Size-2,                                             "X96k data"); //FSIZE96 is until end, not X96k size
 
     FILLING_BEGIN();
-        sample_frequency=14; //96KHz
+        sample_frequency_X96k=14; //96KHz
         Profile="96/24";
     FILLING_END();
 }
@@ -1225,7 +1247,7 @@ void File_Dts::HD_XSA(int64u Size)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-float64 File_Dts::BitRate_Get()
+float64 File_Dts::BitRate_Get(bool WithHD)
 {
     if (bit_rate<29 || Profile==_T("Express"))
     {
@@ -1234,7 +1256,7 @@ float64 File_Dts::BitRate_Get()
             BitRate=0; //No core bitrate
         else
             BitRate=(float64)DTS_BitRate[bit_rate];
-        if (HD_ExSSFrameDurationCode!=(int8u)-1)
+        if (WithHD && HD_ExSSFrameDurationCode!=(int8u)-1)
         {
             int32u SamplePerFrames=HD_ExSSFrameDurationCode;
             switch (HD_MaximumSampleRate)

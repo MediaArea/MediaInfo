@@ -16,8 +16,10 @@ Version 0.7.38
 + AAC/LATM: more details (channels, profile...)
 + AAC/SL: more details (channels, profile...)
 + MPEG-TS and MPEG-PS with trace feature activated (Linux/Mac by default): speed improvement
++ DTS: indication of HD and Core configurations if there is an HD part
 x MPEG-TS: some teletext and DVB subtitles were not detected
 x #3111584, MXF: phantom track with weird result if an unknown track is found
+x #3116952, DTS and AC-3: was set as lossy in all cases (DTS Master Audio and AC-3 TrueHD are lossless)
 
 Version 0.7.37, 2010-11-22
 --------------
