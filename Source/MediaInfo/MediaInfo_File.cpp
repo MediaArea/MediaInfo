@@ -128,6 +128,9 @@
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
+#if defined(MEDIAINFO_VC3_YES)
+    #include "MediaInfo/Video/File_Vc3.h"
+#endif
 #if defined(MEDIAINFO_AVSV_YES)
     #include "MediaInfo/Video/File_AvsV.h"
 #endif
@@ -397,6 +400,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_VC1_YES)
         else if (Parser==_T("Vc1"))         Info=new File_Vc1();
     #endif
+    #if defined(MEDIAINFO_VC3_YES)
+        else if (Parser==_T("Vc3"))         Info=new File_Vc3();
+    #endif
     #if defined(MEDIAINFO_AVSV_YES)
         else if (Parser==_T("AvsV"))        Info=new File_AvsV();
     #endif
@@ -661,6 +667,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_VC1_YES)
         delete Info; Info=new File_Vc1();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_VC3_YES)
+        delete Info; Info=new File_Vc3();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_AVSV_YES)
         delete Info; Info=new File_AvsV();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

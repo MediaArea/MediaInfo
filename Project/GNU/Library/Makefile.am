@@ -147,6 +147,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Mpegv.cpp \
                        ../../../Source/MediaInfo/Video/File_Theora.cpp \
                        ../../../Source/MediaInfo/Video/File_Vc1.cpp \
+                       ../../../Source/MediaInfo/Video/File_Vc3.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 
 libmediainfo_la_LDFLAGS     = -no-undefined -version-info 0:0:0

@@ -149,6 +149,7 @@ AC_ARG_ENABLE(mpeg4v,  AC_HELP_STRING([--disable-mpeg4v],  [Disable Video - MPEG
 AC_ARG_ENABLE(mpegv,   AC_HELP_STRING([--disable-mpegv],   [Disable Video - MPEG-Video]),                                 MediaInfoMpegv=$enableval,   MediaInfoMpegv=depend)
 AC_ARG_ENABLE(theora,  AC_HELP_STRING([--disable-theora],  [Disable Video - Theora]),                                     MediaInfoTheora=$enableval,  MediaInfoTheora=depend)
 AC_ARG_ENABLE(vc1,     AC_HELP_STRING([--disable-vc1],     [Disable Video - VC-1]),                                       MediaInfoVc1=$enableval,     MediaInfoVc1=depend)
+AC_ARG_ENABLE(vc3,     AC_HELP_STRING([--disable-vc3],     [Disable Video - VC-3 (DNxHD)]),                               MediaInfoVc3=$enableval,     MediaInfoVc3=depend)
 
 dnl -------------------------------------------------------------------------
 dnl With
@@ -259,6 +260,7 @@ if test "$MediaInfoMpeg4v"  = "no";  then AC_DEFINE(MEDIAINFO_MPEG4V_NO)  fi; if
 if test "$MediaInfoMpegv"   = "no";  then AC_DEFINE(MEDIAINFO_MPEGV_NO)   fi; if test "$MediaInfoMpegv"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEGV_YES)   fi
 if test "$MediaInfoTheora"  = "no";  then AC_DEFINE(MEDIAINFO_THEORA_NO)  fi; if test "$MediaInfoTheora"  = "yes"; then AC_DEFINE(MEDIAINFO_THEORA_YES)  fi
 if test "$MediaInfoVc1"     = "no";  then AC_DEFINE(MEDIAINFO_VC1_NO)     fi; if test "$MediaInfoVc1"     = "yes"; then AC_DEFINE(MEDIAINFO_VC1_YES)     fi
+if test "$MediaInfoVc3"     = "no";  then AC_DEFINE(MEDIAINFO_VC3_NO)     fi; if test "$MediaInfoVc3"     = "yes"; then AC_DEFINE(MEDIAINFO_VC3_YES)     fi
 
 dnl #########################################################################
 dnl ### Options from elsewhere

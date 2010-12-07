@@ -43,6 +43,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_VC3_YES)
+    #include "MediaInfo/Video/File_Vc3.h"
+#endif
 #if defined(MEDIAINFO_AAC_YES)
     #include "MediaInfo/Audio/File_Aac.h"
 #endif
@@ -1848,6 +1851,11 @@ void File_Mxf::Data_Parse()
                     {
                         Essences[Code_Compare4].Parser=ChooseParser(Descriptor->second.EssenceContainer, Descriptor->second.EssenceCompression);
                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+                        #ifdef MEDIAINFO_VC3_YES
+                            if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))
+                                ((File_Vc3*)Essences[Code_Compare4].Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
+                        #endif //MEDIAINFO_VC3_YES
                     }
                     break;
                 }
@@ -6351,10 +6359,15 @@ File__Analyze* File_Mxf::ChooseParser_RV24()
 File__Analyze* File_Mxf::ChooseParser_Vc3()
 {
     //Filling
-    File__Analyze* Handle=new File_Unknown();
-    Open_Buffer_Init(Handle);
-    Handle->Stream_Prepare(Stream_Video);
-    Handle->Fill(Stream_Video, 0, Video_Format, "VC-3");
+    #if defined(MEDIAINFO_VC3_YES)
+        File_Vc3* Handle=new File_Vc3;
+    #else
+        //Filling
+        File__Analyze* Handle=new File_Unknown();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Video);
+        Handle->Fill(Stream_Video, 0, Video_Format, "VC-3");
+    #endif
     return Handle;
 }
 

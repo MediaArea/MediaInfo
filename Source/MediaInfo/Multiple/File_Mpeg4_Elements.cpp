@@ -47,6 +47,9 @@
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
+#if defined(MEDIAINFO_VC3_YES)
+    #include "MediaInfo/Video/File_Vc3.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
@@ -3141,6 +3144,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                     Element_Offset=Element_Size;
                     Finish(&MI);
                     Merge(MI, Stream_Video, 0, StreamPos_Last);
+                }
+            #endif
+            #if defined(MEDIAINFO_VC3_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("VC-3"))
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Vc3;
+                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
             #if defined(MEDIAINFO_JPEG_YES)

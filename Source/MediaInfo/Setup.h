@@ -332,6 +332,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC1_NO) && !defined(MEDIAINFO_VC1_YES)
     #define MEDIAINFO_VC1_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC3_NO) && !defined(MEDIAINFO_VC3_YES)
+    #define MEDIAINFO_VC3_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THEORA_NO) && !defined(MEDIAINFO_THEORA_YES)
     #define MEDIAINFO_THEORA_YES
 #endif

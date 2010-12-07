@@ -460,6 +460,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Reader\Reader_libmms.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.h" />
@@ -596,6 +597,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_libmms.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vc3.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj">

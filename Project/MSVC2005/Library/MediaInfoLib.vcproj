@@ -394,6 +394,10 @@
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vc1.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vc3.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Image"
@@ -1175,6 +1179,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vc1.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vc3.h"
 					>
 				</File>
 			</Filter>
