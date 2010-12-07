@@ -3029,6 +3029,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Skip_XX(Element_Size-Element_Offset,                "WMA Pro data");
         }
 
+        #if MEDIAINFO_DEMUX
+            if (Stream[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
+            {
+                Stream[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
+                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                mdat_MustParse=true; //Data is in MDAT
+            }
+        #endif //MEDIAINFO_DEMUX
+
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
         if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).empty()) //if not mp4a, and not ms*
             Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize, 10, true);
@@ -3142,6 +3151,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                     mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
+
+            #if MEDIAINFO_DEMUX
+                if (Stream[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
+                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                    mdat_MustParse=true; //Data is in MDAT
+                }
+            #endif //MEDIAINFO_DEMUX
         }
 
         //Descriptors or a list (we can see both!)
