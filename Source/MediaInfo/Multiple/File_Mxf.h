@@ -490,6 +490,8 @@ protected :
         stream_t StreamKind;
         float64 SampleRate;
         int128u InstanceUID;
+        int128u EssenceContainer;
+        int128u EssenceCompression;
         int32u LinkedTrackID;
         int32u Width;
         int32u Height;
@@ -501,6 +503,10 @@ protected :
             SampleRate=0;
             InstanceUID.hi=(int64u)-1;
             InstanceUID.lo=(int64u)-1;
+            EssenceContainer.hi=(int64u)-1;
+            EssenceContainer.lo=(int64u)-1;
+            EssenceCompression.hi=(int64u)-1;
+            EssenceCompression.lo=(int64u)-1;
             LinkedTrackID=(int32u)-1;
             Width=(int32u)-1;
             Height=(int32u)-1;
@@ -540,6 +546,21 @@ protected :
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
     components Components;
 
+    //Parsers
+    File__Analyze* ChooseParser(int128u EssenceContainer, int128u EssenceCompression);
+    File__Analyze* ChooseParser_Avc();
+    File__Analyze* ChooseParser_DV();
+    File__Analyze* ChooseParser_Mpeg4v();
+    File__Analyze* ChooseParser_Mpegv();
+    File__Analyze* ChooseParser_RV24();
+    File__Analyze* ChooseParser_Vc3();
+    File__Analyze* ChooseParser_Aac();
+    File__Analyze* ChooseParser_Alaw();
+    File__Analyze* ChooseParser_Mpega();
+    File__Analyze* ChooseParser_Pcm();
+    File__Analyze* ChooseParser_Jpeg2000();
+
+    //Temp
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;
