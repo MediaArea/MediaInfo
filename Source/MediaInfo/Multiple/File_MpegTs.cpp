@@ -458,6 +458,13 @@ void File_MpegTs::Streams_Fill_PerStream()
             if (!Format_Profile.empty())
                 Fill(Stream_Video, StreamPos, Video_Format_Profile, Complete_Stream->Streams[Temp.SubStream_pid].Parser->Retrieve(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
         }
+        else if (Count>1)
+        {
+            Ztring ID=Retrieve(StreamKind_Last, StreamPos, General_ID);
+            Ztring ID_String=Retrieve(StreamKind_Last, StreamPos, General_ID_String);
+            Fill(StreamKind_Last, StreamPos, General_ID, Ztring::ToZtring(PID)+_T('-')+ID, true);
+            Fill(StreamKind_Last, StreamPos, General_ID_String, Decimal_Hexa(PID)+_T('-')+ID_String, true);
+        }
         else
         {
             Fill(StreamKind_Last, StreamPos, General_ID, PID, 10, true);
