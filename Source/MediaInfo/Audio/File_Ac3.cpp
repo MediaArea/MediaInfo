@@ -615,6 +615,8 @@ void File_Ac3::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);
         if (frmsizecod/2<19)
         {
+            if (HD_Count)
+                Fill(Stream_Audio, 0, Audio_BitRate, "Unknown");
             int32u BitRate=AC3_BitRate[frmsizecod/2]*1000;
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
             if (CalculateDelay && Buffer_TotalBytes_FirstSynched>100 && BitRate>0)
@@ -841,7 +843,7 @@ void File_Ac3::Streams_Finish()
             Frame_Count_ForDuration=Frame_Count; //We have the exact count of frames
             Fill(Stream_Audio, 0, Audio_StreamSize, File_Offset+Buffer_Offset+Element_Size-File_Offset_FirstSynched);
         }
-        else if (bsid<=8 && frmsizecods.size()==1 && fscods.size()==1)
+        else if (bsid<=8 && frmsizecods.size()==1 && fscods.size()==1 && HD_Count==0)
         {
             int16u Size=AC3_FrameSize_Get(frmsizecods.begin()->first, fscods.begin()->first);
             Frame_Count_ForDuration=(File_Size-File_Offset_FirstSynched)/Size; //Only complete frames
@@ -849,8 +851,47 @@ void File_Ac3::Streams_Finish()
         }
         if (Frame_Count_ForDuration)
         {
-            Fill(Stream_Audio, 0, Audio_Duration, Frame_Count_ForDuration*32);
-            Fill(Stream_Audio, 0, Audio_FrameCount, Frame_Count_ForDuration);
+            Clear(Stream_Audio, 0, Audio_BitRate);
+
+            //HD part
+            if (HD_Count)
+            {
+                int32u HD_SamplingRate=AC3_HD_SamplingRate(HD_SamplingRate1);
+                if (HD_SamplingRate)
+                {
+                    int8u FrameDuration; //In samples
+                    if (HD_SamplingRate<44100)
+                        FrameDuration=0; //Unknown
+                    else if (HD_SamplingRate<=48000)
+                        FrameDuration=40;
+                    else if (HD_SamplingRate<=96000)
+                        FrameDuration=80;
+                    else if (HD_SamplingRate<=192000)
+                        FrameDuration=160;
+                    else
+                        FrameDuration=0; //Unknown
+                    if (FrameDuration)
+                    {
+                        int64u SamplingCount=HD_Count*FrameDuration;
+                        Fill(Stream_Audio, 0, Audio_Duration, SamplingCount/(((float64)HD_SamplingRate)/1000), 0);
+                        Fill(Stream_Audio, 0, Audio_SamplingCount, SamplingCount);
+                        Fill(Stream_Audio, 0, Audio_BitRate, (File_Size-File_Offset_FirstSynched)/(SamplingCount/(((float64)HD_SamplingRate)/1000))*8, 0);
+                    }
+                    Fill(Stream_Audio, 0, Audio_FrameCount, HD_Count);
+                }
+            }
+            if (Core_IsPresent)
+            {
+                Fill(Stream_Audio, 0, Audio_FrameCount, Frame_Count_ForDuration);
+                if (AC3_SamplingRate[fscod])
+                {
+                    float64 FrameDuration=((float64)(32*48000))/AC3_SamplingRate[fscod]; //32 ms for 48 KHz, else proportional (34.83 for 44.1 KHz, 48 ms for 32 KHz)
+                    Fill(Stream_Audio, 0, Audio_SamplingCount, Frame_Count_ForDuration*1536);
+                    Fill(Stream_Audio, 0, Audio_Duration, Frame_Count_ForDuration*FrameDuration, 0);
+                    int32u BitRate=AC3_BitRate[frmsizecod/2]*1000;
+                    Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+                }
+            }
         }
     }
     else if (PTS!=(int64u)-1)
@@ -1174,6 +1215,17 @@ void File_Ac3::Data_Parse()
                     PTS_End=PTS;
                 PTS_End+=32000000;
             }
+
+            //Name
+            Element_Info(Frame_Count);
+        }
+
+        if (Element_Code==1)
+        {
+            HD_Count++;
+
+            //Name
+            Element_Info(HD_Count);
         }
 
         Skip_XX(Element_Size,                                   "Data");
@@ -1369,9 +1421,6 @@ void File_Ac3::Core()
     }
 
     FILLING_BEGIN();
-        //Name
-        Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
-
         //Counting
         if (!Core_IsPresent)
         {
@@ -1391,6 +1440,9 @@ void File_Ac3::Core()
                 PTS_End=PTS;
             PTS_End+=32000000;
         }
+
+        //Name
+        Element_Info(Frame_Count);
 
         //Filling
         if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
@@ -1576,11 +1628,10 @@ void File_Ac3::HD()
             }
         }
 
-        if (!HD_AlreadyCounted)
-        {
-            HD_Count++;
-            HD_AlreadyCounted=true;
-        }
+        HD_Count++;
+
+        //Name
+        Element_Info(HD_Count);
 
         //Filling
         if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)

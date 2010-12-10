@@ -20,6 +20,7 @@ Version 0.7.38
 + #3118446, MXF: VC-3 (DNxHD) detection
 + VC-3 (DNxHD) raw stream detection
 + VC-3 (DNxHD): Bit depth
++ TrueHD/MLP: Duration (only in full parsing mode)
 x MPEG-TS: some teletext and DVB subtitles were not detected
 x #3111584, MXF: phantom track with weird result if an unknown track is found
 x #3116952, DTS and AC-3: was set as lossy in all cases (DTS Master Audio and AC-3 TrueHD are lossless)
