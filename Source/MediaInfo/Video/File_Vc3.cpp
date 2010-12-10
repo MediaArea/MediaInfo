@@ -70,6 +70,22 @@ const int8u Vc3_SBD(int32u SBD) //Sample Bit Depth
     }
 };
 
+//---------------------------------------------------------------------------
+const char* Vc3_FFC[4]=
+{
+    "",
+    "Progressive",
+    "Interlaced",
+    "Interlaced",
+};
+
+//---------------------------------------------------------------------------
+const char* Vc3_SST[2]=
+{
+    "Progressive",
+    "Interlaced",
+};
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -99,7 +115,12 @@ void File_Vc3::Streams_Fill()
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     if (FrameRate)
         Fill(Stream_Video, 0, Video_BitRate, Vc3_CompressedFrameSize(CID)*8*FrameRate, 0);
+    Fill(Stream_Video, 0, Video_Width, SPL);
+    Fill(Stream_Video, 0, Video_Height, ALPF);
     Fill(Stream_Video, 0, Video_BitDepth, Vc3_SBD(SBD));
+    Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
+    Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:2:2");
+    Fill(Stream_Video, 0, Video_ScanType, Vc3_SST[SST]);
 }
 
 //***************************************************************************
@@ -209,7 +230,7 @@ void File_Vc3::CodingControlA()
     Mark_0();
     Mark_0();
     Mark_0();
-    Info_S1(2, FFC,                                             "Field/Frame Count");
+    Info_S1(2, FFC,                                             "Field/Frame Count"); Param_Info(Vc3_FFC[FFC]);
 
     Mark_1();
     Mark_0();
@@ -238,8 +259,8 @@ void File_Vc3::ImageGeometry()
 {
     //Parsing
     Element_Begin("Image Geometry", 11);
-    Skip_B2(                                                    "Active lines-per-frame");
-    Skip_B2(                                                    "Samples-per-line");
+    Get_B2 (ALPF,                                               "Active lines-per-frame");
+    Get_B2 (SPL,                                                "Samples-per-line");
     Skip_B1(                                                    "Zero");
     Skip_B2(                                                    "Number of active lines");
     Skip_B2(                                                    "Zero");

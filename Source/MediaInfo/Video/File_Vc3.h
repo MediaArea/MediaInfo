@@ -72,6 +72,8 @@ private :
     int64u  Data_ToParse;
     int32u  CID;
     bool    CRCF;
+    int16u  ALPF;
+    int16u  SPL;
     int8u   SBD;
     bool    SST;
 };

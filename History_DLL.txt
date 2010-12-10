@@ -18,7 +18,7 @@ Version 0.7.38
 + MPEG-TS and MPEG-PS with trace feature activated (Linux/Mac by default): speed improvement
 + DTS: indication of HD and Core configurations if there is an HD part
 + #3118446, MXF: VC-3 (DNxHD) detection
-+ VC-3 (DNxHD) raw stream detection
++ VC-3 (DNxHD) raw stream support
 + VC-3 (DNxHD): Bit depth
 + TrueHD/MLP: Duration (only in full parsing mode)
 x MPEG-TS: some teletext and DVB subtitles were not detected
