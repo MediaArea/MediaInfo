@@ -42,7 +42,7 @@ H.261;;;V;;;h261;video/H261;;Lossy
 H.263;;;V;;;h263;video/H263;;Lossy
 MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;video/MPV;;Lossy
 MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES;;Lossy
-Theora;;;V;;;;;;Lossy
+Theora;;;V;;;;;http://www.theora.org/;Lossy
 VC-1;;;V;Vc1;;vc1;video/vc1;;Lossy
 VP8;;;V;;;;;http://www.webmproject.org/;Lossy
 YUV;;;V;;;;;;Lossless
@@ -79,11 +79,11 @@ RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;;;
 Scream Tracker 3;;;A;S3m;;s3m;;;
 Shorten;;;A;;;shn;;http://etree.org/shnutils/shorten/;Lossless
 SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm;Lossless
-Speex;;;A;;;;audio/speex;;Lossy
+Speex;;;A;;;;audio/speex;http://www.speex.org/;Lossy
 TAK;;;A;;;tak;;http://thbeck.de/Tak/Tak.html;Lossless
 TrueHD;;;A;Ac3;;dts;;;Lossless
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;;http://www.twinvq.org/english/index_en.html;
-Vorbis;;;A;;;;audio/vorbis;;Lossy
+Vorbis;;;A;;;;audio/vorbis;http://www.vorbis.com/;Lossy
 Wave;;;A;Riff;;wav;audio/vnd.wave;;
 Wave64;;;A;Riff;;w64;;;
 WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com;
