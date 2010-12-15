@@ -24,10 +24,10 @@
 //Get command line args in main()
 #ifdef UNICODE
     #ifdef _WIN32
-#undef __TEXT
-    #include <windows.h>
-        #define GETCOMMANDLINE() \
-            MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
+        #undef __TEXT
+        #include <windows.h>
+            #define GETCOMMANDLINE() \
+                MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
 
     #else //WIN32
         #define GETCOMMANDLINE() \
@@ -55,10 +55,20 @@ inline void TEXTOUT(const char* Text)
 
 inline void STRINGOUT(ZenLib::Ztring Text)
 {
-    #ifdef __WINDOWS__
-        Text.FindAndReplace(_T("\r\n"), _T("\n"), 0, ZenLib::Ztring_Recursive); //MediaInfoLib handle differences between platforms, but cout too!
-    #endif //__WINDOWS__
-    std::cout<<Text.To_Local().c_str()<<std::endl;
+    #ifdef UNICODE
+        #ifdef __WINDOWS__
+            DWORD CharsWritten;
+            std::string Buffer = Text.To_UTF8();
+            UINT Cp_Old = GetConsoleOutputCP();
+            SetConsoleOutputCP(CP_UTF8);
+            WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), Buffer.c_str(), Buffer.length(), &CharsWritten, NULL);
+            SetConsoleOutputCP(Cp_Old);
+        #else //__WINDOWS__
+            std::cout<<Text.To_Local().c_str()<<std::endl;
+        #endif //__WINDOWS__
+    #else // UNICODE
+            std::cout<<Text.c_str()<<std::endl;
+    #endif // UNICODE
 }
 
 
