@@ -1751,6 +1751,8 @@ void File_Mpeg_Psi::Table_C9()
         BS_End();
 
         FILLING_BEGIN();
+            if (!Config->File_MpegTs_Atsc_transport_stream_id_Trust_Get())
+                table_id_extension=Complete_Stream->transport_stream_id;
             Ztring Channel=Ztring::ToZtring(major_channel_number);
             if (minor_channel_number)
                 Channel+=_T("-")+Ztring::ToZtring(minor_channel_number);
