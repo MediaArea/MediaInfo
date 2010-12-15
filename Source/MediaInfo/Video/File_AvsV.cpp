@@ -417,13 +417,13 @@ void File_AvsV::Data_Parse()
         default:
             if (Element_Code>=0x00
              && Element_Code<=0xAF) slice();
-            else if (Element_Code==0xE0 && Element_Size>=2 && CC2(Buffer+Buffer_Offset)==0x0000)
-            {
-                Trusted=0; //This is surely an extract from MPEG-TS
-                Trusted_IsNot("Unattended element");
-            }
             else
+            {
+                if (Frame_Count==0 && Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched_Max)
+                    Trusted=0;
                 Trusted_IsNot("Unattended element");
+
+            }
     }
 
     if (File_Offset+Buffer_Offset+Element_Size==File_Size && Frame_Count>0 && Count_Get(Stream_Video)==0) //Finalize frames in case of there are less than Frame_Count_Valid frames

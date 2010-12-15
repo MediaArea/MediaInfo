@@ -738,7 +738,11 @@ void File_Mpeg4v::Data_Parse()
                   && Element_Code<=0x4F) fgs_bp_start();
             else if (Element_Code<=0xC5) reserved();
             else
+            {
+                if (Frame_Count==0 && Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched_Max)
+                    Trusted=0;
                 Trusted_IsNot("Unattended element!");
+            }
     }
 }
 
