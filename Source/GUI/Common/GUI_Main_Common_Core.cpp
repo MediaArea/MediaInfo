@@ -91,7 +91,10 @@ String GUI_Main_Common_Core::Inform_Get(stream_t StreamKind, size_t StreamPos)
 //---------------------------------------------------------------------------
 String GUI_Main_Common_Core::CodecID_Url_Get(stream_t StreamKind, size_t StreamPos)
 {
-    return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("CodecID/Url")).c_str();
+    if (!C->MI->Get(File_Pos, StreamKind, StreamPos, _T("CodecID/Url")).empty())
+        return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("CodecID/Url")).c_str();
+    else
+        return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Format/Url")).c_str();
 }
 
 
