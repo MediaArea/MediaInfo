@@ -258,171 +258,165 @@
 				<BuildOrder>85</BuildOrder>
 				<BuildOrder>22</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\TinyXml\tinyxml.cpp">
-				<BuildOrder>173</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_ImpulseTracker.cpp">
-				<BuildOrder>68</BuildOrder>
-				<BuildOrder>133</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Gif.cpp">
+				<BuildOrder>87</BuildOrder>
+				<BuildOrder>28</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp">
 				<BuildOrder>50</BuildOrder>
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h</DependentOn>
 				<BuildOrder>151</BuildOrder>
 			</CppCompile>
-			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
-				<BuildOrder>51</BuildOrder>
-				<BuildOrder>154</BuildOrder>
-			</LibFiles>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\TinyXml\tinyxml.cpp">
+				<BuildOrder>173</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Au.cpp">
 				<BuildOrder>76</BuildOrder>
 				<BuildOrder>129</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Wvpk.cpp">
-				<BuildOrder>57</BuildOrder>
-				<BuildOrder>148</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\TinyXml\tinyxmlerror.cpp">
+				<BuildOrder>174</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Flac.cpp">
-				<BuildOrder>69</BuildOrder>
-				<BuildOrder>132</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp">
-				<BuildOrder>64</BuildOrder>
-				<BuildOrder>117</BuildOrder>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<BuildOrder>51</BuildOrder>
+				<BuildOrder>154</BuildOrder>
+			</LibFiles>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_ImpulseTracker.cpp">
+				<BuildOrder>68</BuildOrder>
+				<BuildOrder>133</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Rle.cpp">
 				<BuildOrder>79</BuildOrder>
 				<BuildOrder>24</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp">
-				<BuildOrder>183</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Flac.cpp">
+				<BuildOrder>69</BuildOrder>
+				<BuildOrder>132</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_TwinVQ.cpp">
 				<BuildOrder>55</BuildOrder>
 				<BuildOrder>146</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\TinyXml\tinyxmlerror.cpp">
-				<BuildOrder>174</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Wvpk.cpp">
+				<BuildOrder>57</BuildOrder>
+				<BuildOrder>148</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_DolbyE.cpp">
-				<BuildOrder>185</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp">
+				<BuildOrder>183</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ancillary.cpp">
-				<BuildOrder>181</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Lagarith.cpp">
+				<BuildOrder>182</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Fraps.cpp">
 				<BuildOrder>181</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Lxf.cpp">
-				<BuildOrder>179</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_DolbyE.cpp">
+				<BuildOrder>185</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ac3.cpp">
 				<BuildOrder>62</BuildOrder>
 				<BuildOrder>121</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amr.cpp">
-				<BuildOrder>67</BuildOrder>
-				<BuildOrder>126</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Vc3.cpp">
+				<BuildOrder>185</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_ApeTag.cpp">
-				<BuildOrder>88</BuildOrder>
-				<BuildOrder>35</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Lxf.cpp">
+				<BuildOrder>179</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Lagarith.cpp">
-				<BuildOrder>182</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ancillary.cpp">
+				<BuildOrder>181</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Cmml.cpp">
 				<BuildOrder>90</BuildOrder>
 				<BuildOrder>37</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp">
-				<BuildOrder>78</BuildOrder>
-				<BuildOrder>25</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_ApeTag.cpp">
+				<BuildOrder>88</BuildOrder>
+				<BuildOrder>35</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Tiff.cpp">
 				<BuildOrder>82</BuildOrder>
 				<BuildOrder>23</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Rar.cpp">
-				<BuildOrder>83</BuildOrder>
-				<BuildOrder>20</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amr.cpp">
+				<BuildOrder>67</BuildOrder>
+				<BuildOrder>126</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm.cpp">
-				<BuildOrder>40</BuildOrder>
-				<BuildOrder>141</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp">
+				<BuildOrder>78</BuildOrder>
+				<BuildOrder>25</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac.cpp">
 				<BuildOrder>65</BuildOrder>
 				<BuildOrder>120</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Rar.cpp">
+				<BuildOrder>83</BuildOrder>
+				<BuildOrder>20</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Mz.cpp">
+				<BuildOrder>84</BuildOrder>
+				<BuildOrder>19</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Module.cpp">
+				<BuildOrder>45</BuildOrder>
+				<BuildOrder>136</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Base.cpp">
 				<BuildOrder>56</BuildOrder>
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Base.h</DependentOn>
 				<BuildOrder>149</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Mz.cpp">
-				<BuildOrder>84</BuildOrder>
-				<BuildOrder>19</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_La.cpp">
-				<BuildOrder>156</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Dts.cpp">
-				<BuildOrder>75</BuildOrder>
-				<BuildOrder>130</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Gif.cpp">
-				<BuildOrder>87</BuildOrder>
-				<BuildOrder>28</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm.cpp">
+				<BuildOrder>40</BuildOrder>
+				<BuildOrder>141</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_MpcSv8.cpp">
 				<BuildOrder>47</BuildOrder>
 				<BuildOrder>138</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Tar.cpp">
-				<BuildOrder>86</BuildOrder>
-				<BuildOrder>21</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Dts.cpp">
+				<BuildOrder>75</BuildOrder>
+				<BuildOrder>130</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adpcm.cpp">
 				<BuildOrder>58</BuildOrder>
 				<BuildOrder>123</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Module.cpp">
-				<BuildOrder>45</BuildOrder>
-				<BuildOrder>136</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_La.cpp">
+				<BuildOrder>156</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp">
-				<BuildOrder>63</BuildOrder>
-				<BuildOrder>118</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Tar.cpp">
+				<BuildOrder>86</BuildOrder>
+				<BuildOrder>21</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp">
-				<BuildOrder>43</BuildOrder>
-				<BuildOrder>140</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientWrapper.c">
+				<BuildOrder>60</BuildOrder>
+				<BuildOrder>125</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Png.cpp">
 				<BuildOrder>78</BuildOrder>
 				<BuildOrder>25</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpc.cpp">
-				<BuildOrder>44</BuildOrder>
-				<BuildOrder>137</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp">
+				<BuildOrder>63</BuildOrder>
+				<BuildOrder>118</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Pgs.cpp">
 				<BuildOrder>49</BuildOrder>
 				<BuildOrder>152</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp">
-				<BuildOrder>85</BuildOrder>
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h</DependentOn>
-				<BuildOrder>22</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp">
+				<BuildOrder>64</BuildOrder>
+				<BuildOrder>117</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp">
-				<BuildOrder>60</BuildOrder>
-				<BuildOrder>125</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpc.cpp">
+				<BuildOrder>44</BuildOrder>
+				<BuildOrder>137</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientWrapper.c">
-				<BuildOrder>60</BuildOrder>
-				<BuildOrder>125</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp">
+				<BuildOrder>43</BuildOrder>
+				<BuildOrder>140</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences.cpp">
 				<BuildOrder>7</BuildOrder>
@@ -431,17 +425,22 @@
 				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences.h</DependentOn>
 				<BuildOrder>100</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Ace.cpp">
-				<BuildOrder>15</BuildOrder>
-				<BuildOrder>108</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp">
+				<BuildOrder>60</BuildOrder>
+				<BuildOrder>125</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_VorbisCom.cpp">
 				<BuildOrder>93</BuildOrder>
 				<BuildOrder>30</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File__Tags.cpp">
-				<BuildOrder>91</BuildOrder>
-				<BuildOrder>36</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp">
+				<BuildOrder>85</BuildOrder>
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h</DependentOn>
+				<BuildOrder>22</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Ace.cpp">
+				<BuildOrder>15</BuildOrder>
+				<BuildOrder>108</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.cpp">
 				<BuildOrder>99</BuildOrder>
@@ -646,175 +645,182 @@
 				<IgnorePath>true</IgnorePath>
 				<BuildOrder>155</BuildOrder>
 			</LibFiles>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp">
-				<BuildOrder>79</BuildOrder>
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h</DependentOn>
-				<BuildOrder>24</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Utils.cpp">
-				<BuildOrder>68</BuildOrder>
-				<BuildOrder>133</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpegv.cpp">
+				<BuildOrder>48</BuildOrder>
+				<BuildOrder>145</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpeg4v.cpp">
 				<BuildOrder>47</BuildOrder>
 				<BuildOrder>138</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
-				<BuildOrder>69</BuildOrder>
-				<BuildOrder>132</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp">
+				<BuildOrder>79</BuildOrder>
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h</DependentOn>
+				<BuildOrder>24</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AvsV.cpp">
 				<BuildOrder>44</BuildOrder>
 				<BuildOrder>137</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc_Duplicate.cpp">
-				<BuildOrder>43</BuildOrder>
-				<BuildOrder>140</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp">
+				<BuildOrder>94</BuildOrder>
+				<BuildOrder>29</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tak.cpp">
-				<BuildOrder>157</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
+				<BuildOrder>69</BuildOrder>
+				<BuildOrder>132</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Unknown.cpp">
-				<BuildOrder>83</BuildOrder>
-				<BuildOrder>20</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Utils.cpp">
+				<BuildOrder>68</BuildOrder>
+				<BuildOrder>133</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_Id3v2.cpp">
 				<BuildOrder>92</BuildOrder>
 				<BuildOrder>33</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_ScreamTracker3.cpp">
-				<BuildOrder>42</BuildOrder>
-				<BuildOrder>143</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tak.cpp">
+				<BuildOrder>157</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_Automatic.cpp">
 				<BuildOrder>86</BuildOrder>
 				<BuildOrder>21</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp">
-				<BuildOrder>94</BuildOrder>
-				<BuildOrder>29</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc_Duplicate.cpp">
+				<BuildOrder>43</BuildOrder>
+				<BuildOrder>140</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_ScreamTracker3.cpp">
+				<BuildOrder>42</BuildOrder>
+				<BuildOrder>143</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.h</DependentOn>
+				<BuildOrder>160</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Eia708.cpp">
+				<BuildOrder>39</BuildOrder>
+				<BuildOrder>142</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClient.c">
 				<BuildOrder>57</BuildOrder>
 				<BuildOrder>148</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp">
-				<BuildOrder>41</BuildOrder>
-				<BuildOrder>144</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Theora.cpp">
+				<BuildOrder>49</BuildOrder>
+				<BuildOrder>152</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Eia708.cpp">
-				<BuildOrder>39</BuildOrder>
-				<BuildOrder>142</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File__Tags.cpp">
+				<BuildOrder>91</BuildOrder>
+				<BuildOrder>36</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.cpp">
 				<BuildOrder>91</BuildOrder>
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.h</DependentOn>
 				<BuildOrder>36</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Theora.cpp">
-				<BuildOrder>49</BuildOrder>
-				<BuildOrder>152</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Dir.cpp">
-				<BuildOrder>53</BuildOrder>
-				<BuildOrder>150</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.h</DependentOn>
-				<BuildOrder>159</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.h</DependentOn>
-				<BuildOrder>160</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp">
+				<BuildOrder>41</BuildOrder>
+				<BuildOrder>144</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_Directory.cpp">
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_Directory.h</DependentOn>
 				<BuildOrder>158</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Umf.cpp">
-				<BuildOrder>171</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.h</DependentOn>
+				<BuildOrder>159</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_P2_Clip.cpp">
 				<BuildOrder>175</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_Mpeg7.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_Mpeg7.h</DependentOn>
-				<BuildOrder>163</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Dir.cpp">
+				<BuildOrder>53</BuildOrder>
+				<BuildOrder>150</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp">
-				<BuildOrder>46</BuildOrder>
-				<BuildOrder>139</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Umf.cpp">
+				<BuildOrder>171</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore.cpp">
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore.h</DependentOn>
 				<BuildOrder>164</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf.cpp">
-				<BuildOrder>169</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_Mpeg7.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_Mpeg7.h</DependentOn>
+				<BuildOrder>163</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Conf.cpp">
 				<BuildOrder>51</BuildOrder>
 				<BuildOrder>154</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Als.cpp">
-				<BuildOrder>154</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\FileName.cpp">
+				<BuildOrder>55</BuildOrder>
+				<BuildOrder>146</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp">
-				<BuildOrder>176</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf.cpp">
+				<BuildOrder>169</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpegv.cpp">
-				<BuildOrder>48</BuildOrder>
-				<BuildOrder>145</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp">
+				<BuildOrder>46</BuildOrder>
+				<BuildOrder>139</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_N19.cpp">
 				<BuildOrder>168</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp">
-				<BuildOrder>40</BuildOrder>
-				<BuildOrder>141</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp">
+				<BuildOrder>176</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp">
 				<BuildOrder>80</BuildOrder>
 				<BuildOrder>27</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\FileName.cpp">
-				<BuildOrder>55</BuildOrder>
-				<BuildOrder>146</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Als.cpp">
+				<BuildOrder>154</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp">
+				<BuildOrder>40</BuildOrder>
+				<BuildOrder>141</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp">
+				<BuildOrder>181</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ivf.cpp">
+				<BuildOrder>177</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Scte20.cpp">
 				<BuildOrder>171</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp">
-				<BuildOrder>158</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_DtvccTransport.cpp">
+				<BuildOrder>170</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ivf.cpp">
-				<BuildOrder>177</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Unknown.cpp">
+				<BuildOrder>83</BuildOrder>
+				<BuildOrder>20</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libmms.cpp">
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libmms.h</DependentOn>
 				<BuildOrder>161</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_DtvccTransport.cpp">
-				<BuildOrder>170</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp">
+				<BuildOrder>158</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.cpp">
+				<BuildOrder>182</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp">
+				<BuildOrder>180</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_Others.cpp">
+				<BuildOrder>184</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\CriticalSection.cpp">
 				<BuildOrder>52</BuildOrder>
 				<BuildOrder>153</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp">
-				<BuildOrder>180</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp">
-				<BuildOrder>181</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.cpp">
-				<BuildOrder>182</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_Main.cpp">
 				<BuildOrder>183</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_Others.cpp">
-				<BuildOrder>184</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Dpx.cpp">
+				<BuildOrder>186</BuildOrder>
 			</CppCompile>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.dfm"/>
