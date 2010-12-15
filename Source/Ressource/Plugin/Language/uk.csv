@@ -120,19 +120,19 @@
  second1; сек.
  second2; сек.
  second3; сек.
- text stream1; текстовий потік
- text stream2; текстовий (-і,-их) потік (-оки,-оків)
- text stream3; текстові потоки
- video frames1
- video frames2
- video frames3
- video stream1; відеопотік
- video stream2; відеопотік(-оки,-ів)
- video stream3; відеопотік(-оки,-ів)
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ text stream1; Текстовий потік
+ text stream2; Текстовий (-і,-их) потік (-оки,-оків)
+ text stream3; Текстові потоки
+ video frames1; Відеокадр
+ video frames2; Відеокадр(и,-ів)
+ video frames3; Відеокадр(и,-ів)
+ video stream1; Відеопотік
+ video stream2; Відеопотік(-оки,-ів)
+ video stream3; Відеопотік(-оки,-ів)
+ warppoint0;Без точок деформації
+ warppoint1;Точка деформації
+ warppoint2;Точка(-ок,-и) деформації
+ warppoint3;Точка(-ок,-и) деформації
  week1; тижд.
  week2; тижд.
  week3; тижд.
@@ -146,101 +146,101 @@ About_Hint;Контакти та пошук нової версії
 Accompaniment;Супровід
 Actor;Актор
 Actor_Character;У ролі
-Added_Date
+Added_Date;Дата додавання
 Address;Адреса
 Advanced;Додаткові
 Advanced mode;Розширений режим
 Album;Альбом
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;Вирівнювання гучності альбому
+Album_ReplayGain_Peak;Пік вирівнювання гучності альбому
+Alignment;Вирівнювання
+Alignment_Aligned;Вирівнювання по проміжкам
+Alignment_Split;Розділення по проміжкам
 All;Все
 Archival_Location;Розміщення архіву
 Arranger;Розміщено
 ArtDirector;Режисер
-AspectRatio;Співвідношення
+AspectRatio;Співвідношення сторін
 AssistantDirector;Помічник режисера
 at;@
 At least one file;Як мінімум один файл
 Audio;Аудіо
-Audio stream(s);аудіопотік(-оки)
-Audio_Codec_List;аудіокодеки
-Audio_No;аудіопотік відсутній
-Audio1;перший аудіопотік
-Audio2;другий аудіопотік
-AudioCount;кількість аудіопотоків
-Author;автор
+Audio stream(s);Аудіопотік(-оки)
+Audio_Codec_List;Аудіокодеки
+Audio_No;Аудіопотоки відсутні
+Audio1;Перший аудіопотік
+Audio2;Другий аудіопотік
+AudioCount;Кількість аудіопотоків
+Author;Автор
 BarCode;штрихкод
-Basic;стисло
+Basic;Стисло
 Basic_Note;Примітка: Для додаткової інформації оберіть інший вигляд (Таблиця, Дерево,...)
-BitDepth
-BitRate;бітрейт
-BitRate_Maximum;максимальний бітрейт
-BitRate_Minimum;мінімальний бітрейт
-BitRate_Mode;режим розрахунку бітрейта
-BitRate_Mode_CBR;постіний (CBR)
-BitRate_Mode_VBR;змінний (VBR)
-BitRate_Nominal;номінальний
+BitDepth;Бітова глибина
+BitRate;Бітрейт
+BitRate_Maximum;Максимальний бітрейт
+BitRate_Minimum;Мінімальний бітрейт
+BitRate_Mode;Режим розрахунку бітрейта
+BitRate_Mode_CBR;Постіний (CBR)
+BitRate_Mode_VBR;Змінний (VBR)
+BitRate_Nominal;Номінальний
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадри)
 Cancel;Відміна
-Channel(s);кількість каналів
-ChannelPositions;позиції каналів
-Chapter(s);розділ(-и)
-Chapters;розділи
-Chapters stream(s);поток(-и) розділів
-Chapters_Codec_List;розділи кодеків
+Channel(s);Кількість каналів
+ChannelPositions;Позиції каналів
+Chapter(s);Розділ(-и)
+Chapters;Розділи
+Chapters stream(s);Поток(-и) розділів
+Chapters_Codec_List;Розділи кодеків
 Chapters_No;розділ №
-ChaptersCount;кількість розділів
+ChaptersCount;Кількість розділів
 CheckNewVersion;Перевірити наявність нової версії
 Choose custom;Обрати
 Choose custom sheet;Обрати таблицю
 Choose custom text;Обрати текст
-Choose export format;Оберіть формат виведення
+Choose export format;Оберіть формат для експорту інформації
 Choose file(s);Оберіть файл(-и)
 Choose filename;Оберіть ім'я файлу
 Choose language;Оберіть мову
 Choregrapher;Хореограф
-Chroma;насиченість
-ChromaSubsampling
+Chroma;насиченість кольору
+ChromaSubsampling;Субдискретизація насиченості
 Close;Закрити
-Close all before open;Закрити все перед відкриттям
-Codec;кодек
-Codec_Description;опис кодеку
-Codec_Info;докладно про кодек
-Codec_Settings;налаштування кодеку
-Codec_Settings_PacketBitStream
-Codec_Settings_BVOP
-Codec_Settings_QPel
-Codec_Settings_GMC
-Codec_Settings_Matrix
-Codec_Settings_Floor
-Codec_Settings_CABAC
-Codec_Settings_Firm
-Codec_Settings_Endianness
-Codec_Settings_Sign
-Codec_Settings_Law
-Codec_Settings_ITU
-Codec_Profile;профайл кодеку
-Codec_Url;інтернет-адереса кодеку
-CodecID;ідентифікатор кодеку
-CodecID_Description;опис кодеку
-Collection;колекція
-Colorimetry;колоріметрія
-ColorSpace
-colour_primaries
-Comment;примітка
+Close all before open;Закривати все перед відкриттям
+Codec;Кодек
+Codec_Description;Опис кодеку
+Codec_Info;Докладно про кодек
+Codec_Settings;Налаштування кодеку
+Codec_Settings_PacketBitStream;Налаштування кодеку, Бітовий потік пакетів
+Codec_Settings_BVOP;Налаштування кодеку, BVOP
+Codec_Settings_QPel;Налаштування кодеку, QPel
+Codec_Settings_GMC;Налаштування кодеку, GMC
+Codec_Settings_Matrix;Налаштування кодеку, Матриця(і)
+Codec_Settings_Floor;Налаштування кодеку, Floor
+Codec_Settings_CABAC;Налаштування кодеку, CABAC
+Codec_Settings_Firm;Налаштування кодеку, Firm
+Codec_Settings_Endianness;Налаштування кодеку, Endianness
+Codec_Settings_Sign;Налаштування кодеку, Sign
+Codec_Settings_Law;Налаштування кодеку, Law
+Codec_Settings_ITU;Налаштування кодеку, ITU
+Codec_Profile;Профіль кодеку
+Codec_Url;Інтернет-адереса кодеку
+CodecID;Ідентифікатор кодеку
+CodecID_Description;Опис кодеку
+Collection;Колекція
+Colorimetry;Колориметрія
+ColorSpace;Модель кольору
+colour_primaries;Основні кольори
+Comment;Примітка
 CommissionedBy;поручитель
-CompleteName;повна назва
-Composer;композитор
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
-Compression_Ratio
+CompleteName;Повна назва
+Composer;Композитор
+Compression_Mode;Тип стиснення
+Compression_Mode_Lossless;Без втрат
+Compression_Mode_Lossy;Із втратами
+Compression_Ratio;Ступінь стиснення
 Conductor;диригент
-Container and general information;загальна інформація
-ContentType;тип вмісту
+Container and general information;Контейнер і загальна інформація
+ContentType;Тип вмісту
 CoProducer;Сопродюсер
 Copyright;Авторське право
 CostumeDesigner;Дизайн костюмів
@@ -248,42 +248,42 @@ Count;Кількість
 Country;Країна
 Cover;Обкладинка
 Cover_Datas;Дані обкладинки
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
-Custom;фоноскопія
-Customize;формат виведення
-Date;дата
-Debug;налагодження
-Decimal point;десятковий роздільник
-Delay;затримка
+Cover_Description;Опис обкладинки
+Cover_Mime;MIME-тип обкладинки
+Cover_Type;Тип обкладинки
+Cropped;Розміри обрізки
+Custom;Користувацький
+Customize;Формат виведення
+Date;Дата
+Debug;Налагодження
+Decimal point;Десятковий роздільник
+Delay;Затримка
 Delete;Видалити
-Description;опис
-Digitized_Date;дата оцифровування
-Dimensions;розміри
-Director;режисер
-DirectorOfPhotography;оператор
-DisplayAspectRatio;відношення сотрін 
-DisplayAspectRatio_Original;оригінальне відношення сторін
+Description;Опис
+Digitized_Date;Дата оцифровування
+Dimensions;Розміри
+Director;Ким створено
+DirectorOfPhotography;Оператор
+DisplayAspectRatio;Співвідношення сторін екрану
+DisplayAspectRatio_Original;Оригінальне співвідношення сторін екрану
 DistributedBy;розповсюджувач
-Donate;пожертвування
-DotsPerInch
-Duration;тривалість
-Duration_End;кінець
-Duration_Start;початок
+Donate;Пожертвування
+DotsPerInch;Точок на дюйм
+Duration;Тривалість
+Duration_End;Кінець
+Duration_Start;Початок
 Edit;Редагувати
-EditedBy;змінено
+EditedBy;Змінено
 EMail;Е-mail
-Encoded_Application;програма кодування
-Encoded_Date;дата кодування
-Encoded_Library;бібліотека кодування
-Encoded_Library_Settings;налаштування бібліотеки кодування
-Encoded_Original;оригінальне кодування
-EncodedBy;закодовано
-EPG_Positions;EPG положення
+Encoded_Application;Програма кодування
+Encoded_Date;Дата кодування
+Encoded_Library;Бібліотека кодування
+Encoded_Library_Settings;Налаштування бібліот. кодування
+Encoded_Original;Оригінальне кодування
+EncodedBy;Закодовано
+EPG_Positions;EPG положення (внутрішні)
 Error_File;Помилка при читанні файлу
-ExecutiveProducer;виконавчий продюсер
+ExecutiveProducer;Виконавчий продюсер
 Exit;Вихід
 Exit_Hint;Вихід з програми
 Export;Експорт
@@ -292,63 +292,63 @@ Extensions;розширення, що звичайно використовує�
 Family;родина
 Fax;Факс
 File;Файл
-File size;розмір файлу
-File_Append;додати до файлу
-File_Created_Date;дата створення файлу
-File_Created_Date_Local;дата створення файлу (локально)
+File size;Розмір файлу
+File_Append;Додати до існуючого файлу (Попередження : будьте обережні при запису з однаковими параметрами)
+File_Created_Date;Дата створення файлу
+File_Created_Date_Local;Дата створення файлу (локально)
 File_Hint;Операції з файлами
-File_Modified_Date;остання зміна файлу
-File_Modified_Date_Local;остання зміна файлу (локально)
-FileExtension;розширення файлу
-FileName;назва файлу
-FileSize;розмір файлу
-Folder;каталог
+File_Modified_Date;Дата останньої зміни файлу
+File_Modified_Date_Local;Остання зміна файлу (локально)
+FileExtension;Розширення файлу
+FileName;Назва файлу
+FileSize;Розмір файлу
+Folder;Каталог
 Folder (R);каталог (R)
-Folder (R)_Hint;кибір каталогу
-Folder (Recursively);катлог (рекурсивно)
-Folder_Hint;операції з каталогами
-FolderName;назва каталогу
-Format;формат
-Format_Description;опис формату
-Format_Info;деталі формату
-Format_Profile;формат профілю
-Format_Settings;налаштування формату
-Format_Settings_PacketBitStream
-Format_Settings_BVOP;BVOP
-Format_Settings_QPel;QPel
-Format_Settings_GMC;GMC
-Format_Settings_Matrix;Matrix
+Folder (R)_Hint;Вибір каталогу (рекурсивно з усіма підкаталогами)
+Folder (Recursively);каталог (рекурсивно)
+Folder_Hint;Вибір каталогу
+FolderName;Назва каталогу
+Format;Формат
+Format_Description;Опис формату
+Format_Info;Деталі формату
+Format_Profile;Профіль формату
+Format_Settings;Налаштування формату
+Format_Settings_PacketBitStream;Налаштування формату, Бітовий потік пакетів
+Format_Settings_BVOP;Налаштування формату, BVOP
+Format_Settings_QPel;Налаштування формату, QPel
+Format_Settings_GMC;Налаштування формату, GMC
+Format_Settings_Matrix;Налаштування формату, Matrix
 Format_Settings_Matrix_Custom;за замовчуванням
 Format_Settings_Matrix_Default;За замовчуванням
-Format_Settings_Floor;Floor
-Format_Settings_CABAC;CABAC
-Format_Settings_Firm;Firm
-Format_Settings_Endianness;Endianness
-Format_Settings_RefFrames;ReFrames
-Format_Settings_Sign;Sign
-Format_Settings_Law;Law
-Format_Settings_ITU;ITU
-Format_Settings_SBR;SBR
-Format_Settings_PS;PS
-Format_Settings_Pulldown;Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
-Format_Version;версія формату
+Format_Settings_Floor;Налаштування формату, Floor
+Format_Settings_CABAC;Налаштування формату, CABAC
+Format_Settings_Firm;Налаштування формату, Firm
+Format_Settings_Endianness;Налаштування формату, Endianness
+Format_Settings_RefFrames;Налаштування формату, ReFrames
+Format_Settings_Sign;Налаштування формату, Sign
+Format_Settings_Law;Налаштування формату, Law
+Format_Settings_ITU;Налаштування формату, ITU
+Format_Settings_SBR;Налаштування формату, SBR
+Format_Settings_PS;Налаштування формату, PS
+Format_Settings_Pulldown;Налаштування формату, Pulldown
+Format_Settings_Mode;Режим
+Format_Settings_FrameMode;Режим для кадрів
+Format_Settings_Emphasis;Emphasis
+Format_Settings_ModeExtension;Розширення режиму
+Format_Settings_GOP;Налаштування формату, GOP
+Format_Version;Версія формату
 Format_Url;інтренет адреса
-FrameCount;кількість кадрів
-FrameRate;частота кадрів
-FrameRate_Mode
-FrameRate_Mode_CFR;постійний
-FrameRate_Mode_VFR;варіативний
-FrameRate_Minimum;мінімальна частота кадрів
-FrameRate_Nominal;номінальна частота кадрів
-FrameRate_Maximum;максимальна частота кадрів
-FrameRate_Original;оригінальна частота кадрів
-General;Загальне
-Genre;жанр (стиль)
+FrameCount;Кількість кадрів
+FrameRate;Частота кадрів
+FrameRate_Mode;Режим частоти кадрів
+FrameRate_Mode_CFR;Постійний
+FrameRate_Mode_VFR;Варіативний
+FrameRate_Minimum;Мінімальна частота кадрів
+FrameRate_Nominal;Номінальна частота кадрів
+FrameRate_Maximum;Максимальна частота кадрів
+FrameRate_Original;Оригінальна частота кадрів
+General;Загальна інформація
+Genre;Жанр
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -499,9 +499,9 @@ Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Перейти до сайту
 h; год.
-Header file;Створити заголовок
-Height;висота
-Height_Original
+Header file;Створити файл заголовку
+Height;Висота кадру
+Height_Original;Оригінальна висота кадру
 Help;Допомога
 Hint;Підказка
 How many audio streams?;Скільки аудіопотоків?
@@ -509,32 +509,32 @@ How many chapters streams?;Скільки потоків з розділами?
 How many text streams?;Скільки текстових потоків?
 How many video streams?;Скільки відеопотоків?
 HTML;HTML
-ID;ідентифікатор
-Image;зображення
-Image stream(s);потік(-оки) зображень
-Image_Codec_List;кодеки зображень
-ImageCount;кількість зображень
-Info;відомості
-Instruments;інструменти
-Interlacement;інтерлейсність
-Interlaced_Interlaced;черезстроковий
-Interlaced_TFF;непарні - перші
-Interlaced_BFF;парні - перші
-Interlaced_PPF;прогресивний
-Interlaced_Progressive;прогресивний
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+ID;Ідентифікатор
+Image;Зображення
+Image stream(s);Потік(-оки) зображень
+Image_Codec_List;Кодеки зображень
+ImageCount;Кількість зображень
+Info;Відомості
+Instruments;Інструменти
+Interlacement;Черезрядковість
+Interlaced_Interlaced;Черезрядковий
+Interlaced_TFF;Непарні - перші
+Interlaced_BFF;Парні - перші
+Interlaced_PPF;Прогресивний
+Interlaced_Progressive;Прогресивний
+Interleave_Duration;Чергування, тривалість проміжку
+Interleave_Preload;Чергування, підрахов. тривал.
+Interleave_VideoFrames;Чергування, тривалість
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;ключові слова
-Known codecs;відомі кодеки
-Known formats;відомі формати
-Known parameters;відомі параметри
-Label;позначка
-Language;мова
-Language_More;більше інформації про мову
+Keywords;Ключові слова
+Known codecs;Відомі кодеки
+Known formats;Відомі формати
+Known parameters;Відомі параметри
+Label;Позначка
+Language;Мова
+Language_More;Більше інформації про мову
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -573,8 +573,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;English
-Language_en-gb
-Language_en-us
+Language_en-gb;English (Great Britain)
+Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
 Language_et;Estonian
@@ -724,50 +724,50 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chinese (China)
+Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;легальний статус
 LCCN;LCCN
-Library;бібліотека
-Lightness;яркість кольору
-List;список
+Library;Бібліотека
+Lightness;Яскравість
+List;Список
 Lyrics;лірика
 Lyricist;лірика
 Mastered_Date;дата мастерингу
 MasteredBy;мастеринг
-matrix_coefficients
-MediaInfo_About;Містить дуже докладну інформацію про звукові формати
-Menu;меню
-Menu stream(s);меню потоків
-Menu_Codec_List;меню кодеків
-Menu_No;меню відсутнє
-MenuCount;обрахунок меню потоків
-Menu_Hint;більше можливостей
-MenuID;меню ідентифікатора
+matrix_coefficients;Матричні коефіцієнти
+MediaInfo_About;Може відображати дуже докладну інформацію про медіаформати
+Menu;Меню
+Menu stream(s);Меню потоків
+Menu_Codec_List;Меню кодеків
+Menu_No;Меню відсутнє
+MenuCount;Обрахунок меню потоків
+Menu_Hint;Більше можливостей
+MenuID;Ідентифікатор меню
 mn; хв.
 Mood;щональність
-More;Ще
-Movie;назва фільму
-ms; мілісек.
+More;Більше
+Movie;Назва фільму
+ms; мс
 MSDI;MSDI
 MusicBy;створено
-MuxingMode
-MuxingMode_MoreInfo
-MuxingMode_PackedBitstream
-Name;назва
+MuxingMode;Режим мультиплексування
+MuxingMode_MoreInfo;Режим мультиплексування, додаткова інформація
+MuxingMode_PackedBitstream;Стиснутий бітовий потік
+Name;Назва
 Nationality;національність
 NetworkName;мережеве ім'я
-New;новий
-Newest version;превірити наявність нової версії (необхідне підключення до Інтернету)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+New;Створити
+Newest version;Перевіряти наявність нової версії (необхідне підключення до Інтернету)
+NewVersion_Menu;Наявна нова версія програми
+NewVersion_Question_Title;Випущено нову версію програми!
+NewVersion_Question_Content;Наявна нова версія (v%Version%) програми, ви хочете її завантажити?
 No;Ні
 Not yet;Поки що ні
 NumColors;Номер кольору
 OK;Так
-One output file per input file;один вхідний на кожний вихідний файл
+One output file per input file;Один вхідний на кожний вихідний файл
 Open;Відкрити
 OpenCandy_01;Завантажити
 OpenCandy_02;Готово
@@ -806,7 +806,7 @@ OpenCandy_34;Вибери опції інсталяції
 OpenCandy_35;Рекомендоване ПО
 OpenCandy_36
 Options;Опції
-Options_Hint;Настроювання програми
+Options_Hint;Налаштування програми
 Original;Оригінальний
 OriginalNetworkName
 OriginalSourceForm
@@ -814,124 +814,124 @@ OriginalSourceMedium
 Other;Інше
 Output;Виведення
 Output format;Формат виведення
-OverallBitRate;усереднений бітрейт
-OverallBitRate_Maximum;максимальний бітрейт
-OverallBitRate_Minimum;мінімальний бітрейт
-OverallBitRate_Mode
-OverallBitRate_Nominal;момінальний усереднений бітрейт
-Part;частина
-Part_Count;кількість частин
-Performer;виконавець
-Period;період
-Phone;телефон
-PixelAspectRatio
-PixelAspectRatio_Original
+OverallBitRate;Загальний бітрейт
+OverallBitRate_Maximum;Максимальний загальний бітрейт
+OverallBitRate_Minimum;Мінімальний загальний бітрейт
+OverallBitRate_Mode;Режим загального бітрейту
+OverallBitRate_Nominal;Номінальний загальний бітрейт
+Part;Частина
+Part_Count;Кількість частин
+Performer;Виконавець
+Period;Період
+Phone;Телефон
+PixelAspectRatio;Співвідношення сторін пікселя
+PixelAspectRatio_Original;Оригінальне співвідношення сторін пікселя
 PlayCounter;лічильник
 Played_Count;час програвання
 Played_First_Date;перше
 Played_Last_Date;останнє
-PlayTime;тривалість програвання
+PlayTime;Тривалість програвання
 Position;положення
 Position_Total;загальний
-Preferences;переважний стан
+Preferences;Налаштування
 Producer;продюсер
 ProductionDesigner;виконавчий дизайнер
 ProductionStudio;студія
 Publisher;видавець
-Purchased_Date;дата придбання
-Quote character;символ лапок
-RadioStation;радіостанція
-Rating;рейтинг
-Recorded_Date;дата запису
-Recorded_Location;місце запису
-Released_Date;вата випуску
-RemixedBy;ремікс
-ReplayGain_Gain
-ReplayGain_Peak
-Resolution;дискретність
+Purchased_Date;Дата придбання
+Quote character;Символ лапок
+RadioStation;Радіостанція
+Rating;Рейтинг
+Recorded_Date;Дата запису
+Recorded_Location;Місце запису
+Released_Date;Дата випуску
+RemixedBy;Ремікс створено
+ReplayGain_Gain;Вирівнювання гучності
+ReplayGain_Peak;Пік вирівнювання гучності
+Resolution;Роздільна здатність
 s; сек.
-SamplingRate;частота дискретизації
+SamplingRate;Частота дискретизації
 Save;Зберегти
-ScanType;сканування типу
-ScanOrder;сканування послідовності
+ScanType;Тип сканування
+ScanOrder;Послідовність сканування
 ScreenplayBy;сценарій
 Season;сезон
 see below;див. нижче
 Send HeaderFile;Відіслати заголовок
-Separator_Columns;роздыльник стовпців
-Separator_Lines;роздільник строк
+Separator_Columns;Роздільник стовпців
+Separator_Lines;Роздільник рядків
 ServiceChannel;сервісний номер каналу
 ServiceName;сервісне ім'я
 ServiceProvider;провайдер
 ServiceType;тип
 Set;конфігурація
-Set_Count;кількість конфігурацій
-Setup;встановлення
-Sharpness;чіткість
-Sheet;таблиця
+Set_Count;Кількість конфігурацій
+Setup;Налаштування
+Sharpness;Чіткість
+Sheet;Таблиця
 Sheet (Complete);таблиця (повна)
 Shell extension;Контекстне меню провідника
-Shell extension, folder
-Shell InfoTip;Підказка провідника (Не рекомендується! Тестовий режим!)
-Show menu;Показати меню
-Show toolbar;Показати панель
+Shell extension, folder;Включаючи теки
+Shell InfoTip;Підказка провідника (при наведенні вказівника миші на файл відображається інформація)
+Show menu;Відображати меню
+Show toolbar;Відображати панель
 Sort;Сортування
 SoundEngineer;звукорежисер
-Standard;стандарт
-Stream;потік
-Stream_MoreInfo;більше інформації про потік
-StreamCount;кількість потоків
+Standard;Стандарт
+Stream;Потік
+Stream_MoreInfo;Більше інформації про потік
+StreamCount;Кількість потоків
 StreamID;Ідентифікатор потоку
-StreamKind;вид потоку
-StreamKindID;ідентифікатор потоку
-StreamKindPos;ідентифікатор потоку
-StreamSize;розмір потоку
-StreamSize_Proportion;пропорційність цього потоку
+StreamKind;Вид потоку
+StreamKindID;Ідентифікатор потоку
+StreamKindPos;Ідентифікатор потоку
+StreamSize;Розмір потоку
+StreamSize_Proportion;Пропорції цього потоку
 Subject;тема
 SubTrack;підпотік
 Summary;підсумок
-Supported formats;формати що підтримуються
+Supported formats;Формати, що підтримуються
 Supported?;Підтримується?
 Synopsis;короткий огляд
-SystemId;системний ідентифікатор
+SystemId;Системний ідентифікатор
 Tagged_Application;маркування додатку
-Tagged_Date;дата мітки
+Tagged_Date;Дата мітки
 Technician;технік
-TermsOfUse;умови використання
-Text;текст
-Text - Custom;текст - звичайний
-Text (HTML);текст (HTML)
-Text stream(s);текстовий(-і) потік(-оки)
-Text streams;текстові потоки
-Text_Codec_List;текстовий кодек
-Text_No;текст відсутній
-Text1;перший текстовий потік
-Text2;другий текстовий потік
-Text3;третій текстовий потік
-TextCount;кількість текстових потоків
-ThanksTo;подяка
+TermsOfUse;Умови використання
+Text;Текст
+Text - Custom;Текст - звичайний
+Text (HTML);Текст (HTML)
+Text stream(s);Текстовий(-і) потік(-оки)
+Text streams;Текстові потоки
+Text_Codec_List;Текстовий кодек
+Text_No;Текст відсутній
+Text1;Перший текстовий потік
+Text2;Другий текстовий потік
+Text3;Третій текстовий потік
+TextCount;Кількість текстових потоків
+ThanksTo;Подяка
 Thousands separator;роздільник розрядів
-Title;заголовок
-Title_More;більше інформації про заголовок
-TimeZone;часовий пояс
-Total;всього
-Track;ім'я доріжки
-Track_Count;кількість доріжок
-transfer_characteristics
+Title;Заголовок
+Title_More;Більше інформації про заголовок
+TimeZone;Часовий пояс
+Total;Сумарно
+Track;Назва доріжки
+Track_Count;Кількість доріжок
+transfer_characteristics;Характеристики трансферу
 Translator;перекладач
-Tree;дерево
-Tree & Text;дерево і текст
+Tree;Дерево
+Tree & Text;Дерево і текст
 Unknown;Невідомо
 Url;Посилання
 Video;Відео
-Video stream(s);відеопотік(-оки)
-Video_Codec_List;відеокодек
-Video_Delay;затримка відео
-Video_No;відео відсутнє
-Video0_Delay;затримка відео
-Video1;перший відеопотік
-VideoCount;кількість відеопотоків
-View;вигляд
+Video stream(s);Відеопотік(-оки)
+Video_Codec_List;Відеокодек
+Video_Delay;Затримка відео
+Video_No;Відео відсутнє
+Video0_Delay;Затримка відео
+Video1;Перший відеопотік
+VideoCount;Кількість відеопотоків
+View;Вигляд
 View_Hint;Змінити спосіб перегляду інформації
 Warning : more streams in the files;Увага: файл має ще потоки
 Web;Web
@@ -944,15 +944,15 @@ WebSite_Text_More;Перейти на сайт (%Url%) цього текстов
 WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Перейти на сайт цього відеокодеку
 WebSite_Video_More;Перейти на сайт (%Url%) цього відеокодеку
-Width;ширина
-Width_Original
-WriteMe;Написати автору
+Width;Ширина кадру
+Width_Original;Оригінальна ширина кадру
+WriteMe;Написати лист автору
 WriteToTranslator;Написати перекладачу
 Written_Date;дата написання
 Written_Location;місце написання
 WrittenBy;написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;92
-CompressionRatio
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;99
+CompressionRatio;Ступінь стиснення
