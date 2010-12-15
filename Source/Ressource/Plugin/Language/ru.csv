@@ -48,11 +48,11 @@
  Gbps; Гбит/сек
  GBps; Гбайт/сек
  GHz; ГГц
- GiB; ГиБ
+ GiB; Гбайт
  GibiByte1;Гибибайт
  GibiByte2;Гибибайт
  GibiByte3;Гибибайт
- GiBps; ГиБ/сек
+ GiBps; Гбайт/сек
  GigaBit1; Гигабит
  GigaBit2; Гигабит
  GigaBit3; Гигабит
@@ -71,14 +71,14 @@
  KBps; Кбайт/сек
  Kbps; Кбит/сек
  KHz; КГц
- KiB; КиБ
+ KiB; Кбайт
  KibiBit1; Кибибит
  KibiBit2; Кибибит
  KibiBit3; Кибибит
  KibiByte1; Кибибайт
  KibiByte2; Кибибайт
  KibiByte3; Кибибайт
- KiBps; КиБ/сек
+ KiBps; Кбайт/сек
  KiloBit1; Килобит
  KiloBit2; Килобит
  KiloBit3; Килобит
@@ -102,9 +102,9 @@
  MegaByte2; Мегабайт
  MegaByte3; Мегабайт
  MHz; МГц
- MiB; МиБ
+ MiB; Мбайт
  Mib; Миб
- MiBps; МиБ/сек
+ MiBps; Мбайт/сек
  milisecond1; миллисекунда
  milisecond2; миллисекунд
  milisecond3; миллисекунд
@@ -175,7 +175,7 @@ Author;Автор
 BarCode;Штрихкод
 Basic;Кратко
 Basic_Note;Прим.: для дополнительной информации выберите другую закладку (таблица, дерево,...)
-BitDepth
+BitDepth;Битовая глубина
 BitRate;Битрейт
 BitRate_Maximum;Максимальный битрейт
 BitRate_Minimum;Минимальный битрейт
@@ -204,40 +204,40 @@ Choose filename;Выберите имя файла
 Choose language;Выберите язык
 Choregrapher;Хореограф
 Chroma;Цветность
-ChromaSubsampling
+ChromaSubsampling;Подвыборка цветности
 Close;Закрыть
 Close all before open;Закрыть всё перед открытием
 Codec;Кодек
 Codec_Description;Описание кодека
 Codec_Info;Подробно о кодеке
 Codec_Settings;Настройки кодека
-Codec_Settings_PacketBitStream;Параметры пакетного потока данных кодека
-Codec_Settings_BVOP;Параметры BVOP кодека
-Codec_Settings_QPel;Параметры QPel кодека
-Codec_Settings_GMC;Параметры GMC кодека
-Codec_Settings_Matrix;Параметры матрицы кодека
-Codec_Settings_Floor;Параметры Floor кодека
-Codec_Settings_CABAC;Параметры CABAC кодека
-Codec_Settings_Firm;Параметры Firm кодека
-Codec_Settings_Endianness;Параметры Endianness кодека
-Codec_Settings_Sign;Параметры Sign кодека
-Codec_Settings_Law;Параметры Law кодека
-Codec_Settings_ITU;Параметры ITU кодека
-Codec_Profile;Профайл кодека
+Codec_Settings_PacketBitStream;Параметр пакетного потока данных кодека
+Codec_Settings_BVOP;Параметр BVOP кодека
+Codec_Settings_QPel;Параметр QPel кодека
+Codec_Settings_GMC;Параметр GMC кодека
+Codec_Settings_Matrix;Параметр матрицы кодека
+Codec_Settings_Floor;Параметр Floor кодека
+Codec_Settings_CABAC;Параметр CABAC кодека
+Codec_Settings_Firm;Параметр Firm кодека
+Codec_Settings_Endianness;Параметр Endianness кодека
+Codec_Settings_Sign;Параметр Sign кодека
+Codec_Settings_Law;Параметр Law кодека
+Codec_Settings_ITU;Параметр ITU кодека
+Codec_Profile;Профиль кодека
 Codec_Url;Ссылка на кодек
 CodecID;Идентификатор кодека
 CodecID_Description;Описание кодека
 Collection;Коллекция
 Colorimetry;Колориметрия
-ColorSpace
+ColorSpace;Цветовое пространство
 colour_primaries;Основные цвета
 Comment;Примечание
 CommissionedBy;Поручитель
 CompleteName;Полное имя
 Composer;Композитор
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;Метод сжатия
+Compression_Mode_Lossless;Без потерь
+Compression_Mode_Lossy;С потерями
 Compression_Ratio;Степень сжатия
 Conductor;Дирижёр
 Container and general information;Общая информация
@@ -268,10 +268,10 @@ Digitized_Date;Дата оцифровки
 Dimensions;Размеры
 Director;Режиссёр
 DirectorOfPhotography;Оператор
-DisplayAspectRatio;Соотношение кадра
+DisplayAspectRatio;Соотношение сторон
 DisplayAspectRatio_Original;Оригинальное соотношение сторон
 DistributedBy;Распространитель
-Donate;Пожертвовать
+Donate;Внести пожертвование
 DotsPerInch;Точек на дюйм
 Duration;Продолжительность
 Duration_End;Время окончания
@@ -316,31 +316,31 @@ Format;Формат
 Format_Commercial
 Format_Description;Описание формата
 Format_Info;Подробно о формате
-Format_Profile;Профайл формата
+Format_Profile;Профиль формата
 Format_Settings;Настройки формата
-Format_Settings_PacketBitStream;Параметры пакетного потока данных формата
-Format_Settings_BVOP;Параметры BVOP формата
-Format_Settings_QPel;Параметры QPel формата
-Format_Settings_GMC;Параметры GMC формата
-Format_Settings_Matrix;Параметры матрицы формата
+Format_Settings_PacketBitStream;Параметр пакетного потока данных формата
+Format_Settings_BVOP;Параметр BVOP формата
+Format_Settings_QPel;Параметр QPel формата
+Format_Settings_GMC;Параметр GMC формата
+Format_Settings_Matrix;Параметр матрицы формата
 Format_Settings_Matrix_Custom;Выборочная
 Format_Settings_Matrix_Default;По умолчанию
-Format_Settings_Floor;Параметры Floor формата
-Format_Settings_CABAC;Параметры CABAC формата
-Format_Settings_Firm;Параметры Firm формата
-Format_Settings_Endianness;Параметры Endianness формата
-Format_Settings_RefFrames;Параметры ReFrames формата
-Format_Settings_Sign;Параметры Sign формата
-Format_Settings_Law;Параметры Law формата
-Format_Settings_ITU;Параметры ITU формата
-Format_Settings_SBR;Параметры SBR формата
-Format_Settings_PS;Параметры PS формата
+Format_Settings_Floor;Параметр Floor формата
+Format_Settings_CABAC;Параметр CABAC формата
+Format_Settings_Firm;Параметр Firm формата
+Format_Settings_Endianness;Параметр Endianness формата
+Format_Settings_RefFrames;Параметр ReFrames формата
+Format_Settings_Sign;Параметр Sign формата
+Format_Settings_Law;Параметр Law формата
+Format_Settings_ITU;Параметр ITU формата
+Format_Settings_SBR;Параметр SBR формата
+Format_Settings_PS;Параметр PS формата
 Format_Settings_Pulldown;Выбрать настройки формата
 Format_Settings_Mode;Режим
 Format_Settings_FrameMode;Режим кадров
 Format_Settings_Emphasis;Акцент
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_ModeExtension;Расширение режима
+Format_Settings_GOP;Параметры GOP формата
 Format_Version;Версия формата
 Format_Url;Ссылка на формат
 FrameCount;Счётчик кадров
@@ -351,7 +351,7 @@ FrameRate_Mode_VFR;Переменный
 FrameRate_Minimum;Минимальная частота кадров
 FrameRate_Nominal;Номинальная частота кадров
 FrameRate_Maximum;Максимальная частота кадров
-FrameRate_Original;Первичная частота кадров
+FrameRate_Original;Оригинальная частота кадров
 General;Общее
 Genre;Жанр
 Genre_000;Blues
@@ -506,7 +506,7 @@ Go to WebSite;Перейти на сайт
 h; ч.
 Header file;Создать заголовок
 Height;Высота
-Height_Original
+Height_Original;Высота оригинала
 Help;Помощь
 Hint;Подсказка
 How many audio streams?;Количество аудиопотоков?
@@ -952,7 +952,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Сайт видеокодека
 WebSite_Video_More;Перейти на сайт (%Url%) просмоторщика для этого видеокодека
 Width;Ширина
-Width_Original
+Width_Original;Ширина оригинала
 WriteMe;Написать автору
 WriteToTranslator;Написать переводчику
 Written_Date;Дата записи
@@ -960,6 +960,6 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
 CompressionRatio;Степень сжатия

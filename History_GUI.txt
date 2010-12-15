@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.38, 2010-12-
 --------------
-+ Danish, Ukrainian, French, English translations updated
++ Danish, Ukrainian, French, English, Russian translations updated
 
 Version 0.7.37, 2010-11-22
 --------------
