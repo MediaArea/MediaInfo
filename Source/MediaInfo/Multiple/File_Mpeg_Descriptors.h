@@ -135,7 +135,7 @@ struct complete_stream
                 PID=0x00000;
                 PCR_PID=0x0000;
                 program_number=0x0000;
-                source_id=0x0000;
+                source_id=(int16u)-1;
                 IsParsed=false;
                 IsRegistered=false;
                 DVB_EPG_Blocks_IsUpdated=false;
@@ -180,7 +180,7 @@ struct complete_stream
         transport_stream()
         {
             HasChanged=false;
-            source_id=0;
+            source_id=(int16u)-1;
             Programs_NotParsedCount=(size_t)-1;
         }
     };
