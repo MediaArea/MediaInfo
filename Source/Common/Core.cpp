@@ -28,6 +28,7 @@
 #include "ZenLib/Ztring.h"
 #include "ZenLib/File.h"
 #include <sstream>
+#include <iostream>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -84,8 +85,9 @@ void Core::Menu_File_Open_Files_Begin (bool Close, bool WithThread)
 //---------------------------------------------------------------------------
 size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
 {
+    /*
     //Initilaizing MediaInfo
-    /*MediaInfo MI;
+    MediaInfo MI;
 
     //From: preparing an example file for reading
     ZenLib::File From; From.Open(FileName, ZenLib::File::Access_Read); //You can use something else than a file
@@ -94,30 +96,16 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     ZenLib::int8u* From_Buffer=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
     size_t From_Buffer_Size; //The size of the read file buffer
 
-    //To (Output 1): preparing an example file for writing
-    ZenLib::File To_1;
-    To_1.Open(FileName+_T(".Extract1"), ZenLib::File::Access_Write_Append);
-
-    //To (Output 1): preparing a memory buffer for writing
-    ZenLib::int8u* To_Buffer_1=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
-    std::basic_stringstream<ZenLib::Char> To_Buffer_1_Name_Temp;
-    To_Buffer_1_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_1<<_T(":")<<7*188; //"memory://pointer:size"
-    MediaInfoLib::String To_Buffer_1_Name=To_Buffer_1_Name_Temp.str();
-
-    //Preparing the Program numbers we want
-    MediaInfoLib::String ProgramNumber1=_T("1");
-
-    //Registering for duplication
-    size_t To_Buffer_1_Pos;
-
     //Preparing to fill MediaInfo with a buffer
+    MI.Option(_T("ReadByHuman"), _T("0"));
     MI.Option(_T("File_ForceParser"), _T("MpegTs"));
+    MI.Option(_T("File_MpegTs_ForceMenu"), _T("1"));
     MI.Open_Buffer_Init();
-    bool CanWrite_OnlyIfParsingIsOk=true;
-    To_Buffer_1_Pos=Ztring(MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1)).To_int32u(); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_IsSeekable"), _T("0"));
+    int A=0;
 
     //The parsing loop
+    bool CanWrite_OnlyIfParsingIsOk=false;
     do
     {
         //Reading data somewhere, do what you want for this.
@@ -125,30 +113,36 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
 
         //Sending the buffer to MediaInfo
         size_t Result=MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size);
-        if (Result&2 && !CanWrite_OnlyIfParsingIsOk)
+        if (Result&0xA && !CanWrite_OnlyIfParsingIsOk)
         {
             CanWrite_OnlyIfParsingIsOk=true;
-            Text=MI.Inform(); //Inform is ready!
-            To_Buffer_1_Pos=Ztring(MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1)).To_int32u(); //"memory://pointer:size;program_number=..."
         }
 
 
         if (CanWrite_OnlyIfParsingIsOk)
         {
-            //Retrieving data written in memory
-            size_t To_Buffer_Size_1=MI.Output_Buffer_Get(To_Buffer_1_Pos);
-
-            //Writing data to somewhere, do what you want for this.
-            To_1.Write(To_Buffer_1, To_Buffer_Size_1);
+            MI.Open_Buffer_Finalize();
+            //MI.Option(_T("ReadByHuman"), _T("0"));
+            //MI.Option(_T("File_ForceParser"), _T("MpegTs"));
+            //MI.Option(_T("File_MpegTs_ForceMenu"), _T("1"));
+            MI.Open_Buffer_Init();
+            //MI.Option(_T("File_IsSeekable"), _T("0"));
+            return 0;
+            CanWrite_OnlyIfParsingIsOk=false;
+            int64u File_Pos=From.Position_Get();
+            A++;
+            std::cout<<A<<std::endl;
+            //if (A>2) {
+            //    break;
+            //}
         }
     }
     while (From_Buffer_Size>0);
 
     //Clean up
     delete[] From_Buffer;
-    delete[] To_Buffer_1;
 
-    return 0;*/
+    return 0;
     //MI->Option(_T("Trace_Format"), _T("csv"));
     //MI->Option(_T("Trace_Level"), _T("Container1;1"));
     //MI->Option(_T("File_MpegTs_ForceMenu"), _T("1"));
@@ -178,7 +172,13 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
 
     //MI->Option(_T("MpegTs_MaximumScanDuration"), _T("60"));
     //MI->Option(_T("mpegts_maximumoffset"), _T("1880"));
-     return MI->Open(FileName);
+    //MI->Option(_T("Trace_Level"), _T("Container1;1"));
+    //MI->Option(_T("ParseSpeed"), _T("1.0"));
+    //MI->Option(_T("LegacyStreamDisplay"), _T("0"));
+    //MI->Option(_T("File_MpegTs_Atsc_transport_stream_id_Trust"), _T("0"));
+    //MI->Option(_T("Trace_Level"), _T("Container1;1"));
+    //MI->Option(_T("Language"), _T("raw"));
+    return MI->Open(FileName);
 }
 
 //---------------------------------------------------------------------------
