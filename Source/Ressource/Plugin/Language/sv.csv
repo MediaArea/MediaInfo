@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame); Bits/(Pixel*Frame)
+BufferSize
 Cancel; Ångra
 Channel(s); Kanal(er)
 ChannelPositions; Kanalplatser
@@ -258,6 +259,9 @@ Date; Datum
 Debug; Debug
 Decimal point; Decimalpunkt
 Delay; Fördröjning
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete; Radera
 Description; Beskrivning
 Digitized_Date; Digitaliserat datum
@@ -309,6 +313,7 @@ Folder (Recursively); Mapp (rekursivt)
 Folder_Hint; Välj en mapp att betrakta
 FolderName; Mappnamn
 Format; Format
+Format_Commercial
 Format_Description
 Format_Info
 Format_Profile
@@ -876,6 +881,7 @@ Shell InfoTip
 Show menu; Visa meny
 Show toolbar; Visa verktygsfält
 Sort; Sorterad av
+SamplingCount
 SoundEngineer; Ljudingenjör
 Standard
 Stream; Ström
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator; Översättare
 Tree; Träd
 Tree & Text; Träd & Text
+UniqueID
 Unknown; Okänd
 Url; Url
 Video; Video
@@ -954,5 +961,5 @@ WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
 ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;82
+ZZ_AutomaticLanguage_Percent;81
 CompressionRatio

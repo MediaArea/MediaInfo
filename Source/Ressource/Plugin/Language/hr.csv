@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Ustaljeno
 BitRate_Mode_VBR;Promjenjivo
 BitRate_Nominal;Nominalni protok podataka
 Bits-(Pixel*Frame);Bita/(piksela*sličica)
+BufferSize
 Cancel;Poništiti
 Channel(s);Kanali
 ChannelPositions;Položaj kanala
@@ -258,6 +259,9 @@ Date;Nadnevak
 Debug;Uklanjanje pogreški
 Decimal point;Decimalna točka
 Delay;Zaostajanje
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Izbrisati
 Description;Opis
 Digitized_Date;Nadnevak digitaliziranja
@@ -309,6 +313,7 @@ Folder (Recursively);Mapa (rekurzivno)
 Folder_Hint;Odaberite mapu za promatranje
 FolderName;Naziv mape
 Format;Oblik datoteke
+Format_Commercial
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Profile;Profil oblika datoteke
@@ -876,6 +881,7 @@ Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku ć
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
 Sort;Poređano prema
+SamplingCount
 SoundEngineer;Tonski tehničar
 Standard;Standardno
 Stream;Tok
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
+UniqueID
 Unknown;Nepoznato
 Url;URL
 Video;Video
@@ -953,6 +960,6 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;Omjer sažimanja

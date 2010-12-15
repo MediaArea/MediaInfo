@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο)
+BufferSize
 Cancel;Άκυρο
 Channel(s);Κανάλι(α)
 ChannelPositions;Θέσεις καναλιών
@@ -258,6 +259,9 @@ Date;Ημερομηνία
 Debug;Αποσφαλμάτωση
 Decimal point;Decimal point
 Delay;Καθυστέρηση
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Διαγραφή
 Description;Περιγραφή
 Digitized_Date;Ημερομηνία Ψηφιοποίησης
@@ -309,6 +313,7 @@ Folder (Recursively);Φάκελος (Αναδρομικά)
 Folder_Hint;Επιλέξτε έναν φάκελο για εξέταση
 FolderName;Όνομα φακέλου
 Format;Μορφοποίηση
+Format_Commercial
 Format_Description
 Format_Info
 Format_Profile
@@ -876,6 +881,7 @@ Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be d
 Show menu;Εμφάνιση μενού
 Show toolbar;Εμφάνιση εργαλειοθήκης
 Sort;Ταξινόμηση κατά
+SamplingCount
 SoundEngineer;Sound engineer
 Standard;Στάνταρ
 Stream;Ροή
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Μεταφραστής
 Tree;Δένδρο
 Tree & Text;Δένδρο & Κείμενο
+UniqueID
 Unknown;Άγνωστο
 Url;Url
 Video;Video
@@ -954,5 +961,5 @@ WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
 ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;84
+ZZ_AutomaticLanguage_Percent;83
 CompressionRatio

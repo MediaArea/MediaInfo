@@ -184,6 +184,7 @@ BitRate_Mode_CBR;CBR モード
 BitRate_Mode_VBR;VBR モード
 BitRate_Nominal;ノミナル
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
+BufferSize
 Cancel;キャンセル
 Channel(s);チャンネル
 ChannelPositions;チャンネルの位置
@@ -258,6 +259,9 @@ Date;日付
 Debug;デバッグ
 Decimal point;箇条
 Delay;遅延
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;削除
 Description;詳細説明
 Digitized_Date;デジタル日付
@@ -309,6 +313,7 @@ Folder (Recursively);フォルダー（サブフォルダー含む）
 Folder_Hint;このフォルダーの詳細
 FolderName;フォルダー名
 Format;フォーマット
+Format_Commercial
 Format_Description;詳細
 Format_Info;情報
 Format_Profile;プロファイル
@@ -876,6 +881,7 @@ Shell InfoTip;シェルでインフォチップ （対応ファイル上でツ�
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する
 Sort;並び替え
+SamplingCount
 SoundEngineer;サウンドエンジニア
 Standard;標準
 Stream;ストリーム
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;翻訳者
 Tree;ツリー
 Tree & Text;ツリーとテキスト
+UniqueID
 Unknown;不明
 Url;Url
 Video;ビデオ
@@ -953,6 +960,6 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;圧縮解像度

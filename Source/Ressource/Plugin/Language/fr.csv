@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Débit nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Image)
+BufferSize;Taille du buffer
 Cancel;Annuler
 Channel(s);Canaux
 ChannelPositions;Position des cannaux
@@ -258,6 +259,9 @@ Date;Date
 Debug;Debug
 Decimal point;Point décimal
 Delay;Délai
+Delay_Source;Délai, origine
+Delay_Source_Container;Conteneur
+Delay_Source_Stream;Flux brut
 Delete;Supprimer
 Description;Description 
 Digitized_Date;Date de numérisation
@@ -309,6 +313,7 @@ Folder (Recursively);Dossier (Récursif)
 Folder_Hint;Sélectionne un dossier à étudier
 FolderName;Nom du dossier
 Format;Format
+Format_Commercial;Nom commercial
 Format_Description;Description du format
 Format_Info;Infos sur le format
 Format_Profile;Profil du format
@@ -876,6 +881,7 @@ Shell InfoTip;Extension bulle d'aide (passez la souris sur un fichier, il y aura
 Show menu;Montrer le menu
 Show toolbar;Montrer la barre d'outils
 Sort;Trié par
+SamplingCount;Nombre d'échantillons
 SoundEngineer;Ingénieur du son
 Standard;Norme
 Stream;Type de flux
@@ -921,6 +927,7 @@ transfer_characteristics;Caractéristiques du transfert
 Translator;Traducteur
 Tree;Arbre
 Tree & Text;Arbre & Texte
+UniqueID;Identifiant unique
 Unknown;Inconnu
 Url;Url
 Video;Vidéo

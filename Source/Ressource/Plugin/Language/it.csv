@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Costante
 BitRate_Mode_VBR;Variabile
 BitRate_Nominal;BitRate nominale
 Bits-(Pixel*Frame);Bit/(Pixel*Frame)
+BufferSize
 Cancel;Annulla
 Channel(s);Canali
 ChannelPositions;Posizione dei canali
@@ -258,6 +259,9 @@ Date;Data
 Debug;Segnala errori
 Decimal point;Separatore decimale
 Delay;Ritardo
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Elimina
 Description;Decrizione
 Digitized_Date;Data di digitalizzazione
@@ -309,6 +313,7 @@ Folder (Recursively);Cartella (e sottocartelle)
 Folder_Hint;Seleziona la cartella da analizzare
 FolderName;Cartella
 Format;Formato
+Format_Commercial
 Format_Description;Descrizione del formato
 Format_Info;Dettagli sui codec
 Format_Profile;Profilo del formato
@@ -876,6 +881,7 @@ Shell InfoTip;Informazioni in Explorer (in Explorer, spostarsi sul file e verrà
 Show menu;Mostra menù
 Show toolbar;Mostra barra dei menù
 Sort;Ordinato per
+SamplingCount
 SoundEngineer;Tecnico del suono
 Standard;Standard
 Stream;Traccia
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Traduttore 
 Tree;Albero
 Tree & Text;Albero e testo
+UniqueID
 Unknown;Sconosciuto 
 Url;Url
 Video;Video
@@ -953,6 +960,6 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio; Rapporto di compressione

@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Постіний (CBR)
 BitRate_Mode_VBR;Змінний (VBR)
 BitRate_Nominal;Номінальний
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадри)
+BufferSize
 Cancel;Відміна
 Channel(s);Кількість каналів
 ChannelPositions;Позиції каналів
@@ -258,6 +259,9 @@ Date;Дата
 Debug;Налагодження
 Decimal point;Десятковий роздільник
 Delay;Затримка
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Видалити
 Description;Опис
 Digitized_Date;Дата оцифровування
@@ -309,6 +313,7 @@ Folder (Recursively);каталог (рекурсивно)
 Folder_Hint;Вибір каталогу
 FolderName;Назва каталогу
 Format;Формат
+Format_Commercial
 Format_Description;Опис формату
 Format_Info;Деталі формату
 Format_Profile;Профіль формату
@@ -876,6 +881,7 @@ Shell InfoTip;Підказка провідника (при наведенні �
 Show menu;Відображати меню
 Show toolbar;Відображати панель
 Sort;Сортування
+SamplingCount
 SoundEngineer;звукорежисер
 Standard;Стандарт
 Stream;Потік
@@ -921,6 +927,7 @@ transfer_characteristics;Характеристики трансферу
 Translator;перекладач
 Tree;Дерево
 Tree & Text;Дерево і текст
+UniqueID
 Unknown;Невідомо
 Url;Посилання
 Video;Відео
@@ -953,6 +960,6 @@ Written_Location;місце написання
 WrittenBy;написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;98
 CompressionRatio;Ступінь стиснення

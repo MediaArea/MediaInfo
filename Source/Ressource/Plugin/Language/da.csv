@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominel bitrate
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
+BufferSize
 Cancel;Annuller
 Channel(s);Kanaler
 ChannelPositions;Kanalpositioner
@@ -258,6 +259,9 @@ Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
 Delay;Forsinkelse
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Slet
 Description;Beskrivelse
 Digitized_Date;Digitaliseret den
@@ -309,6 +313,7 @@ Folder (Recursively);Mappe (Rekursivt)
 Folder_Hint;Vælg en mappe at undersøge
 FolderName;Mappenavn
 Format;Format
+Format_Commercial
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Profile;Formatprofil
@@ -876,6 +881,7 @@ Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
 Sort;Sorteret efter
+SamplingCount
 SoundEngineer;Lydtekniker
 Standard;Standard
 Stream;Strøm
@@ -921,6 +927,7 @@ transfer_characteristics;Overførselskarakteristika
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+UniqueID
 Unknown;Ukendt
 Url;Url
 Video;Video
@@ -953,6 +960,6 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;98
 CompressionRatio;Komprimeringsforhold

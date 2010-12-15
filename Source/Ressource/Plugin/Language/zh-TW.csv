@@ -184,6 +184,7 @@ BitRate_Mode_CBR;常數式
 BitRate_Mode_VBR;可變式
 BitRate_Nominal;正常流量
 Bits-(Pixel*Frame);位元/(像素*影格)
+BufferSize
 Cancel;取消
 Channel(s);聲道數
 ChannelPositions;聲道位置
@@ -258,6 +259,9 @@ Date;日期
 Debug;偵錯
 Decimal point;小數點
 Delay;延遲
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;刪除
 Description;敘述
 Digitized_Date;數位化日期
@@ -309,6 +313,7 @@ Folder (Recursively);資料夾 (遞迴)
 Folder_Hint;選擇要檢視的資料夾
 FolderName;資料夾
 Format;格式
+Format_Commercial
 Format_Description;格式敘述
 Format_Info;格式詳細資訊
 Format_Profile;格式類型
@@ -876,6 +881,7 @@ Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯�
 Show menu;顯示選單
 Show toolbar;顯示工具列
 Sort;排序
+SamplingCount
 SoundEngineer;音響工程師
 Standard;標準
 Stream;串流
@@ -921,6 +927,7 @@ transfer_characteristics;傳輸特性
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
+UniqueID
 Unknown;未知
 Url;相關網址
 Video;視訊
@@ -953,6 +960,6 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;壓縮比

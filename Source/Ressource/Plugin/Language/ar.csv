@@ -184,6 +184,7 @@ BitRate_Mode_CBR;ثابت
 BitRate_Mode_VBR;متغير
 BitRate_Nominal;المعدل الاسمي للصبيب
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
+BufferSize
 Cancel;إلغاء
 Channel(s);قناة
 ChannelPositions;مواقع القنوات
@@ -258,6 +259,9 @@ Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
 Delay;تأخير
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;حذف
 Description;وصف
 Digitized_Date;تاريخ الرقمية
@@ -309,6 +313,7 @@ Folder (Recursively);المجلد (بشكل تكراري)
 Folder_Hint;تحديد مجلد لدراسة
 FolderName;اسم المجلد
 Format;شكل
+Format_Commercial
 Format_Description;وصف الشكل
 Format_Info;تفاصيل عن شكل
 Format_Profile;لبروفايل الشكل
@@ -876,6 +881,7 @@ Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  �
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
 Sort;مصنفة حسب
+SamplingCount
 SoundEngineer;مهندس الصوت
 Standard;قاعدي
 Stream;دفق
@@ -921,6 +927,7 @@ transfer_characteristics;خصائص نقل
 Translator;مترجم
 Tree;شجرة
 Tree & Text;شجرة والنصوص
+UniqueID
 Unknown;مجهول
 Url;رابط
 Video;فيديو
@@ -953,6 +960,6 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
 CompressionRatio;نسبة الضغط

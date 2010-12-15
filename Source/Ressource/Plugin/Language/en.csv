@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+BufferSize;Buffer size
 Cancel;Cancel
 Channel(s);Channel(s)
 ChannelPositions;Channel positions
@@ -258,6 +259,9 @@ Date;Date
 Debug;Debug
 Decimal point;Decimal point
 Delay;Delay
+Delay_Source;Delay, origin
+Delay_Source_Container;Container
+Delay_Source_Stream;Raw stream
 Delete;Delete
 Description;Description
 Digitized_Date;Digitized date
@@ -309,6 +313,7 @@ Folder (Recursively);Folder (Recursively)
 Folder_Hint;Select a folder to examine
 FolderName;Folder name
 Format;Format
+Format_Commercial;Commercial name
 Format_Description;Format description
 Format_Info;Details for format
 Format_Profile;Format profile
@@ -876,6 +881,7 @@ Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the fil
 Show menu;Show menu
 Show toolbar;Show toolbar
 Sort;Sorted by
+SamplingCount;Samples count
 SoundEngineer;Sound engineer
 Standard;Standard
 Stream;Stream
@@ -921,6 +927,7 @@ transfer_characteristics;Transfer characteristics
 Translator;Translator
 Tree;Tree
 Tree & Text;Tree & Text
+UniqueID;Unique ID
 Unknown;Unknown
 Url;Url
 Video;Video

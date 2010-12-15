@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Сталы
 BitRate_Mode_VBR;Пераменны
 BitRate_Nominal;Намінальны бітрэйт
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадры)
+BufferSize
 Cancel;Адмена
 Channel(s);Канал(ы)
 ChannelPositions;Размяшчэнне каналаў
@@ -258,6 +259,9 @@ Date;Дата
 Debug;Адладка
 Decimal point;Дзесятковая кропка
 Delay;Затрымка
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Выдаліць
 Description;Апісанне
 Digitized_Date;Дата аблічбоўкі
@@ -309,6 +313,7 @@ Folder (Recursively);Тэчка (рэкурсіўна)...
 Folder_Hint;Аперацыі з тэчкамі
 FolderName;Імя тэчкі
 Format;Фармат
+Format_Commercial
 Format_Description;Апісанне фармату
 Format_Info;Падрабязна аб фармаце
 Format_Profile;Прафайл фармату
@@ -876,6 +881,7 @@ Shell InfoTip;Паказваць меню
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль
 Sort;Сартаваць па
+SamplingCount
 SoundEngineer;Гукарэжысёр
 Standard;Стандарт вяшчання
 Stream;Струмень
@@ -921,6 +927,7 @@ transfer_characteristics;Характарыстыкі трансферу
 Translator;Перакладчык
 Tree;Дрэва
 Tree & Text;Дрэва і тэкст
+UniqueID
 Unknown;Невядома
 Url;Спасылка
 Video;Відэа

@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+BufferSize
 Cancel;Zrušit
 Channel(s);Kanál(y)
 ChannelPositions;Channel positions
@@ -258,6 +259,9 @@ Date;Datum
 Debug;Pokročilé
 Decimal point;Decimal point
 Delay;Delay
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Odstranit
 Description;Description
 Digitized_Date;Digitized date
@@ -309,6 +313,7 @@ Folder (Recursively);Folder (Recursively)
 Folder_Hint;Otevřít vše ve složce
 FolderName;Název složky
 Format;Formát
+Format_Commercial
 Format_Description
 Format_Info
 Format_Profile
@@ -876,6 +881,7 @@ Shell InfoTip;Integrovat do kontextového menu (při najetí myši na soubor)
 Show menu;Zobrazit menu
 Show toolbar;Zobrazit nástrojovou lištu
 Sort;Sorted by
+SamplingCount
 SoundEngineer;Sound engineer
 Standard;Standard
 Stream;Datový stream
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Přeložil
 Tree;Strom
 Tree & Text;Tree & Text
+UniqueID
 Unknown;Neznámý
 Url;Url
 Video;Video
@@ -953,6 +960,6 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;79
+ZZ_Automatic_Percent;78
 ZZ_AutomaticLanguage_Percent;83
 CompressionRatio

@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal;Ràtio nominal
 Bits-(Pixel*Frame);Bits/(Píxel*imatge)
+BufferSize
 Cancel;Cancel·la
 Channel(s);Canal(s)
 ChannelPositions;Posicions dels canals
@@ -258,6 +259,9 @@ Date;Data
 Debug;Errada
 Decimal point;Punt decimal
 Delay;Retard
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Esborra
 Description;Descripció
 Digitized_Date;Data de la digitalització
@@ -309,6 +313,7 @@ Folder (Recursively);Carpeta general
 Folder_Hint;Tria la carpeta general
 FolderName;Nom de la carpeta
 Format;Format
+Format_Commercial
 Format_Description; Descripció
 Format_Info; Info
 Format_Profile; Perfil
@@ -876,6 +881,7 @@ Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxi
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines
 Sort;Endreça per
+SamplingCount
 SoundEngineer;Enginyer de só
 Standard;Estàndard
 Stream;Pista
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Traductor
 Tree;Arbre
 Tree & Text;Arbre i text
+UniqueID
 Unknown;Desconegut
 Url;Adreça web
 Video;Vídeo
@@ -954,5 +961,5 @@ WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
 ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;89
+ZZ_AutomaticLanguage_Percent;88
 CompressionRatio

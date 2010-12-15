@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominale bitrate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+BufferSize
 Cancel;Annuleren
 Channel(s);Kanaal(en)
 ChannelPositions;Kanaalposities
@@ -258,6 +259,9 @@ Date;Datum
 Debug;Debug
 Decimal point;Decimale punt
 Delay;Vertraging
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Verwijderen
 Description;Beschrijving
 Digitized_Date;Digitaliseringsdatum
@@ -309,6 +313,7 @@ Folder (Recursively);Map (Recursief)
 Folder_Hint;Kies een te onderzoeken map
 FolderName;Mapnaam
 Format;Formaat
+Format_Commercial
 Format_Description;Formaatbeschrijving
 Format_Info;Details over formaat
 Format_Profile;Formaatprofiel
@@ -876,6 +881,7 @@ Shell InfoTip;Shell InfoTip (houd in explorer de muiscursor boven een bestand, i
 Show menu;Menu tonen
 Show toolbar;Werkbalk tonen
 Sort;Gesorteerd op
+SamplingCount
 SoundEngineer;Geluidstechnicus
 Standard;Standaard
 Stream;Stroom
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Vertaler
 Tree;Boomstructuur
 Tree & Text;Boomstructuur & Tekst
+UniqueID
 Unknown;Onbekend
 Url;Url
 Video;Video

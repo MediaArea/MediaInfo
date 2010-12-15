@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabël
 BitRate_Nominal;Raporti nominal i bitit
 Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
+BufferSize
 Cancel;Anulo
 Channel(s);Kanale
 ChannelPositions;Pozicionet e kanalit
@@ -258,6 +259,9 @@ Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
 Delay;Vonesa
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Fshij
 Description;Përshkrimi
 Digitized_Date;Data e shifruar
@@ -309,6 +313,7 @@ Folder (Recursively);Dosje (Rekursive)
 Folder_Hint;Studio një dosje
 FolderName;Emri i dosjes
 Format;Formati
+Format_Commercial
 Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
 Format_Profile;Profili i formatit
@@ -876,6 +881,7 @@ Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi 
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
+SamplingCount
 SoundEngineer;Inxhinieri i zërit
 Standard;Standardi
 Stream;Rryma
@@ -921,6 +927,7 @@ transfer_characteristics;Karakteristikat e transferimit
 Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
+UniqueID
 Unknown;Nuk e di
 Url;URL
 Video;Video

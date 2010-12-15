@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Sabit
 BitRate_Mode_VBR;Değişken
 BitRate_Nominal;Düşük bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
+BufferSize
 Cancel;İptal
 Channel(s);Kanal
 ChannelPositions;Kanal konumları
@@ -258,6 +259,9 @@ Date;Tarih
 Debug;Hata Ayıklama
 Decimal point;Ondalık ayırıcı
 Delay;Gecikme
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Sil
 Description;Açıklama
 Digitized_Date;Sayısallaştırılmış tarih
@@ -309,6 +313,7 @@ Folder (Recursively);Klasör (Yinelemeli)
 Folder_Hint;Çalışmak için klasör seç
 FolderName;Klasör adı
 Format;Biçim
+Format_Commercial
 Format_Description;Biçim açıklaması
 Format_Info;Biçim için ayrıntılar
 Format_Profile;Biçim profili
@@ -876,6 +881,7 @@ Shell InfoTip;Sistem Bilgisi İpucu (gezginde, fareyi dosya üzerine taşıyın,
 Show menu;Menü göster
 Show toolbar;Araç çubuğu göster
 Sort;Sıralayan
+SamplingCount
 SoundEngineer;Ses teknisyeni
 Standard;Standart
 Stream;Akış
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Çevirmen
 Tree;Ağaç
 Tree & Text;Ağaç ve Metin
+UniqueID
 Unknown;Bilinmiyor
 Url;Url
 Video;Görüntü
@@ -953,6 +960,6 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;Sıkıştırma oranı

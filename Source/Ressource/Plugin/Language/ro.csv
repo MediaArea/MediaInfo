@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame)
+BufferSize
 Cancel;Anulare
 Channel(s);Canal(e)
 ChannelPositions;Pozitia canalelor
@@ -258,6 +259,9 @@ Date;Data
 Debug;Depanare
 Decimal point;Punct zecimal
 Delay;Intarziere
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Sterge
 Description;Descriere
 Digitized_Date;Data digitizarii
@@ -309,6 +313,7 @@ Folder (Recursively);Director (recursiv)
 Folder_Hint;Selectati un director pentru analiza
 FolderName;Numele directorului
 Format;Format
+Format_Commercial
 Format_Description
 Format_Info
 Format_Profile
@@ -876,6 +881,7 @@ Shell InfoTip
 Show menu;Afisare meniu
 Show toolbar;Afisare toolbar
 Sort;Sortat de
+SamplingCount
 SoundEngineer;Inginer de sunet
 Standard
 Stream;Flux
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Traducator
 Tree;Arbore
 Tree & Text;Arbore si text
+UniqueID
 Unknown;Necunoscut
 Url
 Video;Video

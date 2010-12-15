@@ -184,6 +184,7 @@ BitRate_Mode_CBR;고정
 BitRate_Mode_VBR;변동
 BitRate_Nominal;명목상의 비트레이트
 Bits-(Pixel*Frame);비트/(픽셀*프레임)
+BufferSize
 Cancel;취소
 Channel(s);채널
 ChannelPositions;채널 위치
@@ -258,6 +259,9 @@ Date;날짜
 Debug;디버그
 Decimal point;소수점
 Delay;딜레이
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;삭제
 Description;설명
 Digitized_Date;디지털화 날짜
@@ -309,6 +313,7 @@ Folder (Recursively);폴더 (하위 포함)
 Folder_Hint;조사할 폴더를 선택
 FolderName;폴더명
 Format;포맷
+Format_Commercial
 Format_Description;포맷 설명
 Format_Info;포맷 정보
 Format_Profile;포맷 프로파일
@@ -876,6 +881,7 @@ Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓�
 Show menu;메뉴 보기
 Show toolbar;도구 모음 보기
 Sort;소팅
+SamplingCount
 SoundEngineer;사운드 엔지니어
 Standard;표준
 Stream;스트림
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;번역
 Tree;트리
 Tree & Text;트리 & 텍스트
+UniqueID
 Unknown;알 수 없음
 Url;Url
 Video;비디오
@@ -953,6 +960,6 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;압축률

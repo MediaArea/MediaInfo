@@ -184,6 +184,7 @@ BitRate_Mode_CBR;CBR
 BitRate_Mode_VBR;VBR
 BitRate_Nominal;额定码率
 Bits-(Pixel*Frame);bits/(pixel*frame)(数据密度)
+BufferSize
 Cancel;取消
 Channel(s);声道
 ChannelPositions;声道位置
@@ -258,6 +259,9 @@ Date;日期
 Debug;调试
 Decimal point;小数点
 Delay;延迟
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;删除
 Description;说明
 Digitized_Date;数字化日期
@@ -309,6 +313,7 @@ Folder (Recursively);文件夹 (包含子文件夹)
 Folder_Hint;选择文件夹
 FolderName;文件夹名　
 Format;文件格式
+Format_Commercial
 Format_Description;格式描述
 Format_Info;格式详情
 Format_Profile;格式简介
@@ -876,6 +881,7 @@ Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会�
 Show menu;显示菜单
 Show toolbar;显示工具栏
 Sort;排序
+SamplingCount
 SoundEngineer;录音师
 Standard;标准
 Stream;流
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;翻译
 Tree;树状图
 Tree & Text;树状图和文本
+UniqueID
 Unknown;不详
 Url;相关网址
 Video;视频
@@ -953,6 +960,6 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;压缩比

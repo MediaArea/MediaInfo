@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Постоянный
 BitRate_Mode_VBR;Переменный
 BitRate_Nominal;Номинальный битрейт
 Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
+BufferSize
 Cancel;Отмена
 Channel(s);Канал(ы)
 ChannelPositions;Расположение каналов
@@ -258,6 +259,9 @@ Date;Дата
 Debug;Отладка
 Decimal point;Десятичная точка
 Delay;Задержка
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Удалить
 Description;Описание
 Digitized_Date;Дата оцифровки
@@ -309,6 +313,7 @@ Folder (Recursively);Папка (рекурсивно)...
 Folder_Hint;Операции с папками
 FolderName;Имя папки
 Format;Формат
+Format_Commercial
 Format_Description;Описание формата
 Format_Info;Подробно о формате
 Format_Profile;Профайл формата
@@ -876,6 +881,7 @@ Shell InfoTip;Всплывающая подсказка в Проводнике
 Show menu;Показывать меню
 Show toolbar;Показывать панель
 Sort;Сортировать по
+SamplingCount
 SoundEngineer;Звукорежиссёр
 Standard;Стандарт вещания
 Stream;Поток
@@ -921,6 +927,7 @@ transfer_characteristics;Характеристики трансфера
 Translator;Переводчик
 Tree;Дерево
 Tree & Text;Дерево и текст
+UniqueID
 Unknown;Неизвестно
 Url;Ссылка
 Video;Видео

@@ -184,6 +184,7 @@ BitRate_Mode_CBR;állandó
 BitRate_Mode_VBR;változó
 BitRate_Nominal;Névleges adatsebesség
 Bits-(Pixel*Frame);Bit/(képpont*képkocka)
+BufferSize
 Cancel;Mégsem
 Channel(s);Csatornák száma
 ChannelPositions;Csatorna kiosztás
@@ -258,6 +259,9 @@ Date;Dátum
 Debug;Hibakeresés
 Decimal point;Tizedesjel
 Delay;Késleltetés
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Törlés
 Description;Leírás
 Digitized_Date;Digitalizálás dátuma
@@ -309,6 +313,7 @@ Folder (Recursively);Mappa (rekurzív)
 Folder_Hint;Adja meg a vizsgálandó mappát
 FolderName;Mappanév
 Format;Formátum
+Format_Commercial
 Format_Description;Formátum leírás
 Format_Info;A kódek részletei
 Format_Profile;Formátum profil
@@ -876,6 +881,7 @@ Shell InfoTip;Rendszerhéj tipp (ha az egérmutató az Intézőben a fájl föl�
 Show menu;Menü mutatása
 Show toolbar;Eszköztár mutatása
 Sort;Sorba rendezte
+SamplingCount
 SoundEngineer;Hangmérnök
 Standard;Szabvány
 Stream;Sáv
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Fordító
 Tree;Fa
 Tree & Text;Fa és szöveg
+UniqueID
 Unknown;Ismeretlen
 Url;Url
 Video;Kép
@@ -953,6 +960,6 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;95
 CompressionRatio;Tömörítési arány

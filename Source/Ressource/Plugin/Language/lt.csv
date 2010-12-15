@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal;Nominalus bitų tempas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
+BufferSize
 Cancel;Atšaukti
 Channel(s);Kanalas (-ai)
 ChannelPositions;Kanalo pozicijos
@@ -258,6 +259,9 @@ Date;Data
 Debug;Suderinti
 Decimal point;Dešimtainis taškas
 Delay;Atidėti
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Pašalinti
 Description;Aprašymas
 Digitized_Date;Skaitmeninė data
@@ -309,6 +313,7 @@ Folder (Recursively);Katalogas (Pasikartojančiai)
 Folder_Hint;Pasirinkite katalogą studijavimui 
 FolderName;Katalogo pavadinimas
 Format;Formatas
+Format_Commercial
 Format_Description;Formatas aprašymas
 Format_Info;Formatas detalės
 Format_Profile;Formato profilis
@@ -876,6 +881,7 @@ Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus
 Show menu;Rodyti meniu
 Show toolbar;Rodyti įrankių juostą
 Sort;Rūšiuotojas
+SamplingCount
 SoundEngineer;Garso inžinierius
 Standard;Standartas
 Stream;Srautas
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;Vertėjas
 Tree;Medis
 Tree & Text;Medis ir tekstas
+UniqueID
 Unknown;Nežinomas
 Url;Url
 Video;Video
@@ -953,6 +960,6 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89
 CompressionRatio

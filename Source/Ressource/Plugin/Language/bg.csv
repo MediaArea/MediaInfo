@@ -184,6 +184,7 @@ BitRate_Mode_CBR;Режим_БитРейт_СБР
 BitRate_Mode_VBR;Режим_БитРейт_ВБР
 BitRate_Nominal;Нормален_БитРейт
 Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
+BufferSize
 Cancel;Откажи
 Channel(s);Канал(и)
 ChannelPositions;КаналПозиции
@@ -258,6 +259,9 @@ Date;Дата
 Debug;Дебъг
 Decimal point;Децимална точка
 Delay;Забавяне
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;Премахни
 Description;Описание
 Digitized_Date;Дата_Дигитализиране
@@ -309,6 +313,7 @@ Folder (Recursively);Папка (Рекурсивна)
 Folder_Hint;Папка_Подсказване
 FolderName;ПапкаИме
 Format;Формат
+Format_Commercial
 Format_Description;Формат_Описание
 Format_Info;Формат_Инфо
 Format_Profile;Формат_Профил
@@ -876,6 +881,7 @@ Shell InfoTip;Шел ИнфоИнфо
 Show menu;Показ меню
 Show toolbar;Показ инструментибар
 Sort;Сортиране
+SamplingCount
 SoundEngineer;ЗвукоИнжинер
 Standard;Стандарт
 Stream;Поток
@@ -921,6 +927,7 @@ transfer_characteristics;трансфер_характеристики
 Translator;Преводач
 Tree;Дърво
 Tree & Text;Дърво и Текст
+UniqueID
 Unknown;Незнаен
 Url;ЮРЛ
 Video;Видео
@@ -954,5 +961,5 @@ WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
 ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98
 CompressionRatio;КомпресияСъотношение

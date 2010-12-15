@@ -184,6 +184,7 @@ BitRate_Mode_CBR
 BitRate_Mode_VBR
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
+BufferSize
 Cancel;ยกเลิก
 Channel(s);ช่อง
 ChannelPositions;ตำแหน่งช่อง
@@ -258,6 +259,9 @@ Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
 Delay;Delay
+Delay_Source
+Delay_Source_Container
+Delay_Source_Stream
 Delete;ลบ
 Description;รายละเอียด
 Digitized_Date;Digitized date
@@ -309,6 +313,7 @@ Folder (Recursively);โฟลเดอร์ (Recursively)
 Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
 FolderName;ชื่อโฟลเดอร์
 Format;รูปแบบ
+Format_Commercial
 Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
 Format_Profile;โพรไฟล์รูปแบบ
@@ -876,6 +881,7 @@ Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer,
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
 Sort;จัดเรียงโดย
+SamplingCount
 SoundEngineer;ซาวน์เอนจิเนียร์
 Standard;มาตรฐาน
 Stream;สตรีม
@@ -921,6 +927,7 @@ transfer_characteristics
 Translator;แปลไทยโดย 
 Tree;Tree
 Tree & Text;Tree & Text
+UniqueID
 Unknown;ไม่รู้จัก
 Url;Url
 Video;วีดีโอ
@@ -954,5 +961,5 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;90
+ZZ_AutomaticLanguage_Percent;89
 CompressionRatio
