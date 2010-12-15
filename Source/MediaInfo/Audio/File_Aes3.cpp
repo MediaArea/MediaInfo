@@ -671,6 +671,10 @@ void File_Aes3::Frame_WithPadding()
         return;
     }
 
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+        Demux(Info, Info_Offset, ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
     Parser_Parse(Info, Info_Offset);
     delete[] Info;
 }
