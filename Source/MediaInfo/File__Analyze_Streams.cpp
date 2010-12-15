@@ -1539,119 +1539,134 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
     if (Retrieve(StreamKind, StreamPos, Parameter).empty())
         return;
 
-    int32s HH, MM, SS, MS;
-    Ztring DurationString1, DurationString2, DurationString3;
-    bool Negative=false;
-    MS=Retrieve(StreamKind, StreamPos, Parameter).To_int32s(); //en ms
+    //Clearing old data
+    Clear(StreamKind, StreamPos, Parameter+1);
+    Clear(StreamKind, StreamPos, Parameter+2);
+    Clear(StreamKind, StreamPos, Parameter+3);
+    Clear(StreamKind, StreamPos, Parameter+4);
 
-    if (MS<0)
-    {
-        Negative=true;
-        MS=-MS;
-    }
+    //Retrieving multiple values
+    ZtringList List;
+    List.Separator_Set(0, _T(" / "));
+    List.Write(Retrieve(StreamKind, StreamPos, Parameter));
 
-    //Hours
-    HH=MS/1000/60/60; //h
-    if (HH>0)
+    //Per value
+    for (size_t Pos=0; Pos<List.size(); Pos++)
     {
-        DurationString1+=Ztring::ToZtring(HH)+MediaInfoLib::Config.Language_Get(_T("h"));
-        DurationString2+=Ztring::ToZtring(HH)+MediaInfoLib::Config.Language_Get(_T("h"));
-        if (HH<10)
-            DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(HH)+_T(":");
-        else
-            DurationString3+=Ztring::ToZtring(HH)+_T(":");
-        MS-=HH*60*60*1000;
-    }
-    else
-    {
-        DurationString3+=_T("00:");
-    }
+        int32s HH, MM, SS, MS;
+        Ztring DurationString1, DurationString2, DurationString3;
+        bool Negative=false;
+        MS=List[Pos].To_int32s(); //in ms
 
-    //Minutes
-    MM=MS/1000/60; //mn
-    if (MM>0 || HH>0)
-    {
-        if (DurationString1.size()>0)
-            DurationString1+=_T(" ");
-        DurationString1+=Ztring::ToZtring(MM)+MediaInfoLib::Config.Language_Get(_T("mn"));
-        if (DurationString2.size()<5)
+        if (MS<0)
         {
-            if (DurationString2.size()>0)
-                DurationString2+=_T(" ");
-            DurationString2+=Ztring::ToZtring(MM)+MediaInfoLib::Config.Language_Get(_T("mn"));
+            Negative=true;
+            MS=-MS;
         }
-        if (MM<10)
-            DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(MM)+_T(":");
-        else
-            DurationString3+=Ztring::ToZtring(MM)+_T(":");
-        MS-=MM*60*1000;
-    }
-    else
-    {
-        DurationString3+=_T("00:");
-    }
 
-    //Seconds
-    SS=MS/1000; //s
-    if (SS>0 || MM>0 || HH>0)
-    {
-        if (DurationString1.size()>0)
-            DurationString1+=_T(" ");
-        DurationString1+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(_T("s"));
-        if (DurationString2.size()<5)
+        //Hours
+        HH=MS/1000/60/60; //h
+        if (HH>0)
         {
-            if (DurationString2.size()>0)
-                DurationString2+=_T(" ");
-            DurationString2+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(_T("s"));
+            DurationString1+=Ztring::ToZtring(HH)+MediaInfoLib::Config.Language_Get(_T("h"));
+            DurationString2+=Ztring::ToZtring(HH)+MediaInfoLib::Config.Language_Get(_T("h"));
+            if (HH<10)
+                DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(HH)+_T(":");
+            else
+                DurationString3+=Ztring::ToZtring(HH)+_T(":");
+            MS-=HH*60*60*1000;
         }
-        else if (DurationString2.size()==0)
-            DurationString2+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(_T("s"));
-        if (SS<10)
-            DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(SS)+_T(".");
         else
-            DurationString3+=Ztring::ToZtring(SS)+_T(".");
-        MS-=SS*1000;
-    }
-    else
-    {
-        DurationString3+=_T("00.");
-    }
-
-    //Milliseconds
-    if (MS>0 || SS>0 || MM>0 || HH>0)
-    {
-        if (DurationString1.size()>0)
-            DurationString1+=_T(" ");
-        DurationString1+=Ztring::ToZtring(MS)+MediaInfoLib::Config.Language_Get(_T("ms"));
-        if (DurationString2.size()<5)
         {
-            if (DurationString2.size()>0)
-                DurationString2+=_T(" ");
-            DurationString2+=Ztring::ToZtring(MS)+MediaInfoLib::Config.Language_Get(_T("ms"));
+            DurationString3+=_T("00:");
         }
-        if (MS<10)
-            DurationString3+=Ztring(_T("00"))+Ztring::ToZtring(MS);
-        else if (MS<100)
-            DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(MS);
+
+        //Minutes
+        MM=MS/1000/60; //mn
+        if (MM>0 || HH>0)
+        {
+            if (DurationString1.size()>0)
+                DurationString1+=_T(" ");
+            DurationString1+=Ztring::ToZtring(MM)+MediaInfoLib::Config.Language_Get(_T("mn"));
+            if (DurationString2.size()<5)
+            {
+                if (DurationString2.size()>0)
+                    DurationString2+=_T(" ");
+                DurationString2+=Ztring::ToZtring(MM)+MediaInfoLib::Config.Language_Get(_T("mn"));
+            }
+            if (MM<10)
+                DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(MM)+_T(":");
+            else
+                DurationString3+=Ztring::ToZtring(MM)+_T(":");
+            MS-=MM*60*1000;
+        }
         else
-            DurationString3+=Ztring::ToZtring(MS);
-    }
-    else
-    {
-        DurationString3+=_T("000");
-    }
+        {
+            DurationString3+=_T("00:");
+        }
 
-    if (Negative)
-    {
-        DurationString1=Ztring(_T("-"))+DurationString1;
-        DurationString2=Ztring(_T("-"))+DurationString2;
-        DurationString3=Ztring(_T("-"))+DurationString3;
-    }
+        //Seconds
+        SS=MS/1000; //s
+        if (SS>0 || MM>0 || HH>0)
+        {
+            if (DurationString1.size()>0)
+                DurationString1+=_T(" ");
+            DurationString1+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(_T("s"));
+            if (DurationString2.size()<5)
+            {
+                if (DurationString2.size()>0)
+                    DurationString2+=_T(" ");
+                DurationString2+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(_T("s"));
+            }
+            else if (DurationString2.size()==0)
+                DurationString2+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(_T("s"));
+            if (SS<10)
+                DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(SS)+_T(".");
+            else
+                DurationString3+=Ztring::ToZtring(SS)+_T(".");
+            MS-=SS*1000;
+        }
+        else
+        {
+            DurationString3+=_T("00.");
+        }
 
-    Fill(StreamKind, StreamPos, Parameter+1,  DurationString2, true); // /String
-    Fill(StreamKind, StreamPos, Parameter+2, DurationString1, true); // /String1
-    Fill(StreamKind, StreamPos, Parameter+3, DurationString2, true); // /String2
-    Fill(StreamKind, StreamPos, Parameter+4, DurationString3, true); // /String3
+        //Milliseconds
+        if (MS>0 || SS>0 || MM>0 || HH>0)
+        {
+            if (DurationString1.size()>0)
+                DurationString1+=_T(" ");
+            DurationString1+=Ztring::ToZtring(MS)+MediaInfoLib::Config.Language_Get(_T("ms"));
+            if (DurationString2.size()<5)
+            {
+                if (DurationString2.size()>0)
+                    DurationString2+=_T(" ");
+                DurationString2+=Ztring::ToZtring(MS)+MediaInfoLib::Config.Language_Get(_T("ms"));
+            }
+            if (MS<10)
+                DurationString3+=Ztring(_T("00"))+Ztring::ToZtring(MS);
+            else if (MS<100)
+                DurationString3+=Ztring(_T("0"))+Ztring::ToZtring(MS);
+            else
+                DurationString3+=Ztring::ToZtring(MS);
+        }
+        else
+        {
+            DurationString3+=_T("000");
+        }
+
+        if (Negative)
+        {
+            DurationString1=Ztring(_T("-"))+DurationString1;
+            DurationString2=Ztring(_T("-"))+DurationString2;
+            DurationString3=Ztring(_T("-"))+DurationString3;
+        }
+
+        Fill(StreamKind, StreamPos, Parameter+1, DurationString2); // /String
+        Fill(StreamKind, StreamPos, Parameter+2, DurationString1); // /String1
+        Fill(StreamKind, StreamPos, Parameter+3, DurationString2); // /String2
+        Fill(StreamKind, StreamPos, Parameter+4, DurationString3); // /String3
+    }
 }
 
 //---------------------------------------------------------------------------
