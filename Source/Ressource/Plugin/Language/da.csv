@@ -1,5 +1,5 @@
   Language_ISO639;da
-  Author_Email;joradan0@gmail.com
+  Author_Email;l10n@joergenr.dk
   Author_Name;Joergen
   Author_OldNames;Joergen
   Language_Name;Dansk
@@ -175,7 +175,7 @@ Author;Forfatter
 BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
-BitDepth
+BitDepth;Bitdybde
 BitRate;Bitrate
 BitRate_Maximum;Maksimum bitrate
 BitRate_Minimum;Minimum bitrate
@@ -201,8 +201,8 @@ Choose export format;Vælg det ønskede eksportformat
 Choose file(s);Vælg en fil at åbne
 Choose filename;Vælg det ønskede filnavn
 Choose language;Vælg det foretrukne sprog
-Choregrapher;Vælg det ønskede sprog
-Chroma;Koreograf
+Choregrapher;Koreograf
+Chroma
 ChromaSubsampling
 Close;Luk
 Close all before open;Luk alle før åbning
@@ -228,15 +228,15 @@ CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
 Collection;Samling
 Colorimetry;Kolorimetri
-ColorSpace
+ColorSpace;Farverum
 colour_primaries
 Comment;Kommentar
 CommissionedBy;Bestilt af
 CompleteName;Fulde navn
 Composer;Komponist
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;Komprimeringstilstand
+Compression_Mode_Lossless;Lossless
+Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
 Conductor;Dirigent
 Container and general information;Container og generel information
@@ -335,7 +335,7 @@ Format_Settings_Mode;Tilstand
 Format_Settings_FrameMode;Billedtilstand
 Format_Settings_Emphasis
 Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_GOP;Formatindstillinger, GOP
 Format_Version;Formatversion
 Format_Url;Weblink til format
 FrameCount;Antal billeder
@@ -953,6 +953,6 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;99
 CompressionRatio;Komprimeringsforhold

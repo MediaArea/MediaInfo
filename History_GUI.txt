@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.38, 2010-12-
+--------------
++ Danish translation updated
+
 Version 0.7.37, 2010-11-22
 --------------
 + DPX format support
