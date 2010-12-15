@@ -1013,17 +1013,16 @@ void File_Flv::audio_AAC()
 
                     //Parsing
                     Open_Buffer_Continue(Stream[Stream_Audio].Parser);
-
-                    //Disabling this stream
-                    audio_stream_Count=false;
                 #else
                     Skip_XX(Element_Size-Element_Offset,        "AAC Data");
                     audio_stream_Count=false; //Unable to parse it
                 #endif
                 break;
         case 1 :
-                Skip_XX(Element_Size-Element_Offset,            "AAC Data");
-                audio_stream_Count=false; //Unable to parse it
+                //Parsing
+                Open_Buffer_Continue(Stream[Stream_Audio].Parser);
+
+                audio_stream_Count=false; //No need of more
                 break;
         default: Skip_XX(Element_Size-Element_Offset,           "Unknown");
                 audio_stream_Count=false; //Unable to parse it
@@ -1106,6 +1105,12 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="bytelength") {} //TODO: should test in order to see if file is complete
+                else if (StringData=="aacaot") {}
+                else if (StringData=="audiochannels") {}
+                else if (StringData=="audiocodecid") {}
+                else if (StringData=="avclevel") {}
+                else if (StringData=="avcprofile") {}
+                else if (StringData=="moovPosition") {}
                 else {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
                 if (!ValueS.empty()) Element_Info(ValueS);
                 Fill(StreamKind, 0, ToFill.c_str(), ValueS);
@@ -1150,6 +1155,8 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else if (StringData=="Encoded_By") {ToFill=General_Encoded_Application;}
                     else if (StringData=="metadatacreator") {ToFill=General_Tagged_Application;}
                     else if (StringData=="sourcedata") {}
+                    else if (StringData=="audiocodecid") {}
+                    else if (StringData=="videocodecid") {}
                     else
                         ToFillS=StringData;
                     if (Value.find(_T('\r'))!=std::string::npos)
