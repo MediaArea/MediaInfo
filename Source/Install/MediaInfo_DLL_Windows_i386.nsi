@@ -92,8 +92,9 @@ ShowUnInstDetails nevershow
 
 Function .onInit
   ${If} ${RunningX64}
-    MessageBox MB_OK|MB_ICONSTOP 'You are trying to install the 32-bit version of ${PRODUCT_NAME} on 64-bit Windows.$\r$\nPlease download and use the 64-bit version instead.$\r$\nClick OK to quit Setup.'
-    Quit
+    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 'You are trying to install the 32-bit version of ${PRODUCT_NAME} on 64-bit Windows.$\r$\nPlease download and use the 64-bit version instead.$\r$\nContinue with the installation of the 32-bit version?' IDYES noprob
+  Quit
+  noprob:
   ${Else}
   ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
