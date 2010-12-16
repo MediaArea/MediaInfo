@@ -22,25 +22,25 @@ wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/MediaInfo/mediainf
 mv mediainfo-gui$dash$mediainfov-$1$9.$type \
  download/binary/mediainfo-gui/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
 
-wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/MediaInfoLib/libmediainfo0$dash$libmediainfov-$1$9.$type" \
+wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/MediaInfoLib/libmediainfo0$dash$libmediainfov-$2$9.$type" \
  --no-check-certificate --http-user=MediaArea_net --http-passwd=xxx
 mv libmediainfo0$dash$libmediainfov-$2$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/MediaInfoLib/libmediainfo0-$devext$dash$libmediainfov-$1$9.$type" \
+wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/MediaInfoLib/libmediainfo0-$devext$dash$libmediainfov-$2$9.$type" \
  --no-check-certificate --http-user=MediaArea_net --http-passwd=xxx
 mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/ZenLib/libzen0-$devext$dash$libzenv-$1$9.$type" \
+wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/ZenLib/libzen0-$devext$dash$libzenv-$3$9.$type" \
  --no-check-certificate --http-user=MediaArea_net --http-passwd=xxx
-mv libmediainfo0$dash$libmediainfov-$2$9.$type \
- download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
+mv libzen0$dash$libzenv-$3$9.$type \
+ download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
 
-wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/ZenLib/libzen0-$devext$dash$libzenv-$1$9.$type" \
+wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/ZenLib/libzen0-$devext$dash$libzenv-$3$9.$type" \
  --no-check-certificate --http-user=MediaArea_net --http-passwd=xxx
-mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
- download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
+mv libzen0-$devext$dash$libzenv-$3$9.$type \
+ download/binary/libzen0/$libzenv/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
 }
 
 #-----------------------------------------------------------------------
