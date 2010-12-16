@@ -120,7 +120,7 @@ Download_Packages $1 $2 $3 x x x   openSUSE_11.3   x86_64 .x86_64
 
 mediainfov="0.7.38"
 libmediainfov="0.7.38"
-libzenv="0.4.18"
+libzenv="0.4.17"
 destversion="1"
 
 Download_Global 1.1 1.1 1.1
