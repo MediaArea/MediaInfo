@@ -91,13 +91,13 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
-  !insertmacro MUI_LANGDLL_DISPLAY
   ${If} ${RunningX64}
     SetRegView 64
   ${Else}
     MessageBox MB_OK|MB_ICONSTOP 'You are trying to install the 64-bit version of ${PRODUCT_NAME} on 32-bit Windows.$\r$\nPlease download and use the 32-bit version instead.$\r$\nClick OK to quit Setup.'
     Quit
   ${EndIf}
+  !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
 
 !include Library.nsh
