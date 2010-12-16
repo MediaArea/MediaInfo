@@ -527,9 +527,11 @@ Interlaced_TFF;فیلد بالا در اول
 Interlaced_BFF;فیلد پایین در اول 
 Interlaced_PPF;تصاعدى
 Interlaced_Progressive;تصاعدى
+Interleaved
 Interleave_Duration;جاگذارى, مدت
 Interleave_Preload;جاگذارى, مدت بارگذاری
 Interleave_VideoFrames;جاگذارى, مدت
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

@@ -527,9 +527,11 @@ Interlaced_TFF;Верхнее поле первое
 Interlaced_BFF;Нижнее поле первое
 Interlaced_PPF;Прогрессивная
 Interlaced_Progressive;Прогрессивная
+Interleaved
 Interleave_Duration;Продолжительность промежутка
 Interleave_Preload;Время предзагрузки промежутка
 Interleave_VideoFrames;Продолжительность промежутка
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -960,6 +962,6 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
 CompressionRatio;Степень сжатия

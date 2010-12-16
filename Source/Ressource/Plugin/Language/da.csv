@@ -527,9 +527,11 @@ Interlaced_TFF;Topfelt først
 Interlaced_BFF;Bundfelt først
 Interlaced_PPF;Progressiv
 Interlaced_Progressive;Progressiv
+Interleaved
 Interleave_Duration;Interleave, varighed
 Interleave_Preload;Interleave, forudindlæst varighed
 Interleave_VideoFrames;Interleave, varighed
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

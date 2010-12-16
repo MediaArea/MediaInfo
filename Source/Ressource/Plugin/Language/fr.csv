@@ -527,9 +527,11 @@ Interlaced_TFF;Ligne du haut d'abord
 Interlaced_BFF;Ligne du bas d'abord
 Interlaced_PPF;Progressif
 Interlaced_Progressive;Progressif
-Interleave_Duration;Interleave, durée
-Interleave_Preload;Interleave, d. de pré-chargement
-Interleave_VideoFrames;Interleave, durée
+Interleaved;Imbrication
+Interleave_Duration;Imbrication, durée
+Interleave_Preload;Imbrication, d. de pré-chargement
+Interleave_VideoFrames;Imbrication, durée
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -960,6 +962,6 @@ Written_Location;Lieu d'écriture
 WrittenBy;Écrit par
 Yes;Oui
 Your system;Votre système
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
 CompressionRatio;Taux de compression

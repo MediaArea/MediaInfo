@@ -527,9 +527,11 @@ Interlaced_TFF;البداية من السطر الأول
 Interlaced_BFF;البداية من السطر الأخير
 Interlaced_PPF;تصاعدي
 Interlaced_Progressive;تصاعدي
+Interleaved
 Interleave_Duration;تداخل ، المدة
 Interleave_Preload;تداخل ، مدة التحميل المسبق
 Interleave_VideoFrames;تداخل ، المدة
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

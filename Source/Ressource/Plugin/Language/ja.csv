@@ -527,9 +527,11 @@ Interlaced_TFF;トップファースト(TFF)
 Interlaced_BFF;ボトムファースト(BFF)
 Interlaced_PPF;プログレシッブ(PPF)
 Interlaced_Progressive;プログレシッブ(PPF)
+Interleaved
 Interleave_Duration;ドゥレイション
 Interleave_Preload;プリロード
 Interleave_VideoFrames;ビデオフレーム
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

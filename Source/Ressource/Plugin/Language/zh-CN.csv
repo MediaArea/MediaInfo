@@ -527,9 +527,11 @@ Interlaced_TFF;奇数场(前场TFF)优先
 Interlaced_BFF;偶数场(后场BFF)优先
 Interlaced_PPF;逐行扫描
 Interlaced_Progressive;逐行扫描
+Interleaved
 Interleave_Duration;交错间隔时间
 Interleave_Preload;音频预读时间
 Interleave_VideoFrames;交错帧间隔
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

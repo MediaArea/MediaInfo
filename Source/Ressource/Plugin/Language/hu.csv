@@ -527,9 +527,11 @@ Interlaced_TFF;felső mezővel kezdődő
 Interlaced_BFF;alsó mezővel kezdődő
 Interlaced_PPF;folytonos
 Interlaced_Progressive;folytonos
+Interleaved
 Interleave_Duration;Átfedés hossza
 Interleave_Preload;Átfedés előolvasási hossz
 Interleave_VideoFrames;Átfedés képkockák
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

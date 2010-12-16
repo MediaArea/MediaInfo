@@ -527,9 +527,11 @@ Interlaced_TFF;Primeiro a área superior
 Interlaced_BFF;Primeiro a área inferior
 Interlaced_PPF;Progressivo
 Interlaced_Progressive;Progressivo
+Interleaved
 Interleave_Duration;Intervalo, duração
 Interleave_Preload;Intervalo, duração do pré-carregamento
 Interleave_VideoFrames;Intervalo, duração
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

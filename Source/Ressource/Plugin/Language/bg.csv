@@ -527,9 +527,11 @@ Interlaced_TFF;Сплетен_ТФФ
 Interlaced_BFF;Сплетен_ВФФ
 Interlaced_PPF;Сплетен_ППФ
 Interlaced_Progressive;Сплетен_Прогресивен
+Interleaved
 Interleave_Duration;Разнообразен_Продължителност
 Interleave_Preload;Разнообразен_Презареден
 Interleave_VideoFrames;Разнообразен_ВидеоКадри
+InternetMediaType
 IRCA;ИРСА
 ISBN;ИСБН
 ISRC;ИСРК

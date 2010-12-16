@@ -527,9 +527,11 @@ Interlaced_TFF;Camp superior primer
 Interlaced_BFF;Camp inferior primer
 Interlaced_PPF;Progressiu
 Interlaced_Progressive;Progressiu
+Interleaved
 Interleave_Duration
 Interleave_Preload
 Interleave_VideoFrames
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

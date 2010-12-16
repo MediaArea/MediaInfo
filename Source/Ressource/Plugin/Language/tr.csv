@@ -527,9 +527,11 @@ Interlaced_TFF;En Üst Alanın İlki
 Interlaced_BFF;En Alt Alanın İlki
 Interlaced_PPF;Aşamalı
 Interlaced_Progressive;Aşamalı
+Interleaved
 Interleave_Duration;Boşluk, süre
 Interleave_Preload;Boşluk, önyükleme süresi
 Interleave_VideoFrames;Boşluk, süre
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

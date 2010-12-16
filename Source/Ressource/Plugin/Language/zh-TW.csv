@@ -527,9 +527,11 @@ Interlaced_TFF;前場優先
 Interlaced_BFF;後場優先
 Interlaced_PPF;漸進式
 Interlaced_Progressive;漸進式
+Interleaved
 Interleave_Duration;交錯訊號, 持續時間
 Interleave_Preload;交錯訊號, 預先載入時間
 Interleave_VideoFrames;交錯訊號, 持續時間
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

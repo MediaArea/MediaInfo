@@ -527,9 +527,11 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
 Interlaced_Progressive
+Interleaved
 Interleave_Duration
 Interleave_Preload
 Interleave_VideoFrames
+InternetMediaType
 IRCA
 ISBN
 ISRC
@@ -961,5 +963,5 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;35
-ZZ_AutomaticLanguage_Percent;74
+ZZ_AutomaticLanguage_Percent;73
 CompressionRatio

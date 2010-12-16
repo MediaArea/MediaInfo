@@ -527,9 +527,11 @@ Interlaced_TFF;Górne pole wpierw
 Interlaced_BFF;Dolne pole wpierw
 Interlaced_PPF;Progresywny
 Interlaced_Progressive;Progresywny
+Interleaved
 Interleave_Duration;Przeplot, czas trwania
 Interleave_Preload;Przeplot, czas wczytywania
 Interleave_VideoFrames;Przeplot, czas trwania
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -960,6 +962,6 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;87
+ZZ_Automatic_Percent;86
 ZZ_AutomaticLanguage_Percent;97
 CompressionRatio;Stopień kompresji

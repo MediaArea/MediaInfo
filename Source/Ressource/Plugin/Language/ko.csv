@@ -527,9 +527,11 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;프로그레시브
 Interlaced_Progressive;프로그레시브
+Interleaved
 Interleave_Duration;인터리브,길이
 Interleave_Preload;인터리브,프리로드 길이
 Interleave_VideoFrames;인터리브,길이
+InternetMediaType
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
