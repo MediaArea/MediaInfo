@@ -4100,8 +4100,8 @@ void File_Mpeg4::moov_udta_chpl()
         Get_B8 (Time,                                           "Time");
         Get_B1 (Size,                                           "Text size");
         Get_String(Size, ValueS,                                "Value");
-        //Value.From_UTF8(ValueS.c_str());
-        //if (Value.empty())
+        Value.From_UTF8(ValueS.c_str());
+        if (Value.empty())
             Value.From_Local(ValueS.c_str()); //Trying Local...
 
         FILLING_BEGIN();

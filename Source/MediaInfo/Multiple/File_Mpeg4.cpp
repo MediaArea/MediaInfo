@@ -745,9 +745,12 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, const std::s
 {
          if (Meta=="com.apple.quicktime.copyright") Parameter="Copyright";
     else if (Meta=="com.apple.quicktime.displayname") Parameter="Title";
+    else if (Meta=="DATE") Parameter="Encoded_Date";
     else if (Meta=="iTunNORM") Parameter="";
     else if (Meta=="iTunes_CDDB_IDs") Parameter="";
     else if (Meta=="iTunSMPB") Parameter="";
+    else if (Meta=="PERFORMER") Parameter="Performer";
+    else if (Meta=="PUBLISHER") Parameter="Publisher";
     else Parameter=Meta;
     return Method_String;
 }
