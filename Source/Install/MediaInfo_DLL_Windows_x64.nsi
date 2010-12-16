@@ -19,6 +19,10 @@ SetCompressor /FINAL /SOLID lzma
 ; x64 stuff
 !include "x64.nsh"
 
+; File size
+!include FileFunc.nsh
+!include WinVer.nsh
+
 ; Modern UI
 !include "MUI2.nsh"
 !define MUI_ABORTWARNING
@@ -118,6 +122,13 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\MediaInfo_InfoTip.dll"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+
+  ; File size, taken from SumatraPDF installer
+  ${If} ${AtLeastWin7}
+  ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+  IntFmt $0 "0x%08X" $0 ; Convert the decimal KB value in $0 to DWORD, put it right back into $0
+  WriteRegDWORD ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "EstimatedSize" "$0" ; Create/Write the reg key with the dword value
+  ${EndIf}
 SectionEnd
 
 
