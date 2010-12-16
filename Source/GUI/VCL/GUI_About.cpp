@@ -40,7 +40,7 @@ TAboutF *AboutF;
 //---------------------------------------------------------------------------
 const ZenLib::Char* MEDIAINFO_ABOUT=     _T("MediaInfo X.X.X.X\\r\\nCopyright (C) 2002-2010 MediaArea.net SARL");
 const ZenLib::Char* MEDIAINFO_URL=       _T("http://mediainfo.sourceforge.net");
-const ZenLib::Char* MEDIAINFO_NEWVERSION=_T("http://sourceforge.net/project/showfiles.php?group_id=86862&package_id=90341");
+const ZenLib::Char* MEDIAINFO_NEWVERSION=_T("http://sourceforge.net/projects/mediainfo/files/");
 const ZenLib::Char* MEDIAINFO_DONATE=    _T("http://mediainfo.sourceforge.net/Donate");
 const ZenLib::Char* MEDIAINFO_MAILTO=    _T("mailto:zenitram@users.sourceforge.net");
 //---------------------------------------------------------------------------
