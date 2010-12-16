@@ -32,6 +32,7 @@
   
   ; Per item
   !insertmacro MediaInfo_Extensions_Install_I ".264"
+  !insertmacro MediaInfo_Extensions_Install_I ".3g2"
   !insertmacro MediaInfo_Extensions_Install_I ".3gp"
   !insertmacro MediaInfo_Extensions_Install_I ".3gpp"
   !insertmacro MediaInfo_Extensions_Install_I ".aac"
@@ -141,6 +142,7 @@
   DeleteRegKey HKCU "Software\Classes\MediaInfoShellExt.MediaInfoShellExt_.1"
 
   !insertmacro MediaInfo_Extensions_Uninstall_I ".264"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".3g2"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".3gp"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".3gpp"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".aac"
