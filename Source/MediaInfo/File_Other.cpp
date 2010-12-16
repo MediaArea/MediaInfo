@@ -166,16 +166,6 @@ void File_Other::Read_Buffer_Continue()
         Finish("Shorten");
         return;
     }
-    else if (CC4(Buffer)==0x7442614B) //"tBaK"
-    {
-        Accept("TAK");
-
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "TAK");
-
-        Finish("TAK");
-        return;
-    }
     else if (CC4(Buffer)==CC4("")) {Format=_T("");}
 
     if (Format.empty())
