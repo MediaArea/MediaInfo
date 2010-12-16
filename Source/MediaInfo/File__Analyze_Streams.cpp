@@ -422,6 +422,13 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Compression_Mode_"))+Value);
                 Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Compression_Mode_String), Translated.find(_T("Compression_Mode_"))?Translated:Value, true);
             }
+
+            //Delay_Source
+            if (Parameter==Fill_Parameter(StreamKind, Generic_Delay_Source))
+            {
+                Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Delay_Source_"))+Value);
+                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Delay_Source_String), Translated.find(_T("Delay_Source_"))?Translated:Value, true);
+            }
         }
 
         //Filling Lists & Counts
@@ -1949,6 +1956,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_String4 : return Video_Delay_String4;
                                     case Generic_Delay_Settings : return Video_Delay_Settings;
                                     case Generic_Delay_Source : return Video_Delay_Source;
+                                    case Generic_Delay_Source_String : return Video_Delay_Source_String;
                                     case Generic_Delay_Original : return Video_Delay_Original;
                                     case Generic_Delay_Original_String : return Video_Delay_Original_String;
                                     case Generic_Delay_Original_String1 : return Video_Delay_Original_String1;
@@ -2019,6 +2027,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_String4 : return Audio_Delay_String4;
                                     case Generic_Delay_Settings : return Audio_Delay_Settings;
                                     case Generic_Delay_Source : return Audio_Delay_Source;
+                                    case Generic_Delay_Source_String : return Audio_Delay_Source_String;
                                     case Generic_Delay_Original : return Audio_Delay_Original;
                                     case Generic_Delay_Original_String : return Audio_Delay_Original_String;
                                     case Generic_Delay_Original_String1 : return Audio_Delay_Original_String1;
@@ -2096,6 +2105,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_String4 : return Text_Delay_String4;
                                     case Generic_Delay_Settings : return Text_Delay_Settings;
                                     case Generic_Delay_Source : return Text_Delay_Source;
+                                    case Generic_Delay_Source_String : return Text_Delay_Source_String;
                                     case Generic_Delay_Original : return Text_Delay_Original;
                                     case Generic_Delay_Original_String : return Text_Delay_Original_String;
                                     case Generic_Delay_Original_String1 : return Text_Delay_Original_String1;

@@ -147,6 +147,7 @@ Delay/String3;;;N NT;;;Delay in format : HH:MM:SS.MMM;
 Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
 Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
 Delay_Source;;;N NT;;;Delay source (Container or Stream or empty);
+Delay_Source/String;;;N NT;;;Delay source (Container or Stream or empty);
 Delay_Original;; ms;N NI;;;Delay fixed in the raw stream (relative) IN MS;
 Delay_Original/String;;;N NT;;;Delay with measurement;
 Delay_Original/String1;;;N NT;;;Delay with measurement;
