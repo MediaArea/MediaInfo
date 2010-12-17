@@ -771,7 +771,6 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
             MediaInfo_Event_Global_Demux_0* Event=(MediaInfo_Event_Global_Demux_0*)Data_Content;
 
             Ztring File_Name_Final(File_Name);
-            bool AddRawExtension=false;
             for (size_t Pos=0; Pos<Event->StreamIDs_Size; Pos++)
             {
                 if (Event->StreamIDs_Width[Pos]==17)
@@ -791,10 +790,8 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
                     File_Name_Final+=_T('.')+ID;
                 }
                 else
-                    AddRawExtension=true;
+                    File_Name_Final+=_T(".raw");
             }
-            if (AddRawExtension)
-                File_Name_Final+=_T(".raw");
 
             File F;
             F.Open(File_Name_Final, File::Access_Write_Append);
