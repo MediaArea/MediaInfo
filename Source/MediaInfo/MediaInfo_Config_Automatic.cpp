@@ -5256,6 +5256,7 @@ void MediaInfo_Config_Summary (ZtringListList &Info)
     "Video;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%Width%*][%Height%][ (%DisplayAspectRatio/String%), ][$at$ %FrameRate/String%, ][%Format%][ (%CodecID/Hint%)][ (%Standard%)]$if(%MuxingMode%, \\(%MuxingMode%\\))$if(%Format_Version%, \\(%Format_Version%\\))$if(%Format_Profile%, \\(%Format_Profile%\\))$if(%Format_Settings%, \\(%Format_Settings%\\))[ (%Format_Commercial_IfAny%)]\n"
     "Audio;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%SamplingRate/String%, ][%BitDepth/String%, ][%Channel(s)/String%, ][%Format%][ (%CodecID/Hint%)]$if(%MuxingMode%, \\(%MuxingMode%\\))$if(%Format_Version%, \\(%Format_Version%\\))$if(%Format_Profile%, \\(%Format_Profile%\\))$if(%Format_Settings%, \\(%Format_Settings%\\))[ (%Format_Commercial_IfAny%)]\n"
     "Text;[%Language/String%, ][%Format%][ (%Format_Commercial_IfAny%)]\n"
+    "Image;[%Language/String%, ][%Width%*][%Height%][ (%DisplayAspectRatio/String%)][, %Format%]\n"
     "Chapters;[%Language/String%, ]%Total% chapters[, %Format%][ (%Format_Commercial_IfAny%)]\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
