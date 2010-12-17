@@ -534,9 +534,9 @@ void File_Id3v2::Data_Parse()
 {
     Id3v2_Size-=Header_Size+Element_Size;
 
+    int32u DataLength=(int32u)-1;
     if (DataLengthIndicator)
     {
-        int32u DataLength;
         Get_B4 (DataLength,                             "Data length");
         DataLength=((DataLength>>0)&0x7F)
                  | ((DataLength>>1)&0x3F80)
@@ -548,26 +548,31 @@ void File_Id3v2::Data_Parse()
     //Unsynchronisation
     int8u* Buffer_Unsynch=NULL;
     const int8u* Save_Buffer=Buffer;
+    int64u Save_File_Offset=File_Offset;
     size_t Save_Buffer_Offset=Buffer_Offset;
-    int64u Save_Element_Offset=Element_Offset;
     int64u Save_Element_Size=Element_Size;
     size_t Element_Offset_Unsynch=Element_Offset;
     std::vector<size_t> Unsynch_List;
     if (Unsynchronisation_Global || Unsynchronisation_Frame)
     {
-        while (Element_Offset_Unsynch+3<=Element_Size)
+        while (Element_Offset_Unsynch+2<Element_Size)
         {
             if (CC2(Buffer+Buffer_Offset+(size_t)Element_Offset_Unsynch)==0xFF00)
                 Unsynch_List.push_back(Element_Offset_Unsynch+1);
             Element_Offset_Unsynch++;
         }
+        if (DataLength!=(int32u)-1 && 4+DataLength!=Element_Size-Unsynch_List.size())
+        {
+            Skip_XX(Element_Size-Element_Offset,                "Size coherency issue");
+            return;
+        }
         if (!Unsynch_List.empty())
         {
             //We must change the buffer for keeping out
-            Element_Offset=0;
-            Element_Size=Save_Element_Size-Save_Element_Offset-Unsynch_List.size();
+            File_Offset=Save_File_Offset+Buffer_Offset;
+            Element_Size=Save_Element_Size-Unsynch_List.size();
             Buffer_Offset=0;
-            Buffer_Unsynch=new int8u[(size_t)(Element_Size-Save_Element_Offset)];
+            Buffer_Unsynch=new int8u[(size_t)Element_Size];
             for (size_t Pos=0; Pos<=Unsynch_List.size(); Pos++)
             {
                 size_t Pos0=(Pos==Unsynch_List.size())?(size_t)Save_Element_Size:(Unsynch_List[Pos]);
@@ -575,7 +580,7 @@ void File_Id3v2::Data_Parse()
                 size_t Buffer_Unsynch_Begin=Pos1-Pos;
                 size_t Save_Buffer_Begin  =Pos1;
                 size_t Size=               Pos0-Pos1;
-                std::memcpy(Buffer_Unsynch+Buffer_Unsynch_Begin, Save_Buffer+Save_Element_Offset+Save_Buffer_Offset+Save_Buffer_Begin, Size);
+                std::memcpy(Buffer_Unsynch+Buffer_Unsynch_Begin, Save_Buffer+Save_Buffer_Offset+Save_Buffer_Begin, Size);
             }
             Buffer=Buffer_Unsynch;
         }
@@ -755,6 +760,7 @@ void File_Id3v2::Data_Parse()
     if (!Unsynch_List.empty())
     {
         //We must change the buffer for keeping out
+        File_Offset=Save_File_Offset;
         Element_Size=Save_Element_Size;
         Buffer_Offset=Save_Buffer_Offset;
         delete[] Buffer; Buffer=Save_Buffer;
@@ -899,7 +905,6 @@ void File_Id3v2::APIC()
 {
     int8u Encoding, PictureType;
     Ztring Mime, Description;
-    size_t MimeLength;
     Get_B1 (Encoding,                                           "Text_encoding");
     if (Id3v2_Version==2)
     {
@@ -911,17 +916,17 @@ void File_Id3v2::APIC()
             case 0x4A5047 : Mime="image/jpeg";
             default       : ;
         }
-        MimeLength=3;
     }
     else
     {
-        Get_Local(Element_Size-1, Mime,                         "MIME_type");
-        MimeLength=Mime.size()+1;
+        int64u Element_Offset_Real=Element_Offset;
+        Get_Local(Element_Size-Element_Offset, Mime,            "MIME_type");
+        Element_Offset=Element_Offset_Real+Mime.size()+1;
     }
-    Element_Offset=1+MimeLength;
     Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
+    int64u Element_Offset_Real=Element_Offset;
     Get_Local(Element_Size-Element_Offset, Description,         "Description");
-    Element_Offset=1+MimeLength+1+Description.size()+1;
+    Element_Offset=Element_Offset_Real+Description.size()+1;
     if (Element_Offset>Element_Size)
         return; //There is a problem
     std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));

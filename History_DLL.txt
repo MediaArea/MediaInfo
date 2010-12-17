@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.39
 --------------
 + OGG: more CELT attributes, thanks to Lionel Duchateau
+x #3138883, ID3v2: crash in some cases if Data length indicator is used
 
 Version 0.7.38, 2010-12-16
 --------------
