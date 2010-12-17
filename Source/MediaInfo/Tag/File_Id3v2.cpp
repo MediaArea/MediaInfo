@@ -371,8 +371,8 @@ void File_Id3v2::Streams_Finish()
     if (Retrieve(Stream_General, 0, General_Part_Position).find(_T("/"))!=Error)
     {
         Ztring Temp=Retrieve(Stream_General, 0, General_Part_Position);
-        Fill(Stream_General, 0, General_Part_Position_Total, Temp.SubString(_T("/"), _T("")));
-        Fill(Stream_General, 0, General_Part_Position, Temp.SubString(_T(""), _T("/")));
+        Fill(Stream_General, 0, General_Part_Position_Total, Temp.SubString(_T("/"), _T("")), true);
+        Fill(Stream_General, 0, General_Part_Position, Temp.SubString(_T(""), _T("/")), true);
     }
     if (Retrieve(Stream_General, 0, General_Track_Position).find(_T("/"))!=Error)
     {
