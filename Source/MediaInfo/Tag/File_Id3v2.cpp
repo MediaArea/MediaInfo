@@ -946,7 +946,10 @@ void File_Id3v2::COMM()
     T__X();
 
     //Testing
-         if (Element_Values(0)==_T("Songs-DB_Tempo")) return;
+         if (Element_Values(0)==_T("iTunes_CDDB_IDs")) return;
+    else if (Element_Values(0)==_T("iTunNORM")) return;
+    else if (Element_Values(0)==_T("iTunSMPB")) return;
+    else if (Element_Values(0)==_T("Songs-DB_Tempo")) return;
     else if (Element_Values(0)==_T("Songs-DB_Preference")) return;
     else if (Element_Values(0)==_T("MusicMatch_Tempo")) return;
     else if (Element_Values(0)==_T("MusicMatch_Mood"))
