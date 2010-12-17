@@ -46,6 +46,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if defined(MEDIAINFO_CELT_YES)
+    #include "MediaInfo/Audio/File_Celt.h"
+#endif
 #if defined(MEDIAINFO_FLAC_YES)
     #include "MediaInfo/Audio/File_Flac.h"
 #endif
@@ -436,7 +439,7 @@ void File_Ogg_SubElement::Identification()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_CELT()
 {
-    #if defined(MEDIAINFO__YES)
+    #if defined(MEDIAINFO_CELT_YES)
         StreamKind_Last=Stream_Audio;
         Parser=new File_Celt;
     #else
@@ -444,6 +447,7 @@ void File_Ogg_SubElement::Identification_CELT()
         Fill(Stream_Audio, 0, Audio_Format, "celt");
         Fill(Stream_Audio, 0, Audio_Codec, "celt");
     #endif
+    WithType=false;
 }
 
 //---------------------------------------------------------------------------

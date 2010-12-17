@@ -45,6 +45,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Amv.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ape.cpp \
                        ../../../Source/MediaInfo/Audio/File_Au.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Celt.cpp \
                        ../../../Source/MediaInfo/Audio/File_Dts.cpp \
                        ../../../Source/MediaInfo/Audio/File_DolbyE.cpp \
                        ../../../Source/MediaInfo/Audio/File_ExtendedModule.cpp \
