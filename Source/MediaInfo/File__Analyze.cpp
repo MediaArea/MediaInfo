@@ -2412,7 +2412,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         Event.Flags=0;
         if (random_access)
             Event.Flags&=0x1; //Bit 0
-        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_1), IsSub?File_Name_WithoutDemux:File_Name);
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_2), IsSub?File_Name_WithoutDemux:File_Name);
         Event.EventCode&=0xFFFFFF00; //Force to version 1
         Event.EventCode|=0x00000001; //Force to version 1
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_1), IsSub?File_Name_WithoutDemux:File_Name);
