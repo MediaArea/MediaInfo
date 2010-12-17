@@ -201,7 +201,7 @@ FFV2;FFV2;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FLIC;FLI/FLC;Autodesk;;;;;;
 FLJP;DField JPEG;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);;;;;
-FLV1;FFDS;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/;;;;
+FLV1;H.263;Sorenson;FFDShow supported;http://ffdshow-tryout.sourceforge.net/;;;;
 FLV4;VP6;On2;;http://www.on2.com;;;;
 FMJP;JPEG;D-Vision;;;;;YUV
 FMP4;MPEG-4 Visual;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0
@@ -529,9 +529,9 @@ STVC;ST Imager;;ST Microelectronics CMOS Imager Data (Bunched);;;;;
 STVX;ST Imager;;ST Microelectronics CMOS Imager Data (Extended Data Format);;;;;
 STVY;ST Imager;;ST Microelectronics CMOS Imager Data (Extended Data Format with Correction Data);;;;;
 SV10;Sorenson;;Sorenson Media Video R1;;;;;
-SVQ1;Sorenson 1;;Sorenson Media Video 1 (Apple QuickTime 3);;;;;
-SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);;;;;
-SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);;;;;
+SVQ1;AVC;Sorenson 1;Sorenson Media Video 1 (Apple QuickTime 3);;;;;
+SVQ2;AVC;Sorenson 2;Sorenson Media Video 2 (Apple QuickTime 4);;;;;
+SVQ3;AVC;Sorenson 3;Sorenson Media Video 3 (Apple QuickTime 5);;;;;
 SWC1;JPEG;MainConcept;MainConcept JPEG;;;;YUV
 T420;YUV;Toshiba;Toshiba YUV 4:2:0;;;;YUV;
 TGA ;TGA;Apple;Apple TGA (with Alpha-channel)
