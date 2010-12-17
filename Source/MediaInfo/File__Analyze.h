@@ -100,6 +100,9 @@ public :
     #endif //MEDIAINFO_DEMUX
     Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
+    #if MEDIAINFO_DEMUX
+        bool   random_access;
+    #endif //MEDIAINFO_DEMUX
     int64u PCR; //In nanoseconds
     int64u PTS; //In nanoseconds
     int64u DTS; //In nanoseconds

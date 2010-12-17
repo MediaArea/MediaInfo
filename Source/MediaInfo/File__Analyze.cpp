@@ -68,6 +68,7 @@ File__Analyze::File__Analyze ()
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         Demux_Level=1; //Frame
+        random_access=false;
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;
     PCR=(int64u)-1;
@@ -2391,11 +2392,11 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
     #if MEDIAINFO_EVENTS
         //Demux
         StreamIDs[StreamIDs_Size-1]=Element_Code;
-        struct MediaInfo_Event_Global_Demux_1 Event;
+        struct MediaInfo_Event_Global_Demux_2 Event;
         if (StreamIDs_Size && StreamIDs_Size<17)
-             Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 1);
+             Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 2);
         else
-             Event.EventCode=MediaInfo_EventCode_Create(0x00, MediaInfo_Event_Global_Demux, 1);
+             Event.EventCode=MediaInfo_EventCode_Create(0x00, MediaInfo_Event_Global_Demux, 2);
         Event.Stream_Offset=File_Offset+Buffer_Offset;
         Event.PCR=PCR;
         Event.DTS=(DTS==(int64u)-1?PTS:DTS);
@@ -2408,6 +2409,12 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         Event.Content_Type=(int8u)Content_Type;
         Event.Content_Size=Buffer_Size;
         Event.Content=Buffer;
+        Event.Flags=0;
+        if (random_access)
+            Event.Flags&=0x1; //Bit 0
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_1), IsSub?File_Name_WithoutDemux:File_Name);
+        Event.EventCode&=0xFFFFFF00; //Force to version 1
+        Event.EventCode|=0x00000001; //Force to version 1
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_1), IsSub?File_Name_WithoutDemux:File_Name);
         Event.EventCode&=0xFFFFFF00; //Force to version 0
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
