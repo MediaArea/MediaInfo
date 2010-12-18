@@ -71,14 +71,14 @@ const char* Dv_Ssyb_Pc0(int8u Pc0)
 //---------------------------------------------------------------------------
 const char*  Dv_Disp[]=
 {
-    "4/3",
+    "4/3",                              //S306M, S314M
+    "16/9",                             //S306M
+    "16/9",                             //S306M, S314M
+    "4/3",                              //Which spec?
     "",
-    "16/9",
-    "Letterbox",
     "",
     "",
-    "",
-    "16/9",
+    "16/9 or 4/3 depends of ssyb AP3", //Which spec?
 };
 
 //---------------------------------------------------------------------------
@@ -250,6 +250,7 @@ File_DvDif::File_DvDif()
     APT=0xFF; //Impossible
     video_source_stype=0xFF;
     audio_source_stype=0xFF;
+    ssyb_AP3=0xFF;
     TF1=false; //Valid by default, for direct analyze
     TF2=false; //Valid by default, for direct analyze
     TF3=false; //Valid by default, for direct analyze
@@ -420,8 +421,14 @@ void File_DvDif::Streams_Fill()
         {
             case 0 :
             case 4 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
-            case 2 :
-            case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
+            case 1 :
+            case 2 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
+            case 7 : switch (ssyb_AP3)
+                     {
+                        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
+                        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
+                        default: ; //No indication of aspect ratio?
+                     }
             default: ;
         }
     }
@@ -945,7 +952,12 @@ void File_DvDif::Subcode_Ssyb(int8u syb_num)
     //ID0-ID1
     Skip_SB(                                                    "FR - Identification of half of channel"); //1=first half, 0=second
     if (syb_num==0)
-        Skip_S1( 3,                                             "AP3 - Subcode application ID");
+    {
+        if (FSC==false)
+            Get_S1 ( 3, ssyb_AP3,                               "AP3 - Subcode application ID");
+        else
+            Skip_S1( 3,                                         "AP3 - Subcode application ID");
+    }
     else if (DBN==1 && syb_num==5)
         Skip_S1(3,                                              "APT - track application ID");
     else

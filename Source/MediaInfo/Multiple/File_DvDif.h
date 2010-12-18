@@ -136,6 +136,7 @@ protected :
     bool   TF2;
     bool   TF3;
     int8u  aspect;
+    int8u  ssyb_AP3;
     bool   Interlaced;
     bool   system;
     bool   FSC_WasSet;
