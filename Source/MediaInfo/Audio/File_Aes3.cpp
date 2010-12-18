@@ -10,8 +10,7 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License
+//                                                                                        // You should have received a copy of the GNU Lesser General Public License
 // along with this library. If not, see <http://www.gnu.org/licenses/>.
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -390,6 +389,10 @@ bool File_Aes3::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Aes3::Synched_Test()
 {
+    //Skip NULL padding
+    while (Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
+        Buffer_Offset++;
+
     //Must have enough buffer for having header
     if (Buffer_Offset+16>Buffer_Size)
         return false;
@@ -558,7 +561,7 @@ void File_Aes3::Frame()
             if (Stream_Bits>20)
                 Skip_S1( 4,                                     "reserved");
         Element_End();
-        Get_S3 (Stream_Bits, length_code,                       "length_code");
+        Get_S3 (Stream_Bits, length_code,                       "length_code"); Param_Info(length_code/8, " bytes");
         BS_End();
     Element_End();
 
