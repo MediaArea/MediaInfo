@@ -15,6 +15,7 @@ x #3138883, ID3v2: crash in some cases if Data length indicator is used
 x #3139417, MPEG-PS: duration for caption detection was shorter than expected
 x #3139276, H.263: more precision about the different flavors of H.263
 x AVI and MPEG-2 Audio Layer 3: error if audio stream duration estimation
+x FLV: better handling of weird bitrate metadata
 
 Version 0.7.38, 2010-12-16
 --------------

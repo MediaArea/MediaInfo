@@ -537,6 +537,13 @@ void File_Flv::Streams_Finish()
         }
     }
 
+    //Coherency
+    if (Count_Get(Stream_Video) && Count_Get(Stream_Audio) && !Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Audio, 0, Audio_BitRate).empty())
+    {
+        Fill(Stream_General, 0, General_OverallBitRate, Retrieve(Stream_Video, 0, Video_BitRate));
+        Clear(Stream_Video, 0, Video_BitRate);
+    }
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();
@@ -775,8 +782,7 @@ void File_Flv::video_H263()
     Get_S1 ( 3, PictureSize,                                    "PictureSize"); Param_Info(Flv_H263_PictureSize[PictureSize]);
     switch (PictureSize)
     {
-        case 0 :
-            Get_S2 ( 8, Width,                                  "Width");
+        case 0 :            Get_S2 ( 8, Width,                                  "Width");
             Get_S2 ( 8, Height,                                 "Height");
             break;
         case 1 :
