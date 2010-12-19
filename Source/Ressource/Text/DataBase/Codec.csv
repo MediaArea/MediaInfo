@@ -192,12 +192,12 @@ ESCP;Escape;4CC;V;;;Eidos Escape;
 ETV1;eTreppid 1;4CC;V;;;eTreppid Video 1;
 ETV2;eTreppid 2;4CC;V;;;eTreppid Video 2;
 ETVC;eTreppid C;4CC;V;;;eTreppid Video C;
-FFDS;FFDS;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
-FFV1;FFV1;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
-FFVH;FFVH;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
+FFDS;FFDS;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
+FFV1;FFV1;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
+FFVH;FFVH;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
 FLIC;FLI/FLC;4CC;V;;;Autodesk FLI/FLC Animation;
 FLJP;DField JPEG;4CC;V;;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);
-FLV1;FFDS;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
+FLV1;FFDS;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
 FLV4;VP6;4CC;V;;;Flash, On2 Technologies;http://www.on2.com
 FMJP;D-Vision JPEG;4CC;V;;;D-Vision fieldbased ISO JPEG;
 FMP4;MPEG-4 Visual;4CC;V;MPEG-4V;;;http://ffdshow-tryout.sourceforge.net/
@@ -208,7 +208,7 @@ FRWD;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Vision Forward JPEG;
 FRWT;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Vision Forward JPEG with Alpha-channel;
 FRWU;SoftLab-Nsk JPEG;4CC;V;;;SoftLab-NSK Vision Forward Uncompressed;
 FVF1;Itered Fractal;4CC;V;;;Iterated Systems Fractal Video Frame;
-FVFW;FVFW;4CC;V;;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
+FVFW;FVFW;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
 FXT1;3DFX;4CC;V;;;3dfx Interactive, Inc.;
 G2M2;GoToMeeting2;4CC;V;;;Citrix Systems, Inc.;http://www.gotomeeting.com/
 G2M3;GoToMeeting3;4CC;V;;;Citrix Systems, Inc.;http://www.gotomeeting.com/
@@ -287,7 +287,7 @@ IYU1;YUV;4CC;V;YUV;;IEEE1394 12bpp. 12 bit format used in mode 2 of the IEEE 139
 IYU2;YUV;4CC;V;YUV;;IEEE1394 24bpp. 24 bit format used in mode 2 of the IEEE 1394 Digital Camera 1.04 spec;
 IYUV;YUV;4CC;V;YUV;;Intel Indeo iYUV 4:2:0;
 JBYR;Kensington;4CC;V;;;Kensington Video;http://ffdshow-tryout.sourceforge.net/
-JFIF;JPEG;4CC;V;JPEG;;FFDShow supported;
+JFIF;JPEG;4CC;V;JPEG;;;
 JPEG;JPEG;4CC;V;JPEG;;JPEG compressed;http://www.apple.com/quicktime/download/standalone.html
 jpeg;JPEG;4CC;V;JPEG;;JPEG compressed;
 JPG;JPEG;4CC;V;JPEG;;JPEG compressed;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe

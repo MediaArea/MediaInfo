@@ -90,8 +90,8 @@ const char* Flv_Format_Audio[]=
     "ADPCM",
     "MPEG Audio",
     "PCM",
-    "Nellymoser",
-    "Nellymoser",
+    "Nellymoser", //16 KHz
+    "Nellymoser", //8 KHz
     "Nellymoser",
     "ADPCM",
     "ADPCM",
@@ -100,7 +100,7 @@ const char* Flv_Format_Audio[]=
     "Speex",
     "",
     "",
-    "MPEG Audio",
+    "MPEG Audio", //8 KHz
     "",
 };
 
@@ -108,7 +108,7 @@ const char* Flv_Format_Profile_Audio[]=
 {
     "",
     "",
-    "Version 1 / Layer 3",
+    "Layer 3",
     "",
     "",
     "",
@@ -120,7 +120,7 @@ const char* Flv_Format_Profile_Audio[]=
     "",
     "",
     "",
-    "Layer 3",
+    "Layer 3", //8 KHz
     "",
 };
 
@@ -141,6 +141,26 @@ const char* Flv_Codec_Audio[]=
     "",
     "",
     "MPEG Audio Layer 3",
+    "",
+};
+
+const char* Flv_CodecID_Hint_Audio[]=
+{
+    "",
+    "",
+    "MP3",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "MP3", //8 KHz
     "",
 };
 
@@ -194,6 +214,26 @@ const char* Flv_Codec_Video[]=
     "On2 VP6 with alpha channel",
     "Screen video 2",
     "AVC",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Flv_CodecID_Hint_Video[]=
+{
+    "",
+    "",
+    "Sorenson",
+    "",
+    "",
+    "",
+    "",
+    "",
     "",
     "",
     "",
@@ -699,6 +739,8 @@ void File_Flv::video()
                 Fill(Stream_Video, 0, Video_Format, Flv_Format_Video[Codec]);
                 Fill(Stream_Video, 0, Video_Format_Profile, Flv_Format_Profile_Video[Codec]);
                 Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
+                Fill(Stream_Video, 0, Video_CodecID, Codec);
+                Fill(Stream_Video, 0, Video_CodecID_Hint, Flv_CodecID_Hint_Video[Codec]);
             }
         }
 
@@ -951,6 +993,8 @@ void File_Flv::audio()
             Fill(Stream_Audio, 0, Audio_Format, Flv_Format_Audio[codec]);
             Fill(Stream_Audio, 0, Audio_Format_Profile, Flv_Format_Profile_Audio[codec]);
             Fill(Stream_Audio, 0, Audio_Codec, Flv_Codec_Audio[codec]);
+            Fill(Stream_Audio, 0, Audio_CodecID, codec);
+            Fill(Stream_Audio, 0, Audio_CodecID_Hint, Flv_CodecID_Hint_Audio[codec]);
             if (codec==1)
             {
                 //ADPCM

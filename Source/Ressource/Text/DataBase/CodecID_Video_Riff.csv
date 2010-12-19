@@ -201,7 +201,7 @@ FFV2;FFV2;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FLIC;FLI/FLC;Autodesk;;;;;;
 FLJP;DField JPEG;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);;;;;
-FLV1;H.263;Sorenson;FFDShow supported;http://ffdshow-tryout.sourceforge.net/;;;;
+FLV1;H.263;Sorenson;;http://ffdshow-tryout.sourceforge.net/;;;;
 FLV4;VP6;On2;;http://www.on2.com;;;;
 FMJP;JPEG;D-Vision;;;;;YUV
 FMP4;MPEG-4 Visual;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0
