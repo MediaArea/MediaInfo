@@ -323,10 +323,16 @@ void File_Riff::Streams_Finish ()
                 {
                     if (Temp->second.Parser && Temp->second.PacketPos==((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid) //Only for stream with one frame per chunk
                     {
-                        if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Profile)==_T("Layer 1"))
-                            SamplingCount=Temp->second.PacketCount*384;  //Layer 1
+                        Ztring Version=Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Version);
+                        Ztring Layer=Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Profile);
+                        if (Version==_T("Version 1") && Layer==_T("Layer 1"))
+                            SamplingCount=Temp->second.PacketCount*384;  //MPEG-1 Layer 1
+                        else if ((Version==_T("Version 2") || Version==_T("Version 2.5")) && Layer==_T("Layer 1"))
+                            SamplingCount=Temp->second.PacketCount*192;  //MPEG-2 or 2.5 Layer 1
+                        else if ((Version==_T("Version 2") || Version==_T("Version 2.5")) && Layer==_T("Layer 3"))
+                            SamplingCount=Temp->second.PacketCount*576;  //MPEG-2 or 2.5 Layer 3
                         else
-                            SamplingCount=Temp->second.PacketCount*1152; //Layer 2 and 3
+                            SamplingCount=Temp->second.PacketCount*1152;
                     }
                 }
                 #endif

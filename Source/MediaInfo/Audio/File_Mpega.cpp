@@ -441,6 +441,8 @@ void File_Mpega::Streams_Finish()
         size_t Divider;
         if (ID==3 && layer==3) //MPEG 1 layer 1
              Divider=384/8;
+        else if ((ID==2 || ID==0) && layer==3) ///MPEG 2 or 2.5 layer 1
+             Divider=192/8;
         else if ((ID==2 || ID==0) && layer==1) //MPEG 2 or 2.5 layer 3
             Divider=576/8;
         else
