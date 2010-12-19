@@ -1887,7 +1887,7 @@ void File_MpegPs::pack_start()
             }
         }
 
-        SizeToAnalyze=program_mux_rate*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
+        SizeToAnalyze=program_mux_rate*50*2*(MustExtendParsingDuration?8:1); //standard delay between TimeStamps is 0.7s, we try 2s to be sure
         if (SizeToAnalyze>16*1024*1024)
             SizeToAnalyze=16*1024*1024; //Not too much
         if (SizeToAnalyze<2*1024*1024)
@@ -3161,6 +3161,11 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                     Element_Begin("Test");
             #endif //MEDIAINFO_TRACE
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            if (!MustExtendParsingDuration && Temp.Parsers[Pos]->MustExtendParsingDuration)
+            {
+                SizeToAnalyze*=8; //Normally 2 seconds, now 16 seconds
+                MustExtendParsingDuration=true;
+            }
             #if MEDIAINFO_TRACE
                 if (Temp.Parsers.size()>1)
                     Element_End();

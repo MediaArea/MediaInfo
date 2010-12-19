@@ -68,6 +68,7 @@ public :
     size_t Frame_Count;
     size_t Frame_Count_InThisBlock;
     bool   Synched;                    //Data is synched
+    bool   MustExtendParsingDuration;  //Data has some substreams difficult to detect (e.g. captions), must wait a bit before final filling
 
 protected :
     //***************************************************************************

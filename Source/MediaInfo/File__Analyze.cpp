@@ -110,6 +110,7 @@ File__Analyze::File__Analyze ()
     //Synchro
     MustParseTheHeaderFile=true;
     Synched=false;
+    MustExtendParsingDuration=false;
     Trusted=Error;
     Trusted_Multiplier=1;
 

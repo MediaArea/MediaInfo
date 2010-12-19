@@ -605,6 +605,9 @@ void File_Mpegv::Streams_Fill()
         Streams[0x00].Searching_TimeStamp_End=true;
 
     //Caption may be in user_data, must be activated if full parsing is requested
+    Streams[0x00].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
+    Streams[0xB2].Searching_Payload=GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent;
+    Streams[0xB3].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
     if (Config_ParseSpeed>=1)
     {
         Streams[0x00].Searching_Payload=true;
@@ -1088,7 +1091,7 @@ void File_Mpegv::Detect_EOF()
     if (IsSub && Status[IsFilled]
      || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && Config_ParseSpeed<=0.5))
     {
-        if ((GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent || Cdp_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
+        if (MustExtendParsingDuration && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
          && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
         {
             Streams[0x00].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
@@ -1303,7 +1306,7 @@ void File_Mpegv::slice_start()
         //Filling only if not already done
         if (!Status[IsAccepted])
             Accept("MPEG Video");
-        if (!Status[IsFilled] && (!CC___IsPresent && !Scte_IsPresent && !GA94_03_IsPresent && !Cdp_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if (!Status[IsFilled] && (!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
         {
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)
@@ -1469,6 +1472,7 @@ void File_Mpegv::user_data_start_CC()
         if (CC___Parser==NULL)
         {
             CC___IsPresent=true;
+            MustExtendParsingDuration=true;
             CC___Parser=new File_DtvccTransport;
             Open_Buffer_Init(CC___Parser);
             ((File_DtvccTransport*)CC___Parser)->Format=File_DtvccTransport::Format_DVD;
@@ -1495,6 +1499,7 @@ void File_Mpegv::user_data_start_3()
 
     #if defined(MEDIAINFO_SCTE20_YES)
         Scte_IsPresent=true;
+        MustExtendParsingDuration=true;
 
         Element_Info("SCTE 20");
 
@@ -1645,6 +1650,7 @@ void File_Mpegv::user_data_start_GA94_03()
 {
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         GA94_03_IsPresent=true;
+        MustExtendParsingDuration=true;
 
         Element_Info("DTVCC Transport");
 
@@ -2012,6 +2018,7 @@ void File_Mpegv::extension_start()
                             if (Ancillary && *Ancillary && !(*Ancillary)->Cdp_Data.empty())
                             {
                                 Cdp_IsPresent=true;
+                                MustExtendParsingDuration=true;
 
                                 Element_Begin("CDP");
 
