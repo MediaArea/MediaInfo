@@ -32,7 +32,7 @@ wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/MediaInfoLib/libme
 mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/ZenLib/libzen0-$devext$dash$libzenv-$3$9.$type" \
+wget "https://api.opensuse.org/build/home:MediaArea_net/$7/$8/ZenLib/libzen0$dash$libzenv-$3$9.$type" \
  --no-check-certificate --http-user=MediaArea_net --http-passwd=xxx
 mv libzen0$dash$libzenv-$3$9.$type \
  download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
