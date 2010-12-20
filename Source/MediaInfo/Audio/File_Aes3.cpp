@@ -390,8 +390,8 @@ bool File_Aes3::Synchronize()
 bool File_Aes3::Synched_Test()
 {
     //Skip NULL padding
-    while (Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
-        Buffer_Offset++;
+    //while (Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
+    //    Buffer_Offset++;
 
     //Must have enough buffer for having header
     if (Buffer_Offset+16>Buffer_Size)
