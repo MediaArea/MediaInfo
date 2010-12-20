@@ -1004,8 +1004,8 @@ FF;AAC;2CC;A;AAC;;;
 401;Music Coder;2CC;A;;;Intel Music Coder;http://www.intel.com/
 402;IAC2;2CC;A;;;Ligos IAC2;http://www.ligos.com
 450;Qdesign;2CC;A;;;QDesign Music;
-500;VP7;2CC;A;;;On2 VP7 Audio
-501;VP6;2CC;A;;;On2 VP7 Audio
+500;VP7;2CC;A;;;On2
+501;VP6;2CC;A;;;On2
 680;VMPCM;2CC;A;;;AT&T VME_VMPCM;
 681;TPC;2CC;A;;;AT&T TPC;
 700;YMPEG;2CC;A;;;YMPEG Alpha;

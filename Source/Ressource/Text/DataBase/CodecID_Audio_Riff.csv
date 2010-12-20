@@ -168,8 +168,8 @@ FF;AAC;;;;
 401;Music Coder;Intel;;http://www.intel.com/
 402;IAC2;Ligos;;http://www.ligos.com
 450;Qdesign;;QDesign Music;
-500;VP7;;On2 VP7 Audio
-501;VP6;;On2 VP7 Audio
+500;VP7;;On2
+501;VP6;;On2
 680;VM;;AT&T VME_VMPCM;
 681;TPC;;AT&T TPC;
 700;YMPEG;;YMPEG Alpha;
