@@ -605,11 +605,12 @@ VP30;VP3;On2;;;;;;
 VP31;VP3;On2;;;;;;
 VP40;VP4;On2;;;;;;
 VP50;VP5;On2;;;;;;
-VP60;VP6;On2;;;;;;
-VP61;VP6.1;On2;;;;;;
-VP62;VP6.2;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;;;;
-VP70;VP7;On2;;;;;;
-VP71;VP7;On2;;;;;;
+VP60;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Simple;;;
+VP61;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Advanced;;;
+VP62;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness;;;
+VP6F;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;;;;
+VP70;VP7;On2;;;General;;;
+VP71;VP7;On2;;;Error Resilient;;;
 VP72;VP7;On2;;;;;;
 VP80;VP8;;;http://www.webmproject.org;;;YUV;4:2:0
 VQC1;Vector 1;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf;;;;;

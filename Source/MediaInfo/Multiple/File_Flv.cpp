@@ -450,6 +450,13 @@ File_Flv::File_Flv()
 //---------------------------------------------------------------------------
 void File_Flv::Streams_Finish()
 {
+    //Coherency
+    if (Count_Get(Stream_Video) && Count_Get(Stream_Audio) && !Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Audio, 0, Audio_BitRate).empty())
+    {
+        Fill(Stream_General, 0, General_OverallBitRate, Retrieve(Stream_Video, 0, Video_BitRate));
+        Clear(Stream_Video, 0, Video_BitRate);
+    }
+
     //Trying to detect VFR
     std::vector<int64u> video_stream_FrameRate_Between;
     for (size_t Pos=1; Pos<video_stream_FrameRate.size(); Pos++)
@@ -535,13 +542,6 @@ void File_Flv::Streams_Finish()
             if (BitRate_Video_Meta<BitRate_Video_Duration/2 || BitRate_Video_Meta>BitRate_Video_Duration*2)
                 Clear(Stream_Video, 0, Video_BitRate);
         }
-    }
-
-    //Coherency
-    if (Count_Get(Stream_Video) && Count_Get(Stream_Audio) && !Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Audio, 0, Audio_BitRate).empty())
-    {
-        Fill(Stream_General, 0, General_OverallBitRate, Retrieve(Stream_Video, 0, Video_BitRate));
-        Clear(Stream_Video, 0, Video_BitRate);
     }
 
     //Purge what is not needed anymore
@@ -748,6 +748,7 @@ void File_Flv::video()
                 Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
                 Fill(Stream_Video, 0, Video_CodecID, Codec);
                 Fill(Stream_Video, 0, Video_CodecID_Hint, Flv_CodecID_Hint_Video[Codec]);
+                Fill(Stream_Video, 0, Video_BitDepth, 8); //FLV is not known to support another bit depth
             }
         }
 
@@ -782,7 +783,7 @@ void File_Flv::video_H263()
     Get_S1 ( 3, PictureSize,                                    "PictureSize"); Param_Info(Flv_H263_PictureSize[PictureSize]);
     switch (PictureSize)
     {
-        case 0 :            Get_S2 ( 8, Width,                                  "Width");
+        case 0 :            Get_S2 ( 8, Width,                                  "Width");
             Get_S2 ( 8, Height,                                 "Height");
             break;
         case 1 :
@@ -993,7 +994,8 @@ void File_Flv::audio()
             if (Count_Get(Stream_Audio)==0)
                 Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Channel_s_, Flv_Channels[is_stereo], 10, true);
-            Fill(Stream_Audio, 0, Audio_Resolution, Flv_Resolution[is_16bit], 10, true);
+            if (codec!=2 && codec!=10 && codec!=14) //MPEG Audio and AAC are not fixed bit depth
+                Fill(Stream_Audio, 0, Audio_Resolution, Flv_Resolution[is_16bit], 10, true);
             if (sampling_rate<4)
                 Fill(Stream_Audio, 0, Audio_SamplingRate, Flv_SamplingRate[sampling_rate], 10, true);
             Fill(Stream_Audio, 0, Audio_Format, Flv_Format_Audio[codec]);
