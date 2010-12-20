@@ -2692,7 +2692,7 @@ void MediaInfo_Config_Codec (InfoMap &Info)
     "FFVH;FFVH;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/\n"
     "FLIC;FLI/FLC;4CC;V;;;Autodesk FLI/FLC Animation\n"
     "FLJP;DField JPEG;4CC;V;;;D-Vision Field Encoded JPEG with LSI (or Targa emulation)\n"
-    "FLV1;VP6;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/\n"
+    "FLV1;H.263;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/\n"
     "FLV4;VP6;4CC;V;;;Flash, On2 Technologies;http://www.on2.com\n"
     "FMJP;D-Vision JPEG;4CC;V;;;D-Vision fieldbased ISO JPEG\n"
     "FMP4;MPEG-4 Visual;4CC;V;MPEG-4V;;;http://ffdshow-tryout.sourceforge.net/\n"
