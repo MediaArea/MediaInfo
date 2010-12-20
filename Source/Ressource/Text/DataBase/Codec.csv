@@ -197,7 +197,7 @@ FFV1;FFV1;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
 FFVH;FFVH;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
 FLIC;FLI/FLC;4CC;V;;;Autodesk FLI/FLC Animation;
 FLJP;DField JPEG;4CC;V;;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);
-FLV1;FFDS;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
+FLV1;VP6;4CC;V;;;;http://ffdshow-tryout.sourceforge.net/
 FLV4;VP6;4CC;V;;;Flash, On2 Technologies;http://www.on2.com
 FMJP;D-Vision JPEG;4CC;V;;;D-Vision fieldbased ISO JPEG;
 FMP4;MPEG-4 Visual;4CC;V;MPEG-4V;;;http://ffdshow-tryout.sourceforge.net/
@@ -613,11 +613,14 @@ VLV1;Videologic;4CC;V;;;;
 VMNC;Vmware;4CC;V;;;;http://www.vmware.com/
 VP30;VP3;4CC;V;;;On2 VP3;
 VP31;VP3;4CC;V;;;On2 VP3;
+VP32;VP3;4CC;V;;;On2 VP3;
 VP40;VP4;4CC;V;;;On2 TrueCast VP4;
 VP50;VP5;4CC;V;;;On2 TrueCast VP5;
 VP60;VP6;4CC;V;;;On2 TrueCast VP6;
-VP61;VP6.1;4CC;V;;;On2 TrueCast VP6.1;
-VP62;VP6.2;4CC;V;;;On2 TrueCast VP6.2;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe
+VP61;VP6;4CC;V;;;On2 TrueCast VP6.1;
+VP62;VP6;4CC;V;;;On2 TrueCast VP6.2;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe
+VP6A;VP6;4CC;V;;;On2 TrueCast VP6.2;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe
+VP6F;VP6;4CC;V;;;On2 TrueCast VP6.2;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe
 VP70;VP7;4CC;V;;;On2 TrueMotion VP7;
 VP71;VP7;4CC;V;;;On2 TrueMotion VP7;
 VP72;VP7;4CC;V;;;On2 TrueMotion VP7;
@@ -1001,8 +1004,8 @@ FF;AAC;2CC;A;AAC;;;
 401;Music Coder;2CC;A;;;Intel Music Coder;http://www.intel.com/
 402;IAC2;2CC;A;;;Ligos IAC2;http://www.ligos.com
 450;Qdesign;2CC;A;;;QDesign Music;
-500;VP7;2CC;A;;;On2 VP7 Audio;http://www.on2.com/vp7.php3
-501;VP6;2CC;A;;;On2 VP7 Audio;http://www.on2.com/vp7.php3
+500;VP7;2CC;A;;;On2 VP7 Audio
+501;VP6;2CC;A;;;On2 VP7 Audio
 680;VMPCM;2CC;A;;;AT&T VME_VMPCM;
 681;TPC;2CC;A;;;AT&T TPC;
 700;YMPEG;2CC;A;;;YMPEG Alpha;

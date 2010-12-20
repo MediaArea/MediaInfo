@@ -202,7 +202,7 @@ FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FLIC;FLI/FLC;Autodesk;;;;;;
 FLJP;DField JPEG;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);;;;;
 FLV1;H.263;Sorenson;;http://ffdshow-tryout.sourceforge.net/;;;;
-FLV4;VP6;On2;;http://www.on2.com;;;;
+FLV4;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness;;;
 FMJP;JPEG;D-Vision;;;;;YUV
 FMP4;MPEG-4 Visual;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0
 FPS1;Fraps;;;http://www.fraps.com/;;;;
@@ -603,11 +603,13 @@ VLV1;Videologic;;;;;;;
 VMNC;Vmware;;;http://www.vmware.com/;;;;
 VP30;VP3;On2;;;;;;
 VP31;VP3;On2;;;;;;
+VP32;VP3;On2;;;;;;
 VP40;VP4;On2;;;;;;
 VP50;VP5;On2;;;;;;
 VP60;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Simple;;;
 VP61;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Advanced;;;
 VP62;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness;;;
+VP6A;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;;;;
 VP6F;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness;;;
 VP70;VP7;On2;;;General;;;
 VP71;VP7;On2;;;Error Resilient;;;
