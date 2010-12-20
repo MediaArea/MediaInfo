@@ -608,7 +608,7 @@ VP50;VP5;On2;;;;;;
 VP60;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Simple;;;
 VP61;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Advanced;;;
 VP62;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness;;;
-VP6F;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;;;;
+VP6F;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness;;;
 VP70;VP7;On2;;;General;;;
 VP71;VP7;On2;;;Error Resilient;;;
 VP72;VP7;On2;;;;;;
