@@ -1257,6 +1257,11 @@ void File_Mk::Segment_Cluster()
              || Temp->second.Searching_TimeStamp_Start
              || Temp->second.Searching_TimeStamps)
                 Stream_Count++;
+
+            //Specific cases
+            if (Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, Audio_CodecID).find(_T("A_AAC/"))==0)
+                ((File_Aac*)Stream[Temp->first].Parser)->Mode=File_Aac::Mode_raw_data_block; //In case AudioSpecificConfig is not present
+
             Temp++;
         }
 
@@ -2040,6 +2045,8 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_SamplingFrequency()
 
     FILLING_BEGIN();
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
+        if (Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID).find(_T("A_AAC/"))==0)
+            ((File_Aac*)Stream[TrackNumber].Parser)->AudioSpecificConfig_OutOfBand((int32u)float64_int64s(Float));
     FILLING_END();
 }
 
@@ -3060,7 +3067,7 @@ void File_Mk::CodecID_Manage()
         ((File_Dts*)Stream[TrackNumber].Parser)->Frame_Count_Valid=2;
     }
     #endif
-    #if defined(MEDIAINFO_MPEG4_YES)
+    #if defined(MEDIAINFO_AAC_YES)
     else if (CodecID==(_T("A_AAC")))
     {
         Stream[TrackNumber].Parser=new File_Aac;
@@ -3071,35 +3078,32 @@ void File_Mk::CodecID_Manage()
     else if (CodecID.find(_T("A_AAC/"))==0)
     {
         Ztring Profile;
-        int8u Version=0, SBR=2, PS=2;
-             if (CodecID==_T("A_AAC/MPEG2/MAIN"))     {Version=2; Profile=_T("Main");}
-        else if (CodecID==_T("A_AAC/MPEG2/LC"))       {Version=2; Profile=_T("LC");   SBR=0;}
-        else if (CodecID==_T("A_AAC/MPEG2/LC/SBR"))   {Version=2; Profile=_T("LC");   SBR=1;}
-        else if (CodecID==_T("A_AAC/MPEG2/SSR"))      {Version=2; Profile=_T("SSR");}
-        else if (CodecID==_T("A_AAC/MPEG4/MAIN"))     {Version=4; Profile=_T("Main");}
-        else if (CodecID==_T("A_AAC/MPEG4/LC"))       {Version=4; Profile=_T("LC");   SBR=0;}
-        else if (CodecID==_T("A_AAC/MPEG4/LC/SBR"))   {Version=4; Profile=_T("LC");   SBR=1; PS=0;}
-        else if (CodecID==_T("A_AAC/MPEG4/LC/SBR/PS")){Version=4; Profile=_T("LC");   SBR=1; PS=1;}
-        else if (CodecID==_T("A_AAC/MPEG4/SSR"))      {Version=4; Profile=_T("SSR");}
-        else if (CodecID==_T("A_AAC/MPEG4/LTP"))      {Version=4; Profile=_T("LTP");}
-        else if (CodecID==_T("raac"))                 {           Profile=_T("LC");}
-        else if (CodecID==_T("racp"))                 {           Profile=_T("LC");   SBR=1; PS=0;}
+        int8u audioObjectType=0, Version=0, SBR=2, PS=2;
+             if (CodecID==_T("A_AAC/MPEG2/MAIN"))     {Version=2; Profile=_T("Main");                   audioObjectType=1;}
+        else if (CodecID==_T("A_AAC/MPEG2/LC"))       {Version=2; Profile=_T("LC");                     audioObjectType=2; SBR=0;}
+        else if (CodecID==_T("A_AAC/MPEG2/LC/SBR"))   {Version=2; Profile=_T("HE-AAC / LC");            audioObjectType=2; SBR=1;}
+        else if (CodecID==_T("A_AAC/MPEG2/SSR"))      {Version=2; Profile=_T("SSR");                    audioObjectType=3;}
+        else if (CodecID==_T("A_AAC/MPEG4/MAIN"))     {Version=4; Profile=_T("Main");                   audioObjectType=1;}
+        else if (CodecID==_T("A_AAC/MPEG4/LC"))       {Version=4; Profile=_T("LC");                     audioObjectType=2; SBR=0;}
+        else if (CodecID==_T("A_AAC/MPEG4/LC/SBR"))   {Version=4; Profile=_T("HE-AAC / LC");            audioObjectType=2; SBR=1; PS=0;}
+        else if (CodecID==_T("A_AAC/MPEG4/LC/SBR/PS")){Version=4; Profile=_T("HE-AACv2 / HE-AAC / LC"); audioObjectType=2; SBR=1; PS=1;}
+        else if (CodecID==_T("A_AAC/MPEG4/SSR"))      {Version=4; Profile=_T("SSR");                    audioObjectType=3;}
+        else if (CodecID==_T("A_AAC/MPEG4/LTP"))      {Version=4; Profile=_T("LTP");                    audioObjectType=4;}
+        else if (CodecID==_T("raac"))                 {           Profile=_T("LC");                     audioObjectType=2;}
+        else if (CodecID==_T("racp"))                 {           Profile=_T("HE-AAC / LC");            audioObjectType=2; SBR=1; PS=0;}
 
         if (Version>0)
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Version==2?"Version 2":"Version 4");
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, Profile);
         if (SBR!=2)
-        {
-            if (SBR)
-                Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, SBR?"Yes":"No");
-        }
         if (PS!=2)
-        {
-            if (PS)
-                Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, PS?"Yes":"No");
-        }
+        int32u sampling_frequency=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_int32u();
+
+        Stream[TrackNumber].Parser=new File_Aac;
+        ((File_Aac*)Stream[TrackNumber].Parser)->Mode=File_Aac::Mode_AudioSpecificConfig;
+        ((File_Aac*)Stream[TrackNumber].Parser)->AudioSpecificConfig_OutOfBand(sampling_frequency, audioObjectType, SBR, PS, SBR, PS);
     }
     #endif
     #if defined(MEDIAINFO_AAC_YES)

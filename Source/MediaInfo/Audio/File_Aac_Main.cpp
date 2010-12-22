@@ -458,56 +458,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
     }
 
     FILLING_BEGIN()
-        if (Count_Get(Stream_Audio)==0) //May be done elsewhere
-            File__Analyze::Stream_Prepare(Stream_Audio);
-        Infos["Format"].From_Local(Aac_Format(audioObjectType));
-        Infos["Format_Profile"].From_Local(Aac_Format_Profile(audioObjectType));
-        Infos["Codec"].From_Local(Aac_audioObjectType(audioObjectType));
-        Infos["SamplingRate"].From_Number(sampling_frequency);
-        if (channelConfiguration && channelConfiguration<8)
-        {
-            Infos["Channel(s)"].From_Number(Aac_Channels[channelConfiguration]);
-            Infos["ChannelPositions"].From_Local(Aac_ChannelConfiguration[channelConfiguration]);
-            Infos["ChannelPositions/String2"].From_Local(Aac_ChannelConfiguration2[channelConfiguration]);
-        }
-
-        if (sbrPresentFlag)
-        {
-            Infos["Format_Profile"]=_T("HE-AAC");
-            Ztring SamplingRate=Infos["SamplingRate"];
-            Infos["SamplingRate"].From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10);
-            if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
-            {
-                Infos["Format_Profile"]+=_T(" / LC");
-                Infos["SamplingRate"]+=_T(" / ")+SamplingRate;
-            }
-            Infos["Format_Settings_SBR"]=_T("Yes (Implicit)");
-            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
-        }
-        else if (sbrData)
-            Infos["Format_Settings_SBR"]=_T("No (Explicit)");
-
-        if (psPresentFlag)
-        {
-            Infos["Format_Profile"]=_T("HE-AACv2");
-            Ztring Channels=Infos["Channel(s)"];
-            Ztring ChannelPositions=Infos["ChannelPositions"];
-            Ztring SamplingRate=Infos["SamplingRate"];
-            Infos["Channel(s)"]=_T("2");
-            Infos["ChannelPositions"]=_T("Front: L R");
-            if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
-            {
-                Infos["Format_Profile"]+=_T(" / HE-AAC / LC");
-                Infos["Channel(s)"]+=_T(" / ")+Channels+_T(" / ")+Channels;
-                Infos["ChannelPositions"]+=_T(" / ")+ChannelPositions+_T(" / ")+ChannelPositions;
-                Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
-            }
-            Infos["Format_Settings_PS"]=_T("Yes (Implicit)");
-            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
-        }
-        else if (psData)
-            Infos["Format_Settings_PS"]=_T("No (Explicit)");
+        AudioSpecificConfig_OutOfBand (sampling_frequency, audioObjectType, sbrData, psData, sbrPresentFlag, psPresentFlag);
 
         //Parsing the rest
         if (audioObjectType!=2) //We continue only if AAC LC (in order to detect SBR and PS)
@@ -516,6 +467,96 @@ void File_Aac::AudioSpecificConfig (size_t End)
             Frame_Count=(int64u)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
         }
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Aac::AudioSpecificConfig_OutOfBand (int32u sampling_frequency_, int8u audioObjectType_, bool sbrData, bool psData, bool sbrPresentFlag, bool psPresentFlag)
+{
+    if (sampling_frequency==(int32u)-1 && sampling_frequency_) //Only if not yet set
+    {
+        sampling_frequency=sampling_frequency_;
+        sampling_frequency_index=Aac_AudioSpecificConfig_sampling_frequency_index(sampling_frequency);
+    }
+
+    if (audioObjectType_==(int8u)-1)
+    {
+        if (audioObjectType==(int8u)-1)
+            return; //All data is not yet available
+        if (Infos.find("Format_Settings_SBR")!=Infos.end())
+        {
+            sbrData=true;
+            sbrPresentFlag=Infos["Format_Settings_SBR"].find(_T("Yes"))!=string::npos;
+        }
+        else
+        {
+            sbrData=false;
+            sbrPresentFlag=false;
+        }
+        if (Infos.find("Format_Settings_PS")!=Infos.end())
+        {
+            psData=true;
+            psPresentFlag=Infos["Format_Settings_PS"].find(_T("Yes"))!=string::npos;
+        }
+        else
+        {
+            psData=false;
+            psPresentFlag=false;
+        }
+    }
+    else
+        audioObjectType=audioObjectType_;
+
+    Infos["SamplingRate"].From_Number(sampling_frequency);
+    Infos["Format"].From_Local(Aac_Format(audioObjectType));
+    Infos["Format_Profile"].From_Local(Aac_Format_Profile(audioObjectType));
+    Infos["Codec"].From_Local(Aac_audioObjectType(audioObjectType));
+    if (channelConfiguration && channelConfiguration<8)
+    {
+        Infos["Channel(s)"].From_Number(Aac_Channels[channelConfiguration]);
+        Infos["ChannelPositions"].From_Local(Aac_ChannelConfiguration[channelConfiguration]);
+        Infos["ChannelPositions/String2"].From_Local(Aac_ChannelConfiguration2[channelConfiguration]);
+    }
+
+    if (sbrPresentFlag)
+    {
+        Infos["Format_Profile"]=_T("HE-AAC");
+        Ztring SamplingRate=Infos["SamplingRate"];
+        Infos["SamplingRate"].From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10);
+        if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
+        {
+            Infos["Format_Profile"]+=_T(" / LC");
+            Infos["SamplingRate"]+=_T(" / ")+SamplingRate;
+        }
+        Infos["Format_Settings_SBR"]=_T("Yes (Implicit)");
+        Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
+    }
+    else if (sbrData)
+        Infos["Format_Settings_SBR"]=_T("No (Explicit)");
+
+    if (psPresentFlag)
+    {
+        Infos["Format_Profile"]=_T("HE-AACv2");
+        Ztring Channels=Infos["Channel(s)"];
+        Ztring ChannelPositions=Infos["ChannelPositions"];
+        Ztring SamplingRate=Infos["SamplingRate"];
+        Infos["Channel(s)"]=_T("2");
+        Infos["ChannelPositions"]=_T("Front: L R");
+        if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
+        {
+            Infos["Format_Profile"]+=_T(" / HE-AAC / LC");
+            Infos["Channel(s)"]+=_T(" / ")+Channels+_T(" / ")+Channels;
+            Infos["ChannelPositions"]+=_T(" / ")+ChannelPositions+_T(" / ")+ChannelPositions;
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+        }
+        Infos["Format_Settings_PS"]=_T("Yes (Implicit)");
+        if (StreamPos_Last!=(size_t)-1)
+        {
+            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
+        }
+    }
+    else if (psData)
+        Infos["Format_Settings_PS"]=_T("No (Explicit)");
 }
 
 //---------------------------------------------------------------------------

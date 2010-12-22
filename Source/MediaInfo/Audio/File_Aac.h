@@ -93,6 +93,7 @@ public :
         Mode_LATM,
     };
     mode   Mode;
+    void   AudioSpecificConfig_OutOfBand(int32u sampling_frequency, int8u audioObjectType=(int8u)-1, bool sbrData=false, bool psData=false, bool sbrPresentFlag=false, bool psPresentFlag=false);
 
     //Constructor/Destructor
     File_Aac();

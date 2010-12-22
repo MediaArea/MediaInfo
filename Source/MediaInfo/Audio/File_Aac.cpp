@@ -239,6 +239,8 @@ void File_Aac::Read_Buffer_Continue_raw_data_block()
         Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Filling
+        if (!Status[IsAccepted])
+            File__Analyze::Accept();
         if (Frame_Count)// >=Frame_Count_Valid)
         {
             //No more need data

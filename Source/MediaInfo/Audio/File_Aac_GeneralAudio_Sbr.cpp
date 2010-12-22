@@ -327,6 +327,8 @@ void File_Aac::sbr_extension_data(size_t End, int8u id_aac, bool crc_flag)
         {
             Infos["Format_Profile"]=_T("HE-AAC");
             Ztring SamplingRate=Infos["SamplingRate"];
+            if (SamplingRate.empty())
+                SamplingRate.From_Number(sampling_frequency);
             Infos["SamplingRate"].From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10);
             if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
             {
