@@ -563,6 +563,7 @@ protected :
     File__Analyze* ChooseParser_RV24();
     File__Analyze* ChooseParser_Vc3();
     File__Analyze* ChooseParser_Aac();
+    File__Analyze* ChooseParser_Aes3();
     File__Analyze* ChooseParser_Alaw();
     File__Analyze* ChooseParser_Mpega();
     File__Analyze* ChooseParser_Pcm();

@@ -49,6 +49,9 @@
 #if defined(MEDIAINFO_AAC_YES)
     #include "MediaInfo/Audio/File_Aac.h"
 #endif
+#if defined(MEDIAINFO_AES3_YES)
+    #include "MediaInfo/Audio/File_Aes3.h"
+#endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
@@ -1168,6 +1171,12 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
         }
 
         //Bitrate (PCM)
+        if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM") && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Wrapping).find(_T("D-10"))!=string::npos)
+        {
+            int64u SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_int64u();
+            if (SamplingRate)
+               Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, 8*SamplingRate*32);
+        }
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
         {
             int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
@@ -1906,6 +1915,11 @@ void File_Mxf::Data_Parse()
                                         Essences[Code_Compare4].Parser=ChooseParser_Jpeg2000();
                                         break;
                     case 0x06001000 : //D-10 Audio, SMPTE 386M
+                                        Essences[Code_Compare4].StreamKind=Stream_Audio;
+                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                                        Essences[Code_Compare4].Parser=ChooseParser_Aes3();
+                                        Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame (D-10)");
+                                        break;
                     case 0x16000100 : //BWF (PCM)
                     case 0x16000200 : //BWF (PCM)
                     case 0x16000300 : //DV Audio (PCM)
@@ -1913,8 +1927,6 @@ void File_Mxf::Data_Parse()
                                         Essences[Code_Compare4].StreamKind=Stream_Audio;
                                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                         Essences[Code_Compare4].Parser=ChooseParser_Pcm();
-                                        if ((Code_Compare4&0xFF00FF00)==0x06001000)
-                                            Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame (D-10)");
                                         break;
                     case 0x16000500 : //MPEG Audio
                                         Essences[Code_Compare4].StreamKind=Stream_Audio;
@@ -1964,6 +1976,7 @@ void File_Mxf::Data_Parse()
                 Element_Code=Essences[Code_Compare4].TrackID;
             else
                 Element_Code=Code.lo;
+            Demux_Level=(Code_Compare4&0xFF00FF00)==0x06001000?4:2; //Intermediate (D-10 Audio) / Container
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
@@ -6429,6 +6442,23 @@ File__Analyze* File_Mxf::ChooseParser_Aac()
     //Filling
     #if defined(MEDIAINFO_AAC_YES)
         File_Aac* Handle=new File_Aac;
+    #else
+        //Filling
+        File__Analyze* Handle=new File_Unknown();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+    #endif
+    return Handle;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_Mxf::ChooseParser_Aes3()
+{
+    //Filling
+    #if defined(MEDIAINFO_AAC_YES)
+        File_Aes3* Handle=new File_Aes3;
+        Handle->From_Raw=true;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

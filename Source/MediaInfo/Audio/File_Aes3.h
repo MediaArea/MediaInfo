@@ -41,6 +41,7 @@ class File_Aes3 : public File__Analyze
 {
 public :
     //In
+    bool    From_Raw;
     bool    From_MpegPs;
 
     //Constructor/Destructor
@@ -62,6 +63,7 @@ private :
     void Data_Parse();
 
     //Elements
+    void Raw();
     void Frame();
     void Frame_WithPadding();
     void Frame_FromMpegPs();

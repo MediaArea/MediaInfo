@@ -10,7 +10,8 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
-//                                                                                        // You should have received a copy of the GNU Lesser General Public License
+//
+// You should have received a copy of the GNU Lesser General Public License
 // along with this library. If not, see <http://www.gnu.org/licenses/>.
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -160,6 +161,7 @@ File_Aes3::File_Aes3()
     PTS_DTS_Needed=true;
 
     //In
+    From_Raw=false;
     From_MpegPs=false;
 
     //Temp
@@ -253,6 +255,8 @@ void File_Aes3::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Aes3::Read_Buffer_Continue()
 {
+    if (From_Raw)
+        Raw();
     if (From_MpegPs)
         Frame_FromMpegPs();
 }
@@ -542,6 +546,82 @@ void File_Aes3::Data_Parse()
 }
 
 //---------------------------------------------------------------------------
+void File_Aes3::Raw()
+{
+    //SMPTE 331M
+    int16u Audio_Sample_Count;
+    int8u Channels_valid;
+    BS_Begin();
+    Skip_SB(                                                "FVUCP Valid Flag");
+    Skip_S1(4,                                              "Reserved");
+    Skip_S1(3,                                              "5-sequence count");
+    BS_End();
+    Get_L2 (Audio_Sample_Count,                             "Audio Sample Count");
+    Get_B1 (Channels_valid,                                 "Channels valid");
+
+    //Parsing
+    bits_per_sample=2;
+    switch (bits_per_sample)
+    {
+        case 2  : //24 bits
+        {
+            int8u* Info=new int8u[(size_t)(Element_Size*3/4)];
+            size_t Info_Offset=0;
+
+            while (Element_Offset+8*4<=Element_Size)
+            {
+                for (int8u Pos=0; Pos<8; Pos++)
+                {
+                    if (Channels_valid&(1<<Pos))
+                    {
+                        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+                        Info[Info_Offset+0] = (Buffer[Buffer_Pos+0]>>4) | ((Buffer[Buffer_Pos+1]<<4)&0xF0 );
+                        Info[Info_Offset+1] = (Buffer[Buffer_Pos+1]>>4) | ((Buffer[Buffer_Pos+2]<<4)&0xF0 );
+                        Info[Info_Offset+2] = (Buffer[Buffer_Pos+2]>>4) | ((Buffer[Buffer_Pos+3]<<4)&0xF0 );
+
+                        Info_Offset+=3;
+                    }
+                    Element_Offset+=4;
+                }
+            }
+
+            #if MEDIAINFO_DEMUX
+                Demux_Level=2; //Container
+                Demux(Info, Info_Offset, ContentType_MainStream);
+            #endif //MEDIAINFO_DEMUX
+
+            delete[] Info;
+
+            Element_Offset=0;
+            Skip_XX(Element_Size,                           "Data");
+        }
+        break;
+        default :
+            Skip_XX(Element_Size,                           "Data");
+    }
+
+    FILLING_BEGIN();
+    if (!Status[IsAccepted])
+    {
+        Accept("AES3");
+
+        int8u Channels=0;
+        for (int8u Pos=0; Pos<8; Pos++)
+        {
+            if (Channels_valid&(1<<Pos))
+                Channels++;
+            Element_Offset+=4;
+        }
+
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+    }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Aes3::Frame()
 {
     //Parsing
@@ -580,8 +660,11 @@ void File_Aes3::Frame()
     }
     if (Parser)
     {
-        Open_Buffer_Continue(Parser, Buffer+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        Element_Offset=Element_Size;
+        #if MEDIAINFO_DEMUX
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+        #endif //MEDIAINFO_DEMUX
+
+        Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         if (Parser->Status[IsFinished])
         {
             if (Parser->Status[IsFilled])
@@ -594,6 +677,7 @@ void File_Aes3::Frame()
             }
             Finish("AES3");
         }
+        Element_Offset=Element_Size;
     }
     else
         Finish("AES3");
@@ -675,7 +759,6 @@ void File_Aes3::Frame_WithPadding()
     }
 
     #if MEDIAINFO_DEMUX
-        Demux_Level=2; //Container
         Demux(Info, Info_Offset, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
     Parser_Parse(Info, Info_Offset);
@@ -856,7 +939,9 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
         Parser=new File_Aes3();
         Open_Buffer_Init(Parser);
     }
+    Element_Offset=0;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
+    Element_Offset=Element_Size;
 
     if (!From_MpegPs)
         Frame_Count++;
