@@ -494,7 +494,11 @@ protected :
         int128u EssenceCompression;
         int32u LinkedTrackID;
         int32u Width;
+        int32u Width_Display;
+        int32u Width_Display_Offset;
         int32u Height;
+        int32u Height_Display;
+        int32u Height_Display_Offset;
         std::map<std::string, Ztring> Infos;
 
         descriptor()
@@ -509,7 +513,11 @@ protected :
             EssenceCompression.lo=(int64u)-1;
             LinkedTrackID=(int32u)-1;
             Width=(int32u)-1;
+            Width_Display=(int32u)-1;
+            Width_Display_Offset=(int32u)-1;
             Height=(int32u)-1;
+            Height_Display=(int32u)-1;
+            Height_Display_Offset=(int32u)-1;
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor

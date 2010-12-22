@@ -86,14 +86,18 @@ BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
 BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
 BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
 BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
-Width;; pixel;N YI;;;Width in pixel
-Width/String;;;Y NT;;;Width with measurement (pixel)
-Width_Original;; pixel;N YI;;;Original (in the raw stream) Width in pixel
-Width_Original/String;;;Y NT;;;Original (in the raw stream) Width with measurement (pixel)
-Height;; pixel;N YI;;;Original (in the raw stream) Height in pixel
-Height/String;;;Y NT;;;Original (in the raw stream) Height with measurement (pixel)
-Height_Original;; pixel;N YI;;;Height in pixel
-Height_Original/String;;;Y NT;;;Height with measurement (pixel)
+Width;; pixel;N YI;;;Width (aperture size if present) in pixel
+Width/String;;;Y NT;;;Width (aperture size if present) with measurement (pixel)
+Width_Offset;; pixel;N YI;;;Offset between original width and displayed width (aperture size) in pixel
+Width_Offset/String;;;N NT;;;Offset between original width and displayed width (aperture size)  in pixel
+Width_Original;; pixel;N YI;;;Original (in the raw stream) width in pixel
+Width_Original/String;;;Y NT;;;Original (in the raw stream) width with measurement (pixel)
+Height;; pixel;N YI;;;Height (aperture size if present) in pixel
+Height/String;;;Y NT;;;Height (aperture size if present) with measurement (pixel)
+Height_Offset;; pixel;N YI;;;Offset between original height and displayed height (aperture size) in pixel
+Height_Offset/String;;;N NT;;;Offset between original height and displayed height (aperture size)  in pixel
+Height_Original;; pixel;N YI;;;Original (in the raw stream) height in pixel
+Height_Original/String;;;Y NT;;;Original (in the raw stream) height with measurement (pixel)
 PixelAspectRatio;;;N YF;;;Pixel Aspect ratio
 PixelAspectRatio/String;;;N NT;;;Pixel Aspect ratio
 PixelAspectRatio_Original;;;N YF;;;Original (in the raw stream) Pixel Aspect ratio

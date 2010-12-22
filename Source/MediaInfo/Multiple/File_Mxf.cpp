@@ -1122,8 +1122,28 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
 
         if (Descriptor->second.Width!=(int32u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_Width).empty())
             Fill(Stream_Video, StreamPos_Last, Video_Width, Descriptor->second.Width, 10, true);
+        if (Descriptor->second.Width_Display!=(int32u)-1 && Descriptor->second.Width_Display!=Retrieve(Stream_Video, StreamPos_Last, Video_Width).To_int32u())
+        {
+            Fill(Stream_Video, StreamPos_Last, Video_Width_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Width), true);
+            if (Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original).empty())
+                Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original, Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio), true);
+            Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
+            Fill(Stream_Video, StreamPos_Last, Video_Width, Descriptor->second.Width_Display, 10, true);
+            if (Descriptor->second.Width_Display_Offset!=(int32u)-1)
+                Fill(Stream_Video, StreamPos_Last, Video_Width_Offset, Descriptor->second.Width_Display_Offset, 10, true);
+        }
         if (Descriptor->second.Height!=(int32u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_Height).empty())
             Fill(Stream_Video, StreamPos_Last, Video_Height, Descriptor->second.Height, 10, true);
+        if (Descriptor->second.Height_Display!=(int32u)-1 && Descriptor->second.Height_Display!=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int32u())
+        {
+            Fill(Stream_Video, StreamPos_Last, Video_Height_Original, Retrieve(Stream_Video, StreamPos_Last, Video_Height), true);
+            if (Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original).empty())
+                Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original, Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio), true);
+            Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Descriptor->second.Height_Display, 10, true);
+            if (Descriptor->second.Height_Display_Offset!=(int32u)-1)
+                Fill(Stream_Video, StreamPos_Last, Video_Height_Offset, Descriptor->second.Height_Display_Offset, 10, true);
+        }
         bool InterlacementAlreadyKnown=true;
         if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("JPEG 2000") && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)!=_T("Interlaced"))
             InterlacementAlreadyKnown=false;
@@ -2310,7 +2330,7 @@ void File_Mxf::GenericPictureEssenceDescriptor()
         ELEMENT(3204, GenericPictureEssenceDescriptor_SampledHeight, "Sampled height supplied to codec")
         ELEMENT(3205, GenericPictureEssenceDescriptor_SampledWidth, "Sampled width supplied to codec")
         ELEMENT(3206, GenericPictureEssenceDescriptor_SampledXOffset, "Offset from sampled to stored width")
-        ELEMENT(3207, GenericPictureEssenceDescriptor_SampledYOffset, "Offset from sampled to stored")
+        ELEMENT(3207, GenericPictureEssenceDescriptor_SampledYOffset, "Offset from sampled to stored height")
         ELEMENT(3208, GenericPictureEssenceDescriptor_DisplayHeight, "Displayed Height placed in Production Aperture")
         ELEMENT(3209, GenericPictureEssenceDescriptor_DisplayWidth, "Displayed Width placed in Production Aperture")
         ELEMENT(320A, GenericPictureEssenceDescriptor_DisplayXOffset,"Horizontal offset from the of the picture as displayed")
@@ -3514,6 +3534,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayHeight()
 {
     //Parsing
     Info_B4(Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+            Data*=2; //This is per field
+        Descriptors[InstanceUID].Height_Display=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3522,6 +3548,10 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayWidth()
 {
     //Parsing
     Info_B4(Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].Width_Display=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3530,6 +3560,10 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayXOffset()
 {
     //Parsing
     Info_B4(Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].Width_Display_Offset=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3538,6 +3572,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayYOffset()
 {
     //Parsing
     Info_B4(Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+            Data*=2; //This is per field
+        Descriptors[InstanceUID].Height_Display_Offset=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3549,6 +3589,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
     Get_B1 (Data,                                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
+        if (Data && Descriptors[InstanceUID].Infos.find("ScanType")==Descriptors[InstanceUID].Infos.end())
+        {
+            if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=2;
+            if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
+            if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
+        }
         Descriptors[InstanceUID].Infos["ScanType"]=Data?"Interlaced":"PPF";
     FILLING_END();
 }
@@ -4162,6 +4208,12 @@ void File_Mxf::MPEG2VideoDescriptor_CodedContentType()
     Get_B1 (Data,                                               "Data"); Element_Info(Mxf_MPEG2_CodedContentType(Data));
 
     FILLING_BEGIN();
+        if (Data==2 && Descriptors[InstanceUID].Infos.find("ScanType")==Descriptors[InstanceUID].Infos.end())
+        {
+            if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=2;
+            if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
+            if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
+        }
         Descriptors[InstanceUID].Infos["ScanType"]=Mxf_MPEG2_CodedContentType(Data);
     FILLING_END();
 }
