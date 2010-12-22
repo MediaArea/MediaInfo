@@ -290,6 +290,18 @@ int32u Mpeg7_VisualCodingFormatCS_termID(MediaInfo_Internal &MI, size_t StreamPo
                     return 20503;
                 return 20500;
             }
+            if (Profile.find(_T("Multi-view@"))!=string::npos)
+            {
+                if (Profile.find(_T("Main"))!=string::npos)
+                    return 20601;
+                return 20600;
+            }
+            if (Profile.find(_T("4:2:2@"))!=string::npos)
+            {
+                if (Profile.find(_T("Main"))!=string::npos)
+                    return 20701;
+                return 20700;
+            }
             return 20000;
         }
     }
