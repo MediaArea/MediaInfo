@@ -2441,7 +2441,7 @@ void File_Avc::hrd_parameters(bool vcl)
             Item.bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(Item.bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
         if (cpb_size_value_minus1)
-            Item.cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, cpb_size_scale)); Param_Info(Item.cpb_size_value, " bytes");
+            Item.cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 1+cpb_size_scale)); Param_Info(Item.cpb_size_value, " bytes");
         Get_SB (Item.cbr_flag,                                  "cbr_flag");
         Element_End();
 
