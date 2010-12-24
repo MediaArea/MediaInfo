@@ -3,8 +3,8 @@
 ac16;YUV;;;;;;YUV;4:2:2
 ac32;YUV;;;;;;YUV;4:2:2
 acBG;YUV;;;;;;YUV;4:2:2
-apch;ProRes;HQ;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2
-apcn;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2
+apch;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;High;;YUV;4:2:2
+apcn;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Normal;;YUV;4:2:2
 avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html;;;;
 avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html;;;;
 AVdv;DV;;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2
@@ -47,6 +47,7 @@ gif ;M-GIF;;;;;;;
 h261;H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;;
 h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;;
 h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;;
+hcpa;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;High;;YUV;4:2:2
 HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/;;;;
 hdv3;DV;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2
 icod;Intermediate Codec;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;;
@@ -61,6 +62,7 @@ mp4v;MPEG-4 Visual;;;;;;;
 mx3n;MPEG Video;;;;;;;
 mx3p;MPEG Video;;;;;;;
 myuv;YUV;;;;;;YUV;4:2:0
+ncpa;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Normal;;YUV;4:2:2
 ovc1;VC-1;;Smooth Streaming Media Video;http://alexzambelli.com/blog/2009/02/10/smooth-streaming-architecture/;;;;
 png ;PNG;;;;;;;
 PNTG;MacPaint;;Apple MacPaint image format;http://www.apple.com/quicktime/download/standalone.html;;;;
