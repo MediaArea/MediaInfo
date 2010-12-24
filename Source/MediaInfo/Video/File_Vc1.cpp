@@ -41,6 +41,9 @@
     else if (Element_IsOK()) \
     {
 #include <cmath>
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 using namespace std;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -236,6 +239,10 @@ File_Vc1::File_Vc1()
 :File__Analyze()
 {
     //Config
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Vc1;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
