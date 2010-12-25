@@ -23,6 +23,7 @@ x AVI and MPEG-2 Audio Layer 3: error if audio stream duration estimation
 x FLV: better handling of weird bitrate metadata
 x D-10 (AES3) in MXF: Bit rate was wrong
 x AC-3: crash if false-positive detection of AC-3 and CRC is valid and bsid is wrongly set
+x #3141059, FLV: trying to detect partial files (so metadata are wrong) and removing duration/bitrate information
 
 Version 0.7.38, 2010-12-16
 --------------

@@ -434,6 +434,7 @@ File_Flv::File_Flv()
 
     //Temp
     Searching_Duration=false;
+    MetaData_NotTrustable=false;
     PreviousTagSize=(int32u)-1;
     meta_filesize=(int64u)-1;
     meta_duration=0;
@@ -1089,6 +1090,17 @@ void File_Flv::meta()
     //Parsing
     meta_Level=0;
     meta_SCRIPTDATAOBJECT();
+
+    if (MetaData_NotTrustable)
+    {
+        meta_duration=0;
+        Clear(Stream_Video, 0, Video_StreamSize);
+        Clear(Stream_Video, 0, Video_BitRate);
+        Clear(Stream_Audio, 0, Audio_StreamSize);
+        Clear(Stream_Audio, 0, Audio_BitRate);
+        Clear(Stream_General, 0, General_Duration);
+        Clear(Stream_General, 0, General_OverallBitRate);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1156,7 +1168,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="audiosamplesize") {ToFill="Resolution"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
                 else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="bytelength") {} //TODO: should test in order to see if file is complete
+                else if (StringData=="bytelength") {if (File_Size!=Value) MetaData_NotTrustable=true;}
                 else if (StringData=="aacaot") {}
                 else if (StringData=="audiochannels") {}
                 else if (StringData=="audiocodecid") {}
@@ -1164,10 +1176,17 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="avcprofile") {}
                 else if (StringData=="moovPosition") {}
                 else {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
-                if (!ValueS.empty()) Element_Info(ValueS);
-                Fill(StreamKind, 0, ToFill.c_str(), ValueS);
-                if (ToFill=="FrameRate")
-                    Fill(StreamKind, 0, "FrameRate_Mode", "CFR");
+                #if MEDIAINFO_TRACE
+                    if (ValueS.empty())
+                        ValueS.From_Number(Value, 0);
+                    Element_Info(ValueS);
+                #endif //MEDIAINFO_TRACE
+                if (!ToFill.empty())
+                {
+                    Fill(StreamKind, 0, ToFill.c_str(), ValueS);
+                    if (ToFill=="FrameRate")
+                        Fill(StreamKind, 0, "FrameRate_Mode", "CFR");
+                }
             }
             break;
         case 0x01 : //UI8

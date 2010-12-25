@@ -101,6 +101,7 @@ private :
     int8u  meta_Level;
     std::map<int8u, bool> meta_LevelFinished;
     bool Searching_Duration;
+    bool MetaData_NotTrustable;
     int32u PreviousTagSize;
     int64u meta_filesize;
     float64 meta_duration;
