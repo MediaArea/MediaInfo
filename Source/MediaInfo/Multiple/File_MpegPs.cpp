@@ -1316,7 +1316,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
             Streams[start_code].TimeStamp_Start.PTS.TimeStamp=PTS;
             Streams[start_code].Searching_TimeStamp_Start=false;
         }
-        PTS=PTS*1000000/90; //In ns
+        DTS=PTS=PTS*1000000/90; //In ns
         HasTimeStamps=true;
     }
     else if (PTS_DTS_flags==0x3)
@@ -2969,6 +2969,7 @@ void File_MpegPs::extension_stream()
                 private_stream_2_Count=0;
                 extension_stream_Count=1;
                 SL_packetized_stream_Count=0;
+                Streams_Extension[stream_id_extension].stream_type=FromTS_stream_type;
             }
             else if (!IsSub)
             {
@@ -2993,42 +2994,88 @@ void File_MpegPs::extension_stream()
         Streams_Extension[stream_id_extension].Searching_TimeStamp_End=true;
 
         //New parsers
-            if ((stream_id_extension>=0x55 && stream_id_extension<=0x5F)
-             || (stream_id_extension==0x75 && stream_id_extension<=0x7F))
-             Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
-        else if (stream_id_extension>=0x60 && stream_id_extension<=0x6F)
-             Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_Dirac());
-        else if (stream_id_extension==0x71)
-        {
-            Streams_Extension[0x72].Parsers.clear(); //In case of HD part before Core part
-            Streams_Extension[0x71].Parsers.push_back(ChooseParser_DTS());
-            Streams_Extension[0x71].Parsers.push_back(ChooseParser_AC3());
-        }
-        else if (stream_id_extension==0x76)
-        {
-            Streams_Extension[0x72].Parsers.clear(); //In case of HD part before Core part
-            Streams_Extension[0x76].Parsers.push_back(ChooseParser_AC3());
-        }
-        else if (stream_id_extension==0x72)
-        {
-            if (Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty())
+        if (Streams_Extension[stream_id_extension].stream_type && Streams_Extension[stream_id_extension].stream_type<0x80) //Standard
+            switch (Streams_Extension[stream_id_extension].stream_type)
             {
-                Streams_Extension[0x72].Parsers.push_back(ChooseParser_DTS());
-                Streams_Extension[0x72].Parsers.push_back(ChooseParser_AC3());
+                case 0x0F : Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_Adts()); break;
+                default   : ;
             }
-            /*
-                 if (!Streams_Extension[0x71].Parsers.empty())
-                ; //Streams_Extension[0x72].Parsers.push_back(Streams_Extension[0x71].Parsers[0]); //Binding 0x72 to 0x71 (DTS-HD)
-            else if (!Streams_Extension[0x76].Parsers.empty())
-                ; //Streams_Extension[0x72].Parsers.push_back(Streams_Extension[0x76].Parsers[0]); //Binding 0x72 to 0x76 (TrueHD)
-            else
+        else
+            switch (FromTS_format_identifier)
             {
-                //Audio core is not yet ready, waiting
-                Skip_XX(Element_Size,                           "Waiting for core data...");
-                return;
+                case 0x41432D33 :
+                                    Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_AC3());
+                                    break;
+                case 0x44545331 :
+                case 0x44545332 :
+                case 0x44545333 :
+                                    Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_DTS());
+                                    break;
+                case 0x56432D31 :
+                                    Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
+                                    break;
+                case 0x64726163 :
+                                    Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_Dirac());
+                                    break;
+                default           :
+                                    switch (FromTS_program_format_identifier)
+                                    {
+                                        case 0x48444D56 :   //HDMV (BluRay)
+                                                            switch (Streams_Extension[stream_id_extension].stream_type)
+                                                            {
+                                                                case 0x81 :
+                                                                case 0x83 :
+                                                                case 0x84 :
+                                                                case 0xA1 :
+                                                                            Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_AC3());
+                                                                            break;
+                                                                case 0x82 :
+                                                                case 0x85 :
+                                                                case 0x86 :
+                                                                case 0xA2 :
+                                                                            Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_DTS());
+                                                                            break;
+                                                                case 0xEA :
+                                                                            Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
+                                                                            break;
+                                                                default   : ;
+                                                            }
+                                                            break;
+                                        default           : ;
+                                                                 if (stream_id_extension==0x00)
+                                                                {} //IPMP Control Information stream
+                                                            else if (stream_id_extension==0x01)
+                                                                {} //IPMP stream
+                                                            else if (stream_id_extension<=0x0F)
+                                                                {} //ISO/IEC 14496-17 text stream
+                                                            else if (stream_id_extension<=0x0F)
+                                                                {} //ISO/IEC 23002-3 auxiliary video stream
+                                                            else if (stream_id_extension>=0x55 && stream_id_extension<=0x5F)
+                                                                 Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
+                                                            else if (stream_id_extension>=0x60 && stream_id_extension<=0x6F)
+                                                                 Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_Dirac());
+                                                            else if (stream_id_extension==0x71 || stream_id_extension==0x72 || stream_id_extension==0x76)
+                                                            {
+                                                                Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_DTS());
+                                                                Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_AC3());
+                                                            }
+                                                            else if (stream_id_extension==0x75 && stream_id_extension<=0x7F)
+                                                                 Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
+                                                      }
             }
-            */
+
+        //In case of HD part before Core part
+        switch (stream_id_extension)
+        {
+            case 0x71 :
+            case 0x76 :
+                        for (size_t Pos=0; Pos<Streams_Extension[0x72].Parsers.size(); Pos++)
+                            delete Streams_Extension[0x72].Parsers[Pos]; //Streams_Extension[0x72].Parsers[Pos]=NULL;
+                        Streams_Extension[0x72].Parsers.clear();
+                        break;
         }
+
+        //Init
         for (size_t Pos=0; Pos<Streams_Extension[stream_id_extension].Parsers.size(); Pos++)
             Open_Buffer_Init(Streams_Extension[stream_id_extension].Parsers[Pos]);
     }

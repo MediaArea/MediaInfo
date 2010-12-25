@@ -654,7 +654,7 @@ void File_Ac3::Streams_Fill()
     }
 
     //E-AC-3
-    else if (bsid==0x10)
+    else if (bsid<=0x10)
     {
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "E-AC-3");
@@ -699,32 +699,35 @@ void File_Ac3::Streams_Fill()
     }
 
     //Dolby Metadata
-    Fill(Stream_Audio, 0, "dialnorm", FirstFrame_Dolby.dialnorm==0?-31:-FirstFrame_Dolby.dialnorm);
-    (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm"), Info_Options)=_T("N NT");
-    Fill(Stream_Audio, 0, "dialnorm/String", Ztring::ToZtring(FirstFrame_Dolby.dialnorm==0?-31:-FirstFrame_Dolby.dialnorm)+_T(" dB"));
-    (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm/String"), Info_Options)=_T("N NT");
-    if (FirstFrame_Dolby.compre)
+    if (Count_Get(Stream_Audio))
     {
-        float64 Value=AC3_compr[FirstFrame_Dolby.compr>>4]+20*std::log10(((float)(0x10+(FirstFrame_Dolby.compr&0x0F)))/32);
-        Fill(Stream_Audio, 0, "compr", Value, 2);
-        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr"), Info_Options)=_T("N NT");
-        Fill(Stream_Audio, 0, "compr/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
-        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr/String"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm", FirstFrame_Dolby.dialnorm==0?-31:-FirstFrame_Dolby.dialnorm);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm"), Info_Options)=_T("N NT");
+        Fill(Stream_Audio, 0, "dialnorm/String", Ztring::ToZtring(FirstFrame_Dolby.dialnorm==0?-31:-FirstFrame_Dolby.dialnorm)+_T(" dB"));
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm/String"), Info_Options)=_T("N NT");
+        if (FirstFrame_Dolby.compre)
+        {
+            float64 Value=AC3_compr[FirstFrame_Dolby.compr>>4]+20*std::log10(((float)(0x10+(FirstFrame_Dolby.compr&0x0F)))/32);
+            Fill(Stream_Audio, 0, "compr", Value, 2);
+            (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr"), Info_Options)=_T("N NT");
+            Fill(Stream_Audio, 0, "compr/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
+            (*Stream_More)[Stream_Audio][0](Ztring().From_Local("compr/String"), Info_Options)=_T("N NT");
+        }
+        if (FirstFrame_Dolby.dynrnge)
+        {
+            float64 Value;
+            if (FirstFrame_Dolby.dynrng==0)
+                Value=0; //Special case in the formula
+            else
+                Value=AC3_dynrng[FirstFrame_Dolby.dynrng>>5]+20*std::log10(((float)(0x20+(FirstFrame_Dolby.dynrng&0x1F)))/64);
+            Fill(Stream_Audio, 0, "dynrng", Value, 2);
+            (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng"), Info_Options)=_T("N NT");
+            Fill(Stream_Audio, 0, "dynrng/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
+            (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng/String"), Info_Options)=_T("N NT");
+        }
+        Fill(Stream_Audio, 0, "bsid", bsid);
+        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("bsid"), Info_Options)=_T("N NT");
     }
-    if (FirstFrame_Dolby.dynrnge)
-    {
-        float64 Value;
-        if (FirstFrame_Dolby.dynrng==0)
-            Value=0; //Special case in the formula
-        else
-            Value=AC3_dynrng[FirstFrame_Dolby.dynrng>>5]+20*std::log10(((float)(0x20+(FirstFrame_Dolby.dynrng&0x1F)))/64);
-        Fill(Stream_Audio, 0, "dynrng", Value, 2);
-        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng"), Info_Options)=_T("N NT");
-        Fill(Stream_Audio, 0, "dynrng/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
-        (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dynrng/String"), Info_Options)=_T("N NT");
-    }
-    Fill(Stream_Audio, 0, "bsid", bsid);
-    (*Stream_More)[Stream_Audio][0](Ztring().From_Local("bsid"), Info_Options)=_T("N NT");
 }
 
 //---------------------------------------------------------------------------
@@ -975,10 +978,26 @@ bool File_Ac3::Synchronize()
                 //Testing
                 int16u CRC_16=0x0000;
                 const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
-                while(CRC_16_Buffer<Buffer+Buffer_Offset+Size)
+                const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+Size*5/8; //5/8 intermediate
+                const int8u* CRC_16_Buffer_EndMinus3=Buffer+Buffer_Offset+Size-3; //End of frame minus 3
+                const int8u* CRC_16_Buffer_End=Buffer+Buffer_Offset+Size; //End of frame
+                while(CRC_16_Buffer<CRC_16_Buffer_End)
                 {
                     CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
                     CRC_16_Buffer++;
+
+                    //CRC bytes inversion
+                    if (CRC_16_Buffer==CRC_16_Buffer_EndMinus3 && ((*CRC_16_Buffer)&0x01)) //CRC inversion bit
+                    {
+                        CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(~(*CRC_16_Buffer))];
+                        CRC_16_Buffer++;
+                        CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(~(*CRC_16_Buffer))];
+                        CRC_16_Buffer++;
+                    }
+
+                    //5/8 intermediate test
+                    if (CRC_16_Buffer==CRC_16_Buffer_5_8 && bsid<=0x08 && CRC_16!=0x0000)
+                        break;
                 }
                 if (CRC_16!=0x0000)
                     Buffer_Offset++;
@@ -1092,10 +1111,16 @@ bool File_Ac3::Synched_Test()
         //Testing
         int16u CRC_16=0x0000;
         const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
-        while(CRC_16_Buffer<Buffer+Buffer_Offset+Size)
+        const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+Size*5/8; //5/8 intermediate
+        const int8u* CRC_16_Buffer_End=Buffer+Buffer_Offset+Size; //End of frame
+        while(CRC_16_Buffer<CRC_16_Buffer_End)
         {
             CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
             CRC_16_Buffer++;
+
+            //5/8 intermediate test
+            if (CRC_16_Buffer==CRC_16_Buffer_5_8 && bsid<=0x08 && CRC_16!=0x0000)
+                break;
         }
         if (CRC_16!=0x0000)
             Synched=false;
@@ -1250,7 +1275,7 @@ void File_Ac3::Core()
         int8u  dialnorm, dialnorm2=(int8u)-1, compr=(int8u)-1, compr2=(int8u)-1, dynrng=(int8u)-1, dynrng2=(int8u)-1;
         bool   compre, compr2e=false, dynrnge, dynrng2e=false;
         Element_Begin("synchinfo");
-            Skip_B2(                                               "syncword");
+            Skip_B2(                                                "syncword");
             Skip_B2(                                                "crc1");
             BS_Begin();
             Get_S1 (2, fscod,                                       "fscod - Sample Rate Code"); Param_Info(AC3_SamplingRate[fscod], " Hz");
@@ -1415,9 +1440,21 @@ void File_Ac3::Core()
                     Get_S2(16, chanmap,                             "chanmap");
                 TEST_SB_END();
             }
-            BS_End();
         Element_End();
-        Skip_XX(Element_Size-Element_Offset,                        "bsi(continue)+audfrm+x*audblk+auxdata+errorcheck");
+        if (Data_BS_Remain()<17)
+        {
+            BS_End();
+            Trusted_IsNot("Not enough data");
+        }
+        else
+        {
+            Element_Begin("errorcheck");
+            Skip_BS(Data_BS_Remain()-17,                            "bsi(continue)+audfrm+x*audblk+auxdata+errorcheck");
+            Skip_SB(                                                "encinfo");
+            BS_End();
+            Skip_B2(                                                "crc2");
+            Element_End();
+        }
     }
 
     FILLING_BEGIN();

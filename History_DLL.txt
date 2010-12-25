@@ -14,6 +14,7 @@ Version 0.7.39
 + MPEG-7: support of ISO-IEC 13818-2 / H.262 (MPEG Video) version 2000 (multi-view / 4:2:2)
 + MXF: Clean aperture size support
 + D-10 (AES3) in MXF: real channel count
++ MPEG-TS: detection and analysis of ADTS in stream_id_extension
 x #3140453, MKV with AAC: support of HE-AAC v1/v2 detection even if AudioSpecificConfig is missing
 x #3138883, ID3v2: crash in some cases if Data length indicator is used
 x #3139417, MPEG-PS: duration for caption detection was shorter than expected
@@ -21,6 +22,7 @@ x #3139276, H.263: more precision about the different flavors of H.263
 x AVI and MPEG-2 Audio Layer 3: error if audio stream duration estimation
 x FLV: better handling of weird bitrate metadata
 x D-10 (AES3) in MXF: Bit rate was wrong
+x AC-3: crash if false-positive detection of AC-3 and CRC is valid and bsid is wrongly set
 
 Version 0.7.38, 2010-12-16
 --------------
