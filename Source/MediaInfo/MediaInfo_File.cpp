@@ -165,7 +165,7 @@
     #include "MediaInfo/Audio/File_Dts.h"
 #endif
 #if defined(MEDIAINFO_DOLBYE_YES)
-    //#include "MediaInfo/Audio/File_DolbyE.h"
+    #include "MediaInfo/Audio/File_DolbyE.h"
 #endif
 #if defined(MEDIAINFO_FLAC_YES)
     #include "MediaInfo/Audio/File_Flac.h"
@@ -439,7 +439,7 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
         else if (Parser==_T("Dts"))         Info=new File_Dts();
     #endif
     #if defined(MEDIAINFO_DOLBYE_YES)
-        //else if (Parser==_T("DolbyE"))      Info=new File_DolbyE();
+        else if (Parser==_T("DolbyE"))      Info=new File_DolbyE();
     #endif
     #if defined(MEDIAINFO_FLAC_YES)
         else if (Parser==_T("Flac"))        Info=new File_Flac();
@@ -704,7 +704,7 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
         delete Info; Info=new File_Dts();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DOLBYE_YES)
-        //delete Info; Info=new File_DolbyE();             if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+        delete Info; Info=new File_DolbyE();             if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_FLAC_YES)
         delete Info; Info=new File_Flac();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
