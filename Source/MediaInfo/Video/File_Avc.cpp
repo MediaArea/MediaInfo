@@ -1139,7 +1139,7 @@ void File_Avc::slice_header()
     bool   bottom_field_flag=0;
     BS_Begin();
     Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
-    Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) {Param_Info(Avc_slice_type[slice_type]);Element_Info(Avc_slice_type[slice_type]);}
+    Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) Param_Info(Avc_slice_type[slice_type]);
     Skip_UE(                                                    "pic_parameter_set_id");
     Get_BS (log2_max_frame_num_minus4+4, frame_num,             "frame_num");
     if (!frame_mbs_only_flag)
@@ -1152,17 +1152,13 @@ void File_Avc::slice_header()
         Skip_UE(                                                "idr_pic_id");
     if (pic_order_cnt_type==0)
     {
-        Get_BS (log2_max_pic_order_cnt_lsb_minus4+4, pic_order_cnt_lsb, "pic_order_cnt_lsb"); Element_Info(pic_order_cnt_lsb);
+        Get_BS (log2_max_pic_order_cnt_lsb_minus4+4, pic_order_cnt_lsb, "pic_order_cnt_lsb");
         if (pic_order_present_flag && !field_pic_flag)
             Skip_SE(                                            "delta_pic_order_cnt_bottom");
     }
     //TODO...
     BS_End();
     Skip_XX(Element_Size-Element_Offset,                        "ToDo...");
-    if (!field_pic_flag)
-        Element_Info("Frame");
-    else
-        Element_Info(bottom_field_flag?"Bottom":"Top");
 
     FILLING_BEGIN_PRECISE();
         //pic_struct
@@ -1253,7 +1249,28 @@ void File_Avc::slice_header()
         }
         else if (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) //IFrame or PFrame
             Field_Count_AfterLastCompleFrame=false;
-        Element_Info(Ztring::ToZtring(Frame_Count));
+
+        #if MEDIAINFO_TRACE
+            if (Trace_Activated)
+            {
+                Element_Info(((frame_mbs_only_flag&&!field_pic_flag)?_T("Frame "):(bottom_field_flag?_T("Field (Bottom) "):_T("Field (Top) ")))+Ztring::ToZtring(Frame_Count));
+                if (slice_type<9)
+                    Element_Info(_T("slice_type ")+Ztring().From_Local(Avc_slice_type[slice_type]));
+                Element_Info(_T("frame_num ")+Ztring::ToZtring(frame_num));
+                if (timing_info_present_flag && fixed_frame_rate_flag && time_scale && num_units_in_tick)
+                {
+                    float FrameRate=(float)time_scale/num_units_in_tick/(frame_mbs_only_flag?2:(pic_order_cnt_type==2?1:2))/FrameRate_Divider;
+                    if (PTS!=(int64u)-1)
+                        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
+                    if (DTS!=(int64u)-1)
+                        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS+float64_int64s(Frame_Count_InThisBlock*((float64)1000000000)/((float)time_scale/num_units_in_tick/(pic_order_cnt_type==2?1:2)/FrameRate_Divider)/((!frame_mbs_only_flag && field_pic_flag)?2:1)))/1000000)));
+                }
+                if (pic_order_cnt_type==0)
+                    Element_Info(_T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
+                if (first_mb_in_slice)
+                    Element_Info(_T("first_mb_in_slice ")+Ztring::ToZtring(first_mb_in_slice));
+            }
+        #endif //MEDIAINFO_TRACE
 
         //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
