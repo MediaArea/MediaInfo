@@ -91,16 +91,16 @@ void File_ExtendedModule::Read_Buffer_Continue()
         Accept("Extended Module");
 
         Fill(Stream_General, 0, General_Format, "Extended Module");
-        Fill(Stream_General, 0, General_Format_Version, Ztring(_T("Version"))+Ztring::ToZtring(VersionMajor)+_T(".")+Ztring::ToZtring(VersionMinor/10)+Ztring::ToZtring(VersionMinor%10));
+        Fill(Stream_General, 0, General_Format_Version, Ztring::ToZtring(VersionMajor)+_T(".")+Ztring::ToZtring(VersionMinor/10)+Ztring::ToZtring(VersionMinor%10));
         Fill(Stream_General, 0, General_Track, ModuleName.Trim(_T(' ')));
         Fill(Stream_General, 0, General_Encoded_Application, TrackerName.Trim(_T(' ')));
         Fill(Stream_General, 0, "Tempo", Tempo);
         Fill(Stream_General, 0, "BPM", BPM);
 
-        for (int16u Pos=0; Pos<Channels; Pos++)
-        {
-            Stream_Prepare(Stream_Audio);
-        }
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, "Sampler, Channels", Channels);
+        Fill(Stream_Audio, 0, "Sampler, Patterns", Patterns);
+        Fill(Stream_Audio, 0, "Sampler, Instruments", Instruments);
 
         //No more need data
         Finish("Extended Module");
