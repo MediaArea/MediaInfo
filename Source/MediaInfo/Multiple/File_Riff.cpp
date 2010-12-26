@@ -116,7 +116,6 @@ File_Riff::File_Riff()
     avih_FrameRate=0;
     avih_TotalFrame=0;
     dmlh_TotalFrame=0;
-    indx_TotalFrame=0;
     Idx1_Offset=(int64u)-1;
     movi_Size=0;
     TimeReference=(int64u)-1;
@@ -305,14 +304,10 @@ void File_Riff::Streams_Finish ()
             if (StreamKind_Last==Stream_Video) // && Retrieve(Stream_Video, StreamPos_Last, Video_Duration).empty())
             {
                 //Duration in case it is missing from header (malformed header...)
-                float32 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
-                if (FrameRate>0)
-                {
-                    if (indx_TotalFrame)
-                        Fill(Stream_Video, StreamPos_Last, Video_Duration, indx_TotalFrame*1000/FrameRate, 0, true);
-                    else
-                        Fill(Stream_Video, StreamPos_Last, Video_Duration, Temp->second.PacketCount*1000/FrameRate, 0, true);
-                }
+                if (Temp->second.indx_Duration && Temp->second.Rate)
+                    Fill(Stream_Video, StreamPos_Last, Video_Duration, ((float64)Temp->second.indx_Duration)*1000*Temp->second.Scale/Temp->second.Rate, 0, true);
+                else
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Temp->second.PacketCount, 10, true);
             }
             if (StreamKind_Last==Stream_Audio)
             {
@@ -363,6 +358,8 @@ void File_Riff::Streams_Finish ()
                 float32 SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_float32();
                 if (SamplingCount>0 && SamplingRate>0)
                     Fill(Stream_Audio, StreamPos_Last, Audio_Duration, SamplingCount*1000/SamplingRate, 0, true);
+                else if (Temp->second.indx_Duration && Temp->second.Rate)
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Duration, ((float64)Temp->second.indx_Duration)*1000*Temp->second.Scale/Temp->second.Rate, 0, true);
 
                 //Interleave
                 if (Stream[0x30300000].PacketCount && Temp->second.PacketCount)

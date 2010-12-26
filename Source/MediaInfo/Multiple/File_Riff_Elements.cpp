@@ -1033,15 +1033,8 @@ void File_Riff::AVI__hdlr_strl_indx_SuperIndex(int32u Entry_Count, int32u ChunkI
         Skip_L4(                                                "Size"); //Size of index chunk at this offset
         Get_L4 (Duration,                                       "Duration"); //time span in stream ticks
         Index_Pos[Offset]=ChunkId;
-        Index_Duration+=Duration;
+        Stream[Stream_ID].indx_Duration+=Duration;
         Element_End();
-    }
-
-    //For video
-    if (StreamKind_Last==Stream_Video && avih_FrameRate)
-    {
-        indx_TotalFrame=Index_Duration;
-        //Fill(Stream_Video, StreamPos_Last, Video_Duration, Index_Duration*1000/avih_FrameRate, 0, true);
     }
 
     //We needn't anymore Old version
@@ -1605,6 +1598,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     {
         Stream[Stream_ID].Parser=new File_Mpegv;
         ((File_Mpegv*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
+        ((File_Mpegv*)Stream[Stream_ID].Parser)->TimeCodeIsNotTrustable=true;
     }
     #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
@@ -1728,12 +1722,36 @@ void File_Riff::AVI__hdlr_strl_strh()
     float32 FrameRate=0;
     if (Rate>0 && Scale>0)
     {
+        //FrameRate (without known value detection)
         FrameRate=((float32)Rate)/Scale;
-        int64u Duration=float32_int64s((1000*(float32)Length)/FrameRate);
-        if (avih_TotalFrame>0 //avih_TotalFrame is here because some files have a wrong Audio Duration if TotalFrame==0 (which is a bug, of course!)
-        && (avih_FrameRate==0 || Duration<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
-        && (avih_FrameRate==0 || Duration>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
-            Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration);
+        if (FrameRate>1)
+        {
+            float32 Rest=FrameRate-(int32u)FrameRate;
+            if (Rest<0.01)
+                FrameRate-=Rest;
+            else if (Rest>0.99)
+                FrameRate+=1-Rest;
+            else
+            {
+                float32 Rest1001=FrameRate*1001/1000-(int32u)(FrameRate*1001/1000);
+                if (Rest1001<0.001)
+                    FrameRate=(float32)((int32u)(FrameRate*1001/1000))*1000/1001;
+                if (Rest1001>0.999)
+                    FrameRate=(float32)((int32u)(FrameRate*1001/1000)+1)*1000/1001;
+            }
+        }
+
+        //Duration
+        if (FrameRate)
+        {
+            int64u Duration=float32_int64s((1000*(float32)Length)/FrameRate);
+            if (avih_TotalFrame>0 //avih_TotalFrame is here because some files have a wrong Audio Duration if TotalFrame==0 (which is a bug, of course!)
+            && (avih_FrameRate==0 || Duration<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
+            && (avih_FrameRate==0 || Duration>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
+            {
+                Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration);
+            }
+        }
     }
     switch (fccType)
     {
@@ -1747,6 +1765,7 @@ void File_Riff::AVI__hdlr_strl_strh()
     }
     Stream[Stream_ID].fccType=fccType;
     Stream[Stream_ID].fccHandler=fccHandler;
+    Stream[Stream_ID].Scale=Scale;
     Stream[Stream_ID].Rate=Rate;
     Stream[Stream_ID].Start=Start;
 }
@@ -2080,6 +2099,15 @@ void File_Riff::AVI__movi()
 
     //Filling
     movi_Size+=Element_TotalSize_Get();
+
+    //Probing rec (with index, this is not always tested in the flow
+    if (Element_Size<12)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+    if (CC4(Buffer+Buffer_Offset+8)==0x72656320) //"rec "
+        rec__Present=true;
 
     //We must parse moov?
     if (NeedOldIndex || (stream_Count==0 && Index_Pos.empty()))

@@ -73,6 +73,7 @@ private :
         File__Analyze*          Parser;
         int32u                  fccType;
         int32u                  fccHandler;
+        int32u                  Scale;
         int32u                  Rate;
         int32u                  Start;
         int32u                  Compression;
@@ -82,6 +83,7 @@ private :
         size_t                  PacketPos;
         size_t                  PacketCount;
         int64u                  StreamSize;
+        int64u                  indx_Duration;
         bool                    SearchingPayload;
         bool                    Specific_IsMpeg4v;
         bool                    ChunksAreComplete;
@@ -91,6 +93,7 @@ private :
             Parser=NULL;
             fccType=0x00000000;
             fccHandler=0x00000000;
+            Scale=0;
             Rate=0;
             Start=0;
             Compression=0x00000000;
@@ -100,6 +103,7 @@ private :
             PacketPos=0;
             PacketCount=0;
             StreamSize=0;
+            indx_Duration=0;
             SearchingPayload=true;
             Specific_IsMpeg4v=false;
             ChunksAreComplete=true;
@@ -134,7 +138,6 @@ private :
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
-    int64u indx_TotalFrame; //Count of frames in the super index
     int64u Idx1_Offset;     //Pos of the data part (AVI) for Idx1 chunk
     int64u movi_Size;       //Size of the data part (AVI and AVIX)
     int64u TimeReference;   //Only used by Brodcast extension
