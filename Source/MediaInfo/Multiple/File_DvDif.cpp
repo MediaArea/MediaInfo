@@ -568,6 +568,12 @@ void File_DvDif::Streams_Finish()
 //---------------------------------------------------------------------------
 bool File_DvDif::Synchronize()
 {
+    if (AuxToAnalyze)
+    {
+        Accept();
+        return true;
+    }
+
     while (Buffer_Offset+8*80<=Buffer_Size //8 blocks
         && !((CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
           && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
@@ -588,6 +594,9 @@ bool File_DvDif::Synchronize()
 //---------------------------------------------------------------------------
 bool File_DvDif::Synched_Test()
 {
+    if (AuxToAnalyze)
+        return true;
+
     //Must have enough buffer for having header
     if (Buffer_Offset+80>Buffer_Size)
         return false;
