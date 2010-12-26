@@ -1021,7 +1021,6 @@ void File_Riff::AVI__hdlr_strl_indx_SuperIndex(int32u Entry_Count, int32u ChunkI
 
     //Parsing
     int64u Offset;
-    int64u Index_Duration=0;
     Skip_L4(                                                    "Reserved0");
     Skip_L4(                                                    "Reserved1");
     Skip_L4(                                                    "Reserved2");
@@ -1413,8 +1412,11 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
         Open_Buffer_Continue(DV_FromHeader, 4);
         Element_Offset+=4;
         //Reserved
-        Skip_L4(                                                "DVReserved");
-        Skip_L4(                                                "DVReserved");
+        if (Element_Offset<Element_Size)
+        {
+            Skip_L4(                                            "DVReserved");
+            Skip_L4(                                            "DVReserved");
+        }
 
         Finish(DV_FromHeader);
 
