@@ -438,10 +438,6 @@ File_Flv::File_Flv()
     PreviousTagSize=(int32u)-1;
     meta_filesize=(int64u)-1;
     meta_duration=0;
-    FirstFrame_Time=(int32u)-1;
-    FirstFrame_Type=(int8u)-1;
-    LastFrame_Time=(int32u)-1;
-    LastFrame_Type=(int8u)-1;
 }
 
 //***************************************************************************
@@ -449,7 +445,7 @@ File_Flv::File_Flv()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Flv::Streams_Finish()
+void File_Flv::Streams_Fill()
 {
     //Coherency
     if (Count_Get(Stream_Video) && Count_Get(Stream_Audio) && !Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Audio, 0, Audio_BitRate).empty())
@@ -512,15 +508,23 @@ void File_Flv::Streams_Finish()
         Fill(Stream_Audio, 0, Audio_Delay, Stream[Stream_Audio].Delay+Retrieve(Stream_Audio, 0, Audio_Delay).To_int32u(), 10, true);
         Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
     }
+}
 
+//---------------------------------------------------------------------------
+void File_Flv::Streams_Finish()
+{
     //Duration
-    int64u Duration_Final=(int64u)meta_duration;
+    //if (meta_duration)
+    //    Fill(Stream_General, 0, General_Duration, meta_duration, 10, true);
+    Streams_Finish_PerStream(Stream_Video);
+    Streams_Finish_PerStream(Stream_Audio);
+
+    /*
     float64 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float64();
     if (LastFrame_Time!=(int32u)-1 && FirstFrame_Time!=(int32u)-1)
         Duration_Final=LastFrame_Time-FirstFrame_Time+((LastFrame_Type==9 && FrameRate)?((int64u)(1000/FrameRate)):0);
     if (Duration_Final)
     {
-        Fill(Stream_General, 0, General_Duration, Duration_Final, 10, true);
         if (Count_Get(Stream_Video))
             Fill(Stream_Video, 0, Video_Duration, Duration_Final, 10, true);
         if (Count_Get(Stream_Audio))
@@ -544,14 +548,34 @@ void File_Flv::Streams_Finish()
                 Clear(Stream_Video, 0, Video_BitRate);
         }
     }
+    */
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();
 }
 
+//---------------------------------------------------------------------------
+void File_Flv::Streams_Finish_PerStream(stream_t StreamKind)
+{
+    if (Stream[StreamKind].TimeStamp!=(int32u)-1)
+    {
+        //Calculating the last timestamp (last block included)
+        if (!Stream[StreamKind].Durations.empty())
+        {
+            int64u Durations_Total=0;
+            for (size_t Pos=0; Pos<Stream[StreamKind].Durations.size(); Pos++)
+                Durations_Total+=Stream[StreamKind].Durations[Pos];
+            int32u Duration_Average=float32_int32s(((float32)Durations_Total)/Stream[StreamKind].Durations.size());
+            Stream[StreamKind].TimeStamp+=Duration_Average;
+        }
+
+        Fill(StreamKind, 0, "Duration", Stream[StreamKind].TimeStamp, 10, true);
+    }
+}
+
 //***************************************************************************
-// Buffer
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -602,6 +626,60 @@ void File_Flv::FileHeader_Parse()
     FILLING_END();
 }
 
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Flv::Synchronize()
+{
+    //Synchronizing
+    while (Buffer_Offset+15<=Buffer_Size)
+    {
+        if (Buffer[Buffer_Offset+4]==0x08 || Buffer[Buffer_Offset+4]==0x09)
+        {
+            int32u BodyLength=BigEndian2int24u(Buffer+Buffer_Offset+5);
+            if (File_Offset+Buffer_Offset+15+BodyLength==File_Size)
+                break; //Last block
+            if (File_Offset+Buffer_Offset+15+BodyLength<File_Size)
+            {
+                if (Buffer_Offset+15+BodyLength+15>Buffer_Size)
+                    return false; //Need more data
+
+                if (Buffer[Buffer_Offset+15+BodyLength+4]==0x08 || Buffer[Buffer_Offset+15+BodyLength+4]==0x09)
+                    break;
+            }
+        }
+
+        Buffer_Offset++;
+    }
+
+    //Parsing last bytes if needed
+    if (Buffer_Offset+15>Buffer_Size)
+        return false;
+
+    //Synched
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Flv::Read_Buffer_Unsynched()
+{
+    if (!Searching_Duration) //If Searching_Duration, we are looking for end in inverse order, no timestamp reset
+    {
+        Stream[Stream_Video].TimeStamp=(int32u)-1;
+        Stream[Stream_Audio].TimeStamp=(int32u)-1;
+    }
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 void File_Flv::Header_Parse()
 {
@@ -630,16 +708,16 @@ void File_Flv::Header_Parse()
         Skip_B3(                                                "StreamID");
 
         //Filling
-        Time=(((int32u)Timestamp_Extended)<<24)|Timestamp_Base;
-        if (FirstFrame_Time==(int32u)-1 && (Type==0x08 || Type==0x09))
+        if (Type==0x08 || Type==0x09)
         {
-            FirstFrame_Time=Time;
-            FirstFrame_Type=Type;
-        }
-        if (File_Offset+Buffer_Offset+Element_Offset+BodyLength+4==File_Size && Time!=0)
-        {
-            LastFrame_Time=Time;
-            LastFrame_Type=Type;
+            Time=(((int32u)Timestamp_Extended)<<24)|Timestamp_Base;
+            stream_t StreamKind=(Type==0x08)?Stream_Audio:Stream_Video;
+            if (Stream[StreamKind].Delay==(int32u)-1)
+                Stream[StreamKind].Delay=Time;
+            else if (Stream[StreamKind].TimeStamp!=(int32u)-1 && Time>Stream[StreamKind].TimeStamp)
+                Stream[StreamKind].Durations.push_back(Time-Stream[StreamKind].TimeStamp);
+            if (!Searching_Duration || Stream[StreamKind].TimeStamp==(int32u)-1)
+                Stream[StreamKind].TimeStamp=Time;
         }
     }
     else
@@ -663,7 +741,18 @@ void File_Flv::Data_Parse()
         case 0x09 : video(); break;
         case 0x12 : meta(); break;
         case 0xFA : Rm(); break;
-        case (int64u)-1 : GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
+        case (int64u)-1 :   //When searching the last frame
+                            if (PreviousTagSize>File_Size)
+                            {
+                                //There is a problem, trying to sync
+                                Searching_Duration=false;
+                                MustSynchronize=true;
+                                Buffer_TotalBytes_FirstSynched_Max=File_Size;
+                                GoToFromEnd(65536);
+                                return;
+                            }
+                            GoTo(File_Size-PreviousTagSize-8, "FLV");
+                            return;
         default : if (Searching_Duration)
                   {
                     Finish(); //This is surely a bad en of file, don't try anymore
@@ -672,16 +761,31 @@ void File_Flv::Data_Parse()
 
     }
 
-    if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && MediaInfoLib::Config.ParseSpeed_Get()<1) //All streams are parsed
+    if (Searching_Duration && !MustSynchronize)
     {
-        if (!Searching_Duration && (meta_filesize==(int64u)-1 || meta_filesize==0 || meta_filesize==File_Size) && Element_Code!=0x00 &&!MediaInfoLib::Config.ParseSpeed_Get()!=1)
+        if (((Count_Get(Stream_Video)==0 || Stream[Stream_Video].TimeStamp!=(int32u)-1)
+          && (Count_Get(Stream_Audio)==0 || Stream[Stream_Audio].TimeStamp!=(int32u)-1))
+         || (File_Size>65536*2 && File_Offset+Buffer_Offset-Header_Size-PreviousTagSize-4<File_Size-65536))
+            Finish();
+        else if (Element_Code==0xFA) //RM metadata have a malformed PreviousTagSize, always
         {
-            //Trying to find the last frame for duration
-            Searching_Duration=true;
-            GoToFromEnd(4, "FLV");
+            //Trying to sync
+            Searching_Duration=false;
+            MustSynchronize=true;
+            Buffer_TotalBytes_FirstSynched_Max=File_Size;
+            GoToFromEnd(Header_Size+Element_Size+65536);
+            return;
         }
         else
-            Finish();
+            GoTo(File_Offset+Buffer_Offset-Header_Size-PreviousTagSize-4);
+    }
+    else if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && File_Offset+65536*2<File_Size && MediaInfoLib::Config.ParseSpeed_Get()<1) //All streams are parsed
+    {
+        Fill();
+
+        //Trying to find the last frame for duration
+        GoToFromEnd(4, "FLV");
+        Searching_Duration=true;
     }
 }
 
