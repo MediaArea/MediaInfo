@@ -1195,7 +1195,7 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     Open_Buffer_Unsynch();
     if (!IsSub)
         File_GoTo=GoTo;
-    Element_Level--;
+    Element_End();
 }
 #endif //MEDIAINFO_TRACE
 
@@ -2119,8 +2119,9 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
             Element_End(); //Element
         Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
         if (MustElementBegin)
-            Element_Level++;
+            Element_Level++; //Element
     }
+    Element_End(); //Element
 
     Open_Buffer_Unsynch();
     if (!IsSub)
