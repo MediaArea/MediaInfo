@@ -1991,7 +1991,7 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "VP60;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Simple\n"
     "VP61;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Advanced\n"
     "VP62;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness\n"
-    "VP6A;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe\n"
+    "VP6A;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Alpha\n"
     "VP6F;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness\n"
     "VP70;VP7;On2;;;General\n"
     "VP71;VP7;On2;;;Error Resilient\n"
