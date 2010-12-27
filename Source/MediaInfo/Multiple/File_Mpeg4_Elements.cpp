@@ -1680,6 +1680,31 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                         Metadata_Get(Parameter, moov_meta_ilst_xxxx_name_Name);
                     else
                         Metadata_Get(Parameter, Element_Code_Get(Element_Level-1));
+                    if (Parameter=="Encoded_Application")
+                    {
+                        if (Value.find(_T("Nero AAC codec"))==0)
+                        {
+                            ZtringList List; List.Separator_Set(0, _T(" / "));
+                            List.Write(Value);
+                            Element_Info(Parameter.c_str());
+                            Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, List(0), true);
+                            Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, List(1), true);
+                            Parameter.clear(); //Set as already filled
+                        }
+                    }
+                    if (Parameter=="cdec")
+                    {
+                        if (Value.find(_T("ndaudio "))==0)
+                        {
+                            ZtringList List; List.Separator_Set(0, _T(" / "));
+                            List.Write(Value);
+                            Element_Info(Parameter.c_str());
+                            Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Nero AAC codec", Unlimited, true, true);
+                            Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, List(0).substr(8, string::npos), true);
+                            Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Settings, List(1), true);
+                            Parameter.clear(); //Set as already filled
+                        }
+                    }
                     if (!Parameter.empty())
                     {
                         Element_Info(Parameter.c_str());
