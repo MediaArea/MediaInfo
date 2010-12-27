@@ -10,7 +10,7 @@ cook;Cooker;;Based on G.722.1, Real Player 6;http://www.real.com
 dnet;AC-3;;Real Player 3;http://www.real.com
 lpcJ;VSELP;;Real Player 1;http://www.real.com
 raac;AAC;;Real Player 9;http://www.real.com
-racp;AAC;;Real Player 10;http://www.real.com
+racp;AAC;;Real Player 10;http://www.real.com;HE-AAC
 rtrc;RealAudio 8;;;http://www.real.com
 sipr;ACELP;;Real Player 4;http://www.real.com
 whrl;RealAudio Multi-Channel;;Real Audio Multi-Channel;http://www.real.com

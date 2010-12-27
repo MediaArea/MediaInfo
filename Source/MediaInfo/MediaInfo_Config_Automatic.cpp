@@ -2188,7 +2188,7 @@ void MediaInfo_Config_CodecID_Audio_Real (InfoMap &Info)
     "dnet;AC-3;;Real Player 3;http://www.real.com\n"
     "lpcJ;VSELP;;Real Player 1;http://www.real.com\n"
     "raac;AAC;;Real Player 9;http://www.real.com\n"
-    "racp;AAC;;Real Player 10;http://www.real.com\n"
+    "racp;AAC;;Real Player 10;http://www.real.com;HE-AAC\n"
     "rtrc;RealAudio 8;;;http://www.real.com\n"
     "sipr;ACELP;;Real Player 4;http://www.real.com\n"
     "whrl;RealAudio Multi-Channel;;Real Audio Multi-Channel;http://www.real.com\n"

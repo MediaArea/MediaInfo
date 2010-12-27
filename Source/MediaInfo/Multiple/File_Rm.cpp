@@ -423,7 +423,12 @@ void File_Rm::MDPR_realvideo()
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Codec));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width); //Width
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height); //Height
-    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)FrameRate); //FrameRate
+    switch (FrameRate)
+    {
+        case 23 : Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)24)*1000/1001); break; //Hard-coded frame rate?
+        case 29 : Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)30)*1000/1001); break; //Hard-coded frame rate?
+        default : Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)FrameRate);
+    }
 }
 
 //---------------------------------------------------------------------------
