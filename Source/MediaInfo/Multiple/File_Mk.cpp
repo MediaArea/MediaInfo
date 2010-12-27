@@ -3103,7 +3103,7 @@ void File_Mk::CodecID_Manage()
 
         Stream[TrackNumber].Parser=new File_Aac;
         ((File_Aac*)Stream[TrackNumber].Parser)->Mode=File_Aac::Mode_AudioSpecificConfig;
-        ((File_Aac*)Stream[TrackNumber].Parser)->AudioSpecificConfig_OutOfBand(sampling_frequency, audioObjectType, SBR, PS, SBR, PS);
+        ((File_Aac*)Stream[TrackNumber].Parser)->AudioSpecificConfig_OutOfBand(sampling_frequency, audioObjectType, SBR==1?true:false, PS==1?true:false, SBR==1?true:false, PS==1?true:false);
     }
     #endif
     #if defined(MEDIAINFO_AAC_YES)
