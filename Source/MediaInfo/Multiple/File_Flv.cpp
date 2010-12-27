@@ -1200,6 +1200,7 @@ void File_Flv::meta()
         meta_duration=0;
         Clear(Stream_Video, 0, Video_StreamSize);
         Clear(Stream_Video, 0, Video_BitRate);
+        Clear(Stream_Video, 0, Video_Bits__Pixel_Frame_);
         Clear(Stream_Audio, 0, Audio_StreamSize);
         Clear(Stream_Audio, 0, Audio_BitRate);
         Clear(Stream_General, 0, General_Duration);
