@@ -1065,6 +1065,8 @@ void File_Aac::adts_fixed_header()
             Infos["Codec"].From_Local(Aac_audioObjectType(audioObjectType));
             Infos["SamplingRate"].From_Number(Aac_sampling_frequency[sampling_frequency_index]);
             Infos["Channel(s)"].From_Number(channelConfiguration);
+            Infos["ChannelPositions"].From_Local(Aac_ChannelConfiguration[channelConfiguration]);
+            Infos["ChannelPositions/String2"].From_Local(Aac_ChannelConfiguration2[channelConfiguration]);
             if (IsSub)
                 Infos["MuxingMode"].From_Local("ADTS");
         }
