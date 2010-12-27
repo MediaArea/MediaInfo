@@ -251,21 +251,6 @@ void File_Riff::Streams_Finish ()
                 Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
             //Format specific
-            #if defined(MEDIAINFO_MPEG4V_YES)
-                if (StreamKind_Last==Stream_Video && MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
-                {
-                    if (((File_Mpeg4v*)Temp->second.Parser)->Frame_Count_InThisBlock>1)
-                    {
-                        Fill(Stream_Video, StreamPos_Last, Video_MuxingMode, MediaInfoLib::Config.Language_Get("MuxingMode_PackedBitstream"));
-                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings, "Packed Bitstream");
-                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "Yes");
-                    }
-                    else
-                    {
-                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "No");
-                    }
-                }
-            #endif
             #if defined(MEDIAINFO_DVDIF_YES)
                 if (StreamKind_Last==Stream_Video && (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("DV"))==0
                                                    || Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("DV")

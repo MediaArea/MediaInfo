@@ -119,10 +119,12 @@ private :
     size_t IVOP_Count;
     size_t PVOP_Count;
     size_t BVOP_Count;
+    size_t BVOP_Count_Max;
     size_t SVOP_Count;
     size_t NVOP_Count;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;
+    int64u Frame_Count_InThisBlock_Max;
 
     //From video_object_layer
     size_t time_size;

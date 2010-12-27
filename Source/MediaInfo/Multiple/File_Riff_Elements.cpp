@@ -2230,9 +2230,6 @@ void File_Riff::AVI__movi_xxxx___dc()
 {
     //Finish (if requested)
     if (Stream[Stream_ID].Parser==NULL
-    #if defined(MEDIAINFO_MPEG4V_YES)
-     || Stream[Stream_ID].Specific_IsMpeg4v && ((File_Mpeg4v*)Stream[Stream_ID].Parser)->Frame_Count_InThisBlock>1 //Searching Packet bitstream, no more need if found
-    #endif
      || Stream[Stream_ID].Parser->Status[IsFinished]
      || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
     {

@@ -15,6 +15,7 @@ Version 0.7.39
 + MXF: Clean aperture size support
 + D-10 (AES3) in MXF: real channel count
 + MPEG-TS: detection and analysis of ADTS in stream_id_extension
++ #2943900, MPEG-4 Visual: count of maximum consecutive B-frames
 x #3140453, MKV with AAC: support of HE-AAC v1/v2 detection even if AudioSpecificConfig is missing
 x #3138883, ID3v2: crash in some cases if Data length indicator is used
 x #3139417, MPEG-PS: duration for caption detection was shorter than expected

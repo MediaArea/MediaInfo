@@ -283,10 +283,12 @@ void File_Mpeg4v::Synched_Init()
     IVOP_Count=0;
     PVOP_Count=0;
     BVOP_Count=0;
+    BVOP_Count_Max=0;
     SVOP_Count=0;
     NVOP_Count=0;
     Interlaced_Top=0;
     Interlaced_Bottom=0;
+    Frame_Count_InThisBlock_Max=0;
 
     //From VOL, needed in VOP
     fixed_vop_time_increment=0;
@@ -523,6 +525,27 @@ void File_Mpeg4v::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Streams_Finish()
 {
+    //BVOPs
+    if (BVOP_Count_Max)
+    {
+        Ztring Format_Settings=Retrieve(Stream_Video, 0, Video_Format_Settings);
+        Format_Settings.FindAndReplace(_T("BVOP"), _T("BVOP")+Ztring::ToZtring(BVOP_Count_Max));
+        Fill(Stream_Video, 0, Video_Format_Settings, Format_Settings, true);
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, BVOP_Count_Max, 10, true);
+    }
+
+    //Packed Bitstream
+    if (Frame_Count_InThisBlock_Max==2)
+    {
+        Fill(Stream_Video, 0, Video_MuxingMode, MediaInfoLib::Config.Language_Get("MuxingMode_PackedBitstream"));
+        Fill(Stream_Video, 0, Video_Codec_Settings, "Packed Bitstream");
+        Fill(Stream_Video, 0, Video_Codec_Settings_PacketBitStream, "Yes");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Codec_Settings_PacketBitStream, "No");
+    }
+
     //Duration
     if (!IsSub && Time_End_Seconds!=(int32u)-1 && Time_Begin_Seconds!=(int32u)-1)
     {
@@ -1398,6 +1421,8 @@ void File_Mpeg4v::vop_start()
         Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_InThisBlock++;
+    if (Frame_Count_InThisBlock>Frame_Count_InThisBlock_Max)
+        Frame_Count_InThisBlock_Max=Frame_Count_InThisBlock;
 
     //Name
     Element_Name("vop_start");
@@ -1590,12 +1615,30 @@ void File_Mpeg4v::vop_start()
         //...
     }
 
-    if (!vop_coded)              NVOP_Count++; //VOP with no data
-    else if (vop_coding_type==0) IVOP_Count++; //Type I
-    else if (vop_coding_type==1) PVOP_Count++; //Type P
-    else if (vop_coding_type==2) BVOP_Count++; //Type B
-    else if (vop_coding_type==3) SVOP_Count++; //Type S
-
+    if (!vop_coded)              //VOP with no data
+        NVOP_Count++;
+    else if (vop_coding_type==0) //Type I
+    {
+        IVOP_Count++;
+        PVOP_Count=0;
+        BVOP_Count=0;
+    }
+    else if (vop_coding_type==1) //Type P
+    {
+        PVOP_Count++;
+        BVOP_Count=0;
+    }
+    else if (vop_coding_type==2) //Type B
+    {
+        BVOP_Count++;
+        if (BVOP_Count>BVOP_Count_Max)
+            BVOP_Count_Max=BVOP_Count;
+    }
+    else if (vop_coding_type==3)
+    {
+        SVOP_Count++; //Type S
+        BVOP_Count=0;
+    }
 
     FILLING_BEGIN();
         //Duration
