@@ -202,6 +202,7 @@ bool File__Tags_Helper::Synched_Test()
 
             //Quick test of synchro
             int32u ID=CC3(Base->Buffer+Base->Buffer_Offset);
+            int32u ID4=CC4(Base->Buffer+Base->Buffer_Offset);
                  if (ID==0x494433) //"ID3"
             {
                 if (Base->Buffer_Offset+10>Base->Buffer_Size)
@@ -221,6 +222,16 @@ bool File__Tags_Helper::Synched_Test()
                 if (Base->File_Offset_FirstSynched==(int64u)-1)
                     Base->Buffer_TotalBytes_FirstSynched_Max+=Parser_Buffer_Size;
                 Base->Element_Begin("Id3v2");
+            }
+            else if (ID4==0x5441472B) //"TAG+"
+            {
+                #ifdef MEDIAINFO_ID3_YES
+                    Parser=new File_Id3;
+                #else
+                    Parser=new File_Unknown;
+                #endif
+                Parser_Buffer_Size=227+128;
+                Base->Element_Begin("Id3+");
             }
             else if (ID==0x544147) //"TAG"
             {

@@ -47,9 +47,33 @@ void File_Id3::Read_Buffer_Continue()
     if (Buffer_Size<128)
         return;
 
+    int32u Magic;
+    Peek_B4(Magic);
+    Ztring TitleAddition;
+    Ztring ArtistAddition;
+    Ztring AlbumAddition;
+    Ztring GenreAddition;
+    if (Magic==0x5441472B)
+    {
+        if (Buffer_Size<227+128)
+            return;
+
+        Skip_C4   (                                                 "ID");
+        Get_Local (60, TitleAddition,                               "Title");
+        Get_Local (60, ArtistAddition,                              "Artist");
+        Get_Local (60, AlbumAddition,                               "Album");
+        Skip_B1   (                                                 "Speed");
+        Get_Local (30, GenreAddition,                               "Genre");
+        Skip_Local(6,                                               "Start time"); //mmm:ss
+        Skip_Local(6,                                               "End time"); //mmm:ss
+
+        TitleAddition.TrimRight();
+        ArtistAddition.TrimRight();
+        AlbumAddition.TrimRight();
+        GenreAddition.TrimRight();
+    }
+
     //Parsing
-    Element_Offset=0;
-    Element_Size=Buffer_Size;
     Ztring Title, Artist, Album, Year, Comment;
     int8u Track=0, Genre;
     Skip_C3   (                                                 "ID");
@@ -74,20 +98,25 @@ void File_Id3::Read_Buffer_Continue()
     Get_B1 (Genre,                                              "Genre");
 
     FILLING_BEGIN();
-        Title.TrimRight();
-        Artist.TrimRight();
-        Album.TrimRight();
+        if (TitleAddition.empty())
+            Title.TrimRight();
+        if (ArtistAddition.empty())
+            Artist.TrimRight();
+        if (AlbumAddition.empty())
+            Album.TrimRight();
         Year.TrimRight();
         Comment.TrimRight();
 
         Accept("Id3");
 
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Album, Album);
-        Fill(Stream_General, 0, General_Track, Title);
-        Fill(Stream_General, 0, General_Performer, Artist);
+        Fill(Stream_General, 0, General_Album, Album+AlbumAddition);
+        Fill(Stream_General, 0, General_Track, Title+TitleAddition);
+        Fill(Stream_General, 0, General_Performer, Artist+ArtistAddition);
         Fill(Stream_General, 0, General_Comment, Comment);
         Fill(Stream_General, 0, General_Recorded_Date, Year);
+        if (GenreAddition.empty())
+            Fill(Stream_General, 0, General_Genre, GenreAddition);
         if (Genre && Genre!=(int8u)-1)
             Fill(Stream_General, 0, General_Genre, Genre);
         if (Track)
