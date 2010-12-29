@@ -784,10 +784,10 @@ void File_Id3v2::T___()
     Get_B1 (Encoding,                                           "Text_encoding");
     switch (Encoding)
     {
-        case 0 : Get_Local (Element_Size-1, Element_Value,      "Information"); break;
-        case 1 : Get_UTF16 (Element_Size-1, Element_Value,      "Information"); break;
-        case 2 : Get_UTF16B(Element_Size-1, Element_Value,      "Information"); break;
-        case 3 : Get_UTF8  (Element_Size-1, Element_Value,      "Information"); break;
+        case 0 : Get_Local (Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 1 : Get_UTF16 (Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 2 : Get_UTF16B(Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 3 : Get_UTF8  (Element_Size-Element_Offset, Element_Value, "Information"); break;
         default : ;
     }
 

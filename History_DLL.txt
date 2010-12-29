@@ -29,6 +29,7 @@ x AC-3: crash if false-positive detection of AC-3 and CRC is valid and bsid is w
 x #3141059, FLV: trying to detect partial files (so metadata are wrong) and using timestamps instead
 x #3141052, AVI: wrong duration, no detection of rec chunks, with some files
 x #3145968, RealMedia: not integer frame rate handling + HE-AAC filling 
+x Id3v2: bad handling of some tags
 
 Version 0.7.38, 2010-12-16
 --------------
