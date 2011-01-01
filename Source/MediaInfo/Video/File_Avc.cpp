@@ -1423,7 +1423,7 @@ void File_Avc::slice_header()
         if (!Status[IsFilled] && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
         {
             Fill("AVC");
-            if (!Streams[(size_t)Element_Code].ShouldDuplicate && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+            if (!IsSub && !Streams[(size_t)Element_Code].ShouldDuplicate && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
                 Finish("AVC");
         }
     FILLING_END();

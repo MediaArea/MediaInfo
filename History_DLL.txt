@@ -31,6 +31,7 @@ x #3141052, AVI: wrong duration, no detection of rec chunks, with some files
 x #3145968, RealMedia: not integer frame rate handling + HE-AAC filling 
 x Id3v2: bad handling of some tags
 x MPEG-TS/PS: Frame count / duration accuracy of some very specific files
+x MPEG-TS/PS: Not counting non-decodable frames (without the corresponding I-Frame)
 
 Version 0.7.38, 2010-12-16
 --------------
