@@ -77,6 +77,8 @@ File__Analyze::File__Analyze ()
     DUR=(int64u)-1;
     PTS_Begin=(int64u)-1;
     PTS_End=(int64u)-1;
+    DTS_Begin=(int64u)-1;
+    DTS_End=(int64u)-1;
 
     //Out
     Frame_Count=0;
@@ -543,7 +545,8 @@ void File__Analyze::Open_Buffer_Unsynch ()
     }
 
     File_GoTo=(int64u)-1;
-    PTS_End=(int64u)-1;
+    PTS_End=0;
+    DTS_End=0;
 }
 
 //---------------------------------------------------------------------------

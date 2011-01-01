@@ -492,7 +492,7 @@ void File_Mpega::Streams_Finish()
         //Fill(Stream_Audio, 0, Audio_Channel_s_, 6);
     }
 
-    if (PTS!=(int64u)-1)
+    if (PTS_End>PTS_Begin)
     {
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
         if (Retrieve(Stream_Audio, 0, Audio_BitRate_Mode)==_T("CBR"))

@@ -63,7 +63,7 @@ private :
     bool FileHeader_Begin();
 
     //Buffer - Synchro
-    bool Synchronize() {return Synchronize_0x000001();}
+    bool Synchronize();
     bool Synched_Test();
     void Synched_Init();
 
@@ -112,7 +112,6 @@ private :
     void seq_parameter_set_data();
     void scaling_list(int32u ScalingList_Size);
     void vui_parameters();
-    void hrd_parameters(bool vcl);
     void nal_unit_header_svc_extension();
     void nal_unit_header_mvc_extension();
     void seq_parameter_set_svc_extension();
@@ -206,19 +205,30 @@ private :
     //From seq_parameter_set
     struct xxl
     {
-        int32u bit_rate_value;
-        int32u cpb_size_value;
-        bool   cbr_flag;
-
-        xxl()
+        struct xxl_data
         {
-            bit_rate_value=(int32u)-1;
-            cpb_size_value=(int32u)-1;
-            cbr_flag=true;
-        }
+            int64u Frame_Offset;
+            int32u bit_rate_value;
+            int32u cpb_size_value;
+            bool   cbr_flag;
+
+            //HRD
+            int32u initial_cpb_removal_delay;
+            int32u initial_cpb_removal_delay_offset;
+            int32u cpb_removal_delay;
+
+            xxl_data()
+            {
+                Frame_Offset=(int64u)-1;
+                bit_rate_value=(int32u)-1;
+                cpb_size_value=(int32u)-1;
+                cbr_flag=true;
+            }
+        };
+        std::vector<xxl_data> SchedSel;
     };
-    std::vector<xxl> NAL;
-    std::vector<xxl> VCL;
+    xxl NAL;
+    xxl VCL;
     Ztring Encoded_Library;
     Ztring Encoded_Library_Name;
     Ztring Encoded_Library_Version;
@@ -297,6 +307,12 @@ private :
     size_t frame_num_Old;
     bool   SPS_PPS_AlreadyDone;
     bool   FLV;
+
+    //HRD
+    int64u tc;
+    bool   FirstPFrameInGop_IsParsed;
+    int32u Firstpic_order_cnt_lsbInBlock;
+    void hrd_parameters(xxl &ToTest);
 };
 
 } //NameSpace

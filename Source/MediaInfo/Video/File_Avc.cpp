@@ -572,34 +572,34 @@ void File_Avc::Streams_Fill()
     bool   cbr_flag=false;
     bool   cbr_flag_IsSet=false;
     bool   cbr_flag_IsValid=true;
-    for (size_t Pos=0; Pos<NAL.size(); Pos++)
+    for (size_t Pos=0; Pos<NAL.SchedSel.size(); Pos++)
     {
-        if (NAL[Pos].cpb_size_value!=(int32u)-1)
-            Fill(Stream_Video, 0, Video_BufferSize, NAL[Pos].cpb_size_value);
-        if (bit_rate_value!=(int32u)-1 && bit_rate_value!=NAL[Pos].bit_rate_value)
+        if (NAL.SchedSel[Pos].cpb_size_value!=(int32u)-1)
+            Fill(Stream_Video, 0, Video_BufferSize, NAL.SchedSel[Pos].cpb_size_value/8);
+        if (bit_rate_value!=(int32u)-1 && bit_rate_value!=NAL.SchedSel[Pos].bit_rate_value)
             bit_rate_value_IsValid=false;
         if (bit_rate_value==(int32u)-1)
-            bit_rate_value=NAL[Pos].bit_rate_value;
-        if (cbr_flag_IsSet==true && cbr_flag!=NAL[Pos].cbr_flag)
+            bit_rate_value=NAL.SchedSel[Pos].bit_rate_value;
+        if (cbr_flag_IsSet==true && cbr_flag!=NAL.SchedSel[Pos].cbr_flag)
             cbr_flag_IsValid=false;
         if (cbr_flag_IsSet==0)
         {
-            cbr_flag=NAL[Pos].cbr_flag;
+            cbr_flag=NAL.SchedSel[Pos].cbr_flag;
             cbr_flag_IsSet=true;
         }
     }
-    for (size_t Pos=0; Pos<VCL.size(); Pos++)
+    for (size_t Pos=0; Pos<VCL.SchedSel.size(); Pos++)
     {
-        Fill(Stream_Video, 0, Video_BufferSize, VCL[Pos].cpb_size_value);
-        if (bit_rate_value!=(int32u)-1 && bit_rate_value!=VCL[Pos].bit_rate_value)
+        Fill(Stream_Video, 0, Video_BufferSize, VCL.SchedSel[Pos].cpb_size_value/8);
+        if (bit_rate_value!=(int32u)-1 && bit_rate_value!=VCL.SchedSel[Pos].bit_rate_value)
             bit_rate_value_IsValid=false;
         if (bit_rate_value==(int32u)-1)
-            bit_rate_value=VCL[Pos].bit_rate_value;
-        if (cbr_flag_IsSet==true && cbr_flag!=VCL[Pos].cbr_flag)
+            bit_rate_value=VCL.SchedSel[Pos].bit_rate_value;
+        if (cbr_flag_IsSet==true && cbr_flag!=VCL.SchedSel[Pos].cbr_flag)
             cbr_flag_IsValid=false;
         if (cbr_flag_IsSet==0)
         {
-            cbr_flag=VCL[Pos].cbr_flag;
+            cbr_flag=VCL.SchedSel[Pos].cbr_flag;
             cbr_flag_IsSet=true;
         }
     }
@@ -614,8 +614,13 @@ void File_Avc::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Avc::Streams_Finish()
 {
-    if (PTS_End!=(int64u)-1)
-        Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
+    if (PTS_End!=(int64u)-1 && (IsSub || File_Offset+Buffer_Offset==File_Size))
+    {
+        if (FirstPFrameInGop_IsParsed)
+            PTS_End+=tc;
+        if (PTS_End>PTS_Begin)
+            Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
+    }
 
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
@@ -727,18 +732,59 @@ bool File_Avc::FileHeader_Begin()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Avc::Synchronize()
+{
+    //Synchronizing
+    while(Buffer_Offset+3<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                        || Buffer[Buffer_Offset+1]!=0x00
+                                        || Buffer[Buffer_Offset+2]!=0x01))
+    {
+        Buffer_Offset+=2;
+        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset+=2;
+        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+            Buffer_Offset--;
+    }
+    if (Buffer_Offset && Buffer[Buffer_Offset-1]==0x00)
+        Buffer_Offset--;
+
+    //Parsing last bytes if needed
+    if (Buffer_Offset+4==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x00
+                                      || Buffer[Buffer_Offset+3]!=0x01))
+        Buffer_Offset++;
+    if (Buffer_Offset+3==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x01))
+        Buffer_Offset++;
+    if (Buffer_Offset+2==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00))
+        Buffer_Offset++;
+    if (Buffer_Offset+1==Buffer_Size &&  Buffer[Buffer_Offset  ]!=0x00)
+        Buffer_Offset++;
+
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+
+    //Synched is OK
+    Synched=true;
+    return true;
+}
+
+//---------------------------------------------------------------------------
 bool File_Avc::Synched_Test()
 {
     //Trailing 0x00
-    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
+    while(Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001 && CC4(Buffer+Buffer_Offset)!=0x00000001)
         Buffer_Offset++;
 
     //Must have enough buffer for having header
-    if (Buffer_Offset+3>Buffer_Size)
+    if (Buffer_Offset+4>Buffer_Size)
         return false;
 
     //Quick test of synchro
-    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+    if (CC3(Buffer+Buffer_Offset)!=0x000001 && CC4(Buffer+Buffer_Offset)!=0x00000001)
         Synched=false;
 
     //Quick search
@@ -764,6 +810,12 @@ void File_Avc::Synched_Init()
     TemporalReference_Offset_Moved=false;
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
+    PTS_End=0;
+    if (DTS==(int64u)-1)
+        DTS=0; //No DTS in container
+    DTS_Begin=DTS;
+    DTS_End=DTS;
+    tc=0;
 
     //From seq_parameter_set
     pic_width_in_mbs_minus1=0;
@@ -844,6 +896,12 @@ void File_Avc::Read_Buffer_Unsynched()
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
     RefFramesCount=0;
+
+    //Impossible to know TimeStamps now
+    PTS=(int64u)-1;
+    DTS=(int64u)-1;
+    PTS_End=0;
+    DTS_End=0;
 }
 
 //***************************************************************************
@@ -864,7 +922,9 @@ void File_Avc::Header_Parse()
     //Parsing
     if (!SizedBlocks)
     {
-        Skip_B3(                                                "sync");
+        if (Buffer[Buffer_Offset+2]==0x00)
+            Skip_B1(                                            "zero_byte");
+        Skip_B3(                                                "start_code_prefix_one_3bytes");
         BS_Begin();
         Mark_0 ();
         Skip_S1( 2,                                             "nal_ref_idc");
@@ -955,10 +1015,12 @@ bool File_Avc::Header_Parser_Fill_Size()
     }
 
     //Keeping out trailing zeroes
-    if (Buffer_Offset_Temp+3<=Buffer_Size)
-        while (CC3(Buffer+Buffer_Offset_Temp-1)==0x000000)
+    if (Buffer_Offset_Temp+4<=Buffer_Size)
+        while (CC4(Buffer+Buffer_Offset_Temp-1)==0x000000)
             Buffer_Offset_Temp--;
 
+    if (Buffer[Buffer_Offset_Temp-1]==0x00)
+        Buffer_Offset_Temp--;
     //OK, we continue
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;
@@ -968,13 +1030,18 @@ bool File_Avc::Header_Parser_Fill_Size()
 //---------------------------------------------------------------------------
 bool File_Avc::Header_Parser_QuickSearch()
 {
-    while (       Buffer_Offset+4<=Buffer_Size
+    while (       Buffer_Offset+5<=Buffer_Size
       &&   Buffer[Buffer_Offset  ]==0x00
       &&   Buffer[Buffer_Offset+1]==0x00
-      &&   Buffer[Buffer_Offset+2]==0x01)
+      &&  (Buffer[Buffer_Offset+2]==0x01
+        || (Buffer[Buffer_Offset+2]==0x00 && Buffer[Buffer_Offset+3]==0x01)))
     {
         //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
+        int8u start_code;
+        if (Buffer[Buffer_Offset+2]==0x00)
+            start_code=CC1(Buffer+Buffer_Offset+4)&0x1F;
+        else
+            start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
 
         //Searching start33
         if (Streams[start_code].Searching_Payload
@@ -984,7 +1051,7 @@ bool File_Avc::Header_Parser_QuickSearch()
         //Synchronizing
         Buffer_Offset+=4;
         Synched=false;
-        if (!Synchronize_0x000001())
+        if (!Synchronize())
             return false;
     }
 
@@ -1002,6 +1069,14 @@ void File_Avc::Data_Parse()
     {
         SPS_PPS();
         return;
+    }
+
+    //Trailing zeroes
+    int64u Element_Size_SaveBeforeZeroes=Element_Size;
+    if (Element_Size)
+    {
+        while (Element_Size && Buffer[Buffer_Offset+(size_t)Element_Size-1]==0)
+            Element_Size--;
     }
 
     //svc_extension
@@ -1097,6 +1172,9 @@ void File_Avc::Data_Parse()
     //Duplicate
     if (!Streams.empty() && Streams[(size_t)Element_Code].ShouldDuplicate)
         File__Duplicate_Write(Element_Code);
+
+    //Trailing zeroes
+    Element_Size=Element_Size_SaveBeforeZeroes;
 }
 
 //***************************************************************************
@@ -1239,6 +1317,51 @@ void File_Avc::slice_header()
             TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsValid=true;
         }
 
+        if (num_units_in_tick)
+            tc=float64_int64s(((float64)1000000000)/((float)time_scale/num_units_in_tick/(pic_order_cnt_type==2?1:2)/FrameRate_Divider)/((!frame_mbs_only_flag && field_pic_flag)?2:1));
+        if (first_mb_in_slice==0)
+        {
+            if (Frame_Count==0)
+            {
+                if (PTS==(int64u)-1)
+                    PTS=DTS+tc; //No PTS in container
+                PTS_Begin=PTS;
+            }
+            if (IsSub)
+            {
+                //if (Frame_Count_InThisBlock==0)
+                {
+                //    Firstpic_order_cnt_lsbInBlock=pic_order_cnt_lsb;
+                }
+                if (PTS!=(int64u)-1 && Frame_Count_InThisBlock && Firstpic_order_cnt_lsbInBlock!=(int32u)-1)
+                {
+                    PTS+=((int32s)(pic_order_cnt_lsb-Firstpic_order_cnt_lsbInBlock)/((!frame_mbs_only_flag && field_pic_flag)?1:2)-1)*tc;
+                }
+                    Firstpic_order_cnt_lsbInBlock=pic_order_cnt_lsb;
+            }
+            if (!IsSub) //Raw stream
+            {
+                if (!FirstPFrameInGop_IsParsed) //The first one only
+                {
+                    if (slice_type==0 || slice_type==5) //PFrame
+                        PTS-=tc;
+                }
+                if (slice_type==2 || slice_type==7) //IFrame
+                {
+                    if (FirstPFrameInGop_IsParsed)
+                        PTS+=tc; //Handling the delayed PFrame
+                    FirstPFrameInGop_IsParsed=false;
+                }
+            }
+        }
+        else
+        {
+            if (PTS!=(int64u)-1)
+                PTS-=tc;
+            if (DTS!=(int64u)-1)
+                DTS-=tc;
+        }
+
         //Name
         if (Frame_Count && ((!frame_mbs_only_flag && Interlaced_Top==Interlaced_Bottom && field_pic_flag) || first_mb_in_slice!=0 || (Element_Code==0x14 && !seq_parameter_set_ids.empty())))
         {
@@ -1257,13 +1380,12 @@ void File_Avc::slice_header()
                 if (slice_type<9)
                     Element_Info(_T("slice_type ")+Ztring().From_Local(Avc_slice_type[slice_type]));
                 Element_Info(_T("frame_num ")+Ztring::ToZtring(frame_num));
-                if (timing_info_present_flag && fixed_frame_rate_flag && time_scale && num_units_in_tick)
+                if (fixed_frame_rate_flag)
                 {
-                    float FrameRate=(float)time_scale/num_units_in_tick/(frame_mbs_only_flag?2:(pic_order_cnt_type==2?1:2))/FrameRate_Divider;
-                    if (PTS!=(int64u)-1)
-                        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
                     if (DTS!=(int64u)-1)
-                        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS+float64_int64s(Frame_Count_InThisBlock*((float64)1000000000)/((float)time_scale/num_units_in_tick/(pic_order_cnt_type==2?1:2)/FrameRate_Divider)/((!frame_mbs_only_flag && field_pic_flag)?2:1)))/1000000)));
+                        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
+                    if (PTS!=(int64u)-1 && (IsSub || (slice_type!=0 && slice_type!=5))) //Not raw stream or not PFrame
+                        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
                 }
                 if (pic_order_cnt_type==0)
                     Element_Info(_T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
@@ -1277,27 +1399,26 @@ void File_Avc::slice_header()
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
-        if (RefFramesCount<2 && (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7))
+        if (RefFramesCount<2 && (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7)) //IFrame or PFrame
             RefFramesCount++;
         if (PTS!=(int64u)-1)
+            PTS+=tc;
+        if (DTS!=(int64u)-1)
+            DTS+=tc;
+        if (!IsSub && first_mb_in_slice==0) //Raw stream
         {
-            if (PTS_Begin==(int64u)-1 && (slice_type==2 || slice_type==7)) //IFrame
-                PTS_Begin=PTS;
-            if ((slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) && Frame_Count_InThisBlock<=1 && !Field_Count_AfterLastCompleFrame) //IFrame or PFrame
-                PTS_End=PTS;
-            if ((slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) || (Frame_Count_InThisBlock>=2 && RefFramesCount>=2)) //IFrame or PFrame or more than 2 RefFrame for BFrames
-            {
-                if (timing_info_present_flag && first_mb_in_slice==0)
-                    PTS_End+=float64_int64s(((float64)1000000000)/((float)time_scale/num_units_in_tick/(pic_order_cnt_type==2?1:2)/FrameRate_Divider)/((!frame_mbs_only_flag && field_pic_flag)?2:1));
-            }
+            if (slice_type==0 || slice_type==5) //PFrame
+                FirstPFrameInGop_IsParsed=true;
         }
+        if (PTS!=(int64u)-1 && PTS_End<PTS)
+            PTS_End=PTS;
 
         //Duplicate
         if (Streams[(size_t)Element_Code].ShouldDuplicate)
             File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
 
         //Filling only if not already done
-        if (Frame_Count==2 && !Status[IsAccepted])
+        if (Frame_Count==1 && !Status[IsAccepted])
             Accept("AVC");
         if (!Status[IsFilled] && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
         {
@@ -1378,16 +1499,16 @@ void File_Avc::sei_message_buffering_period()
     BS_Begin();
     Skip_UE(                                                    "seq_parameter_set_id");
     if (NalHrdBpPresentFlag)
-        for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
+        for (int32u SchedSelIdx=0; SchedSelIdx<NAL.SchedSel.size(); SchedSelIdx++)
         {
-            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(initial_cpb_removal_delay/90, " ms");
-            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(initial_cpb_removal_delay_offset/90, " ms");
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, NAL.SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(NAL.SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, NAL.SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(NAL.SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset/90, " ms");
         }
     if (VclHrdBpPresentFlag)
-        for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
+        for (int32u SchedSelIdx=0; SchedSelIdx<VCL.SchedSel.size(); SchedSelIdx++)
         {
-            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(initial_cpb_removal_delay/90, " ms");
-            Get_S4 (initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(initial_cpb_removal_delay_offset/90, " ms");
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");
+            Get_S4 (initial_cpb_removal_delay_length_minus1+1, VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset/90, " ms");
         }
 }
 
@@ -1479,7 +1600,7 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
     }
     BS_End();
 
-    FILLING_BEGIN_PRECISE();
+    FILLING_BEGIN();
         if (pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=pic_struct;
     FILLING_END();
@@ -2405,11 +2526,11 @@ void File_Avc::vui_parameters()
         Get_SB (fixed_frame_rate_flag,                          "fixed_frame_rate_flag");
     TEST_SB_END();
     TEST_SB_GET (nal_hrd_parameters_present_flag,               "nal_hrd_parameters_present_flag");
-        hrd_parameters(false);
+        hrd_parameters(NAL);
         NalHrdBpPresentFlag=true;
     TEST_SB_END();
     TEST_SB_GET (vcl_hrd_parameters_present_flag,               "vcl_hrd_parameters_present_flag");
-        hrd_parameters(true);
+        hrd_parameters(VCL);
         VclHrdBpPresentFlag=true;
     TEST_SB_END();
     if(nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
@@ -2430,15 +2551,10 @@ void File_Avc::vui_parameters()
 }
 
 //---------------------------------------------------------------------------
-void File_Avc::hrd_parameters(bool vcl)
+void File_Avc::hrd_parameters(xxl &ToTest)
 {
-    //Filling
-    if (vcl)
-        VCL.clear();
-    else
-        NAL.clear();
-
     //Parsing
+    int32u cpb_cnt_minus1;
     int8u  bit_rate_scale, cpb_size_scale;
     Get_UE (   cpb_cnt_minus1,                                  "cpb_cnt_minus1");
     Get_S1 (4, bit_rate_scale,                                  "bit_rate_scale");
@@ -2448,25 +2564,19 @@ void File_Avc::hrd_parameters(bool vcl)
         Trusted_IsNot("cpb_cnt_minus1 too high");
         cpb_cnt_minus1=0;
     }
+    ToTest.SchedSel.resize(cpb_cnt_minus1+1);
     for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
     {
         Element_Begin("ShedSel");
-        xxl Item;
         int32u bit_rate_value_minus1, cpb_size_value_minus1;
         Get_UE (bit_rate_value_minus1,                          "bit_rate_value_minus1");
         if (bit_rate_value_minus1)
-            Item.bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(Item.bit_rate_value, " bps");
+            ToTest.SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(ToTest.SchedSel[SchedSelIdx].bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
         if (cpb_size_value_minus1)
-            Item.cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 1+cpb_size_scale)); Param_Info(Item.cpb_size_value, " bytes");
-        Get_SB (Item.cbr_flag,                                  "cbr_flag");
+            ToTest.SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info(ToTest.SchedSel[SchedSelIdx].cpb_size_value, " bits");
+        Get_SB (ToTest.SchedSel[SchedSelIdx].cbr_flag,                "cbr_flag");
         Element_End();
-
-        //Filling
-        if (vcl)
-            VCL.push_back(Item);
-        else
-            NAL.push_back(Item);
     }
     Get_S1 (5, initial_cpb_removal_delay_length_minus1,         "initial_cpb_removal_delay_length_minus1");
     Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");

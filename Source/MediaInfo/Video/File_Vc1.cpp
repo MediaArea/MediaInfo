@@ -349,7 +349,7 @@ void File_Vc1::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Vc1::Streams_Finish()
 {
-    if (PTS_End!=(int64u)-1)
+    if (PTS_End>PTS_Begin)
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
 
     //Purge what is not needed anymore

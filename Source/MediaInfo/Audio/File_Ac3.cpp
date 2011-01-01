@@ -897,7 +897,7 @@ void File_Ac3::Streams_Finish()
             }
         }
     }
-    else if (PTS!=(int64u)-1)
+    else if (PTS_End>PTS_Begin)
     {
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
         Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000/32));

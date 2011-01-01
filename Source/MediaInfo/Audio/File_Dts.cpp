@@ -493,7 +493,7 @@ void File_Dts::Streams_Finish()
         return;
     }
 
-    if (PTS!=(int64u)-1)
+    if (PTS_End>PTS_Begin)
     {
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
         Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000/32));

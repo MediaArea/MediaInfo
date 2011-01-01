@@ -677,7 +677,7 @@ void File_Mpegv::Streams_Finish()
     }
 
     //Duration
-    if (PTS_End!=(int64u)-1)
+    if (PTS_End>PTS_Begin)
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
     else if (Time_End_Seconds!=Error)
     {
