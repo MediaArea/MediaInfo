@@ -1214,12 +1214,12 @@ void File_Avc::slice_header()
 {
     //Parsing
     pic_order_cnt_lsb=(int32u)-1;
-    int32u first_mb_in_slice, frame_num;
+    int32u first_mb_in_slicee, pic_parameter_set_id, frame_num;
     bool   bottom_field_flag=0;
     BS_Begin();
     Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
     Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) Param_Info(Avc_slice_type[slice_type]);
-    Skip_UE(                                                    "pic_parameter_set_id");
+    Skip_UE(pic_parameter_set_id,                               "pic_parameter_set_id");
     Get_BS (log2_max_frame_num_minus4+4, frame_num,             "frame_num");
     if (!frame_mbs_only_flag)
     {
