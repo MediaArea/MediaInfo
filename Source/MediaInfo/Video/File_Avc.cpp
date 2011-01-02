@@ -990,14 +990,18 @@ bool File_Avc::Header_Parser_Fill_Size()
         if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
             Buffer_Offset_Temp--;
 
-        if (nal_unit_type==0x01 || nal_unit_type==0x05) //slice, we need only few bytes
+        if (!Trace_Activated
+            )
         {
-            if (Buffer_Offset_Temp-Buffer_Offset>20)
+            if (nal_unit_type==0x01 || nal_unit_type==0x05) //slice, we need only few bytes
             {
-                //OK, we continue, we have enough for a slice
-                Header_Fill_Size(16);
-                Buffer_Offset_Temp=0;
-                return true;
+                if (Buffer_Offset_Temp-Buffer_Offset>20)
+                {
+                    //OK, we continue, we have enough for a slice
+                    Header_Fill_Size(16);
+                    Buffer_Offset_Temp=0;
+                    return true;
+                }
             }
         }
     }
