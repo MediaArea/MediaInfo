@@ -990,8 +990,9 @@ bool File_Avc::Header_Parser_Fill_Size()
         if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
             Buffer_Offset_Temp--;
 
-        if (!Trace_Activated
-            )
+        #if MEDIAINFO_TRACE
+        if (!Trace_Activated)
+        #if MEDIAINFO_TRACE
         {
             if (nal_unit_type==0x01 || nal_unit_type==0x05) //slice, we need only few bytes
             {
