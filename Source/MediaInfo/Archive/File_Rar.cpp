@@ -49,7 +49,8 @@ bool File_Rar::FileHeader_Begin()
     if (Buffer_Size<4)
         return false; //Must wait for more data
 
-    if (CC4(Buffer)!=0x52415221) //"RAR!"
+    if (CC4(Buffer)!=0x52415221 //"RAR!"
+     && CC4(Buffer)!=0x52617221) //"Rar!"
     {
         Reject("RAR");
         return false;
