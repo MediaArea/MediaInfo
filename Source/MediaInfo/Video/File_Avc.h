@@ -207,22 +207,25 @@ private :
     {
         struct xxl_data
         {
-            int64u Frame_Offset;
+            //HRD configuration
             int32u bit_rate_value;
             int32u cpb_size_value;
             bool   cbr_flag;
 
-            //HRD
+            //sei_message_buffering_period
             int32u initial_cpb_removal_delay;
             int32u initial_cpb_removal_delay_offset;
-            int32u cpb_removal_delay;
 
             xxl_data()
             {
-                Frame_Offset=(int64u)-1;
+                //HRD configuration
                 bit_rate_value=(int32u)-1;
                 cpb_size_value=(int32u)-1;
                 cbr_flag=true;
+
+                //sei_message_buffering_period
+                initial_cpb_removal_delay=(int32u)-1;
+                initial_cpb_removal_delay_offset=(int32u)-1;
             }
         };
         std::vector<xxl_data> SchedSel;
@@ -255,11 +258,9 @@ private :
     int32u pic_order_cnt_lsb_Last;
     int32u seq_parameter_set_id;
     int32u num_views_minus1;
-    int32u cpb_cnt_minus1;
-    int32u initial_cpb_removal_delay;
-    int32u initial_cpb_removal_delay_offset;
     int32u cpb_removal_delay;
     int32u pic_order_cnt_lsb_Old;
+    int32u slice_type;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
@@ -308,11 +309,11 @@ private :
     bool   SPS_PPS_AlreadyDone;
     bool   FLV;
 
-    //HRD
+    //Times
     int64u tc;
     bool   FirstPFrameInGop_IsParsed;
     int32u Firstpic_order_cnt_lsbInBlock;
-    void hrd_parameters(xxl &ToTest);
+    void   hrd_parameters(xxl &ToTest);
 };
 
 } //NameSpace

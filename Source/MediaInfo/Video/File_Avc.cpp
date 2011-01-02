@@ -835,9 +835,6 @@ void File_Avc::Synched_Init()
     bit_depth_luma_minus8=0;
     bit_depth_chroma_minus8=0;
     pic_order_cnt_lsb=(int32u)-1;
-    cpb_cnt_minus1=0;
-    initial_cpb_removal_delay=0;
-    initial_cpb_removal_delay_offset=0;
     cpb_removal_delay=0;
     sar_width=0;
     sar_height=0;
@@ -1213,7 +1210,7 @@ void File_Avc::slice_header()
 {
     //Parsing
     pic_order_cnt_lsb=(int32u)-1;
-    int32u first_mb_in_slice, slice_type, frame_num;
+    int32u first_mb_in_slice, frame_num;
     bool   bottom_field_flag=0;
     BS_Begin();
     Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
