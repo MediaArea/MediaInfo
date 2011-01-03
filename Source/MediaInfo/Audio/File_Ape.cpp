@@ -1,6 +1,6 @@
 // File_Ape - Info for Ape files
 // Copyright (C) 2003-2009 Jasper van de Gronde, th.v.d.gronde@hccnet.nl
-// Copyright (C) 2003-2010 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2003-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by

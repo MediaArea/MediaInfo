@@ -494,6 +494,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\PreComp.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader__Base.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Setup.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_7z.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Ace.h" />
@@ -564,6 +565,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scte20.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AvsV.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h" />

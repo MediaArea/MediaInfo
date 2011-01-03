@@ -1,5 +1,5 @@
 // File_Flv - Info for Flash files
-// Copyright (C) 2005-2010 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2005-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -888,7 +888,8 @@ void File_Flv::video_H263()
     Get_S1 ( 3, PictureSize,                                    "PictureSize"); Param_Info(Flv_H263_PictureSize[PictureSize]);
     switch (PictureSize)
     {
-        case 0 :            Get_S2 ( 8, Width,                                  "Width");
+        case 0 :
+            Get_S2 ( 8, Width,                                  "Width");
             Get_S2 ( 8, Height,                                 "Height");
             break;
         case 1 :

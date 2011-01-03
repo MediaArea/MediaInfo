@@ -926,5 +926,11 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Celt.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scte20.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader__Base.h">
+      <Filter>Header Files\Reader</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

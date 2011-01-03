@@ -1,5 +1,5 @@
 // File_Ivf - Info for Ivf files
-// Copyright (C) 2004-2010 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2004-2011 MediaArea.net SARL, Info@MediaArea.net
 // Copyright (C) 2010 Lionel DUCHATEAU, kurtnoise at free dot fr
 //
 // This library is free software: you can redistribute it and/or modify it

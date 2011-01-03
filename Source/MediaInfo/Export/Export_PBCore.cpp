@@ -1,5 +1,5 @@
 // File__Analyze - Base for analyze files
-// Copyright (C) 2009-2009 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2009-2011 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
