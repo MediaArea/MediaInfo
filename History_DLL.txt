@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.39
+Version 0.7.39, 2011-01-03
 --------------
 + OGG: more CELT attributes, thanks to Lionel Duchateau
 + DV: better detection of display aspect ratio for specific (non standard?) streams
