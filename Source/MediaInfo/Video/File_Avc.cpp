@@ -2572,11 +2572,9 @@ void File_Avc::hrd_parameters(xxl &ToTest)
         Element_Begin("ShedSel");
         int32u bit_rate_value_minus1, cpb_size_value_minus1;
         Get_UE (bit_rate_value_minus1,                          "bit_rate_value_minus1");
-        if (bit_rate_value_minus1)
-            ToTest.SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(ToTest.SchedSel[SchedSelIdx].bit_rate_value, " bps");
+        ToTest.SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(ToTest.SchedSel[SchedSelIdx].bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
-        if (cpb_size_value_minus1)
-            ToTest.SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info(ToTest.SchedSel[SchedSelIdx].cpb_size_value, " bits");
+        ToTest.SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info(ToTest.SchedSel[SchedSelIdx].cpb_size_value, " bits");
         Get_SB (ToTest.SchedSel[SchedSelIdx].cbr_flag,                "cbr_flag");
         Element_End();
     }
