@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Постоянный
 BitRate_Mode_VBR;Переменный
 BitRate_Nominal;Номинальный битрейт
 Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
-BufferSize
+BufferSize;Размер буфера
 Cancel;Отмена
 Channel(s);Канал(ы)
 ChannelPositions;Расположение каналов
@@ -259,9 +259,9 @@ Date;Дата
 Debug;Отладка
 Decimal point;Десятичная точка
 Delay;Задержка
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;Задержка в оригинале
+Delay_Source_Container;Контейнер
+Delay_Source_Stream;'Сырой' поток
 Delete;Удалить
 Description;Описание
 Digitized_Date;Дата оцифровки
@@ -269,7 +269,7 @@ Dimensions;Размеры
 Director;Режиссёр
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Соотношение сторон
-DisplayAspectRatio_Original;Оригинальное соотношение сторон
+DisplayAspectRatio_Original;Соотношение сторон в оригинале
 DistributedBy;Распространитель
 Donate;Внести пожертвование
 DotsPerInch;Точек на дюйм
@@ -313,7 +313,7 @@ Folder (Recursively);Папка (рекурсивно)...
 Folder_Hint;Операции с папками
 FolderName;Имя папки
 Format;Формат
-Format_Commercial
+Format_Commercial;Коммерческое название
 Format_Description;Описание формата
 Format_Info;Подробно о формате
 Format_Profile;Профиль формата
@@ -351,7 +351,7 @@ FrameRate_Mode_VFR;Переменный
 FrameRate_Minimum;Минимальная частота кадров
 FrameRate_Nominal;Номинальная частота кадров
 FrameRate_Maximum;Максимальная частота кадров
-FrameRate_Original;Оригинальная частота кадров
+FrameRate_Original;Частота кадров в оригинале
 General;Общее
 Genre;Жанр
 Genre_000;Blues
@@ -527,11 +527,11 @@ Interlaced_TFF;Верхнее поле первое
 Interlaced_BFF;Нижнее поле первое
 Interlaced_PPF;Прогрессивная
 Interlaced_Progressive;Прогрессивная
-Interleaved
+Interleaved;Чередующаяся
 Interleave_Duration;Продолжительность промежутка
 Interleave_Preload;Время предзагрузки промежутка
 Interleave_VideoFrames;Продолжительность промежутка
-InternetMediaType
+InternetMediaType;Интернет-тип носителя
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -832,7 +832,7 @@ Performer;Исполнитель
 Period;Период
 Phone;Телефон
 PixelAspectRatio;Соотношение пикселей
-PixelAspectRatio_Original;Оригинальное соотношение пикселей
+PixelAspectRatio_Original;Соотношение пикселей в оригинале
 PlayCounter;Счётчик воспроизведения
 Played_Count;Воспроизведено раз
 Played_First_Date;Первое воспроизведение
@@ -883,7 +883,7 @@ Shell InfoTip;Всплывающая подсказка в Проводнике
 Show menu;Показывать меню
 Show toolbar;Показывать панель
 Sort;Сортировать по
-SamplingCount
+SamplingCount;Количество образцов
 SoundEngineer;Звукорежиссёр
 Standard;Стандарт вещания
 Stream;Поток
@@ -929,7 +929,7 @@ transfer_characteristics;Характеристики трансфера
 Translator;Переводчик
 Tree;Дерево
 Tree & Text;Дерево и текст
-UniqueID
+UniqueID;Уникальный идентификатор
 Unknown;Неизвестно
 Url;Ссылка
 Video;Видео
@@ -962,6 +962,6 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
 CompressionRatio;Степень сжатия

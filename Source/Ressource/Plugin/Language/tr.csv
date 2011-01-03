@@ -175,7 +175,7 @@ Author;Hazırlayan
 BarCode;BarKod
 Basic;Temel
 Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmelisiniz (Sayfa, Ağaç...)
-BitDepth
+BitDepth;Bit yoğunluğu
 BitRate;Bit oranı
 BitRate_Maximum;En fazla bit oranı
 BitRate_Minimum;En az bit oranı
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Sabit
 BitRate_Mode_VBR;Değişken
 BitRate_Nominal;Düşük bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
-BufferSize
+BufferSize;Arabellek boyutu
 Cancel;İptal
 Channel(s);Kanal
 ChannelPositions;Kanal konumları
@@ -204,7 +204,7 @@ Choose filename;İstediğiniz dosya adını seçin
 Choose language;İstediğiniz dili seçin
 Choregrapher;Koreograf
 Chroma;Krom
-ChromaSubsampling
+ChromaSubsampling;Krom altörnekleme
 Close;Kapat
 Close all before open;Açmadan önce tümünü kapat
 Codec;Kodek
@@ -229,15 +229,15 @@ CodecID;Kodek ID
 CodecID_Description;Kodek açıklaması
 Collection;Koleksiyon
 Colorimetry;Renkölçüm 
-ColorSpace
-colour_primaries
+ColorSpace;Renk alanı
+colour_primaries;Renk öncelikleri
 Comment;Yorum
 CommissionedBy;Görevlendiren
 CompleteName;Tam isim
 Composer;Besteci
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;Sıkıştırma kipi
+Compression_Mode_Lossless;Kayıpsız
+Compression_Mode_Lossy;Lossy
 Compression_Ratio;Sıkıştırma oranı
 Conductor;Orkestra şefi
 Container and general information;Kalıp ve genel bilgi
@@ -259,9 +259,9 @@ Date;Tarih
 Debug;Hata Ayıklama
 Decimal point;Ondalık ayırıcı
 Delay;Gecikme
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;Gecikme, kaynağı
+Delay_Source_Container;Kalıp
+Delay_Source_Stream;Ham akış
 Delete;Sil
 Description;Açıklama
 Digitized_Date;Sayısallaştırılmış tarih
@@ -313,7 +313,7 @@ Folder (Recursively);Klasör (Yinelemeli)
 Folder_Hint;Çalışmak için klasör seç
 FolderName;Klasör adı
 Format;Biçim
-Format_Commercial
+Format_Commercial;Ticari adı
 Format_Description;Biçim açıklaması
 Format_Info;Biçim için ayrıntılar
 Format_Profile;Biçim profili
@@ -336,11 +336,11 @@ Format_Settings_ITU;Biçim ayarları, ITU
 Format_Settings_SBR;Biçim ayarları, SBR
 Format_Settings_PS;Biçim ayarları, PS
 Format_Settings_Pulldown;Biçim ayarları, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;Kip
+Format_Settings_FrameMode;Kare kipi
+Format_Settings_Emphasis;Vurgu
+Format_Settings_ModeExtension;Kip uzantısı
+Format_Settings_GOP;Biçim ayarları, GOP
 Format_Version;Biçim sürümü
 Format_Url;Biçim için web bağlantısı
 FrameCount;Kare sayısı
@@ -506,7 +506,7 @@ Go to WebSite;Web sitesine git
 h;s
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
-Height_Original
+Height_Original;Orijinal yükseklik
 Help;Yardım
 Hint;İpucu
 How many audio streams?;Kaç tane seslendirme?
@@ -527,11 +527,11 @@ Interlaced_TFF;En Üst Alanın İlki
 Interlaced_BFF;En Alt Alanın İlki
 Interlaced_PPF;Aşamalı
 Interlaced_Progressive;Aşamalı
-Interleaved
+Interleaved;Boşluklu
 Interleave_Duration;Boşluk, süre
 Interleave_Preload;Boşluk, önyükleme süresi
 Interleave_VideoFrames;Boşluk, süre
-InternetMediaType
+InternetMediaType;Internet medya türü
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -743,7 +743,7 @@ Lyrics;Şarkı Sözleri
 Lyricist;Söz yazarı
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
-matrix_coefficients
+matrix_coefficients;Matriks katsayısı
 MediaInfo_About;Çok ayrıntılı bilgi sağlanan çokluortam\r\ndosyaları:\r\nMatroska, OGG (OGM dahil)\r\nMPEG1 (VCD dahil)\r\nMPEG2 (DVD ve SVCD dahil)\r\nMPEG4 (Itunes M4A dahil)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA dahil)\r\nMicrosoft RIFF (AVI, WAV dahil)\r\nSadece-ses biçimleri (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menü akışları
@@ -883,7 +883,7 @@ Shell InfoTip;Sistem Bilgisi İpucu (gezginde, fareyi dosya üzerine taşıyın,
 Show menu;Menü göster
 Show toolbar;Araç çubuğu göster
 Sort;Sıralayan
-SamplingCount
+SamplingCount;Örnek sayısı
 SoundEngineer;Ses teknisyeni
 Standard;Standart
 Stream;Akış
@@ -925,11 +925,11 @@ TimeZone;Saat dilimi
 Total;Toplam
 Track;Parça adı
 Track_Count;Parça sayısı
-transfer_characteristics
+transfer_characteristics;Aktarım nitelikleri
 Translator;Çevirmen
 Tree;Ağaç
 Tree & Text;Ağaç ve Metin
-UniqueID
+UniqueID;Eşsiz ID
 Unknown;Bilinmiyor
 Url;Url
 Video;Görüntü
@@ -954,7 +954,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Bu görüntü kodek'inin web sitesine git
 WebSite_Video_More;Bu görüntü kodek'ini bulmak için (%Url%) web sitesine git
 Width;Genişlik
-Width_Original
+Width_Original;Orijinal genişlik
 WriteMe;Bana yazın
 WriteToTranslator;Çevirmene yazın
 Written_Date;Yazıldığı tarih
@@ -962,6 +962,6 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
 CompressionRatio;Sıkıştırma oranı

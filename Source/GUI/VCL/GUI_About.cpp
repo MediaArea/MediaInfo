@@ -1,5 +1,5 @@
 // GUI_About - About interface of MediaInfo
-// Copyright (C) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This program is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -38,7 +38,7 @@ TAboutF *AboutF;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_ABOUT=     _T("MediaInfo X.X.X.X\\r\\nCopyright (C) 2002-2010 MediaArea.net SARL");
+const ZenLib::Char* MEDIAINFO_ABOUT=     _T("MediaInfo X.X.X.X\\r\\nCopyright (C) 2002-2011 MediaArea.net SARL");
 const ZenLib::Char* MEDIAINFO_URL=       _T("http://mediainfo.sourceforge.net");
 const ZenLib::Char* MEDIAINFO_NEWVERSION=_T("http://sourceforge.net/projects/mediainfo/files/");
 const ZenLib::Char* MEDIAINFO_DONATE=    _T("http://mediainfo.sourceforge.net/Donate");

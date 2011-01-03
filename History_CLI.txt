@@ -7,6 +7,32 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.39, 2011-01-03
+--------------
++ OGG: more CELT attributes, thanks to Lionel Duchateau
++ DV: better detection of display aspect ratio for specific (non standard?) streams
++ MPEG-7: support of ISO-IEC 13818-2 / H.262 (MPEG Video) version 2000 (multi-view / 4:2:2)
++ MXF: Clean aperture size support
++ D-10 (AES3) in MXF: real channel count
++ MPEG-TS: detection and analysis of ADTS in stream_id_extension
++ #2943900, MPEG-4 Visual: count of maximum consecutive B-frames
++ MP4: Handling of Nero library information atom
++ Id3: TAG+ support
+x #3140453, MKV with AAC: support of HE-AAC v1/v2 detection even if AudioSpecificConfig is missing
+x #3138883, ID3v2: crash in some cases if Data length indicator is used
+x #3139417, MPEG-PS: duration for caption detection was shorter than expected
+x #3139276, H.263: more precision about the different flavors of H.263
+x AVI and MPEG-2 Audio Layer 3: error if audio stream duration estimation
+x FLV: better handling of weird bitrate metadata
+x D-10 (AES3) in MXF: Bit rate was wrong
+x AC-3: crash if false-positive detection of AC-3 and CRC is valid and bsid is wrongly set
+x #3141059, FLV: trying to detect partial files (so metadata are wrong) and using timestamps instead
+x #3141052, AVI: wrong duration, no detection of rec chunks, with some files
+x #3145968, RealMedia: not integer frame rate handling + HE-AAC filling 
+x Id3v2: bad handling of some tags
+x MPEG-TS/PS: Frame count / duration accuracy of some very specific files
+x MPEG-TS/PS: Not counting non-decodable frames (without the corresponding I-Frame)
+
 Version 0.7.38, 2010-12-16
 --------------
 + uClibc compatibility, thanks to Metin KAYA <metin@EnderUNIX.org>

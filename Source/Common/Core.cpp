@@ -1,5 +1,5 @@
 // Main - Main functions
-// Copyright (C) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This program is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -178,6 +178,8 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(_T("File_MpegTs_Atsc_transport_stream_id_Trust"), _T("0"));
     //MI->Option(_T("Trace_Level"), _T("Container1;1"));
     //MI->Option(_T("Language"), _T("raw"));
+    //MI->Option(_T("demux"), _T("container"));
+    MI->Option(_T("file_demux_unpacketize"), _T("1"));
     return MI->Open(FileName);
 }
 
