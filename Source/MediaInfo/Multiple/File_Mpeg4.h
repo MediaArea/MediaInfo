@@ -172,6 +172,17 @@ private :
     void moov_trak_mdia_minf_stbl_stss();
     void moov_trak_mdia_minf_stbl_stsz();
     void moov_trak_mdia_minf_stbl_stts();
+    void moov_trak_meta() {moov_meta();}
+    void moov_trak_meta_hdlr() {moov_meta_hdlr();}
+    void moov_trak_meta_bxml() {moov_meta_bxml();}
+    void moov_trak_meta_keys() {moov_meta_keys();}
+    void moov_trak_meta_keys_mdta() {moov_meta_keys_mdta();}
+    void moov_trak_meta_ilst() {moov_meta_ilst();}
+    void moov_trak_meta_ilst_xxxx() {moov_meta_ilst_xxxx();}
+    void moov_trak_meta_ilst_xxxx_data() {moov_meta_ilst_xxxx_data();}
+    void moov_trak_meta_ilst_xxxx_mean() {moov_meta_ilst_xxxx_mean();}
+    void moov_trak_meta_ilst_xxxx_name() {moov_meta_ilst_xxxx_name();}
+    void moov_trak_meta_xml() {moov_meta_xml();}
     void moov_trak_tapt();
     void moov_trak_tapt_clef();
     void moov_trak_tapt_prof();

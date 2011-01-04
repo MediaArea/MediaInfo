@@ -365,6 +365,27 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsz=0x7374737A;
     const int64u moov_trak_mdia_minf_stbl_stts=0x73747473;
     const int64u moov_trak_mdia_minf_vmhd=0x766D6864;
+    const int64u moov_trak_meta=0x6D657461;
+    const int64u moov_trak_meta______=0x2D2D2D2D;
+    const int64u moov_trak_meta___day=0xA9646179;
+    const int64u moov_trak_meta__disk=0x6469736B;
+    const int64u moov_trak_meta__trkn=0x74726B6E;
+    const int64u moov_trak_meta__trng=0x74726E67;
+    const int64u moov_trak_meta__covr=0x636F7672;
+    const int64u moov_trak_meta__gnre=0x676E7265;
+    const int64u moov_trak_meta_bxml=0x62786D6C;
+    const int64u moov_trak_meta_hdlr=0x68646C72;
+    const int64u moov_trak_meta_hdlr_mdir=0x6D646972;
+    const int64u moov_trak_meta_hdlr_mdta=0x6D647461;
+    const int64u moov_trak_meta_hdlr_mp7b=0x6D703762;
+    const int64u moov_trak_meta_hdlr_mp7t=0x6D703774;
+    const int64u moov_trak_meta_keys=0x6B657973;
+    const int64u moov_trak_meta_keys_mdta=0x6D647461;
+    const int64u moov_trak_meta_ilst=0x696C7374;
+    const int64u moov_trak_meta_ilst_xxxx_data=0x64617461;
+    const int64u moov_trak_meta_ilst_xxxx_mean=0x6D65616E;
+    const int64u moov_trak_meta_ilst_xxxx_name=0x6E616D65;
+    const int64u moov_trak_meta_xml=0x786D6C20;
     const int64u moov_trak_tapt=0x74617074;
     const int64u moov_trak_tapt_clef=0x636C6566;
     const int64u moov_trak_tapt_enof=0x656E6F66;
@@ -632,6 +653,27 @@ void File_Mpeg4::Data_Parse()
                     ATOM(moov_trak_mdia_minf_vmhd)
                     ATOM_END
                 ATOM_END
+            /* Need additional tests
+            LIST(moov_trak_meta)
+                ATOM_BEGIN
+                ATOM(moov_trak_meta_bxml)
+                LIST(moov_trak_meta_keys)
+                    ATOM_BEGIN
+                    ATOM(moov_trak_meta_keys_mdta)
+                    ATOM_END
+                ATOM(moov_trak_meta_hdlr)
+                LIST(moov_trak_meta_ilst)
+                    ATOM_BEGIN
+                    LIST_DEFAULT (moov_trak_meta_ilst_xxxx)
+                        ATOM_BEGIN
+                        ATOM (moov_trak_meta_ilst_xxxx_data)
+                        ATOM (moov_trak_meta_ilst_xxxx_mean)
+                        ATOM (moov_trak_meta_ilst_xxxx_name)
+                        ATOM_END
+                    ATOM_END_DEFAULT
+                ATOM(moov_trak_meta_xml)
+                ATOM_END
+            */
             LIST(moov_trak_tapt)
                 ATOM_BEGIN
                 ATOM(moov_trak_tapt_clef)
