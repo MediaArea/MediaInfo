@@ -55,6 +55,7 @@ AMR;;;A;Amr;Adaptive Multi-Rate;amr;audio/AMR;http://www.apple.com/quicktime/dow
 Atrac;;;A;;;;audio/ATRAC;;Lossy
 Atrac3;;;A;;;;audio/ATRAC3;;Lossy
 AU;;;A;Au;uLaw/AU Audio File;au;audio/basic;;
+DolbyE;;;A;DolbyE;;dde
 DTS;;;A;Dts;Digital Theater Systems;dts;;;Lossy
 DTS-HD;;;A;Dts;Digital Theater Systems;dts;;;Lossy
 E-AC-3;;;A;Ac3;Audio Coding 3;dd+;audio/eac3;;Lossy
