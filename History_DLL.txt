@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.40, 2011-
+--------------
+x libcurl: crash if requesting a libcurl URL but libcurl library not present
+
 Version 0.7.39, 2011-01-03
 --------------
 + OGG: more CELT attributes, thanks to Lionel Duchateau
