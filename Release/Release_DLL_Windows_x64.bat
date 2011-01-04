@@ -33,72 +33,72 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfoDLL_Windows_x64\Developers
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL3.py MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
 
 @rem --- Copying : Projects ---
-xcopy ..\Project\BCB\Example\*.bpf MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\
-xcopy ..\Project\BCB\Example\*.bpr MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\
-xcopy ..\Project\BCB\Example\*.res* MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\
-xcopy ..\Project\BCB\Example\*.dfm MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\
-xcopy ..\Project\BCB\Example\*.h MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\
-xcopy ..\Project\BCB\Example\*.cpp MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\
-xcopy ..\Project\CodeBlocks\Example\*.cbp MediaInfoDLL_Windows_i386\Developers\Project\CodeBlocks\Example\
-xcopy ..\Project\Delphi\Example\*.dpr MediaInfoDLL_Windows_i386\Developers\Project\Delphi\Example\
-xcopy ..\Project\Delphi\Example\*.dfm MediaInfoDLL_Windows_i386\Developers\Project\Delphi\Example\
-xcopy ..\Project\Delphi\Example\*.res MediaInfoDLL_Windows_i386\Developers\Project\Delphi\Example\
-xcopy ..\Project\Delphi\Example\*.pas MediaInfoDLL_Windows_i386\Developers\Project\Delphi\Example\
-xcopy ..\Project\Delphi\Example\*.bdsproj MediaInfoDLL_Windows_i386\Developers\Project\Delphi\Example\
-xcopy ..\Project\Delphi\Example\*.bdsgroup MediaInfoDLL_Windows_i386\Developers\Project\Delphi\Example\
-xcopy ..\Project\DevCpp\Example\*.dev MediaInfoDLL_Windows_i386\Developers\Project\DevCpp\Example\
-xcopy ..\Project\MSCS2008\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\
-xcopy ..\Project\MSCS2008\Example\*.cs MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\Example\
-xcopy ..\Project\MSCS2008\Example\*.csproj MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\Example\
-xcopy ..\Project\MSCS2008\Example\*.res* MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\Example\
-xcopy ..\Project\MSCS2008\Example\*.ico MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\Example\
-xcopy ..\Project\MSCS2008\asp_net_web_application\*.cs MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\asp_net_web_application\ /S
-xcopy ..\Project\MSCS2008\asp_net_web_application\*.csproj MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\asp_net_web_application\
-xcopy ..\Project\MSCS2008\asp_net_web_application\*.aspx MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\asp_net_web_application\
-xcopy ..\Project\MSCS2008\asp_net_web_application\*.config MediaInfoDLL_Windows_i386\Developers\Project\MSCS2008\asp_net_web_application\
-xcopy ..\Project\MSCS2010\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\
-xcopy ..\Project\MSCS2010\Example\*.cs MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\Example\
-xcopy ..\Project\MSCS2010\Example\*.csproj MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\Example\
-xcopy ..\Project\MSCS2010\Example\*.res* MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\Example\
-xcopy ..\Project\MSCS2010\Example\*.ico MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\Example\
-xcopy ..\Project\MSCS2010\asp_net_web_application\*.cs MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\asp_net_web_application\ /S
-xcopy ..\Project\MSCS2010\asp_net_web_application\*.csproj MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\asp_net_web_application\
-xcopy ..\Project\MSCS2010\asp_net_web_application\*.aspx MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\asp_net_web_application\
-xcopy ..\Project\MSCS2010\asp_net_web_application\*.config MediaInfoDLL_Windows_i386\Developers\Project\MSCS2010\asp_net_web_application\
-xcopy ..\Project\MSJS\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSJS\
-xcopy ..\Project\MSJS\Example\*.jsl MediaInfoDLL_Windows_i386\Developers\Project\MSJS\Example\
-xcopy ..\Project\MSJS\Example\*.vjsproj MediaInfoDLL_Windows_i386\Developers\Project\MSJS\Example\
-xcopy ..\Project\MSJS\Example\*.res* MediaInfoDLL_Windows_i386\Developers\Project\MSJS\Example\
-xcopy ..\Project\MSVB\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSVB\
-xcopy ..\Project\MSVB\Example\*.vb MediaInfoDLL_Windows_i386\Developers\Project\MSVB\Example\
-xcopy ..\Project\MSVB\Example\*.vbproj MediaInfoDLL_Windows_i386\Developers\Project\MSVB\Example\
-xcopy ..\Project\MSVB\Example\*.res* MediaInfoDLL_Windows_i386\Developers\Project\MSVB\Example\
-xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_i386\Developers\Project\MSVB\Example\My Project\"
-xcopy "..\Project\MSVB\Example VB6\*.*" "MediaInfoDLL_Windows_i386\Developers\Project\MSVB\Example VB6\"
-xcopy ..\Project\MSVC2008\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSVC2008\
-xcopy ..\Project\MSVC2008\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_i386\Developers\Project\MSVC2008\Example\
-xcopy ..\Project\MSVC2010\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSVC2010\
-xcopy ..\Project\MSVC2010\Example\HowToUse_Dll.vcxproj MediaInfoDLL_Windows_i386\Developers\Project\MSVC2010\Example\
-xcopy ..\Project\MSVC2010\Example\HowToUse_Dll.vcxproj.filters MediaInfoDLL_Windows_i386\Developers\Project\MSVC2010\Example\
-xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Windows_i386\Developers\Project\GCC\Example\
-xcopy ..\Project\Java\Example.JNA\*.java MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
-xcopy ..\Project\Java\Example.JNA\*.txt MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
-xcopy ..\Project\Java\Example.JNA\*.bat MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
-xcopy ..\Project\Java\Example.JNA\*.sh MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
-xcopy ..\Project\Java\Example.JNative\*.java MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
-xcopy ..\Project\Java\Example.JNative\*.txt MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
-xcopy ..\Project\Java\Example.JNative\*.bat MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
-xcopy ..\Project\Java\Example.JNative\*.sh MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
-xcopy ..\Project\NetBeans\Example.JNA\*.xml MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\ /s
-xcopy ..\Project\NetBeans\Example.JNA\*.properties MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\ /s
-xcopy ..\Project\NetBeans\Example.JNA\*.mf MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\
-xcopy ..\Project\NetBeans\Example.JNA\*.txt MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\
-xcopy ..\Project\NetBeans\Example.JNA\src\*.java MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\src\
-xcopy ..\Project\NetBeans\Example.JNative\*.xml MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\ /s
-xcopy ..\Project\NetBeans\Example.JNative\*.properties MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\ /s
-xcopy ..\Project\NetBeans\Example.JNative\*.mf MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\
-xcopy ..\Project\NetBeans\Example.JNative\*.txt MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\
-xcopy ..\Project\NetBeans\Example.JNative\src\*.java MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\src\
+xcopy ..\Project\BCB\Example\*.bpf MediaInfoDLL_Windows_x64\Developers\Project\BCB\Example\
+xcopy ..\Project\BCB\Example\*.bpr MediaInfoDLL_Windows_x64\Developers\Project\BCB\Example\
+xcopy ..\Project\BCB\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\BCB\Example\
+xcopy ..\Project\BCB\Example\*.dfm MediaInfoDLL_Windows_x64\Developers\Project\BCB\Example\
+xcopy ..\Project\BCB\Example\*.h MediaInfoDLL_Windows_x64\Developers\Project\BCB\Example\
+xcopy ..\Project\BCB\Example\*.cpp MediaInfoDLL_Windows_x64\Developers\Project\BCB\Example\
+xcopy ..\Project\CodeBlocks\Example\*.cbp MediaInfoDLL_Windows_x64\Developers\Project\CodeBlocks\Example\
+xcopy ..\Project\Delphi\Example\*.dpr MediaInfoDLL_Windows_x64\Developers\Project\Delphi\Example\
+xcopy ..\Project\Delphi\Example\*.dfm MediaInfoDLL_Windows_x64\Developers\Project\Delphi\Example\
+xcopy ..\Project\Delphi\Example\*.res MediaInfoDLL_Windows_x64\Developers\Project\Delphi\Example\
+xcopy ..\Project\Delphi\Example\*.pas MediaInfoDLL_Windows_x64\Developers\Project\Delphi\Example\
+xcopy ..\Project\Delphi\Example\*.bdsproj MediaInfoDLL_Windows_x64\Developers\Project\Delphi\Example\
+xcopy ..\Project\Delphi\Example\*.bdsgroup MediaInfoDLL_Windows_x64\Developers\Project\Delphi\Example\
+xcopy ..\Project\DevCpp\Example\*.dev MediaInfoDLL_Windows_x64\Developers\Project\DevCpp\Example\
+xcopy ..\Project\MSCS2008\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\
+xcopy ..\Project\MSCS2008\Example\*.cs MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\Example\
+xcopy ..\Project\MSCS2008\Example\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\Example\
+xcopy ..\Project\MSCS2008\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\Example\
+xcopy ..\Project\MSCS2008\Example\*.ico MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\Example\
+xcopy ..\Project\MSCS2008\asp_net_web_application\*.cs MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\asp_net_web_application\ /S
+xcopy ..\Project\MSCS2008\asp_net_web_application\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\asp_net_web_application\
+xcopy ..\Project\MSCS2008\asp_net_web_application\*.aspx MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\asp_net_web_application\
+xcopy ..\Project\MSCS2008\asp_net_web_application\*.config MediaInfoDLL_Windows_x64\Developers\Project\MSCS2008\asp_net_web_application\
+xcopy ..\Project\MSCS2010\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\
+xcopy ..\Project\MSCS2010\Example\*.cs MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\Example\
+xcopy ..\Project\MSCS2010\Example\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\Example\
+xcopy ..\Project\MSCS2010\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\Example\
+xcopy ..\Project\MSCS2010\Example\*.ico MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\Example\
+xcopy ..\Project\MSCS2010\asp_net_web_application\*.cs MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\asp_net_web_application\ /S
+xcopy ..\Project\MSCS2010\asp_net_web_application\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\asp_net_web_application\
+xcopy ..\Project\MSCS2010\asp_net_web_application\*.aspx MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\asp_net_web_application\
+xcopy ..\Project\MSCS2010\asp_net_web_application\*.config MediaInfoDLL_Windows_x64\Developers\Project\MSCS2010\asp_net_web_application\
+xcopy ..\Project\MSJS\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSJS\
+xcopy ..\Project\MSJS\Example\*.jsl MediaInfoDLL_Windows_x64\Developers\Project\MSJS\Example\
+xcopy ..\Project\MSJS\Example\*.vjsproj MediaInfoDLL_Windows_x64\Developers\Project\MSJS\Example\
+xcopy ..\Project\MSJS\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSJS\Example\
+xcopy ..\Project\MSVB\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSVB\
+xcopy ..\Project\MSVB\Example\*.vb MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
+xcopy ..\Project\MSVB\Example\*.vbproj MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
+xcopy ..\Project\MSVB\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
+xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\My Project\"
+xcopy "..\Project\MSVB\Example VB6\*.*" "MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example VB6\"
+xcopy ..\Project\MSVC2008\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSVC2008\
+xcopy ..\Project\MSVC2008\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_x64\Developers\Project\MSVC2008\Example\
+xcopy ..\Project\MSVC2010\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSVC2010\
+xcopy ..\Project\MSVC2010\Example\HowToUse_Dll.vcxproj MediaInfoDLL_Windows_x64\Developers\Project\MSVC2010\Example\
+xcopy ..\Project\MSVC2010\Example\HowToUse_Dll.vcxproj.filters MediaInfoDLL_Windows_x64\Developers\Project\MSVC2010\Example\
+xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Windows_x64\Developers\Project\GCC\Example\
+xcopy ..\Project\Java\Example.JNA\*.java MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNA\*.txt MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNA\*.bat MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNA\*.sh MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNative\*.java MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\Java\Example.JNative\*.txt MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\Java\Example.JNative\*.bat MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\Java\Example.JNative\*.sh MediaInfoDLL_Windows_x64\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNA\*.xml MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNA\ /s
+xcopy ..\Project\NetBeans\Example.JNA\*.properties MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNA\ /s
+xcopy ..\Project\NetBeans\Example.JNA\*.mf MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNA\
+xcopy ..\Project\NetBeans\Example.JNA\*.txt MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNA\
+xcopy ..\Project\NetBeans\Example.JNA\src\*.java MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNA\src\
+xcopy ..\Project\NetBeans\Example.JNative\*.xml MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNative\ /s
+xcopy ..\Project\NetBeans\Example.JNative\*.properties MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNative\ /s
+xcopy ..\Project\NetBeans\Example.JNative\*.mf MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNative\*.txt MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNative\src\*.java MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example.JNative\src\
 
 rem --- Copying : Libs ---
 xcopy ..\Project\MSVC2010\Example\x64\Release\MediaInfo.lib MediaInfoDLL_Windows_x64\Developers\Project\MSVC2010\Example\x64\Release\
@@ -127,7 +127,6 @@ cd ..
 
 rem --- Installer ---
 ..\..\Shared\Binary\Windows_i386\NSIS\makensis ..\Source\Install\MediaInfo_DLL_Windows_x64.nsi
-
 
 rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp
