@@ -179,7 +179,7 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(_T("Trace_Level"), _T("Container1;1"));
     //MI->Option(_T("Language"), _T("raw"));
     //MI->Option(_T("demux"), _T("container"));
-    MI->Option(_T("file_demux_unpacketize"), _T("1"));
+    //MI->Option(_T("file_demux_unpacketize"), _T("1"));
     return MI->Open(FileName);
 }
 
