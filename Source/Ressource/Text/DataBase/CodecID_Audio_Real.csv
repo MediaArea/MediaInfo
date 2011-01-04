@@ -4,8 +4,8 @@
 28_8;G.728;;Real Player 2;http://www.real.com
 atrc;Atrac;;Real Player 8;http://www.real.com
 audio/X-MP3-draft-00;MPEG Audio;;;
-audio/x-ralf-mpeg4;RealAudio Lossless;;Real Audio Lossless Format, Real Player 10;http://www.real.com;;;;;Lossless
-audio/x-ralf-mpeg4-generic;RealAudio Lossless;;Real Audio Lossless Format, Real Player 10;http://www.real.com;;;;;Lossless
+audio/x-ralf-mpeg4;RealAudio Lossless;;Real Audio Lossless Format, Real Player 10;http://www.real.com;;;;;;Lossless
+audio/x-ralf-mpeg4-generic;RealAudio Lossless;;Real Audio Lossless Format, Real Player 10;http://www.real.com;;;;;;Lossless
 cook;Cooker;;Based on G.722.1, Real Player 6;http://www.real.com
 dnet;AC-3;;Real Player 3;http://www.real.com
 lpcJ;VSELP;;Real Player 1;http://www.real.com
