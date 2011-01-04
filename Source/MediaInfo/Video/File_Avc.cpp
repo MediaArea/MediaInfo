@@ -2581,7 +2581,11 @@ void File_Avc::hrd_parameters(xxl &ToTest)
     Get_S1 (5, initial_cpb_removal_delay_length_minus1,         "initial_cpb_removal_delay_length_minus1");
     Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");
     Get_S1 (5, dpb_output_delay_length_minus1,                  "dpb_output_delay_length_minus1");
-    Get_S1 (5, time_offset_length,                              "time_offset_length");    
+    Get_S1 (5, time_offset_length,                              "time_offset_length");
+
+    //Validity test
+    if (ToTest.SchedSel.size()==1 && ToTest.SchedSel[0].bit_rate_value==64)
+        ToTest.SchedSel.clear(); //We do not trust this kind of data
 }
 
 //---------------------------------------------------------------------------
