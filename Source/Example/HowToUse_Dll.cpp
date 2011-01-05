@@ -102,42 +102,55 @@ int main (int argc, Char *argv[])
         std::cout  << To_Display;
     #endif
 
-    return 1;
+    return 0;
 }
 
-//---------------------------------------------------------------------------
+//***************************************************************************
+// By buffer example
+//***************************************************************************
 /*
-//Note: you can replace ZenLib::File by your own file management class
-int ExampleWithBuffers (int argc, Char *argv[])
+//---------------------------------------------------------------------------
+//Note: you can replace file operations by your own buffer management class
+#include <stdio.h>
+int main (int argc, Char *argv[])
 {
-    //Initilaizing MediaInfo
-    MediaInfo MI;
 
     //From: preparing an example file for reading
-    ZenLib::File From; From.Open(FileName, ZenLib::File::Access_Read); //You can use something else than a file
+    FILE* F=fopen("Example.ogg", "rb"); //You can use something else than a file
+    if (F==0)
+        return 1;
 
     //From: preparing a memory buffer for reading
-    ZenLib::int8u* From_Buffer=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    unsigned char* From_Buffer=new unsigned char[7*188]; //Note: you can do your own buffer
     size_t From_Buffer_Size; //The size of the read file buffer
 
+    //From: retrieving file size
+    fseek(F, 0, SEEK_END);
+    long F_Size=ftell(F);
+    fseek(F, 0, SEEK_SET);
+
+    //Initializing MediaInfo
+    MediaInfo MI;
+
     //Preparing to fill MediaInfo with a buffer
-    MI.Open_Buffer_Init(From.Size_Get(), 0);
+    MI.Open_Buffer_Init(F_Size, 0);
 
     //The parsing loop
     do
     {
         //Reading data somewhere, do what you want for this.
-        From_Buffer_Size=From.Read(From_Buffer, 7*188);
+        From_Buffer_Size=fread(From_Buffer, 1, 7*188, F);
 
         //Sending the buffer to MediaInfo
-        if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0)
+        size_t Status=MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size);
+        if (Status&0x08) //Bit3=Finished
             break;
 
-        //Testing if MediaInfo request to go elsewhere
-        if (MI.Open_Buffer_Continue_GoTo_Get()!=(ZenLib::int64u)-1)
+        //Testing if there is a MediaInfo request to go elsewhere
+        if (MI.Open_Buffer_Continue_GoTo_Get()!=(MediaInfo_int64u)-1)
         {
-            From.GoTo(MI.Open_Buffer_Continue_GoTo_Get());              //Position the file
-            MI.Open_Buffer_Init(From.Size_Get(), From.Position_Get());  //Informaing MediaInfo we have seek
+            fseek(F, (long)MI.Open_Buffer_Continue_GoTo_Get(), SEEK_SET);   //Position the file
+            MI.Open_Buffer_Init(F_Size, ftell(F));                          //Informing MediaInfo we have seek
         }
     }
     while (From_Buffer_Size>0);
@@ -146,6 +159,12 @@ int ExampleWithBuffers (int argc, Char *argv[])
     MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
 
     //Get() example
-    MediaInfoNameSpace::String Text=MI.Get(Stream_General, 0, _T("Format"));
+    String To_Display=MI.Get(Stream_General, 0, _T("Format"));
+
+    #ifdef _UNICODE
+        std::wcout << To_Display;
+    #else
+        std::cout  << To_Display;
+    #endif
 }
 */
