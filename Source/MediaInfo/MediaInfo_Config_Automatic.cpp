@@ -1240,7 +1240,6 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "2vuy;YUV;;;;;;YUV;4:2:2\n"
-    "2Vuy;YUV;;;;;;YUV;4:2:2\n"
     "8BPS;RGB;;;;;;RGB;8:8:8\n"
     "ac16;YUV;;;;;;YUV;4:2:2\n"
     "ac32;YUV;;;;;;YUV;4:2:2\n"
@@ -2473,6 +2472,7 @@ void MediaInfo_Config_CodecID_Text_Mpeg4 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
+    "c708;EIA-708\n"
     "subp;VobSub;;The same subtitle format used on DVDs\n"
     "text;Apple text;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "sbtl;Apple text;(iPhone);;http://www.apple.com/quicktime/download/standalone.html\n"

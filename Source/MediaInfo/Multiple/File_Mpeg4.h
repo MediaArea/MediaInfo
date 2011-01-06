@@ -146,6 +146,7 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_tx3g_ftab();
     void moov_trak_mdia_minf_stbl_stsd_xxxx();
     void moov_trak_mdia_minf_stbl_stsd_xxxxSound();
+    void moov_trak_mdia_minf_stbl_stsd_xxxxText();
     void moov_trak_mdia_minf_stbl_stsd_xxxxVideo();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_avcC();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_alac();

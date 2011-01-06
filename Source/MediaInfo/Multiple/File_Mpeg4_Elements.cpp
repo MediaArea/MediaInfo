@@ -284,6 +284,7 @@ namespace Elements
     const int64u moov_trak_load=0x6C6F6164;
     const int64u moov_trak_mdia=0x6D646961;
     const int64u moov_trak_mdia_hdlr=0x68646C72;
+    const int64u moov_trak_mdia_hdlr_clcp=0x636C6370;
     const int64u moov_trak_mdia_hdlr_MPEG=0x4D504547;
     const int64u moov_trak_mdia_hdlr_sbtl=0x7362746C;
     const int64u moov_trak_mdia_hdlr_soun=0x736F756E;
@@ -2036,6 +2037,12 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
         if (!Title.empty()) Fill(StreamKind_Last, StreamPos_Last, "Title",    Title);
         switch (SubType)
         {
+            case Elements::moov_trak_mdia_hdlr_clcp :
+                if (StreamKind_Last!=Stream_Text)
+                {
+                    Stream_Prepare(Stream_Text);
+                }
+                break;
             case Elements::moov_trak_mdia_hdlr_soun :
                 if (StreamKind_Last!=Stream_Audio)
                 {
@@ -2954,8 +2961,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx()
 {
     switch (StreamKind_Last)
     {
-        case Stream_Audio : moov_trak_mdia_minf_stbl_stsd_xxxxSound(); break;
         case Stream_Video : moov_trak_mdia_minf_stbl_stsd_xxxxVideo(); break;
+        case Stream_Audio : moov_trak_mdia_minf_stbl_stsd_xxxxSound(); break;
+        case Stream_Text  : moov_trak_mdia_minf_stbl_stsd_xxxxText(); break;
         default : Skip_XX(Element_TotalSize_Get(),              "Unknown");
     }
 
@@ -3145,6 +3153,40 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).empty()) //if not mp4a, and not ms*
             Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, SampleSize, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate32);
+
+        //Sometimes, more Atoms in this atoms
+        if (Element_Offset+8<Element_Size)
+            Element_ThisIsAList();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
+{
+    Element_Name("Text");
+
+    int16u Version, Channels, SampleSize, ID, SampleRate;
+    Skip_B4(                                                    "Unknown");
+    Skip_B4(                                                    "Unknown");
+
+    FILLING_BEGIN();
+        Ztring CodecID; CodecID.From_CC4((int32u)Element_Code);
+        CodecID_Fill(CodecID, Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+
+        #if MEDIAINFO_DEMUX
+            if (Stream[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
+            {
+                Stream[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
+            }
+        #endif //MEDIAINFO_DEMUX
+        if (Stream[moov_trak_tkhd_TrackID].Parser)
+        {
+            int64u Elemen_Code_Save=Element_Code;
+            Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
+            Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+            Element_Code=Elemen_Code_Save;
+            mdat_MustParse=true; //Data is in MDAT
+        }
 
         //Sometimes, more Atoms in this atoms
         if (Element_Offset+8<Element_Size)
