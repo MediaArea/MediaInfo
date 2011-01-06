@@ -127,7 +127,7 @@ void File_Als::FileHeader_Parse()
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "ALS");
         Fill(Stream_Audio, 0, Audio_Codec, "ALS");
-        Fill(Stream_Audio, 0, Audio_Resolution, (BitsPerSample+1)*8);
+        Fill(Stream_Audio, 0, Audio_BitDepth, (BitsPerSample+1)*8);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels+1);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);

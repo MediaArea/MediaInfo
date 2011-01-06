@@ -354,7 +354,7 @@ void File_Wm::Header_StreamProperties_Audio ()
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate);
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BytesPerSec*8);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Resolution);
+    Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, Resolution);
 
     FILLING_BEGIN();
         //Creating the parser
@@ -447,7 +447,7 @@ void File_Wm::Header_StreamProperties_Video ()
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     if (Resolution>0)
-        Fill(Stream_Video, StreamPos_Last, Video_Resolution, (Resolution%3)?Resolution:(Resolution/3)); //If not a multiple of 3, the total resolution is filled
+        Fill(Stream_Video, StreamPos_Last, Video_BitDepth, (Resolution%3)?Resolution:(Resolution/3)); //If not a multiple of 3, the total resolution is filled
     if (Compression==CC4("DVR "))
         IsDvrMs=true;
 

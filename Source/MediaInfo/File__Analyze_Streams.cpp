@@ -50,7 +50,7 @@ extern MediaInfo_Config Config;
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
+size_t File__Analyze::Stream_Prepare (stream_t KindOfStream, size_t StreamPos)
 {
     //Integrity
     if (!Status[IsAccepted] || KindOfStream>Stream_Max)
@@ -64,21 +64,31 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
         return 0;
     }
 
-    //Add a stream
-    (*Stream)[KindOfStream].resize((*Stream)[KindOfStream].size()+1);
-    (*Stream_More)[KindOfStream].resize((*Stream_More)[KindOfStream].size()+1);
-
-    StreamKind_Last=KindOfStream;
-    StreamPos_Last=(*Stream)[KindOfStream].size()-1;
+    if (StreamPos>=Count_Get(KindOfStream))
+    {
+        //Add a stream
+        (*Stream)[KindOfStream].resize((*Stream)[KindOfStream].size()+1);
+        (*Stream_More)[KindOfStream].resize((*Stream_More)[KindOfStream].size()+1);
+        StreamKind_Last=KindOfStream;
+        StreamPos_Last=(*Stream)[KindOfStream].size()-1;
+    }
+    else
+    {
+        //Insert a stream
+        (*Stream)[KindOfStream].insert((*Stream)[KindOfStream].begin()+StreamPos, ZtringList());
+        (*Stream_More)[KindOfStream].insert((*Stream_More)[KindOfStream].begin()+StreamPos, ZtringListList());
+        StreamKind_Last=KindOfStream;
+        StreamPos_Last=StreamPos;
+    }
 
     //Filling basic info
     Fill(StreamKind_Last, StreamPos_Last, (size_t)General_Count, Count_Get(StreamKind_Last, StreamPos_Last));
     Fill(StreamKind_Last, StreamPos_Last, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind_Last).Read(General_StreamKind, Info_Text));
     Fill(StreamKind_Last, StreamPos_Last, General_StreamKind_String, MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind_Last).Read(General_StreamKind, Info_Text)), true);
-    Fill(StreamKind_Last, StreamPos_Last, General_StreamKindID, StreamPos_Last);
-    for (size_t Pos=0; Pos<=StreamPos_Last; Pos++)
+    for (size_t Pos=0; Pos<Count_Get(KindOfStream); Pos++)
     {
         Fill(StreamKind_Last, Pos, General_StreamCount, Count_Get(StreamKind_Last), 10, true);
+        Fill(StreamKind_Last, Pos, General_StreamKindID, Pos, 10, true);
         if (Count_Get(StreamKind_Last)>1)
             Fill(StreamKind_Last, Pos, General_StreamKindPos, Pos+1, 10, true);
     }
@@ -89,18 +99,34 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
         const Ztring& StreamKind_Text=Get(KindOfStream, 0, General_StreamKind, Info_Text);
         if (Count_Get(KindOfStream)>1)
         {
-            Ztring Temp;
-            Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str())+_T(" / ");
-            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str(), Temp, true);
-            Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str())+_T(" / ");
-            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str(), Temp, true);
-            Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str())+_T(" / ");
-            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str(), Temp, true);
-            Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str())+_T(" / ");
-            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str(), Temp, true);
+            ZtringList Temp; Temp.Separator_Set(0, _T(" / "));
+            Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str()));
+            if (StreamPos<Temp.size())
+                Temp.insert(Temp.begin()+StreamPos, Ztring());
+            else
+                Temp.push_back(Ztring());
+            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str(), Temp.Read(), true);
+            Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str()));
+            if (StreamPos<Temp.size())
+                Temp.insert(Temp.begin()+StreamPos, Ztring());
+            else
+                Temp.push_back(Ztring());
+            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str(), Temp.Read(), true);
+            Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str()));
+            if (StreamPos<Temp.size())
+                Temp.insert(Temp.begin()+StreamPos, Ztring());
+            else
+                Temp.push_back(Ztring());
+            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str(), Temp.Read(), true);
+            Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str()));
+            if (StreamPos<Temp.size())
+                Temp.insert(Temp.begin()+StreamPos, Ztring());
+            else
+                Temp.push_back(Ztring());
+            Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str(), Temp.Read(), true);
         }
 
-        Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("Count")).To_Local().c_str(), StreamPos_Last+1, 10, true);
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("Count")).To_Local().c_str(), Count_Get(KindOfStream), 10, true);
     }
 
     //File name and dates
@@ -146,6 +172,31 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 
     return (*Stream)[KindOfStream].size()-1; //The position in the stream count
 }
+
+size_t File__Analyze::Stream_Erase (stream_t KindOfStream, size_t StreamPos)
+{
+    //Integrity
+    if (!Status[IsAccepted] || KindOfStream>Stream_Max || StreamPos>=Count_Get(KindOfStream))
+        return Error;
+
+    //Insert a stream
+    (*Stream)[KindOfStream].erase((*Stream)[KindOfStream].begin()+StreamPos);
+    (*Stream_More)[KindOfStream].erase((*Stream_More)[KindOfStream].begin()+StreamPos);
+    StreamKind_Last=Stream_Max;
+    StreamPos_Last=(size_t)-1;
+
+    //Filling basic info
+    for (size_t Pos=0; Pos<Count_Get(KindOfStream); Pos++)
+    {
+        Fill(StreamKind_Last, Pos, General_StreamCount, Count_Get(StreamKind_Last), 10, true);
+        Fill(StreamKind_Last, Pos, General_StreamKindID, Pos, 10, true);
+        if (Count_Get(StreamKind_Last)>1)
+            Fill(StreamKind_Last, Pos, General_StreamKindPos, Pos+1, 10, true);
+    }
+
+    return (*Stream)[KindOfStream].size()-1; //The position in the stream count
+}
+
 
 //***************************************************************************
 // Filling
@@ -198,8 +249,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     Status[IsUpdated]=true;
 
     //Deprecated
-    if (Parameter==Fill_Parameter(StreamKind, Generic_Resolution))
-        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth), Value, Replace);
+    if (Parameter==Fill_Parameter(StreamKind, Generic_BitDepth))
+        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Resolution), Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_BitDepth)), true);
     if (StreamKind==Stream_Video && Parameter==Video_Colorimetry)
         Fill(Stream_Video, StreamPos, Video_ChromaSubsampling, Value, Replace);
 
@@ -1155,7 +1206,7 @@ size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, bool)
 size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool)
 {
     size_t Pos_Count=ToAdd.Count_Get(StreamKind, StreamPos_From);
-    for (size_t Pos=0; Pos<Pos_Count; Pos++)
+    for (size_t Pos=General_Inform; Pos<Pos_Count; Pos++)
         if (!ToAdd.Get(StreamKind, StreamPos_From, Pos).empty())
             Fill(StreamKind, StreamPos_To, Ztring(ToAdd.Get((stream_t)StreamKind, StreamPos_From, Pos, Info_Name)).To_UTF8().c_str(), ToAdd.Get(StreamKind, StreamPos_From, Pos), true);
 
@@ -1858,7 +1909,7 @@ void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_
 
     //Specific cases
     if (Value==_T("v210") || Value==_T("V210"))
-        Fill(Stream_Video, StreamPos, Video_Resolution, 10);
+        Fill(Stream_Video, StreamPos, Video_BitDepth, 10);
 }
 
 //---------------------------------------------------------------------------

@@ -210,7 +210,7 @@ void File_Mk::Streams_Finish()
              && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
               || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
               || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
-                Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
+                Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
             //Video specific
             if (StreamKind_Last==Stream_Video)
@@ -2005,7 +2005,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_BitDepth()
     int64u UInteger=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Resolution", UInteger, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, "BitDepth", UInteger, 10, true);
     FILLING_END();
 }
 
@@ -2186,7 +2186,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8, 10, true);
         if (BitsPerSample)
-            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, BitsPerSample);
 
         CodecID_Manage();
         if (TrackNumber!=(int64u)-1)
@@ -2301,28 +2301,28 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
             Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
             Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
             if (Resolution==32 && Compression==0x74736363) //tscc
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", 8);
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
             else if (Compression==0x44495633) //DIV3
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", 8);
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
             else if (Compression==0x44585342) //DXSB
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution);
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution);
             else if (Resolution>16 && MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(_T("RGBA"))!=std::string::npos) //RGB codecs
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/4);
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/4);
             else if (Compression==0x00000000 //RGB
                   || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(_T("RGB"))!=std::string::npos) //RGB codecs
             {
                 if (Resolution==32)
                 {
                     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "RGBA", Unlimited, true, true);
-                    Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/4); //With Alpha
+                    Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/4); //With Alpha
                 }
                 else
-                    Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution<=16?8:(Resolution/3)); //indexed or normal
+                    Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution<=16?8:(Resolution/3)); //indexed or normal
             }
             else if (Compression==0x56503632 //VP62
                   || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("H.263") //H.263
                   || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("VC-1")) //VC-1
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/3);
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/3);
         }
 
         //Creating the parser

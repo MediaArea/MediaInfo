@@ -1181,7 +1181,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
         {
             int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
             int64u SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_int64u();
-            int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
+            int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).To_int64u();
             if (Channels && SamplingRate && Resolution)
                Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, Channels*SamplingRate*Resolution);
         }
@@ -3070,7 +3070,7 @@ void File_Mxf::CDCIEssenceDescriptor_ComponentDepth()
 
     FILLING_BEGIN();
         if (Data)
-            Descriptors[InstanceUID].Infos["Resolution"].From_Number(Data);
+            Descriptors[InstanceUID].Infos["BitDepth"].From_Number(Data);
     FILLING_END();
 }
 
@@ -3730,7 +3730,7 @@ void File_Mxf::GenericSoundEssenceDescriptor_QuantizationBits()
 
     FILLING_BEGIN();
         if (Data)
-            Descriptors[InstanceUID].Infos["Resolution"].From_Number(Data);
+            Descriptors[InstanceUID].Infos["BitDepth"].From_Number(Data);
     FILLING_END();
 
 }

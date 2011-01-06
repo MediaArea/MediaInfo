@@ -61,7 +61,7 @@ void File_Ico::Streams_Fill()
         Fill(Stream_Image, StreamPos_Last, Image_Width, Streams[Pos].Width?Streams[Pos].Width:256);
         Fill(Stream_Image, StreamPos_Last, Image_Height, Streams[Pos].Height?Streams[Pos].Height:256);
         if (Type==1)
-            Fill(Stream_Image, StreamPos_Last, Image_Resolution,Streams[Pos].BitsPerPixel);
+            Fill(Stream_Image, StreamPos_Last, Image_BitDepth, Streams[Pos].BitsPerPixel);
         Fill(Stream_Image, StreamPos_Last, Image_StreamSize, Streams[Pos].Size);
     }
 }

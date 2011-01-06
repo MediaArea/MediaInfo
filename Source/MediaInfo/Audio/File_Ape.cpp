@@ -201,7 +201,7 @@ void File_Ape::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Format, "Monkey's Audio");
         Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Ape_Codec_Settings(CompressionLevel));
         Fill(Stream_Audio, 0, Audio_Codec, "APE");
-        Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
+        Fill(Stream_Audio, 0, Audio_BitDepth, Resolution);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);

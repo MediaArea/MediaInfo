@@ -129,7 +129,7 @@ void File_Amr::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Codec, "sawb", Unlimited, true, true);
         if (Codec.empty()) //If there is a container, trusting the container sampling rate
             Fill(Stream_Audio, 0, Audio_SamplingRate, 16000);
-        Fill(Stream_Audio, 0, Audio_Resolution, 14);
+        Fill(Stream_Audio, 0, Audio_BitDepth, 14);
         //Fill(Stream_Audio, 0, Audio_InternetMediaType, "audio/AMR-WB", Unlimited, true, true);
     }
     else
@@ -138,7 +138,7 @@ void File_Amr::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Codec, "samr", Unlimited, true, true);
         if (Codec.empty()) //If there is a container, trusting the container sampling rate
             Fill(Stream_Audio, 0, Audio_SamplingRate, 8000);
-        Fill(Stream_Audio, 0, Audio_Resolution, 13);
+        Fill(Stream_Audio, 0, Audio_BitDepth, 13);
         if (FrameType!=(int8u)-1 && Amr_BitRate[FrameType] && FrameTypes.size()==1)
         {
             Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");

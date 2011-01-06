@@ -396,7 +396,7 @@ void File_Mpeg4v::Streams_Fill()
         Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value, 3, true);
     }
     Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
-    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel);
+    Fill(Stream_Video, 0, Video_BitDepth, bits_per_pixel);
     if (chroma_format<4)
         Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
     if (low_delay)

@@ -589,9 +589,9 @@ void File_Ac3::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_Channel_s_, AC3_MLP_Channels[HD_Channels1]);
             if (HD_Channels1!=HD_Channels2)
                 Fill(Stream_Audio, 0, Audio_Channel_s_, AC3_MLP_Channels[HD_Channels1]);
-            Fill(Stream_Audio, 0, Audio_Resolution, AC3_MLP_Resolution[HD_Resolution2]);
+            Fill(Stream_Audio, 0, Audio_BitDepth, AC3_MLP_Resolution[HD_Resolution2]);
             if (HD_Resolution1!=HD_Resolution2)
-                Fill(Stream_Audio, 0, Audio_Resolution, AC3_MLP_Resolution[HD_Resolution1]);
+                Fill(Stream_Audio, 0, Audio_BitDepth, AC3_MLP_Resolution[HD_Resolution1]);
         }
     }
 
@@ -609,7 +609,7 @@ void File_Ac3::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_Codec, "AC3");
         }
         Fill(Stream_Audio, 0, Audio_Format, "AC-3");
-        Fill(Stream_Audio, 0, Audio_Resolution, 16);
+        Fill(Stream_Audio, 0, Audio_BitDepth, 16);
 
         if (Ztring::ToZtring(AC3_SamplingRate[fscod])!=Retrieve(Stream_Audio, 0, Audio_SamplingRate))
             Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);

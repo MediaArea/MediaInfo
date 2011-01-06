@@ -483,7 +483,7 @@ void File_Jpeg::SOF_()
         if (StreamKind==Stream_Video)
             Fill(Stream_Video, 0, Video_InternetMediaType, "video/JPEG", Unlimited, true, true);
         Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
-        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Resolution), Resolution);
+        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_BitDepth), Resolution);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
 

@@ -122,7 +122,7 @@ void File_Tta::FileHeader_Parse()
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "TTA");
         Fill(Stream_Audio, 0, Audio_Codec, "TTA ");
-        Fill(Stream_Audio, 0, Audio_Resolution, BitsPerSample);
+        Fill(Stream_Audio, 0, Audio_BitDepth, BitsPerSample);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);

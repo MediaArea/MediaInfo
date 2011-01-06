@@ -1178,7 +1178,7 @@ Ztring Mpeg7_Transform_Audio(Ztring &ToReturn, MediaInfo_Internal &MI, size_t St
     ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:AudioChannels>"); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_Channel_s_); ToReturn+=_T("</mpeg7:AudioChannels>\n");
 
     //Sample
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Sample rate=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_SamplingRate); ToReturn+=_T("\""); if (!MI.Get(Stream_Audio, StreamPos, Audio_Resolution).empty()) {ToReturn+=_T(" bitsPer=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_Resolution); ToReturn+=_T("\"");} ToReturn+=_T("/>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Sample rate=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_SamplingRate); ToReturn+=_T("\""); if (!MI.Get(Stream_Audio, StreamPos, Audio_BitDepth).empty()) {ToReturn+=_T(" bitsPer=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_BitDepth); ToReturn+=_T("\"");} ToReturn+=_T("/>\n");
 
     //Emphasis
     if (MI.Get(Stream_Audio, StreamPos, Audio_Format)==_T("MPEG Audio"))

@@ -551,14 +551,14 @@ void File_Id3v2::Data_Parse()
     int64u Save_File_Offset=File_Offset;
     size_t Save_Buffer_Offset=Buffer_Offset;
     int64u Save_Element_Size=Element_Size;
-    size_t Element_Offset_Unsynch=Element_Offset;
+    int64u Element_Offset_Unsynch=Element_Offset;
     std::vector<size_t> Unsynch_List;
     if (Unsynchronisation_Global || Unsynchronisation_Frame)
     {
         while (Element_Offset_Unsynch+2<Element_Size)
         {
             if (CC2(Buffer+Buffer_Offset+(size_t)Element_Offset_Unsynch)==0xFF00)
-                Unsynch_List.push_back(Element_Offset_Unsynch+1);
+                Unsynch_List.push_back((size_t)(Element_Offset_Unsynch+1));
             Element_Offset_Unsynch++;
         }
         if (DataLength!=(int32u)-1 && 4+DataLength!=Element_Size-Unsynch_List.size())

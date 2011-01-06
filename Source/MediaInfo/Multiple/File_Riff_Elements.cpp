@@ -638,7 +638,7 @@ void File_Riff::AIFF_COMM()
 
     //Filling
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, numChannels);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, sampleSize);
+    Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, sampleSize);
     if (sampleRate)
         Fill(Stream_Audio, StreamPos_Last, Audio_Duration, numSampleFrames/sampleRate*1000);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, sampleRate, 0);
@@ -1109,7 +1109,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec);
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
     if (BitsPerSample)
-        if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
+        if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, BitsPerSample);
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
     if (SamplesPerSec && TimeReference!=(int64u)-1)
     {
@@ -1297,7 +1297,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis()
         //Finalizing
         Finish(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
-        Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for Vorbis
+        Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for Vorbis
         Element_Show();
     #else //MEDIAINFO_MPEG4_YES
         Skip_XX(Element_Size-Element_Offset,                    "(Vorbis headers)");
@@ -1563,28 +1563,28 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         Fill(StreamKind_Last, StreamPos_Last, "Width", Width, 10, true);
         Fill(StreamKind_Last, StreamPos_Last, "Height", Height, 10, true);
         if (Resolution==32 && Compression==0x74736363) //tscc
-            Fill(StreamKind_Last, StreamPos_Last, "Resolution", 8);
+            Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
         else if (Compression==0x44495633) //DIV3
-            Fill(StreamKind_Last, StreamPos_Last, "Resolution", 8);
+            Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
         else if (Compression==0x44585342) //DXSB
-            Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution);
+            Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution);
         else if (MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(_T("RGBA"))!=std::string::npos) //RGB codecs
-            Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/4);
+            Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/4);
         else if (Compression==0x00000000 //RGB
               || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(_T("RGB"))!=std::string::npos) //RGB codecs
         {
             if (Resolution==32)
             {
                 Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "RGBA", Unlimited, true, true);
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/4); //With Alpha
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/4); //With Alpha
             }
             else
-                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution<=16?8:(Resolution/3)); //indexed or normal
+                Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution<=16?8:(Resolution/3)); //indexed or normal
         }
         else if (Compression==0x56503632 //VP62
               || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("H.263") //H.263
               || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("VC-1")) //VC-1
-            Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/3);
+            Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/3);
     }
     else
     {
@@ -2616,7 +2616,7 @@ void File_Riff::QLCM_fmt_()
         }
         Fill(Stream_Audio, 0, Audio_BitRate, average_bps);
         Fill(Stream_Audio, 0, Audio_SamplingRate, sampling_rate);
-        Fill(Stream_Audio, 0, Audio_Resolution, sample_size);
+        Fill(Stream_Audio, 0, Audio_BitDepth, sample_size);
         Fill(Stream_Audio, 0, Audio_Channel_s_, 1);
     FILLING_END();
 }

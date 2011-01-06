@@ -1982,7 +1982,7 @@ void File__Analyze::ForceFinish (const char* ParserName_Char)
     Status[IsFinished]=true;
 
     //Real stream size
-    if (Config_ParseSpeed==1 && IsRawStream)
+    if (Config_ParseSpeed==1 && IsRawStream && Buffer_TotalBytes)
     {
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Buffer_TotalBytes, 10, true);
     }

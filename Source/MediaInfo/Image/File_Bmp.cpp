@@ -163,7 +163,7 @@ void File_Bmp::BitmapInfoHeader()
     FILLING_BEGIN();
         Fill(Stream_Image, 0, Image_Width, Width);
         Fill(Stream_Image, 0, Image_Height, Height);
-        Fill(Stream_Image, 0, Image_Resolution, BitsPerPixel);
+        Fill(Stream_Image, 0, Image_BitDepth, BitsPerPixel);
         Fill(Stream_Image, 0, Image_Format, Bmp_CompressionMethod(CompressionMethod));
         Fill(Stream_Image, 0, Image_Codec, Bmp_CompressionMethod(CompressionMethod));
     FILLING_END();

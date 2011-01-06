@@ -672,9 +672,9 @@ void File_Dvdv::Audio()
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, IFO_SamplingRate[SamplingRate]);
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels+1);
             if (Codec==3)
-                Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, IFO_ResolutionA[Resolution]);
+                Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, IFO_ResolutionA[Resolution]);
             else if (Codec==4 && Mode)
-                Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, "DRC");
+                Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, "DRC");
             Fill(Stream_Audio, StreamPos_Last, Audio_Language, Language);
             if (Language_Extension<8)
                 Fill(Stream_Audio, StreamPos_Last, Audio_Language_More, IFO_Language_MoreA[Language_Extension]);
@@ -715,7 +715,7 @@ void File_Dvdv::Text()
         {
             Stream_Prepare(Stream_Text);
             Fill(Stream_Text, StreamPos_Last, Text_Format, IFO_Format_T[Codec]);
-            Fill(Stream_Text, StreamPos_Last, Text_Resolution, IFO_Resolution_T[Codec]);
+            Fill(Stream_Text, StreamPos_Last, Text_BitDepth, IFO_Resolution_T[Codec]);
             Fill(Stream_Text, StreamPos_Last, Text_Codec, IFO_CodecT[Codec]);
             Fill(Stream_Text, StreamPos_Last, Text_Language, Language);
 

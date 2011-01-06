@@ -418,7 +418,7 @@ void File_Dts::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(HD_SpeakerActivityMask).c_str());
         }
         if(HD_BitResolution!=(int8u)-1)
-            Fill(Stream_Audio, 0, Audio_Resolution, HD_BitResolution);
+            Fill(Stream_Audio, 0, Audio_BitDepth, HD_BitResolution);
         if(HD_MaximumSampleRate!=(int8u)-1)
             Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]);
         else if (sample_frequency_X96k!=(int8u)-1)
@@ -476,8 +476,8 @@ void File_Dts::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
         if (ChannelPositions2!=Retrieve(Stream_Audio, 0, Audio_ChannelPositions_String2))
             Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
-        if (DTS_Resolution[bits_per_sample]!=Retrieve(Stream_Audio, 0, Audio_Resolution).To_int8u())
-            Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
+        if (DTS_Resolution[bits_per_sample]!=Retrieve(Stream_Audio, 0, Audio_BitDepth).To_int8u())
+            Fill(Stream_Audio, 0, Audio_BitDepth, DTS_Resolution[bits_per_sample]);
     }
 }
 

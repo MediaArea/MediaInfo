@@ -191,7 +191,7 @@ void File_Flac::STREAMINFO()
             Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
-        Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
+        Fill(Stream_Audio, 0, Audio_BitDepth, BitPerSample+1);
         if (!IsSub)
             Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
 

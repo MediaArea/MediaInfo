@@ -703,8 +703,9 @@ public :
     // Stream filling
     //***************************************************************************
 
-    //Before filling the stream, the stream must be prepared
-    size_t Stream_Prepare   (stream_t KindOfStream);
+    //Elements - Preparation of element from external app
+    size_t Stream_Prepare   (stream_t KindOfStream, size_t StreamPos=(size_t)-1);
+    size_t Stream_Erase     (stream_t KindOfStream, size_t StreamPos);
 
     //Fill with datas (with parameter as a size_t)
     void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring  &Value, bool Replace=false);

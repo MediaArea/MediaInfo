@@ -559,7 +559,7 @@ void File_Avc::Streams_Fill()
     }
     Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
     if (bit_depth_luma_minus8==bit_depth_chroma_minus8)
-        Fill(Stream_Video, 0, Video_Resolution, bit_depth_luma_minus8+8);
+        Fill(Stream_Video, 0, Video_BitDepth, bit_depth_luma_minus8+8);
 
     //Colour description
     Fill(Stream_Video, 0, "colour_primaries", Avc_colour_primaries(colour_primaries));

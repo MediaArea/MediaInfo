@@ -749,11 +749,11 @@ void File_Gxf::map()
                         {
                             case  9 :
                             case 18 :   //24-bit
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Resolution, 24);
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitDepth, 24);
                                         break;
                             case 10 :
                             case 17 :   //16-bit
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Resolution, 16);
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitDepth, 16);
                                         break;
                             default : ;
                         }

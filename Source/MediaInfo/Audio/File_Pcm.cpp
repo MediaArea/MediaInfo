@@ -235,7 +235,7 @@ void File_Pcm::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
     }
     if (!Resolution.empty())
-        Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
+        Fill(Stream_Audio, 0, Audio_BitDepth, Resolution);
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
 }
 
@@ -372,7 +372,7 @@ void File_Pcm::M2TS()
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
             Fill(Stream_Audio, 0, Audio_MuxingMode, "Blu-ray");
             Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_Frequency[Frequency]);
-            Fill(Stream_Audio, 0, Audio_Resolution, Pcm_M2TS_Resolution[Resolution]);
+            Fill(Stream_Audio, 0, Audio_BitDepth, Pcm_M2TS_Resolution[Resolution]);
             Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannels);
             Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannels));
             Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannels));

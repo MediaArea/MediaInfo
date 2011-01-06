@@ -736,7 +736,7 @@ bool File_Lxf::Audio_Stream(size_t Pos)
         Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "PCM");
         Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 48000);
         Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1);
-        Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize);
+        Audios[Pos].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, SampleSize);
         Audios[Pos].Parser->Fill();
     }
 

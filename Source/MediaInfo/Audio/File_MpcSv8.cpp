@@ -236,7 +236,7 @@ void File_MpcSv8::SH()
             Fill(Stream_Audio, 0, Audio_Duration, SampleCount*1000/Mpc_SampleFreq[SampleFrequency]);
             Fill(Stream_Audio, 0, Audio_BitRate, File_Size*8*Mpc_SampleFreq[SampleFrequency]/SampleCount); //Should be more precise...
         }
-        Fill(Stream_Audio, 0, Audio_Resolution, 16); //MPC support only 16 bits
+        Fill(Stream_Audio, 0, Audio_BitDepth, 16); //MPC support only 16 bits
     FILLING_END();
 }
 

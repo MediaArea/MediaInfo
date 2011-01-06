@@ -221,7 +221,7 @@ void File_Aes3::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Channel_s_, 2+2*number_channels);
         Fill(Stream_Audio, 0, Audio_ChannelPositions, Aes3_ChannelsPositions(number_channels));
         Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Aes3_ChannelsPositions2(number_channels));
-        Fill(Stream_Audio, 0, Audio_Resolution, 16+4*bits_per_sample);
+        Fill(Stream_Audio, 0, Audio_BitDepth, 16+4*bits_per_sample);
         if (PTS!=(int32u)-1 && Frame_Last_PTS!=(int32u)-1 && PTS!=Frame_Last_PTS)
         {
             Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
@@ -634,7 +634,7 @@ void File_Aes3::Frame()
             Skip_S1( 3,                                         "data_stream_number");
             Skip_S1( 5,                                         "data_type_dependent");
             Skip_SB(                                            "error_flag");
-            Skip_S1( 2,                                         "data_mode");
+            Info_S1( 2, data_mode,                              "data_mode"); Param_Info(16+4*data_mode, " bits");
             Get_S1 ( 5, data_type,                              "data_type"); Param_Info(Aes3_NonPCM_data_type[data_type]);
             if (Stream_Bits>16)
                 Skip_S1( 4,                                     "reserved");
@@ -747,6 +747,22 @@ void File_Aes3::Frame_WithPadding()
             Info[Info_Offset+5]=  Buffer[Buffer_Pos+5];
             Info_Offset+=6;
             Element_Offset+=8;
+        }
+    }
+
+    if (Container_Bits==24 && Stream_Bits==20 && !Endianess) //BE
+    {
+        while (Element_Offset+6<=Element_Size)
+        {
+            size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+            Info[Info_Offset+0]=  Buffer[Buffer_Pos+0];
+            Info[Info_Offset+1]=  Buffer[Buffer_Pos+1];
+            Info[Info_Offset+2]=((Buffer[Buffer_Pos+2]&0xF0)   ) | ((Buffer[Buffer_Pos+3]&0xF0)>>4);
+            Info[Info_Offset+3]=((Buffer[Buffer_Pos+3]&0x0F)<<4) | ((Buffer[Buffer_Pos+4]&0xF0)>>4);
+            Info[Info_Offset+4]=((Buffer[Buffer_Pos+4]&0x0F)<<4) | ((Buffer[Buffer_Pos+5]&0xF0)>>4);
+            Info_Offset+=5;
+            Element_Offset+=6;
         }
     }
 

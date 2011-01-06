@@ -217,7 +217,7 @@ void File_Png::IHDR()
             default: Resolution=0;
         }
         if (Resolution)
-            Fill(Stream_Image, 0, Image_Resolution, Resolution);
+            Fill(Stream_Image, 0, Image_BitDepth, Resolution);
         switch (Compression_method)
         {
             case 0 :

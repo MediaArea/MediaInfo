@@ -557,7 +557,7 @@ void File_Rm::MDPR_realaudio()
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(FourCC5));
     }
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Samplerate);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Samplesize);
+    Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, Samplesize);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     if (BytesPerMinute)
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BytesPerMinute*8/60, 10, true);

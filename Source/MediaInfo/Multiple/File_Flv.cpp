@@ -494,7 +494,7 @@ void File_Flv::Streams_Fill()
         if (Retrieve(Stream_Audio, 0, Audio_Format)==_T("AAC")
          || Retrieve(Stream_Audio, 0, Audio_Format)==_T("MPEG Audio")
          || Retrieve(Stream_Audio, 0, Audio_Format)==_T("Vorbis"))
-            Clear(Stream_Audio, 0, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
+            Clear(Stream_Audio, 0, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
     }
 
     //Delay
@@ -1101,7 +1101,7 @@ void File_Flv::audio()
                 Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Channel_s_, Flv_Channels[is_stereo], 10, true);
             if (codec!=2 && codec!=10 && codec!=14) //MPEG Audio and AAC are not fixed bit depth
-                Fill(Stream_Audio, 0, Audio_Resolution, Flv_Resolution[is_16bit], 10, true);
+                Fill(Stream_Audio, 0, Audio_BitDepth, Flv_Resolution[is_16bit], 10, true);
             if (sampling_rate<4)
                 Fill(Stream_Audio, 0, Audio_SamplingRate, Flv_SamplingRate[sampling_rate], 10, true);
             Fill(Stream_Audio, 0, Audio_Format, Flv_Format_Audio[codec]);
@@ -1271,7 +1271,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="keyframes_times") {}
                 else if (StringData=="keyframes_filepositions") {}
                 else if (StringData=="audiosamplerate") {ToFill="SamplingRate"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
-                else if (StringData=="audiosamplesize") {ToFill="Resolution"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
+                else if (StringData=="audiosamplesize") {ToFill="BitDepth"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
                 else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="bytelength") {if (File_Size!=Value) MetaData_NotTrustable=true;}

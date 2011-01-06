@@ -53,6 +53,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if defined(MEDIAINFO_AES3_YES)
+    #include "MediaInfo/Audio/File_ChannelGrouping.h"
+#endif
 #if defined(MEDIAINFO_AMR_YES)
     #include "MediaInfo/Audio/File_Amr.h"
 #endif
@@ -1027,7 +1030,7 @@ void File_Mpeg4::mdat()
                     if (Temp->second.stsz_Sample_Size==0)
                     {
                         //Each sample has its own size
-                        size_t Chunk_Offset=0;
+                        int64u Chunk_Offset=0;
                         for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
                         {
                             mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
@@ -1044,69 +1047,22 @@ void File_Mpeg4::mdat()
                     {
                         //Same size per sample, but granularity is too small
                         mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
-                        mdat_Pos[Temp->second.stco[stco_Pos]].Size=Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size;
+                        mdat_Pos[Temp->second.stco[stco_Pos]].Size=Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
                     }
                     else
                     {
                         //Same size per sample
-                        size_t Chunk_Offset=0;
+                        int64u Chunk_Offset=0;
                         for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
                         {
                             mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
-                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size;
-                            Chunk_Offset+=Temp->second.stsz_Sample_Size;
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+                            Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
                         }
                     }
 
                     Chunk_Number++;
                 }
-
-                /*
-                //Adding it
-                size_t SamplesPerChunk_Pos=0;
-                int32u SamplesPerChunk=0;
-                size_t Chunk=0;
-                size_t stsc_Pos=0; //Sample to Chunk
-                int64u Position=(int64u)-1;
-                size_t stsz_Sample_Size;
-                if (Temp->second.stsz_Sample_Size)
-                    stsz_Sample_Size=(size_t)Temp->second.stsz_Sample_Size; //If stsz is not filled, this is a fixed sample size //TODO: handle 64-bit values on 32-bit OS
-                else
-                    stsz_Sample_Size=Temp->second.stsz.size();
-                for (size_t stsz_Pos=0; stsz_Pos<stsz_Sample_Size; stsz_Pos++) //Sample Size
-                {
-                    //Changing stco/stsc if needed
-                    if (SamplesPerChunk_Pos>=SamplesPerChunk)
-                    {
-                        //Reseting
-                        SamplesPerChunk_Pos=0;
-                        Chunk++;
-                        if (Chunk>Temp->second.stco.size())
-                            break;
-
-                        //Count of sample in this Chunk
-                        if (stsc_Pos+1<Temp->second.stsc.size() && Chunk>=Temp->second.stsc[stsc_Pos+1].FirstChunk || Position==(int64u)-1)
-                        {
-                            if (Position!=(int64u)-1)
-                            {
-                                stsc_Pos++;
-                                if (stsc_Pos>=Temp->second.stsc.size())
-                                    break;
-                            }
-                            SamplesPerChunk=Temp->second.stsc[stsc_Pos].SamplesPerChunk;
-                        }
-
-                        //Chunk Offset
-                        Position=Temp->second.stco[Chunk-1];
-                    }
-
-                    mdat_Pos[Position].StreamID=Temp->first;
-                    mdat_Pos[Position].Size=Temp->second.stsz_Sample_Size?Temp->second.stsz_Sample_Size:Temp->second.stsz[stsz_Pos];
-
-                    Position+=Temp->second.stsz_Sample_Size?Temp->second.stsz_Sample_Size:Temp->second.stsz[stsz_Pos];
-                    SamplesPerChunk_Pos++;
-                }
-                */
             }
         }
     }
@@ -3132,6 +3088,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             //Filling
             Finish(&MI);
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+
+            //Creating the parser
+            if (Channels==1)
+            {
+                Stream[moov_trak_tkhd_TrackID].Parser=new File_ChannelGrouping;
+                if (StreamPos_Last%2)
+                {
+                    ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Channel_Pos=1;
+                    ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Common=((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID-1].Parser)->Common;
+                }
+                else
+                    ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Channel_Pos=0;
+                ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Channel_Total=2;
+                ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->ByteDepth=3;
+                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                mdat_MustParse=true; //Data is in MDAT
+            }
         }
         #endif
         #if defined(MEDIAINFO_MPEGA_YES)
@@ -3158,8 +3131,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         #endif //MEDIAINFO_DEMUX
 
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
-        if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).empty()) //if not mp4a, and not ms*
-            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize, 10, true);
+        if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).empty()) //if not mp4a, and not ms*
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, SampleSize, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate32);
 
         //Sometimes, more Atoms in this atoms
@@ -3851,7 +3824,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
              || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
              {
                 int64u Duration=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Duration).To_int64u();
-                int64u Resolution=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Resolution).To_int64u();
+                int64u Resolution=Retrieve(StreamKind_Last, StreamPos_Last, Audio_BitDepth).To_int64u();
                 int64u SamplingRate=Retrieve(StreamKind_Last, StreamPos_Last, Audio_SamplingRate).To_int64u();
                 int64u Channels=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Channel_s_).To_int64u();
                 int64u Stream_Size_Theory=Duration*Resolution*SamplingRate*Channels/8/1000;
@@ -3859,13 +3832,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 for (int64u Multiplier=1; Multiplier<=32; Multiplier++)
                     if (Stream_Size_Real*Multiplier>Stream_Size_Theory*0.995 && Stream_Size_Real*Multiplier<Stream_Size_Theory*1.005)
                     {
-                        Sample_Size*=Multiplier;
+                        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier=Multiplier;
                         break;
                     }
              }
         }
 
-        Stream_Size=Sample_Size; Stream_Size*=Sample_Count;
+        Stream_Size=Sample_Size; Stream_Size*=Sample_Count; Stream_Size*=Stream[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier;
 
         Stream[moov_trak_tkhd_TrackID].stsz_Sample_Size=Sample_Size;
         Stream[moov_trak_tkhd_TrackID].stsz_Sample_Count=Sample_Count;

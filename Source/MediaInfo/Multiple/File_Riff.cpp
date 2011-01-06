@@ -248,7 +248,7 @@ void File_Riff::Streams_Finish ()
              && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
               || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
               || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
-                Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
+                Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
             //Format specific
             #if defined(MEDIAINFO_DVDIF_YES)
@@ -318,14 +318,14 @@ void File_Riff::Streams_Finish ()
                 #endif
                 if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
                 {
-                    int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
+                    int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).To_int64u();
                     int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
                     if (Resolution>0 && Channels>0)
                         SamplingCount=Temp->second.StreamSize*8/Resolution/Channels;
                 }
                 if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("ADPCM"))
                 {
-                    int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
+                    int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).To_int64u();
                     int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
                     if (Resolution>0 && Channels>0)
                         SamplingCount=(int64u)(Temp->second.StreamSize*8/Resolution/Channels*0.98); //0.98 is not precise!

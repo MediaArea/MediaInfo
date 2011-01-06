@@ -102,7 +102,7 @@ const char*  Dv_StereoMode[]=
 };
 
 //---------------------------------------------------------------------------
-const int32u  Dv_Audio_Resolution[]=
+const int32u  Dv_Audio_BitDepth[]=
 {
     16,
     12,
@@ -373,7 +373,7 @@ void File_DvDif::Streams_Fill()
     Fill(Stream_Video, 0, Video_Codec, "DV");
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
-    Fill(Stream_Video, 0, Video_Resolution, 8);
+    Fill(Stream_Video, 0, Video_BitDepth, 8);
     switch (video_source_stype)
     {
         case 0x00 :
@@ -494,7 +494,7 @@ void File_DvDif::Streams_Fill()
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO HD");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO HD");
-            Fill(Stream_Video, 0, Video_Resolution, 10, 10, true); //MXF files say that DVCPRO HD are 10 bits, exact?
+            Fill(Stream_Video, 0, Video_BitDepth, 10, 10, true); //MXF files say that DVCPRO HD are 10 bits, exact?
             Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR", Unlimited, true, true);
         }
         else
@@ -1201,7 +1201,7 @@ void File_DvDif::audio_source()
     Skip_SB(                                                    "EF - Emphasis off");
     Skip_SB(                                                    "TC - Time constant of emphasis");
     Get_S1 (3, SamplingRate,                                    "SMP - Sampling rate"); Param_Info(Dv_Audio_SamplingRate[SamplingRate]);
-    Get_S1 (3, Resolution,                                      "QU - Resolution"); Param_Info(Dv_Audio_Resolution[Resolution]);
+    Get_S1 (3, Resolution,                                      "QU - Resolution"); Param_Info(Dv_Audio_BitDepth[Resolution]);
     BS_End();
 
     FILLING_BEGIN();
@@ -1227,8 +1227,8 @@ void File_DvDif::audio_source()
                 Streams_Audio[Pos]->Infos["BitRate_Mode"]=_T("CBR");
                 Streams_Audio[Pos]->Infos["Channel(s)"].From_Number(audio_source_stype==3?1:2);
                 Streams_Audio[Pos]->Infos["SamplingRate"].From_Number(Dv_Audio_SamplingRate[SamplingRate]);
-                Streams_Audio[Pos]->Infos["Resolution"].From_Number(Dv_Audio_Resolution[Resolution]);
-                Streams_Audio[Pos]->Infos["BitRate"].From_Number((audio_source_stype==3?1:2)*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+                Streams_Audio[Pos]->Infos["BitDepth"].From_Number(Dv_Audio_BitDepth[Resolution]);
+                Streams_Audio[Pos]->Infos["BitRate"].From_Number((audio_source_stype==3?1:2)*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_BitDepth[Resolution]);
             }
         }
     FILLING_END();

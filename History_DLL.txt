@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.40, 2011-
 --------------
++ QuickTime: detection of AES3 and DolbyE
 x libcurl: crash if requesting a libcurl URL but libcurl library not present
 
 Version 0.7.39, 2011-01-03

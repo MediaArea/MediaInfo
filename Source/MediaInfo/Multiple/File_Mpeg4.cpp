@@ -175,6 +175,7 @@ File_Mpeg4::File_Mpeg4()
 //---------------------------------------------------------------------------
 void File_Mpeg4::Streams_Finish()
 {
+    Fill_Flush();
     int64u File_Size_Total=File_Size;
 
     //For each stream
@@ -222,8 +223,43 @@ void File_Mpeg4::Streams_Finish()
                         Clear(Stream_Video, StreamKind_Last, Video_Width);
                 }
 
-                //Temp->second.Parser->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
-                Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+                //Special case - Multiple audio in a stream
+                if (Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping") && Temp->second.Parser->Count_Get(Stream_Audio))
+                {
+                    Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize));
+                    if (StreamKind_Last==Stream_Audio)
+                    {
+                        Clear(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Sign);
+                    }
+                    ZtringList StreamSave; StreamSave.Write((*File__Analyze::Stream)[StreamKind_Last][StreamPos_Last].Read());
+                    ZtringListList StreamMoreSave; StreamMoreSave.Write((*Stream_More)[StreamKind_Last][StreamPos_Last].Read());
+
+                    size_t NewPos1=(StreamPos_Last/2)*2;
+                    size_t NewPos2=NewPos1+1;
+                    stream_t NewKind=StreamKind_Last;
+
+                    Ztring ID=Retrieve(StreamKind_Last, NewPos1, General_ID)+_T(" / ")+Retrieve(StreamKind_Last, NewPos2, General_ID);
+                    Stream_Erase(NewKind, NewPos2);
+                    Stream_Erase(NewKind, NewPos1);
+
+                    for (size_t StreamPos=0; StreamPos<Temp->second.Parser->Count_Get(NewKind); StreamPos++)
+                    {
+                        Stream_Prepare(NewKind, NewPos1+StreamPos);
+                        Merge(*Temp->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
+                        Ztring Parser_ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+_T("-")+Parser_ID, true);
+                        for (size_t Pos=0; Pos<StreamSave.size(); Pos++)
+                            if (Retrieve(StreamKind_Last, StreamPos_Last, Pos).empty())
+                                Fill(StreamKind_Last, StreamPos_Last, Pos, StreamSave[Pos]);
+                        for (size_t Pos=0; Pos<StreamMoreSave.size(); Pos++)
+                            Fill(StreamKind_Last, StreamPos_Last, StreamMoreSave(Pos, 0).To_Local().c_str(), StreamMoreSave(Pos, 1));
+                    }
+                }
+                else
+                {
+                    //Temp->second.Parser->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
+                    Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+                }
 
                 //Hacks - After
                 Fill(Stream_Video, StreamPos_Last, Video_Duration, Duration_Temp, true);
@@ -274,7 +310,7 @@ void File_Mpeg4::Streams_Finish()
                  && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
                   || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
                   || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
-                    Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
+                    Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
                 //Special case: DV with Audio or/and Text in the video stream
                 if (StreamKind_Last==Stream_Video && Temp->second.Parser && (Temp->second.Parser->Count_Get(Stream_Audio) || Temp->second.Parser->Count_Get(Stream_Text)))
@@ -776,7 +812,7 @@ void File_Mpeg4::Descriptors()
      && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
       || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
       || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
-        Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
+        Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
     //Parser from Descriptor
     if (MI.Parser)

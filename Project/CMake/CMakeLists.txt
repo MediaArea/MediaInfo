@@ -56,6 +56,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Ape.cpp
 	MediaInfo/Audio/File_Au.cpp
 	MediaInfo/Audio/File_Celt.cpp
+	MediaInfo/Audio/File_ChannelGrouping.cpp
 	MediaInfo/Audio/File_Dts.cpp
 	MediaInfo/Audio/File_DolbyE.cpp
 	MediaInfo/Audio/File_ExtendedModule.cpp

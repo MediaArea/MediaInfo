@@ -206,7 +206,7 @@ void File_Tak::STREAMINFO()
         Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
         Fill(Stream_Audio, 0, Audio_Channel_s_, channels?2:1);
         if (Tak_samplesize[samplesize])
-            Fill(Stream_Audio, 0, Audio_Resolution, Tak_samplesize[samplesize]);
+            Fill(Stream_Audio, 0, Audio_BitDepth, Tak_samplesize[samplesize]);
         Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SamplingRate);
     FILLING_END();
 }

@@ -174,7 +174,6 @@ void File_Vc3::Read_Buffer_Continue()
         return;
 
     //Parsing
-    int64u Pos=Element_Offset;
     Element_Begin("Frame");
     Element_Info(Frame_Count+1);
     HeaderPrefix();

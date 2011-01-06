@@ -356,7 +356,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
                 File__Tags_Helper::Finish();
             else
                 File__Analyze::Finish();
-            Frame_Count=(int64u)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
+            Frame_Count=(size_t)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
             return;
     }
 
@@ -390,7 +390,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
                         File__Tags_Helper::Finish();
                     else
                         File__Analyze::Finish();
-                    Frame_Count=(int64u)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
+                    Frame_Count=(size_t)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
                     return;
                 }
             }
@@ -464,7 +464,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
         if (audioObjectType!=2) //We continue only if AAC LC (in order to detect SBR and PS)
         {
             File__Analyze::Finish();
-            Frame_Count=(int64u)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
+            Frame_Count=(size_t)-1; //Forcing not to parse following data anymore (if ParseSpeed==1)
         }
     FILLING_END();
 }

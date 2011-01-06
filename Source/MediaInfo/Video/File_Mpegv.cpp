@@ -385,7 +385,7 @@ void File_Mpegv::Streams_Fill()
     Fill(Stream_Video, 0, Video_Height, 0x1000*vertical_size_extension+vertical_size_value);
     Fill(Stream_Video, 0, Video_Colorimetry, Mpegv_Colorimetry_format[chroma_format]);
     Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
-    Fill(Stream_Video, 0, Video_Resolution, 8);
+    Fill(Stream_Video, 0, Video_BitDepth, 8);
 
     //AspectRatio
     if (MPEG_Version==2)
