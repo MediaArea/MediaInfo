@@ -105,6 +105,7 @@ public :
             delete Parser; //Parser=NULL;
         }
     };
+    int64u  StreamID;
     common* Common;
     size_t  Channel_Pos;
     size_t  Channel_Total;

@@ -34,6 +34,9 @@
 #if defined(MEDIAINFO_AES3_YES)
     #include "MediaInfo/Audio/File_Aes3.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -45,6 +48,17 @@ namespace MediaInfoLib
 
 File_ChannelGrouping::File_ChannelGrouping()
 {
+    //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_ChannelGrouping;
+    #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_Level=2; //Container
+    #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_TRACE
+        Trace_Layers_Update(0); //Container1
+    #endif //MEDIAINFO_TRACE
+
     //In
     ByteDepth=0;
     Common=NULL;
@@ -98,6 +112,8 @@ void File_ChannelGrouping::Read_Buffer_Init()
             Common->Channels[Pos]=new common::channel;
         Open_Buffer_Init(Common->Parser);
     }
+    if (Channel_Pos)
+        StreamIDs[StreamIDs_Size-2]=StreamID;
 }
 
 //---------------------------------------------------------------------------
@@ -133,6 +149,11 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         }
         Minimum-=ByteDepth;
     }
+
+    if (Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset==0)
+        return;
+
+    Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
 
     Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
     Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;

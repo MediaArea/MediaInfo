@@ -1103,7 +1103,10 @@ void File_Mpeg4::mdat_xxxx()
         return;
     }
 
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #if MEDIAINFO_DEMUX
+        Demux_Level=Stream[(int32u)Element_Code].Demux_Level;
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
 
     if (Stream[(int32u)Element_Code].Parser)
     {
@@ -3097,13 +3100,17 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                 {
                     ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Channel_Pos=1;
                     ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Common=((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID-1].Parser)->Common;
+                    ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->StreamID=moov_trak_tkhd_TrackID-1;
+                    Element_Code=moov_trak_tkhd_TrackID-1;
                 }
                 else
                     ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Channel_Pos=0;
                 ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->Channel_Total=2;
                 ((File_ChannelGrouping*)Stream[moov_trak_tkhd_TrackID].Parser)->ByteDepth=3;
-                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                mdat_MustParse=true; //Data is in MDAT
+
+                #if MEDIAINFO_DEMUX
+                    Stream[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
+                #endif //MEDIAINFO_DEMUX
             }
         }
         #endif
@@ -3112,8 +3119,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         {
             //Creating the parser
             Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpega;
-            Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-            mdat_MustParse=true; //Data is in MDAT
         }
         #endif
         if (Element_Code==0x6F776D61) //"owma"
@@ -3125,10 +3130,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             if (Stream[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
             {
                 Stream[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
-                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                mdat_MustParse=true; //Data is in MDAT
             }
         #endif //MEDIAINFO_DEMUX
+        if (Stream[moov_trak_tkhd_TrackID].Parser)
+        {
+            int64u Elemen_Code_Save=Element_Code;
+            Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
+            Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+            Element_Code=Elemen_Code_Save;
+            mdat_MustParse=true; //Data is in MDAT
+        }
 
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
         if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).empty()) //if not mp4a, and not ms*
@@ -3210,8 +3221,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("DV"))
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
-                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
             #if defined(MEDIAINFO_MPEGV_YES)
@@ -3219,8 +3228,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpegv;
                     ((File_Mpegv*)Stream[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
-                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
             #if defined(MEDIAINFO_VC1_YES)
@@ -3239,16 +3246,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("VC-3"))
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_Vc3;
-                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
             #if defined(MEDIAINFO_JPEG_YES)
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("JPEG"))
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_Jpeg;
-                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
 
@@ -3256,10 +3259,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (Stream[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
-                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif //MEDIAINFO_DEMUX
+            if (Stream[moov_trak_tkhd_TrackID].Parser)
+            {
+                int64u Elemen_Code_Save=Element_Code;
+                Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
+                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                Element_Code=Elemen_Code_Save;
+                mdat_MustParse=true; //Data is in MDAT
+            }
         }
 
         //Descriptors or a list (we can see both!)

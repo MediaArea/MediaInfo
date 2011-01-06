@@ -38,6 +38,9 @@
 #if defined(MEDIAINFO_DOLBYE_YES)
     #include "MediaInfo/Audio/File_DolbyE.h"
 #endif
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -156,6 +159,9 @@ File_Aes3::File_Aes3()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Aes3;
+    #endif //MEDIAINFO_EVENTS
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
     PTS_DTS_Needed=true;
@@ -205,6 +211,25 @@ void File_Aes3::Streams_Fill()
         BitRate=SamplingRate/(4+bits_per_sample)*(5+bits_per_sample)*(2+2*number_channels)*(16+4*bits_per_sample);
     }
 
+    if (data_type!=(int8u)-1)
+    {
+        Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Ztring().From_Local(Aes3_NonPCM_data_type[data_type]), true);
+        if (Aes3_NonPCM_data_type_StreamKind[data_type]!=Stream_Max)
+        {
+            Stream_Prepare(Aes3_NonPCM_data_type_StreamKind[data_type]);
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), Aes3_NonPCM_data_type[data_type]);
+        }
+    }
+    else if (!Retrieve(Stream_General, 0, General_Format).empty())
+    {
+        Ztring Format=Retrieve(Stream_General, 0, General_Format);
+        Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Format, true);
+    }
+    else
+    {
+        Fill(Stream_General, 0, General_Format, "AES3");
+    }
+
     if (Count_Get(Stream_Audio))
     {
         if (Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).empty() && BitRate!=(int64u)-1)
@@ -228,23 +253,10 @@ void File_Aes3::Streams_Fill()
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
         }
     }
-    else if (Retrieve(Stream_General, 0, General_Format).empty())
+    else
     {
-        if (data_type!=(int8u)-1)
-        {
-            Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Ztring().From_Local(Aes3_NonPCM_data_type[data_type]), true);
-            if (Aes3_NonPCM_data_type_StreamKind[data_type]!=Stream_Max)
-            {
-                Stream_Prepare(Aes3_NonPCM_data_type_StreamKind[data_type]);
-                Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), Aes3_NonPCM_data_type[data_type]);
-            }
-        }
-        else
-        {
-            Fill(Stream_General, 0, General_Format, "AES3");
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Audio_Format, "AES3");
-        }
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "AES3");
     }
 }
 

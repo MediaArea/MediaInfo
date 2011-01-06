@@ -308,6 +308,9 @@ private :
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
         float32                 CleanAperture_PixelAspectRatio;
+        #if MEDIAINFO_DEMUX
+            int8u               Demux_Level;
+        #endif //MEDIAINFO_DEMUX
 
         stream()
         {
@@ -324,6 +327,9 @@ private :
             CleanAperture_Width=0;
             CleanAperture_Height=0;
             CleanAperture_PixelAspectRatio=0;
+            #if MEDIAINFO_DEMUX
+                Demux_Level=2; //Container
+            #endif //MEDIAINFO_DEMUX
         }
 
         ~stream()
