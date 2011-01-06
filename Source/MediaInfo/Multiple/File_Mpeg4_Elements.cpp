@@ -1016,7 +1016,6 @@ void File_Mpeg4::mdat()
         {
             if (Temp->second.Parser && (!Temp->second.stsz.empty() || Temp->second.stsz_Sample_Size))
             {
-                /*
                 size_t stsc_Pos=0;
                 size_t stsz_Pos=0;
                 int32u Chunk_Number=1;
@@ -1061,8 +1060,8 @@ void File_Mpeg4::mdat()
 
                     Chunk_Number++;
                 }
-                */
 
+                /*
                 //Adding it
                 size_t SamplesPerChunk_Pos=0;
                 int32u SamplesPerChunk=0;
@@ -1107,6 +1106,7 @@ void File_Mpeg4::mdat()
                     Position+=Temp->second.stsz_Sample_Size?Temp->second.stsz_Sample_Size:Temp->second.stsz[stsz_Pos];
                     SamplesPerChunk_Pos++;
                 }
+                */
             }
         }
     }
