@@ -735,6 +735,7 @@ void File_Aac::section_data()
                     if (Data_BS_Remain()==0)
                     {
                         Trusted_IsNot("Size is wrong");
+                        Element_End();
                         return; //Error
                     }
                     Get_S1 ((window_sequence==2?3:5), sect_len_incr, "sect_len_incr"); // (window_sequence == EIGHT_SHORT_SEQUENCE) => 3
