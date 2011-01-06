@@ -172,6 +172,7 @@ private :
     void moov_trak_mdia_minf_stbl_stss();
     void moov_trak_mdia_minf_stbl_stsz();
     void moov_trak_mdia_minf_stbl_stts();
+    void moov_trak_mdia_minf_stbl_stz2() {moov_trak_mdia_minf_stbl_stsz();}
     void moov_trak_meta() {moov_meta();}
     void moov_trak_meta_hdlr() {moov_meta_hdlr();}
     void moov_trak_meta_bxml() {moov_meta_bxml();}

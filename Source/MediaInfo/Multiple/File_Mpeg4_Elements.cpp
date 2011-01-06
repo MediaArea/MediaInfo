@@ -53,6 +53,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if defined(MEDIAINFO_AES3_YES)
+    #include "MediaInfo/Audio/File_ChannelGrouping.h"
+#endif
 #if defined(MEDIAINFO_AMR_YES)
     #include "MediaInfo/Audio/File_Amr.h"
 #endif
@@ -364,6 +367,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stss=0x73747373;
     const int64u moov_trak_mdia_minf_stbl_stsz=0x7374737A;
     const int64u moov_trak_mdia_minf_stbl_stts=0x73747473;
+    const int64u moov_trak_mdia_minf_stbl_stz2=0x73747A32;
     const int64u moov_trak_mdia_minf_vmhd=0x766D6864;
     const int64u moov_trak_meta=0x6D657461;
     const int64u moov_trak_meta______=0x2D2D2D2D;
@@ -649,6 +653,7 @@ void File_Mpeg4::Data_Parse()
                         ATOM(moov_trak_mdia_minf_stbl_stss)
                         ATOM(moov_trak_mdia_minf_stbl_stsz)
                         ATOM(moov_trak_mdia_minf_stbl_stts)
+                        ATOM(moov_trak_mdia_minf_stbl_stz2)
                         ATOM_END
                     ATOM(moov_trak_mdia_minf_vmhd)
                     ATOM_END
@@ -1012,8 +1017,55 @@ void File_Mpeg4::mdat()
         //For each stream
         for (std::map<int32u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
         {
-            if (Temp->second.Parser)
+            if (Temp->second.Parser && (!Temp->second.stsz.empty() || Temp->second.stsz_Sample_Size))
             {
+                /*
+                size_t stsc_Pos=0;
+                size_t stsz_Pos=0;
+                int32u Chunk_Number=1;
+                for (size_t stco_Pos=0; stco_Pos<Temp->second.stco.size(); stco_Pos++)
+                {
+                    while (stsc_Pos+1<Temp->second.stsc.size() && Chunk_Number>=Temp->second.stsc[stsc_Pos+1].FirstChunk)
+                        stsc_Pos++;
+
+                    if (Temp->second.stsz_Sample_Size==0)
+                    {
+                        //Each sample has its own size
+                        size_t Chunk_Offset=0;
+                        for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
+                        {
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz[stsz_Pos];
+                            Chunk_Offset+=Temp->second.stsz[stsz_Pos];
+                            stsz_Pos++;
+                            if (stsz_Pos>=Temp->second.stsz.size())
+                                break;
+                        }
+                        if (stsz_Pos>=Temp->second.stsz.size())
+                            break;
+                    }
+                    else if (Temp->second.stsz_Sample_Size==1)
+                    {
+                        //Same size per sample, but granularity is too small
+                        mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
+                        mdat_Pos[Temp->second.stco[stco_Pos]].Size=Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size;
+                    }
+                    else
+                    {
+                        //Same size per sample
+                        size_t Chunk_Offset=0;
+                        for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
+                        {
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size;
+                            Chunk_Offset+=Temp->second.stsz_Sample_Size;
+                        }
+                    }
+
+                    Chunk_Number++;
+                }
+                */
+
                 //Adding it
                 size_t SamplesPerChunk_Pos=0;
                 int32u SamplesPerChunk=0;
@@ -3775,26 +3827,30 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     NAME_VERSION_FLAG("Sample Size")
 
     int32u Sample_Size, Sample_Count;
-    Get_B4 (Sample_Size,                                        "Sample Size");
+    int8u  FieldSize;
+    if (Element_Code==Elements::moov_trak_mdia_minf_stbl_stsz)
+    {
+        Get_B4 (Sample_Size,                                    "Sample Size");
+        FieldSize=32;
+    }
+    else
+    {
+        Skip_B3(                                                "Reserved");
+        Get_B1 (FieldSize,                                      "Field size");
+        Sample_Size=0;
+    }
     Get_B4 (Sample_Count,                                       "Number of entries");
 
     int64u Stream_Size=0;
 
     if (Sample_Size>0)
     {
-        Stream_Size=Sample_Size; Stream_Size*=Sample_Count;
-
-        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Size=Sample_Size;
-        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Count=Sample_Count;
-        
-        if (Sample_Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
-            Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
-
         //Detecting wrong stream size with some PCM streams
         if (StreamKind_Last==Stream_Audio)
         {
             const Ztring &Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID);
             if (Codec==_T("raw ")
+             || MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec).find(_T("PCM"))==0
              || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
              {
                 int64u Duration=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Duration).To_int64u();
@@ -3802,14 +3858,24 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 int64u SamplingRate=Retrieve(StreamKind_Last, StreamPos_Last, Audio_SamplingRate).To_int64u();
                 int64u Channels=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Channel_s_).To_int64u();
                 int64u Stream_Size_Theory=Duration*Resolution*SamplingRate*Channels/8/1000;
+                int64u Stream_Size_Real=Sample_Size; Stream_Size_Real*=Sample_Count;
                 for (int64u Multiplier=1; Multiplier<=32; Multiplier++)
-                    if (Stream_Size*Multiplier>Stream_Size_Theory*0.995 && Stream_Size*Multiplier<Stream_Size_Theory*1.005)
+                    if (Stream_Size_Real*Multiplier>Stream_Size_Theory*0.995 && Stream_Size_Real*Multiplier<Stream_Size_Theory*1.005)
                     {
-                        Stream_Size*=Multiplier;
+                        Sample_Size*=Multiplier;
                         break;
                     }
              }
         }
+
+        Stream_Size=Sample_Size; Stream_Size*=Sample_Count;
+
+        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Size=Sample_Size;
+        Stream[moov_trak_tkhd_TrackID].stsz_Sample_Count=Sample_Count;
+
+        if (Sample_Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+            Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
+
     }
     else
     {
@@ -3825,7 +3891,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
             //Faster
             if (Element_Offset+4>Element_Size)
                 break; //Problem
-            Size=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+            switch(FieldSize)
+            {
+                case  4 : if (Sample_Count%2)
+                            Size=Buffer[Buffer_Offset+(size_t)Element_Offset]&0x0F;
+                          else
+                            Size=Buffer[Buffer_Offset+(size_t)Element_Offset]>>4;
+                          break;
+                case  8 : Size=BigEndian2int8u (Buffer+Buffer_Offset+(size_t)Element_Offset); break;
+                case 16 : Size=BigEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset); break;
+                case 32 : Size=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset); break;
+                default : return;
+            }
             Element_Offset+=4;
 
             Stream_Size+=Size;
@@ -3917,7 +3994,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
         {
             if (moov_trak_mdia_mdhd_TimeScale && Min && Max)
             {
-                if (Min!=Max)
+                if (Min!=Max && ((float)moov_trak_mdia_mdhd_TimeScale)/Min-((float)moov_trak_mdia_mdhd_TimeScale)/Max>=0.001)
                 {
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)moov_trak_mdia_mdhd_TimeScale)/Max);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)moov_trak_mdia_mdhd_TimeScale)/Min);
