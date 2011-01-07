@@ -37,6 +37,7 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -107,6 +108,7 @@ void File_ChannelGrouping::Read_Buffer_Init()
     {
         Common=new common;
         Common->Parser=new File_Aes3;
+        ((File_Aes3*)Common->Parser)->ByteSize=ByteDepth*2;
         Common->Channels.resize(Channel_Total);
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
             Common->Channels[Pos]=new common::channel;
@@ -153,10 +155,52 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     if (Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset==0)
         return;
 
-    Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
+    //Buffer handling
+    Ztring Format;
+    //if (StreamIDs_Size)
+    //    Format=Config->ID_Format_Get(Ztring::ToZtring(StreamIDs[0]));
+    if (Config->Demux_Unpacketize_Get() && (Format==_T("AES3") || Format==_T("Dolby E")))
+    {
+        while (Common->MergedChannel.Buffer_Offset+16<=Common->MergedChannel.Buffer_Size)
+        {
+            size_t Buffer_Offset_Temp=Common->MergedChannel.Buffer_Offset;
+            if (Synchronize_AES3())
+            {
+                if (Buffer_Offset_Temp!=Common->MergedChannel.Buffer_Offset)
+                    Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Buffer_Offset_Temp, Common->MergedChannel.Buffer_Offset-Buffer_Offset_Temp);
 
-    Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
-    Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
+                size_t Buffer_Offset_Begin=Common->MergedChannel.Buffer_Offset;
+                Common->MergedChannel.Buffer_Offset+=ByteDepth*2;
+                if (Synchronize_AES3())
+                {
+                    size_t Buffer_Offset_End=Common->MergedChannel.Buffer_Offset;
+                    Common->MergedChannel.Buffer_Offset=Buffer_Offset_Temp;
+
+                    Demux(Common->MergedChannel.Buffer+Buffer_Offset_Begin, Buffer_Offset_End-Buffer_Offset_Begin, ContentType_MainStream);
+
+                    Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Buffer_Offset_Begin, Buffer_Offset_End-Buffer_Offset_Begin);
+                    Common->MergedChannel.Buffer_Offset=Buffer_Offset_End;
+                }
+                else
+                {
+                    Common->MergedChannel.Buffer_Offset=Buffer_Offset_Temp;
+                    break;
+                }
+            }
+            else
+            {
+                Common->MergedChannel.Buffer_Offset=Buffer_Offset_Temp;
+                break;
+            }
+        }
+    }
+    else
+    {
+        Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
+
+        Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
+        Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
+    }
 
     if (!Status[IsAccepted] && Common->Parser->Status[IsAccepted])
     {
@@ -173,6 +217,93 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
         Common->Channels[Pos]->optimize();
     Common->MergedChannel.optimize();
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_ChannelGrouping::Synchronize_AES3()
+{
+    //Synchronizing
+    while (Common->MergedChannel.Buffer_Offset+16<=Common->MergedChannel.Buffer_Size)
+    {
+        if (CC4(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0xF8724E1F) //SMPTE 337M 16-bit, BE
+        {
+            break; //while()
+        }
+        if (CC4(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x72F81F4E) //SMPTE 337M 16-bit, LE
+        {
+            break; //while()
+        }
+        if (CC5(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x6F87254E1FLL) //SMPTE 337M 20-bit, BE
+        {
+            break; //while()
+        }
+        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x96F872A54E1FLL) //SMPTE 337M 24-bit, BE
+        {
+            break; //while()
+        }
+        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x72F8961F4E5ALL) //SMPTE 337M 24-bit, LE
+        {
+            break; //while()
+        }
+        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x00F872004E1FLL) //16-bit in 24-bit, BE
+        {
+            break; //while()
+        }
+        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0072F8001F4ELL) //16-bit in 24-bit, LE
+        {
+            break; //while()
+        }
+        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x6F872054E1F0LL) //20-bit in 24-bit, BE
+        {
+            break; //while()
+        }
+        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x20876FF0E154LL) //20-bit in 24-bit, LE
+        {
+            break; //while()
+        }
+        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0000F87200004E1FLL) //16-bit in 32-bit, BE
+        {
+            break; //while()
+        }
+        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x000072F800001F4ELL) //16-bit in 32-bit, LE
+        {
+            break; //while()
+        }
+        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x006F87200054E1F0LL) //20-bit in 32-bit, BE
+        {
+            break; //while()
+        }
+        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0020876F00F0E154LL) //20-bit in 32-bit, LE
+        {
+            break; //while()
+        }
+        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0096F8720A54E1FLL) //24-bit in 32-bit, BE
+        {
+            break; //while()
+        }
+        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0072F896001F4EA5LL) //24-bit in 32-bit, LE
+        {
+            break; //while()
+        }
+
+        if (ByteDepth!=(size_t)-1)
+            Common->MergedChannel.Buffer_Offset+=ByteDepth*2;
+        else
+            Common->MergedChannel.Buffer_Offset++;
+    }
+
+    //Parsing last bytes if needed
+    if (Common->MergedChannel.Buffer_Offset+16>Common->MergedChannel.Buffer_Size)
+    {
+        return false;
+    }
+
+    //Synched
+    return true;
 }
 
 //***************************************************************************

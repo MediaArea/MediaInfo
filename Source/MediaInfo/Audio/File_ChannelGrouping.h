@@ -122,6 +122,9 @@ private :
     //Buffer - Global
     void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
+
+    //Temp
+    bool Synchronize_AES3();
 };
 
 } //NameSpace
