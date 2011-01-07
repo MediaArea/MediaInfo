@@ -41,8 +41,10 @@ class File_Aes3 : public File__Analyze
 {
 public :
     //In
+    size_t  ByteSize;
     bool    From_Raw;
     bool    From_MpegPs;
+    bool    From_Aes3;
 
     //Constructor/Destructor
     File_Aes3();

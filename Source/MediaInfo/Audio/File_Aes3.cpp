@@ -167,8 +167,10 @@ File_Aes3::File_Aes3()
     PTS_DTS_Needed=true;
 
     //In
+    ByteSize=(size_t)-1;
     From_Raw=false;
     From_MpegPs=false;
+    From_Aes3=false;
 
     //Temp
     Frame_Count=0;
@@ -211,24 +213,23 @@ void File_Aes3::Streams_Fill()
         BitRate=SamplingRate/(4+bits_per_sample)*(5+bits_per_sample)*(2+2*number_channels)*(16+4*bits_per_sample);
     }
 
-    if (data_type!=(int8u)-1)
+    if (!Retrieve(Stream_General, 0, General_Format).empty())
+    {
+        Ztring Format=Retrieve(Stream_General, 0, General_Format);
+        if (Format.find(_T("AES3"))!=0)
+            Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Format, true);
+    }
+    else if (data_type!=(int8u)-1)
     {
         Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Ztring().From_Local(Aes3_NonPCM_data_type[data_type]), true);
-        if (Aes3_NonPCM_data_type_StreamKind[data_type]!=Stream_Max)
+        if (Retrieve(Stream_Audio, 0, Audio_Format).empty() && Aes3_NonPCM_data_type_StreamKind[data_type]!=Stream_Max)
         {
             Stream_Prepare(Aes3_NonPCM_data_type_StreamKind[data_type]);
             Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), Aes3_NonPCM_data_type[data_type]);
         }
     }
-    else if (!Retrieve(Stream_General, 0, General_Format).empty())
-    {
-        Ztring Format=Retrieve(Stream_General, 0, General_Format);
-        Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Format, true);
-    }
     else
-    {
         Fill(Stream_General, 0, General_Format, "AES3");
-    }
 
     if (Count_Get(Stream_Audio))
     {
@@ -268,9 +269,126 @@ void File_Aes3::Streams_Fill()
 void File_Aes3::Read_Buffer_Continue()
 {
     if (From_Raw)
+    {
         Raw();
+        return;
+    }
     if (From_MpegPs)
+    {
         Frame_FromMpegPs();
+        return;
+    }
+
+    //Special cases
+    if (!From_Aes3 && Buffer_TotalBytes==0)
+    {
+        Synchronize();
+        if (Buffer_Offset)
+        {
+            Buffer_Offset=0;
+            size_t Buffer_Offset_Temp=0;
+            if (ByteSize==6)
+            {
+                while(Buffer_Offset_Temp+6<=Buffer_Size && CC6(Buffer+Buffer_Offset_Temp)!=0x000000000000LL)
+                    Buffer_Offset_Temp+=6;
+
+                if (Buffer_Offset_Temp+6>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+            }
+            else if (ByteSize==8)
+            {
+                while(Buffer_Offset_Temp+8<=Buffer_Size && CC8(Buffer+Buffer_Offset_Temp)!=0x0000000000000000LL)
+                    Buffer_Offset_Temp+=8;
+
+                if (Buffer_Offset_Temp+8>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+            }
+            else
+            {
+                if (Buffer_Offset_Temp+6>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+
+                if (CC6(Buffer+Buffer_Offset_Temp)!=0x000000000000LL)
+                {
+                    while(Buffer_Offset_Temp+2<=Buffer_Size && CC2(Buffer+Buffer_Offset_Temp)!=0x0000)
+                        Buffer_Offset_Temp+=2;
+
+                    if (Buffer_Offset_Temp+2>Buffer_Size)
+                    {
+                        Element_WaitForMoreData();
+                        return;
+                    }
+                }
+            }
+
+            if (Buffer_Offset_Temp)
+            {
+                Skip_XX(Buffer_Offset_Temp,                         "Junk");
+                Buffer_Offset=Buffer_Offset_Temp;
+                Element_Size-=Element_Offset;
+                Element_Offset=0;
+            }
+        }
+    }
+
+    if (!From_Aes3 && Frame_Count==0)
+    {
+        //Guard band
+        Buffer_Offset_Temp=Buffer_Offset;
+        if (ByteSize==6)
+        {
+            while(Buffer_Offset_Temp+6<=Buffer_Size && CC3(Buffer+Buffer_Offset_Temp)==0x000000)
+                Buffer_Offset_Temp+=6;
+
+            if (Buffer_Offset_Temp+6>Buffer_Size)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+        }
+        else if (ByteSize==8)
+        {
+            while(Buffer_Offset_Temp+8<=Buffer_Size && CC4(Buffer+Buffer_Offset_Temp)==0x00000000)
+                Buffer_Offset_Temp+=8;
+
+            if (Buffer_Offset_Temp+8>Buffer_Size)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+        }
+        else
+        {
+            if (Buffer_Offset_Temp+8>Buffer_Size)
+            {
+                Element_WaitForMoreData();
+                return;
+            }
+
+            if (CC8(Buffer+Buffer_Offset_Temp)==0x0000000000000000LL)
+            {
+                while(Buffer_Offset_Temp+2<=Buffer_Size && CC2(Buffer+Buffer_Offset_Temp)==0x0000)
+                    Buffer_Offset_Temp+=2;
+
+                if (Buffer_Offset_Temp+2>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+            }
+        }
+        if (Buffer_Offset_Temp-Buffer_Offset)
+            Skip_XX(Buffer_Offset_Temp-Buffer_Offset,  "Guard band");
+    }
 }
 
 //***************************************************************************
@@ -285,6 +403,7 @@ bool File_Aes3::Synchronize()
     {
         if (CC4(Buffer+Buffer_Offset)==0xF8724E1F) //SMPTE 337M 16-bit, BE
         {
+            ByteSize=4;
             Container_Bits=16;
             Stream_Bits=16;
             Endianess=false; //BE
@@ -292,6 +411,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC4(Buffer+Buffer_Offset)==0x72F81F4E) //SMPTE 337M 16-bit, LE
         {
+            ByteSize=4;
             Container_Bits=16;
             Stream_Bits=16;
             Endianess=true; //LE
@@ -299,6 +419,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC5(Buffer+Buffer_Offset)==0x6F87254E1FLL) //SMPTE 337M 20-bit, BE
         {
+            ByteSize=5;
             Container_Bits=20;
             Stream_Bits=20;
             Endianess=false; //BE
@@ -306,6 +427,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC6(Buffer+Buffer_Offset)==0x96F872A54E1FLL) //SMPTE 337M 24-bit, BE
         {
+            ByteSize=6;
             Container_Bits=24;
             Stream_Bits=24;
             Endianess=false; //BE
@@ -313,6 +435,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC6(Buffer+Buffer_Offset)==0x72F8961F4E5ALL) //SMPTE 337M 24-bit, LE
         {
+            ByteSize=6;
             Container_Bits=24;
             Stream_Bits=24;
             Endianess=true; //LE
@@ -320,6 +443,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC6(Buffer+Buffer_Offset)==0x00F872004E1FLL) //16-bit in 24-bit, BE
         {
+            ByteSize=6;
             Container_Bits=24;
             Stream_Bits=16;
             Endianess=false; //BE
@@ -327,6 +451,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC6(Buffer+Buffer_Offset)==0x0072F8001F4ELL) //16-bit in 24-bit, LE
         {
+            ByteSize=6;
             Container_Bits=24;
             Stream_Bits=16;
             Endianess=true; //LE
@@ -334,6 +459,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC6(Buffer+Buffer_Offset)==0x6F872054E1F0LL) //20-bit in 24-bit, BE
         {
+            ByteSize=6;
             Container_Bits=24;
             Stream_Bits=20;
             Endianess=false; //BE
@@ -341,6 +467,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC6(Buffer+Buffer_Offset)==0x20876FF0E154LL) //20-bit in 24-bit, LE
         {
+            ByteSize=6;
             Container_Bits=24;
             Stream_Bits=20;
             Endianess=true; //LE
@@ -348,6 +475,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC8(Buffer+Buffer_Offset)==0x0000F87200004E1FLL) //16-bit in 32-bit, BE
         {
+            ByteSize=8;
             Container_Bits=32;
             Stream_Bits=16;
             Endianess=false; //BE
@@ -355,6 +483,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC8(Buffer+Buffer_Offset)==0x000072F800001F4ELL) //16-bit in 32-bit, LE
         {
+            ByteSize=8;
             Container_Bits=32;
             Stream_Bits=16;
             Endianess=true; //LE
@@ -362,6 +491,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC8(Buffer+Buffer_Offset)==0x006F87200054E1F0LL) //20-bit in 32-bit, BE
         {
+            ByteSize=8;
             Container_Bits=32;
             Stream_Bits=20;
             Endianess=false; //BE
@@ -369,6 +499,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC8(Buffer+Buffer_Offset)==0x0020876F00F0E154LL) //20-bit in 32-bit, LE
         {
+            ByteSize=8;
             Container_Bits=32;
             Stream_Bits=20;
             Endianess=true; //LE
@@ -376,6 +507,7 @@ bool File_Aes3::Synchronize()
         }
         if (CC8(Buffer+Buffer_Offset)==0x0096F8720A54E1FLL) //24-bit in 32-bit, BE
         {
+            ByteSize=8;
             Container_Bits=32;
             Stream_Bits=24;
             Endianess=false; //BE
@@ -383,12 +515,17 @@ bool File_Aes3::Synchronize()
         }
         if (CC8(Buffer+Buffer_Offset)==0x0072F896001F4EA5LL) //24-bit in 32-bit, LE
         {
+            ByteSize=8;
             Container_Bits=32;
             Stream_Bits=24;
             Endianess=true; //LE
             break; //while()
         }
-        Buffer_Offset++;
+
+        if (ByteSize!=(size_t)-1)
+            Buffer_Offset+=ByteSize*2;
+        else
+            Buffer_Offset++;
     }
 
     //Parsing last bytes if needed
@@ -406,8 +543,36 @@ bool File_Aes3::Synchronize()
 bool File_Aes3::Synched_Test()
 {
     //Skip NULL padding
-    //while (Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
-    //    Buffer_Offset++;
+    if (!From_Aes3)
+    {
+        size_t Buffer_Offset_Temp=Buffer_Offset;
+        if (ByteSize==6)
+        {
+            while(Buffer_Offset_Temp+6<=Buffer_Size && CC6(Buffer+Buffer_Offset_Temp)==0x000000000000LL)
+                Buffer_Offset_Temp+=6;
+            if (Buffer_Offset_Temp+6>Buffer_Size)
+            {
+                Element_WaitForMoreData();
+                return false;
+            }
+        }
+        else if (ByteSize==8)
+        {
+            while(Buffer_Offset_Temp+8<=Buffer_Size && CC8(Buffer+Buffer_Offset_Temp)==0x0000000000000000LL)
+                Buffer_Offset_Temp+=8;
+            if (Buffer_Offset_Temp+8>Buffer_Size)
+            {
+                Element_WaitForMoreData();
+                return false;
+            }
+        }
+        if (Buffer_Offset_Temp-Buffer_Offset)
+        {
+            Skip_XX(Buffer_Offset_Temp-Buffer_Offset,           "Guard band");
+            Buffer_Offset+=Element_Offset;
+            Element_Offset=0;
+        }
+    }
 
     //Must have enough buffer for having header
     if (Buffer_Offset+16>Buffer_Size)
@@ -682,7 +847,6 @@ void File_Aes3::Frame()
             if (Parser->Status[IsFilled])
             {
                 Merge(*Parser);
-                Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Parser->Retrieve(Stream_General, 0, General_Format), true);
                 int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
                 OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
                 Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+_T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
@@ -965,6 +1129,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     if (Parser==NULL)
     {
         Parser=new File_Aes3();
+        ((File_Aes3*)Parser)->From_Aes3=true;
         Open_Buffer_Init(Parser);
     }
     Element_Offset=0;
