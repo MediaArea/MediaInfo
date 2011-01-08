@@ -496,7 +496,7 @@ struct MediaInfo_Event_DvDif_Analysis_Frame_0
 #define MediaInfo_Parser_Aes3           0xA5
 
 /***************************************************************************/
-/* DolbyE                                                                  */
+/* Dolby E                                                                  */
 /***************************************************************************/
 
 #define MediaInfo_Parser_DolbyE         0xA6
