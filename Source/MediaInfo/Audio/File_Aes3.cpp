@@ -844,6 +844,8 @@ void File_Aes3::Frame()
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
+        Parser->PCR=PCR;
+        Parser->DTS=DTS;
         Parser->PTS=PTS;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         if (!Status[IsFilled] && Parser->Status[IsFilled])
@@ -1136,6 +1138,8 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
         Open_Buffer_Init(Parser);
     }
     Element_Offset=0;
+    Parser->PCR=PCR;
+    Parser->DTS=DTS;
     Parser->PTS=PTS;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     Element_Offset=Element_Size;
