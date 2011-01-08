@@ -157,8 +157,9 @@ void File_ChannelGrouping::Read_Buffer_Continue()
 
     //Buffer handling
     Ztring Format;
-    //if (StreamIDs_Size)
-    //    Format=Config->ID_Format_Get(Ztring::ToZtring(StreamIDs[0]));
+    /*
+    if (StreamIDs_Size)
+        Format=Config->ID_Format_Get(Ztring::ToZtring(StreamIDs[0]));
     if (Config->Demux_Unpacketize_Get() && (Format==_T("AES3") || Format==_T("Dolby E")))
     {
         while (Common->MergedChannel.Buffer_Offset+16<=Common->MergedChannel.Buffer_Size)
@@ -195,6 +196,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         }
     }
     else
+    */
     {
         Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
 
