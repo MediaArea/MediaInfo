@@ -387,7 +387,9 @@ void File_Aes3::Read_Buffer_Continue()
             }
         }
         if (Buffer_Offset_Temp-Buffer_Offset)
+        {
             Skip_XX(Buffer_Offset_Temp-Buffer_Offset,  "Guard band");
+        }
     }
 }
 
@@ -842,17 +844,16 @@ void File_Aes3::Frame()
         #endif //MEDIAINFO_DEMUX
 
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        if (Parser->Status[IsFinished])
+        if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
-            if (Parser->Status[IsFilled])
-            {
-                Merge(*Parser);
-                int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
-                OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
-                Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+_T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
-            }
-            Finish("AES3");
+            Merge(*Parser);
+            int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
+            OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
+            Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+_T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
+            Fill("AES3");
         }
+        if (Parser->Status[IsFinished])
+            Finish("AES3");
         Element_Offset=Element_Size;
     }
     else
@@ -1138,7 +1139,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
 
     if (!From_MpegPs)
         Frame_Count++;
-    if (Count_Get(Stream_Audio)==0 && Parser->Status[IsFinished])
+    if (!Status[IsFilled] && Parser->Status[IsFilled])
     {
         //Filling
         Merge(*Parser);
@@ -1151,6 +1152,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
             Fill(Stream_General, 0, General_Format, Parser->Retrieve(Stream_General, 0, General_Format), true);
             Fill(Stream_General, 0, General_OverallBitRate, OverallBitRates.Read(), true);
         }
+        Fill("AES3");
         if (!From_MpegPs)
             Finish("AES3");
     }
