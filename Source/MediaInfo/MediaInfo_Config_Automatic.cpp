@@ -4231,6 +4231,8 @@ void MediaInfo_Config_Audio (ZtringListList &Info)
     "SamplingRate;; Hz;N YF;;;Sampling rate\n"
     "SamplingRate/String;;;Y NT;;;in KHz\n"
     "SamplingCount;;;N NI;;;Sample count (based on sampling rate)\n"
+    "FrameRate;; fps;N YF;;;Frames per second\n"
+    "FrameRate/String;;;N NT;;;Frames per second (with measurement)\n"
     "FrameCount;;;N NI;;;Frame count (a frame contains a count of samples depends of the format)\n"
     "Resolution;; bit;N NI;;;Deprecated, do not use in new projects\n"
     "Resolution/String;;;N NT;;;Deprecated, do not use in new projects\n"
