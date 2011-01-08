@@ -571,7 +571,7 @@ bool File_Aes3::Synched_Test()
         if (Buffer_Offset_Temp-Buffer_Offset)
         {
             Skip_XX(Buffer_Offset_Temp-Buffer_Offset,           "Guard band");
-            Buffer_Offset+=Element_Offset;
+            Buffer_Offset+=(size_t)Element_Offset;
             Element_Offset=0;
         }
     }
@@ -828,7 +828,8 @@ void File_Aes3::Frame()
     {
         switch(data_type)
         {
-            case 28 : Parser=new File_DolbyE(); break;
+            case 28 :   Parser=new File_DolbyE();
+                        break;
             default : ;
         }
 
@@ -843,6 +844,7 @@ void File_Aes3::Frame()
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
+        Parser->PTS=PTS;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
@@ -1134,6 +1136,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
         Open_Buffer_Init(Parser);
     }
     Element_Offset=0;
+    Parser->PTS=PTS;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     Element_Offset=Element_Size;
 
@@ -1165,3 +1168,4 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
 } //NameSpace
 
 #endif //MEDIAINFO_AES3_YES
+
