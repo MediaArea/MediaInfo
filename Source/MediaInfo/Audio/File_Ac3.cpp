@@ -60,8 +60,8 @@ extern const char*  AC3_Mode[]=
 extern const char*  AC3_Surround[]=
 {
     "",
-    "(No surround)",
-    "(Surround)",
+    "Not Dolby Surround encoded",
+    "Dolby Surround encoded",
     "",
 };
 
@@ -701,6 +701,13 @@ void File_Ac3::Streams_Fill()
     //Dolby Metadata
     if (Count_Get(Stream_Audio))
     {
+        if (acmod==2)
+        {
+            Fill(Stream_Audio, 0, "dsurmod", dsurmod);
+            (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dsurmod"), Info_Options)=_T("N NT");
+            Fill(Stream_Audio, 0, "dsurmod/String", AC3_Surround[dsurmod]);
+            (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dsurmod/String"), Info_Options)=_T("N NT");
+        }
         Fill(Stream_Audio, 0, "dialnorm", FirstFrame_Dolby.dialnorm==0?-31:-FirstFrame_Dolby.dialnorm);
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("dialnorm"), Info_Options)=_T("N NT");
         Fill(Stream_Audio, 0, "dialnorm/String", Ztring::ToZtring(FirstFrame_Dolby.dialnorm==0?-31:-FirstFrame_Dolby.dialnorm)+_T(" dB"));
