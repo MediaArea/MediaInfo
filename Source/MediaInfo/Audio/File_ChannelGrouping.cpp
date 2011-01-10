@@ -114,8 +114,11 @@ void File_ChannelGrouping::Read_Buffer_Init()
             Common->Channels[Pos]=new common::channel;
         Open_Buffer_Init(Common->Parser);
     }
-    if (Channel_Pos)
-        StreamIDs[StreamIDs_Size-2]=StreamID;
+
+    #if MEDIAINFO_EVENTS
+        if (Channel_Pos)
+            StreamIDs[StreamIDs_Size-2]=StreamID;
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------
