@@ -68,6 +68,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_CDP_YES)
+    #include "MediaInfo/Text/File_Cdp.h"
+#endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
@@ -3173,6 +3176,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
         Ztring CodecID; CodecID.From_CC4((int32u)Element_Code);
         CodecID_Fill(CodecID, Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
 
+        #if defined(MEDIAINFO_CDP_YES)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Text, InfoCodecID_Format_Mpeg4, CodecID, InfoCodecID_Format)==_T("EIA-708"))
+        {
+            //Creating the parser
+            Stream[moov_trak_tkhd_TrackID].Parser=new File_Cdp;
+            ((File_Cdp*)Stream[moov_trak_tkhd_TrackID].Parser)->WithAppleHeader=true;
+        }
+        #endif
         #if MEDIAINFO_DEMUX
             if (Stream[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
             {

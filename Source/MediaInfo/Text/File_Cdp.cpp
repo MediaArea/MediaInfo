@@ -103,6 +103,7 @@ File_Cdp::File_Cdp()
     Streams_Count=0;
 
     //In
+    WithAppleHeader=false;
     AspectRatio=0;
 }
 
@@ -121,6 +122,7 @@ File_Cdp::~File_Cdp()
 void File_Cdp::Streams_Fill()
 {
     //Filling
+    Fill(Stream_General, 0, General_Format, "CDP");
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
         if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
         {
@@ -160,8 +162,20 @@ void File_Cdp::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_Cdp::Read_Buffer_Continue()
 {
-    if (!Status[IsAccepted])
-        Accept("CDP");
+    if (WithAppleHeader)
+    {
+        int32u Size, Magic;
+        Get_B4 (Size,                                           "Size");
+        Get_B4 (Magic,                                          "Magic");
+
+        FILLING_BEGIN();
+            if (Magic!=0x63636470)
+            {
+                Reject("CDP");
+                return;
+            }
+        FILLING_END();
+    }
 
     cdp_header();
     while(Element_Offset<Element_Size)
@@ -191,8 +205,9 @@ void File_Cdp::Read_Buffer_Continue()
 void File_Cdp::cdp_header()
 {
     Element_Begin("cdp_header");
+    int16u cdp_identifier;
     int8u cdp_frame_rate;
-    Skip_B2(                                                    "cdp_identifier");
+    Get_B2 (   cdp_identifier,                                  "cdp_identifier");
     Skip_B1(                                                    "cdp_length");
     BS_Begin();
     Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+_T(" fps"));
@@ -208,6 +223,19 @@ void File_Cdp::cdp_header()
     BS_End();
     Skip_B2(                                                    "cdp_hdr_sequence_cntr");
     Element_End();
+
+    FILLING_BEGIN();
+        if (!Status[IsAccepted])
+        {
+            if (cdp_identifier!=0x9669)
+            {
+                Reject("CDP");
+                return;
+            }
+
+            Accept("CDP");
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

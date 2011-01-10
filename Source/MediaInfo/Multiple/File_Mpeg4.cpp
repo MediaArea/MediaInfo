@@ -223,9 +223,11 @@ void File_Mpeg4::Streams_Finish()
                         Clear(Stream_Video, StreamKind_Last, Video_Width);
                 }
 
-                //Special case - Multiple audio in a stream
-                if (Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping") && Temp->second.Parser->Count_Get(Stream_Audio))
+                //Special case - Multiple sub-streams in a stream
+                if ((Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping") && Temp->second.Parser->Count_Get(Stream_Audio))
+                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("CDP"))
                 {
+                    //Before
                     Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize));
                     if (StreamKind_Last==Stream_Audio)
                     {
@@ -234,14 +236,29 @@ void File_Mpeg4::Streams_Finish()
                     ZtringList StreamSave; StreamSave.Write((*File__Analyze::Stream)[StreamKind_Last][StreamPos_Last].Read());
                     ZtringListList StreamMoreSave; StreamMoreSave.Write((*Stream_More)[StreamKind_Last][StreamPos_Last].Read());
 
-                    size_t NewPos1=(StreamPos_Last/2)*2;
-                    size_t NewPos2=NewPos1+1;
+                    //Erasing former streams data
                     stream_t NewKind=StreamKind_Last;
+                    size_t NewPos1;
+                    Ztring ID;
+                    if (Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping"))
+                    {
+                        //Channel coupling, removing the 2 corresponding streams
+                        NewPos1=(StreamPos_Last/2)*2;
+                        size_t NewPos2=NewPos1+1;
+                        ID=Retrieve(StreamKind_Last, NewPos1, General_ID)+_T(" / ")+Retrieve(StreamKind_Last, NewPos2, General_ID);
 
-                    Ztring ID=Retrieve(StreamKind_Last, NewPos1, General_ID)+_T(" / ")+Retrieve(StreamKind_Last, NewPos2, General_ID);
-                    Stream_Erase(NewKind, NewPos2);
-                    Stream_Erase(NewKind, NewPos1);
+                        Stream_Erase(NewKind, NewPos2);
+                        Stream_Erase(NewKind, NewPos1);
+                    }
+                    else
+                    {
+                        //One channel
+                        NewPos1=StreamPos_Last;
+                        ID=Retrieve(StreamKind_Last, NewPos1, General_ID);
+                        Stream_Erase(StreamKind_Last, StreamPos_Last);
+                    }
 
+                    //After
                     for (size_t StreamPos=0; StreamPos<Temp->second.Parser->Count_Get(NewKind); StreamPos++)
                     {
                         Stream_Prepare(NewKind, NewPos1+StreamPos);
