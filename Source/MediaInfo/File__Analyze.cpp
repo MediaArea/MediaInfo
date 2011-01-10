@@ -317,7 +317,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Parsing
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         Open_Buffer_Continue_Loop();
-    Buffer_TotalBytes+=Buffer_Offset;
 
     //Should parse again?
     if (((File_GoTo==File_Size && File_Size!=(int64u)-1) || File_Offset+Buffer_Offset>=File_Size)
@@ -489,6 +488,10 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 
     //Parsing;
     while (Buffer_Parse());
+    Buffer_TotalBytes+=Buffer_Offset;
+
+    //Parsing specific
+    Read_Buffer_AfterParsing();
 
     //Handling of File_GoTo with already buffered data
     if (File_GoTo!=(int64u)-1 && File_GoTo>=File_Offset && File_GoTo<=File_Offset+Buffer_Size)

@@ -1176,7 +1176,7 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
     //Parsing pointers to files in streams
     for (size_t Pos=0; Pos<Custom_View.size(); Pos++)
     {
-        if (Custom_View(Pos, 1).find(_T("file://"))==0)
+        if (Custom_View[Pos].size()>1 && Custom_View(Pos, 1).find(_T("file://"))==0)
         {
             //Open
             Ztring FileName(Custom_View(Pos, 1), 7, Ztring::npos);
