@@ -115,6 +115,7 @@ enum generic
 enum general
 {
     General_Count,
+    General_Status,
     General_StreamCount,
     General_StreamKind,
     General_StreamKind_String,
@@ -390,6 +391,7 @@ enum general
 enum video
 {
     Video_Count,
+    Video_Status,
     Video_StreamCount,
     Video_StreamKind,
     Video_StreamKind_String,
@@ -587,6 +589,7 @@ enum video
 enum audio
 {
     Audio_Count,
+    Audio_Status,
     Audio_StreamCount,
     Audio_StreamKind,
     Audio_StreamKind_String,
@@ -748,6 +751,7 @@ enum audio
 enum text
 {
     Text_Count,
+    Text_Status,
     Text_StreamCount,
     Text_StreamKind,
     Text_StreamKind_String,
@@ -914,6 +918,7 @@ enum chapters
 enum image
 {
     Image_Count,
+    Image_Status,
     Image_StreamCount,
     Image_StreamKind,
     Image_StreamKind_String,
@@ -991,6 +996,7 @@ enum image
 enum menu
 {
     Menu_Count,
+    Menu_Status,
     Menu_StreamCount,
     Menu_StreamKind,
     Menu_StreamKind_String,

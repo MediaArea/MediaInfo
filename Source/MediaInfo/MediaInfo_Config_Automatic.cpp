@@ -3670,6 +3670,7 @@ void MediaInfo_Config_General (ZtringListList &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "Count;;;N NI;;;Number of objects available in this stream\n"
+    "Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)\n"
     "StreamCount;;;N NI;;;Number of streams of this kind available\n"
     "StreamKind;General;;N NI;;;Stream type name\n"
     "StreamKind/String;;;N NI;;;Stream type name\n"
@@ -3949,6 +3950,7 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "Count;;;N NI;;;Number of objects available in this stream\n"
+    "Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)\n"
     "StreamCount;;;N NI;;;Number of streams of this kind available\n"
     "StreamKind;Video;;N NI;;;Stream type name\n"
     "StreamKind/String;;;N NI;;;Stream type name\n"
@@ -4150,6 +4152,7 @@ void MediaInfo_Config_Audio (ZtringListList &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "Count;;;N NI;;;Number of objects available in this stream\n"
+    "Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)\n"
     "StreamCount;;;N NI;;;Number of streams of this kind available\n"
     "StreamKind;Audio;;N NI;;;Stream type name\n"
     "StreamKind/String;;;N NI;;;Stream type name\n"
@@ -4315,6 +4318,7 @@ void MediaInfo_Config_Text (ZtringListList &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "Count;;;N NI;;;Count of objects available in this stream\n"
+    "Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)\n"
     "StreamCount;;;N NI;;;Count of streams of that kind available\n"
     "StreamKind;Text;;N NI;;;Stream type name\n"
     "StreamKind/String;;;N NI;;;Stream type name\n"
@@ -4489,6 +4493,7 @@ void MediaInfo_Config_Image (ZtringListList &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "Count;;;N YI;;;Count of objects available in this stream\n"
+    "Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)\n"
     "StreamCount;;;N YI;;;Count of streams of that kind available\n"
     "StreamKind;Image;;N NI;;;Stream type name\n"
     "StreamKind/String;;;N NI;;;Stream type name\n"
@@ -4570,6 +4575,7 @@ void MediaInfo_Config_Menu (ZtringListList &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "Count;;;N NI;;;Count of objects available in this stream\n"
+    "Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)\n"
     "StreamCount;;;N NI;;;Count of streams of that kind available\n"
     "StreamKind;Menu;;N NI;;;Stream type name\n"
     "StreamKind/String;;;N NI;;;Stream type name\n"

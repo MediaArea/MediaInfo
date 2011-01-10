@@ -1,4 +1,5 @@
 Count;;;N YI;;;Count of objects available in this stream
+Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)
 StreamCount;;;N YI;;;Count of streams of that kind available
 StreamKind;Image;;N NI;;;Stream type name
 StreamKind/String;;;N NI;;;Stream type name

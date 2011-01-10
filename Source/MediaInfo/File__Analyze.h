@@ -123,7 +123,9 @@ protected :
     // Streams management
     //***************************************************************************
 
+    virtual void Streams_Accept()                                               {};
     virtual void Streams_Fill()                                                 {};
+    virtual void Streams_Update()                                               {};
     virtual void Streams_Finish()                                               {};
 
     //***************************************************************************
@@ -142,6 +144,7 @@ protected :
     //Buffer
     virtual void Read_Buffer_Init ()          {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Continue ()      {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_AfterParsing ()  {}; //Temp, should be in File__Base caller
     virtual size_t Read_Buffer_Seek (size_t Method, int64u Value) {return (size_t)-1;}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Unsynched ()     {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
@@ -1014,6 +1017,19 @@ public :
         User_16,
         User_17,
         User_18,
+        User_19,
+        User_20,
+        User_21,
+        User_22,
+        User_23,
+        User_24,
+        User_25,
+        User_26,
+        User_27,
+        User_28,
+        User_29,
+        User_30,
+        User_31,
     };
     bool ShouldContinueParsing;
 
