@@ -313,7 +313,7 @@ Folder (Recursively);文件夹 (包含子文件夹)
 Folder_Hint;选择文件夹
 FolderName;文件夹名　
 Format;文件格式
-Format_Commercial
+Format_Commercial;商业名称
 Format_Description;格式描述
 Format_Info;格式详情
 Format_Profile;格式简介
@@ -925,7 +925,7 @@ TimeZone;时区
 Total;总计
 Track;音轨
 Track_Count;音轨数
-transfer_characteristics
+transfer_characteristics;传输特性
 Translator;翻译
 Tree;树状图
 Tree & Text;树状图和文本
@@ -962,6 +962,6 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
 CompressionRatio;压缩比
