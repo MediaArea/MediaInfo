@@ -306,7 +306,7 @@ File_Mpega::File_Mpega()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:4);
     FrameIsAlwaysComplete=false;
     CalculateDelay=false;
 
@@ -510,7 +510,7 @@ void File_Mpega::Streams_Finish()
         }
     }
 
-    if (FrameCount==0 && VBR_FileSize && Retrieve(Stream_Audio, 0, Audio_BitRate_Mode)==_T("CBR"))
+    if (FrameCount==0 && VBR_FileSize && Retrieve(Stream_Audio, 0, Audio_BitRate_Mode)==_T("CBR") && Mpega_SamplingRate[ID][sampling_frequency])
     {
         size_t Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency])*Mpega_SlotSize[layer];
         FrameCount=float64_int64s(((float64)VBR_FileSize)/Size);
@@ -696,7 +696,50 @@ bool File_Mpega::Synchronize()
                                 if ((CC2(Buffer+Buffer_Offset+Size0+Size1)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size0+Size1+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size0+Size1+2)&0x0C)==0x0C)
                                     Buffer_Offset++;
                                 else
-                                    break; //while()
+                                {
+                                    //Retrieving some info
+                                    int8u ID2                =(CC1(Buffer+Buffer_Offset+Size0+Size1+1)>>3)&0x03;
+                                    int8u layer2             =(CC1(Buffer+Buffer_Offset+Size0+Size1+1)>>1)&0x03;
+                                    int8u bitrate_index2     =(CC1(Buffer+Buffer_Offset+Size0+Size1+2)>>4)&0x0F;
+                                    int8u sampling_frequency2=(CC1(Buffer+Buffer_Offset+Size0+Size1+2)>>2)&0x03;
+                                    int8u padding_bit2       =(CC1(Buffer+Buffer_Offset+Size0+Size1+2)>>1)&0x01;
+                                    //Coherancy
+                                    if (Mpega_SamplingRate[ID2][sampling_frequency2]==0 || Mpega_Coefficient[ID2][layer2]==0 || Mpega_BitRate[ID2][layer2][bitrate_index2]==0 || Mpega_SlotSize[layer2]==0)
+                                        Buffer_Offset++; //False start
+                                    else
+                                    {
+                                        //Testing next start, to be sure
+                                        size_t Size2=(Mpega_Coefficient[ID2][layer2]*Mpega_BitRate[ID2][layer2][bitrate_index2]*1000/Mpega_SamplingRate[ID2][sampling_frequency2]+(padding_bit2?1:0))*Mpega_SlotSize[layer2];
+                                        if (IsSub && Buffer_Offset+Size0+Size1+Size2==Buffer_Size)
+                                            break;
+                                        if (File_Offset+Buffer_Offset+Size0+Size1+Size2!=File_Size-File_EndTagSize)
+                                        {
+                                            if (Buffer_Offset+Size0+Size1+Size2+4>Buffer_Size)
+                                            {
+                                                if (IsSub || File_Offset+Buffer_Offset+Size0+Size1+Size2<File_Size)
+                                                    break;
+                                                return false; //Need more data
+                                            }
+
+                                            //Tags
+                                            bool Tag_Found2;
+                                            if (!File__Tags_Helper::Synchronize(Tag_Found2, Size0+Size1+Size2))
+                                                return false;
+                                            if (Tag_Found2)
+                                                return true;
+                                            if (File_Offset+Buffer_Offset+Size0+Size1+Size2==File_Size-File_EndTagSize)
+                                                break;
+
+                                            //Testing
+                                            if ((CC2(Buffer+Buffer_Offset+Size0+Size1+Size2)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size0+Size1+Size2+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size0+Size1+Size2+2)&0x0C)==0x0C)
+                                                Buffer_Offset++;
+                                            else
+                                                break; //while()
+                                        }
+                                        else
+                                            break; //while()
+                                    }
+                                }
                             }
                             else
                                 break; //while()

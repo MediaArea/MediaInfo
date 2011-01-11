@@ -12,6 +12,7 @@ Version 0.7.40, 2011-
 + QuickTime: detection of AES3 and DolbyE
 + QuickTime: Apple CEA-608 and CEA-708 (in CDP) support
 x libcurl: crash if requesting a libcurl URL but libcurl library not present
+x MPEG Audio: crash with some malformed files
 
 Version 0.7.39, 2011-01-03
 --------------
