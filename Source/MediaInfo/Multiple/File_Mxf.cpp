@@ -233,7 +233,7 @@ const char* Mxf_MPEG2_CodedContentType(int8u CodedContentType)
 {
     switch(CodedContentType)
     {
-        case 0x01 : return "Progressive";
+        case 0x01 : return "PPF";
         case 0x02 : return "Interlaced";
         case 0x03 : return ""; //Mixed
         default   : return "";
@@ -915,22 +915,6 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Ztring::ToZtring(Essence->first, 16), true);
     }
 
-    //Interlacement management
-    if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==_T("Interlaced") && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("JPEG 2000"))
-    {
-        //JPEG 2000 has no complete frame height, but field height
-        int64u Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int64u();
-        Height*=2; //This is per field
-        if (Height)
-            Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
-
-        //JPEG 2000 has no complete frame framerate, but field framerate
-        float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
-        FrameRate/=2; //This is per field
-        if (FrameRate)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
-    }
-
     //Special case - DV
     #if defined(MEDIAINFO_DVDIF_YES)
         if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("DV"))
@@ -1147,28 +1131,19 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             if (Descriptor->second.Height_Display_Offset!=(int32u)-1)
                 Fill(Stream_Video, StreamPos_Last, Video_Height_Offset, Descriptor->second.Height_Display_Offset, 10, true);
         }
-        bool InterlacementAlreadyKnown=true;
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("JPEG 2000") && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)!=_T("Interlaced"))
-            InterlacementAlreadyKnown=false;
+
+        //Special case
+        if (StreamKind_Last==Stream_Audio)
+        {
+            std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("FrameRate");
+            if (Info!=Descriptor->second.Infos.end())
+                Descriptor->second.Infos.erase(Info);
+        }
+
+        //Info
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); Info++)
             if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
                 Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
-
-        //Interlacement management
-        if (!InterlacementAlreadyKnown && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==_T("Interlaced"))
-        {
-            //JPEG 2000 has no complete frame height, but field height
-            int64u Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int64u();
-            Height*=2; //This is per field
-            if (Height)
-                Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
-
-            //JPEG 2000 has no complete frame framerate, but field framerate
-            float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
-            FrameRate/=2; //This is per field
-            if (FrameRate)
-                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
-        }
 
         //Bitrate (PCM)
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM") && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Wrapping).find(_T("D-10"))!=string::npos)
@@ -1878,7 +1853,7 @@ void File_Mxf::Data_Parse()
                 {
                     if (Descriptor->second.EssenceContainer.hi!=(int64u)-1 || Descriptor->second.EssenceCompression.hi!=(int64u)-1)
                     {
-                        Essences[Code_Compare4].Parser=ChooseParser(Descriptor->second.EssenceContainer, Descriptor->second.EssenceCompression);
+                        Essences[Code_Compare4].Parser=ChooseParser(Descriptor->second.EssenceContainer, Descriptor->second.EssenceCompression, Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
 
                         #ifdef MEDIAINFO_VC3_YES
@@ -2083,6 +2058,9 @@ void File_Mxf::CDCIEssenceDescriptor()
         ELEMENT(330B, CDCIEssenceDescriptor_ReversedByteOrder,  "Luma followed by Chroma")
         default: GenericPictureEssenceDescriptor();
     }
+
+    if (Descriptors[InstanceUID].Infos["ColorSpace"].empty())
+        Descriptors[InstanceUID].Infos["ColorSpace"]="YUV";
 }
 
 //---------------------------------------------------------------------------
@@ -2573,6 +2551,9 @@ void File_Mxf::RGBAEssenceDescriptor()
         ELEMENT(3409, RGBAEssenceDescriptor_AlphaMinRef,        "Minimum value for alpha component")
         default: GenericPictureEssenceDescriptor();
     }
+
+    if (Descriptors[InstanceUID].Infos["ColorSpace"].empty())
+        Descriptors[InstanceUID].Infos["ColorSpace"]="RGB";
 }
 
 //---------------------------------------------------------------------------
@@ -3239,11 +3220,7 @@ void File_Mxf::FileDescriptor_SampleRate()
     Get_Rational(Descriptors[InstanceUID].SampleRate); Element_Info(Descriptors[InstanceUID].SampleRate);
 
     FILLING_BEGIN();
-        switch (Descriptors[InstanceUID].StreamKind)
-        {
-            case Stream_Video   : Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3); break;
-            default             : ;
-        }
+        Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3);
     FILLING_END();
 }
 
@@ -6220,7 +6197,7 @@ void File_Mxf::Info_Timestamp()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceCompression)
+File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceCompression, bool Interlaced)
 {
     if ((EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
         return NULL;
@@ -6265,7 +6242,7 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
                                                         case 0x03 : //Individual Picture Coding Schemes
                                                                     switch (Code6)
                                                                     {
-                                                                        case 0x01 : return ChooseParser_Jpeg2000();
+                                                                        case 0x01 : return ChooseParser_Jpeg2000(Interlaced);
                                                                         default   : return NULL;
                                                                     }
                                                         case 0x71 : return ChooseParser_Vc3();
@@ -6514,12 +6491,13 @@ File__Analyze* File_Mxf::ChooseParser_Pcm()
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Jpeg2000()
+File__Analyze* File_Mxf::ChooseParser_Jpeg2000(bool Interlaced)
 {
     //Filling
     #if defined(MEDIAINFO_JPEG_YES)
         File_Jpeg* Handle=new File_Jpeg;
         Handle->StreamKind=Stream_Video;
+        Handle->Interlaced=Interlaced;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

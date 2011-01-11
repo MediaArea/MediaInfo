@@ -221,6 +221,29 @@ std::string Mpeg4_chan_ChannelDescription (int32u ChannelLabels)
     return Text;
 }
 
+//---------------------------------------------------------------------------
+const char* Mpeg4_jp2h_METH(int8u METH)
+{
+    switch (METH)
+    {
+        case 0x01 : return "Enumerated colourspace";
+        case 0x02 : return "Restricted ICC profile";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_jp2h_EnumCS(int32u EnumCS)
+{
+    switch (EnumCS)
+    {
+        case 0x10 : return "RGB"; //sRGB
+        case 0x11 : return "Grey";
+        case 0x12 : return "YUV"; //sYUV
+        default   : return "";
+    }
+}
+
 //***************************************************************************
 // Constants
 //***************************************************************************
@@ -360,6 +383,9 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_priv=0x70726976;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_subs=0x73756273;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_cspc=0x63737063;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h=0x6A703268;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_colr=0x636F6C72;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_ihdr=0x69686472;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_pasp=0x70617370;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave=0x77617665;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf=0x61636266;
@@ -491,8 +517,8 @@ void File_Mpeg4::Data_Parse()
     ATOM(jp2c)
     LIST(jp2h)
         ATOM_BEGIN
-        ATOM(jp2h_ihdr)
         ATOM(jp2h_colr)
+        ATOM(jp2h_ihdr)
         ATOM_END
     LIST(mdat)
         ATOM_BEGIN
@@ -640,6 +666,11 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_idfm)
+                                LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h)
+                                    ATOM_BEGIN
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_colr)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_ihdr)
+                                    ATOM_END
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_pasp)
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_wave)
                                     ATOM_BEGIN
@@ -946,6 +977,8 @@ void File_Mpeg4::jp2c()
     #if defined(MEDIAINFO_JPEG_YES)
         //Creating the parser
         File_Jpeg MI;
+        if (IsSub) //If contained in another container, this is a video stream
+            MI.StreamKind=Stream_Video;
         Open_Buffer_Init(&MI);
 
         //Parsing
@@ -955,11 +988,13 @@ void File_Mpeg4::jp2c()
         Finish(&MI);
 
         Accept("MPEG-4");
-
+        
         Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
         Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
 
         Merge(MI);
+        
+        Finish("MPEG-4");
     #endif
 
 }
@@ -976,7 +1011,23 @@ void File_Mpeg4::jp2h_colr()
     Element_Name("Color");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    int8u METH;
+    Get_B1 (METH,                                               "METH - Specification method"); Param_Info(Mpeg4_jp2h_METH(METH));
+    Skip_B1(                                                    "PREC - Precedence");
+    Skip_B1(                                                    "APPROX - Colourspace approximation");
+    switch (METH)
+    {
+        case 0x01 : {
+                    int32u EnumCS;
+                    Get_B4 (EnumCS,                             "EnumCS - Enumerated colourspace"); Param_Info(Mpeg4_jp2h_EnumCS(EnumCS));
+                    Fill(StreamKind_Last, StreamPos_Last, "ColorSpace", Mpeg4_jp2h_EnumCS(EnumCS));
+                    }
+                    break;
+        case 0x02 : Skip_XX(Element_Size-Element_Offset,        "PROFILE");
+                    break;
+        default   : Skip_XX(Element_Size-Element_Offset,        "Unknown");
+                    return;     
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -985,7 +1036,16 @@ void File_Mpeg4::jp2h_ihdr()
     Element_Name("Header");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    Skip_B4(                                                    "Height");
+    Skip_B4(                                                    "Width");
+    Skip_B2(                                                    "NC - Number of components");
+    BS_Begin();
+    Skip_SB(                                                    "BPC - Bits per component (Sign)");
+    Skip_S1(7,                                                  "BPC - Bits per component (Value)");
+    BS_End();
+    Skip_B1(                                                    "C - Compression type");
+    Skip_B1(                                                    "UnkC - Colourspace Unknown");
+    Skip_B1(                                                    "IPR - Intellectual Property");
 }
 
 //---------------------------------------------------------------------------
@@ -3305,6 +3365,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("JPEG"))
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_Jpeg;
+                }
+            #endif
+            #if defined(MEDIAINFO_MPEG4_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("JPEG 2000"))
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpeg4;
                 }
             #endif
 

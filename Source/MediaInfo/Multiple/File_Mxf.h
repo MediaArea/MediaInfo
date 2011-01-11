@@ -555,7 +555,7 @@ protected :
     components Components;
 
     //Parsers
-    File__Analyze* ChooseParser(int128u EssenceContainer, int128u EssenceCompression);
+    File__Analyze* ChooseParser(int128u EssenceContainer, int128u EssenceCompression, bool Interlaced=false);
     File__Analyze* ChooseParser_Avc();
     File__Analyze* ChooseParser_DV();
     File__Analyze* ChooseParser_Mpeg4v();
@@ -567,7 +567,7 @@ protected :
     File__Analyze* ChooseParser_Alaw();
     File__Analyze* ChooseParser_Mpega();
     File__Analyze* ChooseParser_Pcm();
-    File__Analyze* ChooseParser_Jpeg2000();
+    File__Analyze* ChooseParser_Jpeg2000(bool Interlaced=false);
 
     //Temp
     int64u TimeCode_StartTimecode;

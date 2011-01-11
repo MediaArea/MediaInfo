@@ -142,6 +142,7 @@ File_Jpeg::File_Jpeg()
 {
     //In
     StreamKind=Stream_Image;
+    Interlaced=false;
 
     //Temp
     Height_Multiplier=1;
@@ -335,6 +336,9 @@ void File_Jpeg::Data_Parse()
 void File_Jpeg::SIZ()
 {
     //Parsing
+    vector<float> SamplingFactors;
+    vector<int8u> BitDepths;
+    int8u SamplingFactors_Max=0;
     int32u Xsiz, Ysiz;
     int16u Count;
     Skip_B2(                                                    "Rsiz - Capability of the codestream");
@@ -350,13 +354,22 @@ void File_Jpeg::SIZ()
     for (int16u Pos=0; Pos<Count; Pos++)
     {
         Element_Begin("Initialize related array");
+        int8u compSubsX, compSubsY;
         BS_Begin();
         Skip_SB(                                                "Signed");
-        Info_S1(7, BitDepth,                                    "BitDepth"); Element_Info(BitDepth);
+        Info_S1(7, BitDepth,                                    "BitDepth"); Param_Info(1+BitDepth); Element_Info(1+BitDepth);
         BS_End();
-        Skip_B1(                                                "compSubsX");
-        Skip_B1(                                                "compSubsY");
+        Get_B1 (   compSubsX,                                   "compSubsX"); Element_Info(compSubsX);
+        Get_B1 (   compSubsY,                                   "compSubsY"); Element_Info(compSubsY);
         Element_End();
+
+        //Filling list of HiVi
+        SamplingFactors.push_back(((float)compSubsY)/compSubsX);
+        if (((float)compSubsY)/compSubsX>SamplingFactors_Max)
+            SamplingFactors_Max=(int8u)((float)compSubsY)/compSubsX;
+
+        if (BitDepths.empty() || BitDepth!=BitDepths[0])
+            BitDepths.push_back(BitDepth);
     }
 
     FILLING_BEGIN_PRECISE();
@@ -369,7 +382,29 @@ void File_Jpeg::SIZ()
         if (StreamKind==Stream_Image)
             Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Xsiz);
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Ysiz);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Ysiz*(Interlaced?2:1)); //If image is from interlaced content, must multiply height by 2
+
+        if (BitDepths.size()==1)
+            Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_BitDepth), 1+BitDepths[0]);
+
+        //Chroma subsampling
+        if (SamplingFactors_Max)
+            while (SamplingFactors_Max<4)
+            {
+                for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+                    SamplingFactors[Pos]*=2;
+                SamplingFactors_Max*=2;
+            }
+        while (SamplingFactors.size()<3)
+            SamplingFactors.push_back(0);
+        Ztring ChromaSubsampling;
+        for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+            ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
+        if (!ChromaSubsampling.empty())
+        {
+            ChromaSubsampling.resize(ChromaSubsampling.size()-1);
+            Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+        }
     FILLING_END();
 }
 
@@ -487,7 +522,7 @@ void File_Jpeg::SOF_()
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
 
-        //chroma
+        //Chroma subsampling
         if (SamplingFactors_Max)
             while (SamplingFactors_Max<4)
             {
@@ -497,7 +532,14 @@ void File_Jpeg::SOF_()
             }
         while (SamplingFactors.size()<3)
             SamplingFactors.push_back(0);
-        Fill(StreamKind, 0, "ChromaSubsampling", Ztring::ToZtring(SamplingFactors[0], 0)+_T(":")+Ztring::ToZtring(SamplingFactors[1], 0)+_T(":")+Ztring::ToZtring(SamplingFactors[2], 0));
+        Ztring ChromaSubsampling;
+        for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+            ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
+        if (!ChromaSubsampling.empty())
+        {
+            ChromaSubsampling.resize(ChromaSubsampling.size()-1);
+            Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+        }
     FILLING_END();
 }
 

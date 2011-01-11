@@ -42,6 +42,7 @@ class File_Jpeg : public File__Analyze
 public :
     //In
     stream_t StreamKind;
+    bool     Interlaced;
 
     //Constructor/Destructor
     File_Jpeg();
