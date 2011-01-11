@@ -1769,26 +1769,31 @@ void File__Analyze::Trusted_IsNot ()
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
 void File__Analyze::Accept (const char* ParserName_Char)
+#else //MEDIAINFO_TRACE
+void File__Analyze::Accept ()
+#endif //MEDIAINFO_TRACE
 {
     if (Status[IsAccepted] || Status[IsFinished])
         return;
 
-    if (ParserName.empty())
-        ParserName.From_Local(ParserName_Char);
+    #if MEDIAINFO_TRACE
+        if (ParserName.empty())
+            ParserName.From_Local(ParserName_Char);
 
-    if (!ParserName.empty())
-    {
-        bool MustElementBegin=Element_Level?true:false;
-        if (Element_Level>0)
-            Element_End(); //Element
-        Info(Ztring(ParserName)+_T(", accepted"));
-        if (MustElementBegin)
-            Element_Level++;
-    }
+        if (!ParserName.empty())
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(ParserName+_T(", accepted"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
+    #endif //MEDIAINFO_TRACE
 
     Status[IsAccepted]=true;
-    //if (!IsSub)
-        Stream_Prepare(Stream_General);
+    Stream_Prepare(Stream_General);
+    Streams_Accept();
 
     #if MEDIAINFO_EVENTS
         if (!IsSub)
@@ -1807,32 +1812,6 @@ void File__Analyze::Accept (const char* ParserName_Char)
         }
     #endif //MEDIAINFO_EVENTS
 }
-#else //MEDIAINFO_TRACE
-void File__Analyze::Accept ()
-{
-    if (Status[IsAccepted] || Status[IsFinished])
-        return;
-
-    Status[IsAccepted]=true;
-    //if (!IsSub)
-        Stream_Prepare(Stream_General);
-
-    #if MEDIAINFO_EVENTS
-        if (!IsSub)
-        {
-            struct MediaInfo_Event_General_Parser_Selected_0 Event;
-            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
-            memset(Event.Name, 0, 16);
-            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
-
-            #if MEDIAINFO_DEMUX
-                if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
-                    Config->Demux_EventWasSent=true;
-            #endif //MEDIAINFO_DEMUX
-        }
-    #endif //MEDIAINFO_EVENTS
-}
-#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Accept (File__Analyze* Parser)
 {
@@ -1844,56 +1823,40 @@ void File__Analyze::Accept (File__Analyze* Parser)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Fill (const char* ParserName)
-{
-    if (Status[IsFilled])
-        return;
-
-    if (ParserName)
-    {
-        bool MustElementBegin=Element_Level?true:false;
-        if (Element_Level>0)
-            Element_End(); //Element
-        Info(Ztring(ParserName)+_T(", filling"));
-        if (MustElementBegin)
-            Element_Level++;
-    }
-
-    if (Status[IsAccepted])
-    {
-        Streams_Fill();
-        Status[IsFilled]=true;
-        Status[IsUpdated]=true;
-
-        //Instantaneous bitrate at the "fill" level
-        if (File_Size==(int64u)-1 && PTS_End!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
-        {
-            Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(PTS_End-PTS_Begin));
-            (*Stream_More)[StreamKind_Last][0](Ztring().From_Local("BitRate_Instantaneous"), Info_Options)=_T("N NI");
-        }
-    }
-}
+void File__Analyze::Fill (const char* ParserName_Char)
 #else //MEDIAINFO_TRACE
 void File__Analyze::Fill ()
+#endif //MEDIAINFO_TRACE
 {
-    if (Status[IsFilled])
+    if (!Status[IsAccepted] || Status[IsFilled] || Status[IsFinished])
         return;
 
-    if (Status[IsAccepted])
-    {
-        Streams_Fill();
-        Status[IsFilled]=true;
-        Status[IsUpdated]=true;
+    #if MEDIAINFO_TRACE
+        if (ParserName.empty())
+            ParserName.From_Local(ParserName_Char);
 
-        //Instantaneous bitrate at the "fill" level
-        if (File_Size==(int64u)-1 && PTS_End!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
+        if (!ParserName.empty())
         {
-            Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(PTS_End-PTS_Begin));
-            (*Stream_More)[StreamKind_Last][0](Ztring().From_Local("BitRate_Instantaneous"), Info_Options)=_T("N NI");
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(ParserName+_T(", filling"));
+            if (MustElementBegin)
+                Element_Level++;
         }
+    #endif //MEDIAINFO_TRACE
+
+    Streams_Fill();
+    Status[IsFilled]=true;
+    Status[IsUpdated]=true;
+
+    //Instantaneous bitrate at the "fill" level
+    if (File_Size==(int64u)-1 && PTS_End!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
+    {
+        Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(PTS_End-PTS_Begin));
+        (*Stream_More)[StreamKind_Last][0](Ztring().From_Local("BitRate_Instantaneous"), Info_Options)=_T("N NI");
     }
 }
-#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Fill (File__Analyze* Parser)
 {
@@ -1905,17 +1868,10 @@ void File__Analyze::Fill (File__Analyze* Parser)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Finish (const char* ParserName)
-{
-    Fill();
-
-    if (Config_ParseSpeed==1)
-        return;
-
-    ForceFinish(ParserName);
-}
+void File__Analyze::Finish (const char* ParserName_Char)
 #else //MEDIAINFO_TRACE
 void File__Analyze::Finish ()
+#endif //MEDIAINFO_TRACE
 {
     Fill();
 
@@ -1924,7 +1880,6 @@ void File__Analyze::Finish ()
 
     ForceFinish();
 }
-#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Finish (File__Analyze* Parser)
 {
@@ -1943,42 +1898,48 @@ void File__Analyze::Finish (File__Analyze* Parser)
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
 void File__Analyze::ForceFinish (const char* ParserName_Char)
+#else //MEDIAINFO_TRACE
+void File__Analyze::ForceFinish ()
+#endif //MEDIAINFO_TRACE
 {
-    if (ParserName.empty())
-        ParserName.From_Local(ParserName_Char);
-
     if (ShouldContinueParsing)
     {
-        if (!ParserName.empty())
-        {
-            bool MustElementBegin=Element_Level?true:false;
-            if (Element_Level>0)
-                Element_End(); //Element
-            //Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
-            if (MustElementBegin)
-                Element_Level++;
-        }
+        #if MEDIAINFO_TRACE
+            if (!ParserName.empty())
+            {
+                bool MustElementBegin=Element_Level?true:false;
+                if (Element_Level>0)
+                    Element_End(); //Element
+                //Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
+                if (MustElementBegin)
+                    Element_Level++;
+            }
+        #endif //MEDIAINFO_TRACE
+
         return;
     }
 
     if (Status[IsFinished])
         return;
 
-    if (!ParserName.empty())
-    {
-        bool MustElementBegin=Element_Level?true:false;
-        if (Element_Level>0)
-            Element_End(); //Element
-        Info(ParserName+_T(", finished"));
-        if (MustElementBegin)
-            Element_Level++;
-    }
+    #if MEDIAINFO_TRACE
+        if (ParserName.empty())
+            ParserName.From_Local(ParserName_Char);
+
+        if (!ParserName.empty())
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(ParserName+_T(", finished"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
+    #endif //MEDIAINFO_TRACE
 
     if (Status[IsAccepted])
+    {
         Fill();
-
-    if (Status[IsAccepted])
-    {
         Streams_Finish();
         Streams_Finish_Global();
     }
@@ -1991,30 +1952,6 @@ void File__Analyze::ForceFinish (const char* ParserName_Char)
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Buffer_TotalBytes, 10, true);
     }
 }
-#else //MEDIAINFO_TRACE
-void File__Analyze::ForceFinish ()
-{
-    if (ShouldContinueParsing || Status[IsFinished])
-        return;
-
-    if (Status[IsAccepted])
-        Fill();
-
-    if (Status[IsAccepted])
-    {
-        Streams_Finish();
-        Streams_Finish_Global();
-    }
-
-    Status[IsFinished]=true;
-
-    //Real stream size
-    if (Config_ParseSpeed==1 && IsRawStream)
-    {
-        Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Buffer_TotalBytes, 10, true);
-    }
-}
-#endif //MEDIAINFO_TRACE
 
 void File__Analyze::ForceFinish (File__Analyze* Parser)
 {
@@ -2033,29 +1970,26 @@ void File__Analyze::ForceFinish (File__Analyze* Parser)
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
 void File__Analyze::Reject (const char* ParserName)
+#else //MEDIAINFO_TRACE
+void File__Analyze::Reject ()
+#endif //MEDIAINFO_TRACE
 {
     Status[IsAccepted]=false;
     Status[IsFinished]=true;
     Clear();
 
-    if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
-    {
-        bool MustElementBegin=Element_Level?true:false;
-        if (Element_Level>0)
-            Element_End(); //Element
-        Info(Ztring(ParserName)+_T(", rejected"));
-        if (MustElementBegin)
-            Element_Level++;
-    }
+    #if MEDIAINFO_TRACE
+        if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(Ztring(ParserName)+_T(", rejected"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
+    #endif //MEDIAINFO_TRACE
 }
-#else //MEDIAINFO_TRACE
-void File__Analyze::Reject ()
-{
-    Status[IsAccepted]=false;
-    Status[IsFinished]=true;
-    Clear();
-}
-#endif //MEDIAINFO_TRACE
 
 void File__Analyze::Reject (File__Analyze* Parser)
 {
