@@ -339,6 +339,9 @@ void File_MpegTs::Streams_Fill()
      && Retrieve(Stream_Audio, 0, Audio_Format_Profile)==_T("Layer 2")
      && Retrieve(Stream_Audio, 0, Audio_BitRate)==_T("384000"))
         Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+
+    Status[IsUpdated]=true;
+    Status[User_19]=true;
 }
 
 //---------------------------------------------------------------------------
@@ -677,9 +680,7 @@ bool File_MpegTs::Synchronize()
 
     //Synched is OK
     if (!Status[IsAccepted])
-    {
-        Accept("MPEG-TS");
-    }
+        Accept();
     return true;
 }
 
@@ -997,6 +998,71 @@ void File_MpegTs::Read_Buffer_Continue()
             Config->State_Set((float)0.99); //Nearly the end
         else
             Config->State_Set(((float)Buffer_TotalBytes)/(MpegTs_JumpTo_Begin+MpegTs_JumpTo_End));
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Read_Buffer_AfterParsing()
+{
+    if (Complete_Stream==NULL)
+        return; //No synchronization yet
+
+    if (!Status[IsFilled])
+    {
+        //Test if parsing of headers is OK
+        if (Complete_Stream->Streams_NotParsedCount==0
+         || Buffer_TotalBytes-Buffer_TotalBytes_FirstSynched>=MpegTs_JumpTo_Begin
+         || File_Offset+Buffer_Size==File_Size)
+        {
+            //Test if PAT/PMT are missing (ofen in .trp files)
+            if (!Complete_Stream->transport_stream_id_IsValid
+             && Retrieve(Stream_General, 0, General_Format_Profile)!=_T("No PAT/PMT"))
+            {
+                //Activating all streams as PES
+                Complete_Stream->Streams.clear();
+                Complete_Stream->Streams.resize(0x2000);
+                for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
+                {
+                    Complete_Stream->Streams_NotParsedCount=(size_t)-1;
+                    Complete_Stream->Streams[StreamID].Kind=complete_stream::stream::pes;
+                    Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
+                    #if MEDIAINFO_TRACE
+                        if (Trace_Activated)
+                            Complete_Stream->Streams[StreamID].Element_Info="PES";
+                    #endif //MEDIAINFO_TRACE
+                    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                        Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);
+                        Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(false);
+                    #endif //MEDIAINFO_MPEGTS_PCR_YES
+                    #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                        Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(true);
+                        Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(false);
+                    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                }
+                Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
+                Buffer_TotalBytes=0;
+                Buffer_TotalBytes_FirstSynched=(int64u)-1;
+                Synched=false;
+                GoTo(0);
+                return;
+            }
+
+            //Filling
+            Fill();
+            Complete_Stream->Streams_NotParsedCount=0;
+
+            //Jumpinb
+            if (Config->File_IsSeekable_Get() && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End)
+            {
+                #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+                    GoToFromEnd(47); //TODO: Should be changed later (when Finalize stuff will be split)
+                #else //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+                    GoToFromEnd(MpegTs_JumpTo_End);
+                    Searching_TimeStamp_Start=false;
+                #endif //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+            }
+        }
     }
 }
 
@@ -1817,69 +1883,6 @@ void File_MpegTs::PSI_Duration_End_Update()
     Complete_Stream->Duration_End_IsUpdated=false;
     Status[IsUpdated]=true;
     Status[User_17]=true;
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_MpegTs::Detect_EOF()
-{
-    if (File_Offset+Buffer_Size>=MpegTs_JumpTo_Begin && !Complete_Stream->transport_stream_id_IsValid && Retrieve(Stream_General, 0, General_Format_Profile)!=_T("No PAT/PMT"))
-    {
-        //Activating all streams as PES, in case of PAT/PMT are missing (ofen in .trp files)
-        Complete_Stream->Streams.clear();
-        Complete_Stream->Streams.resize(0x2000);
-        for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
-        {
-            Complete_Stream->Streams_NotParsedCount=(size_t)-1;
-            Complete_Stream->Streams[StreamID].Kind=complete_stream::stream::pes;
-            Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(true);
-            Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
-            #if MEDIAINFO_TRACE
-                if (Trace_Activated)
-                    Complete_Stream->Streams[StreamID].Element_Info="PES";
-            #endif //MEDIAINFO_TRACE
-            #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);
-                Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(false);
-            #endif //MEDIAINFO_MPEGTS_PCR_YES
-            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(true);
-                Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(false);
-            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-        }
-        if (!Status[IsAccepted])
-            Accept("MPEG-TS");
-        GoTo(0, "MPEG-TS");
-        Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
-        return;
-    }
-
-    //Jump to the end of the file
-    if (File_Offset+Buffer_Offset>0x8000 && File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
-       (File_Offset+Buffer_Offset>=MpegTs_JumpTo_Begin)
-     || Complete_Stream->Streams_NotParsedCount==0))
-    {
-        Complete_Stream->Streams_NotParsedCount=0;
-
-        if (!Status[IsAccepted])
-            Accept("MPEG-TS");
-        Fill("MPEG-TS");
-
-        if (Config->File_IsSeekable_Get())
-        {
-            #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
-                GoToFromEnd(47, "MPEG-TS"); //TODO: Should be changed later (when Finalize stuff will be split)
-            #else //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
-                GoToFromEnd(MpegTs_JumpTo_End, "MPEG-TS");
-                Searching_TimeStamp_Start=false;
-            #endif //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
-        }
-        else
-            EOF_AlreadyDetected=true;
-    }
 }
 
 } //NameSpace

@@ -75,6 +75,7 @@ private :
 
     //Buffer - Global
     void Read_Buffer_Continue();
+    void Read_Buffer_AfterParsing ();
     void Read_Buffer_Unsynched();
 
     //Buffer - Per element
@@ -99,7 +100,6 @@ private :
 
     //Helpers
     bool Header_Parser_QuickSearch();
-    void Detect_EOF();
 
     //Temp
     #if defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
