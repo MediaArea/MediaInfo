@@ -175,7 +175,7 @@ Author;作者
 BarCode;条形码
 Basic;基本
 Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
-BitDepth
+BitDepth;位深度
 BitRate;码率
 BitRate_Maximum;最大码率
 BitRate_Minimum;最小码率
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;CBR
 BitRate_Mode_VBR;VBR
 BitRate_Nominal;额定码率
 Bits-(Pixel*Frame);bits/(pixel*frame)(数据密度)
-BufferSize
+BufferSize;缓冲大小
 Cancel;取消
 Channel(s);声道
 ChannelPositions;声道位置
@@ -204,7 +204,7 @@ Choose filename;选择文件名
 Choose language;选择语言
 Choregrapher;编舞
 Chroma;色度
-ChromaSubsampling
+ChromaSubsampling;色度抽样
 Close;关闭
 Close all before open;打开新文件前关闭其他文件
 Codec;编解码器
@@ -229,15 +229,15 @@ CodecID;编码设置ID
 CodecID_Description;编码描述
 Collection;收集
 Colorimetry;比色法
-ColorSpace
-colour_primaries
+ColorSpace;色彩空间
+colour_primaries;颜色初选
 Comment;评论
 CommissionedBy;评论人
 CompleteName;完整名称
 Composer;作曲
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;压缩模式
+Compression_Mode_Lossless;无损
+Compression_Mode_Lossy;有损压缩
 Compression_Ratio;压缩比
 Conductor;指挥
 Container and general information;文件格式和一般信息
@@ -259,9 +259,9 @@ Date;日期
 Debug;调试
 Decimal point;小数点
 Delay;延迟
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;延迟, 初始值
+Delay_Source_Container;容器
+Delay_Source_Stream;Raw stream
 Delete;删除
 Description;说明
 Digitized_Date;数字化日期
@@ -336,11 +336,11 @@ Format_Settings_ITU;格式设置, ITU
 Format_Settings_SBR;格式设置, SBR
 Format_Settings_PS;格式设置, PS
 Format_Settings_Pulldown;格式设置, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;模式
+Format_Settings_FrameMode;帧模式
+Format_Settings_Emphasis;加强
+Format_Settings_ModeExtension;扩展模式
+Format_Settings_GOP;格式设置, GOP
 Format_Version;格式版本
 Format_Url;编解码器网址
 FrameCount;总帧数
@@ -506,7 +506,7 @@ Go to WebSite;访问网站
 h;小时
 Header file;创建头文件
 Height;画面高度
-Height_Original
+Height_Original;原始高度
 Help;帮助
 Hint;提示信息
 How many audio streams?;有多少个音轨?
@@ -527,11 +527,11 @@ Interlaced_TFF;奇数场(前场TFF)优先
 Interlaced_BFF;偶数场(后场BFF)优先
 Interlaced_PPF;逐行扫描
 Interlaced_Progressive;逐行扫描
-Interleaved
+Interleaved;交错
 Interleave_Duration;交错间隔时间
 Interleave_Preload;音频预读时间
 Interleave_VideoFrames;交错帧间隔
-InternetMediaType
+InternetMediaType;因特网媒体类型
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -743,7 +743,7 @@ Lyrics;歌词
 Lyricist;作词
 Mastered_Date;母带完成日期
 MasteredBy;母带制做
-matrix_coefficients
+matrix_coefficients;矩阵系数
 MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;菜单
 Menu stream(s);菜单
@@ -883,7 +883,7 @@ Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会�
 Show menu;显示菜单
 Show toolbar;显示工具栏
 Sort;排序
-SamplingCount
+SamplingCount;样本计数
 SoundEngineer;录音师
 Standard;标准
 Stream;流
@@ -929,7 +929,7 @@ transfer_characteristics
 Translator;翻译
 Tree;树状图
 Tree & Text;树状图和文本
-UniqueID
+UniqueID;唯一ID
 Unknown;不详
 Url;相关网址
 Video;视频
@@ -954,7 +954,7 @@ WebSite_Url;网址http://mediainfo.sourceforge.net
 WebSite_Video;访问此视频编解码器的网页
 WebSite_Video_More;更多视频编解码器的网页(%Url%)
 Width;画面宽度
-Width_Original
+Width_Original;原始宽度
 WriteMe;给作者写信
 WriteToTranslator;给译者写信
 Written_Date;写入日期
@@ -962,6 +962,6 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
 CompressionRatio;压缩比

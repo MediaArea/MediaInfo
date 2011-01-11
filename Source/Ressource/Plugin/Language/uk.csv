@@ -1,7 +1,7 @@
   Language_ISO639;uk
-  Author_Email
-  Author_Name;фоноскопія
-  Author_OldNames
+  Author_Email;arestarh@ukr.net
+  Author_Name;arestarh
+  Author_OldNames;фоноскопія
   Language_Name;Українська
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
@@ -172,7 +172,7 @@ Audio1;Перший аудіопотік
 Audio2;Другий аудіопотік
 AudioCount;Кількість аудіопотоків
 Author;Автор
-BarCode;штрихкод
+BarCode;Штрихкод
 Basic;Стисло
 Basic_Note;Примітка: Для додаткової інформації оберіть інший вигляд (Таблиця, Дерево,...)
 BitDepth;Бітова глибина
@@ -203,7 +203,7 @@ Choose file(s);Оберіть файл(-и)
 Choose filename;Оберіть ім'я файлу
 Choose language;Оберіть мову
 Choregrapher;Хореограф
-Chroma;насиченість кольору
+Chroma;Насиченість кольору
 ChromaSubsampling;Субдискретизація насиченості
 Close;Закрити
 Close all before open;Закривати все перед відкриттям
@@ -211,11 +211,11 @@ Codec;Кодек
 Codec_Description;Опис кодеку
 Codec_Info;Докладно про кодек
 Codec_Settings;Налаштування кодеку
-Codec_Settings_PacketBitStream;Налаштування кодеку, Бітовий потік пакетів
+Codec_Settings_PacketBitStream;Налаштування кодеку, Packet bitstream
 Codec_Settings_BVOP;Налаштування кодеку, BVOP
 Codec_Settings_QPel;Налаштування кодеку, QPel
 Codec_Settings_GMC;Налаштування кодеку, GMC
-Codec_Settings_Matrix;Налаштування кодеку, Матриця(і)
+Codec_Settings_Matrix;Налаштування кодеку, Matrix
 Codec_Settings_Floor;Налаштування кодеку, Floor
 Codec_Settings_CABAC;Налаштування кодеку, CABAC
 Codec_Settings_Firm;Налаштування кодеку, Firm
@@ -224,7 +224,7 @@ Codec_Settings_Sign;Налаштування кодеку, Sign
 Codec_Settings_Law;Налаштування кодеку, Law
 Codec_Settings_ITU;Налаштування кодеку, ITU
 Codec_Profile;Профіль кодеку
-Codec_Url;Інтернет-адереса кодеку
+Codec_Url;Інтернет-адреса кодеку
 CodecID;Ідентифікатор кодеку
 CodecID_Description;Опис кодеку
 Collection;Колекція
@@ -232,14 +232,14 @@ Colorimetry;Колориметрія
 ColorSpace;Модель кольору
 colour_primaries;Основні кольори
 Comment;Примітка
-CommissionedBy;поручитель
+CommissionedBy;Поручитель
 CompleteName;Повна назва
 Composer;Композитор
 Compression_Mode;Тип стиснення
 Compression_Mode_Lossless;Без втрат
 Compression_Mode_Lossy;Із втратами
 Compression_Ratio;Ступінь стиснення
-Conductor;диригент
+Conductor;Диригент
 Container and general information;Контейнер і загальна інформація
 ContentType;Тип вмісту
 CoProducer;Сопродюсер
@@ -266,11 +266,11 @@ Delete;Видалити
 Description;Опис
 Digitized_Date;Дата оцифровування
 Dimensions;Розміри
-Director;Ким створено
+Director;Режисер
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Співвідношення сторін екрану
 DisplayAspectRatio_Original;Оригінальне співвідношення сторін екрану
-DistributedBy;розповсюджувач
+DistributedBy;Розповсюджувач
 Donate;Пожертвування
 DotsPerInch;Точок на дюйм
 Duration;Тривалість
@@ -292,8 +292,8 @@ Exit;Вихід
 Exit_Hint;Вихід з програми
 Export;Експорт
 Export_Hint;Експорт у обраний формат
-Extensions;розширення, що звичайно використовується
-Family;родина
+Extensions;розширення, що використ.
+Family;Родина
 Fax;Факс
 File;Файл
 File size;Розмір файлу
@@ -318,12 +318,12 @@ Format_Description;Опис формату
 Format_Info;Деталі формату
 Format_Profile;Профіль формату
 Format_Settings;Налаштування формату
-Format_Settings_PacketBitStream;Налаштування формату, Бітовий потік пакетів
+Format_Settings_PacketBitStream;Налаштування формату, Packet bitstream
 Format_Settings_BVOP;Налаштування формату, BVOP
 Format_Settings_QPel;Налаштування формату, QPel
 Format_Settings_GMC;Налаштування формату, GMC
 Format_Settings_Matrix;Налаштування формату, Matrix
-Format_Settings_Matrix_Custom;за замовчуванням
+Format_Settings_Matrix_Custom;За замовчуванням
 Format_Settings_Matrix_Default;За замовчуванням
 Format_Settings_Floor;Налаштування формату, Floor
 Format_Settings_CABAC;Налаштування формату, CABAC
@@ -338,16 +338,16 @@ Format_Settings_PS;Налаштування формату, PS
 Format_Settings_Pulldown;Налаштування формату, Pulldown
 Format_Settings_Mode;Режим
 Format_Settings_FrameMode;Режим для кадрів
-Format_Settings_Emphasis;Emphasis
+Format_Settings_Emphasis;Емфаза
 Format_Settings_ModeExtension;Розширення режиму
 Format_Settings_GOP;Налаштування формату, GOP
 Format_Version;Версія формату
-Format_Url;інтренет адреса
+Format_Url;Інтернет адреса
 FrameCount;Кількість кадрів
 FrameRate;Частота кадрів
 FrameRate_Mode;Режим частоти кадрів
 FrameRate_Mode_CFR;Постійний
-FrameRate_Mode_VFR;Варіативний
+FrameRate_Mode_VFR;Змінний
 FrameRate_Minimum;Мінімальна частота кадрів
 FrameRate_Nominal;Номінальна частота кадрів
 FrameRate_Maximum;Максимальна частота кадрів
@@ -527,11 +527,11 @@ Interlaced_TFF;Непарні - перші
 Interlaced_BFF;Парні - перші
 Interlaced_PPF;Прогресивний
 Interlaced_Progressive;Прогресивний
-Interleaved
+Interleaved;З чергуванням
 Interleave_Duration;Чергування, тривалість проміжку
 Interleave_Preload;Чергування, підрахов. тривал.
 Interleave_VideoFrames;Чергування, тривалість
-InternetMediaType
+InternetMediaType;MIME-тип
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -734,7 +734,7 @@ Language_zh;Chinese
 Language_zh-cn;Chinese (China)
 Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
-LawRating;легальний статус
+LawRating;Легальний статус
 LCCN;LCCN
 Library;Бібліотека
 Lightness;Яскравість
@@ -753,12 +753,12 @@ MenuCount;Обрахунок меню потоків
 Menu_Hint;Більше можливостей
 MenuID;Ідентифікатор меню
 mn; хв.
-Mood;щональність
+Mood;Тональність
 More;Більше
 Movie;Назва фільму
 ms; мс
 MSDI;MSDI
-MusicBy;створено
+MusicBy;Створено
 MuxingMode;Режим мультиплексування
 MuxingMode_MoreInfo;Режим мультиплексування, додаткова інформація
 MuxingMode_PackedBitstream;Стиснутий бітовий потік
@@ -871,12 +871,12 @@ ServiceChannel;Сервісний номер каналу
 ServiceName;Сервісне ім'я
 ServiceProvider;Провайдер
 ServiceType;Тип сервісу
-Set;конфігурація
+Set;Конфігурація
 Set_Count;Кількість конфігурацій
 Setup;Налаштування
 Sharpness;Чіткість
 Sheet;Таблиця
-Sheet (Complete);таблиця (повна)
+Sheet (Complete);Таблиця (повна)
 Shell extension;Контекстне меню провідника
 Shell extension, folder;Включаючи теки
 Shell InfoTip;Підказка провідника (при наведенні вказівника миші на файл відображається інформація)
@@ -884,12 +884,12 @@ Show menu;Відображати меню
 Show toolbar;Відображати панель
 Sort;Сортування
 SamplingCount;Кількість семплів
-SoundEngineer;звукорежисер
+SoundEngineer;Звукорежисер
 Standard;Стандарт
 Stream;Потік
 Stream_MoreInfo;Більше інформації про потік
 StreamCount;Кількість потоків
-StreamID;Ідентифікатор потоку
+StreamID;ID потоку
 StreamKind;Вид потоку
 StreamKindID;Ідентифікатор потоку
 StreamKindPos;Ідентифікатор потоку
@@ -897,14 +897,14 @@ StreamSize;Розмір потоку
 StreamSize_Proportion;Пропорції цього потоку
 Subject;Тема
 SubTrack;Підпотік
-Summary;підсумок
+Summary;Підсумок
 Supported formats;Формати, що підтримуються
 Supported?;Підтримується?
-Synopsis;короткий огляд
-SystemId;Системний ідентифікатор
-Tagged_Application;маркування додатку
-Tagged_Date;Дата мітки
-Technician;технік
+Synopsis;Короткий огляд
+SystemId;ID
+Tagged_Application;Додаток редагув. тегів
+Tagged_Date;Дата запису тегів
+Technician;Технік
 TermsOfUse;Умови використання
 Text;Текст
 Text - Custom;Текст - звичайний
@@ -918,7 +918,7 @@ Text2;Другий текстовий потік
 Text3;Третій текстовий потік
 TextCount;Кількість текстових потоків
 ThanksTo;Подяка
-Thousands separator;роздільник розрядів
+Thousands separator;Роздільник розрядів
 Title;Заголовок
 Title_More;Більше інформації про заголовок
 TimeZone;Часовий пояс
@@ -926,7 +926,7 @@ Total;Сумарно
 Track;Назва доріжки
 Track_Count;Кількість доріжок
 transfer_characteristics;Характеристики трансферу
-Translator;перекладач
+Translator;Перекладач
 Tree;Дерево
 Tree & Text;Дерево і текст
 UniqueID;Унікальний ID
@@ -957,11 +957,11 @@ Width;Ширина кадру
 Width_Original;Оригінальна ширина кадру
 WriteMe;Написати лист автору
 WriteToTranslator;Написати перекладачу
-Written_Date;дата написання
-Written_Location;місце написання
-WrittenBy;написано
+Written_Date;Дата запису
+Written_Location;Місце запису
+WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;100
 CompressionRatio;Ступінь стиснення

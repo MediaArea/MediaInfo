@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominel bitrate
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
-BufferSize
+BufferSize;Buffer-størrelse
 Cancel;Annuller
 Channel(s);Kanaler
 ChannelPositions;Kanalpositioner
@@ -203,8 +203,8 @@ Choose file(s);Vælg en fil at åbne
 Choose filename;Vælg det ønskede filnavn
 Choose language;Vælg det foretrukne sprog
 Choregrapher;Koreograf
-Chroma
-ChromaSubsampling
+Chroma;Chroma
+ChromaSubsampling;Chroma subsampling
 Close;Luk
 Close all before open;Luk alle før åbning
 Codec;Codec
@@ -259,9 +259,9 @@ Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
 Delay;Forsinkelse
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;Forsinkelse, original
+Delay_Source_Container;Container
+Delay_Source_Stream;Rå strøm
 Delete;Slet
 Description;Beskrivelse
 Digitized_Date;Digitaliseret den
@@ -313,7 +313,7 @@ Folder (Recursively);Mappe (Rekursivt)
 Folder_Hint;Vælg en mappe at undersøge
 FolderName;Mappenavn
 Format;Format
-Format_Commercial
+Format_Commercial;Kommercielt navn
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Profile;Formatprofil
@@ -527,11 +527,11 @@ Interlaced_TFF;Topfelt først
 Interlaced_BFF;Bundfelt først
 Interlaced_PPF;Progressiv
 Interlaced_Progressive;Progressiv
-Interleaved
+Interleaved;Interleaved
 Interleave_Duration;Interleave, varighed
 Interleave_Preload;Interleave, forudindlæst varighed
 Interleave_VideoFrames;Interleave, varighed
-InternetMediaType
+InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -646,7 +646,7 @@ Language_lt;Lithauisk
 Language_lu
 Language_lv;Lettisk
 Language_mg
-Language_mh
+Language_mh;Marshallesisk
 Language_mi;Maori
 Language_mk;Makedonsk
 Language_ml
@@ -657,7 +657,7 @@ Language_ms;Malajisk
 Language_mt;Maltesisk
 Language_mul
 Language_my;Burmesisk
-Language_na
+Language_na;Naurisk
 Language_nb;Norsk Bokmål
 Language_nd
 Language_ne;Nepalesisk
@@ -672,23 +672,23 @@ Language_oc
 Language_oj
 Language_om
 Language_or
-Language_os
+Language_os;Ossetisk
 Language_pa;Punjabi
 Language_pi
 Language_pl;Polsk
 Language_ps
-Language_pt;Potogisisk
-Language_pt-br;Portogisisk (Brasilien)
+Language_pt;Portugisisk
+Language_pt-br;Portugisisk (Brasilien)
 Language_qu
 Language_rm
 Language_rn
-Language_ro;Romansk
+Language_ro;Rumænsk
 Language_ru;Russisk
 Language_rw
 Language_sa;Sanskrit
 Language_sc;Sardinsk
 Language_sd
-Language_se
+Language_se;Nordsamisk
 Language_sg
 Language_si;Singalesisk
 Language_sk;Slovakisk
@@ -704,27 +704,27 @@ Language_su;Sudanesisk
 Language_sv;Svensk
 Language_sw;Swahili
 Language_ta;Tamilsk
-Language_te
-Language_tg
+Language_te;Telugu
+Language_tg;Tajikisk
 Language_th;Thailandsk
 Language_ti
-Language_tk;Turkmenisk
+Language_tk;Turkmensk
 Language_tl
 Language_tn
 Language_to;Tonga
 Language_tr;Tyrkisk
 Language_ts
-Language_tt
-Language_tw
-Language_ty
+Language_tt;Tatarisk
+Language_tw;Twi
+Language_ty;Tahitisk
 Language_ug
 Language_uk;Ukrainsk
 Language_ur;Urdu
-Language_uz
+Language_uz;Usbekisk
 Language_ve
 Language_vi;Vietnamesisk
 Language_vo;Volapyk
-Language_wa
+Language_wa;Vallonsk
 Language_wo
 Language_xh
 Language_yi;Jiddisch
@@ -883,7 +883,7 @@ Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
 Sort;Sorteret efter
-SamplingCount
+SamplingCount;Antal samplinger
 SoundEngineer;Lydtekniker
 Standard;Standard
 Stream;Strøm
@@ -929,7 +929,7 @@ transfer_characteristics;Overførselskarakteristika
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
-UniqueID
+UniqueID;Unik ID
 Unknown;Ukendt
 Url;Url
 Video;Video
@@ -962,6 +962,6 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;99
 CompressionRatio;Komprimeringsforhold
