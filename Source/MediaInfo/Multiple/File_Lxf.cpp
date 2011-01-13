@@ -288,6 +288,10 @@ void File_Lxf::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
 {
+    //Reset IsFinished bit the user wants to seek again after the file is completely parsed
+    Status[IsFinished]=false;
+
+    //Parsing
     switch (Method)
     {
         case 0  :   File_GoTo=Value; return 1;
