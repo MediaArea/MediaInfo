@@ -981,6 +981,11 @@ void File_Mpeg4::jp2c()
             MI.StreamKind=Stream_Video;
         Open_Buffer_Init(&MI);
 
+        //Demux
+        #if MEDIAINFO_DEMUX
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+        #endif //MEDIAINFO_DEMUX
+
         //Parsing
         Open_Buffer_Continue(&MI);
 
@@ -3374,6 +3379,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("JPEG 2000"))
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpeg4;
+
+                    #if MEDIAINFO_DEMUX
+                        Stream[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
+                    #endif //MEDIAINFO_DEMUX
                 }
             #endif
 
