@@ -3164,6 +3164,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
             //Creating the parser
+            /*
+            Ztring Format=Config->ID_Format_Get(Ztring::ToZtring(moov_trak_tkhd_TrackID));
+            if (Channels==1 && (Format.empty() || Format==_T("Dolby E")))
+            */
             if (Channels==1)
             {
                 Stream[moov_trak_tkhd_TrackID].Parser=new File_ChannelGrouping;
@@ -3228,7 +3232,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
 {
     Element_Name("Text");
 
-    int16u Version, Channels, SampleSize, ID, SampleRate;
     Skip_B4(                                                    "Unknown");
     Skip_B4(                                                    "Unknown");
 
