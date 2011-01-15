@@ -1768,6 +1768,7 @@ void File_Mpegv::sequence_header()
     Get_S2 (10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(2*1024*((int32u)vbv_buffer_size_value), " bytes");
     Skip_SB(                                                    "constrained_parameters_flag");
     TEST_SB_GET(load_intra_quantiser_matrix,                    "load_intra_quantiser_matrix");
+        Matrix_intra.clear();
         for (size_t Pos=0; Pos<64; Pos++)
         {
             int8u intra_quantiser;
@@ -1779,6 +1780,7 @@ void File_Mpegv::sequence_header()
         }
     TEST_SB_END();
     TEST_SB_GET(load_non_intra_quantiser_matrix,                "load_non_intra_quantiser_matrix");
+        Matrix_nonintra.clear();
         for (size_t Pos=0; Pos<64; Pos++)
         {
             int8u non_intra_quantiser;
