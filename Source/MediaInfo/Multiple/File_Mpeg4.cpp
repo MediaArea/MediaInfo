@@ -740,7 +740,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___aut : Parameter="Performer"; return Method_String;
         case Elements::moov_meta___cmt : Parameter="Comment"; return Method_String;
         case Elements::moov_meta___cpy : Parameter="Copyright"; return Method_String;
-        case Elements::moov_meta___day : Parameter="Encoded_Date"; return Method_String;
+        case Elements::moov_meta___day : Parameter="Recorded_Date"; return Method_String;
         case Elements::moov_meta___des : Parameter="Title/More"; return Method_String;
         case Elements::moov_meta___dir : Parameter="Director"; return Method_String;
         case Elements::moov_meta___dis : Parameter="TermsOfUse"; return Method_String;
