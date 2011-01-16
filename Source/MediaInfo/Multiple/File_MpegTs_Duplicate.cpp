@@ -90,14 +90,14 @@ void File_MpegTs::Option_Manage()
                 {
                     if (Duplicate->second->Wanted_program_numbers.find(Program->first)!=Duplicate->second->Wanted_program_numbers.end())
                         Wanted=true;
-                    if (Duplicate->second->Wanted_program_map_PIDs.find(Program->second.PID)!=Duplicate->second->Wanted_program_map_PIDs.end())
+                    if (Duplicate->second->Wanted_program_map_PIDs.find(Program->second.pid)!=Duplicate->second->Wanted_program_map_PIDs.end())
                         Wanted=true;
                 }
 
                 //Enabling it if wanted
                 if (Wanted)
                 {
-                    Complete_Stream->Streams[Program->second.PID]->ShouldDuplicate=true;
+                    Complete_Stream->Streams[Program->second.pid]->ShouldDuplicate=true;
                     for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
                         Complete_Stream->Streams[Program->second.elementary_PIDs[Pos]]->ShouldDuplicate=true;
                 }
@@ -240,11 +240,11 @@ void File_MpegTs::File__Duplicate_Write ()
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
     size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
 
-    std::vector<File__Duplicate_MpegTs*> &Dup_FromPID=Complete_Stream->Duplicates_Speed_FromPID[PID];
-    size_t Duplicates_Speed_FromPID_Size=Complete_Stream->Duplicates_Speed_FromPID[PID].size();
+    std::vector<File__Duplicate_MpegTs*> &Dup_FromPID=Complete_Stream->Duplicates_Speed_FromPID[pid];
+    size_t Duplicates_Speed_FromPID_Size=Complete_Stream->Duplicates_Speed_FromPID[pid].size();
     bool ToUpdate=false;
     for (size_t Pos=0; Pos<Duplicates_Speed_FromPID_Size; Pos++)
-        if (Dup_FromPID[Pos] && Dup_FromPID[Pos]->Write(PID, ToAdd, ToAdd_Size))
+        if (Dup_FromPID[Pos] && Dup_FromPID[Pos]->Write(pid, ToAdd, ToAdd_Size))
             ToUpdate=true;
     if (ToUpdate)
     {

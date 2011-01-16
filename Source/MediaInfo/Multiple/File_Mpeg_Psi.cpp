@@ -695,7 +695,7 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     //In
     From_TS=true; //Default is from TS
     Complete_Stream=NULL;
-    PID=0x0000;
+    pid=0x0000;
 
     //Temp
     transport_stream_id=0x0000; //Impossible
@@ -1139,7 +1139,7 @@ void File_Mpeg_Psi::Table_02()
             //Searching for hidden Stereoscopic stream
             if (stream_type==0x20 && File_Name_WithoutDemux.size()>=4+1+6+1+4+1+10 && Config->File_Bdmv_ParseTargetedFile_Get())
             {
-                //Searching the playlist with the PID
+                //Searching the playlist with the pid
                 Ztring Name=File_Name_WithoutDemux;
                 Name.resize(Name.size()-(4+1+6+1+4+1+10)); //Removing BDMV/STREAM/SSIF/xxxxx.ssif
                 ZtringList List=Dir::GetAllFileNames(Name+_T("BDMV")+PathSeparator+_T("PLAYLIST")+PathSeparator+_T("*.mpls"), Dir::Include_Files);
@@ -1153,8 +1153,8 @@ void File_Mpeg_Psi::Table_02()
                     MIs[Pos]->Open(List[Pos]);
                     if (MIs[Pos]->Count_Get(Stream_Video)==1)
                     {
-                        int16u PID=Ztring(MIs[Pos]->Get(Stream_Video, 0, Video_ID)).To_int16u();
-                        if (PID==elementary_PID)
+                        int16u pid=Ztring(MIs[Pos]->Get(Stream_Video, 0, Video_ID)).To_int16u();
+                        if (pid==elementary_PID)
                         {
                             FileWithRightPID_Pos=Pos;
                             break;
@@ -1254,15 +1254,15 @@ void File_Mpeg_Psi::Table_02()
         //Handling ATSC/CEA/DVB
         if (!Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs_NotParsedCount)
         {
-            //We know what is each PID, so we can try known values
+            //We know what is each pid, so we can try known values
             #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
-                for (size_t PID=0x10; PID<0x1FFF; PID++) //Wanting 0x10-->0x2F (DVB), 0x1ABC (cea_osd), 0x1FF7-->0x1FFF (ATSC)
+                for (size_t pid=0x10; pid<0x1FFF; pid++) //Wanting 0x10-->0x2F (DVB), 0x1ABC (cea_osd), 0x1FF7-->0x1FFF (ATSC)
                     for (size_t Table_ID=0x00; Table_ID<0xFF; Table_ID++)
                     {
-                        Complete_Stream->Streams[PID]->Searching_Payload_Start_Set(true);
-                        Complete_Stream->Streams[PID]->Kind=complete_stream::stream::psi;
-                        Complete_Stream->Streams[PID]->Table_IDs.resize(0x100);
-                        Complete_Stream->Streams[PID]->Table_IDs[Table_ID]=new complete_stream::stream::table_id; //event_information_section - actual_transport_stream, schedule
+                        Complete_Stream->Streams[pid]->Searching_Payload_Start_Set(true);
+                        Complete_Stream->Streams[pid]->Kind=complete_stream::stream::psi;
+                        Complete_Stream->Streams[pid]->Table_IDs.resize(0x100);
+                        Complete_Stream->Streams[pid]->Table_IDs[Table_ID]=new complete_stream::stream::table_id; //event_information_section - actual_transport_stream, schedule
 
                         if (Pos==0x001F)
                             Pos=0x1ABB; //Skipping normal data
@@ -1837,14 +1837,14 @@ void File_Mpeg_Psi::Table_CB()
         Element_End(Ztring::ToZtring_From_CC2(event_id));
 
         FILLING_BEGIN();
-            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[PID]->table_type].Events[event_id].start_time=start_time;
+            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid]->table_type].Events[event_id].start_time=start_time;
             Ztring duration =(length_in_seconds<36000?_T("0"):_T(""))+Ztring::ToZtring(length_in_seconds/3600)+_T(":");
             length_in_seconds%=3600;
                    duration+=(length_in_seconds<  600?_T("0"):_T(""))+Ztring::ToZtring(length_in_seconds/  60)+_T(":");
             length_in_seconds%=60;
                    duration+=(length_in_seconds<   10?_T("0"):_T(""))+Ztring::ToZtring(length_in_seconds     );
-            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[PID]->table_type].Events[event_id].duration=duration;
-            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[PID]->table_type].Events[event_id].title=title;
+            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid]->table_type].Events[event_id].duration=duration;
+            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid]->table_type].Events[event_id].title=title;
         FILLING_END();
     }
 }
@@ -1866,11 +1866,11 @@ void File_Mpeg_Psi::Table_CC()
     ATSC_multiple_string_structure(extended_text_message,       "extended_text_message");
 
     FILLING_BEGIN();
-        if (Complete_Stream->Streams[PID]->table_type==4)
+        if (Complete_Stream->Streams[pid]->table_type==4)
             Complete_Stream->Sources[source_id].texts[table_id_extension]=extended_text_message;
         else
         {
-            Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[Complete_Stream->Streams[PID]->table_type].Events[event_id].texts[table_id_extension]=extended_text_message;
+            Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[Complete_Stream->Streams[pid]->table_type].Events[event_id].texts[table_id_extension]=extended_text_message;
             Complete_Stream->Sources[source_id].ATSC_EPG_Blocks_IsUpdated=true;
             Complete_Stream->Sources_IsUpdated=true;
         }
@@ -2097,7 +2097,7 @@ void File_Mpeg_Psi::Descriptors()
     File_Mpeg_Descriptors Descriptors;
     Descriptors.Complete_Stream=Complete_Stream;
     Descriptors.transport_stream_id=transport_stream_id;
-    Descriptors.PID=PID;
+    Descriptors.pid=pid;
     Descriptors.table_id=table_id;
     Descriptors.table_id_extension=table_id_extension;
     Descriptors.elementary_PID=elementary_PID;
@@ -2222,7 +2222,7 @@ Ztring File_Mpeg_Psi::Time_BCD(int32u Time)
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::program_number_Update()
 {
-    //Setting the PID as program_map_section
+    //Setting the pid as program_map_section
     if (Complete_Stream->Streams[elementary_PID]->Kind!=complete_stream::stream::psi)
     {
         Complete_Stream->Streams[elementary_PID]->Searching_Payload_Start_Set(true);
@@ -2238,7 +2238,7 @@ void File_Mpeg_Psi::program_number_Update()
     if (program_number)
     {
         Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount++;
-        Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].PID=elementary_PID;
+        Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].pid=elementary_PID;
         if (Complete_Stream->Streams.size()<0x2000)
             Complete_Stream->Streams.resize(0x2000); //TODO: find the reason this code is called
         Complete_Stream->Streams[elementary_PID]->program_numbers.push_back(program_number);
@@ -2340,7 +2340,7 @@ void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
             if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35==NULL)
             {
                 Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35=new complete_stream::transport_stream::program::scte35;
-                Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35->PID=elementary_PID;
+                Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35->pid=elementary_PID;
             }
             #if MEDIAINFO_TRACE
                 Complete_Stream->Streams[elementary_PID]->Element_Info="PSI";

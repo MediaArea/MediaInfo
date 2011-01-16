@@ -84,7 +84,7 @@ private :
     void Header_Parse_AdaptationField();
     void Data_Parse();
 
-    int16u                      PID;
+    int16u                      pid;
     bool                        payload_unit_start_indicator;
 
     //Global infos

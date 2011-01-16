@@ -65,7 +65,7 @@ struct complete_stream
             std::vector<int16u> elementary_PIDs;
             size_t StreamPos; //Stream_Menu
             int32u registration_format_identifier;
-            int16u PID;
+            int16u pid;
             int16u PCR_PID;
             int16u source_id; //ATSC
             bool   source_id_IsValid;
@@ -122,11 +122,11 @@ struct complete_stream
 
                 typedef std::map<int32u, segmentation> segmentations; //Key is segmentation_event_id
                 segmentations Segmentations;
-                int16u  PID;
+                int16u  pid;
 
                 scte35()
                 {
-                    PID=(int16u)-1;
+                    pid=(int16u)-1;
                 }
             };
             scte35* Scte35;
@@ -137,7 +137,7 @@ struct complete_stream
                 HasChanged=false;
                 StreamPos=(size_t)-1;
                 registration_format_identifier=0x00000000;
-                PID=0x00000;
+                pid=0x00000;
                 PCR_PID=0x0000;
                 source_id=(int16u)-1;
                 source_id_IsValid=false;
@@ -198,7 +198,7 @@ struct complete_stream
     typedef std::map<int16u, transport_stream> transport_streams; //Key is transport_stream_id
     transport_streams Transport_Streams; //Key is transport_stream_id
 
-    //Per PID
+    //Per pid
     struct stream
     {
         File__Analyze*                              Parser;
@@ -253,7 +253,7 @@ struct complete_stream
             int64u                                  TimeStamp_Start_Offset;
             int64u                                  TimeStamp_End;
             int64u                                  TimeStamp_End_Offset;
-            int16u                                  PCR_PID; //If this PID has no PCR, decide which PCR should be used
+            int16u                                  PCR_PID; //If this pid has no PCR, decide which PCR should be used
             bool                                    TimeStamp_End_IsUpdated;
         #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
@@ -382,7 +382,7 @@ struct complete_stream
         }
     };
     typedef std::vector<stream*> streams;
-    streams Streams; //Key is PID
+    streams Streams; //Key is pid
     size_t Streams_NotParsedCount;
     size_t Streams_With_StartTimeStampCount;
     size_t Streams_With_EndTimeStampMoreThanxSecondsCount;
@@ -432,17 +432,17 @@ struct complete_stream
     std::vector<File__Duplicate_MpegTs*>                Duplicates_Speed;
     std::vector<std::vector<File__Duplicate_MpegTs*> >  Duplicates_Speed_FromPID;
     std::map<const String, File__Duplicate_MpegTs*>     Duplicates;
-    bool File__Duplicate_Get_From_PID (int16u PID)
+    bool File__Duplicate_Get_From_PID (int16u pid)
     {
         if (Duplicates_Speed_FromPID.empty())
             return false;
-        return !Duplicates_Speed_FromPID[PID].empty();
+        return !Duplicates_Speed_FromPID[pid].empty();
     }
 
     //SpeedUp information
     std::vector<std::vector<size_t> >   StreamPos_ToRemove;
     std::map<int16u, int16u>            PCR_PIDs; //Key is PCR_PID, value is count of programs using it
-    std::set<int16u>                    PES_PIDs; //Key is PID
+    std::set<int16u>                    PES_PIDs; //Key is pid
     std::vector<int16u>                 program_number_Order;
 
     //Constructor/Destructor
@@ -485,7 +485,7 @@ public :
     //In
     complete_stream* Complete_Stream;
     int16u transport_stream_id;
-    int16u PID;
+    int16u pid;
     int8u  table_id;
     int16u table_id_extension;
     int16u elementary_PID;
