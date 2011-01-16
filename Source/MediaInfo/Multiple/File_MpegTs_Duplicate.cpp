@@ -70,16 +70,16 @@ void File_MpegTs::Option_Manage()
         {
             bool Searching_Payload_Start=!Config->File_Filter_Get();
             for (int32u Pos=0x01; Pos<0x10; Pos++)
-                Complete_Stream->Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
-            Complete_Stream->Streams[0x00].Searching_Payload_Start_Set(true); //program_map
+                Complete_Stream->Streams[Pos]->Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
+            Complete_Stream->Streams[0x0000]->Searching_Payload_Start_Set(true); //program_map
         }
 
         //File__Duplicate configuration
         if (File__Duplicate_HasChanged())
         {
             for (size_t Pos=0x0000; Pos<0x2000; Pos++)
-                Complete_Stream->Streams[Pos].ShouldDuplicate=false;
-            Complete_Stream->Streams[0x0000].ShouldDuplicate=true;
+                Complete_Stream->Streams[Pos]->ShouldDuplicate=false;
+            Complete_Stream->Streams[0x0000]->ShouldDuplicate=true;
 
             //For each program
             for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
@@ -97,9 +97,9 @@ void File_MpegTs::Option_Manage()
                 //Enabling it if wanted
                 if (Wanted)
                 {
-                    Complete_Stream->Streams[Program->second.PID].ShouldDuplicate=true;
+                    Complete_Stream->Streams[Program->second.PID]->ShouldDuplicate=true;
                     for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
-                        Complete_Stream->Streams[Program->second.elementary_PIDs[Pos]].ShouldDuplicate=true;
+                        Complete_Stream->Streams[Program->second.elementary_PIDs[Pos]]->ShouldDuplicate=true;
                 }
             }
         }

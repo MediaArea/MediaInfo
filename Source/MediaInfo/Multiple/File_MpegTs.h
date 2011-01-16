@@ -59,7 +59,8 @@ public :
 
 private :
     //Streams management
-    void Streams_Fill();
+    void Streams_Accept();
+    void Streams_Update();
     void Streams_Finish();
 
     //Buffer - File header
@@ -81,9 +82,6 @@ private :
     //Buffer - Per element
     void Header_Parse();
     void Header_Parse_AdaptationField();
-    #ifdef MEDIAINFO_MPEGTS_PCR_YES
-    void Header_Parse_AdaptationField_Duration_Update();
-    #endif //MEDIAINFO_MPEGTS_PCR_YES
     void Data_Parse();
 
     int16u                      PID;
@@ -94,8 +92,6 @@ private :
 
     //Elements
     void PSI();
-    void PSI_EPG_Update();
-    void PSI_Duration_End_Update();
     void PES();
 
     //Helpers
@@ -108,6 +104,7 @@ private :
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
     int64u Begin_MaxDuration; //in 27 MHz
+    int64u Buffer_TotalBytes_LastSynched;
     bool   ForceStreamDisplay;
     bool   Searching_TimeStamp_Start;
 
@@ -120,8 +117,14 @@ private :
     #endif //MEDIAINFO_EVENTS
 
     //Helpers
-    void Streams_Fill_PerStream();
-    void Streams_Finish_PerStream();
+    void Streams_Update_Programs();
+    void Streams_Update_Programs_PerStream(size_t StreamID);
+    void Streams_Update_EPG();
+    void Streams_Update_EPG_PerProgram(complete_stream::transport_stream::programs::iterator Program);
+    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+    void Streams_Update_Duration_Update();
+    #endif //MEDIAINFO_MPEGTS_PCR_YES
+    void Streams_Update_Duration_End();
 
     //File__Duplicate
     void   File__Duplicate_Streams_Finish ();

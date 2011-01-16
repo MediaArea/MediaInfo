@@ -48,12 +48,8 @@ extern MediaInfo_Config Config;
 Ztring MediaInfo_Internal::Inform()
 {
     CS.Enter();
-    if (Info)
-    {
-        Info->Status[File__Analyze::IsUpdated]=false;
-        for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
-            Info->Status[Pos]=false;
-    }
+    if (Info && Info->Status[File__Analyze::IsUpdated])
+        Info->Open_Buffer_Update();
     CS.Leave();
 
     #if MEDIAINFO_TRACE

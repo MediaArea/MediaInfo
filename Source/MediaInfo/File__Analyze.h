@@ -71,6 +71,8 @@ public :
     void    Open_Buffer_Continue    (File__Analyze* Sub) {Open_Buffer_Continue(Sub, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset)); Element_Offset=Element_Size;}
     void    Open_Buffer_Position_Set(int64u File_Offset);
     size_t  Open_Buffer_Seek        (size_t Method, int64u Value);
+    void    Open_Buffer_Update      ();
+    void    Open_Buffer_Update      (File__Analyze* Sub);
     void    Open_Buffer_Unsynch     ();
     void    Open_Buffer_Finalize    (bool NoBufferModification=false);
     void    Open_Buffer_Finalize    (File__Analyze* Sub);

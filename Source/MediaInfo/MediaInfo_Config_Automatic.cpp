@@ -3660,6 +3660,9 @@ void MediaInfo_Config_Generic (ZtringListList &Info)
     "StreamSize/String4\n"
     "StreamSize/String5\n"
     "StreamSize_Proportion\n"
+    "Language\n"
+    "ServiceName\n"
+    "ServiceProvider\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

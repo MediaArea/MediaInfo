@@ -61,15 +61,20 @@ struct complete_stream
         {
             bool HasChanged;
             std::map<std::string, Ztring> Infos;
+            std::map<Ztring, Ztring> EPGs;
             std::vector<int16u> elementary_PIDs;
             size_t StreamPos; //Stream_Menu
             int32u registration_format_identifier;
             int16u PID;
             int16u PCR_PID;
-            int16u program_number;
             int16u source_id; //ATSC
+            bool   source_id_IsValid;
             bool   IsParsed;
             bool   IsRegistered;
+            bool   Update_Needed_IsRegistered;
+            bool   Update_Needed_StreamCount;
+            bool   Update_Needed_StreamPos;
+            bool   Update_Needed_Info;
 
             //DVB
             struct dvb_epg_block
@@ -134,10 +139,14 @@ struct complete_stream
                 registration_format_identifier=0x00000000;
                 PID=0x00000;
                 PCR_PID=0x0000;
-                program_number=0x0000;
                 source_id=(int16u)-1;
+                source_id_IsValid=false;
                 IsParsed=false;
                 IsRegistered=false;
+                Update_Needed_IsRegistered=false;
+                Update_Needed_StreamCount=false;
+                Update_Needed_StreamPos=false;
+                Update_Needed_Info=false;
                 DVB_EPG_Blocks_IsUpdated=false;
                 Scte35=NULL;
             }
@@ -176,11 +185,13 @@ struct complete_stream
 
         //ATSC
         int16u source_id; //Global
+        int16u source_id_IsValid;
 
         transport_stream()
         {
             HasChanged=false;
             source_id=(int16u)-1;
+            source_id_IsValid=false;
             Programs_NotParsedCount=(size_t)-1;
         }
     };
@@ -231,15 +242,19 @@ struct complete_stream
             Ztring Element_Info;
         #endif //MEDIAINFO_TRACE
         stream_t                                    StreamKind;
+        stream_t                                    StreamKind_FromDescriptor;
         size_t                                      StreamPos;
         ts_kind                                     Kind;
+        bool                                        IsParsed;
         bool                                        IsPCR;
+        float64                                     IsPCR_Duration;
         #ifdef MEDIAINFO_MPEGTS_PCR_YES
             int64u                                  TimeStamp_Start;
             int64u                                  TimeStamp_Start_Offset;
             int64u                                  TimeStamp_End;
             int64u                                  TimeStamp_End_Offset;
             int16u                                  PCR_PID; //If this PID has no PCR, decide which PCR should be used
+            bool                                    TimeStamp_End_IsUpdated;
         #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
         int16u                                      FMC_ES_ID;
@@ -260,6 +275,8 @@ struct complete_stream
         bool                                        EndTimeStampMoreThanxSeconds;
         bool                                        ShouldDuplicate;
         bool                                        IsRegistered;
+        bool                                        IsUpdated_IsRegistered;
+        bool                                        IsUpdated_Info;
         size_t                                      IsScrambled;
         int16u                                      SubStream_pid;
 
@@ -268,20 +285,24 @@ struct complete_stream
         {
             Parser=NULL;
             StreamKind=Stream_Max;
+            StreamKind_FromDescriptor=Stream_Max;
             StreamPos=(size_t)-1;
             Kind=unknown;
+            IsParsed=false;
             IsPCR=false;
+            IsPCR_Duration=0;
             #ifdef MEDIAINFO_MPEGTS_PCR_YES
                 TimeStamp_Start=(int64u)-1;
                 TimeStamp_Start_Offset=(int64u)-1;
                 TimeStamp_End=(int64u)-1;
                 TimeStamp_End_Offset=(int64u)-1;
                 PCR_PID=0x0000;
+                TimeStamp_End_IsUpdated=false;
             #endif //MEDIAINFO_MPEGTS_PCR_YES
             registration_format_identifier=0x00000000;
             FMC_ES_ID=0x0000;
             table_type=0x0000;
-            stream_type=0x00;
+            stream_type=(int8u)-1;
             FMC_ES_ID_IsValid=false;
             Searching=false;
             Searching_Payload_Start=false;
@@ -297,6 +318,8 @@ struct complete_stream
             EndTimeStampMoreThanxSeconds=false;
             ShouldDuplicate=false;
             IsRegistered=false;
+            IsUpdated_IsRegistered=false;
+            IsUpdated_Info=false;
             IsScrambled=false;
             SubStream_pid=0x0000;
         }
@@ -358,7 +381,7 @@ struct complete_stream
                     ;
         }
     };
-    typedef std::vector<stream> streams;
+    typedef std::vector<stream*> streams;
     streams Streams; //Key is PID
     size_t Streams_NotParsedCount;
     size_t Streams_With_StartTimeStampCount;
@@ -401,6 +424,7 @@ struct complete_stream
     sources Sources; //Key is source_id
     bool Sources_IsUpdated; //For EPG ATSC
     bool Programs_IsUpdated; //For EPG DVB
+    bool NoPatPmt;
 
     //File__Duplicate
     bool                                                File__Duplicate_HasChanged_;
@@ -415,10 +439,16 @@ struct complete_stream
         return !Duplicates_Speed_FromPID[PID].empty();
     }
 
+    //SpeedUp information
+    std::vector<std::vector<size_t> >   StreamPos_ToRemove;
+    std::map<int16u, int16u>            PCR_PIDs; //Key is PCR_PID, value is count of programs using it
+    std::set<int16u>                    PES_PIDs; //Key is PID
+    std::vector<int16u>                 program_number_Order;
+
     //Constructor/Destructor
     complete_stream()
     {
-        transport_stream_id=0;
+        transport_stream_id=(int16u)-1;
         transport_stream_id_IsValid=false;
         Duration_End_IsUpdated=false;
         Streams_NotParsedCount=(size_t)-1;
@@ -427,10 +457,15 @@ struct complete_stream
         GPS_UTC_offset=0;
         Sources_IsUpdated=false;
         Programs_IsUpdated=false;
+        NoPatPmt=false;
+        StreamPos_ToRemove.resize(Stream_Max);
     }
 
     ~complete_stream()
     {
+        for (size_t StreamID=0; StreamID<Streams.size(); StreamID++)
+            delete Streams[StreamID]; //Streams[StreamID]=NULL;
+
         std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
         while (Duplicates_Temp!=Duplicates.end())
         {

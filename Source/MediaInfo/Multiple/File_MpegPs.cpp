@@ -858,6 +858,49 @@ void File_MpegPs::Read_Buffer_Continue()
     }
 }
 
+//---------------------------------------------------------------------------
+void File_MpegPs::Read_Buffer_AfterParsing()
+{
+    if (!Status[IsFilled])
+    {
+        //In case of problem with some streams
+        if (Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched+SizeToAnalyze)
+        {
+            if (!Status[IsAccepted])
+            {
+                Reject("MPEG-PS");
+                return;
+            }
+
+            video_stream_Count=0;
+            audio_stream_Count=0;
+            private_stream_1_Count=0;
+            private_stream_2_Count=false;
+            extension_stream_Count=0;
+            SL_packetized_stream_Count=false;
+        }
+
+        //Jumping only if needed
+        if (Streams.empty() || video_stream_Count || audio_stream_Count || private_stream_1_Count || private_stream_2_Count || extension_stream_Count || SL_packetized_stream_Count)
+            return;
+
+        //Jumping if needed
+        if (!Status[IsAccepted])
+        {
+            Accept("MPEG-PS");
+            if (!IsSub)
+                Fill(Stream_General, 0, General_Format, "MPEG-PS");
+        }
+        Fill("MPEG-PS");
+        if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && Config_ParseSpeed<1.0)
+        {
+            //Jumping
+            GoToFromEnd(SizeToAnalyze, "MPEG-PS");
+            Read_Buffer_Unsynched();
+        }
+    }
+}
+
 //***************************************************************************
 // Buffer - Par element
 //***************************************************************************
@@ -1678,46 +1721,6 @@ void File_MpegPs::Data_Parse()
 }
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Detect_EOF()
-{
-    //In case of problem with some streams
-    if (Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched+SizeToAnalyze)
-    {
-        if (!Status[IsAccepted])
-        {
-            Reject("MPEG-PS");
-            return;
-        }
-
-        video_stream_Count=0;
-        audio_stream_Count=0;
-        private_stream_1_Count=0;
-        private_stream_2_Count=false;
-        extension_stream_Count=0;
-        SL_packetized_stream_Count=false;
-    }
-
-    //Jumping only if needed
-    if (Streams.empty() || video_stream_Count || audio_stream_Count || private_stream_1_Count || private_stream_2_Count || extension_stream_Count || SL_packetized_stream_Count)
-        return;
-
-    //Jumping if needed
-    if (!Status[IsAccepted])
-    {
-        Accept("MPEG-PS");
-        if (!IsSub)
-            Fill(Stream_General, 0, General_Format, "MPEG-PS");
-    }
-    Fill("MPEG-PS");
-    if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && Config_ParseSpeed<1.0)
-    {
-        //Jumping
-        GoToFromEnd(SizeToAnalyze, "MPEG-PS");
-        Read_Buffer_Unsynched();
-    }
-}
-
-//---------------------------------------------------------------------------
 //Jumping to the last DTS if needed
 bool File_MpegPs::BookMark_Needed()
 {
@@ -2008,6 +2011,8 @@ void File_MpegPs::program_stream_map()
     Parser.From_TS=false;
     Parser.Complete_Stream=new complete_stream;
     Parser.Complete_Stream->Streams.resize(0x100);
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Parser.Complete_Stream->Streams[StreamID]=new complete_stream::stream;
     Open_Buffer_Init(&Parser);
     Open_Buffer_Continue(&Parser);
     Finish(&Parser);
@@ -2020,9 +2025,9 @@ void File_MpegPs::program_stream_map()
 
         //Registering the streams
         for (int8u Pos=0; Pos<0xFF; Pos++)
-            if (Parser.Complete_Stream->Streams[Pos].stream_type)
+            if (Parser.Complete_Stream->Streams[Pos]->stream_type)
             {
-                Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos].stream_type;
+                Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos]->stream_type;
             }
             else
             {

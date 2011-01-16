@@ -116,6 +116,7 @@ private :
     void Read_Buffer_Init ();
     void Read_Buffer_Unsynched();
     void Read_Buffer_Continue ();
+    void Read_Buffer_AfterParsing();
 
     //Buffer - Per element
     void Header_Parse();
@@ -124,7 +125,6 @@ private :
     void Header_Parse_PES_packet_MPEG1(int8u start_code);
     void Header_Parse_PES_packet_MPEG2(int8u start_code);
     void Data_Parse();
-    void Detect_EOF();
     bool BookMark_Needed();
 
     //Packet

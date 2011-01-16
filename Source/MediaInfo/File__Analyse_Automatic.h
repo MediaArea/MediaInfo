@@ -109,6 +109,9 @@ enum generic
     Generic_StreamSize_String4,
     Generic_StreamSize_String5,
     Generic_StreamSize_Proportion,
+    Generic_Language,
+    Generic_ServiceName,
+    Generic_ServiceProvider,
 };
 
 //---------------------------------------------------------------------------

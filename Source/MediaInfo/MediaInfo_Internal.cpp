@@ -503,9 +503,6 @@ std::bitset<32> MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, si
         Info->File_GoTo=(int64u)-1;
     }
 
-    if (!Info->Status[File__Analyze::IsFilled] && Info->Status[File__Analyze::IsUpdated])
-        Info->Status[File__Analyze::IsUpdated]=false; //No updated info until IsFilled is set
-
     return Info->Status;
     #endif
 }
@@ -547,6 +544,16 @@ size_t MediaInfo_Internal::Open_Buffer_Seek (size_t Method, int64u Value)
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Finalize ()
 {
+    CS.Enter();
+    if (Info && Info->Status[File__Analyze::IsUpdated])
+    {
+        Info->Open_Buffer_Update();
+        Info->Status[File__Analyze::IsUpdated]=false;
+        for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
+            Info->Status[Pos]=false;
+    }
+    CS.Leave();
+
     CriticalSectionLocker CSL(CS);
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open_Buffer_Finalize");)
     if (Info==NULL)
@@ -629,8 +636,9 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, size_t Par
     CriticalSectionLocker CSL(CS);
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Get, StreamKind=");Debug+=Ztring::ToZtring((size_t)StreamKind);Debug+=_T(", StreamPos=");Debug+=Ztring::ToZtring(StreamPos);Debug+=_T(", Parameter=");Debug+=Ztring::ToZtring(Parameter);)
 
-    if (Info)
+    if (Info && Info->Status[File__Analyze::IsUpdated])
     {
+        Info->Open_Buffer_Update();
         Info->Status[File__Analyze::IsUpdated]=false;
         for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
             Info->Status[Pos]=false;
@@ -706,8 +714,9 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
     CS.Enter();
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Get, StreamKind=");Debug+=Ztring::ToZtring((size_t)StreamKind);Debug+=_T(", StreamKind=");Debug+=Ztring::ToZtring(StreamPos);Debug+=_T(", Parameter=");Debug+=Ztring(Parameter);)
 
-    if (Info)
+    if (Info && Info->Status[File__Analyze::IsUpdated])
     {
+        Info->Open_Buffer_Update();
         Info->Status[File__Analyze::IsUpdated]=false;
         for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
             Info->Status[Pos]=false;
@@ -903,6 +912,15 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
 size_t MediaInfo_Internal::Count_Get (stream_t StreamKind, size_t StreamPos)
 {
     CriticalSectionLocker CSL(CS);
+
+    if (Info && Info->Status[File__Analyze::IsUpdated])
+    {
+        Info->Open_Buffer_Update();
+        Info->Status[File__Analyze::IsUpdated]=false;
+        for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
+            Info->Status[Pos]=false;
+    }
+
     //Integrity
     if (StreamKind>=Stream_Max)
         return 0;

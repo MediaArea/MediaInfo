@@ -146,6 +146,12 @@ private :
     Ztring Date_MJD(int16u Date);
     Ztring Time_BCD(int32u Time);
 
+    //Items removal
+    void program_number_Update();
+    void program_number_Remove();
+    void elementary_PID_Update(int16u PCR_PID);
+    void elementary_PID_Remove();
+
     //Data
     int32u CRC_32;
     int16u transport_stream_id;

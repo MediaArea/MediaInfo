@@ -554,6 +554,16 @@ void File__Analyze::Open_Buffer_Unsynch ()
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Open_Buffer_Update ()
+{
+    Streams_Update();
+
+    Status[File__Analyze::IsUpdated]=false;
+    for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
+        Status[Pos]=false;
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 {
     //File with unknown size (stream...), finnishing
@@ -1873,10 +1883,25 @@ void File__Analyze::Finish (const char* ParserName_Char)
 void File__Analyze::Finish ()
 #endif //MEDIAINFO_TRACE
 {
-    Fill();
-
-    if (Config_ParseSpeed==1)
+    if (Status[IsFinished])
         return;
+
+    if (ShouldContinueParsing || Config_ParseSpeed==1)
+    {
+        #if MEDIAINFO_TRACE
+            if (!ParserName.empty())
+            {
+                bool MustElementBegin=Element_Level?true:false;
+                if (Element_Level>0)
+                    Element_End(); //Element
+                //Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
+                if (MustElementBegin)
+                    Element_Level++;
+            }
+        #endif //MEDIAINFO_TRACE
+
+        return;
+    }
 
     ForceFinish();
 }
@@ -1902,23 +1927,6 @@ void File__Analyze::ForceFinish (const char* ParserName_Char)
 void File__Analyze::ForceFinish ()
 #endif //MEDIAINFO_TRACE
 {
-    if (ShouldContinueParsing)
-    {
-        #if MEDIAINFO_TRACE
-            if (!ParserName.empty())
-            {
-                bool MustElementBegin=Element_Level?true:false;
-                if (Element_Level>0)
-                    Element_End(); //Element
-                //Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
-                if (MustElementBegin)
-                    Element_Level++;
-            }
-        #endif //MEDIAINFO_TRACE
-
-        return;
-    }
-
     if (Status[IsFinished])
         return;
 
@@ -1941,6 +1949,8 @@ void File__Analyze::ForceFinish ()
     {
         Fill();
         Streams_Finish();
+        if (Status[IsUpdated])
+            Open_Buffer_Update();
         Streams_Finish_Global();
     }
 
