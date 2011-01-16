@@ -1808,16 +1808,19 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
         TemporalReference_GA94_03_CC_Offset=TemporalReference.size()+1;
     }
 
-    BS_Begin();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    BS_End();
+    if (Element_Offset<Element_Size)
+    {
+        BS_Begin();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        BS_End();
+    }
 
     if (additional_data_flag)
         Skip_XX(Element_Size-Element_Offset,                    "additional_user_data");
