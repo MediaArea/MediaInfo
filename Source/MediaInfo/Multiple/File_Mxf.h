@@ -556,6 +556,7 @@ protected :
 
     //Parsers
     File__Analyze* ChooseParser(int128u EssenceContainer, int128u EssenceCompression, bool Interlaced=false);
+    File__Analyze* ChooseParser(int128u EssenceContainer);
     File__Analyze* ChooseParser_Avc();
     File__Analyze* ChooseParser_DV();
     File__Analyze* ChooseParser_Mpeg4v();

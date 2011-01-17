@@ -233,7 +233,7 @@ const char* Mxf_MPEG2_CodedContentType(int8u CodedContentType)
 {
     switch(CodedContentType)
     {
-        case 0x01 : return "PPF";
+        case 0x01 : return "Progressive";
         case 0x02 : return "Interlaced";
         case 0x03 : return ""; //Mixed
         default   : return "";
@@ -399,6 +399,8 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
 {
     switch (Code6)
     {
+        case 0x01 : //D-10, SMPTE 386M
+                    return "Frame (D-10)";
         case 0x02 : //DV, SMPTE 383M
                     switch (Code8)
                     {
@@ -437,7 +439,7 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
                         case 0x01 : return "Frame (BWF)";
                         case 0x02 : return "Clip (BWF)";
                         case 0x03 : return "Frame (AES)";
-                        case 0x04 : return "Clip (BWF)";
+                        case 0x04 : return "Clip (AES)";
                         case 0x08 : return "Custom (BWF)";
                         case 0x09 : return "Custom (AES)";
                         default   : return "";
@@ -1934,6 +1936,15 @@ void File_Mxf::Data_Parse()
                     default         :   Essences[Code_Compare4].Parser=new File__Analyze();
                 }
             }
+
+            //Demux
+            #if MEDIAINFO_DEMUX
+                //Configuration
+                if (Essences[Code_Compare4].TrackID!=(int32u)-1)
+                    Element_Code=Essences[Code_Compare4].TrackID;
+                else
+                    Element_Code=Code.lo;
+            #endif //MEDIAINFO_DEMUX
 
             Open_Buffer_Init(Essences[Code_Compare4].Parser);
             if (Essences[Code_Compare4].Parser->Status[IsFinished])
@@ -3585,7 +3596,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
             if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
             if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
         }
-        Descriptors[InstanceUID].Infos["ScanType"]=Data?"Interlaced":"PPF";
+        Descriptors[InstanceUID].Infos["ScanType"]=Data?"Interlaced":"Progressive";
     FILLING_END();
 }
 
@@ -6200,7 +6211,7 @@ void File_Mxf::Info_Timestamp()
 File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceCompression, bool Interlaced)
 {
     if ((EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
-        return NULL;
+        return ChooseParser (EssenceContainer);
 
     int8u Code2=(int8u)((EssenceCompression.lo&0x00FF000000000000LL)>>48);
     int8u Code3=(int8u)((EssenceCompression.lo&0x0000FF0000000000LL)>>40);
@@ -6318,6 +6329,21 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
                                     }
                          default   : return NULL;
                     }
+        default   : return NULL;
+    }
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer)
+{
+    if ((EssenceContainer.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceContainer.lo&0xFFFFFFFFFF000000LL)!=0x0D01030102000000LL)
+        return NULL;
+
+    int8u Code6=(int8u)((EssenceContainer.lo&0x0000000000FF0000LL)>>16);
+
+    switch (Code6)
+    {
+        case 0x01 : return ChooseParser_Aes3();
         default   : return NULL;
     }
 }
