@@ -124,6 +124,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_StopAfterFilled_Get()?"1":"0";
     }
+    if (Option_Lower==_T("file_stopsubstreamafterfilled"))
+    {
+        File_StopSubStreamAfterFilled_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_stopsubstreamafterfilled_get"))
+    {
+        return File_StopSubStreamAfterFilled_Get()?"1":"0";
+    }
     if (Option_Lower==_T("file_audio_mergemonostreams"))
     {
         File_Audio_MergeMonoStreams_Set(!(Value==_T("0") || Value.empty()));
@@ -397,6 +406,19 @@ bool MediaInfo_Config_MediaInfo::File_StopAfterFilled_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return FileStopAfterFilled;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_StopSubStreamAfterFilled_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    FileStopSubStreamAfterFilled=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_StopSubStreamAfterFilled_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return FileStopSubStreamAfterFilled;
 }
 
 //---------------------------------------------------------------------------

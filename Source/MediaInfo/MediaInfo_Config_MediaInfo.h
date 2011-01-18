@@ -70,6 +70,9 @@ public :
     void          File_StopAfterFilled_Set (bool NewValue);
     bool          File_StopAfterFilled_Get ();
 
+    void          File_StopSubStreamAfterFilled_Set (bool NewValue);
+    bool          File_StopSubStreamAfterFilled_Get ();
+
     void          File_Audio_MergeMonoStreams_Set (bool NewValue);
     bool          File_Audio_MergeMonoStreams_Get ();
 
@@ -157,6 +160,7 @@ private :
     bool                    FileIsSub;
     bool                    FileKeepInfo;
     bool                    FileStopAfterFilled;
+    bool                    FileStopSubStreamAfterFilled;
     bool                    Audio_MergeMonoStreams;
     Ztring                  File_FileName;
     Ztring                  File_Partial_Begin;
