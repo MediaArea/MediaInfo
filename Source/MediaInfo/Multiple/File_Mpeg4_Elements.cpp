@@ -38,6 +38,9 @@
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
+#if defined(MEDIAINFO_MXF_YES)
+    #include "MediaInfo/Multiple/File_Mxf.h"
+#endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
@@ -1090,6 +1093,7 @@ void File_Mpeg4::mdat()
             {
                 size_t stsc_Pos=0;
                 size_t stsz_Pos=0;
+                size_t Chunk_FrameCount=0;
                 int32u Chunk_Number=1;
                 for (size_t stco_Pos=0; stco_Pos<Temp->second.stco.size(); stco_Pos++)
                 {
@@ -1112,7 +1116,7 @@ void File_Mpeg4::mdat()
                         if (stsz_Pos>=Temp->second.stsz.size())
                             break;
                     }
-                    else if (Temp->second.stsz_Sample_Size==1)
+                    else if (Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
                     {
                         //Same size per sample, but granularity is too small
                         mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
@@ -1127,7 +1131,10 @@ void File_Mpeg4::mdat()
                             mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
                             mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
                             Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+                            Chunk_FrameCount++;
                         }
+                        if (Config_ParseSpeed<1.0 && Chunk_FrameCount>=300)
+                            break;
                     }
 
                     Chunk_Number++;
@@ -3343,6 +3350,17 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 {
                     Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
                 }
+            #endif
+            #if defined(MEDIAINFO_MXF_YES)
+                if (Element_Code==0x6D783570) //mx5p
+                {
+                    Fill(Stream_Video, 0, Video_MuxingMode, "MXF");
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Mxf;
+
+                    #if MEDIAINFO_DEMUX
+                        Stream[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
+                    #endif //MEDIAINFO_DEMUX
+               }
             #endif
             #if defined(MEDIAINFO_MPEGV_YES)
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("MPEG Video"))

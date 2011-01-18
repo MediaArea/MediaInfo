@@ -2000,6 +2000,8 @@ void File_Mxf::Data_Parse()
                     Essences[Code_Compare4].IsFilled=true;
                     if (!Essences[Code_Compare4].Parser->Status[IsFinished] && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
                         Essences[Code_Compare4].Parser->Finish();
+                    if (IsSub)
+                        Finish();
                 }
             }
         }
@@ -2010,7 +2012,7 @@ void File_Mxf::Data_Parse()
         Skip_XX(Element_Size,                                   "Unknown");
 
     if (!IsParsingEnd && MediaInfoLib::Config.ParseSpeed_Get()<1.0
-     && (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
+     && (!IsSub && File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
       || (Streams_Count==0 && !Descriptors.empty())))
     {
         GoToFromEnd(4); //For random access table

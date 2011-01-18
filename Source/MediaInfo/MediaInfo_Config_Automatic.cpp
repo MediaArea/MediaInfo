@@ -1303,6 +1303,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "mp4v;MPEG-4 Visual\n"
     "mx3n;MPEG Video\n"
     "mx3p;MPEG Video\n"
+    "mx5p;MPEG Video\n"
     "myuv;YUV;;;;;;YUV;4:2:0\n"
     "ncpa;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Normal;;YUV;4:2:2\n"
     "ovc1;VC-1;;Smooth Streaming Media Video;http://alexzambelli.com/blog/2009/02/10/smooth-streaming-architecture/\n"
