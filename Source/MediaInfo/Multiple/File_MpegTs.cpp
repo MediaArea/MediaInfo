@@ -171,6 +171,9 @@ void File_MpegTs::Streams_Update()
 
     if (Status[User_17])
         Streams_Update_Duration_End();
+
+    if (Config_ParseSpeed>=1.0)
+        Fill(Stream_General, 0, General_FileSize, (File_Offset+Buffer_Offset!=File_Size)?Buffer_TotalBytes:File_Size, 10, true);
 }
 
 //---------------------------------------------------------------------------
@@ -792,12 +795,12 @@ void File_MpegTs::Streams_Update_Duration_Update()
                 (*Stream)->TimeStamp_End+=0x200000000LL*300; //33 bits, cyclic
             float64 Duration=((float64)((int64s)((*Stream)->TimeStamp_End-(*Stream)->TimeStamp_Start)))/27000;
 
-            Fill(Stream_General, 0, General_Duration, Duration, 6, true); //Only if greater than the current duration
+            Fill(Stream_General, 0, General_Duration, Duration, 6, true);
+            if (Duration)
+                Fill(Stream_General, 0, General_OverallBitRate, ((*Stream)->TimeStamp_End_Offset-(*Stream)->TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
+
             (*Stream)->TimeStamp_End_IsUpdated=false;
             (*Stream)->IsPCR_Duration=Duration;
-
-            //TODO: I have small but annoying memory leaks with this version (on big files and Full parsing)
-            //Fill(Stream_General, 0, General_OverallBitRate, (Complete_Stream->Streams[StreamID]->TimeStamp_End_Offset-Complete_Stream->Streams[StreamID]->TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
 
             //Filling menu duration
             if (Count_Get(Stream_Menu))
@@ -867,7 +870,9 @@ bool File_MpegTs::Synchronize()
 
     //Synched is OK
     if (!Status[IsAccepted])
+    {
         Accept();
+    }
     return true;
 }
 
@@ -1256,13 +1261,12 @@ void File_MpegTs::Read_Buffer_AfterParsing()
             Fill();
 
             //Deactivating
-            /*
-            for (std::set<int16u>::iterator StreamID=Complete_Stream->PES_PIDs.begin(); StreamID!=Complete_Stream->PES_PIDs.end(); StreamID++)
-            {
-                Complete_Stream->Streams[*StreamID]->Searching_Payload_Start_Set(false);
-                Complete_Stream->Streams[*StreamID]->Searching_Payload_Continue_Set(false);
-            }
-            */
+            if (Config->File_StopSubStreamAfterFilled_Get())
+                for (std::set<int16u>::iterator StreamID=Complete_Stream->PES_PIDs.begin(); StreamID!=Complete_Stream->PES_PIDs.end(); StreamID++)
+                {
+                    Complete_Stream->Streams[*StreamID]->Searching_Payload_Start_Set(false);
+                    Complete_Stream->Streams[*StreamID]->Searching_Payload_Continue_Set(false);
+                }
 
             //Status
             Status[IsUpdated]=true;
