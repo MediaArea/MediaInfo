@@ -1256,7 +1256,14 @@ void File_MpegTs::Read_Buffer_AfterParsing()
 
             //Filling
             for (std::set<int16u>::iterator StreamID=Complete_Stream->PES_PIDs.begin(); StreamID!=Complete_Stream->PES_PIDs.end(); StreamID++)
+            {
                 Fill(Complete_Stream->Streams[*StreamID]->Parser);
+
+                Complete_Stream->Streams[*StreamID]->Parser->Status[IsUpdated]=false;
+                Complete_Stream->Streams[*StreamID]->IsUpdated_Info=true;
+                for (size_t Pos=0; Pos<Complete_Stream->Streams[*StreamID]->program_numbers.size(); Pos++)
+                    Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[*StreamID]->program_numbers[Pos]].Update_Needed_IsRegistered=true;
+            }
             Complete_Stream->Streams_NotParsedCount=0;
             Fill();
 
