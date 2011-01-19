@@ -1521,6 +1521,10 @@ void File_Mpegv::user_data_start_3()
             Scte_TemporalReference_Offset=Pos+1;
         }
 
+        if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+            TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+        if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+            TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
         if (TemporalReference[TemporalReference_Offset+temporal_reference]->Scte==NULL)
             TemporalReference[TemporalReference_Offset+temporal_reference]->Scte=new temporalreference::buffer_data;
         TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Size=(size_t)(Element_Size-Element_Offset);
@@ -1672,6 +1676,10 @@ void File_Mpegv::user_data_start_GA94_03()
             GA94_03_TemporalReference_Offset=Pos+1;
         }
 
+        if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+            TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+        if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+            TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
         if (TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03==NULL)
             TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03=new temporalreference::buffer_data;
         TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03->Size=(size_t)(Element_Size-Element_Offset);
@@ -1973,6 +1981,8 @@ void File_Mpegv::extension_start()
                                 FirstFieldFound=false;
                                 if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
                                     TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+                                if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+                                    TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
@@ -2003,6 +2013,8 @@ void File_Mpegv::extension_start()
                             {
                                 if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
                                     TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+                                if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+                                    TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
                                 TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
