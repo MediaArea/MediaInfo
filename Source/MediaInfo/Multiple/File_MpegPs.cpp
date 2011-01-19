@@ -2655,6 +2655,10 @@ void File_MpegPs::audio_stream()
                             File_Mpega* Parser=new File_Mpega;
                             Open_Buffer_Init(Parser);
                             Parser->Frame_Count_Valid=1;
+							#if MEDIAINFO_DEMUX
+								if (Demux_Unpacketize)
+									Parser->FrameIsAlwaysComplete=true;
+						    #endif //MEDIAINFO_DEMUX
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
@@ -2732,6 +2736,10 @@ void File_MpegPs::video_stream()
                             Open_Buffer_Init(Parser);
                             Parser->MPEG_Version=MPEG_Version;
                             Parser->ShouldContinueParsing=true;
+							#if MEDIAINFO_DEMUX
+								if (Demux_Unpacketize)
+									Parser->FrameIsAlwaysComplete=true;
+						    #endif //MEDIAINFO_DEMUX
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
@@ -2740,6 +2748,10 @@ void File_MpegPs::video_stream()
                             File_Avc* Parser=new File_Avc;
                             Open_Buffer_Init(Parser);
                             Parser->ShouldContinueParsing=true;
+							#if MEDIAINFO_DEMUX
+								if (Demux_Unpacketize)
+									Parser->FrameIsAlwaysComplete=true;
+						    #endif //MEDIAINFO_DEMUX
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
@@ -2748,6 +2760,10 @@ void File_MpegPs::video_stream()
                             File_Mpeg4v* Parser=new File_Mpeg4v;
                             Open_Buffer_Init(Parser);
                             Parser->ShouldContinueParsing=true;
+							#if MEDIAINFO_DEMUX
+								if (Demux_Unpacketize)
+									Parser->FrameIsAlwaysComplete=true;
+						    #endif //MEDIAINFO_DEMUX
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
@@ -2756,6 +2772,10 @@ void File_MpegPs::video_stream()
                             File_AvsV* Parser=new File_AvsV;
                             Open_Buffer_Init(Parser);
                             Parser->ShouldContinueParsing=true;
+							#if MEDIAINFO_DEMUX
+								if (Demux_Unpacketize)
+									Parser->FrameIsAlwaysComplete=true;
+						    #endif //MEDIAINFO_DEMUX
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
@@ -3488,6 +3508,10 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
         File_Mpegv* Handle=new File_Mpegv;
         Handle->MPEG_Version=MPEG_Version;
         Handle->ShouldContinueParsing=true;
+		#if MEDIAINFO_DEMUX
+			if (Demux_Unpacketize)
+				Handle->FrameIsAlwaysComplete=true;
+	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3513,6 +3537,10 @@ File__Analyze* File_MpegPs::ChooseParser_Mpeg4v()
     #if defined(MEDIAINFO_MPEG4V_YES)
         File_Mpeg4v* Handle=new File_Mpeg4v;
         Handle->Frame_Count_Valid=1;
+		#if MEDIAINFO_DEMUX
+			if (Demux_Unpacketize)
+				Handle->FrameIsAlwaysComplete=true;
+	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3530,6 +3558,10 @@ File__Analyze* File_MpegPs::ChooseParser_Avc()
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
         File_Avc* Handle=new File_Avc;
+		#if MEDIAINFO_DEMUX
+			if (Demux_Unpacketize)
+				Handle->FrameIsAlwaysComplete=true;
+	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3546,8 +3578,12 @@ File__Analyze* File_MpegPs::ChooseParser_VC1()
 {
     //Filling
     #if defined(MEDIAINFO_VC1_YES)
-        File__Analyze* Handle=new File_Vc1;
-        ((File_Vc1*)Handle)->Frame_Count_Valid=30;
+        File_Vc1* Handle=new File_Vc1;
+        Handle->Frame_Count_Valid=30;
+		#if MEDIAINFO_DEMUX
+			if (Demux_Unpacketize)
+				Handle->FrameIsAlwaysComplete=true;
+	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3584,6 +3620,10 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
     #if defined(MEDIAINFO_MPEGA_YES)
         File_Mpega* Handle=new File_Mpega;
         Handle->Frame_Count_Valid=1;
+		#if MEDIAINFO_DEMUX
+			if (Demux_Unpacketize)
+				Handle->FrameIsAlwaysComplete=true;
+	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
