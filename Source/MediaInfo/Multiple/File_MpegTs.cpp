@@ -156,6 +156,12 @@ void File_MpegTs::Streams_Accept()
 }
 
 //---------------------------------------------------------------------------
+void File_MpegTs::Streams_Fill ()
+{
+    Status[User_20]=true;
+}
+
+//---------------------------------------------------------------------------
 void File_MpegTs::Streams_Update()
 {
     if (Status[User_19])
@@ -366,8 +372,8 @@ void File_MpegTs::Streams_Update_Programs()
                 {
                     switch (Count_Get(Stream_Menu))
                     {
-                        case 0 : Fill(Stream_General, 0, General_Delay, Delay); break;
-                        default: Fill(Stream_Menu, StreamPos_Last, Menu_Delay, Delay); break;
+                        case 0 : Fill(Stream_General, 0, General_Delay, Delay, true); break;
+                        default: Fill(Stream_Menu, StreamPos_Last, Menu_Delay, Delay, true); break;
                     }
                     Program->second.Update_Needed_IsRegistered=false;
                 }
@@ -1207,6 +1213,9 @@ void File_MpegTs::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_AfterParsing()
 {
+    if (Status[IsFilled] && Get(Stream_Video, 0, Video_FrameRate).empty())
+        int A=0;
+    
     if (Complete_Stream==NULL)
         return; //No synchronization yet
 
