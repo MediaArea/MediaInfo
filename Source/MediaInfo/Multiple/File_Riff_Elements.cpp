@@ -2629,10 +2629,12 @@ void File_Riff::rcrd()
     Element_Name("Ancillary media packets");
 
     //Filling
-    Fill(Stream_General, 0, General_Format, "Ancillary media packets"); //GXF, RDD14-2007
+    if (Retrieve(Stream_General, 0, General_Format).empty())
+        Fill(Stream_General, 0, General_Format, "Ancillary media packets"); //GXF, RDD14-2007
 
     //Clearing old data
-    Open_Buffer_Continue(*Ancillary, Buffer, 0);
+    if (Ancillary)
+        Open_Buffer_Continue(*Ancillary, Buffer, 0);
 }
 
 //---------------------------------------------------------------------------
@@ -2682,7 +2684,8 @@ void File_Riff::rcrd_fld__anc__pyld()
 {
     Element_Name("Ancillary data sample payload");
 
-    Open_Buffer_Continue(*Ancillary);
+    if (Ancillary)
+        Open_Buffer_Continue(*Ancillary);
 }
 
 //---------------------------------------------------------------------------
