@@ -105,6 +105,7 @@ TIFF;;;I;Tiff;;tiff tif;image/tiff;;
 7-Zip;;;C;7z;;7z;;http://7-zip.org;
 ACE;;;C;Ace;;ace;;http://winace.com;
 ELF;;;C;Elf;;so;;;
+ISO 9660;;;C;Iso9660;;iso;;;
 MZ;;;C;Mz;;exe dll;;;
 RAR;;;C;Rar;From Rarlabs;rar;application/x-rar-compressed;http://rarlabs.com;
 ZIP;;;C;Zip;;zip;application/zip;http://winzip.com;

@@ -302,6 +302,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Iso9660.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.cpp" />
@@ -465,6 +466,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Iso9660.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr_Ps.h" />

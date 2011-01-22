@@ -646,6 +646,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Iso9660.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Mz.cpp"
 					>
 				</File>
@@ -1331,6 +1335,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Gzip.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Iso9660.h"
 					>
 				</File>
 				<File

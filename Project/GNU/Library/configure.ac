@@ -69,6 +69,7 @@ AC_ARG_ENABLE(ace,     AC_HELP_STRING([--disable-ace],     [Disable Archive - Ac
 AC_ARG_ENABLE(bzip2,   AC_HELP_STRING([--disable-bzip2],   [Disable Archive - Bzip2]),                                    MediaInfoBzip2=$enableval,   MediaInfoBzip2=depend)
 AC_ARG_ENABLE(elf,     AC_HELP_STRING([--disable-elf],     [Disable Archive - ELF]),                                      MediaInfoElf=$enableval,     MediaInfoElf=depend)
 AC_ARG_ENABLE(gzip,    AC_HELP_STRING([--disable-gzip],    [Disable Archive - GZip]),                                     MediaInfoGzip=$enableval,    MediaInfoGzip=depend)
+AC_ARG_ENABLE(iso9660, AC_HELP_STRING([--disable-iso9660], [Disable Archive - ISO 9660]),                                 MediaInfoIso9660=$enableval, MediaInfoIso9660=depend)
 AC_ARG_ENABLE(mz,      AC_HELP_STRING([--disable-mz],      [Disable Archive - MZ (DOS) and PE (Windows)]),                MediaInfoMz=$enableval,      MediaInfoMz=depend)
 AC_ARG_ENABLE(rar,     AC_HELP_STRING([--disable-rar],     [Disable Archive - Rar]),                                      MediaInfoRar=$enableval,     MediaInfoRar=depend)
 AC_ARG_ENABLE(tar,     AC_HELP_STRING([--disable-tar],     [Disable Archive - Tar]),                                      MediaInfoTar=$enableval,     MediaInfoTar=depend)
@@ -182,6 +183,7 @@ if test "$MediaInfoAce"     = "no";  then AC_DEFINE(MEDIAINFO_ACE_NO)     fi; if
 if test "$MediaInfoBzip2"   = "no";  then AC_DEFINE(MEDIAINFO_BZIP2_NO)   fi; if test "$MediaInfoBzip2"   = "yes"; then AC_DEFINE(MEDIAINFO_BZIP2_YES)   fi
 if test "$MediaInfoElf"     = "no";  then AC_DEFINE(MEDIAINFO_ELF_NO)     fi; if test "$MediaInfoElf"     = "yes"; then AC_DEFINE(MEDIAINFO_ELF_YES)     fi
 if test "$MediaInfoGzip"    = "no";  then AC_DEFINE(MEDIAINFO_GZIP_NO)    fi; if test "$MediaInfoGzip"    = "yes"; then AC_DEFINE(MEDIAINFO_GZIP_YES)    fi
+if test "$MediaInfoIso9660" = "no";  then AC_DEFINE(MEDIAINFO_ISO9660_NO) fi; if test "$MediaInfoIso9660" = "yes"; then AC_DEFINE(MEDIAINFO_ISO9660_YES) fi
 if test "$MediaInfoMz"      = "no";  then AC_DEFINE(MEDIAINFO_MZ_NO)      fi; if test "$MediaInfoMz"      = "yes"; then AC_DEFINE(MEDIAINFO_MZ_YES)      fi
 if test "$MediaInfoRar"     = "no";  then AC_DEFINE(MEDIAINFO_RAR_NO)     fi; if test "$MediaInfoRar"     = "yes"; then AC_DEFINE(MEDIAINFO_RAR_YES)     fi
 if test "$MediaInfoTar"     = "no";  then AC_DEFINE(MEDIAINFO_TAR_NO)     fi; if test "$MediaInfoTar"     = "yes"; then AC_DEFINE(MEDIAINFO_TAR_YES)     fi
@@ -664,6 +666,7 @@ Mcho "Ace    " "$MediaInfoAce"
 Mcho "Bzip2  " "$MediaInfoBzip2"
 Mcho "Elf    " "$MediaInfoElf"
 Mcho "Gzip   " "$MediaInfoGzip"
+Mcho "ISO9660" "$MediaInfoIso9660"
 Mcho "Mz     " "$MediaInfoMz"
 Mcho "Rar    " "$MediaInfoRar"
 Mcho "Tar    " "$MediaInfoTar"

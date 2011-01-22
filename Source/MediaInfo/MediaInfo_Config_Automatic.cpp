@@ -1120,6 +1120,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "7-Zip;;;C;7z;;7z;;http://7-zip.org\n"
     "ACE;;;C;Ace;;ace;;http://winace.com\n"
     "ELF;;;C;Elf;;so\n"
+    "ISO 9660;;;C;Iso9660;;iso\n"
     "MZ;;;C;Mz;;exe dll\n"
     "RAR;;;C;Rar;From Rarlabs;rar;application/x-rar-compressed;http://rarlabs.com\n"
     "ZIP;;;C;Zip;;zip;application/zip;http://winzip.com\n"

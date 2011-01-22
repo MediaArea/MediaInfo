@@ -245,6 +245,9 @@
 #if defined(MEDIAINFO_GZIP_YES)
     #include "MediaInfo/Archive/File_Gzip.h"
 #endif
+#if defined(MEDIAINFO_ISO9660_YES)
+    #include "MediaInfo/Archive/File_Iso9660.h"
+#endif
 #if defined(MEDIAINFO_MZ_YES)
     #include "MediaInfo/Archive/File_Mz.h"
 #endif
@@ -513,6 +516,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_GZIP_YES)
         Temp=new File_Gzip(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ISO9660_YES)
+        Temp=new File_Iso9660(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MZ_YES)
         Temp=new File_Mz(); Parser.push_back(Temp);

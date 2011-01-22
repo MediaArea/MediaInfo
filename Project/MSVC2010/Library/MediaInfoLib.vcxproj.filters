@@ -519,6 +519,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Iso9660.cpp">
+      <Filter>Source Files\Archive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -937,6 +940,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.h">
       <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Iso9660.h">
+      <Filter>Header Files\Archive</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

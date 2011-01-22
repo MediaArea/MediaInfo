@@ -512,6 +512,9 @@
 #if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_GZIP_NO) && !defined(MEDIAINFO_GZIP_YES)
     #define MEDIAINFO_GZIP_YES
 #endif
+#if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_ISO9660_NO) && !defined(MEDIAINFO_ISO9660_YES)
+    #define MEDIAINFO_ISO9660_YES
+#endif
 #if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_MZ_NO) && !defined(MEDIAINFO_MZ_YES)
     #define MEDIAINFO_MZ_YES
 #endif

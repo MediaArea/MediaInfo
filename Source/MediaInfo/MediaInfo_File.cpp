@@ -263,6 +263,9 @@
 #if defined(MEDIAINFO_GZIP_YES)
     #include "MediaInfo/Archive/File_Gzip.h"
 #endif
+#if defined(MEDIAINFO_ISO9660_YES)
+    #include "MediaInfo/Archive/File_Iso9660.h"
+#endif
 #if defined(MEDIAINFO_MZ_YES)
     #include "MediaInfo/Archive/File_Mz.h"
 #endif
@@ -537,6 +540,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_GZIP_YES)
         else if (Parser==_T("Gzip"))        Info=new File_Gzip();
     #endif
+    #if defined(MEDIAINFO_ISO9660_YES)
+        else if (Parser==_T("Iso9660"))     Info=new File_Iso9660();
+    #endif
     #if defined(MEDIAINFO_MZ_YES)
         else if (Parser==_T("Mz"))          Info=new File_Mz();
     #endif
@@ -798,6 +804,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_GZIP_YES)
         delete Info; Info=new File_Gzip();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_ISO9660_YES)
+        delete Info; Info=new File_Iso9660();            if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MZ_YES)
         delete Info; Info=new File_Mz();                 if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

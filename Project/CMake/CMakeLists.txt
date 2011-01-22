@@ -37,6 +37,7 @@ set(mediainfo_SRCS
 	MediaInfo/Archive/File_Bzip2.cpp
 	MediaInfo/Archive/File_Elf.cpp
 	MediaInfo/Archive/File_Gzip.cpp
+	MediaInfo/Archive/File_Iso9660.cpp
 	MediaInfo/Archive/File_Mz.cpp
 	MediaInfo/Archive/File_Rar.cpp
 	MediaInfo/Archive/File_Tar.cpp
