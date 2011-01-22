@@ -446,6 +446,55 @@ public :
     #define Info_LF8(_INFO, _NAME) float64 _INFO; Get_LF8(_INFO, _NAME)
 
     //***************************************************************************
+    // Little and Big Endian together
+    //***************************************************************************
+
+    void Get_D1  (int8u   &Info, const char* Name);
+    void Get_D2  (int16u  &Info, const char* Name);
+    void Get_D3  (int32u  &Info, const char* Name);
+    void Get_D4  (int32u  &Info, const char* Name);
+    void Get_D5  (int64u  &Info, const char* Name);
+    void Get_D6  (int64u  &Info, const char* Name);
+    void Get_D7  (int64u  &Info, const char* Name);
+    void Get_D8  (int64u  &Info, const char* Name);
+    void Get_D16 (int128u &Info, const char* Name);
+    void Get_DF4 (float32 &Info, const char* Name);
+    void Get_DF8 (float64 &Info, const char* Name);
+    void Peek_D1 (int8u   &Info);
+    void Peek_D2 (int16u  &Info);
+    void Peek_D3 (int32u  &Info);
+    void Peek_D4 (int32u  &Info);
+    void Peek_D5 (int64u  &Info);
+    void Peek_D6 (int64u  &Info);
+    void Peek_D7 (int64u  &Info);
+    void Peek_D8 (int64u  &Info);
+    void Peek_D16(int128u &Info);
+    void Peek_DF4(float32 &Info);
+    void Peek_DF8(float64 &Info);
+    void Skip_D1 (               const char* Name);
+    void Skip_D2 (               const char* Name);
+    void Skip_D3 (               const char* Name);
+    void Skip_D4 (               const char* Name);
+    void Skip_D5 (               const char* Name);
+    void Skip_D6 (               const char* Name);
+    void Skip_D7 (               const char* Name);
+    void Skip_D8 (               const char* Name);
+    void Skip_DF4(               const char* Name);
+    void Skip_DF8(               const char* Name);
+    void Skip_D16(               const char* Name);
+    #define Info_D1(_INFO, _NAME)  int8u   _INFO; Get_D1 (_INFO, _NAME)
+    #define Info_D2(_INFO, _NAME)  int16u  _INFO; Get_D2 (_INFO, _NAME)
+    #define Info_D3(_INFO, _NAME)  int32u  _INFO; Get_D3 (_INFO, _NAME)
+    #define Info_D4(_INFO, _NAME)  int32u  _INFO; Get_D4 (_INFO, _NAME)
+    #define Info_D5(_INFO, _NAME)  int64u  _INFO; Get_D5 (_INFO, _NAME)
+    #define Info_D6(_INFO, _NAME)  int64u  _INFO; Get_D6 (_INFO, _NAME)
+    #define Info_D7(_INFO, _NAME)  int64u  _INFO; Get_D7 (_INFO, _NAME)
+    #define Info_D8(_INFO, _NAME)  int64u  _INFO; Get_D8 (_INFO, _NAME)
+    #define Info_D16(_INFO, _NAME) int128u _INFO; Get_D16(_INFO, _NAME)
+    #define Info_DF4(_INFO, _NAME) float32 _INFO; Get_DF4(_INFO, _NAME)
+    #define Info_DF8(_INFO, _NAME) float64 _INFO; Get_DF8(_INFO, _NAME)
+
+    //***************************************************************************
     // GUID
     //***************************************************************************
 

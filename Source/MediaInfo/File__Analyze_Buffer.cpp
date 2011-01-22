@@ -702,6 +702,257 @@ void File__Analyze::Skip_L16(const char* Name)
 }
 
 //***************************************************************************
+// Little and Big Endian together
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D1(int8u  &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(2);
+    Info=LittleEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=2;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D2(int16u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(4);
+    Info=LittleEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=4;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D3(int32u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(6);
+    Info=LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=6;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D4(int32u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(8);
+    Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=8;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D5(int64u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(10);
+    Info=LittleEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=10;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D6(int64u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(12);
+    Info=LittleEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=12;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D7(int64u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(14);
+    Info=LittleEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=14;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D8(int64u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=16;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_D16(int128u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(32);
+    //Info=LittleEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=32;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_DF4(float32 &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(8);
+    Info=LittleEndian2float32(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=8;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_DF8(float64 &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info=LittleEndian2float64(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    if (Trace_Activated) Param(Name, Info);
+    Element_Offset+=16;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D1(int8u  &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(8);
+    Info=LittleEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D2(int16u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(4);
+    Info=LittleEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D3(int32u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(6);
+    Info=LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D4(int32u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(8);
+    Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D5(int64u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(10);
+    Info=LittleEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D6(int64u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(12);
+    Info=LittleEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D7(int64u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(14);
+    Info=LittleEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_D8(int64u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D1(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(2);
+    if (Trace_Activated) Param(Name, LittleEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=2;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D2(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(4);
+    if (Trace_Activated) Param(Name, LittleEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=4;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D3(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(6);
+    if (Trace_Activated)
+    {
+        int32u Info=LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(6-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
+    Element_Offset+=6;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D4(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(8);
+    if (Trace_Activated)
+    {
+        int32u Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Ztring Pos1; Pos1.From_Number(Info, 16);
+        Ztring Temp;
+        Temp.resize(8-Pos1.size(), _T('0'));
+        Temp.append(Pos1);
+        Temp.MakeUpperCase();
+        Param(Name, Ztring::ToZtring(Info)+_T(" (0x")+Temp+_T(")"));
+    }
+    Element_Offset+=8;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D5(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(10);
+    if (Trace_Activated) Param(Name, LittleEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=5;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D6(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(12);
+    if (Trace_Activated) Param(Name, LittleEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=12;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D7(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(14);
+    if (Trace_Activated) Param(Name, LittleEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=14;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D8(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(16);
+    if (Trace_Activated) Param(Name, LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=16;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_D16(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(32);
+    if (Trace_Activated) Param(Name, LittleEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=32;
+}
+
+//***************************************************************************
 // GUID
 //***************************************************************************
 

@@ -91,8 +91,7 @@ void File_Iso9660::Primary_Volume_Descriptor()
     Skip_Local(32,"System Identifier");
     Skip_Local(32,"Volume Identifier");
     Skip_XX(8,"Unused field");
-    Skip_L4("Volume Space Size - L");
-    Get_B4(Volume_Space_Size,                                   "Volume Space Size - B"); Param_Info(Volume_Space_Size*(int64u)2048, " bytes");
+    Get_D4(Volume_Space_Size,                                   "Volume Space Size"); Param_Info(Volume_Space_Size*(int64u)2048, " bytes");
     Skip_XX(32,"Unused field");
     Skip_B4("Volume Set Size");
     Skip_B4("Volume Sequence Number");
