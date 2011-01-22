@@ -39,12 +39,37 @@ namespace MediaInfoLib
 
 class File_Rar : public File__Analyze
 {
+public :
+    File_Rar();
+
 protected :
+    int state;
+
     //Buffer - File header
     bool FileHeader_Begin();
 
-    //Buffer - Global
-    void Read_Buffer_Continue ();
+    //Buffer - Per element
+    bool Header_Begin();
+    void Header_Parse();
+    void Header_Parse_Flags();
+    void Header_Parse_Flags_73();
+    void Header_Parse_Flags_74();
+    void Header_Parse_Flags_XX();
+    void Header_Parse_Content();
+    void Header_Parse_Content_73();
+    void Header_Parse_Content_74();
+    void Header_Parse_Content_XX();
+    void Data_Parse();
+
+    //Temp
+    int8u  HEAD_TYPE;
+    int32u PACK_SIZE;
+    int32u HIGH_PACK_SIZE;
+    int16u HEAD_FLAGS;
+    bool   high_fields;
+    bool   salt;
+    bool   exttime;
+    bool   add_size;
 };
 
 } //NameSpace
