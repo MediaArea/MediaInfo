@@ -67,6 +67,7 @@ protected :
     int32u HIGH_PACK_SIZE;
     int16u HEAD_FLAGS;
     bool   high_fields;
+    bool   usual_or_utf8;
     bool   salt;
     bool   exttime;
     bool   add_size;

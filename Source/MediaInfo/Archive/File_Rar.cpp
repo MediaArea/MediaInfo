@@ -211,7 +211,7 @@ void File_Rar::Header_Parse_Flags_74()
                //      1 1 0    - dictionary size 4096 KB
                //      1 1 1    - file is directory
     Get_Flags (HEAD_FLAGS,  8, high_fields,                     "HIGH_PACK_SIZE and HIGH_UNP_SIZE fields");
-    Skip_Flags(HEAD_FLAGS,  9,                                  "FILE_NAME contains usual and encoded unicode");
+    Get_Flags (HEAD_FLAGS,  9, usual_or_utf8,                   "FILE_NAME contains usual and encoded unicode");
     Get_Flags (HEAD_FLAGS, 10, salt,                            "SALT present");
     Skip_Flags(HEAD_FLAGS, 11,                                  "Version flag.");
     Get_Flags (HEAD_FLAGS, 12, exttime,                         "Extended time field present");
@@ -266,11 +266,26 @@ void File_Rar::Header_Parse_Content_74()
     }
     else
         HIGH_PACK_SIZE=0;
-    Skip_UTF8(name_size,                                        "FILE_NAME");
-    //TODO : handle this : 0x200 - FILE_NAME contains both usual and encoded
-    //Unicode name separated by zero. In this case
-    //NAME_SIZE field is equal to the length
-    //of usual name plus encoded Unicode name plus 1.
+    if (usual_or_utf8)
+    {
+        //Must test the content before reading, looking fore zero byte
+        int64u ZeroPos=0;
+        while (ZeroPos<name_size)
+            if (Buffer[Buffer_Offset+(size_t)(Element_Offset+ZeroPos)]==NULL)
+                break; //Found
+
+        if (ZeroPos==name_size)
+            Skip_UTF8(name_size,                                "FILE_NAME");
+        else
+        {
+            Skip_Local(ZeroPos,                                 "FILE_NAME"); //Up to ZeroPos
+            Skip_L1(                                            "Zero");
+            Skip_UTF16L(name_size-(ZeroPos+1),                  "FILE_NAME"); //Spec is not precise, "Unicode" without encoding format (character size, endianess), because RAR is from Windows, we hope this is the format from Windows (UTF-16 Little Endian)
+        }
+    }
+    else
+        Skip_Local(name_size,                                   "FILE_NAME");
+
     if (salt)
         Skip_L8(                                                "SALT");
     //if(exttime)
