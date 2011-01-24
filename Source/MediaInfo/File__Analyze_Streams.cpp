@@ -1249,30 +1249,30 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, Delay_Temp, Delay_Source_Temp, Delay_Settings_Temp;
     if (StreamKind==Stream_Video)
     {
-        Width_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Width);
-        Height_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Height);
-        PixelAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio); //We want to keep the PixelAspectRatio_Temp of the video stream
-        DisplayAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio); //We want to keep the DisplayAspectRatio_Temp of the video stream
-        FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
-        FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode); //We want to keep the FrameRate_Mode of AVI 120 fps
+        Width_Temp=Retrieve(Stream_Video, StreamPos_To, Video_Width);
+        Height_Temp=Retrieve(Stream_Video, StreamPos_To, Video_Height);
+        PixelAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_To, Video_PixelAspectRatio); //We want to keep the PixelAspectRatio_Temp of the video stream
+        DisplayAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_To, Video_DisplayAspectRatio); //We want to keep the DisplayAspectRatio_Temp of the video stream
+        FrameRate_Temp=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
+        FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate_Mode); //We want to keep the FrameRate_Mode of AVI 120 fps
     }
     if (ToAdd.Retrieve(StreamKind, StreamPos_From, Fill_Parameter(StreamKind, Generic_Delay_Source))==_T("Container"))
     {
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Original", Retrieve(StreamKind_Last, StreamPos_Last, "Delay"), true);
-        Clear(StreamKind_Last, StreamPos_Last, "Delay");
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Source", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Source"), true);
-        Clear(StreamKind_Last, StreamPos_Last, "Delay_Source");
-        if (!ToAdd.Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty()) //Exception: MPEG-4 TimeCode, settings are in the MPEG-4 header
+        Fill(StreamKind, StreamPos_To, "Delay_Original", Retrieve(StreamKind, StreamPos_To, "Delay"), true);
+        Clear(StreamKind, StreamPos_To, "Delay");
+        Fill(StreamKind, StreamPos_To, "Delay_Original_Source", Retrieve(StreamKind, StreamPos_To, "Delay_Source"), true);
+        Clear(StreamKind, StreamPos_To, "Delay_Source");
+        if (!ToAdd.Retrieve(StreamKind, StreamPos_To, "Format").empty()) //Exception: MPEG-4 TimeCode, settings are in the MPEG-4 header
         {
-            Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Settings", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Settings"), true);
-            Clear(StreamKind_Last, StreamPos_Last, "Delay_Settings");
+            Fill(StreamKind, StreamPos_To, "Delay_Original_Settings", Retrieve(StreamKind, StreamPos_To, "Delay_Settings"), true);
+            Clear(StreamKind, StreamPos_To, "Delay_Settings");
         }
     }
     else
     {
-        Delay_Temp=Retrieve(StreamKind, StreamPos_Last, "Delay"); //We want to keep the Delay from the stream
-        Delay_Settings_Temp=Retrieve(StreamKind, StreamPos_Last, "Delay_Settings"); //We want to keep the Delay_Settings from the stream
-        Delay_Source_Temp=Retrieve(StreamKind, StreamPos_Last, "Delay_Source"); //We want to keep the Delay_Source from the stream
+        Delay_Temp=Retrieve(StreamKind, StreamPos_To, "Delay"); //We want to keep the Delay from the stream
+        Delay_Settings_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_Settings"); //We want to keep the Delay_Settings from the stream
+        Delay_Source_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_Source"); //We want to keep the Delay_Source from the stream
     }
 
     //Merging
@@ -1305,48 +1305,48 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     //Specific stuff
     if (StreamKind==Stream_Video)
     {
-        Ztring PixelAspectRatio_Original=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
-        Ztring DisplayAspectRatio_Original=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
+        Ztring PixelAspectRatio_Original=Retrieve(Stream_Video, StreamPos_To, Video_PixelAspectRatio);
+        Ztring DisplayAspectRatio_Original=Retrieve(Stream_Video, StreamPos_To, Video_DisplayAspectRatio);
 
-        if (!Width_Temp.empty() && Width_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_Width))
+        if (!Width_Temp.empty() && Width_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_Width))
         {
-            Fill(Stream_Video, StreamPos_Last, Video_Width_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_Width], true);
-            Fill(Stream_Video, StreamPos_Last, Video_Width, Width_Temp, true);
+            Fill(Stream_Video, StreamPos_To, Video_Width_Original, (*Stream)[Stream_Video][StreamPos_To][Video_Width], true);
+            Fill(Stream_Video, StreamPos_To, Video_Width, Width_Temp, true);
         }
-        if (!Height_Temp.empty() && Height_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_Height))
+        if (!Height_Temp.empty() && Height_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_Height))
         {
-            Fill(Stream_Video, StreamPos_Last, Video_Height_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_Height], true);
-            Fill(Stream_Video, StreamPos_Last, Video_Height, Height_Temp, true);
+            Fill(Stream_Video, StreamPos_To, Video_Height_Original, (*Stream)[Stream_Video][StreamPos_To][Video_Height], true);
+            Fill(Stream_Video, StreamPos_To, Video_Height, Height_Temp, true);
         }
-        if (!PixelAspectRatio_Temp.empty() && PixelAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio))
+        if (!PixelAspectRatio_Temp.empty() && PixelAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_PixelAspectRatio))
         {
-            Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original, PixelAspectRatio_Original, true);
-            Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio_Temp, true);
+            Fill(Stream_Video, StreamPos_To, Video_PixelAspectRatio_Original, PixelAspectRatio_Original, true);
+            Fill(Stream_Video, StreamPos_To, Video_PixelAspectRatio, PixelAspectRatio_Temp, true);
         }
         if (!DisplayAspectRatio_Temp.empty() && DisplayAspectRatio_Temp!=DisplayAspectRatio_Original)
         {
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, DisplayAspectRatio_Original, true);
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, DisplayAspectRatio_Temp, true);
+            Fill(Stream_Video, StreamPos_To, Video_DisplayAspectRatio_Original, DisplayAspectRatio_Original, true);
+            Fill(Stream_Video, StreamPos_To, Video_DisplayAspectRatio, DisplayAspectRatio_Temp, true);
         }
-        if (!FrameRate_Temp.empty() && FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
+        if (!FrameRate_Temp.empty() && FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate))
         {
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_FrameRate], true);
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
+            Fill(Stream_Video, StreamPos_To, Video_FrameRate_Original, (*Stream)[Stream_Video][StreamPos_To][Video_FrameRate], true);
+            Fill(Stream_Video, StreamPos_To, Video_FrameRate, FrameRate_Temp, true);
         }
-        if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
+        if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate_Mode))
         {
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode_Original, (*Stream)[Stream_Video][StreamPos_Last][Video_FrameRate_Mode], true);
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
+            Fill(Stream_Video, StreamPos_To, Video_FrameRate_Mode_Original, (*Stream)[Stream_Video][StreamPos_To][Video_FrameRate_Mode], true);
+            Fill(Stream_Video, StreamPos_To, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
         }
     }
-    if (!Delay_Source_Temp.empty() && Delay_Source_Temp!=Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Source"))
+    if (!Delay_Source_Temp.empty() && Delay_Source_Temp!=Retrieve(StreamKind, StreamPos_To, "Delay_Source"))
     {
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Original", Retrieve(StreamKind_Last, StreamPos_Last, "Delay"), true);
-        Fill(StreamKind_Last, StreamPos_Last, "Delay", Delay_Temp, true);
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Settings", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Settings"), true);
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", Delay_Settings_Temp, true);
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Source", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Source"), true);
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_Source", Delay_Source_Temp, true);
+        Fill(StreamKind, StreamPos_To, "Delay_Original", Retrieve(StreamKind, StreamPos_To, "Delay"), true);
+        Fill(StreamKind, StreamPos_To, "Delay", Delay_Temp, true);
+        Fill(StreamKind, StreamPos_To, "Delay_Original_Settings", Retrieve(StreamKind, StreamPos_To, "Delay_Settings"), true);
+        Fill(StreamKind, StreamPos_To, "Delay_Settings", Delay_Settings_Temp, true);
+        Fill(StreamKind, StreamPos_To, "Delay_Original_Source", Retrieve(StreamKind, StreamPos_To, "Delay_Source"), true);
+        Fill(StreamKind, StreamPos_To, "Delay_Source", Delay_Source_Temp, true);
     }
 
     Fill(StreamKind, StreamPos_To, (size_t)General_Count, Count_Get(StreamKind, StreamPos_To), 10, true);
