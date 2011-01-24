@@ -547,17 +547,17 @@ int Preferences::ExplorerShell()
             RegCloseKey(Key);
             Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\Media Info"));
         }
-        Result=RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\MediaInfo\\Command"), 0, KEY_READ, &Key);
+        Result=RegOpenKeyEx(HKEY_CLASSES_ROOT, _T("*\\Shell\\MediaInfo\\Command"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\MediaInfo\\Command"));
+            Result=RegDeleteKey(HKEY_CLASSES_ROOT, _T("*\\Shell\\MediaInfo\\Command"));
         }
-        Result=RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\MediaInfo"), 0, KEY_READ, &Key);
+        Result=RegOpenKeyEx(HKEY_CLASSES_ROOT, _T("*\\Shell\\MediaInfo"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CURRENT_USER, _T("Software\\Classes\\*\\Shell\\MediaInfo"));
+            Result=RegDeleteKey(HKEY_CLASSES_ROOT, _T("*\\Shell\\MediaInfo"));
         }
         Result=RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\MediaInfo"), 0, KEY_READ, &Key);
         if (Result==0)
