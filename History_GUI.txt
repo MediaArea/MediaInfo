@@ -13,6 +13,23 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.40, 2011-11-24
+--------------
++ QuickTime: detection of AES3 and Dolby E
++ QuickTime: Apple CEA-608 and CEA-708 (in CDP) support
++ JPEG 2000: Chroma subsampling
++ JPEG 2000 in MXF: Color space
++ JPEG 2000 in MPEG-4 and MJ2: Color space
++ MPEG-4: mx5p CodecID support
++ ISO 9660 (CD/DVD/Blu-ray dump) detection
+x MPEG-TS: wrong detection (as encrypted) of some streams with a lot of transmission errors
+x MPEG-TS: wrong management of some PAT/PMT updates (real time parsing)
+x MPEG Video: wrong duration with some raw streams
+x FLV: wrong duration with some files
+x libcurl: crash if requesting a libcurl URL but libcurl library not present
+x MPEG Audio: crash with some malformed files
+x MPEG-4: error between recorded date and encoded date
+
 Version 0.7.39, 2011-01-03
 --------------
 + Turkish, Russian translations updated
