@@ -269,10 +269,18 @@ void File_Rar::Header_Parse_Content_74()
     if (usual_or_utf8)
     {
         //Must test the content before reading, looking fore zero byte
+        if (Element_Offset+name_size>Element_Size)
+        {
+            Skip_XX(Element_Size-Element_Offset,                "Error");
+            return;
+        }
         int64u ZeroPos=0;
         while (ZeroPos<name_size)
+        {
             if (Buffer[Buffer_Offset+(size_t)(Element_Offset+ZeroPos)]==NULL)
                 break; //Found
+            ZeroPos++;
+        }
 
         if (ZeroPos==name_size)
             Skip_UTF8(name_size,                                "FILE_NAME");
