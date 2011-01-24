@@ -16,6 +16,7 @@ Version 0.7.40, 2011-
 + JPEG 2000 in MPEG-4 and MJ2: Color space
 + MPEG-4: mx5p CodecID support
 + ISO 9660 (CD/DVD/Blu-ray dump) detection
+x FLV: wrong duration with some files
 x libcurl: crash if requesting a libcurl URL but libcurl library not present
 x MPEG Audio: crash with some malformed files
 x MPEG-4: error between recorded date and encoded date

@@ -482,12 +482,12 @@ void File_Flv::Streams_Fill()
     //Parsers
     if (Stream[Stream_Video].Parser!=NULL)
     {
-        Finish(Stream[Stream_Video].Parser);
+        Fill(Stream[Stream_Video].Parser);
         Merge(*Stream[Stream_Video].Parser, Stream_Video, 0, 0);
     }
     if (Stream[Stream_Audio].Parser!=NULL)
     {
-        Finish(Stream[Stream_Audio].Parser);
+        Fill(Stream[Stream_Audio].Parser);
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
 
         //Special case: AAC
@@ -549,6 +549,20 @@ void File_Flv::Streams_Finish()
         }
     }
     */
+
+    if (Stream[Stream_Video].Parser!=NULL)
+    {
+        Finish(Stream[Stream_Video].Parser);
+        Merge(*Stream[Stream_Video].Parser, Stream_Video, 0, 0);
+    }
+    if (Stream[Stream_Audio].Parser!=NULL)
+    {
+        Finish(Stream[Stream_Audio].Parser);
+        Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
+    }
+
+    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_Video, 0, Video_Duration).empty() && meta_duration)
+        Fill(Stream_General, 0, General_Duration, meta_duration, 0, true);
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -672,7 +686,11 @@ void File_Flv::Read_Buffer_Unsynched()
     if (!Searching_Duration) //If Searching_Duration, we are looking for end in inverse order, no timestamp reset
     {
         Stream[Stream_Video].TimeStamp=(int32u)-1;
+        if (Stream[Stream_Video].Parser)
+            Stream[Stream_Video].Parser->Open_Buffer_Unsynch();
         Stream[Stream_Audio].TimeStamp=(int32u)-1;
+        if (Stream[Stream_Audio].Parser)
+            Stream[Stream_Audio].Parser->Open_Buffer_Unsynch();
     }
 }
 
