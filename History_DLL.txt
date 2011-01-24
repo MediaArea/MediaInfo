@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.40, 2011-
+Version 0.7.40, 2011-11-24
 --------------
 + QuickTime: detection of AES3 and Dolby E
 + QuickTime: Apple CEA-608 and CEA-708 (in CDP) support
