@@ -874,6 +874,8 @@ bool File__Analyze::Header_Manage()
         return false;
 
     //Header begin
+    Element_Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset);
+    Element_Offset=0;
     if (!Header_Begin())
     {
         //Jumping to the end of the file if needed
