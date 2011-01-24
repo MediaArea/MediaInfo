@@ -773,7 +773,11 @@ void File_Mpeg_Psi::Header_Parse()
             CRC_32=(CRC_32<<8) ^ Psi_CRC_32_Table[(CRC_32>>24)^(*CRC_32_Buffer)];
             CRC_32_Buffer++;
         }
-        CRC_32=0;
+        if (CRC_32)
+        {
+            Reject();
+            return;
+        }
     }
 
     //Filling
