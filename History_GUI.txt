@@ -13,6 +13,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.41, 2011-01-24
+--------------
++ MPEG-TS: random cases with full parsing of the file
+
 Version 0.7.40, 2011-11-24
 --------------
 + QuickTime: detection of AES3 and Dolby E
