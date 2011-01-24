@@ -43,42 +43,40 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Mpeg4_TimeCode::FileHeader_Parse()
 {
-    if (Element_Offset>=Element_Size)
-        return;
-
     //Parsing
-    int32u Position;
+    int32u Position=0;
     while (Element_Offset<Element_Size)
         Get_B4 (Position,                                       "Position");
 
-    //Filling
-    Accept("TimeCode");
+    FILLING_BEGIN();
+        Accept("TimeCode");
 
-    if (FrameRate)
-    {
-        int64s Pos=Position;
-        if (NegativeTimes)
-            Pos=(int32s)Position;
-        if (StreamKind==Stream_General)
+        if (FrameRate)
         {
-            //No link with a track, we do all
-            Stream_Prepare(Stream_Video);
-            Fill(Stream_Video, 0, Video_Delay, Pos*1000/FrameRate, 0);
-            Fill(Stream_Video, 0, Video_Delay_Source, "Container");
+            int64s Pos=Position;
+            if (NegativeTimes)
+                Pos=(int32s)Position;
+            if (StreamKind==Stream_General)
+            {
+                //No link with a track, we do all
+                Stream_Prepare(Stream_Video);
+                Fill(Stream_Video, 0, Video_Delay, Pos*1000/FrameRate, 0);
+                Fill(Stream_Video, 0, Video_Delay_Source, "Container");
 
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Audio_Delay, Pos*1000/FrameRate, 0);
-            Fill(Stream_Video, 0, Video_Delay_Source, "Container");
+                Stream_Prepare(Stream_Audio);
+                Fill(Stream_Audio, 0, Audio_Delay, Pos*1000/FrameRate, 0);
+                Fill(Stream_Video, 0, Video_Delay_Source, "Container");
+            }
+            else
+            {
+                Stream_Prepare(StreamKind);
+                Fill(StreamKind, 0, Fill_Parameter(StreamKind_Last, Generic_Delay), Pos*1000/FrameRate, 0);
+                Fill(StreamKind, 0, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+            }
         }
-        else
-        {
-            Stream_Prepare(StreamKind);
-            Fill(StreamKind, 0, Fill_Parameter(StreamKind_Last, Generic_Delay), Pos*1000/FrameRate, 0);
-            Fill(StreamKind, 0, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
-        }
-    }
 
-    Finish("TimeCode");
+        Finish("TimeCode");
+    FILLING_END();
 }
 
 }
