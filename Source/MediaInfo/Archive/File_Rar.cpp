@@ -1,4 +1,4 @@
-﻿// File_Rar - Info for RAR files
+// File_Rar - Info for RAR files
 // Copyright (C) 2005-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
