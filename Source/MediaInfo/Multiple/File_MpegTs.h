@@ -86,6 +86,7 @@ private :
     void Data_Parse();
 
     int16u                      pid;
+    int8u                       transport_scrambling_control;
     bool                        payload_unit_start_indicator;
 
     //Global infos

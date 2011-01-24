@@ -1094,7 +1094,7 @@ bool File_MpegTs::Synched_Test()
                                          && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
                                         {
                                             //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_LastSynched;
                                             MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                                         }
                                     }
@@ -1140,7 +1140,7 @@ void File_MpegTs::Synched_Init()
     Complete_Stream->Streams[0x0001]->Table_IDs[0x01]=new complete_stream::stream::table_id; //conditional_access_section
 
     //Temp
-    MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:File_Offset_FirstSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
+    MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:Buffer_TotalBytes_LastSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
     MpegTs_JumpTo_End=16*1024*1024;
     Buffer_TotalBytes_LastSynched=Buffer_TotalBytes_FirstSynched;
     if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
@@ -1213,9 +1213,6 @@ void File_MpegTs::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_AfterParsing()
 {
-    if (Status[IsFilled] && Get(Stream_Video, 0, Video_FrameRate).empty())
-        int A=0;
-    
     if (Complete_Stream==NULL)
         return; //No synchronization yet
 
@@ -1350,7 +1347,6 @@ void File_MpegTs::Header_Parse()
     if (Trace_Activated)
     {
         //Parsing
-        int8u transport_scrambling_control;
         bool  adaptation, payload;
         if (BDAV_Size)
             Skip_B4(                                                "BDAV"); //BDAV supplement
@@ -1410,7 +1406,7 @@ void File_MpegTs::Header_Parse()
     #endif //MEDIAINFO_TRACE
         //Parsing
                payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
-        int8u  transport_scrambling_control= Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
+               transport_scrambling_control= Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
         bool   adaptation=                  (Buffer[Buffer_Offset+BDAV_Size+3]&0x20)!=0;
         bool   payload=                     (Buffer[Buffer_Offset+BDAV_Size+3]&0x10)!=0;
         Element_Offset+=BDAV_Size+4;
@@ -1528,7 +1524,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                              && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
                             {
                                 //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_LastSynched;
                                 MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                             }
                         }
@@ -1684,7 +1680,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                              && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
                             {
                                 //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_LastSynched;
                                 MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                             }
                         }
@@ -1787,7 +1783,7 @@ void File_MpegTs::PES()
     }
 
     //Case of encrypted streams
-    if (Complete_Stream->Streams[pid]->IsScrambled)
+    if (transport_scrambling_control)
     {
         if (!Complete_Stream->Streams[pid]->Searching_Payload_Continue)
             Complete_Stream->Streams[pid]->Searching_Payload_Continue_Set(true); //In order to count the packets
@@ -1805,6 +1801,8 @@ void File_MpegTs::PES()
 
         return;
     }
+    else if (Complete_Stream->Streams[pid]->IsScrambled)
+        Complete_Stream->Streams[pid]->IsScrambled--;
 
     //Parser creation
     if (Complete_Stream->Streams[pid]->Parser==NULL)
