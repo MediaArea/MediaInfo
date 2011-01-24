@@ -43,6 +43,9 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Mpeg4_TimeCode::FileHeader_Parse()
 {
+    if (Element_Offset>=Element_Size)
+        return;
+
     //Parsing
     int32u Position;
     while (Element_Offset<Element_Size)
