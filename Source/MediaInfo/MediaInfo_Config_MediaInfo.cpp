@@ -45,6 +45,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileIsSub=false;
     FileKeepInfo=false;
     FileStopAfterFilled=false;
+    FileStopSubStreamAfterFilled=false;
     File_Filter_HasChanged_=false;
     Audio_MergeMonoStreams=false;
     #if MEDIAINFO_EVENTS
