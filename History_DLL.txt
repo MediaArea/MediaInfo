@@ -16,6 +16,8 @@ Version 0.7.40, 2011-
 + JPEG 2000 in MPEG-4 and MJ2: Color space
 + MPEG-4: mx5p CodecID support
 + ISO 9660 (CD/DVD/Blu-ray dump) detection
+x MPEG-TS: wrong detection (as encrypted) of some streams with a lot of transmission errors
+x MPEG-TS: wrong management of some PAT/PMT updates (real time parsing)
 x MPEG Video: wrong duration with some raw streams
 x FLV: wrong duration with some files
 x libcurl: crash if requesting a libcurl URL but libcurl library not present
