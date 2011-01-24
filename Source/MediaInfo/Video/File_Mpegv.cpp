@@ -921,6 +921,8 @@ void File_Mpegv::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Mpegv::Read_Buffer_Unsynched()
 {
+    Streams[0xB8].Searching_TimeStamp_Start=false; //group_start
+    Streams[0x00].Searching_TimeStamp_End=false; //picture_start
     Time_End_Seconds=Error;
     Time_End_Frames=(int8u)-1;
     RefFramesCount=0;
@@ -1112,7 +1114,7 @@ void File_Mpegv::Detect_EOF()
         if (!Status[IsFilled])
             Fill("MPEG Video");
 
-        GoToFromEnd(SizeToAnalyse_End*2, "MPEG Video");
+        GoToFromEnd(SizeToAnalyse_End, "MPEG Video");
         EOF_AlreadyDetected=true; //Sometimes called from Filling
     }
 }
@@ -1311,8 +1313,8 @@ void File_Mpegv::slice_start()
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)
                 Finish("MPEG Video");
-            else if (!IsSub && 2*(File_Offset+Buffer_Size)<File_Size && Config_ParseSpeed<1.0)
-                GoToFromEnd(File_Offset+Buffer_Size);
+            else if (!IsSub && 2*(File_Offset+Buffer_Size+SizeToAnalyse_End)<File_Size && Config_ParseSpeed<1.0)
+                GoToFromEnd(SizeToAnalyse_End);
         }
     FILLING_END();
 }
