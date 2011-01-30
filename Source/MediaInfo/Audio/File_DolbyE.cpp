@@ -120,3 +120,4 @@ void File_DolbyE::Data_Parse()
 } //NameSpace
 
 #endif //MEDIAINFO_DOLBYE_YES
+

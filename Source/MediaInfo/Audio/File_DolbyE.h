@@ -56,7 +56,7 @@ private :
 
     //Buffer - Per element
 	void Header_Parse();
-	void Data_Parse();
+    void Data_Parse();
 };
 
 } //NameSpace
