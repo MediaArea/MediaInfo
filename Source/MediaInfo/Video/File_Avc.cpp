@@ -856,9 +856,9 @@ bool File_Avc::Synched_Test()
                 if (Demux_Field_Count<=Field_Count)
                     Demux_Field_Count++;
                 Demux_Offset=0;
-                if (Frame_Count || Field_Count)
-                    Element_End();
-                Element_Begin("Frame or Field");
+                //if (Frame_Count || Field_Count)
+                //    Element_End();
+                //Element_Begin("Frame or Field");
             }
         }
     #endif //MEDIAINFO_DEMUX

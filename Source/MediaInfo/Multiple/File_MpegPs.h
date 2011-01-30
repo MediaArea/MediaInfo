@@ -121,9 +121,9 @@ private :
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parse_Fill_Size();
-    bool Header_Parse_PES_packet(int8u start_code);
-    void Header_Parse_PES_packet_MPEG1(int8u start_code);
-    void Header_Parse_PES_packet_MPEG2(int8u start_code);
+    bool Header_Parse_PES_packet(int8u stream_id);
+    void Header_Parse_PES_packet_MPEG1(int8u stream_id);
+    void Header_Parse_PES_packet_MPEG2(int8u stream_id);
     void Data_Parse();
     bool BookMark_Needed();
 
@@ -223,7 +223,7 @@ private :
     std::vector<ps_stream> Streams;
     std::vector<ps_stream> Streams_Private1; //There can have multiple streams in one private stream
     std::vector<ps_stream> Streams_Extension; //There can have multiple streams in one private stream
-    int8u start_code;
+    int8u stream_id;
 
     //Temp
     int64u SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser

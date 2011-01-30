@@ -2071,7 +2071,7 @@ void File_Mpegv::extension_start()
 
          switch (extension_start_code_identifier)
     {
-        case 1 :{ //Sequence
+        case  1 :{ //Sequence
                     //Parsing
                     Peek_SB(profile_and_level_indication_escape);
                     if (profile_and_level_indication_escape)
@@ -2102,7 +2102,7 @@ void File_Mpegv::extension_start()
                     FILLING_END();
                 }
                 break;
-        case 2 :{ //Sequence Display
+        case  2 :{ //Sequence Display
                     //Parsing
                     Get_S1 ( 3, video_format,                   "video_format"); Param_Info(Mpegv_video_format[video_format]);
                     TEST_SB_SKIP(                               "load_intra_quantiser_matrix");
@@ -2116,7 +2116,14 @@ void File_Mpegv::extension_start()
                     BS_End();
                 }
                 break;
-        case 8 :{ //Picture Coding
+        case  5 :{ //Sequence Scalable Extension
+                    //Parsing
+                    Skip_S1(4,                                  "data");
+                    BS_End();
+                    Skip_XX(Element_Size-Element_Offset,        "data");
+                }
+                break;
+        case  8 :{ //Picture Coding
                     //Parsing
                     Skip_S1( 4,                                 "f_code_forward_horizontal");
                     Skip_S1( 4,                                 "f_code_forward_vertical");
@@ -2174,6 +2181,7 @@ void File_Mpegv::extension_start()
                                     Interlaced_Bottom++;
                             }
                             FirstFieldFound=!FirstFieldFound;
+                            Field_Count++;
                         }
                     }
                     else
@@ -2196,8 +2204,22 @@ void File_Mpegv::extension_start()
                             TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
                             TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
                         }
-                    }
-                FILLING_END();
+                    FILLING_END();
+                }
+                break;
+        case  9 :{ //Picture Spatial Scalable Extension
+                    //Parsing
+                    Skip_S1(4,                                  "data");
+                    BS_End();
+                    Skip_XX(Element_Size-Element_Offset,        "data");
+                }
+                break;
+        case 10 :{ //Picture Temporal Scalable Extension
+                    //Parsing
+                    Skip_S1(4,                                  "data");
+                    BS_End();
+                    Skip_XX(Element_Size-Element_Offset,        "data");
+                }
                 break;
         default:{
                     //Parsing
