@@ -446,6 +446,22 @@ bool File_Aac::Synched_Test_ADTS()
     if ((CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
         Synched=false;
 
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            int16u aac_frame_length=(BigEndian2int24u(Buffer+Buffer_Offset+3)>>5)&0x1FFF; //13 bits
+            if (Buffer_Offset+aac_frame_length>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                return false; //No complete frame
+
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //We continue
     return true;
 }
@@ -460,6 +476,22 @@ bool File_Aac::Synched_Test_LATM()
     //Quick test of synchro
     if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
         Synched=false;
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            int16u audioMuxLengthBytes=BigEndian2int24u(Buffer+Buffer_Offset+3)&0x1FFF; //13 bits
+            if (Buffer_Offset+3+audioMuxLengthBytes>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                return false; //No complete frame
+
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //We continue
     return true;

@@ -397,6 +397,80 @@ bool File_Vc1::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
 
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            if ((Demux_Frame_Count<=Frame_Count || Demux_Field_Count<=Field_Count)
+             && ((Demux_picture_start_Found && Buffer[Buffer_Offset+3]==0x0D) || Buffer[Buffer_Offset+3]==0x0F))
+            {
+                if (Demux_Offset==0)
+                {
+                    Demux_Offset=Buffer_Offset;
+                    Demux_picture_start_Found=false;
+                }
+                while (Demux_Offset+4<=Buffer_Size)
+                {
+                    //Synchronizing
+                    while(Demux_Offset+3<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
+                                                        || Buffer[Demux_Offset+1]!=0x00
+                                                        || Buffer[Demux_Offset+2]!=0x01))
+                    {
+                        Demux_Offset+=2;
+                        while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                            Demux_Offset+=2;
+                        if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                            Demux_Offset--;
+                    }
+
+                    if (Demux_Offset+4<=Buffer_Size)
+                    {
+                        if (Demux_picture_start_Found)
+                        {
+                            bool MustBreak;
+                            switch (Buffer[Demux_Offset+3])
+                            {
+                                case 0x0D :
+                                case 0x0F :
+                                            MustBreak=true; break;
+                                default   : MustBreak=false;
+                            }
+                            if (MustBreak)
+                                break; //while() loop
+                        }
+                        else
+                        {
+                            if (Buffer[Demux_Offset+3]==0x0D)
+                                Demux_picture_start_Found=true;
+                        }
+                    }
+                    Demux_Offset++;
+                }
+
+                if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //No complete frame
+                }
+
+                Demux_random_access=Buffer[Buffer_Offset+3]==0x0F;
+                if (StreamIDs_Size>=2)
+                    Element_Code=StreamIDs[StreamIDs_Size-2];
+                StreamIDs_Size--;
+                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
+                StreamIDs_Size++;
+                if (Demux_Frame_Count<=Frame_Count)
+                    Demux_Frame_Count++;
+                if (Demux_Field_Count<=Field_Count)
+                    Demux_Field_Count++;
+                Demux_Offset=0;
+                //if (Frame_Count || Field_Count)
+                //    Element_End();
+                //Element_Begin("Frame or Field");
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //We continue
     return true;
 }
@@ -433,6 +507,12 @@ void File_Vc1::Synched_Init()
     psf=false;
     pulldown=false;
     panscan_flag=false;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=0;
+        Demux_Field_Count=0;
+        Demux_picture_start_Found=true;
+    #endif //MEDIAINFO_DEMUX
 
     TemporalReference_Offset=0;
 
@@ -449,6 +529,12 @@ void File_Vc1::Synched_Init()
 void File_Vc1::Read_Buffer_Unsynched()
 {
     RefFramesCount=0;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=Frame_Count;
+        Demux_Field_Count=Field_Count;
+        Demux_picture_start_Found=true;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************

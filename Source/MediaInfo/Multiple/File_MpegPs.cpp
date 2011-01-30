@@ -3473,10 +3473,15 @@ File__Analyze* File_MpegPs::ChooseParser_Mpeg4v()
     #if defined(MEDIAINFO_MPEG4V_YES)
         File_Mpeg4v* Parser=new File_Mpeg4v;
         Parser->Frame_Count_Valid=1;
-		#if MEDIAINFO_DEMUX
-			if (Demux_UnpacketizeContainer)
-				Parser->FrameIsAlwaysComplete=true;
-	    #endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
@@ -3521,10 +3526,15 @@ File__Analyze* File_MpegPs::ChooseParser_VC1()
     #if defined(MEDIAINFO_VC1_YES)
         File_Vc1* Parser=new File_Vc1;
         Parser->Frame_Count_Valid=30;
-		#if MEDIAINFO_DEMUX
-			if (Demux_UnpacketizeContainer)
-				Parser->FrameIsAlwaysComplete=true;
-	    #endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
@@ -3595,6 +3605,15 @@ File__Analyze* File_MpegPs::ChooseParser_Adts()
     #if defined(MEDIAINFO_AAC_YES)
         File_Aac* Parser=new File_Aac;
         Parser->Mode=File_Aac::Mode_ADTS;
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
@@ -3614,6 +3633,15 @@ File__Analyze* File_MpegPs::ChooseParser_Latm()
     #if defined(MEDIAINFO_AAC_YES)
         File_Aac* Parser=new File_Aac;
         Parser->Mode=File_Aac::Mode_LATM;
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
