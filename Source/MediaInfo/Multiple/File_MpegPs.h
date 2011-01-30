@@ -231,9 +231,6 @@ private :
     bool   video_stream_Unlimited;
     int16u Buffer_DataSizeToParse;
     std::vector<int64u> video_stream_PTS;
-	#if MEDIAINFO_DEMUX
-		bool Demux_Unpacketize;
-	#endif //MEDIAINFO_DEMUX
 
     //Helpers
     bool Header_Parser_QuickSearch();

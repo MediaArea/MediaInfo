@@ -70,21 +70,34 @@ File__Analyze::File__Analyze ()
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         Demux_Level=1; //Frame
-        random_access=false;
+        Demux_random_access=false;
+        Demux_UnpacketizeContainer=false;
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;
     PCR=(int64u)-1;
     PTS=(int64u)-1;
     DTS=(int64u)-1;
     DUR=(int64u)-1;
+    PCR_Previous=(int64u)-1;
+    PTS_Previous=(int64u)-1;
+    DTS_Previous=(int64u)-1;
+    DUR_Previous=(int64u)-1;
+    PCR_Next=(int64u)-1;
+    PTS_Next=(int64u)-1;
+    DTS_Next=(int64u)-1;
+    DUR_Next=(int64u)-1;
     PTS_Begin=(int64u)-1;
-    PTS_End=(int64u)-1;
+    PTS_End=0;
     DTS_Begin=(int64u)-1;
-    DTS_End=(int64u)-1;
+    DTS_End=0;
 
     //Out
     Frame_Count=0;
+    Frame_Count_Previous=0;
     Frame_Count_InThisBlock=0;
+    Field_Count=0;
+    Field_Count_Previous=0;
+    Field_Count_InThisBlock=0;
 
     //Configuration
     DataMustAlwaysBeComplete=true;
@@ -203,6 +216,13 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
         Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
     if (Config->File_IsSub_Get())
         IsSub=true;
+    #if MEDIAINFO_DEMUX
+        if (Demux_Level==1 && !IsSub && Config->Demux_Unpacketize_Get()) //If Demux_Level is Frame
+        {
+            Demux_Level=2; //Container
+            Demux_UnpacketizeContainer=true;
+        }
+    #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_EVENTS
         int64u SubFile_StreamID=Config->SubFile_StreamID_Get();
         if (SubFile_StreamID!=(int64u)-1)
@@ -439,7 +459,54 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->PES_FirstByte_IsAvailable=PES_FirstByte_IsAvailable;
     Sub->PES_FirstByte_Value=PES_FirstByte_Value;
+    #if MEDIAINFO_DEMUX
+        if (Sub->Demux_UnpacketizeContainer)
+        {
+            if (Sub->DTS==(int64u)-1 && Sub->PTS==(int64u)-1)
+            {
+                //Sub->PCR=Sub->PCR_Previous;
+                Sub->DTS=Sub->DTS_Previous;
+                Sub->PTS=Sub->PTS_Previous;
+                //Sub->PCR_Previous=(int64u)-1;
+                Sub->DTS_Previous=(int64u)-1;
+                Sub->PTS_Previous=(int64u)-1;
+            }
+            else if (Sub->DTS_Previous!=(int64u)-1 || Sub->PTS_Previous!=(int64u)-1)
+            {
+                //Sub->PCR_Next=Sub->PCR;
+                Sub->DTS_Next=Sub->DTS;
+                Sub->PTS_Next=Sub->PTS;
+                //Sub->PCR=(int64u)-1;
+                Sub->DTS=(int64u)-1;
+                Sub->PTS=(int64u)-1;
+
+                //Sub->PCR=Sub->PCR_Previous;
+                Sub->DTS=Sub->DTS_Previous;
+                Sub->PTS=Sub->PTS_Previous;
+                //Sub->PCR_Previous=(int64u)-1;
+                Sub->DTS_Previous=(int64u)-1;
+                Sub->PTS_Previous=(int64u)-1;
+
+                Sub->Frame_Count_Previous=Sub->Frame_Count;
+                Sub->Field_Count_Previous=Sub->Field_Count;
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
+    #if MEDIAINFO_DEMUX
+        if (Sub->Demux_UnpacketizeContainer)
+        {
+            if (Sub->Buffer_Offset<Sub->Buffer_Size)
+            {
+                //Sub->PCR_Previous=Sub->PCR;
+                Sub->DTS_Previous=Sub->DTS;
+                Sub->PTS_Previous=Sub->PTS;
+                //Sub->PCR=(int64u)-1;
+                Sub->DTS=(int64u)-1;
+                Sub->PTS=(int64u)-1;
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_TRACE
         if (Trace_Activated)
@@ -533,6 +600,9 @@ void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Unsynch ()
 {
+    //if (!Status[IsAccepted])
+    //    return;
+
     Buffer_Clear();
     Read_Buffer_Unsynched();
 
@@ -549,6 +619,12 @@ void File__Analyze::Open_Buffer_Unsynch ()
     }
 
     File_GoTo=(int64u)-1;
+    PTS=(int64u)-1;
+    DTS=(int64u)-1;
+    PTS_Previous=(int64u)-1;
+    DTS_Previous=(int64u)-1;
+    PTS_Next=(int64u)-1;
+    DTS_Next=(int64u)-1;
     PTS_End=0;
     DTS_End=0;
 }
@@ -1045,6 +1121,27 @@ bool File__Analyze::Data_Manage()
         Data_Parse();
         BS->Attach(NULL, 0); //Clear it
         //Element_Level=Element_Level_Save;
+
+
+        if ((DTS_Next!=(int64u)-1 || PTS_Next!=(int64u)-1) && ((Frame_Count_Previous<Frame_Count) || (Field_Count_Previous<Field_Count)))
+        {
+            DTS=DTS_Next;
+            PTS=PTS_Next;
+
+            DTS_Next=(int64u)-1;
+            PTS_Next=(int64u)-1;
+
+            if (Frame_Count_Previous<Frame_Count)
+            {
+                Frame_Count_Previous=Frame_Count;
+                Frame_Count_InThisBlock=0;
+            }
+            if (Field_Count_Previous<Field_Count)
+            {
+                Field_Count_Previous=Field_Count;
+                Field_Count_InThisBlock=0;
+            }
+        }
 
         //Testing the parser result
         if (Element_IsWaitingForMoreData())
@@ -2346,7 +2443,8 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
 
     #if MEDIAINFO_EVENTS
         //Demux
-        StreamIDs[StreamIDs_Size-1]=Element_Code;
+        if (StreamIDs_Size)
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
         struct MediaInfo_Event_Global_Demux_2 Event;
         if (StreamIDs_Size && StreamIDs_Size<17)
              Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 2);
@@ -2365,7 +2463,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         Event.Content_Size=Buffer_Size;
         Event.Content=Buffer;
         Event.Flags=0;
-        if (random_access)
+        if (Demux_random_access)
             Event.Flags|=0x1; //Bit 0
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_2), IsSub?File_Name_WithoutDemux:File_Name);
         Event.EventCode&=0xFFFFFF00; //Force to version 1

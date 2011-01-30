@@ -433,8 +433,8 @@ void File_Lxf::Header_Parse()
                         switch (PictureType)
                         {
                             case 2 :
-                            case 3 : random_access=false; break; //P-Frame, B-Frame
-                            default: random_access=true ;        //I-Frame
+                            case 3 : Demux_random_access=false; break; //P-Frame, B-Frame
+                            default: Demux_random_access=true ;        //I-Frame
                         }
                     #endif //MEDIAINFO_DEMUX
                     if (GOP_M>1) //With B-frames
@@ -489,7 +489,7 @@ void File_Lxf::Header_Parse()
                     Audios_Header.Duration=Duration;
                     //TimeOffsets[File_Offset+Buffer_Offset]=stream_header(float64_int64s(((float64)TimeStamp)*1000000/720), float64_int64s(((float64)TimeStamp+(float64)Duration)*1000000/720), float64_int64s(((float64)Duration)*1000000/720));
                     #if MEDIAINFO_DEMUX
-                        random_access=true;
+                        Demux_random_access=true;
                     #endif //MEDIAINFO_DEMUX
                     }
                     break;

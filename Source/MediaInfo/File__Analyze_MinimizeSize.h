@@ -72,24 +72,35 @@ public :
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         int8u   Demux_Level; //bit 0=frame, bit 1=container, bit 2=elementary (eg MPEG-TS), default with frame set
+        bool    Demux_random_access;
+        bool    Demux_UnpacketizeContainer;
     #endif //MEDIAINFO_DEMUX
     Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
-    #if MEDIAINFO_DEMUX
-        bool   random_access;
-    #endif //MEDIAINFO_DEMUX
     int64u PCR; //In nanoseconds
     int64u PTS; //In nanoseconds
     int64u DTS; //In nanoseconds
     int64u DUR; //In nanoseconds
+    int64u PCR_Previous;
+    int64u DTS_Previous;
+    int64u PTS_Previous;
+    int64u DUR_Previous;
+    int64u PCR_Next;
+    int64u DTS_Next;
+    int64u PTS_Next;
+    int64u DUR_Next;
 
     //Out
     int64u PTS_Begin;                  //In nanoseconds
     int64u PTS_End;                    //In nanoseconds
     int64u DTS_Begin;                  //In nanoseconds
     int64u DTS_End;                    //In nanoseconds
-    size_t Frame_Count;
-    size_t Frame_Count_InThisBlock;
+    int64u Frame_Count;
+    int64u Frame_Count_Previous;
+    int64u Frame_Count_InThisBlock;
+    int64u Field_Count;
+    int64u Field_Count_Previous;
+    int64u Field_Count_InThisBlock;
     bool   Synched;                    //Data is synched
     bool   MustExtendParsingDuration;  //Data has some substreams difficult to detect (e.g. captions), must wait a bit before final filling
 

@@ -783,7 +783,36 @@ bool File_Mpega::Synched_Test()
 
     //Quick test of synchro
     if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
+    {
         Synched=false;
+        return true;
+    }
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            //Retrieving some info
+            int8u ID0                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
+            int8u layer0             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
+            int8u bitrate_index0     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
+            int8u sampling_frequency0=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
+            int8u padding_bit0       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
+            if (Mpega_SamplingRate[ID0][sampling_frequency0]==0 || Mpega_Coefficient[ID0][layer0]==0 || Mpega_BitRate[ID0][layer0][bitrate_index0]==0 || Mpega_SlotSize[layer0]==0)
+            {
+                Synched=false;
+                return true;
+            }
+            size_t Size0=(Mpega_Coefficient[ID0][layer0]*Mpega_BitRate[ID0][layer0][bitrate_index0]*1000/Mpega_SamplingRate[ID0][sampling_frequency0]+(padding_bit0?1:0))*Mpega_SlotSize[layer0];
+            if (Buffer_Offset+Size0>Buffer_Size)
+                return false;
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+Buffer_Offset, Size0, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //We continue
     return true;

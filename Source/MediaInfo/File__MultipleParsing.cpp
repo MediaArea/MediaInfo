@@ -597,9 +597,9 @@ void File__MultipleParsing::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
-        Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
+        Parser[Pos]->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)Element_Size);
         if (File_Offset+Buffer_Size==File_Size)
-            Open_Buffer_Finalize(Parser[Pos]);
+            Parser[Pos]->Open_Buffer_Finalize();
 
         //Testing if the parser failed
         if (Parser[Pos]->Status[IsFinished] && !Parser[Pos]->Status[IsAccepted])

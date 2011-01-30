@@ -722,12 +722,12 @@ void File_Mpegv::Streams_Finish()
         if (DTG1_Parser && !DTG1_Parser->Status[IsFinished] && DTG1_Parser->Status[IsAccepted])
         {
             Finish(DTG1_Parser);
-            Merge(*DTG1_Parser);
+            Merge(*DTG1_Parser, Stream_Video, 0, 0);
         }
         if (GA94_06_Parser && !GA94_06_Parser->Status[IsFinished] && GA94_06_Parser->Status[IsAccepted])
         {
             Finish(GA94_06_Parser);
-            Merge(*GA94_06_Parser);
+            Merge(*GA94_06_Parser, Stream_Video, 0, 0);
         }
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_CDP_YES)
@@ -829,29 +829,96 @@ int64u File_Mpegv::Demux_Unpacketize(File__Analyze* Source2)
 //---------------------------------------------------------------------------
 bool File_Mpegv::Synched_Test()
 {
-    //Trailing 0xFF
-    while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0xFF)
-        Buffer_Offset++;
-
-    //Trailing 0x00
-    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset+2]==0x00
-                                       && Buffer[Buffer_Offset+1]==0x00
-                                       && Buffer[Buffer_Offset  ]==0x00)
-        Buffer_Offset++;
-
     //Must have enough buffer for having header
-    if (Buffer_Offset+3>Buffer_Size)
+    if (Buffer_Offset+4>Buffer_Size)
         return false;
 
     //Quick test of synchro
     if (Buffer[Buffer_Offset  ]!=0x00
      || Buffer[Buffer_Offset+1]!=0x00
      || Buffer[Buffer_Offset+2]!=0x01)
+    {
         Synched=false;
+        return true;
+    }
 
     //Quick search
     if (Synched && !Header_Parser_QuickSearch())
         return false;
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            if ((Demux_Frame_Count<=Frame_Count || Demux_Field_Count<=Field_Count)
+             && ((Demux_picture_start_Found && Buffer[Buffer_Offset+3]==0x00) || Buffer[Buffer_Offset+3]==0xB3))
+            {
+                if (Demux_Offset==0)
+                {
+                    Demux_Offset=Buffer_Offset;
+                    Demux_picture_start_Found=false;
+                }
+                while (Demux_Offset+4<=Buffer_Size)
+                {
+                    //Synchronizing
+                    while(Demux_Offset+3<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
+                                                        || Buffer[Demux_Offset+1]!=0x00
+                                                        || Buffer[Demux_Offset+2]!=0x01))
+                    {
+                        Demux_Offset+=2;
+                        while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                            Demux_Offset+=2;
+                        if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                            Demux_Offset--;
+                    }
+
+                    if (Demux_Offset+4<=Buffer_Size)
+                    {
+                        if (Demux_picture_start_Found)
+                        {
+                            bool MustBreak;
+                            switch (Buffer[Demux_Offset+3])
+                            {
+                                case 0x00 :
+                                case 0xB3 :
+                                            MustBreak=true; break;
+                                default   : MustBreak=false;
+                            }
+                            if (MustBreak)
+                                break; //while() loop
+                        }
+                        else
+                        {
+                            if (!Buffer[Demux_Offset+3])
+                                Demux_picture_start_Found=true;
+                        }
+                    }
+                    Demux_Offset++;
+                }
+
+                if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //No complete frame
+                }
+
+                Demux_random_access=Buffer[Buffer_Offset+3]==0xB3;
+                if (StreamIDs_Size>=2)
+                    Element_Code=StreamIDs[StreamIDs_Size-2];
+                StreamIDs_Size--;
+                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
+                StreamIDs_Size++;
+                if (Demux_Frame_Count<=Frame_Count)
+                    Demux_Frame_Count++;
+                if (Demux_Field_Count<=Field_Count)
+                    Demux_Field_Count++;
+                Demux_Offset=0;
+                //if (Frame_Count || Field_Count)
+                //    Element_End();
+                //Element_Begin("Frame or Field");
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //We continue
     return true;
@@ -906,6 +973,14 @@ void File_Mpegv::Synched_Init()
     RefFramesCount=0;
     BVOPsSinceLastRefFrames=0;
     Field_Count_AfterLastCompleFrame=false;
+    temporal_reference_LastIFrame=0;
+    tc=0;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=0;
+        Demux_Field_Count=0;
+        Demux_picture_start_Found=true;
+    #endif //MEDIAINFO_DEMUX
 
     //Default stream values
     Streams.resize(0x100);
@@ -921,12 +996,26 @@ void File_Mpegv::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Mpegv::Read_Buffer_Unsynched()
 {
-    Streams[0xB8].Searching_TimeStamp_Start=false; //group_start
-    Streams[0x00].Searching_TimeStamp_End=false; //picture_start
+    for (int8u Pos=0x00; Pos<0xB9; Pos++)
+    {
+        Streams[Pos].Searching_Payload=false;
+        Streams[Pos].Searching_TimeStamp_Start=false;
+        Streams[Pos].Searching_TimeStamp_End=false;
+    }
+    Streams[0xB3].Searching_TimeStamp_End=true; //sequence_header
+    Streams[0xB8].Searching_TimeStamp_End=true; //group_start
     Time_End_Seconds=Error;
     Time_End_Frames=(int8u)-1;
     RefFramesCount=0;
+    sequence_header_IsParsed=false;
     group_start_IsParsed=false;
+    PTS_LastIFrame=(int64u)-1;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=Frame_Count;
+        Demux_Field_Count=Field_Count;
+        Demux_picture_start_Found=true;
+    #endif //MEDIAINFO_DEMUX
 
     temporal_reference_Old=(int16u)-1;
     for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
@@ -962,7 +1051,7 @@ void File_Mpegv::Read_Buffer_Unsynched()
 
     //NextCode
     NextCode_Clear();
-    NextCode_Add(0x00);
+    NextCode_Add(0xB3);
     NextCode_Add(0xB8);
 }
 
@@ -1038,23 +1127,17 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         //Synchronizing
         Buffer_Offset+=4;
         Synched=false;
-        if (!Synchronize_0x000001())
+        if (!Synchronize())
         {
-            if (!IsSub && File_Offset+Buffer_Size==File_Size && !Status[IsFilled] && Frame_Count>=1)
+            if (File_Offset+Buffer_Size==File_Size)
             {
-                //End of file, and we have some frames
-                Accept("MPEG Video");
-                Fill("MPEG Video");
-                Detect_EOF();
-                return false;
+                Synched=true;
+                return true;
             }
+            return false;
         }
     }
 
-    if (Buffer_Offset+3==Buffer_Size)
-        return false; //Sync is OK, but start_code is not available
-    if (!Synched)
-        return false;
     Trusted_IsNot("MPEG Video, Synchronisation lost");
     return Synchronize();
 }
@@ -1162,6 +1245,44 @@ void File_Mpegv::picture_start()
     BS_End();
 
     FILLING_BEGIN();
+        //Config
+        progressive_frame=true;
+        picture_structure=3; //Frame is default
+
+        //Temporal reference
+        if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+            TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+        if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+            TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
+        TemporalReference[TemporalReference_Offset+temporal_reference]->IsValid=true;
+
+        //NextCode
+        NextCode_Clear();
+        for (int64u Element_Name_Next=0x01; Element_Name_Next<=0x1F; Element_Name_Next++)
+            NextCode_Add(Element_Name_Next);
+        NextCode_Add(0xB2);
+        NextCode_Add(0xB5);
+        NextCode_Add(0xB8);
+
+        //Autorisation of other streams
+        for (int8u Pos=0x01; Pos<=0x1F; Pos++)
+            Streams[Pos].Searching_Payload=true;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+// Packet "01" --> "AF"
+void File_Mpegv::slice_start()
+{
+    if (!NextCode_Test())
+        return;
+    Element_Name("slice_start");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "data");
+
+    FILLING_BEGIN();
+
         //Timestamp
         if (!group_start_IsParsed || (group_start_closed_gop==true && temporal_reference==0) || group_start_closed_gop==false)
         {
@@ -1197,12 +1318,17 @@ void File_Mpegv::picture_start()
                 Field_Count_AfterLastCompleFrame=false;
         }
 
-        //Temporal reference
-        if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
-            TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
-        if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
-            TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
-        TemporalReference[TemporalReference_Offset+temporal_reference]->IsValid=true;
+        if (picture_coding_type==1) //IFrame
+        {
+            temporal_reference_LastIFrame=temporal_reference;
+            PTS_LastIFrame=PTS;
+        }
+        if (PTS_LastIFrame!=(int64u)-1)
+        {
+            PTS=PTS_LastIFrame+(temporal_reference-temporal_reference_LastIFrame)*tc;
+            if (PTS_Begin==(int64u)-1 && picture_coding_type==1) //IFrame
+                PTS_Begin=PTS;
+        }
 
         //Info
         #if MEDIAINFO_TRACE
@@ -1211,9 +1337,9 @@ void File_Mpegv::picture_start()
                 Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
                 Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
                 Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
-                if (PTS!=(int64u)-1 && FrameRate)
-                    Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
-                if (DTS!=(int64u)-1 && FrameRate)
+                if (PTS!=(int64u)-1)
+                    Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
+                if (DTS!=(int64u)-1)
                     Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
                 if (Time_End_Seconds!=Error)
                 {
@@ -1241,60 +1367,99 @@ void File_Mpegv::picture_start()
             }
         #endif //MEDIAINFO_TRACE
 
+        if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
+            Time_End_Frames--; //One frame
+
+        //CDP
+        #if defined(MEDIAINFO_CDP_YES)
+            if (Ancillary && *Ancillary && !(*Ancillary)->Cdp_Data.empty())
+            {
+                Cdp_IsPresent=true;
+                MustExtendParsingDuration=true;
+
+                Element_Begin("CDP");
+
+                //Parsing
+                #if MEDIAINFO_DEMUX
+                    Element_Code=0x000000B500000000LL;
+                #endif //MEDIAINFO_DEMUX
+                if (Cdp_Parser==NULL)
+                {
+                    Cdp_Parser=new File_Cdp;
+                    Open_Buffer_Init(Cdp_Parser);
+                }
+                Demux((*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size, ContentType_MainStream);
+                if (!Cdp_Parser->Status[IsFinished])
+                {
+                    if (Cdp_Parser->PTS_DTS_Needed)
+                        Cdp_Parser->DTS=DTS;
+                    ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
+                    Open_Buffer_Continue(Cdp_Parser, (*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size);
+                }
+
+                //Removing data from stack
+                delete (*Ancillary)->Cdp_Data[0]; //(*Ancillary)->Cdp_Data[0]=NULL;
+                (*Ancillary)->Cdp_Data.erase((*Ancillary)->Cdp_Data.begin());
+
+                Element_End();
+            }
+        #endif //defined(MEDIAINFO_CDP_YES)
+
+        //Active Format Description & Bar Data
+        #if defined(MEDIAINFO_AFDBARDATA_YES)
+            if (Ancillary && *Ancillary && !(*Ancillary)->AfdBarData_Data.empty())
+            {
+                Element_Begin("Active Format Description & Bar Data");
+
+                //Parsing
+                if (AfdBarData_Parser==NULL)
+                {
+                    AfdBarData_Parser=new File_AfdBarData;
+                    Open_Buffer_Init(AfdBarData_Parser);
+                    ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
+                }
+                if (AfdBarData_Parser->PTS_DTS_Needed)
+                    AfdBarData_Parser->DTS=DTS;
+                if (!AfdBarData_Parser->Status[IsFinished])
+                    Open_Buffer_Continue(AfdBarData_Parser, (*Ancillary)->AfdBarData_Data[0]->Data, (*Ancillary)->AfdBarData_Data[0]->Size);
+
+                //Removing data from stack
+                delete (*Ancillary)->AfdBarData_Data[0]; //(*Ancillary)->AfdBarData_Data[0]=NULL;
+                (*Ancillary)->AfdBarData_Data.erase((*Ancillary)->AfdBarData_Data.begin());
+
+                Element_End();
+            }
+        #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+
         //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
+        if (!(progressive_sequence || picture_structure==3))
+        {
+            Field_Count++;
+            Field_Count_InThisBlock++;
+        }
         if (picture_coding_type==3)
             BVOP_Count++;
         else
             BVOPsSinceLastRefFrames=0;
         if (RefFramesCount<2 && (picture_coding_type==1 || picture_coding_type==2))
             RefFramesCount++;
+        if (DTS!=(int64u)-1)
+        {
+            DTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+            if (DTS_End<DTS)
+                DTS_End=DTS;
+        }
         if (PTS!=(int64u)-1)
         {
-            if (PTS_Begin==(int64u)-1 && picture_coding_type==1) //IFrame
-                PTS_Begin=PTS;
-            if ((picture_coding_type==1 || picture_coding_type==2) && Frame_Count_InThisBlock<=1 && !Field_Count_AfterLastCompleFrame) //IFrame or PFrame
+            PTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+            if (PTS_End<PTS)
                 PTS_End=PTS;
-            if ((picture_coding_type==1 || picture_coding_type==2) || (Frame_Count_InThisBlock>=2 && RefFramesCount>=2)) //IFrame or PFrame or more than 2 RefFrame for BFrames
-            {
-                if (frame_rate_code)
-                    PTS_End+=float64_int64s(((float64)1000000000)/FrameRate);
-            }
         }
 
-        //Need to parse?
-        if (!Streams[0x00].Searching_Payload)
-            return;
-
-        //NextCode
-        NextCode_Clear();
-        for (int64u Element_Name_Next=0x01; Element_Name_Next<=0x1F; Element_Name_Next++)
-            NextCode_Add(Element_Name_Next);
-        NextCode_Add(0xB2);
-        NextCode_Add(0xB5);
-        NextCode_Add(0xB8);
-
-        //Autorisation of other streams
-        for (int8u Pos=0x01; Pos<=0x1F; Pos++)
-            Streams[Pos].Searching_Payload=true;
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-// Packet "01" --> "AF"
-void File_Mpegv::slice_start()
-{
-    if (!NextCode_Test())
-        return;
-    Element_Name("slice_start");
-
-    //Parsing
-    Skip_XX(Element_Size,                                       "data");
-
-    FILLING_BEGIN();
         //NextCode
         NextCode_Clear();
         NextCode_Add(0x00);
@@ -1850,9 +2015,6 @@ void File_Mpegv::sequence_header()
             bit_rate_value_IsValid=true;
         }
 
-        if (sequence_header_IsParsed)
-            return;
-
         //NextCode
         NextCode_Clear();
         NextCode_Add(0x00);
@@ -1861,19 +2023,29 @@ void File_Mpegv::sequence_header()
         NextCode_Add(0xB8);
 
         //Autorisation of other streams
-        Streams[0x00].Searching_Payload=true;
-        Streams[0xB2].Searching_Payload=true;
-        Streams[0xB5].Searching_Payload=true;
-        Streams[0xB8].Searching_TimeStamp_Start=true;
+        if (Frame_Count<Frame_Count_Valid)
+        {
+            Streams[0x00].Searching_Payload=true;
+            Streams[0xB2].Searching_Payload=true;
+            Streams[0xB5].Searching_Payload=true;
+            Streams[0xB8].Searching_TimeStamp_Start=true;
+        }
         Streams[0xB8].Searching_TimeStamp_End=true;
 
         //Temp
-        FrameRate=Mpegv_frame_rate[frame_rate_code];
-        SizeToAnalyse_Begin=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure to have at least 2 timestamps (for integrity checking)
-        SizeToAnalyse_End=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
+        if (Mpegv_frame_rate[frame_rate_code])
+            tc=float64_int64s(((float64)1000000000)/Mpegv_frame_rate[frame_rate_code]);
+        if (Frame_Count<Frame_Count_Valid)
+        {
+            FrameRate=Mpegv_frame_rate[frame_rate_code];
+            SizeToAnalyse_Begin=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure to have at least 2 timestamps (for integrity checking)
+            SizeToAnalyse_End=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
+        }
 
         //Setting as OK
         sequence_header_IsParsed=true;
+        if (Frame_Count==0 && DTS==(int64u)-1)
+            DTS=0; //No DTS in container
     FILLING_END();
 }
 
@@ -1946,7 +2118,6 @@ void File_Mpegv::extension_start()
                 break;
         case 8 :{ //Picture Coding
                     //Parsing
-                    bool progressive_frame;
                     Skip_S1( 4,                                 "f_code_forward_horizontal");
                     Skip_S1( 4,                                 "f_code_forward_vertical");
                     Skip_S1( 4,                                 "f_code_backward_horizontal");
@@ -1970,127 +2141,63 @@ void File_Mpegv::extension_start()
                         Skip_S1( 8,                             "sub_carrier_phase");
                     TEST_SB_END();
                     BS_End();
+                }
 
-                    FILLING_BEGIN();
-                        if (progressive_frame==false)
+                FILLING_BEGIN();
+                    if (progressive_frame==false)
+                    {
+                        if (picture_structure==3)           //Frame
                         {
-                            if (picture_structure==3)           //Frame
-                            {
-                                if (top_field_first)
-                                    Interlaced_Top++;
-                                else
-                                    Interlaced_Bottom++;
-                                FirstFieldFound=false;
-                                if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
-                                    TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
-                                if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
-                                    TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->top_field_first=top_field_first;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
-                            }
-                            else                                //Field
-                            {
-                                if (!FirstFieldFound)
-                                {
-                                    if (picture_structure==1)   //-Top
-                                        Interlaced_Top++;
-                                    else                        //-Bottom
-                                        Interlaced_Bottom++;
-                                }
-                                FirstFieldFound=!FirstFieldFound;
-                            }
-                        }
-                        else
-                        {
-                            progressive_frame_Count++;
                             if (top_field_first)
                                 Interlaced_Top++;
                             else
                                 Interlaced_Bottom++;
-                            if (picture_structure==3)           //Frame
-                            {
-                                if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
-                                    TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
-                                if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
-                                    TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->top_field_first=top_field_first;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
-                                TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
-                            }
+                            FirstFieldFound=false;
+                            if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+                                TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+                            if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+                                TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->top_field_first=top_field_first;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
                         }
-
-                        if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
-                            Time_End_Frames--; //One frame
-
-                        //CDP
-                        #if defined(MEDIAINFO_CDP_YES)
-                            if (Ancillary && *Ancillary && !(*Ancillary)->Cdp_Data.empty())
+                        else                                //Field
+                        {
+                            if (!FirstFieldFound)
                             {
-                                Cdp_IsPresent=true;
-                                MustExtendParsingDuration=true;
-
-                                Element_Begin("CDP");
-
-                                //Parsing
-                                #if MEDIAINFO_DEMUX
-                                    Element_Code=0x000000B500000000LL;
-                                #endif //MEDIAINFO_DEMUX
-                                if (Cdp_Parser==NULL)
-                                {
-                                    Cdp_Parser=new File_Cdp;
-                                    Open_Buffer_Init(Cdp_Parser);
-                                }
-                                Demux((*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size, ContentType_MainStream);
-                                if (!Cdp_Parser->Status[IsFinished])
-                                {
-                                    if (Cdp_Parser->PTS_DTS_Needed)
-                                        Cdp_Parser->DTS=DTS;
-                                    ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
-                                    Open_Buffer_Continue(Cdp_Parser, (*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size);
-                                }
-
-                                //Removing data from stack
-                                delete (*Ancillary)->Cdp_Data[0]; //(*Ancillary)->Cdp_Data[0]=NULL;
-                                (*Ancillary)->Cdp_Data.erase((*Ancillary)->Cdp_Data.begin());
-
-                                Element_End();
+                                if (picture_structure==1)   //-Top
+                                    Interlaced_Top++;
+                                else                        //-Bottom
+                                    Interlaced_Bottom++;
                             }
-                        #endif //defined(MEDIAINFO_CDP_YES)
-
-                        //Active Format Description & Bar Data
-                        #if defined(MEDIAINFO_AFDBARDATA_YES)
-                            if (Ancillary && *Ancillary && !(*Ancillary)->AfdBarData_Data.empty())
-                            {
-                                Element_Begin("Active Format Description & Bar Data");
-
-                                //Parsing
-                                if (AfdBarData_Parser==NULL)
-                                {
-                                    AfdBarData_Parser=new File_AfdBarData;
-                                    Open_Buffer_Init(AfdBarData_Parser);
-                                    ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
-                                }
-                                if (AfdBarData_Parser->PTS_DTS_Needed)
-                                    AfdBarData_Parser->DTS=DTS;
-                                if (!AfdBarData_Parser->Status[IsFinished])
-                                    Open_Buffer_Continue(AfdBarData_Parser, (*Ancillary)->AfdBarData_Data[0]->Data, (*Ancillary)->AfdBarData_Data[0]->Size);
-
-                                //Removing data from stack
-                                delete (*Ancillary)->AfdBarData_Data[0]; //(*Ancillary)->AfdBarData_Data[0]=NULL;
-                                (*Ancillary)->AfdBarData_Data.erase((*Ancillary)->AfdBarData_Data.begin());
-
-                                Element_End();
-                            }
-                        #endif //defined(MEDIAINFO_AFDBARDATA_YES)
-                    FILLING_END();
-                }
+                            FirstFieldFound=!FirstFieldFound;
+                        }
+                    }
+                    else
+                    {
+                        progressive_frame_Count++;
+                        if (top_field_first)
+                            Interlaced_Top++;
+                        else
+                            Interlaced_Bottom++;
+                        if (picture_structure==3)           //Frame
+                        {
+                            if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+                                TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+                            if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
+                                TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->picture_coding_type=picture_coding_type;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->progressive_frame=progressive_frame;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->picture_structure=picture_structure;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->top_field_first=top_field_first;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
+                            TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
+                        }
+                    }
+                FILLING_END();
                 break;
         default:{
                     //Parsing

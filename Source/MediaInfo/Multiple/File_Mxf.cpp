@@ -1322,6 +1322,9 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
                     Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_ID_String)+_T("-")+ID, true);
                 }
             }
+            //Others
+            else if (MI.Info)
+                Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", MI.Info->Get(Stream_General, 0, General_Format));
 
             StreamKind_Last=StreamKind_Last_Essence;
             StreamPos_Last=StreamPos_Last_Essence;

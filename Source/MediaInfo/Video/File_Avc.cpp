@@ -614,7 +614,7 @@ void File_Avc::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Avc::Streams_Finish()
 {
-    if (PTS_End!=(int64u)-1 && (IsSub || File_Offset+Buffer_Offset==File_Size))
+    if (PTS_End!=(int64u)-1 && (IsSub || File_Offset+Buffer_Offset+Element_Size==File_Size))
     {
         if (FirstPFrameInGop_IsParsed)
             PTS_End+=tc;
@@ -735,7 +735,7 @@ bool File_Avc::FileHeader_Begin()
 bool File_Avc::Synchronize()
 {
     //Synchronizing
-    while(Buffer_Offset+3<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+    while(Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
                                         || Buffer[Buffer_Offset+1]!=0x00
                                         || Buffer[Buffer_Offset+2]!=0x01))
     {
@@ -775,21 +775,93 @@ bool File_Avc::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Avc::Synched_Test()
 {
-    //Trailing 0x00
-    while(Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001 && CC4(Buffer+Buffer_Offset)!=0x00000001)
-        Buffer_Offset++;
-
     //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
+    if (Buffer_Offset+6>Buffer_Size)
         return false;
 
     //Quick test of synchro
     if (CC3(Buffer+Buffer_Offset)!=0x000001 && CC4(Buffer+Buffer_Offset)!=0x00000001)
+    {
         Synched=false;
+        return true;
+    }
 
     //Quick search
     if (Synched && !Header_Parser_QuickSearch())
         return false;
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
+            if (Demux_picture_start_Found
+             && (Demux_Frame_Count<=Frame_Count || Demux_Field_Count<=Field_Count)
+             && !(((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Buffer_Offset+(zero_byte?5:4)]&0x80)!=0x80)
+               || (Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
+            {
+                if (Demux_Offset==0)
+                {
+                    Demux_Offset=Buffer_Offset;
+                    Demux_picture_start_Found=false;
+                }
+                while (Demux_Offset+6<=Buffer_Size)
+                {
+                    //Synchronizing
+                    while(Demux_Offset+6<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
+                                                       || Buffer[Demux_Offset+1]!=0x00
+                                                       || Buffer[Demux_Offset+2]!=0x01))
+                    {
+                        Demux_Offset+=2;
+                        while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                            Demux_Offset+=2;
+                        if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                            Demux_Offset--;
+                    }
+
+                    if (Demux_Offset+6<=Buffer_Size)
+                    {
+                        zero_byte=Buffer[Demux_Offset+2]==0x00;
+                        if (Demux_picture_start_Found)
+                        {
+                            if (!(((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)!=0x80)
+                               || (Buffer[Demux_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
+                                break;
+                        }
+                        else
+                        {
+                            if ((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)==0x80)
+                                Demux_picture_start_Found=true;
+                        }
+                    }
+                    Demux_Offset++;
+                }
+
+                if (Demux_Offset+6>Buffer_Size && !FrameIsAlwaysComplete && File_Offset+Buffer_Size<File_Size)
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //No complete frame
+                }
+
+                if (Demux_Offset && Buffer[Demux_Offset-1]==0x00)
+                    Demux_Offset--;
+                Demux_random_access=Buffer[Buffer_Offset+3]==0xB3; //TODO
+                if (StreamIDs_Size>=2)
+                    Element_Code=StreamIDs[StreamIDs_Size-2];
+                StreamIDs_Size--;
+                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
+                StreamIDs_Size++;
+                if (Demux_Frame_Count<=Frame_Count)
+                    Demux_Frame_Count++;
+                if (Demux_Field_Count<=Field_Count)
+                    Demux_Field_Count++;
+                Demux_Offset=0;
+                if (Frame_Count || Field_Count)
+                    Element_End();
+                Element_Begin("Frame or Field");
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //We continue
     return true;
@@ -865,13 +937,18 @@ void File_Avc::Synched_Init()
     field_pic_flag_AlreadyDetected=false;
     Field_Count_AfterLastCompleFrame=false;
     RefFramesCount=0;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=0;
+        Demux_Field_Count=0;
+        Demux_picture_start_Found=true;
+    #endif //MEDIAINFO_DEMUX
 
     //Default values
     Streams.resize(0x100);
     Streams[0x06].Searching_Payload=true; //sei
     Streams[0x07].Searching_Payload=true; //seq_parameter_set
     Streams[0x09].Searching_Payload=true; //access_unit_delimiter
-    Streams[0x0C].Searching_Payload=true; //filler_data
     Streams[0x0F].Searching_Payload=true; //subset_seq_parameter_set
     for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
@@ -893,6 +970,12 @@ void File_Avc::Read_Buffer_Unsynched()
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
     RefFramesCount=0;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=Frame_Count;
+        Demux_Field_Count=Field_Count;
+        Demux_picture_start_Found=true;
+    #endif //MEDIAINFO_DEMUX
 
     //Impossible to know TimeStamps now
     PTS=(int64u)-1;
@@ -981,7 +1064,7 @@ bool File_Avc::Header_Parser_Fill_Size()
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
         Buffer_Offset_Temp=Buffer_Offset+4;
-    while (Buffer_Offset_Temp+4<=Buffer_Size
+    while (Buffer_Offset_Temp+5<=Buffer_Size
         && CC3(Buffer+Buffer_Offset_Temp)!=0x000001)
     {
         Buffer_Offset_Temp+=2;
@@ -989,40 +1072,20 @@ bool File_Avc::Header_Parser_Fill_Size()
             Buffer_Offset_Temp+=2;
         if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
             Buffer_Offset_Temp--;
-
-        #if MEDIAINFO_TRACE
-        if (!Trace_Activated)
-        #endif //MEDIAINFO_TRACE
-        {
-            if (nal_unit_type==0x01 || nal_unit_type==0x05) //slice, we need only few bytes
-            {
-                if (Buffer_Offset_Temp-Buffer_Offset>20)
-                {
-                    //OK, we continue, we have enough for a slice
-                    Header_Fill_Size(16);
-                    Buffer_Offset_Temp=0;
-                    return true;
-                }
-            }
-        }
     }
 
     //Must wait more data?
-    if (Buffer_Offset_Temp+4>Buffer_Size)
+    if (Buffer_Offset_Temp+5>Buffer_Size)
     {
-        if (FrameIsAlwaysComplete || File_Offset+Buffer_Size==File_Size)
+        if (FrameIsAlwaysComplete || File_Offset+Buffer_Size>=File_Size)
             Buffer_Offset_Temp=Buffer_Size; //We are sure that the next bytes are a start
         else
             return false;
     }
 
-    //Keeping out trailing zeroes
-    if (Buffer_Offset_Temp+4<=Buffer_Size)
-        while (CC4(Buffer+Buffer_Offset_Temp-1)==0x000000)
-            Buffer_Offset_Temp--;
-
     if (Buffer[Buffer_Offset_Temp-1]==0x00)
         Buffer_Offset_Temp--;
+
     //OK, we continue
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;
@@ -1032,7 +1095,7 @@ bool File_Avc::Header_Parser_Fill_Size()
 //---------------------------------------------------------------------------
 bool File_Avc::Header_Parser_QuickSearch()
 {
-    while (       Buffer_Offset+5<=Buffer_Size
+    while (       Buffer_Offset+6<=Buffer_Size
       &&   Buffer[Buffer_Offset  ]==0x00
       &&   Buffer[Buffer_Offset+1]==0x00
       &&  (Buffer[Buffer_Offset+2]==0x01
@@ -1054,11 +1117,13 @@ bool File_Avc::Header_Parser_QuickSearch()
         Buffer_Offset+=4;
         Synched=false;
         if (!Synchronize())
+        {
+            if (File_Offset+Buffer_Size==File_Size)
+                return true;
             return false;
+        }
     }
 
-    if (Buffer_Offset+3==Buffer_Size)
-        return false; //Sync is OK, but start_code is not available
     Trusted_IsNot("AVC, Synchronisation lost");
     return Synchronize();
 }
@@ -1401,6 +1466,11 @@ void File_Avc::slice_header()
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
+        if (pic_order_cnt_type==0 && field_pic_flag)
+        {
+            Field_Count++;
+            Field_Count_InThisBlock++;
+        }
         if (RefFramesCount<2 && (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7)) //IFrame or PFrame
             RefFramesCount++;
         if (PTS!=(int64u)-1)
@@ -1429,8 +1499,6 @@ void File_Avc::slice_header()
                 Finish("AVC");
         }
     FILLING_END();
-
-    Synched=false; //We do not have the complete slice
 }
 
 //---------------------------------------------------------------------------

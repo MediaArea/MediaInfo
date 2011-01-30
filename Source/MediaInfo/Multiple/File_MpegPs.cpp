@@ -490,8 +490,14 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
     //By the parser
     if (!Temp.Parsers.empty() && Temp.Parsers[0])
     {
-        Temp.Parsers[0]->ShouldContinueParsing=false;
-        Finish(Temp.Parsers[0]);
+        if (!Temp.Parsers[0]->Status[IsFinished])
+        {
+            Temp.Parsers[0]->ShouldContinueParsing=false;
+            Temp.Parsers[0]->File_Size=File_Offset+Buffer_Offset+Element_Offset;
+            Open_Buffer_Continue(Temp.Parsers[0]);
+            Temp.Parsers[0]->File_Size=File_Size;
+            Finish(Temp.Parsers[0]);
+        }
         Merge(*Temp.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
 
         //Special cases
@@ -720,7 +726,7 @@ void File_MpegPs::Synched_Init()
 void File_MpegPs::Read_Buffer_Init()
 {
     #if MEDIAINFO_DEMUX
-         Demux_Unpacketize=Config->Demux_Unpacketize_Get();
+         Demux_UnpacketizeContainer=Config->Demux_Unpacketize_Get();
     #endif //MEDIAINFO_DEMUX
 }
 
@@ -984,7 +990,7 @@ bool File_MpegPs::Header_Parse_Fill_Size()
 
     if (Buffer_Offset_Temp+4>Buffer_Size)
     {
-        if (File_Offset+Buffer_Size==File_Size)
+        if (File_Offset+Buffer_Size>=File_Size)
             Buffer_Offset_Temp=Buffer_Size; //We are sure that the next bytes are a start
         else
             return false;
@@ -1002,8 +1008,10 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u start_code)
     //Parsing
     int16u PES_packet_length;
     Get_B2 (PES_packet_length,                                  "PES_packet_length");
+    if (PES_packet_length && File_Offset+Buffer_Offset+6+PES_packet_length>=File_Size)
+        PES_packet_length=File_Size-(File_Offset+Buffer_Offset+6);
     #if MEDIAINFO_DEMUX
-        if (Demux_Unpacketize && Buffer_Offset+6+PES_packet_length>Buffer_Size)
+        if (Demux_UnpacketizeContainer && Buffer_Offset+6+PES_packet_length>Buffer_Size)
             return false;
     #endif //MEDIAINFO_DEMUX
 
@@ -1033,13 +1041,13 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u start_code)
     }
 
     //Video unlimited specific
-    if (PES_packet_length==0)
+    if (PES_packet_length==0 || File_Offset+Buffer_Size>=File_Size)
     {
         if (!Header_Parse_Fill_Size())
         {
             //Return directly if we must unpack the elementary stream;
             #if MEDIAINFO_DEMUX
-                if (Demux_Unpacketize)
+                if (Demux_UnpacketizeContainer)
                     return false;
             #endif //MEDIAINFO_DEMUX
 
@@ -1059,7 +1067,7 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u start_code)
     {
         //Return directly if we must unpack the elementary stream;
         #if MEDIAINFO_DEMUX
-            if (Demux_Unpacketize)
+            if (Demux_UnpacketizeContainer)
                 return false;
         #endif //MEDIAINFO_DEMUX
 
@@ -1130,7 +1138,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
             Streams[start_code].TimeStamp_Start.PTS.TimeStamp=PTS;
             Streams[start_code].Searching_TimeStamp_Start=false;
         }
-        Element_Info_From_Milliseconds(PTS/90);
+        Element_Info_From_Milliseconds(float64_int64s(((float64)PTS)/90));
         PTS=PTS*1000000/90; //In ns
         HasTimeStamps=true;
         Element_End();
@@ -1170,7 +1178,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         {
             Streams[start_code].TimeStamp_Start.PTS.TimeStamp=PTS;
         }
-        Element_Info_From_Milliseconds(PTS/90);
+        Element_Info_From_Milliseconds(float64_int64s(((float64)PTS)/90));
         PTS=PTS*1000000/90; //In ns
         Element_End();
 
@@ -1206,7 +1214,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
             Streams[start_code].TimeStamp_Start.DTS.TimeStamp=DTS;
             Streams[start_code].Searching_TimeStamp_Start=false;
         }
-        Element_Info_From_Milliseconds(Streams[start_code].TimeStamp_End.DTS.TimeStamp/90);
+        Element_Info_From_Milliseconds(float64_int64s(((float64)DTS)/90));
         DTS=DTS*1000000/90; //In ns
         Element_End();
     }
@@ -1316,7 +1324,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
             PTS=(((int64u)PTS_32)<<30)
               | (((int64u)PTS_29)<<15)
               | (((int64u)PTS_14));
-            Element_Info_From_Milliseconds(PTS/90);
+            Element_Info_From_Milliseconds(float64_int64s(((float64)PTS)/90));
             Element_End();
             Element_End();
         }
@@ -1387,7 +1395,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
             PTS=(((int64u)PTS_32)<<30)
               | (((int64u)PTS_29)<<15)
               | (((int64u)PTS_14));
-            Element_Info_From_Milliseconds(PTS/90);
+            Element_Info_From_Milliseconds(float64_int64s(((float64)PTS)/90));
             Element_End();
         }
         else
@@ -1450,7 +1458,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
             DTS=(((int64u)DTS_32)<<30)
               | (((int64u)DTS_29)<<15)
               | (((int64u)DTS_14));
-            Element_Info_From_Milliseconds(DTS/90);
+            Element_Info_From_Milliseconds(float64_int64s(((float64)DTS)/90));
             Element_End();
             Element_End();
         }
@@ -2102,37 +2110,21 @@ void File_MpegPs::private_stream_1()
 
         //New parsers
         Streams_Private1[private_stream_1_ID].Parsers.push_back(private_stream_1_ChooseParser());
-        if (Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1])
-            Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1]);
-        else
+        if (Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1]==NULL)
         {
             Streams_Private1[private_stream_1_ID].Parsers.clear();
             #if defined(MEDIAINFO_AC3_YES)
-            {
-                File_Ac3* Parser=new File_Ac3;
-                if (Streams_Private1[private_stream_1_ID].stream_type==0 || Streams_Private1[private_stream_1_ID].stream_type==0x06) //None or private
-                    Parser->Frame_Count_Valid=2;
-                Open_Buffer_Init(Parser);
-                Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
-            }
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_AC3());
             #endif
             #if defined(MEDIAINFO_DTS_YES)
-            {
-                File_Dts* Parser=new File_Dts;
-                if (Streams_Private1[private_stream_1_ID].stream_type==0 || Streams_Private1[private_stream_1_ID].stream_type==0x06) //None or private
-                    Parser->Frame_Count_Valid=2;
-                Open_Buffer_Init(Parser);
-                Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
-            }
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_DTS());
             #endif
             #if defined(MEDIAINFO_AES3_YES)
-            {
-                File__Analyze* Parser=ChooseParser_AES3();
-                Open_Buffer_Init(Parser);
-                Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
-            }
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_AES3());
             #endif
         }
+        for (size_t Pos=0; Pos<Streams_Private1[private_stream_1_ID].Parsers.size(); Pos++)
+            Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Pos]);
     }
 
     //Demux
@@ -2645,35 +2637,28 @@ void File_MpegPs::audio_stream()
         //New parsers
         switch (Streams[start_code].stream_type)
         {
-            case 0x0F : Streams[start_code].Parsers.push_back(ChooseParser_Adts()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
-            case 0x11 : Streams[start_code].Parsers.push_back(ChooseParser_Latm()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x0F : Streams[start_code].Parsers.push_back(ChooseParser_Adts()); break;
+            case 0x11 : Streams[start_code].Parsers.push_back(ChooseParser_Latm()); break;
             case 0x03 :
-            case 0x04 : Streams[start_code].Parsers.push_back(ChooseParser_Mpega()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x04 : Streams[start_code].Parsers.push_back(ChooseParser_Mpega()); break;
             default   :
                         #if defined(MEDIAINFO_MPEGA_YES)
-                        {
-                            File_Mpega* Parser=new File_Mpega;
-                            Open_Buffer_Init(Parser);
-                            Parser->Frame_Count_Valid=1;
-							#if MEDIAINFO_DEMUX
-								if (Demux_Unpacketize)
-									Parser->FrameIsAlwaysComplete=true;
-						    #endif //MEDIAINFO_DEMUX
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
+                            Streams[start_code].Parsers.push_back(ChooseParser_Mpega());
                         #endif
                         #if defined(MEDIAINFO_AAC_YES)
-                        {
-                            File_Aac* Parser=new File_Aac;
-                            Open_Buffer_Init(Parser);
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
+                            Streams[start_code].Parsers.push_back(ChooseParser_Adts());
+                            Streams[start_code].Parsers.push_back(ChooseParser_Latm());
                         #endif
         }
+        for (size_t Pos=0; Pos<Streams[start_code].Parsers.size(); Pos++)
+            Open_Buffer_Init(Streams[start_code].Parsers[Pos]);
     }
 
     //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #if MEDIAINFO_DEMUX
+        if (Streams[start_code].Parsers.empty() || !Streams[start_code].Parsers[0]->Demux_UnpacketizeContainer)
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing
     xxx_stream_Parse(Streams[start_code], audio_stream_Count);
@@ -2724,67 +2709,35 @@ void File_MpegPs::video_stream()
         //New parsers
         switch (Streams[start_code].stream_type)
         {
-            case 0x10 : Streams[start_code].Parsers.push_back(ChooseParser_Mpeg4v()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
-            case 0x1B : Streams[start_code].Parsers.push_back(ChooseParser_Avc()   ); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x10 : Streams[start_code].Parsers.push_back(ChooseParser_Mpeg4v()); break;
+            case 0x1B : Streams[start_code].Parsers.push_back(ChooseParser_Avc()   ); break;
             case 0x01 :
             case 0x02 :
-            case 0x80 : Streams[start_code].Parsers.push_back(ChooseParser_Mpegv() ); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x80 : Streams[start_code].Parsers.push_back(ChooseParser_Mpegv() ); break;
             default   :
                         #if defined(MEDIAINFO_MPEGV_YES)
-                        {
-                            File_Mpegv* Parser=new File_Mpegv;
-                            Open_Buffer_Init(Parser);
-                            Parser->MPEG_Version=MPEG_Version;
-                            Parser->ShouldContinueParsing=true;
-							#if MEDIAINFO_DEMUX
-								if (Demux_Unpacketize)
-									Parser->FrameIsAlwaysComplete=true;
-						    #endif //MEDIAINFO_DEMUX
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
+                            Streams[start_code].Parsers.push_back(ChooseParser_Mpegv());
                         #endif
                         #if defined(MEDIAINFO_AVC_YES)
-                        {
-                            File_Avc* Parser=new File_Avc;
-                            Open_Buffer_Init(Parser);
-                            Parser->ShouldContinueParsing=true;
-							#if MEDIAINFO_DEMUX
-								if (Demux_Unpacketize)
-									Parser->FrameIsAlwaysComplete=true;
-						    #endif //MEDIAINFO_DEMUX
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
+                            Streams[start_code].Parsers.push_back(ChooseParser_Avc());
                         #endif
                         #if defined(MEDIAINFO_MPEG4V_YES)
-                        {
-                            File_Mpeg4v* Parser=new File_Mpeg4v;
-                            Open_Buffer_Init(Parser);
-                            Parser->ShouldContinueParsing=true;
-							#if MEDIAINFO_DEMUX
-								if (Demux_Unpacketize)
-									Parser->FrameIsAlwaysComplete=true;
-						    #endif //MEDIAINFO_DEMUX
-                            Streams[start_code].Parsers.push_back(Parser);
-                        }
+                            Streams[start_code].Parsers.push_back(ChooseParser_Mpeg4v());
                         #endif
                         #if defined(MEDIAINFO_AVSV_YES)
                         {
                             File_AvsV* Parser=new File_AvsV;
-                            Open_Buffer_Init(Parser);
-                            Parser->ShouldContinueParsing=true;
-							#if MEDIAINFO_DEMUX
-								if (Demux_Unpacketize)
-									Parser->FrameIsAlwaysComplete=true;
-						    #endif //MEDIAINFO_DEMUX
                             Streams[start_code].Parsers.push_back(Parser);
                         }
                         #endif
         }
+        for (size_t Pos=0; Pos<Streams[start_code].Parsers.size(); Pos++)
+            Open_Buffer_Init(Streams[start_code].Parsers[Pos]);
     }
 
     //Demux
     #if MEDIAINFO_DEMUX
-        if (!(FromTS_stream_type==0x20 && SubStream_Demux))
+        if (Streams[start_code].Parsers.empty() || !Streams[start_code].Parsers[0]->Demux_UnpacketizeContainer)
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
 
@@ -2841,48 +2794,25 @@ void File_MpegPs::SL_packetized_stream()
             switch (FromTS_stream_type)
             {
                 case 0x0F :
-                            #if defined(MEDIAINFO_AAC_YES)
-                            {
-                                File_Aac* Parser=new File_Aac;
-                                Parser->Mode=File_Aac::Mode_ADTS;
-                                Open_Buffer_Init(Parser);
-                                Streams[start_code].Parsers.push_back(Parser);
-                            }
-                            #endif
+                            Streams[start_code].Parsers.push_back(ChooseParser_Adts());
                             break;
 
                 case 0x11 :
-                            #if defined(MEDIAINFO_AAC_YES)
-                            {
-                                File_Aac* Parser=new File_Aac;
-                                Parser->Mode=File_Aac::Mode_LATM;
-                                Open_Buffer_Init(Parser);
-                                Streams[start_code].Parsers.push_back(Parser);
-                            }
-                            #endif
+                            Streams[start_code].Parsers.push_back(ChooseParser_Latm());
                             break;
                 default   : ;
             }
         else
         {
             #if defined(MEDIAINFO_AAC_YES)
-            {
-                File_Aac* Parser=new File_Aac;
-                Parser->Mode=File_Aac::Mode_ADTS;
-                Parser->Frame_Count_Valid=1;
-                Open_Buffer_Init(Parser);
-                Streams[start_code].Parsers.push_back(Parser);
-            }
+                Streams[start_code].Parsers.push_back(ChooseParser_Adts());
             #endif
             #if defined(MEDIAINFO_AAC_YES)
-            {
-                File_Aac* Parser=new File_Aac;
-                Parser->Mode=File_Aac::Mode_LATM;
-                Open_Buffer_Init(Parser);
-                Streams[start_code].Parsers.push_back(Parser);
-            }
+                Streams[start_code].Parsers.push_back(ChooseParser_Latm());
             #endif
         }
+        for (size_t Pos=0; Pos<Streams[start_code].Parsers.size(); Pos++)
+            Open_Buffer_Init(Streams[start_code].Parsers[Pos]);
     }
 
     //Parsing
@@ -3270,7 +3200,9 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                 Temp.IsFilled=true;
             }
         }
-
+    PCR=(int64u)-1;
+    DTS=(int64u)-1;
+    PTS=(int64u)-1;
     Element_Show();
 
     #if MEDIAINFO_EVENTS
@@ -3508,10 +3440,15 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
         File_Mpegv* Handle=new File_Mpegv;
         Handle->MPEG_Version=MPEG_Version;
         Handle->ShouldContinueParsing=true;
-		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
-				Handle->FrameIsAlwaysComplete=true;
-	    #endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3538,7 +3475,7 @@ File__Analyze* File_MpegPs::ChooseParser_Mpeg4v()
         File_Mpeg4v* Handle=new File_Mpeg4v;
         Handle->Frame_Count_Valid=1;
 		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
+			if (Demux_UnpacketizeContainer)
 				Handle->FrameIsAlwaysComplete=true;
 	    #endif //MEDIAINFO_DEMUX
     #else
@@ -3558,10 +3495,15 @@ File__Analyze* File_MpegPs::ChooseParser_Avc()
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
         File_Avc* Handle=new File_Avc;
-		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
-				Handle->FrameIsAlwaysComplete=true;
-	    #endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3581,7 +3523,7 @@ File__Analyze* File_MpegPs::ChooseParser_VC1()
         File_Vc1* Handle=new File_Vc1;
         Handle->Frame_Count_Valid=30;
 		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
+			if (Demux_UnpacketizeContainer)
 				Handle->FrameIsAlwaysComplete=true;
 	    #endif //MEDIAINFO_DEMUX
     #else
@@ -3620,10 +3562,15 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
     #if defined(MEDIAINFO_MPEGA_YES)
         File_Mpega* Handle=new File_Mpega;
         Handle->Frame_Count_Valid=1;
-		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
-				Handle->FrameIsAlwaysComplete=true;
-	    #endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3687,6 +3634,15 @@ File__Analyze* File_MpegPs::ChooseParser_AC3()
     #if defined(MEDIAINFO_AC3_YES)
         File_Ac3* Handle=new File_Ac3();
         Handle->Frame_Count_Valid=2; //2 frames to be sure
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3705,6 +3661,15 @@ File__Analyze* File_MpegPs::ChooseParser_DTS()
     #if defined(MEDIAINFO_DTS_YES)
         File__Analyze* Handle=new File_Dts();
         ((File_Dts*)Handle)->Frame_Count_Valid=2;
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

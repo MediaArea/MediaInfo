@@ -294,6 +294,12 @@ private :
     bool   field_pic_flag_AlreadyDetected;
     bool   Field_Count_AfterLastCompleFrame;
     size_t RefFramesCount;
+    #if MEDIAINFO_DEMUX
+        size_t Demux_Offset;
+        int64u Demux_Frame_Count;
+        int64u Demux_Field_Count;
+        bool   Demux_picture_start_Found;
+    #endif //MEDIAINFO_DEMUX
 
     //Temp
     bool SPS_IsParsed;

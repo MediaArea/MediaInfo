@@ -1135,6 +1135,18 @@ bool File_Ac3::Synched_Test()
     else
         Synched=false;
 
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //We continue
     return true;
 }

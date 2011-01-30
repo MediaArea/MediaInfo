@@ -251,6 +251,7 @@ private :
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;
+    bool   progressive_frame;
     bool   top_field_first;
     bool   repeat_first_field;
     bool   FirstFieldFound;
@@ -266,6 +267,15 @@ private :
     int8u  RefFramesCount;
     int8u  BVOPsSinceLastRefFrames;
     bool   Field_Count_AfterLastCompleFrame;
+    int16u temporal_reference_LastIFrame;
+    int64u PTS_LastIFrame;
+    int64u tc;
+    #if MEDIAINFO_DEMUX
+        size_t Demux_Offset;
+        int64u Demux_Frame_Count;
+        int64u Demux_Field_Count;
+        bool   Demux_picture_start_Found;
+    #endif //MEDIAINFO_DEMUX
 
 };
 

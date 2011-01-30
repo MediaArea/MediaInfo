@@ -622,7 +622,8 @@ bool File_Dts::Synched_Test()
         return false;
 
     //Quick test of synchro
-    switch (CC4(Buffer+Buffer_Offset))
+    int32u Value=CC4(Buffer+Buffer_Offset);
+    switch (Value)
     {
         case 0x7FFE8001 :  //16 bits and big    endian Core
         case 0xFE7F0180 :  //16 bits and little endian Core
@@ -632,6 +633,22 @@ bool File_Dts::Synched_Test()
                             break;
         default         :   Synched=false;
     }
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer && Value==0x7FFE8001)
+        {
+            int16u Size=((BigEndian2int24u(Buffer+Buffer_Offset+5)>>4)&0x3FFF)+1;
+            if (Buffer_Offset+Size>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                return false; //No complete frame
+
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //We continue
     return true;
