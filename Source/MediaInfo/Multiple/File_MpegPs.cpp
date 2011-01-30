@@ -282,7 +282,7 @@ void File_MpegPs::Streams_Fill()
         Fill(Stream_General, 0, General_Encoded_Library, Retrieve(Stream_Video, 0, Video_Encoded_Library));
 
     //Special case: Video PTS
-    if (video_stream_PTS.size()>=2+4*2+1*2 && Retrieve(Stream_Video, 0, Video_FrameRate).To_float64()>30.000) //TODO: Handle all kind of files
+    if (video_stream_PTS.size()>=2+4*2+1*2 && Retrieve(Stream_Video, 0, Video_FrameRate).To_float64()>30.000) //TODO: Parser all kind of files
     {
         sort(video_stream_PTS.begin(), video_stream_PTS.end());
         video_stream_PTS.erase(video_stream_PTS.begin(), video_stream_PTS.begin()+4); //Removing first frames, they may lack of B/P frames
@@ -1008,7 +1008,7 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u stream_id)
     int16u PES_packet_length;
     Get_B2 (PES_packet_length,                                  "PES_packet_length");
     if (PES_packet_length && File_Offset+Buffer_Offset+6+PES_packet_length>=File_Size)
-        PES_packet_length=File_Size-(File_Offset+Buffer_Offset+6);
+        PES_packet_length=(int16u)(File_Size-(File_Offset+Buffer_Offset+6));
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer && Buffer_Offset+6+PES_packet_length>Buffer_Size)
             return false;
@@ -3436,34 +3436,34 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
 {
     //Filling
     #if defined(MEDIAINFO_MPEGV_YES)
-        File_Mpegv* Handle=new File_Mpegv;
-        Handle->MPEG_Version=MPEG_Version;
-        Handle->ShouldContinueParsing=true;
+        File_Mpegv* Parser=new File_Mpegv;
+        Parser->MPEG_Version=MPEG_Version;
+        Parser->ShouldContinueParsing=true;
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
                 Demux_UnpacketizeContainer=false; //No demux from this parser
                 Demux_Level=4; //Intermediate
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
             }
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
         switch (FromTS_stream_type)
         {
-            case 0x01 : Handle->Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
-                        Handle->Fill(Stream_Video, 0, Video_Format_Version, "Version 1"); break;
-            case 0x02 : Handle->Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
-                        Handle->Fill(Stream_Video, 0, Video_Format_Version, "Version 2"); break;
-            default   : Handle->Fill(Stream_Video, 0, Video_Codec, "MPEG-V");
+            case 0x01 : Parser->Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
+                        Parser->Fill(Stream_Video, 0, Video_Format_Version, "Version 1"); break;
+            case 0x02 : Parser->Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
+                        Parser->Fill(Stream_Video, 0, Video_Format_Version, "Version 2"); break;
+            default   : Parser->Fill(Stream_Video, 0, Video_Codec, "MPEG-V");
         }
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3471,21 +3471,21 @@ File__Analyze* File_MpegPs::ChooseParser_Mpeg4v()
 {
     //Filling
     #if defined(MEDIAINFO_MPEG4V_YES)
-        File_Mpeg4v* Handle=new File_Mpeg4v;
-        Handle->Frame_Count_Valid=1;
+        File_Mpeg4v* Parser=new File_Mpeg4v;
+        Parser->Frame_Count_Valid=1;
 		#if MEDIAINFO_DEMUX
 			if (Demux_UnpacketizeContainer)
-				Handle->FrameIsAlwaysComplete=true;
+				Parser->FrameIsAlwaysComplete=true;
 	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");
-        Handle->Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");
+        Parser->Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3493,25 +3493,25 @@ File__Analyze* File_MpegPs::ChooseParser_Avc()
 {
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
-        File_Avc* Handle=new File_Avc;
+        File_Avc* Parser=new File_Avc;
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
                 Demux_UnpacketizeContainer=false; //No demux from this parser
                 Demux_Level=4; //Intermediate
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
             }
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Codec,  "AVC");
-        Handle->Fill(Stream_Video, 0, Video_Format, "AVC");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Codec,  "AVC");
+        Parser->Fill(Stream_Video, 0, Video_Format, "AVC");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3519,21 +3519,21 @@ File__Analyze* File_MpegPs::ChooseParser_VC1()
 {
     //Filling
     #if defined(MEDIAINFO_VC1_YES)
-        File_Vc1* Handle=new File_Vc1;
-        Handle->Frame_Count_Valid=30;
+        File_Vc1* Parser=new File_Vc1;
+        Parser->Frame_Count_Valid=30;
 		#if MEDIAINFO_DEMUX
 			if (Demux_UnpacketizeContainer)
-				Handle->FrameIsAlwaysComplete=true;
+				Parser->FrameIsAlwaysComplete=true;
 	    #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Codec,  "VC-1");
-        Handle->Fill(Stream_Video, 0, Video_Format, "VC-1");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Codec,  "VC-1");
+        Parser->Fill(Stream_Video, 0, Video_Format, "VC-1");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3541,17 +3541,17 @@ File__Analyze* File_MpegPs::ChooseParser_Dirac()
 {
     //Filling
     #if defined(MEDIAINFO_DIRAC_YES)
-        File__Analyze* Handle=new File_Dirac;
-        ((File_Dirac*)Handle)->Frame_Count_Valid=1;
+        File__Analyze* Parser=new File_Dirac;
+        ((File_Dirac*)Parser)->Frame_Count_Valid=1;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Codec,  "Dirac");
-        Handle->Fill(Stream_Video, 0, Video_Format, "Dirac");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Codec,  "Dirac");
+        Parser->Fill(Stream_Video, 0, Video_Format, "Dirac");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3559,33 +3559,33 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
 {
     //Filling
     #if defined(MEDIAINFO_MPEGA_YES)
-        File_Mpega* Handle=new File_Mpega;
-        Handle->Frame_Count_Valid=1;
+        File_Mpega* Parser=new File_Mpega;
+        Parser->Frame_Count_Valid=1;
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
                 Demux_UnpacketizeContainer=false; //No demux from this parser
                 Demux_Level=4; //Intermediate
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
             }
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
         switch (FromTS_stream_type)
         {
-            case 0x03 : Handle->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-1A");
-                        Handle->Fill(Stream_Audio, 0, Audio_Format_Version, "Version 1"); break;
-            case 0x04 : Handle->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-2A");
-                        Handle->Fill(Stream_Audio, 0, Audio_Format_Version, "Version 2"); break;
-            default   : Handle->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-A"); break;
+            case 0x03 : Parser->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-1A");
+                        Parser->Fill(Stream_Audio, 0, Audio_Format_Version, "Version 1"); break;
+            case 0x04 : Parser->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-2A");
+                        Parser->Fill(Stream_Audio, 0, Audio_Format_Version, "Version 2"); break;
+            default   : Parser->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-A"); break;
         }
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3593,18 +3593,18 @@ File__Analyze* File_MpegPs::ChooseParser_Adts()
 {
     //Filling
     #if defined(MEDIAINFO_AAC_YES)
-        File_Aac* Handle=new File_Aac;
-        Handle->Mode=File_Aac::Mode_ADTS;
+        File_Aac* Parser=new File_Aac;
+        Parser->Mode=File_Aac::Mode_ADTS;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
-        Handle->Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        Parser->Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3612,18 +3612,18 @@ File__Analyze* File_MpegPs::ChooseParser_Latm()
 {
     //Filling
     #if defined(MEDIAINFO_AAC_YES)
-        File_Aac* Handle=new File_Aac;
-        Handle->Mode=File_Aac::Mode_LATM;
+        File_Aac* Parser=new File_Aac;
+        Parser->Mode=File_Aac::Mode_LATM;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
-        Handle->Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        Parser->Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3631,26 +3631,26 @@ File__Analyze* File_MpegPs::ChooseParser_AC3()
 {
     //Filling
     #if defined(MEDIAINFO_AC3_YES)
-        File_Ac3* Handle=new File_Ac3();
-        Handle->Frame_Count_Valid=2; //2 frames to be sure
+        File_Ac3* Parser=new File_Ac3();
+        Parser->Frame_Count_Valid=2; //2 frames to be sure
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
                 Demux_UnpacketizeContainer=false; //No demux from this parser
                 Demux_Level=4; //Intermediate
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
             }
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, private_stream_1_ID==0x83?"E-AC-3":"AC-3");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec, private_stream_1_ID==0x83?"AC3+":"AC3");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, private_stream_1_ID==0x83?"E-AC-3":"AC-3");
+        Parser->Fill(Stream_Audio, 0, Audio_Codec, private_stream_1_ID==0x83?"AC3+":"AC3");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3658,26 +3658,26 @@ File__Analyze* File_MpegPs::ChooseParser_DTS()
 {
     //Filling
     #if defined(MEDIAINFO_DTS_YES)
-        File__Analyze* Handle=new File_Dts();
-        ((File_Dts*)Handle)->Frame_Count_Valid=2;
+        File__Analyze* Parser=new File_Dts();
+        ((File_Dts*)Parser)->Frame_Count_Valid=2;
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
                 Demux_UnpacketizeContainer=false; //No demux from this parser
                 Demux_Level=4; //Intermediate
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
             }
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "DTS");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec, "DTS");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "DTS");
+        Parser->Fill(Stream_Audio, 0, Audio_Codec, "DTS");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3686,19 +3686,19 @@ File__Analyze* File_MpegPs::ChooseParser_SDDS()
     //Filling
     #if defined(MEDIAINFO_SDDS_YES)
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "SDDS");
-        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec,  "SDDS");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "SDDS");
+        Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec,  "SDDS");
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "SDDS");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "SDDS");
+        File__Analyze* Parser=new File_Unknown();
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "SDDS");
+        Parser->Fill(Stream_Audio, 0, Audio_Codec,  "SDDS");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3706,16 +3706,16 @@ File__Analyze* File_MpegPs::ChooseParser_AAC()
 {
     //Filling
     #if defined(MEDIAINFO_AAC_YES)
-        File_Aac* Handle=new File_Aac;
+        File_Aac* Parser=new File_Aac;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        Parser->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3723,7 +3723,7 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
 {
     //Filling
     #if defined(MEDIAINFO_PCM_YES)
-        File__Analyze* Handle=new File_Pcm();
+        File__Analyze* Parser=new File_Pcm();
         Ztring Codec;
         switch (private_stream_1_ID)
         {
@@ -3731,16 +3731,16 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
             case 0x83 : Codec=_T("EVOB"); break;
             default   : Codec=_T("VOB");
         }
-        ((File_Pcm*)Handle)->Codec=Codec;
+        ((File_Pcm*)Parser)->Codec=Codec;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "PCM");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "PCM");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Parser->Fill(Stream_Audio, 0, Audio_Codec,  "PCM");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3748,16 +3748,16 @@ File__Analyze* File_MpegPs::ChooseParser_RLE()
 {
     //Filling
     #if defined(MEDIAINFO_RLE_YES)
-        File__Analyze* Handle=new File_Rle();
+        File__Analyze* Parser=new File_Rle();
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Text);
-        Handle->Fill(Stream_Text, 0, Text_Format, "RLE");
-        Handle->Fill(Stream_Text, 0, Text_Codec,  "RLE");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Text);
+        Parser->Fill(Stream_Text, 0, Text_Format, "RLE");
+        Parser->Fill(Stream_Text, 0, Text_Codec,  "RLE");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3765,16 +3765,16 @@ File__Analyze* File_MpegPs::ChooseParser_PGS()
 {
     //Filling
     #if defined(MEDIAINFO_PGS_YES)
-        File__Analyze* Handle=new File_Pgs();
+        File__Analyze* Parser=new File_Pgs();
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Text);
-        Handle->Fill(Stream_Text, 0, Text_Format, "PGS");
-        Handle->Fill(Stream_Text, 0, Text_Codec,  "PGS");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Text);
+        Parser->Fill(Stream_Text, 0, Text_Format, "PGS");
+        Parser->Fill(Stream_Text, 0, Text_Codec,  "PGS");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3782,20 +3782,20 @@ File__Analyze* File_MpegPs::ChooseParser_AES3()
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
-        File_Aes3* Handle=new File_Aes3();
-        Handle->From_MpegPs=true;
+        File_Aes3* Parser=new File_Aes3();
+        Parser->From_MpegPs=true;
         #if MEDIAINFO_DEMUX
             Demux_Level=4; //Intermediate
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AES3");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AES3");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AES3");
+        Parser->Fill(Stream_Audio, 0, Audio_Codec,  "AES3");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -3803,22 +3803,22 @@ File__Analyze* File_MpegPs::ChooseParser_PS2()
 {
     //Filling
     #if defined(MEDIAINFO_PS2A_YES)
-        File__Analyze* Handle=new File_Ps2Audio();
+        File__Analyze* Parser=new File_Ps2Audio();
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
 File__Analyze* File_MpegPs::ChooseParser_NULL()
 {
     //Filling
-    //File__Analyze* Handle=new File__Analyze();
-    //return Handle;
+    //File__Analyze* Parser=new File__Analyze();
+    //return Parser;
     return NULL;
 }
 
