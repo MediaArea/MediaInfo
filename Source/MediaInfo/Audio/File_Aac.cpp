@@ -457,7 +457,7 @@ bool File_Aac::Synched_Test_ADTS()
             if (StreamIDs_Size>=2)
                 Element_Code=StreamIDs[StreamIDs_Size-2];
             StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            Demux(Buffer+Buffer_Offset, aac_frame_length, ContentType_MainStream);
             StreamIDs_Size++;
         }
     #endif //MEDIAINFO_DEMUX
@@ -488,7 +488,7 @@ bool File_Aac::Synched_Test_LATM()
             if (StreamIDs_Size>=2)
                 Element_Code=StreamIDs[StreamIDs_Size-2];
             StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            Demux(Buffer+Buffer_Offset, 3+audioMuxLengthBytes, ContentType_MainStream);
             StreamIDs_Size++;
         }
     #endif //MEDIAINFO_DEMUX
