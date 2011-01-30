@@ -701,6 +701,7 @@ void File_Gxf::map()
                         case 22 :
                         case 23 :   //MPEG Video
                                     Streams[TrackID].Parser=new File_Mpegv();
+                                    ((File_Mpegv*)Streams[TrackID].Parser)->FrameIsAlwaysComplete=true;
                                     ((File_Mpegv*)Streams[TrackID].Parser)->Ancillary=&Ancillary;
                                     Open_Buffer_Init(Streams[TrackID].Parser);
                                     Parsers_Count++;
