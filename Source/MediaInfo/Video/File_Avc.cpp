@@ -883,10 +883,10 @@ void File_Avc::Synched_Init()
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
     PTS_End=0;
-    if (DTS==(int64u)-1)
-        DTS=0; //No DTS in container
-    DTS_Begin=DTS;
-    DTS_End=DTS;
+    if (FrameInfo.DTS==(int64u)-1)
+        FrameInfo.DTS=0; //No DTS in container
+    DTS_Begin=FrameInfo.DTS;
+    DTS_End=FrameInfo.DTS;
     tc=0;
 
     //From seq_parameter_set
@@ -978,8 +978,8 @@ void File_Avc::Read_Buffer_Unsynched()
     #endif //MEDIAINFO_DEMUX
 
     //Impossible to know TimeStamps now
-    PTS=(int64u)-1;
-    DTS=(int64u)-1;
+    FrameInfo.PTS=(int64u)-1;
+    FrameInfo.DTS=(int64u)-1;
     PTS_End=0;
     DTS_End=0;
 }
@@ -1390,9 +1390,9 @@ void File_Avc::slice_header()
         {
             if (Frame_Count==0)
             {
-                if (PTS==(int64u)-1)
-                    PTS=DTS+tc; //No PTS in container
-                PTS_Begin=PTS;
+                if (FrameInfo.PTS==(int64u)-1)
+                    FrameInfo.PTS=FrameInfo.DTS+tc; //No PTS in container
+                PTS_Begin=FrameInfo.PTS;
             }
             if (IsSub)
             {
@@ -1400,9 +1400,9 @@ void File_Avc::slice_header()
                 {
                 //    Firstpic_order_cnt_lsbInBlock=pic_order_cnt_lsb;
                 }
-                if (PTS!=(int64u)-1 && Frame_Count_InThisBlock && Firstpic_order_cnt_lsbInBlock!=(int32u)-1)
+                if (FrameInfo.PTS!=(int64u)-1 && Frame_Count_InThisBlock && Firstpic_order_cnt_lsbInBlock!=(int32u)-1)
                 {
-                    PTS+=((int32s)(pic_order_cnt_lsb-Firstpic_order_cnt_lsbInBlock)/((!frame_mbs_only_flag && field_pic_flag)?1:2)-1)*tc;
+                    FrameInfo.PTS+=((int32s)(pic_order_cnt_lsb-Firstpic_order_cnt_lsbInBlock)/((!frame_mbs_only_flag && field_pic_flag)?1:2)-1)*tc;
                 }
                     Firstpic_order_cnt_lsbInBlock=pic_order_cnt_lsb;
             }
@@ -1411,22 +1411,22 @@ void File_Avc::slice_header()
                 if (!FirstPFrameInGop_IsParsed) //The first one only
                 {
                     if (slice_type==0 || slice_type==5) //PFrame
-                        PTS-=tc;
+                        FrameInfo.PTS-=tc;
                 }
                 if (slice_type==2 || slice_type==7) //IFrame
                 {
                     if (FirstPFrameInGop_IsParsed)
-                        PTS+=tc; //Handling the delayed PFrame
+                        FrameInfo.PTS+=tc; //Handling the delayed PFrame
                     FirstPFrameInGop_IsParsed=false;
                 }
             }
         }
         else
         {
-            if (PTS!=(int64u)-1)
-                PTS-=tc;
-            if (DTS!=(int64u)-1)
-                DTS-=tc;
+            if (FrameInfo.PTS!=(int64u)-1)
+                FrameInfo.PTS-=tc;
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS-=tc;
         }
 
         //Name
@@ -1449,10 +1449,12 @@ void File_Avc::slice_header()
                 Element_Info(_T("frame_num ")+Ztring::ToZtring(frame_num));
                 if (fixed_frame_rate_flag)
                 {
-                    if (DTS!=(int64u)-1)
-                        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
-                    if (PTS!=(int64u)-1 && (IsSub || (slice_type!=0 && slice_type!=5))) //Not raw stream or not PFrame
-                        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
+                    if (FrameInfo.PCR!=(int64u)-1)
+                        Element_Info(_T("PCR ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PCR)/1000000)));
+                    if (FrameInfo.DTS!=(int64u)-1)
+                        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+                    if (FrameInfo.PTS!=(int64u)-1 && (IsSub || (slice_type!=0 && slice_type!=5))) //Not raw stream or not PFrame
+                        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
                 }
                 if (pic_order_cnt_type==0)
                     Element_Info(_T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
@@ -1473,17 +1475,17 @@ void File_Avc::slice_header()
         }
         if (RefFramesCount<2 && (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7)) //IFrame or PFrame
             RefFramesCount++;
-        if (PTS!=(int64u)-1)
-            PTS+=tc;
-        if (DTS!=(int64u)-1)
-            DTS+=tc;
+        if (FrameInfo.PTS!=(int64u)-1)
+            FrameInfo.PTS+=tc;
+        if (FrameInfo.DTS!=(int64u)-1)
+            FrameInfo.DTS+=tc;
         if (!IsSub && first_mb_in_slice==0) //Raw stream
         {
             if (slice_type==0 || slice_type==5) //PFrame
                 FirstPFrameInGop_IsParsed=true;
         }
-        if (PTS!=(int64u)-1 && PTS_End<PTS)
-            PTS_End=PTS;
+        if (FrameInfo.PTS!=(int64u)-1 && PTS_End<FrameInfo.PTS)
+            PTS_End=FrameInfo.PTS;
 
         //Duplicate
         if (Streams[(size_t)Element_Code].ShouldDuplicate)

@@ -104,18 +104,26 @@ public :
     #endif //MEDIAINFO_DEMUX
     Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
-    int64u PCR; //In nanoseconds
-    int64u PTS; //In nanoseconds
-    int64u DTS; //In nanoseconds
-    int64u DUR; //In nanoseconds
-    int64u PCR_Previous;
-    int64u DTS_Previous;
-    int64u PTS_Previous;
-    int64u DUR_Previous;
-    int64u PCR_Next;
-    int64u DTS_Next;
-    int64u PTS_Next;
-    int64u DUR_Next;
+    struct frame_info
+    {
+        int64u Buffer_Offset;
+        int64u PCR; //In nanoseconds
+        int64u PTS; //In nanoseconds
+        int64u DTS; //In nanoseconds
+        int64u DUR; //In nanoseconds
+
+        frame_info()
+        {
+            Buffer_Offset=0;
+            PCR=(int64u)-1;
+            PTS=(int64u)-1;
+            DTS=(int64u)-1;
+            DUR=(int64u)-1;
+        }
+    };
+    frame_info FrameInfo;
+    frame_info FrameInfo_Previous;
+    frame_info FrameInfo_Next;
 
     //Out
     int64u PTS_Begin;                  //In nanoseconds

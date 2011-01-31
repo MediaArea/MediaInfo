@@ -1321,13 +1321,13 @@ void File_Mpegv::slice_start()
         if (picture_coding_type==1) //IFrame
         {
             temporal_reference_LastIFrame=temporal_reference;
-            PTS_LastIFrame=PTS;
+            PTS_LastIFrame=FrameInfo.PTS;
         }
         if (PTS_LastIFrame!=(int64u)-1)
         {
-            PTS=PTS_LastIFrame+(temporal_reference-temporal_reference_LastIFrame)*tc;
+            FrameInfo.PTS=PTS_LastIFrame+(temporal_reference-temporal_reference_LastIFrame)*tc;
             if (PTS_Begin==(int64u)-1 && picture_coding_type==1) //IFrame
-                PTS_Begin=PTS;
+                PTS_Begin=FrameInfo.PTS;
         }
 
         //Info
@@ -1337,10 +1337,10 @@ void File_Mpegv::slice_start()
                 Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
                 Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
                 Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
-                if (PTS!=(int64u)-1)
-                    Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
-                if (DTS!=(int64u)-1)
-                    Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
+                if (FrameInfo.PTS!=(int64u)-1)
+                    Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+                if (FrameInfo.DTS!=(int64u)-1)
+                    Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
                 if (Time_End_Seconds!=Error)
                 {
                     int32u Time_End  =Time_End_Seconds  *1000;
@@ -1392,7 +1392,7 @@ void File_Mpegv::slice_start()
                 if (!Cdp_Parser->Status[IsFinished])
                 {
                     if (Cdp_Parser->PTS_DTS_Needed)
-                        Cdp_Parser->DTS=DTS;
+                        Cdp_Parser->FrameInfo.DTS=FrameInfo.DTS;
                     ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                     Open_Buffer_Continue(Cdp_Parser, (*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size);
                 }
@@ -1419,7 +1419,7 @@ void File_Mpegv::slice_start()
                     ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
                 }
                 if (AfdBarData_Parser->PTS_DTS_Needed)
-                    AfdBarData_Parser->DTS=DTS;
+                    AfdBarData_Parser->FrameInfo.DTS=FrameInfo.DTS;
                 if (!AfdBarData_Parser->Status[IsFinished])
                     Open_Buffer_Continue(AfdBarData_Parser, (*Ancillary)->AfdBarData_Data[0]->Data, (*Ancillary)->AfdBarData_Data[0]->Size);
 
@@ -1447,17 +1447,17 @@ void File_Mpegv::slice_start()
             BVOPsSinceLastRefFrames=0;
         if (RefFramesCount<2 && (picture_coding_type==1 || picture_coding_type==2))
             RefFramesCount++;
-        if (DTS!=(int64u)-1)
+        if (FrameInfo.DTS!=(int64u)-1)
         {
-            DTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
-            if (DTS_End<DTS)
-                DTS_End=DTS;
+            FrameInfo.DTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+            if (DTS_End<FrameInfo.DTS)
+                DTS_End=FrameInfo.DTS;
         }
-        if (PTS!=(int64u)-1)
+        if (FrameInfo.PTS!=(int64u)-1)
         {
-            PTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
-            if (PTS_End<PTS)
-                PTS_End=PTS;
+            FrameInfo.PTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+            if (PTS_End<FrameInfo.PTS)
+                PTS_End=FrameInfo.PTS;
         }
 
         //NextCode
@@ -1646,9 +1646,9 @@ void File_Mpegv::user_data_start_CC()
         }
         if (CC___Parser->PTS_DTS_Needed)
         {
-            CC___Parser->PCR=PCR;
-            CC___Parser->PTS=PTS;
-            CC___Parser->DTS=DTS;
+            CC___Parser->FrameInfo.PCR=FrameInfo.PCR;
+            CC___Parser->FrameInfo.PTS=FrameInfo.PTS;
+            CC___Parser->FrameInfo.DTS=FrameInfo.DTS;
         }
         Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         Open_Buffer_Continue(CC___Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
@@ -1724,9 +1724,9 @@ void File_Mpegv::user_data_start_3()
                 }
                 if (Scte_Parser->PTS_DTS_Needed)
                 {
-                    Scte_Parser->PCR=PCR;
-                    Scte_Parser->PTS=PTS;
-                    Scte_Parser->DTS=DTS;
+                    Scte_Parser->FrameInfo.PCR=FrameInfo.PCR;
+                    Scte_Parser->FrameInfo.PTS=FrameInfo.PTS;
+                    Scte_Parser->FrameInfo.DTS=FrameInfo.DTS;
                 }
                 ((File_Scte20*)Scte_Parser)->picture_structure=TemporalReference[Scte_Pos]->picture_structure;
                 ((File_Scte20*)Scte_Parser)->progressive_sequence=progressive_sequence;
@@ -1788,9 +1788,9 @@ void File_Mpegv::user_data_start_DTG1()
         }
         if (DTG1_Parser->PTS_DTS_Needed)
         {
-            DTG1_Parser->PCR=PCR;
-            DTG1_Parser->PTS=PTS;
-            DTG1_Parser->DTS=DTS;
+            DTG1_Parser->FrameInfo.PCR=FrameInfo.PCR;
+            DTG1_Parser->FrameInfo.PTS=FrameInfo.PTS;
+            DTG1_Parser->FrameInfo.DTS=FrameInfo.DTS;
         }
         Open_Buffer_Continue(DTG1_Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Element_Offset=Element_Size;
@@ -1880,9 +1880,9 @@ void File_Mpegv::user_data_start_GA94_03()
                 }
                 if (GA94_03_Parser->PTS_DTS_Needed)
                 {
-                    GA94_03_Parser->PCR=PCR;
-                    GA94_03_Parser->PTS=PTS;
-                    GA94_03_Parser->DTS=DTS;
+                    GA94_03_Parser->FrameInfo.PCR=FrameInfo.PCR;
+                    GA94_03_Parser->FrameInfo.PTS=FrameInfo.PTS;
+                    GA94_03_Parser->FrameInfo.DTS=FrameInfo.DTS;
                 }
                 Demux(TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size, ContentType_MainStream);
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
@@ -1912,9 +1912,9 @@ void File_Mpegv::user_data_start_GA94_06()
         }
         if (GA94_06_Parser->PTS_DTS_Needed)
         {
-            GA94_06_Parser->PCR=PCR;
-            GA94_06_Parser->PTS=PTS;
-            GA94_06_Parser->DTS=DTS;
+            GA94_06_Parser->FrameInfo.PCR=FrameInfo.PCR;
+            GA94_06_Parser->FrameInfo.PTS=FrameInfo.PTS;
+            GA94_06_Parser->FrameInfo.DTS=FrameInfo.DTS;
         }
         Open_Buffer_Init(GA94_06_Parser);
         Open_Buffer_Continue(GA94_06_Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
@@ -2044,8 +2044,8 @@ void File_Mpegv::sequence_header()
 
         //Setting as OK
         sequence_header_IsParsed=true;
-        if (Frame_Count==0 && DTS==(int64u)-1)
-            DTS=0; //No DTS in container
+        if (Frame_Count==0 && FrameInfo.DTS==(int64u)-1)
+            FrameInfo.DTS=0; //No DTS in container
     FILLING_END();
 }
 

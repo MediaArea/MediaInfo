@@ -153,8 +153,8 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
             else
                 Extra=0; //MPEG-4
             int8u Header[32];
-            int64u2BigEndian(Header+ 0, PTS);
-            int64u2BigEndian(Header+ 8, DTS);
+            int64u2BigEndian(Header+ 0, FrameInfo.PTS);
+            int64u2BigEndian(Header+ 8, FrameInfo.DTS);
             int64u2BigEndian(Header+16, 5+Extra+2+Duplicate_Buffer_Size+1+2+ToAdd_Size); //5+Extra for SPS_SQS header, 2 for SPS size, 1 for PPS count, 2 for PPS size
             Header[24]=1;
             int56u2BigEndian(Header+25, 0);
@@ -215,8 +215,8 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
             //  1 byte  : Type (0=Frame, 1=Header);
             //  7 bytes : Reserved
             int8u Header[32];
-            int64u2BigEndian(Header+ 0, PTS);
-            int64u2BigEndian(Header+ 8, DTS);
+            int64u2BigEndian(Header+ 0, FrameInfo.PTS);
+            int64u2BigEndian(Header+ 8, FrameInfo.DTS);
             int64u2BigEndian(Header+16, Duplicate_Buffer_Size);
             Header[24]=0;
             int56u2BigEndian(Header+25, 0);

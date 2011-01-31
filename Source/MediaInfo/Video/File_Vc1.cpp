@@ -689,10 +689,10 @@ void File_Vc1::FrameHeader()
     //Name
     Element_Name("FrameHeader");
     Element_Info(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
-    if (PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
-    if (DTS!=(int64u)-1)
-        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+    if (FrameInfo.PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+    if (FrameInfo.DTS!=(int64u)-1)
+        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
@@ -744,12 +744,12 @@ void File_Vc1::FrameHeader()
         }
         if (RefFramesCount<2 && (ptype==0 || ptype==1))
             RefFramesCount++;
-        if (PTS!=(int64u)-1)
+        if (FrameInfo.PTS!=(int64u)-1)
         {
             if (PTS_Begin==(int64u)-1 && ptype==0) //IFrame
-                PTS_Begin=PTS;
+                PTS_Begin=FrameInfo.PTS;
             if ((ptype==0 || ptype==1) && Frame_Count_InThisBlock<=1) //IFrame or PFrame
-                PTS_End=PTS;
+                PTS_End=FrameInfo.PTS;
             if ((ptype==0 || ptype==1) || (Frame_Count_InThisBlock>=2 && RefFramesCount>=2)) //IFrame or PFrame or more than 2 RefFrame for BFrames
             {
                 if (framerate_present)

@@ -40,7 +40,7 @@ class File_Dts : public File__Analyze
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
 
     //Constructor/Destructor
     File_Dts();

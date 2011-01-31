@@ -944,8 +944,8 @@ void File_Dts::Data_Parse()
     Element_Info(Ztring::ToZtring(Frame_Count));
 
     //PTS
-    if (PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
+    if (FrameInfo.PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?FrameInfo.PTS:PTS_End))/1000000)));
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
@@ -954,12 +954,12 @@ void File_Dts::Data_Parse()
     {
         Frame_Count++;
         Frame_Count_InThisBlock++;
-        if (PTS!=(int64u)-1)
+        if (FrameInfo.PTS!=(int64u)-1)
         {
             if (PTS_Begin==(int64u)-1)
-                PTS_Begin=PTS;
+                PTS_Begin=FrameInfo.PTS;
             if (Frame_Count_InThisBlock<=1)
-                PTS_End=PTS;
+                PTS_End=FrameInfo.PTS;
             float64 BitRate=BitRate_Get();
             if (BitRate)
                 PTS_End+=float64_int64s(((float64)(Element_Size+Header_Size))*8/BitRate*1000000000);

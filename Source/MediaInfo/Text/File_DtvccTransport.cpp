@@ -238,9 +238,9 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         //Parsing
                         if (Streams[Parser_Pos]->Parser->PTS_DTS_Needed)
                         {
-                            Streams[Parser_Pos]->Parser->PCR=PCR;
-                            Streams[Parser_Pos]->Parser->PTS=PTS;
-                            Streams[Parser_Pos]->Parser->DTS=DTS;
+                            Streams[Parser_Pos]->Parser->FrameInfo.PCR=FrameInfo.PCR;
+                            Streams[Parser_Pos]->Parser->FrameInfo.PTS=FrameInfo.PTS;
+                            Streams[Parser_Pos]->Parser->FrameInfo.DTS=FrameInfo.DTS;
                         }
                         if (Parser_Pos==2)
                         {

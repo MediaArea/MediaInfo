@@ -41,7 +41,7 @@ class File_Dirac : public File__Analyze
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     bool   Ignore_End_of_Sequence;
 
     //Constructor/Destructor

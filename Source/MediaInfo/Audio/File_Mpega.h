@@ -39,7 +39,7 @@ class File_Mpega : public File__Analyze, public File__Tags_Helper
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   CalculateDelay;
 

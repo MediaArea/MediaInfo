@@ -45,7 +45,7 @@ class File_Mpegv : public File__Analyze
 public :
     //In
     int8u  MPEG_Version;
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   TimeCodeIsNotTrustable;
     #if defined(MEDIAINFO_ANCILLARY_YES)

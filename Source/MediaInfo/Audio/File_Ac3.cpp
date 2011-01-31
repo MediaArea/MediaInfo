@@ -1244,8 +1244,8 @@ void File_Ac3::Data_Parse()
     }
 
     //PTS
-    if (PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
+    if (FrameInfo.PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?FrameInfo.PTS:PTS_End))/1000000)));
 
     if (Status[IsFilled])
     {
@@ -1253,10 +1253,10 @@ void File_Ac3::Data_Parse()
         {
             Frame_Count++;
             Frame_Count_InThisBlock++;
-            if (PTS!=(int64u)-1)
+            if (FrameInfo.PTS!=(int64u)-1)
             {
                 if (Frame_Count_InThisBlock<=1)
-                    PTS_End=PTS;
+                    PTS_End=FrameInfo.PTS;
                 PTS_End+=32000000;
             }
 
@@ -1483,17 +1483,17 @@ void File_Ac3::Core()
             Frame_Count=0;
             Core_IsPresent=true;
             if (PTS_Begin==(int64u)-1)
-                PTS_Begin=PTS;
+                PTS_Begin=FrameInfo.PTS;
         }
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
         HD_AlreadyCounted=false;
-        if (PTS!=(int64u)-1)
+        if (FrameInfo.PTS!=(int64u)-1)
         {
             if (Frame_Count_InThisBlock<=1)
-                PTS_End=PTS;
+                PTS_End=FrameInfo.PTS;
             PTS_End+=32000000;
         }
 
@@ -1674,12 +1674,12 @@ void File_Ac3::HD()
         {
             Frame_Count++;
             Frame_Count_InThisBlock++;
-            if (PTS!=(int64u)-1)
+            if (FrameInfo.PTS!=(int64u)-1)
             {
                 if (PTS_Begin==(int64u)-1)
-                    PTS_Begin=PTS;
+                    PTS_Begin=FrameInfo.PTS;
                 if (Frame_Count_InThisBlock<=1)
-                    PTS_End=PTS;
+                    PTS_End=FrameInfo.PTS;
                 PTS_End+=32000000;
             }
         }

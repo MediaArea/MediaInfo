@@ -1902,6 +1902,8 @@ void File_MpegTs::PES()
     }
 
     //Parsing
+    if (Complete_Stream->Streams[pid]->IsPCR)
+        ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FrameInfo.PCR=Complete_Stream->Streams[pid]->TimeStamp_End==(int64u)-1?(int64u)-1:Complete_Stream->Streams[pid]->TimeStamp_End*1000/27; //27 MHz
     Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser);
     if (Complete_Stream->Streams[pid]->Parser->Status[IsUpdated])
     {

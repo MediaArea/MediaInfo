@@ -37,7 +37,7 @@ class File_Ac3 : public File__Analyze
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     bool   MustParse_dac3;
     bool   MustParse_dec3;
     bool   CalculateDelay;

@@ -224,9 +224,9 @@ void File_Scte20::Read_Buffer_Continue()
                     //Parsing
                     if (Streams[cc_type]->Parser->PTS_DTS_Needed)
                     {
-                        Streams[cc_type]->Parser->PCR=PCR;
-                        Streams[cc_type]->Parser->PTS=PTS;
-                        Streams[cc_type]->Parser->DTS=DTS;
+                        Streams[cc_type]->Parser->FrameInfo.PCR=FrameInfo.PCR;
+                        Streams[cc_type]->Parser->FrameInfo.PTS=FrameInfo.PTS;
+                        Streams[cc_type]->Parser->FrameInfo.DTS=FrameInfo.DTS;
                     }
                     Open_Buffer_Continue(Streams[cc_type]->Parser, cc_data, 2);
                     Element_Show();

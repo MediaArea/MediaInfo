@@ -41,7 +41,7 @@ class File_Vc1 : public File__Analyze
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   From_WMV3;
     bool   Only_0D;

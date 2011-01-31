@@ -38,7 +38,7 @@ class File_Avc : public File__Duplicate
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   MustParse_SPS_PPS;
     bool   MustParse_SPS_PPS_Only;

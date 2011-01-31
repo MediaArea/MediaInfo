@@ -405,8 +405,8 @@ void File_Lxf::Header_Parse()
                     int8u Format, GOP_M;
                     BlockSize=0;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
-                    Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); DUR=float64_int64s(((float64)Duration)*1000000/720);
+                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
+                    Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
                     Get_S1 (4, Format,                          "Format"); Param_Info(Lxf_Format_Video[Format]);
                     Skip_S1(7,                                  "GOP (N)");
@@ -446,7 +446,7 @@ void File_Lxf::Header_Parse()
                             default: PTS_Computing+=Duration;              //I-Frame
                         }
                     }
-                    PTS=float64_int64s(((float64)PTS_Computing)*1000000/720);
+                    FrameInfo.PTS=float64_int64s(((float64)PTS_Computing)*1000000/720);
                     }
                     break;
         case 1  :   //Audio
@@ -455,8 +455,8 @@ void File_Lxf::Header_Parse()
                     int8u Channels_Count=0;
                     bitset<32> Channels;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); PTS=DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
-                    Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); DUR=float64_int64s(((float64)Duration)*1000000/720);
+                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.PTS=FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
+                    Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
                     Get_S1 ( 6, SampleSize,                     "Sample size");
                     Skip_S1( 6,                                 "Sample precision");

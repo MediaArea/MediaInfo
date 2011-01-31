@@ -192,10 +192,10 @@ void File_Aes3::Streams_Fill()
 {
     int64u BitRate=(int64u)-1;
     int64u SamplingRate=(int64u)-1;
-    if (PTS!=(int32u)-1 && Frame_Last_PTS!=(int32u)-1 && PTS!=Frame_Last_PTS)
+    if (FrameInfo.PTS!=(int32u)-1 && Frame_Last_PTS!=(int32u)-1 && FrameInfo.PTS!=Frame_Last_PTS)
     {
         //Rounding
-        BitRate=Frame_Last_Size*8*1000*1000000*(Frame_Count-1)/(PTS-Frame_Last_PTS);
+        BitRate=Frame_Last_Size*8*1000*1000000*(Frame_Count-1)/(FrameInfo.PTS-Frame_Last_PTS);
         SamplingRate=BitRate*(4+bits_per_sample)/(5+bits_per_sample)/(2+2*number_channels)/(16+4*bits_per_sample);
         if (SamplingRate>  7840 && SamplingRate<  8160) SamplingRate=  8000;
         if (SamplingRate> 15680 && SamplingRate< 16320) SamplingRate= 16000;
@@ -248,7 +248,7 @@ void File_Aes3::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_ChannelPositions, Aes3_ChannelsPositions(number_channels));
         Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Aes3_ChannelsPositions2(number_channels));
         Fill(Stream_Audio, 0, Audio_BitDepth, 16+4*bits_per_sample);
-        if (PTS!=(int32u)-1 && Frame_Last_PTS!=(int32u)-1 && PTS!=Frame_Last_PTS)
+        if (FrameInfo.PTS!=(int64u)-1 && Frame_Last_PTS!=(int64u)-1 && FrameInfo.PTS!=Frame_Last_PTS)
         {
             Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
@@ -844,9 +844,7 @@ void File_Aes3::Frame()
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
-        Parser->PCR=PCR;
-        Parser->DTS=DTS;
-        Parser->PTS=PTS;
+        Parser->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
@@ -1113,11 +1111,11 @@ void File_Aes3::Frame_FromMpegPs()
 
     //Looking for 2 consecutive PTS
     Frame_Count++;
-    if (PTS==(int64u)-1)
+    if (FrameInfo.PTS==(int64u)-1)
         Frame_Count=2; //We don't have PTS, don't need more
     else if (Frame_Count==1)
     {
-        Frame_Last_PTS=PTS;
+        Frame_Last_PTS=FrameInfo.PTS;
         Frame_Last_Size=Element_Size;
     }
 
@@ -1138,9 +1136,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
         Open_Buffer_Init(Parser);
     }
     Element_Offset=0;
-    Parser->PCR=PCR;
-    Parser->DTS=DTS;
-    Parser->PTS=PTS;
+    Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     Element_Offset=Element_Size;
 

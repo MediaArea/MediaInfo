@@ -74,18 +74,6 @@ File__Analyze::File__Analyze ()
         Demux_UnpacketizeContainer=false;
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;
-    PCR=(int64u)-1;
-    PTS=(int64u)-1;
-    DTS=(int64u)-1;
-    DUR=(int64u)-1;
-    PCR_Previous=(int64u)-1;
-    PTS_Previous=(int64u)-1;
-    DTS_Previous=(int64u)-1;
-    DUR_Previous=(int64u)-1;
-    PCR_Next=(int64u)-1;
-    PTS_Next=(int64u)-1;
-    DTS_Next=(int64u)-1;
-    DUR_Next=(int64u)-1;
     PTS_Begin=(int64u)-1;
     PTS_End=0;
     DTS_Begin=(int64u)-1;
@@ -459,54 +447,23 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->PES_FirstByte_IsAvailable=PES_FirstByte_IsAvailable;
     Sub->PES_FirstByte_Value=PES_FirstByte_Value;
-    #if MEDIAINFO_DEMUX
-        if (Sub->Demux_UnpacketizeContainer)
-        {
-            if (Sub->DTS==(int64u)-1 && Sub->PTS==(int64u)-1)
-            {
-                //Sub->PCR=Sub->PCR_Previous;
-                Sub->DTS=Sub->DTS_Previous;
-                Sub->PTS=Sub->PTS_Previous;
-                //Sub->PCR_Previous=(int64u)-1;
-                Sub->DTS_Previous=(int64u)-1;
-                Sub->PTS_Previous=(int64u)-1;
-            }
-            else if (Sub->DTS_Previous!=(int64u)-1 || Sub->PTS_Previous!=(int64u)-1)
-            {
-                //Sub->PCR_Next=Sub->PCR;
-                Sub->DTS_Next=Sub->DTS;
-                Sub->PTS_Next=Sub->PTS;
-                //Sub->PCR=(int64u)-1;
-                Sub->DTS=(int64u)-1;
-                Sub->PTS=(int64u)-1;
+    if (Sub->FrameInfo.PTS!=(int64u)-1 && Sub->Buffer_Size)
+        Sub->FrameInfo_Previous.Buffer_Offset=Sub->Buffer_Size;
+    if (Sub->FrameInfo_Previous.PTS!=(int64u)-1)
+    {
+        Sub->FrameInfo_Next=Sub->FrameInfo;
+        Sub->FrameInfo=Sub->FrameInfo_Previous;
+        Sub->FrameInfo_Previous=frame_info();
 
-                //Sub->PCR=Sub->PCR_Previous;
-                Sub->DTS=Sub->DTS_Previous;
-                Sub->PTS=Sub->PTS_Previous;
-                //Sub->PCR_Previous=(int64u)-1;
-                Sub->DTS_Previous=(int64u)-1;
-                Sub->PTS_Previous=(int64u)-1;
-
-                Sub->Frame_Count_Previous=Sub->Frame_Count;
-                Sub->Field_Count_Previous=Sub->Field_Count;
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
+        Sub->Frame_Count_Previous=Sub->Frame_Count;
+        Sub->Field_Count_Previous=Sub->Field_Count;
+    }
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
-    #if MEDIAINFO_DEMUX
-        if (Sub->Demux_UnpacketizeContainer)
-        {
-            if (Sub->Buffer_Offset<Sub->Buffer_Size)
-            {
-                //Sub->PCR_Previous=Sub->PCR;
-                Sub->DTS_Previous=Sub->DTS;
-                Sub->PTS_Previous=Sub->PTS;
-                //Sub->PCR=(int64u)-1;
-                Sub->DTS=(int64u)-1;
-                Sub->PTS=(int64u)-1;
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
+    if (Sub->Buffer_Size)
+    {
+        Sub->FrameInfo_Previous=Sub->FrameInfo;
+        Sub->FrameInfo=frame_info();
+    }
 
     #if MEDIAINFO_TRACE
         if (Trace_Activated)
@@ -619,12 +576,9 @@ void File__Analyze::Open_Buffer_Unsynch ()
     }
 
     File_GoTo=(int64u)-1;
-    PTS=(int64u)-1;
-    DTS=(int64u)-1;
-    PTS_Previous=(int64u)-1;
-    DTS_Previous=(int64u)-1;
-    PTS_Next=(int64u)-1;
-    DTS_Next=(int64u)-1;
+    FrameInfo=frame_info();
+    FrameInfo_Previous=frame_info();
+    FrameInfo_Next=frame_info();
     PTS_End=0;
     DTS_End=0;
 }
@@ -1123,13 +1077,10 @@ bool File__Analyze::Data_Manage()
         //Element_Level=Element_Level_Save;
 
 
-        if ((DTS_Next!=(int64u)-1 || PTS_Next!=(int64u)-1) && ((Frame_Count_Previous<Frame_Count) || (Field_Count_Previous<Field_Count)))
+        if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && (Buffer_Offset>=FrameInfo.Buffer_Offset || Frame_Count_Previous<Frame_Count || Field_Count_Previous<Field_Count))
         {
-            DTS=DTS_Next;
-            PTS=PTS_Next;
-
-            DTS_Next=(int64u)-1;
-            PTS_Next=(int64u)-1;
+            FrameInfo=FrameInfo_Next;
+            FrameInfo_Next=frame_info();
 
             if (Frame_Count_Previous<Frame_Count)
             {
@@ -2451,10 +2402,10 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         else
              Event.EventCode=MediaInfo_EventCode_Create(0x00, MediaInfo_Event_Global_Demux, 2);
         Event.Stream_Offset=File_Offset+Buffer_Offset;
-        Event.PCR=PCR;
-        Event.DTS=(DTS==(int64u)-1?PTS:DTS);
-        Event.PTS=PTS;
-        Event.DUR=DUR;
+        Event.PCR=FrameInfo.PCR;
+        Event.DTS=(FrameInfo.DTS==(int64u)-1?FrameInfo.PTS:FrameInfo.DTS);
+        Event.PTS=FrameInfo.PTS;
+        Event.DUR=FrameInfo.DUR;
         Event.StreamIDs_Size=StreamIDs_Size;
         Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
         Event.StreamIDs_Width=(MediaInfo_int8u*)StreamIDs_Width;

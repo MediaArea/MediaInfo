@@ -888,8 +888,8 @@ void File_Mpega::Data_Parse()
     }
 
     //PTS
-    if (PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?PTS:PTS_End))/1000000)));
+    if (FrameInfo.PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?FrameInfo.PTS:PTS_End))/1000000)));
 
     //Name
     Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
@@ -906,12 +906,12 @@ void File_Mpega::Data_Parse()
         Frame_Count_Valid=Frame_Count; //Finish MPEG Audio frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_InThisBlock++;
-    if (PTS!=(int64u)-1)
+    if (FrameInfo.PTS!=(int64u)-1)
     {
         if (PTS_Begin==(int64u)-1)
-            PTS_Begin=PTS;
+            PTS_Begin=FrameInfo.PTS;
         if (Frame_Count_InThisBlock<=1)
-            PTS_End=PTS;
+            PTS_End=FrameInfo.PTS;
         int16u Samples;
         if (ID==3 && layer==3) //MPEG 1 layer 1
              Samples=384;

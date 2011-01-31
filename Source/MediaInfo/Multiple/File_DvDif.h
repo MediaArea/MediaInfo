@@ -41,7 +41,7 @@ class File_DvDif : public File__Analyze
 {
 public :
     //In
-    size_t Frame_Count_Valid;
+    int64u Frame_Count_Valid;
     int8u  AuxToAnalyze; //Only Aux must be parsed
     bool   IgnoreAudio;
 
