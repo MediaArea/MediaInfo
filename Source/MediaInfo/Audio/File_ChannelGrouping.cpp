@@ -115,17 +115,41 @@ void File_ChannelGrouping::Read_Buffer_Init()
         Open_Buffer_Init(Common->Parser);
     }
 
-    #if MEDIAINFO_EVENTS
-        if (Channel_Pos)
-            StreamIDs[StreamIDs_Size-2]=StreamID;
-    #endif //MEDIAINFO_EVENTS
+    IsAes3=false;
+    #if MEDIAINFO_DEMUX
+         Demux_UnpacketizeContainer=Config->Demux_Unpacketize_Get();
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
 void File_ChannelGrouping::Read_Buffer_Continue()
 {
-    if (Buffer_Size<ByteDepth)
-        return; //Waiting for enough data
+    //Testing if it is AES3 instead of mono PCM
+    if (!IsAes3 && (Frame_Count || (Channel_Pos==0 && !Synchronize_AES3_0()) || (Channel_Pos==1 && !Synchronize_AES3_1())))
+    {
+        if (Frame_Count==0 && Buffer_TotalBytes+Buffer_Size<65536)
+        {
+            Buffer_Offset=0; //Reinit
+            return;
+        }
+
+		#if MEDIAINFO_DEMUX
+			if (Demux_UnpacketizeContainer)
+			{
+				if (StreamIDs_Size>=2)
+					Element_Code=StreamIDs[StreamIDs_Size-2];
+				StreamIDs_Size--;
+				Demux(Buffer, Buffer_Size, ContentType_MainStream);
+				StreamIDs_Size++;
+			}
+		#endif //MEDIAINFO_DEMUX
+
+        Buffer_Offset=Buffer_Size;
+        Frame_Count++;
+        return;
+    }
+    IsAes3=true;
+    Buffer_Offset=0;
 
     //Copying to Channel buffer
     if (Common->Channels[Channel_Pos]->Buffer_Size+Buffer_Size>Common->Channels[Channel_Pos]->Buffer_Size_Max)
@@ -158,54 +182,25 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     if (Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset==0)
         return;
 
-    //Buffer handling
-    Ztring Format;
-    /*
-    if (StreamIDs_Size)
-        Format=Config->ID_Format_Get(Ztring::ToZtring(StreamIDs[0]));
-    if (Config->Demux_Unpacketize_Get() && (Format==_T("AES3") || Format==_T("Dolby E")))
-    {
-        while (Common->MergedChannel.Buffer_Offset+16<=Common->MergedChannel.Buffer_Size)
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
         {
-            size_t Buffer_Offset_Temp=Common->MergedChannel.Buffer_Offset;
-            if (Synchronize_AES3())
-            {
-                if (Buffer_Offset_Temp!=Common->MergedChannel.Buffer_Offset)
-                    Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Buffer_Offset_Temp, Common->MergedChannel.Buffer_Offset-Buffer_Offset_Temp);
+            Common->Parser->Demux_UnpacketizeContainer=true;
+            Demux_Level=4; //Intermediate
 
-                size_t Buffer_Offset_Begin=Common->MergedChannel.Buffer_Offset;
-                Common->MergedChannel.Buffer_Offset+=ByteDepth*2;
-                if (Synchronize_AES3())
-                {
-                    size_t Buffer_Offset_End=Common->MergedChannel.Buffer_Offset;
-                    Common->MergedChannel.Buffer_Offset=Buffer_Offset_Temp;
-
-                    Demux(Common->MergedChannel.Buffer+Buffer_Offset_Begin, Buffer_Offset_End-Buffer_Offset_Begin, ContentType_MainStream);
-
-                    Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Buffer_Offset_Begin, Buffer_Offset_End-Buffer_Offset_Begin);
-                    Common->MergedChannel.Buffer_Offset=Buffer_Offset_End;
-                }
-                else
-                {
-                    Common->MergedChannel.Buffer_Offset=Buffer_Offset_Temp;
-                    break;
-                }
-            }
-            else
-            {
-                Common->MergedChannel.Buffer_Offset=Buffer_Offset_Temp;
-                break;
-            }
+            if (Channel_Pos)
+                StreamIDs[StreamIDs_Size-2]=StreamID;
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
+            StreamIDs_Size++;
         }
-    }
-    else
-    */
-    {
-        Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
+    #endif //MEDIAINFO_EVENTS
 
-        Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
-        Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
-    }
+    Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
+    Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
 
     if (!Status[IsAccepted] && Common->Parser->Status[IsAccepted])
     {
@@ -229,83 +224,210 @@ void File_ChannelGrouping::Read_Buffer_Continue()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_ChannelGrouping::Synchronize_AES3()
+bool File_ChannelGrouping::Synchronize_AES3_0()
 {
     //Synchronizing
-    while (Common->MergedChannel.Buffer_Offset+16<=Common->MergedChannel.Buffer_Size)
+    while (Buffer_Offset+8<=Buffer_Size)
     {
-        if (CC4(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0xF8724E1F) //SMPTE 337M 16-bit, BE
+        if (CC2(Buffer+Buffer_Offset)==0xF872) //SMPTE 337M 16-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC4(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x72F81F4E) //SMPTE 337M 16-bit, LE
+        if (CC2(Buffer+Buffer_Offset)==0x72F8) //SMPTE 337M 16-bit, LE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC5(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x6F87254E1FLL) //SMPTE 337M 20-bit, BE
+        if (CC3(Buffer+Buffer_Offset)==0x96F872) //SMPTE 337M 24-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x96F872A54E1FLL) //SMPTE 337M 24-bit, BE
+        if (CC3(Buffer+Buffer_Offset)==0x72F896) //SMPTE 337M 24-bit, LE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x72F8961F4E5ALL) //SMPTE 337M 24-bit, LE
+        if (CC3(Buffer+Buffer_Offset)==0x00F872) //16-bit in 24-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x00F872004E1FLL) //16-bit in 24-bit, BE
+        if (CC3(Buffer+Buffer_Offset)==0x0072F8) //16-bit in 24-bit, LE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0072F8001F4ELL) //16-bit in 24-bit, LE
+        if (CC3(Buffer+Buffer_Offset)==0x6F8720) //20-bit in 24-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x6F872054E1F0LL) //20-bit in 24-bit, BE
+        if (CC3(Buffer+Buffer_Offset)==0xF0E154) //20-bit in 24-bit, LE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC6(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x20876FF0E154LL) //20-bit in 24-bit, LE
+        if (CC4(Buffer+Buffer_Offset)==0x0000F872) //16-bit in 32-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0000F87200004E1FLL) //16-bit in 32-bit, BE
+        if (CC4(Buffer+Buffer_Offset)==0x000072F8) //16-bit in 32-bit, LE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x000072F800001F4ELL) //16-bit in 32-bit, LE
+        if (CC4(Buffer+Buffer_Offset)==0x006F872) //20-bit in 32-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x006F87200054E1F0LL) //20-bit in 32-bit, BE
+        if (CC4(Buffer+Buffer_Offset)==0x0020876F) //20-bit in 32-bit, LE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0020876F00F0E154LL) //20-bit in 32-bit, LE
+        if (CC4(Buffer+Buffer_Offset)==0x0096F872) //24-bit in 32-bit, BE
         {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
-        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0096F8720A54E1FLL) //24-bit in 32-bit, BE
+        if (CC4(Buffer+Buffer_Offset)==0x0072F896) //24-bit in 32-bit, LE
         {
-            break; //while()
-        }
-        if (CC8(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset)==0x0072F896001F4EA5LL) //24-bit in 32-bit, LE
-        {
-            break; //while()
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
         }
 
         if (ByteDepth!=(size_t)-1)
-            Common->MergedChannel.Buffer_Offset+=ByteDepth*2;
+            Buffer_Offset+=ByteDepth*2;
         else
-            Common->MergedChannel.Buffer_Offset++;
+            Buffer_Offset++;
     }
 
     //Parsing last bytes if needed
-    if (Common->MergedChannel.Buffer_Offset+16>Common->MergedChannel.Buffer_Size)
-    {
+    if (Buffer_Offset+8>Buffer_Size)
         return false;
+
+    //Synched
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_ChannelGrouping::Synchronize_AES3_1()
+{
+    //Synchronizing
+    while (Buffer_Offset+8<=Buffer_Size)
+    {
+        if (CC2(Buffer+Buffer_Offset)==0x4E1F) //SMPTE 337M 16-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC2(Buffer+Buffer_Offset)==0x1F4E) //SMPTE 337M 16-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC3(Buffer+Buffer_Offset)==0xA54E1F) //SMPTE 337M 24-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC3(Buffer+Buffer_Offset)==0x1F4E5A) //SMPTE 337M 24-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC3(Buffer+Buffer_Offset)==0x004E1F) //16-bit in 24-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC3(Buffer+Buffer_Offset)==0x001F4E) //16-bit in 24-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC3(Buffer+Buffer_Offset)==0x54E1F0) //20-bit in 24-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC3(Buffer+Buffer_Offset)==0xF0E154) //20-bit in 24-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC4(Buffer+Buffer_Offset)==0x00004E1F) //16-bit in 32-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC4(Buffer+Buffer_Offset)==0x00001F4E) //16-bit in 32-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC4(Buffer+Buffer_Offset)==0x0054E1F0) //20-bit in 32-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC4(Buffer+Buffer_Offset)==0x00F0E154) //20-bit in 32-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC4(Buffer+Buffer_Offset)==0x0A54E1F) //24-bit in 32-bit, BE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+        if (CC4(Buffer+Buffer_Offset)==0x001F4EA5) //24-bit in 32-bit, LE
+        {
+            if (Frame_Count)
+                break; //while()
+            Frame_Count++;
+        }
+
+        if (ByteDepth!=(size_t)-1)
+            Buffer_Offset+=ByteDepth*2;
+        else
+            Buffer_Offset++;
     }
+
+    //Parsing last bytes if needed
+    if (Buffer_Offset+8>Buffer_Size)
+        return false;
 
     //Synched
     return true;

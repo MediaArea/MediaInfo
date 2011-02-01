@@ -109,6 +109,7 @@ public :
     common* Common;
     size_t  Channel_Pos;
     size_t  Channel_Total;
+    bool    IsAes3;
 
     //Constructor/Destructor
     File_ChannelGrouping();
@@ -123,8 +124,10 @@ private :
     void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
 
-    //Temp
-    bool Synchronize_AES3();
+    //Helpers
+    bool Synchronize_AES3_0();
+    bool Synchronize_AES3_1();
+
 };
 
 } //NameSpace
