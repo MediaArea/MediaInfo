@@ -146,6 +146,8 @@ void File_ChannelGrouping::Read_Buffer_Continue()
 
         Buffer_Offset=Buffer_Size;
         Frame_Count++;
+        Accept();
+        Finish();
         return;
     }
     IsAes3=true;
