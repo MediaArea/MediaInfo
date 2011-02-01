@@ -178,6 +178,7 @@ File_Aes3::File_Aes3()
     Frame_Last_Size=(int64u)-1;
     data_type=(int8u)-1;
     IsParsingNonPcm=false;
+    IsPcm=false;
 
     //Parser
     Parser=NULL;
@@ -219,6 +220,11 @@ void File_Aes3::Streams_Fill()
         if (Format.find(_T("AES3"))!=0)
             Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Format, true);
     }
+    else if (Parser && Parser->Status[IsAccepted] && !Parser->Status[IsFilled])
+    {
+        Fill(Parser);
+        Merge(*Parser);
+    }
     else if (data_type!=(int8u)-1)
     {
         Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Ztring().From_Local(Aes3_NonPCM_data_type[data_type]), true);
@@ -227,6 +233,12 @@ void File_Aes3::Streams_Fill()
             Stream_Prepare(Aes3_NonPCM_data_type_StreamKind[data_type]);
             Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), Aes3_NonPCM_data_type[data_type]);
         }
+    }
+    else if (IsPcm)
+    {
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
     }
     else
         Fill(Stream_General, 0, General_Format, "AES3");
@@ -268,6 +280,23 @@ void File_Aes3::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Aes3::Read_Buffer_Continue()
 {
+    if (IsPcm)
+    {
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                if (StreamIDs_Size>=2)
+                    Element_Code=StreamIDs[StreamIDs_Size-2];
+                StreamIDs_Size--;
+                Demux(Buffer, Buffer_Size, ContentType_MainStream);
+                StreamIDs_Size++;
+            }
+        #endif //MEDIAINFO_DEMUX
+
+        Skip_XX(Element_Size,                                   "Data");
+
+        return;
+    }
     if (From_Raw)
     {
         Raw();
@@ -283,6 +312,33 @@ void File_Aes3::Read_Buffer_Continue()
     if (!From_Aes3 && Buffer_TotalBytes==0)
     {
         Synchronize();
+        if (IsSub && Buffer_Offset+16>Buffer_Size)
+        {
+            //Raw PCM
+            Buffer_Offset=0;
+            Element_Size=Buffer_Size;
+
+            #if MEDIAINFO_DEMUX
+                if (Demux_UnpacketizeContainer)
+                {
+                    if (StreamIDs_Size>=2)
+                        Element_Code=StreamIDs[StreamIDs_Size-2];
+                    StreamIDs_Size--;
+                    Demux_Level=2;
+                    Demux(Buffer, Buffer_Size, ContentType_MainStream);
+                    StreamIDs_Size++;
+                }
+            #endif //MEDIAINFO_DEMUX
+
+            Skip_XX(Element_Size,                               "Data");
+
+            Accept("PCM");
+            IsPcm=true;
+            Finish();
+
+            return;
+        }
+
         if (Buffer_Offset)
         {
             Buffer_Offset=0;
@@ -865,9 +921,37 @@ void File_Aes3::Frame()
 //---------------------------------------------------------------------------
 void File_Aes3::Frame_WithPadding()
 {
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            int8u Demux_Level_Save=Demux_Level;
+            Demux_Level=2; //Container
+            Demux(Buffer+Buffer_Offset, Element_Size, ContentType_MainStream);
+            Demux_Level=Demux_Level_Save;
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
+
     int8u* Info=new int8u[(size_t)Element_Size];
     size_t Info_Offset=0;
 
+    if (Container_Bits==24 && Stream_Bits==16 && Endianess) //LE
+    {
+        while (Element_Offset+6<=Element_Size)
+        {
+            size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+            Info[Info_Offset+0]=  Buffer[Buffer_Pos+2];
+            Info[Info_Offset+1]=  Buffer[Buffer_Pos+1];
+            Info[Info_Offset+2]=  Buffer[Buffer_Pos+5];
+            Info[Info_Offset+3]=  Buffer[Buffer_Pos+4];
+            Info_Offset+=4;
+            Element_Offset+=6;
+        }
+    }
     if (Container_Bits==24 && Stream_Bits==20 && Endianess) //LE
     {
         while (Element_Offset+6<=Element_Size)
@@ -975,7 +1059,7 @@ static inline int8u Reverse8(int n)
 void File_Aes3::Frame_FromMpegPs()
 {
     //SMPTE 302M
-    int16u audio_packet_size;
+    int16u audio_packet_size=0;
     Get_B2 (audio_packet_size,                              "audio_packet_size");
     BS_Begin();
     Get_S1 (2, number_channels,                             "number_channels"); Param_Info(2+2*number_channels, " channels");
@@ -984,9 +1068,10 @@ void File_Aes3::Frame_FromMpegPs()
     Info_S1(4, alignment_bits,                              "alignment_bits");
     BS_End();
 
-    if (Element_Offset+audio_packet_size!=Element_Size || audio_packet_size<192*2*(bits_per_sample==0?2:3))
+    //Enough data
+    if (4+audio_packet_size!=Element_Size)
     {
-        Skip_XX(Element_Size-Element_Offset,                "Error?");
+        Skip_XX(Element_Size,                               "Data");
         return;
     }
 

@@ -80,6 +80,7 @@ private :
     int8u   data_type;
     bool    Endianess; //false=BE, true=LE
     bool    IsParsingNonPcm;
+    bool    IsPcm;
 
     //Parser
     File__Analyze* Parser;

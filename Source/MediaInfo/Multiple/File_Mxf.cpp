@@ -1949,10 +1949,13 @@ void File_Mxf::Data_Parse()
                     Element_Code=Code.lo;
             #endif //MEDIAINFO_DEMUX
 
-            Open_Buffer_Init(Essences[Code_Compare4].Parser);
-            if (Essences[Code_Compare4].Parser->Status[IsFinished])
-                if (Streams_Count>0)
-                    Streams_Count--;
+            if (Essences[Code_Compare4].Parser)
+            {
+                Open_Buffer_Init(Essences[Code_Compare4].Parser);
+                if (Essences[Code_Compare4].Parser->Status[IsFinished])
+                    if (Streams_Count>0)
+                        Streams_Count--;
+            }
 
             //Stream size is sometime easy to find
             if ((Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete)>=File_Size*0.98) //let imagine: if element size is 98% of file size, this is the only one element in the file
@@ -1965,11 +1968,11 @@ void File_Mxf::Data_Parse()
                 Element_Code=Essences[Code_Compare4].TrackID;
             else
                 Element_Code=Code.lo;
-            Demux_Level=(Code_Compare4&0xFF00FF00)==0x06001000?4:2; //Intermediate (D-10 Audio) / Container
+            Demux_Level=(Essences[Code_Compare4].Parser && (Essences[Code_Compare4].Parser->Demux_UnpacketizeContainer || Essences[Code_Compare4].Parser->Demux_Level==2))?4:2; //Intermediate (D-10 Audio) / Container
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
-        if (!Essences[Code_Compare4].Parser->Status[IsFinished])
+        if (Essences[Code_Compare4].Parser && !Essences[Code_Compare4].Parser->Status[IsFinished])
         {
             if (Code_Compare4==0x17010201)
             {
@@ -6349,6 +6352,7 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer)
     switch (Code6)
     {
         case 0x01 : return ChooseParser_Aes3();
+        case 0x06 : return ChooseParser_Pcm();
         default   : return NULL;
     }
 }
@@ -6464,9 +6468,16 @@ File__Analyze* File_Mxf::ChooseParser_Aac()
 File__Analyze* File_Mxf::ChooseParser_Aes3()
 {
     //Filling
-    #if defined(MEDIAINFO_AAC_YES)
+    #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Handle=new File_Aes3;
         Handle->From_Raw=true;
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+            {
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -6508,9 +6519,12 @@ File__Analyze* File_Mxf::ChooseParser_Mpega()
 File__Analyze* File_Mxf::ChooseParser_Pcm()
 {
     //Filling
-    #if defined(MEDIAINFO_PCM_YES)
-        File_Pcm* Handle=new File_Pcm;
-        Handle->IsRawPcm=true;
+    #if defined(MEDIAINFO_AES3_YES)
+        File_Aes3* Handle=new File_Aes3;
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+                Handle->Demux_UnpacketizeContainer=true;
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
