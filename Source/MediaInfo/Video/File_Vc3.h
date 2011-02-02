@@ -52,11 +52,14 @@ private :
     //Streams management
     void Streams_Fill();
 
-    //Buffer - File header
-    bool FileHeader_Begin();
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
 
-    //Buffer - Global
-    void Read_Buffer_Continue ();
+    //Buffer - Per element
+    bool Header_Begin ();
+    void Header_Parse ();
+    void Data_Parse ();
 
     //Elements
     void HeaderPrefix();

@@ -94,8 +94,11 @@ const char* Vc3_SST[2]=
 File_Vc3::File_Vc3()
 :File__Analyze()
 {
+    //Configuration
+    MustSynchronize=true;
+
     //In
-    Frame_Count_Valid=1;
+    Frame_Count_Valid=2;
     FrameRate=0;
 
     //Temp
@@ -124,57 +127,101 @@ void File_Vc3::Streams_Fill()
 }
 
 //***************************************************************************
-// Buffer - File header
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Vc3::FileHeader_Begin()
+bool File_Vc3::Synchronize()
 {
-    //Element_Size
-    if (Buffer_Size<5)
-        return false; //Must wait for more data
+    //Synchronizing
+    while(Buffer_Offset+5<=Buffer_Size && CC5(Buffer+Buffer_Offset)!=0x0000028001LL)
+        Buffer_Offset++;
 
-    if (BigEndian2int40u(Buffer)!=0x0000028001LL)
-    {
-        Reject("VC-3");
+    //Parsing last bytes if needed
+    if (Buffer_Offset+4==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x02
+                                      || Buffer[Buffer_Offset+3]!=0x80))
+        Buffer_Offset++;
+    if (Buffer_Offset+3==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x02))
+        Buffer_Offset++;
+    if (Buffer_Offset+2==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00))
+        Buffer_Offset++;
+    if (Buffer_Offset+1==Buffer_Size &&  Buffer[Buffer_Offset  ]!=0x00)
+        Buffer_Offset++;
+
+    if (Buffer_Offset+5>Buffer_Size)
         return false;
-    }
 
-    //All should be OK...
+    //Synched is OK
+    Synched=true;
     return true;
 }
 
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
 //---------------------------------------------------------------------------
-void File_Vc3::Read_Buffer_Continue()
+bool File_Vc3::Synched_Test()
 {
-    if (Data_ToParse)
+    //Must have enough buffer for having header
+    if (Buffer_Offset+0x05>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC5(Buffer+Buffer_Offset)!=0x0000028001LL)
     {
-        if (Data_ToParse<=Element_Size)
-        {
-            Element_Begin("Frame - Continuing");
-            Skip_XX(Data_ToParse,                               "Data (Continuing)");
-            Data_ToParse=0;
-            Element_End();
-        }
-        else
-        {
-            Element_Begin("Frame - Continuing");
-            Skip_XX(Element_Size,                               "Data (Continuing)");
-            Element_End();
-            Data_ToParse-=Element_Size;
-            return;
-        }
+        Synched=false;
+        return true;
     }
 
-    if (Buffer_Offset+(size_t)Element_Offset+640>Buffer_Size)
-        return;
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            if (Buffer_Offset+0x2C>Buffer_Size)
+                return false;
 
+            int32u CompressionID=BigEndian2int32u(Buffer+Buffer_Offset+0x28);
+            int32u Size=Vc3_CompressedFrameSize(CompressionID);
+            if (Buffer_Offset+Size>Buffer_Size)
+                return false; //No complete frame
+
+            Demux_random_access=true;
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Vc3::Header_Begin()
+{
+    if (Buffer_Offset+0x2C>Buffer_Size)
+        return false;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Vc3::Header_Parse()
+{
+    int32u CompressionID=BigEndian2int32u(Buffer+Buffer_Offset+0x28);
+
+    Header_Fill_Code(0, "Frame");
+    Header_Fill_Size(Vc3_CompressedFrameSize(CompressionID));
+}
+
+//---------------------------------------------------------------------------
+void File_Vc3::Data_Parse()
+{
     //Parsing
-    Element_Begin("Frame");
     Element_Info(Frame_Count+1);
     HeaderPrefix();
     CodingControlA();
@@ -185,7 +232,6 @@ void File_Vc3::Read_Buffer_Continue()
 
     Skip_XX(640-Element_Offset,                                 "ToDo");
     Skip_XX(Element_Size-Element_Offset,                        "Data");
-    Element_End();
 
     FILLING_BEGIN();
         Data_ToParse-=Buffer_Size-(size_t)Buffer_Offset;

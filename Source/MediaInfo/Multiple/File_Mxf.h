@@ -571,6 +571,7 @@ protected :
     File__Analyze* ChooseParser_Jpeg2000(bool Interlaced=false);
 
     //Temp
+    int128u EssenceContainer_FromPartitionMetadata;
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;

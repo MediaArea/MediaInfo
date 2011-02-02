@@ -390,6 +390,32 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
                                     }
                         default   : return "";
                     }
+        case 0x0E : //Private Use
+                    switch (Code2)
+                    {
+                        case 0x04 : //Avid
+                                    switch (Code3)
+                                    {
+                                        case 0x03 : //Essence Container Application
+                                                    switch (Code4)
+                                                    {
+                                                        case 0x01 : //MXF EC Structure version
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x02 : //Essence container kind
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x06 : return "VC-3";
+                                                                                        default   : return "";
+                                                                                    }
+                                                                        default   : return "";
+                                                                    }
+                                                         default   : return "";
+                                                    }
+                                         default   : return "";
+                                    }
+                        default   : return "";
+                    }
         default   : return "";
     }
 }
@@ -1026,7 +1052,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             }
         if (StreamPos_Last==(size_t)-1)
         {
-            if (Descriptors.size()==1)
+            if (Descriptors.size()==1 && Count_Get(StreamKind_Last)==1)
                 StreamPos_Last=0;
             else
             {
@@ -1179,6 +1205,10 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, DAR);
         }
     }
+
+    //Fallback on partition data if classic methods failed
+    if (StreamKind_Last!=Stream_Max && StreamPos_Last!=(size_t)-1 && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format)).empty() && Descriptors.size()==1 && Count_Get(StreamKind_Last)==1)
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mxf_EssenceContainer(EssenceContainer_FromPartitionMetadata));
 }
 
 //---------------------------------------------------------------------------
@@ -1393,6 +1423,7 @@ void File_Mxf::Streams_Finish_Identification (int128u IdentificationUID)
 //---------------------------------------------------------------------------
 void File_Mxf::Read_Buffer_Init()
 {
+    EssenceContainer_FromPartitionMetadata=0;
     #if MEDIAINFO_DEMUX
          Demux_Unpacketize=Config->Demux_Unpacketize_Get();
     #endif //MEDIAINFO_DEMUX
@@ -1859,6 +1890,8 @@ void File_Mxf::Data_Parse()
                     if (Descriptor->second.EssenceContainer.hi!=(int64u)-1 || Descriptor->second.EssenceCompression.hi!=(int64u)-1)
                     {
                         Essences[Code_Compare4].Parser=ChooseParser(Descriptor->second.EssenceContainer, Descriptor->second.EssenceCompression, Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
+                        if (Essences[Code_Compare4].Parser==NULL && EssenceContainer_FromPartitionMetadata!=0)
+                            Essences[Code_Compare4].Parser=ChooseParser(EssenceContainer_FromPartitionMetadata, Descriptor->second.EssenceCompression, Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
 
                         #ifdef MEDIAINFO_VC3_YES
@@ -4355,7 +4388,10 @@ void File_Mxf::PartitionMetadata()
         Get_B4 (Length,                                         "Length");
         for (int32u Pos=0; Pos<Count; Pos++)
         {
-            Info_UL(EssenceContainer,                           "EssenceContainer", Mxf_EssenceContainer);
+            int128u EssenceContainer;
+            Get_UL (EssenceContainer,                           "EssenceContainer", Mxf_EssenceContainer);
+            if (Count==1)
+                EssenceContainer_FromPartitionMetadata=EssenceContainer;
         }
     Element_End();
 }
@@ -6096,9 +6132,60 @@ void File_Mxf::Info_UL_040101_Values()
         case 0x0E :
             {
             Param_Info("User Organisation Registered For Private Use");
-            Skip_B7(                                            "Private");
-            break;
+            Info_B1(Code2,                                      "Code (2)");
+            switch (Code2)
+            {
+                case 0x04 :
+                    {
+                    Param_Info("Avid");
+                    Info_B1(Code3,                              "Code (3)");
+                    switch (Code3)
+                    {
+                        case 0x03 :
+                            Param_Info("Essence Container Application");
+                            Info_B1(Code4,                      "Structure Version");
+                            switch (Code4)
+                            {
+                                case 0x01 :
+                                    {
+                                    Param_Info("MXF EC Structure Version 1");
+                                    Info_B1(Code5,              "Essence container Kind");
+                                    switch (Code5)
+                                    {
+                                        case 0x02 :
+                                            {
+                                            Param_Info("Essence Container Kind");
+                                            Info_B1(Code6,      "Code (6)");
+                                            switch (Code6)
+                                            {
+                                                case 0x06 :
+                                                    Param_Info("VC-3?");
+                                                    Skip_B2(    "Unknown");
+                                                    break;
+                                                default   :
+                                                    Skip_B2(    "Unknown");
+                                            }
+                                            }
+                                            break;
+                                        default   :
+                                            Skip_B3(            "Unknown");
+                                    }
+                                    }
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            break;
+                        default   :
+                            Skip_B5(                            "Unknown");
+                    }
+                    }
+                    break;
+                default   :
+                    Skip_B6(                                    "Private");
             }
+            }
+            break;
         default   :
             Skip_B7(                                            "Unknown");
     }
@@ -6344,6 +6431,16 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
 //---------------------------------------------------------------------------
 File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer)
 {
+    //Private data
+    if ((EssenceContainer.lo&0xFF00000000000000LL)==0x0E00000000000000LL)
+    {
+        switch (EssenceContainer.lo)
+        {
+            case 0xE04030102060203LL : return ChooseParser_Vc3();
+            default                  : ;
+        }
+    }
+
     if ((EssenceContainer.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceContainer.lo&0xFFFFFFFFFF000000LL)!=0x0D01030102000000LL)
         return NULL;
 
@@ -6438,6 +6535,13 @@ File__Analyze* File_Mxf::ChooseParser_Vc3()
     //Filling
     #if defined(MEDIAINFO_VC3_YES)
         File_Vc3* Handle=new File_Vc3;
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+            {
+                Handle->Demux_Level=2; //Container
+                Handle->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
