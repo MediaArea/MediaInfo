@@ -560,7 +560,6 @@ void File__Analyze::Open_Buffer_Unsynch ()
     //if (!Status[IsAccepted])
     //    return;
 
-    Buffer_Clear();
     Read_Buffer_Unsynched();
 
     //Clearing duration
