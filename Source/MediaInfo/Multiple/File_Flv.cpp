@@ -781,9 +781,10 @@ void File_Flv::Data_Parse()
 
     if (Searching_Duration && !MustSynchronize)
     {
-        if (((Count_Get(Stream_Video)==0 || Stream[Stream_Video].TimeStamp!=(int32u)-1)
-          && (Count_Get(Stream_Audio)==0 || Stream[Stream_Audio].TimeStamp!=(int32u)-1))
-         || (File_Size>65536*2 && File_Offset+Buffer_Offset-Header_Size-PreviousTagSize-4<File_Size-65536))
+        if ((((Count_Get(Stream_Video)==0 || Stream[Stream_Video].TimeStamp!=(int32u)-1)
+           && (Count_Get(Stream_Audio)==0 || Stream[Stream_Audio].TimeStamp!=(int32u)-1))
+          || (File_Size>65536*2 && File_Offset+Buffer_Offset-Header_Size-PreviousTagSize-4<File_Size-65536))
+         && Config_ParseSpeed<1)
             Finish();
         else if (Element_Code==0xFA) //RM metadata have a malformed PreviousTagSize, always
         {
@@ -827,21 +828,21 @@ void File_Flv::video()
             video_stream_FrameRate_Detected=true;
     }
 
-    //Needed?
-    if (!video_stream_Count)
-        return; //No more need of Video stream
-
     if (Element_Size==0) //Header says that video is present, but there is only one null packet
     {
         Element_Info("Null");
         return;
     }
 
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+
+    //Needed?
+    if (!video_stream_Count && Config_ParseSpeed<1)
+        return; //No more need of Video stream
+
     //Delay
     if (Stream[Stream_Video].Delay==(int32u)-1)
         Stream[Stream_Video].Delay=Time;
-
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
 
     //Parsing
     int8u Codec, FrameType;
@@ -851,12 +852,6 @@ void File_Flv::video()
     Get_S1 (4, Codec,                                           "codecID"); Param_Info(Flv_Codec_Video[Codec]); Element_Info(Flv_Codec_Video[Codec]);
     BS_End();
     Element_End();
-
-    if (Stream[Stream_Video].PacketCount==60) //2s
-    {
-        video_stream_Count=false;
-        return;
-    }
 
     FILLING_BEGIN();
         //Filling
@@ -1070,21 +1065,21 @@ void File_Flv::audio()
     Stream[Stream_Audio].PacketCount++;
     Element_Info(Stream[Stream_Audio].PacketCount);
 
-    //Needed?
-    if (!audio_stream_Count)
-        return; //No more need of Audio stream
-
     if (Element_Size==0) //Header says that audio is present, but there is only one null packet
     {
         Element_Info("Null");
         return;
     }
 
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset+1, (size_t)(Element_Size-Element_Offset-1), ContentType_MainStream);
+
+    //Needed?
+    if (!audio_stream_Count && Config_ParseSpeed<1)
+        return; //No more need of Audio stream
+
     //Delay
     if (Stream[Stream_Audio].Delay==(int32u)-1)
         Stream[Stream_Audio].Delay=Time;
-
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
 
     //Parsing
     int8u  codec, sampling_rate;
@@ -1103,12 +1098,6 @@ void File_Flv::audio()
     {
         sampling_rate=5; //8000 Hz forced
         is_stereo=false; //Mono forced
-    }
-
-    if (Stream[Stream_Audio].PacketCount==60) //2s
-    {
-        audio_stream_Count=false;
-        return;
     }
 
     FILLING_BEGIN();
