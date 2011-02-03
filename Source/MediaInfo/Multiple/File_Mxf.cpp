@@ -1703,7 +1703,7 @@ void File_Mxf::Header_Parse()
     }
 
     //Filling
-    if (Buffer_Offset+Length_Final>(size_t)-1 || Buffer_Offset+(size_t)Length_Final>Buffer_Size)
+    if (Buffer_Offset+Element_Offset+Length_Final>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length_Final)>Buffer_Size)
     {
         int32u Code_Compare1=Code.hi>>32;
         int32u Code_Compare2=(int32u)Code.hi;
