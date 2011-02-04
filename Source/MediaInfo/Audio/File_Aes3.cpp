@@ -272,10 +272,13 @@ void File_Aes3::Streams_Fill()
 
     if (!From_Raw && !From_Aes3 && !IsPcm && IsParsingNonPcm)
     {
-        Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, Endianess?"Little":"Big");
-        Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Container_Bits);
-        if (Retrieve(Stream_Audio, 0, Audio_BitDepth).empty())
-            Fill(Stream_Audio, 0, Audio_BitDepth, Stream_Bits);
+        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+        {
+            Fill(Stream_Audio, Pos, Audio_Format_Settings_Endianness, Endianess?"Little":"Big");
+            Fill(Stream_Audio, Pos, Audio_Format_Settings_Mode, Container_Bits);
+            if (Retrieve(Stream_Audio, Pos, Audio_BitDepth).empty())
+                Fill(Stream_Audio, Pos, Audio_BitDepth, Stream_Bits);
+        }
     }
 }
 
@@ -1085,7 +1088,12 @@ void File_Aes3::Frame_FromMpegPs()
     }
 
     if (!Status[IsAccepted])
+    {
         Accept("AES3");
+        Container_Bits=Stream_Bits=16+4*bits_per_sample;
+        if (Container_Bits%8)
+            Container_Bits+=4; //Rounded to next byte
+    }
 
     //Parsing
     switch (bits_per_sample)

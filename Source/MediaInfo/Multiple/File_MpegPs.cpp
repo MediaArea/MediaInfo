@@ -388,7 +388,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
     {
         ///Saving StreamKind and Stream_Pos
         Temp.StreamKind=StreamKind_Last;
-        Temp.StreamPos=StreamPos_Last;
+        Temp.StreamPos=Count_Get(StreamKind_Last)-Count;
 
         //Common
         if (Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
