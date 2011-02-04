@@ -2289,6 +2289,13 @@ void File_Mpegv::group_start()
         if (TimeCodeIsNotTrustable)
             return;
 
+        if (Time_Current_Seconds==0 && Time_Current_Frames==0 && Hours==0 && Minutes==0 && Seconds==0 && Frames==0)
+        {
+            //Time code is always 0
+            TimeCodeIsNotTrustable=true;
+            return;
+        }
+
         //Calculating
         Time_Current_Seconds=60*60*Hours+60*Minutes+Seconds;
         Time_Current_Frames =Frames;
