@@ -1045,6 +1045,8 @@ void File_Aes3::Frame_WithPadding()
     }
 
     #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+            Demux_Level=4; //Intermediate
         Demux(Info, Info_Offset, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
     Parser_Parse(Info, Info_Offset);
