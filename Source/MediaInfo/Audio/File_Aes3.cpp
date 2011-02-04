@@ -270,7 +270,7 @@ void File_Aes3::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Format, "AES3");
     }
 
-    if (!From_Raw && !From_MpegPs && !From_Aes3 && !IsPcm)
+    if (!From_Raw && !From_Aes3 && !IsPcm && IsParsingNonPcm)
     {
         Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, Endianess?"Little":"Big");
         Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Container_Bits);
@@ -599,6 +599,7 @@ bool File_Aes3::Synchronize()
     }
 
     //Synched
+    IsParsingNonPcm=true;
     Data_Accept("AES3");
     return true;
 }
