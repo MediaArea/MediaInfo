@@ -1023,8 +1023,8 @@ void File_Mpeg_Psi::Table_00()
             {
                 program_number=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin()->first;
                 program_number_Remove();
-
             }
+
         Complete_Stream->transport_stream_id=table_id_extension;
         Complete_Stream->transport_stream_id_IsValid=true;
     }
@@ -1073,7 +1073,6 @@ void File_Mpeg_Psi::Table_00()
         {
             program_number=program_number_Previous->first;
             program_number_Remove();
-
         }
     FILLING_END();
 }
