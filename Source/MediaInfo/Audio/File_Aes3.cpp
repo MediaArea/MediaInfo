@@ -247,10 +247,8 @@ void File_Aes3::Streams_Fill()
     {
         if (Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).empty() && BitRate!=(int64u)-1)
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
-        return; //Done elsewhere
     }
-
-    if (From_MpegPs)
+    else if (From_MpegPs)
     {
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
@@ -270,6 +268,14 @@ void File_Aes3::Streams_Fill()
     {
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "AES3");
+    }
+
+    if (!From_Raw && !From_MpegPs && !From_Aes3 && !IsPcm)
+    {
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, Endianess?"Little":"Big");
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Container_Bits);
+        if (Retrieve(Stream_Audio, 0, Audio_BitDepth).empty())
+            Fill(Stream_Audio, 0, Audio_BitDepth, Stream_Bits);
     }
 }
 

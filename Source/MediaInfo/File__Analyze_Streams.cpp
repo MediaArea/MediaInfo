@@ -1294,14 +1294,6 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         }
     }
 
-    //Clearing
-    for (size_t Pos=Size-1; Pos>=General_Inform; Pos--) //Descendant because Clear() remove the unknown fields
-    {
-        const Ztring &ToFill_Value=ToAdd.Get(StreamKind, StreamPos_From, Pos);
-        if (!ToFill_Value.empty())
-            ToAdd.Clear(StreamKind, StreamPos_From, Pos);
-    }
-
     //Specific stuff
     if (StreamKind==Stream_Video)
     {
