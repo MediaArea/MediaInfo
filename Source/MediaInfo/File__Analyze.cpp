@@ -507,7 +507,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     if (Element_IsWaitingForMoreData())
         return; //Wait for more data
     Buffer_Offset+=(size_t)Element_Offset;
-    if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>=Buffer_Size || File_GoTo!=(int64u)-1)
+    if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
         return; //Finish
 
     //Parsing;
@@ -1997,10 +1997,28 @@ void File__Analyze::ForceFinish ()
     if (Status[IsAccepted])
     {
         Fill();
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return;
+		#endif //MEDIAINFO_DEMUX
         Streams_Finish();
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return;
+		#endif //MEDIAINFO_DEMUX
         if (Status[IsUpdated])
+        {
             Open_Buffer_Update();
+			#if MEDIAINFO_DEMUX
+				if (Config->Demux_EventWasSent)
+					return;
+			#endif //MEDIAINFO_DEMUX
+        }
         Streams_Finish_Global();
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return;
+		#endif //MEDIAINFO_DEMUX
     }
 
     Status[IsFinished]=true;

@@ -849,8 +849,12 @@ void File_MpegTs::Streams_Finish()
                 Complete_Stream->Streams[StreamID]->Parser->File_Size=File_Offset+Buffer_Offset+Element_Offset;
                 Open_Buffer_Continue(Complete_Stream->Streams[StreamID]->Parser, Buffer, 0);
                 Complete_Stream->Streams[StreamID]->Parser->File_Size=File_Size;
+                Finish(Complete_Stream->Streams[StreamID]->Parser);
+                #if MEDIAINFO_DEMUX
+                    if (Config->Demux_EventWasSent)
+                        return;
+                #endif //MEDIAINFO_DEMUX
             }
-            Finish(Complete_Stream->Streams[StreamID]->Parser);
         }
 
     File__Duplicate_Streams_Finish();

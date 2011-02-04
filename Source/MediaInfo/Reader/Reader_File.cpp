@@ -255,6 +255,11 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 
     MI->Open_Buffer_Finalize();
 
+	#if MEDIAINFO_DEMUX
+		if (MI->Config.Demux_EventWasSent)
+			return 2; //Must return immediately
+	#endif //MEDIAINFO_DEMUX
+
     return 1;
 }
 
