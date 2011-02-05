@@ -11,7 +11,8 @@ Version 0.7.42, 2011-
 --------------
 + AES3: bit depth of AES3, bit depth of compressed audio stream, endianess
 x #3171468, ADIF: crash in some cases
-x #3169916, IFO, crash in some cases
+x #3169916, IFO: crash in some cases
+x #3173391, Id3v2: was using local encoding instead of ISO-8859-1 
 x MPEG Video, discarding bad (always 0) group_start
 
 Version 0.7.41, 2011-01-24

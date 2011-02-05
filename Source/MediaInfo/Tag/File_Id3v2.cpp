@@ -784,10 +784,10 @@ void File_Id3v2::T___()
     Get_B1 (Encoding,                                           "Text_encoding");
     switch (Encoding)
     {
-        case 0 : Get_Local (Element_Size-Element_Offset, Element_Value, "Information"); break;
-        case 1 : Get_UTF16 (Element_Size-Element_Offset, Element_Value, "Information"); break;
-        case 2 : Get_UTF16B(Element_Size-Element_Offset, Element_Value, "Information"); break;
-        case 3 : Get_UTF8  (Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 0 : Get_ISO_8859_1 (Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 1 : Get_UTF16      (Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 2 : Get_UTF16B     (Element_Size-Element_Offset, Element_Value, "Information"); break;
+        case 3 : Get_UTF8       (Element_Size-Element_Offset, Element_Value, "Information"); break;
         default : ;
     }
 
@@ -822,17 +822,15 @@ void File_Id3v2::T__X()
                     return; //Problem
                 switch (Encoding)
                 {
-                    // case 0 : Get_Local (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
                     case 0 : Get_ISO_8859_1 (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
-                    case 3 : Get_UTF8  (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    case 3 : Get_UTF8       (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
                     default : ;
                 }
                 Skip_B1(                                        "Null");
                 switch (Encoding)
                 {
-                    // case 0 : Get_Local (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
                     case 0 : Get_ISO_8859_1 (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
-                    case 3 : Get_UTF8  (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    case 3 : Get_UTF8       (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
                     default : ;
                 }
                 break;
@@ -867,7 +865,7 @@ void File_Id3v2::T__X()
 //---------------------------------------------------------------------------
 void File_Id3v2::W___()
 {
-    Get_Local(Element_Size, Element_Value,                      "URL");
+    Get_ISO_8859_1(Element_Size, Element_Value,                 "URL");
 
     //Filling
     Fill_Name();
@@ -883,10 +881,10 @@ void File_Id3v2::W__X()
     Get_B1 (Encoding,                                           "Text_encoding");
     switch (Encoding)
     {
-        case 0 : Get_Local (Element_Size-1, Element_Values(0),  "Description"); break;
-        case 1 : Get_UTF16 (Element_Size-1, Element_Values(0),  "Description"); break;
-        case 2 : Get_UTF16B(Element_Size-1, Element_Values(0),  "Description"); break;
-        case 3 : Get_UTF8  (Element_Size-1, Element_Values(0),  "Description"); break;
+        case 0 : Get_ISO_8859_1 (Element_Size-1, Element_Values(0),  "Description"); break;
+        case 1 : Get_UTF16      (Element_Size-1, Element_Values(0),  "Description"); break;
+        case 2 : Get_UTF16B     (Element_Size-1, Element_Values(0),  "Description"); break;
+        case 3 : Get_UTF8       (Element_Size-1, Element_Values(0),  "Description"); break;
         default : ;
     }
     Element_Offset=1;
@@ -897,7 +895,7 @@ void File_Id3v2::W__X()
     else
         Element_Offset+=Element_Values(0).size()+1;   //UTF-8 NULL
     if (Element_Offset<Element_Size)
-        Get_Local(Element_Size-Element_Offset, Element_Values(1),  "URL");
+        Get_ISO_8859_1(Element_Size-Element_Offset, Element_Values(1), "URL");
 }
 
 //---------------------------------------------------------------------------
@@ -920,12 +918,12 @@ void File_Id3v2::APIC()
     else
     {
         int64u Element_Offset_Real=Element_Offset;
-        Get_Local(Element_Size-Element_Offset, Mime,            "MIME_type");
+        Get_ISO_8859_1(Element_Size-Element_Offset, Mime,       "MIME_type");
         Element_Offset=Element_Offset_Real+Mime.size()+1;
     }
     Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
     int64u Element_Offset_Real=Element_Offset;
-    Get_Local(Element_Size-Element_Offset, Description,         "Description");
+    Get_ISO_8859_1(Element_Size-Element_Offset, Description,    "Description");
     Element_Offset=Element_Offset_Real+Description.size()+1;
     if (Element_Offset>Element_Size)
         return; //There is a problem
@@ -1009,7 +1007,7 @@ void File_Id3v2::PRIV()
 {
     //Parsing
     Ztring Owner;
-    Get_Local(Element_Size, Owner,                              "Owner identifier");
+    Get_ISO_8859_1(Element_Size, Owner,                         "Owner identifier");
     Element_Offset=Owner.size()+1;
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 }
@@ -1048,10 +1046,10 @@ void File_Id3v2::SYLT()
     Skip_B1(                                                    "Content_type");
     switch (Encoding)
     {
-        case 0 : Get_Local (Element_Size-6, Element_Value,      "Short_content_descrip"); break;
-        case 1 : Get_UTF16 (Element_Size-6, Element_Value,      "Short_content_descrip"); break;
-        case 2 : Get_UTF16B(Element_Size-6, Element_Value,      "Short_content_descrip"); break;
-        case 3 : Get_UTF8  (Element_Size-6, Element_Value,      "Short_content_descrip"); break;
+        case 0 : Get_ISO_8859_1 (Element_Size-6, Element_Value, "Short_content_descrip"); break;
+        case 1 : Get_UTF16      (Element_Size-6, Element_Value, "Short_content_descrip"); break;
+        case 2 : Get_UTF16B     (Element_Size-6, Element_Value, "Short_content_descrip"); break;
+        case 3 : Get_UTF8       (Element_Size-6, Element_Value, "Short_content_descrip"); break;
         default : ;
     }
 
