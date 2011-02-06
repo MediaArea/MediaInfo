@@ -1935,6 +1935,9 @@ void File__Analyze::Finish ()
     if (Status[IsFinished])
         return;
 
+    if (!ShouldContinueParsing && !Status[IsFilled])
+        Fill();
+
     if (ShouldContinueParsing || Config_ParseSpeed==1)
     {
         #if MEDIAINFO_TRACE
