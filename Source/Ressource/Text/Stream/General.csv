@@ -131,6 +131,9 @@ Movie/Url;;;Y YT;;;Homepage for the movie;;Title
 Album;;;Y YT;;;Name of an audio-album. Eg : The joshua tree;;Title
 Album/More;;;Y YT;;;More infos about the album;;Title
 Album/Sort;;;Y YT;;;;;Title
+Album/Performer;;;Y YT;;;Album performer/artist of this file;;Entity
+Album/Performer/Sort;;;Y YT;;;;;Entity
+Album/Performer/Url;;;Y YT;;;Homepage of the album performer/artist;;Entity
 Comic;;;Y YT;;;Name of the comic.;;Title
 Comic/More;;;Y YT;;;;;Title
 Comic/Position_Total;;;Y YI;;;;;Title
@@ -143,12 +146,15 @@ Track/Url;;;Y YT;;;Link to a site about this track;;Title
 Track/Sort;;;Y YT;;;;;Title
 Track/Position;;;Y YI;;;Number of this track;;Title
 Track/Position_Total;;;Y YI;;;Place of this track, e.g. 3 of 15;;Title
+Grouping;;;Y YT;;;iTunes grouping;;Title
 Chapter;;;Y YT;;;Name of the chapter.;;Title
 SubTrack;;;Y YT;;;Name of the subtrack.;;Title
 Original/Album;;;Y YT;;;Original name of album, serie...;;Title
 Original/Movie;;;Y YT;;;Original name of the movie;;Title
 Original/Part;;;Y YT;;;Original name of the part in the original support;;Title
 Original/Track;;;Y YT;;;Original name of the track in the original support;;Title
+Compilation;;;Y YT;;;iTunes compilation;;Title
+Compilation/String;;Yes;Y YT;;;iTunes compilation;;Title
 Performer;;;Y YT;;;Main performer/artist of this file;;Entity
 Performer/Sort;;;Y YT;;;;;Entity
 Performer/Url;;;Y YT;;;Homepage of the performer/artist;;Entity

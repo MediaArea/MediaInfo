@@ -748,7 +748,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___enc : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___fmt : Parameter="Origin"; return Method_String;
         case Elements::moov_meta___gen : Parameter="Genre"; return Method_String;
-        case Elements::moov_meta___grp : Parameter="Genre"; return Method_String;
+        case Elements::moov_meta___grp : Parameter="Grouping"; return Method_String;
         case Elements::moov_meta___hos : Parameter="HostComputer"; return Method_String;
         case Elements::moov_meta___inf : Parameter="Title/More"; return Method_String;
         case Elements::moov_meta___key : Parameter="Keywords"; return Method_String;
@@ -763,11 +763,11 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___swr : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___too : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___wrn : Parameter="Warning"; return Method_String;
-        case Elements::moov_meta___wrt : Parameter="ScreenplayBy"; return Method_String;
+        case Elements::moov_meta___wrt : Parameter="Composer"; return Method_String;
         case Elements::moov_meta__auth : Parameter="Performer"; return Method_String2;
         case Elements::moov_meta__albm : Parameter="Album"; return Method_String2; //Has a optional track number after the NULL byte
-        case Elements::moov_meta__aART : Parameter="Performer"; return Method_String2;
-        case Elements::moov_meta__cpil : Parameter.clear(); return Method_None;
+        case Elements::moov_meta__aART : Parameter="Album/Performer"; return Method_String2;
+        case Elements::moov_meta__cpil : Parameter="Compilation"; return Method_Binary;
         case Elements::moov_meta__cprt : Parameter="Copyright"; return Method_String2;
         case Elements::moov_meta__disk : Parameter="Part"; return Method_Binary;
         case Elements::moov_meta__dscp : Parameter="Title/More"; return Method_String2;
@@ -779,7 +779,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__tool : Parameter="Encoded_Application"; return Method_String3;
         case Elements::moov_meta__trkn : Parameter="Track"; return Method_Binary;
         case Elements::moov_meta__year : Parameter="Recorded_Date"; return Method_String2;
-        case Elements::moov_meta__tmpo : Parameter.clear(); return Method_None;
+        case Elements::moov_meta__tmpo : Parameter="BPM"; return Method_Binary;
         default :
             {
                 Parameter.clear();

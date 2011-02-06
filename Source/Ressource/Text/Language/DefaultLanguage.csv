@@ -233,6 +233,7 @@ ColorSpace;Color space
 colour_primaries;Color primaries
 Comment;Comment
 CommissionedBy;Commissioned by
+Compilation;Compilation
 CompleteName;Complete name
 Composer;Composer
 Compression_Mode;Compression mode
@@ -502,6 +503,7 @@ Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
+Grouping;Grouping
 Go to WebSite;Go to website
 h;h
 Header file;Create a header file
@@ -527,9 +529,11 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
+Interleaved;Interleaved
 Interleave_Duration;Interleave, duration
 Interleave_Preload;Interleave, preload duration
 Interleave_VideoFrames;Interleave, duration
+InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

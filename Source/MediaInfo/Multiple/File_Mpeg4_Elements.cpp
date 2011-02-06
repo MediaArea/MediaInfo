@@ -1831,6 +1831,18 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             Parameter.clear(); //Set as already filled
                         }
                     }
+                    if (Parameter=="Compilation")
+                    {
+                        if (Value==_T("1"))
+                            Value=_T("Yes");
+                        else
+                            Value.clear(); //This is usually set to 0 even if the user did not explicitely indicated something (default)
+                    }
+                    if (Parameter=="BPM")
+                    {
+                        if (Value==_T("0"))
+                            Value.clear();
+                    }
                     if (!Parameter.empty())
                     {
                         Element_Info(Parameter.c_str());

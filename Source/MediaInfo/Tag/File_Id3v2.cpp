@@ -338,56 +338,31 @@ bool File_Id3v2::Static_Synchronize_Tags(const int8u* Buffer, size_t Buffer_Offs
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Id3v2::Streams_Finish()
+void File_Id3v2::Streams_Fill()
 {
     if (Count_Get(Stream_General)==0)
         return;
 
     //Specific formats (multiple Id3v2 tags for one MI tag)
-    Ztring Recorded_Date;
     if (Retrieve(Stream_General, 0, General_Recorded_Date).empty() && !Year.empty())
     {
-        Recorded_Date+=Year;
+        Ztring Recorded_Date=Year;
         if (!Month.empty() && !Month.empty())
         {
-            Recorded_Date+=_T("-");
+            Recorded_Date+=_T('-');
             Recorded_Date+=Year;
-            Recorded_Date+=_T("-");
+            Recorded_Date+=_T('-');
             Recorded_Date+=Day;
             if (!Month.empty() && !Month.empty())
             {
-                Recorded_Date+=_T(" ");
+                Recorded_Date+=_T(' ');
                 Recorded_Date+=Hour;
-                Recorded_Date+=_T(":");
+                Recorded_Date+=_T(':');
                 Recorded_Date+=Minute;
             }
         }
+        Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date);
     }
-    if (!Recorded_Date.empty())
-        Fill(Stream_General, 0, "Recorded_Date", Recorded_Date);
-
-    //Special cases
-    //-Position and total parts
-    if (Retrieve(Stream_General, 0, General_Part_Position).find(_T("/"))!=Error)
-    {
-        Ztring Temp=Retrieve(Stream_General, 0, General_Part_Position);
-        Fill(Stream_General, 0, General_Part_Position_Total, Temp.SubString(_T("/"), _T("")), true);
-        Fill(Stream_General, 0, General_Part_Position, Temp.SubString(_T(""), _T("/")), true);
-    }
-    if (Retrieve(Stream_General, 0, General_Track_Position).find(_T("/"))!=Error)
-    {
-        const Ztring &Temp=Retrieve(Stream_General, 0, General_Track_Position);
-        Fill(Stream_General, 0, General_Track_Position_Total, Temp.SubString(_T("/"), _T("")), true);
-        Fill(Stream_General, 0, General_Track_Position, Temp.SubString(_T(""), _T("/")), true);
-    }
-    //-Genre
-    if (Retrieve(Stream_General, 0, General_Genre).find(_T("("))==0)
-    {
-        const Ztring &Genre=Retrieve(Stream_General, 0, General_Genre);
-        Fill(Stream_General, 0, General_Genre, Genre.SubString(_T("("), _T(")")), true); //Replace (nn) by nn
-    }
-    if (Retrieve(Stream_General, 0, General_Genre)==_T("0") || Retrieve(Stream_General, 0, General_Genre)==_T("255"))
-        Clear(Stream_General, 0, General_Genre);
 }
 
 //***************************************************************************
@@ -791,7 +766,16 @@ void File_Id3v2::T___()
         default : ;
     }
 
+    //Exceptions
+    if (Element_Code==Elements::TCMP || Element_Code==Elements::TCP)
+    {
+        if (Element_Value==_T("0")) Element_Value.clear(); //This is usually set to 0 even if the user did not explicitely indicated something (default)
+        if (Element_Value==_T("1")) Element_Value=_T("Yes");
+    }
+
     //Filling
+    if (Element_Value.empty())
+        return;
     Fill_Name();
 }
 
@@ -1063,6 +1047,8 @@ void File_Id3v2::WXXX()
     W__X();
 
     //Filling
+    if (Element_Values(1).empty())
+        return;
     if (Element_Values(0).empty())
         Element_Values(0)=_T("URL");
     Fill_Name();
@@ -1106,8 +1092,17 @@ void File_Id3v2::Fill_Name()
         case Elements::SYTC : break;
         case Elements::TALB : Fill(Stream_General, 0, General_Album, Element_Value); break;
         case Elements::TBPM : Fill(Stream_General, 0, General_BPM, Element_Value); break;
+        case Elements::TCMP : Fill(Stream_General, 0, General_Compilation, Element_Value); break;
         case Elements::TCOM : Fill(Stream_General, 0, General_Composer, Element_Value); break;
-        case Elements::TCON : Fill(Stream_General, 0, General_Genre, Element_Value); break;
+        case Elements::TCON :
+                              {
+                                if (Element_Value.find(_T("("))==0)
+                                    Element_Value=Element_Value.SubString(_T("("), _T(")")); //Replace (nn) by nn
+                                if (Element_Value==_T("0") || Element_Value==_T("255"))
+                                    Element_Value.clear();
+                                Fill(Stream_General, 0, General_Genre, Element_Value);
+                              }
+                              break;
         case Elements::TCOP : Fill(Stream_General, 0, General_Copyright, Element_Value); break;
         case Elements::TDA  :
         case Elements::TDAT : if (Element_Value.size()==4)
@@ -1131,7 +1126,7 @@ void File_Id3v2::Fill_Name()
                             Minute.assign(Element_Value.c_str(), 2, 2); break;
                          }
         case Elements::TIPL : Fill(Stream_General, 0, General_ThanksTo, Element_Value); break;
-        case Elements::TIT1 : Fill(Stream_General, 0, General_ContentType, Element_Value); break;
+        case Elements::TIT1 : Fill(Stream_General, 0, General_Grouping, Element_Value); break;
         case Elements::TIT2 : Fill(Stream_General, 0, General_Track, Element_Value); break;
         case Elements::TIT3 : Fill(Stream_General, 0, General_Track_More, Element_Value); break;
         case Elements::TKEY : Fill(Stream_General, 0, "Initial key", Element_Value); break;
@@ -1147,13 +1142,29 @@ void File_Id3v2::Fill_Name()
         case Elements::TORY : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
         case Elements::TOWN : Fill(Stream_General, 0, General_Owner, Element_Value); break;
         case Elements::TPE1 : Fill(Stream_General, 0, General_Performer, Element_Value); break;
-        case Elements::TPE2 : Fill(Stream_General, 0, General_Accompaniment, Element_Value); break;
+        case Elements::TPE2 : Fill(Stream_General, 0, General_Album_Performer, Element_Value); break;
         case Elements::TPE3 : Fill(Stream_General, 0, General_Conductor, Element_Value); break;
         case Elements::TPE4 : Fill(Stream_General, 0, General_RemixedBy, Element_Value); break;
-        case Elements::TPOS : Fill(Stream_General, 0, General_Part_Position, Element_Value); break;
+        case Elements::TPOS :
+                              {
+                                ZtringList List; List.Separator_Set(0, _T("/")); List.Write(Element_Value);
+                                if (!List(0).empty())
+                                    Fill(Stream_General, 0, General_Part_Position, List(0));
+                                if (!List(1).empty())
+                                    Fill(Stream_General, 0, General_Part_Position_Total, List(1));
+                              }
+                              break;
         case Elements::TPRO : Fill(Stream_General, 0, General_Producer_Copyright, Element_Value); break;
         case Elements::TPUB : Fill(Stream_General, 0, General_Publisher, Element_Value); break;
-        case Elements::TRCK : Fill(Stream_General, 0, General_Track_Position, Element_Value); break;
+        case Elements::TRCK :
+                              {
+                                ZtringList List; List.Separator_Set(0, _T("/")); List.Write(Element_Value);
+                                if (!List(0).empty())
+                                    Fill(Stream_General, 0, General_Track_Position, List(0));
+                                if (!List(1).empty())
+                                    Fill(Stream_General, 0, General_Track_Position_Total, List(1));
+                              }
+                              break;
         case Elements::TRDA : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
         case Elements::TRSN : Fill(Stream_General, 0, General_ServiceName, Element_Value); break;
         case Elements::TRSO : Fill(Stream_General, 0, General_ServiceProvider, Element_Value); break;
@@ -1166,7 +1177,9 @@ void File_Id3v2::Fill_Name()
         case Elements::TSRC : Fill(Stream_General, 0, General_ISRC, Element_Value); break;
         case Elements::TSSE : Fill(Stream_General, 0, General_Encoded_Library_Settings, Element_Value); break;
         case Elements::TSST : Fill(Stream_General, 0, "Set subtitle", Element_Value); break;
-        case Elements::TXXX :      if (Element_Values(0)==_T("CT_GAPLESS_DATA"))        ;
+        case Elements::TXXX : if (Element_Values(0)==_T("AccurateRipResult"))      ;
+                         else if (Element_Values(0)==_T("AccurateRipDiscID"))      ;
+                         else if (Element_Values(0)==_T("CT_GAPLESS_DATA"))        ;
                          else if (Element_Values(0)==_T("DISCNUMBER"))             Fill(Stream_General, 0, General_Part_Position,           Element_Values(1), true);
                          else if (Element_Values(0)==_T("DISCTOTAL"))              Fill(Stream_General, 0, General_Part_Position_Total,     Element_Values(1), true);
                          else if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, General_Played_First_Date,       Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
@@ -1215,7 +1228,16 @@ void File_Id3v2::Fill_Name()
         case Elements::TAL  : Fill(Stream_General, 0, "Album", Element_Value); break;
         case Elements::TBP  : Fill(Stream_General, 0, "BPM", Element_Value); break;
         case Elements::TCM  : Fill(Stream_General, 0, "Composer", Element_Value); break;
-        case Elements::TCO  : Fill(Stream_General, 0, "Genre", Element_Value); break;
+        case Elements::TCO  :
+                              {
+                                if (Element_Value.find(_T("("))==0)
+                                    Element_Value=Element_Value.SubString(_T("("), _T(")")); //Replace (nn) by nn
+                                if (Element_Value==_T("0") || Element_Value==_T("255"))
+                                    Element_Value.clear();
+                                if (!Element_Value.empty())
+                                    Fill(Stream_General, 0, General_Genre, Element_Value);
+                              }
+                              break;
         case Elements::TCR  : Fill(Stream_General, 0, "Copyright", Element_Value); break;
         case Elements::TDY  : break;
         case Elements::TEN  : Fill(Stream_General, 0, "Encoded_Library", Element_Value); break;
@@ -1233,14 +1255,30 @@ void File_Id3v2::Fill_Name()
         case Elements::TP2  : Fill(Stream_General, 0, "Accompaniment", Element_Value); break;
         case Elements::TP3  : Fill(Stream_General, 0, "Conductor", Element_Value); break;
         case Elements::TP4  : Fill(Stream_General, 0, "RemixedBy", Element_Value); break;
-        case Elements::TPA  : Fill(Stream_General, 0, "Part/Position", Element_Value); break;
+        case Elements::TPA  :
+                              {
+                                ZtringList List; List.Separator_Set(0, _T("/")); List.Write(Element_Value);
+                                if (!List(0).empty())
+                                    Fill(Stream_General, 0, General_Part_Position, List(0));
+                                if (!List(1).empty())
+                                    Fill(Stream_General, 0, General_Part_Position_Total, List(1));
+                              }
+                              break;
         case Elements::TPB  : Fill(Stream_General, 0, "Publisher", Element_Value); break;
         case Elements::TRC  : Fill(Stream_General, 0, "ISRC", Element_Value); break;
         case Elements::TRD  : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
-        case Elements::TRK  : Fill(Stream_General, 0, "Track/Position", Element_Value); break;
+        case Elements::TRK  :
+                              {
+                                ZtringList List; List.Separator_Set(0, _T("/")); List.Write(Element_Value);
+                                if (!List(0).empty())
+                                    Fill(Stream_General, 0, General_Track_Position, List(0));
+                                if (!List(1).empty())
+                                    Fill(Stream_General, 0, General_Track_Position_Total, List(1));
+                              }
+                              break;
         case Elements::TSI  : break;
         case Elements::TSS  : break;
-        case Elements::TT1  : Fill(Stream_General, 0, "ContentType", Element_Value); break;
+        case Elements::TT1  : Fill(Stream_General, 0, "Grouping", Element_Value); break;
         case Elements::TT2  : Fill(Stream_General, 0, "Track", Element_Value); break;
         case Elements::TT3  : Fill(Stream_General, 0, "Track/More", Element_Value); break;
         case Elements::TXT  : Fill(Stream_General, 0, "Lyricist", Element_Value); break;

@@ -48,7 +48,7 @@ public :
 
 private :
     //Streams management
-    void Streams_Finish();
+    void Streams_Fill();
 
     //Buffer - File header
     void FileHeader_Parse ();
@@ -95,7 +95,7 @@ private :
     void SYTC()   {Skip_XX(Element_Size, "Data");}
     void TALB()   {T___();}
     void TBPM()   {T___();}
-    void TCMP()   {Skip_XX(Element_Size, "Data");}
+    void TCMP()   {T___();}
     void TCOM()   {T___();}
     void TCON()   {T___();}
     void TCOP()   {T___();}
