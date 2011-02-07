@@ -1091,6 +1091,7 @@ void File_Aes3::Frame_FromMpegPs()
     {
         Accept("AES3");
         Container_Bits=Stream_Bits=16+4*bits_per_sample;
+        Endianess=false; //Big
         if (Container_Bits%8)
             Container_Bits+=4; //Rounded to next byte
     }
