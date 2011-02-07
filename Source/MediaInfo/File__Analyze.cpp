@@ -2402,7 +2402,6 @@ void File__Analyze::Details_Clear()
 //***************************************************************************
 // Demux
 //***************************************************************************
-
 #if MEDIAINFO_DEMUX
 void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype Content_Type)
 {
