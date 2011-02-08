@@ -894,6 +894,7 @@ void File_Avc::Synched_Init()
     pic_height_in_map_units_minus1=0;
     log2_max_frame_num_minus4=0;
     log2_max_pic_order_cnt_lsb_minus4=0;
+    max_pic_order_cnt_lsb=0;
     num_units_in_tick=0;
     time_scale=0;
     chroma_format_idc=1;
@@ -1311,7 +1312,7 @@ void File_Avc::slice_header()
             pic_struct_FirstDetected=bottom_field_flag?2:1; //2=BFF, 1=TFF
 
         //Saving some info
-        if (pic_order_cnt_type==0)
+        if (pic_order_cnt_type==0 && first_mb_in_slice==0)
         {
             if (field_pic_flag)
             {
@@ -1328,15 +1329,14 @@ void File_Avc::slice_header()
             // first  1/4: no change
             // second 1/4: all is after 0
             // third  1/4: no change
-            // fourth 1/4: all is before max_frame_num
-            size_t max_frame_num=1<<(log2_max_frame_num_minus4+4)<<1;
-            if (TemporalReference_Offset==0 || (!TemporalReference_Offset_Moved && pic_order_cnt_lsb==max_frame_num*3/4))
+            // fourth 1/4: all is before max_pic_order_cnt_lsb
+            if (TemporalReference_Offset==0 || (!TemporalReference_Offset_Moved && (pic_order_cnt_lsb>=max_pic_order_cnt_lsb*3/4 || pic_order_cnt_lsb==0)))
             {
-                TemporalReference_Offset+=max_frame_num;
+                TemporalReference_Offset+=max_pic_order_cnt_lsb;
                 TemporalReference_Offset_Moved=true;
 
                 //Purging the start
-                if (TemporalReference_Offset==2*max_frame_num)
+                if (TemporalReference_Offset==2*max_pic_order_cnt_lsb)
                 {
                     size_t Pos=0;
                     for(; Pos<TemporalReference.size(); Pos++)
@@ -1357,23 +1357,23 @@ void File_Avc::slice_header()
                 }
 
                 //Purging too big array
-                if (TemporalReference.size()>=max_frame_num*4)
+                if (TemporalReference.size()>=max_pic_order_cnt_lsb*4)
                 {
-                    TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+max_frame_num*2);
-                    if (max_frame_num*2<TemporalReference_Offset)
-                        TemporalReference_Offset-=max_frame_num*2;
-                    if (max_frame_num*2<TemporalReference_GA94_03_CC_Offset)
-                        TemporalReference_GA94_03_CC_Offset-=max_frame_num*2;
+                    TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+max_pic_order_cnt_lsb*2);
+                    if (max_pic_order_cnt_lsb*2<TemporalReference_Offset)
+                        TemporalReference_Offset-=max_pic_order_cnt_lsb*2;
+                    if (max_pic_order_cnt_lsb*2<TemporalReference_GA94_03_CC_Offset)
+                        TemporalReference_GA94_03_CC_Offset-=max_pic_order_cnt_lsb*2;
                     else
                         TemporalReference_GA94_03_CC_Offset=0;
                 }
             }
-            if ( TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_frame_num/4 && pic_order_cnt_lsb<=max_frame_num/2)
+            if ( TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_pic_order_cnt_lsb/4 && pic_order_cnt_lsb<=max_pic_order_cnt_lsb/2)
             {
                 TemporalReference_Offset_Moved=false;
             }
 
-            TemporalReference_Offset_pic_order_cnt_lsb_Last=TemporalReference_Offset-(TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_frame_num/2?max_frame_num:0)+pic_order_cnt_lsb;
+            TemporalReference_Offset_pic_order_cnt_lsb_Last=TemporalReference_Offset-(TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_pic_order_cnt_lsb/2?max_pic_order_cnt_lsb:0)+pic_order_cnt_lsb;
 
             if (TemporalReference_Offset_pic_order_cnt_lsb_Last>=TemporalReference.size())
                 TemporalReference.resize(TemporalReference_Offset_pic_order_cnt_lsb_Last+1);
@@ -1778,8 +1778,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
     Element_Info("Styled captioning");
 
     //Handling missing frames
-    size_t max_frame_num=1<<(log2_max_frame_num_minus4+4)<<1;
-    if (TemporalReference_GA94_03_CC_Offset+max_frame_num/2<TemporalReference_Offset-(TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_frame_num/2?max_frame_num:0)+pic_order_cnt_lsb)
+    if (TemporalReference_GA94_03_CC_Offset+max_pic_order_cnt_lsb/2<TemporalReference_Offset-(TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_pic_order_cnt_lsb/2?max_pic_order_cnt_lsb:0)+pic_order_cnt_lsb)
     {
         size_t Pos=TemporalReference_Offset+pic_order_cnt_lsb;
         for(; Pos<TemporalReference.size(); Pos++)
@@ -2547,6 +2546,12 @@ void File_Avc::seq_parameter_set_data()
     TEST_SB_SKIP(                                               "vui_parameters_present_flag");
         vui_parameters();
     TEST_SB_END();
+
+    FILLING_BEGIN();
+        if (log2_max_pic_order_cnt_lsb_minus4>12)
+            return; //Problem, not valid
+        max_pic_order_cnt_lsb=(int32u)pow(2.0, (int)(log2_max_pic_order_cnt_lsb_minus4+4));
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

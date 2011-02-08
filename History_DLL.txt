@@ -16,6 +16,8 @@ x #3171468, ADIF: crash in some cases
 x #3169916, IFO: crash in some cases
 x #3173391, Id3v2: was using local encoding instead of ISO-8859-1 
 x MPEG Video, discarding bad (always 0) group_start
+x AVC: crash with file having big log2_max_pic_order_cnt_lsb_minus4 value 
+x AVC: wrong GOP information in some cases
 
 Version 0.7.41, 2011-01-24
 --------------

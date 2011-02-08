@@ -243,6 +243,7 @@ private :
     int32u pic_height_in_map_units_minus1;
     int32u log2_max_frame_num_minus4;
     int32u log2_max_pic_order_cnt_lsb_minus4;
+    int32u max_pic_order_cnt_lsb;
     int32u num_units_in_tick;
     int32u time_scale;
     int32u chroma_format_idc;
