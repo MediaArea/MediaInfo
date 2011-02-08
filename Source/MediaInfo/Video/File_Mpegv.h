@@ -247,6 +247,7 @@ private :
     int8u  video_format;
     int8u  picture_structure;
     int8u  vbv_buffer_size_extension;
+    int8u  intra_dc_precision;
     bool   Time_End_NeedComplete;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;

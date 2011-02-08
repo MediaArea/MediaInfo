@@ -627,6 +627,13 @@ void File_Mpegv::Streams_Fill()
             Merge(*AfdBarData_Parser, Stream_Video, 0, 0);
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
+    //extra
+    if (intra_dc_precision!=(int8u)-1)
+    {
+        Fill(Stream_Video, 0, "intra_dc_precision", intra_dc_precision);
+        (*Stream_More)[Stream_Video][0](Ztring().From_Local("intra_dc_precision"), Info_Options)=_T("N NT");
+    }
+
     //Commercial name
     if (Retrieve(Stream_Video, 0, Video_Format_Version)==_T("Version 2")
      && Retrieve(Stream_Video, 0, Video_DisplayAspectRatio)==_T("1.778")
@@ -960,6 +967,7 @@ void File_Mpegv::Synched_Init()
     frame_rate_extension_d=0;
     video_format=5; //Unspecified video format
     vbv_buffer_size_extension=0;
+    intra_dc_precision=(int8u)-1;
     Time_End_NeedComplete=false;
     load_intra_quantiser_matrix=false;
     load_non_intra_quantiser_matrix=false;
@@ -2129,7 +2137,7 @@ void File_Mpegv::extension_start()
                     Skip_S1( 4,                                 "f_code_forward_vertical");
                     Skip_S1( 4,                                 "f_code_backward_horizontal");
                     Skip_S1( 4,                                 "f_code_backward_vertical");
-                    Skip_S1( 2,                                 "intra_dc_precision");
+                    Get_S1 ( 2, intra_dc_precision,             "intra_dc_precision");
                     Get_S1 ( 2, picture_structure,              "picture_structure"); Param_Info(Mpegv_picture_structure[picture_structure]);
                     Get_SB (    top_field_first,                "top_field_first");
                     Skip_SB(                                    "frame_pred_frame_dct");

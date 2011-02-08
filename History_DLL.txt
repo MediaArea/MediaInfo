@@ -12,6 +12,7 @@ Version 0.7.42, 2011-
 + AES3: bit depth of AES3, bit depth of compressed audio stream, endianess
 + Id3v2 and MP4 tags: better mapping with iTunes fields
 + Tags: removal of technical only fields
++ MPEG Video: intra_dc_precision information (in advanced mode)
 x #3171468, ADIF: crash in some cases
 x #3169916, IFO: crash in some cases
 x #3173391, Id3v2: was using local encoding instead of ISO-8859-1 
