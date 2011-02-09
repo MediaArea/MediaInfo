@@ -53,6 +53,9 @@
 #if defined(MEDIAINFO_VC3_YES)
     #include "MediaInfo/Video/File_Vc3.h"
 #endif
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
@@ -3162,6 +3165,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         }
+        #if defined(MEDIAINFO_AAC_YES)
+        if (Version==2 && Element_Code==Elements::moov_trak_mdia_minf_stbl_stsd_mp4a) //This is not normal, but I don't know where is audioObjectType, default to 2 (AAC LC)
+        {
+            Stream[moov_trak_tkhd_TrackID].Parser=new File_Aac;
+            ((File_Aac*)Stream[moov_trak_tkhd_TrackID].Parser)->AudioSpecificConfig_OutOfBand(SampleRate, 2);
+            ((File_Aac*)Stream[moov_trak_tkhd_TrackID].Parser)->Mode=File_Aac::Mode_raw_data_block;
+        }
+        #endif
         #if defined(MEDIAINFO_AMR_YES)
         if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("AMR"))
         {
