@@ -182,7 +182,7 @@ BitRate_Minimum;Мінімальний бітрейт
 BitRate_Mode;Режим розрахунку бітрейта
 BitRate_Mode_CBR;Постіний (CBR)
 BitRate_Mode_VBR;Змінний (VBR)
-BitRate_Nominal;Номінальний
+BitRate_Nominal;Номінальний бітрейт
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадри)
 BufferSize;Розмір буфера
 Cancel;Відміна
@@ -741,8 +741,8 @@ LCCN;LCCN
 Library;Бібліотека
 Lightness;Яскравість
 List;Список
-Lyrics;Лірика
-Lyricist;Лірик
+Lyrics;Текст
+Lyricist;Автор тексту
 Mastered_Date;Дата мастерингу
 MasteredBy;Мастеринг
 matrix_coefficients;Матричні коефіцієнти
@@ -869,7 +869,7 @@ see below;див. нижче
 Send HeaderFile;Відіслати заголовок
 Separator_Columns;Роздільник стовпців
 Separator_Lines;Роздільник рядків
-ServiceChannel;Сервісний номер каналу
+ServiceChannel;Номер сервісного каналу
 ServiceName;Сервісне ім'я
 ServiceProvider;Провайдер
 ServiceType;Тип сервісу

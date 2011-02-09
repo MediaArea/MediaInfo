@@ -16,7 +16,7 @@ Known bugs
 Version 0.7.42, 2011-01-24
 --------------
 + Armenian translation added
-+ Belarusian translation updated
++ Belarusian, Ukrainian translations updated
 
 Version 0.7.41, 2011-01-24
 --------------
