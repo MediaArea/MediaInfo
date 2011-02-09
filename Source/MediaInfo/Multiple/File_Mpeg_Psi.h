@@ -53,7 +53,11 @@ public :
     ~File_Mpeg_Psi();
 
 private :
+    //Buffer - File header
+    void FileHeader_Parse();
+
     //Buffer - Per element
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
@@ -103,8 +107,8 @@ private :
     void Table_7E() {Skip_XX(Element_Size-Element_Offset, "Data");};
     void Table_7F();
     //Elements - ASTC
-    void Table_C0() {Skip_XX(Element_Size-Element_Offset, "Data");};
-    void Table_C1() {Skip_XX(Element_Size-Element_Offset, "Data");};
+    void Table_C0();
+    void Table_C1();
     void Table_C2() {Skip_XX(Element_Size-Element_Offset, "Data");};
     void Table_C3() {Skip_XX(Element_Size-Element_Offset, "Data");};
     void Table_C4() {Skip_XX(Element_Size-Element_Offset, "Data");};
@@ -143,6 +147,7 @@ private :
     int16u Descriptors_Size;
     void Descriptors();
     void ATSC_multiple_string_structure(Ztring &Value, const char* Info);
+    void SCTE_multilingual_text_string(int8u Size, Ztring &Value, const char* Info);
     Ztring Date_MJD(int16u Date);
     Ztring Time_BCD(int32u Time);
 
@@ -169,6 +174,7 @@ private :
     bool   program_number_IsValid;
     bool   stream_type_IsValid;
     bool   event_id_IsValid;
+    bool   IsATSC;
 };
 
 } //NameSpace

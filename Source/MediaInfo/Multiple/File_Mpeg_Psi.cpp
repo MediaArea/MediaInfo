@@ -709,6 +709,7 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     stream_type_IsValid=false;
     event_id_IsValid=false;
     current_next_indicator=false;
+    IsATSC=false;
 }
 
 //---------------------------------------------------------------------------
@@ -717,8 +718,39 @@ File_Mpeg_Psi::~File_Mpeg_Psi()
 }
 
 //***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::FileHeader_Parse()
+{
+    //Parsing
+    int8u pointer_field;
+    Get_B1 (pointer_field,                                      "pointer_field");
+    if (pointer_field)
+        Skip_XX(pointer_field,                                  "payload");
+}
+
+//***************************************************************************
 // Buffer
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Mpeg_Psi::Header_Begin()
+{
+    if (Buffer_Offset) //Not the first one
+    {
+        Peek_B1(table_id);
+        if (table_id==0xFF)
+        {
+            Fill();
+            Finish();
+            return false;
+        }
+    }
+
+    return true;
+}
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Header_Parse()
@@ -734,11 +766,6 @@ void File_Mpeg_Psi::Header_Parse()
         return;
     }
 
-    //Payload
-    Get_B1 (pointer_field,                                      "pointer_field");
-    if (pointer_field)
-        Skip_XX(pointer_field,                                  "payload");
-
     //Parsing
     int16u section_length;
     Get_B1 (table_id,                                           "table_id");
@@ -750,7 +777,7 @@ void File_Mpeg_Psi::Header_Parse()
     BS_End();
 
     //Size
-    if ((size_t)(pointer_field+section_length)<Element_Offset+(section_syntax_indicator?4:0)) //We must have 4 more byte for CRC
+    if ((size_t)section_length<Element_Offset+(section_syntax_indicator?4:0)) //We must have 4 more byte for CRC
     {
         Reject("PSI"); //Error, we exit
         return;
@@ -763,7 +790,7 @@ void File_Mpeg_Psi::Header_Parse()
     //Element[Element_Level-1].IsComplete=true;
 
     //CRC32
-    if (section_syntax_indicator)
+    if (section_syntax_indicator || table_id==0xC1)
     {
         int32u CRC_32=0xffffffff;
         const int8u* CRC_32_Buffer=Buffer+Buffer_Offset+(size_t)Element_Offset-3; //table_id position
@@ -782,7 +809,7 @@ void File_Mpeg_Psi::Header_Parse()
 
     //Filling
     Header_Fill_Code(table_id, Ztring().From_Number(table_id, 16));
-    Header_Fill_Size(pointer_field+section_length+4);
+    Header_Fill_Size(3+section_length);
 }
 
 //---------------------------------------------------------------------------
@@ -807,6 +834,10 @@ void File_Mpeg_Psi::Data_Parse()
         BS_End();
         Info_B1(    section_number,                             "section_number"); Element_Info(_T("Section=")+Ztring::ToZtring(section_number));
         Skip_B1(                                                "last_section_number");
+    }
+    else if (table_id==0xC1)
+    {
+        Element_Size-=4; //Reserving size of CRC32
     }
 
     #define ELEMENT_CASE(_NAME, _DETAIL) \
@@ -921,7 +952,7 @@ void File_Mpeg_Psi::Data_Parse()
                                 {Element_Name("forbidden"); Skip_XX(Element_Size, "Unknown"); break;}
     }
 
-    if (section_syntax_indicator)
+    if (section_syntax_indicator || table_id==0xC1)
     {
         Element_Size+=4;
         Skip_B4(                                                "CRC32");
@@ -930,8 +961,11 @@ void File_Mpeg_Psi::Data_Parse()
     if (table_id>=0x40 && Complete_Stream->Streams_NotParsedCount!=(size_t)-1 && Complete_Stream->Streams_NotParsedCount!=0)
         Complete_Stream->Streams_NotParsedCount=(size_t)-1; //Disabling speed up for detection in case of DVB/ATSC tables, we want all of them.
 
-    Status[IsAccepted]=true; //Accept("PSI");
-    Status[IsFinished]=true; //Finish("PSI");
+    if (Buffer_Offset+Element_Size==Buffer_Size)
+    {
+        Fill();
+        Finish();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1331,6 +1365,12 @@ void File_Mpeg_Psi::Table_03()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_40()
 {
+    if (IsATSC)
+    {
+        Skip_XX(Element_Size,                               "Unknown ATSC");
+        return;
+    }
+
     //Parsing
     BS_Begin();
     Skip_S1( 4,                                             "reserved");
@@ -1557,6 +1597,71 @@ void File_Mpeg_Psi::Table_7F()
             Descriptors();
 
         Element_End(Ztring::ToZtring_From_CC2(program_number), 5+Descriptors_Size);
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_C0()
+{
+        //TODO
+        Skip_XX(Element_Size-Element_Offset,                    "data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_C1()
+{
+    IsATSC=true;
+
+    //Parsing
+    Ztring program_name, alternate_program_name;
+    int8u protocol_version, program_name_length, alternate_program_name_length, package_count;
+    BS_Begin();
+    Skip_S1(3,                                                  "reserved");
+    Get_S1 (5, protocol_version,                                "protocol_version");
+    BS_End();
+    if (protocol_version!=0)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "data");
+        return;
+    }
+    Skip_C3(                                                    "ISO_639_language_code");
+    Skip_B2(                                                    "program_number");
+    Skip_B1(                                                    "reserved");
+    Skip_B1(                                                    "sequence");
+    Skip_B1(                                                    "program_epoch_number");
+    BS_Begin();
+    Skip_SB(                                                    "display_name_when_not_auth");
+    Skip_SB(                                                    "use_alt_name_in_purchase_history");
+    Skip_SB(                                                    "use_alt_name_if_not_auth");
+    Skip_SB(                                                    "display_ratings");
+    Skip_S1(4,                                                  "reserved");
+    BS_End();
+    Get_B1 (program_name_length,                                "program_name_length");
+    SCTE_multilingual_text_string(program_name_length, program_name, "program_name");
+    Get_B1 (alternate_program_name_length,                      "alternate_program_name_length");
+    SCTE_multilingual_text_string(alternate_program_name_length, alternate_program_name, "alternate_program_name");
+    BS_Begin();
+    Skip_S1(3,                                                  "reserved");
+    Get_S1 (5, package_count,                                   "package_count");
+    BS_End();
+    for (int8u Pos=0; Pos<package_count; Pos++)
+    {
+        Ztring package_name;
+        int8u package_name_length;
+        Get_B1 (package_name_length,                            "package_name_length");
+        SCTE_multilingual_text_string(package_name_length, package_name, "package_name");
+    }
+
+    if (Element_Offset<Element_Size)
+    {
+        BS_Begin();
+        Skip_S1( 6,                                             "reserved");
+        Get_S2 (10, Descriptors_Size,                           "descriptors_length");
+        BS_End();
+
+        //Descriptors
+        if (Descriptors_Size>0)
+            Descriptors();
     }
 }
 
@@ -2186,6 +2291,39 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
 
     Element_Info(Value);
     Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::SCTE_multilingual_text_string(int8u Size, Ztring &Value, const char* Info)
+{
+    //Parsing
+    int64u End=Element_Offset+Size;
+    while (Element_Offset<End)
+    {
+        int8u mode;
+        Get_B1 (mode,                                           "mode");
+        if (mode<0x3F)
+        {
+            int8u eightbit_string_length;
+            Get_B1 (eightbit_string_length,                     "eightbit_string_length");
+            if (mode==0)
+                Get_ISO_8859_1(eightbit_string_length, Value,   "eightbit_string");
+            else
+                Skip_XX(eightbit_string_length,                 "eightbit_string (unsupporeted)");
+        }
+        else if (mode==0x3F)
+        {
+            int8u sixteenbit_string_length;
+            Get_B1 (sixteenbit_string_length,                   "sixteenbit_string_length");
+            Get_UTF16B(sixteenbit_string_length, Value,         "sixteenbit_string");
+        }
+        else if (mode>=0xA0)
+        {
+            int8u format_effector_param_length;
+            Get_B1 (format_effector_param_length,               "format_effector_param_length");
+            Skip_XX(format_effector_param_length,               "format_effector_data");
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
