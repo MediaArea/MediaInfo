@@ -3067,49 +3067,71 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 {
     Element_Name("Audio");
 
-    int16u Version, Channels, SampleSize, ID, SampleRate;
+    int32u SampleRate, Channels, SampleSize;
+    int16u Version, ID;
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Reserved");
     Skip_B2(                                                    "Data reference index");
     Get_B2 (Version,                                            "Version");
     Skip_B2(                                                    "Revision level");
     Skip_C4(                                                    "Vendor");
-    Get_B2 (Channels,                                           "Number of channels");
-    Get_B2 (SampleSize,                                         "Sample size");
-    Get_B2 (ID,                                                 "Compression ID");
-    Skip_B2(                                                    "Packet size");
-    Get_B2 (SampleRate,                                         "Sample rate"); Param_Info(SampleRate, " Hz");
-    Skip_B2(                                                    "Reserved");
-    if (Version>=1)
+    if (Version<2) // Version 0 or 1
     {
-        Skip_B4(                                                "Samples per packet");
-        Skip_B4(                                                "Bytes per packet");
-        Skip_B4(                                                "Bytes per frame");
-        Skip_B4(                                                "Bytes per sample");
-        if (Version>=2)
+        int16u Channels16, SampleSize16, SampleRate16;
+        Get_B2 (Channels16,                                     "Number of channels");
+        Get_B2 (SampleSize16,                                   "Sample size");
+        Get_B2 (ID,                                             "Compression ID");
+        Skip_B2(                                                "Packet size");
+        Get_B2 (SampleRate16,                                   "Sample rate"); Param_Info(SampleRate, " Hz");
+        Skip_B2(                                                "Reserved");
+        if (Version>=1)
         {
-            Skip_B4(                                            "Unknown");
-            Skip_B4(                                            "Unknown");
-            Skip_B4(                                            "Unknown");
-            Skip_B4(                                            "Unknown");
-            Skip_B4(                                            "Unknown");
+            Skip_B4(                                            "Samples per packet");
+            Skip_B4(                                            "Bytes per packet");
+            Skip_B4(                                            "Bytes per frame");
+            Skip_B4(                                            "Bytes per sample");
         }
+        Channels=Channels16;
+        SampleSize=SampleSize16;
+        SampleRate=SampleRate16;
+    }
+    else if (Version==2)
+    {
+        float64 SampleRateF64;
+        Skip_B2(                                                "Reserved (0x0003)");
+        Skip_B2(                                                "Reserved (0x0010)");
+        Skip_B2(                                                "Reserved (0xFFFE)");
+        Skip_B2(                                                "Reserved (0x0000)");
+        Skip_B4(                                                "Reserved (0x00010000)");
+        Skip_B4(                                                "Size of Struct");
+        Get_BF8(SampleRateF64,                                  "Sample rate");
+        Get_B4 (Channels,                                       "Number of channels");
+        Skip_B4(                                                "Reserved (0x7F000000)");
+        Get_B4 (SampleSize,                                     "Sample size");
+        Skip_B4(                                                "Flags");
+        Skip_B4(                                                "Bytes per packet");
+        Skip_B4(                                                "Frames per packet");
+
+        SampleRate=(int32u)SampleRateF64;
+    }
+    else
+    {
+        Skip_XX(Element_Size,                                   "Unknown");
+        return;
     }
 
     FILLING_BEGIN();
-        int32u SampleRate32=SampleRate;    
-
         //samr bug viewed in some files: channels and Sampling rate are wrong
         if (Element_Code==0x73616D72) //"samr"
         {
-            SampleRate32=8000;
+            SampleRate=8000;
             Channels=1;
         }
 
         //lpcm puts "1" in the SampleRate field  and Timescale is the real sample size
-        if (Element_Code==0x6C70636D && SampleRate32==1) //"lpcm"
+        if (Element_Code==0x6C70636D && SampleRate==1) //"lpcm"
         {
-            SampleRate32=moov_trak_mdia_mdhd_TimeScale;
+            SampleRate=moov_trak_mdia_mdhd_TimeScale;
         }
 
         std::string Codec;
@@ -3239,7 +3261,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
         if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).empty()) //if not mp4a, and not ms*
             Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, SampleSize, 10, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate32);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
 
         //Sometimes, more Atoms in this atoms
         if (Element_Offset+8<Element_Size)
