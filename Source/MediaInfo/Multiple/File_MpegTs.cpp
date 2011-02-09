@@ -1975,7 +1975,7 @@ void File_MpegTs::PSI()
     Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser);
 
     //Filling
-    if (Complete_Stream->Streams[pid]->Parser->Status[IsFinished])
+    if (Complete_Stream->Streams[pid]->Parser->Status[IsFilled])
     {
         //Accept
         if (!Status[IsAccepted] && pid==0x0000 && Complete_Stream->Streams[pid]->Parser->Status[IsAccepted])

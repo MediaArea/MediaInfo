@@ -743,6 +743,7 @@ bool File_Mpeg_Psi::Header_Begin()
         Peek_B1(table_id);
         if (table_id==0xFF)
         {
+            Accept();
             Fill();
             Finish();
             return false;
