@@ -964,6 +964,7 @@ void File_Mpeg_Psi::Data_Parse()
 
     if (Buffer_Offset+Element_Size==Buffer_Size)
     {
+        Accept();
         Fill();
         Finish();
     }
