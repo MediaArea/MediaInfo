@@ -239,6 +239,7 @@ Compression_Mode;Komprimeringstilstand
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
+Compilation
 Conductor;Dirigent
 Container and general information;Container og generel information
 ContentType;Indholdstype
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Gå til websted
+Grouping
 h;t
 Header file;Opret en header-fil
 Height;Højde
@@ -964,6 +966,3 @@ Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;99
-CompressionRatio;Komprimeringsforhold
-Compilation
-Grouping

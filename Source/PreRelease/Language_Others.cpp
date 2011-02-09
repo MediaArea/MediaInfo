@@ -51,8 +51,9 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"fr");
     Run_File(Dest, L"gl");
     Run_File(Dest, L"gr");
-    Run_File(Dest, L"hu");
     Run_File(Dest, L"hr");
+    Run_File(Dest, L"hu");
+    Run_File(Dest, L"hy");
     Run_File(Dest, L"it");
     Run_File(Dest, L"ja");
     Run_File(Dest, L"ko");

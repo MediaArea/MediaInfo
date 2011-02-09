@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio
+Compilation
 Conductor;Conductor
 Container and general information;Hlavní informace
 ContentType;ContentType
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Web programu
+Grouping
 h;h
 Header file;Create a header file
 Height;Výška
@@ -963,7 +965,4 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;82
-CompressionRatio
-Compilation
-Grouping
+ZZ_AutomaticLanguage_Percent;83

@@ -239,6 +239,7 @@ Compression_Mode;Sıkıştırma kipi
 Compression_Mode_Lossless;Kayıpsız
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Sıkıştırma oranı
+Compilation
 Conductor;Orkestra şefi
 Container and general information;Kalıp ve genel bilgi
 ContentType;İçerik Türü
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Web sitesine git
+Grouping
 h;s
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
@@ -964,6 +966,3 @@ Yes;Evet
 Your system;Sisteminiz
 ZZ_Automatic_Percent;99
 ZZ_AutomaticLanguage_Percent;99
-CompressionRatio;Sıkıştırma oranı
-Compilation
-Grouping

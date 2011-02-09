@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;Raporti i kompresimit
+Compilation
 Conductor;Dirigjenti
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Shko te trualli në rrjetë
+Grouping
 h;h
 Header file;Krijo një kokë skede
 Height;Lartësia
@@ -964,6 +966,3 @@ Yes;Po
 Your system;Sistemi yt
 ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;97
-CompressionRatio;Raporti i kompresimit
-Compilation
-Grouping

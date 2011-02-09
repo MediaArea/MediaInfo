@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;Tasa de compresión
+Compilation
 Conductor;Conductor
 Container and general information;Información general
 ContentType;Tipo de Contenido
@@ -503,6 +504,7 @@ Genre_145
 Genre_146
 Genre_147
 Go to WebSite;Ir al sitio Web
+Grouping
 h;h
 Header file;Cabecera
 Height;Alto
@@ -964,6 +966,3 @@ Yes;Si
 Your system;Tu sistema
 ZZ_Automatic_Percent;80
 ZZ_AutomaticLanguage_Percent;95
-CompressionRatio;Tasa de compresión
-Compilation
-Grouping

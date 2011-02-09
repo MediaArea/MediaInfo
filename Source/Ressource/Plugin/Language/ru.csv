@@ -239,6 +239,7 @@ Compression_Mode;Метод сжатия
 Compression_Mode_Lossless;Без потерь
 Compression_Mode_Lossy;С потерями
 Compression_Ratio;Степень сжатия
+Compilation
 Conductor;Дирижёр
 Container and general information;Общая информация
 ContentType;Тип содержимого
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Перейти на сайт
+Grouping
 h; ч.
 Header file;Создать заголовок
 Height;Высота
@@ -964,6 +966,3 @@ Yes;Да
 Your system;Ваша система
 ZZ_Automatic_Percent;99
 ZZ_AutomaticLanguage_Percent;99
-CompressionRatio;Степень сжатия
-Compilation
-Grouping

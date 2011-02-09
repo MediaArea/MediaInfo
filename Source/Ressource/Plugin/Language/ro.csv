@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio
+Compilation
 Conductor
 Container and general information;Container si informatii generale
 ContentType;Tip continut
@@ -503,6 +504,7 @@ Genre_145
 Genre_146
 Genre_147
 Go to WebSite
+Grouping
 h;h
 Header file;Generare header fisier
 Height;Inaltime
@@ -962,8 +964,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;34
+ZZ_Automatic_Percent;35
 ZZ_AutomaticLanguage_Percent;73
-CompressionRatio
-Compilation
-Grouping

@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;نرخ فشردگی
+Compilation
 Conductor;رهبر اکسترر 
 Container and general information;محتوی و اطلاعات کلی
 ContentType;نوع محتوا
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;وب سایت
+Grouping
 h;h
 Header file;ایجاد فایل سر صفحه
 Height;بلندی
@@ -964,6 +966,3 @@ Yes;بلی
 Your system;سیستم شما
 ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;97
-CompressionRatio;نرخ فشردگی
-Compilation
-Grouping

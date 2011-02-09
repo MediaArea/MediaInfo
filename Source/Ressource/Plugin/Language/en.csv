@@ -239,6 +239,7 @@ Compression_Mode;Compression mode
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Compression ratio
+Compilation;Compilation
 Conductor;Conductor
 Container and general information;Container and general information
 ContentType;ContentType
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Go to website
+Grouping;Grouping
 h;h
 Header file;Create a header file
 Height;Height
@@ -964,6 +966,3 @@ Yes;Yes
 Your system;Your system
 ZZ_Automatic_Percent;100
 ZZ_AutomaticLanguage_Percent;100
-CompressionRatio;Compression ratio
-Compilation;Compilation
-Grouping;Grouping

@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio
+Compilation
 Conductor;Conductor
 Container and general information;Container και γενικές πληροφορίες
 ContentType;Είδος περιεχόμενου
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Επίσκεψη του δυκτιακού τόπου
+Grouping
 h;h
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος
@@ -962,8 +964,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;78
+ZZ_Automatic_Percent;79
 ZZ_AutomaticLanguage_Percent;83
-CompressionRatio
-Compilation
-Grouping

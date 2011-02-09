@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;圧縮解像度
+Compilation
 Conductor;コンダクター
 Container and general information;コンテナと全般情報
 ContentType;コンテンツタイプ
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Web サイトへ移動
+Grouping
 h;時
 Header file;ヘッダーファイルを作成
 Height;高さ
@@ -964,6 +966,3 @@ Yes;はい
 Your system;システム情報
 ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;97
-CompressionRatio;圧縮解像度
-Compilation
-Grouping

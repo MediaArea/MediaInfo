@@ -238,7 +238,8 @@ Composer;Композитор
 Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
-Compression_Ratio
+Compression_Ratio;КомпресияСъотношение
+Compilation
 Conductor;Диригент
 Container and general information;Контейнер и главна информация
 ContentType;КонтейнерТип
@@ -503,6 +504,7 @@ Genre_145; Жанр_145
 Genre_146; Жанр_146
 Genre_147; Жанр_147
 Go to WebSite;Към Уебсайта
+Grouping
 h;х
 Header file;Хедър файл
 Height;Височина
@@ -964,6 +966,3 @@ Yes;Да
 Your system;Вашата система
 ZZ_Automatic_Percent;94
 ZZ_AutomaticLanguage_Percent;98
-CompressionRatio;КомпресияСъотношение
-Compilation
-Grouping

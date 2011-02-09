@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio
+Compilation
 Conductor;ผู้อำนวยเพลง
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
 ContentType;ชนิดที่บรรจุ
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;เจป๊อบ
 Genre_147;Synthpop
 Go to WebSite;ไปที่เว็บไซต์
+Grouping
 h;h
 Header file;สร้างไฟล์ header
 Height;ความสูง
@@ -964,6 +966,3 @@ Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;84
 ZZ_AutomaticLanguage_Percent;89
-CompressionRatio
-Compilation
-Grouping

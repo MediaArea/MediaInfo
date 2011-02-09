@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;壓縮比
+Compilation
 Conductor;指揮
 Container and general information;容器格式與一般訊息
 ContentType;內容型態
@@ -503,6 +504,7 @@ Genre_145;動畫歌曲 (Anime)
 Genre_146;日本流行樂 (JPop)
 Genre_147;新潮電子 (Synthpop)
 Go to WebSite;前往網站
+Grouping
 h;時
 Header file;建立標頭檔案
 Height;畫面高度
@@ -964,6 +966,3 @@ Yes;是
 Your system;您的系統
 ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;97
-CompressionRatio;壓縮比
-Compilation
-Grouping

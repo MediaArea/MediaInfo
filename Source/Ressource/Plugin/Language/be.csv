@@ -1,7 +1,7 @@
   Language_ISO639;be
   Author_Email;mister-sh@users.sourceforge.net
   Author_Name;Micтэр Ш
-  Author_OldNames;Initial translator
+  Author_OldNames
   Language_Name;Беларуская
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
@@ -49,9 +49,9 @@
  GBps; Гбайт/сек
  GHz; Ггц
  GiB; Гігабайт
- GibiByte1; Гігабайт
- GibiByte2; Гігабайт
- GibiByte3; Гігабайт
+ GibiByte1; Гібібайт
+ GibiByte2; Гібібайт
+ GibiByte3; Гібібайт
  GiBps; Гб/сек
  GigaBit1; Гігабіт
  GigaBit2; Гігабіт
@@ -78,7 +78,7 @@
  KibiByte1; Кiбiбайт
  KibiByte2; Кiбiбайт
  KibiByte3; Кiбiбайт
- KiBps; Кiбiбiт/сек
+ KiBps; Кiлабайт/сек
  KiloBit1; Кілабіт
  KiloBit2; Кілабіт
  KiloBit3; Кілабіт
@@ -88,7 +88,7 @@
  MB; Мбайт
  Mb; Мбіт
  Mbps; Мбіт/сек
- MBps; Мебiбайт
+ MBps; Мбайт
  MebiBit1; Мебiбiт
  MebiBit2; Мебiбiт
  MebiBit3; Мебiбiт
@@ -102,9 +102,9 @@
  MegaByte2; Мегабайт
  MegaByte3; Мегабайт
  MHz; Мгц
- MiB; Мегабіт
- Mib; Мегабіт
- MiBps; Мбіт/сек
+ MiB; Мегабайт
+ Mib; Міб
+ MiBps; Мбайт/сек
  milisecond1; мілісекунда
  milisecond2; мілісекунд
  milisecond3; мілісекунд
@@ -167,7 +167,7 @@ At least one file;Як мінімум адзін файл
 Audio;Аўдыё
 Audio stream(s);Аўдыёструмень(і)
 Audio_Codec_List;Аўдыёкодэкі
-Audio_No;Аўдыёструмень №
+Audio_No;Няма аўдыёструменя
 Audio1;Першы аўдыёструмень
 Audio2;Другі аўдыёструмень
 AudioCount;Коль-ць аўдыёструменяў
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Сталы
 BitRate_Mode_VBR;Пераменны
 BitRate_Nominal;Намінальны бітрэйт
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадры)
-BufferSize
+BufferSize;Памер буфера
 Cancel;Адмена
 Channel(s);Канал(ы)
 ChannelPositions;Размяшчэнне каналаў
@@ -192,7 +192,7 @@ Chapter(s);Падзел(ы)
 Chapters;Падзелы
 Chapters stream(s);Струмень(і) падзелаў
 Chapters_Codec_List;Кодэкі падзелаў
-Chapters_No;Падзел №
+Chapters_No;Няма падзелаў
 ChaptersCount;Коль-ць падзелаў
 CheckNewVersion;Праверыць новую версію
 Choose custom;Абраць
@@ -235,10 +235,11 @@ Comment;Каментар
 CommissionedBy;Даручальнік
 CompleteName;Поўнае імя
 Composer;Кампазітар
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;Метад сціску
+Compression_Mode_Lossless;Без страт
+Compression_Mode_Lossy;Са стратамі
 Compression_Ratio;Ступень сціску
+Compilation
 Conductor;Дырыжор
 Container and general information;Агульная інфармацыя
 ContentType;Тып змесціва
@@ -259,9 +260,9 @@ Date;Дата
 Debug;Адладка
 Decimal point;Дзесятковая кропка
 Delay;Затрымка
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;Затрымка ў арыгінале
+Delay_Source_Container;Кантэйнер
+Delay_Source_Stream;'Сыры' струмень
 Delete;Выдаліць
 Description;Апісанне
 Digitized_Date;Дата аблічбоўкі
@@ -313,7 +314,7 @@ Folder (Recursively);Тэчка (рэкурсіўна)...
 Folder_Hint;Аперацыі з тэчкамі
 FolderName;Імя тэчкі
 Format;Фармат
-Format_Commercial
+Format_Commercial;Камерцыйная назва
 Format_Description;Апісанне фармату
 Format_Info;Падрабязна аб фармаце
 Format_Profile;Прафайл фармату
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Перайсці на сайт
+Grouping
 h;г.
 Header file;Стварыць загаловак
 Height;Вышыня
@@ -527,11 +529,11 @@ Interlaced_TFF;Верхняе поле першае
 Interlaced_BFF;Ніжняе поле першае
 Interlaced_PPF;Прагрэсіўная
 Interlaced_Progressive;Прагрэсіўная
-Interleaved
+Interleaved;Якая чаргуецца
 Interleave_Duration;Працягласць прамежку
 Interleave_Preload;Час перадзагрузкі прамежку
 Interleave_VideoFrames;Працягласць прамежку
-InternetMediaType
+InternetMediaType;Інтэрнэт-тып носьбіта
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -614,7 +616,7 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;Language info
+Language_Info;Аб мове
 Language_io;Ido
 Language_is;Icelandic
 Language_it;Italian
@@ -663,7 +665,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
-Language_nn;Norwegian Bokmal
+Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
 Language_nv;Navaho
@@ -740,15 +742,15 @@ Library;Бібліятэка
 Lightness;Яркасць
 List;Спіс
 Lyrics;Тэкст песен
-Lyricist;Лібрэтта
+Lyricist;Паэт-песеннік
 Mastered_Date;Дата майстарынгу
-MasteredBy;Майстарынг ад
+MasteredBy;Майстарынг
 matrix_coefficients;Каэфіцыенты матрыцы
 MediaInfo_About;Адлюстроўвае дэталёвую інфармацыю\r\nаб мультымедыя-файлах Matroska, OGG (уключаючы OGM)\r\nMPEG1 (уключаючы VCD), MPEG2 (уключаючы DVD і SVCD), MPEG4 (уключаючы iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (уключаючы WMV, WMA)\r\nMicrosoft RIFF (уключаючы AVI, WAV, DivX)\r\nгукавых фарматах (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню струменяў
 Menu_Codec_List;Меню кодэкаў
-Menu_No;Меню №
+Menu_No;Няма меню
 MenuCount;Коль-ць струменяў меню
 Menu_Hint;Дадатковыя магчымасці
 MenuID;Ідэнтыфікатар меню
@@ -814,7 +816,7 @@ OpenCandy_35;______ рэкамендуюць гэтую праграму
 OpenCandy_36;Ваша бягучая ўсталеўка не будзе перапынена
 Options;Параметры
 Options_Hint;Налады праграмы
-Original;Сапраўдны
+Original;Арыгінал
 OriginalNetworkName;Арыгінальнае сеткавае імя
 OriginalSourceForm;Фармат арыгінала
 OriginalSourceMedium;Носьбіт арыгінала
@@ -861,7 +863,7 @@ SamplingRate;Частата
 Save;Захаваць
 ScanType;Тып разгорткі
 ScanOrder;Парадак разгорткі
-ScreenplayBy;Сцэнар
+ScreenplayBy;Сцэнарыст
 Season;Сезон
 see below;гл. ніжэй
 Send HeaderFile;Адправіць загаловак гэтага файла на http://sourceforge.net/projects/mediainfo/ (Падзел памылак)
@@ -883,7 +885,7 @@ Shell InfoTip;Паказваць меню
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль
 Sort;Сартаваць па
-SamplingCount
+SamplingCount;Колькасць узораў
 SoundEngineer;Гукарэжысёр
 Standard;Стандарт вяшчання
 Stream;Струмень
@@ -929,14 +931,14 @@ transfer_characteristics;Характарыстыкі трансферу
 Translator;Перакладчык
 Tree;Дрэва
 Tree & Text;Дрэва і тэкст
-UniqueID
+UniqueID;Унікальны ідэнтыфікатар
 Unknown;Невядома
 Url;Спасылка
 Video;Відэа
 Video stream(s);Відэапаток(і)
 Video_Codec_List;Відэакодэкі
 Video_Delay;Затрымка відэа
-Video_No;Відэаструмень №
+Video_No;Няма відэаструменя
 Video0_Delay;Затрымка відэа
 Video1;Першы відэаструмень
 VideoCount;Коль-ць відэаструменяў
@@ -959,11 +961,8 @@ WriteMe;Напісаць мне
 WriteToTranslator;Напісаць перакладчыку
 Written_Date;Дата напісання
 Written_Location;Месца напісання
-WrittenBy;Напісана
+WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
-CompressionRatio;Ступень сціску
-Compilation
-Grouping
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

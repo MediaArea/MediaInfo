@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;Omjer sažimanja
+Compilation
 Conductor;Ravnatelj
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Prijeći na spletni sadržaj
+Grouping
 h;h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
@@ -964,6 +966,3 @@ Yes;Da
 Your system;Informacije o Vašem sustavu
 ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;97
-CompressionRatio;Omjer sažimanja
-Compilation
-Grouping

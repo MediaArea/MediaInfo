@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio;نسبة الضغط
+Compilation
 Conductor;قائد الاوركسترا
 Container and general information;حاوية ومعلومات عامة
 ContentType;نوع المحتوى
@@ -503,6 +504,7 @@ Genre_145;انمي Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;زيارة الموقع
+Grouping
 h;h
 Header file;إنشاء ملف header
 Height;ارتفاع
@@ -964,6 +966,3 @@ Yes;نعم
 Your system;نظامك
 ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;98
-CompressionRatio;نسبة الضغط
-Compilation
-Grouping

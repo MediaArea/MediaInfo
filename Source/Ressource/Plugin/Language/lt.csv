@@ -239,6 +239,7 @@ Compression_Mode
 Compression_Mode_Lossless
 Compression_Mode_Lossy
 Compression_Ratio
+Compilation
 Conductor;Konduktorius
 Container and general information;Talpykla ir pagrindinė informacija
 ContentType;TurinioTipas
@@ -503,6 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Eiti į internetinę svetainę
+Grouping
 h;v
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
@@ -964,6 +966,3 @@ Yes;Taip
 Your system;Jūsų sistema
 ZZ_Automatic_Percent;85
 ZZ_AutomaticLanguage_Percent;89
-CompressionRatio
-Compilation
-Grouping
