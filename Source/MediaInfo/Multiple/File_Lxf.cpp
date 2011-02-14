@@ -333,7 +333,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                         if (TimeOffset->second.TimeStamp_Begin<=SeekRequest_Maxi && TimeOffset->second.TimeStamp_End>=SeekRequest_Mini) //If it is found in a frame we know
                         {
                             //Looking for the corresponding I-Frame
-                            while (TimeOffset->second.PictureType&0x2) //Not an I-Frame
+                            while (TimeOffset->second.PictureType&0x2 && TimeOffset!=TimeOffsets.begin()) //Not an I-Frame (and not fisrt frame)
                             {
                                 time_offsets::iterator Previous=TimeOffset;
                                 Previous--;
