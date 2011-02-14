@@ -177,7 +177,7 @@ int32u Mpeg7_FileFormatCS_termID(MediaInfo_Internal &MI)
         return 180000;
     if (Format==_T("Wave"))
     {
-        if (!MI.Get(Stream_Audio, 0, Audio_Format_Profile).empty())
+        if (!MI.Get(Stream_General, 0, General_Format_Profile).empty())
             return Mpeg7_FileFormatCS_termID_MediaInfo(MI); //Out of specs
         else
             return 90000;
