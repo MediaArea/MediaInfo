@@ -48,6 +48,7 @@ public :
 
     //Constructor/Destructor
     File_Aes3();
+    ~File_Aes3();
 
 private :
     //Streams management
