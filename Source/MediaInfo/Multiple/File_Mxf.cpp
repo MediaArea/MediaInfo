@@ -1054,39 +1054,49 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
         {
             if (Descriptors.size()==1 && Count_Get(StreamKind_Last)==1)
                 StreamPos_Last=0;
+            else if (Descriptor->second.LinkedTrackID!=(int32u)-1)
+            {
+                Stream_Prepare(Descriptor->second.StreamKind);
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
+            }
             else
             {
-                if (Descriptor->second.LinkedTrackID==(int32u)-1)
-                    return;
-
-                Stream_Prepare(Descriptor->second.StreamKind);
-                if (Descriptor->second.LinkedTrackID!=(int32u)-1)
-                    Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
-                else
-                {
-                    //Looking for Material package TrackID
-                    int32u ID=(int32u)-1;
-                    packages::iterator SourcePackage=Packages.find(PackageUID);
-                    //We have the the right PackageUID, looking for SourceClip from Sequence from Track from MaterialPackage
-                    for (components::iterator SourceClip=Components.begin(); SourceClip!=Components.end(); SourceClip++)
-                        if (SourceClip->second.SourcePackageID.lo==SourcePackage->second.PackageUID.lo) //int256u doesn't support yet ==
-                        {
-                            //We have the right SourceClip, looking for the Sequence from Track from MaterialPackage
-                            for (components::iterator Sequence=Components.begin(); Sequence!=Components.end(); Sequence++)
-                                for (size_t StructuralComponents_Pos=0; StructuralComponents_Pos<Sequence->second.StructuralComponents.size(); StructuralComponents_Pos++)
-                                    if (Sequence->second.StructuralComponents[StructuralComponents_Pos]==SourceClip->first)
+                //Looking for Material package TrackID
+                packages::iterator SourcePackage=Packages.find(PackageUID);
+                //We have the the right PackageUID, looking for SourceClip from Sequence from Track from MaterialPackage
+                for (components::iterator SourceClip=Components.begin(); SourceClip!=Components.end(); SourceClip++)
+                    if (SourceClip->second.SourcePackageID.lo==SourcePackage->second.PackageUID.lo) //int256u doesn't support yet ==
+                    {
+                        //We have the right SourceClip, looking for the Sequence from Track from MaterialPackage
+                        for (components::iterator Sequence=Components.begin(); Sequence!=Components.end(); Sequence++)
+                            for (size_t StructuralComponents_Pos=0; StructuralComponents_Pos<Sequence->second.StructuralComponents.size(); StructuralComponents_Pos++)
+                                if (Sequence->second.StructuralComponents[StructuralComponents_Pos]==SourceClip->first)
+                                {
+                                    //We have the right Sequence, looking for Track from MaterialPackage
+                                    for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
                                     {
-                                        //We have the right Sequence, looking for Track from MaterialPackage
-                                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                                        if (Track->second.Sequence==Sequence->first)
                                         {
-                                            if (Track->second.Sequence==Sequence->first)
-                                                ID=Track->second.TrackID;
+                                            Ztring ID=Ztring::ToZtring(Track->second.TrackID);
+                                            StreamKind_Last=Stream_Max;
+                                            StreamPos_Last=(size_t)-1;
+                                            for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+                                                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                                                    if (ID==Retrieve((stream_t)StreamKind, StreamPos, General_ID))
+                                                    {
+                                                        StreamKind_Last=(stream_t)StreamKind;
+                                                        StreamPos_Last=(stream_t)StreamPos;
+                                                    }
+                                            if (StreamPos_Last==(size_t)-1 && !Descriptor->second.Locators.empty()) //TODO: 1 file has a TimeCode stream linked to a video stream, and it is displayed if Locator test is removed. Why? AS02 files streams are not filled if I remove completely this block, why?
+                                            {
+                                                Stream_Prepare(Descriptor->second.StreamKind);
+                                                if (Track->second.TrackID!=(int32u)-1)
+                                                    Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
+                                            }
                                         }
                                     }
-                        }
-                    if (ID!=(int32u)-1)
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, 10, true);
-                }
+                                }
+                    }
             }
         }
     }
