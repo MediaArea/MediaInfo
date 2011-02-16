@@ -241,7 +241,6 @@ File_DvDif::File_DvDif()
     IgnoreAudio=false;
 
     //Temp
-    FrameCount=0;
     FrameSize_Theory=0;
     Duration=0;
     TimeCode_First=(int64u)-1;
@@ -299,64 +298,6 @@ File_DvDif::~File_DvDif()
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
         delete Mpeg4_stts; //Mpeg4_stts=NULL;
     #endif
-}
-
-//***************************************************************************
-// Buffer - Synchro
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-int64u File_DvDif::Demux_Unpacketize(File__Analyze* Source2)
-{
-    File_DvDif* Source=(File_DvDif*)Source2;
-
-    size_t Offset=Source->Buffer_Offset+1;
-
-    while (Offset+8*80<=Source->Buffer_Size //8 blocks
-        && !((Source->Buffer[Offset]&0xE0)==0x00   //Speed up the parsing
-          && (CC3(Source->Buffer+Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
-          && (CC3(Source->Buffer+Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
-          && (CC3(Source->Buffer+Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
-          && (CC3(Source->Buffer+Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
-          && (CC3(Source->Buffer+Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
-          && (CC3(Source->Buffer+Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
-          && (CC3(Source->Buffer+Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
-          && (CC3(Source->Buffer+Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
-            Offset++;
-
-    if (Offset+8*80>Source->Buffer_Size)
-        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
-
-    return Offset-Source->Buffer_Offset;
-}
-
-//***************************************************************************
-// Buffer - File header
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_DvDif::FileHeader_Begin()
-{
-    //Must have enough buffer for having header
-    if (Buffer_Size<8)
-        return false; //Must wait for more data
-
-    //False positives detection: detect some headers from other files, DV parser is not smart enough
-    if (CC4(Buffer)==0x52494646  //RIFF
-     || CC4(Buffer+4)==0x66747970  //ftyp
-     || CC4(Buffer+4)==0x66726565  //free
-     || CC4(Buffer+4)==0x6D646174  //mdat
-     || CC4(Buffer+4)==0x6D646174  //moov
-     || CC4(Buffer+4)==0x736B6970  //skip
-     || CC4(Buffer+4)==0x77696465  //wide
-     || CC4(Buffer)==0x060E2B34) //MXF begin
-    {
-        Finish();
-        return false;
-    }
-
-    //All should be OK...
-    return true;
 }
 
 //***************************************************************************
@@ -562,6 +503,35 @@ void File_DvDif::Streams_Finish()
 }
 
 //***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_DvDif::FileHeader_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Size<8)
+        return false; //Must wait for more data
+
+    //False positives detection: detect some headers from other files, DV parser is not smart enough
+    if (CC4(Buffer)==0x52494646  //RIFF
+     || CC4(Buffer+4)==0x66747970  //ftyp
+     || CC4(Buffer+4)==0x66726565  //free
+     || CC4(Buffer+4)==0x6D646174  //mdat
+     || CC4(Buffer+4)==0x6D646174  //moov
+     || CC4(Buffer+4)==0x736B6970  //skip
+     || CC4(Buffer+4)==0x77696465  //wide
+     || CC4(Buffer)==0x060E2B34) //MXF begin
+    {
+        Finish();
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -690,6 +660,66 @@ bool File_DvDif::Synched_Test()
         DBN_Olds[SCT]=DBN;
     }
 
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            //Must have enough buffer for having header
+            if (Buffer_Offset+8*80>Buffer_Size)
+                return false;
+
+            if ((Buffer[Buffer_Offset]&0xE0)==0x00   //Speed up the parsing
+             && (CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+             && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
+             && (CC3(Buffer+Buffer_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
+             && (CC3(Buffer+Buffer_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
+             && (CC3(Buffer+Buffer_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
+             && (CC3(Buffer+Buffer_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
+             && (CC3(Buffer+Buffer_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
+             && (CC3(Buffer+Buffer_Offset+7*80)&0xE0F0FF)==0x800000)  //Video 0
+            {
+                if (Demux_Offset==0)
+                {
+                    Demux_Offset=Buffer_Offset+1;
+                }
+
+                while (Demux_Offset+8*80<=Buffer_Size //8 blocks
+                    && !((Buffer[Demux_Offset]&0xE0)==0x00   //Speed up the parsing
+                      && (CC3(Buffer+Demux_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+                      && (CC3(Buffer+Demux_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
+                      && (CC3(Buffer+Demux_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
+                      && (CC3(Buffer+Demux_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
+                      && (CC3(Buffer+Demux_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
+                      && (CC3(Buffer+Demux_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
+                      && (CC3(Buffer+Demux_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
+                      && (CC3(Buffer+Demux_Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
+                        Demux_Offset++;
+
+                if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //No complete frame
+                }
+
+                Demux_random_access=true;
+                if (StreamIDs_Size>=2)
+                    Element_Code=StreamIDs[StreamIDs_Size-2];
+                StreamIDs_Size--;
+                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
+                StreamIDs_Size++;
+                if (Demux_Frame_Count<=Frame_Count)
+                    Demux_Frame_Count++;
+                if (Demux_Field_Count<=Field_Count)
+                    Demux_Field_Count++;
+                Demux_Offset=0;
+                if (Frame_Count || Field_Count)
+                    Element_End();
+                Element_Begin("Frame or Field");
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //We continue
     return true;
 }
@@ -711,6 +741,31 @@ void File_DvDif::Synched_Test_Reset()
 
     //Synch
     Synched=false;
+}
+
+//---------------------------------------------------------------------------
+void File_DvDif::Synched_Init()
+{
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=0;
+        Demux_Field_Count=0;
+    #endif //MEDIAINFO_DEMUX
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DvDif::Read_Buffer_Unsynched()
+{
+    Synched_Test_Reset();
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=Frame_Count;
+        Demux_Field_Count=Field_Count;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************
@@ -890,7 +945,7 @@ void File_DvDif::Header()
             TF3=false;
         }
 
-        FrameCount++;
+        Frame_Count++;
     FILLING_END();
 }
 #else //MEDIAINFO_TRACE
@@ -920,7 +975,7 @@ void File_DvDif::Header()
             TF3=false;
         }
 
-        FrameCount++;
+        Frame_Count++;
     FILLING_END();
 }
 #endif //MEDIAINFO_TRACE
@@ -1045,7 +1100,7 @@ void File_DvDif::Video()
                 if (!IsSub)
                     Fill(Stream_General, 0, General_Format, "DV");
             }
-            if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
+            if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
                 #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 {
                     if (Config->File_DvDif_Analysis_Get())
@@ -1205,7 +1260,7 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
-        if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
+        if (!IgnoreAudio && (Frame_Count==1 || AuxToAnalyze)) //Only the first time
         {
             //Calculating the count of audio
             size_t Audio_Count=1;
@@ -1334,7 +1389,7 @@ void File_DvDif::video_source()
     Skip_B1(                                                    "TUN/VISC");
 
     FILLING_BEGIN();
-        if (!Status[IsAccepted] && (FrameCount==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
+        if (!Status[IsAccepted] && (Frame_Count==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
         {
             if (!system)
                 Frame_Count_Valid=Frame_Count_Valid*10/12; //NTSC is only 10 DIF sequence per frame

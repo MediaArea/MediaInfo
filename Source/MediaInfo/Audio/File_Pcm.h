@@ -52,11 +52,6 @@ private :
     //Streams management
     void Streams_Fill();
 
-    //Buffer - Demux
-    #if MEDIAINFO_DEMUX
-        int64u  Demux_Unpacketize(File__Analyze* Source);
-    #endif //MEDIAINFO_DEMUX
-
     //Buffer - Global
     void Read_Buffer_Continue ();
 

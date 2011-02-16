@@ -533,33 +533,6 @@ void File_Mpega::Streams_Finish()
 }
 
 //***************************************************************************
-// Buffer - Synchro
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-#if MEDIAINFO_DEMUX
-int64u File_Mpega::Demux_Unpacketize(File__Analyze* Source2)
-{
-    File_Mpega* Source=(File_Mpega*)Source2;
-
-    if (Source->Buffer_Offset+4>Source->Buffer_Size)
-        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
-
-    //Retrieving some info
-    int8u ID0                =(CC1(Source->Buffer+Source->Buffer_Offset+1)>>3)&0x03;
-    int8u layer0             =(CC1(Source->Buffer+Source->Buffer_Offset+1)>>1)&0x03;
-    int8u bitrate_index0     =(CC1(Source->Buffer+Source->Buffer_Offset+2)>>4)&0x0F;
-    int8u sampling_frequency0=(CC1(Source->Buffer+Source->Buffer_Offset+2)>>2)&0x03;
-    int8u padding_bit0       =(CC1(Source->Buffer+Source->Buffer_Offset+2)>>1)&0x01;
-    //Coherancy
-    if (Mpega_SamplingRate[ID0][sampling_frequency0]==0 || Mpega_Coefficient[ID0][layer0]==0 || Mpega_BitRate[ID0][layer0][bitrate_index0]==0 || Mpega_SlotSize[layer0]==0)
-        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //Problem, skipping the buffer
-    else
-        return (Mpega_Coefficient[ID0][layer0]*Mpega_BitRate[ID0][layer0][bitrate_index0]*1000/Mpega_SamplingRate[ID0][sampling_frequency0]+(padding_bit0?1:0))*Mpega_SlotSize[layer0];
-}
-#endif //MEDIAINFO_DEMUX
-
-//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 

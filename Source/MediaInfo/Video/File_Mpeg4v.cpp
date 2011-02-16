@@ -250,6 +250,7 @@ void File_Mpeg4v::OnlyVOP()
 {
     //Default stream values
     Synched_Init();
+    Streams[0xB3].Searching_Payload=true; //group_of_vop_start
     Streams[0xB6].Searching_Payload=true; //vop_start
 }
 
@@ -277,7 +278,7 @@ bool File_Mpeg4v::Synched_Test()
         if (Demux_UnpacketizeContainer)
         {
             if ((Demux_Frame_Count<=Frame_Count || Demux_Field_Count<=Field_Count)
-             && ((Demux_picture_start_Found && Buffer[Buffer_Offset+3]==0x00) || Buffer[Buffer_Offset+3]==0xB6))
+             && ((Demux_picture_start_Found && Buffer[Buffer_Offset+3]==0x00) || Buffer[Buffer_Offset+3]==0xB3 || Buffer[Buffer_Offset+3]==0xB6))
             {
                 if (Demux_Offset==0)
                 {
@@ -306,6 +307,7 @@ bool File_Mpeg4v::Synched_Test()
                             switch (Buffer[Demux_Offset+3])
                             {
                                 case 0x00 :
+                                case 0xB3 :
                                 case 0xB6 :
                                             MustBreak=true; break;
                                 default   : MustBreak=false;
@@ -640,82 +642,6 @@ void File_Mpeg4v::Streams_Finish()
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
 }
-
-//***************************************************************************
-// Buffer - Synchro
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-#if MEDIAINFO_DEMUX
-int64u File_Mpeg4v::Demux_Unpacketize(File__Analyze* Source2)
-{
-    File_Mpeg4v* Source=(File_Mpeg4v*)Source2;
-
-    size_t Offset=Source->Buffer_Offset;
-    bool   picture_start_Found=false;
-    while (Offset+4<=Source->Buffer_Size)
-    {
-        //Synchronizing
-        while(Offset+3<=Source->Buffer_Size && (Source->Buffer[Offset  ]!=0x00
-                                            || Source->Buffer[Offset+1]!=0x00
-                                            || Source->Buffer[Offset+2]!=0x01))
-        {
-            Offset+=2;
-            while(Offset<Buffer_Size && Source->Buffer[Buffer_Offset]!=0x00)
-                Offset+=2;
-            if (Offset<Source->Buffer_Size && Source->Buffer[Offset-1]==0x00 || Offset>=Source->Buffer_Size)
-                Offset--;
-        }
-
-        if (Offset+4<=Source->Buffer_Size)
-        {
-            if (picture_start_Found)
-            {
-                bool MustBreak;
-                switch (Source->Buffer[Offset+3])
-                {
-                    case 0x20 :
-                    case 0x21 :
-                    case 0x22 :
-                    case 0x23 :
-                    case 0x24 :
-                    case 0x25 :
-                    case 0x26 :
-                    case 0x27 :
-                    case 0x28 :
-                    case 0x29 :
-                    case 0x2A :
-                    case 0x2B :
-                    case 0x2C :
-                    case 0x2D :
-                    case 0x2E :
-                    case 0x2F :
-                    case 0xB0 :
-                    case 0xB3 :
-                    case 0xB5 :
-                    case 0xB6 :
-                                MustBreak=true;
-                                break;
-                    default   : MustBreak=false;
-                }
-                if (MustBreak)
-                    break; //while() loop
-            }
-            else
-            {
-                if (Source->Buffer[Offset+3]==0xB6)
-                    picture_start_Found=true;
-            }
-        }
-        Offset++;
-    }
-
-    if (Offset+4>Source->Buffer_Size)
-        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
-
-    return Offset-Source->Buffer_Offset;
-}
-#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Global

@@ -48,13 +48,12 @@ public :
     File_Jpeg();
 
 private :
-    //Buffer - Demux
-    #if MEDIAINFO_DEMUX
-        int64u  Demux_Unpacketize(File__Analyze* Source);
-    #endif //MEDIAINFO_DEMUX
-
     //Buffer - File header
     bool FileHeader_Begin();
+
+    //Buffer - Synchro
+    bool Synched_Test();
+    void Synched_Init();
 
     //Buffer - Per element
     void Header_Parse();
@@ -145,6 +144,12 @@ private :
 
     //Temp
     int8u Height_Multiplier;
+
+    #if MEDIAINFO_DEMUX
+        size_t Demux_Offset;
+        int64u Demux_Frame_Count;
+        int64u Demux_Field_Count;
+    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

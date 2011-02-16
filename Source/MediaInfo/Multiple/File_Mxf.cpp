@@ -438,6 +438,7 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
         case 0x07 : //MPEG PES, SMPTE 381M
         case 0x08 : //MPEG PS, SMPTE 381M
         case 0x09 : //MPEG TS, SMPTE 381M
+        case 0x10 : //AVC
                     switch (Code8)
                     {
                         case 0x01 : return "Frame";
@@ -475,7 +476,15 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
                     {
                         case 0x01 : return "Frame";
                         case 0x02 : return "Clip";
+                        case 0x03 : return "?";
                         case 0x07 : return "Custom";
+                        default   : return "";
+                    }
+        case 0x0C : //JPEG 2000
+                    switch (Code7)
+                    {
+                        case 0x01 : return "Frame";
+                        case 0x02 : return "Clip";
                         default   : return "";
                     }
         case 0x11 : //VC-3, SMPTE 2019-4
@@ -1435,7 +1444,7 @@ void File_Mxf::Read_Buffer_Init()
 {
     EssenceContainer_FromPartitionMetadata=0;
     #if MEDIAINFO_DEMUX
-         Demux_Unpacketize=Config->Demux_Unpacketize_Get();
+         Demux_UnpacketizeContainer=Config->Demux_Unpacketize_Get();
     #endif //MEDIAINFO_DEMUX
 }
 
@@ -1450,11 +1459,6 @@ void File_Mxf::Read_Buffer_Continue()
 
     if (Buffer_DataSizeToParse)
     {
-		#if MEDIAINFO_DEMUX
-			if (Demux_Unpacketize)
-				return;
-		#endif //MEDIAINFO_DEMUX
-
         if (Buffer_Size<=Buffer_DataSizeToParse)
         {
             Element_Size=Buffer_Size; //All the buffer is used
@@ -1514,11 +1518,6 @@ bool File_Mxf::FileHeader_Begin()
 //---------------------------------------------------------------------------
 bool File_Mxf::Synchronize()
 {
-    #if MEDIAINFO_DEMUX
-        if (Demux_Unpacketize && Buffer_DataSizeToParse)
-            return true;
-    #endif //MEDIAINFO_DEMUX
-
     //Synchronizing
     while (Buffer_Offset+4<=Buffer_Size
         && CC4(Buffer+Buffer_Offset)!=0x060E2B34)
@@ -1552,11 +1551,6 @@ bool File_Mxf::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Mxf::Synched_Test()
 {
-    #if MEDIAINFO_DEMUX
-        if (Demux_Unpacketize && Buffer_DataSizeToParse)
-            return true;
-    #endif //MEDIAINFO_DEMUX
-
     //Trailing 0x00
     while(Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
         Buffer_Offset++;
@@ -1604,40 +1598,6 @@ bool File_Mxf::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Mxf::Header_Parse()
 {
-    #if MEDIAINFO_DEMUX
-        if (Buffer_DataSizeToParse && Demux_Unpacketize)
-        {
-            if (Element_Size<16)
-            {
-                Element_WaitForMoreData();
-                return;
-            }
-
-            int32u Code_Compare4=(int32u)Code.lo;
-            if (Essences[Code_Compare4].Parser)
-            {
-                int64u Size=Essences[Code_Compare4].Parser->Demux_Unpacketize(this);
-                if (Buffer_Offset+Size>Buffer_Size)
-                {
-                    Element_WaitForMoreData();
-                    return;
-                }
-                Header_Fill_Code(0, Ztring::ToZtring(Code.hi, 16)+Ztring::ToZtring(Code.lo, 16));
-                if (Size>Buffer_DataSizeToParse)
-                {
-                    Header_Fill_Size(Buffer_DataSizeToParse);
-                    Buffer_DataSizeToParse=0;
-                }
-                else
-                {
-                    Header_Fill_Size(Size);
-                    Buffer_DataSizeToParse-=Size;
-                }
-                return;
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //Parsing
     int8u Length;
     Get_UL(Code,                                                "Code", NULL);
@@ -1723,13 +1683,13 @@ void File_Mxf::Header_Parse()
          && Code_Compare3==0x0D010301)
         {
             #if MEDIAINFO_DEMUX
-                if (Demux_Unpacketize)
+                if (Demux_UnpacketizeContainer)
                 {
                     //Demuxing per frame is requested
                     if (Length_Final>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
                     {
                         Buffer_DataSizeToParse_Complete=Length_Final; //TODO: header is not displayed
-                        Length_Final=0;
+                        Length_Final=Element_Size-Element_Offset;
                         Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
                     }
                     else if (Buffer_Offset+Element_Offset+Length_Final>Buffer_Size)
@@ -1985,6 +1945,19 @@ void File_Mxf::Data_Parse()
 
             //Demux
             #if MEDIAINFO_DEMUX
+                //UnpacketizeContainer config if Clip
+                if (Buffer_DataSizeToParse && Demux_UnpacketizeContainer)
+                {
+                    File__Analyze* Parser=NULL;
+                    if (Essences.size()==1)
+                        Parser=Essences.begin()->second.Parser;
+                    if (Parser)
+                    {
+                        Parser->Demux_Level=2; //Container
+                        Parser->Demux_UnpacketizeContainer=true;
+                    }
+                }
+
                 //Configuration
                 if (Essences[Code_Compare4].TrackID!=(int32u)-1)
                     Element_Code=Essences[Code_Compare4].TrackID;
@@ -6469,15 +6442,15 @@ File__Analyze* File_Mxf::ChooseParser_Avc()
 {
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
-        File_Avc* Handle=new File_Avc;
+        File_Avc* Parser=new File_Avc;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Format, "AVC");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Format, "AVC");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6485,15 +6458,15 @@ File__Analyze* File_Mxf::ChooseParser_DV()
 {
     //Filling
     #if defined(MEDIAINFO_DVDIF_YES)
-        File_DvDif* Handle=new File_DvDif;
+        File_DvDif* Parser=new File_DvDif;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "DV");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "DV");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6501,15 +6474,16 @@ File__Analyze* File_Mxf::ChooseParser_Mpeg4v()
 {
     //Filling
     #if defined(MEDIAINFO_MPEG4V_YES)
-        File_Mpeg4v* Handle=new File_Mpeg4v;
+        File_Mpeg4v* Parser=new File_Mpeg4v;
+        Parser->OnlyVOP();
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6517,26 +6491,26 @@ File__Analyze* File_Mxf::ChooseParser_Mpegv()
 {
     //Filling
     #if defined(MEDIAINFO_MPEGV_YES)
-        File_Mpegv* Handle=new File_Mpegv();
-        Handle->Ancillary=&Ancillary;
+        File_Mpegv* Parser=new File_Mpegv();
+        Parser->Ancillary=&Ancillary;
     #else
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
 File__Analyze* File_Mxf::ChooseParser_RV24()
 {
     //Filling
-    File__Analyze* Handle=new File_Unknown();
-    Open_Buffer_Init(Handle);
-    Handle->Stream_Prepare(Stream_Video);
-    Handle->Fill(Stream_Video, 0, Video_Format, "RV24");
-    return Handle;
+    File__Analyze* Parser=new File_Unknown();
+    Open_Buffer_Init(Parser);
+    Parser->Stream_Prepare(Stream_Video);
+    Parser->Fill(Stream_Video, 0, Video_Format, "RV24");
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6544,22 +6518,15 @@ File__Analyze* File_Mxf::ChooseParser_Vc3()
 {
     //Filling
     #if defined(MEDIAINFO_VC3_YES)
-        File_Vc3* Handle=new File_Vc3;
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_Unpacketize_Get())
-            {
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
-            }
-        #endif //MEDIAINFO_DEMUX
+        File_Vc3* Parser=new File_Vc3;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Format, "VC-3");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Format, "VC-3");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6567,15 +6534,15 @@ File__Analyze* File_Mxf::ChooseParser_Aac()
 {
     //Filling
     #if defined(MEDIAINFO_AAC_YES)
-        File_Aac* Handle=new File_Aac;
+        File_Aac* Parser=new File_Aac;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6583,34 +6550,27 @@ File__Analyze* File_Mxf::ChooseParser_Aes3()
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
-        File_Aes3* Handle=new File_Aes3;
-        Handle->From_Raw=true;
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_Unpacketize_Get())
-            {
-                Handle->Demux_Level=2; //Container
-                Handle->Demux_UnpacketizeContainer=true;
-            }
-        #endif //MEDIAINFO_DEMUX
+        File_Aes3* Parser=new File_Aes3;
+        Parser->From_Raw=true;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
 File__Analyze* File_Mxf::ChooseParser_Alaw()
 {
     //Filling
-    File__Analyze* Handle=new File_Unknown();
-    Open_Buffer_Init(Handle);
-    Handle->Stream_Prepare(Stream_Audio);
-    Handle->Fill(Stream_Audio, 0, Audio_Format, "Alaw");
-    return Handle;
+    File__Analyze* Parser=new File_Unknown();
+    Open_Buffer_Init(Parser);
+    Parser->Stream_Prepare(Stream_Audio);
+    Parser->Fill(Stream_Audio, 0, Audio_Format, "Alaw");
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6618,15 +6578,15 @@ File__Analyze* File_Mxf::ChooseParser_Mpega()
 {
     //Filling
     #if defined(MEDIAINFO_MPEGA_YES)
-        File_Mpega* Handle=new File_Mpega;
+        File_Mpega* Parser=new File_Mpega;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6634,19 +6594,15 @@ File__Analyze* File_Mxf::ChooseParser_Pcm()
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
-        File_Aes3* Handle=new File_Aes3;
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_Unpacketize_Get())
-                Handle->Demux_UnpacketizeContainer=true;
-        #endif //MEDIAINFO_DEMUX
+        File_Aes3* Parser=new File_Aes3;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
     #endif
-    return Handle;
+    return Parser;
 }
 
 //---------------------------------------------------------------------------
@@ -6654,17 +6610,17 @@ File__Analyze* File_Mxf::ChooseParser_Jpeg2000(bool Interlaced)
 {
     //Filling
     #if defined(MEDIAINFO_JPEG_YES)
-        File_Jpeg* Handle=new File_Jpeg;
-        Handle->StreamKind=Stream_Video;
-        Handle->Interlaced=Interlaced;
+        File_Jpeg* Parser=new File_Jpeg;
+        Parser->StreamKind=Stream_Video;
+        Parser->Interlaced=Interlaced;
     #else
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Open_Buffer_Init(Handle);
-        Handle->Stream_Prepare(Stream_Video);
-        Handle->Fill(Stream_Video, 0, Video_Format, "JPEG 2000");
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Format, "JPEG 2000");
     #endif
-    return Handle;
+    return Parser;
 }
 
 } //NameSpace

@@ -54,9 +54,6 @@ protected :
     void Streams_Fill();
     void Streams_Finish();
 
-    //Buffer - Demux
-    ZenLib::int64u  Demux_Unpacketize(File__Analyze* Source);
-
     //Buffer - File header
     bool FileHeader_Begin();
 
@@ -64,11 +61,13 @@ protected :
     bool Synchronize();
     bool Synched_Test();
     void Synched_Test_Reset();
+    void Synched_Init();
 
     //Buffer - Global
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     void Read_Buffer_Continue();
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
+    void Read_Buffer_Unsynched();
 
     //Buffer
     void Header_Parse();
@@ -115,7 +114,6 @@ protected :
     Ztring Recorded_Date_Date;
     Ztring Recorded_Date_Time;
     Ztring Encoded_Library_Settings;
-    size_t FrameCount;
     int64u Duration;
     int64u TimeCode_First;
     int64u FrameSize_Theory; //The size of a frame
@@ -340,6 +338,12 @@ public:
     stts* Mpeg4_stts;
     size_t Mpeg4_stts_Pos;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
+
+    #if MEDIAINFO_DEMUX
+        size_t Demux_Offset;
+        int64u Demux_Frame_Count;
+        int64u Demux_Field_Count;
+    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

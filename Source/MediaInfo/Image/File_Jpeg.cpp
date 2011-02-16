@@ -140,6 +140,13 @@ namespace Elements
 //---------------------------------------------------------------------------
 File_Jpeg::File_Jpeg()
 {
+    //Config
+    #if MEDIAINFO_TRACE
+        Trace_Layers_Update(8); //Stream
+    #endif //MEDIAINFO_TRACE
+    MustSynchronize=true;
+    IsRawStream=true;
+
     //In
     StreamKind=Stream_Image;
     Interlaced=false;
@@ -147,43 +154,6 @@ File_Jpeg::File_Jpeg()
     //Temp
     Height_Multiplier=1;
 }
-
-//***************************************************************************
-// Buffer - Synchro
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-#if MEDIAINFO_DEMUX
-int64u File_Jpeg::Demux_Unpacketize(File__Analyze* Source2)
-{
-    File_Jpeg* Source=(File_Jpeg*)Source2;
-
-    size_t Offset=Source->Buffer_Offset+2; //2 first byte are the start
-    while (Offset+2<=Source->Buffer_Size)
-    {
-        if (Source->Buffer[Offset]==0xFF)
-        {
-            bool MustBreak;
-            switch (Source->Buffer[Offset+1])
-            {
-                case 0x4F :
-                case 0xD8 :
-                            MustBreak=true;
-                            break;
-                default   : MustBreak=false;
-            }
-            if (MustBreak)
-                break; //while() loop
-        }
-        Offset++;
-    }
-
-    if (Offset+2>Source->Buffer_Size)
-        return Source->File_Size-(Source->File_Offset+Source->Buffer_Offset); //No complete frame
-
-    return Offset-Source->Buffer_Offset;
-}
-#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Static stuff
@@ -205,6 +175,82 @@ bool File_Jpeg::FileHeader_Begin()
 
     //All should be OK...
     return true;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Jpeg::Synched_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+2>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (Buffer[Buffer_Offset]!=0xFF)
+    {
+        Synched=false;
+        return true;
+    }
+
+    //Demux
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            int16u code=BigEndian2int16u(Buffer+Buffer_Offset);
+            if (code==Elements::SOI || code==Elements::SOC)
+            {
+                if (Demux_Offset==0)
+                {
+                    Demux_Offset=Buffer_Offset;
+                }
+                while (Demux_Offset+2<=Buffer_Size)
+                {
+                    code=BigEndian2int16u(Buffer+Demux_Offset);
+                    if (code==Elements::EOI)
+                        break;
+                    Demux_Offset++;
+                }
+
+                if (Demux_Offset+2>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //No complete frame
+                }
+                Demux_Offset+=2;
+
+                Demux_random_access=true;
+                if (StreamIDs_Size>=2)
+                    Element_Code=StreamIDs[StreamIDs_Size-2];
+                StreamIDs_Size--;
+                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
+                StreamIDs_Size++;
+                if (Demux_Frame_Count<=Frame_Count)
+                    Demux_Frame_Count++;
+                if (Demux_Field_Count<=Field_Count)
+                    Demux_Field_Count++;
+                Demux_Offset=0;
+                if (Frame_Count || Field_Count)
+                    Element_End();
+                Element_Begin("Frame or Field");
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Jpeg::Synched_Init()
+{
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=0;
+        Demux_Field_Count=0;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************

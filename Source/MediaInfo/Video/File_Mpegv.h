@@ -61,11 +61,6 @@ private :
     void Streams_Fill();
     void Streams_Finish();
 
-    //Buffer - Demux
-    #if MEDIAINFO_DEMUX
-        int64u  Demux_Unpacketize(File__Analyze* Source);
-    #endif //MEDIAINFO_DEMUX
-
     //Buffer - File header
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
