@@ -1603,6 +1603,18 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
         Skip_S1(3,                                              "reserved");
         Get_SB (PES_extension_flag_2,                           "PES_extension_flag_2");
         BS_End();
+
+        //Integrity test
+        if (Element_Offset+(PES_private_data_flag?16:0)+(pack_header_field_flag?1:0)+(program_packet_sequence_counter_flag?2:0)+(p_STD_buffer_flag?2:0)+(PES_extension_flag_2?2:0)>Element_Pos_After_Data)
+        {
+            //There is a problem
+            PES_private_data_flag=false;
+            pack_header_field_flag=false;
+            program_packet_sequence_counter_flag=false;
+            p_STD_buffer_flag=false;
+            PES_extension_flag_2=false;
+        }
+
         if (PES_private_data_flag)
         {
             Element_Begin("PES_private_data_flag");
