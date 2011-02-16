@@ -501,9 +501,10 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
 //---------------------------------------------------------------------------
 const char* Mxf_EssenceCompression(int128u EssenceCompression)
 {
-    if ((EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
+    if ((EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || !((EssenceCompression.lo&0xFF00000000000000LL)==0x0400000000000000LL || (EssenceCompression.lo&0xFF00000000000000LL)==0x0E00000000000000LL))
         return "";
 
+    int8u Code1=(int8u)((EssenceCompression.lo&0xFF00000000000000LL)>>56);
     int8u Code2=(int8u)((EssenceCompression.lo&0x00FF000000000000LL)>>48);
     int8u Code3=(int8u)((EssenceCompression.lo&0x0000FF0000000000LL)>>40);
     int8u Code4=(int8u)((EssenceCompression.lo&0x000000FF00000000LL)>>32);
@@ -511,97 +512,128 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
     int8u Code6=(int8u)((EssenceCompression.lo&0x0000000000FF0000LL)>>16);
     int8u Code7=(int8u)((EssenceCompression.lo&0x000000000000FF00LL)>> 8);
 
-    switch (Code2)
+    switch (Code1)
     {
-        case 0x01 : //Picture
-                    switch (Code3)
+        case 0x04 : //
+                    switch (Code2)
                     {
-                        case 0x02 : //Coding characteristics
-                                    switch (Code4)
+                        case 0x01 : //Picture
+                                    switch (Code3)
                                     {
-                                        case 0x02 : //Compressed coding
-                                                    switch (Code5)
+                                        case 0x02 : //Coding characteristics
+                                                    switch (Code4)
                                                     {
-                                                        case 0x01 : //MPEG Compression
-                                                                    switch (Code6)
+                                                        case 0x02 : //Compressed coding
+                                                                    switch (Code5)
                                                                     {
-                                                                        case 0x01 : return "MPEG-2 Video";
-                                                                        case 0x02 : return "MPEG-2 Video";
-                                                                        case 0x03 : return "MPEG-2 Video";
-                                                                        case 0x04 : return "MPEG-2 Video";
-                                                                        case 0x11 : return "MPEG-1 Video";
-                                                                        case 0x20 : return "MPEG-4 Visual";
-                                                                        case 0x32 : return "AVC";
+                                                                        case 0x01 : //MPEG Compression
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x01 : return "MPEG-2 Video";
+                                                                                        case 0x02 : return "MPEG-2 Video";
+                                                                                        case 0x03 : return "MPEG-2 Video";
+                                                                                        case 0x04 : return "MPEG-2 Video";
+                                                                                        case 0x11 : return "MPEG-1 Video";
+                                                                                        case 0x20 : return "MPEG-4 Visual";
+                                                                                        case 0x32 : return "AVC";
+                                                                                        default   : return "";
+                                                                                    }
+                                                                        case 0x02 : return "DV";
+                                                                        case 0x03 : //Individual Picture Coding Schemes
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x01 : return "JPEG 2000";
+                                                                                        default   : return "";
+                                                                                    }
+                                                                        case 0x71 : return "VC-3";
                                                                         default   : return "";
                                                                     }
-                                                        case 0x02 : return "DV";
-                                                        case 0x03 : //Individual Picture Coding Schemes
-                                                                    switch (Code6)
-                                                                    {
-                                                                        case 0x01 : return "JPEG 2000";
-                                                                        default   : return "";
-                                                                    }
-                                                        case 0x71 : return "VC-3";
-                                                        default   : return "";
+                                                         default   : return "";
                                                     }
                                          default   : return "";
                                     }
-                         default   : return "";
-                    }
-        case 0x02 : //Sound
-                    switch (Code3)
-                    {
-                        case 0x02 : //Coding characteristics
-                                    switch (Code4)
+                        case 0x02 : //Sound
+                                    switch (Code3)
                                     {
-                                        case 0x01 : //Uncompressed Sound Coding
-                                                    switch (Code5)
+                                        case 0x02 : //Coding characteristics
+                                                    switch (Code4)
                                                     {
-                                                        case 0x7E : return "PCM (AIFF)";
-                                                        case 0x7F : return "PCM";
-                                                        default   : return "";
-                                                    }
-                                        case 0x02 : //Compressed coding
-                                                    switch (Code5)
-                                                    {
-                                                        case 0x03 : //Compressed Audio Coding
-                                                                    switch (Code6)
+                                                        case 0x01 : //Uncompressed Sound Coding
+                                                                    switch (Code5)
                                                                     {
-                                                                        case 0x01 : //Compandeded Audio Coding
-                                                                                    switch (Code7)
+                                                                        case 0x7E : return "PCM (AIFF)";
+                                                                        case 0x7F : return "PCM";
+                                                                        default   : return "";
+                                                                    }
+                                                        case 0x02 : //Compressed coding
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x03 : //Compressed Audio Coding
+                                                                                    switch (Code6)
                                                                                     {
-                                                                                        case 0x01 : return "A-law";
-                                                                                        case 0x10 : return "DV Audio"; //DV 12-bit
-                                                                                        default   : return ""; //Unknown
+                                                                                        case 0x01 : //Compandeded Audio Coding
+                                                                                                    switch (Code7)
+                                                                                                    {
+                                                                                                        case 0x01 : return "A-law";
+                                                                                                        case 0x10 : return "DV Audio"; //DV 12-bit
+                                                                                                        default   : return ""; //Unknown
+                                                                                                    }
+                                                                                        case 0x02 : //SMPTE 338M Audio Coding
+                                                                                                    switch (Code7)
+                                                                                                    {
+                                                                                                        case 0x01 : return "ATSC A/52";
+                                                                                                        case 0x04 : return "MPEG-1 Audio Layer 1";
+                                                                                                        case 0x05 : return "MPEG-1 Audio Layer 2 or 3";
+                                                                                                        case 0x06 : return "MPEG-2 Audio Layer 1";
+                                                                                                        case 0x1C : return "Dolby E";
+                                                                                                        default   : return ""; //Unknown
+                                                                                                    }
+                                                                                        case 0x03 : //MPEG-2 Coding (not defined in SMPTE 338M)
+                                                                                                    switch (Code7)
+                                                                                                    {
+                                                                                                        case 0x01 : return "AAC version 2";
+                                                                                                        default   : return ""; //Unknown
+                                                                                                    }
+                                                                                        case 0x04 : //MPEG-4 Audio Coding
+                                                                                                    switch (Code7)
+                                                                                                    {
+                                                                                                        case 0x01 : return "MPEG-4 Speech Profile";
+                                                                                                        case 0x02 : return "MPEG-4 Synthesis Profile";
+                                                                                                        case 0x03 : return "MPEG-4 Scalable Profile";
+                                                                                                        case 0x04 : return "MPEG-4 Main Profile";
+                                                                                                        case 0x05 : return "MPEG-4 High Quality Audio Profile";
+                                                                                                        case 0x06 : return "MPEG-4 Low Delay Audio Profile";
+                                                                                                        case 0x07 : return "MPEG-4 Natural Audio Profile";
+                                                                                                        case 0x08 : return "MPEG-4 Mobile Audio Internetworking Profile";
+                                                                                                        default   : return ""; //Unknown
+                                                                                                    }
+                                                                                        default   : return "";
                                                                                     }
-                                                                        case 0x02 : //SMPTE 338M Audio Coding
-                                                                                    switch (Code7)
+                                                                         default   : return "";
+                                                                    }
+                                                         default   : return "";
+                                                    }
+                                         default   : return "";
+                                    }
+                        default   : return "";
+                    }
+        case 0x0E : //Private Use
+                    switch (Code2)
+                    {
+                        case 0x04 : //Avid
+                                    switch (Code3)
+                                    {
+                                        case 0x02 : //Essence Compression ?
+                                                    switch (Code4)
+                                                    {
+                                                        case 0x01 : //?
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x02 : //?
+                                                                                    switch (Code6)
                                                                                     {
-                                                                                        case 0x01 : return "ATSC A/52";
-                                                                                        case 0x04 : return "MPEG-1 Audio Layer 1";
-                                                                                        case 0x05 : return "MPEG-1 Audio Layer 2 or 3";
-                                                                                        case 0x06 : return "MPEG-2 Audio Layer 1";
-                                                                                        case 0x1C : return "Dolby E";
-                                                                                        default   : return ""; //Unknown
-                                                                                    }
-                                                                        case 0x03 : //MPEG-2 Coding (not defined in SMPTE 338M)
-                                                                                    switch (Code7)
-                                                                                    {
-                                                                                        case 0x01 : return "AAC version 2";
-                                                                                        default   : return ""; //Unknown
-                                                                                    }
-                                                                        case 0x04 : //MPEG-4 Audio Coding
-                                                                                    switch (Code7)
-                                                                                    {
-                                                                                        case 0x01 : return "MPEG-4 Speech Profile";
-                                                                                        case 0x02 : return "MPEG-4 Synthesis Profile";
-                                                                                        case 0x03 : return "MPEG-4 Scalable Profile";
-                                                                                        case 0x04 : return "MPEG-4 Main Profile";
-                                                                                        case 0x05 : return "MPEG-4 High Quality Audio Profile";
-                                                                                        case 0x06 : return "MPEG-4 Low Delay Audio Profile";
-                                                                                        case 0x07 : return "MPEG-4 Natural Audio Profile";
-                                                                                        case 0x08 : return "MPEG-4 Mobile Audio Internetworking Profile";
-                                                                                        default   : return ""; //Unknown
+                                                                                        case 0x04 : return "VC-3?";
+                                                                                        default   : return "";
                                                                                     }
                                                                         default   : return "";
                                                                     }
@@ -609,7 +641,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                     }
                                          default   : return "";
                                     }
-                         default   : return "";
+                        default   : return "";
                     }
         default   : return "";
     }
@@ -1683,6 +1715,9 @@ void File_Mxf::Header_Parse()
          && Code_Compare2==0x01020101
          && Code_Compare3==0x0D010301)
         {
+            if (Descriptors.size()==1 && Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty() && Length_Final>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+                Descriptors.begin()->second.Infos["Format_Settings_Wrapping"]=_T("Clip"); //By default, not sure about it, should be from descriptor
+
             #if MEDIAINFO_DEMUX
                 if (Demux_UnpacketizeContainer)
                 {
@@ -1703,7 +1738,7 @@ void File_Mxf::Header_Parse()
                 {
             #endif //MEDIAINFO_DEMUX
                     Buffer_DataSizeToParse_Complete=Length_Final;
-                    Length_Final=Buffer_Size-(Buffer_Offset+Element_Offset);
+                    Length_Final=Element_Size-Element_Offset;
                     Buffer_DataSizeToParse=Buffer_DataSizeToParse_Complete-Length_Final;
             #if MEDIAINFO_DEMUX
                 }
@@ -1860,9 +1895,9 @@ void File_Mxf::Data_Parse()
                 {
                     if (Descriptor->second.EssenceContainer.hi!=(int64u)-1 || Descriptor->second.EssenceCompression.hi!=(int64u)-1)
                     {
-                        Essences[Code_Compare4].Parser=ChooseParser(Descriptor->second.EssenceContainer, Descriptor->second.EssenceCompression, Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
+                        Essences[Code_Compare4].Parser=ChooseParser(Descriptor);
                         if (Essences[Code_Compare4].Parser==NULL && EssenceContainer_FromPartitionMetadata!=0)
-                            Essences[Code_Compare4].Parser=ChooseParser(EssenceContainer_FromPartitionMetadata, Descriptor->second.EssenceCompression, Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
+                            Essences[Code_Compare4].Parser=ChooseParser(Descriptor);
                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                         if ((Code_Compare4&0x000000FF)==0x00000000)
                             StreamPos_StartAtOne=false;
@@ -1899,6 +1934,11 @@ void File_Mxf::Data_Parse()
                                         Essences[Code_Compare4].StreamKind=Stream_Video;
                                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                         Essences[Code_Compare4].Parser=ChooseParser_Jpeg2000();
+                                        break;
+                    case 0x15000D00 : //VC-3
+                                        Essences[Code_Compare4].StreamKind=Stream_Video;
+                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                                        Essences[Code_Compare4].Parser=ChooseParser_Vc3();
                                         break;
                     case 0x06001000 : //D-10 Audio, SMPTE 386M
                                         Essences[Code_Compare4].StreamKind=Stream_Audio;
@@ -4802,7 +4842,12 @@ void File_Mxf::WaveAudioDescriptor_AvgBps()
 void File_Mxf::WaveAudioDescriptor_BlockAlign()
 {
     //Parsing
-    Info_B2(Data,                                                "Data"); Element_Info(Data);
+    int16u Data;
+    Get_B2 (Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].BlockAlign=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -6127,7 +6172,45 @@ void File_Mxf::Info_UL_040101_Values()
                     Info_B1(Code3,                              "Code (3)");
                     switch (Code3)
                     {
+                        case 0x02 :
+                            {
+                            Param_Info("Essence Compression?");
+                            Info_B1(Code4,                      "?");
+                            switch (Code4)
+                            {
+                                case 0x01 :
+                                    {
+                                    Param_Info("?");
+                                    Info_B1(Code5,              "?");
+                                    switch (Code5)
+                                    {
+                                        case 0x02 :
+                                            {
+                                            Param_Info("?");
+                                            Info_B1(Code6,      "Code (6)");
+                                            switch (Code6)
+                                            {
+                                                case 0x04 :
+                                                    Param_Info("VC-3?");
+                                                    Skip_B2(    "Unknown");
+                                                    break;
+                                                default   :
+                                                    Skip_B2(    "Unknown");
+                                            }
+                                            }
+                                            break;
+                                        default   :
+                                            Skip_B3(            "Unknown");
+                                    }
+                                    }
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            }
+                            break;
                         case 0x03 :
+                            {
                             Param_Info("Essence Container Application");
                             Info_B1(Code4,                      "Structure Version");
                             switch (Code4)
@@ -6160,6 +6243,7 @@ void File_Mxf::Info_UL_040101_Values()
                                     break;
                                 default   :
                                     Skip_B4(                    "Unknown");
+                            }
                             }
                             break;
                         default   :
@@ -6289,17 +6373,17 @@ void File_Mxf::Info_Timestamp()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceCompression, bool Interlaced)
+File__Analyze* File_Mxf::ChooseParser(descriptors::iterator &Descriptor)
 {
-    if ((EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
-        return ChooseParser (EssenceContainer);
+    if ((Descriptor->second.EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (Descriptor->second.EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
+        return ChooseParser__FromEssenceContainer (Descriptor);
 
-    int8u Code2=(int8u)((EssenceCompression.lo&0x00FF000000000000LL)>>48);
-    int8u Code3=(int8u)((EssenceCompression.lo&0x0000FF0000000000LL)>>40);
-    int8u Code4=(int8u)((EssenceCompression.lo&0x000000FF00000000LL)>>32);
-    int8u Code5=(int8u)((EssenceCompression.lo&0x00000000FF000000LL)>>24);
-    int8u Code6=(int8u)((EssenceCompression.lo&0x0000000000FF0000LL)>>16);
-    int8u Code7=(int8u)((EssenceCompression.lo&0x000000000000FF00LL)>> 8);
+    int8u Code2=(int8u)((Descriptor->second.EssenceCompression.lo&0x00FF000000000000LL)>>48);
+    int8u Code3=(int8u)((Descriptor->second.EssenceCompression.lo&0x0000FF0000000000LL)>>40);
+    int8u Code4=(int8u)((Descriptor->second.EssenceCompression.lo&0x000000FF00000000LL)>>32);
+    int8u Code5=(int8u)((Descriptor->second.EssenceCompression.lo&0x00000000FF000000LL)>>24);
+    int8u Code6=(int8u)((Descriptor->second.EssenceCompression.lo&0x0000000000FF0000LL)>>16);
+    int8u Code7=(int8u)((Descriptor->second.EssenceCompression.lo&0x000000000000FF00LL)>> 8);
 
     switch (Code2)
     {
@@ -6334,7 +6418,7 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
                                                         case 0x03 : //Individual Picture Coding Schemes
                                                                     switch (Code6)
                                                                     {
-                                                                        case 0x01 : return ChooseParser_Jpeg2000(Interlaced);
+                                                                        case 0x01 : return ChooseParser_Jpeg2000(Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
                                                                         default   : return NULL;
                                                                     }
                                                         case 0x71 : return ChooseParser_Vc3();
@@ -6353,8 +6437,8 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
                                         case 0x01 : //Uncompressed Sound Coding
                                                     switch (Code5)
                                                     {
-                                                        case 0x7E : return ChooseParser_Pcm();
-                                                        case 0x7F : return ChooseParser_Pcm();
+                                                        case 0x7E : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
+                                                        case 0x7F : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
                                                         default   : return NULL;
                                                     }
                                         case 0x02 : //Compressed coding
@@ -6366,11 +6450,11 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
                                                                         case 0x01 : //Compandeded Audio Coding
                                                                                     switch (Code7)
                                                                                     {
-                                                                                        case 0x01 : if ((EssenceContainer.lo&0xFFFF0000)==0x02060000) //Test coherency between container and compression
-                                                                                                        return ChooseParser_Pcm(); //Compression is A-Law but Container is PCM, not logic, prioritizing PCM
+                                                                                        case 0x01 : if ((Descriptor->second.EssenceContainer.lo&0xFFFF0000)==0x02060000) //Test coherency between container and compression
+                                                                                                        return ChooseParser_Pcm(Descriptor->second.BlockAlign); //Compression is A-Law but Container is PCM, not logic, prioritizing PCM
                                                                                                      else
                                                                                                         return ChooseParser_Alaw();
-                                                                                        case 0x10 : return ChooseParser_Pcm(); //DV 12-bit
+                                                                                        case 0x10 : return ChooseParser_Pcm(Descriptor->second.BlockAlign); //DV 12-bit
                                                                                         default   : return NULL;
                                                                                     }
                                                                         case 0x02 : //SMPTE 338M Audio Coding
@@ -6415,27 +6499,27 @@ File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer, int128u EssenceC
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser(int128u EssenceContainer)
+File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(descriptors::iterator &Descriptor)
 {
     //Private data
-    if ((EssenceContainer.lo&0xFF00000000000000LL)==0x0E00000000000000LL)
+    if ((Descriptor->second.EssenceContainer.lo&0xFF00000000000000LL)==0x0E00000000000000LL)
     {
-        switch (EssenceContainer.lo)
+        switch (Descriptor->second.EssenceContainer.lo)
         {
             case 0xE04030102060203LL : return ChooseParser_Vc3();
             default                  : ;
         }
     }
 
-    if ((EssenceContainer.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (EssenceContainer.lo&0xFFFFFFFFFF000000LL)!=0x0D01030102000000LL)
+    if ((Descriptor->second.EssenceContainer.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (Descriptor->second.EssenceContainer.lo&0xFFFFFFFFFF000000LL)!=0x0D01030102000000LL)
         return NULL;
 
-    int8u Code6=(int8u)((EssenceContainer.lo&0x0000000000FF0000LL)>>16);
+    int8u Code6=(int8u)((Descriptor->second.EssenceContainer.lo&0x0000000000FF0000LL)>>16);
 
     switch (Code6)
     {
         case 0x01 : return ChooseParser_Aes3();
-        case 0x06 : return ChooseParser_Pcm();
+        case 0x06 : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
         default   : return NULL;
     }
 }
@@ -6593,11 +6677,13 @@ File__Analyze* File_Mxf::ChooseParser_Mpega()
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Pcm()
+File__Analyze* File_Mxf::ChooseParser_Pcm(int16u BlockAlign)
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
+        if (BlockAlign!=(int16u)-1)
+            Parser->ByteSize=BlockAlign;
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();

@@ -298,12 +298,16 @@ void File_Aes3::Read_Buffer_Continue()
     if (IsPcm)
     {
         #if MEDIAINFO_DEMUX
+            if (ByteSize==(size_t)-1)
+                Element_Size=Buffer_Size;
+            else
+                Element_Size=(Buffer_Size/ByteSize)*ByteSize;
             if (Demux_UnpacketizeContainer)
             {
                 if (StreamIDs_Size>=2)
                     Element_Code=StreamIDs[StreamIDs_Size-2];
                 StreamIDs_Size--;
-                Demux(Buffer, Buffer_Size, ContentType_MainStream);
+                Demux(Buffer, Element_Size, ContentType_MainStream);
                 StreamIDs_Size++;
             }
         #endif //MEDIAINFO_DEMUX
@@ -331,24 +335,11 @@ void File_Aes3::Read_Buffer_Continue()
         {
             //Raw PCM
             Buffer_Offset=0;
-            Element_Size=Buffer_Size;
 
-            #if MEDIAINFO_DEMUX
-                if (Demux_UnpacketizeContainer)
-                {
-                    if (StreamIDs_Size>=2)
-                        Element_Code=StreamIDs[StreamIDs_Size-2];
-                    StreamIDs_Size--;
-                    Demux_Level=2;
-                    Demux(Buffer, Buffer_Size, ContentType_MainStream);
-                    StreamIDs_Size++;
-                }
-            #endif //MEDIAINFO_DEMUX
-
-            Skip_XX(Element_Size,                               "Data");
+            IsPcm=true;
+            Read_Buffer_Continue();
 
             Accept("PCM");
-            IsPcm=true;
             Finish();
 
             return;
@@ -471,6 +462,9 @@ void File_Aes3::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 bool File_Aes3::Synchronize()
 {
+    if (IsPcm)
+        return false; //No sync with raw PCM, must return immediatly and wait for more data
+
     //Synchronizing
     while (Buffer_Offset+16<=Buffer_Size)
     {
@@ -596,7 +590,7 @@ bool File_Aes3::Synchronize()
         }
 
         if (ByteSize!=(size_t)-1)
-            Buffer_Offset+=ByteSize*2;
+            Buffer_Offset+=ByteSize;
         else
             Buffer_Offset++;
     }
@@ -838,7 +832,6 @@ void File_Aes3::Raw()
             }
 
             #if MEDIAINFO_DEMUX
-                Demux_Level=2; //Container
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 

@@ -48,15 +48,23 @@ public :
     File_Jpeg();
 
 private :
+    //Streams management
+    void Streams_Fill();
+
     //Buffer - File header
     bool FileHeader_Begin();
 
     //Buffer - Synchro
+    bool Synchronize();
     bool Synched_Test();
     void Synched_Init();
 
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+
     //Buffer - Per element
     void Header_Parse();
+    bool Header_Parser_Fill_Size();
     void Data_Parse();
 
     //Elements
@@ -65,10 +73,18 @@ private :
     void SIZ ();
     void COD ();
     void COC () {Skip_XX(Element_Size, "Data");}
+    void TLM () {Skip_XX(Element_Size, "Data");}
+    void PLM () {Skip_XX(Element_Size, "Data");}
+    void PLT () {Skip_XX(Element_Size, "Data");}
     void QCD ();
     void QCC () {Skip_XX(Element_Size, "Data");}
     void RGN () {Skip_XX(Element_Size, "Data");}
+    void PPM () {Skip_XX(Element_Size, "Data");}
+    void PPT () {Skip_XX(Element_Size, "Data");}
+    void CME () {Skip_XX(Element_Size, "Data");}
     void SOT () {Skip_XX(Element_Size, "Data");}
+    void SOP () {Skip_XX(Element_Size, "Data");}
+    void EPH () {Skip_XX(Element_Size, "Data");}
     void SOD ();
     void SOF_();
     void S0F0() {SOF_();};
@@ -144,6 +160,7 @@ private :
 
     //Temp
     int8u Height_Multiplier;
+    bool  SOD_Parsed;
 
     #if MEDIAINFO_DEMUX
         size_t Demux_Offset;

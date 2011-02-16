@@ -63,10 +63,18 @@ namespace Elements
     const int16u SIZ =0xFF51; //JPEG 2000
     const int16u COD =0xFF52; //JPEG 2000
     const int16u COC =0xFF53; //JPEG 2000
+    const int16u TLM =0xFF55; //JPEG 2000
+    const int16u PLM =0xFF57; //JPEG 2000
+    const int16u PLT =0xFF58; //JPEG 2000
     const int16u QCD =0xFF5C; //JPEG 2000
     const int16u QCC =0xFF5D; //JPEG 2000
     const int16u RGN =0xFF5E; //JPEG 2000
+    const int16u PPM =0xFF60; //JPEG 2000
+    const int16u PPT =0xFF61; //JPEG 2000
+    const int16u CME =0xFF64; //JPEG 2000
     const int16u SOT =0xFF90; //JPEG 2000
+    const int16u SOP =0xFF91; //JPEG 2000
+    const int16u EPH =0xFF92; //JPEG 2000
     const int16u SOD =0xFF93; //JPEG 2000
     const int16u S0F0=0xFFC0;
     const int16u S0F1=0xFFC1;
@@ -156,6 +164,15 @@ File_Jpeg::File_Jpeg()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Jpeg::Streams_Fill()
+{
+}
+
+//***************************************************************************
 // Static stuff
 //***************************************************************************
 
@@ -182,8 +199,30 @@ bool File_Jpeg::FileHeader_Begin()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Jpeg::Synchronize()
+{
+    //Synchronizing
+    while(Buffer_Offset+2<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0xFF
+                                        || Buffer[Buffer_Offset+1]==0x00))
+        Buffer_Offset++;
+
+    if (Buffer_Offset+1==Buffer_Size &&  Buffer[Buffer_Offset  ]!=0xFF)
+        Buffer_Offset++;
+
+    if (Buffer_Offset+2>Buffer_Size)
+        return false;
+
+    //Synched is OK
+    Synched=true;
+    return true;
+}
+
+//---------------------------------------------------------------------------
 bool File_Jpeg::Synched_Test()
 {
+    if (SOD_Parsed)
+        return true; ///No sync after SOD
+
     //Must have enough buffer for having header
     if (Buffer_Offset+2>Buffer_Size)
         return false;
@@ -246,10 +285,26 @@ bool File_Jpeg::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Jpeg::Synched_Init()
 {
+    SOD_Parsed=false;
     #if MEDIAINFO_DEMUX
         Demux_Offset=0;
         Demux_Frame_Count=0;
         Demux_Field_Count=0;
+    #endif //MEDIAINFO_DEMUX
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Jpeg::Read_Buffer_Unsynched()
+{
+    SOD_Parsed=false;
+    #if MEDIAINFO_DEMUX
+        Demux_Offset=0;
+        Demux_Frame_Count=Frame_Count;
+        Demux_Field_Count=Field_Count;
     #endif //MEDIAINFO_DEMUX
 }
 
@@ -260,6 +315,17 @@ void File_Jpeg::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Jpeg::Header_Parse()
 {
+    if (SOD_Parsed)
+    {
+        Header_Fill_Code(0, "Data");
+        if (!Header_Parser_Fill_Size())
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        return;
+    }
+
     //Parsing
     int16u code, size;
     Get_B2 (code,                                               "Marker");
@@ -279,12 +345,37 @@ void File_Jpeg::Header_Parse()
         case Elements::SOI  :
         case Elements::EOI  :
                     size=0; break;
-        default   : Get_B2 (size,                                  "Fl - Frame header length");
+        default   : Get_B2 (size,                               "Fl - Frame header length");
     }
 
     //Filling
     Header_Fill_Code(code, Ztring().From_CC2(code));
     Header_Fill_Size(2+size);
+}
+
+//---------------------------------------------------------------------------
+bool File_Jpeg::Header_Parser_Fill_Size()
+{
+    //Look for next Sync word
+    if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
+        Buffer_Offset_Temp=Buffer_Offset;
+    while (Buffer_Offset_Temp+2<=Buffer_Size
+        && CC2(Buffer+Buffer_Offset_Temp)!=Elements::EOI)
+        Buffer_Offset_Temp++;
+
+    //Must wait more data?
+    if (Buffer_Offset_Temp+2>Buffer_Size)
+    {
+        if (/*FrameIsAlwaysComplete ||*/ File_Offset+Buffer_Size>=File_Size)
+            Buffer_Offset_Temp=Buffer_Size; //We are sure that the next bytes are a start
+        else
+            return false;
+    }
+
+    //OK, we continue
+    Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
+    Buffer_Offset_Temp=0;
+    return true;
 }
 
 //---------------------------------------------------------------------------
@@ -294,6 +385,12 @@ void File_Jpeg::Data_Parse()
         case Elements::_NAME : Element_Info(#_NAME); Element_Info(_DETAIL); _NAME(); break;
 
     //Parsing
+    if (SOD_Parsed)
+    {
+        Skip_XX(Element_Size,                                   "Data");
+        SOD_Parsed=false;
+        return;
+    }
     switch (Element_Code)
     {
         CASE_INFO(TEM ,                                         "TEM");
@@ -301,10 +398,18 @@ void File_Jpeg::Data_Parse()
         CASE_INFO(SIZ ,                                         "Image and tile size"); //JPEG 2000
         CASE_INFO(COD ,                                         "Coding style default"); //JPEG 2000
         CASE_INFO(COC ,                                         "Coding style component"); //JPEG 2000
+        CASE_INFO(TLM ,                                         "Tile-part lengths, main header"); //JPEG 2000
+        CASE_INFO(PLM ,                                         "Packet length, main header"); //JPEG 2000
+        CASE_INFO(PLT ,                                         "Packet length, tile-part header"); //JPEG 2000
         CASE_INFO(QCD ,                                         "Quantization default"); //JPEG 2000
         CASE_INFO(QCC ,                                         "Quantization component "); //JPEG 2000
         CASE_INFO(RGN ,                                         "Region-of-interest"); //JPEG 2000
+        CASE_INFO(PPM ,                                         "Packed packet headers, main header"); //JPEG 2000
+        CASE_INFO(PPT ,                                         "Packed packet headers, tile-part header"); //JPEG 2000
+        CASE_INFO(CME ,                                         "Comment and extension"); //JPEG 2000
         CASE_INFO(SOT ,                                         "Start of tile-part"); //JPEG 2000
+        CASE_INFO(SOP ,                                         "Start of packet"); //JPEG 2000
+        CASE_INFO(EPH ,                                         "End of packet header"); //JPEG 2000
         CASE_INFO(SOD ,                                         "Start of data"); //JPEG 2000
         CASE_INFO(S0F0,                                         "Baseline DCT (Huffman)");
         CASE_INFO(S0F1,                                         "Extended sequential DCT (Huffman)");
@@ -419,37 +524,40 @@ void File_Jpeg::SIZ()
     }
 
     FILLING_BEGIN_PRECISE();
-        Accept("JPEG 2000");
-
-        if (Count_Get(StreamKind)==0)
-            Stream_Prepare(StreamKind);
-        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Format), StreamKind==Stream_Image?"JPEG 2000":"JPEG 2000");
-        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Codec), StreamKind==Stream_Image?"JPEG 2000":"JPEG 2000");
-        if (StreamKind==Stream_Image)
-            Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Xsiz);
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Ysiz*(Interlaced?2:1)); //If image is from interlaced content, must multiply height by 2
-
-        if (BitDepths.size()==1)
-            Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_BitDepth), 1+BitDepths[0]);
-
-        //Chroma subsampling
-        if (SamplingFactors_Max)
-            while (SamplingFactors_Max<4)
-            {
-                for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-                    SamplingFactors[Pos]*=2;
-                SamplingFactors_Max*=2;
-            }
-        while (SamplingFactors.size()<3)
-            SamplingFactors.push_back(0);
-        Ztring ChromaSubsampling;
-        for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-            ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
-        if (!ChromaSubsampling.empty())
+        if (Frame_Count==0 && Field_Count==0)
         {
-            ChromaSubsampling.resize(ChromaSubsampling.size()-1);
-            Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+            Accept("JPEG 2000");
+
+            if (Count_Get(StreamKind)==0)
+                Stream_Prepare(StreamKind);
+            Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Format), StreamKind==Stream_Image?"JPEG 2000":"JPEG 2000");
+            Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Codec), StreamKind==Stream_Image?"JPEG 2000":"JPEG 2000");
+            if (StreamKind==Stream_Image)
+                Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
+            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Xsiz);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Ysiz*(Interlaced?2:1)); //If image is from interlaced content, must multiply height by 2
+
+            if (BitDepths.size()==1)
+                Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_BitDepth), 1+BitDepths[0]);
+
+            //Chroma subsampling
+            if (SamplingFactors_Max)
+                while (SamplingFactors_Max<4)
+                {
+                    for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+                        SamplingFactors[Pos]*=2;
+                    SamplingFactors_Max*=2;
+                }
+            while (SamplingFactors.size()<3)
+                SamplingFactors.push_back(0);
+            Ztring ChromaSubsampling;
+            for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+                ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
+            if (!ChromaSubsampling.empty())
+            {
+                ChromaSubsampling.resize(ChromaSubsampling.size()-1);
+                Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+            }
         }
     FILLING_END();
 }
@@ -497,11 +605,14 @@ void File_Jpeg::COD()
     }
 
     FILLING_BEGIN();
-        switch (MultipleComponentTransform)
+        if (Frame_Count==0 && Field_Count==0)
         {
-            case 0x01 : Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Compression_Mode:(size_t)Video_Compression_Mode, "Lossless"); break;
-            case 0x02 : Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Compression_Mode:(size_t)Video_Compression_Mode, "Lossy"); break;
-            default   : ;
+            switch (MultipleComponentTransform)
+            {
+                case 0x01 : Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Compression_Mode:(size_t)Video_Compression_Mode, "Lossless"); break;
+                case 0x02 : Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Compression_Mode:(size_t)Video_Compression_Mode, "Lossy"); break;
+                default   : ;
+            }
         }
     FILLING_END();
 }
@@ -518,6 +629,11 @@ void File_Jpeg::QCD()
 void File_Jpeg::SOD()
 {
     FILLING_BEGIN_PRECISE();
+        SOD_Parsed=true;
+        if (Interlaced)
+            Field_Count++;
+        else
+            Frame_Count++;
         Finish("JPEG 2000"); //No need of more
     FILLING_END();
 }
@@ -553,38 +669,41 @@ void File_Jpeg::SOF_()
     }
 
     FILLING_BEGIN_PRECISE();
-        Accept("JPEG");
-
-        if (Count_Get(StreamKind)==0)
-            Stream_Prepare(StreamKind);
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Format:(size_t)Video_Format, StreamKind==Stream_Image?"JPEG":"JPEG");
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Codec:(size_t)Video_Codec, StreamKind==Stream_Image?"JPEG":"JPEG");
-        if (StreamKind==Stream_Image)
-            Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
-        if (StreamKind==Stream_Video)
-            Fill(Stream_Video, 0, Video_InternetMediaType, "video/JPEG", Unlimited, true, true);
-        Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
-        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_BitDepth), Resolution);
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
-
-        //Chroma subsampling
-        if (SamplingFactors_Max)
-            while (SamplingFactors_Max<4)
-            {
-                for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-                    SamplingFactors[Pos]*=2;
-                SamplingFactors_Max*=2;
-            }
-        while (SamplingFactors.size()<3)
-            SamplingFactors.push_back(0);
-        Ztring ChromaSubsampling;
-        for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-            ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
-        if (!ChromaSubsampling.empty())
+        if (Frame_Count==0 && Field_Count==0)
         {
-            ChromaSubsampling.resize(ChromaSubsampling.size()-1);
-            Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+            Accept("JPEG");
+
+            if (Count_Get(StreamKind)==0)
+                Stream_Prepare(StreamKind);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Format:(size_t)Video_Format, StreamKind==Stream_Image?"JPEG":"JPEG");
+            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Codec:(size_t)Video_Codec, StreamKind==Stream_Image?"JPEG":"JPEG");
+            if (StreamKind==Stream_Image)
+                Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
+            if (StreamKind==Stream_Video)
+                Fill(Stream_Video, 0, Video_InternetMediaType, "video/JPEG", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
+            Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_BitDepth), Resolution);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
+
+            //Chroma subsampling
+            if (SamplingFactors_Max)
+                while (SamplingFactors_Max<4)
+                {
+                    for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+                        SamplingFactors[Pos]*=2;
+                    SamplingFactors_Max*=2;
+                }
+            while (SamplingFactors.size()<3)
+                SamplingFactors.push_back(0);
+            Ztring ChromaSubsampling;
+            for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
+                ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
+            if (!ChromaSubsampling.empty())
+            {
+                ChromaSubsampling.resize(ChromaSubsampling.size()-1);
+                Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+            }
         }
     FILLING_END();
 }
@@ -645,18 +764,21 @@ void File_Jpeg::APP0_AVI1()
     Element_End();
 
     FILLING_BEGIN();
-        if (!Status[IsAccepted])
+        if (Frame_Count==0 && Field_Count==0)
         {
-            Accept("JPEG");
-            if (Count_Get(Stream_Video)==0)
-                Stream_Prepare(Stream_Video);
-
-            switch (FieldOrder)
+            if (!Status[IsAccepted])
             {
-                case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); Fill(Stream_Video, 0, Video_ScanType, "Progressive"); break;
-                case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "TFF"); Height_Multiplier=2; break;
-                case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "BFF"); Height_Multiplier=2; break;
-                default   : ;
+                Accept("JPEG");
+                if (Count_Get(Stream_Video)==0)
+                    Stream_Prepare(Stream_Video);
+
+                switch (FieldOrder)
+                {
+                    case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); Fill(Stream_Video, 0, Video_ScanType, "Progressive"); break;
+                    case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "TFF"); Height_Multiplier=2; break;
+                    case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "BFF"); Height_Multiplier=2; break;
+                    default   : ;
+                }
             }
         }
     FILLING_END();

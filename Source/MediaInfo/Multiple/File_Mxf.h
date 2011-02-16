@@ -500,6 +500,7 @@ protected :
         int32u Height_Display;
         int32u Height_Display_Offset;
         std::map<std::string, Ztring> Infos;
+        int16u BlockAlign;
 
         descriptor()
         {
@@ -518,6 +519,7 @@ protected :
             Height=(int32u)-1;
             Height_Display=(int32u)-1;
             Height_Display_Offset=(int32u)-1;
+            BlockAlign=(int16u)-1;
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor
@@ -555,8 +557,8 @@ protected :
     components Components;
 
     //Parsers
-    File__Analyze* ChooseParser(int128u EssenceContainer, int128u EssenceCompression, bool Interlaced=false);
-    File__Analyze* ChooseParser(int128u EssenceContainer);
+    File__Analyze* ChooseParser(descriptors::iterator &Descriptor);
+    File__Analyze* ChooseParser__FromEssenceContainer(descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Avc();
     File__Analyze* ChooseParser_DV();
     File__Analyze* ChooseParser_Mpeg4v();
@@ -567,7 +569,7 @@ protected :
     File__Analyze* ChooseParser_Aes3();
     File__Analyze* ChooseParser_Alaw();
     File__Analyze* ChooseParser_Mpega();
-    File__Analyze* ChooseParser_Pcm();
+    File__Analyze* ChooseParser_Pcm(int16u BlockAlign=(int16u)-1);
     File__Analyze* ChooseParser_Jpeg2000(bool Interlaced=false);
 
     //Temp
