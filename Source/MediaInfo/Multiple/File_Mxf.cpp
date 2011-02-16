@@ -713,6 +713,7 @@ File_Mxf::File_Mxf()
     TimeCode_StartTimecode=(int64u)-1;
     TimeCode_RoundedTimecodeBase=0;
     TimeCode_DropFrame=0;
+    StreamPos_StartAtOne=true;
     SDTI_TimeCode_StartTimecode=(int64u)-1;
     SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
@@ -974,10 +975,10 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 }
                 Merge(*Essence->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
                 if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
-                    Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format), true);
+                    Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos-(StreamPos_StartAtOne?1:0), Video_Format), true);
                 else
-                    Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
-                Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Essence->second.StreamPos, Video_Duration));
+                    Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos-(StreamPos_StartAtOne?1:0), Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
+                Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Essence->second.StreamPos-(StreamPos_StartAtOne?1:0), Video_Duration));
                 Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
                 Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                 Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
@@ -985,7 +986,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             }
 
             StreamKind_Last=Stream_Video;
-            StreamPos_Last=Essence->second.StreamPos;
+            StreamPos_Last=Essence->second.StreamPos-(StreamPos_StartAtOne?1:0);
         }
     #endif
 
@@ -1022,7 +1023,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         }
 
         StreamKind_Last=Stream_Video;
-        StreamPos_Last=Essence->second.StreamPos;
+        StreamPos_Last=Essence->second.StreamPos-(StreamPos_StartAtOne?1:0);
     }
 
     //Stream size
@@ -1863,6 +1864,8 @@ void File_Mxf::Data_Parse()
                         if (Essences[Code_Compare4].Parser==NULL && EssenceContainer_FromPartitionMetadata!=0)
                             Essences[Code_Compare4].Parser=ChooseParser(EssenceContainer_FromPartitionMetadata, Descriptor->second.EssenceCompression, Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                        if ((Code_Compare4&0x000000FF)==0x00000000)
+                            StreamPos_StartAtOne=false;
 
                         #ifdef MEDIAINFO_VC3_YES
                             if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))

@@ -575,6 +575,7 @@ protected :
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;
+    bool   StreamPos_StartAtOne; //information about the base of StreamPos (0 or 1, 1 is found in 1 file)
     int64u SDTI_TimeCode_StartTimecode;
     int64u SystemScheme1_TimeCodeArray_StartTimecode;
     int64u SystemScheme1_FrameRateFromDescriptor;
