@@ -401,8 +401,8 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
             }
             else if (KindOfStream==KindOfStream_Private)
             {
-                Fill(StreamKind_Last, StreamPos, General_ID, _T("192")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID))));
-                Ztring ID_String=_T("192 (0xC0)")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")")));
+                Fill(StreamKind_Last, StreamPos, General_ID, _T("189")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID))));
+                Ztring ID_String=_T("189 (0xC0)")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")")));
                 Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
             }
             else if (KindOfStream==KindOfStream_Extension)
