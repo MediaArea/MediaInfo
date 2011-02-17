@@ -401,14 +401,24 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
             }
             else if (KindOfStream==KindOfStream_Private)
             {
-                Fill(StreamKind_Last, StreamPos, General_ID, _T("189")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID))));
-                Ztring ID_String=_T("189 (0xBD)")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")")));
+                Ztring ID=_T("189");
+                if (StreamID)
+                    ID+=_T("-")+Ztring::ToZtring(StreamID);
+                Fill(StreamKind_Last, StreamPos, General_ID, ID, true);
+                Ztring ID_String=_T("189 (0xBD)");
+                if (StreamID)
+                    ID_String+=_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")");
                 Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
             }
             else if (KindOfStream==KindOfStream_Extension)
             {
-                Fill(StreamKind_Last, StreamPos, General_ID, _T("253-")+Ztring::ToZtring(StreamID));
-                Ztring ID_String=_T("253 (0xFD)-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")");
+                Ztring ID=_T("253");
+                if (StreamID)
+                    ID+=_T("-")+Ztring::ToZtring(StreamID);
+                Fill(StreamKind_Last, StreamPos, General_ID, ID, true);
+                Ztring ID_String=_T("25 (0xFD)");
+                if (StreamID)
+                    ID_String+=_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")");
                 Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
             }
         }
