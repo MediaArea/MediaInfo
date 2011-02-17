@@ -256,8 +256,14 @@ private :
     File__Analyze* ChooseParser_NULL();
 
     //File__Analyze helpers
-    void Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp);
-    void Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp);
+    enum kindofstream
+    {
+        KindOfStream_Main,
+        KindOfStream_Private,
+        KindOfStream_Extension,
+    };
+    void Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindofstream KindOfStream);
+    void Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kindofstream KindOfStream);
     void xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count);
 
     //Output buffer

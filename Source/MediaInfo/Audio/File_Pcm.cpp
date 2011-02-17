@@ -279,7 +279,7 @@ void File_Pcm::Data_Parse()
     //Parsing
     if (Codec==_T("VOB") || Codec==_T("EVOB"))
         VOB();
-    if (Codec==_T("M2TS"))
+    else if (Codec==_T("M2TS"))
         M2TS();
     else
         Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
@@ -307,6 +307,18 @@ void File_Pcm::VOB()
     Get_S1 (3, NumberOfChannelsMinusOne,                        "Number of channels (minus 1)");
     BS_End();
     Skip_B1(                                                    "Start code");
+
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer)
+        {
+            if (StreamIDs_Size>=2)
+                Element_Code=StreamIDs[StreamIDs_Size-2];
+            StreamIDs_Size--;
+            Demux(Buffer+(size_t)Element_Offset, Element_Size-Element_Offset, ContentType_MainStream);
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_DEMUX
+
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 
     FILLING_BEGIN();

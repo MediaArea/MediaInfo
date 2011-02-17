@@ -257,16 +257,16 @@ void File_MpegPs::Streams_Fill()
 {
     //For each Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Streams_Fill_PerStream(StreamID, Streams[StreamID]);
+        Streams_Fill_PerStream(StreamID, Streams[StreamID], KindOfStream_Main);
 
     //For each private Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Streams_Fill_PerStream(StreamID, Streams_Private1[StreamID]);
+        Streams_Fill_PerStream(StreamID, Streams_Private1[StreamID], KindOfStream_Private);
 
     //For each extension Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
     {
-        Streams_Fill_PerStream(StreamID, Streams_Extension[StreamID]);
+        Streams_Fill_PerStream(StreamID, Streams_Extension[StreamID], KindOfStream_Extension);
 
         //Special cases
         if ((StreamID==0x71 || StreamID==0x76) && !Streams_Extension[StreamID].Parsers.empty() && Streams_Extension[0x72].StreamIsRegistred) //DTS-HD and TrueHD
@@ -322,7 +322,7 @@ void File_MpegPs::Streams_Fill()
 }
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
+void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindofstream KindOfStream)
 {
     //By the parser
     StreamKind_Last=Stream_Max;
@@ -393,9 +393,24 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         //Common
         if (Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
         {
-            Fill(StreamKind_Last, StreamPos, General_ID, StreamID);
-            Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
-            Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+            if (KindOfStream==KindOfStream_Main)
+            {
+                Fill(StreamKind_Last, StreamPos, General_ID, StreamID);
+                Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
+                Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+            }
+            else if (KindOfStream==KindOfStream_Private)
+            {
+                Fill(StreamKind_Last, StreamPos, General_ID, _T("192")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID))));
+                Ztring ID_String=_T("192 (0xC0)")+(StreamID==0?Ztring():(_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")")));
+                Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+            }
+            else if (KindOfStream==KindOfStream_Extension)
+            {
+                Fill(StreamKind_Last, StreamPos, General_ID, _T("253-")+Ztring::ToZtring(StreamID));
+                Ztring ID_String=_T("253 (0xFD)-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")");
+                Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+            }
         }
         if (Retrieve(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Format)).empty() && Temp.stream_type!=0)
             Fill(StreamKind_Last, StreamPos, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
@@ -437,15 +452,15 @@ void File_MpegPs::Streams_Finish()
 
     //For each Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Streams_Finish_PerStream(StreamID, Streams[StreamID]);
+        Streams_Finish_PerStream(StreamID, Streams[StreamID], KindOfStream_Main);
 
     //For each private Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Streams_Finish_PerStream(StreamID, Streams_Private1[StreamID]);
+        Streams_Finish_PerStream(StreamID, Streams_Private1[StreamID], KindOfStream_Private);
 
     //For each extesnion Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Streams_Finish_PerStream(StreamID, Streams_Extension[StreamID]);
+        Streams_Finish_PerStream(StreamID, Streams_Extension[StreamID], KindOfStream_Extension);
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -475,11 +490,11 @@ void File_MpegPs::Streams_Finish()
 }
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
+void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kindofstream KindOfStream)
 {
     //By the parser
     if (Temp.StreamKind==Stream_Max && !Temp.Parsers.empty() && Temp.Parsers[0])
-        Streams_Fill_PerStream(StreamID, Temp);
+        Streams_Fill_PerStream(StreamID, Temp, KindOfStream);
 
     //Init
     if (Temp.StreamKind==Stream_Max)
@@ -2134,8 +2149,22 @@ void File_MpegPs::private_stream_1()
                 Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_AES3());
             #endif
         }
+        if (private_stream_1_Offset)
+        {
+            //Multiple substreams in 1 stream
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
+            Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
+            StreamIDs_Width[StreamIDs_Size]=2;
+            ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+            StreamIDs_Size++;
+        }
         for (size_t Pos=0; Pos<Streams_Private1[private_stream_1_ID].Parsers.size(); Pos++)
             Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Pos]);
+        if (private_stream_1_Offset)
+        {
+            StreamIDs_Size--;
+            Element_Code=StreamIDs[StreamIDs_Size-1];
+        }
     }
 
     //Demux
@@ -2163,7 +2192,21 @@ void File_MpegPs::private_stream_1()
     if (Element_Offset<private_stream_1_Offset)
         Skip_XX(private_stream_1_Offset-Element_Offset,         "DVD-Video data");
 
+    if (private_stream_1_Offset)
+    {
+        //Multiple substreams in 1 stream
+        StreamIDs[StreamIDs_Size-1]=Element_Code;
+        Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
+        StreamIDs_Width[StreamIDs_Size]=2;
+        ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+        StreamIDs_Size++;
+    }
     xxx_stream_Parse(Streams_Private1[private_stream_1_ID], private_stream_1_Count);
+    if (private_stream_1_Offset)
+    {
+        StreamIDs_Size--;
+        Element_Code=StreamIDs[StreamIDs_Size-1];
+    }
 }
 
 //---------------------------------------------------------------------------
