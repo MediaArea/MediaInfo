@@ -97,7 +97,7 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(11100110) : return "Core Studio@L2";
         case B8(11100111) : return "Core Studio@L3";
         case B8(11101000) : return "Core Studio@L4";
-        case B8(11110000) : return "Advanced Simple@L1";
+        case B8(11110000) : return "Advanced Simple@L0";
         case B8(11110001) : return "Advanced Simple@L1";
         case B8(11110010) : return "Advanced Simple@L2";
         case B8(11110011) : return "Advanced Simple@L3";
