@@ -309,25 +309,24 @@ void File_Pcm::VOB()
     Skip_B1(                                                    "Start code");
 
     #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
+        if (Demux_UnpacketizeContainer && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
         {
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            Demux(Buffer+(size_t)Element_Offset, Element_Size-Element_Offset, ContentType_MainStream);
-            StreamIDs_Size++;
+            Demux_Offset=Buffer_Offset+Element_Size;
+            Buffer_Offset+=(size_t)Element_Offset; //Header is dropped
+            Demux_UnpacketizeContainer_Demux();
+            Buffer_Offset-=(size_t)Element_Offset;
         }
     #endif //MEDIAINFO_DEMUX
 
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 
     FILLING_BEGIN();
+        Frame_Count++;
         if (Count_Get(Stream_Audio)==0)
         {
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-            Fill(Stream_Audio, 0, Audio_MuxingMode, "DVD-Video");
             Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_VOB_Frequency[Frequency]);
             Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusOne+1);
             Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne+1));

@@ -273,81 +273,6 @@ bool File_Mpeg4v::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            if ((Demux_Frame_Count<=Frame_Count || Demux_Field_Count<=Field_Count)
-             && ((Demux_picture_start_Found && Buffer[Buffer_Offset+3]==0x00) || Buffer[Buffer_Offset+3]==0xB3 || Buffer[Buffer_Offset+3]==0xB6))
-            {
-                if (Demux_Offset==0)
-                {
-                    Demux_Offset=Buffer_Offset;
-                    Demux_picture_start_Found=false;
-                }
-                while (Demux_Offset+4<=Buffer_Size)
-                {
-                    //Synchronizing
-                    while(Demux_Offset+3<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
-                                                        || Buffer[Demux_Offset+1]!=0x00
-                                                        || Buffer[Demux_Offset+2]!=0x01))
-                    {
-                        Demux_Offset+=2;
-                        while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                            Demux_Offset+=2;
-                        if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
-                            Demux_Offset--;
-                    }
-
-                    if (Demux_Offset+4<=Buffer_Size)
-                    {
-                        if (Demux_picture_start_Found)
-                        {
-                            bool MustBreak;
-                            switch (Buffer[Demux_Offset+3])
-                            {
-                                case 0x00 :
-                                case 0xB3 :
-                                case 0xB6 :
-                                            MustBreak=true; break;
-                                default   : MustBreak=false;
-                            }
-                            if (MustBreak)
-                                break; //while() loop
-                        }
-                        else
-                        {
-                            if (Buffer[Demux_Offset+3]==0xB6)
-                                Demux_picture_start_Found=true;
-                        }
-                    }
-                    Demux_Offset++;
-                }
-
-                if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
-                {
-                    Demux_Offset-=Buffer_Offset;
-                    return false; //No complete frame
-                }
-
-                Demux_random_access=Buffer[Buffer_Offset+3]==0x00;
-                if (StreamIDs_Size>=2)
-                    Element_Code=StreamIDs[StreamIDs_Size-2];
-                StreamIDs_Size--;
-                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
-                StreamIDs_Size++;
-                if (Demux_Frame_Count<=Frame_Count)
-                    Demux_Frame_Count++;
-                if (Demux_Field_Count<=Field_Count)
-                    Demux_Field_Count++;
-                Demux_Offset=0;
-                if (Frame_Count || Field_Count)
-                    Element_End();
-                Element_Begin("Frame or Field");
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
@@ -425,13 +350,6 @@ void File_Mpeg4v::Synched_Init()
     sadct=false;
     quarterpel=false;
     quant_type=false;
-
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=0;
-        Demux_Field_Count=0;
-        Demux_picture_start_Found=true;
-    #endif //MEDIAINFO_DEMUX
 
     //Default stream values
     Streams.resize(0x100);
@@ -642,6 +560,69 @@ void File_Mpeg4v::Streams_Finish()
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
 }
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Mpeg4v::Demux_UnpacketizeContainer_Test()
+{
+    if ((Demux_IntermediateItemFound && Buffer[Buffer_Offset+3]==0x00) || Buffer[Buffer_Offset+3]==0xB3 || Buffer[Buffer_Offset+3]==0xB6)
+    {
+        if (Demux_Offset==0)
+        {
+            Demux_Offset=Buffer_Offset;
+            Demux_IntermediateItemFound=false;
+        }
+        while (Demux_Offset+4<=Buffer_Size)
+        {
+            //Synchronizing
+            while(Demux_Offset+3<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
+                                                || Buffer[Demux_Offset+1]!=0x00
+                                                || Buffer[Demux_Offset+2]!=0x01))
+            {
+                Demux_Offset+=2;
+                while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                    Demux_Offset+=2;
+                if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                    Demux_Offset--;
+            }
+
+            if (Demux_Offset+4<=Buffer_Size)
+            {
+                if (Demux_IntermediateItemFound)
+                {
+                    bool MustBreak;
+                    switch (Buffer[Demux_Offset+3])
+                    {
+                        case 0x00 :
+                        case 0xB3 :
+                        case 0xB6 :
+                                    MustBreak=true; break;
+                        default   : MustBreak=false;
+                    }
+                    if (MustBreak)
+                        break; //while() loop
+                }
+                else
+                {
+                    if (Buffer[Demux_Offset+3]==0xB6)
+                        Demux_IntermediateItemFound=true;
+                }
+            }
+            Demux_Offset++;
+        }
+
+        if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+            return false; //No complete frame
+
+        Demux_UnpacketizeContainer_Demux(Buffer[Buffer_Offset+3]==0x00);
+    }
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Global
@@ -652,12 +633,6 @@ void File_Mpeg4v::Read_Buffer_Unsynched()
 {
     Time_End_Seconds=(int32u)-1;
     Time_End_MilliSeconds=(int16u)-1;
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=Frame_Count;
-        Demux_Field_Count=Field_Count;
-        Demux_picture_start_Found=true;
-    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************

@@ -66,6 +66,9 @@ public :
         int8u   Demux_Level; //bit 0=frame, bit 1=container, bit 2=elementary (eg MPEG-TS), default with frame set
         bool    Demux_random_access;
         bool    Demux_UnpacketizeContainer;
+        bool    Demux_IntermediateItemFound;
+        size_t  Demux_Offset;
+        int64u  Demux_TotalBytes;
     #endif //MEDIAINFO_DEMUX
     Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
@@ -1162,6 +1165,8 @@ public :
     };
     #if MEDIAINFO_DEMUX
         void Demux (const int8u* Buffer, size_t Buffer_Size, contenttype ContentType);
+        virtual bool Demux_UnpacketizeContainer_Test() {return true;}
+        void Demux_UnpacketizeContainer_Demux(bool random_access=true);
     #else //MEDIAINFO_DEMUX
         #define Demux(_A, _B, _C)
     #endif //MEDIAINFO_DEMUX

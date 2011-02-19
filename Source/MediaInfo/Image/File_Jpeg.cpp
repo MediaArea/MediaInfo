@@ -234,50 +234,6 @@ bool File_Jpeg::Synched_Test()
         return true;
     }
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            int16u code=BigEndian2int16u(Buffer+Buffer_Offset);
-            if (code==Elements::SOI || code==Elements::SOC)
-            {
-                if (Demux_Offset==0)
-                {
-                    Demux_Offset=Buffer_Offset;
-                }
-                while (Demux_Offset+2<=Buffer_Size)
-                {
-                    code=BigEndian2int16u(Buffer+Demux_Offset);
-                    if (code==Elements::EOI)
-                        break;
-                    Demux_Offset++;
-                }
-
-                if (Demux_Offset+2>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
-                {
-                    Demux_Offset-=Buffer_Offset;
-                    return false; //No complete frame
-                }
-                Demux_Offset+=2;
-
-                Demux_random_access=true;
-                if (StreamIDs_Size>=2)
-                    Element_Code=StreamIDs[StreamIDs_Size-2];
-                StreamIDs_Size--;
-                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
-                StreamIDs_Size++;
-                if (Demux_Frame_Count<=Frame_Count)
-                    Demux_Frame_Count++;
-                if (Demux_Field_Count<=Field_Count)
-                    Demux_Field_Count++;
-                Demux_Offset=0;
-                if (Frame_Count || Field_Count)
-                    Element_End();
-                Element_Begin("Frame or Field");
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
@@ -286,12 +242,41 @@ bool File_Jpeg::Synched_Test()
 void File_Jpeg::Synched_Init()
 {
     SOD_Parsed=false;
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=0;
-        Demux_Field_Count=0;
-    #endif //MEDIAINFO_DEMUX
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Jpeg::Demux_UnpacketizeContainer_Test()
+{
+    int16u code=BigEndian2int16u(Buffer+Buffer_Offset);
+    if (code==Elements::SOI || code==Elements::SOC)
+    {
+        if (Demux_Offset==0)
+        {
+            Demux_Offset=Buffer_Offset;
+        }
+        while (Demux_Offset+2<=Buffer_Size)
+        {
+            code=BigEndian2int16u(Buffer+Demux_Offset);
+            if (code==Elements::EOI)
+                break;
+            Demux_Offset++;
+        }
+
+        if (Demux_Offset+2>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+            return false; //No complete frame
+        Demux_Offset+=2; //EOI
+
+        Demux_UnpacketizeContainer_Demux();
+    }
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Global
@@ -301,11 +286,6 @@ void File_Jpeg::Synched_Init()
 void File_Jpeg::Read_Buffer_Unsynched()
 {
     SOD_Parsed=false;
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=Frame_Count;
-        Demux_Field_Count=Field_Count;
-    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************

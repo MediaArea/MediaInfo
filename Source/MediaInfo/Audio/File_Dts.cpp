@@ -634,25 +634,33 @@ bool File_Dts::Synched_Test()
         default         :   Synched=false;
     }
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer && Value==0x7FFE8001)
-        {
-            int16u Size=((BigEndian2int24u(Buffer+Buffer_Offset+5)>>4)&0x3FFF)+1;
-            if (Buffer_Offset+Size>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
-                return false; //No complete frame
-
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
-            StreamIDs_Size++;
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Dts::Demux_UnpacketizeContainer_Test()
+{
+    int32u Value=CC4(Buffer+Buffer_Offset);
+    if (Value==0x7FFE8001)
+    {
+        int16u Size=((BigEndian2int24u(Buffer+Buffer_Offset+5)>>4)&0x3FFF)+1;
+        Demux_Offset=Buffer_Offset+Size;
+
+        if (Buffer_Offset+Size>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+            return false; //No complete frame
+
+        Demux_UnpacketizeContainer_Demux();
+    }
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Global

@@ -1135,21 +1135,40 @@ bool File_Ac3::Synched_Test()
     else
         Synched=false;
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
-            StreamIDs_Size++;
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Ac3::Demux_UnpacketizeContainer_Test()
+{
+    int16u Size=0;
+    if (bsid<=0x08)
+    {
+        int8u fscod     =(CC1(Buffer+Buffer_Offset+4)>>6)&0x03;
+        int8u frmsizecod=(CC1(Buffer+Buffer_Offset+4)   )&0x3F;
+        Size=AC3_FrameSize_Get(frmsizecod, fscod);
+    }
+    else if (bsid>0x0A && bsid<=0x10)
+    {
+        int16u frmsiz=CC2(Buffer+Buffer_Offset+2)&0x07FF;
+        Size=2+frmsiz*2;
+    }
+    Demux_Offset=Buffer_Offset+Size;
+
+    if (Demux_Offset>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+        return false; //No complete frame
+
+    Demux_UnpacketizeContainer_Demux();
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Global

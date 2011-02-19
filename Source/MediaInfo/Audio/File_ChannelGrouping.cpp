@@ -134,14 +134,9 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         }
 
 		#if MEDIAINFO_DEMUX
-			if (Demux_UnpacketizeContainer)
-			{
-				if (StreamIDs_Size>=2)
-					Element_Code=StreamIDs[StreamIDs_Size-2];
-				StreamIDs_Size--;
-				Demux(Buffer, Buffer_Size, ContentType_MainStream);
-				StreamIDs_Size++;
-			}
+			Buffer_Offset=0;
+            Demux_Offset=Buffer_Size;
+            Demux_UnpacketizeContainer_Demux();
 		#endif //MEDIAINFO_DEMUX
 
         Buffer_Offset=Buffer_Size;

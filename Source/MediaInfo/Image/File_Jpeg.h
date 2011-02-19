@@ -59,6 +59,11 @@ private :
     bool Synched_Test();
     void Synched_Init();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Global
     void Read_Buffer_Unsynched();
 
@@ -161,12 +166,6 @@ private :
     //Temp
     int8u Height_Multiplier;
     bool  SOD_Parsed;
-
-    #if MEDIAINFO_DEMUX
-        size_t Demux_Offset;
-        int64u Demux_Frame_Count;
-        int64u Demux_Field_Count;
-    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

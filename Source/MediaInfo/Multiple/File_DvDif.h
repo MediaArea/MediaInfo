@@ -63,6 +63,11 @@ protected :
     void Synched_Test_Reset();
     void Synched_Init();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Global
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     void Read_Buffer_Continue();

@@ -64,7 +64,12 @@ private :
     bool Synchronize() {return Synchronize_0x000001();}
     bool Synched_Test();
     void Synched_Init();
-    
+
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parser_QuickSearch();
@@ -189,13 +194,6 @@ private :
     Ztring Matrix_intra;
     Ztring Matrix_nonintra;
     ZtringListList user_data_start_SNC_Data;
-
-    #if MEDIAINFO_DEMUX
-        size_t Demux_Offset;
-        int64u Demux_Frame_Count;
-        int64u Demux_Field_Count;
-        bool   Demux_picture_start_Found;
-    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

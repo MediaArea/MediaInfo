@@ -56,6 +56,11 @@ private :
     bool Synchronize();
     bool Synched_Test();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Per element
     bool Header_Begin ();
     void Header_Parse ();

@@ -446,22 +446,6 @@ bool File_Aac::Synched_Test_ADTS()
     if ((CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
         Synched=false;
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            int16u aac_frame_length=(BigEndian2int24u(Buffer+Buffer_Offset+3)>>5)&0x1FFF; //13 bits
-            if (Buffer_Offset+aac_frame_length>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
-                return false; //No complete frame
-
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, aac_frame_length, ContentType_MainStream);
-            StreamIDs_Size++;
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
@@ -477,25 +461,50 @@ bool File_Aac::Synched_Test_LATM()
     if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
         Synched=false;
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            int16u audioMuxLengthBytes=BigEndian2int24u(Buffer+Buffer_Offset+3)&0x1FFF; //13 bits
-            if (Buffer_Offset+3+audioMuxLengthBytes>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
-                return false; //No complete frame
-
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, 3+audioMuxLengthBytes, ContentType_MainStream);
-            StreamIDs_Size++;
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Aac::Demux_UnpacketizeContainer_Test()
+{
+    switch (Mode)
+    {
+        case Mode_ADTS        : return Demux_UnpacketizeContainer_Test_ADTS();
+        case Mode_LATM        : return Demux_UnpacketizeContainer_Test_LATM();
+        default               : return true; //No header
+    }
+}
+bool File_Aac::Demux_UnpacketizeContainer_Test_ADTS()
+{
+    int16u aac_frame_length=(BigEndian2int24u(Buffer+Buffer_Offset+3)>>5)&0x1FFF; //13 bits
+    Demux_Offset=Buffer_Offset+aac_frame_length;
+
+    if (Demux_Offset>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+        return false; //No complete frame
+
+    Demux_UnpacketizeContainer_Demux();
+
+    return true;
+}
+bool File_Aac::Demux_UnpacketizeContainer_Test_LATM()
+{
+    int16u audioMuxLengthBytes=BigEndian2int24u(Buffer+Buffer_Offset+3)&0x1FFF; //13 bits
+    Demux_Offset=Buffer_Offset+audioMuxLengthBytes;
+
+    if (Demux_Offset>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+        return false; //No complete frame
+
+    Demux_UnpacketizeContainer_Demux();
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Per element

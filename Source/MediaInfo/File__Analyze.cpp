@@ -72,6 +72,9 @@ File__Analyze::File__Analyze ()
         Demux_Level=1; //Frame
         Demux_random_access=false;
         Demux_UnpacketizeContainer=false;
+        Demux_IntermediateItemFound=true;
+        Demux_Offset=0;
+        Demux_TotalBytes=0;
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;
     PTS_Begin=(int64u)-1;
@@ -580,6 +583,11 @@ void File__Analyze::Open_Buffer_Unsynch ()
     FrameInfo_Next=frame_info();
     PTS_End=0;
     DTS_End=0;
+    #if MEDIAINFO_DEMUX
+        Demux_IntermediateItemFound=true;
+        Demux_Offset=0;
+        Demux_TotalBytes=Buffer_TotalBytes;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -808,6 +816,18 @@ bool File__Analyze::Synchro_Manage()
             Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
             Trusted_IsNot("Synchronisation lost");
         }
+        #if MEDIAINFO_DEMUX
+            if (Synched && Demux_UnpacketizeContainer && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            {
+                if (!Demux_UnpacketizeContainer_Test())
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //Wait for more data
+                }
+                if (Config->Demux_EventWasSent)
+                    return false;
+            }
+        #endif //MEDIAINFO_DEMUX
     }
 
     //Trying to synchronize
@@ -2432,6 +2452,24 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         if (Config->NextPacket_Get())
             Config->Demux_EventWasSent=true;
     #endif //MEDIAINFO_EVENTS
+}
+#endif //MEDIAINFO_DEMUX
+
+#if MEDIAINFO_DEMUX
+void File__Analyze::Demux_UnpacketizeContainer_Demux (bool random_access)
+{
+    Demux_random_access=random_access;
+
+    if (StreamIDs_Size>=2)
+        Element_Code=StreamIDs[StreamIDs_Size-2];
+    StreamIDs_Size--;
+    Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
+    StreamIDs_Size++;
+    Demux_TotalBytes=Buffer_TotalBytes+Demux_Offset;
+    Demux_Offset=0;
+    //if (Frame_Count || Field_Count)
+    //    Element_End();
+    //Element_Begin("Frame or Field");
 }
 #endif //MEDIAINFO_DEMUX
 

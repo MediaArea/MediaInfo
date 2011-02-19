@@ -722,81 +722,73 @@ bool File_Avc::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
-            if ((Demux_Frame_Count<=Frame_Count || Demux_Field_Count<=Field_Count)
-             && !(((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Buffer_Offset+(zero_byte?5:4)]&0x80)!=0x80)
-               || (Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
-            {
-                if (Demux_Offset==0)
-                {
-                    Demux_Offset=Buffer_Offset;
-                    Demux_picture_start_Found=false;
-                }
-                while (Demux_Offset+6<=Buffer_Size)
-                {
-                    //Synchronizing
-                    while(Demux_Offset+6<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
-                                                       || Buffer[Demux_Offset+1]!=0x00
-                                                       || Buffer[Demux_Offset+2]!=0x01))
-                    {
-                        Demux_Offset+=2;
-                        while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                            Demux_Offset+=2;
-                        if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
-                            Demux_Offset--;
-                    }
-
-                    if (Demux_Offset+6<=Buffer_Size)
-                    {
-                        zero_byte=Buffer[Demux_Offset+2]==0x00;
-                        if (Demux_picture_start_Found)
-                        {
-                            if (!(((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)!=0x80)
-                               || (Buffer[Demux_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
-                                break;
-                        }
-                        else
-                        {
-                            if ((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)==0x80)
-                                Demux_picture_start_Found=true;
-                        }
-                    }
-                    Demux_Offset++;
-                }
-
-                if (Demux_Offset+6>Buffer_Size && !FrameIsAlwaysComplete && File_Offset+Buffer_Size<File_Size)
-                {
-                    Demux_Offset-=Buffer_Offset;
-                    return false; //No complete frame
-                }
-
-                if (Demux_Offset && Buffer[Demux_Offset-1]==0x00)
-                    Demux_Offset--;
-                Demux_random_access=Buffer[Buffer_Offset+3]==0xB3; //TODO
-                if (StreamIDs_Size>=2)
-                    Element_Code=StreamIDs[StreamIDs_Size-2];
-                StreamIDs_Size--;
-                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
-                StreamIDs_Size++;
-                if (Demux_Frame_Count<=Frame_Count)
-                    Demux_Frame_Count++;
-                if (Demux_Field_Count<=Field_Count)
-                    Demux_Field_Count++;
-                Demux_Offset=0;
-                if (Frame_Count || Field_Count)
-                    Element_End();
-                Element_Begin("Frame or Field");
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Avc::Demux_UnpacketizeContainer_Test()
+{
+    bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
+    if (!(((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Buffer_Offset+(zero_byte?5:4)]&0x80)!=0x80)
+       || (Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
+    {
+        if (Demux_Offset==0)
+        {
+            Demux_Offset=Buffer_Offset;
+            Demux_IntermediateItemFound=false;
+        }
+        while (Demux_Offset+6<=Buffer_Size)
+        {
+            //Synchronizing
+            while(Demux_Offset+6<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
+                                               || Buffer[Demux_Offset+1]!=0x00
+                                               || Buffer[Demux_Offset+2]!=0x01))
+            {
+                Demux_Offset+=2;
+                while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                    Demux_Offset+=2;
+                if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                    Demux_Offset--;
+            }
+
+            if (Demux_Offset+6<=Buffer_Size)
+            {
+                zero_byte=Buffer[Demux_Offset+2]==0x00;
+                if (Demux_IntermediateItemFound)
+                {
+                    if (!(((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)!=0x80)
+                       || (Buffer[Demux_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
+                        break;
+                }
+                else
+                {
+                    if ((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)==0x80)
+                        Demux_IntermediateItemFound=true;
+                }
+            }
+            Demux_Offset++;
+        }
+
+        if (Demux_Offset+6>Buffer_Size && !FrameIsAlwaysComplete && File_Offset+Buffer_Size<File_Size)
+            return false; //No complete frame
+
+        if (FrameIsAlwaysComplete) //TODO: skip packetization if FrameIsAlwaysComplete is set
+            Demux_Offset=Buffer_Size;
+        if (Demux_Offset && Buffer[Demux_Offset-1]==0x00)
+            Demux_Offset--;
+
+        Demux_UnpacketizeContainer_Demux(); //TODO random_access
+    }
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //---------------------------------------------------------------------------
 void File_Avc::Synched_Init()
@@ -869,12 +861,6 @@ void File_Avc::Synched_Init()
     field_pic_flag_AlreadyDetected=false;
     Field_Count_AfterLastCompleFrame=false;
     RefFramesCount=0;
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=0;
-        Demux_Field_Count=0;
-        Demux_picture_start_Found=true;
-    #endif //MEDIAINFO_DEMUX
 
     //Default values
     Streams.resize(0x100);
@@ -902,12 +888,6 @@ void File_Avc::Read_Buffer_Unsynched()
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
     RefFramesCount=0;
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=Frame_Count;
-        Demux_Field_Count=Field_Count;
-        Demux_picture_start_Found=true;
-    #endif //MEDIAINFO_DEMUX
 
     //Impossible to know TimeStamps now
     FrameInfo.PTS=(int64u)-1;

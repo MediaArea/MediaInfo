@@ -62,6 +62,11 @@ private :
     bool Synched_Test();
     void Synched_Init();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Global
     void Read_Buffer_Unsynched();
 

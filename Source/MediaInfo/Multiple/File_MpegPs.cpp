@@ -409,6 +409,8 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
                 if (StreamID)
                     ID_String+=_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")");
                 Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+                if (StreamID)
+                    Fill(StreamKind_Last, StreamPos, "MuxingMode", "DVD-Video", Unlimited, true, true);
             }
             else if (KindOfStream==KindOfStream_Extension)
             {
@@ -416,7 +418,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
                 if (StreamID)
                     ID+=_T("-")+Ztring::ToZtring(StreamID);
                 Fill(StreamKind_Last, StreamPos, General_ID, ID, true);
-                Ztring ID_String=_T("25 (0xFD)");
+                Ztring ID_String=_T("253 (0xFD)");
                 if (StreamID)
                     ID_String+=_T("-")+Ztring::ToZtring(StreamID)+_T(" (0x")+Ztring::ToZtring(StreamID, 16)+_T(")");
                 Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
@@ -2114,7 +2116,7 @@ void File_MpegPs::private_stream_1()
                 private_stream_2_Count=0;
                 extension_stream_Count=0;
                 SL_packetized_stream_Count=0;
-                private_stream_1_ID=FromTS_stream_type;
+                private_stream_1_ID=0;
                 private_stream_1_Offset=0;
                 Streams_Private1[private_stream_1_ID].stream_type=FromTS_stream_type;
             }
@@ -3827,7 +3829,7 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
     #if defined(MEDIAINFO_PCM_YES)
         File__Analyze* Parser=new File_Pcm();
         Ztring Codec;
-        switch (private_stream_1_ID)
+        switch (FromTS_stream_type)
         {
             case 0x80 : Codec=_T("M2TS"); break;
             case 0x83 : Codec=_T("EVOB"); break;

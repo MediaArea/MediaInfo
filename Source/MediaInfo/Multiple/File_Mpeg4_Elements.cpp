@@ -3085,7 +3085,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Get_B2 (SampleSize16,                                   "Sample size");
         Get_B2 (ID,                                             "Compression ID");
         Skip_B2(                                                "Packet size");
-        Get_B2 (SampleRate16,                                   "Sample rate"); Param_Info(SampleRate, " Hz");
+        Get_B2 (SampleRate16,                                   "Sample rate"); Param_Info(SampleRate16, " Hz");
         Skip_B2(                                                "Reserved");
         if (Version>=1)
         {

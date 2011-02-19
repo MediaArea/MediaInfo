@@ -69,6 +69,11 @@ private :
     bool Synched_Test();
     void Synched_Init();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Global
     void Read_Buffer_Unsynched();
 
@@ -266,12 +271,6 @@ private :
     int16u temporal_reference_LastIFrame;
     int64u PTS_LastIFrame;
     int64u tc;
-    #if MEDIAINFO_DEMUX
-        size_t Demux_Offset;
-        int64u Demux_Frame_Count;
-        int64u Demux_Field_Count;
-        bool   Demux_picture_start_Found;
-    #endif //MEDIAINFO_DEMUX
 
 };
 

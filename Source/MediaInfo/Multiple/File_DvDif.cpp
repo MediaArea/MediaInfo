@@ -660,66 +660,6 @@ bool File_DvDif::Synched_Test()
         DBN_Olds[SCT]=DBN;
     }
 
-
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            //Must have enough buffer for having header
-            if (Buffer_Offset+8*80>Buffer_Size)
-                return false;
-
-            if ((Buffer[Buffer_Offset]&0xE0)==0x00   //Speed up the parsing
-             && (CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
-             && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
-             && (CC3(Buffer+Buffer_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
-             && (CC3(Buffer+Buffer_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
-             && (CC3(Buffer+Buffer_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
-             && (CC3(Buffer+Buffer_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
-             && (CC3(Buffer+Buffer_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
-             && (CC3(Buffer+Buffer_Offset+7*80)&0xE0F0FF)==0x800000)  //Video 0
-            {
-                if (Demux_Offset==0)
-                {
-                    Demux_Offset=Buffer_Offset+1;
-                }
-
-                while (Demux_Offset+8*80<=Buffer_Size //8 blocks
-                    && !((Buffer[Demux_Offset]&0xE0)==0x00   //Speed up the parsing
-                      && (CC3(Buffer+Demux_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
-                      && (CC3(Buffer+Demux_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
-                      && (CC3(Buffer+Demux_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
-                      && (CC3(Buffer+Demux_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
-                      && (CC3(Buffer+Demux_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
-                      && (CC3(Buffer+Demux_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
-                      && (CC3(Buffer+Demux_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
-                      && (CC3(Buffer+Demux_Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
-                        Demux_Offset++;
-
-                if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
-                {
-                    Demux_Offset-=Buffer_Offset;
-                    return false; //No complete frame
-                }
-
-                Demux_random_access=true;
-                if (StreamIDs_Size>=2)
-                    Element_Code=StreamIDs[StreamIDs_Size-2];
-                StreamIDs_Size--;
-                Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
-                StreamIDs_Size++;
-                if (Demux_Frame_Count<=Frame_Count)
-                    Demux_Frame_Count++;
-                if (Demux_Field_Count<=Field_Count)
-                    Demux_Field_Count++;
-                Demux_Offset=0;
-                if (Frame_Count || Field_Count)
-                    Element_End();
-                Element_Begin("Frame or Field");
-            }
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
@@ -746,12 +686,56 @@ void File_DvDif::Synched_Test_Reset()
 //---------------------------------------------------------------------------
 void File_DvDif::Synched_Init()
 {
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=0;
-        Demux_Field_Count=0;
-    #endif //MEDIAINFO_DEMUX
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_DvDif::Demux_UnpacketizeContainer_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+8*80>Buffer_Size)
+        return false;
+
+    if ((Buffer[Buffer_Offset]&0xE0)==0x00   //Speed up the parsing
+     && (CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+     && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
+     && (CC3(Buffer+Buffer_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
+     && (CC3(Buffer+Buffer_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
+     && (CC3(Buffer+Buffer_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
+     && (CC3(Buffer+Buffer_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
+     && (CC3(Buffer+Buffer_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
+     && (CC3(Buffer+Buffer_Offset+7*80)&0xE0F0FF)==0x800000)  //Video 0
+    {
+        if (Demux_Offset==0)
+        {
+            Demux_Offset=Buffer_Offset+1;
+        }
+
+        while (Demux_Offset+8*80<=Buffer_Size //8 blocks
+            && !((Buffer[Demux_Offset]&0xE0)==0x00   //Speed up the parsing
+              && (CC3(Buffer+Demux_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+              && (CC3(Buffer+Demux_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
+              && (CC3(Buffer+Demux_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
+              && (CC3(Buffer+Demux_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
+              && (CC3(Buffer+Demux_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
+              && (CC3(Buffer+Demux_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
+              && (CC3(Buffer+Demux_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
+              && (CC3(Buffer+Demux_Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
+                Demux_Offset++;
+
+        if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+            return false; //No complete frame
+
+        Demux_UnpacketizeContainer_Demux();
+    }
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Global
@@ -761,11 +745,6 @@ void File_DvDif::Synched_Init()
 void File_DvDif::Read_Buffer_Unsynched()
 {
     Synched_Test_Reset();
-    #if MEDIAINFO_DEMUX
-        Demux_Offset=0;
-        Demux_Frame_Count=Frame_Count;
-        Demux_Field_Count=Field_Count;
-    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************

@@ -122,6 +122,13 @@ protected :
     bool Synched_Test_ADTS();
     bool Synched_Test_LATM();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    bool Demux_UnpacketizeContainer_Test_ADTS();
+    bool Demux_UnpacketizeContainer_Test_LATM();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - Per element
     bool Header_Begin();
     bool Header_Begin_ADTS();

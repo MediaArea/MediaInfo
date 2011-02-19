@@ -175,30 +175,37 @@ bool File_Vc3::Synched_Test()
         return true;
     }
 
-    //Demux
-    #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            if (Buffer_Offset+0x2C>Buffer_Size)
-                return false;
-
-            int32u CompressionID=BigEndian2int32u(Buffer+Buffer_Offset+0x28);
-            int32u Size=Vc3_CompressedFrameSize(CompressionID);
-            if (Buffer_Offset+Size>Buffer_Size)
-                return false; //No complete frame
-
-            Demux_random_access=true;
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            Demux(Buffer+Buffer_Offset, Size, ContentType_MainStream);
-            StreamIDs_Size++;
-        }
-    #endif //MEDIAINFO_DEMUX
-
     //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Vc3::Demux_UnpacketizeContainer_Test()
+{
+    if (Buffer_Offset+0x2C>Buffer_Size)
+        return false;
+
+    int32u CompressionID=BigEndian2int32u(Buffer+Buffer_Offset+0x28);
+    int32u Size=Vc3_CompressedFrameSize(CompressionID);
+    Demux_Offset=Buffer_Offset+Size;
+
+    if (Demux_Offset>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+        return false; //No complete frame
+
+    Demux_UnpacketizeContainer_Demux();
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 bool File_Vc3::Header_Begin()
