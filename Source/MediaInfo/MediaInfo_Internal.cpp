@@ -560,6 +560,10 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
         return 0;
 
     Info->Open_Buffer_Finalize();
+    #if MEDIAINFO_DEMUX
+        if (Config.Demux_EventWasSent)
+            return 0;
+    #endif //MEDIAINFO_DEMUX
 
     //Cleanup
     if (!Config.File_IsSub_Get() && !Config.File_KeepInfo_Get()) //We need info for the calling parser

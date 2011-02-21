@@ -344,6 +344,8 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
                 Element_End(); //This is Finish, must flush
+            File_Offset=File_Size;
+            Buffer_Clear();
             ForceFinish();
             return;
         }
@@ -619,6 +621,10 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     if (!NoBufferModification)
     {
         ForceFinish();
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return;
+		#endif //MEDIAINFO_DEMUX
         Buffer_Clear();
     }
 

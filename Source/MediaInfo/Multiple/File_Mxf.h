@@ -78,6 +78,10 @@ protected :
     void Streams_Finish_Locator (int128u LocatorUID);
     void Streams_Finish_Component (int128u ComponentUID, float64 EditRate);
     void Streams_Finish_Identification (int128u IdentificationUID);
+    void Streams_Finish_ParseLocators ();
+    void Streams_Finish_ParseLocator (int128u LocatorUID);
+    void Streams_Finish_ParseLocator_Finalize ();
+    void Streams_Finish_CommercialNames ();
 
     //Buffer - Global
     void Read_Buffer_Init ();
@@ -528,16 +532,21 @@ protected :
     //Locator
     struct locator
     {
-        Ztring EssenceLocator;
-        bool   IsTextLocator;
+        Ztring      EssenceLocator;
+        stream_t    StreamKind;
+        size_t      StreamPos;
+        bool        IsTextLocator;
 
         locator()
         {
+            StreamKind=Stream_Max;
+            StreamPos=(size_t)-1;
             IsTextLocator=false;
         }
     };
     typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
     locators Locators;
+    locators::iterator Locator;
 
     //Component (Sequence, TimeCode, Source Clip)
     struct component
@@ -583,6 +592,7 @@ protected :
     int64u SystemScheme1_FrameRateFromDescriptor;
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
+    MediaInfo_Internal* MI;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         int128u         Ancillary_InstanceUID;
         int32u          Ancillary_LinkedTrackID;

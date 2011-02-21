@@ -118,6 +118,7 @@ public :
     #if MEDIAINFO_EVENTS
     bool          Event_CallBackFunction_IsSet ();
     Ztring        Event_CallBackFunction_Set (const Ztring &Value);
+    Ztring        Event_CallBackFunction_Get ();
     void          Event_Send(const int8u* Data_Content, size_t Data_Size);
     void          Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);
     #else //MEDIAINFO_EVENTS

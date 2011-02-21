@@ -749,6 +749,8 @@ File_Mxf::File_Mxf()
     SDTI_TimeCode_StartTimecode=(int64u)-1;
     SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
+    Locator=Locators.end();
+    MI=NULL;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         Ancillary_InstanceUID=(int128u)-1;
         Ancillary_LinkedTrackID=(int32u)-1;
@@ -769,6 +771,13 @@ File_Mxf::~File_Mxf()
 //---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish()
 {
+    //Locators only
+    if (Locator!=Locators.end())
+    {
+        Streams_Finish_ParseLocators();
+        return;
+    }
+
     if (!Track_Number_IsAvailable)
     {
         for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
@@ -803,72 +812,16 @@ void File_Mxf::Streams_Finish()
     //OperationalPattern
     Fill(Stream_General, 0, General_Format_Profile, Mxf_OperationalPattern(OperationalPattern));
 
-    //File size handling
-    if (File_Size_Total!=File_Size)
-        Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+    //Parsing locators
+    if (!Locators.empty())
+    {
+        Locator=Locators.begin();
+        Streams_Finish_ParseLocators();
+        return;
+    }
 
     //Commercial names
-    if (Count_Get(Stream_Video)==1)
-    {
-        Streams_Finish_StreamOnly();
-             if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
-            Fill(Stream_General, 0, General_Format_Commercial, _T("MXF ")+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DV");
-            Fill(Stream_General, 0, General_Format_Commercial, "MXF DV");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("56064000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "AVC-Intra 50");
-            Fill(Stream_General, 0, General_Format_Commercial, "MXF AVC-Intra 50");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "AVC-Intra 50");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("113664000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "AVC-Intra 100");
-            Fill(Stream_General, 0, General_Format_Commercial, "MXF AVC-Intra 100");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "AVC-Intra 100");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("30000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "IMX 30");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "IMX 30");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("40000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "IMX 40");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "IMX 40");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "IMX 50");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "IMX 50");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("18000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 18");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 18");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("25000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 25");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 25");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 35");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 35");
-        }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
-        {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD422");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD422");
-        }
-    }
+    Streams_Finish_CommercialNames();
 }
 
 //---------------------------------------------------------------------------
@@ -1276,9 +1229,44 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
     if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty())
     {
         //Preparing
-        stream_t StreamKind_Last_Essence=StreamKind_Last;
-        size_t StreamPos_Last_Essence=StreamPos_Last;
+        Locator->second.StreamKind=StreamKind_Last;
+        Locator->second.StreamPos=StreamPos_Last;
+    }
+}
 
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_ParseLocators()
+{
+    while (Locator!=Locators.end())
+    {
+        Streams_Finish_ParseLocator(Locator->first);
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return;
+		#endif //MEDIAINFO_DEMUX
+        Locator++;
+    }
+
+    //File size handling
+    if (File_Size_Total!=File_Size)
+        Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+
+    Streams_Finish_CommercialNames();
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_ParseLocator(int128u LocatorUID)
+{
+    locators::iterator Locator=Locators.find(LocatorUID);
+    if (Locator==Locators.end())
+        return;
+
+    //External file name specific + StreamKind/StreamPos must be known
+    if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty() || Locator->second.StreamKind==Stream_Max || Locator->second.StreamPos==(size_t)-1)
+        return;
+
+    if (MI==NULL)
+    {
         //Configuring file name
         Ztring Name=Locator->second.EssenceLocator;
         if (Name.find(_T("file:"))==0)
@@ -1300,119 +1288,268 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
             AbsoluteName+=Name;
         }
 
-        MediaInfo_Internal MI;
-        MI.Option(_T("File_StopAfterFilled"), _T("1"));
-        MI.Option(_T("File_KeepInfo"), _T("1"));
-
         if (AbsoluteName==File_Name)
-            Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Circular");
-        else if (MI.Open(AbsoluteName))
         {
-            //Hacks - Before
-            Ztring CodecID=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
-            Ztring ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-            Clear(StreamKind_Last, StreamPos_Last, General_ID);
+            Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Circular");
+            Locator->second.StreamKind=Stream_Max;
+            Locator->second.StreamPos=(size_t)-1;
+            return;
+        }
 
-            Merge(*MI.Info, StreamKind_Last, 0, StreamPos_Last);
-            File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
+        //Configuration
+        MI=new MediaInfo_Internal();
+        MI->Option(_T("File_StopAfterFilled"), _T("1"));
+        MI->Option(_T("File_KeepInfo"), _T("1"));
+        if (Config->NextPacket_Get())
+            MI->Option(_T("File_NextPacket"), _T("1"));
+        if (Config->Event_CallBackFunction_IsSet())
+            MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_Unpacketize_Get())
+				MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
+		#endif //MEDIAINFO_DEMUX
 
-            //Hacks - After
-            if (CodecID!=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID)))
+        //Run
+        if (MI->Open(AbsoluteName))
+        {
+            if (!Config->NextPacket_Get()) //Only if NextPacket interface is not requested, else this is done later
             {
-                if (!CodecID.empty())
-                    CodecID+=_T(" / ");
-                CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
-                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
+                Streams_Finish_ParseLocator_Finalize();
+                delete MI; MI=NULL;
             }
-            if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
-                ID+=_T('-')+Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
-
-            //Special case: MXF in MXF
-            if (MI.Info && MI.Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
-            {
-                Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
-
-                if (MI.Info->Count_Get(Stream_Video)>0)
-                {
-                    size_t Parser_Audio_Count=MI.Info->Count_Get(Stream_Audio);
-                    for (size_t Parser_Audio_Pos=0; Parser_Audio_Pos<Parser_Audio_Count; Parser_Audio_Pos++)
-                    {
-                        Fill_Flush();
-                        Stream_Prepare(Stream_Audio);
-                        Merge(*MI.Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
-                        if (Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
-                            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "MXF");
-                        else
-                            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, _T("MXF / ")+Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode), true);
-                        Fill(Stream_Audio, StreamPos_Last, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
-                        Fill(Stream_Audio, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
-                    }
-                    size_t Parser_Text_Count=MI.Info->Count_Get(Stream_Text);
-                    for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
-                    {
-                        Fill_Flush();
-                        Stream_Prepare(Stream_Text);
-                        Merge(*MI.Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
-                        if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
-                            Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "MXF");
-                        else
-                            Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, _T("MXF / ")+Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
-                        Fill(Stream_Text, StreamPos_Last, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
-                        Fill(Stream_Text, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
-                    }
-                }
-            }
-            //Special case: DV with Audio or/and Text in the video stream
-            else if (MI.Info && MI.Info->Get(Stream_General, 0, General_Format)==_T("DV") && (MI.Info->Count_Get(Stream_Audio) || MI.Info->Count_Get(Stream_Text)))
-            {
-                //Video and Audio are together
-                size_t Parser_Audio_Count=MI.Info->Count_Get(Stream_Audio);
-                for (size_t Parser_Audio_Pos=0; Parser_Audio_Pos<Parser_Audio_Count; Parser_Audio_Pos++)
-                {
-                    Fill_Flush();
-                    Stream_Prepare(Stream_Audio);
-                    Merge(*MI.Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
-                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
-                        Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format), true);
-                    else
-                        Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode), true);
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Duration, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Duration), true);
-                    Fill(Stream_Audio, StreamPos_Last, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
-                    Fill(Stream_Audio, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
-                    Ztring ID=Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
-                    Fill(Stream_Audio, StreamPos_Last, Audio_ID, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_ID)+_T("-")+ID, true);
-                    Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_ID_String)+_T("-")+ID, true);
-                }
-
-                //Video and Text are together
-                size_t Parser_Text_Count=MI.Info->Count_Get(Stream_Text);
-                for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
-                {
-                    Fill_Flush();
-                    Stream_Prepare(Stream_Text);
-                    Merge(*MI.Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
-                    if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
-                        Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format), true);
-                    else
-                        Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Format)+_T(" / ")+Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
-                    Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_Duration), true);
-                    Fill(Stream_Text, StreamPos_Last, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
-                    Fill(Stream_Text, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
-                    Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                    Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_ID)+_T("-")+ID, true);
-                    Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last_Essence, Video_ID_String)+_T("-")+ID, true);
-                }
-            }
-            //Others
-            else if (MI.Info)
-                Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", MI.Info->Get(Stream_General, 0, General_Format));
-
-            StreamKind_Last=StreamKind_Last_Essence;
-            StreamPos_Last=StreamPos_Last_Essence;
         }
         else
-            Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Missing");
+        {
+            Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Missing");
+            delete MI; MI=NULL;
+        }
+    }
+
+    if (MI)
+    {
+        while (MI->Open_NextPacket().at(8))
+        {
+			#if MEDIAINFO_DEMUX
+				if (Config->Event_CallBackFunction_IsSet())
+				{
+					Config->Demux_EventWasSent=true;
+					return;
+				}
+			#endif //MEDIAINFO_DEMUX
+        }
+        Streams_Finish_ParseLocator_Finalize();
+        Locator->second.StreamKind=Stream_Max;
+        Locator->second.StreamPos=(size_t)-1;
+        delete MI; MI=NULL;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_ParseLocator_Finalize ()
+{
+    //Preparing
+    StreamKind_Last=Locator->second.StreamKind;
+    StreamPos_Last=Locator->second.StreamPos;
+
+    //Hacks - Before
+    Ztring CodecID=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
+    Ztring ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+    Clear(StreamKind_Last, StreamPos_Last, General_ID);
+
+    Merge(*MI->Info, StreamKind_Last, 0, StreamPos_Last);
+    File_Size_Total+=Ztring(MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
+
+    //Hacks - After
+    if (CodecID!=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID)))
+    {
+        if (!CodecID.empty())
+            CodecID+=_T(" / ");
+        CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
+    }
+    if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
+        ID+=_T('-')+Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+    Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
+
+    //Special case: MXF in MXF
+    if (MI->Info && MI->Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
+    {
+        Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
+
+        if (MI->Info->Count_Get(Stream_Video)>0)
+        {
+            size_t Parser_Audio_Count=MI->Info->Count_Get(Stream_Audio);
+            for (size_t Parser_Audio_Pos=0; Parser_Audio_Pos<Parser_Audio_Count; Parser_Audio_Pos++)
+            {
+                Fill_Flush();
+                size_t Pos=0;
+                while (Pos<Count_Get(Stream_Audio))
+                {
+                    if (Retrieve(Stream_Audio, Pos, General_ID).To_int32u()>ID.To_int32u())
+                        break;
+                    Pos++;
+                }
+                Stream_Prepare(Stream_Audio, Pos);
+                Merge(*MI->Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
+                if (Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
+                    Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "MXF");
+                else
+                    Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, _T("MXF / ")+Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode), true);
+                Fill(Stream_Audio, StreamPos_Last, "Source", Retrieve(Stream_Video, Locator->second.StreamPos, "Source"));
+                Fill(Stream_Audio, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, Locator->second.StreamPos, "Source_Info"));
+                Ztring ID_Audio=Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
+                Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Audio, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Audio, true);
+            }
+            size_t Parser_Text_Count=MI->Info->Count_Get(Stream_Text);
+            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+            {
+                Fill_Flush();
+                size_t Pos=0;
+                while (Pos<Count_Get(Stream_Text))
+                {
+                    if (Retrieve(Stream_Text, Pos, General_ID).To_int32u()>ID.To_int32u())
+                        break;
+                    Pos++;
+                }
+                Stream_Prepare(Stream_Text, Pos);
+                Merge(*MI->Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
+                    Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "MXF");
+                else
+                    Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, _T("MXF / ")+Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
+                Fill(Stream_Text, StreamPos_Last, "Source", Retrieve(Stream_Video, Locator->second.StreamPos, "Source"));
+                Fill(Stream_Text, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, Locator->second.StreamPos, "Source_Info"));
+                Ztring ID_Text=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Text, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Text, true);
+            }
+        }
+    }
+    //Special case: DV with Audio or/and Text in the video stream
+    else if (MI->Info && MI->Info->Get(Stream_General, 0, General_Format)==_T("DV") && (MI->Info->Count_Get(Stream_Audio) || MI->Info->Count_Get(Stream_Text)))
+    {
+        //Video and Audio are together
+        size_t Parser_Audio_Count=MI->Info->Count_Get(Stream_Audio);
+        for (size_t Parser_Audio_Pos=0; Parser_Audio_Pos<Parser_Audio_Count; Parser_Audio_Pos++)
+        {
+            Fill_Flush();
+            size_t Pos=0;
+            while (Pos<Count_Get(Stream_Audio))
+            {
+                if (Retrieve(Stream_Audio, Pos, General_ID).To_int32u()>ID.To_int32u())
+                    break;
+                Pos++;
+            }
+            Stream_Prepare(Stream_Audio, Pos);
+            Merge(*MI->Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
+            if (Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
+                Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, Retrieve(Stream_Video, Locator->second.StreamPos, Video_Format), true);
+            else
+                Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, Retrieve(Stream_Video, Locator->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Duration, Retrieve(Stream_Video, Locator->second.StreamPos, Video_Duration), true);
+            Fill(Stream_Audio, StreamPos_Last, "Source", Retrieve(Stream_Video, Locator->second.StreamPos, "Source"));
+            Fill(Stream_Audio, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, Locator->second.StreamPos, "Source_Info"));
+            Ztring ID=Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ID, Retrieve(Stream_Video, Locator->second.StreamPos, Video_ID)+_T("-")+ID, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, Retrieve(Stream_Video, Locator->second.StreamPos, Video_ID_String)+_T("-")+ID, true);
+        }
+
+        //Video and Text are together
+        size_t Parser_Text_Count=MI->Info->Count_Get(Stream_Text);
+        for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+        {
+            Fill_Flush();
+            size_t Pos=0;
+            while (Pos<Count_Get(Stream_Text))
+            {
+                if (Retrieve(Stream_Text, Pos, General_ID).To_int32u()>ID.To_int32u())
+                    break;
+                Pos++;
+            }
+            Stream_Prepare(Stream_Text, Pos);
+            Merge(*MI->Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+            if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
+                Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Retrieve(Stream_Video, Locator->second.StreamPos, Video_Format), true);
+            else
+                Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Retrieve(Stream_Video, Locator->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
+            Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Locator->second.StreamPos, Video_Duration), true);
+            Fill(Stream_Text, StreamPos_Last, "Source", Retrieve(Stream_Video, Locator->second.StreamPos, "Source"));
+            Fill(Stream_Text, StreamPos_Last, "Source_Info", Retrieve(Stream_Video, Locator->second.StreamPos, "Source_Info"));
+            Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+            Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Locator->second.StreamPos, Video_ID)+_T("-")+ID, true);
+            Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Locator->second.StreamPos, Video_ID_String)+_T("-")+ID, true);
+        }
+    }
+    //Others
+    else if (MI->Info)
+        Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", MI->Info->Get(Stream_General, 0, General_Format));
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_CommercialNames ()
+{
+    //Commercial names
+    if (Count_Get(Stream_Video)==1)
+    {
+        Streams_Finish_StreamOnly();
+             if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+            Fill(Stream_General, 0, General_Format_Commercial, _T("MXF ")+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DV");
+            Fill(Stream_General, 0, General_Format_Commercial, "MXF DV");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("56064000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "AVC-Intra 50");
+            Fill(Stream_General, 0, General_Format_Commercial, "MXF AVC-Intra 50");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "AVC-Intra 50");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("AVC") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("113664000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "AVC-Intra 100");
+            Fill(Stream_General, 0, General_Format_Commercial, "MXF AVC-Intra 100");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "AVC-Intra 100");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("30000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "IMX 30");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "IMX 30");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("40000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "IMX 40");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "IMX 40");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)==_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "IMX 50");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "IMX 50");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("18000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 18");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 18");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("25000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 25");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 25");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD 35");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD 35");
+        }
+        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000"))
+        {
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD422");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD422");
+        }
     }
 }
 
@@ -6684,6 +6821,13 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(int16u BlockAlign)
         File_Aes3* Parser=new File_Aes3;
         if (BlockAlign!=(int16u)-1)
             Parser->ByteSize=BlockAlign;
+		#if MEDIAINFO_DEMUX
+			if (Demux_UnpacketizeContainer)
+			{
+				Parser->Demux_Level=2; //Container
+				Parser->Demux_UnpacketizeContainer=true;
+			}
+		#endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();

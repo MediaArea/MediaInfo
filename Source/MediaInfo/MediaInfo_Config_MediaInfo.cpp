@@ -763,6 +763,16 @@ Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Val
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_EVENTS
+Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return _T("CallBack=memory://")+Ztring::ToZtring((size_t)Event_CallBackFunction)+_T(";UserHandler=memory://")+Ztring::ToZtring((size_t)Event_UserHandler);
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
 void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size)
 {
     CriticalSectionLocker CSL(CS);
