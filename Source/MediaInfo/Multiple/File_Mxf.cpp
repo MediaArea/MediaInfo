@@ -523,6 +523,13 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                         case 0x02 : //Coding characteristics
                                                     switch (Code4)
                                                     {
+                                                        case 0x01 : //Uncompressed coding
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x01 : //Uncompressed picture coding
+                                                                                    return "YUV";
+                                                                        default   : return "";
+                                                                    }
                                                         case 0x02 : //Compressed coding
                                                                     switch (Code5)
                                                                     {
@@ -1304,7 +1311,8 @@ void File_Mxf::Streams_Finish_ParseLocator(int128u LocatorUID)
             MI->Option(_T("File_NextPacket"), _T("1"));
         if (Config->Event_CallBackFunction_IsSet())
             MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-		#if MEDIAINFO_DEMUX
+        MI->Option(_T("File_SubFile_StreamID"), Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID));
+        #if MEDIAINFO_DEMUX
 			if (Config->Demux_Unpacketize_Get())
 				MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
 		#endif //MEDIAINFO_DEMUX
@@ -2058,6 +2066,11 @@ void File_Mxf::Data_Parse()
                                         Essences[Code_Compare4].StreamKind=Stream_Video;
                                         Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                         Essences[Code_Compare4].Parser=ChooseParser_RV24();
+                                        break;
+                    case 0x15000200 : //Raw video
+                                        Essences[Code_Compare4].StreamKind=Stream_Video;
+                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+                                        Essences[Code_Compare4].Parser=ChooseParser_Raw();
                                         break;
                     case 0x05000100 : //D-10 Video, SMPTE 386M
                     case 0x15000500 : //SMPTE 381M, Frame wrapped
@@ -6533,6 +6546,7 @@ File__Analyze* File_Mxf::ChooseParser(descriptors::iterator &Descriptor)
                                         case 0x01 : //Uncompressed Picture Coding
                                                     switch (Code5)
                                                     {
+                                                        case 0x01 : return ChooseParser_Raw();
                                                         case 0x7F : return ChooseParser_RV24();
                                                         default   : return NULL;
                                                     }
@@ -6723,6 +6737,17 @@ File__Analyze* File_Mxf::ChooseParser_Mpegv()
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
     #endif
+    return Parser;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_Mxf::ChooseParser_Raw()
+{
+    //Filling
+    File__Analyze* Parser=new File_Unknown();
+    Open_Buffer_Init(Parser);
+    Parser->Stream_Prepare(Stream_Video);
+    Parser->Fill(Stream_Video, 0, Video_Format, "YUV");
     return Parser;
 }
 
