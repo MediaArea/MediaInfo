@@ -1247,12 +1247,13 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Aac()
     //Parsing
     Element_Begin("AAC options");
     #if defined(MEDIAINFO_AAC_YES)
-        File_Aac MI;
-        MI.Mode=File_Aac::Mode_AudioSpecificConfig;
-        Open_Buffer_Init(&MI);
-        Open_Buffer_Continue(&MI);
-        Finish(&MI);
-        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        File_Aac* MI=new File_Aac();
+        MI->Mode=File_Aac::Mode_AudioSpecificConfig;
+        Open_Buffer_Init(MI);
+        Open_Buffer_Continue(MI);
+        Finish(MI);
+        Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
+        delete MI; //MI=NULL;
     #else //MEDIAINFO_MPEG4_YES
         Skip_XX(Element_Size-Element_Offset,                    "(AudioSpecificConfig)");
     #endif
