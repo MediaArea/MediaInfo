@@ -81,6 +81,7 @@
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
 #include "MediaInfo/Multiple/File_Mpeg4_TimeCode.h"
+#include "ZenLib/FileName.h"
 #include "ZenLib/Base64/base64.h"
 #include <cmath>
 #include <zlib.h>
@@ -1189,6 +1190,15 @@ void File_Mpeg4::mdat_xxxx()
 
     if (Stream[(int32u)Element_Code].Parser)
     {
+        #if MEDIAINFO_DEMUX
+			if (Config->Demux_Unpacketize_Get())
+			{
+                Open_Buffer_Continue(Stream[(int32u)Element_Code].Parser, Buffer+Buffer_Offset, 0);
+                if (Config->Demux_EventWasSent)
+                    return;
+            }
+		#endif //MEDIAINFO_DEMUX
+
         Open_Buffer_Continue(Stream[(int32u)Element_Code].Parser);
         Element_Offset=Element_Size;
         Element_Show();
@@ -2317,10 +2327,17 @@ void File_Mpeg4::moov_trak_mdia_minf_code_sean_RU_A()
             Options=Config->SubFile_Config_Get();
             for (size_t Pos=0; Pos<Options.size(); Pos++)
                 File_Name_NextPacket_Handler->Option(Options[Pos][0], Options[Pos][1]);
+            if (Config->NextPacket_Get())
+                File_Name_NextPacket_Handler->Option(_T("File_NextPacket"), _T("1"));
+            if (Config->Event_CallBackFunction_IsSet())
+                File_Name_NextPacket_Handler->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
             File_Name_NextPacket_Handler->Option(_T("File_SubFile_StreamId_Set"), Ztring::ToZtring(moov_trak_tkhd_TrackID));
             if (!File_Name_NextPacket_Handler->Open(Path))
             {
-                delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+                if (!Config->NextPacket_Get())
+                {
+                    delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+                }
             }
         }
 
@@ -2471,12 +2488,22 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
     FILLING_BEGIN();
         if (Stream[moov_trak_tkhd_TrackID].File_Name.empty()) //Priority to "code" version
         {
+            Stream[moov_trak_tkhd_TrackID].File_Name.clear();
+            Ztring AbsoluteName;
             if (!Directory_Name.empty())
             {
-                Stream[moov_trak_tkhd_TrackID].File_Name=Directory_Name;
+                if (Directory_Name[0]!=_T('\\') //Windows style
+                 && Directory_Name[0]!=_T('/')) //Linux/Mac style
+                {
+                    //Directory name is not absolute, so current path is added
+                    AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
+                    AbsoluteName+=ZenLib::PathSeparator;
+                }
+                Stream[moov_trak_tkhd_TrackID].File_Name+=Directory_Name;
                 Stream[moov_trak_tkhd_TrackID].File_Name+=ZenLib::PathSeparator;
             }
             Stream[moov_trak_tkhd_TrackID].File_Name+=file_name_string;
+            AbsoluteName+=Stream[moov_trak_tkhd_TrackID].File_Name;
 
             if (Config_Demux && !Stream[moov_trak_tkhd_TrackID].File_Name_NextPacket_IsParsed && Config->NextPacket_Get())
             {
@@ -2488,10 +2515,17 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
                 Options=Config->SubFile_Config_Get();
                 for (size_t Pos=0; Pos<Options.size(); Pos++)
                     File_Name_NextPacket_Handler->Option(Options[Pos][0], Options[Pos][1]);
+                if (Config->NextPacket_Get())
+                    File_Name_NextPacket_Handler->Option(_T("File_NextPacket"), _T("1"));
+                if (Config->Event_CallBackFunction_IsSet())
+                    File_Name_NextPacket_Handler->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
                 File_Name_NextPacket_Handler->Option(_T("File_SubFile_StreamId_Set"), Ztring::ToZtring(moov_trak_tkhd_TrackID));
-                if (!File_Name_NextPacket_Handler->Open(file_name_string))
+                if (!File_Name_NextPacket_Handler->Open(AbsoluteName))
                 {
-                    delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+                    if (!Config->NextPacket_Get())
+                    {
+                        delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
+                    }
                 }
             }
         }

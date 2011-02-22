@@ -129,6 +129,7 @@ File_Riff::File_Riff()
     IsWaveBroken=false;
     SecondPass=false;
     DV_FromHeader=NULL;
+    Kind=Kind_None;
 
     //Pointers
     Stream_Structure_Temp=Stream_Structure.end();
@@ -463,7 +464,12 @@ void File_Riff::Read_Buffer_Continue()
         }
 
         Element_Begin();
-        AVI__movi_xxxx();
+        switch (Kind)
+        {
+            case Kind_Wave : WAVE_data_Continue(); break;
+            case Kind_Aiff : AIFF_SSND_Continue(); break;
+            default        : AVI__movi_xxxx();
+        }
         Element_Offset=Element_Size;
         Element_End();
     }

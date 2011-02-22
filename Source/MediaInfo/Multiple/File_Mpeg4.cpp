@@ -604,6 +604,14 @@ void File_Mpeg4::Streams_Finish()
 bool File_Mpeg4::Header_Begin()
 {
     #if MEDIAINFO_DEMUX
+        //Handling of multiple frames in one block
+	    if (IsParsing_mdat && Config->Demux_Unpacketize_Get())
+	    {
+            Open_Buffer_Continue(Stream[(int32u)Element_Code].Parser, Buffer+Buffer_Offset, 0);
+            if (Config->Demux_EventWasSent)
+                return false;
+        }
+
         if (File_Name_NextPacket_Handler)
         {
             bitset<32> Result=File_Name_NextPacket_Handler->Open_NextPacket();

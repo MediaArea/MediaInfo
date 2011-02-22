@@ -469,7 +469,7 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
         else if (Parser==_T("Mpega"))       Info=new File_Mpega();
     #endif
     #if defined(MEDIAINFO_PCM_YES)
-        else if (Parser==_T("Pcm"))         Info=new File_Pcm();
+        //else if (Parser==_T("Pcm"))         Info=new File_Pcm();
     #endif
     #if defined(MEDIAINFO_AU_YES)
         else if (Parser==_T("Au"))          Info=new File_Au();

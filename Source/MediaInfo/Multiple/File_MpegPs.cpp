@@ -3827,7 +3827,8 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
 {
     //Filling
     #if defined(MEDIAINFO_PCM_YES)
-        File__Analyze* Parser=new File_Pcm();
+        File_Pcm* Parser=new File_Pcm();
+        Parser->IsRawPcm=false;
         Ztring Codec;
         switch (FromTS_stream_type)
         {

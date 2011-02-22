@@ -376,7 +376,7 @@ void File_Riff::Data_Parse()
         ATOM(AIFC_COMM)
         ATOM(AIFC_COMT)
         ATOM(AIFC_FVER)
-        LIST_SKIP(AIFC_SSND)
+        ATOM(AIFC_SSND)
         ATOM_DEFAULT(AIFC_xxxx)
         ATOM_END_DEFAULT
     LIST(AIFF)
@@ -603,6 +603,7 @@ void File_Riff::AIFF()
     //Filling
     Fill(Stream_General, 0, General_Format, "AIFF");
     Stream_Prepare(Stream_Audio);
+    Kind=Kind_Aiff;
 }
 
 //---------------------------------------------------------------------------
@@ -672,10 +673,31 @@ void File_Riff::AIFF_SSND()
 {
     Element_Name("Sound Data");
 
-    Skip_XX(Element_TotalSize_Get(),                            "Data");
+    #if MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
+        if (Config_ParseSpeed==1 && Config->Demux_Unpacketize_Get())
+        {
+            Stream[0].Parser=new File_Pcm;
+            Open_Buffer_Init(Stream[0].Parser);
+            ((File_Pcm*)Stream[0].Parser)->BitDepth=Retrieve(Stream_Audio, 0, Audio_BitDepth).To_int16u();
+            ((File_Pcm*)Stream[0].Parser)->Channels=Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int16u();
+            Stream[0].Parser->Demux_Level=2; //Container
+            Stream[0].Parser->Demux_UnpacketizeContainer=true;
+            AIFF_SSND_Continue();
+            Buffer_DataSizeToParse=Element_TotalSize_Get()-Element_Size;
+        }
+        else
+    #endif //MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
+            Skip_XX(Element_TotalSize_Get(),                    "Data");
 
     //Filling
     Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
+    Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Big");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AIFF_SSND_Continue()
+{
+    Open_Buffer_Continue(Stream[0].Parser);
 }
 
 //---------------------------------------------------------------------------
@@ -721,6 +743,7 @@ void File_Riff::AVI_()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "AVI");
+    Kind=Kind_Avi;
 
     //Configuring
     Buffer_MaximumSize=32*1024*1024;
@@ -2874,6 +2897,8 @@ void File_Riff::WAVE()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "Wave");
+    Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little");
+    Kind=Kind_Wave;
 }
 
 //---------------------------------------------------------------------------
@@ -2964,7 +2989,23 @@ void File_Riff::WAVE_data()
     Element_Code=CC4("00wb");
     AVI__movi_xxxx();
     if (File_GoTo==(int64u)-1)
-        Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Data");
+    {
+        #if MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
+            if (Config_ParseSpeed==1 && Config->Demux_Unpacketize_Get())
+            {
+                Stream[0].Parser=new File_Pcm;
+                Open_Buffer_Init(Stream[0].Parser);
+                ((File_Pcm*)Stream[0].Parser)->BitDepth=Retrieve(Stream_Audio, 0, Audio_BitDepth).To_int16u();
+                ((File_Pcm*)Stream[0].Parser)->Channels=Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int16u();
+                Stream[0].Parser->Demux_Level=2; //Container
+                Stream[0].Parser->Demux_UnpacketizeContainer=true;
+                WAVE_data_Continue();
+                Buffer_DataSizeToParse=Element_TotalSize_Get()-Element_Size;
+            }
+            else
+        #endif //MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
+                Skip_XX(Element_TotalSize_Get()-Element_Offset, "Data");
+    }
 
     FILLING_BEGIN();
         int64u Duration=Retrieve(Stream_Audio, 0, Audio_Duration).To_int64u();
@@ -2985,6 +3026,17 @@ void File_Riff::WAVE_data()
             Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
         }
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::WAVE_data_Continue()
+{
+    Skip_XX(Element_Size,                                       "Data");
+
+    #if MEDIAINFO_DEMUX
+        Element_Code=0;
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------

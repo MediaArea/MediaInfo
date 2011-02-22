@@ -124,6 +124,13 @@ void File_ChannelGrouping::Read_Buffer_Init()
 //---------------------------------------------------------------------------
 void File_ChannelGrouping::Read_Buffer_Continue()
 {
+    //Handling of multiple frames in one block
+    if (Buffer_Size==0 && Common->Parser && Common->Parser->Buffer_Size)
+    {
+        Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, 0);
+        return;
+    }
+
     //Testing if it is AES3 instead of mono PCM
     if (!IsAes3 && (Frame_Count || (Channel_Pos==0 && !Synchronize_AES3_0()) || (Channel_Pos==1 && !Synchronize_AES3_1())))
     {

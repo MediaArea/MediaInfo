@@ -121,7 +121,8 @@ File_Pcm::File_Pcm()
 
     //In
     BitDepth=0;
-    IsRawPcm=false;
+    Channels=0;
+    IsRawPcm=true;
 }
 
 //***************************************************************************
@@ -137,9 +138,6 @@ void File_Pcm::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
     }
-
-    if (IsRawPcm)
-        return;
 
     //Filling
     Ztring Firm, Endianness, Sign, ITU, Resolution;
@@ -246,13 +244,7 @@ void File_Pcm::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Pcm::Read_Buffer_Continue()
 {
-    if (IsRawPcm)
-        Skip_XX(Element_Size,                                   "Data"); //No parsing of the block
-
-    if (IsRawPcm
-     || (Codec!=_T("VOB")
-      && Codec!=_T("EVOB")
-      && Codec!=_T("M2TS"))) //No need of data
+    if (!Status[IsAccepted] && IsRawPcm) //No need of data
     {
         Accept();
         Finish();
@@ -268,7 +260,12 @@ void File_Pcm::Header_Parse()
 {
     //Filling
     Header_Fill_Code(0, "Block");
-    Header_Fill_Size(Element_Size);
+    #if MEDIAINFO_DEMUX
+        if (Demux_UnpacketizeContainer && IsRawPcm && BitDepth && Channels)
+            Header_Fill_Size((Element_Size/(BitDepth*Channels/8))*(BitDepth*Channels/8)); //A complete sample
+        else
+    #endif //MEDIAINFO_DEMUX
+            Header_Fill_Size(Element_Size);
 }
 
 //---------------------------------------------------------------------------
@@ -282,7 +279,18 @@ void File_Pcm::Data_Parse()
     else if (Codec==_T("M2TS"))
         M2TS();
     else
+    {
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            {
+                Demux_Offset=Element_Size;
+                Demux_UnpacketizeContainer_Demux();
+            }
+        #endif //MEDIAINFO_DEMUX
         Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
+
+        Accept();
+    }
 
     Finish();
 }

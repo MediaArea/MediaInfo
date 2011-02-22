@@ -223,6 +223,8 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
             StreamIDs_Width[1]=StreamIDs_Width[0];
             StreamIDs[0]=SubFile_StreamID;
             StreamIDs_Width[0]=8;
+            ParserIDs[1]=ParserIDs[0];
+            ParserIDs[0]=0x00;
         }
     #endif //MEDIAINFO_EVENTS
 }
@@ -1153,7 +1155,8 @@ bool File__Analyze::Data_Manage()
     #if MEDIAINFO_DEMUX
         if (!IsSub && Config->Demux_EventWasSent)
         {
-            Element_End();
+            if (!Element_WantNextLevel)
+                Element_End();
             return false;
         }
     #endif //MEDIAINFO_DEMUX

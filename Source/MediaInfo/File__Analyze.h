@@ -1248,8 +1248,6 @@ public :
                 _ATOM(); \
                 Element_ThisIsAList(); \
             } \
-            if (Element_TotalSize_Get()>Element_Offset) \
-                Skip_XX(Element_TotalSize_Get()-Element_Offset, "Unknown"); \
             break; \
 
 

@@ -153,6 +153,14 @@ private :
     bool   IsWaveBroken;
     bool   SecondPass;      //Second pass for streams
     File__Analyze*  DV_FromHeader;
+    enum kind
+    {
+        Kind_None,
+        Kind_Avi,
+        Kind_Wave,
+        Kind_Aiff,
+    };
+    kind Kind;
 
     //Chunks
     void AIFC ();
@@ -160,6 +168,7 @@ private :
     void AIFC_COMT ();
     void AIFC_FVER ();
     void AIFC_SSND ();
+    void AIFF_SSND_Continue();
     void AIFC_xxxx ();
     void AIFF ();
     void AIFF_COMM ();
@@ -267,6 +276,7 @@ private :
     void WAVE_bext ();
     void WAVE_cue_ ();
     void WAVE_data ();
+    void WAVE_data_Continue ();
     void WAVE_ds64 ();
     void WAVE_fact ();
     void WAVE_fmt_ ();

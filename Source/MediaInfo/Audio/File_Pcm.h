@@ -43,6 +43,7 @@ public :
     //In
     ZenLib::Ztring  Codec;
     int16u          BitDepth;
+    int16u          Channels;
     bool            IsRawPcm;
 
     //Constructor/Destructor
