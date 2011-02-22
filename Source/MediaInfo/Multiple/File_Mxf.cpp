@@ -1311,7 +1311,7 @@ void File_Mxf::Streams_Finish_ParseLocator(int128u LocatorUID)
             MI->Option(_T("File_NextPacket"), _T("1"));
         if (Config->Event_CallBackFunction_IsSet())
             MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-        MI->Option(_T("File_SubFile_StreamID"), Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID));
+        MI->Option(_T("File_SubFile_StreamID_Set"), Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID));
         #if MEDIAINFO_DEMUX
 			if (Config->Demux_Unpacketize_Get())
 				MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
