@@ -438,11 +438,8 @@ void File_Mpeg4::Streams_Finish()
                     Fill(StreamKind_Last, StreamPos_Last, "Source_Original_Info", Source_Original_Info, true);
                 }
 
-                //Special case: MXF in MXF
-                if (Temp->second.File_Name_NextPacket_Handler->Info && Temp->second.File_Name_NextPacket_Handler->Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
-                {
-                    Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
-                }
+                //Muxing Mode
+                Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Temp->second.File_Name_NextPacket_Handler->Info->Get(Stream_General, 0, General_Format));
 
                 //Special case: DV with Audio or/and Text in the video stream
                 if (StreamKind_Last==Stream_Video && Temp->second.File_Name_NextPacket_Handler->Info && (Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Audio) || Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Text)))
