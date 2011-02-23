@@ -2238,6 +2238,8 @@ void File_Avc::pic_parameter_set()
 
         //Setting as OK
         PPS_IsParsed=true;
+        if (!Status[IsAccepted])
+            Accept("AVC");
     FILLING_END();
 }
 
@@ -2686,7 +2688,7 @@ void File_Avc::SPS_PPS()
         int64u Element_Size_Save=Element_Size;
         Buffer_Offset+=(size_t)Element_Offset_Save;
         Element_Offset=0;
-        Element_Size=Size-1;
+        Element_Size=Size-(Size?1:0);
         Element_Code=0x07; //seq_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;

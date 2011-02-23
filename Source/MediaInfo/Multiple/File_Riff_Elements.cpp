@@ -1699,10 +1699,23 @@ void File_Riff::AVI__hdlr_strl_strf_vids_Avc()
     //Parsing
     Element_Begin("AVC options");
     #if defined(MEDIAINFO_AVC_YES)
-        ((File_Avc*)Stream[Stream_ID].Parser)->MustParse_SPS_PPS=true;
-        ((File_Avc*)Stream[Stream_ID].Parser)->SizedBlocks=true;
-        ((File_Avc*)Stream[Stream_ID].Parser)->MustSynchronize=false;
+        //Can be sized block or with 000001
+        ((File_Avc*)Stream[Stream_ID].Parser)->MustParse_SPS_PPS=false;
+        ((File_Avc*)Stream[Stream_ID].Parser)->SizedBlocks=false;
+        ((File_Avc*)Stream[Stream_ID].Parser)->MustSynchronize=true;
+        int64u Element_Offset_Save=Element_Offset;
         Open_Buffer_Continue(Stream[Stream_ID].Parser);
+        if (!Stream[Stream_ID].Parser->Status[IsAccepted])
+        {
+            Element_Offset=Element_Offset_Save;
+            delete Stream[Stream_ID].Parser; Stream[Stream_ID].Parser=new File_Avc;
+            Open_Buffer_Init(Stream[Stream_ID].Parser);
+            ((File_Avc*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
+            ((File_Avc*)Stream[Stream_ID].Parser)->MustParse_SPS_PPS=true;
+            ((File_Avc*)Stream[Stream_ID].Parser)->SizedBlocks=true;
+            ((File_Avc*)Stream[Stream_ID].Parser)->MustSynchronize=false;
+            Open_Buffer_Continue(Stream[Stream_ID].Parser);
+        }
     #else //MEDIAINFO_AVC_YES
         Skip_XX(Element_Size-Element_Offset,                    "(AVC headers)");
     #endif
@@ -2288,7 +2301,7 @@ void File_Riff::AVI__movi_xxxx___wb()
     //Finish (if requested)
     if ( Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
      && (Stream[Stream_ID].Parser==NULL
-      || Stream[Stream_ID].Parser->Status[IsFilled]
+      || Stream[Stream_ID].Parser->Status[IsFinished]
       || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
       || Element_Size>50000) //For PCM, we disable imediatly
     {
