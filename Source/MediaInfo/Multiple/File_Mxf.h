@@ -79,7 +79,7 @@ protected :
     void Streams_Finish_Component (int128u ComponentUID, float64 EditRate);
     void Streams_Finish_Identification (int128u IdentificationUID);
     void Streams_Finish_ParseLocators ();
-    void Streams_Finish_ParseLocator (int128u LocatorUID);
+    void Streams_Finish_ParseLocator ();
     void Streams_Finish_ParseLocator_Finalize ();
     void Streams_Finish_CommercialNames ();
 
