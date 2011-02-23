@@ -473,3 +473,4 @@ bool File_P2_Clip::FileHeader_Begin()
 } //NameSpace
 
 #endif //MEDIAINFO_P2_YES
+
