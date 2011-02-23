@@ -219,6 +219,7 @@ void File_Aes3::Streams_Fill()
         if (SamplingRate>188160 && SamplingRate<195840) SamplingRate=192000;
         BitRate=SamplingRate/(4+bits_per_sample)*(5+bits_per_sample)*(2+2*number_channels)*(16+4*bits_per_sample);
     }
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
 
     if (!Retrieve(Stream_General, 0, General_Format).empty())
     {
