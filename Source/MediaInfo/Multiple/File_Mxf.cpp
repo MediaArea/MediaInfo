@@ -1246,7 +1246,7 @@ void File_Mxf::Streams_Finish_ParseLocators()
 {
     while (Locator!=Locators.end())
     {
-        Streams_Finish_ParseLocator(Locator->first);
+        Streams_Finish_ParseLocator();
 		#if MEDIAINFO_DEMUX
 			if (Config->Demux_EventWasSent)
 				return;
@@ -1262,12 +1262,8 @@ void File_Mxf::Streams_Finish_ParseLocators()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_ParseLocator(int128u LocatorUID)
+void File_Mxf::Streams_Finish_ParseLocator()
 {
-    locators::iterator Locator=Locators.find(LocatorUID);
-    if (Locator==Locators.end())
-        return;
-
     //External file name specific + StreamKind/StreamPos must be known
     if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty() || Locator->second.StreamKind==Stream_Max || Locator->second.StreamPos==(size_t)-1)
         return;
@@ -1335,7 +1331,7 @@ void File_Mxf::Streams_Finish_ParseLocator(int128u LocatorUID)
 
     if (MI)
     {
-        while (MI->Open_NextPacket().at(8))
+        while (MI->Open_NextPacket()[8])
         {
 			#if MEDIAINFO_DEMUX
 				if (Config->Event_CallBackFunction_IsSet())
