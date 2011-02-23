@@ -64,6 +64,7 @@
 #include "MediaInfo/File_Unknown.h"
 #include "ZenLib/FileName.h"
 #include "MediaInfo/MediaInfo_Internal.h"
+#include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -568,6 +569,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                         case 0x01 : //Uncompressed Sound Coding
                                                                     switch (Code5)
                                                                     {
+                                                                        case 0x01 : return "PCM";
                                                                         case 0x7E : return "PCM (AIFF)";
                                                                         case 0x7F : return "PCM";
                                                                         default   : return "";
@@ -1275,7 +1277,7 @@ void File_Mxf::Streams_Finish_ParseLocator()
         if (Name.find(_T("file:"))==0)
         {
             Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
-            Name.FindAndReplace(_T("%20"), _T(" "), 0, Ztring_Recursive); //URL encoded values
+            Name=ZenLib::Format::Http::URL_Encoded_Decode(Name);
             #ifdef __WINDOWS__
                 Name.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //URL encoded values
             #endif //__WINDOWS__
@@ -1324,8 +1326,31 @@ void File_Mxf::Streams_Finish_ParseLocator()
         }
         else
         {
-            Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Missing");
-            delete MI; MI=NULL;
+            //Configuring file name (this time, we try to force URL decode in all cases)
+            Name=ZenLib::Format::Http::URL_Encoded_Decode(Locator->second.EssenceLocator);
+            if (Name.find(_T(':'))==1 || Name.find(_T("//"))==0) //If absolute Windows path
+                AbsoluteName=Name;
+            else
+            {
+                AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
+                if (!AbsoluteName.empty())
+                    AbsoluteName+=ZenLib::PathSeparator;
+                AbsoluteName+=Name;
+            }
+
+            if (MI->Open(AbsoluteName))
+            {
+                if (!Config->NextPacket_Get()) //Only if NextPacket interface is not requested, else this is done later
+                {
+                    Streams_Finish_ParseLocator_Finalize();
+                    delete MI; MI=NULL;
+                }
+            }
+            else
+            {
+                Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Missing");
+                delete MI; MI=NULL;
+            }
         }
     }
 
