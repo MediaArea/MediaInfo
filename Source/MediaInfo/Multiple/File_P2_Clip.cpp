@@ -42,6 +42,110 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_P2_Clip::Streams_Finish()
+{
+    while (Reference!=References.end())
+    {
+        Streams_Finish_ParseReference();
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return;
+		#endif //MEDIAINFO_DEMUX
+        Reference++;
+    }
+
+    if (File_Size_Total!=File_Size)
+        Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+}
+
+//---------------------------------------------------------------------------
+void File_P2_Clip::Streams_Finish_ParseReference()
+{
+    //StreamKind/StreamPos must be known
+    if ((*Reference).StreamKind==Stream_Max || (*Reference).StreamPos==(size_t)-1)
+        return;
+
+    if (MI==NULL)
+    {
+        StreamKind_Last=(*Reference).StreamKind;
+        StreamPos_Last=(*Reference).StreamPos;
+
+        //Configuration
+        MI=new MediaInfo_Internal();
+        MI->Option(_T("File_KeepInfo"), _T("1"));
+        if (Config->NextPacket_Get())
+            MI->Option(_T("File_NextPacket"), _T("1"));
+        if (Config->Event_CallBackFunction_IsSet())
+            MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+        MI->Option(_T("File_SubFile_StreamID_Set"), Retrieve(StreamKind_Last, StreamPos_Last, General_ID));
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+                MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
+        #endif //MEDIAINFO_DEMUX
+
+        //Run
+        if (MI->Open(Reference->FileName))
+        {
+            if (!Config->NextPacket_Get()) //Only if NextPacket interface is not requested, else this is done later
+            {
+                Streams_Finish_ParseReference_Finalize();
+                delete MI; MI=NULL;
+            }
+        }
+        else
+        {
+            Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Missing");
+            delete MI; MI=NULL;
+        }
+    }
+
+    if (MI)
+    {
+        while (MI->Open_NextPacket()[8])
+        {
+            #if MEDIAINFO_DEMUX
+                if (Config->Event_CallBackFunction_IsSet())
+                {
+                    Config->Demux_EventWasSent=true;
+                    return;
+                }
+            #endif //MEDIAINFO_DEMUX
+        }
+        Streams_Finish_ParseReference_Finalize();
+        (*Reference).StreamKind=Stream_Max;
+        (*Reference).StreamPos=(size_t)-1;
+        delete MI; MI=NULL;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_P2_Clip::Streams_Finish_ParseReference_Finalize ()
+{
+    //Hacks - Before
+    Ztring ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+    Clear(StreamKind_Last, StreamPos_Last, General_ID);
+
+    Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
+    File_Size_Total+=Ztring(MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
+
+    //Hacks - After
+    if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
+        ID+=_T('-')+Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+    Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
+
+    //Commercial names
+    if (StreamKind_Last==Stream_Video && StreamPos_Last==0)
+    {
+        Fill(Stream_General, 0, General_Format_Commercial_IfAny, MI->Get(Stream_General, 0, General_Format_Commercial_IfAny), true);
+        Fill(Stream_General, 0, General_Format_Commercial, _T("P2 Clip ")+MI->Get(Stream_General, 0, General_Format_Commercial_IfAny), true);
+    }
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -105,7 +209,7 @@ bool File_P2_Clip::FileHeader_Begin()
 
                 //EssenceList
                 TiXmlElement* EssenceList=ClipContent->FirstChildElement("EssenceList");
-                int64u File_Size_Total=File_Size;
+                File_Size_Total=File_Size;
                 if (EssenceList)
                 {
                     TiXmlElement* Track=EssenceList->FirstChildElement();
@@ -139,8 +243,8 @@ bool File_P2_Clip::FileHeader_Begin()
                                         if (FrameRate)
                                             ToFill+=float32_int32s(((Text[9]-'0')*10+(Text[10]-'0'))*1000/FrameRate);
                                     }
-                                    Fill(Stream_Video, 0, Video_Delay, ToFill);
-                                    Fill(Stream_Video, 0, Video_Delay_Source, "P2 Clip");
+                                    Fill(Stream_Video, StreamPos_Last, Video_Delay, ToFill);
+                                    Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "P2 Clip");
                                 }
                             }
 
@@ -160,22 +264,17 @@ bool File_P2_Clip::FileHeader_Begin()
                                     MXF_File+=file;
                                     MXF_File+=_T(".MXF");
 
-                                    //int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-                                    //MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-                                    MediaInfo_Internal MI;
-                                    if (MI.Open(MXF_File))
-                                    {
-                                        //MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
-                                        Merge(MI, Stream_Video, 0, StreamPos_Last);
-                                        Fill(Stream_Video, StreamPos_Last, "Source", MXF_File);
-                                        File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
+                                    reference Reference_Temp;
+                                    Reference_Temp.FileName=MXF_File;
+                                    Reference_Temp.StreamKind=StreamKind_Last;
+                                    Reference_Temp.StreamPos=StreamPos_Last;
+                                    References.push_back(Reference_Temp);
+                                    File_P2_Clip::Reference=References.begin();
+                                    MI=NULL;
 
-                                        //Commercial names
-                                        Fill(Stream_General, 0, General_Format_Commercial_IfAny, MI.Get(Stream_General, 0, General_Format_Commercial_IfAny), true);
-                                        Fill(Stream_General, 0, General_Format_Commercial, _T("P2 Clip ")+MI.Get(Stream_General, 0, General_Format_Commercial_IfAny), true);
-                                    }
-                                    //else
-                                    //    MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
+                                    //Filling
+                                    Fill(Stream_Video, StreamPos_Last, General_ID, References.size());
+                                    Fill(Stream_Video, StreamPos_Last, "Source", MXF_File);
                                 }
                             #endif //defined(MEDIAINFO_MXF_YES)
                         }
@@ -203,27 +302,23 @@ bool File_P2_Clip::FileHeader_Begin()
                                     MXF_File+=Pos;
                                     MXF_File+=_T(".MXF");
 
-                                    //int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-                                    //MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-                                    MediaInfo_Internal MI;
-                                    if (MI.Open(MXF_File))
-                                    {
-                                        //MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
-                                        Merge(MI, Stream_Audio, 0, StreamPos_Last);
-                                        Fill(Stream_Audio, StreamPos_Last, "Source", MXF_File);
-                                        File_Size_Total+=Ztring(MI.Get(Stream_General, 0, General_FileSize)).To_int64u();
-                                    }
-                                    //else
-                                    //    MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
+                                    reference Reference_Temp;
+                                    Reference_Temp.FileName=MXF_File;
+                                    Reference_Temp.StreamKind=StreamKind_Last;
+                                    Reference_Temp.StreamPos=StreamPos_Last;
+                                    References.push_back(Reference_Temp);
+                                    Reference=References.begin();
+                                    MI=NULL;
+
+                                    //Filling
+                                    Fill(Stream_Audio, StreamPos_Last, General_ID, References.size());
+                                    Fill(Stream_Audio, StreamPos_Last, "Source", MXF_File);
                                 }
                             #endif //defined(MEDIAINFO_MXF_YES)
                         }
 
                         Track=Track->NextSiblingElement();
                     }
-
-                    if (File_Size_Total!=File_Size)
-                        Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
                 }
 
                 //ClipMetadata

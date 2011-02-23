@@ -516,6 +516,10 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     Buffer_Offset+=(size_t)Element_Offset;
     if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
         return; //Finish
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+            return;
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing;
     while (Buffer_Parse());

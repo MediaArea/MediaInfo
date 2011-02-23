@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -40,8 +41,32 @@ namespace MediaInfoLib
 class File_P2_Clip : public File__Analyze
 {
 private :
+    //Streams management
+    void Streams_Finish ();
+    void Streams_Finish_ParseReference ();
+    void Streams_Finish_ParseReference_Finalize ();
+
     //Buffer - File header
     bool FileHeader_Begin();
+
+    //Temp
+    struct reference
+    {
+        Ztring      FileName;
+        stream_t    StreamKind;
+        size_t      StreamPos;
+
+        reference()
+        {
+            StreamKind=Stream_Max;
+            StreamPos=(size_t)-1;
+        }
+    };
+    typedef std::vector<reference> references;
+    references              References;
+    references::iterator    Reference;
+    MediaInfo_Internal*     MI;
+    int64u                  File_Size_Total;
 };
 
 } //NameSpace
