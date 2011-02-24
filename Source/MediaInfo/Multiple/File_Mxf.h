@@ -503,6 +503,8 @@ protected :
         int32u Height;
         int32u Height_Display;
         int32u Height_Display_Offset;
+        int32u SubSampling_Horizontal;
+        int32u SubSampling_Vertical;
         std::map<std::string, Ztring> Infos;
         int16u BlockAlign;
 
@@ -523,6 +525,8 @@ protected :
             Height=(int32u)-1;
             Height_Display=(int32u)-1;
             Height_Display_Offset=(int32u)-1;
+            SubSampling_Horizontal=(int32u)-1;
+            SubSampling_Vertical=(int32u)-1;
             BlockAlign=(int16u)-1;
         }
     };
@@ -581,6 +585,9 @@ protected :
     File__Analyze* ChooseParser_Mpega();
     File__Analyze* ChooseParser_Pcm(int16u BlockAlign=(int16u)-1);
     File__Analyze* ChooseParser_Jpeg2000(bool Interlaced=false);
+
+    //Helpers
+    void Subsampling_Compute(descriptors::iterator Descriptor);
 
     //Temp
     int128u EssenceContainer_FromPartitionMetadata;

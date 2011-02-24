@@ -3309,7 +3309,13 @@ void File_Mxf::CDCIEssenceDescriptor_ComponentDepth()
 void File_Mxf::CDCIEssenceDescriptor_HorizontalSubsampling()
 {
     //Parsing
-    Info_B4(Data,                                               "Data"); Element_Info(Data);
+    int32u Data;
+    Get_B4 (Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].SubSampling_Horizontal=Data;
+        Subsampling_Compute(Descriptors[InstanceUID]);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3357,7 +3363,13 @@ void File_Mxf::CDCIEssenceDescriptor_PaddingBits()
 void File_Mxf::CDCIEssenceDescriptor_VerticalSubsampling()
 {
     //Parsing
-    Info_B4(Data,                                               "Data"); Element_Info(Data);
+    int32u Data;
+    Get_B4 (Data,                                                "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].SubSampling_Vertical=Data;
+        Subsampling_Compute(Descriptors[InstanceUID]);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -6900,6 +6912,38 @@ File__Analyze* File_Mxf::ChooseParser_Jpeg2000(bool Interlaced)
         Parser->Fill(Stream_Video, 0, Video_Format, "JPEG 2000");
     #endif
     return Parser;
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mxf::Subsampling_Compute(descriptors::iterator Descriptor)
+{
+    if (Descriptor->second.SubSampling_Horizontal==(int32u)-1 || Descriptor->second.SubSampling_Vertical==(int32u)-1)
+        return;
+
+    switch (Descriptor->second.SubSampling_Horizontal)
+    {
+        case 1 :    switch (Descriptor->second.SubSampling_Vertical)
+                    {
+                        case 1 : Descriptor->second.Infos["ChromaSubsampling"]=_T("4:4:4"); return;
+                        default: Descriptor->second.Infos["ChromaSubsampling"].clear(); return;
+                    }
+        case 2 :    switch (Descriptor->second.SubSampling_Vertical)
+                    {
+                        case 1 : Descriptor->second.Infos["ChromaSubsampling"]=_T("4:2:2"); return;
+                        case 2 : Descriptor->second.Infos["ChromaSubsampling"]=_T("4:2:0"); return;
+                        default: Descriptor->second.Infos["ChromaSubsampling"].clear(); return;
+                    }
+        case 4 :    switch (Descriptor->second.SubSampling_Vertical)
+                    {
+                        case 1 : Descriptor->second.Infos["ChromaSubsampling"]=_T("4:1:1"); return;
+                        default: Descriptor->second.Infos["ChromaSubsampling"].clear(); return;
+                    }
+        default:    return;
+    }
 }
 
 } //NameSpace
