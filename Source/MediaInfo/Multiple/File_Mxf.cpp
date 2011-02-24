@@ -741,6 +741,7 @@ File_Mxf::File_Mxf()
     #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
     DataMustAlwaysBeComplete=false;
+    Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
 
     //Temp
     Streams_Count=(size_t)-1;
