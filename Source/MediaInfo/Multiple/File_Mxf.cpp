@@ -3314,7 +3314,7 @@ void File_Mxf::CDCIEssenceDescriptor_HorizontalSubsampling()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].SubSampling_Horizontal=Data;
-        Subsampling_Compute(Descriptors[InstanceUID]);
+        Subsampling_Compute(Descriptors.find(InstanceUID));
     FILLING_END();
 }
 
@@ -3368,7 +3368,7 @@ void File_Mxf::CDCIEssenceDescriptor_VerticalSubsampling()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].SubSampling_Vertical=Data;
-        Subsampling_Compute(Descriptors[InstanceUID]);
+        Subsampling_Compute(Descriptors.find(InstanceUID));
     FILLING_END();
 }
 
