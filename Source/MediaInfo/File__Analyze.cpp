@@ -552,7 +552,10 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 //---------------------------------------------------------------------------
 size_t File__Analyze::Open_Buffer_Seek (size_t Method, int64u Value)
 {
-    return Read_Buffer_Seek(Method, Value);
+    size_t ToReturn=Read_Buffer_Seek(Method, Value);
+    if (File_GoTo!=(int64u)-1)
+        Buffer_Clear();
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------

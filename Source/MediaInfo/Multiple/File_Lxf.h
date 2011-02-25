@@ -126,9 +126,12 @@ protected :
     int64u                  SeekRequest_Divider;
     int64u                  SeekRequest;
     bool                    Duration_Detected;
+    int64u                  LastAudio_BufferOffset;
+    stream_header           LastAudio_TimeOffset;
 };
 
 } //NameSpace
 
 #endif
+
 

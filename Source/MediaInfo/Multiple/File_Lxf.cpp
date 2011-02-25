@@ -105,6 +105,7 @@ File_Lxf::File_Lxf()
     //Seek
     SeekRequest=(int64u)-1;
     Duration_Detected=false;
+    LastAudio_BufferOffset=(int64u)-1;
 }
 
 //***************************************************************************
@@ -283,6 +284,8 @@ void File_Lxf::Read_Buffer_Unsynched()
 {
     Video_Sizes.clear();
     Audio_Sizes.clear();
+    LastAudio_BufferOffset=(int64u)-1;
+    LastAudio_TimeOffset=stream_header();
 }
 
 //---------------------------------------------------------------------------
@@ -294,8 +297,8 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
     //Parsing
     switch (Method)
     {
-        case 0  :   File_GoTo=Value; return 1;
-        case 1  :   File_GoTo=File_Size*Value/10000; return 1;
+        case 0  :   GoTo(Value); return 1;
+        case 1  :   GoTo(File_Size*Value/10000); return 1;
         case 2  :   //Timestamp
                     {
                     //Init
@@ -321,10 +324,10 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                         time_offsets::iterator End=TimeOffsets.end();
                         End--;
                         if (Value>=End->second.TimeStamp_End)
-                            return 0; //Higher than total size    
+                            return 0; //Higher than total size
                         SeekRequest=Value;
                     }
- 
+
                     //Looking if we already have the timestamp
                     int64u SeekRequest_Mini=SeekRequest; if (SeekRequest_Mini>1000000) SeekRequest_Mini-=720; //-1ms
                     int64u SeekRequest_Maxi=SeekRequest+720; //+1ms
@@ -340,7 +343,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                                 if (Previous->second.TimeStamp_End!=TimeOffset->second.TimeStamp_Begin) //Testing if the previous frame is not known.
                                 {
                                     SeekRequest=TimeOffset->second.TimeStamp_Begin-(720+1); //1ms+1, so we are sure to not synch on the current frame again
-                                    File_GoTo=(Previous->first+TimeOffset->first)/2;
+                                    GoTo((Previous->first+TimeOffset->first)/2);
                                     return 1; //Looking for previous frame
 
                                 }
@@ -348,7 +351,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                             }
 
                             //We got the right I-Frame
-                            File_GoTo=TimeOffset->first;
+                            GoTo(TimeOffset->first);
                             SeekRequest=(int64u)-1;
                             return 1;
                         }
@@ -361,7 +364,14 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                                 ReferenceOffset=File_Offset+Buffer_Offset;
                             else
                                 ReferenceOffset=TimeOffset->first;
-                            File_GoTo=Previous->first+(ReferenceOffset-Previous->first)/SeekRequest_Divider;
+                            if (SeekRequest_Divider==0)
+                            {
+                                SeekRequest=Previous->second.TimeStamp_Begin-(720+1); //1ms+1, so we are sure to not synch on the current frame again
+                                ReferenceOffset=Previous->first;
+                                Previous--;
+                                SeekRequest_Divider=2;
+                            }
+                            GoTo(Previous->first+(ReferenceOffset-Previous->first)/SeekRequest_Divider);
                             SeekRequest_Divider*=2;
                             return 1;
                         }
@@ -410,7 +420,7 @@ void File_Lxf::Header_Parse()
                     BS_Begin_LE();
                     Get_S1 (4, Format,                          "Format"); Param_Info(Lxf_Format_Video[Format]);
                     Skip_S1(7,                                  "GOP (N)");
-                    Get_S1 (3, GOP_M,                           "GOP (M)"); 
+                    Get_S1 (3, GOP_M,                           "GOP (M)");
                     Info_S1(8, BitRate,                         "Bit rate"); Param_Info(BitRate*1000000, " bps");
                     Info_S1(2, PictureType,                     "Picture type"); Param_Info(Lxf_PictureType[PictureType]);
                     BS_End_LE();
@@ -427,7 +437,10 @@ void File_Lxf::Header_Parse()
                         Videos_Header.TimeStamp_Begin=TimeStamp;
                     Videos_Header.TimeStamp_End=TimeStamp+Duration;
                     Videos_Header.Duration=Duration;
-                    TimeOffsets[File_Offset+Buffer_Offset]=stream_header(TimeStamp, TimeStamp+Duration, Duration, PictureType);
+                    if (TimeStamp==LastAudio_TimeOffset.TimeStamp_Begin)
+                        TimeOffsets[LastAudio_BufferOffset]=stream_header(TimeStamp, TimeStamp+Duration, Duration, PictureType);
+                    else
+                        TimeOffsets[File_Offset+Buffer_Offset]=stream_header(TimeStamp, TimeStamp+Duration, Duration, PictureType);
                     int64u PTS_Computing=TimeStamp;
                     #if MEDIAINFO_DEMUX
                         switch (PictureType)
@@ -487,7 +500,8 @@ void File_Lxf::Header_Parse()
                         Audios_Header.TimeStamp_Begin=TimeStamp;
                     Audios_Header.TimeStamp_End=TimeStamp+Duration;
                     Audios_Header.Duration=Duration;
-                    //TimeOffsets[File_Offset+Buffer_Offset]=stream_header(float64_int64s(((float64)TimeStamp)*1000000/720), float64_int64s(((float64)TimeStamp+(float64)Duration)*1000000/720), float64_int64s(((float64)Duration)*1000000/720));
+                    LastAudio_BufferOffset=File_Offset+Buffer_Offset;
+                    LastAudio_TimeOffset=stream_header(TimeStamp, TimeStamp+Duration, Duration, (int8u)-1);
                     #if MEDIAINFO_DEMUX
                         Demux_random_access=true;
                     #endif //MEDIAINFO_DEMUX
@@ -513,7 +527,6 @@ void File_Lxf::Header_Parse()
                     Skip_L4(                                    "? (Always 0x00000000)");
                     Info_L8(Reverse,                            "Reverse TimeStamp?"); Param_Info(((float64)Reverse)/720, 3, " ms");
                     }
-                    TimeOffsets[File_Offset+Buffer_Offset+0x48+BlockSize]=stream_header(0, (int64u)-1, (int64u)-1, (int8u)-1);
                     break;
         default :   BlockSize=0;
     }
@@ -888,4 +901,5 @@ bool File_Lxf::Video_Stream(size_t Pos)
 } //NameSpace
 
 #endif //MEDIAINFO_LXF_*
+
 
