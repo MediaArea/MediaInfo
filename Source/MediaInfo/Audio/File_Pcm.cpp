@@ -234,7 +234,7 @@ void File_Pcm::Streams_Fill()
     }
     if (!Resolution.empty())
         Fill(Stream_Audio, 0, Audio_BitDepth, Resolution);
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR", Unlimited, true, true);
 }
 
 //***************************************************************************
@@ -340,7 +340,7 @@ void File_Pcm::VOB()
             Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne+1));
             Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne+1));
             Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
-            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR", Unlimited, true, true);
         }
     FILLING_END();
 }
