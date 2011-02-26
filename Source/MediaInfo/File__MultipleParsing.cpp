@@ -41,6 +41,9 @@
 #if defined(MEDIAINFO_DVDV_YES)
     #include "MediaInfo/Multiple/File_Dvdv.h"
 #endif
+#if defined(MEDIAINFO_DXW_YES)
+    #include "MediaInfo/Multiple/File_Dxw.h"
+#endif
 #if defined(MEDIAINFO_FLV_YES)
     #include "MediaInfo/Multiple/File_Flv.h"
 #endif
@@ -317,6 +320,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_DVDV_YES)
         Temp=new File_Dvdv(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DXW_YES)
+        Temp=new File_Dxw(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_FLV_YES)
         Temp=new File_Flv(); Parser.push_back(Temp);

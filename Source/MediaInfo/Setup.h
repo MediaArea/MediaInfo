@@ -227,6 +227,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DVDV_NO) && !defined(MEDIAINFO_DVDV_YES)
     #define MEDIAINFO_DVDV_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DXW_NO) && !defined(MEDIAINFO_DXW_YES)
+    #define MEDIAINFO_DXW_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_FLV_NO) && !defined(MEDIAINFO_FLV_YES)
     #define MEDIAINFO_FLV_YES
 #endif

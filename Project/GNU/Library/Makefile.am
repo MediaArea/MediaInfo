@@ -88,6 +88,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_DvDif.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DvDif_Analysis.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dvdv.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Dxw.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Flv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Gxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Gxf_TimeCode.cpp \
