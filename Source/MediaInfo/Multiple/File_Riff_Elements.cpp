@@ -2336,7 +2336,16 @@ void File_Riff::AVI__movi_StreamJump()
             Element_End();
         Info("movi, Jumping to end of chunk");
         if (SecondPass)
+        {
+            std::map<int32u, stream>::iterator Temp=Stream.begin();
+            while (Temp!=Stream.end())
+            {
+                if (Temp->second.Parser)
+                    Temp->second.Parser->Open_Buffer_Unsynch();
+                Temp++;
+            }
             Finish("AVI"); //The rest is already parsed
+        }
         else
             GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(), "AVI");
     }
