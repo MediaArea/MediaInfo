@@ -47,6 +47,12 @@ void File_Unknown::Read_Buffer_Init()
     Finish("Unknown");
 }
 
+//---------------------------------------------------------------------------
+void File_Unknown::Read_Buffer_Continue()
+{
+    Skip_XX(Element_Size,                                       "Unknown");
+}
+
 //***************************************************************************
 //
 //***************************************************************************
@@ -54,3 +60,4 @@ void File_Unknown::Read_Buffer_Init()
 } //NameSpace
 
 #endif //MEDIAINFO_UNKNOWN_YES
+
