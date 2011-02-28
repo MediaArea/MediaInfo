@@ -439,7 +439,7 @@ void File_Mpeg4::Streams_Finish()
                 }
 
                 //Muxing Mode
-                Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Temp->second.File_Name_NextPacket_Handler->Info->Get(Stream_General, 0, General_Format));
+                Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Temp->second.File_Name_NextPacket_Handler->Get(Stream_General, 0, General_Format));
 
                 //Special case: DV with Audio or/and Text in the video stream
                 if (StreamKind_Last==Stream_Video && Temp->second.File_Name_NextPacket_Handler->Info && (Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Audio) || Temp->second.File_Name_NextPacket_Handler->Info->Count_Get(Stream_Text)))
