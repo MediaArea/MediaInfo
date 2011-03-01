@@ -57,6 +57,7 @@ File_Aac::File_Aac()
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
+    FrameIsAlwaysComplete=false;
     Mode=Mode_Unknown;
 
     audioObjectType=(int8u)-1;
@@ -232,6 +233,8 @@ void File_Aac::Read_Buffer_Continue_raw_data_block()
     BS_Begin();
     raw_data_block();
     BS_End();
+    if (FrameIsAlwaysComplete && Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     FILLING_BEGIN();
         //Counting

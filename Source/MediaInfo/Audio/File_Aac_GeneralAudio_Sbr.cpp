@@ -457,18 +457,23 @@ void File_Aac::sbr_single_channel_element()
             cnt+=bs_esc_count;
         }
 
-        size_t End=Data_BS_Remain()-8*cnt;
-        while (Data_BS_Remain()>End+7)
+        if (Data_BS_Remain()>=8*cnt)
         {
-            Get_S1 (2,bs_extension_id,                          "bs_extension_id");
-            switch (bs_extension_id)
+            size_t End=Data_BS_Remain()-8*cnt;
+            while (Data_BS_Remain()>End+7)
             {
-                case 2 : ps_data(End); break; //EXTENSION_ID_PS
-                default: ;
+                Get_S1 (2,bs_extension_id,                      "bs_extension_id");
+                switch (bs_extension_id)
+                {
+                    case 2 : ps_data(End); break; //EXTENSION_ID_PS
+                    default: ;
+                }
             }
+            if (End<Data_BS_Remain())
+                Skip_BS(Data_BS_Remain()-End,                   "bs_fill_bits");
         }
-        if (End<Data_BS_Remain())
-            Skip_BS(Data_BS_Remain()-End,                       "bs_fill_bits");
+        else
+            Skip_BS(Data_BS_Remain(),                           "(Error)");
 
     }
     Element_End();
@@ -499,7 +504,7 @@ void File_Aac::sbr_grid(bool ch)
             for (int8u rel=0; rel<sbr->bs_num_env[ch]-1; rel++) {
                 Skip_S1(2,                                      "tmp");
             }
-            ptr_bits=(int8u)ceil(log((float)sbr->bs_num_env[ch]+1)/log(2.0));
+            ptr_bits=(int8u)ceil(log((double)sbr->bs_num_env[ch]+1)/log((double)2));
             Skip_BS(ptr_bits,                                   "bs_pointer[ch]");
             Element_Begin("bs_freq_res[ch]");
             for (int8u env=0; env<sbr->bs_num_env[ch]; env++)
@@ -512,7 +517,7 @@ void File_Aac::sbr_grid(bool ch)
             sbr->bs_num_env[ch] = bs_num_rel_0 + 1;
             for (int8u rel=0; rel<sbr->bs_num_env[ch]-1; rel++)
                 Skip_S1(2,                                      "tmp");
-            ptr_bits=(int8u)ceil(log((float)sbr->bs_num_env[ch]+1)/log(2.0));
+            ptr_bits=(int8u)ceil(log((double)sbr->bs_num_env[ch]+1)/log((double)2));
             Skip_BS(ptr_bits,                                   "bs_pointer[ch]");
             Element_Begin("bs_freq_res[ch]");
             for (int8u env = 0; env < sbr->bs_num_env[ch]; env++)
@@ -529,7 +534,7 @@ void File_Aac::sbr_grid(bool ch)
                 Skip_S1(2,                                      "tmp");
             for (int8u rel=0; rel<bs_num_rel_1; rel++)
                 Skip_S1(2,                                      "tmp");
-            ptr_bits=(int8u)ceil(log((float)sbr->bs_num_env[ch]+1)/log(2.0));
+            ptr_bits=(int8u)ceil(log((double)(sbr->bs_num_env[ch]+1))/log((double)2));
             Skip_BS(ptr_bits,                                   "bs_pointer[ch]");
             Element_Begin("bs_freq_res[ch]");
             for (int8u env=0; env<sbr->bs_num_env[ch]; env++)
@@ -601,18 +606,24 @@ void File_Aac::sbr_channel_pair_element()
             Get_S1(8,bs_esc_count,                              "bs_esc_count");
             cnt += bs_esc_count;
         }
-        size_t End=Data_BS_Remain()-8*cnt;
-        while (Data_BS_Remain()>End+7)
+        if (Data_BS_Remain()>=8*cnt)
         {
-            Get_S1 (2,bs_extension_id,                          "bs_extension_id");
-            switch (bs_extension_id)
+            size_t End=Data_BS_Remain()-8*cnt;
+            while (Data_BS_Remain()>End+7)
             {
-                case 2 : ps_data(End); break; //EXTENSION_ID_PS
-                default: ;
+                Get_S1 (2,bs_extension_id,                      "bs_extension_id");
+                switch (bs_extension_id)
+                {
+                    case 2 : ps_data(End); break; //EXTENSION_ID_PS
+                    default: ;
+                }
             }
+            if (End<Data_BS_Remain())
+                Skip_BS(Data_BS_Remain()-End,                   "bs_fill_bits");
         }
-        if (End<Data_BS_Remain())
-            Skip_BS(Data_BS_Remain()-End,                       "bs_fill_bits");
+        else
+            Skip_BS(Data_BS_Remain(),                           "(Error)");
+
     }
     Element_End();
 }

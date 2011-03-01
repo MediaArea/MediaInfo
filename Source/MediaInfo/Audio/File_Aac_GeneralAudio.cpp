@@ -122,9 +122,10 @@ void File_Aac::program_config_element()
     Ztring comment_field_data;
     int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
     int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
+    int8u audioObjectType_Temp, sampling_frequency_index_Temp;
     Skip_S1(4,                                                  "element_instance_tag");
-    Get_S1 (2, audioObjectType,                                 "object_type"); audioObjectType++; Param_Info(Aac_audioObjectType(audioObjectType));
-    Get_S1 (4, sampling_frequency_index,                        "sampling_frequency_index"); Param_Info(Aac_sampling_frequency[sampling_frequency_index]);
+    Get_S1 (2, audioObjectType_Temp,                            "object_type"); audioObjectType_Temp++; Param_Info(Aac_audioObjectType(audioObjectType_Temp));
+    Get_S1 (4, sampling_frequency_index_Temp,                   "sampling_frequency_index"); Param_Info(Aac_sampling_frequency[sampling_frequency_index_Temp]);
     Get_S1 (4, num_front_channel_elements,                      "num_front_channel_elements");
     Get_S1 (4, num_side_channel_elements,                       "num_side_channel_elements");
     Get_S1 (4, num_back_channel_elements,                       "num_back_channel_elements");
@@ -261,11 +262,15 @@ void File_Aac::program_config_element()
                        +(Channels_LFE?_T(".1"):_T(""));
 
     FILLING_BEGIN();
-        if (Aac_sampling_frequency[sampling_frequency_index]==0)
+        //Integrity test
+        if (Aac_sampling_frequency[sampling_frequency_index_Temp]==0 || Channels_Front<Channels_Side || Channels_Side<Channels_Back)
         {
             Skip_BS(Data_BS_Remain(),                               "(Unknown frequency)");
             return;
         }
+
+        audioObjectType=audioObjectType_Temp;
+        sampling_frequency_index=sampling_frequency_index_Temp;
 
         Infos_General["Comment"]=comment_field_data;
 
@@ -616,8 +621,13 @@ void File_Aac::fill_element(int8u id_syn_ele)
     }
     if (cnt)
     {
-        size_t End=Data_BS_Remain()-8*cnt;
-        extension_payload(End, id_syn_ele);
+        if (Data_BS_Remain()>=8*cnt)
+        {
+            size_t End=Data_BS_Remain()-8*cnt;
+            extension_payload(End, id_syn_ele);
+        }
+        else
+            Skip_BS(Data_BS_Remain(),                           "(Error)");
     }
 }
 
@@ -929,10 +939,10 @@ void File_Aac::ltp_data()
     } else {
         Get_S2(11,ltp_lag,                                        "ltp_lag");
         Skip_S1(3,                                                "ltp_coef");
-        if(window_sequence!=2/*EIGHT_SHORT_SEQUENCE*/) {
-            //~ for (sfb=0; sfb<(max_sfb<MAX_LTP_LONG_SFB?max_sfb:MAX_LTP_LONG_SFB); sfb++ ) {
-                //~ Skip_SB("ltp_long_used[sfb]");
-            //~ }
+        if(window_sequence!=2) //EIGHT_SHORT_SEQUENCE
+        {
+            for (int8u sfb=0; sfb<(max_sfb<40?max_sfb:40); sfb++ ) //MAX_LTP_LONG_SFB=40
+                Skip_SB("ltp_long_used[sfb]");
         }
     }
     Element_End();

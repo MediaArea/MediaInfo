@@ -390,7 +390,7 @@ void File_Aac::ALSSpecificConfig()
         Skip_S2(16,"chan_config_info");
     if (chan_sort)
     {
-        int16u ChBits=(int16u)ceil(log((float)(channels+1))/log(2.0));
+        int16u ChBits=(int16u)ceil(log((double)(channels+1))/log((double)2));
         for (int8u c=0; c<=channels; c++)
             Skip_S2(ChBits,                                     "chan_pos[c]");
     }
