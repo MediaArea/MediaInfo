@@ -877,9 +877,9 @@ bool File__Analyze::Synchro_Manage_Test()
             Trusted_IsNot("Synchronisation lost");
         }
         #if MEDIAINFO_DEMUX
-            if (Synched && Demux_UnpacketizeContainer && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            if (Synched && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
             {
-                if (!Demux_UnpacketizeContainer_Test())
+                if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
                 {
                     Demux_Offset-=Buffer_Offset;
                     return false; //Wait for more data
