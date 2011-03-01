@@ -3196,6 +3196,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Stream[moov_trak_tkhd_TrackID].Parser=new File_Aac;
             ((File_Aac*)Stream[moov_trak_tkhd_TrackID].Parser)->AudioSpecificConfig_OutOfBand(SampleRate, 2);
             ((File_Aac*)Stream[moov_trak_tkhd_TrackID].Parser)->Mode=File_Aac::Mode_raw_data_block;
+            ((File_Aac*)Stream[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
         }
         #endif
         #if defined(MEDIAINFO_AMR_YES)

@@ -617,6 +617,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                         #if defined(MEDIAINFO_AAC_YES)
                             Parser=new File_Aac;
                             ((File_Aac*)Parser)->Mode=File_Aac::Mode_AudioSpecificConfig;
+                            ((File_Aac*)Parser)->FrameIsAlwaysComplete=true;
                         #endif
                         break;
             case 0x60 :
