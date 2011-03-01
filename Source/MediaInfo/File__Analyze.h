@@ -152,6 +152,7 @@ protected :
     virtual bool Synched_Test()   {return true;}; //Test is synchro is OK
     virtual void Synched_Init()   {}; //When synched, we can Init data
     bool Synchro_Manage();
+    bool Synchro_Manage_Test();
 
     //***************************************************************************
     // Buffer
@@ -972,7 +973,7 @@ private :
     //***************************************************************************
 
     void Buffer_Clear(); //Clear the buffer
-    void Open_Buffer_Continue_Loop();
+    bool Open_Buffer_Continue_Loop();
 protected :
     //Buffer
     const int8u* Buffer;

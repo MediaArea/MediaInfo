@@ -329,7 +329,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 
     //Parsing
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
-        Open_Buffer_Continue_Loop();
+        while (Open_Buffer_Continue_Loop());
 
     //Should parse again?
     if (((File_GoTo==File_Size && File_Size!=(int64u)-1) || File_Offset+Buffer_Offset>=File_Size)
@@ -495,15 +495,15 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Open_Buffer_Continue_Loop ()
+bool File__Analyze::Open_Buffer_Continue_Loop ()
 {
     //Header
     if (MustParseTheHeaderFile)
     {
         if (!FileHeader_Manage())
-            return; //Wait for more data
+            return false; //Wait for more data
         if (Status[IsFinished] || File_GoTo!=(int64u)-1)
-            return; //Finish
+            return false; //Finish
     }
 
     //Parsing specific
@@ -512,13 +512,13 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     Element[Element_Level].WaitForMoreData=false;
     Read_Buffer_Continue();
     if (Element_IsWaitingForMoreData())
-        return; //Wait for more data
+        return false; //Wait for more data
     Buffer_Offset+=(size_t)Element_Offset;
     if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
-        return; //Finish
+        return false; //Finish
     #if MEDIAINFO_DEMUX
         if (Config->Demux_EventWasSent)
-            return;
+            return false;
     #endif //MEDIAINFO_DEMUX
 
     //Parsing;
@@ -533,7 +533,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     {
         Buffer_Offset=(size_t)(File_GoTo-File_Offset);
         File_GoTo=(int64u)-1;
-        return Open_Buffer_Continue_Loop();
+        return true;
     }
 
     //Jumping to the end of the file if needed
@@ -544,9 +544,11 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
         if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
-            return;
+            return false;
         }
     }
+
+    return false;
 }
 
 //---------------------------------------------------------------------------
@@ -571,6 +573,9 @@ void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Unsynch ()
 {
+    if (MustSynchronize && File_Offset_FirstSynched==(int64u)-1)
+        return;
+
     //if (!Status[IsAccepted])
     //    return;
 
@@ -679,8 +684,13 @@ bool File__Analyze::Buffer_Parse()
     }
 
     //Synchro
-    if (MustSynchronize && !Synchro_Manage())
-        return false; //Wait for more data
+    if (MustSynchronize)
+        do
+        {
+            if (!Synchro_Manage())
+                return false; //Wait for more data
+        }
+        while (!Synched);
 
     //Header
     if (!Header_Manage())
@@ -824,6 +834,41 @@ bool File__Analyze::Synchro_Manage()
     //Testing if synchro is OK
     if (Synched)
     {
+        if (!Synchro_Manage_Test())
+            return false;
+    }
+
+    //Trying to synchronize
+    if (!Synched)
+    {
+        if (!Synchronize())
+        {
+            if (Status[IsFinished])
+                Finish(); //Finish
+            if (!IsSub && File_Offset_FirstSynched==(int64u)-1 && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
+                Reject();
+            return false; //Wait for more data
+        }
+        Synched=true;
+        if (File_Offset_FirstSynched==(int64u)-1)
+        {
+            Synched_Init();
+            Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
+            File_Offset_FirstSynched=File_Offset+Buffer_Offset;
+        }
+        if (!Synchro_Manage_Test())
+            return false;
+    }
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File__Analyze::Synchro_Manage_Test()
+{
+    //Testing if synchro is OK
+    if (Synched)
+    {
         if (!Synched_Test())
             return false;
         if (!Synched)
@@ -863,7 +908,8 @@ bool File__Analyze::Synchro_Manage()
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
         }
-        return Synchro_Manage();
+        if (!Synched_Test())
+            return false;
     }
 
     return true;
@@ -1820,13 +1866,14 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
 void File__Analyze::Trusted_IsNot ()
 #endif //MEDIAINFO_TRACE
 {
+    Element_Offset=Element_Size;
+    BS->Attach(NULL, 0);
+
     if (!Element[Element_Level].UnTrusted)
     {
         #if MEDIAINFO_TRACE
             Param(Reason, 0);
         #endif //MEDIAINFO_TRACE
-        Element_Offset=Element_Size;
-        BS->Attach(NULL, 0);
 
         //Enough data?
         if (!Element[Element_Level].IsComplete)
