@@ -63,6 +63,7 @@
 #endif
 #include "MediaInfo/File_Unknown.h"
 #include "ZenLib/FileName.h"
+#include "ZenLib/Dir.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
@@ -1218,6 +1219,46 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Descriptor->second.Infos["DisplayAspectRatio"], true);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, DAR);
+            Fill(Stream_Video, StreamPos_Last, "DisplayAspectRatio_FromContainer", Descriptor->second.Infos["DisplayAspectRatio"]);
+            Fill(Stream_Video, StreamPos_Last, "DisplayAspectRatio_FromStream", DAR);
+            float32 Width =Retrieve(Stream_Video, StreamPos_Last, Video_Width             ).To_float32();
+            float32 Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height            ).To_float32();
+            float32 DAR_F =DAR.To_float32();
+            float32 PAR   =1/(Width/Height/DAR_F);
+            if (PAR>(float32)12/(float32)11*0.99 && PAR<(float32)12/(float32)11*1.01)
+                PAR=(float32)12/(float32)11;
+            if (PAR>(float32)10/(float32)11*0.99 && PAR<(float32)10/(float32)11*1.01)
+                PAR=(float32)10/(float32)11;
+            if (PAR>(float32)16/(float32)11*0.99 && PAR<(float32)16/(float32)11*1.01)
+                PAR=(float32)16/(float32)11;
+            if (PAR>(float32)40/(float32)33*0.99 && PAR<(float32)40/(float32)33*1.01)
+                PAR=(float32)40/(float32)33;
+            if (PAR>(float32)24/(float32)11*0.99 && PAR<(float32)24/(float32)11*1.01)
+                PAR=(float32)24/(float32)11;
+            if (PAR>(float32)20/(float32)11*0.99 && PAR<(float32)20/(float32)11*1.01)
+                PAR=(float32)20/(float32)11;
+            if (PAR>(float32)32/(float32)11*0.99 && PAR<(float32)32/(float32)11*1.01)
+                PAR=(float32)32/(float32)11;
+            if (PAR>(float32)80/(float32)33*0.99 && PAR<(float32)80/(float32)33*1.01)
+                PAR=(float32)80/(float32)33;
+            if (PAR>(float32)18/(float32)11*0.99 && PAR<(float32)18/(float32)11*1.01)
+                PAR=(float32)18/(float32)11;
+            if (PAR>(float32)15/(float32)11*0.99 && PAR<(float32)15/(float32)11*1.01)
+                PAR=(float32)15/(float32)11;
+            if (PAR>(float32)64/(float32)33*0.99 && PAR<(float32)64/(float32)33*1.01)
+                PAR=(float32)64/(float32)33;
+            if (PAR>(float32)160/(float32)99*0.99 && PAR<(float32)160/(float32)99*1.01)
+                PAR=(float32)160/(float32)99;
+            if (PAR>(float32)4/(float32)3*0.99 && PAR<(float32)4/(float32)3*1.01)
+                PAR=(float32)4/(float32)3;
+            if (PAR>(float32)3/(float32)2*0.99 && PAR<(float32)3/(float32)2*1.01)
+                PAR=(float32)3/(float32)2;
+            if (PAR>(float32)2/(float32)1*0.99 && PAR<(float32)2/(float32)1*1.01)
+                PAR=(float32)2;
+            if (PAR>(float32)59/(float32)54*0.99 && PAR<(float32)59/(float32)54*1.01)
+                PAR=(float32)59/(float32)54;
+            Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromContainer", Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio));
+            Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromStream", PAR, 3);
         }
     }
 
@@ -3969,7 +4010,10 @@ void File_Mxf::GenericSoundEssenceDescriptor_QuantizationBits()
 
     FILLING_BEGIN();
         if (Data)
+        {
             Descriptors[InstanceUID].Infos["BitDepth"].From_Number(Data);
+            Descriptors[InstanceUID].QuantizationBits=Data;
+        }
     FILLING_END();
 
 }
@@ -6703,7 +6747,7 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(descriptors::iterato
 
     switch (Code6)
     {
-        case 0x01 : return ChooseParser_Aes3();
+        case 0x01 : return ChooseParser_Aes3(Descriptor->second.QuantizationBits);
         case 0x06 : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
         default   : return NULL;
     }
@@ -6829,12 +6873,21 @@ File__Analyze* File_Mxf::ChooseParser_Aac()
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Aes3()
+File__Analyze* File_Mxf::ChooseParser_Aes3(int32u QuantizationBits)
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
         Parser->From_Raw=true;
+        if (QuantizationBits!=(int32u)-1)
+            Parser->QuantizationBits=QuantizationBits;
+		#if MEDIAINFO_DEMUX
+			if (Demux_UnpacketizeContainer)
+			{
+				Parser->Demux_Level=2; //Container
+				Parser->Demux_UnpacketizeContainer=true;
+			}
+		#endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();

@@ -42,6 +42,7 @@ class File_Aes3 : public File__Analyze
 public :
     //In
     size_t  ByteSize;
+    int32u  QuantizationBits;
     bool    From_Raw;
     bool    From_MpegPs;
     bool    From_Aes3;

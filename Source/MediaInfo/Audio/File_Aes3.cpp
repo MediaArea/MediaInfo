@@ -168,6 +168,7 @@ File_Aes3::File_Aes3()
 
     //In
     ByteSize=(size_t)-1;
+    QuantizationBits=(int32u)-1;
     From_Raw=false;
     From_MpegPs=false;
     From_Aes3=false;
@@ -806,9 +807,44 @@ void File_Aes3::Raw()
     Get_B1 (Channels_valid,                                 "Channels valid");
 
     //Parsing
-    bits_per_sample=2;
+    if (QuantizationBits==16)
+        bits_per_sample=0; //16 bits
+    else
+        bits_per_sample=2; //24 bits
     switch (bits_per_sample)
     {
+        case 0  : //16 bits
+        {
+            int8u* Info=new int8u[(size_t)(Element_Size/2)];
+            size_t Info_Offset=0;
+
+            while (Element_Offset+8*4<=Element_Size)
+            {
+                for (int8u Pos=0; Pos<8; Pos++)
+                {
+                    if (Channels_valid&(1<<Pos))
+                    {
+                        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+                        Info[Info_Offset+0] = (Buffer[Buffer_Pos+1]>>4) | ((Buffer[Buffer_Pos+2]<<4)&0xF0 );
+                        Info[Info_Offset+1] = (Buffer[Buffer_Pos+2]>>4) | ((Buffer[Buffer_Pos+3]<<4)&0xF0 );
+
+                        Info_Offset+=2;
+                    }
+                    Element_Offset+=4;
+                }
+            }
+
+            #if MEDIAINFO_DEMUX
+                Demux(Info, Info_Offset, ContentType_MainStream);
+            #endif //MEDIAINFO_DEMUX
+
+            delete[] Info;
+
+            Element_Offset=0;
+            Skip_XX(Element_Size,                           "Data");
+        }
+        break;
         case 2  : //24 bits
         {
             int8u* Info=new int8u[(size_t)(Element_Size*3/4)];

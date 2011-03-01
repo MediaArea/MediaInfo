@@ -507,6 +507,7 @@ protected :
         int32u SubSampling_Vertical;
         std::map<std::string, Ztring> Infos;
         int16u BlockAlign;
+        int32u QuantizationBits;
 
         descriptor()
         {
@@ -528,6 +529,7 @@ protected :
             SubSampling_Horizontal=(int32u)-1;
             SubSampling_Vertical=(int32u)-1;
             BlockAlign=(int16u)-1;
+            QuantizationBits=(int8u)-1;
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor
@@ -580,7 +582,7 @@ protected :
     File__Analyze* ChooseParser_RV24();
     File__Analyze* ChooseParser_Vc3();
     File__Analyze* ChooseParser_Aac();
-    File__Analyze* ChooseParser_Aes3();
+    File__Analyze* ChooseParser_Aes3(int32u QuantizationBits=(int32u)-1);
     File__Analyze* ChooseParser_Alaw();
     File__Analyze* ChooseParser_Mpega();
     File__Analyze* ChooseParser_Pcm(int16u BlockAlign=(int16u)-1);
