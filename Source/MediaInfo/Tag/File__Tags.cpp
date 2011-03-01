@@ -442,10 +442,10 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
                 return false;
             }
 
-            if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-125) //Must be at least at the end less 128 bytes plus 3 bytes of tags
+            if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-128) //Must be at least at the end less 128 bytes of tags
             {
                 if (Base->File_Offset!=Base->File_Size-128)
-                    Base->GoTo(Base->File_Size-128-32, "Tags detection"); //32 to be able to quickly see another tag system
+                    Base->GoTo(Base->File_Size-128-32, "Tags detection");
                 TagSizeIsFinal=false;
                 return false;
             }
