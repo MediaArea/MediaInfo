@@ -513,7 +513,8 @@ void File_Mpega::Streams_Finish()
     if (FrameCount==0 && VBR_FileSize && Retrieve(Stream_Audio, 0, Audio_BitRate_Mode)==_T("CBR") && Mpega_SamplingRate[ID][sampling_frequency])
     {
         size_t Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency])*Mpega_SlotSize[layer];
-        FrameCount=float64_int64s(((float64)VBR_FileSize)/Size);
+        if (Size)
+            FrameCount=float64_int64s(((float64)VBR_FileSize)/Size);
     }
 
     if (FrameCount)

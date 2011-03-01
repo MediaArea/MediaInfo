@@ -26,6 +26,7 @@ x AVC: wrong GOP information in some cases
 x Ut Video: Color space information was wrong
 x MPEG-4 Visual: Advanced Simple@L0 was detected as Advanced Simple@L1
 x AVI: Crash with some AVC streams (not sized blocks)
+x MPEG Audio: crash with some files
 
 Version 0.7.41, 2011-01-24
 --------------
