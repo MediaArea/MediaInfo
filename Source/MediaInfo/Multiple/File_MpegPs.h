@@ -195,7 +195,7 @@ private :
         std::vector<File__Analyze*> Parsers; //Sometimes, we need to do parallel tests
         Mpeg_TimeStamp TimeStamp_Start;
         Mpeg_TimeStamp TimeStamp_End;
-        bool           StreamIsRegistred;
+        size_t         StreamIsRegistred;
         bool           Searching_Payload;
         bool           Searching_TimeStamp_Start;
         bool           Searching_TimeStamp_End;
@@ -207,7 +207,7 @@ private :
             StreamPos=0;
             stream_type=0;
             DVD_Identifier=0;
-            StreamIsRegistred=false;
+            StreamIsRegistred=0;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;

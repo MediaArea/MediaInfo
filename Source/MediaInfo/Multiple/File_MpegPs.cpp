@@ -365,7 +365,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
     //By StreamIsRegistred
     if (StreamKind_Last==Stream_Max)
     {
-        if (Temp.StreamIsRegistred)
+        if (Temp.StreamIsRegistred>16)
         {
             if (StreamID>=0xC0 && StreamID<=0xDF)
             {
@@ -2140,8 +2140,8 @@ void File_MpegPs::private_stream_1()
             if (!IsSub)
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
-        Streams[stream_id].StreamIsRegistred=true;
-        Streams_Private1[private_stream_1_ID].StreamIsRegistred=true;
+        Streams[stream_id].StreamIsRegistred++;
+        Streams_Private1[private_stream_1_ID].StreamIsRegistred++;
         Streams_Private1[private_stream_1_ID].Searching_Payload=true;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=true;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_End=true;
@@ -2698,7 +2698,7 @@ void File_MpegPs::audio_stream()
             if (!IsSub)
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
-        Streams[stream_id].StreamIsRegistred=true;
+        Streams[stream_id].StreamIsRegistred++;
 
         //New parsers
         switch (Streams[stream_id].stream_type)
@@ -2770,7 +2770,7 @@ void File_MpegPs::video_stream()
             if (!IsSub)
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
-        Streams[stream_id].StreamIsRegistred=true;
+        Streams[stream_id].StreamIsRegistred++;
 
         //New parsers
         switch (Streams[stream_id].stream_type)
@@ -2846,7 +2846,7 @@ void File_MpegPs::SL_packetized_stream()
         }
 
         //Registering
-        Streams[stream_id].StreamIsRegistred=true;
+        Streams[stream_id].StreamIsRegistred++;
         if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[stream_id].Searching_TimeStamp_Start=true;
@@ -3008,8 +3008,8 @@ void File_MpegPs::extension_stream()
         //Registering
         if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
-        Streams[stream_id].StreamIsRegistred=true;
-        Streams_Extension[stream_id_extension].StreamIsRegistred=true;
+        Streams[stream_id].StreamIsRegistred++;
+        Streams_Extension[stream_id_extension].StreamIsRegistred++;
         Streams_Extension[stream_id_extension].Searching_Payload=true;
         Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=true;
         Streams_Extension[stream_id_extension].Searching_TimeStamp_End=true;
