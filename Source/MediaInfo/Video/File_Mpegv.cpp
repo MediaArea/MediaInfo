@@ -843,6 +843,7 @@ void File_Mpegv::Synched_Init()
     repeat_first_field=false;
     FirstFieldFound=false;
     group_start_IsParsed=false;
+    PTS_LastIFrame=(int64u)-1;
     bit_rate_value_IsValid=false;
     profile_and_level_indication_escape=false;
     RefFramesCount=0;

@@ -648,10 +648,13 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     #endif //MEDIAINFO_TRACE
 
     #if MEDIAINFO_EVENTS
-        struct MediaInfo_Event_General_End_0 Event;
-        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_End, 0);
-        Event.Stream_Bytes_Analyzed=Buffer_TotalBytes;
-        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_End_0));
+        if (Status[IsAccepted])
+        {
+            struct MediaInfo_Event_General_End_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_End, 0);
+            Event.Stream_Bytes_Analyzed=Buffer_TotalBytes;
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_End_0));
+        }
     #endif //MEDIAINFO_EVENTS
 }
 
@@ -849,6 +852,10 @@ bool File__Analyze::Synchro_Manage()
                 Reject();
             return false; //Wait for more data
         }
+		#if MEDIAINFO_DEMUX
+			if (Config->Demux_EventWasSent)
+				return false;
+		#endif //MEDIAINFO_DEMUX
         Synched=true;
         if (File_Offset_FirstSynched==(int64u)-1)
         {
@@ -2070,6 +2077,9 @@ void File__Analyze::ForceFinish ()
 
     if (Status[IsAccepted])
     {
+        Buffer_Offset=Buffer_Size;
+        Element_Offset=0;
+        Element_Size=0;
         Fill();
 		#if MEDIAINFO_DEMUX
 			if (Config->Demux_EventWasSent)
