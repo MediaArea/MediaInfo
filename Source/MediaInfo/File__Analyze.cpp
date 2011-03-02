@@ -2077,9 +2077,6 @@ void File__Analyze::ForceFinish ()
 
     if (Status[IsAccepted])
     {
-        Buffer_Offset=Buffer_Size;
-        Element_Offset=0;
-        Element_Size=0;
         Fill();
 		#if MEDIAINFO_DEMUX
 			if (Config->Demux_EventWasSent)
