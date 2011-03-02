@@ -1320,20 +1320,18 @@ void File_Mxf::Streams_Finish_ParseLocator()
         {
             Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
             Name=ZenLib::Format::Http::URL_Encoded_Decode(Name);
-            #ifdef __WINDOWS__
-                Name.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //URL encoded values
-            #endif //__WINDOWS__
         }
         Ztring AbsoluteName;
-        if (Name.find(_T(':'))==1 || Name.find(_T("//"))==0) //If absolute Windows path
-            AbsoluteName=Name;
-        else
+        if (Name.find(_T(':'))!=1 && Name.find(_T("/"))!=0 && Name.find(_T("\\\\"))!=0) //If absolute patch
         {
             AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
             if (!AbsoluteName.empty())
                 AbsoluteName+=ZenLib::PathSeparator;
-            AbsoluteName+=Name;
         }
+        AbsoluteName+=Name;
+        #ifdef __WINDOWS__
+            AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Name normalization
+        #endif //__WINDOWS__
 
         if (AbsoluteName==File_Name)
         {
@@ -1370,14 +1368,23 @@ void File_Mxf::Streams_Finish_ParseLocator()
         {
             //Configuring file name (this time, we try to force URL decode in all cases)
             Name=ZenLib::Format::Http::URL_Encoded_Decode(Locator->second.EssenceLocator);
-            if (Name.find(_T(':'))==1 || Name.find(_T("//"))==0) //If absolute Windows path
-                AbsoluteName=Name;
-            else
+            if (!Name.find(_T(':'))==1 && !Name.find(_T("/"))==0 && !Name.find(_T("\\\\"))==0) //If absolute patch
             {
                 AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
                 if (!AbsoluteName.empty())
                     AbsoluteName+=ZenLib::PathSeparator;
-                AbsoluteName+=Name;
+            }
+            AbsoluteName+=Name;
+            #ifdef __WINDOWS__
+                AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Name normalization
+            #endif //__WINDOWS__
+
+            if (AbsoluteName==File_Name)
+            {
+                Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Circular");
+                Locator->second.StreamKind=Stream_Max;
+                Locator->second.StreamPos=(size_t)-1;
+                return;
             }
 
             if (MI->Open(AbsoluteName))

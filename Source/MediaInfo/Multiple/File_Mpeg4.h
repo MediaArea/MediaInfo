@@ -41,6 +41,8 @@ class File_Mpeg4 : public File__Analyze
 protected :
     //Streams management
     void Streams_Finish();
+    void Streams_Finish_ParseLocators ();
+    void Streams_Finish_ParseLocator ();
 
 public :
     File_Mpeg4();
@@ -291,9 +293,8 @@ private :
     struct stream
     {
         Ztring                  File_Name;
-        MediaInfo_Internal*     File_Name_NextPacket_Handler;
-        bool                    File_Name_NextPacket_IsParsed;
         File__Analyze*          Parser;
+        MediaInfo_Internal*     MI;
         stream_t                StreamKind;
         size_t                  StreamPos;
         std::vector<int64u>     stco;
@@ -318,9 +319,8 @@ private :
 
         stream()
         {
-            File_Name_NextPacket_Handler=NULL;
-            File_Name_NextPacket_IsParsed=false;
             Parser=NULL;
+            MI=NULL;
             StreamKind=Stream_Max;
             StreamPos=0;
             stsz_Sample_Size=0;
@@ -338,11 +338,14 @@ private :
 
         ~stream()
         {
-            delete File_Name_NextPacket_Handler; File_Name_NextPacket_Handler=NULL;
             delete Parser; //Parser=NULL;
+            delete MI; //MI=NULL;
         }
     };
-    std::map<int32u, stream> Stream;
+    typedef std::map<int32u, stream> streams;
+    streams             Streams;
+    streams::iterator   Stream;
+    bool                Streams_Locators_MustStartParsing;
 
     //Positions
     struct mdat_Pos_Type
@@ -352,7 +355,6 @@ private :
     };
     std::map<int64u, mdat_Pos_Type> mdat_Pos;
     bool IsParsing_mdat;
-    MediaInfo_Internal* File_Name_NextPacket_Handler;
 };
 
 } //NameSpace
