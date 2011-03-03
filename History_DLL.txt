@@ -29,6 +29,7 @@ x AVI: Crash with some AVC streams (not sized blocks)
 x MPEG Audio: crash with some files
 x AAC: crash, infinite loop or wrong result with some files
 x Trying to quicker reject a junk file
+x AVI: OpenDML indexes were no more parsed
 
 Version 0.7.41, 2011-01-24
 --------------

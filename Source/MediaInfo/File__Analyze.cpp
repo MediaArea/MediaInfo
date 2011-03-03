@@ -2230,7 +2230,8 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
         if (MustElementBegin)
             Element_Level++; //Element
     }
-    Element_End(); //Element
+    if (!Element_WantNextLevel)
+        Element_End(); //Element
 
     Open_Buffer_Unsynch();
     if (!IsSub)

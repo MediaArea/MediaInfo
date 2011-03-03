@@ -980,7 +980,6 @@ protected :
 public : //TO CHANGE
     size_t Buffer_Size;
     int64u Buffer_TotalBytes_FirstSynched;
-    int64u Buffer_TotalBytes_Fill_Max;
 protected :
     int8u* Buffer_Temp;
     size_t Buffer_Temp_Size;
@@ -991,6 +990,7 @@ protected :
     size_t Buffer_MaximumSize;
     int64u Buffer_TotalBytes;
     int64u Buffer_TotalBytes_FirstSynched_Max;
+    int64u Buffer_TotalBytes_Fill_Max;
     friend class File__Tags_Helper;
 
     //***************************************************************************
@@ -1209,16 +1209,16 @@ public :
     case Elements::_ATOM : \
             if (Level==Element_Level) \
             { \
-                _ATOM(); \
                 Element_ThisIsAList(); \
+                _ATOM(); \
             } \
 
 #define LIST_DEFAULT(_ATOM) \
             default : \
             if (Level==Element_Level) \
             { \
-                _ATOM(); \
                 Element_ThisIsAList(); \
+                _ATOM(); \
             } \
 
 #define ATOM_END_DEFAULT \
@@ -1247,8 +1247,8 @@ public :
     case Elements::_ATOM : \
             if (Level==Element_Level) \
             { \
-                _ATOM(); \
                 Element_ThisIsAList(); \
+                _ATOM(); \
             } \
             break; \
 
