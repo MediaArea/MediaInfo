@@ -7,6 +7,30 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.42, 2011-03-03
+--------------
++ AES3: bit depth of AES3, bit depth of compressed audio stream, endianess
++ Id3v2 and MP4 tags: better mapping with iTunes fields
++ Tags: removal of technical only fields
++ MPEG Video: intra_dc_precision information (in advanced mode)
++ MXF: detection of raw pictures
++ MXF: support of URL encoded locators
++ MXF: color subsampling
++ DXW format support
+x #3171468, ADIF: crash in some cases
+x #3169916, IFO: crash in some cases
+x #3173391, Id3v2: was using local encoding instead of ISO-8859-1 
+x MPEG Video, discarding bad (always 0) group_start
+x AVC: crash with file having big log2_max_pic_order_cnt_lsb_minus4 value 
+x AVC: wrong GOP information in some cases
+x Ut Video: Color space information was wrong
+x MPEG-4 Visual: Advanced Simple@L0 was detected as Advanced Simple@L1
+x AVI: Crash with some AVC streams (not sized blocks)
+x MPEG Audio: crash with some files
+x AAC: crash, infinite loop or wrong result with some files
+x Trying to quicker reject a junk file
+x AVI: OpenDML indexes were no more parsed
+
 Version 0.7.41, 2011-01-24
 --------------
 + MPEG-TS: random cases with full parsing of the file
