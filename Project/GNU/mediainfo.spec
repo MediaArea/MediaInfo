@@ -25,6 +25,7 @@ BuildRequires: 	gcc-c++
 BuildRequires:	libmediainfo0-devel
 BuildRequires:	libzen0-devel >= %libzen_version
 BuildRequires:	pkgconfig
+%if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
 BuildRequires:	libwxgtku2.8-devel
 %else
@@ -33,6 +34,7 @@ BuildRequires:	wxGTK-devel
 BuildRequires: 	zlib-devel
 %if 0%{?suse_version}
 BuildRequires:	update-desktop-files
+%endif
 %endif
 Requires:	libmediainfo0 >= %libmediainfo_version
 Requires:	libzen0 >= %libzen_version
@@ -58,6 +60,8 @@ What format (container) does MediaInfo support?
   H.264, AVC...)
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
+
+%if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %package gui
 Summary:	Supplies technical and tag information about a video or audio file (GUI)
@@ -87,6 +91,8 @@ What format (container) does MediaInfo support?
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
 
+%endif
+
 %prep
 %setup -q -n MediaInfo
 dos2unix     *.html *.txt Release/*.txt
@@ -105,6 +111,8 @@ pushd Project/GNU/CLI
 	%__make %{?jobs:-j%{jobs}}
 popd
 
+%if %{undefined rhel_version} || 0%{?rhel_version} < 600
+
 # now build GUI
 pushd Project/GNU/GUI
 	%__chmod +x autogen
@@ -114,10 +122,14 @@ pushd Project/GNU/GUI
 	%__make %{?jobs:-j%{jobs}}
 popd
 
+%endif
+
 %install
 pushd Project/GNU/CLI
 	%__make install-strip DESTDIR=%{buildroot}
 popd
+
+%if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 pushd Project/GNU/GUI
 	%__make install-strip DESTDIR=%{buildroot}
@@ -151,6 +163,8 @@ popd
   %suse_update_desktop_file -n %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
 
+%endif
+
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
 
@@ -159,6 +173,8 @@ popd
 %doc Release/ReadMe_CLI_Linux.txt
 %doc License.html History_CLI.txt
 %{_bindir}/mediainfo
+
+%if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %files gui
 %defattr(-,root,root,-)
@@ -179,6 +195,8 @@ popd
 %dir %{_datadir}/kde4/services
 %dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
+
+%endif
 
 %changelog
 * Tue Jan 01 2009 MediaArea.net <info@mediaarea.net> - 0.7.41-0
