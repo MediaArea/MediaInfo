@@ -980,6 +980,7 @@ protected :
 public : //TO CHANGE
     size_t Buffer_Size;
     int64u Buffer_TotalBytes_FirstSynched;
+    int64u Buffer_TotalBytes_Fill_Max;
 protected :
     int8u* Buffer_Temp;
     size_t Buffer_Temp_Size;

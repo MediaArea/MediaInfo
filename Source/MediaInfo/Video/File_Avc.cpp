@@ -1685,6 +1685,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
     }
 
     GA94_03_CC_IsPresent=true;
+    Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
     Element_Info("Styled captioning");
 

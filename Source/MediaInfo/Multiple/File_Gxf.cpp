@@ -240,6 +240,7 @@ File_Gxf::File_Gxf()
     #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
     //Temp
     Material_Fields_FieldsPerFrame=(int8u)-1;

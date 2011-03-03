@@ -1063,6 +1063,7 @@ protected :
     size_t Buffer_MaximumSize;
     int64u Buffer_TotalBytes;
     int64u Buffer_TotalBytes_FirstSynched_Max;
+    int64u Buffer_TotalBytes_Fill_Max;
     friend class File__Tags_Helper;
 
     //***************************************************************************

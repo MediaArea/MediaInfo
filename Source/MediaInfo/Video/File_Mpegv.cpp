@@ -1303,6 +1303,7 @@ void File_Mpegv::slice_start()
             {
                 Cdp_IsPresent=true;
                 MustExtendParsingDuration=true;
+                Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
                 Element_Begin("CDP");
 
@@ -1567,6 +1568,7 @@ void File_Mpegv::user_data_start_CC()
         {
             CC___IsPresent=true;
             MustExtendParsingDuration=true;
+            Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
             CC___Parser=new File_DtvccTransport;
             Open_Buffer_Init(CC___Parser);
             ((File_DtvccTransport*)CC___Parser)->Format=File_DtvccTransport::Format_DVD;
@@ -1594,6 +1596,7 @@ void File_Mpegv::user_data_start_3()
     #if defined(MEDIAINFO_SCTE20_YES)
         Scte_IsPresent=true;
         MustExtendParsingDuration=true;
+        Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
         Element_Info("SCTE 20");
 
@@ -1749,6 +1752,7 @@ void File_Mpegv::user_data_start_GA94_03()
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         GA94_03_IsPresent=true;
         MustExtendParsingDuration=true;
+        Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
         Element_Info("DTVCC Transport");
 

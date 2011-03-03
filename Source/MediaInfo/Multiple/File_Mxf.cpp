@@ -743,6 +743,7 @@ File_Mxf::File_Mxf()
     MustSynchronize=true;
     DataMustAlwaysBeComplete=false;
     Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
+    Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
     //Temp
     Streams_Count=(size_t)-1;

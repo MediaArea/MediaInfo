@@ -95,6 +95,7 @@ File_Lxf::File_Lxf()
         Demux_Level=2; //Container
     #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
+    Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
     //Temp
     LookingForLastFrame=false;

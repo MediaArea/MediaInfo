@@ -203,6 +203,7 @@ File_MpegPs::File_MpegPs()
     #endif //MEDIAINFO_TRACE
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
     Trusted_Multiplier=2;
 
     //In

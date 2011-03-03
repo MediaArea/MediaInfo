@@ -111,6 +111,10 @@ File__Analyze::File__Analyze ()
         Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
     else
         Buffer_TotalBytes_FirstSynched_Max=1024*1024;
+    if (Buffer_TotalBytes_FirstSynched_Max<(int64u)-1-16*1024*1024)
+        Buffer_TotalBytes_Fill_Max=Buffer_TotalBytes_FirstSynched_Max+16*1024*1024;
+    else
+        Buffer_TotalBytes_Fill_Max=(int64u)-1;
 
     //EOF
     EOF_AlreadyDetected=(Config_ParseSpeed==1.0)?true:false;
@@ -844,6 +848,12 @@ bool File__Analyze::Synchro_Manage()
     //Trying to synchronize
     if (!Synched)
     {
+        //Buffer_TotalBytes_Fill_Max
+        if (!Status[IsFilled] && Buffer_TotalBytes>=Buffer_TotalBytes_Fill_Max)
+        {
+            Reject(); //There was a wrong detection
+            return false;
+        }
         if (!Synchronize())
         {
             if (Status[IsFinished])

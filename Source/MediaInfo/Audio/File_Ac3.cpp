@@ -509,6 +509,7 @@ File_Ac3::File_Ac3()
     #endif //MEDIAINFO_TRACE
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
+    Buffer_TotalBytes_Fill_Max=1024*1024;
     PTS_DTS_Needed=true;
 
     //In
