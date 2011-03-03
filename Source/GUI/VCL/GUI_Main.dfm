@@ -2,7 +2,7 @@ object MainF: TMainF
   Left = 223
   Top = 273
   Caption = 'MainF'
-  ClientHeight = 709
+  ClientHeight = 729
   ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -154,10 +154,6 @@ object MainF: TMainF
     TabStop = False
     object Page_Easy: TTabSheet
       Caption = 'Easy'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Easy_Note: TLabel
         Left = 0
         Top = 318
@@ -464,10 +460,6 @@ object MainF: TMainF
       ImageIndex = 2
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Sheet_A_Web: TButton
         Left = 566
         Top = 173
@@ -607,10 +599,6 @@ object MainF: TMainF
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Tree_Tree: TTreeView
         Left = 0
         Top = 2
@@ -631,7 +619,6 @@ object MainF: TMainF
       end
     end
     object Page_Text: TTabSheet
-      Hint = ''
       Caption = 'Text'
       ParentShowHint = False
       ShowHint = False
@@ -660,10 +647,6 @@ object MainF: TMainF
     object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -683,10 +666,6 @@ object MainF: TMainF
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Custom_Text: TMemo
         Left = 2
         Top = 2
@@ -723,10 +702,6 @@ object MainF: TMainF
     object Page_System: TTabSheet
       Caption = 'Your system'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_System_Buttons: TGroupBox
         Left = 9
         Top = 0
@@ -802,7 +777,7 @@ object MainF: TMainF
     Left = 0
     Top = 0
     Width = 42
-    Height = 709
+    Height = 729
     Align = alLeft
     ButtonHeight = 39
     ButtonWidth = 39
@@ -818,6 +793,7 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
+    ExplicitHeight = 709
     object Tool_File: TToolButton
       Left = 0
       Top = 0
@@ -2161,7 +2137,6 @@ object MainF: TMainF
       object M_View_Text: TMenuItem
         AutoCheck = True
         Caption = 'Text'
-        Hint = ''
         RadioItem = True
         OnClick = M_View_TextClick
       end
@@ -2301,7 +2276,7 @@ object MainF: TMainF
         Caption = 'About'
         Hint = 'About MediaInfo'
         ImageIndex = 4
-        ShortCut = 32833
+        ShortCut = 112
         OnClick = M_Help_AboutClick
       end
       object N2: TMenuItem
@@ -2337,7 +2312,7 @@ object MainF: TMainF
     Left = 744
     Top = 136
     Bitmap = {
-      494C010109000E00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010109000E00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000E7E7E7FFCACACAFFC6C6C6FFDEDEDEFFFBFBFBFF0000
@@ -2746,7 +2721,7 @@ object MainF: TMainF
     Left = 744
     Top = 160
     Bitmap = {
-      494C010106000900E00020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106000900E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       000000000000000000000000000000000000F0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
