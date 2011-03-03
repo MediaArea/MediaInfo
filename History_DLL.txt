@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.42, 2011-
+Version 0.7.42, 2011-03-03
 --------------
 + AES3: bit depth of AES3, bit depth of compressed audio stream, endianess
 + Id3v2 and MP4 tags: better mapping with iTunes fields
@@ -30,6 +30,7 @@ x MPEG Audio: crash with some files
 x AAC: crash, infinite loop or wrong result with some files
 x Trying to quicker reject a junk file
 x AVI: OpenDML indexes were no more parsed
+x Windows installer: OpenCandy library is updated and Microsoft agrees it is not dangerous for user privacy, it does not alert anymore. We do not transmit or collect personally identifiable information.
 
 Version 0.7.41, 2011-01-24
 --------------
