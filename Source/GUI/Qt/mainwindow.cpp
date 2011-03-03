@@ -22,6 +22,12 @@
 #include "sheetview.h"
 #include "sheet.h"
 #include "configtreetext.h"
+#include "custom.h"
+/*
+#include <qwt/qwt_plot.h>
+#include <qwt/qwt_plot_curve.h>
+#include <qwt/qwt_plot_picker.h>
+*/
 
 #include <ZenLib/Ztring.h>
 #include <ZenLib/ZtringListList.h>
@@ -31,19 +37,21 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
     
-#define VERSION "0.7.35"
+#define VERSION "0.7.34"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->textBrowser->setText("Bienvenue dans MediaInfo");
     C = new Core();
 
     settings = new QSettings("MediaArea.net","MediaInfo");
     defaultSettings();
     applySettings();
 
-    view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
+    if( (viewasked>=0) && (viewasked<NB_VIEW) )
+        view=ViewMode(viewasked);
+    else
+        view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
     // View menu:
     QActionGroup* menuItemGroup = new QActionGroup(this);
     for(int v=VIEW_EASY;v<NB_VIEW;v++) {
@@ -69,6 +77,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolBar->setContextMenuPolicy(Qt::CustomContextMenu);
     this->connect(ui->toolBar,SIGNAL(customContextMenuRequested(QPoint)),SLOT(toolBarOptions(QPoint)));
 
+    //tests
+    ui->actionQuit->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+    ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    ui->actionOpen_Folder->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+    ui->actionAbout->setIcon(style()->standardIcon(QStyle::SP_DialogHelpButton));
+    ui->actionExport->setIcon(style()->standardIcon(QStyle::SP_DialogSaveButton));
     /* TODO
 	QIcon::setThemeName("gnome-dust");
     ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
@@ -76,16 +90,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->actionExport->setIcon(QIcon::fromTheme("document-save",QIcon(":/icon/export.svg")));
     ui->actionAbout->setIcon(QIcon::fromTheme("help-about",QIcon(":/icon/about.svg")));
     */
+    qDebug() << "your icon theme is " << QIcon::themeName();
 
     timer=NULL;
     progressDialog=NULL;
 
     refreshDisplay();
 
-    if(QCoreApplication::arguments().count()>1) {
-        QStringList files = QCoreApplication::arguments();
-        files.removeAt(0);
-        openFiles(files);
+    if(filesnames.count()>1) {
+        openFiles(filesnames);
     }
 
     /*
@@ -107,9 +120,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow()
 {
     delete ui;
+#ifdef NEW_VERSION
 }
 
-#ifdef NEW_VERSION
 
 bool MainWindow::isNewer(QString distant, QString local) {
     QStringList local_list = local.split(".");
@@ -137,11 +150,9 @@ void MainWindow::checkForNewVersion() {
      connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
 
 }
-#endif //NEW_VERSION
 
 void MainWindow::httpFinished()
 {
-    #ifdef NEW_VERSION
          if (reply->error()) {
              qDebug() << "Download failed";
          } else {
@@ -153,28 +164,23 @@ void MainWindow::httpFinished()
          if (isNewer(wstring2QString(X("NewVersion")),QString(VERSION))) {
              qDebug() << "New version is available.";
              qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
+             ui->menuBar->addAction(Tr("Update to new version"),this,SLOT(updateToNewVersion()));
          } else {
              qDebug() << "No new version available.";
              qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
          }
-         /*
-         - LaVersionActuelle="0.7.35"
-         - lire "http://mediaarea.net/mediainfo_check/changelog_"+LaVersionActuelle+".bin"
-         - ZtringListList X; X.Write(le contenu du fichier)
-         - if (X("NewVersion")>LaVersionActuelle) mettre un truc dans le menu, voir capture d'écran.
-         - rajouter dans les prefs une case "Check for new version (requires an Internet connexion)"
-         - Mettre le tout dans un #ifdef, pour qu'on puisse le désactiver facilement (pour les repos etc...)
-         */
 
          reply->deleteLater();
          reply = 0;
          file = "";
-    #endif //NEW_VERSION
+}
+
+void MainWindow::updateToNewVersion() {
+    qDebug() << "Update asked";
 }
 
 void MainWindow::httpReadyRead()
 {
-    #ifdef NEW_VERSION
         file.append(reply->readAll());
     #endif //NEW_VERSION
 }
@@ -183,35 +189,52 @@ void MainWindow::toolBarOptions(QPoint p) {
     QMenu menu("toolbar options",ui->toolBar);
     QMenu *menuI = new QMenu(Tr("Icon size"));
     QMenu *menuT = new QMenu(Tr("Text position"));
+
     menu.addMenu(menuT);
-    menuT->addAction(Tr("Icons only"));
-    menuT->addAction(Tr("Text only"));
-    menuT->addAction(Tr("Text under icons"));
-    menuT->addAction(Tr("Text beside icons"));
+    QString textsT[NBNAMES] = {Tr("Icons only"),Tr("Text only"),Tr("Text under icons"),Tr("Text beside icons")};
+    QAction* actionsT[NBNAMES+1];
+    Qt::ToolButtonStyle styles[NBNAMES] = {Qt::ToolButtonIconOnly,Qt::ToolButtonTextOnly,Qt::ToolButtonTextUnderIcon,Qt::ToolButtonTextBesideIcon};
+    for(int i=0;i<NBNAMES;i++) {
+        actionsT[i] = menuT->addAction(textsT[i]);
+    }
+    actionsT[NBNAMES] = menuT->addAction(Tr("Default"));
+
     menu.addMenu(menuI);
-    menuI->addAction(Tr("Default"));
-    menuI->addAction(Tr("Small(16x16)"));
-    menuI->addAction(Tr("Medium(22x22)"));
-    menuI->addAction(Tr("Big(32x32)"));
-    menuI->addAction(Tr("Huge(48x48)"));
-    QAction* a = menu.exec(QCursor::pos());
-/*TODO #warning système à peaufiner! */
-    if(a->text() == Tr("Small(16x16)"))
-        ui->toolBar->setIconSize(QSize(16,16));
-    if(a->text() == Tr("Medium(22x22)"))
-        ui->toolBar->setIconSize(QSize(22,22));
-    if(a->text() == Tr("Big(32x32)")||a->text() == Tr("Default"))
-        ui->toolBar->setIconSize(QSize(32,32));
-    if(a->text() == Tr("Huge(48x48)"))
-        ui->toolBar->setIconSize(QSize(48,48));
-    if(a->text() == Tr("Icons only"))
-        ui->toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    if(a->text() == Tr("Text only"))
-        ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextOnly);
-    if(a->text() == Tr("Text under icons")||a->text() == Tr("Default"))
-        ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    if(a->text() == Tr("Text beside icons"))
-        ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    QString textsI[NBSIZES] = {Tr("Small"),Tr("Medium"),Tr("Big"),Tr("Huge")};
+    QAction* actionsI[NBNAMES+1];
+    QSize sizes[NBSIZES+1] = {QSize(16,16),QSize(22,22),QSize(32,32),QSize(48,48)};
+    for(int i=0;i<NBSIZES;i++) {
+        actionsI[i] = menuI->addAction(textsI[i]+"("+QString::number(sizes[i].width())+"x"+QString::number(sizes[i].height())+")");
+    }
+    actionsI[NBSIZES] = menuI->addAction(Tr("Default"));
+
+    QAction* a = menu.exec(ui->toolBar->mapToGlobal(p));
+    if(a) {
+        for(int i=0;i<NBSIZES;i++) {
+            if(a==actionsI[i]) {
+                settings->setValue("iconSize",sizes[i]);
+                break;
+            }
+        }
+        if(a==actionsI[NBSIZES]) {
+            settings->remove("iconSize");
+        }
+        for(int i=0;i<NBNAMES;i++) {
+            if(a==actionsT[i]) {
+                settings->setValue("iconStyle",styles[i]);
+                break;
+            }
+        }
+        if(a==actionsT[NBNAMES]) {
+            settings->remove("iconStyle");
+        }
+    }
+
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
+    ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
+
+    delete menuT;
+    delete menuI;
 }
 
 QString MainWindow::shortName(QDir d, QString name) {
@@ -228,6 +251,8 @@ QDir MainWindow::getCommonDir(Core*C) {
     QList<QStringList> list;
     QStringList dirName;
     unsigned fileCount = (unsigned)C->Count_Get();
+    if(fileCount<=0)
+        return QDir::home();
     for(unsigned filePos=0;filePos<fileCount;filePos++)
         list.append(QDir::toNativeSeparators(wstring2QString(C->Get(filePos,Stream_General, 0, _T("CompleteName")))).split(QDir::separator ()));
     if(!list.isEmpty())
@@ -413,7 +438,59 @@ void MainWindow::refreshDisplay() {
                 connect(ui->actionReset_field_sizes,SIGNAL(triggered()),(SheetView*)viewWidget,SLOT(resetColumnsSizes()));
                 connect(ui->actionAdapt_columns_to_content,SIGNAL(triggered()),(SheetView*)viewWidget,SLOT(adaptColumnsToContent()));
                 break;
+            case VIEW_CUSTOM:
+                C->Menu_View_Text();
+                viewWidget = showCustomView(ui->actionAdvanced_Mode->isChecked());
+                break;
         }
+
+    //-------------- test QWT
+    /*QwtPlot* plot = new QwtPlot;
+    plot->setTitle("test de plot");
+    // Show the axes
+    plot->setAxisTitle( QwtPlot::xBottom, "x" );
+    plot->setAxisTitle( QwtPlot::yLeft, "y" );
+    // Calculate the data, 500 points each
+    const int points = 500;
+    double x[ points ];
+    double sn[ points ];
+    double sg[ points ];
+    for( int i=0; i<points; i++ )
+    {
+      x[i] = (3.0*3.14/double(points))*double(i);
+
+      sn[i] = 2.0*sin( x[i] );
+      sg[i] = (sn[i]>0)?1:((sn[i]<0)?-1:0);
+    }
+
+    // add curves
+    QwtPlotCurve *curve1 = new QwtPlotCurve("Curve 1");
+    QwtPlotCurve *curve2 = new QwtPlotCurve("Curve 2");
+
+    // copy the data into the curves
+    curve1->setData(x, sn, points);
+    curve2->setData(x, sg, points);
+
+    curve1->attach(plot);
+    curve2->attach(plot);
+    // Set the style of the curves
+    curve1->setPen(QPen(Qt::blue));
+    curve2->setPen(QPen(Qt::green, 3));
+    // adding a picker
+    QwtPlotPicker* picker = new QwtPlotPicker( plot->canvas() );
+    //picker->setSelectionFlags( QwtPicker::PointSelection |QwtPicker::DragSelection );
+    //picker->setRubberBand( QwtPicker::CrossRubberBand );
+    picker->setSelectionFlags(QwtPicker::RectSelection | QwtPicker::DragSelection);
+    picker->setRubberBand(QwtPicker::RectRubberBand);
+    picker->setTrackerMode( QwtPicker::AlwaysOn );
+    picker->setTrackerFont( QFont( "Helvetica", 10, QFont::Bold ) );
+    // Show the plots
+    plot->replot();
+    viewWidget=plot;*/
+
+    //-------------- fin test QWT
+
+
     setCentralWidget(viewWidget);
     if(C->Count_Get()>0)
         if(C->Count_Get()==1)
@@ -495,6 +572,49 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
     return treeWidget;
 }
 
+QTextBrowser* MainWindow::showCustomView(bool forcePlainText) {
+    QTextBrowser* qtb = new QTextBrowser();
+
+
+    unsigned fileCount = (unsigned)C->Count_Get();
+    QString page = Custom::getCustom()->getPage();
+    QStringList files;
+    for (size_t filePos=0; filePos<fileCount; filePos++) {
+        //Pour chaque fichier
+        files.append(Custom::getCustom()->getFile());
+        for (int streamKind=(int)Stream_General; streamKind<(int)Stream_Max; streamKind++)
+        {
+            //Pour chaque type de flux
+
+            QStringList streams;
+            size_t StreamsCount=C->Count_Get(filePos, (stream_t)streamKind);
+            for (size_t streamPos=Stream_General; streamPos<StreamsCount; streamPos++)
+            {
+                //Pour chaque stream
+                streams.append(Custom::getCustom()->getStream(streamKind));
+                QString key;
+                while(( key = streams.back().section("%",1,1))!="") {
+                    qDebug() << "etude de" << key << " - " << streams.back();
+                    QString info = wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(key), Info_Text));
+                    info.replace("%","#POURCENTAGE#");
+                    if(streams.back().indexOf("%"+key+"%")==-1)
+                        break;
+                    streams.back().replace("%"+key+"%",info);
+                }
+                streams.back().replace("#POURCENTAGE#","%");
+            }
+            files.back().replace("%"+wstring2QString(C->StreamName((stream_t)streamKind))+"%",streams.join(""));
+        }
+    }
+    page.replace("%Files%",files.join(""));
+    if(forcePlainText)
+        qtb->setPlainText(page);
+    else
+        qtb->setText(page);
+
+    return qtb;
+}
+
 void MainWindow::defaultSettings() {
     /*if(!settings->contains("showMenu"))
         settings->setValue("showMenu",true);
@@ -526,6 +646,11 @@ void MainWindow::defaultSettings() {
         ConfigTreeText::add("Default");
         ConfigTreeText::setDefault(0);
     }
+    Custom::load(settings);
+    if(Custom::getNbCustoms()==0) {
+        Custom::add("Default");
+        Custom::setDefault(0);
+    }
 
 }
 
@@ -536,6 +661,8 @@ void MainWindow::applySettings() {
         restoreState(settings->value("windowState").toByteArray());
     ui->menuBar->setVisible(settings->value("showMenu",true).toBool());
     ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
+    ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -556,7 +683,7 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QStringList fileNames = QFileDialog::getOpenFileNames(this,Tr("Open File(s)"), QDir::home().absolutePath(), Tr("All Files (*.*)"));
+    QStringList fileNames = QFileDialog::getOpenFileNames(this,Tr("Open File(s)"), getCommonDir(C).absolutePath() );
     openFiles(fileNames);
 }
 
@@ -567,7 +694,7 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_actionOpen_Folder_triggered()
 {
-    QString dirName = QFileDialog::getExistingDirectory(this,Tr("Open Folder"), QDir::home().absolutePath());
+    QString dirName = QFileDialog::getExistingDirectory(this,Tr("Open Folder"), getCommonDir(C).absolutePath());
     openDir(dirName);
 }
 

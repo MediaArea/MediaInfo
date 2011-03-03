@@ -6,6 +6,7 @@
 #include <QtCore/QSettings>
 #include <QtCore/QDir>
 #include <QtGui/QTreeWidget>
+#include <QtGui/QTextBrowser>
 #include <QtGui/QProgressDialog>
 #include <QtCore/QTimer>
 #include "views.h"
@@ -24,7 +25,9 @@ namespace Ui {
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    MainWindow(QWidget *parent = 0);
+    enum {IONLY,TONLY,TUICONS,TBICONS,NBNAMES} ActionName;
+    enum {SMALL,MEDIUM,BIG,HUGE,NBSIZES} Size;
+    MainWindow(QStringList filesnames, int viewasked=-1, QWidget *parent = 0);
     ~MainWindow();
 
     void dropEvent(QDropEvent *event);
@@ -35,9 +38,9 @@ public:
     static QDir getCommonDir(Core*C);
 #ifdef NEW_VERSION
     static bool isNewer(QString distant, QString local);
+    void checkForNewVersion();
 #endif //NEW_VERSION
 
-    void checkForNewVersion();
 
 
 protected:
@@ -52,7 +55,7 @@ private:
     void openFiles(QStringList fileNames);
     void openDir(QString dirName);
     QTreeWidget* showTreeView(bool completeDisplay);
-
+    QTextBrowser* showCustomView(bool forcePlainText=false);
 
     Ui::MainWindow *ui;
     //Non-GUI Elements
@@ -61,7 +64,7 @@ private:
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
     QString file;
-#endif
+#endif //NEW_VERSION
     Core* C;
     ViewMode view;
     QSettings* settings;
@@ -84,8 +87,11 @@ private slots:
     void on_actionQuit_triggered();
     void on_actionOpen_triggered();
     void toolBarOptions(QPoint);
+#ifdef NEW_VERSION
     void httpFinished();
     void httpReadyRead();
+    void updateToNewVersion();
+#endif //NEW_VERSION
 };
 
 #endif // MAINWINDOW_H

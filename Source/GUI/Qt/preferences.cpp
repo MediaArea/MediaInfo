@@ -5,8 +5,10 @@
 #include "views.h"
 #include "sheet.h"
 #include "configtreetext.h"
+#include "custom.h"
 #include "editsheet.h"
 #include "editconfigtreetext.h"
+#include "editcustom.h"
 
 Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     QDialog(parent),
@@ -55,6 +57,11 @@ void Preferences::refreshDisplay() {
     ui->pushButton_editTreeText->setEnabled(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt()>0);
     ui->pushButton_deleteTreeText->setEnabled( (ConfigTreeText::getNbConfigTreeTexts()>1) && (ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt()>0) );
 
+    // Custom
+    Custom::fillComboBox(ui->customComboBox);
+    ui->pushButton_editCustom->setEnabled(ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt()>0);
+    ui->pushButton_deleteCustom->setEnabled( (Custom::getNbCustoms()>1) && (ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt()>0) );
+
     // Sheets
     ui->comboBoxSheet->clear();
     for(int i=0;i<Sheet::getNbSheets();i++) {
@@ -76,6 +83,8 @@ void Preferences::saveSettings() {
     Sheet::save(settings);
     ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());
     ConfigTreeText::save(settings);
+    Custom::setDefault(ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt());
+    Custom::save(settings);
 }
 
 void Preferences::changeEvent(QEvent *e)
@@ -159,4 +168,42 @@ void Preferences::on_treeTextComboBox_currentIndexChanged(int index)
 {
     ui->pushButton_editTreeText->setEnabled(index>0);
     ui->pushButton_deleteTreeText->setEnabled( (ConfigTreeText::getNbConfigTreeTexts()>1) && (index>0) );
+}
+
+void Preferences::on_pushButton_newCustom_clicked()
+{
+    Custom* c = Custom::add("newconfig");
+    EditCustom ec(c, C, this);
+    if(ec.exec() == QDialog::Accepted) {
+        ec.apply();
+        refreshDisplay();
+    } else {
+        Custom::removeLast();
+        qDebug() << "new config cancelled";
+    }
+
+}
+
+void Preferences::on_pushButton_editCustom_clicked()
+{
+    EditCustom ec(Custom::get(ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt()), C, this);
+    if(ec.exec() == QDialog::Accepted) {
+        ec.apply();
+        refreshDisplay();
+    } else
+        qDebug() << "config editing cancelled";
+
+}
+
+void Preferences::on_pushButton_deleteCustom_clicked()
+{
+    Custom::remove(ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt());
+    refreshDisplay();
+
+}
+
+void Preferences::on_customComboBox_currentIndexChanged(int index)
+{
+    ui->pushButton_editCustom->setEnabled(index>0);
+    ui->pushButton_deleteCustom->setEnabled( (Custom::getNbCustoms()>1) && (index>0) );
 }

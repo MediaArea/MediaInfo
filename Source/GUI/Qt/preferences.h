@@ -27,6 +27,10 @@ private:
     Core* C;
 
 private slots:
+    void on_customComboBox_currentIndexChanged(int index);
+    void on_pushButton_deleteCustom_clicked();
+    void on_pushButton_editCustom_clicked();
+    void on_pushButton_newCustom_clicked();
     void on_treeTextComboBox_currentIndexChanged(int index);
     void on_pushButton_deleteTreeText_clicked();
     void on_pushButton_newTreeText_clicked();

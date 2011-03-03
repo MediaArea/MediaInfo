@@ -27,6 +27,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "..\..\..\MediaInfoLib\Project\MSVC2010\Dll\MediaInfoDll.vcxproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_Qt", "MediaInfo_Qt\MediaInfo_Qt.vcxproj", "{2C8E0377-F9D5-4CD8-B894-CA421ECA46DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5} = {BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,13 +6,17 @@ TEMPLATE = app
 
 # QT += webkit
 QT += xml
-DEFINES += MEDIAINFO_DLL_RUNTIME \
+DEFINES += \
     _UNICODE
 LIBS += -ldl \
-    -lzen
+    ../../../../MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.a \
+    ../../../../ZenLib/Project/GNU/Library/.libs/libzen.a \
+    -lz
 SOURCES += ../../../Source/GUI/Qt/main.cpp \
     ../../../Source/GUI/Qt/mainwindow.cpp \
     ../../../Source/Common/Core.cpp \
+    ../../../Source/GUI/Qt/custom.cpp \
+    ../../../Source/GUI/Qt/editcustom.cpp \
     ../../../Source/GUI/Qt/easyviewwidget.cpp \
     ../../../Source/GUI/Qt/preferences.cpp \
     ../../../Source/GUI/Qt/views.cpp \
@@ -30,6 +34,8 @@ HEADERS += ../../../Source/GUI/Qt/mainwindow.h \
     ../../../Source/GUI/Qt/easyviewwidget.h \
     ../../../Source/GUI/Qt/preferences.h \
     ../../../Source/GUI/Qt/views.h \
+    ../../../Source/GUI/Qt/custom.h \
+    ../../../Source/GUI/Qt/editcustom.h \
     ../../../Source/GUI/Qt/export.h \
     ../../../Source/GUI/Qt/about.h \
     ../../../Source/GUI/Qt/sheetview.h \
@@ -44,13 +50,16 @@ FORMS += ../../../Source/GUI/Qt/mainwindow.ui \
     ../../../Source/GUI/Qt/export.ui \
     ../../../Source/GUI/Qt/about.ui \
     ../../../Source/GUI/Qt/sheetview.ui \
+    ../../../Source/GUI/Qt/editcustom.ui \
     ../../../Source/GUI/Qt/editsheet.ui \
     ../../../Source/GUI/Qt/editconfigtreetext.ui
 RESOURCES += ../../../Source/Ressource/Resources.qrc
 MOC_DIR = _Automated
 UI_HEADERS_DIR = _Automated
 UI_SOURCES_DIR = _Automated
-INCLUDEPATH = ../../../Source
+INCLUDEPATH = ../../../Source \
+    ../../../../MediaInfoLib/Source \
+    ../../../../ZenLib/Source \
 QMAKE_UIC += -tr \
     Tr
 target.path = /usr/bin

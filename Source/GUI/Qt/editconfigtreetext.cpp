@@ -38,7 +38,7 @@ void EditConfigTreeText::fillToolBox() {
         qDebug() << "adding " << wstring2QString(C->StreamName((stream_t)streamKind));
         ui->toolBox->addItem(box,wstring2QString(C->StreamName((stream_t)streamKind)));
         QString s = wstring2QString(C->Parameters());
-        s.replace("\r\n","\n");
+        s.replace("\r\n","\n").replace("\r","\n");
         s.remove(0,s.indexOf(wstring2QString(C->StreamName((stream_t)streamKind))+"\n"));
         s.truncate((s.indexOf("\n\n")==-1?s.size():s.indexOf("\n\n")));
         QStringList sl = s.split("\n");

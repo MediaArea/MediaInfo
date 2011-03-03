@@ -4,6 +4,7 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
 #include "configtreetext.h"
+#include "mainwindow.h"
 
 Export::Export(QString filename, int mode, QWidget *parent) :
     QDialog(parent),
@@ -38,7 +39,9 @@ void Export::changeEvent(QEvent *e)
 
 void Export::on_toolButton_pressed()
 {
-    ui->lineEdit->setText(QFileDialog::getOpenFileName(this,"",QDir::home().absolutePath(),Tr("All files (*.*)")));
+    QString path = QFileDialog::getOpenFileName(this,"",QDir(ui->lineEdit->text()).absolutePath());
+    if(!path.isEmpty())
+        ui->lineEdit->setText(path);
 }
 
 int Export::getExportMode() {
