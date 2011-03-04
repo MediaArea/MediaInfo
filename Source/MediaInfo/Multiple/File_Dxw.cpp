@@ -36,6 +36,7 @@
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/TinyXml/tinyxml.h"
+#include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -69,15 +70,32 @@ void File_Dxw::Streams_Finish_ParseReference()
     {
         //Configuring file name
         Ztring Name=Reference->FileName;
+        if (Name.find(_T("file:"))==0)
+        {
+            Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
+            Name=ZenLib::Format::Http::URL_Encoded_Decode(Name);
+        }
         Ztring AbsoluteName;
-        if (Name.find(_T(':'))==1 || Name.find(_T("//"))==0) //If absolute Windows path
-            AbsoluteName=Name;
-        else
+        if (Name.find(_T(':'))!=1 && Name.find(_T("/"))!=0 && Name.find(_T("\\\\"))!=0) //If absolute patch
         {
             AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
             if (!AbsoluteName.empty())
                 AbsoluteName+=ZenLib::PathSeparator;
-            AbsoluteName+=Name;
+        }
+        AbsoluteName+=Name;
+        #ifdef __WINDOWS__
+            AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Name normalization
+        #endif //__WINDOWS__
+
+        if (AbsoluteName==File_Name)
+        {
+            if (StreamKind_Last!=Stream_Max)
+            {
+                Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Circular");
+                StreamKind_Last=Stream_Max;
+                StreamPos_Last=(size_t)-1;
+            }
+            return;
         }
 
         //Configuration
