@@ -206,7 +206,7 @@ bool File_Zip::archive_extra_data_record()
         return false; //Not enough data
     
     //Retrieving complete archive_extra_data_record size
-	int32u extra_field_length=LittleEndian2int32u(Buffer+(size_t)Element_Offset+4);
+    int32u extra_field_length=LittleEndian2int32u(Buffer+(size_t)Element_Offset+4);
     
     //Parsing
     Element_Begin("archive_extra_data_record");
@@ -224,7 +224,7 @@ bool File_Zip::digital_signature()
         return false; //Not enough data
     
     //Retrieving complete archive_extra_data_record size
-	int16u size_of_data=LittleEndian2int16u(Buffer+(size_t)Element_Offset+4);
+    int16u size_of_data=LittleEndian2int16u(Buffer+(size_t)Element_Offset+4);
     
     //Parsing
     Element_Begin("digital_signature");
@@ -242,7 +242,7 @@ bool File_Zip::local_file_header()
         return false; //Not enough data
 
     //Retrieving complete local_file_header size
-	int16u file_name_length=LittleEndian2int16u(Buffer+(size_t)Element_Offset+26);
+    int16u file_name_length=LittleEndian2int16u(Buffer+(size_t)Element_Offset+26);
     int16u extra_field_length=LittleEndian2int16u(Buffer+(size_t)Element_Offset+28);
     if (Element_Offset+30+file_name_length+extra_field_length>Element_Size) //local_file_header all included
         return false; //Not enough data
@@ -251,9 +251,9 @@ bool File_Zip::local_file_header()
     Element_Begin("local_file_header");
     int16u general_purpose_bit_flag,compression_method;
     bool efs;
-	Skip_C4("Local file header signature");
-	Skip_L2("Version needed to extract");
-	Get_L2 (general_purpose_bit_flag,"general purpose bit flag");
+    Skip_C4("Local file header signature");
+    Skip_L2("Version needed to extract");
+    Get_L2 (general_purpose_bit_flag,"general purpose bit flag");
     Skip_Flags(general_purpose_bit_flag, 0,                     "encrypted file");
     Skip_Flags(general_purpose_bit_flag, 1,                     "8K sliding dictionary");
     Skip_Flags(general_purpose_bit_flag, 2,                     "3 Shannon-Fano trees");
@@ -270,18 +270,18 @@ bool File_Zip::local_file_header()
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "");
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "Reserved by PKWARE");
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "Reserved by PKWARE");
-	Get_L2 (compression_method,"compression method");
+    Get_L2 (compression_method,"compression method");
     if(compression_method<20)
         Param_Info(Zip_compression_method[compression_method]);
     else if(compression_method==97||compression_method==98)
         Param_Info(Zip_compression_method[compression_method-97+20]);
-	Skip_L2("last mod file time");
-	Skip_L2("last mod file date");
-	Skip_L4("crc-32");
-	Get_L4(compressed_size,"compressed size");
-	Skip_L4("uncompressed size");
-	Get_L2(file_name_length,"file name lenth");
-	Get_L2(extra_field_length,"extra field length");
+    Skip_L2("last mod file time");
+    Skip_L2("last mod file date");
+    Skip_L4("crc-32");
+    Get_L4(compressed_size,"compressed size");
+    Skip_L4("uncompressed size");
+    Get_L2(file_name_length,"file name lenth");
+    Get_L2(extra_field_length,"extra field length");
     if(efs) {
         Skip_UTF8(file_name_length,"file name");
         Skip_UTF8(extra_field_length,"extra field");
@@ -347,10 +347,10 @@ bool File_Zip::central_directory()
 
     //Parsing
     Element_Begin("Central directory");
-	Skip_C4("central file header signature");
+    Skip_C4("central file header signature");
     Get_L2 (version_made_by,"version made by");Param_Info((version_made_by>>8)>20?"unused":Zip_made_by[version_made_by>>8]);
     Skip_L2("version needed to extract");
-	Get_L2 (general_purpose_bit_flag,"general purpose bit flag");
+    Get_L2 (general_purpose_bit_flag,"general purpose bit flag");
     Skip_Flags(general_purpose_bit_flag, 0,                     "encrypted file");
     Skip_Flags(general_purpose_bit_flag, 1,                     "8K sliding dictionary");
     Skip_Flags(general_purpose_bit_flag, 2,                     "3 Shannon-Fano trees");
@@ -411,7 +411,7 @@ bool File_Zip::end_of_central_directory()
     //Parsing
     int32u offset;
     Element_Begin("End of central directory");
-	Skip_C4(                                                    "end of central dir signature");
+    Skip_C4(                                                    "end of central dir signature");
     Skip_L2(                                                    "number of this disk");
     Skip_L2(                                                    "number of the disk");// with the start of the central directory
     Skip_L2(                                                    "total number of entries on this disk");// in the central directory
@@ -445,7 +445,7 @@ bool File_Zip::Zip64_end_of_central_directory_record()
     //~ int32u offset;
     int16u version_made_by;
     Element_Begin("Zip64 End of central directory record");
-	Skip_C4(                                                    "Zip64 end of central dir signature");
+    Skip_C4(                                                    "Zip64 end of central dir signature");
     Skip_L8(                                                    "size of zip64 end of central directory record");
     Get_L2 (version_made_by,                                    "version made by");
     Param_Info((version_made_by>>8)>20?"unused":Zip_made_by[version_made_by>>8]);
@@ -475,7 +475,7 @@ bool File_Zip::Zip64_end_of_central_directory_locator()
     Skip_L4("total number of disks");
     Element_End();
 
-	return true;
+    return true;
 }
 
 } //NameSpace

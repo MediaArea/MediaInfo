@@ -108,7 +108,9 @@ Ztring Decimal_Hexa(int64u Number)
 
 //---------------------------------------------------------------------------
 File_MpegTs::File_MpegTs()
+#if MEDIAINFO_DUPLICATE
 :File__Duplicate()
+#endif //MEDIAINFO_DUPLICATE
 {
     //Configuration
     ParserName=_T("MpegTs");
@@ -858,7 +860,9 @@ void File_MpegTs::Streams_Finish()
             }
         }
 
-    File__Duplicate_Streams_Finish();
+    #if MEDIAINFO_DUPLICATE
+        File__Duplicate_Streams_Finish();
+    #endif //MEDIAINFO_DUPLICATE
 }
 
 //***************************************************************************
@@ -905,8 +909,10 @@ bool File_MpegTs::Synched_Test()
         if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
         {
             Synched=false;
-            if (File__Duplicate_Get())
-                Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
+            #if MEDIAINFO_DUPLICATE
+                if (File__Duplicate_Get())
+                    Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
+            #endif //MEDIAINFO_DUPLICATE
             return false;
         }
 
@@ -1120,12 +1126,13 @@ bool File_MpegTs::Synched_Test()
             #endif //MEDIAINFO_MPEGTS_PCR_YES
         }
 
-        //File__Duplicate
-        if (Stream->ShouldDuplicate)
-        {
-            Element_Size=TS_Size;
-            File__Duplicate_Write();
-        }
+        #if MEDIAINFO_DUPLICATE
+            if (Stream->ShouldDuplicate)
+            {
+                Element_Size=TS_Size;
+                File__Duplicate_Write();
+            }
+        #endif //MEDIAINFO_DUPLICATE
 
         Header_Parse_Events();
 
@@ -1732,9 +1739,10 @@ void File_MpegTs::Data_Parse()
     if (TSP_Size && Element_Size>TSP_Size)
         Element_Size-=TSP_Size;
 
-    //File__Duplicate
-    if (Complete_Stream->Streams[pid]->ShouldDuplicate)
-        File__Duplicate_Write();
+    #if MEDIAINFO_DUPLICATE
+        if (Complete_Stream->Streams[pid]->ShouldDuplicate)
+            File__Duplicate_Write();
+    #endif //MEDIAINFO_DUPLICATE
 
     //Parsing
     if (!Complete_Stream->Streams[pid]->Searching_Payload_Start

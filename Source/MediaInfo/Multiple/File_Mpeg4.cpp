@@ -177,10 +177,10 @@ File_Mpeg4::File_Mpeg4()
 void File_Mpeg4::Streams_Finish()
 {
     Streams_Finish_ParseLocators();
-	#if MEDIAINFO_DEMUX
-		if (Config->Demux_EventWasSent)
-			return;
-	#endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+            return;
+    #endif //MEDIAINFO_DEMUX
 
     Fill_Flush();
     int64u File_Size_Total=File_Size;
@@ -582,10 +582,10 @@ void File_Mpeg4::Streams_Finish_ParseLocators()
     while (Stream!=Streams.end())
     {
         Streams_Finish_ParseLocator();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
         Stream++;
     }
 }
@@ -630,15 +630,19 @@ void File_Mpeg4::Streams_Finish_ParseLocator()
         Stream->second.MI=new MediaInfo_Internal();
         Stream->second.MI->Option(_T("File_StopAfterFilled"), _T("1"));
         Stream->second.MI->Option(_T("File_KeepInfo"), _T("1"));
-        if (Config->NextPacket_Get())
-            Stream->second.MI->Option(_T("File_NextPacket"), _T("1"));
-        if (Config->Event_CallBackFunction_IsSet())
-            Stream->second.MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+        #if MEDIAINFO_NEXTPACKET
+            if (Config->NextPacket_Get())
+                Stream->second.MI->Option(_T("File_NextPacket"), _T("1"));
+        #endif //MEDIAINFO_NEXTPACKET
+        #if MEDIAINFO_EVENTS
+            if (Config->Event_CallBackFunction_IsSet())
+                Stream->second.MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+        #endif //MEDIAINFO_EVENTS
         Stream->second.MI->Option(_T("File_SubFile_StreamID_Set"), Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID));
         #if MEDIAINFO_DEMUX
-			if (Config->Demux_Unpacketize_Get())
-				Stream->second.MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
-		#endif //MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+                Stream->second.MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
+        #endif //MEDIAINFO_DEMUX
 
         //Run
         if (!Stream->second.MI->Open(AbsoluteName))
@@ -672,16 +676,18 @@ void File_Mpeg4::Streams_Finish_ParseLocator()
 
     if (Stream->second.MI)
     {
-        while (Stream->second.MI->Open_NextPacket()[8])
-        {
-			#if MEDIAINFO_DEMUX
-				if (Config->Event_CallBackFunction_IsSet())
-				{
-					Config->Demux_EventWasSent=true;
-					return;
-				}
-			#endif //MEDIAINFO_DEMUX
-        }
+        #if MEDIAINFO_NEXTPACKET
+            while (Stream->second.MI->Open_NextPacket()[8])
+            {
+                #if MEDIAINFO_DEMUX
+                    if (Config->Event_CallBackFunction_IsSet())
+                    {
+                        Config->Demux_EventWasSent=true;
+                        return;
+                    }
+                #endif //MEDIAINFO_DEMUX
+            }
+        #endif //MEDIAINFO_NEXTPACKET
     }
 }
 
@@ -694,8 +700,8 @@ bool File_Mpeg4::Header_Begin()
 {
     #if MEDIAINFO_DEMUX
         //Handling of multiple frames in one block
-	    if (IsParsing_mdat && Config->Demux_Unpacketize_Get())
-	    {
+        if (IsParsing_mdat && Config->Demux_Unpacketize_Get())
+        {
             Open_Buffer_Continue(Streams[(int32u)Element_Code].Parser, Buffer+Buffer_Offset, 0);
             if (Config->Demux_EventWasSent)
                 return false;

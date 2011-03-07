@@ -43,7 +43,7 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 const char* DPX_Orientation[]=
 {
-	"Left to right, Top to bottom",
+    "Left to right, Top to bottom",
     "Right to left, Top to bottom",
     "Left to right, Bottom to top",
     "Right to left, Bottom to top",
@@ -116,39 +116,39 @@ const char* DPX_Descriptors(int8u i)
 //---------------------------------------------------------------------------
 const char* DPX_TransferCharacteristic[]=
 {
-	"User defined",
-	"Printing density",
-	"Linear",
-	"Logarithmic",
-	"Unspecified video",
-	"SMPTE 274M",
-	"ITU-R 709-4",
-	"ITU-R 601-5 system B or G (625)",
-	"ITU-R 601-5 system M (525)",
-	"Composite video (NTSC); see SMPTE 170M",
-	"Composite video (PAL); see ITU-R 624-4",
-	"Z (depth) - linear",
-	"Z (depth) - homogeneous", //(distance to screen and angle of view must also be specified in user-defined section)
-	"Reserved for future use"
+    "User defined",
+    "Printing density",
+    "Linear",
+    "Logarithmic",
+    "Unspecified video",
+    "SMPTE 274M",
+    "ITU-R 709-4",
+    "ITU-R 601-5 system B or G (625)",
+    "ITU-R 601-5 system M (525)",
+    "Composite video (NTSC); see SMPTE 170M",
+    "Composite video (PAL); see ITU-R 624-4",
+    "Z (depth) - linear",
+    "Z (depth) - homogeneous", //(distance to screen and angle of view must also be specified in user-defined section)
+    "Reserved for future use"
 };
 
 //---------------------------------------------------------------------------
 const char* DPX_ColorimetricSpecification[]=
 {
-	"User defined",
-	"Printing density",
-	"Not applicable",
-	"Not applicable",
-	"Unspecified video",
-	"SMPTE 274M",
-	"ITU-R 709-4",
-	"ITU-R 601-5 system B or G (625)",
-	"ITU-R 601-5 system M (525)",
-	"Composite video (NTSC); see SMPTE 170M",
-	"Composite video (PAL); see ITU-R 624-4",
-	"Not applicable",
-	"Not applicable",
-	"Reserved for future use"
+    "User defined",
+    "Printing density",
+    "Not applicable",
+    "Not applicable",
+    "Unspecified video",
+    "SMPTE 274M",
+    "ITU-R 709-4",
+    "ITU-R 601-5 system B or G (625)",
+    "ITU-R 601-5 system M (525)",
+    "Composite video (NTSC); see SMPTE 170M",
+    "Composite video (PAL); see ITU-R 624-4",
+    "Not applicable",
+    "Not applicable",
+    "Reserved for future use"
 };
  
 //---------------------------------------------------------------------------

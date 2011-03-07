@@ -767,7 +767,6 @@ bool File_Mpega::Synched_Test()
     int8u layer0             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
     int8u bitrate_index0     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
     int8u sampling_frequency0=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
-    int8u padding_bit0       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
     if (Mpega_SamplingRate[ID0][sampling_frequency0]==0 || Mpega_Coefficient[ID0][layer0]==0 || Mpega_BitRate[ID0][layer0][bitrate_index0]==0 || Mpega_SlotSize[layer0]==0)
     {
         Synched=false;

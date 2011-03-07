@@ -1292,10 +1292,10 @@ void File_Mxf::Streams_Finish_ParseLocators()
     while (Locator!=Locators.end())
     {
         Streams_Finish_ParseLocator();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
         Locator++;
     }
 
@@ -1346,26 +1346,22 @@ void File_Mxf::Streams_Finish_ParseLocator()
         MI=new MediaInfo_Internal();
         MI->Option(_T("File_StopAfterFilled"), _T("1"));
         MI->Option(_T("File_KeepInfo"), _T("1"));
-        if (Config->NextPacket_Get())
-            MI->Option(_T("File_NextPacket"), _T("1"));
-        if (Config->Event_CallBackFunction_IsSet())
-            MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-        MI->Option(_T("File_SubFile_StreamID_Set"), Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID));
+        #if MEDIAINFO_NEXTPACKET
+            if (Config->NextPacket_Get())
+                MI->Option(_T("File_NextPacket"), _T("1"));
+        #endif //MEDIAINFO_NEXTPACKET
+        #if MEDIAINFO_EVENTS
+            if (Config->Event_CallBackFunction_IsSet())
+                MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+            MI->Option(_T("File_SubFile_StreamID_Set"), Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID));
+        #endif //MEDIAINFO_EVENTS
         #if MEDIAINFO_DEMUX
-			if (Config->Demux_Unpacketize_Get())
-				MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
-		#endif //MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+                MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
+        #endif //MEDIAINFO_DEMUX
 
         //Run
-        if (MI->Open(AbsoluteName))
-        {
-            if (!Config->NextPacket_Get()) //Only if NextPacket interface is not requested, else this is done later
-            {
-                Streams_Finish_ParseLocator_Finalize();
-                delete MI; MI=NULL;
-            }
-        }
-        else
+        if (!MI->Open(AbsoluteName))
         {
             //Configuring file name (this time, we try to force URL decode in all cases)
             Name=ZenLib::Format::Http::URL_Encoded_Decode(Locator->second.EssenceLocator);
@@ -1388,15 +1384,7 @@ void File_Mxf::Streams_Finish_ParseLocator()
                 return;
             }
 
-            if (MI->Open(AbsoluteName))
-            {
-                if (!Config->NextPacket_Get()) //Only if NextPacket interface is not requested, else this is done later
-                {
-                    Streams_Finish_ParseLocator_Finalize();
-                    delete MI; MI=NULL;
-                }
-            }
-            else
+            if (!MI->Open(AbsoluteName))
             {
                 Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Missing");
                 delete MI; MI=NULL;
@@ -1406,16 +1394,18 @@ void File_Mxf::Streams_Finish_ParseLocator()
 
     if (MI)
     {
-        while (MI->Open_NextPacket()[8])
-        {
-			#if MEDIAINFO_DEMUX
-				if (Config->Event_CallBackFunction_IsSet())
-				{
-					Config->Demux_EventWasSent=true;
-					return;
-				}
-			#endif //MEDIAINFO_DEMUX
-        }
+        #if MEDIAINFO_NEXTPACKET
+            while (MI->Open_NextPacket()[8])
+            {
+                #if MEDIAINFO_DEMUX
+                    if (Config->Event_CallBackFunction_IsSet())
+                    {
+                        Config->Demux_EventWasSent=true;
+                        return;
+                    }
+                #endif //MEDIAINFO_DEMUX
+            }
+        #endif //MEDIAINFO_NEXTPACKET
         Streams_Finish_ParseLocator_Finalize();
         Locator->second.StreamKind=Stream_Max;
         Locator->second.StreamPos=(size_t)-1;
@@ -6889,13 +6879,13 @@ File__Analyze* File_Mxf::ChooseParser_Aes3(int32u QuantizationBits)
         Parser->From_Raw=true;
         if (QuantizationBits!=(int32u)-1)
             Parser->QuantizationBits=QuantizationBits;
-		#if MEDIAINFO_DEMUX
-			if (Demux_UnpacketizeContainer)
-			{
-				Parser->Demux_Level=2; //Container
-				Parser->Demux_UnpacketizeContainer=true;
-			}
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
@@ -6941,13 +6931,13 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(int16u BlockAlign)
         File_Aes3* Parser=new File_Aes3;
         if (BlockAlign!=(int16u)-1)
             Parser->ByteSize=BlockAlign;
-		#if MEDIAINFO_DEMUX
-			if (Demux_UnpacketizeContainer)
-			{
-				Parser->Demux_Level=2; //Container
-				Parser->Demux_UnpacketizeContainer=true;
-			}
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();

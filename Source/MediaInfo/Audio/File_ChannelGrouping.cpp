@@ -140,11 +140,11 @@ void File_ChannelGrouping::Read_Buffer_Continue()
             return;
         }
 
-		#if MEDIAINFO_DEMUX
-			Buffer_Offset=0;
+        #if MEDIAINFO_DEMUX
+            Buffer_Offset=0;
             Demux_Offset=Buffer_Size;
             Demux_UnpacketizeContainer_Demux();
-		#endif //MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX
 
         Buffer_Offset=Buffer_Size;
         Frame_Count++;

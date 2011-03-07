@@ -50,23 +50,23 @@ extern const char* Aac_Format_Profile(int8u ID);
 //---------------------------------------------------------------------------
 const char* Aac_id_syn_ele[8]=
 {
-	"SCE - single_channel_element",
-	"CPE - channel_pair_element",
-	"CCE - coupling_channel_element",
-	"LFE - lfe_channel_element",
-	"DSE - data_stream_element",
-	"PCE - program_config_element",
-	"FIL - fill_element",
-	"END - End"
+    "SCE - single_channel_element",
+    "CPE - channel_pair_element",
+    "CCE - coupling_channel_element",
+    "LFE - lfe_channel_element",
+    "DSE - data_stream_element",
+    "PCE - program_config_element",
+    "FIL - fill_element",
+    "END - End"
 };
 
 //---------------------------------------------------------------------------
 const char* Aac_window_sequence[4]=
 {
-	"ONLY_LONG_SEQUENCE",
-	"LONG_START_SEQUENCE",
-	"EIGHT_SHORT_SEQUENCE",
-	"LONG_STOP_SEQUENCE"
+    "ONLY_LONG_SEQUENCE",
+    "LONG_START_SEQUENCE",
+    "EIGHT_SHORT_SEQUENCE",
+    "LONG_STOP_SEQUENCE"
 };
 
 //***************************************************************************
@@ -609,10 +609,9 @@ void File_Aac::data_stream_element()
 void File_Aac::fill_element(int8u id_syn_ele)
 {
     //Parsing
-    int16u cnt;
     int8u  count;
     Get_S1 (4, count,                                           "count");
-    cnt=count;
+    size_t cnt=count;
     if (count==15)
     {
         int8u esc_count;

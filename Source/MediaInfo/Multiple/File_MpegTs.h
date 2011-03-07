@@ -42,7 +42,12 @@ namespace MediaInfoLib
 // Class File_MpegTs
 //***************************************************************************
 
-class File_MpegTs : public File__Duplicate
+class File_MpegTs :
+#if MEDIAINFO_DUPLICATE
+    public File__Duplicate
+#else //MEDIAINFO_DUPLICATE
+    public File__Analyze
+#endif //MEDIAINFO_DUPLICATE
 {
 public :
     //In
@@ -128,15 +133,17 @@ private :
     #endif //MEDIAINFO_MPEGTS_PCR_YES
     void Streams_Update_Duration_End();
 
-    //File__Duplicate
-    void   File__Duplicate_Streams_Finish ();
-    bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
-    void   File__Duplicate_Write ();
+    #if MEDIAINFO_DUPLICATE
+        //File__Duplicate
+        void   File__Duplicate_Streams_Finish ();
+        bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
+        void   File__Duplicate_Write ();
 
-    //Output buffer
-    size_t Output_Buffer_Get (const String &Value);
-    size_t Output_Buffer_Get (size_t Pos);
-    std::vector<int16u> Output_Buffer_Get_Pos;
+        //Output buffer
+        size_t Output_Buffer_Get (const String &Value);
+        size_t Output_Buffer_Get (size_t Pos);
+        std::vector<int16u> Output_Buffer_Get_Pos;
+    #endif //MEDIAINFO_DUPLICATE
 
     //Config
     bool Config_Trace_TimeSection_OnlyFirstOccurrence;

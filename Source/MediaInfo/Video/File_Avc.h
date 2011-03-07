@@ -34,7 +34,12 @@ namespace MediaInfoLib
 // Class File_Avc
 //***************************************************************************
 
-class File_Avc : public File__Duplicate
+class File_Avc :
+#if MEDIAINFO_DUPLICATE
+    public File__Duplicate
+#else //MEDIAINFO_DUPLICATE
+    public File__Analyze
+#endif //MEDIAINFO_DUPLICATE
 {
 public :
     //In
@@ -76,9 +81,11 @@ private :
     bool Header_Parser_Fill_Size();
     void Data_Parse();
 
-    //Output buffer
-    size_t Output_Buffer_Get (const String &Value);
-    size_t Output_Buffer_Get (size_t Pos);
+    #if MEDIAINFO_DUPLICATE
+        //Output buffer
+        size_t Output_Buffer_Get (const String &Value);
+        size_t Output_Buffer_Get (size_t Pos);
+    #endif //MEDIAINFO_DUPLICATE
 
     //Options
     void Option_Manage ();
@@ -300,12 +307,13 @@ private :
     bool SPS_IsParsed;
     bool PPS_IsParsed;
 
-    //File__Duplicate
-    bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
-    void   File__Duplicate_Write (int64u Element_Code, int32u frame_num=(int32u)-1);
-    File__Duplicate__Writer Writer;
-    int8u  Duplicate_Buffer[1024*1024];
-    size_t Duplicate_Buffer_Size;
+    #if MEDIAINFO_DUPLICATE
+        bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
+        void   File__Duplicate_Write (int64u Element_Code, int32u frame_num=(int32u)-1);
+        File__Duplicate__Writer Writer;
+        int8u  Duplicate_Buffer[1024*1024];
+        size_t Duplicate_Buffer_Size;
+    #endif //MEDIAINFO_DUPLICATE
     size_t frame_num_Old;
     bool   SPS_PPS_AlreadyDone;
     bool   FLV;

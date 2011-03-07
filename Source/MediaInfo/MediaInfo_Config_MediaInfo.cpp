@@ -46,28 +46,38 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileKeepInfo=false;
     FileStopAfterFilled=false;
     FileStopSubStreamAfterFilled=false;
-    File_Filter_HasChanged_=false;
     Audio_MergeMonoStreams=false;
+    #if MEDIAINFO_NEXTPACKET
+        NextPacket=false;
+    #endif //MEDIAINFO_NEXTPACKET
+    #if MEDIAINFO_FILTER
+        File_Filter_HasChanged_=false;
+    #endif //MEDIAINFO_FILTER
     #if MEDIAINFO_EVENTS
         Event_CallBackFunction=NULL;
         Event_UserHandler=NULL;
+        SubFile_StreamID=(int64u)-1;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_ForceIds=false;
+        Demux_PCM_20bitTo16bit=false;
+        Demux_Unpacketize=false;
+    #endif //MEDIAINFO_DEMUX
 
     //Specific
     File_MpegTs_ForceMenu=false;
     File_MpegTs_stream_type_Trust=true;
     File_MpegTs_Atsc_transport_stream_id_Trust=true;
     File_Bdmv_ParseTargetedFile=true;
-    File_DvDif_Analysis=false;
-    File_Mmsh_Describe_Only=false;
+    #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+        File_DvDif_Analysis=false;
+    #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    #if defined(MEDIAINFO_LIBMMS_YES)
+        File_Mmsh_Describe_Only=false;
+    #endif //defined(MEDIAINFO_LIBMMS_YES)
     File_Eia608_DisplayEmptyStream=false;
     File_Eia708_DisplayEmptyStream=false;
     State=0;
-    Demux_ForceIds=false;
-    Demux_PCM_20bitTo16bit=false;
-    Demux_Unpacketize=false;
-    NextPacket=false;
-    SubFile_StreamID=(int64u)-1;
 
     //Internal to MediaInfo, not thread safe
     #if MEDIAINFO_DEMUX
@@ -81,7 +91,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 
 Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &Value)
 {
-    SubFile_Config(Option)=Value;
+    #if MEDIAINFO_EVENTS
+        SubFile_Config(Option)=Value;
+    #endif //MEDIAINFO_EVENTS
 
     String Option_Lower(Option);
     size_t Egal_Pos=Option_Lower.find(_T('='));
@@ -181,23 +193,39 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_filter"))
     {
-        File_Filter_Set(Ztring(Value).To_int64u());
-        return _T("");
+        #if MEDIAINFO_FILTER
+            File_Filter_Set(Ztring(Value).To_int64u());
+            return _T("");
+        #else //MEDIAINFO_FILTER
+            return _T("Filter manager is disabled due to compilation options");
+        #endif //MEDIAINFO_FILTER
     }
     else if (Option_Lower==_T("file_filter_get"))
     {
-        return Ztring();//.From_Number(File_Filter_Get());
+        #if MEDIAINFO_FILTER
+            return Ztring();//.From_Number(File_Filter_Get());
+        #else //MEDIAINFO_FILTER
+            return _T("Filter manager is disabled due to compilation options");
+        #endif //MEDIAINFO_FILTER
     }
     else if (Option_Lower==_T("file_duplicate"))
     {
-        return File_Duplicate_Set(Value);
+        #if MEDIAINFO_DUPLICATE
+            return File_Duplicate_Set(Value);
+        #else //MEDIAINFO_DUPLICATE
+            return _T("Duplicate manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DUPLICATE
     }
     else if (Option_Lower==_T("file_duplicate_get"))
     {
-        //if (File_Duplicate_Get())
-            return _T("1");
-        //else
-        //    return _T("");
+        #if MEDIAINFO_DUPLICATE
+            //if (File_Duplicate_Get())
+                return _T("1");
+            //else
+            //    return _T("");
+        #else //MEDIAINFO_DUPLICATE
+            return _T("Duplicate manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DUPLICATE
     }
     else if (Option_Lower==_T("file_demux_forceids"))
     {
@@ -237,16 +265,24 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_nextpacket"))
     {
-        if (Value.empty())
-            NextPacket_Set(false);
-        else
-            NextPacket_Set(true);
-        return Ztring();
+        #if MEDIAINFO_NEXTPACKET
+            if (Value.empty())
+                NextPacket_Set(false);
+            else
+                NextPacket_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_NEXTPACKET
+            return _T("NextPacket manager is disabled due to compilation options");
+        #endif //MEDIAINFO_NEXTPACKET
     }
     else if (Option_Lower==_T("file_subfile_streamid_set"))
     {
-        SubFile_StreamID_Set(Ztring(Value).To_int64u());
-        return Ztring();
+        #if MEDIAINFO_EVENTS
+            SubFile_StreamID_Set(Ztring(Value).To_int64u());
+            return Ztring();
+        #else //MEDIAINFO_EVENTS
+            return _T("Event manager is disabled due to compilation options");
+        #endif //MEDIAINFO_EVENTS
     }
     else if (Option_Lower==_T("file_mpegts_forcemenu"))
     {
@@ -286,30 +322,54 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_dvdif_analysis"))
     {
-        File_DvDif_Analysis_Set(!(Value==_T("0") || Value.empty()));
-        return _T("");
+        #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+            File_DvDif_Analysis_Set(!(Value==_T("0") || Value.empty()));
+            return _T("");
+        #else //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+            return _T("DVDIF Analysis is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     }
     else if (Option_Lower==_T("file_dvdif_analysis_get"))
     {
-        return File_DvDif_Analysis_Get()?"1":"0";
+        #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+            return File_DvDif_Analysis_Get()?"1":"0";
+        #else //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+            return _T("DVDIF Analysis is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     }
     else if (Option_Lower==_T("file_curl"))
     {
-        File_Curl_Set(Value);
-        return _T("");
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            File_Curl_Set(Value);
+            return _T("");
+        #else //defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_LIBCURL_YES)
     }
     else if (Option_Lower==_T("file_curl_get"))
     {
-        return File_Curl_Get(Value);
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            return File_Curl_Get(Value);
+        #else //defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_LIBCURL_YES)
     }
     else if (Option_Lower==_T("file_mmsh_describe_only"))
     {
-        File_Mmsh_Describe_Only_Set(!(Value==_T("0") || Value.empty()));
-        return _T("");
+        #if defined(MEDIAINFO_LIBMMS_YES)
+            File_Mmsh_Describe_Only_Set(!(Value==_T("0") || Value.empty()));
+            return _T("");
+        #else //defined(MEDIAINFO_LIBMMS_YES)
+            return _T("Libmms support is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_LIBMMS_YES)
     }
     else if (Option_Lower==_T("file_mmsh_describe_only_get"))
     {
-        return File_Mmsh_Describe_Only_Get()?"1":"0";
+        #if defined(MEDIAINFO_LIBMMS_YES)
+            return File_Mmsh_Describe_Only_Get()?"1":"0";
+        #else //defined(MEDIAINFO_LIBMMS_YES)
+            return _T("Libmms support is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_LIBMMS_YES)
     }
     else if (Option_Lower==_T("file_eia708_displayemptystream"))
     {
@@ -504,6 +564,7 @@ Ztring MediaInfo_Config_MediaInfo::File_ForceParser_Get ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_FILTER
 void MediaInfo_Config_MediaInfo::File_Filter_Set (int64u NewValue)
 {
     CriticalSectionLocker CSL(CS);
@@ -537,11 +598,13 @@ bool MediaInfo_Config_MediaInfo::File_Filter_HasChanged ()
     File_Filter_HasChanged_=false;
     return File_Filter_HasChanged_Temp;
 }
+#endif //MEDIAINFO_FILTER
 
 //***************************************************************************
 // Duplicate
 //***************************************************************************
 
+#if MEDIAINFO_DUPLICATE
 Ztring MediaInfo_Config_MediaInfo::File_Duplicate_Set (const Ztring &Value_In)
 {
     //Preparing for File__Duplicate...
@@ -628,6 +691,7 @@ void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztr
     if (Pos!=Error)
         File__Duplicate_Memory_Indexes[Pos].clear();
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //***************************************************************************
 // Demux
@@ -679,6 +743,7 @@ bool MediaInfo_Config_MediaInfo::Demux_Unpacketize_Get ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_NEXTPACKET
 void MediaInfo_Config_MediaInfo::NextPacket_Set (bool NewValue)
 {
     CriticalSectionLocker CSL(CS);
@@ -690,11 +755,13 @@ bool MediaInfo_Config_MediaInfo::NextPacket_Get ()
     CriticalSectionLocker CSL(CS);
     return NextPacket;
 }
+#endif //MEDIAINFO_NEXTPACKET
 
 //***************************************************************************
 // SubFile
 //***************************************************************************
 
+#if MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 ZtringListList MediaInfo_Config_MediaInfo::SubFile_Config_Get ()
 {
@@ -718,6 +785,7 @@ int64u MediaInfo_Config_MediaInfo::SubFile_StreamID_Get ()
 
     return SubFile_StreamID;
 }
+#endif //MEDIAINFO_EVENTS
 
 //***************************************************************************
 // Event
@@ -899,6 +967,7 @@ bool MediaInfo_Config_MediaInfo::File_Bdmv_ParseTargetedFile_Get ()
 }
 
 //---------------------------------------------------------------------------
+#if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
 void MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Set (bool NewValue)
 {
     CriticalSectionLocker CSL(CS);
@@ -911,8 +980,10 @@ bool MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Get ()
     bool Temp=File_DvDif_Analysis;
     return Temp;
 }
+#endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
 
 //---------------------------------------------------------------------------
+#if defined(MEDIAINFO_LIBCURL_YES)
 void MediaInfo_Config_MediaInfo::File_Curl_Set (const Ztring &NewValue)
 {
     size_t Pos=NewValue.find(_T(','));
@@ -933,8 +1004,10 @@ Ztring MediaInfo_Config_MediaInfo::File_Curl_Get (const Ztring &Field_)
     CriticalSectionLocker CSL(CS);
     return Curl[Field];
 }
+#endif //defined(MEDIAINFO_LIBCURL_YES)
 
 //---------------------------------------------------------------------------
+#if defined(MEDIAINFO_LIBMMS_YES)
 void MediaInfo_Config_MediaInfo::File_Mmsh_Describe_Only_Set (bool NewValue)
 {
     CriticalSectionLocker CSL(CS);
@@ -947,6 +1020,7 @@ bool MediaInfo_Config_MediaInfo::File_Mmsh_Describe_Only_Get ()
     bool Temp=File_Mmsh_Describe_Only;
     return Temp;
 }
+#endif //defined(MEDIAINFO_LIBMMS_YES)
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config_MediaInfo::File_Eia608_DisplayEmptyStream_Set (bool NewValue)

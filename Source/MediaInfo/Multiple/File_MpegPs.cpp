@@ -1103,7 +1103,7 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u stream_id)
         Buffer_Offset_Temp=0; //We use the buffer
     }
 
-	return true;
+    return true;
 }
 
 //---------------------------------------------------------------------------
@@ -2162,22 +2162,26 @@ void File_MpegPs::private_stream_1()
                 Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_AES3());
             #endif
         }
-        if (private_stream_1_Offset)
-        {
-            //Multiple substreams in 1 stream
-            StreamIDs[StreamIDs_Size-1]=Element_Code;
-            Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
-            StreamIDs_Width[StreamIDs_Size]=2;
-            ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
-            StreamIDs_Size++;
-        }
+        #if MEDIAINFO_EVENTS
+            if (private_stream_1_Offset)
+            {
+                //Multiple substreams in 1 stream
+                StreamIDs[StreamIDs_Size-1]=Element_Code;
+                Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
+                StreamIDs_Width[StreamIDs_Size]=2;
+                ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+                StreamIDs_Size++;
+            }
+        #endif //MEDIAINFO_EVENTS
         for (size_t Pos=0; Pos<Streams_Private1[private_stream_1_ID].Parsers.size(); Pos++)
             Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Pos]);
-        if (private_stream_1_Offset)
-        {
-            StreamIDs_Size--;
-            Element_Code=StreamIDs[StreamIDs_Size-1];
-        }
+        #if MEDIAINFO_EVENTS
+            if (private_stream_1_Offset)
+            {
+                StreamIDs_Size--;
+                Element_Code=StreamIDs[StreamIDs_Size-1];
+            }
+        #endif //MEDIAINFO_EVENTS
     }
 
     //Demux
@@ -2205,21 +2209,25 @@ void File_MpegPs::private_stream_1()
     if (Element_Offset<private_stream_1_Offset)
         Skip_XX(private_stream_1_Offset-Element_Offset,         "DVD-Video data");
 
-    if (private_stream_1_Offset)
-    {
-        //Multiple substreams in 1 stream
-        StreamIDs[StreamIDs_Size-1]=Element_Code;
-        Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
-        StreamIDs_Width[StreamIDs_Size]=2;
-        ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
-        StreamIDs_Size++;
-    }
+    #if MEDIAINFO_EVENTS
+        if (private_stream_1_Offset)
+        {
+            //Multiple substreams in 1 stream
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
+            Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
+            StreamIDs_Width[StreamIDs_Size]=2;
+            ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+            StreamIDs_Size++;
+        }
+    #endif //MEDIAINFO_EVENTS
     xxx_stream_Parse(Streams_Private1[private_stream_1_ID], private_stream_1_Count);
-    if (private_stream_1_Offset)
-    {
-        StreamIDs_Size--;
-        Element_Code=StreamIDs[StreamIDs_Size-1];
-    }
+    #if MEDIAINFO_EVENTS
+        if (private_stream_1_Offset)
+        {
+            StreamIDs_Size--;
+            Element_Code=StreamIDs[StreamIDs_Size-1];
+        }
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------

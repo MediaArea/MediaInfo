@@ -623,7 +623,7 @@ void File_Aac::Data_Parse_ADTS()
     //Parsing
     BS_Begin();
     adts_frame();
-	BS_End();
+    BS_End();
 }
 
 //---------------------------------------------------------------------------

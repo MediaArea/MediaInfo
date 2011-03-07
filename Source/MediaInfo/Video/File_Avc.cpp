@@ -323,7 +323,9 @@ const char* Avc_user_data_GA94_cc_type(int8u cc_type)
 
 //---------------------------------------------------------------------------
 File_Avc::File_Avc()
+#if MEDIAINFO_DUPLICATE
 :File__Duplicate()
+#endif //MEDIAINFO_DUPLICATE
 {
     //Config
     #if MEDIAINFO_EVENTS
@@ -1149,8 +1151,10 @@ void File_Avc::Data_Parse()
     }
 
     //Duplicate
-    if (!Streams.empty() && Streams[(size_t)Element_Code].ShouldDuplicate)
-        File__Duplicate_Write(Element_Code);
+    #if MEDIAINFO_DUPLICATE
+        if (!Streams.empty() && Streams[(size_t)Element_Code].ShouldDuplicate)
+            File__Duplicate_Write(Element_Code);
+    #endif //MEDIAINFO_DUPLICATE
 
     //Trailing zeroes
     Element_Size=Element_Size_SaveBeforeZeroes;
@@ -1398,9 +1402,10 @@ void File_Avc::slice_header()
         if (FrameInfo.PTS!=(int64u)-1 && PTS_End<FrameInfo.PTS)
             PTS_End=FrameInfo.PTS;
 
-        //Duplicate
-        if (Streams[(size_t)Element_Code].ShouldDuplicate)
-            File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
+        #if MEDIAINFO_DUPLICATE
+            if (Streams[(size_t)Element_Code].ShouldDuplicate)
+                File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
+        #endif //MEDIAINFO_DUPLICATE
 
         //Filling only if not already done
         if (Frame_Count==1 && !Status[IsAccepted])

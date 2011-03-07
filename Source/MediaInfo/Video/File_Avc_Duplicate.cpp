@@ -54,12 +54,14 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Avc::Option_Manage()
 {
-    //File__Duplicate configuration
-    if (File__Duplicate_HasChanged())
-    {
-        //Autorisation of other streams
-        Streams[0x07].ShouldDuplicate=true;
-    }
+    #if MEDIAINFO_DUPLICATE
+        //File__Duplicate configuration
+        if (File__Duplicate_HasChanged())
+        {
+            //Autorisation of other streams
+            Streams[0x07].ShouldDuplicate=true;
+        }
+    #endif //MEDIAINFO_DUPLICATE
 }
 
 //***************************************************************************
@@ -67,6 +69,7 @@ void File_Avc::Option_Manage()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DUPLICATE
 bool File_Avc::File__Duplicate_Set (const Ztring &Value)
 {
     ZtringList List(Value);
@@ -120,11 +123,13 @@ bool File_Avc::File__Duplicate_Set (const Ztring &Value)
 
     return true;
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //***************************************************************************
 // Write
 //***************************************************************************
 
+#if MEDIAINFO_DUPLICATE
 void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
 {
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size+3;
@@ -236,24 +241,28 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
         Duplicate_Buffer_Size+=ToAdd_Size;
         frame_num_Old=frame_num;
     }
-
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //***************************************************************************
 // Output_Buffer
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DUPLICATE
 size_t File_Avc::Output_Buffer_Get (const String &)
 {
     return Writer.Output_Buffer_Get();
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DUPLICATE
 size_t File_Avc::Output_Buffer_Get (size_t)
 {
     return Writer.Output_Buffer_Get();
 }
+#endif //MEDIAINFO_DUPLICATE
 
 } //NameSpace
 

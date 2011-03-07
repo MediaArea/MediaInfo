@@ -52,10 +52,10 @@ void File_Dxw::Streams_Finish()
     while (Reference!=References.end())
     {
         Streams_Finish_ParseReference();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
         Reference++;
     }
 
@@ -101,26 +101,22 @@ void File_Dxw::Streams_Finish_ParseReference()
         //Configuration
         MI=new MediaInfo_Internal();
         MI->Option(_T("File_KeepInfo"), _T("1"));
-        if (Config->NextPacket_Get())
-            MI->Option(_T("File_NextPacket"), _T("1"));
-        if (Config->Event_CallBackFunction_IsSet())
-            MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-        MI->Option(_T("File_SubFile_StreamID_Set"), Ztring::ToZtring(Reference-References.begin()+1));
+        #if MEDIAINFO_NEXTPACKET
+            if (Config->NextPacket_Get())
+                MI->Option(_T("File_NextPacket"), _T("1"));
+        #endif //MEDIAINFO_NEXTPACKET
+        #if MEDIAINFO_EVENTS
+            if (Config->Event_CallBackFunction_IsSet())
+                MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+            MI->Option(_T("File_SubFile_StreamID_Set"), Ztring::ToZtring(Reference-References.begin()+1));
+        #endif //MEDIAINFO_EVENTS
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
                 MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
         #endif //MEDIAINFO_DEMUX
 
         //Run
-        if (MI->Open(AbsoluteName))
-        {
-            if (!Config->NextPacket_Get()) //Only if NextPacket interface is not requested, else this is done later
-            {
-                Streams_Finish_ParseReference_Finalize();
-                delete MI; MI=NULL;
-            }
-        }
-        else
+        if (!MI->Open(AbsoluteName))
         {
             //Filling
             if (StreamKind_Last!=Stream_Max)
@@ -135,16 +131,18 @@ void File_Dxw::Streams_Finish_ParseReference()
 
     if (MI)
     {
-        while (MI->Open_NextPacket()[8])
-        {
-            #if MEDIAINFO_DEMUX
-                if (Config->Event_CallBackFunction_IsSet())
-                {
-                    Config->Demux_EventWasSent=true;
-                    return;
-                }
-            #endif //MEDIAINFO_DEMUX
-        }
+        #if MEDIAINFO_NEXTPACKET
+            while (MI->Open_NextPacket()[8])
+            {
+                #if MEDIAINFO_DEMUX
+                    if (Config->Event_CallBackFunction_IsSet())
+                    {
+                        Config->Demux_EventWasSent=true;
+                        return;
+                    }
+                #endif //MEDIAINFO_DEMUX
+            }
+        #endif //MEDIAINFO_NEXTPACKET
         Streams_Finish_ParseReference_Finalize();
         delete MI; MI=NULL;
     }

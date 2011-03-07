@@ -450,7 +450,7 @@ void File_Aac::sbr_single_channel_element()
     Get_SB (bs_extended_data,                                   "bs_extended_data[0]");
     if (bs_extended_data) {
         Get_S1 (4,bs_extension_size,                            "bs_extension_size");
-        int cnt=bs_extension_size;
+        size_t cnt=bs_extension_size;
         if (cnt==15)
         {
             Get_S1 (8, bs_esc_count,                            "bs_esc_count");
@@ -600,7 +600,7 @@ void File_Aac::sbr_channel_pair_element()
     Get_SB (bs_extended_data,                                   "bs_extended_data");
     if (bs_extended_data) {
         Get_S1(4,bs_extension_size,                             "bs_extension_size");
-        int cnt = bs_extension_size;
+        size_t cnt = bs_extension_size;
         if (cnt == 15)
         {
             Get_S1(8,bs_esc_count,                              "bs_esc_count");

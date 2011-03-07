@@ -50,12 +50,12 @@ private :
     //Buffer - File header
     bool FileHeader_Begin();
 
-	//Buffer - Synchro
+    //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
 
     //Buffer - Per element
-	void Header_Parse();
+    void Header_Parse();
     void Data_Parse();
 };
 

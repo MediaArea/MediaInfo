@@ -77,8 +77,8 @@ void File_DolbyE::Streams_Fill()
 //---------------------------------------------------------------------------
 bool File_DolbyE::FileHeader_Begin()
 {
-	Reject("Dolby E");
-	return true;
+    Reject("Dolby E");
+    return true;
 }
 
 //***************************************************************************
@@ -88,14 +88,14 @@ bool File_DolbyE::FileHeader_Begin()
 //---------------------------------------------------------------------------
 bool File_DolbyE::Synchronize()
 {
-	//Synched
+    //Synched
     return true;
 }
 
 //---------------------------------------------------------------------------
 bool File_DolbyE::Synched_Test()
 {
-	//We continue
+    //We continue
     return true;
 }
 

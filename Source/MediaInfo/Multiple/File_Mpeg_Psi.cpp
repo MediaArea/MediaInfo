@@ -1091,7 +1091,11 @@ void File_Mpeg_Psi::Table_00()
         Element_End(Ztring::ToZtring_From_CC2(program_number));
 
         FILLING_BEGIN();
-            if (elementary_PID && Config->File_Filter_Get(program_number))
+            if (elementary_PID
+            #if MEDIAINFO_FILTER
+                && Config->File_Filter_Get(program_number)
+            #endif //MEDIAINFO_FILTER
+                )
             {
                 program_number_Update();
 

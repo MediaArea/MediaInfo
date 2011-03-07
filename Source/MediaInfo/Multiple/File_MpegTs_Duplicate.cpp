@@ -50,11 +50,13 @@ namespace MediaInfoLib
 // Format
 //***************************************************************************
 
+#if MEDIAINFO_DUPLICATE
 void File_MpegTs::File__Duplicate_Streams_Finish ()
 {
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Complete_Stream->Duplicates_Speed_FromPID.clear();
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //***************************************************************************
 // Options
@@ -65,44 +67,48 @@ void File_MpegTs::Option_Manage()
 {
     if (Complete_Stream && !Complete_Stream->Streams.empty())
     {
-        //File_Filter configuration
-        if (Config->File_Filter_HasChanged())
-        {
-            bool Searching_Payload_Start=!Config->File_Filter_Get();
-            for (int32u Pos=0x01; Pos<0x10; Pos++)
-                Complete_Stream->Streams[Pos]->Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
-            Complete_Stream->Streams[0x0000]->Searching_Payload_Start_Set(true); //program_map
-        }
-
-        //File__Duplicate configuration
-        if (File__Duplicate_HasChanged())
-        {
-            for (size_t Pos=0x0000; Pos<0x2000; Pos++)
-                Complete_Stream->Streams[Pos]->ShouldDuplicate=false;
-            Complete_Stream->Streams[0x0000]->ShouldDuplicate=true;
-
-            //For each program
-            for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
+        #if MEDIAINFO_FILTER
+            //File_Filter configuration
+            if (Config->File_Filter_HasChanged())
             {
-                //Do we want this program?
-                bool Wanted=false;
-                for (std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicate=Complete_Stream->Duplicates.begin(); Duplicate!=Complete_Stream->Duplicates.end(); Duplicate++)
-                {
-                    if (Duplicate->second->Wanted_program_numbers.find(Program->first)!=Duplicate->second->Wanted_program_numbers.end())
-                        Wanted=true;
-                    if (Duplicate->second->Wanted_program_map_PIDs.find(Program->second.pid)!=Duplicate->second->Wanted_program_map_PIDs.end())
-                        Wanted=true;
-                }
-
-                //Enabling it if wanted
-                if (Wanted)
-                {
-                    Complete_Stream->Streams[Program->second.pid]->ShouldDuplicate=true;
-                    for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
-                        Complete_Stream->Streams[Program->second.elementary_PIDs[Pos]]->ShouldDuplicate=true;
-                }
+                bool Searching_Payload_Start=!Config->File_Filter_Get();
+                for (int32u Pos=0x01; Pos<0x10; Pos++)
+                    Complete_Stream->Streams[Pos]->Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
+                Complete_Stream->Streams[0x0000]->Searching_Payload_Start_Set(true); //program_map
             }
+        #endif //MEDIAINFO_FILTER
+
+        #if MEDIAINFO_DUPLICATE
+            //File__Duplicate configuration
+            if (File__Duplicate_HasChanged())
+            {
+                for (size_t Pos=0x0000; Pos<0x2000; Pos++)
+                    Complete_Stream->Streams[Pos]->ShouldDuplicate=false;
+                Complete_Stream->Streams[0x0000]->ShouldDuplicate=true;
+
+                //For each program
+                for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
+                {
+                    //Do we want this program?
+                    bool Wanted=false;
+                    for (std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicate=Complete_Stream->Duplicates.begin(); Duplicate!=Complete_Stream->Duplicates.end(); Duplicate++)
+                    {
+                        if (Duplicate->second->Wanted_program_numbers.find(Program->first)!=Duplicate->second->Wanted_program_numbers.end())
+                            Wanted=true;
+                        if (Duplicate->second->Wanted_program_map_PIDs.find(Program->second.pid)!=Duplicate->second->Wanted_program_map_PIDs.end())
+                            Wanted=true;
+                    }
+
+                    //Enabling it if wanted
+                    if (Wanted)
+                    {
+                        Complete_Stream->Streams[Program->second.pid]->ShouldDuplicate=true;
+                        for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
+                            Complete_Stream->Streams[Program->second.elementary_PIDs[Pos]]->ShouldDuplicate=true;
+                    }
+                }
         }
+        #endif //MEDIAINFO_DUPLICATE
     }
 }
 
@@ -111,6 +117,7 @@ void File_MpegTs::Option_Manage()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DUPLICATE
 bool File_MpegTs::File__Duplicate_Set (const Ztring &Value)
 {
     //Form: "Code;Target"                           <--Generic
@@ -230,11 +237,13 @@ bool File_MpegTs::File__Duplicate_Set (const Ztring &Value)
 
     return true;
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //***************************************************************************
 // Write
 //***************************************************************************
 
+#if MEDIAINFO_DUPLICATE
 void File_MpegTs::File__Duplicate_Write ()
 {
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
@@ -280,12 +289,14 @@ void File_MpegTs::File__Duplicate_Write ()
         }
     }
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //***************************************************************************
 // Output_Buffer
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DUPLICATE
 size_t File_MpegTs::Output_Buffer_Get (const String &Code)
 {
     if (Complete_Stream==NULL)
@@ -310,8 +321,10 @@ size_t File_MpegTs::Output_Buffer_Get (const String &Code)
     return 0;
     */
 }
+#endif //MEDIAINFO_DUPLICATE
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DUPLICATE
 size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
 {
     if (Complete_Stream!=NULL && Pos<Complete_Stream->Duplicates_Speed.size() && Complete_Stream->Duplicates_Speed[Pos]!=NULL)
@@ -335,8 +348,8 @@ size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
 
     return 0;
 }
+#endif //MEDIAINFO_DUPLICATE
 
 } //NameSpace
 
 #endif //MEDIAINFO_MPEGTS_YES
-

@@ -87,14 +87,42 @@ public :
     void          File_ForceParser_Set (const Ztring &NewValue);
     Ztring        File_ForceParser_Get ();
 
+    #if MEDIAINFO_NEXTPACKET
+    void          NextPacket_Set (bool NewValue);
+    bool          NextPacket_Get ();
+    #endif //MEDIAINFO_NEXTPACKET
+
+    #if MEDIAINFO_FILTER
     void          File_Filter_Set     (int64u NewValue);
     bool          File_Filter_Get     (const int16u  Value);
     bool          File_Filter_Get     ();
     bool          File_Filter_HasChanged();
+    #endif //MEDIAINFO_FILTER
 
+    #if MEDIAINFO_DUPLICATE
     Ztring        File_Duplicate_Set  (const Ztring &Value);
     Ztring        File_Duplicate_Get  (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
     bool          File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
+    #endif //MEDIAINFO_DEMUX
+
+    #if MEDIAINFO_DUPLICATE
+    size_t        File__Duplicate_Memory_Indexes_Get (const Ztring &ToFind);
+    void          File__Duplicate_Memory_Indexes_Erase (const Ztring &ToFind);
+    #endif //MEDIAINFO_DEMUX
+
+    #if MEDIAINFO_EVENTS
+    ZtringListList SubFile_Config_Get ();
+    void          SubFile_StreamID_Set(int64u Value);
+    int64u        SubFile_StreamID_Get();
+    #endif //MEDIAINFO_EVENTS
+
+    #if MEDIAINFO_EVENTS
+    bool          Event_CallBackFunction_IsSet ();
+    Ztring        Event_CallBackFunction_Set (const Ztring &Value);
+    Ztring        Event_CallBackFunction_Get ();
+    void          Event_Send(const int8u* Data_Content, size_t Data_Size);
+    void          Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);
+    #endif //MEDIAINFO_EVENTS
 
     #if MEDIAINFO_DEMUX
     void          Demux_ForceIds_Set (bool NewValue);
@@ -105,28 +133,6 @@ public :
     bool          Demux_Unpacketize_Get ();
     #endif //MEDIAINFO_DEMUX
 
-    void          NextPacket_Set (bool NewValue);
-    bool          NextPacket_Get ();
-
-    ZtringListList SubFile_Config_Get ();
-    void          SubFile_StreamID_Set(int64u Value);
-    int64u        SubFile_StreamID_Get();
-
-    size_t        File__Duplicate_Memory_Indexes_Get (const Ztring &ToFind);
-    void          File__Duplicate_Memory_Indexes_Erase (const Ztring &ToFind);
-
-    #if MEDIAINFO_EVENTS
-    bool          Event_CallBackFunction_IsSet ();
-    Ztring        Event_CallBackFunction_Set (const Ztring &Value);
-    Ztring        Event_CallBackFunction_Get ();
-    void          Event_Send(const int8u* Data_Content, size_t Data_Size);
-    void          Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);
-    #else //MEDIAINFO_EVENTS
-    bool          Event_CallBackFunction_IsSet () {return false;}
-    void          Event_Send(const int8u*, size_t) {};
-    void          Event_Send(const int8u*, size_t, const Ztring &) {};
-    #endif //MEDIAINFO_EVENTS
-
     //Specific
     void          File_MpegTs_ForceMenu_Set (bool NewValue);
     bool          File_MpegTs_ForceMenu_Get ();
@@ -136,12 +142,18 @@ public :
     bool          File_MpegTs_Atsc_transport_stream_id_Trust_Get ();
     void          File_Bdmv_ParseTargetedFile_Set (bool NewValue);
     bool          File_Bdmv_ParseTargetedFile_Get ();
+    #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     void          File_DvDif_Analysis_Set (bool NewValue);
     bool          File_DvDif_Analysis_Get ();
+    #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    #if defined(MEDIAINFO_LIBCURL_YES)
     void          File_Curl_Set (const Ztring &NewValue);
     Ztring        File_Curl_Get (const Ztring &Field);
+    #endif //defined(MEDIAINFO_LIBCURL_YES)
+    #if defined(MEDIAINFO_LIBMMS_YES)
     void          File_Mmsh_Describe_Only_Set (bool NewValue);
     bool          File_Mmsh_Describe_Only_Get ();
+    #endif //defined(MEDIAINFO_LIBMMS_YES)
     void          File_Eia608_DisplayEmptyStream_Set (bool NewValue);
     bool          File_Eia608_DisplayEmptyStream_Get ();
     void          File_Eia708_DisplayEmptyStream_Set (bool NewValue);
@@ -169,33 +181,45 @@ private :
     Ztring                  File_ForceParser;
 
     //Extra
+    #if MEDIAINFO_NEXTPACKET
+    bool                    NextPacket;
+    #endif //MEDIAINFO_NEXTPACKET
+
+    #if MEDIAINFO_FILTER
     std::map<int16u, bool>  File_Filter_16;
     bool                    File_Filter_HasChanged_;
+    #endif //MEDIAINFO_FILTER
 
+    #if MEDIAINFO_DUPLICATE
     std::vector<Ztring>     File__Duplicate_List;
     ZtringList              File__Duplicate_Memory_Indexes;
-
-    bool                    Demux_ForceIds;
-    bool                    Demux_PCM_20bitTo16bit;
-    bool                    Demux_Unpacketize;
-    bool                    NextPacket;
-
-    ZtringListList          SubFile_Config;
-    int64u                  SubFile_StreamID;
+    #endif //MEDIAINFO_DUPLICATE
 
     //Event
     #if MEDIAINFO_EVENTS
     MediaInfo_Event_CallBackFunction* Event_CallBackFunction; //void Event_Handler(unsigned char* Data_Content, size_t Data_Size, void* UserHandler)
     void*                   Event_UserHandler;
+    ZtringListList          SubFile_Config;
+    int64u                  SubFile_StreamID;
     #endif //MEDIAINFO_EVENTS
 
+    #if MEDIAINFO_DEMUX
+    bool                    Demux_ForceIds;
+    bool                    Demux_PCM_20bitTo16bit;
+    bool                    Demux_Unpacketize;
+    #endif //MEDIAINFO_DEMUX
+    
     //Specific
     bool                    File_MpegTs_ForceMenu;
     bool                    File_MpegTs_stream_type_Trust;
     bool                    File_MpegTs_Atsc_transport_stream_id_Trust;
     bool                    File_Bdmv_ParseTargetedFile;
+    #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     bool                    File_DvDif_Analysis;
+    #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    #if defined(MEDIAINFO_LIBMMS_YES)
     bool                    File_Mmsh_Describe_Only;
+    #endif //defined(MEDIAINFO_LIBMMS_YES)
     bool                    File_Eia608_DisplayEmptyStream;
     bool                    File_Eia708_DisplayEmptyStream;
 
@@ -203,7 +227,9 @@ private :
     float                   State;
 
     //Generic
+    #if defined(MEDIAINFO_LIBCURL_YES)
     std::map<Ztring, Ztring> Curl;
+    #endif //defined(MEDIAINFO_LIBCURL_YES)
 
     ZenLib::CriticalSection CS;
 };

@@ -235,17 +235,17 @@ protected :
     void pulse_data                         ();
     void coupling_channel_element           ();
     void lfe_channel_element                ();
-	void data_stream_element                ();
+    void data_stream_element                ();
     void fill_element                       (int8u old_id);
     void gain_control_data                  ();
 
     //Elements - Subsidiary
-	void individual_channel_stream          (bool common_window, bool scale_flag);
-	void section_data                       ();
-	void scale_factor_data                  ();
+    void individual_channel_stream          (bool common_window, bool scale_flag);
+    void section_data                       ();
+    void scale_factor_data                  ();
     void tns_data                           ();
     void ltp_data                           ();
-	void spectral_data                      ();
+    void spectral_data                      ();
     void extension_payload                  (size_t End, int8u id_aac);
     void dynamic_range_info                 ();
     void sac_extension_data                 (size_t End);
@@ -268,8 +268,8 @@ protected :
     void ps_data                            (size_t End);
 
     //Elements - Perceptual noise substitution (PNS)
-	bool is_noise                           (size_t group, size_t sfb);
-	int  is_intensity                       (size_t group, size_t sfb);
+    bool is_noise                           (size_t group, size_t sfb);
+    int  is_intensity                       (size_t group, size_t sfb);
 
     //Elements - Enhanced Low Delay Codec
     void ELDSpecificConfig                  ();
@@ -278,8 +278,8 @@ protected :
     //Helpers
     void hcod                               (int8u sect_cb, const char* Name);
     void hcod_sf                            (const char* Name);
-	void hcod_binary                        (int8u CodeBook, int8s* Values, int8u Values_Count);
-	void hcod_2step                         (int8u CodeBook, int8s* Values, int8u Values_Count);
+    void hcod_binary                        (int8u CodeBook, int8s* Values, int8u Values_Count);
+    void hcod_2step                         (int8u CodeBook, int8s* Values, int8u Values_Count);
 
     //Temp - channel_pair_element
     bool    common_window;

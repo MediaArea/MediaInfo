@@ -822,11 +822,11 @@ void File_Riff::AVI__GMET()
 
     //Details
     #if MEDIAINFO_TRACE
-		if (Config_Trace_Level)
-		{
-			//for (size_t Pos=0; Pos<List.size(); Pos++)
-			//    Details_Add_Info(Pos, List(Pos, 0).To_Local().c_str(), List(Pos, 1));
-		}
+        if (Config_Trace_Level)
+        {
+            //for (size_t Pos=0; Pos<List.size(); Pos++)
+            //    Details_Add_Info(Pos, List(Pos, 0).To_Local().c_str(), List(Pos, 1));
+        }
     #endif //MEDIAINFO_TRACE
 
     //Filling
@@ -2215,20 +2215,20 @@ void File_Riff::AVI__movi_xxxx()
 
     Stream[Stream_ID].PacketPos++;
     #if MEDIAINFO_TRACE
-		if (Config_Trace_Level)
-		{
-			switch (Element_Code&0x0000FFFF) //2 last bytes
-			{
-				case Elements::AVI__movi_xxxx_____ : Element_Info("DV"); break;
-				case Elements::AVI__movi_xxxx___db :
-				case Elements::AVI__movi_xxxx___dc : Element_Info("Video"); break;
-				case Elements::AVI__movi_xxxx___sb :
-				case Elements::AVI__movi_xxxx___tx : Element_Info("Text"); break;
-				case Elements::AVI__movi_xxxx___wb : Element_Info("Audio"); break;
-				default :                            Element_Info("Unknown"); break;
-			}
-			Element_Info(Stream[Stream_ID].PacketPos);
-		}
+        if (Config_Trace_Level)
+        {
+            switch (Element_Code&0x0000FFFF) //2 last bytes
+            {
+                case Elements::AVI__movi_xxxx_____ : Element_Info("DV"); break;
+                case Elements::AVI__movi_xxxx___db :
+                case Elements::AVI__movi_xxxx___dc : Element_Info("Video"); break;
+                case Elements::AVI__movi_xxxx___sb :
+                case Elements::AVI__movi_xxxx___tx : Element_Info("Text"); break;
+                case Elements::AVI__movi_xxxx___wb : Element_Info("Audio"); break;
+                default :                            Element_Info("Unknown"); break;
+            }
+            Element_Info(Stream[Stream_ID].PacketPos);
+        }
     #endif //MEDIAINFO_TRACE
 
     //Some specific stuff

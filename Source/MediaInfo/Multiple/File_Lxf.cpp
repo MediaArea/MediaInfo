@@ -380,7 +380,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value)
                     }
                     return 0;
         default :   return 0;
-	}
+    }
 }
 
 //***************************************************************************

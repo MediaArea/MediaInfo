@@ -639,10 +639,10 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     if (!NoBufferModification)
     {
         ForceFinish();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
         Buffer_Clear();
     }
 
@@ -862,10 +862,10 @@ bool File__Analyze::Synchro_Manage()
                 Reject();
             return false; //Wait for more data
         }
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return false;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return false;
+        #endif //MEDIAINFO_DEMUX
         Synched=true;
         if (File_Offset_FirstSynched==(int64u)-1)
         {
@@ -2088,28 +2088,28 @@ void File__Analyze::ForceFinish ()
     if (Status[IsAccepted])
     {
         Fill();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
         Streams_Finish();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
         if (Status[IsUpdated])
         {
             Open_Buffer_Update();
-			#if MEDIAINFO_DEMUX
-				if (Config->Demux_EventWasSent)
-					return;
-			#endif //MEDIAINFO_DEMUX
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_EventWasSent)
+                    return;
+            #endif //MEDIAINFO_DEMUX
         }
         Streams_Finish_Global();
-		#if MEDIAINFO_DEMUX
-			if (Config->Demux_EventWasSent)
-				return;
-		#endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return;
+        #endif //MEDIAINFO_DEMUX
     }
 
     Status[IsFinished]=true;

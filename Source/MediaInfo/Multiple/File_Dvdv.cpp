@@ -550,7 +550,7 @@ void File_Dvdv::VTS()
         if (Version>0x001F)
             return;
         if (Sector_Pointer_LastSector==(int32u)-1 || Sector_Pointer_LastSector+1>File_Size/2048)
-            Sector_Pointer_LastSector=File_Size/2048;
+            Sector_Pointer_LastSector=(int32u)(File_Size/2048);
         Sectors.resize(Sector_Pointer_LastSector+1);
         if (Sector_Pointer_VTS_PTT_SRPT<=Sector_Pointer_LastSector)
             Sectors[Sector_Pointer_VTS_PTT_SRPT]=Sector_VTS_PTT_SRPT;

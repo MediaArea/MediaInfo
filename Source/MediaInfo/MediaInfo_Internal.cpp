@@ -369,8 +369,10 @@ void MediaInfo_Internal::Entry()
 
             Reader->Format_Test(this, File_Name);
 
-            if (Config.NextPacket_Get())
-                return;
+            #if MEDIAINFO_NEXTPACKET
+                if (Config.NextPacket_Get())
+                    return;
+            #endif //MEDIAINFO_NEXTPACKET
         }
     #endif //MEDIAINFO_FILE_YES
 

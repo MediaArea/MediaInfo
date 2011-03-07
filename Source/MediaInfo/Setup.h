@@ -124,18 +124,48 @@
 // Optional features
 #if !defined(MEDIAINFO_TRACE)
     #if defined(MEDIAINFO_TRACE_NO) && defined(MEDIAINFO_TRACE_YES)
-		#undef MEDIAINFO_TRACE_NO //MEDIAINFO_TRACE_YES has priority
-	#endif
+        #undef MEDIAINFO_TRACE_NO //MEDIAINFO_TRACE_YES has priority
+    #endif
     #if defined(MEDIAINFO_TRACE_NO)
         #define MEDIAINFO_TRACE 0
     #else
         #define MEDIAINFO_TRACE 1
     #endif
 #endif
+#if !defined(MEDIAINFO_FILTER)
+    #if defined(MEDIAINFO_FILTER_NO) && defined(MEDIAINFO_FILTER_YES)
+        #undef MEDIAINFO_FILTER_NO //MEDIAINFO_FILTER_YES has priority
+    #endif
+    #if defined(MEDIAINFO_FILTER_NO)
+        #define MEDIAINFO_FILTER 0
+    #else
+        #define MEDIAINFO_FILTER 1
+    #endif
+#endif
+#if !defined(MEDIAINFO_DUPLICATE)
+    #if defined(MEDIAINFO_DUPLICATE_NO) && defined(MEDIAINFO_DUPLICATE_YES)
+        #undef MEDIAINFO_DUPLICATE_NO //MEDIAINFO_DUPLICATE_YES has priority
+    #endif
+    #if defined(MEDIAINFO_DUPLICATE_NO)
+        #define MEDIAINFO_DUPLICATE 0
+    #else
+        #define MEDIAINFO_DUPLICATE 1
+    #endif
+#endif
+#if !defined(MEDIAINFO_NEXTPACKET)
+    #if defined(MEDIAINFO_NEXTPACKET_NO) && defined(MEDIAINFO_NEXTPACKET_YES)
+        #undef MEDIAINFO_NEXTPACKET_NO //MEDIAINFO_NEXTPACKET_YES has priority
+    #endif
+    #if defined(MEDIAINFO_NEXTPACKET_NO)
+        #define MEDIAINFO_NEXTPACKET 0
+    #else
+        #define MEDIAINFO_NEXTPACKET 1
+    #endif
+#endif
 #if !defined(MEDIAINFO_EVENTS)
     #if defined(MEDIAINFO_EVENTS_NO) && defined(MEDIAINFO_EVENTS_YES)
-		#undef MEDIAINFO_EVENTS_NO //MEDIAINFO_EVENTS_YES has priority
-	#endif
+        #undef MEDIAINFO_EVENTS_NO //MEDIAINFO_EVENTS_YES has priority
+    #endif
     #if defined(MEDIAINFO_EVENTS_NO)
         #define MEDIAINFO_EVENTS 0
     #else
@@ -144,19 +174,19 @@
 #endif
 #if !defined(MEDIAINFO_DEMUX)
     #if !defined(MEDIAINFO_DEMUX_NO) && !defined(MEDIAINFO_DEMUX_YES) && !MEDIAINFO_EVENTS
-		#define MEDIAINFO_DEMUX_NO //MEDIAINFO_DEMUX is disabled by default if MEDIAINFO_EVENTS is set to 0
-	#endif
+        #define MEDIAINFO_DEMUX_NO //MEDIAINFO_DEMUX is disabled by default if MEDIAINFO_EVENTS is set to 0
+    #endif
     #if defined(MEDIAINFO_DEMUX_NO) && defined(MEDIAINFO_DEMUX_YES)
-		#undef MEDIAINFO_DEMUX_NO //MEDIAINFO_DEMUX_YES has priority
-	#endif
-	#if defined(MEDIAINFO_DEMUX_NO)
+        #undef MEDIAINFO_DEMUX_NO //MEDIAINFO_DEMUX_YES has priority
+    #endif
+    #if defined(MEDIAINFO_DEMUX_NO)
         #define MEDIAINFO_DEMUX 0
     #else
         #define MEDIAINFO_DEMUX 1
     #endif
 #endif
 #if MEDIAINFO_DEMUX && !MEDIAINFO_EVENTS
-	pragma error MEDIAINFO_DEMUX can be set to 1 only if MEDIAINFO_EVENTS is set to 1 
+    pragma error MEDIAINFO_DEMUX can be set to 1 only if MEDIAINFO_EVENTS is set to 1 
 #endif
 
 //***************************************************************************
