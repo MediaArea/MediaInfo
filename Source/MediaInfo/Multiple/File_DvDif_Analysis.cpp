@@ -1124,13 +1124,13 @@ void File_DvDif::Errors_Stats_Update()
 
         //Filling the main text if needed
         {
+            #if MEDIAINFO_EVENTS
             if (!Config->Event_CallBackFunction_IsSet())
             {
                 Errors_Stats_10+=Errors_Stats_Line;
                 Errors_Stats_10+=Errors_Stats_Line_Details;
                 Errors_Stats_10+=_T("&");
             }
-            #if MEDIAINFO_EVENTS
                 Event.Verbosity=10;
             #endif //MEDIAINFO_EVENTS
         }
@@ -1140,13 +1140,13 @@ void File_DvDif::Errors_Stats_Update()
          || Infos_AreDetected
          || Arb_AreDetected)
         {
+            #if MEDIAINFO_EVENTS
             if (!Config->Event_CallBackFunction_IsSet())
             {
                 Errors_Stats_09+=Errors_Stats_Line;
                 Errors_Stats_09+=Errors_Stats_Line_Details;
                 Errors_Stats_09+=_T("&");
             }
-            #if MEDIAINFO_EVENTS
                 Event.Verbosity=9;
             #endif //MEDIAINFO_EVENTS
 
@@ -1155,13 +1155,13 @@ void File_DvDif::Errors_Stats_Update()
              || Errors_AreDetected
              || Infos_AreDetected)
             {
+                #if MEDIAINFO_EVENTS
                 if (!Config->Event_CallBackFunction_IsSet())
                 {
                     Errors_Stats_05+=Errors_Stats_Line;
                     Errors_Stats_05+=Errors_Stats_Line_Details;
                     Errors_Stats_05+=_T("&");
                 }
-                #if MEDIAINFO_EVENTS
                     Event.Verbosity=5;
                 #endif //MEDIAINFO_EVENTS
 
@@ -1169,13 +1169,13 @@ void File_DvDif::Errors_Stats_Update()
                  || Status[IsFinished]
                  || Errors_AreDetected)
                 {
+                    #if MEDIAINFO_EVENTS
                     if (!Config->Event_CallBackFunction_IsSet())
                     {
                         Errors_Stats_03+=Errors_Stats_Line;
                         Errors_Stats_03+=Errors_Stats_Line_Details;
                         Errors_Stats_03+=_T("&");
                     }
-                    #if MEDIAINFO_EVENTS
                         Event.Verbosity=3;
                     #endif //MEDIAINFO_EVENTS
                 }
