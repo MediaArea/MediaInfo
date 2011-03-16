@@ -277,7 +277,7 @@ void File_Rar::Header_Parse_Content_74()
         int64u ZeroPos=0;
         while (ZeroPos<name_size)
         {
-            if (Buffer[Buffer_Offset+(size_t)(Element_Offset+ZeroPos)]==NULL)
+            if (Buffer[Buffer_Offset+(size_t)(Element_Offset+ZeroPos)]==0)
                 break; //Found
             ZeroPos++;
         }

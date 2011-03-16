@@ -135,7 +135,7 @@ protected :
     virtual void Read_Buffer_Init ()          {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Continue ()      {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_AfterParsing ()  {}; //Temp, should be in File__Base caller
-    virtual size_t Read_Buffer_Seek (size_t Method, int64u Value) {return (size_t)-1;}; //Temp, should be in File__Base caller
+    virtual size_t Read_Buffer_Seek (size_t, int64u) {return (size_t)-1;}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Unsynched ()     {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
     bool Buffer_Parse();
