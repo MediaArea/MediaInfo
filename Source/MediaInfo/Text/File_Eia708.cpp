@@ -598,7 +598,7 @@ void File_Eia708::FF()
             if (Window->visible)
             {
                 //Clearing global area
-                if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
+                if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
                     Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=character();
 
                 //Has changed
@@ -785,7 +785,7 @@ void File_Eia708::DSW()
                 for (size_t Pos_Y=0; Pos_Y<Window->row_count; Pos_Y++)
                     for (size_t Pos_X=0; Pos_X<Window->column_count; Pos_X++)
                     {
-                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
+                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
                             Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=Window->Minimal.CC[Pos_Y][Pos_X];
                     }
 
@@ -845,7 +845,7 @@ void File_Eia708::HDW()
                         Window->Minimal.CC[Pos_Y][Pos_X]=character();
 
                         //Filling global area
-                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
+                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
                             Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=character();
                     }
 
@@ -901,7 +901,7 @@ void File_Eia708::TGW()
                 for (size_t Pos_Y=0; Pos_Y<Window->row_count; Pos_Y++)
                     for (size_t Pos_X=0; Pos_X<Window->column_count; Pos_X++)
                     {
-                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
+                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
                             Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=Window->visible?Window->Minimal.CC[Pos_Y][Pos_X]:character();
                     }
 
@@ -959,7 +959,7 @@ void File_Eia708::DLW()
                         Window->Minimal.CC[Pos_Y][Pos_X]=character();
 
                         //Filling global area
-                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
+                        if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
                             Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=character();
                     }
 
