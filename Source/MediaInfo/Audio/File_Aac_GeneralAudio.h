@@ -2641,9 +2641,7 @@ struct Aac_swb_offset
 //---------------------------------------------------------------------------
 const Aac_swb_offset Aac_swb_short_window_96[] =
 {
-    {
-        12
-    },
+    12,
     {
            0,    4,    8,   12,   16,   20,   24,   32,   40,   48,
           64,   92,  128
@@ -2652,9 +2650,7 @@ const Aac_swb_offset Aac_swb_short_window_96[] =
 
 const Aac_swb_offset Aac_swb_short_window_64[] =
 {
-    {
-        12
-    },
+    12,
     {
            0,    4,    8,   12,   16,   20,   24,   32,   40,   48,
           64,   92,  128
@@ -2663,9 +2659,7 @@ const Aac_swb_offset Aac_swb_short_window_64[] =
 
 const Aac_swb_offset Aac_swb_short_window_48[] =
 {
-    {
-        14
-    },
+    14,
     {
            0,    4,    8,   12,   16,   20,   28,   36,   44,   56,
           68,   80,   96,  112,  128
@@ -2674,9 +2668,7 @@ const Aac_swb_offset Aac_swb_short_window_48[] =
 
 const Aac_swb_offset Aac_swb_short_window_24[] =
 {
-    {
-        15
-    },
+    15,
     {
            0,    4,    8,   12,   16,   20,   24,   28,   36,   44,
           52,   64,   76,   92,  108,  128
@@ -2685,9 +2677,7 @@ const Aac_swb_offset Aac_swb_short_window_24[] =
 
 const Aac_swb_offset Aac_swb_short_window_16[] =
 {
-    {
-        15
-    },
+    15,
     {
            0,    4,    8,   12,   16,   20,   24,   28,   32,   40,
           48,   60,   72,   88,  108,  128
@@ -2696,9 +2686,7 @@ const Aac_swb_offset Aac_swb_short_window_16[] =
 
 const Aac_swb_offset Aac_swb_short_window_8[] =
 {
-    {
-        15
-    },
+    15,
     {
            0,    4,    8,   12,   16,   20,   24,   28,   36,   44,
           52,   60,   72,   88,  108,  128
