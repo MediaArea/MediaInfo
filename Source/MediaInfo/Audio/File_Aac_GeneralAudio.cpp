@@ -600,7 +600,7 @@ void File_Aac::data_stream_element()
             Skip_S1(Data_BS_Remain()%8,                         "byte_alignment");
     }
     Element_Begin("data_stream_byte[element_instance_tag]");
-    for (int8u i=0; i<cnt; i++)
+    for (int16u i=0; i<cnt; i++)
         Skip_S1(8,                                                "[i]");
     Element_End();
 }
@@ -1144,8 +1144,6 @@ bool File_Aac::is_noise(size_t group, size_t sfb)
 //---------------------------------------------------------------------------
 void File_Aac::hcod_sf(const char* Name)
 {
-    if (Element_Level>10)
-        int A=0;    
     Element_Begin(Name);
     int16u Pos=0;
 
