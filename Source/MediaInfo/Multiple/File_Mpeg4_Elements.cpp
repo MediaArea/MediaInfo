@@ -3191,7 +3191,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
             //Creating the parser
-            if (Channels==1)
+            if (Channels==1 && ((StreamPos_Last%2==0) || Streams.find(moov_trak_tkhd_TrackID-1)!=Streams.end() && Streams[moov_trak_tkhd_TrackID-1].IsPcmMono))
             {
                 Streams[moov_trak_tkhd_TrackID].Parser=new File_ChannelGrouping;
                 if (StreamPos_Last%2)
@@ -3202,7 +3202,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                     Element_Code=moov_trak_tkhd_TrackID-1;
                 }
                 else
+                {
                     ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parser)->Channel_Pos=0;
+                    Streams[moov_trak_tkhd_TrackID].IsPcmMono=true;
+                }
                 ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parser)->Channel_Total=2;
                 ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parser)->ByteDepth=3;
 

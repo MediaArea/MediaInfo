@@ -310,6 +310,7 @@ private :
         int64u                  stsz_Sample_Count;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
+        bool                    IsPcmMono;
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
         float32                 CleanAperture_PixelAspectRatio;
@@ -328,6 +329,7 @@ private :
             stsz_Sample_Count=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
+            IsPcmMono=false;
             CleanAperture_Width=0;
             CleanAperture_Height=0;
             CleanAperture_PixelAspectRatio=0;
