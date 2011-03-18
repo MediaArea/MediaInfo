@@ -1191,8 +1191,13 @@ bool File__Analyze::Data_Manage()
         Element[Element_Level].IsComplete=true;
     }
 
-    if (File_GoTo!=(int64u)-1)
+    //If no need of more
+    if (File_GoTo!=(int64u)-1 || (Status[IsFinished] && !ShouldContinueParsing))
+    {
+        if (!Element_WantNextLevel)
+            Element_End(); //Element
         return false;
+    }
 
     //Next element
     if (!Element_WantNextLevel)
@@ -1206,14 +1211,10 @@ bool File__Analyze::Data_Manage()
         }
     }
     if (File_GoTo==(int64u)-1 && Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
-        GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
-
-    //If no need of more
-    if (File_GoTo!=(int64u)-1 || (Status[IsFinished] && !ShouldContinueParsing))
     {
+        GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
         if (!Element_WantNextLevel)
             Element_End(); //Element
-        Element_Offset=0;
         return false;
     }
 
@@ -2466,7 +2467,10 @@ void File__Analyze::BookMark_Get ()
     while (Element_Level>0)
         Element_End();
     while (Element_Level<BookMark_Element_Level)
+    {
         Element_Begin("Restarting parsing...", File_Size);
+        Element_WantNextLevel=true;
+    }
 
     for (size_t Pos=0; Pos<=Element_Level; Pos++)
     {
