@@ -744,6 +744,8 @@ void File_Aac::section_data()
                     if (Data_BS_Remain()==0)
                     {
                         Trusted_IsNot("Size is wrong");
+                        if (num_window_groups>1)
+                            Element_End();
                         Element_End();
                         return; //Error
                     }
@@ -1142,6 +1144,8 @@ bool File_Aac::is_noise(size_t group, size_t sfb)
 //---------------------------------------------------------------------------
 void File_Aac::hcod_sf(const char* Name)
 {
+    if (Element_Level>10)
+        int A=0;    
     Element_Begin(Name);
     int16u Pos=0;
 

@@ -11,6 +11,7 @@ Version 0.7.43, 2011-
 --------------
 + EIA-708: crash with some specific files
 x MP4: crash with wiles including mix of PCM and other audio formats
+x AAC: crash with some malformed streams
 
 Version 0.7.42, 2011-03-03
 --------------
