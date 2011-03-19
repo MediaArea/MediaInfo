@@ -2459,6 +2459,15 @@ void File_Mpeg_Psi::program_number_Remove()
         Complete_Stream->StreamPos_ToRemove[Stream_Menu].push_back(StreamPos);
         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].StreamPos=(size_t)-1;
     }
+    int16u program_number_pid=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].pid;
+    if (program_number_pid)
+    {
+        for (size_t Pos=0; Pos<Complete_Stream->Streams[program_number_pid]->program_numbers.size(); Pos++)
+            if (Complete_Stream->Streams[program_number_pid]->program_numbers[Pos]==program_number)
+                Complete_Stream->Streams[program_number_pid]->program_numbers.erase(Complete_Stream->Streams[program_number_pid]->program_numbers.begin()+Pos);
+        if (Complete_Stream->Streams[program_number_pid]->Table_IDs[0x02])
+            Complete_Stream->Streams[program_number_pid]->Table_IDs[0x02]->Table_ID_Extensions.erase(program_number);
+    }
     Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.erase(program_number);
 }
 
@@ -2473,8 +2482,10 @@ void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
         delete Complete_Stream->Streams[elementary_PID]->Parser; Complete_Stream->Streams[elementary_PID]->Parser=NULL;
         Complete_Stream->Streams[elementary_PID]->Kind=complete_stream::stream::unknown;
     }
-    if (Complete_Stream->Streams[elementary_PID]->Kind==complete_stream::stream::unknown)
+    if (Complete_Stream->Streams[elementary_PID]->Kind!=complete_stream::stream::pes)
     {
+        delete Complete_Stream->Streams[elementary_PID]; Complete_Stream->Streams[elementary_PID]=new complete_stream::stream;
+
         if (Complete_Stream->Streams_NotParsedCount==(size_t)-1)
             Complete_Stream->Streams_NotParsedCount=0;
         Complete_Stream->Streams_NotParsedCount++;

@@ -727,6 +727,7 @@ void File_MpegTs::Streams_Update_EPG()
                                 Texts.resize(Texts.size()-3);
                             if (Program->second.StreamPos==(size_t)-1)
                             {
+                                Complete_Stream->program_number_Order.push_back(Program->first);
                                 Stream_Prepare(Stream_Menu);
                                 Program->second.StreamPos=StreamPos_Last;
                             }
@@ -756,6 +757,7 @@ void File_MpegTs::Streams_Update_EPG()
                 {
                     if (Program->second.StreamPos==(size_t)-1)
                     {
+                        Complete_Stream->program_number_Order.push_back(Program->first);
                         Stream_Prepare(Stream_Menu);
                         Program->second.StreamPos=StreamPos_Last;
                     }
@@ -2050,7 +2052,7 @@ void File_MpegTs::PSI()
                             for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
                                 Program->second.Update_Needed_StreamPos=true;
                         }
-                        else
+                        else if (Complete_Stream->StreamPos_ToRemove[StreamKind][Pos]<Complete_Stream->program_number_Order.size())
                         {
                             Complete_Stream->program_number_Order.erase(Complete_Stream->program_number_Order.begin()+Complete_Stream->StreamPos_ToRemove[StreamKind][Pos]);
                         }
