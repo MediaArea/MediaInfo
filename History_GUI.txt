@@ -9,9 +9,17 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Known bugs
 ----------
-+ Danish, Ukrainian, Chinese (simplified) translations updated
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
+
+Version 0.7.43, 2011-03-19
+--------------
++ MPEG-TS: detection and display of real time PAT/PMT change improved
+x EIA-708: crash with some specific files
+x MP4: crash with wiles including mix of PCM and other audio formats
+x AAC: crash with some malformed streams
+x FLV: crash with some specific files (longer audio than video at the end of the file)
+x MP4: wrong framerate information with some specific files (track header after media information)
 
 Version 0.7.42, 2011-03-03
 --------------
