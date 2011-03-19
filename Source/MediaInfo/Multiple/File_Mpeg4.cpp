@@ -161,7 +161,6 @@ File_Mpeg4::File_Mpeg4()
     //Temp
     mdat_MustParse=false;
     moov_Done=false;
-    moov_trak_mdia_mdhd_TimeScale=0;
     TimeScale=1;
     Vendor=0x00000000;
     IsParsing_mdat=false;
@@ -192,6 +191,25 @@ void File_Mpeg4::Streams_Finish()
         //Preparing
         StreamKind_Last=Temp->second.StreamKind;
         StreamPos_Last=Temp->second.StreamPos;
+
+        if (StreamKind_Last==Stream_Video && !Temp->second.IsTimeCode)
+        {
+            if (Temp->second.mdhd_TimeScale && Temp->second.stts_Min && Temp->second.stts_Max)
+            {
+                if (Temp->second.stts_Min!=Temp->second.stts_Max && ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min-((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max>=0.001)
+                {
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)Temp->second.stts_FrameCount)/Temp->second.mdhd_Duration*1000, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "VFR", Unlimited, true, true);
+                }
+                else
+                {
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "CFR", Unlimited, true, true);
+                }
+            }
+        }
 
         //Parser specific
         if (Temp->second.Parser)

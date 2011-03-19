@@ -276,8 +276,6 @@ private :
     int32u                                  moov_cmov_dcom_Compressor;
     int32u                                  moov_meta_hdlr_Type;
     std::string                             moov_meta_ilst_xxxx_name_Name;
-    int32u                                  moov_trak_mdia_mdhd_Duration;
-    int32u                                  moov_trak_mdia_mdhd_TimeScale;
     int32u                                  moov_trak_tkhd_TrackID;
     float32                                 moov_trak_tkhd_Width;
     float32                                 moov_trak_tkhd_Height;
@@ -308,8 +306,14 @@ private :
         int64u                  stsz_Sample_Size;
         int64u                  stsz_Sample_Multiplier;
         int64u                  stsz_Sample_Count;
+        int32u                  mdhd_TimeScale;
+        int32u                  mdhd_Duration;
+        int32u                  stts_Min;
+        int32u                  stts_Max;
+        int64u                  stts_FrameCount;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
+        bool                    IsTimeCode;
         bool                    IsPcmMono;
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
@@ -327,8 +331,14 @@ private :
             stsz_Sample_Size=0;
             stsz_Sample_Multiplier=1;
             stsz_Sample_Count=0;
+            mdhd_TimeScale=0;
+            mdhd_Duration=0;
+            stts_Min=(int32u)-1;
+            stts_Max=0;
+            stts_FrameCount=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
+            IsTimeCode=false;
             IsPcmMono=false;
             CleanAperture_Width=0;
             CleanAperture_Height=0;
