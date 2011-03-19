@@ -9,7 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.43, 2011-
 --------------
-+ EIA-708: crash with some specific files
+x EIA-708: crash with some specific files
 x MP4: crash with wiles including mix of PCM and other audio formats
 x AAC: crash with some malformed streams
 x FLV: crash with some specific files (longer audio than video at the end of the file)
