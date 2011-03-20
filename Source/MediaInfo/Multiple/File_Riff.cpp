@@ -558,7 +558,9 @@ void File_Riff::Header_Parse()
 
     //RF64
     int64u Size_Complete=Size;
-    if (Size==0xFFFFFFFF)
+    if (Size==0 && Name==Elements::RIFF)
+        Size_Complete=File_Size-8;
+    else if (Size==0xFFFFFFFF)
     {
         if (Element_Size<0x1C)
         {

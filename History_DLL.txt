@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.44, 2011-
+--------------
++ AVI: support of some corrupted files (RIFF size set to 0)
+
 Version 0.7.43, 2011-03-19
 --------------
 + MPEG-TS: detection and display of real time PAT/PMT change improved
