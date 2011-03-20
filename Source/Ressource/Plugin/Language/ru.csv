@@ -9,8 +9,8 @@
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator
  audio stream1; аудиопоток
- audio stream2; аудиопотоки
- audio stream3; аудиопотоки
+ audio stream2; аудиопотока
+ audio stream3; аудиопотоков
  bit1; бит
  bit2; бит
  bit3; бит
@@ -20,14 +20,14 @@
  Byte2; байт
  Byte3; байт
  channel1; канал
- channel2; канала(ов)
- channel3; канала(ов)
+ channel2; канала
+ channel3; каналов
  chapter1; раздел
- chapter2; разделы
- chapter3; разделы
+ chapter2; раздела
+ chapter3; разделов
  chapters stream1; поток разделов
- chapters stream2; потоки разделов
- chapters stream3; потоки разделов
+ chapters stream2; потока разделов
+ chapters stream3; потоков разделов
  day1; д.
  day2; дн.
  day3; дн.
@@ -35,11 +35,11 @@
  dB2; дБ
  dB3; дБ
  file1; файл
- file2; файлы
- file3; файлы
+ file2; файла
+ file3; файлов
  frame1; кадр
- frame2; кадры
- frame3; кадры
+ frame2; кадра
+ frame3; кадров
  fps1; кадр/сек
  fps2; кадр/сек
  fps3; кадр/сек
@@ -64,8 +64,8 @@
  hour3; час.
  Hz; Гц
  image stream1; поток изображений
- image stream2; потоки изображений
- image stream3; потоки изображений
+ image stream2; потока изображений
+ image stream3; потоков изображений
  KB; КБ
  Kb; Кб
  KBps; Кбайт/сек
@@ -121,18 +121,18 @@
  second2; сек.
  second3; сек.
  text stream1; текстовый поток
- text stream2; текстовые потоки
- text stream3; текстовые потоки
+ text stream2; текстовых потока
+ text stream3; текстовых потоков
  video frames1; видеокадр
- video frames2; видеокадров
+ video frames2; видеокадра
  video frames3; видеокадров
  video stream1; видеопоток
- video stream2; видеопотоки
- video stream3; видеопотоки
+ video stream2; видеопотока
+ video stream3; видеопотоков
  warppoint0;Без точки перехода
  warppoint1; точка перехода
  warppoint2; точки перехода
- warppoint3; точки перехода
+ warppoint3; точек перехода
  week1; нед.
  week2; нед.
  week3; нед.
@@ -186,11 +186,11 @@ BitRate_Nominal;Номинальный битрейт
 Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
 BufferSize;Размер буфера
 Cancel;Отмена
-Channel(s);Канал(ы)
+Channel(s);Каналы
 ChannelPositions;Расположение каналов
-Chapter(s);Раздел(ы)
+Chapter(s);Разделы
 Chapters;Разделы
-Chapters stream(s);Поток(и) разделов
+Chapters stream(s);Потоки разделов
 Chapters_Codec_List;Кодеки разделов
 Chapters_No;Нет разделов
 ChaptersCount;Кол-во разделов
@@ -199,7 +199,7 @@ Choose custom;Выбрать
 Choose custom sheet;Выбрать таблицу
 Choose custom text;Выбрать текст
 Choose export format;Выберите формат вывода
-Choose file(s);Выберите файл(ы)
+Choose file(s);Выберите файлы
 Choose filename;Выберите имя файла
 Choose language;Выберите язык
 Choregrapher;Хореограф
@@ -239,7 +239,7 @@ Compression_Mode;Метод сжатия
 Compression_Mode_Lossless;Без потерь
 Compression_Mode_Lossy;С потерями
 Compression_Ratio;Степень сжатия
-Compilation
+Compilation;Компиляция
 Conductor;Дирижёр
 Container and general information;Общая информация
 ContentType;Тип содержимого
@@ -504,7 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Перейти на сайт
-Grouping
+Grouping;Группирование
 h; ч.
 Header file;Создать заголовок
 Height;Высота
@@ -518,7 +518,7 @@ How many video streams?;Количество видеопотоков?
 HTML;HTML
 ID;Идентификатор
 Image;Изображения
-Image stream(s);Поток(и) изображений
+Image stream(s);Потоки изображений
 Image_Codec_List;Кодеки изображений
 ImageCount;Кол-во потоков изображений
 Info;Информация
@@ -796,7 +796,7 @@ OpenCandy_15;___________, программа, рекомендованная ___
 OpenCandy_16;___________ готова для установки
 OpenCandy_17;___________ полностью загружена. Нажмите 'Установка' для начала процесса.
 OpenCandy_18;___________ из ___________ загружено
-OpenCandy_19;Разработано OpenCandy
+OpenCandy_19;Работает на OpenCandy
 OpenCandy_20;Дополнительная информация на OpenCandy.com
 OpenCandy_21;Установка
 OpenCandy_22;Установка ___________
@@ -911,9 +911,9 @@ TermsOfUse;Условия использования
 Text;Текст
 Text - Custom;Текст - Выборочно
 Text (HTML);Текст (HTML)
-Text stream(s);Текствый(е) поток(и)
+Text stream(s);Текстовые потоки
 Text streams;Текстовые потоки
-Text_Codec_List;Текстовый кодеки
+Text_Codec_List;Текстовые кодеки
 Text_No;Нет текста
 Text1;Первый текстовый поток
 Text2;Второй текстовый поток
@@ -935,7 +935,7 @@ UniqueID;Уникальный идентификатор
 Unknown;Неизвестно
 Url;Ссылка
 Video;Видео
-Video stream(s);Видеопоток(и)
+Video stream(s);Видеопотоки
 Video_Codec_List;Видеокодеки
 Video_Delay;Задержка видео
 Video_No;Нет видео
