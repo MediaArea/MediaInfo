@@ -302,11 +302,19 @@ void File_Cdp::ccdata_section()
                 {
                     if (cc_type<2)
                     {
-                        Streams[Parser_Pos]->Parser=new File_Eia608();
+                        #if defined(MEDIAINFO_EIA608_YES)
+                            Streams[Parser_Pos]->Parser=new File_Eia608();
+                        #else //defined(MEDIAINFO_EIA608_YES)
+                            Streams[Parser_Pos]->Parser=new File__Analyze();
+                        #endif //defined(MEDIAINFO_EIA608_YES)
                     }
                     else
                     {
-                        Streams[Parser_Pos]->Parser=new File_Eia708();
+                        #if defined(MEDIAINFO_EIA708_YES)
+                            Streams[Parser_Pos]->Parser=new File_Eia708();
+                        #else //defined(MEDIAINFO_EIA708_YES)
+                            Streams[Parser_Pos]->Parser=new File__Analyze();
+                        #endif //defined(MEDIAINFO_EIA708_YES)
                     }
                     Open_Buffer_Init(Streams[Parser_Pos]->Parser);
                 }
@@ -321,8 +329,10 @@ void File_Cdp::ccdata_section()
                     }
                     if (Parser_Pos==2)
                     {
-                        ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
-                        ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
+                        #if defined(MEDIAINFO_EIA708_YES)
+                            ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
+                            ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
+                        #endif defined(MEDIAINFO_EIA708_YES)
                     }
                     else
                     {

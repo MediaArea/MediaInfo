@@ -215,7 +215,11 @@ void File_Scte20::Read_Buffer_Continue()
                     Streams[cc_type]=new stream;
                 if (Streams[cc_type]->Parser==NULL)
                 {
-                    Streams[cc_type]->Parser=new File_Eia608();
+                    #if defined(MEDIAINFO_EIA608_YES)
+                        Streams[cc_type]->Parser=new File_Eia608();
+                    #else //defined(MEDIAINFO_EIA608_YES)
+                        Streams[cc_type]->Parser=new File__Analyze();
+                    #endif //defined(MEDIAINFO_EIA608_YES)
                     Open_Buffer_Init(Streams[cc_type]->Parser);
                 }
                 Demux(cc_data, 2, ContentType_MainStream);

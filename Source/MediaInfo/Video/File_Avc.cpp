@@ -1767,18 +1767,29 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
                     {
                         if (cc_type<2)
                         {
-                            GA94_03_CC_Parsers[Parser_Pos]=new File_Eia608();
+                            #if defined(MEDIAINFO_EIA608_YES)
+                                GA94_03_CC_Parsers[Parser_Pos]=new File_Eia608();
+                            #else //defined(MEDIAINFO_EIA608_YES)
+                                GA94_03_CC_Parsers[Parser_Pos]=new File__Analyze();
+                            #endif //defined(MEDIAINFO_EIA608_YES)
                         }
                         else
-                            GA94_03_CC_Parsers[Parser_Pos]=new File_Eia708();
+                        {
+                            #if defined(MEDIAINFO_EIA708_YES)
+                                GA94_03_CC_Parsers[Parser_Pos]=new File_Eia708();
+                            #else //defined(MEDIAINFO_EIA708_YES)
+                                GA94_03_CC_Parsers[Parser_Pos]=new File__Analyze();
+                            #endif //defined(MEDIAINFO_EIA708_YES)
+                        }
                     }
                     if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
                     {
-                        if (cc_type>=2)
-                            ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                        #if defined(MEDIAINFO_EIA708_YES)
+                            if (cc_type>=2)
+                                ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                        #endif //defined(MEDIAINFO_EIA708_YES)
                         Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Avc_user_data_GA94_cc_type(cc_type)));
                         Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
-                        if (cc_type==1)
                         Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
                         Element_End();
                     }
