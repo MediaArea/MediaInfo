@@ -69,6 +69,7 @@ enum generic
     Generic_BitRate_Nominal_String,
     Generic_BitRate_Maximum,
     Generic_BitRate_Maximum_String,
+    Generic_FrameCount,
     Generic_ColorSpace,
     Generic_ChromaSubsampling,
     Generic_Resolution,

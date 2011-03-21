@@ -1940,6 +1940,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Video_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Video_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Video_BitRate_Maximum_String;
+                                    case Generic_FrameCount : return Video_FrameCount;
                                     case Generic_ColorSpace : return Video_ColorSpace;
                                     case Generic_ChromaSubsampling : return Video_ChromaSubsampling;
                                     case Generic_Resolution : return Video_Resolution;
@@ -2014,6 +2015,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Audio_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Audio_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Audio_BitRate_Maximum_String;
+                                    case Generic_FrameCount : return Audio_FrameCount;
                                     case Generic_Resolution : return Audio_Resolution;
                                     case Generic_Resolution_String : return Audio_Resolution_String;
                                     case Generic_BitDepth : return Audio_BitDepth;
@@ -2092,6 +2094,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_BitRate_Nominal_String : return Text_BitRate_Nominal_String;
                                     case Generic_BitRate_Maximum : return Text_BitRate_Maximum;
                                     case Generic_BitRate_Maximum_String : return Text_BitRate_Maximum_String;
+                                    case Generic_FrameCount : return Video_FrameCount;
                                     case Generic_ColorSpace : return Text_ColorSpace;
                                     case Generic_ChromaSubsampling : return Text_ChromaSubsampling;
                                     case Generic_Resolution : return Text_Resolution;

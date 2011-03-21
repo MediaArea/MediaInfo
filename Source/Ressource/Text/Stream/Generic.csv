@@ -32,6 +32,7 @@ BitRate_Nominal
 BitRate_Nominal/String
 BitRate_Maximum
 BitRate_Maximum/String
+FrameCount
 ColorSpace
 ChromaSubsampling
 Resolution
