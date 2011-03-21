@@ -77,6 +77,18 @@
     #if !defined (MEDIAINFO_TRACE_NO) && !defined (MEDIAINFO_TRACE_YES) 
         #define MEDIAINFO_TRACE_NO
     #endif
+    #if !defined (MEDIAINFO_FILTER_NO) && !defined (MEDIAINFO_FILTER_YES) 
+        #define MEDIAINFO_FILTER_NO
+    #endif
+    #if !defined (MEDIAINFO_DUPLICATE_NO) && !defined (MEDIAINFO_DUPLICATE_YES) 
+        #define MEDIAINFO_DUPLICATE_NO
+    #endif
+    #if !defined (MEDIAINFO_NEXTPACKET_NO) && !defined (MEDIAINFO_NEXTPACKET_YES) 
+        #define MEDIAINFO_NEXTPACKET_NO
+    #endif
+    #if !defined (MEDIAINFO_SEEK_NO) && !defined (MEDIAINFO_SEEK_YES) 
+        #define MEDIAINFO_SEEK_NO
+    #endif
     #if !defined (MEDIAINFO_EVENTS_NO) && !defined (MEDIAINFO_EVENTS_YES)
         #define MEDIAINFO_EVENTS_NO
     #endif
@@ -96,6 +108,18 @@
 #if defined(MEDIAINFO_MINIMAL_YES)
     #if !defined (MEDIAINFO_TRACE_NO) && !defined (MEDIAINFO_TRACE_YES) 
         #define MEDIAINFO_TRACE_NO
+    #endif
+    #if !defined (MEDIAINFO_FILTER_NO) && !defined (MEDIAINFO_FILTER_YES) 
+        #define MEDIAINFO_FILTER_NO
+    #endif
+    #if !defined (MEDIAINFO_DUPLICATE_NO) && !defined (MEDIAINFO_DUPLICATE_YES) 
+        #define MEDIAINFO_DUPLICATE_NO
+    #endif
+    #if !defined (MEDIAINFO_NEXTPACKET_NO) && !defined (MEDIAINFO_NEXTPACKET_YES) 
+        #define MEDIAINFO_NEXTPACKET_NO
+    #endif
+    #if !defined (MEDIAINFO_SEEK_NO) && !defined (MEDIAINFO_SEEK_YES) 
+        #define MEDIAINFO_SEEK_NO
     #endif
     #if !defined (MEDIAINFO_EVENTS_NO) && !defined (MEDIAINFO_EVENTS_YES)
         #define MEDIAINFO_EVENTS_NO
@@ -160,6 +184,16 @@
         #define MEDIAINFO_NEXTPACKET 0
     #else
         #define MEDIAINFO_NEXTPACKET 1
+    #endif
+#endif
+#if !defined(MEDIAINFO_SEEK)
+    #if defined(MEDIAINFO_SEEK_NO) && defined(MEDIAINFO_SEEK_YES)
+        #undef MEDIAINFO_SEEK_NO //MEDIAINFO_SEEK_YES has priority
+    #endif
+    #if defined(MEDIAINFO_SEEK_NO)
+        #define MEDIAINFO_SEEK 0
+    #else
+        #define MEDIAINFO_SEEK 1
     #endif
 #endif
 #if !defined(MEDIAINFO_EVENTS)
