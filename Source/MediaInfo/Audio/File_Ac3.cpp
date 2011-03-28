@@ -536,6 +536,9 @@ File_Ac3::File_Ac3()
     HD_AlreadyCounted=false;
     Core_IsPresent=false;
     dynrnge_Exists=false;
+    TimeStamp_IsPresent=false;
+    TimeStamp_IsParsing=false;
+    TimeStamp_Parsed=false;
 }
 
 //***************************************************************************
@@ -857,6 +860,8 @@ void File_Ac3::Streams_Finish()
         else if (bsid<=8 && frmsizecods.size()==1 && fscods.size()==1 && HD_Count==0)
         {
             int16u Size=AC3_FrameSize_Get(frmsizecods.begin()->first, fscods.begin()->first);
+            if (TimeStamp_IsPresent)
+                Size+=16;
             Frame_Count_ForDuration=(File_Size-File_Offset_FirstSynched)/Size; //Only complete frames
             Fill(Stream_Audio, 0, Audio_StreamSize, Frame_Count_ForDuration*Size);
         }
@@ -909,6 +914,13 @@ void File_Ac3::Streams_Finish()
     {
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
         Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000/32));
+    }
+
+    //TimeStamp
+    if (TimeStamp_IsPresent)
+    {
+        Fill(Stream_Audio, 0, Audio_Delay, TimeStamp_Content*1000, 0);
+        Fill(Stream_Audio, 0, Audio_Delay_Source, "Stream");
     }
 }
 
@@ -1028,8 +1040,18 @@ bool File_Ac3::Synchronize()
     }
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+8>Buffer_Size)
+    if (Buffer_Offset+8>Buffer_Size) //only if this is not the first time and only if there is no TimeStamp
     {
+        //We must keep more bytes in order to detect TimeStamp
+        if (Frame_Count==0)
+        {
+            if (Buffer_Offset>=16)
+                Buffer_Offset-=16;
+            else
+                Buffer_Offset=0;
+            return false;
+        }
+
         if (Buffer_Offset+7==Buffer_Size && CC3(Buffer+Buffer_Offset+4)!=0xF8726F && CC2(Buffer+Buffer_Offset)!=0x0B77)
             Buffer_Offset++;
         if (Buffer_Offset+6==Buffer_Size && CC2(Buffer+Buffer_Offset+4)!=0xF872   && CC2(Buffer+Buffer_Offset)!=0x0B77)
@@ -1047,6 +1069,33 @@ bool File_Ac3::Synchronize()
         return false;
     }
 
+    //Testing if we have TimeStamp
+    if (Buffer_Offset>=16)
+    {
+        if ( Buffer[Buffer_Offset-0x10+0x02]==0x00      //First  byte of HH? Always 0x00
+         && (Buffer[Buffer_Offset-0x10+0x03]>>4 )<0x6   //Second byte of HH? First  4 bits must be <0x6
+         && (Buffer[Buffer_Offset-0x10+0x03]&0xF)<0xA   //Second byte of HH? Second 4 bits must be <0xA
+         &&  Buffer[Buffer_Offset-0x10+0x04]==0x00      //First  byte of MM? Always 0x00
+         && (Buffer[Buffer_Offset-0x10+0x05]>>4 )<0x6   //Second byte of MM? First  4 bits must be <0x6
+         && (Buffer[Buffer_Offset-0x10+0x05]&0xF)<0xA   //Second byte of MM? Second 4 bits must be <0xA
+         &&  Buffer[Buffer_Offset-0x10+0x06]==0x00      //First  byte of SS? Always 0x00
+         && (Buffer[Buffer_Offset-0x10+0x07]>>4 )<0x6   //Second byte of SS? First  4 bits must be <0x6
+         && (Buffer[Buffer_Offset-0x10+0x07]&0xF)<0xA   //Second byte of SS? Second 4 bits must be <0xA
+         &&  Buffer[Buffer_Offset-0x10+0x08]==0x00      //First  byte of FF? Always 0x00
+         && (Buffer[Buffer_Offset-0x10+0x09]>>4 )<0x4   //Second byte of FF? First  4 bits must be <0x4
+         && (Buffer[Buffer_Offset-0x10+0x09]&0xF)<0xA   //Second byte of FF? Second 4 bits must be <0xA
+         && !(Buffer[Buffer_Offset-0x10+0x00]==0x00     //We want at least a byte not zero, in order to differentiate TimeStamp from padding
+           && Buffer[Buffer_Offset-0x10+0x01]==0x00
+           && Buffer[Buffer_Offset-0x10+0x0C]==0x00
+           && Buffer[Buffer_Offset-0x10+0x0D]==0x00
+           && Buffer[Buffer_Offset-0x10+0x0E]==0x00
+           && Buffer[Buffer_Offset-0x10+0x0F]==0x00))
+        {
+            TimeStamp_IsPresent=true;
+            Buffer_Offset-=16;
+        }
+    }
+
     //Synched
     Data_Accept("AC-3");
     return true;
@@ -1060,8 +1109,30 @@ bool File_Ac3::Synched_Test()
         return true;
 
     //Must have enough buffer for having header
-    if (Buffer_Offset+6>Buffer_Size)
+    if (Buffer_Offset+(TimeStamp_IsPresent?16:0)+6>Buffer_Size)
         return false;
+
+    //TimeStamp
+    if (TimeStamp_IsPresent && !TimeStamp_Parsed)
+    {
+        if (!( Buffer[Buffer_Offset+0x02]==0x00         //First  byte of HH? Always 0x00
+           && (Buffer[Buffer_Offset+0x03]>>4 )<0x6      //Second byte of HH? First  4 bits must be <0x6
+           && (Buffer[Buffer_Offset+0x03]&0xF)<0xA      //Second byte of HH? Second 4 bits must be <0xA
+           &&  Buffer[Buffer_Offset+0x04]==0x00         //First  byte of MM? Always 0x00
+           && (Buffer[Buffer_Offset+0x05]>>4 )<0x6      //Second byte of MM? First  4 bits must be <0x6
+           && (Buffer[Buffer_Offset+0x05]&0xF)<0xA      //Second byte of MM? Second 4 bits must be <0xA
+           &&  Buffer[Buffer_Offset+0x06]==0x00         //First  byte of SS? Always 0x00
+           && (Buffer[Buffer_Offset+0x07]>>4 )<0x6      //Second byte of SS? First  4 bits must be <0x6
+           && (Buffer[Buffer_Offset+0x07]&0xF)<0xA      //Second byte of SS? Second 4 bits must be <0xA
+           &&  Buffer[Buffer_Offset+0x08]==0x00         //First  byte of FF? Always 0x00
+           && (Buffer[Buffer_Offset+0x09]>>4 )<0x4      //Second byte of FF? First  4 bits must be <0x4
+           && (Buffer[Buffer_Offset+0x09]&0xF)<0xA      //Second byte of FF? Second 4 bits must be <0xA
+           &&  Buffer[Buffer_Offset+0x10]==0x0B         //TimeStamp is followed by AC-3
+           &&  Buffer[Buffer_Offset+0x11]==0x77))
+            TimeStamp_IsPresent=false;
+    }
+    if (TimeStamp_IsPresent && !TimeStamp_Parsed)
+        Buffer_Offset+=16;
 
     //Quick test of synchro
     if (CC2(Buffer+Buffer_Offset)!=0x0B77)
@@ -1136,6 +1207,22 @@ bool File_Ac3::Synched_Test()
     else
         Synched=false;
 
+    //TimeStamp
+    if (TimeStamp_IsPresent && !TimeStamp_Parsed)
+    {
+        Buffer_Offset-=16;
+        if (Synched)
+        {
+            TimeStamp_IsParsing=true;
+            TimeStamp_Parsed=false;
+        }
+        else
+        {
+            TimeStamp_IsParsing=false;
+            TimeStamp_Parsed=false;
+        }
+    }
+
     //We continue
     return true;
 }
@@ -1148,6 +1235,9 @@ bool File_Ac3::Synched_Test()
 #if MEDIAINFO_DEMUX
 bool File_Ac3::Demux_UnpacketizeContainer_Test()
 {
+    if (TimeStamp_IsPresent)
+        Buffer_Offset+=16;
+
     int16u Size=0;
     if (bsid<=0x08)
     {
@@ -1166,6 +1256,9 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
         return false; //No complete frame
 
     Demux_UnpacketizeContainer_Demux();
+
+    if (TimeStamp_IsPresent)
+        Buffer_Offset-=16;
 
     return true;
 }
@@ -1191,6 +1284,16 @@ void File_Ac3::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Ac3::Header_Parse()
 {
+    //TimeStamp
+    if (TimeStamp_IsParsing)
+    {
+        Header_Fill_Size(16);
+        Header_Fill_Code(2, "TimeStamp");
+        return;
+    }
+    else
+        TimeStamp_Parsed=false; //Currently, only one kind of intermediate element is detected (no TimeStamp and HD part together), and we don't know the precise specification of MLP nor TimeStamp, so we consider next eleemnt is TimeStamp
+
     //MLP or TrueHD specific
     if (CC2(Buffer+Buffer_Offset)!=0x0B77)
     {
@@ -1256,7 +1359,7 @@ void File_Ac3::Header_Parse()
 void File_Ac3::Data_Parse()
 {
     //Partial frame
-    if (Header_Size+Element_Size<Size)
+    if (Element_Code!=2 && Header_Size+Element_Size<Size)
     {
         Element_Name("Partial frame");
         Skip_XX(Element_Size,                                   "Data");
@@ -1301,6 +1404,7 @@ void File_Ac3::Data_Parse()
     {
         case 0 : Core(); break;
         case 1 : HD();   break;
+        case 2 : TimeStamp();   break;
         default: ;
     }
 }
@@ -1718,6 +1822,50 @@ void File_Ac3::HD()
             if (!IsSub && MediaInfoLib::Config.ParseSpeed_Get()<1)
                 Finish("AC-3");
         }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Ac3::TimeStamp()
+{
+    //Parsing
+    int8u H1, H2, M1, M2, S1, S2, F1, F2;
+    Skip_B2(                                                    "Unknown");
+    BS_Begin();
+    Skip_S1(8,                                                  "H");
+    Get_S1 (4, H1,                                              "H");
+    Get_S1( 4, H2,                                              "H");
+    Skip_S1(8,                                                  "M");
+    Get_S1 (4, M1,                                              "M");
+    Get_S1( 4, M2,                                              "M");
+    Skip_S1(8,                                                  "S");
+    Get_S1 (4, S1,                                              "S");
+    Get_S1( 4, S2,                                              "S");
+    Skip_S1(8,                                                  "F");
+    Get_S1 (4, F1,                                              "F");
+    Get_S1( 4, F2,                                              "F");
+    BS_End();
+    Skip_B2(                                                    "Byte offset related to frame");
+    Skip_B4(                                                    "Unknown");
+
+    FILLING_BEGIN();
+        float64 Temp=H1*10*60*60
+                   + H2   *60*60
+                   + M1   *10*60
+                   + M2      *60
+                   + S1      *10
+                   + S2
+                   + (F1*10+F2)/29.97; //No idea about where is the frame rate
+        #ifdef MEDIAINFO_TRACE
+            Element_Info(Ztring::ToZtring(H1)+Ztring::ToZtring(H2)+_T(':')
+                       + Ztring::ToZtring(M1)+Ztring::ToZtring(M2)+_T(':')
+                       + Ztring::ToZtring(S1)+Ztring::ToZtring(S2)+_T(':')
+                       + Ztring::ToZtring(F1)+Ztring::ToZtring(F2));
+        #endif //MEDIAINFO_TRACE
+        if (Frame_Count==0)
+            TimeStamp_Content=Temp;
+        TimeStamp_IsParsing=false;
+        TimeStamp_Parsed=true;
     FILLING_END();
 }
 

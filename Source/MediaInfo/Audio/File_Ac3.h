@@ -72,6 +72,7 @@ private :
     //Elements
     void Core();
     void HD();
+    void TimeStamp();
     void dac3();
     void dec3();
 
@@ -132,6 +133,10 @@ private :
     bool   HD_IsVBR;
     bool   Core_IsPresent;
     bool   dynrnge_Exists;
+    bool   TimeStamp_IsPresent;
+    bool   TimeStamp_IsParsing;
+    bool   TimeStamp_Parsed;
+    float64 TimeStamp_Content;
 };
 
 } //NameSpace
