@@ -525,6 +525,12 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.cpp">
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -948,6 +954,12 @@
       <Filter>Header Files\Archive</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.h">
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>

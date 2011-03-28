@@ -873,14 +873,21 @@ void File_Mk::Ebml_DocType()
 
     //Filling
     FILLING_BEGIN();
-        Accept("Matroska");
-
         if (Data==_T("matroska"))
+        {
+            Accept("Matroska");
             Fill(Stream_General, 0, General_Format, "Matroska");
+        }
         else if (Data==_T("webm"))
+        {
+            Accept("Matroska");
             Fill(Stream_General, 0, General_Format, "WebM");
+        }
         else
-            Fill(Stream_General, 0, General_Format, Data);
+        {
+            Reject("Matroska");
+            return;
+        }
 
         Buffer_MaximumSize=8*1024*1024;
     FILLING_END();

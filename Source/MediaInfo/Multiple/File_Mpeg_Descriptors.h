@@ -279,6 +279,9 @@ struct complete_stream
         bool                                        IsUpdated_Info;
         size_t                                      IsScrambled;
         int16u                                      SubStream_pid;
+        #if MEDIAINFO_IBI
+            int64u                                  Ibi_SynchronizationOffset_BeginOfFrame;
+        #endif //MEDIAINFO_IBI
 
         //Constructor/Destructor
         stream()
@@ -322,6 +325,9 @@ struct complete_stream
             IsUpdated_Info=false;
             IsScrambled=false;
             SubStream_pid=0x0000;
+            #if MEDIAINFO_IBI
+                Ibi_SynchronizationOffset_BeginOfFrame=0;
+            #endif //MEDIAINFO_IBI
         }
 
         ~stream()

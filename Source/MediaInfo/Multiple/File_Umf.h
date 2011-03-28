@@ -41,6 +41,15 @@ namespace MediaInfoLib
 
 class File_Umf : public File__Analyze
 {
+public :
+    //Constructor/Destructor
+    File_Umf();
+
+    //Out
+    #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+        int64u GopSize;
+    #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+
 protected :
     //Buffer - File header
     bool FileHeader_Begin();

@@ -59,6 +59,9 @@
 #if defined(MEDIAINFO_GXF_YES)
     #include "MediaInfo/Multiple/File_Gxf.h"
 #endif
+#if defined(MEDIAINFO_IBI_YES)
+    #include "MediaInfo/Multiple/File_Ibi.h"
+#endif
 #if defined(MEDIAINFO_IVF_YES)
     #include "MediaInfo/Multiple/File_Ivf.h"
 #endif
@@ -605,6 +608,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_GXF_YES)
         delete Info; Info=new File_Gxf();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_IBI_YES)
+        delete Info; Info=new File_Ibi();                 if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_IVF_YES)
         delete Info; Info=new File_Ivf();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

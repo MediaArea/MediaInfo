@@ -289,6 +289,7 @@ File_Mpegv::File_Mpegv()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
     IsRawStream=true;
+    Frame_Count_NotParsedIncluded=0;
 
     //In
     MPEG_Version=1;
@@ -768,6 +769,17 @@ void File_Mpegv::Streams_Finish()
             delete TemporalReference[Pos]; //TemporalReference[Pos]=NULL;
         TemporalReference.clear();
     }
+
+    #if MEDIAINFO_IBI
+        if (Config_Ibi_Create)
+        {
+            ibi::stream::info IbiInfo;
+            IbiInfo.StreamOffset=File_Offset+Buffer_Offset;
+            IbiInfo.FrameNumber=Frame_Count;
+            IbiInfo.Dts=FrameInfo.DTS;
+            IbiStream.Infos.push_back(IbiInfo);
+        }
+    #endif MEDIAINFO_IBI
 }
 
 //***************************************************************************
@@ -793,6 +805,20 @@ bool File_Mpegv::Synched_Test()
     //Quick search
     if (Synched && !Header_Parser_QuickSearch())
         return false;
+    #if MEDIAINFO_IBI
+        if (Config_Ibi_Create)
+        {
+            bool RandomAccess=(Buffer[Buffer_Offset+3]==0xB3); //sequence_header
+            if (RandomAccess && (IbiStream.Infos.empty() || IbiStream.Infos[IbiStream.Infos.size()-1].FrameNumber!=Frame_Count))
+            {
+                ibi::stream::info IbiInfo;
+                IbiInfo.StreamOffset=Ibi_SynchronizationOffset_Current;
+                IbiInfo.FrameNumber=Frame_Count;
+                IbiInfo.Dts=FrameInfo.DTS;
+                IbiStream.Infos.push_back(IbiInfo);
+            }
+        }
+    #endif MEDIAINFO_IBI
 
     //We continue
     return true;
@@ -851,6 +877,7 @@ void File_Mpegv::Synched_Init()
     Field_Count_AfterLastCompleFrame=false;
     temporal_reference_LastIFrame=0;
     tc=0;
+    IFrame_IsParsed=false;
 
     //Default stream values
     Streams.resize(0x100);
@@ -915,7 +942,11 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
         if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
             return false; //No complete frame
 
-        Demux_UnpacketizeContainer_Demux(Buffer[Buffer_Offset+3]==0xB3);
+        bool RandomAccess=Buffer[Buffer_Offset+3]==0xB3;
+        if (IFrame_IsParsed || RandomAccess)
+            Demux_UnpacketizeContainer_Demux(RandomAccess);
+        else
+            Demux_UnpacketizeContainer_Demux_Clear();
     }
 
     return true;
@@ -943,6 +974,7 @@ void File_Mpegv::Read_Buffer_Unsynched()
     sequence_header_IsParsed=false;
     group_start_IsParsed=false;
     PTS_LastIFrame=(int64u)-1;
+    IFrame_IsParsed=false;
 
     temporal_reference_Old=(int16u)-1;
     for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
@@ -1172,6 +1204,13 @@ void File_Mpegv::picture_start()
     BS_End();
 
     FILLING_BEGIN();
+        //Detection of first I-Frame
+        if (!IFrame_IsParsed)
+        {
+            if (picture_coding_type==1 || picture_coding_type==4) //I-Frame or D-Frame
+                IFrame_IsParsed=true;
+        }
+
         //Config
         progressive_frame=true;
         picture_structure=3; //Frame is default
@@ -1234,6 +1273,8 @@ void File_Mpegv::slice_start()
         if (temporal_reference==temporal_reference_Old)
         {
             Frame_Count--;
+            if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded--;
             Frame_Count_InThisBlock--;
             if (picture_coding_type==1 || picture_coding_type==2) //IFrame or PFrame
                 Field_Count_AfterLastCompleFrame=true;
@@ -1364,6 +1405,8 @@ void File_Mpegv::slice_start()
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
         Frame_Count_InThisBlock++;
+        if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         if (!(progressive_sequence || picture_structure==3))
         {
             Field_Count++;
@@ -2000,7 +2043,7 @@ void File_Mpegv::extension_start()
     Get_S1 ( 4, extension_start_code_identifier,                "extension_start_code_identifier"); Param_Info(Mpegv_extension_start_code_identifier[extension_start_code_identifier]);
     Element_Info(Mpegv_extension_start_code_identifier[extension_start_code_identifier]);
 
-         switch (extension_start_code_identifier)
+    switch (extension_start_code_identifier)
     {
         case  1 :{ //Sequence
                     //Parsing
@@ -2252,4 +2295,3 @@ void File_Mpegv::group_start()
 } //NameSpace
 
 #endif //MEDIAINFO_MPEGV_YES
-

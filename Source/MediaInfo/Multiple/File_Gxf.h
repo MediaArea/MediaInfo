@@ -49,6 +49,7 @@ public :
     //Constructor/Destructor
     File_Gxf();
     ~File_Gxf();
+
 private :
     //Streams management
     void Streams_Finish();
@@ -56,6 +57,12 @@ private :
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
+
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - Per element
     void Header_Parse();
@@ -128,6 +135,22 @@ private :
     //File__Analyze helpers
     void Streams_Finish_PerStream(size_t StreamID, stream &Temp);
     void Detect_EOF();
+
+    #if MEDIAINFO_DEMUX
+        bool Demux_HeaderParsed;
+    #endif //MEDIAINFO_DEMUX
+
+    #if MEDIAINFO_SEEK
+        int32u Flt_FieldPerEntry;
+        std::vector<int32u> Flt_Offsets; //In 1024-byte
+        struct seek
+        {
+            int32u FrameNumber;
+            int32u StreamOffset; //In 1024-byte
+        };
+        std::vector<seek> Seeks;
+        bool IFrame_IsParsed;
+    #endif //MEDIAINFO_SEEK
 };
 
 } //NameSpace

@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../Source;../../../../curl/include;../../../../ZenLib/Source;../../../../zlib"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -496,6 +496,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.cpp"
 					>
 				</File>
 				<File
@@ -1079,6 +1087,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.h"
 					>
 				</File>
 				<File

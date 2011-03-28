@@ -133,6 +133,13 @@ public :
     bool          Demux_Unpacketize_Get ();
     #endif //MEDIAINFO_DEMUX
 
+    #if MEDIAINFO_IBI
+    void          Ibi_Set (const Ztring &NewValue);
+    std::string   Ibi_Get ();
+    void          Ibi_Create_Set (bool NewValue);
+    bool          Ibi_Create_Get ();
+    #endif //MEDIAINFO_IBI
+
     //Specific
     void          File_MpegTs_ForceMenu_Set (bool NewValue);
     bool          File_MpegTs_ForceMenu_Get ();
@@ -208,7 +215,12 @@ private :
     bool                    Demux_PCM_20bitTo16bit;
     bool                    Demux_Unpacketize;
     #endif //MEDIAINFO_DEMUX
-    
+
+    #if MEDIAINFO_IBI
+    std::string             Ibi;
+    bool                    Ibi_Create;
+    #endif //MEDIAINFO_IBI
+
     //Specific
     bool                    File_MpegTs_ForceMenu;
     bool                    File_MpegTs_stream_type_Trust;

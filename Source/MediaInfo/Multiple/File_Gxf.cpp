@@ -48,6 +48,7 @@
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#include "ZenLib/Utils.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -241,6 +242,10 @@ File_Gxf::File_Gxf()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
+    #if MEDIAINFO_DEMUX
+        Demux_EventWasSent_Accept_Specific=true;
+    #endif //MEDIAINFO_DEMUX
+    Frame_Count_NotParsedIncluded=0;
 
     //Temp
     Material_Fields_FieldsPerFrame=(int8u)-1;
@@ -256,6 +261,14 @@ File_Gxf::File_Gxf()
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
     SizeToAnalyze=16*1024*1024;
     TimeCode_First=(int64u)-1;
+
+    #if MEDIAINFO_DEMUX
+        Demux_HeaderParsed=false;
+    #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_SEEK
+        Flt_FieldPerEntry=(int32u)-1;
+        IFrame_IsParsed=false;
+    #endif //MEDIAINFO_SEEK
 }
 
 //---------------------------------------------------------------------------
@@ -489,6 +502,70 @@ bool File_Gxf::Synched_Test()
 }
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Gxf::Read_Buffer_Unsynched()
+{
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos].Parser)
+            Streams[Pos].Parser->Open_Buffer_Unsynch();
+   
+    #if MEDIAINFO_SEEK
+        IFrame_IsParsed=false;
+    #endif //MEDIAINFO_SEEK
+}
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
+{
+    //Reset IsFinished bit the user wants to seek again after the file is completely parsed
+    Status[IsFinished]=false;
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos].Parser)
+            Streams[Pos].Parser->Status[IsFinished]=false;
+
+    //Parsing
+    switch (Method)
+    {
+        case 0  :   GoTo(Value); return 1;
+        case 1  :   GoTo(File_Size*Value/10000); return 1;
+        case 2  :   //Timestamp
+                    {
+                        //We transform TimeStamp to a frame number
+                        if (Streams.empty() || Gxf_FrameRate(Streams[0x00].FrameRate_Code)==0)
+                            return (size_t)-1; //Not supported
+                        Value=float64_int64s(((float64)Value)/1000000000*Gxf_FrameRate(Streams[0x00].FrameRate_Code));    
+                    }
+                    //No break;
+        case 3  :   //FrameNumber
+                    {
+                    if (Seeks.empty())
+                        return (size_t)-1; //Not supported
+
+                    for (size_t Pos=0; Pos<Seeks.size(); Pos++)
+                    {
+                        if (Value<=Seeks[Pos].FrameNumber)
+                        {
+                            if (Value<Seeks[Pos].FrameNumber && Pos)
+                                Pos--;
+                            GoTo(Seeks[Pos].StreamOffset);
+                            Frame_Count_NotParsedIncluded=Seeks[Pos].FrameNumber;
+
+                            return 1;
+                        }
+                    }
+
+                    return 2; //Invalid value
+                    }
+        default :   return (size_t)-1; //Not supported
+    }
+}
+#endif //MEDIAINFO_SEEK
+
+//***************************************************************************
 // Buffer - Per element
 //***************************************************************************
 
@@ -507,6 +584,18 @@ void File_Gxf::Header_Parse()
     //Filling
     Header_Fill_Size(PacketLength);
     Header_Fill_Code(PacketType);
+
+    #if MEDIAINFO_DEMUX
+        if (!Demux_HeaderParsed)
+        {
+            if (PacketType==0xBF) //media
+            {
+                if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
+                    Config->Demux_EventWasSent=true; //First set is to indicate the user that header is parsed
+                Demux_HeaderParsed=true;
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -937,15 +1026,40 @@ void File_Gxf::media()
     Element_End();
     Element_Info(TrackNumber);
 
+    #if MEDIAINFO_SEEK
+        if (!IFrame_IsParsed && UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+            IFrame_IsParsed=(Frame_Count_NotParsedIncluded%((File_Umf*)UMF_File)->GopSize)==0;
+    #endif //MEDIAINFO_SEEK
+
     #if MEDIAINFO_DEMUX
         Element_Code=TrackNumber;
-        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+        if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
+        {
+            FrameInfo.DTS=float64_int64s(((float64)Frame_Count_NotParsedIncluded)*1000000000/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
+            if (Frame_Count_NotParsedIncluded==0)
+                Demux_random_access=true;
+            else
+            {
+                if (UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+                    Demux_random_access=(Frame_Count_NotParsedIncluded%((File_Umf*)UMF_File)->GopSize)==0;
+                else
+                    Demux_random_access=false;
+            }
+        }
+        else
+            Demux_random_access=true;
+        #if MEDIAINFO_SEEK
+            if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)!=Stream_Video || IFrame_IsParsed)
+        #endif //MEDIAINFO_SEEK
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
+            Frame_Count_NotParsedIncluded++;
     #endif //MEDIAINFO_DEMUX
 
     //Needed?
     if (!Streams[TrackNumber].Searching_Payload)
     {
-        Skip_XX(Element_Size,                                   "data");
+        Skip_XX(Element_Size-Element_Offset,                    "data");
         Element_DoNotShow();
         return;
     }
@@ -980,11 +1094,21 @@ void File_Gxf::field_locator_table()
 
     //Parsing
     int32u Entries;
-    Skip_L4(                                                    "Number of fields per FLT entry");
+    #if MEDIAINFO_SEEK
+        Get_L4 (Flt_FieldPerEntry,                              "Number of fields per FLT entry");
+    #else //MEDIAINFO_SEEK
+        Skip_L4(                                                "Number of fields per FLT entry");
+    #endif //MEDIAINFO_SEEK
     Get_L4 (Entries,                                            "Number of FLT entries");
     for (size_t Pos=0; Pos<Entries; Pos++)
     {
-        Skip_L4(                                                "Offset to fields");
+        #if MEDIAINFO_SEEK
+            int32u Offset;
+            Get_L4 (Offset,                                     "Offset to fields");
+            Flt_Offsets.push_back(Offset);
+        #else //MEDIAINFO_SEEK
+            Skip_L4(                                            "Offset to fields");
+        #endif //MEDIAINFO_SEEK
         if (Element_Offset==Element_Size)
             break;
     }
@@ -1008,6 +1132,23 @@ void File_Gxf::UMF_file()
         Open_Buffer_Init(UMF_File);
     }
     Open_Buffer_Continue(UMF_File, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+    #if MEDIAINFO_SEEK
+        if (Flt_FieldPerEntry!=(int32u)-1 && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+        {
+            size_t NextIFrame=0;
+            for (size_t Pos=1; Pos<Flt_Offsets.size(); Pos++)
+                if (Pos*Flt_FieldPerEntry>NextIFrame)
+                {
+                    seek Seek;
+                    Seek.FrameNumber=(Pos-1)*Flt_FieldPerEntry;
+                    Seek.StreamOffset=Flt_Offsets[Pos-1];
+                    Seeks.push_back(Seek);
+                    NextIFrame+=(size_t)((File_Umf*)UMF_File)->GopSize;
+                }
+            Flt_Offsets.clear();
+        }
+    #endif //MEDIAINFO_SEEK
 }
 
 //***************************************************************************

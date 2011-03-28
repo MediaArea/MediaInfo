@@ -27,6 +27,9 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include "ZenLib/ZtringListListF.h"
+#if MEDIAINFO_IBI
+    #include "ZenLib/Base64/base64.h"
+#endif //MEDIAINFO_IBI
 #include <algorithm>
 using namespace ZenLib;
 using namespace std;
@@ -63,6 +66,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Demux_PCM_20bitTo16bit=false;
         Demux_Unpacketize=false;
     #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_IBI
+        Ibi_Create=false;
+    #endif //MEDIAINFO_IBI
 
     //Specific
     File_MpegTs_ForceMenu=false;
@@ -262,6 +268,27 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //MEDIAINFO_DEMUX
             return _T("Demux manager is disabled due to compilation options");
         #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_ibi"))
+    {
+        #if MEDIAINFO_IBI
+            Ibi_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_IBI
+            return _T("IBI support is disabled due to compilation options");
+        #endif //MEDIAINFO_IBI
+    }
+    else if (Option_Lower==_T("file_ibi_create"))
+    {
+        #if MEDIAINFO_IBI
+            if (Value.empty())
+                Ibi_Create_Set(false);
+            else
+                Ibi_Create_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_IBI
+            return _T("IBI support is disabled due to compilation options");
+        #endif //MEDIAINFO_IBI
     }
     else if (Option_Lower==_T("file_nextpacket"))
     {
@@ -737,6 +764,39 @@ bool MediaInfo_Config_MediaInfo::Demux_Unpacketize_Get ()
     return Demux_Unpacketize;
 }
 #endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
+// IBI support
+//***************************************************************************
+
+#if MEDIAINFO_IBI
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Ibi_Set (const Ztring &Value)
+{
+    string Data_Base64=Value.To_UTF8();
+
+    CriticalSectionLocker CSL(CS);
+    Ibi=Base64::decode(Data_Base64);
+}
+
+string MediaInfo_Config_MediaInfo::Ibi_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ibi;
+}
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Ibi_Create_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Ibi_Create=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::Ibi_Create_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ibi_Create;
+}
+#endif //MEDIAINFO_IBI
 
 //***************************************************************************
 // NextPacket

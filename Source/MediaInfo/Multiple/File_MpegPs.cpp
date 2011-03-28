@@ -549,6 +549,24 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
             StreamKind_Last=Temp.StreamKind;
             StreamPos_Last=Temp.StreamPos;
         }
+
+        #if MEDIAINFO_IBI
+            if (Config_Ibi_Create)
+            {
+                IbiStream=Temp.Parsers[0]->IbiStream;
+                Temp.Parsers[0]->IbiStream=ibi::stream(); //Reset
+
+                if (IbiStream.DtsFrequencyNumerator==1000000000 && IbiStream.DtsFrequencyDenominator==1)
+                {
+                    IbiStream.DtsFrequencyNumerator=90000;
+                    for (size_t Pos=0; Pos<IbiStream.Infos.size(); Pos++)
+                    {
+                        int64u Temp=IbiStream.Infos[Pos].Dts*90/1000000;
+                        IbiStream.Infos[Pos].Dts=Temp;
+                    }
+                }
+            }
+        #endif //MEDIAINFO_IBI
     }
 
     //Duration if it is missing from the parser
@@ -780,7 +798,12 @@ void File_MpegPs::Read_Buffer_Unsynched()
         Streams[StreamID].Searching_TimeStamp_Start=false;
         for (size_t Pos=0; Pos<Streams[StreamID].Parsers.size(); Pos++)
             if (Streams[StreamID].Parsers[Pos])
+            {
+                #if MEDIAINFO_SEEK
+                    Streams[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Unsynch_Frame_Count;
+                #endif //MEDIAINFO_SEEK
                 Streams[StreamID].Parsers[Pos]->Open_Buffer_Unsynch();
+            }
         Streams_Private1[StreamID].TimeStamp_End.PTS.File_Pos=(int64u)-1;
         Streams_Private1[StreamID].TimeStamp_End.DTS.File_Pos=(int64u)-1;
         Streams_Private1[StreamID].TimeStamp_End.PTS.TimeStamp=(int64u)-1;
@@ -788,7 +811,12 @@ void File_MpegPs::Read_Buffer_Unsynched()
         Streams_Private1[StreamID].Searching_TimeStamp_Start=false;
         for (size_t Pos=0; Pos<Streams_Private1[StreamID].Parsers.size(); Pos++)
             if (Streams_Private1[StreamID].Parsers[Pos])
+            {
+                #if MEDIAINFO_SEEK
+                    Streams_Private1[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Unsynch_Frame_Count;
+                #endif //MEDIAINFO_SEEK
                 Streams_Private1[StreamID].Parsers[Pos]->Open_Buffer_Unsynch();
+            }
         Streams_Extension[StreamID].TimeStamp_End.PTS.File_Pos=(int64u)-1;
         Streams_Extension[StreamID].TimeStamp_End.DTS.File_Pos=(int64u)-1;
         Streams_Extension[StreamID].TimeStamp_End.PTS.TimeStamp=(int64u)-1;
@@ -796,7 +824,12 @@ void File_MpegPs::Read_Buffer_Unsynched()
         Streams_Extension[StreamID].Searching_TimeStamp_Start=false;
         for (size_t Pos=0; Pos<Streams_Extension[StreamID].Parsers.size(); Pos++)
             if (Streams_Extension[StreamID].Parsers[Pos])
+            {
+                #if MEDIAINFO_SEEK
+                    Streams_Extension[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Unsynch_Frame_Count;
+                #endif //MEDIAINFO_SEEK
                 Streams_Extension[StreamID].Parsers[Pos]->Open_Buffer_Unsynch();
+            }
     }
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;
@@ -3237,6 +3270,9 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                 if (Temp.Parsers.size()>1)
                     Element_Begin("Test");
             #endif //MEDIAINFO_TRACE
+            #if MEDIAINFO_IBI
+                Temp.Parsers[Pos]->Ibi_SynchronizationOffset_Current=Ibi_SynchronizationOffset_Current;
+            #endif //MEDIAINFO_IBI
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             if (!MustExtendParsingDuration && Temp.Parsers[Pos]->MustExtendParsingDuration)
             {

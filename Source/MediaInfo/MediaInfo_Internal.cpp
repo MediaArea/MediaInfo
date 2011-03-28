@@ -532,16 +532,16 @@ bool MediaInfo_Internal::Open_Buffer_Position_Set(int64u File_Offset)
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open_Buffer_Seek (size_t Method, int64u Value)
+#if MEDIAINFO_SEEK
+size_t MediaInfo_Internal::Open_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     CriticalSectionLocker CSL(CS);
     if (Info==NULL)
         return false;
 
-    Info->Open_Buffer_Seek(Method, Value);
-
-    return 1;
+    return Info->Open_Buffer_Seek(Method, Value, ID);
 }
+#endif //MEDIAINFO_SEEK
 
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Finalize ()
@@ -866,44 +866,62 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
     #endif //MEDIAINFO_TRACE
     else if (OptionLower.find(_T("file_seek"))==0)
     {
-        if (Reader==NULL)
-            return _T("Error: Reader pointer is empty");
+        #if MEDIAINFO_SEEK
+            if (Reader==NULL)
+                return _T("Error: Reader pointer is empty");
 
-        size_t Result=(size_t)-1;
-        if (!Value.empty() && Value.find(_T('%'))==Value.size()-1)
-            Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*100));
-        else if (!Value.empty() && Value.find_first_not_of(_T("0123456789"))==string::npos)
-            Result=Reader->Format_Test_PerParser_Seek(this, 0, Ztring(Value).To_int64u());
-        else if (!Value.empty() && Value.find(_T(":"))!=string::npos)
-        {
-            Ztring ValueZ=Value;
-            int64u TimeStamp=0;
-            size_t Value_Pos=ValueZ.find(_T(":"));
-            if (Value_Pos==string::npos)
-                Value_Pos=ValueZ.size();    
-            TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*60*1000*1000*1000;
-            ValueZ.erase(0, Value_Pos+1);
-            Value_Pos=ValueZ.find(_T(":"));
-            if (Value_Pos==string::npos)
-                Value_Pos=ValueZ.size();    
-            TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*1000*1000*1000;
-            ValueZ.erase(0, Value_Pos+1);
-            Value_Pos=ValueZ.find(_T("."));
-            if (Value_Pos==string::npos)
-                Value_Pos=ValueZ.size();    
-            TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*1000*1000*1000;
-            ValueZ.erase(0, Value_Pos+1);
-            if (!ValueZ.empty())
-                TimeStamp+=Ztring(ValueZ).To_int64u()*1000*1000*1000/(int64u)pow(10.0, (int)ValueZ.size());
-            Result=Reader->Format_Test_PerParser_Seek(this, 2, TimeStamp);
-        }
+            size_t Result=(size_t)-1;
+            if (!Value.empty() && Value.find(_T('%'))==Value.size()-1)
+                Result=Reader->Format_Test_PerParser_Seek(this, 1, (int64u)(Ztring(Value).To_float32()*100), (int64u)-1);
+            else if (!Value.empty() && Value.find_first_not_of(_T("0123456789"))==string::npos)
+                Result=Reader->Format_Test_PerParser_Seek(this, 0, Ztring(Value).To_int64u(), (int64u)-1);
+            else if (!Value.empty() && Value.find(_T("Frame="))!=string::npos)
+            {
+                Ztring FrameNumberZ=Value.substr(Value.find(_T("Frame="))+6, string::npos);
+                int64u FrameNumber=FrameNumberZ.To_int64u();
+                Result=Reader->Format_Test_PerParser_Seek(this, 3, FrameNumber, (int64u)-1);
+            }
+            else if (!Value.empty() && Value.find(_T(":"))!=string::npos)
+            {
+                Ztring ValueZ=Value;
+                int64u TimeStamp=0;
+                size_t Value_Pos=ValueZ.find(_T(":"));
+                if (Value_Pos==string::npos)
+                    Value_Pos=ValueZ.size();    
+                TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*60*1000*1000*1000;
+                ValueZ.erase(0, Value_Pos+1);
+                Value_Pos=ValueZ.find(_T(":"));
+                if (Value_Pos==string::npos)
+                    Value_Pos=ValueZ.size();    
+                TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*1000*1000*1000;
+                ValueZ.erase(0, Value_Pos+1);
+                Value_Pos=ValueZ.find(_T("."));
+                if (Value_Pos==string::npos)
+                    Value_Pos=ValueZ.size();    
+                TimeStamp+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*1000*1000*1000;
+                ValueZ.erase(0, Value_Pos+1);
+                if (!ValueZ.empty())
+                    TimeStamp+=Ztring(ValueZ).To_int64u()*1000*1000*1000/(int64u)pow(10.0, (int)ValueZ.size());
+                Result=Reader->Format_Test_PerParser_Seek(this, 2, TimeStamp, (int64u)-1);
+            }
 
-        switch (Result)
-        {
-            case 1  : return _T("");
-            case (size_t)-1 : return _T("Feature not supported");
-            default : return _T("Unknown error");
-        }
+            switch (Result)
+            {
+                case 1  : return _T("");
+                case 2  : return _T("Invalid value");
+                #if MEDIAINFO_IBI
+                case 3  : return _T("Feature not supported / IBI file not provided");
+                case 4  : return _T("Problem during IBI file parsing");
+                #endif //MEDIAINFO_IBI
+                #if !MEDIAINFO_IBI
+                case (size_t)-2 : return _T("Feature not supported / IBI support disabled due to compilation options");
+                #endif //MEDIAINFO_IBI
+                case (size_t)-1 : return _T("Feature not supported");
+                default : return _T("Unknown error");
+            }
+        #else //MEDIAINFO_SEEK
+            return _T("Seek manager is disabled due to compilation options");
+        #endif //MEDIAINFO_SEEK
     }
     else if (OptionLower.find(_T("file_"))==0)
     {

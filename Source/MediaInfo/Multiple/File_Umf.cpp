@@ -37,6 +37,20 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Umf::File_Umf()
+:File__Analyze()
+{
+    //In
+    #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+        GopSize=(int64u)-1;
+    #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -137,14 +151,27 @@ void File_Umf::Read_Buffer_Continue()
             case 0x00000004 :
             case 0x00000007 :
             case 0x00000009 : //MPEG-Video
+                {
+                #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                    int32u P, B;
+                #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
                 Skip_L4(                                                "Color difference format");
                 Skip_L4(                                                "GoP structure");
                 Skip_L4(                                                "Frame/field structure");
                 Skip_L4(                                                "Target I-pictures per GoP");
-                Skip_L4(                                                "Target P-pictures per I-picture");
-                Skip_L4(                                                "Target B-pictures per P-picture or I-picture");
+                #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                    Get_L4 (P,                                          "Target P-pictures per I-picture");
+                    Get_L4 (B,                                          "Target B-pictures per P-picture or I-picture");
+                #else //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                    Skip_L4(                                            "Target P-pictures per I-picture");
+                    Skip_L4(                                            "Target B-pictures per P-picture or I-picture");
+                #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
                 Skip_L4(                                                "MPEG video attributes");
                 Skip_L4(                                                "Reserved");
+                #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                    GopSize=(1+P)*(1+B);
+                #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                }
                 break;
             case 0x00000003 : //TimeCode
                 Skip_L4(                                                "Time code attributes");

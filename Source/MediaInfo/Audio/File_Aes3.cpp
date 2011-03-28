@@ -309,6 +309,7 @@ void File_Aes3::Read_Buffer_Continue()
                 if (StreamIDs_Size>=2)
                     Element_Code=StreamIDs[StreamIDs_Size-2];
                 StreamIDs_Size--;
+                Demux_random_access=true;
                 Demux(Buffer, Element_Size, ContentType_MainStream);
                 StreamIDs_Size++;
             }

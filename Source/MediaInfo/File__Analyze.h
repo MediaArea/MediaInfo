@@ -32,6 +32,9 @@
 #include "ZenLib/ZtringListList.h"
 #include <vector>
 #include <bitset>
+#if MEDIAINFO_IBI
+    #include "MediaInfo/Multiple/File_Ibi_Creation.h"
+#endif //MEDIAINFO_IBI
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -70,7 +73,9 @@ public :
     void    Open_Buffer_Continue    (File__Analyze* Sub, size_t Buffer_Size) {Open_Buffer_Continue(Sub, Buffer+Buffer_Offset+(size_t)Element_Offset, Buffer_Size); Element_Offset+=Buffer_Size;}
     void    Open_Buffer_Continue    (File__Analyze* Sub) {Open_Buffer_Continue(Sub, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset)); Element_Offset=Element_Size;}
     void    Open_Buffer_Position_Set(int64u File_Offset);
-    size_t  Open_Buffer_Seek        (size_t Method, int64u Value);
+    #if MEDIAINFO_SEEK
+    size_t  Open_Buffer_Seek        (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
     void    Open_Buffer_Update      ();
     void    Open_Buffer_Update      (File__Analyze* Sub);
     void    Open_Buffer_Unsynch     ();
@@ -131,6 +136,7 @@ public :
     int64u Field_Count;
     int64u Field_Count_Previous;
     int64u Field_Count_InThisBlock;
+    int64u Frame_Count_NotParsedIncluded;
     bool   Synched;                    //Data is synched
     bool   MustExtendParsingDuration;  //Data has some substreams difficult to detect (e.g. captions), must wait a bit before final filling
 
@@ -162,7 +168,9 @@ protected :
     virtual void Read_Buffer_Init ()          {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Continue ()      {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_AfterParsing ()  {}; //Temp, should be in File__Base caller
-    virtual size_t Read_Buffer_Seek (size_t Method, int64u Value) {return (size_t)-1;}; //Temp, should be in File__Base caller
+    #if MEDIAINFO_SEEK
+    virtual size_t Read_Buffer_Seek (size_t, int64u, int64u) {return (size_t)-1;}; //Temp, should be in File__Base caller
+    #endif //MEDIAINFO_SEEK
     virtual void Read_Buffer_Unsynched ()     {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
     bool Buffer_Parse();
@@ -1115,6 +1123,8 @@ public :
         void Demux (const int8u* Buffer, size_t Buffer_Size, contenttype ContentType);
         virtual bool Demux_UnpacketizeContainer_Test() {return true;}
         void Demux_UnpacketizeContainer_Demux(bool random_access=true);
+        void Demux_UnpacketizeContainer_Demux_Clear();
+        bool Demux_EventWasSent_Accept_Specific;
     #else //MEDIAINFO_DEMUX
         #define Demux(_A, _B, _C)
     #endif //MEDIAINFO_DEMUX
@@ -1122,6 +1132,15 @@ public :
     //Events data
     bool    PES_FirstByte_IsAvailable;
     bool    PES_FirstByte_Value;
+
+    int64u  Unsynch_Frame_Count;
+    #if MEDIAINFO_IBI
+    public:
+        bool    Config_Ibi_Create;
+        int64u  Ibi_SynchronizationOffset_Current;
+        int64u  Ibi_SynchronizationOffset_BeginOfFrame;
+        ibi::stream IbiStream;
+    #endif //MEDIAINFO_IBI
 };
 
 //Helpers

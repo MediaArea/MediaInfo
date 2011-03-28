@@ -87,6 +87,9 @@ protected :
     void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
     void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -260,6 +263,7 @@ protected :
     void IndexTableSegment_IndexStartPosition();                //3F0C
     void IndexTableSegment_IndexDuration();                     //3F0D
     void IndexTableSegment_PosTableCount();                     //3F0E
+    void IndexTableSegment_8002();                              //8002
     void JPEG2000PictureSubDescriptor_Rsiz();                   //8001
     void JPEG2000PictureSubDescriptor_Xsiz();                   //8002
     void JPEG2000PictureSubDescriptor_Ysiz();                   //8003
@@ -358,6 +362,8 @@ protected :
         int32u BodySID;
     };
     std::vector<randomindexmetadata> RandomIndexMetadatas;
+    bool                             RandomIndexMetadatas_AlreadyParsed;
+    int64u                           RandomIndexMetadatas_ByteOffsetParsed;
     size_t Streams_Count;
     int128u Code;
     int128u OperationalPattern;
@@ -609,6 +615,40 @@ protected :
         int32u          Ancillary_TrackNumber;
         File_Ancillary* Ancillary;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
+
+    #if MEDIAINFO_DEMUX
+        bool Demux_HeaderParsed;
+    #endif //MEDIAINFO_DEMUX
+
+    #if MEDIAINFO_SEEK
+        //Seek - Delta
+        struct seek
+        {
+            int64u  Stream_Offset;
+            int64u  Frame_Number;
+            int64u  DTS;
+            int64u  DTS_Next;
+            int64u  PTS;
+            int8u   Type;
+        };
+        typedef std::vector<seek> seeks;
+        seeks Seeks;
+        size_t Seeks_Pos;
+
+        //Seek - ByteCount
+        int32u IndexTable_EditUnitByteCount;
+        int64u IndexTable_EditUnitByteCount_Start;
+        int32u IndexTable_EditUnitByteCount_Start_Item;
+        int64u IndexTable_EditUnitByteCount_Start_PreviousPartitionPackSize;
+
+        //seek - EditRate
+        float64 IndexTable_IndexEditRate;
+        int64u  IndexTable_IndexStartPosition;
+
+        //Seek - Temp
+        seeks SeeksTemp; //Without the byte offset
+        bool  Duration_Detected;
+    #endif //MEDIAINFO_SEEK
 };
 
 } //NameSpace

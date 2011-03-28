@@ -306,6 +306,7 @@ private :
     //Temp
     bool SPS_IsParsed;
     bool PPS_IsParsed;
+    bool IFrame_IsParsed;
 
     #if MEDIAINFO_DUPLICATE
         bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value

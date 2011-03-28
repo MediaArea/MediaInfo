@@ -1,5 +1,5 @@
-// Reader_File - All information about media files
-// Copyright (C) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
+// File_Mk - Info for Ibi Video/Audio files
+// Copyright (C) 2011-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -17,48 +17,67 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Give information about a lot of media files
-// Dispatch the file to be tested by all containers
-//
+// Information about Ibi files
+// 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef Reader_FileH
-#define Reader_FileH
+#ifndef MediaInfo_File_IbiH
+#define MediaInfo_File_IbiH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/Reader/Reader__Base.h"
-#include "ZenLib/File.h"
-using namespace ZenLib;
+#include "MediaInfo/File__Analyze.h"
+#include <map>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
 //***************************************************************************
-/// @brief Reader_File
+// Classe File_Ibi
 //***************************************************************************
 
-class Reader_File : public Reader__Base
+class File_Ibi : public File__Analyze
 {
 public :
-    //Constructor/Destructor
-    virtual ~Reader_File() {}
+    File_Ibi();
+    ~File_Ibi();
 
-    //Format testing
-    size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
-    size_t Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name);
-    size_t Format_Test_PerParser_Continue (MediaInfo_Internal* MI);
-    size_t Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value, int64u ID);
+    //In
+    ibi* Ibi;
 
-    ZenLib::File F;
-    size_t Buffer_Size_Max;
-    int8u* Buffer;
-    std::bitset<32> Status;
-    int64u          Partial_Begin;
-    int64u          Partial_End;
+private :
+    //Buffer - Element
+    void Header_Parse();
+    void Data_Parse();
+
+    //Elements
+    void Zero();
+    void CRC32();
+    void Void();
+    void Ebml();
+    void Ebml_Version();
+    void Ebml_ReadVersion();
+    void Ebml_MaxIDLength();
+    void Ebml_MaxSizeLength();
+    void Ebml_DocType();
+    void Ebml_DocTypeVersion();
+    void Ebml_DocTypeReadVersion();
+    void Stream();
+    void Stream_Header();
+    void Stream_ByteOffset();
+    void Stream_FrameNumber();
+    void Stream_Dts();
+    void CompressedIndex();
+
+    //Data
+    int64u   UInteger_Get();
+    int128u  UInteger16_Get();
+    void     UInteger_Info();
 };
 
 } //NameSpace
+
 #endif
+

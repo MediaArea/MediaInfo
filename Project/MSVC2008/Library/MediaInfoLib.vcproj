@@ -180,7 +180,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -247,7 +247,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
@@ -954,6 +954,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ivf.cpp"
 					>
 				</File>
@@ -1579,6 +1587,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.h"
 					>
 				</File>
 				<File

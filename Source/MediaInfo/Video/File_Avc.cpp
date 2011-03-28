@@ -339,6 +339,7 @@ File_Avc::File_Avc()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
     IsRawStream=true;
+    Frame_Count_NotParsedIncluded=0;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?64:2; //Currently no 3:2 pulldown detection
@@ -352,6 +353,7 @@ File_Avc::File_Avc()
     SizeOfNALU_Minus1=(int8u)-1;
     SPS_IsParsed=false;
     PPS_IsParsed=false;
+    IFrame_IsParsed=false;
 }
 
 //---------------------------------------------------------------------------
@@ -724,6 +726,22 @@ bool File_Avc::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
 
+    #if MEDIAINFO_IBI
+        if (Config_Ibi_Create)
+        {
+            bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
+            bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
+            if (RandomAccess && (IbiStream.Infos.empty() || IbiStream.Infos[IbiStream.Infos.size()-1].FrameNumber!=Frame_Count))
+            {
+                ibi::stream::info IbiInfo;
+                IbiInfo.StreamOffset=Ibi_SynchronizationOffset_Current;
+                IbiInfo.FrameNumber=Frame_Count;
+                IbiInfo.Dts=FrameInfo.DTS;
+                IbiStream.Infos.push_back(IbiInfo);
+            }
+        }
+    #endif MEDIAINFO_IBI
+
     //We continue
     return true;
 }
@@ -785,7 +803,12 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
         if (Demux_Offset && Buffer[Demux_Offset-1]==0x00)
             Demux_Offset--;
 
-        Demux_UnpacketizeContainer_Demux(); //TODO random_access
+        zero_byte=Buffer[Buffer_Offset+2]==0x00;
+        bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
+        if (IFrame_IsParsed || RandomAccess)
+            Demux_UnpacketizeContainer_Demux(RandomAccess);
+        else
+            Demux_UnpacketizeContainer_Demux_Clear();
     }
 
     return true;
@@ -890,6 +913,7 @@ void File_Avc::Read_Buffer_Unsynched()
     TemporalReference_GA94_03_CC_Offset=0;
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
     RefFramesCount=0;
+    IFrame_IsParsed=false;
 
     //Impossible to know TimeStamps now
     FrameInfo.PTS=(int64u)-1;
@@ -1222,6 +1246,13 @@ void File_Avc::slice_header()
     Skip_XX(Element_Size-Element_Offset,                        "ToDo...");
 
     FILLING_BEGIN_PRECISE();
+        //Detection of first I-Frame
+        if (!IFrame_IsParsed)
+        {
+            if (slice_type==2 || slice_type==7) //I-Frame
+                IFrame_IsParsed=true;
+        }
+
         //pic_struct
         if (field_pic_flag && pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=bottom_field_flag?2:1; //2=BFF, 1=TFF
@@ -1345,9 +1376,11 @@ void File_Avc::slice_header()
         }
 
         //Name
-        if (Frame_Count && ((!frame_mbs_only_flag && Interlaced_Top==Interlaced_Bottom && field_pic_flag) || first_mb_in_slice!=0 || (Element_Code==0x14 && !seq_parameter_set_ids.empty())))
+        if (Frame_Count!=(int64u)-1 && Frame_Count && ((!frame_mbs_only_flag && Interlaced_Top==Interlaced_Bottom && field_pic_flag) || first_mb_in_slice!=0 || (Element_Code==0x14 && !seq_parameter_set_ids.empty())))
         {
             Frame_Count--;
+            if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded--;
             Frame_Count_InThisBlock--;
             if (slice_type==0 || slice_type==2 || slice_type==5 || slice_type==7) //IFrame or PFrame
                 Field_Count_AfterLastCompleFrame=true;
@@ -1379,10 +1412,15 @@ void File_Avc::slice_header()
         #endif //MEDIAINFO_TRACE
 
         //Counting
-        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-        Frame_Count++;
-        Frame_Count_InThisBlock++;
+        if (Frame_Count!=(int64u)-1)
+        {
+            if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+                Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+            Frame_Count++;
+            if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded++;
+            Frame_Count_InThisBlock++;
+        }
         if (pic_order_cnt_type==0 && field_pic_flag)
         {
             Field_Count++;

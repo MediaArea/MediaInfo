@@ -55,7 +55,9 @@ protected :
     bool Synched_Test();
 
     //Buffer - Global
-    size_t Read_Buffer_Seek (size_t Method, int64u Value);
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
     void Read_Buffer_Unsynched();
 
     //Buffer - Per element
@@ -67,9 +69,9 @@ protected :
     void Header_Info();
     void Header_Meta();
     void Audio();
-    bool Audio_Stream(size_t Pos);
+    void Audio_Stream(size_t Pos);
     void Video();
-    bool Video_Stream(size_t Pos);
+    void Video_Stream(size_t Pos);
 
     //Streams
     struct stream
@@ -118,13 +120,16 @@ protected :
     std::vector<int64u>     Audio_Sizes;
     size_t                  Audio_Sizes_Pos;
     std::vector<int64u>     Video_Sizes;
+    size_t                  Video_Sizes_Pos;
     int8u                   SampleSize;
 
     //Seek
     typedef std::map<int64u, stream_header> time_offsets;
     time_offsets            TimeOffsets;
-    int64u                  SeekRequest_Divider;
-    int64u                  SeekRequest;
+    #if MEDIAINFO_SEEK
+        int64u              SeekRequest_Divider;
+        int64u              SeekRequest;
+    #endif //MEDIAINFO_SEEK
     bool                    Duration_Detected;
     int64u                  LastAudio_BufferOffset;
     stream_header           LastAudio_TimeOffset;

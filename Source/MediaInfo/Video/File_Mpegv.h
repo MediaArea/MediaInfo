@@ -271,10 +271,9 @@ private :
     int16u temporal_reference_LastIFrame;
     int64u PTS_LastIFrame;
     int64u tc;
-
+    bool    IFrame_IsParsed;
 };
 
 } //NameSpace
 
 #endif
-

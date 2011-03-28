@@ -95,6 +95,9 @@
     #if !defined (MEDIAINFO_DEMUX_NO) && !defined (MEDIAINFO_DEMUX_YES)
         #define MEDIAINFO_DEMUX_NO
     #endif
+    #if !defined (MEDIAINFO_IBI_NO) && !defined (MEDIAINFO_IBI_YES)
+        #define MEDIAINFO_IBI_NO
+    #endif
 #endif
 #if defined(MEDIAINFO_EVENTS)
     #undef MEDIAINFO_EVENTS
@@ -126,6 +129,9 @@
     #endif
     #if !defined (MEDIAINFO_DEMUX_NO) && !defined (MEDIAINFO_DEMUX_YES)
         #define MEDIAINFO_DEMUX_NO
+    #endif
+    #if !defined (MEDIAINFO_IBI_NO) && !defined (MEDIAINFO_IBI_YES)
+        #define MEDIAINFO_IBI_NO
     #endif
     #if !defined (MEDIAINFO_DIRECTORY_NO) && !defined (MEDIAINFO_DIRECTORY_YES)
         #define MEDIAINFO_DIRECTORY_NO
@@ -222,6 +228,16 @@
 #if MEDIAINFO_DEMUX && !MEDIAINFO_EVENTS
     pragma error MEDIAINFO_DEMUX can be set to 1 only if MEDIAINFO_EVENTS is set to 1 
 #endif
+#if !defined(MEDIAINFO_IBI)
+    #if defined(MEDIAINFO_IBI_NO) && defined(MEDIAINFO_IBI_YES)
+        #undef MEDIAINFO_IBI_NO //MEDIAINFO_IBI_YES has priority
+    #endif
+    #if defined(MEDIAINFO_IBI_NO)
+        #define MEDIAINFO_IBI 0
+    #else
+        #define MEDIAINFO_IBI 1
+    #endif
+#endif
 
 //***************************************************************************
 // Precise configuration
@@ -302,6 +318,9 @@
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_IVF_NO) && !defined(MEDIAINFO_IVF_YES)
     #define MEDIAINFO_IVF_YES
+#endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_IBI_NO) && !defined(MEDIAINFO_IBI_YES)
+    #define MEDIAINFO_IBI_YES
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_LXF_NO) && !defined(MEDIAINFO_LXF_YES)
     #define MEDIAINFO_LXF_YES

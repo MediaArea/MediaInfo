@@ -43,8 +43,8 @@ using namespace std;
     int64u Reader_File_BytesRead_Total=0;
     int64u Reader_File_BytesRead=0;
     int64u Reader_File_Count=1;
-    #include <iostream>
 #endif // MEDIAINFO_DEBUG
+    #include <iostream>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -56,7 +56,9 @@ const size_t Buffer_NoJump=128*1024;
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
-    #if MEDIAINFO_EVENTS
+	std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
+
+	#if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_General_Start_0 Event;
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
@@ -243,11 +245,14 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         std::cout<<"Total: "<<std::dec<<Reader_File_BytesRead_Total<<" bytes in "<<Reader_File_Count<<" blocks"<<std::endl;
     #endif //MEDIAINFO_DEBUG
 
-    //File
-    F.Close();
+    if (MI==NULL || !MI->Config.File_KeepInfo_Get())
+    {
+        //File
+        F.Close();
 
-    //Buffer
-    delete[] Buffer; //Buffer=NULL;
+        //Buffer
+        delete[] Buffer; Buffer=NULL;
+    }
 
     //Is this file detected?
     if (!Status[File__Analyze::IsAccepted])
@@ -264,13 +269,12 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 }
 
 //---------------------------------------------------------------------------
-size_t Reader_File::Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value)
+#if MEDIAINFO_SEEK
+size_t Reader_File::Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value, int64u ID)
 {
-    MI->Open_Buffer_Unsynch();
-    MI->Open_Buffer_Seek(Method, Value);
-
-    return 1;
+    return MI->Open_Buffer_Seek(Method, Value, ID);
 }
+#endif //MEDIAINFO_SEEK
 
 } //NameSpace
 

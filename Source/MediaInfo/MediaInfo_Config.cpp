@@ -227,6 +227,13 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             Internet_Set(1);
         return Ztring();
     }
+    else if (Option_Lower==_T("internet_get"))
+    {
+        if (Internet_Get())
+            return _T("1");
+        else
+            return Ztring();
+    }
     else if (Option_Lower==_T("demux"))
     {
         String Value_Lower(Value);
@@ -244,12 +251,16 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
             Demux_Set(0);
         return Ztring();
     }
-    else if (Option_Lower==_T("internet_get"))
+    else if (Option_Lower==_T("demux_get"))
     {
-        if (Internet_Get())
-            return _T("1");
-        else
-            return Ztring();
+        switch (Demux_Get())
+        {
+            case 7 : return _T("All");
+            case 1 : return _T("Frame");
+            case 2 : return _T("Container");
+            case 4 : return _T("Elementary");
+            default: return Ztring();
+        }
     }
     else if (Option_Lower==_T("multiplevalues"))
     {
