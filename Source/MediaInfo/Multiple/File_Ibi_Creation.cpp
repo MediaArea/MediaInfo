@@ -32,6 +32,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #include <zlib.h>
+#include "ZenLib/File.h"
 #include "ZenLib/Base64/base64.h"
 //---------------------------------------------------------------------------
 
