@@ -32,7 +32,6 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #include <zlib.h>
-#include "ZenLib/File.h"
 #include "ZenLib/Base64/base64.h"
 //---------------------------------------------------------------------------
 
@@ -307,12 +306,6 @@ Ztring File_Ibi_Creation::Finish()
         Buffer.Content=new int8u[Buffer.Size];
         std::memcpy(Buffer.Content, Main, Header_Offset); //Same header + Compressed index header
         std::memcpy(Buffer.Content+Header_Offset, Compressed, Compressed_OffsetWihtoutHeader); //Same header
-
-        File F;
-        F.Create(_T("D:\\Nicole\\_.ibi"));
-        F.Write(Main, Header_Offset); //Same header + Compressed index header
-        F.Write(Compressed, Compressed_OffsetWihtoutHeader); //Same header
-        F.Close();
     }
     else
     {
@@ -320,13 +313,6 @@ Ztring File_Ibi_Creation::Finish()
         Buffer.Size=Main_Offset;
         Buffer.Content=new int8u[Buffer.Size];
         std::memcpy(Buffer.Content, Main, Main_Offset);
-
-        /*
-        File F;
-        F.Create(_T("D:\\_.ibi"));
-        F.Write(Main, Main_Offset);
-        F.Close();
-        */
     }
 
     std::string Data_Raw((const char*)Buffer.Content, Buffer.Size);
