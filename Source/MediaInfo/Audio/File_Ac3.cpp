@@ -513,7 +513,7 @@ File_Ac3::File_Ac3()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?40:2;
     MustParse_dac3=false;
     MustParse_dec3=false;
     CalculateDelay=false;
@@ -1191,11 +1191,21 @@ bool File_Ac3::Synched_Test()
         int16u CRC_16=0x0000;
         const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
         const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+Size*5/8; //5/8 intermediate
+        const int8u* CRC_16_Buffer_EndMinus3=Buffer+Buffer_Offset+Size-3; //End of frame minus 3
         const int8u* CRC_16_Buffer_End=Buffer+Buffer_Offset+Size; //End of frame
         while(CRC_16_Buffer<CRC_16_Buffer_End)
         {
             CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
             CRC_16_Buffer++;
+
+            //CRC bytes inversion
+            if (CRC_16_Buffer==CRC_16_Buffer_EndMinus3 && ((*CRC_16_Buffer)&0x01)) //CRC inversion bit
+            {
+                CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(~(*CRC_16_Buffer))];
+                CRC_16_Buffer++;
+                CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(~(*CRC_16_Buffer))];
+                CRC_16_Buffer++;
+            }
 
             //5/8 intermediate test
             if (CRC_16_Buffer==CRC_16_Buffer_5_8 && bsid<=0x08 && CRC_16!=0x0000)

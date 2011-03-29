@@ -921,7 +921,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t D
     else
     {
         MediaInfo_Event_Generic* Event_Generic=(MediaInfo_Event_Generic*)Data_Content;
-        if ((Event_Generic->EventCode&0x00FFFF01)==((MediaInfo_Event_Global_Demux<<8)|0x01)) //Demux version 1
+        if ((Event_Generic->EventCode&0x00FFFF03)==((MediaInfo_Event_Global_Demux<<8)|0x03)) //Demux version 3
         {
             if (!MediaInfoLib::Config.Demux_Get())
                 return;
