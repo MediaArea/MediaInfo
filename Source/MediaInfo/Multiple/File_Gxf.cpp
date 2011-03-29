@@ -245,7 +245,6 @@ File_Gxf::File_Gxf()
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent_Accept_Specific=true;
     #endif //MEDIAINFO_DEMUX
-    Frame_Count_NotParsedIncluded=0;
 
     //Temp
     Material_Fields_FieldsPerFrame=(int8u)-1;
@@ -552,7 +551,6 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                             if (Value<Seeks[Pos].FrameNumber && Pos)
                                 Pos--;
                             GoTo(Seeks[Pos].StreamOffset);
-                            Frame_Count_NotParsedIncluded=Seeks[Pos].FrameNumber;
 
                             return 1;
                         }
