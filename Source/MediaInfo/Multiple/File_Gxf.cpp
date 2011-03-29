@@ -1038,10 +1038,6 @@ void File_Gxf::media()
             IFrame_IsParsed=(MediaFieldNumber%((File_Umf*)UMF_File)->GopSize)==0;
     #endif //MEDIAINFO_SEEK
 
-    //Stats
-    if (TrackNumber==TimeCode_StreamID)
-        TimeCode_IsNotPresent=false;
-
     #if MEDIAINFO_DEMUX
         Element_Code=TrackNumber;
         if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
@@ -1095,7 +1091,7 @@ void File_Gxf::media()
     if (!Streams[TrackNumber].Searching_Payload)
     {
         Skip_XX(Element_Size-Element_Offset,                    "data");
-        //Element_DoNotShow();
+        Element_DoNotShow();
         return;
     }
 
