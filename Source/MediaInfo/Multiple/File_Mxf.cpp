@@ -1787,9 +1787,12 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         MediaInfo_Internal MI;
                         MI.Option(_T("File_KeepInfo"), _T("1"));
                         Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+                        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
                         MI.Option(_T("ParseSpeed"), _T("0"));
+                        MI.Option(_T("Demux"), Ztring());
                         size_t MiOpenResult=MI.Open(File_Name);
                         MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
                         if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("MXF"))
                             return 0;
                         Seeks=((File_Mxf*)MI.Info)->Seeks;
