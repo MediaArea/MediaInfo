@@ -113,8 +113,8 @@ File__Analyze::File__Analyze ()
         Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
     else
         Buffer_TotalBytes_FirstSynched_Max=1024*1024;
-    if (Buffer_TotalBytes_FirstSynched_Max<(int64u)-1-16*1024*1024)
-        Buffer_TotalBytes_Fill_Max=Buffer_TotalBytes_FirstSynched_Max+16*1024*1024;
+    if (Buffer_TotalBytes_FirstSynched_Max<(int64u)-1-64*1024*1024)
+        Buffer_TotalBytes_Fill_Max=Buffer_TotalBytes_FirstSynched_Max+64*1024*1024;
     else
         Buffer_TotalBytes_Fill_Max=(int64u)-1;
 
