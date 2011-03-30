@@ -58,6 +58,8 @@ public :
 
 private :
     //Streams management
+    void Streams_Accept();
+    void Streams_Update();
     void Streams_Fill();
     void Streams_Finish();
 
@@ -180,6 +182,24 @@ private :
     };
     std::vector<temporalreference*> TemporalReference; //per temporal_reference
     size_t                          TemporalReference_Offset;
+    struct text_position
+    {
+        File__Analyze**  Parser;
+        size_t          StreamPos;
+        
+        text_position()
+        {
+            Parser=NULL;
+            StreamPos=(size_t)-1;
+        }
+        
+        text_position(File__Analyze* &Parser_)
+        {
+            Parser=&Parser_;
+            StreamPos=0;
+        }
+    };
+    std::vector<text_position> Text_Positions;
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         File__Analyze*              GA94_03_Parser;
         size_t                      GA94_03_TemporalReference_Offset;

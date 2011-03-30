@@ -116,26 +116,54 @@ File_Cdp::~File_Cdp()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Cdp::Streams_Fill()
+void File_Cdp::Streams_Accept()
 {
-    //Filling
     Fill(Stream_General, 0, General_Format, "CDP");
+}
+
+//---------------------------------------------------------------------------
+void File_Cdp::Streams_Update()
+{
+    //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
+            Streams_Update_PerStream(Pos);
+}
+
+//---------------------------------------------------------------------------
+void File_Cdp::Streams_Update_PerStream(size_t Pos)
+{
+    Update(Streams[Pos]->Parser);
+
+    //Creating the text stream if not already present
+    if (Streams[Pos]->StreamPos==(size_t)-1)
+    {
+        Streams[Pos]->StreamPos=0;
+        for (size_t Pos2=0; Pos2<Streams.size(); Pos2++)
         {
-            Merge(*Streams[Pos]->Parser);
-            if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
+            if (Pos2==Pos)
+            {
+                Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
+                if (Pos<2)
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
+            }
+            else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)
+                Streams[Pos]->StreamPos=Streams[Pos2]->StreamPos+1;
+            else if (Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1)
+                Streams[Pos2]->StreamPos++;
         }
+    }
+
+    Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
 }
 
 //---------------------------------------------------------------------------
 void File_Cdp::Streams_Finish()
 {
-    //Filling
+    //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
             Finish(Streams[Pos]->Parser);
 }
 

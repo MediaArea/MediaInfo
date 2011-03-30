@@ -2010,6 +2010,27 @@ void File__Analyze::Accept (File__Analyze* Parser)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
+void File__Analyze::Update (const char* ParserName_Char)
+#else //MEDIAINFO_TRACE
+void File__Analyze::Update ()
+#endif //MEDIAINFO_TRACE
+{
+    if (!Status[IsAccepted])
+        return;
+
+    Open_Buffer_Update();
+}
+
+void File__Analyze::Update (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    Parser->Update();
+}
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_TRACE
 void File__Analyze::Fill (const char* ParserName_Char)
 #else //MEDIAINFO_TRACE
 void File__Analyze::Fill ()
@@ -2140,6 +2161,8 @@ void File__Analyze::ForceFinish ()
         if (Status[IsUpdated])
         {
             Open_Buffer_Update();
+            if (IsSub)
+                Status[IsUpdated]=true; //We want that container merges the result
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_EventWasSent)
                     return;

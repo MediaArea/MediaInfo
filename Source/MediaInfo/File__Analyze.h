@@ -846,6 +846,8 @@ public :
     void Accept        (File__Analyze* Parser);
     void Reject        (const char* ParserName=NULL);
     void Reject        (File__Analyze* Parser);
+    void Update        (const char* ParserName=NULL);
+    void Update        (File__Analyze* Parser);
     void Fill          (const char* ParserName=NULL);
     void Fill          (File__Analyze* Parser);
     void Finish        (const char* ParserName=NULL);

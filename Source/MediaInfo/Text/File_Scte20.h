@@ -54,7 +54,8 @@ public :
 
 private :
     //Streams management
-    void Streams_Fill();
+    void Streams_Update();
+    void Streams_Update_PerStream(size_t Pos);
     void Streams_Finish();
 
     //Synchro

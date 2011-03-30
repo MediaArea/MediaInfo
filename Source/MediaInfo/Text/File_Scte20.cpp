@@ -104,31 +104,49 @@ File_Scte20::~File_Scte20()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Scte20::Streams_Fill()
+void File_Scte20::Streams_Update()
 {
-    //Filling
+    //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
+            Streams_Update_PerStream(Pos);
+}
+
+//---------------------------------------------------------------------------
+void File_Scte20::Streams_Update_PerStream(size_t Pos)
+{
+    Update(Streams[Pos]->Parser);
+
+    //Creating the text stream if not already present
+    if (Streams[Pos]->StreamPos==(size_t)-1)
+    {
+        Streams[Pos]->StreamPos=0;
+        for (size_t Pos2=0; Pos2<Streams.size(); Pos2++)
         {
-            Merge(*Streams[Pos]->Parser);
-            Streams[Pos]->StreamPos=StreamPos_Last;
-            if (Pos<3)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("SCTE 20"));
+            if (Pos2==Pos)
+            {
+                Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
+                if (Pos<2)
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1), true);
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("SCTE 20"), Unlimited, true);
+            }
+            else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)
+                Streams[Pos]->StreamPos=Streams[Pos2]->StreamPos+1;
+            else if (Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1)
+                Streams[Pos2]->StreamPos++;
         }
+    }
+
+    Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
 }
 
 //---------------------------------------------------------------------------
 void File_Scte20::Streams_Finish()
 {
-    //Filling
+    //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled])
-        {
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
             Finish(Streams[Pos]->Parser);
-            if (Streams[Pos]->StreamPos!=(size_t)-1)
-                Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
-        }
 }
 
 //***************************************************************************

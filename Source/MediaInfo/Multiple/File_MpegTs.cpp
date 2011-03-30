@@ -578,16 +578,25 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             size_t Text_Count=Temp->Parser->Count_Get(Stream_Text);
             for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
             {
-                Stream_Prepare(Stream_Text);
+                Ztring Parser_ID=Temp->Parser->Retrieve(Stream_Text, Text_Pos, Text_ID);
+                if (Parser_ID.find(_T('-'))!=string::npos)
+                    Parser_ID.erase(Parser_ID.begin(), Parser_ID.begin()+Parser_ID.find(_T('-'))+1);
+                Ztring ID=Retrieve(Stream_Video, Temp->StreamPos, Video_ID)+_T('-')+Parser_ID;
+                StreamPos_Last=(size_t)-1;
+                for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                    if (Retrieve(Stream_Text, Pos, Text_ID)==ID && Retrieve(Stream_Video, Pos, "MuxingMode")==Temp->Parser->Retrieve(Stream_Text, Text_Pos, "MuxingMode"))
+                    {
+                        StreamPos_Last=Pos;
+                        break;
+                    }
+                if (StreamPos_Last==(size_t)-1)
+                    Stream_Prepare(Stream_Text, StreamPos_Last);
                 Merge(*Temp->Parser, Stream_Text, Text_Pos, StreamPos_Last);
 
                 if (!IsSub)
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->StreamPos+1), true);
-                Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                if (ID.find(_T('-'))!=string::npos)
-                    ID.erase(ID.begin(), ID.begin()+ID.find(_T('-'))+1);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Temp->StreamPos, Video_ID)+_T('-')+ID, true);
-                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+Parser_ID, true);
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID), true);
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID_String), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp->StreamPos, Video_Duration), true);
@@ -2192,6 +2201,14 @@ void File_MpegTs::PSI()
                     do
                     {
                         Pos--;
+                        
+                        //Erasing text substreams
+                        Ztring ID_ToFind=Retrieve((stream_t)StreamKind, Complete_Stream->StreamPos_ToRemove[StreamKind][Pos], General_ID)+_T('-');
+                        for (size_t TextPos=0; TextPos<Count_Get(Stream_Text); TextPos++)
+                            if (Retrieve(Stream_Text, TextPos, General_ID).find(ID_ToFind)==0)
+                                 Stream_Erase(Stream_Text, TextPos);
+                        
+                        //Erasing the stream
                         Stream_Erase((stream_t)StreamKind, Complete_Stream->StreamPos_ToRemove[StreamKind][Pos]);
 
                         //Moving other StreamPos

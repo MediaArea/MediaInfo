@@ -306,13 +306,16 @@ File_Mpegv::File_Mpegv()
         GA94_03_Parser=NULL;
         GA94_03_TemporalReference_Offset=0;
         GA94_03_IsPresent=false;
+        Text_Positions.push_back(text_position(GA94_03_Parser));
         CC___Parser=NULL;
         CC___IsPresent=false;
+        Text_Positions.push_back(text_position(CC___Parser));
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
     #if defined(MEDIAINFO_SCTE20_YES)
         Scte_Parser=NULL;
         Scte_TemporalReference_Offset=0;
         Scte_IsPresent=false;
+        Text_Positions.push_back(text_position(Scte_Parser));
     #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         DTG1_Parser=NULL;
@@ -321,6 +324,7 @@ File_Mpegv::File_Mpegv()
     #if defined(MEDIAINFO_CDP_YES)
         Cdp_Parser=NULL;
         Cdp_IsPresent=false;
+        Text_Positions.push_back(text_position(Cdp_Parser));
     #endif //defined(MEDIAINFO_CDP_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         AfdBarData_Parser=NULL;
@@ -357,11 +361,53 @@ File_Mpegv::~File_Mpegv()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Mpegv::Streams_Accept()
+{
+    Stream_Prepare(Stream_Video);
+}
+
+//---------------------------------------------------------------------------
+void File_Mpegv::Streams_Update()
+{
+    for (size_t Text_Positions_Pos=0; Text_Positions_Pos<Text_Positions.size(); Text_Positions_Pos++)
+    {
+        if (*Text_Positions[Text_Positions_Pos].Parser && (*Text_Positions[Text_Positions_Pos].Parser)->Status[IsUpdated])
+        {
+            Update(*Text_Positions[Text_Positions_Pos].Parser);
+            for (size_t Pos=0; Pos<(*Text_Positions[Text_Positions_Pos].Parser)->Count_Get(Stream_Text); Pos++)
+            {
+                bool IsNewStream=false;
+                if (Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, Text_ID)!=(*Text_Positions[Text_Positions_Pos].Parser)->Get(Stream_Text, Pos, Text_ID))
+                {
+                    Stream_Prepare(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos);
+                    for (size_t Text_Positions_Pos2=Text_Positions_Pos+1; Text_Positions_Pos2<Text_Positions.size(); Text_Positions_Pos2++)
+                        Text_Positions[Text_Positions_Pos2].StreamPos++;
+                    IsNewStream=true;
+                }
+                Merge(*(*Text_Positions[Text_Positions_Pos].Parser), Stream_Text, Pos, Text_Positions[Text_Positions_Pos].StreamPos+Pos);
+                
+                if (IsNewStream)
+                {
+                    if ((*Text_Positions[Text_Positions_Pos].Parser)==GA94_03_Parser)
+                    {
+                        Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
+                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("A/53 / ")+MuxingMode, true);
+                    }
+                    if ((*Text_Positions[Text_Positions_Pos].Parser)==Cdp_Parser)
+                    {
+                        Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
+                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
+                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode_MoreInfo", _T("Muxed in video frame presentation order"));
+                    }
+                }
+            }
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Mpegv::Streams_Fill()
 {
-    //Filling
-    Stream_Prepare(Stream_Video);
-
     //Version
     if (MPEG_Version==2)
     {
@@ -702,29 +748,13 @@ void File_Mpegv::Streams_Finish()
     //Other parsers
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         if (GA94_03_Parser && !GA94_03_Parser->Status[IsFinished] && GA94_03_Parser->Status[IsAccepted])
-        {
             Finish(GA94_03_Parser);
-            Merge(*GA94_03_Parser);
-            size_t Parser_Text_Count=GA94_03_Parser->Count_Get(Stream_Text);
-            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
-            {
-                size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
-                Ztring MuxingMode=Retrieve(Stream_Text, Text_Pos, "MuxingMode");
-                Fill(Stream_Text, Text_Pos, "MuxingMode", _T("A/53 / ")+MuxingMode, true);
-            }
-        }
         if (CC___Parser && !CC___Parser->Status[IsFinished] && CC___Parser->Status[IsAccepted])
-        {
             Finish(CC___Parser);
-            Merge(*CC___Parser);
-        }
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
     #if defined(MEDIAINFO_SCTE20_YES)
         if (Scte_Parser && !Scte_Parser->Status[IsFinished] && Scte_Parser->Status[IsAccepted])
-        {
             Finish(Scte_Parser);
-            Merge(*Scte_Parser);
-        }
     #endif //defined(MEDIAINFO_SCTE20_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         if (DTG1_Parser && !DTG1_Parser->Status[IsFinished] && DTG1_Parser->Status[IsAccepted])
@@ -740,18 +770,7 @@ void File_Mpegv::Streams_Finish()
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_CDP_YES)
         if (Cdp_Parser && !Cdp_Parser->Status[IsFinished] && Cdp_Parser->Status[IsAccepted])
-        {
             Finish(Cdp_Parser);
-            Merge(*Cdp_Parser);
-            size_t Parser_Text_Count=Cdp_Parser->Count_Get(Stream_Text);
-            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
-            {
-                size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
-                Ztring MuxingMode=Retrieve(Stream_Text, Text_Pos, "MuxingMode");
-                Fill(Stream_Text, Text_Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
-                Fill(Stream_Text, Text_Pos, "MuxingMode_MoreInfo", _T("Muxed in video frame presentation order"));
-            }
-        }
     #endif //defined(MEDIAINFO_CDP_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         if (AfdBarData_Parser && !AfdBarData_Parser->Status[IsFinished] && AfdBarData_Parser->Status[IsAccepted])

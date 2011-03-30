@@ -51,7 +51,9 @@ public :
 
 private :
     //Streams management
-    void Streams_Fill();
+    void Streams_Accept();
+    void Streams_Update();
+    void Streams_Update_PerStream(size_t Pos);
     void Streams_Finish();
 
     //Synchro
@@ -72,11 +74,13 @@ private :
     struct stream
     {
         File__Analyze*  Parser;
+        size_t          StreamPos;
         bool            IsFilled;
 
         stream()
         {
             Parser=NULL;
+            StreamPos=(size_t)-1;
             IsFilled=false;
         }
 
