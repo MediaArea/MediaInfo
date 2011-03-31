@@ -1185,7 +1185,11 @@ bool File_Ac3::Synched_Test()
     if (Size!=0)
     {
         if (Buffer_Offset+Size>Buffer_Size)
+        {
+            if (TimeStamp_IsPresent && !TimeStamp_Parsed)
+                Buffer_Offset-=16;
             return false; //Need more data
+        }
 
         //Testing
         int16u CRC_16=0x0000;
