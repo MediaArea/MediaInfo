@@ -539,6 +539,7 @@ File_Ac3::File_Ac3()
     TimeStamp_IsPresent=false;
     TimeStamp_IsParsing=false;
     TimeStamp_Parsed=false;
+    TimeStamp_DropFrame_IsValid=false;
 }
 
 //***************************************************************************
@@ -739,6 +740,15 @@ void File_Ac3::Streams_Fill()
         Fill(Stream_Audio, 0, "bsid", bsid);
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("bsid"), Info_Options)=_T("N NT");
     }
+
+    //TimeStamp
+    if (TimeStamp_IsPresent)
+    {
+        Fill(Stream_Audio, 0, Audio_Delay, TimeStamp_Content*1000, 0);
+        Fill(Stream_Audio, 0, Audio_Delay_Source, "Stream");
+        if (TimeStamp_DropFrame_IsValid)
+            Fill(Stream_Audio, 0, Audio_Delay_Settings, TimeStamp_DropFrame_Content?"drop_frame_flag=1":"drop_frame_flag=0");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -915,13 +925,6 @@ void File_Ac3::Streams_Finish()
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
         Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000/32));
     }
-
-    //TimeStamp
-    if (TimeStamp_IsPresent)
-    {
-        Fill(Stream_Audio, 0, Audio_Delay, TimeStamp_Content*1000, 0);
-        Fill(Stream_Audio, 0, Audio_Delay_Source, "Stream");
-    }
 }
 
 //***************************************************************************
@@ -1093,6 +1096,9 @@ bool File_Ac3::Synchronize()
         {
             TimeStamp_IsPresent=true;
             Buffer_Offset-=16;
+
+            if (Frame_Count_Valid<10000)
+                Frame_Count_Valid=10000; //Setting it to 10000 in order to be able to have the drop frame for extreme stream (60 fps...)
         }
     }
 
@@ -1880,6 +1886,29 @@ void File_Ac3::TimeStamp()
             TimeStamp_Content=Temp;
         TimeStamp_IsParsing=false;
         TimeStamp_Parsed=true;
+
+        if (!TimeStamp_DropFrame_IsValid && M2 && !S2 && !S1 && !F1)
+        {
+            //If drop frame configuration, frames 0 and 1 are dropped for every minutes except 00 10 20 30 40 50
+            switch (F2)
+            {
+                case 0 :
+                case 1 :
+                            TimeStamp_DropFrame_IsValid=true;
+                            TimeStamp_DropFrame_Content=false;
+                            break;
+                case 2 :
+                            if (Frame_Count>=2)
+                            {
+                                TimeStamp_DropFrame_IsValid=true;
+                                TimeStamp_DropFrame_Content=true;
+                            }
+                default:    ;
+            }
+
+            if (TimeStamp_DropFrame_IsValid)
+                Frame_Count_Valid=32; //Reset
+        }
     FILLING_END();
 }
 

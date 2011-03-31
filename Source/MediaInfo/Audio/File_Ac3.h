@@ -136,6 +136,8 @@ private :
     bool   TimeStamp_IsPresent;
     bool   TimeStamp_IsParsing;
     bool   TimeStamp_Parsed;
+    bool   TimeStamp_DropFrame_IsValid;
+    bool   TimeStamp_DropFrame_Content;
     float64 TimeStamp_Content;
 };
 
