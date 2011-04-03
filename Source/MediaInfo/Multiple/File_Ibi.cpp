@@ -31,6 +31,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Ibi.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <zlib.h>
 //---------------------------------------------------------------------------
 
@@ -58,6 +59,62 @@ File_Ibi::File_Ibi()
 //---------------------------------------------------------------------------
 File_Ibi::~File_Ibi()
 {
+    if (Ibi_MustDelete)
+        delete Ibi; //Ibi=NULL;
+}
+
+//***************************************************************************
+// Get information
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+const Ztring &File_Ibi::Get (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, info_t KindOfInfo, info_t KindOfSearch)
+{
+    if (StreamNumber<=Ibi->Streams.size() && !Ibi->Streams[StreamNumber].Infos.empty())
+    {
+        int64u FrameNumber=Parameter.To_int64u();
+
+        for (size_t Pos=0; Pos<Ibi->Streams[StreamNumber].Infos.size()-1; Pos++)
+            if (Ibi->Streams[StreamNumber].Infos[Pos].FrameNumber==FrameNumber || Ibi->Streams[StreamNumber].Infos[Pos+1].FrameNumber>FrameNumber)
+            {
+                Get_Temp=_T("StreamOffset=")+Ztring::ToZtring(Ibi->Streams[StreamNumber].Infos[Pos].StreamOffset)
+                       + _T(" / FrameNumber=")+Ztring::ToZtring(Ibi->Streams[StreamNumber].Infos[Pos].FrameNumber)
+                       + _T(" / Dts=")+Ztring::ToZtring(Ibi->Streams[StreamNumber].Infos[Pos].Dts);
+                return Get_Temp; 
+            }
+    }
+
+    //Can not be found
+    Get_Temp.clear();
+    return Get_Temp;
+}
+
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ibi::Streams_Accept()
+{
+    Fill(Stream_General, 0, General_Format, "Ibi");
+
+    if (Ibi==NULL)
+    {
+        Ibi=new ibi();
+        Ibi_MustDelete=true;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Ibi::Streams_Finish()
+{
+    Config->File_KeepInfo_Set(true); //In order to let Get() available
+
+    for (size_t Pos=0; Pos<Ibi->Streams.size(); Pos++)
+    {
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, StreamPos_Last, General_ID, Ibi->Streams[Pos].ID);
+    }
 }
 
 //***************************************************************************
@@ -258,10 +315,7 @@ void File_Ibi::Ebml_DocType()
     FILLING_BEGIN();
 
         if (Data==_T("MediaInfo Index"))
-        {
             Accept("Ibi");
-            Fill(Stream_General, 0, General_Format, "Ibi");
-        }
         else
         {
             Reject("Ibi");

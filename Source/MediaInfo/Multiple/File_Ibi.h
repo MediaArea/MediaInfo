@@ -48,6 +48,13 @@ public :
     ibi* Ibi;
 
 private :
+    //Get information
+    const Ztring &Get (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+
+    //Streams management
+    void Streams_Accept();
+    void Streams_Finish();
+
     //Buffer - Element
     void Header_Parse();
     void Data_Parse();
@@ -75,6 +82,10 @@ private :
     int64u   UInteger_Get();
     int128u  UInteger16_Get();
     void     UInteger_Info();
+
+    //Temp
+    Ztring  Get_Temp;
+    bool    Ibi_MustDelete;
 };
 
 } //NameSpace
