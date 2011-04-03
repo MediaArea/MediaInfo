@@ -31,6 +31,7 @@
 #if defined(MEDIAINFO_ANCILLARY_YES)
     #include <MediaInfo/Multiple/File_Ancillary.h>
 #endif //defined(MEDIAINFO_ANCILLARY_YES)
+#include "MediaInfo/MediaInfo_Internal.h"
 #include <vector>
 //---------------------------------------------------------------------------
 
@@ -514,6 +515,9 @@ protected :
         std::map<std::string, Ztring> Infos;
         int16u BlockAlign;
         int32u QuantizationBits;
+        #if MEDIAINFO_DEMUX
+            int32u ByteRate;
+        #endif //MEDIAINFO_DEMUX
 
         descriptor()
         {
@@ -536,6 +540,9 @@ protected :
             SubSampling_Vertical=(int32u)-1;
             BlockAlign=(int16u)-1;
             QuantizationBits=(int8u)-1;
+            #if MEDIAINFO_DEMUX
+                ByteRate=(int32u)-1;
+            #endif //MEDIAINFO_DEMUX
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor
@@ -548,12 +555,22 @@ protected :
         stream_t    StreamKind;
         size_t      StreamPos;
         bool        IsTextLocator;
+        MediaInfo_Internal* MI;
+        #if MEDIAINFO_NEXTPACKET
+            std::bitset<32> Status;
+        #endif //MEDIAINFO_NEXTPACKET
 
         locator()
         {
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             IsTextLocator=false;
+            MI=NULL;
+        }
+
+        ~locator()
+        {
+            delete MI; //MI=NULL;
         }
     };
     typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
@@ -608,7 +625,6 @@ protected :
     int64u SystemScheme1_FrameRateFromDescriptor;
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
-    MediaInfo_Internal* MI;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         int128u         Ancillary_InstanceUID;
         int32u          Ancillary_LinkedTrackID;
@@ -620,30 +636,39 @@ protected :
         bool Demux_HeaderParsed;
     #endif //MEDIAINFO_DEMUX
 
+    #if MEDIAINFO_NEXTPACKET
+        size_t CountOfLocatorsToParse;
+    #endif //MEDIAINFO_NEXTPACKET
+
     #if MEDIAINFO_SEEK
         //Seek - Delta
         struct seek
         {
-            int64u  Stream_Offset;
-            int64u  Frame_Number;
-            int64u  DTS;
-            int64u  DTS_Next;
-            int64u  PTS;
+            int64u  FrameNumber;
+            int64u  StreamOffset;
             int8u   Type;
         };
         typedef std::vector<seek> seeks;
         seeks Seeks;
-        size_t Seeks_Pos;
+        size_t Seeks_PosTemp;
 
         //Seek - ByteCount
-        int32u IndexTable_EditUnitByteCount;
+        struct editunitbytecount
+        {
+            int64u IndexStartPosition;
+            int64u IndexDuration;
+            int32u EditUnitByteCount;
+        };
+        std::vector<editunitbytecount> IndexTable_EditUnitByteCounts;
         int64u IndexTable_EditUnitByteCount_Start;
         int32u IndexTable_EditUnitByteCount_Start_Item;
         int64u IndexTable_EditUnitByteCount_Start_PreviousPartitionPackSize;
+        int64u IndexTable_EditUnitByteCount_Start_HeaderSize;
 
         //seek - EditRate
         float64 IndexTable_IndexEditRate;
         int64u  IndexTable_IndexStartPosition;
+        int64u  IndexTable_IndexDuration;
 
         //Seek - Temp
         seeks SeeksTemp; //Without the byte offset

@@ -481,6 +481,8 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         Sub->Frame_Count_Previous=Sub->Frame_Count;
         Sub->Field_Count_Previous=Sub->Field_Count;
     }
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Sub->Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
     #if MEDIAINFO_DEMUX
         bool Demux_EventWasSent_Save=Config->Demux_EventWasSent;
         Config->Demux_EventWasSent=false;
@@ -1386,9 +1388,9 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     }
 
     Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
+    File_GoTo=GoTo; //Setting it for the parser
     Open_Buffer_Unsynch();
-    if (!IsSub)
-        File_GoTo=GoTo;
+    File_GoTo=GoTo; //Setting it again because unsynch reset the value
     Element_End();
 }
 #endif //MEDIAINFO_TRACE
@@ -2298,9 +2300,9 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     if (!Element_WantNextLevel)
         Element_End(); //Element
 
+    File_GoTo=GoTo; //Setting it for the parser
     Open_Buffer_Unsynch();
-    if (!IsSub)
-        File_GoTo=GoTo;
+    File_GoTo=GoTo; //Setting it again because unsynch reset the value
 
     #if MEDIAINFO_EVENTS
         struct MediaInfo_Event_General_Move_Request_0 Event;
@@ -2342,9 +2344,9 @@ void File__Analyze::GoTo (int64u GoTo)
         return;
     }
 
+    File_GoTo=GoTo; //Setting it for the parser
     Open_Buffer_Unsynch();
-    if (!IsSub)
-        File_GoTo=GoTo;
+    File_GoTo=GoTo; //Setting it again because unsynch reset the value
 }
 #endif //MEDIAINFO_TRACE
 

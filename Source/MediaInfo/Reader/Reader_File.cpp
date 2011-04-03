@@ -167,8 +167,9 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 
     #if MEDIAINFO_DEMUX
     //PerPacket
+    bool ShouldContinue=true;
     if (MI->Config.Demux_EventWasSent)
-    {    
+    {
         MI->Config.Demux_EventWasSent=false;
 
         //Parser
@@ -181,62 +182,63 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         //Threading
         if (MI->IsTerminating())
             return 1; //Termination is requested
-        
-        if (!(!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled]))))
-            return 1;
-    }
-    #endif //MEDIAINFO_DEMUX
 
-    //Test the format with buffer
-    do
+        if (Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled]))
+            ShouldContinue=false;
+    }
+
+    if (ShouldContinue)
+    #endif //MEDIAINFO_DEMUX
     {
-        //Seek (if needed)
-        if (MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
+        //Test the format with buffer
+        do
         {
+            //Seek (if needed)
+            if (MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
+            {
+                #ifdef MEDIAINFO_DEBUG
+                    std::cout<<std::hex<<Reader_File_Offset<<" - "<<Reader_File_Offset+Reader_File_BytesRead<<" : "<<std::dec<<Reader_File_BytesRead<<" bytes"<<std::endl;
+                    Reader_File_Offset=MI->Open_Buffer_Continue_GoTo_Get();
+                    Reader_File_BytesRead=0;
+                    Reader_File_Count++;
+                #endif //MEDIAINFO_DEBUG
+
+                if (MI->Open_Buffer_Continue_GoTo_Get()>=F.Size_Get())
+                    break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
+                if (!(MI->Open_Buffer_Continue_GoTo_Get()>F.Position_Get() && MI->Open_Buffer_Continue_GoTo_Get()<F.Position_Get()+Buffer_NoJump)) //No smal jumps
+                {
+                     if (!F.GoTo(Partial_Begin+MI->Open_Buffer_Continue_GoTo_Get()))
+                        break; //File is not seekable
+
+                    MI->Open_Buffer_Init((int64u)-1, F.Position_Get()-Partial_Begin);
+                }
+            }
+
+            size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_Max<Partial_End)?Buffer_Size_Max:((size_t)(Partial_End-F.Position_Get())));
+            if (Buffer_Size==0 && !(F.Position_Get()==Partial_End && Status[File__Analyze::IsAccepted]))
+                break; //Problem while reading
+
             #ifdef MEDIAINFO_DEBUG
-                std::cout<<std::hex<<Reader_File_Offset<<" - "<<Reader_File_Offset+Reader_File_BytesRead<<" : "<<std::dec<<Reader_File_BytesRead<<" bytes"<<std::endl;
-                Reader_File_Offset=MI->Open_Buffer_Continue_GoTo_Get();
-                Reader_File_BytesRead=0;
-                Reader_File_Count++;
+                Reader_File_BytesRead_Total+=Buffer_Size;
+                Reader_File_BytesRead+=Buffer_Size;
             #endif //MEDIAINFO_DEBUG
 
-            if (MI->Open_Buffer_Continue_GoTo_Get()>=F.Size_Get())
-                break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
-            if (!(MI->Open_Buffer_Continue_GoTo_Get()>F.Position_Get() && MI->Open_Buffer_Continue_GoTo_Get()<F.Position_Get()+Buffer_NoJump)) //No smal jumps
-            {
-                 if (!F.GoTo(Partial_Begin+MI->Open_Buffer_Continue_GoTo_Get()))
-                    break; //File is not seekable
+            //Parser
+            Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
 
-                MI->Open_Buffer_Init((int64u)-1, F.Position_Get()-Partial_Begin);
-            }
+            #if MEDIAINFO_DEMUX
+                if (MI->Config.Demux_EventWasSent)
+                    return 2; //Must return immediately
+            #endif //MEDIAINFO_DEMUX
+
+            //Threading
+            if (MI->IsTerminating())
+                break; //Termination is requested
         }
-
-        //Buffering
-        size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_Max<Partial_End)?Buffer_Size_Max:((size_t)(Partial_End-F.Position_Get())));
-        if (Buffer_Size==0)
-            break; //Problem while reading
-
-        #ifdef MEDIAINFO_DEBUG
-            Reader_File_BytesRead_Total+=Buffer_Size;
-            Reader_File_BytesRead+=Buffer_Size;
-        #endif //MEDIAINFO_DEBUG
-
-        //Parser
-        Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
-
-        #if MEDIAINFO_DEMUX
-            if (MI->Config.Demux_EventWasSent)
-                return 2; //Must return immediately
-        #endif //MEDIAINFO_DEMUX
-
-        //Threading
-        if (MI->IsTerminating())
-            break; //Termination is requested
+        while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
+        if (F.Size_Get()==0) //If Size==0, Status is never updated
+            Status=MI->Open_Buffer_Continue(NULL, 0);
     }
-    while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
-    if (F.Size_Get()==0) //If Size==0, Status is never updated
-        Status=MI->Open_Buffer_Continue(NULL, 0);
-
 
     #ifdef MEDIAINFO_DEBUG
         std::cout<<std::hex<<Reader_File_Offset<<" - "<<Reader_File_Offset+Reader_File_BytesRead<<" : "<<std::dec<<Reader_File_BytesRead<<" bytes"<<std::endl;

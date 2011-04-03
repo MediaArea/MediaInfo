@@ -667,7 +667,8 @@ void File_Mpeg4::Streams_Finish_ParseLocator()
         {
             //Configuring file name (this time, we try to force URL decode in all cases)
             Name=ZenLib::Format::Http::URL_Encoded_Decode(Stream->second.File_Name);
-            if (!Name.find(_T(':'))==1 && !Name.find(_T("/"))==0 && !Name.find(_T("\\\\"))==0) //If absolute patch
+            AbsoluteName.clear();
+            if (Name.find(_T(':'))!=1 && Name.find(_T("/")) && Name.find(_T("\\\\"))) //If absolute patch
             {
                 AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
                 if (!AbsoluteName.empty())
@@ -816,7 +817,6 @@ bool File_Mpeg4::BookMark_Needed()
     if (Streams.empty())
         return false;
 
-    GoTo(0, "MPEG-4"); //Reseting it
     return true;
 }
 
