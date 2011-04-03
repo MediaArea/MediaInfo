@@ -247,7 +247,7 @@ File_Gxf::File_Gxf()
     #endif //MEDIAINFO_DEMUX
 
     //Temp
-    Material_Fields_FieldsPerFrame=(int8u)-1;
+    Material_Fields_FieldsPerFrame=1; //Progressive by default
     Parsers_Count=0;
     AncillaryData_StreamID=(int8u)-1;
     TimeCode_StreamID=(int8u)-1;
@@ -335,9 +335,12 @@ void File_Gxf::Streams_Finish()
         Streams_Finish_PerStream(StreamID, Streams[StreamID]);
 
     //Global
-    if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_FieldsPerFrame!=(int8u)-1 && Material_Fields_Last-Material_Fields_First)
+    if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_Last-Material_Fields_First)
     {
-        Fill(Stream_Video, 0, Video_FrameCount, (Material_Fields_Last+1-Material_Fields_First)/(Material_Fields_FieldsPerFrame==2?2:1));
+        int64u FrameCount=(Material_Fields_Last+1-Material_Fields_First)/Material_Fields_FieldsPerFrame;
+        Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
+        if (Gxf_FrameRate(Streams[0x00].FrameRate_Code))
+            Fill(Stream_Video, 0, Video_Duration, ((float64)FrameCount)/Gxf_FrameRate(Streams[0x00].FrameRate_Code)*1000, 0); //In milliseconds
 
         //We trust more the MPEG Video bitrate thant the rest
         //TODO: Chech why there is incohenrency (mainly about Material File size info in the sample)
@@ -368,9 +371,14 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         {
             Stream_Prepare(Stream_Video);
 
-            if (TimeCode_First!=(int64u)-1)
+            if (TimeCode_First!=(int64u)-1 && (TimeCode_First || !Material_Fields_First_IsValid)) //(if TimeCode is 0 and first field info is not 0, we prefer field info)
             {
                 Fill(Stream_Video, StreamPos_Last, Video_Delay, TimeCode_First, 0, true);
+                Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "Container");
+            }
+            else if (Material_Fields_First_IsValid)
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_Delay, ((float64)(Material_Fields_First/Material_Fields_FieldsPerFrame))/Gxf_FrameRate(Streams[0x00].FrameRate_Code)*1000, 0);
                 Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "Container");
             }
 
@@ -404,9 +412,14 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         {
             Stream_Prepare(Stream_Audio);
 
-            if (TimeCode_First!=(int64u)-1)
+            if (TimeCode_First!=(int64u)-1 && (TimeCode_First || !Material_Fields_First_IsValid)) //(if TimeCode is 0 and first field info is not 0, we prefer field info)
             {
                 Fill(Stream_Audio, StreamPos_Last, Audio_Delay, TimeCode_First, 0, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
+            }
+            else if (Material_Fields_First_IsValid)
+            {
+                Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float64)(Material_Fields_First/Material_Fields_FieldsPerFrame))/Gxf_FrameRate(Streams[0x00].FrameRate_Code)*1000, 0);
                 Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
             }
 
@@ -544,13 +557,20 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                     if (Seeks.empty())
                         return (size_t)-1; //Not supported
 
+                    //Search previous I-Frame
+                    if (UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+                    {
+                        Value/=((File_Umf*)UMF_File)->GopSize;
+                        Value*=((File_Umf*)UMF_File)->GopSize;
+                    }
+
                     for (size_t Pos=0; Pos<Seeks.size(); Pos++)
                     {
                         if (Value<=Seeks[Pos].FrameNumber)
                         {
                             if (Value<Seeks[Pos].FrameNumber && Pos)
                                 Pos--;
-                            GoTo(Seeks[Pos].StreamOffset);
+                            GoTo(Seeks[Pos].StreamOffset*1024);
 
                             return 1;
                         }
@@ -782,6 +802,7 @@ void File_Gxf::map()
                                     Streams[TrackID].Parser->Fill();
                                     Streams[TrackID].Parser->Stream_Prepare(Stream_Audio);
                                     Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+                                    Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little");
                                     break;
                         case 11 :
                         case 12 :
@@ -1033,56 +1054,64 @@ void File_Gxf::media()
 
     #if MEDIAINFO_SEEK
         if (!IFrame_IsParsed && UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
-            IFrame_IsParsed=(MediaFieldNumber%((File_Umf*)UMF_File)->GopSize)==0;
+            IFrame_IsParsed=(((MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame)%((File_Umf*)UMF_File)->GopSize)==0;
     #endif //MEDIAINFO_SEEK
 
     #if MEDIAINFO_DEMUX
-        Element_Code=TrackNumber;
-        if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
-        {
-            if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
-            {
-                FrameInfo.DTS=float64_int64s(((float64)MediaFieldNumber)*1000000000/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
-                FrameInfo.PTS=(int64u)-1;
-                FrameInfo.DUR=float64_int64s(((float64)1000000000)/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
-            }
-            else
-                FrameInfo.DTS=FrameInfo.PTS=FrameInfo.DUR=(int64u)-1;
-            if (MediaFieldNumber==0)
-                Demux_random_access=true;
-            else
-            {
-                if (UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
-                    Demux_random_access=(MediaFieldNumber%((File_Umf*)UMF_File)->GopSize)==0;
-                else
-                    Demux_random_access=false;
-            }
-        }
-        else if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Audio)
-        {
-            if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
-            {
-                int64u CountOfAudioBlocks=float64_int64s(MediaFieldNumber/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768); //A block is 32768 samples at 48 KHz
-                FrameInfo.DTS=FrameInfo.PTS=CountOfAudioBlocks*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
-            }
-            else
-                FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
-            FrameInfo.DUR=float64_int64s(((float64)1000000000)*32768/48000);
-            Demux_random_access=true;
-        }
-        else
-        {
-            if (Gxf_FrameRate(Streams[0x00].FrameRate_Code))
-                FrameInfo.DTS=FrameInfo.PTS=float64_int64s(((float64)MediaFieldNumber)*1000000000/Gxf_FrameRate(Streams[0x00].FrameRate_Code));
-            else
-                FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
-            FrameInfo.DUR=(int64u)-1;
-            Demux_random_access=true;
-        }
         #if MEDIAINFO_SEEK
-            if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)!=Stream_Video || IFrame_IsParsed)
+            if (IFrame_IsParsed)
         #endif //MEDIAINFO_SEEK
-            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+            {
+                Element_Code=TrackNumber;
+                if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
+                {
+                    if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
+                    {
+                        FrameInfo.DTS=float64_int64s(((float64)MediaFieldNumber)/Material_Fields_FieldsPerFrame*1000000000/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
+                        FrameInfo.PTS=(int64u)-1;
+                        FrameInfo.DUR=float64_int64s(((float64)1000000000)/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
+                    }
+                    else
+                        FrameInfo.DTS=FrameInfo.PTS=FrameInfo.DUR=(int64u)-1;
+                    if (MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0)==0)
+                        Demux_random_access=true;
+                    else
+                    {
+                        if (UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+                            Demux_random_access=(((MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame)%((File_Umf*)UMF_File)->GopSize)==0;
+                        else
+                            Demux_random_access=false;
+                    }
+                }
+                else if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Audio)
+                {
+                    if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
+                    {
+                        int64u CountOfAudioBlocksForDTS=float64_int64s(MediaFieldNumber/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768); //A block is 32768 samples at 48 KHz
+                        FrameInfo.DTS=FrameInfo.PTS=CountOfAudioBlocksForDTS*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
+                    }
+                    else
+                        FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
+                    FrameInfo.DUR=float64_int64s(((float64)1000000000)*32768/48000);
+                    Demux_random_access=true;
+                }
+                else
+                {
+                    if (Gxf_FrameRate(Streams[0x00].FrameRate_Code))
+                        FrameInfo.DTS=FrameInfo.PTS=float64_int64s(((float64)MediaFieldNumber)*1000000000/Gxf_FrameRate(Streams[0x00].FrameRate_Code)/Material_Fields_FieldsPerFrame);
+                    else
+                        FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
+                    FrameInfo.DUR=(int64u)-1;
+                    Demux_random_access=true;
+                }
+                #if MEDIAINFO_SEEK
+                    if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)!=Stream_Video || IFrame_IsParsed)
+                #endif //MEDIAINFO_SEEK
+                {
+                    Frame_Count_NotParsedIncluded=(MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame;
+                    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+                }
+            }
     #endif //MEDIAINFO_DEMUX
 
     //Needed?
@@ -1163,14 +1192,18 @@ void File_Gxf::UMF_file()
     Open_Buffer_Continue(UMF_File, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
 
     #if MEDIAINFO_SEEK
-        if (Flt_FieldPerEntry!=(int32u)-1 && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+    if (Seeks.empty() && Flt_FieldPerEntry!=(int32u)-1 && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
         {
+            int32u FramePerEntry=Flt_FieldPerEntry;
+            if (Material_Fields_First_IsValid)
+                FramePerEntry/=Material_Fields_FieldsPerFrame;
+
             size_t NextIFrame=0;
             for (size_t Pos=1; Pos<Flt_Offsets.size(); Pos++)
                 if (Pos*Flt_FieldPerEntry>NextIFrame)
                 {
                     seek Seek;
-                    Seek.FrameNumber=(Pos-1)*Flt_FieldPerEntry;
+                    Seek.FrameNumber=(Pos-1)*FramePerEntry;
                     Seek.StreamOffset=Flt_Offsets[Pos-1];
                     Seeks.push_back(Seek);
                     NextIFrame+=(size_t)((File_Umf*)UMF_File)->GopSize;
