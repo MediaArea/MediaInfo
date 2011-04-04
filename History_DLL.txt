@@ -13,7 +13,8 @@ Version 0.7.44, 2011-
 + AC-3: support of streams with 16-byte time stamp between frames
 + MPEG-TS: creation of index files, seek feature
 + GXF: seek feature
-+ MXF: seek feature (partial)
++ MXF: seek feature
+x MXF: some specific files were not analyzed
 
 Version 0.7.43, 2011-03-19
 --------------

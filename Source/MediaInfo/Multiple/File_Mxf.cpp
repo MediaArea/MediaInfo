@@ -784,8 +784,8 @@ File_Mxf::File_Mxf()
     OperationalPattern=0;
     Buffer_DataSizeToParse=(int64u)-1;
     Buffer_DataSizeToParse_Complete=(int64u)-1;
-    Preface_Current.hi=(int64u)-1;
-    Preface_Current.lo=(int64u)-1;
+    Preface_Current.hi=0;
+    Preface_Current.lo=0;
     Track_Number_IsAvailable=false;
     IsParsingEnd=false;
     TimeCode_StartTimecode=(int64u)-1;
@@ -2678,7 +2678,7 @@ void File_Mxf::Data_Parse()
                     }
                     else if (Code_Compare4==IndexTable_EditUnitByteCount_Start_Item)
                     {
-                        float64 EditRate=Tracks.begin()->second.EditRate;
+                        float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate;
                         if (EditRate)
                         {
                             FrameInfo.DTS+=float64_int64s(1000000000/EditRate);
@@ -2691,7 +2691,7 @@ void File_Mxf::Data_Parse()
                         Demux_random_access=FrameInfo.DTS==0; //Setting true only for the first image, by default, we don't know for the rest
                 }
             #endif //MEDIAINFO_SEEK
-            float64 EditRate=Tracks.begin()->second.EditRate; //TODO: use the corresponding track instead of the first one
+            float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate; //TODO: use the corresponding track instead of the first one
             if (EditRate)
                 FrameInfo.DUR=float64_int64s(1000000000/EditRate);
             else
@@ -4250,7 +4250,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredHeight()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
+        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==_T("Interlaced"))
             Data*=2; //This is per field
         if (Descriptors[InstanceUID].Height==(int32u)-1)
             Descriptors[InstanceUID].Height=Data;
@@ -4280,7 +4281,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledHeight()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
+        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==_T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height=Data;
     FILLING_END();
@@ -4323,7 +4325,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayHeight()
     Info_B4(Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
+        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==_T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height_Display=Data;
     FILLING_END();
@@ -4361,7 +4364,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayYOffset()
     Info_B4(Data,                                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
+        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==_T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height_Display_Offset=Data;
     FILLING_END();
@@ -7271,7 +7275,12 @@ File__Analyze* File_Mxf::ChooseParser(descriptors::iterator &Descriptor)
                                                         case 0x03 : //Individual Picture Coding Schemes
                                                                     switch (Code6)
                                                                     {
-                                                                        case 0x01 : return ChooseParser_Jpeg2000(Descriptor->second.Infos["ScanType"]==_T("Interlaced"));
+                                                                        case 0x01 : 
+                                                                                    {
+                                                                                    false;
+                                                                                    std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("ScanType");
+                                                                                    return ChooseParser_Jpeg2000(Info!=Descriptor->second.Infos.end() && Info->second==_T("Interlaced"));
+                                                                                    }
                                                                         default   : return NULL;
                                                                     }
                                                         case 0x71 : return ChooseParser_Vc3();
