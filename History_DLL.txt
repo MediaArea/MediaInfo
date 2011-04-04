@@ -14,7 +14,7 @@ Version 0.7.44, 2011-
 + MPEG-TS: creation of index files, seek feature
 + GXF: seek feature
 + MXF: seek feature
-x MXF: some specific files were not analyzed
+x MXF: some specific files were not analyzed, fix sponsored by http://maxnine.com
 
 Version 0.7.43, 2011-03-19
 --------------
