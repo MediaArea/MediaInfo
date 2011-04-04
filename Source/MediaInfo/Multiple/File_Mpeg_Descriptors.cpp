@@ -2440,6 +2440,8 @@ void File_Mpeg_Descriptors::Descriptor_6A()
                             Complete_Stream->Streams[elementary_PID]->StreamKind_FromDescriptor=Stream_Audio;
                             Complete_Stream->Streams[elementary_PID]->Infos["Format"]=enhanced_ac3?_T("E-AC-3"):_T("AC-3");
                             Complete_Stream->Streams[elementary_PID]->Infos["Codec"]=_T("AC3+");
+                            if (Complete_Stream->Streams[elementary_PID]->registration_format_identifier==Elements::BSSD)
+                                Complete_Stream->Streams[elementary_PID]->registration_format_identifier=0x00000000; //Reseting it, this combinaision is not possible but an stream has it
                         }
                         break;
             default    : ;
