@@ -154,9 +154,9 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 
     //Buffer
     Buffer=NULL;
-    Buffer_Size_Max=0;
-    Buffer_Size_Max_New=Buffer_NormalSize;
-    MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&Buffer_Size_Max_New)));
+    Buffer_Size_Max=Buffer_NormalSize>1?(Buffer_NormalSize/2):1;
+    Buffer_Size_ToRead=Buffer_NormalSize;
+    MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&Buffer_Size_ToRead)));
 
     //Test the format with buffer
     return Format_Test_PerParser_Continue(MI);
@@ -217,14 +217,17 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
 
             //Handling of hints
-            if (Buffer_Size_Max!=Buffer_Size_Max_New)
+            if (Buffer_Size_ToRead==0)
+                Buffer_Size_ToRead=Buffer_NormalSize;
+            if (Buffer_Size_ToRead>Buffer_Size_Max)
             {
                 delete[] Buffer;
-                Buffer_Size_Max=Buffer_Size_Max_New;
+                while (Buffer_Size_ToRead>Buffer_Size_Max)
+                    Buffer_Size_Max*=2;
                 Buffer=new int8u[Buffer_Size_Max];
             }
             
-            size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_Max<Partial_End)?Buffer_Size_Max:((size_t)(Partial_End-F.Position_Get())));
+            size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_ToRead<Partial_End)?Buffer_Size_ToRead:((size_t)(Partial_End-F.Position_Get())));
             if (Buffer_Size==0 && !(F.Position_Get()==Partial_End && Status[File__Analyze::IsAccepted]))
                 break; //Problem while reading
 

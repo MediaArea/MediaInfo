@@ -2454,7 +2454,7 @@ void File_Mxf::Data_Parse()
         if (Essences[Code_Compare4].Parser==NULL)
         {
             //Format_Settings_Wrapping
-            if (Descriptors.size()==1 && (Descriptors.begin()->second.Infos.find("Format_Settings_Wrapping")==Descriptors.begin()->second.Infos.end() || Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty()) && (Buffer_DataSizeToParse_Complete==(int64u)-1?Buffer_DataSizeToParse_Complete:Buffer_DataSizeToParse_Complete)>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+            if (Descriptors.size()==1 && (Descriptors.begin()->second.Infos.find("Format_Settings_Wrapping")==Descriptors.begin()->second.Infos.end() || Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty()) && (Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete)>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
                 Descriptors.begin()->second.Infos["Format_Settings_Wrapping"]=_T("Clip"); //By default, not sure about it, should be from descriptor
 
             //Searching the corresponding Track (for TrackID)
@@ -2707,6 +2707,10 @@ void File_Mxf::Data_Parse()
                     else
                         Demux_random_access=FrameInfo.DTS==0; //Setting true only for the first image, by default, we don't know for the rest
                 }
+            #else //MEDIAINFO_SEEK
+                //Hints
+                if (File_Buffer_Size_Hint_Pointer)
+                    (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete); //We bet this is CBR
             #endif //MEDIAINFO_SEEK
             float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate; //TODO: use the corresponding track instead of the first one
             if (EditRate)
