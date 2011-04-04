@@ -116,10 +116,6 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     if (!F.Opened_Get())
         return 0;
 
-    //Buffer
-    Buffer_Size_Max=Buffer_NormalSize;
-    Buffer=new int8u[Buffer_Size_Max];
-
     //Partial file handling
     Ztring Config_Partial_Begin=MI->Config.File_Partial_Begin_Get();
     if (!Config_Partial_Begin.empty() && Config_Partial_Begin[0]>=_T('0') && Config_Partial_Begin[0]<=_T('9'))
@@ -155,6 +151,12 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 
     //Parser
     MI->Open_Buffer_Init(Partial_End-Partial_Begin, File_Name);
+
+    //Buffer
+    Buffer=NULL;
+    Buffer_Size_Max=0;
+    Buffer_Size_Max_New=Buffer_NormalSize;
+    MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&Buffer_Size_Max_New)));
 
     //Test the format with buffer
     return Format_Test_PerParser_Continue(MI);
@@ -214,6 +216,14 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 }
             }
 
+            //Handling of hints
+            if (Buffer_Size_Max!=Buffer_Size_Max_New)
+            {
+                delete[] Buffer;
+                Buffer_Size_Max=Buffer_Size_Max_New;
+                Buffer=new int8u[Buffer_Size_Max];
+            }
+            
             size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_Max<Partial_End)?Buffer_Size_Max:((size_t)(Partial_End-F.Position_Get())));
             if (Buffer_Size==0 && !(F.Position_Get()==Partial_End && Status[File__Analyze::IsAccepted]))
                 break; //Problem while reading

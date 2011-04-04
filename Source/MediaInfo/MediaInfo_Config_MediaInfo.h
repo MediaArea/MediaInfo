@@ -87,6 +87,9 @@ public :
     void          File_ForceParser_Set (const Ztring &NewValue);
     Ztring        File_ForceParser_Get ();
 
+    void          File_Buffer_Size_Hint_Pointer_Set (size_t* NewValue);
+    size_t*       File_Buffer_Size_Hint_Pointer_Get ();
+
     #if MEDIAINFO_NEXTPACKET
     void          NextPacket_Set (bool NewValue);
     bool          NextPacket_Get ();
@@ -186,6 +189,7 @@ private :
     Ztring                  File_Partial_Begin;
     Ztring                  File_Partial_End;
     Ztring                  File_ForceParser;
+    size_t*                 File_Buffer_Size_Hint_Pointer;
 
     //Extra
     #if MEDIAINFO_NEXTPACKET

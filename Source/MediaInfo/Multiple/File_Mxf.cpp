@@ -1776,7 +1776,7 @@ void File_Mxf::Read_Buffer_Continue()
     if (Buffer_DataSizeToParse!=(int64u)-1)
     {
         #if MEDIAINFO_DEMUX
-            if (Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.BlockAlign!=(int16u)-1  && Descriptors.begin()->second.SampleRate)
+            if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.BlockAlign!=(int16u)-1  && Descriptors.begin()->second.SampleRate)
             {
                 Element_Size=float64_int64s(Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate);
                 if (Descriptors.begin()->second.BlockAlign && Descriptors.begin()->second.BlockAlign!=(int16u)-1)
@@ -1844,7 +1844,7 @@ void File_Mxf::Read_Buffer_Continue()
                 Finish(); //No footer
         }
 
-        if (MediaInfoLib::Config.ParseSpeed_Get()<1.0 && File_Offset+Buffer_Offset+4==File_Size)
+        if (Config_ParseSpeed<1.0 && File_Offset+Buffer_Offset+4==File_Size)
         {
             int32u Length;
             Get_B4 (Length,                                         "Length (Random Index)");
@@ -2032,6 +2032,8 @@ bool File_Mxf::Synchronize()
         Accept();
 
         Fill(Stream_General, 0, General_Format, "MXF");
+
+        File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
     }
 
     //Synched is OK
@@ -2201,9 +2203,6 @@ void File_Mxf::Header_Parse()
          && Code_Compare2==0x01020101
          && Code_Compare3==0x0D010301)
         {
-            if (Descriptors.size()==1 && Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty() && Length_Final>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
-                Descriptors.begin()->second.Infos["Format_Settings_Wrapping"]=_T("Clip"); //By default, not sure about it, should be from descriptor
-
             #if MEDIAINFO_DEMUX
                 if (Demux_UnpacketizeContainer)
                 {
@@ -2253,8 +2252,13 @@ void File_Mxf::Header_Parse()
                         else
                             Length_Final=Element_Size-Element_Offset;
                     }
+                    else if (Element_IsWaitingForMoreData())
+                        return;
                     else if (Buffer_Offset+Element_Offset+Length_Final>Buffer_Size)
                     {
+                        if (File_Buffer_Size_Hint_Pointer)
+                            (*File_Buffer_Size_Hint_Pointer)=Buffer_Offset+Element_Offset+Length_Final-Buffer_Size;
+                            
                         Element_WaitForMoreData();
                         return;
                     }
@@ -2274,7 +2278,11 @@ void File_Mxf::Header_Parse()
             return;
         }
     }
-    Header_Fill_Code(0, Ztring::ToZtring(Code.hi, 16)+Ztring::ToZtring(Code.lo, 16));
+    #if MEDIAINFO_TRACE
+        Header_Fill_Code(0, Ztring::ToZtring(Code.hi, 16)+Ztring::ToZtring(Code.lo, 16));
+    #else //MEDIAINFO_TRACE
+        Header_Fill_Code(0);
+    #endif //MEDIAINFO_TRACE
     Header_Fill_Size(Element_Offset+Length_Final);
 }
 
@@ -2445,6 +2453,10 @@ void File_Mxf::Data_Parse()
 
         if (Essences[Code_Compare4].Parser==NULL)
         {
+            //Format_Settings_Wrapping
+            if (Descriptors.size()==1 && (Descriptors.begin()->second.Infos.find("Format_Settings_Wrapping")==Descriptors.begin()->second.Infos.end() || Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty()) && (Buffer_DataSizeToParse_Complete==(int64u)-1?Buffer_DataSizeToParse_Complete:Buffer_DataSizeToParse_Complete)>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+                Descriptors.begin()->second.Infos["Format_Settings_Wrapping"]=_T("Clip"); //By default, not sure about it, should be from descriptor
+
             //Searching the corresponding Track (for TrackID)
             if (!Essences[Code_Compare4].TrackID_WasLookedFor)
             {
@@ -2651,6 +2663,11 @@ void File_Mxf::Data_Parse()
                                     int64u FramesToAdd=(File_Offset+Buffer_Offset-Position)/IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
                                     Position+=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount*FramesToAdd;
                                     Frame_Count_NotParsedIncluded+=FramesToAdd;
+
+                                    //Hints
+                                    if (File_Buffer_Size_Hint_Pointer && Frame_Count_NotParsedIncluded+1<IndexTable_EditUnitByteCounts[Pos].IndexStartPosition+IndexTable_EditUnitByteCounts[Pos].IndexDuration)
+                                        (*File_Buffer_Size_Hint_Pointer)=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
+
                                     break;
                                 }
                             }
@@ -4041,7 +4058,8 @@ void File_Mxf::FileDescriptor_ContainerDuration()
 void File_Mxf::FileDescriptor_EssenceContainer()
 {
     //Parsing
-    Info_UL(EssenceContainer,                                   "EssenceContainer", Mxf_EssenceContainer); Element_Info(Mxf_EssenceContainer(EssenceContainer));
+    int128u EssenceContainer;
+    Get_UL (EssenceContainer,                                   "EssenceContainer", Mxf_EssenceContainer); Element_Info(Mxf_EssenceContainer(EssenceContainer));
 
     FILLING_BEGIN();
         int8u Code6=(int8u)((EssenceContainer.lo&0x0000000000FF0000LL)>>16);
@@ -4778,7 +4796,7 @@ void File_Mxf::IndexTableSegment_EditUnitByteCount()
                     editunitbytecount EditUnitByteCount;
                     EditUnitByteCount.EditUnitByteCount=Data;
                     EditUnitByteCount.IndexStartPosition=IndexTable_IndexStartPosition;
-                    EditUnitByteCount.IndexDuration=IndexTable_IndexDuration;
+                    EditUnitByteCount.IndexDuration=IndexTable_IndexDuration?IndexTable_IndexDuration:(int64u)-1;
                     IndexTable_EditUnitByteCounts.push_back(EditUnitByteCount);
                 }
             }
@@ -5993,6 +6011,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
 }
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_TRACE
 void File_Mxf::Info_UL_01xx01_Items()
 {
     Info_B1(Code1,                                              "Item Designator");
@@ -6135,8 +6154,10 @@ void File_Mxf::Info_UL_01xx01_Items()
             Skip_B7(                                            "Unknown");
     }
 }
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_TRACE
 void File_Mxf::Info_UL_02xx01_Groups()
 {
     Info_B1(Code1,                                              "Item Designator");
@@ -6420,8 +6441,10 @@ void File_Mxf::Info_UL_02xx01_Groups()
             Skip_B7(                                            "Unknown");
     }
 }
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_TRACE
 void File_Mxf::Info_UL_040101_Values()
 {
     Info_B1(Code1,                                              "Item Designator");
@@ -7116,6 +7139,7 @@ void File_Mxf::Info_UL_040101_Values()
             Skip_B7(                                            "Unknown");
     }
 }
+#endif //MEDIAINFO_TRACE
 
 //---------------------------------------------------------------------------
 void File_Mxf::Skip_UL(const char* Name)

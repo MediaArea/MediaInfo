@@ -422,7 +422,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Buffer_Temp_Size=ToAdd_Size-Buffer_Offset;
             std::memcpy(Buffer_Temp, ToAdd+Buffer_Offset, Buffer_Temp_Size);
         }
-        else //Already a copy, just moving it
+        else if (Buffer_Offset) //Already a copy, just moving it
         {
             std::memmove(Buffer_Temp, Buffer_Temp+Buffer_Offset, Buffer_Size-Buffer_Offset);
             Buffer_Temp_Size=Buffer_Size-Buffer_Offset;

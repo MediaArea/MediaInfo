@@ -50,6 +50,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileStopAfterFilled=false;
     FileStopSubStreamAfterFilled=false;
     Audio_MergeMonoStreams=false;
+    File_Buffer_Size_Hint_Pointer=NULL;
     #if MEDIAINFO_NEXTPACKET
         NextPacket=false;
     #endif //MEDIAINFO_NEXTPACKET
@@ -196,6 +197,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_forceparser_get"))
     {
         return File_ForceParser_Get();
+    }
+    else if (Option_Lower==_T("file_buffer_size_hint_pointer"))
+    {
+        File_Buffer_Size_Hint_Pointer_Set((size_t*)Ztring(Value).To_int64u());
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_buffer_size_hint_pointer_get"))
+    {
+        return Ztring::ToZtring((size_t)File_Buffer_Size_Hint_Pointer_Get());
     }
     else if (Option_Lower==_T("file_filter"))
     {
@@ -584,6 +594,23 @@ Ztring MediaInfo_Config_MediaInfo::File_ForceParser_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_ForceParser;
+}
+
+//***************************************************************************
+// File_Buffer_Size_Hint_Pointer
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_Buffer_Size_Hint_Pointer_Set (size_t* NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Buffer_Size_Hint_Pointer=NewValue;
+}
+
+size_t*  MediaInfo_Config_MediaInfo::File_Buffer_Size_Hint_Pointer_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_Buffer_Size_Hint_Pointer;
 }
 
 //***************************************************************************

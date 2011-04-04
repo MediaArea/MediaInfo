@@ -16,6 +16,7 @@ Version 0.7.44, 2011-
 + MXF: seek feature
 + MPEG-TS: detecting wrong stream registration information and skipping it
 + NTSC: accepting 483-line streams as NTSC
++ MXF: Parsing speed improvement, especially for high bitrate (>300 Mbps) streams
 x MXF: some specific files were not analyzed, fix sponsored by http://maxnine.com
 
 Version 0.7.43, 2011-03-19

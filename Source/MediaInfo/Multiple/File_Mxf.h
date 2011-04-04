@@ -351,11 +351,18 @@ protected :
     void Skip_UMID      ();
 
     void Get_UL (int128u &Value, const char* Name, const char* (*Param) (int128u));
+    void Skip_UL(const char* Name);
+    #if MEDIAINFO_TRACE
     void Info_UL_01xx01_Items ();
     void Info_UL_02xx01_Groups ();
     void Info_UL_040101_Values ();
-    void Skip_UL(const char* Name);
     #define Info_UL(_INFO, _NAME, _PARAM) int128u _INFO; Get_UL(_INFO, _NAME, _PARAM)
+    #else //MEDIAINFO_TRACE
+    void Info_UL_01xx01_Items () {Element_Offset+=8;};
+    void Info_UL_02xx01_Groups () {Element_Offset+=8;};
+    void Info_UL_040101_Values () {Element_Offset+=8;};
+    #define Info_UL(_INFO, _NAME, _PARAM) int128u _INFO;
+    #endif //MEDIAINFO_TRACE
 
     struct randomindexmetadata
     {
@@ -631,6 +638,9 @@ protected :
         int32u          Ancillary_TrackNumber;
         File_Ancillary* Ancillary;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
+
+    //Hints
+    size_t* File_Buffer_Size_Hint_Pointer;
 
     #if MEDIAINFO_DEMUX
         bool Demux_HeaderParsed;
