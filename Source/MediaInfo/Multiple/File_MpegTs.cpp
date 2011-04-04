@@ -470,8 +470,10 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
 
             //LATM
             complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID]->FMC_ES_ID);
-            if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.SLConfig && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
-                Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
+            #ifdef MEDIAINFO_MPEG4_YES
+                if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.SLConfig && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
+                    Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
+            #endif
             if (Complete_Stream->Streams[StreamID]->stream_type==0x11 && Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
                 Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
         }

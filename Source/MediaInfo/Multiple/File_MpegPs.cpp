@@ -381,8 +381,10 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
         }
     }
 
-    if (StreamKind_Last==Stream_Audio && SLConfig)
-        Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
+    #ifdef MEDIAINFO_MPEG4_YES
+        if (StreamKind_Last==Stream_Audio && SLConfig)
+            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "SL");
+    #endif //MEDIAINFO_MPEG4_YES
 
     //More info
     for (size_t StreamPos=Count_Get(StreamKind_Last)-Count; StreamPos<Count_Get(StreamKind_Last); StreamPos++)
@@ -2902,11 +2904,14 @@ void File_MpegPs::SL_packetized_stream()
         Streams[stream_id].Searching_TimeStamp_Start=true;
 
         //New parsers
-        if (ParserFromTs)
-        {
-            Streams[stream_id].Parsers.push_back(ParserFromTs); ParserFromTs=NULL;
-        }
-        else if (FromTS_stream_type)
+        #ifdef MEDIAINFO_MPEG4_YES
+            if (ParserFromTs)
+            {
+                Streams[stream_id].Parsers.push_back(ParserFromTs); ParserFromTs=NULL;
+            }
+            else
+        #endif
+        if (FromTS_stream_type)
             switch (FromTS_stream_type)
             {
                 case 0x0F :
