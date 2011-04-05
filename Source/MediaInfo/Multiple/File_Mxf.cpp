@@ -1254,8 +1254,8 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                 for (size_t StreamPos=Before_Count[StreamKind]; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
                 {
                     Ztring ID=Retrieve((stream_t)StreamKind, StreamPos, General_ID);
-                    if (ID.empty())
-                        Fill((stream_t)StreamKind, StreamPos, General_ID, Descriptor->second.LinkedTrackID);
+                    if (ID.empty() || Config->File_ID_OnlyRoot_Get())
+                        Fill((stream_t)StreamKind, StreamPos, General_ID, Descriptor->second.LinkedTrackID, 10, true);
                     else
                         Fill((stream_t)StreamKind, StreamPos, General_ID, Ztring::ToZtring(Descriptor->second.LinkedTrackID)+ID, true);
                 }
@@ -1569,7 +1569,7 @@ void File_Mxf::Streams_Finish_ParseLocator_Finalize ()
         CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
     }
-    if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
+    if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty() &&  !Config->File_ID_OnlyRoot_Get())
         ID+=_T('-')+Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
     Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
 
