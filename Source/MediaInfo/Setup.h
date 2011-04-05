@@ -77,12 +77,12 @@
     #if !defined (MEDIAINFO_TRACE_NO) && !defined (MEDIAINFO_TRACE_YES) 
         #define MEDIAINFO_TRACE_NO
     #endif
-    #if !defined (MEDIAINFO_FILTER_NO) && !defined (MEDIAINFO_FILTER_YES) 
-        #define MEDIAINFO_FILTER_NO
-    #endif
-    #if !defined (MEDIAINFO_DUPLICATE_NO) && !defined (MEDIAINFO_DUPLICATE_YES) 
-        #define MEDIAINFO_DUPLICATE_NO
-    #endif
+    //#if !defined (MEDIAINFO_FILTER_NO) && !defined (MEDIAINFO_FILTER_YES) 
+    //    #define MEDIAINFO_FILTER_NO
+    //#endif
+    //#if !defined (MEDIAINFO_DUPLICATE_NO) && !defined (MEDIAINFO_DUPLICATE_YES) 
+    //    #define MEDIAINFO_DUPLICATE_NO
+    //#endif
     #if !defined (MEDIAINFO_NEXTPACKET_NO) && !defined (MEDIAINFO_NEXTPACKET_YES) 
         #define MEDIAINFO_NEXTPACKET_NO
     #endif
