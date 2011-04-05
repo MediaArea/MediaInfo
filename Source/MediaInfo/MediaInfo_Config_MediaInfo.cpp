@@ -50,6 +50,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileStopAfterFilled=false;
     FileStopSubStreamAfterFilled=false;
     Audio_MergeMonoStreams=false;
+    File_Demux_Interleave=false;
     File_Buffer_Size_Hint_Pointer=NULL;
     #if MEDIAINFO_NEXTPACKET
         NextPacket=false;
@@ -161,6 +162,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_audio_mergemonostreams_get"))
     {
         return File_Audio_MergeMonoStreams_Get()?"1":"0";
+    }
+    else if (Option_Lower==_T("file_demux_interleave"))
+    {
+        File_Demux_Interleave_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_file_demux_interleave_get"))
+    {
+        return File_Demux_Interleave_Get()?"1":"0";
     }
     else if (Option_Lower==_T("file_filename"))
     {
@@ -530,6 +540,19 @@ bool MediaInfo_Config_MediaInfo::File_Audio_MergeMonoStreams_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Audio_MergeMonoStreams;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_Demux_Interleave_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Demux_Interleave=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_Demux_Interleave_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_Demux_Interleave;
 }
 
 //***************************************************************************

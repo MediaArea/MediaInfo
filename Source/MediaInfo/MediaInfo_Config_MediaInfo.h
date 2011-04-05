@@ -76,6 +76,9 @@ public :
     void          File_Audio_MergeMonoStreams_Set (bool NewValue);
     bool          File_Audio_MergeMonoStreams_Get ();
 
+    void          File_Demux_Interleave_Set (bool NewValue);
+    bool          File_Demux_Interleave_Get ();
+
     void          File_FileName_Set (const Ztring &NewValue);
     Ztring        File_FileName_Get ();
 
@@ -185,6 +188,7 @@ private :
     bool                    FileStopAfterFilled;
     bool                    FileStopSubStreamAfterFilled;
     bool                    Audio_MergeMonoStreams;
+    bool                    File_Demux_Interleave;
     Ztring                  File_FileName;
     Ztring                  File_Partial_Begin;
     Ztring                  File_Partial_End;

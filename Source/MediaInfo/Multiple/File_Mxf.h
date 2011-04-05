@@ -644,6 +644,7 @@ protected :
 
     #if MEDIAINFO_DEMUX
         bool Demux_HeaderParsed;
+        bool Demux_Interleave;
         size_t CountOfLocatorsToParse;
     #endif //MEDIAINFO_DEMUX
 

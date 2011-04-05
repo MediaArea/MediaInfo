@@ -880,10 +880,13 @@ void File_Mxf::Streams_Finish()
         #if MEDIAINFO_DEMUX
             if (Config->NextPacket_Get())
             {
-                CountOfLocatorsToParse=Locators.size();
-                for (locators::iterator Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
-                    if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty())
-                        CountOfLocatorsToParse--; //Will not be handled
+                if (Demux_Interleave)
+                {
+                    CountOfLocatorsToParse=Locators.size();
+                    for (locators::iterator Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
+                        if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty())
+                            CountOfLocatorsToParse--; //Will not be handled
+                }
 
 				#if MEDIAINFO_DEMUX
 					Config->Demux_EventWasSent=true;
@@ -1400,14 +1403,24 @@ void File_Mxf::Streams_Finish_ParseLocators()
         Streams_Finish_ParseLocator();
 
         #if MEDIAINFO_DEMUX
-            locators::iterator Locator_Next=Locator; Locator_Next++;
-            if (Locator_Next==Locators.end() && Config->NextPacket_Get() && Config->NextPacket_Get() && CountOfLocatorsToParse)
-                Locator=Locators.begin();
-            else
-                Locator=Locator_Next;
+            if (Demux_Interleave)
+            {
+                locators::iterator Locator_Next=Locator; Locator_Next++;
+                if (Locator_Next==Locators.end() && Config->NextPacket_Get() && CountOfLocatorsToParse)
+                    Locator=Locators.begin();
+                else
+                    Locator=Locator_Next;
 
-            if (Config->Demux_EventWasSent)
-                return;
+                if (Config->Demux_EventWasSent)
+                    return;
+            }
+            else
+            {
+                if (Config->Demux_EventWasSent)
+                    return;
+
+                Locator++;
+            }
         #else //MEDIAINFO_DEMUX
             Locator++;
         #endif //MEDIAINFO_DEMUX
@@ -2123,6 +2136,9 @@ bool File_Mxf::Synchronize()
         Fill(Stream_General, 0, General_Format, "MXF");
 
         File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
+        #if MEDIAINFO_DEMUX
+            Demux_Interleave=Config->File_Demux_Interleave_Get();
+        #endif //MEDIAINFO_DEMUX
     }
 
     //Synched is OK
