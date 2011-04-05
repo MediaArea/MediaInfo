@@ -644,11 +644,8 @@ protected :
 
     #if MEDIAINFO_DEMUX
         bool Demux_HeaderParsed;
-    #endif //MEDIAINFO_DEMUX
-
-    #if MEDIAINFO_NEXTPACKET
         size_t CountOfLocatorsToParse;
-    #endif //MEDIAINFO_NEXTPACKET
+    #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_SEEK
         //Seek - Delta

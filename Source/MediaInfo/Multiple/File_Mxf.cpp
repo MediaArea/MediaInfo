@@ -877,9 +877,8 @@ void File_Mxf::Streams_Finish()
     {
         Locator=Locators.begin();
 
-        //Accepting the parser if NextPacket interface
-        #if MEDIAINFO_NEXTPACKET
-            if (Config->NextPacket_Get() && Locator==Locators.begin())
+        #if MEDIAINFO_DEMUX
+            if (Config->NextPacket_Get())
             {
                 CountOfLocatorsToParse=Locators.size();
                 for (locators::iterator Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
@@ -892,7 +891,7 @@ void File_Mxf::Streams_Finish()
 
 				return;
             }
-        #endif //MEDIAINFO_NEXTPACKET
+        #endif //MEDIAINFO_DEMUX
 
         Streams_Finish_ParseLocators();
         return;
@@ -1117,9 +1116,50 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
     if (Descriptor->second.StreamKind!=Stream_Max)
     {
         StreamKind_Last=Descriptor->second.StreamKind;
+        bool HasProblem=false;
         for (size_t Pos=0; Pos<Count_Get(StreamKind_Last); Pos++)
             if (Ztring::ToZtring(Descriptor->second.LinkedTrackID)==Retrieve(StreamKind_Last, Pos, General_ID))
             {
+                //Workaround for a specific file with same ID
+                if (!Locators.empty())
+                {
+                    for (descriptors::iterator Descriptor1=Descriptors.begin(); Descriptor1!=Descriptors.end(); Descriptor1++)
+                    {
+                        descriptors::iterator Descriptor2=Descriptor1; Descriptor2++;
+                        for (; Descriptor2!=Descriptors.end(); Descriptor2++)
+                        {
+                            if (Descriptor2->second.LinkedTrackID==Descriptor1->second.LinkedTrackID)
+                            {
+                                HasProblem=true;
+                                break;
+                            }
+                        }
+                        if (HasProblem)
+                            break;
+                    }
+                    if (HasProblem)
+                    {
+                        //Looking for an already existing stream
+                        StreamPos_Last=(size_t)-1;
+                        if (!Descriptor->second.Locators.empty())
+                        {
+                            locators::iterator Locator=Locators.find(Descriptor->second.Locators[0]);
+                            if (Locator!=Locators.end())
+                            {
+                                for (size_t Pos2=0; Pos2<Count_Get(StreamKind_Last); Pos2++)
+                                {
+                                    if (Retrieve(StreamKind_Last, Pos2, "Source")==Locator->second.EssenceLocator)
+                                    {
+                                        StreamPos_Last=Pos2;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                
                 StreamPos_Last=Pos;
                 break;
             }
@@ -1130,7 +1170,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             else if (Descriptor->second.LinkedTrackID!=(int32u)-1)
             {
                 Stream_Prepare(Descriptor->second.StreamKind);
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID);
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID+(HasProblem?StreamPos_Last:0));
             }
             else
             {
@@ -1359,15 +1399,17 @@ void File_Mxf::Streams_Finish_ParseLocators()
     {
         Streams_Finish_ParseLocator();
 
-        locators::iterator Locator_Next=Locator; Locator_Next++;
-        if (Locator_Next==Locators.end() && Config->NextPacket_Get() && CountOfLocatorsToParse)
-            Locator=Locators.begin();
-        else
-            Locator=Locator_Next;
-
         #if MEDIAINFO_DEMUX
+            locators::iterator Locator_Next=Locator; Locator_Next++;
+            if (Locator_Next==Locators.end() && Config->NextPacket_Get() && Config->NextPacket_Get() && CountOfLocatorsToParse)
+                Locator=Locators.begin();
+            else
+                Locator=Locator_Next;
+
             if (Config->Demux_EventWasSent)
                 return;
+        #else //MEDIAINFO_DEMUX
+            Locator++;
         #endif //MEDIAINFO_DEMUX
     }
 
@@ -1465,19 +1507,20 @@ void File_Mxf::Streams_Finish_ParseLocator()
     if (Locator->second.MI)
     {
         #if MEDIAINFO_NEXTPACKET
-            if (Config->Event_CallBackFunction_IsSet())
+            if (Config->Event_CallBackFunction_IsSet() && !Locator->second.Status[IsFinished])
             {
-                while ((Locator->second.Status=Locator->second.MI->Open_NextPacket())[8])
-                {
-                    #if MEDIAINFO_DEMUX
-                        if (Config->Event_CallBackFunction_IsSet())
-                        {
-                            Config->Demux_EventWasSent=true;
-                            return;
-                        }
-                    #endif //MEDIAINFO_DEMUX
-                }
-                CountOfLocatorsToParse--;
+                #if MEDIAINFO_DEMUX
+					while ((Locator->second.Status=Locator->second.MI->Open_NextPacket())[8])
+					{
+							if (Config->Event_CallBackFunction_IsSet())
+							{
+								Config->Demux_EventWasSent=true;
+								return;
+							}
+					}
+                if (CountOfLocatorsToParse)
+                    CountOfLocatorsToParse--;
+				#endif //MEDIAINFO_DEMUX
             }
         #endif //MEDIAINFO_NEXTPACKET
         Streams_Finish_ParseLocator_Finalize();
@@ -1893,8 +1936,54 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     //Parsing
     switch (Method)
     {
-        case 0  :   GoTo(Value); return 1;
-        case 1  :   GoTo(File_Size*Value/10000); return 1;
+        case 0  :   if (!Locators.empty())
+                    {
+                        #if MEDIAINFO_DEMUX
+                            CountOfLocatorsToParse=Locators.size();
+                            for (Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
+                            {
+                                if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty())
+                                    CountOfLocatorsToParse--; //Will not be handled
+                                else if (Locator->second.MI)
+                                {
+                                    Ztring Result=Locator->second.MI->Option(_T("File_Seek"), Ztring::ToZtring(Value));
+                                    if (!Result.empty())
+                                        return 2; //Invalid value
+                                }
+                                Locator->second.Status.reset();
+                            }
+                            Locator=Locators.begin();
+                            return 1;
+                        #else //MEDIAINFO_DEMUX
+                            return (size_t)-1; //Not supported
+                        #endif //MEDIAINFO_DEMUX
+                    }
+                    GoTo(Value);
+                    return 1;
+        case 1  :   if (!Locators.empty())
+                    {
+                        #if MEDIAINFO_DEMUX
+                            CountOfLocatorsToParse=Locators.size();
+                            for (Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
+                            {
+                                if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty())
+                                    CountOfLocatorsToParse--; //Will not be handled
+                                else if (Locator->second.MI)
+                                {
+                                    Ztring Result=Locator->second.MI->Option(_T("File_Seek"), Ztring::ToZtring(((float64)Value)*100)+_T('%'));
+                                    if (!Result.empty())
+                                        return 2; //Invalid value
+                                }
+                                Locator->second.Status.reset();
+                            }
+                            Locator=Locators.begin();
+                            return 1;
+                        #else //MEDIAINFO_DEMUX
+                            return (size_t)-1; //Not supported
+                        #endif //MEDIAINFO_DEMUX
+                    }
+                    GoTo(File_Size*Value/10000);
+                    return 1;
         case 2  :   //Timestamp
                     {
                         //We transform TimeStamp to a frame number
@@ -1963,7 +2052,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     }
                     else if (!Locators.empty())
                     {
-                        #if MEDIAINFO_NEXTPACKET
+                        #if MEDIAINFO_DEMUX
                             CountOfLocatorsToParse=Locators.size();
                             for (Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
                             {
@@ -1975,14 +2064,14 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                     if (!Result.empty())
                                         return 2; //Invalid value
                                 }
+                                Locator->second.Status.reset();
                             }
                             Locator=Locators.begin();
-                            Config->Demux_EventWasSent=true; //In order to make the reader continue the process
                             return 1;
-                        #else //MEDIAINFO_NEXTPACKET
+                        #else //MEDIAINFO_DEMUX
                             return (size_t)-1; //Not supported
-                        #endif //MEDIAINFO_NEXTPACKET
-                   }
+                        #endif //MEDIAINFO_DEMUX
+                    }
                     else
                         return (size_t)-1; //Not supported
                     }
@@ -4171,6 +4260,8 @@ void File_Mxf::GenerationInterchangeObject_GenerationUID()
 // 0x2F01
 void File_Mxf::GenericDescriptor_Locators()
 {
+    Descriptors[InstanceUID].Locators.clear();
+    
     //Parsing
     //Vector
     int32u Count, Length;
