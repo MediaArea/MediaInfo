@@ -1251,6 +1251,8 @@ bool File__Analyze::Data_Manage()
         else if (!Status[IsFinished])
         {
             GoTo(Element[Element_Level].Next);
+            if (!Element_WantNextLevel)
+                Element_End(); //Element
             return false;
         }
     }
