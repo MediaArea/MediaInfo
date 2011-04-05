@@ -19,12 +19,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "MediaArea.net"
             VALUE "FileDescription", "All about your audio and video files"
-            VALUE "FileVersion", "0.7.41.0"
+            VALUE "FileVersion", "0.7.43.0"
             VALUE "InternalName", "MediaInfo - GUI - MSVC 2008"
             VALUE "LegalCopyright", "MediaArea.net"
             VALUE "OriginalFilename", "MediaInfo_GUI.exe"
             VALUE "ProductName", "MediaInfo"
-            VALUE "ProductVersion", "0.7.41.0"
+            VALUE "ProductVersion", "0.7.43.0"
         END
     END
     BLOCK "VarFileInfo"
