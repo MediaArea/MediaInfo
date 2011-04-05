@@ -449,6 +449,18 @@ void File_DvDif::Streams_Fill()
         Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO");
         Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO");
     }
+
+    //Delay
+    if (TimeCode_First!=(int64u)-1)
+    {
+        Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
+        Fill(Stream_Video, 0, Video_Delay_Source, "Stream");
+        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+        {
+            Fill(Stream_Audio, Pos, Audio_Delay, TimeCode_First);
+            Fill(Stream_Audio, Pos, Audio_Delay_Source, "Stream");
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -468,18 +480,6 @@ void File_DvDif::Streams_Finish()
     }
     if (!IsSub && Duration)
         Fill(Stream_General, 0, General_Duration, Duration);
-
-    //Delay
-    if (TimeCode_First!=(int64u)-1)
-    {
-        Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
-        Fill(Stream_Video, 0, Video_Delay_Source, "Stream");
-        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
-        {
-            Fill(Stream_Audio, Pos, Audio_Delay, TimeCode_First);
-            Fill(Stream_Audio, Pos, Audio_Delay_Source, "Stream");
-        }
-    }
 
     #if defined(MEDIAINFO_EIA608_YES)
         for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)

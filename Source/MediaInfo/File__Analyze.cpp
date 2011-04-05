@@ -618,6 +618,8 @@ void File__Analyze::Open_Buffer_Unsynch ()
     //if (!Status[IsAccepted])
     //    return;
 
+    Status[IsFinished]=false;
+    
     Read_Buffer_Unsynched();
     Buffer_Clear();
 

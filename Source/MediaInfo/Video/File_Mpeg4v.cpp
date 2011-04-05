@@ -521,11 +521,7 @@ void File_Mpeg4v::Streams_Fill()
             (*Stream_More)[Stream_Video][0](Ztring().From_Local("reversible_vlc"), Info_Options)=_T("N NT");
         }
     }
-}
 
-//---------------------------------------------------------------------------
-void File_Mpeg4v::Streams_Finish()
-{
     //BVOPs
     if (BVOP_Count_Max)
     {
@@ -546,7 +542,11 @@ void File_Mpeg4v::Streams_Finish()
     {
         Fill(Stream_Video, 0, Video_Codec_Settings_PacketBitStream, "No");
     }
+}
 
+//---------------------------------------------------------------------------
+void File_Mpeg4v::Streams_Finish()
+{
     //Duration
     if (!IsSub && Time_End_Seconds!=(int32u)-1 && Time_Begin_Seconds!=(int32u)-1)
     {
