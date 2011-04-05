@@ -1381,7 +1381,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
     if (Locator==Locators.end())
         return;
 
-    Fill(StreamKind_Last, StreamPos_Last, "Source", Locator->second.EssenceLocator);
+    Fill(StreamKind_Last, StreamPos_Last, "Source", Locator->second.EssenceLocator, true);
 
     //External file name specific
     if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty())
