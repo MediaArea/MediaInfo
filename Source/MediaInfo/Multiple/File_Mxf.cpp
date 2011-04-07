@@ -1934,12 +1934,6 @@ void File_Mxf::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
-    //Reset IsFinished bit the user wants to seek again after the file is completely parsed
-    Status[IsFinished]=false;
-    for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
-        if (Essence->second.Parser)
-                Essence->second.Parser->Status[IsFinished]=false;
-
     //Parsing
     switch (Method)
     {

@@ -533,12 +533,6 @@ void File_Gxf::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
 {
-    //Reset IsFinished bit the user wants to seek again after the file is completely parsed
-    Status[IsFinished]=false;
-    for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser)
-            Streams[Pos].Parser->Status[IsFinished]=false;
-
     //Parsing
     switch (Method)
     {
@@ -549,7 +543,19 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         //We transform TimeStamp to a frame number
                         if (Streams.empty() || Gxf_FrameRate(Streams[0x00].FrameRate_Code)==0)
                             return (size_t)-1; //Not supported
-                        Value=float64_int64s(((float64)Value)/1000000000*Gxf_FrameRate(Streams[0x00].FrameRate_Code));    
+
+                        int64u Delay;
+                        if (TimeCode_First!=(int64u)-1 && (TimeCode_First || !Material_Fields_First_IsValid)) //(if TimeCode is 0 and first field info is not 0, we prefer field info)
+                            Delay=TimeCode_First;
+                        else if (Material_Fields_First_IsValid)
+                            Delay=float64_int64s(((float64)(Material_Fields_First/Material_Fields_FieldsPerFrame))/Gxf_FrameRate(Streams[0x00].FrameRate_Code)*1000000000);
+                        else
+                            Delay=0;
+
+                        if (Value<Delay)
+                            Value=0;
+                        else
+                            Value=float64_int64s(((float64)(Value-Delay))/1000000000*Gxf_FrameRate(Streams[0x00].FrameRate_Code));
                     }
                     //No break;
         case 3  :   //FrameNumber

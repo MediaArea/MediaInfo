@@ -312,9 +312,6 @@ void File_Lxf::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
 {
-    //Reset IsFinished bit the user wants to seek again after the file is completely parsed
-    Status[IsFinished]=false;
-
     //Parsing
     switch (Method)
     {
@@ -349,7 +346,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         time_offsets::iterator End=TimeOffsets.end();
                         End--;
                         if (Value>=End->second.TimeStamp_End)
-                            return 0; //Higher than total size
+                            return 2; //Higher than total size
                         SeekRequest=Value;
                     }
 
@@ -837,9 +834,7 @@ void File_Lxf::Video_Stream(size_t Pos)
             if (Pos==1)
             {
                 Element_Code=0x0100; //+Pos (no Pos until we know what is the other stream)
-                Frame_Count_NotParsedIncluded=Pos>=Videos.size()?0:(Videos[Pos].Parser?Videos[Pos].Parser->Frame_Count_NotParsedIncluded:(int64u)-1);
                 Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
-                Frame_Count_NotParsedIncluded=(int64u)-1;
             }
         }
     #endif //MEDIAINFO_DEMUX

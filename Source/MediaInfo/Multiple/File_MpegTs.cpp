@@ -1378,13 +1378,6 @@ void File_MpegTs::Read_Buffer_AfterParsing()
 #if MEDIAINFO_SEEK
 size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
 {
-    //Reset IsFinished bit the user wants to seek again after the file is completely parsed
-    Status[IsFinished]=false;
-    if (Complete_Stream)
-        for (std::set<int16u>::iterator StreamID=Complete_Stream->PES_PIDs.begin(); StreamID!=Complete_Stream->PES_PIDs.end(); StreamID++)
-            if (Complete_Stream->Streams[*StreamID]->Parser)
-                Complete_Stream->Streams[*StreamID]->Parser->Status[IsFinished]=false;
-
     //Parsing
     switch (Method)
     {

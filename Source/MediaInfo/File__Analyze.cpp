@@ -470,10 +470,11 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->PES_FirstByte_IsAvailable=PES_FirstByte_IsAvailable;
     Sub->PES_FirstByte_Value=PES_FirstByte_Value;
-    if (Sub->FrameInfo.PTS!=(int64u)-1 && Sub->Buffer_Size)
-        Sub->FrameInfo_Previous.Buffer_Offset=Sub->Buffer_Size;
-    if (Sub->FrameInfo_Previous.PTS!=(int64u)-1)
+    if (Sub->FrameInfo_Previous.DTS!=(int64u)-1)
     {
+        if (Sub->Buffer_Size)
+            Sub->FrameInfo_Previous.Buffer_Offset=Sub->Buffer_Size;
+
         Sub->FrameInfo_Next=Sub->FrameInfo;
         Sub->FrameInfo=Sub->FrameInfo_Previous;
         Sub->FrameInfo_Previous=frame_info();
@@ -1208,7 +1209,7 @@ bool File__Analyze::Data_Manage()
         //Element_Level=Element_Level_Save;
 
 
-        if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && Buffer_Offset+Element_Offset>=FrameInfo.Buffer_Offset)
+        if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && (Buffer_Offset+Element_Offset>=FrameInfo.Buffer_Offset || Frame_Count>Frame_Count_Previous || Field_Count>Field_Count_Previous))
         {
             FrameInfo=FrameInfo_Next;
             FrameInfo_Next=frame_info();
