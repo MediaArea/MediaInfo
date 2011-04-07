@@ -376,8 +376,8 @@ protected :
     int128u Code;
     int128u OperationalPattern;
     int128u InstanceUID;
-    int64u Buffer_DataSizeToParse;
-    int64u Buffer_DataSizeToParse_Complete;
+    int64u Buffer_Begin;
+    int64u Buffer_End;
     int16u Code2;
     int16u Length2;
     int64u File_Size_Total; //Used only in Finish()
@@ -666,12 +666,27 @@ protected :
             int64u IndexStartPosition;
             int64u IndexDuration;
             int32u EditUnitByteCount;
+            int64u Start;
+            int32u Start_Item;
+            int64u Start_PreviousPartitionPackSize;
+            int64u Start_HeaderSize;
+
+            editunitbytecount()
+            {   
+                IndexStartPosition=(int64u)-1;
+                IndexDuration=(int64u)-1;
+                EditUnitByteCount=(int32u)-1;
+                Start=(int64u)-1;
+                Start_Item=(int32u)-1;
+                Start_PreviousPartitionPackSize=0;
+                Start_HeaderSize=0;
+            }
         };
         std::vector<editunitbytecount> IndexTable_EditUnitByteCounts;
-        int64u IndexTable_EditUnitByteCount_Start;
-        int32u IndexTable_EditUnitByteCount_Start_Item;
-        int64u IndexTable_EditUnitByteCount_Start_PreviousPartitionPackSize;
-        int64u IndexTable_EditUnitByteCount_Start_HeaderSize;
+        int64u IndexTable_Start;
+        int32u IndexTable_Start_Item;
+        int64u IndexTable_Start_PreviousPartitionPackSize;
+        int64u IndexTable_Start_HeaderSize;
 
         //seek - EditRate
         float64 IndexTable_IndexEditRate;
