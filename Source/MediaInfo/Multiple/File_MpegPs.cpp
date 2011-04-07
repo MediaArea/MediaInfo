@@ -1209,7 +1209,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u stream_id)
             Streams[stream_id].Searching_TimeStamp_Start=false;
         }
         Element_Info_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/90));
-        FrameInfo.PTS=FrameInfo.PTS*1000000/90; //In ns
+        FrameInfo.DTS=FrameInfo.PTS=FrameInfo.PTS*1000000/90; //In ns
         HasTimeStamps=true;
         Element_End();
     }

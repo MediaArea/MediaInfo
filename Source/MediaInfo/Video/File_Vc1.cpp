@@ -672,10 +672,13 @@ void File_Vc1::FrameHeader()
     //Name
     Element_Name("FrameHeader");
     Element_Info(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
-    if (FrameInfo.PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
-    if (FrameInfo.DTS!=(int64u)-1)
-        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+    if (FrameRate)
+    {
+        if (FrameInfo.PTS!=(int64u)-1)
+            Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+        if (FrameInfo.DTS!=(int64u)-1)
+            Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+    }
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)

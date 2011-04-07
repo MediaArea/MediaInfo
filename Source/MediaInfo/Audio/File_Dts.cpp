@@ -493,10 +493,10 @@ void File_Dts::Streams_Finish()
         return;
     }
 
-    if (PTS_End>PTS_Begin)
+    if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.PTS>PTS_Begin)
     {
-        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
-        Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000/32));
+        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000));
+        Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000/32));
     }
 }
 
@@ -953,24 +953,25 @@ void File_Dts::Data_Parse()
 
     //PTS
     if (FrameInfo.PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?FrameInfo.PTS:PTS_End))/1000000)));
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
     if (Element_Code==0 || !Core_Exists)
     {
+        if (Frame_Count==0)
+            PTS_Begin=FrameInfo.PTS;
         Frame_Count++;
         Frame_Count_InThisBlock++;
-        if (FrameInfo.PTS!=(int64u)-1)
+        float64 BitRate=BitRate_Get();
+        if (BitRate)
         {
-            if (PTS_Begin==(int64u)-1)
-                PTS_Begin=FrameInfo.PTS;
-            if (Frame_Count_InThisBlock<=1)
-                PTS_End=FrameInfo.PTS;
-            float64 BitRate=BitRate_Get();
-            if (BitRate)
-                PTS_End+=float64_int64s(((float64)(Element_Size+Header_Size))*8/BitRate*1000000000);
+            FrameInfo.DUR=float64_int64s(((float64)(Element_Size+Header_Size))*8/BitRate*1000000000);
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS+=FrameInfo.DUR;
+            if (FrameInfo.PTS!=(int64u)-1)
+                FrameInfo.PTS=FrameInfo.DTS;
         }
     }
 

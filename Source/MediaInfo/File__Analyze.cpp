@@ -481,8 +481,6 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         Sub->Frame_Count_Previous=Sub->Frame_Count;
         Sub->Field_Count_Previous=Sub->Field_Count;
     }
-    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-        Sub->Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
     #if MEDIAINFO_DEMUX
         bool Demux_EventWasSent_Save=Config->Demux_EventWasSent;
         Config->Demux_EventWasSent=false;
@@ -912,6 +910,10 @@ bool File__Analyze::Synchro_Manage()
             Synched_Init();
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
+
+            //TimeStamps
+            if (FrameInfo.DTS==(int64u)-1)
+                FrameInfo.DTS=0;
         }
         if (!Synchro_Manage_Test())
             return false;
@@ -1206,7 +1208,7 @@ bool File__Analyze::Data_Manage()
         //Element_Level=Element_Level_Save;
 
 
-        if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && (Buffer_Offset>=FrameInfo.Buffer_Offset || Frame_Count_Previous<Frame_Count || Field_Count_Previous<Field_Count))
+        if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && Buffer_Offset+Element_Offset>=FrameInfo.Buffer_Offset)
         {
             FrameInfo=FrameInfo_Next;
             FrameInfo_Next=frame_info();
@@ -2065,9 +2067,9 @@ void File__Analyze::Fill ()
     Status[IsUpdated]=true;
 
     //Instantaneous bitrate at the "fill" level
-    if (File_Size==(int64u)-1 && PTS_End!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
+    if (File_Size==(int64u)-1 && FrameInfo.PTS!=(int64u)-1 && PTS_Begin!=(int64u)-1 && StreamKind_Last!=Stream_General && StreamKind_Last!=Stream_Max)
     {
-        Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(PTS_End-PTS_Begin));
+        Fill(StreamKind_Last, 0, "BitRate_Instantaneous", Buffer_TotalBytes*8*1000000000/(FrameInfo.PTS-PTS_Begin));
         (*Stream_More)[StreamKind_Last][0](Ztring().From_Local("BitRate_Instantaneous"), Info_Options)=_T("N NI");
     }
 }

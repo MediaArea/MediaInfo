@@ -492,9 +492,9 @@ void File_Mpega::Streams_Finish()
         //Fill(Stream_Audio, 0, Audio_Channel_s_, 6);
     }
 
-    if (PTS_End>PTS_Begin)
+    if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.PTS>PTS_Begin)
     {
-        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
+        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000));
         if (Retrieve(Stream_Audio, 0, Audio_BitRate_Mode)==_T("CBR"))
         {
             int16u Samples;
@@ -506,7 +506,7 @@ void File_Mpega::Streams_Finish()
                 Samples=1152;
 
             float64 Frame_Duration=((float64)1)/Mpega_SamplingRate[ID][sampling_frequency]*Samples;
-            FrameCount=float64_int64s(((float64)PTS_End-PTS_Begin)/1000000000/Frame_Duration);
+            FrameCount=float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000000/Frame_Duration);
         }
     }
 
@@ -873,7 +873,7 @@ void File_Mpega::Data_Parse()
 
     //PTS
     if (FrameInfo.PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?FrameInfo.PTS:PTS_End))/1000000)));
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
 
     //Name
     Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
@@ -888,14 +888,12 @@ void File_Mpega::Data_Parse()
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)
         Frame_Count_Valid=Frame_Count; //Finish MPEG Audio frames in case of there are less than Frame_Count_Valid frames
+    if (Frame_Count==0)
+        PTS_Begin=FrameInfo.PTS;
     Frame_Count++;
     Frame_Count_InThisBlock++;
-    if (FrameInfo.PTS!=(int64u)-1)
+    LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
     {
-        if (PTS_Begin==(int64u)-1)
-            PTS_Begin=FrameInfo.PTS;
-        if (Frame_Count_InThisBlock<=1)
-            PTS_End=FrameInfo.PTS;
         int16u Samples;
         if (ID==3 && layer==3) //MPEG 1 layer 1
              Samples=384;
@@ -903,8 +901,11 @@ void File_Mpega::Data_Parse()
             Samples=576;
         else
             Samples=1152;
-        float64 Frame_Duration=((float64)1)/Mpega_SamplingRate[ID][sampling_frequency]*Samples;
-        PTS_End+=float64_int64s(Frame_Duration*1000000000);
+        FrameInfo.DUR=float64_int64s(((float64)1)/Mpega_SamplingRate[ID][sampling_frequency]*Samples*1000000000);
+        if (FrameInfo.DTS!=(int64u)-1)
+            FrameInfo.DTS+=FrameInfo.DUR;
+        if (FrameInfo.PTS!=(int64u)-1)
+            FrameInfo.PTS=FrameInfo.DTS;
     }
 
     //LAME
@@ -1075,7 +1076,6 @@ void File_Mpega::Data_Parse()
 
     FILLING_BEGIN();
         //Filling
-        LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
         if (IsSub && BitRate_Count.size()>1 && !Encoded_Library.empty())
             Frame_Count_Valid=Frame_Count;
         if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)

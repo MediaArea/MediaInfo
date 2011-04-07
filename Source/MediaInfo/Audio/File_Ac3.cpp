@@ -920,10 +920,10 @@ void File_Ac3::Streams_Finish()
             }
         }
     }
-    else if (PTS_End>PTS_Begin)
+    else if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.PTS>PTS_Begin)
     {
-        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000));
-        Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)PTS_End-PTS_Begin)/1000000/32));
+        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000));
+        Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000/32));
     }
 }
 
@@ -1388,20 +1388,21 @@ void File_Ac3::Data_Parse()
 
     //PTS
     if (FrameInfo.PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)(Frame_Count_InThisBlock==0?FrameInfo.PTS:PTS_End))/1000000)));
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
 
     if (Status[IsFilled])
     {
         if (Element_Code==0 || !Core_IsPresent)
         {
+            if (Frame_Count==0)
+                PTS_Begin=FrameInfo.PTS;
             Frame_Count++;
             Frame_Count_InThisBlock++;
+            FrameInfo.DUR=32000000;
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS+=FrameInfo.DUR;
             if (FrameInfo.PTS!=(int64u)-1)
-            {
-                if (Frame_Count_InThisBlock<=1)
-                    PTS_End=FrameInfo.PTS;
-                PTS_End+=32000000;
-            }
+                FrameInfo.PTS=FrameInfo.DTS;
 
             //Name
             Element_Info(Frame_Count);
@@ -1631,15 +1632,16 @@ void File_Ac3::Core()
         }
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+        if (Frame_Count==0)
+            PTS_Begin=FrameInfo.PTS;
         Frame_Count++;
         Frame_Count_InThisBlock++;
         HD_AlreadyCounted=false;
+        FrameInfo.DUR=32000000;
+        if (FrameInfo.DTS!=(int64u)-1)
+            FrameInfo.DTS+=FrameInfo.DUR;
         if (FrameInfo.PTS!=(int64u)-1)
-        {
-            if (Frame_Count_InThisBlock<=1)
-                PTS_End=FrameInfo.PTS;
-            PTS_End+=32000000;
-        }
+            FrameInfo.PTS=FrameInfo.DTS;
 
         //Name
         Element_Info(Frame_Count);
@@ -1816,16 +1818,15 @@ void File_Ac3::HD()
     FILLING_BEGIN_PRECISE();
         if (!Core_IsPresent)
         {
+            if (Frame_Count==0)
+                PTS_Begin=FrameInfo.PTS;
             Frame_Count++;
             Frame_Count_InThisBlock++;
+            FrameInfo.DUR=32000000;
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS+=FrameInfo.DUR;
             if (FrameInfo.PTS!=(int64u)-1)
-            {
-                if (PTS_Begin==(int64u)-1)
-                    PTS_Begin=FrameInfo.PTS;
-                if (Frame_Count_InThisBlock<=1)
-                    PTS_End=FrameInfo.PTS;
-                PTS_End+=32000000;
-            }
+                FrameInfo.PTS=FrameInfo.DTS;
         }
 
         HD_Count++;
