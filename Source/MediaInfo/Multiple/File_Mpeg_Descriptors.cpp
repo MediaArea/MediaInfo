@@ -1589,6 +1589,9 @@ void File_Mpeg_Descriptors::Descriptor_05()
                                                 Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"]+=_T(" / ");
                                             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"]+=Ztring::ToZtring(elementary_PID);
                                         }
+                                        //Coherency
+                                        if (stream_type==0x81 && Complete_Stream->Streams[elementary_PID]->registration_format_identifier==Elements::BSSD)
+                                            Complete_Stream->Streams[elementary_PID]->registration_format_identifier=0x00000000; //Reseting it, this combinaision is not possible but a stream has it
                                         break;
                         }
                         break;
