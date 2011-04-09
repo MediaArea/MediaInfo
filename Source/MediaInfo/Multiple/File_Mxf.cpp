@@ -2589,7 +2589,7 @@ void File_Mxf::Data_Parse()
                             StreamPos_StartAtOne=false;
 
                         if (Ztring().From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression)).find(_T("PCM"))==0)
-                            Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Big");
+                            Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Little");
                         #ifdef MEDIAINFO_VC3_YES
                             if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))
                                 ((File_Vc3*)Essences[Code_Compare4].Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
@@ -2781,9 +2781,11 @@ void File_Mxf::Data_Parse()
                                 Frame_Count_NotParsedIncluded+=FramesToAdd;
 
                                 //Hints
-                                if (File_Buffer_Size_Hint_Pointer && Frame_Count_NotParsedIncluded+1<IndexTable_EditUnitByteCounts[Pos].IndexStartPosition+IndexTable_EditUnitByteCounts[Pos].IndexDuration && IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount>=0x10000)
-                                    (*File_Buffer_Size_Hint_Pointer)=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
-
+                                if (File_Buffer_Size_Hint_Pointer)
+                                {
+                                    if (Frame_Count_NotParsedIncluded+1<IndexTable_EditUnitByteCounts[Pos].IndexStartPosition+IndexTable_EditUnitByteCounts[Pos].IndexDuration && IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount>=0x10000)
+                                        (*File_Buffer_Size_Hint_Pointer)=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
+                                }
                                 break;
                             }
                         }
@@ -2824,7 +2826,10 @@ void File_Mxf::Data_Parse()
             #else //MEDIAINFO_SEEK
                 //Hints
                 if (File_Buffer_Size_Hint_Pointer)
-                    (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete); //We bet this is CBR
+                {
+                    if (Descriptors.size()==1)
+                        (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete); //We bet this is CBR
+                }
             #endif //MEDIAINFO_SEEK
             float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate; //TODO: use the corresponding track instead of the first one
             if (EditRate)

@@ -1420,6 +1420,8 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 Pos--;
                             if (Complete_Stream && Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID] && Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID]->Parser)
                                 Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID]->Parser->Unsynch_Frame_Count=Ibi.Streams[0].Infos[Pos].FrameNumber;
+                            else
+                                Unsynch_Frame_Counts[(int16u)Ibi.Streams[0].ID]=Ibi.Streams[0].Infos[Pos].FrameNumber;
                             GoTo(Ibi.Streams[0].Infos[Pos].StreamOffset);
                             
                             return 1;
@@ -2009,6 +2011,13 @@ void File_MpegTs::PES()
         //Allocating an handle if needed
         #if defined(MEDIAINFO_MPEGPS_YES)
             Complete_Stream->Streams[pid]->Parser=new File_MpegPs;
+            #if MEDIAINFO_SEEK
+                if (Unsynch_Frame_Counts.find(pid)!=Unsynch_Frame_Counts.end())
+                {
+                    ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->Unsynch_Frame_Count_Temp=Unsynch_Frame_Counts[pid];
+                    Unsynch_Frame_Counts.erase(pid);
+                }
+            #endif //MEDIAINFO_SEEK
             #if MEDIAINFO_DEMUX
                 if (Config_Demux)
                 {

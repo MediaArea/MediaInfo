@@ -152,6 +152,9 @@ private :
     bool Config_Trace_TimeSection_OnlyFirstOccurrence;
     bool TimeSection_FirstOccurrenceParsed;
 
+    #if MEDIAINFO_SEEK
+        std::map<int16u, int64u> Unsynch_Frame_Counts;
+    #endif //MEDIAINFO_SEEK
     #if MEDIAINFO_SEEK && MEDIAINFO_IBI
         ibi Ibi;
     #endif //MEDIAINFO_SEEK && MEDIAINFO_IBI

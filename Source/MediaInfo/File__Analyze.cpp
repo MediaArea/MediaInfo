@@ -168,6 +168,7 @@ File__Analyze::File__Analyze ()
     //Events data
     PES_FirstByte_IsAvailable=false;
 
+    Unsynch_Frame_Count=(int64u)-1;
     #if MEDIAINFO_IBI
         Config_Ibi_Create=false;
         Ibi_SynchronizationOffset_Current=0;
@@ -239,7 +240,6 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
             ParserIDs[0]=0x00;
         }
     #endif //MEDIAINFO_EVENTS
-    Unsynch_Frame_Count=(int64u)-1;
     #if MEDIAINFO_IBI
         Config_Ibi_Create=Config->Ibi_Create_Get() && Config_ParseSpeed==1.0;
     #endif //MEDIAINFO_IBI
@@ -482,6 +482,8 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         Sub->Frame_Count_Previous=Sub->Frame_Count;
         Sub->Field_Count_Previous=Sub->Field_Count;
     }
+     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+         Sub->Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
     #if MEDIAINFO_DEMUX
         bool Demux_EventWasSent_Save=Config->Demux_EventWasSent;
         Config->Demux_EventWasSent=false;

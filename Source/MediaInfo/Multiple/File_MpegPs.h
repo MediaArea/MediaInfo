@@ -91,6 +91,9 @@ public :
         };
         demux* SubStream_Demux;
     #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_SEEK
+        int64u Unsynch_Frame_Count_Temp;
+    #endif //MEDIAINFO_SEEK
 
     //Out
     bool   HasTimeStamps;

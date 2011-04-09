@@ -288,6 +288,12 @@ void File_Aes3::Streams_Fill()
                 Fill(Stream_Audio, Pos, Audio_BitDepth, Stream_Bits);
         }
     }
+
+    if (From_Raw)
+    {
+        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+            Fill(Stream_Audio, Pos, Audio_Format_Settings_Endianness, "Little");
+    }
 }
 
 //***************************************************************************

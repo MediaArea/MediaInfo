@@ -221,6 +221,9 @@ File_MpegPs::File_MpegPs()
     #if MEDIAINFO_DEMUX
         SubStream_Demux=NULL;
     #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_SEEK
+        Unsynch_Frame_Count_Temp=(int64u)-1;
+    #endif //MEDIAINFO_SEEK
 
     //Out
     HasTimeStamps=false;
@@ -841,6 +844,9 @@ void File_MpegPs::Read_Buffer_Unsynched()
                 Streams_Extension[StreamID].Parsers[Pos]->Open_Buffer_Unsynch();
             }
     }
+    #if MEDIAINFO_SEEK
+        Unsynch_Frame_Count=(int64u)-1; //We do not use it
+    #endif //MEDIAINFO_SEEK
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;
     PES_FirstByte_IsAvailable=false;
@@ -2850,7 +2856,13 @@ void File_MpegPs::video_stream()
                         #endif
         }
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)
+        {
             Open_Buffer_Init(Streams[stream_id].Parsers[Pos]);
+            #if MEDIAINFO_SEEK
+                if (Unsynch_Frame_Count_Temp!=(int64u)-1)
+                    Streams[stream_id].Parsers[Pos]->Frame_Count_NotParsedIncluded=Unsynch_Frame_Count_Temp;
+            #endif //MEDIAINFO_SEEK
+        }
     }
 
     //Demux
