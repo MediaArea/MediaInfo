@@ -480,11 +480,11 @@ void File_Mpega::Streams_Finish()
 
     //Encoding library
     if (!Encoded_Library.empty())
-        Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
+        Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library, true);
     if (Encoded_Library.empty())
         Encoded_Library_Guess();
-    Fill(Stream_Audio, 0, Audio_Encoded_Library, Encoded_Library);
-    Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Encoded_Library_Settings);
+    Fill(Stream_Audio, 0, Audio_Encoded_Library, Encoded_Library, true);
+    Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Encoded_Library_Settings, true);
 
     //Surround
     if (Surround_Frames>=Frame_Count*0.9)
@@ -526,8 +526,8 @@ void File_Mpega::Streams_Finish()
             Samples=576;
         else
             Samples=1152;
-        Fill(Stream_Audio, 0, Audio_FrameCount, FrameCount);
-        Fill(Stream_Audio, 0, Audio_SamplingCount, FrameCount*Samples);
+        Fill(Stream_Audio, 0, Audio_FrameCount, FrameCount, 10, true);
+        Fill(Stream_Audio, 0, Audio_SamplingCount, FrameCount*Samples, 10, true);
     }
 
     File__Tags_Helper::Streams_Finish();

@@ -461,6 +461,16 @@ void File_DvDif::Streams_Fill()
             Fill(Stream_Audio, Pos, Audio_Delay_Source, "Stream");
         }
     }
+
+    #if defined(MEDIAINFO_EIA608_YES)
+        for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
+            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsFilled])
+            {
+                CC_Parsers[Pos]->Finish();
+                Merge(*CC_Parsers[Pos]);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+            }
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -480,16 +490,6 @@ void File_DvDif::Streams_Finish()
     }
     if (!IsSub && Duration)
         Fill(Stream_General, 0, General_Duration, Duration);
-
-    #if defined(MEDIAINFO_EIA608_YES)
-        for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
-            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsFilled])
-            {
-                CC_Parsers[Pos]->Finish();
-                Merge(*CC_Parsers[Pos]);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
-            }
-    #endif
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
         if (Config->File_DvDif_Analysis_Get())

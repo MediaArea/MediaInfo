@@ -65,6 +65,7 @@ File_ChannelGrouping::File_ChannelGrouping()
     Common=NULL;
     Channel_Pos=0;
     Channel_Total=1;
+    SampleRate=0;
 }
 
 File_ChannelGrouping::~File_ChannelGrouping()
@@ -108,7 +109,8 @@ void File_ChannelGrouping::Read_Buffer_Init()
     {
         Common=new common;
         Common->Parser=new File_Aes3;
-        ((File_Aes3*)Common->Parser)->ByteSize=ByteDepth*2;
+        ((File_Aes3*)Common->Parser)->SampleRate=SampleRate;
+        ((File_Aes3*)Common->Parser)->ByteSize=ByteDepth*Channel_Total;
         Common->Channels.resize(Channel_Total);
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
             Common->Channels[Pos]=new common::channel;
@@ -203,6 +205,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         }
     #endif //MEDIAINFO_EVENTS
 
+    Common->Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Common->Parser, Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
     Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
 
@@ -221,6 +224,13 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
         Common->Channels[Pos]->optimize();
     Common->MergedChannel.optimize();
+}
+
+//---------------------------------------------------------------------------
+void File_ChannelGrouping::Read_Buffer_Unsynched()
+{
+    if (Common->Parser)
+        Common->Parser->Open_Buffer_Unsynch();
 }
 
 //***************************************************************************

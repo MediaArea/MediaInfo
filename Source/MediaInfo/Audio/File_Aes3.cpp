@@ -167,6 +167,7 @@ File_Aes3::File_Aes3()
     PTS_DTS_Needed=true;
 
     //In
+    SampleRate=0;
     ByteSize=(size_t)-1;
     QuantizationBits=(int32u)-1;
     From_Raw=false;
@@ -301,6 +302,15 @@ void File_Aes3::Streams_Fill()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Aes3::Read_Buffer_Init()
+{
+    if (From_MpegPs)
+    {
+        MustSynchronize=false;
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Aes3::Read_Buffer_Continue()
 {
     if (IsPcm)
@@ -316,7 +326,12 @@ void File_Aes3::Read_Buffer_Continue()
                     Element_Code=StreamIDs[StreamIDs_Size-2];
                 StreamIDs_Size--;
                 Demux_random_access=true;
-                Demux(Buffer, Element_Size, ContentType_MainStream);
+                FrameInfo.PTS=FrameInfo.DTS;
+                if (SampleRate)
+                    FrameInfo.DUR=Element_Size*1000000000/(SampleRate*ByteSize);
+                else
+                    FrameInfo.DUR=(int64u)-1;
+                Demux(Buffer, (size_t)Element_Size, ContentType_MainStream);
                 StreamIDs_Size++;
             }
         #endif //MEDIAINFO_DEMUX
@@ -345,6 +360,7 @@ void File_Aes3::Read_Buffer_Continue()
             //Raw PCM
             Buffer_Offset=0;
 
+            MustSynchronize=false;
             IsPcm=true;
             Read_Buffer_Continue();
 
@@ -843,6 +859,11 @@ void File_Aes3::Raw()
             }
 
             #if MEDIAINFO_DEMUX
+                FrameInfo.PTS=FrameInfo.DTS;
+                if (SampleRate)
+                    FrameInfo.DUR=((int64u)Element_Size)*8*1000000000/(SampleRate*Container_Bits*2);
+                else
+                    FrameInfo.DUR=(int64u)-1;
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
@@ -876,6 +897,11 @@ void File_Aes3::Raw()
             }
 
             #if MEDIAINFO_DEMUX
+                FrameInfo.PTS=FrameInfo.DTS;
+                if (SampleRate)
+                    FrameInfo.DUR=((int64u)Element_Size)*8*1000000000/(SampleRate*Container_Bits*2);
+                else
+                    FrameInfo.DUR=(int64u)-1;
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
@@ -950,11 +976,24 @@ void File_Aes3::Frame()
     if (Parser)
     {
         #if MEDIAINFO_DEMUX
+            FrameInfo.PTS=FrameInfo.DTS;
+            if (SampleRate)
+                FrameInfo.DUR=(Element_Size-Element_Offset)*1000000000/(SampleRate*ByteSize);
+            else
+                FrameInfo.DUR=(int64u)-1;
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
         Parser->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        #if MEDIAINFO_DEMUX
+            if (FrameInfo.DUR!=(int64u)-1)
+                FrameInfo.DTS+=FrameInfo.DUR;
+            else if (Parser->FrameInfo.DTS!=(int64u)-1)
+                FrameInfo=Parser->FrameInfo;
+            else
+                FrameInfo.DTS=(int64u)-1;
+        #endif //MEDIAINFO_DEMUX
         if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
             Merge(*Parser);
@@ -982,7 +1021,12 @@ void File_Aes3::Frame_WithPadding()
             StreamIDs_Size--;
             int8u Demux_Level_Save=Demux_Level;
             Demux_Level=2; //Container
-            Demux(Buffer+Buffer_Offset, Element_Size, ContentType_MainStream);
+            FrameInfo.PTS=FrameInfo.DTS;
+            if (SampleRate)
+                FrameInfo.DUR=Element_Size*1000000000/(SampleRate*ByteSize);
+            else
+                FrameInfo.DUR=(int64u)-1;
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
             Demux_Level=Demux_Level_Save;
             StreamIDs_Size++;
         }
@@ -1093,6 +1137,11 @@ void File_Aes3::Frame_WithPadding()
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer)
             Demux_Level=4; //Intermediate
+        FrameInfo.PTS=FrameInfo.DTS;
+        if (SampleRate)
+            FrameInfo.DUR=((int64u)Element_Size)*8*1000000000/(SampleRate*Container_Bits*2);
+        else
+            FrameInfo.DUR=(int64u)-1;
         Demux(Info, Info_Offset, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
     Parser_Parse(Info, Info_Offset);
@@ -1165,6 +1214,11 @@ void File_Aes3::Frame_FromMpegPs()
 
             #if MEDIAINFO_DEMUX
                 Demux_Level=2; //Container
+                FrameInfo.PTS=FrameInfo.DTS;
+                if (SampleRate)
+                    FrameInfo.DUR=((int64u)Element_Size)*8*1000000000/(SampleRate*Container_Bits*2);
+                else
+                    FrameInfo.DUR=(int64u)-1;
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
@@ -1202,6 +1256,11 @@ void File_Aes3::Frame_FromMpegPs()
 
             #if MEDIAINFO_DEMUX
                 Demux_Level=2; //Container
+                FrameInfo.PTS=FrameInfo.DTS;
+                if (SampleRate)
+                    FrameInfo.DUR=((int64u)Element_Size)*8*1000000000/(SampleRate*Container_Bits*2);
+                else
+                    FrameInfo.DUR=(int64u)-1;
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
@@ -1239,6 +1298,11 @@ void File_Aes3::Frame_FromMpegPs()
 
             #if MEDIAINFO_DEMUX
                 Demux_Level=2; //Container
+                FrameInfo.PTS=FrameInfo.DTS;
+                if (SampleRate)
+                    FrameInfo.DUR=((int64u)Element_Size)*8*1000000000/(SampleRate*Container_Bits*2);
+                else
+                    FrameInfo.DUR=(int64u)-1;
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
@@ -1279,11 +1343,21 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     {
         Parser=new File_Aes3();
         ((File_Aes3*)Parser)->From_Aes3=true;
+        if (SampleRate)
+            ((File_Aes3*)Parser)->SampleRate=SampleRate;
         Open_Buffer_Init(Parser);
     }
     Element_Offset=0;
     Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
+    #if MEDIAINFO_DEMUX
+        if (FrameInfo.DUR!=(int64u)-1)
+            FrameInfo.DTS+=FrameInfo.DUR;
+        else if (Parser->FrameInfo.DTS!=(int64u)-1)
+            FrameInfo=Parser->FrameInfo;
+        else
+            FrameInfo.DTS=(int64u)-1;
+    #endif //MEDIAINFO_DEMUX
     Element_Offset=Element_Size;
 
     if (!From_MpegPs)

@@ -41,6 +41,7 @@ class File_Aes3 : public File__Analyze
 {
 public :
     //In
+    int64u  SampleRate;
     size_t  ByteSize;
     int32u  QuantizationBits;
     bool    From_Raw;
@@ -56,6 +57,7 @@ private :
     void Streams_Fill();
 
     //Buffer - Global
+    void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
 
     //Buffer - Synchro

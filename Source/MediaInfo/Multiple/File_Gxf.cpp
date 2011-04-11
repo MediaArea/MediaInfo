@@ -364,6 +364,11 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
     {
         StreamKind_Last=Stream_Max;
         StreamPos_Last=(size_t)-1;
+        if (Config_ParseSpeed<=1.0)
+        {
+            Fill(Temp.Parser);
+            Temp.Parser->Open_Buffer_Unsynch();
+        }
         Finish(Temp.Parser);
 
         //Video

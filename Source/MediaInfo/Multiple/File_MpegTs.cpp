@@ -2078,8 +2078,13 @@ void File_MpegTs::PES()
     if (Complete_Stream->Streams[pid]->IsPCR)
         ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FrameInfo.PCR=Complete_Stream->Streams[pid]->TimeStamp_End==(int64u)-1?(int64u)-1:Complete_Stream->Streams[pid]->TimeStamp_End*1000/27; //27 MHz
     #if MEDIAINFO_IBI
-        int16u Program_PID=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].pid;
-        Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current=Complete_Stream->Streams[Program_PID]->Ibi_SynchronizationOffset_BeginOfFrame;
+        if (Complete_Stream->transport_stream_id!=(int16u)-1 && !Complete_Stream->Streams[pid]->program_numbers.empty())
+        {
+            int16u Program_PID=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].pid;
+            Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current=Complete_Stream->Streams[Program_PID]->Ibi_SynchronizationOffset_BeginOfFrame;
+        }
+        else
+            Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current=File_Offset+Buffer_Offset-Header_Size;
     #endif //MEDIAINFO_IBI
     Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser);
     if (Complete_Stream->Streams[pid]->Parser->Status[IsUpdated])

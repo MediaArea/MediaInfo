@@ -612,10 +612,10 @@ protected :
     File__Analyze* ChooseParser_RV24();
     File__Analyze* ChooseParser_Vc3();
     File__Analyze* ChooseParser_Aac();
-    File__Analyze* ChooseParser_Aes3(int32u QuantizationBits=(int32u)-1);
+    File__Analyze* ChooseParser_Aes3(int32u QuantizationBits=(int32u)-1, int32u SampleRate=(int32u)-1);
     File__Analyze* ChooseParser_Alaw();
     File__Analyze* ChooseParser_Mpega();
-    File__Analyze* ChooseParser_Pcm(int16u BlockAlign=(int16u)-1);
+    File__Analyze* ChooseParser_Pcm(int16u BlockAlign=(int16u)-1, int32u SampleRate=(int32u)-1);
     File__Analyze* ChooseParser_Jpeg2000(bool Interlaced=false);
 
     //Helpers
@@ -646,6 +646,7 @@ protected :
         bool Demux_HeaderParsed;
         bool Demux_Interleave;
         size_t CountOfLocatorsToParse;
+        float64 Demux_Rate;
     #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_SEEK

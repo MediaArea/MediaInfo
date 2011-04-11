@@ -773,6 +773,7 @@ File_Mxf::File_Mxf()
     DataMustAlwaysBeComplete=false;
     Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
+    Frame_Count_NotParsedIncluded=0;
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent_Accept_Specific=true;
     #endif //MEDIAINFO_DEMUX
@@ -970,6 +971,11 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     if (Essence->second.Parser==NULL)
         return;
 
+    if (Config_ParseSpeed<=1.0)
+    {
+        Fill(Essence->second.Parser);
+        Essence->second.Parser->Open_Buffer_Unsynch();
+    }
     Finish(Essence->second.Parser);
     StreamKind_Last=Stream_Max;
     if (Essence->second.Parser->Count_Get(Stream_Video))
@@ -1483,6 +1489,12 @@ void File_Mxf::Streams_Finish_ParseLocator()
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
                 Locator->second.MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
+            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                if (Descriptor->second.StreamKind==Stream_Video)
+                {
+                    Locator->second.MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(Descriptor->second.SampleRate, 15));
+                    break;
+                }
         #endif //MEDIAINFO_DEMUX
 
         //Run
@@ -1818,6 +1830,7 @@ void File_Mxf::Read_Buffer_Init()
     EssenceContainer_FromPartitionMetadata=0;
     #if MEDIAINFO_DEMUX
          Demux_UnpacketizeContainer=Config->Demux_Unpacketize_Get();
+         Demux_Rate=Config->Demux_Rate_Get();
     #endif //MEDIAINFO_DEMUX
 }
 
@@ -1833,7 +1846,7 @@ void File_Mxf::Read_Buffer_Continue()
     if (Buffer_End)
     {
         #if MEDIAINFO_DEMUX
-            if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.BlockAlign && Descriptors.begin()->second.BlockAlign!=(int16u)-1  && Descriptors.begin()->second.SampleRate)
+            if (Descriptors.size()==1 && Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.BlockAlign && Descriptors.begin()->second.BlockAlign!=(int16u)-1  && Descriptors.begin()->second.SampleRate)
             {
                 float64 BytesPerFrame=Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate;
                 int64u FramesAlreadyParsed=float64_int64s(((float64)(File_Offset+Buffer_Offset-Buffer_Begin))/BytesPerFrame);
@@ -1926,6 +1939,17 @@ void File_Mxf::Read_Buffer_Unsynched()
                 Essence->second.Parser->Open_Buffer_Unsynch();
 
     #if MEDIAINFO_SEEK
+        if (!Seeks.empty())
+        {
+            if (File_GoTo<=Seeks[0].StreamOffset)
+                Unsynch_Frame_Count=0;
+        }
+        else if (!IndexTable_EditUnitByteCounts.empty())
+        {
+            if (File_GoTo<=IndexTable_EditUnitByteCounts[0].Start-IndexTable_EditUnitByteCounts[0].Start_HeaderSize)
+                Unsynch_Frame_Count=0;
+        }
+
         Seeks_PosTemp=0;
     #endif //MEDIAINFO_SEEK
 }
@@ -1940,6 +1964,9 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         case 0  :   if (!Locators.empty())
                     {
                         #if MEDIAINFO_DEMUX
+                            if (Value!=0)
+                                return (size_t)-1; //Not supported
+
                             CountOfLocatorsToParse=Locators.size();
                             for (Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
                             {
@@ -1954,44 +1981,38 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 Locator->second.Status.reset();
                             }
                             Locator=Locators.begin();
+                            Open_Buffer_Unsynch();
                             return 1;
                         #else //MEDIAINFO_DEMUX
                             return (size_t)-1; //Not supported
                         #endif //MEDIAINFO_DEMUX
+                    }
+
+                    if (!Seeks.empty())
+                    {
+                        if (Value<Seeks[0].StreamOffset)
+                            Value=Seeks[0].StreamOffset;
+                    }
+                    else if (!IndexTable_EditUnitByteCounts.empty())
+                    {
+                        if (Value<IndexTable_EditUnitByteCounts[0].Start)
+                            Value=IndexTable_EditUnitByteCounts[0].Start-IndexTable_EditUnitByteCounts[0].Start_HeaderSize;
                     }
                     GoTo(Value);
                     return 1;
-        case 1  :   if (!Locators.empty())
-                    {
-                        #if MEDIAINFO_DEMUX
-                            CountOfLocatorsToParse=Locators.size();
-                            for (Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
-                            {
-                                if (Locator->second.IsTextLocator || Locator->second.EssenceLocator.empty())
-                                    CountOfLocatorsToParse--; //Will not be handled
-                                else if (Locator->second.MI)
-                                {
-                                    Ztring Result=Locator->second.MI->Option(_T("File_Seek"), Ztring::ToZtring(((float64)Value)*100)+_T('%'));
-                                    if (!Result.empty())
-                                        return 2; //Invalid value
-                                }
-                                Locator->second.Status.reset();
-                            }
-                            Locator=Locators.begin();
-                            return 1;
-                        #else //MEDIAINFO_DEMUX
-                            return (size_t)-1; //Not supported
-                        #endif //MEDIAINFO_DEMUX
-                    }
-                    GoTo(File_Size*Value/10000);
-                    return 1;
+        case 1  :   return Read_Buffer_Seek(0, File_Size*Value/10000, ID);
         case 2  :   //Timestamp
                     {
                         //We transform TimeStamp to a frame number
-                        if (Descriptors.empty() || Descriptors.begin()->second.SampleRate==0)
-                           return (size_t)-1; //Not supported
-                        Value=(int64u)(((float64)Value)/1000000000*Descriptors.begin()->second.SampleRate);
-                    }
+                        descriptors::iterator Descriptor;
+                        for (Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                            if (Descriptor->second.StreamKind==Stream_Video && Descriptors.begin()->second.SampleRate)
+                                break;
+                        if (Descriptor==Descriptors.end())
+                            return (size_t)-1; //Not supported
+
+                        Value=(int64u)(((float64)Value)/1000000000*Descriptor->second.SampleRate);
+                        }
                     //No break;
         case 3  :   //FrameNumber
                     {
@@ -2085,6 +2106,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 Locator->second.Status.reset();
                             }
                             Locator=Locators.begin();
+                            Open_Buffer_Unsynch();
                             return 1;
                         #else //MEDIAINFO_DEMUX
                             return (size_t)-1; //Not supported
@@ -2349,6 +2371,19 @@ void File_Mxf::Header_Parse()
                         Buffer_End=Buffer_Begin+Length_Final;
                         if (Descriptors.size()==1)
                         {
+                            //Configuring EditRate if needed (e.g. audio at 48000 Hz)
+                            if (Frame_Count_NotParsedIncluded==0)
+                            {
+                                if (Demux_Rate) //From elsewhere
+                                {
+                                    Descriptors.begin()->second.SampleRate=Demux_Rate;
+                                }
+                                else if (Descriptors.begin()->second.SampleRate>1000)
+                                {
+                                    Descriptors.begin()->second.SampleRate=25; //Default value
+                                }
+                            }
+
                             if (Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.BlockAlign && Descriptors.begin()->second.BlockAlign!=(int16u)-1  && Descriptors.begin()->second.SampleRate)
                             {
                                 Length_Final=float64_int64s(Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate);
@@ -2374,6 +2409,8 @@ void File_Mxf::Header_Parse()
                                                 Length_Final=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
                                                 if (Element_Size-Element_Offset<Length_Final)
                                                 {
+                                                    Buffer_Begin=(int64u)-1;
+                                                    Buffer_End=0;
                                                     Element_WaitForMoreData();
                                                     return;
                                                 }
@@ -2388,12 +2425,30 @@ void File_Mxf::Header_Parse()
                             Length_Final=Element_Size-Element_Offset;
                     }
                     else if (Element_IsWaitingForMoreData())
+                    {
+                        Buffer_Begin=(int64u)-1;
+                        Buffer_End=0;
                         return;
+                    }
                     else if (Buffer_Offset+Element_Offset+Length_Final>Buffer_Size)
                     {
                         if (File_Buffer_Size_Hint_Pointer)
-                            (*File_Buffer_Size_Hint_Pointer)=Buffer_Offset+Element_Offset+Length_Final-Buffer_Size;
+                        {
+                            if (!Seeks.empty())
+                            {
+                                //Hints
+                                if (File_Buffer_Size_Hint_Pointer)
+                                {
+                                    if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded+1<Seeks.size() && Seeks[Frame_Count_NotParsedIncluded].FrameNumber+1==Seeks[Frame_Count_NotParsedIncluded+1].FrameNumber && File_Offset+Buffer_Size>=Seeks[Frame_Count_NotParsedIncluded].StreamOffset && File_Offset+Buffer_Size<Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset && Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)>=0x10000)
+                                        (*File_Buffer_Size_Hint_Pointer)=Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)+24; //+24 for next packet header
+                                }
+                            }
+                            else
+                                (*File_Buffer_Size_Hint_Pointer)=Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24; //+24 for next packet header
+                        }
                             
+                        Buffer_Begin=(int64u)-1;
+                        Buffer_End=0;
                         Element_WaitForMoreData();
                         return;
                     }
@@ -2745,6 +2800,13 @@ void File_Mxf::Data_Parse()
                         FrameInfo.PTS=(int64u)-1;
                         FrameInfo.DUR=(int64u)-1;
                         Seeks_IsOk=true;
+
+                        //Hints
+                        if (File_Buffer_Size_Hint_Pointer)
+                        {
+                            if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded+1<Seeks.size() && Seeks[Frame_Count_NotParsedIncluded].FrameNumber+1==Seeks[Frame_Count_NotParsedIncluded+1].FrameNumber && File_Offset+Buffer_Size<Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset && Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)>=0x10000)
+                                (*File_Buffer_Size_Hint_Pointer)=Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)+24; //+24 for next packet header
+                        }
                     }
                 }
                 if (!Seeks_IsOk)
@@ -2783,9 +2845,10 @@ void File_Mxf::Data_Parse()
                                 //Hints
                                 if (File_Buffer_Size_Hint_Pointer)
                                 {
-                                    if (Frame_Count_NotParsedIncluded+1<IndexTable_EditUnitByteCounts[Pos].IndexStartPosition+IndexTable_EditUnitByteCounts[Pos].IndexDuration && IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount>=0x10000)
-                                        (*File_Buffer_Size_Hint_Pointer)=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
+                                    if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded+1<IndexTable_EditUnitByteCounts[Pos].IndexStartPosition+IndexTable_EditUnitByteCounts[Pos].IndexDuration && IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount>=0x10000)
+                                        (*File_Buffer_Size_Hint_Pointer)=IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount+24; //+24 for next packet header
                                 }
+
                                 break;
                             }
                         }
@@ -2811,25 +2874,22 @@ void File_Mxf::Data_Parse()
                     }
                     else if (Code_Compare4==IndexTable_Start_Item)
                     {
-                        float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate;
-                        if (EditRate)
-                        {
-                            FrameInfo.DTS+=float64_int64s(1000000000/EditRate);
-                            Frame_Count_NotParsedIncluded++;
-                        }
                         FrameInfo.PTS=(int64u)-1;
                         Demux_random_access=FrameInfo.DTS==0; //Setting true only for the first image, by default, we don't know for the rest
                     }
                     else
+                    {
+                        if (FrameInfo.DUR!=(int64u)-1)
+                            FrameInfo.DTS-=FrameInfo.DUR;
+                        else
+                            FrameInfo.DTS=(int64u)-1;
                         Demux_random_access=FrameInfo.DTS==0; //Setting true only for the first image, by default, we don't know for the rest
+                    }
                 }
             #else //MEDIAINFO_SEEK
                 //Hints
                 if (File_Buffer_Size_Hint_Pointer)
-                {
-                    if (Descriptors.size()==1)
-                        (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete); //We bet this is CBR
-                }
+                    (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete); //We bet this is CBR
             #endif //MEDIAINFO_SEEK
             float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate; //TODO: use the corresponding track instead of the first one
             if (EditRate)
@@ -2858,6 +2918,7 @@ void File_Mxf::Data_Parse()
                     Skip_B4(                                    "Count?");
                     Open_Buffer_Continue(Essences[Code_Compare4].Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
                     Element_End();
+                    Frame_Count_NotParsedIncluded++;
                 }
             }
             else if (Element_Size)
@@ -2870,6 +2931,7 @@ void File_Mxf::Data_Parse()
                 if (FrameInfo.DUR!=(int64u)-1)
                     Essences[Code_Compare4].Parser->FrameInfo.DUR=FrameInfo.DUR;
                 Open_Buffer_Continue(Essences[Code_Compare4].Parser);
+                Frame_Count_NotParsedIncluded++;
 
                 //Disabling this Streams
                 if (!Essences[Code_Compare4].IsFilled && (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
@@ -2877,8 +2939,6 @@ void File_Mxf::Data_Parse()
                     if (Streams_Count>0)
                         Streams_Count--;
                     Essences[Code_Compare4].IsFilled=true;
-                    if (!Essences[Code_Compare4].Parser->Status[IsFinished] && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
-                        Essences[Code_Compare4].Parser->Finish();
                     if (IsSub)
                         Finish();
                 }
@@ -2886,6 +2946,11 @@ void File_Mxf::Data_Parse()
         }
         else
             Skip_XX(Element_Size,                               "Data");
+        Frame_Count_NotParsedIncluded++;
+        #if MEDIAINFO_DEMUX
+            if (FrameInfo.DUR!=(int64u)-1)
+                FrameInfo.DTS+=FrameInfo.DUR;
+        #endif //MEDIAINFO_DEMUX
     }
     else
         Skip_XX(Element_Size,                                   "Unknown");
@@ -7437,8 +7502,8 @@ File__Analyze* File_Mxf::ChooseParser(descriptors::iterator &Descriptor)
                                         case 0x01 : //Uncompressed Sound Coding
                                                     switch (Code5)
                                                     {
-                                                        case 0x7E : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
-                                                        case 0x7F : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
+                                                        case 0x7E : return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
+                                                        case 0x7F : return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
                                                         default   : return NULL;
                                                     }
                                         case 0x02 : //Compressed coding
@@ -7451,10 +7516,10 @@ File__Analyze* File_Mxf::ChooseParser(descriptors::iterator &Descriptor)
                                                                                     switch (Code7)
                                                                                     {
                                                                                         case 0x01 : if ((Descriptor->second.EssenceContainer.lo&0xFFFF0000)==0x02060000) //Test coherency between container and compression
-                                                                                                        return ChooseParser_Pcm(Descriptor->second.BlockAlign); //Compression is A-Law but Container is PCM, not logic, prioritizing PCM
+                                                                                                        return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u()); //Compression is A-Law but Container is PCM, not logic, prioritizing PCM
                                                                                                      else
                                                                                                         return ChooseParser_Alaw();
-                                                                                        case 0x10 : return ChooseParser_Pcm(Descriptor->second.BlockAlign); //DV 12-bit
+                                                                                        case 0x10 : return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u()); //DV 12-bit
                                                                                         default   : return NULL;
                                                                                     }
                                                                         case 0x02 : //SMPTE 338M Audio Coding
@@ -7518,8 +7583,8 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(descriptors::iterato
 
     switch (Code6)
     {
-        case 0x01 : return ChooseParser_Aes3(Descriptor->second.QuantizationBits);
-        case 0x06 : return ChooseParser_Pcm(Descriptor->second.BlockAlign);
+        case 0x01 : return ChooseParser_Aes3(Descriptor->second.QuantizationBits, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
+        case 0x06 : return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
         default   : return NULL;
     }
 }
@@ -7644,7 +7709,7 @@ File__Analyze* File_Mxf::ChooseParser_Aac()
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Aes3(int32u QuantizationBits)
+File__Analyze* File_Mxf::ChooseParser_Aes3(int32u QuantizationBits, int32u SampleRate)
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
@@ -7652,6 +7717,8 @@ File__Analyze* File_Mxf::ChooseParser_Aes3(int32u QuantizationBits)
         Parser->From_Raw=true;
         if (QuantizationBits!=(int32u)-1)
             Parser->QuantizationBits=QuantizationBits;
+        if (SampleRate!=(int32u)-1)
+            Parser->SampleRate=SampleRate;
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
@@ -7697,13 +7764,15 @@ File__Analyze* File_Mxf::ChooseParser_Mpega()
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Pcm(int16u BlockAlign)
+File__Analyze* File_Mxf::ChooseParser_Pcm(int16u BlockAlign, int32u SampleRate)
 {
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
         if (BlockAlign!=(int16u)-1)
             Parser->ByteSize=BlockAlign;
+        if (SampleRate!=(int32u)-1)
+            Parser->SampleRate=SampleRate;
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {

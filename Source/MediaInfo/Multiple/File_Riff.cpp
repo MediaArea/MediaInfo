@@ -179,6 +179,11 @@ void File_Riff::Streams_Finish ()
             StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize)); //We want to keep the 4CC of AVI
 
             //Merging
+            if (Config_ParseSpeed<=1.0)
+            {
+                Fill(Temp->second.Parser);
+                Temp->second.Parser->Open_Buffer_Unsynch();
+            }
             Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
             Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));

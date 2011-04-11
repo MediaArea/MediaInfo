@@ -268,7 +268,6 @@ private :
     int8u  picture_structure;
     int8u  vbv_buffer_size_extension;
     int8u  intra_dc_precision;
-    bool   Time_End_NeedComplete;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;
@@ -278,6 +277,7 @@ private :
     bool   FirstFieldFound;
     bool   sequence_header_IsParsed;
     bool   group_start_IsParsed;
+    bool   group_start_FirstPass;
     bool   group_start_drop_frame_flag;
     bool   group_start_closed_gop;
     bool   group_start_broken_link;

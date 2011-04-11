@@ -68,6 +68,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Demux_ForceIds=false;
         Demux_PCM_20bitTo16bit=false;
         Demux_Unpacketize=false;
+        Demux_Rate=0;
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_IBI
         Ibi_Create=false;
@@ -294,6 +295,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
                 Demux_Unpacketize_Set(false);
             else
                 Demux_Unpacketize_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_demux_rate"))
+    {
+        #if MEDIAINFO_DEMUX
+            Demux_Rate_Set(Ztring(Value).To_float64());
             return Ztring();
         #else //MEDIAINFO_DEMUX
             return _T("Demux manager is disabled due to compilation options");
@@ -835,6 +845,21 @@ bool MediaInfo_Config_MediaInfo::Demux_Unpacketize_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Demux_Unpacketize;
+}
+#endif //MEDIAINFO_DEMUX
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+void MediaInfo_Config_MediaInfo::Demux_Rate_Set (float64 NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_Rate=NewValue;
+}
+
+float64 MediaInfo_Config_MediaInfo::Demux_Rate_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_Rate;
 }
 #endif //MEDIAINFO_DEMUX
 

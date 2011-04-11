@@ -214,6 +214,12 @@ void File_Mpeg4::Streams_Finish()
         //Parser specific
         if (Temp->second.Parser)
         {
+            if (Config_ParseSpeed<=1.0)
+            {
+                Fill(Temp->second.Parser);
+                Temp->second.Parser->Open_Buffer_Unsynch();
+            }
+
             //Finalizing and Merging
             Finish(Temp->second.Parser);
             if (StreamKind_Last==Stream_General)

@@ -110,6 +110,7 @@ public :
     size_t  Channel_Pos;
     size_t  Channel_Total;
     bool    IsAes3;
+    int64u  SampleRate;
 
     //Constructor/Destructor
     File_ChannelGrouping();
@@ -123,6 +124,7 @@ private :
     //Buffer - Global
     void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
+    void Read_Buffer_Unsynched ();
 
     //Helpers
     bool Synchronize_AES3_0();

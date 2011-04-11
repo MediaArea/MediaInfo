@@ -617,12 +617,12 @@ void File_Mpegv::Streams_Fill()
     }
 
     //Delay
-    if (group_start_IsParsed)
+    if (group_start_FirstPass)
     {
-        size_t Time_Begin=Time_Begin_Seconds*1000;
+        float64 Time_Begin=Time_Begin_Seconds*1000;
         if (FrameRate)
-            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
-        Fill(Stream_Video, 0, Video_Delay, Time_Begin);
+            Time_Begin+=((float64)Time_Begin_Frames)*1000/FrameRate;
+        Fill(Stream_Video, 0, Video_Delay, Time_Begin, 0);
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
@@ -718,18 +718,6 @@ void File_Mpegv::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Mpegv::Streams_Finish()
 {
-    //TimeStamp
-    if (Time_End_Seconds!=Error)
-    {
-        Time_End_Frames++; //One frame
-        if (progressive_sequence && repeat_first_field)
-        {
-            Time_End_Frames++; //Frame repeated a second time
-            if (top_field_first)
-                Time_End_Frames++; //Frame repeated a third time
-        }
-    }
-
     //Duration
     if (PTS_End>PTS_Begin)
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
@@ -743,6 +731,10 @@ void File_Mpegv::Streams_Finish()
             Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
         }
         Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
+    }
+    else if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+    {
+        Fill(Stream_Video, 0, Video_FrameCount, Frame_Count_NotParsedIncluded);
     }
 
     //Other parsers
@@ -880,7 +872,6 @@ void File_Mpegv::Synched_Init()
     video_format=5; //Unspecified video format
     vbv_buffer_size_extension=0;
     intra_dc_precision=(int8u)-1;
-    Time_End_NeedComplete=false;
     load_intra_quantiser_matrix=false;
     load_non_intra_quantiser_matrix=false;
     progressive_sequence=true; //progressive by default
@@ -888,6 +879,7 @@ void File_Mpegv::Synched_Init()
     repeat_first_field=false;
     FirstFieldFound=false;
     group_start_IsParsed=false;
+    group_start_FirstPass=false;
     PTS_LastIFrame=(int64u)-1;
     bit_rate_value_IsValid=false;
     profile_and_level_indication_escape=false;
@@ -993,6 +985,7 @@ void File_Mpegv::Read_Buffer_Unsynched()
     sequence_header_IsParsed=false;
     group_start_IsParsed=false;
     PTS_LastIFrame=(int64u)-1;
+    Frame_Count_NotParsedIncluded=(int64u)-1;
     IFrame_IsParsed=false;
 
     temporal_reference_Old=(int16u)-1;
@@ -1269,21 +1262,12 @@ void File_Mpegv::slice_start()
     FILLING_BEGIN();
 
         //Timestamp
-        if (!group_start_IsParsed || (group_start_closed_gop==true && temporal_reference==0) || group_start_closed_gop==false)
+        if (group_start_FirstPass && (Time_Begin_Seconds==Error || Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference<Time_Begin_Seconds*FrameRate+Time_Begin_Frames))
         {
-            if (Time_Begin_Seconds==Error)
-            {
-                //Verifying if time_code is trustable
-                if (Time_Current_Seconds==Time_Begin_Seconds && Time_Current_Frames+temporal_reference==Time_Begin_Frames)
-                    Time_End_NeedComplete=true; //we can't trust time_code
-            }
-            if (Time_Begin_Seconds==Error)
-            {
-                Time_Begin_Seconds=Time_Current_Seconds;
-                Time_Begin_Frames =Time_Current_Frames+(int8u)temporal_reference;
-            }
+            Time_Begin_Seconds=Time_Current_Seconds;
+            Time_Begin_Frames =Time_Current_Frames+(int8u)temporal_reference;
         }
-        if (!Time_End_NeedComplete && (Time_End_Seconds==Error || Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference>Time_End_Seconds*FrameRate+Time_End_Frames))
+        if (!TimeCodeIsNotTrustable && (picture_coding_type==1 || picture_coding_type==2)) //IFrame or PFrame
         {
             Time_End_Seconds=Time_Current_Seconds;
             Time_End_Frames =Time_Current_Frames+(int8u)temporal_reference;
@@ -1354,9 +1338,6 @@ void File_Mpegv::slice_start()
             }
         #endif //MEDIAINFO_TRACE
 
-        if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
-            Time_End_Frames--; //One frame
-
         //CDP
         #if defined(MEDIAINFO_CDP_YES)
             if (Ancillary && *Ancillary && !(*Ancillary)->Cdp_Data.empty())
@@ -1422,6 +1403,16 @@ void File_Mpegv::slice_start()
         //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+        if (!TimeCodeIsNotTrustable && (picture_coding_type==1 || picture_coding_type==2)) //IFrame or PFrame
+        {
+            Time_End_Frames++; //One frame
+            if (progressive_sequence && repeat_first_field)
+            {
+                Time_End_Frames++; //Frame repeated a second time
+                if (top_field_first)
+                    Time_End_Frames++; //Frame repeated a third time
+            }
+        }
         Frame_Count++;
         Frame_Count_InThisBlock++;
         if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
@@ -2016,13 +2007,11 @@ void File_Mpegv::sequence_header()
         NextCode_Add(0xB8);
 
         //Autorisation of other streams
-        if (Frame_Count<Frame_Count_Valid)
-        {
-            Streams[0x00].Searching_Payload=true;
-            Streams[0xB2].Searching_Payload=true;
-            Streams[0xB5].Searching_Payload=true;
+        Streams[0x00].Searching_Payload=true;
+        Streams[0xB2].Searching_Payload=true;
+        Streams[0xB5].Searching_Payload=true;
+        if (Frame_Count==0)
             Streams[0xB8].Searching_TimeStamp_Start=true;
-        }
         Streams[0xB8].Searching_TimeStamp_End=true;
 
         //Temp
@@ -2285,6 +2274,8 @@ void File_Mpegv::group_start()
         {
             //Time code is always 0
             TimeCodeIsNotTrustable=true;
+            Time_Begin_Seconds=(size_t)-1;
+            Time_End_Seconds=(size_t)-1;
             return;
         }
 
@@ -2293,8 +2284,10 @@ void File_Mpegv::group_start()
         Time_Current_Frames =Frames;
 
         if (!group_start_IsParsed)
-        {
             group_start_IsParsed=true;
+        if (!group_start_FirstPass)
+        {
+            group_start_FirstPass=true;
             group_start_drop_frame_flag=drop_frame_flag;
             group_start_closed_gop=closed_gop;
             group_start_broken_link=broken_link;

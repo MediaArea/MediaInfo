@@ -199,6 +199,12 @@ void File_Mk::Streams_Finish()
             Duration_Temp=Retrieve(StreamKind_Last, Temp->second.StreamPos, Fill_Parameter(StreamKind_Last, Generic_Duration)); //Duration from stream is sometimes false
             Codec_Temp=Retrieve(StreamKind_Last, Temp->second.StreamPos, Fill_Parameter(StreamKind_Last, Generic_Codec)); //We want to keep the 4CC
 
+            if (Config_ParseSpeed<=1.0)
+            {
+                Fill(Temp->second.Parser);
+                Temp->second.Parser->Open_Buffer_Unsynch();
+            }
+
             Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Duration_Temp, true);
