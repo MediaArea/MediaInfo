@@ -522,6 +522,7 @@ protected :
         std::map<std::string, Ztring> Infos;
         int16u BlockAlign;
         int32u QuantizationBits;
+        int64u Duration;
         #if MEDIAINFO_DEMUX
             int32u ByteRate;
         #endif //MEDIAINFO_DEMUX
@@ -547,6 +548,7 @@ protected :
             SubSampling_Vertical=(int32u)-1;
             BlockAlign=(int16u)-1;
             QuantizationBits=(int8u)-1;
+            Duration=(int64u)-1;
             #if MEDIAINFO_DEMUX
                 ByteRate=(int32u)-1;
             #endif //MEDIAINFO_DEMUX
@@ -602,6 +604,18 @@ protected :
     components Components;
 
     //Parsers
+    void           ChooseParser();
+    void           ChooseParser__Aaf();
+    void           ChooseParser__Aaf_CP_Picture();
+    void           ChooseParser__Aaf_CP_Sound();
+    void           ChooseParser__Aaf_CP_Data();
+    void           ChooseParser__Aaf_14();
+    void           ChooseParser__Aaf_GC_Picture();
+    void           ChooseParser__Aaf_GC_Sound();
+    void           ChooseParser__Aaf_GC_Data();
+    void           ChooseParser__Aaf_GC_Compound();
+    void           ChooseParser__Avid();
+    void           ChooseParser__Avid_Picture();
     File__Analyze* ChooseParser(descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser__FromEssenceContainer(descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Avc();

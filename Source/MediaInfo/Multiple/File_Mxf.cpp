@@ -100,15 +100,21 @@ namespace MediaInfoLib
 
 namespace Elements
 {
-    //Elements - Interpretive - Fundamental - Data Interpretations and Definitions - KLV Interpretations
+    //Item - Elements - Interpretive - Fundamental - Data Interpretations and Definitions - KLV Interpretations
     UUID(Filler01,                                              060E2B34, 01010101, 03010210, 01000000)
     UUID(Filler02,                                              060E2B34, 01010102, 03010210, 01000000)
     UUID(TerminatingFiller,                                     060E2B34, 01010102, 03010210, 05000000)
 
-    //Elements - Interpretive - Fundamental - Data Interpretations and Definitions - XML Constructs and Interpretations
+    //Item - Elements - Interpretive - Fundamental - Data Interpretations and Definitions - XML Constructs and Interpretations
     UUID(XmlDocumentText,                                       060E2B34, 01010105, 03010220, 01000000)
 
-    //Elements - Parametric - Video and Image Essence Characteristics - Digital Video and Image Compression Parameters - MPEG Coding Parameters - MPEG-2 Coding Parameters
+    //Item - Elements - User organization registred for public use - AAF Association - Generic Container - Version 1
+    UUID(GenericContainer_Aaf,                                  060E2B34, 01020101, 0D010301, 00000000)
+
+    //Item - Elements - User organization registred for private use - Avid - Generic Container - Version 1
+    UUID(GenericContainer_Avid,                                 060E2B34, 01020101, 0E040301, 00000000)
+
+    //Item - Elements - Parametric - Video and Image Essence Characteristics - Digital Video and Image Compression Parameters - MPEG Coding Parameters - MPEG-2 Coding Parameters
     UUID(MPEG2VideoDescriptor_SingleSequence,                   060E2B34, 01010105, 04010602, 01020000)
     UUID(MPEG2VideoDescriptor_ConstantBFrames,                  060E2B34, 01010105, 04010602, 01030000)
     UUID(MPEG2VideoDescriptor_CodedContentType,                 060E2B34, 01010105, 04010602, 01040000)
@@ -120,7 +126,7 @@ namespace Elements
     UUID(MPEG2VideoDescriptor_ProfileAndLevel,                  060E2B34, 01010105, 04010602, 010A0000)
     UUID(MPEG2VideoDescriptor_BitRate,                          060E2B34, 01010105, 04010602, 010B0000)
 
-    //Elements - User organization registred for public use - AAF Association - AAF Attributes - AAF Information Attributes - Version 1 - Enumerated Attributes
+    //Groups - Elements - User organization registred for public use - AAF Association - AAF Attributes - AAF Information Attributes - Version 1 - Enumerated Attributes
     UUID(Sequence,                                              060E2B34, 02530101, 0D010101, 01010F00)
     UUID(SourceClip,                                            060E2B34, 02530101, 0D010101, 01011100)
     UUID(TimecodeComponent,                                     060E2B34, 02530101, 0D010101, 01011400)
@@ -147,7 +153,7 @@ namespace Elements
     UUID(Unknown1,                                              060E2B34, 02530101, 0D010101, 01015B00)
     UUID(AncPacketsDescriptor,                                  060E2B34, 02530101, 0D010101, 01015C00)
 
-    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
+    //Groups - Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
     UUID(OpenIncompleteHeaderPartition,                         060E2B34, 02050101, 0D010201, 01020100)
     UUID(ClosedIncompleteHeaderPartition,                       060E2B34, 02050101, 0D010201, 01020200)
     UUID(OpenCompleteHeaderPartition,                           060E2B34, 02050101, 0D010201, 01020300)
@@ -161,16 +167,16 @@ namespace Elements
     UUID(OpenCompleteFooterPartition,                           060E2B34, 02050101, 0D010201, 01040300)
     UUID(ClosedCompleteFooterPartition,                         060E2B34, 02050101, 0D010201, 01040400)
 
-    //Elements - User organization registred for public use - AAF Association - ?  - Version 1 - ?
+    //Groups - Elements - User organization registred for public use - AAF Association - ?  - Version 1 - ?
     UUID(Primer,                                                060E2B34, 02050101, 0D010201, 01050100)
 
-    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
+    //Groups - Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
     UUID(IndexTableSegment,                                     060E2B34, 02530101, 0D010201, 01100100)
 
-    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
+    //Groups - Elements - User organization registred for public use - AAF Association - ? - Version 1 - ?
     UUID(RandomIndexMetadata,                                   060E2B34, 02050101, 0D010201, 01110100)
 
-    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ? (SDTI-CP (SMPTE 385M))
+    //Groups - Elements - User organization registred for public use - AAF Association - ? - Version 1 - ? (SDTI-CP (SMPTE 385M))
     UUID(SDTI_SystemMetadataPack,                               060E2B34, 02050101, 0D010301, 04010100)
     UUID(SDTI_PackageMetadataSet,                               060E2B34, 02430101, 0D010301, 04010200)
     UUID(SDTI_PictureMetadataSet,                               060E2B34, 02430101, 0D010301, 04010300)
@@ -178,10 +184,10 @@ namespace Elements
     UUID(SDTI_DataMetadataSet,                                  060E2B34, 02430101, 0D010301, 04010500)
     UUID(SDTI_ControlMetadataSet,                               060E2B34, 02630101, 0D010301, 04010600)
 
-    //Elements - User organization registred for public use - AAF Association - ? - Version 1 - ? (SystemScheme (SMPTE 405M))
+    //Groups - Elements - User organization registred for public use - AAF Association - ? - Version 1 - ? (SystemScheme (SMPTE 405M))
     UUID(SystemScheme1,                                         060E2B34, 02530101, 0D010301, 14020100)
 
-    //Elements - User organization registred for private use - Omneon Video Networks
+    //Groups - Elements - User organization registred for private use - Omneon Video Networks
     UUID(Omneon_010201010100,                                   060E2B34, 02530105, 0E0B0102, 01010100)
     UUID(Omneon_010201020100,                                   060E2B34, 02530105, 0E0B0102, 01020100)
 }
@@ -207,8 +213,8 @@ const char* Mxf_Registry(int8u Category, int8u Registry)
         case 0x01 : //"Item"
                     switch(Registry)
                     {
-                        case 0x01 : return "Metadata dictionary";
-                        case 0x02 : return "Essence dictionary";
+                        case 0x01 : return "Metadata";
+                        case 0x02 : return "Essence";
                         default   : return "";
                     }
         case 0x02 : //"Group (Set/Pack)"
@@ -224,6 +230,26 @@ const char* Mxf_Registry(int8u Category, int8u Registry)
                     switch(Registry)
                     {
                         case 0x01 : return "Fixed";
+                        default   : return "";
+                    }
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mxf_Structure(int8u Category, int8u Registry, int8u Structure)
+{
+    switch(Category)
+    {
+        case 0x01 : //"Item"
+                    switch(Registry)
+                    {
+                        case 0x02 : //Essence
+                                    switch(Structure)
+                                    {
+                                        case 0x01 : return "Standard";
+                                        default   : return "";
+                                    }
                         default   : return "";
                     }
         default   : return "";
@@ -2301,9 +2327,10 @@ void File_Mxf::Header_Parse()
         int32u Code_Compare2=(int32u)Code.hi;
         int32u Code_Compare3=Code.lo>>32;
         int32u Code_Compare4=(int32u)Code.lo;
-        if ((Code_Compare1==0x060E2B34
-            && Code_Compare2==0x01020101
-            && Code_Compare3==0x0D010301)
+        if ((Code_Compare1==Elements::GenericContainer_Aaf1
+            && Code_Compare2==Elements::GenericContainer_Aaf2
+            && (Code_Compare3==Elements::GenericContainer_Aaf3
+             || Code_Compare3==Elements::GenericContainer_Avid3))
             || (Code_Compare1==Elements::SystemScheme11
             && Code_Compare2==Elements::SystemScheme12
             && Code_Compare3==Elements::SystemScheme13
@@ -2357,9 +2384,10 @@ void File_Mxf::Header_Parse()
         int32u Code_Compare1=Code.hi>>32;
         int32u Code_Compare2=(int32u)Code.hi;
         int32u Code_Compare3=Code.lo>>32;
-        if (Code_Compare1==0x060E2B34
-         && Code_Compare2==0x01020101
-         && Code_Compare3==0x0D010301)
+        if (Code_Compare1==Elements::GenericContainer_Aaf1
+         && Code_Compare2==Elements::GenericContainer_Aaf2
+         && (Code_Compare3==Elements::GenericContainer_Aaf3
+          || Code_Compare3==Elements::GenericContainer_Avid3))
         {
             #if MEDIAINFO_DEMUX
                 if (Demux_UnpacketizeContainer)
@@ -2595,9 +2623,10 @@ void File_Mxf::Data_Parse()
     ELEMENT(SystemScheme1,                                      "System Scheme 1") //SMPTE 405M
     ELEMENT(Omneon_010201010100,                                "Omneon (010201010100)")
     ELEMENT(Omneon_010201020100,                                "Omneon (010201020100)")
-    else if (Code_Compare1==0x060E2B34
-          && Code_Compare2==0x01020101
-          && Code_Compare3==0x0D010301)
+    else if (Code_Compare1==Elements::GenericContainer_Aaf1
+          && Code_Compare2==Elements::GenericContainer_Aaf2
+          && (Code_Compare3==Elements::GenericContainer_Aaf3
+           || Code_Compare3==Elements::GenericContainer_Avid3))
     {
         Element_Name(Mxf_EssenceElement(Code));
 
@@ -2653,86 +2682,9 @@ void File_Mxf::Data_Parse()
                     break;
                 }
 
+            //Searching by the track identifier
             if (Essences[Code_Compare4].Parser==NULL)
-            {
-                switch (Code_Compare4&0xFF00FF00)
-                {
-                    case 0x14000100 : //MXF in MXF?
-                                        Essences[Code_Compare4].Parser=new File_Mxf();
-                                        break;
-                    case 0x15000100 : //RV24
-                                        Essences[Code_Compare4].StreamKind=Stream_Video;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_RV24();
-                                        break;
-                    case 0x15000200 : //Raw video
-                                        Essences[Code_Compare4].StreamKind=Stream_Video;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Raw();
-                                        break;
-                    case 0x05000100 : //D-10 Video, SMPTE 386M
-                    case 0x15000500 : //SMPTE 381M, Frame wrapped
-                    case 0x15000600 : //SMPTE 381M, Clip wrapped
-                    case 0x15000700 : //SMPTE 381M, Custom wrapped
-                                        Essences[Code_Compare4].StreamKind=Stream_Video;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Mpegv(); //Trying...
-                                        break;
-                    case 0x15000800 : //JPEG 2000
-                                        Essences[Code_Compare4].StreamKind=Stream_Video;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Jpeg2000();
-                                        break;
-                    case 0x15000D00 : //VC-3
-                                        Essences[Code_Compare4].StreamKind=Stream_Video;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Vc3();
-                                        break;
-                    case 0x06001000 : //D-10 Audio, SMPTE 386M
-                                        Essences[Code_Compare4].StreamKind=Stream_Audio;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Aes3();
-                                        Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame (D-10)");
-                                        break;
-                    case 0x16000100 : //BWF (PCM)
-                    case 0x16000200 : //BWF (PCM)
-                    case 0x16000300 : //DV Audio (PCM)
-                    case 0x16000400 : //P2 Audio (PCM)
-                                        Essences[Code_Compare4].StreamKind=Stream_Audio;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Pcm();
-                                        break;
-                    case 0x16000500 : //MPEG Audio
-                                        Essences[Code_Compare4].StreamKind=Stream_Audio;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Mpega();
-                                        break;
-                    case 0x16000800 : //A-law, Frame wrapped
-                    case 0x16000900 : //A-law, Clip wrapped
-                    case 0x16000A00 : //A-law, Custom wrapped
-                                        Essences[Code_Compare4].StreamKind=Stream_Audio;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_Alaw();
-                                        break;
-                    case 0x17000200 : //Ancillary
-                                        Essences[Code_Compare4].Parser=new File_Ancillary();
-                                        Open_Buffer_Init(Essences[Code_Compare4].Parser);
-                                        Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
-                                        Ancillary_TrackNumber=Code_Compare4;
-                                        break;
-                    case 0x17000800 : //Line Wrapped Data Element, SMPTE 384M
-                    case 0x17000900 : //Line Wrapped VANC Data Element, SMPTE 384M
-                    case 0x17000A00 : //Line Wrapped HANC Data Element, SMPTE 384M
-                                        break;
-                    case 0x18000100 : //DV
-                    case 0x18000200 : //DV
-                                        Essences[Code_Compare4].StreamKind=Stream_Video;
-                                        Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                        Essences[Code_Compare4].Parser=ChooseParser_DV();
-                                        break;
-                    default         :   Essences[Code_Compare4].Parser=new File__Analyze();
-                }
-            }
+                ChooseParser();
 
             //Demux
             #if MEDIAINFO_DEMUX
@@ -4217,6 +4169,8 @@ void File_Mxf::FileDescriptor_SampleRate()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3);
+        if (Descriptors[InstanceUID].SampleRate && Descriptors[InstanceUID].Duration!=(int64u)-1)
+            Descriptors[InstanceUID].Infos["Duration"].From_Number(Descriptors[InstanceUID].Duration/Descriptors[InstanceUID].SampleRate*1000, 0);
     FILLING_END();
 }
 
@@ -4229,9 +4183,12 @@ void File_Mxf::FileDescriptor_ContainerDuration()
     Get_B8 (Data,                                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        float64 SampleRate=Descriptors[InstanceUID].SampleRate;
-        if (SampleRate && Data!=0xFFFFFFFFFFFFFFFFLL)
-            Descriptors[InstanceUID].Infos["Duration"].From_Number(Data/SampleRate*1000);
+        if (Data)
+        {
+            Descriptors[InstanceUID].Duration=Data;
+            if (Descriptors[InstanceUID].SampleRate && Descriptors[InstanceUID].Duration!=(int64u)-1)
+                Descriptors[InstanceUID].Infos["Duration"].From_Number(Descriptors[InstanceUID].Duration/Descriptors[InstanceUID].SampleRate*1000, 0);
+        }
     FILLING_END();
 }
 
@@ -6112,7 +6069,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
     Skip_B1(                                                    "SMPTE (0x34)");
     Info_B1(Category,                                           "Category"); Param_Info(Mxf_Category(Category));
     Info_B1(Registry,                                           "Registry"); Param_Info(Mxf_Registry(Category, Registry));
-    Info_B1(Structure,                                          "Structure");
+    Info_B1(Structure,                                          "Structure"); Param_Info(Mxf_Structure(Category, Registry, Structure));
     Skip_B1(                                                    "Version");
     Peek_B8(Value_lo);
     switch (Category)
@@ -6307,6 +6264,53 @@ void File_Mxf::Info_UL_01xx01_Items()
                                         case 0x16 : Param_Info("GC Sound"); break;
                                         case 0x17 : Param_Info("GC Data"); break;
                                         case 0x18 : Param_Info("GC Compound"); break;
+                                        default   : ;
+                                    }
+                                    Info_B1(Code6,              "Essence Element Count");
+                                    Info_B1(Code7,              "Essence Element Type");
+                                    Info_B1(Code8,              "Essence Element Number");
+                                    }
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            }
+                            break;
+                        default   :
+                            Skip_B5(                            "Unknown");
+                    }
+                    }
+                    break;
+                default   :
+                    Skip_B6(                                    "Unknown");
+            }
+            }
+            break;
+        case 0x0E :
+            {
+            Param_Info("User Organisation Registered For Private Use");
+            Info_B1(Code2,                                      "Organization");
+            switch (Code2)
+            {
+                case 0x04 :
+                    {
+                    Param_Info("Avid");
+                    Info_B1(Code3,                              "Application");
+                    switch (Code3)
+                    {
+                        case 0x03 :
+                            {
+                            Param_Info("Container Keys");
+                            Info_B1(Code4,                      "Structure Version");
+                            switch (Code4)
+                            {
+                                case 0x01 :
+                                    {
+                                    Param_Info("Version 1");
+                                    Info_B1(Code5,              "Item Type Identifier");
+                                    switch (Code5)
+                                    {
+                                        case 0x15 : Param_Info("Picture"); break;
                                         default   : ;
                                     }
                                     Info_B1(Code6,              "Essence Element Count");
@@ -7249,7 +7253,7 @@ void File_Mxf::Info_UL_040101_Values()
                                             switch (Code6)
                                             {
                                                 case 0x04 :
-                                                    Param_Info("VC-3?");
+                                                    Param_Info("VC-3");
                                                     Skip_B2(    "Unknown");
                                                     break;
                                                 default   :
@@ -7286,7 +7290,7 @@ void File_Mxf::Info_UL_040101_Values()
                                             switch (Code6)
                                             {
                                                 case 0x06 :
-                                                    Param_Info("VC-3?");
+                                                    Param_Info("VC-3");
                                                     Skip_B2(    "Unknown");
                                                     break;
                                                 default   :
@@ -7586,6 +7590,294 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(descriptors::iterato
         case 0x01 : return ChooseParser_Aes3(Descriptor->second.QuantizationBits, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
         case 0x06 : return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
         default   : return NULL;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser()
+{
+    int32u Code_Compare3=Code.lo>>32;
+
+    switch (Code_Compare3)
+    {
+        case Elements::GenericContainer_Aaf3        : return ChooseParser__Aaf();
+        case Elements::GenericContainer_Avid3       : return ChooseParser__Avid();
+        default                                     : Essences[(int32u)Code.lo].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser__Aaf()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_1=Code_Compare4>>24;
+
+    switch (Code_Compare4_1)
+    {
+        case 0x05 : //CP Picture
+                    ChooseParser__Aaf_CP_Picture();
+                    break;
+        case 0x06 : //CP Sound
+                    ChooseParser__Aaf_CP_Sound();
+                    break;
+        case 0x07 : //CP Data
+                    ChooseParser__Aaf_CP_Data();
+                    break;
+        case 0x14 : //MXF in MXF?
+                    ChooseParser__Aaf_14();
+                    break;
+        case 0x15 : //CP Picture
+                    ChooseParser__Aaf_GC_Picture();
+                    break;
+        case 0x16 : //CP Sound
+                    ChooseParser__Aaf_GC_Sound();
+                    break;
+        case 0x17 : //CP Data
+                    ChooseParser__Aaf_GC_Data();
+                    break;
+        case 0x18 : //CP Compound
+                    ChooseParser__Aaf_GC_Compound();
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser__Avid()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_1=Code_Compare4>>24;
+
+    switch (Code_Compare4_1)
+    {
+        case 0x15 : //CP Picture
+                    ChooseParser__Avid_Picture();
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x05, SMPTE 326M
+void File_Mxf::ChooseParser__Aaf_CP_Picture()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    Essences[Code_Compare4].StreamKind=Stream_Video;
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+    switch (Code_Compare4_3)
+    {
+        case 0x01 : //D-10 Video, SMPTE 386M
+                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv();
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x06, SMPTE 326M
+void File_Mxf::ChooseParser__Aaf_CP_Sound()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    Essences[Code_Compare4].StreamKind=Stream_Audio;
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+    switch (Code_Compare4_3)
+    {
+        case 0x05 : //D-10 Audio, SMPTE 386M
+                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv();
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x07, SMPTE 326M
+void File_Mxf::ChooseParser__Aaf_CP_Data()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    switch (Code_Compare4_3)
+    {
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x14
+void File_Mxf::ChooseParser__Aaf_14()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    switch (Code_Compare4_3)
+    {
+        case 0x01 : //MXF in MXF?
+                    Essences[Code_Compare4].Parser=new File_Mxf();
+                    break;
+        default   : Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x15
+void File_Mxf::ChooseParser__Aaf_GC_Picture()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    Essences[Code_Compare4].StreamKind=Stream_Video;
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+    switch (Code_Compare4_3)
+    {
+        case 0x01 : //RV24
+                    Essences[Code_Compare4].Parser=ChooseParser_RV24();
+                    break;
+        case 0x02 : //Raw video
+                    Essences[Code_Compare4].Parser=ChooseParser_Raw();
+                    break;
+        case 0x05 : //SMPTE 381M, Frame wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(); //Trying...
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame");
+                    break;
+        case 0x06 : //SMPTE 381M, Clip wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(); //Trying...
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Clip");
+                    break;
+        case 0x07 : //SMPTE 381M, Custom wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(); //Trying...
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Custom");
+                    break;
+        case 0x08 : //JPEG 2000
+                    Essences[Code_Compare4].Parser=ChooseParser_Jpeg2000();
+                    break;
+        case 0x0D : //VC-3
+                    Essences[Code_Compare4].Parser=ChooseParser_Vc3();
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x16
+void File_Mxf::ChooseParser__Aaf_GC_Sound()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    Essences[Code_Compare4].StreamKind=Stream_Audio;
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+    switch (Code_Compare4_3)
+    {
+        case 0x01 : //BWF (PCM)
+        case 0x02 : //BWF (PCM)
+        case 0x03 : //DV Audio (PCM)
+        case 0x04 : //P2 Audio (PCM)
+                    Essences[Code_Compare4].Parser=ChooseParser_Pcm();
+                    break;
+        case 0x05 : //MPEG Audio
+                    Essences[Code_Compare4].Parser=ChooseParser_Mpega();
+                    break;
+        case 0x08 : //A-law, Frame wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Alaw();
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame");
+                    break;
+        case 0x09 : //A-law, Clip wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Alaw();
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Clip");
+                    break;
+        case 0x0A : //A-law, Custom wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Alaw();
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Custom");
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x17
+void File_Mxf::ChooseParser__Aaf_GC_Data()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    switch (Code_Compare4_3)
+    {
+        case 0x02 : //Ancillary
+                    Essences[Code_Compare4].Parser=new File_Ancillary();
+                    Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
+                    Ancillary_TrackNumber=Code_Compare4;
+                    break;
+        case 0x08 : //Line Wrapped Data Element, SMPTE 384M
+        case 0x09 : //Line Wrapped VANC Data Element, SMPTE 384M
+        case 0x0A : //Line Wrapped HANC Data Element, SMPTE 384M
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x18
+void File_Mxf::ChooseParser__Aaf_GC_Compound()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    Essences[Code_Compare4].StreamKind=Stream_Video; //Default to video, audio will be merge later
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+    switch (Code_Compare4_3)
+    {
+        case 0x01 : //DV
+        case 0x02 : //DV
+                    Essences[Code_Compare4].Parser=ChooseParser_DV();
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
+    }
+}
+
+//---------------------------------------------------------------------------
+// 0x15
+void File_Mxf::ChooseParser__Avid_Picture()
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+
+    Essences[Code_Compare4].StreamKind=Stream_Video;
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
+
+    switch (Code_Compare4_3)
+    {
+        case 0x05 : //VC-1, Frame wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Vc3();
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Frame");
+                    break;
+        case 0x06 : //VC-1, Clip wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Vc3();
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Clip");
+                    break;
+        case 0x07 : //VC-1, Custom wrapped
+                    Essences[Code_Compare4].Parser=ChooseParser_Vc3();
+                    Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=_T("Custom");
+                    break;
+        default   : //Unknown
+                    Essences[Code_Compare4].Parser=new File__Analyze();
     }
 }
 
