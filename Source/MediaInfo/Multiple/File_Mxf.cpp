@@ -669,7 +669,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                                         case 0x02 : //?
                                                                                     switch (Code6)
                                                                                     {
-                                                                                        case 0x04 : return "VC-3?";
+                                                                                        case 0x04 : return "VC-3";
                                                                                         default   : return "";
                                                                                     }
                                                                         default   : return "";
@@ -1551,7 +1551,14 @@ void File_Mxf::Streams_Finish_ParseLocator()
             if (!Locator->second.MI->Open(AbsoluteName))
             {
                 Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Missing");
-                delete Locator->second.MI; Locator->second.MI=NULL;
+                if (CountOfLocatorsToParse)
+                    CountOfLocatorsToParse--;
+                if (!Config->File_KeepInfo_Get())
+                {
+                    Locator->second.StreamKind=Stream_Max;
+                    Locator->second.StreamPos=(size_t)-1;
+                    delete Locator->second.MI; Locator->second.MI=NULL;
+                }
             }
         }
     }
