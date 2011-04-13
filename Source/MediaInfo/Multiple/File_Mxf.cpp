@@ -2469,17 +2469,19 @@ void File_Mxf::Header_Parse()
                     {
                         if (File_Buffer_Size_Hint_Pointer)
                         {
-                            if (!Seeks.empty())
-                            {
-                                //Hints
-                                if (File_Buffer_Size_Hint_Pointer)
+                            #if MEDIAINFO_SEEK
+                                if (!Seeks.empty())
                                 {
-                                    if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded+1<Seeks.size() && Seeks[Frame_Count_NotParsedIncluded].FrameNumber+1==Seeks[Frame_Count_NotParsedIncluded+1].FrameNumber && File_Offset+Buffer_Size>=Seeks[Frame_Count_NotParsedIncluded].StreamOffset && File_Offset+Buffer_Size<Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset && Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)>=0x10000)
-                                        (*File_Buffer_Size_Hint_Pointer)=Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)+24; //+24 for next packet header
+                                    //Hints
+                                    if (File_Buffer_Size_Hint_Pointer)
+                                    {
+                                        if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded+1<Seeks.size() && Seeks[Frame_Count_NotParsedIncluded].FrameNumber+1==Seeks[Frame_Count_NotParsedIncluded+1].FrameNumber && File_Offset+Buffer_Size>=Seeks[Frame_Count_NotParsedIncluded].StreamOffset && File_Offset+Buffer_Size<Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset && Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)>=0x10000)
+                                            (*File_Buffer_Size_Hint_Pointer)=Seeks[Frame_Count_NotParsedIncluded+1].StreamOffset-(File_Offset+Buffer_Size)+24; //+24 for next packet header
+                                    }
                                 }
-                            }
-                            else
-                                (*File_Buffer_Size_Hint_Pointer)=Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24; //+24 for next packet header
+                                else
+                                    (*File_Buffer_Size_Hint_Pointer)=Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24; //+24 for next packet header
+                            #endif //MEDIAINFO_SEEK
                         }
                             
                         Buffer_Begin=(int64u)-1;
@@ -2848,7 +2850,7 @@ void File_Mxf::Data_Parse()
             #else //MEDIAINFO_SEEK
                 //Hints
                 if (File_Buffer_Size_Hint_Pointer)
-                    (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_DataSizeToParse_Complete==(int64u)-1?Element_Size:Buffer_DataSizeToParse_Complete); //We bet this is CBR
+                    (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_End?(Buffer_End-Buffer_Begin):Element_Size); //We bet this is CBR
             #endif //MEDIAINFO_SEEK
             float64 EditRate=Tracks.empty()?0:Tracks.begin()->second.EditRate; //TODO: use the corresponding track instead of the first one
             if (EditRate)
