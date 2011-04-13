@@ -416,6 +416,15 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Lxf::Header_Begin()
+{
+    if (Buffer_Offset+0x48>Buffer_Size)
+        return false;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Lxf::Header_Parse()
 {
     if (Video_Sizes_Pos<Video_Sizes.size())

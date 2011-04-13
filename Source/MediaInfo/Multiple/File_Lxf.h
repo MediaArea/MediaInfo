@@ -61,6 +61,7 @@ protected :
     void Read_Buffer_Unsynched();
 
     //Buffer - Per element
+    bool Header_Begin ();
     void Header_Parse();
     void Data_Parse();
 
