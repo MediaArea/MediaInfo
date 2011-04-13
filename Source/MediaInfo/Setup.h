@@ -580,6 +580,9 @@
 #if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_TIFF_NO) && !defined(MEDIAINFO_TIFF_YES)
     #define MEDIAINFO_TIFF_YES
 #endif
+#if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_TGA_NO) && !defined(MEDIAINFO_TGA_YES)
+    #define MEDIAINFO_TGA_YES
+#endif
 
 //---------------------------------------------------------------------------
 // Archive

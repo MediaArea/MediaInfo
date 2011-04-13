@@ -91,6 +91,7 @@ set(mediainfo_SRCS
 	MediaInfo/Image/File_Png.cpp
 	MediaInfo/Image/File_Rle.cpp
 	MediaInfo/Image/File_Tiff.cpp
+	MediaInfo/Image/File_Tga.cpp
 	MediaInfo/Multiple/File_Ancillary.cpp
 	MediaInfo/Multiple/File_Bdav.cpp
 	MediaInfo/Multiple/File_Cdxa.cpp

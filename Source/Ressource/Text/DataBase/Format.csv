@@ -102,6 +102,7 @@ PNG;;;I;Png;Portable Network Graphic;png;image/png;;Lossless
 RIFF Palette;;;I;Riff;RIFF Palette;;;;
 RLE;;;I;;Run-length encoding;rle;;;
 TIFF;;;I;Tiff;;tiff tif;image/tiff;;
+TGA;;;I;Tga;;tga;image/tga;;
 7-Zip;;;C;7z;;7z;;http://7-zip.org;
 ACE;;;C;Ace;;ace;;http://winace.com;
 ELF;;;C;Elf;;so;;;

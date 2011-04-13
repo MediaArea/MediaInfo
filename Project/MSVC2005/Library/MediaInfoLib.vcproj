@@ -443,6 +443,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_Tga.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Tiff.cpp"
 					>
 				</File>
@@ -1039,6 +1043,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Rle.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_Tga.h"
 					>
 				</File>
 				<File

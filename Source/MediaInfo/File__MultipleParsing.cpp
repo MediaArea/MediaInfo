@@ -230,6 +230,9 @@
 #if defined(MEDIAINFO_TIFF_YES)
     #include "MediaInfo/Image/File_Tiff.h"
 #endif
+#if defined(MEDIAINFO_TIFF_YES)
+    #include "MediaInfo/Image/File_Tga.h"
+#endif
 
 //---------------------------------------------------------------------------
 // Archive
@@ -505,6 +508,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_TIFF_YES)
         Temp=new File_Tiff(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_TGA_YES)
+        Temp=new File_Tga(); Parser.push_back(Temp);
     #endif
 
     // Archive
