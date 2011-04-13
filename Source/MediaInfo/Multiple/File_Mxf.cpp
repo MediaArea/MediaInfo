@@ -1551,8 +1551,10 @@ void File_Mxf::Streams_Finish_ParseLocator()
             if (!Locator->second.MI->Open(AbsoluteName))
             {
                 Fill(Locator->second.StreamKind, Locator->second.StreamPos, "Source_Info", "Missing");
-                if (CountOfLocatorsToParse)
-                    CountOfLocatorsToParse--;
+                #if MEDIAINFO_DEMUX
+                    if (CountOfLocatorsToParse)
+                        CountOfLocatorsToParse--;
+                #endif //MEDIAINFO_DEMUX
                 if (!Config->File_KeepInfo_Get())
                 {
                     Locator->second.StreamKind=Stream_Max;
