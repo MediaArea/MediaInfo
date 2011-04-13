@@ -523,9 +523,9 @@ protected :
         int16u BlockAlign;
         int32u QuantizationBits;
         int64u Duration;
-        #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             int32u ByteRate;
-        #endif //MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
         descriptor()
         {
@@ -549,9 +549,9 @@ protected :
             BlockAlign=(int16u)-1;
             QuantizationBits=(int8u)-1;
             Duration=(int64u)-1;
-            #if MEDIAINFO_DEMUX
+            #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 ByteRate=(int32u)-1;
-            #endif //MEDIAINFO_DEMUX
+            #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor
