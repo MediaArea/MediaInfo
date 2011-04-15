@@ -363,6 +363,8 @@ private :
             CleanAperture_PixelAspectRatio=0;
             #if MEDIAINFO_DEMUX
                 Demux_Level=2; //Container
+                stts_Durations_Pos=0;
+                stts_FramePos=0;
             #endif //MEDIAINFO_DEMUX
         }
 
