@@ -541,8 +541,8 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
     //Parsing
     switch (Method)
     {
-        case 0  :   GoTo(Value); return 1;
-        case 1  :   GoTo(File_Size*Value/10000); return 1;
+        case 0  :   Open_Buffer_Unsynch(); GoTo(Value); return 1;
+        case 1  :   Open_Buffer_Unsynch(); GoTo(File_Size*Value/10000); return 1;
         case 2  :   //Timestamp
                     {
                         //We transform TimeStamp to a frame number
@@ -581,6 +581,7 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         {
                             if (Value<Seeks[Pos].FrameNumber && Pos)
                                 Pos--;
+                            Open_Buffer_Unsynch();
                             GoTo(Seeks[Pos].StreamOffset*1024);
 
                             return 1;

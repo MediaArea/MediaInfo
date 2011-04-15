@@ -1326,7 +1326,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
                 Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
                 Buffer_TotalBytes=0;
                 Buffer_TotalBytes_LastSynched=(int64u)-1;
-                Synched=false;
+                Open_Buffer_Unsynch();
                 GoTo(0);
                 return;
             }
@@ -1363,6 +1363,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
             //Jumping
             if (Config_ParseSpeed<1.0 && Config->File_IsSeekable_Get() && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End)
             {
+                Open_Buffer_Unsynch();
                 #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
                     GoToFromEnd(47); //TODO: Should be changed later (when Finalize stuff will be split)
                 #else //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
@@ -1381,8 +1382,8 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
     //Parsing
     switch (Method)
     {
-        case 0  :   GoTo(Value); return 1;
-        case 1  :   GoTo(File_Size*Value/10000); return 1;
+        case 0  :   Open_Buffer_Unsynch(); GoTo(Value); return 1;
+        case 1  :   Open_Buffer_Unsynch(); GoTo(File_Size*Value/10000); return 1;
         case 2  :   //Timestamp
                     #if MEDIAINFO_IBI
                     {
@@ -1422,7 +1423,8 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID]->Parser->Unsynch_Frame_Count=Ibi.Streams[0].Infos[Pos].FrameNumber;
                             else
                                 Unsynch_Frame_Counts[(int16u)Ibi.Streams[0].ID]=Ibi.Streams[0].Infos[Pos].FrameNumber;
-                            GoTo(Ibi.Streams[0].Infos[Pos].StreamOffset);
+                             Open_Buffer_Unsynch();
+                             GoTo(Ibi.Streams[0].Infos[Pos].StreamOffset);
                             
                             return 1;
                         }
@@ -1461,7 +1463,8 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 Pos--;
                             if (Complete_Stream && Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID] && Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID]->Parser)
                                 Complete_Stream->Streams[(size_t)Ibi.Streams[0].ID]->Parser->Unsynch_Frame_Count=Ibi.Streams[0].Infos[Pos].FrameNumber;
-                            GoTo(Ibi.Streams[0].Infos[Pos].StreamOffset);
+                             Open_Buffer_Unsynch();
+                             GoTo(Ibi.Streams[0].Infos[Pos].StreamOffset);
                             
                             return 1;
                         }

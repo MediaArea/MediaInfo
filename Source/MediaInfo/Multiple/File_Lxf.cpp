@@ -315,8 +315,8 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
     //Parsing
     switch (Method)
     {
-        case 0  :   GoTo(Value); return 1;
-        case 1  :   GoTo(File_Size*Value/10000); return 1;
+        case 0  :   Open_Buffer_Unsynch(); GoTo(Value); return 1;
+        case 1  :   Open_Buffer_Unsynch(); GoTo(File_Size*Value/10000); return 1;
         case 2  :   //Timestamp
                     {
                     //Init
@@ -365,6 +365,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 if (Previous->second.TimeStamp_End!=TimeOffset->second.TimeStamp_Begin) //Testing if the previous frame is not known.
                                 {
                                     SeekRequest=TimeOffset->second.TimeStamp_Begin-(720+1); //1ms+1, so we are sure to not synch on the current frame again
+                                    Open_Buffer_Unsynch();
                                     GoTo((Previous->first+TimeOffset->first)/2);
                                     return 1; //Looking for previous frame
 
@@ -379,6 +380,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                     if (Videos[Pos].Parser)
                                         Videos[Pos].Parser->Unsynch_Frame_Count=0;
                             }
+                            Open_Buffer_Unsynch();
                             GoTo(TimeOffset->first);
                             SeekRequest=(int64u)-1;
                             return 1;
@@ -399,6 +401,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 Previous--;
                                 SeekRequest_Divider=2;
                             }
+                            Open_Buffer_Unsynch();
                             GoTo(Previous->first+(ReferenceOffset-Previous->first)/SeekRequest_Divider);
                             SeekRequest_Divider*=2;
                             return 1;

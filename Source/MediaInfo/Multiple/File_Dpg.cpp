@@ -153,6 +153,7 @@ void File_Dpg::Read_Buffer_Continue()
                 Merge(*Parser, Stream_Audio, 0, 0);
                 #if defined(MEDIAINFO_MPEGV_YES)
                     Audio_Size=0;
+                    Open_Buffer_Unsynch();
                     Data_GoTo(Video_Offset, "DPG");
                     delete Parser; Parser=new File_Mpegv();
                     Open_Buffer_Init(Parser);

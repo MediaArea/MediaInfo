@@ -48,6 +48,12 @@ public :
     File_Mpeg4();
 
 private :
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
+
     //Buffer
     bool Header_Begin();
     void Header_Parse();
@@ -65,7 +71,6 @@ private :
     void jp2h_colr();
     void mdat();
     void mdat_xxxx();
-    void mdat_StreamClear();
     void mdat_StreamJump();
     void mfra();
     void mfra_mfro();
@@ -320,6 +325,19 @@ private :
         float32                 CleanAperture_PixelAspectRatio;
         #if MEDIAINFO_DEMUX
             int8u               Demux_Level;
+
+            struct stts_duration
+            {
+                int64u Pos_Begin;
+                int64u Pos_End;
+                int64u DTS_Begin;
+                int64u DTS_End;
+                int32u SampleDuration;
+            };
+            typedef std::vector<stts_duration> stts_durations;
+            stts_durations  stts_Durations;
+            size_t          stts_Durations_Pos;
+            int64u          stts_FramePos;
         #endif //MEDIAINFO_DEMUX
 
         stream()
@@ -365,7 +383,9 @@ private :
         int32u StreamID;
         int64u Size;
     };
-    std::map<int64u, mdat_Pos_Type> mdat_Pos;
+    typedef std::map<int64u, mdat_Pos_Type> mdat_pos;
+    mdat_pos mdat_Pos;
+    mdat_pos::iterator mdat_Pos_Temp;
     bool IsParsing_mdat;
 };
 

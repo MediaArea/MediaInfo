@@ -155,6 +155,9 @@ File_Mpeg4::File_Mpeg4()
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(0); //Container1
     #endif //MEDIAINFO_TRACE
+    #if MEDIAINFO_DEMUX
+        Demux_EventWasSent_Accept_Specific=true;
+    #endif //MEDIAINFO_DEMUX
 
     DataMustAlwaysBeComplete=false;
 
@@ -544,13 +547,6 @@ void File_Mpeg4::Streams_Finish()
     if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Image)==0 && Count_Get(Stream_Audio)>0)
         Fill(Stream_General, 0, General_InternetMediaType, "audio/mp4", Unlimited, true, true);
 
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        Streams.clear();
-        mdat_Pos.clear();
-    }
-
     //Commercial names
     if (Count_Get(Stream_Video)==1)
     {
@@ -717,6 +713,149 @@ void File_Mpeg4::Streams_Finish_ParseLocator()
 }
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::Read_Buffer_Unsynched()
+{
+    mdat_Pos_Temp=mdat_Pos.begin();
+    while (mdat_Pos_Temp!=mdat_Pos.end() && mdat_Pos_Temp->first<File_GoTo)
+        mdat_Pos_Temp++;
+    if (mdat_Pos_Temp!=mdat_Pos.end() && mdat_Pos_Temp->first>File_GoTo)
+        mdat_Pos_Temp--; //Previous frame
+    if (mdat_Pos_Temp!=mdat_Pos.end())
+        IsParsing_mdat=true;
+
+    for (std::map<int32u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+    {
+        if (Stream->second.Parser)
+            Stream->second.Parser->Open_Buffer_Unsynch();
+        #if MEDIAINFO_SEEK
+            for (size_t stco_Pos=0; stco_Pos<Stream->second.stco.size(); stco_Pos++)
+                if (Stream->second.stco[stco_Pos]>=File_GoTo)
+                {
+                    //Searching the corresponding frame position
+                    std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
+                    int64u SamplePos=0;
+                    for (; Stsc!=Stream->second.stsc.end();  Stsc++)
+                    {
+                        std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; Stsc_Next++;
+                        if (Stsc_Next!=Stream->second.stsc.end() && stco_Pos+1>=Stsc_Next->FirstChunk)
+                        {
+                            int64u CountOfSamples=(Stsc_Next->FirstChunk-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
+                            SamplePos+=CountOfSamples;
+                        }
+                        else
+                        {
+                            int64u CountOfSamples=(stco_Pos+1-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
+                            SamplePos+=CountOfSamples;
+
+                            Stream->second.stts_FramePos=SamplePos;
+
+                            //Searching the corresponding duration block position
+                            for (stream::stts_durations::iterator Stts_Duration=Stream->second.stts_Durations.begin(); Stts_Duration!=Stream->second.stts_Durations.end(); Stts_Duration++)
+                                if (SamplePos>=Stts_Duration->Pos_Begin && SamplePos<Stts_Duration->Pos_End)
+                                {
+                                    Stream->second.stts_Durations_Pos=Stts_Duration-Stream->second.stts_Durations.begin();
+                                    break;
+                                }
+
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+        #endif //MEDIAINFO_SEEK
+    }
+}
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Parsing
+    switch (Method)
+    {
+        case 0  :   if (Value==0)
+                        return Read_Buffer_Seek(3, 0, ID);
+                    return (size_t)-1; //Not supported
+        case 1  :   if (Value==0)
+                        return Read_Buffer_Seek(3, 0, ID);
+                    return (size_t)-1; //Not supported
+        case 2  :   //Timestamp
+                    {
+                        //Looking for video stream
+                        std::map<int32u, stream>::iterator Stream;
+                        for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                            if (Stream->second.StreamKind==Stream_Video)
+                                break;
+                        if (Stream==Streams.end())
+                            for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                                if (Stream->second.StreamKind==Stream_Video)
+                                    break;
+                        if (Stream==Streams.end())
+                            return 0; //Not supported
+
+                        //Searching the corresponding frame
+                        Value=Value*Stream->second.mdhd_TimeScale/1000000000; //Transformed in mpeg4 ticks
+                        stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin();
+                        for (; stts_Duration!=Stream->second.stts_Durations.end(); stts_Duration++)
+                        {
+                            if (Value>=stts_Duration->DTS_Begin && Value<stts_Duration->DTS_End)
+                            {
+                                Value=stts_Duration->DTS_Begin+(Value-stts_Duration->Pos_Begin)/stts_Duration->SampleDuration;
+                                break;
+                            }
+                        }
+                        if (stts_Duration==Stream->second.stts_Durations.end())
+                            return 2; //Invalid value
+                    }
+                    //No break;
+        case 3  :   //FrameNumber
+                    {
+                        //Looking for video stream
+                        std::map<int32u, stream>::iterator Stream;
+                        for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                            if (Stream->second.StreamKind==Stream_Video)
+                                break;
+                        if (Stream==Streams.end())
+                            for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                                if (Stream->second.StreamKind==Stream_Video)
+                                    break;
+                        if (Stream==Streams.end())
+                            return 0; //Not supported
+
+                        //Searching the corresponding stco
+                        std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
+                        int64u SamplePos=0;
+                        for (; Stsc!=Stream->second.stsc.end();  Stsc++)
+                        {
+                            std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; Stsc_Next++;
+                            int64u CountOfSamples=((Stsc_Next==Stream->second.stsc.end()?Stream->second.stco.size():Stsc_Next->FirstChunk)-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
+                            if (Stsc_Next!=Stream->second.stsc.end() && Value>=SamplePos+CountOfSamples)
+                                SamplePos+=CountOfSamples;
+                            else
+                            {
+                                int64u CountOfChunks=(Value-SamplePos)/Stsc->SamplesPerChunk;
+                                size_t stco_Pos=(size_t)(Stsc->FirstChunk-1+CountOfChunks); //-1 because first chunk is number 1
+                                int64u Offset=Stream->second.stco[stco_Pos];
+
+                                GoTo(Offset);
+                                return 1;
+                                break;
+                            }
+                        }
+
+                        return 2; //Invalid value
+                    }
+        default :   return 0;
+    }
+}
+#endif //MEDIAINFO_SEEK
+
+//***************************************************************************
 // Buffer
 //***************************************************************************
 
@@ -746,11 +885,11 @@ void File_Mpeg4::Header_Parse()
     if (IsParsing_mdat)
     {
         //Positionning
-        if (File_Offset+Buffer_Offset<mdat_Pos.begin()->first)
+        if (File_Offset+Buffer_Offset<mdat_Pos_Temp->first)
         {
-            if (File_Offset+Buffer_Size>mdat_Pos.begin()->first)
+            if (File_Offset+Buffer_Size>mdat_Pos_Temp->first)
             {
-                Buffer_Offset=(size_t)(File_Offset+Buffer_Size-mdat_Pos.begin()->first);
+                Buffer_Offset=(size_t)(File_Offset+Buffer_Size-mdat_Pos_Temp->first);
             }
             else
             {
@@ -760,10 +899,10 @@ void File_Mpeg4::Header_Parse()
         }
 
         //Filling
-        Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
-        Header_Fill_Size(mdat_Pos.begin()->second.Size);
-        if (Buffer_Offset+mdat_Pos.begin()->second.Size<=Buffer_Size)
-            mdat_Pos.erase(mdat_Pos.begin()); //Only if we will not need it later (in case of partial data, this function will be called again for the same chunk)
+        Header_Fill_Code(mdat_Pos_Temp->second.StreamID, Ztring::ToZtring(mdat_Pos_Temp->second.StreamID));
+        Header_Fill_Size(mdat_Pos_Temp->second.Size);
+        if (Buffer_Offset+mdat_Pos_Temp->second.Size<=Buffer_Size)
+            mdat_Pos_Temp++; //Only if we will not need it later (in case of partial data, this function will be called again for the same chunk)
         else
             Element_WaitForMoreData();
         return;
@@ -820,7 +959,7 @@ void File_Mpeg4::Header_Parse()
 //---------------------------------------------------------------------------
 bool File_Mpeg4::BookMark_Needed()
 {
-    if (Streams.empty())
+    if (!mdat_MustParse || !mdat_Pos.empty())
         return false;
 
     return true;

@@ -41,9 +41,18 @@ public :
     stream_t StreamKind;
     bool     NegativeTimes;
 
+    //Constructor/Destructor
+    File_Mpeg4_TimeCode();
+
 protected :
+    //Streams management
+    void Streams_Fill();
+
     //Buffer - Global
-    void FileHeader_Parse ();
+    void Read_Buffer_Continue();
+
+    //Temp
+    int64s Pos;
 };
 
 } //NameSpace

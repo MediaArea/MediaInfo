@@ -1168,6 +1168,8 @@ void File_Mpegv::Detect_EOF()
         if (!Status[IsFilled])
             Fill("MPEG Video");
 
+        if (!IsSub)
+            Open_Buffer_Unsynch();
         GoToFromEnd(SizeToAnalyse_End, "MPEG Video");
         EOF_AlreadyDetected=true; //Sometimes called from Filling
     }
@@ -1460,7 +1462,10 @@ void File_Mpegv::slice_start()
             if (File_Size==(int64u)-1)
                 Finish("MPEG Video");
             else if (!IsSub && 2*(File_Offset+Buffer_Size+SizeToAnalyse_End)<File_Size && Config_ParseSpeed<1.0)
+            {
+                Open_Buffer_Unsynch();
                 GoToFromEnd(SizeToAnalyse_End);
+            }
         }
     FILLING_END();
 }

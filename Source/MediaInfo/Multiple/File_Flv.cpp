@@ -803,6 +803,7 @@ void File_Flv::Data_Parse()
         Fill();
 
         //Trying to find the last frame for duration
+        Open_Buffer_Unsynch();
         GoToFromEnd(4, "FLV");
         Searching_Duration=true;
     }

@@ -1082,10 +1082,8 @@ void File_Mpeg4::mdat()
         Fill(Stream_General, 0, General_DataSize, Element_TotalSize_Get()+Header_Size);
         if (File_Size!=(int64u)-1)
             Fill(Stream_General, 0, General_FooterSize, File_Size-(File_Offset+Buffer_Offset+Element_TotalSize_Get()));
-        Fill(Stream_General, 0, General_IsStreamable, "Yes");
+        Fill(Stream_General, 0, General_IsStreamable, moov_Done?"Yes":"No");
     }
-    else
-        Fill(Stream_General, 0, General_IsStreamable, "No", Unlimited, true, true);
 
     //In case of second pass
     if (mdat_MustParse && mdat_Pos.empty())
@@ -1099,6 +1097,9 @@ void File_Mpeg4::mdat()
                 size_t stsz_Pos=0;
                 size_t Chunk_FrameCount=0;
                 int32u Chunk_Number=1;
+                #if MEDIAINFO_DEMUX
+                    stream::stts_durations Temp_stts_Durations;
+                #endif //MEDIAINFO_DEMUX
                 for (size_t stco_Pos=0; stco_Pos<Temp->second.stco.size(); stco_Pos++)
                 {
                     while (stsc_Pos+1<Temp->second.stsc.size() && Chunk_Number>=Temp->second.stsc[stsc_Pos+1].FirstChunk)
@@ -1125,6 +1126,25 @@ void File_Mpeg4::mdat()
                         //Same size per sample, but granularity is too small
                         mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
                         mdat_Pos[Temp->second.stco[stco_Pos]].Size=Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+
+                        #if MEDIAINFO_DEMUX
+                            if (Temp_stts_Durations.empty() || Temp->second.stsc[stsc_Pos].SamplesPerChunk!=Temp_stts_Durations[Temp_stts_Durations.size()-1].SampleDuration)
+                            {
+                                stream::stts_duration  stts_Duration;
+                                stts_Duration.Pos_Begin=Temp_stts_Durations.empty()?0:Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End;
+                                stts_Duration.Pos_End=stts_Duration.Pos_Begin+1;
+                                stts_Duration.SampleDuration=Temp->second.stsc[stsc_Pos].SamplesPerChunk;
+                                stts_Duration.DTS_Begin=Temp_stts_Durations.empty()?0:Temp_stts_Durations[Temp_stts_Durations.size()-1].DTS_End;
+                                stts_Duration.DTS_End=stts_Duration.DTS_Begin+stts_Duration.SampleDuration;
+                                Temp_stts_Durations.push_back(stts_Duration);
+                                //Temp->second.stsc[stsc_Pos].SamplesPerChunk=1;
+                            }
+                            else
+                            {
+                                Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End++;
+                                Temp_stts_Durations[Temp_stts_Durations.size()-1].DTS_End+=Temp_stts_Durations[Temp_stts_Durations.size()-1].SampleDuration;
+                            }
+                        #endif //MEDIAINFO_DEMUX
                     }
                     else
                     {
@@ -1143,6 +1163,15 @@ void File_Mpeg4::mdat()
 
                     Chunk_Number++;
                 }
+                #if MEDIAINFO_DEMUX
+                    if (!Temp_stts_Durations.empty())
+                    {
+                       Temp->second.stts_Durations=Temp_stts_Durations;
+                        for (stsc_Pos=0; stsc_Pos<Temp->second.stsc.size(); stsc_Pos++)
+                            Temp->second.stsc[stsc_Pos].SamplesPerChunk=1;
+                        Temp->second.stts_FrameCount=Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End;
+                    }
+                #endif //MEDIAINFO_DEMUX
             }
         }
     }
@@ -1156,7 +1185,14 @@ void File_Mpeg4::mdat()
     {
         //Next piece of data
         IsParsing_mdat=true;
+        mdat_Pos_Temp=mdat_Pos.begin();
         mdat_StreamJump();
+
+        #if MEDIAINFO_DEMUX
+            if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
+    		    Config->Demux_EventWasSent=true;
+	    #endif //MEDIAINFO_DEMUX
+
         return; //Only if have something in this mdat
     }
 
@@ -1184,12 +1220,35 @@ void File_Mpeg4::mdat_xxxx()
     }
 
     #if MEDIAINFO_DEMUX
+        //DTS
+        std::map<int32u, stream>::iterator Stream=Streams.find((int32u)Element_Code);
+        Frame_Count_NotParsedIncluded=Stream->second.stts_FramePos;
+        if (Stream->second.stts_Durations_Pos<Stream->second.stts_Durations.size())
+        {
+            stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin()+Stream->second.stts_Durations_Pos;
+            FrameInfo.DTS=(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Frame_Count_NotParsedIncluded-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
+            FrameInfo.DUR=((int64u)stts_Duration->SampleDuration)*1000000000/Stream->second.mdhd_TimeScale;
+            Streams[(int32u)Element_Code].stts_FramePos++;
+            if (Stream->second.stts_FramePos>=stts_Duration->Pos_End)
+                Stream->second.stts_Durations_Pos++;
+        }
+        else
+        {
+            FrameInfo.DTS=(int64u)-1;
+            FrameInfo.DUR=(int64u)-1;
+            Streams[(int32u)Element_Code].stts_FramePos++;
+        }
+
         Demux_Level=Streams[(int32u)Element_Code].Demux_Level;
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
 
     if (Streams[(int32u)Element_Code].Parser)
     {
+        #if MEDIAINFO_DEMUX
+            Streams[(int32u)Element_Code].Parser->FrameInfo=FrameInfo;
+        #endif //MEDIAINFO_DEMUX
+
         Open_Buffer_Continue(Streams[(int32u)Element_Code].Parser);
         Element_Offset=Element_Size;
         Element_Show();
@@ -1197,40 +1256,16 @@ void File_Mpeg4::mdat_xxxx()
     else
         Skip_XX(Element_Size,                                   "Data");
 
-    //Erasing Index if no more needed
-    mdat_StreamClear();
-    
     //Next piece of data
     mdat_StreamJump();
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4::mdat_StreamClear()
-{
-    if (Streams[(int32u)Element_Code].Parser==NULL || Streams[(int32u)Element_Code].Parser->Status[IsFinished])
-    {
-        std::map<int64u, mdat_Pos_Type>::iterator Temp=mdat_Pos.begin();
-        while (Temp!=mdat_Pos.end())
-        {
-            std::map<int64u, mdat_Pos_Type>::iterator Stream_Pos_Temp=Temp;
-            bool Useful=true;
-            if (Temp->second.StreamID==(int32u)Element_Code)
-                Useful=false;
-
-            Temp++;
-
-            if (!Useful)
-                mdat_Pos.erase(Stream_Pos_Temp);
-        }
-    }
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat_StreamJump()
 {
     int64u ToJump=File_Size;
-    if (!mdat_Pos.empty())
-        ToJump=mdat_Pos.begin()->first;
+    if (mdat_Pos_Temp!=mdat_Pos.end())
+        ToJump=mdat_Pos_Temp->first;
     if (ToJump>File_Size)
         ToJump=File_Size;
     if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1)) //We want always Element mdat
@@ -1430,6 +1465,8 @@ void File_Mpeg4::moov()
         Skip_XX(Element_TotalSize_Get(),                        "Duplicated moov");
         return;
     }
+
+    moov_Done=true;
 }
 
 //---------------------------------------------------------------------------
@@ -2757,6 +2794,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsc()
         Element_Info(Stsc.SamplesPerChunk);
         Element_Info(SampleDescriptionId);
         Element_End();
+        Streams[moov_trak_tkhd_TrackID].stsc.push_back(Stsc);
         */
 
         //Faster
@@ -3203,6 +3241,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                 else
                 {
                     ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parser)->Channel_Pos=0;
+                    ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parser)->SampleRate=SampleRate;
                     Streams[moov_trak_tkhd_TrackID].IsPcmMono=true;
                 }
                 ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parser)->Channel_Total=2;
@@ -4091,6 +4130,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
             ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=new File_DvDif::stts;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
+    #if MEDIAINFO_DEMUX
+        Streams[moov_trak_tkhd_TrackID].stts_Durations.clear();
+    #endif //MEDIAINFO_DEMUX
+
     for (int32u Pos=0; Pos<NumberOfEntries; Pos++)
     {
         int32u SampleCount, SampleDuration;
@@ -4128,6 +4171,22 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                     }
                 }
             #endif //MEDIAINFO_DVDIF_ANALYZE_YES
+
+            #if MEDIAINFO_DEMUX
+                stream::stts_duration stts_Duration;
+                stts_Duration.Pos_Begin=Stream->second.stts_FrameCount-SampleCount;
+                stts_Duration.Pos_End=Stream->second.stts_FrameCount;
+                stts_Duration.SampleDuration=SampleDuration;
+                if (Streams[moov_trak_tkhd_TrackID].stts_Durations.empty())
+                    stts_Duration.DTS_Begin=0;
+                else
+                {
+                    stream::stts_durations::iterator Previous=Streams[moov_trak_tkhd_TrackID].stts_Durations.end(); Previous--;
+                    stts_Duration.DTS_Begin=Previous->DTS_End;
+                }
+                stts_Duration.DTS_End=stts_Duration.DTS_Begin+SampleCount*SampleDuration;
+                Streams[moov_trak_tkhd_TrackID].stts_Durations.push_back(stts_Duration);
+            #endif //MEDIAINFO_DEMUX
         FILLING_END();
     }
 

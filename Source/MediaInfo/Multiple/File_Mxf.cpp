@@ -1949,7 +1949,10 @@ void File_Mxf::Read_Buffer_Continue()
             int32u Length;
             Get_B4 (Length,                                         "Length (Random Index)");
             if (Length>=16+4 && Length<File_Size/2)
+            {
+                Open_Buffer_Unsynch();
                 GoToFromEnd(Length); //For random access table
+            }
         }
     }
 }
@@ -2033,6 +2036,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         if (Value<IndexTable_EditUnitByteCounts[0].Start)
                             Value=IndexTable_EditUnitByteCounts[0].Start-IndexTable_EditUnitByteCounts[0].Start_HeaderSize;
                     }
+                    Open_Buffer_Unsynch();
                     GoTo(Value);
                     return 1;
         case 1  :   return Read_Buffer_Seek(0, File_Size*Value/10000, ID);
@@ -2081,6 +2085,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                                 if (Value<Seeks[Pos].FrameNumber && Pos)
                                     Pos--;
+                                Open_Buffer_Unsynch();
                                 GoTo(Seeks[Pos].StreamOffset);
 
                                 return 1;
@@ -2103,6 +2108,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         Element_Size*=Descriptors.begin()->second.BlockAlign;
 
                         Position+=Element_Size;
+                        Open_Buffer_Unsynch();
                         GoTo(Position);
                         return 1;
                     }
@@ -2121,6 +2127,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 Position+=IndexTable_EditUnitByteCounts[Pos].IndexDuration*IndexTable_EditUnitByteCounts[Pos].EditUnitByteCount;
                         }
 
+                        Open_Buffer_Unsynch();
                         GoTo(Position);
                         return 1;
                     }
@@ -2649,6 +2656,7 @@ void File_Mxf::Data_Parse()
                 Finish();
             else
             {
+                Open_Buffer_Unsynch();
                 GoTo(RandomIndexMetadatas[0].ByteOffset);
                 RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
             }
@@ -2936,6 +2944,7 @@ void File_Mxf::Data_Parse()
             Finish();
         else
         {
+            Open_Buffer_Unsynch();
             GoTo(RandomIndexMetadatas[0].ByteOffset);
             RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
         }
@@ -2947,6 +2956,7 @@ void File_Mxf::Data_Parse()
       || (Streams_Count==0 && !Descriptors.empty())))
     {
         IsParsingEnd=true;
+        Open_Buffer_Unsynch();
         GoToFromEnd(4); //For random access table
         if (File_Offset+Buffer_Offset>RandomIndexMetadatas_ByteOffsetParsed)
             RandomIndexMetadatas_ByteOffsetParsed=File_Offset+Buffer_Offset;
@@ -3526,6 +3536,7 @@ void File_Mxf::RandomIndexMetadata()
         if (MediaInfoLib::Config.ParseSpeed_Get()<1.0 && !RandomIndexMetadatas_AlreadyParsed && !RandomIndexMetadatas.empty())
         {
             IsParsingEnd=true;
+            Open_Buffer_Unsynch();
             GoTo(RandomIndexMetadatas[0].ByteOffset);
             RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
         }
@@ -5433,6 +5444,7 @@ void File_Mxf::PartitionMetadata()
         Skip_XX(Element_Size,                               "Data");
         if (!RandomIndexMetadatas.empty())
         {
+            Open_Buffer_Unsynch();
             GoTo(RandomIndexMetadatas[0].ByteOffset);
             RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
         }

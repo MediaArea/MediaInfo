@@ -643,9 +643,12 @@ void File_Jpeg::SOF_()
         Element_End();
 
         //Filling list of HiVi
-        SamplingFactors.push_back(((float)Hi)/Vi);
-        if (((float)Hi)/Vi>SamplingFactors_Max)
-            SamplingFactors_Max=(int8u)((float)Hi)/Vi;
+        if (Vi)
+        {
+            SamplingFactors.push_back(((float)Hi)/Vi);
+            if (((float)Hi)/Vi>SamplingFactors_Max)
+                SamplingFactors_Max=(int8u)((float)Hi)/Vi;
+        }
     }
 
     FILLING_BEGIN_PRECISE();
