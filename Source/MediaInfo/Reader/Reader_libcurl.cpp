@@ -35,16 +35,17 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#define LIBCURL_DLL_RUNTIME
 #include "MediaInfo/Reader/Reader_libcurl.h"
 #include "MediaInfo/File__Analyze.h"
-#if defined LIBCURL_DLL_RUNTIME
+#if defined MEDIAINFO_LIBCURL_DLL_RUNTIME
     //Copy of cURL include files
     #include "MediaInfo/Reader/Reader_libcurl_Include.h"
 #else
+    #define CURL_STATICLIB
     #undef __TEXT
     #include "curl/curl.h"
 #endif
+#include <ctime>
 using namespace ZenLib;
 using namespace std;
 #ifdef MEDIAINFO_DEBUG
@@ -61,7 +62,7 @@ namespace MediaInfoLib
 
 Reader_libcurl::Reader_libcurl ()
 {
-    #if defined LIBCURL_DLL_RUNTIME
+    #if defined MEDIAINFO_LIBCURL_DLL_RUNTIME
         if (libcurl_Module_Count)
             return;    
         
@@ -89,16 +90,18 @@ Reader_libcurl::Reader_libcurl ()
             return ;
 
         /* Load methods */
-        MEDIAINFO_ASSIGN    (init,"init")
-        MEDIAINFO_ASSIGN    (setopt,"setopt")
-        MEDIAINFO_ASSIGN    (perform,"perform")
-        MEDIAINFO_ASSIGN    (cleanup,"cleanup")
-        MEDIAINFO_ASSIGN    (getinfo,"getinfo")
+        MEDIAINFO_ASSIGN    (curl_easy_init,        "curl_easy_init")
+        MEDIAINFO_ASSIGN    (curl_easy_setopt,      "curl_easy_setopt")
+        MEDIAINFO_ASSIGN    (curl_easy_perform,     "curl_easy_perform")
+        MEDIAINFO_ASSIGN    (curl_easy_cleanup,     "curl_easy_cleanup")
+        MEDIAINFO_ASSIGN    (curl_easy_getinfo,     "curl_easy_getinfo")
+        MEDIAINFO_ASSIGN    (curl_slist_append,     "curl_slist_append")
+        MEDIAINFO_ASSIGN    (curl_slist_free_all,   "curl_slist_free_all")
         if (Errors>0)
            return;
 
         libcurl_Module_Count++;
-    #endif //defined LIBCURL_DLL_RUNTIME
+    #endif //defined MEDIAINFO_LIBCURL_DLL_RUNTIME
 }
 
 //***************************************************************************
@@ -114,6 +117,7 @@ struct curl_data
     int64u              File_Size;
     int64u              File_GoTo;
     bool                Init_AlreadyDone;
+    time_t              Time_Max;
     #ifdef MEDIAINFO_DEBUG
         int64u          Debug_BytesRead_Total;
         int64u          Debug_BytesRead;
@@ -128,6 +132,7 @@ struct curl_data
         File_Size=(int64u)-1;
         File_GoTo=(int64u)-1;
         Init_AlreadyDone=false;
+        Time_Max=0;
         #ifdef MEDIAINFO_DEBUG
             Debug_BytesRead_Total=0;
             Debug_BytesRead=0;
@@ -149,7 +154,10 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
         double File_SizeD;
         CURLcode Result=curl_easy_getinfo(((curl_data*)data)->Curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &File_SizeD);
         if (Result==CURLE_OK && File_SizeD!=-1)
+        {
             ((curl_data*)data)->MI->Open_Buffer_Init((int64u)File_SizeD, ((curl_data*)data)->File_Name);
+            ((curl_data*)data)->File_Size=(int64u)(File_SizeD);
+        }
         else
             ((curl_data*)data)->MI->Open_Buffer_Init((int64u)-1, ((curl_data*)data)->File_Name);
         ((curl_data*)data)->Init_AlreadyDone=true;
@@ -158,10 +166,12 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
     //Continue
     std::bitset<32> Result=((curl_data*)data)->MI->Open_Buffer_Continue((int8u*)ptr, size*nmemb);
     ((curl_data*)data)->File_Offset+=size*nmemb;
+    time_t CurrentTime = time(0);
     
-    if (Result[File__Analyze::IsFinished])
+    if (Result[File__Analyze::IsFinished] || (((curl_data*)data)->Time_Max && CurrentTime>=((curl_data*)data)->Time_Max))
     {
         ((curl_data*)data)->MI->Open_Buffer_Finalize();
+        ((curl_data*)data)->File_GoTo=(int64u)-1;
         return 0;
     }
 
@@ -182,25 +192,39 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
 //---------------------------------------------------------------------------
 size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
-    if (libcurl_Module_Count==0)
-        return 0; //No libcurl library
-        
+
+    #if defined MEDIAINFO_LIBCURL_DLL_RUNTIME
+        if (libcurl_Module_Count==0)
+            return 0; //No libcurl library
+    #endif //defined MEDIAINFO_LIBCURL_DLL_RUNTIME
+
     //Configuring
     curl_data Curl_Data;
     Curl_Data.Curl=curl_easy_init();
     Curl_Data.MI=MI;
     Curl_Data.File_Name=File_Name;
     string FileName_String=Ztring(Curl_Data.File_Name).To_Local();
+    if (MI->Config.File_TimeToLive_Get())
+        Curl_Data.Time_Max=time(0)+(time_t)MI->Config.File_TimeToLive_Get();
     if (!MI->Config.File_Curl_Get(_T("UserAgent")).empty())
         curl_easy_setopt(Curl_Data.Curl, CURLOPT_USERAGENT, MI->Config.File_Curl_Get(_T("UserAgent")).To_Local().c_str());
     if (!MI->Config.File_Curl_Get(_T("Proxy")).empty())
         curl_easy_setopt(Curl_Data.Curl, CURLOPT_PROXY, MI->Config.File_Curl_Get(_T("Proxy")).To_Local().c_str());
+    struct curl_slist* HttpHeader=NULL;
+    if (!MI->Config.File_Curl_Get(_T("HttpHeader")).empty())
+    {
+        ZtringList HttpHeaderStrings; HttpHeaderStrings.Separator_Set(0, EOL); //End of line is set depending of the platform: \n on Linux, \r on Mac, or \r\n on Windows
+        HttpHeaderStrings.Write(MI->Config.File_Curl_Get(_T("HttpHeader")));
+        for (size_t Pos=0; Pos<HttpHeaderStrings.size(); Pos++)
+            curl_slist_append(HttpHeader, HttpHeaderStrings[Pos].To_Local().c_str());
+        curl_easy_setopt(Curl_Data.Curl, CURLOPT_HTTPHEADER, HttpHeader);
+    }
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_URL, FileName_String.c_str());
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_MAXREDIRS, 3);
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_WRITEFUNCTION, &libcurl_WriteData_CallBack);
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_WRITEDATA, &Curl_Data);
-    
+
     //Parsing
     CURLcode Result;
     do
@@ -210,12 +234,11 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
         {
             #ifdef MEDIAINFO_DEBUG
                 std::cout<<std::hex<<Curl_Data.File_Offset-Curl_Data.Debug_BytesRead<<" - "<<Curl_Data.File_Offset<<" : "<<std::dec<<Curl_Data.Debug_BytesRead<<" bytes"<<std::endl;
-                Curl_Data.File_Offset=Curl_Data.File_GoTo;
                 Curl_Data.Debug_BytesRead=0;
                 Curl_Data.Debug_Count++;
             #endif //MEDIAINFO_DEBUG
-
-                if (Curl_Data.File_GoTo<0x80000000)
+            Curl_Data.File_Offset=Curl_Data.File_GoTo;
+            if (Curl_Data.File_GoTo<0x80000000)
             {
                 //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
                 long File_GoTo_Long=(long)Curl_Data.File_GoTo;
@@ -243,6 +266,8 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
     MI->Open_Buffer_Finalize();
 
     //Cleanup
+    if (HttpHeader)
+        curl_slist_free_all(HttpHeader);
     curl_easy_cleanup(Curl_Data.Curl);
     return 1;
 }
@@ -250,4 +275,3 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
 } //NameSpace
 
 #endif //MEDIAINFO_LIBCURL_YES
-

@@ -19,6 +19,7 @@ Version 0.7.44, 2011-
 + MXF: Parsing speed improvement, especially for high bitrate (>300 Mbps) streams
 + TGA file basic support
 + libmms: MMSH support (Linux/Mac only), thanks to RGB Networks
++ libcurl: HTTP header option and Time to live, thanks to RGB Networks
 x MXF: some specific files were not analyzed, fix sponsored by http://maxnine.com
 x LXF: random crashes
 

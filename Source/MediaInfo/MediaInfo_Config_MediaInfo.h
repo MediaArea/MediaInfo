@@ -85,6 +85,9 @@ public :
     void          File_FileName_Set (const Ztring &NewValue);
     Ztring        File_FileName_Get ();
 
+    void          File_TimeToLive_Set (float64 NewValue);
+    float64       File_TimeToLive_Get ();
+
     void          File_Partial_Begin_Set (const Ztring &NewValue);
     Ztring        File_Partial_Begin_Get ();
     void          File_Partial_End_Set (const Ztring &NewValue);
@@ -166,6 +169,7 @@ public :
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     #if defined(MEDIAINFO_LIBCURL_YES)
     void          File_Curl_Set (const Ztring &NewValue);
+    void          File_Curl_Set (const Ztring &Field, const Ztring &NewValue);
     Ztring        File_Curl_Get (const Ztring &Field);
     #endif //defined(MEDIAINFO_LIBCURL_YES)
     #if defined(MEDIAINFO_LIBMMS_YES)
@@ -196,6 +200,7 @@ private :
     bool                    File_Demux_Interleave;
     bool                    File_ID_OnlyRoot;
     Ztring                  File_FileName;
+    float64                 File_TimeToLive;
     Ztring                  File_Partial_Begin;
     Ztring                  File_Partial_End;
     Ztring                  File_ForceParser;

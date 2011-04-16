@@ -879,22 +879,24 @@ size_t libcurl_Module_Count=0;
 
 #ifdef MEDIAINFO_GLIBC
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
-    if (!g_module_symbol (libcurl_Module, "curl_easy_"_Name2, (gpointer*)&curl_easy_##_Name)) \
+    if (!g_module_symbol (libcurl_Module, _Name2, (gpointer*)&_Name)) \
         Errors++;
 #elif defined (_WIN32) || defined (WIN32)
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
-    curl_easy_##_Name=(LIBCURL_##_Name)GetProcAddress(libcurl_Module, "curl_easy_"_Name2); \
-    if (curl_easy_##_Name==NULL) Errors++;
+    _Name=(LIBCURL_##_Name)GetProcAddress(libcurl_Module, _Name2); \
+    if (_Name==NULL) Errors++;
 #else
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
-    curl_easy_##_Name=(LIBCURL_##_Name)dlsym(libcurl_Module, "curl_easy_"_Name2); \
-    if (curl_easy_##_Name==NULL) Errors++;
+    _Name=(LIBCURL_##_Name)dlsym(libcurl_Module, _Name2); \
+    if (_Name==NULL) Errors++;
 #endif
 
-#undef curl_easy_init
-typedef CURL* (*LIBCURL_init)   ();   static LIBCURL_init    curl_easy_init;
-typedef CURLcode (*LIBCURL_setopt) (CURL *curl, CURLoption option, ...);   static LIBCURL_setopt  curl_easy_setopt;
-typedef CURLcode (*LIBCURL_perform)(CURL *curl);   static LIBCURL_perform curl_easy_perform;
-typedef void (*LIBCURL_cleanup)(CURL *curl);   static LIBCURL_cleanup curl_easy_cleanup;
-typedef CURLcode (*LIBCURL_getinfo)(CURL *curl, CURLINFO info, ...);   static LIBCURL_getinfo curl_easy_getinfo;
+typedef CURL* (*LIBCURL_curl_easy_init)   ();   static LIBCURL_curl_easy_init    curl_easy_init;
+typedef CURLcode (*LIBCURL_curl_easy_setopt) (CURL *curl, CURLoption option, ...);   static LIBCURL_curl_easy_setopt  curl_easy_setopt;
+typedef CURLcode (*LIBCURL_curl_easy_perform)(CURL *curl);   static LIBCURL_curl_easy_perform curl_easy_perform;
+typedef void (*LIBCURL_curl_easy_cleanup)(CURL *curl);   static LIBCURL_curl_easy_cleanup curl_easy_cleanup;
+typedef CURLcode (*LIBCURL_curl_easy_getinfo)(CURL *curl, CURLINFO info, ...);   static LIBCURL_curl_easy_getinfo curl_easy_getinfo;
+typedef struct curl_slist* (*LIBCURL_curl_slist_append)   (struct curl_slist *, const char *);   static LIBCURL_curl_slist_append    curl_slist_append;
+typedef void (*LIBCURL_curl_slist_free_all)   (struct curl_slist *);   static LIBCURL_curl_slist_free_all    curl_slist_free_all;
+
 }

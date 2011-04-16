@@ -52,6 +52,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     Audio_MergeMonoStreams=false;
     File_Demux_Interleave=false;
     File_ID_OnlyRoot=false;
+    File_TimeToLive=0;
     File_Buffer_Size_Hint_Pointer=NULL;
     #if MEDIAINFO_NEXTPACKET
         NextPacket=false;
@@ -191,6 +192,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_filename_get"))
     {
         return File_FileName_Get();
+    }
+    else if (Option_Lower==_T("file_timetolive"))
+    {
+        File_TimeToLive_Set(Ztring(Value).To_float64());
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_timetolive_get"))
+    {
+        return Ztring::ToZtring(File_TimeToLive_Get(), 9);
     }
     else if (Option_Lower==_T("file_partial_begin"))
     {
@@ -413,6 +423,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             return _T("Libcurl support is disabled due to compilation options");
         #endif //defined(MEDIAINFO_LIBCURL_YES)
     }
+    else if (Option_Lower.find(_T("file_curl,"))==0 || Option_Lower.find(_T("file_curl;"))==0)
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            File_Curl_Set(Option.substr(10), Value);
+            return _T("");
+        #else //defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_LIBCURL_YES)
+    }
     else if (Option_Lower==_T("file_curl_get"))
     {
         #if defined(MEDIAINFO_LIBCURL_YES)
@@ -603,6 +622,23 @@ Ztring MediaInfo_Config_MediaInfo::File_FileName_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_FileName;
+}
+
+//***************************************************************************
+// Time to live
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_TimeToLive_Set (float64 NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_TimeToLive=NewValue;
+}
+
+float64 MediaInfo_Config_MediaInfo::File_TimeToLive_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_TimeToLive;
 }
 
 //***************************************************************************
@@ -1156,11 +1192,22 @@ void MediaInfo_Config_MediaInfo::File_Curl_Set (const Ztring &NewValue)
     }
 }
 
+void MediaInfo_Config_MediaInfo::File_Curl_Set (const Ztring &Field_, const Ztring &NewValue)
+{
+    Ztring Field=Field_; Field.MakeLowerCase();
+    CriticalSectionLocker CSL(CS);
+    Curl[Field]=NewValue;
+}
+
 Ztring MediaInfo_Config_MediaInfo::File_Curl_Get (const Ztring &Field_)
 {
     Ztring Field=Field_; Field.MakeLowerCase();
     CriticalSectionLocker CSL(CS);
-    return Curl[Field];
+    std::map<Ztring, Ztring>::iterator Value=Curl.find(Field);
+    if (Value==Curl.end())
+        return Ztring();
+    else
+        return Curl[Field];
 }
 #endif //defined(MEDIAINFO_LIBCURL_YES)
 
