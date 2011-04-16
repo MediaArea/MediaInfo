@@ -37,8 +37,10 @@
 #else
     #ifdef MEDIAINFO_LIBMMS_FROMSOURCE
         #include "mmsx.h"
+        #include "mmsh.h"
     #else //MEDIAINFO_LIBMMS_FROMSOURCE
         #include "libmms/mmsx.h"
+        #include "libmms/mmsh.h"
     #endif //MEDIAINFO_LIBMMS_FROMSOURCE
 #endif
 using namespace ZenLib;
@@ -57,10 +59,30 @@ const size_t Buffer_NormalSize=64*1024;
 //---------------------------------------------------------------------------
 size_t Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
+    mmsx_t* Handle;
     //Opening the file
-    mmsx_t* Handle=mmsx_connect(0, 0, Ztring(File_Name).To_Local().c_str(), (int)-1);
-    if (Handle==NULL)
-        return 0;
+    if (!MI->Config.File_Mmsh_Describe_Only_Get())
+    {
+       // Use MMS or MMSH (Send a DESCRIBE & PLAY request)
+       Handle=mmsx_connect(0, 0, Ztring(File_Name).To_Local().c_str(), (int)-1);
+       if (Handle==NULL)
+           return 0;
+    }
+    else
+    {
+       // Use MMSH & Send a DESCRIBE request
+       mmsh_t* MmshHandle;
+   
+       MmshHandle = mmsh_describe_request(0, 0, Ztring(File_Name).To_Local().c_str());
+       if(MmshHandle==NULL)
+          return 0;
+   
+       Handle=mmsx_set_mmsh_handle(MmshHandle);
+       if (Handle==NULL) {
+          mmsh_close(MmshHandle); 
+          return 0;
+       }
+    }
 
     mms_off_t Offset=mmsx_seek(0, Handle, 0, SEEK_SET);
     uint32_t Length=mmsx_get_length(Handle);
