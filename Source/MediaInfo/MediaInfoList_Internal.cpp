@@ -304,19 +304,25 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
         if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
             XML=true;
         if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")+MediaInfoLib::Config.LineSeparator_Get()+_T("<Mediainfo version=\"")+MediaInfoLib::Config.Info_Version_Get().SubString(_T(" v"), Ztring())+_T("\">")+MediaInfoLib::Config.LineSeparator_Get();
-        else Retour+=MediaInfo_Custom_View(Stream_Max+2, 1);//Page_Begin
+        else
+        Retour+=MediaInfo_Custom_View("Page_Begin");
         while (FilePos<Info.size())
         {
             Retour+=Inform(FilePos);
             if (FilePos<Info.size()-1)
             {
-                Retour+=MediaInfo_Custom_View(Stream_Max+3, 1);//Page_Middle
+                Retour+=MediaInfo_Custom_View("Page_Middle");
             }
             FilePos++;
         }
         if (XML) Retour+=_T("</Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
-        else Retour+=MediaInfo_Custom_View(Stream_Max+4, 1);//Page_End
-        //Retour.FindAndReplace(_T("\\n"),_T( "\n"), 0, Ztring_Recursive);
+        else Retour+=MediaInfo_Custom_View("Page_End");//
+        Retour.FindAndReplace(_T("\\r\\n"), _T("\n"), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("\\r"), _T("\n"), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("\\n"), _T("\n"), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("\r\n"), _T("\n"), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("\r"), _T("\n"), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
         return Retour.c_str();
     }
 

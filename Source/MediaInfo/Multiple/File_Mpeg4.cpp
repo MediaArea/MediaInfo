@@ -843,6 +843,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 int64u Offset=Stream->second.stco[stco_Pos];
 
                                 GoTo(Offset);
+                                Open_Buffer_Unsynch();
+                                GoTo(Offset);
                                 return 1;
                                 break;
                             }
@@ -986,54 +988,55 @@ Ztring File_Mpeg4::Language_Get(int16u Language)
 //Get Metadata definition from 4CC
 File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
 {
+    File_Mpeg4::method Method;
     switch (Meta)
     {
         //http://atomicparsley.sourceforge.net/mpeg-4files.html
-        case Elements::moov_meta___ART : Parameter="Performer"; return Method_String;
-        case Elements::moov_meta___alb : Parameter="Album"; return Method_String;
-        case Elements::moov_meta___aut : Parameter="Performer"; return Method_String;
-        case Elements::moov_meta___cmt : Parameter="Comment"; return Method_String;
-        case Elements::moov_meta___cpy : Parameter="Copyright"; return Method_String;
-        case Elements::moov_meta___day : Parameter="Recorded_Date"; return Method_String;
-        case Elements::moov_meta___des : Parameter="Title/More"; return Method_String;
-        case Elements::moov_meta___dir : Parameter="Director"; return Method_String;
-        case Elements::moov_meta___dis : Parameter="TermsOfUse"; return Method_String;
-        case Elements::moov_meta___edl : Parameter="Tagged_Date"; return Method_String;
-        case Elements::moov_meta___enc : Parameter="Encoded_Application"; return Method_String;
-        case Elements::moov_meta___fmt : Parameter="Origin"; return Method_String;
-        case Elements::moov_meta___gen : Parameter="Genre"; return Method_String;
-        case Elements::moov_meta___grp : Parameter="Grouping"; return Method_String;
-        case Elements::moov_meta___hos : Parameter="HostComputer"; return Method_String;
-        case Elements::moov_meta___inf : Parameter="Title/More"; return Method_String;
-        case Elements::moov_meta___key : Parameter="Keywords"; return Method_String;
-        case Elements::moov_meta___mak : Parameter="Make"; return Method_String;
-        case Elements::moov_meta___mod : Parameter="Model"; return Method_String;
-        case Elements::moov_meta___nam : Parameter="Title"; return Method_String3;
-        case Elements::moov_meta___prd : Parameter="Producer"; return Method_String;
-        case Elements::moov_meta___PRD : Parameter="Product"; return Method_String;
-        case Elements::moov_meta___prf : Parameter="Performer"; return Method_String;
-        case Elements::moov_meta___req : Parameter="Comment"; return Method_String;
-        case Elements::moov_meta___src : Parameter="DistribtedBy"; return Method_String;
-        case Elements::moov_meta___swr : Parameter="Encoded_Application"; return Method_String;
-        case Elements::moov_meta___too : Parameter="Encoded_Application"; return Method_String;
-        case Elements::moov_meta___wrn : Parameter="Warning"; return Method_String;
-        case Elements::moov_meta___wrt : Parameter="Composer"; return Method_String;
-        case Elements::moov_meta__auth : Parameter="Performer"; return Method_String2;
-        case Elements::moov_meta__albm : Parameter="Album"; return Method_String2; //Has a optional track number after the NULL byte
-        case Elements::moov_meta__aART : Parameter="Album/Performer"; return Method_String2;
-        case Elements::moov_meta__cpil : Parameter="Compilation"; return Method_Binary;
-        case Elements::moov_meta__cprt : Parameter="Copyright"; return Method_String2;
-        case Elements::moov_meta__disk : Parameter="Part"; return Method_Binary;
-        case Elements::moov_meta__dscp : Parameter="Title/More"; return Method_String2;
-        case Elements::moov_meta__gnre : Parameter="Genre"; return Method_String2;
-        case Elements::moov_meta__name : Parameter="Title"; return Method_String;
-        case Elements::moov_meta__perf : Parameter="Performer"; return Method_String2;
-        case Elements::moov_meta__pgap : Parameter.clear(); return Method_None;
-        case Elements::moov_meta__titl : Parameter="Title"; return Method_String2;
-        case Elements::moov_meta__tool : Parameter="Encoded_Application"; return Method_String3;
-        case Elements::moov_meta__trkn : Parameter="Track"; return Method_Binary;
-        case Elements::moov_meta__year : Parameter="Recorded_Date"; return Method_String2;
-        case Elements::moov_meta__tmpo : Parameter="BPM"; return Method_Binary;
+        case Elements::moov_meta___ART : Parameter="Performer"; Method=Method_String; break;
+        case Elements::moov_meta___alb : Parameter="Album"; Method=Method_String; break;
+        case Elements::moov_meta___aut : Parameter="Performer"; Method=Method_String; break;
+        case Elements::moov_meta___cmt : Parameter="Comment"; Method=Method_String; break;
+        case Elements::moov_meta___cpy : Parameter="Copyright"; Method=Method_String; break;
+        case Elements::moov_meta___day : Parameter="Recorded_Date"; Method=Method_String; break;
+        case Elements::moov_meta___des : Parameter="Title/More"; Method=Method_String; break;
+        case Elements::moov_meta___dir : Parameter="Director"; Method=Method_String; break;
+        case Elements::moov_meta___dis : Parameter="TermsOfUse"; Method=Method_String; break;
+        case Elements::moov_meta___edl : Parameter="Tagged_Date"; Method=Method_String; break;
+        case Elements::moov_meta___enc : Parameter="Encoded_Application"; Method=Method_String; break;
+        case Elements::moov_meta___fmt : Parameter="Origin"; Method=Method_String; break;
+        case Elements::moov_meta___gen : Parameter="Genre"; Method=Method_String; break;
+        case Elements::moov_meta___grp : Parameter="Grouping"; Method=Method_String; break;
+        case Elements::moov_meta___hos : Parameter="HostComputer"; Method=Method_String; break;
+        case Elements::moov_meta___inf : Parameter="Title/More"; Method=Method_String; break;
+        case Elements::moov_meta___key : Parameter="Keywords"; Method=Method_String; break;
+        case Elements::moov_meta___mak : Parameter="Make"; Method=Method_String; break;
+        case Elements::moov_meta___mod : Parameter="Model"; Method=Method_String; break;
+        case Elements::moov_meta___nam : Parameter="Title"; Method=Method_String3; break;
+        case Elements::moov_meta___prd : Parameter="Producer"; Method=Method_String; break;
+        case Elements::moov_meta___PRD : Parameter="Product"; Method=Method_String; break;
+        case Elements::moov_meta___prf : Parameter="Performer"; Method=Method_String; break;
+        case Elements::moov_meta___req : Parameter="Comment"; Method=Method_String; break;
+        case Elements::moov_meta___src : Parameter="DistribtedBy"; Method=Method_String; break;
+        case Elements::moov_meta___swr : Parameter="Encoded_Application"; Method=Method_String; break;
+        case Elements::moov_meta___too : Parameter="Encoded_Application"; Method=Method_String; break;
+        case Elements::moov_meta___wrn : Parameter="Warning"; Method=Method_String; break;
+        case Elements::moov_meta___wrt : Parameter="Composer"; Method=Method_String; break;
+        case Elements::moov_meta__auth : Parameter="Performer"; Method=Method_String2; break;
+        case Elements::moov_meta__albm : Parameter="Album"; Method=Method_String2; break; //Has a optional track number after the NULL byte
+        case Elements::moov_meta__aART : Parameter="Album/Performer"; Method=Method_String2; break;
+        case Elements::moov_meta__cpil : Parameter="Compilation"; Method=Method_Binary; break;
+        case Elements::moov_meta__cprt : Parameter="Copyright"; Method=Method_String2; break;
+        case Elements::moov_meta__disk : Parameter="Part"; Method=Method_Binary; break;
+        case Elements::moov_meta__dscp : Parameter="Title/More"; Method=Method_String2; break;
+        case Elements::moov_meta__gnre : Parameter="Genre"; Method=Method_String2; break;
+        case Elements::moov_meta__name : Parameter="Title"; Method=Method_String; break;
+        case Elements::moov_meta__perf : Parameter="Performer"; Method=Method_String2; break;
+        case Elements::moov_meta__pgap : Parameter.clear(); Method=Method_None; break;
+        case Elements::moov_meta__titl : Parameter="Title"; Method=Method_String2; break;
+        case Elements::moov_meta__tool : Parameter="Encoded_Application"; Method=Method_String3; break;
+        case Elements::moov_meta__trkn : Parameter="Track"; Method=Method_Binary; break;
+        case Elements::moov_meta__year : Parameter="Recorded_Date"; Method=Method_String2; break;
+        case Elements::moov_meta__tmpo : Parameter="BPM"; Method=Method_Binary; break;
         default :
             {
                 Parameter.clear();
@@ -1041,9 +1044,15 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
                 Parameter.append(1, (char)((Meta&0x00FF0000)>>16));
                 Parameter.append(1, (char)((Meta&0x0000FF00)>> 8));
                 Parameter.append(1, (char)((Meta&0x000000FF)>> 0));
-                return Method_String;
+                Method=Method_String;
             }
     }
+
+    Ztring Value=Ztring().From_CC4((int32u)Meta);
+    if (MediaInfoLib::Config.CustomMapping_IsPresent(_T("MP4"), Value))
+        Parameter=MediaInfoLib::Config.CustomMapping_Get(_T("MP4"), Value).To_Local();
+
+    return Method;
 }
 
 //---------------------------------------------------------------------------

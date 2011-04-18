@@ -1061,6 +1061,13 @@ void File_Id3v2::WXXX()
 //---------------------------------------------------------------------------
 void File_Id3v2::Fill_Name()
 {
+    Ztring Value=Ztring().From_CC4((int32u)Element_Code);
+    if (MediaInfoLib::Config.CustomMapping_IsPresent(_T("Id3v2"), Value))
+    {
+        Fill(Stream_General, 0, MediaInfoLib::Config.CustomMapping_Get(_T("Id3v2"), Value).To_Local().c_str(), Element_Value);
+        return;
+    }
+
     switch (Element_Code)
     {
         case Elements::AENC : break;

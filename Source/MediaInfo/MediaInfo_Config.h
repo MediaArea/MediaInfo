@@ -187,6 +187,10 @@ public :
 
     ZtringListList  SubFile_Config_Get ();
 
+    void            CustomMapping_Set (const Ztring &Value);
+    Ztring          CustomMapping_Get (const Ztring &Format, const Ztring &Field); 
+    bool            CustomMapping_IsPresent (const Ztring &Format, const Ztring &Field); 
+
 private :
     int64u          MpegTs_MaximumScanDuration;
     int64u          FormatDetection_MaximumOffset;
@@ -234,6 +238,8 @@ private :
     ZtringListList  Info[Stream_Max]; //General info
 
     ZtringListList  SubFile_Config;
+
+    std::map<Ztring, std::map<Ztring, Ztring> > CustomMapping;
 
     ZenLib::CriticalSection CS;
 

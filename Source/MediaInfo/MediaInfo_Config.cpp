@@ -577,6 +577,11 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         return MpegTs_ForceStreamDisplay_Get()?_T("1"):_T("0");
     }
+    else if (Option_Lower==_T("custommapping"))
+    {
+        CustomMapping_Set(Value);
+        return Ztring();
+    }
     else
         return _T("Option not known");
 }
@@ -1645,6 +1650,39 @@ ZtringListList MediaInfo_Config::SubFile_Config_Get ()
     CriticalSectionLocker CSL(CS);
 
     return SubFile_Config;
+}
+
+//***************************************************************************
+// Custom mapping
+//***************************************************************************
+
+void MediaInfo_Config::CustomMapping_Set (const Ztring &Value)
+{
+    ZtringList List; List.Separator_Set(0, _T(","));
+    List.Write(Value);
+    if (List.size()==3)
+    {
+        CriticalSectionLocker CSL(CS);
+        CustomMapping[List[0]][List[1]]=List[2];
+    }
+}
+
+Ztring MediaInfo_Config::CustomMapping_Get (const Ztring &Format, const Ztring &Field)
+{
+    CriticalSectionLocker CSL(CS);
+    return CustomMapping[Format][Field];
+}
+
+bool MediaInfo_Config::CustomMapping_IsPresent(const Ztring &Format, const Ztring &Field)
+{
+    CriticalSectionLocker CSL(CS);
+    std::map<Ztring, std::map<Ztring, Ztring> >::iterator PerFormat=CustomMapping.find(Format);
+    if (PerFormat==CustomMapping.end())
+        return false;
+    std::map<Ztring, Ztring>::iterator PerField=PerFormat->second.find(Field);
+    if (PerField==PerFormat->second.end())
+        return false;
+    return true;
 }
 
 } //NameSpace
