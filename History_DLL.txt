@@ -21,6 +21,7 @@ Version 0.7.44, 2011-04-19
 + libmms: MMSH support (Linux/Mac only), thanks to RGB Networks
 + libcurl: HTTP header option and Time to live, thanks to RGB Networks
 + Id3v2 and MPEG-4: possibility to customize tag mapping
++ TIFF: more details
 x MXF: some specific files were not analyzed, fix sponsored by http://maxnine.com
 x LXF: random crashes
 
