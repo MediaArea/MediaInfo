@@ -323,7 +323,7 @@ private :
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
         float32                 CleanAperture_PixelAspectRatio;
-        #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             int8u               Demux_Level;
 
             struct stts_duration
@@ -338,7 +338,7 @@ private :
             stts_durations  stts_Durations;
             size_t          stts_Durations_Pos;
             int64u          stts_FramePos;
-        #endif //MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
         stream()
         {
