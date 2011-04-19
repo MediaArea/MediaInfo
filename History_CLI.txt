@@ -7,6 +7,22 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.44, 2011-04-19
+--------------
++ Russian translation updated
++ AVI: support of some corrupted files (RIFF size set to 0)
++ AC-3: support of streams with 16-byte time stamp between frames
++ MPEG-TS: detecting wrong stream registration information and skipping it
++ NTSC: accepting 483-line streams as NTSC
++ MXF: Parsing speed improvement, especially for high bitrate (>300 Mbps) streams
++ TGA file basic support
++ libmms: MMSH support (Linux/Mac only), thanks to RGB Networks
++ libcurl: HTTP header option and Time to live, thanks to RGB Networks
++ Id3v2 and MPEG-4: possibility to customize tag mapping
++ TIFF: more details
+x MXF: some specific files were not analyzed, fix sponsored by http://maxnine.com
+x LXF: random crashes
+
 Version 0.7.43, 2011-03-19
 --------------
 + MPEG-TS: detection and display of real time PAT/PMT change improved
