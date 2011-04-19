@@ -70,39 +70,39 @@
 			<DCC_AdditionalSwitches> -$O+</DCC_AdditionalSwitches>
 		</PropertyGroup>
 		<ItemGroup>
-			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>7</BuildOrder>
-			</LibFiles>
-			<CppCompile Include="..\..\..\Source\CLI\Help.cpp">
-				<BuildOrder>8</BuildOrder>
-				<BuildOrder>3</BuildOrder>
-			</CppCompile>
-			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\MediaInfoLib.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>8</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>8</BuildOrder>
-			</LibFiles>
-			<CppCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
-				<BuildOrder>5</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\Source\Common\Core.cpp">
 				<BuildOrder>5</BuildOrder>
 				<DependentOn>..\..\..\Source\Common\Core.h</DependentOn>
 				<BuildOrder>4</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp">
-				<BuildOrder>7</BuildOrder>
-				<BuildOrder>4</BuildOrder>
+			<CppCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
+				<BuildOrder>5</BuildOrder>
+				<BuildOrder>2</BuildOrder>
 			</CppCompile>
 			<ResFiles Include="MediaInfo_CLI.res">
 				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>1</BuildOrder>
 			</ResFiles>
+			<CppCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp">
+				<BuildOrder>7</BuildOrder>
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\CLI\Help.cpp">
+				<BuildOrder>8</BuildOrder>
+				<BuildOrder>3</BuildOrder>
+			</CppCompile>
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>7</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>8</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\MediaInfoLib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>8</BuildOrder>
+			</LibFiles>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
