@@ -125,6 +125,9 @@
 #if defined(MEDIAINFO_VC3_YES)
     #include "MediaInfo/Video/File_Vc3.h"
 #endif
+#if defined(MEDIAINFO_Y4M_YES)
+    #include "MediaInfo/Video/File_Y4m.h"
+#endif
 
 //---------------------------------------------------------------------------
 // Audio
@@ -406,6 +409,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_VC1_YES)
         Temp=new File_Vc1(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_Y4M_YES)
+        Temp=new File_Y4m(); Parser.push_back(Temp);
     #endif
 
     // Audio

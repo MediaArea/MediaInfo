@@ -44,6 +44,7 @@ MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;video/MPV;;Lossy
 MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES;;Lossy
 Theora;;;V;;;;;http://www.theora.org/;Lossy
 VC-1;;;V;Vc1;;vc1;video/vc1;;Lossy
+YUV4MPEG2;;;V;Y4m;;y4m;;;Lossless
 VP8;;;V;;;;;http://www.webmproject.org/;Lossy
 YUV;;;V;;;;;;Lossless
 AAC;;;A;;Advanced Audio Codec;aac;;;Lossy

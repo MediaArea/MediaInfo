@@ -211,7 +211,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NOx;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
@@ -468,6 +468,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc3.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Y4m.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Iso9660.h" />
@@ -614,6 +615,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vc3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Y4m.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2010\Library\ZenLib.vcxproj">

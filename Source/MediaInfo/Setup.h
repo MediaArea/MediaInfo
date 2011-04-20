@@ -424,6 +424,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THEORA_NO) && !defined(MEDIAINFO_THEORA_YES)
     #define MEDIAINFO_THEORA_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_Y4M_NO) && !defined(MEDIAINFO_Y4M_YES)
+    #define MEDIAINFO_Y4M_YES
+#endif
 
 //---------------------------------------------------------------------------
 // Audio

@@ -1063,6 +1063,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES;;Lossy\n"
     "Theora;;;V;;;;;http://www.theora.org/;Lossy\n"
     "VC-1;;;V;Vc1;;vc1;video/vc1;;Lossy\n"
+    "YUV4MPEG2;;;V;Y4m;;y4m;;;Lossless\n"
     "VP8;;;V;;;;;http://www.webmproject.org/;Lossy\n"
     "YUV;;;V;;;;;;Lossless\n"
     "AAC;;;A;;Advanced Audio Codec;aac;;;Lossy\n"

@@ -165,6 +165,7 @@ set(mediainfo_SRCS
 	MediaInfo/Video/File_Theora.cpp
 	MediaInfo/Video/File_Vc1.cpp
 	MediaInfo/Video/File_Vc3.cpp
+	MediaInfo/Video/File_Y4m.cpp
 	MediaInfo/MediaInfoDLL.cpp
 	MediaInfo/MediaInfoDLL.def
 )
