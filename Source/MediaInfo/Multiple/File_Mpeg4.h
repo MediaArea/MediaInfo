@@ -167,6 +167,7 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_xxxx_dec3();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_damr();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_esds();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_fiel();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_idfm();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h() {jp2h();}
     void moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_colr() {jp2h_colr();}

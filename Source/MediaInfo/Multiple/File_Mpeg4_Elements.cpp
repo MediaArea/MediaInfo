@@ -383,6 +383,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dec3=0x64656333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_esds=0x65736473;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_fiel=0x6669656C;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm=0x6964666D;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_atom=0x61746F6D;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_qtat=0x71746174;
@@ -672,6 +673,7 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dec3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_fiel)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_idfm)
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h)
                                     ATOM_BEGIN
@@ -3816,6 +3818,27 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
         if (Streams[moov_trak_tkhd_TrackID].Parser && !Retrieve(StreamKind_Last, StreamPos_Last, "Encryption").empty())
         {
             Finish(Streams[moov_trak_tkhd_TrackID].Parser);
+        }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
+{
+    //Source: http://developer.apple.com/quicktime/icefloe/dispatch019.html#fiel
+    Element_Name("AMR decode config");
+
+    //Parsing
+    int8u  fields, detail;
+    Get_B1 (fields,                                             "fields");
+    Get_B1 (detail,                                             "detail");
+
+    FILLING_BEGIN();
+        switch(fields)
+        {
+            case 0x01 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Progressive", Unlimited, true, true); break;
+            case 0x02 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Interlaced", Unlimited, true, true); break;
+            default   : ;
         }
     FILLING_END();
 }

@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.45, 2011-
 --------------
++ MP4/MOV with uncompressed streams: scan type (interlaced/progressive)
 + YUV4MPEG2 (Y4M) support
 
 Version 0.7.44, 2011-04-19
