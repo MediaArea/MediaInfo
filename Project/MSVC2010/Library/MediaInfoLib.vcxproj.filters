@@ -537,6 +537,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Y4m.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Exr.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -973,6 +976,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Y4m.h">
       <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Exr.h">
+      <Filter>Header Files\Image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

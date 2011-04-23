@@ -19,6 +19,7 @@ Format_Commercial;;;N NT;;;Commercial name used by vendor for theses setings or 
 Format_Commercial_IfAny;;;Y NT;;;Commercial name used by vendor for theses setings if there is one
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
+Format_Compression;;;N YT;;;Compression mode of the Format
 MultiView_BaseProfile;;;Y NT;;;Multiview, profile of the base stream
 MultiView_Count;;;Y NT;;;Multiview, count of views
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary

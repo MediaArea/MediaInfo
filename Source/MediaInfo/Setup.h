@@ -565,6 +565,9 @@
 #if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_DPX_NO) && !defined(MEDIAINFO_DPX_YES)
     #define MEDIAINFO_DPX_YES
 #endif
+#if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_EXR_NO) && !defined(MEDIAINFO_EXR_YES)
+    #define MEDIAINFO_EXR_YES
+#endif
 #if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_GIF_NO) && !defined(MEDIAINFO_GIF_YES)
     #define MEDIAINFO_GIF_YES
 #endif

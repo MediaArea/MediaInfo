@@ -91,6 +91,7 @@ Wave64;;;A;Riff;;w64;;;
 WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com;
 Bitmap;;;I;Bmp;;bmp;image/bmp;;Lossless
 DPX;;;I;Dpx;;dpx;;;Lossless
+EXR;;;I;Exr;;exr;;;Lossless
 DIB;;;I;Riff;RIFF Device Independent Bitmap;;;;Lossless
 GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif;;Lossless
 ICO;;;I;Ico;;ico;image/vnd.microsoft.icon;;Lossless

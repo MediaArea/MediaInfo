@@ -104,6 +104,7 @@ AC_ARG_ENABLE(vorbis,  AC_HELP_STRING([--disable-vorbis],  [Disable Audio - Vorb
 AC_ARG_ENABLE(wvpk,    AC_HELP_STRING([--disable-wvpk],    [Disable Audio - Wavepack]),                                   MediaInfoWvpk=$enableval,    MediaInfoWvpk=depend)
 AC_ARG_ENABLE(bmp,     AC_HELP_STRING([--disable-bmp],     [Disable Image - Bitmap]),                                     MediaInfoBmp=$enableval,     MediaInfoBmp=depend)
 AC_ARG_ENABLE(dpx,     AC_HELP_STRING([--disable-dpx],     [Disable Image - DPX]),                                        MediaInfoDpx=$enableval,     MediaInfoDpx=depend)
+AC_ARG_ENABLE(exr,     AC_HELP_STRING([--disable-exr],     [Disable Image - EXR]),                                        MediaInfoExr=$enableval,     MediaInfoExr=depend)
 AC_ARG_ENABLE(gif,     AC_HELP_STRING([--disable-gif],     [Disable Image - GIF]),                                        MediaInfoGif=$enableval,     MediaInfoGif=depend)
 AC_ARG_ENABLE(ico,     AC_HELP_STRING([--disable-ico],     [Disable Image - ICO]),                                        MediaInfoIco=$enableval,     MediaInfoIco=depend)
 AC_ARG_ENABLE(jpeg,    AC_HELP_STRING([--disable-jpeg],    [Disable Image - JPEG]),                                       MediaInfoJpeg=$enableval,    MediaInfoJpeg=depend)
@@ -220,6 +221,7 @@ if test "$MediaInfoVorbis"  = "no";  then AC_DEFINE(MEDIAINFO_VORBIS_NO)  fi; if
 if test "$MediaInfoWvpk"    = "no";  then AC_DEFINE(MEDIAINFO_WVPK_NO)    fi; if test "$MediaInfoWvpk"    = "yes"; then AC_DEFINE(MEDIAINFO_WVPK_YES)    fi
 if test "$MediaInfoBmp"     = "no";  then AC_DEFINE(MEDIAINFO_BMP_NO)     fi; if test "$MediaInfoBmp"     = "yes"; then AC_DEFINE(MEDIAINFO_BMP_YES)     fi
 if test "$MediaInfoDpx"     = "no";  then AC_DEFINE(MEDIAINFO_DPX_NO)     fi; if test "$MediaInfoDpx"     = "yes"; then AC_DEFINE(MEDIAINFO_DPX_YES)     fi
+if test "$MediaInfoExr"     = "no";  then AC_DEFINE(MEDIAINFO_EXR_NO)     fi; if test "$MediaInfoExr"     = "yes"; then AC_DEFINE(MEDIAINFO_EXR_YES)     fi
 if test "$MediaInfoGif"     = "no";  then AC_DEFINE(MEDIAINFO_GIF_NO)     fi; if test "$MediaInfoGif"     = "yes"; then AC_DEFINE(MEDIAINFO_GIF_YES)     fi
 if test "$MediaInfoIco"     = "no";  then AC_DEFINE(MEDIAINFO_ICO_NO)     fi; if test "$MediaInfoIco"     = "yes"; then AC_DEFINE(MEDIAINFO_ICO_YES)     fi
 if test "$MediaInfoJpeg"    = "no";  then AC_DEFINE(MEDIAINFO_JPEG_NO)    fi; if test "$MediaInfoJpeg"    = "yes"; then AC_DEFINE(MEDIAINFO_JPEG_YES)    fi
@@ -704,7 +706,8 @@ Mcho "TwinVQ " "$MediaInfoTwinVQ"
 Mcho "Vorbis " "$MediaInfoVorbis"
 Mcho "Wvpk   " "$MediaInfoWvpk"
 Mcho "Bmp    " "$MediaInfoBmp"
-Mcho "Bmp    " "$MediaInfoDpx"
+Mcho "Dpx    " "$MediaInfoDpx"
+Mcho "Exr    " "$MediaInfoDpx"
 Mcho "Gif    " "$MediaInfoGif"
 Mcho "Ico    " "$MediaInfoIco"
 Mcho "Jpeg   " "$MediaInfoJpeg"

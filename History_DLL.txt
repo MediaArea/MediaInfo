@@ -11,6 +11,7 @@ Version 0.7.45, 2011-
 --------------
 + MP4/MOV with uncompressed streams: scan type (interlaced/progressive)
 + YUV4MPEG2 (Y4M) support
++ EXR: Basic support
 x DPX: Industry specific header was not well decoded
 
 Version 0.7.44, 2011-04-19

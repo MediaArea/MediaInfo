@@ -427,6 +427,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_Exr.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Gif.cpp"
 					>
 				</File>
@@ -1027,6 +1031,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Dpx.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_Exr.h"
 					>
 				</File>
 				<File

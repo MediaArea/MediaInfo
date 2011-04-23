@@ -161,7 +161,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_xNO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
@@ -323,6 +323,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\File_Other.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File_Unknown.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Dpx.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Exr.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Tga.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" />
@@ -488,6 +489,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\File_Other.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File_Unknown.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dpx.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Exr.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Tga.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config.h" />
