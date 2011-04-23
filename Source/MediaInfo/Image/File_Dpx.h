@@ -46,6 +46,7 @@ public :
     
 private :
     //Streams management
+    void Streams_Accept();
     void Streams_Finish();
 
     //Buffer - File header
@@ -56,7 +57,6 @@ private :
     void Data_Parse();
 
     //Elements
-    void FileInformationHeader();
     void GenericSectionHeader();
     void GenericSectionHeader_ImageElement();
     void IndustrySpecificHeader();

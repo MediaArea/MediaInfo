@@ -264,7 +264,6 @@ const char* DPX_VideoSignalStandard(int8u i)
 
 enum Elements
 {
-    Pos_FileInformation,
     Pos_GenericSection,
     Pos_IndustrySpecific,
     Pos_UserDefined,
@@ -287,6 +286,12 @@ File_Dpx::File_Dpx()
 //***************************************************************************
 // Streams management
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Dpx::Streams_Accept()
+{
+    Fill(Stream_General, 0, General_Format, "DPX");
+}
 
 //---------------------------------------------------------------------------
 void File_Dpx::Streams_Finish()
@@ -312,7 +317,13 @@ bool File_Dpx::FileHeader_Begin()
 
     //All should be OK...
     Accept();
-    Fill(Stream_General, 0, General_Format, "DPX");
+
+    //Generic Section size
+    if (Buffer_Size<28)
+        return false; //Must wait for more data
+    Sizes.push_back(BigEndian2int32u(Buffer+24));
+    Sizes_Pos=Pos_GenericSection;
+
     return true;
 }
 
@@ -323,15 +334,6 @@ bool File_Dpx::FileHeader_Begin()
 //---------------------------------------------------------------------------
 void File_Dpx::Header_Parse()
 {
-    //There is no exact header, but a block order
-    if (Sizes.empty())
-    {
-        Sizes.push_back(768); //Fixed size
-        Sizes_Pos=Pos_FileInformation;
-    }
-    else
-        Sizes_Pos++; //We go automaticly to the next block
-        
     //Filling
     Header_Fill_Code(Sizes_Pos); //We use Sizes_Pos as the unique key
     Header_Fill_Size(Sizes[Sizes_Pos]);
@@ -340,12 +342,10 @@ void File_Dpx::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Dpx::Data_Parse()
 {
+    Sizes_Pos++; //We go automaticly to the next block
+
     switch (Element_Code)
     {
-        case Pos_FileInformation :  FileInformationHeader();
-                                    if (Sizes.size()<6) //Validity test of this block
-                                        Reject();    
-                                    break;
         case Pos_GenericSection   : GenericSectionHeader(); break;
         case Pos_IndustrySpecific : IndustrySpecificHeader(); break;
         case Pos_UserDefined      : UserDefinedHeader(); break;
@@ -374,11 +374,12 @@ void File_Dpx::Data_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Dpx::FileInformationHeader()
+void File_Dpx::GenericSectionHeader()
 {
-    Element_Name("File information");
+    Element_Name("Generic section header");
 
     //Parsing
+    Element_Begin("File information");
     std::string CreationDate, Creator, Project, Copyright; 
     int32u Size_Header, Size_Total, Size_Generic, Size_Industry, Size_User;
     Skip_String(4,                                              "Magic number");
@@ -396,36 +397,8 @@ void File_Dpx::FileInformationHeader()
     Get_String (200, Copyright,                                 "Right to use or copyright statement");
     Skip_B4(                                                    "Encryption key");
     Skip_XX(104,                                                "Reserved for future use");
+    Element_End();
 
-    FILLING_BEGIN();
-        //Coherency tests
-        if (Size_Generic+Size_Industry+Size_User>Size_Header || Size_Header>Size_Total)
-        {
-            Reject();
-            return;
-        }
-
-        //Filling sizes
-        Sizes.push_back(Size_Generic);
-        Sizes.push_back(Size_Industry);
-        Sizes.push_back(Size_User);
-        Sizes.push_back(Size_Header-(Size_Generic+Size_Industry+Size_User)); //Size of padding
-        Sizes.push_back(Size_Total-Size_Header); //Size of image
-
-        //Filling meta
-        Fill(Stream_General, 0, General_Encoded_Date, CreationDate); //ToDo: transform it in UTC
-        Fill(Stream_General, 0, General_Encoded_Library, Creator);
-        Fill(Stream_General, 0, "Project", Project); //ToDo: map to a MediaInfo field (which one?)
-        Fill(Stream_General, 0, General_Copyright, Copyright);
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Dpx::GenericSectionHeader()
-{
-    Element_Name("Generic section header");
-
-    //Parsing
     Element_Begin("Image information");
     int32u Width, Height, PAR_H, PAR_V;
     int16u ImageElements;
@@ -469,6 +442,25 @@ void File_Dpx::GenericSectionHeader()
     Element_End();
 
     FILLING_BEGIN();
+        //Coherency tests
+        if (Size_Generic+Size_Industry+Size_User>Size_Header || Size_Header>Size_Total)
+        {
+            Reject();
+            return;
+        }
+
+        //Filling sizes
+        Sizes.push_back(Size_Industry);
+        Sizes.push_back(Size_User);
+        Sizes.push_back(Size_Header-(Size_Generic+Size_Industry+Size_User)); //Size of padding
+        Sizes.push_back(Size_Total-Size_Header); //Size of image
+
+        //Filling meta
+        Fill(Stream_General, 0, General_Encoded_Date, CreationDate); //ToDo: transform it in UTC
+        Fill(Stream_General, 0, General_Encoded_Library, Creator);
+        Fill(Stream_General, 0, "Project", Project); //ToDo: map to a MediaInfo field (which one?)
+        Fill(Stream_General, 0, General_Copyright, Copyright);
+
         for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Image); StreamPos++) //This is for all images
         {
             Fill(Stream_Image, StreamPos, Image_Width, Width);
