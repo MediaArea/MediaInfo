@@ -1434,10 +1434,10 @@ void File_Ac3::Data_Parse()
 void File_Ac3::Core()
 {
     //Parsing
+    int8u  dialnorm=(int8u)-1, dialnorm2=(int8u)-1, compr=(int8u)-1, compr2=(int8u)-1, dynrng=(int8u)-1, dynrng2=(int8u)-1;
+    bool   compre=false, compr2e=false, dynrnge=false, dynrng2e=false;
     if (bsid<=0x08)
     {
-        int8u  dialnorm, dialnorm2=(int8u)-1, compr=(int8u)-1, compr2=(int8u)-1, dynrng=(int8u)-1, dynrng2=(int8u)-1;
-        bool   compre, compr2e=false, dynrnge, dynrng2e=false;
         Element_Begin("synchinfo");
             Skip_B2(                                                "syncword");
             Skip_B2(                                                "crc1");
@@ -1513,58 +1513,6 @@ void File_Ac3::Core()
             BS_End();
         Element_End();
         Skip_XX(Element_Size-Element_Offset,                        "audblk(continue)+5*audblk+auxdata+errorcheck");
-
-        FILLING_BEGIN();
-            //Specific to first frame
-            if (Frame_Count==0)
-            {
-                FirstFrame_Dolby.dialnorm=dialnorm;
-                if (compre)
-                    FirstFrame_Dolby.compr=compr;
-                if (dynrnge)
-                    FirstFrame_Dolby.dynrng=dynrng;
-                FirstFrame_Dolby.compre=compre;
-                FirstFrame_Dolby.dynrnge=dynrnge;
-                if (acmod==0) //1+1 mode
-                {
-                    FirstFrame_Dolby2.dialnorm=dialnorm2;
-                    if (compr2e)
-                        FirstFrame_Dolby2.compr=compr2;
-                    if (dynrng2e)
-                        FirstFrame_Dolby2.dynrng=dynrng2;
-                    FirstFrame_Dolby2.compre=compr2e;
-                    FirstFrame_Dolby2.dynrnge=dynrng2e;
-                }
-            }
-
-            //Stats
-            if (dialnorms.empty())
-                dialnorms.resize(32);
-            dialnorms[dialnorm]++;
-            if (compre)
-            {
-                if (comprs.empty())
-                    comprs.resize(256);
-                comprs[compr]++;
-            }
-            if (dynrnge)
-            {
-                //Saving new value
-                dynrnge_Exists=true;
-                dynrng_Old=dynrng;
-            }
-            if (!dynrnge)
-                dynrng=0;
-            if (dynrngs.empty())
-                dynrngs.resize(256);
-            dynrngs[dynrng]++;
-            if (acmod==0) //1+1 mode
-            {
-                if (dialnorm2s.empty())
-                    dialnorm2s.resize(32);
-                dialnorm2s[dialnorm2]++;
-            }
-        FILLING_END();
     }
     else if (bsid>0x0A && bsid<=0x10)
     {
@@ -1588,14 +1536,15 @@ void File_Ac3::Core()
             Get_S1 (3, acmod,                                       "acmod - Audio Coding Mode"); Param_Info(AC3_ChannelPositions[acmod]);
             Get_SB (   lfeon,                                       "lfeon - Low Frequency Effects");
             Get_S1 ( 5, bsid,                                       "bsid - Bit Stream Identification");
-            TEST_SB_SKIP(                                           "compre");
-                Skip_S1(8,                                          "compr");
+            Get_S1 ( 5, dialnorm,                                   "dialnorm");
+            TEST_SB_GET(compre,                                     "compre");
+                Get_S1 (8, compr,                                   "compr");
             TEST_SB_END();
             if (acmod==0) //1+1 mode
             {
-                Skip_SB(                                            "dialnorm2");
-                TEST_SB_SKIP(                                       "compr2e");
-                    Skip_S1(1,                                      "compr2");
+                Get_S1 (5, dialnorm2,                              "dialnorm2");
+                TEST_SB_GET(compr2e,                                "compr2e");
+                    Get_S1 (8, compr2,                              "compr2");
                 TEST_SB_END();
             }
             if (strmtyp==1) //dependent stream
@@ -1622,6 +1571,56 @@ void File_Ac3::Core()
     }
 
     FILLING_BEGIN();
+        //Specific to first frame
+        if (Frame_Count==0)
+        {
+            FirstFrame_Dolby.dialnorm=dialnorm;
+            if (compre)
+                FirstFrame_Dolby.compr=compr;
+            if (dynrnge)
+                FirstFrame_Dolby.dynrng=dynrng;
+            FirstFrame_Dolby.compre=compre;
+            FirstFrame_Dolby.dynrnge=dynrnge;
+            if (acmod==0) //1+1 mode
+            {
+                FirstFrame_Dolby2.dialnorm=dialnorm2;
+                if (compr2e)
+                    FirstFrame_Dolby2.compr=compr2;
+                if (dynrng2e)
+                    FirstFrame_Dolby2.dynrng=dynrng2;
+                FirstFrame_Dolby2.compre=compr2e;
+                FirstFrame_Dolby2.dynrnge=dynrng2e;
+            }
+        }
+
+        //Stats
+        if (dialnorms.empty())
+            dialnorms.resize(32);
+        dialnorms[dialnorm]++;
+        if (compre)
+        {
+            if (comprs.empty())
+                comprs.resize(256);
+            comprs[compr]++;
+        }
+        if (dynrnge)
+        {
+            //Saving new value
+            dynrnge_Exists=true;
+            dynrng_Old=dynrng;
+        }
+        if (!dynrnge)
+            dynrng=0;
+        if (dynrngs.empty())
+            dynrngs.resize(256);
+        dynrngs[dynrng]++;
+        if (acmod==0) //1+1 mode
+        {
+            if (dialnorm2s.empty())
+                dialnorm2s.resize(32);
+            dialnorm2s[dialnorm2]++;
+        }
+
         //Counting
         if (!Core_IsPresent)
         {
