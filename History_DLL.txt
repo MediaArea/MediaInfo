@@ -11,6 +11,7 @@ Version 0.7.45, 2011-
 --------------
 + MP4/MOV with uncompressed streams: scan type (interlaced/progressive)
 + YUV4MPEG2 (Y4M) support
++ GXF: more information about AES3 audio streams
 + EXR: Basic support
 + E-AC-3: dialnorm/dynrng (first frame / first block) information
 x DPX: Industry specific header was not well decoded

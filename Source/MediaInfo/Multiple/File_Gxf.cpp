@@ -44,6 +44,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if defined(MEDIAINFO_AES3_YES)
+    #include "MediaInfo/Audio/File_Aes3.h"
+#endif
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
@@ -428,7 +431,10 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
             }
 
-            Merge(*Temp.Parser, Stream_Audio, 0, StreamPos_Last);
+            Merge(*Temp.Parser, Stream_Audio, 0, StreamPos_Last, false);
+            for (std::map<std::string, Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); Info++)
+                if (Retrieve(Stream_Audio, StreamPos_Last, Info->first.c_str()).empty())
+                    Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second);
         }
 
         //Metadata
@@ -807,7 +813,6 @@ void File_Gxf::map()
                                     break;
                         case  9 :
                         case 10 :
-                        case 18 :  //PCM
                                     Streams[TrackID].Parser=new File__Analyze; //Filling with following data
                                     Open_Buffer_Init(Streams[TrackID].Parser);
                                     Streams[TrackID].Parser->Accept();
@@ -847,6 +852,12 @@ void File_Gxf::map()
                                     Streams[TrackID].Parser->Stream_Prepare(Stream_Audio);
                                     Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format, "AC-3");
                                     break;
+                        case 18 :   //AES3
+                                    Streams[TrackID].Parser=new File_Aes3;
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Parsers_Count++;
+                                    Streams[TrackID].Searching_Payload=true;
+                                    break;
                         case 21 :   //Ancillary Metadata
                                     Streams[TrackID].Parser=new File_Riff();
                                     ((File_Riff*)Streams[TrackID].Parser)->Ancillary=&Ancillary;
@@ -871,11 +882,11 @@ void File_Gxf::map()
                         {
                             case  9 :
                             case 18 :   //24-bit
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitDepth, 24);
+                                        Streams[TrackID].Infos["BitDepth"].From_Number(24);
                                         break;
                             case 10 :
                             case 17 :   //16-bit
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitDepth, 16);
+                                        Streams[TrackID].Infos["BitDepth"].From_Number(16);
                                         break;
                             default : ;
                         }
@@ -885,7 +896,10 @@ void File_Gxf::map()
                         {
                             case  9 :
                             case 10 :   //Mono
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Channel_s_, 1);
+                                        Streams[TrackID].Infos["Channel(s)"].From_Number(1);
+                                        break;
+                            case 18 :   //Stereo
+                                        Streams[TrackID].Infos["Channel(s)"].From_Number(2);
                                         break;
                             default : ;
                         }
@@ -895,8 +909,9 @@ void File_Gxf::map()
                         {
                             case  9 :
                             case 10 :
-                            case 17 :   //48000
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_SamplingRate, 48000);
+                            case 17 :
+                            case 18 :   //48000
+                                        Streams[TrackID].Infos["SamplingRate"].From_Number(48000);
                                         break;
                             default : ;
                         }
@@ -905,11 +920,14 @@ void File_Gxf::map()
                         switch (MediaType)
                         {
                             case  9 :
-                            case 17 :   //Mono, 48 KHz, 24-bit (or padded up to 24-bit)
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitRate, 1*48000*24);
-                                        break;
                             case 10 :   //Mono, 48 KHz, 16-bit
-                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitRate, 1*48000*16);
+                                        Streams[TrackID].Infos["BitRate"].From_Number(1*48000*16);
+                                        break;
+                            case 17 :   //Mono, 48 KHz, 24-bit (or padded up to 24-bit)
+                                        Streams[TrackID].Infos["BitRate"].From_Number(1*48000*24);
+                                        break;
+                            case 18 :   //Stereo, 48 KHz, 24-bit (or padded up to 24-bit)
+                                        Streams[TrackID].Infos["BitRate"].From_Number(2*48000*24);
                                         break;
                             default : ;
                         }
@@ -1130,7 +1148,7 @@ void File_Gxf::media()
     if (!Streams[TrackNumber].Searching_Payload)
     {
         Skip_XX(Element_Size-Element_Offset,                    "data");
-        Element_DoNotShow();
+        //Element_DoNotShow();
         return;
     }
 

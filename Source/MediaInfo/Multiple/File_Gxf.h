@@ -107,6 +107,7 @@ private :
         bool   Searching_TimeStamp_Start;
         bool   Searching_TimeStamp_End;
         Ztring MediaName;
+        std::map<std::string, Ztring> Infos;
 
         stream()
         {
