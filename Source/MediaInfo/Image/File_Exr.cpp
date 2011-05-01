@@ -31,6 +31,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Image/File_Exr.h"
+#if MEDIAINFO_DEMUX
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#endif //MEDIAINFO_DEMUX
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -71,9 +74,48 @@ File_Exr::File_Exr()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Exr::Streams_Accept()
+{
+    Fill(Stream_General, 0, General_Format, "EXR");
+    Stream_Prepare(Stream_Image);
+    Fill(Stream_Image, 0, Image_Format, "EXR");
+
+    //Configuration
+    Buffer_MaximumSize=64*1024*1024;
+    Frame_Count_NotParsedIncluded=0;
+}
+
+//---------------------------------------------------------------------------
 void File_Exr::Streams_Finish()
 {
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Exr::Demux_UnpacketizeContainer_Test()
+{
+    if (Buffer_Size<File_Size)
+        return false;
+
+    if (Config->Demux_Rate_Get())
+    {
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Config->Demux_Rate_Get());
+        else
+            FrameInfo.DTS=(int64u)-1;
+        FrameInfo.PTS=FrameInfo.DTS;
+        FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
+    }
+    Demux_random_access=true;
+    Demux(Buffer, Buffer_Size, ContentType_MainStream);
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer
@@ -94,9 +136,6 @@ bool File_Exr::FileHeader_Begin()
 
     //All should be OK...
     Accept();
-    Fill(Stream_General, 0, General_Format, "EXR");
-    Stream_Prepare(Stream_Image);
-    Fill(Stream_Image, 0, Image_Format, "EXR");
     return true;
 }
 
@@ -149,6 +188,7 @@ bool File_Exr::Header_Begin()
     }
     if (name_End==0)
     {
+        Frame_Count_NotParsedIncluded++;
         Finish();
         return false;
     }

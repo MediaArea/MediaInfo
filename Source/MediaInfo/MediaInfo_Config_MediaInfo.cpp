@@ -193,6 +193,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_FileName_Get();
     }
+    else if (Option_Lower==_T("file_filenameformat"))
+    {
+        File_FileNameFormat_Set(Value);
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_filenameformat_get"))
+    {
+        return File_FileNameFormat_Get();
+    }
     else if (Option_Lower==_T("file_timetolive"))
     {
         File_TimeToLive_Set(Ztring(Value).To_float64());
@@ -622,6 +631,23 @@ Ztring MediaInfo_Config_MediaInfo::File_FileName_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_FileName;
+}
+
+//***************************************************************************
+// File name format
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_FileNameFormat_Set (const Ztring &NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_FileNameFormat=NewValue;
+}
+
+Ztring MediaInfo_Config_MediaInfo::File_FileNameFormat_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_FileNameFormat;
 }
 
 //***************************************************************************

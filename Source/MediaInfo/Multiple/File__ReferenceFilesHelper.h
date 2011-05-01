@@ -1,4 +1,4 @@
-// File_Exr - Info for EXR files
+// File__ReferenceFilesHelper - class for analyzing/demuxing reference files
 // Copyright (C) 2011-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -17,66 +17,75 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about EXR files
-//
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_ExrH
-#define MediaInfo_File_ExrH
+#ifndef File__ReferenceFilesHelperH
+#define File__ReferenceFilesHelperH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#include <map>
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Exr
+// Class File__ReferenceFilesHelper
 //***************************************************************************
 
-class File_Exr : public File__Analyze
+class File__ReferenceFilesHelper
 {
 public :
-    //Constructor/Destructor
-    File_Exr();
-    
+    //In
+    struct reference
+    {
+        ZtringList          FileNames;
+        stream_t            StreamKind;
+        size_t              StreamPos;
+        Ztring              StreamID;
+        float64             FrameRate;
+        MediaInfo_Internal* MI;
+        #if MEDIAINFO_NEXTPACKET
+            std::bitset<32> Status;
+        #endif //MEDIAINFO_NEXTPACKET
+
+        reference()
+        {
+            FileNames.Separator_Set(0, _T(","));
+            StreamKind=Stream_Max;
+            StreamPos=(size_t)-1;
+            FrameRate=0;
+            MI=NULL;
+        }
+    };
+    typedef std::vector<reference>  references;
+    references                      References;
+
+    //Streams management
+    void ParseReferences();
+
+    //Constructor / Destructor
+    File__ReferenceFilesHelper(File__Analyze* MI, MediaInfo_Config_MediaInfo* Config);
+
 private :
     //Streams management
-    void Streams_Accept();
-    void Streams_Finish();
+    void ParseReference ();
+    void ParseReference_Finalize ();
 
-    //Buffer - Demux
-    #if MEDIAINFO_DEMUX
-    bool Demux_UnpacketizeContainer_Test();
-    #endif //MEDIAINFO_DEMUX
-
-    //Buffer - File header
-    bool FileHeader_Begin();
-    void FileHeader_Parse();
-
-    //Buffer - Per element
-    bool Header_Begin();
-    void Header_Parse();
-    void Data_Parse();
-
-    //Elements
-    void comments();
-    void compression();
-    void dataWindow();
-    void displayWindow();
-    void pixelAspectRatio();
-
-    //Temp
-    std::string         name;
-    std::string         type;
-    size_t              name_End;
-    size_t              type_End;
+    //temp
+    File__Analyze*                  MI;
+    MediaInfo_Config_MediaInfo*     Config;
+    references::iterator            Reference;
+    int64u                          File_Size_Total;
+    bool                            Init_Done;
+    bool                            Demux_Interleave;
+    size_t                          CountOfReferencesToParse;
 };
 
 } //NameSpace
 
 #endif
+

@@ -31,6 +31,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Image/File_Dpx.h"
+#if MEDIAINFO_DEMUX
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#endif //MEDIAINFO_DEMUX
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -291,12 +294,43 @@ File_Dpx::File_Dpx()
 void File_Dpx::Streams_Accept()
 {
     Fill(Stream_General, 0, General_Format, "DPX");
+
+    //Configuration
+    Buffer_MaximumSize=64*1024*1024;
+    Frame_Count_NotParsedIncluded=0;
 }
 
 //---------------------------------------------------------------------------
 void File_Dpx::Streams_Finish()
 {
 }
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_Dpx::Demux_UnpacketizeContainer_Test()
+{
+    if (Buffer_Size<File_Size)
+        return false;
+
+    if (Config->Demux_Rate_Get())
+    {
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Config->Demux_Rate_Get());
+        else
+            FrameInfo.DTS=(int64u)-1;
+        FrameInfo.PTS=FrameInfo.DTS;
+        FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
+    }
+    Demux_random_access=true;
+    Demux(Buffer, Buffer_Size, ContentType_MainStream);
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer
@@ -365,6 +399,8 @@ void File_Dpx::Data_Parse()
             Skip_XX(Sizes[Pos_Padding],                         "Padding");
         Skip_XX(Sizes[Pos_ImageData],                           "Image data");
 
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         Finish();
     }
 }
@@ -495,7 +531,6 @@ void File_Dpx::GenericSectionHeader_ImageElement()
     FILLING_BEGIN();
         Stream_Prepare(Stream_Image);
         Fill(Stream_Image, StreamPos_Last, Image_Format, "DPX");
-        Fill(Stream_Image, StreamPos_Last, Image_ID, StreamPos_Last); //No specific ID
         Fill(Stream_Image, StreamPos_Last, Image_BitDepth, BitDephs);
     FILLING_END();
 }

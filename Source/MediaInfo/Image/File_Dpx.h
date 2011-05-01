@@ -49,6 +49,11 @@ private :
     void Streams_Accept();
     void Streams_Finish();
 
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
     //Buffer - File header
     bool FileHeader_Begin();
 

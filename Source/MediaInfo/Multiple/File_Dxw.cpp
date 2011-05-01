@@ -1,4 +1,4 @@
-// File_P2_Clip - Info for P2 Clip (XML) files
+// File_Dxw - Info for DXW files
 // Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -33,6 +33,7 @@
 #include "MediaInfo/Multiple/File_Dxw.h"
 #include "MediaInfo/MediaInfo.h"
 #include "MediaInfo/MediaInfo_Internal.h"
+#include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/TinyXml/tinyxml.h"
@@ -49,124 +50,22 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Dxw::Streams_Finish()
 {
-    while (Reference!=References.end())
+    if (ReferenceFiles==NULL)
     {
-        Streams_Finish_ParseReference();
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_EventWasSent)
-                return;
-        #endif //MEDIAINFO_DEMUX
-        Reference++;
-    }
+        ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
-    if (File_Size_Total!=File_Size)
-        Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
-}
-
-//---------------------------------------------------------------------------
-void File_Dxw::Streams_Finish_ParseReference()
-{
-    if (MI==NULL)
-    {
-        //Configuring file name
-        Ztring Name=Reference->FileName;
-        if (Name.find(_T("file:"))==0)
+        for (references::iterator Reference=References.begin(); Reference!=References.end(); Reference++)
         {
-            Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
-            Name=ZenLib::Format::Http::URL_Encoded_Decode(Name);
-        }
-        Ztring AbsoluteName;
-        if (Name.find(_T(':'))!=1 && Name.find(_T("/"))!=0 && Name.find(_T("\\\\"))!=0) //If absolute patch
-        {
-            AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
-            if (!AbsoluteName.empty())
-                AbsoluteName+=ZenLib::PathSeparator;
-        }
-        AbsoluteName+=Name;
-        #ifdef __WINDOWS__
-            AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Name normalization
-        #endif //__WINDOWS__
-
-        if (AbsoluteName==File_Name)
-        {
-            if (StreamKind_Last!=Stream_Max)
-            {
-                Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Circular");
-                StreamKind_Last=Stream_Max;
-                StreamPos_Last=(size_t)-1;
-            }
-            return;
-        }
-
-        //Configuration
-        MI=new MediaInfo_Internal();
-        MI->Option(_T("File_KeepInfo"), _T("1"));
-        #if MEDIAINFO_NEXTPACKET
-            if (Config->NextPacket_Get())
-                MI->Option(_T("File_NextPacket"), _T("1"));
-        #endif //MEDIAINFO_NEXTPACKET
-        #if MEDIAINFO_EVENTS
-            if (Config->Event_CallBackFunction_IsSet())
-                MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-            MI->Option(_T("File_SubFile_StreamID_Set"), Ztring::ToZtring((size_t)(Reference-References.begin()+1)));
-        #endif //MEDIAINFO_EVENTS
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_Unpacketize_Get())
-                MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
-        #endif //MEDIAINFO_DEMUX
-
-        //Run
-        if (!MI->Open(AbsoluteName))
-        {
-            //Filling
-            if (StreamKind_Last!=Stream_Max)
-            {
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, Ztring::ToZtring((size_t)(Reference-References.begin()+1)));
-                Fill(StreamKind_Last, StreamPos_Last, "Source", (*Reference).FileName);
-                Fill(StreamKind_Last, StreamPos_Last, "Source_Info", "Missing");
-            }
-            delete MI; MI=NULL;
+            File__ReferenceFilesHelper::reference ReferenceFile;
+            ReferenceFile.FileNames=Reference->FileNames;
+            ReferenceFile.StreamKind=Reference->StreamKind;
+            ReferenceFile.FrameRate=Reference->FrameRate;
+            ReferenceFile.StreamID=Ztring::ToZtring((size_t)(Reference-References.begin())+1);
+            ReferenceFiles->References.push_back(ReferenceFile);
         }
     }
-
-    if (MI)
-    {
-        #if MEDIAINFO_NEXTPACKET
-            while (MI->Open_NextPacket()[8])
-            {
-                #if MEDIAINFO_DEMUX
-                    if (Config->Event_CallBackFunction_IsSet())
-                    {
-                        Config->Demux_EventWasSent=true;
-                        return;
-                    }
-                #endif //MEDIAINFO_DEMUX
-            }
-        #endif //MEDIAINFO_NEXTPACKET
-        Streams_Finish_ParseReference_Finalize();
-        delete MI; MI=NULL;
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Dxw::Streams_Finish_ParseReference_Finalize ()
-{
-    File_Size_Total+=Ztring(MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
-
-    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
-        for (size_t StreamPos=0; StreamPos<MI->Count_Get((stream_t)StreamKind); StreamPos++)
-        {
-            Stream_Prepare((stream_t)StreamKind);
-            Merge(*MI, StreamKind_Last, StreamPos, StreamPos_Last);
-            Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", MI->Get(Stream_General, 0, General_Format));
-            Fill(StreamKind_Last, StreamPos_Last, "Source", (*Reference).FileName);
-
-            //ID
-            Ztring ID=Ztring::ToZtring((size_t)(Reference-References.begin()+1));
-            if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
-                ID+=_T('-')+Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
-        }
+    
+    ReferenceFiles->ParseReferences();
 }
 
 //***************************************************************************
@@ -214,7 +113,7 @@ bool File_Dxw::FileHeader_Begin()
             Accept("DXW");
             Fill(Stream_General, 0, General_Format, "DXW");
 
-            File_Size_Total=File_Size;
+            //File_Size_Total=File_Size;
 
             TiXmlElement* Track=Root->FirstChildElement();
             while (Track)
@@ -225,7 +124,7 @@ bool File_Dxw::FileHeader_Begin()
                     if (Attribute)
                     {
                         reference Reference_Temp;
-                        Reference_Temp.FileName.From_UTF8(Attribute);
+                        Reference_Temp.FileNames.push_back(Ztring().From_UTF8(Attribute));
 
                         Attribute=Track->Attribute("type");
                         if (Attribute)
@@ -240,8 +139,42 @@ bool File_Dxw::FileHeader_Begin()
                         }
 
                         References.push_back(Reference_Temp);
-                        File_Dxw::Reference=References.begin();
-                        MI=NULL;
+                        ReferenceFiles=NULL;
+                    }
+
+                    Attribute=Track->Attribute("framerate");
+                    if (Attribute)
+                    {
+                        reference Reference_Temp;
+                        Reference_Temp.FrameRate=Ztring().From_UTF8(Attribute).To_float64();
+
+                        Attribute=Track->Attribute("type");
+                        if (Attribute)
+                        {
+                            Ztring StreamKind; StreamKind.From_UTF8(Attribute);
+                            if (StreamKind==_T("video"))
+                                 Reference_Temp.StreamKind=Stream_Video;
+                            if (StreamKind==_T("audio"))
+                                 Reference_Temp.StreamKind=Stream_Audio;
+                            if (StreamKind==_T("data"))
+                                 Reference_Temp.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
+                        }
+
+                        TiXmlElement* Frame=Track->FirstChildElement();
+                        while (Frame)
+                        {
+                            if (Frame->ValueStr()=="frame")
+                            {
+                                Attribute=Frame->Attribute("file");
+                                if (Attribute)
+                                    Reference_Temp.FileNames.push_back(Ztring().From_UTF8(Attribute));
+                            }
+
+                            Frame=Frame->NextSiblingElement();
+                        }
+
+                        References.push_back(Reference_Temp);
+                        ReferenceFiles=NULL;
                     }
                 }
 

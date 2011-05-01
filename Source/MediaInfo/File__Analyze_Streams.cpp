@@ -1287,7 +1287,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, bool Erase)
 size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase)
 {
     //Integrity
-    if (&ToAdd==NULL || StreamKind>=Stream_Max || !ToAdd.Stream || StreamPos_From>=(*ToAdd.Stream)[StreamKind].size())
+    if (!Status[IsAccepted] || &ToAdd==NULL || StreamKind>=Stream_Max || !ToAdd.Stream || StreamPos_From>=(*ToAdd.Stream)[StreamKind].size())
         return 0;
 
     //Destination
@@ -1295,7 +1295,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Stream_Prepare(StreamKind);
 
     //Specific stuff
-    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, Delay_Temp, Delay_Source_Temp, Delay_Settings_Temp;
+    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, Delay_Temp, Delay_Source_Temp, Delay_Settings_Temp, Source_Temp, Source_Kind_Temp, Source_Info_Temp;
     if (StreamKind==Stream_Video)
     {
         Width_Temp=Retrieve(Stream_Video, StreamPos_To, Video_Width);
@@ -1323,6 +1323,9 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Delay_Settings_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_Settings"); //We want to keep the Delay_Settings from the stream
         Delay_Source_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_Source"); //We want to keep the Delay_Source from the stream
     }
+    Source_Temp=Retrieve(StreamKind, StreamPos_To, "Source");
+    Source_Kind_Temp=Retrieve(StreamKind, StreamPos_To, "Source_Kind");
+    Source_Info_Temp=Retrieve(StreamKind, StreamPos_To, "Source_Info");
 
     //Merging
     size_t Count=0;
@@ -1330,7 +1333,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     for (size_t Pos=General_Inform; Pos<Size; Pos++)
     {
         const Ztring &ToFill_Value=ToAdd.Get(StreamKind, StreamPos_From, Pos);
-        if (!ToFill_Value.empty() && (Erase || Get(StreamKind, StreamPos_From, Pos).empty()))
+        if (!ToFill_Value.empty() && (Erase || Get(StreamKind, StreamPos_To, Pos).empty()))
         {
             if (Pos<MediaInfoLib::Config.Info_Get(StreamKind).size())
                 Fill(StreamKind, StreamPos_To, Pos, ToFill_Value, true);
@@ -1388,6 +1391,15 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Fill(StreamKind, StreamPos_To, "Delay_Settings", Delay_Settings_Temp, true);
         Fill(StreamKind, StreamPos_To, "Delay_Original_Source", Retrieve(StreamKind, StreamPos_To, "Delay_Source"), true);
         Fill(StreamKind, StreamPos_To, "Delay_Source", Delay_Source_Temp, true);
+    }
+    if (!Source_Temp.empty() && Source_Temp!=Retrieve(StreamKind, StreamPos_To, "Source"))
+    {
+        Fill(StreamKind, StreamPos_To, "Source_Original", Retrieve(StreamKind, StreamPos_To, "Source"), true);
+        Fill(StreamKind, StreamPos_To, "Source", Source_Temp, true);
+        Fill(StreamKind, StreamPos_To, "Source_Original_Kind", Retrieve(StreamKind, StreamPos_To, "Source_Kind"), true);
+        Fill(StreamKind, StreamPos_To, "Source_Kind", Source_Info_Temp, true);
+        Fill(StreamKind, StreamPos_To, "Source_Original_Info", Retrieve(StreamKind, StreamPos_To, "Source_Info"), true);
+        Fill(StreamKind, StreamPos_To, "Source_Info", Source_Info_Temp, true);
     }
 
     Fill(StreamKind, StreamPos_To, (size_t)General_Count, Count_Get(StreamKind, StreamPos_To), 10, true);

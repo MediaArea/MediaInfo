@@ -283,7 +283,20 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
     
     CS.Enter();
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open, File=");Debug+=Ztring(File_Name_).c_str();)
-    File_Name=File_Name_;
+    File_Names.clear();
+    if (Config.File_FileNameFormat_Get()==_T("CSV"))
+    {
+        File_Names.Separator_Set(0, _T(","));
+        File_Names.Write(File_Name_);
+    }
+    else if (!File_Name_.empty())
+        File_Names.push_back(File_Name_);
+    if (File_Names.empty())
+    {
+        CS.Leave();
+        return 0;
+    }
+    File_Names_Pos=1;
     CS.Leave();
 
     //Parsing
@@ -313,50 +326,50 @@ void MediaInfo_Internal::Entry()
 
         if (0);
     #if defined(MEDIAINFO_LIBCURL_YES)
-        else if ((File_Name.size()>=7
-          && File_Name[0]==_T('h')
-          && File_Name[1]==_T('t')
-          && File_Name[2]==_T('t')
-          && File_Name[3]==_T('p')
-          && File_Name[4]==_T(':')
-          && File_Name[5]==_T('/')
-          && File_Name[6]==_T('/'))
-         || (File_Name.size()>=6
-          && File_Name[0]==_T('f')
-          && File_Name[1]==_T('t')
-          && File_Name[2]==_T('p')
-          && File_Name[3]==_T(':')
-          && File_Name[4]==_T('/')
-          && File_Name[5]==_T('/')))
-            Reader_libcurl().Format_Test(this, File_Name);
+        else if ((File_Names[0].size()>=7
+          && File_Names[0][0]==_T('h')
+          && File_Names[0][1]==_T('t')
+          && File_Names[0][2]==_T('t')
+          && File_Names[0][3]==_T('p')
+          && File_Names[0][4]==_T(':')
+          && File_Names[0][5]==_T('/')
+          && File_Names[0][6]==_T('/'))
+         || (File_Names[0].size()>=6
+          && File_Names[0][0]==_T('f')
+          && File_Names[0][1]==_T('t')
+          && File_Names[0][2]==_T('p')
+          && File_Names[0][3]==_T(':')
+          && File_Names[0][4]==_T('/')
+          && File_Names[0][5]==_T('/')))
+            Reader_libcurl().Format_Test(this, File_Names[0]);
     #endif //MEDIAINFO_LIBCURL_YES
 
     #if defined(MEDIAINFO_LIBMMS_YES)
-        else if ((File_Name.size()>=6
-          && File_Name[0]==_T('m')
-          && File_Name[1]==_T('m')
-          && File_Name[2]==_T('s')
-          && File_Name[3]==_T(':')
-          && File_Name[4]==_T('/')
-          && File_Name[5]==_T('/'))
-         || (File_Name.size()>=7
-          && File_Name[0]==_T('m')
-          && File_Name[1]==_T('m')
-          && File_Name[2]==_T('s')
-          && File_Name[3]==_T('h')
-          && File_Name[4]==_T(':')
-          && File_Name[5]==_T('/')
-          && File_Name[6]==_T('/')))
-            Reader_libmms().Format_Test(this, File_Name);
+        else if ((File_Names[0].size()>=6
+          && File_Names[0][0]==_T('m')
+          && File_Names[0][1]==_T('m')
+          && File_Names[0][2]==_T('s')
+          && File_Names[0][3]==_T(':')
+          && File_Names[0][4]==_T('/')
+          && File_Names[0][5]==_T('/'))
+         || (File_Names[0].size()>=7
+          && File_Names[0][0]==_T('m')
+          && File_Names[0][1]==_T('m')
+          && File_Names[0][2]==_T('s')
+          && File_Names[0][3]==_T('h')
+          && File_Names[0][4]==_T(':')
+          && File_Names[0][5]==_T('/')
+          && File_Names[0][6]==_T('/')))
+            Reader_libmms().Format_Test(this, File_Names[0]);
     #endif //MEDIAINFO_LIBMMS_YES
 
     #if defined(MEDIAINFO_DIRECTORY_YES)
-        else if (Dir::Exists(File_Name))
-            Reader_Directory().Format_Test(this, File_Name);
+        else if (Dir::Exists(File_Names[0]))
+            Reader_Directory().Format_Test(this, File_Names[0]);
     #endif //MEDIAINFO_DIRECTORY_YES
 
     #if defined(MEDIAINFO_FILE_YES)
-        else if (File::Exists(File_Name))
+        else if (File::Exists(File_Names[0]))
         {
             CS.Enter();
             if (Reader)
@@ -367,7 +380,7 @@ void MediaInfo_Internal::Entry()
             Reader=new Reader_File();
             CS.Leave();
 
-            Reader->Format_Test(this, File_Name);
+            Reader->Format_Test(this, File_Names[0]);
 
             #if MEDIAINFO_NEXTPACKET
                 if (Config.NextPacket_Get())
@@ -597,6 +610,20 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
     std::bitset<32> ToReturn=Info==NULL?std::bitset<32>(0x0F):Info->Status;
     if (Demux_EventWasSent)
         ToReturn[8]=true; //bit 8 is for the reception of a frame
+    
+    #if MEDIAINFO_DEMUX
+        //Multiple images
+        if (File_Names_Pos<File_Names.size() && Config.Demux_EventWasSent)
+        {
+            delete Reader; Reader=new Reader_File();
+            Reader->Format_Test(this, File_Names[File_Names_Pos]);
+            Info->Frame_Count_NotParsedIncluded=File_Names_Pos;
+            File_Names_Pos++;
+            Info->Status.reset(File__Analyze::IsFinished);
+            ToReturn.reset(File__Analyze::IsFinished);
+        }
+    #endif //MEDIAINFO_DEMUX
+
     return ToReturn;
 }
 

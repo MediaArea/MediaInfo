@@ -1,4 +1,4 @@
-// File_P2_Clip - Info for P2 Clip (XML) files
+// File_Dxw - Info for DXW files
 // Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -34,6 +34,8 @@
 namespace MediaInfoLib
 {
 
+class File__ReferenceFilesHelper;
+
 //***************************************************************************
 // Class File_Dxw
 //***************************************************************************
@@ -43,8 +45,6 @@ class File_Dxw : public File__Analyze
 private :
     //Streams management
     void Streams_Finish ();
-    void Streams_Finish_ParseReference ();
-    void Streams_Finish_ParseReference_Finalize ();
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -52,19 +52,19 @@ private :
     //Temp
     struct reference
     {
-        Ztring      FileName;
+        ZtringList  FileNames;
         stream_t    StreamKind;
+        float64     FrameRate;
 
         reference()
         {
             StreamKind=Stream_Max;
+            FrameRate=0;
         }
     };
-    typedef std::vector<reference> references;
-    references              References;
-    references::iterator    Reference;
-    MediaInfo_Internal*     MI;
-    int64u                  File_Size_Total;
+    typedef std::vector<reference>  references;
+    references                      References;
+    File__ReferenceFilesHelper*     ReferenceFiles;
 };
 
 } //NameSpace

@@ -85,6 +85,9 @@ public :
     void          File_FileName_Set (const Ztring &NewValue);
     Ztring        File_FileName_Get ();
 
+    void          File_FileNameFormat_Set (const Ztring &NewValue);
+    Ztring        File_FileNameFormat_Get ();
+
     void          File_TimeToLive_Set (float64 NewValue);
     float64       File_TimeToLive_Get ();
 
@@ -200,6 +203,7 @@ private :
     bool                    File_Demux_Interleave;
     bool                    File_ID_OnlyRoot;
     Ztring                  File_FileName;
+    Ztring                  File_FileNameFormat;
     float64                 File_TimeToLive;
     Ztring                  File_Partial_Begin;
     Ztring                  File_Partial_End;

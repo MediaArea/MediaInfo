@@ -228,16 +228,19 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
         }
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_EVENTS
-        int64u SubFile_StreamID=Config->SubFile_StreamID_Get();
-        if (SubFile_StreamID!=(int64u)-1)
+        if (!IsSub)
         {
-            StreamIDs_Size=2;
-            StreamIDs[1]=StreamIDs[0];
-            StreamIDs_Width[1]=StreamIDs_Width[0];
-            StreamIDs[0]=SubFile_StreamID;
-            StreamIDs_Width[0]=8;
-            ParserIDs[1]=ParserIDs[0];
-            ParserIDs[0]=0x00;
+            int64u SubFile_StreamID=Config->SubFile_StreamID_Get();
+            if (SubFile_StreamID!=(int64u)-1)
+            {
+                StreamIDs_Size=2;
+                StreamIDs[1]=StreamIDs[0];
+                StreamIDs_Width[1]=StreamIDs_Width[0];
+                StreamIDs[0]=SubFile_StreamID;
+                StreamIDs_Width[0]=8;
+                ParserIDs[1]=ParserIDs[0];
+                ParserIDs[0]=0x00;
+            }
         }
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_IBI
@@ -496,7 +499,8 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     if (Sub->Buffer_Size)
     {
         Sub->FrameInfo_Previous=Sub->FrameInfo;
-        Sub->FrameInfo=frame_info();
+        Sub->FrameInfo=Sub->FrameInfo_Next;
+        Sub->FrameInfo_Next=frame_info();
     }
 
     #if MEDIAINFO_TRACE
@@ -544,13 +548,17 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
     if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
         return false; //Finish
     #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent)
+        if (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
             return false;
     #endif //MEDIAINFO_DEMUX
 
     //Parsing;
     while (Buffer_Parse());
     Buffer_TotalBytes+=Buffer_Offset;
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
+            return false;
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing specific
     Read_Buffer_AfterParsing();
@@ -913,10 +921,6 @@ bool File__Analyze::Synchro_Manage()
             Synched_Init();
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
-
-            //TimeStamps
-            if (FrameInfo.DTS==(int64u)-1)
-                FrameInfo.DTS=0;
         }
         if (!Synchro_Manage_Test())
             return false;
@@ -985,12 +989,26 @@ bool File__Analyze::Synchro_Manage_Test()
 bool File__Analyze::FileHeader_Manage()
 {
     //From the parser
-    if (!FileHeader_Begin())
+    if (!Status[IsAccepted] && !FileHeader_Begin())
     {
         if (Status[IsFinished]) //Newest parsers set this bool if there is an error
             Reject();
         return false; //Wait for more data
     }
+
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+            return false;
+
+        if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+        {
+            if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
+            {
+                Demux_Offset-=Buffer_Offset;
+                return false; //Wait for more data
+            }
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //From the parser
     Element_Size=Buffer_Size;
@@ -1080,7 +1098,7 @@ bool File__Analyze::Header_Manage()
 
     if (Element_IsWaitingForMoreData() || (DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size) //Wait or want to have a comple data chunk
         #if MEDIAINFO_DEMUX
-            || (Config->Demux_EventWasSent)
+            || (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
         #endif //MEDIAINFO_DEMUX
     )
     {
@@ -1275,7 +1293,7 @@ bool File__Analyze::Data_Manage()
     Element_Offset=0;
 
     #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent)
+        if (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
         {
             if (!Element_WantNextLevel)
                 Element_End();

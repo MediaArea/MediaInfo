@@ -286,6 +286,9 @@
 
 //---------------------------------------------------------------------------
 // Multiple
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_REFERENCES_NO) && !defined(MEDIAINFO_REFERENCES_YES)
+    #define MEDIAINFO_REFERENCES_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_ANCILLARY_NO) && !defined(MEDIAINFO_ANCILLARY_YES)
     #define MEDIAINFO_ANCILLARY_YES
 #endif

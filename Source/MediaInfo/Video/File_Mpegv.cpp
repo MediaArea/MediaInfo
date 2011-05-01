@@ -335,6 +335,7 @@ File_Mpegv::File_Mpegv()
     SizeToAnalyse_End=1*1024*1024;
     Searching_TimeStamp_Start_DoneOneTime=false;
     sequence_header_IsParsed=false;
+    FrameInfo.DTS=0;
     Parsing_End_ForDTS=false;
 }
 
