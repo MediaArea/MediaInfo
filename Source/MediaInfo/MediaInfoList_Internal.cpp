@@ -317,12 +317,6 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
         }
         if (XML) Retour+=_T("</Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
         else Retour+=MediaInfo_Custom_View("Page_End");//
-        Retour.FindAndReplace(_T("\\r\\n"), _T("\n"), 0, Ztring_Recursive);
-        Retour.FindAndReplace(_T("\\r"), _T("\n"), 0, Ztring_Recursive);
-        Retour.FindAndReplace(_T("\\n"), _T("\n"), 0, Ztring_Recursive);
-        Retour.FindAndReplace(_T("\r\n"), _T("\n"), 0, Ztring_Recursive);
-        Retour.FindAndReplace(_T("\r"), _T("\n"), 0, Ztring_Recursive);
-        Retour.FindAndReplace(_T("\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
         return Retour.c_str();
     }
 
