@@ -919,12 +919,11 @@ void File_Gxf::map()
                         //Bit rate
                         switch (MediaType)
                         {
-                            case  9 :
+                            case  9 :   //Mono, 48 KHz, 24-bit (or padded up to 24-bit)
+                                        Streams[TrackID].Infos["BitRate"].From_Number(1*48000*24);
+                                        break;
                             case 10 :   //Mono, 48 KHz, 16-bit
                                         Streams[TrackID].Infos["BitRate"].From_Number(1*48000*16);
-                                        break;
-                            case 17 :   //Mono, 48 KHz, 24-bit (or padded up to 24-bit)
-                                        Streams[TrackID].Infos["BitRate"].From_Number(1*48000*24);
                                         break;
                             case 18 :   //Stereo, 48 KHz, 24-bit (or padded up to 24-bit)
                                         Streams[TrackID].Infos["BitRate"].From_Number(2*48000*24);
