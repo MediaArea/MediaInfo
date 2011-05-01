@@ -467,6 +467,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp"
 					>
 				</File>
@@ -1069,6 +1073,10 @@
 			<Filter
 				Name="Multiple"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h"
 					>

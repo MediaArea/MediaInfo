@@ -540,6 +540,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Exr.cpp">
       <Filter>Source Files\Image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -979,6 +982,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Exr.h">
       <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.h">
+      <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

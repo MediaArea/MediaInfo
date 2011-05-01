@@ -47,7 +47,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO"
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
@@ -922,6 +922,10 @@
 				Name="Multiple"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp"
 					>
 				</File>
@@ -1569,6 +1573,10 @@
 			<Filter
 				Name="Multiple"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h"
 					>
