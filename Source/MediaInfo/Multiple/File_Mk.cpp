@@ -282,7 +282,12 @@ void File_Mk::Streams_Finish()
 
     //Attachements
     for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
-        Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
+    {
+        if (Ztring(AttachedFiles[Pos]).MakeLowerCase().find(_T("cover"))==string::npos)
+            Fill(Stream_General, 0, "Attachement", AttachedFiles[Pos]);
+        else
+            Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
+    }
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -793,8 +798,6 @@ void File_Mk::Data_Parse()
                 ATOM_END_MK
             ATOM_END_MK
         ATOM_END_MK
-    DATA_DEFAULT
-        Finish("Matroska");
     DATA_END_DEFAULT
 }
 
@@ -921,6 +924,9 @@ void File_Mk::Ebml_DocTypeReadVersion()
 void File_Mk::Segment()
 {
     Element_Name("Segment");
+
+    Segment_Offset_Begin=File_Offset+Buffer_Offset;
+    Segment_Offset_End=File_Offset+Buffer_Offset+Element_TotalSize_Get();
 }
 
 void File_Mk::Segment_Attachements()
@@ -1282,7 +1288,15 @@ void File_Mk::Segment_Cluster()
         if (Stream_Count==0)
         {
             //Jumping
-            Finish("Matroska");//Skip_XX(Element_TotalSize_Get(),                        "Data");
+            std::sort(Segment_Seeks.begin(), Segment_Seeks.end());
+            for (size_t Pos=0; Pos<Segment_Seeks.size(); Pos++)
+                if (Segment_Seeks[Pos]>File_Offset+Buffer_Offset+Element_Size)
+                {
+                    GoTo(Segment_Seeks[Pos]);
+                    break;
+                }
+            if (File_GoTo==(int64u)-1)
+                GoTo(Segment_Offset_End);
             return;
         }
     }
@@ -1453,11 +1467,15 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
     if (Stream_Count==0)
     {
         //Jumping
-        Element_Show();
-        Element_End(); //Block
-        Info("Cluster, no need of more");
-        Element_End(); //BlockGroup
-        Finish("Matroska"); //GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get());
+        std::sort(Segment_Seeks.begin(), Segment_Seeks.end());
+        for (size_t Pos=0; Pos<Segment_Seeks.size(); Pos++)
+            if (Segment_Seeks[Pos]>File_Offset+Buffer_Offset+Element_Size)
+            {
+                GoTo(Segment_Seeks[Pos]);
+                break;
+            }
+        if (File_GoTo==(int64u)-1)
+            GoTo(Segment_Offset_End);
     }
 
     Element_Show(); //For debug
@@ -1831,6 +1849,8 @@ void File_Mk::Segment_Info_WritingApp()
 void File_Mk::Segment_SeekHead()
 {
     Element_Name("SeekHead");
+
+    Segment_Seeks.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -1855,19 +1875,26 @@ void File_Mk::Segment_SeekHead_Seek_SeekPosition()
     Element_Name("SeekPosition");
 
     //Parsing
-    UInteger_Info();
+    int64u Data=UInteger_Get();
+
+    Segment_Seeks.push_back(Segment_Offset_Begin+Data);
+    Element_Info(Ztring::ToZtring(Segment_Offset_Begin+Data, 16));
 }
 
 //---------------------------------------------------------------------------
 void File_Mk::Segment_Tags()
 {
     Element_Name("Tags");
+
+    Segment_Tag_SimpleTag_TagNames.clear();
 }
 
 //---------------------------------------------------------------------------
 void File_Mk::Segment_Tags_Tag()
 {
     Element_Name("Tag");
+
+    Segment_Tag_TrackUID=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -1898,7 +1925,7 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagLanguage()
     Get_Local(Element_Size, Data,                              "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
+        //Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
     FILLING_END();
 }
 
@@ -1908,7 +1935,10 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagName()
     Element_Name("TagName");
 
     //Parsing
-    UTF8_Info();
+    Ztring TagName=UTF8_Get();
+
+    Segment_Tag_SimpleTag_TagNames.resize(Element_Level-5); //5 is the first level of a tag
+    Segment_Tag_SimpleTag_TagNames.push_back(TagName);
 }
 
 //---------------------------------------------------------------------------
@@ -1917,7 +1947,54 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagString()
     Element_Name("TagString");
 
     //Parsing
-    UTF8_Info();
+    Ztring TagString;
+    TagString=UTF8_Get();
+
+    if (Segment_Tag_SimpleTag_TagNames.empty())
+        return;
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("BITSPS")) return; //Useless
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("BPS")) return; //Useless
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("COMPATIBLE_BRANDS")) return; //QuickTime techinical info, useless
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("CREATION_TIME")) {Segment_Tag_SimpleTag_TagNames[0]=_T("Encoded_Date"); TagString.insert(0, _T("UTC "));}
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("DATE_DIGITIZED")) {Segment_Tag_SimpleTag_TagNames[0]=_T("Mastered_Date"); TagString.insert(0, _T("UTC "));}
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("ENCODED_BY")) Segment_Tag_SimpleTag_TagNames[0]=_T("EncodedBy");
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("ENCODER")) Segment_Tag_SimpleTag_TagNames[0]=_T("Encoded_Library");
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("FPS")) return; //Useless
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("LANGUAGE")) Segment_Tag_SimpleTag_TagNames[0]=_T("Language");
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("MAJOR_BRAND")) return; //QuickTime techinical info, useless
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("MINOR_VERSION")) return; //QuickTime techinical info, useless
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("ORIGINAL_MEDIA_TYPE")) Segment_Tag_SimpleTag_TagNames[0]=_T("OriginalSourceForm");
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("TERMS_OF_USE")) Segment_Tag_SimpleTag_TagNames[0]=_T("TermsOfUse");
+    for (size_t Pos=1; Pos<Segment_Tag_SimpleTag_TagNames.size(); Pos++)
+    {
+        if (Segment_Tag_SimpleTag_TagNames[Pos]==_T("BARCODE")) Segment_Tag_SimpleTag_TagNames[Pos]=_T("BarCode");
+        if (Segment_Tag_SimpleTag_TagNames[Pos]==_T("COMMENT")) Segment_Tag_SimpleTag_TagNames[Pos]=_T("Comment");
+        if (Segment_Tag_SimpleTag_TagNames[Pos]==_T("URL")) Segment_Tag_SimpleTag_TagNames[Pos]=_T("Url");
+    }
+
+    Ztring TagName;
+    for (size_t Pos=0; Pos<Segment_Tag_SimpleTag_TagNames.size(); Pos++)
+    {
+        TagName+=Segment_Tag_SimpleTag_TagNames[Pos];
+        if (Pos+1<Segment_Tag_SimpleTag_TagNames.size())
+            TagName+=_T('/');
+    }
+
+    StreamKind_Last=Stream_General;
+    StreamPos_Last=0;
+    if (Segment_Tag_TrackUID!=(int64u)-1 && Segment_Tag_TrackUID!=0)//0: Specs say this is for all tracks, but I prefer to wait for a sample in order to see how it is used in the reality
+    {
+        Ztring ID=Ztring::ToZtring(Segment_Tag_TrackUID);
+        for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+            for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                if (Retrieve((stream_t)StreamKind, StreamPos, General_ID)==ID)
+                {
+                    StreamKind_Last=(stream_t)StreamKind;
+                    StreamPos_Last=StreamPos;
+                }
+    }
+
+    Fill(StreamKind_Last, StreamPos_Last, TagName.To_Local().c_str(), TagString, true);
 }
 
 //---------------------------------------------------------------------------
@@ -1960,6 +2037,9 @@ void File_Mk::Segment_Tags_Tag_Targets_TargetTypeValue()
 void File_Mk::Segment_Tags_Tag_Targets_TrackUID()
 {
     Element_Name("TrackUID");
+
+    //Parsing
+    Segment_Tag_TrackUID=UInteger_Get();
 }
 
 //---------------------------------------------------------------------------

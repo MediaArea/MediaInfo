@@ -331,6 +331,11 @@ private :
     size_t EditionEntries_Pos;
     size_t ChapterAtoms_Pos;
     size_t ChapterDisplays_Pos;
+    int64u              Segment_Offset_Begin;
+    int64u              Segment_Offset_End;
+    std::vector<int64u> Segment_Seeks;
+    int64u              Segment_Tag_TrackUID;
+    std::vector<Ztring> Segment_Tag_SimpleTag_TagNames;
 };
 
 } //NameSpace
