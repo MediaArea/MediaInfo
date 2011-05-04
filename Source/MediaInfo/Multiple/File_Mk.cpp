@@ -280,11 +280,11 @@ void File_Mk::Streams_Finish()
         }
     }
 
-    //Attachements
+    //Attachments
     for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
     {
         if (Ztring(AttachedFiles[Pos]).MakeLowerCase().find(_T("cover"))==string::npos)
-            Fill(Stream_General, 0, "Attachement", AttachedFiles[Pos]);
+            Fill(Stream_General, 0, "Attachment", AttachedFiles[Pos]);
         else
             Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
     }
