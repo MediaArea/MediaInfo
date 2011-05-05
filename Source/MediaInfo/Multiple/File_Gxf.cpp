@@ -1067,7 +1067,7 @@ void File_Gxf::media()
         Get_B1 (TrackNumber,                                    "Track number");
         #if MEDIAINFO_DEMUX
             Get_B4 (MediaFieldNumber,                           "Media field number");
-        #else MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+        #else //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
             Skip_B4(                                            "Media field number");
         #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
         Skip_B1(                                                "Field information");

@@ -34,6 +34,7 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
+#include "ZenLib/File.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
