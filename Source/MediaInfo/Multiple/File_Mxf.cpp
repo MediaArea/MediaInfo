@@ -1568,7 +1568,7 @@ void File_Mxf::Streams_Finish_ParseLocator()
     if (Locator->second.MI)
     {
         #if MEDIAINFO_NEXTPACKET
-            if (Config->Event_CallBackFunction_IsSet() && !Locator->second.Status[IsFinished])
+            if (Config->NextPacket_Get() && !Locator->second.Status[IsFinished])
             {
                 #if MEDIAINFO_DEMUX
 					while ((Locator->second.Status=Locator->second.MI->Open_NextPacket())[8])
