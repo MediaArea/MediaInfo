@@ -141,6 +141,14 @@ namespace Elements
     const int16u COM =0xFFFE;
 }
 
+//---------------------------------------------------------------------------
+// Borland C++ does not accept local template
+struct Jpeg_samplingfactor
+{
+    int8u Hi;
+    int8u Vi;
+};
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -622,7 +630,7 @@ void File_Jpeg::SOD()
 void File_Jpeg::SOF_()
 {
     //Parsing
-    vector<float> SamplingFactors;
+    vector<Jpeg_samplingfactor> SamplingFactors;
     int8u SamplingFactors_Max=0;
     int16u Height, Width;
     int8u  Resolution, Count;
@@ -632,23 +640,18 @@ void File_Jpeg::SOF_()
     Get_B1 (Count,                                              "Nf - Number of image components in frame");
     for (int8u Pos=0; Pos<Count; Pos++)
     {
-        int8u Hi, Vi;
+        Jpeg_samplingfactor SamplingFactor;
         Element_Begin("Component");
         Info_B1(Ci,                                             "Ci - Component identifier"); Element_Info(Ci);
         BS_Begin();
-        Get_S1 (4, Hi,                                          "Hi - Horizontal sampling factor"); Element_Info(Hi);
-        Get_S1 (4, Vi,                                          "Vi - Vertical sampling factor"); Element_Info(Vi);
+        Get_S1 (4, SamplingFactor.Hi,                           "Hi - Horizontal sampling factor"); Element_Info(SamplingFactor.Hi);
+        Get_S1 (4, SamplingFactor.Vi,                           "Vi - Vertical sampling factor"); Element_Info(SamplingFactor.Vi);
         BS_End();
         Skip_B1(                                                "Tqi - Quantization table destination selector");
         Element_End();
 
         //Filling list of HiVi
-        if (Vi)
-        {
-            SamplingFactors.push_back(((float)Hi)/Vi);
-            if (((float)Hi)/Vi>SamplingFactors_Max)
-                SamplingFactors_Max=(int8u)((float)Hi)/Vi;
-        }
+        SamplingFactors.push_back(SamplingFactor);
     }
 
     FILLING_BEGIN_PRECISE();
@@ -670,22 +673,37 @@ void File_Jpeg::SOF_()
             Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
 
             //Chroma subsampling
-            if (SamplingFactors_Max)
-                while (SamplingFactors_Max<4)
-                {
-                    for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-                        SamplingFactors[Pos]*=2;
-                    SamplingFactors_Max*=2;
-                }
-            while (SamplingFactors.size()<3)
-                SamplingFactors.push_back(0);
-            Ztring ChromaSubsampling;
-            for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-                ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
-            if (!ChromaSubsampling.empty())
+            if (SamplingFactors.size()==3 && SamplingFactors[1].Hi==1 && SamplingFactors[2].Hi==1 && SamplingFactors[1].Vi==1 && SamplingFactors[2].Vi==1)
             {
-                ChromaSubsampling.resize(ChromaSubsampling.size()-1);
-                Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
+                string ChromaSubsampling;
+                switch (SamplingFactors[0].Hi)
+                {
+                    case 1 :
+                            switch (SamplingFactors[0].Vi)
+                            {
+                                case 1 : ChromaSubsampling="4:4:4"; break;
+                                default: ;
+                            }
+                            break;
+                    case 2 :
+                            switch (SamplingFactors[0].Vi)
+                            {
+                                case 1 : ChromaSubsampling="4:2:2"; break;
+                                case 2 : ChromaSubsampling="4:2:0"; break;
+                                default: ;
+                            }
+                            break;
+                    case 4 :
+                            switch (SamplingFactors[0].Vi)
+                            {
+                                case 1 : ChromaSubsampling="4:1:1"; break;
+                                default: ;
+                            }
+                            break;
+                    default: ;
+                }
+                if (!ChromaSubsampling.empty())
+                    Fill(StreamKind, 0, "ChromaSubsampling", ChromaSubsampling);
             }
         }
     FILLING_END();
