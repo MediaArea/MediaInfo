@@ -45,6 +45,9 @@
     #include "MediaInfo/Reader/Reader_libmms.h"
 #endif
 #include <cmath>
+#ifdef MEDIAINFO_DEBUG_WARNING_GET
+    #include <iostream>
+#endif //MEDIAINFO_DEBUG_WARNING_GET
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -163,7 +166,7 @@ namespace MediaInfo_Debug_MediaInfo_Internal
                     Debug_Output_Pos_Sizes.resize(Pos+1); \
                     Debug_Output_Pos_Sizes[Pos]=new File(); \
                     Debug_Output_Pos_Pointer.resize(Pos+1); \
-                    Debug_Output_Pos_Pointer[Pos]=(void*)Ztring(Value).SubString(_T("memory:/""/"), _T(":")).To_int64u(); \
+                    Debug_Output_Pos_Pointer[Pos]=(void*)Ztring(Value).SubString(_T("memory://"), _T(":")).To_int64u(); \
                 } \
             } \
             EXECUTE_STRING(_VALUE, _DEBUGB) \
@@ -177,7 +180,7 @@ namespace MediaInfo_Debug_MediaInfo_Internal
     #define MEDIAINFO_DEBUG_OUTPUT_VALUE(_VALUE, _METHOD) \
         { \
             size_t ByteCount=Info->Output_Buffer_Get(Value); \
-            void* ValueH=(void*)Ztring(Value).SubString(_T("memory:/""/"), _T(":")).To_int64u(); \
+            void* ValueH=(void*)Ztring(Value).SubString(_T("memory://"), _T(":")).To_int64u(); \
             map<void*, File>::iterator F_Stream=Debug_Output_Value_Stream.find(ValueH); \
             if (F_Stream!=Debug_Output_Value_Stream.end()) \
             { \
@@ -762,7 +765,7 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
     if (StreamKind>=Stream_Max || StreamPos>=Stream[StreamKind].size() || KindOfInfo>=Info_Max)
     {
         CS.Leave();
-        EXECUTE_STRING(MediaInfoLib::Config.EmptyString_Get(), Debug+=_T("Get, will return empty string");) //Parameter is unknown
+        EXECUTE_STRING(MediaInfoLib::Config.EmptyString_Get(), Debug+=_T("Get, stream and/or pos is invalid will return empty string");) //Parameter is unknown
     }
 
     //Special cases
@@ -784,11 +787,15 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
         ParameterI=Stream_More[StreamKind][StreamPos].Find(Parameter, KindOfSearch);
         if (ParameterI==Error)
         {
+            #ifdef MEDIAINFO_DEBUG_WARNING_GET
+                std::cerr<<"MediaInfo: Warning, Get(), parameter \""<<Ztring(Parameter).To_Local()<<"\""<<std::endl;
+            #endif //MEDIAINFO_DEBUG_WARNING_GET
+
             if (Info)
                  EXECUTE_STRING(Info->Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch), Debug+=_T("Get, will return from parser ");) //Parameter is unknown, trying parser
             
             CS.Leave();
-            EXECUTE_STRING(MediaInfoLib::Config.EmptyString_Get(), Debug+=_T("Get, will return empty string");) //Parameter is unknown
+            EXECUTE_STRING(MediaInfoLib::Config.EmptyString_Get(), Debug+=_T("Get, parameter is unknown, will return empty string");) //Parameter is unknown
         }
         CS.Leave();
         CriticalSectionLocker CSL(CS);

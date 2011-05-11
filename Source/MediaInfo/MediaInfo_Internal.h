@@ -32,6 +32,7 @@
 //#define MEDIAINFO_DEBUG_CONFIG
 //#define MEDIAINFO_DEBUG_BUFFER
 //#define MEDIAINFO_DEBUG_OUTPUT
+//#define MEDIAINFO_DEBUG_WARNING_GET
 // For developper: customization of traces
 #ifdef MEDIAINFO_DEBUG_BUFFER
     const size_t MEDIAINFO_DEBUG_BUFFER_SAVE_FileSize=128*1024*1024;
