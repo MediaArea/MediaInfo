@@ -851,7 +851,7 @@ void File_Lxf::Video_Stream(size_t Pos)
         }
     #endif //MEDIAINFO_DEMUX
 
-    if (Video_Sizes[Pos]==120000)
+    if (Video_Sizes[Pos]==120000 || Video_Sizes[Pos]==144000)
     {
         #if defined(MEDIAINFO_DVDIF_YES)
             if (Pos>=Videos.size())
