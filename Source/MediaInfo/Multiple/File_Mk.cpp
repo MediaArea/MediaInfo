@@ -2762,6 +2762,8 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelHeight()
     //Filling
     FILLING_BEGIN();
         Fill(Stream_Video, StreamPos_Last, Video_Height, UInteger, 10, true);
+        if (!TrackVideoDisplayHeight)
+            TrackVideoDisplayHeight=UInteger; //Default value of DisplayHeight is PixelHeight
     FILLING_END();
 }
 
@@ -2776,6 +2778,8 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelWidth()
     //Filling
     FILLING_BEGIN();
         Fill(Stream_Video, StreamPos_Last, Video_Width, UInteger, 10, true);
+        if (!TrackVideoDisplayWidth)
+            TrackVideoDisplayWidth=UInteger; //Default value of DisplayWidth is PixelWidth
     FILLING_END();
 }
 

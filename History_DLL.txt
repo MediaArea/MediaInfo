@@ -18,6 +18,7 @@ Version 0.7.45, 2011-
 + E-AC-3: dialnorm/dynrng (first frame / first block) information
 x DPX: Industry specific header was not well decoded
 x JPEG-2000: Chroma subsampling 4:2:0 was recognized as 4:4:4.
+x Matroska: Handling default values for TrackVideoDisplayWidth and TrackVideoDisplayHeight
 
 Version 0.7.44, 2011-04-19
 --------------
