@@ -2932,25 +2932,6 @@ void File_Mxf::Data_Parse()
         Buffer_End=0;
     }
 
-    if (IsParsingEnd
-     && Code_Compare1==Elements::IndexTableSegment1 \
-     && Code_Compare2==Elements::IndexTableSegment2 \
-     && Code_Compare3==Elements::IndexTableSegment3 \
-     && Code_Compare4==Elements::IndexTableSegment4)
-    {
-        //We have the necessary for indexes, jumping to next index
-        Skip_XX(Element_Size,                               "Data");
-        if (RandomIndexMetadatas.empty())
-            Finish();
-        else
-        {
-            Open_Buffer_Unsynch();
-            GoTo(RandomIndexMetadatas[0].ByteOffset);
-            RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
-        }
-        return;
-    }
-
     if (!IsParsingEnd && MediaInfoLib::Config.ParseSpeed_Get()<1.0
      && (!IsSub && File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
       || (Streams_Count==0 && !Descriptors.empty())))
