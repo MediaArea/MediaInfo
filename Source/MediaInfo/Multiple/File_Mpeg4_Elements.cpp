@@ -2702,17 +2702,17 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_ctts()
     for (int32u Pos=0; Pos<entry_count; Pos++)
     {
         //Too much slow
-        /*
         Get_B4 (sample_count,                                   "sample_count");
         Get_B4 (sample_offset,                                  "sample_offset");
-        */
 
         //Faster
+        /*
         if (Element_Offset+8>Element_Size)
             break; //Problem
         sample_count =BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
         sample_offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
         Element_Offset+=8;
+        */
     }
 }
 
@@ -2768,10 +2768,27 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stdp()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
 {
-    Element_Name("Partial Sync Sample");
+    NAME_VERSION_FLAG("Partial Sync Sample");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Unknown");
+    int32u sample_count;
+    Get_B4 (sample_count,                                       "sample-count");
+
+    for (int32u Pos=0; Pos<sample_count; Pos++)
+    {
+        int32u sample_number;
+
+        //Too much slow
+        /*
+        Get_B4 (sample_number,                                  "sample-number");
+        */
+
+        //Faster
+        if (Element_Offset+4>Element_Size)
+            break; //Problem
+        sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
+        Element_Offset+=4;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -4020,7 +4037,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
 
     for (int32u Pos=0; Pos<entry_count; Pos++)
     {
-        Skip_B4(                                                "sample-number");
+        int32u sample_number;
+
+        //Too much slow
+        /*
+        Get_B4 (sample_number,                                  "sample-number");
+        */
+
+        //Faster
+        if (Element_Offset+4>Element_Size)
+            break; //Problem
+        sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
+        Element_Offset+=4;
     }
 }
 
