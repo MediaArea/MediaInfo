@@ -631,7 +631,6 @@ void File_Jpeg::SOF_()
 {
     //Parsing
     vector<Jpeg_samplingfactor> SamplingFactors;
-    int8u SamplingFactors_Max=0;
     int16u Height, Width;
     int8u  Resolution, Count;
     Get_B1 (Resolution,                                         "P - Sample precision");
