@@ -195,7 +195,7 @@ void File_MpegTs::Streams_Update()
     if (Status[User_17])
         Streams_Update_Duration_End();
 
-    if (Config_ParseSpeed>=1.0)
+    if (File_Name.empty() && Config_ParseSpeed>=1.0)
         Fill(Stream_General, 0, General_FileSize, (File_Offset+Buffer_Offset!=File_Size)?Buffer_TotalBytes:File_Size, 10, true);
 }
 
