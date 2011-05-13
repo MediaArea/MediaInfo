@@ -87,6 +87,7 @@ const char* Avc_profile_idc(int8u profile_idc)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
 #if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
 using namespace std;
@@ -339,7 +340,6 @@ File_Avc::File_Avc()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
     IsRawStream=true;
-    Frame_Count_NotParsedIncluded=0;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?64:2; //Currently no 3:2 pulldown detection
@@ -798,13 +798,17 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
         if (Demux_Offset+6>Buffer_Size && !FrameIsAlwaysComplete && File_Offset+Buffer_Size<File_Size)
             return false; //No complete frame
 
-        if (FrameIsAlwaysComplete) //TODO: skip packetization if FrameIsAlwaysComplete is set
-            Demux_Offset=Buffer_Size;
         if (Demux_Offset && Buffer[Demux_Offset-1]==0x00)
             Demux_Offset--;
 
         zero_byte=Buffer[Buffer_Offset+2]==0x00;
         bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
+        if (!Status[IsAccepted])
+        {
+            Accept("AVC");
+            if (Config->Demux_EventWasSent)
+                return false;
+        }
         if (IFrame_IsParsed || RandomAccess)
             Demux_UnpacketizeContainer_Demux(RandomAccess);
         else
@@ -835,6 +839,8 @@ void File_Avc::Synched_Init()
         FrameInfo.DTS=0; //No DTS in container
     DTS_Begin=FrameInfo.DTS;
     DTS_End=FrameInfo.DTS;
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=0; //No Frame_Count_NotParsedIncluded in the container
     tc=0;
 
     //From seq_parameter_set
@@ -916,8 +922,6 @@ void File_Avc::Read_Buffer_Unsynched()
     IFrame_IsParsed=false;
 
     //Impossible to know TimeStamps now
-    FrameInfo.PTS=(int64u)-1;
-    FrameInfo.DTS=(int64u)-1;
     PTS_End=0;
     DTS_End=0;
 }
@@ -1401,7 +1405,7 @@ void File_Avc::slice_header()
                         Element_Info(_T("PCR ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PCR)/1000000)));
                     if (FrameInfo.DTS!=(int64u)-1)
                         Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
-                    if (FrameInfo.PTS!=(int64u)-1 && (IsSub || (slice_type!=0 && slice_type!=5))) //Not raw stream or not PFrame
+                    if (FrameInfo.PTS!=(int64u)-1)
                         Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
                 }
                 if (pic_order_cnt_type==0)
