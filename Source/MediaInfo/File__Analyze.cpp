@@ -210,9 +210,8 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
     //Jump handling
     if (File_GoTo!=(int64u)-1)
     {
-        Synched=false;
+        Open_Buffer_Unsynch();
         File_GoTo=(int64u)-1;
-        Buffer_Clear();
     }
 
     //Configuring
@@ -303,12 +302,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             File_Offset+=ToAdd_Size;
             return; //No need of this piece of data
         }
-
-        //The needed offset is in the new buffer
-        ToAdd+=(size_t)(File_GoTo-File_Offset);
-        ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
-        File_Offset=File_GoTo;
-        File_GoTo=(int64u)-1;
     }
 
     if (Buffer_Temp_Size) //There is buffered data from before
@@ -345,6 +338,14 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Preparing
     Buffer_Offset=0;
     Trusted=(Buffer_Size>2*8*1024?Buffer_Size/8/1024:2)*Trusted_Multiplier; //Never less than 2 acceptable errors
+
+    //Demand to go elsewhere
+    if (File_GoTo!=(int64u)-1)
+    {
+        //The needed offset is in the new buffer
+        Buffer_Offset+=(size_t)(File_GoTo-File_Offset);
+        File_GoTo=(int64u)-1;
+    }
 
     //Parsing
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
@@ -391,8 +392,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     {
         if (Buffer_Offset>Buffer_Size)
             File_GoTo=File_Offset+Buffer_Offset;
-        if (!Status[IsFinished])
-            File_Offset+=Buffer_Size;
         Buffer_Clear();
         return;
     }
@@ -548,7 +547,7 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
     if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
         return false; //Finish
     #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
+        if (Config->Demux_EventWasSent)
             return false;
     #endif //MEDIAINFO_DEMUX
 
@@ -556,7 +555,7 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
     while (Buffer_Parse());
     Buffer_TotalBytes+=Buffer_Offset;
     #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
+        if (Config->Demux_EventWasSent)
             return false;
     #endif //MEDIAINFO_DEMUX
 
@@ -590,16 +589,7 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
 #if MEDIAINFO_SEEK
 size_t File__Analyze::Open_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
-    #if MEDIAINFO_DEMUX
-        bool Demux_EventWasSent_Save=Config->Demux_EventWasSent;
-        Config->Demux_EventWasSent=false;
-    #endif //MEDIAINFO_DEMUX
-
     size_t ToReturn=Read_Buffer_Seek(Method, Value, ID);
-    
-    #if MEDIAINFO_DEMUX
-        Config->Demux_EventWasSent=Demux_EventWasSent_Save;
-    #endif //MEDIAINFO_DEMUX
 
     if (File_GoTo!=(int64u)-1)
         Buffer_Clear();
@@ -621,16 +611,18 @@ void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Unsynch ()
 {
-    if (MustSynchronize && File_Offset_FirstSynched==(int64u)-1)
-        return;
-
-    //if (!Status[IsAccepted])
-    //    return;
-
     Status[IsFinished]=false;
-    
-    Read_Buffer_Unsynched();
-    Buffer_Clear();
+    FrameInfo=frame_info();
+    FrameInfo_Previous=frame_info();
+    FrameInfo_Next=frame_info();
+    PTS_End=0;
+    DTS_End=0;
+    #if MEDIAINFO_DEMUX
+        Demux_IntermediateItemFound=true;
+        Demux_Offset=0;
+        Demux_TotalBytes=Buffer_TotalBytes;
+        Config->Demux_EventWasSent=false;
+    #endif //MEDIAINFO_DEMUX
 
     //Clearing duration
     if (Synched)
@@ -641,22 +633,19 @@ void File__Analyze::Open_Buffer_Unsynch ()
             for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
                 Clear((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Duration));
         }
-        Synched=false;
     }
 
-    File_GoTo=(int64u)-1;
+    //if (Synched)
+    if (!MustSynchronize || (MustSynchronize && File_Offset_FirstSynched!=(int64u)-1)) //Synched at least once
+    {
+        Synched=false;
+        Read_Buffer_Unsynched();
+    }
+    Buffer_Clear();
+
+
     Frame_Count_NotParsedIncluded=Unsynch_Frame_Count;
     Unsynch_Frame_Count=(int64u)-1;
-    FrameInfo=frame_info();
-    FrameInfo_Previous=frame_info();
-    FrameInfo_Next=frame_info();
-    PTS_End=0;
-    DTS_End=0;
-    #if MEDIAINFO_DEMUX
-        Demux_IntermediateItemFound=true;
-        Demux_Offset=0;
-        Demux_TotalBytes=Buffer_TotalBytes;
-    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -765,6 +754,10 @@ void File__Analyze::Buffer_Clear()
     //Buffer
     BS->Attach(NULL, 0);
     delete[] Buffer_Temp; Buffer_Temp=NULL;
+    if (!Status[IsFinished])
+        File_Offset+=Buffer_Size;
+    else
+        File_Offset=File_Size;
     Buffer_Size=0;
     Buffer_Temp_Size=0;
     Buffer_Offset=0;
@@ -999,15 +992,6 @@ bool File__Analyze::FileHeader_Manage()
     #if MEDIAINFO_DEMUX
         if (Config->Demux_EventWasSent)
             return false;
-
-        if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
-        {
-            if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
-            {
-                Demux_Offset-=Buffer_Offset;
-                return false; //Wait for more data
-            }
-        }
     #endif //MEDIAINFO_DEMUX
 
     //From the parser
@@ -1235,15 +1219,9 @@ bool File__Analyze::Data_Manage()
             FrameInfo_Next=frame_info();
 
             if (Frame_Count_Previous<Frame_Count)
-            {
                 Frame_Count_Previous=Frame_Count;
-                Frame_Count_InThisBlock=0;
-            }
             if (Field_Count_Previous<Field_Count)
-            {
                 Field_Count_Previous=Field_Count;
-                Field_Count_InThisBlock=0;
-            }
         }
 
         //Testing the parser result
@@ -1293,7 +1271,7 @@ bool File__Analyze::Data_Manage()
     Element_Offset=0;
 
     #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
+        if (Config->Demux_EventWasSent)
         {
             if (!Element_WantNextLevel)
                 Element_End();
