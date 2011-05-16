@@ -34,7 +34,6 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/File.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -54,6 +53,8 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     Reference=References.end();
     File_Size_Total=MI->File_Size;
     Init_Done=false;
+    FrameRate=0;
+    Duration=0;
 }
 
 //***************************************************************************
@@ -74,6 +75,44 @@ void File__ReferenceFilesHelper::ParseReferences()
                 Demux_Interleave=Config->File_Demux_Interleave_Get();
                 if (Demux_Interleave)
                     CountOfReferencesToParse=References.size();
+            }
+
+            //Using the frame rate from the first stream having a frame rate
+            if (!FrameRate)
+                for (references::iterator ReferenceFrameRate=References.begin(); ReferenceFrameRate!=References.end(); ReferenceFrameRate++)
+                    if (ReferenceFrameRate->FrameRate)
+                    {
+                        FrameRate=ReferenceFrameRate->FrameRate;
+                        break;
+                    }
+
+            if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
+            {
+                while (Reference!=References.end())
+                {
+                    ParseReference(); //Init
+                    Reference++;
+                }
+
+                //Cleanup
+                for (size_t Pos=0; Pos<References.size(); Pos++)
+                    if (References[Pos].Status[File__Analyze::IsFinished])
+                    {
+                        References.erase(References.begin()+Pos);
+                        Pos--;
+                    }
+                if (References.empty())
+                    return;
+
+                //File size handling
+                if (File_Size_Total!=MI->File_Size)
+                {
+                    MI->Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+                    MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
+                }
+
+                Config->Demux_EventWasSent=true;
+                return;
             }
         #endif //MEDIAINFO_DEMUX
     }
@@ -137,17 +176,8 @@ void File__ReferenceFilesHelper::ParseReference()
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
                 Reference->MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
-            if (Reference->FrameRate)
-                Reference->MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(Reference->FrameRate, 15));
-            else
-            {
-                //Using the frame rate from the first stream having a frame rate
-                for (references::iterator ReferenceFrameRate=References.begin(); ReferenceFrameRate!=References.end(); ReferenceFrameRate++)
-                {
-                    Reference->MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(ReferenceFrameRate->FrameRate, 15));
-                    break;
-                }
-            }
+            if (FrameRate)
+                Reference->MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(FrameRate, 15));
         #endif //MEDIAINFO_DEMUX
 
         //Configuring file name
@@ -175,6 +205,8 @@ void File__ReferenceFilesHelper::ParseReference()
         }
         if (!File::Exists(AbsoluteNames[0]))
         {
+            AbsoluteNames.clear();
+            
             //Configuring file name (this time, we try to force URL decode in all cases)
             for (size_t Pos=0; Pos<Names.size(); Pos++)
             {
@@ -193,6 +225,8 @@ void File__ReferenceFilesHelper::ParseReference()
                 AbsoluteNames.push_back(AbsoluteName);
             }
         }
+        MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->FileNames.Read(0));
+        Reference->FileNames=AbsoluteNames;
 
         if (AbsoluteNames[0]==MI->File_Name)
         {
@@ -211,6 +245,23 @@ void File__ReferenceFilesHelper::ParseReference()
         }
         else
         {
+            #if MEDIAINFO_EVENTS
+                //Subfile start
+                {
+                    Ztring Relative_LocalW=Reference->FileNames.Read();
+                    Ztring Absolute_LocalW=AbsoluteNames.Read();
+                    std::string Relative_LocalA=Relative_LocalW.To_Local();
+                    std::string Absolute_LocalA=Absolute_LocalW.To_Local();
+                    struct MediaInfo_Event_General_SubFile_Start_0 Event;
+                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_SubFile_Start, 0);
+                    Event.FileName_Relative=(char*)Relative_LocalA.c_str();
+                    Event.FileName_Relative_Unicode=(wchar_t*)Relative_LocalW.c_str();
+                    Event.FileName_Absolute=(char*)Absolute_LocalA.c_str();
+                    Event.FileName_Absolute_Unicode=(wchar_t*)Absolute_LocalW.c_str();
+                    Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_SubFile_Start_0));
+                }
+            #endif //MEDIAINFO_EVENTS
+
             //Run
             if (!Reference->MI->Open(AbsoluteNames.Read()))
             {
@@ -227,8 +278,11 @@ void File__ReferenceFilesHelper::ParseReference()
                 }
                 Reference->FileNames.clear();
             }
-            MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->FileNames.Read(0));
-            Reference->FileNames=AbsoluteNames;
+            else
+                File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
+
+            if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
+                return;
         }
     }
 
@@ -316,7 +370,6 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
     MI->Clear(StreamKind_Last, StreamPos_Last, General_ID);
 
     MI->Merge(*Reference->MI->Info, StreamKind_Last, 0, StreamPos_Last);
-    File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
 
     //Hacks - After
     if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_Last, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
@@ -445,6 +498,178 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
     else if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_Last, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
         MI->Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Reference->MI->Info->Get(Stream_General, 0, General_Format));
 }
+
+//---------------------------------------------------------------------------
+void File__ReferenceFilesHelper::Read_Buffer_Unsynched()
+{
+    MI->Open_Buffer_Unsynch();
+    for (references::iterator Reference=References.begin(); Reference!=References.end(); Reference++)
+        if (Reference->MI)
+            Reference->MI->Open_Buffer_Unsynch();
+}
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Parsing
+    switch (Method)
+    {
+        case 0  :   
+                    #if MEDIAINFO_DEMUX
+                        {
+                        if (Value)
+                        {
+                            if (Value>File_Size_Total)
+                                return 2; //Invalid value
+
+                            //Init
+                            if (!Duration)
+                            {
+                                MediaInfo_Internal MI2;
+                                MI2.Option(_T("File_KeepInfo"), _T("1"));
+                                Ztring ParseSpeed_Save=MI2.Option(_T("ParseSpeed_Get"), _T(""));
+                                Ztring Demux_Save=MI2.Option(_T("Demux_Get"), _T(""));
+                                MI2.Option(_T("ParseSpeed"), _T("0"));
+                                MI2.Option(_T("Demux"), Ztring());
+                                size_t MiOpenResult=MI2.Open(MI->File_Name);
+                                MI2.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                                MI2.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+                                if (!MiOpenResult)
+                                    return -1;
+                                Ztring A=MI2.Get(Stream_General, 0, General_Duration);
+                                Duration=MI2.Get(Stream_General, 0, General_Duration).To_float64()/1000;
+                            }
+
+                            //Time percentage
+                            float64 DurationF=Duration;
+                            DurationF*=Value;
+                            DurationF/=File_Size_Total;
+                            size_t DurationM=(size_t)(DurationF*1000);
+                            Ztring DurationS;
+                            DurationS+=L'0'+DurationM/(10*60*60*1000); DurationM%=10*60*60*1000;
+                            DurationS+=L'0'+DurationM/(   60*60*1000); DurationM%=   60*60*1000;
+                            DurationS+=L':';
+                            DurationS+=L'0'+DurationM/(   10*60*1000); DurationM%=   10*60*1000;
+                            DurationS+=L'0'+DurationM/(      60*1000); DurationM%=      60*1000;
+                            DurationS+=L':';
+                            DurationS+=L'0'+DurationM/(      10*1000); DurationM%=      10*1000;
+                            DurationS+=L'0'+DurationM/(         1000); DurationM%=         1000;
+                            DurationS+=L'.';
+                            DurationS+=L'0'+DurationM/(          100); DurationM%=          100;
+                            DurationS+=L'0'+DurationM/(           10); DurationM%=           10;
+                            DurationS+=L'0'+DurationM;
+
+                            CountOfReferencesToParse=References.size();
+                            bool HasProblem=false;
+                            for (Reference=References.begin(); Reference!=References.end(); Reference++)
+                            {
+                                if (Reference->MI)
+                                {
+                                    Ztring Result=Reference->MI->Option(_T("File_Seek"), DurationS);
+                                    if (!Result.empty())
+                                        HasProblem=true;
+                                }
+                                Reference->Status.reset();
+                            }
+                            Reference=References.begin();
+                            Open_Buffer_Unsynch();
+                            return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
+                        }
+
+                        CountOfReferencesToParse=References.size();
+                        bool HasProblem=false;
+                        for (Reference=References.begin(); Reference!=References.end(); Reference++)
+                        {
+                            if (Reference->MI)
+                            {
+                                Ztring Result=Reference->MI->Option(_T("File_Seek"), Ztring::ToZtring(Value));
+                                if (!Result.empty())
+                                    HasProblem=true;
+                            }
+                            Reference->Status.reset();
+                        }
+                        Reference=References.begin();
+                        Open_Buffer_Unsynch();
+                        return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
+                        }
+                    #else //MEDIAINFO_DEMUX
+                        return (size_t)-1; //Not supported
+                    #endif //MEDIAINFO_DEMUX
+        case 1  :   
+                    {
+                        //Time percentage
+                        int64u Duration=MI->Get(Stream_General, 0, General_Duration).To_int64u();
+                        Duration*=Value;
+                        Duration/=10000;
+                        Ztring DurationS;
+                        DurationS+=L'0'+Duration/(10*60*60*1000); Duration%=10*60*60*1000;
+                        DurationS+=L'0'+Duration/(   60*60*1000); Duration%=   60*60*1000;
+                        DurationS+=L':';
+                        DurationS+=L'0'+Duration/(   10*60*1000); Duration%=   10*60*1000;
+                        DurationS+=L'0'+Duration/(      60*1000); Duration%=      60*1000;
+                        DurationS+=L':';
+                        DurationS+=L'0'+Duration/(      10*1000); Duration%=      10*1000;
+                        DurationS+=L'0'+Duration/(         1000); Duration%=         1000;
+                        DurationS+=L'.';
+                        DurationS+=L'0'+Duration/(          100); Duration%=          100;
+                        DurationS+=L'0'+Duration/(           10); Duration%=           10;
+                        DurationS+=L'0'+Duration;
+
+                        CountOfReferencesToParse=References.size();
+                        bool HasProblem=false;
+                        for (Reference=References.begin(); Reference!=References.end(); Reference++)
+                        {
+                            if (Reference->MI)
+                            {
+                                Ztring Result=Reference->MI->Option(_T("File_Seek"), DurationS);
+                                if (!Result.empty())
+                                    HasProblem=true;
+                            }
+                            Reference->Status.reset();
+                        }
+                        Reference=References.begin();
+                        Open_Buffer_Unsynch();
+                        return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
+                    }
+        case 2  :   //Timestamp
+                    {
+                        //We transform TimeStamp to a frame number
+                        if (!FrameRate)
+                            return (size_t)-1; //Not supported
+
+                        Value=(int64u)(((float64)Value)/1000000000*FrameRate);
+                        }
+                    //No break;
+        case 3  :   //FrameNumber
+                    #if MEDIAINFO_DEMUX
+                        CountOfReferencesToParse=References.size();
+                        for (Reference=References.begin(); Reference!=References.end(); Reference++)
+                        {
+                            if (Reference->MI)
+                            {
+                                Ztring Result=Reference->MI->Option(_T("File_Seek"), _T("Frame=")+Ztring::ToZtring(Value));
+                                if (!Result.empty())
+                                    return 2; //Invalid value
+                            }
+                            else
+                            {
+                                //There was a problem, removing Reference
+                                References.clear();
+                                return Read_Buffer_Seek(Method, Value, ID);
+                            }
+                            Reference->Status.reset();
+                        }
+                        Reference=References.begin();
+                        Open_Buffer_Unsynch();
+                        return 1;
+                    #else //MEDIAINFO_DEMUX
+                        return (size_t)-1; //Not supported
+                    #endif //MEDIAINFO_DEMUX
+         default :   return 0;
+    }
+}
+#endif //MEDIAINFO_SEEK
 
 } //NameSpace
 

@@ -32,6 +32,8 @@ class File_MpegPs;
 namespace MediaInfoLib
 {
 
+class File__ReferenceFilesHelper;
+
 //***************************************************************************
 // Class File_Mpeg4
 //***************************************************************************
@@ -41,8 +43,7 @@ class File_Mpeg4 : public File__Analyze
 protected :
     //Streams management
     void Streams_Finish();
-    void Streams_Finish_ParseLocators ();
-    void Streams_Finish_ParseLocator ();
+    void Streams_Finish_CommercialNames ();
 
 public :
     File_Mpeg4();
@@ -309,6 +310,7 @@ private :
         };
         std::vector<stsc_struct> stsc;
         std::vector<int64u>     stsz;
+        std::vector<int64u>     stss; //Sync Sample, base=0
         int64u                  stsz_Sample_Size;
         int64u                  stsz_Sample_Multiplier;
         int64u                  stsz_Sample_Count;
@@ -378,7 +380,10 @@ private :
     typedef std::map<int32u, stream> streams;
     streams             Streams;
     streams::iterator   Stream;
-    bool                Streams_Locators_MustStartParsing;
+    File__ReferenceFilesHelper* ReferenceFiles;
+    #if MEDIAINFO_NEXTPACKET
+        bool                    ReferenceFiles_IsParsing;
+    #endif MEDIAINFO_NEXTPACKET
 
     //Positions
     struct mdat_Pos_Type
@@ -390,6 +395,10 @@ private :
     mdat_pos mdat_Pos;
     mdat_pos::iterator mdat_Pos_Temp;
     bool IsParsing_mdat;
+
+    #if MEDIAINFO_DEMUX
+        bool Demux_Locators;
+    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

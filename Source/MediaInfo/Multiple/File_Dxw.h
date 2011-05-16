@@ -46,6 +46,11 @@ private :
     //Streams management
     void Streams_Finish ();
 
+    //Buffer - Global
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
+
     //Buffer - File header
     bool FileHeader_Begin();
 

@@ -70,10 +70,18 @@ public :
     //Constructor / Destructor
     File__ReferenceFilesHelper(File__Analyze* MI, MediaInfo_Config_MediaInfo* Config);
 
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
+
 private :
     //Streams management
     void ParseReference ();
     void ParseReference_Finalize ();
+    void Open_Buffer_Unsynch() {Read_Buffer_Unsynched();}
+
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
 
     //temp
     File__Analyze*                  MI;
@@ -83,6 +91,8 @@ private :
     bool                            Init_Done;
     bool                            Demux_Interleave;
     size_t                          CountOfReferencesToParse;
+    float64                         FrameRate;
+    float64                         Duration;
 };
 
 } //NameSpace

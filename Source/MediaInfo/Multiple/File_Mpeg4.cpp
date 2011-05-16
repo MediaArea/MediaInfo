@@ -44,6 +44,7 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -168,7 +169,10 @@ File_Mpeg4::File_Mpeg4()
     Vendor=0x00000000;
     IsParsing_mdat=false;
     moov_trak_tkhd_TrackID=(int32u)-1;
-    Streams_Locators_MustStartParsing=true;
+    ReferenceFiles=NULL;
+    #if MEDIAINFO_NEXTPACKET
+        ReferenceFiles_IsParsing=false;
+    #endif MEDIAINFO_NEXTPACKET
 }
 
 //***************************************************************************
@@ -178,11 +182,20 @@ File_Mpeg4::File_Mpeg4()
 //---------------------------------------------------------------------------
 void File_Mpeg4::Streams_Finish()
 {
-    Streams_Finish_ParseLocators();
-    #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent)
+    #if MEDIAINFO_NEXTPACKET
+        //Locators only
+        if (ReferenceFiles_IsParsing)
+        {
+            ReferenceFiles->ParseReferences();
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_EventWasSent)
+                    return;
+            #endif //MEDIAINFO_DEMUX
+
+            Streams_Finish_CommercialNames();
             return;
-    #endif //MEDIAINFO_DEMUX
+        }
+    #endif MEDIAINFO_NEXTPACKET
 
     Fill_Flush();
     int64u File_Size_Total=File_Size;
@@ -547,7 +560,42 @@ void File_Mpeg4::Streams_Finish()
     if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Image)==0 && Count_Get(Stream_Audio)>0)
         Fill(Stream_General, 0, General_InternetMediaType, "audio/mp4", Unlimited, true, true);
 
+    //Parsing reference files
+    for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+        if (!Stream->second.File_Name.empty())
+        {
+            if (ReferenceFiles==NULL)
+                ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
+
+            File__ReferenceFilesHelper::reference Reference;
+            Reference.FileNames.push_back(Stream->second.File_Name);
+            Reference.StreamKind=Stream->second.StreamKind;
+            Reference.StreamPos=Stream->second.StreamPos;
+            Reference.StreamID=Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID);
+            if (Stream->second.StreamKind==Stream_Video)
+                Reference.FrameRate=Retrieve(Stream_Video, Stream->second.StreamPos, Video_FrameRate).To_float64();
+            ReferenceFiles->References.push_back(Reference);
+        }
+
+    if (ReferenceFiles)
+    {
+        ReferenceFiles->ParseReferences();
+        #if MEDIAINFO_NEXTPACKET
+            if (Config->NextPacket_Get() && ReferenceFiles && !ReferenceFiles->References.empty())
+            {
+                ReferenceFiles_IsParsing=true;
+                return;
+            }
+        #endif //MEDIAINFO_NEXTPACKET
+    }
+
     //Commercial names
+    Streams_Finish_CommercialNames();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::Streams_Finish_CommercialNames()
+{
     if (Count_Get(Stream_Video)==1)
     {
         Streams_Finish_StreamOnly();
@@ -588,127 +636,6 @@ void File_Mpeg4::Streams_Finish()
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX422");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX422");
         }
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4::Streams_Finish_ParseLocators()
-{
-    if (Streams_Locators_MustStartParsing)
-    {
-        Stream=Streams.begin();
-        Streams_Locators_MustStartParsing=false;
-    }
-    while (Stream!=Streams.end())
-    {
-        Streams_Finish_ParseLocator();
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_EventWasSent)
-                return;
-        #endif //MEDIAINFO_DEMUX
-        Stream++;
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4::Streams_Finish_ParseLocator()
-{
-    //StreamKind/StreamPos must be known
-    if (Stream->second.File_Name.empty() || Stream->second.StreamKind==Stream_Max || Stream->second.StreamPos==(size_t)-1)
-        return;
-
-    if (Stream->second.MI==NULL)
-    {
-        //Configuring file name
-        Ztring Name=Stream->second.File_Name;
-        if (Name.find(_T("file:"))==0)
-        {
-            Name.erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
-            Name=ZenLib::Format::Http::URL_Encoded_Decode(Name);
-        }
-        Ztring AbsoluteName;
-        if (Name.find(_T(':'))!=1 && Name.find(_T("/"))!=0 && Name.find(_T("\\\\"))!=0) //If absolute patch
-        {
-            AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
-            if (!AbsoluteName.empty())
-                AbsoluteName+=ZenLib::PathSeparator;
-        }
-        AbsoluteName+=Name;
-        #ifdef __WINDOWS__
-            AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Name normalization
-        #endif //__WINDOWS__
-
-        if (AbsoluteName==File_Name)
-        {
-            Fill(Stream->second.StreamKind, Stream->second.StreamPos, "Source_Info", "Circular");
-            Stream->second.StreamKind=Stream_Max;
-            Stream->second.StreamPos=(size_t)-1;
-            return;
-        }
-
-        //Configuration
-        Stream->second.MI=new MediaInfo_Internal();
-        Stream->second.MI->Option(_T("File_StopAfterFilled"), _T("1"));
-        Stream->second.MI->Option(_T("File_KeepInfo"), _T("1"));
-        #if MEDIAINFO_NEXTPACKET
-            if (Config->NextPacket_Get())
-                Stream->second.MI->Option(_T("File_NextPacket"), _T("1"));
-        #endif //MEDIAINFO_NEXTPACKET
-        #if MEDIAINFO_EVENTS
-            if (Config->Event_CallBackFunction_IsSet())
-                Stream->second.MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-        #endif //MEDIAINFO_EVENTS
-        Stream->second.MI->Option(_T("File_SubFile_StreamID_Set"), Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID));
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_Unpacketize_Get())
-                Stream->second.MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
-        #endif //MEDIAINFO_DEMUX
-
-        //Run
-        if (!Stream->second.MI->Open(AbsoluteName))
-        {
-            //Configuring file name (this time, we try to force URL decode in all cases)
-            Name=ZenLib::Format::Http::URL_Encoded_Decode(Stream->second.File_Name);
-            AbsoluteName.clear();
-            if (Name.find(_T(':'))!=1 && Name.find(_T("/")) && Name.find(_T("\\\\"))) //If absolute patch
-            {
-                AbsoluteName=ZenLib::FileName::Path_Get(File_Name);
-                if (!AbsoluteName.empty())
-                    AbsoluteName+=ZenLib::PathSeparator;
-            }
-            AbsoluteName+=Name;
-            #ifdef __WINDOWS__
-                AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Name normalization
-            #endif //__WINDOWS__
-
-            if (AbsoluteName==File_Name)
-            {
-                Fill(Stream->second.StreamKind, Stream->second.StreamPos, "Source_Info", "Circular");
-                return;
-            }
-
-            if (!Stream->second.MI->Open(AbsoluteName))
-            {
-                Fill(Stream->second.StreamKind, Stream->second.StreamPos, "Source_Info", "Missing");
-                delete Stream->second.MI; Stream->second.MI=NULL;
-            }
-        }
-    }
-
-    if (Stream->second.MI)
-    {
-        #if MEDIAINFO_NEXTPACKET
-            while (Stream->second.MI->Open_NextPacket()[8])
-            {
-                #if MEDIAINFO_DEMUX
-                    if (Config->Event_CallBackFunction_IsSet())
-                    {
-                        Config->Demux_EventWasSent=true;
-                        return;
-                    }
-                #endif //MEDIAINFO_DEMUX
-            }
-        #endif //MEDIAINFO_NEXTPACKET
     }
 }
 
@@ -775,10 +702,14 @@ void File_Mpeg4::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
+    if (ReferenceFiles)
+        return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
+                        
     //Parsing
     switch (Method)
     {
-        case 0  :   if (Value==0)
+        case 0  :   
+                    if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
                     return (size_t)-1; //Not supported
         case 1  :   if (Value==0)
@@ -827,6 +758,18 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         if (Stream==Streams.end())
                             return 0; //Not supported
 
+                        //Searching the I-Frame
+                        if (!Stream->second.stss.empty())
+                        {
+                            for (size_t Pos=0; Pos<Stream->second.stss.size(); Pos++)
+                                if (Value<=Stream->second.stss[Pos])
+                                {
+                                    if (Pos && Value<Stream->second.stss[Pos])
+                                        Value=Stream->second.stss[Pos-1];
+                                    break;
+                                }
+                        }
+
                         //Searching the corresponding stco
                         std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
                         int64u SamplePos=0;
@@ -844,7 +787,6 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                                 GoTo(Offset);
                                 Open_Buffer_Unsynch();
-                                GoTo(Offset);
                                 return 1;
                                 break;
                             }

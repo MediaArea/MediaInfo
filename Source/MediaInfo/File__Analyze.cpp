@@ -1080,9 +1080,9 @@ bool File__Analyze::Header_Manage()
         Header_Fill_Size(Element_Size);
     }
 
-    if (Element_IsWaitingForMoreData() || (DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size) //Wait or want to have a comple data chunk
+    if (Element_IsWaitingForMoreData() || (DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size || File_GoTo!=(int64u)-1) //Wait or want to have a comple data chunk
         #if MEDIAINFO_DEMUX
-            || (Config->Demux_EventWasSent && File_Offset+Buffer_Size<File_Size)
+            || (Config->Demux_EventWasSent)
         #endif //MEDIAINFO_DEMUX
     )
     {

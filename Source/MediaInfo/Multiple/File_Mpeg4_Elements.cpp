@@ -1192,7 +1192,22 @@ void File_Mpeg4::mdat()
 
         #if MEDIAINFO_DEMUX
             if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
-    		    Config->Demux_EventWasSent=true;
+    		{
+                bool HasLocators=false;
+                for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                    if (!Stream->second.File_Name.empty())
+                    {
+                        HasLocators=true;
+                        break;
+                    }
+                if (!HasLocators)
+                {
+                    Config->Demux_EventWasSent=true;
+                    Demux_Locators=false;
+                }
+                else
+                    Demux_Locators=true;
+            }
 	    #endif //MEDIAINFO_DEMUX
 
         return; //Only if have something in this mdat
@@ -1222,27 +1237,42 @@ void File_Mpeg4::mdat_xxxx()
     }
 
     #if MEDIAINFO_DEMUX
-        //DTS
-        std::map<int32u, stream>::iterator Stream=Streams.find((int32u)Element_Code);
-        Frame_Count_NotParsedIncluded=Stream->second.stts_FramePos;
-        if (Stream->second.stts_Durations_Pos<Stream->second.stts_Durations.size())
+        if (!Demux_Locators)
         {
-            stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin()+Stream->second.stts_Durations_Pos;
-            FrameInfo.DTS=(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Frame_Count_NotParsedIncluded-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
-            FrameInfo.DUR=((int64u)stts_Duration->SampleDuration)*1000000000/Stream->second.mdhd_TimeScale;
-            Streams[(int32u)Element_Code].stts_FramePos++;
-            if (Stream->second.stts_FramePos>=stts_Duration->Pos_End)
-                Stream->second.stts_Durations_Pos++;
-        }
-        else
-        {
-            FrameInfo.DTS=(int64u)-1;
-            FrameInfo.DUR=(int64u)-1;
-            Streams[(int32u)Element_Code].stts_FramePos++;
-        }
+            //DTS
+            std::map<int32u, stream>::iterator Stream=Streams.find((int32u)Element_Code);
+            Frame_Count_NotParsedIncluded=Stream->second.stts_FramePos;
+            if (Stream->second.stts_Durations_Pos<Stream->second.stts_Durations.size())
+            {
+                stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin()+Stream->second.stts_Durations_Pos;
+                FrameInfo.DTS=(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Frame_Count_NotParsedIncluded-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
+                FrameInfo.DUR=((int64u)stts_Duration->SampleDuration)*1000000000/Stream->second.mdhd_TimeScale;
+                Streams[(int32u)Element_Code].stts_FramePos++;
+                if (Stream->second.stts_FramePos>=stts_Duration->Pos_End)
+                    Stream->second.stts_Durations_Pos++;
+                if (!Stream->second.stss.empty())
+                {
+                    Demux_random_access=false;
+                    for (size_t Pos=0; Pos<Stream->second.stss.size(); Pos++)
+                        if (Stream->second.stss[Pos]==Frame_Count_NotParsedIncluded)
+                        {
+                            Demux_random_access=true;
+                            break;
+                        }
+                }
+                else
+                    Demux_random_access=true;
+            }
+            else
+            {
+                FrameInfo.DTS=(int64u)-1;
+                FrameInfo.DUR=(int64u)-1;
+                Streams[(int32u)Element_Code].stts_FramePos++;
+            }
 
-        Demux_Level=Streams[(int32u)Element_Code].Demux_Level;
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+            Demux_Level=Streams[(int32u)Element_Code].Demux_Level;
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+        }
     #endif //MEDIAINFO_DEMUX
 
     if (Streams[(int32u)Element_Code].Parser)
@@ -2346,7 +2376,6 @@ void File_Mpeg4::moov_trak_mdia_minf_code_sean_RU_A()
 
     FILLING_BEGIN();
         Streams[moov_trak_tkhd_TrackID].File_Name=Path;
-        Fill(StreamKind_Last, StreamPos_Last, "Source", Path, true);
     FILLING_END();
 }
 
@@ -2500,7 +2529,6 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
             }
             Streams[moov_trak_tkhd_TrackID].File_Name+=file_name_string;
         }
-        Fill(StreamKind_Last, StreamPos_Last, "Source", Streams[moov_trak_tkhd_TrackID].File_Name);
     FILLING_END();
 }
 
@@ -2788,6 +2816,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
             break; //Problem
         sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
         Element_Offset+=4;
+
+        Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
     }
 }
 
@@ -4031,6 +4061,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
 {
     NAME_VERSION_FLAG("Sync Sample");
 
+    Streams[moov_trak_tkhd_TrackID].stss.clear();
+
     //Parsing
     int32u entry_count;
     Get_B4 (entry_count,                                        "entry-count");
@@ -4049,6 +4081,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
             break; //Problem
         sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
         Element_Offset+=4;
+
+        Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
     }
 }
 
@@ -4279,6 +4313,7 @@ void File_Mpeg4::moov_trak_tapt_clef()
     NAME_VERSION_FLAG("Clean Aperture Dimensions");
 
     //Parsing
+    float32 cleanApertureWidth, cleanApertureHeight;
     Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
     Skip_B4(                                                    "cleanApertureHeight"); //BFP4, but how many bits?
 }

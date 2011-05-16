@@ -170,7 +170,7 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream, size_t StreamPos)
             Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_UTF8().c_str(), Fill_Temp(Pos, 1));
     Fill_Temp.clear();
 
-    return (*Stream)[KindOfStream].size()-1; //The position in the stream count
+    return StreamPos_Last; //The position in the stream count
 }
 
 size_t File__Analyze::Stream_Erase (stream_t KindOfStream, size_t StreamPos)
@@ -1832,12 +1832,13 @@ void File__Analyze::FileSize_FileSize123(stream_t StreamKind, size_t StreamPos, 
     Fill(StreamKind, StreamPos, Parameter+3, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I2), Measure, MeasureIsAlwaysSame), true); // /String2
     Fill(StreamKind, StreamPos, Parameter+4, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame), true); // /String3
     Fill(StreamKind, StreamPos, Parameter+5, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I4), Measure, MeasureIsAlwaysSame), true); // /String4
-    float F2=(float)Retrieve(StreamKind, StreamPos, Parameter).To_int64s(); //Video C++ 6 patch, should be int64u
-    if (File_Size>0 && File_Size<(int64u)-1 && Parameter==Fill_Parameter(StreamKind, Generic_StreamSize) && F2*100/File_Size<=100)
+    float64 F2=(float)Retrieve(StreamKind, StreamPos, Parameter).To_float64();
+    float64 File_Size_WithReferencedFiles=(float)Retrieve(Stream_General, 0, General_FileSize).To_float64();
+    if (File_Size_WithReferencedFiles>0 && Parameter==Fill_Parameter(StreamKind, Generic_StreamSize) && F2*100/File_Size_WithReferencedFiles<=100)
     {
-        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_StreamSize_Proportion), F2/File_Size, 5, true);
-        Fill(StreamKind, StreamPos, Parameter+6, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame)+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true); // /String5
-        Fill(StreamKind, StreamPos, Parameter+1,  MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame)+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
+        Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_StreamSize_Proportion), F2/File_Size_WithReferencedFiles, 5, true);
+        Fill(StreamKind, StreamPos, Parameter+6, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame)+_T(" (")+Ztring::ToZtring(F2*100/File_Size_WithReferencedFiles, 0)+_T("%)"), true); // /String5
+        Fill(StreamKind, StreamPos, Parameter+1,  MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame)+_T(" (")+Ztring::ToZtring(F2*100/File_Size_WithReferencedFiles, 0)+_T("%)"), true);
     }
     else
         Fill(StreamKind, StreamPos, Parameter+1,  MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame), true);

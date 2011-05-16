@@ -38,6 +38,8 @@
 namespace MediaInfoLib
 {
 
+class File__ReferenceFilesHelper;
+
 //***************************************************************************
 // Class File_Mxf
 //***************************************************************************
@@ -79,9 +81,6 @@ protected :
     void Streams_Finish_Locator (int128u LocatorUID);
     void Streams_Finish_Component (int128u ComponentUID, float64 EditRate);
     void Streams_Finish_Identification (int128u IdentificationUID);
-    void Streams_Finish_ParseLocators ();
-    void Streams_Finish_ParseLocator ();
-    void Streams_Finish_ParseLocator_Finalize ();
     void Streams_Finish_CommercialNames ();
 
     //Buffer - Global
@@ -100,6 +99,7 @@ protected :
     bool Synched_Test();
 
     //Buffer - Per element
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
@@ -383,6 +383,7 @@ protected :
     int64u File_Size_Total; //Used only in Finish()
     bool   Track_Number_IsAvailable;
     bool   IsParsingEnd;
+    bool   PartitionPack_Parsed;
 
     //Primer
     std::map<int16u, int128u> Primer_Values;
@@ -477,6 +478,8 @@ protected :
         bool   Stream_Finish_Done;
         bool   Track_Number_IsMappedToTrack; //if !Track_Number_IsAvailable, is true when it was euristicly mapped
         bool   IsFilled;
+        int64u      Frame_Count_NotParsedIncluded;
+        frame_info  FrameInfo;
 
         essence()
         {
@@ -489,6 +492,8 @@ protected :
             Stream_Finish_Done=false;
             Track_Number_IsMappedToTrack=false;
             IsFilled=false;
+            Frame_Count_NotParsedIncluded=(int64u)-1;
+            FrameInfo.DTS=(int64u)-1;
         }
 
         ~essence()
@@ -564,27 +569,24 @@ protected :
         stream_t    StreamKind;
         size_t      StreamPos;
         bool        IsTextLocator;
-        MediaInfo_Internal* MI;
-        #if MEDIAINFO_NEXTPACKET
-            std::bitset<32> Status;
-        #endif //MEDIAINFO_NEXTPACKET
 
         locator()
         {
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             IsTextLocator=false;
-            MI=NULL;
         }
 
         ~locator()
         {
-            delete MI; //MI=NULL;
         }
     };
     typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
     locators Locators;
-    locators::iterator Locator;
+    File__ReferenceFilesHelper* ReferenceFiles;
+    #if MEDIAINFO_NEXTPACKET
+        bool                    ReferenceFiles_IsParsing;
+    #endif MEDIAINFO_NEXTPACKET
 
     //Component (Sequence, TimeCode, Source Clip)
     struct component
@@ -634,6 +636,7 @@ protected :
 
     //Helpers
     void Subsampling_Compute(descriptors::iterator Descriptor);
+    void Locators_Test();
 
     //Temp
     int128u EssenceContainer_FromPartitionMetadata;
@@ -656,62 +659,70 @@ protected :
     //Hints
     size_t* File_Buffer_Size_Hint_Pointer;
 
-    #if MEDIAINFO_DEMUX
+    //Partitions
+    struct partition
+    {
+        int64u StreamOffset; //From file, not MXF one
+        int64u BodyOffset;
+        int64u PartitionPackByteCount; //Fill included
+        int64u HeaderByteCount;
+        int64u IndexByteCount;
+
+        partition()
+        {
+            StreamOffset=0;
+            BodyOffset=0;
+            PartitionPackByteCount=(int64u)-1;
+            HeaderByteCount=0;
+            IndexByteCount=0;
+        }
+    };
+    typedef std::vector<partition>  partitions;
+    partitions                      Partitions;
+    size_t                          Partitions_Pos;
+    bool                            Partitions_IsCalculatingHeaderByteCount;
+    bool                            Partitions_IsFooter;
+
+    #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         bool Demux_HeaderParsed;
         bool Demux_Interleave;
         size_t CountOfLocatorsToParse;
         float64 Demux_Rate;
-    #endif //MEDIAINFO_DEMUX
 
-    #if MEDIAINFO_SEEK
-        //Seek - Delta
-        struct seek
+        //IndexTable
+        struct indextable
         {
-            int64u  FrameNumber;
-            int64u  StreamOffset;
-            int8u   Type;
-        };
-        typedef std::vector<seek> seeks;
-        seeks Seeks;
-        size_t Seeks_PosTemp;
+            int64u  StreamOffset; //From file, not MXF one
+            int64u  IndexStartPosition;
+            int64u  IndexDuration;
+            int32u  EditUnitByteCount;
+            float64 IndexEditRate;
+            struct entry
+            {
+                int64u  StreamOffset;
+                int8u   Type;
+            };
+            std::vector<entry> Entries;
 
-        //Seek - ByteCount
-        struct editunitbytecount
-        {
-            int64u IndexStartPosition;
-            int64u IndexDuration;
-            int32u EditUnitByteCount;
-            int64u Start;
-            int32u Start_Item;
-            int64u Start_PreviousPartitionPackSize;
-            int64u Start_HeaderSize;
-
-            editunitbytecount()
-            {   
-                IndexStartPosition=(int64u)-1;
-                IndexDuration=(int64u)-1;
-                EditUnitByteCount=(int32u)-1;
-                Start=(int64u)-1;
-                Start_Item=(int32u)-1;
-                Start_PreviousPartitionPackSize=0;
-                Start_HeaderSize=0;
+            indextable()
+            {
+                StreamOffset=(int64u)-1;
+                IndexStartPosition=0;
+                IndexDuration=0;
+                EditUnitByteCount=0;
+                IndexEditRate=0;
             }
         };
-        std::vector<editunitbytecount> IndexTable_EditUnitByteCounts;
-        int64u IndexTable_Start;
-        int32u IndexTable_Start_Item;
-        int64u IndexTable_Start_PreviousPartitionPackSize;
-        int64u IndexTable_Start_HeaderSize;
-
-        //seek - EditRate
-        float64 IndexTable_IndexEditRate;
-        int64u  IndexTable_IndexStartPosition;
-        int64u  IndexTable_IndexDuration;
-
-        //Seek - Temp
-        seeks SeeksTemp; //Without the byte offset
-        bool  Duration_Detected;
-    #endif //MEDIAINFO_SEEK
+        typedef std::vector<indextable> indextables;
+        indextables                     IndexTables;
+        size_t                          IndexTables_Pos;
+        
+        //Other
+        int64u  Clip_Header_Size;
+        int64u  Clip_Begin;
+        int64u  Clip_End;
+        bool    Duration_Detected;
+    #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 };
 
 } //NameSpace
