@@ -33,6 +33,7 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "ZenLib/Dir.h"
+#include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
@@ -245,23 +246,6 @@ void File__ReferenceFilesHelper::ParseReference()
         }
         else
         {
-            #if MEDIAINFO_EVENTS
-                //Subfile start
-                {
-                    Ztring Relative_LocalW=Reference->FileNames.Read();
-                    Ztring Absolute_LocalW=AbsoluteNames.Read();
-                    std::string Relative_LocalA=Relative_LocalW.To_Local();
-                    std::string Absolute_LocalA=Absolute_LocalW.To_Local();
-                    struct MediaInfo_Event_General_SubFile_Start_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_SubFile_Start, 0);
-                    Event.FileName_Relative=(char*)Relative_LocalA.c_str();
-                    Event.FileName_Relative_Unicode=(wchar_t*)Relative_LocalW.c_str();
-                    Event.FileName_Absolute=(char*)Absolute_LocalA.c_str();
-                    Event.FileName_Absolute_Unicode=(wchar_t*)Absolute_LocalW.c_str();
-                    Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_SubFile_Start_0));
-                }
-            #endif //MEDIAINFO_EVENTS
-
             //Run
             if (!Reference->MI->Open(AbsoluteNames.Read()))
             {
@@ -281,8 +265,10 @@ void File__ReferenceFilesHelper::ParseReference()
             else
                 File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
 
-            if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
-                return;
+            #if MEDIAINFO_NEXTPACKET
+                if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
+                    return;
+            #endif //MEDIAINFO_NEXTPACKET
         }
     }
 
