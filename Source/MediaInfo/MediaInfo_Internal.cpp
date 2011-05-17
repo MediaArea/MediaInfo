@@ -792,8 +792,11 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
             #endif //MEDIAINFO_DEBUG_WARNING_GET
 
             if (Info)
-                 EXECUTE_STRING(Info->Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch), Debug+=_T("Get, will return from parser ");) //Parameter is unknown, trying parser
-            
+            {
+                CS.Leave();
+                EXECUTE_STRING(Info->Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch), Debug+=_T("Get, will return from parser ");) //Parameter is unknown, trying parser
+            }
+
             CS.Leave();
             EXECUTE_STRING(MediaInfoLib::Config.EmptyString_Get(), Debug+=_T("Get, parameter is unknown, will return empty string");) //Parameter is unknown
         }
