@@ -2674,15 +2674,18 @@ void File_Mxf::Data_Parse()
                 if (File_Buffer_Size_Hint_Pointer)
                     (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_End?(Buffer_End-Buffer_Begin):Element_Size); //We bet this is CBR
             #endif //MEDIAINFO_SEEK
-            if (Essence->second.FrameInfo.DUR==(int64u)-1)
+            if (!IsSub) //Updating for MXF only if MXF is not embedded in another container
             {
-                if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
-                    Essence->second.FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
-                else if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
-                    Essence->second.FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+                if (Essence->second.FrameInfo.DUR==(int64u)-1)
+                {
+                    if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+                        Essence->second.FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
+                    else if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+                        Essence->second.FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+                }
+                FrameInfo=Essence->second.FrameInfo;
+                Frame_Count_NotParsedIncluded=Essence->second.Frame_Count_NotParsedIncluded;
             }
-            FrameInfo=Essence->second.FrameInfo;
-            Frame_Count_NotParsedIncluded=Essence->second.Frame_Count_NotParsedIncluded;
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
