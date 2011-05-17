@@ -4313,8 +4313,7 @@ void File_Mpeg4::moov_trak_tapt_clef()
     NAME_VERSION_FLAG("Clean Aperture Dimensions");
 
     //Parsing
-    float32 cleanApertureWidth, cleanApertureHeight;
-    Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
+   Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
     Skip_B4(                                                    "cleanApertureHeight"); //BFP4, but how many bits?
 }
 
