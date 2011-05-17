@@ -343,7 +343,7 @@ bool File_Dpx::FileHeader_Begin()
     if (Buffer_Size<4)
         return false; //Must wait for more data
 
-    if (CC4(Buffer)!=0x53445058) //"SPDX"
+    if (CC4(Buffer)!=0x53445058 && CC4(Buffer)!=0x58504453) //"SPDX" or "XDPS"
     {
         Reject();
         return false;
@@ -357,6 +357,7 @@ bool File_Dpx::FileHeader_Begin()
         return false; //Must wait for more data
     Sizes.push_back(BigEndian2int32u(Buffer+24));
     Sizes_Pos=Pos_GenericSection;
+    LittleEndian=(CC4(Buffer)==0x58504453);
 
     return true;
 }
@@ -419,14 +420,14 @@ void File_Dpx::GenericSectionHeader()
     std::string CreationDate, Creator, Project, Copyright; 
     int32u Size_Header, Size_Total, Size_Generic, Size_Industry, Size_User;
     Skip_String(4,                                              "Magic number");
-    Get_B4 (Size_Header,                                        "Offset to image data");
+    Get_X4 (Size_Header,                                        "Offset to image data");
     Skip_String(8,                                              "Version number of header format");
-    Get_B4 (Size_Total,                                         "Total image file size");
+    Get_X4 (Size_Total,                                         "Total image file size");
     Skip_B4(                                                    "Ditto Key");
-    Get_B4 (Size_Generic,                                       "Generic section header length");
-    Get_B4 (Size_Industry,                                      "Industry specific header length");
-    Get_B4 (Size_User,                                          "User-defined header length");
-    Skip_String(100,                                            "FileName");
+    Get_X4 (Size_Generic,                                       "Generic section header length");
+    Get_X4 (Size_Industry,                                      "Industry specific header length");
+    Get_X4 (Size_User,                                          "User-defined header length");
+    Skip_UTF8  (100,                                            "FileName");
     Get_String (24,  CreationDate,                              "Creation Date");
     Get_String (100, Creator,                                   "Creator");
     Get_String (200, Project,                                   "Project");
@@ -439,11 +440,11 @@ void File_Dpx::GenericSectionHeader()
     int32u Width, Height, PAR_H, PAR_V;
     int16u ImageElements;
     Info_B2(ImageOrientation,                                   "Image orientation");Param_Info(DPX_Orientation[ImageOrientation]);
-    Get_B2 (ImageElements,                                      "Number of image elements");
+    Get_X2 (ImageElements,                                      "Number of image elements");
     if (ImageElements>8)
         ImageElements=8;
-    Get_B4 (Width,                                              "Pixels per line");
-    Get_B4 (Height,                                             "Lines per image element");
+    Get_X4 (Width,                                              "Pixels per line");
+    Get_X4 (Height,                                             "Lines per image element");
     for(int16u ImageElement=0; ImageElement<ImageElements; ImageElement++)
         GenericSectionHeader_ImageElement();
     if (ImageElements!=8)
@@ -468,8 +469,8 @@ void File_Dpx::GenericSectionHeader()
     Skip_B2(                                                    "YT border");
     Skip_B2(                                                    "YB border");
     Element_End();
-    Get_B4 (PAR_H,                                              "Pixel ratio : horizontal");
-    Get_B4 (PAR_V,                                              "Pixel ratio : vertical");
+    Get_X4 (PAR_H,                                              "Pixel ratio : horizontal");
+    Get_X4 (PAR_V,                                              "Pixel ratio : vertical");
     
     Element_Begin("Additional source image information");
     Skip_BFP4(9,                                                "X scanned size");
@@ -593,6 +594,28 @@ void File_Dpx::UserDefinedHeader()
     }
     Skip_String(32,                                             "User identification");
     Skip_XX(Sizes[Pos_UserDefined],                             "User defined");
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Dpx::Get_X2(int16u &Info, const char* Name)
+{
+    if (LittleEndian)
+        Get_L2 (Info,                                           Name);
+    else
+        Get_B2 (Info,                                           Name);
+}
+
+//---------------------------------------------------------------------------
+void File_Dpx::Get_X4(int32u &Info, const char* Name)
+{
+    if (LittleEndian)
+        Get_L4 (Info,                                           Name);
+    else
+        Get_B4 (Info,                                           Name);
 }
 
 } //NameSpace
