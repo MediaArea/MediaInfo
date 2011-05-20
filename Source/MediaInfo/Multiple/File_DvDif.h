@@ -343,12 +343,6 @@ public:
     stts* Mpeg4_stts;
     size_t Mpeg4_stts_Pos;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
-
-    #if MEDIAINFO_DEMUX
-        size_t Demux_Offset;
-        int64u Demux_Frame_Count;
-        int64u Demux_Field_Count;
-    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

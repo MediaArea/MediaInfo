@@ -564,7 +564,7 @@ bool File_DvDif::Synchronize()
 //---------------------------------------------------------------------------
 bool File_DvDif::Synched_Test()
 {
-    if (AuxToAnalyze)
+    if (AuxToAnalyze || (File_Offset==0 && Buffer_Offset==0))
         return true;
 
     //Must have enough buffer for having header
