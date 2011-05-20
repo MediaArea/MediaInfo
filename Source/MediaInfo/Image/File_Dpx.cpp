@@ -294,6 +294,7 @@ File_Dpx::File_Dpx()
 void File_Dpx::Streams_Accept()
 {
     Fill(Stream_General, 0, General_Format, "DPX");
+    Fill(Stream_General, 0, General_Format_Version, Version==1?"Version 1":"Version 2");
 
     //Configuration
     Buffer_MaximumSize=64*1024*1024;
@@ -343,21 +344,51 @@ bool File_Dpx::FileHeader_Begin()
     if (Buffer_Size<4)
         return false; //Must wait for more data
 
-    if (CC4(Buffer)!=0x53445058 && CC4(Buffer)!=0x58504453) //"SPDX" or "XDPS"
+    int32u Magic=CC4(Buffer);
+    switch (Magic)
     {
-        Reject();
-        return false;
+        case 0x802A5FD7 :   //       (v1 Big)
+        case 0xD75F2A80 :   //       (v1 Little)
+        case 0x53445058 :   //"SPDX" (v2 Big)
+        case 0x58504453 :   //"XDPS" (v2 Little)
+                            break;
+        default         :
+                            Reject();
+                            return false;
     }
-
-    //All should be OK...
-    Accept();
 
     //Generic Section size
     if (Buffer_Size<28)
         return false; //Must wait for more data
     Sizes.push_back(BigEndian2int32u(Buffer+24));
     Sizes_Pos=Pos_GenericSection;
-    LittleEndian=(CC4(Buffer)==0x58504453);
+    switch (Magic)
+    {
+        case 0x802A5FD7 :   //       (v1 Big)
+        case 0xD75F2A80 :   //       (v1 Little)
+                            Version=1;
+                            break;
+        case 0x58504453 :   //"XDPS" (v2 Little)
+        case 0x53445058 :   //"SPDX" (v2 Big)
+                            Version=2;
+                            break;
+        default         :   ;
+    }
+    switch (Magic)
+    {
+        case 0xD75F2A80 :   //       (v1 Little)
+        case 0x58504453 :   //"XDPS" (v2 Little)
+                            LittleEndian=true;
+                            break;
+        case 0x802A5FD7 :   //       (v1 Big)
+        case 0x53445058 :   //"SPDX" (v2 Big)
+                            LittleEndian=false;
+                            break;
+        default         :   ;
+    }
+
+    //All should be OK...
+    Accept();
 
     return true;
 }
@@ -379,12 +410,25 @@ void File_Dpx::Data_Parse()
 {
     Sizes_Pos++; //We go automaticly to the next block
 
-    switch (Element_Code)
+    if (Version==1)
     {
-        case Pos_GenericSection   : GenericSectionHeader(); break;
-        case Pos_IndustrySpecific : IndustrySpecificHeader(); break;
-        case Pos_UserDefined      : UserDefinedHeader(); break;
-        default                   : ;
+        switch (Element_Code)
+        {
+            case Pos_GenericSection   : GenericSectionHeader_v1(); break;
+            case Pos_IndustrySpecific : IndustrySpecificHeader_v1(); break;
+            case Pos_UserDefined      : UserDefinedHeader_v1(); break;
+            default                   : ;
+        }
+    }
+    else
+    {
+        switch (Element_Code)
+        {
+            case Pos_GenericSection   : GenericSectionHeader_v2(); break;
+            case Pos_IndustrySpecific : IndustrySpecificHeader_v2(); break;
+            case Pos_UserDefined      : UserDefinedHeader_v2(); break;
+            default                   : ;
+        }
     }
 
     //Special cases
@@ -411,7 +455,124 @@ void File_Dpx::Data_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Dpx::GenericSectionHeader()
+void File_Dpx::GenericSectionHeader_v1()
+{
+    Element_Name("Generic section header");
+
+    //Parsing
+    Element_Begin("File information");
+    Ztring CreationDate, CreationTime;
+    int32u Size_Header, Size_Total, Size_Generic, Size_Industry, Size_User;
+    Skip_B4(                                                    "Magic number");
+    Get_X4 (Size_Header,                                        "Offset to image data");
+    Get_X4 (Size_Generic,                                       "Generic section header length");
+    Get_X4 (Size_Industry,                                      "Industry specific header length");
+    Get_X4 (Size_User,                                          "User-defined header length");
+    Get_X4 (Size_Total,                                         "Total image file size");
+    Skip_String(8,                                              "Version number of header format");
+    Skip_UTF8  (100,                                            "FileName");
+    Get_UTF8   (12,  CreationDate,                              "Creation Date");
+    Get_UTF8   (12,  CreationTime,                              "Creation Time");
+    Skip_XX(36,                                                 "Reserved for future use");
+    Element_End();
+
+    Element_Begin("Image information");
+    int8u ImageElements;
+    Info_B1(ImageOrientation,                                   "Image orientation"); Param_Info(DPX_Orientation[ImageOrientation>8?8:ImageOrientation]);
+    Get_B1 (ImageElements,                                      "Number of image elements");
+    Skip_B2(                                                    "Unused");
+    if (ImageElements>8)
+        ImageElements=8;
+    for(int8u ImageElement=0; ImageElement<ImageElements; ImageElement++)
+        GenericSectionHeader_v1_ImageElement();
+    if (ImageElements!=8)
+        Skip_XX((8-ImageElements)*28,                           "Padding");
+    Skip_BFP4(9,                                                "White point - x");
+    Skip_BFP4(9,                                                "White point - y");
+    Skip_BFP4(9,                                                "Red primary chromaticity - x");
+    Skip_BFP4(9,                                                "Red primary chromaticity - u");
+    Skip_BFP4(9,                                                "Green primary chromaticity - x");
+    Skip_BFP4(9,                                                "Green primary chromaticity - y");
+    Skip_BFP4(9,                                                "Blue primary chromaticity - x");
+    Skip_BFP4(9,                                                "Blue primary chromaticity - y");
+    Skip_String(200,                                            "Label text");
+    Skip_XX(28,                                                 "Reserved for future use");
+    Element_End();
+
+    Element_Begin("Image Data Format Information");
+    Skip_B1(                                                    "Data interleave");
+    Skip_B1(                                                    "Packing");
+    Skip_B1(                                                    "Data signed or unsigned");
+    Skip_B1(                                                    "Image sense");
+    Skip_B4(                                                    "End of line padding");
+    Skip_B4(                                                    "End of channel padding");
+    Skip_XX(20,                                                 "Reserved for future use");
+
+    Element_Begin("Image Origination Information");
+    Skip_B4(                                                    "X offset");
+    Skip_B4(                                                    "Y offset");
+    Skip_UTF8  (100,                                            "FileName");
+    Get_UTF8   (12,  CreationDate,                              "Creation Date");
+    Get_UTF8   (12,  CreationTime,                              "Creation Time");
+    Skip_String(64,                                             "Input device");
+    Skip_String(32,                                             "Input device model number");
+    Skip_String(32,                                             "Input device serial number");
+    Skip_BFP4(9,                                                "X input device pitch");
+    Skip_BFP4(9,                                                "Y input device pitch");
+    Skip_BFP4(9,                                                "Image gamma of capture device");
+    Skip_XX(40,                                                 "Reserved for future use");
+    Element_End();
+
+    FILLING_BEGIN();
+        //Coherency tests
+        if (Size_Generic+Size_Industry+Size_User>Size_Header || Size_Header>Size_Total)
+        {
+            Reject();
+            return;
+        }
+
+        //Filling sizes
+        Sizes.push_back(Size_Industry);
+        Sizes.push_back(Size_User);
+        Sizes.push_back(Size_Header-(Size_Generic+Size_Industry+Size_User)); //Size of padding
+        Sizes.push_back(Size_Total-Size_Header); //Size of image
+
+        //Filling meta
+        Fill(Stream_General, 0, General_Encoded_Date, CreationDate+_T(' ')+CreationTime); //ToDo: transform it in UTC
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dpx::GenericSectionHeader_v1_ImageElement()
+{
+    Element_Begin("image element");
+    int32u Width, Height;
+    Skip_B1(                                                    "Designator - Byte 0");
+    Skip_B1(                                                    "Designator - Byte 1");
+    Skip_B1(                                                    "Bits per pixel");
+    Skip_B1(                                                    "Unused");
+    Get_X4 (Width,                                              "Pixels per line");
+    Get_X4 (Height,                                             "Lines per image element");
+    Skip_BFP4(9,                                                "Minimum data value");
+    Skip_BFP4(9,                                                "Minimum quantity represented");
+    Skip_BFP4(9,                                                "Maximum data value");
+    Skip_BFP4(9,                                                "Maximum quantity represented");
+    Element_End();
+
+    FILLING_BEGIN();
+        if (Count_Get(Stream_Image)==0)
+        {
+            Stream_Prepare(Stream_Image);
+            Fill(Stream_Image, StreamPos_Last, Image_Format, "DPX");
+            Fill(Stream_Image, StreamPos_Last, Image_Format_Version, "Version 1");
+            Fill(Stream_Image, StreamPos_Last, Image_Width, Width);
+            Fill(Stream_Image, StreamPos_Last, Image_Height, Height);
+        }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dpx::GenericSectionHeader_v2()
 {
     Element_Name("Generic section header");
 
@@ -446,7 +607,7 @@ void File_Dpx::GenericSectionHeader()
     Get_X4 (Width,                                              "Pixels per line");
     Get_X4 (Height,                                             "Lines per image element");
     for(int16u ImageElement=0; ImageElement<ImageElements; ImageElement++)
-        GenericSectionHeader_ImageElement();
+        GenericSectionHeader_v2_ImageElement();
     if (ImageElements!=8)
         Skip_XX((8-ImageElements)*72,                           "Padding");
     Skip_XX(52,                                                 "Reserved for future use");
@@ -509,7 +670,7 @@ void File_Dpx::GenericSectionHeader()
 }
 
 //---------------------------------------------------------------------------
-void File_Dpx::GenericSectionHeader_ImageElement()
+void File_Dpx::GenericSectionHeader_v2_ImageElement()
 {
     Element_Begin("image element");
     Info_B4(DataSign,                                           "Data sign");Param_Info((DataSign==0?"unsigned":"signed"));
@@ -532,12 +693,35 @@ void File_Dpx::GenericSectionHeader_ImageElement()
     FILLING_BEGIN();
         Stream_Prepare(Stream_Image);
         Fill(Stream_Image, StreamPos_Last, Image_Format, "DPX");
+        Fill(Stream_Image, StreamPos_Last, Image_Format_Version, "Version 2");
         Fill(Stream_Image, StreamPos_Last, Image_BitDepth, BitDephs);
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Dpx::IndustrySpecificHeader()
+void File_Dpx::IndustrySpecificHeader_v1()
+{
+    Element_Name("Motion picture industry specific header");
+
+    //Parsing
+    Element_Begin("Motion-picture film information");
+    Skip_B1(                                                    "?");
+    Skip_B1(                                                    "?");
+    Skip_B1(                                                    "?");
+    Skip_B1(                                                    "?");
+    Skip_B4(                                                    "?");
+    Skip_B4(                                                    "?");
+    Skip_String(32,                                             "?");
+    Skip_B4(                                                    "?");
+    Skip_B4(                                                    "?");
+    Skip_String(32,                                             "?");
+    Skip_String(200,                                            "?");
+    Skip_XX(740,                                                "Reserved for future use");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Dpx::IndustrySpecificHeader_v2()
 {
     Element_Name("Industry specific header");
 
@@ -581,7 +765,16 @@ void File_Dpx::IndustrySpecificHeader()
 }
 
 //---------------------------------------------------------------------------
-void File_Dpx::UserDefinedHeader()
+void File_Dpx::UserDefinedHeader_v1()
+{
+    Element_Name("User defined header");
+
+    //Parsing
+    Skip_XX(Sizes[Pos_UserDefined],                             "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Dpx::UserDefinedHeader_v2()
 {
     Element_Name("User defined header");
 

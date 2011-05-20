@@ -62,14 +62,19 @@ private :
     void Data_Parse();
 
     //Elements
-    void GenericSectionHeader();
-    void GenericSectionHeader_ImageElement();
-    void IndustrySpecificHeader();
-    void UserDefinedHeader();
+    void GenericSectionHeader_v1();
+    void GenericSectionHeader_v2();
+    void GenericSectionHeader_v1_ImageElement();
+    void GenericSectionHeader_v2_ImageElement();
+    void IndustrySpecificHeader_v1();
+    void IndustrySpecificHeader_v2();
+    void UserDefinedHeader_v1();
+    void UserDefinedHeader_v2();
 
     //Temp
     std::vector<int32u> Sizes;
     size_t              Sizes_Pos;
+    int8u               Version;
 	bool                LittleEndian;
 
     //Helpers
