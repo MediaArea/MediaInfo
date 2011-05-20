@@ -93,6 +93,9 @@ private :
     size_t                          CountOfReferencesToParse;
     float64                         FrameRate;
     float64                         Duration;
+
+    //Helpers
+    size_t Stream_Prepare(stream_t StreamKind, size_t StreamPos=(size_t)-1);
 };
 
 } //NameSpace

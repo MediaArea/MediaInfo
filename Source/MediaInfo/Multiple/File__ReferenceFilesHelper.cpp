@@ -265,7 +265,7 @@ void File__ReferenceFilesHelper::ParseReference()
             else
                 File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
 
-            #if MEDIAINFO_NEXTPACKET
+            #if MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
                 if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
                     return;
             #endif //MEDIAINFO_NEXTPACKET
@@ -278,17 +278,17 @@ void File__ReferenceFilesHelper::ParseReference()
             if (Config->Event_CallBackFunction_IsSet() && !Reference->Status[File__Analyze::IsFinished])
             {
                 #if MEDIAINFO_DEMUX
-					while ((Reference->Status=Reference->MI->Open_NextPacket())[8])
-					{
-							if (Config->Event_CallBackFunction_IsSet())
-							{
-								Config->Demux_EventWasSent=true;
-								return;
-							}
-					}
+                    while ((Reference->Status=Reference->MI->Open_NextPacket())[8])
+                    {
+                            if (Config->Event_CallBackFunction_IsSet())
+                            {
+                                Config->Demux_EventWasSent=true;
+                                return;
+                            }
+                    }
                 if (CountOfReferencesToParse)
                     CountOfReferencesToParse--;
-				#endif //MEDIAINFO_DEMUX
+                #endif //MEDIAINFO_DEMUX
             }
         #endif //MEDIAINFO_NEXTPACKET
         ParseReference_Finalize();
@@ -316,8 +316,8 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                     break;
                 }
                 
-                if (Reference->StreamKind==(size_t)-1)
-                    return; //Tehre is a problem
+                if (Reference->StreamPos==(size_t)-1)
+                    return; //There is a problem
         }
 
         Reference->StreamPos=MI->Stream_Prepare(Reference->StreamKind);
@@ -388,7 +388,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                         break;
                     Pos++;
                 }
-                MI->Stream_Prepare(Stream_Audio, Pos);
+                StreamPos_Last=Stream_Prepare(Stream_Audio, Pos);
                 MI->Merge(*Reference->MI->Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
                 if (MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
                     MI->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "MXF");
@@ -411,7 +411,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                         break;
                     Pos++;
                 }
-                MI->Stream_Prepare(Stream_Text, Pos);
+                StreamPos_Last=Stream_Prepare(Stream_Text, Pos);
                 MI->Merge(*Reference->MI->Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
                 if (MI->Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
                     MI->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "MXF");
@@ -440,7 +440,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                     break;
                 Pos++;
             }
-            MI->Stream_Prepare(Stream_Audio, Pos);
+            StreamPos_Last=Stream_Prepare(Stream_Audio, Pos);
             MI->Merge(*Reference->MI->Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
             if (MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
                 MI->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Format), true);
@@ -466,7 +466,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                     break;
                 Pos++;
             }
-            MI->Stream_Prepare(Stream_Text, Pos);
+            StreamPos_Last=Stream_Prepare(Stream_Text, Pos);
             MI->Merge(*Reference->MI->Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
             if (MI->Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
                 MI->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Format), true);
@@ -656,6 +656,22 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
     }
 }
 #endif //MEDIAINFO_SEEK
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+size_t File__ReferenceFilesHelper::Stream_Prepare (stream_t StreamKind, size_t StreamPos)
+{
+    size_t StreamPos_Last=MI->Stream_Prepare(StreamKind, StreamPos);
+
+    for (references::iterator ReferencePos=References.begin(); ReferencePos!=References.end(); ReferencePos++)
+        if (ReferencePos->StreamKind==StreamKind && ReferencePos->StreamPos>=StreamPos_Last)
+            ReferencePos->StreamPos++;
+
+    return StreamPos_Last;
+}
 
 } //NameSpace
 
