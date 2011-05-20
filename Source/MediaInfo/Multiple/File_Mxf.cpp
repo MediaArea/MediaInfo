@@ -2518,7 +2518,7 @@ void File_Mxf::Data_Parse()
                             StreamPos_StartAtOne=false;
 
                         if (Ztring().From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression)).find(_T("PCM"))==0)
-                            Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Big");
+                            Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Little");
                         #ifdef MEDIAINFO_VC3_YES
                             if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))
                                 ((File_Vc3*)Essence->second.Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
