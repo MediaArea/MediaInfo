@@ -2426,7 +2426,10 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
         }
         switch (FromTS_stream_type)
         {
+            case 0x03 :
+            case 0x04 : return ChooseParser_Mpega(); //MPEG Audio
             case 0x0F : return ChooseParser_Adts(); //ADTS
+            case 0x11 : return ChooseParser_Latm(); //LATM
             case 0x80 : return ChooseParser_PCM(); //PCM
             case 0x81 :
             case 0x83 :
@@ -2457,7 +2460,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
                         }
         }
     }
-    else if (private_stream_1_IsDvdVideo)
+    else if (Element_Code==0xBD && private_stream_1_IsDvdVideo)
     {
         //Subtitles (CVD)
              if (private_stream_1_ID>=0x00 && private_stream_1_ID<=0x0F)
@@ -2759,20 +2762,22 @@ void File_MpegPs::audio_stream()
         Streams[stream_id].StreamIsRegistred++;
 
         //New parsers
-        switch (Streams[stream_id].stream_type)
+        Streams[stream_id].Parsers.push_back(private_stream_1_ChooseParser());
+        if (Streams[stream_id].Parsers[Streams[stream_id].Parsers.size()-1]==NULL)
         {
-            case 0x0F : Streams[stream_id].Parsers.push_back(ChooseParser_Adts()); break;
-            case 0x11 : Streams[stream_id].Parsers.push_back(ChooseParser_Latm()); break;
-            case 0x03 :
-            case 0x04 : Streams[stream_id].Parsers.push_back(ChooseParser_Mpega()); break;
-            default   :
-                        #if defined(MEDIAINFO_MPEGA_YES)
-                            Streams[stream_id].Parsers.push_back(ChooseParser_Mpega());
-                        #endif
-                        #if defined(MEDIAINFO_AAC_YES)
-                            Streams[stream_id].Parsers.push_back(ChooseParser_Adts());
-                            Streams[stream_id].Parsers.push_back(ChooseParser_Latm());
-                        #endif
+            Streams[stream_id].Parsers.clear();
+            #if defined(MEDIAINFO_MPEGA_YES)
+                Streams[stream_id].Parsers.push_back(ChooseParser_Mpega());
+            #endif
+            #if defined(MEDIAINFO_AC3_YES)
+                Streams[stream_id].Parsers.push_back(ChooseParser_AC3());
+            #endif
+            #if defined(MEDIAINFO_DTS_YES)
+                Streams[stream_id].Parsers.push_back(ChooseParser_DTS());
+            #endif
+            #if defined(MEDIAINFO_AAC_YES)
+                Streams[stream_id].Parsers.push_back(ChooseParser_Adts());
+            #endif
         }
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)
             Open_Buffer_Init(Streams[stream_id].Parsers[Pos]);
