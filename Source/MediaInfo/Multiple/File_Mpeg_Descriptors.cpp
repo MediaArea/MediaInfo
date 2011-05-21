@@ -2258,6 +2258,7 @@ void File_Mpeg_Descriptors::Descriptor_59()
                         if (elementary_PID_IsValid)
                         {
                             Complete_Stream->Streams[elementary_PID]->StreamKind_FromDescriptor=Stream_Text;
+                            Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x59;
                             if (!Languages.empty())
                                 Languages.resize(Languages.size()-3);
                             Complete_Stream->Streams[elementary_PID]->Infos["Language"]=Languages;

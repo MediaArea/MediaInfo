@@ -254,7 +254,9 @@ private :
     File__Analyze* ChooseParser_PCM();
     File__Analyze* ChooseParser_AES3();
     File__Analyze* ChooseParser_RLE();
+    File__Analyze* ChooseParser_DvbSubtitle();
     File__Analyze* ChooseParser_PGS();
+    File__Analyze* ChooseParser_Teletext();
     File__Analyze* ChooseParser_PS2();
     File__Analyze* ChooseParser_NULL();
 

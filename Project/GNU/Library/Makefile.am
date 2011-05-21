@@ -136,6 +136,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Tag/File_VorbisCom.cpp \
                        ../../../Source/MediaInfo/Text/File_Cdp.cpp \
                        ../../../Source/MediaInfo/Text/File_Cmml.cpp \
+                       ../../../Source/MediaInfo/Text/File_DvbSubtitle.cpp \
                        ../../../Source/MediaInfo/Text/File_DtvccTransport.cpp \
                        ../../../Source/MediaInfo/Text/File_Kate.cpp \
                        ../../../Source/MediaInfo/Text/File_Eia608.cpp \
@@ -144,6 +145,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Text/File_Scte20.cpp \
+                       ../../../Source/MediaInfo/Text/File_Teletext.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc_Duplicate.cpp \
                        ../../../Source/MediaInfo/Video/File_AvsV.cpp \

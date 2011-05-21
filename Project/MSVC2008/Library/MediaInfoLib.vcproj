@@ -85,73 +85,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
-			ConfigurationType="4"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
-				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
-				WarningLevel="4"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4060;4065;4100;4127;4390"
-				EnablePREfast="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\MediaInfo.lib"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
@@ -184,71 +117,6 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="4"
-				DisableSpecificWarnings="4060;4065;4100;4127;4390"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\MediaInfo.lib"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
-			ConfigurationType="4"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
-				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO"
-				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
@@ -349,67 +217,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DebugA|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
-			ConfigurationType="4"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				WarningLevel="4"
-				DisableSpecificWarnings="4060;4065;4100;4127;4390"
-				EnablePREfast="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\MediaInfo.lib"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="ReleaseA|Win32"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
@@ -445,6 +252,199 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\MediaInfo.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
+				AdditionalUsingDirectories=""
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
+				WarningLevel="4"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\MediaInfo.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
+				Optimization="2"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
+				AdditionalUsingDirectories=""
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="0"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\MediaInfo.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugA|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
+			ConfigurationType="4"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1098,6 +1098,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia608.cpp"
 					>
 				</File>
@@ -1125,6 +1129,10 @@
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Scte20.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Tag"
@@ -1150,25 +1158,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|x64"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1187,6 +1177,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseA|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1782,6 +1790,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia608.h"
 					>
 				</File>
@@ -1803,6 +1815,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Teletext.h"
 					>
 				</File>
 			</Filter>

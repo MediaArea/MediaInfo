@@ -1932,6 +1932,8 @@ void File_MpegTs::Data_Parse()
 //---------------------------------------------------------------------------
 void File_MpegTs::PES()
 {
+    if (pid==6577)
+        int A=0;
     //Info
     DETAILS_INFO(if (Complete_Stream->transport_stream_id_IsValid) Element_Info(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid]->stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].registration_format_identifier));)
 
@@ -2047,6 +2049,7 @@ void File_MpegTs::PES()
             ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromTS=true;
             if (Config->File_MpegTs_stream_type_Trust_Get())
                 ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromTS_stream_type=Complete_Stream->Streams[pid]->stream_type;
+            ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromTS_descriptor_tag=Complete_Stream->Streams[pid]->descriptor_tag;
             if (!Complete_Stream->Streams[pid]->program_numbers.empty())
                 ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromTS_program_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromTS_format_identifier=Complete_Stream->Streams[pid]->registration_format_identifier;

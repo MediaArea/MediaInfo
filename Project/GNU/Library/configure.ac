@@ -143,8 +143,10 @@ AC_ARG_ENABLE(Lyrics3, AC_HELP_STRING([--disable-Lyrics3], [Disable Tag - Lyrics
 AC_ARG_ENABLE(Lyrics3v2, AC_HELP_STRING([--disable-Lyrics3v2], [Disable Tag - Lyrics3v2]),                                MediaInfoLyrics3v2=$enableval, MediaInfoLyrics3v2=depend)
 AC_ARG_ENABLE(VorbisCom, AC_HELP_STRING([--disable-VorbisCom], [Disable Tag - VorbisCom]),                                MediaInfoVorbisCom=$enableval, MediaInfoVorbisCom=depend)
 AC_ARG_ENABLE(cmml,    AC_HELP_STRING([--disable-cmml],    [Disable Text - CMML]),                                        MediaInfoCmml=$enableval,    MediaInfoCmml=depend)
+AC_ARG_ENABLE(dvbsubtitle,  AC_HELP_STRING([--disable-dvbSsubtitle],  [Disable Text - DVB Subtitle]),                     MediaInfoDvbSubtitle=$enableval,  MediaInfoDvbSubtitle=depend)
 AC_ARG_ENABLE(eia608,  AC_HELP_STRING([--disable-eia608],  [Disable Text - Closed captions (EIA-608)]),                   MediaInfoEia608=$enableval,  MediaInfo608=depend)
 AC_ARG_ENABLE(eia708,  AC_HELP_STRING([--disable-eia708],  [Disable Text - Closed captions (EIA-708)]),                   MediaInfoEia708=$enableval,  MediaInfo708=depend)
+AC_ARG_ENABLE(teletext,  AC_HELP_STRING([--disable-teletext],  [Disable Text - Teletext]),                                MediaInfoTeletext=$enableval,  MediaInfoTeletext=depend)
 AC_ARG_ENABLE(kate,    AC_HELP_STRING([--disable-kate],    [Disable Text - Kate]),                                        MediaInfoKate=$enableval,    MediaInfoKate=depend)
 AC_ARG_ENABLE(pgs,     AC_HELP_STRING([--disable-pgs] ,    [Disable Text - PGS]),                                         MediaInfoPgs=$enableval,     MediaInfoPgs=depend)
 AC_ARG_ENABLE(avc,     AC_HELP_STRING([--disable-avc],     [Disable Video - AVC/H264]),                                   MediaInfoAvc=$enableval,     MediaInfoAvc=depend)
@@ -260,8 +262,10 @@ if test "$MediaInfoLyrics3" = "no";  then AC_DEFINE(MEDIAINFO_LYRICS3_NO) fi; if
 if test "$MediaInfoLyrics3v2" = "no";  then AC_DEFINE(MEDIAINFO_LYRICS3V2_NO) fi; if test "$MediaInfoLyrics3v2" = "yes"; then AC_DEFINE(MEDIAINFO_LYRICS3V2_YES) fi
 if test "$MediaInfoVorbisCom" = "no";  then AC_DEFINE(MEDIAINFO_VORBISCOM_NO) fi; if test "$MediaInfoVorbisCom" = "yes"; then AC_DEFINE(MEDIAINFO_VORBISCOM_YES) fi
 if test "$MediaInfoCmml"    = "no";  then AC_DEFINE(MEDIAINFO_CMML_NO)    fi; if test "$MediaInfoCmml"    = "yes"; then AC_DEFINE(MEDIAINFO_CMML_YES)    fi
+if test "$MediaInfoDvbSubtitle"  = "no";  then AC_DEFINE(MEDIAINFO_DVBSUBTITLE_NO)  fi; if test "$MediaInfoDvbSubtitle"  = "yes"; then AC_DEFINE(MEDIAINFO_DVBSUBTITLE_YES)  fi
 if test "$MediaInfoEia608"  = "no";  then AC_DEFINE(MEDIAINFO_EIA608_NO)  fi; if test "$MediaInfoEia608"  = "yes"; then AC_DEFINE(MEDIAINFO_EIA608_YES)  fi
 if test "$MediaInfoEia708"  = "no";  then AC_DEFINE(MEDIAINFO_EIA708_NO)  fi; if test "$MediaInfoEia708"  = "yes"; then AC_DEFINE(MEDIAINFO_EIA708_YES)  fi
+if test "$MediaInfoTeletext"  = "no";  then AC_DEFINE(MEDIAINFO_TELETEXT_NO)  fi; if test "$MediaInfoTeletext"  = "yes"; then AC_DEFINE(MEDIAINFO_TELETEXT_YES)  fi
 if test "$MediaInfoKate"    = "no";  then AC_DEFINE(MEDIAINFO_KATE_NO)    fi; if test "$MediaInfoKate"    = "yes"; then AC_DEFINE(MEDIAINFO_KATE_YES)    fi
 if test "$MediaInfoPgs"     = "no";  then AC_DEFINE(MEDIAINFO_PGS_NO)     fi; if test "$MediaInfoPgs"     = "yes"; then AC_DEFINE(MEDIAINFO_PGS_YES)     fi
 if test "$MediaInfoAvc"     = "no";  then AC_DEFINE(MEDIAINFO_AVC_NO)     fi; if test "$MediaInfoAvc"     = "yes"; then AC_DEFINE(MEDIAINFO_AVC_YES)     fi
@@ -747,8 +751,10 @@ Mcho "Lyrics3" "$MediaInfoLyrics3"
 Mcho "Lyrics3v2" "$MediaInfoLyrics3v2"
 Mcho "VorbisCom" "$MediaInfoVorbisCom"
 Mcho "Cmml   " "$MediaInfoCmml"
+Mcho "DvbSubtitle " "$MediaInfoDvbSubtitle"
 Mcho "Eia608 " "$MediaInfoEia608"
 Mcho "Eia708 " "$MediaInfoEia708"
+Mcho "Teletext " "$MediaInfoTeletext"
 Mcho "Kate   " "$MediaInfoKate"
 Mcho "Pgs    " "$MediaInfoPgs"
 Mcho "Avc    " "$MediaInfoAvc"

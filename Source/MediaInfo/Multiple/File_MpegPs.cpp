@@ -74,8 +74,14 @@
 #if defined(MEDIAINFO_RLE_YES)
     #include "MediaInfo/Image/File_Rle.h"
 #endif
+#if defined(MEDIAINFO_DVBSUBTITLE_YES)
+    #include "MediaInfo/Text/File_DvbSubtitle.h"
+#endif
 #if defined(MEDIAINFO_PGS_YES)
     #include "MediaInfo/Text/File_Pgs.h"
+#endif
+#if defined(MEDIAINFO_TELETEXT_YES)
+    #include "MediaInfo/Text/File_Teletext.h"
 #endif
 #include "MediaInfo/File_Unknown.h"
 #include <ZenLib/Utils.h>
@@ -2444,8 +2450,8 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
             case 0xEA : return ChooseParser_NULL(); //VC1()
             default   : switch (FromTS_descriptor_tag)
                         {
-                            case 0x56 : return ChooseParser_NULL(); //Teletext
-                            case 0x59 : return ChooseParser_NULL(); //DVB Subtiles
+                            case 0x56 : return ChooseParser_Teletext(); //Teletext
+                            case 0x59 : return ChooseParser_DvbSubtitle(); //DVB Subtiles
                             case 0x6A :
                             case 0x7A :
                             case 0x81 : return ChooseParser_AC3(); //AC3/AC3+
@@ -3945,6 +3951,40 @@ File__Analyze* File_MpegPs::ChooseParser_RLE()
         Parser->Stream_Prepare(Stream_Text);
         Parser->Fill(Stream_Text, 0, Text_Format, "RLE");
         Parser->Fill(Stream_Text, 0, Text_Codec,  "RLE");
+    #endif
+    return Parser;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_DvbSubtitle()
+{
+    //Filling
+    #if defined(MEDIAINFO_DVBSUBTITLE_YES)
+        File__Analyze* Parser=new File_DvbSubtitle();
+    #else
+        //Filling
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Text);
+        Parser->Fill(Stream_Text, 0, Text_Format, "DVB Subtitle");
+        Parser->Fill(Stream_Text, 0, Text_Codec,  "DVB Subtitle");
+    #endif
+    return Parser;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_Teletext()
+{
+    //Filling
+    #if defined(MEDIAINFO_TELETEXT_YES)
+        File__Analyze* Parser=new File_Teletext();
+    #else
+        //Filling
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Text);
+        Parser->Fill(Stream_Text, 0, Text_Format, "Teletext");
+        Parser->Fill(Stream_Text, 0, Text_Codec,  "Teletext");
     #endif
     return Parser;
 }

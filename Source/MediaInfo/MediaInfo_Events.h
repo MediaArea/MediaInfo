@@ -562,4 +562,16 @@ struct MediaInfo_Event_DvDif_Analysis_Frame_0
 
 #define MediaInfo_Parser_Scte20         0xF5
 
+/***************************************************************************/
+/* DVB Subtitle                                                            */
+/***************************************************************************/
+
+#define MediaInfo_Parser_DvbSubtitle    0xF6
+
+/***************************************************************************/
+/* Teletext                                                                */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Teletext       0xF7
+
 #endif //MediaInfo_EventsH

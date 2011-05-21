@@ -643,6 +643,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia608.cpp"
 					>
 				</File>
@@ -668,6 +672,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Scte20.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp"
 					>
 				</File>
 			</Filter>
@@ -1282,6 +1290,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia608.h"
 					>
 				</File>
@@ -1303,6 +1315,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Teletext.h"
 					>
 				</File>
 			</Filter>

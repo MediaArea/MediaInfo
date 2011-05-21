@@ -543,6 +543,12 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.cpp">
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -985,6 +991,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.h">
       <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h">
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

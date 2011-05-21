@@ -260,6 +260,7 @@ struct complete_stream
         int16u                                      FMC_ES_ID;
         int16u                                      table_type; //ATSC
         int8u                                       stream_type;
+        int8u                                       descriptor_tag;
         bool                                        FMC_ES_ID_IsValid;
         bool                                        Searching;
         bool                                        Searching_Payload_Start;
@@ -306,6 +307,7 @@ struct complete_stream
             FMC_ES_ID=0x0000;
             table_type=0x0000;
             stream_type=(int8u)-1;
+            descriptor_tag=(int8u)-1;
             FMC_ES_ID_IsValid=false;
             Searching=false;
             Searching_Payload_Start=false;
@@ -506,7 +508,7 @@ public :
     bool   event_id_IsValid;
 
     //Out
-    
+
     //Constructor/Destructor
     File_Mpeg_Descriptors();
 

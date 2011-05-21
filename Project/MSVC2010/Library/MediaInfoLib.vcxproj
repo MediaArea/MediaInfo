@@ -382,6 +382,8 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp" />
@@ -582,7 +584,9 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scte20.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AvsV.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h" />

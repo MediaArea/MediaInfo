@@ -146,6 +146,7 @@ set(mediainfo_SRCS
 	MediaInfo/Tag/File_VorbisCom.cpp
 	MediaInfo/Text/File_Cdp.cpp
 	MediaInfo/Text/File_Cmml.cpp
+	MediaInfo/Text/File_DvbSubtitle.cpp
 	MediaInfo/Text/File_DtvccTransport.cpp
 	MediaInfo/Text/File_Eia608.cpp
 	MediaInfo/Text/File_Eia708.cpp
@@ -153,7 +154,8 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_N19.cpp
 	MediaInfo/Text/File_OtherText.cpp
 	MediaInfo/Text/File_Pgs.cpp
-	MediaInfo/Text/File_Scte20cpp
+	MediaInfo/Text/File_Scte20.cpp
+	MediaInfo/Text/File_Teletext.cpp
 	MediaInfo/Video/File_Avc.cpp
 	MediaInfo/Video/File_Avc_Duplicate.cpp
 	MediaInfo/Video/File_AvsV.cpp
