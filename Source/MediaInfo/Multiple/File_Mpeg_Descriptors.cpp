@@ -2177,6 +2177,7 @@ void File_Mpeg_Descriptors::Descriptor_56()
                             if (elementary_PID_IsValid /*&& (teletext_type==2 || teletext_type==5)*/) //Subtitles are the only supported format
                             {
                                 int16u ID=(teletext_magazine_number==0?8:teletext_magazine_number)*100+teletext_page_number_1*10+teletext_page_number_2;
+                                Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x56;
                                 Complete_Stream->Streams[elementary_PID]->Teletexts[ID].Infos["Language"]=MediaInfoLib::Config.Iso639_1_Get(ISO_639_language_code);
                                 Complete_Stream->Streams[elementary_PID]->Teletexts[ID].Infos["Format"]=Mpeg_Descriptors_teletext_type(teletext_type);
                                 Complete_Stream->Streams[elementary_PID]->Teletexts[ID].Infos["Codec"]=Mpeg_Descriptors_teletext_type(teletext_type);
@@ -2413,7 +2414,10 @@ void File_Mpeg_Descriptors::Descriptor_6A()
             {
                 case 0x02 : //program_map_section
                             if (elementary_PID_IsValid)
+                            {
+                                Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x6A;
                                 Complete_Stream->Streams[elementary_PID]->Infos["Channel(s)"]=Ztring().From_Local(Mpeg_Descriptors_AC3_Channels[number_of_channels]);
+                            }
                             break;
                 default    : ;
             }
@@ -2481,7 +2485,10 @@ void File_Mpeg_Descriptors::Descriptor_7A()
             {
                 case 0x02 : //program_map_section
                             if (elementary_PID_IsValid)
+                            {
+                                Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x7A;
                                 Complete_Stream->Streams[elementary_PID]->Infos["Channel(s)"]=Ztring().From_Local(Mpeg_Descriptors_AC3_Channels[number_of_channels]);
+                            }
                             break;
                 default    : ;
             }
@@ -2545,6 +2552,18 @@ void File_Mpeg_Descriptors::Descriptor_7B()
     Skip_S1(2,                                                  "extended_surround_flag");
     BS_End();
     //BS_End_CANBEMORE();
+
+    FILLING_BEGIN();
+        switch (table_id)
+        {
+            case 0x02 : //program_map_section
+                        if (elementary_PID_IsValid)
+                        {
+                            Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x7B;
+                        }
+            default   : ;
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2572,7 +2591,16 @@ void File_Mpeg_Descriptors::Descriptor_7C()
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     FILLING_BEGIN();
-        Complete_Stream->Streams[elementary_PID]->Infos["Format_Profile"]=Mpeg_Descriptors_MPEG_4_audio_profile_and_level(Profile_and_level);
+        switch (table_id)
+        {
+            case 0x02 : //program_map_section
+                        if (elementary_PID_IsValid)
+                        {
+                            Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x7C;
+                            Complete_Stream->Streams[elementary_PID]->Infos["Format_Profile"]=Mpeg_Descriptors_MPEG_4_audio_profile_and_level(Profile_and_level);
+                        }
+            default   : ;
+        }
     FILLING_END();
 }
 
@@ -2599,6 +2627,7 @@ void File_Mpeg_Descriptors::Descriptor_81()
             case 0x02 : //program_map_section
                         if (elementary_PID_IsValid)
                         {
+                            Complete_Stream->Streams[elementary_PID]->descriptor_tag=0x81;
                             if (sample_rate_code<4)
                                 Complete_Stream->Streams[elementary_PID]->Infos["SamplingRate"]=Ztring::ToZtring(AC3_SamplingRate[sample_rate_code]);
                             Complete_Stream->Streams[elementary_PID]->Infos["BitRate"]=Ztring::ToZtring(AC3_BitRate[bit_rate_code]*1000);

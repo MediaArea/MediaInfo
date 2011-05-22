@@ -2462,7 +2462,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
                                         else if (Element_Size>4 && CC4(Buffer+Buffer_Offset)==0x7FFE8001)
                                             return ChooseParser_DTS(); //DTS
                                         else
-                                            return ChooseParser_NULL();
+                                            return NULL;
                         }
         }
     }
@@ -2496,7 +2496,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
         else if (private_stream_1_ID>=0xC0 && private_stream_1_ID<=0xCF)
             return ChooseParser_AC3();
         else
-            return ChooseParser_NULL();
+            return NULL;
     }
     else
     {
@@ -2511,7 +2511,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
         else if (Element_Size>6 && CC2(Buffer+Buffer_Offset)==0xFF90 && CC2(Buffer+Buffer_Offset+4)==0x0000)
             return ChooseParser_RLE(); //PS2-MPG Subtitles
         else
-            return ChooseParser_NULL();
+            return NULL;
     }
 }
 
@@ -4046,9 +4046,9 @@ File__Analyze* File_MpegPs::ChooseParser_PS2()
 File__Analyze* File_MpegPs::ChooseParser_NULL()
 {
     //Filling
-    //File__Analyze* Parser=new File__Analyze();
-    //return Parser;
-    return NULL;
+    File__Analyze* Parser=new File_Unknown();
+    Open_Buffer_Init(Parser);
+    return Parser;
 }
 
 //***************************************************************************
