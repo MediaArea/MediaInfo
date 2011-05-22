@@ -164,9 +164,11 @@ File_Mpeg4::File_Mpeg4()
 
     //Temp
     mdat_MustParse=false;
-    moov_Done=false;
     TimeScale=1;
     Vendor=0x00000000;
+    FirstMdatPos=(int64u)-1;
+    FirstMoovPos=(int64u)-1;
+    IsSecondPass=false;
     IsParsing_mdat=false;
     moov_trak_tkhd_TrackID=(int32u)-1;
     ReferenceFiles=NULL;
@@ -196,6 +198,23 @@ void File_Mpeg4::Streams_Finish()
             return;
         }
     #endif MEDIAINFO_NEXTPACKET
+
+    //Final Cut EIA-608 format
+    if (Retrieve(Stream_General, 0, General_Format)==_T("Final Cut EIA-608"))
+    {
+        for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+        {
+            if (Stream->second.Parser->Count_Get(Stream_Text))
+            {
+                Stream_Prepare(Stream_Text);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Stream->first==1?"608-1":"608-2");
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("Final Cut"), Unlimited);
+                Merge(*Stream->second.Parser, Stream_Text, 0, StreamPos_Last);
+            }
+        }
+
+        return;
+    }
 
     Fill_Flush();
     int64u File_Size_Total=File_Size;
@@ -272,7 +291,8 @@ void File_Mpeg4::Streams_Finish()
 
                 //Special case - Multiple sub-streams in a stream
                 if ((Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping") && Temp->second.Parser->Count_Get(Stream_Audio))
-                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("CDP"))
+                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("Final Cut EIA-608")
+                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("Final Cut CDP"))
                 {
                     //Before
                     Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize));
@@ -906,6 +926,7 @@ bool File_Mpeg4::BookMark_Needed()
     if (!mdat_MustParse || !mdat_Pos.empty())
         return false;
 
+    IsSecondPass=true;
     return true;
 }
 

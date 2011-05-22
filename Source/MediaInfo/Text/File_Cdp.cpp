@@ -118,7 +118,7 @@ File_Cdp::~File_Cdp()
 //---------------------------------------------------------------------------
 void File_Cdp::Streams_Accept()
 {
-    Fill(Stream_General, 0, General_Format, "CDP");
+    Fill(Stream_General, 0, General_Format, WithAppleHeader?"Final Cut CDP":"CDP");
 }
 
 //---------------------------------------------------------------------------
@@ -146,6 +146,8 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
                 Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
                 if (Pos<2)
                     Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
+                if (WithAppleHeader)
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("Final Cut"), Unlimited);
                 Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
             }
             else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)

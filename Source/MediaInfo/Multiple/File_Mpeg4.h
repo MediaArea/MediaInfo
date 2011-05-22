@@ -62,6 +62,8 @@ private :
     bool BookMark_Needed();
 
     //Elements
+    void cdat();
+    void cdt2() {cdat();}
     void free();
     void ftyp();
     void idat();
@@ -279,7 +281,6 @@ private :
     //Temp
     bool List;
     bool                                    mdat_MustParse;
-    bool                                    moov_Done;
     int32u                                  moov_cmov_dcom_Compressor;
     int32u                                  moov_meta_hdlr_Type;
     std::string                             moov_meta_ilst_xxxx_name_Name;
@@ -293,6 +294,10 @@ private :
     int32u                                  TimeScale;
     int32u                                  Vendor;
     Ztring                                  Vendor_Version;
+    int64u                                  FirstMdatPos;
+    int64u                                  FirstMoovPos;
+    bool                                    IsSecondPass;
+    bool                                    IsParsing_mdat;
 
     //Data
     struct stream
@@ -394,7 +399,6 @@ private :
     typedef std::map<int64u, mdat_Pos_Type> mdat_pos;
     mdat_pos mdat_Pos;
     mdat_pos::iterator mdat_Pos_Temp;
-    bool IsParsing_mdat;
 
     #if MEDIAINFO_DEMUX
         bool Demux_Locators;

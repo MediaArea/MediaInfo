@@ -77,6 +77,9 @@
 #if defined(MEDIAINFO_CDP_YES)
     #include "MediaInfo/Text/File_Cdp.h"
 #endif
+#if defined(MEDIAINFO_EIA608_YES)
+    #include "MediaInfo/Text/File_Eia608.h"
+#endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
@@ -258,6 +261,8 @@ const char* Mpeg4_jp2h_EnumCS(int32u EnumCS)
 //---------------------------------------------------------------------------
 namespace Elements
 {
+    const int64u cdat=0x63646174;
+    const int64u cdt2=0x63647432;
     const int64u free=0x66726565;
     const int64u ftyp=0x66747970;
     const int64u ftyp_qt=0x71742020;
@@ -518,6 +523,8 @@ void File_Mpeg4::Data_Parse()
 
     //Parsing
     DATA_BEGIN
+    ATOM(cdat)
+    ATOM(cdt2)
     LIST_SKIP(free)
     ATOM(ftyp)
     ATOM(idat)
@@ -900,6 +907,31 @@ void File_Mpeg4::Data_Parse()
     } \
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::cdat()
+{
+    Element_Code=Element_Code==Elements::cdat?1:2;
+
+    if (!Status[IsAccepted])
+    {
+        Accept("EIA-608");
+        Fill(Stream_General, 0, General_Format, "Final Cut EIA-608", Unlimited, true, true);
+    }
+    if (Streams[(int32u)Element_Code].Parser==NULL)
+    {
+        Streams[(int32u)Element_Code].Parser=new File_Eia608();
+        Open_Buffer_Init(Streams[(int32u)Element_Code].Parser);
+    }
+
+    Element_Name(Element_Code==1?"EIA-608-1":"EIA-608-2");
+
+    #if MEDIAINFO_DEMUX
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+        Streams[(int32u)Element_Code].Parser->FrameInfo=FrameInfo;
+    #endif //MEDIAINFO_DEMUX
+    Open_Buffer_Continue(Streams[(int32u)Element_Code].Parser);
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::free()
 {
     Element_Name("Free space");
@@ -1084,11 +1116,11 @@ void File_Mpeg4::mdat()
         Fill(Stream_General, 0, General_DataSize, Element_TotalSize_Get()+Header_Size);
         if (File_Size!=(int64u)-1)
             Fill(Stream_General, 0, General_FooterSize, File_Size-(File_Offset+Buffer_Offset+Element_TotalSize_Get()));
-        Fill(Stream_General, 0, General_IsStreamable, moov_Done?"Yes":"No");
+        Fill(Stream_General, 0, General_IsStreamable, FirstMoovPos==(int64u)-1?"No":"Yes");
     }
 
     //In case of second pass
-    if (mdat_MustParse && mdat_Pos.empty())
+    if (IsSecondPass && mdat_MustParse && mdat_Pos.empty())
     {
         //For each stream
         for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); Temp++)
@@ -1123,7 +1155,7 @@ void File_Mpeg4::mdat()
                         if (stsz_Pos>=Temp->second.stsz.size())
                             break;
                     }
-                    else if (Temp->second.stsz_Sample_Size<=32 && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
+                    else if (Temp->second.StreamKind==Stream_Audio && Temp->second.stsz_Sample_Size<=32 && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
                     {
                         //Same size per sample, but granularity is too small
                         mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
@@ -1192,7 +1224,7 @@ void File_Mpeg4::mdat()
 
         #if MEDIAINFO_DEMUX
             if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
-    		{
+            {
                 bool HasLocators=false;
                 for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
                     if (!Stream->second.File_Name.empty())
@@ -1208,19 +1240,21 @@ void File_Mpeg4::mdat()
                 else
                     Demux_Locators=true;
             }
-	    #endif //MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX
 
         return; //Only if have something in this mdat
     }
 
     //In case of mdat is before moov
-    if (Streams.empty())
+    if (FirstMdatPos==(int64u)-1)
     {
         Buffer_Offset-=(size_t)Header_Size;
         Element_Level--;
         BookMark_Set(); //Remembering this place, for stream parsing in phase 2
         Element_Level++;
         Buffer_Offset+=(size_t)Header_Size;
+
+        FirstMdatPos=File_Offset+Buffer_Offset-Header_Size;
     }
 
     //Parsing
@@ -1289,6 +1323,7 @@ void File_Mpeg4::mdat_xxxx()
         Skip_XX(Element_Size,                                   "Data");
 
     //Next piece of data
+    Element_Show();
     mdat_StreamJump();
 }
 
@@ -1305,6 +1340,7 @@ void File_Mpeg4::mdat_StreamJump()
         if (!Status[IsAccepted])
             Data_Accept("MPEG-4");
         Data_GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1), "MPEG-4"); //Not in this chunk
+        Element_Show();
         IsParsing_mdat=false;
     }
     else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
@@ -1492,13 +1528,24 @@ void File_Mpeg4::moov()
     }
     Element_Name("File header");
 
-    if (!Streams.empty())
+    if (IsSecondPass || FirstMoovPos!=(int64u)-1) //Currently, the 1 moov atom is used
     {
-        Skip_XX(Element_TotalSize_Get(),                        "Duplicated moov");
+        Skip_XX(Element_TotalSize_Get(),                        "Data");
         return;
     }
 
-    moov_Done=true;
+    if (FirstMoovPos==(int64u)-1)
+        FirstMoovPos=File_Offset+Buffer_Offset-Header_Size;
+    /*
+    else
+    {
+        //In case of more than 1 moov atom, the last one is used (previous ones are trashed)
+        Streams.clear();
+        for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+            while (Count_Get((stream_t)StreamKind))
+                Stream_Erase((stream_t)StreamKind, Count_Get((stream_t)StreamKind)-1);
+    }
+    */
 }
 
 //---------------------------------------------------------------------------
@@ -1576,6 +1623,9 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         Element_Level++;
         Header_Fill_Size(File_Size);
         Element_Level--;
+
+        //Configuring some status info
+        FirstMoovPos=(int64u)-1;
 
         //Parsing
         Open_Buffer_Continue(Dest, Dest_Size);
@@ -3352,6 +3402,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
         Ztring CodecID; CodecID.From_CC4((int32u)Element_Code);
         CodecID_Fill(CodecID, Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
 
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Text, InfoCodecID_Format_Mpeg4, CodecID, InfoCodecID_Format)==_T("EIA-608"))
+        {
+            //Creating the parser
+            Streams[moov_trak_tkhd_TrackID].Parser=new File_Mpeg4;
+        }
         #if defined(MEDIAINFO_CDP_YES)
         if (MediaInfoLib::Config.CodecID_Get(Stream_Text, InfoCodecID_Format_Mpeg4, CodecID, InfoCodecID_Format)==_T("EIA-708"))
         {

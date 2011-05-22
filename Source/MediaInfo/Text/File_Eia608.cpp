@@ -142,7 +142,7 @@ void File_Eia608::Read_Buffer_Continue()
         Accept("EIA-608");
 
         //Forcing detection even if this is empty caption (option)
-        if (Config->File_Eia708_DisplayEmptyStream_Get()) //TODO: separate CC1/CC2/T1/T2
+        if (Config->File_Eia608_DisplayEmptyStream_Get()) //TODO: separate CC1/CC2/T1/T2
             Fill("EIA-608");
     }
 
