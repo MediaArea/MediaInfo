@@ -5,6 +5,7 @@ Format_Commercial
 Format_Commercial_IfAny
 Format_Version
 Format_Profile
+Format_Compression
 Format_Settings
 InternetMediaType
 CodecID

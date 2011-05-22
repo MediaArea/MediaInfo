@@ -19,6 +19,7 @@ Format_Commercial;;;N NT;;;Commercial name used by vendor for theses setings or 
 Format_Commercial_IfAny;;;Y NT;;;Commercial name used by vendor for theses setings if there is one;;
 Format_Version;;;Y NT;;;Version of this format;;
 Format_Profile;;;Y NT;;;Profile of this Format;;
+Format_Compression;;;Y NT;;;Compression method used;;
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary;;
 Format_Settings_SBR;;Yes;N YT;;;;;
 Format_Settings_SBR/String;;;N NT;;;;;
