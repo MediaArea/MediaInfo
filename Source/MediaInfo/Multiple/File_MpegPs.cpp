@@ -536,6 +536,10 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
             Open_Buffer_Continue(Temp.Parsers[0], Buffer, 0);
             Temp.Parsers[0]->File_Size=File_Size;
             Finish(Temp.Parsers[0]);
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_EventWasSent)
+                    return;
+            #endif //MEDIAINFO_DEMUX
         }
         Merge(*Temp.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
 
