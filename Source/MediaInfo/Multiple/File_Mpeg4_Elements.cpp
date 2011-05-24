@@ -1208,6 +1208,7 @@ void File_Mpeg4::mdat()
                 #endif //MEDIAINFO_DEMUX
             }
         }
+        mdat_Pos_Temp=mdat_Pos.begin();
     }
 
     //Trace
@@ -1215,11 +1216,10 @@ void File_Mpeg4::mdat()
         Trace_Layers_Update(0); //Container1
     #endif //MEDIAINFO_TRACE
 
-    if (!mdat_Pos.empty() && mdat_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
+    if ((IsSecondPass || FirstMoovPos<FirstMdatPos) && !mdat_Pos.empty() && mdat_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
     {
         //Next piece of data
         IsParsing_mdat=true;
-        mdat_Pos_Temp=mdat_Pos.begin();
         mdat_StreamJump();
 
         #if MEDIAINFO_DEMUX

@@ -20,6 +20,7 @@ Version 0.7.45, 2011-
 + LXF: support of DV PAL
 + DPX: Support of Cineon old format
 + DPX: Support of file with Little Endian configuration
++ MPEG-4: better support of file with more than one mdat or moov atom
 x DPX: Industry specific header was not well decoded
 x JPEG-2000: Chroma subsampling 4:2:0 was recognized as 4:4:4.
 x Matroska: Handling default values for TrackVideoDisplayWidth and TrackVideoDisplayHeight

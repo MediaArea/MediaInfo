@@ -923,7 +923,7 @@ void File_Mpeg4::Header_Parse()
 //---------------------------------------------------------------------------
 bool File_Mpeg4::BookMark_Needed()
 {
-    if (!mdat_MustParse || !mdat_Pos.empty())
+    if (IsSecondPass || !mdat_MustParse || !mdat_Pos.empty())
         return false;
 
     IsSecondPass=true;
