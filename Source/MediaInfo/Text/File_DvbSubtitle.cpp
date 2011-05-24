@@ -55,6 +55,10 @@ File_DvbSubtitle::File_DvbSubtitle()
     #endif //MEDIAINFO_TRACE
     PTS_DTS_Needed=true;
     IsRawStream=true;
+    MustSynchronize=true;
+
+    //Temp
+    MustFindDvbHeader=true;
 }
 
 //---------------------------------------------------------------------------
@@ -79,14 +83,186 @@ void File_DvbSubtitle::Streams_Finish()
 }
 
 //***************************************************************************
-// Buffer - Global
+// Buffer - Synchro
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_DvbSubtitle::Read_Buffer_Continue()
+bool File_DvbSubtitle::Synchronize()
 {
-    Fill();
-    Finish();
+    //Synchronizing
+    if (MustFindDvbHeader)
+    {
+        while(Buffer_Offset+3<=Buffer_Size)
+        {
+            if (Buffer[Buffer_Offset]==0x20
+             && Buffer[Buffer_Offset+1]==0x00
+             && (Buffer[Buffer_Offset+2]==0x0F
+              || Buffer[Buffer_Offset+1]==0xFF))
+                break;
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset+3>Buffer_Size)
+            return false;
+
+        Accept();
+    }
+    else
+    {
+        while(Buffer_Offset<Buffer_Size)
+        {
+            if (Buffer[Buffer_Offset]==0x0F
+             || Buffer[Buffer_Offset]==0xFF)
+                break;
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset>=Buffer_Size)
+            return false;
+    }
+
+    //Synched is OK
+    Synched=true;
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_DvbSubtitle::Synched_Test()
+{
+    if (MustFindDvbHeader)
+    {
+        //Must have enough buffer for having header
+        if (Buffer_Offset+1>Buffer_Size)
+            return false;
+
+        if (CC2(Buffer+Buffer_Offset)!=0x2000)
+        {
+            Synched=false;
+            return true;
+        }
+
+        //Displaying it
+        Element_Size=2;
+        Skip_B1(                                                "data_identifier");
+        Skip_B1(                                                "subtitle_stream_id");
+        Buffer_Offset+=2;
+        MustFindDvbHeader=false;
+    }
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+1>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (Buffer[Buffer_Offset]!=0x0F
+     && Buffer[Buffer_Offset]!=0xFF)
+    {
+        Synched=false;
+        return true;
+    }
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_DvbSubtitle::Read_Buffer_Unsynched()
+{
+    MustParseTheHeaderFile=true;
+    Synched=false;
+}
+
+//***************************************************************************
+// Buffer - Demux
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+bool File_DvbSubtitle::Demux_UnpacketizeContainer_Test()
+{
+    if (Demux_Offset==0)
+    {
+        Demux_Offset=Buffer_Offset;
+    }
+    while (Demux_Offset<Buffer_Size)
+    {
+        bool MustBreak;
+        switch (Buffer[Demux_Offset])
+        {
+            case 0xFF :
+                        MustBreak=true; break; //0xFF is not in the demuxed frame
+            default   : MustBreak=false;
+        }
+        if (MustBreak)
+            break; //while() loop
+
+        if (Demux_Offset+6>Buffer_Size)
+            return false; //No complete frame
+
+        int16u segment_length=BigEndian2int16u(Buffer+Demux_Offset+4);
+        Demux_Offset+=6+segment_length;
+
+        if (Demux_Offset>=Buffer_Size)
+            return false; //No complete frame
+    }
+
+    if (Demux_Offset>=Buffer_Size)
+        return false; //No complete frame
+
+    Demux_UnpacketizeContainer_Demux();
+
+    Demux_TotalBytes++; //0xFF is not demuxed
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DvbSubtitle::Header_Parse()
+{
+    //Parsing
+    int8u sync_byte;
+    Get_B1 (sync_byte,                                          "sync_byte");
+    switch (sync_byte)
+    {
+        case 0xFF : //Stuffing
+                    MustFindDvbHeader=true;
+
+                    //Filling
+                    Header_Fill_Code(0xFF, "end_of_PES_data_field_marker");
+                    Header_Fill_Size(1);
+                    return;
+        default   : ; //Normal (0x0F)
+    }
+
+    int16u segment_length;
+    int8u  segment_type;
+    Get_B1 (segment_type,                                       "segment_type");
+    Get_B2 (page_id,                                            "page_id");
+    Get_B2 (segment_length,                                     "segment_length");
+
+    //Filling
+    Header_Fill_Code(segment_type);
+    Header_Fill_Size(Element_Offset+segment_length);
+}
+
+//---------------------------------------------------------------------------
+void File_DvbSubtitle::Data_Parse()
+{
+    switch (Element_Code)
+    {
+        case 0xFF : //end_of_PES_data_field_marker
+                    Fill();
+                    Finish();
+                    return;
+        default   :
+                    if (Element_Size)
+                        Skip_XX(Element_Size,                   "Unknown");
+    }
 }
 
 //***************************************************************************
@@ -96,3 +272,4 @@ void File_DvbSubtitle::Read_Buffer_Continue()
 } //NameSpace
 
 #endif //MEDIAINFO_DVBSUBTITLE_YES
+

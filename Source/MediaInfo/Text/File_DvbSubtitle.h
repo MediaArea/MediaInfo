@@ -49,10 +49,26 @@ private :
     void Streams_Fill();
     void Streams_Finish();
 
-    //Buffer - Global
-    void Read_Buffer_Continue();
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+    void Read_Buffer_Unsynched();
+
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test();
+    #endif //MEDIAINFO_DEMUX
+
+    //Buffer - Per element
+    void Header_Parse();
+    void Data_Parse();
+
+    //Temp
+    bool    MustFindDvbHeader;
+    int16u  page_id;
 };
 
 } //NameSpace
 
 #endif
+

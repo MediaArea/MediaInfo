@@ -3965,6 +3965,15 @@ File__Analyze* File_MpegPs::ChooseParser_DvbSubtitle()
     //Filling
     #if defined(MEDIAINFO_DVBSUBTITLE_YES)
         File__Analyze* Parser=new File_DvbSubtitle();
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
