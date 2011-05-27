@@ -1105,7 +1105,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Element_Info("Audio");
 
     //Parsing
-    int32u SamplesPerSec, AvgBytesPerSec;
+    int32u AvgBytesPerSec;
     int16u FormatTag, Channels;
     BitsPerSample=0;
     Get_L2 (FormatTag,                                          "FormatTag");
@@ -1136,7 +1136,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
     if (SamplesPerSec && TimeReference!=(int64u)-1)
     {
-        Fill(Stream_Audio, 0, Audio_Delay, TimeReference/SamplesPerSec);
+        Fill(Stream_Audio, 0, Audio_Delay, float64_int64s(((float64)TimeReference)*1000/SamplesPerSec));
         Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
     }
 
@@ -2963,11 +2963,11 @@ void File_Riff::WAVE_bext()
     Element_Name("Broadcast extension");
 
     //Parsing
-    Ztring Description, Originator, OriginationDate, OriginationTime, History;
+    Ztring Description, Originator, OriginatorReference, OriginationDate, OriginationTime, History;
     int16u Version;
     Get_Local(256, Description,                                 "Description");
     Get_Local( 32, Originator,                                  "Originator");
-    Skip_Local(32,                                              "OriginatorReference");
+    Get_Local( 32, OriginatorReference,                         "OriginatorReference");
     Get_Local( 10, OriginationDate,                             "OriginationDate");
     Get_Local(  8, OriginationTime,                             "OriginationTime");
     Get_L8   (     TimeReference,                               "TimeReference"); //To be divided by SamplesPerSec
@@ -2981,8 +2981,14 @@ void File_Riff::WAVE_bext()
     FILLING_BEGIN();
         Fill(Stream_General, 0, General_Description, Description);
         Fill(Stream_General, 0, General_Producer, Originator);
-        Fill(Stream_General, 0, General_Encoded_Date, _T("UTC ")+OriginationDate+_T(' ')+OriginationTime);
+        Fill(Stream_General, 0, "Producer_Reference", OriginatorReference);
+        Fill(Stream_General, 0, General_Encoded_Date, OriginationDate+_T(' ')+OriginationTime);
         Fill(Stream_General, 0, General_Encoded_Library_Settings, History);
+        if (SamplesPerSec && TimeReference!=(int64u)-1)
+        {
+            Fill(Stream_Audio, 0, Audio_Delay, float64_int64s(((float64)TimeReference)*1000/SamplesPerSec));
+            Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
+        }
     FILLING_END();
 }
 

@@ -143,6 +143,7 @@ private :
     int64u TimeReference;   //Only used by Brodcast extension
     int32u SMV_BlockSize;   //Size of a SMV block, 0 if not SMV
     int32u SMV_FrameCount;  //Frame count of a SMV block, 0 if not SMV
+    int32u SamplesPerSec;   //For bext
     int16u BitsPerSample;   //For PCM only
     int8u  stream_Count;    //How many stream we have to parse
     bool   rec__Present;    //True if synchro element is present

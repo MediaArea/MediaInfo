@@ -120,6 +120,7 @@ File_Riff::File_Riff()
     movi_Size=0;
     TimeReference=(int64u)-1;
     SMV_BlockSize=0;
+    SamplesPerSec=0;
     stream_Count=0;
     rec__Present=false;
     NeedOldIndex=true;
