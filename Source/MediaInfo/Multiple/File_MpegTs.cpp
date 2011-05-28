@@ -1932,8 +1932,6 @@ void File_MpegTs::Data_Parse()
 //---------------------------------------------------------------------------
 void File_MpegTs::PES()
 {
-    if (pid==6577)
-        int A=0;
     //Info
     DETAILS_INFO(if (Complete_Stream->transport_stream_id_IsValid) Element_Info(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid]->stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].registration_format_identifier));)
 
