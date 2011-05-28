@@ -637,6 +637,18 @@ void File_Avc::Streams_Finish()
             Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, _T("SCTE 128 / DTVCC Transport"));
         }
 
+    #if MEDIAINFO_IBI
+        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
+        {
+            ibi::stream::info IbiInfo;
+            IbiInfo.StreamOffset=File_Offset+Buffer_Size;
+            IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
+            IbiInfo.Dts=FrameInfo.DTS;
+            IbiInfo.IsContinuous=true;
+            IbiStream->Add(IbiInfo);
+        }
+    #endif MEDIAINFO_IBI
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -727,17 +739,20 @@ bool File_Avc::Synched_Test()
         return false;
 
     #if MEDIAINFO_IBI
-        if (Config_Ibi_Create)
+        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
         {
             bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
             bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
-            if (RandomAccess && (IbiStream.Infos.empty() || IbiStream.Infos[IbiStream.Infos.size()-1].FrameNumber!=Frame_Count))
+            if (RandomAccess)
             {
                 ibi::stream::info IbiInfo;
                 IbiInfo.StreamOffset=Ibi_SynchronizationOffset_Current;
-                IbiInfo.FrameNumber=Frame_Count;
+                IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
                 IbiInfo.Dts=FrameInfo.DTS;
-                IbiStream.Infos.push_back(IbiInfo);
+                IbiStream->Add(IbiInfo);
+
+                if (Frame_Count_NotParsedIncluded==(int64u)-1)
+                    Frame_Count_NotParsedIncluded=IbiStream->Infos[IbiStream->Infos_Pos-1].FrameNumber;
             }
         }
     #endif MEDIAINFO_IBI

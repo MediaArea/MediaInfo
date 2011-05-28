@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "ZenLib/Ztring.h"
+#include <map>
 #include <vector>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -51,24 +52,42 @@ struct ibi
             int64u StreamOffset;
             int64u FrameNumber;
             int64u Dts;
+            bool   IsContinuous;
 
             info()
             {
                 StreamOffset=(int64u)-1;
                 FrameNumber=(int64u)-1;
                 Dts=(int64u)-1;
+                IsContinuous=false;
             }
         };
-        std::vector<info> Infos;
+        std::vector<info>   Infos;
+        size_t              Infos_Pos;
+        bool                IsContinuous;
+        bool                IsModified;
+        bool                IsSynchronized;
 
         stream()
         {
             ID=(int64u)-1;
             DtsFrequencyNumerator=1000000000; //nanosecond
             DtsFrequencyDenominator=1;
+            Infos_Pos=0;
+            IsContinuous=false;
+            IsModified=false;
+            IsSynchronized=false;
         }
+
+        void Add (const info &Info);
+        void Unsynch();
     };
-    std::vector<stream> Streams;
+    typedef std::map<int64u, stream*>   streams;
+    streams                             Streams;
+
+    //Constructor/Destructor
+    ibi();
+    ~ibi();
 };
 
 //***************************************************************************

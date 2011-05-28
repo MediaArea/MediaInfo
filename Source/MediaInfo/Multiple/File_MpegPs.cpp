@@ -572,24 +572,6 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
             StreamKind_Last=Temp.StreamKind;
             StreamPos_Last=Temp.StreamPos;
         }
-
-        #if MEDIAINFO_IBI
-            if (Config_Ibi_Create)
-            {
-                IbiStream=Temp.Parsers[0]->IbiStream;
-                Temp.Parsers[0]->IbiStream=ibi::stream(); //Reset
-
-                if (IbiStream.DtsFrequencyNumerator==1000000000 && IbiStream.DtsFrequencyDenominator==1)
-                {
-                    IbiStream.DtsFrequencyNumerator=90000;
-                    for (size_t Pos=0; Pos<IbiStream.Infos.size(); Pos++)
-                    {
-                        int64u Temp=IbiStream.Infos[Pos].Dts*90/1000000;
-                        IbiStream.Infos[Pos].Dts=Temp;
-                    }
-                }
-            }
-        #endif //MEDIAINFO_IBI
     }
 
     //Duration if it is missing from the parser
@@ -823,7 +805,7 @@ void File_MpegPs::Read_Buffer_Unsynched()
             if (Streams[StreamID].Parsers[Pos])
             {
                 #if MEDIAINFO_SEEK
-                    Streams[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Unsynch_Frame_Count;
+                    Streams[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Frame_Count_NotParsedIncluded;
                 #endif //MEDIAINFO_SEEK
                 Streams[StreamID].Parsers[Pos]->Open_Buffer_Unsynch();
             }
@@ -2873,6 +2855,10 @@ void File_MpegPs::video_stream()
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)
         {
             Open_Buffer_Init(Streams[stream_id].Parsers[Pos]);
+            #if MEDIAINFO_IBI
+                if (FromTS)
+                    Streams[stream_id].Parsers[Pos]->IbiStream=IbiStream;
+            #endif //MEDIAINFO_IBI
             #if MEDIAINFO_SEEK
                 if (Unsynch_Frame_Count_Temp!=(int64u)-1)
                     Streams[stream_id].Parsers[Pos]->Frame_Count_NotParsedIncluded=Unsynch_Frame_Count_Temp;
@@ -3314,6 +3300,8 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                 Temp.Parsers[Pos]->Ibi_SynchronizationOffset_Current=Ibi_SynchronizationOffset_Current;
             #endif //MEDIAINFO_IBI
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            if (Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded=Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded;
             if (!MustExtendParsingDuration && Temp.Parsers[Pos]->MustExtendParsingDuration)
             {
                 SizeToAnalyze*=8; //Normally 2 seconds, now 16 seconds

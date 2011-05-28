@@ -85,6 +85,7 @@ private :
 
     //Temp
     Ztring  Get_Temp;
+    int64u  ID_Current;
     bool    Ibi_MustDelete;
 };
 

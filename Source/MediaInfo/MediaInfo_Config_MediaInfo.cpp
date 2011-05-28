@@ -93,6 +93,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     //Internal to MediaInfo, not thread safe
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
+        #if MEDIAINFO_SEEK
+           Demux_IsSeeking=false;
+        #endif //MEDIAINFO_SEEK
     #endif //MEDIAINFO_DEMUX
 }
 

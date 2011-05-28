@@ -191,6 +191,9 @@ public :
     //Internal to MediaInfo, not thread safe
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
+        #if MEDIAINFO_SEEK
+        bool      Demux_IsSeeking;
+        #endif //MEDIAINFO_SEEK
     #endif //MEDIAINFO_DEMUX
 
 private :

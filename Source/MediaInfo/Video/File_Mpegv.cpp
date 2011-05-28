@@ -783,13 +783,14 @@ void File_Mpegv::Streams_Finish()
     }
 
     #if MEDIAINFO_IBI
-        if (Config_Ibi_Create)
+        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
         {
             ibi::stream::info IbiInfo;
-            IbiInfo.StreamOffset=File_Offset+Buffer_Offset;
-            IbiInfo.FrameNumber=Frame_Count;
+            IbiInfo.StreamOffset=File_Offset+Buffer_Size;
+            IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
             IbiInfo.Dts=FrameInfo.DTS;
-            IbiStream.Infos.push_back(IbiInfo);
+            IbiInfo.IsContinuous=true;
+            IbiStream->Add(IbiInfo);
         }
     #endif MEDIAINFO_IBI
 }
@@ -818,16 +819,19 @@ bool File_Mpegv::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
     #if MEDIAINFO_IBI
-        if (Config_Ibi_Create)
+        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
         {
             bool RandomAccess=(Buffer[Buffer_Offset+3]==0xB3); //sequence_header
-            if (RandomAccess && (IbiStream.Infos.empty() || IbiStream.Infos[IbiStream.Infos.size()-1].FrameNumber!=Frame_Count))
+            if (RandomAccess)
             {
                 ibi::stream::info IbiInfo;
                 IbiInfo.StreamOffset=Ibi_SynchronizationOffset_Current;
-                IbiInfo.FrameNumber=Frame_Count;
+                IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
                 IbiInfo.Dts=FrameInfo.DTS;
-                IbiStream.Infos.push_back(IbiInfo);
+                IbiStream->Add(IbiInfo);
+
+                if (Frame_Count_NotParsedIncluded==(int64u)-1)
+                    Frame_Count_NotParsedIncluded=IbiStream->Infos[IbiStream->Infos_Pos-1].FrameNumber;
             }
         }
     #endif MEDIAINFO_IBI

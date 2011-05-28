@@ -40,6 +40,108 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Ibi structure
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+ibi::ibi()
+{
+}
+
+//---------------------------------------------------------------------------
+ibi::~ibi()
+{
+    for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++) 
+        delete Stream->second; //Stream->second=NULL;
+}
+
+//---------------------------------------------------------------------------
+void ibi::stream::Add (const info &Info)
+{
+    //ToDo: support different frequencies 
+    if (DtsFrequencyNumerator!=1000000000)
+        return;
+    
+    if (!IsSynchronized)
+    {
+        //Searching the right insertion point
+        for (Infos_Pos=0; Infos_Pos<Infos.size(); Infos_Pos++)
+            if (Info.StreamOffset<Infos[Infos_Pos].StreamOffset)
+                break;
+    } 
+
+    //Testing if new data is same as current insertion point
+    if (Infos_Pos && Infos[Infos_Pos-1].FrameNumber==Info.FrameNumber && Info.FrameNumber!=(int64u)-1)
+    {
+        IsSynchronized=true;
+        return; 
+    }
+    if (Infos_Pos && Info.Dts==Infos[Infos_Pos-1].Dts && Info.Dts!=(int64u)-1)
+    {
+        IsSynchronized=true;
+        return; 
+    }
+    if (Infos_Pos && Info.StreamOffset==Infos[Infos_Pos-1].StreamOffset)
+    {
+        //Duplicate, updating it (in case of new frame count)
+        if (IsSynchronized && Info.FrameNumber!=(int64u)-1)
+            Infos[Infos_Pos-1].FrameNumber=Info.FrameNumber;
+
+        IsSynchronized=true;
+        return;
+    }
+    
+    //Previous item
+    if (IsSynchronized && Infos_Pos)
+    {
+        Infos[Infos_Pos-1].IsContinuous=true;
+        IsContinuous=true;
+    }
+    IsSynchronized=true;
+
+    //Testing if new data is same as next insertion point
+    if (Infos_Pos<Infos.size() && Infos[Infos_Pos].FrameNumber==Info.FrameNumber && Info.FrameNumber!=(int64u)-1)
+    {
+        Infos_Pos++;
+        
+        IsSynchronized=true;
+        return; 
+    }
+    if (Infos_Pos<Infos.size() && Info.Dts==Infos[Infos_Pos].Dts && Info.Dts!=(int64u)-1)
+    {
+        Infos_Pos++;
+        
+        IsSynchronized=true;
+        return; 
+    }
+    if (Infos_Pos<Infos.size() && Info.StreamOffset==Infos[Infos_Pos].StreamOffset)
+    {
+        //Duplicate, updating it (in case of new frame count)
+        if (IsSynchronized && Info.FrameNumber!=(int64u)-1)
+            Infos[Infos_Pos].FrameNumber=Info.FrameNumber;
+
+        Infos_Pos++;
+        
+        IsSynchronized=true;
+        return;
+    }
+
+    Infos.insert(Infos.begin()+Infos_Pos, Info);
+    Infos_Pos++;
+
+    IsModified=true;
+}
+
+//---------------------------------------------------------------------------
+void ibi::stream::Unsynch ()
+{
+    Infos_Pos=0;
+    IsModified=false;
+    IsContinuous=false;
+    IsSynchronized=false;
+}
+
+//***************************************************************************
 // Utils
 //***************************************************************************
 

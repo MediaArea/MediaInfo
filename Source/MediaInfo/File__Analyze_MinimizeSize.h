@@ -1193,7 +1193,7 @@ public :
         bool    Config_Ibi_Create;
         int64u  Ibi_SynchronizationOffset_Current;
         int64u  Ibi_SynchronizationOffset_BeginOfFrame;
-        ibi::stream IbiStream;
+        ibi::stream* IbiStream;
     #endif //MEDIAINFO_IBI
 };
 

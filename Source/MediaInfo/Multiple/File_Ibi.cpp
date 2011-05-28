@@ -73,16 +73,17 @@ File_Ibi::~File_Ibi()
 //---------------------------------------------------------------------------
 const Ztring &File_Ibi::Get (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    if (StreamNumber<=Ibi->Streams.size() && !Ibi->Streams[StreamNumber].Infos.empty())
+    ibi::streams::iterator IbiStream_Temp=Ibi->Streams.begin(); //TODO: management of multiple streams
+    if (IbiStream_Temp!=Ibi->Streams.end() && !IbiStream_Temp->second->Infos.empty())
     {
         int64u FrameNumber=Parameter.To_int64u();
 
-        for (size_t Pos=0; Pos<Ibi->Streams[StreamNumber].Infos.size()-1; Pos++)
-            if (Ibi->Streams[StreamNumber].Infos[Pos].FrameNumber==FrameNumber || Ibi->Streams[StreamNumber].Infos[Pos+1].FrameNumber>FrameNumber)
+        for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size()-1; Pos++)
+            if (IbiStream_Temp->second->Infos[Pos].FrameNumber==FrameNumber || IbiStream_Temp->second->Infos[Pos+1].FrameNumber>FrameNumber)
             {
-                Get_Temp=_T("StreamOffset=")+Ztring::ToZtring(Ibi->Streams[StreamNumber].Infos[Pos].StreamOffset)
-                       + _T(" / FrameNumber=")+Ztring::ToZtring(Ibi->Streams[StreamNumber].Infos[Pos].FrameNumber)
-                       + _T(" / Dts=")+Ztring::ToZtring(Ibi->Streams[StreamNumber].Infos[Pos].Dts);
+                Get_Temp=_T("StreamOffset=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].StreamOffset)
+                       + _T(" / FrameNumber=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].FrameNumber)
+                       + _T(" / Dts=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].Dts);
                 return Get_Temp; 
             }
     }
@@ -113,10 +114,10 @@ void File_Ibi::Streams_Finish()
 {
     Config->File_KeepInfo_Set(true); //In order to let Get() available
 
-    for (size_t Pos=0; Pos<Ibi->Streams.size(); Pos++)
+    for (ibi::streams::iterator IbiStream_Temp=Ibi->Streams.begin(); IbiStream_Temp!=Ibi->Streams.end(); IbiStream_Temp++)
     {
         Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, StreamPos_Last, General_ID, Ibi->Streams[Pos].ID);
+        Fill(Stream_Video, StreamPos_Last, General_ID, IbiStream_Temp->second->ID);
     }
 }
 
@@ -351,31 +352,24 @@ void File_Ibi::Ebml_DocTypeReadVersion()
 void File_Ibi::Stream()
 {
     Element_Name("Stream");
+
+    ID_Current=(int64u)-1;
 }
 
 void File_Ibi::Stream_Header()
 {
     Element_Name("Stream Header");
-    int64u ID;
-    Get_EB (ID,                                                 "ID");
+    Get_EB (ID_Current,                                         "ID");
 
     FILLING_BEGIN();
         if (Ibi)
         {
             //Filling information for ID after data
-            bool Found=false;
-            for (size_t Pos=0; Pos<Ibi->Streams.size(); Pos++)
-                if (Ibi->Streams[Pos].ID==(int64u)-1)
-                {
-                    Ibi->Streams[Pos].ID=ID;
-                    Found=true;
-                    break;
-                }
-            if (!Found)
+            ibi::streams::iterator IbiStream_Temp=Ibi->Streams.find((int64u)-1);
+            if (IbiStream_Temp!=Ibi->Streams.end())
             {
-                ibi::stream Stream;
-                Stream.ID=ID;
-                Ibi->Streams.push_back(Stream);
+                Ibi->Streams[ID_Current]=IbiStream_Temp->second;
+                Ibi->Streams.erase(IbiStream_Temp);
             }
         }
     FILLING_END();
@@ -385,24 +379,29 @@ void File_Ibi::Stream_ByteOffset()
 {
     Element_Name("Byte Offset");
 
-    //Init
-    if (Ibi && Ibi->Streams.empty())
-        Ibi->Streams.push_back(ibi::stream());
-    
     //Parsing
     size_t Pos=0;
+    int64u Offset=0;
     while (Element_Offset<Element_Size)
     {
         int64u Item;
         Get_EB (Item,                                           "Item");
+        Offset+=Item;
+        Param_Info(Pos);
+        Param_Info(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
             {
                 //Filling information for ID after data
-                if (Pos>=Ibi->Streams[Ibi->Streams.size()-1].Infos.size())
-                    Ibi->Streams[Ibi->Streams.size()-1].Infos.push_back(ibi::stream::info());
-                Ibi->Streams[Ibi->Streams.size()-1].Infos[Pos].StreamOffset=(Pos?Ibi->Streams[Ibi->Streams.size()-1].Infos[Pos-1].StreamOffset:0)+Item;
+                if (Ibi->Streams[ID_Current]==NULL)
+                    Ibi->Streams[ID_Current]=new ibi::stream();    
+                if (Pos>=Ibi->Streams[ID_Current]->Infos.size())
+                {
+                    Ibi->Streams[ID_Current]->Infos.push_back(ibi::stream::info());
+                    Ibi->Streams[ID_Current]->Infos[Pos].IsContinuous=true; //default
+                }
+                Ibi->Streams[ID_Current]->Infos[Pos].StreamOffset=Offset;
                 Pos++;
             }
         FILLING_END();
@@ -413,24 +412,29 @@ void File_Ibi::Stream_FrameNumber()
 {
     Element_Name("Frame Number");
 
-    //Init
-    if (Ibi && Ibi->Streams.empty())
-        Ibi->Streams.push_back(ibi::stream());
-    
     //Parsing
     size_t Pos=0;
+    int64u Offset=0;
     while (Element_Offset<Element_Size)
     {
         int64u Item;
         Get_EB (Item,                                           "Item");
+        Offset+=Item;
+        Param_Info(Pos);
+        Param_Info(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
             {
                 //Filling information for ID after data
-                if (Pos>=Ibi->Streams[Ibi->Streams.size()-1].Infos.size())
-                    Ibi->Streams[Ibi->Streams.size()-1].Infos.push_back(ibi::stream::info());
-                Ibi->Streams[Ibi->Streams.size()-1].Infos[Pos].FrameNumber=(Pos?Ibi->Streams[Ibi->Streams.size()-1].Infos[Pos-1].FrameNumber:0)+Item;
+                if (Ibi->Streams[ID_Current]==NULL)
+                    Ibi->Streams[ID_Current]=new ibi::stream();    
+                if (Pos>=Ibi->Streams[ID_Current]->Infos.size())
+                {
+                    Ibi->Streams[ID_Current]->Infos.push_back(ibi::stream::info());
+                    Ibi->Streams[ID_Current]->Infos[Pos].IsContinuous=true; //default
+                }
+                Ibi->Streams[ID_Current]->Infos[Pos].FrameNumber=Offset;
                 Pos++;
             }
         FILLING_END();
@@ -441,35 +445,41 @@ void File_Ibi::Stream_Dts()
 {
     Element_Name("DTS");
 
-    //Init
-    if (Ibi && Ibi->Streams.empty())
-        Ibi->Streams.push_back(ibi::stream());
-    
     //Parsing
-    size_t Pos=0;
     int64u Item;
     Get_EB (Item,                                               "DtsFrequencyNumerator");
     FILLING_BEGIN();
         if (Ibi)
-            Ibi->Streams[Ibi->Streams.size()-1].DtsFrequencyNumerator=Item;
+            Ibi->Streams[ID_Current]->DtsFrequencyNumerator=Item;
     FILLING_END();
     Get_EB (Item,                                               "DtsFrequencyDenominator");
     FILLING_BEGIN();
         if (Ibi)
-            Ibi->Streams[Ibi->Streams.size()-1].DtsFrequencyDenominator=Item;
+            Ibi->Streams[ID_Current]->DtsFrequencyDenominator=Item;
     FILLING_END();
 
+    size_t Pos=0;
+    int64u Offset=0;
     while (Element_Offset<Element_Size)
     {
+        int64u Item;
         Get_EB (Item,                                           "Item");
+        Offset+=Item;
+        Param_Info(Pos);
+        Param_Info(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
             {
                 //Filling information for ID after data
-                if (Pos>=Ibi->Streams[Ibi->Streams.size()-1].Infos.size())
-                    Ibi->Streams[Ibi->Streams.size()-1].Infos.push_back(ibi::stream::info());
-                Ibi->Streams[Ibi->Streams.size()-1].Infos[Pos].Dts=(Pos?Ibi->Streams[Ibi->Streams.size()-1].Infos[Pos-1].Dts:0)+Item;
+                if (Ibi->Streams[ID_Current]==NULL)
+                    Ibi->Streams[ID_Current]=new ibi::stream();    
+                if (Pos>=Ibi->Streams[ID_Current]->Infos.size())
+                {
+                    Ibi->Streams[ID_Current]->Infos.push_back(ibi::stream::info());
+                    Ibi->Streams[ID_Current]->Infos[Pos].IsContinuous=true; //default
+                }
+                Ibi->Streams[ID_Current]->Infos[Pos].Dts=Offset;
                 Pos++;
             }
         FILLING_END();
@@ -496,7 +506,7 @@ void File_Ibi::CompressedIndex()
     }
 
     //Exiting this element
-    Skip_XX(Element_Size,                                   "Will be parsed");
+    Skip_XX(Element_Size,                                       "Will be parsed");
 
     //Configuring buffer
     const int8u* Buffer_Sav=Buffer;

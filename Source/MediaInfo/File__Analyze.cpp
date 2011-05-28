@@ -173,6 +173,7 @@ File__Analyze::File__Analyze ()
         Config_Ibi_Create=false;
         Ibi_SynchronizationOffset_Current=0;
         Ibi_SynchronizationOffset_BeginOfFrame=0;
+        IbiStream=NULL;
     #endif //MEDIAINFO_IBI
 }
 
@@ -284,8 +285,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    if (!PES_FirstByte_IsAvailable || (PES_FirstByte_IsAvailable && PES_FirstByte_Value))
-        Frame_Count_InThisBlock=0;
+    Frame_Count_InThisBlock=0;
 
     //Integrity
     if (Status[IsFinished])
@@ -366,8 +366,8 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
                 Element_End(); //This is Finish, must flush
-            File_Offset=File_Size;
             Buffer_Clear();
+            File_Offset=File_Size;
             ForceFinish();
             return;
         }
@@ -589,6 +589,10 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
 #if MEDIAINFO_SEEK
 size_t File__Analyze::Open_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
+    #if MEDIAINFO_DEMUX
+        Config->Demux_EventWasSent=false;
+    #endif //MEDIAINFO_DEMUX
+
     size_t ToReturn=Read_Buffer_Seek(Method, Value, ID);
 
     if (File_GoTo!=(int64u)-1)
@@ -615,6 +619,8 @@ void File__Analyze::Open_Buffer_Unsynch ()
     FrameInfo=frame_info();
     FrameInfo_Previous=frame_info();
     FrameInfo_Next=frame_info();
+    Frame_Count_NotParsedIncluded=Unsynch_Frame_Count;
+    Unsynch_Frame_Count=(int64u)-1;
     PTS_End=0;
     DTS_End=0;
     #if MEDIAINFO_DEMUX
@@ -640,12 +646,14 @@ void File__Analyze::Open_Buffer_Unsynch ()
     {
         Synched=false;
         Read_Buffer_Unsynched();
+
+        #if MEDIAINFO_IBI
+            Ibi_SynchronizationOffset_Current=(int64u)-1;
+            if (IbiStream)
+                IbiStream->Unsynch();
+        #endif MEDIAINFO_IBI
     }
     Buffer_Clear();
-
-
-    Frame_Count_NotParsedIncluded=Unsynch_Frame_Count;
-    Unsynch_Frame_Count=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -2567,6 +2575,11 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
 
     if (!Buffer_Size)
         return;
+
+    #if MEDIAINFO_DEMUX && MEDIAINFO_SEEK
+        if (Config->Demux_IsSeeking)
+            return;
+    #endif //MEDIAINFO_SEEK
 
     #if MEDIAINFO_EVENTS
         //Demux
