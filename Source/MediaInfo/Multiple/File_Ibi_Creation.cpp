@@ -33,6 +33,7 @@
 #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #include <cstring>
 #include <zlib.h>
+#include "ZenLib/File.h"
 #include "ZenLib/Base64/base64.h"
 //---------------------------------------------------------------------------
 
@@ -255,7 +256,8 @@ size_t int64u2Ebml(int8u* List, int64u Value)
         return 8;
     }
 
-    List[0]=0xFF;
+    if (List)
+        List[0]=0xFF;
     return 1;
 }
 
@@ -299,16 +301,15 @@ File_Ibi_Creation::~File_Ibi_Creation()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Ibi_Creation::Add(ibi::stream &Stream)
+void File_Ibi_Creation::Set(const ibi &Ibi)
 {
-    //Check of I-Frames not reachable
-    for (size_t Pos=1; Pos<Stream.Infos.size(); Pos++)
-        if (Stream.Infos[Pos-1].StreamOffset==Stream.Infos[Pos].StreamOffset)
-        {
-            Stream.Infos.erase(Stream.Infos.begin()+Pos); //Deleting the unreachable I-Frame
-            Pos--;
-        }
+    for (ibi::streams::const_iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
+        Add(*IbiStream_Temp->second);
+}
 
+//---------------------------------------------------------------------------
+void File_Ibi_Creation::Add(const ibi::stream &Stream)
+{
     //Useful?
     if (Stream.Infos.empty())
         return;
@@ -417,6 +418,10 @@ Ztring File_Ibi_Creation::Finish()
         Buffer.Content=new int8u[Buffer.Size];
         std::memcpy(Buffer.Content, Main, Main_Offset);
     }
+
+    File F;
+    F.Create(_T("D:\\Nicole\\a.ibi"));
+    F.Write(Buffer.Content, Buffer.Size);
 
     std::string Data_Raw((const char*)Buffer.Content, Buffer.Size);
     std::string Data_Base64(Base64::encode(Data_Raw));

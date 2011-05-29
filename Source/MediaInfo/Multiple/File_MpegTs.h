@@ -162,9 +162,6 @@ private :
     #if MEDIAINFO_SEEK && MEDIAINFO_IBI
         ibi Ibi;
     #endif //MEDIAINFO_SEEK && MEDIAINFO_IBI
-    #if MEDIAINFO_IBI
-        File_Ibi_Creation IbiCreation;
-    #endif //MEDIAINFO_IBI
 };
 
 } //NameSpace

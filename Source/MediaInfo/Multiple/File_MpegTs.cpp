@@ -415,15 +415,6 @@ void File_MpegTs::Streams_Update_Programs()
      && Retrieve(Stream_Audio, 0, Audio_Format_Profile)==_T("Layer 2")
      && Retrieve(Stream_Audio, 0, Audio_BitRate)==_T("384000"))
         Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
-
-    #if MEDIAINFO_IBI
-        if (Config_Ibi_Create)
-        {
-            Ztring IbiText=IbiCreation.Finish();
-            if (!IbiText.empty())
-                Fill(Stream_General, 0, "IBI", IbiText, true);
-        }
-    #endif MEDIAINFO_IBI
 }
 
 //---------------------------------------------------------------------------
@@ -904,6 +895,37 @@ void File_MpegTs::Streams_Finish()
     #if MEDIAINFO_DUPLICATE
         File__Duplicate_Streams_Finish();
     #endif //MEDIAINFO_DUPLICATE
+
+    #if MEDIAINFO_IBI
+        if (Config_Ibi_Create)
+        {
+            for (ibi::streams::iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
+            {
+                if (IbiStream_Temp->second && IbiStream_Temp->second->DtsFrequencyNumerator==1000000000 && IbiStream_Temp->second->DtsFrequencyDenominator==1)
+                {
+                    bool IsOk=true;
+                    for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                        if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
+                            IsOk=false;
+                    if (IsOk) //Only is all items are continuous (partial IBI not yet supported)
+                    {
+                        IbiStream_Temp->second->DtsFrequencyNumerator=90000;
+                        for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                        {
+                            int64u Temp=IbiStream_Temp->second->Infos[Pos].Dts*90/1000000;
+                            IbiStream_Temp->second->Infos[Pos].Dts=Temp;
+                        }
+                    }
+                }
+            }
+
+            //IBI Creation
+            File_Ibi_Creation IbiCreation(Ibi);
+            Ztring IbiText=IbiCreation.Finish();
+            if (!IbiText.empty())
+                Fill(Stream_General, 0, "IBI", IbiText, true);
+        }
+    #endif //MEDIAINFO_IBI
 }
 
 //***************************************************************************

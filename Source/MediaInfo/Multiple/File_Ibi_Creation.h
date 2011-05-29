@@ -98,9 +98,11 @@ class File_Ibi_Creation
 {
 public :
     File_Ibi_Creation();
+    File_Ibi_Creation(const ibi &Ibi) {Set(Ibi);}
     ~File_Ibi_Creation();
 
-    void Add(ibi::stream &Stream);
+    void Set(const ibi &Ibi);
+    void Add(const ibi::stream &Stream);
     Ztring Finish();
 
 private :
