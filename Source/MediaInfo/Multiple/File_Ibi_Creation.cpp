@@ -33,7 +33,6 @@
 #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #include <cstring>
 #include <zlib.h>
-#include "ZenLib/File.h"
 #include "ZenLib/Base64/base64.h"
 //---------------------------------------------------------------------------
 
@@ -418,10 +417,6 @@ Ztring File_Ibi_Creation::Finish()
         Buffer.Content=new int8u[Buffer.Size];
         std::memcpy(Buffer.Content, Main, Main_Offset);
     }
-
-    File F;
-    F.Create(_T("D:\\Nicole\\a.ibi"));
-    F.Write(Buffer.Content, Buffer.Size);
 
     std::string Data_Raw((const char*)Buffer.Content, Buffer.Size);
     std::string Data_Base64(Base64::encode(Data_Raw));
