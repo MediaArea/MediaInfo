@@ -74,7 +74,7 @@ File_DvbSubtitle::~File_DvbSubtitle()
 void File_DvbSubtitle::Streams_Fill()
 {
     Stream_Prepare(Stream_Text);
-    Fill(Stream_Text, 0, Text_Format, "DVB Sutitle");
+    Fill(Stream_Text, 0, Text_Format, "DVB Subtitle");
 }
 
 //---------------------------------------------------------------------------
