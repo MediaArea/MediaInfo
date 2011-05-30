@@ -798,7 +798,6 @@ File_Mxf::File_Mxf()
         Demux_Level=2; //Container
     #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
-    DataMustAlwaysBeComplete=false;
     Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
     Frame_Count_NotParsedIncluded=0;
@@ -2017,8 +2016,12 @@ bool File_Mxf::Header_Begin()
                             {
                                 //Hints
                                 if (File_Buffer_Size_Hint_Pointer)
-                                    (*File_Buffer_Size_Hint_Pointer)=(size_t)(Buffer_Offset+Element_Size-Buffer_Size+24); //+24 for next packet header
-                                
+                                {
+                                    size_t Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Size-Buffer_Size+24); //+24 for next packet header
+                                    if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                                        (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+                                }
+
                                 return false;
                             }
                             break;
@@ -2052,6 +2055,7 @@ bool File_Mxf::Header_Begin()
         #endif //MEDIAINFO_DEMUX
     }
 
+    DataMustAlwaysBeComplete=true;
     return true;
 }
 
@@ -2215,6 +2219,7 @@ void File_Mxf::Header_Parse()
                     Clip_Header_Size=Element_Offset;
                     Clip_Begin=File_Offset+Buffer_Offset+Element_Offset;
                     Clip_End=File_Offset+Buffer_Offset+Element_Offset+Length_Final;
+                    DataMustAlwaysBeComplete=false;
                 }
             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             #if MEDIAINFO_DEMUX
@@ -2296,7 +2301,8 @@ void File_Mxf::Header_Parse()
 
                                                 if (StreamOffset>=Entry_StreamOffset && StreamOffset<Entry1_StreamOffset)
                                                 {
-                                                    (*File_Buffer_Size_Hint_Pointer)=(size_t)(StreamOffset_Offset+Entry1_StreamOffset-(File_Offset+Buffer_Size)+24); //+24 for next packet header
+                                                    if (StreamOffset_Offset+Entry1_StreamOffset>File_Offset+Buffer_Size)
+                                                        Buffer_Size_Target=(size_t)(StreamOffset_Offset+Entry1_StreamOffset-(File_Offset+Buffer_Size)+24); //+24 for next packet header
                                                     break;
                                                 }
                                             }
@@ -2305,9 +2311,12 @@ void File_Mxf::Header_Parse()
                                 }
                                 else
                             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                                    (*File_Buffer_Size_Hint_Pointer)=(size_t)(Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24); //+24 for next packet header
+                                    Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24); //+24 for next packet header
+
+                            if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                                (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
                         }
-                            
+
                         Element_WaitForMoreData();
                         return;
                     }
@@ -2326,7 +2335,13 @@ void File_Mxf::Header_Parse()
         else
         {
             if (File_Buffer_Size_Hint_Pointer)
-                (*File_Buffer_Size_Hint_Pointer)=(size_t)(Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24); //+24 for next packet header
+            {
+                int64u Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24); //+24 for next packet header
+
+                if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                    (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+            }
+
 
             Element_WaitForMoreData();
             return;
@@ -2672,7 +2687,11 @@ void File_Mxf::Data_Parse()
             #else //MEDIAINFO_SEEK
                 //Hints
                 if (File_Buffer_Size_Hint_Pointer)
-                    (*File_Buffer_Size_Hint_Pointer)=Header_Size+(Buffer_End?(Buffer_End-Buffer_Begin):Element_Size); //We bet this is CBR
+                {
+                    size_t Buffer_Size_Target=Header_Size+(Buffer_End?(Buffer_End-Buffer_Begin):Element_Size); //We bet this is CBR
+                    if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                        (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+                }
             #endif //MEDIAINFO_SEEK
             if (!IsSub) //Updating for MXF only if MXF is not embedded in another container
             {
