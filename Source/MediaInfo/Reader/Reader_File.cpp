@@ -34,6 +34,10 @@
 #include "MediaInfo/Reader/Reader_File.h"
 #include "MediaInfo/File__Analyze.h"
 #include "ZenLib/FileName.h"
+#ifdef WINDOWS
+    #undef __TEXT
+    #include "Windows.h"
+#endif WINDOWS
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -116,12 +120,17 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     if (!F.Opened_Get())
         return 0;
 
+    //Info
+    Status=0;
+    FileSize_Current=F.Size_Get();
+    IsGrowing=false;
+
     //Partial file handling
     Ztring Config_Partial_Begin=MI->Config.File_Partial_Begin_Get();
     if (!Config_Partial_Begin.empty() && Config_Partial_Begin[0]>=_T('0') && Config_Partial_Begin[0]<=_T('9'))
     {
         if (Config_Partial_Begin.find(_T('%'))==Config_Partial_Begin.size()-1)
-            Partial_Begin=float64_int64s(F.Size_Get()*Config_Partial_Begin.To_float64()/100);
+            Partial_Begin=float64_int64s(FileSize_Current*Config_Partial_Begin.To_float64()/100);
         else
             Partial_Begin=Config_Partial_Begin.To_int64u();
         if (Partial_Begin)
@@ -133,20 +142,20 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     if (!Config_Partial_End.empty() && Config_Partial_End[0]>=_T('0') && Config_Partial_End[0]<=_T('9'))
     {
         if (Config_Partial_End.find(_T('%'))==Config_Partial_End.size()-1)
-            Partial_End=float64_int64s(F.Size_Get()*Config_Partial_End.To_float64()/100);
+            Partial_End=float64_int64s(FileSize_Current*Config_Partial_End.To_float64()/100);
         else
             Partial_End=Config_Partial_End.To_int64u();
     }
     else
-        Partial_End=F.Size_Get();
-    if (Partial_Begin>F.Size_Get())
+        Partial_End=FileSize_Current;
+    if (Partial_Begin>FileSize_Current)
         Partial_Begin=0; //Wrong value
-    if (Partial_End>F.Size_Get())
-        Partial_End=F.Size_Get(); //Wrong value
+    if (Partial_End>FileSize_Current)
+        Partial_End=FileSize_Current; //Wrong value
     if (Partial_Begin>Partial_End)
     {
         Partial_Begin=0; //Wrong value
-        Partial_End=F.Size_Get(); //Wrong value
+        Partial_End=FileSize_Current; //Wrong value
     }
 
     //Parser
@@ -193,7 +202,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
     #endif //MEDIAINFO_DEMUX
     {
         //Test the format with buffer
-        do
+        while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])))
         {
             //Seek (if needed)
             if (MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
@@ -226,10 +235,34 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     Buffer_Size_Max*=2;
                 Buffer=new int8u[Buffer_Size_Max];
             }
-            
+
             size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_ToRead<Partial_End)?Buffer_Size_ToRead:((size_t)(Partial_End-F.Position_Get())));
-            if (Buffer_Size==0 && !(F.Position_Get()==Partial_End && Status[File__Analyze::IsAccepted]))
+            if (Buffer_Size==0)
                 break; //Problem while reading
+
+            //Testing growing files
+            if (!IsGrowing && F.Position_Get()>=FileSize_Current)
+            {
+                int64u FileSize_New=F.Size_Get();
+                if (FileSize_Current!=FileSize_New)
+                    IsGrowing=true;
+            }
+            if (IsGrowing && F.Position_Get()>=FileSize_Current)
+            {
+                for (size_t CountOfSeconds=0; CountOfSeconds<10; CountOfSeconds++)
+                {
+                    int64u FileSize_New=F.Size_Get();
+                    if (FileSize_Current!=FileSize_New)
+                    {
+                        Partial_End=FileSize_Current=FileSize_New;
+                        MI->Open_Buffer_Init(FileSize_Current, F.Position_Get()-Buffer_Size);
+                        break;
+                    }
+                    #ifdef WINDOWS
+                        Sleep(1000);
+                    #endif //WINDOWS
+                }
+            }
 
             #ifdef MEDIAINFO_DEBUG
                 Reader_File_BytesRead_Total+=Buffer_Size;
@@ -248,7 +281,6 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             if (MI->IsTerminating())
                 break; //Termination is requested
         }
-        while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
         if (F.Size_Get()==0) //If Size==0, Status is never updated
             Status=MI->Open_Buffer_Continue(NULL, 0);
     }

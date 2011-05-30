@@ -459,6 +459,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     if (Sub->File_GoTo!=(int64u)-1)
         Sub->File_GoTo=(int64u)-1;
     Sub->File_Offset=File_Offset+Buffer_Offset+Element_Offset;
+    Sub->File_Size=File_Size;
     #if MEDIAINFO_TRACE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
     #endif
@@ -608,7 +609,7 @@ void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
     if (File_Offset_==(int64u)-1)
         return;
 
-    File_Offset=File_Offset_;
+    File_Offset=File_Offset_-Buffer_Temp_Size;
     File_GoTo=(int64u)-1;
 }
 
