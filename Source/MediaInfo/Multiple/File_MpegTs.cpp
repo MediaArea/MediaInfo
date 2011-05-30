@@ -1283,12 +1283,10 @@ void File_MpegTs::Read_Buffer_Unsynched()
         }
         #if MEDIAINFO_IBI
             Complete_Stream->Streams[StreamID]->Ibi_SynchronizationOffset_BeginOfFrame=(int64u)-1;
-            Complete_Stream->Streams[StreamID]->version_number=(int8u)-1;
             for (complete_stream::stream::table_ids::iterator TableID=Complete_Stream->Streams[StreamID]->Table_IDs.begin(); TableID!=Complete_Stream->Streams[StreamID]->Table_IDs.end(); TableID++)
                 if (*TableID)
                     for (complete_stream::stream::table_id::table_id_extensions::iterator TableIdExtension=(*TableID)->Table_ID_Extensions.begin(); TableIdExtension!=(*TableID)->Table_ID_Extensions.end(); TableIdExtension++)
                         TableIdExtension->second.version_number=(int8u)-1;
-            Complete_Stream->Streams[StreamID]->continuity_counter=(int8u)-1;
         #endif //MEDIAINFO_IBI
     }
     Complete_Stream->Duration_End.clear();

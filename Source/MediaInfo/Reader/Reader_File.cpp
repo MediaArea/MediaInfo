@@ -243,9 +243,12 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             //Testing growing files
             if (!IsGrowing && F.Position_Get()>=FileSize_Current)
             {
-                int64u FileSize_New=F.Size_Get();
-                if (FileSize_Current!=FileSize_New)
-                    IsGrowing=true;
+                if (MediaInfoLib::Config.ParseSpeed_Get()>=1.0) //Only if full parsing
+                {
+                    int64u FileSize_New=F.Size_Get();
+                    if (FileSize_Current!=FileSize_New)
+                        IsGrowing=true;
+                }
             }
             if (IsGrowing && F.Position_Get()>=FileSize_Current)
             {
