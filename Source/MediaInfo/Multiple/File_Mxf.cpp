@@ -2276,6 +2276,7 @@ void File_Mxf::Header_Parse()
                     {
                         if (File_Buffer_Size_Hint_Pointer)
                         {
+                            size_t Buffer_Size_Target=0;
                             #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                                 if (!IndexTables.empty() && !IndexTables[0].Entries.empty())
                                 {
