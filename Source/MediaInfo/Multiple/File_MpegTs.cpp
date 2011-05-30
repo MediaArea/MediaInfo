@@ -881,9 +881,10 @@ void File_MpegTs::Streams_Finish()
         {
             if (!Complete_Stream->Streams[StreamID]->Parser->Status[IsFinished])
             {
-                Complete_Stream->Streams[StreamID]->Parser->File_Size=File_Offset+Buffer_Offset+Element_Offset;
+                int64u File_Size_Temp=File_Size;
+                File_Size=File_Offset+Buffer_Offset+Element_Offset;
                 Open_Buffer_Continue(Complete_Stream->Streams[StreamID]->Parser, Buffer, 0);
-                Complete_Stream->Streams[StreamID]->Parser->File_Size=File_Size;
+                File_Size=File_Size_Temp;
                 Finish(Complete_Stream->Streams[StreamID]->Parser);
                 #if MEDIAINFO_DEMUX
                     if (Config->Demux_EventWasSent)
@@ -899,6 +900,10 @@ void File_MpegTs::Streams_Finish()
     #if MEDIAINFO_IBI
         if (Config_Ibi_Create)
         {
+            ibi Ibi_Temp;
+            for (ibi::streams::iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
+                Ibi.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
+
             for (ibi::streams::iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
             {
                 if (IbiStream_Temp->second && IbiStream_Temp->second->DtsFrequencyNumerator==1000000000 && IbiStream_Temp->second->DtsFrequencyDenominator==1)
@@ -1278,6 +1283,12 @@ void File_MpegTs::Read_Buffer_Unsynched()
         }
         #if MEDIAINFO_IBI
             Complete_Stream->Streams[StreamID]->Ibi_SynchronizationOffset_BeginOfFrame=(int64u)-1;
+            Complete_Stream->Streams[StreamID]->version_number=(int8u)-1;
+            for (complete_stream::stream::table_ids::iterator TableID=Complete_Stream->Streams[StreamID]->Table_IDs.begin(); TableID!=Complete_Stream->Streams[StreamID]->Table_IDs.end(); TableID++)
+                if (*TableID)
+                    for (complete_stream::stream::table_id::table_id_extensions::iterator TableIdExtension=(*TableID)->Table_ID_Extensions.begin(); TableIdExtension!=(*TableID)->Table_ID_Extensions.end(); TableIdExtension++)
+                        TableIdExtension->second.version_number=(int8u)-1;
+            Complete_Stream->Streams[StreamID]->continuity_counter=(int8u)-1;
         #endif //MEDIAINFO_IBI
     }
     Complete_Stream->Duration_End.clear();
@@ -1509,6 +1520,7 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 Complete_Stream->Streams[(size_t)IbiStream_Temp->first]->Parser->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
                             else
                                 Unsynch_Frame_Counts[(int16u)IbiStream_Temp->first]=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+
                             GoTo(IbiStream_Temp->second->Infos[Pos].StreamOffset);
                             Open_Buffer_Unsynch();
 
@@ -1538,10 +1550,28 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         {
                             if (Value<IbiStream_Temp->second->Infos[Pos].FrameNumber && Pos)
                                 Pos--;
+
+                            //Checking continuity of Ibi
+                            if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
+                            {
+                                Config->Demux_IsSeeking=true;
+                                Seek_Value=Value;
+                                Seek_Value_Maximal=IbiStream_Temp->second->Infos[Pos+1].StreamOffset;
+                                Seek_ID=IbiStream_Temp->first;
+                                GoTo((IbiStream_Temp->second->Infos[Pos].StreamOffset+IbiStream_Temp->second->Infos[Pos+1].StreamOffset)/2);
+                                Open_Buffer_Unsynch();
+
+                                return 1;
+                            }
+
+                            Config->Demux_IsSeeking=false;
                             if (Complete_Stream && Complete_Stream->Streams[(size_t)IbiStream_Temp->first] && Complete_Stream->Streams[(size_t)IbiStream_Temp->first]->Parser)
                                 Complete_Stream->Streams[(size_t)IbiStream_Temp->first]->Parser->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
-                             GoTo(IbiStream_Temp->second->Infos[Pos].StreamOffset);
-                             Open_Buffer_Unsynch();
+                            else
+                                Unsynch_Frame_Counts[(int16u)IbiStream_Temp->first]=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+
+                            GoTo(IbiStream_Temp->second->Infos[Pos].StreamOffset);
+                            Open_Buffer_Unsynch();
 
                             return 1;
                         }
@@ -2168,6 +2198,8 @@ void File_MpegTs::PES()
         {
             int16u Program_PID=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].pid;
             Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current=Complete_Stream->Streams[Program_PID]->Ibi_SynchronizationOffset_BeginOfFrame;
+            if (Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current==(int64u)-1)
+                return; //Not yet synchronized
         }
         else
             Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current=File_Offset+Buffer_Offset-Header_Size;

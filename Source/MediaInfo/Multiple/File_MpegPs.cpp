@@ -532,9 +532,10 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
         if (!Temp.Parsers[0]->Status[IsFinished])
         {
             Temp.Parsers[0]->ShouldContinueParsing=false;
-            Temp.Parsers[0]->File_Size=File_Offset+Buffer_Offset+Element_Offset;
+            int64u File_Size_Temp=File_Size;
+            File_Size=File_Offset+Buffer_Offset+Element_Offset;
             Open_Buffer_Continue(Temp.Parsers[0], Buffer, 0);
-            Temp.Parsers[0]->File_Size=File_Size;
+            File_Size=File_Size_Temp;
             Finish(Temp.Parsers[0]);
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_EventWasSent)

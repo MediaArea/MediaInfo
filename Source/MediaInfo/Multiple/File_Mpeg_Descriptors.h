@@ -328,7 +328,7 @@ struct complete_stream
             IsScrambled=false;
             SubStream_pid=0x0000;
             #if MEDIAINFO_IBI
-                Ibi_SynchronizationOffset_BeginOfFrame=0;
+                Ibi_SynchronizationOffset_BeginOfFrame=(int64u)-1;
             #endif //MEDIAINFO_IBI
         }
 
