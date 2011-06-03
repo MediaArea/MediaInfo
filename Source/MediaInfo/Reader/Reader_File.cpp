@@ -320,7 +320,15 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 #if MEDIAINFO_SEEK
 size_t Reader_File::Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value, int64u ID)
 {
-    return MI->Open_Buffer_Seek(Method, Value, ID);
+    size_t ToReturn=MI->Open_Buffer_Seek(Method, Value, ID);
+
+    if (ToReturn==0 || ToReturn==1)
+    {
+        //Reset
+        Status=0;
+    }
+
+    return ToReturn;
 }
 #endif //MEDIAINFO_SEEK
 

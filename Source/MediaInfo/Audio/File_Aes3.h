@@ -59,10 +59,15 @@ private :
     //Buffer - Global
     void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
+    #if MEDIAINFO_SEEK
+    void Read_Buffer_Unsynched();
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
+    void Synched_Init();
 
     //Buffer - Per element
     void Header_Parse();
@@ -75,8 +80,8 @@ private :
     void Frame_FromMpegPs();
 
     //Temp
-    int64u  Frame_Last_Size;
-    int64u  Frame_Last_PTS;
+    int64u  Frame_Size;
+    int64u  Frame_Duration;
     int8u   number_channels;
     int8u   bits_per_sample;
     int8u   Container_Bits;
@@ -89,6 +94,10 @@ private :
     //Parser
     File__Analyze* Parser;
     void Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Size);
+
+    #if MEDIAINFO_SEEK
+        bool                        Duration_Detected;
+    #endif //MEDIAINFO_SEEK
 };
 
 } //NameSpace

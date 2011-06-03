@@ -2251,7 +2251,7 @@ void File_MpegTs::PES()
         if (Seek_ID!=(int64u)-1)
         {
             if (Ibi.Streams[Seek_ID]->IsModified
-             || (Ibi.Streams[Seek_ID]->Infos_Pos>=2 && Ibi.Streams[Seek_ID]->Infos[Ibi.Streams[Seek_ID]->Infos_Pos-1].IsContinuous))
+             || (Ibi.Streams[Seek_ID]->Infos_Pos>=2 && Ibi.Streams[Seek_ID]->Infos[Ibi.Streams[Seek_ID]->Infos_Pos-2].IsContinuous))
             {
                 Read_Buffer_Seek(2, Seek_Value, Seek_ID);
             }

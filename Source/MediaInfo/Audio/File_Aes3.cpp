@@ -41,6 +41,9 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#if MEDIAINFO_SEEK
+    #include "MediaInfo/MediaInfo_Internal.h"
+#endif //MEDIAINFO_SEEK
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -176,14 +179,18 @@ File_Aes3::File_Aes3()
 
     //Temp
     Frame_Count=0;
-    Frame_Last_PTS=(int32u)-1;
-    Frame_Last_Size=(int64u)-1;
+    Frame_Size=(int64u)-1;
+    Frame_Duration=(int64u)-1;
     data_type=(int8u)-1;
     IsParsingNonPcm=false;
     IsPcm=false;
 
     //Parser
     Parser=NULL;
+
+    #if MEDIAINFO_SEEK
+        Duration_Detected=false;
+    #endif //MEDIAINFO_SEEK
 }
 
 //---------------------------------------------------------------------------
@@ -201,10 +208,10 @@ void File_Aes3::Streams_Fill()
 {
     int64u BitRate=(int64u)-1;
     int64u SamplingRate=(int64u)-1;
-    if (FrameInfo.PTS!=(int32u)-1 && Frame_Last_PTS!=(int32u)-1 && FrameInfo.PTS!=Frame_Last_PTS)
+    if (Frame_Count && FrameInfo.PTS!=(int32u)-1 && PTS_Begin!=(int64u)-1 && FrameInfo.PTS!=PTS_Begin)
     {
         //Rounding
-        BitRate=Frame_Last_Size*8*1000*1000000*(Frame_Count-1)/(FrameInfo.PTS-Frame_Last_PTS);
+        BitRate=Frame_Size*8*1000*1000000*(Frame_Count-1)/(FrameInfo.PTS-PTS_Begin);
         SamplingRate=BitRate*(4+bits_per_sample)/(5+bits_per_sample)/(2+2*number_channels)/(16+4*bits_per_sample);
         if (SamplingRate>  7840 && SamplingRate<  8160) SamplingRate=  8000;
         if (SamplingRate> 15680 && SamplingRate< 16320) SamplingRate= 16000;
@@ -267,7 +274,7 @@ void File_Aes3::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_ChannelPositions, Aes3_ChannelsPositions(number_channels));
         Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Aes3_ChannelsPositions2(number_channels));
         Fill(Stream_Audio, 0, Audio_BitDepth, 16+4*bits_per_sample);
-        if (FrameInfo.PTS!=(int64u)-1 && Frame_Last_PTS!=(int64u)-1 && FrameInfo.PTS!=Frame_Last_PTS)
+        if (FrameInfo.PTS!=(int64u)-1 && PTS_Begin!=(int64u)-1 && FrameInfo.PTS!=PTS_Begin)
         {
             Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
@@ -294,6 +301,13 @@ void File_Aes3::Streams_Fill()
     {
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
             Fill(Stream_Audio, Pos, Audio_Format_Settings_Endianness, "Little");
+    }
+
+    if (!IsSub && File_Size!=(int64u)-1 && Frame_Size!=(int64u)-1)
+    {
+        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+            Fill(Stream_Audio, Pos, Audio_FrameCount, File_Size/Frame_Size);
+        Fill(Stream_General, 0, General_DataSize, ((File_Size-Buffer_TotalBytes_FirstSynched)/Frame_Size)*Frame_Size);
     }
 }
 
@@ -337,6 +351,8 @@ void File_Aes3::Read_Buffer_Continue()
         Skip_XX(Element_Size,                                   "Data");
 
         Frame_Count_InThisBlock++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         #if MEDIAINFO_DEMUX
             if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
             {
@@ -486,6 +502,89 @@ void File_Aes3::Read_Buffer_Continue()
         }
     }
 }
+
+#if MEDIAINFO_SEEK
+//---------------------------------------------------------------------------
+void File_Aes3::Read_Buffer_Unsynched()
+{
+    if (File_GoTo==0)
+        Synched_Init();
+
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Duration!=(int64u)-1 && Frame_Size!=(int64u)-1)
+    {
+        Frame_Count_NotParsedIncluded=File_GoTo/Frame_Size;
+        if (Frame_Count_NotParsedIncluded*Frame_Size<File_GoTo)
+            Frame_Count_NotParsedIncluded++;
+        FrameInfo.DTS=Frame_Count_NotParsedIncluded*Frame_Duration;
+    }
+}
+#endif //MEDIAINFO_SEEK
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File_Aes3::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Init
+    if (!Duration_Detected && File_Size!=(int64u)-1 && (Frame_Size==(int64u)-1 || Frame_Duration==(int64u)-1))
+    {
+        MediaInfo_Internal MI;
+        MI.Option(_T("File_KeepInfo"), _T("1"));
+        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
+        MI.Option(_T("ParseSpeed"), _T("0"));
+        MI.Option(_T("Demux"), Ztring());
+        size_t MiOpenResult=MI.Open(File_Name);
+        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+        if (!MiOpenResult)
+            return 0;
+
+        int64u FrameCount=MI.Get(Stream_Audio, 0, _T("FrameCount")).To_int64u();
+        int64u Duration=MI.Get(Stream_Audio, 0, _T("Duration")).To_int64u();
+        int64u DataSize=MI.Get(Stream_General, 0, _T("DataSize")).To_int64u();
+        if (FrameCount && Duration)
+            Frame_Duration=Duration*1000000/FrameCount; //In nanoseconds
+        if (FrameCount && DataSize)
+            Frame_Size=DataSize/FrameCount;
+
+        Duration_Detected=true;
+    }
+
+    //Parsing
+    switch (Method)
+    {
+        case 0  :
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :
+                    GoTo(File_Size*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 2  :   //Timestamp
+                    {
+                    if (Frame_Duration==(int64u)-1 || Frame_Size==(int64u)-1)
+                        return (size_t)-1; //Not supported
+                    
+                    Unsynch_Frame_Count=float64_int64s(((float64)Value)/Frame_Duration);
+                    GoTo(Unsynch_Frame_Count*Frame_Size);
+                    Open_Buffer_Unsynch();
+                    return 1;
+                    }
+        case 3  :   //FrameNumber
+                    {
+                    if (Frame_Size==(int64u)-1)
+                        return (size_t)-1; //Not supported
+                    
+                    Unsynch_Frame_Count=Value;
+                    GoTo(Unsynch_Frame_Count*Frame_Size);
+                    Open_Buffer_Unsynch();
+                    return 1;
+                    }
+        default :   return (size_t)-1; //Not supported
+    }
+}
+#endif //MEDIAINFO_SEEK
 
 //***************************************************************************
 // Buffer - Synchro
@@ -738,6 +837,15 @@ bool File_Aes3::Synched_Test()
     return true;
 }
 
+//---------------------------------------------------------------------------
+void File_Aes3::Synched_Init()
+{
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=0;
+    if (FrameInfo.DTS==(int64u)-1)
+        FrameInfo.DTS=0;
+}
+
 //***************************************************************************
 // Per element
 //***************************************************************************
@@ -816,6 +924,12 @@ void File_Aes3::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Aes3::Data_Parse()
 {
+    if (Frame_Count==0)
+    {
+        PTS_Begin=FrameInfo.PTS;
+        Frame_Size=Element_Size;
+    }
+
     if (Container_Bits==Stream_Bits && !Endianess) //BE
         Frame();
     else
@@ -879,6 +993,8 @@ void File_Aes3::Raw()
             Skip_XX(Element_Size,                           "Data");
 
             Frame_Count_InThisBlock++;
+            if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded++;
             #if MEDIAINFO_DEMUX
                 if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                 {
@@ -925,6 +1041,8 @@ void File_Aes3::Raw()
             Skip_XX(Element_Size,                           "Data");
 
             Frame_Count_InThisBlock++;
+            if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded++;
             #if MEDIAINFO_DEMUX
                 if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                 {
@@ -1251,6 +1369,8 @@ void File_Aes3::Frame_FromMpegPs()
                 Skip_XX(Element_Size,                       "Data");
 
                 Frame_Count_InThisBlock++;
+                if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                    Frame_Count_NotParsedIncluded++;
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                     {
@@ -1305,6 +1425,8 @@ void File_Aes3::Frame_FromMpegPs()
                 Skip_XX(Element_Size,                       "Data");
 
                 Frame_Count_InThisBlock++;
+                if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                    Frame_Count_NotParsedIncluded++;
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                     {
@@ -1359,6 +1481,8 @@ void File_Aes3::Frame_FromMpegPs()
                 Skip_XX(Element_Size,                       "Data");
 
                 Frame_Count_InThisBlock++;
+                if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                    Frame_Count_NotParsedIncluded++;
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                     {
@@ -1375,16 +1499,10 @@ void File_Aes3::Frame_FromMpegPs()
             Skip_XX(Element_Size,                           "Data");
     }
 
-    //Looking for 2 consecutive PTS
+    //Filling
     Frame_Count++;
-    if (FrameInfo.PTS==(int64u)-1)
-        Frame_Count=2; //We don't have PTS, don't need more
-    else if (Frame_Count==1)
-    {
-        Frame_Last_PTS=FrameInfo.PTS;
-        Frame_Last_Size=Element_Size;
-    }
-
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
     if ((!IsParsingNonPcm || (Parser && Parser->Status[IsFinished])) && Frame_Count>=2)
     {
         //Filling
@@ -1417,7 +1535,12 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     Element_Offset=Element_Size;
 
     if (!From_MpegPs)
+    {
         Frame_Count++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
+    }
+
     if (!Status[IsFilled] && Parser->Status[IsFilled])
     {
         //Filling
