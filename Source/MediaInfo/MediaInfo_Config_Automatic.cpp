@@ -1594,7 +1594,7 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/\n"
     "FLIC;FLI/FLC;Autodesk\n"
     "FLJP;DField JPEG;;D-Vision Field Encoded JPEG with LSI (or Targa emulation)\n"
-    "FLV1;H.263;Sorenson;;http://ffdshow-tryout.sourceforge.net/\n"
+    "FLV1;Sorenson Spark;;;http://ffdshow-tryout.sourceforge.net/\n"
     "FLV4;VP6;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe;Heightened Sharpness\n"
     "FMJP;JPEG;D-Vision;;;;;YUV\n"
     "FMP4;MPEG-4 Visual;;;http://ffdshow-tryout.sourceforge.net/;;;YUV;4:2:0\n"

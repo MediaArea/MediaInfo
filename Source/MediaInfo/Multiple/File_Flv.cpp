@@ -168,7 +168,7 @@ const char* Flv_Format_Video[]=
 {
     "",
     "",
-    "H.263",
+    "Sorenson Spark",
     "Screen video",
     "VP6",
     "VP6",
@@ -228,7 +228,7 @@ const char* Flv_CodecID_Hint_Video[]=
 {
     "",
     "",
-    "Sorenson",
+    "",
     "",
     "",
     "",

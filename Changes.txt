@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.44 --> 0.7.45
+-----------------
+- FLV and RIFF: Changing Sorenson H.263 to Sorenson Spark because this stream format is too much incompatible with H.263
+
 0.7.36 --> 0.7.37
 -----------------
 - JPEG 2000: Format_Profile=Reversible --> Compression_Mode=Lossless and Format_Profile=Irreversible --> Compression_Mode=Lossy
