@@ -100,6 +100,8 @@ void ibi::stream::Add (const info &Info)
     {
         Infos[Infos_Pos-1].IsContinuous=true;
         IsContinuous=true;
+
+        IsModified=true;
     }
     IsSynchronized=true;
 
