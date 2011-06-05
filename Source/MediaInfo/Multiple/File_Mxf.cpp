@@ -34,6 +34,9 @@
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
@@ -780,6 +783,11 @@ const char* Mxf_Sequence_DataDefinition(int128u DataDefinition)
 extern const char* Mpegv_profile_and_level_indication_profile[];
 extern const char* Mpegv_profile_and_level_indication_level[];
 
+//---------------------------------------------------------------------------
+extern const char* AfdBarData_active_format[];
+extern const char* AfdBarData_active_format_4_3[];
+extern const char* AfdBarData_active_format_16_9[];
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -830,9 +838,6 @@ File_Mxf::File_Mxf()
         ReferenceFiles_IsParsing=false;
     #endif MEDIAINFO_NEXTPACKET
     #if defined(MEDIAINFO_ANCILLARY_YES)
-        Ancillary_InstanceUID=(int128u)-1;
-        Ancillary_LinkedTrackID=(int32u)-1;
-        Ancillary_TrackNumber=(int32u)-1;
         Ancillary=NULL;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
@@ -1107,8 +1112,13 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
             if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).find(_T("Ancillary"))!=string::npos)
             {
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(Ancillary_LinkedTrackID)+_T("-")+ID, true);
-                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(Ancillary_LinkedTrackID)+_T("-")+ID, true);
+                for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                    if (Descriptor->second.Type==descriptor::Type_AncPackets)
+                    {
+                        Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(Descriptor->second.LinkedTrackID)+_T("-")+ID, true);
+                        Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(Descriptor->second.LinkedTrackID)+_T("-")+ID, true);
+                        break;
+                    }
             }
             else
             {
@@ -1399,6 +1409,17 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                 PAR=(float32)59/(float32)54;
             Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromContainer", Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio));
             Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromStream", PAR, 3);
+        }
+
+        //ActiveFormatDescriptor
+        if (StreamKind_Last==Stream_Video && Descriptor->second.ActiveFormat!=(int8u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_ActiveFormatDescription).empty())
+        {
+            Fill(Stream_Video, 0, Video_ActiveFormatDescription, Descriptor->second.ActiveFormat);
+            float32 DAR=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio).To_float32();
+            if (DAR>(float32)4/(float32)3*0.99 && DAR<(float32)4/(float32)3*1.01)
+                Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, AfdBarData_active_format_4_3[Descriptor->second.ActiveFormat]);
+            if (DAR>(float32)16/(float32)9*0.99 && DAR<(float32)16/(float32)9*1.01)
+                Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, AfdBarData_active_format_16_9[Descriptor->second.ActiveFormat]);
         }
     }
 
@@ -2526,9 +2547,9 @@ void File_Mxf::Data_Parse()
                 {
                     if (Descriptor->second.EssenceContainer.hi!=(int64u)-1 || Descriptor->second.EssenceCompression.hi!=(int64u)-1)
                     {
-                        Essence->second.Parser=ChooseParser(Descriptor);
-                        if (Essence->second.Parser==NULL && EssenceContainer_FromPartitionMetadata!=0)
-                            Essence->second.Parser=ChooseParser(Descriptor);
+                        Essence->second.Parser=ChooseParser(Descriptor); //Searching by the descriptor
+                        if (Essence->second.Parser==NULL)
+                            ChooseParser(); //Searching by the track identifier
                         Essence->second.StreamPos=Code_Compare4&0x000000FF;
                         if ((Code_Compare4&0x000000FF)==0x00000000)
                             StreamPos_StartAtOne=false;
@@ -2727,6 +2748,9 @@ void File_Mxf::Data_Parse()
                     Skip_B4(                                    "Size?");
                     Skip_B4(                                    "Count?");
                     Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
+                    Element_Offset+=Size;
+                    if (Size%4)
+                        Skip_XX(4-(Size%4),                     "Padding");
                     Element_End();
                     Frame_Count_NotParsedIncluded++;
                 }
@@ -3227,7 +3251,7 @@ void File_Mxf::GenericPictureEssenceDescriptor()
         default: FileDescriptor();
     }
 
-    if (Code2==0x3C0A) //InstanceUID
+    if (Descriptors[InstanceUID].StreamKind==Stream_Max)
     {
         Descriptors[InstanceUID].StreamKind=Stream_Video;
         if (Streams_Count==(size_t)-1)
@@ -3253,7 +3277,7 @@ void File_Mxf::GenericSoundEssenceDescriptor()
         default: FileDescriptor();
     }
 
-    if (Code2==0x3C0A) //InstanceUID
+    if (Descriptors[InstanceUID].StreamKind==Stream_Max)
     {
         Descriptors[InstanceUID].StreamKind=Stream_Audio;
         if (Streams_Count==(size_t)-1)
@@ -3603,11 +3627,13 @@ void File_Mxf::Unknown1()
 //---------------------------------------------------------------------------
 void File_Mxf::AncPacketsDescriptor()
 {
-    Ancillary_InstanceUID=InstanceUID;
     switch(Code2)
     {
         default: FileDescriptor();
     }
+
+    if (Descriptors[InstanceUID].Type==descriptor::Type_Unknown)
+        Descriptors[InstanceUID].Type=descriptor::Type_AncPackets;
 }
 
 //---------------------------------------------------------------------------
@@ -4179,8 +4205,6 @@ void File_Mxf::FileDescriptor_LinkedTrackID()
     FILLING_BEGIN();
         if (Descriptors[InstanceUID].LinkedTrackID==(int32u)-1)
             Descriptors[InstanceUID].LinkedTrackID=Data;
-        if (InstanceUID==Ancillary_InstanceUID)
-            Ancillary_LinkedTrackID=Data;
     FILLING_END();
 }
 
@@ -4604,7 +4628,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayF2Offset()
 void File_Mxf::GenericPictureEssenceDescriptor_ActiveFormatDescriptor()
 {
     //Parsing
-    Info_B4(Data,                                                "Data"); Element_Info(Data);
+    int8u Data;
+    Get_B1 (Data,                                                "Data"); if (Data<16) Element_Info(AfdBarData_active_format[Data]);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].ActiveFormat=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4622,7 +4651,6 @@ void File_Mxf::GenericSoundEssenceDescriptor_QuantizationBits()
             Descriptors[InstanceUID].QuantizationBits=Data;
         }
     FILLING_END();
-
 }
 
 //---------------------------------------------------------------------------
@@ -7490,17 +7518,7 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(descriptors::iterato
         }
     }
 
-    if ((Descriptor->second.EssenceContainer.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (Descriptor->second.EssenceContainer.lo&0xFFFFFFFFFF000000LL)!=0x0D01030102000000LL)
-        return NULL;
-
-    int8u Code6=(int8u)((Descriptor->second.EssenceContainer.lo&0x0000000000FF0000LL)>>16);
-
-    switch (Code6)
-    {
-        case 0x01 : return ChooseParser_Aes3(Descriptor->second.QuantizationBits, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
-        case 0x06 : return ChooseParser_Pcm(Descriptor->second.BlockAlign, Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end()?(int32u)-1:Descriptor->second.Infos["SamplingRate"].To_int32u());
-        default   : return NULL;
-    }
+    return NULL;
 }
 
 //---------------------------------------------------------------------------
@@ -7601,8 +7619,8 @@ void File_Mxf::ChooseParser__Aaf_CP_Sound()
 
     switch (Code_Compare4_3)
     {
-        case 0x05 : //D-10 Audio, SMPTE 386M
-                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv();
+        case 0x10 : //D-10 Audio, SMPTE 386M
+                    Essences[Code_Compare4].Parser=ChooseParser_Aes3();
                     break;
         default   : //Unknown
                     Essences[Code_Compare4].Parser=new File__Analyze();
@@ -7730,7 +7748,6 @@ void File_Mxf::ChooseParser__Aaf_GC_Data()
         case 0x02 : //Ancillary
                     Essences[Code_Compare4].Parser=new File_Ancillary();
                     Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
-                    Ancillary_TrackNumber=Code_Compare4;
                     break;
         case 0x08 : //Line Wrapped Data Element, SMPTE 384M
         case 0x09 : //Line Wrapped VANC Data Element, SMPTE 384M
@@ -7977,7 +7994,7 @@ File__Analyze* File_Mxf::ChooseParser_Mpega()
 //---------------------------------------------------------------------------
 File__Analyze* File_Mxf::ChooseParser_Pcm(int16u BlockAlign, int32u SampleRate)
 {
-    //Filling
+    //Creating the parser
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
         if (BlockAlign!=(int16u)-1)

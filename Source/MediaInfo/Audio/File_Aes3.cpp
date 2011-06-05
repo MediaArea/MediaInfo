@@ -327,6 +327,12 @@ void File_Aes3::Read_Buffer_Init()
 //---------------------------------------------------------------------------
 void File_Aes3::Read_Buffer_Continue()
 {
+    if (Frame_Count==0)
+    {
+        PTS_Begin=FrameInfo.PTS;
+        Frame_Size=Element_Size;
+    }
+
     if (IsPcm)
     {
         #if MEDIAINFO_DEMUX
@@ -924,12 +930,6 @@ void File_Aes3::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Aes3::Data_Parse()
 {
-    if (Frame_Count==0)
-    {
-        PTS_Begin=FrameInfo.PTS;
-        Frame_Size=Element_Size;
-    }
-
     if (Container_Bits==Stream_Bits && !Endianess) //BE
         Frame();
     else

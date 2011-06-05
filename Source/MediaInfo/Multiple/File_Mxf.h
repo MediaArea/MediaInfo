@@ -528,6 +528,19 @@ protected :
         int16u BlockAlign;
         int32u QuantizationBits;
         int64u Duration;
+        int8u  ActiveFormat;
+        enum type
+        {
+            Type_Unknown,
+            Type_CDCI,
+            Type_RGBA,
+            Type_MPEG2Video,
+            Type_WaveAudio,
+            Type_AES3PCM,
+            Type_JPEG2000Picture,
+            Type_AncPackets,
+        };
+        type Type;
         #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             int32u ByteRate;
         #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
@@ -554,6 +567,8 @@ protected :
             BlockAlign=(int16u)-1;
             QuantizationBits=(int8u)-1;
             Duration=(int64u)-1;
+            ActiveFormat=(int8u)-1;
+            Type=Type_Unknown;
             #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 ByteRate=(int32u)-1;
             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
@@ -650,9 +665,6 @@ protected :
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
     #if defined(MEDIAINFO_ANCILLARY_YES)
-        int128u         Ancillary_InstanceUID;
-        int32u          Ancillary_LinkedTrackID;
-        int32u          Ancillary_TrackNumber;
         File_Ancillary* Ancillary;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
