@@ -511,6 +511,7 @@ protected :
         std::vector<int128u> Locators;
 
         stream_t StreamKind;
+        size_t   StreamPos;
         float64 SampleRate;
         int128u InstanceUID;
         int128u EssenceContainer;
@@ -548,6 +549,7 @@ protected :
         descriptor()
         {
             StreamKind=Stream_Max;
+            StreamPos=(size_t)-1;
             SampleRate=0;
             InstanceUID.hi=(int64u)-1;
             InstanceUID.lo=(int64u)-1;
@@ -633,8 +635,8 @@ protected :
     void           ChooseParser__Aaf_GC_Compound();
     void           ChooseParser__Avid();
     void           ChooseParser__Avid_Picture();
-    File__Analyze* ChooseParser(descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser__FromEssenceContainer(descriptors::iterator &Descriptor);
+    File__Analyze* ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    File__Analyze* ChooseParser__FromEssenceContainer(const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Avc();
     File__Analyze* ChooseParser_DV();
     File__Analyze* ChooseParser_Mpeg4v();
@@ -643,10 +645,11 @@ protected :
     File__Analyze* ChooseParser_RV24();
     File__Analyze* ChooseParser_Vc3();
     File__Analyze* ChooseParser_Aac();
-    File__Analyze* ChooseParser_Aes3(int32u QuantizationBits=(int32u)-1, int32u SampleRate=(int32u)-1);
+    File__Analyze* ChooseParser_Aes3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Alaw();
+    File__Analyze* ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Mpega();
-    File__Analyze* ChooseParser_Pcm(int16u BlockAlign=(int16u)-1, int32u SampleRate=(int32u)-1);
+    File__Analyze* ChooseParser_Pcm(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Jpeg2000(bool Interlaced=false);
 
     //Helpers

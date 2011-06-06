@@ -81,6 +81,9 @@ File_ChannelGrouping::~File_ChannelGrouping()
 //---------------------------------------------------------------------------
 void File_ChannelGrouping::Streams_Fill()
 {
+    if (!IsAes3)
+        return; //Nothing to do
+    
     Fill(Stream_General, 0, General_Format, "ChannelGrouping");
 
     if (Common->Channel_Master!=Channel_Pos)
@@ -92,6 +95,9 @@ void File_ChannelGrouping::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_ChannelGrouping::Streams_Finish()
 {
+    if (!IsAes3)
+        return; //Nothing to do
+    
     if (Common->Channel_Master!=Channel_Pos)
         return;
     Finish(Common->Parser);
@@ -134,11 +140,12 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     }
 
     //Testing if it is AES3 instead of mono PCM
-    if (!IsAes3 && (Frame_Count || (Channel_Pos==0 && !Synchronize_AES3_0()) || (Channel_Pos==1 && !Synchronize_AES3_1())))
+    if (!IsAes3 && ((Channel_Pos==0 && !Synchronize_AES3_0()) || (Channel_Pos==1 && !Synchronize_AES3_1())))
     {
-        if (Frame_Count==0 && Buffer_TotalBytes+Buffer_Size<65536)
+        if (Buffer_TotalBytes+Buffer_Size<65536)
         {
             Buffer_Offset=0; //Reinit
+            Element_WaitForMoreData();
             return;
         }
 
@@ -285,7 +292,7 @@ bool File_ChannelGrouping::Synchronize_AES3_0()
                 break; //while()
             Frame_Count++;
         }
-        if (CC3(Buffer+Buffer_Offset)==0xF0E154) //20-bit in 24-bit, LE
+        if (CC3(Buffer+Buffer_Offset)==0x20876F) //20-bit in 24-bit, LE
         {
             if (Frame_Count)
                 break; //while()
@@ -328,8 +335,8 @@ bool File_ChannelGrouping::Synchronize_AES3_0()
             Frame_Count++;
         }
 
-        if (ByteDepth!=(size_t)-1)
-            Buffer_Offset+=ByteDepth*2;
+        if (ByteDepth)
+            Buffer_Offset+=ByteDepth;
         else
             Buffer_Offset++;
     }
@@ -433,8 +440,8 @@ bool File_ChannelGrouping::Synchronize_AES3_1()
             Frame_Count++;
         }
 
-        if (ByteDepth!=(size_t)-1)
-            Buffer_Offset+=ByteDepth*2;
+        if (ByteDepth)
+            Buffer_Offset+=ByteDepth;
         else
             Buffer_Offset++;
     }

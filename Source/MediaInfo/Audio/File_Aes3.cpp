@@ -171,8 +171,8 @@ File_Aes3::File_Aes3()
 
     //In
     SampleRate=0;
-    ByteSize=(size_t)-1;
-    QuantizationBits=(int32u)-1;
+    ByteSize=0;
+    QuantizationBits=0;
     From_Raw=false;
     From_MpegPs=false;
     From_Aes3=false;
@@ -336,17 +336,17 @@ void File_Aes3::Read_Buffer_Continue()
     if (IsPcm)
     {
         #if MEDIAINFO_DEMUX
-            if (ByteSize==(size_t)-1)
-                Element_Size=Buffer_Size;
-            else
+            if (ByteSize)
                 Element_Size=(Buffer_Size/ByteSize)*ByteSize;
+            else
+                Element_Size=Buffer_Size;
             if (Demux_UnpacketizeContainer)
             {
                 if (StreamIDs_Size>=2)
                     Element_Code=StreamIDs[StreamIDs_Size-2];
                 StreamIDs_Size--;
                 FrameInfo.PTS=FrameInfo.DTS;
-                if (SampleRate && ByteSize!=(int32u)-1)
+                if (SampleRate && ByteSize)
                     FrameInfo.DUR=Element_Size*1000000000/(SampleRate*ByteSize);
                 Demux_random_access=true;
                 Demux(Buffer, (size_t)Element_Size, ContentType_MainStream);
@@ -726,7 +726,7 @@ bool File_Aes3::Synchronize()
             break; //while()
         }
 
-        if (ByteSize!=(size_t)-1)
+        if (ByteSize)
             Buffer_Offset+=ByteSize;
         else
             Buffer_Offset++;
@@ -1118,7 +1118,7 @@ void File_Aes3::Frame()
     {
         #if MEDIAINFO_DEMUX
             FrameInfo.PTS=FrameInfo.DTS;
-            if (SampleRate && ByteSize!=(int32u)-1)
+            if (SampleRate && ByteSize)
                 FrameInfo.DUR=(Element_Size-Element_Offset)*1000000000/(SampleRate*ByteSize);
             Demux_random_access=true;
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
@@ -1162,7 +1162,7 @@ void File_Aes3::Frame_WithPadding()
             int8u Demux_Level_Save=Demux_Level;
             Demux_Level=2; //Container
             FrameInfo.PTS=FrameInfo.DTS;
-            if (SampleRate && ByteSize!=(int32u)-1)
+            if (SampleRate && ByteSize)
                 FrameInfo.DUR=Element_Size*1000000000/(SampleRate*ByteSize);
             Demux_random_access=true;
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
