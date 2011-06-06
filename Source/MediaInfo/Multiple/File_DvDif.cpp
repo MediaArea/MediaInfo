@@ -564,6 +564,9 @@ bool File_DvDif::Synchronize()
 //---------------------------------------------------------------------------
 bool File_DvDif::Synched_Test()
 {
+    if (File_Offset+Buffer_Offset>=0x2F918955)
+        int A=0;
+    
     if (AuxToAnalyze || (File_Offset==0 && Buffer_Offset==0))
         return true;
 
@@ -599,65 +602,69 @@ bool File_DvDif::Synched_Test()
     }
 
     //DIF Block Numbers
-    int8u Number=DBN_Olds[SCT]+1;
-    switch (SCT)
-    {
-        case 0 : //Header
-                    if (SCT_Old!=4
-                     || DBN!=0)
-                    {
-                        if (!Status[IsAccepted])
-                            Trusted_IsNot("Wrong order");
-                        else
-                            Synched_Test_Reset();
-                    }
-                    break;
-        case 1 : //Subcode
-                    if (!((DBN==0 && SCT_Old==0) || (DBN!=0 && SCT_Old==1))
-                     || Number!=DBN && !(Number==2 && DBN==0))
-                    {
-                        if (!Status[IsAccepted])
-                            Trusted_IsNot("Wrong order");
-                        else
-                            Synched_Test_Reset();
-                    }
-                    break;
-        case 2 : //VAUX
-                    if (!((DBN==0 && SCT_Old==1) || (DBN!=0 && SCT_Old==2))
-                     || Number!=DBN && !(Number==3 && DBN==0))
-                    {
-                        if (!Status[IsAccepted])
-                            Trusted_IsNot("Wrong order");
-                        else
-                            Synched_Test_Reset();
-                    }
-                    break;
-        case 3 : //Audio
-                    if (!((DBN==0 && SCT_Old==2) || (DBN!=0 && SCT_Old==4))
-                     || Number!=DBN && !(Number==9 && DBN==0))
-                    {
-                        if (!Status[IsAccepted])
-                            Trusted_IsNot("Wrong order");
-                        else
-                            Synched_Test_Reset();
-                    }
-                    break;
-        case 4 : //Video
-                    if (!(SCT_Old==3 || SCT_Old==4)
-                     || Number!=DBN && !(Number==135 && DBN==0))
-                    {
-                        if (!Status[IsAccepted])
-                            Trusted_IsNot("Wrong order");
-                        else
-                            Synched_Test_Reset();
-                    }
-                    break;
-        default: ;
-    }
     if (SCT!=(int8u)-1)
     {
-        SCT_Old=SCT;
-        DBN_Olds[SCT]=DBN;
+        int8u Number=DBN_Olds[SCT]+1;
+        switch (SCT)
+        {
+            case 0 : //Header
+                        if (SCT_Old!=4
+                         || DBN!=0)
+                        {
+                            if (!Status[IsAccepted])
+                                Trusted_IsNot("Wrong order");
+                            else
+                                Synched_Test_Reset();
+                        }
+                        break;
+            case 1 : //Subcode
+                        if (!((DBN==0 && SCT_Old==0) || (DBN!=0 && SCT_Old==1))
+                         || Number!=DBN && !(Number==2 && DBN==0))
+                        {
+                            if (!Status[IsAccepted])
+                                Trusted_IsNot("Wrong order");
+                            else
+                                Synched_Test_Reset();
+                        }
+                        break;
+            case 2 : //VAUX
+                        if (!((DBN==0 && SCT_Old==1) || (DBN!=0 && SCT_Old==2))
+                         || Number!=DBN && !(Number==3 && DBN==0))
+                        {
+                            if (!Status[IsAccepted])
+                                Trusted_IsNot("Wrong order");
+                            else
+                                Synched_Test_Reset();
+                        }
+                        break;
+            case 3 : //Audio
+                        if (!((DBN==0 && SCT_Old==2) || (DBN!=0 && SCT_Old==4))
+                         || Number!=DBN && !(Number==9 && DBN==0))
+                        {
+                            if (!Status[IsAccepted])
+                                Trusted_IsNot("Wrong order");
+                            else
+                                Synched_Test_Reset();
+                        }
+                        break;
+            case 4 : //Video
+                        if (!(SCT_Old==3 || SCT_Old==4)
+                         || Number!=DBN && !(Number==135 && DBN==0))
+                        {
+                            if (!Status[IsAccepted])
+                                Trusted_IsNot("Wrong order");
+                            else
+                                Synched_Test_Reset();
+                        }
+                        break;
+            default: ;
+        }
+
+        if (SCT!=(int8u)-1)
+        {
+            SCT_Old=SCT;
+            DBN_Olds[SCT]=DBN;
+        }
     }
 
     //We continue
