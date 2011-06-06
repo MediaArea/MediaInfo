@@ -1123,7 +1123,7 @@ void File_Eia708::DFx(int8u WindowID)
 {
     Param_Info("DefineWindow"); Param_Info(WindowID);
     Element_Begin("DefineWindow");
-    int8u anchor_vertical, anchor_horizontal, row_count, column_count;
+    int8u anchor_vertical, anchor_horizontal, anchor_point, row_count, column_count;
     bool visible, relative_positioning;
     BS_Begin();
     Mark_0();
@@ -1135,7 +1135,7 @@ void File_Eia708::DFx(int8u WindowID)
     Get_SB (   relative_positioning,                            "relative positioning");
     Get_S1 (7, anchor_vertical,                                 "anchor vertical"); //Top left
     Get_S1 (8, anchor_horizontal,                               "anchor horizontal"); //Top left
-    Skip_S1(4,                                                  "anchor point");
+    Get_S1 (4, anchor_point,                                    "anchor point");
     Get_S1 (4, row_count,                                       "row count"); //Maximum=14
     Mark_0();
     Mark_0();
@@ -1154,9 +1154,59 @@ void File_Eia708::DFx(int8u WindowID)
     Window->visible=visible;
     Window->relative_positioning=relative_positioning;
     Window->anchor_vertical=anchor_vertical;
-    Window->Minimal.Window_y=anchor_vertical/5; //TODO: relative position
+    if (relative_positioning)
+        Window->Minimal.Window_y=(int8u)(((float)15)*anchor_vertical/100);
+    else
+        Window->Minimal.Window_y=anchor_vertical/5;
     Window->anchor_horizontal=anchor_horizontal;
-    Window->Minimal.Window_x=anchor_horizontal/5; //TODO: relative position
+    int8u offset_y;
+    switch (anchor_point)
+    {
+        case 0 :
+        case 1 :
+        case 2 :
+                offset_y=0;
+                break;
+        case 3 :
+        case 4 :
+        case 5 :
+                offset_y=(row_count+1)/2;
+                break;
+        case 6 :
+        case 7 :
+        case 8 :
+                offset_y=(row_count+1);
+                break;
+        default: offset_y=0; //Not valid
+    }
+    if (offset_y<Window->Minimal.Window_y)
+        Window->Minimal.Window_y-=offset_y;
+    if (relative_positioning)
+        Window->Minimal.Window_x=(int8u)(24*AspectRatio*anchor_horizontal/100);
+    else
+        Window->Minimal.Window_x=anchor_horizontal/5;
+    int8u offset_x;
+    switch (anchor_point)
+    {
+        case 0 :
+        case 3 :
+        case 6 :
+                offset_x=0;
+                break;
+        case 1 :
+        case 4 :
+        case 7 :
+                offset_x=(column_count+1)/2;
+                break;
+        case 2 :
+        case 5 :
+        case 8 :
+                offset_x=(column_count+1);
+                break;
+        default: offset_x=0; //Not valid
+    }
+    if (offset_x<Window->Minimal.Window_x)
+        Window->Minimal.Window_x-=offset_x;
     Window->row_count=row_count+1;
     Window->column_count=column_count+1;
     Window->Minimal.x=0;
@@ -1199,6 +1249,7 @@ void File_Eia708::Character_Fill(wchar_t Character)
                 Streams[service_number]->Minimal.CC[Window_y+y][Window_x+x].Value=Character;
 
             //Has changed
+            Window_HasChanged();
             HasChanged();
         }
 
