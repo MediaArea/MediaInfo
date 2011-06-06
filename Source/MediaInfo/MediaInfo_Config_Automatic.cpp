@@ -3564,8 +3564,6 @@ void MediaInfo_Config_Codec (InfoMap &Info)
     "676F;Vorbis;2CC;A;Vorbis;;Mode 1+;http://www.vorbis.com\n"
     "6770;Vorbis;2CC;A;Vorbis;;Mode 2+;http://www.vorbis.com\n"
     "6771;Vorbis;2CC;A;Vorbis;;Mode 2+;http://www.vorbis.com\n"
-    ";3COM NBX;2CC;A;;;3Com Corporation\n"
-    ";FAAD AAC;2CC;A\n"
     "7A21;AMR;2CC;A;;CBR;GSM-AMR (CBR, no SID);http://www.microsoft.com\n"
     "7A22;AMR;2CC;A;;VBR;GSM-AMR (VBR, including SID);http://www.microsoft.com\n"
     "A100;G723.1;2CC;A\n"
