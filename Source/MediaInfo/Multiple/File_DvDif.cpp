@@ -564,9 +564,6 @@ bool File_DvDif::Synchronize()
 //---------------------------------------------------------------------------
 bool File_DvDif::Synched_Test()
 {
-    if (File_Offset+Buffer_Offset>=0x2F918955)
-        int A=0;
-    
     if (AuxToAnalyze || (File_Offset==0 && Buffer_Offset==0))
         return true;
 
