@@ -965,7 +965,7 @@ void File_Gxf::map()
                                         Skip_B2(                "Byte size of each ancillary data field");
                                         Skip_B2(                "Byte size of the ancillary data media packet in 256 byte units");
                                     }
-                                    if (MediaType==7 || MediaType==8 || MediaType==24)
+                                    else if (MediaType==7 || MediaType==8 || MediaType==24)
                                     {
                                         //TimeCode
                                         Get_B1 (Frames,         "Frame");

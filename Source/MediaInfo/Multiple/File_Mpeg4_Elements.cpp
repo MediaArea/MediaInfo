@@ -1258,7 +1258,11 @@ void File_Mpeg4::mdat()
     }
 
     //Parsing
-    Skip_XX(Element_TotalSize_Get(),                            "Data");
+    #if MEDIAINFO_TRACE
+		if (Trace_Activated)
+			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+    #endif //MEDIAINFO_TRACE
+    Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 }
 
 //---------------------------------------------------------------------------
@@ -1848,7 +1852,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             }
                             return;
                         default:
-                            Skip_XX(Element_Size,               "To decode!");
+                            Skip_XX(Element_Size-Element_Offset,"To decode!");
                             Value=_T("(Binary)");
                     }
                     break;
@@ -1919,11 +1923,11 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
         default: Value=_T("Unknown kind of value!");
    }
 
-   FILLING_BEGIN();
-        switch (moov_meta_hdlr_Type)
-        {
-            case Elements::moov_meta_hdlr_mdir :
-                {
+    switch (moov_meta_hdlr_Type)
+    {
+        case Elements::moov_meta_hdlr_mdir :
+            {
+                FILLING_BEGIN();
                     std::string Parameter;
                     if (Element_Code_Get(Element_Level-1)==Elements::moov_meta______)
                         Metadata_Get(Parameter, moov_meta_ilst_xxxx_name_Name);
@@ -1971,11 +1975,13 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                         Element_Info(Parameter.c_str());
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
                     }
-                }
-                break;
-            case Elements::moov_meta_hdlr_mdta :
-                if(!moov_udta_meta_keys_List.empty())
-                {
+                FILLING_END();
+            }
+            break;
+        case Elements::moov_meta_hdlr_mdta :
+            if(!moov_udta_meta_keys_List.empty())
+            {
+                FILLING_BEGIN();
                     std::string Parameter;
                     Metadata_Get(Parameter, moov_udta_meta_keys_List[moov_udta_meta_keys_ilst_Pos<moov_udta_meta_keys_List.size()?moov_udta_meta_keys_ilst_Pos:moov_udta_meta_keys_List.size()-1]);
                     if (Parameter=="com.apple.quicktime.version")
@@ -1992,21 +1998,23 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                         Fill(Stream_General, 0, "Media/History/UUID", Value);
                     else if (!Parameter.empty())
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
-                    moov_udta_meta_keys_ilst_Pos++;
-                }
-                else
-                    Param("Keys atom is missing!", 0);
+                FILLING_END();
+                moov_udta_meta_keys_ilst_Pos++;
+            }
+            else
+                Param("Keys atom is missing!", 0);
 
-            case Elements::moov_udta_meta :
-                {
+        case Elements::moov_udta_meta :
+            {
+                FILLING_BEGIN();
                     std::string Parameter;
                     Metadata_Get(Parameter, (int32u)Element_Code_Get(Element_Level-1));
                     if (!Parameter.empty())
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
-                }
-            default: ;
-        }
-   FILLING_END();
+                FILLING_END();
+            }
+        default: ;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -4765,7 +4773,7 @@ void File_Mpeg4::moov_udta_loci()
     NAME_VERSION_FLAG("Location Information"); //3GP
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
 }
 
 //---------------------------------------------------------------------------

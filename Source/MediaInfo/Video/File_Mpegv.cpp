@@ -643,9 +643,12 @@ void File_Mpegv::Streams_Fill()
     Fill(Stream_Video, 0, Video_BufferSize, 2*1024*((((int32u)vbv_buffer_size_extension)<<10)+vbv_buffer_size_value));
 
     //Autorisation of other streams
-    NextCode_Clear();
-    NextCode_Add(0x00);
-    NextCode_Add(0xB8);
+    if (!Status[IsAccepted])
+    {
+        NextCode_Clear();
+        NextCode_Add(0x00);
+        NextCode_Add(0xB8);
+    }
     for (int8u Pos=0x00; Pos<=0xB9; Pos++)
         Streams[Pos].Searching_Payload=false;
     Streams[0xB8].Searching_TimeStamp_End=true;
@@ -1026,9 +1029,12 @@ void File_Mpegv::Read_Buffer_Unsynched()
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
     //NextCode
-    NextCode_Clear();
-    NextCode_Add(0xB3);
-    NextCode_Add(0xB8);
+    if (!Status[IsAccepted])
+    {
+        NextCode_Clear();
+        NextCode_Add(0xB3);
+        NextCode_Add(0xB8);
+    }
 }
 
 //***************************************************************************
@@ -1038,18 +1044,39 @@ void File_Mpegv::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_Mpegv::Header_Parse()
 {
-    //Parsing
-    int8u start_code;
-    Skip_B3(                                                    "synchro");
-    Get_B1 (start_code,                                         "start_code");
-    if (!Header_Parser_Fill_Size())
+    #if MEDIAINFO_TRACE
+    if (Trace_Activated)
     {
-        Element_WaitForMoreData();
-        return;
-    }
+        //Parsing
+        int8u start_code;
+        Skip_B3(                                                    "synchro");
+        Get_B1 (start_code,                                         "start_code");
+        if (!Header_Parser_Fill_Size())
+        {
+            Element_WaitForMoreData();
+            return;
+        }
 
-    //Filling
-    Header_Fill_Code(start_code, Ztring().From_CC1(start_code));
+        //Filling
+        Header_Fill_Code(start_code, Ztring().From_CC1(start_code));
+    }
+    else
+    {
+    #endif //MEDIAINFO_TRACE
+        //Parsing
+        int8u start_code=Buffer[Buffer_Offset+3];
+        Element_Offset+=4;
+        if (!Header_Parser_Fill_Size())
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+
+        //Filling
+        Header_Fill_Code(start_code, Ztring().From_CC1(start_code));
+    #if MEDIAINFO_TRACE
+    }
+    #endif //MEDIAINFO_TRACE
 }
 
 //---------------------------------------------------------------------------
@@ -1191,36 +1218,56 @@ void File_Mpegv::picture_start()
     Element_Name("picture_start");
 
     //Coherency
-    if (!NextCode_Test())
-        return;
+    if (!Status[IsAccepted])
+    {
+        if (!NextCode_Test())
+            return;
+    }
 
     //Parsing
-    BS_Begin();
-    Get_S2 (10, temporal_reference,                             "temporal_reference");
-    Get_S1 ( 3, picture_coding_type,                            "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
-    Get_S2 (16, vbv_delay,                                      "vbv_delay");
-    if (picture_coding_type==2 || picture_coding_type==3) //P or B
+    #if MEDIAINFO_TRACE
+    if (Trace_Activated)
     {
-        Skip_S1(1,                                              "full_pel_forward_vector");
-        Skip_S1(3,                                              "forward_f_code");
-    }
-    if (picture_coding_type==3) //B
-    {
-        Skip_S1(1,                                              "full_pel_backward_vector");
-        Skip_S1(3,                                              "backward_f_code");
-    }
-    bool extra_bit_picture;
-    do
-    {
-        Peek_SB(extra_bit_picture);
-        if (extra_bit_picture)
+        //Parsing
+        BS_Begin();
+        Get_S2 (10, temporal_reference,                         "temporal_reference");
+        Get_S1 ( 3, picture_coding_type,                        "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
+        Get_S2 (16, vbv_delay,                                  "vbv_delay");
+        if (picture_coding_type==2 || picture_coding_type==3) //P or B
         {
-            Skip_S1(1,                                          "extra_bit_picture");
-            Skip_S1(8,                                          "extra_information_picture");
+            Skip_S1(1,                                          "full_pel_forward_vector");
+            Skip_S1(3,                                          "forward_f_code");
         }
+        if (picture_coding_type==3) //B
+        {
+            Skip_S1(1,                                          "full_pel_backward_vector");
+            Skip_S1(3,                                          "backward_f_code");
+        }
+        bool extra_bit_picture;
+        do
+        {
+            Peek_SB(extra_bit_picture);
+            if (extra_bit_picture)
+            {
+                Skip_S1(1,                                      "extra_bit_picture");
+                Skip_S1(8,                                      "extra_information_picture");
+            }
+        }
+        while (extra_bit_picture);
+        BS_End();
     }
-    while (extra_bit_picture);
-    BS_End();
+    else
+    {
+    #endif //MEDIAINFO_TRACE
+        //Parsing
+        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+        temporal_reference      =(Buffer[Buffer_Pos]<<2) | (Buffer[Buffer_Pos+1]>>6);
+        picture_coding_type     =(Buffer[Buffer_Pos+1]>>3)&0x07;
+        vbv_delay               =(Buffer[Buffer_Pos+1]<<13) | (Buffer[Buffer_Pos+2]<<5) | (Buffer[Buffer_Pos+3]>>3);
+        Element_Offset=Element_Size;
+    #if MEDIAINFO_TRACE
+    }
+    #endif //MEDIAINFO_TRACE
 
     FILLING_BEGIN();
         //Detection of first I-Frame
@@ -1242,12 +1289,15 @@ void File_Mpegv::picture_start()
         TemporalReference[TemporalReference_Offset+temporal_reference]->IsValid=true;
 
         //NextCode
-        NextCode_Clear();
-        for (int64u Element_Name_Next=0x01; Element_Name_Next<=0x1F; Element_Name_Next++)
-            NextCode_Add(Element_Name_Next);
-        NextCode_Add(0xB2);
-        NextCode_Add(0xB5);
-        NextCode_Add(0xB8);
+        if (!Status[IsAccepted])
+        {
+            NextCode_Clear();
+            for (int64u Element_Name_Next=0x01; Element_Name_Next<=0x1F; Element_Name_Next++)
+                NextCode_Add(Element_Name_Next);
+            NextCode_Add(0xB2);
+            NextCode_Add(0xB5);
+            NextCode_Add(0xB8);
+        }
 
         //Autorisation of other streams
         for (int8u Pos=0x01; Pos<=0x1F; Pos++)
@@ -1259,8 +1309,11 @@ void File_Mpegv::picture_start()
 // Packet "01" --> "AF"
 void File_Mpegv::slice_start()
 {
-    if (!NextCode_Test())
-        return;
+    if (!Status[IsAccepted])
+    {
+        if (!NextCode_Test())
+            return;
+    }
     Element_Name("slice_start");
 
     //Parsing
@@ -1449,10 +1502,13 @@ void File_Mpegv::slice_start()
         }
 
         //NextCode
-        NextCode_Clear();
-        NextCode_Add(0x00);
-        NextCode_Add(0xB3);
-        NextCode_Add(0xB8);
+        if (!Status[IsAccepted])
+        {
+            NextCode_Clear();
+            NextCode_Add(0x00);
+            NextCode_Add(0xB3);
+            NextCode_Add(0xB8);
+        }
 
         //Autorisation of other streams
         for (int8u Pos=0x01; Pos<=0x1F; Pos++)
@@ -1472,6 +1528,14 @@ void File_Mpegv::slice_start()
                 GoToFromEnd(SizeToAnalyse_End);
             }
         }
+
+        //Skipping slices (if already unpacketized)
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Element_Offset=Demux_TotalBytes-(Buffer_TotalBytes+Buffer_Offset);
+            }
+        #endif //MEDIAINFO_DEMUX
     FILLING_END();
 }
 
@@ -2010,11 +2074,14 @@ void File_Mpegv::sequence_header()
         }
 
         //NextCode
-        NextCode_Clear();
-        NextCode_Add(0x00);
-        NextCode_Add(0xB2);
-        NextCode_Add(0xB5);
-        NextCode_Add(0xB8);
+        if (!Status[IsAccepted])
+        {
+            NextCode_Clear();
+            NextCode_Add(0x00);
+            NextCode_Add(0xB2);
+            NextCode_Add(0xB5);
+            NextCode_Add(0xB8);
+        }
 
         //Autorisation of other streams
         Streams[0x00].Searching_Payload=true;
@@ -2239,43 +2306,73 @@ void File_Mpegv::sequence_end()
 // Packet "B8"
 void File_Mpegv::group_start()
 {
-    if (!NextCode_Test())
-        return;
+    if (!Status[IsAccepted])
+    {
+        if (!NextCode_Test())
+            return;
+    }
     Element_Name("group_start");
 
     //Reading
     int8u Hours, Minutes, Seconds, Frames;
     bool drop_frame_flag, closed_gop, broken_link;
-    BS_Begin();
-    Get_SB (    drop_frame_flag,                                "time_code_drop_frame_flag");
-    Get_S1 ( 5, Hours,                                          "time_code_time_code_hours");
-    Get_S1 ( 6, Minutes,                                        "time_code_time_code_minutes");
-    Mark_1();
-    Get_S1 ( 6, Seconds,                                        "time_code_time_code_seconds");
-    Get_S1 ( 6, Frames,                                         "time_code_time_code_pictures");
-    Get_SB (    closed_gop,                                     "closed_gop");
-    Get_SB (    broken_link,                                    "broken_link");
-    BS_End();
-    Ztring Time;
-    Time+=Ztring::ToZtring(Hours);
-    Time+=_T(':');
-    Time+=Ztring::ToZtring(Minutes);
-    Time+=_T(':');
-    Time+=Ztring::ToZtring(Seconds);
-    if (FrameRate!=0)
+    #if MEDIAINFO_TRACE
+    if (Trace_Activated)
     {
-        Time+=_T('.');
-        Time+=Ztring::ToZtring(Frames*1000/FrameRate, 0);
+        //Parsing
+        BS_Begin();
+        Get_SB (    drop_frame_flag,                            "time_code_drop_frame_flag");
+        Get_S1 ( 5, Hours,                                      "time_code_time_code_hours");
+        Get_S1 ( 6, Minutes,                                    "time_code_time_code_minutes");
+        Mark_1();
+        Get_S1 ( 6, Seconds,                                    "time_code_time_code_seconds");
+        Get_S1 ( 6, Frames,                                     "time_code_time_code_pictures");
+        Get_SB (    closed_gop,                                 "closed_gop");
+        Get_SB (    broken_link,                                "broken_link");
+        BS_End();
+        Ztring Time;
+        Time+=Ztring::ToZtring(Hours);
+        Time+=_T(':');
+        Time+=Ztring::ToZtring(Minutes);
+        Time+=_T(':');
+        Time+=Ztring::ToZtring(Seconds);
+        if (FrameRate!=0)
+        {
+            Time+=_T('.');
+            Time+=Ztring::ToZtring(Frames*1000/FrameRate, 0);
+        }
+        Element_Info(Time);
     }
-    Element_Info(Time);
+    else
+    {
+    #endif //MEDIAINFO_TRACE
+        //Parsing
+        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+        drop_frame_flag                     = (Buffer[Buffer_Pos  ]&0x80)?true:false;
+        Hours                               =((Buffer[Buffer_Pos  ]&0x7C)>> 2);
+        Minutes                             =((Buffer[Buffer_Pos  ]&0x03)<< 4)
+                                           | ((Buffer[Buffer_Pos+1]     )>> 4);
+        Seconds                             =((Buffer[Buffer_Pos+1]&0x07)<< 3)
+                                           | ((Buffer[Buffer_Pos+2]     )>> 5);
+        Frames                              =((Buffer[Buffer_Pos+2]&0x1F)<< 1)
+                                           | ((Buffer[Buffer_Pos+3]     )>> 7);
+        closed_gop                          = (Buffer[Buffer_Pos+3]&0x40)?true:false;
+        broken_link                         = (Buffer[Buffer_Pos+3]&0x20)?true:false;
+        Element_Offset+=4;
+    #if MEDIAINFO_TRACE
+    }
+    #endif //MEDIAINFO_TRACE
 
     FILLING_BEGIN();
         //NextCode
-        NextCode_Clear();
-        NextCode_Add(0x00);
-        NextCode_Add(0xB2);
-        NextCode_Add(0xB5);
-        NextCode_Add(0xB8);
+        if (!Status[IsAccepted])
+        {
+            NextCode_Clear();
+            NextCode_Add(0x00);
+            NextCode_Add(0xB2);
+            NextCode_Add(0xB5);
+            NextCode_Add(0xB8);
+        }
 
         if (TimeCodeIsNotTrustable)
             return;

@@ -1257,7 +1257,10 @@ bool File__Analyze::Data_Manage()
     if (!Element_WantNextLevel)
     {
         if (Element[Element_Level].Next<=File_Offset+Buffer_Size)
-            Element_Offset=(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset);
+        {
+            if (Element_Offset<(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset))
+                Element_Offset=(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset);
+        }
         else if (!Status[IsFinished])
         {
             GoTo(Element[Element_Level].Next);
@@ -2308,8 +2311,6 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
         if (MustElementBegin)
             Element_Level++; //Element
     }
-    if (!Element_WantNextLevel)
-        Element_End(); //Element
 
     Buffer_Clear();
     File_GoTo=GoTo;

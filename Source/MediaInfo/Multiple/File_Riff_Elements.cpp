@@ -1247,7 +1247,10 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
             AVI__hdlr_strl_strf_auds_Vorbis2();
         else if (FormatTag==0xFFFE) //Extensible Wave
             AVI__hdlr_strl_strf_auds_ExtensibleWave();
-        else Skip_XX(Option_Size,                               "Unknown");
+        else if (Element_Offset+Option_Size<=Element_Size)
+            Skip_XX(Option_Size,                               "Unknown");
+        else if (Element_Offset!=Element_Size)
+            Skip_XX(Element_Size-Element_Offset,               "Error");
     }
 }
 
@@ -1418,7 +1421,6 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
         //DVAAuxSrc
         ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x50; //Audio source
         Open_Buffer_Continue(DV_FromHeader, 4);
-        Element_Offset+=4;
         //DVAAuxCtl
         ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x51; //Audio control
         Open_Buffer_Continue(DV_FromHeader, Buffer+Buffer_Offset+(size_t)Element_Offset, 4);
@@ -1430,11 +1432,9 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
         //DVVAuxSrc
         ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x60; //Video source
         Open_Buffer_Continue(DV_FromHeader, 4);
-        Element_Offset+=4;
         //DVAAuxCtl
         ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x61; //Video control
         Open_Buffer_Continue(DV_FromHeader, 4);
-        Element_Offset+=4;
         //Reserved
         if (Element_Offset<Element_Size)
         {
@@ -2152,7 +2152,11 @@ void File_Riff::AVI__movi()
     if (NeedOldIndex || (stream_Count==0 && Index_Pos.empty()))
     {
         //Jumping
-        Skip_XX(Element_TotalSize_Get(),                        "Data");
+		#if MEDIAINFO_TRACE
+			if (Trace_Activated)
+				Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+		#endif //MEDIAINFO_TRACE
+        Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
         return;
     }
 
@@ -2450,7 +2454,11 @@ void File_Riff::CADP()
     //Parsing
     int32u Codec;
     Get_C4 (Codec,                                              "Codec");
-    Skip_XX(Element_TotalSize_Get()-Element_Offset,             "Data");
+    #if MEDIAINFO_TRACE
+		if (Trace_Activated)
+			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
+    #endif //MEDIAINFO_TRACE
+    Element_Offset=Element_TotalSize_Get()-Element_Offset; //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_Audio);
@@ -2562,7 +2570,11 @@ void File_Riff::JUNK()
     Element_Name("Junk");
 
     //Parse
-    Skip_XX(Element_TotalSize_Get(),                            "Junk");
+    #if MEDIAINFO_TRACE
+		if (Trace_Activated)
+			Param("Junk", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+    #endif //MEDIAINFO_TRACE
+    Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 }
 
 //---------------------------------------------------------------------------
@@ -2600,7 +2612,11 @@ void File_Riff::MTrk()
     Element_Name("MIDI Track");
 
     //Parsing
-    Skip_XX(Element_TotalSize_Get(),                            "Data");
+    #if MEDIAINFO_TRACE
+		if (Trace_Activated)
+			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+    #endif //MEDIAINFO_TRACE
+    Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_Audio);
@@ -2817,7 +2833,11 @@ void File_Riff::RMP3_data()
     #endif
 
     //Positionning
-    Element_Offset+=Element_TotalSize_Get()-Element_Size;
+    #if MEDIAINFO_TRACE
+		if (Trace_Activated)
+			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
+    #endif //MEDIAINFO_TRACE
+    Element_Offset=Element_TotalSize_Get()-Element_Offset; //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 }
 
 //---------------------------------------------------------------------------

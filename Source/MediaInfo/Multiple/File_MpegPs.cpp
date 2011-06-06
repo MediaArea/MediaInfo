@@ -1884,47 +1884,85 @@ void File_MpegPs::pack_start()
     //Parsing
     int16u SysClock_29, SysClock_14;
     int8u Version, SysClock_32, Padding;
-    BS_Begin();
-    Peek_S1( 2, Version);
-    if (Version==1)
+    size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+    #if MEDIAINFO_TRACE
+    if (Trace_Activated)
     {
-        //MPEG-2
-        MPEG_Version=2;
-        Mark_0();
-        Mark_1();
-        Get_S1 ( 3, SysClock_32,                                "system_clock_reference_base32");
-        Mark_1();
-        Get_S2 (15, SysClock_29,                                "system_clock_reference_base29");
-        Mark_1();
-        Get_S2 (15, SysClock_14,                                "system_clock_reference_base14");
-
-        //Filling
-        Streams[0xBA].TimeStamp_End.PTS.TimeStamp=(((int64u)SysClock_32)<<30)
-                                                | (((int64u)SysClock_29)<<15)
-                                                | (((int64u)SysClock_14));
-        if (Searching_TimeStamp_Start && Streams[0xBA].Searching_TimeStamp_Start)
-        {
-            Streams[0xBA].TimeStamp_Start=Streams[0xBA].TimeStamp_End;
-            Streams[0xBA].Searching_TimeStamp_Start=false;
-        }
-        Param_Info_From_Milliseconds(Streams[0xBA].TimeStamp_End.PTS.TimeStamp/90);
-
-        Mark_1();
-        Skip_S2( 9,                                             "system_clock_reference_extension");
-        Mark_1();
-        Get_S3 (22, program_mux_rate,                           "program_mux_rate"); Param_Info(program_mux_rate*400, " bps");
-        Mark_1();
-        Mark_1();
-        Skip_S1( 5,                                             "reserved");
-        Get_S1 ( 3, Padding,                                    "pack_stuffing_length");
-        BS_End();
-        if (Padding>0)
-            Skip_XX(Padding,                                    "padding");
+        //Parsing
+        BS_Begin();
+        Peek_S1( 2, Version);
     }
     else
     {
-        //MPEG-1
-        MPEG_Version=1;
+    #endif //MEDIAINFO_TRACE
+        //Parsing
+        Version=Buffer[Buffer_Pos]>>6;
+    #if MEDIAINFO_TRACE
+    }
+    #endif //MEDIAINFO_TRACE
+    if (Version==1)
+    {
+        //MPEG-2
+        #if MEDIAINFO_TRACE
+        if (Trace_Activated)
+        {
+            //Parsing
+            Mark_0();
+            Mark_1();
+            Get_S1 ( 3, SysClock_32,                                "system_clock_reference_base32");
+            Mark_1();
+            Get_S2 (15, SysClock_29,                                "system_clock_reference_base29");
+            Mark_1();
+            Get_S2 (15, SysClock_14,                                "system_clock_reference_base14");
+
+            //Filling
+            Streams[0xBA].TimeStamp_End.PTS.TimeStamp=(((int64u)SysClock_32)<<30)
+                                                    | (((int64u)SysClock_29)<<15)
+                                                    | (((int64u)SysClock_14));
+            if (Searching_TimeStamp_Start && Streams[0xBA].Searching_TimeStamp_Start)
+            {
+                Streams[0xBA].TimeStamp_Start=Streams[0xBA].TimeStamp_End;
+                Streams[0xBA].Searching_TimeStamp_Start=false;
+            }
+            Param_Info_From_Milliseconds(Streams[0xBA].TimeStamp_End.PTS.TimeStamp/90);
+
+            Mark_1();
+            Skip_S2( 9,                                             "system_clock_reference_extension");
+            Mark_1();
+            Get_S3 (22, program_mux_rate,                           "program_mux_rate"); Param_Info(program_mux_rate*400, " bps");
+            Mark_1();
+            Mark_1();
+            Skip_S1( 5,                                             "reserved");
+            Get_S1 ( 3, Padding,                                    "pack_stuffing_length");
+            BS_End();
+            if (Padding>0)
+                Skip_XX(Padding,                                    "padding");
+        }
+        else
+        {
+        #endif //MEDIAINFO_TRACE
+            //Parsing
+            Streams[0xBA].TimeStamp_End.PTS.TimeStamp=((Buffer[Buffer_Pos  ]&0x38)<<30)
+                                                    | ((Buffer[Buffer_Pos  ]&0x03)<<28)
+                                                    | ((Buffer[Buffer_Pos+1]     )<<20)
+                                                    | ((Buffer[Buffer_Pos+2]&0xF8)<<15)
+                                                    | ((Buffer[Buffer_Pos+2]&0x03)<<13)
+                                                    | ((Buffer[Buffer_Pos+3]     )<< 5)
+                                                    | ((Buffer[Buffer_Pos+4]&0xF8)>> 3);
+            if (!Status[IsAccepted])
+            {
+                program_mux_rate                     =((Buffer[Buffer_Pos+6]     )<<14)
+                                                    | ((Buffer[Buffer_Pos+7]     )<< 6)
+                                                    | ((Buffer[Buffer_Pos+8]     )>> 2);
+            }
+            Element_Offset=Element_Size;
+        #if MEDIAINFO_TRACE
+        }
+        #endif //MEDIAINFO_TRACE
+    }
+    else
+    {
+        BS_Begin();
         Mark_0();
         Mark_0();
         Mark_1();
@@ -1953,6 +1991,7 @@ void File_MpegPs::pack_start()
         BS_End();
     }
 
+
     //Filling
     FILLING_BEGIN_PRECISE();
         if (!Status[IsAccepted])
@@ -1977,13 +2016,15 @@ void File_MpegPs::pack_start()
                 Streams[Pos].Searching_TimeStamp_Start=true; //audio_stream or video_stream
                 Streams[Pos].Searching_TimeStamp_End=true;   //audio_stream or video_stream
             }
-        }
 
-        SizeToAnalyze=program_mux_rate*50*2*(MustExtendParsingDuration?8:1); //standard delay between TimeStamps is 0.7s, we try 2s to be sure
-        if (SizeToAnalyze>16*1024*1024)
-            SizeToAnalyze=16*1024*1024; //Not too much
-        if (SizeToAnalyze<2*1024*1024)
-            SizeToAnalyze=2*1024*1024; //Not too less
+            MPEG_Version=Version==1?2:1;
+
+            SizeToAnalyze=program_mux_rate*50*2*(MustExtendParsingDuration?8:1); //standard delay between TimeStamps is 0.7s, we try 2s to be sure
+            if (SizeToAnalyze>16*1024*1024)
+                SizeToAnalyze=16*1024*1024; //Not too much
+            if (SizeToAnalyze<2*1024*1024)
+                SizeToAnalyze=2*1024*1024; //Not too less
+        }
     FILLING_END();
 }
 
@@ -2114,7 +2155,7 @@ void File_MpegPs::program_stream_map()
 
         //Registering the streams
         for (int8u Pos=0; Pos<0xFF; Pos++)
-            if (Parser.Complete_Stream->Streams[Pos]->stream_type)
+            if (Parser.Complete_Stream->Streams[Pos]->stream_type!=(int8u)-1)
             {
                 Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos]->stream_type;
             }

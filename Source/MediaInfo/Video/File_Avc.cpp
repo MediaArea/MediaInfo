@@ -1555,6 +1555,7 @@ void File_Avc::sei_message_buffering_period()
             Get_S4 (initial_cpb_removal_delay_length_minus1+1, VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");
             Get_S4 (initial_cpb_removal_delay_length_minus1+1, VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(VCL.SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset/90, " ms");
         }
+    BS_End();
 }
 
 //---------------------------------------------------------------------------

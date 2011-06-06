@@ -858,7 +858,7 @@ void File_Jpeg::APP1()
     switch (Name)
     {
         case 0x457869660000LL : APP1_EXIF(); break; //"Exif\0\0"
-        default               : Skip_XX(Element_Size,           "Data");
+        default               : Skip_XX(Element_Size-Element_Offset, "Data");
     }
 }
 

@@ -725,10 +725,13 @@ File_Mpeg_Psi::~File_Mpeg_Psi()
 void File_Mpeg_Psi::FileHeader_Parse()
 {
     //Parsing
-    int8u pointer_field;
-    Get_B1 (pointer_field,                                      "pointer_field");
-    if (pointer_field)
-        Skip_XX(pointer_field,                                  "payload");
+    if (From_TS)
+    {
+        int8u pointer_field;
+        Get_B1 (pointer_field,                                  "pointer_field");
+        if (pointer_field)
+            Skip_XX(pointer_field,                              "payload");
+    }
 }
 
 //***************************************************************************
