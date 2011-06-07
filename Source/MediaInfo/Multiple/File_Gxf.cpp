@@ -580,6 +580,7 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         Value/=((File_Umf*)UMF_File)->GopSize;
                         Value*=((File_Umf*)UMF_File)->GopSize;
                     }
+                    Value*=Material_Fields_FieldsPerFrame;
 
                     for (size_t Pos=0; Pos<Seeks.size(); Pos++)
                     {
@@ -1226,19 +1227,15 @@ void File_Gxf::UMF_file()
     #if MEDIAINFO_SEEK
     if (Seeks.empty() && Flt_FieldPerEntry!=(int32u)-1 && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
         {
-            int32u FramePerEntry=Flt_FieldPerEntry;
-            if (Material_Fields_First_IsValid)
-                FramePerEntry/=Material_Fields_FieldsPerFrame;
-
             size_t NextIFrame=0;
-            for (size_t Pos=1; Pos<Flt_Offsets.size(); Pos++)
-                if (Pos*Flt_FieldPerEntry>NextIFrame)
+            for (size_t Pos=0; Pos<Flt_Offsets.size(); Pos++)
+                if (Pos*Flt_FieldPerEntry>=NextIFrame)
                 {
                     seek Seek;
-                    Seek.FrameNumber=(Pos-1)*FramePerEntry;
-                    Seek.StreamOffset=Flt_Offsets[Pos-1];
+                    Seek.FrameNumber=(Material_Fields_First_IsValid?Material_Fields_First:0)+Pos*Flt_FieldPerEntry;
+                    Seek.StreamOffset=Flt_Offsets[Pos];
                     Seeks.push_back(Seek);
-                    NextIFrame+=(size_t)((File_Umf*)UMF_File)->GopSize;
+                    NextIFrame+=(size_t)((File_Umf*)UMF_File)->GopSize*Material_Fields_FieldsPerFrame;
                 }
             Flt_Offsets.clear();
         }
