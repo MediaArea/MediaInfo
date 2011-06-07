@@ -1116,8 +1116,10 @@ void File_Gxf::media()
                 {
                     if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
                     {
-                        int64u CountOfAudioBlocksForDTS=float64_int64s(MediaFieldNumber/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768); //A block is 32768 samples at 48 KHz
-                        FrameInfo.DTS=FrameInfo.PTS=CountOfAudioBlocksForDTS*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
+                        Frame_Count_NotParsedIncluded=(int64u)(MediaFieldNumber/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768/Material_Fields_FieldsPerFrame); //A block is 32768 samples at 48 KHz
+                        FrameInfo.DTS=FrameInfo.PTS=Frame_Count_NotParsedIncluded*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
+                        if (Material_Fields_First_IsValid)
+                            Frame_Count_NotParsedIncluded-=(int64u)(Material_Fields_First/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768/Material_Fields_FieldsPerFrame);
                     }
                     else
                         FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
@@ -1137,7 +1139,8 @@ void File_Gxf::media()
                     if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)!=Stream_Video || IFrame_IsParsed)
                 #endif //MEDIAINFO_SEEK
                 {
-                    Frame_Count_NotParsedIncluded=(MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame;
+                    if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)!=Stream_Audio)
+                        Frame_Count_NotParsedIncluded=(MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame;
                     Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
                 }
             }
