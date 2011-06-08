@@ -25,6 +25,8 @@ Version 0.7.45, 2011-
 + MXF: AFD (in both descriptor or ANC) support
 + MXF: Support of AES3 / Dolby E in 2 mono channels
 + MPEG-4: support of some malformed (without mdat atom) files
++ MXF: Better detection of streams without Essence Compression descriptor
+x MPEG Video: Custom matrix detection was broken
 x DPX: Industry specific header was not well decoded
 x JPEG-2000: Chroma subsampling 4:2:0 was recognized as 4:4:4.
 x Matroska: Handling default values for TrackVideoDisplayWidth and TrackVideoDisplayHeight

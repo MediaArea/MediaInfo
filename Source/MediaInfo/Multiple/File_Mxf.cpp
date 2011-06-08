@@ -413,6 +413,7 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
                                                                         case 0x02 : //Essence container kind
                                                                                     switch (Code6)
                                                                                     {
+                                                                                        case 0x01 : return "D-10 Audio";
                                                                                         case 0x02 : return "DV";
                                                                                         case 0x05 : return "Uncompressed pictures";
                                                                                         case 0x06 : return "PCM";
@@ -897,26 +898,33 @@ void File_Mxf::Streams_Finish()
 
     if (!Track_Number_IsAvailable)
     {
-        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+        if (Tracks.empty())
         {
-            //Searching the corresponding Descriptor
-            stream_t StreamKind=Stream_Max;
-            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
-                if (Descriptor->second.LinkedTrackID==Track->second.TrackID)
-                {
-                    StreamKind=Descriptor->second.StreamKind;
-                    break;
-                }
-            if (StreamKind!=Stream_Max)
+            for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
+                if (Essence->second.Parser)
+                    Merge(*Essence->second.Parser);
+        }
+        else
+            for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
             {
-                for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
-                    if (Essence->second.StreamKind==StreamKind && !Essence->second.Track_Number_IsMappedToTrack)
+                //Searching the corresponding Descriptor
+                stream_t StreamKind=Stream_Max;
+                for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                    if (Descriptor->second.LinkedTrackID==Track->second.TrackID)
                     {
-                        Track->second.TrackNumber=Essence->first;
-                        Essence->second.Track_Number_IsMappedToTrack=true;
+                        StreamKind=Descriptor->second.StreamKind;
                         break;
                     }
-            }
+                if (StreamKind!=Stream_Max)
+                {
+                    for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
+                        if (Essence->second.StreamKind==StreamKind && !Essence->second.Track_Number_IsMappedToTrack)
+                        {
+                            Track->second.TrackNumber=Essence->first;
+                            Essence->second.Track_Number_IsMappedToTrack=true;
+                            break;
+                        }
+                }
         }
     }
 
@@ -1476,41 +1484,44 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             float32 Width =Retrieve(Stream_Video, StreamPos_Last, Video_Width             ).To_float32();
             float32 Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height            ).To_float32();
             float32 DAR_F =DAR.To_float32();
-            float32 PAR   =1/(Width/Height/DAR_F);
-            if (PAR>(float32)12/(float32)11*0.99 && PAR<(float32)12/(float32)11*1.01)
-                PAR=(float32)12/(float32)11;
-            if (PAR>(float32)10/(float32)11*0.99 && PAR<(float32)10/(float32)11*1.01)
-                PAR=(float32)10/(float32)11;
-            if (PAR>(float32)16/(float32)11*0.99 && PAR<(float32)16/(float32)11*1.01)
-                PAR=(float32)16/(float32)11;
-            if (PAR>(float32)40/(float32)33*0.99 && PAR<(float32)40/(float32)33*1.01)
-                PAR=(float32)40/(float32)33;
-            if (PAR>(float32)24/(float32)11*0.99 && PAR<(float32)24/(float32)11*1.01)
-                PAR=(float32)24/(float32)11;
-            if (PAR>(float32)20/(float32)11*0.99 && PAR<(float32)20/(float32)11*1.01)
-                PAR=(float32)20/(float32)11;
-            if (PAR>(float32)32/(float32)11*0.99 && PAR<(float32)32/(float32)11*1.01)
-                PAR=(float32)32/(float32)11;
-            if (PAR>(float32)80/(float32)33*0.99 && PAR<(float32)80/(float32)33*1.01)
-                PAR=(float32)80/(float32)33;
-            if (PAR>(float32)18/(float32)11*0.99 && PAR<(float32)18/(float32)11*1.01)
-                PAR=(float32)18/(float32)11;
-            if (PAR>(float32)15/(float32)11*0.99 && PAR<(float32)15/(float32)11*1.01)
-                PAR=(float32)15/(float32)11;
-            if (PAR>(float32)64/(float32)33*0.99 && PAR<(float32)64/(float32)33*1.01)
-                PAR=(float32)64/(float32)33;
-            if (PAR>(float32)160/(float32)99*0.99 && PAR<(float32)160/(float32)99*1.01)
-                PAR=(float32)160/(float32)99;
-            if (PAR>(float32)4/(float32)3*0.99 && PAR<(float32)4/(float32)3*1.01)
-                PAR=(float32)4/(float32)3;
-            if (PAR>(float32)3/(float32)2*0.99 && PAR<(float32)3/(float32)2*1.01)
-                PAR=(float32)3/(float32)2;
-            if (PAR>(float32)2/(float32)1*0.99 && PAR<(float32)2/(float32)1*1.01)
-                PAR=(float32)2;
-            if (PAR>(float32)59/(float32)54*0.99 && PAR<(float32)59/(float32)54*1.01)
-                PAR=(float32)59/(float32)54;
-            Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromContainer", Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio));
-            Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromStream", PAR, 3);
+            if (Width && Height && DAR_F)
+            {
+                float32 PAR   =1/(Width/Height/DAR_F);
+                if (PAR>(float32)12/(float32)11*0.99 && PAR<(float32)12/(float32)11*1.01)
+                    PAR=(float32)12/(float32)11;
+                if (PAR>(float32)10/(float32)11*0.99 && PAR<(float32)10/(float32)11*1.01)
+                    PAR=(float32)10/(float32)11;
+                if (PAR>(float32)16/(float32)11*0.99 && PAR<(float32)16/(float32)11*1.01)
+                    PAR=(float32)16/(float32)11;
+                if (PAR>(float32)40/(float32)33*0.99 && PAR<(float32)40/(float32)33*1.01)
+                    PAR=(float32)40/(float32)33;
+                if (PAR>(float32)24/(float32)11*0.99 && PAR<(float32)24/(float32)11*1.01)
+                    PAR=(float32)24/(float32)11;
+                if (PAR>(float32)20/(float32)11*0.99 && PAR<(float32)20/(float32)11*1.01)
+                    PAR=(float32)20/(float32)11;
+                if (PAR>(float32)32/(float32)11*0.99 && PAR<(float32)32/(float32)11*1.01)
+                    PAR=(float32)32/(float32)11;
+                if (PAR>(float32)80/(float32)33*0.99 && PAR<(float32)80/(float32)33*1.01)
+                    PAR=(float32)80/(float32)33;
+                if (PAR>(float32)18/(float32)11*0.99 && PAR<(float32)18/(float32)11*1.01)
+                    PAR=(float32)18/(float32)11;
+                if (PAR>(float32)15/(float32)11*0.99 && PAR<(float32)15/(float32)11*1.01)
+                    PAR=(float32)15/(float32)11;
+                if (PAR>(float32)64/(float32)33*0.99 && PAR<(float32)64/(float32)33*1.01)
+                    PAR=(float32)64/(float32)33;
+                if (PAR>(float32)160/(float32)99*0.99 && PAR<(float32)160/(float32)99*1.01)
+                    PAR=(float32)160/(float32)99;
+                if (PAR>(float32)4/(float32)3*0.99 && PAR<(float32)4/(float32)3*1.01)
+                    PAR=(float32)4/(float32)3;
+                if (PAR>(float32)3/(float32)2*0.99 && PAR<(float32)3/(float32)2*1.01)
+                    PAR=(float32)3/(float32)2;
+                if (PAR>(float32)2/(float32)1*0.99 && PAR<(float32)2/(float32)1*1.01)
+                    PAR=(float32)2;
+                if (PAR>(float32)59/(float32)54*0.99 && PAR<(float32)59/(float32)54*1.01)
+                    PAR=(float32)59/(float32)54;
+                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromContainer", Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio));
+                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromStream", PAR, 3);
+            }
         }
 
         //ActiveFormatDescriptor
@@ -2576,25 +2587,22 @@ void File_Mxf::Data_Parse()
 
             //Searching the corresponding Descriptor
             for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
-                if (Descriptors.size()==1 || Descriptor->second.LinkedTrackID==Essence->second.TrackID)
+                if (Descriptors.size()==1 || (Descriptor->second.LinkedTrackID==Essence->second.TrackID && Descriptor->second.LinkedTrackID!=(int32u)-1))
                 {
-                    if (Descriptor->second.EssenceContainer.hi!=(int64u)-1 || Descriptor->second.EssenceCompression.hi!=(int64u)-1)
-                    {
-                        Essence->second.StreamPos=Code_Compare4&0x000000FF;
-                        if ((Code_Compare4&0x000000FF)==0x00000000)
-                            StreamPos_StartAtOne=false;
+                    Essence->second.StreamPos=Code_Compare4&0x000000FF;
+                    if ((Code_Compare4&0x000000FF)==0x00000000)
+                        StreamPos_StartAtOne=false;
 
-                        Essence->second.Parser=ChooseParser(Essence, Descriptor); //Searching by the descriptor
-                        if (Essence->second.Parser==NULL)
-                            ChooseParser(); //Searching by the track identifier
+                    Essence->second.Parser=ChooseParser(Essence, Descriptor); //Searching by the descriptor
+                    if (Essence->second.Parser==NULL)
+                        ChooseParser(); //Searching by the track identifier
 
-                        if (Ztring().From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression)).find(_T("PCM"))==0)
-                            Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Little");
-                        #ifdef MEDIAINFO_VC3_YES
-                            if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))
-                                ((File_Vc3*)Essence->second.Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
-                        #endif //MEDIAINFO_VC3_YES
-                    }
+                    if (Ztring().From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression)).find(_T("PCM"))==0)
+                        Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Little");
+                    #ifdef MEDIAINFO_VC3_YES
+                        if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))
+                            ((File_Vc3*)Essence->second.Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
+                    #endif //MEDIAINFO_VC3_YES
                     break;
                 }
 
@@ -7575,7 +7583,7 @@ void File_Mxf::Get_BER(int64u &Value, const char* Name)
 File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     if ((Descriptor->second.EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (Descriptor->second.EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
-        return ChooseParser__FromEssenceContainer (Descriptor);
+        return ChooseParser__FromEssenceContainer (Essence, Descriptor);
 
     int8u Code2=(int8u)((Descriptor->second.EssenceCompression.lo&0x00FF000000000000LL)>>48);
     int8u Code3=(int8u)((Descriptor->second.EssenceCompression.lo&0x0000FF0000000000LL)>>40);
@@ -7699,19 +7707,85 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(const descriptors::iterator &Descriptor)
+File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
-    //Private data
-    if ((Descriptor->second.EssenceContainer.lo&0xFF00000000000000LL)==0x0E00000000000000LL)
-    {
-        switch (Descriptor->second.EssenceContainer.lo)
-        {
-            case 0xE04030102060203LL : return ChooseParser_Vc3();
-            default                  : ;
-        }
-    }
+    int8u Code1=(int8u)((Descriptor->second.EssenceContainer.lo&0xFF00000000000000LL)>>56);
+    int8u Code2=(int8u)((Descriptor->second.EssenceContainer.lo&0x00FF000000000000LL)>>48);
+    int8u Code3=(int8u)((Descriptor->second.EssenceContainer.lo&0x0000FF0000000000LL)>>40);
+    int8u Code4=(int8u)((Descriptor->second.EssenceContainer.lo&0x000000FF00000000LL)>>32);
+    int8u Code5=(int8u)((Descriptor->second.EssenceContainer.lo&0x00000000FF000000LL)>>24);
+    int8u Code6=(int8u)((Descriptor->second.EssenceContainer.lo&0x0000000000FF0000LL)>>16);
+    //int8u Code7=(int8u)((Descriptor->second.EssenceContainer.lo&0x000000000000FF00LL)>> 8);
 
-    return NULL;
+    switch (Code1)
+    {
+        case 0x0D : //Public Use
+                    switch (Code2)
+                    {
+                        case 0x01 : //AAF
+                                    switch (Code3)
+                                    {
+                                        case 0x03 : //Essence Container Application
+                                                    switch (Code4)
+                                                    {
+                                                        case 0x01 : //MXF EC Structure version
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x02 : //Essence container kind
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x01 : switch(Descriptor->second.StreamKind)
+                                                                                                    {
+                                                                                                        case Stream_Video : return ChooseParser_Mpegv();
+                                                                                                        case Stream_Audio : return ChooseParser_Aes3(Essence, Descriptor);
+                                                                                                        default           : return NULL;
+                                                                                                    }
+                                                                                        case 0x02 : return NULL; //DV
+                                                                                        case 0x05 : return ChooseParser_Raw();
+                                                                                        case 0x06 : return ChooseParser_Pcm(Essence, Descriptor);
+                                                                                        case 0x04 : return NULL; //MPEG ES mappings with Stream ID
+                                                                                        case 0x0A : return ChooseParser_Alaw();
+                                                                                        case 0x0C : return ChooseParser_Jpeg2000();
+                                                                                        case 0x11 : return ChooseParser_Vc3();
+                                                                                        case 0x16 : return ChooseParser_Avc();
+                                                                                        default   : return NULL;
+                                                                                    }
+                                                                        default   : return NULL;
+                                                                    }
+                                                         default   : return NULL;
+                                                    }
+                                         default   : return NULL;
+                                    }
+                        default   : return NULL;
+                    }
+        case 0x0E : //Private Use
+                    switch (Code2)
+                    {
+                        case 0x04 : //Avid
+                                    switch (Code3)
+                                    {
+                                        case 0x03 : //Essence Container Application
+                                                    switch (Code4)
+                                                    {
+                                                        case 0x01 : //MXF EC Structure version
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x02 : //Essence container kind
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x06 : return ChooseParser_Vc3();
+                                                                                        default   : return NULL;
+                                                                                    }
+                                                                        default   : return NULL;
+                                                                    }
+                                                         default   : return NULL;
+                                                    }
+                                         default   : return NULL;
+                                    }
+                        default   : return NULL;
+                    }
+        default   : return NULL;
+    }
 }
 
 //---------------------------------------------------------------------------

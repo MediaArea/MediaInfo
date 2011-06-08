@@ -637,7 +637,7 @@ protected :
     void           ChooseParser__Avid();
     void           ChooseParser__Avid_Picture();
     File__Analyze* ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser__FromEssenceContainer(const descriptors::iterator &Descriptor);
+    File__Analyze* ChooseParser__FromEssenceContainer(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Avc();
     File__Analyze* ChooseParser_DV();
     File__Analyze* ChooseParser_Mpeg4v();
