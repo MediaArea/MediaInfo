@@ -107,6 +107,12 @@ namespace MediaInfoLib
 
 namespace Elements
 {
+    //Item - Elements - Interpretive - Fundamental - Data Interpretations and Definitions - Name-Value Construct Interpretations
+    UUID(Ansi_01,                                               060E2B34, 01010105, 0301020A, 01000000)
+    UUID(UTF16_01,                                              060E2B34, 01010105, 0301020A, 01010000)
+    UUID(Ansi_02,                                               060E2B34, 01010105, 0301020A, 02000000)
+    UUID(UTF16_02,                                              060E2B34, 01010105, 0301020A, 02010000)
+
     //Item - Elements - Interpretive - Fundamental - Data Interpretations and Definitions - KLV Interpretations
     UUID(Filler01,                                              060E2B34, 01010101, 03010210, 01000000)
     UUID(Filler02,                                              060E2B34, 01010102, 03010210, 01000000)
@@ -2180,78 +2186,9 @@ bool File_Mxf::Header_Begin()
 void File_Mxf::Header_Parse()
 {
     //Parsing
-    int8u Length;
+    int64u Length;
     Get_UL(Code,                                                "Code", NULL);
-    Get_B1(Length,                                              "Length");
-    int64u Length_Final;
-    if (Length<0x80)
-    {
-        Length_Final=Length;
-    }
-    else
-    {
-        Length&=0x7F;
-        switch (Length)
-        {
-            case 1 :
-                    {
-                    int8u  Length1;
-                    Get_B1(Length1,                             "Length");
-                    Length_Final=Length1;
-                    }
-                    break;
-            case 2 :
-                    {
-                    int16u Length2;
-                    Get_B2(Length2,                             "Length");
-                    Length_Final=Length2;
-                    }
-                    break;
-            case 3 :
-                    {
-                    int32u Length3;
-                    Get_B3(Length3,                             "Length");
-                    Length_Final=Length3;
-                    }
-                    break;
-            case 4 :
-                    {
-                    int32u Length4;
-                    Get_B4(Length4,                             "Length");
-                    Length_Final=Length4;
-                    }
-                    break;
-            case 5 :
-                    {
-                    int64u Length5;
-                    Get_B5(Length5,                             "Length");
-                    Length_Final=Length5;
-                    }
-                    break;
-            case 6 :
-                    {
-                    int64u Length6;
-                    Get_B6(Length6,                             "Length");
-                    Length_Final=Length6;
-                    }
-                    break;
-            case 7 :
-                    {
-                    int64u Length7;
-                    Get_B7(Length7,                             "Length");
-                    Length_Final=Length7;
-                    }
-                    break;
-            case 8 :
-                    {
-                    int64u Length8;
-                    Get_B8(Length8,                             "Length");
-                    Length_Final=Length8;
-                    }
-                    break;
-            default: Length_Final=0; //Problem
-        }
-    }
+    Get_BER(Length,                                             "Length");
 
     //Filling
     int32u Code_Compare1=Code.hi>>32;
@@ -2306,7 +2243,7 @@ void File_Mxf::Header_Parse()
         }
     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
-    if (Buffer_Offset+Element_Offset+Length_Final>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length_Final)>Buffer_Size) //Not complete
+    if (Buffer_Offset+Element_Offset+Length>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length)>Buffer_Size) //Not complete
     {
         //Calculating the byte count not included in seek information (partition, index...)
         int64u StreamOffset_Offset;
@@ -2331,11 +2268,11 @@ void File_Mxf::Header_Parse()
            && Code_Compare3==Elements::IndexTableSegment3))
         {
             #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                if (Length_Final>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+                if (Length>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
                 {
                     Clip_Header_Size=Element_Offset;
                     Clip_Begin=File_Offset+Buffer_Offset+Element_Offset;
-                    Clip_End=File_Offset+Buffer_Offset+Element_Offset+Length_Final;
+                    Clip_End=File_Offset+Buffer_Offset+Element_Offset+Length;
                     DataMustAlwaysBeComplete=false;
                 }
             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
@@ -2344,7 +2281,7 @@ void File_Mxf::Header_Parse()
                 if (Demux_UnpacketizeContainer)
                 {
                     //Demuxing per frame is requested, we must know the frame size here
-                    if (Length_Final>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+                    if (Length>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
                     {
                         if (Descriptors.size()==1)
                         {
@@ -2429,7 +2366,7 @@ void File_Mxf::Header_Parse()
                                 }
                                 else
                             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                                    Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24); //+24 for next packet header
+                                    Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length-Buffer_Size+24); //+24 for next packet header
 
                             if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
                                 (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
@@ -2442,19 +2379,19 @@ void File_Mxf::Header_Parse()
             #endif //MEDIAINFO_DEMUX
 
             Buffer_Begin=File_Offset+Buffer_Offset+Element_Offset;
-            Buffer_End=Buffer_Begin+Length_Final;
+            Buffer_End=Buffer_Begin+Length;
             MustSynchronize=false;
-            Length_Final=Element_Size-Element_Offset;
+            Length=Element_Size-Element_Offset;
             #if MEDIAINFO_DEMUX
                 if (FrameSize)
-                    Length_Final=FrameSize;
+                    Length=FrameSize;
             #endif //MEDIAINFO_DEMUX
         }
         else
         {
             if (File_Buffer_Size_Hint_Pointer)
             {
-                int64u Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length_Final-Buffer_Size+24); //+24 for next packet header
+                int64u Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length-Buffer_Size+24); //+24 for next packet header
 
                 if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
                     (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
@@ -2471,7 +2408,7 @@ void File_Mxf::Header_Parse()
     #else //MEDIAINFO_TRACE
         Header_Fill_Code(0);
     #endif //MEDIAINFO_TRACE
-    Header_Fill_Size(Element_Offset+Length_Final);
+    Header_Fill_Size(Element_Offset+Length);
 }
 
 //---------------------------------------------------------------------------
@@ -3885,24 +3822,40 @@ void File_Mxf::SDTI_PackageMetadataSet()
     while (Element_Offset<Element_Size)
     {
         //Parsing
+        Element_Begin("Item");
+        int128u Tag;
         int16u Length;
-        int8u Tag;
-        Get_B1 (Tag,                                            "Tag");
+        int8u Type;
+        Get_B1 (Type,                                            "Type");
         Get_B2 (Length,                                         "Length");
-        switch (Tag)
+        int64u End=Element_Offset+Length;
+        Get_UL (Tag,                                            "Tag", NULL);
+        switch (Type)
         {
             case 0x83 : //UMID
                         {
-                            Skip_XX(64,                         "UMID?");
+                            Skip_UMID(                          );
+                            Skip_UL  (                          "Zeroes");
                         }
                         break;
             case 0x88 : //KLV Metadata
                         {
-                            Skip_XX(Length,                     "KLV Metadata");
+                            while (Element_Offset<End)
+                            {
+                                int64u Length;
+                                Get_BER(Length,                 "Length");
+                                switch ((Tag.lo>>16)&0xFF)
+                                {
+                                    case 0x00 : Skip_Local(Length,"Data"); break;
+                                    case 0x01 : Skip_UTF16L(Length,"Data"); break;
+                                    default   : Skip_XX(Length, "Data");
+                                }
+                            }
                         }
                         break;
             default   : Skip_XX(Length,                         "Unknown");
         }
+        Element_End();
     }
 
 }
@@ -6193,6 +6146,38 @@ void File_Mxf::Info_UL_01xx01_Items()
     Info_B1(Code1,                                              "Item Designator");
     switch (Code1)
     {
+        case 0x01 :
+            {
+            Param_Info("Identifiers and locators");
+            Info_B1(Code2,                                      "Code (2)");
+            switch (Code2)
+            {
+                case 0x01 :
+                    {
+                    Param_Info("GUID");
+                    Info_B1(Code3,                              "Code (3)");
+                    switch (Code3)
+                    {
+                        case 0x0D :
+                            {
+                            Param_Info("UMID Mixed");
+                            Info_B1(Code4,                      "Code (4)");
+                            Info_B1(Code5,                      "Code (5)");
+                            Info_B1(Code6,                      "Code (6)");
+                            Info_B1(Code7,                      "Code (7)");
+                            Info_B1(Code8,                      "Code (8)");
+                            }
+                            break;
+                        default   :
+                            Skip_B5(                            "Unknown");
+                    }
+                    }
+                    break;
+                default   :
+                    Skip_B6(                                    "Unknown");
+            }
+            }
+            break;
         case 0x03 :
             {
             Param_Info("Interpretive");
@@ -6211,6 +6196,43 @@ void File_Mxf::Info_UL_01xx01_Items()
                             Info_B1(Code4,                      "Code (4)");
                             switch (Code4)
                             {
+                                case 0x0A :
+                                    {
+                                    Param_Info("Name-Value Construct Interpretations");
+                                    Info_B1(Code5,              "Code (5)");
+                                    switch (Code5)
+                                    {
+                                        case 0x01 :
+                                        case 0x02 :
+                                            {
+                                            Param_Info("");
+                                            Info_B1(Code6,              "Code (6)");
+                                            switch (Code6)
+                                            {
+                                                case 0x00 :
+                                                    {
+                                                    Param_Info("ANSI");
+                                                    Info_B1(Code7,      "Reserved");
+                                                    Info_B1(Code8,      "Reserved");
+                                                    }
+                                                    break;
+                                                case 0x01 :
+                                                    {
+                                                    Param_Info("UTF-16");
+                                                    Info_B1(Code7,      "Reserved");
+                                                    Info_B1(Code8,      "Reserved");
+                                                    }
+                                                    break;
+                                               default   :
+                                                    Skip_B2(            "Unknown");
+                                            }
+                                            }
+                                            break;
+                                       default   :
+                                            Skip_B3(            "Unknown");
+                                    }
+                                    }
+                                    break;
                                 case 0x10 :
                                     {
                                     Param_Info("KLV Interpretations");
@@ -7469,6 +7491,80 @@ void File_Mxf::Info_Timestamp()
                  Ztring::ToZtring(Minutes       )+_T(':')+
                  Ztring::ToZtring(Seconds       )+_T('.')+
                  Ztring::ToZtring(Milliseconds*4)         );
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Get_BER(int64u &Value, const char* Name)
+{
+    int8u Length;
+    Get_B1(Length,                                              Name);
+    if (Length<0x80)
+    {
+        Value=Length; //1-byte
+        return;
+    }
+
+    Length&=0x7F;
+    switch (Length)
+    {
+        case 1 :
+                {
+                int8u  Length1;
+                Get_B1(Length1,                                 Name);
+                Value=Length1;
+                break;
+                }
+        case 2 :
+                {
+                int16u Length2;
+                Get_B2(Length2,                                 Name);
+                Value=Length2;
+                break;
+                }
+        case 3 :
+                {
+                int32u Length3;
+                Get_B3(Length3,                                 Name);
+                Value=Length3;
+                break;
+                }
+        case 4 :
+                {
+                int32u Length4;
+                Get_B4(Length4,                                 Name);
+                Value=Length4;
+                break;
+                }
+        case 5 :
+                {
+                int64u Length5;
+                Get_B5(Length5,                                 Name);
+                Value=Length5;
+                break;
+                }
+        case 6 :
+                {
+                int64u Length6;
+                Get_B6(Length6,                                 Name);
+                Value=Length6;
+                break;
+                }
+        case 7 :
+                {
+                int64u Length7;
+                Get_B7(Length7,                                 Name);
+                Value=Length7;
+                break;
+                }
+        case 8 :
+                {
+                int64u Length8;
+                Get_B8(Length8,                                 Name);
+                Value=Length8;
+                break;
+                }
+        default:Value=(int64u)-1; //Problem
+    }
 }
 
 //***************************************************************************

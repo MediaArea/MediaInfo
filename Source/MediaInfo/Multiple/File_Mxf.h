@@ -352,6 +352,7 @@ protected :
 
     void Get_UL (int128u &Value, const char* Name, const char* (*Param) (int128u));
     void Skip_UL(const char* Name);
+    void Get_BER(int64u &Value, const char* Name);
     #if MEDIAINFO_TRACE
     void Info_UL_01xx01_Items ();
     void Info_UL_02xx01_Groups ();
