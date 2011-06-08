@@ -478,15 +478,15 @@ void File_DvDif::Streams_Finish()
 {
     if (!Recorded_Date_Date.empty())
     {
+        Ztring Recorded_Date(Recorded_Date_Date);
         if (Recorded_Date_Time.size()>4)
         {
-            Recorded_Date_Time.resize(Recorded_Date_Time.size()-4); //Keep out milliseconds
-            Recorded_Date_Date+=_T(" ");
-            Recorded_Date_Date+=Recorded_Date_Time;
+            Recorded_Date+=_T(" ");
+            Recorded_Date+=Recorded_Date_Time;
         }
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date_Date);
+        Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date, true);
     }
     if (!IsSub && Duration)
         Fill(Stream_General, 0, General_Duration, Duration);
