@@ -891,7 +891,7 @@ void File_Mpeg4::Header_Parse()
             if (Size==0)
         {
             Size=File_Size-(File_Offset+Buffer_Offset);
-            if (Element_Level==2 && Name==0x00000000) //First real level (Level 1 is atom, level 2 is header block)
+            if (Status[IsAccepted] && Element_Level==2 && Name==0x00000000) //First real level (Level 1 is atom, level 2 is header block)
             {
                 Element_Offset=0;
                 Name=Elements::mdat;
