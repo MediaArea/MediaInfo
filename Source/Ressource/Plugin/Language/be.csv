@@ -141,7 +141,7 @@
  year3; гадоў
 , ;, 
 : ;: 
-About;Аб праграме
+About;Пра праграму
 About_Hint;Як звязацца са мной і знайсці апошнюю версію праграмы
 Accompaniment;Суправаджэнне
 Actor;Актор
@@ -206,7 +206,7 @@ Choregrapher;Харэограф
 Chroma;Каляровасць
 ChromaSubsampling
 Close;Зачыніць
-Close all before open;Зачыніць усё перад адкрыццём
+Close all before open;Закрыць усё перад адкрыццём
 Codec;Кодэк
 Codec_Description;Апісанне кодэка
 Codec_Info;Падрабязна аб кодэку
@@ -239,7 +239,7 @@ Compression_Mode;Метад сціску
 Compression_Mode_Lossless;Без страт
 Compression_Mode_Lossy;Са стратамі
 Compression_Ratio;Ступень сціску
-Compilation
+Compilation;Кампіляцыя
 Conductor;Дырыжор
 Container and general information;Агульная інфармацыя
 ContentType;Тып змесціва
@@ -325,7 +325,7 @@ Format_Settings_QPel;Налада QPel фармату
 Format_Settings_GMC;Налада GMC фармату
 Format_Settings_Matrix;Налада матрыцы фармату
 Format_Settings_Matrix_Custom;Выбарковая
-Format_Settings_Matrix_Default;Па змаўчанню
+Format_Settings_Matrix_Default;Стандартная
 Format_Settings_Floor;Налада Floor фармату
 Format_Settings_CABAC;Налада CABAC фармату
 Format_Settings_Firm;Налада Firm фармату
@@ -504,7 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Перайсці на сайт
-Grouping
+Grouping;Групаванне
 h;г.
 Header file;Стварыць загаловак
 Height;Вышыня
@@ -746,7 +746,7 @@ Lyricist;Паэт-песеннік
 Mastered_Date;Дата майстарынгу
 MasteredBy;Майстарынг
 matrix_coefficients;Каэфіцыенты матрыцы
-MediaInfo_About;Адлюстроўвае дэталёвую інфармацыю\r\nаб мультымедыя-файлах Matroska, OGG (уключаючы OGM)\r\nMPEG1 (уключаючы VCD), MPEG2 (уключаючы DVD і SVCD), MPEG4 (уключаючы iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (уключаючы WMV, WMA)\r\nMicrosoft RIFF (уключаючы AVI, WAV, DivX)\r\nгукавых фарматах (AC3, DTS, SSC, AU, AIFF)
+MediaInfo_About;Адлюстроўвае дэталёвую інфармацыю\r\nпра мультымедыя-файлы Matroska, OGG (уключаючы OGM)\r\nMPEG1 (уключаючы VCD), MPEG2 (уключаючы DVD і SVCD), MPEG4 (уключаючы iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (уключаючы WMV, WMA)\r\nMicrosoft RIFF (уключаючы AVI, WAV, DivX)\r\nгукавыя фарматы (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню струменяў
 Menu_Codec_List;Меню кодэкаў
@@ -857,7 +857,7 @@ Released_Date;Дата выпуску
 RemixedBy;Рэмікс ад
 ReplayGain_Gain;Нармалізатар гука
 ReplayGain_Peak;Пік нармалізатара гука
-Resolution;Адрозненне (Resolution)
+Resolution;Вырашальнасць (Resolution)
 s;с
 SamplingRate;Частата
 Save;Захаваць
@@ -964,5 +964,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
