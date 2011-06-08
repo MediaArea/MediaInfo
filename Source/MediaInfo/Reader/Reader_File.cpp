@@ -60,7 +60,7 @@ const size_t Buffer_NoJump=128*1024;
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
-	#if MEDIAINFO_EVENTS
+    #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_General_Start_0 Event;
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
