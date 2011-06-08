@@ -492,6 +492,10 @@ void File__ReferenceFilesHelper::Read_Buffer_Unsynched()
     for (references::iterator Reference=References.begin(); Reference!=References.end(); Reference++)
         if (Reference->MI)
             Reference->MI->Open_Buffer_Unsynch();
+
+    #if MEDIAINFO_DEMUX
+        Config->Demux_EventWasSent=true; //We want not try to read new data from the file
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
