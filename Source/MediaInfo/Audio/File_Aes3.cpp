@@ -978,6 +978,7 @@ void File_Aes3::Raw()
                     Element_Offset+=4;
                 }
             }
+            Element_Offset=4;
 
             #if MEDIAINFO_DEMUX
                 FrameInfo.PTS=FrameInfo.DTS;
@@ -989,8 +990,7 @@ void File_Aes3::Raw()
 
             delete[] Info;
 
-            Element_Offset=0;
-            Skip_XX(Element_Size,                           "Data");
+            Skip_XX(Element_Size-4,                             "Data");
 
             Frame_Count_InThisBlock++;
             if (Frame_Count_NotParsedIncluded!=(int64u)-1)
@@ -1026,6 +1026,7 @@ void File_Aes3::Raw()
                     Element_Offset+=4;
                 }
             }
+            Element_Offset=4;
 
             #if MEDIAINFO_DEMUX
                 FrameInfo.PTS=FrameInfo.DTS;
@@ -1038,7 +1039,7 @@ void File_Aes3::Raw()
             delete[] Info;
 
             Element_Offset=0;
-            Skip_XX(Element_Size,                           "Data");
+            Skip_XX(Element_Size-4,                             "Data");
 
             Frame_Count_InThisBlock++;
             if (Frame_Count_NotParsedIncluded!=(int64u)-1)
@@ -1053,7 +1054,7 @@ void File_Aes3::Raw()
         }
         break;
         default :
-            Skip_XX(Element_Size,                           "Data");
+            Skip_XX(Element_Size-4,                             "Data");
     }
 
     FILLING_BEGIN();
