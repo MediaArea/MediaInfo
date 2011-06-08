@@ -1990,7 +1990,6 @@ void File_Mpegv::sequence_header()
 
     //Reading
     int32u bit_rate_value_temp;
-    bool  load_intra_quantiser_matrix, load_non_intra_quantiser_matrix;
     BS_Begin();
     Get_S2 (12, horizontal_size_value,                          "horizontal_size_value");
     Get_S2 (12, vertical_size_value,                            "vertical_size_value");
@@ -2001,27 +2000,33 @@ void File_Mpegv::sequence_header()
     Get_S2 (10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(2*1024*((int32u)vbv_buffer_size_value), " bytes");
     Skip_SB(                                                    "constrained_parameters_flag");
     TEST_SB_GET(load_intra_quantiser_matrix,                    "load_intra_quantiser_matrix");
-        Matrix_intra.clear();
+        bool FillMatrix=Matrix_intra.empty();
         for (size_t Pos=0; Pos<64; Pos++)
         {
             int8u intra_quantiser;
             Get_S1 (8, intra_quantiser,                         "intra_quantiser");
-            Ztring Value=Ztring::ToZtring(intra_quantiser, 16);
-            if (Value.size()==1)
-                Value.insert(0, _T("0"));
-            Matrix_intra+=Value;
+            if (FillMatrix)
+            {
+                Ztring Value=Ztring::ToZtring(intra_quantiser, 16);
+                if (Value.size()==1)
+                    Value.insert(0, _T("0"));
+                Matrix_intra+=Value;
+            }
         }
     TEST_SB_END();
     TEST_SB_GET(load_non_intra_quantiser_matrix,                "load_non_intra_quantiser_matrix");
-        Matrix_nonintra.clear();
+        bool FillMatrix=Matrix_nonintra.empty();
         for (size_t Pos=0; Pos<64; Pos++)
         {
             int8u non_intra_quantiser;
             Get_S1 (8, non_intra_quantiser,                     "non_intra_quantiser");
-            Ztring Value=Ztring::ToZtring(non_intra_quantiser, 16);
-            if (Value.size()==1)
-                Value.insert(0, _T("0"));
-            Matrix_nonintra+=Value;
+            if (FillMatrix)
+            {
+                Ztring Value=Ztring::ToZtring(non_intra_quantiser, 16);
+                if (Value.size()==1)
+                    Value.insert(0, _T("0"));
+                Matrix_nonintra+=Value;
+            }
         }
     TEST_SB_END();
     BS_End();
