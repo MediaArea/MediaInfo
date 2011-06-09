@@ -1416,6 +1416,10 @@ void File_Mpegv::slice_start()
                 {
                     Cdp_Parser=new File_Cdp;
                     Open_Buffer_Init(Cdp_Parser);
+                    #if MEDIAINFO_EVENTS
+                        if ((*Ancillary)->StreamIDs_Size && Cdp_Parser->StreamIDs_Size)
+                            ((File_Cdp*)Cdp_Parser)->StreamIDs[0]=(*Ancillary)->StreamIDs[0];
+                    #endif MEDIAINFO_EVENTS
                 }
                 Demux((*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size, ContentType_MainStream);
                 if (!Cdp_Parser->Status[IsFinished])

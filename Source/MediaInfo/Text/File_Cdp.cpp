@@ -189,6 +189,9 @@ void File_Cdp::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_Cdp::Read_Buffer_Continue()
 {
+    if (Buffer_Size==0)
+        return;
+
     if (WithAppleHeader)
     {
         int32u Size, Magic;

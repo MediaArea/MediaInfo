@@ -1038,7 +1038,6 @@ void File_Aes3::Raw()
 
             delete[] Info;
 
-            Element_Offset=0;
             Skip_XX(Element_Size-4,                             "Data");
 
             Frame_Count_InThisBlock++;

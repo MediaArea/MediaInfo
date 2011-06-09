@@ -659,6 +659,7 @@ protected :
 
     //Temp
     int128u EssenceContainer_FromPartitionMetadata;
+    int64u PartitionMetadata_FooterPartition;
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;

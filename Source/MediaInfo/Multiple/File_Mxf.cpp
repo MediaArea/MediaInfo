@@ -836,6 +836,7 @@ File_Mxf::File_Mxf()
     Track_Number_IsAvailable=false;
     IsParsingEnd=false;
     PartitionPack_Parsed=false;
+    PartitionMetadata_FooterPartition=(int64u)-1;
     TimeCode_StartTimecode=(int64u)-1;
     TimeCode_RoundedTimecodeBase=0;
     TimeCode_DropFrame=0;
@@ -2854,7 +2855,10 @@ void File_Mxf::Data_Parse()
       || (Streams_Count==0 && !Descriptors.empty())))
     {
         IsParsingEnd=true;
-        GoToFromEnd(4); //For random access table
+        if (PartitionMetadata_FooterPartition!=(int64u)-1)
+            GoTo(PartitionMetadata_FooterPartition);
+        else
+            GoToFromEnd(4); //For random access table
         Open_Buffer_Unsynch();
         if (File_Offset+Buffer_Offset>RandomIndexMetadatas_ByteOffsetParsed)
             RandomIndexMetadatas_ByteOffsetParsed=File_Offset+Buffer_Offset;
@@ -5383,7 +5387,7 @@ void File_Mxf::MultipleDescriptor_SubDescriptorUIDs()
 void File_Mxf::PartitionMetadata()
 {
     //Parsing
-    int64u HeaderByteCount, IndexByteCount, BodyOffset;
+    int64u FooterPartition, HeaderByteCount, IndexByteCount, BodyOffset;
     int32u IndexSID;
     int32u KAGSize;
     Skip_B2(                                                    "MajorVersion");
@@ -5391,7 +5395,7 @@ void File_Mxf::PartitionMetadata()
     Get_B4 (KAGSize,                                            "KAGSize");
     Skip_B8(                                                    "ThisPartition");
     Skip_B8(                                                    "PreviousPartition");
-    Skip_B8(                                                    "FooterPartition");
+    Get_B8 (FooterPartition,                                    "FooterPartition");
     Get_B8 (HeaderByteCount,                                    "HeaderByteCount");
     Get_B8 (IndexByteCount,                                     "IndexByteCount");
     Get_B4 (IndexSID,                                           "IndexSID");
@@ -5414,6 +5418,8 @@ void File_Mxf::PartitionMetadata()
 
     PartitionPack_Parsed=true;
     Partitions_IsFooter=(Code.lo&0x00FF0000)==0x00040000;
+    if (FooterPartition)
+        PartitionMetadata_FooterPartition=FooterPartition;
     bool AlreadyParsed=false;
     for (size_t Pos=0; Pos<Partitions.size(); Pos++)
         if (Partitions[Pos].StreamOffset==File_Offset+Buffer_Offset-Header_Size)
