@@ -137,6 +137,8 @@ void File_Eia608::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_Eia608::Read_Buffer_Continue()
 {
+    FrameInfo.PTS=FrameInfo.DTS;
+
     if (!Status[IsAccepted])
     {
         Accept("EIA-608");
