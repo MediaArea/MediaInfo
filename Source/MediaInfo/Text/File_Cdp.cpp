@@ -90,6 +90,9 @@ float32 Cdp_cdp_frame_rate(int8u cdp_frame_rate)
 File_Cdp::File_Cdp()
 :File__Analyze()
 {
+    //Config
+    PTS_DTS_Needed=true;
+
     //Temp
     ParserName=_T("CDP");
     #if MEDIAINFO_EVENTS

@@ -45,6 +45,9 @@ namespace MediaInfoLib
 File_Eia708::File_Eia708()
 :File__Analyze()
 {
+    //Config
+    PTS_DTS_Needed=true;
+
     //In
     cc_type=(int8u)-1;
     AspectRatio=((float32)4)/3; //Default to 4:3
@@ -91,6 +94,8 @@ void File_Eia708::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_Eia708::Read_Buffer_Continue()
 {
+    FrameInfo.PTS=FrameInfo.DTS;
+
     if (!Status[IsAccepted])
     {
         if (cc_type!=3)
