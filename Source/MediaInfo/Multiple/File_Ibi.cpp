@@ -506,7 +506,7 @@ void File_Ibi::CompressedIndex()
     }
 
     //Exiting this element
-    Skip_XX(Element_Size,                                       "Will be parsed");
+    Skip_XX(Element_Size-Element_Offset,                        "Will be parsed");
 
     //Configuring buffer
     const int8u* Buffer_Sav=Buffer;

@@ -1157,6 +1157,7 @@ void File_Gxf::media()
 
     if (Streams[TrackNumber].Parser)
     {
+        Streams[TrackNumber].Parser->FrameInfo.DTS=FrameInfo.DTS;
         Open_Buffer_Continue(Streams[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Streams[TrackNumber].Parser->Status[IsFilled])
         {

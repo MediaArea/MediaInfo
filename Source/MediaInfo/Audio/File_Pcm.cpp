@@ -151,6 +151,7 @@ void File_Pcm::Streams_Fill()
     else if (Codec==_T("fl64"))             {                   Endianness=_T("Float");                       Resolution=_T("64");}
     else if (Codec==_T("in24"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("24");}
     else if (Codec==_T("in32"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("32");}
+    else if (Codec==_T("lpcm"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned");}
     else if (Codec==_T("raw "))             {                   Endianness=_T("Little"); Sign=_T("Unsigned");}
     else if (Codec==_T("twos"))             {                   Endianness=_T("Big");    Sign=_T("Signed");}
     else if (Codec==_T("sowt"))             {                   Endianness=_T("Little"); Sign=_T("Signed");}

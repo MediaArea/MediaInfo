@@ -2387,7 +2387,8 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
         if (moov_trak_mdia_mdhd_TimeScale)
         {
             Streams[moov_trak_tkhd_TrackID].mdhd_Duration=(int32u)(((float)Duration)/moov_trak_mdia_mdhd_TimeScale*1000);
-            Fill(StreamKind_Last, StreamPos_Last, "Duration", Streams[moov_trak_tkhd_TrackID].mdhd_Duration);
+            //This duration is wrong in one file, trying something else
+            //Fill(StreamKind_Last, StreamPos_Last, "Duration", Streams[moov_trak_tkhd_TrackID].mdhd_Duration);
         }
     FILLING_END();
 }
@@ -4452,6 +4453,7 @@ void File_Mpeg4::moov_trak_tkhd()
             }
         }
 
+        Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Duration)*1000/TimeScale));
         Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
         Fill(StreamKind_Last, StreamPos_Last, General_ID, moov_trak_tkhd_TrackID, 10, true);
