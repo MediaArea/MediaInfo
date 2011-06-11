@@ -471,6 +471,9 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
 //---------------------------------------------------------------------------
 void File_MpegPs::Streams_Finish()
 {
+    if (Streams.empty())
+        return; //Parsing already done. ToDo: real time
+
     FrameInfo.PTS=0; //Will be used for BitRate calculation
     FrameInfo.DTS=0; //Will be used for Duration calculation
 
