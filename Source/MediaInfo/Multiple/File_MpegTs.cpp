@@ -580,6 +580,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 if (Parser_ID.find(_T('-'))!=string::npos)
                     Parser_ID.erase(Parser_ID.begin(), Parser_ID.begin()+Parser_ID.find(_T('-'))+1);
                 Ztring ID=Retrieve(Stream_Video, Temp->StreamPos, Video_ID)+_T('-')+Parser_ID;
+                Ztring ID_String=Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+_T('-')+Parser_ID;
                 StreamPos_Last=(size_t)-1;
                 for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
                     if (Retrieve(Stream_Text, Pos, Text_ID)==ID && Retrieve(Stream_Video, Pos, "MuxingMode")==Temp->Parser->Retrieve(Stream_Text, Text_Pos, "MuxingMode"))
@@ -594,7 +595,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 if (!IsSub)
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->StreamPos+1), true);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, ID, true);
-                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+Parser_ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID_String, true);
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID), true);
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID_String), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp->StreamPos, Video_Duration), true);

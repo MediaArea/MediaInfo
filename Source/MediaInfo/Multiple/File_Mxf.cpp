@@ -860,6 +860,7 @@ File_Mxf::File_Mxf()
 
     Partitions_Pos=0;
     Partitions_IsCalculatingHeaderByteCount=false;
+    Partitions_IsCalculatingSdtiByteCount=false;
     Partitions_IsFooter=false;
 
     #if MEDIAINFO_SEEK
@@ -1173,12 +1174,13 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         {
             for (size_t StreamPos=StreamPos_Last-(Essence->second.Parser->Count_Get(StreamKind_Last)?(Essence->second.Parser->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
             {
+                Ztring ID_Temp(ID);
                 if (!Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
                 {
-                    ID+=_T("-");
-                    ID+=Retrieve(StreamKind_Last, StreamPos, General_ID);
+                    ID_Temp+=_T("-");
+                    ID_Temp+=Retrieve(StreamKind_Last, StreamPos, General_ID);
                 }
-                Fill(StreamKind_Last, StreamPos, General_ID, ID, true);
+                Fill(StreamKind_Last, StreamPos, General_ID, ID_Temp, true);
                 if (!ID_String.empty())
                     Fill(StreamKind_Last, StreamPos, General_ID, ID_String, true);
             }
@@ -5549,7 +5551,10 @@ void File_Mxf::PartitionMetadata()
         Partition.BodyOffset=BodyOffset;
         Partition.HeaderByteCount=HeaderByteCount;
         Partition.IndexByteCount=IndexByteCount;
-        Partitions.push_back(Partition);
+        Partitions_Pos=0;
+        while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<Partition.StreamOffset)
+            Partitions_Pos++;
+        Partitions.insert(Partitions.begin()+Partitions_Pos, Partition);
         Partitions_IsCalculatingHeaderByteCount=true;
     }
 }

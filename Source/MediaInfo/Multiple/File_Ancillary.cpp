@@ -181,7 +181,6 @@ void File_Ancillary::Streams_Finish()
             {
                 Ztring MuxingMode=Retrieve(Stream_Text, StreamPos, "MuxingMode");
                 Fill(Stream_Text, StreamPos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
-                Fill(Stream_Text, StreamPos, "MuxingMode_MoreInfo", _T("Muxed in video frame presentation order"));
             }
         }
     #endif //defined(MEDIAINFO_CDP_YES)

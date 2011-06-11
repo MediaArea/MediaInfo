@@ -311,7 +311,6 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
 {
     //Data channel check
     DataChannelMode=(cc_data_1&0x08)!=0; //bit3 is the Data Channel number
-    cc_data_1&=~0x08;
 
     //Field check
     cc_data_1&=~0x08;
