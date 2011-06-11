@@ -45,12 +45,6 @@ public :
     bool    WithTenBit;
     bool    WithChecksum;
     float32 AspectRatio;
-    #if MEDIAINFO_EVENTS
-        int16u  pid;
-        int8u   stream_id;
-        int8u   picture_structure;
-        int8u   cc_count_Expected;
-    #endif MEDIAINFO_EVENTS
 
     //In/Out
     struct buffered_data

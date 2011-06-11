@@ -155,12 +155,6 @@ File_Ancillary::File_Ancillary()
     WithTenBit=false;
     WithChecksum=false;
     AspectRatio=0;
-    #if MEDIAINFO_EVENTS
-        pid=(int16u)-1;
-        stream_id=(int8u)-1;
-        picture_structure=(int8u)-1;
-        cc_count_Expected=(int8u)-1;
-    #endif MEDIAINFO_EVENTS
 
     //Temp
     Cdp_Parser=NULL;
