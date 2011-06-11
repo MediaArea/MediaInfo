@@ -159,7 +159,7 @@ void File_Eia608::Read_Buffer_Continue()
     //Test if non-printing chars (0x10-0x1F) are repeated (CEA-608-E section D.2)
     if (cc_data_1_Old)
     {
-        if (cc_data_1_Old==cc_data_1 || cc_data_2_Old==cc_data_2)
+        if (cc_data_1_Old==cc_data_1 && cc_data_2_Old==cc_data_2)
         {
             //This is duplicate
             cc_data_1_Old=0x00;
