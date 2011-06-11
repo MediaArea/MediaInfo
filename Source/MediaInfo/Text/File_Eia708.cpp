@@ -201,11 +201,11 @@ void File_Eia708::Service()
                             switch (cc_data_2)
                             {
                                 //CEA-708-D, Section 7.1.8 (G2)
-                                case 0x00 : Character_Fill(L' '     ); break;
-                                case 0x01 : Character_Fill(L' '     ); break;
-                                case 0x05 : Character_Fill(L'.'     ); Character_Fill(L'.'); Character_Fill(L'.'); break;
-                                case 0x0A : Character_Fill(L'S'     ); break;
-                                case 0x0C : Character_Fill(L'O'     ); Character_Fill(L'E'); break;
+                                case 0x20 : Character_Fill(L' '     ); break;
+                                case 0x21 : Character_Fill(L' '     ); break;
+                                case 0x25 : Character_Fill(L'.'     ); Character_Fill(L'.'); Character_Fill(L'.'); break;
+                                case 0x2A : Character_Fill(L'S'     ); break;
+                                case 0x2C : Character_Fill(L'O'     ); Character_Fill(L'E'); break;
                                 case 0x30 : Character_Fill(L' '     ); break; //(Solid Block)
                                 case 0x31 : Character_Fill(L'\''    ); break;
                                 case 0x32 : Character_Fill(L'\''    ); break;
@@ -268,7 +268,7 @@ void File_Eia708::Service()
                                                 Skip_XX(Length,             "Data");
                                                 Pos+=1+Length;
                                             }
-                                            //CEA-708-D, Section 7.1.8 (G3)
+                                            //CEA-708-D, Section 7.1.9 (G3)
                                             else
                                                 Character_Fill(L'_'     );
                             }

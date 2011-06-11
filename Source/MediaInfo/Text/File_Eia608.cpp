@@ -314,7 +314,7 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
     cc_data_1&=~0x08;
 
     //Field check
-    cc_data_1&=~0x01;
+    cc_data_1&=~0x08;
 
     if (cc_data_1>=0x10 && cc_data_1<=0x17 && cc_data_2>=0x40)
     {

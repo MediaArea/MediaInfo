@@ -37,6 +37,9 @@
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
+#if defined(MEDIAINFO_CDP_YES)
+    #include "MediaInfo/Text/File_Cdp.h"
+#endif
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
@@ -151,6 +154,21 @@ File_Ancillary::File_Ancillary()
     //In
     WithTenBit=false;
     WithChecksum=false;
+    AspectRatio=0;
+    #if MEDIAINFO_EVENTS
+        pid=(int16u)-1;
+        stream_id=(int8u)-1;
+        picture_structure=(int8u)-1;
+        cc_count_Expected=(int8u)-1;
+    #endif MEDIAINFO_EVENTS
+
+    //Temp
+    Cdp_Parser=NULL;
+
+    //Stats
+    AfdBarData_IsPresent=false;
+    ChannelPair_IsPresent=false;
+    Cdp_IsPresent=false;
 }
 
 //---------------------------------------------------------------------------
@@ -160,6 +178,24 @@ File_Ancillary::~File_Ancillary()
         delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
     for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
         delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+}
+
+//---------------------------------------------------------------------------
+void File_Ancillary::Streams_Finish()
+{
+    #if defined(MEDIAINFO_CDP_YES)
+        if (Cdp_Parser && !Cdp_Parser->Status[IsFinished] && Cdp_Parser->Status[IsAccepted])
+        {
+            Finish(Cdp_Parser);
+            Merge(*Cdp_Parser);
+            for (size_t StreamPos=0; StreamPos<Cdp_Parser->Count_Get(Stream_Text); StreamPos++)
+            {
+                Ztring MuxingMode=Retrieve(Stream_Text, StreamPos, "MuxingMode");
+                Fill(Stream_Text, StreamPos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
+                Fill(Stream_Text, StreamPos, "MuxingMode_MoreInfo", _T("Muxed in video frame presentation order"));
+            }
+        }
+    #endif //defined(MEDIAINFO_CDP_YES)
 }
 
 //***************************************************************************
@@ -180,6 +216,9 @@ void File_Ancillary::Read_Buffer_Continue()
         AfdBarData_Data.clear();
         return;
     }
+
+    if (!Status[IsAccepted])
+        Accept();
 
     //Parsing
     int8u DataID, SecondaryDataID, DataCount;
@@ -225,6 +264,8 @@ void File_Ancillary::Read_Buffer_Continue()
                                             AfdBarData_Data.push_back(AfdBarData);
                                         }
                                         #endif //MEDIAINFO_AFDBARDATA_YES
+                                        if (!AfdBarData_IsPresent)
+                                            AfdBarData_IsPresent=true;
                                         break;
                             default   : ;
                             ;
@@ -242,6 +283,8 @@ void File_Ancillary::Read_Buffer_Continue()
                             case 0x07 : //Channel pair 11/12
                             case 0x08 : //Channel pair 13/14
                             case 0x09 : //Channel pair 15/16
+                                        if (!ChannelPair_IsPresent)
+                                            ChannelPair_IsPresent=true;
                                         break;
                             default   : ;
                             ;
@@ -250,16 +293,39 @@ void File_Ancillary::Read_Buffer_Continue()
             case 0x61 : //Defined data services (from SMPTE 331-1)
                         switch (SecondaryDataID)
                         {
-                            case 0x01 : //CDP (from SMPTE 331-1), saving data for future use
+                            case 0x01 : //CDP (from SMPTE 331-1)
                                         #if defined(MEDIAINFO_CDP_YES)
                                         {
-                                            buffered_data* Cdp=new buffered_data;
-                                            Cdp->Data=new int8u[(size_t)DataCount];
-                                            std::memcpy(Cdp->Data, Payload, (size_t)DataCount);
-                                            Cdp->Size=(size_t)DataCount;
-                                            Cdp_Data.push_back(Cdp);
+                                            if (AspectRatio)
+                                            {
+                                                if (Cdp_Parser==NULL)
+                                                {
+                                                    Cdp_Parser=new File_Cdp;
+                                                    Open_Buffer_Init(Cdp_Parser);
+                                                }
+                                                Demux(Payload, (size_t)DataCount, ContentType_MainStream);
+                                                if (!Cdp_Parser->Status[IsFinished])
+                                                {
+                                                    if (Cdp_Parser->PTS_DTS_Needed)
+                                                        Cdp_Parser->FrameInfo.DTS=FrameInfo.DTS;
+                                                    ((File_Cdp*)Cdp_Parser)->AspectRatio=AspectRatio;
+                                                    Open_Buffer_Continue(Cdp_Parser, Payload, (size_t)DataCount);
+                                                }
+                                                AspectRatio=0;
+                                            }
+                                            else
+                                            {
+                                                //Saving data for future use
+                                                buffered_data* Cdp=new buffered_data;
+                                                Cdp->Data=new int8u[(size_t)DataCount];
+                                                std::memcpy(Cdp->Data, Payload, (size_t)DataCount);
+                                                Cdp->Size=(size_t)DataCount;
+                                                Cdp_Data.push_back(Cdp);
+                                            }
                                         }
                                         #endif //MEDIAINFO_CDP_YES
+                                        if (!Cdp_IsPresent)
+                                            Cdp_IsPresent=true;
                                         break;
                             case 0x02 : //CEA-608 (from SMPTE 331-1)
                                         #if defined(MEDIAINFO_EIA608_YES)
@@ -291,6 +357,15 @@ void File_Ancillary::Read_Buffer_Continue()
     FILLING_END();
 
     delete[] Payload; //Payload=NULL
+}
+
+//---------------------------------------------------------------------------
+void File_Ancillary::Read_Buffer_Unsynched()
+{
+    #if defined(MEDIAINFO_CDP_YES)
+        if (Cdp_Parser)
+            Cdp_Parser->Open_Buffer_Unsynch();
+    #endif //defined(MEDIAINFO_CDP_YES)
 }
 
 //***************************************************************************

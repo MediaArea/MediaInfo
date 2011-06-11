@@ -1400,6 +1400,18 @@ void File_Mpegv::slice_start()
 
         //CDP
         #if defined(MEDIAINFO_CDP_YES)
+            if (Ancillary && (*Ancillary)==NULL)
+                (*Ancillary)=new File_Ancillary();
+            if (Ancillary && *Ancillary && (*Ancillary)->Cdp_Data.empty())
+            {
+                (*Ancillary)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
+                #if MEDIAINFO_EVENTS
+                    (*Ancillary)->picture_structure=picture_structure;
+                    (*Ancillary)->cc_count_Expected=(int8u)(1200/float32_int32s((float)(Mpegv_frame_rate[frame_rate_code] * (frame_rate_extension_n + 1)) / (float)(frame_rate_extension_d + 1)) / 2);
+                    if (picture_structure!=3)
+                        (*Ancillary)->cc_count_Expected/=2; //2 fields
+                #endif MEDIAINFO_EVENTS
+            }
             if (Ancillary && *Ancillary && !(*Ancillary)->Cdp_Data.empty())
             {
                 Cdp_IsPresent=true;

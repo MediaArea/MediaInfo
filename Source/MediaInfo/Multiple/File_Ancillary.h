@@ -44,6 +44,13 @@ public :
     //In
     bool    WithTenBit;
     bool    WithChecksum;
+    float32 AspectRatio;
+    #if MEDIAINFO_EVENTS
+        int16u  pid;
+        int8u   stream_id;
+        int8u   picture_structure;
+        int8u   cc_count_Expected;
+    #endif MEDIAINFO_EVENTS
 
     //In/Out
     struct buffered_data
@@ -64,18 +71,28 @@ public :
     };
     #if defined(MEDIAINFO_CDP_YES)
         std::vector<buffered_data*> Cdp_Data;
+        File__Analyze*  Cdp_Parser;
     #endif //defined(MEDIAINFO_CDP_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         std::vector<buffered_data*> AfdBarData_Data;
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+
+    //Stats
+    bool AfdBarData_IsPresent;
+    bool ChannelPair_IsPresent;
+    bool Cdp_IsPresent;
 
     //Constructor/Destructor
     File_Ancillary();
     ~File_Ancillary();
 
 private :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - Global
     void Read_Buffer_Continue();
+    void Read_Buffer_Unsynched();
 };
 
 } //NameSpace

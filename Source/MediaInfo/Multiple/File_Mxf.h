@@ -86,6 +86,7 @@ protected :
     //Buffer - Global
     void Read_Buffer_Init ();
     void Read_Buffer_Continue ();
+    void Read_Buffer_AfterParsing ();
     void Read_Buffer_Unsynched();
     #if MEDIAINFO_SEEK
     size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
@@ -659,12 +660,14 @@ protected :
 
     //Temp
     int128u EssenceContainer_FromPartitionMetadata;
+    int64u PartitionMetadata_PreviousPartition;
     int64u PartitionMetadata_FooterPartition;
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;
     bool   StreamPos_StartAtOne; //information about the base of StreamPos (0 or 1, 1 is found in 1 file)
     int64u SDTI_TimeCode_StartTimecode;
+    int64u SDTI_SizePerFrame;
     int64u SystemScheme1_TimeCodeArray_StartTimecode;
     int64u SystemScheme1_FrameRateFromDescriptor;
     int32u IndexTable_NSL;
@@ -698,6 +701,7 @@ protected :
     partitions                      Partitions;
     size_t                          Partitions_Pos;
     bool                            Partitions_IsCalculatingHeaderByteCount;
+    bool                            Partitions_IsCalculatingSdtiByteCount;
     bool                            Partitions_IsFooter;
 
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK

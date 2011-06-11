@@ -836,12 +836,14 @@ File_Mxf::File_Mxf()
     Track_Number_IsAvailable=false;
     IsParsingEnd=false;
     PartitionPack_Parsed=false;
+    PartitionMetadata_PreviousPartition=(int64u)-1;
     PartitionMetadata_FooterPartition=(int64u)-1;
     TimeCode_StartTimecode=(int64u)-1;
     TimeCode_RoundedTimecodeBase=0;
     TimeCode_DropFrame=0;
     StreamPos_StartAtOne=true;
     SDTI_TimeCode_StartTimecode=(int64u)-1;
+    SDTI_SizePerFrame=0;
     SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
     ReferenceFiles=NULL;
@@ -1028,6 +1030,8 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Stream_Prepare(Stream_Video);
     else if (Essence->second.Parser->Count_Get(Stream_Audio))
         Stream_Prepare(Stream_Audio);
+    else if (Essence->second.Parser->Count_Get(Stream_Text))
+        Stream_Prepare(Stream_Text);
     else if (Essence->second.StreamKind!=Stream_Max)
         Stream_Prepare(Essence->second.StreamKind);
     else
@@ -1046,15 +1050,15 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             return; //Not found
     }
 
-        for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
-            if (Descriptor->second.LinkedTrackID==Essence->second.TrackID)
+    for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+        if (Descriptor->second.LinkedTrackID==Essence->second.TrackID)
+        {
+            if (Descriptor->second.StreamKind!=Stream_Max)
             {
-                if (Descriptor->second.StreamKind!=Stream_Max)
-                {
-                    Descriptor->second.StreamPos=StreamPos_Last;
-                }
-                break;
+                Descriptor->second.StreamPos=StreamPos_Last;
             }
+            break;
+        }
 
     for (std::map<std::string, Ztring>::iterator Info=Essence->second.Infos.begin(); Info!=Essence->second.Infos.end(); Info++)
         Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
@@ -1100,7 +1104,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         //Removing the 2 corresponding streams
         NewPos1=(StreamPos_Last/2)*2;
         size_t NewPos2=NewPos1+1;
-        ID=Retrieve(StreamKind_Last, NewPos1, General_ID)+_T(" / ")+Ztring::ToZtring(Essence->second.TrackID);
+        ID=Ztring::ToZtring(Essence1->second.TrackID)+_T(" / ")+Ztring::ToZtring(Essence->second.TrackID);
 
         Stream_Erase(NewKind, NewPos2);
         Stream_Erase(NewKind, NewPos1);
@@ -1130,9 +1134,14 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     else //Normal
     {
         Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+        for (size_t StreamPos=1; StreamPos<Essence->second.Parser->Count_Get(StreamKind_Last); StreamPos++) //If more than 1 stream, TODO: better way to do this
+        {
+            Stream_Prepare(StreamKind_Last);
+            Merge(*Essence->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
+        }
     }
 
-    if (Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
+    if (Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty() || StreamKind_Last==Stream_Text) //TODO: better way to do detect subID
     {
         //Looking for Material package TrackID
         int32u TrackID=(int32u)-1;
@@ -1149,14 +1158,30 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                     }
             }
 
+        Ztring ID;
+        Ztring ID_String;
         if (TrackID!=(int32u)-1)
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, TrackID);
+            ID=Ztring::ToZtring(TrackID);
         else if (Tracks[TrackUID].TrackID!=(int32u)-1)
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, Tracks[TrackUID].TrackID);
+            ID=Ztring::ToZtring(Tracks[TrackUID].TrackID);
         else
         {
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, Essence->first);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Ztring::ToZtring(Essence->first, 16), true);
+            ID=Ztring::ToZtring(Essence->first);
+            ID_String=Ztring::ToZtring(Essence->first, 16);
+        }
+        if (!ID.empty())
+        {
+            for (size_t StreamPos=StreamPos_Last-(Essence->second.Parser->Count_Get(StreamKind_Last)?(Essence->second.Parser->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
+            {
+                if (!Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
+                {
+                    ID+=_T("-");
+                    ID+=Retrieve(StreamKind_Last, StreamPos, General_ID);
+                }
+                Fill(StreamKind_Last, StreamPos, General_ID, ID, true);
+                if (!ID_String.empty())
+                    Fill(StreamKind_Last, StreamPos, General_ID, ID_String, true);
+            }
         }
     }
 
@@ -1724,13 +1749,35 @@ void File_Mxf::Read_Buffer_Continue()
 }
 
 //---------------------------------------------------------------------------
+void File_Mxf::Read_Buffer_AfterParsing()
+{
+    if (File_Offset+Buffer_Size>=File_Size)
+    {
+        if (RandomIndexMetadatas.empty())
+        {
+            if (!RandomIndexMetadatas_AlreadyParsed)
+            {
+                Partitions_Pos=0;
+                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                    Partitions_Pos++;
+                if (Partitions_Pos==Partitions.size())
+                {
+                    GoTo(PartitionMetadata_PreviousPartition);
+                    Open_Buffer_Unsynch();
+                }
+            }
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::Read_Buffer_Unsynched()
 {
     //Adapting DataSizeToParse
     if (Buffer_End)
     {
-        if (File_GoTo>Buffer_End //Too much late
-        || File_GoTo<Buffer_Begin) //Too much early
+        if (File_GoTo>=Buffer_End //Too much late
+        || File_GoTo<=Buffer_Begin) //Too much early
         {
             Buffer_Begin=(int64u)-1;
             Buffer_End=0;
@@ -1752,8 +1799,7 @@ void File_Mxf::Read_Buffer_Unsynched()
                 Synched=true;
             }
         #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-}
-
+    }
 
     if (!IsParsingEnd)
     {
@@ -1780,6 +1826,8 @@ void File_Mxf::Read_Buffer_Unsynched()
         Partitions.erase(Partitions.end()-1);
         Partitions_IsCalculatingHeaderByteCount=false;
     }
+    if (Partitions_IsCalculatingSdtiByteCount)
+        Partitions_IsCalculatingSdtiByteCount=false;
 
     #if MEDIAINFO_SEEK
         IndexTables_Pos=0;
@@ -1809,6 +1857,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
             return 0;
         Partitions=((File_Mxf*)MI.Info)->Partitions;
         IndexTables=((File_Mxf*)MI.Info)->IndexTables;
+        SDTI_SizePerFrame=((File_Mxf*)MI.Info)->SDTI_SizePerFrame;
         Duration_Detected=true;
     }
 
@@ -1818,6 +1867,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         case 0  :   
                     {
                     //Calculating the byte count not included in seek information (partition, index...)
+                    Partitions_Pos=0;
                     while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<Value)
                         Partitions_Pos++;
                     if (Partitions_Pos && (Partitions_Pos==Partitions.size() || Partitions[Partitions_Pos].StreamOffset!=Value))
@@ -1903,13 +1953,13 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         //Calculating the byte count not included in seek information (partition, index...)
                         int64u StreamOffset_Offset=0;
                         Partitions_Pos=0;
-                        while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=StreamOffset_Offset+StreamOffset)
+                        while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=StreamOffset_Offset+Clip_Header_Size+StreamOffset+Value*SDTI_SizePerFrame)
                         {
                             StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
                             Partitions_Pos++;
                         }
                             
-                        GoTo(StreamOffset_Offset+Clip_Header_Size+StreamOffset);
+                        GoTo(StreamOffset_Offset+Clip_Header_Size+StreamOffset+Value*SDTI_SizePerFrame);
                         if (Clip_Header_Size)
                             Synched=true;
                         Open_Buffer_Unsynch();
@@ -1943,13 +1993,13 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         //Calculating the byte count not included in seek information (partition, index...)
                         int64u StreamOffset_Offset=0;
                         Partitions_Pos=0;
-                        while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=StreamOffset_Offset+StreamOffset)
+                        while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=StreamOffset_Offset+Clip_Header_Size+StreamOffset+Value*SDTI_SizePerFrame)
                         {
                             StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
                             Partitions_Pos++;
                         }
                             
-                        GoTo(StreamOffset_Offset+Clip_Header_Size+StreamOffset);
+                        GoTo(StreamOffset_Offset+Clip_Header_Size+StreamOffset+Value*SDTI_SizePerFrame);
                         if (Clip_Header_Size)
                             Synched=true;
                         Open_Buffer_Unsynch();
@@ -1977,13 +2027,13 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 //Calculating the byte count not included in seek information (partition, index...)
                                 int64u StreamOffset_Offset=0;
                                 Partitions_Pos=0;
-                                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=StreamOffset_Offset+StreamOffset)
+                                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=StreamOffset_Offset+Clip_Header_Size+StreamOffset+Value*SDTI_SizePerFrame)
                                 {
                                     StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
                                     Partitions_Pos++;
                                 }
                             
-                                GoTo(StreamOffset_Offset+Clip_Header_Size+StreamOffset);
+                                GoTo(StreamOffset_Offset+Clip_Header_Size+StreamOffset+Value*SDTI_SizePerFrame);
                                 if (Clip_Header_Size)
                                     Synched=true;
                                 Open_Buffer_Unsynch();
@@ -2206,6 +2256,7 @@ void File_Mxf::Header_Parse()
     int32u Code_Compare1=Code.hi>>32;
     int32u Code_Compare2=(int32u)Code.hi;
     int32u Code_Compare3=Code.lo>>32;
+    int32u Code_Compare4=(int32u)Code.lo;
     if (Partitions_IsCalculatingHeaderByteCount)
     {
         if (!(Code_Compare1==Elements::Filler011
@@ -2213,7 +2264,23 @@ void File_Mxf::Header_Parse()
            && Code_Compare3==Elements::Filler013))
         {
             Partitions_IsCalculatingHeaderByteCount=false;
-            Partitions[Partitions.size()-1].PartitionPackByteCount=File_Offset+Buffer_Offset-Partitions[Partitions.size()-1].StreamOffset;
+            if (Partitions_Pos<Partitions.size())
+                Partitions[Partitions_Pos].PartitionPackByteCount=File_Offset+Buffer_Offset-Partitions[Partitions_Pos].StreamOffset;
+        }
+    }
+    if (Partitions_IsCalculatingSdtiByteCount)
+    {
+        if (!(Code_Compare1==Elements::SDTI_SystemMetadataPack1
+              && (Code_Compare2&0xFF00FFFF)==(Elements::SDTI_SystemMetadataPack2&0xFF00FFFF) //Independant of Category
+              && Code_Compare3==Elements::SDTI_SystemMetadataPack3
+              && (Code_Compare4&0xFFFF0000)==(Elements::SDTI_SystemMetadataPack4&0xFFFF0000)
+          ||  Code_Compare1==Elements::Filler011
+           && (Code_Compare2&0xFFFFFF00)==(Elements::Filler012&0xFFFFFF00)
+           && Code_Compare3==Elements::Filler013))
+        {
+            if (Partitions_Pos<Partitions.size())
+                SDTI_SizePerFrame=File_Offset+Buffer_Offset-(Partitions[Partitions_Pos].StreamOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount);
+            Partitions_IsCalculatingSdtiByteCount=false;
         }
     }
     if (!IsParsingEnd && File_Offset+Buffer_Offset>RandomIndexMetadatas_ByteOffsetParsed)
@@ -2243,7 +2310,19 @@ void File_Mxf::Header_Parse()
         if (IsParsingEnd && PartitionPack_Parsed && !Partitions.empty() && Partitions[Partitions.size()-1].StreamOffset+Partitions[Partitions.size()-1].PartitionPackByteCount+Partitions[Partitions.size()-1].HeaderByteCount+Partitions[Partitions.size()-1].IndexByteCount==File_Offset+Buffer_Offset)
         {
             if (RandomIndexMetadatas.empty())
-                Finish();
+            {
+                if (!RandomIndexMetadatas_AlreadyParsed)
+                {
+                    Partitions_Pos=0;
+                    while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                        Partitions_Pos++;
+                    if (Partitions_Pos==Partitions.size())
+                    {
+                        GoTo(PartitionMetadata_PreviousPartition);
+                        Open_Buffer_Unsynch();
+                    }
+                }
+            }
             else
             {
                 GoTo(RandomIndexMetadatas[0].ByteOffset);
@@ -2529,10 +2608,10 @@ void File_Mxf::Data_Parse()
     ELEMENT(IndexTableSegment,                                  "Index Table (Segment)")
     ELEMENT(RandomIndexMetadata,                                "Random Index Metadata")
     ELEMENT(SDTI_SystemMetadataPack,                            "SDTI System Metadata Pack")
-    else if (Code_Compare1==0x060E2B34
-          && ((Code_Compare2)&0xFFBFFFFF)==0x02030101 //0x43 or 0x63
-          && Code_Compare3==0x0D010301
-          && ((Code_Compare4)&0xFFFF0000)==0x04010000)
+    else if (Code_Compare1==Elements::SDTI_SystemMetadataPack1
+          && ((Code_Compare2)&0xFFBFFFFF)==(Elements::SDTI_SystemMetadataPack2&0xFFBFFFFF) //0x43 or 0x63
+          && Code_Compare3==Elements::SDTI_SystemMetadataPack3
+          && ((Code_Compare4)&0xFFFF0000)==(Elements::SDTI_SystemMetadataPack4&0xFFFF0000))
     {
         Code_Compare4&=0xFFFFFF00; //Remove MetaData Block Count
         if (0) {}
@@ -2557,7 +2636,19 @@ void File_Mxf::Data_Parse()
             //We have the necessary for indexes, jumping to next index
             Skip_XX(Element_Size,                               "Data");
             if (RandomIndexMetadatas.empty())
-                Finish();
+            {
+                if (!RandomIndexMetadatas_AlreadyParsed)
+                {
+                    Partitions_Pos=0;
+                    while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                        Partitions_Pos++;
+                    if (Partitions_Pos==Partitions.size())
+                    {
+                        GoTo(PartitionMetadata_PreviousPartition);
+                        Open_Buffer_Unsynch();
+                    }
+                }
+            }
             else
             {
                 GoTo(RandomIndexMetadatas[0].ByteOffset);
@@ -2660,17 +2751,13 @@ void File_Mxf::Data_Parse()
             Essence->second.FrameInfo.DUR=(int64u)-1;
             #if MEDIAINFO_SEEK
                 //Calculating the byte count not included in seek information (partition, index...)
-                int64u StreamOffset_Offset;
-                if (!Partitions.empty())
+                int64u StreamOffset_Offset=0;
+                Partitions_Pos=0;
+                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<=File_Offset+Buffer_Offset)
                 {
-                    while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<File_Offset+Buffer_Offset-Header_Size)
-                        Partitions_Pos++;
-                    if (Partitions_Pos && (Partitions_Pos==Partitions.size() || Partitions[Partitions_Pos].StreamOffset!=File_Offset+Buffer_Offset-Header_Size))
-                        Partitions_Pos--; //This is the previous item
-                    StreamOffset_Offset=Partitions[Partitions_Pos].StreamOffset-Partitions[Partitions_Pos].BodyOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
+                    StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
+                    Partitions_Pos++;
                 }
-                else
-                    StreamOffset_Offset=0;
 
                 if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.SampleRate)
                 {
@@ -2690,13 +2777,13 @@ void File_Mxf::Data_Parse()
                     {
                         if (IndexTables[0].IndexDuration && File_Offset+Buffer_Offset>=((Buffer_End?Buffer_Begin:StreamOffset_Offset)+Position)+IndexTables[Pos].IndexDuration*IndexTables[Pos].EditUnitByteCount) //Considering IndexDuration=0 as unlimited
                         {
-                            Position+=IndexTables[Pos].EditUnitByteCount*IndexTables[Pos].IndexDuration;
+                            Position+=SDTI_SizePerFrame+IndexTables[Pos].EditUnitByteCount*IndexTables[Pos].IndexDuration;
                             Essence->second.Frame_Count_NotParsedIncluded+=IndexTables[Pos].IndexDuration;
                         }
                         else
                         {
                             int64u FramesToAdd=(File_Offset+Buffer_Offset-((Buffer_End?Buffer_Begin:StreamOffset_Offset)+Position))/IndexTables[Pos].EditUnitByteCount;
-                            Position+=IndexTables[Pos].EditUnitByteCount*FramesToAdd;
+                            Position+=(SDTI_SizePerFrame+IndexTables[Pos].EditUnitByteCount)*FramesToAdd;
                             if (IndexTables[Pos].IndexEditRate)
                             {
                                 if (Descriptors.size()==1 && Descriptors.begin()->second.SampleRate!=IndexTables[Pos].IndexEditRate)
@@ -2721,7 +2808,7 @@ void File_Mxf::Data_Parse()
                 }
                 else if (!IndexTables.empty() && !IndexTables[0].Entries.empty())
                 {
-                    int64u StreamOffset=File_Offset+Buffer_Offset-Clip_Header_Size-StreamOffset_Offset;
+                    int64u StreamOffset=File_Offset+Buffer_Offset-Clip_Header_Size-Header_Size-StreamOffset_Offset;
                     for (size_t Pos=0; Pos<IndexTables.size(); Pos++)
                     {
                         //Special case: we are not sure the last index is the last frame, doing nothing
@@ -2729,12 +2816,12 @@ void File_Mxf::Data_Parse()
                             break;
 
                         //Searching the right index
-                        if (!IndexTables[Pos].Entries.empty() && StreamOffset>=IndexTables[Pos].Entries[0].StreamOffset && (Pos+1>=IndexTables.size() || StreamOffset<IndexTables[Pos+1].Entries[0].StreamOffset))
+                        if (!IndexTables[Pos].Entries.empty() && StreamOffset>=IndexTables[Pos].Entries[0].StreamOffset+(IndexTables[Pos].IndexStartPosition)*SDTI_SizePerFrame && (Pos+1>=IndexTables.size() || StreamOffset<IndexTables[Pos+1].Entries[0].StreamOffset+(IndexTables[Pos+1].IndexStartPosition)*SDTI_SizePerFrame))
                         {
                             //Searching the frame pos
                             for (size_t EntryPos=0; EntryPos<IndexTables[Pos].Entries.size(); EntryPos++)
                             {
-                                if (StreamOffset>=IndexTables[Pos].Entries[EntryPos].StreamOffset)
+                                if (IndexTables[Pos].Entries[EntryPos].StreamOffset+(IndexTables[Pos].IndexStartPosition+EntryPos)*SDTI_SizePerFrame<=StreamOffset)
                                 {
                                     Essence->second.Frame_Count_NotParsedIncluded=IndexTables[Pos].IndexStartPosition+EntryPos;
                                     if (IndexTables[Pos].IndexEditRate)
@@ -2790,6 +2877,12 @@ void File_Mxf::Data_Parse()
                     Get_B2 (Size,                               "Payload Sample Count");
                     Skip_B4(                                    "Size?");
                     Skip_B4(                                    "Count?");
+                    if (FrameInfo.DTS!=(int64u)-1)
+                        Essence->second.Parser->FrameInfo.DTS=FrameInfo.DTS;
+                    if (FrameInfo.PTS!=(int64u)-1)
+                        Essence->second.Parser->FrameInfo.PTS=FrameInfo.PTS;
+                    if (FrameInfo.DUR!=(int64u)-1)
+                        Essence->second.Parser->FrameInfo.DUR=FrameInfo.DUR;
                     Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
                     Element_Offset+=Size;
                     if (Size%4)
@@ -3826,6 +3919,10 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
     }
     else
         Skip_XX(17,                                             "Junk");
+
+    //Filling
+    if (SDTI_SizePerFrame==0)
+        Partitions_IsCalculatingSdtiByteCount=true;
 }
 
 //---------------------------------------------------------------------------
@@ -3870,30 +3967,49 @@ void File_Mxf::SDTI_PackageMetadataSet()
         Element_End();
     }
 
+    //Filling
+    if (SDTI_SizePerFrame==0)
+        Partitions_IsCalculatingSdtiByteCount=true;
 }
 
 //---------------------------------------------------------------------------
 void File_Mxf::SDTI_PictureMetadataSet()
 {
     Skip_XX(Element_Size,                                       "Data");
+
+    //Filling
+    if (SDTI_SizePerFrame==0)
+        Partitions_IsCalculatingSdtiByteCount=true;
 }
 
 //---------------------------------------------------------------------------
 void File_Mxf::SDTI_SoundMetadataSet()
 {
     Skip_XX(Element_Size,                                       "Data");
+
+    //Filling
+    if (SDTI_SizePerFrame==0)
+        Partitions_IsCalculatingSdtiByteCount=true;
 }
 
 //---------------------------------------------------------------------------
 void File_Mxf::SDTI_DataMetadataSet()
 {
     Skip_XX(Element_Size,                                       "Data");
+
+    //Filling
+    if (SDTI_SizePerFrame==0)
+        Partitions_IsCalculatingSdtiByteCount=true;
 }
 
 //---------------------------------------------------------------------------
 void File_Mxf::SDTI_ControlMetadataSet()
 {
     Skip_XX(Element_Size,                                       "Data");
+
+    //Filling
+    if (SDTI_SizePerFrame==0)
+        Partitions_IsCalculatingSdtiByteCount=true;
 }
 
 //---------------------------------------------------------------------------
@@ -5387,14 +5503,14 @@ void File_Mxf::MultipleDescriptor_SubDescriptorUIDs()
 void File_Mxf::PartitionMetadata()
 {
     //Parsing
-    int64u FooterPartition, HeaderByteCount, IndexByteCount, BodyOffset;
+    int64u PreviousPartition, FooterPartition, HeaderByteCount, IndexByteCount, BodyOffset;
     int32u IndexSID;
     int32u KAGSize;
     Skip_B2(                                                    "MajorVersion");
     Skip_B2(                                                    "MinorVersion");
     Get_B4 (KAGSize,                                            "KAGSize");
     Skip_B8(                                                    "ThisPartition");
-    Skip_B8(                                                    "PreviousPartition");
+    Get_B8 (PreviousPartition,                                  "PreviousPartition");
     Get_B8 (FooterPartition,                                    "FooterPartition");
     Get_B8 (HeaderByteCount,                                    "HeaderByteCount");
     Get_B8 (IndexByteCount,                                     "IndexByteCount");
@@ -5418,6 +5534,8 @@ void File_Mxf::PartitionMetadata()
 
     PartitionPack_Parsed=true;
     Partitions_IsFooter=(Code.lo&0x00FF0000)==0x00040000;
+    if (PreviousPartition!=File_Offset+Buffer_Offset-Header_Size)
+        PartitionMetadata_PreviousPartition=PreviousPartition;
     if (FooterPartition)
         PartitionMetadata_FooterPartition=FooterPartition;
     bool AlreadyParsed=false;
@@ -8019,8 +8137,13 @@ void File_Mxf::ChooseParser__Aaf_GC_Data()
     switch (Code_Compare4_3)
     {
         case 0x02 : //Ancillary
-                    Essences[Code_Compare4].Parser=new File_Ancillary();
-                    Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
+                    if (Ancillary)
+                        Essences[Code_Compare4].Parser=Ancillary;
+                    else
+                    {
+                        Essences[Code_Compare4].Parser=new File_Ancillary();
+                        Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
+                    }
                     break;
         case 0x08 : //Line Wrapped Data Element, SMPTE 384M
         case 0x09 : //Line Wrapped VANC Data Element, SMPTE 384M
