@@ -164,11 +164,6 @@ File_Ancillary::File_Ancillary()
 
     //Temp
     Cdp_Parser=NULL;
-
-    //Stats
-    AfdBarData_IsPresent=false;
-    ChannelPair_IsPresent=false;
-    Cdp_IsPresent=false;
 }
 
 //---------------------------------------------------------------------------
@@ -264,8 +259,6 @@ void File_Ancillary::Read_Buffer_Continue()
                                             AfdBarData_Data.push_back(AfdBarData);
                                         }
                                         #endif //MEDIAINFO_AFDBARDATA_YES
-                                        if (!AfdBarData_IsPresent)
-                                            AfdBarData_IsPresent=true;
                                         break;
                             default   : ;
                             ;
@@ -283,8 +276,6 @@ void File_Ancillary::Read_Buffer_Continue()
                             case 0x07 : //Channel pair 11/12
                             case 0x08 : //Channel pair 13/14
                             case 0x09 : //Channel pair 15/16
-                                        if (!ChannelPair_IsPresent)
-                                            ChannelPair_IsPresent=true;
                                         break;
                             default   : ;
                             ;
@@ -324,8 +315,6 @@ void File_Ancillary::Read_Buffer_Continue()
                                             }
                                         }
                                         #endif //MEDIAINFO_CDP_YES
-                                        if (!Cdp_IsPresent)
-                                            Cdp_IsPresent=true;
                                         break;
                             case 0x02 : //CEA-608 (from SMPTE 331-1)
                                         #if defined(MEDIAINFO_EIA608_YES)

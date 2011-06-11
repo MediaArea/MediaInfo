@@ -77,11 +77,6 @@ public :
         std::vector<buffered_data*> AfdBarData_Data;
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
-    //Stats
-    bool AfdBarData_IsPresent;
-    bool ChannelPair_IsPresent;
-    bool Cdp_IsPresent;
-
     //Constructor/Destructor
     File_Ancillary();
     ~File_Ancillary();
