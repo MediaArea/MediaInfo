@@ -1110,9 +1110,6 @@ void File_Gxf::media()
     #endif //MEDIAINFO_SEEK
 
     #if MEDIAINFO_DEMUX
-        #if MEDIAINFO_SEEK
-            if (IFrame_IsParsed)
-        #endif //MEDIAINFO_SEEK
             {
                 Element_Code=TrackNumber;
                 if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
