@@ -1816,6 +1816,7 @@ void File_Mxf::Read_Buffer_Unsynched()
             {
                 Buffer_Begin=Clip_Begin;
                 Buffer_End=Clip_End;
+                Code=Clip_Code;
                 MustSynchronize=false;
                 Synched=true;
             }
@@ -2384,6 +2385,7 @@ void File_Mxf::Header_Parse()
                     Clip_Header_Size=Element_Offset;
                     Clip_Begin=File_Offset+Buffer_Offset+Element_Offset;
                     Clip_End=File_Offset+Buffer_Offset+Element_Offset+Length;
+                    Clip_Code=Code;
                     DataMustAlwaysBeComplete=false;
                 }
             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
@@ -2396,6 +2398,19 @@ void File_Mxf::Header_Parse()
                     {
                         if (Descriptors.size()==1)
                         {
+                            //Configuring EditRate if needed (e.g. audio at 48000 Hz)
+                            if (Frame_Count_NotParsedIncluded==0)
+                            {
+                                if (Demux_Rate) //From elsewhere
+                                {
+                                    Descriptors.begin()->second.SampleRate=Demux_Rate;
+                                }
+                                else if (Descriptors.begin()->second.SampleRate>1000)
+                                {
+                                    Descriptors.begin()->second.SampleRate=25; //Default value
+                                }
+                            }
+
                             if (Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.SampleRate)
                             {
                                 FrameSize=float64_int64s(Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate);

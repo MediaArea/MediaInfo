@@ -747,6 +747,7 @@ protected :
         int64u  Clip_Header_Size;
         int64u  Clip_Begin;
         int64u  Clip_End;
+        int128u Clip_Code;
         bool    Duration_Detected;
     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 };
