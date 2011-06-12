@@ -2762,7 +2762,10 @@ void File_Riff::rcrd_fld__anc__pyld()
     Element_Name("Ancillary data sample payload");
 
     if (Ancillary)
+    {
+        (*Ancillary)->FrameInfo.DTS=FrameInfo.DTS;
         Open_Buffer_Continue(*Ancillary);
+    }
 }
 
 //---------------------------------------------------------------------------

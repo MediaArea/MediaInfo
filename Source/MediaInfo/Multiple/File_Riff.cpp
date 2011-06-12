@@ -496,6 +496,10 @@ void File_Riff::Read_Buffer_Unsynched()
     {
         while(Element_Level)
             Element_End();
+
+        //Ancillary specific
+        if (Ancillary && (*Ancillary))
+            (*Ancillary)->Open_Buffer_Unsynch();
     }
 }
 
