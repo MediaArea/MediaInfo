@@ -45,6 +45,7 @@ public :
     bool    WithTenBit;
     bool    WithChecksum;
     float32 AspectRatio;
+    float64 FrameRate;
 
     //In/Out
     struct buffered_data

@@ -833,6 +833,7 @@ File_Mxf::File_Mxf()
     Buffer_End=0;
     Preface_Current.hi=0;
     Preface_Current.lo=0;
+    IsParsingMiddle_MaxOffset=(int64u)-1;
     Track_Number_IsAvailable=false;
     IsParsingEnd=false;
     PartitionPack_Parsed=false;
@@ -846,6 +847,8 @@ File_Mxf::File_Mxf()
     SDTI_SizePerFrame=0;
     SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
+    Essences_FirstEssence=(int64u)-1;
+    Essences_FirstEssence_Parsed=false;
     ReferenceFiles=NULL;
     #if MEDIAINFO_NEXTPACKET
         ReferenceFiles_IsParsing=false;
@@ -881,6 +884,14 @@ File_Mxf::~File_Mxf()
 //***************************************************************************
 // Streams management
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Fill()
+{
+    for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
+        if (Essence->second.Parser)
+            Fill(Essence->second.Parser);
+}
 
 //---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish()
@@ -1735,7 +1746,7 @@ void File_Mxf::Read_Buffer_Continue()
             return;
         }
         if (CC4(Buffer+Buffer_Offset)!=0x060E2B34)
-            Finish(); //No footer
+            TryToFinish(); //No footer
     }
 
     if (Config_ParseSpeed<1.0 && File_Offset+Buffer_Offset+4==File_Size)
@@ -1753,22 +1764,30 @@ void File_Mxf::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Mxf::Read_Buffer_AfterParsing()
 {
+    if (File_Offset+Buffer_Offset>=IsParsingMiddle_MaxOffset)
+    {
+        Finish();
+        return;
+    }
+        
     if (File_Offset+Buffer_Size>=File_Size)
     {
-        if (RandomIndexMetadatas.empty())
+        if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
         {
-            if (!RandomIndexMetadatas_AlreadyParsed)
+            Partitions_Pos=0;
+            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                Partitions_Pos++;
+            if (Partitions_Pos==Partitions.size())
             {
-                Partitions_Pos=0;
-                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
-                    Partitions_Pos++;
-                if (Partitions_Pos==Partitions.size())
-                {
-                    GoTo(PartitionMetadata_PreviousPartition);
-                    Open_Buffer_Unsynch();
-                }
+                GoTo(PartitionMetadata_PreviousPartition);
+                Open_Buffer_Unsynch();
+                return;
             }
         }
+
+        //Checking if we want to seek again
+        if (!IsParsingEnd)
+            TryToFinish();
     }
 }
 
@@ -1803,22 +1822,20 @@ void File_Mxf::Read_Buffer_Unsynched()
         #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
     }
 
-    if (!IsParsingEnd)
+    for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
+        if (Essence->second.Parser)
+        {
+            Essence->second.Parser->Open_Buffer_Unsynch();
+            Essence->second.FrameInfo=frame_info();
+            if (!File_GoTo)
+                Essence->second.FrameInfo.DTS=0;    
+            Essence->second.Frame_Count_NotParsedIncluded=File_GoTo?(int64u)-1:0;
+        }
+    if (File_GoTo)
+        Frame_Count_NotParsedIncluded=(int64u)-1;
+    else
     {
-        for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); Essence++)
-            if (Essence->second.Parser)
-            {
-                Essence->second.Parser->Open_Buffer_Unsynch();
-                Essence->second.FrameInfo=frame_info();
-                if (!File_GoTo)
-                    Essence->second.FrameInfo.DTS=0;    
-                Essence->second.Frame_Count_NotParsedIncluded=File_GoTo?(int64u)-1:0;
-            }
-        Frame_Count_NotParsedIncluded=File_GoTo?(int64u)-1:0;
-    }
-    if (File_GoTo==0)
-    {
-        Unsynch_Frame_Count=0;
+        Frame_Count_NotParsedIncluded=0;
         FrameInfo.DTS=0;
     }
 
@@ -1830,6 +1847,7 @@ void File_Mxf::Read_Buffer_Unsynched()
     }
     if (Partitions_IsCalculatingSdtiByteCount)
         Partitions_IsCalculatingSdtiByteCount=false;
+    Essences_FirstEssence_Parsed=false;
 
     #if MEDIAINFO_SEEK
         IndexTables_Pos=0;
@@ -2633,6 +2651,31 @@ void File_Mxf::Data_Parse()
     {
         Element_Name(Mxf_EssenceElement(Code));
 
+        //Checking if this is a synch point
+        if (Essences_FirstEssence==(int64u)-1)
+        {
+            Essences_FirstEssence=Code.lo;
+            Essences_FirstEssence_Parsed=true;
+        }
+        if (!Essences_FirstEssence_Parsed)
+        {
+            if (Code.lo!=Essences_FirstEssence)
+            {
+                if (Buffer_End && File_Offset+Buffer_Offset+Element_Size>=Buffer_End)
+                {
+                    Skip_XX(Buffer_End-(File_Offset+Buffer_Offset), "Data (Not yet synched)");
+                    Buffer_Begin=(int64u)-1;
+                    Buffer_End=0;
+                    MustSynchronize=true;
+                }
+                else
+                    Skip_XX(Element_TotalSize_Get(),            "Data (Not yet synched)");
+
+                return;
+            }
+            Essences_FirstEssence_Parsed=true;
+        }
+
         if (IsParsingEnd)
         {
             //We have the necessary for indexes, jumping to next index
@@ -2886,11 +2929,15 @@ void File_Mxf::Data_Parse()
                     if (FrameInfo.DUR!=(int64u)-1)
                         Essence->second.Parser->FrameInfo.DUR=FrameInfo.DUR;
                     Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
+                    Essence->second.Frame_Count_NotParsedIncluded++;
+                    if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
+                        Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
+                    if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
+                        Essence->second.FrameInfo.PTS+=Essence->second.FrameInfo.DUR;
                     Element_Offset+=Size;
                     if (Size%4)
                         Skip_XX(4-(Size%4),                     "Padding");
                     Element_End();
-                    Frame_Count_NotParsedIncluded++;
                 }
             }
             else if (Element_Size)
@@ -2945,10 +2992,12 @@ void File_Mxf::Data_Parse()
         MustSynchronize=true;
     }
 
-    if (!IsParsingEnd && MediaInfoLib::Config.ParseSpeed_Get()<1.0
+    if (!IsParsingEnd && IsParsingMiddle_MaxOffset==(int64u)-1 && MediaInfoLib::Config.ParseSpeed_Get()<1.0
      && (!IsSub && File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
       || (Streams_Count==0 && !Descriptors.empty())))
     {
+        Fill();
+
         IsParsingEnd=true;
         if (PartitionMetadata_FooterPartition!=(int64u)-1)
             GoTo(PartitionMetadata_FooterPartition);
@@ -8533,6 +8582,22 @@ void File_Mxf::Locators_Test()
 
         ReferenceFiles->ParseReferences();
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::TryToFinish()
+{
+    if (!IsSub && IsParsingEnd && File_Size!=(int64u)-1 && Config_ParseSpeed<1 && IsParsingMiddle_MaxOffset==(int64u)-1 && File_Size/2>0x4000000) //TODO: 64 MB by default;
+    {
+        IsParsingMiddle_MaxOffset=File_Size/2+0x4000000; //TODO: 64 MB by default;
+        GoTo(File_Size/2);
+        Open_Buffer_Unsynch();
+        IsParsingEnd=false;
+        Streams_Count=(size_t)-1;
+        return;
+    }
+
+    Finish();
 }
 
 } //NameSpace

@@ -363,7 +363,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         return;
 
     //By the parser
-    if (Temp.Parser && Temp.Parser->Status[IsFilled])
+    if (Temp.Parser && Temp.Parser->Status[IsAccepted])
     {
         StreamKind_Last=Stream_Max;
         StreamPos_Last=(size_t)-1;
@@ -435,6 +435,28 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
             for (std::map<std::string, Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); Info++)
                 if (Retrieve(Stream_Audio, StreamPos_Last, Info->first.c_str()).empty())
                     Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second);
+        }
+
+        //Text
+        if (Temp.Parser->Count_Get(Stream_Text) && StreamID!=TimeCode_StreamID)
+        {
+            size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
+            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+            {
+                Stream_Prepare(Stream_Text);
+                Merge(*Temp.Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
+                Fill(Stream_Text, StreamPos_Last, "Title", Temp.MediaName);
+            }
+
+            StreamKind_Last=Stream_Max;
+            StreamPos_Last=(size_t)-1;
         }
 
         //Metadata

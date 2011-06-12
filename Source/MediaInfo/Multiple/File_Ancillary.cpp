@@ -155,6 +155,7 @@ File_Ancillary::File_Ancillary()
     WithTenBit=false;
     WithChecksum=false;
     AspectRatio=0;
+    FrameRate=0;
 
     //Temp
     Cdp_Parser=NULL;
@@ -193,15 +194,27 @@ void File_Ancillary::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_Ancillary::Read_Buffer_Continue()
 {
+    if (!Cdp_Data.empty() && AspectRatio && FrameRate)
+    {
+        ((File_Cdp*)Cdp_Parser)->AspectRatio=AspectRatio;
+        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+        {
+            if (Cdp_Parser->PTS_DTS_Needed)
+                Cdp_Parser->FrameInfo.DTS=FrameInfo.DTS-(Cdp_Data.size()-Pos)*FrameInfo.DUR;
+            Open_Buffer_Continue(Cdp_Parser, Cdp_Data[Pos]->Data, Cdp_Data[Pos]->Size);
+            delete Cdp_Data[Pos]; //Cdp_Data[0]=NULL;
+        }
+        Cdp_Data.clear();
+    }
+
     if (Element_Size==0)
     {
-        //Clearing old data
-        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
-            delete Cdp_Data[Pos]; //Cdp_Data[0]=NULL;
-        Cdp_Data.clear();
-        for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
+        //Keeping only one, TODO: parse it without video stream
+        for (size_t Pos=1; Pos<AfdBarData_Data.size(); Pos++)
             delete AfdBarData_Data[Pos]; //AfdBarData_Data[0]=NULL;
-        AfdBarData_Data.clear();
+        if (!AfdBarData_Data.empty())
+            AfdBarData_Data.resize(1);
+
         return;
     }
 
@@ -280,14 +293,14 @@ void File_Ancillary::Read_Buffer_Continue()
                             case 0x01 : //CDP (from SMPTE 331-1)
                                         #if defined(MEDIAINFO_CDP_YES)
                                         {
-                                            if (AspectRatio)
+                                            if (Cdp_Parser==NULL)
                                             {
-                                                if (Cdp_Parser==NULL)
-                                                {
-                                                    Cdp_Parser=new File_Cdp;
-                                                    Open_Buffer_Init(Cdp_Parser);
-                                                }
-                                                Demux(Payload, (size_t)DataCount, ContentType_MainStream);
+                                                Cdp_Parser=new File_Cdp;
+                                                Open_Buffer_Init(Cdp_Parser);
+                                            }
+                                            Demux(Payload, (size_t)DataCount, ContentType_MainStream);
+                                            if (AspectRatio && FrameRate)
+                                            {
                                                 if (!Cdp_Parser->Status[IsFinished])
                                                 {
                                                     if (Cdp_Parser->PTS_DTS_Needed)
@@ -295,7 +308,6 @@ void File_Ancillary::Read_Buffer_Continue()
                                                     ((File_Cdp*)Cdp_Parser)->AspectRatio=AspectRatio;
                                                     Open_Buffer_Continue(Cdp_Parser, Payload, (size_t)DataCount);
                                                 }
-                                                AspectRatio=0;
                                             }
                                             else
                                             {
@@ -345,9 +357,18 @@ void File_Ancillary::Read_Buffer_Continue()
 void File_Ancillary::Read_Buffer_Unsynched()
 {
     #if defined(MEDIAINFO_CDP_YES)
+        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+            delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
+        Cdp_Data.clear();
         if (Cdp_Parser)
             Cdp_Parser->Open_Buffer_Unsynch();
     #endif //defined(MEDIAINFO_CDP_YES)
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
+        for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
+            delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+        AfdBarData_Data.clear();
+    #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+    AspectRatio=0;
 }
 
 //***************************************************************************

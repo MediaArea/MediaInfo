@@ -398,7 +398,6 @@ void File_Mpegv::Streams_Update()
                     {
                         Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
                         Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
-                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode_MoreInfo", _T("Muxed in video frame presentation order"));
                     }
                 }
             }
@@ -559,7 +558,7 @@ void File_Mpegv::Streams_Fill()
             I_Pos1=I_Pos2;
         }
 
-        if (GOP_Frame_Count+GOP_BFrames_Max>Frame_Count && !GOPs.empty())
+        if (GOP_Frame_Count+GOP_BFrames_Max>=Frame_Count && !GOPs.empty())
             GOPs.resize(GOPs.size()-1); //Removing the last one, there may have uncomplete B-frame filling
 
         if (!GOPs.empty())
@@ -742,6 +741,8 @@ void File_Mpegv::Streams_Finish()
     }
 
     //Other parsers
+    while (Count_Get(Stream_Text)) //Erasing previous text info
+        Stream_Erase(Stream_Text, Count_Get(Stream_Text)-1);
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         if (GA94_03_Parser && !GA94_03_Parser->Status[IsFinished] && GA94_03_Parser->Status[IsAccepted])
             Finish(GA94_03_Parser);
@@ -1027,6 +1028,11 @@ void File_Mpegv::Read_Buffer_Unsynched()
         if (AfdBarData_Parser)
             AfdBarData_Parser->Open_Buffer_Unsynch();
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        if (Ancillary && *Ancillary && (*Ancillary)->Cdp_Data.empty())
+            (*Ancillary)->AspectRatio=0;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
     //NextCode
     if (!Status[IsAccepted])
@@ -1400,46 +1406,19 @@ void File_Mpegv::slice_start()
 
         //CDP
         #if defined(MEDIAINFO_CDP_YES)
-            if (Ancillary && (*Ancillary)==NULL)
-                (*Ancillary)=new File_Ancillary();
-            if (Ancillary && *Ancillary && (*Ancillary)->Cdp_Data.empty())
-            {
-                (*Ancillary)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
-            }
-            if (Ancillary && *Ancillary && !(*Ancillary)->Cdp_Data.empty())
-            {
+            if (Ancillary)
+             {
                 Cdp_IsPresent=true;
                 MustExtendParsingDuration=true;
                 Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
                 Element_Begin("CDP");
-
-                //Parsing
-                #if MEDIAINFO_DEMUX
-                    Element_Code=0x000000B500000000LL;
-                #endif //MEDIAINFO_DEMUX
-                if (Cdp_Parser==NULL)
-                {
-                    Cdp_Parser=new File_Cdp;
-                    Open_Buffer_Init(Cdp_Parser);
-                    #if MEDIAINFO_EVENTS
-                        if ((*Ancillary)->StreamIDs_Size && Cdp_Parser->StreamIDs_Size)
-                            ((File_Cdp*)Cdp_Parser)->StreamIDs[0]=(*Ancillary)->StreamIDs[0];
-                    #endif MEDIAINFO_EVENTS
-                }
-                Demux((*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size, ContentType_MainStream);
-                if (!Cdp_Parser->Status[IsFinished])
-                {
-                    if (Cdp_Parser->PTS_DTS_Needed)
-                        Cdp_Parser->FrameInfo.DTS=FrameInfo.DTS;
-                    ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
-                    Open_Buffer_Continue(Cdp_Parser, (*Ancillary)->Cdp_Data[0]->Data, (*Ancillary)->Cdp_Data[0]->Size);
-                }
-
-                //Removing data from stack
-                delete (*Ancillary)->Cdp_Data[0]; //(*Ancillary)->Cdp_Data[0]=NULL;
-                (*Ancillary)->Cdp_Data.erase((*Ancillary)->Cdp_Data.begin());
-
+                if ((*Ancillary)==NULL)
+                    (*Ancillary)=new File_Ancillary();
+                (*Ancillary)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
+                (*Ancillary)->FrameRate=((float)(Mpegv_frame_rate[frame_rate_code] * (frame_rate_extension_n + 1)) / (float)(frame_rate_extension_d + 1));
+                if ((*Ancillary)->Status[IsAccepted]) //In order to test if there is a parser using ancillary data
+                    Open_Buffer_Continue((*Ancillary), Buffer+Buffer_Offset, 0);
                 Element_End();
             }
         #endif //defined(MEDIAINFO_CDP_YES)

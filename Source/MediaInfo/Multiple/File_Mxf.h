@@ -71,6 +71,7 @@ public :
 
 protected :
     //Streams management
+    void Streams_Fill ();
     void Streams_Finish ();
     void Streams_Finish_Preface (int128u PrefaceUID);
     void Streams_Finish_ContentStorage (int128u ContentStorageUID);
@@ -383,6 +384,7 @@ protected :
     int16u Code2;
     int16u Length2;
     int64u File_Size_Total; //Used only in Finish()
+    int64u IsParsingMiddle_MaxOffset;
     bool   Track_Number_IsAvailable;
     bool   IsParsingEnd;
     bool   PartitionPack_Parsed;
@@ -657,6 +659,7 @@ protected :
     //Helpers
     void Subsampling_Compute(descriptors::iterator Descriptor);
     void Locators_Test();
+    void TryToFinish();
 
     //Temp
     int128u EssenceContainer_FromPartitionMetadata;
@@ -670,6 +673,8 @@ protected :
     int64u SDTI_SizePerFrame;
     int64u SystemScheme1_TimeCodeArray_StartTimecode;
     int64u SystemScheme1_FrameRateFromDescriptor;
+    int64u Essences_FirstEssence;
+    bool   Essences_FirstEssence_Parsed; 
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
     #if defined(MEDIAINFO_ANCILLARY_YES)

@@ -151,6 +151,14 @@ File_Riff::~File_Riff()
 //---------------------------------------------------------------------------
 void File_Riff::Streams_Finish ()
 {
+    //Ancillary specific
+    if (Ancillary && (*Ancillary))
+    {
+        Finish(*Ancillary);
+        Merge(**Ancillary);
+        return;
+    }
+    
     //Global
     if (IsRIFF64)
         Fill(Stream_General, 0, General_Format_Profile, "RF64");
