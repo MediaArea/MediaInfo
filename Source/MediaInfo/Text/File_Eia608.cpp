@@ -126,7 +126,19 @@ void File_Eia608::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_Eia608::Read_Buffer_Unsynched()
 {
-    //Parsing
+    for (size_t Pos_Y=0; Pos_Y<CC_Displayed.size(); Pos_Y++)
+    {
+        for (size_t Pos_X=0; Pos_X<CC_Displayed[Pos_Y].size(); Pos_X++)
+        {
+            CC_Displayed[Pos_Y][Pos_X].Value=L' ';
+            CC_Displayed[Pos_Y][Pos_X].Attribute=0;
+            CC_NonDisplayed[Pos_Y][Pos_X].Value=L' ';
+            CC_NonDisplayed[Pos_Y][Pos_X].Attribute=0;
+            Text_Displayed[Pos_Y][Pos_X].Value=L' ';
+            Text_Displayed[Pos_Y][Pos_X].Attribute=0;
+        }
+    }
+
     XDS_Data.clear();
 }
 

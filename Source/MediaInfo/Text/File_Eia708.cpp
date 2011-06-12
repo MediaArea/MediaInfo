@@ -112,6 +112,39 @@ void File_Eia708::Read_Buffer_Continue()
     }
 }
 
+//---------------------------------------------------------------------------
+void File_Eia708::Read_Buffer_Unsynched()
+{
+    for (int8u service_number=1; service_number<Streams.size(); service_number++)
+        if (Streams[service_number])
+        {
+            //Per window
+            for (size_t WindowID=0; WindowID<Streams[service_number]->Windows.size(); WindowID++)
+            {
+                window* Window=Streams[service_number]->Windows[WindowID];
+                if (Window)
+                    for (size_t Pos_Y=0; Pos_Y<Window->Minimal.CC.size(); Pos_Y++)
+                    {
+                        for (size_t Pos_X=0; Pos_X<Window->Minimal.CC[Pos_Y].size(); Pos_X++)
+                        {
+                            Window->Minimal.CC[Pos_Y][Pos_X].Value=L' ';;
+                            Window->Minimal.CC[Pos_Y][Pos_X].Attribute=0;
+                        }
+                    }
+            }
+
+            //Global display
+            for (size_t Pos_Y=0; Pos_Y<Streams[service_number]->Minimal.CC.size(); Pos_Y++)
+            {
+                for (size_t Pos_X=0; Pos_X<Streams[service_number]->Minimal.CC[Pos_Y].size(); Pos_X++)
+                {
+                    Streams[service_number]->Minimal.CC[Pos_Y][Pos_X].Value=L' ';
+                    Streams[service_number]->Minimal.CC[Pos_Y][Pos_X].Attribute=0;
+                }
+            }
+        }
+}
+
 //***************************************************************************
 // Buffer - Per element
 //***************************************************************************
