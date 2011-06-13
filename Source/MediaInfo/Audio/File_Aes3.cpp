@@ -859,6 +859,12 @@ void File_Aes3::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Aes3::Header_Parse()
 {
+    if (IsPcm)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+
     //Parsing
     int32u Size=0;
     switch (Endianess)
