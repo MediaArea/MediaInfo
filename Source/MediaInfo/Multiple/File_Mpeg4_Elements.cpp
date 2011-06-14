@@ -1234,7 +1234,8 @@ void File_Mpeg4::mdat()
                     }
                 if (!HasLocators)
                 {
-                    Config->Demux_EventWasSent=true;
+                    if (FirstMdatPos==(int64u)-1) //Only if this is the first mdat
+                        Config->Demux_EventWasSent=true;
                     Demux_Locators=false;
                 }
                 else
