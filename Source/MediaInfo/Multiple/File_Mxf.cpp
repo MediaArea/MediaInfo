@@ -8517,10 +8517,13 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, con
     //Creating the parser
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
-        if (Descriptor->second.BlockAlign!=(int16u)-1)
-            Parser->ByteSize=Descriptor->second.BlockAlign;
-        if (Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end())
-            Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
+        if (Descriptor!=Descriptors.end())
+        {
+            if (Descriptor->second.BlockAlign!=(int16u)-1)
+                Parser->ByteSize=Descriptor->second.BlockAlign;
+            if (Descriptor->second.Infos.find("SamplingRate")==Descriptor->second.Infos.end())
+                Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
+        }
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
