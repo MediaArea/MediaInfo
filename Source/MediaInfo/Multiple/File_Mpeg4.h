@@ -388,7 +388,7 @@ private :
     File__ReferenceFilesHelper* ReferenceFiles;
     #if MEDIAINFO_NEXTPACKET
         bool                    ReferenceFiles_IsParsing;
-    #endif MEDIAINFO_NEXTPACKET
+    #endif //MEDIAINFO_NEXTPACKET
 
     //Positions
     struct mdat_Pos_Type

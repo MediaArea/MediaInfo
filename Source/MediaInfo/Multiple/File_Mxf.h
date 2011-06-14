@@ -607,7 +607,7 @@ protected :
     File__ReferenceFilesHelper* ReferenceFiles;
     #if MEDIAINFO_NEXTPACKET
         bool                    ReferenceFiles_IsParsing;
-    #endif MEDIAINFO_NEXTPACKET
+    #endif //MEDIAINFO_NEXTPACKET
 
     //Component (Sequence, TimeCode, Source Clip)
     struct component
