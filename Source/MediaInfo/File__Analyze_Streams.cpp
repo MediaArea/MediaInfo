@@ -854,7 +854,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             else if (F1>1.70 && F1<1.85) C1=_T("16:9");
             else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
             else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.40) C1=_T("2.35:1");
+            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
             else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
@@ -874,7 +874,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             else if (F1>1.70 && F1<1.85) C1=_T("16:9");
             else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
             else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.40) C1=_T("2.35:1");
+            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
             else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
@@ -894,7 +894,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             else if (F1>1.70 && F1<1.85) C1=_T("16:9");
             else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
             else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.40) C1=_T("2.35:1");
+            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
             else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
@@ -914,7 +914,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             else if (F1>1.70 && F1<1.85) C1=_T("16:9");
             else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
             else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.40) C1=_T("2.35:1");
+            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
             else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
