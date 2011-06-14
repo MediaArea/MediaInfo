@@ -7,6 +7,33 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.44, 2011-06-15
+--------------
++ QuickTime: Support of EIA-608 streams created by Final Cut
++ Matroska: Support of Matroska tags
++ Matroska: parsing of tags at the end of the file (previously: only tags at the beginning)
++ MP4/MOV with uncompressed streams: scan type (interlaced/progressive)
++ YUV4MPEG2 (Y4M) support
++ GXF: more information about AES3 audio streams
++ EXR: Basic support
++ E-AC-3: dialnorm/dynrng (first frame / first block) information
++ LXF: support of DV PAL
++ DPX: Support of Cineon old format
++ DPX: Support of file with Little Endian configuration
++ MPEG-4: better support of file with more than one mdat or moov atom
++ WAV: more details from bext chunk
++ MXF: AFD (in both descriptor or ANC) support
++ MXF: Support of AES3 / Dolby E in 2 mono channels
++ MPEG-4: support of some malformed (without mdat atom) files
++ MXF: Better detection of streams without Essence Compression descriptor
+x MPEG Video: Custom matrix detection was broken
+x DPX: Industry specific header was not well decoded
+x JPEG-2000: Chroma subsampling 4:2:0 was recognized as 4:4:4.
+x Matroska: Handling default values for TrackVideoDisplayWidth and TrackVideoDisplayHeight
+x MPEG-TS: private audio streams with 0xCO stream_id were not correctly detected
+x FLV and RIFF: Changing Sorenson H.263 to Sorenson Spark because this stream format is too much incompatible with H.263
+x MXF: Some specific files (including AFD in descriptor) were not well parsed
+
 Version 0.7.44, 2011-04-19
 --------------
 + Russian translation updated
