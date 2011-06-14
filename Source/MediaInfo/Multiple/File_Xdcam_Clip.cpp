@@ -50,7 +50,7 @@ namespace MediaInfoLib
 bool File_Xdcam_Clip::FileHeader_Begin()
 {
     //Element_Size
-    if (File_Size>64*1024)
+    if (File_Size<5 || File_Size>64*1024)
     {
         Reject("Xdcam_Clip");
         return false; //Xdcam_Clip XML files are not big

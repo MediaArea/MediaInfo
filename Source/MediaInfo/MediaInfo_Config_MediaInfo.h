@@ -166,6 +166,8 @@ public :
     bool          File_MpegTs_Atsc_transport_stream_id_Trust_Get ();
     void          File_Bdmv_ParseTargetedFile_Set (bool NewValue);
     bool          File_Bdmv_ParseTargetedFile_Get ();
+    void          File_DvDif_DisableAudioIfIsInContainer_Set (bool NewValue);
+    bool          File_DvDif_DisableAudioIfIsInContainer_Get ();
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     void          File_DvDif_Analysis_Set (bool NewValue);
     bool          File_DvDif_Analysis_Get ();
@@ -253,6 +255,7 @@ private :
     bool                    File_MpegTs_stream_type_Trust;
     bool                    File_MpegTs_Atsc_transport_stream_id_Trust;
     bool                    File_Bdmv_ParseTargetedFile;
+    bool                    File_DvDif_DisableAudioIfIsInContainer;
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     bool                    File_DvDif_Analysis;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)

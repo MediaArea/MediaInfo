@@ -123,13 +123,11 @@ bool File_Dxw::FileHeader_Begin()
             if (Attribute==NULL || Ztring().From_UTF8(Attribute)!=_T("urn:digimetrics-xml-wrapper"))
             {
                 Reject("DXW");
-                Reject();
+                return false;
             }
 
             Accept("DXW");
             Fill(Stream_General, 0, General_Format, "DXW");
-
-            //File_Size_Total=File_Size;
 
             TiXmlElement* Track=Root->FirstChildElement();
             while (Track)
@@ -210,6 +208,7 @@ bool File_Dxw::FileHeader_Begin()
     }
 
     //All should be OK...
+    ReferenceFiles=NULL;
     return true;
 }
 

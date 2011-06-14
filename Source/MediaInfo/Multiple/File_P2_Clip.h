@@ -34,39 +34,33 @@
 namespace MediaInfoLib
 {
 
+class File__ReferenceFilesHelper;
+
 //***************************************************************************
 // Class File_P2_Clip
 //***************************************************************************
 
 class File_P2_Clip : public File__Analyze
 {
+public :
+    //Constructor/Destructor
+    File_P2_Clip();
+    ~File_P2_Clip();
+
 private :
     //Streams management
     void Streams_Finish ();
-    void Streams_Finish_ParseReference ();
-    void Streams_Finish_ParseReference_Finalize ();
+
+    //Buffer - Global
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - File header
     bool FileHeader_Begin();
 
     //Temp
-    struct reference
-    {
-        Ztring      FileName;
-        stream_t    StreamKind;
-        size_t      StreamPos;
-
-        reference()
-        {
-            StreamKind=Stream_Max;
-            StreamPos=(size_t)-1;
-        }
-    };
-    typedef std::vector<reference> references;
-    references              References;
-    references::iterator    Reference;
-    MediaInfo_Internal*     MI;
-    int64u                  File_Size_Total;
+    File__ReferenceFilesHelper*     ReferenceFiles;
 };
 
 } //NameSpace

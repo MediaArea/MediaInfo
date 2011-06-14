@@ -1511,6 +1511,14 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             Fill(Stream_Video, StreamPos_Last, Video_BitRate, Retrieve(Stream_Video, StreamPos_Last, Video_BitRate_Nominal));
         }
 
+        //Frame rate
+        if (StreamKind_Last==Stream_Video && Descriptor->second.Infos.find("FrameRate")!=Descriptor->second.Infos.end() && Descriptor->second.Infos["FrameRate"]!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
+        {
+            //Until now, I only found CBR files
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate));
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Descriptor->second.Infos["FrameRate"], true);
+        }
+
         //Display Aspect Ratio
         if (StreamKind_Last==Stream_Video && !Descriptor->second.Infos["DisplayAspectRatio"].empty() && Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio)!=Descriptor->second.Infos["DisplayAspectRatio"])
         {
@@ -2398,9 +2406,20 @@ void File_Mxf::Header_Parse()
                     {
                         if (Descriptors.size()==1)
                         {
-                            //Configuring EditRate if needed (e.g. audio at 48000 Hz)
                             if (Frame_Count_NotParsedIncluded==0)
                             {
+                                //Configuring bitrate is not available in descriptor
+                                if (Descriptors.begin()->second.ByteRate==(int32u)-1 && Descriptors.begin()->second.Infos.find("SamplingRate")!=Descriptors.begin()->second.Infos.end())
+                                {
+                                    int32u SamplingRate=Descriptors.begin()->second.Infos["SamplingRate"].To_int32u();
+
+                                    if (Descriptors.begin()->second.BlockAlign!=(int16u)-1)
+                                        Descriptors.begin()->second.ByteRate=SamplingRate*Descriptors.begin()->second.BlockAlign;
+                                    else if (Descriptors.begin()->second.QuantizationBits!=(int8u)-1)
+                                        Descriptors.begin()->second.ByteRate=SamplingRate*Descriptors.begin()->second.QuantizationBits/8;
+                                }
+
+                                //Configuring EditRate if needed (e.g. audio at 48000 Hz)
                                 if (Demux_Rate) //From elsewhere
                                 {
                                     Descriptors.begin()->second.SampleRate=Demux_Rate;

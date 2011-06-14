@@ -112,6 +112,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                     MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
                 }
 
+                Reference=References.begin();
                 Config->Demux_EventWasSent=true;
                 return;
             }
@@ -165,6 +166,8 @@ void File__ReferenceFilesHelper::ParseReference()
         if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
             Reference->MI->Option(_T("File_StopAfterFilled"), _T("1"));
         Reference->MI->Option(_T("File_KeepInfo"), _T("1"));
+        Reference->MI->Option(_T("File_ID_OnlyRoot"), Config->File_ID_OnlyRoot_Get()?_T("1"):_T("0"));
+        Reference->MI->Option(_T("File_DvDif_DisableAudioIfIsInContainer"), Config->File_DvDif_DisableAudioIfIsInContainer_Get()?_T("1"):_T("0"));
         #if MEDIAINFO_NEXTPACKET
             if (Config->NextPacket_Get())
                 Reference->MI->Option(_T("File_NextPacket"), _T("1"));
@@ -397,8 +400,10 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                 MI->Fill(Stream_Audio, StreamPos_Last, "Source", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source"));
                 MI->Fill(Stream_Audio, StreamPos_Last, "Source_Info", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source_Info"));
                 Ztring ID_Audio=MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
-                MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Audio, true);
-                MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Audio, true);
+                if (ID_Audio.find(_T('-'))!=string::npos)
+                    ID_Audio.erase(0, ID_Audio.find(_T('-')));
+                MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID+ID_Audio, true);
+                MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID+ID_Audio, true);
             }
             size_t Parser_Text_Count=Reference->MI->Info->Count_Get(Stream_Text);
             for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
@@ -420,8 +425,10 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                 MI->Fill(Stream_Text, StreamPos_Last, "Source", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source"));
                 MI->Fill(Stream_Text, StreamPos_Last, "Source_Info", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source_Info"));
                 Ztring ID_Text=MI->Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                MI->Fill(Stream_Text, StreamPos_Last, Text_ID, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Text, true);
-                MI->Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID.SubString(Ztring(), _T("-"))+_T("-")+ID_Text, true);
+                if (ID_Text.find(_T('-'))!=string::npos)
+                    ID_Text.erase(0, ID_Text.find(_T('-')));
+                MI->Fill(Stream_Text, StreamPos_Last, Text_ID, ID+ID_Text, true);
+                MI->Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID+ID_Text, true);
             }
         }
     }
@@ -672,7 +679,8 @@ size_t File__ReferenceFilesHelper::Stream_Prepare (stream_t StreamKind, size_t S
 
     for (references::iterator ReferencePos=References.begin(); ReferencePos!=References.end(); ReferencePos++)
         if (ReferencePos->StreamKind==StreamKind && ReferencePos->StreamPos>=StreamPos_Last)
-            ReferencePos->StreamPos++;
+            if (ReferencePos->StreamPos!=(size_t)-1)
+                ReferencePos->StreamPos++;
 
     return StreamPos_Last;
 }

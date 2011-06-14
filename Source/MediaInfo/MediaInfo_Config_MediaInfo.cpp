@@ -80,6 +80,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_MpegTs_stream_type_Trust=true;
     File_MpegTs_Atsc_transport_stream_id_Trust=true;
     File_Bdmv_ParseTargetedFile=true;
+    File_DvDif_DisableAudioIfIsInContainer=false;
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
         File_DvDif_Analysis=false;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
@@ -408,6 +409,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_bdmv_parsetargetedfile_get"))
     {
         return File_Bdmv_ParseTargetedFile_Get()?"1":"0";
+    }
+    else if (Option_Lower==_T("file_dvdif_disableaudioifisincontainer"))
+    {
+        File_DvDif_DisableAudioIfIsInContainer_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_dvdif_disableaudioifisincontainer_get"))
+    {
+        return File_DvDif_DisableAudioIfIsInContainer_Get()?"1":"0";
     }
     else if (Option_Lower==_T("file_dvdif_analysis"))
     {
@@ -1186,6 +1196,20 @@ bool MediaInfo_Config_MediaInfo::File_Bdmv_ParseTargetedFile_Get ()
 {
     CriticalSectionLocker CSL(CS);
     bool Temp=File_Bdmv_ParseTargetedFile;
+    return Temp;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_DvDif_DisableAudioIfIsInContainer_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_DvDif_DisableAudioIfIsInContainer=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_DvDif_DisableAudioIfIsInContainer_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    bool Temp=File_DvDif_DisableAudioIfIsInContainer;
     return Temp;
 }
 

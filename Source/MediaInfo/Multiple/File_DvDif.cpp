@@ -418,13 +418,14 @@ void File_DvDif::Streams_Fill()
         }
     }
 
-    for (size_t Pos=0; Pos<Streams_Audio.size(); Pos++)
-    {
-        Stream_Prepare(Stream_Audio);
-        for (std::map<std::string, Ztring>::iterator Info=Streams_Audio[Pos]->Infos.begin(); Info!=Streams_Audio[Pos]->Infos.end(); Info++)
-            Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second, true);
-    }
-    
+    if (!Config->File_DvDif_DisableAudioIfIsInContainer_Get())
+        for (size_t Pos=0; Pos<Streams_Audio.size(); Pos++)
+        {
+            Stream_Prepare(Stream_Audio);
+            for (std::map<std::string, Ztring>::iterator Info=Streams_Audio[Pos]->Infos.begin(); Info!=Streams_Audio[Pos]->Infos.end(); Info++)
+                Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second, true);
+        }
+
     //Library settings
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
 
