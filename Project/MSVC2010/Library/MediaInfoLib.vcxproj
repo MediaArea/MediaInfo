@@ -211,7 +211,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NOx;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
