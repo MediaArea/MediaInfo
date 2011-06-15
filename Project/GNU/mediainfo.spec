@@ -29,7 +29,11 @@ BuildRequires:	pkgconfig
 %if 0%{?mandriva_version}
 BuildRequires:	libwxgtku2.8-devel
 %else
+%if 0%{?suse_version} && 0%{?suse_version} >= 1140
+BuildRequires:	wxWidgets-devel
+%else
 BuildRequires:	wxGTK-devel
+%endif
 %endif
 BuildRequires: 	zlib-devel
 %if 0%{?suse_version}
