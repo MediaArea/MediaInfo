@@ -163,6 +163,25 @@ bool File_P2_Clip::FileHeader_Begin()
                         string Field=Track->ValueStr();
                         if (Field=="Video")
                         {
+                            File__ReferenceFilesHelper::reference ReferenceFile;
+
+                            //FrameRate
+                            ChildElement=Track->FirstChildElement("FrameRate");
+                            if (ChildElement)
+                            {
+                                Ztring FrameRateS=Ztring(ChildElement->GetText());
+                                        if (FrameRateS.find(_T("23.97"))==0)
+                                    ReferenceFile.FrameRate=((float64)24)*1000/1001;
+                                else if (FrameRateS.find(_T("29.97"))==0)
+                                    ReferenceFile.FrameRate=((float64)30)*1000/1001;
+                                else if (FrameRateS.find(_T("59.94"))==0)
+                                    ReferenceFile.FrameRate=((float64)60)*1000/1001;
+                                else
+                                    ReferenceFile.FrameRate=FrameRateS.To_float64();
+                                if (FrameRateS.find('i')!=string::npos)
+                                    ReferenceFile.FrameRate/=2;
+                            }
+
                             //CreationDate
                             ChildElement=Track->FirstChildElement("StartTimecode");
                             if (ChildElement)
@@ -170,22 +189,14 @@ bool File_P2_Clip::FileHeader_Begin()
                                 string Text=ChildElement->GetText();
                                 if (Text.size()==11)
                                 {
-                                    int32u ToFill=(Text[0]-'0')*10*60*60*1000
+                                    int64u ToFill=(Text[0]-'0')*10*60*60*1000
                                                 + (Text[1]-'0')   *60*60*1000
                                                 + (Text[3]-'0')   *10*60*1000
                                                 + (Text[4]-'0')      *60*1000
                                                 + (Text[6]-'0')      *10*1000
                                                 + (Text[7]-'0')         *1000;
-                                    ChildElement=Track->FirstChildElement("FrameRate");
-                                    if (ChildElement)
-                                    {
-                                        Ztring FrameRateS=Ztring(ChildElement->GetText());
-                                        float32 FrameRate=FrameRateS.To_float32();
-                                        if (FrameRateS.find('i')!=string::npos)
-                                            FrameRate/=2;
-                                        if (FrameRate)
-                                            ToFill+=float32_int32s(((Text[9]-'0')*10+(Text[10]-'0'))*1000/FrameRate);
-                                    }
+                                        if (ReferenceFile.FrameRate)
+                                            ToFill+=float64_int64s(((Text[9]-'0')*10+(Text[10]-'0'))*1000/ReferenceFile.FrameRate);
                                     //Fill(Stream_Video, StreamPos_Last, Video_Delay, ToFill);
                                     //Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "P2 Clip");
                                 }
@@ -207,7 +218,6 @@ bool File_P2_Clip::FileHeader_Begin()
                                     MXF_File+=file;
                                     MXF_File+=_T(".MXF");
 
-                                    File__ReferenceFilesHelper::reference ReferenceFile;
                                     ReferenceFile.FileNames.push_back(MXF_File);
                                     ReferenceFile.StreamKind=Stream_Video;
                                     ReferenceFile.StreamID=Ztring::ToZtring(ReferenceFiles->References.size()+1);
@@ -397,9 +407,6 @@ bool File_P2_Clip::FileHeader_Begin()
         return false;
     }
 
-    //Parsing reference files
-    ReferenceFiles->ParseReferences();
-
     //All should be OK...
     return true;
 }
@@ -407,5 +414,4 @@ bool File_P2_Clip::FileHeader_Begin()
 } //NameSpace
 
 #endif //MEDIAINFO_P2_YES
-
 
