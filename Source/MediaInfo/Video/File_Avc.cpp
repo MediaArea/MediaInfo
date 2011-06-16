@@ -628,7 +628,7 @@ void File_Avc::Streams_Finish()
 
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->Status[IsAccepted])
+        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->Status[IsFilled])
         {
             Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
@@ -935,6 +935,13 @@ void File_Avc::Read_Buffer_Unsynched()
     TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
     RefFramesCount=0;
     IFrame_IsParsed=false;
+
+    #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+        TemporalReference_GA94_03_CC_Offset=0;
+        for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+            if (GA94_03_CC_Parsers[Pos])
+                GA94_03_CC_Parsers[Pos]->Open_Buffer_Unsynch();
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 
     //Impossible to know TimeStamps now
     PTS_End=0;

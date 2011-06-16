@@ -974,7 +974,7 @@ void File_MpegPs::Read_Buffer_AfterParsing()
         {
             //Jumping
             GoToFromEnd(SizeToAnalyze, "MPEG-PS");
-            Read_Buffer_Unsynched();
+            Open_Buffer_Unsynch();
         }
     }
 }

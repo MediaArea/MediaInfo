@@ -818,7 +818,6 @@ File_Mxf::File_Mxf()
     MustSynchronize=true;
     Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
-    Frame_Count_NotParsedIncluded=0;
     FrameInfo.DTS=0;
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent_Accept_Specific=true;
@@ -2993,7 +2992,7 @@ void File_Mxf::Data_Parse()
                     if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
                         Essence->second.FrameInfo.PTS+=Essence->second.Parser->Frame_Count_InThisBlock*Essence->second.FrameInfo.DUR;
                 }
-                else if (Buffer_End==0 || File_Offset+Buffer_Offset+Element_Size==Buffer_End)
+                else if ((Buffer_End==0 || File_Offset+Buffer_Offset+Element_Size==Buffer_End) && Essence->second.Frame_Count_NotParsedIncluded!=Essence->second.Parser->Frame_Count_NotParsedIncluded)
                 {
                     Essence->second.Frame_Count_NotParsedIncluded++;
                     if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)

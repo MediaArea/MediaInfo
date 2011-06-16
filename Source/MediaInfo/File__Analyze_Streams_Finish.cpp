@@ -125,6 +125,13 @@ void File__Analyze::Streams_Finish_StreamOnly_General(size_t UNUSED(StreamPos))
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
 {
+    //Frame count
+    if (Retrieve(Stream_Video, Pos, Video_FrameCount).empty() && Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
+    {
+        if (Count_Get(Stream_Video)==1 && Count_Get(Stream_Audio)==0)
+            Fill(Stream_Video, 0, Video_FrameCount, Frame_Count_NotParsedIncluded);
+    }
+
     //FrameCount from Duration and FrameRate
     if (Retrieve(Stream_Video, Pos, Video_FrameCount).empty())
     {
@@ -182,6 +189,13 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
 {
+    //Frame count
+    if (Retrieve(Stream_Audio, Pos, Audio_FrameCount).empty() && Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
+    {
+        if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1)
+            Fill(Stream_Audio, 0, Audio_FrameCount, Frame_Count_NotParsedIncluded);
+    }
+
     //SamplingCount
     if (Retrieve(Stream_Audio, Pos, Audio_SamplingCount).empty())
     {

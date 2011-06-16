@@ -408,6 +408,8 @@ void File_Vc1::Synched_Init()
     Interlaced_Top=0;
     Interlaced_Bottom=0;
     PictureFormat_Count.resize(4);
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=0; //No Frame_Count_NotParsedIncluded in the container
 
     //Temp
     coded_width=0;
@@ -685,6 +687,8 @@ void File_Vc1::FrameHeader()
         Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_InThisBlock++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
 
     //Parsing
     BS_Begin();

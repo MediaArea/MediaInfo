@@ -1231,6 +1231,7 @@ void File_Mpegv::picture_start()
     }
 
     //Parsing
+    int8u picture_coding_type_Old=picture_coding_type;
     #if MEDIAINFO_TRACE
     if (Trace_Activated)
     {
@@ -1293,6 +1294,10 @@ void File_Mpegv::picture_start()
         if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
             TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
         TemporalReference[TemporalReference_Offset+temporal_reference]->IsValid=true;
+
+        //Detecting streams with only I-Frames
+        if (picture_coding_type==1 && picture_coding_type_Old==1)
+            temporal_reference_Old=(int16u)-1; //Resetting temporal_reference_Old
 
         //NextCode
         if (!Status[IsAccepted])
