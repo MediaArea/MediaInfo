@@ -695,7 +695,7 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     //In
     From_TS=true; //Default is from TS
     Complete_Stream=NULL;
-    pid=0x0000;
+    pid=(int16u)-1;
 
     //Temp
     transport_stream_id=0x0000; //Impossible
