@@ -495,7 +495,7 @@ void File_Dpx::GenericSectionHeader_v1()
     Skip_BFP4(9,                                                "Green primary chromaticity - y");
     Skip_BFP4(9,                                                "Blue primary chromaticity - x");
     Skip_BFP4(9,                                                "Blue primary chromaticity - y");
-    Skip_String(200,                                            "Label text");
+    Skip_UTF8(200,                                              "Label text");
     Skip_XX(28,                                                 "Reserved for future use");
     Element_End();
 
@@ -514,9 +514,9 @@ void File_Dpx::GenericSectionHeader_v1()
     Skip_UTF8  (100,                                            "FileName");
     Get_UTF8   (12,  CreationDate,                              "Creation Date");
     Get_UTF8   (12,  CreationTime,                              "Creation Time");
-    Skip_String(64,                                             "Input device");
-    Skip_String(32,                                             "Input device model number");
-    Skip_String(32,                                             "Input device serial number");
+    Skip_UTF8(64,                                               "Input device");
+    Skip_UTF8(32,                                               "Input device model number");
+    Skip_UTF8(32,                                               "Input device serial number");
     Skip_BFP4(9,                                                "X input device pitch");
     Skip_BFP4(9,                                                "Y input device pitch");
     Skip_BFP4(9,                                                "Image gamma of capture device");
@@ -620,10 +620,10 @@ void File_Dpx::GenericSectionHeader_v2()
     Skip_BFP4(9,                                                "Y center");
     Skip_B4(                                                    "X original size");
     Skip_B4(                                                    "Y original size");
-    Skip_String(100,                                            "Source image filename");
-    Skip_String(24,                                             "Source image date/time");
-    Skip_String(32,                                             "Input device name");
-    Skip_String(32,                                             "Input device serial number");
+    Skip_UTF8(100,                                              "Source image filename");
+    Skip_UTF8(24,                                               "Source image date/time");
+    Skip_UTF8(32,                                               "Input device name");
+    Skip_UTF8(32,                                               "Input device serial number");
     Element_Begin("Border validity");
     Skip_B2(                                                    "XL border");
     Skip_B2(                                                    "XR border");
@@ -687,7 +687,7 @@ void File_Dpx::GenericSectionHeader_v2_ImageElement()
     Skip_B4(                                                    "Offset to data");
     Skip_B4(                                                    "End-of-line padding");
     Skip_B4(                                                    "End-of-image padding");
-    Skip_String(32,                                             "Description of image element");
+    Skip_UTF8(32,                                               "Description of image element");
     Element_End();
 
     FILLING_BEGIN();
@@ -711,11 +711,11 @@ void File_Dpx::IndustrySpecificHeader_v1()
     Skip_B1(                                                    "?");
     Skip_B4(                                                    "?");
     Skip_B4(                                                    "?");
-    Skip_String(32,                                             "?");
+    Skip_UTF8(32,                                               "?");
     Skip_B4(                                                    "?");
     Skip_B4(                                                    "?");
-    Skip_String(32,                                             "?");
-    Skip_String(200,                                            "?");
+    Skip_UTF8(32,                                               "?");
+    Skip_UTF8(200,                                              "?");
     Skip_XX(740,                                                "Reserved for future use");
     Element_End();
 }
@@ -738,8 +738,8 @@ void File_Dpx::IndustrySpecificHeader_v2()
     Skip_B4(                                                    "Held count (1 = default)");
     Skip_BFP4(9,                                                "Frame rate of original (frames/s)");
     Skip_BFP4(9,                                                "Shutter angle of camera in degrees");
-    Skip_String(32,                                             "Frame identification - e.g. keyframe");
-    Skip_String(100,                                            "Slate information");
+    Skip_UTF8(32,                                               "Frame identification - e.g. keyframe");
+    Skip_UTF8(100,                                              "Slate information");
     Skip_XX(56,                                                 "Reserved for future use");
     Element_End();
     
@@ -785,7 +785,7 @@ void File_Dpx::UserDefinedHeader_v2()
         Skip_XX(Sizes[Pos_UserDefined],                         "Unknown");
         return;            
     }
-    Skip_String(32,                                             "User identification");
+    Skip_UTF8(32,                                               "User identification");
     Skip_XX(Sizes[Pos_UserDefined],                             "User defined");
 }
 
