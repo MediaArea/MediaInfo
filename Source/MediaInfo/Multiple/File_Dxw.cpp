@@ -44,6 +44,24 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Dxw::File_Dxw()
+:File__Analyze()
+{
+    //Temp
+    ReferenceFiles=NULL;
+}
+
+//---------------------------------------------------------------------------
+File_Dxw::~File_Dxw()
+{
+    delete ReferenceFiles; //ReferenceFiles=NULL;
+}
+
+//***************************************************************************
 // Streams management
 //***************************************************************************
 
@@ -51,20 +69,8 @@ namespace MediaInfoLib
 void File_Dxw::Streams_Finish()
 {
     if (ReferenceFiles==NULL)
-    {
-        ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
+        return;
 
-        for (references::iterator Reference=References.begin(); Reference!=References.end(); Reference++)
-        {
-            File__ReferenceFilesHelper::reference ReferenceFile;
-            ReferenceFile.FileNames=Reference->FileNames;
-            ReferenceFile.StreamKind=Reference->StreamKind;
-            ReferenceFile.FrameRate=Reference->FrameRate;
-            ReferenceFile.StreamID=Ztring::ToZtring((size_t)(Reference-References.begin())+1);
-            ReferenceFiles->References.push_back(ReferenceFile);
-        }
-    }
-    
     ReferenceFiles->ParseReferences();
 }
 
@@ -73,14 +79,13 @@ void File_Dxw::Streams_Finish()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
 #if MEDIAINFO_SEEK
 size_t File_Dxw::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     if (ReferenceFiles==NULL)
         return 0;
-        
-    return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);    
+
+    return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
 }
 #endif //MEDIAINFO_SEEK
 
@@ -129,49 +134,50 @@ bool File_Dxw::FileHeader_Begin()
             Accept("DXW");
             Fill(Stream_General, 0, General_Format, "DXW");
 
+            ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
+
             TiXmlElement* Track=Root->FirstChildElement();
             while (Track)
             {
                 if (Track->ValueStr()=="clip")
                 {
+                    File__ReferenceFilesHelper::reference ReferenceFile;
+
                     Attribute=Track->Attribute("file");
                     if (Attribute)
                     {
-                        reference Reference_Temp;
-                        Reference_Temp.FileNames.push_back(Ztring().From_UTF8(Attribute));
+                        ReferenceFile.FileNames.push_back(Ztring().From_UTF8(Attribute));
 
                         Attribute=Track->Attribute("type");
                         if (Attribute)
                         {
                             Ztring StreamKind; StreamKind.From_UTF8(Attribute);
                             if (StreamKind==_T("video"))
-                                 Reference_Temp.StreamKind=Stream_Video;
+                                 ReferenceFile.StreamKind=Stream_Video;
                             if (StreamKind==_T("audio"))
-                                 Reference_Temp.StreamKind=Stream_Audio;
+                                 ReferenceFile.StreamKind=Stream_Audio;
                             if (StreamKind==_T("data"))
-                                 Reference_Temp.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
+                                 ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 
-                        References.push_back(Reference_Temp);
-                        ReferenceFiles=NULL;
+                        ReferenceFile.StreamID=Ztring::ToZtring(ReferenceFiles->References.size()+1);
                     }
 
                     Attribute=Track->Attribute("framerate");
                     if (Attribute)
                     {
-                        reference Reference_Temp;
-                        Reference_Temp.FrameRate=Ztring().From_UTF8(Attribute).To_float64();
+                        ReferenceFile.FrameRate=Ztring().From_UTF8(Attribute).To_float64();
 
                         Attribute=Track->Attribute("type");
                         if (Attribute)
                         {
                             Ztring StreamKind; StreamKind.From_UTF8(Attribute);
                             if (StreamKind==_T("video"))
-                                 Reference_Temp.StreamKind=Stream_Video;
+                                 ReferenceFile.StreamKind=Stream_Video;
                             if (StreamKind==_T("audio"))
-                                 Reference_Temp.StreamKind=Stream_Audio;
+                                 ReferenceFile.StreamKind=Stream_Audio;
                             if (StreamKind==_T("data"))
-                                 Reference_Temp.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
+                                 ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 
                         TiXmlElement* Frame=Track->FirstChildElement();
@@ -181,15 +187,14 @@ bool File_Dxw::FileHeader_Begin()
                             {
                                 Attribute=Frame->Attribute("file");
                                 if (Attribute)
-                                    Reference_Temp.FileNames.push_back(Ztring().From_UTF8(Attribute));
+                                    ReferenceFile.FileNames.push_back(Ztring().From_UTF8(Attribute));
                             }
 
                             Frame=Frame->NextSiblingElement();
                         }
-
-                        References.push_back(Reference_Temp);
-                        ReferenceFiles=NULL;
                     }
+
+                    ReferenceFiles->References.push_back(ReferenceFile);
                 }
 
                 Track=Track->NextSiblingElement();
@@ -208,7 +213,6 @@ bool File_Dxw::FileHeader_Begin()
     }
 
     //All should be OK...
-    ReferenceFiles=NULL;
     return true;
 }
 

@@ -42,6 +42,11 @@ class File__ReferenceFilesHelper;
 
 class File_Dxw : public File__Analyze
 {
+public :
+    //Constructor/Destructor
+    File_Dxw();
+    ~File_Dxw();
+
 private :
     //Streams management
     void Streams_Finish ();
@@ -55,20 +60,6 @@ private :
     bool FileHeader_Begin();
 
     //Temp
-    struct reference
-    {
-        ZtringList  FileNames;
-        stream_t    StreamKind;
-        float64     FrameRate;
-
-        reference()
-        {
-            StreamKind=Stream_Max;
-            FrameRate=0;
-        }
-    };
-    typedef std::vector<reference>  references;
-    references                      References;
     File__ReferenceFilesHelper*     ReferenceFiles;
 };
 

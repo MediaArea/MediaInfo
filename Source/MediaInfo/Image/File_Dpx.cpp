@@ -326,8 +326,8 @@ bool File_Dpx::Demux_UnpacketizeContainer_Test()
         FrameInfo.PTS=FrameInfo.DTS;
         FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
     }
-    Demux_random_access=true;
-    Demux(Buffer, Buffer_Size, ContentType_MainStream);
+    Demux_Offset=Buffer_Size;
+    Demux_UnpacketizeContainer_Demux();
 
     return true;
 }

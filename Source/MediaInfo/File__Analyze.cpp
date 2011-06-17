@@ -745,6 +745,18 @@ bool File__Analyze::Buffer_Parse()
                 return false; //Wait for more data
         }
         while (!Synched);
+    #if MEDIAINFO_DEMUX
+    else if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+    {
+        if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
+        {
+            Demux_Offset-=Buffer_Offset;
+            return false; //Wait for more data
+        }
+        if (Config->Demux_EventWasSent)
+            return false;
+    }
+    #endif //MEDIAINFO_DEMUX
 
     //Header
     if (!Header_Manage())
