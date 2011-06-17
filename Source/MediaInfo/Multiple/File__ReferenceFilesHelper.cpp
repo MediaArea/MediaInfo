@@ -344,7 +344,11 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
         //Stream size (only for files not of FTP/HTTP)
         int64u StreamSize=Reference->MI->Get(Stream_General, 0, General_FileSize).To_int64u();
         for (size_t Pos=1; Pos<Reference->FileNames.size(); Pos++)
-            StreamSize+=File::Size_Get(Reference->FileNames[Pos]);
+        {
+            int64u OneFileSize=File::Size_Get(Reference->FileNames[Pos]);
+            StreamSize+=OneFileSize;
+            File_Size_Total+=OneFileSize;
+        }
         Reference->MI->Info->Fill(Stream_General, 0, General_FileSize, StreamSize, 10, true);
         Reference->MI->Info->Fill(Stream_Video, 0, Video_StreamSize, StreamSize, 10, true);
     }
