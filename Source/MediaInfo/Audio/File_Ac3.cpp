@@ -969,11 +969,13 @@ bool File_Ac3::Synchronize()
     {
         while (Buffer_Offset+8<=Buffer_Size)
         {
-            if (CC2(Buffer+Buffer_Offset)==0x0B77) //AC-3
+            if (Buffer[Buffer_Offset  ]==0x0B
+             && Buffer[Buffer_Offset+1]==0x77) //AC-3
                 break; //while()
-            if (CC4(Buffer+Buffer_Offset+4)==0xF8726FBA) //TrueHD
-                break; //while()
-            if (CC4(Buffer+Buffer_Offset+4)==0xF8726FBB) //MLP
+            if (Buffer[Buffer_Offset+4]==0xF8
+             && Buffer[Buffer_Offset+5]==0x72
+             && Buffer[Buffer_Offset+6]==0x6F
+             && (Buffer[Buffer_Offset+7]&0xFE)==0xBA) //TrueHD or MLP
                 break; //while()
             Buffer_Offset++;
         }

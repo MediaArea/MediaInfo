@@ -281,8 +281,8 @@ bool File_Aac::Synchronize_ADTS()
     //Synchronizing
     while (Buffer_Offset+6<=Buffer_Size)
     {
-         while (Buffer_Offset+6<=Buffer_Size
-             && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
+         while (Buffer_Offset+6<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0xFF
+                                              || (Buffer[Buffer_Offset+1]&0xF6)!=0xF0))
             Buffer_Offset++;
 
         if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
@@ -367,8 +367,8 @@ bool File_Aac::Synchronize_LATM()
     //Synchronizing
     while (Buffer_Offset+3<=Buffer_Size)
     {
-         while (Buffer_Offset+3<=Buffer_Size
-             && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+         while (Buffer_Offset+3<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x56
+                                              || (Buffer[Buffer_Offset+1]&0xE0)!=0xE0))
             Buffer_Offset++;
 
         if (Buffer_Offset+3<=Buffer_Size)//Testing if size is coherant
@@ -411,8 +411,8 @@ bool File_Aac::Synchronize_LATM()
 
 
     //Synchronizing
-    while (Buffer_Offset+2<=Buffer_Size
-        && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+    while (Buffer_Offset+2<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x56
+                                         || (Buffer[Buffer_Offset+1]&0xE0)!=0xE0))
         Buffer_Offset++;
     if (Buffer_Offset+2>=Buffer_Size)
         return false;

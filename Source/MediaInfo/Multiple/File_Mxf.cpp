@@ -2099,6 +2099,17 @@ bool File_Mxf::FileHeader_Begin()
 bool File_Mxf::Synchronize()
 {
     //Synchronizing
+    while (Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x06
+                                         || Buffer[Buffer_Offset+1]!=0x0E
+                                         || Buffer[Buffer_Offset+2]!=0x2B
+                                         || Buffer[Buffer_Offset+3]!=0x34))
+    {
+        Buffer_Offset++;
+        while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x06)
+            Buffer_Offset++;
+    }
+
+
     while (Buffer_Offset+4<=Buffer_Size
         && CC4(Buffer+Buffer_Offset)!=0x060E2B34)
         Buffer_Offset++;
@@ -2106,8 +2117,6 @@ bool File_Mxf::Synchronize()
     //Parsing last bytes if needed
     if (Buffer_Offset+4>Buffer_Size)
     {
-        if (Buffer_Offset+4==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x060E2B34)
-            Buffer_Offset++;
         if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x060E2B)
             Buffer_Offset++;
         if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x060E)

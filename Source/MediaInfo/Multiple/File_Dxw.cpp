@@ -194,6 +194,7 @@ bool File_Dxw::FileHeader_Begin()
                         }
                     }
 
+                    ReferenceFile.StreamID.From_Number(ReferenceFiles->References.size()+1);
                     ReferenceFiles->References.push_back(ReferenceFile);
                 }
 

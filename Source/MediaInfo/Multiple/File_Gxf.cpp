@@ -478,25 +478,38 @@ bool File_Gxf::Synchronize()
     //Synchronizing
     while (Buffer_Offset+16<=Buffer_Size)
     {
-        while (Buffer_Offset+16<=Buffer_Size)
+        while (Buffer_Offset+16<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                              || Buffer[Buffer_Offset+1]!=0x00
+                                              || Buffer[Buffer_Offset+2]!=0x00
+                                              || Buffer[Buffer_Offset+3]!=0x00
+                                              || Buffer[Buffer_Offset+4]!=0x01
+                                              || Buffer[Buffer_Offset+14]!=0xE1
+                                              || Buffer[Buffer_Offset+15]!=0xE2))
         {
-            if (CC5(Buffer+Buffer_Offset   )==0x0000000001
-             && CC2(Buffer+Buffer_Offset+14)==0xE1E2)
-                break;
-            Buffer_Offset++;
+            Buffer_Offset+=4;
+            while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset+=4;
+            for (int8u Pos=0; Pos<3; Pos++)
+                if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                    Buffer_Offset--;
         }
 
         if (Buffer_Offset+16<=Buffer_Size) //Testing if size is coherant
         {
             //Retrieving some info
-            int32u Size=CC4(Buffer+Buffer_Offset+6);
+            int32u Size=BigEndian2int32u(Buffer+Buffer_Offset+6);
 
             //Testing
             if (Buffer_Offset+Size+16>Buffer_Size)
                 return false; //Need more data
-            if (CC5(Buffer+Buffer_Offset+Size   )!=0x0000000001
-             || CC2(Buffer+Buffer_Offset+Size+14)!=0xE1E2)
-                Buffer_Offset++;
+            if (Buffer[Buffer_Offset+Size  ]!=0x00
+             || Buffer[Buffer_Offset+Size+1]!=0x00
+             || Buffer[Buffer_Offset+Size+2]!=0x00
+             || Buffer[Buffer_Offset+Size+3]!=0x00
+             || Buffer[Buffer_Offset+Size+4]!=0x01
+             || Buffer[Buffer_Offset+Size+14]!=0xE1
+             || Buffer[Buffer_Offset+Size+15]!=0xE2)
+                 Buffer_Offset++;
             else
                 break;
         }

@@ -134,8 +134,18 @@ void File_Vc3::Streams_Fill()
 bool File_Vc3::Synchronize()
 {
     //Synchronizing
-    while(Buffer_Offset+5<=Buffer_Size && CC5(Buffer+Buffer_Offset)!=0x0000028001LL)
-        Buffer_Offset++;
+    while (Buffer_Offset+5<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                         || Buffer[Buffer_Offset+1]!=0x00
+                                         || Buffer[Buffer_Offset+2]!=0x02
+                                         || Buffer[Buffer_Offset+3]!=0x80
+                                         || Buffer[Buffer_Offset+4]!=0x01))
+    {
+        Buffer_Offset+=2;
+        while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset+=2;
+        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+            Buffer_Offset--;
+    }
 
     //Parsing last bytes if needed
     if (Buffer_Offset+4==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
@@ -165,11 +175,15 @@ bool File_Vc3::Synchronize()
 bool File_Vc3::Synched_Test()
 {
     //Must have enough buffer for having header
-    if (Buffer_Offset+0x05>Buffer_Size)
+    if (Buffer_Offset+5>Buffer_Size)
         return false;
 
     //Quick test of synchro
-    if (CC5(Buffer+Buffer_Offset)!=0x0000028001LL)
+    if (Buffer[Buffer_Offset  ]!=0x00
+     || Buffer[Buffer_Offset+1]!=0x00
+     || Buffer[Buffer_Offset+2]!=0x02
+     || Buffer[Buffer_Offset+3]!=0x80
+     || Buffer[Buffer_Offset+4]!=0x01)
     {
         Synched=false;
         return true;

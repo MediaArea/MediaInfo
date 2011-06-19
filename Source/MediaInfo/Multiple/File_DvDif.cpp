@@ -546,14 +546,14 @@ bool File_DvDif::Synchronize()
     }
 
     while (Buffer_Offset+8*80<=Buffer_Size //8 blocks
-        && !((CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
-          && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
-          && (CC3(Buffer+Buffer_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
-          && (CC3(Buffer+Buffer_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
-          && (CC3(Buffer+Buffer_Offset+4*80)&0xE0F0FF)==0x400001   //VAUX 1
-          && (CC3(Buffer+Buffer_Offset+5*80)&0xE0F0FF)==0x400002   //VAUX 2
-          && (CC3(Buffer+Buffer_Offset+6*80)&0xE0F0FF)==0x600000   //Audio 0
-          && (CC3(Buffer+Buffer_Offset+7*80)&0xE0F0FF)==0x800000)) //Video 0
+        && !((Buffer[Buffer_Offset+0*80]&0xE0)==0x00 && (Buffer[Buffer_Offset+0*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+0*80+2]==0x00   //Header 0
+          && (Buffer[Buffer_Offset+1*80]&0xE0)==0x20 && (Buffer[Buffer_Offset+1*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+1*80+2]==0x00   //Subcode 0
+          && (Buffer[Buffer_Offset+2*80]&0xE0)==0x20 && (Buffer[Buffer_Offset+2*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+2*80+2]==0x01   //Subcode 1
+          && (Buffer[Buffer_Offset+3*80]&0xE0)==0x40 && (Buffer[Buffer_Offset+3*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+3*80+2]==0x00   //VAUX 0
+          && (Buffer[Buffer_Offset+4*80]&0xE0)==0x40 && (Buffer[Buffer_Offset+4*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+4*80+2]==0x01   //VAUX 1
+          && (Buffer[Buffer_Offset+5*80]&0xE0)==0x40 && (Buffer[Buffer_Offset+5*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+5*80+2]==0x02   //VAUX 2
+          && (Buffer[Buffer_Offset+6*80]&0xE0)==0x60 && (Buffer[Buffer_Offset+6*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+6*80+2]==0x00   //Audio 0
+          && (Buffer[Buffer_Offset+7*80]&0xE0)==0x80 && (Buffer[Buffer_Offset+7*80+1]&0xF0)==0x00 && Buffer[Buffer_Offset+7*80+2]==0x00)) //Video 0
             Buffer_Offset++;
 
     if (Buffer_Offset+8*80>Buffer_Size)

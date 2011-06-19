@@ -151,38 +151,60 @@ bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
     //ID
     if (Base->Buffer_Offset+Synchro_Offset+3>Base->Buffer_Size)
         return false;
-    switch (CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset))
+    switch (Base->Buffer[Base->Buffer_Offset+Synchro_Offset])
     {
-        case 0x494433 : //"ID3"
-                        if (Synchro_Offset)
-                        {
-                            Tag_Found=true; //This is an ID3 tag after a complete chunk, waiting for the chunk to be parsed
-                            return true;
-                        }
-                        if (!Synched_Test()) //Handling begin/intermediate Id3v2
-                            return false;
-                        return Synchronize(Tag_Found, Synchro_Offset);
-        case 0x544147 : //"TAG"
-        case 0x4C5952 : //"LYR"
-        case 0x415045 : //"APE"
-                        if (TagSizeIsFinal && Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize)
-                        {
-                            Tag_Found=true;
-                            return Synched_Test();
-                        }
-                        else if (Base->File_Offset+Base->Buffer_Size==Base->File_Size)
-                        {
-                             while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
-                             Tag_Found=Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize;
-                             return true;
-                        }
-                        else
-                            return false; //Need more data
-        default       : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
-                        {
-                            Tag_Found=true;
-                            return true;
-                        };
+        case 0x49 : //"ID3"
+                    switch (CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset))
+                    {
+                        case 0x494433 : //"ID3"
+                                        if (Synchro_Offset)
+                                        {
+                                            Tag_Found=true; //This is an ID3 tag after a complete chunk, waiting for the chunk to be parsed
+                                            return true;
+                                        }
+                                        if (!Synched_Test()) //Handling begin/intermediate Id3v2
+                                            return false;
+                                        return Synchronize(Tag_Found, Synchro_Offset);
+                        default       : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
+                                        {
+                                            Tag_Found=true;
+                                            return true;
+                                        };
+                    }
+                    break;
+        case 0x54 : //"TAG"
+        case 0x4C : //"LYR"
+        case 0x41 : //"APE"
+                    switch (CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset))
+                    {
+                        case 0x544147 : //"TAG"
+                        case 0x4C5952 : //"LYR"
+                        case 0x415045 : //"APE"
+                                        if (TagSizeIsFinal && Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize)
+                                        {
+                                            Tag_Found=true;
+                                            return Synched_Test();
+                                        }
+                                        else if (Base->File_Offset+Base->Buffer_Size==Base->File_Size)
+                                        {
+                                             while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
+                                             Tag_Found=Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize;
+                                             return true;
+                                        }
+                                        else
+                                            return false; //Need more data
+                        default       : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
+                                        {
+                                            Tag_Found=true;
+                                            return true;
+                                        };
+                    }
+                    break;
+        default   : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
+                    {
+                        Tag_Found=true;
+                        return true;
+                    };
     }
 
     Tag_Found=false;

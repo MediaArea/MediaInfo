@@ -163,11 +163,17 @@ bool File_Ogg::Synchronize()
     //Synchronizing
     while (Buffer_Offset+4<=Buffer_Size)
     {
-        while (Buffer_Offset+4<=Buffer_Size)
+        while(Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x4F
+                                            || Buffer[Buffer_Offset+1]!=0x67
+                                            || Buffer[Buffer_Offset+2]!=0x67
+                                            || Buffer[Buffer_Offset+3]!=0x53)) //"OggS"
         {
-            if (CC4(Buffer+Buffer_Offset)==0x4F676753) //"OggS"
-                break;
-            Buffer_Offset++;
+            Buffer_Offset+=1+2;
+            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x67)
+                Buffer_Offset+=2;
+            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x67 || Buffer_Offset>=Buffer_Size)
+                Buffer_Offset--;
+            Buffer_Offset--;
         }
 
         if (Buffer_Offset+4<=Buffer_Size) //Testing if size is coherant

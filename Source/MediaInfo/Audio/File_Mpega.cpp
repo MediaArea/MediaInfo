@@ -577,7 +577,10 @@ bool File_Mpega::Synchronize()
     {
         while (Buffer_Offset+4<=Buffer_Size)
         {
-            if ((CC2(Buffer+Buffer_Offset+0)&0xFFE0)==0xFFE0 && (CC1(Buffer+Buffer_Offset+2)&0xF0)!=0xF0 && (CC1(Buffer+Buffer_Offset+2)&0x0C)!=0x0C)
+            if (Buffer[Buffer_Offset  ]==0xFF
+             && (Buffer[Buffer_Offset+1]&0xE0)==0xE0
+             && (Buffer[Buffer_Offset+2]&0xF0)!=0xF0
+             && (Buffer[Buffer_Offset+2]&0x0C)!=0x0C)
                 break; //while()
 
             //Tags
@@ -588,7 +591,11 @@ bool File_Mpega::Synchronize()
                 return true;
 
             //Better detect MPEG-PS
-            if (Frame_Count==0 && CC4(Buffer+Buffer_Offset)==0x000001BA)
+            if (Frame_Count==0
+             && Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x00
+             && Buffer[Buffer_Offset+2]==0x01
+             && Buffer[Buffer_Offset+3]==0xBA)
             {
                 MpegPsPattern_Count++;
                 if (MpegPsPattern_Count>=2)
@@ -756,7 +763,10 @@ bool File_Mpega::Synched_Test()
         return false;
 
     //Quick test of synchro
-    if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
+    if (Buffer[Buffer_Offset  ]!=0xFF
+     || (Buffer[Buffer_Offset+1]&0xE0)!=0xE0
+     || (Buffer[Buffer_Offset+2]&0xF0)==0xF0
+     || (Buffer[Buffer_Offset+2]&0x0C)==0x0C)
     {
         Synched=false;
         return true;

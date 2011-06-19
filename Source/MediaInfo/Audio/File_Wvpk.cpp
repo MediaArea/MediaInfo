@@ -198,23 +198,26 @@ bool File_Wvpk::Synchronize()
         return true;
 
     //Synchronizing
-    while (Buffer_Offset+8<=Buffer_Size)
+    while (Buffer_Offset+4<=Buffer_Size)
     {
-        while (Buffer_Offset+8<=Buffer_Size
-            && CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
-        {
+        while (Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x77
+                                             || Buffer[Buffer_Offset+1]!=0x76
+                                             || Buffer[Buffer_Offset+2]!=0x70
+                                             || Buffer[Buffer_Offset+3]!=0x6B)) //"wvpk"
             Buffer_Offset++;
-        }
 
-        if (Buffer_Offset+8<=Buffer_Size)//Testing if size is coherant
+        if (Buffer_Offset+4<=Buffer_Size)//Testing if size is coherant
         {
             //Testing next start, to be sure
             size_t Size=LittleEndian2int32u(Buffer+Buffer_Offset+4)+8;
-            if (Buffer_Offset+Size+8>Buffer_Size)
+            if (Buffer_Offset+Size+4>Buffer_Size)
                 return false; //Need more data
 
             //Testing
-            if (CC4(Buffer+Buffer_Offset+Size)!=CC4("wvpk"))
+            if (Buffer[Buffer_Offset+Size  ]!=0x77
+             || Buffer[Buffer_Offset+Size+1]!=0x76
+             || Buffer[Buffer_Offset+Size+2]!=0x70
+             || Buffer[Buffer_Offset+Size+3]!=0x6B) //"wvpk"
                 Buffer_Offset++;
             else
                 break; //while()
@@ -222,17 +225,9 @@ bool File_Wvpk::Synchronize()
     }
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+8>Buffer_Size)
+    if (Buffer_Offset+4>Buffer_Size)
     {
-        if (Buffer_Offset+7==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
-            Buffer_Offset++;
-        if (Buffer_Offset+6==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
-            Buffer_Offset++;
-        if (Buffer_Offset+5==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
-            Buffer_Offset++;
-        if (Buffer_Offset+4==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
-            Buffer_Offset++;
-        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x777670)   //"wv"
+        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x777670)   //"wvp"
             Buffer_Offset++;
         if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x7776)     //"wv"
             Buffer_Offset++;
@@ -261,7 +256,10 @@ bool File_Wvpk::Synched_Test()
         return false;
 
     //Quick test of synchro
-    if (CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
+    if (Buffer[Buffer_Offset  ]!=0x77
+     || Buffer[Buffer_Offset+1]!=0x76
+     || Buffer[Buffer_Offset+2]!=0x70
+     || Buffer[Buffer_Offset+3]!=0x6B) //"wvpk"
         Synched=false;
 
     //We continue

@@ -467,15 +467,21 @@ void File_Dirac::Streams_Finish()
 bool File_Dirac::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+5<=Buffer_Size
-        && CC4(Buffer+Buffer_Offset)!=0x42424344)  //"BBCD"
-        Buffer_Offset++;
+    while(Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x42
+                                        || Buffer[Buffer_Offset+1]!=0x42
+                                        || Buffer[Buffer_Offset+2]!=0x43
+                                        || Buffer[Buffer_Offset+3]!=0x44)) //"BBCD"
+    {
+        Buffer_Offset+=2;
+        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x42)
+            Buffer_Offset+=2;
+        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x42 || Buffer_Offset>=Buffer_Size)
+            Buffer_Offset--;
+    }
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+5>Buffer_Size)
+    if (Buffer_Offset+4>Buffer_Size)
     {
-        if (Buffer_Offset+4==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x42424344) //"BBCD"
-            Buffer_Offset++;
         if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x424243)    //"BBC"
             Buffer_Offset++;
         if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x4242)      //"BB"

@@ -315,7 +315,12 @@ void File_Dpx::Streams_Finish()
 bool File_Dpx::Demux_UnpacketizeContainer_Test()
 {
     if (Buffer_Size<File_Size)
+    {
+        size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
+        if (File_Buffer_Size_Hint_Pointer)
+            (*File_Buffer_Size_Hint_Pointer)=File_Size;
         return false;
+    }
 
     if (Config->Demux_Rate_Get())
     {
@@ -360,7 +365,6 @@ bool File_Dpx::FileHeader_Begin()
     //Generic Section size
     if (Buffer_Size<28)
         return false; //Must wait for more data
-    Sizes.push_back(BigEndian2int32u(Buffer+24));
     Sizes_Pos=Pos_GenericSection;
     switch (Magic)
     {
@@ -379,10 +383,12 @@ bool File_Dpx::FileHeader_Begin()
         case 0xD75F2A80 :   //       (v1 Little)
         case 0x58504453 :   //"XDPS" (v2 Little)
                             LittleEndian=true;
+                            Sizes.push_back(LittleEndian2int32u(Buffer+24));
                             break;
         case 0x802A5FD7 :   //       (v1 Big)
         case 0x53445058 :   //"SPDX" (v2 Big)
                             LittleEndian=false;
+                            Sizes.push_back(BigEndian2int32u(Buffer+24));
                             break;
         default         :   ;
     }
@@ -408,6 +414,13 @@ void File_Dpx::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Dpx::Data_Parse()
 {
+    if (Count_Get(Stream_Video))
+    {
+        //In a video stream, no need to parse all frames)
+        GoToFromEnd(0);
+        return;
+    }
+
     Sizes_Pos++; //We go automaticly to the next block
 
     if (Version==1)
@@ -440,13 +453,13 @@ void File_Dpx::Data_Parse()
     {
         //Not related to this block, but we have not more intersting stuff, simply skip the rest
         Element_End(); //This is not in this block, but the next one
-        if (Sizes[Pos_Padding])
-            Skip_XX(Sizes[Pos_Padding],                         "Padding");
-        Skip_XX(Sizes[Pos_ImageData],                           "Image data");
+        //if (Sizes[Pos_Padding])
+        //    Skip_XX(Sizes[Pos_Padding],                         "Padding");
+        //Skip_XX(Sizes[Pos_ImageData],                           "Image data");
 
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
-        Finish();
+        GoToFromEnd(0);
     }
 }
 

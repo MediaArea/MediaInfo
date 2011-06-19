@@ -205,9 +205,22 @@ void File_Lxf::Streams_Finish()
 bool File_Lxf::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+8<=Buffer_Size
-        && CC8(Buffer+Buffer_Offset)!=0x4C45495443480000LL)
-        Buffer_Offset++;
+    while (Buffer_Offset+8<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x4C
+                                         || Buffer[Buffer_Offset+1]!=0x45
+                                         || Buffer[Buffer_Offset+2]!=0x49
+                                         || Buffer[Buffer_Offset+3]!=0x54
+                                         || Buffer[Buffer_Offset+4]!=0x43
+                                         || Buffer[Buffer_Offset+5]!=0x48
+                                         || Buffer[Buffer_Offset+6]!=0x00
+                                         || Buffer[Buffer_Offset+7]!=0x00))
+    {
+        Buffer_Offset+=6+2;
+        while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset+=2;
+        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+            Buffer_Offset--;
+        Buffer_Offset-=6;
+    }
 
     //Parsing last bytes if needed
     if (Buffer_Offset+8>Buffer_Size)

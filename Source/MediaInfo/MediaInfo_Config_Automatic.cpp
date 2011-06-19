@@ -1109,7 +1109,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Wave64;;;A;Riff;;w64\n"
     "WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com\n"
     "Bitmap;;;I;Bmp;;bmp;image/bmp;;Lossless\n"
-    "DPX;;;I;Dpx;;dpx;;;Lossless\n"
+    "DPX;;;I;Dpx;;dpx cin;;;Lossless\n"
     "EXR;;;I;Exr;;exr;;;Lossless\n"
     "DIB;;;I;Riff;RIFF Device Independent Bitmap;;;;Lossless\n"
     "GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif;;Lossless\n"

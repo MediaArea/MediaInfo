@@ -605,7 +605,10 @@ bool File_Aes3::Synchronize()
     //Synchronizing
     while (Buffer_Offset+16<=Buffer_Size)
     {
-        if (CC4(Buffer+Buffer_Offset)==0xF8724E1F) //SMPTE 337M 16-bit, BE
+        if (Buffer[Buffer_Offset  ]==0xF8
+         && Buffer[Buffer_Offset+1]==0x72
+         && Buffer[Buffer_Offset+2]==0x4E
+         && Buffer[Buffer_Offset+3]==0x1F) //SMPTE 337M 16-bit, BE
         {
             ByteSize=4;
             Container_Bits=16;
@@ -613,7 +616,10 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC4(Buffer+Buffer_Offset)==0x72F81F4E) //SMPTE 337M 16-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x72
+         && Buffer[Buffer_Offset+1]==0xF8
+         && Buffer[Buffer_Offset+2]==0x1F
+         && Buffer[Buffer_Offset+3]==0x4E) //SMPTE 337M 16-bit, LE
         {
             ByteSize=4;
             Container_Bits=16;
@@ -621,7 +627,11 @@ bool File_Aes3::Synchronize()
             Endianess=true; //LE
             break; //while()
         }
-        if (CC5(Buffer+Buffer_Offset)==0x6F87254E1FLL) //SMPTE 337M 20-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x6F
+         && Buffer[Buffer_Offset+1]==0x87
+         && Buffer[Buffer_Offset+2]==0x25
+         && Buffer[Buffer_Offset+3]==0x4E
+         && Buffer[Buffer_Offset+4]==0x1F) //SMPTE 337M 20-bit, BE
         {
             ByteSize=5;
             Container_Bits=20;
@@ -629,7 +639,12 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC6(Buffer+Buffer_Offset)==0x96F872A54E1FLL) //SMPTE 337M 24-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x96
+         && Buffer[Buffer_Offset+1]==0xF8
+         && Buffer[Buffer_Offset+2]==0x72
+         && Buffer[Buffer_Offset+3]==0xA5
+         && Buffer[Buffer_Offset+4]==0x4E
+         && Buffer[Buffer_Offset+5]==0x1F) //SMPTE 337M 24-bit, BE
         {
             ByteSize=6;
             Container_Bits=24;
@@ -637,7 +652,12 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC6(Buffer+Buffer_Offset)==0x72F8961F4E5ALL) //SMPTE 337M 24-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x72
+         && Buffer[Buffer_Offset+1]==0xF8
+         && Buffer[Buffer_Offset+2]==0x96
+         && Buffer[Buffer_Offset+3]==0x1F
+         && Buffer[Buffer_Offset+4]==0x4E
+         && Buffer[Buffer_Offset+5]==0x5A) //SMPTE 337M 24-bit, LE
         {
             ByteSize=6;
             Container_Bits=24;
@@ -645,7 +665,12 @@ bool File_Aes3::Synchronize()
             Endianess=true; //LE
             break; //while()
         }
-        if (CC6(Buffer+Buffer_Offset)==0x00F872004E1FLL) //16-bit in 24-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0xF8
+         && Buffer[Buffer_Offset+2]==0x72
+         && Buffer[Buffer_Offset+3]==0x00
+         && Buffer[Buffer_Offset+4]==0x4E
+         && Buffer[Buffer_Offset+5]==0x1F) //16-bit in 24-bit, BE
         {
             ByteSize=6;
             Container_Bits=24;
@@ -653,7 +678,12 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC6(Buffer+Buffer_Offset)==0x0072F8001F4ELL) //16-bit in 24-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x72
+         && Buffer[Buffer_Offset+2]==0xF8
+         && Buffer[Buffer_Offset+3]==0x00
+         && Buffer[Buffer_Offset+4]==0x1F
+         && Buffer[Buffer_Offset+5]==0x4E) //16-bit in 24-bit, LE
         {
             ByteSize=6;
             Container_Bits=24;
@@ -661,7 +691,12 @@ bool File_Aes3::Synchronize()
             Endianess=true; //LE
             break; //while()
         }
-        if (CC6(Buffer+Buffer_Offset)==0x6F872054E1F0LL) //20-bit in 24-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x6F
+         && Buffer[Buffer_Offset+1]==0x87
+         && Buffer[Buffer_Offset+2]==0x20
+         && Buffer[Buffer_Offset+3]==0x54
+         && Buffer[Buffer_Offset+4]==0xE1
+         && Buffer[Buffer_Offset+5]==0xF0) //20-bit in 24-bit, BE
         {
             ByteSize=6;
             Container_Bits=24;
@@ -669,7 +704,12 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC6(Buffer+Buffer_Offset)==0x20876FF0E154LL) //20-bit in 24-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x20
+         && Buffer[Buffer_Offset+1]==0x87
+         && Buffer[Buffer_Offset+2]==0x6F
+         && Buffer[Buffer_Offset+3]==0xF0
+         && Buffer[Buffer_Offset+4]==0xE1
+         && Buffer[Buffer_Offset+5]==0x54) //20-bit in 24-bit, LE
         {
             ByteSize=6;
             Container_Bits=24;
@@ -677,7 +717,14 @@ bool File_Aes3::Synchronize()
             Endianess=true; //LE
             break; //while()
         }
-        if (CC8(Buffer+Buffer_Offset)==0x0000F87200004E1FLL) //16-bit in 32-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x00
+         && Buffer[Buffer_Offset+2]==0xF8
+         && Buffer[Buffer_Offset+3]==0x72
+         && Buffer[Buffer_Offset+4]==0x00
+         && Buffer[Buffer_Offset+5]==0x00
+         && Buffer[Buffer_Offset+6]==0x4E
+         && Buffer[Buffer_Offset+7]==0x1F) //16-bit in 32-bit, BE
         {
             ByteSize=8;
             Container_Bits=32;
@@ -685,7 +732,14 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC8(Buffer+Buffer_Offset)==0x000072F800001F4ELL) //16-bit in 32-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x00
+         && Buffer[Buffer_Offset+2]==0x72
+         && Buffer[Buffer_Offset+3]==0xF8
+         && Buffer[Buffer_Offset+4]==0x00
+         && Buffer[Buffer_Offset+5]==0x00
+         && Buffer[Buffer_Offset+6]==0x1F
+         && Buffer[Buffer_Offset+7]==0x4E) //16-bit in 32-bit, LE
         {
             ByteSize=8;
             Container_Bits=32;
@@ -693,7 +747,14 @@ bool File_Aes3::Synchronize()
             Endianess=true; //LE
             break; //while()
         }
-        if (CC8(Buffer+Buffer_Offset)==0x006F87200054E1F0LL) //20-bit in 32-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x6F
+         && Buffer[Buffer_Offset+2]==0x87
+         && Buffer[Buffer_Offset+3]==0x20
+         && Buffer[Buffer_Offset+4]==0x00
+         && Buffer[Buffer_Offset+5]==0x54
+         && Buffer[Buffer_Offset+6]==0xE1
+         && Buffer[Buffer_Offset+7]==0xF0) //20-bit in 32-bit, BE
         {
             ByteSize=8;
             Container_Bits=32;
@@ -701,7 +762,14 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC8(Buffer+Buffer_Offset)==0x0020876F00F0E154LL) //20-bit in 32-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x20
+         && Buffer[Buffer_Offset+2]==0x87
+         && Buffer[Buffer_Offset+3]==0x6F
+         && Buffer[Buffer_Offset+4]==0x00
+         && Buffer[Buffer_Offset+5]==0xF0
+         && Buffer[Buffer_Offset+6]==0xE1
+         && Buffer[Buffer_Offset+7]==0x54) //20-bit in 32-bit, LE
         {
             ByteSize=8;
             Container_Bits=32;
@@ -709,7 +777,14 @@ bool File_Aes3::Synchronize()
             Endianess=true; //LE
             break; //while()
         }
-        if (CC8(Buffer+Buffer_Offset)==0x0096F8720A54E1FLL) //24-bit in 32-bit, BE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x96
+         && Buffer[Buffer_Offset+2]==0xF8
+         && Buffer[Buffer_Offset+3]==0x72
+         && Buffer[Buffer_Offset+4]==0x00
+         && Buffer[Buffer_Offset+5]==0xA5
+         && Buffer[Buffer_Offset+6]==0x4E
+         && Buffer[Buffer_Offset+7]==0x1F) //24-bit in 32-bit, BE
         {
             ByteSize=8;
             Container_Bits=32;
@@ -717,7 +792,14 @@ bool File_Aes3::Synchronize()
             Endianess=false; //BE
             break; //while()
         }
-        if (CC8(Buffer+Buffer_Offset)==0x0072F896001F4EA5LL) //24-bit in 32-bit, LE
+        if (Buffer[Buffer_Offset  ]==0x00
+         && Buffer[Buffer_Offset+1]==0x72
+         && Buffer[Buffer_Offset+2]==0xF8
+         && Buffer[Buffer_Offset+3]==0x96
+         && Buffer[Buffer_Offset+4]==0x00
+         && Buffer[Buffer_Offset+5]==0x1F
+         && Buffer[Buffer_Offset+6]==0x4E
+         && Buffer[Buffer_Offset+7]==0xA5) //24-bit in 32-bit, LE
         {
             ByteSize=8;
             Container_Bits=32;
