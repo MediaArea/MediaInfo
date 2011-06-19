@@ -157,8 +157,6 @@ private :
     bool    IsInThread;
     void    Entry();
     ZenLib::CriticalSection CS;
-    ZtringList  File_Names;
-    size_t      File_Names_Pos;
 
     #ifdef MEDIAINFO_DEBUG_CONFIG
         File Debug_Config;

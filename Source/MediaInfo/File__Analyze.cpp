@@ -408,6 +408,14 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 ForceFinish();
                 return;
         }
+
+        #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent && Buffer_Offset==0) //If there was no byte consumed
+        {
+            Config->File_Buffer_Repeat=true;
+        }
+        else
+        #endif //MEDIAINFO_DEMUX
         if (Buffer_Temp_Size==0) //If there was no copy
         {
             if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<ToAdd_Size-Buffer_Offset)
@@ -2009,8 +2017,11 @@ void File__Analyze::Accept ()
     #endif //MEDIAINFO_TRACE
 
     Status[IsAccepted]=true;
-    Stream_Prepare(Stream_General);
-    Streams_Accept();
+    if (Count_Get(Stream_General)==0)
+    {
+        Stream_Prepare(Stream_General);
+        Streams_Accept();
+    }
 
     #if MEDIAINFO_EVENTS
         if (!IsSub)

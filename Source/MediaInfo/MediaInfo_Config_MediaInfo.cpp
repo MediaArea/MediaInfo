@@ -38,6 +38,8 @@ using namespace std;
 namespace MediaInfoLib
 {
 
+const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
+
 //***************************************************************************
 // Info
 //***************************************************************************
@@ -46,6 +48,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 {
     FileIsSeekable=true;
     FileIsSub=false;
+    FileIsReferenced=false;
     FileKeepInfo=false;
     FileStopAfterFilled=false;
     FileStopSubStreamAfterFilled=false;
@@ -92,12 +95,23 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     State=0;
 
     //Internal to MediaInfo, not thread safe
+    File_Names_Pos=0;
+    File_Buffer=NULL;
+    File_Buffer_Size_Max=0;
+    File_Buffer_Size_ToRead=Buffer_NormalSize;
+    File_Buffer_Size=0;
+    File_Buffer_Repeat=false;
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
         #if MEDIAINFO_SEEK
            Demux_IsSeeking=false;
         #endif //MEDIAINFO_SEEK
     #endif //MEDIAINFO_DEMUX
+}
+
+MediaInfo_Config_MediaInfo::~MediaInfo_Config_MediaInfo()
+{
+    delete[] File_Buffer; //File_Buffer=NULL;
 }
 
 //***************************************************************************
@@ -133,6 +147,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_issub_get"))
     {
         return File_IsSub_Get()?"1":"0";
+    }
+    if (Option_Lower==_T("file_isreferenced"))
+    {
+        File_IsReferenced_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_isreferenced_get"))
+    {
+        return File_IsReferenced_Get()?"1":"0";
     }
     if (Option_Lower==_T("file_keepinfo"))
     {
@@ -541,6 +564,23 @@ bool MediaInfo_Config_MediaInfo::File_IsSub_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return FileIsSub;
+}
+
+//***************************************************************************
+// File Is Referenced
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_IsReferenced_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    FileIsReferenced=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_IsReferenced_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return FileIsReferenced;
 }
 
 //***************************************************************************

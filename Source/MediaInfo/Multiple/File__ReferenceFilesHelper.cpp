@@ -162,6 +162,7 @@ void File__ReferenceFilesHelper::ParseReference()
     {
         //Configuration
         Reference->MI=new MediaInfo_Internal();
+        Reference->MI->Option(_T("File_IsReferenced"), _T("1"));
         Reference->MI->Option(_T("File_FileNameFormat"), _T("CSV"));
         if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
             Reference->MI->Option(_T("File_StopAfterFilled"), _T("1"));
@@ -319,7 +320,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                     break;
                 }
                 
-                if (Reference->StreamPos==(size_t)-1)
+                if (Reference->StreamKind==Stream_Max)
                     return; //There is a problem
         }
 
@@ -334,7 +335,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
     if (Reference->FileNames.size()>1 && Reference->MI->Count_Get(Stream_Image))
     {
         Reference->MI->Info->Stream_Prepare(Stream_Video);
-        for (size_t Pos=0; Pos<Reference->MI->Count_Get(Stream_Image, 0); Pos++)
+        for (size_t Pos=General_ID; Pos<Reference->MI->Count_Get(Stream_Image, 0); Pos++)
             Reference->MI->Info->Fill(Stream_Video, 0, Reference->MI->Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Reference->MI->Get(Stream_Image, 0, Pos), true);
         Reference->MI->Info->Stream_Erase(Stream_Image, 0);
 

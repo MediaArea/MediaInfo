@@ -54,6 +54,7 @@ class MediaInfo_Config_MediaInfo
 public :
     //Constructor/Destructor
     MediaInfo_Config_MediaInfo();
+    ~MediaInfo_Config_MediaInfo();
 
     //General
     Ztring Option (const String &Option, const String &Value=Ztring());
@@ -63,6 +64,9 @@ public :
 
     void          File_IsSub_Set (bool NewValue);
     bool          File_IsSub_Get ();
+
+    void          File_IsReferenced_Set (bool NewValue);
+    bool          File_IsReferenced_Get ();
 
     void          File_KeepInfo_Set (bool NewValue);
     bool          File_KeepInfo_Get ();
@@ -191,6 +195,13 @@ public :
     float         State_Get ();
 
     //Internal to MediaInfo, not thread safe
+    ZtringList    File_Names;
+    size_t        File_Names_Pos;
+    size_t        File_Buffer_Size_Max;
+    size_t        File_Buffer_Size_ToRead;
+    size_t        File_Buffer_Size;
+    int8u*        File_Buffer;
+    bool          File_Buffer_Repeat;
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
         #if MEDIAINFO_SEEK
@@ -201,6 +212,7 @@ public :
 private :
     bool                    FileIsSeekable;
     bool                    FileIsSub;
+    bool                    FileIsReferenced;
     bool                    FileKeepInfo;
     bool                    FileStopAfterFilled;
     bool                    FileStopSubStreamAfterFilled;

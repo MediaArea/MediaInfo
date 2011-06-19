@@ -53,9 +53,6 @@ public :
     size_t Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value, int64u ID);
 
     ZenLib::File F;
-    size_t Buffer_Size_Max;
-    size_t Buffer_Size_ToRead;
-    int8u* Buffer;
     std::bitset<32> Status;
     int64u          Partial_Begin;
     int64u          Partial_End;

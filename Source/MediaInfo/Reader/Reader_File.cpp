@@ -54,12 +54,12 @@ using namespace std;
 namespace MediaInfoLib
 {
 
-const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
 const size_t Buffer_NoJump=128*1024;
 
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
+	//std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
     #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_General_Start_0 Event;
@@ -162,10 +162,7 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     MI->Open_Buffer_Init(Partial_End-Partial_Begin, File_Name);
 
     //Buffer
-    Buffer=NULL;
-    Buffer_Size_Max=Buffer_NormalSize>1?(Buffer_NormalSize/2):1;
-    Buffer_Size_ToRead=Buffer_NormalSize;
-    MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&Buffer_Size_ToRead)));
+    MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&MI->Config.File_Buffer_Size_ToRead)));
 
     //Test the format with buffer
     return Format_Test_PerParser_Continue(MI);
@@ -184,7 +181,13 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         MI->Config.Demux_EventWasSent=false;
 
         //Parser
-        Status=MI->Open_Buffer_Continue(NULL, 0);
+        if (MI->Config.File_Buffer_Repeat)
+        {
+            MI->Config.File_Buffer_Repeat=false;
+            Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
+        }
+        else
+            Status=MI->Open_Buffer_Continue(NULL, 0);
 
         //Demux
         if (MI->Config.Demux_EventWasSent)
@@ -226,18 +229,20 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
 
             //Handling of hints
-            if (Buffer_Size_ToRead==0)
-                Buffer_Size_ToRead=Buffer_NormalSize;
-            if (Buffer_Size_ToRead>Buffer_Size_Max)
+            if (MI->Config.File_Buffer_Size_ToRead==0)
+                break; //Problem while config
+            if (MI->Config.File_Buffer_Size_ToRead>MI->Config.File_Buffer_Size_Max)
             {
-                delete[] Buffer;
-                while (Buffer_Size_ToRead>Buffer_Size_Max)
-                    Buffer_Size_Max*=2;
-                Buffer=new int8u[Buffer_Size_Max];
+                delete[] MI->Config.File_Buffer;
+                if (MI->Config.File_Buffer_Size_Max==0)
+                    MI->Config.File_Buffer_Size_Max=1;    
+                while (MI->Config.File_Buffer_Size_ToRead>MI->Config.File_Buffer_Size_Max)
+                    MI->Config.File_Buffer_Size_Max*=2;
+                MI->Config.File_Buffer=new int8u[MI->Config.File_Buffer_Size_Max];
             }
 
-            size_t Buffer_Size=F.Read(Buffer, (F.Position_Get()+Buffer_Size_ToRead<Partial_End)?Buffer_Size_ToRead:((size_t)(Partial_End-F.Position_Get())));
-            if (Buffer_Size==0)
+            MI->Config.File_Buffer_Size=F.Read(MI->Config.File_Buffer, (F.Position_Get()+MI->Config.File_Buffer_Size_ToRead<Partial_End)?MI->Config.File_Buffer_Size_ToRead:((size_t)(Partial_End-F.Position_Get())));
+            if (MI->Config.File_Buffer_Size==0)
                 break; //Problem while reading
 
             //Testing growing files
@@ -258,7 +263,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     if (FileSize_Current!=FileSize_New)
                     {
                         Partial_End=FileSize_Current=FileSize_New;
-                        MI->Open_Buffer_Init(FileSize_Current, F.Position_Get()-Buffer_Size);
+                        MI->Open_Buffer_Init(FileSize_Current, F.Position_Get()-MI->Config.File_Buffer_Size);
                         break;
                     }
                     #ifdef WINDOWS
@@ -268,12 +273,12 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
 
             #ifdef MEDIAINFO_DEBUG
-                Reader_File_BytesRead_Total+=Buffer_Size;
-                Reader_File_BytesRead+=Buffer_Size;
+                Reader_File_BytesRead_Total+=MI->Config.File_Buffer_Size;
+                Reader_File_BytesRead+=MI->Config.File_Buffer_Size;
             #endif //MEDIAINFO_DEBUG
 
             //Parser
-            Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
+            Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
 
             #if MEDIAINFO_DEMUX
                 if (MI->Config.Demux_EventWasSent)
@@ -297,9 +302,6 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
     {
         //File
         F.Close();
-
-        //Buffer
-        delete[] Buffer; Buffer=NULL;
     }
 
     //Is this file detected?

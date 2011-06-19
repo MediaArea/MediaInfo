@@ -33,6 +33,7 @@
 #include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -47,6 +48,55 @@ extern MediaInfo_Config Config;
 void File__Analyze::Streams_Finish_Global()
 {
     if (IsSub)
+        return;
+
+    //Image as video
+    if (Config->File_Names.size()==1 && Count_Get(Stream_Image) && !File_Name.empty() && !Config->File_IsReferenced_Get())
+    {
+        //Trying to detect continuous file names (video stream as an image) 
+        FileName FileToTest(File_Name);
+        Ztring FileToTest_Name=FileToTest.Name_Get();
+        size_t FileNameToTest_Pos=FileToTest_Name.size();
+        while (FileNameToTest_Pos && FileToTest_Name[FileNameToTest_Pos-1]>=_T('0') && FileToTest_Name[FileNameToTest_Pos-1]<=_T('9'))
+            FileNameToTest_Pos--;
+        if (FileNameToTest_Pos!=FileToTest_Name.size())
+        {
+            size_t Numbers_Size=FileToTest_Name.size()-FileNameToTest_Pos;
+            int64u Pos=Ztring(FileToTest_Name.substr(FileNameToTest_Pos)).To_int64u();
+            FileToTest_Name.resize(FileNameToTest_Pos);
+
+            int64u TotalSize=File_Size;
+            int64u FrameCount=1;
+            while (true)
+            {
+                Pos++;
+                Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos);
+                Pos_Ztring.insert(0, Numbers_Size-Pos_Ztring.size(), _T('0'));
+                Ztring Next=FileToTest.Path_Get()+PathSeparator+FileToTest_Name+Pos_Ztring+_T('.')+FileToTest.Extension_Get();
+                int64u Size=File::Size_Get(Next);
+                if (Size==0 || Size==(int64u)-1)
+                    break;
+                TotalSize+=Size;
+                FrameCount++;
+                Config->File_Names.push_back(Next);
+            }
+
+            if (FrameCount>=24)
+            {
+                Stream_Prepare(Stream_Video);
+                for (size_t Pos=General_ID; Pos<Count_Get(Stream_Image, 0); Pos++)
+                    Fill(Stream_Video, 0, Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Get(Stream_Image, 0, Pos), true);
+                Stream_Erase(Stream_Image, 0);
+
+                Fill(Stream_General, 0, General_FileSize, TotalSize, 10, true);
+                Fill(Stream_Video, 0, Video_StreamSize, TotalSize, 10, true);
+                Fill(Stream_Video, 0, Video_FrameCount, FrameCount, 10, true);
+            }
+            else if (Config->File_Names.size()!=1)
+                Config->File_Names.resize(1); //REmoving files, wrong detection
+        }
+    }
+    if (Config->File_Names_Pos!=Config->File_Names.size())
         return;
 
     Streams_Finish_StreamOnly();
