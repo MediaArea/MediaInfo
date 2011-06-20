@@ -553,6 +553,7 @@ void File_Dpx::GenericSectionHeader_v1()
 
         //Filling meta
         Fill(Stream_General, 0, General_Encoded_Date, CreationDate+_T(' ')+CreationTime); //ToDo: transform it in UTC
+        Fill(Stream_Image, 0, Image_Encoded_Date, CreationDate+_T(' ')+CreationTime); //ToDo: transform it in UTC
     FILLING_END();
 }
 
@@ -669,7 +670,9 @@ void File_Dpx::GenericSectionHeader_v2()
 
         //Filling meta
         Fill(Stream_General, 0, General_Encoded_Date, CreationDate); //ToDo: transform it in UTC
+        Fill(Stream_Image, 0, Image_Encoded_Date, CreationDate); //ToDo: transform it in UTC
         Fill(Stream_General, 0, General_Encoded_Library, Creator);
+        Fill(Stream_Image, 0, Image_Encoded_Library, Creator);
         Fill(Stream_General, 0, "Project", Project); //ToDo: map to a MediaInfo field (which one?)
         Fill(Stream_General, 0, General_Copyright, Copyright);
 
