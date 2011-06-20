@@ -701,6 +701,11 @@ protected :
             HeaderByteCount=0;
             IndexByteCount=0;
         }
+
+        bool operator < (const partition& lhs)
+        {
+            return StreamOffset<lhs.StreamOffset;
+        }
     };
     typedef std::vector<partition>  partitions;
     partitions                      Partitions;
@@ -737,6 +742,11 @@ protected :
                 IndexDuration=0;
                 EditUnitByteCount=0;
                 IndexEditRate=0;
+            }
+
+            bool operator < (const indextable& lhs)
+            {
+                return IndexStartPosition<lhs.IndexStartPosition;
             }
         };
         typedef std::vector<indextable> indextables;

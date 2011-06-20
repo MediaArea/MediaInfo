@@ -73,6 +73,9 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
+#if MEDIAINFO_SEEK
+    #include <algorithm>
+#endif //MEDIAINFO_SEEK
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -1884,7 +1887,9 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("MXF"))
             return 0;
         Partitions=((File_Mxf*)MI.Info)->Partitions;
+        std::sort(Partitions.begin(), Partitions.end());
         IndexTables=((File_Mxf*)MI.Info)->IndexTables;
+        std::sort(IndexTables.begin(), IndexTables.end());
         SDTI_SizePerFrame=((File_Mxf*)MI.Info)->SDTI_SizePerFrame;
         Duration_Detected=true;
     }
