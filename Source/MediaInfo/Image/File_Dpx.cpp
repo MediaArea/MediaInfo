@@ -396,6 +396,14 @@ bool File_Dpx::FileHeader_Begin()
     //All should be OK...
     Accept();
 
+    //Testing if parsing is needed
+    if (Count_Get(Stream_Video))
+    {
+        //In a video stream, no need to parse all frames)
+        GoToFromEnd(0);
+        return true;
+    }
+
     return true;
 }
 
@@ -414,13 +422,6 @@ void File_Dpx::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Dpx::Data_Parse()
 {
-    if (Count_Get(Stream_Video))
-    {
-        //In a video stream, no need to parse all frames)
-        GoToFromEnd(0);
-        return;
-    }
-
     Sizes_Pos++; //We go automaticly to the next block
 
     if (Version==1)

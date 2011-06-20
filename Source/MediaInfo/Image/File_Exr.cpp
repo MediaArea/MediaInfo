@@ -99,7 +99,12 @@ void File_Exr::Streams_Finish()
 bool File_Exr::Demux_UnpacketizeContainer_Test()
 {
     if (Buffer_Size<File_Size)
+    {
+        size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
+        if (File_Buffer_Size_Hint_Pointer)
+            (*File_Buffer_Size_Hint_Pointer)=File_Size;
         return false;
+    }
 
     if (Config->Demux_Rate_Get())
     {
@@ -136,6 +141,15 @@ bool File_Exr::FileHeader_Begin()
 
     //All should be OK...
     Accept();
+
+    //Testing if parsing is needed
+    if (Count_Get(Stream_Video))
+    {
+        //In a video stream, no need to parse all frames)
+        GoToFromEnd(0);
+        return true;
+    }
+
     return true;
 }
 

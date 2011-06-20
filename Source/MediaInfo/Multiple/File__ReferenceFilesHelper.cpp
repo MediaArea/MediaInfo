@@ -162,7 +162,8 @@ void File__ReferenceFilesHelper::ParseReference()
     {
         //Configuration
         Reference->MI=new MediaInfo_Internal();
-        Reference->MI->Option(_T("File_IsReferenced"), _T("1"));
+        if (Reference->FileNames.size()>1)
+            Reference->MI->Option(_T("File_IsReferenced"), _T("1"));
         Reference->MI->Option(_T("File_FileNameFormat"), _T("CSV"));
         if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
             Reference->MI->Option(_T("File_StopAfterFilled"), _T("1"));
@@ -364,6 +365,14 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
     MI->Clear(StreamKind_Last, StreamPos_Last, General_ID);
 
     MI->Merge(*Reference->MI->Info, StreamKind_Last, 0, StreamPos_Last);
+
+    if (StreamKind_Last==Stream_Video && MI->Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
+        MI->Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Reference->FrameRate);
+
+    if (StreamKind_Last==Stream_Video && StreamPos_Last==0)
+        for (size_t Pos=0; Pos<Reference->MI->Info->Count_Get(Stream_General, 0); Pos++)
+            if (MI->Retrieve(Stream_General, 0, Pos).empty())
+                MI->Fill(Stream_General, 0, Pos, Reference->MI->Info->Retrieve(Stream_General, 0, Pos));
 
     //Hacks - After
     if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_Last, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
@@ -693,4 +702,3 @@ size_t File__ReferenceFilesHelper::Stream_Prepare (stream_t StreamKind, size_t S
 } //NameSpace
 
 #endif //MEDIAINFO_REFERENCES_YES
-

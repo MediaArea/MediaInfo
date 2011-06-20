@@ -172,22 +172,39 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 {
     bool StopAfterFilled=MI->Config.File_StopAfterFilled_Get();
+    bool ShouldContinue=true;
+
+    //Previous data
+    if (MI->Config.File_Buffer_Repeat)
+    {
+        MI->Config.File_Buffer_Repeat=false;
+        #if MEDIAINFO_DEMUX
+            MI->Config.Demux_EventWasSent=false;
+        #endif //MEDIAINFO_DEMUX
+
+        Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
+
+        #if MEDIAINFO_DEMUX
+            //Demux
+            if (MI->Config.Demux_EventWasSent)
+                return 2; //Must return immediately
+        #endif //MEDIAINFO_DEMUX
+
+        //Threading
+        if (MI->IsTerminating())
+            return 1; //Termination is requested
+
+        if (Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled]))
+            ShouldContinue=false;
+    }
 
     #if MEDIAINFO_DEMUX
     //PerPacket
-    bool ShouldContinue=true;
-    if (MI->Config.Demux_EventWasSent)
+    if (ShouldContinue && MI->Config.Demux_EventWasSent)
     {
         MI->Config.Demux_EventWasSent=false;
 
-        //Parser
-        if (MI->Config.File_Buffer_Repeat)
-        {
-            MI->Config.File_Buffer_Repeat=false;
-            Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
-        }
-        else
-            Status=MI->Open_Buffer_Continue(NULL, 0);
+        Status=MI->Open_Buffer_Continue(NULL, 0);
 
         //Demux
         if (MI->Config.Demux_EventWasSent)
@@ -200,9 +217,9 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         if (Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled]))
             ShouldContinue=false;
     }
+    #endif //MEDIAINFO_DEMUX
 
     if (ShouldContinue)
-    #endif //MEDIAINFO_DEMUX
     {
         //Test the format with buffer
         while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])))

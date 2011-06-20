@@ -65,38 +65,41 @@ void File__Analyze::Streams_Finish_Global()
             int64u Pos=Ztring(FileToTest_Name.substr(FileNameToTest_Pos)).To_int64u();
             FileToTest_Name.resize(FileNameToTest_Pos);
 
-            int64u TotalSize=File_Size;
-            int64u FrameCount=1;
             while (true)
             {
                 Pos++;
                 Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos);
                 Pos_Ztring.insert(0, Numbers_Size-Pos_Ztring.size(), _T('0'));
                 Ztring Next=FileToTest.Path_Get()+PathSeparator+FileToTest_Name+Pos_Ztring+_T('.')+FileToTest.Extension_Get();
-                int64u Size=File::Size_Get(Next);
-                if (Size==0 || Size==(int64u)-1)
+                if (!File::Exists(Next))
                     break;
-                TotalSize+=Size;
-                FrameCount++;
                 Config->File_Names.push_back(Next);
             }
 
-            if (FrameCount>=24)
-            {
-                Stream_Prepare(Stream_Video);
-                for (size_t Pos=General_ID; Pos<Count_Get(Stream_Image, 0); Pos++)
-                    Fill(Stream_Video, 0, Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Get(Stream_Image, 0, Pos), true);
-                Stream_Erase(Stream_Image, 0);
-
-                Fill(Stream_General, 0, General_FileSize, TotalSize, 10, true);
-                Fill(Stream_Video, 0, Video_StreamSize, TotalSize, 10, true);
-                Fill(Stream_Video, 0, Video_FrameCount, FrameCount, 10, true);
-            }
-            else if (Config->File_Names.size()!=1)
-                Config->File_Names.resize(1); //REmoving files, wrong detection
+            if (Config->File_Names.size()<24)
+                Config->File_Names.resize(1); //Removing files, wrong detection
         }
     }
-    if (Config->File_Names_Pos!=Config->File_Names.size())
+    if (Config->File_Names.size()>1 && Count_Get(Stream_Image))
+    {
+        int64u TotalSize=File_Size;
+        for (size_t Pos=0; Pos<Config->File_Names.size(); Pos++)
+        {
+            int64u Size=File::Size_Get(Config->File_Names[Pos]);
+            if (Size!=(int64u)-1)
+                TotalSize+=Size;
+        }
+
+        Stream_Prepare(Stream_Video);
+        for (size_t Pos=General_ID; Pos<Count_Get(Stream_Image, 0); Pos++)
+            Fill(Stream_Video, 0, Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Get(Stream_Image, 0, Pos), true);
+        Stream_Erase(Stream_Image, 0);
+
+        Fill(Stream_General, 0, General_FileSize, TotalSize, 10, true);
+        Fill(Stream_Video, 0, Video_StreamSize, TotalSize, 10, true);
+        Fill(Stream_Video, 0, Video_FrameCount, Config->File_Names.size(), 10, true);
+    }
+    if (Config->File_Names_Pos!=1)
         return;
 
     Streams_Finish_StreamOnly();
