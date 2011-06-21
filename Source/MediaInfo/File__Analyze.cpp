@@ -410,7 +410,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         }
 
         #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent && Buffer_Offset==0) //If there was no byte consumed
+        if (!IsSub && Config->Demux_EventWasSent && Buffer_Offset==0) //If there was no byte consumed
         {
             Config->File_Buffer_Repeat=true;
         }
