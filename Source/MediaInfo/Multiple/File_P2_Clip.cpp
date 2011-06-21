@@ -205,10 +205,10 @@ bool File_P2_Clip::FileHeader_Begin()
                             #if defined(MEDIAINFO_MXF_YES)
                                 if (File_Name.size()>10+1+4
                                  && File_Name[File_Name.size()-10-1]==PathSeparator
-                                 && File_Name[File_Name.size()-10-2]==_T('P')
-                                 && File_Name[File_Name.size()-10-3]==_T('I')
-                                 && File_Name[File_Name.size()-10-4]==_T('L')
-                                 && File_Name[File_Name.size()-10-5]==_T('C'))
+                                 && (File_Name[File_Name.size()-10-2]&(~0x20))==_T('P')
+                                 && (File_Name[File_Name.size()-10-3]&(~0x20))==_T('I')
+                                 && (File_Name[File_Name.size()-10-4]&(~0x20))==_T('L')
+                                 && (File_Name[File_Name.size()-10-5]&(~0x20))==_T('C'))
                                 {
                                     Ztring file=File_Name.substr(File_Name.size()-10, 6);
                                     Ztring MXF_File=File_Name;
@@ -230,10 +230,10 @@ bool File_P2_Clip::FileHeader_Begin()
                             #if defined(MEDIAINFO_MXF_YES)
                                 if (File_Name.size()>10+1+4
                                  && File_Name[File_Name.size()-10-1]==PathSeparator
-                                 && File_Name[File_Name.size()-10-2]==_T('P')
-                                 && File_Name[File_Name.size()-10-3]==_T('I')
-                                 && File_Name[File_Name.size()-10-4]==_T('L')
-                                 && File_Name[File_Name.size()-10-5]==_T('C'))
+                                 && (File_Name[File_Name.size()-10-2]&(~0x20))==_T('P')
+                                 && (File_Name[File_Name.size()-10-3]&(~0x20))==_T('I')
+                                 && (File_Name[File_Name.size()-10-4]&(~0x20))==_T('L')
+                                 && (File_Name[File_Name.size()-10-5]&(~0x20))==_T('C'))
                                 {
                                     Ztring file=File_Name.substr(File_Name.size()-10, 6);
                                     Ztring MXF_File=File_Name;

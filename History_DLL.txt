@@ -9,6 +9,10 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.45, 2011-06-15
 --------------
++ P2 Clip: Supporting directories with wrong letter case
+
+Version 0.7.45, 2011-06-15
+--------------
 + QuickTime: Support of EIA-608 streams created by Final Cut
 + Matroska: Support of Matroska tags
 + Matroska: parsing of tags at the end of the file (previously: only tags at the beginning)
