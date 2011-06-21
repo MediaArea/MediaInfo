@@ -359,6 +359,8 @@ void File_Eia608::PreambleAddressCode(int8u cc_data_1, int8u cc_data_2)
 {
     //CEA-608-E, Section F.1.1.5
 
+    x=0; //I am not sure of this, specifications are not precise
+
     //Horizontal position
     if (!TextMode)
     {
