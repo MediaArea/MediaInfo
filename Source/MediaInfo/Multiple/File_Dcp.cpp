@@ -135,6 +135,16 @@ bool File_Dcp::FileHeader_Begin()
 
             ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
+            TiXmlElement* IssueDate=AssetMap->FirstChildElement(NameSpace+"IssueDate");
+            if (IssueDate)
+                Fill(Stream_General, 0, General_Encoded_Date, IssueDate->GetText());
+            TiXmlElement* Issuer=AssetMap->FirstChildElement(NameSpace+"Issuer");
+            if (Issuer)
+                Fill(Stream_General, 0, General_EncodedBy, Issuer->GetText());
+            TiXmlElement* Creator=AssetMap->FirstChildElement(NameSpace+"Creator");
+            if (Creator)
+                Fill(Stream_General, 0, General_Encoded_Library, Creator->GetText());
+
             TiXmlElement* AssetList=AssetMap->FirstChildElement(NameSpace+"AssetList");
             if (AssetList)
             {
