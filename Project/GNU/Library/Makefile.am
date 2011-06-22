@@ -87,6 +87,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Ancillary.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Bdmv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Cdxa.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Dcp.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dpg.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DvDif.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DvDif_Analysis.cpp \

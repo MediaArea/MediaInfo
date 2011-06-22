@@ -32,6 +32,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_DCP_YES)
+    #include "MediaInfo/Multiple/File_Dcp.h"
+#endif
 #if defined(MEDIAINFO_DPG_YES)
     #include "MediaInfo/Multiple/File_Dpg.h"
 #endif
@@ -317,6 +320,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         Temp=new File_Cdxa(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DCP_YES)
+        Temp=new File_Dcp(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_DPG_YES)
         Temp=new File_Dpg(); Parser.push_back(Temp);

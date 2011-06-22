@@ -44,6 +44,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_DCP_YES)
+    #include "MediaInfo/Multiple/File_Dcp.h"
+#endif
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
@@ -335,6 +338,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_CDXA_YES)
         else if (Parser==_T("Cdxa"))        Info=new File_Cdxa();
     #endif
+    #if defined(MEDIAINFO_DCP_YES)
+        else if (Parser==_T("Dcp"))         Info=new File_Dcp();
+    #endif
     #if defined(MEDIAINFO_DVDIF_YES)
         else if (Parser==_T("DvDif"))        Info=new File_DvDif();
     #endif
@@ -611,6 +617,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         delete Info; Info=new File_Cdxa();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_DCP_YES)
+        delete Info; Info=new File_Dcp();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
         delete Info; Info=new File_DvDif();              if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

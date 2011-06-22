@@ -191,6 +191,11 @@ void File__ReferenceFilesHelper::ParseReference()
         ZtringList AbsoluteNames; AbsoluteNames.Separator_Set(0, ",");
         for (size_t Pos=0; Pos<Names.size(); Pos++)
         {
+            if (Names[Pos].find(_T("file://"))==0)
+            {
+                Names[Pos].erase(0, 7); //Removing "file://", this is the default behaviour and this makes comparison easier
+                Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
+            }
             if (Names[Pos].find(_T("file:"))==0)
             {
                 Names[Pos].erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier

@@ -184,7 +184,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_xNO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DUPLICATE_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
@@ -372,6 +372,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.cpp" />
@@ -503,6 +504,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.h" />

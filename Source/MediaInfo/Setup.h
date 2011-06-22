@@ -301,6 +301,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_CDXA_NO) && !defined(MEDIAINFO_CDXA_YES)
     #define MEDIAINFO_CDXA_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DCP_NO) && !defined(MEDIAINFO_DCP_YES)
+    #define MEDIAINFO_DCP_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DVDIF_NO) && !defined(MEDIAINFO_DVDIF_YES)
     #define MEDIAINFO_DVDIF_YES
 #endif
