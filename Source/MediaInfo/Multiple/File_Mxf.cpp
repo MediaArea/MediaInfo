@@ -1195,7 +1195,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 }
                 Fill(StreamKind_Last, StreamPos, General_ID, ID_Temp, true);
                 if (!ID_String.empty())
-                    Fill(StreamKind_Last, StreamPos, General_ID, ID_String, true);
+                    Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true);
             }
         }
     }
@@ -5022,7 +5022,12 @@ void File_Mxf::GenericTrack_TrackID()
 void File_Mxf::GenericTrack_TrackName()
 {
     //Parsing
-    Info_UTF16B(Length2, Data,                                  "Data"); Element_Info(Data);
+    Ztring Data;
+    GEt_UTF16B (Length2, Data,                                  "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Tracks[InstanceUID].TrackName=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
