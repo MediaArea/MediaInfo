@@ -453,6 +453,7 @@ protected :
     {
         int128u Sequence;
         int32u TrackID;
+        Ztring TrackName;
         int32u TrackNumber;
         float64 EditRate;
         bool   Stream_Finish_Done;

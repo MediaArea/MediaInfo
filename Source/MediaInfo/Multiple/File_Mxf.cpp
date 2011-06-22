@@ -1198,6 +1198,11 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                     Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true);
             }
         }
+        if (!Tracks[TrackUID].TrackName.empty())
+        {
+            for (size_t StreamPos=StreamPos_Last-(Essence->second.Parser->Count_Get(StreamKind_Last)?(Essence->second.Parser->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
+                Fill(StreamKind_Last, StreamPos, "Title", Tracks[TrackUID].TrackName);
+        }
     }
 
     //Special case - DV
@@ -1230,6 +1235,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                 Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
                 Fill(Stream_Audio, Pos, Audio_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
+                Fill(Stream_Audio, Pos, Audio_Title, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Title), true);
             }
 
             StreamKind_Last=Stream_Video;
@@ -1264,6 +1270,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                     {
                         Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(Descriptor->second.LinkedTrackID)+_T("-")+ID, true);
                         Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(Descriptor->second.LinkedTrackID)+_T("-")+ID, true);
+                        Fill(Stream_Text, StreamPos_Last, Text_Title, Tracks[TrackUID].TrackName, true);
                         break;
                     }
             }
@@ -1271,6 +1278,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             {
                 Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
                 Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_Title, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Title), true);
             }
         }
 
@@ -1398,7 +1406,10 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                                             {
                                                 Stream_Prepare(Descriptor->second.StreamKind);
                                                 if (Track->second.TrackID!=(int32u)-1)
+                                                {
                                                     Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
+                                                    Fill(StreamKind_Last, StreamPos_Last, "Title", Track->second.TrackName);
+                                                }
                                             }
                                         }
                                     }
@@ -5023,7 +5034,7 @@ void File_Mxf::GenericTrack_TrackName()
 {
     //Parsing
     Ztring Data;
-    GEt_UTF16B (Length2, Data,                                  "Data"); Element_Info(Data);
+    Get_UTF16B (Length2, Data,                                  "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
         Tracks[InstanceUID].TrackName=Data;

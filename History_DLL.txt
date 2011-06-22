@@ -7,8 +7,9 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.45, 2011-06-15
+Version 0.7.46
 --------------
++ MXF: TrackName
 + DCP: Basic support (video and audio streams), both Interop and SMPTE versions
 + P2 Clip: Supporting directories with wrong letter case
 
