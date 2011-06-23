@@ -12,6 +12,7 @@ Version 0.7.46
 + MXF: TrackName
 + DCP: Basic support (video and audio streams), both Interop and SMPTE versions
 + P2 Clip: Supporting directories with wrong letter case
+x AES (S302M): was no more detected if the packet was split in several PES
 
 Version 0.7.45, 2011-06-15
 --------------

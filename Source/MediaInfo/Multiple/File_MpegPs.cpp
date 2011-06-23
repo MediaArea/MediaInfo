@@ -2244,9 +2244,6 @@ void File_MpegPs::private_stream_1()
             #if defined(MEDIAINFO_DTS_YES)
                 Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_DTS());
             #endif
-            #if defined(MEDIAINFO_AES3_YES)
-                Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_AES3());
-            #endif
         }
         #if MEDIAINFO_EVENTS
             if (private_stream_1_Offset)

@@ -1399,9 +1399,15 @@ void File_Aes3::Frame_FromMpegPs()
     BS_End();
 
     //Enough data
-    if (4+audio_packet_size!=Element_Size)
+    if (Element_Size<4+audio_packet_size)
     {
-        Skip_XX(Element_Size,                               "Data");
+        Element_WaitForMoreData();
+        return;
+    }
+    if (Element_Size!=4+audio_packet_size)
+    {
+        Trusted_IsNot("Wrong size");
+        Skip_XX(Element_Size-4,                             "Problem?");
         return;
     }
 
