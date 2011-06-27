@@ -173,6 +173,7 @@ File_Aes3::File_Aes3()
     SampleRate=0;
     ByteSize=0;
     QuantizationBits=0;
+    ChannelCount=0;
     From_Raw=false;
     From_MpegPs=false;
     From_Aes3=false;
@@ -181,6 +182,7 @@ File_Aes3::File_Aes3()
     Frame_Count=0;
     Frame_Size=(int64u)-1;
     Frame_Duration=(int64u)-1;
+    IsPcm_Frame_Count=0;
     data_type=(int8u)-1;
     IsParsingNonPcm=false;
     IsPcm=false;
@@ -381,78 +383,28 @@ void File_Aes3::Read_Buffer_Continue()
     }
 
     //Special cases
-    if (!From_Aes3 && Buffer_TotalBytes==0)
+    if (!From_Aes3 && !Status[IsAccepted])
     {
         Synchronize();
-        if (IsSub && Buffer_Offset+16>Buffer_Size)
+        if (!IsParsingNonPcm)
         {
-            //Raw PCM
+            IsPcm_Frame_Count++;
             Buffer_Offset=0;
+            if (IsSub && Buffer_Size>32*1024 || (IsSub && IsPcm_Frame_Count>1) || ChannelCount==1)
+            {
+                //Raw PCM
+                MustSynchronize=false;
+                IsPcm=true;
+                Read_Buffer_Continue();
 
-            MustSynchronize=false;
-            IsPcm=true;
-            Read_Buffer_Continue();
+                Accept("PCM");
+                Finish();
 
-            Accept("PCM");
-            Finish();
+                return;
+            }
 
+            Element_WaitForMoreData();
             return;
-        }
-
-        if (Buffer_Offset)
-        {
-            Buffer_Offset=0;
-            size_t Buffer_Offset_Temp=0;
-            if (ByteSize==6)
-            {
-                while(Buffer_Offset_Temp+6<=Buffer_Size && CC6(Buffer+Buffer_Offset_Temp)!=0x000000000000LL)
-                    Buffer_Offset_Temp+=6;
-
-                if (Buffer_Offset_Temp+6>Buffer_Size)
-                {
-                    Element_WaitForMoreData();
-                    return;
-                }
-            }
-            else if (ByteSize==8)
-            {
-                while(Buffer_Offset_Temp+8<=Buffer_Size && CC8(Buffer+Buffer_Offset_Temp)!=0x0000000000000000LL)
-                    Buffer_Offset_Temp+=8;
-
-                if (Buffer_Offset_Temp+8>Buffer_Size)
-                {
-                    Element_WaitForMoreData();
-                    return;
-                }
-            }
-            else
-            {
-                if (Buffer_Offset_Temp+6>Buffer_Size)
-                {
-                    Element_WaitForMoreData();
-                    return;
-                }
-
-                if (CC6(Buffer+Buffer_Offset_Temp)!=0x000000000000LL)
-                {
-                    while(Buffer_Offset_Temp+2<=Buffer_Size && CC2(Buffer+Buffer_Offset_Temp)!=0x0000)
-                        Buffer_Offset_Temp+=2;
-
-                    if (Buffer_Offset_Temp+2>Buffer_Size)
-                    {
-                        Element_WaitForMoreData();
-                        return;
-                    }
-                }
-            }
-
-            if (Buffer_Offset_Temp)
-            {
-                Skip_XX(Buffer_Offset_Temp,                         "Junk");
-                Buffer_Offset=Buffer_Offset_Temp;
-                Element_Size-=Element_Offset;
-                Element_Offset=0;
-            }
         }
     }
 
@@ -605,207 +557,219 @@ bool File_Aes3::Synchronize()
     //Synchronizing
     while (Buffer_Offset+16<=Buffer_Size)
     {
-        if (Buffer[Buffer_Offset  ]==0xF8
-         && Buffer[Buffer_Offset+1]==0x72
-         && Buffer[Buffer_Offset+2]==0x4E
-         && Buffer[Buffer_Offset+3]==0x1F) //SMPTE 337M 16-bit, BE
+        if (ByteSize==0 || ByteSize==4)
         {
-            ByteSize=4;
-            Container_Bits=16;
-            Stream_Bits=16;
-            Endianess=false; //BE
-            break; //while()
+            if (Buffer[Buffer_Offset  ]==0xF8
+             && Buffer[Buffer_Offset+1]==0x72
+             && Buffer[Buffer_Offset+2]==0x4E
+             && Buffer[Buffer_Offset+3]==0x1F) //SMPTE 337M 16-bit, BE
+            {
+                ByteSize=4;
+                Container_Bits=16;
+                Stream_Bits=16;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x72
+             && Buffer[Buffer_Offset+1]==0xF8
+             && Buffer[Buffer_Offset+2]==0x1F
+             && Buffer[Buffer_Offset+3]==0x4E) //SMPTE 337M 16-bit, LE
+            {
+                ByteSize=4;
+                Container_Bits=16;
+                Stream_Bits=16;
+                Endianess=true; //LE
+                break; //while()
+            }
         }
-        if (Buffer[Buffer_Offset  ]==0x72
-         && Buffer[Buffer_Offset+1]==0xF8
-         && Buffer[Buffer_Offset+2]==0x1F
-         && Buffer[Buffer_Offset+3]==0x4E) //SMPTE 337M 16-bit, LE
+        if (ByteSize==0 || ByteSize==5)
         {
-            ByteSize=4;
-            Container_Bits=16;
-            Stream_Bits=16;
-            Endianess=true; //LE
-            break; //while()
+            if (Buffer[Buffer_Offset  ]==0x6F
+             && Buffer[Buffer_Offset+1]==0x87
+             && Buffer[Buffer_Offset+2]==0x25
+             && Buffer[Buffer_Offset+3]==0x4E
+             && Buffer[Buffer_Offset+4]==0x1F) //SMPTE 337M 20-bit, BE
+            {
+                ByteSize=5;
+                Container_Bits=20;
+                Stream_Bits=20;
+                Endianess=false; //BE
+                break; //while()
+            }
         }
-        if (Buffer[Buffer_Offset  ]==0x6F
-         && Buffer[Buffer_Offset+1]==0x87
-         && Buffer[Buffer_Offset+2]==0x25
-         && Buffer[Buffer_Offset+3]==0x4E
-         && Buffer[Buffer_Offset+4]==0x1F) //SMPTE 337M 20-bit, BE
+        if (ByteSize==0 || ByteSize==6)
         {
-            ByteSize=5;
-            Container_Bits=20;
-            Stream_Bits=20;
-            Endianess=false; //BE
-            break; //while()
+            if (Buffer[Buffer_Offset  ]==0x96
+             && Buffer[Buffer_Offset+1]==0xF8
+             && Buffer[Buffer_Offset+2]==0x72
+             && Buffer[Buffer_Offset+3]==0xA5
+             && Buffer[Buffer_Offset+4]==0x4E
+             && Buffer[Buffer_Offset+5]==0x1F) //SMPTE 337M 24-bit, BE
+            {
+                ByteSize=6;
+                Container_Bits=24;
+                Stream_Bits=24;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x72
+             && Buffer[Buffer_Offset+1]==0xF8
+             && Buffer[Buffer_Offset+2]==0x96
+             && Buffer[Buffer_Offset+3]==0x1F
+             && Buffer[Buffer_Offset+4]==0x4E
+             && Buffer[Buffer_Offset+5]==0x5A) //SMPTE 337M 24-bit, LE
+            {
+                ByteSize=6;
+                Container_Bits=24;
+                Stream_Bits=24;
+                Endianess=true; //LE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0xF8
+             && Buffer[Buffer_Offset+2]==0x72
+             && Buffer[Buffer_Offset+3]==0x00
+             && Buffer[Buffer_Offset+4]==0x4E
+             && Buffer[Buffer_Offset+5]==0x1F) //16-bit in 24-bit, BE
+            {
+                ByteSize=6;
+                Container_Bits=24;
+                Stream_Bits=16;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x72
+             && Buffer[Buffer_Offset+2]==0xF8
+             && Buffer[Buffer_Offset+3]==0x00
+             && Buffer[Buffer_Offset+4]==0x1F
+             && Buffer[Buffer_Offset+5]==0x4E) //16-bit in 24-bit, LE
+            {
+                ByteSize=6;
+                Container_Bits=24;
+                Stream_Bits=16;
+                Endianess=true; //LE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x6F
+             && Buffer[Buffer_Offset+1]==0x87
+             && Buffer[Buffer_Offset+2]==0x20
+             && Buffer[Buffer_Offset+3]==0x54
+             && Buffer[Buffer_Offset+4]==0xE1
+             && Buffer[Buffer_Offset+5]==0xF0) //20-bit in 24-bit, BE
+            {
+                ByteSize=6;
+                Container_Bits=24;
+                Stream_Bits=20;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x20
+             && Buffer[Buffer_Offset+1]==0x87
+             && Buffer[Buffer_Offset+2]==0x6F
+             && Buffer[Buffer_Offset+3]==0xF0
+             && Buffer[Buffer_Offset+4]==0xE1
+             && Buffer[Buffer_Offset+5]==0x54) //20-bit in 24-bit, LE
+            {
+                ByteSize=6;
+                Container_Bits=24;
+                Stream_Bits=20;
+                Endianess=true; //LE
+                break; //while()
+            }
         }
-        if (Buffer[Buffer_Offset  ]==0x96
-         && Buffer[Buffer_Offset+1]==0xF8
-         && Buffer[Buffer_Offset+2]==0x72
-         && Buffer[Buffer_Offset+3]==0xA5
-         && Buffer[Buffer_Offset+4]==0x4E
-         && Buffer[Buffer_Offset+5]==0x1F) //SMPTE 337M 24-bit, BE
+        if (ByteSize==0 || ByteSize==8)
         {
-            ByteSize=6;
-            Container_Bits=24;
-            Stream_Bits=24;
-            Endianess=false; //BE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x72
-         && Buffer[Buffer_Offset+1]==0xF8
-         && Buffer[Buffer_Offset+2]==0x96
-         && Buffer[Buffer_Offset+3]==0x1F
-         && Buffer[Buffer_Offset+4]==0x4E
-         && Buffer[Buffer_Offset+5]==0x5A) //SMPTE 337M 24-bit, LE
-        {
-            ByteSize=6;
-            Container_Bits=24;
-            Stream_Bits=24;
-            Endianess=true; //LE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0xF8
-         && Buffer[Buffer_Offset+2]==0x72
-         && Buffer[Buffer_Offset+3]==0x00
-         && Buffer[Buffer_Offset+4]==0x4E
-         && Buffer[Buffer_Offset+5]==0x1F) //16-bit in 24-bit, BE
-        {
-            ByteSize=6;
-            Container_Bits=24;
-            Stream_Bits=16;
-            Endianess=false; //BE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x72
-         && Buffer[Buffer_Offset+2]==0xF8
-         && Buffer[Buffer_Offset+3]==0x00
-         && Buffer[Buffer_Offset+4]==0x1F
-         && Buffer[Buffer_Offset+5]==0x4E) //16-bit in 24-bit, LE
-        {
-            ByteSize=6;
-            Container_Bits=24;
-            Stream_Bits=16;
-            Endianess=true; //LE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x6F
-         && Buffer[Buffer_Offset+1]==0x87
-         && Buffer[Buffer_Offset+2]==0x20
-         && Buffer[Buffer_Offset+3]==0x54
-         && Buffer[Buffer_Offset+4]==0xE1
-         && Buffer[Buffer_Offset+5]==0xF0) //20-bit in 24-bit, BE
-        {
-            ByteSize=6;
-            Container_Bits=24;
-            Stream_Bits=20;
-            Endianess=false; //BE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x20
-         && Buffer[Buffer_Offset+1]==0x87
-         && Buffer[Buffer_Offset+2]==0x6F
-         && Buffer[Buffer_Offset+3]==0xF0
-         && Buffer[Buffer_Offset+4]==0xE1
-         && Buffer[Buffer_Offset+5]==0x54) //20-bit in 24-bit, LE
-        {
-            ByteSize=6;
-            Container_Bits=24;
-            Stream_Bits=20;
-            Endianess=true; //LE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x00
-         && Buffer[Buffer_Offset+2]==0xF8
-         && Buffer[Buffer_Offset+3]==0x72
-         && Buffer[Buffer_Offset+4]==0x00
-         && Buffer[Buffer_Offset+5]==0x00
-         && Buffer[Buffer_Offset+6]==0x4E
-         && Buffer[Buffer_Offset+7]==0x1F) //16-bit in 32-bit, BE
-        {
-            ByteSize=8;
-            Container_Bits=32;
-            Stream_Bits=16;
-            Endianess=false; //BE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x00
-         && Buffer[Buffer_Offset+2]==0x72
-         && Buffer[Buffer_Offset+3]==0xF8
-         && Buffer[Buffer_Offset+4]==0x00
-         && Buffer[Buffer_Offset+5]==0x00
-         && Buffer[Buffer_Offset+6]==0x1F
-         && Buffer[Buffer_Offset+7]==0x4E) //16-bit in 32-bit, LE
-        {
-            ByteSize=8;
-            Container_Bits=32;
-            Stream_Bits=16;
-            Endianess=true; //LE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x6F
-         && Buffer[Buffer_Offset+2]==0x87
-         && Buffer[Buffer_Offset+3]==0x20
-         && Buffer[Buffer_Offset+4]==0x00
-         && Buffer[Buffer_Offset+5]==0x54
-         && Buffer[Buffer_Offset+6]==0xE1
-         && Buffer[Buffer_Offset+7]==0xF0) //20-bit in 32-bit, BE
-        {
-            ByteSize=8;
-            Container_Bits=32;
-            Stream_Bits=20;
-            Endianess=false; //BE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x20
-         && Buffer[Buffer_Offset+2]==0x87
-         && Buffer[Buffer_Offset+3]==0x6F
-         && Buffer[Buffer_Offset+4]==0x00
-         && Buffer[Buffer_Offset+5]==0xF0
-         && Buffer[Buffer_Offset+6]==0xE1
-         && Buffer[Buffer_Offset+7]==0x54) //20-bit in 32-bit, LE
-        {
-            ByteSize=8;
-            Container_Bits=32;
-            Stream_Bits=20;
-            Endianess=true; //LE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x96
-         && Buffer[Buffer_Offset+2]==0xF8
-         && Buffer[Buffer_Offset+3]==0x72
-         && Buffer[Buffer_Offset+4]==0x00
-         && Buffer[Buffer_Offset+5]==0xA5
-         && Buffer[Buffer_Offset+6]==0x4E
-         && Buffer[Buffer_Offset+7]==0x1F) //24-bit in 32-bit, BE
-        {
-            ByteSize=8;
-            Container_Bits=32;
-            Stream_Bits=24;
-            Endianess=false; //BE
-            break; //while()
-        }
-        if (Buffer[Buffer_Offset  ]==0x00
-         && Buffer[Buffer_Offset+1]==0x72
-         && Buffer[Buffer_Offset+2]==0xF8
-         && Buffer[Buffer_Offset+3]==0x96
-         && Buffer[Buffer_Offset+4]==0x00
-         && Buffer[Buffer_Offset+5]==0x1F
-         && Buffer[Buffer_Offset+6]==0x4E
-         && Buffer[Buffer_Offset+7]==0xA5) //24-bit in 32-bit, LE
-        {
-            ByteSize=8;
-            Container_Bits=32;
-            Stream_Bits=24;
-            Endianess=true; //LE
-            break; //while()
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x00
+             && Buffer[Buffer_Offset+2]==0xF8
+             && Buffer[Buffer_Offset+3]==0x72
+             && Buffer[Buffer_Offset+4]==0x00
+             && Buffer[Buffer_Offset+5]==0x00
+             && Buffer[Buffer_Offset+6]==0x4E
+             && Buffer[Buffer_Offset+7]==0x1F) //16-bit in 32-bit, BE
+            {
+                ByteSize=8;
+                Container_Bits=32;
+                Stream_Bits=16;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x00
+             && Buffer[Buffer_Offset+2]==0x72
+             && Buffer[Buffer_Offset+3]==0xF8
+             && Buffer[Buffer_Offset+4]==0x00
+             && Buffer[Buffer_Offset+5]==0x00
+             && Buffer[Buffer_Offset+6]==0x1F
+             && Buffer[Buffer_Offset+7]==0x4E) //16-bit in 32-bit, LE
+            {
+                ByteSize=8;
+                Container_Bits=32;
+                Stream_Bits=16;
+                Endianess=true; //LE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x6F
+             && Buffer[Buffer_Offset+2]==0x87
+             && Buffer[Buffer_Offset+3]==0x20
+             && Buffer[Buffer_Offset+4]==0x00
+             && Buffer[Buffer_Offset+5]==0x54
+             && Buffer[Buffer_Offset+6]==0xE1
+             && Buffer[Buffer_Offset+7]==0xF0) //20-bit in 32-bit, BE
+            {
+                ByteSize=8;
+                Container_Bits=32;
+                Stream_Bits=20;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x20
+             && Buffer[Buffer_Offset+2]==0x87
+             && Buffer[Buffer_Offset+3]==0x6F
+             && Buffer[Buffer_Offset+4]==0x00
+             && Buffer[Buffer_Offset+5]==0xF0
+             && Buffer[Buffer_Offset+6]==0xE1
+             && Buffer[Buffer_Offset+7]==0x54) //20-bit in 32-bit, LE
+            {
+                ByteSize=8;
+                Container_Bits=32;
+                Stream_Bits=20;
+                Endianess=true; //LE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x96
+             && Buffer[Buffer_Offset+2]==0xF8
+             && Buffer[Buffer_Offset+3]==0x72
+             && Buffer[Buffer_Offset+4]==0x00
+             && Buffer[Buffer_Offset+5]==0xA5
+             && Buffer[Buffer_Offset+6]==0x4E
+             && Buffer[Buffer_Offset+7]==0x1F) //24-bit in 32-bit, BE
+            {
+                ByteSize=8;
+                Container_Bits=32;
+                Stream_Bits=24;
+                Endianess=false; //BE
+                break; //while()
+            }
+            if (Buffer[Buffer_Offset  ]==0x00
+             && Buffer[Buffer_Offset+1]==0x72
+             && Buffer[Buffer_Offset+2]==0xF8
+             && Buffer[Buffer_Offset+3]==0x96
+             && Buffer[Buffer_Offset+4]==0x00
+             && Buffer[Buffer_Offset+5]==0x1F
+             && Buffer[Buffer_Offset+6]==0x4E
+             && Buffer[Buffer_Offset+7]==0xA5) //24-bit in 32-bit, LE
+            {
+                ByteSize=8;
+                Container_Bits=32;
+                Stream_Bits=24;
+                Endianess=true; //LE
+                break; //while()
+            }
         }
 
         if (ByteSize)
@@ -1215,6 +1179,8 @@ void File_Aes3::Frame()
         Parser->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         #if MEDIAINFO_DEMUX
+            if (Parser->FrameInfo.DUR!=FrameInfo.DUR && Parser->FrameInfo.DUR!=(int64u)-1)
+                FrameInfo.DUR=Parser->FrameInfo.DUR;
             if (FrameInfo.DUR!=(int64u)-1)
                 FrameInfo.DTS+=FrameInfo.DUR;
             else if (Parser->FrameInfo.DTS!=(int64u)-1)
@@ -1619,6 +1585,8 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     #if MEDIAINFO_DEMUX
+        if (Parser->FrameInfo.DUR!=FrameInfo.DUR && Parser->FrameInfo.DUR!=(int64u)-1)
+            FrameInfo.DUR=Parser->FrameInfo.DUR;
         if (FrameInfo.DUR!=(int64u)-1)
             FrameInfo.DTS+=FrameInfo.DUR;
         else if (Parser->FrameInfo.DTS!=(int64u)-1)

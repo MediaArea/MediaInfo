@@ -92,12 +92,16 @@ public :
         size_t              Channel_Current;
         size_t              Channel_Master;
         File__Analyze*      Parser;
+        bool                IsPcm;
+        bool                IsAes3;
 
         common()
         {
             Channel_Current=0;
             Channel_Master=(size_t)-1;
             Parser=NULL;
+            IsPcm=false;
+            IsAes3=false;
         }
 
         ~common()
@@ -109,7 +113,6 @@ public :
     common* Common;
     size_t  Channel_Pos;
     size_t  Channel_Total;
-    bool    IsAes3;
     int64u  SampleRate;
 
     //Constructor/Destructor
@@ -126,12 +129,12 @@ private :
     void Read_Buffer_Continue ();
     void Read_Buffer_Unsynched ();
 
-    //Helpers
-    bool Synchronize_AES3_0();
-    bool Synchronize_AES3_1();
-
+    //Temp
+    size_t  Buffer_Offset_AlreadyInCommon;
+    int64u  IsPcm_Frame_Count;
 };
 
 } //NameSpace
 
 #endif
+

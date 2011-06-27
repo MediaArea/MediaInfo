@@ -44,6 +44,7 @@ public :
     int64u  SampleRate;
     size_t  ByteSize;
     int32u  QuantizationBits;
+    int32u  ChannelCount;
     bool    From_Raw;
     bool    From_MpegPs;
     bool    From_Aes3;
@@ -82,6 +83,7 @@ private :
     //Temp
     int64u  Frame_Size;
     int64u  Frame_Duration;
+    int64u  IsPcm_Frame_Count;
     int8u   number_channels;
     int8u   bits_per_sample;
     int8u   Container_Bits;
