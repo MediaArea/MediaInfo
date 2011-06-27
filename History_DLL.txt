@@ -14,6 +14,7 @@ Version 0.7.46
 + P2 Clip: Supporting directories with wrong letter case
 + MXF: detection of AES3/Dolby E in mono PCM streams without compression scheme
 x AES (S302M): was no more detected if the packet was split in several PES
+x #3325235, Vorbis: streams were wrongly reported as CBR
 
 Version 0.7.45, 2011-06-15
 --------------
