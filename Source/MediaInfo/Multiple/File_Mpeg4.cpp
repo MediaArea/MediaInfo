@@ -316,6 +316,19 @@ void File_Mpeg4::Streams_Finish()
 
                         Stream_Erase(NewKind, NewPos2);
                         Stream_Erase(NewKind, NewPos1);
+
+                        streams::iterator NextStream=Temp;
+                        NextStream++;
+                        size_t NewAudio_Count=Temp->second.Parser->Count_Get(Stream_Audio);
+                        while (NextStream!=Streams.end())
+                        {
+                            if (NextStream->second.StreamKind==Stream_Audio)
+                            {
+                                NextStream->second.StreamPos-=2;
+                                NextStream->second.StreamPos+=NewAudio_Count;
+                            }
+                            NextStream++;
+                        }
                     }
                     else
                     {
@@ -326,7 +339,8 @@ void File_Mpeg4::Streams_Finish()
                     }
 
                     //After
-                    for (size_t StreamPos=0; StreamPos<Temp->second.Parser->Count_Get(NewKind); StreamPos++)
+                    size_t New_Count=Temp->second.Parser->Count_Get(NewKind);
+                    for (size_t StreamPos=0; StreamPos<New_Count; StreamPos++)
                     {
                         Stream_Prepare(NewKind, NewPos1+StreamPos);
                         Merge(*Temp->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
