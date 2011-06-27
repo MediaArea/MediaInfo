@@ -409,28 +409,30 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 return;
         }
 
-        #if MEDIAINFO_DEMUX
-        if (!IsSub && Config->Demux_EventWasSent && Buffer_Offset==0) //If there was no byte consumed
-        {
-            Config->File_Buffer_Repeat=true;
-        }
-        else
-        #endif //MEDIAINFO_DEMUX
         if (Buffer_Temp_Size==0) //If there was no copy
         {
-            if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<ToAdd_Size-Buffer_Offset)
+            #if MEDIAINFO_DEMUX
+            if (!IsSub && Config->Demux_EventWasSent && Buffer_Offset==0) //If there was no byte consumed
             {
-                delete[] Buffer_Temp; Buffer_Temp=NULL; Buffer_Temp_Size=0; Buffer_Temp_Size_Max=0;
+                Config->File_Buffer_Repeat=true;
             }
-            if (Buffer_Temp==NULL)
+            else
+            #endif //MEDIAINFO_DEMUX
             {
-                size_t Buffer_Temp_Size_Max_ToAdd=ToAdd_Size-Buffer_Offset>32768?ToAdd_Size-Buffer_Offset:32768;
-                if (Buffer_Temp_Size_Max_ToAdd<Buffer_Temp_Size_Max) Buffer_Temp_Size_Max_ToAdd=Buffer_Temp_Size_Max;
-                Buffer_Temp_Size_Max=Buffer_Temp_Size_Max_ToAdd;
-                Buffer_Temp=new int8u[Buffer_Temp_Size_Max];
+                if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<ToAdd_Size-Buffer_Offset)
+                {
+                    delete[] Buffer_Temp; Buffer_Temp=NULL; Buffer_Temp_Size=0; Buffer_Temp_Size_Max=0;
+                }
+                if (Buffer_Temp==NULL)
+                {
+                    size_t Buffer_Temp_Size_Max_ToAdd=ToAdd_Size-Buffer_Offset>32768?ToAdd_Size-Buffer_Offset:32768;
+                    if (Buffer_Temp_Size_Max_ToAdd<Buffer_Temp_Size_Max) Buffer_Temp_Size_Max_ToAdd=Buffer_Temp_Size_Max;
+                    Buffer_Temp_Size_Max=Buffer_Temp_Size_Max_ToAdd;
+                    Buffer_Temp=new int8u[Buffer_Temp_Size_Max];
+                }
+                Buffer_Temp_Size=ToAdd_Size-Buffer_Offset;
+                std::memcpy(Buffer_Temp, ToAdd+Buffer_Offset, Buffer_Temp_Size);
             }
-            Buffer_Temp_Size=ToAdd_Size-Buffer_Offset;
-            std::memcpy(Buffer_Temp, ToAdd+Buffer_Offset, Buffer_Temp_Size);
         }
         else if (Buffer_Offset) //Already a copy, just moving it
         {
@@ -959,6 +961,11 @@ bool File__Analyze::Synchro_Manage_Test()
     {
         if (!Synched_Test())
             return false;
+        if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && Buffer_Offset+Element_Offset>=FrameInfo.Buffer_Offset)
+        {
+            FrameInfo=FrameInfo_Next;
+            FrameInfo_Next=frame_info();
+        }
         if (!Synched)
         {
             Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
