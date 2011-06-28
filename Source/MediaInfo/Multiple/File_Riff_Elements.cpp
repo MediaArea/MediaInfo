@@ -1132,7 +1132,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec);
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
     if (BitsPerSample)
-        if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, BitsPerSample);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, BitsPerSample);
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
     if (SamplesPerSec && TimeReference!=(int64u)-1)
     {
