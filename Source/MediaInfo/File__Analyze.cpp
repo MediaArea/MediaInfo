@@ -380,7 +380,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         {
             if (File_GoTo>=File_Size)
                 File_GoTo=File_Size;
-            File_Offset+=Buffer_Size;
             Buffer_Clear();
         }
         else
@@ -576,7 +575,31 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
     //Handling of File_GoTo with already buffered data
     if (File_GoTo!=(int64u)-1 && File_GoTo>=File_Offset && File_GoTo<=File_Offset+Buffer_Size)
     {
-        Buffer_Offset=(size_t)(File_GoTo-File_Offset);
+        if (Buffer_Temp_Size==0) //If there was no copy
+        {
+            Buffer_Temp_Size=File_Offset+Buffer_Size-File_GoTo;
+            if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<Buffer_Temp_Size)
+            {
+                delete[] Buffer_Temp; Buffer_Temp=NULL; Buffer_Temp_Size=0; Buffer_Temp_Size_Max=0;
+            }
+            if (Buffer_Temp==NULL)
+            {
+                size_t Buffer_Temp_Size_Max_ToAdd=Buffer_Temp_Size>32768?Buffer_Temp_Size:32768;
+                if (Buffer_Temp_Size_Max_ToAdd<Buffer_Temp_Size_Max) Buffer_Temp_Size_Max_ToAdd=Buffer_Temp_Size_Max;
+                Buffer_Temp_Size_Max=Buffer_Temp_Size_Max_ToAdd;
+                Buffer_Temp=new int8u[Buffer_Temp_Size_Max];
+            }
+            std::memcpy(Buffer_Temp, Buffer+Buffer_Size-Buffer_Temp_Size, Buffer_Temp_Size);
+        }
+        else //Already a copy, just moving it
+        {
+            Buffer_Temp_Size=File_Offset+Buffer_Size-File_GoTo;
+            std::memmove(Buffer_Temp, Buffer+Buffer_Size-Buffer_Temp_Size, Buffer_Temp_Size);
+        }
+        File_Offset+=Buffer_Size-Buffer_Temp_Size;
+        Buffer=Buffer_Temp;
+        Buffer_Offset=0;
+        Buffer_Size=Buffer_Temp_Size;
         File_GoTo=(int64u)-1;
         return true;
     }
@@ -1432,7 +1455,6 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     }
 
     Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
-    Buffer_Clear();
     File_GoTo=GoTo;
     Element_End();
 }
@@ -2342,7 +2364,6 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
             Element_Level++; //Element
     }
 
-    Buffer_Clear();
     File_GoTo=GoTo;
 
     #if MEDIAINFO_EVENTS
@@ -2383,7 +2404,6 @@ void File__Analyze::GoTo (int64u GoTo)
         return;
     }
 
-    Buffer_Clear();
     File_GoTo=GoTo;
 }
 #endif //MEDIAINFO_TRACE

@@ -612,6 +612,20 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             }
         }
 
+        //BitRate from BitRate_Maximum
+        if (Parameter==Fill_Parameter(StreamKind, Generic_BitRate)
+         || Parameter==Fill_Parameter(StreamKind, Generic_BitRate_Maximum))
+        {
+            float32 BitRate=Retrieve(StreamKind, StreamPos, "BitRate").To_float32();
+            float32 BitRate_Maximum=Retrieve(StreamKind, StreamPos, "BitRate_Maximum").To_float32();
+            if (BitRate_Maximum>BitRate*0.95 && BitRate_Maximum<BitRate)
+            {
+                Ztring Temp=Retrieve(StreamKind, StreamPos, "BitRate_Maximum");
+                Clear(StreamKind, StreamPos, "BitRate_Maximum");
+                Fill(StreamKind, StreamPos, "BitRate", Temp, true);
+            }
+        }
+
         //File size
         if (StreamKind==Stream_General && Parameter==General_FileSize)
         {

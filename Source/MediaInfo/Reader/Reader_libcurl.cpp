@@ -178,11 +178,8 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
     //GoTo
     if (((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
     {
-        if (!(((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()>=((curl_data*)data)->File_Offset && ((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()<=((curl_data*)data)->File_Offset+100000))
-        {
-            ((curl_data*)data)->File_GoTo=((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get();
-            return 0;
-        }
+        ((curl_data*)data)->File_GoTo=((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get();
+        return 0;
     }
 
     //Continue parsing

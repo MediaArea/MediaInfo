@@ -219,7 +219,7 @@ bool File__Tags_Helper::Synched_Test()
         if (!Parser)
         {
             //Must have enough buffer for having header
-            if (Base->Buffer_Offset+3>Base->Buffer_Size)
+            if (Base->Buffer_Offset+4>Base->Buffer_Size)
                 return Base->IsSub; //If IsSub, we consider this is a complete block
 
             //Quick test of synchro

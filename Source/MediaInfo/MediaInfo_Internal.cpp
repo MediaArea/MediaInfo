@@ -532,7 +532,11 @@ int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
     if (Info==NULL)
         return 0;
 
-    return Info->File_GoTo;
+    if (Info->File_GoTo==(int64u)-1
+     || (Info->File_GoTo>=Info->File_Offset && Info->File_GoTo<Info->File_Offset+0x10000)) //If jump is tiny, this is not worth the performance cost due to seek
+        return (int64u)-1;
+    else
+        return Info->File_GoTo;
 }
 
 //---------------------------------------------------------------------------
