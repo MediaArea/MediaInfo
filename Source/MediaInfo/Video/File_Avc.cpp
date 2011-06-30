@@ -856,6 +856,7 @@ void File_Avc::Synched_Init()
     DTS_End=FrameInfo.DTS;
     if (Frame_Count_NotParsedIncluded==(int64u)-1)
         Frame_Count_NotParsedIncluded=0; //No Frame_Count_NotParsedIncluded in the container
+    FirstPFrameInGop_IsParsed=false;
     tc=0;
 
     //From seq_parameter_set
