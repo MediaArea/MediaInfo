@@ -315,7 +315,14 @@ private :
         };
         std::vector<stsc_struct> stsc;
         std::vector<int64u>     stsz;
+        std::vector<int64u>     stsz_Total; //TODO: merge with stsz
         std::vector<int64u>     stss; //Sync Sample, base=0
+        struct stts_struct
+        {
+            int32u SampleCount;
+            int32u SampleDuration;
+        };
+        std::vector<stts_struct> stts;
         int64u                  stsz_Sample_Size;
         int64u                  stsz_Sample_Multiplier;
         int64u                  stsz_Sample_Count;
@@ -326,6 +333,7 @@ private :
         int32u                  stts_Max;
         int64u                  stts_FrameCount;
         int64u                  stts_Duration;
+        int64u                  stts_SampleDuration;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
         bool                    IsTimeCode;

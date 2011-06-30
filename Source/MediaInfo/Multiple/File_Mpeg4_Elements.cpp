@@ -4159,6 +4159,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
 {
     NAME_VERSION_FLAG("Sample Size")
 
+    streams::iterator Stream=Streams.find(moov_trak_tkhd_TrackID);
     int32u Sample_Size, Sample_Count;
     int8u  FieldSize;
     if (Element_Code==Elements::moov_trak_mdia_minf_stbl_stsz)
@@ -4239,15 +4240,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
             Element_Offset+=4;
 
             Stream_Size+=Size;
+            Stream->second.stsz_Total.push_back(Size);
             if (Size<Size_Min)
                 Size_Min=Size;
             if (Size>Size_Max)
                 Size_Max=Size;
             if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
-                Streams[moov_trak_tkhd_TrackID].stsz.push_back(Size);
+                Stream->second.stsz.push_back(Size);
         }
 
-        if (Streams[moov_trak_tkhd_TrackID].stss.empty() && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+        if (Stream->second.stss.empty() && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
         {
             if (Size_Min*(1.005+0.005)<Size_Max)
                 Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "VBR");
@@ -4289,51 +4291,52 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
 
     for (int32u Pos=0; Pos<NumberOfEntries; Pos++)
     {
-        int32u SampleCount, SampleDuration;
-        Get_B4(SampleCount,                                     "Sample Count");
-        Get_B4(SampleDuration,                                  "Sample Duration");
+        stream::stts_struct Stts;
+        Get_B4(Stts.SampleCount,                                     "Sample Count");
+        Get_B4(Stts.SampleDuration,                                  "Sample Duration");
 
         FILLING_BEGIN();
-            if (Pos==1 && NumberOfEntries>=2 && NumberOfEntries<=3 && Stream->second.stts_FrameCount==1 && SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
+            Stream->second.stts.push_back(Stts);
+            if (Pos==1 && NumberOfEntries>=2 && NumberOfEntries<=3 && Stream->second.stts_FrameCount==1 && Stts.SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
             {
-                Fill(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame", ((float32)(((int32s)Stream->second.stts_Min)-((int32s)(SampleDuration))))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
-                Stream->second.stts_Min=SampleDuration;
-                Stream->second.stts_Max=SampleDuration;
+                Fill(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame", ((float32)(((int32s)Stream->second.stts_Min)-((int32s)(Stts.SampleDuration))))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+                Stream->second.stts_Min=Stts.SampleDuration;
+                Stream->second.stts_Max=Stts.SampleDuration;
             }
-            if (NumberOfEntries>=2 && NumberOfEntries<=3 && Pos+1==NumberOfEntries && SampleCount==1 && Stream->second.stts_Min==Stream->second.stts_Max && SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
+            if (NumberOfEntries>=2 && NumberOfEntries<=3 && Pos+1==NumberOfEntries && Stts.SampleCount==1 && Stream->second.stts_Min==Stream->second.stts_Max && Stts.SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
             {
-                Fill(StreamKind_Last, StreamPos_Last, "Duration_LastFrame", ((float32)(((int32s)(SampleDuration))-((int32s)Stream->second.stts_Min)))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+                Fill(StreamKind_Last, StreamPos_Last, "Duration_LastFrame", ((float32)(((int32s)(Stts.SampleDuration))-((int32s)Stream->second.stts_Min)))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
             }
             else
             {
-                if (SampleDuration<Stream->second.stts_Min) Stream->second.stts_Min=SampleDuration;
-                if (SampleDuration>Stream->second.stts_Max) Stream->second.stts_Max=SampleDuration;
+                if (Stts.SampleDuration<Stream->second.stts_Min) Stream->second.stts_Min=Stts.SampleDuration;
+                if (Stts.SampleDuration>Stream->second.stts_Max) Stream->second.stts_Max=Stts.SampleDuration;
             }
-            Stream->second.stts_FrameCount+=SampleCount;
-            Stream->second.stts_Duration+=SampleCount*SampleDuration;
+            Stream->second.stts_FrameCount+=Stts.SampleCount;
+            Stream->second.stts_Duration+=Stts.SampleCount*Stts.SampleDuration;
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("DV"))
                 {
                     File_DvDif::stts_part DV_stts_Part;
-                    DV_stts_Part.Pos_Begin=Stream->second.stts_FrameCount-SampleCount;
+                    DV_stts_Part.Pos_Begin=Stream->second.stts_FrameCount-Stts.SampleCount;
                     DV_stts_Part.Pos_End=Stream->second.stts_FrameCount;
-                    DV_stts_Part.Duration=SampleDuration;
+                    DV_stts_Part.Duration=Stts.SampleDuration;
                     ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->push_back(DV_stts_Part);
 
-                    Duration_FrameCount[SampleDuration]+=Stream->second.stts_FrameCount;
-                    if (Duration_FrameCount_Max<=Duration_FrameCount[SampleDuration])
+                    Duration_FrameCount[Stts.SampleDuration]+=Stream->second.stts_FrameCount;
+                    if (Duration_FrameCount_Max<=Duration_FrameCount[Stts.SampleDuration])
                     {
-                        Duration_FrameCount_Max=Duration_FrameCount[SampleDuration];
-                        Duration_FrameCount_Max_Duration=SampleDuration;
+                        Duration_FrameCount_Max=Duration_FrameCount[Stts.SampleDuration];
+                        Duration_FrameCount_Max_Duration=Stts.SampleDuration;
                     }
                 }
             #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
             #if MEDIAINFO_DEMUX
                 stream::stts_duration stts_Duration;
-                stts_Duration.Pos_Begin=Stream->second.stts_FrameCount-SampleCount;
+                stts_Duration.Pos_Begin=Stream->second.stts_FrameCount-Stts.SampleCount;
                 stts_Duration.Pos_End=Stream->second.stts_FrameCount;
-                stts_Duration.SampleDuration=SampleDuration;
+                stts_Duration.SampleDuration=Stts.SampleDuration;
                 if (Streams[moov_trak_tkhd_TrackID].stts_Durations.empty())
                     stts_Duration.DTS_Begin=0;
                 else
@@ -4341,7 +4344,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                     stream::stts_durations::iterator Previous=Streams[moov_trak_tkhd_TrackID].stts_Durations.end(); Previous--;
                     stts_Duration.DTS_Begin=Previous->DTS_End;
                 }
-                stts_Duration.DTS_End=stts_Duration.DTS_Begin+SampleCount*SampleDuration;
+                stts_Duration.DTS_End=stts_Duration.DTS_Begin+Stts.SampleCount*Stts.SampleDuration;
                 Streams[moov_trak_tkhd_TrackID].stts_Durations.push_back(stts_Duration);
             #endif //MEDIAINFO_DEMUX
         FILLING_END();

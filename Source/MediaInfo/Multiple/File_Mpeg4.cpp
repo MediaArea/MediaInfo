@@ -246,6 +246,94 @@ void File_Mpeg4::Streams_Finish()
             }
         }
 
+        //Coherency testing
+        if (TimeScale && !Temp->second.IsTimeCode && TimeScale && Temp->second.mdhd_TimeScale)
+        {
+            float32 Duration_tkhd_H=((float32)(Temp->second.tkhd_Duration+1))/TimeScale;
+            float32 Duration_tkhd_L=((float32)(Temp->second.tkhd_Duration-1))/TimeScale;
+            float32 Duration_stts=((float32)Temp->second.stts_Duration)/Temp->second.mdhd_TimeScale;
+            float32 Duration_mdhd=((float32)Temp->second.mdhd_Duration)/Temp->second.mdhd_TimeScale;
+            if (!(Duration_stts>Duration_tkhd_L && Duration_stts<Duration_tkhd_H))
+            {
+                //There is a difference between media/stts atom and track atom
+                Fill(StreamKind_Last, StreamPos_Last, "Material_Duration", Duration_stts*1000, 0);
+                if (Temp->second.stts_Min==Temp->second.stts_Max)
+                {
+                    Ztring Material_Duration_FirstFrame=Retrieve(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame");
+                    if (!Material_Duration_FirstFrame.empty())
+                    {
+                        Fill(StreamKind_Last, StreamPos_Last, "Material_Duration_FirstFrame", Material_Duration_FirstFrame);
+                        Clear(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame");
+                    }
+                    Ztring Material_Duration_LastFrame=Retrieve(StreamKind_Last, StreamPos_Last, "Duration_LastFrame");
+                    if (!Material_Duration_LastFrame.empty())
+                    {
+                        Fill(StreamKind_Last, StreamPos_Last, "Material_Duration_LastFrame", Material_Duration_LastFrame);
+                        Clear(StreamKind_Last, StreamPos_Last, "Duration_LastFrame");
+                    }
+                }
+                Ztring Material_StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, "StreamSize");
+                if (!Material_StreamSize.empty())
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "Material_StreamSize", Material_StreamSize);
+                    Clear(StreamKind_Last, StreamPos_Last, "StreamSize");
+                }
+                Ztring Material_FrameCount=Retrieve(StreamKind_Last, StreamPos_Last, "FrameCount");
+                bool FillFrameCount=false;
+                if (!Material_FrameCount.empty())
+                {
+                    FillFrameCount=true;
+                    Fill(StreamKind_Last, StreamPos_Last, "Material_FrameCount", Material_FrameCount);
+                    Clear(StreamKind_Last, StreamPos_Last, "FrameCount");
+                }
+
+                //Calculating new stream size
+                int64u FrameCount;
+                if (Temp->second.stts_Min && Temp->second.stts_Min==Temp->second.stts_Max)
+                {
+                    FrameCount=float64_int64s(((float64)Temp->second.tkhd_Duration)/TimeScale*Temp->second.mdhd_TimeScale/Temp->second.stts_Min);
+                }
+                else
+                {
+                    FrameCount=0;
+                    int64u Ticks_Max=float64_int64s(((float64)Temp->second.tkhd_Duration)/TimeScale*Temp->second.mdhd_TimeScale);
+                    int64u Ticks=0;
+                    for (size_t stts_Pos=0; stts_Pos<Temp->second.stts.size(); stts_Pos++)
+                    {
+                        int64u Ticks_Complete=Temp->second.stts[stts_Pos].SampleCount*Temp->second.stts[stts_Pos].SampleDuration;
+                        if (Ticks+Ticks_Complete>=Ticks_Max)
+                        {
+                            if (Temp->second.stts[stts_Pos].SampleDuration)
+                                FrameCount+=float64_int64s(((float64)(Ticks_Max-Ticks))/Temp->second.stts[stts_Pos].SampleDuration);
+                            break;
+                        }
+                        Ticks+=Ticks_Complete;
+                        FrameCount+=Temp->second.stts[stts_Pos].SampleCount;
+                    }
+                }
+                if (Temp->second.stsz_Total.empty())
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "StreamSize", FrameCount*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier);
+                    if (FillFrameCount)
+                        Fill(StreamKind_Last, StreamPos_Last, "FrameCount", FrameCount);
+                }
+                else if (FrameCount<=Temp->second.stsz_Total.size())
+                {
+                    int64u StreamSize=0;
+                    for (size_t stsz_Pos=0; stsz_Pos<FrameCount; stsz_Pos++)
+                        StreamSize+=Temp->second.stsz_Total[stsz_Pos];
+                    Fill(StreamKind_Last, StreamPos_Last, "StreamSize", StreamSize);
+                    if (FillFrameCount)
+                        Fill(StreamKind_Last, StreamPos_Last, "FrameCount", FrameCount);
+                }
+            }
+            else if (!(Duration_mdhd>Duration_tkhd_L && Duration_mdhd<Duration_tkhd_H))
+            {
+                //There is a difference between media/mdhd atom and track atom
+                Fill(StreamKind_Last, StreamPos_Last, "mdhd_Duration", Duration_mdhd*1000, 0); 
+            }
+        }
+
         //Parser specific
         if (Temp->second.Parser)
         {
