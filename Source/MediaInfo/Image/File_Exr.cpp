@@ -115,8 +115,11 @@ bool File_Exr::Demux_UnpacketizeContainer_Test()
         FrameInfo.PTS=FrameInfo.DTS;
         FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
     }
+    size_t Buffer_Offset_Save=Buffer_Offset;
+    Buffer_Offset=0; //File header must be included in the packet
     Demux_Offset=Buffer_Size;
     Demux_UnpacketizeContainer_Demux();
+    Buffer_Offset=Buffer_Offset_Save;
 
     return true;
 }
