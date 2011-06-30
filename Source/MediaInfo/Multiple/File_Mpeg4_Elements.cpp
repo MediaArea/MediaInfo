@@ -2879,6 +2879,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
 
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
     }
+
+    //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
+    //TODO: compute Bit rate mode from stps
+    Clear(StreamKind_Last, StreamPos_Last, "BitRate_Mode");
 }
 
 //---------------------------------------------------------------------------
@@ -4149,6 +4153,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
 
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
     }
+
+    //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
+    //TODO: compute Bit rate mode from stss
+    Clear(StreamKind_Last, StreamPos_Last, "BitRate_Mode");
 }
 
 //---------------------------------------------------------------------------
@@ -4244,7 +4252,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 Streams[moov_trak_tkhd_TrackID].stsz.push_back(Size);
         }
 
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+        if (Streams[moov_trak_tkhd_TrackID].stss.empty() && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
         {
             if (Size_Min*(1.005+0.005)<Size_Max)
                 Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "VBR");

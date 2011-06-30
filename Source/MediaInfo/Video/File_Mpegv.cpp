@@ -462,10 +462,8 @@ void File_Mpegv::Streams_Fill()
     //BitRate
     if (vbv_delay==0xFFFF || (MPEG_Version==1 && bit_rate_value==0x3FFFF))
         Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR");
-    else if ((MPEG_Version==1 && bit_rate_value!=0x3FFFF) || MPEG_Version==2)
-        Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     if (bit_rate_value_IsValid && (bit_rate_extension>0 || bit_rate_value!=0x3FFFF))
-        Fill(Stream_Video, 0, Video_BitRate_Nominal, ((((int32u)bit_rate_extension<<12))+bit_rate_value)*400);
+        Fill(Stream_Video, 0, Video_BitRate_Maximum, ((((int32u)bit_rate_extension<<12))+bit_rate_value)*400);
 
     //Interlacement
     if (MPEG_Version==1)
@@ -696,14 +694,14 @@ void File_Mpegv::Streams_Fill()
          && Retrieve(Stream_Video, 0, Video_ScanType)==_T("Progressive")
          && (Retrieve(Stream_Video, 0, Video_FrameRate)==_T("60.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("59.940") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("24.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("23.976") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("25.000"))
          && (Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("Main@High") || Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("Main@High 1440"))
-         && Retrieve(Stream_Video, 0, Video_BitRate).To_int64u()<20000000 && Retrieve(Stream_Video, 0, Video_BitRate_Nominal).To_int64u()<20000000)
+         && Retrieve(Stream_Video, 0, Video_BitRate).To_int64u()<20000000 && Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int64u()<20000000)
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "HDV 720p");
 
         //HDV2
         if (Retrieve(Stream_Video, 0, Video_Width)==_T("1440")
          && Retrieve(Stream_Video, 0, Video_Height)==_T("1080")
          && Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("Main@High 1440")
-         && Retrieve(Stream_Video, 0, Video_BitRate).To_int64u()<27000000 && Retrieve(Stream_Video, 0, Video_BitRate_Nominal).To_int64u()<27000000)
+         && Retrieve(Stream_Video, 0, Video_BitRate).To_int64u()<27000000 && Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int64u()<27000000)
         {
             //Interlaced
             if (Retrieve(Stream_Video, 0, Video_ScanType)==_T("Interlaced")

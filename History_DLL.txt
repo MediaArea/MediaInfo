@@ -13,6 +13,7 @@ Version 0.7.46
 + DCP: Basic support (video and audio streams), both Interop and SMPTE versions
 + P2 Clip: Supporting directories with wrong letter case
 + MXF: detection of AES3/Dolby E in mono PCM streams without compression scheme
+x MPEG Video in MPEG-TS or MP4: streams were wrongly detected as VBR or CBR, any bit rate mode is removed until a working solution is found
 x AES (S302M): was no more detected if the packet was split in several PES
 x #3325235, Vorbis: streams were wrongly reported as CBR
 
