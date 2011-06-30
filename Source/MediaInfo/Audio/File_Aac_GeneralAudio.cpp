@@ -360,8 +360,8 @@ void File_Aac::raw_data_block()
         }
         Element_End();
     }
-    while(Data_BS_Remain() && id_syn_ele!=0x07); //ID_END
-    if (Data_BS_Remain()%8)
+    while(Element_IsOK() && Data_BS_Remain() && id_syn_ele!=0x07); //ID_END
+    if (Element_IsOK() && Data_BS_Remain()%8)
         Skip_S1(Data_BS_Remain()%8,                             "byte_alignment");
     Element_End();
 }
@@ -399,6 +399,8 @@ void File_Aac::channel_pair_element()
         }
     }
     individual_channel_stream(common_window, false);
+    if (!Element_IsOK())
+        return;
     individual_channel_stream(common_window, false);
 }
 
@@ -549,6 +551,8 @@ void File_Aac::coupling_channel_element()
     Skip_SB(                                                    "gain_element_sign");
     Skip_S1(2,                                                  "gain_element_scale");
     individual_channel_stream(false, false);
+    if (!Element_IsOK())
+        return;
     bool cge;
     for (size_t c=1; c<num_gain_element_lists; c++)
     {
@@ -685,8 +689,23 @@ void File_Aac::individual_channel_stream (bool common_window, bool scale_flag)
     Skip_S1(8,                                                  "global_gain");
     if (!common_window && !scale_flag)
         ics_info();
-    section_data();
+    if (!Element_IsOK())
+    {
+        Element_End();
+        return;
+    }
+   section_data();
+    if (!Element_IsOK())
+    {
+        Element_End();
+        return;
+    }
     scale_factor_data();
+    if (!Element_IsOK())
+    {
+        Element_End();
+        return;
+    }
     if (!scale_flag)
     {
         bool pulse_data_present;
