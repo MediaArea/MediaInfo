@@ -319,11 +319,13 @@ private :
         int64u                  stsz_Sample_Size;
         int64u                  stsz_Sample_Multiplier;
         int64u                  stsz_Sample_Count;
+        int64u                  tkhd_Duration;
         int32u                  mdhd_TimeScale;
-        int32u                  mdhd_Duration;
+        int64u                  mdhd_Duration;
         int32u                  stts_Min;
         int32u                  stts_Max;
         int64u                  stts_FrameCount;
+        int64u                  stts_Duration;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
         bool                    IsTimeCode;
@@ -357,11 +359,13 @@ private :
             stsz_Sample_Size=0;
             stsz_Sample_Multiplier=1;
             stsz_Sample_Count=0;
+            tkhd_Duration=0;
             mdhd_TimeScale=0;
             mdhd_Duration=0;
             stts_Min=(int32u)-1;
             stts_Max=0;
             stts_FrameCount=0;
+            stts_Duration=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
             IsTimeCode=false;

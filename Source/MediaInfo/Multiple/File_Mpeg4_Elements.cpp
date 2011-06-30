@@ -2373,24 +2373,19 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
     //Parsing
     Ztring Date_Created, Date_Modified;
     int64u Duration;
-    int32u moov_trak_mdia_mdhd_TimeScale;
+    int32u TimeScale;
     int16u Language;
     Get_DATE1904_DEPENDOFVERSION(Date_Created,                  "Creation time");
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
-    Get_B4(moov_trak_mdia_mdhd_TimeScale,                       "Time scale");
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration");
+    Get_B4(TimeScale,                                           "Time scale");
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info(Duration*1000/TimeScale, " ms"); Element_Info(Duration*1000/TimeScale, " ms");
     Get_B2 (Language,                                           "Language"); Param_Info(Language_Get(Language));
     Skip_B2(                                                    "Quality");
 
     FILLING_BEGIN();
         Fill(StreamKind_Last, StreamPos_Last, "Language", Language_Get(Language));
-        Streams[moov_trak_tkhd_TrackID].mdhd_TimeScale=moov_trak_mdia_mdhd_TimeScale;
-        if (moov_trak_mdia_mdhd_TimeScale)
-        {
-            Streams[moov_trak_tkhd_TrackID].mdhd_Duration=(int32u)(((float)Duration)/moov_trak_mdia_mdhd_TimeScale*1000);
-            //This duration is wrong in one file, trying something else
-            //Fill(StreamKind_Last, StreamPos_Last, "Duration", Streams[moov_trak_tkhd_TrackID].mdhd_Duration);
-        }
+        Streams[moov_trak_tkhd_TrackID].mdhd_Duration=Duration;
+        Streams[moov_trak_tkhd_TrackID].mdhd_TimeScale=TimeScale;
     FILLING_END();
 }
 
@@ -4299,19 +4294,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
         Get_B4(SampleDuration,                                  "Sample Duration");
 
         FILLING_BEGIN();
-            Stream->second.stts_FrameCount+=SampleCount;
-            if (NumberOfEntries==2 && Pos+1==NumberOfEntries && Stream->second.stts_FrameCount && SampleCount==1 && Stream->second.stts_Min==Stream->second.stts_Max && SampleDuration!=Stream->second.stts_Max)
+            if (Pos==1 && NumberOfEntries>=2 && NumberOfEntries<=3 && Stream->second.stts_FrameCount==1 && SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
             {
-                if ((float32)SampleDuration-Stream->second.stts_Min>0)
-                    Clear(Stream_Video, StreamPos_Last, Video_Duration);
-                if (Stream->second.mdhd_TimeScale)
-                    Fill(Stream_Video, StreamPos_Last, Video_Duration_LastFrame, ((float32)SampleDuration-Stream->second.stts_Min)*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+                Fill(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame", ((float32)(((int32s)Stream->second.stts_Min)-((int32s)(SampleDuration))))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+                Stream->second.stts_Min=SampleDuration;
+                Stream->second.stts_Max=SampleDuration;
+            }
+            if (NumberOfEntries>=2 && NumberOfEntries<=3 && Pos+1==NumberOfEntries && SampleCount==1 && Stream->second.stts_Min==Stream->second.stts_Max && SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
+            {
+                Fill(StreamKind_Last, StreamPos_Last, "Duration_LastFrame", ((float32)(((int32s)(SampleDuration))-((int32s)Stream->second.stts_Min)))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
             }
             else
             {
                 if (SampleDuration<Stream->second.stts_Min) Stream->second.stts_Min=SampleDuration;
                 if (SampleDuration>Stream->second.stts_Max) Stream->second.stts_Max=SampleDuration;
             }
+            Stream->second.stts_FrameCount+=SampleCount;
+            Stream->second.stts_Duration+=SampleCount*SampleDuration;
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("DV"))
                 {
@@ -4428,7 +4427,7 @@ void File_Mpeg4::moov_trak_tkhd()
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
     Get_B4 (moov_trak_tkhd_TrackID,                             "Track ID"); Element_Info(moov_trak_tkhd_TrackID);
     Skip_B4(                                                    "Reserved");
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info((int64u)Duration*1000/TimeScale, " ms"); Element_Info(Duration*1000/TimeScale, " ms");
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info(Duration*1000/TimeScale, " ms"); Element_Info(Duration*1000/TimeScale, " ms");
     Skip_B4(                                                    "Reserved");
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Layer");
@@ -4466,6 +4465,7 @@ void File_Mpeg4::moov_trak_tkhd()
         Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
         Fill(StreamKind_Last, StreamPos_Last, General_ID, moov_trak_tkhd_TrackID, 10, true);
+        Streams[moov_trak_tkhd_TrackID].tkhd_Duration=Duration;
         if (moov_trak_tkhd_Height*d)
             moov_trak_tkhd_DisplayAspectRatio=(moov_trak_tkhd_Width*a)/(moov_trak_tkhd_Height*d);
         moov_trak_tkhd_Rotation=(float32)(std::atan2(b, a)*180.0/3.14159);

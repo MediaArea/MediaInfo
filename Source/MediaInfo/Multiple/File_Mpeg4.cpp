@@ -235,7 +235,7 @@ void File_Mpeg4::Streams_Finish()
                 {
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max, 3, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min, 3, true);
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)Temp->second.stts_FrameCount)/Temp->second.mdhd_Duration*1000, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)Temp->second.stts_FrameCount)/Temp->second.mdhd_Duration*Temp->second.mdhd_TimeScale, 3, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "VFR", Unlimited, true, true);
                 }
                 else
@@ -360,9 +360,9 @@ void File_Mpeg4::Streams_Finish()
                 }
 
                 //Hacks - After
-                Fill(Stream_Video, StreamPos_Last, Video_Duration, Duration_Temp, true);
                 if (StreamKind_Last==Stream_Video)
                 {
+                    Fill(Stream_Video, StreamPos_Last, Video_Duration, Duration_Temp, true);
                     if (!FrameRate_Temp.empty() && FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
                     if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
