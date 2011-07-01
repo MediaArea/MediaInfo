@@ -332,7 +332,7 @@ void File_Ogg::Data_Parse()
             return; //Maybe multitracks concatained, not supported
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
         Open_Buffer_Init(Stream[Element_Code].Parser);
-        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks|SizedBlocks;
+        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=IsSub;
         StreamsToDo++;
     }
     ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->MultipleStreams=Stream.size()>1; //has no sens for the first init, must check allways
