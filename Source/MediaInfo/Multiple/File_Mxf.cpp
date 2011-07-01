@@ -312,6 +312,7 @@ const char* Mxf_OperationalPattern(int128u OperationalPattern)
                         case 0x03 : return "OP-3c";
                         default   : return "";
                     }
+        case 0x10 : return "OP-Atom";
         default   : return "";
     }
 }
