@@ -707,7 +707,7 @@ protected :
             IndexByteCount=0;
         }
 
-        bool operator < (const partition& lhs)
+        bool operator < (const partition& lhs) const
         {
             return StreamOffset<lhs.StreamOffset;
         }
@@ -749,7 +749,7 @@ protected :
                 IndexEditRate=0;
             }
 
-            bool operator < (const indextable& lhs)
+            bool operator < (const indextable& lhs) const
             {
                 return IndexStartPosition<lhs.IndexStartPosition;
             }
