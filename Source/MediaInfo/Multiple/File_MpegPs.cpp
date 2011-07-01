@@ -1737,13 +1737,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
             Mark_1();
             Get_S1 (7, PES_extension_field_length,              "PES_extension_field_length");
             Get_SB (stream_id_extension_flag,                   "stream_id_extension_flag");
-            if (stream_id_extension_flag==0)
+            if (stream_id_extension_flag==0) //This should be limited to stream_id_extension_flag==0, but I found a file with stream_id_extension_flag=1 and a real code...
             {
-                Get_S1 (7, stream_id_extension,                 "stream_id_extension"); Param_Info(MpegPs_stream_id_extension(stream_id_extension));
-            }
-            else
-            {
-                //This should not, but I found a file with stream_id_extension_flag=1 and a real code...
                 Get_S1 (7, stream_id_extension,                 "stream_id_extension"); Param_Info(MpegPs_stream_id_extension(stream_id_extension));
             }
             BS_End();
