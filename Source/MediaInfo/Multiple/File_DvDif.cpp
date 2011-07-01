@@ -519,7 +519,7 @@ bool File_DvDif::FileHeader_Begin()
      || CC4(Buffer+4)==0x66747970  //ftyp
      || CC4(Buffer+4)==0x66726565  //free
      || CC4(Buffer+4)==0x6D646174  //mdat
-     || CC4(Buffer+4)==0x6D646174  //moov
+     || CC4(Buffer+4)==0x6D6F6F76  //moov
      || CC4(Buffer+4)==0x736B6970  //skip
      || CC4(Buffer+4)==0x77696465  //wide
      || CC4(Buffer)==0x060E2B34) //MXF begin
