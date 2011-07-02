@@ -324,8 +324,8 @@ void File_Exr::displayWindow ()
     Get_L4 (yMax,                                               "yMax");
 
     //Filling
-    Fill(Stream_Image, 0, Image_Width, xMax-xMin);
-    Fill(Stream_Image, 0, Image_Height, yMax-yMin);
+    Fill(Stream_Image, 0, Image_Width, xMax-xMin+1);
+    Fill(Stream_Image, 0, Image_Height, yMax-yMin+1);
 }
 
 //---------------------------------------------------------------------------
