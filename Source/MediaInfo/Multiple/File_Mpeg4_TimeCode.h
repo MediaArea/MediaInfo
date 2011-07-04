@@ -38,7 +38,6 @@ class File_Mpeg4_TimeCode : public File__Analyze
 public :
     //In
     float64 FrameRate;
-    stream_t StreamKind;
     bool     NegativeTimes;
 
     //Constructor/Destructor

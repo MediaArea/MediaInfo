@@ -277,6 +277,7 @@ private :
     method Metadata_Get(std::string &Parameter, int64u Meta);
     method Metadata_Get(std::string &Parameter, const std::string &Meta);
     void Descriptors();
+    void TimeCode_Associate(int32u TrackID);
 
     //Temp
     bool List;
@@ -305,6 +306,15 @@ private :
         Ztring                  File_Name;
         File__Analyze*          Parser;
         MediaInfo_Internal*     MI;
+        struct timecode
+        {
+            int32u TimeScale;
+            int32u FrameDuration;
+            bool   DropFrame;
+            bool   H24;
+            bool   NegativeTimes;
+        };
+        timecode* TimeCode;
         stream_t                StreamKind;
         size_t                  StreamPos;
         std::vector<int64u>     stco;
@@ -336,7 +346,6 @@ private :
         int64u                  stts_SampleDuration;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
-        bool                    IsTimeCode;
         bool                    IsPcmMono;
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
@@ -362,6 +371,7 @@ private :
         {
             Parser=NULL;
             MI=NULL;
+            TimeCode=NULL;
             StreamKind=Stream_Max;
             StreamPos=0;
             stsz_Sample_Size=0;
@@ -376,7 +386,6 @@ private :
             stts_Duration=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
-            IsTimeCode=false;
             IsPcmMono=false;
             CleanAperture_Width=0;
             CleanAperture_Height=0;
@@ -392,6 +401,7 @@ private :
         {
             delete Parser; //Parser=NULL;
             delete MI; //MI=NULL;
+            delete TimeCode; //TimeCode=NULL;
         }
     };
     typedef std::map<int32u, stream> streams;

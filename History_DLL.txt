@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.46
+Version 0.7.46, 2011-07-04
 --------------
 + MXF: TrackName
 + DCP: Basic support (video and audio streams), both Interop and SMPTE versions
@@ -23,6 +23,7 @@ x MPEG Video in MPEG-TS or MP4: streams were wrongly detected as VBR or CBR, any
 x AES (S302M): was no more detected if the packet was split in several PES
 x #3325235, Vorbis: streams were wrongly reported as CBR
 x EXR: Width/Height were 1 less than real value
+x #3344635, MP4/MOV: Delay missing if timecode track found before audio/video, thanks to Peter Chapman
 
 Version 0.7.45, 2011-06-15
 --------------

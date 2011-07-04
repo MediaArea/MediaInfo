@@ -219,6 +219,11 @@ void File_Mpeg4::Streams_Finish()
     Fill_Flush();
     int64u File_Size_Total=File_Size;
 
+    //TimeCode
+    for (streams::iterator Temp=Streams.begin(); Temp!=Streams.end(); Temp++)
+        if (Temp->second.TimeCode)
+            TimeCode_Associate(Temp->first);
+
     //For each stream
     streams::iterator Temp=Streams.begin();
     while (Temp!=Streams.end())
@@ -227,7 +232,7 @@ void File_Mpeg4::Streams_Finish()
         StreamKind_Last=Temp->second.StreamKind;
         StreamPos_Last=Temp->second.StreamPos;
 
-        if (StreamKind_Last==Stream_Video && !Temp->second.IsTimeCode)
+        if (StreamKind_Last==Stream_Video && Temp->second.TimeCode==NULL)
         {
             if (Temp->second.mdhd_TimeScale && Temp->second.stts_Min && Temp->second.stts_Max)
             {
@@ -247,7 +252,7 @@ void File_Mpeg4::Streams_Finish()
         }
 
         //Coherency testing
-        if (TimeScale && !Temp->second.IsTimeCode && TimeScale && Temp->second.mdhd_TimeScale)
+        if (TimeScale && Temp->second.TimeCode==NULL && TimeScale && Temp->second.mdhd_TimeScale)
         {
             float32 Duration_tkhd_H=((float32)(Temp->second.tkhd_Duration+1))/TimeScale;
             float32 Duration_tkhd_L=((float32)(Temp->second.tkhd_Duration-1))/TimeScale;
@@ -1173,6 +1178,30 @@ void File_Mpeg4::Descriptors()
         mdat_MustParse=true;
     }
 }
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::TimeCode_Associate(int32u TrackID)
+{
+    //Is it general or for a specific stream?
+    bool IsGeneral=true;
+    for (std::map<int32u, stream>::iterator Strea=Streams.begin(); Strea!=Streams.end(); Strea++)
+        if (Strea->second.TimeCode_TrackID==TrackID)
+            IsGeneral=false;
+
+    //For each track in the file (but only the last one will be used!)
+    for (std::map<int32u, stream>::iterator Strea=Streams.begin(); Strea!=Streams.end(); Strea++)
+        if (IsGeneral && Strea->second.StreamKind!=Stream_Max || Strea->second.TimeCode_TrackID==TrackID)
+        {
+            if (Strea->second.StreamKind==Stream_Video)
+            {
+                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("DropFrame="))+(Streams[TrackID].TimeCode->DropFrame?_T("Yes"):_T("No")));
+                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("24HourMax="))+(Streams[TrackID].TimeCode->H24?_T("Yes"):_T("No")));
+                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("IsVisual="))+(Streams[TrackID].TimeCode_IsVisual?_T("Yes"):_T("No")));
+            }
+            Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay", Streams[TrackID].Parser->Get(Stream_General, 0, "Delay"));
+            Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Source", "Container");
+        }
+ }
 
 //***************************************************************************
 // C++
