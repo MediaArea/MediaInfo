@@ -7,6 +7,24 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.46, 2011-07-04
+--------------
++ MXF: TrackName
++ DCP: Basic support (video and audio streams), both Interop and SMPTE versions
++ P2 Clip: Supporting directories with wrong letter case
++ MXF: detection of AES3/Dolby E in mono PCM streams without compression scheme
++ MP4: first frame duration difference if first frame has not the same duration than all other frames
++ MP4: frame rate set as CFR if only the first frame has a different duration
++ MP4: Handling of track duration smaller than media duration (track duration and stream size have priority)
++ #3348936, MXF: OP-Atom profile
++ Matroska, Stereo Layout support, thanks to Lionel Duchateau
+x libcurl (FTP/HTTP): seek request was buggy, invalid data was read
+x MPEG Video in MPEG-TS or MP4: streams were wrongly detected as VBR or CBR, any bit rate mode is removed until a working solution is found
+x AES (S302M): was no more detected if the packet was split in several PES
+x #3325235, Vorbis: streams were wrongly reported as CBR
+x EXR: Width/Height were 1 less than real value
+x #3344635, MP4/MOV: Delay missing if timecode track found before audio/video, thanks to Peter Chapman
+
 Version 0.7.44, 2011-06-15
 --------------
 + QuickTime: Support of EIA-608 streams created by Final Cut
