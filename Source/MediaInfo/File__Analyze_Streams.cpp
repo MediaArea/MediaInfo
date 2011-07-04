@@ -239,6 +239,14 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     if (Parameter==Fill_Parameter(StreamKind, Generic_Format_Commercial_IfAny))
         Replace=true;
 
+    if (!Replace && Value.empty())
+        return;
+    if (Replace && Value.empty())
+    {
+        Clear(StreamKind, StreamPos, Parameter);
+        return;
+    }
+
     Ztring &Target=(*Stream)[StreamKind][StreamPos](Parameter);
     if (Target.empty() || Replace)
         Target=Value; //First value

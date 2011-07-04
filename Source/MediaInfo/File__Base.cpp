@@ -168,7 +168,9 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamPos, const Ztri
     size_t ParameterI=0;
 
     //Check integrity
-    if (StreamKind>=Stream_Max || StreamPos>=(*Stream)[StreamKind].size() || (ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
+    if (StreamKind>=Stream_Max || StreamPos>=(*Stream)[StreamKind].size() || KindOfInfo>=Info_Max)
+        return MediaInfoLib::Config.EmptyString_Get();
+    if ((ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error)
     {
         ParameterI=(*Stream_More)[StreamKind][StreamPos].Find(Parameter, KindOfSearch);
         if (ParameterI==Error)
