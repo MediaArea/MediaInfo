@@ -103,6 +103,43 @@ const char* Mk_ContentCompAlgo(int64u Algo)
     }
 }
 
+//---------------------------------------------------------------------------
+const char* Mk_StereoMode(int64u StereoMode)
+{
+    switch (StereoMode)
+    {
+        case 0x00 : return ""; //Mono (default)
+        case 0x01 : return "Side by Side (left eye first)";
+        case 0x02 : return "Top-Bottom (right eye first)";
+        case 0x03 : return "Top-Bottom (left eye first)";
+        case 0x04 : return "Checkboard (right eye first)";
+        case 0x05 : return "Checkboard (left eye first)";
+        case 0x06 : return "Row Interleaved (right eye first)";
+        case 0x07 : return "Row Interleaved (left eye first)";
+        case 0x08 : return "Column Interleaved (right eye first)";
+        case 0x09 : return "Column Interleaved (left eye first)";
+        case 0x0A : return "Anaglyph (cyan/red)";
+        case 0x0B : return "Side by Side (right eye first)";
+        case 0x0C : return "Anaglyph (green/magenta)";
+        case 0x0D : return "Both Eyes laced in one block (left eye first)";
+        case 0x0E : return "Both Eyes laced in one block (right eye first)";
+        default   : return "Unknown";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mk_StereoMode_v2(int64u StereoMode)
+{
+    switch (StereoMode)
+    {
+        case 0x00 : return ""; //Mono (default)
+        case 0x01 : return "Right Eye";
+        case 0x02 : return "Left Eye";
+        case 0x03 : return "Both Eye";
+        default   : return "Unknown";
+    }
+}
+
 //***************************************************************************
 // Infos
 //***************************************************************************
@@ -132,6 +169,7 @@ File_Mk::File_Mk()
     DataMustAlwaysBeComplete=false;
 
     //Temp
+    Format_Version=0;
     TimecodeScale=1000000; //Default value
     Duration=0;
     Cluster_AlreadyParsed=false;
@@ -495,6 +533,8 @@ namespace Elements
     const int64u Segment_Tracks_TrackEntry_Video_PixelCropTop=0x14BB;
     const int64u Segment_Tracks_TrackEntry_Video_PixelHeight=0x3A;
     const int64u Segment_Tracks_TrackEntry_Video_PixelWidth=0x30;
+    const int64u Segment_Tracks_TrackEntry_Video_StereoMode=0x13B8;
+    const int64u Segment_Tracks_TrackEntry_Video_StereoModeBuggy=0x13B9;
     const int64u Segment_Tracks_TrackEntry_TrackOverlay=0x2FAB;
     const int64u Segment_Tracks_TrackEntry_TrackTranslate=0x2624;
     const int64u Segment_Tracks_TrackEntry_TrackTranslate_Codec=0x26BF;
@@ -787,6 +827,7 @@ void File_Mk::Data_Parse()
                     ATOM(Segment_Tracks_TrackEntry_Video_PixelCropTop)
                     ATOM(Segment_Tracks_TrackEntry_Video_PixelHeight)
                     ATOM(Segment_Tracks_TrackEntry_Video_PixelWidth)
+                    ATOM(Segment_Tracks_TrackEntry_Video_StereoMode)
                     ATOM_END_MK
                 ATOM(Segment_Tracks_TrackEntry_TrackOverlay)
                 LIST(Segment_Tracks_TrackEntry_TrackTranslate)
@@ -908,7 +949,12 @@ void File_Mk::Ebml_DocTypeVersion()
     Element_Name("DocTypeVersion");
 
     //Parsing
-    UInteger_Info();
+    Format_Version=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, General_Format_Version, _T("Version ")+Ztring::ToZtring(Format_Version));
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -917,7 +963,13 @@ void File_Mk::Ebml_DocTypeReadVersion()
     Element_Name("DocTypeReadVersion");
 
     //Parsing
-    UInteger_Info();
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        if (UInteger!=Format_Version)
+            Fill(Stream_General, 0, General_Format_Version, _T("Version ")+Ztring::ToZtring(UInteger)); //Adding compatible version for info about legacy decoders
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -1964,6 +2016,7 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagString()
     if (Segment_Tag_SimpleTag_TagNames[0]==_T("MAJOR_BRAND")) return; //QuickTime techinical info, useless
     if (Segment_Tag_SimpleTag_TagNames[0]==_T("MINOR_VERSION")) return; //QuickTime techinical info, useless
     if (Segment_Tag_SimpleTag_TagNames[0]==_T("ORIGINAL_MEDIA_TYPE")) Segment_Tag_SimpleTag_TagNames[0]=_T("OriginalSourceForm");
+    if (Segment_Tag_SimpleTag_TagNames[0]==_T("STEREO_MODE")) return; //Useless
     if (Segment_Tag_SimpleTag_TagNames[0]==_T("TERMS_OF_USE")) Segment_Tag_SimpleTag_TagNames[0]=_T("TermsOfUse");
     for (size_t Pos=1; Pos<Segment_Tag_SimpleTag_TagNames.size(); Pos++)
     {
@@ -2780,6 +2833,21 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelWidth()
         Fill(Stream_Video, StreamPos_Last, Video_Width, UInteger, 10, true);
         if (!TrackVideoDisplayWidth)
             TrackVideoDisplayWidth=UInteger; //Default value of DisplayWidth is PixelWidth
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_StereoMode()
+{
+    Element_Name("StereoMode");
+
+    //Parsing
+    int64u UInteger=UInteger_Get(); Element_Info(Format_Version==2?Mk_StereoMode_v2(UInteger):Mk_StereoMode(UInteger));
+
+    //Filling
+    FILLING_BEGIN();
+        Fill(Stream_Video, StreamPos_Last, Video_MultiView_Count, 2); //Matroska seems to be limited to 2 views
+        Fill(Stream_Video, StreamPos_Last, Video_MultiView_Layout, Format_Version==2?Mk_StereoMode_v2(UInteger):Mk_StereoMode(UInteger));
     FILLING_END();
 }
 

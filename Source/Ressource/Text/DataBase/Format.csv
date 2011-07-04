@@ -15,7 +15,7 @@ Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com
 GXF;;;M;Gxf;SMPTE 360M;gxf;;;
 Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html;
 LXF;;;M;Lxf;;lxf;video/lxf;;
-Matroska;;;M;Mk;;mkv mka mks;;http://packs.matroska.org/;
+Matroska;;;M;Mk;;mkv mk3d mka mks;;http://packs.matroska.org/;
 MPEG-PS;;;M;MpegPs;;mpeg mpg m2p vob pss;video/MP2P;;
 MPEG-TS;;;M;MpegTs;;ts m2t m2s m4t m4s ts tp trp;video/MP2T;;
 MPEG-4;;;M;Mpeg4;;mp4 m4v m4a m4b m4p 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma f4v;video/mp4;;

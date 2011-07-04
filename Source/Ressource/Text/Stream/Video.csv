@@ -22,6 +22,7 @@ Format_Profile;;;Y NT;;;Profile of the Format
 Format_Compression;;;N YT;;;Compression mode of the Format
 MultiView_BaseProfile;;;Y NT;;;Multiview, profile of the base stream
 MultiView_Count;;;Y NT;;;Multiview, count of views
+MultiView_Layout;;;Y NT;;;Multiview, how views are muxed in the container in case of it is not muxing in the stream
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
 Format_Settings_BVOP;;Yes;N YT;;;Settings needed for decoder used, detailled
 Format_Settings_BVOP/String;;;Y NT;;;Settings needed for decoder used, detailled

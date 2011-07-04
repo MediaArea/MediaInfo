@@ -426,6 +426,7 @@ enum video
     Video_Format_Compression,
     Video_MultiView_BaseProfile,
     Video_MultiView_Count,
+    Video_MultiView_Layout,
     Video_Format_Settings,
     Video_Format_Settings_BVOP,
     Video_Format_Settings_BVOP_String,

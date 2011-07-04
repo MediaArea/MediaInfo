@@ -222,6 +222,8 @@ private :
     void Segment_Tracks_TrackEntry_Video_PixelCropTop();
     void Segment_Tracks_TrackEntry_Video_PixelHeight();
     void Segment_Tracks_TrackEntry_Video_PixelWidth();
+    void Segment_Tracks_TrackEntry_Video_StereoMode();
+    void Segment_Tracks_TrackEntry_Video_StereoModeBuggy() {Segment_Tracks_TrackEntry_Video_StereoMode();}
     void Segment_Tracks_TrackEntry_TrackOverlay();
     void Segment_Tracks_TrackEntry_TrackTranslate();
     void Segment_Tracks_TrackEntry_TrackTranslate_Codec();
@@ -297,6 +299,7 @@ private :
 
     //Temp
     std::vector<Ztring> AttachedFiles;
+    int64u  Format_Version;
     int64u  TimecodeScale;
     float64 Duration;
     int64u  TrackNumber;
