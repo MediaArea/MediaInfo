@@ -347,18 +347,24 @@ void File_Id3v2::Streams_Fill()
     if (Retrieve(Stream_General, 0, General_Recorded_Date).empty() && !Year.empty())
     {
         Ztring Recorded_Date=Year;
-        if (!Month.empty() && !Month.empty())
+        if (!Month.empty())
         {
             Recorded_Date+=_T('-');
-            Recorded_Date+=Year;
-            Recorded_Date+=_T('-');
-            Recorded_Date+=Day;
-            if (!Month.empty() && !Month.empty())
+            Recorded_Date+=Month;
+            if (!Day.empty())
             {
-                Recorded_Date+=_T(' ');
-                Recorded_Date+=Hour;
-                Recorded_Date+=_T(':');
-                Recorded_Date+=Minute;
+                Recorded_Date+=_T('-');
+                Recorded_Date+=Day;
+                if (!Hour.empty())
+                {
+                    Recorded_Date+=_T(' ');
+                    Recorded_Date+=Hour;
+                    if (Minute.empty())
+                    {
+                        Recorded_Date+=_T(':');
+                        Recorded_Date+=Minute;
+                    }
+                }
             }
         }
         Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date);
