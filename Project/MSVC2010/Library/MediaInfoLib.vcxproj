@@ -121,30 +121,6 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MediaInfo</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MediaInfo</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">MediaInfo</TargetName>
@@ -153,26 +129,21 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MediaInfo</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">MediaInfo</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MediaInfo</TargetName>
-    <RunCodeAnalysis Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_xNO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;..\..\..\..\MediaInfoLib_Documentation\R3DSDKv4_0_R325_Digimetrics_DCA_Inc\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUGMEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_R3DSDK_YES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -180,41 +151,32 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;..\..\..\..\MediaInfoLib_Documentation\R3DSDKv4_0_R325_Digimetrics_DCA_Inc\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_R3DSDK_YES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <EnablePREfast>true</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -222,83 +184,70 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <EnablePREfast>true</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <EnablePREfast>true</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4065;4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -384,6 +333,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" />
@@ -445,20 +395,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scte20.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File__Tags.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_ApeTag.cpp" />
-    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Id3.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Id3.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Id3v2.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Lyrics3.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Lyrics3v2.cpp" />
@@ -587,6 +524,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scte20.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />

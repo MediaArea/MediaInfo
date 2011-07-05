@@ -552,6 +552,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.cpp">
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scc.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1003,6 +1006,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.h">
       <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scc.h">
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
