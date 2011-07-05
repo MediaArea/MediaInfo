@@ -901,7 +901,7 @@ Ztring Mpeg7_MediaTimePoint(MediaInfo_Internal &MI)
         return ToReturn;
     }
 
-    //Default: In miliseconds
+    //Default: In milliseconds
     int64u Milliseconds=MI.Get(Stream_Video, 0, Video_Delay).To_int64u();
     int64u DD=Milliseconds/(24*60*60*1000);
     Milliseconds=Milliseconds%(24*60*60*1000);
@@ -981,7 +981,7 @@ Ztring Mpeg7_MediaDuration(MediaInfo_Internal &MI)
         return ToReturn;
     }
 
-    //Default: In miliseconds
+    //Default: In milliseconds
     int64u Milliseconds=MI.Get(Stream_General, 0, General_Duration).To_int64u();
     int64u DD=Milliseconds/(24*60*60*1000);
     Milliseconds=Milliseconds%(24*60*60*1000);
