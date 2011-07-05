@@ -173,9 +173,9 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>R3DSDK-2010MTd.lib;MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MediaInfo.lib;ZenLib.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MediaInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);..\..\..\..\MediaInfoLib_Documentation\R3DSDKv4_0_R325_Digimetrics_DCA_Inc\Lib\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2010\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2010\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>../../../Source/MediaInfoDLL/MediaInfoDLL.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
