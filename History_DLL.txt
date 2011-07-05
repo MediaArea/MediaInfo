@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.47
 --------------
 + SCC (Scenarist Closed Captioning) support
++ #3201768, BMP: BitmapV4Header support, thanks to Lionel Duchateau
 x #3354384, Vorbis in AVI, version 3+ was displayed as 2+
 
 Version 0.7.46, 2011-07-04

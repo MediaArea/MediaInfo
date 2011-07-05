@@ -48,6 +48,7 @@ protected :
 
     //Elements
     void BitmapInfoHeader();
+    void BitmapV4Header();
 };
 
 } //NameSpace
