@@ -105,9 +105,9 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- milisecond1;毫秒
- milisecond2;毫秒
- milisecond3;毫秒
+ millisecond1;毫秒
+ millisecond2;毫秒
+ millisecond3;毫秒
  minute1;分
  minute2;分
  minute3;分

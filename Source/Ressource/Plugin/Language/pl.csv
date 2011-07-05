@@ -105,9 +105,9 @@
  MiB; MB
  Mib; Mb
  MiBps; MB/s
- milisecond1; milisekunda
- milisecond2; milisekundy
- milisecond3; milisekund
+ millisecond1; milisekunda
+ millisecond2; milisekundy
+ millisecond3; milisekund
  minute1; minuta
  minute2; minuty
  minute3; minut

@@ -105,9 +105,9 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- milisecond1; ezredmásodperc
- milisecond2; ezredmásodperc
- milisecond3; ezredmásodperc
+ millisecond1; ezredmásodperc
+ millisecond2; ezredmásodperc
+ millisecond3; ezredmásodperc
  minute1; perc
  minute2; perc
  minute3; perc

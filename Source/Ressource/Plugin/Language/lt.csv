@@ -105,9 +105,9 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- milisecond1;milisekundė
- milisecond2;milisekundės
- milisecond3;milisekundės
+ millisecond1;milisekundė
+ millisecond2;milisekundės
+ millisecond3;milisekundės
  minute1;minutė
  minute2;minutės
  minute3;minutės

@@ -105,9 +105,9 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- milisecond1; milisaniye
- milisecond2; milisaniye
- milisecond3; milisaniye
+ millisecond1; milisaniye
+ millisecond2; milisaniye
+ millisecond3; milisaniye
  minute1; dakika
  minute2; dakika
  minute3; dakika
