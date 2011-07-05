@@ -574,4 +574,10 @@ struct MediaInfo_Event_DvDif_Analysis_Frame_0
 
 #define MediaInfo_Parser_Teletext       0xF7
 
+/***************************************************************************/
+/* SCC                                                                     */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Scc            0xF8
+
 #endif //MediaInfo_EventsH

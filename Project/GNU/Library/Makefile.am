@@ -145,6 +145,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_N19.cpp \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
+                       ../../../Source/MediaInfo/Text/File_Scc.cpp \
                        ../../../Source/MediaInfo/Text/File_Scte20.cpp \
                        ../../../Source/MediaInfo/Text/File_Teletext.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \

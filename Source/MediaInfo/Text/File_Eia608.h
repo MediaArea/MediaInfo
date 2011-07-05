@@ -123,6 +123,7 @@ private :
     int8u cc_data_1_Old;
     int8u cc_data_2_Old;
     bool   HasContent;
+    int8u  FieldNumber;
 };
 
 } //NameSpace

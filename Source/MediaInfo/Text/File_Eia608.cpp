@@ -98,6 +98,7 @@ File_Eia608::File_Eia608()
     cc_data_1_Old=0x00;
     cc_data_2_Old=0x00;
     HasContent=false;
+    FieldNumber=0;
 }
 
 //***************************************************************************
@@ -110,6 +111,8 @@ void File_Eia608::Streams_Fill()
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, "EIA-608");
     Fill(Stream_Text, 0, Text_StreamSize, 0);
+    if (FieldNumber)
+        Fill(Stream_Text, 0, Text_ID, FieldNumber);
 }
 
 //---------------------------------------------------------------------------
@@ -326,6 +329,13 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
 
     //Field check
     cc_data_1&=~0x08;
+    if (FieldNumber==0)
+    {
+        if (cc_data_1==0x14 && (cc_data_2&0xF0)==0x20)
+            FieldNumber=1;
+        if (cc_data_1==0x15 && (cc_data_2&0xF0)==0x20)
+            FieldNumber=2;
+    }
 
     if (cc_data_1>=0x10 && cc_data_1<=0x17 && cc_data_2>=0x40)
     {
