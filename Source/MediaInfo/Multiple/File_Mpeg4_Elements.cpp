@@ -488,6 +488,14 @@ namespace Elements
     const int64u PICT=0x50494354;
     const int64u pckg=0x70636B67;
     const int64u pnot=0x706E6F74;
+    const int64u RDAO=0x5244414F;
+    const int64u RDAS=0x52444153;
+    const int64u RDVO=0x5244564F;
+    const int64u RDVS=0x52445653;
+    const int64u RED1=0x52454431;
+    const int64u REDA=0x52454441;
+    const int64u REDV=0x52454456;
+    const int64u REOB=0x52454F42;
     const int64u skip=0x736B6970;
     const int64u wide=0x77696465;
 }
@@ -809,6 +817,14 @@ void File_Mpeg4::Data_Parse()
             ATOM_END_DEFAULT
         ATOM_END
     ATOM(PICT)
+    ATOM(RDAO)
+    ATOM(RDAS)
+    ATOM(RDVO)
+    ATOM(RDVS)
+    ATOM(RED1)
+    ATOM(REDA)
+    ATOM(REDV)
+    ATOM(REOB)
     ATOM(pckg)
     ATOM(pnot)
     LIST_SKIP(skip)
@@ -5142,6 +5158,107 @@ void File_Mpeg4::pnot()
     Skip_B2(                                                    "Version number");
     Skip_C4(                                                    "Atom type");
     Skip_B2(                                                    "Atom index");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::RDAO()
+{
+    Element_Name("Audio O?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::RDAS()
+{
+    Element_Name("Audio S?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::RDVO()
+{
+    Element_Name("Video O?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::RDVS()
+{
+    Element_Name("Video S?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::RED1()
+{
+    Element_Name("RED Header");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+
+    FILLING_BEGIN();
+        Accept("R3D");
+
+        Fill(Stream_General, 0, General_Format, "R3D");
+        //Source: http://peter.schlaile.de/redcode/
+
+        Finish();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::REDA()
+{
+    Element_Name("RED Audio");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+
+    Finish();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::REDV()
+{
+    Element_Name("RED Video");
+
+    //Parsing
+    /*
+    if (Streams[1].Parser==0)
+    {
+        Streams[1].Parser=new File_Mpeg4();
+        Open_Buffer_Init(Streams[1].Parser);
+    }
+    */
+
+    //Parsing
+    Skip_B4(                                                    "Unknown");
+    Skip_B4(                                                    "Unknown");
+    Skip_B4(                                                    "Unknown");
+    Skip_B4(                                                    "Unknown");
+    Skip_C4(                                                    "CodecID");
+    Skip_B4(                                                    "Unknown");
+    //Open_Buffer_Continue(Streams[1].Parser);
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
+
+    Finish();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::REOB()
+{
+    Element_Name("OB?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
 }
 
 //---------------------------------------------------------------------------

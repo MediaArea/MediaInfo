@@ -47,6 +47,7 @@ protected :
 
 public :
     File_Mpeg4();
+    ~File_Mpeg4();
 
 private :
     //Buffer - Global
@@ -257,6 +258,14 @@ private :
     void PICT();
     void pckg();
     void pnot();
+    void RDAO();
+    void RDAS();
+    void RDVO();
+    void RDVS();
+    void RED1();
+    void REDA();
+    void REDV();
+    void REOB();
     void skip();
     void wide();
 

@@ -177,6 +177,11 @@ File_Mpeg4::File_Mpeg4()
     #endif MEDIAINFO_NEXTPACKET
 }
 
+//---------------------------------------------------------------------------
+File_Mpeg4::~File_Mpeg4()
+{
+}
+    
 //***************************************************************************
 // Streams management
 //***************************************************************************
@@ -839,7 +844,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
                     return (size_t)-1; //Not supported
-        case 1  :   if (Value==0)
+        case 1  : 
+                    if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
                     return (size_t)-1; //Not supported
         case 2  :   //Timestamp
