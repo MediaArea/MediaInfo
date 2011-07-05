@@ -97,25 +97,10 @@ size_t File_Dxw::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 bool File_Dxw::FileHeader_Begin()
 {
     //Element_Size
-    if (File_Size>64*1024)
+    if (File_Size>1024*1024)
     {
         Reject("DXW");
         return false; //DXW files are not big
-    }
-
-    //Element_Size
-    if (Buffer_Size<5)
-        return false; //Must wait for more data
-
-    //XML header
-    if (Buffer[0]!='<'
-     || Buffer[1]!='?'
-     || Buffer[2]!='x'
-     || Buffer[3]!='m'
-     || Buffer[4]!='l')
-    {
-        Reject("DXW");
-        return false;
     }
 
     TiXmlDocument document(File_Name.To_Local());
