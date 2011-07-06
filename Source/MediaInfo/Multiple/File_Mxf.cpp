@@ -8495,6 +8495,7 @@ File__Analyze* File_Mxf::ChooseParser_Aes3(const essences::iterator &Essence, co
             Parser->QuantizationBits=Descriptor->second.QuantizationBits;
         if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
             Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
+        Parser->Endianess='L';
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
@@ -8604,6 +8605,7 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, con
             if (Descriptor->second.Infos.find("Channel(s)")!=Descriptor->second.Infos.end())
                 Parser->ChannelCount=Descriptor->second.Infos["Channel(s)"].To_int32u();
         }
+        Parser->Endianess='L';
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
