@@ -3988,7 +3988,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda()
 {
-    Skip_B2(                                                    "Unknown");
+    //Parsing
+    int16u Endianess;
+    Get_B2 (Endianess,                                          "Endianess");
+
+    FILLING_BEGIN();
+        if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Endianness, Endianess?"Little":"Big", Unlimited, true, true);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
