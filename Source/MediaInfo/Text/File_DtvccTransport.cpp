@@ -123,8 +123,6 @@ void File_DtvccTransport::Streams_Update_PerStream(size_t Pos)
             if (Pos2==Pos)
             {
                 Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
-                if (Pos<2)
-                    Fill(Stream_Text, StreamPos_Last, Text_ID, (Format==Format_DVD?_T("DVD-"):_T("608-"))+Ztring::ToZtring(Pos+1), true);
                 Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?_T("DVD-Video"):_T("DTVCC Transport"), Unlimited, true);
             }
             else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)
@@ -135,6 +133,8 @@ void File_DtvccTransport::Streams_Update_PerStream(size_t Pos)
     }
 
     Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
+    if (Pos<2)
+        Fill(Stream_Text, StreamPos_Last, Text_ID, (Format==Format_DVD?_T("DVD-"):_T("608-"))+Ztring::ToZtring(Pos+1), true);
 }
 
 //---------------------------------------------------------------------------

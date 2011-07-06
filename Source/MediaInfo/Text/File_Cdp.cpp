@@ -147,11 +147,9 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
             if (Pos2==Pos)
             {
                 Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
-                if (Pos<2)
-                    Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
                 if (WithAppleHeader)
-                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("Final Cut"), Unlimited);
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", "Final Cut");
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", "CDP");
             }
             else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)
                 Streams[Pos]->StreamPos=Streams[Pos2]->StreamPos+1;
@@ -161,6 +159,8 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
     }
 
     Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
+    if (Pos<2)
+        Fill(Stream_Text, Streams[Pos]->StreamPos, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1), true);
 }
 
 //---------------------------------------------------------------------------

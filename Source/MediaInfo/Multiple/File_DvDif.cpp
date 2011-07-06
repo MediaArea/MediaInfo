@@ -469,7 +469,7 @@ void File_DvDif::Streams_Fill()
             {
                 CC_Parsers[Pos]->Finish();
                 Merge(*CC_Parsers[Pos]);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos+1, 10, true);
             }
     #endif
 }

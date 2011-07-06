@@ -633,7 +633,7 @@ void File_Avc::Streams_Finish()
             Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
             if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1));
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1), true);
             Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, _T("SCTE 128 / DTVCC Transport"));
         }
 
