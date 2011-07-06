@@ -146,9 +146,9 @@ void File_Pcm::Streams_Fill()
     else if (Codec==_T("M2TS"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");}                        //PCM Signed         Big Endian
     else if (Codec==_T("A_PCM/INT/BIG"))    {Firm=_T("");       Endianness=_T("Big");}
     else if (Codec==_T("A_PCM/INT/LITTLE")) {Firm=_T("");       Endianness=_T("Little");}
-    else if (Codec==_T("A_PCM/INT/FLOAT"))  {Firm=_T("");       Endianness=_T("Float");}
-    else if (Codec==_T("fl32"))             {                   Endianness=_T("Float");                       Resolution=_T("32");}
-    else if (Codec==_T("fl64"))             {                   Endianness=_T("Float");                       Resolution=_T("64");}
+    else if (Codec==_T("A_PCM/INT/FLOAT"))  {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Float");}
+    else if (Codec==_T("fl32"))             {                   Endianness=_T("Big");    Sign=_T("Float");    Resolution=_T("32");}
+    else if (Codec==_T("fl64"))             {                   Endianness=_T("Big");    Sign=_T("Float");    Resolution=_T("64");}
     else if (Codec==_T("in24"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("24");}
     else if (Codec==_T("in32"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("32");}
     else if (Codec==_T("lpcm"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned");}

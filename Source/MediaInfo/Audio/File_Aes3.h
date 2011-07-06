@@ -48,6 +48,7 @@ public :
     bool    From_Raw;
     bool    From_MpegPs;
     bool    From_Aes3;
+    int8u   Endianess;
 
     //Constructor/Destructor
     File_Aes3();
@@ -89,7 +90,6 @@ private :
     int8u   Container_Bits;
     int8u   Stream_Bits;
     int8u   data_type;
-    bool    Endianess; //false=BE, true=LE
     bool    IsParsingNonPcm;
     bool    IsPcm;
 

@@ -257,6 +257,12 @@ void File_Aes3::Streams_Fill()
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+        switch (Endianess)
+        {
+            case 'B' : Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Big"); break;
+            case 'L' : Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little"); break;
+            default  : ;
+        }
     }
     else
         Fill(Stream_General, 0, General_Format, "AES3");
@@ -292,7 +298,12 @@ void File_Aes3::Streams_Fill()
     {
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {
-            Fill(Stream_Audio, Pos, Audio_Format_Settings_Endianness, Endianess?"Little":"Big");
+            switch (Endianess)
+            {
+                case 'B' : Fill(Stream_Audio, Pos, Audio_Format_Settings_Endianness, "Big"); break;
+                case 'L' : Fill(Stream_Audio, Pos, Audio_Format_Settings_Endianness, "Little"); break;
+                default  : ;
+            }
             Fill(Stream_Audio, Pos, Audio_Format_Settings_Mode, Container_Bits);
             if (Retrieve(Stream_Audio, Pos, Audio_BitDepth).empty())
                 Fill(Stream_Audio, Pos, Audio_BitDepth, Stream_Bits);
@@ -567,7 +578,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=4;
                 Container_Bits=16;
                 Stream_Bits=16;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x72
@@ -578,7 +589,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=4;
                 Container_Bits=16;
                 Stream_Bits=16;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
         }
@@ -593,7 +604,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=5;
                 Container_Bits=20;
                 Stream_Bits=20;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
         }
@@ -609,7 +620,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=6;
                 Container_Bits=24;
                 Stream_Bits=24;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x72
@@ -622,7 +633,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=6;
                 Container_Bits=24;
                 Stream_Bits=24;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -635,7 +646,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=6;
                 Container_Bits=24;
                 Stream_Bits=16;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -648,7 +659,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=6;
                 Container_Bits=24;
                 Stream_Bits=16;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x6F
@@ -661,7 +672,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=6;
                 Container_Bits=24;
                 Stream_Bits=20;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x20
@@ -674,7 +685,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=6;
                 Container_Bits=24;
                 Stream_Bits=20;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
         }
@@ -692,7 +703,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=8;
                 Container_Bits=32;
                 Stream_Bits=16;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -707,7 +718,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=8;
                 Container_Bits=32;
                 Stream_Bits=16;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -722,7 +733,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=8;
                 Container_Bits=32;
                 Stream_Bits=20;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -737,7 +748,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=8;
                 Container_Bits=32;
                 Stream_Bits=20;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -752,7 +763,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=8;
                 Container_Bits=32;
                 Stream_Bits=24;
-                Endianess=false; //BE
+                Endianess='B'; //BE
                 break; //while()
             }
             if (Buffer[Buffer_Offset  ]==0x00
@@ -767,7 +778,7 @@ bool File_Aes3::Synchronize()
                 ByteSize=8;
                 Container_Bits=32;
                 Stream_Bits=24;
-                Endianess=true; //LE
+                Endianess='L'; //LE
                 break; //while()
             }
         }
@@ -832,7 +843,7 @@ bool File_Aes3::Synched_Test()
     //Quick test of synchro
     switch (Endianess)
     {
-        case false :
+        case 'B' :
                     switch (Container_Bits)
                     {
                         case 16 :   if (CC4(Buffer+Buffer_Offset)!=0xF8724E1F) {Synched=false; return true;} break;
@@ -858,7 +869,7 @@ bool File_Aes3::Synched_Test()
                         default : ;
                     }
                     break;
-        case true  :
+        case 'L'  :
                     switch (Container_Bits)
                     {
                         case 16 :   if (CC4(Buffer+Buffer_Offset)!=0) {Synched=false; return true;} break;
@@ -883,6 +894,7 @@ bool File_Aes3::Synched_Test()
                         default : ;
                     }
                     break;
+        default    : ; //Should never happen
     }
 
     //We continue
@@ -915,7 +927,7 @@ void File_Aes3::Header_Parse()
     int32u Size=0;
     switch (Endianess)
     {
-        case false :
+        case 'B' :
                     switch (Container_Bits)
                     {
                         case 16 :   Size=BigEndian2int16u(Buffer+Buffer_Offset+6)         ; break;
@@ -941,7 +953,7 @@ void File_Aes3::Header_Parse()
                         default : ;
                     }
                     break;
-        case true  :
+        case 'L'  :
                     switch (Container_Bits)
                     {
                         case 16 :   Size=LittleEndian2int16u(Buffer+Buffer_Offset+6)   ; break;
@@ -966,6 +978,7 @@ void File_Aes3::Header_Parse()
                         default : ;
                     }
                     break;
+        default   : ; //Should never happen
     }
 
     //Adaptation
@@ -982,7 +995,7 @@ void File_Aes3::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Aes3::Data_Parse()
 {
-    if (Container_Bits==Stream_Bits && !Endianess) //BE
+    if (Container_Bits==Stream_Bits && Endianess=='B')
         Frame();
     else
         Frame_WithPadding();
@@ -1228,7 +1241,7 @@ void File_Aes3::Frame_WithPadding()
     int8u* Info=new int8u[(size_t)Element_Size];
     size_t Info_Offset=0;
 
-    if (Container_Bits==24 && Stream_Bits==16 && Endianess) //LE
+    if (Container_Bits==24 && Stream_Bits==16 && Endianess=='L')
     {
         while (Element_Offset+6<=Element_Size)
         {
@@ -1242,7 +1255,7 @@ void File_Aes3::Frame_WithPadding()
             Element_Offset+=6;
         }
     }
-    if (Container_Bits==24 && Stream_Bits==20 && Endianess) //LE
+    if (Container_Bits==24 && Stream_Bits==20 && Endianess=='L')
     {
         while (Element_Offset+6<=Element_Size)
         {
@@ -1257,7 +1270,7 @@ void File_Aes3::Frame_WithPadding()
             Element_Offset+=6;
         }
     }
-    if (Container_Bits==32 && Stream_Bits==16 && Endianess) //LE
+    if (Container_Bits==32 && Stream_Bits==16 && Endianess=='L')
     {
         while (Element_Offset+8<=Element_Size)
         {
@@ -1271,7 +1284,7 @@ void File_Aes3::Frame_WithPadding()
             Element_Offset+=8;
         }
     }
-    if (Container_Bits==32 && Stream_Bits==20 && Endianess) //LE
+    if (Container_Bits==32 && Stream_Bits==20 && Endianess=='L')
     {
         while (Element_Offset+8<=Element_Size)
         {
@@ -1286,7 +1299,7 @@ void File_Aes3::Frame_WithPadding()
             Element_Offset+=8;
         }
     }
-    if (Container_Bits==32 && Stream_Bits==24 && Endianess) //LE
+    if (Container_Bits==32 && Stream_Bits==24 && Endianess=='L')
     {
         while (Element_Offset+8<=Element_Size)
         {
@@ -1303,7 +1316,7 @@ void File_Aes3::Frame_WithPadding()
         }
     }
 
-    if (Container_Bits==24 && Stream_Bits==20 && !Endianess) //BE
+    if (Container_Bits==24 && Stream_Bits==20 && Endianess=='B')
     {
         while (Element_Offset+6<=Element_Size)
         {
@@ -1381,7 +1394,7 @@ void File_Aes3::Frame_FromMpegPs()
     {
         Accept("AES3");
         Container_Bits=Stream_Bits=16+4*bits_per_sample;
-        Endianess=true; //Little
+        Endianess='L';
         if (Container_Bits%8)
             Container_Bits+=4; //Rounded to next byte
     }
