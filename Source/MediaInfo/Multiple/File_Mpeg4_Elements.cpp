@@ -176,22 +176,138 @@ Ztring Mpeg4_Vendor(int32u Vendor)
 //---------------------------------------------------------------------------
 const char* Mpeg4_chan(int16u Ordering)
 {
-    //TODO: http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_spec/CAF_spec.html#//apple_ref/doc/uid/TP40001862-CH210-BCGECJAJ
+    //Source: http://developer.apple.com/library/mac/#documentation/MusicAudio/Reference/CACoreAudioReference/CoreAudioTypes/CompositePage.html
+    //Arbitrary decision (0° = Front):
+    //Front = 0°-80°
+    //Side = 80°-120°
+    //Rear = 120°-180°
     switch(Ordering)
     {
         case 100 : return "Front: C";
         case 101 : return "Front: L R";
-        case 102 : return "Front: L R"; //With headphones
-        case 103 : return "Front: L R"; //With matrix
-        case 104 : return "Front: MidSide";
-        case 105 : return "Front: XY";
-        case 106 : return "Front: Binaural";
-        case 107 : return "Front: WXYZ";
+        case 102 : return "Front: L R (Headphones)"; //With headphones
+        case 103 : return "Front: L R (Matrix)"; //With matrix
+        case 104 : return "Front: C S";
+        case 105 : return "Front: X Y";
+        case 106 : return "Front: L R (Binaural)";
+        case 107 : return "Front: W X Y Z";
         case 108 : return "Front: L R, Side: L R";
         case 109 : return "Front: L C R, Rear: L R";
         case 110 : return "Front: L C R, Rear: L C R";
         case 111 : return "Front: L C R, Side: L R, Rear: L C R";
         case 112 : return "Front: L R, TopFront: L R, Rear: L R, TopRear: L R";
+        case 113 : return "Front: L C R";
+        case 114 : return "Front: L C R";
+        case 115 : return "Front: L C R, Rear: C";
+        case 116 : return "Front: L C R, Rear: C";
+        case 117 : return "Front: L C R, Side: L R";
+        case 118 : return "Front: L C R, Side: L R";
+        case 119 : return "Front: L C R, Side: L R";
+        case 120 : return "Front: L C R, Side: L R";
+        case 121 : return "Front: L C R, Side: L R, LFE";
+        case 122 : return "Front: L C R, Side: L R, LFE";
+        case 123 : return "Front: L C R, Side: L R, LFE";
+        case 124 : return "Front: L C R, Side: L R, LFE";
+        case 125 : return "Front: L C R, Side: L C R";
+        case 126 : return "Front: L Lc C Rc R, Side: L R";
+        case 127 : return "Front: L Lc Rc R, Side: L R, LFE";
+        case 128 : return "Front: L C R, Side: L R, Rear: L R, LFE";
+        case 129 : return "Front: L C R, Side: L R, Rear: L R, LFE";
+        case 130 : return "Front: L C R, Side: L R, LFE / L R (Matrix)";
+        case 131 : return "Front: L R, Rear: C";
+        case 132 : return "Front: L R, Side: L R";
+        case 133 : return "Front: L R, LFE";
+        case 134 : return "Front: L R, Rear: C, LFE";
+        case 135 : return "Front: L C R, Side: L R, LFE";
+        case 136 : return "Front: L C R, LFE";
+        case 137 : return "Front: L C R, Rear: C, LFE";
+        case 138 : return "Front: L R, Rear: L R, LFE";
+        case 139 : return "Front: L C R, Rear: L R, LFE";
+        case 140 : return "Front: L C R, Side: L R, Rear: L R";
+        case 141 : return "Front: L C R, Side: L R, Rear: C";
+        case 142 : return "Front: L C R, Side: L R, Rear: C, LFE";
+        case 143 : return "Front: L C R, Side: L R, Rear: L R";
+        case 144 : return "Front: L C R, Side: L R, Rear: L C R";
+        case 145 : return "Front: Lw L C R Rw, TopFront: L C R, Side: L R, Rear: L C Cd R, LFE: L R"; //d=direct, all must be confirmed
+        case 146 : return "Front: Lw L Lc C Rc R Rw, TopFront: L C R, Side: L R, Rear: L C Cd R, LFE: L R, HI, VI, Haptic"; //d=direct, all must be confirmed
+        default  : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_chan_Layout(int16u Ordering)
+{
+    //Source: http://developer.apple.com/library/mac/#documentation/MusicAudio/Reference/CACoreAudioReference/CoreAudioTypes/CompositePage.html
+    // L - left
+    // R - right
+    // C - center
+    // Ls - left surround
+    // Rs - right surround
+    // Cs - center surround
+    // Rls - rear left surround
+    // Rrs - rear right surround
+    // Lw - left wide
+    // Rw - right wide
+    // Lsd - left surround direct
+    // Rsd - right surround direct
+    // Lc - left center
+    // Rc - right center
+    // Ts - top surround
+    // Vhl - vertical height left
+    // Vhc - vertical height center
+    // Vhr - vertical height right
+    // Lt - left matrix total. for matrix encoded stereo.
+    // Rt - right matrix total. for matrix encoded stereo.
+    switch(Ordering)
+    {
+        case 100 : return "C";
+        case 101 : return "L R";
+        case 102 : return "L R"; //With headphones
+        case 103 : return "Lt Rt"; //L R with matrix
+        case 104 : return "M S";
+        case 105 : return "X Y";
+        case 106 : return "L R";
+        case 107 : return "W X Y Z";
+        case 108 : return "L R Ls Rs";
+        case 109 : return "L R Lrs Rrs C";
+        case 110 : return "L R Lrs Rrs C Cs";
+        case 111 : return "L R Lrs Rrs C Crs, Ls, Rs";
+        case 112 : return "L R Lrs Rrs Vhl Vhr, Vhlrs, Vhrrs";
+        case 113 : return "L R C";
+        case 114 : return "C L R";
+        case 115 : return "L R C Cs";
+        case 116 : return "C L R Cs";
+        case 117 : return "L R C Ls Rs";
+        case 118 : return "L R Ls Rs C";
+        case 119 : return "L C R Ls Rs";
+        case 120 : return "C L R Ls Rs";
+        case 121 : return "L R C LFE Ls Rs";
+        case 122 : return "L R Ls Rs C LFE";
+        case 123 : return "L C R Ls Rs LFE";
+        case 124 : return "C L R Ls Rs LFE";
+        case 125 : return "L R C LFE Ls Rs Cs";
+        case 126 : return "L R C LFE Ls Rs Lc Rc";
+        case 127 : return "C Lc Rc L R Ls Rs LFE";
+        case 128 : return "L R C LFE Ls R Rls Rrs";
+        case 129 : return "L R Ls Rs C LFE Lc Rc";
+        case 130 : return "L R C LFE Ls Rs Lt Rt";
+        case 131 : return "L R Cs";
+        case 132 : return "L R Ls Rs";
+        case 133 : return "L R LFE";
+        case 134 : return "L R LFE Cs";
+        case 135 : return "L R LFE Ls Rs";
+        case 136 : return "L R C LFE";
+        case 137 : return "L R C LFE Cs";
+        case 138 : return "L R Ls Rs LFE";
+        case 139 : return "L R Ls Rs C Cs";
+        case 140 : return "L R Ls Rs C Rls Rrs";
+        case 141 : return "C L R Ls Rs Cs ";
+        case 142 : return "C L R Ls Rs Cs LFE";
+        case 143 : return "C L R Ls Rs Rls Rrs";
+        case 144 : return "C L R Ls Rs Rls Rrs Cs";
+        case 145 : return "L R C Vhc Lsd Rsd Ls Rs Vhl Vhr Lw Rw Csd Cs LFE1 LFE2";
+        case 146 : return "L R C Vhc Lsd Rsd Ls Rs Vhl Vhr Lw Rw Csd Cs LFE1 LFE2 Lc Rc HI VI Haptic";
+        case 147 : return "";
         default  : return "";
     }
 }
@@ -229,6 +345,48 @@ std::string Mpeg4_chan_ChannelDescription (int32u ChannelLabels)
         Text+=", LFE";
 
     return Text;
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_chan_ChannelDescription_Layout (int32u ChannelLabel)
+{
+    switch(ChannelLabel)
+    {
+        case   1 : return "L";
+        case   2 : return "R";
+        case   3 : return "C";
+        case   4 : return "LFE";
+        case   5 : return "Ls";
+        case   6 : return "Rs";
+        case   7 : return "Lc";
+        case   8 : return "Rc";
+        case   9 : return "Cs";
+        case  10 : return "Lsd";
+        case  11 : return "Rsd";
+        case  12 : return "Tcs";
+        case  13 : return "Vhl";
+        case  14 : return "Vhc";
+        case  15 : return "Vhr";
+        case  16 : return "Trs";
+        case  17 : return "Trs";
+        case  18 : return "Trs";
+        case  33 : return "Lrs";
+        case  34 : return "Rrs";
+        case  35 : return "Lw";
+        case  36 : return "Rw";
+        case  37 : return "LFE2";
+        case  38 : return "Lt";
+        case  39 : return "Rt";
+        case 200 : return "W";
+        case 201 : return "X";
+        case 202 : return "Y";
+        case 203 : return "Z";
+        case 204 : return "M";
+        case 205 : return "S";
+        case 206 : return "X";
+        case 207 : return "Y";
+        default  : return "";
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -3690,6 +3848,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
 
     //Parsing
     //From http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_spec/CAF_spec.html#//apple_ref/doc/uid/TP40001862-CH210-DontLinkElementID_25
+    std::string ChannelDescription_Layout;
     int32u ChannelLayoutTag, ChannelBitmap, NumberChannelDescriptions, ChannelLabels=0;
     bool ChannelLabels_Valid=true;
     Get_B4 (ChannelLayoutTag,                                   "ChannelLayoutTag");
@@ -3703,6 +3862,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
             ChannelLabels|=(1<<ChannelLabel);
         else
             ChannelLabels_Valid=false;
+        ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
+        if (Pos+1<NumberChannelDescriptions)
+            ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
         Skip_B4(                                                "ChannelFlags");
         Skip_BF4(                                               "Coordinates (0)");
         Skip_BF4(                                               "Coordinates (1)");
@@ -3715,6 +3877,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, NumberChannelDescriptions, 10, true);
             if (ChannelLabels_Valid)
                 Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan_ChannelDescription(ChannelLabels), true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
         }
         else if (ChannelLayoutTag==0x10000) //kCAFChannelLayoutTag_UseChannelBitmap
         {
@@ -3722,6 +3885,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
             int16u Ordering=(ChannelLayoutTag&0xFFFF0000)>16;
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan(Ordering), Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, Mpeg4_chan_Layout(Ordering));
         }
         else
         {

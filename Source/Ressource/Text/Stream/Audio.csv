@@ -89,6 +89,7 @@ Channel(s);; channel;N YF;;;Number of channels;;
 Channel(s)/String;;;Y NT;;;Number of channels (with measurement);;
 ChannelPositions;;;Y YT;;;Position of channels;;
 ChannelPositions/String2;;;N NT;;;Position of channels (x/y.z format);;
+ChannelLayout;;;N YT;;;Layout of channels (in the stream);;
 SamplingRate;; Hz;N YF;;;Sampling rate;;
 SamplingRate/String;;;Y NT;;;in KHz;;
 SamplingCount;;;N NI;;;Sample count (based on sampling rate);;
