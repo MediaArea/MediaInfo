@@ -168,6 +168,18 @@ void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
         if (BitRate>0 && Duration>0)
             Fill(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize), BitRate*Duration/8/1000);
     }
+
+    //Bit rate and maximum bit rate
+    Ztring A=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate));
+    Ztring B=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Maximum));
+    if (StreamKind==Stream_Video)
+        int c=0;
+    if (!Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate)).empty() && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate))==Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Maximum)))
+    {
+        Clear(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Maximum));
+        if (Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Mode)).empty())
+            Fill(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Mode), "CBR");
+    }
 }
 
 //---------------------------------------------------------------------------
