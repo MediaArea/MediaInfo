@@ -75,6 +75,9 @@ private :
     std::string         type;
     size_t              name_End;
     size_t              type_End;
+    #if MEDIAINFO_DEMUX
+        size_t Buffer_Offset_Save;
+    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

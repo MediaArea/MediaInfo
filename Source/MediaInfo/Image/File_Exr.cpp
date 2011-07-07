@@ -67,6 +67,10 @@ File_Exr::File_Exr()
 {
     //Configuration
     ParserName=_T("EXR");
+
+    #if MEDIAINFO_DEMUX
+        Buffer_Offset_Save=(size_t)-1;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************
@@ -98,6 +102,12 @@ void File_Exr::Streams_Finish()
 #if MEDIAINFO_DEMUX
 bool File_Exr::Demux_UnpacketizeContainer_Test()
 {
+    if (Buffer_Offset_Save==(size_t)-1)
+    {
+        Buffer_Offset_Save=Buffer_Offset;
+        Buffer_Offset=0; //File header must be included in the packet
+    }
+
     if (Buffer_Size<File_Size)
     {
         size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
@@ -115,11 +125,8 @@ bool File_Exr::Demux_UnpacketizeContainer_Test()
         FrameInfo.PTS=FrameInfo.DTS;
         FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
     }
-    size_t Buffer_Offset_Save=Buffer_Offset;
-    Buffer_Offset=0; //File header must be included in the packet
     Demux_Offset=Buffer_Size;
     Demux_UnpacketizeContainer_Demux();
-    Buffer_Offset=Buffer_Offset_Save;
 
     return true;
 }
@@ -186,6 +193,14 @@ void File_Exr::FileHeader_Parse()
 //---------------------------------------------------------------------------
 bool File_Exr::Header_Begin()
 {
+    #if MEDIAINFO_DEMUX
+        if (Buffer_Offset_Save!=(size_t)-1)
+        {
+            Buffer_Offset=Buffer_Offset_Save;
+            Buffer_Offset_Save=(size_t)-1;
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //Name
     name_End=0;
     while (Buffer_Offset+name_End<Buffer_Size)
