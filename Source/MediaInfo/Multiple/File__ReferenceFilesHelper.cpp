@@ -162,8 +162,7 @@ void File__ReferenceFilesHelper::ParseReference()
     {
         //Configuration
         Reference->MI=new MediaInfo_Internal();
-        if (Reference->FileNames.size()>1)
-            Reference->MI->Option(_T("File_IsReferenced"), _T("1"));
+        Reference->MI->Option(_T("File_IsReferenced"), _T("1"));
         Reference->MI->Option(_T("File_FileNameFormat"), _T("CSV"));
         if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
             Reference->MI->Option(_T("File_StopAfterFilled"), _T("1"));

@@ -80,7 +80,7 @@ void File__Analyze::Streams_Finish_Global()
                 Config->File_Names.resize(1); //Removing files, wrong detection
         }
     }
-    if (Config->File_Names.size()>1 && Count_Get(Stream_Image))
+    if ((Config->File_Names.size()>1 || Config->File_IsReferenced_Get()) && Count_Get(Stream_Image))
     {
         int64u TotalSize=File_Size;
         for (size_t Pos=0; Pos<Config->File_Names.size(); Pos++)
