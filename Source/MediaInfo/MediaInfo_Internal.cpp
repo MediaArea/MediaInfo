@@ -48,6 +48,10 @@
 #ifdef MEDIAINFO_DEBUG_WARNING_GET
     #include <iostream>
 #endif //MEDIAINFO_DEBUG_WARNING_GET
+#ifdef MEDIAINFO_DEBUG_BUFFER
+    #include "ZenLib/FileName.h"
+    #include <cstring>
+#endif //MEDIAINFO_DEBUG_BUFFER
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -75,7 +79,21 @@ namespace MediaInfo_Debug_MediaInfo_Internal
             _TOAPPEND; \
             Debug+=_T("\r\n"); \
             if (!Debug_Config.Opened_Get()) \
-                Debug_Config.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Config.txt")); \
+            { \
+                if (File_Names.empty()) \
+                    Debug_Config.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Config.txt")); \
+                else \
+                { \
+                    Ztring File_Temp; \
+                    if (File_Names[0].rfind(_T('\\'))!=string::npos) \
+                        File_Temp=File_Names[0].substr(File_Names[0].rfind(_T('\\'))+1, string::npos); \
+                    else if (File_Names[0].rfind(_T('/'))!=string::npos) \
+                        File_Temp=File_Names[0].substr(File_Names[0].rfind(_T('/'))+1, string::npos); \
+                    else \
+                        File_Temp=File_Names[0]; \
+                    Debug_Config.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".")+File_Temp+_T(".Config.txt")); \
+                } \
+            } \
             Debug_Config.Write(Debug); \
         }
 #else // MEDIAINFO_DEBUG_CONFIG
@@ -123,9 +141,33 @@ namespace MediaInfo_Debug_MediaInfo_Internal
         { \
             if (!Debug_Buffer_Stream.Opened_Get()) \
             { \
-                Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Stream.0000000000000000")); \
+                if (File_Names.empty()) \
+                    Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Stream.0000000000000000")); \
+                else \
+                { \
+                    Ztring File_Temp; \
+                    if (File_Names[0].rfind(_T('\\'))!=string::npos) \
+                        File_Temp=File_Names[0].substr(File_Names[0].rfind(_T('\\'))+1, string::npos); \
+                    else if (File_Names[0].rfind(_T('/'))!=string::npos) \
+                        File_Temp=File_Names[0].substr(File_Names[0].rfind(_T('/'))+1, string::npos); \
+                    else \
+                        File_Temp=File_Names[0]; \
+                    Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".")+File_Temp+_T(".Buffer.Stream.0000000000000000")); \
+                } \
                 Debug_Buffer_Stream_Order=0; \
-                Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Sizes.0000000000000000")); \
+                if (File_Names.empty()) \
+                    Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Sizes.0000000000000000")); \
+                else \
+                { \
+                    Ztring File_Temp; \
+                    if (File_Names[0].rfind(_T('\\'))!=string::npos) \
+                        File_Temp=File_Names[0].substr(File_Names[0].rfind(_T('\\'))+1, string::npos); \
+                    else if (File_Names[0].rfind(_T('/'))!=string::npos) \
+                        File_Temp=File_Names[0].substr(File_Names[0].rfind(_T('/'))+1, string::npos); \
+                    else \
+                        File_Temp=File_Names[0]; \
+                    Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".")+File_Temp+_T(".Buffer.Sizes.0000000000000000")); \
+                } \
                 Debug_Buffer_Sizes_Count=0; \
             } \
             Debug_Buffer_Stream.Write(_BUFFER, _SIZE); \

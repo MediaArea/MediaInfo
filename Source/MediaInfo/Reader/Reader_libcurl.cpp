@@ -235,18 +235,20 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
                 Curl_Data.Debug_Count++;
             #endif //MEDIAINFO_DEBUG
             Curl_Data.File_Offset=Curl_Data.File_GoTo;
+            CURLcode Code;
             if (Curl_Data.File_GoTo<0x80000000)
             {
                 //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
                 long File_GoTo_Long=(long)Curl_Data.File_GoTo;
-                curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM, File_GoTo_Long);
+                Code=curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM, File_GoTo_Long);
             }
             else
             {
                 curl_off_t File_GoTo_Off=(curl_off_t)Curl_Data.File_GoTo;
-                curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM_LARGE, File_GoTo_Off);
+                Code=curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM_LARGE, File_GoTo_Off);
             }
-            MI->Open_Buffer_Init((int64u)-1, Curl_Data.File_GoTo);
+            if (Code==CURLE_OK)
+                MI->Open_Buffer_Init((int64u)-1, Curl_Data.File_GoTo);
             Curl_Data.File_GoTo=(int64u)-1;
         }
 
