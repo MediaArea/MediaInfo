@@ -483,6 +483,16 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
 size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open_Buffer_Init, File_Size=");Debug+=Ztring::ToZtring(File_Size_);Debug+=_T(", File_Offset=");Debug+=Ztring::ToZtring(File_Offset_);)
+    #ifdef MEDIAINFO_DEBUG_BUFFER
+        if (Info && File_Offset_>Info->File_Offset)
+        {
+            size_t Temp_Size=(size_t)(File_Offset_-Info->File_Offset);
+            int8u* Temp=new int8u[Temp_Size];
+            std::memset(Temp, 0xCC, Temp_Size);
+            MEDIAINFO_DEBUG_BUFFER_SAVE(Temp, Temp_Size);
+            delete[] Temp;
+        }
+    #endif //MEDIAINFO_DEBUG_BUFFER
 
     if (File_Size_!=(int64u)-1)
         Open_Buffer_Init(File_Size_);
