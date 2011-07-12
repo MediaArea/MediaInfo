@@ -326,6 +326,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ism.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ivf.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Lxf.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.cpp" />
@@ -446,6 +447,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ism.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ivf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Lxf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.h" />

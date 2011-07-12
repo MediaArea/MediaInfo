@@ -98,6 +98,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Gxf_TimeCode.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ibi.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ibi_Creation.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Ism.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ivf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Lxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mk.cpp \

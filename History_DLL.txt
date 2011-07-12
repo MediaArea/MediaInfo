@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.47
 --------------
++ ISM (ISM/ISMV/ISMA/PIFF...) support
 + SCC (Scenarist Closed Captioning) support
 + #3201768, BMP: BitmapV4Header support, thanks to Lionel Duchateau
 + MP4: enda atom support (Endianess)

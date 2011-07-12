@@ -156,9 +156,6 @@ File_Mpeg4::File_Mpeg4()
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(0); //Container1
     #endif //MEDIAINFO_TRACE
-    #if MEDIAINFO_DEMUX
-        Demux_EventWasSent_Accept_Specific=true;
-    #endif //MEDIAINFO_DEMUX
 
     DataMustAlwaysBeComplete=false;
 

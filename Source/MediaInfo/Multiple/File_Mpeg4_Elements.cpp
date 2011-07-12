@@ -1399,21 +1399,13 @@ void File_Mpeg4::mdat()
         #if MEDIAINFO_DEMUX
             if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
             {
-                bool HasLocators=false;
+                Demux_Locators=false;
                 for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
                     if (!Stream->second.File_Name.empty())
                     {
-                        HasLocators=true;
+                        Demux_Locators=true;
                         break;
                     }
-                if (!HasLocators)
-                {
-                    if (FirstMdatPos==(int64u)-1) //Only if this is the first mdat
-                        Config->Demux_EventWasSent=true;
-                    Demux_Locators=false;
-                }
-                else
-                    Demux_Locators=true;
             }
         #endif //MEDIAINFO_DEMUX
 
@@ -1599,6 +1591,8 @@ void File_Mpeg4::mfra_tfra()
 void File_Mpeg4::moof()
 {
     Element_Name("Movie Fragment");
+
+    moof_base_data_offset=File_Offset+Buffer_Offset-Header_Size;
 }
 
 //---------------------------------------------------------------------------
@@ -1649,7 +1643,7 @@ void File_Mpeg4::moof_traf_tfhd()
         Get_Flags (Flags,  4, default_sample_size_present,      "default-sample-size-present");
         Get_Flags (Flags,  5, default_sample_flags_present,     "default-sample-flags-present");
         Skip_Flags(Flags, 16,                                   "duration-is-empty");
-    Skip_B4(                                                    "track_ID");
+    Get_B4 (moov_trak_tkhd_TrackID,                             "track_ID");
     if (base_data_offset_present)
         Skip_B8(                                                "base_data_offset");
     if (sample_description_index_present)
@@ -1678,7 +1672,22 @@ void File_Mpeg4::moof_traf_trun()
         Get_Flags (Flags, 11, sample_composition_time_offset_present, "sample-composition-time-offsets-present");
     Get_B4 (sample_count,                                       "sample_count");
     if (data_offset_present)
-        Skip_B4(                                                "data_offset");
+    {
+        int32u data_offset;
+        Get_B4 (data_offset,                                    "data_offset");
+        moof_base_data_offset+=data_offset;
+    }
+
+    //Filling
+    Streams[moov_trak_tkhd_TrackID].stco.push_back(moof_base_data_offset);
+    stream::stsc_struct Stsc;
+    if (Streams[moov_trak_tkhd_TrackID].stsc.empty())
+        Stsc.FirstChunk=1;
+    else
+        Stsc.FirstChunk=Streams[moov_trak_tkhd_TrackID].stsc[Streams[moov_trak_tkhd_TrackID].stsc.size()-1].FirstChunk+1;
+    Stsc.SamplesPerChunk=sample_count;
+    Streams[moov_trak_tkhd_TrackID].stsc.push_back(Stsc);
+
     if (first_sample_flags_present)
         Skip_B4(                                                "first_sample_flags");
     for (int32u Pos=0; Pos<sample_count; Pos++)
@@ -1687,7 +1696,13 @@ void File_Mpeg4::moof_traf_trun()
         if (sample_duration_present)
             Skip_B4(                                            "sample_duration");
         if (sample_size_present)
-            Skip_B4(                                            "sample_size");
+        {
+            int32u sample_size;
+            Get_B4 (sample_size,                                "sample_size");
+
+            //Filling
+            Streams[moov_trak_tkhd_TrackID].stsz.push_back(sample_size);
+        }
         if (sample_flags_present)
             Skip_B4(                                            "sample_flags");
         if (sample_composition_time_offset_present)
@@ -3765,37 +3780,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
     if (Version==1)
     {
         #ifdef MEDIAINFO_AVC_YES
-            if (Streams[moov_trak_tkhd_TrackID].Parser==NULL)
-            {
-                Streams[moov_trak_tkhd_TrackID].Parser=new File_Avc;
-                #if MEDIAINFO_DEMUX
-                    Element_Code=moov_trak_tkhd_TrackID;
-                #endif //MEDIAINFO_DEMUX
-                Open_Buffer_Init(Streams[moov_trak_tkhd_TrackID].Parser);
-                ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->MustParse_SPS_PPS=true;
-                Streams[moov_trak_tkhd_TrackID].Parser->MustSynchronize=false;
-                mdat_MustParse=true; //Data is in MDAT
+            if (Streams[moov_trak_tkhd_TrackID].Parser) //Removing any previous parser (in case of multiple streams in one track, or dummy parser for demux)
+                delete Streams[moov_trak_tkhd_TrackID].Parser; //Streams[moov_trak_tkhd_TrackID].Parser=NULL;
 
-                //Parsing
-                Demux(Buffer+(size_t)(Buffer_Offset+Element_Offset), (size_t)(Element_Size-Element_Offset), ContentType_Header);
-                Open_Buffer_Continue(Streams[moov_trak_tkhd_TrackID].Parser);
+            Streams[moov_trak_tkhd_TrackID].Parser=new File_Avc;
+            #if MEDIAINFO_DEMUX
+                Element_Code=moov_trak_tkhd_TrackID;
+            #endif //MEDIAINFO_DEMUX
+            Open_Buffer_Init(Streams[moov_trak_tkhd_TrackID].Parser);
+            ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->MustParse_SPS_PPS=true;
+            Streams[moov_trak_tkhd_TrackID].Parser->MustSynchronize=false;
+            mdat_MustParse=true; //Data is in MDAT
 
-                ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks
-            }
-            else
-            {
-                //We parse it, but we don't save information: how to do? Multiple formats in one track.
-                File_Avc* MI=new File_Avc;
-                Open_Buffer_Init(MI);
-                MI->MustParse_SPS_PPS=true;
-                MI->MustSynchronize=false;
+            //Parsing
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
+            Open_Buffer_Continue(Streams[moov_trak_tkhd_TrackID].Parser);
 
-                //Parsing
-                Open_Buffer_Continue(MI);
-
-                //Cleanup
-                delete MI; //MI=NULL
-            }
+            ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks
         #else
             Skip_XX(Element_Size,                               "AVC Data");
         #endif

@@ -306,6 +306,7 @@ private :
     Ztring                                  Vendor_Version;
     int64u                                  FirstMdatPos;
     int64u                                  FirstMoovPos;
+    int64u                                  moof_base_data_offset;
     bool                                    IsSecondPass;
     bool                                    IsParsing_mdat;
 
