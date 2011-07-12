@@ -8556,6 +8556,7 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
             Essence->second.IsChannelGrouping=true;
         }
         Parser->Channel_Total=2;
+        Parser->Endianess='L';
         Parser->ByteDepth=Descriptor->second.BlockAlign<=4?Descriptor->second.BlockAlign:(Descriptor->second.BlockAlign/2); //In one file, BlockAlign is size of the aggregated channelgroup
 
         #if MEDIAINFO_DEMUX
