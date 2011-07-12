@@ -739,6 +739,10 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         default: ;
     }
 
+    //Demux
+    Demux_Level=2; //Container
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
+
     //Parsing
     Open_Buffer_Continue(Parser);
 
