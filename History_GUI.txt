@@ -12,6 +12,16 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.47, 2011-07-14
+--------------
++ ISM (ISM/ISMV/ISMA/PIFF...) support
++ SCC (Scenarist Closed Captioning) support
++ #3201768, BMP: BitmapV4Header support, thanks to Lionel Duchateau
++ MP4: enda atom support (Endianess)
++ MXF: expliciting PCM endianess
+x #3354384, Vorbis in AVI, version 3+ was displayed as 2+
+x MPEG-4/MOV: files with big "free" atom were not parsed
+
 Version 0.7.46, 2011-07-04
 --------------
 + Ukrainian translation updated
