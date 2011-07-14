@@ -4115,7 +4115,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
 {
     //Source: http://developer.apple.com/quicktime/icefloe/dispatch019.html#fiel
-    Element_Name("AMR decode config");
+    Element_Name("Field/Frame Information");
 
     //Parsing
     int8u  fields, detail;
@@ -4126,7 +4126,20 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
         switch(fields)
         {
             case 0x01 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Progressive", Unlimited, true, true); break;
-            case 0x02 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Interlaced", Unlimited, true, true); break;
+            case 0x02 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Interlaced", Unlimited, true, true);
+                        switch(detail)
+                        {
+                            case 1  :   // Split fields, TFF
+                            case 9  :   // Interleaved fields, TFF
+                                        Fill(Stream_Video, StreamPos_Last, Video_ScanOrder, "TFF", Unlimited, true, true);
+                                        break;
+                            case 6  :   // Split fields, BFF
+                            case 14 :   // Interleaved fields, BFF
+                                        Fill(Stream_Video, StreamPos_Last, Video_ScanOrder, "BFF", Unlimited, true, true);
+                                        break;
+                            default  :  ;
+                        }
+                        break;
             default   : ;
         }
     FILLING_END();
