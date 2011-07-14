@@ -1126,7 +1126,11 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
             }
     }
 
-    Ztring Value=Ztring().From_CC4((int32u)Meta);
+    Ztring Value;
+    Value.append(1, (Char)((Meta&0xFF000000)>>24)); //Can not use From_CC4 because there is sometimes the (C) character, not in Ansi 7-bit, so wrongly decoded on UTF-8 systems
+    Value.append(1, (Char)((Meta&0x00FF0000)>>16));
+    Value.append(1, (Char)((Meta&0x0000FF00)>> 8));
+    Value.append(1, (Char)((Meta&0x000000FF)>> 0));
     if (MediaInfoLib::Config.CustomMapping_IsPresent(_T("MP4"), Value))
         Parameter=MediaInfoLib::Config.CustomMapping_Get(_T("MP4"), Value).To_Local();
 
