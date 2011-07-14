@@ -73,6 +73,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Demux_PCM_20bitTo16bit=false;
         Demux_Unpacketize=false;
         Demux_Rate=0;
+        Demux_InitData=0; //In Demux event
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_IBI
         Ibi_Create=false;
@@ -350,6 +351,18 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         #if MEDIAINFO_DEMUX
             Demux_Rate_Set(Ztring(Value).To_float64());
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_demux_initdata"))
+    {
+        #if MEDIAINFO_DEMUX
+            Ztring Value_Lower(Value); Value_Lower.MakeLowerCase();
+                 if (Value_Lower==_T("event")) Demux_InitData_Set(0);
+            else if (Value_Lower==_T("field")) Demux_InitData_Set(1);
+            else return _T("Invalid value");
             return Ztring();
         #else //MEDIAINFO_DEMUX
             return _T("Demux manager is disabled due to compilation options");
@@ -975,6 +988,21 @@ float64 MediaInfo_Config_MediaInfo::Demux_Rate_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Demux_Rate;
+}
+#endif //MEDIAINFO_DEMUX
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+void MediaInfo_Config_MediaInfo::Demux_InitData_Set (int8u NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_InitData=NewValue;
+}
+
+int8u MediaInfo_Config_MediaInfo::Demux_InitData_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_InitData;
 }
 #endif //MEDIAINFO_DEMUX
 

@@ -72,6 +72,9 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if MEDIAINFO_DEMUX
+    #include "ZenLib/Base64/base64.h"
+#endif //MEDIAINFO_DEMUX
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -740,8 +743,23 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     }
 
     //Demux
-    Demux_Level=2; //Container
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
+    #if MEDIAINFO_DEMUX
+        switch (Config->Demux_InitData_Get())
+        {
+            case 0 :    //In demux event
+                        Demux_Level=2; //Container
+                        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
+                        break;
+            case 1 :    //In field
+                        {
+                        std::string Data_Raw((const char*)(Buffer+Buffer_Offset), (size_t)Element_Size);
+                        std::string Data_Base64(Base64::encode(Data_Raw));
+                        Fill(Stream_Audio, StreamPos_Last, "Demux_InitBytes", Data_Base64);
+                        }
+                        break;
+            default :   ;
+        }
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing
     Open_Buffer_Continue(Parser);

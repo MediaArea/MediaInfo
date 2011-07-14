@@ -1111,7 +1111,11 @@ void File_Mpeg4::free()
     Element_Name("Free space");
 
     //Parsing
-    Skip_XX(Element_TotalSize_Get(),                            "Free");
+    #if MEDIAINFO_TRACE
+        if (Trace_Activated)
+            Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+    #endif //MEDIAINFO_TRACE
+    Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 }
 
 //---------------------------------------------------------------------------
@@ -1426,8 +1430,8 @@ void File_Mpeg4::mdat()
 
     //Parsing
     #if MEDIAINFO_TRACE
-		if (Trace_Activated)
-			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+        if (Trace_Activated)
+            Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
     Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 }
@@ -1724,7 +1728,11 @@ void File_Mpeg4::moov()
 
     if (IsSecondPass || FirstMoovPos!=(int64u)-1) //Currently, the 1 moov atom is used
     {
-        Skip_XX(Element_TotalSize_Get(),                        "Data");
+        #if MEDIAINFO_TRACE
+            if (Trace_Activated)
+                Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+        #endif //MEDIAINFO_TRACE
+        Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
         return;
     }
 
@@ -1805,8 +1813,7 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         size_t Element_Level_Sav=Element_Level;
         while(Element_Level)
         {
-            int64u A=Element_TotalSize_Get();
-            Element_Sizes_Sav.push_back(A);
+            Element_Sizes_Sav.push_back(Element_TotalSize_Get());
             Element_End();
         }
 
@@ -3792,8 +3799,26 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
             Streams[moov_trak_tkhd_TrackID].Parser->MustSynchronize=false;
             mdat_MustParse=true; //Data is in MDAT
 
+            //Demux
+            #if MEDIAINFO_DEMUX
+                switch (Config->Demux_InitData_Get())
+                {
+                    case 0 :    //In demux event
+                                Demux_Level=2; //Container
+                                Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
+                                break;
+                    case 1 :    //In field
+                                {
+                                std::string Data_Raw((const char*)(Buffer+Buffer_Offset), (size_t)Element_Size);
+                                std::string Data_Base64(Base64::encode(Data_Raw));
+                                Fill(Stream_Video, StreamPos_Last, "Demux_InitBytes", Data_Base64);
+                                }
+                                break;
+                    default :   ;
+                }
+            #endif //MEDIAINFO_DEMUX
+
             //Parsing
-            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
             Open_Buffer_Continue(Streams[moov_trak_tkhd_TrackID].Parser);
 
             ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks

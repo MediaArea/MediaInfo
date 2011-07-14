@@ -183,6 +183,12 @@ void File__ReferenceFilesHelper::ParseReference()
                 Reference->MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
             if (FrameRate)
                 Reference->MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(FrameRate, 15));
+            switch (Config->Demux_InitData_Get())
+            {
+                case 0 : Reference->MI->Option(_T("File_Demux_InitData"), _T("Event")); break;
+                case 1 : Reference->MI->Option(_T("File_Demux_InitData"), _T("Field")); break;
+                default: ;
+            }
         #endif //MEDIAINFO_DEMUX
 
         //Configuring file name

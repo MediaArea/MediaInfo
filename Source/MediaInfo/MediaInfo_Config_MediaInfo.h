@@ -152,6 +152,8 @@ public :
     bool          Demux_Unpacketize_Get ();
     void          Demux_Rate_Set (float64 NewValue);
     float64       Demux_Rate_Get ();
+    void          Demux_InitData_Set (int8u NewValue);
+    int8u         Demux_InitData_Get ();
     #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_IBI
@@ -255,6 +257,7 @@ private :
     bool                    Demux_PCM_20bitTo16bit;
     bool                    Demux_Unpacketize;
     float64                 Demux_Rate;
+    int8u                   Demux_InitData;
     #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_IBI
