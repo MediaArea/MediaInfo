@@ -18,6 +18,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+// Config
+#ifndef MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT //If not defined by the compiler
+    #define MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT 1 //0=without, 1=with libmms customized version containing DESCRIBE only API
+#endif
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 // Compilation conditions
 #include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
@@ -43,6 +50,7 @@
         #include "libmms/mmsh.h"
     #endif //MEDIAINFO_LIBMMS_FROMSOURCE
 #endif
+#include <iostream>
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -60,39 +68,57 @@ const size_t Buffer_NormalSize=64*1024;
 size_t Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
     mmsx_t* Handle;
+
     //Opening the file
-    if (!MI->Config.File_Mmsh_Describe_Only_Get())
+    #if MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT
+    if (MI->Config.File_Mmsh_Describe_Only_Get())
+    {
+        // Use MMSH & Send a DESCRIBE request
+        mmsh_t* MmshHandle;
+
+        MmshHandle=mmsh_describe_request(0, 0, Ztring(File_Name).To_Local().c_str());
+        if (MmshHandle==NULL)
+            return 0;
+
+        Handle=mmsx_set_mmsh_handle(MmshHandle);
+        if (Handle==NULL)
+        {
+            mmsh_close(MmshHandle);
+            return 0;
+        }
+    }
+    else
+    #endif //MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT
     {
        // Use MMS or MMSH (Send a DESCRIBE & PLAY request)
        Handle=mmsx_connect(0, 0, Ztring(File_Name).To_Local().c_str(), (int)-1);
        if (Handle==NULL)
            return 0;
     }
+
+    //Init
+    size_t Buffer_Size_Max;
+    uint32_t Length;
+    if (!MI->Config.File_Mmsh_Describe_Only_Get())
+    {
+        //Buffer
+        Buffer_Size_Max=Buffer_NormalSize;
+
+        //MediaInfo init
+        mms_off_t Offset=mmsx_seek(0, Handle, 0, SEEK_SET);
+        uint32_t Length=mmsx_get_length(Handle);
+        MI->Open_Buffer_Init(Length, File_Name);
+    }
     else
     {
-       // Use MMSH & Send a DESCRIBE request
-       mmsh_t* MmshHandle;
-   
-       MmshHandle = mmsh_describe_request(0, 0, Ztring(File_Name).To_Local().c_str());
-       if(MmshHandle==NULL)
-          return 0;
-   
-       Handle=mmsx_set_mmsh_handle(MmshHandle);
-       if (Handle==NULL) {
-          mmsh_close(MmshHandle); 
-          return 0;
-       }
+        //Buffer
+        Buffer_Size_Max=mmsx_get_asf_header_len(Handle);
+
+        //MediaInfo init
+        Length=(uint32_t)-1;
+        MI->Open_Buffer_Init((int64u)-1, File_Name);
     }
-
-    mms_off_t Offset=mmsx_seek(0, Handle, 0, SEEK_SET);
-    uint32_t Length=mmsx_get_length(Handle);
-
-    //Buffer
-    size_t Buffer_Size_Max=Buffer_NormalSize;
     int8u* Buffer=new int8u[Buffer_Size_Max];
-
-    //Parser
-    MI->Open_Buffer_Init(Length, File_Name);
 
     //Test the format with buffer
     bool StopAfterFilled=MI->Config.File_StopAfterFilled_Get();
@@ -111,16 +137,18 @@ size_t Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Nam
         }
 
         //Buffering
-        size_t Buffer_Size=mmsx_read(0, Handle, (char*)Buffer, (int)Buffer_Size_Max);
-        if (Buffer_Size==0)
-            break; //Problem while reading
+        size_t Buffer_Size;
+        if (!MI->Config.File_Mmsh_Describe_Only_Get())
+            Buffer_Size=mmsx_read(0, Handle, (char*)Buffer, (int)Buffer_Size_Max);
+        else
+            Buffer_Size=mmsx_peek_header(Handle, (char*)Buffer, (int)Buffer_Size_Max);
 
         //Parser
         Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
+        if (Buffer_Size==0 || MI->Config.File_Mmsh_Describe_Only_Get())
+            break;
     }
     while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
-    if (Length==0) //If Size==0, Status is never updated
-        Status=MI->Open_Buffer_Continue(NULL, 0);
 
     //File
     mmsx_close(Handle);

@@ -11,6 +11,7 @@ Version 0.7.48
 --------------
 + ISM (ISM/ISMV/ISMA/PIFF...): more attributes (frame rate, frame count, duration)
 x MP4/MOV: scan order (Top/Bottom) from container, thanks to Peter Chapman
+x libmms: default behavior is using official libmms API only
 
 Version 0.7.47, 2011-07-14
 --------------
