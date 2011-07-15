@@ -350,7 +350,8 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
             Reference->MI->Info->Fill(Stream_Video, 0, Reference->MI->Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Reference->MI->Get(Stream_Image, 0, Pos), true);
         Reference->MI->Info->Stream_Erase(Stream_Image, 0);
 
-        Reference->MI->Info->Fill(Stream_Video, 0, Video_FrameRate, Reference->FrameRate);
+        if (Reference->FrameRate)
+            Reference->MI->Info->Fill(Stream_Video, 0, Video_FrameRate, Reference->FrameRate);
         Reference->MI->Info->Fill(Stream_Video, 0, Video_FrameCount, Reference->FileNames.size());
 
         //Stream size (only for files not of FTP/HTTP)
@@ -377,7 +378,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
     MI->Merge(*Reference->MI->Info, StreamKind_Last, 0, StreamPos_Last);
 
     //Frame rate if not present
-    if (StreamKind_Last==Stream_Video && MI->Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
+    if (StreamKind_Last==Stream_Video && MI->Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty() && Reference->FrameRate)
         MI->Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Reference->FrameRate);
 
     //Hacks - After

@@ -188,6 +188,7 @@ private :
     void moov_trak_mdia_minf_stbl_stss();
     void moov_trak_mdia_minf_stbl_stsz();
     void moov_trak_mdia_minf_stbl_stts();
+    void moov_trak_mdia_minf_stbl_stts_Common(int32u SampleCount, int32u SampleDuration, int32u Pos=0, int32u NumberOfEntries=1);
     void moov_trak_mdia_minf_stbl_stz2() {moov_trak_mdia_minf_stbl_stsz();}
     void moov_trak_meta() {moov_meta();}
     void moov_trak_meta_hdlr() {moov_meta_hdlr();}
@@ -307,8 +308,12 @@ private :
     int64u                                  FirstMdatPos;
     int64u                                  FirstMoovPos;
     int64u                                  moof_base_data_offset;
+    int64u                                  moof_traf_base_data_offset;
+    int32u                                  moof_traf_default_sample_duration;
+    int32u                                  moof_traf_default_sample_size;
     bool                                    IsSecondPass;
     bool                                    IsParsing_mdat;
+    bool                                    IsFragmented;
 
     //Data
     struct stream
@@ -336,6 +341,7 @@ private :
         std::vector<stsc_struct> stsc;
         std::vector<int64u>     stsz;
         std::vector<int64u>     stsz_Total; //TODO: merge with stsz
+        int64u                  stsz_StreamSize; //TODO: merge with stsz
         std::vector<int64u>     stss; //Sync Sample, base=0
         struct stts_struct
         {
@@ -354,6 +360,8 @@ private :
         int64u                  stts_FrameCount;
         int64u                  stts_Duration;
         int64u                  stts_SampleDuration;
+        int32u                  mvex_trex_default_sample_duration;
+        int32u                  mvex_trex_default_sample_size;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
         bool                    IsPcmMono;
@@ -384,6 +392,7 @@ private :
             TimeCode=NULL;
             StreamKind=Stream_Max;
             StreamPos=0;
+            stsz_StreamSize=0;
             stsz_Sample_Size=0;
             stsz_Sample_Multiplier=1;
             stsz_Sample_Count=0;
@@ -394,6 +403,8 @@ private :
             stts_Max=0;
             stts_FrameCount=0;
             stts_Duration=0;
+            mvex_trex_default_sample_duration=0;
+            mvex_trex_default_sample_size=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
             IsPcmMono=false;

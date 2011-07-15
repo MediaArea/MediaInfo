@@ -1045,6 +1045,8 @@ bool File__Analyze::FileHeader_Manage()
     {
         if (Status[IsFinished]) //Newest parsers set this bool if there is an error
             Reject();
+        if (File_Offset+Buffer_Size>=File_Size)
+            Reject();
         return false; //Wait for more data
     }
 

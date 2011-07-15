@@ -14,7 +14,7 @@ DVD Video;;;M;Dvdv;;ifo;;;
 Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com/go/getflashplayer;
 GXF;;;M;Gxf;SMPTE 360M;gxf;;;
 Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html;
-ISM;;;M;Ism;;ism;;;
+ISM;Internet Streaming Media;;M;Ism;;ism;;;
 IVF;;;M;Ivf;;ivf;;;
 LXF;;;M;Lxf;;lxf;video/lxf;;
 Matroska;;;M;Mk;;mkv mk3d mka mks;;http://packs.matroska.org/;

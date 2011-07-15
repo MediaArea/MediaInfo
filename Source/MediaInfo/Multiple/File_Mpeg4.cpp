@@ -167,6 +167,7 @@ File_Mpeg4::File_Mpeg4()
     FirstMoovPos=(int64u)-1;
     IsSecondPass=false;
     IsParsing_mdat=false;
+    IsFragmented=false;
     moov_trak_tkhd_TrackID=(int32u)-1;
     ReferenceFiles=NULL;
     #if MEDIAINFO_NEXTPACKET
@@ -238,10 +239,12 @@ void File_Mpeg4::Streams_Finish()
         {
             if (Temp->second.mdhd_TimeScale && Temp->second.stts_Min && Temp->second.stts_Max)
             {
-                if (Temp->second.stts_Min!=Temp->second.stts_Max && ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min-((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max>=0.001)
+                if (Temp->second.stts_Min==0 || Temp->second.stts_Max==0 || (Temp->second.stts_Min!=Temp->second.stts_Max && ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min-((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max>=0.001))
                 {
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max, 3, true);
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min, 3, true);
+                    if (Temp->second.stts_Max)
+                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Max, 3, true);
+                    if (Temp->second.stts_Min)
+                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)Temp->second.mdhd_TimeScale)/Temp->second.stts_Min, 3, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)Temp->second.stts_FrameCount)/Temp->second.mdhd_Duration*Temp->second.mdhd_TimeScale, 3, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "VFR", Unlimited, true, true);
                 }
@@ -252,15 +255,34 @@ void File_Mpeg4::Streams_Finish()
                 }
             }
         }
+        if (Temp->second.stsz_StreamSize)
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.stsz_StreamSize);
+        if (IsFragmented)
+        {
+            int64u stts_FrameCount=0;
+            int64u stts_Duration=0;
+            for (size_t stts_Pos=0; stts_Pos<Temp->second.stts.size(); stts_Pos++)
+            {
+                stts_FrameCount+=Temp->second.stts[stts_Pos].SampleCount;
+                stts_Duration+=Temp->second.stts[stts_Pos].SampleCount*Temp->second.stts[stts_Pos].SampleDuration;
+            }
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount), stts_FrameCount, 10, true);
+            if (Temp->second.mdhd_TimeScale)
+            {
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), stts_Duration*1000/Temp->second.mdhd_TimeScale, 10, true);
+                if (stts_Duration)
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)Temp->second.stts_FrameCount)/stts_Duration*Temp->second.mdhd_TimeScale, 3, true);
+            }
+        }
 
-        //Coherency testing
-        if (TimeScale && Temp->second.TimeCode==NULL && TimeScale && Temp->second.mdhd_TimeScale)
+        //Coherency testing (or fragmented streams)
+        if (!IsFragmented && TimeScale && Temp->second.TimeCode==NULL && TimeScale && Temp->second.mdhd_TimeScale)
         {
             float32 Duration_tkhd_H=((float32)(Temp->second.tkhd_Duration+1))/TimeScale;
             float32 Duration_tkhd_L=((float32)(Temp->second.tkhd_Duration-1))/TimeScale;
             float32 Duration_stts=((float32)Temp->second.stts_Duration)/Temp->second.mdhd_TimeScale;
             float32 Duration_mdhd=((float32)Temp->second.mdhd_Duration)/Temp->second.mdhd_TimeScale;
-            if (!(Duration_stts>Duration_tkhd_L && Duration_stts<Duration_tkhd_H))
+            if (Duration_stts && !(Duration_stts>=Duration_tkhd_L && Duration_stts<=Duration_tkhd_H))
             {
                 //There is a difference between media/stts atom and track atom
                 Fill(StreamKind_Last, StreamPos_Last, "Material_Duration", Duration_stts*1000, 0);
@@ -298,7 +320,7 @@ void File_Mpeg4::Streams_Finish()
                 int64u FrameCount;
                 if (Temp->second.stts_Min && Temp->second.stts_Min==Temp->second.stts_Max)
                 {
-                    FrameCount=float64_int64s(((float64)Temp->second.tkhd_Duration)/TimeScale*Temp->second.mdhd_TimeScale/Temp->second.stts_Min);
+                    FrameCount=(float64_int64s(((float64)Temp->second.tkhd_Duration)/TimeScale*Temp->second.mdhd_TimeScale/Temp->second.stts_Min));
                 }
                 else
                 {
@@ -334,10 +356,10 @@ void File_Mpeg4::Streams_Finish()
                         Fill(StreamKind_Last, StreamPos_Last, "FrameCount", FrameCount);
                 }
             }
-            else if (!(Duration_mdhd>Duration_tkhd_L && Duration_mdhd<Duration_tkhd_H))
+            else if (Temp->second.tkhd_Duration && !(Duration_mdhd>=Duration_tkhd_L && Duration_mdhd<=Duration_tkhd_H))
             {
                 //There is a difference between media/mdhd atom and track atom
-                Fill(StreamKind_Last, StreamPos_Last, "mdhd_Duration", Duration_mdhd*1000, 0); 
+                Fill(StreamKind_Last, StreamPos_Last, "mdhd_Duration", Duration_mdhd*1000, 0);
             }
         }
 

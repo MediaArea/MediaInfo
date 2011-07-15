@@ -21,6 +21,7 @@ avc1;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;JVT
 3gp9;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;
 CAQV;MPEG-4;;;http://world.casio.com/;Casio
 FACE;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;Facebook
+isml;MPEG-4;Internet Streaming Media Live;;http://www.apple.com/quicktime/download/standalone.html;ISML
 JP20;MPEG-4;;;http://gpac.sourceforge.net/;JPEG 2000
 JPM ;MPEG-4;;;http://www.iso.org/;JPEG 2000 Compound Image
 JPX ;MPEG-4;;;http://www.iso.org/;JPEG 2000 w/ extensions
@@ -43,6 +44,7 @@ ndxs;MPEG-4;;;http://www.nerodigital.com;Nero Digital AVC Standard Profile
 mmp4;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;Mobile version
 mp71;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;ISO 14496-12 MPEG-7 meta data
 mp7b;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;ISO 14496-12 MPEG-7 meta data
+piff;MPEG-4;Protected Interoperable File Format;;http://www.apple.com/quicktime/download/standalone.html;PIFF
 qt  ;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;QuickTime
 SDV ;MPEG-4;;;http://www.sdcard.org/;SD Memory Card Video
 M4A ;MPEG-4;;;http://www.apple.com/itunes/;Apple audio with iTunes info
