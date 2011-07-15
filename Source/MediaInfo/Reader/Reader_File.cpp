@@ -47,8 +47,8 @@ using namespace std;
     int64u Reader_File_BytesRead_Total=0;
     int64u Reader_File_BytesRead=0;
     int64u Reader_File_Count=1;
-    #include <iostream>
 #endif // MEDIAINFO_DEBUG
+    #include <iostream>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -59,7 +59,7 @@ const size_t Buffer_NoJump=128*1024;
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
-	//std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
+	std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
     #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_General_Start_0 Event;
@@ -259,8 +259,6 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
 
             MI->Config.File_Buffer_Size=F.Read(MI->Config.File_Buffer, (F.Position_Get()+MI->Config.File_Buffer_Size_ToRead<Partial_End)?MI->Config.File_Buffer_Size_ToRead:((size_t)(Partial_End-F.Position_Get())));
-            if (MI->Config.File_Buffer_Size==0)
-                break; //Problem while reading
 
             //Testing growing files
             if (!IsGrowing && F.Position_Get()>=FileSize_Current)
@@ -296,6 +294,8 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 
             //Parser
             Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
+            if (MI->Config.File_Buffer_Size==0)
+                break;
 
             #if MEDIAINFO_DEMUX
                 if (MI->Config.Demux_EventWasSent)
@@ -306,8 +306,6 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             if (MI->IsTerminating())
                 break; //Termination is requested
         }
-        if (F.Size_Get()==0) //If Size==0, Status is never updated
-            Status=MI->Open_Buffer_Continue(NULL, 0);
     }
 
     #ifdef MEDIAINFO_DEBUG
