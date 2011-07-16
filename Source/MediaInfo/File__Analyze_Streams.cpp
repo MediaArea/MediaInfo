@@ -1895,24 +1895,34 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
         {
             //Well known values
             Ztring BitRateS;
-            if (Parameter==Fill_Parameter(StreamKind, Generic_BitRate) && Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format))==_T("PCM"))
+            if (StreamKind==Stream_Audio)
             {
-                if (BitRate==  66150) BitRateS=  "66.15";
-                if (BitRate== 132300) BitRateS= "132.3";
-                if (BitRate== 176400) BitRateS= "176.4";
-                if (BitRate== 264600) BitRateS= "264.6";
-                if (BitRate== 352800) BitRateS= "352.8";
-                if (BitRate== 529200) BitRateS= "529.2";
-                if (BitRate== 705600) BitRateS= "705.6";
-                if (BitRate==1411200) BitRateS="1411.2";
-            }
-            if (StreamKind==Stream_Audio && Parameter==Audio_SamplingRate)
-            {
-                if (BitRate==  11024) BitRateS=  "11.024";
-                if (BitRate==  11025) BitRateS=  "11.025";
-                if (BitRate==  22050) BitRateS=  "22.05";
-                if (BitRate==  44100) BitRateS=  "44.1";
-                if (BitRate==  88200) BitRateS=  "88.2";
+                Ztring A=Retrieve(Stream_Audio, StreamPos, Audio_Format);
+                if (Parameter==Audio_BitRate
+                 && (Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("PCM")
+                  || Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("ADPCM")
+                  || Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("U-Law")
+                  || Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("Qdesign 1")
+                  || Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("Qdesign 2")
+                  || Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("DTS")))
+                {
+                    if (BitRate==  66150) BitRateS=  "66.15";
+                    if (BitRate== 132300) BitRateS= "132.3";
+                    if (BitRate== 176400) BitRateS= "176.4";
+                    if (BitRate== 264600) BitRateS= "264.6";
+                    if (BitRate== 352800) BitRateS= "352.8";
+                    if (BitRate== 529200) BitRateS= "529.2";
+                    if (BitRate== 705600) BitRateS= "705.6";
+                    if (BitRate==1411200) BitRateS="1411.2";
+                }
+                if (Parameter==Audio_SamplingRate)
+                {
+                    if (BitRate==  11024) BitRateS=  "11.024";
+                    if (BitRate==  11025) BitRateS=  "11.025";
+                    if (BitRate==  22050) BitRateS=  "22.05";
+                    if (BitRate==  44100) BitRateS=  "44.1";
+                    if (BitRate==  88200) BitRateS=  "88.2";
+                }
             }
             if (!BitRateS.empty())
             {
