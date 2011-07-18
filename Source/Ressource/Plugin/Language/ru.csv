@@ -28,9 +28,9 @@
  chapters stream1; поток разделов
  chapters stream2; потока разделов
  chapters stream3; потоков разделов
- day1; д.
- day2; дн.
- day3; дн.
+ day1; день
+ day2; дня
+ day3; дней
  dB1; дБ
  dB2; дБ
  dB3; дБ
@@ -41,17 +41,17 @@
  frame2; кадра
  frame3; кадров
  fps1; кадр/сек
- fps2; кадр/сек
- fps3; кадр/сек
+ fps2; кадра/сек
+ fps3; кадров/сек
  GB; ГБ
  Gb; Гб
  Gbps; Гбит/сек
  GBps; Гбайт/сек
  GHz; ГГц
  GiB; Гбайт
- GibiByte1;Гибибайт
- GibiByte2;Гибибайт
- GibiByte3;Гибибайт
+ GibiByte1; Гибибайт
+ GibiByte2; Гибибайт
+ GibiByte3; Гибибайт
  GiBps; Гбайт/сек
  GigaBit1; Гигабит
  GigaBit2; Гигабит
@@ -60,8 +60,8 @@
  GigaByte2; Гигабайт
  GigaByte3; Гигабайт
  hour1; час
- hour2; час.
- hour3; час.
+ hour2; часа
+ hour3; часов
  Hz; Гц
  image stream1; поток изображений
  image stream2; потока изображений
@@ -106,20 +106,20 @@
  Mib; Миб
  MiBps; Мбайт/сек
  millisecond1; миллисекунда
- millisecond2; миллисекунд
+ millisecond2; миллисекунды
  millisecond3; миллисекунд
- minute1; мин.
- minute2; мин.
- minute3; мин.
- month1; мес.
- month2; мес.
- month3; мес.
- pixel1; пикс.
- pixel2; пикс.
- pixel3; пикс.
- second1; сек.
- second2; сек.
- second3; сек.
+ minute1; минута
+ minute2; минуты
+ minute3; минут
+ month1; месяц
+ month2; месяца
+ month3; месяцов
+ pixel1; пиксель
+ pixel2; пикселя
+ pixel3; пикселей
+ second1; секунда
+ second2; секунды
+ second3; секунд
  text stream1; текстовый поток
  text stream2; текстовых потока
  text stream3; текстовых потоков
@@ -133,12 +133,12 @@
  warppoint1; точка перехода
  warppoint2; точки перехода
  warppoint3; точек перехода
- week1; нед.
- week2; нед.
- week3; нед.
+ week1; неделя
+ week2; недели
+ week3; недель
  year1; год
- year2; год
- year3; год
+ year2; года
+ year3; лет
 , ;, 
 : ;: 
 About;О программе
@@ -163,7 +163,7 @@ ArtDirector;Арт-директор
 AspectRatio;Соотношение
 AssistantDirector;Помощник режиссёра
 at;в
-At least one file;Необходим как минимум один файл
+At least one file;Необходимо открыть как минимум один файл
 Audio;Аудио
 Audio stream(s);Аудиопотоки
 Audio_Codec_List;Аудиокодеки
@@ -174,7 +174,7 @@ AudioCount;Кол-во аудиопотоков
 Author;Автор
 BarCode;Штрихкод
 Basic;Кратко
-Basic_Note;Прим.: для дополнительной информации выберите другую закладку (таблица, дерево,...)
+Basic_Note;Примечание: для дополнительной информации выберите другую закладку (таблица, дерево,...)
 BitDepth;Битовая глубина
 BitRate;Битрейт
 BitRate_Maximum;Максимальный битрейт
@@ -194,7 +194,7 @@ Chapters stream(s);Потоки разделов
 Chapters_Codec_List;Кодеки разделов
 Chapters_No;Нет разделов
 ChaptersCount;Кол-во разделов
-CheckNewVersion;Проверить новую версию
+CheckNewVersion;Проверить наличие новой версии
 Choose custom;Выбрать
 Choose custom sheet;Выбрать таблицу
 Choose custom text;Выбрать текст
@@ -204,9 +204,9 @@ Choose filename;Выберите имя файла
 Choose language;Выберите язык
 Choregrapher;Хореограф
 Chroma;Цветность
-ChromaSubsampling;Подвыборка цветности
+ChromaSubsampling;Субдискретизация насыщенности
 Close;Закрыть
-Close all before open;Закрыть всё перед открытием
+Close all before open;Закрывать всё перед открытием новых файлов
 Codec;Кодек
 Codec_Description;Описание кодека
 Codec_Info;Подробно о кодеке
@@ -245,7 +245,7 @@ Container and general information;Общая информация
 ContentType;Тип содержимого
 CoProducer;Сопродюсер
 Copyright;Правообладатель
-CostumeDesigner;Дизайн костюмов
+CostumeDesigner;Художник по костюмам
 Count;Кол-во
 Country;Страна
 Cover;Обложка
@@ -310,7 +310,7 @@ FileSize;Размер файла
 Folder;Папка
 Folder (R);Папка (R)
 Folder (R)_Hint;Выберите папку для обработки (со всеми вложенными папками)
-Folder (Recursively);Папка (рекурсивно)...
+Folder (Recursively);Папка (рекурсивно)
 Folder_Hint;Операции с папками
 FolderName;Имя папки
 Format;Формат
@@ -336,12 +336,12 @@ Format_Settings_Law;Параметр Law формата
 Format_Settings_ITU;Параметр ITU формата
 Format_Settings_SBR;Параметр SBR формата
 Format_Settings_PS;Параметр PS формата
-Format_Settings_Pulldown;Выбрать настройки формата
+Format_Settings_Pulldown;Параметр Pulldownd формата
 Format_Settings_Mode;Режим
 Format_Settings_FrameMode;Режим кадров
 Format_Settings_Emphasis;Акцент
 Format_Settings_ModeExtension;Расширение режима
-Format_Settings_GOP;Параметры GOP формата
+Format_Settings_GOP;Параметр GOP формата
 Format_Version;Версия формата
 Format_Url;Ссылка на формат
 FrameCount;Счётчик кадров
@@ -503,7 +503,7 @@ Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
-Go to WebSite;Перейти на сайт
+Go to WebSite;Перейти на сайт программы
 Grouping;Группирование
 h; ч.
 Header file;Создать заголовок
@@ -756,7 +756,7 @@ Menu_Hint;Дополнительные возможности
 MenuID;Идентификатор меню
 mn; м.
 Mood;Настроение
-More;Ещё...
+More;Ещё
 Movie;Название фильма
 ms; мс.
 MSDI;MSDI
@@ -796,7 +796,7 @@ OpenCandy_15;___________, программа, рекомендованная ___
 OpenCandy_16;___________ готова для установки
 OpenCandy_17;___________ полностью загружена. Нажмите 'Установка' для начала процесса.
 OpenCandy_18;___________ из ___________ загружено
-OpenCandy_19;Работает на OpenCandy
+OpenCandy_19;При содействии OpenCandy
 OpenCandy_20;Дополнительная информация на OpenCandy.com
 OpenCandy_21;Установка
 OpenCandy_22;Установка ___________
@@ -833,8 +833,8 @@ Part_Count;Кол-во частей
 Performer;Исполнитель
 Period;Период
 Phone;Телефон
-PixelAspectRatio;Соотношение пикселей
-PixelAspectRatio_Original;Соотношение пикселей в оригинале
+PixelAspectRatio;Пропорции пикселя
+PixelAspectRatio_Original;Пропорции пикселя в оригинале
 PlayCounter;Счётчик воспроизведения
 Played_Count;Воспроизведено раз
 Played_First_Date;Первое воспроизведение
@@ -844,8 +844,8 @@ Position;Положение
 Position_Total;Всего
 Preferences;Настройки
 Producer;Продюсер
-ProductionDesigner;Разработчик оформления
-ProductionStudio;Студия оформления
+ProductionDesigner;Художник-постановщик
+ProductionStudio;Студия-производитель
 Publisher;Издатель
 Purchased_Date;Дата покупки
 Quote character;Символ кавычек
@@ -909,7 +909,7 @@ Tagged_Date;Дата пометки
 Technician;Техник
 TermsOfUse;Условия использования
 Text;Текст
-Text - Custom;Текст - Выборочно
+Text - Custom;Текст - выборочно
 Text (HTML);Текст (HTML)
 Text stream(s);Текстовые потоки
 Text streams;Текстовые потоки
@@ -925,8 +925,8 @@ Title;Заголовок
 Title_More;Заголовок, дополнительно
 TimeZone;Часовой пояс
 Total;Всего
-Track;Дорожка
-Track_Count;Кол-во дорожек
+Track;Трек
+Track_Count;Кол-во треков
 transfer_characteristics;Характеристики трансфера
 Translator;Переводчик
 Tree;Дерево
@@ -942,7 +942,7 @@ Video_No;Нет видео
 Video0_Delay;Задержка видео
 Video1;Первый видеопоток
 VideoCount;Кол-во видеопотоков
-View;Просмотр
+View;Вид
 View_Hint;Измените отношение к просмотру информации
 Warning : more streams in the files;Внимание: в файлах есть ещё потоки
 Web;Сайт
@@ -951,10 +951,10 @@ WebSite_Audio_More;Перейти на сайт (%Url%) для поиска эт
 WebSite_General;Перейти на сайт проигрывателя для этого файла
 WebSite_General_More;Перейти на сайт проигрывателя для этого файла
 WebSite_Text;Сайт текстового кодека
-WebSite_Text_More;Перейти на сайт (%Url%) просмоторщика для этого текстового кодека
+WebSite_Text_More;Перейти на сайт (%Url%) для поиска этого текстового кодека
 WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Сайт видеокодека
-WebSite_Video_More;Перейти на сайт (%Url%) просмоторщика для этого видеокодека
+WebSite_Video_More;Перейти на сайт (%Url%) для поиска этого видеокодека
 Width;Ширина
 Width_Original;Ширина оригинала
 WriteMe;Написать автору
