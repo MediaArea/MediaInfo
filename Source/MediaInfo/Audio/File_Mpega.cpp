@@ -641,7 +641,26 @@ bool File_Mpega::Synchronize()
 
                     //Testing
                     if ((CC2(Buffer+Buffer_Offset+Size0)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size0+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size0+2)&0x0C)==0x0C)
+                    {
+                        //Testing VBRI in a malformed frame
+                        bool VbriFound=false;
+                        for (size_t Pos=Buffer_Offset+3; Pos+4<Buffer_Offset+Size0; Pos++)
+                        {
+                            if (Buffer[Pos  ]==0x56
+                             && Buffer[Pos+1]==0x42
+                             && Buffer[Pos+2]==0x52
+                             && Buffer[Pos+3]==0x49)
+                            {
+                                VbriFound=true;
+                                break;
+                            }
+                            if (Buffer[Pos])
+                                break; //Only NULL bytes are authorized before VBRI header
+                        }
+                        if (VbriFound)
+                            break;
                         Buffer_Offset++;
+                    }
                     else
                     {
                         //Retrieving some info

@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.48
 --------------
 + ISM (ISM/ISMV/ISMA/PIFF...): more attributes (frame rate, frame count, duration)
++ MP3: support of VBRI header in a corrupted frame
 x MP4/MOV: scan order (Top/Bottom) from container, thanks to Peter Chapman
 x libmms: default behavior is using official libmms API only
 
