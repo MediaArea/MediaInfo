@@ -189,10 +189,10 @@ void File_VorbisCom::Data_Parse()
         Ztring Value=comment.SubString(_T("="), _T(""));
 
              if (Key==_T("ADDED_TIMESTAMP"))        Fill(StreamKind_Common,   0, "Added_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
-        else if (Key==_T("ALBUM ARTIST"))           {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
+        else if (Key==_T("ALBUM ARTIST"))           {if (Value!=Retrieve(StreamKind_Common,   0, "Album/Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("ALBUM"))                  Fill(StreamKind_Common,   0, "Album", Value);
         else if (Key==_T("ALBUM_COMMENT"))          Fill(StreamKind_Common,   0, "Comment", Value);
-        else if (Key==_T("ALBUMARTIST"))            {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
+        else if (Key==_T("ALBUMARTIST"))            {if (Value!=Retrieve(StreamKind_Common,   0, "Album/Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("ARTIST"))                 {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("AUTHOR"))                 Fill(StreamKind_Common,   0, "WrittenBy", Value);
         else if (Key==_T("BUYCDURL"))               {}

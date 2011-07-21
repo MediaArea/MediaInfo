@@ -13,6 +13,7 @@ Version 0.7.48
 + MP3: support of VBRI header in a corrupted frame
 x MP4/MOV: scan order (Top/Bottom) from container, thanks to Peter Chapman
 x libmms: default behavior is using official libmms API only
+x Vorbis comment: album performer data was in performer field
 
 Version 0.7.47, 2011-07-14
 --------------
