@@ -14,6 +14,8 @@ Version 0.7.48
 x MP4/MOV: scan order (Top/Bottom) from container, thanks to Peter Chapman
 x libmms: default behavior is using official libmms API only
 x Vorbis comment: album performer data was in performer field
+x Captions in AVC: some captions were not detected and decoded
+x AVC: GOP structure info was often wrong
 
 Version 0.7.47, 2011-07-14
 --------------

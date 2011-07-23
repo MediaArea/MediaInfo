@@ -104,6 +104,7 @@ private :
     void sei_message_user_data_registered_itu_t_t35_DTG1();
     void sei_message_user_data_registered_itu_t_t35_GA94();
     void sei_message_user_data_registered_itu_t_t35_GA94_03();
+    void sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed();
     void sei_message_user_data_registered_itu_t_t35_GA94_06();
     void sei_message_user_data_unregistered(int32u payloadSize);
     void sei_message_user_data_unregistered_x264(int32u payloadSize);
@@ -146,20 +147,25 @@ private :
     //Temporal reference
     struct temporalreference
     {
-        struct cc_data_
+        struct buffer_data
         {
-            int8u cc_type;
-            int8u cc_data[2];
-            bool  cc_valid;
+            size_t Size;
+            int8u* Data;
 
-            cc_data_()
+            buffer_data()
             {
-                cc_valid=false;
+                Size=0;
+                Data=NULL;
+            }
+
+            ~buffer_data()
+            {
+                delete[] Data; //Data=NULL;
             }
         };
-        std::vector<cc_data_> GA94_03_CC; //Per cc offset
-
-        bool   IsValid;
+        #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+            buffer_data* GA94_03;
+        #endif //MEDIAINFO_DTVCCTRANSPORT_YES
 
         int32u frame_num;
         int8u  slice_type;
@@ -168,16 +174,47 @@ private :
 
         temporalreference()
         {
+            #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                GA94_03=NULL;
+            #endif //MEDIAINFO_DTVCCTRANSPORT_YES
             slice_type=(int8u)-1;
-            IsValid=false;
+        }
+
+        ~temporalreference()
+        {
+            #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                delete GA94_03; //GA94_03=NULL;
+            #endif //MEDIAINFO_DTVCCTRANSPORT_YES
         }
     };
-    std::vector<temporalreference> TemporalReference; //per pic_order_cnt_lsb
-    temporalreference              TemporalReference_Temp;
-    size_t                         TemporalReference_Offset;
-    bool                           TemporalReference_Offset_Moved;
-    size_t                         TemporalReference_GA94_03_CC_Offset;
-    size_t                         TemporalReference_Offset_pic_order_cnt_lsb_Last;
+    std::vector<temporalreference*> TemporalReference; //per pic_order_cnt_lsb
+    temporalreference*              TemporalReference_Delayed;
+    size_t                          TemporalReference_Offset;
+    size_t                          TemporalReference_Offset_pic_order_cnt_lsb_Last;
+    bool                            TemporalReference_Offset_Moved;
+    struct text_position
+    {
+        File__Analyze**  Parser;
+        size_t          StreamPos;
+        
+        text_position()
+        {
+            Parser=NULL;
+            StreamPos=(size_t)-1;
+        }
+        
+        text_position(File__Analyze* &Parser_)
+        {
+            Parser=&Parser_;
+            StreamPos=0;
+        }
+    };
+    std::vector<text_position> Text_Positions;
+    #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+        File__Analyze*              GA94_03_Parser;
+        size_t                      GA94_03_TemporalReference_Offset;
+        bool                        GA94_03_IsPresent;
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 
     //seq_parameter_set
     struct seq_parameter_set_
@@ -193,9 +230,6 @@ private :
     };
     std::map<int32u, seq_parameter_set_> seq_parameter_set_ids;
     std::map<int32u, seq_parameter_set_> subset_seq_parameter_set_ids;
-
-    //Temp
-    std::vector<File__Analyze*> GA94_03_CC_Parsers;
 
     //Replacement of File__Analyze
     const int8u* Buffer_ToSave;

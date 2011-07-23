@@ -108,6 +108,9 @@ File_Eia608::File_Eia608()
 //---------------------------------------------------------------------------
 void File_Eia608::Streams_Fill()
 {
+    if (!HasContent && !Config->File_Eia608_DisplayEmptyStream_Get())
+        return;
+
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, "EIA-608");
     Fill(Stream_Text, 0, Text_StreamSize, 0);
@@ -118,6 +121,9 @@ void File_Eia608::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Eia608::Streams_Finish()
 {
+    if (Count_Get(Stream_Text)==0)
+        return;
+
     if (!HasContent)
         Fill(Stream_Text, 0, "ContentInfo", "No content");
 }
@@ -358,10 +364,6 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
     //Saving data, for repetition of the code
     cc_data_1_Old=cc_data_1;
     cc_data_2_Old=cc_data_2;
-
-    //With have a point of synchro
-    if (!Synched)
-        Synched=true;
 }
 
 //---------------------------------------------------------------------------
@@ -397,6 +399,10 @@ void File_Eia608::PreambleAddressCode(int8u cc_data_1, int8u cc_data_2)
     //Underline
     if (cc_data_2&0x01)
         Attribute_Current|=Attribute_Underline;
+
+    //With have a point of synchro
+    if (!Synched)
+        Synched=true;
 }
 
 //---------------------------------------------------------------------------
@@ -423,6 +429,10 @@ void File_Eia608::Special_10(int8u cc_data_2)
         case 0x2F : break;  //
         default   : Illegal(0x10, cc_data_2);
     }
+
+    //With have a point of synchro
+    if (!Synched)
+        Synched=true;
 }
 
 //---------------------------------------------------------------------------
@@ -665,6 +675,10 @@ void File_Eia608::Special_14(int8u cc_data_2)
                     break; //EOC - End of Caption
         default   : Illegal(0x14, cc_data_2);
     }
+
+    //With have a point of synchro
+    if (!Synched)
+        Synched=true;
 }
 
 //---------------------------------------------------------------------------
@@ -804,6 +818,9 @@ void File_Eia608::Standard(int8u Character)
 //---------------------------------------------------------------------------
 void File_Eia608::Character_Fill(wchar_t Character)
 {
+    if (!Synched)
+        return;     
+
     if (x==Eia608_Columns)
     {
         x--; //There is a problem

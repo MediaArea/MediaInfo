@@ -105,7 +105,7 @@ void File_DtvccTransport::Streams_Update()
 {
     //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated] && Streams[Pos]->Parser->Count_Get(Stream_Text))
             Streams_Update_PerStream(Pos);
 }
 
