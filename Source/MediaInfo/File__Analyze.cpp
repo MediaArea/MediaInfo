@@ -2252,7 +2252,11 @@ void File__Analyze::ForceFinish ()
     //Real stream size
     if (Config_ParseSpeed==1 && IsRawStream && Buffer_TotalBytes)
     {
-        Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Buffer_TotalBytes, 10, true);
+        //Exception with text streams embedded in video 
+        if (StreamKind_Last==Stream_Text)
+            StreamKind_Last=Stream_Video;
+
+        Fill(StreamKind_Last, 0, "StreamSize", Buffer_TotalBytes, 10, true);
     }
 }
 
