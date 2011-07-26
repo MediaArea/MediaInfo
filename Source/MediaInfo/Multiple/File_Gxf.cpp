@@ -890,6 +890,7 @@ void File_Gxf::map()
                                     break;
                         case 18 :   //AES3
                                     Streams[TrackID].Parser=new File_Aes3;
+                                    ((File_Aes3*)Streams[TrackID].Parser)->Endianess='L';
                                     Open_Buffer_Init(Streams[TrackID].Parser);
                                     Parsers_Count++;
                                     Streams[TrackID].Searching_Payload=true;
