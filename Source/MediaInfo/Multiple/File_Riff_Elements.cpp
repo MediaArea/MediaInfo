@@ -1715,6 +1715,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids_Avc()
             ((File_Avc*)Stream[Stream_ID].Parser)->SizedBlocks=true;
             ((File_Avc*)Stream[Stream_ID].Parser)->MustSynchronize=false;
             Open_Buffer_Continue(Stream[Stream_ID].Parser);
+            Element_Show();
         }
     #else //MEDIAINFO_AVC_YES
         Skip_XX(Element_Size-Element_Offset,                    "(AVC headers)");
@@ -1901,9 +1902,11 @@ void File_Riff::AVI__idx1()
         Element_Info(Size);
 
         //Stream Pos and Size
-        int32u StreamID_Temp=(ChunkID&0xFFFF0000);
-        Stream[StreamID_Temp].StreamSize+=Size;
-        Stream_Pos[Idx1_Offset+Offset]=StreamID_Temp;
+        int32u StreamID=(ChunkID&0xFFFF0000);
+        Stream[StreamID].StreamSize+=Size;
+        Stream[StreamID].PacketCount++;
+        Stream_Structure[Idx1_Offset+Offset].Name=StreamID;
+        Stream_Structure[Idx1_Offset+Offset].Size=Size;
         Element_End();
         */
 
@@ -2261,6 +2264,7 @@ void File_Riff::AVI__movi_xxxx()
     if (Stream[Stream_ID].Parser)
     {
         Open_Buffer_Continue(Stream[Stream_ID].Parser);
+        Element_Show();
         if (Stream[Stream_ID].Parser->Buffer_Size>0)
             Stream[Stream_ID].ChunksAreComplete=false;
     }
