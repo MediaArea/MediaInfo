@@ -287,7 +287,6 @@ private :
     bool   profile_and_level_indication_escape;
     int8u  RefFramesCount;
     int8u  BVOPsSinceLastRefFrames;
-    bool   Field_Count_AfterLastCompleFrame;
     int16u temporal_reference_LastIFrame;
     int64u PTS_LastIFrame;
     int64u tc;

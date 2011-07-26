@@ -892,7 +892,6 @@ void File_Mpegv::Synched_Init()
     profile_and_level_indication_escape=false;
     RefFramesCount=0;
     BVOPsSinceLastRefFrames=0;
-    Field_Count_AfterLastCompleFrame=false;
     temporal_reference_LastIFrame=0;
     tc=0;
     IFrame_IsParsed=false;
@@ -1348,14 +1347,10 @@ void File_Mpegv::slice_start()
             if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
                 Frame_Count_NotParsedIncluded--;
             Frame_Count_InThisBlock--;
-            if (picture_coding_type==1 || picture_coding_type==2) //IFrame or PFrame
-                Field_Count_AfterLastCompleFrame=true;
         }
         else
         {
             temporal_reference_Old=temporal_reference;
-            if (picture_coding_type==1 || picture_coding_type==2) //IFrame or PFrame
-                Field_Count_AfterLastCompleFrame=false;
         }
 
         if (picture_coding_type==1) //IFrame
