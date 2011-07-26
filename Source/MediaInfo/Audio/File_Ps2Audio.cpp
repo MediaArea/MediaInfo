@@ -52,7 +52,7 @@ void File_Ps2Audio::Read_Buffer_Continue()
         {
             case 0x53536264 :   SSbd(); break;
             case 0x53536864 :   SShd(); break;
-            default         :   Reject("PS2 Audio");
+            default         :   Element_Offset=Element_Size; Reject("PS2 Audio");
         }
     }
 }
