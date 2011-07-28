@@ -226,6 +226,7 @@ File_MpegPs::File_MpegPs()
     #endif
     #if MEDIAINFO_DEMUX
         SubStream_Demux=NULL;
+        Demux_StreamIsBeingParsed_type=(int8u)-1;
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_SEEK
         Unsynch_Frame_Count_Temp=(int64u)-1;
@@ -851,6 +852,22 @@ void File_MpegPs::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_MpegPs::Read_Buffer_Continue()
 {
+    #if MEDIAINFO_DEMUX
+        if (Demux_StreamIsBeingParsed_type!=(int8u)-1)
+        {
+            switch (Demux_StreamIsBeingParsed_type) //TODO: transform the switch() case to a enum with a vector of streams
+            {
+                case 0 : Open_Buffer_Continue(Streams[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0); break;
+                case 1 : Open_Buffer_Continue(Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0); break;
+                case 2 : Open_Buffer_Continue(Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0); break;
+                default: ;
+            }
+            if (Config->Demux_EventWasSent)
+                return;
+            Demux_StreamIsBeingParsed_type=(int8u)-1;
+        }
+    #endif //MEDIAINFO_DEMUX
+
     if (!IsSub)
     {
         if (Config_ParseSpeed>=1.0)
@@ -2306,6 +2323,13 @@ void File_MpegPs::private_stream_1()
             Element_Code=StreamIDs[StreamIDs_Size-1];
         }
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+        {
+            Demux_StreamIsBeingParsed_type=1;
+            Demux_StreamIsBeingParsed_stream_id=private_stream_1_ID;
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -2820,6 +2844,13 @@ void File_MpegPs::audio_stream()
 
     //Parsing
     xxx_stream_Parse(Streams[stream_id], audio_stream_Count);
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+        {
+            Demux_StreamIsBeingParsed_type=0;
+            Demux_StreamIsBeingParsed_stream_id=stream_id;
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -2911,6 +2942,13 @@ void File_MpegPs::video_stream()
 
     //Parsing
     xxx_stream_Parse(Streams[stream_id], video_stream_Count);
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+        {
+            Demux_StreamIsBeingParsed_type=0;
+            Demux_StreamIsBeingParsed_stream_id=stream_id;
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -3073,6 +3111,13 @@ void File_MpegPs::SL_packetized_stream()
 
     //Parsing
     xxx_stream_Parse(Streams[stream_id], SL_packetized_stream_Count);
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+        {
+            Demux_StreamIsBeingParsed_type=0;
+            Demux_StreamIsBeingParsed_stream_id=stream_id;
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -3236,12 +3281,39 @@ void File_MpegPs::extension_stream()
     if (stream_id_extension==0x72 && !(Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty()))
     {
         if (!Streams_Extension[0x71].Parsers.empty())
+        {
             xxx_stream_Parse(Streams_Extension[0x71], extension_stream_Count);
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_EventWasSent)
+                {
+                    Demux_StreamIsBeingParsed_type=2;
+                    Demux_StreamIsBeingParsed_stream_id=stream_id;
+                }
+            #endif //MEDIAINFO_DEMUX
+        }
         if (!Streams_Extension[0x76].Parsers.empty())
+        {
             xxx_stream_Parse(Streams_Extension[0x76], extension_stream_Count);
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_EventWasSent)
+                {
+                    Demux_StreamIsBeingParsed_type=2;
+                    Demux_StreamIsBeingParsed_stream_id=stream_id;
+                }
+            #endif //MEDIAINFO_DEMUX
+        }
     }
     else
+    {
         xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+            {
+                Demux_StreamIsBeingParsed_type=2;
+                Demux_StreamIsBeingParsed_stream_id=stream_id;
+            }
+        #endif //MEDIAINFO_DEMUX
+    }
 }
 
 //---------------------------------------------------------------------------

@@ -90,6 +90,8 @@ public :
             }
         };
         demux* SubStream_Demux;
+        int8u Demux_StreamIsBeingParsed_type;
+        int8u Demux_StreamIsBeingParsed_stream_id;
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_SEEK
         int64u Unsynch_Frame_Count_Temp;
