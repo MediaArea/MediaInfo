@@ -1171,6 +1171,7 @@ void File_Aes3::Frame()
         {
             case 28 :   Parser=new File_DolbyE();
                         break;
+            //case 29 : //SMPTE 341M-2000, captions
             default : ;
         }
 
