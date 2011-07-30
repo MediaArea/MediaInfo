@@ -2701,7 +2701,7 @@ void File_Mxf::Data_Parse()
     ELEMENT(RandomIndexMetadata,                                "Random Index Metadata")
     ELEMENT(SDTI_SystemMetadataPack,                            "SDTI System Metadata Pack")
     else if (Code_Compare1==Elements::SDTI_SystemMetadataPack1
-          && ((Code_Compare2)&0xFFBFFFFF)==(Elements::SDTI_SystemMetadataPack2&0xFFBFFFFF) //0x43 or 0x63
+          && ((Code_Compare2)&0xFF00FFFF)==(Elements::SDTI_SystemMetadataPack2&0xFF00FFFF)
           && Code_Compare3==Elements::SDTI_SystemMetadataPack3
           && ((Code_Compare4)&0xFFFF0000)==(Elements::SDTI_SystemMetadataPack4&0xFFFF0000))
     {
