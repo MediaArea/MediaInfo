@@ -4472,14 +4472,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 case  4 : if (Sample_Count%2)
                             Size=Buffer[Buffer_Offset+(size_t)Element_Offset]&0x0F;
                           else
+                          {
                             Size=Buffer[Buffer_Offset+(size_t)Element_Offset]>>4;
+                            Element_Offset++;
+                          }
                           break;
-                case  8 : Size=BigEndian2int8u (Buffer+Buffer_Offset+(size_t)Element_Offset); break;
-                case 16 : Size=BigEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset); break;
-                case 32 : Size=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset); break;
+                case  8 : Size=BigEndian2int8u (Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset++; break;
+                case 16 : Size=BigEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset+=2; break;
+                case 32 : Size=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset+=4; break;
                 default : return;
             }
-            Element_Offset+=4;
 
             Stream->second.stsz_StreamSize+=Size;
             Stream->second.stsz_Total.push_back(Size);
