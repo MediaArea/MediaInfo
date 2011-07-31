@@ -170,15 +170,15 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
             if (Extra==1)
             {
                 SPS_SQS[0]=0x01; //Profile FLV
-                SPS_SQS[1]=profile_idc; //Compatible Profile
+                SPS_SQS[1]=(!seq_parameter_sets.empty() && seq_parameter_sets[0])?seq_parameter_sets[0]->profile_idc:0x00; //Compatible Profile. TODO: Handling more than 1 seq_parameter_set 
                 SPS_SQS[2]=0x00; //Reserved
             }
             else
             {
-                SPS_SQS[0]=profile_idc; //Profile MPEG-4
+                SPS_SQS[0]=(!seq_parameter_sets.empty() && seq_parameter_sets[0])?seq_parameter_sets[0]->profile_idc:0x00; //Profile MPEG-4. TODO: Handling more than 1 seq_parameter_set
                 SPS_SQS[1]=0x00; //Compatible Profile
             }
-            SPS_SQS[2+Extra]=level_idc; //Level
+            SPS_SQS[2+Extra]=(!seq_parameter_sets.empty() && seq_parameter_sets[0])?seq_parameter_sets[0]->level_idc:0x00; //Level. TODO: Handling more than 1 seq_parameter_set
             SPS_SQS[3+Extra]=0xFF; //Reserved + Size of NALU length minus 1
             SPS_SQS[4+Extra]=0xE1; //Reserved + seq_parameter_set count
             Writer.Write(SPS_SQS, 5+Extra);

@@ -25,6 +25,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/File__Duplicate.h"
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -46,8 +47,6 @@ public :
     int64u Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   MustParse_SPS_PPS;
-    bool   MustParse_SPS_PPS_Only;
-    bool   MustParse_SPS_PPS_Done;
     bool   SizedBlocks;
 
     //Constructor/Destructor
@@ -55,8 +54,131 @@ public :
     ~File_Avc();
 
 private :
+    //Structures - seq_parameter_set
+    struct seq_parameter_set_struct
+    {
+        struct vui_parameters_struct
+        {
+            struct xxl
+            {
+                struct xxl_data
+                {
+                    //HRD configuration
+                    int32u bit_rate_value;
+                    int32u cpb_size_value;
+                    bool   cbr_flag;
+
+                    //sei_message_buffering_period
+                    int32u initial_cpb_removal_delay;
+                    int32u initial_cpb_removal_delay_offset;
+
+                    xxl_data()
+                    {
+                        //HRD configuration
+                        bit_rate_value=(int32u)-1;
+                        cpb_size_value=(int32u)-1;
+                        cbr_flag=true;
+
+                        //sei_message_buffering_period
+                        initial_cpb_removal_delay=(int32u)-1;
+                        initial_cpb_removal_delay_offset=(int32u)-1;
+                    }
+                };
+                vector<xxl_data> SchedSel;
+                int8u   initial_cpb_removal_delay_length_minus1;
+                int8u   cpb_removal_delay_length_minus1;
+                int8u   dpb_output_delay_length_minus1;
+                int8u   time_offset_length;
+            };
+            struct bitstream_restriction_struct
+            {
+                int8u   num_reorder_frames;
+            };
+            xxl*    NAL;
+            xxl*    VCL;
+            bitstream_restriction_struct* bitstream_restriction;
+            int32u  num_units_in_tick;
+            int32u  time_scale;
+            int16u  sar_width;
+            int16u  sar_height;
+            int8u   aspect_ratio_idc;
+            int8u   video_format;
+            int8u   colour_primaries;
+            int8u   transfer_characteristics;
+            int8u   matrix_coefficients;
+            bool    aspect_ratio_info_present_flag;
+            bool    video_signal_type_present_flag;
+            bool    colour_description_present_flag;
+            bool    timing_info_present_flag;
+            bool    fixed_frame_rate_flag;
+            bool    pic_struct_present_flag;
+        };
+        vui_parameters_struct* vui_parameters;
+        int32u  pic_width_in_mbs_minus1;
+        int32u  pic_height_in_map_units_minus1;
+        int32u  frame_crop_left_offset;
+        int32u  frame_crop_right_offset;
+        int32u  frame_crop_top_offset;
+        int32u  frame_crop_bottom_offset;
+        int32u  MaxPicOrderCntLsb; //Computed value (for speed)
+        int32u  MaxFrameNum; //Computed value (for speed)
+        int16u  num_views_minus1; //MultiView specific field
+        int8u   chroma_format_idc;
+        int8u   profile_idc;
+        int8u   level_idc;
+        int8u   bit_depth_luma_minus8;
+        int8u   bit_depth_chroma_minus8;
+        int8u   log2_max_frame_num_minus4;
+        int8u   pic_order_cnt_type;
+        int8u   log2_max_pic_order_cnt_lsb_minus4;
+        int8u   max_num_ref_frames;
+        int8u   pic_struct_FirstDetected; //For stats only
+        bool    constraint_set3_flag;
+        bool    separate_colour_plane_flag;
+        bool    delta_pic_order_always_zero_flag;
+        bool    frame_mbs_only_flag;
+        bool    mb_adaptive_frame_field_flag;
+        bool    IsSynched; //Computed value
+            
+        //Computed values
+        bool    NalHrdBpPresentFlag() {return vui_parameters && vui_parameters->NAL;}
+        bool    VclHrdBpPresentFlag() {return vui_parameters && vui_parameters->VCL;} 
+        bool    CpbDpbDelaysPresentFlag() {return vui_parameters && (vui_parameters->NAL || vui_parameters->VCL);}
+        int8u   ChromaArrayType() {return separate_colour_plane_flag?0:chroma_format_idc;}
+
+        //Constructor/Destructor
+        ~seq_parameter_set_struct()
+        {
+            if (vui_parameters)
+            {
+                delete vui_parameters->NAL; //vui_parameters->NAL=NULL;
+                delete vui_parameters->VCL; //vui_parameters->VCL=NULL;
+                delete vui_parameters->bitstream_restriction; //vui_parameters->bitstream_restriction=NULL;
+                delete vui_parameters; //vui_parameters=NULL;
+            }
+        }
+    };
+    typedef vector<seq_parameter_set_struct*> seq_parameter_set_structs;
+
+    //Structures - pic_parameter_set
+    struct pic_parameter_set_struct
+    {
+        int8u   seq_parameter_set_id;
+        int8u   num_ref_idx_l0_default_active_minus1;
+        int8u   num_ref_idx_l1_default_active_minus1;
+        int8u   weighted_bipred_idc;
+        bool    entropy_coding_mode_flag;
+        bool    bottom_field_pic_order_in_frame_present_flag;
+        bool    weighted_pred_flag;
+        bool    redundant_pic_cnt_present_flag;
+        bool    IsSynched; //Computed value
+    };
+    typedef vector<pic_parameter_set_struct*> pic_parameter_set_structs;
+
     //Streams management
     void Streams_Fill();
+    void Streams_Fill(vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item);
+    void Streams_Fill_subset(vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item);
     void Streams_Finish();
 
     //Buffer - File header
@@ -97,14 +219,15 @@ private :
     void seq_parameter_set();
     void pic_parameter_set();
     void sei();
-    void sei_message();
-    void sei_message_buffering_period();
-    void sei_message_pic_timing(int32u payloadSize);
+    void sei_message(int32u &seq_parameter_set_id);
+    void sei_message_buffering_period(int32u &seq_parameter_set_id);
+    void sei_message_buffering_period_xxl(void* xxl);
+    void sei_message_pic_timing(int32u payloadSize, int32u seq_parameter_set_id);
     void sei_message_user_data_registered_itu_t_t35();
     void sei_message_user_data_registered_itu_t_t35_DTG1();
     void sei_message_user_data_registered_itu_t_t35_GA94();
     void sei_message_user_data_registered_itu_t_t35_GA94_03();
-    void sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed();
+    void sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u seq_parameter_set_id);
     void sei_message_user_data_registered_itu_t_t35_GA94_06();
     void sei_message_user_data_unregistered(int32u payloadSize);
     void sei_message_user_data_unregistered_x264(int32u payloadSize);
@@ -112,20 +235,24 @@ private :
     void sei_message_mainconcept(int32u payloadSize);
     void access_unit_delimiter();
     void filler_data();
-    void prefix_nal_unit();
+    void prefix_nal_unit(bool svc_extension_flag);
     void subset_seq_parameter_set();
-    void slice_layer_extension();
+    void slice_layer_extension(bool svc_extension_flag);
 
     //Packets - SubElements
-    void seq_parameter_set_data();
+    bool seq_parameter_set_data(vector<seq_parameter_set_struct*> &Data, int32u &Data_id);
+    void seq_parameter_set_svc_extension();
+    void seq_parameter_set_mvc_extension(int32u subset_seq_parameter_sets_id);
     void scaling_list(int32u ScalingList_Size);
-    void vui_parameters();
+    void vui_parameters(void* &vui_parameters_Item);
+    void svc_vui_parameters_extension();
+    void mvc_vui_parameters_extension();
+    void hrd_parameters(void* &hrd_parameters_Item);
     void nal_unit_header_svc_extension();
     void nal_unit_header_mvc_extension();
-    void seq_parameter_set_svc_extension();
-    void svc_vui_parameters_extension();
-    void seq_parameter_set_mvc_extension();
-    void mvc_vui_parameters_extension();
+    void ref_pic_list_modification(int32u slice_type, bool mvc);
+    void pred_weight_table(int32u num_ref_idx_l0_active_minus1, int32u num_ref_idx_l1_active_minus1, int8u ChromaArrayType);
+    void dec_ref_pic_marking(vector<int8u> &memory_management_control_operations);
 
     //Packets - Specific
     void SPS_PPS();
@@ -142,10 +269,10 @@ private :
             ShouldDuplicate=false;
         }
     };
-    std::vector<stream> Streams;
+    vector<stream> Streams;
 
-    //Temporal reference
-    struct temporalreference
+    //Temporal references
+    struct temporal_reference
     {
         struct buffer_data
         {
@@ -172,7 +299,7 @@ private :
         bool   IsTop;
         bool   IsField;
 
-        temporalreference()
+        temporal_reference()
         {
             #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                 GA94_03=NULL;
@@ -180,167 +307,72 @@ private :
             slice_type=(int8u)-1;
         }
 
-        ~temporalreference()
+        ~temporal_reference()
         {
             #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                 delete GA94_03; //GA94_03=NULL;
             #endif //MEDIAINFO_DTVCCTRANSPORT_YES
         }
     };
-    std::vector<temporalreference*> TemporalReference; //per pic_order_cnt_lsb
-    temporalreference*              TemporalReference_Delayed;
-    size_t                          TemporalReference_Offset;
-    size_t                          TemporalReference_Offset_pic_order_cnt_lsb_Last;
-    bool                            TemporalReference_Offset_Moved;
-    struct text_position
-    {
-        File__Analyze**  Parser;
-        size_t          StreamPos;
-        
-        text_position()
-        {
-            Parser=NULL;
-            StreamPos=(size_t)-1;
-        }
-        
-        text_position(File__Analyze* &Parser_)
-        {
-            Parser=&Parser_;
-            StreamPos=0;
-        }
-    };
-    std::vector<text_position> Text_Positions;
+    typedef vector<temporal_reference*> temporal_references;
+    temporal_references                 TemporalReferences; //per pic_order_cnt_lsb
+    temporal_reference*                 TemporalReferences_DelayedElement;
+    size_t                              TemporalReferences_Offset;
+    size_t                              TemporalReferences_Offset_pic_order_cnt_lsb_Last;
+    bool                                TemporalReferences_Offset_Moved;
+
+    //Text
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-        File__Analyze*              GA94_03_Parser;
-        size_t                      GA94_03_TemporalReference_Offset;
-        bool                        GA94_03_IsPresent;
+        File__Analyze*                  GA94_03_Parser;
+        size_t                          GA94_03_TemporalReferences_Offset;
+        bool                            GA94_03_IsPresent;
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 
-    //seq_parameter_set
-    struct seq_parameter_set_
-    {
-        int8u profile_idc;
-        int8u level_idc;
+    //Replacement of File__Analyze buffer
+    const int8u*                        Buffer_ToSave;
+    size_t                              Buffer_Size_ToSave;
 
-        seq_parameter_set_()
-        {
-            profile_idc=0;
-            level_idc=0;
-        }
-    };
-    std::map<int32u, seq_parameter_set_> seq_parameter_set_ids;
-    std::map<int32u, seq_parameter_set_> subset_seq_parameter_set_ids;
+    //parameter_sets
+    seq_parameter_set_structs           seq_parameter_sets;
+    seq_parameter_set_structs           subset_seq_parameter_sets;
+    pic_parameter_set_structs           pic_parameter_sets;
 
-    //Replacement of File__Analyze
-    const int8u* Buffer_ToSave;
-    size_t Buffer_Size_ToSave;
+    //File specific
+    int8u                               SizeOfNALU_Minus1;
+
+    //Status
+    size_t                              IFrame_Count;
+    int32s                              prevPicOrderCntMsb;
+    int32u                              prevPicOrderCntLsb;
+    int32u                              prevTopFieldOrderCnt;
+    int32u                              prevFrameNum;
+    int32u                              prevFrameNumOffset;
+    vector<int8u>                       prevMemoryManagementControlOperations;
 
     //Count of a Packets
-    size_t Block_Count;
-    size_t Interlaced_Top;
-    size_t Interlaced_Bottom;
-    size_t Structure_Field;
-    size_t Structure_Frame;
-    int8u  FrameRate_Divider;
-
-    //From seq_parameter_set
-    struct xxl
-    {
-        struct xxl_data
-        {
-            //HRD configuration
-            int32u bit_rate_value;
-            int32u cpb_size_value;
-            bool   cbr_flag;
-
-            //sei_message_buffering_period
-            int32u initial_cpb_removal_delay;
-            int32u initial_cpb_removal_delay_offset;
-
-            xxl_data()
-            {
-                //HRD configuration
-                bit_rate_value=(int32u)-1;
-                cpb_size_value=(int32u)-1;
-                cbr_flag=true;
-
-                //sei_message_buffering_period
-                initial_cpb_removal_delay=(int32u)-1;
-                initial_cpb_removal_delay_offset=(int32u)-1;
-            }
-        };
-        std::vector<xxl_data> SchedSel;
-    };
-    xxl NAL;
-    xxl VCL;
-    Ztring Encoded_Library;
-    Ztring Encoded_Library_Name;
-    Ztring Encoded_Library_Version;
-    Ztring Encoded_Library_Date;
-    Ztring Encoded_Library_Settings;
-    Ztring BitRate_Nominal;
-    Ztring MuxingMode;
-    int32u pic_width_in_mbs_minus1;
-    int32u pic_height_in_map_units_minus1;
-    int32u log2_max_frame_num_minus4;
-    int32u log2_max_pic_order_cnt_lsb_minus4;
-    int32u max_pic_order_cnt_lsb;
-    int32u num_units_in_tick;
-    int32u time_scale;
-    int32u chroma_format_idc;
-    int32u frame_crop_left_offset;
-    int32u frame_crop_right_offset;
-    int32u frame_crop_top_offset;
-    int32u frame_crop_bottom_offset;
-    int32u max_num_ref_frames;
-    int32u pic_order_cnt_type;
-    int32u bit_depth_luma_minus8;
-    int32u bit_depth_chroma_minus8;
-    int32u pic_order_cnt_lsb;
-    int32u pic_order_cnt_lsb_Last;
-    int32u seq_parameter_set_id;
-    int32u num_views_minus1;
-    int32u cpb_removal_delay;
-    int32u pic_order_cnt_lsb_Old;
-    int32u slice_type;
-    int16u sar_width;
-    int16u sar_height;
-    int8u  profile_idc;
-    int8u  level_idc;
-    int8u  aspect_ratio_idc;
-    int8u  video_format;
-    int8u  initial_cpb_removal_delay_length_minus1;
-    int8u  cpb_removal_delay_length_minus1;
-    int8u  dpb_output_delay_length_minus1;
-    int8u  time_offset_length;
-    int8u  pic_struct;
-    int8u  pic_struct_FirstDetected;
-    int8u  SizeOfNALU_Minus1;
-    int8u  colour_primaries;
-    int8u  transfer_characteristics;
-    int8u  matrix_coefficients;
-    int8u  nal_unit_type;
-    bool   GA94_03_CC_IsPresent;
-    bool   frame_mbs_only_flag;
-    bool   timing_info_present_flag;
-    bool   fixed_frame_rate_flag;
-    bool   pic_struct_present_flag;
-    bool   field_pic_flag;
-    bool   entropy_coding_mode_flag;
-    bool   NalHrdBpPresentFlag;
-    bool   VclHrdBpPresentFlag;
-    bool   CpbDpbDelaysPresentFlag;
-    bool   mb_adaptive_frame_field_flag;
-    bool   pic_order_present_flag;
-    bool   svc_extension_flag;
-    bool   field_pic_flag_AlreadyDetected;
-    bool   Field_Count_AfterLastCompleFrame;
-    size_t RefFramesCount;
+    size_t                              Block_Count;
+    size_t                              Interlaced_Top;
+    size_t                              Interlaced_Bottom;
+    size_t                              Structure_Field;
+    size_t                              Structure_Frame;
 
     //Temp
-    bool SPS_IsParsed;
-    bool PPS_IsParsed;
-    bool IFrame_IsParsed;
+    Ztring                              Encoded_Library;
+    Ztring                              Encoded_Library_Name;
+    Ztring                              Encoded_Library_Version;
+    Ztring                              Encoded_Library_Date;
+    Ztring                              Encoded_Library_Settings;
+    Ztring                              BitRate_Nominal;
+    Ztring                              MuxingMode;
+    int64u                              tc;
+    int32u                              Firstpic_order_cnt_lsbInBlock;
+    int8u                               nal_ref_idc;
+    int8u                               FrameRate_Divider;
+    bool                                FirstPFrameInGop_IsParsed;
+
+    //Helpers
+    string                              GOP_Detect                              (string PictureTypes);
+    string                              ScanOrder_Detect                        (string ScanOrders);
 
     #if MEDIAINFO_DUPLICATE
         bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
@@ -348,16 +380,10 @@ private :
         File__Duplicate__Writer Writer;
         int8u  Duplicate_Buffer[1024*1024];
         size_t Duplicate_Buffer_Size;
+        size_t frame_num_Old;
+        bool   SPS_PPS_AlreadyDone;
+        bool   FLV;
     #endif //MEDIAINFO_DUPLICATE
-    size_t frame_num_Old;
-    bool   SPS_PPS_AlreadyDone;
-    bool   FLV;
-
-    //Times
-    int64u tc;
-    bool   FirstPFrameInGop_IsParsed;
-    int32u Firstpic_order_cnt_lsbInBlock;
-    void   hrd_parameters(xxl &ToTest);
 };
 
 } //NameSpace
