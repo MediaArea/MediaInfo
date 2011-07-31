@@ -622,6 +622,10 @@
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\TimeCode.cpp"
+				>
+			</File>
 			<Filter
 				Name="Archive"
 				>
@@ -1360,6 +1364,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\Setup.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\TimeCode.h"
 				>
 			</File>
 			<Filter

@@ -32,6 +32,7 @@ set(mediainfo_SRCS
 	MediaInfo/MediaInfo_Internal.cpp
 	MediaInfo/MediaInfoList.cpp
 	MediaInfo/MediaInfoList_Internal.cpp
+	MediaInfo/TimeCode.cpp
 	MediaInfo/Archive/File_7z.cpp
 	MediaInfo/Archive/File_Ace.cpp
 	MediaInfo/Archive/File_Bzip2.cpp
