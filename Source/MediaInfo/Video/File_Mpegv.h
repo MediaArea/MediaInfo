@@ -143,7 +143,8 @@ private :
             buffer_data* GA94_03;
         #endif //MEDIAINFO_DTVCCTRANSPORT_YES
         #if defined(MEDIAINFO_SCTE20_YES)
-            buffer_data* Scte;
+            std::vector<buffer_data*> Scte;
+            std::vector<bool> Scte_Parsed;
         #endif //MEDIAINFO_SCTE20_YES
 
         int8u  picture_coding_type;
@@ -161,9 +162,6 @@ private :
             #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                 GA94_03=NULL;
             #endif //MEDIAINFO_DTVCCTRANSPORT_YES
-            #if defined(MEDIAINFO_SCTE20_YES)
-                Scte=NULL;
-            #endif //MEDIAINFO_SCTE20_YES
             picture_coding_type=(int8u)-1;
             picture_structure=(int8u)-1;
             IsValid=false;
@@ -176,7 +174,8 @@ private :
                 delete GA94_03; //GA94_03=NULL;
             #endif //MEDIAINFO_DTVCCTRANSPORT_YES
             #if defined(MEDIAINFO_SCTE20_YES)
-                delete Scte; //Scte=NULL;
+                for (size_t Pos=0; Pos<Scte.size(); Pos++)
+                    delete Scte[Pos]; //Scte[Pos]=NULL;
             #endif //MEDIAINFO_SCTE20_YES
         }
     };

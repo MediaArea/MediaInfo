@@ -1736,26 +1736,38 @@ void File_Mpegv::user_data_start_3()
             TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
         if (TemporalReference[TemporalReference_Offset+temporal_reference]==NULL)
             TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
-        if (TemporalReference[TemporalReference_Offset+temporal_reference]->Scte==NULL)
-            TemporalReference[TemporalReference_Offset+temporal_reference]->Scte=new temporalreference::buffer_data;
-        TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Size=(size_t)(Element_Size-Element_Offset);
-        delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Data;
-        TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Data=new int8u[(size_t)(Element_Size-Element_Offset)];
-        std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->Scte->Data, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        temporalreference::buffer_data* BufferData=new temporalreference::buffer_data;
+        BufferData->Size=(size_t)(Element_Size-Element_Offset);
+        BufferData->Data=new int8u[(size_t)(Element_Size-Element_Offset)];
+        std::memcpy(BufferData->Data, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        TemporalReference[TemporalReference_Offset+temporal_reference]->Scte.push_back(BufferData);
+        TemporalReference[TemporalReference_Offset+temporal_reference]->Scte_Parsed.push_back(false);
+        if (TemporalReference[TemporalReference_Offset+temporal_reference]->Scte_Parsed.size()>=2 && TemporalReference[TemporalReference_Offset+temporal_reference]->Scte_Parsed[TemporalReference[TemporalReference_Offset+temporal_reference]->Scte_Parsed.size()-2] && Scte_TemporalReference_Offset==TemporalReference_Offset+temporal_reference+1)
+            Scte_TemporalReference_Offset--;
 
         //Parsing
-        Skip_XX(Element_Size-Element_Offset,                    "CC data");
+        Skip_XX(Element_Size-Element_Offset,                    "SCTE 20 data");
 
         //Parsing Captions after reordering
         bool CanBeParsed=true;
-        for (size_t Scte_Pos=Scte_TemporalReference_Offset; Scte_Pos<TemporalReference.size(); Scte_Pos++)
-            if (TemporalReference[Scte_Pos]==NULL || !TemporalReference[Scte_Pos]->IsValid || TemporalReference[Scte_Pos]->Scte==NULL)
+        size_t FirstSize=(size_t)-1;
+        for (size_t Scte20_Pos=Scte_TemporalReference_Offset; Scte20_Pos<TemporalReference.size(); Scte20_Pos++)
+        {
+            if (TemporalReference[Scte20_Pos]==NULL || !TemporalReference[Scte20_Pos]->IsValid || TemporalReference[Scte20_Pos]->Scte.empty())
                 CanBeParsed=false; //There is a missing field/frame
+            if (CanBeParsed)
+            {
+                if (FirstSize==(size_t)-1)
+                    FirstSize=TemporalReference[Scte20_Pos]->Scte.size();
+                else if (!progressive_sequence && !TemporalReference[Scte20_Pos]->progressive_frame && TemporalReference[Scte20_Pos]->picture_structure==3 && TemporalReference[Scte20_Pos]->Scte.size()<FirstSize)
+                    CanBeParsed=false; //There is a missing field in a frame duo
+            }
+        }
         if (CanBeParsed)
         {
-            for (size_t Scte_Pos=Scte_TemporalReference_Offset; Scte_Pos<TemporalReference.size(); Scte_Pos++)
+            for (size_t Scte20_Pos=Scte_TemporalReference_Offset; Scte20_Pos<TemporalReference.size(); Scte20_Pos++)
             {
-                Element_Begin("SCTE 20 data");
+                Element_Begin("Reordered SCTE 20");
 
                 //Parsing
                 #if MEDIAINFO_DEMUX
@@ -1766,19 +1778,25 @@ void File_Mpegv::user_data_start_3()
                     Scte_Parser=new File_Scte20;
                     Open_Buffer_Init(Scte_Parser);
                 }
-                if (Scte_Parser->PTS_DTS_Needed)
-                {
-                    Scte_Parser->FrameInfo.PCR=FrameInfo.PCR;
-                    Scte_Parser->FrameInfo.PTS=FrameInfo.PTS;
-                    Scte_Parser->FrameInfo.DTS=FrameInfo.DTS;
-                }
-                ((File_Scte20*)Scte_Parser)->picture_structure=TemporalReference[Scte_Pos]->picture_structure;
+                //((File_Scte20*)Scte_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
+                ((File_Scte20*)Scte_Parser)->picture_structure=TemporalReference[Scte20_Pos]->picture_structure;
                 ((File_Scte20*)Scte_Parser)->progressive_sequence=progressive_sequence;
-                ((File_Scte20*)Scte_Parser)->progressive_frame=TemporalReference[Scte_Pos]->progressive_frame;
-                ((File_Scte20*)Scte_Parser)->top_field_first=TemporalReference[Scte_Pos]->top_field_first;
-                ((File_Scte20*)Scte_Parser)->repeat_first_field=TemporalReference[Scte_Pos]->repeat_first_field;
-                Demux(TemporalReference[Scte_Pos]->Scte->Data, TemporalReference[Scte_Pos]->Scte->Size, ContentType_MainStream);
-                Open_Buffer_Continue(Scte_Parser, TemporalReference[Scte_Pos]->Scte->Data, TemporalReference[Scte_Pos]->Scte->Size);
+                ((File_Scte20*)Scte_Parser)->progressive_frame=TemporalReference[Scte20_Pos]->progressive_frame;
+                ((File_Scte20*)Scte_Parser)->top_field_first=TemporalReference[Scte20_Pos]->top_field_first;
+                ((File_Scte20*)Scte_Parser)->repeat_first_field=TemporalReference[Scte20_Pos]->repeat_first_field;
+                for (size_t Pos=0; Pos<TemporalReference[Scte20_Pos]->Scte.size(); Pos++)
+                    if (!TemporalReference[Scte20_Pos]->Scte_Parsed[Pos])
+                    {
+                        if (Scte_Parser->PTS_DTS_Needed)
+                        {
+                            Scte_Parser->FrameInfo.PCR=FrameInfo.PCR;
+                            Scte_Parser->FrameInfo.PTS=FrameInfo.PTS-(TemporalReference.size()-1-Scte20_Pos)*tc;
+                            Scte_Parser->FrameInfo.DTS=FrameInfo.DTS-(TemporalReference.size()-1-Scte20_Pos)*tc;
+                        }
+                        Demux(TemporalReference[Scte20_Pos]->Scte[Pos]->Data, TemporalReference[Scte20_Pos]->Scte[Pos]->Size, ContentType_MainStream);
+                        Open_Buffer_Continue(Scte_Parser, TemporalReference[Scte20_Pos]->Scte[Pos]->Data, TemporalReference[Scte20_Pos]->Scte[Pos]->Size);
+                        TemporalReference[Scte20_Pos]->Scte_Parsed[Pos]=true;
+                    }
 
                 Element_End();
             }
@@ -1926,10 +1944,11 @@ void File_Mpegv::user_data_start_GA94_03()
                 if (GA94_03_Parser->PTS_DTS_Needed)
                 {
                     GA94_03_Parser->FrameInfo.PCR=FrameInfo.PCR;
-                    GA94_03_Parser->FrameInfo.PTS=FrameInfo.PTS;
-                    GA94_03_Parser->FrameInfo.DTS=FrameInfo.DTS;
+                    GA94_03_Parser->FrameInfo.PTS=FrameInfo.PTS-(TemporalReference.size()-1-GA94_03_Pos)*tc;
+                    GA94_03_Parser->FrameInfo.DTS=FrameInfo.DTS-(TemporalReference.size()-1-GA94_03_Pos)*tc;
                 }
                 Demux(TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size, ContentType_MainStream);
+                ((File_DtvccTransport*)GA94_03_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
 
                 Element_End();
