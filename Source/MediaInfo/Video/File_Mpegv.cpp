@@ -1759,7 +1759,7 @@ void File_Mpegv::user_data_start_3()
             {
                 if (FirstSize==(size_t)-1)
                     FirstSize=TemporalReference[Scte20_Pos]->Scte.size();
-                else if (!progressive_sequence && !TemporalReference[Scte20_Pos]->progressive_frame && TemporalReference[Scte20_Pos]->picture_structure==3 && TemporalReference[Scte20_Pos]->Scte.size()<FirstSize)
+                else if (!progressive_sequence && !TemporalReference[Scte20_Pos]->progressive_frame && TemporalReference[Scte20_Pos]->picture_structure==3 && TemporalReference[Scte20_Pos]->Scte.size()!=FirstSize)
                     CanBeParsed=false; //There is a missing field in a frame duo
             }
         }
