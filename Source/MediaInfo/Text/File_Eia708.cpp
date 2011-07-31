@@ -92,6 +92,11 @@ void File_Eia708::Streams_Finish()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Eia708::Read_Buffer_Init()
+{
+}
+
+//---------------------------------------------------------------------------
 void File_Eia708::Read_Buffer_Continue()
 {
     FrameInfo.PTS=FrameInfo.DTS;
@@ -115,6 +120,9 @@ void File_Eia708::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Eia708::Read_Buffer_Unsynched()
 {
+    if (cc_type==4) //Magic value saying that the buffer must be kept (this is only a point of synchro from the undelying layer)
+        return;
+
     for (int8u service_number=1; service_number<Streams.size(); service_number++)
         if (Streams[service_number])
         {
@@ -638,12 +646,15 @@ void File_Eia708::FF()
                 //Clearing global area
                 if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
                     Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=character();
-
-                //Has changed
-                Window_HasChanged();
-                HasChanged();
             }
         }
+
+    if (Window->visible)
+    {
+        //Has changed
+        Window_HasChanged();
+        HasChanged();
+    }
 
     //SetPenLocation
     Window->Minimal.x=0;
@@ -973,6 +984,9 @@ void File_Eia708::DLW()
     bool  Save_StandAloneCommand=StandAloneCommand;
     StandAloneCommand=false;
 
+    //Bug in some files
+    bool Bug_WindowOffset=false;
+
     Element_Begin("DeleteWindows");
     BS_Begin();
     int8u WindowID=8;
@@ -982,6 +996,12 @@ void File_Eia708::DLW()
         WindowID--;
         bool IsSet;
         Get_SB (   IsSet,                                       Ztring(_T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
+
+        //Bug in some files
+        if (IsSet && WindowID==1 && Streams[service_number]->Windows[0]!=NULL && Streams[service_number]->Windows[1]==NULL) //Mix between Windows 0 and 1
+            Bug_WindowOffset=true;
+        if (!IsSet && WindowID==0 && Bug_WindowOffset)
+            IsSet=true;
 
         if (IsSet)
         {

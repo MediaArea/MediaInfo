@@ -34,9 +34,6 @@
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
-#if defined(MEDIAINFO_EIA708_YES)
-    #include "MediaInfo/Text/File_Eia708.h"
-#endif
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS

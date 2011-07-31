@@ -3636,6 +3636,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
             //Creating the parser
             Streams[moov_trak_tkhd_TrackID].Parser=new File_Cdp;
             ((File_Cdp*)Streams[moov_trak_tkhd_TrackID].Parser)->WithAppleHeader=true;
+            ((File_Cdp*)Streams[moov_trak_tkhd_TrackID].Parser)->AspectRatio=((float)16)/9; //TODO: this is hardcoded, must adapt it to the real video aspect ratio
         }
         #endif
         #if MEDIAINFO_DEMUX

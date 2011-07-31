@@ -57,6 +57,7 @@ private :
     void Read_Buffer_Unsynched();
 
     //Buffer - Global
+    void Read_Buffer_Init();
     void Read_Buffer_Continue();
 
     //Function
