@@ -1505,6 +1505,7 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             //Checking continuity of Ibi
                             if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size() && InfiniteLoop_Detect<8) //With infinite loop detect
                             {
+                                InfiniteLoop_Detect++;
                                 Config->Demux_IsSeeking=true;
                                 Seek_Value=Value;
                                 Seek_Value_Maximal=IbiStream_Temp->second->Infos[Pos+1].StreamOffset;
