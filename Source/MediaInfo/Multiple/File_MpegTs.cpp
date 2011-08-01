@@ -153,6 +153,7 @@ File_MpegTs::File_MpegTs()
     #if MEDIAINFO_SEEK
         Seek_Value=(int64u)-1;
         Seek_ID=(int64u)-1;
+        InfiniteLoop_Detect=0;
         Duration_Detected=false;
     #endif //MEDIAINFO_SEEK
 }
@@ -1502,7 +1503,7 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 Pos--;
 
                             //Checking continuity of Ibi
-                            if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
+                            if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size() && InfiniteLoop_Detect<8) //With infinite loop detect
                             {
                                 Config->Demux_IsSeeking=true;
                                 Seek_Value=Value;
@@ -1514,6 +1515,7 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 return 1;
                             }
 
+                            InfiniteLoop_Detect=0;
                             Config->Demux_IsSeeking=false;
                             if (Complete_Stream && Complete_Stream->Streams[(size_t)IbiStream_Temp->first] && Complete_Stream->Streams[(size_t)IbiStream_Temp->first]->Parser)
                                 Complete_Stream->Streams[(size_t)IbiStream_Temp->first]->Parser->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
@@ -2257,9 +2259,20 @@ void File_MpegTs::PES()
             }
             else if (Ibi.Streams[Seek_ID]->Infos_Pos>=2 && Ibi.Streams[Seek_ID]->IsSynchronized && Ibi.Streams[Seek_ID]->Infos[Ibi.Streams[Seek_ID]->Infos_Pos-1].StreamOffset>=Seek_Value_Maximal)
             {
-                //No intermediate seek point found, going to previous seek point
-                GoTo(Ibi.Streams[Seek_ID]->Infos[Ibi.Streams[Seek_ID]->Infos_Pos-2].StreamOffset);
-                Open_Buffer_Unsynch();
+                InfiniteLoop_Detect++;
+                if (InfiniteLoop_Detect>16)
+                {
+                    //Infinite loop
+                    Seek_ID!=(int64u)-1;
+                   Seek_Value!=(int64u)-1;
+                   InfiniteLoop_Detect=0;
+                }
+                else
+                {
+                    //No intermediate seek point found, going to previous seek point
+                    GoTo(Ibi.Streams[Seek_ID]->Infos[Ibi.Streams[Seek_ID]->Infos_Pos-2].StreamOffset);
+                    Open_Buffer_Unsynch();
+                }
             }
         }
     #endif //MEDIAINFO_SEEK

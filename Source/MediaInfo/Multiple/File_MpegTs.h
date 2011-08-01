@@ -157,6 +157,7 @@ private :
         int64u                      Seek_Value;
         int64u                      Seek_Value_Maximal;
         int64u                      Seek_ID;
+        size_t                      InfiniteLoop_Detect;
         bool                        Duration_Detected;
     #endif //MEDIAINFO_SEEK
     #if MEDIAINFO_SEEK && MEDIAINFO_IBI
