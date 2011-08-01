@@ -181,13 +181,19 @@ Reader_libcurl::Reader_libcurl ()
             return ;
 
         /* Load methods */
-        MEDIAINFO_ASSIGN    (curl_easy_init,        "curl_easy_init")
-        MEDIAINFO_ASSIGN    (curl_easy_setopt,      "curl_easy_setopt")
-        MEDIAINFO_ASSIGN    (curl_easy_perform,     "curl_easy_perform")
-        MEDIAINFO_ASSIGN    (curl_easy_cleanup,     "curl_easy_cleanup")
-        MEDIAINFO_ASSIGN    (curl_easy_getinfo,     "curl_easy_getinfo")
-        MEDIAINFO_ASSIGN    (curl_slist_append,     "curl_slist_append")
-        MEDIAINFO_ASSIGN    (curl_slist_free_all,   "curl_slist_free_all")
+        MEDIAINFO_ASSIGN    (curl_easy_init,            "curl_easy_init")
+        MEDIAINFO_ASSIGN    (curl_easy_setopt,          "curl_easy_setopt")
+        MEDIAINFO_ASSIGN    (curl_easy_perform,         "curl_easy_perform")
+        MEDIAINFO_ASSIGN    (curl_easy_cleanup,         "curl_easy_cleanup")
+        MEDIAINFO_ASSIGN    (curl_easy_getinfo,         "curl_easy_getinfo")
+        MEDIAINFO_ASSIGN    (curl_slist_append,         "curl_slist_append")
+        MEDIAINFO_ASSIGN    (curl_slist_free_all,       "curl_slist_free_all")
+        MEDIAINFO_ASSIGN    (curl_easy_duphandle,       "curl_easy_duphandle")
+        MEDIAINFO_ASSIGN    (curl_multi_init,           "curl_multi_init")
+        MEDIAINFO_ASSIGN    (curl_multi_add_handle,     "curl_multi_add_handle")
+        MEDIAINFO_ASSIGN    (curl_multi_remove_handle,  "curl_multi_remove_handle")
+        MEDIAINFO_ASSIGN    (curl_multi_perform,        "curl_multi_perform")
+        MEDIAINFO_ASSIGN    (curl_multi_cleanup,        "curl_multi_cleanup")
         if (Errors>0)
            return;
 
