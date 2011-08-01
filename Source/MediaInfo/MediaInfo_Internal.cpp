@@ -386,7 +386,23 @@ void MediaInfo_Internal::Entry()
           && Config.File_Names[0][3]==_T(':')
           && Config.File_Names[0][4]==_T('/')
           && Config.File_Names[0][5]==_T('/')))
-            Reader_libcurl().Format_Test(this, Config.File_Names[0]);
+        {
+            CS.Enter();
+            if (Reader)
+            {
+                CS.Leave();
+                return; //There is a problem
+            }
+            Reader=new Reader_libcurl();
+            CS.Leave();
+
+            Reader->Format_Test(this, Config.File_Names[0]);
+
+            #if MEDIAINFO_NEXTPACKET
+                if (Config.NextPacket_Get())
+                    return;
+            #endif //MEDIAINFO_NEXTPACKET
+        }
     #endif //MEDIAINFO_LIBCURL_YES
 
     #if defined(MEDIAINFO_LIBMMS_YES)
@@ -504,7 +520,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     }
 
     #if MEDIAINFO_EVENTS
-        if (Info->Status[File__Analyze::IsAccepted])
+        if (Info && Info->Status[File__Analyze::IsAccepted])
         {
             struct MediaInfo_Event_General_Move_Done_0 Event;
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Move_Done, 0);
@@ -582,7 +598,7 @@ int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
 {
     CriticalSectionLocker CSL(CS);
     if (Info==NULL)
-        return 0;
+        return (int64u)-1;
 
     if (Info->File_GoTo==(int64u)-1
      || (Info->File_GoTo>=Info->File_Offset && Info->File_GoTo<Info->File_Offset+0x10000)) //If jump is tiny, this is not worth the performance cost due to seek

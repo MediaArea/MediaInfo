@@ -17,7 +17,10 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//Copy of curl include files
+//***************************************************************************
+// Copy of curl include files - Easy interface
+//***************************************************************************
+
 typedef void CURL;
 
 typedef enum {
@@ -847,6 +850,26 @@ typedef enum {
 typedef int64u curl_off_t;
 
 //***************************************************************************
+// Copy of curl include files - Multi interface
+//***************************************************************************
+
+typedef void CURLM;
+
+typedef enum {
+  CURLM_CALL_MULTI_PERFORM = -1, /* please call curl_multi_perform() or
+                                    curl_multi_socket*() soon */
+  CURLM_OK,
+  CURLM_BAD_HANDLE,      /* the passed-in handle is not a valid CURLM handle */
+  CURLM_BAD_EASY_HANDLE, /* an easy handle was not good/valid */
+  CURLM_OUT_OF_MEMORY,   /* if you ever get this, you're in deep sh*t */
+  CURLM_INTERNAL_ERROR,  /* this is a libcurl bug */
+  CURLM_BAD_SOCKET,      /* the passed in socket argument did not match */
+  CURLM_UNKNOWN_OPTION,  /* curl_multi_setopt() with unsupported option */
+  CURLM_LAST
+} CURLMcode;
+
+
+//***************************************************************************
 // Dynamic load stuff
 //***************************************************************************
 
@@ -891,6 +914,8 @@ size_t libcurl_Module_Count=0;
     if (_Name==NULL) Errors++;
 #endif
 
+//---------------------------------------------------------------------------
+// Easy interface
 typedef CURL* (*LIBCURL_curl_easy_init)   ();   static LIBCURL_curl_easy_init    curl_easy_init;
 typedef CURLcode (*LIBCURL_curl_easy_setopt) (CURL *curl, CURLoption option, ...);   static LIBCURL_curl_easy_setopt  curl_easy_setopt;
 typedef CURLcode (*LIBCURL_curl_easy_perform)(CURL *curl);   static LIBCURL_curl_easy_perform curl_easy_perform;
@@ -898,5 +923,15 @@ typedef void (*LIBCURL_curl_easy_cleanup)(CURL *curl);   static LIBCURL_curl_eas
 typedef CURLcode (*LIBCURL_curl_easy_getinfo)(CURL *curl, CURLINFO info, ...);   static LIBCURL_curl_easy_getinfo curl_easy_getinfo;
 typedef struct curl_slist* (*LIBCURL_curl_slist_append)   (struct curl_slist *, const char *);   static LIBCURL_curl_slist_append    curl_slist_append;
 typedef void (*LIBCURL_curl_slist_free_all)   (struct curl_slist *);   static LIBCURL_curl_slist_free_all    curl_slist_free_all;
+typedef CURL* (*LIBCURL_curl_easy_duphandle)(CURL *curl);   static LIBCURL_curl_easy_duphandle curl_easy_duphandle;
+
+//---------------------------------------------------------------------------
+// Multi interface
+typedef CURLM* (*LIBCURL_curl_multi_init)   ();   static LIBCURL_curl_multi_init    curl_multi_init;
+typedef CURLMcode (*LIBCURL_curl_multi_add_handle) (CURLM *multi_handle, CURL *curl_handle);   static LIBCURL_curl_multi_add_handle curl_multi_add_handle;
+typedef CURLMcode (*LIBCURL_curl_multi_remove_handle) (CURLM *multi_handle, CURL *curl_handle);   static LIBCURL_curl_multi_remove_handle curl_multi_remove_handle;
+typedef CURLMcode (*LIBCURL_curl_multi_perform)(CURLM *curl, int *running_handles);   static LIBCURL_curl_multi_perform curl_multi_perform;
+typedef void (*LIBCURL_curl_multi_cleanup)(CURLM *curl);   static LIBCURL_curl_multi_cleanup curl_multi_cleanup;
 
 }
+

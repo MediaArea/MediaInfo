@@ -43,11 +43,21 @@ class Reader_libcurl : public Reader__Base
 public :
     //Constructor/Destructor
     Reader_libcurl ();
-    virtual ~Reader_libcurl() {}
+    virtual ~Reader_libcurl();
 
     //Format testing
     size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    size_t Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name);
+    size_t Format_Test_PerParser_Continue (MediaInfo_Internal* MI);
+    size_t Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value, int64u ID);
+
+public:
+    struct curl_data;
+
+private :
+    curl_data*          Curl_Data;
 };
 
 } //NameSpace
 #endif
+
