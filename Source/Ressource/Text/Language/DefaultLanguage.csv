@@ -3,7 +3,7 @@
   Author_Name;Zen
   Author_OldNames;Initial translator
   Language_Name;English
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
+ActiveFormatDescription;Active Format Description
+ActiveFormatDescription_MuxingMode;Active Format Description, Muxing mode
 Actor;Actor
 Actor_Character;Character played
 Added_Date;Added date

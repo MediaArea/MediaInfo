@@ -116,6 +116,7 @@ DisplayAspectRatio_Original;;;N YF;;;Original (in the raw stream) Display Aspect
 DisplayAspectRatio_Original/String;;;Y NT;;;Original (in the raw stream) Display Aspect ratio
 ActiveFormatDescription;;;N YN;;;Active Format Description (AFD value)
 ActiveFormatDescription/String;;;Y NT;;;Active Format Description (text)
+ActiveFormatDescription_MuxingMode;;;N YN;;;Active Format Description (AFD value) muxing mode (Ancillary or Raw stream)
 Rotation;;;N YT;;;Rotation
 Rotation/String;;;Y NT;;;Rotation (if not horizontal)
 FrameRate_Mode;;;N YT;;;Frame rate mode (CFR, VFR)

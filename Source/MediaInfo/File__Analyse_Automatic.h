@@ -520,6 +520,7 @@ enum video
     Video_DisplayAspectRatio_Original_String,
     Video_ActiveFormatDescription,
     Video_ActiveFormatDescription_String,
+    Video_ActiveFormatDescription_MuxingMode,
     Video_Rotation,
     Video_Rotation_String,
     Video_FrameRate_Mode,

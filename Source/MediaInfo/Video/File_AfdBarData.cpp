@@ -162,7 +162,17 @@ void File_AfdBarData::Streams_Fill()
         if (aspect_ratio==(int8u)-1)
             aspect_ratio=aspect_ratio_FromContainer;
         if (aspect_ratio!=(int8u)-1)
+        {
             Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, Stream.aspect_ratio?AfdBarData_active_format_16_9[Stream.active_format]:AfdBarData_active_format_4_3[Stream.active_format]);
+            switch (Format)
+            {
+                case Format_A53_4_DTG1    : Fill(Stream_Video, 0, Video_ActiveFormatDescription_MuxingMode, "A/53"); break;
+                case Format_S2016_3       : Fill(Stream_Video, 0, Video_ActiveFormatDescription_MuxingMode, "SMPTE ST 2016-3"); break;
+                default                   :
+                                            Skip_XX(Element_Size,       "Unknown");
+                                            return;
+            }
+        }
     }
 }
 
