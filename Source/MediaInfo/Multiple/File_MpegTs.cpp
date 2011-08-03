@@ -2264,9 +2264,9 @@ void File_MpegTs::PES()
                 if (InfiniteLoop_Detect>16)
                 {
                     //Infinite loop
-                    Seek_ID!=(int64u)-1;
-                   Seek_Value!=(int64u)-1;
-                   InfiniteLoop_Detect=0;
+                    Seek_ID=(int64u)-1;
+                    Seek_Value=(int64u)-1;
+                    InfiniteLoop_Detect=0;
                 }
                 else
                 {
