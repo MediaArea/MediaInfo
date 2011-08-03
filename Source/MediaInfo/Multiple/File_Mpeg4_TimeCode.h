@@ -38,7 +38,10 @@ class File_Mpeg4_TimeCode : public File__Analyze
 public :
     //In
     float64 FrameRate;
-    bool     NegativeTimes;
+    bool    NegativeTimes;
+
+    //Out
+    int64s  Pos;
 
     //Constructor/Destructor
     File_Mpeg4_TimeCode();
@@ -49,9 +52,6 @@ protected :
 
     //Buffer - Global
     void Read_Buffer_Continue();
-
-    //Temp
-    int64s Pos;
 };
 
 } //NameSpace

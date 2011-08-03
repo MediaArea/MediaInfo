@@ -170,9 +170,13 @@ File_Mpeg4::File_Mpeg4()
     IsFragmented=false;
     moov_trak_tkhd_TrackID=(int32u)-1;
     ReferenceFiles=NULL;
+    mdat_Pos_NormalParsing=false;
     #if MEDIAINFO_NEXTPACKET
         ReferenceFiles_IsParsing=false;
     #endif MEDIAINFO_NEXTPACKET
+    #if MEDIAINFO_DEMUX
+        TimeCode_DtsOffset=0;
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -997,8 +1001,18 @@ void File_Mpeg4::Header_Parse()
         //Filling
         Header_Fill_Code(mdat_Pos_Temp->second.StreamID, Ztring::ToZtring(mdat_Pos_Temp->second.StreamID));
         Header_Fill_Size(mdat_Pos_Temp->second.Size);
-        if (Buffer_Offset+mdat_Pos_Temp->second.Size<=Buffer_Size)
-            mdat_Pos_Temp++; //Only if we will not need it later (in case of partial data, this function will be called again for the same chunk)
+        if (Buffer_Offset+mdat_Pos_Temp->second.Size<=Buffer_Size) //Only if we will not need it later (in case of partial data, this function will be called again for the same chunk)
+        {
+            mdat_Pos_Temp++;
+            while (mdat_Pos_Temp!=mdat_Pos.end())
+            {
+                if (mdat_Pos_NormalParsing && !Streams[mdat_Pos_Temp->second.StreamID].IsPriorityStream)
+                    break;
+                if (!mdat_Pos_NormalParsing && Streams[mdat_Pos_Temp->second.StreamID].IsPriorityStream)
+                    break;
+                mdat_Pos_Temp++;
+            }
+        }
         else
             Element_WaitForMoreData();
         return;
@@ -1060,11 +1074,140 @@ void File_Mpeg4::Header_Parse()
 //---------------------------------------------------------------------------
 bool File_Mpeg4::BookMark_Needed()
 {
-    if (IsSecondPass || !mdat_MustParse || !mdat_Pos.empty())
+    if (!mdat_MustParse)
         return false;
 
+    //In case of second pass
+    if (mdat_Pos.empty())
+    {
+        //For each stream
+        for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); Temp++)
+        {
+            if (Temp->second.Parser && (!Temp->second.stsz.empty() || Temp->second.stsz_Sample_Size))
+            {
+                size_t stsc_Pos=0;
+                size_t stsz_Pos=0;
+                size_t Chunk_FrameCount=0;
+                int32u Chunk_Number=1;
+                #if MEDIAINFO_DEMUX
+                    stream::stts_durations Temp_stts_Durations;
+                #endif //MEDIAINFO_DEMUX
+                for (size_t stco_Pos=0; stco_Pos<Temp->second.stco.size(); stco_Pos++)
+                {
+                    while (stsc_Pos+1<Temp->second.stsc.size() && Chunk_Number>=Temp->second.stsc[stsc_Pos+1].FirstChunk)
+                        stsc_Pos++;
+
+                    if (Temp->second.stsz_Sample_Size==0)
+                    {
+                        //Each sample has its own size
+                        int64u Chunk_Offset=0;
+                        for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
+                        {
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz[stsz_Pos];
+                            Chunk_Offset+=Temp->second.stsz[stsz_Pos];
+                            stsz_Pos++;
+                            if (stsz_Pos>=Temp->second.stsz.size())
+                            break;
+                        }
+                        if (stsz_Pos>=Temp->second.stsz.size())
+                            break;
+                    }
+                    else if (Temp->second.StreamKind==Stream_Audio && Temp->second.stsz_Sample_Size<=32 && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
+                    {
+                        //Same size per sample, but granularity is too small
+                        mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
+                        mdat_Pos[Temp->second.stco[stco_Pos]].Size=Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+
+                        #if MEDIAINFO_DEMUX
+                            if (Temp_stts_Durations.empty() || Temp->second.stsc[stsc_Pos].SamplesPerChunk!=Temp_stts_Durations[Temp_stts_Durations.size()-1].SampleDuration)
+                            {
+                                stream::stts_duration  stts_Duration;
+                                stts_Duration.Pos_Begin=Temp_stts_Durations.empty()?0:Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End;
+                                stts_Duration.Pos_End=stts_Duration.Pos_Begin+1;
+                                stts_Duration.SampleDuration=Temp->second.stsc[stsc_Pos].SamplesPerChunk;
+                                stts_Duration.DTS_Begin=Temp_stts_Durations.empty()?0:Temp_stts_Durations[Temp_stts_Durations.size()-1].DTS_End;
+                                stts_Duration.DTS_End=stts_Duration.DTS_Begin+stts_Duration.SampleDuration;
+                                Temp_stts_Durations.push_back(stts_Duration);
+                                //Temp->second.stsc[stsc_Pos].SamplesPerChunk=1;
+                            }
+                            else
+                            {
+                                Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End++;
+                                Temp_stts_Durations[Temp_stts_Durations.size()-1].DTS_End+=Temp_stts_Durations[Temp_stts_Durations.size()-1].SampleDuration;
+                            }
+                        #endif //MEDIAINFO_DEMUX
+                    }
+                    else
+                    {
+                        //Same size per sample
+                        int64u Chunk_Offset=0;
+                        for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
+                        {
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
+                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+                            Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+                            Chunk_FrameCount++;
+                        }
+                        if (Config_ParseSpeed<1.0 && Chunk_FrameCount>=300)
+                            break;
+                    }
+
+                    Chunk_Number++;
+                }
+                #if MEDIAINFO_DEMUX
+                    if (!Temp_stts_Durations.empty())
+                    {
+                       Temp->second.stts_Durations=Temp_stts_Durations;
+                        for (stsc_Pos=0; stsc_Pos<Temp->second.stsc.size(); stsc_Pos++)
+                            Temp->second.stsc[stsc_Pos].SamplesPerChunk=1;
+                        Temp->second.stts_FrameCount=Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End;
+                    }
+                #endif //MEDIAINFO_DEMUX
+            }
+        }
+        mdat_Pos_Temp=mdat_Pos.begin();
+    }
+    if (mdat_Pos.empty())
+        return false;    
+        
+    IsParsing_mdat=false;
+    if (!mdat_Pos_ToParseInPriority_StreamIDs.empty())
+    {
+        //Hanlding StreamIDs to parse in priority (currently, only the first block of each stream is parsed in priority)
+        if (!Streams[mdat_Pos_ToParseInPriority_StreamIDs[0]].stco.empty())
+        {
+            mdat_pos::iterator Temp=mdat_Pos.find(Streams[mdat_Pos_ToParseInPriority_StreamIDs[0]].stco[0]);
+            if (Temp!=mdat_Pos.end() && Temp->first<File_Size) //Skipping data not in a truncated file
+            {
+                Element_Show();
+                while (Element_Level>0)
+                    Element_End();
+                Element_Begin("Priority streams", File_Size);
+
+                mdat_Pos_Temp=Temp;
+                GoTo(Temp->first);
+                IsParsing_mdat=true;
+            }
+        }
+        mdat_Pos_ToParseInPriority_StreamIDs.erase(mdat_Pos_ToParseInPriority_StreamIDs.begin());
+    }
+
+    if (File_GoTo==(int64u)-1 && !mdat_Pos_NormalParsing)
+    {
+        Element_Show();
+        while (Element_Level>0)
+            Element_End();
+        Element_Begin("Second pass", File_Size);
+
+        mdat_Pos_Temp=mdat_Pos.begin();
+        GoTo(mdat_Pos_Temp->first);
+        IsParsing_mdat=true;
+        mdat_Pos_NormalParsing=true;
+    }
+
     IsSecondPass=true;
-    return true;
+    return false; //We do not want to use the bookmark feature, only detect the end of the file
 }
 
 //---------------------------------------------------------------------------

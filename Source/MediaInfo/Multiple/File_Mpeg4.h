@@ -365,6 +365,8 @@ private :
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
         bool                    IsPcmMono;
+        bool                    IsPriorityStream;
+        bool                    IsFilled;
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
         float32                 CleanAperture_PixelAspectRatio;
@@ -408,6 +410,8 @@ private :
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
             IsPcmMono=false;
+            IsPriorityStream=false;
+            IsFilled=false;
             CleanAperture_Width=0;
             CleanAperture_Height=0;
             CleanAperture_PixelAspectRatio=0;
@@ -442,9 +446,11 @@ private :
     typedef std::map<int64u, mdat_Pos_Type> mdat_pos;
     mdat_pos mdat_Pos;
     mdat_pos::iterator mdat_Pos_Temp;
+    std::vector<int32u> mdat_Pos_ToParseInPriority_StreamIDs;
+    bool                mdat_Pos_NormalParsing;
 
     #if MEDIAINFO_DEMUX
-        bool Demux_Locators;
+        int64u          TimeCode_DtsOffset;
     #endif //MEDIAINFO_DEMUX
 };
 

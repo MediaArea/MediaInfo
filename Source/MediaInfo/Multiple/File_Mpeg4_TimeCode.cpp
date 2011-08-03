@@ -44,6 +44,7 @@ namespace MediaInfoLib
 File_Mpeg4_TimeCode::File_Mpeg4_TimeCode()
 :File__Analyze()
 {
+    //Out
     Pos=(int32u)-1;
 }
 
