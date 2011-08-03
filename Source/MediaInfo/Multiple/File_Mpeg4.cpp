@@ -175,6 +175,7 @@ File_Mpeg4::File_Mpeg4()
         ReferenceFiles_IsParsing=false;
     #endif MEDIAINFO_NEXTPACKET
     #if MEDIAINFO_DEMUX
+        TimeCode_FrameOffset=0;
         TimeCode_DtsOffset=0;
     #endif //MEDIAINFO_DEMUX
 }
@@ -902,6 +903,12 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     //No break;
         case 3  :   //FrameNumber
                     {
+                        //Removing Time Code offset
+                        if (Value>TimeCode_FrameOffset)
+                            Value-=TimeCode_FrameOffset;
+                        else
+                            Value=0;
+                        
                         //Looking for video stream
                         std::map<int32u, stream>::iterator Stream;
                         for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)

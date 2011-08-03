@@ -450,6 +450,7 @@ private :
     bool                mdat_Pos_NormalParsing;
 
     #if MEDIAINFO_DEMUX
+        int64u          TimeCode_FrameOffset;
         int64u          TimeCode_DtsOffset;
     #endif //MEDIAINFO_DEMUX
 };

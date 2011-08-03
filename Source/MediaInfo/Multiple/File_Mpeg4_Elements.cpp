@@ -1397,7 +1397,10 @@ void File_Mpeg4::mdat_xxxx()
                     {
                         for (std::map<int32u, stream>::iterator StreamTemp=Streams.begin(); StreamTemp!=Streams.end(); StreamTemp++)
                             if (StreamTemp->second.TimeCode_TrackID==Stream->first)
-                                TimeCode_DtsOffset=float64_int64s(((float64)((File_Mpeg4_TimeCode*)Stream->second.Parser)->Pos)*1000000000*Stream->second.TimeCode->FrameDuration/Stream->second.TimeCode->TimeScale);
+                            {
+                                TimeCode_FrameOffset=((File_Mpeg4_TimeCode*)Stream->second.Parser)->Pos;
+                                TimeCode_DtsOffset=float64_int64s(((float64)TimeCode_FrameOffset)*1000000000*Stream->second.TimeCode->FrameDuration/Stream->second.TimeCode->TimeScale);
+                            }
                     }
                 }
 
@@ -3459,6 +3462,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         #if defined(MEDIAINFO_PCM_YES)
         if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("PCM"))
         {
+            //Info of stream size
+            Streams[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier=Channels*SampleSize/8;
+
             //Creating the parser
             File_Pcm MI;
             MI.Codec=Ztring().From_Local(Codec.c_str());
@@ -4367,7 +4373,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
              }
         }
 
-        Stream->second.stsz_StreamSize=Sample_Size; Stream->second.stsz_StreamSize*=Sample_Count; Stream->second.stsz_StreamSize*=Streams[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier;
+        Stream->second.stsz_StreamSize=Sample_Size; Stream->second.stsz_StreamSize*=Sample_Count;
+        if (Sample_Size==1)
+            Stream->second.stsz_StreamSize*=Streams[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier;
+        else
+            Stream->second.stsz_Sample_Multiplier=1; //Sampe_Size is correct, no need of stsz_Sample_Multiplier
 
         Stream->second.stsz_Sample_Size=Sample_Size;
         Stream->second.stsz_Sample_Count=Sample_Count;
