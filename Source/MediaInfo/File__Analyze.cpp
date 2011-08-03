@@ -1427,20 +1427,9 @@ void File__Analyze::Data_Reject (const char* ParserName)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
+void File__Analyze::Data_GoTo (int64u GoTo_, const char* ParserName)
 {
-    if (IsSub && Config_ParseSpeed==1)
-        return;
-
     Element_Show();
-
-    if (GoTo==File_Size)
-    {
-        ForceFinish();
-        return;
-    }
-    if (File_GoTo!=(int64u)-1)
-        return; //Already done
 
     if (ShouldContinueParsing)
     {
@@ -1456,8 +1445,8 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
         return;
     }
 
-    Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
-    File_GoTo=GoTo;
+    Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo_, 16));
+    GoTo(GoTo_);
     Element_End();
 }
 #endif //MEDIAINFO_TRACE
