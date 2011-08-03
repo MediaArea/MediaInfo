@@ -1645,17 +1645,26 @@ void File_Avc::slice_header()
                 {
                     case 0 :    prevPicOrderCntMsb-=MaxSize;
                                 prevTopFieldOrderCnt-=MaxSize;
+                                if (MaxSize<TemporalReferences_Offset)
+                                    TemporalReferences_Offset-=MaxSize;
+                                else
+                                    TemporalReferences_Offset=0;
                                 break;
-                    case 2 :    prevFrameNum-=MaxSize;
-                                prevFrameNumOffset-=MaxSize;
+                    case 2 :    if (MaxSize<TemporalReferences_Offset)
+                                    TemporalReferences_Offset-=MaxSize;
+                                else
+                                {
+                                    size_t Diff=MaxSize-TemporalReferences_Offset;
+                                    TemporalReferences_Offset=0;
+                                    if (Diff<prevFrameNumOffset)
+                                        prevFrameNumOffset-=Diff;
+                                    else
+                                        prevFrameNumOffset=0;
+                                }
                                 break;
                     default: ;
                 }
                 TemporalReferences_Offset_pic_order_cnt_lsb_Last-=MaxSize;
-                if (MaxSize<TemporalReferences_Offset)
-                    TemporalReferences_Offset-=MaxSize;
-                else
-                    TemporalReferences_Offset=0;
                 #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                     if (MaxSize<GA94_03_TemporalReferences_Offset)
                         GA94_03_TemporalReferences_Offset-=MaxSize;
