@@ -295,6 +295,7 @@ private :
     int32u                                  moov_cmov_dcom_Compressor;
     int32u                                  moov_meta_hdlr_Type;
     std::string                             moov_meta_ilst_xxxx_name_Name;
+    size_t                                  moov_trak_mdia_minf_stbl_stsd_Pos;
     int32u                                  moov_trak_tkhd_TrackID;
     float32                                 moov_trak_tkhd_Width;
     float32                                 moov_trak_tkhd_Height;

@@ -12,6 +12,7 @@ Version 0.7.48
 + ISM (ISM/ISMV/ISMA/PIFF...): more attributes (frame rate, frame count, duration)
 + MP3: support of VBRI header in a corrupted frame
 + Active Format Description: muxing mode (A/35 or SMPTE ST 2016-3)
++ MP4/MOV: Displaying info about first description atom of a track (instead of all of them)
 x MP4/MOV: scan order (Top/Bottom) from container, thanks to Peter Chapman
 x libmms: default behavior is using official libmms API only
 x Vorbis comment: album performer data was in performer field
