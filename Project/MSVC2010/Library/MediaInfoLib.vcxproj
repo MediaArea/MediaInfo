@@ -455,6 +455,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Xdcam_Clip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\PreComp.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_libcurl_Include.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader__Base.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Setup.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_7z.h" />

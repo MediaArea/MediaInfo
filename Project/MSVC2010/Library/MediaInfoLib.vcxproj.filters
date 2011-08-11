@@ -1022,5 +1022,8 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\TimeCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_libcurl_Include.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
