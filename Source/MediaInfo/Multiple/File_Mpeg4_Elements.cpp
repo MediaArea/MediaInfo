@@ -3889,7 +3889,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
             ChannelLabels_Valid=false;
         ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
         if (Pos+1<NumberChannelDescriptions)
-            ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
+            ChannelDescription_Layout+=_T(' ');
         Skip_B4(                                                "ChannelFlags");
         Skip_BF4(                                               "Coordinates (0)");
         Skip_BF4(                                               "Coordinates (1)");
@@ -3909,14 +3909,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
         }
         else if (ChannelLayoutTag==0x10000) //kCAFChannelLayoutTag_UseChannelBitmap
         {
-            int16u Channels=ChannelLayoutTag&0x0000FFFF;
-            int16u Ordering=(ChannelLayoutTag&0xFFFF0000)>16;
-            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan(Ordering), Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, Mpeg4_chan_Layout(Ordering));
-        }
-        else
-        {
             int8u Channels=0;
             for (size_t Bit=0; Bit<18; Bit++)
                 if (ChannelBitmap&(1<<Bit))
@@ -3925,6 +3917,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
             {
                 Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
             }
+        }
+        else if (ChannelLayoutTag>0x10000)
+        {
+            int16u Channels=ChannelLayoutTag&0x0000FFFF;
+            int16u Ordering=(ChannelLayoutTag&0xFFFF0000)>>16;
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan(Ordering), Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, Mpeg4_chan_Layout(Ordering));
         }
     FILLING_END();
 }
