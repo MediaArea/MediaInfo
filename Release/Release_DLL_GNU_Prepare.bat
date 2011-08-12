@@ -47,7 +47,7 @@ rem --- Shared ---
 mkdir MediaInfo_DLL_GNU_Prepare\Shared
 xcopy ..\..\Shared\Project\_Common\* MediaInfo_DLL_GNU_Prepare\Shared\Project\_Common\ /S
 xcopy ..\..\Shared\Project\curl\*.sh MediaInfo_DLL_GNU_Prepare\Shared\Project\curl\ /S
-xcopy ..\..\Shared\Project\ZLib\*.sh MediaInfo_DLL_GNU_Prepare\Shared\Project\ZLib\ /S
+xcopy ..\..\Shared\Project\zlib\*.sh MediaInfo_DLL_GNU_Prepare\Shared\Project\zlib\ /S
 
 
 rem --- Compressing Archive ---

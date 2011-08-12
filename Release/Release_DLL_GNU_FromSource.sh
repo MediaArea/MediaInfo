@@ -71,8 +71,8 @@ mkdir -p MediaInfo_DLL_GNU_FromSource/Shared/Project/_Common
 cp -r ../../Shared/Project/_Common/*.sh MediaInfo_DLL_GNU_FromSource/Shared/Project/_Common
 mkdir -p MediaInfo_DLL_GNU_FromSource/Shared/Project/curl
 cp -r ../../Shared/Project/curl/*.sh MediaInfo_DLL_GNU_FromSource/Shared/Project/curl
-mkdir -p MediaInfo_DLL_GNU_FromSource/Shared/Project/ZLib
-cp -r ../../Shared/Project/ZLib/*.sh MediaInfo_DLL_GNU_FromSource/Shared/Project/ZLib
+mkdir -p MediaInfo_DLL_GNU_FromSource/Shared/Project/zlib
+cp -r ../../Shared/Project/zlib/*.sh MediaInfo_DLL_GNU_FromSource/Shared/Project/zlib
 
 #-----------------------------------------------------------------------
 # Preparing Archive : Automation
