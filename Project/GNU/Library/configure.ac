@@ -308,7 +308,7 @@ dnl ### Needed libs
 dnl #########################################################################
 
 dnl -------------------------------------------------------------------------
-dnl ZLib
+dnl zlib
 dnl
 
 if test "$with_libz_static" != "yes"; then
@@ -318,30 +318,30 @@ else
 	have_libz="no"
 fi
 if test "$have_libz" != "yes"; then
-	if test -e ../../../../Shared/Source/ZLib/libz.a || test -e ../../../../Shared/Source/ZLib/libz.la; then
+	if test -e ../../../../Shared/Source/zlib/libz.a || test -e ../../../../Shared/Source/zlib/libz.la; then
 		with_zlib="builtin"
 	else
 		AC_MSG_NOTICE([zlib is not found, trying to download and compile it])
-		if test -e ../../../../Shared/Project/ZLib/Compile.sh; then
-			cd ../../../../Shared/Project/ZLib
+		if test -e ../../../../Shared/Project/zlib/Compile.sh; then
+			cd ../../../../Shared/Project/zlib
 			chmod u+x Compile.sh
 			./Compile.sh --build=$build_alias
 			cd $Home
-			if test -e ../../../../Shared/Source/ZLib/libz.a || test -e ../../../../Shared/Source/ZLib/libz.la; then
+			if test -e ../../../../Shared/Source/zlib/libz.a || test -e ../../../../Shared/Source/zlib/libz.la; then
 				with_zlib="builtin"
 			else
 				with_zlib="no"
-				AC_MSG_ERROR([Problem while compiling builtin ZLib])
+				AC_MSG_ERROR([Problem while compiling builtin zlib])
 			fi
 		else
 			with_zlib="no"
-			AC_MSG_ERROR([ZLib is not found, please install development package of zlib])
+			AC_MSG_ERROR([zlib is not found, please install development package of zlib])
 		fi
 	fi
-	CXXFLAGS="$CXXFLAGS -I../../../../Shared/Source/ZLib"
-	LIBS="$LIBS -L../../../../Shared/Source/ZLib"
-	MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/ZLib -lz"
-	MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L../../../../Shared/Source/ZLib -lz"
+	CXXFLAGS="$CXXFLAGS -I../../../../Shared/Source/zlib"
+	LIBS="$LIBS -L../../../../Shared/Source/zlib"
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/zlib -lz"
+	MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L../../../../Shared/Source/zlib -lz"
 else
     with_zlib="system"
     LIBS="$LIBS -lz"
