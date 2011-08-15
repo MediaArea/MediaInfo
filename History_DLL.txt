@@ -19,6 +19,7 @@ x libmms: default behavior is using official libmms API only
 x Vorbis comment: album performer data was in performer field
 x Captions in AVC: some captions were not detected and decoded
 x AVC: GOP structure info was often wrong
+x MXF: IndexTable search was buggy (parsing the whole file) for some rare files (index present twice)
 
 Version 0.7.47, 2011-07-14
 --------------

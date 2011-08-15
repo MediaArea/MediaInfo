@@ -2388,6 +2388,8 @@ void File_Mxf::Header_Parse()
                         GoTo(PartitionMetadata_PreviousPartition);
                         Open_Buffer_Unsynch();
                     }
+                    else
+                        TryToFinish();
                 }
             }
             else
@@ -2764,6 +2766,8 @@ void File_Mxf::Data_Parse()
                         GoTo(PartitionMetadata_PreviousPartition);
                         Open_Buffer_Unsynch();
                     }
+                    else
+                        TryToFinish();
                 }
             }
             else
@@ -3396,6 +3400,32 @@ void File_Mxf::IndexTableSegment()
                 if (File_Offset+Buffer_Offset-Header_Size==IndexTables[Pos].StreamOffset)
                 {
                     Element_Offset=Element_Size;
+
+                    //Next IndexTable
+                    if (RandomIndexMetadatas.empty())
+                    {
+                        if (!RandomIndexMetadatas_AlreadyParsed)
+                        {
+                            Partitions_Pos=0;
+                            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                                Partitions_Pos++;
+                            if (Partitions_Pos==Partitions.size())
+                            {
+                                GoTo(PartitionMetadata_PreviousPartition);
+                                Open_Buffer_Unsynch();
+                            }
+                            else
+                                TryToFinish();
+                        }
+                    }
+                    else
+                    {
+                        GoTo(RandomIndexMetadatas[0].ByteOffset);
+                        RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
+                        PartitionPack_Parsed=false;
+                        Open_Buffer_Unsynch();
+                    }
+
                     return;
                 }
             
@@ -5342,6 +5372,32 @@ void File_Mxf::IndexTableSegment_IndexStartPosition()
                         IndexTables.erase(IndexTables.begin()+IndexTables.size()-1);
                         Element_Offset=Element_Size;
                     }
+
+                    //Next IndexTable
+                    if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
+                    {
+                        if (!RandomIndexMetadatas_AlreadyParsed)
+                        {
+                            Partitions_Pos=0;
+                            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                                Partitions_Pos++;
+                            if (Partitions_Pos==Partitions.size())
+                            {
+                                GoTo(PartitionMetadata_PreviousPartition);
+                                Open_Buffer_Unsynch();
+                            }
+                            else
+                                TryToFinish();
+                        }
+                    }
+                    else
+                    {
+                        GoTo(RandomIndexMetadatas[0].ByteOffset);
+                        RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
+                        PartitionPack_Parsed=false;
+                        Open_Buffer_Unsynch();
+                    }
+
                     return;
                 }
         #endif //MEDIAINFO_SEEK
