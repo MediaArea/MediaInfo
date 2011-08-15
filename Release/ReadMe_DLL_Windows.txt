@@ -1,5 +1,5 @@
 MediaInfo.Dll - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
+Copyright (c) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
 
 This program is freeware (LGLPv3+).
 See License.html for more information.
