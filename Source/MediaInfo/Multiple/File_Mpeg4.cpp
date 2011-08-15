@@ -893,7 +893,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         {
                             if (Value>=stts_Duration->DTS_Begin && Value<stts_Duration->DTS_End)
                             {
-                                Value=stts_Duration->DTS_Begin+(Value-stts_Duration->Pos_Begin)/stts_Duration->SampleDuration;
+                                Value=stts_Duration->Pos_Begin+(Value-stts_Duration->DTS_Begin)/stts_Duration->SampleDuration;
                                 break;
                             }
                         }
