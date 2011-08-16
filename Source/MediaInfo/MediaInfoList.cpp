@@ -31,6 +31,10 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
+#include "MediaInfo/Setup.h"
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 #if defined(__BORLANDC__) && defined (_DEBUG)
     //Why? in Debug mode with release Wx Libs, wxAssert is not defined?
     void wxAssert (int, const wchar_t*, int, const wchar_t*, const wchar_t*){return;}
