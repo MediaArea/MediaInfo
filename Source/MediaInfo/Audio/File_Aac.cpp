@@ -199,6 +199,9 @@ void File_Aac::FileHeader_Parse_ADIF()
 //---------------------------------------------------------------------------
 void File_Aac::Read_Buffer_Continue()
 {
+    if (Element_Size==0)
+        return;
+        
     switch(Mode)
     {
         case Mode_AudioSpecificConfig : Read_Buffer_Continue_AudioSpecificConfig(); break;
