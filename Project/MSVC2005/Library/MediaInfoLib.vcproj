@@ -46,7 +46,8 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				DisableSpecificWarnings="4060;4065;4390"
 			/>
 			<Tool
@@ -162,6 +163,18 @@
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\PreComp.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\TimeCode.cpp"
@@ -709,15 +722,6 @@
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_Id3.cpp"
 					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_Id3v2.cpp"

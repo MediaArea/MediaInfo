@@ -18,7 +18,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/Setup.h"
+// Pre-compilation
+#include "MediaInfo/PreComp.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -685,7 +686,7 @@ void File__Analyze::Open_Buffer_Unsynch ()
             Ibi_SynchronizationOffset_Current=(int64u)-1;
             if (IbiStream)
                 IbiStream->Unsynch();
-        #endif MEDIAINFO_IBI
+        #endif //MEDIAINFO_IBI
     }
     Buffer_Clear();
 }

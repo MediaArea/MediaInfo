@@ -25,6 +25,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+#include "MediaInfo/PreComp.h"
 #include "ZenLib/ZtringListList.h"
 #include "ZenLib/InfoMap.h"
 #include "ZenLib/Translation.h"

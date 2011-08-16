@@ -18,17 +18,17 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-// Config
-#ifndef MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT //If not defined by the compiler
-    #define MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT 1 //0=without, 1=with libmms customized version containing DESCRIBE only API
+// Pre-compilation
+#include "MediaInfo/PreComp.h"
+#ifdef __BORLANDC__
+    #pragma hdrstop
 #endif
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-// Compilation conditions
-#include "MediaInfo/Setup.h"
-#ifdef __BORLANDC__
-    #pragma hdrstop
+// Config
+#ifndef MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT //If not defined by the compiler
+    #define MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT 1 //0=without, 1=with libmms customized version containing DESCRIBE only API
 #endif
 //---------------------------------------------------------------------------
 

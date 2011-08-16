@@ -24,8 +24,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-// Compilation conditions
-#include "MediaInfo/Setup.h"
+// Pre-compilation
+#include "MediaInfo/PreComp.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -33,6 +33,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Internal.h"
+#include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/Reader/Reader_File.h"
 //---------------------------------------------------------------------------
 
@@ -602,11 +603,8 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
 
     // Other
-    #if !defined(MEDIAINFO_OTHER_NO)
+    #if defined(MEDIAINFO_OTHER_YES)
         else if (Parser==_T("Other"))       Info=new File_Other();
-    #endif
-    #if !defined(MEDIAINFO_OTHER_NO)
-        else if (Parser==_T("Unknown"))     Info=new File_Unknown();
     #endif
 
     //No parser
@@ -891,9 +889,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #if !defined(MEDIAINFO_OTHER_NO)
         delete Info; Info=new File_Other();              if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
-    #if !defined(MEDIAINFO_UNKNOWN_NO)
+
+    // Default (empty)
         delete Info; Info=new File_Unknown();            if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
-    #endif
     return 0;
 }
 #endif //!defined(MEDIAINFO_READER_NO)

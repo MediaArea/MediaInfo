@@ -27,6 +27,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
+#include "MediaInfo/Setup.h"
 #include "MediaInfo/MediaInfo_Internal_Const.h"
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Config.h"

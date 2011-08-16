@@ -27,20 +27,13 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#ifdef ZENLIB_USEWX
-    #include <wx/wxprec.h>
-    #ifdef WX_PRECOMP
-        #include <string>
-        #include <sstream>
-        #include <vector>
-    #endif
-#else //ZENLIB_USEWX
-    #if defined(__BORLANDC__) ||defined(__VISUALC__)
-        #include <string>
-        #include <sstream>
-        #include <vector>
-    #endif
-#endif //ZENLIB_USEWX
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+ #include "MediaInfo/Setup.h"
+ #include "MediaInfo/File__Analyze.h"
+#endif //_MSC_VER
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
 //---------------------------------------------------------------------------
 
 #endif

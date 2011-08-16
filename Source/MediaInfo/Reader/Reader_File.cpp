@@ -23,8 +23,8 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-// Compilation conditions
-#include "MediaInfo/Setup.h"
+// Pre-compilation
+#include "MediaInfo/PreComp.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -37,7 +37,7 @@
 #ifdef WINDOWS
     #undef __TEXT
     #include "Windows.h"
-#endif WINDOWS
+#endif //WINDOWS
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------

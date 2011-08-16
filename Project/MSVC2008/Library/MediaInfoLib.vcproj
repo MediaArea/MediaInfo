@@ -50,7 +50,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIANFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
@@ -116,7 +117,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
@@ -184,7 +186,8 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
@@ -249,7 +252,8 @@
 				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO"
 				RuntimeLibrary="0"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
@@ -313,7 +317,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
@@ -376,6 +381,8 @@
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 				EnablePREfast="true"
@@ -442,7 +449,8 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
@@ -501,6 +509,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MediaInfo/PreComp.h"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
@@ -621,6 +631,74 @@
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\PreComp.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugA|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugA|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseA|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseA|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\TimeCode.cpp"

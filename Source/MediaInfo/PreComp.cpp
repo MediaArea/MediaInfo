@@ -1,5 +1,5 @@
-// File__Duplicate__Base - Duplication of some formats
-// Copyright (C) 2007-2011 MediaArea.net SARL, Info@MediaArea.net
+// PreComp - PreComp file for MediaInfo
+// Copyright (C) 2006-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -17,31 +17,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Duplication helper for some specific formats
+// Helpers for compilers (precompilation)
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-// Pre-compilation
 #include "MediaInfo/PreComp.h"
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-#include "MediaInfo/Duplicate/File__Duplicate__Base.h"
-//---------------------------------------------------------------------------
-
-namespace MediaInfoLib
-{
-
-//***************************************************************************
-// Constructor/Destructor
-//***************************************************************************
-
-File__Duplicate__Base::File__Duplicate__Base ()
-{
-}
-
-} //NameSpace
 
