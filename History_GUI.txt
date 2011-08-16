@@ -12,9 +12,20 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.47, 2011-
+Version 0.7.48, 2011-08-16
 --------------
 + Russian translation updated
++ ISM (ISM/ISMV/ISMA/PIFF...): more attributes (frame rate, frame count, duration)
++ MP3: support of VBRI header in a corrupted frame
++ Active Format Description: muxing mode (A/35 or SMPTE ST 2016-3)
++ MP4/MOV: Displaying info about first description atom of a track (instead of all of them)
+x MP4/MOV: scan order (Top/Bottom) from container, thanks to Peter Chapman
+x MP4: Channel layout was not filled in some cases
+x libmms: default behavior is using official libmms API only
+x Vorbis comment: album performer data was in performer field
+x Captions in AVC: some captions were not detected and decoded
+x AVC: GOP structure info was often wrong
+x MXF: IndexTable search was buggy (parsing the whole file) for some rare files (index present twice)
 
 Version 0.7.47, 2011-07-14
 --------------
