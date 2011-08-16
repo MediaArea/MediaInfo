@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.48
+Version 0.7.48, 2011-08-16
 --------------
 + ISM (ISM/ISMV/ISMA/PIFF...): more attributes (frame rate, frame count, duration)
 + MP3: support of VBRI header in a corrupted frame
