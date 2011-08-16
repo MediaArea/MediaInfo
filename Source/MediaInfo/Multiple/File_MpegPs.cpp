@@ -1907,7 +1907,7 @@ void File_MpegPs::pack_start()
 
     //Parsing
     int16u SysClock_29, SysClock_14;
-    int8u Version, SysClock_32, Padding;
+    int8u Version, SysClock_32;
     size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
     #if MEDIAINFO_TRACE
     if (Trace_Activated)
@@ -1931,6 +1931,7 @@ void File_MpegPs::pack_start()
         if (Trace_Activated)
         {
             //Parsing
+            int8u Padding;
             Mark_0();
             Mark_1();
             Get_S1 ( 3, SysClock_32,                                "system_clock_reference_base32");
