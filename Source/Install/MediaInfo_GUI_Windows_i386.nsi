@@ -110,7 +110,6 @@ Function .onInit
 FunctionEnd
 
 Section "SectionPrincipale" SEC01
-  SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$SMPROGRAMS\MediaInfo"
   CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo ${PRODUCT_VERSION}"
