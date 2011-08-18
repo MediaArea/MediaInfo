@@ -728,14 +728,23 @@ void File_Mpegv::Streams_Finish()
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
     else if (Time_End_Seconds!=Error)
     {
-        size_t Time_Begin=Time_Begin_Seconds*1000;
-        size_t Time_End =Time_End_Seconds*1000;
+        float32 Time_Begin=Time_Begin_Seconds*1000;
+        float32 Time_End =Time_End_Seconds*1000;
         if (FrameRate)
         {
-            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
-            Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
+            float32 FrameRate_Corrected=FrameRate;
+            if (FrameRate>=29.970 && FrameRate<=29.971 && !group_start_drop_frame_flag)
+                FrameRate_Corrected=30;
+            Time_Begin+=Time_Begin_Frames*1000/FrameRate_Corrected;
+            Time_End  +=Time_End_Frames  *1000/FrameRate_Corrected;
         }
-        Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
+        float32 Duration=Time_End-Time_Begin;
+        if (FrameRate>=29.970 && FrameRate<=29.971 && !group_start_drop_frame_flag)
+        {
+            Duration*=1001;
+            Duration/=1000;
+        }
+        Fill(Stream_Video, 0, Video_Duration, Duration, 0);
     }
     else if (Frame_Count_NotParsedIncluded!=(int64u)-1)
     {

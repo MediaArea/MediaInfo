@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.49
 --------------
 + AES3: detecting AAC, AC-3, MPEG Audio embedded in AES3 stream
++ MPEG Video: more precise duration for 29.97 fps material having time code without drop frame flag set
 
 Version 0.7.48, 2011-08-16
 --------------
