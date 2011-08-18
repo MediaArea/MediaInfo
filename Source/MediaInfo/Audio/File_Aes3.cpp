@@ -39,8 +39,17 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Aes3.h"
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
+#if defined(MEDIAINFO_AC3_YES)
+    #include "MediaInfo/Audio/File_Ac3.h"
+#endif
 #if defined(MEDIAINFO_DOLBYE_YES)
     #include "MediaInfo/Audio/File_DolbyE.h"
+#endif
+#if defined(MEDIAINFO_MPEGA_YES)
+    #include "MediaInfo/Audio/File_Mpega.h"
 #endif
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
@@ -89,34 +98,34 @@ const char* Aes3_NonPCM_data_type[32]= //SMPTE 338M
     "",
     "AC-3",
     "Time stamp",
-    "",
+    "Pause",
     "MPEG Audio",
     "MPEG Audio",
     "MPEG Audio",
-    "",
+    "AAC",
     "MPEG Audio",
     "MPEG Audio",
+    "AAC",
+    "AAC",
     "",
     "",
     "",
     "",
+    "E-AC-3",
+    "",
+    "",
+    "AAC",
+    "",
+    "E-AC-3",
     "",
     "",
     "",
     "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "Utility",
     "KLV",
     "Dolby E",
     "Captioning",
-    "",
+    "User defined",
     "",
 };
 
@@ -1173,9 +1182,31 @@ void File_Aes3::Frame()
     {
         switch(data_type)
         {
-            case 28 :   Parser=new File_DolbyE();
+            //SMPTE ST338
+            case  1 :   //AC-3
+            case 16 :   //E-AC-3 (professional)
+            case 21 :   //E-AC-3 (consumer)
+                        Parser=new File_Ac3();
                         break;
-            //case 29 : //SMPTE 341M-2000, captions
+            case  4 :   //MPEG-1 Layer 1
+            case  5 :   //MPEG-1 Layer 2/3, MPEG-2 Layer 1/2/3 without extension
+            case  6 :   //MPEG-2 Layer 1/2/3 with extension
+            case  8 :   //MPEG-2 Layer 1 low frequency
+            case  9 :   //MPEG-2 Layer 2/3 low frequency
+                        Parser=new File_Mpega();
+                        break;
+            case  7 :   //MPEG-2 AAC in ADTS
+            case 19 :   //MPEG-2 AAC in ADTS low frequency
+                        Parser=new File_Aac();
+                        ((File_Aac*)Parser)->Mode=File_Aac::Mode_ADTS;
+                        break;
+            case 10 :   //MPEG-4 AAC in ADTS or LATM
+            case 11 :   //MPEG-4 AAC in ADTS or LATM
+                        Parser=new File_Aac();
+                        break;
+            case 28 :   //Dolby E
+                        Parser=new File_DolbyE();
+                        break;
             default : ;
         }
 
