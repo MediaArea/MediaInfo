@@ -886,6 +886,7 @@ File_Mxf::File_Mxf()
 File_Mxf::~File_Mxf()
 {
     delete ReferenceFiles;
+    delete Ancillary;
 }
 
 //***************************************************************************
