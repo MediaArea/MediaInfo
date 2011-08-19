@@ -666,7 +666,7 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
     }
     if (Config.File_Names_Pos>=Config.File_Names.size())
     {
-        delete Config.File_Buffer; Config.File_Buffer=NULL; Config.File_Buffer_Size=0; Config.File_Buffer_Size_Max=0;
+        delete[] Config.File_Buffer; Config.File_Buffer=NULL; Config.File_Buffer_Size=0; Config.File_Buffer_Size_Max=0;
     }
 
     EXECUTE_SIZE_T(1, Debug+=_T("Open_Buffer_Finalize, will return 1"))
@@ -699,7 +699,9 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
         if (!Demux_EventWasSent && Config.File_Names_Pos<Config.File_Names.size())
         {
             delete Reader; Reader=new Reader_File();
+            CS.Leave();
             Reader->Format_Test(this, Config.File_Names[Config.File_Names_Pos]);
+            CS.Enter();
             Info->Frame_Count_NotParsedIncluded=Config.File_Names_Pos;
             Config.File_Names_Pos++;
             Info->Status.reset(File__Analyze::IsFinished);
@@ -1039,7 +1041,9 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
                 }
             }
 
+            CS.Leave();
             size_t Result=Reader->Format_Test_PerParser_Seek(this, Method, SeekValue, ID);
+            CS.Enter();
             switch (Result)
             {
                 case 1  : return _T("");
