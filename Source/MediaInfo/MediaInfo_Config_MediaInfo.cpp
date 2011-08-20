@@ -106,6 +106,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Buffer_Size_ToRead=Buffer_NormalSize;
     File_Buffer_Size=0;
     File_Buffer_Repeat=false;
+    File_Buffer_Repeat_IsSupported=false;
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
         #if MEDIAINFO_SEEK

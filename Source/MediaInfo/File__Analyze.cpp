@@ -416,7 +416,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         if (Buffer_Temp_Size==0) //If there was no copy
         {
             #if MEDIAINFO_DEMUX
-            if (!IsSub && Config->Demux_EventWasSent && Buffer_Offset==0) //If there was no byte consumed
+            if (!IsSub && Config->Demux_EventWasSent && Config->File_Buffer_Repeat_IsSupported && Buffer_Offset==0) //If there was no byte consumed
             {
                 Config->File_Buffer_Repeat=true;
             }

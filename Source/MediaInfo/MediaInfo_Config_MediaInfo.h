@@ -205,6 +205,7 @@ public :
     size_t        File_Buffer_Size;
     int8u*        File_Buffer;
     bool          File_Buffer_Repeat;
+    bool          File_Buffer_Repeat_IsSupported;
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
         #if MEDIAINFO_SEEK

@@ -304,7 +304,7 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
     {
         MI->Config.Demux_EventWasSent=false;
 
-        std::bitset<32> Status=MI->Open_Buffer_Continue(NULL, 0);
+        Curl_Data->Status=MI->Open_Buffer_Continue(NULL, 0);
 
         //Demux
         if (MI->Config.Demux_EventWasSent)
@@ -314,7 +314,7 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         if (MI->IsTerminating())
             return 1; //Termination is requested
 
-        if (Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled]))
+        if (Curl_Data->Status[File__Analyze::IsFinished] || (StopAfterFilled && Curl_Data->Status[File__Analyze::IsFilled]))
             ShouldContinue=false;
     }
     #endif //MEDIAINFO_DEMUX
@@ -333,20 +333,15 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     Curl_Data->Debug_Count++;
                 #endif //MEDIAINFO_DEBUG
                 CURLcode Code;
-                if (Curl_Data->MI->Open_Buffer_Continue_GoTo_Get()==0)
-                {
-                    //Need to reset the connexion (CURLOPT_RESUME_FROM with value 0 simply skip the parameter)
-                    CURL* Temp=curl_easy_duphandle(Curl_Data->Curl);
-                    if (Temp==0)
-                        return 0;
-                    if (Curl_Data->CurlM)
-                         curl_multi_remove_handle(Curl_Data->CurlM, Curl_Data->Curl);
-                    curl_easy_cleanup(Curl_Data->Curl); Curl_Data->Curl=Temp;
-                    if (Curl_Data->CurlM)
-                         curl_multi_add_handle(Curl_Data->CurlM, Curl_Data->Curl);
-                    Code=CURLE_OK;
-                }
-                else if (Curl_Data->MI->Open_Buffer_Continue_GoTo_Get()<0x80000000)
+                CURL* Temp=curl_easy_duphandle(Curl_Data->Curl);
+                if (Temp==0)
+                    return 0;
+                if (Curl_Data->CurlM)
+                        curl_multi_remove_handle(Curl_Data->CurlM, Curl_Data->Curl);
+                curl_easy_cleanup(Curl_Data->Curl); Curl_Data->Curl=Temp;
+                if (Curl_Data->CurlM)
+                        curl_multi_add_handle(Curl_Data->CurlM, Curl_Data->Curl);
+                if (Curl_Data->MI->Open_Buffer_Continue_GoTo_Get()<0x80000000)
                 {
                     //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
                     long File_GoTo_Long=(long)Curl_Data->MI->Open_Buffer_Continue_GoTo_Get();

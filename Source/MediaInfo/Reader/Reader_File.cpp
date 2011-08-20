@@ -167,6 +167,7 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 
     //Buffer
     MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&MI->Config.File_Buffer_Size_ToRead)));
+    MI->Config.File_Buffer_Repeat_IsSupported=true;
 
     //Test the format with buffer
     return Format_Test_PerParser_Continue(MI);
@@ -354,5 +355,3 @@ size_t Reader_File::Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t M
 #endif //MEDIAINFO_SEEK
 
 } //NameSpace
-
-
