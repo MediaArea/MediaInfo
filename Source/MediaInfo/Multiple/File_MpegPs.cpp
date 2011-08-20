@@ -1984,7 +1984,8 @@ void File_MpegPs::pack_start()
                                                     | ((Buffer[Buffer_Pos+7]     )<< 6)
                                                     | ((Buffer[Buffer_Pos+8]     )>> 2);
             }
-            Element_Offset=Element_Size;
+            int8u Padding                            =  Buffer[Buffer_Pos+9]&0x07;
+            Element_Offset=10+Padding;
         #if MEDIAINFO_TRACE
         }
         #endif //MEDIAINFO_TRACE
