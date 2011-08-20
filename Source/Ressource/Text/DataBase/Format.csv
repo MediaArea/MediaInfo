@@ -61,7 +61,7 @@ AU;;;A;Au;uLaw/AU Audio File;au;audio/basic;;
 DolbyE;;;A;Aes3;;dde
 DTS;;;A;Dts;Digital Theater Systems;dts;;;Lossy
 DTS-HD;;;A;Dts;Digital Theater Systems;dts;;;Lossy
-E-AC-3;;;A;Ac3;Audio Coding 3;dd+;audio/eac3;;Lossy
+E-AC-3;;;A;Ac3;Audio Coding 3;dd+ ec3;audio/eac3;;Lossy
 Extended Module;;;A;ExtendedModule;;xm;;;
 FLAC;;;A;Flac;Free Lossless Audio Codec;flac;;http://flac.sourceforge.net/;
 G.719;;;A;;;;audio/G719;;Lossy
