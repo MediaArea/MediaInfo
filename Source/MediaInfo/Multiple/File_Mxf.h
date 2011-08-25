@@ -684,6 +684,7 @@ protected :
     int32u IndexTable_NPE;
     #if defined(MEDIAINFO_ANCILLARY_YES)
         File_Ancillary* Ancillary;
+        bool            Ancillary_IsBinded;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
     //Hints

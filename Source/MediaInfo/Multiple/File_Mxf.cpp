@@ -862,6 +862,7 @@ File_Mxf::File_Mxf()
     #endif MEDIAINFO_NEXTPACKET
     #if defined(MEDIAINFO_ANCILLARY_YES)
         Ancillary=NULL;
+        Ancillary_IsBinded=false;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
     #if MEDIAINFO_DEMUX
@@ -886,7 +887,8 @@ File_Mxf::File_Mxf()
 File_Mxf::~File_Mxf()
 {
     delete ReferenceFiles;
-    delete Ancillary;
+    if (!Ancillary_IsBinded)
+        delete Ancillary;
 }
 
 //***************************************************************************
@@ -1084,7 +1086,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
     if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
     {
-        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), TimeCode_StartTimecode*1000/TimeCode_RoundedTimecodeBase, 0, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), ((float64)TimeCode_StartTimecode)*1000/TimeCode_RoundedTimecodeBase*(TimeCode_DropFrame?((float64)1001/(float64)1000):(float64)1), 0, true);
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
     }
     if (SDTI_TimeCode_StartTimecode!=(int64u)-1)
@@ -1812,16 +1814,19 @@ void File_Mxf::Read_Buffer_AfterParsing()
         
     if (File_Offset+Buffer_Size>=File_Size)
     {
-        if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
+        if (IsParsingEnd)
         {
-            Partitions_Pos=0;
-            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
-                Partitions_Pos++;
-            if (Partitions_Pos==Partitions.size())
+            if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
             {
-                GoTo(PartitionMetadata_PreviousPartition);
-                Open_Buffer_Unsynch();
-                return;
+                Partitions_Pos=0;
+                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                    Partitions_Pos++;
+                if (Partitions_Pos==Partitions.size())
+                {
+                    GoTo(PartitionMetadata_PreviousPartition);
+                    Open_Buffer_Unsynch();
+                    return;
+                }
             }
         }
 
@@ -2003,6 +2008,8 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             return (size_t)-1; //Not supported
 
                         Value=(int64u)(((float64)Value)/1000000000*Descriptor->second.SampleRate);
+                        if (TimeCode_StartTimecode!=(int64u)-1)
+                            Value-=TimeCode_StartTimecode;
                         }
                     //No break;
         case 3  :   //FrameNumber
@@ -2891,7 +2898,7 @@ void File_Mxf::Data_Parse()
                     float64 BytePerFrame=Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate;
                     float64 Frame_Count_NotParsedIncluded_Precise=(File_Offset+Buffer_Offset-(StreamOffset_Offset+Clip_Header_Size))/BytePerFrame; //In case of audio at frame rate not an integer
                     Essence->second.Frame_Count_NotParsedIncluded=float64_int64s(Frame_Count_NotParsedIncluded_Precise);
-                    Essence->second.FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded_Precise*1000000000/Descriptors.begin()->second.SampleRate);
+                    Essence->second.FrameInfo.DTS=float64_int64s((Frame_Count_NotParsedIncluded_Precise+(TimeCode_StartTimecode==(int64u)-1?0:TimeCode_StartTimecode))*1000000000/Descriptors.begin()->second.SampleRate);
                     Essence->second.FrameInfo.PTS=Essence->second.FrameInfo.DTS;
                     Essence->second.FrameInfo.DUR=float64_int64s(1000000000/Descriptors.begin()->second.SampleRate);
                     Demux_random_access=true;
@@ -2917,12 +2924,12 @@ void File_Mxf::Data_Parse()
                                 {
                                     float64 Frame_Count_NotParsedIncluded_Precise=((float64)FramesToAdd)/IndexTables[Pos].IndexEditRate*Descriptors.begin()->second.SampleRate;
                                     Essence->second.Frame_Count_NotParsedIncluded+=float64_int64s(((float64)FramesToAdd)/IndexTables[Pos].IndexEditRate*Descriptors.begin()->second.SampleRate);
-                                    Essence->second.FrameInfo.PTS=Essence->second.FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded_Precise*1000000000/Descriptors.begin()->second.SampleRate);
+                                    Essence->second.FrameInfo.PTS=Essence->second.FrameInfo.DTS=float64_int64s((Frame_Count_NotParsedIncluded_Precise+(TimeCode_StartTimecode==(int64u)-1?0:TimeCode_StartTimecode))*1000000000/Descriptors.begin()->second.SampleRate);
                                 }
                                 else
                                 {
                                     Essence->second.Frame_Count_NotParsedIncluded+=FramesToAdd;
-                                    Essence->second.FrameInfo.PTS=Essence->second.FrameInfo.DTS=float64_int64s(Essence->second.Frame_Count_NotParsedIncluded*1000000000/IndexTables[Pos].IndexEditRate);
+                                    Essence->second.FrameInfo.PTS=Essence->second.FrameInfo.DTS=float64_int64s((Essence->second.Frame_Count_NotParsedIncluded+(TimeCode_StartTimecode==(int64u)-1?0:TimeCode_StartTimecode))*1000000000/IndexTables[Pos].IndexEditRate);
                                 }
                             }
                             else
@@ -3406,29 +3413,33 @@ void File_Mxf::IndexTableSegment()
                 {
                     Element_Offset=Element_Size;
 
+
                     //Next IndexTable
-                    if (RandomIndexMetadatas.empty())
+                    if (IsParsingEnd)
                     {
-                        if (!RandomIndexMetadatas_AlreadyParsed)
+                        if (RandomIndexMetadatas.empty())
                         {
-                            Partitions_Pos=0;
-                            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
-                                Partitions_Pos++;
-                            if (Partitions_Pos==Partitions.size())
+                            if (!RandomIndexMetadatas_AlreadyParsed)
                             {
-                                GoTo(PartitionMetadata_PreviousPartition);
-                                Open_Buffer_Unsynch();
+                                Partitions_Pos=0;
+                                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                                    Partitions_Pos++;
+                                if (Partitions_Pos==Partitions.size())
+                                {
+                                    GoTo(PartitionMetadata_PreviousPartition);
+                                    Open_Buffer_Unsynch();
+                                }
+                                else
+                                    TryToFinish();
                             }
-                            else
-                                TryToFinish();
                         }
-                    }
-                    else
-                    {
-                        GoTo(RandomIndexMetadatas[0].ByteOffset);
-                        RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
-                        PartitionPack_Parsed=false;
-                        Open_Buffer_Unsynch();
+                        else
+                        {
+                            GoTo(RandomIndexMetadatas[0].ByteOffset);
+                            RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
+                            PartitionPack_Parsed=false;
+                            Open_Buffer_Unsynch();
+                        }
                     }
 
                     return;
@@ -5379,28 +5390,31 @@ void File_Mxf::IndexTableSegment_IndexStartPosition()
                     }
 
                     //Next IndexTable
-                    if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
+                    if (IsParsingEnd)
                     {
-                        if (!RandomIndexMetadatas_AlreadyParsed)
+                        if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
                         {
-                            Partitions_Pos=0;
-                            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
-                                Partitions_Pos++;
-                            if (Partitions_Pos==Partitions.size())
+                            if (!RandomIndexMetadatas_AlreadyParsed)
                             {
-                                GoTo(PartitionMetadata_PreviousPartition);
-                                Open_Buffer_Unsynch();
+                                Partitions_Pos=0;
+                                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
+                                    Partitions_Pos++;
+                                if (Partitions_Pos==Partitions.size())
+                                {
+                                    GoTo(PartitionMetadata_PreviousPartition);
+                                    Open_Buffer_Unsynch();
+                                }
+                                else
+                                    TryToFinish();
                             }
-                            else
-                                TryToFinish();
                         }
-                    }
-                    else
-                    {
-                        GoTo(RandomIndexMetadatas[0].ByteOffset);
-                        RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
-                        PartitionPack_Parsed=false;
-                        Open_Buffer_Unsynch();
+                        else if (!RandomIndexMetadatas.empty())
+                        {
+                            GoTo(RandomIndexMetadatas[0].ByteOffset);
+                            RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
+                            PartitionPack_Parsed=false;
+                            Open_Buffer_Unsynch();
+                        }
                     }
 
                     return;
@@ -8339,6 +8353,7 @@ void File_Mxf::ChooseParser__Aaf_GC_Data(const essences::iterator &Essence, cons
                         Essences[Code_Compare4].Parser=new File_Ancillary();
                         Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
                     }
+                    Ancillary_IsBinded=true;
                     break;
         case 0x08 : //Line Wrapped Data Element, SMPTE 384M
         case 0x09 : //Line Wrapped VANC Data Element, SMPTE 384M
