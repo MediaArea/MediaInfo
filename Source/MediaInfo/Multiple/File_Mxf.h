@@ -676,6 +676,8 @@ protected :
     bool   StreamPos_StartAtOne; //information about the base of StreamPos (0 or 1, 1 is found in 1 file)
     int64u SDTI_TimeCode_StartTimecode;
     int64u SDTI_SizePerFrame;
+    bool   SDTI_IsPresent; //Used to test if SDTI packet is used for Index StreamOffset calculation
+    bool   SDTI_IsInIndexStreamOffset; //Used to test if SDTI packet is used for Index StreamOffset calculation
     int64u SystemScheme1_TimeCodeArray_StartTimecode;
     int64u SystemScheme1_FrameRateFromDescriptor;
     int64u Essences_FirstEssence;

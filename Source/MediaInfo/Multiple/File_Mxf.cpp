@@ -852,6 +852,8 @@ File_Mxf::File_Mxf()
     StreamPos_StartAtOne=true;
     SDTI_TimeCode_StartTimecode=(int64u)-1;
     SDTI_SizePerFrame=0;
+    SDTI_IsPresent=false;
+    SDTI_IsInIndexStreamOffset=true;
     SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
     Essences_FirstEssence=(int64u)-1;
@@ -2357,7 +2359,7 @@ void File_Mxf::Header_Parse()
            && (Code_Compare2&0xFFFFFF00)==(Elements::Filler012&0xFFFFFF00)
            && Code_Compare3==Elements::Filler013))
         {
-            if (Partitions_Pos<Partitions.size())
+            if (Partitions_Pos<Partitions.size() && !SDTI_IsInIndexStreamOffset)
                 SDTI_SizePerFrame=File_Offset+Buffer_Offset-(Partitions[Partitions_Pos].StreamOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount);
             Partitions_IsCalculatingSdtiByteCount=false;
         }
@@ -2959,7 +2961,7 @@ void File_Mxf::Data_Parse()
                                 {
                                     Essence->second.Frame_Count_NotParsedIncluded=IndexTables[Pos].IndexStartPosition+EntryPos;
                                     if (IndexTables[Pos].IndexEditRate)
-                                        Essence->second.FrameInfo.DTS=float64_int64s(Essence->second.Frame_Count_NotParsedIncluded/IndexTables[Pos].IndexEditRate*1000000000);
+                                        Essence->second.FrameInfo.DTS=float64_int64s((Essence->second.Frame_Count_NotParsedIncluded+(TimeCode_StartTimecode==(int64u)-1?0:TimeCode_StartTimecode))/IndexTables[Pos].IndexEditRate*1000000000);
                                     Demux_random_access=IndexTables[Pos].Entries[EntryPos].Type?false:true;
                                 }
                             }
@@ -3966,6 +3968,14 @@ void File_Mxf::XmlDocumentText()
 //---------------------------------------------------------------------------
 void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 {
+    //Info for SDTI in Index StreamOffset
+    if (!SDTI_IsPresent)
+    {
+        if (File_Offset+Buffer_Offset<Partitions[Partitions_Pos].StreamOffset+Partitions[Partitions_Pos].BodyOffset)
+            SDTI_IsInIndexStreamOffset=false;
+        SDTI_IsPresent=true;
+    }
+    
     //Parsing
     int8u SMB, CPR_Rate, Format;
     bool SMB_UL_Present, SMB_CreationTimeStamp, SMB_UserTimeStamp, CPR_DropFrame;
