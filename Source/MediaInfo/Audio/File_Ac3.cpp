@@ -1007,7 +1007,7 @@ bool File_Ac3::Synchronize()
                 //Testing
                 int16u CRC_16=0x0000;
                 const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
-                const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+Size*5/8; //5/8 intermediate
+                const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+(((Size>>2)+(Size>>4))<<1); //Magic formula to meet 5/8 frame size from Dolby
                 const int8u* CRC_16_Buffer_EndMinus3=Buffer+Buffer_Offset+Size-3; //End of frame minus 3
                 const int8u* CRC_16_Buffer_End=Buffer+Buffer_Offset+Size; //End of frame
                 while(CRC_16_Buffer<CRC_16_Buffer_End)
@@ -1206,7 +1206,7 @@ bool File_Ac3::Synched_Test()
         //Testing
         int16u CRC_16=0x0000;
         const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
-        const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+Size*5/8; //5/8 intermediate
+        const int8u* CRC_16_Buffer_5_8=Buffer+Buffer_Offset+(((Size>>2)+(Size>>4))<<1); //Magic formula to meet 5/8 frame size from Dolby
         const int8u* CRC_16_Buffer_EndMinus3=Buffer+Buffer_Offset+Size-3; //End of frame minus 3
         const int8u* CRC_16_Buffer_End=Buffer+Buffer_Offset+Size; //End of frame
         while(CRC_16_Buffer<CRC_16_Buffer_End)
