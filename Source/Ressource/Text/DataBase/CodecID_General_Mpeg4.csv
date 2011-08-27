@@ -21,7 +21,7 @@ avc1;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;JVT
 3gp9;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;
 CAQV;MPEG-4;;;http://world.casio.com/;Casio
 FACE;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;Facebook
-isml;MPEG-4;Internet Streaming Media Live;;http://www.apple.com/quicktime/download/standalone.html;ISML
+isml;MPEG-4;IIS Smooth Streaming file format;;http://www.apple.com/quicktime/download/standalone.html;ISML
 JP20;MPEG-4;;;http://gpac.sourceforge.net/;JPEG 2000
 JPM ;MPEG-4;;;http://www.iso.org/;JPEG 2000 Compound Image
 JPX ;MPEG-4;;;http://www.iso.org/;JPEG 2000 w/ extensions
