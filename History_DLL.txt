@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.49
 --------------
 + AES3: analyzing AAC, AC-3, MPEG Audio embedded in AES3 stream
++ GXF: detection of DolbyE in AES3 in GXF
 + WAV: detecting AES3 non-PCM audio inside WAV
 + MPEG Video: more precise duration for 29.97 fps material having time code without drop frame flag set
 x MXF: some files with SDTI were not well demuxed (frame number) or were crashing

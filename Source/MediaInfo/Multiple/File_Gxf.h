@@ -65,6 +65,7 @@ private :
     #endif //MEDIAINFO_SEEK
 
     //Buffer - Per element
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
@@ -106,6 +107,8 @@ private :
         bool   Searching_Payload;
         bool   Searching_TimeStamp_Start;
         bool   Searching_TimeStamp_End;
+        bool   IsChannelGrouping;
+        bool   DisplayInfo; //In case of channel grouping, info is about the complete (2*half) stream, so second stream info must not be used
         Ztring MediaName;
         std::map<std::string, Ztring> Infos;
 
@@ -122,6 +125,8 @@ private :
             FieldsPerFrame_Code=(int32u)-1;
             MediaType=(int8u)-1;
             TrackID=(int8u)-1;
+            IsChannelGrouping=false;
+            DisplayInfo=true;
         }
         ~stream()
         {
@@ -132,10 +137,13 @@ private :
     File__Analyze*      UMF_File;
     int64u              SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
     int64u              TimeCode_First;
+    int8u               Audio_Count;
+    int8u               TrackNumber;
 
     //File__Analyze helpers
     void Streams_Finish_PerStream(size_t StreamID, stream &Temp);
     void Detect_EOF();
+    File__Analyze* ChooseParser_ChannelGrouping(int8u TrackID);
 
     #if MEDIAINFO_DEMUX
         bool Demux_HeaderParsed;
