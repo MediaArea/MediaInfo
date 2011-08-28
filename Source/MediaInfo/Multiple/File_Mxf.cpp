@@ -3971,7 +3971,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
     //Info for SDTI in Index StreamOffset
     if (!SDTI_IsPresent)
     {
-        if (File_Offset+Buffer_Offset<Partitions[Partitions_Pos].StreamOffset+Partitions[Partitions_Pos].BodyOffset)
+        if (!Partitions.empty() && File_Offset+Buffer_Offset<Partitions[Partitions_Pos].StreamOffset+Partitions[Partitions_Pos].BodyOffset)
             SDTI_IsInIndexStreamOffset=false;
         SDTI_IsPresent=true;
     }
