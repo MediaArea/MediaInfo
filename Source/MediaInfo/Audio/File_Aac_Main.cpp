@@ -981,6 +981,7 @@ void File_Aac::adif_header()
 
     FILLING_BEGIN();
         Fill(Stream_General, 0, General_Format, "ADIF", Unlimited, true, true);
+        Fill(Stream_General, 0, General_HeaderSize, Element_Size);
         Fill(Stream_General, 0, General_OverallBitRate_Mode, bitstream_type?"VBR":"CBR");
 
         for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Audio); StreamPos++)
