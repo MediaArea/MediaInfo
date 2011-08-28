@@ -1367,4 +1367,3 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
 } //NameSpace
 
 #endif //MEDIAINFO_GXF_YES
-
