@@ -1,6 +1,6 @@
 0;;;;;
-1;PCM;Microsoft;;http://www.microsoft.com/windows/;
-2;ADPCM;Microsoft;;http://www.microsoft.com/windows/;
+1;PCM;;;http://www.microsoft.com/windows/;
+2;ADPCM;;;http://www.microsoft.com/windows/;
 3;PCM;IEEE ;;http://www.microsoft.com/windows/;Float
 4;VSELP;Compaq;;;
 5;CVSD;IBM;;;

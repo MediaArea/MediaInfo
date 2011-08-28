@@ -2220,8 +2220,8 @@ void MediaInfo_Config_CodecID_Audio_Riff (InfoMap &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
     "0\n"
-    "1;PCM;Microsoft;;http://www.microsoft.com/windows/\n"
-    "2;ADPCM;Microsoft;;http://www.microsoft.com/windows/\n"
+    "1;PCM;;;http://www.microsoft.com/windows/\n"
+    "2;ADPCM;;;http://www.microsoft.com/windows/\n"
     "3;PCM;IEEE ;;http://www.microsoft.com/windows/;Float\n"
     "4;VSELP;Compaq\n"
     "5;CVSD;IBM\n"
