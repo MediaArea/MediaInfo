@@ -1046,7 +1046,8 @@ void File_Gxf::map()
                                         Skip_B1(                "User bits");
                                         Skip_B1(                "User bits");
                                         Skip_B1(                "User bits");
-                                        TimeCode_Parsed=true;
+                                        if (!Invalid)
+                                            TimeCode_Parsed=true;
                                     }
                                     else
                                         Skip_B8(                "Content");

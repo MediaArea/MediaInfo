@@ -2079,7 +2079,6 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     break;
         case 0x17 : //Float 64
                     Skip_XX(8,                                  "To decode!");
-                    Trusted=1000;
                     //Value=_T("Float64 encoding not yet supported");
                     break;
         default: Value=_T("Unknown kind of value!");

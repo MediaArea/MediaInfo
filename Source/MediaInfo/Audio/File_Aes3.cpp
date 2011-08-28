@@ -976,7 +976,6 @@ void File_Aes3::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Aes3::Header_Parse()
 {
-    Trusted=1000;
     if (IsPcm)
     {
         Element_WaitForMoreData();
