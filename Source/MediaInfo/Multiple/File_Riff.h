@@ -71,7 +71,7 @@ private :
     //Data
     struct stream
     {
-        File__Analyze*          Parser;
+        std::vector<File__Analyze*> Parsers;
         int32u                  fccType;
         int32u                  fccHandler;
         int32u                  Scale;
@@ -91,7 +91,6 @@ private :
 
         stream()
         {
-            Parser=NULL;
             fccType=0x00000000;
             fccHandler=0x00000000;
             Scale=0;
@@ -112,7 +111,8 @@ private :
 
         ~stream()
         {
-            delete Parser; //Parser=NULL;
+            for (size_t Pos=0; Pos<Parsers.size(); Pos++)
+                delete Parsers[Pos]; //Parser=NULL;
         }
     };
     std::map<int32u, stream> Stream;

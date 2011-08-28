@@ -180,10 +180,10 @@ void File_Riff::Streams_Finish ()
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.StreamSize);
 
         //Parser specific
-        if (Temp->second.Parser)
+        if (Temp->second.Parsers.size()==1)
         {
             //Finalizing and Merging (except Video codec and 120 fps hack)
-            Temp->second.Parser->ShouldContinueParsing=false;
+            Temp->second.Parsers[0]->ShouldContinueParsing=false;
 
             //Hack - Before
             Ztring StreamSize, Codec_Temp;
@@ -194,11 +194,11 @@ void File_Riff::Streams_Finish ()
             //Merging
             if (Config_ParseSpeed<=1.0)
             {
-                Fill(Temp->second.Parser);
-                Temp->second.Parser->Open_Buffer_Unsynch();
+                Fill(Temp->second.Parsers[0]);
+                Temp->second.Parsers[0]->Open_Buffer_Unsynch();
             }
-            Finish(Temp->second.Parser);
-            Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+            Finish(Temp->second.Parsers[0]);
+            Merge(*Temp->second.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
             Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
 
             //Hacks - After
@@ -227,29 +227,29 @@ void File_Riff::Streams_Finish ()
             }
 
             //Delay
-            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parser->Status[IsAccepted])
+            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parsers[0]->Status[IsAccepted])
             {
                 float Delay=0;
                 bool Delay_IsValid=false;
 
-                     if (Temp->second.Parser->Buffer_TotalBytes_FirstSynched==0)
+                     if (Temp->second.Parsers[0]->Buffer_TotalBytes_FirstSynched==0)
                 {
                     Delay=0;
                     Delay_IsValid=true;
                 }
                 else if (Temp->second.Rate!=0)
                 {
-                    Delay=((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Rate;
+                    Delay=((float)Temp->second.Parsers[0]->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Rate;
                     Delay_IsValid=true;
                 }
-                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+                else if (Temp->second.Parsers[0]->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
                 {
-                    Delay=((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+                    Delay=((float)Temp->second.Parsers[0]->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parsers[0]->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
                     Delay_IsValid=true;
                 }
-                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
+                else if (Temp->second.Parsers[0]->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
                 {
-                    Delay=((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u();
+                    Delay=((float)Temp->second.Parsers[0]->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parsers[0]->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u();
                     Delay_IsValid=true;
                 }
 
@@ -276,16 +276,16 @@ void File_Riff::Streams_Finish ()
                                                    || Retrieve(Stream_Video, StreamPos_Last, Video_Codec)==_T("DV")))
                 {
                     if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
-                        Fill(Stream_General, 0, General_Recorded_Date, Temp->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
+                        Fill(Stream_General, 0, General_Recorded_Date, Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_Recorded_Date));
 
                     //Video and Audio are together
-                    size_t Audio_Count=Temp->second.Parser->Count_Get(Stream_Audio);
+                    size_t Audio_Count=Temp->second.Parsers[0]->Count_Get(Stream_Audio);
                     for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
                     {
                         Fill_Flush();
                         Stream_Prepare(Stream_Audio);
                         size_t Pos=Count_Get(Stream_Audio)-1;
-                        Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
+                        Merge(*Temp->second.Parsers[0], Stream_Audio, Audio_Pos, StreamPos_Last);
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                         Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
@@ -320,7 +320,7 @@ void File_Riff::Streams_Finish ()
                 #if defined(MEDIAINFO_MPEGA_YES)
                 if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio"))
                 {
-                    if (Temp->second.Parser && Temp->second.PacketPos==((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid) //Only for stream with one frame per chunk
+                    if (Temp->second.Parsers[0] && Temp->second.PacketPos==((File_Mpega*)Temp->second.Parsers[0])->Frame_Count_Valid) //Only for stream with one frame per chunk
                     {
                         Ztring Version=Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Version);
                         Ztring Layer=Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Profile);
