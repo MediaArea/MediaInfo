@@ -892,6 +892,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                         //Searching the corresponding frame
                         Value=Value*Stream->second.mdhd_TimeScale/1000000000; //Transformed in mpeg4 ticks
+                        if (Value>TimeCode_FrameOffset*Stream->second.stts_Duration/Stream->second.stts_FrameCount) //Removing Time Code offset
+                            Value-=TimeCode_FrameOffset*Stream->second.stts_Duration/Stream->second.stts_FrameCount;
                         stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin();
                         for (; stts_Duration!=Stream->second.stts_Durations.end(); stts_Duration++)
                         {
@@ -907,12 +909,6 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     //No break;
         case 3  :   //FrameNumber
                     {
-                        //Removing Time Code offset
-                        if (Value>TimeCode_FrameOffset)
-                            Value-=TimeCode_FrameOffset;
-                        else
-                            Value=0;
-                        
                         //Looking for video stream
                         std::map<int32u, stream>::iterator Stream;
                         for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
