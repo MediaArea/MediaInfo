@@ -191,11 +191,15 @@ File_Aes3::File_Aes3()
     From_MpegPs=false;
     From_Aes3=false;
 
+    //Out
+    FrameRate=0;
+
     //Temp
     Frame_Count=0;
     Frame_Size=(int64u)-1;
     Frame_Duration=(int64u)-1;
     IsPcm_Frame_Count=0;
+    NotPCM_SizePerFrame=(int64u)-1;
     data_type=(int8u)-1;
     IsParsingNonPcm=false;
     IsPcm=false;
@@ -217,6 +221,12 @@ File_Aes3::~File_Aes3()
 //***************************************************************************
 // Streams management
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Aes3::Streams_Accept()
+{
+    Fill(Stream_General, 0, General_Format, "AES3");
+}
 
 //---------------------------------------------------------------------------
 void File_Aes3::Streams_Fill()
@@ -245,25 +255,21 @@ void File_Aes3::Streams_Fill()
     }
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR", Unlimited, true, true);
 
-    if (!Retrieve(Stream_General, 0, General_Format).empty())
-    {
-        Ztring Format=Retrieve(Stream_General, 0, General_Format);
-        if (Format.find(_T("AES3"))!=0)
-            Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Format, true);
-    }
-    else if (Parser && Parser->Status[IsAccepted] && !Parser->Status[IsFilled])
+    if (Parser && Parser->Status[IsAccepted] && !Parser->Status[IsFilled])
     {
         Fill(Parser);
-        Merge(*Parser);
+        Merge(*Parser, Stream_Audio, 0, 0);
     }
     else if (data_type!=(int8u)-1)
     {
-        Fill(Stream_General, 0, General_Format, _T("AES3 / ")+Ztring().From_Local(Aes3_NonPCM_data_type[data_type]), true);
         if (Retrieve(Stream_Audio, 0, Audio_Format).empty() && Aes3_NonPCM_data_type_StreamKind[data_type]!=Stream_Max)
         {
             Stream_Prepare(Aes3_NonPCM_data_type_StreamKind[data_type]);
             Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), Aes3_NonPCM_data_type[data_type]);
         }
+
+        if (IsSub)
+            Fill(Stream_Audio, 0, Audio_MuxingMode, "AES3", Unlimited, true, true);
     }
     else if (IsPcm)
     {
@@ -277,13 +283,24 @@ void File_Aes3::Streams_Fill()
             default  : ;
         }
     }
-    else
-        Fill(Stream_General, 0, General_Format, "AES3");
 
     if (Count_Get(Stream_Audio))
     {
         if (Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).empty() && BitRate!=(int64u)-1)
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+        
+        if (!IsSub && NotPCM_SizePerFrame!=(int64u)-1 && NotPCM_SizePerFrame && FrameRate)
+        {
+            int64u BitRate=float64_int64s(NotPCM_SizePerFrame*8*FrameRate);
+            int64u SamplingRate=Retrieve(Stream_Audio, 0, Audio_SamplingRate).To_int64u();
+            if (Container_Bits && SamplingRate)
+            {
+                float Ratio=((float)BitRate)/(Container_Bits*SamplingRate*2);
+                if (Ratio>=0.99 && Ratio<=1.01)
+                    BitRate=Container_Bits*SamplingRate*2;
+            }
+            Fill(Stream_General, 0, General_OverallBitRate, BitRate);
+        }
     }
     else if (From_MpegPs)
     {
@@ -821,6 +838,30 @@ bool File_Aes3::Synched_Test()
     if (!From_Aes3)
     {
         size_t Buffer_Offset_Temp=Buffer_Offset;
+        if (ByteSize==4)
+        {
+            if ((Buffer_TotalBytes+Buffer_Offset_Temp)%4) //Padding in half of the AES3 stream
+            {
+                if (Buffer_Offset_Temp+2>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return false;
+                }
+                if (CC2(Buffer+Buffer_Offset_Temp))
+                {
+                    Synched=false;
+                    return true;
+                }
+                Buffer_Offset_Temp+=2;
+            }
+            while(Buffer_Offset_Temp+4<=Buffer_Size && CC4(Buffer+Buffer_Offset_Temp)==0x00000000)
+                Buffer_Offset_Temp+=4;
+            if (Buffer_Offset_Temp+4>Buffer_Size)
+            {
+                Element_WaitForMoreData();
+                return false;
+            }
+        }
         if (ByteSize==6)
         {
             while(Buffer_Offset_Temp+6<=Buffer_Size && CC6(Buffer+Buffer_Offset_Temp)==0x000000000000LL)
@@ -841,12 +882,17 @@ bool File_Aes3::Synched_Test()
                 return false;
             }
         }
-        if (Buffer_Offset_Temp-Buffer_Offset)
-        {
-            Skip_XX(Buffer_Offset_Temp-Buffer_Offset,           "Guard band");
-            Buffer_Offset+=(size_t)Element_Offset;
-            Element_Offset=0;
-        }
+
+        if (Frame_Count && NotPCM_SizePerFrame==(int64u)-1)
+            NotPCM_SizePerFrame=Buffer_Offset_Temp;    
+        #if MEDIAINFO_TRACE
+            if (Buffer_Offset_Temp-Buffer_Offset)
+            {
+                Element_Size=Buffer_Offset_Temp-Buffer_Offset;
+                Skip_XX(Buffer_Offset_Temp-Buffer_Offset,           "Guard band");
+            }
+        #endif //MEDIAINFO_TRACE
+        Buffer_Offset=Buffer_Offset_Temp;
     }
 
     //Must have enough buffer for having header
@@ -885,7 +931,7 @@ bool File_Aes3::Synched_Test()
         case 'L'  :
                     switch (Container_Bits)
                     {
-                        case 16 :   if (CC4(Buffer+Buffer_Offset)!=0) {Synched=false; return true;} break;
+                        case 16 :   if (CC4(Buffer+Buffer_Offset)!=0x72F81F4E) {Synched=false; return true;} break;
                         case 24 :
                                     switch (Stream_Bits)
                                     {
@@ -930,6 +976,7 @@ void File_Aes3::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Aes3::Header_Parse()
 {
+    Trusted=1000;
     if (IsPcm)
     {
         Element_WaitForMoreData();
@@ -1187,6 +1234,7 @@ void File_Aes3::Frame()
             case 16 :   //E-AC-3 (professional)
             case 21 :   //E-AC-3 (consumer)
                         Parser=new File_Ac3();
+                        ((File_Ac3*)Parser)->Frame_Count_Valid=2;
                         break;
             case  4 :   //MPEG-1 Layer 1
             case  5 :   //MPEG-1 Layer 2/3, MPEG-2 Layer 1/2/3 without extension
@@ -1237,12 +1285,19 @@ void File_Aes3::Frame()
             else
                 FrameInfo.DTS=(int64u)-1;
         #endif //MEDIAINFO_DEMUX
+        Frame_Count++;
         if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
-            Merge(*Parser);
+            Merge(*Parser, Stream_Audio, 0, 0);
             int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
-            OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
-            Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+_T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
+            if (OverallBitRate)
+            {
+                OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
+                Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+_T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
+            }
+            int64u BitRate=Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+            if (BitRate)
+                FrameRate=((float64)BitRate)/((Element_Size-Element_Offset)*8);
             Fill("AES3");
         }
         if (Parser->Status[IsFinished])
@@ -1277,6 +1332,29 @@ void File_Aes3::Frame_WithPadding()
     int8u* Info=new int8u[(size_t)Element_Size];
     size_t Info_Offset=0;
 
+    if (Container_Bits==16 && Stream_Bits==16 && Endianess=='L')
+    {
+        while (Element_Offset+4<=Element_Size)
+        {
+            size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+            Info[Info_Offset+0]=  Buffer[Buffer_Pos+1];
+            Info[Info_Offset+1]=  Buffer[Buffer_Pos+0];
+            Info[Info_Offset+2]=  Buffer[Buffer_Pos+3];
+            Info[Info_Offset+3]=  Buffer[Buffer_Pos+2];
+            Info_Offset+=4;
+            Element_Offset+=4;
+        }
+        if (Element_Offset+2<=Element_Size) //Only in half of the AES3 stream
+        {
+            size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+            Info[Info_Offset+0]=  Buffer[Buffer_Pos+1];
+            Info[Info_Offset+1]=  Buffer[Buffer_Pos+0];
+            Info_Offset+=2;
+            Element_Offset+=2;
+        }
+    }
     if (Container_Bits==24 && Stream_Bits==16 && Endianess=='L')
     {
         while (Element_Offset+6<=Element_Size)
@@ -1655,16 +1733,19 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     if (!Status[IsFilled] && Parser->Status[IsFilled])
     {
         //Filling
-        Merge(*Parser);
+        Merge(*Parser, Stream_Audio, 0, 0);
         ZtringList OverallBitRates; OverallBitRates.Separator_Set(0, _T(" / ")); OverallBitRates.Write(Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
         if (!OverallBitRates.empty())
         {
             int64u OverallBitRate=OverallBitRates[0].To_int64u();
-            OverallBitRate*=Element_Offset; OverallBitRate/=Parser_Buffer_Size;
-            OverallBitRates[0].From_Number(OverallBitRate);
-            Fill(Stream_General, 0, General_Format, Parser->Retrieve(Stream_General, 0, General_Format), true);
+            if (OverallBitRate)
+            {
+                OverallBitRate*=Element_Offset; OverallBitRate/=Parser_Buffer_Size;
+                OverallBitRates[0].From_Number(OverallBitRate);
+            }
             Fill(Stream_General, 0, General_OverallBitRate, OverallBitRates.Read(), true);
         }
+        FrameRate=((File_Aes3*)Parser)->FrameRate;
         Fill("AES3");
         if (!From_MpegPs)
             Finish("AES3");

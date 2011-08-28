@@ -50,12 +50,16 @@ public :
     bool    From_Aes3;
     int8u   Endianess;
 
+    //Out
+    float64 FrameRate;
+    
     //Constructor/Destructor
     File_Aes3();
     ~File_Aes3();
 
 private :
     //Streams management
+    void Streams_Accept();
     void Streams_Fill();
 
     //Buffer - Global
@@ -85,6 +89,7 @@ private :
     int64u  Frame_Size;
     int64u  Frame_Duration;
     int64u  IsPcm_Frame_Count;
+    int64u  NotPCM_SizePerFrame;
     int8u   number_channels;
     int8u   bits_per_sample;
     int8u   Container_Bits;
