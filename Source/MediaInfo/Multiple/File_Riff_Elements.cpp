@@ -3116,6 +3116,28 @@ void File_Riff::WAVE_data()
 
     //Parsing
     Element_Code=CC4("00wb");
+
+    FILLING_BEGIN();
+        int64u Duration=Retrieve(Stream_Audio, 0, Audio_Duration).To_int64u();
+        int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+        if (Duration)
+        {
+            int64u BitRate_New=Element_TotalSize_Get()*8*1000/Duration;
+            if (BitRate_New<BitRate*0.95 || BitRate_New>BitRate*1.05)
+                Fill(Stream_Audio, 0, Audio_BitRate, BitRate_New, 10, true); //Correcting the bitrate, it was false in the header
+        }
+        else if (BitRate)
+        {
+            if (IsSub)
+                //Retrieving "data" real size, in case of truncated files and/or wave header in another container
+                Duration=((int64u)LittleEndian2int32u(Buffer+Buffer_Offset-4))*8*1000/BitRate; //TODO: RF64 is not handled
+            else
+                Duration=Element_TotalSize_Get()*8*1000/BitRate;
+            Fill(Stream_General, 0, General_Duration, Duration, 10, true);
+            Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
+        }
+    FILLING_END();
+
     AVI__movi_xxxx();
     if (File_GoTo==(int64u)-1)
     {
@@ -3142,27 +3164,6 @@ void File_Riff::WAVE_data()
                 #endif //MEDIAINFO_TRACE
             }
     }
-
-    FILLING_BEGIN();
-        int64u Duration=Retrieve(Stream_Audio, 0, Audio_Duration).To_int64u();
-        int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
-        if (Duration)
-        {
-            int64u BitRate_New=Element_TotalSize_Get()*8*1000/Duration;
-            if (BitRate_New<BitRate*0.95 || BitRate_New>BitRate*1.05)
-                Fill(Stream_Audio, 0, Audio_BitRate, BitRate_New, 10, true); //Correcting the bitrate, it was false in the header
-        }
-        else if (BitRate)
-        {
-            if (IsSub)
-                //Retrieving "data" real size, in case of truncated files and/or wave header in another container
-                Duration=((int64u)LittleEndian2int32u(Buffer+Buffer_Offset-4))*8*1000/BitRate; //TODO: RF64 is not handled
-            else
-                Duration=Element_TotalSize_Get()*8*1000/BitRate;
-            Fill(Stream_General, 0, General_Duration, Duration, 10, true);
-            Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
-        }
-    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
