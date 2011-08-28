@@ -1405,6 +1405,11 @@ void File_Ac3::Data_Parse()
             Frame_Count++;
             Frame_Count_InThisBlock++;
             FrameInfo.DUR=32000000;
+            if (fscod && AC3_SamplingRate[fscod])
+            {
+                FrameInfo.DUR*=48000;
+                FrameInfo.DUR/=AC3_SamplingRate[fscod];
+            }
             if (FrameInfo.DTS!=(int64u)-1)
                 FrameInfo.DTS+=FrameInfo.DUR;
             if (FrameInfo.PTS!=(int64u)-1)
@@ -1643,6 +1648,11 @@ void File_Ac3::Core()
         Frame_Count_InThisBlock++;
         HD_AlreadyCounted=false;
         FrameInfo.DUR=32000000;
+        if (fscod && AC3_SamplingRate[fscod])
+        {
+            FrameInfo.DUR*=48000;
+            FrameInfo.DUR/=AC3_SamplingRate[fscod];
+        }
         if (FrameInfo.DTS!=(int64u)-1)
             FrameInfo.DTS+=FrameInfo.DUR;
         if (FrameInfo.PTS!=(int64u)-1)
