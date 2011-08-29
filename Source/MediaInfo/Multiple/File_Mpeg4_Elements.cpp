@@ -3192,6 +3192,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
         mdat_Pos_ToParseInPriority_StreamIDs.push_back(moov_trak_tkhd_TrackID);
         Streams[moov_trak_tkhd_TrackID].IsPriorityStream=true;
         ((File_Mpeg4_TimeCode*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameRate=tc->FrameDuration?(((float64)tc->TimeScale)/tc->FrameDuration):0;
+        if (!tc->DropFrame)
+            ((File_Mpeg4_TimeCode*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameRate=(float64)float64_int64s(((File_Mpeg4_TimeCode*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameRate); //If DropFrame flag is not set, must use the integer value of frame rate even if frame rate is not an integral number
         ((File_Mpeg4_TimeCode*)Streams[moov_trak_tkhd_TrackID].Parser)->NegativeTimes=tc->NegativeTimes;
     FILLING_END();
 }
