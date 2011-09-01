@@ -82,6 +82,7 @@ void File_Eia708::Streams_Fill()
     Fill(Stream_Text, 0, Text_ID, 1); //TODO: fill with the exact service
     Fill(Stream_Text, 0, Text_Format, "EIA-708");
     Fill(Stream_Text, 0, Text_StreamSize, 0);
+    Fill(Stream_Text, 0, Text_BitRate_Mode, "CBR");
 }
 
 //---------------------------------------------------------------------------

@@ -118,6 +118,7 @@ void File_Eia608::Streams_Fill()
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, "EIA-608");
     Fill(Stream_Text, 0, Text_StreamSize, 0);
+    Fill(Stream_Text, 0, Text_BitRate_Mode, "CBR");
     if (FieldNumber)
         Fill(Stream_Text, 0, Text_ID, FieldNumber);
 }
