@@ -598,7 +598,7 @@ bool File_Aes3::Synchronize()
     //Synchronizing
     while (Buffer_Offset+16<=Buffer_Size)
     {
-        if (ByteSize==0 || ByteSize==4)
+        if ((ByteSize==0 || ByteSize==4) && ((Buffer_TotalBytes+Buffer_Offset)%4)==0)
         {
             if (Buffer[Buffer_Offset  ]==0xF8
              && Buffer[Buffer_Offset+1]==0x72
@@ -623,7 +623,7 @@ bool File_Aes3::Synchronize()
                 break; //while()
             }
         }
-        if (ByteSize==0 || ByteSize==5)
+        if ((ByteSize==0 || ByteSize==5) && ((Buffer_TotalBytes+Buffer_Offset)%5)==0)
         {
             if (Buffer[Buffer_Offset  ]==0x6F
              && Buffer[Buffer_Offset+1]==0x87
@@ -638,7 +638,7 @@ bool File_Aes3::Synchronize()
                 break; //while()
             }
         }
-        if (ByteSize==0 || ByteSize==6)
+        if ((ByteSize==0 || ByteSize==6) && ((Buffer_TotalBytes+Buffer_Offset)%6)==0)
         {
             if (Buffer[Buffer_Offset  ]==0x96
              && Buffer[Buffer_Offset+1]==0xF8
@@ -719,7 +719,7 @@ bool File_Aes3::Synchronize()
                 break; //while()
             }
         }
-        if (ByteSize==0 || ByteSize==8)
+        if ((ByteSize==0 || ByteSize==8) && ((Buffer_TotalBytes+Buffer_Offset)%8)==0)
         {
             if (Buffer[Buffer_Offset  ]==0x00
              && Buffer[Buffer_Offset+1]==0x00
@@ -827,7 +827,6 @@ bool File_Aes3::Synchronize()
 
     //Synched
     IsParsingNonPcm=true;
-    Data_Accept("AES3");
     return true;
 }
 
@@ -840,19 +839,19 @@ bool File_Aes3::Synched_Test()
         size_t Buffer_Offset_Temp=Buffer_Offset;
         if (ByteSize==4)
         {
-            if ((Buffer_TotalBytes+Buffer_Offset_Temp)%4) //Padding in half of the AES3 stream
+            while ((Buffer_TotalBytes+Buffer_Offset_Temp)%4) //Padding in part of the AES3 block
             {
-                if (Buffer_Offset_Temp+2>Buffer_Size)
+                if (Buffer_Offset_Temp+1>Buffer_Size)
                 {
                     Element_WaitForMoreData();
                     return false;
                 }
-                if (CC2(Buffer+Buffer_Offset_Temp))
+                if (Buffer[Buffer_Offset_Temp])
                 {
-                    Synched=false;
+                    Trusted_IsNot("Bad sync");
                     return true;
                 }
-                Buffer_Offset_Temp+=2;
+                Buffer_Offset_Temp++;
             }
             while(Buffer_Offset_Temp+4<=Buffer_Size && CC4(Buffer+Buffer_Offset_Temp)==0x00000000)
                 Buffer_Offset_Temp+=4;
@@ -864,6 +863,20 @@ bool File_Aes3::Synched_Test()
         }
         if (ByteSize==6)
         {
+            while ((Buffer_TotalBytes+Buffer_Offset_Temp)%6) //Padding in part of the AES3 block
+            {
+                if (Buffer_Offset_Temp+1>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return false;
+                }
+                if (Buffer[Buffer_Offset_Temp])
+                {
+                    Trusted_IsNot("Bad sync");
+                    return true;
+                }
+                Buffer_Offset_Temp++;
+            }
             while(Buffer_Offset_Temp+6<=Buffer_Size && CC6(Buffer+Buffer_Offset_Temp)==0x000000000000LL)
                 Buffer_Offset_Temp+=6;
             if (Buffer_Offset_Temp+6>Buffer_Size)
@@ -874,6 +887,20 @@ bool File_Aes3::Synched_Test()
         }
         else if (ByteSize==8)
         {
+            while ((Buffer_TotalBytes+Buffer_Offset_Temp)%6) //Padding in part of the AES3 block
+            {
+                if (Buffer_Offset_Temp+1>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return false;
+                }
+                if (Buffer[Buffer_Offset_Temp])
+                {
+                    Trusted_IsNot("Bad sync");
+                    return true;
+                }
+                Buffer_Offset_Temp++;
+            }
             while(Buffer_Offset_Temp+8<=Buffer_Size && CC8(Buffer+Buffer_Offset_Temp)==0x0000000000000000LL)
                 Buffer_Offset_Temp+=8;
             if (Buffer_Offset_Temp+8>Buffer_Size)
@@ -1046,6 +1073,32 @@ void File_Aes3::Header_Parse()
         Size*=Container_Bits; Size/=Stream_Bits;
     }
 
+    //Coherency test
+    if (!IsSub && !Status[IsAccepted])
+    {
+        size_t Offset=Buffer_Offset+(size_t)(Container_Bits*4/8+Size/8);
+        while (Offset<Buffer_Size && Buffer[Offset]==0x00)
+            Offset++;
+        if (Offset+ByteSize>Buffer_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        bool IsOK=true;
+        for (size_t Pos=0; Pos<ByteSize; Pos++)
+            if (Buffer[Buffer_Offset+Pos]!=Buffer[Offset+Pos])
+            {
+                IsOK=false;
+                break;
+            }
+        if (!IsOK)
+        {
+            Trusted_IsNot("Bad sync");
+            Buffer_Offset++;
+            return;
+        }
+    }
+
     //Filling
     Header_Fill_Size(Container_Bits*4/8+Size/8);
     Header_Fill_Code(0, "AES3");
@@ -1054,6 +1107,9 @@ void File_Aes3::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Aes3::Data_Parse()
 {
+    if (!Status[IsAccepted])
+        Accept("AES3");
+    
     if (Container_Bits==Stream_Bits && Endianess=='B')
         Frame();
     else
