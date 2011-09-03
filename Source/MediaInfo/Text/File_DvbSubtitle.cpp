@@ -79,6 +79,22 @@ void File_DvbSubtitle::Streams_Fill()
 {
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, "DVB Subtitle");
+
+    for (std::map<int8u, subtitle_stream_data>::iterator subtitle_stream=subtitle_streams.begin(); subtitle_stream!=subtitle_streams.end(); subtitle_stream++)
+        for (std::map<int16u, page_data>::iterator page=subtitle_stream->second.pages.begin(); page!=subtitle_stream->second.pages.end(); page++)
+            for (std::map<int8u, region_data>::iterator region=page->second.regions.begin(); region!=page->second.regions.end(); region++)
+            {
+                Fill(Stream_Text, 0, "subtitle_stream_id", subtitle_stream->first);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("subtitle_stream_id"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "page_id", page->first);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("page_id"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "region_id", region->first);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_id"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "region_horizontal_address", region->second.region_horizontal_address);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_horizontal_address"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "region_vertical_address", region->second.region_vertical_address);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_vertical_address"), Info_Options)=_T("N NI");
+            }
 }
 
 //---------------------------------------------------------------------------
@@ -148,7 +164,7 @@ bool File_DvbSubtitle::Synched_Test()
         //Displaying it
         Element_Size=2;
         Skip_B1(                                                "data_identifier");
-        Skip_B1(                                                "subtitle_stream_id");
+        Get_B1 (subtitle_stream_id,                             "subtitle_stream_id");
         Buffer_Offset+=2;
         MustFindDvbHeader=false;
     }
@@ -259,13 +275,46 @@ void File_DvbSubtitle::Data_Parse()
 {
     switch (Element_Code)
     {
+        case 0x10 : page_composition_segment(); break;
         case 0xFF : //end_of_PES_data_field_marker
-                    Fill();
-                    Finish();
+                    //Fill();
+                    //Finish();
                     return;
         default   :
                     if (Element_Size)
                         Skip_XX(Element_Size,                   "Unknown");
+    }
+}
+
+//***************************************************************************
+// C++
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DvbSubtitle::page_composition_segment()
+{
+    Element_Name("page_composition_segment");
+
+    //Parsing
+    Skip_B1(                                                    "page_time_out");
+    BS_Begin();
+    Skip_S1(4,                                                  "page_version_number");
+    Skip_S1(2,                                                  "page_state");
+    Skip_S1(2,                                                  "reserved");
+    BS_End();
+    while(Element_Offset<Element_Size)
+    {
+        int16u region_horizontal_address, region_vertical_address;
+        int8u region_id;
+        Get_B1 (region_id,                                      "region_id");
+        Skip_B1(                                                "reserved");
+        Get_B2 (region_horizontal_address,                      "region_horizontal_address");
+        Get_B2 (region_vertical_address,                        "region_vertical_address");
+
+        FILLING_BEGIN();
+            subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_horizontal_address=region_horizontal_address;
+            subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_vertical_address=region_vertical_address;
+        FILLING_END();
     }
 }
 

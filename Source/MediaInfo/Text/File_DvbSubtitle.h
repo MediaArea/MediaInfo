@@ -63,9 +63,27 @@ private :
     void Header_Parse();
     void Data_Parse();
 
+    //Elements
+    void page_composition_segment();
+
     //Temp
     bool    MustFindDvbHeader;
     int16u  page_id;
+    int8u   subtitle_stream_id;
+    struct region_data
+    {
+        int16u region_horizontal_address;
+        int16u region_vertical_address;
+    };
+    struct page_data
+    {
+        std::map<int8u, region_data> regions; //Key is region_id
+    };
+    struct subtitle_stream_data
+    {
+        std::map<int16u, page_data>  pages; //Key is page_id
+    };
+    std::map<int8u, subtitle_stream_data> subtitle_streams; //Key is subtitle_stream_id
 };
 
 } //NameSpace
