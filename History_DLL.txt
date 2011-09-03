@@ -20,6 +20,7 @@ x MXF: some files with SDTI were not well demuxed (frame number) or were crashin
 x Some files where wrongly detected as MPEG-PS without streams
 x AC-3: non-48 KHz streams were not analyzed
 x 3164893, JPEG: issue with some JPEG files with no/incorrect extention
+x 3403338, crash with four character filenames
 
 Version 0.7.48, 2011-08-16
 --------------

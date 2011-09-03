@@ -467,7 +467,8 @@ Ztring Bdmv_Decimal_Hexa(int64u Number)
 //---------------------------------------------------------------------------
 bool File_Bdmv::FileHeader_Begin()
 {
-    if (File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"))+5==File_Name.size()) //Blu-ray directory
+    size_t BDMV_Pos=File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"));
+    if (BDMV_Pos!=string::npos && BDMV_Pos+5==File_Name.size()) //Blu-ray directory
         return true;
 
     //Element_Size
@@ -499,7 +500,8 @@ bool File_Bdmv::FileHeader_Begin()
 //---------------------------------------------------------------------------
 void File_Bdmv::Read_Buffer_Continue()
 {
-    if (File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"))+5==File_Name.size()) //Blu-ray directory
+    size_t BDMV_Pos=File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"));
+    if (BDMV_Pos!=string::npos && BDMV_Pos+5==File_Name.size()) //Blu-ray directory
     {
         BDMV();
         return;
