@@ -501,20 +501,26 @@ void File__Analyze::Streams_Finish_InterStreams()
     //General_OverallBitRate_Mode
     if (Retrieve(Stream_General, 0, General_OverallBitRate_Mode).empty())
     {
+        bool IsValid=false;
         bool IsCBR=true;
         bool IsVBR=false;
         for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
             for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
             {
+                if (!IsValid)
+                    IsValid=true;
                 if (Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_BitRate_Mode))!=_T("CBR"))
                     IsCBR=false;
                 if (Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_BitRate_Mode))==_T("VBR"))
                     IsVBR=true;
             }
-        if (IsCBR)
-            Fill(Stream_General, 0, General_OverallBitRate_Mode, "CBR");
-        if (IsVBR)
-            Fill(Stream_General, 0, General_OverallBitRate_Mode, "VBR");
+        if (IsValid)
+        {
+            if (IsCBR)
+                Fill(Stream_General, 0, General_OverallBitRate_Mode, "CBR");
+            if (IsVBR)
+                Fill(Stream_General, 0, General_OverallBitRate_Mode, "VBR");
+        }
     }
 
     //Tags
