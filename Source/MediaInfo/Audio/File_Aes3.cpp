@@ -400,6 +400,11 @@ void File_Aes3::Read_Buffer_Continue()
         Skip_XX(Element_Size,                                   "Data");
 
         Frame_Count_InThisBlock++;
+        if (IsPcm_Frame_Count)
+        {
+            Frame_Count_InThisBlock++; //If IsPcm_Frame_Count is set, 2 frames were needed in order to detect PCM
+            IsPcm_Frame_Count=0;
+        }
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
         #if MEDIAINFO_DEMUX
@@ -1767,6 +1772,9 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     #if MEDIAINFO_DEMUX
+        Frame_Count_InThisBlock++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         if (Parser->FrameInfo.DUR!=FrameInfo.DUR && Parser->FrameInfo.DUR!=(int64u)-1)
             FrameInfo.DUR=Parser->FrameInfo.DUR;
         if (FrameInfo.DUR!=(int64u)-1)

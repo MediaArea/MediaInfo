@@ -255,13 +255,6 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
 {
-    //Frame count
-    if (Retrieve(Stream_Audio, Pos, Audio_FrameCount).empty() && Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
-    {
-        if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1)
-            Fill(Stream_Audio, 0, Audio_FrameCount, Frame_Count_NotParsedIncluded);
-    }
-
     //SamplingCount
     if (Retrieve(Stream_Audio, Pos, Audio_SamplingCount).empty())
     {
@@ -270,7 +263,18 @@ void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
             Duration=Retrieve(Stream_General, 0, General_Duration).To_int64s();
         float SamplingRate=Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_float32();
         if (Duration && SamplingRate)
-           Fill(Stream_Audio, Pos, Audio_SamplingCount, ((float64)Duration)/1000*SamplingRate, 0);
+        {
+            Fill(Stream_Audio, Pos, Audio_SamplingCount, ((float64)Duration)/1000*SamplingRate, 0);
+            if (Retrieve(Stream_Audio, Pos, Audio_Format)==_T("PCM") && Retrieve(Stream_Audio, Pos, Audio_FrameCount).empty())
+                Fill(Stream_Audio, Pos, Audio_FrameCount, Retrieve(Stream_Audio, Pos, Audio_SamplingCount));
+        }
+    }
+
+    //Frame count
+    if (Retrieve(Stream_Audio, Pos, Audio_FrameCount).empty() && Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
+    {
+        if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1)
+            Fill(Stream_Audio, 0, Audio_FrameCount, Frame_Count_NotParsedIncluded);
     }
 
     //Duration

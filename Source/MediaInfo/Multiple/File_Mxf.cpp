@@ -827,6 +827,7 @@ File_Mxf::File_Mxf()
     Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
     FrameInfo.DTS=0;
+    Frame_Count_NotParsedIncluded=0;
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent_Accept_Specific=true;
     #endif //MEDIAINFO_DEMUX
@@ -1876,15 +1877,24 @@ void File_Mxf::Read_Buffer_Unsynched()
             Essence->second.Parser->Open_Buffer_Unsynch();
             Essence->second.FrameInfo=frame_info();
             if (!File_GoTo)
-                Essence->second.FrameInfo.DTS=0;    
+            {
+                if (TimeCode_StartTimecode && Descriptors.begin()->second.SampleRate)
+                    Essence->second.FrameInfo.DTS=float64_int64s(TimeCode_StartTimecode*1000000000/Descriptors.begin()->second.SampleRate);
+                else
+                    Essence->second.FrameInfo.DTS=0;
+            }
             Essence->second.Frame_Count_NotParsedIncluded=File_GoTo?(int64u)-1:0;
         }
     if (File_GoTo)
         Frame_Count_NotParsedIncluded=(int64u)-1;
     else
     {
+        FrameInfo=frame_info();
+        if (TimeCode_StartTimecode && Descriptors.begin()->second.SampleRate)
+            FrameInfo.DTS=float64_int64s(TimeCode_StartTimecode*1000000000/Descriptors.begin()->second.SampleRate);
+        else
+            FrameInfo.DTS=0;
         Frame_Count_NotParsedIncluded=0;
-        FrameInfo.DTS=0;
     }
 
     Partitions_Pos=0;
@@ -2388,7 +2398,8 @@ void File_Mxf::Header_Parse()
     #endif MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
 
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-        if (IsParsingEnd && PartitionPack_Parsed && !Partitions.empty() && Partitions[Partitions.size()-1].StreamOffset+Partitions[Partitions.size()-1].PartitionPackByteCount+Partitions[Partitions.size()-1].HeaderByteCount+Partitions[Partitions.size()-1].IndexByteCount==File_Offset+Buffer_Offset)
+        if (IsParsingEnd && PartitionPack_Parsed && !Partitions.empty() && Partitions[Partitions.size()-1].StreamOffset+Partitions[Partitions.size()-1].PartitionPackByteCount+Partitions[Partitions.size()-1].HeaderByteCount+Partitions[Partitions.size()-1].IndexByteCount==File_Offset+Buffer_Offset
+         && !(Code_Compare1==Elements::RandomIndexMetadata1 && Code_Compare2==Elements::RandomIndexMetadata2 && Code_Compare3==Elements::RandomIndexMetadata3 && Code_Compare4==Elements::RandomIndexMetadata4))
         {
             if (RandomIndexMetadatas.empty())
             {
@@ -2968,6 +2979,8 @@ void File_Mxf::Data_Parse()
                         }
                     }
                 }
+                else if (Essence->second.Frame_Count_NotParsedIncluded==0 && TimeCode_StartTimecode && Descriptors.begin()->second.SampleRate)
+                    Essence->second.FrameInfo.DTS=float64_int64s(TimeCode_StartTimecode*1000000000/Descriptors.begin()->second.SampleRate);
 
                 //Default
                 if (!Essence->second.Frame_Count_NotParsedIncluded && !Demux_random_access)
@@ -3041,18 +3054,23 @@ void File_Mxf::Data_Parse()
                 if (FrameInfo.DUR!=(int64u)-1)
                     Essence->second.Parser->FrameInfo.DUR=FrameInfo.DUR;
                 Open_Buffer_Continue(Essence->second.Parser);
-                if (Essence->second.Parser->Frame_Count_InThisBlock)
+                if (Buffer_End==0 || File_Offset+Buffer_Offset+Element_Size==Buffer_End)
                 {
-                    if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1)
-                        Essence->second.Frame_Count_NotParsedIncluded+=Essence->second.Parser->Frame_Count_InThisBlock;
-                    if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.FrameInfo.DTS+=Essence->second.Parser->Frame_Count_InThisBlock*Essence->second.FrameInfo.DUR;
-                    if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.FrameInfo.PTS+=Essence->second.Parser->Frame_Count_InThisBlock*Essence->second.FrameInfo.DUR;
-                }
-                else if ((Buffer_End==0 || File_Offset+Buffer_Offset+Element_Size==Buffer_End) && Essence->second.Frame_Count_NotParsedIncluded!=Essence->second.Parser->Frame_Count_NotParsedIncluded)
-                {
-                    Essence->second.Frame_Count_NotParsedIncluded++;
+                    #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                        if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.SampleRate)
+                        {
+                            float64 BytePerFrame=Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate;
+                            float64 Frame_Count_NotParsedIncluded_Precise=(File_Offset+Buffer_Offset+Element_Size-(StreamOffset_Offset+Clip_Header_Size))/BytePerFrame; //In case of audio at frame rate not an integer
+                            Frame_Count_NotParsedIncluded=float64_int64s(Frame_Count_NotParsedIncluded_Precise);
+                        }
+                        else
+                    #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                        Frame_Count_NotParsedIncluded++; //TODO: if !(MEDIAINFO_DEMUX || MEDIAINFO_SEEK), this is wrong for some PCM streams with ByteRate==2
+                    if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
+                        FrameInfo.DTS+=FrameInfo.DUR;
+                    if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
+                        FrameInfo.PTS+=FrameInfo.DUR;
+                    Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
                     if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
                         Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
                     if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
