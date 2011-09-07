@@ -258,7 +258,7 @@ void File_Aes3::Streams_Fill()
     if (Parser && Parser->Status[IsAccepted] && !Parser->Status[IsFilled])
     {
         Fill(Parser);
-        Merge(*Parser, Stream_Audio, 0, 0);
+        Merge(*Parser);
     }
     else if (data_type!=(int8u)-1)
     {
@@ -1089,6 +1089,8 @@ void File_Aes3::Header_Parse()
             Element_WaitForMoreData();
             return;
         }
+        Offset/=ByteSize;
+        Offset*=ByteSize;
         bool IsOK=true;
         for (size_t Pos=0; Pos<ByteSize; Pos++)
             if (Buffer[Buffer_Offset+Pos]!=Buffer[Offset+Pos])
@@ -1348,7 +1350,7 @@ void File_Aes3::Frame()
         Frame_Count++;
         if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
-            Merge(*Parser, Stream_Audio, 0, 0);
+            Merge(*Parser);
             int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
             if (OverallBitRate)
             {
@@ -1796,7 +1798,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     if (!Status[IsFilled] && Parser->Status[IsFilled])
     {
         //Filling
-        Merge(*Parser, Stream_Audio, 0, 0);
+        Merge(*Parser);
         ZtringList OverallBitRates; OverallBitRates.Separator_Set(0, _T(" / ")); OverallBitRates.Write(Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
         if (!OverallBitRates.empty())
         {
