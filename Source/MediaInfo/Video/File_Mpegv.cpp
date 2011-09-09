@@ -834,7 +834,7 @@ bool File_Mpegv::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
     #if MEDIAINFO_IBI
-        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
+        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1 && Buffer_Offset+3<Buffer_Size)
         {
             bool RandomAccess=(Buffer[Buffer_Offset+3]==0xB3); //sequence_header
             if (RandomAccess)
