@@ -209,6 +209,7 @@ namespace Elements
     const int32u AIFF_ID3_=0x49443320;
     const int32u AVI_=0x41564920;
     const int32u AVI__cset=0x63736574;
+    const int32u AVI__Cr8r=0x43723872;
     const int32u AVI__exif=0x65786966;
     const int32u AVI__exif_ecor=0x65636F72;
     const int32u AVI__exif_emdl=0x656D646C;
@@ -304,6 +305,12 @@ namespace Elements
     const int32u AVI__movi_xxxx___sb=0x00007362;
     const int32u AVI__movi_xxxx___tx=0x00007478;
     const int32u AVI__movi_xxxx___wb=0x00007762;
+    const int32u AVI__PrmA=0x50726D41;
+    const int32u AVI__Tdat=0x54646174;
+    const int32u AVI__Tdat_rn_A=0x726E5F41;
+    const int32u AVI__Tdat_rn_O=0x726E5F4F;
+    const int32u AVI__Tdat_tc_A=0x74635F41;
+    const int32u AVI__Tdat_tc_O=0x74635F4F;
     const int32u AVIX=0x41564958;
     const int32u AVIX_idx1=0x69647831;
     const int32u AVIX_movi=0x6D6F7669;
@@ -396,6 +403,7 @@ void File_Riff::Data_Parse()
         ATOM_END_DEFAULT
     LIST(AVI_)
         ATOM_BEGIN
+        ATOM(AVI__Cr8r);
         ATOM(AVI__cset)
         LIST(AVI__exif)
             ATOM_DEFAULT_ALONE(AVI__exif_xxxx)
@@ -449,6 +457,14 @@ void File_Riff::Data_Parse()
                 ATOM_DEFAULT_ALONE(AVI__movi_xxxx)
             ATOM_DEFAULT(AVI__movi_xxxx)
             ATOM_END_DEFAULT
+        ATOM(AVI__PrmA);
+        LIST(AVI__Tdat)
+            ATOM_BEGIN
+            ATOM(AVI__Tdat_rn_A)
+            ATOM(AVI__Tdat_rn_O)
+            ATOM(AVI__Tdat_tc_A)
+            ATOM(AVI__Tdat_tc_O)
+            ATOM_END
         ATOM_DEFAULT(AVI__xxxx)
         ATOM_END_DEFAULT
     LIST(AVIX) //OpenDML
@@ -755,6 +771,17 @@ void File_Riff::AVI_()
 
     //Configuring
     Buffer_MaximumSize=32*1024*1024;
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__Cr8r()
+{
+    Element_Name("Adobe Premiere Cr8r");
+
+    //Parsing
+    Skip_C4(                                                    "FourCC");
+    Skip_B4(                                                    "Size");
+    Skip_XX(Element_Size-Element_Offset,                        "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -2445,6 +2472,65 @@ void File_Riff::AVI__movi_StreamJump()
         else
             Finish("AVI");
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__PrmA()
+{
+    Element_Name("Adobe Premiere PrmA");
+
+    //Parsing
+    Skip_C4(                                                    "FourCC");
+    Skip_B4(                                                    "Size");
+    Skip_B4(                                                    "Unknown");
+    Skip_B4(                                                    "Width");
+    Skip_B4(                                                    "Height");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__Tdat()
+{
+    Element_Name("Adobe Premiere Tdat");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__Tdat_tc_A()
+{
+    Element_Name("tc_A");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_L4(                                                "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__Tdat_tc_O()
+{
+    Element_Name("tc_O");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_L4(                                                "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__Tdat_rn_A()
+{
+    Element_Name("rn_A");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_L1(                                                "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__Tdat_rn_O()
+{
+    Element_Name("rn_O");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_L1(                                                "Unknown");
 }
 
 //---------------------------------------------------------------------------

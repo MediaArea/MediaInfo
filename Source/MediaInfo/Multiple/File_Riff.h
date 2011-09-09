@@ -180,6 +180,7 @@ private :
     void AIFF_xxxx ();
     void AVI_ ();
     void AVI__cset ();
+    void AVI__Cr8r ();
     void AVI__exif ();
     void AVI__exif_xxxx ();
     void AVI__goog ();
@@ -229,6 +230,12 @@ private :
     void AVI__movi_rec_ ();
     void AVI__movi_rec__xxxx ();
     void AVI__movi_StreamJump ();
+    void AVI__PrmA ();
+    void AVI__Tdat ();
+    void AVI__Tdat_rn_A ();
+    void AVI__Tdat_rn_O ();
+    void AVI__Tdat_tc_A ();
+    void AVI__Tdat_tc_O ();
     void AVI__GMET ();
     void AVI__xxxx ();
     void AVIX ();
