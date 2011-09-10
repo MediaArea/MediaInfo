@@ -2896,7 +2896,7 @@ void File_Mxf::Data_Parse()
                 Element_Code=Code.lo;
             Demux_Level=(Essence->second.Parser && (Essence->second.Parser->Demux_UnpacketizeContainer || Essence->second.Parser->Demux_Level==2))?4:2; //Intermediate (D-10 Audio) / Container
             Essence->second.FrameInfo.DUR=(int64u)-1;
-            #if MEDIAINFO_SEEK
+             #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 //Calculating the byte count not included in seek information (partition, index...)
                 int64u StreamOffset_Offset=0;
                 Partitions_Pos=0;
@@ -2985,7 +2985,7 @@ void File_Mxf::Data_Parse()
                 //Default
                 if (!Essence->second.Frame_Count_NotParsedIncluded && !Demux_random_access)
                     Demux_random_access=true;
-            #else //MEDIAINFO_SEEK
+            #else //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 //Hints
                 if (File_Buffer_Size_Hint_Pointer)
                 {
