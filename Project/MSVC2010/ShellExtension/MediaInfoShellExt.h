@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Tue Jul 05 17:52:26 2011
+/* at Sat Sep 10 19:45:33 2011
  */
 /* Compiler settings for MediaInfoShellExt.idl:
     Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 7.00.0555 
