@@ -152,7 +152,7 @@ File_MpegTs::File_MpegTs()
     MpegTs_JumpTo_End=16*1024*1024;
     Searching_TimeStamp_Start=true;
     Complete_Stream=NULL;
-    Begin_MaxDuration=MediaInfoLib::Config.MpegTs_MaximumScanDuration_Get()*27/1000;
+    Begin_MaxDuration=Config_ParseSpeed>=0.8?(int64u)-1:MediaInfoLib::Config.MpegTs_MaximumScanDuration_Get()*27/1000;
     ForceStreamDisplay=MediaInfoLib::Config.MpegTs_ForceStreamDisplay_Get();
     #if MEDIAINFO_SEEK
         Seek_Value=(int64u)-1;
@@ -1244,10 +1244,15 @@ void File_MpegTs::Synched_Init()
     MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:Buffer_TotalBytes_LastSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
     MpegTs_JumpTo_End=16*1024*1024;
     Buffer_TotalBytes_LastSynched=Buffer_TotalBytes_FirstSynched;
-    if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+    if (MpegTs_JumpTo_Begin==(int64u)-1 || MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
     {
-        MpegTs_JumpTo_Begin=File_Size;
-        MpegTs_JumpTo_End=File_Size;
+        if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>File_Size)
+        {
+            MpegTs_JumpTo_Begin=File_Size;
+            MpegTs_JumpTo_End=0;
+        }
+        else
+            MpegTs_JumpTo_Begin=File_Size-MpegTs_JumpTo_End;
     }
 
     //Config
@@ -1328,7 +1333,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
     {
         //Test if parsing of headers is OK
         if ((Complete_Stream->Streams_NotParsedCount==0 && (Complete_Stream->NoPatPmt || (Complete_Stream->transport_stream_id_IsValid && Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs_NotParsedCount==0)))
-         || Buffer_TotalBytes-Buffer_TotalBytes_LastSynched>=MpegTs_JumpTo_Begin
+         || (Buffer_TotalBytes-Buffer_TotalBytes_LastSynched>=MpegTs_JumpTo_Begin && Config_ParseSpeed<0.8)
          || File_Offset+Buffer_Size==File_Size)
         {
             //Test if PAT/PMT are missing (ofen in .trp files)
@@ -1398,7 +1403,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
             Status[User_19]=true;
 
             //Jumping
-            if (Config_ParseSpeed<1.0 && Config->File_IsSeekable_Get() && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End)
+            if (Config_ParseSpeed<1.0 && Config->File_IsSeekable_Get() && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End && MpegTs_JumpTo_End)
             {
                 #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
                     GoToFromEnd(47); //TODO: Should be changed later (when Finalize stuff will be split)
@@ -2236,7 +2241,7 @@ void File_MpegTs::PES()
     if (Complete_Stream->Streams[pid]->Parser->Status[IsFilled]
      || Complete_Stream->Streams[pid]->Parser->Status[IsFinished])
     {
-        if ((Complete_Stream->Streams[pid]->Searching_Payload_Start || Complete_Stream->Streams[pid]->Searching_Payload_Continue) && Config_ParseSpeed<1)
+        if ((Complete_Stream->Streams[pid]->Searching_Payload_Start || Complete_Stream->Streams[pid]->Searching_Payload_Continue) && Config_ParseSpeed<1 && MpegTs_JumpTo_End)
         {
             Complete_Stream->Streams[pid]->Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[pid]->Searching_Payload_Continue_Set(false);

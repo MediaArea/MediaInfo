@@ -473,7 +473,13 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     if (Sub->File_GoTo!=(int64u)-1)
         Sub->File_GoTo=(int64u)-1;
     Sub->File_Offset=File_Offset+Buffer_Offset+Element_Offset;
-    Sub->File_Size=File_Size;
+    if (Sub->File_Size!=File_Size)
+    {
+        for (size_t Pos=0; Pos<Sub->Element_Level; Pos++)
+            if (Sub->Element[Pos].Next==Sub->File_Size)
+                Sub->Element[Pos].Next=File_Size;
+        Sub->File_Size=File_Size;
+    }
     #if MEDIAINFO_TRACE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
     #endif

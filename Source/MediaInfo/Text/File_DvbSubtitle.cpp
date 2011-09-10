@@ -61,6 +61,9 @@ File_DvbSubtitle::File_DvbSubtitle()
     IsRawStream=true;
     MustSynchronize=true;
 
+    //In
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;
+
     //Temp
     MustFindDvbHeader=true;
 }
@@ -277,8 +280,12 @@ void File_DvbSubtitle::Data_Parse()
     {
         case 0x10 : page_composition_segment(); break;
         case 0xFF : //end_of_PES_data_field_marker
-                    //Fill();
-                    //Finish();
+                    Frame_Count++;
+                    if (!Status[IsFilled] && Frame_Count>Frame_Count_Valid)
+                    {
+                        Fill();
+                        Finish();
+                    }
                     return;
         default   :
                     if (Element_Size)

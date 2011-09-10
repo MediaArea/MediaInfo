@@ -41,6 +41,10 @@ namespace MediaInfoLib
 class File_DvbSubtitle : public File__Analyze
 {
 public :
+    //In
+    int64u Frame_Count_Valid;
+
+    //Constructor/Destructor
     File_DvbSubtitle();
     ~File_DvbSubtitle();
 
