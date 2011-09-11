@@ -151,6 +151,7 @@ const char* Mpegv_profile_and_level_indication_level[]=
     #include <cstring>
 #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 #if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
@@ -788,26 +789,27 @@ void File_Mpegv::Streams_Finish()
         }
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        Streams.clear();
-        for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
-            delete TemporalReference[Pos]; //TemporalReference[Pos]=NULL;
-        TemporalReference.clear();
-    }
-
     #if MEDIAINFO_IBI
-        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
+        int64u Numerator=0, Denominator=0;
+        switch (frame_rate_code)
         {
-            ibi::stream::info IbiInfo;
-            IbiInfo.StreamOffset=File_Offset+Buffer_Size;
-            IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
-            IbiInfo.Dts=FrameInfo.DTS;
-            IbiInfo.IsContinuous=true;
-            IbiStream->Add(IbiInfo);
+            case 1 : Numerator=1001; Denominator=24000; break;
+            case 2 : Numerator=1;    Denominator=24;    break;
+            case 3 : Numerator=1;    Denominator=25;    break;
+            case 4 : Numerator=1001; Denominator=30000; break;
+            case 5 : Numerator=1;    Denominator=30;    break;
+            case 6 : Numerator=1;    Denominator=50;    break;
+            case 7 : Numerator=1001; Denominator=60000; break;
+            case 8 : Numerator=1;    Denominator=60;    break;
+            default: ;
         }
-    #endif MEDIAINFO_IBI
+        if (Numerator)
+        {
+            Numerator*=frame_rate_extension_n+1;
+            Denominator*=frame_rate_extension_d+1;
+            Ibi_Stream_Finish(Numerator, Denominator);
+        }
+    #endif //MEDIAINFO_IBI
 }
 
 //***************************************************************************
@@ -833,21 +835,16 @@ bool File_Mpegv::Synched_Test()
     //Quick search
     if (Synched && !Header_Parser_QuickSearch())
         return false;
-    #if MEDIAINFO_IBI
-        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1 && Buffer_Offset+3<Buffer_Size)
-        {
-            bool RandomAccess=(Buffer[Buffer_Offset+3]==0xB3); //sequence_header
-            if (RandomAccess)
-            {
-                ibi::stream::info IbiInfo;
-                IbiInfo.StreamOffset=Ibi_SynchronizationOffset_Current;
-                IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
-                IbiInfo.Dts=FrameInfo.DTS;
-                IbiStream->Add(IbiInfo);
 
-                if (Frame_Count_NotParsedIncluded==(int64u)-1)
-                    Frame_Count_NotParsedIncluded=IbiStream->Infos[IbiStream->Infos_Pos-1].FrameNumber;
-            }
+    #if MEDIAINFO_IBI
+        if (Ibi_SliceParsed)
+        {
+            if (Buffer[Buffer_Offset+3]==0x00 && Buffer_Offset+5>Buffer_Size)
+                return false;
+            bool RandomAccess=(Buffer[Buffer_Offset+3]==0x00 && (Buffer[Buffer_Offset+5]&0x38)==0x08) || Buffer[Buffer_Offset+3]==0xB3; //picture_start with I-Frame || sequence_header
+            if (RandomAccess)
+                Ibi_Add();
+            Ibi_SliceParsed=false;
         }
     #endif MEDIAINFO_IBI
 
@@ -908,6 +905,9 @@ void File_Mpegv::Synched_Init()
     temporal_reference_LastIFrame=0;
     tc=0;
     IFrame_IsParsed=false;
+    #if MEDIAINFO_IBI
+        Ibi_SliceParsed=true;
+    #endif //MEDIAINFO_IBI
 
     //Default stream values
     Streams.resize(0x100);
@@ -973,6 +973,12 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
             return false; //No complete frame
 
         bool RandomAccess=Buffer[Buffer_Offset+3]==0xB3;
+        if (!Status[IsAccepted])
+        {
+            Accept("AVC");
+            if (Config->Demux_EventWasSent)
+                return false;
+        }
         if (IFrame_IsParsed || RandomAccess)
             Demux_UnpacketizeContainer_Demux(RandomAccess);
         else
@@ -1006,6 +1012,9 @@ void File_Mpegv::Read_Buffer_Unsynched()
     PTS_LastIFrame=(int64u)-1;
     Frame_Count_NotParsedIncluded=(int64u)-1;
     IFrame_IsParsed=false;
+    #if MEDIAINFO_IBI
+        Ibi_SliceParsed=false;
+    #endif //MEDIAINFO_IBI
 
     temporal_reference_Old=(int16u)-1;
     for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
@@ -1536,6 +1545,10 @@ void File_Mpegv::slice_start()
                 Element_Offset=Demux_TotalBytes-(Buffer_TotalBytes+Buffer_Offset);
             }
         #endif //MEDIAINFO_DEMUX
+
+        #if MEDIAINFO_IBI
+            Ibi_SliceParsed=true;
+        #endif MEDIAINFO_IBI
     FILLING_END();
 }
 

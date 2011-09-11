@@ -39,6 +39,9 @@
 #include "ZenLib/FileName.h"
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#if MEDIAINFO_IBI
+    #include "MediaInfo/Multiple/File_Ibi.h"
+#endif //MEDIAINFO_IBI
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -54,6 +57,36 @@ void File__Analyze::Streams_Finish_Global()
 {
     if (IsSub)
         return;
+
+    //Video Frame count
+    if (Count_Get(Stream_Video) && Count_Get(Stream_Audio)==0)
+    {
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
+            Fill(Stream_Video, 0, Video_FrameCount, Frame_Count_NotParsedIncluded);
+        #if MEDIAINFO_IBI
+        else
+        {
+            //External IBI
+            std::string IbiFile=Config->Ibi_Get();
+            if (!IbiFile.empty())
+            {
+                if (IbiStream)
+                    IbiStream->Infos.clear(); //TODO: support IBI data from different inputs
+                else
+                    IbiStream=new ibi::stream;
+
+                File_Ibi MI;
+                Open_Buffer_Init(&MI, IbiFile.size());
+                MI.Ibi=new ibi;
+                MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
+                (*IbiStream)=(*MI.Ibi->Streams.begin()->second);
+            }
+
+            if (IbiStream && !IbiStream->Infos.empty() && IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
+                Fill(Stream_Video, 0, Video_FrameCount, IbiStream->Infos[IbiStream->Infos.size()-1].FrameNumber);
+        }
+        #endif //MEDIAINFO_IBI
+    }
 
     //Image as video
     if (Config->File_Names.size()==1 && Count_Get(Stream_Image) && !File_Name.empty() && !Config->File_IsReferenced_Get())

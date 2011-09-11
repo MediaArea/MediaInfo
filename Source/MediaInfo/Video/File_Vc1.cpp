@@ -46,6 +46,7 @@
     {
 #include <cmath>
 #if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
 using namespace std;
@@ -250,6 +251,8 @@ File_Vc1::File_Vc1()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
+    Frame_Count_NotParsedIncluded=0;
 
     //In
     Frame_Count_Valid=30;
@@ -356,9 +359,24 @@ void File_Vc1::Streams_Finish()
     if (PTS_End>PTS_Begin)
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
 
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
+    #if MEDIAINFO_IBI
+        int64u Numerator=0, Denominator=0;
+        if (framerate_present)
+        {
+            if (framerate_form)
+            {
+                Numerator=32;
+                Denominator=framerateexp+1;
+            }
+            else if (Vc1_FrameRate_dr(frameratecode_dr))
+            {
+                Numerator=(int64u)Vc1_FrameRate_dr(frameratecode_dr);
+                Denominator=(int64u)Vc1_FrameRate_enr(frameratecode_enr);
+            }
+        }
+        if (Numerator)
+            Ibi_Stream_Finish(Numerator, Denominator);
+    #endif //MEDIAINFO_IBI
 }
 
 //***************************************************************************
@@ -401,7 +419,13 @@ bool File_Vc1::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
 
-    //We continue
+    #if MEDIAINFO_IBI
+        bool RandomAccess=Buffer[Buffer_Offset+3]==0x0F; //SequenceHeader
+        if (RandomAccess)
+            Ibi_Add();
+    #endif MEDIAINFO_IBI
+
+        //We continue
     return true;
 }
 
@@ -440,10 +464,13 @@ void File_Vc1::Synched_Init()
     pulldown=false;
     panscan_flag=false;
     #if MEDIAINFO_DEMUX
-        Demux_picture_start_Found=true;
+        Demux_IntermediateItemFound=true;
     #endif //MEDIAINFO_DEMUX
 
     TemporalReference_Offset=0;
+
+    if (!IsSub)
+        FrameInfo.DTS=0;
 
     //Default stream values
     Streams.resize(0x100);
@@ -458,12 +485,12 @@ void File_Vc1::Synched_Init()
 #if MEDIAINFO_DEMUX
 bool File_Vc1::Demux_UnpacketizeContainer_Test()
 {
-    if ((Demux_picture_start_Found && Buffer[Buffer_Offset+3]==0x0D) || Buffer[Buffer_Offset+3]==0x0F)
+    if ((Demux_IntermediateItemFound && Buffer[Buffer_Offset+3]==0x0D) || Buffer[Buffer_Offset+3]==0x0F)
     {
         if (Demux_Offset==0)
         {
             Demux_Offset=Buffer_Offset;
-            Demux_picture_start_Found=false;
+            Demux_IntermediateItemFound=false;
         }
         while (Demux_Offset+4<=Buffer_Size)
         {
@@ -481,7 +508,7 @@ bool File_Vc1::Demux_UnpacketizeContainer_Test()
 
             if (Demux_Offset+4<=Buffer_Size)
             {
-                if (Demux_picture_start_Found)
+                if (Demux_IntermediateItemFound)
                 {
                     bool MustBreak;
                     switch (Buffer[Demux_Offset+3])
@@ -497,7 +524,7 @@ bool File_Vc1::Demux_UnpacketizeContainer_Test()
                 else
                 {
                     if (Buffer[Demux_Offset+3]==0x0D)
-                        Demux_picture_start_Found=true;
+                        Demux_IntermediateItemFound=true;
                 }
             }
             Demux_Offset++;
@@ -506,6 +533,12 @@ bool File_Vc1::Demux_UnpacketizeContainer_Test()
         if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
             return false; //No complete frame
 
+        if (!Status[IsAccepted])
+        {
+            Accept("VC-1");
+            if (Config->Demux_EventWasSent)
+                return false;
+        }
         Demux_UnpacketizeContainer_Demux(Buffer[Buffer_Offset+3]==0x0F);
     }
 
@@ -522,7 +555,7 @@ void File_Vc1::Read_Buffer_Unsynched()
 {
     RefFramesCount=0;
     #if MEDIAINFO_DEMUX
-        Demux_picture_start_Found=true;
+        Demux_IntermediateItemFound=true;
     #endif //MEDIAINFO_DEMUX
 }
 
@@ -683,7 +716,7 @@ void File_Vc1::FrameHeader()
         if (FrameInfo.PTS!=(int64u)-1)
             Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
         if (FrameInfo.DTS!=(int64u)-1)
-            Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+            Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
     }
 
     //Counting
@@ -738,6 +771,11 @@ void File_Vc1::FrameHeader()
         }
         if (RefFramesCount<2 && (ptype==0 || ptype==1))
             RefFramesCount++;
+        if (FrameInfo.DTS!=(int64u)-1)
+        {
+            if (framerate_present)
+                FrameInfo.DTS+=float64_int64s(((float64)1000000000)/FrameRate);
+        }
         if (FrameInfo.PTS!=(int64u)-1)
         {
             if (PTS_Begin==(int64u)-1 && ptype==0) //IFrame

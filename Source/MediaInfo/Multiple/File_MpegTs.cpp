@@ -2186,12 +2186,12 @@ void File_MpegTs::PES()
             //Filling
             Streams[pid]->Parser=new File_Unknown();
         #endif
-        Open_Buffer_Init(Complete_Stream->Streams[pid]->Parser);
         #if MEDIAINFO_IBI
             if (Ibi.Streams[pid]==NULL)
                 Ibi.Streams[pid]=new ibi::stream;
             Complete_Stream->Streams[pid]->Parser->IbiStream=Ibi.Streams[pid];
-        #endif MEDIAINFO_IBI
+        #endif //MEDIAINFO_IBI
+        Open_Buffer_Init(Complete_Stream->Streams[pid]->Parser);
     }
 
     //If unsynched, waiting for first payload_unit_start_indicator

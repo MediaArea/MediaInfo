@@ -169,7 +169,7 @@ protected :
     virtual void Read_Buffer_Continue ()      {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_AfterParsing ()  {}; //Temp, should be in File__Base caller
     #if MEDIAINFO_SEEK
-    virtual size_t Read_Buffer_Seek (size_t, int64u, int64u) {return (size_t)-1;}; //Temp, should be in File__Base caller
+    virtual size_t Read_Buffer_Seek (size_t, int64u, int64u); //Temp, should be in File__Base caller
     #endif //MEDIAINFO_SEEK
     virtual void Read_Buffer_Unsynched ()     {}; //Temp, should be in File__Base caller
     virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
@@ -1136,12 +1136,23 @@ public :
     bool    PES_FirstByte_Value;
 
     int64u  Unsynch_Frame_Count;
+
+    #if MEDIAINFO_SEEK
+    private:
+        bool Seek_Duration_Detected;
+    #endif //MEDIAINFO_SEEK
+
     #if MEDIAINFO_IBI
     public:
         bool    Config_Ibi_Create;
         int64u  Ibi_SynchronizationOffset_Current;
         int64u  Ibi_SynchronizationOffset_BeginOfFrame;
         ibi::stream* IbiStream;
+        size_t  Ibi_Read_Buffer_Seek        (size_t Method, int64u Value, int64u ID);
+        void    Ibi_Read_Buffer_Unsynched   ();
+        void    Ibi_Stream_Finish           ();
+        void    Ibi_Stream_Finish           (int64u Numerator, int64u Denominator); //Partial
+        void    Ibi_Add                     ();
     #endif //MEDIAINFO_IBI
 };
 

@@ -33,6 +33,12 @@
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include "MediaInfo/MediaInfo_Config.h"
+#if MEDIAINFO_IBI
+    #if MEDIAINFO_SEEK
+        #include "MediaInfo/Multiple/File_Ibi.h"
+    #endif //MEDIAINFO_SEEK
+    #include "MediaInfo/Multiple/File_Ibi_Creation.h"
+#endif //MEDIAINFO_IBI
 #include <cstring>
 //---------------------------------------------------------------------------
 
@@ -103,6 +109,9 @@ File__Analyze::File__Analyze ()
     MustSynchronize=false;
 
     //Buffer
+    #if MEDIAINFO_SEEK
+        Seek_Duration_Detected=false;
+    #endif //MEDIAINFO_SEEK
     Buffer=NULL;
     Buffer_Temp=NULL;
     Buffer_Size=0;
@@ -190,6 +199,11 @@ File__Analyze::~File__Analyze ()
 
     //BitStream
     delete BS; //BS=NULL;
+
+    #if MEDIAINFO_IBI
+        if (!IsSub)
+            delete IbiStream; //IbiStream=NULL;
+    #endif //MEDIAINFO_IBI
 }
 
 //***************************************************************************
@@ -249,6 +263,8 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
         }
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_IBI
+        if (!IsSub)
+            IbiStream=new ibi::stream;
         Config_Ibi_Create=Config->Ibi_Create_Get() && Config_ParseSpeed==1.0;
     #endif //MEDIAINFO_IBI
 }
@@ -691,12 +707,7 @@ void File__Analyze::Open_Buffer_Unsynch ()
     {
         Synched=false;
         Read_Buffer_Unsynched();
-
-        #if MEDIAINFO_IBI
-            Ibi_SynchronizationOffset_Current=(int64u)-1;
-            if (IbiStream)
-                IbiStream->Unsynch();
-        #endif //MEDIAINFO_IBI
+        Ibi_Read_Buffer_Unsynched();
     }
     Buffer_Clear();
 }
@@ -766,6 +777,19 @@ void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
 //***************************************************************************
 // Buffer
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File__Analyze::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    #if MEDIAINFO_IBI
+        if (!IsSub)
+            return Ibi_Read_Buffer_Seek(Method, Value, ID);
+    #endif //MEDIAINFO_IBI
+
+    return (size_t)-1; //Not supported
+}
+#endif //MEDIAINFO_SEEK
 
 //---------------------------------------------------------------------------
 bool File__Analyze::Buffer_Parse()
@@ -2226,6 +2250,7 @@ void File__Analyze::ForceFinish ()
                 return;
         #endif //MEDIAINFO_DEMUX
         Streams_Finish();
+        Ibi_Stream_Finish();
         #if MEDIAINFO_DEMUX
             if (Config->Demux_EventWasSent)
                 return;
@@ -2701,6 +2726,205 @@ void File__Analyze::Demux_UnpacketizeContainer_Demux_Clear ()
     //Element_Begin("Frame or Field");
 }
 #endif //MEDIAINFO_DEMUX
+
+//***************************************************************************
+// IBI
+//***************************************************************************
+#if MEDIAINFO_IBI
+void File__Analyze::Ibi_Read_Buffer_Unsynched ()
+{
+    Ibi_SynchronizationOffset_Current=(int64u)-1;
+
+    if (IsSub || IbiStream==NULL)
+        return;
+
+    IbiStream->Unsynch();
+    for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
+    {
+        if (File_GoTo==IbiStream->Infos[Pos].StreamOffset)
+        {
+            FrameInfo.DTS=(IbiStream->Infos[Pos].Dts!=(int64u)-1)?(IbiStream->Infos[Pos].Dts*1000000000*IbiStream->DtsFrequencyNumerator/IbiStream->DtsFrequencyDenominator):(int64u)-1;
+            Frame_Count_NotParsedIncluded=IbiStream->Infos[Pos].FrameNumber;
+            break;
+        }
+    }
+}
+
+size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Init
+    if (!Seek_Duration_Detected)
+    {
+        if (!IsSub)
+        {
+            //External IBI
+            std::string IbiFile=Config->Ibi_Get();
+            if (!IbiFile.empty())
+            {
+                IbiStream->Infos.clear(); //TODO: support IBI data from different inputs
+
+                File_Ibi MI;
+                Open_Buffer_Init(&MI, IbiFile.size());
+                MI.Ibi=new ibi;
+                MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
+                (*IbiStream)=(*MI.Ibi->Streams.begin()->second);
+            }
+        }
+
+        Seek_Duration_Detected=true;
+    }
+
+    //Parsing
+    switch (Method)
+    {
+        case 0  :
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :
+                    GoTo(File_Size*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 2  :   //Timestamp
+                    #if MEDIAINFO_IBI
+                    {
+                    if (!(IbiStream->DtsFrequencyNumerator==1000000000 && IbiStream->DtsFrequencyDenominator==1))
+                    {
+                        float64 ValueF=(float64)Value;
+                        ValueF/=1000000000; //Value is in ns
+                        ValueF/=IbiStream->DtsFrequencyDenominator;
+                        ValueF*=IbiStream->DtsFrequencyNumerator;
+                        Value=float64_int64s(ValueF);
+                    }
+
+                    for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
+                    {
+                        if (Value<=IbiStream->Infos[Pos].Dts)
+                        {
+                            if (Value<IbiStream->Infos[Pos].Dts && Pos)
+                                Pos--;
+
+                            //Checking continuity of Ibi
+                            if (!IbiStream->Infos[Pos].IsContinuous && Pos+1<IbiStream->Infos.size())
+                            {
+                                Config->Demux_IsSeeking=true;
+                                GoTo((IbiStream->Infos[Pos].StreamOffset+IbiStream->Infos[Pos+1].StreamOffset)/2);
+                                Open_Buffer_Unsynch();
+
+                                return 1;
+                            }
+
+                            Config->Demux_IsSeeking=false;
+                            
+                            GoTo(IbiStream->Infos[Pos].StreamOffset);
+                            Open_Buffer_Unsynch();
+
+                            return 1;
+                        }
+                    }
+
+                    return 2; //Invalid value
+                    }
+                    #else //MEDIAINFO_IBI
+                    return (size_t)-2; //Not supported / IBI disabled
+                    #endif //MEDIAINFO_IBI
+        case 3  :   //FrameNumber
+                    #if MEDIAINFO_IBI
+                    {
+                    for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
+                    {
+                        if (Value<=IbiStream->Infos[Pos].FrameNumber)
+                        {
+                            if (Value<IbiStream->Infos[Pos].FrameNumber && Pos)
+                                Pos--;
+
+                            //Checking continuity of Ibi
+                            if (!IbiStream->Infos[Pos].IsContinuous && Pos+1<IbiStream->Infos.size())
+                            {
+                                Config->Demux_IsSeeking=true;
+                                GoTo((IbiStream->Infos[Pos].StreamOffset+IbiStream->Infos[Pos+1].StreamOffset)/2);
+                                Open_Buffer_Unsynch();
+
+                                return 1;
+                            }
+
+                            Config->Demux_IsSeeking=false;
+
+                            GoTo(IbiStream->Infos[Pos].StreamOffset);
+                            Open_Buffer_Unsynch();
+
+                            return 1;
+                        }
+                    }
+
+                    return 2; //Invalid value
+                    }
+                    #else //MEDIAINFO_IBI
+                    return (size_t)-2; //Not supported / IBI disabled
+                    #endif //MEDIAINFO_IBI
+        default :   return (size_t)-1; //Not supported
+    }
+}
+
+void File__Analyze::Ibi_Stream_Finish ()
+{
+    if (IsSub || IbiStream==NULL || IbiStream->Infos.empty())
+        return;
+
+    if (File_Offset+Buffer_Size==File_Size)
+    {
+        ibi::stream::info IbiInfo;
+        IbiInfo.StreamOffset=File_Offset+Buffer_Size;
+        IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
+        IbiInfo.Dts=(FrameInfo.DTS!=(int64u)-1)?float64_int64s(((float64)FrameInfo.DTS)/1000000000*IbiStream->DtsFrequencyDenominator/IbiStream->DtsFrequencyNumerator):(int64u)-1;
+        IbiInfo.IsContinuous=true;
+        IbiStream->Add(IbiInfo);
+    }
+
+    if (Config_Ibi_Create)
+    {
+        ibi Ibi;
+        Ibi.Streams[(int64u)-1]=new ibi::stream(*IbiStream);
+
+        //IBI Creation
+        File_Ibi_Creation IbiCreation(Ibi);
+        Ztring IbiText=IbiCreation.Finish();
+        if (!IbiText.empty())
+            Fill(Stream_General, 0, "IBI", IbiText);
+    }
+}
+
+void File__Analyze::Ibi_Stream_Finish (int64u Numerator, int64u Denominator)
+{
+    if (IsSub || IbiStream==NULL)
+        return;
+
+    if (IbiStream->DtsFrequencyNumerator==1000000000 && IbiStream->DtsFrequencyDenominator==1 && !IbiStream->Infos.empty())
+    {
+        IbiStream->DtsFrequencyNumerator=Numerator;
+        IbiStream->DtsFrequencyDenominator=Denominator;
+        for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
+            if (IbiStream->Infos[Pos].Dts!=(int64u)-1)
+                IbiStream->Infos[Pos].Dts=float64_int64s(((float64)IbiStream->Infos[Pos].Dts)/1000000000*Denominator/Numerator);;
+    }
+}
+
+void File__Analyze::Ibi_Add ()
+{
+    if (IbiStream==NULL)
+        return;
+
+    ibi::stream::info IbiInfo;
+    IbiInfo.StreamOffset=IsSub?Ibi_SynchronizationOffset_Current:(File_Offset+Buffer_Offset);
+    IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
+    IbiInfo.Dts=FrameInfo.DTS;
+    IbiStream->Add(IbiInfo);
+
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=IbiStream->Infos[IbiStream->Infos_Pos-1].FrameNumber;
+}
+
+#endif //MEDIAINFO_IBI
 
 } //NameSpace
 

@@ -62,10 +62,6 @@ ibi::~ibi()
 //---------------------------------------------------------------------------
 void ibi::stream::Add (const info &Info)
 {
-    //ToDo: support different frequencies 
-    if (DtsFrequencyNumerator!=1000000000)
-        return;
-    
     if (!IsSynchronized)
     {
         //Searching the right insertion point
@@ -272,6 +268,9 @@ size_t int64u2Ebml(int8u* List, int64u Value)
 
 size_t EbmlBlock(int8u* List, size_t List_MaxSize, int64u Code, int8u* Content, size_t Content_Size)
 {
+    if (Content_Size==0)
+        return 0;    
+        
     size_t Code_EbmlSize=int64u2Ebml(NULL, Code);
     size_t Content_EbmlSize=int64u2Ebml(NULL, Content_Size);
 
@@ -324,9 +323,15 @@ void File_Ibi_Creation::Add(const ibi::stream &Stream)
         return;
 
     //Header
-    int8u* IbiHeader=new int8u[int64u2Ebml(NULL, Stream.ID)];
+    int8u* IbiHeader;
     size_t IbiHeader_Offset=0;
-    IbiHeader_Offset+=int64u2Ebml(IbiHeader, Stream.ID);
+    if (Stream.ID!=(int64u)-1)
+    {
+        IbiHeader=new int8u[int64u2Ebml(NULL, Stream.ID)];
+        IbiHeader_Offset+=int64u2Ebml(IbiHeader, Stream.ID);
+    }
+    else
+        IbiHeader=NULL;
 
     //Init - Byte Offset
     int8u* IbiByteOffset=new int8u[8*Stream.Infos.size()];

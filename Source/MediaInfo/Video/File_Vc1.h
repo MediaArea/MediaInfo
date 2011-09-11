@@ -158,13 +158,6 @@ private :
 
     //Error controls
     std::vector<int8u> Frame_ShouldBe;
-
-    #if MEDIAINFO_DEMUX
-        size_t Demux_Offset;
-        int64u Demux_Frame_Count;
-        int64u Demux_Field_Count;
-        bool   Demux_picture_start_Found;
-    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

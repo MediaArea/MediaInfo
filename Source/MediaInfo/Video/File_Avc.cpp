@@ -634,20 +634,9 @@ void File_Avc::Streams_Finish()
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 
     #if MEDIAINFO_IBI
-        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
-        {
-            ibi::stream::info IbiInfo;
-            IbiInfo.StreamOffset=File_Offset+Buffer_Size;
-            IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
-            IbiInfo.Dts=FrameInfo.DTS;
-            IbiInfo.IsContinuous=true;
-            IbiStream->Add(IbiInfo);
-        }
-    #endif MEDIAINFO_IBI
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
+        if (seq_parameter_sets.size()==1 && (*seq_parameter_sets.begin())->vui_parameters && (*seq_parameter_sets.begin())->vui_parameters->timing_info_present_flag && (*seq_parameter_sets.begin())->vui_parameters->fixed_frame_rate_flag)
+            Ibi_Stream_Finish((*seq_parameter_sets.begin())->vui_parameters->num_units_in_tick, (*seq_parameter_sets.begin())->vui_parameters->time_scale);
+    #endif //MEDIAINFO_IBI
 }
 
 //***************************************************************************
@@ -735,22 +724,10 @@ bool File_Avc::Synched_Test()
         return false;
 
     #if MEDIAINFO_IBI
-        if (IbiStream && Ibi_SynchronizationOffset_Current!=(int64u)-1)
-        {
-            bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
-            bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
-            if (RandomAccess)
-            {
-                ibi::stream::info IbiInfo;
-                IbiInfo.StreamOffset=Ibi_SynchronizationOffset_Current;
-                IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
-                IbiInfo.Dts=FrameInfo.DTS;
-                IbiStream->Add(IbiInfo);
-
-                if (Frame_Count_NotParsedIncluded==(int64u)-1)
-                    Frame_Count_NotParsedIncluded=IbiStream->Infos[IbiStream->Infos_Pos-1].FrameNumber;
-            }
-        }
+        bool zero_byte=Buffer[Buffer_Offset+2]==0x00;
+        bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
+        if (RandomAccess)
+            Ibi_Add();
     #endif MEDIAINFO_IBI
 
     //We continue
@@ -821,7 +798,22 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
                 return false;
         }
         if (IFrame_Count || RandomAccess)
+        {
+            bool Frame_Count_NotParsedIncluded_PlusOne=false;
+            int64u PTS_Temp=FrameInfo.PTS;
+            if (!IsSub)
+                FrameInfo.PTS=(int64u)-1;
+            if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Interlaced_Top!=Interlaced_Bottom)
+            {
+                Frame_Count_NotParsedIncluded--;
+                Frame_Count_NotParsedIncluded_PlusOne=true;
+            }
             Demux_UnpacketizeContainer_Demux(RandomAccess);
+            if (!IsSub)
+                FrameInfo.PTS=PTS_Temp;
+            if (Frame_Count_NotParsedIncluded_PlusOne)
+                Frame_Count_NotParsedIncluded++;
+        }
         else
             Demux_UnpacketizeContainer_Demux_Clear();
     }
@@ -925,6 +917,8 @@ void File_Avc::Read_Buffer_Unsynched()
 
     //Status
     IFrame_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
     prevPicOrderCntMsb=0;
     prevPicOrderCntLsb=(int32u)-1; 
     prevTopFieldOrderCnt=(int32u)-1;

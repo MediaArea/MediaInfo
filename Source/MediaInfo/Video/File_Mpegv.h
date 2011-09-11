@@ -290,6 +290,10 @@ private :
     int64u PTS_LastIFrame;
     int64u tc;
     bool    IFrame_IsParsed;
+
+    #if MEDIAINFO_IBI
+        bool    Ibi_SliceParsed;
+    #endif //MEDIAINFO_IBI
 };
 
 } //NameSpace

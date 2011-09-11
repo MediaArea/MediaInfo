@@ -3302,7 +3302,7 @@ void File_MpegPs::extension_stream()
                 if (Config->Demux_EventWasSent)
                 {
                     Demux_StreamIsBeingParsed_type=2;
-                    Demux_StreamIsBeingParsed_stream_id=stream_id;
+                    Demux_StreamIsBeingParsed_stream_id=stream_id_extension;
                 }
             #endif //MEDIAINFO_DEMUX
         }
@@ -3313,7 +3313,7 @@ void File_MpegPs::extension_stream()
                 if (Config->Demux_EventWasSent)
                 {
                     Demux_StreamIsBeingParsed_type=2;
-                    Demux_StreamIsBeingParsed_stream_id=stream_id;
+                    Demux_StreamIsBeingParsed_stream_id=stream_id_extension;
                 }
             #endif //MEDIAINFO_DEMUX
         }
@@ -3325,7 +3325,7 @@ void File_MpegPs::extension_stream()
             if (Config->Demux_EventWasSent)
             {
                 Demux_StreamIsBeingParsed_type=2;
-                Demux_StreamIsBeingParsed_stream_id=stream_id;
+                Demux_StreamIsBeingParsed_stream_id=stream_id_extension;
             }
         #endif //MEDIAINFO_DEMUX
     }
