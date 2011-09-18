@@ -3037,7 +3037,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
         //Faster
         if (Element_Offset+4>Element_Size)
             break; //Problem
-        sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
+        sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
 
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
@@ -4392,7 +4392,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
         //Faster
         if (Element_Offset+4>Element_Size)
             break; //Problem
-        sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
+        sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
 
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
