@@ -293,7 +293,7 @@ void File__ReferenceFilesHelper::ParseReference()
 
     if (Reference->MI)
     {
-        #if MEDIAINFO_NEXTPACKET
+        #if MEDIAINFO_EVENTS && MEDIAINFO_NEXTPACKET
             if (Config->Event_CallBackFunction_IsSet() && !Reference->Status[File__Analyze::IsFinished])
             {
                 #if MEDIAINFO_DEMUX
@@ -309,7 +309,7 @@ void File__ReferenceFilesHelper::ParseReference()
                     CountOfReferencesToParse--;
                 #endif //MEDIAINFO_DEMUX
             }
-        #endif //MEDIAINFO_NEXTPACKET
+        #endif //MEDIAINFO_EVENTS && MEDIAINFO_NEXTPACKET
         ParseReference_Finalize();
         if (!Config->File_KeepInfo_Get())
         {
