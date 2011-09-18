@@ -387,6 +387,15 @@ File_Avc::~File_Avc()
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         delete GA94_03_Parser; //GA94_03_Parser=NULL;
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+
+    for (size_t Pos=0; Pos<seq_parameter_sets.size(); Pos++)
+        delete seq_parameter_sets[Pos]; //TemporalReferences[Pos]=NULL;
+
+    for (size_t Pos=0; Pos<subset_seq_parameter_sets.size(); Pos++)
+        delete subset_seq_parameter_sets[Pos]; //TemporalReferences[Pos]=NULL;
+
+    for (size_t Pos=0; Pos<pic_parameter_sets.size(); Pos++)
+        delete pic_parameter_sets[Pos]; //TemporalReferences[Pos]=NULL;
 }
 
 //***************************************************************************
