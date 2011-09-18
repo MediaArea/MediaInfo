@@ -59,7 +59,7 @@ void File__Analyze::Streams_Finish_Global()
         return;
 
     //Video Frame count
-    if (Count_Get(Stream_Video) && Count_Get(Stream_Audio)==0)
+    if (Count_Get(Stream_Video)==1 && Count_Get(Stream_Audio)==0 && Retrieve(Stream_Video, 0, Video_FrameCount).empty())
     {
         if (Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
             Fill(Stream_Video, 0, Video_FrameCount, Frame_Count_NotParsedIncluded);
