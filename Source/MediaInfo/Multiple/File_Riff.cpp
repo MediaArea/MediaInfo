@@ -258,7 +258,8 @@ void File_Riff::Streams_Finish ()
                     Delay+=((float)Temp->second.Start)*1000/Temp->second.Rate;
                     Fill(Stream_Audio, StreamPos_Last, Audio_Delay, Delay, 0, true);
                     Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Video); StreamPos++)
+                        Fill(Stream_Video, StreamPos, Video_Delay, 0, 10, true);
                 }
             }
 
@@ -409,7 +410,8 @@ void File_Riff::Streams_Finish ()
     {
         //ODML
         if (dmlh_TotalFrame!=0 && Retrieve(Stream_Video, 0, Video_Duration).empty())
-            Fill(Stream_Video, 0, Video_FrameCount, dmlh_TotalFrame, 10, true);
+            for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Video); StreamPos++)
+                Fill(Stream_Video, StreamPos, Video_FrameCount, dmlh_TotalFrame, 10, true);
     }
 
     //Rec

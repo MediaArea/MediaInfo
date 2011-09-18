@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.50
+--------------
+x AVI: Better support of 2 video streams (e.g. "3D AVI") in a file
+
 Version 0.7.49, 2011-09-09
 --------------
 + AES3: analyzing AAC, AC-3, MPEG Audio embedded in AES3 stream

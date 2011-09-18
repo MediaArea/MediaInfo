@@ -956,6 +956,7 @@ void File_Riff::AVI__hdlr_strl()
 
     //Clean up
     StreamKind_Last=Stream_Max;
+    StreamPos_Last=(size_t)-1;
 
     //Compute the current codec ID
     Stream_ID=(('0'+stream_Count/10)*0x01000000
@@ -2643,8 +2644,8 @@ void File_Riff::CMJP()
 
         FILLING_BEGIN();
             Stream_Prepare(Stream_Video);
-            Fill(Stream_Video, StreamKind_Last, Video_Format, "JPEG");
-            Fill(Stream_Video, StreamKind_Last, Video_StreamSize, Element_TotalSize_Get());
+            Fill(Stream_Video, StreamPos_Last, Video_Format, "JPEG");
+            Fill(Stream_Video, StreamPos_Last, Video_StreamSize, Element_TotalSize_Get());
         FILLING_END();
     #endif
 }
