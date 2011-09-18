@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.50, 
+--------------
++ Ukrainian translation updated
+
 Version 0.7.49, 2011-09-09
 --------------
 + AES3: analyzing AAC, AC-3, MPEG Audio embedded in AES3 stream
