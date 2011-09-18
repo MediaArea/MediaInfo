@@ -42,6 +42,22 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Info
+//***************************************************************************
+
+const int8u DvbSubtitle_region_depth[8]=
+{
+    0,
+    2,
+    4,
+    8,
+    0,
+    0,
+    0,
+    0,
+};
+
+//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
@@ -97,6 +113,12 @@ void File_DvbSubtitle::Streams_Fill()
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_horizontal_address"), Info_Options)=_T("N NI");
                 Fill(Stream_Text, 0, "region_vertical_address", region->second.region_vertical_address);
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_vertical_address"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "region_width", region->second.region_width);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_width"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "region_height", region->second.region_height);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_height"), Info_Options)=_T("N NI");
+                Fill(Stream_Text, 0, "region_depth", DvbSubtitle_region_depth[region->second.region_depth]);
+                (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_depth"), Info_Options)=_T("N NI");
             }
 }
 
@@ -279,6 +301,7 @@ void File_DvbSubtitle::Data_Parse()
     switch (Element_Code)
     {
         case 0x10 : page_composition_segment(); break;
+        case 0x11 : region_composition_segment(); break;
         case 0xFF : //end_of_PES_data_field_marker
                     Frame_Count++;
                     if (!Status[IsFilled] && Frame_Count>Frame_Count_Valid)
@@ -294,7 +317,7 @@ void File_DvbSubtitle::Data_Parse()
 }
 
 //***************************************************************************
-// C++
+// Elements
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -311,18 +334,79 @@ void File_DvbSubtitle::page_composition_segment()
     BS_End();
     while(Element_Offset<Element_Size)
     {
+        Element_Begin("Region");
         int16u region_horizontal_address, region_vertical_address;
         int8u region_id;
         Get_B1 (region_id,                                      "region_id");
         Skip_B1(                                                "reserved");
         Get_B2 (region_horizontal_address,                      "region_horizontal_address");
         Get_B2 (region_vertical_address,                        "region_vertical_address");
+        Element_End();
 
         FILLING_BEGIN();
             subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_horizontal_address=region_horizontal_address;
             subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_vertical_address=region_vertical_address;
         FILLING_END();
     }
+}
+
+//---------------------------------------------------------------------------
+void File_DvbSubtitle::region_composition_segment()
+{
+    Element_Name("region_composition_segment");
+
+    //Parsing
+    int16u region_width, region_height;
+    int8u  region_id, region_depth;
+    Get_B1 (   region_id,                                       "region_id");
+    BS_Begin();
+    Skip_S1(4,                                                  "region_version_number");
+    Skip_S1(1,                                                  "region_fill_flag");
+    Skip_S1(3,                                                  "reserved");
+    BS_End();
+    Get_B2 (   region_width,                                    "region_width");
+    Get_B2 (   region_height,                                   "region_height");
+    BS_Begin();
+    Skip_S1(3,                                                  "region_level_of_compatibility");
+    Get_S1 (3, region_depth,                                    "region_depth"); Param_Info(DvbSubtitle_region_depth[region_depth], " bits");
+    Skip_S1(2,                                                  "reserved");
+    BS_End();
+    Skip_B1(                                                    "CLUT_id");
+    Skip_B1(                                                    "region_8-bit_pixel_code");
+    BS_Begin();
+    Skip_S1(4,                                                  "region_4-bit_pixel-code");
+    Skip_S1(2,                                                  "region_2-bit_pixel-code");
+    Skip_S1(2,                                                  "reserved");
+    BS_End();
+    while(Element_Offset<Element_Size)
+    {
+        Element_Begin("Object");
+        int8u object_type;
+        Skip_B2(                                                "object_id");
+        BS_Begin();
+        Get_S1 ( 2, object_type,                                "object_type");
+        Skip_S1( 2,                                             "object_provider_flag");
+        Skip_S1(12,                                             "object_horizontal_position");
+        Skip_S1( 4,                                             "reserved");
+        Skip_S1(12,                                             "object_vertical_position");
+        BS_End();
+        switch (object_type)
+        {
+            case 0x01 :
+            case 0x02 :
+                        Skip_B2(                                 "foreground_pixel_code");
+                        Skip_B2(                                 "background_pixel_code");
+                        break;
+            default   : ;
+        }
+    }
+    Element_End();
+
+    FILLING_BEGIN();
+        subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_width=region_width;
+        subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_height=region_height;
+        subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_depth=region_depth;
+    FILLING_END();
 }
 
 //***************************************************************************

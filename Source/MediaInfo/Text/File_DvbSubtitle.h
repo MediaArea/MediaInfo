@@ -69,6 +69,7 @@ private :
 
     //Elements
     void page_composition_segment();
+    void region_composition_segment();
 
     //Temp
     bool    MustFindDvbHeader;
@@ -78,6 +79,16 @@ private :
     {
         int16u region_horizontal_address;
         int16u region_vertical_address;
+        int16u region_width;
+        int16u region_height;
+        int16u region_depth;
+
+        region_data()
+        {
+            region_width=0;
+            region_height=0;
+            region_depth=0;
+        }
     };
     struct page_data
     {
