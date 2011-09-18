@@ -729,8 +729,19 @@ void File_Flv::Header_Parse()
         Get_B1 (Timestamp_Extended,                             "Timestamp_Extended"); //TimeStamp = Timestamp_Extended*0x01000000+Timestamp_Base
         Skip_B3(                                                "StreamID");
 
+        // For audio, check if it's just an audio config.
+        bool Skip_Timestamps=false;
+        if (Type==0x08)
+        {
+            int16u  Format_Info;
+            Peek_B2(Format_Info);
+            int8u   Format=(Format_Info>>12)&0x0F;
+            if (Format==10 && (Format_Info&0xFF)==0) // AAC sequence header
+                Skip_Timestamps=true;
+        }
+
         //Filling
-        if (Type==0x08 || Type==0x09)
+        if ((Type==0x08 && !Skip_Timestamps) || Type==0x09)
         {
             Time=(((int32u)Timestamp_Extended)<<24)|Timestamp_Base;
             stream_t StreamKind=(Type==0x08)?Stream_Audio:Stream_Video;

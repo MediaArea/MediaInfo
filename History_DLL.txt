@@ -12,6 +12,7 @@ Version 0.7.50
 + DVB Subtitle: region_width / region_height / region_depth  (hidden by default)
 x AVI: Better support of 2 video streams (e.g. "3D AVI") in a file
 x MPEG-TS: Duration was not provided in some cases
+x FLV: Delay and duration for AAC was wrong if delay was not 0, thanks to Justin
 
 Version 0.7.49, 2011-09-09
 --------------
