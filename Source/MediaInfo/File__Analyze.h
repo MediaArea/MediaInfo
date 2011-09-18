@@ -1153,6 +1153,12 @@ public :
         void    Ibi_Stream_Finish           ();
         void    Ibi_Stream_Finish           (int64u Numerator, int64u Denominator); //Partial
         void    Ibi_Add                     ();
+    #else //MEDIAINFO_IBI
+        size_t  Ibi_Read_Buffer_Seek        (size_t, int64u, int64u)            {return (size_t)-1;}
+        void    Ibi_Read_Buffer_Unsynched   ()                                  {}
+        void    Ibi_Stream_Finish           ()                                  {}
+        void    Ibi_Stream_Finish           (int64u, int64u)                    {}
+        void    Ibi_Add                     ()                                  {}
     #endif //MEDIAINFO_IBI
 };
 
