@@ -109,7 +109,7 @@ void MediaInfo_Config::Init()
 
     //Filling
     FormatDetection_MaximumOffset=0;
-    MpegTs_MaximumOffset=16*1024*1024;
+    MpegTs_MaximumOffset=32*1024*1024;
     MpegTs_MaximumScanDuration=16000000000LL;
     MpegTs_ForceStreamDisplay=false;
     Complete=0;

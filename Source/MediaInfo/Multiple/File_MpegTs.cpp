@@ -149,7 +149,7 @@ File_MpegTs::File_MpegTs()
 
     //Data
     MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-    MpegTs_JumpTo_End=16*1024*1024;
+    MpegTs_JumpTo_End=32*1024*1024;
     Searching_TimeStamp_Start=true;
     Complete_Stream=NULL;
     Begin_MaxDuration=Config_ParseSpeed>=0.8?(int64u)-1:MediaInfoLib::Config.MpegTs_MaximumScanDuration_Get()*27/1000;
@@ -1181,7 +1181,8 @@ bool File_MpegTs::Synched_Test()
                                 }
 
                                 //Test if we can find the TS bitrate
-                                if (!Complete_Stream->Streams[pid]->EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid]->TimeStamp_Start!=(int64u)-1)
+                                if (!Complete_Stream->Streams[pid]->EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid]->TimeStamp_Start!=(int64u)-1
+                                && (File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched)*2<File_Size)
                                 {
                                     if (program_clock_reference<Complete_Stream->Streams[pid]->TimeStamp_Start)
                                         program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
@@ -1194,7 +1195,7 @@ bool File_MpegTs::Synched_Test()
                                          && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
                                         {
                                             //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_LastSynched;
+                                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched;
                                             MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                                         }
                                     }
@@ -1242,7 +1243,7 @@ void File_MpegTs::Synched_Init()
 
     //Temp
     MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:Buffer_TotalBytes_LastSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-    MpegTs_JumpTo_End=16*1024*1024;
+    MpegTs_JumpTo_End=32*1024*1024;
     Buffer_TotalBytes_LastSynched=Buffer_TotalBytes_FirstSynched;
     if (MpegTs_JumpTo_Begin==(int64u)-1 || MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
     {
@@ -1279,6 +1280,7 @@ void File_MpegTs::Read_Buffer_Unsynched()
         #if defined(MEDIAINFO_MPEGTS_PCR_YES) || defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
         Complete_Stream->Streams[StreamID]->Searching_TimeStamp_Start_Set(false); //No more searching start
         Complete_Stream->Streams[StreamID]->TimeStamp_End=(int64u)-1;
+        Complete_Stream->Streams[StreamID]->TimeStamp_End_IsUpdated=false;
         Complete_Stream->Streams[StreamID]->TimeStamp_End_Offset=(int64u)-1;
         if (Complete_Stream->Streams[StreamID]->TimeStamp_Start!=(int64u)-1)
             Complete_Stream->Streams[StreamID]->Searching_TimeStamp_End_Set(true); //Searching only for a start found
@@ -1333,7 +1335,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
     {
         //Test if parsing of headers is OK
         if ((Complete_Stream->Streams_NotParsedCount==0 && (Complete_Stream->NoPatPmt || (Complete_Stream->transport_stream_id_IsValid && Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs_NotParsedCount==0)))
-         || (Buffer_TotalBytes-Buffer_TotalBytes_LastSynched>=MpegTs_JumpTo_Begin && Config_ParseSpeed<0.8)
+         || (Buffer_TotalBytes-Buffer_TotalBytes_FirstSynched>=MpegTs_JumpTo_Begin && Config_ParseSpeed<0.8)
          || File_Offset+Buffer_Size==File_Size)
         {
             //Test if PAT/PMT are missing (ofen in .trp files)
@@ -1806,7 +1808,8 @@ void File_MpegTs::Header_Parse_AdaptationField()
                     }
 
                     //Test if we can find the TS bitrate
-                    if (!Complete_Stream->Streams[pid]->EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid]->TimeStamp_Start!=(int64u)-1)
+                    if (!Complete_Stream->Streams[pid]->EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid]->TimeStamp_Start!=(int64u)-1
+                    && (File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched)*2<File_Size)
                     {
                         if (program_clock_reference<Complete_Stream->Streams[pid]->TimeStamp_Start)
                             program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
@@ -1819,7 +1822,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                              && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
                             {
                                 //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_LastSynched;
+                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched;
                                 MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                             }
                         }
@@ -1962,7 +1965,8 @@ void File_MpegTs::Header_Parse_AdaptationField()
                     }
 
                     //Test if we can find the TS bitrate
-                    if (!Complete_Stream->Streams[pid]->EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid]->TimeStamp_Start!=(int64u)-1)
+                    if (!Complete_Stream->Streams[pid]->EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid]->TimeStamp_Start!=(int64u)-1
+                    && (File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched)*2<File_Size)
                     {
                         if (program_clock_reference<Complete_Stream->Streams[pid]->TimeStamp_Start)
                             program_clock_reference+=0x200000000LL*300; //33 bits, cyclic
@@ -1975,7 +1979,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                              && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
                             {
                                 //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
-                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_LastSynched;
+                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched;
                                 MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                             }
                         }
