@@ -1307,6 +1307,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "hcpa;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;High;;YUV;4:2:2\n"
     "HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/\n"
     "hdv3;DV;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2\n"
+    "hdv6;MPEG Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
     "icod;Intermediate Codec;Apple;;http://www.apple.com/quicktime/download/standalone.html\n"
     "j420;YUV;;;;;;YUV;4:2:0\n"
     "jpeg;JPEG;;;http://www.apple.com/quicktime/download/standalone.html\n"

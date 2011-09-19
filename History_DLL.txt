@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.50
 --------------
 + DVB Subtitle: region_width / region_height / region_depth  (hidden by default)
++ MPEG-4: hdv6 CodecID support (MPEG Video)
 x AVI: Better support of 2 video streams (e.g. "3D AVI") in a file
 x MPEG-TS: Duration was not provided in some cases
 x FLV: Delay and duration for AAC was wrong if delay was not 0, thanks to Justin Greer http://zencoder.com
