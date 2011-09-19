@@ -2979,7 +2979,7 @@ void File_Mxf::Data_Parse()
                         }
                     }
                 }
-                else if (Essence->second.Frame_Count_NotParsedIncluded==0 && TimeCode_StartTimecode && Descriptors.begin()->second.SampleRate)
+                else if (Essence->second.Frame_Count_NotParsedIncluded==0 && TimeCode_StartTimecode && !Descriptors.empty() && Descriptors.begin()->second.SampleRate)
                     Essence->second.FrameInfo.DTS=float64_int64s(TimeCode_StartTimecode*1000000000/Descriptors.begin()->second.SampleRate);
 
                 //Default
