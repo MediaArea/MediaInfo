@@ -1028,6 +1028,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Blu-ray Index;;;M;Bdmv;;bdmv\n"
     "Blu-ray Movie object;;;M;Bdmv;;bdmv\n"
     "Blu-ray Playlist;;;M;Bdmv;;mpls\n"
+    "CDDA;;;M;Riff;;cda\n"
     "CDXA;;;M;Cdxa;;dat\n"
     "DV;;;M;DvdDif;;dv dif;video/DV;;Lossy\n"
     "DivX;;;M;Riff;Hack of AVI;divx;video/vnd.avi;http://www.divx.com\n"

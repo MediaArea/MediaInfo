@@ -10,7 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.50
 --------------
 + DVB Subtitle: region_width / region_height / region_depth  (hidden by default)
-+ MPEG-4: hdv6 CodecID support (MPEG Video)
++ MPEG-4: hdv6 and mx4p CodecID support (MPEG Video)
 + #3411596, CDDA support, thanks to Lionel Duchateau
 + MXF: support of AC-3
 x AVI: Better support of 2 video streams (e.g. "3D AVI") in a file
