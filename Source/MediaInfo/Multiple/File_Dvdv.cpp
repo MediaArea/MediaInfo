@@ -1472,8 +1472,10 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                         End=ProgramMap[Pos+1];
 
                     int64u ProgramDuration=0;
-                    for (int8u CellPos=ProgramMap[Pos]; CellPos<End; CellPos++)
-                        ProgramDuration+=CellDurations[CellPos-1];
+                    if (Pos<ProgramMap.size())
+                        for (int8u CellPos=ProgramMap[Pos]; CellPos<End; CellPos++)
+                            if (CellPos && CellPos<=CellDurations.size())
+                                ProgramDuration+=CellDurations[CellPos-1];
                     ProgramTotalDuration+=ProgramDuration;
                 }
                 Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
