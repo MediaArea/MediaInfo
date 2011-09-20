@@ -1,4 +1,5 @@
 // File_Riff - Info for RIFF files
+// Copyright (C) 2011-2011 Lionel Duchateau, kurtnoise@free.fr
 // Copyright (C) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -316,6 +317,8 @@ namespace Elements
     const int32u AVIX_movi=0x6D6F7669;
     const int32u AVIX_movi_rec_=0x72656320;
     const int32u CADP=0x43414450;
+    const int32u CDDA=0x43444441;
+    const int32u CDDA_fmt_=0x666D7420;
     const int32u CMJP=0x434D4A50;
     const int32u CMP4=0x434D5034;
     const int32u IDVX=0x49445658;
@@ -479,6 +482,10 @@ void File_Riff::Data_Parse()
         ATOM_END
     LIST(CADP)
         ATOM_BEGIN
+        ATOM_END
+    LIST(CDDA)
+        ATOM_BEGIN
+        ATOM(CDDA_fmt_)
         ATOM_END
     LIST(CMJP)
         ATOM_BEGIN
@@ -2613,6 +2620,75 @@ void File_Riff::CADP()
         if (Codec==0x41647063) //Adpc
             Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ADPCM");
         Fill(Stream_Audio, StreamPos_Last, Audio_StreamSize, Element_TotalSize_Get());
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::CDDA()
+{
+    Element_Name("Compact Disc for Digital Audio");
+
+    //Filling
+    Accept("CDDA");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::CDDA_fmt_()
+{
+    //Specs: http://fr.wikipedia.org/wiki/Compact_Disc_Audio_track 
+    //Specs: http://www.moon-soft.com/program/FORMAT/sound/cda.htm
+    
+    Element_Name("Stream format");
+
+    //Parsing
+    int32u id;
+    int16u Version, tracknb=1;
+    int8u TPositionF=0, TPositionS=0, TPositionM=0, TDurationF=0, TDurationS=0, TDurationM=0;
+    Get_L2 (Version,                                            "Version"); // Always 1
+    if (Version!=1)
+    {
+        //Not supported
+        Skip_XX(Element_Size-2,                                 "Data");
+        return;
+    }
+    Get_L2 (tracknb,                                            "Number"); // Start at 1
+    Get_L4 (id,                                                 "id");
+    Skip_L4(                                                    "offset"); // in frames //Priority of FSM format
+    Skip_L4(                                                    "Duration"); // in frames //Priority of FSM format
+    Get_L1 (TPositionF,                                         "Track_PositionF"); // in frames
+    Get_L1 (TPositionS,                                         "Track_PositionS"); // in seconds
+    Get_L1 (TPositionM,                                         "Track_PositionM"); // in minutes
+    Skip_L1(                                                    "empty");
+    Get_L1 (TDurationF,                                         "Track_DurationF"); // in frames
+    Get_L1 (TDurationS,                                         "Track_DurationS"); // in seconds
+    Get_L1 (TDurationM,                                         "Track_DurationM"); // in minutes
+    Skip_L1(                                                    "empty");
+
+    FILLING_BEGIN();
+        int32u TPosition=TPositionM*60*75+TPositionS*75+TPositionF;
+        int32u TDuration=TDurationM*60*75+TDurationS*75+TDurationF;
+    
+        Fill(Stream_General, 0, General_Track_Position, tracknb);
+        Fill(Stream_General, 0, General_Format, "CDDA");
+        Fill(Stream_General, 0, General_Format_Info, "Compact Disc for Digital Audio");
+        Fill(Stream_General, 0, General_UniqueID, id);
+        Fill(Stream_General, 0, General_FileSize, File_Size+TDuration*2352, 10, true);
+
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little");
+        Fill(Stream_Audio, 0, Audio_BitDepth, 16);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, 2);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, 44100);
+        Fill(Stream_Audio, 0, Audio_FrameRate, 75);
+        Fill(Stream_Audio, 0, Audio_BitRate, 1411200);
+        Fill(Stream_Audio, 0, Audio_Compression_Mode, "Lossless");
+        Fill(Stream_Audio, 0, Audio_FrameCount, TDuration);
+        Fill(Stream_Audio, 0, Audio_Duration, float32_int32s(((float32)TDuration)*1000/75));
+        Fill(Stream_Audio, 0, Audio_Delay, float32_int32s(((float32)TPosition)*1000/75));
+
+        //No more need data
+        Finish("CDDA");
     FILLING_END();
 }
 

@@ -245,6 +245,8 @@ private :
     void AVIX_movi_rec_ ();
     void AVIX_movi_rec__xxxx ();
     void CADP ();
+    void CDDA ();
+    void CDDA_fmt_ ();
     void CMJP ();
     void CMP4 ();
     void IDVX ();
