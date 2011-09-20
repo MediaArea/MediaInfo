@@ -312,11 +312,11 @@ File_Ibi_Creation::~File_Ibi_Creation()
 void File_Ibi_Creation::Set(const ibi &Ibi)
 {
     for (ibi::streams::const_iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
-        Add(*IbiStream_Temp->second);
+        Add(IbiStream_Temp->first, *IbiStream_Temp->second);
 }
 
 //---------------------------------------------------------------------------
-void File_Ibi_Creation::Add(const ibi::stream &Stream)
+void File_Ibi_Creation::Add(int64u ID, const ibi::stream &Stream)
 {
     //Useful?
     if (Stream.Infos.empty())
@@ -325,10 +325,10 @@ void File_Ibi_Creation::Add(const ibi::stream &Stream)
     //Header
     int8u* IbiHeader;
     size_t IbiHeader_Offset=0;
-    if (Stream.ID!=(int64u)-1)
+    if (ID!=(int64u)-1)
     {
-        IbiHeader=new int8u[int64u2Ebml(NULL, Stream.ID)];
-        IbiHeader_Offset+=int64u2Ebml(IbiHeader, Stream.ID);
+        IbiHeader=new int8u[int64u2Ebml(NULL, ID)];
+        IbiHeader_Offset+=int64u2Ebml(IbiHeader, ID);
     }
     else
         IbiHeader=NULL;

@@ -94,6 +94,12 @@
     #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
     #include "MediaInfo/MediaInfo_Events_Internal.h"
 #endif //MEDIAINFO_EVENTS
+#if MEDIAINFO_IBI
+    #if MEDIAINFO_SEEK
+        #include "MediaInfo/Multiple/File_Ibi.h"
+    #endif //MEDIAINFO_SEEK
+    #include "MediaInfo/Multiple/File_Ibi_Creation.h"
+#endif //MEDIAINFO_IBI
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -232,9 +238,6 @@ File_MpegPs::File_MpegPs()
         SubStream_Demux=NULL;
         Demux_StreamIsBeingParsed_type=(int8u)-1;
     #endif //MEDIAINFO_DEMUX
-    #if MEDIAINFO_SEEK
-        Unsynch_Frame_Count_Temp=(int64u)-1;
-    #endif //MEDIAINFO_SEEK
 
     //Out
     HasTimeStamps=false;
@@ -243,6 +246,9 @@ File_MpegPs::File_MpegPs()
     SizeToAnalyze=8*1024*1024;
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;
+    #if MEDIAINFO_SEEK
+        Duration_Detected=false;
+    #endif //MEDIAINFO_SEEK
 
     //From packets
     program_mux_rate=(int32u)-1;
@@ -494,14 +500,6 @@ void File_MpegPs::Streams_Finish()
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
         Streams_Finish_PerStream(StreamID, Streams_Extension[StreamID], KindOfStream_Extension);
 
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        Streams.clear();
-        Streams_Private1.clear();
-        Streams_Extension.clear();
-    }
-
     //Bitrate coherancy
     if (!IsSub && FrameInfo.PTS>0 && FrameInfo.PTS!=(int64u)-1 && FrameInfo.DTS!=0 && File_Size!=(int64u)-1)
     {
@@ -519,6 +517,41 @@ void File_MpegPs::Streams_Finish()
                 Clear(Stream_Video, 0, Video_Duration);
         }
     }
+
+    #if MEDIAINFO_IBI
+        if (Config_Ibi_Create)
+        {
+            ibi Ibi_Temp;
+            for (ibi::streams::iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
+                Ibi_Temp.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
+
+            for (ibi::streams::iterator IbiStream_Temp=Ibi_Temp.Streams.begin(); IbiStream_Temp!=Ibi_Temp.Streams.end(); IbiStream_Temp++)
+            {
+                if (IbiStream_Temp->second && IbiStream_Temp->second->DtsFrequencyNumerator==1000000000 && IbiStream_Temp->second->DtsFrequencyDenominator==1)
+                {
+                    bool IsOk=true;
+                    for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                        if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1!=IbiStream_Temp->second->Infos.size())
+                            IsOk=false;
+                    if (IsOk) //Only is all items are continuous (partial IBI not yet supported)
+                    {
+                        IbiStream_Temp->second->DtsFrequencyNumerator=90000;
+                        for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                        {
+                            int64u Temp=IbiStream_Temp->second->Infos[Pos].Dts*90/1000000;
+                            IbiStream_Temp->second->Infos[Pos].Dts=Temp;
+                        }
+                    }
+                }
+            }
+
+            //IBI Creation
+            File_Ibi_Creation IbiCreation(Ibi_Temp);
+            Ztring IbiText=IbiCreation.Finish();
+            if (!IbiText.empty())
+                Fill(Stream_General, 0, "IBI", IbiText, true);
+        }
+    #endif //MEDIAINFO_IBI
 }
 
 //---------------------------------------------------------------------------
@@ -814,7 +847,8 @@ void File_MpegPs::Read_Buffer_Unsynched()
             if (Streams[StreamID].Parsers[Pos])
             {
                 #if MEDIAINFO_SEEK
-                    Streams[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Frame_Count_NotParsedIncluded;
+                    if (IsSub)
+                        Streams[StreamID].Parsers[Pos]->Unsynch_Frame_Count=Frame_Count_NotParsedIncluded;
                 #endif //MEDIAINFO_SEEK
                 Streams[StreamID].Parsers[Pos]->Open_Buffer_Unsynch();
             }
@@ -854,6 +888,177 @@ void File_MpegPs::Read_Buffer_Unsynched()
 }
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Init
+    if (!Duration_Detected)
+    {
+        //External IBI
+        std::string IbiFile=Config->Ibi_Get();
+        if (!IbiFile.empty())
+        {
+            Ibi.Streams.clear(); //TODO: support IBI data from different inputs
+
+            File_Ibi MI;
+            Open_Buffer_Init(&MI, IbiFile.size());
+            MI.Ibi=&Ibi;
+            MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
+        }
+        //Creating base IBI from a quick analysis of the file
+        else
+        {
+            MediaInfo_Internal MI;
+            MI.Option(_T("File_KeepInfo"), _T("1"));
+            Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+            Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
+            MI.Option(_T("ParseSpeed"), _T("0"));
+            MI.Option(_T("Demux"), Ztring());
+            size_t MiOpenResult=MI.Open(File_Name);
+            MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+            MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+            if (!MiOpenResult)
+                return 0;
+            for (ibi::streams::iterator IbiStream_Temp=((File_MpegPs*)MI.Info)->Ibi.Streams.begin(); IbiStream_Temp!=((File_MpegPs*)MI.Info)->Ibi.Streams.end(); IbiStream_Temp++)
+            {
+                if (Ibi.Streams[IbiStream_Temp->first]==NULL)
+                    Ibi.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
+                Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                {
+                    Ibi.Streams[IbiStream_Temp->first]->Add(IbiStream_Temp->second->Infos[Pos]);
+                    if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
+                        Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                }
+                Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+            }
+            if (Ibi.Streams.empty())
+                return 4; //Problem during IBI file parsing
+        }
+
+        Duration_Detected=true;
+    }
+
+    //Parsing
+    switch (Method)
+    {
+        case 0  :
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :
+                    GoTo(File_Size*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 2  :   //Timestamp
+                    #if MEDIAINFO_IBI
+                    {
+                    ibi::streams::iterator IbiStream_Temp;
+                    if (ID==(int64u)-1)
+                        IbiStream_Temp=Ibi.Streams.begin();
+                    else
+                        IbiStream_Temp=Ibi.Streams.find(ID);
+                    if (IbiStream_Temp==Ibi.Streams.end() || IbiStream_Temp->second->Infos.empty())
+                        return 5; //Invalid ID
+
+                    if (!(IbiStream_Temp->second->DtsFrequencyNumerator==1000000000 && IbiStream_Temp->second->DtsFrequencyDenominator==1))
+                    {
+                        float64 ValueF=(float64)Value;
+                        ValueF/=1000000000; //Value is in ns
+                        ValueF/=IbiStream_Temp->second->DtsFrequencyDenominator;
+                        ValueF*=IbiStream_Temp->second->DtsFrequencyNumerator;
+                        Value=float64_int64s(ValueF);
+                    }
+
+                    for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                    {
+                        if (Value<=IbiStream_Temp->second->Infos[Pos].Dts)
+                        {
+                            if (Value<IbiStream_Temp->second->Infos[Pos].Dts && Pos)
+                                Pos--;
+
+                            //Checking continuity of Ibi
+                            if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
+                            {
+                                Config->Demux_IsSeeking=true;
+                                GoTo((IbiStream_Temp->second->Infos[Pos].StreamOffset+IbiStream_Temp->second->Infos[Pos+1].StreamOffset)/2);
+                                Open_Buffer_Unsynch();
+
+                                return 1;
+                            }
+
+                            Config->Demux_IsSeeking=false;
+                            if (!Streams[(size_t)IbiStream_Temp->first].Parsers.empty())
+                                for (size_t Parser_Pos=0; Parser_Pos<Streams[(size_t)IbiStream_Temp->first].Parsers.size(); Parser_Pos++)
+                                    Streams[(size_t)IbiStream_Temp->first].Parsers[Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+                            else
+                                Unsynch_Frame_Counts[(int16u)IbiStream_Temp->first]=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+
+                            GoTo(IbiStream_Temp->second->Infos[Pos].StreamOffset);
+                            Open_Buffer_Unsynch();
+
+                            return 1;
+                        }
+                    }
+
+                    return 2; //Invalid value
+                    }
+                    #else //MEDIAINFO_IBI
+                    return (size_t)-2; //Not supported / IBI disabled
+                    #endif //MEDIAINFO_IBI
+        case 3  :   //FrameNumber
+                    #if MEDIAINFO_IBI
+                    {
+                    ibi::streams::iterator IbiStream_Temp;
+                    if (ID==(int64u)-1)
+                        IbiStream_Temp=Ibi.Streams.begin();
+                    else
+                        IbiStream_Temp=Ibi.Streams.find(ID);
+                    if (IbiStream_Temp==Ibi.Streams.end() || IbiStream_Temp->second->Infos.empty())
+                        return 5; //Invalid ID
+
+                    for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                    {
+                        if (Value<=IbiStream_Temp->second->Infos[Pos].FrameNumber)
+                        {
+                            if (Value<IbiStream_Temp->second->Infos[Pos].FrameNumber && Pos)
+                                Pos--;
+
+                            //Checking continuity of Ibi
+                            if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
+                            {
+                                Config->Demux_IsSeeking=true;
+                                GoTo((IbiStream_Temp->second->Infos[Pos].StreamOffset+IbiStream_Temp->second->Infos[Pos+1].StreamOffset)/2);
+                                Open_Buffer_Unsynch();
+
+                                return 1;
+                            }
+
+                            Config->Demux_IsSeeking=false;
+                            if (!Streams[(size_t)IbiStream_Temp->first].Parsers.empty())
+                                for (size_t Parser_Pos=0; Parser_Pos<Streams[(size_t)IbiStream_Temp->first].Parsers.size(); Parser_Pos++)
+                                    Streams[(size_t)IbiStream_Temp->first].Parsers[Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+                            else
+                                Unsynch_Frame_Counts[(int16u)IbiStream_Temp->first]=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+
+                            GoTo(IbiStream_Temp->second->Infos[Pos].StreamOffset);
+                            Open_Buffer_Unsynch();
+
+                            return 1;
+                        }
+                    }
+
+                    return 2; //Invalid value
+                    }
+                    #else //MEDIAINFO_IBI
+                    return (size_t)-2; //Not supported / IBI disabled
+                    #endif //MEDIAINFO_IBI
+        default :   return (size_t)-1; //Not supported
+    }
+}
+#endif //MEDIAINFO_SEEK
+
+//---------------------------------------------------------------------------
 void File_MpegPs::Read_Buffer_Continue()
 {
     #if MEDIAINFO_DEMUX
@@ -862,15 +1067,15 @@ void File_MpegPs::Read_Buffer_Continue()
             switch (Demux_StreamIsBeingParsed_type) //TODO: transform the switch() case to a enum with a vector of streams
             {
                 case 0 :    Open_Buffer_Continue(Streams[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0);
-                            if (Streams[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
+                            if (IsSub && Streams[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
                                 Frame_Count_NotParsedIncluded=Streams[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded;
                             break;
                 case 1 :    Open_Buffer_Continue(Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0);
-                            if (Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
+                            if (IsSub && Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
                                 Frame_Count_NotParsedIncluded=Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded;
                             break;
                 case 2 :    Open_Buffer_Continue(Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0);
-                            if (Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
+                            if (IsSub && Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
                                 Frame_Count_NotParsedIncluded=Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded;
                             break;
                 default: ;
@@ -2055,6 +2260,11 @@ void File_MpegPs::pack_start()
             if (SizeToAnalyze<2*1024*1024)
                 SizeToAnalyze=2*1024*1024; //Not too less
         }
+
+        #if MEDIAINFO_IBI
+            if (!IsSub)
+                Ibi_SynchronizationOffset_Current=File_Offset+Buffer_Offset-Header_Size;
+        #endif //MEDIAINFO_IBI
     FILLING_END();
 }
 
@@ -2941,12 +3151,22 @@ void File_MpegPs::video_stream()
             #if MEDIAINFO_IBI
                 if (FromTS)
                     Streams[stream_id].Parsers[Pos]->IbiStream=IbiStream;
+                else
+                {
+                    if (Ibi.Streams[stream_id]==NULL)
+                        Ibi.Streams[stream_id]=new ibi::stream;
+                    Streams[stream_id].Parsers[Pos]->IbiStream=Ibi.Streams[stream_id];
+                }
             #endif //MEDIAINFO_IBI
             #if MEDIAINFO_SEEK
-                if (Unsynch_Frame_Count_Temp!=(int64u)-1)
-                    Streams[stream_id].Parsers[Pos]->Frame_Count_NotParsedIncluded=Unsynch_Frame_Count_Temp;
+                if (Unsynch_Frame_Counts.find(stream_id)!=Unsynch_Frame_Counts.end())
+                    Streams[stream_id].Parsers[Pos]->Frame_Count_NotParsedIncluded=Unsynch_Frame_Counts[stream_id];
             #endif //MEDIAINFO_SEEK
         }
+        #if MEDIAINFO_SEEK
+            if (Unsynch_Frame_Counts.find(stream_id)!=Unsynch_Frame_Counts.end())
+                Unsynch_Frame_Counts.erase(stream_id);
+        #endif //MEDIAINFO_SEEK
     }
 
     //Demux
@@ -3424,7 +3644,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                 Temp.Parsers[Pos]->Ibi_SynchronizationOffset_Current=Ibi_SynchronizationOffset_Current;
             #endif //MEDIAINFO_IBI
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-            if (Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded!=(int64u)-1)
+            if (IsSub && Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded!=(int64u)-1)
                 Frame_Count_NotParsedIncluded=Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded;
             if (!MustExtendParsingDuration && Temp.Parsers[Pos]->MustExtendParsingDuration)
             {

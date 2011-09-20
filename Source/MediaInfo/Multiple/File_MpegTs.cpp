@@ -916,7 +916,7 @@ void File_MpegTs::Streams_Finish()
                 {
                     bool IsOk=true;
                     for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
-                        if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
+                        if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1!=IbiStream_Temp->second->Infos.size())
                             IsOk=false;
                     if (IsOk) //Only is all items are continuous (partial IBI not yet supported)
                     {
@@ -931,7 +931,7 @@ void File_MpegTs::Streams_Finish()
             }
 
             //IBI Creation
-            File_Ibi_Creation IbiCreation(Ibi);
+            File_Ibi_Creation IbiCreation(Ibi_Temp);
             Ztring IbiText=IbiCreation.Finish();
             if (!IbiText.empty())
                 Fill(Stream_General, 0, "IBI", IbiText, true);

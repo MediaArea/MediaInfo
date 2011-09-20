@@ -121,7 +121,7 @@ void File_Ibi::Streams_Finish()
     for (ibi::streams::iterator IbiStream_Temp=Ibi->Streams.begin(); IbiStream_Temp!=Ibi->Streams.end(); IbiStream_Temp++)
     {
         Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, StreamPos_Last, General_ID, IbiStream_Temp->second->ID);
+        Fill(Stream_Video, StreamPos_Last, General_ID, IbiStream_Temp->first);
     }
 }
 

@@ -120,6 +120,9 @@ private :
     //Buffer - Global
     void Read_Buffer_Init ();
     void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
     void Read_Buffer_Continue ();
     void Read_Buffer_AfterParsing();
 
@@ -276,6 +279,14 @@ private :
     //Output buffer
     size_t Output_Buffer_Get (const String &Value);
     size_t Output_Buffer_Get (size_t Pos);
+
+    #if MEDIAINFO_SEEK
+        std::map<int16u, int64u>    Unsynch_Frame_Counts;
+        bool                        Duration_Detected;
+    #endif //MEDIAINFO_SEEK
+    #if MEDIAINFO_SEEK && MEDIAINFO_IBI
+        ibi Ibi;
+    #endif //MEDIAINFO_SEEK && MEDIAINFO_IBI
 };
 
 } //NameSpace

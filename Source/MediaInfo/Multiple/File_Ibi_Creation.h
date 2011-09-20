@@ -44,7 +44,6 @@ struct ibi
 {
     struct stream
     {
-        int64u ID;
         int64u DtsFrequencyNumerator;
         int64u DtsFrequencyDenominator;
         struct info
@@ -70,7 +69,6 @@ struct ibi
 
         stream()
         {
-            ID=(int64u)-1;
             DtsFrequencyNumerator=1000000000; //nanosecond
             DtsFrequencyDenominator=1;
             Infos_Pos=0;
@@ -102,7 +100,7 @@ public :
     ~File_Ibi_Creation();
 
     void Set(const ibi &Ibi);
-    void Add(const ibi::stream &Stream);
+    void Add(int64u ID, const ibi::stream &Stream);
     Ztring Finish();
 
 private :
