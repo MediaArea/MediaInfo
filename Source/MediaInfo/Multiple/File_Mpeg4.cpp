@@ -946,6 +946,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             {
                                 int64u CountOfChunks=(Value-SamplePos)/Stsc->SamplesPerChunk;
                                 size_t stco_Pos=(size_t)(Stsc->FirstChunk-1+CountOfChunks); //-1 because first chunk is number 1
+                                if (stco_Pos>Stream->second.stco.size())
+                                    return 2; //Invalid value
                                 int64u Offset=Stream->second.stco[stco_Pos];
 
                                 GoTo(Offset);
