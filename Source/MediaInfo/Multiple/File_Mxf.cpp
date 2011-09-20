@@ -56,6 +56,9 @@
 #if defined(MEDIAINFO_AAC_YES)
     #include "MediaInfo/Audio/File_Aac.h"
 #endif
+#if defined(MEDIAINFO_AC3_YES)
+    #include "MediaInfo/Audio/File_Ac3.h"
+#endif
 #if defined(MEDIAINFO_AES3_YES)
     #include "MediaInfo/Audio/File_Aes3.h"
 #endif
@@ -369,7 +372,7 @@ const char* Mxf_EssenceElement(int128u EssenceElement)
                         case 0x02 : return "PCM"; //BWF
                         case 0x03 : return "PCM"; //DV Audio
                         case 0x04 : return "PCM"; //BWF
-                        case 0x05 : return "MPEG Audio";
+                        case 0x05 : return "MPEG Audio / AC-3";
                         case 0x0A : return "A-law";
                         default   : return "Unknown stream";
                     }
@@ -641,7 +644,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                                                         case 0x02 : //SMPTE 338M Audio Coding
                                                                                                     switch (Code7)
                                                                                                     {
-                                                                                                        case 0x01 : return "ATSC A/52";
+                                                                                                        case 0x01 : return "AC-3";
                                                                                                         case 0x04 : return "MPEG-1 Audio Layer 1";
                                                                                                         case 0x05 : return "MPEG-1 Audio Layer 2 or 3";
                                                                                                         case 0x06 : return "MPEG-2 Audio Layer 1";
@@ -7296,7 +7299,7 @@ void File_Mxf::Info_UL_040101_Values()
                                                     switch (Code7)
                                                     {
                                                         case 0x01 :
-                                                            Param_Info("ATSC A/52");
+                                                            Param_Info("AC-3");
                                                             Skip_B1("Unknown");
                                                             break;
                                                         case 0x04 :
@@ -8029,7 +8032,7 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
                                                                         case 0x02 : //SMPTE 338M Audio Coding
                                                                                     switch (Code7)
                                                                                     {
-                                                                                        case 0x01 : return NULL; //ATSC A/52
+                                                                                        case 0x01 : return ChooseParser_Ac3(Essence, Descriptor);
                                                                                         case 0x04 :
                                                                                         case 0x05 :
                                                                                         case 0x06 : return ChooseParser_Mpega(Essence, Descriptor);
@@ -8572,7 +8575,7 @@ File__Analyze* File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, con
 File__Analyze* File_Mxf::ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
-    
+
     //Filling
     #if defined(MEDIAINFO_AAC_YES)
         File_Aac* Parser=new File_Aac;
@@ -8582,6 +8585,24 @@ File__Analyze* File_Mxf::ChooseParser_Aac(const essences::iterator &Essence, con
         Open_Buffer_Init(Parser);
         Parser->Stream_Prepare(Stream_Audio);
         Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
+    #endif
+    return Parser;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_Mxf::ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+{
+    Essence->second.StreamKind=Stream_Audio;
+
+    //Filling
+    #if defined(MEDIAINFO_AC3_YES)
+        File_Ac3* Parser=new File_Ac3;
+    #else
+        //Filling
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Fill(Stream_Audio, 0, Audio_Format, "AC-3");
     #endif
     return Parser;
 }

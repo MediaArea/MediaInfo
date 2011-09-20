@@ -654,6 +654,7 @@ protected :
     File__Analyze* ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    File__Analyze* ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Aes3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     File__Analyze* ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
