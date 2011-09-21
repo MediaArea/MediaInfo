@@ -240,6 +240,8 @@ File_Mpeg4v::File_Mpeg4v()
     Trusted_Multiplier=2;
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?30:2;
@@ -277,6 +279,12 @@ bool File_Mpeg4v::Synched_Test()
     if (Synched && !Header_Parser_QuickSearch())
         return false;
 
+    #if MEDIAINFO_IBI
+        bool RandomAccess=Buffer[Buffer_Offset+3]==0x0F; //SequenceHeader
+        if (RandomAccess)
+            Ibi_Add();
+    #endif MEDIAINFO_IBI
+
     //We continue
     return true;
 }
@@ -294,6 +302,8 @@ void File_Mpeg4v::Synched_Init()
     Interlaced_Top=0;
     Interlaced_Bottom=0;
     Frame_Count_InThisBlock_Max=0;
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=0; //No Frame_Count_NotParsedIncluded in the container
 
     //From VOL, needed in VOP
     fixed_vop_time_increment=0;
@@ -354,6 +364,9 @@ void File_Mpeg4v::Synched_Init()
     sadct=false;
     quarterpel=false;
     quant_type=false;
+
+    if (!IsSub)
+        FrameInfo.DTS=0;
 
     //Default stream values
     Streams.resize(0x100);
@@ -560,9 +573,10 @@ void File_Mpeg4v::Streams_Finish()
         Fill(Stream_Video, 0, Video_Duration, Duration);
     }
 
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
+    #if MEDIAINFO_IBI
+        if (fixed_vop_time_increment)
+            Ibi_Stream_Finish(fixed_vop_time_increment, vop_time_increment_resolution);
+    #endif //MEDIAINFO_IBI
 }
 //***************************************************************************
 // Buffer - Demux
@@ -1408,6 +1422,9 @@ void File_Mpeg4v::visual_object_start()
 // Packet "B6"
 void File_Mpeg4v::vop_start()
 {
+    if (FrameInfo.DTS!=(int64u)-1)
+        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
@@ -1415,6 +1432,8 @@ void File_Mpeg4v::vop_start()
     Frame_Count_InThisBlock++;
     if (Frame_Count_InThisBlock>Frame_Count_InThisBlock_Max)
         Frame_Count_InThisBlock_Max=Frame_Count_InThisBlock;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
 
     //Name
     Element_Name("vop_start");
@@ -1645,6 +1664,9 @@ void File_Mpeg4v::vop_start()
 
             if (Time_End_Seconds!=(int32u)-1)
                 Element_Info(Ztring().Duration_From_Milliseconds((int64u)(Time_End_Seconds*1000+Time_End_MilliSeconds)));
+
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS+=((int64u)Time)*1000000000/vop_time_increment_resolution;
         }
 
         //NextCode
