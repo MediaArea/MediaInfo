@@ -523,6 +523,7 @@ int Preferences::ExplorerShell()
         ".wmv;WMVFile\r\n"
         ".wv;WCFile\r\n"
         ".wvc;WVCFile\r\n"
+        ".y4m;Y4MFile\r\n"
         );
 
     // Get the Windows version.
@@ -1030,6 +1031,7 @@ int Preferences::ShellToolTip()
         ".wmv;WMVFile\r\n"
         ".wv;WCFile\r\n"
         ".wvc;WVCFile\r\n"
+        ".y4m;Y4MFile\r\n"
         );
 
     ::HKEY Key;

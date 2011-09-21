@@ -127,6 +127,7 @@
   !insertmacro MediaInfo_Extensions_Install_I ".wmv"
   !insertmacro MediaInfo_Extensions_Install_I ".wv"
   !insertmacro MediaInfo_Extensions_Install_I ".wvc"
+  !insertmacro MediaInfo_Extensions_Install_I ".y4m"
   !insertmacro MediaInfo_Extensions_Install_I "Folder"
   !insertmacro MediaInfo_Extensions_Install_I "audio"
   !insertmacro MediaInfo_Extensions_Install_I "Directory.Audio"
