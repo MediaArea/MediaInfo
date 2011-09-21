@@ -3657,8 +3657,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "iTunes");
         if (Codec=="enca")
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
-        Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
+        if (Width)
+            Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
+        if (Height)
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
         if (moov_trak_tkhd_DisplayAspectRatio && moov_trak_tkhd_DisplayAspectRatio!=((float32)Width)/Height)
         {
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, moov_trak_tkhd_DisplayAspectRatio, 3, true);
