@@ -1033,19 +1033,6 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             if (Value<IbiStream_Temp->second->Infos[Pos].FrameNumber && Pos)
                                 Pos--;
 
-                            //Checking continuity of Ibi
-                            if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
-                            {
-                                Config->Demux_IsSeeking=true;
-                                Seek_Value=Value;
-                                Seek_Value_Maximal=IbiStream_Temp->second->Infos[Pos+1].StreamOffset;
-                                Seek_ID=IbiStream_Temp->first;
-                                GoTo((IbiStream_Temp->second->Infos[Pos].StreamOffset+IbiStream_Temp->second->Infos[Pos+1].StreamOffset)/2);
-                                Open_Buffer_Unsynch();
-
-                                return 1;
-                            }
-
                             Config->Demux_IsSeeking=false;
                             if (!Streams[(size_t)IbiStream_Temp->first].Parsers.empty())
                                 for (size_t Parser_Pos=0; Parser_Pos<Streams[(size_t)IbiStream_Temp->first].Parsers.size(); Parser_Pos++)
