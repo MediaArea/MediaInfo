@@ -1340,6 +1340,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com/quicktime/download/standalone.html\n"
     "v210;YUV;AJA Video Systems Xena;;;;;YUV;4:2:2\n"
     "vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/;;;YUV\n"
+    "WMV3;VC-1;WMV3;Windows Media Video 9;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx\n"
     "WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
     "xd50;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
     "xd51;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
@@ -1622,6 +1623,8 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "GJPG;Grand Tech GT891x\n"
     "GLCC;GigaLink\n"
     "GLZW;LZW;Gabest;;http://sourceforge.net/project/showfiles.php?group_id=82303&package_id=84358\n"
+    "GMP4;GeoVision Advanced MPEG-4;;;http://www.geovision.com.tw/\n"
+    "GM40;GeoVision Advanced MPEG-4;;;http://www.geovision.com.tw/\n"
     "GPEG;JPEG;Gabest;;http://sourceforge.net/project/showfiles.php?group_id=82303&package_id=84358;;;YUV\n"
     "GPJM;JPEG;Pinnacle;;;;;YUV\n"
     "GREY;YUV;;Simple grayscale video;http://www.fourcc.org/indexyuv.htm;;;YUV\n"
@@ -2172,6 +2175,7 @@ void MediaInfo_Config_CodecID_Audio_Mpeg4 (InfoMap &Info)
     "lpcm;PCM\n"
     "MAC3;MACE 3\n"
     "MAC6;MACE 6\n"
+    "nmos;Nellymoser;;;http://www.nellymoser.com/\n"
     "NONE;PCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "owma;WMA Pro;;Smooth Streaming Media Audio;http://alexzambelli.com/blog/2009/02/10/smooth-streaming-architecture/\n"
     "Qclp;QCELP;;Qualcomm PureVoice\n"
@@ -2187,6 +2191,7 @@ void MediaInfo_Config_CodecID_Audio_Mpeg4 (InfoMap &Info)
     "twos;PCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "ulaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "vdva;PCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "WMA2;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;;Version 2\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -4096,7 +4101,7 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     "DisplayAspectRatio_Original/String;;;Y NT;;;Original (in the raw stream) Display Aspect ratio\n"
     "ActiveFormatDescription;;;N YN;;;Active Format Description (AFD value)\n"
     "ActiveFormatDescription/String;;;Y NT;;;Active Format Description (text)\n"
-    "ActiveFormatDescription_MuxingMode;;;Y YT;;;Active Format Description (AFD value) muxing mode (Ancillary or Raw stream)\n"
+    "ActiveFormatDescription_MuxingMode;;;N YT;;;Active Format Description (AFD value) muxing mode (Ancillary or Raw stream)\n"
     "Rotation;;;N YT;;;Rotation\n"
     "Rotation/String;;;Y NT;;;Rotation (if not horizontal)\n"
     "FrameRate_Mode;;;N YT;;;Frame rate mode (CFR, VFR)\n"

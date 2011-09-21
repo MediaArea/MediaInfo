@@ -13,6 +13,8 @@ Version 0.7.50
 + MPEG-4: hdv6 and mx4p CodecID support (MPEG Video)
 + #3411596, CDDA support, thanks to Lionel Duchateau
 + MXF: support of AC-3
++ #3411999, AVi: detection of GeoVision MPEG-4, thanks to Lionel Duchateau
++ #3411999, MPEG-4: detection of VC-1 (WMV3), Nellymoser and WMA2, thanks to Lionel Duchateau
 x AVI: Better support of 2 video streams (e.g. "3D AVI") in a file
 x MPEG-TS: Duration was not provided in some cases
 x FLV: Delay and duration for AAC was wrong if delay was not 0, thanks to Justin Greer http://zencoder.com

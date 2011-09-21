@@ -83,6 +83,7 @@ SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);http://www.apple.com
 SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com/quicktime/download/standalone.html;;;;
 v210;YUV;AJA Video Systems Xena;;;;;YUV;4:2:2
 vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/;;;YUV;
+WMV3;VC-1;WMV3;Windows Media Video 9;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;;;;
 WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html;;;YUV;
 xd50;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;YUV
 xd51;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;YUV

@@ -14,6 +14,7 @@ in32;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
 lpcm;PCM;;;;
 MAC3;MACE 3;;;;
 MAC6;MACE 6;;;;
+nmos;Nellymoser;;;http://www.nellymoser.com/;
 NONE;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
 owma;WMA Pro;;Smooth Streaming Media Audio;http://alexzambelli.com/blog/2009/02/10/smooth-streaming-architecture/;
 Qclp;QCELP;;Qualcomm PureVoice;;
@@ -29,3 +30,4 @@ sowt;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
 twos;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
 ulaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html;
 vdva;PCM;;;http://www.apple.com/quicktime/download/standalone.html;
+WMA2;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;;Version 2
