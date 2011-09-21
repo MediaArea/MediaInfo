@@ -282,6 +282,9 @@ private :
 
     #if MEDIAINFO_SEEK
         std::map<int16u, int64u>    Unsynch_Frame_Counts;
+        int64u                      Seek_Value;
+        int64u                      Seek_Value_Maximal;
+        int64u                      Seek_ID;
         bool                        Duration_Detected;
     #endif //MEDIAINFO_SEEK
     #if MEDIAINFO_SEEK && MEDIAINFO_IBI

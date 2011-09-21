@@ -2735,7 +2735,7 @@ void File__Analyze::Ibi_Read_Buffer_Unsynched ()
 {
     Ibi_SynchronizationOffset_Current=(int64u)-1;
 
-    if (IsSub || IbiStream==NULL)
+    if (IbiStream==NULL)
         return;
 
     IbiStream->Unsynch();

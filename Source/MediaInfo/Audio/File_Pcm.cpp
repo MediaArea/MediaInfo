@@ -122,6 +122,7 @@ File_Pcm::File_Pcm()
         Trace_Layers_Update(8); //Stream
     #endif //MEDIAINFO_TRACE
     IsRawStream=true;
+    PTS_DTS_Needed=true;
 
     //In
     BitDepth=0;

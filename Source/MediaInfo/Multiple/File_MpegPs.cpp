@@ -247,6 +247,8 @@ File_MpegPs::File_MpegPs()
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;
     #if MEDIAINFO_SEEK
+        Seek_Value=(int64u)-1;
+        Seek_ID=(int64u)-1;
         Duration_Detected=false;
     #endif //MEDIAINFO_SEEK
 
@@ -891,6 +893,10 @@ void File_MpegPs::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
+    //Reset
+    Seek_Value=(int64u)-1;
+    Seek_ID=(int64u)-1;
+
     //Init
     if (!Duration_Detected)
     {
@@ -981,6 +987,9 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
                             {
                                 Config->Demux_IsSeeking=true;
+                                Seek_Value=Value;
+                                Seek_Value_Maximal=IbiStream_Temp->second->Infos[Pos+1].StreamOffset;
+                                Seek_ID=IbiStream_Temp->first;
                                 GoTo((IbiStream_Temp->second->Infos[Pos].StreamOffset+IbiStream_Temp->second->Infos[Pos+1].StreamOffset)/2);
                                 Open_Buffer_Unsynch();
 
@@ -990,7 +999,7 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             Config->Demux_IsSeeking=false;
                             if (!Streams[(size_t)IbiStream_Temp->first].Parsers.empty())
                                 for (size_t Parser_Pos=0; Parser_Pos<Streams[(size_t)IbiStream_Temp->first].Parsers.size(); Parser_Pos++)
-                                    Streams[(size_t)IbiStream_Temp->first].Parsers[Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+                                    Streams[(size_t)IbiStream_Temp->first].Parsers[Parser_Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
                             else
                                 Unsynch_Frame_Counts[(int16u)IbiStream_Temp->first]=IbiStream_Temp->second->Infos[Pos].FrameNumber;
 
@@ -1028,6 +1037,9 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             if (!IbiStream_Temp->second->Infos[Pos].IsContinuous && Pos+1<IbiStream_Temp->second->Infos.size())
                             {
                                 Config->Demux_IsSeeking=true;
+                                Seek_Value=Value;
+                                Seek_Value_Maximal=IbiStream_Temp->second->Infos[Pos+1].StreamOffset;
+                                Seek_ID=IbiStream_Temp->first;
                                 GoTo((IbiStream_Temp->second->Infos[Pos].StreamOffset+IbiStream_Temp->second->Infos[Pos+1].StreamOffset)/2);
                                 Open_Buffer_Unsynch();
 
@@ -1037,7 +1049,7 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             Config->Demux_IsSeeking=false;
                             if (!Streams[(size_t)IbiStream_Temp->first].Parsers.empty())
                                 for (size_t Parser_Pos=0; Parser_Pos<Streams[(size_t)IbiStream_Temp->first].Parsers.size(); Parser_Pos++)
-                                    Streams[(size_t)IbiStream_Temp->first].Parsers[Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
+                                    Streams[(size_t)IbiStream_Temp->first].Parsers[Parser_Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
                             else
                                 Unsynch_Frame_Counts[(int16u)IbiStream_Temp->first]=IbiStream_Temp->second->Infos[Pos].FrameNumber;
 
@@ -3747,6 +3759,37 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
             }
         #endif //MEDIAINFO_DEMUX
     #endif //MEDIAINFO_EVENTS
+
+    #if MEDIAINFO_SEEK
+        if (Seek_ID!=(int64u)-1)
+        {
+            if (Ibi.Streams[Seek_ID]->IsModified)
+            {
+                Read_Buffer_Seek(2, Seek_Value, Seek_ID);
+            }
+            else if (File_Offset+Buffer_Offset>=Seek_Value_Maximal)
+            {
+                //No intermediate seek point found, going to previous seek point
+                for (size_t Pos=1; Pos<Ibi.Streams[Seek_ID]->Infos.size(); Pos++)
+                    if (Ibi.Streams[Seek_ID]->Infos[Pos].StreamOffset>=Seek_Value_Maximal)
+                    {
+                        if (Ibi.Streams[Seek_ID]->IsSynchronized)
+                        {
+                            //No intermediate point is possible
+                            Ibi.Streams[Seek_ID]->Infos[Pos-1].IsContinuous=true;
+                            Read_Buffer_Seek(2, Seek_Value, Seek_ID);
+                        }
+                        else
+                        {
+                            //Going to last known seek point
+                            GoTo(Ibi.Streams[Seek_ID]->Infos[Pos-1].StreamOffset);
+                            Open_Buffer_Unsynch();
+                        }
+                        break;
+                    }
+            }
+        }
+    #endif //MEDIAINFO_SEEK
 }
 
 //***************************************************************************
@@ -4429,6 +4472,3 @@ size_t File_MpegPs::Output_Buffer_Get (size_t Pos_)
 } //Namespace
 
 #endif //MEDIAINFO_MPEGPS_YES
-
-
-

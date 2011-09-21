@@ -1010,7 +1010,6 @@ void File_Mpegv::Read_Buffer_Unsynched()
     sequence_header_IsParsed=false;
     group_start_IsParsed=false;
     PTS_LastIFrame=(int64u)-1;
-    Frame_Count_NotParsedIncluded=(int64u)-1;
     IFrame_IsParsed=false;
     #if MEDIAINFO_IBI
         Ibi_SliceParsed=false;
