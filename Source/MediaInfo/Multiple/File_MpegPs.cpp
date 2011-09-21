@@ -1033,7 +1033,6 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             if (Value<IbiStream_Temp->second->Infos[Pos].FrameNumber && Pos)
                                 Pos--;
 
-                            Config->Demux_IsSeeking=false;
                             if (!Streams[(size_t)IbiStream_Temp->first].Parsers.empty())
                                 for (size_t Parser_Pos=0; Parser_Pos<Streams[(size_t)IbiStream_Temp->first].Parsers.size(); Parser_Pos++)
                                     Streams[(size_t)IbiStream_Temp->first].Parsers[Parser_Pos]->Unsynch_Frame_Count=IbiStream_Temp->second->Infos[Pos].FrameNumber;
