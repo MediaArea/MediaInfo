@@ -75,6 +75,7 @@
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
 #include "MediaInfo/File_Unknown.h"
+#include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/Dir.h"
 #include "MediaInfo/MediaInfo_Internal.h"
