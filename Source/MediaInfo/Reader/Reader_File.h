@@ -56,8 +56,6 @@ public :
     std::bitset<32> Status;
     int64u          Partial_Begin;
     int64u          Partial_End;
-    int64u          FileSize_Current;
-    bool            IsGrowing;
 };
 
 } //NameSpace

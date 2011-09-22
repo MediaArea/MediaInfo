@@ -206,6 +206,8 @@ public :
     int8u*        File_Buffer;
     bool          File_Buffer_Repeat;
     bool          File_Buffer_Repeat_IsSupported;
+    bool          File_IsGrowing;
+    int64u        File_Size;
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
         #if MEDIAINFO_SEEK

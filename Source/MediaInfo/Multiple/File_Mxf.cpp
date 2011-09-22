@@ -1783,7 +1783,58 @@ void File_Mxf::Read_Buffer_Continue()
     if (!IsSub)
     {
         if (Config_ParseSpeed>=1.0)
-            Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
+        {
+            if (Config->File_IsGrowing)
+            {
+                File F;
+                F.Open(File_Name+L"1");
+                int8u SearchingPartitionPack[65536];
+                size_t SearchingPartitionPack_Size=F.Read(SearchingPartitionPack, 65536);
+                for (size_t Pos=0; Pos+16<SearchingPartitionPack_Size; Pos++)
+                    if (SearchingPartitionPack[Pos   ]==0x06
+                     && SearchingPartitionPack[Pos+ 1]==0x0E
+                     && SearchingPartitionPack[Pos+ 2]==0x2B
+                     && SearchingPartitionPack[Pos+ 3]==0x34
+                     && SearchingPartitionPack[Pos+ 4]==0x02
+                     && SearchingPartitionPack[Pos+ 5]==0x05
+                     && SearchingPartitionPack[Pos+ 6]==0x01
+                     && SearchingPartitionPack[Pos+ 7]==0x01
+                     && SearchingPartitionPack[Pos+ 8]==0x0D
+                     && SearchingPartitionPack[Pos+ 9]==0x01
+                     && SearchingPartitionPack[Pos+10]==0x02
+                     && SearchingPartitionPack[Pos+11]==0x01
+                     && SearchingPartitionPack[Pos+12]==0x01
+                     && SearchingPartitionPack[Pos+13]==0x02) //Header Partition Pack
+                    {
+                        switch (SearchingPartitionPack[Pos+14])
+                        {
+                            case 0x02 : 
+                            case 0x04 :
+                                        {
+                                        //Filling duration
+                                        Config->File_IsGrowing=false;
+                                        Config->File_Size=F.Size_Get();
+                                        F.Close();
+                                        MediaInfo_Internal MI;
+                                        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+                                        MI.Option(_T("ParseSpeed"), _T("0"));
+                                        size_t MiOpenResult=MI.Open(File_Name+L"1");
+                                        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                                        if (MiOpenResult)
+                                        {
+                                            Fill(Stream_General, 0, General_Format_Settings, MI.Get(Stream_General, 0, General_Format_Settings), true);
+                                            Fill(Stream_General, 0, General_Duration, MI.Get(Stream_General, 0, General_Duration), true);
+                                        }
+                                        }
+                                        break;
+                            default   : ;
+                        }
+                    }
+
+            }
+
+            Config->State_Set(((float)Buffer_TotalBytes)/Config->File_Size);
+        }
     }
 
     if (IsParsingEnd && File_Offset+Buffer_Offset+4<File_Size)
@@ -3081,7 +3132,7 @@ void File_Mxf::Data_Parse()
                 }
 
                 //Disabling this Streams
-                if (!Essence->second.IsFilled && (Essence->second.Parser->Status[IsFinished] || Essence->second.Parser->Status[IsFilled]))
+                if (!Essence->second.IsFilled && (Essence->second.Parser->Status[IsFinished] || Essence->second.Parser->Status[IsFilled]) || Config_ParseSpeed==0)
                 {
                     if (Streams_Count>0)
                         Streams_Count--;
@@ -5797,6 +5848,16 @@ void File_Mxf::PartitionMetadata()
         Partitions.insert(Partitions.begin()+Partitions_Pos, Partition);
         Partitions_IsCalculatingHeaderByteCount=true;
     }
+
+    if ((Code.lo&0xFF0000)==0x020000) //If Header Partition Pack
+        switch ((Code.lo>>8)&0xFF)
+        {
+            case 0x01 : Fill(Stream_General, 0, General_Format_Settings, "Open / Incomplete"  , Unlimited, true, true); Config->File_IsGrowing=true; break;
+            case 0x02 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Incomplete", Unlimited, true, true);                              break;
+            case 0x03 : Fill(Stream_General, 0, General_Format_Settings, "Open / Complete"    , Unlimited, true, true); Config->File_IsGrowing=true; break;
+            case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);                              break;
+            default   : ;
+        }
 }
 
 //---------------------------------------------------------------------------

@@ -126,15 +126,14 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 
     //Info
     Status=0;
-    FileSize_Current=F.Size_Get();
-    IsGrowing=false;
+    MI->Config.File_Size=F.Size_Get();
 
     //Partial file handling
     Ztring Config_Partial_Begin=MI->Config.File_Partial_Begin_Get();
     if (!Config_Partial_Begin.empty() && Config_Partial_Begin[0]>=_T('0') && Config_Partial_Begin[0]<=_T('9'))
     {
         if (Config_Partial_Begin.find(_T('%'))==Config_Partial_Begin.size()-1)
-            Partial_Begin=float64_int64s(FileSize_Current*Config_Partial_Begin.To_float64()/100);
+            Partial_Begin=float64_int64s(MI->Config.File_Size*Config_Partial_Begin.To_float64()/100);
         else
             Partial_Begin=Config_Partial_Begin.To_int64u();
         if (Partial_Begin)
@@ -146,20 +145,20 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     if (!Config_Partial_End.empty() && Config_Partial_End[0]>=_T('0') && Config_Partial_End[0]<=_T('9'))
     {
         if (Config_Partial_End.find(_T('%'))==Config_Partial_End.size()-1)
-            Partial_End=float64_int64s(FileSize_Current*Config_Partial_End.To_float64()/100);
+            Partial_End=float64_int64s(MI->Config.File_Size*Config_Partial_End.To_float64()/100);
         else
             Partial_End=Config_Partial_End.To_int64u();
     }
     else
-        Partial_End=FileSize_Current;
-    if (Partial_Begin>FileSize_Current)
+        Partial_End=MI->Config.File_Size;
+    if (Partial_Begin>MI->Config.File_Size)
         Partial_Begin=0; //Wrong value
-    if (Partial_End>FileSize_Current)
-        Partial_End=FileSize_Current; //Wrong value
+    if (Partial_End>MI->Config.File_Size)
+        Partial_End=MI->Config.File_Size; //Wrong value
     if (Partial_Begin>Partial_End)
     {
         Partial_Begin=0; //Wrong value
-        Partial_End=FileSize_Current; //Wrong value
+        Partial_End=MI->Config.File_Size; //Wrong value
     }
 
     //Parser
@@ -266,24 +265,24 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             MI->Config.File_Buffer_Size=F.Read(MI->Config.File_Buffer, (F.Position_Get()+MI->Config.File_Buffer_Size_ToRead<Partial_End)?MI->Config.File_Buffer_Size_ToRead:((size_t)(Partial_End-F.Position_Get())));
 
             //Testing growing files
-            if (!IsGrowing && F.Position_Get()>=FileSize_Current)
+            if (!MI->Config.File_IsGrowing && F.Position_Get()>=MI->Config.File_Size)
             {
                 if (MediaInfoLib::Config.ParseSpeed_Get()>=1.0) //Only if full parsing
                 {
                     int64u FileSize_New=F.Size_Get();
-                    if (FileSize_Current!=FileSize_New)
-                        IsGrowing=true;
+                    if (MI->Config.File_Size!=FileSize_New)
+                        MI->Config.File_IsGrowing=true;
                 }
             }
-            if (IsGrowing && F.Position_Get()>=FileSize_Current)
+            if (MI->Config.File_IsGrowing && F.Position_Get()>=MI->Config.File_Size)
             {
                 for (size_t CountOfSeconds=0; CountOfSeconds<10; CountOfSeconds++)
                 {
                     int64u FileSize_New=F.Size_Get();
-                    if (FileSize_Current!=FileSize_New)
+                    if (MI->Config.File_Size!=FileSize_New)
                     {
-                        Partial_End=FileSize_Current=FileSize_New;
-                        MI->Open_Buffer_Init(FileSize_Current, F.Position_Get()-MI->Config.File_Buffer_Size);
+                        Partial_End=MI->Config.File_Size=FileSize_New;
+                        MI->Open_Buffer_Init(MI->Config.File_Size, F.Position_Get()-MI->Config.File_Buffer_Size);
                         break;
                     }
                     #ifdef WINDOWS
