@@ -271,6 +271,14 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
             Fill(Stream_Video, Pos, Video_Standard, "NTSC");
     }
 
+    //Known ScanTypes
+    if (Retrieve(Stream_Video, Pos, Video_ScanType).empty()
+     && (Retrieve(Stream_Video, Pos, Video_Format)==_T("RED")
+      || Retrieve(Stream_Video, Pos, Video_Format)==_T("CineForm")
+      || Retrieve(Stream_Video, Pos, Video_Format)==_T("DPX")
+      || Retrieve(Stream_Video, Pos, Video_Format)==_T("EXR")))
+            Fill(Stream_Video, Pos, Video_ScanType, "PPF");
+    
     //Known bitrates
     if (Count_Get(Stream_Video)==1 && Count_Get(Stream_Audio)==0 && Retrieve(Stream_General, 0, General_Format)==_T("MXF"))
     {
