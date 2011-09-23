@@ -195,6 +195,8 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_XML;
     TMenuItem *M_View_MPEG7;
     TMenuItem *M_View_PBCore;
+    TMenuItem *M_Digimetrics;
+    TToolButton *Tool_Digimetrics;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -251,6 +253,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_MPEG7Click(TObject *Sender);
     void __fastcall M_View_PBCoreClick(TObject *Sender);
     void __fastcall M_View_XMLClick(TObject *Sender);
+    void __fastcall M_DigimetricsClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);

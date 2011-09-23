@@ -130,3 +130,10 @@ void __fastcall TAboutF::WebSiteClick(TObject *Sender)
 #endif //MEDIAINFOGUI_ABOUT_NO
 
 
+
+void __fastcall TAboutF::ToolButton3Click(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
+}
+//---------------------------------------------------------------------------
+

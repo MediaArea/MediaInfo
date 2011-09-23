@@ -91,7 +91,7 @@ TCustomButton*              Donate_Current;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net");
+const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net - Sponsored by Digimetrics");
 const size_t Title_Pos=95; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
@@ -1596,4 +1596,10 @@ void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
     ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
+
+void __fastcall TMainF::M_DigimetricsClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
+}
+//---------------------------------------------------------------------------
 
