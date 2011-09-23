@@ -38,7 +38,7 @@ class TimeCode
 public:
     //constructor/Destructor
     TimeCode ();
-    TimeCode (int8u Hours_, int8u Minutes_, int8u Seconds_, int8u Frames_, int8u FramesPerSecond_, bool DropFrame_);
+    TimeCode (int8u Hours_, int8u Minutes_, int8u Seconds_, int8u Frames_, int8u FramesPerSecond_, bool DropFrame_, bool MustUseSecondField_=false, bool IsSecondField_=false);
 
     //Operators
     TimeCode &operator ++()
@@ -63,21 +63,25 @@ public:
     }
     bool operator== (const TimeCode &tc) const
     {
-        return Hours           ==tc.Hours
-            && Minutes         ==tc.Minutes
-            && Seconds         ==tc.Seconds
-            && Frames          ==tc.Frames
-            && FramesPerSecond ==tc.FramesPerSecond
-            && DropFrame       ==tc.DropFrame;
+        return Hours                ==tc.Hours
+            && Minutes              ==tc.Minutes
+            && Seconds              ==tc.Seconds
+            && Frames               ==tc.Frames
+            && FramesPerSecond      ==tc.FramesPerSecond
+            && DropFrame            ==tc.DropFrame
+            && MustUseSecondField   ==tc.MustUseSecondField
+            && IsSecondField        ==tc.IsSecondField;
     }
     bool operator!= (const TimeCode &tc) const
     {
-        return Hours           !=tc.Hours
-            || Minutes         !=tc.Minutes
-            || Seconds         !=tc.Seconds
-            || Frames          !=tc.Frames
-            || FramesPerSecond !=tc.FramesPerSecond
-            || DropFrame       !=tc.DropFrame;
+        return Hours                !=tc.Hours
+            || Minutes              !=tc.Minutes
+            || Seconds              !=tc.Seconds
+            || Frames               !=tc.Frames
+            || FramesPerSecond      !=tc.FramesPerSecond
+            || DropFrame            !=tc.DropFrame
+            || MustUseSecondField   !=tc.MustUseSecondField
+            || IsSecondField        !=tc.IsSecondField;
     }
 
     //Helpers
@@ -95,6 +99,8 @@ public:
     int8u Frames;
     int8u FramesPerSecond;
     bool  DropFrame;
+    bool  MustUseSecondField;
+    bool  IsSecondField;
 };
 
 } //NameSpace

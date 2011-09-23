@@ -35,9 +35,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Gxf_TimeCode.h"
-#if MEDIAINFO_EVENTS
-    #include "MediaInfo/MediaInfo_Events.h"
-#endif //MEDIAINFO_EVENTS
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
@@ -167,23 +164,22 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
             Skip_SB(                                            "BGF1");
             Get_S1 (2, Hours_Tens,                              "Hours (Tens)");
 
+            int64u TimeCode_Ms=(int64u)(Hours_Tens     *10*60*60*1000
+                                      + Hours_Units       *60*60*1000
+                                      + Minutes_Tens      *10*60*1000
+                                      + Minutes_Units        *60*1000
+                                      + Seconds_Tens         *10*1000
+                                      + Seconds_Units           *1000
+                                      + (Gxf_FrameRate(FrameRate_Code)==0?0:((Frames_Tens*10+Frames_Units)*1000/float64_int32s(Gxf_FrameRate(FrameRate_Code)/(Gxf_FrameRate(FrameRate_Code)>30?2:1)))));
+
+            Element_Info(Ztring().Duration_From_Milliseconds(TimeCode_Ms));
+
             BS_End();
-
-            int64u TimeCode=(int64u)(Hours_Tens     *10*60*60*1000
-                               + Hours_Units       *60*60*1000
-                               + Minutes_Tens      *10*60*1000
-                               + Minutes_Units        *60*1000
-                               + Seconds_Tens         *10*1000
-                               + Seconds_Units           *1000
-                               + (Gxf_FrameRate(FrameRate_Code)==0?0:((Frames_Tens*10+Frames_Units)*1000/float64_int32s(Gxf_FrameRate(FrameRate_Code)/(Gxf_FrameRate(FrameRate_Code)>30?2:1)))));
-
-            Element_Info(Ztring().Duration_From_Milliseconds(TimeCode));
-
             Element_End();
 
             FILLING_BEGIN();
                 if (TimeCode_First==(int64u)-1)
-                    TimeCode_First=TimeCode;
+                    TimeCode_First=TimeCode_Ms;
             FILLING_END();
         }
         else
