@@ -11,6 +11,7 @@ Version 0.7.50
 --------------
 + DVB Subtitle: region_width / region_height / region_depth  (hidden by default)
 + MPEG-4: hdv6 and mx4p CodecID support (MPEG Video)
++ AVI: v210 CodecID (YUV) detect
 + #3411596, CDDA support, thanks to Lionel Duchateau
 + MXF: support of AC-3
 + #3411999, AVi: detection of GeoVision MPEG-4, thanks to Lionel Duchateau
