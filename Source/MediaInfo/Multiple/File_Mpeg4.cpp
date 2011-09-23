@@ -280,7 +280,7 @@ void File_Mpeg4::Streams_Finish()
             {
                 Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), stts_Duration*1000/Temp->second.mdhd_TimeScale, 10, true);
                 if (stts_Duration)
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)Temp->second.stts_FrameCount)/stts_Duration*Temp->second.mdhd_TimeScale, 3, true);
+                    Fill(StreamKind_Last, StreamPos_Last, "FrameRate", ((float)stts_FrameCount)/stts_Duration*Temp->second.mdhd_TimeScale, 3, true);
             }
         }
 
