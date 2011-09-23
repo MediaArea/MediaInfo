@@ -1788,7 +1788,7 @@ void File_Mxf::Read_Buffer_Continue()
             if (Config->File_IsGrowing)
             {
                 File F;
-                F.Open(File_Name+L"1");
+                F.Open(File_Name);
                 int8u SearchingPartitionPack[65536];
                 size_t SearchingPartitionPack_Size=F.Read(SearchingPartitionPack, 65536);
                 for (size_t Pos=0; Pos+16<SearchingPartitionPack_Size; Pos++)
@@ -1813,18 +1813,21 @@ void File_Mxf::Read_Buffer_Continue()
                             case 0x04 :
                                         {
                                         //Filling duration
-                                        Config->File_IsGrowing=false;
-                                        Config->File_Size=F.Size_Get();
                                         F.Close();
+                                        Config->File_IsNotGrowingAnymore=true;
                                         MediaInfo_Internal MI;
                                         Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+                                        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
                                         MI.Option(_T("ParseSpeed"), _T("0"));
-                                        size_t MiOpenResult=MI.Open(File_Name+L"1");
+                                        MI.Option(_T("Demux"), Ztring());
+                                        size_t MiOpenResult=MI.Open(File_Name);
                                         MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                                        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
                                         if (MiOpenResult)
                                         {
                                             Fill(Stream_General, 0, General_Format_Settings, MI.Get(Stream_General, 0, General_Format_Settings), true);
                                             Fill(Stream_General, 0, General_Duration, MI.Get(Stream_General, 0, General_Duration), true);
+                                            Fill(Stream_General, 0, General_FileSize, MI.Get(Stream_General, 0, General_FileSize), true);
                                         }
                                         }
                                         break;

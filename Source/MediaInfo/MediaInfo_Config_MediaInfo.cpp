@@ -108,6 +108,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Buffer_Repeat=false;
     File_Buffer_Repeat_IsSupported=false;
     File_IsGrowing=false;
+    File_IsNotGrowingAnymore=false;
     File_Size=(int64u)-1;
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
