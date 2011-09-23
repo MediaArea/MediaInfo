@@ -572,7 +572,7 @@ UYNV;YUV;;Nvidia 16bpp. A direct copy of UYVY registered by Nvidia to work aroun
 UYVP;YUV;;Evans & Sutherland 24bpp. YUV 4:2:2 extended precision 10-bits per component in U0Y0V0Y1 order;;;;YUV;
 UYVU;YUV;SoftLab;SoftLab-NSK Forward YUV;http://www.fourcc.org/indexyuv.htm;;;YUV;
 UYVY;YUV;;Uncompressed 16bpp. YUV 4:2:2 (Y sample at every pixel, U and V sampled at every second pixel horizontally on each line). A macropixel contains 2 pixels in 1 u_int32.;;;;YUV;4:2:2
-V210;Optibase;;Optibase VideoPump 10-bit 4:2:2 Component YUV;;;;;
+V210;YUV;;Optibase VideoPump 10-bit 4:2:2 Component YUV;;;;;
 v210;YUV;AJA Video Systems Xena;;;;;YUV;4:2:2
 V261;VX3000S;;Lucent VX3000S;;;;;
 V422;YUV;Vitec;;;;;YUV;4:2:2

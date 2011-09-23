@@ -1976,7 +1976,7 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     "UYVP;YUV;;Evans & Sutherland 24bpp. YUV 4:2:2 extended precision 10-bits per component in U0Y0V0Y1 order;;;;YUV\n"
     "UYVU;YUV;SoftLab;SoftLab-NSK Forward YUV;http://www.fourcc.org/indexyuv.htm;;;YUV\n"
     "UYVY;YUV;;Uncompressed 16bpp. YUV 4:2:2 (Y sample at every pixel, U and V sampled at every second pixel horizontally on each line). A macropixel contains 2 pixels in 1 u_int32.;;;;YUV;4:2:2\n"
-    "V210;Optibase;;Optibase VideoPump 10-bit 4:2:2 Component YUV\n"
+    "V210;YUV;;Optibase VideoPump 10-bit 4:2:2 Component YUV\n"
     "v210;YUV;AJA Video Systems Xena;;;;;YUV;4:2:2\n"
     "V261;VX3000S;;Lucent VX3000S\n"
     "V422;YUV;Vitec;;;;;YUV;4:2:2\n"
