@@ -368,6 +368,12 @@ void File_Aac::raw_data_block()
     if (Element_IsOK() && Data_BS_Remain()%8)
         Skip_S1(Data_BS_Remain()%8,                             "byte_alignment");
     Element_End();
+
+    if (sampling_frequency)
+    {
+        FrameInfo.DTS+=float64_int64s(((float64)frame_length)*1000000000/sampling_frequency);
+        FrameInfo.PTS=FrameInfo.DTS;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1417,4 +1423,3 @@ void File_Aac::hcod(int8u sect_cb, const char* Name)
 } //NameSpace
 
 #endif //MEDIAINFO_AAC_YES
-

@@ -3319,6 +3319,7 @@ void File_MpegPs::SL_packetized_stream()
     #endif //MEDIAINFO_MPEG4_YES
 
     //Demux
+    /*
     if (Config_Demux)
     {
         int8u A[7];
@@ -3341,6 +3342,10 @@ void File_MpegPs::SL_packetized_stream()
         Demux(A, 7, ContentType_Header);
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     }
+    */
+    #if MEDIAINFO_DEMUX
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
 
     //Parsing
     xxx_stream_Parse(Streams[stream_id], SL_packetized_stream_Count);

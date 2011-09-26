@@ -58,6 +58,7 @@ File_Aac::File_Aac()
     //Configuration
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    PTS_DTS_Needed=true;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
@@ -504,8 +505,8 @@ bool File_Aac::Demux_UnpacketizeContainer_Test_ADTS()
 }
 bool File_Aac::Demux_UnpacketizeContainer_Test_LATM()
 {
-    int16u audioMuxLengthBytes=BigEndian2int24u(Buffer+Buffer_Offset+3)&0x1FFF; //13 bits
-    Demux_Offset=Buffer_Offset+audioMuxLengthBytes;
+    int16u audioMuxLengthBytes=BigEndian2int16u(Buffer+Buffer_Offset+1)&0x1FFF; //13 bits
+    Demux_Offset=Buffer_Offset+3+audioMuxLengthBytes;
 
     if (Demux_Offset>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
         return false; //No complete frame
@@ -592,6 +593,8 @@ void File_Aac::Data_Parse()
     if (Frame_Count>Frame_Count_Valid || CanFill)
     {
         Skip_XX(Element_Size,                                   "Data");
+        FrameInfo.DTS+=float64_int64s(((float64)frame_length)*1000000000/sampling_frequency);
+        FrameInfo.PTS=FrameInfo.DTS;
         return; //Parsing completely only the 1st frame
     }
 
@@ -648,4 +651,3 @@ void File_Aac::Data_Parse_LATM()
 } //NameSpace
 
 #endif //MEDIAINFO_AAC_YES
-

@@ -355,8 +355,6 @@ void File_Mpeg4_Descriptors::Data_Parse()
 {
     //Preparing
     Status[IsAccepted]=true;
-    if (Count_Get(KindOfStream)==0)
-        Stream_Prepare(KindOfStream);
 
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case 0x##_NAME : Element_Name(_DETAIL); Descriptor_##_NAME(); break;
@@ -493,6 +491,49 @@ void File_Mpeg4_Descriptors::Descriptor_04()
     Get_B4 (AvgBitrate,                                         "avgBitrate");
 
     FILLING_BEGIN();
+        if (KindOfStream==Stream_Max)
+            switch (ObjectTypeId)
+            {
+                case 0x20 :
+                case 0x21 :
+                case 0x60 :
+                case 0x61 :
+                case 0x62 :
+                case 0x63 :
+                case 0x64 :
+                case 0x65 :
+                case 0x6A :
+                case 0x6C :
+                case 0x6D :
+                case 0x6E :
+                case 0xA3 :
+                case 0xA4 :
+                            KindOfStream=Stream_Video; break;
+                case 0x40 :
+                case 0x66 :
+                case 0x67 :
+                case 0x68 :
+                case 0x69 :
+                case 0x6B :
+                case 0xA0 :
+                case 0xA1 :
+                case 0xA5 :
+                case 0xA6 :
+                case 0xA9 :
+                case 0xAA :
+                case 0xAB :
+                case 0xAC :
+                case 0xD1 :
+                case 0xD3 :
+                case 0xD4 :
+                case 0xE1 :
+                            KindOfStream=Stream_Audio; break;
+                case 0x08 :
+                            KindOfStream=Stream_Text; break;
+                default: ;
+            }
+        if (Count_Get(KindOfStream)==0)
+            Stream_Prepare(KindOfStream);
         switch (ObjectTypeId)
         {
             case 0x01 : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "System", Error, false, true); break;
@@ -746,6 +787,9 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         default: ;
     }
 
+    //Parsing
+    Open_Buffer_Continue(Parser);
+
     //Demux
     #if MEDIAINFO_DEMUX
         switch (Config->Demux_InitData_Get())
@@ -758,15 +802,12 @@ void File_Mpeg4_Descriptors::Descriptor_05()
                         {
                         std::string Data_Raw((const char*)(Buffer+Buffer_Offset), (size_t)Element_Size);
                         std::string Data_Base64(Base64::encode(Data_Raw));
-                        Fill(Stream_Audio, StreamPos_Last, "Demux_InitBytes", Data_Base64);
+                        Parser->Fill(KindOfStream, 0, "Demux_InitBytes", Data_Base64);
                         }
                         break;
             default :   ;
         }
     #endif //MEDIAINFO_DEMUX
-
-    //Parsing
-    Open_Buffer_Continue(Parser);
 
     //Parser configuration after the parsing
     switch (ObjectTypeId)
