@@ -62,6 +62,7 @@ inline void STRINGOUT(ZenLib::Ztring Text)
             UINT Cp_Old = GetConsoleOutputCP();
             SetConsoleOutputCP(CP_UTF8);
             WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), Buffer.c_str(), Buffer.length(), &CharsWritten, NULL);
+            WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), "\r\n", 2, &CharsWritten, NULL);
             SetConsoleOutputCP(Cp_Old);
         #else //__WINDOWS__
             std::cout<<Text.To_Local().c_str()<<std::endl;
