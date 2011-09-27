@@ -243,6 +243,8 @@ private :
         bool                    Searching_Payload;
         bool                    Searching_TimeStamps;
         bool                    Searching_TimeStamp_Start;
+        bool                    Default;
+        bool                    Forced;
         int64u                  ContentCompAlgo;
         size_t                  ContentCompSettings_Buffer_Size;
         int8u*                  ContentCompSettings_Buffer;
@@ -260,6 +262,8 @@ private :
             Searching_Payload=false;
             Searching_TimeStamps=false;
             Searching_TimeStamp_Start=false;
+            Default=true;
+            Forced=false;
             ContentCompAlgo=(int32u)-1;
             ContentCompSettings_Buffer_Size=0;
             ContentCompSettings_Buffer=NULL;

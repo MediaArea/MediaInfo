@@ -291,6 +291,10 @@ void File_Mk::Streams_Finish()
                 }
             }
         }
+
+        //Flags
+        Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Default", Temp->second.Default?"Yes":"No");
+        Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Forced", Temp->second.Forced?"Yes":"No");
     }
 
     //Chapters
@@ -2518,7 +2522,11 @@ void File_Mk::Segment_Tracks_TrackEntry_FlagDefault()
     Element_Name("FlagDefault");
 
     //Parsing
-    UInteger_Info();
+    int64u UInteger=UInteger_Get();
+
+    FILLING_BEGIN();
+        Stream[TrackNumber].Default=UInteger?true:false;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2536,7 +2544,11 @@ void File_Mk::Segment_Tracks_TrackEntry_FlagForced()
     Element_Name("FlagForced");
 
     //Parsing
-    UInteger_Info();
+    int64u UInteger=UInteger_Get();
+
+    FILLING_BEGIN();
+        Stream[TrackNumber].Forced=UInteger?true:false;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
