@@ -64,7 +64,7 @@ public :
                 lo.lo=0;
                 lo.hi=0;
                 hi.lo=0;
-                hi.lo=0;
+                hi.hi=0;
             }
     };
 
