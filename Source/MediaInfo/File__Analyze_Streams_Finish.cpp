@@ -82,7 +82,7 @@ void File__Analyze::Streams_Finish_Global()
                 (*IbiStream)=(*MI.Ibi->Streams.begin()->second);
             }
 
-            if (IbiStream && !IbiStream->Infos.empty() && IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
+            if (IbiStream && !IbiStream->Infos.empty() && IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous && IbiStream->Infos[IbiStream->Infos.size()-1].FrameNumber!=(int64u)-1)
                 Fill(Stream_Video, 0, Video_FrameCount, IbiStream->Infos[IbiStream->Infos.size()-1].FrameNumber);
         }
         #endif //MEDIAINFO_IBI
