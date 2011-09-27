@@ -1040,6 +1040,11 @@ void File_Mpeg4::Header_Parse()
     }
     Size=Size_32;
     Get_C4 (Name,                                               "Name");
+    if (Name==0x33647666) //3dvf
+        Name=0x6D6F6F76; //moov
+    if (Name==0x61766964) //avid
+        Name=0x6D646174; //mdat
+    
     if (Size<8)
     {
         //Special case: until the end of the atom

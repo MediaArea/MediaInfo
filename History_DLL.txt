@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.51
 --------------
 + #2872918, MKV: add support for default and forced track flags
++ MPEG-4: basic support of Aigo .3dv files
 
 Version 0.7.50, 2011-09-23
 --------------
