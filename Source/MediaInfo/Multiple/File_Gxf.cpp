@@ -760,8 +760,13 @@ void File_Gxf::map()
                 case 0x41 : //First field of material in stream
                             if (DataLength==4)
                             {
-                                Get_B4 (Material_Fields_First,  "Content");
-                                Material_Fields_First_IsValid=true;
+                                if (Material_Fields_First_IsValid)
+                                    Skip_B4(                    "Content");
+                                else
+                                {
+                                    Get_B4 (Material_Fields_First, "Content");
+                                    Material_Fields_First_IsValid=true;
+                                }
                             }
                             else
                                 Skip_XX(DataLength,             "Unknown");
@@ -769,8 +774,13 @@ void File_Gxf::map()
                 case 0x42 : //Last field of material in stream
                             if (DataLength==4)
                             {
-                                Get_B4 (Material_Fields_Last,   "Content");
-                                Material_Fields_Last_IsValid=true;
+                                if (Material_Fields_Last_IsValid)
+                                    Skip_B4(                    "Content");
+                                else
+                                {
+                                    Get_B4 (Material_Fields_Last, "Content");
+                                    Material_Fields_Last_IsValid=true;
+                                }
                             }
                             else
                                 Skip_XX(DataLength,             "Unknown");

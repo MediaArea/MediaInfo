@@ -11,6 +11,7 @@ Version 0.7.51
 --------------
 + #2872918, MKV: add support for default and forced track flags
 + MPEG-4: basic support of Aigo .3dv files
+x #3414326, GXF: using only the first map chunk for duration calculation
 
 Version 0.7.50, 2011-09-23
 --------------
