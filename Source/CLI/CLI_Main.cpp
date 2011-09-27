@@ -43,6 +43,9 @@ int main(int argc, char* argv_ansi[])
     //Localisation
     setlocale(LC_ALL, """""");
 
+    //Initialize terminal (to fix Unicode output on Win32)
+    INIT_TERMINAL();
+
     //Configure MediaInfo core
     Core MI;
     MI.Menu_View_Text(); //Default to text with CLI.
