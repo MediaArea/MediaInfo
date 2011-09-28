@@ -30,6 +30,10 @@
 #include "Common/Core.h"
 #include "CommandLine_Parser.h"
 #include "Help.h"
+#if defined(_MSC_VER) && defined(UNICODE)
+    #include "io.h"
+    #include "fcntl.h"
+#endif
 using namespace std;
 using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
@@ -44,7 +48,11 @@ int main(int argc, char* argv_ansi[])
     setlocale(LC_ALL, """""");
 
     //Initialize terminal (to fix Unicode output on Win32)
-    INIT_TERMINAL();
+    #if defined(_MSC_VER) && defined(UNICODE)
+        _setmode(_fileno(stdout), _O_U8TEXT);
+        _setmode(_fileno(stderr), _O_U8TEXT);
+    #endif
+    MediaInfo::Option_Static(_T("LineSeparator"), _T("\n")); //Using sdtout
 
     //Configure MediaInfo core
     Core MI;
@@ -52,11 +60,6 @@ int main(int argc, char* argv_ansi[])
 
     //Retrieve command line (mainly for Unicode)
     GETCOMMANDLINE();
-
-    //Specific
-    #ifdef __MACOSX__
-        MediaInfo::Option_Static(_T("LineSeparator"), _T("\n")); //if \r, output is broken, why?
-    #endif
 
     //Parse command line
     vector<String> List;
