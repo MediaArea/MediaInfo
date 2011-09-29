@@ -67,5 +67,5 @@ inline void STRINGOUT(ZenLib::Ztring Text)
 
 inline void TEXTOUT(const char* Text)
 {
-    STRINGOUT(ZenLib::Ztring().From_Local(Text));
+    STRINGOUT(ZenLib::Ztring().From_ISO_8859_1(Text));
 }
