@@ -293,7 +293,7 @@ bool File__Tags_Helper::Synched_Test()
             }
             else if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
             {
-                #ifdef MEDIAINFO_APE_YES
+                #ifdef MEDIAINFO_APETAG_YES
                     Parser=new File_ApeTag;
                 #else
                     Parser=new File_Unknown;
