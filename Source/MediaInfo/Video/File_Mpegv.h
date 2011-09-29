@@ -264,6 +264,9 @@ private :
     int8u  frame_rate_extension_n;
     int8u  frame_rate_extension_d;
     int8u  video_format;
+    int8u  colour_primaries;
+    int8u  transfer_characteristics;
+    int8u  matrix_coefficients;
     int8u  picture_structure;
     int8u  vbv_buffer_size_extension;
     int8u  intra_dc_precision;

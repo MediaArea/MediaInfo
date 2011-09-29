@@ -272,6 +272,49 @@ const char* Mpegv_extension_start_code_identifier[]=
     "",
 };
 
+//---------------------------------------------------------------------------
+const char* Mpegv_colour_primaries(int8u colour_primaries)
+{
+    switch (colour_primaries)
+    {
+        case  1 : return "BT.709";
+        case  4 : return "BT.470-2 system M";
+        case  5 : return "BT.470-2 System B, BT.470-2 System G";
+        case  6 : return "SMPTE 170M";
+        case  7 : return "SMPTE 240M";
+        default : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpegv_transfer_characteristics(int8u transfer_characteristics)
+{
+    switch (transfer_characteristics)
+    {
+        case  1 : return "BT.709";
+        case  4 : return "BT.470-2 System M";
+        case  5 : return "BT.470-2 System B, BT.470-2 System G";
+        case  6 : return "SMPTE 170M";
+        case  7 : return "SMPTE 240M";
+        case  8 : return "Linear";
+        default : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpegv_matrix_coefficients(int8u matrix_coefficients)
+{
+    switch (matrix_coefficients)
+    {
+        case  1 : return "BT.709";
+        case  4 : return "FCC";
+        case  5 : return "BT.470-2 System B, BT.470-2 System G";
+        case  6 : return "SMPTE 170M";
+        case  7 : return "SMPTE 240M";
+        default : return "";
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -591,6 +634,9 @@ void File_Mpegv::Streams_Fill()
 
     //Standard
     Fill(Stream_Video, 0, Video_Standard, Mpegv_video_format[video_format]);
+    Fill(Stream_Video, 0, "colour_primaries", Mpegv_colour_primaries(colour_primaries));
+    Fill(Stream_Video, 0, "transfer_characteristics", Mpegv_transfer_characteristics(transfer_characteristics));
+    Fill(Stream_Video, 0, "matrix_coefficients", Mpegv_matrix_coefficients(matrix_coefficients));
 
     //Matrix
     if (load_intra_quantiser_matrix || load_non_intra_quantiser_matrix)
@@ -887,6 +933,9 @@ void File_Mpegv::Synched_Init()
     frame_rate_extension_n=0;
     frame_rate_extension_d=0;
     video_format=5; //Unspecified video format
+    colour_primaries=(int8u)-1;
+    transfer_characteristics=(int8u)-1;
+    matrix_coefficients=(int8u)-1;
     vbv_buffer_size_extension=0;
     intra_dc_precision=(int8u)-1;
     load_intra_quantiser_matrix=false;
@@ -2200,10 +2249,10 @@ void File_Mpegv::extension_start()
         case  2 :{ //Sequence Display
                     //Parsing
                     Get_S1 ( 3, video_format,                   "video_format"); Param_Info(Mpegv_video_format[video_format]);
-                    TEST_SB_SKIP(                               "load_intra_quantiser_matrix");
-                        Skip_S1( 8,                             "colour_primaries");
-                        Skip_S1( 8,                             "transfer_characteristics");
-                        Skip_S1( 8,                             "matrix_coefficients");
+                    TEST_SB_SKIP(                               "colour_description");
+                        Get_S1 (8, colour_primaries,            "colour_primaries"); Param_Info(Mpegv_colour_primaries(colour_primaries));
+                        Get_S1 (8, transfer_characteristics,    "transfer_characteristics"); Param_Info(Mpegv_transfer_characteristics(transfer_characteristics));
+                        Get_S1 (8, matrix_coefficients,         "matrix_coefficients"); Param_Info(Mpegv_matrix_coefficients(matrix_coefficients));
                     TEST_SB_END();
                     Get_S2 (14, display_horizontal_size,        "display_horizontal_size");
                     Mark_1 ();

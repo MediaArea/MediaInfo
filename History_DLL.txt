@@ -11,6 +11,8 @@ Version 0.7.51
 --------------
 + #2872918, MKV: add support for default and forced track flags
 + MPEG-4: basic support of Aigo .3dv files
++ MPEG-2 Video: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
++ QuickTime: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
 x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
 x MPEG-4: was not providing some info about tracks with sample table before media header
