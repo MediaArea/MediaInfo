@@ -917,7 +917,14 @@ void File_Id3v2::APIC()
     }
     Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
     int64u Element_Offset_Real=Element_Offset;
-    Get_ISO_8859_1(Element_Size-Element_Offset, Description,    "Description");
+    switch (Encoding)
+    {
+        case 0 : Get_ISO_8859_1 (Element_Size-Element_Offset, Description, "Description"); break;
+        case 1 : Get_UTF16      (Element_Size-Element_Offset, Description, "Description"); break;
+        case 2 : Get_UTF16B     (Element_Size-Element_Offset, Description, "Description"); break;
+        case 3 : Get_UTF8       (Element_Size-Element_Offset, Description, "Description"); break;
+        default : ;
+    }
     Element_Offset=Element_Offset_Real+Description.size()+1;
     if (Element_Offset>Element_Size)
         return; //There is a problem
