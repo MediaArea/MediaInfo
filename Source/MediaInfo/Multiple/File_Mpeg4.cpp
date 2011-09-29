@@ -48,7 +48,9 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
-#include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
+#if MEDIAINFO_REFERENCES
+    #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
+#endif //MEDIAINFO_REFERENCES
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -721,33 +723,35 @@ void File_Mpeg4::Streams_Finish()
         Fill(Stream_General, 0, General_InternetMediaType, "audio/mp4", Unlimited, true, true);
 
     //Parsing reference files
-    for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-        if (!Stream->second.File_Name.empty())
-        {
-            if (ReferenceFiles==NULL)
-                ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
-
-            File__ReferenceFilesHelper::reference Reference;
-            Reference.FileNames.push_back(Stream->second.File_Name);
-            Reference.StreamKind=Stream->second.StreamKind;
-            Reference.StreamPos=Stream->second.StreamPos;
-            Reference.StreamID=Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID);
-            if (Stream->second.StreamKind==Stream_Video)
-                Reference.FrameRate=Retrieve(Stream_Video, Stream->second.StreamPos, Video_FrameRate).To_float64();
-            ReferenceFiles->References.push_back(Reference);
-        }
-
-    if (ReferenceFiles)
-    {
-        ReferenceFiles->ParseReferences();
-        #if MEDIAINFO_NEXTPACKET
-            if (Config->NextPacket_Get() && ReferenceFiles && !ReferenceFiles->References.empty())
+    #if MEDIAINFO_REFERENCES
+        for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+            if (!Stream->second.File_Name.empty())
             {
-                ReferenceFiles_IsParsing=true;
-                return;
+                if (ReferenceFiles==NULL)
+                    ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
+
+                File__ReferenceFilesHelper::reference Reference;
+                Reference.FileNames.push_back(Stream->second.File_Name);
+                Reference.StreamKind=Stream->second.StreamKind;
+                Reference.StreamPos=Stream->second.StreamPos;
+                Reference.StreamID=Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID);
+                if (Stream->second.StreamKind==Stream_Video)
+                    Reference.FrameRate=Retrieve(Stream_Video, Stream->second.StreamPos, Video_FrameRate).To_float64();
+                ReferenceFiles->References.push_back(Reference);
             }
-        #endif //MEDIAINFO_NEXTPACKET
-    }
+
+        if (ReferenceFiles)
+        {
+            ReferenceFiles->ParseReferences();
+            #if MEDIAINFO_NEXTPACKET
+                if (Config->NextPacket_Get() && ReferenceFiles && !ReferenceFiles->References.empty())
+                {
+                    ReferenceFiles_IsParsing=true;
+                    return;
+                }
+            #endif //MEDIAINFO_NEXTPACKET
+        }
+    #endif //MEDIAINFO_REFERENCES
 
     //Commercial names
     Streams_Finish_CommercialNames();
