@@ -3312,12 +3312,29 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tx3g_ftab()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx()
 {
+    //Parsing
+    Skip_B6(                                                    "Reserved");
+    Skip_B2(                                                    "Data reference index");
+
+    if (StreamKind_Last==Stream_Max)
+        switch (Element_Code)
+        {
+            case Elements::moov_trak_mdia_minf_stbl_stsd_mp4a : Stream_Prepare(Stream_Audio); break;
+            case Elements::moov_trak_mdia_minf_stbl_stsd_mp4v : Stream_Prepare(Stream_Video); break;
+            default                                           : ;
+        }
+    
     switch (StreamKind_Last)
     {
         case Stream_Video : moov_trak_mdia_minf_stbl_stsd_xxxxVideo(); break;
         case Stream_Audio : moov_trak_mdia_minf_stbl_stsd_xxxxSound(); break;
-        case Stream_Text  : moov_trak_mdia_minf_stbl_stsd_xxxxText(); break;
-        default : Skip_XX(Element_TotalSize_Get(),              "Unknown");
+        case Stream_Text  : moov_trak_mdia_minf_stbl_stsd_xxxxText (); break;
+        default           : 
+                            switch (Element_Code)
+                            {
+                                case Elements::moov_trak_mdia_minf_stbl_stsd_mp4s : moov_trak_mdia_minf_stbl_stsd_xxxxStream(); break;
+                                default                                           : Skip_XX(Element_TotalSize_Get(), "Unknown");
+                            }
     }
 
     FILLING_BEGIN();
@@ -3336,9 +3353,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
     int32u SampleRate, Channels, SampleSize;
     int16u Version, ID;
-    Skip_B4(                                                    "Reserved");
-    Skip_B2(                                                    "Reserved");
-    Skip_B2(                                                    "Data reference index");
     Get_B2 (Version,                                            "Version");
     Skip_B2(                                                    "Revision level");
     Skip_C4(                                                    "Vendor");
@@ -3556,12 +3570,24 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxStream()
+{
+    Element_Name("Stream"); //Defined in ISO-IEC 14496-14
+
+    if (moov_trak_mdia_minf_stbl_stsd_Pos)
+        return; //Handling only the first description
+
+    FILLING_BEGIN();
+    //Sometimes, more Atoms in this atoms
+    if (Element_Offset+8<Element_Size)
+        Element_ThisIsAList();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
 {
     Element_Name("Text");
-
-    Skip_B4(                                                    "Unknown");
-    Skip_B4(                                                    "Unknown");
 
     if (moov_trak_mdia_minf_stbl_stsd_Pos)
         return; //Handling only the first description
@@ -3612,9 +3638,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
 
     int16u Width, Height, ColorTableID;
     int8u  CompressorName_Size;
-    Skip_B4(                                                    "Reserved");
-    Skip_B2(                                                    "Reserved");
-    Skip_B2(                                                    "Data reference index");
     Skip_B2(                                                    "Version");
     Skip_B2(                                                    "Revision level");
     Skip_C4(                                                    "Vendor");

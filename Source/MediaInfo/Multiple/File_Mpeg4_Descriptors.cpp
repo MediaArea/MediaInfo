@@ -420,7 +420,7 @@ void File_Mpeg4_Descriptors::Data_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpeg4_Descriptors::Descriptor_02()
+void File_Mpeg4_Descriptors::Descriptor_01()
 {
     //Parsing
     bool URL_Flag;
@@ -436,11 +436,14 @@ void File_Mpeg4_Descriptors::Descriptor_02()
         Get_B1 (URLlength,                                      "URLlength");
         Skip_UTF8(URLlength,                                    "URLstring");
     }
-    Info_B1(ODProfileLevel,                                     "ODProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_ODProfileLevelIndication(ODProfileLevel));
-    Info_B1(SceneProfileLevel,                                  "sceneProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_SceneProfileLevelIndication(SceneProfileLevel));
-    Info_B1(AudioProfileLevel,                                  "audioProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_AudioProfileLevelIndication(AudioProfileLevel));
-    Info_B1(VisualProfileLevel,                                 "visualProfileLevelIndication"); Param_Info(Mpeg4v_Profile_Level(VisualProfileLevel));
-    Info_B1(GraphicsProfileLevel,                               "graphicsProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_GraphicsProfileLevelIndication(GraphicsProfileLevel));
+    if (Element_Code==0x02 || Element_Code==0x10)
+    {
+        Info_B1(ODProfileLevel,                                 "ODProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_ODProfileLevelIndication(ODProfileLevel));
+        Info_B1(SceneProfileLevel,                              "sceneProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_SceneProfileLevelIndication(SceneProfileLevel));
+        Info_B1(AudioProfileLevel,                              "audioProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_AudioProfileLevelIndication(AudioProfileLevel));
+        Info_B1(VisualProfileLevel,                             "visualProfileLevelIndication"); Param_Info(Mpeg4v_Profile_Level(VisualProfileLevel));
+        Info_B1(GraphicsProfileLevel,                           "graphicsProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_GraphicsProfileLevelIndication(GraphicsProfileLevel));
+    }
 
     FILLING_BEGIN();
         Element_ThisIsAList();
@@ -480,9 +483,10 @@ void File_Mpeg4_Descriptors::Descriptor_04()
 {
     //Parsing
     int32u bufferSizeDB, MaxBitrate, AvgBitrate;
+    int8u  streamType;
     Get_B1 (ObjectTypeId,                                       "objectTypeIndication"); Param_Info(Mpeg4_Descriptors_ObjectTypeIndication(ObjectTypeId));
     BS_Begin();
-    Info_S1(6, streamType,                                      "streamType"); Param_Info(Mpeg4_Descriptors_StreamType(streamType));
+    Get_S1 (6, streamType,                                      "streamType"); Param_Info(Mpeg4_Descriptors_StreamType(streamType));
     Skip_SB(                                                    "upStream");
     Skip_SB(                                                    "reserved");
     BS_End();
@@ -643,6 +647,12 @@ void File_Mpeg4_Descriptors::Descriptor_04()
         delete Parser; Parser=NULL;
         switch (ObjectTypeId)
         {
+            case 0x01 : switch (streamType)
+                        {
+                            case 0x01 : Parser=new File_Mpeg4_Descriptors; break;
+                            default   : ;
+                        }
+                        break;
             case 0x20 : //MPEG-4 Visual
                         #if defined(MEDIAINFO_MPEG4V_YES)
                             Parser=new File_Mpeg4v;
@@ -946,6 +956,13 @@ void File_Mpeg4_Descriptors::Descriptor_06()
                 SLConfig->startDecodingTimeStamp                =0; //-
                 SLConfig->startCompositionTimeStamp             =0; //-
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4_Descriptors::Descriptor_09()
+{
+    //Parsing
+    Skip_B2(                                                    "IPI_ES_Id");
 }
 
 //---------------------------------------------------------------------------

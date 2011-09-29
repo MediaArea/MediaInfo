@@ -13,6 +13,7 @@ Version 0.7.51
 + MPEG-4: basic support of Aigo .3dv files
 x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
+x MPEG-4: was not providing some info about tracks with sample table before media header
 
 Version 0.7.50, 2011-09-23
 --------------
