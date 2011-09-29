@@ -866,7 +866,7 @@ File_Mxf::File_Mxf()
     ReferenceFiles=NULL;
     #if MEDIAINFO_NEXTPACKET
         ReferenceFiles_IsParsing=false;
-    #endif MEDIAINFO_NEXTPACKET
+    #endif //MEDIAINFO_NEXTPACKET
     #if defined(MEDIAINFO_ANCILLARY_YES)
         Ancillary=NULL;
         Ancillary_IsBinded=false;
@@ -926,7 +926,7 @@ void File_Mxf::Streams_Finish()
             Streams_Finish_CommercialNames();
             return;
         }
-    #endif MEDIAINFO_NEXTPACKET
+    #endif //MEDIAINFO_NEXTPACKET
 
     if (!Track_Number_IsAvailable)
     {
@@ -2453,7 +2453,7 @@ void File_Mxf::Header_Parse()
                 }
             }
         }
-    #endif MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
+    #endif //MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
 
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (IsParsingEnd && PartitionPack_Parsed && !Partitions.empty() && Partitions[Partitions.size()-1].StreamOffset+Partitions[Partitions.size()-1].PartitionPackByteCount+Partitions[Partitions.size()-1].HeaderByteCount+Partitions[Partitions.size()-1].IndexByteCount==File_Offset+Buffer_Offset
@@ -3525,7 +3525,7 @@ void File_Mxf::IndexTableSegment()
             
             IndexTables.push_back(indextable());
             IndexTables[IndexTables.size()-1].StreamOffset=File_Offset+Buffer_Offset-Header_Size;
-        #endif MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
     }
         
     switch(Code2)
@@ -6226,7 +6226,7 @@ void File_Mxf::TimecodeComponent_RoundedTimecodeBase()
     Get_B2 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+        if (Data!=(int16u)-1)
             TimeCode_RoundedTimecodeBase=Data;
     FILLING_END();
 }
@@ -6240,7 +6240,7 @@ void File_Mxf::TimecodeComponent_DropFrame()
     Get_B1 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+        if (Data!=(int8u)-1)
             TimeCode_DropFrame=Data?true:false;
     FILLING_END();
 }

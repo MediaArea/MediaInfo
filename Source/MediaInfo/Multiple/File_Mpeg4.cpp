@@ -48,9 +48,9 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
-#if MEDIAINFO_REFERENCES
+#ifdef MEDIAINFO_REFERENCES_YES
     #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
-#endif //MEDIAINFO_REFERENCES
+#endif //MEDIAINFO_REFERENCES_YES
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -179,7 +179,7 @@ File_Mpeg4::File_Mpeg4()
     mdat_Pos_NormalParsing=false;
     #if MEDIAINFO_NEXTPACKET
         ReferenceFiles_IsParsing=false;
-    #endif MEDIAINFO_NEXTPACKET
+    #endif //MEDIAINFO_NEXTPACKET
     #if MEDIAINFO_DEMUX
         TimeCode_FrameOffset=0;
         TimeCode_DtsOffset=0;
@@ -198,7 +198,7 @@ File_Mpeg4::~File_Mpeg4()
 //---------------------------------------------------------------------------
 void File_Mpeg4::Streams_Finish()
 {
-    #if MEDIAINFO_NEXTPACKET
+    #if defined(MEDIAINFO_REFERENCES_YES) && MEDIAINFO_NEXTPACKET
         //Locators only
         if (ReferenceFiles_IsParsing)
         {
@@ -211,7 +211,7 @@ void File_Mpeg4::Streams_Finish()
             Streams_Finish_CommercialNames();
             return;
         }
-    #endif MEDIAINFO_NEXTPACKET
+    #endif //defined(MEDIAINFO_REFERENCES_YES) && MEDIAINFO_NEXTPACKET
 
     //Final Cut EIA-608 format
     if (Retrieve(Stream_General, 0, General_Format)==_T("Final Cut EIA-608"))
@@ -723,7 +723,7 @@ void File_Mpeg4::Streams_Finish()
         Fill(Stream_General, 0, General_InternetMediaType, "audio/mp4", Unlimited, true, true);
 
     //Parsing reference files
-    #if MEDIAINFO_REFERENCES
+    #ifdef MEDIAINFO_REFERENCES_YES
         for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
             if (!Stream->second.File_Name.empty())
             {
@@ -751,7 +751,7 @@ void File_Mpeg4::Streams_Finish()
                 }
             #endif //MEDIAINFO_NEXTPACKET
         }
-    #endif //MEDIAINFO_REFERENCES
+    #endif //MEDIAINFO_REFERENCES_YES
 
     //Commercial names
     Streams_Finish_CommercialNames();

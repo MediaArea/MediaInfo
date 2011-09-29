@@ -1094,13 +1094,13 @@ void File_Mpeg4::cdat()
         Accept("EIA-608");
         Fill(Stream_General, 0, General_Format, "Final Cut EIA-608", Unlimited, true, true);
     }
-    #if MEDIAINFO_EIA608
+    #ifdef MEDIAINFO_EIA608_YES
         if (Streams[(int32u)Element_Code].Parser==NULL)
         {
             Streams[(int32u)Element_Code].Parser=new File_Eia608();
             Open_Buffer_Init(Streams[(int32u)Element_Code].Parser);
         }
-    #endif //MEDIAINFO_EIA608
+    #endif //MEDIAINFO_EIA608_YES
 
     Element_Name(Element_Code==1?"EIA-608-1":"EIA-608-2");
 

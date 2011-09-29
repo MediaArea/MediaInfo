@@ -404,7 +404,7 @@ void File_Aac::ALSSpecificConfig()
     int32u header_size,trailer_size;
     Get_B4(header_size,                                         "header_size");
     Get_B4(trailer_size,                                        "trailer_size");
-    #if MEDIAINFO_RIFF
+    #ifdef MEDIAINFO_RIFF_YES
     if (file_type==1) //WAVE file
     {
         Element_Begin("orig_header");
@@ -416,7 +416,7 @@ void File_Aac::ALSSpecificConfig()
         Element_End();
     }
     else
-    #endif //MEDIAINFO_RIFF
+    #endif //MEDIAINFO_RIFF_YES
         Skip_XX(header_size,                                    "orig_header[]");
 
     Skip_XX(trailer_size,                                       "orig_trailer[]");
