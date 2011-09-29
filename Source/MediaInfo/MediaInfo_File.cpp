@@ -235,6 +235,9 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if defined(MEDIAINFO_EIA608_YES)
+    #include "MediaInfo/Text/File_Eia608.h"
+#endif
 #if defined(MEDIAINFO_N19_YES)
     #include "MediaInfo/Text/File_N19.h"
 #endif
@@ -535,6 +538,10 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
 
     // Text
+    #if defined(MEDIAINFO_EIA608_YES)
+        else if (Parser==_T("CEA-608"))     Info=new File_Eia608();
+        else if (Parser==_T("EIA-608"))     Info=new File_Eia608();
+    #endif
     #if defined(MEDIAINFO_OTHERTEXT_YES)
         else if (Parser==_T("N19"))         Info=new File_N19();
     #endif
@@ -927,5 +934,3 @@ void MediaInfo_Internal::CreateDummy (const String&)
 }
 
 } //NameSpace
-
-

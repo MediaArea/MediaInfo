@@ -59,6 +59,7 @@ private :
     //Buffer - Global
     void Read_Buffer_Init();
     void Read_Buffer_Continue();
+    void Read_Buffer_AfterParsing();
 
     //Function
     void Standard (int8u Character);

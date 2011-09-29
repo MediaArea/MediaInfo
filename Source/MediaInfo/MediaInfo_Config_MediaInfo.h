@@ -153,6 +153,10 @@ public :
     bool          Demux_Unpacketize_Get ();
     void          Demux_Rate_Set (float64 NewValue);
     float64       Demux_Rate_Get ();
+    void          Demux_FirstDts_Set (int64u NewValue);
+    int64u        Demux_FirstDts_Get ();
+    void          Demux_FirstFrameNumber_Set (int64u NewValue);
+    int64u        Demux_FirstFrameNumber_Get ();
     void          Demux_InitData_Set (int8u NewValue);
     int8u         Demux_InitData_Get ();
     #endif //MEDIAINFO_DEMUX
@@ -262,6 +266,8 @@ private :
     bool                    Demux_PCM_20bitTo16bit;
     bool                    Demux_Unpacketize;
     float64                 Demux_Rate;
+    int64u                  Demux_FirstDts;
+    int64u                  Demux_FirstFrameNumber;
     int8u                   Demux_InitData;
     #endif //MEDIAINFO_DEMUX
 

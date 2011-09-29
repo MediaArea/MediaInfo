@@ -163,6 +163,33 @@ void File_Eia608::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 void File_Eia608::Read_Buffer_Init()
 {
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=Config->Demux_FirstFrameNumber_Get();
+    if (FrameInfo.DUR==(int64u)-1 && Config->Demux_Rate_Get())
+        FrameInfo.DUR=float64_int64s(((float64)1000000000)/Config->Demux_Rate_Get());
+    if (FrameInfo.DTS==(int64u)-1)
+        FrameInfo.DTS=Config->Demux_FirstDts_Get();
+    if (FrameInfo.DUR!=(int64u)-1)
+    {
+        if (FrameInfo.DTS==(int64u)-1)
+            FrameInfo.DTS=0;
+        if (FrameInfo.PTS==(int64u)-1)
+            FrameInfo.PTS=0;
+    }
+
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::Read_Buffer_AfterParsing()
+{
+    Frame_Count++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
+    if (FrameInfo.DUR!=(int64u)-1)
+    {
+        FrameInfo.DTS+=FrameInfo.DUR;
+        FrameInfo.PTS=FrameInfo.DTS;
+    }
 }
 
 //---------------------------------------------------------------------------

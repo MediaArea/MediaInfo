@@ -77,6 +77,8 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Demux_PCM_20bitTo16bit=false;
         Demux_Unpacketize=false;
         Demux_Rate=0;
+        Demux_FirstDts=(int64u)-1;
+        Demux_FirstFrameNumber=(int64u)-1;
         Demux_InitData=0; //In Demux event
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_IBI
@@ -359,6 +361,49 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         #if MEDIAINFO_DEMUX
             Demux_Rate_Set(Ztring(Value).To_float64());
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_demux_firstdts"))
+    {
+        #if MEDIAINFO_DEMUX
+            int64u ValueInt64u;
+            if (Value.find(_T(":"))!=string::npos)
+            {
+                Ztring ValueZ=Value;
+                ValueInt64u=0;
+                size_t Value_Pos=ValueZ.find(_T(":"));
+                if (Value_Pos==string::npos)
+                    Value_Pos=ValueZ.size();    
+                ValueInt64u+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*60*1000*1000*1000;
+                ValueZ.erase(0, Value_Pos+1);
+                Value_Pos=ValueZ.find(_T(":"));
+                if (Value_Pos==string::npos)
+                    Value_Pos=ValueZ.size();    
+                ValueInt64u+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*1000*1000*1000;
+                ValueZ.erase(0, Value_Pos+1);
+                Value_Pos=ValueZ.find(_T("."));
+                if (Value_Pos==string::npos)
+                    Value_Pos=ValueZ.size();    
+                ValueInt64u+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*1000*1000*1000;
+                ValueZ.erase(0, Value_Pos+1);
+                if (!ValueZ.empty())
+                    ValueInt64u+=Ztring(ValueZ).To_int64u()*1000*1000*1000/(int64u)pow(10.0, (int)ValueZ.size());
+            }
+            else
+                ValueInt64u=Ztring(Value).To_int64u();
+            Demux_FirstDts_Set(ValueInt64u);
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return _T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==_T("file_demux_firstframenumber"))
+    {
+        #if MEDIAINFO_DEMUX
+            Demux_FirstFrameNumber_Set(Ztring(Value).To_int64u());
             return Ztring();
         #else //MEDIAINFO_DEMUX
             return _T("Demux manager is disabled due to compilation options");
@@ -996,6 +1041,36 @@ float64 MediaInfo_Config_MediaInfo::Demux_Rate_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Demux_Rate;
+}
+#endif //MEDIAINFO_DEMUX
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+void MediaInfo_Config_MediaInfo::Demux_FirstDts_Set (int64u NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_FirstDts=NewValue;
+}
+
+int64u MediaInfo_Config_MediaInfo::Demux_FirstDts_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_FirstDts;
+}
+#endif //MEDIAINFO_DEMUX
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+void MediaInfo_Config_MediaInfo::Demux_FirstFrameNumber_Set (int64u NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_FirstFrameNumber=NewValue;
+}
+
+int64u MediaInfo_Config_MediaInfo::Demux_FirstFrameNumber_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_FirstFrameNumber;
 }
 #endif //MEDIAINFO_DEMUX
 
