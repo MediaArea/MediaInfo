@@ -882,12 +882,14 @@ void File_Id3v2::W__X()
         default : ;
     }
     Element_Offset=1;
-    if (Encoding==1)
-        Element_Offset+=Element_Values(0).size()*2+4; //UTF-16 BOM + UTF-16 NULL
-    else if (Encoding==1 || Encoding==2)
-        Element_Offset+=Element_Values(0).size()*2+2; //UTF-16 NULL
-    else
-        Element_Offset+=Element_Values(0).size()+1;   //UTF-8 NULL
+    switch (Encoding)
+    {
+        case 0 : Element_Offset+=Element_Values(0).size()+1; break; //NULL
+        case 1 : Element_Offset+=Element_Values(0).size()*2+4; break; //UTF-16 BOM + UTF-16 NULL
+        case 2 : Element_Offset+=Element_Values(0).size()*2+2; break; //UTF-16 NULL
+        case 3 : Element_Offset+=Element_Values(0).To_UTF8().size()+1; break; //UTF-8 NULL
+        default : ;
+    }
     if (Element_Offset<Element_Size)
         Get_ISO_8859_1(Element_Size-Element_Offset, Element_Values(1), "URL");
 }
@@ -925,7 +927,15 @@ void File_Id3v2::APIC()
         case 3 : Get_UTF8       (Element_Size-Element_Offset, Description, "Description"); break;
         default : ;
     }
-    Element_Offset=Element_Offset_Real+Description.size()+1;
+    Element_Offset=Element_Offset_Real;
+    switch (Encoding)
+    {
+        case 0 : Element_Offset+=Description.size()+1; break; //NULL
+        case 1 : Element_Offset+=Description.size()*2+4; break; //UTF-16 BOM + UTF-16 NULL
+        case 2 : Element_Offset+=Description.size()*2+2; break; //UTF-16 NULL
+        case 3 : Element_Offset+=Description.To_UTF8().size()+1; break; //UTF-8 NULL
+        default : ;
+    }
     if (Element_Offset>Element_Size)
         return; //There is a problem
     std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));
