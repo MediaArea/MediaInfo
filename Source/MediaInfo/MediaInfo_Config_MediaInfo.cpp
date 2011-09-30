@@ -35,6 +35,9 @@
     #include "ZenLib/Base64/base64.h"
 #endif //MEDIAINFO_IBI
 #include <algorithm>
+#if MEDIAINFO_DEMUX
+    #include <cmath>
+#endif MEDIAINFO_DEMUX
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
