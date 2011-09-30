@@ -73,6 +73,7 @@ int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
     OPTION("--output=xml",                                  Output_XML)
     OPTION("--output=XML",                                  Output_XML)
     OPTION("--logfile",                                     LogFile)
+    OPTION("--bom",                                         Bom)
     OPTION("--version",                                     Version)
     //Obsolete
     OPTION("-lang=raw",                                     Language)
@@ -162,6 +163,21 @@ CL_OPTION(Output_XML)
 }
 
 //---------------------------------------------------------------------------
+#if defined(_MSC_VER) && defined(UNICODE)
+    extern bool CLI_Option_Bom;
+#endif //defined(_MSC_VER) && defined(UNICODE)
+CL_OPTION(Bom)
+{
+    #if defined(_MSC_VER) && defined(UNICODE)
+        fwprintf(stdout, L"\uFEFF");
+        fwprintf(stderr, L"\uFEFF");
+        CLI_Option_Bom=true;
+    #endif //defined(_MSC_VER) && defined(UNICODE)
+
+    return 0;
+}
+
+//---------------------------------------------------------------------------
 CL_OPTION(Version)
 {
     MI.Menu_Help_Version();
@@ -207,6 +223,8 @@ void LogFile_Action(ZenLib::Ztring Inform)
 
     std::string Inform_Ansi=Inform.To_UTF8();
     std::fstream File(LogFile_FileName.To_Local().c_str(), std::ios_base::out|std::ios_base::binary|std::ios_base::trunc);
+    if (CLI_Option_Bom)
+        File.write("\xEF\xBB\xBF", 3);
     File.write(Inform_Ansi.c_str(), Inform_Ansi.size());
 }
 

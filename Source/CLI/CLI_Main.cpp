@@ -38,6 +38,12 @@ using namespace std;
 using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
+#if defined(_MSC_VER) && defined(UNICODE)
+    bool CLI_Option_Bom;
+#endif //defined(_MSC_VER) && defined(UNICODE)
+//---------------------------------------------------------------------------
+
 //***************************************************************************
 // Main
 //***************************************************************************
@@ -51,6 +57,7 @@ int main(int argc, char* argv_ansi[])
     #if defined(_MSC_VER) && defined(UNICODE)
         _setmode(_fileno(stdout), _O_U8TEXT);
         _setmode(_fileno(stderr), _O_U8TEXT);
+        CLI_Option_Bom=false;
     #endif
     MediaInfo::Option_Static(_T("LineSeparator"), _T("\n")); //Using sdtout
 

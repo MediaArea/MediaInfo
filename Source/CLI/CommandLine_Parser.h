@@ -50,6 +50,7 @@ CL_OPTION(Language);
 CL_OPTION(Output_HTML);
 CL_OPTION(Output_XML);
 CL_OPTION(LogFile);
+CL_OPTION(Bom);
 CL_OPTION(Version);
 CL_OPTION(Default);
 

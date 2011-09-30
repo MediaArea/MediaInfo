@@ -51,6 +51,7 @@ int Help()
     TEXTOUT("");
     TEXTOUT("--Language=raw     Display non-translated unique identifiers (internal text)");
     TEXTOUT("--LogFile=...      Save the output in the specified file");
+    TEXTOUT("--BOM              Byte order mark for UTF-8 output");
 
     return -1;
 }
