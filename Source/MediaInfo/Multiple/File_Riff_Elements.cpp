@@ -714,7 +714,8 @@ void File_Riff::AIFF_SSND()
             Parser->Demux_UnpacketizeContainer=true;
             Stream[0].Parsers.push_back(Parser);
             AIFF_SSND_Continue();
-            Buffer_DataSizeToParse=Element_TotalSize_Get()-Element_Size;
+            Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Element_TotalSize_Get();
+            Buffer_DataToParse_Begin=File_Offset+Buffer_Offset;
         }
         else
     #endif //MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
@@ -771,6 +772,7 @@ void File_Riff::AVI_()
     }
 
     Data_Accept("AVI");
+    Buffer_MaximumSize*=16;
 
     //Filling
     Fill(Stream_General, 0, General_Format, "AVI");
@@ -1148,14 +1150,20 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Element_Info("Audio");
 
     //Parsing
-    int32u AvgBytesPerSec;
+    #if !MEDIAINFO_DEMUX
+        int32u AvgBytesPerSec;
+    #endif //!MEDIAINFO_DEMUX
     int16u FormatTag, Channels;
     BitsPerSample=0;
     Get_L2 (FormatTag,                                          "FormatTag");
     Get_L2 (Channels,                                           "Channels");
     Get_L4 (SamplesPerSec,                                      "SamplesPerSec");
     Get_L4 (AvgBytesPerSec,                                     "AvgBytesPerSec");
-    Skip_L2(                                                    "BlockAlign");
+    #if MEDIAINFO_DEMUX
+        Get_L2 (BlockAlign,                                     "BlockAlign");
+    #else //MEDIAINFO_DEMUX
+        Skip_L2(                                                "BlockAlign");
+    #endif //MEDIAINFO_DEMUX
     if (Element_Offset+2<=Element_Size)
         Get_L2 (BitsPerSample,                                  "BitsPerSample");
 
@@ -3304,22 +3312,15 @@ void File_Riff::WAVE_data()
     AVI__movi_xxxx();
     if (File_GoTo==(int64u)-1)
     {
-        #if MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
+        #if MEDIAINFO_DEMUX
             if (Config_ParseSpeed==1 && Config->Demux_Unpacketize_Get())
-            {
-                File_Pcm* Parser=new File_Pcm;
-                Open_Buffer_Init(Parser);
-                Parser->BitDepth=Retrieve(Stream_Audio, 0, Audio_BitDepth).To_int16u();
-                Parser->Channels=Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int16u();
-                Parser->Demux_Level=2; //Container
-                Parser->Demux_UnpacketizeContainer=true;
-                Stream[0].Parsers.push_back(Parser);
-
                 WAVE_data_Continue();
-                Buffer_DataSizeToParse=Element_TotalSize_Get()-Element_Size;
-            }
+            #if MEDIAINFO_TRACE
+                else if (Buffer_DataToParse_End && Trace_Activated)
+			        Param("Data", Ztring("(")+Ztring::ToZtring(Buffer_DataToParse_End-Buffer_DataToParse_Begin)+Ztring(" bytes)"));
+            #endif //MEDIAINFO_TRACE
             else
-        #endif //MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
+        #endif //MEDIAINFO_DEMUX
             {
                 #if MEDIAINFO_TRACE
 		            if (Trace_Activated)
@@ -3336,6 +3337,12 @@ void File_Riff::WAVE_data_Continue()
 
     #if MEDIAINFO_DEMUX
         Element_Code=0;
+        if (AvgBytesPerSec && Config->Demux_Rate_Get())
+        {
+            FrameInfo.DTS=float64_int64s((File_Offset+Buffer_Offset-Buffer_DataToParse_Begin)*1000000000.0/AvgBytesPerSec);
+            FrameInfo.PTS=FrameInfo.DTS;
+            Frame_Count_NotParsedIncluded=float64_int64s(((float64)FrameInfo.DTS)/1000000000.0*Config->Demux_Rate_Get());
+        }
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
 }

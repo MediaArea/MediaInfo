@@ -50,6 +50,7 @@ public :
         MediaInfo_Internal* MI;
         #if MEDIAINFO_NEXTPACKET
             std::bitset<32> Status;
+        ibi::stream         IbiStream;
         #endif //MEDIAINFO_NEXTPACKET
 
         reference()

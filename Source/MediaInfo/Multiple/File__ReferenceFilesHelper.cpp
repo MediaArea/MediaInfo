@@ -194,7 +194,20 @@ void File__ReferenceFilesHelper::ParseReference()
                 default: ;
             }
         #endif //MEDIAINFO_DEMUX
+        #if MEDIAINFO_IBI
+            if (!Reference->IbiStream.Infos.empty())
+            {
+                ibi Ibi;
+                Ibi.Streams[(int64u)-1]=new ibi::stream(Reference->IbiStream);
 
+                //IBI Creation
+                File_Ibi_Creation IbiCreation(Ibi);
+                Ztring IbiText=IbiCreation.Finish();
+                if (!IbiText.empty())
+                    Reference->MI->Option(_T("File_Ibi"), IbiText);
+            }
+        #endif //MEDIAINFO_IBI
+ 
         //Configuring file name
         ZtringList Names=Reference->FileNames;
         ZtringList AbsoluteNames; AbsoluteNames.Separator_Set(0, ",");
@@ -559,7 +572,6 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                 MI2.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
                                 if (!MiOpenResult)
                                     return -1;
-                                Ztring A=MI2.Get(Stream_General, 0, General_Duration);
                                 Duration=MI2.Get(Stream_General, 0, General_Duration).To_float64()/1000;
                             }
 

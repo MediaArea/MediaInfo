@@ -1794,7 +1794,7 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         }
 
         //Exiting this element
-        Skip_XX(Element_Size,                                   "Will be parsed");
+        Skip_XX(Element_Size-Element_Offset,                    "Will be parsed");
 
         //Configuring buffer
         const int8u* Buffer_Sav=Buffer;
@@ -2990,17 +2990,17 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_ctts()
     for (int32u Pos=0; Pos<entry_count; Pos++)
     {
         //Too much slow
+        /*
         Get_B4 (sample_count,                                   "sample_count");
         Get_B4 (sample_offset,                                  "sample_offset");
+        */
 
         //Faster
-        /*
         if (Element_Offset+8>Element_Size)
             break; //Problem
         sample_count =BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
         sample_offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
         Element_Offset+=8;
-        */
     }
 }
 
@@ -4535,17 +4535,28 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     {
         int32u Size;
         int32u Size_Min=(int32u)-1, Size_Max=0;
+        /*
+        if (FieldSize==4)
+            BS_Begin(); //Too much slow   
+        */
         for (int32u Pos=0; Pos<Sample_Count; Pos++)
         {
             //Too much slow
             /*
-            Get_B4 (Size,                                     "Size");
+            switch(FieldSize)
+            {
+                case  4 :                Get_S4 (4, Size,       "Size"); break;
+                case  8 : {int8u  Size1; Get_B1 (Size1,         "Size"); Size=Size1;} break;
+                case 16 : {int16u Size2; Get_B2 (Size2,         "Size"); Size=Size2;} break;
+                case 32 : {int32u Size4; Get_B4 (Size4,         "Size"); Size=Size4;} break;
+                default : return;
+            }
             */
 
             //Faster
             if (Element_Offset+4>Element_Size)
                 break; //Problem
-            switch(FieldSize)
+           switch(FieldSize)
             {
                 case  4 : if (Sample_Count%2)
                             Size=Buffer[Buffer_Offset+(size_t)Element_Offset]&0x0F;
@@ -4555,7 +4566,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                             Element_Offset++;
                           }
                           break;
-                case  8 : Size=BigEndian2int8u (Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset++; break;
+               case  8 : Size=BigEndian2int8u (Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset++; break;
                 case 16 : Size=BigEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset+=2; break;
                 case 32 : Size=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset); Element_Offset+=4; break;
                 default : return;
@@ -4570,6 +4581,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
             if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
                 Stream->second.stsz.push_back(Size);
         }
+        /*
+        if (FieldSize==4)
+            BS_End(); //Too much slow    
+        */
 
         if (Stream->second.stss.empty() && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
         {

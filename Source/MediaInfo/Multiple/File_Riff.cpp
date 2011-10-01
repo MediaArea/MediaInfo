@@ -116,7 +116,11 @@ File_Riff::File_Riff()
     //Temp
     WAVE_data_Size=0xFFFFFFFF;
     WAVE_fact_samplesCount=0xFFFFFFFF;
-    Buffer_DataSizeToParse=0;
+    Buffer_DataToParse_End=0;
+    #if MEDIAINFO_DEMUX
+        Buffer_DataToParse_Begin=(int64u)-1;
+        AvgBytesPerSec=0;
+    #endif //!MEDIAINFO_DEMUX
     avih_FrameRate=0;
     avih_TotalFrame=0;
     dmlh_TotalFrame=0;
@@ -470,19 +474,41 @@ void File_Riff::Streams_Finish ()
 //---------------------------------------------------------------------------
 void File_Riff::Read_Buffer_Continue()
 {
-    if (Buffer_DataSizeToParse)
+    if (File_Offset+Buffer_Offset<Buffer_DataToParse_End)
     {
-        if (Buffer_Size<=Buffer_DataSizeToParse)
-        {
+        #if MEDIAINFO_DEMUX
+            if (AvgBytesPerSec && Config->Demux_Rate_Get() && BlockAlign)
+            {
+                float64 BytesPerFrame=((float64)AvgBytesPerSec)/Config->Demux_Rate_Get();
+                int64u FramesAlreadyParsed=float64_int64s(((float64)(File_Offset+Buffer_Offset-Buffer_DataToParse_Begin))/BytesPerFrame);
+                Element_Size=float64_int64s(AvgBytesPerSec/Config->Demux_Rate_Get()*(FramesAlreadyParsed+1));
+                Element_Size/=BlockAlign;
+                Element_Size*=BlockAlign;
+                Element_Size-=File_Offset+Buffer_Offset-Buffer_DataToParse_Begin;
+                while (Element_Size && File_Offset+Buffer_Offset+Element_Size>Buffer_DataToParse_End)
+                    Element_Size-=BlockAlign;
+                if (Buffer_Offset+Element_Size>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+            }
+            else
+        #endif MEDIAINFO_DEMUX
+        if (File_Offset+Buffer_Size<=Buffer_DataToParse_End)
             Element_Size=Buffer_Size; //All the buffer is used
-            Buffer_DataSizeToParse-=Buffer_Size;
-        }
         else
         {
-            Element_Size=Buffer_DataSizeToParse;
-            Buffer_DataSizeToParse=0;
+            Element_Size=File_Offset+Buffer_Size-Buffer_DataToParse_End;
+            Buffer_DataToParse_End=0;
         }
 
+        if (Buffer_Offset+(size_t)Element_Size>Buffer_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        
         Element_Begin();
         switch (Kind)
         {
@@ -494,6 +520,58 @@ void File_Riff::Read_Buffer_Continue()
         Element_End();
     }
 }
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File_Riff::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Only WAV
+    if (Kind!=Kind_Wave)
+        return (size_t)-1;
+
+    //Parsing
+    switch (Method)
+    {
+        case 0  :
+                    if (Value<Buffer_DataToParse_Begin)
+                        Value=Buffer_DataToParse_Begin;
+                    if (Value>Buffer_DataToParse_End)
+                        Value=Buffer_DataToParse_End;
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :
+                    GoTo(Buffer_DataToParse_Begin+(Buffer_DataToParse_End-Buffer_DataToParse_Begin)*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 2  :   //Timestamp
+                    {
+                    if (AvgBytesPerSec==0)
+                        return (size_t)-1;
+
+                    float64 ValueF=(float64)Value;
+                    ValueF/=1000000000; //Value is in ns
+                    ValueF*=AvgBytesPerSec;
+                    GoTo(Buffer_DataToParse_Begin+float64_int64s(ValueF));
+                    return 1;
+                    }
+        case 3  :   //FrameNumber
+                    {
+                    if (AvgBytesPerSec==0 || Config->Demux_Rate_Get()==0 || BlockAlign==0)
+                        return (size_t)-1;
+
+                    float64 BytesPerFrame=AvgBytesPerSec/Config->Demux_Rate_Get();
+                    int64u StreamOffset=(int64u)(Value*BytesPerFrame);
+                    StreamOffset/=BlockAlign;
+                    StreamOffset*=BlockAlign;
+
+                    GoTo(Buffer_DataToParse_Begin+StreamOffset);
+                    return 1;
+                    }
+        default :   return (size_t)-1; //Not supported
+    }
+}
+#endif //MEDIAINFO_SEEK
 
 //---------------------------------------------------------------------------
 void File_Riff::Read_Buffer_Unsynched()
@@ -651,10 +729,23 @@ void File_Riff::Header_Parse()
     //Filling
     if (movi_Size && Element_Level==4 && Size_Complete+8>1024*1024)
     {
-        Buffer_DataSizeToParse=Size_Complete+8;
+        Buffer_DataToParse_Begin=File_Offset+Buffer_Offset+8;
+        Buffer_DataToParse_End=Buffer_DataToParse_Begin+Size_Complete;
         Size_Complete=Buffer_Size-(Buffer_Offset+8);
-        Buffer_DataSizeToParse-=Size_Complete;
     }
+    #if MEDIAINFO_DEMUX
+        if (Name==Elements::WAVE_data && AvgBytesPerSec && Config->Demux_Rate_Get() && BlockAlign)
+        {
+            Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Size_Complete;
+            #if MEDIAINFO_DEMUX
+                Buffer_DataToParse_Begin=File_Offset+Buffer_Offset+8;
+            #endif //!MEDIAINFO_DEMUX
+            float64 BytesPerFrame=AvgBytesPerSec/Config->Demux_Rate_Get();
+            Size_Complete=float64_int64s(BytesPerFrame);
+            Size_Complete/=BlockAlign;
+            Size_Complete*=BlockAlign;
+        }
+    #endif MEDIAINFO_DEMUX
 
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));

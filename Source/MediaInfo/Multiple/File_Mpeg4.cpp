@@ -736,7 +736,42 @@ void File_Mpeg4::Streams_Finish()
                 Reference.StreamPos=Stream->second.StreamPos;
                 Reference.StreamID=Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID);
                 if (Stream->second.StreamKind==Stream_Video)
+                {
                     Reference.FrameRate=Retrieve(Stream_Video, Stream->second.StreamPos, Video_FrameRate).To_float64();
+
+                    #ifdef MEDIAINFO_IBI_YES
+                        for (size_t stss_Pos=0; stss_Pos<Stream->second.stss.size(); stss_Pos++)
+                        {
+                            int64u Value=Stream->second.stss[stss_Pos];
+                        
+                            //Searching the corresponding stco
+                            std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
+                            int64u SamplePos=0;
+                            for (; Stsc!=Stream->second.stsc.end();  Stsc++)
+                            {
+                                std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; Stsc_Next++;
+                                int64u CountOfSamples=((Stsc_Next==Stream->second.stsc.end()?Stream->second.stco.size():Stsc_Next->FirstChunk)-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
+                                if (Stsc_Next!=Stream->second.stsc.end() && Value>=SamplePos+CountOfSamples)
+                                    SamplePos+=CountOfSamples;
+                                else
+                                {
+                                    int64u CountOfChunks=(Value-SamplePos)/Stsc->SamplesPerChunk;
+                                    size_t stco_Pos=(size_t)(Stsc->FirstChunk-1+CountOfChunks); //-1 because first chunk is number 1
+                                    if (stco_Pos<Stream->second.stco.size())
+                                    {
+                                        stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin()+Stream->second.stts_Durations_Pos;
+                                        ibi::stream::info IbiInfo;
+                                        IbiInfo.StreamOffset=Stream->second.stco[stco_Pos];
+                                        IbiInfo.FrameNumber=Value;
+                                        IbiInfo.Dts=TimeCode_DtsOffset+(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Value-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
+                                        Reference.IbiStream.Add(IbiInfo);
+                                    }
+                                }
+                            }
+                        }
+                    #endif //MEDIAINFO_IBI_YES
+
+                }
                 ReferenceFiles->References.push_back(Reference);
             }
 
