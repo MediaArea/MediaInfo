@@ -3062,22 +3062,25 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
     int32u sample_count;
     Get_B4 (sample_count,                                       "sample-count");
 
+    int32u Offset=1; //By default, begin at 1
     for (int32u Pos=0; Pos<sample_count; Pos++)
     {
         int32u sample_number;
 
         //Too much slow
-        /*
         Get_B4 (sample_number,                                  "sample-number");
-        */
 
         //Faster
+/*
         if (Element_Offset+4>Element_Size)
             break; //Problem
         sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
+*/
 
-        Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
+        if (Streams[moov_trak_tkhd_TrackID].stss.empty() && sample_number==0)
+            Offset=0;    
+        Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-Offset);
     }
 
     //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
@@ -4449,22 +4452,25 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
     int32u entry_count;
     Get_B4 (entry_count,                                        "entry-count");
 
+    int32u Offset=1; //By default, begin at 1
     for (int32u Pos=0; Pos<entry_count; Pos++)
     {
         int32u sample_number;
 
         //Too much slow
-        /*
         Get_B4 (sample_number,                                  "sample-number");
-        */
 
+/*
         //Faster
         if (Element_Offset+4>Element_Size)
             break; //Problem
         sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
+*/
 
-        Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-1);
+        if (Streams[moov_trak_tkhd_TrackID].stss.empty() && sample_number==0)
+            Offset=0;    
+        Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-Offset);
     }
 
     //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames

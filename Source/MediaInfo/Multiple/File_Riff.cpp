@@ -727,10 +727,9 @@ void File_Riff::Header_Parse()
         Name=Elements::AVI_;
 
     //Filling
-    if (movi_Size && Element_Level==4 && Size_Complete+8>1024*1024)
+    if (movi_Size && Size_Complete>movi_Size/2 && 8+Size_Complete>1024*1024 && !((Name&0xFFFF0000)==0x69780000 || (Name&0x0000FFFF)==0x00006978) && Element_Level==4+(rec__Present?1:0) && Buffer_Offset+8+Size_Complete>Buffer_Size)
     {
-        Buffer_DataToParse_Begin=File_Offset+Buffer_Offset+8;
-        Buffer_DataToParse_End=Buffer_DataToParse_Begin+Size_Complete;
+        Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Size_Complete;
         Size_Complete=Buffer_Size-(Buffer_Offset+8);
     }
     #if MEDIAINFO_DEMUX

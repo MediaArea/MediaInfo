@@ -444,7 +444,7 @@ void File_Riff::Data_Parse()
                 ATOM_END_DEFAULT
             ATOM_DEFAULT(AVI__hdlr_xxxx)
             ATOM_END_DEFAULT
-        LIST_SKIP(AVI__idx1)
+        ATOM(AVI__idx1)
         LIST(AVI__INFO)
             ATOM_BEGIN
             ATOM(AVI__INFO_IID3)
@@ -1945,12 +1945,7 @@ void File_Riff::AVI__idx1()
     //Tests
     if (!NeedOldIndex || Idx1_Offset==(int64u)-1)
     {
-        Skip_XX(Element_TotalSize_Get(),                            "Data");
-        return;
-    }
-    else if (!Element_IsComplete_Get())
-    {
-        Element_WaitForMoreData();
+        Skip_XX(Element_Size,                                   "Data");
         return;
     }
 
