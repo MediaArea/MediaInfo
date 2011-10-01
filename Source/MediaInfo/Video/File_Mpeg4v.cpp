@@ -280,7 +280,7 @@ bool File_Mpeg4v::Synched_Test()
         return false;
 
     #if MEDIAINFO_IBI
-        bool RandomAccess=Buffer[Buffer_Offset+3]==0x0F; //SequenceHeader
+        bool RandomAccess=Buffer[Buffer_Offset+3]==0xB0; //SequenceHeader
         if (RandomAccess)
             Ibi_Add();
     #endif MEDIAINFO_IBI
@@ -586,7 +586,7 @@ void File_Mpeg4v::Streams_Finish()
 #if MEDIAINFO_DEMUX
 bool File_Mpeg4v::Demux_UnpacketizeContainer_Test()
 {
-    if ((Demux_IntermediateItemFound && Buffer[Buffer_Offset+3]==0x00) || Buffer[Buffer_Offset+3]==0xB3 || Buffer[Buffer_Offset+3]==0xB6)
+    if ((Demux_IntermediateItemFound && Buffer[Buffer_Offset+3]==0xB0) || Buffer[Buffer_Offset+3]==0xB3 || Buffer[Buffer_Offset+3]==0xB6)
     {
         if (Demux_Offset==0)
         {
@@ -614,7 +614,7 @@ bool File_Mpeg4v::Demux_UnpacketizeContainer_Test()
                     bool MustBreak;
                     switch (Buffer[Demux_Offset+3])
                     {
-                        case 0x00 :
+                        case 0xB0 :
                         case 0xB3 :
                         case 0xB6 :
                                     MustBreak=true; break;
@@ -635,7 +635,14 @@ bool File_Mpeg4v::Demux_UnpacketizeContainer_Test()
         if (Demux_Offset+4>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
             return false; //No complete frame
 
-        Demux_UnpacketizeContainer_Demux(Buffer[Buffer_Offset+3]==0x00);
+        if (!Status[IsAccepted])
+        {
+            Accept("MPEG-4 Visual");
+            if (Config->Demux_EventWasSent)
+                return false;
+        }
+
+        Demux_UnpacketizeContainer_Demux(Buffer[Buffer_Offset+3]==0xB0);
     }
 
     return true;
@@ -1666,7 +1673,12 @@ void File_Mpeg4v::vop_start()
                 Element_Info(Ztring().Duration_From_Milliseconds((int64u)(Time_End_Seconds*1000+Time_End_MilliSeconds)));
 
             if (FrameInfo.DTS!=(int64u)-1)
-                FrameInfo.DTS+=((int64u)Time)*1000000000/vop_time_increment_resolution;
+            {
+                if (fixed_vop_time_increment && vop_time_increment_resolution)
+                    FrameInfo.DTS+=((int64u)fixed_vop_time_increment)*1000000000/vop_time_increment_resolution;
+                else
+                    FrameInfo.DTS=(int64u)-1;
+            }
         }
 
         //NextCode
@@ -1690,7 +1702,12 @@ void File_Mpeg4v::vop_start()
             else
             {
                 Fill("MPEG-4 Visual");
-                GoToFromEnd(1024*1024, "MPEG-4 Visual");
+                if (Config_ParseSpeed<1.0)
+                {
+                    if (!IsSub)
+                        Open_Buffer_Unsynch();
+                    GoToFromEnd(1024*1024, "MPEG-4 Visual");
+                }
             }
         }
     FILLING_END();
@@ -1802,3 +1819,4 @@ void File_Mpeg4v::reserved()
 } //NameSpace
 
 #endif //MEDIAINFO_MPEG4V_YES
+
