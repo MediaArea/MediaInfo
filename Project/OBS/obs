@@ -76,21 +76,21 @@ type="deb"
 devext="dev"
 dash="_"
 Download_Packages 1  1  1  x x x   Debian_5      i386   _i386
-Download_Packages 1  1  1  x x x   Debian_5      x86_64 _amd64
+Download_Packages 1  1  1  x x x   Debian_5      amd64 _amd64
 Download_Packages 1  1  1  x x x   Debian_6.0    i386   _i386
-Download_Packages 1  1  1  x x x   Debian_6.0    x86_64 _amd64
+Download_Packages 1  1  1  x x x   Debian_6.0    amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_8.04   i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_8.04   x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_8.04   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_9.04   x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_9.04   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.10   i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_9.10   x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_9.10   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_10.04  i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_10.04  x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_10.04  amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_10.10  i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_10.10  x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_10.10  amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_11.04  i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_11.04  x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_11.04  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -99,47 +99,39 @@ Download_Packages $1 $2 $3 x x x   CentOS_5        i386   .i386
 Download_Packages $1 $2 $3 x x x   CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   CentOS_6        i386   .i386
 Download_Packages $1 $2 $3 x x x   CentOS_6        x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Fedora_12       i386   .i386
-Download_Packages $1 $2 $3 x x x   Fedora_12       x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Fedora_13       i386   .i386
-Download_Packages $1 $2 $3 x x x   Fedora_13       x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Fedora_14       i386   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_14       x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Fedora_15       i386   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_15       x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Mandriva_2008   i386   .i386
+Download_Packages $1 $2 $3 x x x   Mandriva_2008   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2008   x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 i386   .i386
+Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Mandriva_2010   i386   .i386
+Download_Packages $1 $2 $3 x x x   Mandriva_2010   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2010   x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 i386   .i386
+Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_5          i386   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_5          x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_6          i386   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_6          x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   SLE_11          i386   .i386
+Download_Packages $1 $2 $3 x x x   SLE_11          i586   .i586
 Download_Packages $1 $2 $3 x x x   SLE_11          x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   SLE_11_SP1      i386   .i386
+Download_Packages $1 $2 $3 x x x   SLE_11_SP1      i586   .i586
 Download_Packages $1 $2 $3 x x x   SLE_11_SP1      x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   openSUSE_11.1   i386   .i386
-Download_Packages $1 $2 $3 x x x   openSUSE_11.1   x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   openSUSE_11.2   i386   .i386
-Download_Packages $1 $2 $3 x x x   openSUSE_11.2   x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   openSUSE_11.3   i386   .i386
+Download_Packages $1 $2 $3 x x x   openSUSE_11.3   i586   .i586
 Download_Packages $1 $2 $3 x x x   openSUSE_11.3   x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   openSUSE_11.4   i386   .i386
+Download_Packages $1 $2 $3 x x x   openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3 x x x   openSUSE_11.4   x86_64 .x86_64
 }
 
 
-mediainfov="0.7.47"
-libmediainfov="0.7.47"
-libzenv="0.4.20"
+mediainfov="0.7.50"
+libmediainfov="0.7.50"
+libzenv="0.4.22"
 destversion="1"
 
-Download_Global 138.1 94.1 47.1
+Download_Global 170.1 124.1 61.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x x x x   CentOS_5        i386   .i386
