@@ -1074,7 +1074,7 @@ void File_MpegPs::Read_Buffer_Continue()
                             break;
                 case 2 :    Open_Buffer_Continue(Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0], Buffer, 0);
                             if (IsSub && Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded!=(int64u)-1)
-                                Frame_Count_NotParsedIncluded=Streams_Private1[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded;
+                                Frame_Count_NotParsedIncluded=Streams_Extension[Demux_StreamIsBeingParsed_stream_id].Parsers[0]->Frame_Count_NotParsedIncluded;
                             break;
                 default: ;
             }
@@ -3525,7 +3525,7 @@ void File_MpegPs::extension_stream()
                 if (Config->Demux_EventWasSent)
                 {
                     Demux_StreamIsBeingParsed_type=2;
-                    Demux_StreamIsBeingParsed_stream_id=stream_id_extension;
+                    Demux_StreamIsBeingParsed_stream_id=0x71;
                 }
             #endif //MEDIAINFO_DEMUX
         }
@@ -3536,7 +3536,7 @@ void File_MpegPs::extension_stream()
                 if (Config->Demux_EventWasSent)
                 {
                     Demux_StreamIsBeingParsed_type=2;
-                    Demux_StreamIsBeingParsed_stream_id=stream_id_extension;
+                    Demux_StreamIsBeingParsed_stream_id=0x76;
                 }
             #endif //MEDIAINFO_DEMUX
         }

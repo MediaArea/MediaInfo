@@ -515,6 +515,7 @@ File_Ac3::File_Ac3()
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
     Buffer_TotalBytes_Fill_Max=1024*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;

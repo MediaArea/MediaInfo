@@ -341,6 +341,7 @@ File_Dts::File_Dts()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2;
