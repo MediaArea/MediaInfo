@@ -575,7 +575,7 @@ void File_Mpeg4v::Streams_Finish()
 
     #if MEDIAINFO_IBI
         if (fixed_vop_time_increment)
-            Ibi_Stream_Finish(fixed_vop_time_increment, vop_time_increment_resolution);
+            Ibi_Stream_Finish(vop_time_increment_resolution, fixed_vop_time_increment);
     #endif //MEDIAINFO_IBI
 }
 //***************************************************************************

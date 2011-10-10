@@ -644,7 +644,7 @@ void File_Avc::Streams_Finish()
 
     #if MEDIAINFO_IBI
         if (seq_parameter_sets.size()==1 && (*seq_parameter_sets.begin())->vui_parameters && (*seq_parameter_sets.begin())->vui_parameters->timing_info_present_flag && (*seq_parameter_sets.begin())->vui_parameters->fixed_frame_rate_flag)
-            Ibi_Stream_Finish((*seq_parameter_sets.begin())->vui_parameters->num_units_in_tick, (*seq_parameter_sets.begin())->vui_parameters->time_scale);
+            Ibi_Stream_Finish((*seq_parameter_sets.begin())->vui_parameters->time_scale, (*seq_parameter_sets.begin())->vui_parameters->num_units_in_tick);
     #endif //MEDIAINFO_IBI
 }
 

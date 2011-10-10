@@ -365,13 +365,13 @@ void File_Vc1::Streams_Finish()
         {
             if (framerate_form)
             {
-                Numerator=32;
-                Denominator=framerateexp+1;
+                Numerator=framerateexp+1;
+                Denominator=32;
             }
             else if (Vc1_FrameRate_dr(frameratecode_dr))
             {
-                Numerator=(int64u)Vc1_FrameRate_dr(frameratecode_dr);
-                Denominator=(int64u)Vc1_FrameRate_enr(frameratecode_enr);
+                Numerator=(int64u)Vc1_FrameRate_enr(frameratecode_enr);
+                Denominator=(int64u)Vc1_FrameRate_dr(frameratecode_dr);
             }
         }
         if (Numerator)

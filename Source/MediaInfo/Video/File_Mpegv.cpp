@@ -839,14 +839,14 @@ void File_Mpegv::Streams_Finish()
         int64u Numerator=0, Denominator=0;
         switch (frame_rate_code)
         {
-            case 1 : Numerator=1001; Denominator=24000; break;
-            case 2 : Numerator=1;    Denominator=24;    break;
-            case 3 : Numerator=1;    Denominator=25;    break;
-            case 4 : Numerator=1001; Denominator=30000; break;
-            case 5 : Numerator=1;    Denominator=30;    break;
-            case 6 : Numerator=1;    Denominator=50;    break;
-            case 7 : Numerator=1001; Denominator=60000; break;
-            case 8 : Numerator=1;    Denominator=60;    break;
+            case 1 : Numerator=24000; Denominator=1001; break;
+            case 2 : Numerator=24;    Denominator=1;    break;
+            case 3 : Numerator=25;    Denominator=1;    break;
+            case 4 : Numerator=30000; Denominator=1001; break;
+            case 5 : Numerator=30;    Denominator=1;    break;
+            case 6 : Numerator=50;    Denominator=1;    break;
+            case 7 : Numerator=60000; Denominator=1001; break;
+            case 8 : Numerator=60;    Denominator=1;    break;
             default: ;
         }
         if (Numerator)
@@ -1061,7 +1061,7 @@ void File_Mpegv::Read_Buffer_Unsynched()
     PTS_LastIFrame=(int64u)-1;
     IFrame_IsParsed=false;
     #if MEDIAINFO_IBI
-        Ibi_SliceParsed=false;
+        Ibi_SliceParsed=true;
     #endif //MEDIAINFO_IBI
 
     temporal_reference_Old=(int16u)-1;

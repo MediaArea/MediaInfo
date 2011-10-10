@@ -2743,7 +2743,7 @@ void File__Analyze::Ibi_Read_Buffer_Unsynched ()
     {
         if (File_GoTo==IbiStream->Infos[Pos].StreamOffset)
         {
-            FrameInfo.DTS=(IbiStream->Infos[Pos].Dts!=(int64u)-1)?float64_int64s((((float64)IbiStream->Infos[Pos].Dts)*1000000000*IbiStream->DtsFrequencyNumerator/IbiStream->DtsFrequencyDenominator)):(int64u)-1;
+            FrameInfo.DTS=(IbiStream->Infos[Pos].Dts!=(int64u)-1)?float64_int64s((((float64)IbiStream->Infos[Pos].Dts)*1000000000*IbiStream->DtsFrequencyDenominator/IbiStream->DtsFrequencyNumerator)):(int64u)-1;
             Frame_Count_NotParsedIncluded=IbiStream->Infos[Pos].FrameNumber;
             break;
         }
@@ -2825,8 +2825,10 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
 
                     if (IbiStream->Infos.empty())
                         GoTo(0);
-                    else
+                    else if (!IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
                         GoTo(IbiStream->Infos[IbiStream->Infos.size()-1].StreamOffset);
+                    else
+                        return 2; //Invalid value
                     return 1;
                     }
                     #else //MEDIAINFO_IBI
@@ -2863,8 +2865,10 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
 
                     if (IbiStream->Infos.empty())
                         GoTo(0);
-                    else
+                    else if (!IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
                         GoTo(IbiStream->Infos[IbiStream->Infos.size()-1].StreamOffset);
+                    else
+                        return 2; //Invalid value
                     return 1;
                     }
                     #else //MEDIAINFO_IBI
@@ -2913,7 +2917,7 @@ void File__Analyze::Ibi_Stream_Finish (int64u Numerator, int64u Denominator)
         IbiStream->DtsFrequencyDenominator=Denominator;
         for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
             if (IbiStream->Infos[Pos].Dts!=(int64u)-1)
-                IbiStream->Infos[Pos].Dts=float64_int64s(((float64)IbiStream->Infos[Pos].Dts)/1000000000*Denominator/Numerator);;
+                IbiStream->Infos[Pos].Dts=float64_int64s(((float64)IbiStream->Infos[Pos].Dts)/1000000000/Denominator*Numerator);;
     }
 }
 

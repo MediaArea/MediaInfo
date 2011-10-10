@@ -69,8 +69,8 @@ struct ibi
 
         stream()
         {
-            DtsFrequencyNumerator=1; //nanosecond
-            DtsFrequencyDenominator=1000000000;
+            DtsFrequencyNumerator=1000000000; //nanosecond
+            DtsFrequencyDenominator=1;
             Infos_Pos=0;
             IsContinuous=false;
             IsModified=false;
