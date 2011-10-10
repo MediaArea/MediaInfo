@@ -1637,47 +1637,65 @@ void File_Aes3::Frame_FromMpegPs()
             int8u* Info=new int8u[(size_t)Element_Size-4];
             size_t Info_Offset=0;
 
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_PCM_20bitTo16bit_Get())
+                {
+                    while (Element_Offset<Element_Size)
+                    {
+                        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+
+                        //Channel 1 (24 bits, as "s16l" codec, 4 lowest bits are discarded)
+                        Info[Info_Offset+0]=(Reverse8(Buffer[Buffer_Pos+0])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+1])<<4)&0xF0);
+                        Info[Info_Offset+1]=(Reverse8(Buffer[Buffer_Pos+1])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+2])<<4)&0xF0);
+
+                        //Channel 2 (24 bits, as "s16l" codec, 4 lowest bits are discarded)
+                        Info[Info_Offset+2]=(Reverse8(Buffer[Buffer_Pos+3])>>4) | ((Reverse8(Buffer[Buffer_Pos+4])<<4)&0xF0);
+                        Info[Info_Offset+3]=(Reverse8(Buffer[Buffer_Pos+4])>>4) | ((Reverse8(Buffer[Buffer_Pos+5])<<4)&0xF0);
+
+                        Info_Offset+=4;
+                        Element_Offset+=6;
+                    }
+
+                    Demux_Level=2; //Container
+                    FrameInfo.PTS=FrameInfo.DTS;
+                    if (SampleRate)
+                        FrameInfo.DUR=(Element_Size-4)/4*1000000000/(SampleRate*8);
+                    Demux_random_access=true;
+                    Demux(Info, Info_Offset, ContentType_MainStream);
+
+                    Info_Offset=0;
+                    Element_Offset=4;
+                }
+            #endif //MEDIAINFO_DEMUX
+
             while (Element_Offset<Element_Size)
             {
                 size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
 
-                if (Config->Demux_PCM_20bitTo16bit_Get())
-                {
-                    //Channel 1 (24 bits, as "s16l" codec, 4 lowest bits are discarded)
-                    Info[Info_Offset+0]=(Reverse8(Buffer[Buffer_Pos+0])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+1])<<4)&0xF0);
-                    Info[Info_Offset+1]=(Reverse8(Buffer[Buffer_Pos+1])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+2])<<4)&0xF0);
+                //Channel 1 (24 bits, as "s24l" codec, 4 highest bits are set to 0)
+                Info[Info_Offset+0]=                                       ((Reverse8(Buffer[Buffer_Pos+0])<<4)&0xF0);
+                Info[Info_Offset+1]=(Reverse8(Buffer[Buffer_Pos+0])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+1])<<4)&0xF0);
+                Info[Info_Offset+2]=(Reverse8(Buffer[Buffer_Pos+1])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+2])<<4)&0xF0);
 
-                    //Channel 2 (24 bits, as "s16l" codec, 4 lowest bits are discarded)
-                    Info[Info_Offset+2]=(Reverse8(Buffer[Buffer_Pos+3])>>4) | ((Reverse8(Buffer[Buffer_Pos+4])<<4)&0xF0);
-                    Info[Info_Offset+3]=(Reverse8(Buffer[Buffer_Pos+4])>>4) | ((Reverse8(Buffer[Buffer_Pos+5])<<4)&0xF0);
+                //Channel 2 (24 bits, as "s24l" codec, 4 highest bits are set to 0)
+                Info[Info_Offset+3]=                                      ((Reverse8(Buffer[Buffer_Pos+3])<<4)&0xF0);
+                Info[Info_Offset+4]=(Reverse8(Buffer[Buffer_Pos+3])>>4) | ((Reverse8(Buffer[Buffer_Pos+4])<<4)&0xF0);
+                Info[Info_Offset+5]=(Reverse8(Buffer[Buffer_Pos+4])>>4) | ((Reverse8(Buffer[Buffer_Pos+5])<<4)&0xF0);
 
-                    Info_Offset+=4;
-                    Element_Offset+=6;
-                }
-                else
-                {
-                    //Channel 1 (24 bits, as "s24l" codec, 4 highest bits are set to 0)
-                    Info[Info_Offset+0]=                                       ((Reverse8(Buffer[Buffer_Pos+0])<<4)&0xF0);
-                    Info[Info_Offset+1]=(Reverse8(Buffer[Buffer_Pos+0])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+1])<<4)&0xF0);
-                    Info[Info_Offset+2]=(Reverse8(Buffer[Buffer_Pos+1])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+2])<<4)&0xF0);
-
-                    //Channel 2 (24 bits, as "s24l" codec, 4 highest bits are set to 0)
-                    Info[Info_Offset+3]=                                      ((Reverse8(Buffer[Buffer_Pos+3])<<4)&0xF0);
-                    Info[Info_Offset+4]=(Reverse8(Buffer[Buffer_Pos+3])>>4) | ((Reverse8(Buffer[Buffer_Pos+4])<<4)&0xF0);
-                    Info[Info_Offset+5]=(Reverse8(Buffer[Buffer_Pos+4])>>4) | ((Reverse8(Buffer[Buffer_Pos+5])<<4)&0xF0);
-
-                    Info_Offset+=6;
-                    Element_Offset+=6;
-                }
+                Info_Offset+=6;
+                Element_Offset+=6;
             }
 
             #if MEDIAINFO_DEMUX
-                Demux_Level=2; //Container
-                FrameInfo.PTS=FrameInfo.DTS;
-                if (SampleRate)
-                    FrameInfo.DUR=(Element_Size-4)/4*1000000000/(SampleRate*8);
-                Demux_random_access=true;
-                Demux(Info, Info_Offset, ContentType_MainStream);
+                if (!Config->Demux_PCM_20bitTo16bit_Get())
+                {
+                    Demux_Level=2; //Container
+                    FrameInfo.PTS=FrameInfo.DTS;
+                    if (SampleRate)
+                        FrameInfo.DUR=(Element_Size-4)/4*1000000000/(SampleRate*8);
+                    Demux_random_access=true;
+                    Demux(Info, Info_Offset, ContentType_MainStream);
+                }
             #endif //MEDIAINFO_DEMUX
 
             if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
