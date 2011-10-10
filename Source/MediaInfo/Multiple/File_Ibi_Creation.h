@@ -117,7 +117,7 @@ private :
 
         ~buffer()
         {
-            delete Content; //Content=NULL;
+            delete[] Content; //Content=NULL;
         }
     };
     std::vector<buffer*> Buffers;
