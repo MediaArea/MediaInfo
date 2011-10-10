@@ -1591,7 +1591,7 @@ void File_Mpegv::slice_start()
 
         //Skipping slices (if already unpacketized)
         #if MEDIAINFO_DEMUX
-            if (Demux_UnpacketizeContainer)
+            if (Demux_UnpacketizeContainer && Buffer_TotalBytes+Buffer_Offset<Demux_TotalBytes)
             {
                 Element_Offset=Demux_TotalBytes-(Buffer_TotalBytes+Buffer_Offset);
             }
