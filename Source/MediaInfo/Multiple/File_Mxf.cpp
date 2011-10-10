@@ -2615,14 +2615,35 @@ void File_Mxf::Header_Parse()
                                             //Searching the frame pos
                                             for (size_t EntryPos=0; EntryPos<IndexTables[Pos].Entries.size(); EntryPos++)
                                             {
+                                                int64u Entry0_StreamOffset=0; //For coherency checking
                                                 int64u Entry_StreamOffset=IndexTables[Pos].Entries[EntryPos].StreamOffset;
                                                 int64u Entry1_StreamOffset;
+                                                int64u Entry2_StreamOffset=File_Size; //For coherency checking
+                                                if (EntryPos==0 && Pos && IndexTables[Pos-1].Entries.empty())
+                                                    Entry0_StreamOffset=IndexTables[Pos-1].Entries[IndexTables[Pos-1].Entries.size()-1].StreamOffset;
+                                                else if (EntryPos)
+                                                    Entry0_StreamOffset=IndexTables[Pos].Entries[EntryPos-1].StreamOffset;
                                                 if (EntryPos+1<IndexTables[Pos].Entries.size())
+                                                {
                                                     Entry1_StreamOffset=IndexTables[Pos].Entries[EntryPos+1].StreamOffset;
-                                                else
+                                                    if (EntryPos+2<IndexTables[Pos].Entries.size())
+                                                        Entry2_StreamOffset=IndexTables[Pos].Entries[EntryPos+2].StreamOffset;
+                                                    else if (Pos+1<IndexTables.size() && !IndexTables[Pos+1].Entries.empty())
+                                                        Entry2_StreamOffset=IndexTables[Pos+1].Entries[0].StreamOffset;
+                                                }
+                                                else if (Pos+1<IndexTables.size() && !IndexTables[Pos+1].Entries.empty())
+                                                {
                                                     Entry1_StreamOffset=IndexTables[Pos+1].Entries[0].StreamOffset;
+                                                    if (1<IndexTables[Pos+1].Entries.size())
+                                                        Entry2_StreamOffset=IndexTables[Pos].Entries[1].StreamOffset;
+                                                    else if (Pos+2<IndexTables.size() && !IndexTables[Pos+2].Entries.empty())
+                                                        Entry2_StreamOffset=IndexTables[Pos+2].Entries[0].StreamOffset;
+                                                }
 
-                                                if (StreamOffset>=Entry_StreamOffset && StreamOffset<Entry1_StreamOffset)
+                                                if (Entry0_StreamOffset<Entry_StreamOffset && Entry1_StreamOffset<Entry2_StreamOffset)
+                                                    break;
+
+                                                if (StreamOffset>=Entry_StreamOffset && StreamOffset<Entry1_StreamOffset && Entry0_StreamOffset<Entry_StreamOffset && Entry1_StreamOffset<Entry2_StreamOffset)
                                                 {
                                                     if (StreamOffset_Offset+Entry1_StreamOffset>File_Offset+Buffer_Size)
                                                         Buffer_Size_Target=(size_t)(StreamOffset_Offset+Entry1_StreamOffset-(File_Offset+Buffer_Size)+24); //+24 for next packet header
@@ -3028,10 +3049,30 @@ void File_Mxf::Data_Parse()
                             {
                                 if (IndexTables[Pos].Entries[EntryPos].StreamOffset+(IndexTables[Pos].IndexStartPosition+EntryPos)*SDTI_SizePerFrame<=StreamOffset)
                                 {
-                                    Essence->second.Frame_Count_NotParsedIncluded=IndexTables[Pos].IndexStartPosition+EntryPos;
-                                    if (IndexTables[Pos].IndexEditRate)
-                                        Essence->second.FrameInfo.DTS=float64_int64s((Essence->second.Frame_Count_NotParsedIncluded+(TimeCode_StartTimecode==(int64u)-1?0:TimeCode_StartTimecode))/IndexTables[Pos].IndexEditRate*1000000000);
-                                    Demux_random_access=IndexTables[Pos].Entries[EntryPos].Type?false:true;
+                                    //Testing coherency
+                                    int64u Entry0_StreamOffset=0; //For coherency checking
+                                    int64u Entry_StreamOffset=IndexTables[Pos].Entries[EntryPos].StreamOffset;
+                                    int64u Entry1_StreamOffset=File_Size; //For coherency checking
+                                    if (EntryPos==0 && Pos && IndexTables[Pos-1].Entries.empty())
+                                        Entry0_StreamOffset=IndexTables[Pos-1].Entries[IndexTables[Pos-1].Entries.size()-1].StreamOffset;
+                                    else if (EntryPos)
+                                        Entry0_StreamOffset=IndexTables[Pos].Entries[EntryPos-1].StreamOffset;
+                                    if (EntryPos+1<IndexTables[Pos].Entries.size())
+                                        Entry1_StreamOffset=IndexTables[Pos].Entries[EntryPos+1].StreamOffset;
+                                    else if (Pos+1<IndexTables.size() && !IndexTables[Pos+1].Entries.empty())
+                                        Entry1_StreamOffset=IndexTables[Pos+1].Entries[0].StreamOffset;
+
+                                    if (Entry0_StreamOffset>Entry_StreamOffset || Entry_StreamOffset>Entry1_StreamOffset)
+                                        break; //Problem
+
+                                    if (StreamOffset>=Entry_StreamOffset && StreamOffset<Entry1_StreamOffset)
+                                    {
+                                        Essence->second.Frame_Count_NotParsedIncluded=IndexTables[Pos].IndexStartPosition+EntryPos;
+                                        if (IndexTables[Pos].IndexEditRate)
+                                            Essence->second.FrameInfo.DTS=float64_int64s((Essence->second.Frame_Count_NotParsedIncluded+(TimeCode_StartTimecode==(int64u)-1?0:TimeCode_StartTimecode))/IndexTables[Pos].IndexEditRate*1000000000);
+                                        Demux_random_access=IndexTables[Pos].Entries[EntryPos].Type?false:true;
+                                        break;
+                                    }
                                 }
                             }
                         }
