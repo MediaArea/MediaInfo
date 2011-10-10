@@ -1212,6 +1212,9 @@ bool File_Mpegv::Header_Parser_QuickSearch()
             }
             return false;
         }
+
+        if (Buffer_Offset+4>Buffer_Size)
+            return false;
     }
 
     Trusted_IsNot("MPEG Video, Synchronisation lost");
