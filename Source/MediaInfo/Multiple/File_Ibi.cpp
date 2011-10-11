@@ -459,7 +459,13 @@ void File_Ibi::Stream_Dts()
     Get_EB (Item,                                               "DtsFrequencyDenominator");
     FILLING_BEGIN();
         if (Ibi)
+        {
             Ibi->Streams[ID_Current]->DtsFrequencyDenominator=Item;
+
+            //Handling of previous inverted Numerator/Denominator
+            if (Ibi->Streams[ID_Current]->DtsFrequencyNumerator<Ibi->Streams[ID_Current]->DtsFrequencyDenominator)
+                std::swap(Ibi->Streams[ID_Current]->DtsFrequencyNumerator, Ibi->Streams[ID_Current]->DtsFrequencyDenominator);
+        }
     FILLING_END();
 
     size_t Pos=0;
