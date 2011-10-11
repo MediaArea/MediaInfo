@@ -137,7 +137,7 @@ void File__Analyze::Streams_Finish_Global()
         Fill(Stream_Video, 0, Video_StreamSize, TotalSize, 10, true);
         Fill(Stream_Video, 0, Video_FrameCount, Config->File_Names.size(), 10, true);
     }
-    if (Config->File_Names_Pos!=1)
+    if (!Config->File_Names.empty() && Config->File_Names_Pos!=1)
         return;
 
     Streams_Finish_StreamOnly();
