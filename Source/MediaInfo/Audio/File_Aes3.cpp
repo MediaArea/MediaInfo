@@ -1348,6 +1348,8 @@ void File_Aes3::Frame()
                 FrameInfo.DTS=(int64u)-1;
         #endif //MEDIAINFO_DEMUX
         Frame_Count++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         if (!Status[IsFilled] && Parser->Status[IsFilled])
         {
             Merge(*Parser);
