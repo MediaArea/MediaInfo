@@ -214,6 +214,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_RKAU_YES)
+    #include "MediaInfo/Audio/File_Rkau.h"
+#endif
 #if defined(MEDIAINFO_S3M_YES)
     #include "MediaInfo/Audio/File_ScreamTracker3.h"
 #endif
@@ -518,6 +521,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_AU_YES)
         else if (Parser==_T("Au"))          Info=new File_Au();
     #endif
+    #if defined(MEDIAINFO_RKAU_YES)
+        else if (Parser==_T("Rkau"))         Info=new File_Rkau();
+    #endif
     #if defined(MEDIAINFO_S3M_YES)
         else if (Parser==_T("S3m"))         Info=new File_ScreamTracker3();
     #endif
@@ -807,6 +813,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_PCM_YES)
       //delete Info; Info=new File_Pcm();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_RKAU_YES)
+        delete Info; Info=new File_Rkau();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TAK_YES)
         delete Info; Info=new File_Tak();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

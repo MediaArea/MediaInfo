@@ -513,6 +513,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PS2A_NO) && !defined(MEDIAINFO_PS2A_YES)
     #define MEDIAINFO_PS2A_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_RKAU_NO) && !defined(MEDIAINFO_RKAU_YES)
+    #define MEDIAINFO_RKAU_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_S3M_NO) && !defined(MEDIAINFO_S3M_YES)
     #define MEDIAINFO_S3M_YES
 #endif

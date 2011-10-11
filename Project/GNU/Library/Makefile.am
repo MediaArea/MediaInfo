@@ -62,6 +62,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Mpega.cpp \
                        ../../../Source/MediaInfo/Audio/File_Pcm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ps2Audio.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Rkau.cpp \
                        ../../../Source/MediaInfo/Audio/File_ScreamTracker3.cpp \
                        ../../../Source/MediaInfo/Audio/File_Speex.cpp \
                        ../../../Source/MediaInfo/Audio/File_Tak.cpp \

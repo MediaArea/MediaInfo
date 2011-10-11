@@ -198,6 +198,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_RKAU_YES)
+    #include "MediaInfo/Audio/File_Rkau.h"
+#endif
 #if defined(MEDIAINFO_S3M_YES)
     #include "MediaInfo/Audio/File_ScreamTracker3.h"
 #endif
@@ -484,6 +487,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)
         Temp=new File_Mpega(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_RKAU_YES)
+        Temp=new File_Rkau(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_S3M_YES)
         Temp=new File_ScreamTracker3(); Parser.push_back(Temp);

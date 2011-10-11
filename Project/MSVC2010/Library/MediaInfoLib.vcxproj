@@ -276,6 +276,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Celt.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Rkau.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" />
@@ -448,6 +449,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Celt.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Rkau.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze_MinimizeSize.h" />

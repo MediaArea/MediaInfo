@@ -1103,6 +1103,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Musepack SV8;;;A;Mpc;;mp+;;http://www.musepack.net;Lossy\n"
     "QCELP;;;A;;;;audio/QCELP\n"
     "RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface\n"
+    "RKAU;RK Audio;;A;Rkau;;rka;;http://www.msoftware.co.nz\n"
     "Scream Tracker 3;;;A;S3m;;s3m\n"
     "Shorten;;;A;;;shn;;http://etree.org/shnutils/shorten/;Lossless\n"
     "SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm;Lossless\n"

@@ -868,6 +868,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Rkau.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_ScreamTracker3.cpp"
 					>
 				</File>
@@ -1601,6 +1605,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Ps2Audio.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Rkau.h"
 					>
 				</File>
 				<File

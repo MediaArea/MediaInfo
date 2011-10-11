@@ -72,6 +72,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Mpega.cpp
 	MediaInfo/Audio/File_Pcm.cpp
 	MediaInfo/Audio/File_Ps2Audio.cpp
+	MediaInfo/Audio/File_Rkau.cpp
 	MediaInfo/Audio/File_ScreamTracker3.cpp
 	MediaInfo/Audio/File_Speex.cpp
 	MediaInfo/Audio/File_Tak.cpp

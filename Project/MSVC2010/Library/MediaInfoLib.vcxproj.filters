@@ -564,6 +564,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\PreComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Rkau.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1027,6 +1030,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_libcurl_Include.h">
       <Filter>Header Files\Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Rkau.h">
+      <Filter>Header Files\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
