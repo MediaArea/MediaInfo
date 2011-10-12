@@ -84,9 +84,9 @@ bool File_La::FileHeader_Begin()
         return false;
 
     //Synchro
-    if (Buffer_Offset+4>Buffer_Size)
+    if (Buffer_Offset+2>Buffer_Size)
         return false;
-    if (CC4(Buffer+Buffer_Offset)!=0x4C413034) //"LA04"
+    if (CC3(Buffer+Buffer_Offset)!=0x4C4130) //"LA0"
     {
         File__Tags_Helper::Reject("LA");
         return false;
@@ -99,10 +99,13 @@ bool File_La::FileHeader_Begin()
 void File_La::FileHeader_Parse()
 {
     //Parsing
+    Ztring Major, Minor;
     int32u SampleRate, Samples, BytesPerSecond, UnCompSize, WAVEChunk, FmtSize, FmtChunk, CRC32;
     int16u RawFormat, Channels, BytesPerSample, BitsPerSample;
 
-    Skip_C4(                                                    "signature");
+    Skip_Local(2,                                               "signature");
+    Get_Local (1, Major,                                        "major_version");
+    Get_Local (1, Minor,                                        "minor_version");
     Get_L4 (UnCompSize,                                         "uncompressed_size");
     Get_L4 (WAVEChunk,                                          "chunk");
     Skip_L4(                                                    "fmt_size");
@@ -129,10 +132,12 @@ void File_La::FileHeader_Parse()
             return;
 
         File__Tags_Helper::Accept("LA");
+        Fill(Stream_General, 0, General_Format_Version, Major+_T('.')+Minor);
 
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "LA");
         Fill(Stream_Audio, 0, Audio_Codec, "LA");
+        Fill(Stream_Audio, 0, Audio_Format_Version, Major+_T('.')+Minor);
         Fill(Stream_Audio, 0, Audio_BitDepth, BitsPerSample);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
