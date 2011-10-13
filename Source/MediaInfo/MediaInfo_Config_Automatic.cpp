@@ -1322,6 +1322,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "mjpa;JPEG;;;;;;\n"
     "mjpb;JPEG;;;;;;\n"
     "mp4v;MPEG-4 Visual;;;;;;\n"
+    "mpeg;MPEG Video;;;;;;\n"
     "mx3n;MPEG Video;;;;;;\n"
     "mx4p;MPEG Video;;;;;;\n"
     "mx3p;MPEG Video;;;;;;\n"

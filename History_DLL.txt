@@ -16,6 +16,7 @@ Version 0.7.51
 + MPEG-2 Video: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
 + QuickTime: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
 + QuickTime: ProRes LT, Proxy, 4:4:4 profiles detection
++ QuickTime: mpeg CodecID support
 x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
 x MPEG-4: was not providing some info about tracks with sample table before media header
