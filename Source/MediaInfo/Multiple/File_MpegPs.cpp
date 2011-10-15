@@ -3473,6 +3473,23 @@ void File_MpegPs::extension_stream()
                                                       }
             }
 
+
+        if (Streams_Extension[stream_id_extension].Parsers.empty())
+        {
+            #if defined(MEDIAINFO_DIRAC_YES)
+                Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_Dirac());
+            #endif
+            #if defined(MEDIAINFO_VC1_YES)
+                Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
+            #endif
+            #if defined(MEDIAINFO_AC3_YES)
+                Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_AC3());
+            #endif
+            #if defined(MEDIAINFO_DTS_YES)
+                Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_DTS());
+            #endif
+        }
+
         //In case of HD part before Core part
         switch (stream_id_extension)
         {
