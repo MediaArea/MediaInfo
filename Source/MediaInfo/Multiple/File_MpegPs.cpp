@@ -3473,7 +3473,6 @@ void File_MpegPs::extension_stream()
                                                       }
             }
 
-
         if (Streams_Extension[stream_id_extension].Parsers.empty())
         {
             #if defined(MEDIAINFO_DIRAC_YES)
