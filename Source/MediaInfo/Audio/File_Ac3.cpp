@@ -1397,41 +1397,6 @@ void File_Ac3::Data_Parse()
     if (FrameInfo.PTS!=(int64u)-1)
         Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
 
-    if (Status[IsFilled])
-    {
-        if (Element_Code==0 || !Core_IsPresent)
-        {
-            if (Frame_Count==0)
-                PTS_Begin=FrameInfo.PTS;
-            Frame_Count++;
-            Frame_Count_InThisBlock++;
-            FrameInfo.DUR=32000000;
-            if (fscod && AC3_SamplingRate[fscod])
-            {
-                FrameInfo.DUR*=48000;
-                FrameInfo.DUR/=AC3_SamplingRate[fscod];
-            }
-            if (FrameInfo.DTS!=(int64u)-1)
-                FrameInfo.DTS+=FrameInfo.DUR;
-            if (FrameInfo.PTS!=(int64u)-1)
-                FrameInfo.PTS=FrameInfo.DTS;
-
-            //Name
-            Element_Info(Frame_Count);
-        }
-
-        if (Element_Code==1)
-        {
-            HD_Count++;
-
-            //Name
-            Element_Info(HD_Count);
-        }
-
-        Skip_XX(Element_Size,                                   "Data");
-        return;
-    }
-
     //Parsing
     switch(Element_Code)
     {
