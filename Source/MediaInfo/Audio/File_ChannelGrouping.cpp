@@ -255,18 +255,23 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
     }
 
-    if (!Common->IsAes3 && !Status[IsFilled] && Common->Parser->Status[IsAccepted])
+    if (!Common->IsAes3)
     {
-        if (Common->Parser->Get(Stream_Audio, 0, Audio_Format)==_T("PCM"))
-            Common->IsPcm=true;
-        else
+        if (!Status[IsFilled] && Common->Parser->Status[IsAccepted])
         {
-            Common->IsAes3=true;
-            if (Common->Channel_Master==(size_t)-1)
-                Common->Channel_Master=Channel_Pos;
-            Buffer_Offset_AlreadyInCommon=0;
-            Fill();
+            if (Common->Parser->Get(Stream_Audio, 0, Audio_Format)==_T("PCM"))
+                Common->IsPcm=true;
+            else
+            {
+                Common->IsAes3=true;
+                if (Common->Channel_Master==(size_t)-1)
+                    Common->Channel_Master=Channel_Pos;
+                Buffer_Offset_AlreadyInCommon=0;
+                Fill();
+            }
         }
+        else if (Common->MergedChannel.Buffer_Size==0 && IsPcm_Frame_Count>=2)
+            Common->IsPcm=true;
     }
 
     if (Common->IsAes3)

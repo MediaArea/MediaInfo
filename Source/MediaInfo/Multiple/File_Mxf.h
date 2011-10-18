@@ -381,6 +381,7 @@ protected :
     int128u InstanceUID;
     int64u Buffer_Begin;
     int64u Buffer_End;
+    int64u Buffer_Header_Size;
     int16u Code2;
     int16u Length2;
     int64u File_Size_Total; //Used only in Finish()
@@ -475,6 +476,7 @@ protected :
     {
         stream_t StreamKind;
         size_t   StreamPos;
+        size_t   StreamPos_Initial;
         File__Analyze* Parser;
         std::map<std::string, Ztring> Infos;
         int64u Stream_Size;
@@ -491,6 +493,7 @@ protected :
         {
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
+            StreamPos_Initial=(size_t)-1;
             Parser=NULL;
             Stream_Size=(int64u)-1;
             TrackID=(int32u)-1;
@@ -664,6 +667,7 @@ protected :
 
     //Helpers
     void Subsampling_Compute(descriptors::iterator Descriptor);
+    void Locators_CleanUp();
     void Locators_Test();
     void TryToFinish();
 
@@ -674,6 +678,7 @@ protected :
     int64u TimeCode_StartTimecode;
     int16u TimeCode_RoundedTimecodeBase;
     bool   TimeCode_DropFrame;
+    float64 DTS_Delay; //In seconds
     bool   StreamPos_StartAtOne; //information about the base of StreamPos (0 or 1, 1 is found in 1 file)
     int64u SDTI_TimeCode_StartTimecode;
     int64u SDTI_SizePerFrame;
@@ -681,7 +686,6 @@ protected :
     bool   SDTI_IsInIndexStreamOffset; //Used to test if SDTI packet is used for Index StreamOffset calculation
     int64u SystemScheme1_TimeCodeArray_StartTimecode;
     int64u SystemScheme1_FrameRateFromDescriptor;
-    int64u Essences_FirstEssence;
     bool   Essences_FirstEssence_Parsed; 
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;

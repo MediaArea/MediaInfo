@@ -1017,6 +1017,18 @@ bool File__Analyze::Synchro_Manage_Test()
     //Testing if synchro is OK
     if (Synched)
     {
+        #if MEDIAINFO_DEMUX
+            if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            {
+                if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //Wait for more data
+                }
+                if (Config->Demux_EventWasSent)
+                    return false;
+            }
+        #endif //MEDIAINFO_DEMUX
         if (!Synched_Test())
             return false;
         if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && Buffer_Offset+Element_Offset>=FrameInfo.Buffer_Offset)
@@ -1029,18 +1041,6 @@ bool File__Analyze::Synchro_Manage_Test()
             Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
             Trusted_IsNot("Synchronisation lost");
         }
-        #if MEDIAINFO_DEMUX
-            if (Synched && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
-            {
-                if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
-                {
-                    Demux_Offset-=Buffer_Offset;
-                    return false; //Wait for more data
-                }
-                if (Config->Demux_EventWasSent)
-                    return false;
-            }
-        #endif //MEDIAINFO_DEMUX
     }
 
     //Trying to synchronize
@@ -1061,6 +1061,18 @@ bool File__Analyze::Synchro_Manage_Test()
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
         }
+        #if MEDIAINFO_DEMUX
+            if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            {
+                if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
+                {
+                    Demux_Offset-=Buffer_Offset;
+                    return false; //Wait for more data
+                }
+                if (Config->Demux_EventWasSent)
+                    return false;
+            }
+        #endif //MEDIAINFO_DEMUX
         if (!Synched_Test())
             return false;
     }

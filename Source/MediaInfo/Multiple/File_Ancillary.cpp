@@ -181,10 +181,10 @@ void File_Ancillary::Streams_Finish()
         if (Cdp_Parser && !Cdp_Parser->Status[IsFinished] && Cdp_Parser->Status[IsAccepted])
         {
             Finish(Cdp_Parser);
-            Merge(*Cdp_Parser);
             for (size_t StreamPos=0; StreamPos<Cdp_Parser->Count_Get(Stream_Text); StreamPos++)
             {
-                Ztring MuxingMode=Retrieve(Stream_Text, StreamPos, "MuxingMode");
+                Merge(*Cdp_Parser, Stream_Text, StreamPos, StreamPos);
+                Ztring MuxingMode=Cdp_Parser->Retrieve(Stream_Text, StreamPos, "MuxingMode");
                 Fill(Stream_Text, StreamPos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
             }
         }
