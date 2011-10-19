@@ -73,6 +73,9 @@ protected :
     void Read_Buffer_Continue();
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
     void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer
     void Header_Parse();
@@ -146,6 +149,11 @@ protected :
     bool   FSP_WasNotSet;
     bool   video_sourcecontrol_IsParsed;
     bool   audio_locked;
+
+    #if MEDIAINFO_SEEK
+        bool            Duration_Detected;
+        int64u          TotalFrames;
+    #endif //MEDIAINFO_SEEK
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     bool Analyze_Activated;

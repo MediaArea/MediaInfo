@@ -588,7 +588,6 @@ void File_Riff::AIFC()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "AIFF");
-    Stream_Prepare(Stream_Audio);
 }
 
 //---------------------------------------------------------------------------
@@ -632,7 +631,6 @@ void File_Riff::AIFF()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "AIFF");
-    Stream_Prepare(Stream_Audio);
     Kind=Kind_Aiff;
 }
 
@@ -640,6 +638,7 @@ void File_Riff::AIFF()
 void File_Riff::AIFF_COMM()
 {
     Element_Name("Common");
+    Stream_Prepare(Stream_Audio);
 
     int32u numSampleFrames;
     int16u numChannels, sampleSize;
@@ -673,6 +672,9 @@ void File_Riff::AIFF_COMM()
     if (sampleRate)
         Fill(Stream_Audio, StreamPos_Last, Audio_Duration, numSampleFrames/sampleRate*1000);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, sampleRate, 0);
+
+    BlockAlign=numChannels*sampleSize/8;
+    AvgBytesPerSec=float64_int64s(BlockAlign*sampleRate);
 }
 
 //---------------------------------------------------------------------------
@@ -703,33 +705,28 @@ void File_Riff::AIFF_SSND()
 {
     Element_Name("Sound Data");
 
-    #if MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
-        if (Config_ParseSpeed==1 && Config->Demux_Unpacketize_Get())
-        {
-            File_Pcm* Parser=new File_Pcm;
-            Open_Buffer_Init(Parser);
-            Parser->BitDepth=Retrieve(Stream_Audio, 0, Audio_BitDepth).To_int16u();
-            Parser->Channels=Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int16u();
-            Parser->Demux_Level=2; //Container
-            Parser->Demux_UnpacketizeContainer=true;
-            Stream[0].Parsers.push_back(Parser);
-            AIFF_SSND_Continue();
-            Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Element_TotalSize_Get();
-            Buffer_DataToParse_Begin=File_Offset+Buffer_Offset;
-        }
-        else
-    #endif //MEDIAINFO_DEMUX && defined(MEDIAINFO_PCM_YES)
-            Skip_XX(Element_TotalSize_Get(),                    "Data");
+    Skip_XX(Buffer_DataToParse_End-Buffer_DataToParse_Begin,    "Data");
 
     //Filling
-    Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
+    Fill(Stream_Audio, 0, Audio_StreamSize, Buffer_DataToParse_End-Buffer_DataToParse_Begin);
     Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Big");
+
+    #if MEDIAINFO_DEMUX
+        if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
+            Config->Demux_EventWasSent=true; //First set is to indicate the user that header is parsed
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
 void File_Riff::AIFF_SSND_Continue()
 {
-    Open_Buffer_Continue(Stream[0].Parsers[0]);
+    #if MEDIAINFO_DEMUX
+        if (Element_Size)
+        {
+            Demux_random_access=true;
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -3270,14 +3267,16 @@ void File_Riff::WAVE_data()
 {
     Element_Name("Raw datas");
 
+    /*
     if (Element_TotalSize_Get()<100)
     {
         Skip_XX(Element_Size,                                   "Unknown");
         return; //This is maybe embeded in another container, and there is only the header (What is the junk?)
     }
+    */
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
+        Fill(Stream_Audio, 0, Audio_StreamSize, Buffer_DataToParse_End-Buffer_DataToParse_Begin);
     FILLING_END();
 
     //Parsing
@@ -3288,7 +3287,7 @@ void File_Riff::WAVE_data()
         int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
         if (Duration)
         {
-            int64u BitRate_New=Element_TotalSize_Get()*8*1000/Duration;
+            int64u BitRate_New=(Buffer_DataToParse_End-Buffer_DataToParse_Begin)*8*1000/Duration;
             if (BitRate_New<BitRate*0.95 || BitRate_New>BitRate*1.05)
                 Fill(Stream_Audio, 0, Audio_BitRate, BitRate_New, 10, true); //Correcting the bitrate, it was false in the header
         }
@@ -3298,47 +3297,27 @@ void File_Riff::WAVE_data()
                 //Retrieving "data" real size, in case of truncated files and/or wave header in another container
                 Duration=((int64u)LittleEndian2int32u(Buffer+Buffer_Offset-4))*8*1000/BitRate; //TODO: RF64 is not handled
             else
-                Duration=Element_TotalSize_Get()*8*1000/BitRate;
+                Duration=(Buffer_DataToParse_End-Buffer_DataToParse_Begin)*8*1000/BitRate;
             Fill(Stream_General, 0, General_Duration, Duration, 10, true);
             Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
         }
     FILLING_END();
 
-    AVI__movi_xxxx();
-    if (File_GoTo==(int64u)-1)
-    {
-        #if MEDIAINFO_DEMUX
-            if (Config_ParseSpeed==1 && Config->Demux_Unpacketize_Get())
-                WAVE_data_Continue();
-            #if MEDIAINFO_TRACE
-                else if (Buffer_DataToParse_End && Trace_Activated)
-			        Param("Data", Ztring("(")+Ztring::ToZtring(Buffer_DataToParse_End-Buffer_DataToParse_Begin)+Ztring(" bytes)"));
-            #endif //MEDIAINFO_TRACE
-            else
-        #endif //MEDIAINFO_DEMUX
-            {
-                #if MEDIAINFO_TRACE
-		            if (Trace_Activated)
-			            Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
-                #endif //MEDIAINFO_TRACE
-            }
-    }
+    #if MEDIAINFO_DEMUX
+        if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
+            Config->Demux_EventWasSent=true; //First set is to indicate the user that header is parsed
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
 void File_Riff::WAVE_data_Continue()
 {
-    Skip_XX(Element_Size,                                       "Data");
-
     #if MEDIAINFO_DEMUX
-        Element_Code=0;
-        if (AvgBytesPerSec && Config->Demux_Rate_Get())
+        if (Element_Size)
         {
-            FrameInfo.DTS=float64_int64s((File_Offset+Buffer_Offset-Buffer_DataToParse_Begin)*1000000000.0/AvgBytesPerSec);
-            FrameInfo.PTS=FrameInfo.DTS;
-            Frame_Count_NotParsedIncluded=float64_int64s(((float64)FrameInfo.DTS)/1000000000.0*Config->Demux_Rate_Get());
+            Demux_random_access=true;
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         }
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX
 }
 

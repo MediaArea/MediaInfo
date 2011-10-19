@@ -2621,39 +2621,42 @@ void File_Mxf::Header_Parse()
         }
     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
-    if (Length>File_Size/2 //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
-     && (Buffer_Offset+Element_Offset+Length>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length)>Buffer_Size)) //Not complete
+    if (Buffer_Offset+Element_Offset+Length>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length)>Buffer_Size) //Not complete
     {
-        //Calculating the byte count not included in seek information (partition, index...)
-        int64u StreamOffset_Offset;
-        if (!Partitions.empty())
+        if (Length>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
         {
-            while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<File_Offset+Buffer_Offset-Header_Size)
-                Partitions_Pos++;
-            if (Partitions_Pos && (Partitions_Pos==Partitions.size() || Partitions[Partitions_Pos].StreamOffset!=File_Offset+Buffer_Offset-Header_Size))
-                Partitions_Pos--; //This is the previous item
-            StreamOffset_Offset=Partitions[Partitions_Pos].StreamOffset-Partitions[Partitions_Pos].BodyOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
-        }
-        else
-            StreamOffset_Offset=0;
+            //Calculating the byte count not included in seek information (partition, index...)
+            int64u StreamOffset_Offset;
+            if (!Partitions.empty())
+            {
+                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<File_Offset+Buffer_Offset-Header_Size)
+                    Partitions_Pos++;
+                if (Partitions_Pos && (Partitions_Pos==Partitions.size() || Partitions[Partitions_Pos].StreamOffset!=File_Offset+Buffer_Offset-Header_Size))
+                    Partitions_Pos--; //This is the previous item
+                StreamOffset_Offset=Partitions[Partitions_Pos].StreamOffset-Partitions[Partitions_Pos].BodyOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
+            }
+            else
+                StreamOffset_Offset=0;
         
-        if (StreamOffset_Offset<=File_Offset+Buffer_Offset
-         && !Partitions_IsFooter
-         && !(Code_Compare1==Elements::OpenIncompleteHeaderPartition1   //Skipping any kind of Partition
-           && Code_Compare2==Elements::OpenIncompleteHeaderPartition2
-           && Code_Compare3==Elements::OpenIncompleteHeaderPartition3)
-         && !(Code_Compare1==Elements::IndexTableSegment1               //Skipping any kind of IndexTableSegment
-           && Code_Compare2==Elements::IndexTableSegment2
-           && Code_Compare3==Elements::IndexTableSegment3))
-        {
-            Clip_Begin=Buffer_Begin=File_Offset+Buffer_Offset+Element_Offset;
-            Clip_End=Buffer_End=Buffer_Begin+Length;
-            Clip_Header_Size=Buffer_Header_Size=Element_Offset;
-            Clip_Code=Code;
-            MustSynchronize=false;
-            Length=0;
+            if (StreamOffset_Offset<=File_Offset+Buffer_Offset
+             && !Partitions_IsFooter
+             && !(Code_Compare1==Elements::OpenIncompleteHeaderPartition1   //Skipping any kind of Partition
+               && Code_Compare2==Elements::OpenIncompleteHeaderPartition2
+               && Code_Compare3==Elements::OpenIncompleteHeaderPartition3)
+             && !(Code_Compare1==Elements::IndexTableSegment1               //Skipping any kind of IndexTableSegment
+               && Code_Compare2==Elements::IndexTableSegment2
+               && Code_Compare3==Elements::IndexTableSegment3))
+            {
+                Clip_Begin=Buffer_Begin=File_Offset+Buffer_Offset+Element_Offset;
+                Clip_End=Buffer_End=Buffer_Begin+Length;
+                Clip_Header_Size=Buffer_Header_Size=Element_Offset;
+                Clip_Code=Code;
+                MustSynchronize=false;
+                Length=0;
+            }
         }
-        else
+
+        if (Clip_Begin==(int64u)-1)
         {
             if (File_Buffer_Size_Hint_Pointer)
             {

@@ -39,6 +39,9 @@
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#if MEDIAINFO_SEEK
+    #include "MediaInfo/MediaInfo_Internal.h"
+#endif //MEDIAINFO_SEEK
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -240,7 +243,7 @@ File_DvDif::File_DvDif()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
-    Frame_Count_Valid=48; //(DV100 is up to 48 DIF sequences)
+    Frame_Count_Valid=2;
     AuxToAnalyze=0x00; //No Aux to analyze
     IgnoreAudio=false;
 
@@ -262,6 +265,10 @@ File_DvDif::File_DvDif()
     FSP_WasNotSet=false;
     video_sourcecontrol_IsParsed=false;
     audio_locked=false;
+
+    #if MEDIAINFO_SEEK
+        Duration_Detected=false;
+    #endif //MEDIAINFO_SEEK
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     Analyze_Activated=false;
@@ -563,13 +570,16 @@ bool File_DvDif::Synchronize()
     if (Buffer_Offset+8*80>Buffer_Size)
         return false;
 
+    if (!Status[IsAccepted])
+        Accept();
+
     return true;
 }
 
 //---------------------------------------------------------------------------
 bool File_DvDif::Synched_Test()
 {
-    if (AuxToAnalyze || (File_Offset==0 && Buffer_Offset==0))
+    if (AuxToAnalyze)
         return true;
 
     //Must have enough buffer for having header
@@ -695,6 +705,13 @@ void File_DvDif::Synched_Test_Reset()
 //---------------------------------------------------------------------------
 void File_DvDif::Synched_Init()
 {
+    //FrameInfo
+    if (FrameInfo.DTS==(int64u)-1)
+        FrameInfo.DTS=0; //No DTS in container
+    if (FrameInfo.PTS==(int64u)-1)
+        FrameInfo.PTS=0; //No PTS in container
+    if (Frame_Count_NotParsedIncluded==(int64u)-1)
+        Frame_Count_NotParsedIncluded=0; //No Frame_Count_NotParsedIncluded in the container
 }
 
 //***************************************************************************
@@ -710,7 +727,7 @@ bool File_DvDif::Demux_UnpacketizeContainer_Test()
         return false;
 
     if ((Buffer[Buffer_Offset]&0xE0)==0x00   //Speed up the parsing
-     && (CC3(Buffer+Buffer_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+     && (CC3(Buffer+Buffer_Offset+0*80)&0xE0FCFF)==0x000400   //Header 0 (with FSC==false and FSP==true)
      && (CC3(Buffer+Buffer_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
      && (CC3(Buffer+Buffer_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
      && (CC3(Buffer+Buffer_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
@@ -726,7 +743,7 @@ bool File_DvDif::Demux_UnpacketizeContainer_Test()
 
         while (Demux_Offset+8*80<=Buffer_Size //8 blocks
             && !((Buffer[Demux_Offset]&0xE0)==0x00   //Speed up the parsing
-              && (CC3(Buffer+Demux_Offset+0*80)&0xE0F0FF)==0x000000   //Header 0
+              && (CC3(Buffer+Demux_Offset+0*80)&0xE0FCFF)==0x000400   //Header 0 (with FSC==false and FSP==true)
               && (CC3(Buffer+Demux_Offset+1*80)&0xE0F0FF)==0x200000   //Subcode 0
               && (CC3(Buffer+Demux_Offset+2*80)&0xE0F0FF)==0x200001   //Subcode 1
               && (CC3(Buffer+Demux_Offset+3*80)&0xE0F0FF)==0x400000   //VAUX 0
@@ -738,6 +755,8 @@ bool File_DvDif::Demux_UnpacketizeContainer_Test()
 
         if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
             return false; //No complete frame
+        if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size==File_Size)
+            Demux_Offset=File_Size-File_Offset; //Using the complete buffer (no next sync)
 
         Demux_UnpacketizeContainer_Demux();
     }
@@ -754,7 +773,91 @@ bool File_DvDif::Demux_UnpacketizeContainer_Test()
 void File_DvDif::Read_Buffer_Unsynched()
 {
     Synched_Test_Reset();
+        if ((Frame_Count
+    #if MEDIAINFO_SEEK
+          || Duration_Detected
+    #endif MEDIAINFO_SEEK
+          ) && !FSP_WasNotSet)
+    {
+        int64u BytesPerFrame=12000*(DSF?12:10);
+        if (FSC_WasSet)
+            BytesPerFrame*=2;    
+        Frame_Count_NotParsedIncluded=File_GoTo/BytesPerFrame;
+        FrameInfo.PTS=FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded/(DSF?25.000:(30.000*1000/1001))*1000000000);
+    }
 }
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+{
+    //Init
+    if (!Duration_Detected)
+    {
+        MediaInfo_Internal MI;
+        MI.Option(_T("File_KeepInfo"), _T("1"));
+        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
+        MI.Option(_T("ParseSpeed"), _T("0"));
+        MI.Option(_T("Demux"), Ztring());
+        size_t MiOpenResult=MI.Open(File_Name);
+        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+        if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("DV"))
+            return 0;
+        
+        TotalFrames=Ztring(MI.Get(Stream_Video, 0, Video_FrameCount)).To_int64u();
+        int64u VideoBitRate=Ztring(MI.Get(Stream_Video, 0, Video_BitRate)).To_int64u();
+        if (VideoBitRate>=50000000)
+        {
+            FSC_WasSet=true;
+            FSP_WasNotSet=true;
+        }
+        else if (VideoBitRate>=30000000)
+            FSC_WasSet=true;
+        float32 FrameRate=Ztring(MI.Get(Stream_Video, 0, Video_FrameRate)).To_float32();
+        if (FrameRate>=24.0 && FrameRate<26.0)
+            DSF=system=true;
+        if (FrameRate>=29.0 && FrameRate<31.0)
+            DSF=system=false;
+        Duration_Detected=true;
+    }
+
+    //Parsing
+    switch (Method)
+    {
+        case 0  :
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :
+                    GoTo(File_Size*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 2  :   //Timestamp
+                    {
+                        //We transform TimeStamp to a frame number
+                        Value=((float64)Value)*(DSF?25.000:(30.000*1000/1001))/1000000000;
+                    }
+                    //No break;
+        case 3  :   //FrameNumber
+                    if (!FSP_WasNotSet)
+                    {
+                        int64u BytesPerFrame=12000*(DSF?12:10);
+                        if (FSC_WasSet)
+                            BytesPerFrame*=2;    
+                        GoTo(BytesPerFrame*Value);
+                        Open_Buffer_Unsynch();
+                        Frame_Count_NotParsedIncluded=Value;
+                        FrameInfo.PTS=FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded/(DSF?25.000:(30.000*1000/1001))*1000000000);
+                        return 1;
+                    }
+                    else
+                        return (size_t)-1; //Not supported
+        default :   return (size_t)-1; //Not supported
+    }
+}
+#endif //MEDIAINFO_SEEK
 
 //***************************************************************************
 // Buffer
@@ -932,8 +1035,6 @@ void File_DvDif::Header()
             TF2=false;
             TF3=false;
         }
-
-        Frame_Count++;
     FILLING_END();
 }
 #else //MEDIAINFO_TRACE
@@ -962,8 +1063,6 @@ void File_DvDif::Header()
             TF2=false;
             TF3=false;
         }
-
-        Frame_Count++;
     FILLING_END();
 }
 #endif //MEDIAINFO_TRACE
@@ -1377,10 +1476,16 @@ void File_DvDif::video_source()
     Skip_B1(                                                    "TUN/VISC");
 
     FILLING_BEGIN();
-        if (!Status[IsAccepted] && (Frame_Count==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
+        if (FSC==false && FSP==true && Dseq==0)
         {
-            if (!system)
-                Frame_Count_Valid=Frame_Count_Valid*10/12; //NTSC is only 10 DIF sequence per frame
+            Frame_Count++;
+            if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded++;
+            FrameInfo.DUR=float64_int64s(((float64)1000000000)/(DSF?25.000:29.970));
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS+=FrameInfo.DUR;
+            if (FrameInfo.PTS!=(int64u)-1)
+                FrameInfo.PTS+=FrameInfo.DUR;
         }
     FILLING_END();
 }

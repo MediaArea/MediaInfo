@@ -59,13 +59,14 @@ public :
 
 private :
     //Buffer - Global
-    void Read_Buffer_Continue ();
+    void Read_Buffer_Init();
     #if MEDIAINFO_SEEK
     size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
     #endif //MEDIAINFO_SEEK
     void Read_Buffer_Unsynched();
 
     //Buffer - Per element
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
@@ -138,11 +139,12 @@ private :
     int64u WAVE_data_Size;  //RF64 WAVE_data real chunk size
     int64u WAVE_fact_samplesCount;  //RF64 WAVE_fact real samplesCount
     int64u Alignement_ExtraByte; //Padding from the container
+    int64u Buffer_DataToParse_Begin;
     int64u Buffer_DataToParse_End;
     #if MEDIAINFO_DEMUX
-        int64u Buffer_DataToParse_Begin;
         int32u AvgBytesPerSec;
         int16u BlockAlign;
+        float64 Demux_Rate;
     #endif //!MEDIAINFO_DEMUX
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
