@@ -1017,6 +1017,8 @@ bool File__Analyze::Synchro_Manage_Test()
     //Testing if synchro is OK
     if (Synched)
     {
+        if (!Synched_Test())
+            return false;
         #if MEDIAINFO_DEMUX
             if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
             {
@@ -1029,8 +1031,6 @@ bool File__Analyze::Synchro_Manage_Test()
                     return false;
             }
         #endif //MEDIAINFO_DEMUX
-        if (!Synched_Test())
-            return false;
         if ((FrameInfo_Next.DTS!=(int64u)-1 || FrameInfo_Next.PTS!=(int64u)-1) && Buffer_Offset+Element_Offset>=FrameInfo.Buffer_Offset)
         {
             FrameInfo=FrameInfo_Next;
@@ -1061,6 +1061,8 @@ bool File__Analyze::Synchro_Manage_Test()
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
         }
+        if (!Synched_Test())
+            return false;
         #if MEDIAINFO_DEMUX
             if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
             {
@@ -1073,8 +1075,6 @@ bool File__Analyze::Synchro_Manage_Test()
                     return false;
             }
         #endif //MEDIAINFO_DEMUX
-        if (!Synched_Test())
-            return false;
     }
 
     return true;
