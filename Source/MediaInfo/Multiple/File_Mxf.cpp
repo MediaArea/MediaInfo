@@ -2623,6 +2623,7 @@ void File_Mxf::Header_Parse()
 
     if (Buffer_Offset+Element_Offset+Length>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length)>Buffer_Size) //Not complete
     {
+        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (Length>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
         {
             //Calculating the byte count not included in seek information (partition, index...)
@@ -2657,6 +2658,7 @@ void File_Mxf::Header_Parse()
         }
 
         if (Clip_Begin==(int64u)-1)
+        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         {
             if (File_Buffer_Size_Hint_Pointer)
             {
@@ -2810,6 +2812,7 @@ void File_Mxf::Data_Parse()
         Element_Name(Mxf_EssenceElement(Code));
 
         //Config
+        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (!Essences_FirstEssence_Parsed)
         {
             if (Demux_UnpacketizeContainer && Descriptors.size()==1 && Descriptors.begin()->second.StreamKind==Stream_Audio)
@@ -2838,6 +2841,7 @@ void File_Mxf::Data_Parse()
 
             Essences_FirstEssence_Parsed=true;
         }
+        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
         if (IsParsingEnd)
         {

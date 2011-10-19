@@ -141,11 +141,9 @@ private :
     int64u Alignement_ExtraByte; //Padding from the container
     int64u Buffer_DataToParse_Begin;
     int64u Buffer_DataToParse_End;
-    #if MEDIAINFO_DEMUX
-        int32u AvgBytesPerSec;
-        int16u BlockAlign;
-        float64 Demux_Rate;
-    #endif //!MEDIAINFO_DEMUX
+    int32u AvgBytesPerSec;
+    int16u BlockAlign;
+    float64 Demux_Rate;
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
