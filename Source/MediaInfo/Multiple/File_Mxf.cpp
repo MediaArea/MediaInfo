@@ -1138,7 +1138,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Ztring ID;
 
         //Searching second stream
-        size_t StreamPos_Difference=Essence->second.StreamPos_Initial-Essence->second.StreamPos;
+        size_t StreamPos_Difference=Essence->second.StreamPos-Essence->second.StreamPos_Initial;
         essences::iterator Essence1=Essence;
         Essence1--;
         Essence->second.StreamPos=Essence1->second.StreamPos;
@@ -1151,7 +1151,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         }
 
         //Removing the 2 corresponding streams
-        NewPos1=(Essence->second.StreamPos_Initial/2)*2-StreamPos_Difference;
+        NewPos1=(Essence->second.StreamPos_Initial/2)*2+StreamPos_Difference;
         size_t NewPos2=NewPos1+1;
         ID=Ztring::ToZtring(Essence1->second.TrackID)+_T(" / ")+Ztring::ToZtring(Essence->second.TrackID);
 
