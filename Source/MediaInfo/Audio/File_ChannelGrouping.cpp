@@ -80,7 +80,11 @@ File_ChannelGrouping::File_ChannelGrouping()
 File_ChannelGrouping::~File_ChannelGrouping()
 {
     if (Channel_Pos==0)
+    {
+        for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
+            delete Common->Channels[Pos]; //Common->Channels[Pos]=NULL;
         delete Common; //Common=NULL;
+    }
 }
 
 //***************************************************************************

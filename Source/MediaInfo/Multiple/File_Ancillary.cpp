@@ -168,6 +168,7 @@ File_Ancillary::File_Ancillary()
 //---------------------------------------------------------------------------
 File_Ancillary::~File_Ancillary()
 {
+    delete Cdp_Parser; //Cdp_Parser=NULL;
     for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
         delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
     for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)

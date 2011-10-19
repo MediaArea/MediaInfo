@@ -63,6 +63,11 @@ public :
                 Buffer_Size_Max=32768;
             }
 
+            ~channel()
+            {
+                delete[] Buffer; //Buffer=NULL;
+            }
+
             void resize(size_t NewSize)
             {
                 if (NewSize<Buffer_Size_Max)

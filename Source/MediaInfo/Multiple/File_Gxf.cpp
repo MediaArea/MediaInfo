@@ -268,6 +268,7 @@ File_Gxf::File_Gxf()
     SizeToAnalyze=16*1024*1024;
     TimeCode_First=(int64u)-1;
     Audio_Count=0;
+    Element_Code=0x00; //Element_Code is used as a test for pre-existing parsing, it must be initialized
 
     #if MEDIAINFO_DEMUX
         Demux_HeaderParsed=false;
