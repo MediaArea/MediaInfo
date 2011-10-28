@@ -21,6 +21,7 @@ x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
 x MPEG-4: was not providing some info about tracks with sample table before media header
 x MXF: better support of corrupted indexes
+x #3429831, MediaInfo library: unload wrong DLL, thanks to McSpecky
 
 Version 0.7.50, 2011-09-23
 --------------
