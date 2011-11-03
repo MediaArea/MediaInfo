@@ -4,18 +4,23 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 
+DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = MediaInfoLib
 PROJECT_NUMBER         = 0.7
+PROJECT_LOGO           = 
 OUTPUT_DIRECTORY       = ./
 OUTPUT_LANGUAGE        = English
 REPEAT_BRIEF           = YES
 ABBREVIATE_BRIEF       = 
+FULL_PATH_NAMES        = NO
+BUILTIN_STL_SUPPORT    = YES
+OPTIMIZE_OUTPUT_FOR_C  = NO
 
 #---------------------------------------------------------------------------
 # Build related configuration options
 #---------------------------------------------------------------------------
 
-EXTRACT_ALL            = YES
+EXTRACT_ALL            = NO
 
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
