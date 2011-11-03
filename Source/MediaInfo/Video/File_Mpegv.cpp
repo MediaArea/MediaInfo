@@ -799,8 +799,6 @@ void File_Mpegv::Streams_Finish()
     }
 
     //Other parsers
-    while (Count_Get(Stream_Text)) //Erasing previous text info
-        Stream_Erase(Stream_Text, Count_Get(Stream_Text)-1);
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         if (GA94_03_Parser && !GA94_03_Parser->Status[IsFinished] && GA94_03_Parser->Status[IsAccepted])
             Finish(GA94_03_Parser);
