@@ -15,6 +15,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\P
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC2010\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegressionTest", "RegressionTest\RegressionTest.vcxproj", "{91C094CA-1170-4CE4-9B79-17324C8DACA8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94} = {0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5} = {BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -123,6 +129,18 @@ Global
 		{FD328AE2-5136-460F-A622-12CFD4D4C131}.ReleaseA|Win32.Build.0 = Release|Win32
 		{FD328AE2-5136-460F-A622-12CFD4D4C131}.ReleaseA|x64.ActiveCfg = Release|x64
 		{FD328AE2-5136-460F-A622-12CFD4D4C131}.ReleaseA|x64.Build.0 = Release|x64
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.Debug|Win32.Build.0 = Debug|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.Debug|x64.ActiveCfg = Debug|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.DebugA|Win32.ActiveCfg = Debug|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.DebugA|Win32.Build.0 = Debug|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.DebugA|x64.ActiveCfg = Debug|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.Release|Win32.ActiveCfg = Release|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.Release|Win32.Build.0 = Release|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.Release|x64.ActiveCfg = Release|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.ReleaseA|Win32.ActiveCfg = Release|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.ReleaseA|Win32.Build.0 = Release|Win32
+		{91C094CA-1170-4CE4-9B79-17324C8DACA8}.ReleaseA|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
