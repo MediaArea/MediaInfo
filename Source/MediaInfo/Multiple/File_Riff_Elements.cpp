@@ -3319,6 +3319,8 @@ void File_Riff::WAVE_data_Continue()
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
+
+    AVI__movi_xxxx();
 }
 
 //---------------------------------------------------------------------------

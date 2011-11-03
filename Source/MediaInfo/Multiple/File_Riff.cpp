@@ -562,20 +562,22 @@ void File_Riff::Read_Buffer_Unsynched()
 //---------------------------------------------------------------------------
 bool File_Riff::Header_Begin()
 {
-    if (File_Offset+Buffer_Offset<Buffer_DataToParse_End)
+    while (File_Offset+Buffer_Offset<Buffer_DataToParse_End)
     {
         #if MEDIAINFO_DEMUX
             if (AvgBytesPerSec && Demux_Rate && BlockAlign)
             {
                 float64 BytesPerFrame=((float64)AvgBytesPerSec)/Demux_Rate;
                 Frame_Count_NotParsedIncluded=float64_int64s(((float64)(File_Offset+Buffer_Offset-Buffer_DataToParse_Begin))/BytesPerFrame);
-                Element_Size=float64_int64s(AvgBytesPerSec/Demux_Rate*(Frame_Count_NotParsedIncluded+1));
+                Element_Size=float64_int64s(BytesPerFrame*(Frame_Count_NotParsedIncluded+1));
                 Element_Size/=BlockAlign;
                 Element_Size*=BlockAlign;
                 Element_Size-=File_Offset+Buffer_Offset-Buffer_DataToParse_Begin;
                 FrameInfo.PTS=FrameInfo.DTS=float64_int64s(((float64)Frame_Count_NotParsedIncluded)*1000000000/Demux_Rate);
                 while (Element_Size && File_Offset+Buffer_Offset+Element_Size>Buffer_DataToParse_End)
                     Element_Size-=BlockAlign;
+                if (Element_Size==0)
+                    Element_Size=BlockAlign;
                 if (Buffer_Offset+Element_Size>Buffer_Size)
                     return false;
             }
@@ -600,9 +602,9 @@ bool File_Riff::Header_Begin()
             default        : AVI__movi_xxxx();
         }
 
-        if (Config_ParseSpeed<1.0)
+        if (Config_ParseSpeed<1.0 && File_Offset+Buffer_Offset+Element_Offset-Buffer_DataToParse_Begin>=0x10000)
         {
-            Buffer_Offset=Buffer_DataToParse_End-(File_Offset+Buffer_Offset);
+            Buffer_Offset=Buffer_DataToParse_End-File_Offset;
             if (Buffer_Offset<Buffer_Size)
                 Element_Size=Buffer_Size-Buffer_Offset;
             else
