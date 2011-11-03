@@ -114,6 +114,7 @@ File_Lxf::File_Lxf()
     //Seek
     #if MEDIAINFO_SEEK
         SeekRequest=(int64u)-1;
+        FrameRate=0;
     #endif //MEDIAINFO_SEEK
     Duration_Detected=false;
     LastAudio_BufferOffset=(int64u)-1;
@@ -126,10 +127,15 @@ File_Lxf::File_Lxf()
 //---------------------------------------------------------------------------
 void File_Lxf::Streams_Fill()
 {
+    Fill(Stream_General, 0, General_Format_Version, _T("Version "+Ztring::ToZtring(Version)));
+
     for (size_t Pos=0; Pos<Videos.size(); Pos++)
         Streams_Fill_PerStream(Videos[Pos].Parser);
     for (size_t Pos=0; Pos<Audios.size(); Pos++)
         Streams_Fill_PerStream(Audios[Pos].Parser);
+
+    if (!Videos.empty())
+        Fill(Stream_Video, 0, Video_CodecID, VideoFormat);
 }
 
 //---------------------------------------------------------------------------
@@ -209,14 +215,18 @@ void File_Lxf::Streams_Finish()
 bool File_Lxf::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+8<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x4C
-                                         || Buffer[Buffer_Offset+1]!=0x45
-                                         || Buffer[Buffer_Offset+2]!=0x49
-                                         || Buffer[Buffer_Offset+3]!=0x54
-                                         || Buffer[Buffer_Offset+4]!=0x43
-                                         || Buffer[Buffer_Offset+5]!=0x48
-                                         || Buffer[Buffer_Offset+6]!=0x00
-                                         || Buffer[Buffer_Offset+7]!=0x00))
+    while (Buffer_Offset+20<=Buffer_Size && ( Buffer[Buffer_Offset  ]!=0x4C
+                                          ||  Buffer[Buffer_Offset+ 1]!=0x45
+                                          ||  Buffer[Buffer_Offset+ 2]!=0x49
+                                          ||  Buffer[Buffer_Offset+ 3]!=0x54
+                                          ||  Buffer[Buffer_Offset+ 4]!=0x43
+                                          ||  Buffer[Buffer_Offset+ 5]!=0x48
+                                          ||  Buffer[Buffer_Offset+ 6]!=0x00
+                                          ||  Buffer[Buffer_Offset+ 7]!=0x00
+    #if MEDIAINFO_SEEK
+                                          || (Buffer[Buffer_Offset+16]!=0x02 && Buffer[Buffer_Offset+16]!=0x00)
+    #endif //MEDIAINFO_SEEK
+                                         ))
     {
         Buffer_Offset+=6+2;
         while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
@@ -227,10 +237,13 @@ bool File_Lxf::Synchronize()
     }
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+8>Buffer_Size)
+    if (Buffer_Offset+20>Buffer_Size)
     {
-        if (Buffer_Offset+8==Buffer_Size && CC8(Buffer+Buffer_Offset)!=0x4C45495443480000LL)
-            Buffer_Offset++;
+        while (Buffer_Offset+8>Buffer_Size)
+            if (Buffer_Offset+8==Buffer_Size && CC8(Buffer+Buffer_Offset)!=0x4C45495443480000LL)
+                Buffer_Offset++;
+            else
+                break;
         if (Buffer_Offset+7==Buffer_Size && CC7(Buffer+Buffer_Offset)!=0x4C454954434800LL)
             Buffer_Offset++;
         if (Buffer_Offset+6==Buffer_Size && CC6(Buffer+Buffer_Offset)!=0x4C4549544348LL)
@@ -253,6 +266,8 @@ bool File_Lxf::Synchronize()
         Accept();
 
         Fill(Stream_General, 0, General_Format, "LXF");
+
+        File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
     }
 
     #if MEDIAINFO_SEEK
@@ -329,34 +344,44 @@ void File_Lxf::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
 {
+    //Init
+    if (!Duration_Detected)
+    {
+        MediaInfo_Internal MI;
+        MI.Option(_T("File_KeepInfo"), _T("1"));
+        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
+        MI.Option(_T("ParseSpeed"), _T("0"));
+        MI.Option(_T("Demux"), Ztring());
+        size_t MiOpenResult=MI.Open(File_Name);
+        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+        if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("LXF"))
+            return 0;
+        for (time_offsets::iterator TimeOffset=((File_Lxf*)MI.Info)->TimeOffsets.begin(); TimeOffset!=((File_Lxf*)MI.Info)->TimeOffsets.end(); TimeOffset++)
+            TimeOffsets[TimeOffset->first]=TimeOffset->second;
+        int64u Duration=float64_int64s(Ztring(MI.Get(Stream_General, 0, _T("Duration"))).To_float64()*720);
+        TimeOffsets[File_Size]=stream_header(Duration, Duration, 0, (int8u)-1);
+        SeekRequest_Divider=2;
+        Duration_Detected=true;
+    }
+
     //Parsing
     switch (Method)
     {
         case 0  :   Open_Buffer_Unsynch(); GoTo(Value); return 1;
         case 1  :   Open_Buffer_Unsynch(); GoTo(File_Size*Value/10000); return 1;
+        case 3  :   //Frame
+                    {
+                        if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
+                            FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
+                        if (FrameRate==0)
+                            return (size_t)-1; //Not supported
+                        float64 TimeStamp=((float64)Value)/FrameRate;
+                        Value=float64_int64s(TimeStamp);
+                    }
         case 2  :   //Timestamp
                     {
-                    //Init
-                    if (!Duration_Detected)
-                    {
-                        MediaInfo_Internal MI;
-                        MI.Option(_T("File_KeepInfo"), _T("1"));
-                        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
-                        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
-                        MI.Option(_T("ParseSpeed"), _T("0"));
-                        MI.Option(_T("Demux"), Ztring());
-                        size_t MiOpenResult=MI.Open(File_Name);
-                        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
-                        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
-                        if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("LXF"))
-                            return 0;
-                        for (time_offsets::iterator TimeOffset=((File_Lxf*)MI.Info)->TimeOffsets.begin(); TimeOffset!=((File_Lxf*)MI.Info)->TimeOffsets.end(); TimeOffset++)
-                            TimeOffsets[TimeOffset->first]=TimeOffset->second;
-                        int64u Duration=float64_int64s(Ztring(MI.Get(Stream_General, 0, _T("Duration"))).To_float64()*720);
-                        TimeOffsets[File_Size]=stream_header(Duration, Duration, 0, (int8u)-1);
-                        SeekRequest_Divider=2;
-                        Duration_Detected=true;
-                    }
                     if (Value!=(int64u)-1)
                     {
                         Value=float64_int64s((float64)Value*720/1000000); //Convert in LXF unit (1/720000)
@@ -468,7 +493,7 @@ void File_Lxf::Header_Parse()
     int64u BlockSize;
     int32u Type;
     Skip_C8(                                                    "Signature");
-    Skip_L4(                                                    "Version"); //0=start and duration are in field, 1=in 27 MHz values
+    Get_L4 (Version,                                            "Version"); //0=start and duration are in field, 1=in 27 MHz values
     Skip_L4(                                                    "Header size");
     Get_L4 (Type,                                               "Type");
     Skip_L4(                                                    "Stream ID");
@@ -478,13 +503,13 @@ void File_Lxf::Header_Parse()
                     {
                     Video_Sizes.resize(2);
                     int64u Size;
-                    int8u Format, GOP_M;
+                    int8u GOP_M;
                     BlockSize=0;
 
                     Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
                     Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
-                    Get_S1 (4, Format,                          "Format"); Param_Info(Lxf_Format_Video[Format]);
+                    Get_S1 (4, VideoFormat,                     "Format"); Param_Info(Lxf_Format_Video[VideoFormat]);
                     Skip_S1(7,                                  "GOP (N)");
                     Get_S1 (3, GOP_M,                           "GOP (M)");
                     Info_S1(8, BitRate,                         "Bit rate"); Param_Info(BitRate*1000000, " bps");
@@ -595,6 +620,17 @@ void File_Lxf::Header_Parse()
                     }
                     break;
         default :   BlockSize=0;
+    }
+
+    if (Buffer_Offset+0x48+BlockSize>Buffer_Size)
+    {
+        //Hints
+        if (File_Buffer_Size_Hint_Pointer)
+        {
+            size_t Buffer_Size_Target=(size_t)(Buffer_Offset+0x48+BlockSize+0x48); //+0x48 for next packet header
+            if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+        }
     }
 
     //Filling
@@ -770,6 +806,9 @@ void File_Lxf::Audio()
 {
     Element_Name("Audio");
 
+    if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
+        FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
+
     Audio_Sizes_Pos=0;
     Element_ThisIsAList();
 }
@@ -785,6 +824,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
         #endif //MEDIAINFO_SEEK
         {
             Element_Code=0x0200+Pos;
+            Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.Duration))/720000*FrameRate);
             if (SampleSize==20 && Config->Demux_PCM_20bitTo16bit_Get())
             {
                 //Removing bits 3-0 (Little endian)
@@ -840,6 +880,9 @@ void File_Lxf::Video()
 {
     Element_Name("Video");
 
+    if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
+        FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
+
     Video_Sizes_Pos=Video_Sizes[0]?0:1;
     Element_ThisIsAList();
 }
@@ -863,6 +906,7 @@ void File_Lxf::Video_Stream(size_t Pos)
             if (Pos==1)
             {
                 Element_Code=0x0100; //+Pos (no Pos until we know what is the other stream)
+                Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Videos_Header.TimeStamp_End-Videos_Header.Duration))/720000*FrameRate);
                 Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
             }
         }
@@ -887,13 +931,13 @@ void File_Lxf::Video_Stream(size_t Pos)
                     Stream_Count--;
             }
         #else
-            Skip_XX(Sizes[Pos],                                     "DV");
+            Skip_XX(Video_Sizes[Pos],                           "DV");
 
             if (Pos>=Videos.size())
                 Videos.resize(Pos+1);
             if (Videos[Pos].Parser==NULL)
             {
-                int64u BitRate=float64_int64s(((float64)Sizes[Pos])*720000*8/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin));
+                int64u BitRate=float64_int64s(((float64)Video_Sizes[Pos])*720000*8/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin));
                 float64 FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
 
                 Videos[Pos].Parser=new File__Analyze;
@@ -936,7 +980,7 @@ void File_Lxf::Video_Stream(size_t Pos)
                         Stream_Count--;
                 }
             #else
-                Skip_XX(Sizes[Pos],                             "MPEG Video");
+                Skip_XX(Video_Sizes[Pos],                       "MPEG Video");
 
                 if (Pos>=Videos.size())
                     Videos.resize(Pos+1);

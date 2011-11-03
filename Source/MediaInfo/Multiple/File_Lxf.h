@@ -123,6 +123,11 @@ protected :
     std::vector<int64u>     Video_Sizes;
     size_t                  Video_Sizes_Pos;
     int8u                   SampleSize;
+    int8u                   VideoFormat;
+    int32u                  Version;
+
+    //Hints
+    size_t*                 File_Buffer_Size_Hint_Pointer;
 
     //Seek
     typedef std::map<int64u, stream_header> time_offsets;
@@ -130,6 +135,7 @@ protected :
     #if MEDIAINFO_SEEK
         int64u              SeekRequest_Divider;
         int64u              SeekRequest;
+        float64             FrameRate;
     #endif //MEDIAINFO_SEEK
     bool                    Duration_Detected;
     int64u                  LastAudio_BufferOffset;
