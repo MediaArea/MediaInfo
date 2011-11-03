@@ -399,11 +399,10 @@ void File__Analyze::Streams_Finish_InterStreams()
             if (StreamKind!=Stream_Chapters && StreamKind!=Stream_Menu) //They have no big size, we never calculate them
                 for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind); Pos++)
                 {
-                    int64u StreamSize=Retrieve((stream_t)StreamKind, Pos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize)).To_int64u();
-                    if (StreamSize>0)
-                        StreamSize_Total+=StreamSize;
-                    else if (IsOK)
+                    if (Retrieve((stream_t)StreamKind, Pos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize)).empty())
                         IsOK=false; //StreamSize not available for 1 stream, we can't calculate
+                    else
+                        StreamSize_Total+=Retrieve((stream_t)StreamKind, Pos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize)).To_int64u();
                 }
         }
 
