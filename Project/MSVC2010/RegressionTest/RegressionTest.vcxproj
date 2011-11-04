@@ -11,7 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest.cpp" />
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Basic.cpp" />
+    <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Events.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\RegressionTest\RegressionTest.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91C094CA-1170-4CE4-9B79-17324C8DACA8}</ProjectGuid>

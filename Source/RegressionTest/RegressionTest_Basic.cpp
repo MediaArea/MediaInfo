@@ -5,26 +5,24 @@
 #include "tchar.h"
 #include "MediaInfoDLL\MediaInfoDLL.h"
 #include "ZenLib\ZtringListListF.h"
+#include "RegressionTest/RegressionTest.h"
 using namespace MediaInfoDLL;
 using namespace ZenLib;
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory)
 {
-    Ztring Files=_T("E:\\MediaInfoLib_CrashTest");
-    Ztring DataBaseDirectory=_T("E:\\Programmation\\MediaInfoLib\\Temp\\RegressionTest");
-
     ZtringListListF* Ref=new ZtringListListF[Stream_Max];
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
-        Ref[StreamKind].Load(DataBaseDirectory+_T("\\Ref")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        Ref[StreamKind].Load(DataBaseDirectory+_T("\\Basic_Ref")+Ztring::ToZtring(StreamKind)+_T(".csv"));
 
     ZtringListListF* New=new ZtringListListF[Stream_Max];
 
-    cout<<"Analyzing"<<endl;
+    cout<<" Analyzing"<<endl;
     MediaInfoList MIL;
     MIL.Open(Files);
 
-    cout<<"Retrieving new data"<<endl;
+    cout<<" Retrieving new data"<<endl;
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
         for (size_t FilePos=0; FilePos<MIL.Count_Get(); FilePos++)
@@ -49,11 +47,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
-        New[StreamKind].Save(DataBaseDirectory+_T("\\New")+Ztring::ToZtring(StreamKind)+_T(".csv"));
-        New[StreamKind].Save(DataBaseDirectory+_T("\\New\\Ref")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        New[StreamKind].Save(DataBaseDirectory+_T("\\Basic_New")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        New[StreamKind].Save(DataBaseDirectory+_T("\\New\\Basic_Ref")+Ztring::ToZtring(StreamKind)+_T(".csv"));
     }
     
-    cout<<"Diff"<<endl;
+    cout<<" Diff"<<endl;
     ZtringListListF* Diff=new ZtringListListF[Stream_Max];
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
@@ -123,11 +121,9 @@ int _tmain(int argc, _TCHAR* argv[])
         if (!Diff[StreamKind].empty())
         {
             Diff[StreamKind].insert(Diff[StreamKind].begin(), New[StreamKind](0));
-            Diff[StreamKind].Save(DataBaseDirectory+_T("\\Diff")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+            Diff[StreamKind].Save(DataBaseDirectory+_T("\\Basic_Diff")+Ztring::ToZtring(StreamKind)+_T(".csv"));
         }
     }
-
-    
-    return 0;
 }
+
 
