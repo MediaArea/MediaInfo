@@ -5,6 +5,8 @@
 #include "tchar.h"
 #include "MediaInfoDLL\MediaInfoDLL.h"
 #include "ZenLib\ZtringListListF.h"
+#include "ZenLib\File.h"
+#include "ZenLib\Dir.h"
 #include "RegressionTest/RegressionTest.h"
 using namespace MediaInfoDLL;
 using namespace ZenLib;
@@ -14,7 +16,8 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory)
 {
     ZtringListListF* Ref=new ZtringListListF[Stream_Max];
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
-        Ref[StreamKind].Load(DataBaseDirectory+_T("\\Basic_Ref")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        if (File::Exists(DataBaseDirectory+_T("\\Basic\\Ref\\")+Ztring::ToZtring(StreamKind)+_T(".csv")))
+            Ref[StreamKind].Load(DataBaseDirectory+_T("\\Basic\\Ref\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
 
     ZtringListListF* New=new ZtringListListF[Stream_Max];
 
@@ -47,8 +50,9 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory)
 
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
-        New[StreamKind].Save(DataBaseDirectory+_T("\\Basic_New")+Ztring::ToZtring(StreamKind)+_T(".csv"));
-        New[StreamKind].Save(DataBaseDirectory+_T("\\New\\Basic_Ref")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        if (!Dir::Exists(DataBaseDirectory+_T("\\Basic\\New")))
+            Dir::Create(DataBaseDirectory+_T("\\Basic\\New"));
+        New[StreamKind].Save(DataBaseDirectory+_T("\\Basic\\New\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
     }
     
     cout<<" Diff"<<endl;
@@ -121,7 +125,9 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory)
         if (!Diff[StreamKind].empty())
         {
             Diff[StreamKind].insert(Diff[StreamKind].begin(), New[StreamKind](0));
-            Diff[StreamKind].Save(DataBaseDirectory+_T("\\Basic_Diff")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+            if (!Dir::Exists(DataBaseDirectory+_T("\\Basic\\Diff")))
+                Dir::Create(DataBaseDirectory+_T("\\Basic\\Diff"));
+            Diff[StreamKind].Save(DataBaseDirectory+_T("\\Basic\\Diff\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
         }
     }
 }

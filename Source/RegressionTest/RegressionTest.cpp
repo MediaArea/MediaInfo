@@ -14,8 +14,8 @@ int _tmain(int argc, _TCHAR* argv[])
     if (argc!=3)
         return 1;
     
-    Ztring Files=argv[2];
-    Ztring DataBaseDirectory=argv[3];
+    Ztring Files=argv[1];
+    Ztring DataBaseDirectory=argv[2];
 
     cout<<"Basic"<<endl;
     RegressionTest_Basic(Files, DataBaseDirectory);
