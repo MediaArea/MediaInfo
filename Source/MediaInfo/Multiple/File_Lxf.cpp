@@ -806,8 +806,10 @@ void File_Lxf::Audio()
 {
     Element_Name("Audio");
 
-    if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
-        FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
+    #if MEDIAINFO_SEEK
+        if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
+            FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
+    #endif MEDIAINFO_SEEK
 
     Audio_Sizes_Pos=0;
     Element_ThisIsAList();
@@ -880,8 +882,10 @@ void File_Lxf::Video()
 {
     Element_Name("Video");
 
-    if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
-        FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
+    #if MEDIAINFO_SEEK
+        if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
+            FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
+    #endif MEDIAINFO_SEEK
 
     Video_Sizes_Pos=Video_Sizes[0]?0:1;
     Element_ThisIsAList();
