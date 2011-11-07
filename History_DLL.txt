@@ -19,6 +19,7 @@ Version 0.7.51
 + QuickTime: mpeg CodecID support
 x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
+x #3417908, video from several files: crash if there is not enough place for the frame number
 x MPEG-4: was not providing some info about tracks with sample table before media header
 x MXF: better support of corrupted indexes
 x #3429831, MediaInfo library: unload wrong DLL, thanks to McSpecky

@@ -107,6 +107,8 @@ void File__Analyze::Streams_Finish_Global()
             {
                 Pos++;
                 Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos);
+                if (Numbers_Size<Pos_Ztring.size())
+                    break; //Not enough place for numbers
                 Pos_Ztring.insert(0, Numbers_Size-Pos_Ztring.size(), _T('0'));
                 Ztring Next=FileToTest.Path_Get()+PathSeparator+FileToTest_Name+Pos_Ztring+_T('.')+FileToTest.Extension_Get();
                 if (!File::Exists(Next))
