@@ -520,6 +520,8 @@ void File_Lxf::Header_Parse()
                     Video_Sizes[1]=Size;
                     BlockSize+=Size;
                     Get_L8(Size,                                "VBI data size");
+                    if (Size>=0x10000) //Arbitrary value
+                        Size=0; //Problem
                     Video_Sizes[0]=Size;
                     BlockSize+=Size;
                     Skip_L4(                                    "? (Always 0x00000000)");
@@ -628,6 +630,28 @@ void File_Lxf::Header_Parse()
         if (File_Buffer_Size_Hint_Pointer)
         {
             size_t Buffer_Size_Target=(size_t)(Buffer_Offset+0x48+BlockSize+0x48); //+0x48 for next packet header
+            if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+        }
+    }
+
+    if (Buffer_Offset+0x48+BlockSize>Buffer_Size)
+    {
+        //Hints
+        if (File_Buffer_Size_Hint_Pointer)
+        {
+            size_t Buffer_Size_Target=(size_t)(Buffer_Offset+0x48+BlockSize+0x48-Buffer_Size); //+0x48 for next packet header
+            if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+        }
+    }
+
+    if (Buffer_Offset+0x48+BlockSize>Buffer_Size)
+    {
+        //Hints
+        if (File_Buffer_Size_Hint_Pointer)
+        {
+            size_t Buffer_Size_Target=(size_t)(Buffer_Offset+0x48+BlockSize+0x48-Buffer_Size); //+0x48 for next packet header
             if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
                 (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
         }
@@ -811,6 +835,12 @@ void File_Lxf::Audio()
             FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
     #endif MEDIAINFO_SEEK
 
+    if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
+        FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
+
+    if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
+        FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
+
     Audio_Sizes_Pos=0;
     Element_ThisIsAList();
 }
@@ -886,6 +916,12 @@ void File_Lxf::Video()
         if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
             FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
     #endif MEDIAINFO_SEEK
+
+    if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
+        FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
+
+    if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
+        FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
 
     Video_Sizes_Pos=Video_Sizes[0]?0:1;
     Element_ThisIsAList();
@@ -1025,5 +1061,3 @@ void File_Lxf::Video_Stream(size_t Pos)
 } //NameSpace
 
 #endif //MEDIAINFO_LXF_*
-
-
