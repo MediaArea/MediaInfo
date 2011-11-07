@@ -7,7 +7,7 @@
 # norootforbuild
 
 %define libmediainfo_version	0.7.50
-%define libzen_version			0.4.20
+%define libzen_version			0.4.23
 
 Name:			libmediainfo0
 Version:		%libmediainfo_version

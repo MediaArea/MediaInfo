@@ -17,6 +17,7 @@ Version 0.7.51
 + QuickTime: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
 + QuickTime: ProRes LT, Proxy, 4:4:4 profiles detection
 + QuickTime: mpeg CodecID support
++ Template inputs are now insensitive to carriage return kind (Windows \r\n, Mac \r, Linux \n)
 x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
 x #3417908, video from several files: crash if there is not enough place for the frame number
