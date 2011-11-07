@@ -3030,8 +3030,14 @@ void File_Mpeg_Descriptors::Get_DVB_Text(int64u Size, Ztring &Value, const char*
                 Value.clear();
                 return;
             }
-            Skip_B2(                                            "CodePage2");
-            Get_Local(Size-3, Value,                            Info);
+            int16u CodePage2;
+            Get_B2 (CodePage2,                                  "CodePage2");
+            if (CodePage2==0x02)
+            {
+                Get_ISO_8859_2(Size-3, Value,                   Info);
+            }
+            else //Unknown
+                Get_Local(Size-3, Value,                        Info);
         }
 
     }

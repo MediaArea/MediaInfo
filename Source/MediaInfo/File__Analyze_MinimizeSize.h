@@ -657,6 +657,7 @@ public :
 
     void Get_Local  (int64u Bytes, Ztring      &Info);
     void Get_ISO_8859_1 (int64u Bytes, Ztring  &Info);
+    void Get_ISO_8859_2 (int64u Bytes, Ztring  &Info);
     void Get_String (int64u Bytes, std::string &Info);
     void Get_UTF8   (int64u Bytes, Ztring      &Info);
     void Get_UTF16  (int64u Bytes, Ztring      &Info);
@@ -664,6 +665,7 @@ public :
     void Get_UTF16L (int64u Bytes, Ztring      &Info);
     inline void Get_Local  (int64u Bytes, Ztring      &Info, const char*) {Get_Local(Bytes, Info);}
     inline void Get_ISO_8859_1 (int64u Bytes, Ztring  &Info, const char*) {Get_ISO_8859_1(Bytes, Info);}
+    inline void Get_ISO_8859_2 (int64u Bytes, Ztring  &Info, const char*) {Get_ISO_8859_2(Bytes, Info);}
     inline void Get_String (int64u Bytes, std::string &Info, const char*) {Get_String(Bytes, Info);}
     inline void Get_UTF8   (int64u Bytes, Ztring      &Info, const char*) {Get_UTF8(Bytes, Info);}
     inline void Get_UTF16  (int64u Bytes, Ztring      &Info, const char*) {Get_UTF16(Bytes, Info);}
