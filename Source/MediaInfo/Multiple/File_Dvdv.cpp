@@ -1461,7 +1461,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
 
                 int64u ProgramTotalDuration=0;
                 Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
-                for (int8u Pos=0; Pos<Program_Count; Pos++)
+                for (int8u Pos=0; Pos<ProgramMap.size(); Pos++)
                 {
                     Fill(StreamKind_Last, StreamPos_Last, Ztring().Duration_From_Milliseconds(ProgramTotalDuration).To_Local().c_str(), Ztring(_T("Chapter "))+Ztring::ToZtring(Pos+1));
 
