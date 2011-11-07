@@ -74,6 +74,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Event_CallBackFunction=NULL;
         Event_UserHandler=NULL;
         SubFile_StreamID=(int64u)-1;
+        ParseUndecodableFrames=false;
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         Demux_ForceIds=false;
@@ -461,6 +462,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         #if MEDIAINFO_EVENTS
             SubFile_StreamID_Set(Ztring(Value).To_int64u());
+            return Ztring();
+        #else //MEDIAINFO_EVENTS
+            return _T("Event manager is disabled due to compilation options");
+        #endif //MEDIAINFO_EVENTS
+    }
+    else if (Option_Lower==_T("file_parseundecodableframes"))
+    {
+        #if MEDIAINFO_EVENTS
+            ParseUndecodableFrames_Set(!(Value==_T("0") || Value.empty()));
             return Ztring();
         #else //MEDIAINFO_EVENTS
             return _T("Event manager is disabled due to compilation options");
@@ -1171,6 +1181,28 @@ int64u MediaInfo_Config_MediaInfo::SubFile_StreamID_Get ()
     CriticalSectionLocker CSL(CS);
 
     return SubFile_StreamID;
+}
+#endif //MEDIAINFO_EVENTS
+
+//***************************************************************************
+// SubFile
+//***************************************************************************
+
+#if MEDIAINFO_EVENTS
+//---------------------------------------------------------------------------
+bool MediaInfo_Config_MediaInfo::ParseUndecodableFrames_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return ParseUndecodableFrames;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::ParseUndecodableFrames_Set (bool Value)
+{
+    CriticalSectionLocker CSL(CS);
+
+    ParseUndecodableFrames=Value;
 }
 #endif //MEDIAINFO_EVENTS
 

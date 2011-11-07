@@ -889,6 +889,14 @@ void File_Avc::Synched_Init()
 
     //Options
     Option_Manage();
+
+    //Specific cases
+    if (Config->ParseUndecodableFrames_Get())
+    {
+        Accept(); //In some case, we must accept the stream very quickly and before the sequence header is detected
+        Streams[0x01].Searching_Payload=true; //slice_header
+        Streams[0x05].Searching_Payload=true; //slice_header
+    }
 }
 
 //***************************************************************************
@@ -1256,6 +1264,43 @@ void File_Avc::slice_header()
     BS_Begin();
     Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
     Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) Param_Info(Avc_slice_type[slice_type]);
+    #if MEDIAINFO_EVENTS
+        {
+            struct MediaInfo_Event_Video_SliceInfo_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Video_SliceInfo, 0);
+            Event.Stream_Offset=File_Offset+Buffer_Offset;
+            Event.PCR=FrameInfo.PCR;
+            Event.PTS=FrameInfo.PTS;
+            Event.DTS=FrameInfo.DTS;
+            Event.StreamIDs_Size=StreamIDs_Size;
+            Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
+            Event.StreamIDs_Width=(MediaInfo_int8u*)StreamIDs_Width;
+            Event.ParserIDs=(MediaInfo_int8u* )ParserIDs;
+            Event.FramePosition=Frame_Count;
+            Event.FieldPosition=Field_Count;
+            Event.SlicePosition=first_mb_in_slice;
+            switch (slice_type)
+            {
+                case 0 :
+                case 3 :
+                case 5 :
+                case 8 :
+                            Event.SliceType=1; break;
+                case 1 :
+                case 6 :
+                            Event.SliceType=2; break;
+                case 2 :
+                case 4 :
+                case 7 :
+                case 9 :
+                            Event.SliceType=0; break;
+                default:
+                            Event.SliceType=(int8u)-1;
+            }
+            Event.Flags=0;
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
+        }
+    #endif MEDIAINFO_EVENTS
     Get_UE (pic_parameter_set_id,                               "pic_parameter_set_id");
     std::vector<pic_parameter_set_struct*>::iterator pic_parameter_set_Item;
     if (pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+pic_parameter_set_id))==NULL || !(*pic_parameter_set_Item)->IsSynched)
@@ -2656,7 +2701,7 @@ void File_Avc::access_unit_delimiter()
     int8u primary_pic_type;
     BS_Begin();
     Get_S1 ( 3, primary_pic_type,                               "primary_pic_type"); Param_Info(Avc_primary_pic_type[primary_pic_type]);
-    Mark_1(                                                     );
+    Mark_1_NoTrustError(                                        ); //Found 1 file without this bit
     BS_End();
 }
 

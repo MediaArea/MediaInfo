@@ -1,4 +1,4 @@
-// MediaInfo_Events - 
+// MediaInfo_Events -
 // Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -301,6 +301,27 @@ struct MediaInfo_Event_Global_Demux_3
     MediaInfo_int64u        DUR;
     MediaInfo_int64u        Flags; /*bit0=random_access*/
     MediaInfo_int64u        FrameNumber;
+};
+
+/*-------------------------------------------------------------------------*/
+/* MediaInfo_Event_Video_SliceInfo_0                                       */
+#define MediaInfo_Event_Video_SliceInfo 0x7801
+struct MediaInfo_Event_Video_SliceInfo_0
+{
+    MediaInfo_int32u        EventCode;
+    MediaInfo_int64u        Stream_Offset;
+    MediaInfo_int64u        PCR;
+    MediaInfo_int64u        PTS;
+    MediaInfo_int64u        DTS;
+    size_t                  StreamIDs_Size;
+    MediaInfo_int64u*       StreamIDs;
+    MediaInfo_int8u*        StreamIDs_Width;
+    MediaInfo_int8u*        ParserIDs;
+    MediaInfo_int64u        FramePosition;
+    MediaInfo_int64u        FieldPosition;
+    MediaInfo_int64u        SlicePosition;
+    MediaInfo_int8u         SliceType;
+    MediaInfo_int64u        Flags;
 };
 
 /***************************************************************************/

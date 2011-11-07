@@ -137,6 +137,11 @@ public :
     #endif //MEDIAINFO_EVENTS
 
     #if MEDIAINFO_EVENTS
+    bool          ParseUndecodableFrames_Get ();
+    void          ParseUndecodableFrames_Set (bool Value);
+    #endif //MEDIAINFO_EVENTS
+
+    #if MEDIAINFO_EVENTS
     bool          Event_CallBackFunction_IsSet ();
     Ztring        Event_CallBackFunction_Set (const Ztring &Value);
     Ztring        Event_CallBackFunction_Get ();
@@ -259,6 +264,7 @@ private :
     void*                   Event_UserHandler;
     ZtringListList          SubFile_Config;
     int64u                  SubFile_StreamID;
+    bool                    ParseUndecodableFrames;
     #endif //MEDIAINFO_EVENTS
 
     #if MEDIAINFO_DEMUX
