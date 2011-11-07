@@ -835,12 +835,6 @@ void File_Lxf::Audio()
             FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
     #endif MEDIAINFO_SEEK
 
-    if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
-        FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
-
-    if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
-        FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
-
     Audio_Sizes_Pos=0;
     Element_ThisIsAList();
 }
@@ -916,12 +910,6 @@ void File_Lxf::Video()
         if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
             FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
     #endif MEDIAINFO_SEEK
-
-    if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
-        FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
-
-    if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
-        FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
 
     Video_Sizes_Pos=Video_Sizes[0]?0:1;
     Element_ThisIsAList();

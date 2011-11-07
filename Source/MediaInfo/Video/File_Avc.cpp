@@ -891,12 +891,14 @@ void File_Avc::Synched_Init()
     Option_Manage();
 
     //Specific cases
-    if (Config->ParseUndecodableFrames_Get())
-    {
-        Accept(); //In some case, we must accept the stream very quickly and before the sequence header is detected
-        Streams[0x01].Searching_Payload=true; //slice_header
-        Streams[0x05].Searching_Payload=true; //slice_header
-    }
+    #if MEDIAINFO_EVENTS
+        if (Config->ParseUndecodableFrames_Get())
+        {
+            Accept(); //In some case, we must accept the stream very quickly and before the sequence header is detected
+            Streams[0x01].Searching_Payload=true; //slice_header
+            Streams[0x05].Searching_Payload=true; //slice_header
+        }
+    #endif //MEDIAINFO_EVENTS
 }
 
 //***************************************************************************
