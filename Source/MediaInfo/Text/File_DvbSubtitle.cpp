@@ -109,15 +109,15 @@ void File_DvbSubtitle::Streams_Fill()
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("page_id"), Info_Options)=_T("N NI");
                 Fill(Stream_Text, 0, "region_id", region->first);
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_id"), Info_Options)=_T("N NI");
-                Fill(Stream_Text, 0, "region_horizontal_address", region->second.region_horizontal_address);
+                Fill(Stream_Text, 0, "region_horizontal_address", region->second.page_composition_segment?Ztring::ToZtring(region->second.region_horizontal_address):Ztring());
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_horizontal_address"), Info_Options)=_T("N NI");
-                Fill(Stream_Text, 0, "region_vertical_address", region->second.region_vertical_address);
+                Fill(Stream_Text, 0, "region_vertical_address", region->second.page_composition_segment?Ztring::ToZtring(region->second.region_vertical_address):Ztring());
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_vertical_address"), Info_Options)=_T("N NI");
-                Fill(Stream_Text, 0, "region_width", region->second.region_width);
+                Fill(Stream_Text, 0, "region_width", region->second.region_composition_segment?Ztring::ToZtring(region->second.region_width):Ztring());
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_width"), Info_Options)=_T("N NI");
-                Fill(Stream_Text, 0, "region_height", region->second.region_height);
+                Fill(Stream_Text, 0, "region_height", region->second.region_composition_segment?Ztring::ToZtring(region->second.region_height):Ztring());
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_height"), Info_Options)=_T("N NI");
-                Fill(Stream_Text, 0, "region_depth", DvbSubtitle_region_depth[region->second.region_depth]);
+                Fill(Stream_Text, 0, "region_depth", region->second.region_composition_segment?Ztring::ToZtring(DvbSubtitle_region_depth[region->second.region_depth]):Ztring());
                 (*Stream_More)[Stream_Text][0](Ztring().From_Local("region_depth"), Info_Options)=_T("N NI");
             }
 }
@@ -344,6 +344,7 @@ void File_DvbSubtitle::page_composition_segment()
         Element_End();
 
         FILLING_BEGIN();
+            subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].page_composition_segment=true;
             subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_horizontal_address=region_horizontal_address;
             subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_vertical_address=region_vertical_address;
         FILLING_END();
@@ -403,6 +404,7 @@ void File_DvbSubtitle::region_composition_segment()
     Element_End();
 
     FILLING_BEGIN();
+        subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_composition_segment=true;
         subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_width=region_width;
         subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_height=region_height;
         subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_depth=region_depth;

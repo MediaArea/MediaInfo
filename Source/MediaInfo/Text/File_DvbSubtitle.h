@@ -79,15 +79,18 @@ private :
     {
         int16u region_horizontal_address;
         int16u region_vertical_address;
+
         int16u region_width;
         int16u region_height;
         int16u region_depth;
 
+        bool   page_composition_segment;
+        bool   region_composition_segment;
+
         region_data()
         {
-            region_width=0;
-            region_height=0;
-            region_depth=0;
+            page_composition_segment=false;
+            region_composition_segment=false;
         }
     };
     struct page_data
