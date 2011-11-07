@@ -1020,7 +1020,7 @@ bool File__Analyze::Synchro_Manage_Test()
         if (!Synched_Test())
             return false;
         #if MEDIAINFO_DEMUX
-            if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            if (Synched && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
             {
                 if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
                 {
@@ -1064,7 +1064,7 @@ bool File__Analyze::Synchro_Manage_Test()
         if (!Synched_Test())
             return false;
         #if MEDIAINFO_DEMUX
-            if (Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
+            if (Synched && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
             {
                 if (Demux_UnpacketizeContainer && !Demux_UnpacketizeContainer_Test())
                 {
