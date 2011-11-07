@@ -28,6 +28,7 @@ x MPEG-4: was not providing some info about tracks with sample table before medi
 x MXF: better support of corrupted indexes
 x #3429831, MediaInfo library: unload wrong DLL, thanks to McSpecky
 x MPEG-TS: Better handling of EPG running_status flag
+x MXF: Handling of "file:///" in Network loacators
 
 Version 0.7.50, 2011-09-23
 --------------
