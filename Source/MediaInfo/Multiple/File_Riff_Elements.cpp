@@ -2507,8 +2507,7 @@ void File_Riff::AVI__Tdat_tc_A()
     Element_Name("tc_A");
 
     //Parsing
-    while (Element_Offset<Element_Size)
-        Skip_L4(                                                "Unknown");
+    Skip_Local(Element_Size,                                    "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -2517,8 +2516,7 @@ void File_Riff::AVI__Tdat_tc_O()
     Element_Name("tc_O");
 
     //Parsing
-    while (Element_Offset<Element_Size)
-        Skip_L4(                                                "Unknown");
+    Skip_Local(Element_Size,                                    "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -2527,8 +2525,7 @@ void File_Riff::AVI__Tdat_rn_A()
     Element_Name("rn_A");
 
     //Parsing
-    while (Element_Offset<Element_Size)
-        Skip_L1(                                                "Unknown");
+    Skip_Local(Element_Size,                                    "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -2537,8 +2534,7 @@ void File_Riff::AVI__Tdat_rn_O()
     Element_Name("rn_O");
 
     //Parsing
-    while (Element_Offset<Element_Size)
-        Skip_L1(                                                "Unknown");
+    Skip_Local(Element_Size,                                    "Unknown");
 }
 
 //---------------------------------------------------------------------------
