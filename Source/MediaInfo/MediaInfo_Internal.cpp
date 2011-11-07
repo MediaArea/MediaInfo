@@ -871,7 +871,8 @@ Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
         if (ParameterI==Error)
         {
             #ifdef MEDIAINFO_DEBUG_WARNING_GET
-                std::cerr<<"MediaInfo: Warning, Get(), parameter \""<<Ztring(Parameter).To_Local()<<"\""<<std::endl;
+                if (Ztring(Parameter)!=_T("SCTE35_PID")) //TODO: define a special interface for parser-specific parameters
+                    std::cerr<<"MediaInfo: Warning, Get(), parameter \""<<Ztring(Parameter).To_Local()<<"\""<<std::endl;
             #endif //MEDIAINFO_DEBUG_WARNING_GET
 
             CS.Leave();
