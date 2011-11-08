@@ -1929,12 +1929,7 @@ void File_Mxf::Read_Buffer_Unsynched()
             Essence->second.Parser->Open_Buffer_Unsynch();
             Essence->second.FrameInfo=frame_info();
             if (!File_GoTo)
-            {
-                if (TimeCode_StartTimecode && Descriptors.begin()->second.SampleRate)
-                    Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
-                else
-                    Essence->second.FrameInfo.DTS=0;
-            }
+                Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
             Essence->second.Frame_Count_NotParsedIncluded=File_GoTo?(int64u)-1:0;
         }
     if (File_GoTo)
@@ -1942,10 +1937,7 @@ void File_Mxf::Read_Buffer_Unsynched()
     else
     {
         FrameInfo=frame_info();
-        if (TimeCode_StartTimecode && Descriptors.begin()->second.SampleRate)
-            FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
-        else
-            FrameInfo.DTS=0;
+        FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
         Frame_Count_NotParsedIncluded=0;
     }
 
@@ -2008,6 +2000,12 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         Partitions_Pos++;
                     if (Partitions_Pos && (Partitions_Pos==Partitions.size() || Partitions[Partitions_Pos].StreamOffset!=Value))
                         Partitions_Pos--; //This is the previous item
+                    if (Partitions_Pos>=Partitions.size())
+                    {
+                        GoTo(0);
+                        Open_Buffer_Unsynch();
+                        return 1;
+                    }
                     int64u StreamOffset_Offset=Partitions[Partitions_Pos].StreamOffset-Partitions[Partitions_Pos].BodyOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
 
                     //If in header
