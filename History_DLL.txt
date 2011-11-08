@@ -20,6 +20,7 @@ Version 0.7.51
 + Template inputs are now insensitive to carriage return kind (Windows \r\n, Mac \r, Linux \n)
 + MPEG-TS: Support of ISO 8859-2 in EPG
 + MPEG-4: more CodedIDs supported
++ GXF: more info about DV streams
 x #3414326, GXF: using only the first map chunk for duration calculation
 x #3414513, Id3v2: was not able to extract covers with UTF-16 description
 x #3417908, video from several files: crash if there is not enough place for the frame number

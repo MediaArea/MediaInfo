@@ -36,6 +36,9 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Gxf.h"
 #include "MediaInfo/Multiple/File_Gxf_TimeCode.h"
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif
@@ -883,11 +886,14 @@ void File_Gxf::map()
                         case  7 :
                         case  8 :
                         case 24 :  //TimeCode
-                                    Streams[TrackID].Parser=new File_Gxf_TimeCode;
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Parsers_Count++;
-                                    Streams[TrackID].Searching_Payload=true;
-                                    TimeCode_StreamID=TrackID;
+                                    if (TimeCode_StreamID==(int8u)-1) //TODO: support more than 1 time code
+                                    {
+                                        Streams[TrackID].Parser=new File_Gxf_TimeCode;
+                                        Open_Buffer_Init(Streams[TrackID].Parser);
+                                        Parsers_Count++;
+                                        Streams[TrackID].Searching_Payload=true;
+                                        TimeCode_StreamID=TrackID;
+                                    }
                                     break;
                         case  9 :
                         case 10 :
@@ -916,12 +922,11 @@ void File_Gxf::map()
                         case 14 :
                         case 15 :
                         case 16 :   //DV
-                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
+                                    Streams[TrackID].Parser=new File_DvDif();
                                     Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Streams[TrackID].Parser->Accept();
-                                    Streams[TrackID].Parser->Fill();
-                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Video);
-                                    Streams[TrackID].Parser->Fill(Stream_Video, 0, Video_Format, "DV");
+                                    Parsers_Count++;
+                                    Streams[TrackID].Searching_Payload=true;
+                                    break;
                                     break;
                         case 17 :   //AC-3 in AES3 (half)
                         case 18 :   //Dolby E in AES3 (half)
@@ -1165,8 +1170,13 @@ void File_Gxf::media()
     Element_Info(TrackNumber);
 
     #if MEDIAINFO_SEEK
-        if (!IFrame_IsParsed && UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
-            IFrame_IsParsed=(((MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame)%((File_Umf*)UMF_File)->GopSize)==0;
+        if (!IFrame_IsParsed)
+        {
+            if (UMF_File && ((File_Umf*)UMF_File)->GopSize!=(int64u)-1)
+                IFrame_IsParsed=(((MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame)%((File_Umf*)UMF_File)->GopSize)==0;
+            else if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
+                IFrame_IsParsed=true;
+        }
     #endif //MEDIAINFO_SEEK
 
     #if MEDIAINFO_DEMUX

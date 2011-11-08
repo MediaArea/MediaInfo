@@ -197,6 +197,20 @@ void File_Umf::Read_Buffer_Continue()
                 Skip_L4(                                                 "Reserved");
                 Skip_L4(                                                 "Reserved");
                 break;
+            case 0x00000005 : //DV25
+            case 0x00000006 : //DV50
+                Skip_L4(                                                "Attributes"); //With Aspect ratio
+                Skip_L4(                                                "Reserved");
+                Skip_L4(                                                "Reserved");
+                Skip_L4(                                                "Reserved");
+                Skip_L4(                                                "Reserved");
+                Skip_L4(                                                "Reserved");
+                Skip_L4(                                                "Reserved");
+                Skip_L4(                                                "Reserved");
+                #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                    GopSize=1;
+                #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+                break;
             default         :
                 Skip_L4(                                                "Reserved");
                 Skip_L4(                                                "Reserved");
