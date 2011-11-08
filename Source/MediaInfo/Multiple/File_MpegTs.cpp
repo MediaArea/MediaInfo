@@ -547,7 +547,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 Ztring Format_Profile=Retrieve(Stream_Video, StreamPos, Video_Format_Profile);
                 Fill(Stream_Video, StreamPos, Video_ID, Ztring::ToZtring(Temp->SubStream_pid)+_T(" / ")+Ztring::ToZtring(StreamID), true);
                 Fill(Stream_Video, StreamPos, Video_ID_String, Decimal_Hexa(Temp->SubStream_pid)+_T(" / ")+Decimal_Hexa(StreamID), true);
-                if (!Format_Profile.empty())
+                if (!Format_Profile.empty() && Complete_Stream->Streams[Temp->SubStream_pid] && Complete_Stream->Streams[Temp->SubStream_pid]->Parser)
                     Fill(Stream_Video, StreamPos, Video_Format_Profile, Complete_Stream->Streams[Temp->SubStream_pid]->Parser->Retrieve(Stream_Video, 0, Video_Format_Profile)+_T(" / ")+Format_Profile, true);
             }
             else if (Count>1)

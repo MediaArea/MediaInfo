@@ -1176,16 +1176,6 @@ void File_Mpeg_Psi::Table_02()
         BS_End();
 
         FILLING_BEGIN();
-            if (elementary_PID)
-            {
-                elementary_PID_Update(PCR_PID);
-
-                //Removing from the list of previous elementary_PIDs to remove
-                for (size_t Pos=0; Pos<elementary_PIDs_Previous.size(); Pos++)
-                    if (elementary_PIDs_Previous[Pos]==elementary_PID)
-                        elementary_PIDs_Previous.erase(elementary_PIDs_Previous.begin()+Pos);
-            }
-
             //Searching for hidden Stereoscopic stream
             if (stream_type==0x20 && File_Name_WithoutDemux.size()>=4+1+6+1+4+1+10 && Config->File_Bdmv_ParseTargetedFile_Get())
             {
@@ -1262,6 +1252,16 @@ void File_Mpeg_Psi::Table_02()
 
                 for (size_t Pos=0; Pos<MIs.size(); Pos++)
                     delete MIs[Pos]; //MIs[Pos]=NULL;
+            }
+
+            if (elementary_PID)
+            {
+                elementary_PID_Update(PCR_PID);
+
+                //Removing from the list of previous elementary_PIDs to remove
+                for (size_t Pos=0; Pos<elementary_PIDs_Previous.size(); Pos++)
+                    if (elementary_PIDs_Previous[Pos]==elementary_PID)
+                        elementary_PIDs_Previous.erase(elementary_PIDs_Previous.begin()+Pos);
             }
         FILLING_END();
 
