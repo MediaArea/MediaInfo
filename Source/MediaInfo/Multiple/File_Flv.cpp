@@ -856,10 +856,6 @@ void File_Flv::video()
     if (!video_stream_Count && Config_ParseSpeed<1)
         return; //No more need of Video stream
 
-    //Delay
-    if (Stream[Stream_Video].Delay==(int32u)-1)
-        Stream[Stream_Video].Delay=Time;
-
     //Parsing
     int8u Codec, FrameType;
     Element_Begin("Stream header");
@@ -1092,10 +1088,6 @@ void File_Flv::audio()
     //Needed?
     if (!audio_stream_Count && Config_ParseSpeed<1)
         return; //No more need of Audio stream
-
-    //Delay
-    if (Stream[Stream_Audio].Delay==(int32u)-1)
-        Stream[Stream_Audio].Delay=Time;
 
     //Parsing
     int8u  codec, sampling_rate;
