@@ -469,7 +469,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
             for (size_t Pos=0; Pos<NAL->SchedSel.size(); Pos++)
             {
                 if (NAL->SchedSel[Pos].cpb_size_value!=(int32u)-1)
-                    Fill(Stream_Video, 0, Video_BufferSize, NAL->SchedSel[Pos].cpb_size_value/8);
+                    Fill(Stream_Video, 0, Video_BufferSize, NAL->SchedSel[Pos].cpb_size_value);
                 if (bit_rate_value!=(int32u)-1 && bit_rate_value!=NAL->SchedSel[Pos].bit_rate_value)
                     bit_rate_value_IsValid=false;
                 if (bit_rate_value==(int32u)-1)
@@ -486,7 +486,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
         if (VCL)
             for (size_t Pos=0; Pos<VCL->SchedSel.size(); Pos++)
             {
-                Fill(Stream_Video, 0, Video_BufferSize, VCL->SchedSel[Pos].cpb_size_value/8);
+                Fill(Stream_Video, 0, Video_BufferSize, VCL->SchedSel[Pos].cpb_size_value);
                 if (bit_rate_value!=(int32u)-1 && bit_rate_value!=VCL->SchedSel[Pos].bit_rate_value)
                     bit_rate_value_IsValid=false;
                 if (bit_rate_value==(int32u)-1)
