@@ -86,7 +86,7 @@ private :
     int32u Material_Fields_FieldsPerFrame;
     int8u  Parsers_Count;
     int8u  AncillaryData_StreamID;
-    int8u  TimeCode_StreamID;
+    std::map<int8u, int64u> TimeCodes; //Key is StreamID
     bool   Material_Fields_First_IsValid;
     bool   Material_Fields_Last_IsValid;
     bool   Material_File_Size_IsValid;
@@ -136,7 +136,6 @@ private :
     std::vector<stream> Streams;
     File__Analyze*      UMF_File;
     int64u              SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
-    int64u              TimeCode_First;
     int8u               Audio_Count;
     int8u               TrackNumber;
 
