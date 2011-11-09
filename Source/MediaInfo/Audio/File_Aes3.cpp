@@ -191,6 +191,12 @@ File_Aes3::File_Aes3()
     From_Raw=false;
     From_MpegPs=false;
     From_Aes3=false;
+    #if MEDIAINFO_EVENTS
+        GuardBand_Before=0;
+        GuardBand_After=0;
+        pid=(int16u)-1;
+        stream_id=(int8u)-1;
+    #endif MEDIAINFO_EVENTS
 
     //Out
     FrameRate=0;
@@ -500,6 +506,9 @@ void File_Aes3::Read_Buffer_Continue()
         if (Buffer_Offset_Temp-Buffer_Offset)
         {
             Skip_XX(Buffer_Offset_Temp-Buffer_Offset,  "Guard band");
+            #if MEDIAINFO_EVENTS
+                GuardBand_Before+=Buffer_Offset_Temp-Buffer_Offset;
+            #endif //MEDIAINFO_EVENTS
         }
     }
 }
@@ -912,6 +921,7 @@ bool File_Aes3::Synched_Test()
             }
         }
 
+
         if (Frame_Count && NotPCM_SizePerFrame==(int64u)-1)
             NotPCM_SizePerFrame=Buffer_Offset_Temp;    
         #if MEDIAINFO_TRACE
@@ -921,6 +931,9 @@ bool File_Aes3::Synched_Test()
                 Skip_XX(Buffer_Offset_Temp-Buffer_Offset,           "Guard band");
             }
         #endif //MEDIAINFO_TRACE
+        #if MEDIAINFO_EVENTS
+            GuardBand_Before+=Buffer_Offset_Temp-Buffer_Offset;
+        #endif //MEDIAINFO_EVENTS
         Buffer_Offset=Buffer_Offset_Temp;
     }
 
@@ -1106,6 +1119,10 @@ void File_Aes3::Header_Parse()
     //Filling
     Header_Fill_Size(Container_Bits*4/8+Size/8);
     Header_Fill_Code(0, "AES3");
+    #if MEDIAINFO_EVENTS
+        if (IsSub && FrameInfo.PTS!=(int64u)-1)
+            GuardBand_After+=Element_Size-(Container_Bits*4/8+Size/8);
+    #endif //MEDIAINFO_EVENTS
 }
 
 //---------------------------------------------------------------------------
@@ -1294,6 +1311,10 @@ void File_Aes3::Frame()
             case 21 :   //E-AC-3 (consumer)
                         Parser=new File_Ac3();
                         ((File_Ac3*)Parser)->Frame_Count_Valid=2;
+                        #if MEDIAINFO_EVENTS
+                            ((File_DolbyE*)Parser)->pid=pid;
+                            ((File_DolbyE*)Parser)->stream_id=stream_id;
+                        #endif //MEDIAINFO_EVENTS
                         break;
             case  4 :   //MPEG-1 Layer 1
             case  5 :   //MPEG-1 Layer 2/3, MPEG-2 Layer 1/2/3 without extension
@@ -1332,6 +1353,18 @@ void File_Aes3::Frame()
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
+        #if MEDIAINFO_EVENTS
+            switch(data_type)
+            {
+                case 28 :
+                            ((File_DolbyE*)Parser)->GuardBand_Before+=GuardBand_Before;
+                            GuardBand_Before=0;
+                            ((File_DolbyE*)Parser)->GuardBand_After+=GuardBand_After;
+                            GuardBand_After=0;
+                            break;
+                default : ;
+            }
+        #endif //MEDIAINFO_EVENTS
         Parser->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         #if MEDIAINFO_DEMUX
@@ -1547,15 +1580,9 @@ void File_Aes3::Frame_FromMpegPs()
     BS_End();
 
     //Enough data
-    if (Element_Size<4+audio_packet_size)
+    if (4+audio_packet_size!=Element_Size)
     {
-        Element_WaitForMoreData();
-        return;
-    }
-    if (Element_Size!=4+audio_packet_size)
-    {
-        Trusted_IsNot("Wrong size");
-        Skip_XX(Element_Size-4,                             "Problem?");
+        Skip_XX(Element_Size,                               "Data");
         return;
     }
 
@@ -1795,9 +1822,19 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
         ((File_Aes3*)Parser)->From_Aes3=true;
         if (SampleRate)
             ((File_Aes3*)Parser)->SampleRate=SampleRate;
+        #if MEDIAINFO_EVENTS
+            ((File_Aes3*)Parser)->pid=pid;
+            ((File_Aes3*)Parser)->stream_id=stream_id;
+        #endif //MEDIAINFO_EVENTS
         Open_Buffer_Init(Parser);
     }
     Element_Offset=0;
+    #if MEDIAINFO_EVENTS
+        ((File_Aes3*)Parser)->GuardBand_Before+=GuardBand_Before*Stream_Bits/Container_Bits;
+        GuardBand_Before=0;
+        ((File_Aes3*)Parser)->GuardBand_After+=GuardBand_After*Stream_Bits/Container_Bits;
+        GuardBand_After=0;
+    #endif //MEDIAINFO_EVENTS
     Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     #if MEDIAINFO_DEMUX
