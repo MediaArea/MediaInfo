@@ -335,7 +335,7 @@ void File_Aac::raw_data_block()
         return; //We test only AAC LC
     }
 
-    if (Aac_sampling_frequency[sampling_frequency_index]==0)
+    if (sampling_frequency_index>=16 || Aac_sampling_frequency[sampling_frequency_index]==0)
     {
         Trusted_IsNot("(Problem)");
         Skip_BS(Data_BS_Remain(),                               "(Problem)");
