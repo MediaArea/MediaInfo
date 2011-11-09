@@ -79,8 +79,6 @@ Download_Packages 1  1  1  x x x   Debian_5      i386   _i386
 Download_Packages 1  1  1  x x x   Debian_5      amd64 _amd64
 Download_Packages 1  1  1  x x x   Debian_6.0    i386   _i386
 Download_Packages 1  1  1  x x x   Debian_6.0    amd64  _amd64
-Download_Packages 1  1  1  x x x   Ubuntu_8.04   i386   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_8.04   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   i386   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.10   i386   _i386
@@ -91,6 +89,8 @@ Download_Packages 1  1  1  x x x   Ubuntu_10.10  i386   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_10.10  amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_11.04  i386   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_11.04  amd64  _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_11.10  i386   _i386
+Download_Packages 1  1  1  x x x   Ubuntu_11.10  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -111,6 +111,8 @@ Download_Packages $1 $2 $3 x x x   Mandriva_2010   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2010   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2010.1 x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Mandriva_2011   i586   .i586
+Download_Packages $1 $2 $3 x x x   Mandriva_2011   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_5          i386   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_5          x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_6          i386   .i386
