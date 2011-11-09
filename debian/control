@@ -11,7 +11,7 @@ Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfoLib/
 Package: libmediainfo0-dev
 Section: libdevel
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.50), libzen0-dev (>= 0.4.23)
+Depends: libmediainfo0 (>= 0.7.51), libzen0-dev (>= 0.4.23)
 Description: MediaInfo supplies information about a video or audio file
  This package includes the development support files of the libmediainfo
 
