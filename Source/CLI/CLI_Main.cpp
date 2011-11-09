@@ -40,7 +40,7 @@ using namespace MediaInfoNameSpace;
 
 //---------------------------------------------------------------------------
 #if defined(_MSC_VER) && defined(UNICODE)
-    bool CLI_Option_Bom;
+    extern bool CLI_Option_Bom;
 #endif //defined(_MSC_VER) && defined(UNICODE)
 //---------------------------------------------------------------------------
 

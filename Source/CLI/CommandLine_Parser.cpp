@@ -164,7 +164,7 @@ CL_OPTION(Output_XML)
 
 //---------------------------------------------------------------------------
 #if defined(_MSC_VER) && defined(UNICODE)
-    extern bool CLI_Option_Bom;
+    bool CLI_Option_Bom;
 #endif //defined(_MSC_VER) && defined(UNICODE)
 CL_OPTION(Bom)
 {
