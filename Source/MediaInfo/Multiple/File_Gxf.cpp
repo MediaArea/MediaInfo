@@ -1208,7 +1208,7 @@ void File_Gxf::media()
                 {
                     if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
                     {
-                        FrameInfo.DTS=TimeCode_First+float64_int64s(((float64)MediaFieldNumber)/Material_Fields_FieldsPerFrame*1000000000/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
+                        FrameInfo.DTS=TimeCode_First+float64_int64s(((float64)MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame*1000000000/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
                         FrameInfo.PTS=(int64u)-1;
                         FrameInfo.DUR=float64_int64s(((float64)1000000000)/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code));
                     }
@@ -1228,10 +1228,8 @@ void File_Gxf::media()
                 {
                     if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
                     {
-                        Frame_Count_NotParsedIncluded=(int64u)(MediaFieldNumber/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768/Material_Fields_FieldsPerFrame); //A block is 32768 samples at 48 KHz
+                        Frame_Count_NotParsedIncluded=(int64u)((MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768/Material_Fields_FieldsPerFrame); //A block is 32768 samples at 48 KHz
                         FrameInfo.DTS=FrameInfo.PTS=TimeCode_First+Frame_Count_NotParsedIncluded*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
-                        if (Material_Fields_First_IsValid)
-                            Frame_Count_NotParsedIncluded-=(int64u)(Material_Fields_First/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768/Material_Fields_FieldsPerFrame);
                     }
                     else
                         FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
@@ -1241,7 +1239,7 @@ void File_Gxf::media()
                 else
                 {
                     if (Gxf_FrameRate(Streams[0x00].FrameRate_Code))
-                        FrameInfo.DTS=FrameInfo.PTS=TimeCode_First+float64_int64s(((float64)MediaFieldNumber)*1000000000/Gxf_FrameRate(Streams[0x00].FrameRate_Code)/Material_Fields_FieldsPerFrame);
+                        FrameInfo.DTS=FrameInfo.PTS=TimeCode_First+float64_int64s(((float64)(MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0)))*1000000000/Gxf_FrameRate(Streams[0x00].FrameRate_Code)/Material_Fields_FieldsPerFrame);
                     else
                         FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;
                     FrameInfo.DUR=(int64u)-1;
