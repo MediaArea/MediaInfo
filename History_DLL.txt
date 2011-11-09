@@ -36,6 +36,8 @@ x FLV: audio delay was sometimes wrong
 x H264: Buffer size was in bytes instead of bits like with other formats
 x #3429196: no output if absolute file name, on Linux
 x #3187050, FLV: wrong detection when FLV header is corrupt
+x BLu-ray: crash if MPLS files are on the root of a disk
+x Blu-ray: parsing was very slow if MPLS was pointing thousands of times on the same file
 
 Version 0.7.50, 2011-09-23
 --------------

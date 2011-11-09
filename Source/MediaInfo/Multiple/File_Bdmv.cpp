@@ -692,11 +692,11 @@ void File_Bdmv::Clpi_ProgramInfo()
     //Retrieving data from the M2TS file
     std::map<int16u, stream_t> PIDs_StreamKind;
     std::map<int16u, size_t> PIDs_StreamPos;
-    if (Config->File_Bdmv_ParseTargetedFile_Get() && File_Name.size()>10)
+    if (Config->File_Bdmv_ParseTargetedFile_Get() && File_Name.size()>10+1+7)
     {
         Ztring file=File_Name.substr(File_Name.size()-10, 5);
         Ztring M2TS_File=File_Name;
-        M2TS_File.resize(M2TS_File.size()-10-1-7);
+        M2TS_File.resize(M2TS_File.size()-(10+1+7));
         M2TS_File+=_T("STREAM");
         M2TS_File+=PathSeparator;
         M2TS_File+=file;
@@ -1179,10 +1179,10 @@ void File_Bdmv::Mpls_PlayList_PlayItem()
 
     Mpls_PlayList_PlayItem_STN_table();
 
-    if (!File_Name.empty())
+    if (Clip_Information_file_names.find(Clip_Information_file_name)==Clip_Information_file_names.end() && File_Name.size()>10+1+8)
     {
         Ztring CLPI_File=File_Name;
-        CLPI_File.resize(CLPI_File.size()-10-1-8);
+        CLPI_File.resize(CLPI_File.size()-(10+1+8));
         CLPI_File+=_T("CLIPINF");
         CLPI_File+=PathSeparator;
         CLPI_File+=Clip_Information_file_name;
@@ -1192,6 +1192,8 @@ void File_Bdmv::Mpls_PlayList_PlayItem()
         MI.Option(_T("File_Bdmv_ParseTargetedFile"), Config->File_Bdmv_ParseTargetedFile_Get()?_T("1"):_T("0"));
         if (MI.Open(CLPI_File))
             Merge(MI, Stream_Video, 0, 0);
+
+        Clip_Information_file_names.insert(Clip_Information_file_name);
     }
 
     if (End>Element_Offset)
@@ -1207,6 +1209,11 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
     int16u length;
     Get_B2 (length,                                         "length");
     int64u End=Element_Offset+length;
+    if (End>Element_Size)
+    {
+        Skip_XX(Element_Size-Element_Offset,                "Problem");
+        return;
+    }
     Skip_B2(                                                "unknown");
     Skip_B1(                                                "Vi");
     Skip_B1(                                                "Au");

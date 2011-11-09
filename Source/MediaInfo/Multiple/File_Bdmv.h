@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include <set>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -83,6 +84,7 @@ private :
     int64u Mpls_PlayList_Duration;
     int16u Mpls_PlayList_number_of_SubPaths;
     bool   Mpls_PlayList_IsParsed;
+    std::set<Ztring> Clip_Information_file_names;
 };
 
 } //NameSpace
