@@ -11,17 +11,18 @@ using namespace ZenLib;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    if (argc!=3)
+    if (argc!=4)
         return 1;
     
     Ztring Files=argv[1];
     Ztring DataBaseDirectory=argv[2];
+    int32u Scenario=Ztring(argv[3]).To_int32u();
 
     cout<<"Basic"<<endl;
-    RegressionTest_Basic(Files, DataBaseDirectory);
+    RegressionTest_Basic(Files, DataBaseDirectory, Scenario);
 
-    //cout<<"Events"<<endl;
-    //RegressionTest_Events(Files, DataBaseDirectory);
+    cout<<"Events"<<endl;
+    RegressionTest_Events(Files, DataBaseDirectory, Scenario);
     
     return 0;
 }

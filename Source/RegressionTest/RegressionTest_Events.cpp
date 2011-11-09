@@ -17,100 +17,107 @@ using namespace ZenLib;
 using namespace std;
 
 const char* F_FileName;
-#define echo0(_format) fprintf(UserHandle->F[Event->EventCode], _format)
-#define echo1(_format, Arg1) fprintf(UserHandle->F[Event->EventCode], _format, Arg1)
-#define echo2(_format, Arg1, Arg2) fprintf(UserHandle->F[Event->EventCode], _format, Arg1, Arg2)
-#define echo4(_format, Arg1, Arg2, Arg3, Arg4) fprintf(UserHandle->F[Event->EventCode], _format, Arg1, Arg2, Arg3, Arg4)
-#define wecho0(_format) //wfprintf(F, _format)
-#define wecho1(_format, Arg1) //wfprintf(F, _format, Arg1)
-#define wecho4(_format, Arg1, Arg2, Arg3, Arg4) //wfprintf(F, _format, Arg1, Arg2, Arg3, Arg4)
+#define echoF(_format) UserHandle_struct::perevent &PerEvent=UserHandle->PerEvent[Event->EventCode]; if (!PerEvent.F_MoreThanOnce) {fprintf(PerEvent.F, _format); PerEvent.F_MoreThanOnce=true; } fprintf(PerEvent.F, "\n");
+#define echo0(_format) fprintf(PerEvent.F, _format)
+#define echo1(_format, Arg1) fprintf(PerEvent.F, _format, Arg1)
+#define echo2(_format, Arg1, Arg2) fprintf(PerEvent.F, _format, Arg1, Arg2)
+#define echo4(_format, Arg1, Arg2, Arg3, Arg4) fprintf(PerEvent.F, _format, Arg1, Arg2, Arg3, Arg4)
 
 struct UserHandle_struct
 {
     FileName Name;
+    Ztring Files;
     Ztring DataBaseDirectory;
-    map<int32u, FILE*> F;
+    struct perevent
+    {
+        FILE* F;
+        bool  F_MoreThanOnce;
+        bool  Custom_MoreThanOnce;
+    };
+    map<int32u, perevent> PerEvent;
+    int32u Scenario;
     bool Custom;
     bool ParseSpeed;
     bool NextPacket;
+    bool DemuxContainerOnly;
+    bool Seek;
 
     UserHandle_struct()
     {
         Custom=false;
         ParseSpeed=false;
         NextPacket=false;
+        DemuxContainerOnly=false;
+        Seek=false;
     }
 
     void Clear()
     {
-        for (map<int32u, FILE*>::iterator Item=F.begin(); Item!=F.end(); Item++)
-            fclose (Item->second);
-        F.clear();
+        for (map<int32u, perevent>::iterator Item=PerEvent.begin(); Item!=PerEvent.end(); Item++)
+            fclose (Item->second.F);
+        PerEvent.clear();
     }
 
 };
 
 void General_Start_0 (struct MediaInfo_Event_General_Start_0* Event, struct UserHandle_struct* UserHandle)
 {
-    if (UserHandle->Custom)
-    {
-        return;
-    }
+    echoF("MediaInfo starts\n");
 
-    echo1("MediaInfo starts, Size=%i bytes\n", Event->Stream_Size);
+    echo1("Stream_Size=%i\n", Event->Stream_Size);
 }
 
 void General_End_0 (struct MediaInfo_Event_General_End_0* Event, struct UserHandle_struct* UserHandle)
 {
-    if (UserHandle->Custom)
-    {
-        return;
-    }
+    echoF("MediaInfo ends\n");
 
-    echo1("MediaInfo ends, %i bytes read\n", Event->Stream_Bytes_Analyzed);
+    echo1("Stream_Bytes_Analyzed=%i\n", Event->Stream_Bytes_Analyzed);
 }
 
 void General_Parser_Selected_0 (struct MediaInfo_Event_General_Parser_Selected_0* Event, struct UserHandle_struct* UserHandle)
 {
-    if (UserHandle->Custom)
-    {
-        return;
-    }
+    echoF("MediaInfo has selected the parser\n");
 
-    echo1("MediaInfo has selected the parser: %s\n", Event->Name);
+    echo1("Name=%s\n", Event->Name);
 }
 
 void General_Move_Request_0 (struct MediaInfo_Event_General_Move_Request_0* Event, struct UserHandle_struct* UserHandle)
 {
-    if (UserHandle->Custom)
-    {
-        return;
-    }
+    echoF("MediaInfo has requested to seek\n");
 
-    echo1("MediaInfo has requested to seek, Offset=%08x\n", Event->Stream_Offset);
+    echo1("Stream_Offset=%08x\n", Event->Stream_Offset);
 }
 
 void General_Move_Done_0 (struct MediaInfo_Event_General_Move_Done_0* Event, struct UserHandle_struct* UserHandle)
 {
-    if (UserHandle->Custom)
-    {
-        return;
-    }
+    echoF("MediaInfo has seek\n");
 
-    echo1("MediaInfo has seek, Offset=%08x\n", Event->Stream_Offset);
+    echo1("Stream_Offset=%08x\n", Event->Stream_Offset);
+}
+
+void General_SubFile_Start_0 (struct MediaInfo_Event_General_SubFile_Start_0* Event, struct UserHandle_struct* UserHandle)
+{
+    echoF("MediaInfo is parsing a new file from the source file\n");
+
+    echo1("FileName_Relative=%s\n", Event->FileName_Relative);
+    echo1("FileName_Absolute=%s\n", Event->FileName_Absolute);
+}
+
+void General_SubFile_End_0 (struct MediaInfo_Event_General_SubFile_End_0* Event, struct UserHandle_struct* UserHandle)
+{
+    echoF("MediaInfo has finished the parsing a new file from the source file\n");
 }
 
 void Global_Demux_3(struct MediaInfo_Event_Global_Demux_3 *Event, struct UserHandle_struct* UserHandle)
 {
-    if (UserHandle->Custom)
-    {
+    if (!UserHandle->DemuxContainerOnly)
         return;
-    }
 
-    echo1("MediaInfo Demux, Offset=%08x\n", Event->Stream_Offset);
-    echo1("    Stream_Offset=%08x,", Event->Stream_Offset);
-    echo1(   " Frame_Number=%u\n", Event->FrameNumber);
-        echo0("    IDs=");
+    echoF("MediaInfo Demux\n");
+
+    echo1("Stream_Offset=%08x,", Event->Stream_Offset);
+    echo1(" Frame_Number=%u\n", Event->FrameNumber);
+    echo0("IDs=");
     for (size_t Pos=0; Pos<Event->StreamIDs_Size; Pos++)
         switch (Event->StreamIDs_Width[Pos])
         {
@@ -119,14 +126,55 @@ void Global_Demux_3(struct MediaInfo_Event_Global_Demux_3 *Event, struct UserHan
             case 8: echo1("%08x, ", Event->StreamIDs[Pos]); break;
             default: echo1("%08x, ", Event->StreamIDs[Pos]); break;
         }
-    echo0(   "\n");
-    echo1("    PCR=%s,", Ztring().Duration_From_Milliseconds(Event->PCR/1000000).To_Local().c_str());
-    echo1(   " PTS=%s,", Ztring().Duration_From_Milliseconds(Event->PTS/1000000).To_Local().c_str());
-    echo1(   " DTS=%s,", Ztring().Duration_From_Milliseconds(Event->DTS/1000000).To_Local().c_str());
-    echo1(   " DUR=%s\n", Ztring().Duration_From_Milliseconds(Event->DUR/1000000).To_Local().c_str());
-    echo1("    Content_Type=%i,", Event->Content_Type);
-    echo1(   " Content_Size=%i,", Event->Content_Size);
-    echo1(   " Flags=%08x\n", Event->Flags);
+    echo0("\n");
+    if (Event->PCR!=(int64u)-1)
+        echo1("PCR=%s, ", Ztring().Duration_From_Milliseconds(Event->PCR/1000000).To_Local().c_str());
+    if (Event->PTS!=(int64u)-1)
+        echo1("PTS=%s, ", Ztring().Duration_From_Milliseconds(Event->PTS/1000000).To_Local().c_str());
+    if (Event->DTS!=(int64u)-1)
+        echo1("DTS=%s, ", Ztring().Duration_From_Milliseconds(Event->DTS/1000000).To_Local().c_str());
+    if (Event->DUR!=(int64u)-1)
+        echo1("DUR=%s, ", Ztring().Duration_From_Milliseconds(Event->DUR/1000000).To_Local().c_str());
+    if (Event->PCR!=(int64u)-1 || Event->PTS!=(int64u)-1 || Event->DTS!=(int64u)-1 || Event->DUR!=(int64u)-1)
+        echo0("\n");
+    echo1("Content_Type=%i,", Event->Content_Type);
+    echo1(" Content_Size=%i,", Event->Content_Size);
+    echo1(" Flags=%08x\n", Event->Flags);
+}
+
+void Video_SliceInfo_0(struct MediaInfo_Event_Video_SliceInfo_0 *Event, struct UserHandle_struct* UserHandle)
+{
+    if (!UserHandle->DemuxContainerOnly)
+        return;
+
+    echoF("MediaInfo Demux\n");
+
+    echo1("Stream_Offset=%08x,", Event->Stream_Offset);
+    echo1(" FramePosition=%u,", Event->FramePosition);
+    echo1(" FieldPosition=%u,", Event->FramePosition);
+    echo1(" SlicePosition=%u,", Event->FramePosition);
+    echo0("IDs=");
+    for (size_t Pos=0; Pos<Event->StreamIDs_Size; Pos++)
+        switch (Event->StreamIDs_Width[Pos])
+        {
+            case 2: echo1("%02x, ", Event->StreamIDs[Pos]); break;
+            case 4: echo1("%04x, ", Event->StreamIDs[Pos]); break;
+            case 8: echo1("%08x, ", Event->StreamIDs[Pos]); break;
+            default: echo1("%08x, ", Event->StreamIDs[Pos]); break;
+        }
+    echo0("\n");
+    if (Event->PCR!=(int64u)-1)
+        echo1("PCR=%s, ", Ztring().Duration_From_Milliseconds(Event->PCR/1000000).To_Local().c_str());
+    if (Event->PTS!=(int64u)-1)
+        echo1("PTS=%s, ", Ztring().Duration_From_Milliseconds(Event->PTS/1000000).To_Local().c_str());
+    if (Event->DTS!=(int64u)-1)
+        echo1("DTS=%s, ", Ztring().Duration_From_Milliseconds(Event->DTS/1000000).To_Local().c_str());
+    if (Event->DUR!=(int64u)-1)
+        echo1("DUR=%s, ", Ztring().Duration_From_Milliseconds(Event->DUR/1000000).To_Local().c_str());
+    if (Event->PCR!=(int64u)-1 || Event->PTS!=(int64u)-1 || Event->DTS!=(int64u)-1 || Event->DUR!=(int64u)-1)
+        echo0("\n");
+    echo1("SliceType=%i,", Event->SliceType);
+    echo1(" Flags=%08x\n", Event->Flags);
 }
 
 /***************************************************************************/
@@ -149,17 +197,21 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
     if (Data_Size<4)
         return; //There is a problem
 
-    if (UserHandle->F[Event_Generic->EventCode]==NULL)
+    if (UserHandle->PerEvent[Event_Generic->EventCode].F==NULL)
     {    
         Ztring Number; Number.From_Number(Event_Generic->EventCode, 16);
         while (Number.size()<8)
             Number.insert(0, 1, _T('0'));
-        Ztring Name=Ztring(UserHandle->DataBaseDirectory+_T("\\New\\")+Number+_T("\\")+UserHandle->Name.Name_Get()+_T(".txt"));
-        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\New")))
-            Dir::Create(UserHandle->DataBaseDirectory+_T("\\New"));
+        Ztring Name=Ztring(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+_T("\\")+Ztring::ToZtring(UserHandle->Scenario)+_T("\\")+Number+_T("\\")+UserHandle->Name.Name_Get()+_T(".txt"));
+        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\Events\\New")))
+            Dir::Create(UserHandle->DataBaseDirectory+_T("\\Events\\New"));
+        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()))
+            Dir::Create(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get());
+        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+_T("\\")+Ztring::ToZtring(UserHandle->Scenario)))
+            Dir::Create(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+_T("\\")+Ztring::ToZtring(UserHandle->Scenario));
         if (!Dir::Exists(FileName(Name).Path_Get()))
             Dir::Create(FileName(Name).Path_Get());
-        UserHandle->F[Event_Generic->EventCode]=fopen(Name.To_Local().c_str(), "w");
+        UserHandle->PerEvent[Event_Generic->EventCode].F=fopen(Name.To_Local().c_str(), "w");
     }
     
     /*Retrieving EventID*/
@@ -171,13 +223,13 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
     //*Global to all parsers
     switch (EventID)
     {
-                    case MediaInfo_Event_Global_Demux                                           : if (EventVersion == 3 && Data_Size >= sizeof(struct MediaInfo_Event_Global_Demux_3)) Global_Demux_3((struct MediaInfo_Event_Global_Demux_3 *)Data_Content, UserHandle);  break;
+                    CASE (Global, Demux, 3)
+                    CASE (Video, SliceInfo, 0)
                     default                                                                     : ;
     }
 
     switch (ParserID)
     {
-           /*DCA number in comment*/
         case MediaInfo_Parser_None :    
                 switch (EventID)
                 {
@@ -186,18 +238,36 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
                     case MediaInfo_Event_General_Parser_Selected                                : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_Parser_Selected_0)) General_Parser_Selected_0((struct MediaInfo_Event_General_Parser_Selected_0*)Data_Content, UserHandle); break;
                     case MediaInfo_Event_General_Move_Request                                   : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_Move_Request_0)) General_Move_Request_0((struct MediaInfo_Event_General_Move_Request_0*)Data_Content, UserHandle); break;
                     case MediaInfo_Event_General_Move_Done                                      : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_Move_Done_0)) General_Move_Done_0((struct MediaInfo_Event_General_Move_Done_0*)Data_Content, UserHandle); break;
-                    //case MediaInfo_Event_General_SubFile_Start                                  : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_SubFile_Start_0)) General_SubFile_Start_0((struct MediaInfo_Event_General_SubFile_Start_0*)Data_Content, UserHandle); break;
-                    //case MediaInfo_Event_General_SubFile_End                                    : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_SubFile_End_0)) General_SubFile_End_0((struct MediaInfo_Event_General_SubFile_End_0*)Data_Content, UserHandle); break;
+                    case MediaInfo_Event_General_SubFile_Start                                  : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_SubFile_Start_0)) General_SubFile_Start_0((struct MediaInfo_Event_General_SubFile_Start_0*)Data_Content, UserHandle); break;
+                    case MediaInfo_Event_General_SubFile_End                                    : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_SubFile_End_0)) General_SubFile_End_0((struct MediaInfo_Event_General_SubFile_End_0*)Data_Content, UserHandle); break;
                     default                                                                     : ;
                 }
                 break;
-        default : ;
+        default : ; //ParserID is unknown
     }
 }
 
-void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
+void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenario)
 {
-    ZtringListListF FilesList_Source; FilesList_Source.Load(DataBaseDirectory+_T("\\Events\\FilesList.csv"));
+    // Scenarios:
+    // bit  0 : quick parsing / full parsing
+    // bit  1 : next packet interface
+    // bit  2 : demux (by container only)
+    // bit  3 : do some seeks
+
+
+    cout<<" Analyzing"<<endl;
+    ZtringListListF FilesList_Source;
+    if (FileName(Files).Extension_Get()==_T("csv"))
+        FilesList_Source.Load(DataBaseDirectory+_T("\\Events\\FilesList.csv"));
+    else
+    {
+        FilesList_Source.push_back(ZtringList());
+        //if (File::Exists(Files))
+            FilesList_Source.push_back(Files);
+        //else
+        //    FilesList_Source.push_back(Files+_T("\\*.*"));
+    }
     vector<UserHandle_struct> FilesList;
     for (size_t FilesList_Source_Pos=1; FilesList_Source_Pos<FilesList_Source.size(); FilesList_Source_Pos++)
     {
@@ -206,11 +276,17 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
         {
             UserHandle_struct ToAdd;
             ToAdd.Name=Temp[Temp_Pos];
-            ToAdd.DataBaseDirectory=DataBaseDirectory+_T("\\Events");
-            if (FilesList_Source[FilesList_Source_Pos](1).To_int32u())
+            ToAdd.DataBaseDirectory=DataBaseDirectory;
+            ToAdd.Files=Files;
+            ToAdd.Scenario=Scenario;
+            if (Scenario&(1<<0))
                 ToAdd.ParseSpeed=true;
-            if (FilesList_Source[FilesList_Source_Pos](2).To_int32u())
+            if (Scenario&(1<<1))
                 ToAdd.NextPacket=true;
+            if (Scenario&(1<<2))
+                ToAdd.DemuxContainerOnly=true;
+            if (Scenario&(1<<3))
+                ToAdd.Seek=true;
 
             FilesList.push_back(ToAdd);
         }
@@ -219,7 +295,7 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
     
     for (size_t FilesList_Pos=0; FilesList_Pos<FilesList.size(); FilesList_Pos++)
     {
-        cout<<" "<<FilesList_Pos<<"/"<<FilesList.size()<<endl;
+        cout<<" "<<FilesList_Pos+1<<"/"<<FilesList.size()<<" "<<FilesList[FilesList_Pos].Name.To_Local()<<endl;
 
         MediaInfo MI;
         Ztring MI_Result;
@@ -240,21 +316,23 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
             wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
             return;
         }
+        
+        //Retrieiving basic data
+        MI.Open(FilesList[FilesList_Pos].Name);
+        Ztring Delay_10s=Ztring().Duration_From_Milliseconds(Ztring(MI.Get(Stream_Video, 0, _T("Delay"))).To_int64u()+10000);
 
-        // We want to use the "NextPacket" interface
-        if (FilesList[FilesList_Pos].NextPacket)
+        if (FilesList[FilesList_Pos].ParseSpeed)
         {
-            MI.Open(FilesList[FilesList_Pos].Name);
-            Ztring Delay_10s=Ztring().Duration_From_Milliseconds(Ztring(MI.Get(Stream_Video, 0, _T("Delay"))).To_int64u()+10000);
-            
-            
             MI_Result=MI.Option(_T("ParseSpeed"), _T("1.0"));
             if (!MI_Result.empty())
             {
                 wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
+        }
 
+        if (FilesList[FilesList_Pos].DemuxContainerOnly)
+        {
             MI_Result=MI.Option(_T("Demux"), _T("container"));
             if (!MI_Result.empty())
             {
@@ -275,50 +353,46 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
                 wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
+        }
 
+        if (FilesList[FilesList_Pos].NextPacket)
+        {
             MI_Result=MI.Option(_T("File_NextPacket"), _T("1"));
             if (!MI_Result.empty())
             {
                 wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
+        }
+
+        MI.Open(FilesList[FilesList_Pos].Name);
+
+        if (FilesList[FilesList_Pos].NextPacket)
+        {
             int Counter=0;
-            MI.Open(FilesList[FilesList_Pos].Name);
             while (MI.Open_NextPacket()&0x100)
             {
-                Counter++;
-                if (Counter==0)
-                    MI.Option(_T("File_Seek"), _T("0"));
-                if (Counter==100)
-                    MI.Option(_T("File_Seek"), Delay_10s);
-                if (Counter==200)
-                    MI.Option(_T("File_Seek"), _T("Frame=100"));
-                if (Counter==300)
-                    MI.Option(_T("File_Seek"), _T("95%"));
-            }
-        }
-        else
-        {
-            // We want all the stream, not only the beginning
-            if (FilesList[FilesList_Pos].ParseSpeed)
-            {
-                MI_Result=MI.Option(_T("ParseSpeed"), _T("1.0"));
-                if (!MI_Result.empty())
+                if (FilesList[FilesList_Pos].Seek)
                 {
-                    wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
-                    return;
+                    Counter++;
+                    if (Counter==0)
+                        MI.Option(_T("File_Seek"), _T("0"));
+                    if (Counter==100)
+                        MI.Option(_T("File_Seek"), Delay_10s);
+                    if (Counter==200)
+                        MI.Option(_T("File_Seek"), _T("Frame=100"));
+                    if (Counter==300)
+                        MI.Option(_T("File_Seek"), _T("95%"));
                 }
             }
-
-            MI.Open(FilesList[FilesList_Pos].Name);
         }
 
         FilesList[FilesList_Pos].Clear();
     }
 
-
-    ZtringList Ref=Dir::GetAllFileNames(DataBaseDirectory+_T("\\Events\\Ref\\*.*"));
-    ZtringList New=Dir::GetAllFileNames(DataBaseDirectory+_T("\\Events\\New\\*.*"));
+    cout<<" Diff"<<endl;
+    ZtringList Ref=Dir::GetAllFileNames(DataBaseDirectory+_T("\\Events\\Ref\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)+_T("*.*"));
+    ZtringList New=Dir::GetAllFileNames(DataBaseDirectory+_T("\\Events\\New\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)+_T("*.*"));
     for (size_t Ref_Pos=0; Ref_Pos<Ref.size(); Ref_Pos++)
     {
         Ztring Ref_ToFind=Ref[Ref_Pos];
@@ -331,13 +405,19 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
             File F_New; F_New.Open(New[New_RefPos]);
             if (F_Ref.Size_Get()==F_New.Size_Get())
             {
-                int8u* F_Ref_Buffer=new int8u[(size_t)F_Ref.Size_Get()];
-                F_Ref.Read(F_Ref_Buffer, (size_t)F_Ref.Size_Get());
-                int8u* F_New_Buffer=new int8u[(size_t)F_New.Size_Get()];
-                F_New.Read(F_New_Buffer, (size_t)F_New.Size_Get());
+                int64u Size=F_Ref.Size_Get();
+                if (Size>100000000)
+                    Size=100000000;
+                int8u* F_Ref_Buffer=new int8u[(size_t)Size];
+                F_Ref.Read(F_Ref_Buffer, (size_t)Size);
+                int8u* F_New_Buffer=new int8u[(size_t)Size];
+                F_New.Read(F_New_Buffer, (size_t)Size);
 
-                if (memcmp(F_Ref_Buffer, F_New_Buffer, (size_t)F_Ref.Size_Get()))
+                if (memcmp(F_Ref_Buffer, F_New_Buffer, (size_t)Size))
                     IsDiff=true;
+
+                delete[] F_Ref_Buffer;
+                delete[] F_New_Buffer;
             }
             else
                 IsDiff=true;
@@ -349,6 +429,10 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
             Diff_Name.FindAndReplace(_T("\\Events\\Ref\\"), _T("\\Events\\Diff\\"));
             if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff")))
                 Dir::Create(DataBaseDirectory+_T("\\Events\\Diff"));
+            if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()))
+                Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get());
+            if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)))
+                Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario));
             if (!Dir::Exists(FileName(Diff_Name).Path_Get()))
                 Dir::Create(FileName(Diff_Name).Path_Get());
             if (!IsDiff)
@@ -369,6 +453,10 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory)
         Diff_Name.FindAndReplace(_T("\\Events\\New\\"), _T("\\Events\\Diff\\"));
         if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff")))
             Dir::Create(DataBaseDirectory+_T("\\Events\\Diff"));
+        if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()))
+            Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get());
+        if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)))
+            Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario));
         if (!Dir::Exists(FileName(Diff_Name).Path_Get()))
             Dir::Create(FileName(Diff_Name).Path_Get());
          File::Copy(New[New_Pos], Diff_Name+_T(".NewAlone.txt")); //Not in new

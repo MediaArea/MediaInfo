@@ -12,7 +12,7 @@ using namespace MediaInfoDLL;
 using namespace ZenLib;
 using namespace std;
 
-void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory)
+void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenario)
 {
     ZtringListListF* Ref=new ZtringListListF[Stream_Max];
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
