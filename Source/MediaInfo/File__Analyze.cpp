@@ -253,7 +253,7 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
             if (SubFile_StreamID!=(int64u)-1)
             {
                 StreamIDs_Size=2;
-                StreamIDs[1]=StreamIDs[0];
+                StreamIDs[1]=IsRawStream?(int64u)-1:StreamIDs[0];
                 StreamIDs_Width[1]=StreamIDs_Width[0];
                 StreamIDs[0]=SubFile_StreamID;
                 StreamIDs_Width[0]=8;
@@ -295,7 +295,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
             Sub->StreamIDs[Pos]=StreamIDs[Pos];
             Sub->StreamIDs_Width[Pos]=StreamIDs_Width[Pos];
         }
-        Sub->StreamIDs[StreamIDs_Size-1]=Element_Code;
+        Sub->StreamIDs[StreamIDs_Size-1]=IsRawStream?(int64u)-1:Element_Code;
         Sub->StreamIDs_Size=StreamIDs_Size+1;
     #endif //MEDIAINFO_EVENTS
     Sub->IsSub=true;
@@ -2679,7 +2679,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
     #if MEDIAINFO_EVENTS
         //Demux
         if (StreamIDs_Size)
-            StreamIDs[StreamIDs_Size-1]=Element_Code;
+            StreamIDs[StreamIDs_Size-1]=IsRawStream?(int64u)-1:Element_Code;
         struct MediaInfo_Event_Global_Demux_3 Event;
         if (StreamIDs_Size && StreamIDs_Size<17)
              Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 3);

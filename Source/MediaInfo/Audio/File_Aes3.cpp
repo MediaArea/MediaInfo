@@ -181,6 +181,7 @@ File_Aes3::File_Aes3()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     SampleRate=0;
@@ -385,15 +386,11 @@ void File_Aes3::Read_Buffer_Continue()
                 Element_Size=Buffer_Size;
             if (Demux_UnpacketizeContainer)
             {
-                if (StreamIDs_Size>=2)
-                    Element_Code=StreamIDs[StreamIDs_Size-2];
-                StreamIDs_Size--;
                 FrameInfo.PTS=FrameInfo.DTS;
                 if (SampleRate && ByteSize)
                     FrameInfo.DUR=Element_Size*1000000000/(SampleRate*ByteSize);
                 Demux_random_access=true;
                 Demux(Buffer, (size_t)Element_Size, ContentType_MainStream);
-                StreamIDs_Size++;
             }
         #endif //MEDIAINFO_DEMUX
 
@@ -1378,18 +1375,12 @@ void File_Aes3::Frame_WithPadding()
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer)
         {
-            if (StreamIDs_Size>=2)
-                Element_Code=StreamIDs[StreamIDs_Size-2];
-            StreamIDs_Size--;
-            int8u Demux_Level_Save=Demux_Level;
             Demux_Level=2; //Container
             FrameInfo.PTS=FrameInfo.DTS;
             if (SampleRate && ByteSize)
                 FrameInfo.DUR=Element_Size*1000000000/(SampleRate*ByteSize);
             Demux_random_access=true;
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
-            Demux_Level=Demux_Level_Save;
-            StreamIDs_Size++;
         }
     #endif //MEDIAINFO_DEMUX
 

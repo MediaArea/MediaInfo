@@ -63,6 +63,7 @@ File_ChannelGrouping::File_ChannelGrouping()
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(0); //Container1
     #endif //MEDIAINFO_TRACE
+    IsRawStream=true;
 
     //In
     ByteDepth=0;
@@ -213,6 +214,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         if (Demux_UnpacketizeContainer)
         {
             Common->Parser->Demux_UnpacketizeContainer=true;
+            Common->Parser->Demux_Level=2; //Container
             Demux_Level=4; //Intermediate
         }
         Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
