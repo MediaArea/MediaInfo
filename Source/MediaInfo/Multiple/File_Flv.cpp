@@ -626,6 +626,12 @@ void File_Flv::FileHeader_Parse()
         Accept();
 
         Fill(Stream_General, 0, General_Format, "Flash Video");
+        if (!video_stream_Count && !audio_stream_Count)
+        {
+            //TODO: quick and awful hack for a file having both bools unset, should detect directly the streams
+            video_stream_Count=true;
+            audio_stream_Count=true;
+        }
         if (video_stream_Count)
         {
             Stream_Prepare(Stream_Video);
