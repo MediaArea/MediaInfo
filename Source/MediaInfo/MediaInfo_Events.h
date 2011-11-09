@@ -313,6 +313,7 @@ struct MediaInfo_Event_Video_SliceInfo_0
     MediaInfo_int64u        PCR;
     MediaInfo_int64u        PTS;
     MediaInfo_int64u        DTS;
+    MediaInfo_int64u        DUR;
     size_t                  StreamIDs_Size;
     MediaInfo_int64u*       StreamIDs;
     MediaInfo_int8u*        StreamIDs_Width;
@@ -373,6 +374,30 @@ struct MediaInfo_Event_General_Move_Done_0
 {
     MediaInfo_int32u        EventCode;
     MediaInfo_int64u        Stream_Offset;
+};
+
+/*-------------------------------------------------------------------------*/
+/* SubFile_Start                                                           */
+#define MediaInfo_Event_General_SubFile_Start 0x7006
+struct MediaInfo_Event_General_SubFile_Start_0
+{
+    MediaInfo_int32u        EventCode;
+    size_t                  StreamIDs_Size;
+    MediaInfo_int64u*       StreamIDs;
+    MediaInfo_int8u*        StreamIDs_Width;
+    MediaInfo_int8u*        ParserIDs;
+    char*                   FileName_Relative;
+    wchar_t*                FileName_Relative_Unicode;
+    char*                   FileName_Absolute;
+    wchar_t*                FileName_Absolute_Unicode;
+};
+
+/*-------------------------------------------------------------------------*/
+/* SubFile_End                                                             */
+#define MediaInfo_Event_General_SubFile_End 0x7007
+struct MediaInfo_Event_General_SubFile_End_0
+{
+    MediaInfo_int32u        EventCode;
 };
 
 /***************************************************************************/

@@ -1353,6 +1353,7 @@ void File_Mpegv::picture_start()
                 Event.PCR=FrameInfo.PCR;
                 Event.PTS=FrameInfo.PTS;
                 Event.DTS=FrameInfo.DTS;
+                Event.DUR=FrameInfo.DUR;
                 Event.StreamIDs_Size=StreamIDs_Size;
                 Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
                 Event.StreamIDs_Width=(MediaInfo_int8u*)StreamIDs_Width;
