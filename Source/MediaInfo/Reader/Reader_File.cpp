@@ -87,19 +87,25 @@ size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 
     //Search the theorical format from extension
     InfoMap &FormatList=MediaInfoLib::Config.Format_Get();
-    InfoMap::iterator Format=FormatList.begin();
-    while (Format!=FormatList.end())
+    InfoMap::iterator Format=FormatList.end();
+    if (!MI->Config.File_ForceParser_Get().empty())
+        Format=FormatList.find(MI->Config.File_ForceParser_Get());
+    if (Format==FormatList.end())
     {
-        const Ztring &Extensions=FormatList.Get(Format->first, InfoFormat_Extensions);
-        if (Extensions.find(Extension)!=Error)
+        Format=FormatList.begin();
+        while (Format!=FormatList.end())
         {
-            if(Extension.size()==Extensions.size())
-                break; //Only one extenion in the list
-            if(Extensions.find(Extension+_T(" "))!=Error
-            || Extensions.find(_T(" ")+Extension)!=Error)
-                break;
+            const Ztring &Extensions=FormatList.Get(Format->first, InfoFormat_Extensions);
+            if (Extensions.find(Extension)!=Error)
+            {
+                if(Extension.size()==Extensions.size())
+                    break; //Only one extenion in the list
+                if(Extensions.find(Extension+_T(" "))!=Error
+                || Extensions.find(_T(" ")+Extension)!=Error)
+                    break;
+            }
+            Format++;
         }
-        Format++;
     }
     if (Format!=FormatList.end())
     {
