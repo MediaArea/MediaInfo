@@ -12,6 +12,39 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.51, 2011-11-11
+--------------
++ #2872918, MKV: add support for default and forced track flags
++ #3418881, RK Audio format support, thanks to Lionel Duchateau
++ #3418883, LA: version field, thanks to Lionel Duchateau
++ MPEG-4: basic support of Aigo .3dv files
++ MPEG-2 Video: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
++ QuickTime: color display info (colour_primaries, transfer_characteristics, matrix_coefficients)
++ QuickTime: ProRes LT, Proxy, 4:4:4 profiles detection
++ QuickTime: mpeg CodecID support
++ Template inputs are now insensitive to carriage return kind (Windows \r\n, Mac \r, Linux \n)
++ MPEG-TS: Support of ISO 8859-2 in EPG
++ MPEG-4: more CodedIDs supported
++ GXF: more info about DV streams
++ GXF: Handling of files with more than 1 Time code
+x #3414326, GXF: using only the first map chunk for duration calculation
+x #3414513, Id3v2: was not able to extract covers with UTF-16 description
+x #3417908, video from several files: crash if there is not enough place for the frame number
+x #3433602, DVD-Video (IFO): Crash when scanning some malformed IFO files
+x Matroska: parser hanging in case of huge zero-padded files
+x MPEG-4: was not providing some info about tracks with sample table before media header
+x MXF: better support of corrupted indexes
+x #3429831, MediaInfo library: unload wrong DLL, thanks to McSpecky
+x MPEG-TS: Better handling of EPG running_status flag
+x MXF: Handling of "file:///" in Network loacators
+x FLV: audio delay was sometimes wrong
+x H264: Buffer size was in bytes instead of bits like with other formats
+x #3429196: no output if absolute file name, on Linux
+x #3187050, FLV: wrong detection when FLV header is corrupt
+x BLu-ray: crash if MPLS files are on the root of a disk
+x Blu-ray: parsing was very slow if MPLS was pointing thousands of times on the same file
+x #3292830, Matroska: crash if AAC sample rate is not provided by the container
+
 Version 0.7.50, 2011-09-23
 --------------
 + Ukrainian translation updated
