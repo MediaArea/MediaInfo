@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.51
+Version 0.7.51, 2011-11-11
 --------------
 + #2872918, MKV: add support for default and forced track flags
 + #3418881, RK Audio format support, thanks to Lionel Duchateau
