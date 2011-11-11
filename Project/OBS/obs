@@ -79,6 +79,8 @@ Download_Packages 1  1  1  x x x   Debian_5      i386   _i386
 Download_Packages 1  1  1  x x x   Debian_5      amd64 _amd64
 Download_Packages 1  1  1  x x x   Debian_6.0    i386   _i386
 Download_Packages 1  1  1  x x x   Debian_6.0    amd64  _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_8.04   i386   _i386
+Download_Packages 1  1  1  x x x   Ubuntu_8.04   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   i386   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   amd64  _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.10   i386   _i386
