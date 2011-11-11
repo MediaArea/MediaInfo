@@ -4,7 +4,7 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.50"
+!define PRODUCT_VERSION "0.7.51"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
@@ -114,7 +114,7 @@ Section "SectionPrincipale" SEC01
   CreateDirectory "$SMPROGRAMS\MediaInfo"
   CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo ${PRODUCT_VERSION}"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe"
-  File "..\..\..\MediaInfoLib\Project\MSVC2008\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
+  File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
   File "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
