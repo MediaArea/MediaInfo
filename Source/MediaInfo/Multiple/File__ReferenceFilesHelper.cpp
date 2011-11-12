@@ -677,6 +677,13 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         if (!FrameRate)
                             return (size_t)-1; //Not supported
 
+                        if (References.begin()!=References.end())
+                        {
+                            int64u Delay=References.begin()->Delay;
+                            if (Value<Delay)
+                                return 2; //Invalid value 
+                            Value-=Delay;
+                        }
                         Value=(int64u)(((float64)Value)/1000000000*FrameRate);
                         }
                     //No break;

@@ -461,7 +461,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_subfile_streamid_set"))
     {
         #if MEDIAINFO_EVENTS
-            SubFile_StreamID_Set(Ztring(Value).To_int64u());
+            SubFile_StreamID_Set(Value.empty()?(int64u)-1:Ztring(Value).To_int64u());
             return Ztring();
         #else //MEDIAINFO_EVENTS
             return _T("Event manager is disabled due to compilation options");

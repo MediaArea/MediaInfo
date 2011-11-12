@@ -2156,7 +2156,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             Value=float64_int64s(ValueF);
                         }
 
-                        if (IndexTables[IndexTables.size()-1].IndexDuration && Value>=IndexTables[IndexTables.size()-1].IndexStartPosition+IndexTables[IndexTables.size()-1].IndexDuration) //Considering IndexDuration=0 as unlimited
+                        if (IndexTables[IndexTables.size()-1].IndexDuration && IndexTables[IndexTables.size()-1].IndexStartPosition!=(int64u)-1 && Value>=IndexTables[IndexTables.size()-1].IndexStartPosition+IndexTables[IndexTables.size()-1].IndexDuration) //Considering IndexDuration=0 as unlimited
                             return 2; //Invalid value    
                             
                         int64u StreamOffset=0;
@@ -8970,13 +8970,14 @@ void File_Mxf::Locators_Test()
         ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
         for (locators::iterator Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
-            if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty())
+            if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty() && Locator->second.StreamKind!=Stream_Max) //TODO: support VBI
             {
                 File__ReferenceFilesHelper::reference Reference;
                 Reference.FileNames.push_back(Locator->second.EssenceLocator);
                 Reference.StreamKind=Locator->second.StreamKind;
                 Reference.StreamPos=Locator->second.StreamPos;
                 Reference.StreamID=Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID);
+                Reference.Delay=float64_int64s(DTS_Delay*1000000000);
                 if (Locator->second.StreamKind==Stream_Video)
                 {
                     //Searching the corresponding frame rate

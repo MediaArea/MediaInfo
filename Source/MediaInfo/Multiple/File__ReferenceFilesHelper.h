@@ -47,6 +47,7 @@ public :
         size_t              StreamPos;
         Ztring              StreamID;
         float64             FrameRate;
+        int64u              Delay;
         MediaInfo_Internal* MI;
         #if MEDIAINFO_NEXTPACKET
             std::bitset<32> Status;
@@ -59,6 +60,7 @@ public :
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             FrameRate=0;
+            Delay=0;
             MI=NULL;
         }
     };

@@ -2679,7 +2679,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
     #if MEDIAINFO_EVENTS
         //Demux
         if (StreamIDs_Size)
-            StreamIDs[StreamIDs_Size-1]=IsRawStream?(int64u)-1:Element_Code;
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
         struct MediaInfo_Event_Global_Demux_3 Event;
         if (StreamIDs_Size && StreamIDs_Size<17)
              Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 3);
