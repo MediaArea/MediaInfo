@@ -8608,7 +8608,7 @@ File__Analyze* File_Mxf::ChooseParser_DV(const essences::iterator &Essence, cons
         //Filling
         File__Analyze* Parser=new File_Unknown();
         Open_Buffer_Init(Parser);
-        Parser->Stream_Prepare(Stream_Audio);
+        Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Audio, 0, Audio_Format, "DV");
     #endif
     return Parser;

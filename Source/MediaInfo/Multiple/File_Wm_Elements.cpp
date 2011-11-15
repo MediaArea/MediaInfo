@@ -481,8 +481,26 @@ void File_Wm::Header_StreamProperties_Video ()
         Open_Buffer_Init(Stream[Stream_Number].Parser);
         if (Data_Size>40)
         {
-            Element_Code=Stream_Number;
-            Demux(Buffer+(size_t)Element_Offset, (size_t)(Data_Size-40), ContentType_Header);
+
+            //Demux
+            #if MEDIAINFO_DEMUX
+                switch (Config->Demux_InitData_Get())
+                {
+                    case 0 :    //In demux event
+                                Element_Code=Stream_Number;
+                                Demux_Level=2; //Container
+                                Demux(Buffer+(size_t)Element_Offset, (size_t)(Data_Size-40), ContentType_Header);
+                                break;
+                    case 1 :    //In field
+                                {
+                                std::string Data_Raw((const char*)(Buffer+(size_t)Element_Offset), (size_t)(Data_Size-40));
+                                std::string Data_Base64(Base64::encode(Data_Raw));
+                                Fill(Stream_Video, StreamPos_Last, "Demux_InitBytes", Data_Base64);
+                                }
+                                break;
+                    default :   ;
+                }
+            #endif //MEDIAINFO_DEMUX
 
             Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)(Data_Size-40));
             if (Stream[Stream_Number].Parser->Status[IsFinished])
