@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.52
+--------------
+x DV: crash (division by zero) in some cases
+
 Version 0.7.51, 2011-11-11
 --------------
 + #2872918, MKV: add support for default and forced track flags

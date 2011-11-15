@@ -773,7 +773,7 @@ bool File_DvDif::Demux_UnpacketizeContainer_Test()
 void File_DvDif::Read_Buffer_Unsynched()
 {
     Synched_Test_Reset();
-        if ((Frame_Count
+        if (!IsSub && File_GoTo!=(int64u)-1 && (Frame_Count
     #if MEDIAINFO_SEEK
           || Duration_Detected
     #endif MEDIAINFO_SEEK
