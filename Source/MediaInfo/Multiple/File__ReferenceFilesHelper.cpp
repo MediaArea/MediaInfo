@@ -262,6 +262,76 @@ void File__ReferenceFilesHelper::ParseReference()
                 #endif //__WINDOWS__
                 AbsoluteNames.push_back(AbsoluteName);
             }
+
+            if (!File::Exists(AbsoluteNames[0]))
+            {
+                AbsoluteNames.clear();
+                Names=Reference->FileNames;
+            
+                //Configuring file name (this time, we try to test local files)
+                size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
+                if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
+                {
+                    Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
+                    bool IsOk=true;
+                    for (size_t Pos=0; Pos<Names.size(); Pos++)
+                        if (Names[Pos].find(PathToRemove))
+                        {
+                            IsOk=false;
+                            break;
+                        }
+                    if (IsOk)
+                    {
+                        for (size_t Pos=0; Pos<Names.size(); Pos++)
+                        {
+                            Names[Pos].erase(0, PathSeparator_Pos+1);
+                            Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                            if (!AbsoluteName.empty())
+                                AbsoluteName+=ZenLib::PathSeparator;
+                            AbsoluteName+=Names[Pos];
+                            #ifdef __WINDOWS__
+                                AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                            #endif //__WINDOWS__
+                            AbsoluteNames.push_back(AbsoluteName);
+                        }
+
+                        if (!File::Exists(AbsoluteNames[0]))
+                        {
+                            AbsoluteNames.clear();
+                            Names=Reference->FileNames;
+            
+                            //Configuring file name (this time, we try to test local files)
+                            size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
+                            if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
+                                PathSeparator_Pos=Names[0].find_last_of(_T("\\/"), PathSeparator_Pos-1);
+                            if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
+                            {
+                                Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
+                                bool IsOk=true;
+                                for (size_t Pos=0; Pos<Names.size(); Pos++)
+                                    if (Names[Pos].find(PathToRemove))
+                                    {
+                                        IsOk=false;
+                                        break;
+                                    }
+                                if (IsOk)
+                                    for (size_t Pos=0; Pos<Names.size(); Pos++)
+                                    {
+                                        Names[Pos].erase(0, PathSeparator_Pos+1);
+                                        Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                        if (!AbsoluteName.empty())
+                                            AbsoluteName+=ZenLib::PathSeparator;
+                                        AbsoluteName+=Names[Pos];
+                                        #ifdef __WINDOWS__
+                                            AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                                        #endif //__WINDOWS__
+                                        AbsoluteNames.push_back(AbsoluteName);
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
         }
         MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->FileNames.Read(0));
         Reference->FileNames=AbsoluteNames;
