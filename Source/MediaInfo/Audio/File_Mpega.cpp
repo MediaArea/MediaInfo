@@ -1201,7 +1201,7 @@ bool File_Mpega::Header_Xing()
             Ztring Lib;
             Element_End();
             Peek_Local(4, Lib);
-            if (Lame || Lib==_T("LAME") || Lib==_T("GOGO"))
+            if (Lame || Lib==_T("LAME") || Lib==_T("GOGO") || Lib==_T("L3.9"))
                 Header_Encoders_Lame();
 
             if (CC4(Xing_Header)==CC4("Info"))
@@ -1337,7 +1337,9 @@ bool File_Mpega::Header_Encoders()
 void File_Mpega::Header_Encoders_Lame()
 {
     Peek_Local(8, Encoded_Library);
-    if (Encoded_Library>=_T("LAME3.90") && Element_IsNotFinished())
+    if (Encoded_Library.find(_T("L3.99"))==0)
+        Encoded_Library.insert(1, _T("AME")); //Ugly version string in Lame 3.99.1 "L3.99r1\0"
+    if ((Encoded_Library>=_T("LAME3.90")) && Element_IsNotFinished())
     {
         int8u Flags, EncodingFlags, BitRate, StereoMode;
         Param_Info(Ztring(_T("V "))+Ztring::ToZtring((100-Xing_Scale)/10));
