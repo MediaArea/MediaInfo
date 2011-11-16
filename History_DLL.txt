@@ -9,8 +9,9 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.52
 --------------
-x DV: crash (division by zero) in some cases
 + MXF with referenced files: if the referenced file is not available, trying to open local files
+x DV: crash (division by zero) in some cases
+x MXF: Crash if AFD field has an invalid value
 
 Version 0.7.51, 2011-11-11
 --------------

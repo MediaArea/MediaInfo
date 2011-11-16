@@ -1623,11 +1623,16 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
         if (StreamKind_Last==Stream_Video && Descriptor->second.ActiveFormat!=(int8u)-1 && Retrieve(Stream_Video, StreamPos_Last, Video_ActiveFormatDescription).empty())
         {
             Fill(Stream_Video, 0, Video_ActiveFormatDescription, Descriptor->second.ActiveFormat);
-            float32 DAR=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio).To_float32();
-            if (DAR>(float32)4/(float32)3*0.99 && DAR<(float32)4/(float32)3*1.01)
-                Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, AfdBarData_active_format_4_3[Descriptor->second.ActiveFormat]);
-            if (DAR>(float32)16/(float32)9*0.99 && DAR<(float32)16/(float32)9*1.01)
-                Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, AfdBarData_active_format_16_9[Descriptor->second.ActiveFormat]);
+            if (Descriptor->second.ActiveFormat<16)
+            {
+                float32 DAR=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio).To_float32();
+                if (DAR>(float32)4/(float32)3*0.99 && DAR<(float32)4/(float32)3*1.01)
+                    Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, AfdBarData_active_format_4_3[Descriptor->second.ActiveFormat]);
+                if (DAR>(float32)16/(float32)9*0.99 && DAR<(float32)16/(float32)9*1.01)
+                    Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, AfdBarData_active_format_16_9[Descriptor->second.ActiveFormat]);
+            }
+            if (Retrieve(Stream_Video, 0, Video_ActiveFormatDescription_String).empty())
+                Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, Descriptor->second.ActiveFormat);
         }
     }
 
