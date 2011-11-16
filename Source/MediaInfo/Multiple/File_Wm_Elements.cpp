@@ -51,6 +51,10 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if MEDIAINFO_DEMUX
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+    #include "ZenLib/Base64/base64.h"
+#endif //MEDIAINFO_DEMUX
 #include "ZenLib/Utils.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------

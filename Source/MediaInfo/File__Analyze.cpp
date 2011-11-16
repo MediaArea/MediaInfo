@@ -295,7 +295,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
             Sub->StreamIDs[Pos]=StreamIDs[Pos];
             Sub->StreamIDs_Width[Pos]=StreamIDs_Width[Pos];
         }
-        Sub->StreamIDs[StreamIDs_Size-1]=IsRawStream?(int64u)-1:Element_Code;
+        Sub->StreamIDs[StreamIDs_Size-1]=Element_Code;
         Sub->StreamIDs_Size=StreamIDs_Size+1;
     #endif //MEDIAINFO_EVENTS
     Sub->IsSub=true;
