@@ -625,7 +625,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                                     {
                                                                         case 0x00 : return "PCM";
                                                                         case 0x01 : return "PCM";
-                                                                        case 0x7E : return "PCM (AIFF)";
+                                                                        case 0x7E : return "PCM"; //AIFF
                                                                         case 0x7F : return "PCM";
                                                                         default   : return "";
                                                                     }
@@ -2902,12 +2902,20 @@ void File_Mxf::Data_Parse()
                     if ((Code_Compare4&0x000000FF)==0x00000000)
                         StreamPos_StartAtOne=false;
 
+                    if (Descriptor->second.StreamKind==Stream_Audio && Descriptor->second.Infos.find("Format_Settings_Endianness")==Descriptor->second.Infos.end())
+                    {
+                        Ztring Format;
+                        Format.From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression));
+                        if (Format.empty())
+                            Format.From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer));
+                        if (Format.find(_T("PCM"))==0)
+                            Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Little");
+                    }
+
                     Essence->second.Parser=ChooseParser(Essence, Descriptor); //Searching by the descriptor
                     if (Essence->second.Parser==NULL)
                         ChooseParser__FromEssence(Essence, Descriptor); //Searching by the track identifier
 
-                    if (Ztring().From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression)).find(_T("PCM"))==0)
-                        Descriptor->second.Infos["Format_Settings_Endianness"]=_T("Little");
                     #ifdef MEDIAINFO_VC3_YES
                         if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==_T("VC-3"))
                             ((File_Vc3*)Essence->second.Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
@@ -5176,6 +5184,8 @@ void File_Mxf::GenericSoundEssenceDescriptor_SoundEssenceCompression()
         Descriptors[InstanceUID].StreamKind=Stream_Audio;
         Descriptors[InstanceUID].Infos["Format"]=Mxf_EssenceCompression(Data);
         Descriptors[InstanceUID].Infos["Format_Version"]=Mxf_EssenceCompression_Version(Data);
+        if ((Data.lo&0xFFFFFFFFFF000000LL)==0x040202017e000000LL)
+            Descriptors[InstanceUID].Infos["Format_Settings_Endianness"]=_T("Big");
     FILLING_END();
 }
 
@@ -8745,11 +8755,25 @@ File__Analyze* File_Mxf::ChooseParser_Aes3(const essences::iterator &Essence, co
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
         Parser->From_Raw=true;
-        if (Descriptor->second.QuantizationBits!=(int32u)-1)
-            Parser->QuantizationBits=Descriptor->second.QuantizationBits;
-        if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
-            Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
-        Parser->Endianess='L';
+        if (Descriptor!=Descriptors.end())
+        {
+            if (Descriptor->second.QuantizationBits!=(int32u)-1)
+                Parser->QuantizationBits=Descriptor->second.QuantizationBits;
+            if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
+                Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
+            if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
+            {
+                if (Descriptor->second.Infos["Format_Settings_Endianness"]==_T("Big"))
+                    Parser->Endianess='B';
+                else
+                    Parser->Endianess='L';
+            }
+            else
+                Parser->Endianess='L';
+        }
+        else
+            Parser->Endianess='L';
+
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
@@ -8805,13 +8829,26 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
         {
             Parser=new File_ChannelGrouping;
             Parser->Channel_Pos=0;
-            if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
+            if (Descriptor!=Descriptors.end() && Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
                 Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
             Essence->second.IsChannelGrouping=true;
         }
         Parser->Channel_Total=2;
-        Parser->Endianess='L';
-        Parser->ByteDepth=Descriptor->second.BlockAlign<=4?Descriptor->second.BlockAlign:(Descriptor->second.BlockAlign/2); //In one file, BlockAlign is size of the aggregated channelgroup
+        if (Descriptor!=Descriptors.end())
+        {
+            Parser->ByteDepth=Descriptor->second.BlockAlign<=4?Descriptor->second.BlockAlign:(Descriptor->second.BlockAlign/2); //In one file, BlockAlign is size of the aggregated channelgroup
+            if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
+            {
+                if (Descriptor->second.Infos["Format_Settings_Endianness"]==_T("Big"))
+                    Parser->Endianess='B';
+                else
+                    Parser->Endianess='L';
+            }
+            else
+                Parser->Endianess='L';
+        }
+        else
+            Parser->Endianess='L';
 
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
@@ -8859,8 +8896,19 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, con
                 Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
             if (Descriptor->second.Infos.find("Channel(s)")!=Descriptor->second.Infos.end())
                 Parser->ChannelCount=Descriptor->second.Infos["Channel(s)"].To_int32u();
+            if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
+            {
+                if (Descriptor->second.Infos["Format_Settings_Endianness"]==_T("Big"))
+                    Parser->Endianess='B';
+                else
+                    Parser->Endianess='L';
+            }
+            else
+                Parser->Endianess='L';
         }
-        Parser->Endianess='L';
+        else
+            Parser->Endianess='L';
+
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
             {
