@@ -13,6 +13,7 @@ Version 0.7.52
 x DV: crash (division by zero) in some cases
 x MXF: Crash if AFD field has an invalid value
 x MXF: Wrong endianess for some big endian PCM streams
+x MXF: some MXF referencing files have wrong duration
 
 Version 0.7.51, 2011-11-11
 --------------

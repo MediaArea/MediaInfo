@@ -1732,7 +1732,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate)
         return;
 
     //Duration
-    if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1)
+    if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1 && (Component->second.SourcePackageID.hi || Component->second.SourcePackageID.lo))
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
 }
 
