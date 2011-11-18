@@ -616,6 +616,8 @@ void File_Mpegv::Streams_Fill()
             if ((Frame_Count<Frame_Count_Valid*10 && Unique) || Unique>2) //In order to accept some unsynch //TODO: change the method, synching with next I-Frame
                 GOPs.clear(); //Not a fixed GOP
         }
+        else if (TemporalReference.size()==1 && CodingType=="I" && Frame_Count>1)
+            GOPs.push_back(_T("N=1"));
         if (!GOPs.empty())
             Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOPs[0]);
     }
