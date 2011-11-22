@@ -854,7 +854,7 @@ void File_Gxf::map()
     Element_End();
 
     Element_Begin("Track Description");
-        int32u Stream_Video_FrameRate_Code=(int32u)-1;
+        int32u Stream_Video_FrameRate_Code=(int32u)-1, Stream_Video_FieldsPerFrame_Code=(int32u)-1;
         Get_B2 (SectionLength,                                  "Section Length");
         if (Element_Offset+SectionLength>=Element_Size)
             SectionLength=(int16u)(Element_Size-Element_Offset);
@@ -876,6 +876,8 @@ void File_Gxf::map()
             FILLING_BEGIN();
                 MediaType&=0x7F; //Remove the last bit
                 TrackID&=0x3F; //Remove the 2 last bits
+                Streams[TrackID].MediaType=MediaType;
+                Streams[TrackID].TrackID=TrackID;
                 if (Streams[TrackID].Parser==NULL)
                 {
                     Streams[TrackID].MediaType=MediaType;
@@ -1099,7 +1101,7 @@ void File_Gxf::map()
                                             ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FrameRate_Code=Streams[0x00].FrameRate_Code;
                                     if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Video)
                                         Stream_Video_FrameRate_Code=Streams[TrackID].FrameRate_Code;
-                                   }
+                                }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
                                 break;
@@ -1116,7 +1118,10 @@ void File_Gxf::map()
                                 {
                                     Get_B4 (Streams[TrackID].FieldsPerFrame_Code, "Content"); Param_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code)); Element_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code));
                                     if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Video)
+                                    {
+                                        Stream_Video_FieldsPerFrame_Code=Streams[TrackID].FieldsPerFrame_Code;
                                         Material_Fields_FieldsPerFrame=Streams[TrackID].FieldsPerFrame_Code;
+                                    }
                                     for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); TimeCode++)
                                         if (TrackID==TimeCode->first)
                                             ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FieldsPerFrame_Code=Streams[0x00].FieldsPerFrame_Code;
@@ -1143,15 +1148,32 @@ void File_Gxf::map()
                                       +float64_int64s(Frames*1000/FrameRate);
                 }
             }
-
-            //Filling missing frame rates for PCM
-            for (size_t Pos=0; Pos<Streams.size(); Pos++)
-                if (Gxf_FrameRate(Streams[Pos].FrameRate_Code)==0)
-                    Streams[Pos].FrameRate_Code=Stream_Video_FrameRate_Code;
         }
     Element_End();
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "Padding");
+
+    //Filling missing frame rates for PCM
+    for (size_t TrackID=0; TrackID<Streams.size(); TrackID++)
+    {
+        if (Gxf_FrameRate(Streams[TrackID].FrameRate_Code)==0)
+        {
+            Streams[TrackID].FrameRate_Code=Stream_Video_FrameRate_Code;
+            Streams[TrackID].FieldsPerFrame_Code=Stream_Video_FieldsPerFrame_Code;
+        }
+        if (Material_Fields_First_IsValid && Gxf_MediaTypes_StreamKind(Streams[TrackID].MediaType)==Stream_Audio) //In case of offset, MediaFieldNumber-Material_Fields_First is not well rounded
+        {
+            float64 Temp=((float64)Material_Fields_First/Streams[TrackID].FieldsPerFrame_Code)/Gxf_FrameRate(Streams[TrackID].FrameRate_Code);
+            Temp*=48000; //TODO: find where this piece of info is available
+            Temp/=32768;
+            Temp-=(int64u)(Temp);
+            if (Temp)
+            {
+                Temp=((float64)32768)/48000*(1-Temp); //Duration of the first frame not counted
+                Streams[TrackID].FirstFrameDuration=float64_int64s(Temp*1000000000);
+            }
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1160,17 +1182,12 @@ void File_Gxf::media()
     Element_Name("media");
 
     //Parsing
-    #if MEDIAINFO_SEEK || MEDIAINFO_DEMUX
-        int32u MediaFieldNumber;
-    #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+    int32u  MediaFieldNumber;
+    int8u   MediaType;
     Element_Begin("Preamble");
-        Skip_B1(                                                "Media type");
+        Get_B1 (MediaType,                                      "Media type");
         Get_B1 (TrackNumber,                                    "Track number");
-        #if MEDIAINFO_DEMUX
-            Get_B4 (MediaFieldNumber,                           "Media field number");
-        #else //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
-            Skip_B4(                                            "Media field number");
-        #endif //MEDIAINFO_SEEK || MEDIAINFO_DEMUX
+        Get_B4 (MediaFieldNumber,                               "Media field number");
         Skip_B1(                                                "Field information");
         Skip_B1(                                                "Field information");
         Skip_B1(                                                "Field information");
@@ -1181,6 +1198,21 @@ void File_Gxf::media()
         TrackNumber&=0x3F;
     Element_End();
     Element_Info(TrackNumber);
+
+    //Managing audio 32768-sample DTS synchro
+    if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Audio && MediaFieldNumber==Material_Fields_First && Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code) && Streams[TrackNumber].FirstFrameDuration)
+    {
+        float64 Temp=((float64)MediaFieldNumber/Material_Fields_FieldsPerFrame)/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code);
+        Temp*=48000; //TODO: find where this piece of info is available
+        Temp/=32768;
+        Temp-=(int64u)(Temp);
+        Temp*=(Element_Size-Element_Offset);
+        int64u ByteOffset=(int64u)Temp;
+        int64u SampleSize=(Element_Size-Element_Offset)/32768;
+        ByteOffset/=SampleSize; //Need to be in sync with sample size
+        ByteOffset*=SampleSize;
+        Element_Offset+=ByteOffset;
+    }
 
     #if MEDIAINFO_SEEK
         if (!IFrame_IsParsed)
@@ -1229,7 +1261,13 @@ void File_Gxf::media()
                     if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
                     {
                         Frame_Count_NotParsedIncluded=(int64u)((MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code)*48000/32768/Material_Fields_FieldsPerFrame); //A block is 32768 samples at 48 KHz
-                        FrameInfo.DTS=FrameInfo.PTS=TimeCode_First+Frame_Count_NotParsedIncluded*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
+                        FrameInfo.PTS=TimeCode_First+Frame_Count_NotParsedIncluded*1000000000*32768/48000; //A block is 32768 samples at 48 KHz
+                        if (Material_Fields_First_IsValid && MediaFieldNumber!=Material_Fields_First && Streams[TrackNumber].FirstFrameDuration) //In case of offset, MediaFieldNumber-Material_Fields_First is not well rounded
+                        {
+                            FrameInfo.PTS+=Streams[TrackNumber].FirstFrameDuration;
+                            Frame_Count_NotParsedIncluded++; 
+                        }
+                        FrameInfo.DTS=FrameInfo.PTS;
                     }
                     else
                         FrameInfo.DTS=FrameInfo.PTS=(int64u)-1;

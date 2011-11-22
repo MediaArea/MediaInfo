@@ -95,6 +95,7 @@ private :
     struct stream
     {
         File__Analyze* Parser;
+        int64u FirstFrameDuration; //In case of audio, indicates the duration of the first frame
         stream_t StreamKind;
         size_t StreamPos;
         int32u TimeStamp_Start;
@@ -115,6 +116,7 @@ private :
         stream()
         {
             Parser=NULL;
+            FirstFrameDuration=0;
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             Searching_Payload=false;
