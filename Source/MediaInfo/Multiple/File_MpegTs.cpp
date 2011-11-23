@@ -1788,14 +1788,14 @@ void File_MpegTs::Header_Parse_AdaptationField()
     {
         int64u Element_Pos_Save=Element_Offset;
         Element_Begin("adaptation_field");
-        int8u Adaptation_Size;
-        Get_B1 (Adaptation_Size,                                    "adaptation_field_length");
-        if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
+        int8u adaptation_field_length;
+        Get_B1 (adaptation_field_length,                            "adaptation_field_length");
+        if (adaptation_field_length>188-4-1) //TS size - header - adaptation_field_length
         {
-            Adaptation_Size=188-4-1;
+            adaptation_field_length=188-4-1;
             Skip_XX(188-4-1,                                        "stuffing_bytes");
         }
-        else if (Adaptation_Size>0)
+        else if (adaptation_field_length>0)
         {
             bool PCR_flag, OPCR_flag, splicing_point_flag, transport_private_data_flag, adaptation_field_extension_flag;
             BS_Begin();
@@ -1894,16 +1894,16 @@ void File_MpegTs::Header_Parse_AdaptationField()
             {
                 int8u transport_private_data_length;
                 Get_B1 (transport_private_data_length,              "transport_private_data_length");
-                if (Element_Offset+transport_private_data_length<=Element_Pos_Save+1+Adaptation_Size)
+                if (Element_Offset+transport_private_data_length<=Element_Pos_Save+1+adaptation_field_length)
                     Skip_XX(transport_private_data_length,          "transport_private_data");
                 else
-                    Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
+                    Skip_XX(Element_Pos_Save+1+adaptation_field_length-Element_Offset, "problem");
             }
             if (adaptation_field_extension_flag)
             {
                 int8u adaptation_field_extension_length;
                 Get_B1 (adaptation_field_extension_length,          "adaptation_field_extension_length");
-                if (Element_Offset+adaptation_field_extension_length<=Element_Pos_Save+1+Adaptation_Size)
+                if (Element_Offset+adaptation_field_extension_length<=Element_Pos_Save+1+adaptation_field_length)
                 {
                     Element_Begin("adaptation_field_extension", adaptation_field_extension_length);
                     int64u End=Element_Offset+adaptation_field_extension_length;
@@ -1950,22 +1950,22 @@ void File_MpegTs::Header_Parse_AdaptationField()
                     Element_End();
                 }
                 else
-                    Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
+                    Skip_XX(Element_Pos_Save+1+adaptation_field_length-Element_Offset, "problem");
             }
         }
 
-        if (Element_Offset<Element_Pos_Save+1+Adaptation_Size)
-            Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "stuffing_bytes");
-        Element_End(1+Adaptation_Size);
+        if (Element_Offset<Element_Pos_Save+1+adaptation_field_length)
+            Skip_XX(Element_Pos_Save+1+adaptation_field_length-Element_Offset, "stuffing_bytes");
+        Element_End(1+adaptation_field_length);
     }
     else
     {
     #endif //MEDIAINFO_TRACE
-        int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
+        int8u adaptation_field_length=Buffer[Buffer_Offset+BDAV_Size+4];
         #ifdef MEDIAINFO_MPEGTS_PCR_YES
-            if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
-                Adaptation_Size=188-4-1;
-            else if (Adaptation_Size)
+            if (adaptation_field_length>188-4-1) //TS size - header - adaptation_field_length
+                adaptation_field_length=188-4-1;
+            else if (adaptation_field_length)
             {
                 bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
                 if (PCR_flag)
@@ -2034,7 +2034,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 }
             }
         #endif //MEDIAINFO_MPEGTS_PCR_YES
-        Element_Offset+=1+Adaptation_Size;
+        Element_Offset+=1+adaptation_field_length;
     #if MEDIAINFO_TRACE
     }
     #endif //MEDIAINFO_TRACE

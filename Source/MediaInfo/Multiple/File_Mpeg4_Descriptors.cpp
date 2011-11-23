@@ -295,6 +295,14 @@ const char* Mpeg4_Descriptors_GraphicsProfileLevelIndication(int8u ID)
 File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 :File__Analyze()
 {
+    //Configuration
+    ParserName=_T("MPEG-4 Descriptor");
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Mpeg4_Desc;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
+    IsRawStream=true;
+
     //In
     KindOfStream=Stream_Max;
     Parser_DoNotFreeIt=false;
@@ -744,6 +752,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             default: ;
         }
 
+        Element_Code=(int64u)-1;
         Open_Buffer_Init(Parser);
 
         Element_ThisIsAList();
@@ -771,6 +780,8 @@ void File_Mpeg4_Descriptors::Descriptor_05()
                                 break;
             default: ;
         }
+
+        Element_Code=(int64u)-1;
         Open_Buffer_Init(Parser);
     }
 

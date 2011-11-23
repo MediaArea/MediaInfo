@@ -1378,7 +1378,12 @@ void File_Mpeg4::Descriptors()
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
     MI.Parser_DoNotFreeIt=true;
+
+    int64u Elemen_Code_Save=Element_Code;
+    Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
     Open_Buffer_Init(&MI);
+    Element_Code=Elemen_Code_Save;
+    mdat_MustParse=true; //Data is in MDAT
 
     //Parsing
     Open_Buffer_Continue(&MI);

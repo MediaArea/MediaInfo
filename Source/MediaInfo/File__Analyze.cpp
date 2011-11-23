@@ -247,6 +247,8 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
         }
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_EVENTS
+        if (StreamIDs_Size && IsRawStream)
+            StreamIDs[StreamIDs_Size-1]=(int64u)-1;
         if (!IsSub)
         {
             int64u SubFile_StreamID=Config->SubFile_StreamID_Get();
@@ -2679,7 +2681,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
     #if MEDIAINFO_EVENTS
         //Demux
         if (StreamIDs_Size)
-            StreamIDs[StreamIDs_Size-1]=(IsSub && IsRawStream)?(int64u)-1:Element_Code;
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
         struct MediaInfo_Event_Global_Demux_3 Event;
         if (StreamIDs_Size && StreamIDs_Size<17)
              Event.EventCode=MediaInfo_EventCode_Create(ParserIDs[StreamIDs_Size-1], MediaInfo_Event_Global_Demux, 3);
@@ -2710,6 +2712,8 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_1), IsSub?File_Name_WithoutDemux:File_Name);
         Event.EventCode&=0xFFFFFF00; //Force to version 0
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_Demux_0), IsSub?File_Name_WithoutDemux:File_Name);
+        if (StreamIDs_Size)
+            StreamIDs[StreamIDs_Size-1]=(int64u)-1;
         if (Config->NextPacket_Get())
             Config->Demux_EventWasSent=true;
     #endif //MEDIAINFO_EVENTS
@@ -2726,6 +2730,8 @@ void File__Analyze::Demux_UnpacketizeContainer_Demux (bool random_access)
     StreamIDs_Size--;
     Demux(Buffer+Buffer_Offset, Demux_Offset-Buffer_Offset, ContentType_MainStream);
     StreamIDs_Size++;
+    if (StreamIDs_Size>=2)
+        StreamIDs[StreamIDs_Size-2]=Element_Code;
     Demux_UnpacketizeContainer_Demux_Clear();
 }
 

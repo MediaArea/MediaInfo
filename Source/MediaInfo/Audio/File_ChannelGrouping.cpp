@@ -56,6 +56,7 @@ File_ChannelGrouping::File_ChannelGrouping()
     //Configuration
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_ChannelGrouping;
+        StreamIDs_Width[0]=0;
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         Demux_Level=2; //Container
@@ -150,6 +151,7 @@ void File_ChannelGrouping::Read_Buffer_Init()
         Common->Channels.resize(Channel_Total);
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
             Common->Channels[Pos]=new common::channel;
+        Element_Code=(int64u)-1;
         Open_Buffer_Init(Common->Parser);
     }
 

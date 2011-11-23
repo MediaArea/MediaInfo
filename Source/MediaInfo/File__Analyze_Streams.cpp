@@ -211,6 +211,8 @@ size_t File__Analyze::Stream_Erase (stream_t KindOfStream, size_t StreamPos)
 //---------------------------------------------------------------------------
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring &Value, bool Replace)
 {
+    if (Value==_T("3379133"))
+        int A=0;
     //Integrity
     if (!Status[IsAccepted] || StreamKind>Stream_Max || Parameter==(size_t)-1)
         return;
@@ -631,11 +633,12 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float32 BitRate=Retrieve(StreamKind, StreamPos, "BitRate").To_float32();
             float32 BitRate_Maximum=Retrieve(StreamKind, StreamPos, "BitRate_Maximum").To_float32();
-            if (BitRate_Maximum>BitRate*0.95 && BitRate_Maximum<BitRate)
+            if (BitRate_Maximum>BitRate*0.95 && BitRate_Maximum<BitRate*1.01)
             {
                 Ztring Temp=Retrieve(StreamKind, StreamPos, "BitRate_Maximum");
                 Clear(StreamKind, StreamPos, "BitRate_Maximum");
                 Fill(StreamKind, StreamPos, "BitRate", Temp, true);
+                Fill(StreamKind, StreamPos, "BitRate_Mode", "CBR", Unlimited, true, true);
             }
         }
 

@@ -1054,6 +1054,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
                 case 4  : return _T("Problem during IBI file parsing");
                 #endif //MEDIAINFO_IBI
                 case 5  : return _T("Invalid ID");
+                case 6  : return _T("Internal error");
                 #if !MEDIAINFO_IBI
                 case (size_t)-2 : return _T("Feature not supported / IBI support disabled due to compilation options");
                 #endif //MEDIAINFO_IBI
