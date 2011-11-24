@@ -323,9 +323,9 @@ void File_DvDif::Streams_Fill()
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "DV");
     Fill(Stream_Video, 0, Video_Codec, "DV");
-    Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
     Fill(Stream_Video, 0, Video_BitDepth, 8);
+    bool IsHd=false;
     switch (video_source_stype)
     {
         case 0x00 :
@@ -337,10 +337,12 @@ void File_DvDif::Streams_Fill()
         case 0x15 :
                     Fill(Stream_Video, 0, Video_Width, system?1440:1280);
                     Fill(Stream_Video, 0, Video_Height, video_source_stype==0x14?1080:1035);
+                    IsHd=true;
                     break;
         case 0x18 :
                     Fill(Stream_Video, 0, Video_Width, 960);
                     Fill(Stream_Video, 0, Video_Height, 720);
+                    IsHd=true;
                     break;
         default   : ;
     }
@@ -411,7 +413,7 @@ void File_DvDif::Streams_Fill()
     else //DV 50 Mbps and 100 Mbps
         Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");
 
-    if (FrameSize_Theory)
+    if (FrameSize_Theory && !IsHd)
     {
         float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*8;
         if (OverallBitRate>27360000 && OverallBitRate<=30240000) OverallBitRate=DSF?28800000:28771229;
@@ -441,26 +443,29 @@ void File_DvDif::Streams_Fill()
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
 
     //Profile
-    if (FSC_WasSet)
+    if (FSC_WasSet || IsHd)
     {
-        if (FSP_WasNotSet)
+        if (FSP_WasNotSet || IsHd)
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO HD");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO HD");
             Fill(Stream_Video, 0, Video_BitDepth, 10, 10, true); //MXF files say that DVCPRO HD are 10 bits, exact?
-            Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR", Unlimited, true, true);
         }
         else
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO 50");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO 50");
+            Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
         }
     }
     else if (audio_locked || (Retrieve(Stream_Video, 0, Video_Standard)==_T("PAL") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:1:1")))
     {
         Fill(Stream_General, 0, General_Format_Commercial_IfAny, "DVCPRO");
         Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "DVCPRO");
+        Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     }
+    else
+        Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
 
     //Delay
     if (TimeCode_First!=(int64u)-1)
@@ -808,7 +813,7 @@ size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         
         TotalFrames=Ztring(MI.Get(Stream_Video, 0, Video_FrameCount)).To_int64u();
         int64u VideoBitRate=Ztring(MI.Get(Stream_Video, 0, Video_BitRate)).To_int64u();
-        if (VideoBitRate>=50000000)
+        if (VideoBitRate==0 || VideoBitRate>=50000000)
         {
             FSC_WasSet=true;
             FSP_WasNotSet=true;

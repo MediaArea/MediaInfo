@@ -12,6 +12,7 @@ Version 0.7.52
 + MXF with referenced files: if the referenced file is not available, trying to open local files
 + MPEG Video: GOP size for I-Frame only streams
 x DV: crash (division by zero) in some cases
+x DV: DVCPRO HD was sometimes not detected (low bitrate)
 x MXF: Crash if AFD field has an invalid value
 x MXF: Wrong endianess for some big endian PCM streams
 x MXF: some MXF referencing files have wrong duration
