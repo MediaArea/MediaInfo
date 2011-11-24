@@ -1580,15 +1580,27 @@ void File_Mpegv::slice_start()
             BVOPsSinceLastRefFrames=0;
         if (RefFramesCount<2 && (picture_coding_type==1 || picture_coding_type==2))
             RefFramesCount++;
+        int64u tc_ToAdd=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+        if (repeat_first_field)
+        {
+            if (progressive_sequence)
+            {
+                tc_ToAdd+=tc;
+                if (top_field_first)
+                    tc_ToAdd+=tc;
+            }
+            else
+                tc_ToAdd+=tc/2;
+        }
         if (FrameInfo.DTS!=(int64u)-1)
         {
-            FrameInfo.DTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+            FrameInfo.DTS+=tc_ToAdd;
             if (DTS_End<FrameInfo.DTS)
                 DTS_End=FrameInfo.DTS;
         }
         if (FrameInfo.PTS!=(int64u)-1)
         {
-            FrameInfo.PTS+=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+            FrameInfo.PTS+=tc_ToAdd;
             if (PTS_End<FrameInfo.PTS)
                 PTS_End=FrameInfo.PTS;
         }
