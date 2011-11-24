@@ -615,20 +615,26 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                             return (size_t)-1; //Not supported
 
                         int64u Delay;
-                        int64u TimeCode_First=(int64u)-1;
-                        for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); TimeCode++)
-                            if (TimeCode->second!=(int64u)-1)
+                        if (TimeCodes.empty())
+                        {
+                            if (Material_Fields_First_IsValid)
+                                Delay=float64_int64s(((float64)(Material_Fields_First/Material_Fields_FieldsPerFrame))/Gxf_FrameRate(Streams[0x00].FrameRate_Code)*1000000000);
+                            else
+                                Delay=0;
+                        }
+                        else
+                            for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); TimeCode++)
                             {
-                                TimeCode_First=TimeCode->second;
+                                int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parser)->TimeCode_First;
+                                if (TimeCode_First==(int64u)-1)
+                                    TimeCode_First=TimeCode->second;
+                                if (TimeCode_First==(int64u)-1)
+                                    Delay=0;
+                                else
+                                    Delay=TimeCode_First*1000000;
                                 break;
                             }
-                        if (TimeCode_First!=(int64u)-1 && (TimeCode_First || !Material_Fields_First_IsValid)) //(if TimeCode is 0 and first field info is not 0, we prefer field info)
-                            Delay=TimeCode_First;
-                        else if (Material_Fields_First_IsValid)
-                            Delay=float64_int64s(((float64)(Material_Fields_First/Material_Fields_FieldsPerFrame))/Gxf_FrameRate(Streams[0x00].FrameRate_Code)*1000000000);
-                        else
-                            Delay=0;
-
+                                
                         if (Value<Delay)
                             Value=0;
                         else
@@ -650,12 +656,12 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
 
                     for (size_t Pos=0; Pos<Seeks.size(); Pos++)
                     {
-                        if (Value<=Seeks[Pos].FrameNumber)
+                        if (Material_Fields_First+Value<=Seeks[Pos].FrameNumber)
                         {
-                            if (Value<Seeks[Pos].FrameNumber && Pos)
+                            if (Material_Fields_First+Value<Seeks[Pos].FrameNumber && Pos)
                                 Pos--;
                             Open_Buffer_Unsynch();
-                            GoTo(Seeks[Pos].StreamOffset*1024);
+                            GoTo(((int64u)Seeks[Pos].StreamOffset)*1024);
 
                             return 1;
                         }
