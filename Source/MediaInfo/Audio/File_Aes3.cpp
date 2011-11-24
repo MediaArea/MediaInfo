@@ -192,6 +192,7 @@ File_Aes3::File_Aes3()
     From_Raw=false;
     From_MpegPs=false;
     From_Aes3=false;
+    Endianess=0x00;
 
     //Out
     FrameRate=0;

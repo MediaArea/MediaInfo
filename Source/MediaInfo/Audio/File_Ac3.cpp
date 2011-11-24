@@ -115,6 +115,10 @@ extern const int8u AC3_Channels[]=
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Ac3.h"
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
+#endif //MEDIAINFO_EVENTS
 #include <vector>
 #include <cmath>
 using namespace ZenLib;
@@ -508,6 +512,10 @@ File_Ac3::File_Ac3()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Ac3;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(8); //Stream
     #endif //MEDIAINFO_TRACE
