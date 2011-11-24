@@ -1048,10 +1048,14 @@ void File_Mxf::Streams_Finish_Track(int128u TrackUID)
     if (Track==Tracks.end() || Track->second.Stream_Finish_Done)
         return;
 
+    StreamKind_Last=Stream_Max;
+    StreamPos_Last=(size_t)-1;
+
     Streams_Finish_Essence(Track->second.TrackNumber, TrackUID);
 
     //Sequence
-    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate);
+    if (StreamKind_Last!=Stream_Max)
+        Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate);
 
     //Done
     Track->second.Stream_Finish_Done=true;
@@ -1732,7 +1736,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate)
         return;
 
     //Duration
-    if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1 && (Component->second.SourcePackageID.hi || Component->second.SourcePackageID.lo))
+    if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1)
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
 }
 
