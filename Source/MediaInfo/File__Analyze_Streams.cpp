@@ -631,7 +631,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float32 BitRate=Retrieve(StreamKind, StreamPos, "BitRate").To_float32();
             float32 BitRate_Maximum=Retrieve(StreamKind, StreamPos, "BitRate_Maximum").To_float32();
-            if (BitRate_Maximum>BitRate*0.95 && BitRate_Maximum<BitRate)
+            if (BitRate>BitRate_Maximum*0.99 && BitRate<BitRate_Maximum*1.01)
             {
                 Ztring Temp=Retrieve(StreamKind, StreamPos, "BitRate_Maximum");
                 Clear(StreamKind, StreamPos, "BitRate_Maximum");
