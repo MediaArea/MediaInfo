@@ -98,6 +98,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
         File_DvDif_Analysis=false;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    File_GrowingFile_Delay=10;
     #if defined(MEDIAINFO_LIBMMS_YES)
         File_Mmsh_Describe_Only=false;
     #endif //defined(MEDIAINFO_LIBMMS_YES)
@@ -537,6 +538,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
             return _T("DVDIF Analysis is disabled due to compilation options");
         #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    }
+    else if (Option_Lower==_T("file_growingfile_delay"))
+    {
+        File_GrowingFile_Delay_Set(Ztring(Value).To_float64());
+        return Ztring();
+    }
+    else if (Option_Lower==_T("file_growingfile_delay_get"))
+    {
+        return Ztring::Ztring().From_Number(File_GrowingFile_Delay_Get());
     }
     else if (Option_Lower==_T("file_curl"))
     {
@@ -1414,6 +1424,20 @@ bool MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Get ()
     return Temp;
 }
 #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_GrowingFile_Delay_Set (float64 NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_GrowingFile_Delay=NewValue;
+}
+
+float64 MediaInfo_Config_MediaInfo::File_GrowingFile_Delay_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    bool Temp=File_GrowingFile_Delay;
+    return Temp;
+}
 
 //---------------------------------------------------------------------------
 #if defined(MEDIAINFO_LIBCURL_YES)

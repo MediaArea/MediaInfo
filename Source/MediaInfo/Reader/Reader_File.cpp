@@ -284,7 +284,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
             if (MI->Config.File_IsGrowing && F.Position_Get()>=MI->Config.File_Size)
             {
-                for (size_t CountOfSeconds=0; CountOfSeconds<10; CountOfSeconds++)
+                for (size_t CountOfSeconds=0; CountOfSeconds<(size_t)MI->Config.File_GrowingFile_Delay_Get(); CountOfSeconds++)
                 {
                     int64u FileSize_New=F.Size_Get();
                     if (MI->Config.File_Size!=FileSize_New)

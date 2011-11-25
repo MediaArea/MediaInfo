@@ -188,6 +188,8 @@ public :
     void          File_DvDif_Analysis_Set (bool NewValue);
     bool          File_DvDif_Analysis_Get ();
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    void          File_GrowingFile_Delay_Set(float64 Value);
+    float64       File_GrowingFile_Delay_Get();
     #if defined(MEDIAINFO_LIBCURL_YES)
     void          File_Curl_Set (const Ztring &NewValue);
     void          File_Curl_Set (const Ztring &Field, const Ztring &NewValue);
@@ -291,6 +293,7 @@ private :
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     bool                    File_DvDif_Analysis;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    float64                 File_GrowingFile_Delay;
     #if defined(MEDIAINFO_LIBMMS_YES)
     bool                    File_Mmsh_Describe_Only;
     #endif //defined(MEDIAINFO_LIBMMS_YES)
