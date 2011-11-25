@@ -1435,7 +1435,7 @@ void MediaInfo_Config_MediaInfo::File_GrowingFile_Delay_Set (float64 NewValue)
 float64 MediaInfo_Config_MediaInfo::File_GrowingFile_Delay_Get ()
 {
     CriticalSectionLocker CSL(CS);
-    bool Temp=File_GrowingFile_Delay;
+    float64 Temp=File_GrowingFile_Delay;
     return Temp;
 }
 
