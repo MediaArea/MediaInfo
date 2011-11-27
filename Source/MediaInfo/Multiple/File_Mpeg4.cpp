@@ -287,7 +287,7 @@ void File_Mpeg4::Streams_Finish()
         }
 
         //Coherency testing (or fragmented streams)
-        if (!IsFragmented && TimeScale && Temp->second.TimeCode==NULL && TimeScale && Temp->second.mdhd_TimeScale)
+        if (!IsFragmented && TimeScale && Temp->second.TimeCode==NULL && Temp->second.mdhd_TimeScale)
         {
             float32 Duration_tkhd_H=((float32)(Temp->second.tkhd_Duration+1))/TimeScale;
             float32 Duration_tkhd_L=((float32)(Temp->second.tkhd_Duration-1))/TimeScale;
