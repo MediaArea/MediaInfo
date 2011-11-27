@@ -3126,6 +3126,18 @@ void File_Mxf::Data_Parse()
                         Essence->second.Parser->FrameInfo.PTS=FrameInfo.PTS;
                     if (FrameInfo.DUR!=(int64u)-1)
                         Essence->second.Parser->FrameInfo.DUR=FrameInfo.DUR;
+                    if (Essence->second.Parser->ParserName==_T("Ancillary") && (((File_Ancillary*)Essence->second.Parser)->FrameRate==0 || ((File_Ancillary*)Essence->second.Parser)->AspectRatio==0))
+                    {
+                        //Configuring with video info
+                        for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                            if (Descriptor->second.StreamKind==Stream_Video)
+                            {
+                                ((File_Ancillary*)Essence->second.Parser)->HasBFrames=Descriptor->second.HasBFrames;
+                                ((File_Ancillary*)Essence->second.Parser)->AspectRatio=Descriptor->second.DisplayAspectRatio;
+                                ((File_Ancillary*)Essence->second.Parser)->FrameRate=Descriptor->second.SampleRate;
+                                break;
+                            }
+                    }
                     Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
                     if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1)
                         Essence->second.Frame_Count_NotParsedIncluded++;
@@ -4071,7 +4083,12 @@ void File_Mxf::AncPacketsDescriptor()
     }
 
     if (Descriptors[InstanceUID].Type==descriptor::Type_Unknown)
+    {
         Descriptors[InstanceUID].Type=descriptor::Type_AncPackets;
+        if (Streams_Count==(size_t)-1)
+            Streams_Count=0;
+        Streams_Count++;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -5032,7 +5049,10 @@ void File_Mxf::GenericPictureEssenceDescriptor_AspectRatio()
 
     FILLING_BEGIN();
         if (Data)
+        {
+            Descriptors[InstanceUID].DisplayAspectRatio=Data;
             Descriptors[InstanceUID].Infos["DisplayAspectRatio"].From_Number(Data, 3);
+        }
     FILLING_END();
 }
 
@@ -5786,7 +5806,12 @@ void File_Mxf::MPEG2VideoDescriptor_MaxGOP()
 void File_Mxf::MPEG2VideoDescriptor_BPictureCount()
 {
     //Parsing
-    Info_B2(Data,                                               "Data"); Element_Info(Data);
+    int16u Data;
+    Get_B2 (Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].HasBFrames=Data?true:false;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

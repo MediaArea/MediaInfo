@@ -523,6 +523,7 @@ protected :
         stream_t StreamKind;
         size_t   StreamPos;
         float64 SampleRate;
+        float64 DisplayAspectRatio;
         int128u InstanceUID;
         int128u EssenceContainer;
         int128u EssenceCompression;
@@ -553,6 +554,7 @@ protected :
             Type_AncPackets,
         };
         type Type;
+        bool HasBFrames;
         #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             int32u ByteRate;
         #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
@@ -562,6 +564,7 @@ protected :
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             SampleRate=0;
+            DisplayAspectRatio=0;
             InstanceUID.hi=(int64u)-1;
             InstanceUID.lo=(int64u)-1;
             EssenceContainer.hi=(int64u)-1;
@@ -583,6 +586,7 @@ protected :
             Duration=(int64u)-1;
             ActiveFormat=(int8u)-1;
             Type=Type_Unknown;
+            HasBFrames=false;
             #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 ByteRate=(int32u)-1;
             #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK

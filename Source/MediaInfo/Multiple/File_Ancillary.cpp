@@ -158,6 +158,7 @@ File_Ancillary::File_Ancillary()
     //In
     WithTenBit=false;
     WithChecksum=false;
+    HasBFrames=false;
     AspectRatio=0;
     FrameRate=0;
 
@@ -304,7 +305,7 @@ void File_Ancillary::Read_Buffer_Continue()
                                                 Open_Buffer_Init(Cdp_Parser);
                                             }
                                             Demux(Payload, (size_t)DataCount, ContentType_MainStream);
-                                            if (AspectRatio && FrameRate)
+                                            if (!HasBFrames && AspectRatio && FrameRate)
                                             {
                                                 if (!Cdp_Parser->Status[IsFinished])
                                                 {

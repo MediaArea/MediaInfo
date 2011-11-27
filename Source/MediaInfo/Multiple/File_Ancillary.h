@@ -44,6 +44,7 @@ public :
     //In
     bool    WithTenBit;
     bool    WithChecksum;
+    bool    HasBFrames;
     float32 AspectRatio;
     float64 FrameRate;
 
