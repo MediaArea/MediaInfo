@@ -17,6 +17,7 @@ x MXF: Crash if AFD field has an invalid value
 x MXF: Wrong endianess for some big endian PCM streams
 x MXF: some MXF referencing files have wrong duration
 x MXF: duration was wrong with some specific files
+x DVD-Video: detection of 20-bit and 24-bit PCM
 
 Version 0.7.51, 2011-11-11
 --------------
