@@ -92,6 +92,7 @@ protected :
     //Elements - Sub
     void Element();
     void timecode();
+    void binary_group();
     void audio_source();
     void audio_sourcecontrol();
     void audio_recdate();

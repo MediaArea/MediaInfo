@@ -1220,6 +1220,7 @@ void File_DvDif::Element()
     switch(PackType)
     {
         case 0x13 : timecode(); break;
+        case 0x14 : binary_group(); break;
         case 0x50 : audio_source(); break;
         case 0x51 : audio_sourcecontrol(); break;
         case 0x52 : audio_recdate(); break;
@@ -1238,6 +1239,35 @@ void File_DvDif::Element()
     }
     Element_End();
 }
+
+//---------------------------------------------------------------------------
+void File_DvDif::binary_group()
+{
+    Element_Name("binary_group");
+
+    if (Buffer[Buffer_Offset+(size_t)Element_Offset  ]==0xFF
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+1]==0xFF
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+2]==0xFF
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+3]==0xFF
+    )
+    {
+        Skip_XX(4,                                              "All one");
+        return;
+    }
+
+    //Parsing
+    BS_Begin();
+    Skip_S1(4,                                                  "Binary group 2");
+    Skip_S1(4,                                                  "Binary group 1");
+    Skip_S1(4,                                                  "Binary group 4");
+    Skip_S1(4,                                                  "Binary group 3");
+    Skip_S1(4,                                                  "Binary group 6");
+    Skip_S1(4,                                                  "Binary group 5");
+    Skip_S1(4,                                                  "Binary group 8");
+    Skip_S1(4,                                                  "Binary group 7");
+    BS_End();
+}
+
 
 //---------------------------------------------------------------------------
 void File_DvDif::timecode()
