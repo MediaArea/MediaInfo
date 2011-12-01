@@ -1034,19 +1034,19 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     {
         if (Replace)
         {
-            size_t Pos_ToReplace=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_UTF8(Parameter), Info_Name);
+            size_t Pos_ToReplace=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_ISO_8859_1(Parameter), Info_Name);
             if (Pos_ToReplace!=(size_t)-1)
                 (*Stream_More)[StreamKind][StreamPos].erase((*Stream_More)[StreamKind][StreamPos].begin()+Pos_ToReplace); //Empty value --> remove the line
         }
     }
     else
     {
-        Ztring &Target=(*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Text);
+        Ztring &Target=(*Stream_More)[StreamKind][StreamPos](Ztring().From_ISO_8859_1(Parameter), Info_Text);
         if (Target.empty() || Replace)
         {
             Target=Value; //First value
-            (*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Name_Text)=MediaInfoLib::Config.Language_Get(Ztring().From_Local(Parameter));
-            (*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Options)=_T("Y NT");
+            (*Stream_More)[StreamKind][StreamPos](Ztring().From_ISO_8859_1(Parameter), Info_Name_Text)=MediaInfoLib::Config.Language_Get(Ztring().From_Local(Parameter));
+            (*Stream_More)[StreamKind][StreamPos](Ztring().From_ISO_8859_1(Parameter), Info_Options)=_T("Y NT");
         }
         else
         {

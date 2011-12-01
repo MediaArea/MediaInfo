@@ -296,6 +296,16 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                     Nom.FindAndReplace(_T(","), _T("_"), 0, Ztring_Recursive);
                     Nom.FindAndReplace(_T(":"), _T("_"), 0, Ztring_Recursive);
                     Nom.FindAndReplace(_T("@"), _T("_"), 0, Ztring_Recursive);
+                    size_t Nom_Pos=0;
+                    while (Nom_Pos<Nom.size())
+                    {
+                        if (!(Nom[Nom_Pos]>=_T('A') && Nom[Nom_Pos]<=_T('Z'))
+                         && !(Nom[Nom_Pos]>=_T('a') && Nom[Nom_Pos]<=_T('z'))
+                         && !(Nom[Nom_Pos]==_T('_') && Nom_Pos)) //No numeric value as first char
+                            Nom.erase(Nom_Pos, 1);
+                        else
+                            Nom_Pos++;
+                    }
                     if (Nom.empty())
                         Nom="Unknown";
                     Valeur.FindAndReplace(_T("\""), _T("&quot;"), 0, Ztring_Recursive);
