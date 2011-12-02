@@ -239,7 +239,7 @@ Compression_Mode;压缩模式
 Compression_Mode_Lossless;无损
 Compression_Mode_Lossy;有损压缩
 Compression_Ratio;压缩比
-Compilation
+Compilation;
 Conductor;指挥
 Container and general information;文件格式和一般信息
 ContentType;内容类型
@@ -504,7 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;访问网站
-Grouping
+Grouping;
 h;小时
 Header file;创建头文件
 Height;画面高度

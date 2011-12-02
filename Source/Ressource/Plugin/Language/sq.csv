@@ -175,7 +175,7 @@ Author;Autori
 BarCode;BarCode
 Basic;Kryesor
 Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...) 
-BitDepth
+BitDepth;
 BitRate;Raporti i bitit
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabël
 BitRate_Nominal;Raporti nominal i bitit
 Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
-BufferSize
+BufferSize;
 Cancel;Anulo
 Channel(s);Kanale
 ChannelPositions;Pozicionet e kanalit
@@ -204,7 +204,7 @@ Choose filename;Zgjedh emrin e skedës së dëshiruar
 Choose language;Zgjedh gjuhën e dëshiruar
 Choregrapher;Koreografi
 Chroma;Kroma
-ChromaSubsampling
+ChromaSubsampling;
 Close;Mbyll
 Close all before open;Mbyll infot para hapjes
 Codec;Kodeku
@@ -229,17 +229,17 @@ CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
 Collection;Koleksioni
 Colorimetry;Kolorimetria
-ColorSpace
+ColorSpace;
 colour_primaries;Primarët e ngjyrës
 Comment;Komenti
 CommissionedBy;Autorizuar nga
 CompleteName;Emri i plotë
 Composer;Kompozitori
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Raporti i kompresimit
-Compilation
+Compilation;
 Conductor;Dirigjenti
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
@@ -260,9 +260,9 @@ Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
 Delay;Vonesa
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Fshij
 Description;Përshkrimi
 Digitized_Date;Data e shifruar
@@ -314,7 +314,7 @@ Folder (Recursively);Dosje (Rekursive)
 Folder_Hint;Studio një dosje
 FolderName;Emri i dosjes
 Format;Formati
-Format_Commercial
+Format_Commercial;
 Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
 Format_Profile;Profili i formatit
@@ -340,8 +340,8 @@ Format_Settings_Pulldown;Vendosjet e formatit, Pulldown
 Format_Settings_Mode;Mënyra
 Format_Settings_FrameMode;Mënyra e Kuadrit
 Format_Settings_Emphasis;Emfaza
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Versioni i formatit
 Format_Url;Lidhësi në rrjetë i formatit
 FrameCount;Numri i kuadrove
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Shko te trualli në rrjetë
-Grouping
+Grouping;
 h;h
 Header file;Krijo një kokë skede
 Height;Lartësia
-Height_Original
+Height_Original;
 Help;Ndihmë
 Hint;Këshillë
 How many audio streams?;Sa rryma të audios?
@@ -529,11 +529,11 @@ Interlaced_TFF;Më Parë Fusha Sipër
 Interlaced_BFF;Më Parë Fusha Poshtë
 Interlaced_PPF;Progresiv
 Interlaced_Progressive;Progresiv
-Interleaved
+Interleaved;
 Interleave_Duration;Gërshetimi, kohëzgjatja
 Interleave_Preload;Gërshetimi, kohëzgjatja para hapjes
 Interleave_VideoFrames;Gërshetimi, kohëzgjatja
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -885,7 +885,7 @@ Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi 
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
-SamplingCount
+SamplingCount;
 SoundEngineer;Inxhinieri i zërit
 Standard;Standardi
 Stream;Rryma
@@ -931,7 +931,7 @@ transfer_characteristics;Karakteristikat e transferimit
 Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
-UniqueID
+UniqueID;
 Unknown;Nuk e di
 Url;URL
 Video;Video
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Shko te trualli në rrjetë i kodekut për video
 WebSite_Video_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për video
 Width;Gjerësia
-Width_Original
+Width_Original;
 WriteMe;Shkruaji autorit
 WriteToTranslator;Shkruaji përkthyesit
 Written_Date;Data e shkrimit

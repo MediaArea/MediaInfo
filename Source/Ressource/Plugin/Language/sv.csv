@@ -31,15 +31,15 @@
  day1; dag
  day2; dagar
  day3; dagar
- dB1
- dB2
- dB3
+ dB1;
+ dB2;
+ dB3;
  file1; fil
  file2; filer
  file3; filer
- frame1
- frame2
- frame3
+ frame1;
+ frame2;
+ frame3;
  fps1; fps
  fps2; fps
  fps3; fps
@@ -123,16 +123,16 @@
  text stream1; textström
  text stream2; textströmmar
  text stream3; textströmmar
- video frames1
- video frames2
- video frames3
+ video frames1;
+ video frames2;
+ video frames3;
  video stream1; videoström
  video stream2; videoströmmar
  video stream3; videoströmmar
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0;
+ warppoint1;
+ warppoint2;
+ warppoint3;
  week1; vecka
  week2; veckor
  week3; veckor
@@ -146,16 +146,16 @@ About_Hint; Kontakt - och versionsinformation
 Accompaniment; Ackompanjemang
 Actor; Skådespelare
 Actor_Character; Roll
-Added_Date
+Added_Date;
 Address; Adress
 Advanced; Avancerat
 Advanced mode; Avancerat läge
 Album; Album
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;
+Album_ReplayGain_Peak;
+Alignment;
+Alignment_Aligned;
+Alignment_Split;
 All; Alla
 Archival_Location; arkiveringsplats
 Arranger; Arrangör
@@ -175,16 +175,16 @@ Author; Författare
 BarCode; Streckkod
 Basic; Enkel
 Basic_Note; OBS: För mer information om den här filen, måste du välja en annan vy (Tabell, Träd...)
-BitDepth
+BitDepth;
 BitRate; Bitrate
-BitRate_Maximum
-BitRate_Minimum
+BitRate_Maximum;
+BitRate_Minimum;
 BitRate_Mode; Bitrateläge
-BitRate_Mode_CBR
-BitRate_Mode_VBR
-BitRate_Nominal
+BitRate_Mode_CBR;
+BitRate_Mode_VBR;
+BitRate_Nominal;
 Bits-(Pixel*Frame); Bits/(Pixel*Frame)
-BufferSize
+BufferSize;
 Cancel; Ångra
 Channel(s); Kanal(er)
 ChannelPositions; Kanalplatser
@@ -203,43 +203,43 @@ Choose file(s); Välj filer att öppna
 Choose filename; Välj önskat filmnamn
 Choose language; Välj önskat språk
 Choregrapher; Koreograf
-Chroma
-ChromaSubsampling
+Chroma;
+ChromaSubsampling;
 Close; Stäng
 Close all before open; Stäng alla före öppna
 Codec; Codec
-Codec_Description
+Codec_Description;
 Codec_Info; Codecdetaljer
 Codec_Settings; Codecinställningar
-Codec_Settings_PacketBitStream
-Codec_Settings_BVOP
-Codec_Settings_QPel
-Codec_Settings_GMC
-Codec_Settings_Matrix
-Codec_Settings_Floor
-Codec_Settings_CABAC
-Codec_Settings_Firm
-Codec_Settings_Endianness
-Codec_Settings_Sign
-Codec_Settings_Law
-Codec_Settings_ITU
+Codec_Settings_PacketBitStream;
+Codec_Settings_BVOP;
+Codec_Settings_QPel;
+Codec_Settings_GMC;
+Codec_Settings_Matrix;
+Codec_Settings_Floor;
+Codec_Settings_CABAC;
+Codec_Settings_Firm;
+Codec_Settings_Endianness;
+Codec_Settings_Sign;
+Codec_Settings_Law;
+Codec_Settings_ITU;
 Codec_Profile; Codecprofil
 Codec_Url; Länk till codec
-CodecID
-CodecID_Description
+CodecID;
+CodecID_Description;
 Collection; Samling
-Colorimetry
-ColorSpace
-colour_primaries
+Colorimetry;
+ColorSpace;
+colour_primaries;
 Comment; Kommentar
 CommissionedBy; Kommissionerad av
 CompleteName; Fullständigt namn
 Composer; Kompositör
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
-Compression_Ratio
-Compilation
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
+Compression_Ratio;
+Compilation;
 Conductor; Dirigent
 Container and general information; Behållare och allmän information
 ContentType; Innehållstyp
@@ -250,33 +250,33 @@ Count; Antal
 Country; Land
 Cover; Omslag
 Cover_Datas; Omslagsinformation
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;
+Cover_Mime;
+Cover_Type;
+Cropped;
 Custom; Anpassad
 Customize; Anpassa
 Date; Datum
 Debug; Debug
 Decimal point; Decimalpunkt
 Delay; Fördröjning
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete; Radera
 Description; Beskrivning
 Digitized_Date; Digitaliserat datum
-Dimensions
+Dimensions;
 Director; Regissör
 DirectorOfPhotography; Chefkameraman
 DisplayAspectRatio; Bildförhållande
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;
 DistributedBy; Distribuerad av
 Donate; Donera
-DotsPerInch
-Duration
-Duration_End
-Duration_Start
+DotsPerInch;
+Duration;
+Duration_End;
+Duration_Start;
 Edit; Redigera
 EditedBy; Redigerad av
 EMail; E-Mail
@@ -286,7 +286,7 @@ Encoded_Library; Skrivande bibliotek
 Encoded_Library_Settings; Kodningsinställningar
 Encoded_Original; Original
 EncodedBy; Kodad av
-EPG_Positions
+EPG_Positions;
 Error_File; Fel under läsning av fil
 ExecutiveProducer; Verkställande producent
 Exit; Stäng
@@ -294,16 +294,16 @@ Exit_Hint; Stäng programmet
 Export; Exportera
 Export_Hint; Exportera i ett anpassat format
 Extensions; Normalt använda filändelser
-Family
+Family;
 Fax; Fax
 File; Fil
 File size; Filstorlek
 File_Append; Lägg till till existerande fil (Varning : se till att du har använder samma parametrar!)
-File_Created_Date
-File_Created_Date_Local
+File_Created_Date;
+File_Created_Date_Local;
 File_Hint; Välj en fil att betrakta
-File_Modified_Date
-File_Modified_Date_Local
+File_Modified_Date;
+File_Modified_Date_Local;
 FileExtension; Filändelse
 FileName; Filnamn
 FileSize; Filstorlek
@@ -314,45 +314,45 @@ Folder (Recursively); Mapp (rekursivt)
 Folder_Hint; Välj en mapp att betrakta
 FolderName; Mappnamn
 Format; Format
-Format_Commercial
-Format_Description
-Format_Info
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
-Format_Settings_QPel
-Format_Settings_GMC
-Format_Settings_Matrix
-Format_Settings_Matrix_Custom
-Format_Settings_Matrix_Default
-Format_Settings_Floor
-Format_Settings_CABAC
-Format_Settings_Firm
-Format_Settings_Endianness
-Format_Settings_RefFrames
-Format_Settings_Sign
-Format_Settings_Law
-Format_Settings_ITU
-Format_Settings_SBR
-Format_Settings_PS
-Format_Settings_Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
-Format_Version
-Format_Url
-FrameCount
+Format_Commercial;
+Format_Description;
+Format_Info;
+Format_Profile;
+Format_Settings;
+Format_Settings_PacketBitStream;
+Format_Settings_BVOP;
+Format_Settings_QPel;
+Format_Settings_GMC;
+Format_Settings_Matrix;
+Format_Settings_Matrix_Custom;
+Format_Settings_Matrix_Default;
+Format_Settings_Floor;
+Format_Settings_CABAC;
+Format_Settings_Firm;
+Format_Settings_Endianness;
+Format_Settings_RefFrames;
+Format_Settings_Sign;
+Format_Settings_Law;
+Format_Settings_ITU;
+Format_Settings_SBR;
+Format_Settings_PS;
+Format_Settings_Pulldown;
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
+Format_Version;
+Format_Url;
+FrameCount;
 FrameRate; Bildhastighet (Frame rate)
-FrameRate_Mode
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
-FrameRate_Minimum
-FrameRate_Nominal
-FrameRate_Maximum
-FrameRate_Original
+FrameRate_Mode;
+FrameRate_Mode_CFR;
+FrameRate_Mode_VFR;
+FrameRate_Minimum;
+FrameRate_Nominal;
+FrameRate_Maximum;
+FrameRate_Original;
 General; Allmänt
 Genre; Genre
 Genre_000; Blues
@@ -504,36 +504,36 @@ Genre_145; Anime
 Genre_146; JPop
 Genre_147; Synthpop
 Go to WebSite; Besök hemsida
-Grouping
+Grouping;
 h; h
 Header file; Skapa headerfil
 Height; Höjd
-Height_Original
+Height_Original;
 Help; Hjälp
-Hint
+Hint;
 How many audio streams?; Hur många ljudströmmar?
-How many chapters streams?
-How many text streams?
-How many video streams?
+How many chapters streams?;
+How many text streams?;
+How many video streams?;
 HTML; HTML
 ID; ID
 Image; Bild
 Image stream(s); Bildströmmar
 Image_Codec_List; Bildcodecs
 ImageCount; Antal bildströmmar
-Info
+Info;
 Instruments; Instrument
-Interlacement
-Interlaced_Interlaced
-Interlaced_TFF
-Interlaced_BFF
-Interlaced_PPF
-Interlaced_Progressive
-Interleaved
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
-InternetMediaType
+Interlacement;
+Interlaced_Interlaced;
+Interlaced_TFF;
+Interlaced_BFF;
+Interlaced_PPF;
+Interlaced_Progressive;
+Interleaved;
+Interleave_Duration;
+Interleave_Preload;
+Interleave_VideoFrames;
+InternetMediaType;
 IRCA; IRCA
 ISBN; ISBN
 ISRC; ISRC
@@ -543,7 +543,7 @@ Known formats; Kända format
 Known parameters; Kända parametrar
 Label; Etikett
 Language; Språk
-Language_More
+Language_More;
 Language_aa; Afar
 Language_ab; Abkhazian
 Language_ae; Avestan
@@ -582,8 +582,8 @@ Language_dz; Dzongkha
 Language_ee; Ewe
 Language_el; Grekiska
 Language_en; Engelska
-Language_en-gb
-Language_en-us
+Language_en-gb;
+Language_en-us;
 Language_eo; Esperanto
 Language_es; Spanska
 Language_et; Estniska
@@ -680,7 +680,7 @@ Language_pi; Pali
 Language_pl; Polska
 Language_ps; Pushto
 Language_pt; Portugisiska
-Language_pt-br
+Language_pt-br;
 Language_qu; Quechua
 Language_rm; Raeto-Romance
 Language_rn; Rundi
@@ -733,101 +733,101 @@ Language_yi; Yiddish
 Language_yo; Yoruba
 Language_za; Zhuang
 Language_zh; Chinese
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;
+Language_zh-tw;
 Language_zu; Zulu
 LawRating; Åldersgräns
 LCCN; LCCN
 Library; Muxningsbibliotek
-Lightness
-List
-Lyrics
+Lightness;
+List;
+Lyrics;
 Lyricist; Texter från
 Mastered_Date; Masterdatum
 MasteredBy; Mastrad av
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Ger mycket detaljerad information\r\nom en multimediafil:\r\nMatroska, OGG (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD and SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\nMicrosoft RIFF (inklusive AVI, WAV)\r\nLjud-endast format (AC3, DTS, AAC, AU, AIFF...)
 Menu; Meny
-Menu stream(s)
-Menu_Codec_List
-Menu_No
-MenuCount
+Menu stream(s);
+Menu_Codec_List;
+Menu_No;
+MenuCount;
 Menu_Hint; Mer möjligheter
-MenuID
+MenuID;
 mn; min
 Mood; Humör
 More; Mer
 Movie; filmnamn
 ms; ms
 MSDI; MSDI
-MusicBy
-MuxingMode
-MuxingMode_MoreInfo
-MuxingMode_PackedBitstream
+MusicBy;
+MuxingMode;
+MuxingMode_MoreInfo;
+MuxingMode_PackedBitstream;
 Name; Namn
 Nationality; Nationalitet
-NetworkName
+NetworkName;
 New; Ny
 Newest version; Sök efter nyare version (kräver Internetanslutning)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;
+NewVersion_Question_Title;
+NewVersion_Question_Content;
 No; Nej
-Not yet
-NumColors
+Not yet;
+NumColors;
 OK; OK
 One output file per input file; En utdatafil per indatafil
 Open; Öppna
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;
+OpenCandy_02;
+OpenCandy_03;
+OpenCandy_04;
+OpenCandy_05;
+OpenCandy_06;
+OpenCandy_07;
+OpenCandy_08;
+OpenCandy_09;
+OpenCandy_10;
+OpenCandy_11;
+OpenCandy_12;
+OpenCandy_13;
+OpenCandy_14;
+OpenCandy_15;
+OpenCandy_16;
+OpenCandy_17;
+OpenCandy_18;
+OpenCandy_19;
+OpenCandy_20;
+OpenCandy_21;
+OpenCandy_22;
+OpenCandy_23;
+OpenCandy_24;
+OpenCandy_25;
+OpenCandy_26;
+OpenCandy_27;
+OpenCandy_28;
+OpenCandy_29;
+OpenCandy_30;
+OpenCandy_31;
+OpenCandy_32;
+OpenCandy_33;
+OpenCandy_34;
+OpenCandy_35;
+OpenCandy_36;
 Options; Alternativ
 Options_Hint; Inställningar
 Original; Original
-OriginalNetworkName
-OriginalSourceForm
-OriginalSourceMedium
+OriginalNetworkName;
+OriginalSourceForm;
+OriginalSourceMedium;
 Other; Övrigt
 Output; Utdata
 Output format; Utdataformat
 OverallBitRate; Generell Bitrate
-OverallBitRate_Maximum
-OverallBitRate_Minimum
-OverallBitRate_Mode
-OverallBitRate_Nominal
+OverallBitRate_Maximum;
+OverallBitRate_Minimum;
+OverallBitRate_Mode;
+OverallBitRate_Nominal;
 Part; Del
 Part_Count; Antal delar
 Performer; Framträdare
@@ -836,12 +836,12 @@ Phone; Telefon
 PixelAspectRatio; Pixelförhållande
 PixelAspectRatio_Original; Pixelförhållande
 PlayCounter; Spelräknare
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;
+Played_First_Date;
+Played_Last_Date;
 PlayTime; Speltid
 Position; Position
-Position_Total
+Position_Total;
 Preferences; Inställningar
 Producer; Producent
 ProductionDesigner; Produktionsdesigner
@@ -855,48 +855,48 @@ Recorded_Date; Inspelningsdatum
 Recorded_Location; Inspelningsort
 Released_Date; Releasedatum
 RemixedBy; Remixad av
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;
+ReplayGain_Peak;
 Resolution; Upplösning
 s; s
 SamplingRate; Samplingstakt
 Save; Spara
-ScanType
-ScanOrder
+ScanType;
+ScanOrder;
 ScreenplayBy; Framträdande av
 Season; Säsong
 see below; se nedan
-Send HeaderFile
+Send HeaderFile;
 Separator_Columns; columnseparator
 Separator_Lines; linjeseparator
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;
+ServiceName;
+ServiceProvider;
+ServiceType;
 Set; Set
 Set_Count; Antal set
 Setup; Ställ in
-Sharpness
+Sharpness;
 Sheet; Tabell
 Sheet (Complete); Tabell (Komplett)
 Shell extension; Shell extension (högerklicka i explorer så kommer ett Media Info alternativ...)
-Shell extension, folder
-Shell InfoTip
+Shell extension, folder;
+Shell InfoTip;
 Show menu; Visa meny
 Show toolbar; Visa verktygsfält
 Sort; Sorterad av
-SamplingCount
+SamplingCount;
 SoundEngineer; Ljudingenjör
-Standard
+Standard;
 Stream; Ström
 Stream_MoreInfo; Mer information om strömmen
 StreamCount; Antal strömmar av den här typen
 StreamID; Ström-ID
 StreamKind; Strömtyp
-StreamKindID
-StreamKindPos
-StreamSize
-StreamSize_Proportion
+StreamKindID;
+StreamKindPos;
+StreamSize;
+StreamSize_Proportion;
 Subject; Innehåll
 SubTrack; Underspår
 Summary; Sammanfattning
@@ -904,7 +904,7 @@ Supported formats; Stödda format
 Supported?; Stött?
 Synopsis; Sammanfattning
 SystemId; Id
-Tagged_Application
+Tagged_Application;
 Tagged_Date; Taggingdatum
 Technician; Tekniker
 TermsOfUse; Användarvillkor
@@ -923,15 +923,15 @@ ThanksTo; Tack till
 Thousands separator; Tusentalsseparator
 Title; titel
 Title_More; Title, mer info
-TimeZone
+TimeZone;
 Total; Totalt
 Track; Spårnamn
 Track_Count; Antal spår
-transfer_characteristics
+transfer_characteristics;
 Translator; Översättare
 Tree; Träd
 Tree & Text; Träd & Text
-UniqueID
+UniqueID;
 Unknown; Okänd
 Url; Url
 Video; Video
@@ -956,7 +956,7 @@ WebSite_Url; http://mediainfo.sourceforge.net
 WebSite_Video; Gå till hemsidan för detta videocodec
 WebSite_Video_More; Gå till denna sida (%Url%) för att hitta passande videocodec
 Width; Bredd
-Width_Original
+Width_Original;
 WriteMe; Maila mig
 WriteToTranslator; Maila översättaren
 Written_Date; Datum

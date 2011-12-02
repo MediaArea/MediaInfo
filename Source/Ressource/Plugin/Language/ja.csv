@@ -175,7 +175,7 @@ Author;製作者
 BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
-BitDepth
+BitDepth;
 BitRate;ビットレート
 BitRate_Maximum;最大
 BitRate_Minimum;最小
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;CBR モード
 BitRate_Mode_VBR;VBR モード
 BitRate_Nominal;ノミナル
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
-BufferSize
+BufferSize;
 Cancel;キャンセル
 Channel(s);チャンネル
 ChannelPositions;チャンネルの位置
@@ -204,7 +204,7 @@ Choose filename;ファイル名を選択してください
 Choose language;言語を選択してください
 Choregrapher;コアグラファー
 Chroma;クローマ
-ChromaSubsampling
+ChromaSubsampling;
 Close;閉じる
 Close all before open;すべて閉じて開く
 Codec;コーデック
@@ -229,17 +229,17 @@ CodecID;コーデック ID
 CodecID_Description;コーデック ID の説明
 Collection;コレクション
 Colorimetry;カラーリメトリ
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;コメント
 CommissionedBy;コミッショナー
 CompleteName;完全名称
 Composer;コンポーザ
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;圧縮解像度
-Compilation
+Compilation;
 Conductor;コンダクター
 Container and general information;コンテナと全般情報
 ContentType;コンテンツタイプ
@@ -260,9 +260,9 @@ Date;日付
 Debug;デバッグ
 Decimal point;箇条
 Delay;遅延
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;削除
 Description;詳細説明
 Digitized_Date;デジタル日付
@@ -300,7 +300,7 @@ File;ファイル
 File size;ファイルサイズ
 File_Append;既存ファイルに上書き (注意 : 同じパラメータは慎重に！)
 File_Created_Date;ファイル作成日
-File_Created_Date_Local
+File_Created_Date_Local;
 File_Hint;このファイルの詳細
 File_Modified_Date;ファイル変更日
 File_Modified_Date_Local;ファイル変更日（ローカル）
@@ -314,7 +314,7 @@ Folder (Recursively);フォルダー（サブフォルダー含む）
 Folder_Hint;このフォルダーの詳細
 FolderName;フォルダー名
 Format;フォーマット
-Format_Commercial
+Format_Commercial;
 Format_Description;詳細
 Format_Info;情報
 Format_Profile;プロファイル
@@ -337,11 +337,11 @@ Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
 Format_Settings_Pulldown;プルダウン
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;バージョン
 Format_Url;Url フォーマット
 FrameCount;フレーム数
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Web サイトへ移動
-Grouping
+Grouping;
 h;時
 Header file;ヘッダーファイルを作成
 Height;高さ
-Height_Original
+Height_Original;
 Help;ヘルプ
 Hint;ヒント
 How many audio streams?;音声ストリームの数？
@@ -529,11 +529,11 @@ Interlaced_TFF;トップファースト(TFF)
 Interlaced_BFF;ボトムファースト(BFF)
 Interlaced_PPF;プログレシッブ(PPF)
 Interlaced_Progressive;プログレシッブ(PPF)
-Interleaved
+Interleaved;
 Interleave_Duration;ドゥレイション
 Interleave_Preload;プリロード
 Interleave_VideoFrames;ビデオフレーム
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;歌詞
 Lyricist;作詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by 
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\r\n Matroska, OGG ( OGM を含む)\r\n MPEG1 ( VCD を含む)\r\n MPEG2 ( DVD , SVCD を含む)\r\n MPEG4 (iTunes の M4A を含む)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA を含む)\r\n Microsoft RIFF ( AVI , WAV を含む)\r\n 音声のみ (AC3 , DTS , AAC , AU , AIFF ...)
 Menu;メニュー
 Menu stream(s);メニューストリーム
@@ -885,7 +885,7 @@ Shell InfoTip;シェルでインフォチップ （対応ファイル上でツ�
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する
 Sort;並び替え
-SamplingCount
+SamplingCount;
 SoundEngineer;サウンドエンジニア
 Standard;標準
 Stream;ストリーム
@@ -927,11 +927,11 @@ TimeZone;タイムゾーン
 Total;計
 Track;トラック名
 Track_Count;トラック数
-transfer_characteristics
+transfer_characteristics;
 Translator;翻訳者
 Tree;ツリー
 Tree & Text;ツリーとテキスト
-UniqueID
+UniqueID;
 Unknown;不明
 Url;Url
 Video;ビデオ
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;このビデオコーデックについて
 WebSite_Video_More; (%Url%) へ移動してこのビデオコーデックを探す
 Width;幅
-Width_Original
+Width_Original;
 WriteMe;メール送信
 WriteToTranslator;翻訳者
 Written_Date;作成日

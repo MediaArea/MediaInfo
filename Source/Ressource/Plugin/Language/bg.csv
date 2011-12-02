@@ -7,7 +7,7 @@
   Config_Text_Separator;:
   Config_Text_NumberTag;#
   Config_Text_FloatSeparator;.
-  Config_Text_ThousandsSeparator
+  Config_Text_ThousandsSeparator;
  audio stream1;аудио поток
  audio stream2;аудио поток
  audio stream3;аудио поток
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Режим_БитРейт_СБР
 BitRate_Mode_VBR;Режим_БитРейт_ВБР
 BitRate_Nominal;Нормален_БитРейт
 Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
-BufferSize
+BufferSize;
 Cancel;Откажи
 Channel(s);Канал(и)
 ChannelPositions;КаналПозиции
@@ -235,11 +235,11 @@ Comment;Коментар
 CommissionedBy;ПоръчанОт
 CompleteName;ЦялосноИме
 Composer;Композитор
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;КомпресияСъотношение
-Compilation
+Compilation;
 Conductor;Диригент
 Container and general information;Контейнер и главна информация
 ContentType;КонтейнерТип
@@ -260,9 +260,9 @@ Date;Дата
 Debug;Дебъг
 Decimal point;Децимална точка
 Delay;Забавяне
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Премахни
 Description;Описание
 Digitized_Date;Дата_Дигитализиране
@@ -314,7 +314,7 @@ Folder (Recursively);Папка (Рекурсивна)
 Folder_Hint;Папка_Подсказване
 FolderName;ПапкаИме
 Format;Формат
-Format_Commercial
+Format_Commercial;
 Format_Description;Формат_Описание
 Format_Info;Формат_Инфо
 Format_Profile;Формат_Профил
@@ -355,7 +355,7 @@ FrameRate_Maximum;СкоростКадри_Максимум
 FrameRate_Original;СкоростКадри_Оригинално
 General;Генерално
 Genre;Жанр
-Genre_000
+Genre_000;
 Genre_001; Жанр_001
 Genre_002; Жанр_002
 Genre_003; Жанр_003
@@ -504,7 +504,7 @@ Genre_145; Жанр_145
 Genre_146; Жанр_146
 Genre_147; Жанр_147
 Go to WebSite;Към Уебсайта
-Grouping
+Grouping;
 h;х
 Header file;Хедър файл
 Height;Височина
@@ -529,11 +529,11 @@ Interlaced_TFF;Сплетен_ТФФ
 Interlaced_BFF;Сплетен_ВФФ
 Interlaced_PPF;Сплетен_ППФ
 Interlaced_Progressive;Сплетен_Прогресивен
-Interleaved
+Interleaved;
 Interleave_Duration;Разнообразен_Продължителност
 Interleave_Preload;Разнообразен_Презареден
 Interleave_VideoFrames;Разнообразен_ВидеоКадри
-InternetMediaType
+InternetMediaType;
 IRCA;ИРСА
 ISBN;ИСБН
 ISRC;ИСРК
@@ -703,39 +703,39 @@ Language_sr;Език_ср
 Language_ss;Език_сс
 Language_st;Език_ст
 Language_su;Език_су
-Language_sv
-Language_sw
-Language_ta
-Language_te
-Language_tg
-Language_th
-Language_ti
-Language_tk
-Language_tl
-Language_tn
-Language_to
-Language_tr
-Language_ts
-Language_tt
-Language_tw
-Language_ty
-Language_ug
-Language_uk
-Language_ur
-Language_uz
-Language_ve
-Language_vi
-Language_vo
-Language_wa
-Language_wo
-Language_xh
-Language_yi
-Language_yo
-Language_za
-Language_zh
-Language_zh-cn
-Language_zh-tw
-Language_zu
+Language_sv;
+Language_sw;
+Language_ta;
+Language_te;
+Language_tg;
+Language_th;
+Language_ti;
+Language_tk;
+Language_tl;
+Language_tn;
+Language_to;
+Language_tr;
+Language_ts;
+Language_tt;
+Language_tw;
+Language_ty;
+Language_ug;
+Language_uk;
+Language_ur;
+Language_uz;
+Language_ve;
+Language_vi;
+Language_vo;
+Language_wa;
+Language_wo;
+Language_xh;
+Language_yi;
+Language_yo;
+Language_za;
+Language_zh;
+Language_zh-cn;
+Language_zh-tw;
+Language_zu;
 LawRating;НисъкРейтинг
 LCCN;ЛССН
 Library;Библиотека
@@ -885,7 +885,7 @@ Shell InfoTip;Шел ИнфоИнфо
 Show menu;Показ меню
 Show toolbar;Показ инструментибар
 Sort;Сортиране
-SamplingCount
+SamplingCount;
 SoundEngineer;ЗвукоИнжинер
 Standard;Стандарт
 Stream;Поток
@@ -931,7 +931,7 @@ transfer_characteristics;трансфер_характеристики
 Translator;Преводач
 Tree;Дърво
 Tree & Text;Дърво и Текст
-UniqueID
+UniqueID;
 Unknown;Незнаен
 Url;ЮРЛ
 Video;Видео

@@ -31,15 +31,15 @@
  day1; μέρα
  day2; μέρες
  day3; μέρες
- dB1
- dB2
- dB3
+ dB1;
+ dB2;
+ dB3;
  file1; αρχείο
  file2; αρχεία
  file3; αρχεία
- frame1
- frame2
- frame3
+ frame1;
+ frame2;
+ frame3;
  fps1; fps
  fps2; fps
  fps3; fps
@@ -123,16 +123,16 @@
  text stream1; ροή κειμένου
  text stream2; ροές κειμένου
  text stream3; ροές κειμένου
- video frames1
- video frames2
- video frames3
+ video frames1;
+ video frames2;
+ video frames3;
  video stream1; ροή video
  video stream2; ροές video
  video stream3; ροές video
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0;
+ warppoint1;
+ warppoint2;
+ warppoint3;
  week1; εβδομάδα
  week2; εβδομάδες
  week3; εβδομάδες
@@ -146,16 +146,16 @@ About_Hint;Πως θα επικοινωνήσετε μαζί μου και θα 
 Accompaniment;Συνοδεία
 Actor;Actor
 Actor_Character;Character played
-Added_Date
+Added_Date;
 Address;Διεύθυνση
 Advanced;Για προχωρημένους
 Advanced mode;Κατάσταση λειτουργίας για προχωρημένους
 Album;Album
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;
+Album_ReplayGain_Peak;
+Alignment;
+Alignment_Aligned;
+Alignment_Split;
 All;Όλα
 Archival_Location;Archival location
 Arranger;Arranger
@@ -175,16 +175,16 @@ Author;Author
 BarCode;BarCode
 Basic;Βασική
 Basic_Note;Σημείωση : για περισσότερες πληροφορίες σχετικά με το αρχείο, επιλέξτε διαφορετική προβολή (Φύλλο, Δένδρο...)
-BitDepth
+BitDepth;
 BitRate;Ρυθμός μετάδοσης δεδομένων
-BitRate_Maximum
-BitRate_Minimum
+BitRate_Maximum;
+BitRate_Minimum;
 BitRate_Mode;Bit rate mode
-BitRate_Mode_CBR
-BitRate_Mode_VBR
-BitRate_Nominal
+BitRate_Mode_CBR;
+BitRate_Mode_VBR;
+BitRate_Nominal;
 Bits-(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο)
-BufferSize
+BufferSize;
 Cancel;Άκυρο
 Channel(s);Κανάλι(α)
 ChannelPositions;Θέσεις καναλιών
@@ -204,42 +204,42 @@ Choose filename;Επιλέξτε το επιθυμητό όνομα αρχείο
 Choose language;Επιλέξτε την επιθυμητή γλώσσα
 Choregrapher;Χορογράφος
 Chroma;Χρώμα
-ChromaSubsampling
+ChromaSubsampling;
 Close;Κλείσιμο
 Close all before open;Κλείστε όλα τα ανοιχτά αρχεία πριν το άνοιγμα νέων
 Codec;Συμπιεστής
-Codec_Description
+Codec_Description;
 Codec_Info;Λεπτομέρειες του συμπιεστή
 Codec_Settings;Ρυθμίσεις συμπιεστή
-Codec_Settings_PacketBitStream
-Codec_Settings_BVOP
-Codec_Settings_QPel
-Codec_Settings_GMC
-Codec_Settings_Matrix
-Codec_Settings_Floor
-Codec_Settings_CABAC
-Codec_Settings_Firm
-Codec_Settings_Endianness
-Codec_Settings_Sign
-Codec_Settings_Law
-Codec_Settings_ITU
+Codec_Settings_PacketBitStream;
+Codec_Settings_BVOP;
+Codec_Settings_QPel;
+Codec_Settings_GMC;
+Codec_Settings_Matrix;
+Codec_Settings_Floor;
+Codec_Settings_CABAC;
+Codec_Settings_Firm;
+Codec_Settings_Endianness;
+Codec_Settings_Sign;
+Codec_Settings_Law;
+Codec_Settings_ITU;
 Codec_Profile;Προφίλ συμπιεστή
 Codec_Url;Σύνδεσμος συμπιεστή (url) 
-CodecID
-CodecID_Description
+CodecID;
+CodecID_Description;
 Collection;Συλλογή
-Colorimetry
-ColorSpace
-colour_primaries
+Colorimetry;
+ColorSpace;
+colour_primaries;
 Comment;Σχόλιο
 CommissionedBy;Commissioned by
 CompleteName;Πλήρες όνομα
 Composer;Composer
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
-Compression_Ratio
-Compilation
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
+Compression_Ratio;
+Compilation;
 Conductor;Conductor
 Container and general information;Container και γενικές πληροφορίες
 ContentType;Είδος περιεχόμενου
@@ -250,33 +250,33 @@ Count;Αριθμός
 Country;Χώρα
 Cover;Cover
 Cover_Datas;Cover datas
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;
+Cover_Mime;
+Cover_Type;
+Cropped;
 Custom;Προσαρμοσμένη
 Customize;Προσαρμόστε
 Date;Ημερομηνία
 Debug;Αποσφαλμάτωση
 Decimal point;Decimal point
 Delay;Καθυστέρηση
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Διαγραφή
 Description;Περιγραφή
 Digitized_Date;Ημερομηνία Ψηφιοποίησης
-Dimensions
+Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Λόγος εικόνας
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;
 DistributedBy;Distributed by
 Donate;Δωρεές
-DotsPerInch
-Duration
-Duration_End
-Duration_Start
+DotsPerInch;
+Duration;
+Duration_End;
+Duration_Start;
 Edit;Επεξεργασία
 EditedBy;Τροποποιημένο από
 EMail;E-Mail
@@ -286,7 +286,7 @@ Encoded_Library;Βιβλιοθήκη κωδικοποιητή
 Encoded_Library_Settings;Ρυθμίσεις κωδικοποιητή
 Encoded_Original;Original
 EncodedBy;Κωδικοποιημένο από
-EPG_Positions
+EPG_Positions;
 Error_File;Παρουσιάστηκε σφάλμα κατά το διάβασμα του αρχείου
 ExecutiveProducer;Executive producer
 Exit;Έξοδος
@@ -294,16 +294,16 @@ Exit_Hint;Κλείνει το πρόγραμμα
 Export;Εξαγωγή
 Export_Hint;Εξαγωγή σε custom format
 Extensions;Συνήθεις επεκτάσεις
-Family
+Family;
 Fax;Fax
 File;Αρχείο
 File size;Μέγεθος αρχείου
 File_Append;Πρόσθεση στο τέλος υπάρχοντος αρχείου (Προειδοποίηση : πρέπει να έχουν όμοιους παραμέτρους)
-File_Created_Date
-File_Created_Date_Local
+File_Created_Date;
+File_Created_Date_Local;
 File_Hint;Επιλέξτε ένα αρχείο πολυμέσων για εξέταση
-File_Modified_Date
-File_Modified_Date_Local
+File_Modified_Date;
+File_Modified_Date_Local;
 FileExtension;Επέκταση αρχείου
 FileName;Όνομα αρχείου
 FileSize;Μέγεθος αρχείου
@@ -314,45 +314,45 @@ Folder (Recursively);Φάκελος (Αναδρομικά)
 Folder_Hint;Επιλέξτε έναν φάκελο για εξέταση
 FolderName;Όνομα φακέλου
 Format;Μορφοποίηση
-Format_Commercial
-Format_Description
-Format_Info
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
-Format_Settings_QPel
-Format_Settings_GMC
-Format_Settings_Matrix
-Format_Settings_Matrix_Custom
-Format_Settings_Matrix_Default
-Format_Settings_Floor
-Format_Settings_CABAC
-Format_Settings_Firm
-Format_Settings_Endianness
-Format_Settings_RefFrames
-Format_Settings_Sign
-Format_Settings_Law
-Format_Settings_ITU
-Format_Settings_SBR
-Format_Settings_PS
-Format_Settings_Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
-Format_Version
-Format_Url
-FrameCount
+Format_Commercial;
+Format_Description;
+Format_Info;
+Format_Profile;
+Format_Settings;
+Format_Settings_PacketBitStream;
+Format_Settings_BVOP;
+Format_Settings_QPel;
+Format_Settings_GMC;
+Format_Settings_Matrix;
+Format_Settings_Matrix_Custom;
+Format_Settings_Matrix_Default;
+Format_Settings_Floor;
+Format_Settings_CABAC;
+Format_Settings_Firm;
+Format_Settings_Endianness;
+Format_Settings_RefFrames;
+Format_Settings_Sign;
+Format_Settings_Law;
+Format_Settings_ITU;
+Format_Settings_SBR;
+Format_Settings_PS;
+Format_Settings_Pulldown;
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
+Format_Version;
+Format_Url;
+FrameCount;
 FrameRate;Ρυθμός ανανέωσης πλαισίου
-FrameRate_Mode
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
+FrameRate_Mode;
+FrameRate_Mode_CFR;
+FrameRate_Mode_VFR;
 FrameRate_Minimum;Ελάχιστος ρυθμός ανανέωσης πλαισίου
-FrameRate_Nominal
+FrameRate_Nominal;
 FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
-FrameRate_Original
+FrameRate_Original;
 General;Γενικά
 Genre;Genre
 Genre_000;Blues
@@ -504,13 +504,13 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Επίσκεψη του δυκτιακού τόπου
-Grouping
+Grouping;
 h;h
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος
-Height_Original
+Height_Original;
 Help;Βοήθεια
-Hint
+Hint;
 How many audio streams?;Πόσες ροές ήχου?
 How many chapters streams?;Πόσες ροές κεφαλαίων?
 How many text streams?;Πόσες ρόες κειμένου?
@@ -521,7 +521,7 @@ Image;Εικόνα
 Image stream(s);Ροές εικόνας
 Image_Codec_List;Συμπιεστές εικόνας
 ImageCount;Αριθμός των ροών εικόνας
-Info
+Info;
 Instruments;Όργανα
 Interlacement;Interlacement
 Interlaced_Interlaced;Διαπλεκόμενη σάρωση
@@ -529,11 +529,11 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;Συνεχής σάρωση
 Interlaced_Progressive;Συνεχής σάρωση
-Interleaved
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
-InternetMediaType
+Interleaved;
+Interleave_Duration;
+Interleave_Preload;
+Interleave_VideoFrames;
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -543,7 +543,7 @@ Known formats;Γνωστές μορφοποιήσεις
 Known parameters;Γνωστοί παράμετροι
 Label;Ετικέτα
 Language;Γλώσσα
-Language_More
+Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -582,8 +582,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;English
-Language_en-gb
-Language_en-us
+Language_en-gb;
+Language_en-us;
 Language_eo;Esperanto
 Language_es;Spanish
 Language_et;Estonian
@@ -680,7 +680,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
-Language_pt-br
+Language_pt-br;
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -733,19 +733,19 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;
+Language_zh-tw;
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
-Lightness
-List
-Lyrics
+Lightness;
+List;
+Lyrics;
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Παρέχει λεπτομερείς πληροφορίες\r\nγια αρχεία πολυμέσων:\r\nMatroska, OGG (συμπεριλαμβάνεται OGM)\r\nMPEG1 (συμπεριλαμβάνεται VCD)\r\nMPEG2 (συμπεριλαμβάνεται DVD και SVCD)\r\nMPEG4 (συμπεριλαμβάνεται Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (συμπεριλαμβάνεται WMV, WMA)\r\nMicrosoft RIFF (συμπεριλαμβάνεται AVI, WAV)\r\nΜορφοποιήσεις ήχου (AC3, DTS, AAC, AU, AIFF...)
 Menu;Μενού
 Menu stream(s);Ροές μενού
@@ -753,81 +753,81 @@ Menu_Codec_List;Συμπιεστές μενού
 Menu_No;Χωρίς μενού
 MenuCount;Αριθμός των ροών μενού
 Menu_Hint;Περισσότερες πιθανότητες
-MenuID
+MenuID;
 mn;mn
 Mood;Mood
 More;Περισσότερα
 Movie;Όνομα ταινίας
 ms;ms
 MSDI;MSDI
-MusicBy
-MuxingMode
-MuxingMode_MoreInfo
-MuxingMode_PackedBitstream
+MusicBy;
+MuxingMode;
+MuxingMode_MoreInfo;
+MuxingMode_PackedBitstream;
 Name;Όνομα
 Nationality;Nationality
-NetworkName
+NetworkName;
 New;Νέο
 Newest version;Έλεγχος για νεότερη έκδοση (προϋποθέτει ύπαρξη σύνδεσης στο Διαδύκτιο)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;
+NewVersion_Question_Title;
+NewVersion_Question_Content;
 No;Όχι
-Not yet
-NumColors
+Not yet;
+NumColors;
 OK;OK
 One output file per input file;Ένα αρχείο εξόδου για κάθε αρχείο εισόδου
 Open;Άνοιγμα
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;
+OpenCandy_02;
+OpenCandy_03;
+OpenCandy_04;
+OpenCandy_05;
+OpenCandy_06;
+OpenCandy_07;
+OpenCandy_08;
+OpenCandy_09;
+OpenCandy_10;
+OpenCandy_11;
+OpenCandy_12;
+OpenCandy_13;
+OpenCandy_14;
+OpenCandy_15;
+OpenCandy_16;
+OpenCandy_17;
+OpenCandy_18;
+OpenCandy_19;
+OpenCandy_20;
+OpenCandy_21;
+OpenCandy_22;
+OpenCandy_23;
+OpenCandy_24;
+OpenCandy_25;
+OpenCandy_26;
+OpenCandy_27;
+OpenCandy_28;
+OpenCandy_29;
+OpenCandy_30;
+OpenCandy_31;
+OpenCandy_32;
+OpenCandy_33;
+OpenCandy_34;
+OpenCandy_35;
+OpenCandy_36;
 Options;Επιλογές
 Options_Hint;Προτιμήσεις
 Original;Original
-OriginalNetworkName
-OriginalSourceForm
-OriginalSourceMedium
+OriginalNetworkName;
+OriginalSourceForm;
+OriginalSourceMedium;
 Other;Άλλος
 Output;Έξοδος
 Output format;Μορφοποίηση εξόδου
 OverallBitRate;Συνολικό BitRate
-OverallBitRate_Maximum
-OverallBitRate_Minimum
-OverallBitRate_Mode
-OverallBitRate_Nominal
+OverallBitRate_Maximum;
+OverallBitRate_Minimum;
+OverallBitRate_Mode;
+OverallBitRate_Nominal;
 Part;Μέρος
 Part_Count;Συνολικός αριθμός
 Performer;Performer
@@ -836,12 +836,12 @@ Phone;Τηλέφωνο
 PixelAspectRatio;Λόγος εικονοστοιχείου
 PixelAspectRatio_Original;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;
+Played_First_Date;
+Played_Last_Date;
 PlayTime;Διάρκεια
 Position;Θέση
-Position_Total
+Position_Total;
 Preferences;Επιλογές/Προτιμήσεις
 Producer;Παραγωγός
 ProductionDesigner;ProductionDesigner
@@ -855,37 +855,37 @@ Recorded_Date;Ημερομηνία εγγραφής
 Recorded_Location;Τοποθεσία εγγραφής
 Released_Date;Ημερομηνία Έκδοσης
 RemixedBy;Remixed by
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;
+ReplayGain_Peak;
 Resolution;Ανάλυση
 s;s
 SamplingRate;Συχνότητα δειγματοληψίας
 Save;Αποθήκευση
-ScanType
-ScanOrder
+ScanType;
+ScanOrder;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;δείτε παρακάτω
-Send HeaderFile
+Send HeaderFile;
 Separator_Columns;διαχωριστής στηλών
 Separator_Lines;διαχωριστής γραμμών
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;
+ServiceName;
+ServiceProvider;
+ServiceType;
 Set;Set
 Set_Count;Set count
 Setup;Ρυθμίσεις
-Sharpness
+Sharpness;
 Sheet;Φύλλο
 Sheet (Complete);Φύλλο (Πλήρες)
 Shell extension;Shell extension (in explorer right click there will be a Media Info option)
-Shell extension, folder
+Shell extension, folder;
 Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be displayed)
 Show menu;Εμφάνιση μενού
 Show toolbar;Εμφάνιση εργαλειοθήκης
 Sort;Ταξινόμηση κατά
-SamplingCount
+SamplingCount;
 SoundEngineer;Sound engineer
 Standard;Στάνταρ
 Stream;Ροή
@@ -893,10 +893,10 @@ Stream_MoreInfo;Περισσότερες πληροφορίες σχετικά �
 StreamCount;Αριθμός των ροών αυτού του τύπου
 StreamID;Stream ID
 StreamKind;Τύπος/Είδος Ροής
-StreamKindID
-StreamKindPos
-StreamSize
-StreamSize_Proportion
+StreamKindID;
+StreamKindPos;
+StreamSize;
+StreamSize_Proportion;
 Subject;Subject
 SubTrack;SubTrack
 Summary;Περίληψη
@@ -904,7 +904,7 @@ Supported formats;Υποστηριζόμενες μορφοποιήσεις
 Supported?;Υποστηρίζεται?
 Synopsis;Σύνοψη
 SystemId;Id
-Tagged_Application
+Tagged_Application;
 Tagged_Date;Tagged date
 Technician;Τεχνικός
 TermsOfUse;Όροι χρήσης
@@ -923,15 +923,15 @@ ThanksTo;Ευχαριστώ τους
 Thousands separator;Διαχωριστής χιλιάδων
 Title;Τίτλος
 Title_More;Τίτλος, περισσότερες πληροφορίες
-TimeZone
+TimeZone;
 Total;Total
 Track;Track name
 Track_Count;Track count
-transfer_characteristics
+transfer_characteristics;
 Translator;Μεταφραστής
 Tree;Δένδρο
 Tree & Text;Δένδρο & Κείμενο
-UniqueID
+UniqueID;
 Unknown;Άγνωστο
 Url;Url
 Video;Video
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή video
 WebSite_Video_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this video codec
 Width;Πλάτος
-Width_Original
+Width_Original;
 WriteMe;Επικοινωνία μαζί μου
 WriteToTranslator;Επικοινωνία με τον μεταφραστή
 Written_Date;Ημερομηνία καταγραφής

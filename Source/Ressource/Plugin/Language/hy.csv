@@ -7,7 +7,7 @@
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
-  Config_Text_ThousandsSeparator
+  Config_Text_ThousandsSeparator;
  audio stream1; ձայնի հոսքը
  audio stream2; ձայնի հոսքերը
  audio stream3; ձայնի հոսքերը
@@ -239,7 +239,7 @@ Compression_Mode;Սեղման եղանակը
 Compression_Mode_Lossless;Առանց կորստի
 Compression_Mode_Lossy;Կորստով
 Compression_Ratio;Սեղման աստիճանը
-Compilation
+Compilation;
 Conductor;Դիրիժորը
 Container and general information;Ընդհանուր տեղեկությունը
 ContentType;Պարունակության տեսակը
@@ -504,7 +504,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Բացել կայքը
-Grouping
+Grouping;
 h; ժ.
 Header file;Ստեղծել գլխագիրը
 Height;Բարձր-ը

@@ -175,7 +175,7 @@ Author;Autor
 BarCode;Kod kreskowy
 Basic;Podstawowy
 Basic_Note;Uwaga: Aby uzyskać więcej informacji musisz wybrać inny widok (Karta, Drzewo...)
-BitDepth
+BitDepth;
 BitRate;Przepływność bitów
 BitRate_Maximum;Przwpływność maksymalna
 BitRate_Minimum;Przepływność minimalna
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Stała
 BitRate_Mode_VBR;Zmienna
 BitRate_Nominal;Nominalna przepływaność
 Bits-(Pixel*Frame);bity/(piksele*ramki)
-BufferSize
+BufferSize;
 Cancel;Anuluj
 Channel(s);Kanały
 ChannelPositions;Rozmieszczenie kanałów
@@ -204,7 +204,7 @@ Choose filename;Wybierz preferowaną nazwę pliku
 Choose language;Wybierz preferowany język
 Choregrapher;Choreograf
 Chroma;Chrominancja
-ChromaSubsampling
+ChromaSubsampling;
 Close;Zamknij
 Close all before open;Zamykaj wszystko przed otwarciem pliku
 Codec;Kodek
@@ -229,17 +229,17 @@ CodecID;ID kodeka
 CodecID_Description;Opis kodeka
 Collection;Kolekcja
 Colorimetry;Kolorymetria
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;Komentarz
 CommissionedBy;Powierzony przez
 CompleteName;Pełna ścieżka
 Composer;Kompozytor
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Stopień kompresji
-Compilation
+Compilation;
 Conductor;Dyrygent
 Container and general information;Zawartość i informacje ogólne
 ContentType;Rodzaj zawartosci
@@ -260,9 +260,9 @@ Date;Data
 Debug;Odpluskwianie
 Decimal point;Punkt dziesiętny
 Delay;Opóźnienie
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Usuń
 Description;Opis
 Digitized_Date;Dyskretyzowana data
@@ -314,7 +314,7 @@ Folder (Recursively);Folder (rekurencyjny)
 Folder_Hint;Wybierz folder do przeanalizowania
 FolderName;Nazwa folderu
 Format;Format
-Format_Commercial
+Format_Commercial;
 Format_Description;Opis formatu
 Format_Info;Szczegóły formatu
 Format_Profile;Profil formatu
@@ -337,11 +337,11 @@ Format_Settings_ITU;Ustawienia formatu, ITU
 Format_Settings_SBR;Ustawienia formatu, SBR
 Format_Settings_PS;Ustawienia formatu, PS
 Format_Settings_Pulldown;Ustawienia formatu, rozwijany
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Wersja formatu
 Format_Url;Adres sieciowy formatu
 FrameCount;Liczba klatek
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synhpop
 Go to WebSite;Odwiedź stronę programu
-Grouping
+Grouping;
 h;h
 Header file;Utwórz plik nagłówka
 Height;Wysokość
-Height_Original
+Height_Original;
 Help;Pomoc
 Hint;Wskazówka
 How many audio streams?;Ile strumieni audio?
@@ -529,11 +529,11 @@ Interlaced_TFF;Górne pole wpierw
 Interlaced_BFF;Dolne pole wpierw
 Interlaced_PPF;Progresywny
 Interlaced_Progressive;Progresywny
-Interleaved
+Interleaved;
 Interleave_Duration;Przeplot, czas trwania
 Interleave_Preload;Przeplot, czas wczytywania
 Interleave_VideoFrames;Przeplot, czas trwania
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -544,42 +544,42 @@ Known parameters;Znane parametry
 Label;Wytwórnia
 Language;Język
 Language_More;Język, więcej informacji
-Language_aa
+Language_aa;
 Language_ab;Abhaski
-Language_ae
+Language_ae;
 Language_af;Afrykanerski
-Language_ak
-Language_am
-Language_an
+Language_ak;
+Language_am;
+Language_an;
 Language_ar;Arabski
-Language_as
-Language_av
-Language_ay
+Language_as;
+Language_av;
+Language_ay;
 Language_az;Azerski
 Language_ba;Baszkirski
 Language_be;Białoruski
 Language_bg;Bułgarski
-Language_bh
-Language_bi
-Language_bm
-Language_bn
+Language_bh;
+Language_bi;
+Language_bm;
+Language_bn;
 Language_bo;Tybetański
 Language_br;Bretoński
 Language_bs;Bośniacki
 Language_ca;Kataloński
 Language_ce;Czeczeński
-Language_ch
+Language_ch;
 Language_co;Korsykański
-Language_cr
+Language_cr;
 Language_cs;Czeski
-Language_cu
-Language_cv
+Language_cu;
+Language_cv;
 Language_cy;Walijski
 Language_da;Duński
 Language_de;Niemiecki
-Language_dv
-Language_dz
-Language_ee
+Language_dv;
+Language_dz;
+Language_ee;
 Language_el;Grecki
 Language_en;Angielski
 Language_en-gb;Angielski (Wielka Brytania)
@@ -589,149 +589,149 @@ Language_es;Hiszpański
 Language_et;Estoński
 Language_eu;Baskijski
 Language_fa;Perski
-Language_ff
+Language_ff;
 Language_fi;Fiński
-Language_fj
-Language_fo
+Language_fj;
+Language_fo;
 Language_fr;Francuski
 Language_fy;Fryzyjski
 Language_ga;Irlandzki
 Language_gd;Galijski
 Language_gl;Galicyjski
-Language_gn
-Language_gu
-Language_gv
-Language_ha
+Language_gn;
+Language_gu;
+Language_gv;
+Language_ha;
 Language_he;Hebrajski
 Language_hi;Hindi
-Language_ho
+Language_ho;
 Language_hr;Chorwacki
 Language_ht;Haitański
 Language_hu;Węgierski
 Language_hy;Armeński
-Language_hz
-Language_ia
+Language_hz;
+Language_ia;
 Language_id;Indonezyjski
 Language_ie;Interlingwa
-Language_ig
-Language_ii
-Language_ik
+Language_ig;
+Language_ii;
+Language_ik;
 Language_Info;Informacje o języku
-Language_io
+Language_io;
 Language_is;Islandzki
 Language_it;Włoski
-Language_iu
+Language_iu;
 Language_ja;Japoński
 Language_jv;Jawajski
 Language_ka;Gruziński
-Language_kg
-Language_ki
-Language_kj
+Language_kg;
+Language_ki;
+Language_kj;
 Language_kk;Kazachski
-Language_kl
-Language_km
-Language_kn
+Language_kl;
+Language_km;
+Language_kn;
 Language_ko;Koreański
-Language_kr
+Language_kr;
 Language_ks;Kaszmirski
 Language_ku;Kurdyjski
-Language_kv
+Language_kv;
 Language_kw;Kornwalijski
 Language_ky;Kirgiski
 Language_la;Łaciński
-Language_lb
-Language_lg
-Language_li
-Language_ln
-Language_lo
+Language_lb;
+Language_lg;
+Language_li;
+Language_ln;
+Language_lo;
 Language_lt;Litewski
-Language_lu
+Language_lu;
 Language_lv;Łotewski
-Language_mg
-Language_mh
-Language_mi
+Language_mg;
+Language_mh;
+Language_mi;
 Language_mk;Macedoński
-Language_ml
+Language_ml;
 Language_mn;Mongolski
-Language_mo
-Language_mr
-Language_ms
-Language_mt
+Language_mo;
+Language_mr;
+Language_ms;
+Language_mt;
 Language_mul;Wiele języków
-Language_my
-Language_na
+Language_my;
+Language_na;
 Language_nb;Norweski Bokmal
-Language_nd
-Language_ne
-Language_ng
+Language_nd;
+Language_ne;
+Language_ng;
 Language_nl;Holenderski
 Language_nn;Norweski Bokmal
 Language_no;Norweski
-Language_nr
+Language_nr;
 Language_nv;Nawajski
-Language_ny
-Language_oc
-Language_oj
-Language_om
-Language_or
+Language_ny;
+Language_oc;
+Language_oj;
+Language_om;
+Language_or;
 Language_os;Osetyjski
 Language_pa;Pendżabski
-Language_pi
+Language_pi;
 Language_pl;Polski
-Language_ps
+Language_ps;
 Language_pt;Portugalski
-Language_pt-br
-Language_qu
-Language_rm
-Language_rn
+Language_pt-br;
+Language_qu;
+Language_rm;
+Language_rn;
 Language_ro;Rumuński
 Language_ru;Rosyjski
-Language_rw
+Language_rw;
 Language_sa;Sanskryt
-Language_sc
-Language_sd
-Language_se
-Language_sg
-Language_si
+Language_sc;
+Language_sd;
+Language_se;
+Language_sg;
+Language_si;
 Language_sk;Słowacki
 Language_sl;Słoweński
 Language_sm;Samoański
-Language_sn
+Language_sn;
 Language_so;Somalijski
 Language_sq;Albański
 Language_sr;Serbski
-Language_ss
-Language_st
-Language_su
+Language_ss;
+Language_st;
+Language_su;
 Language_sv;Szwedzki
-Language_sw
+Language_sw;
 Language_ta;Tamilski
-Language_te
-Language_tg
+Language_te;
+Language_tg;
 Language_th;Tajski
-Language_ti
+Language_ti;
 Language_tk;Turkmeński
-Language_tl
-Language_tn
-Language_to
+Language_tl;
+Language_tn;
+Language_to;
 Language_tr;Turecki
-Language_ts
+Language_ts;
 Language_tt;Tatarski
-Language_tw
+Language_tw;
 Language_ty;Tahitański
-Language_ug
+Language_ug;
 Language_uk;Ukraiński
-Language_ur
+Language_ur;
 Language_uz;Uzbecki
-Language_ve
+Language_ve;
 Language_vi;Wietnamski
-Language_vo
-Language_wa
-Language_wo
-Language_xh
+Language_vo;
+Language_wa;
+Language_wo;
+Language_xh;
 Language_yi;Jidisz
-Language_yo
-Language_za
+Language_yo;
+Language_za;
 Language_zh;Chiński
 Language_zh-cn;Chiński (Chiny)
 Language_zh-tw;Chiński (Tajwan)
@@ -745,7 +745,7 @@ Lyrics;Słowa
 Lyricist;Autor słów
 Mastered_Date;Data nagrania
 MasteredBy;Nagrane przez
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Dostarcza bardzo szczegółowe informacje\r\no pliku multimedialnym:\r\nMatroska, OGG (wraz z OGM)\r\nMPEG1 (wraz z VCD)\r\nMPEG2 (wraz z DVD i SVCD)\r\nMPEG4 (wraz z iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (wraz z  WMV, WMA)\r\nMicrosoft RIFF (wraz z AVI, WAV)\r\nFormaty dźwiekowe (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Strumienie menu
@@ -885,7 +885,7 @@ Shell InfoTip;Informacje powłoki (w eksploratorze najedź kursorem na plik, wy�
 Show menu;Pokaż menu
 Show toolbar;Pokaż pasek narzędzi
 Sort;Sortowane po
-SamplingCount
+SamplingCount;
 SoundEngineer;Inżynier dźwięku
 Standard;Standard
 Stream;Strumień
@@ -927,11 +927,11 @@ TimeZone;Strefa czasowa
 Total;Łącznie
 Track;Tytuł nagrania
 Track_Count;Liczba nagrań
-transfer_characteristics
+transfer_characteristics;
 Translator;Tłumacz
 Tree;Drzewo
 Tree & Text;Drzewo i tekst
-UniqueID
+UniqueID;
 Unknown;Nieznany
 Url;url
 Video;Wideo
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Odwiedź witrynę tego kodeka wideo
 WebSite_Video_More;Odwiedź witrynę (%Url%) aby poszukać kodeka wideo
 Width;Szerokość
-Width_Original
+Width_Original;
 WriteMe;Napisz do mnie
 WriteToTranslator;Napisz do tłumacza
 Written_Date;Data

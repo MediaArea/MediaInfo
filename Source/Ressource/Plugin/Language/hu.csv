@@ -1,7 +1,7 @@
   Language_ISO639;hu
   Author_Email;DirektX@freemail.hu
   Author_Name;DirektX
-  Author_OldNames
+  Author_OldNames;
   Language_Name;magyar
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
@@ -129,10 +129,10 @@
  video stream1; képsáv
  video stream2; képsáv
  video stream3; képsáv
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0;
+ warppoint1;
+ warppoint2;
+ warppoint3;
  week1; hét
  week2; hét
  week3; hét
@@ -175,7 +175,7 @@ Author;Szerző
 BarCode;Vonalkód
 Basic;Egyszerű
 Basic_Note;Megjegyzés: a többi nézet (Táblázat, Fa ...) bővebb adatokat mutat a fájlról
-BitDepth
+BitDepth;
 BitRate;Adatsebesség
 BitRate_Maximum;Legnagyobb adatsebesség
 BitRate_Minimum;Legkisebb adatsebesség
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;állandó
 BitRate_Mode_VBR;változó
 BitRate_Nominal;Névleges adatsebesség
 Bits-(Pixel*Frame);Bit/(képpont*képkocka)
-BufferSize
+BufferSize;
 Cancel;Mégsem
 Channel(s);Csatornák száma
 ChannelPositions;Csatorna kiosztás
@@ -204,7 +204,7 @@ Choose filename;Adja meg a kívánt fájlnevet
 Choose language;Adja meg a használni kívánt nyelvet
 Choregrapher;Koreográfus
 Chroma;Szín
-ChromaSubsampling
+ChromaSubsampling;
 Close;Bezárás
 Close all before open;Mindent bezár megnyitás előtt
 Codec;kódek
@@ -229,17 +229,17 @@ CodecID;Kódek azonosító
 CodecID_Description;Kódek leírás
 Collection;Gyűjtemény
 Colorimetry;Színkódolás
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;Megjegyzés
 CommissionedBy;Megbízó
 CompleteName;Teljes név
 Composer;Zeneszerző
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Tömörítési arány
-Compilation
+Compilation;
 Conductor;Vezényel
 Container and general information;Gyűjtő és általános adatok
 ContentType;Tartalom típusa
@@ -260,9 +260,9 @@ Date;Dátum
 Debug;Hibakeresés
 Decimal point;Tizedesjel
 Delay;Késleltetés
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Törlés
 Description;Leírás
 Digitized_Date;Digitalizálás dátuma
@@ -273,10 +273,10 @@ DisplayAspectRatio;Képarány
 DisplayAspectRatio_Original;Eredeti képarány
 DistributedBy;Terjesztő
 Donate;Adomány
-DotsPerInch
+DotsPerInch;
 Duration;Időtartam
-Duration_End
-Duration_Start
+Duration_End;
+Duration_Start;
 Edit;Szerkesztés
 EditedBy;Szerkesztő
 EMail;Email
@@ -286,7 +286,7 @@ Encoded_Library;Kódoló könyvtár
 Encoded_Library_Settings;Kódoló könyvtár beállításai
 Encoded_Original;Eredeti
 EncodedBy;Kódolta
-EPG_Positions
+EPG_Positions;
 Error_File;Fájlolvasási hiba
 ExecutiveProducer;Gyártó
 Exit;Kilépés
@@ -300,10 +300,10 @@ File;Fájl
 File size;Fájlméret
 File_Append;Meglévő fájlhoz hozzáfűzés (Figyelem: ügyeljünk az azonos paraméterekre)
 File_Created_Date;Fájl létrehozásának dátuma
-File_Created_Date_Local
+File_Created_Date_Local;
 File_Hint;Adja meg a vizsgálandó fájt
 File_Modified_Date;Fájl módosításának dátuma
-File_Modified_Date_Local
+File_Modified_Date_Local;
 FileExtension;Fájl kiterjesztés
 FileName;Fájlnév
 FileSize;Fájlméret
@@ -314,7 +314,7 @@ Folder (Recursively);Mappa (rekurzív)
 Folder_Hint;Adja meg a vizsgálandó mappát
 FolderName;Mappanév
 Format;Formátum
-Format_Commercial
+Format_Commercial;
 Format_Description;Formátum leírás
 Format_Info;A kódek részletei
 Format_Profile;Formátum profil
@@ -337,11 +337,11 @@ Format_Settings_ITU;Formátum beállítások, ITU
 Format_Settings_SBR;Formátum beállítások, SBR
 Format_Settings_PS;Formátum beállítások, PS
 Format_Settings_Pulldown;Formátum beállítások, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Formátum változat
 Format_Url;Formátum weblapja
 FrameCount;Képkockaszám
@@ -504,11 +504,11 @@ Genre_145;anime
 Genre_146;jpop
 Genre_147;synthpop
 Go to WebSite;A weblap meglátogatása
-Grouping
+Grouping;
 h; óra
 Header file;Fejléc fájl létrehozása
 Height;Magasság
-Height_Original
+Height_Original;
 Help;Súgó
 Hint;Tipp
 How many audio streams?;Hány hangsáv?
@@ -529,11 +529,11 @@ Interlaced_TFF;felső mezővel kezdődő
 Interlaced_BFF;alsó mezővel kezdődő
 Interlaced_PPF;folytonos
 Interlaced_Progressive;folytonos
-Interleaved
+Interleaved;
 Interleave_Duration;Átfedés hossza
 Interleave_Preload;Átfedés előolvasási hossz
 Interleave_VideoFrames;Átfedés képkockák
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -546,31 +546,31 @@ Language;Nyelv
 Language_More;Nyelv, további adatok
 Language_aa;afar
 Language_ab;abház
-Language_ae
+Language_ae;
 Language_af;afrikaans
-Language_ak
+Language_ak;
 Language_am;amharai
-Language_an
+Language_an;
 Language_ar;arab
-Language_as
-Language_av
-Language_ay
+Language_as;
+Language_av;
+Language_ay;
 Language_az;azerbajdzsáni
 Language_ba;baskír
 Language_be;belorusz
 Language_bg;bolgár
 Language_bh;bihari
-Language_bi
-Language_bm
+Language_bi;
+Language_bm;
 Language_bn;bengáli
 Language_bo;tibeti
 Language_br;breton
 Language_bs;bosnyák
 Language_ca;katalán
 Language_ce;csecsen
-Language_ch
+Language_ch;
 Language_co;korzikai
-Language_cr
+Language_cr;
 Language_cs;cseh
 Language_cu;szláv
 Language_cv;csuvas
@@ -579,17 +579,17 @@ Language_da;dán
 Language_de;német
 Language_dv;divehi
 Language_dz;dzonka
-Language_ee
+Language_ee;
 Language_el;görög
 Language_en;angol
-Language_en-gb
-Language_en-us
+Language_en-gb;
+Language_en-us;
 Language_eo;eszperantó
 Language_es;spanyol
 Language_et;észt
 Language_eu;baszk
 Language_fa;perzsa
-Language_ff
+Language_ff;
 Language_fi;finn
 Language_fj;fidzsi
 Language_fo;férői
@@ -600,11 +600,11 @@ Language_gd;skót gael
 Language_gl;gall
 Language_gn;galíciai
 Language_gu;gudzsarati
-Language_gv
-Language_ha
+Language_gv;
+Language_ha;
 Language_he;héber
 Language_hi;hindi
-Language_ho
+Language_ho;
 Language_hr;horvát
 Language_ht;haiti
 Language_hu;magyar
@@ -615,9 +615,9 @@ Language_id;indonéz
 Language_ie;interlinga
 Language_ig; 
 Language_ii; 
-Language_ik
+Language_ik;
 Language_Info;Nyelv adatok
-Language_io
+Language_io;
 Language_is;izlandi
 Language_it;olasz
 Language_iu; 
@@ -636,12 +636,12 @@ Language_kr; 
 Language_ks;kasmír
 Language_ku;kurd
 Language_kv; komi
-Language_kw
+Language_kw;
 Language_ky;kirgiz
 Language_la;latin
 Language_lb;luxemburgi
-Language_lg
-Language_li
+Language_lg;
+Language_li;
 Language_ln; 
 Language_lo; 
 Language_lt;litván
@@ -702,7 +702,7 @@ Language_sq;albán
 Language_sr;szerb
 Language_ss; 
 Language_st; 
-Language_su
+Language_su;
 Language_sv;svéd
 Language_sw;szuahéli
 Language_ta;tamil
@@ -733,8 +733,8 @@ Language_yi;jiddis
 Language_yo;joruba
 Language_za; 
 Language_zh;kínai
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;
+Language_zh-tw;
 Language_zu;zulu
 LawRating;Korhatár
 LCCN;LCCN
@@ -745,7 +745,7 @@ Lyrics;Dalszöveg
 Lyricist;Szövegíró
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Igen részletes adatok az alábbi\r\nmultimédia fájlokról:\r\nMatroska, OGG (OGM is)\r\nMPEG1 (VCD is)\r\nMPEG2 (DVD és SVCD is)\r\nMPEG4 (Itunes M4A is)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA is)\r\nMicrosoft RIFF (AVI, WAV is)\r\nCsak hangot tartalmazó fájlok (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menüsáv
@@ -762,11 +762,11 @@ ms;emp
 MSDI;MSDI
 MusicBy;Zeneszerző
 MuxingMode;Keverési mód
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;adatcsomag
 Name;Név
 Nationality;Nemzetiség
-NetworkName
+NetworkName;
 New;Új
 Newest version;Frissítés keresése (internet kapcsolat szükséges)
 NewVersion_Menu;Elérhető egy újabb változat.
@@ -778,46 +778,46 @@ NumColors;Színek száma
 OK;OK
 One output file per input file;Bemeneti fájlonként egy kimeneti fájl
 Open;Megnyit
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;
+OpenCandy_02;
+OpenCandy_03;
+OpenCandy_04;
+OpenCandy_05;
+OpenCandy_06;
+OpenCandy_07;
+OpenCandy_08;
+OpenCandy_09;
+OpenCandy_10;
+OpenCandy_11;
+OpenCandy_12;
+OpenCandy_13;
+OpenCandy_14;
+OpenCandy_15;
+OpenCandy_16;
+OpenCandy_17;
+OpenCandy_18;
+OpenCandy_19;
+OpenCandy_20;
+OpenCandy_21;
+OpenCandy_22;
+OpenCandy_23;
+OpenCandy_24;
+OpenCandy_25;
+OpenCandy_26;
+OpenCandy_27;
+OpenCandy_28;
+OpenCandy_29;
+OpenCandy_30;
+OpenCandy_31;
+OpenCandy_32;
+OpenCandy_33;
+OpenCandy_34;
+OpenCandy_35;
+OpenCandy_36;
 Options;Beállítások
 Options_Hint;Beállítások
 Original;Eredeti
-OriginalNetworkName
+OriginalNetworkName;
 OriginalSourceForm;Eredeti forrás formátuma
 OriginalSourceMedium;Eredeti adathordozója
 Other;Egyéb
@@ -841,7 +841,7 @@ Played_First_Date;Első lejátszás dátuma
 Played_Last_Date;Utolsó lejátszás dátuma
 PlayTime;Játékidő
 Position;Helyzet
-Position_Total
+Position_Total;
 Preferences;Beállítások
 Producer;Gyártó
 ProductionDesigner;Tervező
@@ -880,12 +880,12 @@ Sharpness;Élesség
 Sheet;Táblázat
 Sheet (Complete);Táblázat (teljes)
 Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny menüben Media Info menüpont...)
-Shell extension, folder
+Shell extension, folder;
 Shell InfoTip;Rendszerhéj tipp (ha az egérmutató az Intézőben a fájl fölé visszük, adatokat láthatunk)
 Show menu;Menü mutatása
 Show toolbar;Eszköztár mutatása
 Sort;Sorba rendezte
-SamplingCount
+SamplingCount;
 SoundEngineer;Hangmérnök
 Standard;Szabvány
 Stream;Sáv
@@ -923,15 +923,15 @@ ThanksTo;Köszönetnyilvánítás
 Thousands separator;Ezres elválasztó jel
 Title;Cím
 Title_More;Cím, több adat
-TimeZone
+TimeZone;
 Total;Összesen
 Track;Sáv
 Track_Count;Sávok száma
-transfer_characteristics
+transfer_characteristics;
 Translator;Fordító
 Tree;Fa
 Tree & Text;Fa és szöveg
-UniqueID
+UniqueID;
 Unknown;Ismeretlen
 Url;Url
 Video;Kép
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;A képkódek weblapjának meglátogatása
 WebSite_Video_More;Látogassa meg a képkódek weblapját (%Url%)
 Width;Szélesség
-Width_Original
+Width_Original;
 WriteMe;Írjon
 WriteToTranslator;Írjon a fordítónak
 Written_Date;Írás dátuma

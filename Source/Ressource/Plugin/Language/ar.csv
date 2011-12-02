@@ -184,7 +184,7 @@ BitRate_Mode_CBR;ثابت
 BitRate_Mode_VBR;متغير
 BitRate_Nominal;المعدل الاسمي للصبيب
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
-BufferSize
+BufferSize;
 Cancel;إلغاء
 Channel(s);قناة
 ChannelPositions;مواقع القنوات
@@ -235,11 +235,11 @@ Comment;تعليق
 CommissionedBy;مصاند من طرف
 CompleteName;الاسم الكامل
 Composer;ملحن
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;نسبة الضغط
-Compilation
+Compilation;
 Conductor;قائد الاوركسترا
 Container and general information;حاوية ومعلومات عامة
 ContentType;نوع المحتوى
@@ -260,9 +260,9 @@ Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
 Delay;تأخير
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;حذف
 Description;وصف
 Digitized_Date;تاريخ الرقمية
@@ -314,7 +314,7 @@ Folder (Recursively);المجلد (بشكل تكراري)
 Folder_Hint;تحديد مجلد لدراسة
 FolderName;اسم المجلد
 Format;شكل
-Format_Commercial
+Format_Commercial;
 Format_Description;وصف الشكل
 Format_Info;تفاصيل عن شكل
 Format_Profile;لبروفايل الشكل
@@ -504,7 +504,7 @@ Genre_145;انمي Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;زيارة الموقع
-Grouping
+Grouping;
 h;h
 Header file;إنشاء ملف header
 Height;ارتفاع
@@ -529,11 +529,11 @@ Interlaced_TFF;البداية من السطر الأول
 Interlaced_BFF;البداية من السطر الأخير
 Interlaced_PPF;تصاعدي
 Interlaced_Progressive;تصاعدي
-Interleaved
+Interleaved;
 Interleave_Duration;تداخل ، المدة
 Interleave_Preload;تداخل ، مدة التحميل المسبق
 Interleave_VideoFrames;تداخل ، المدة
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -885,7 +885,7 @@ Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  �
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
 Sort;مصنفة حسب
-SamplingCount
+SamplingCount;
 SoundEngineer;مهندس الصوت
 Standard;قاعدي
 Stream;دفق
@@ -931,7 +931,7 @@ transfer_characteristics;خصائص نقل
 Translator;مترجم
 Tree;شجرة
 Tree & Text;شجرة والنصوص
-UniqueID
+UniqueID;
 Unknown;مجهول
 Url;رابط
 Video;فيديو

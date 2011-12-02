@@ -31,15 +31,15 @@
  day1; วัน
  day2; วัน
  day3; วัน
- dB1
- dB2
- dB3
+ dB1;
+ dB2;
+ dB3;
  file1; ไฟล์
  file2; ไฟล์
  file3; ไฟล์
- frame1
- frame2
- frame3
+ frame1;
+ frame2;
+ frame3;
  fps1; fps
  fps2; fps
  fps3; fps
@@ -123,16 +123,16 @@
  text stream1; สตรีมข้อความ
  text stream2; สตรีมข้อความ
  text stream3; สตรีมข้อความ
- video frames1
- video frames2
- video frames3
+ video frames1;
+ video frames2;
+ video frames3;
  video stream1; สตรีมวีดีโอ
  video stream2; สตรีมวีดีโอ
  video stream3; สตรีมวีดีโอ
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0;
+ warppoint1;
+ warppoint2;
+ warppoint3;
  week1; สัปดาห์
  week2; สัปดาห์
  week3; สัปดาห์
@@ -146,16 +146,16 @@ About_Hint;วิธีติดต่อฉันและค้นหาเว
 Accompaniment;Accompaniment
 Actor;นักแสดง
 Actor_Character;Character played
-Added_Date
+Added_Date;
 Address;ที่อยู่
 Advanced;ขั้นสูง
 Advanced mode;โหมดขั้นสูง
 Album;อัลบั้ม
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;
+Album_ReplayGain_Peak;
+Alignment;
+Alignment_Aligned;
+Alignment_Split;
 All;ทั้งหมด
 Archival_Location;Archival location
 Arranger;Arranger
@@ -175,16 +175,16 @@ Author;ผู้เขียน
 BarCode;บาร์โค้ด
 Basic;พื้นฐาน
 Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
-BitDepth
+BitDepth;
 BitRate;บิตเรต
 BitRate_Maximum;บิตเรตสูงสุด
 BitRate_Minimum;บิตเรตต่ำสุด
 BitRate_Mode;บิตเรตโหมด
-BitRate_Mode_CBR
-BitRate_Mode_VBR
+BitRate_Mode_CBR;
+BitRate_Mode_VBR;
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
-BufferSize
+BufferSize;
 Cancel;ยกเลิก
 Channel(s);ช่อง
 ChannelPositions;ตำแหน่งช่อง
@@ -204,7 +204,7 @@ Choose filename;เลือกชื่อไฟล์ที่คุณต้�
 Choose language;เลือกภาษาที่คุณต้องการ
 Choregrapher;Choregrapher
 Chroma;Chroma
-ChromaSubsampling
+ChromaSubsampling;
 Close;ปิด
 Close all before open;ปิดทั้งหมดก่อนเปิด
 Codec;Codec
@@ -226,20 +226,20 @@ Codec_Settings_ITU;ตั้งค่า Codec, ITU
 Codec_Profile;Codec โพรไฟล์
 Codec_Url;เว็บลิงค์ของ codec
 CodecID;รหัสประจำตัว Codec
-CodecID_Description
+CodecID_Description;
 Collection;Collection
-Colorimetry
-ColorSpace
-colour_primaries
+Colorimetry;
+ColorSpace;
+colour_primaries;
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 CompleteName;ชื่อเต็ม
 Composer;ผู้เรียบเรียง
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
-Compression_Ratio
-Compilation
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
+Compression_Ratio;
+Compilation;
 Conductor;ผู้อำนวยเพลง
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
 ContentType;ชนิดที่บรรจุ
@@ -250,33 +250,33 @@ Count;Count
 Country;ประเทศ
 Cover;Cover
 Cover_Datas;Cover datas
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;
+Cover_Mime;
+Cover_Type;
+Cropped;
 Custom;กำหนดเอง
 Customize;กำหนดเอง
 Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
 Delay;Delay
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;ลบ
 Description;รายละเอียด
 Digitized_Date;Digitized date
-Dimensions
+Dimensions;
 Director;ผู้กำกับการแสดง
 DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
 DisplayAspectRatio;อัตราการแสดงผล
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;
 DistributedBy;เผยแพร่โดย
 Donate;บริจาค
-DotsPerInch
+DotsPerInch;
 Duration;ระยะเวลา
-Duration_End
-Duration_Start
+Duration_End;
+Duration_Start;
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
 EMail;อี-เมลล์
@@ -286,24 +286,24 @@ Encoded_Library;การเขียนไลบรารี
 Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
 Encoded_Original;ต้นฉบับ
 EncodedBy;เข้ารหัสโดย
-EPG_Positions
+EPG_Positions;
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
 ExecutiveProducer;Executive producer
 Exit;ออก
 Exit_Hint;ออกจากโปรแกรม
 Export;ส่งออก
 Export_Hint;ส่งออกในรูปแบบที่กำหนดเอง
-Extensions
+Extensions;
 Family;Family
 Fax;แฟ็ก
 File;แฟ้ม
 File size;ขนาดไฟล์
 File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
 File_Created_Date;วันที่สร้างไฟล์
-File_Created_Date_Local
+File_Created_Date_Local;
 File_Hint;เลือกไฟล์มัลติมีเดียเพื่อเรียนรู้
 File_Modified_Date;วันที่แก้ไขไฟล์ล่าสุด
-File_Modified_Date_Local
+File_Modified_Date_Local;
 FileExtension;ชนิดไฟล์
 FileName;ชื่อไฟล์
 FileSize;ขนาดไฟล์
@@ -314,7 +314,7 @@ Folder (Recursively);โฟลเดอร์ (Recursively)
 Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
 FolderName;ชื่อโฟลเดอร์
 Format;รูปแบบ
-Format_Commercial
+Format_Commercial;
 Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
 Format_Profile;โพรไฟล์รูปแบบ
@@ -324,8 +324,8 @@ Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
 Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
 Format_Settings_GMC;ตั้งค่ารูปแบบ, GMC
 Format_Settings_Matrix;ตั้งค่ารูปแบบ, Matrix
-Format_Settings_Matrix_Custom
-Format_Settings_Matrix_Default
+Format_Settings_Matrix_Custom;
+Format_Settings_Matrix_Default;
 Format_Settings_Floor;ตั้งค่ารูปแบบ, Floor
 Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
 Format_Settings_Firm;ตั้งค่ารูปแบบ, Firm
@@ -337,18 +337,18 @@ Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
 Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
 Format_Settings_PS;ตั้งค่ารูปแบบ, PS
 Format_Settings_Pulldown;ตั้งค่ารูปแบบ, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;เวอร์ชันรูปแบบ
-Format_Url
-FrameCount
+Format_Url;
+FrameCount;
 FrameRate;เฟรมเรต
 FrameRate_Mode;เฟรมเรตโหมด
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
+FrameRate_Mode_CFR;
+FrameRate_Mode_VFR;
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Nominal;เฟรมเรต Nominal
 FrameRate_Maximum;เฟรมเรตสูงสุด
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;เจป๊อบ
 Genre_147;Synthpop
 Go to WebSite;ไปที่เว็บไซต์
-Grouping
+Grouping;
 h;h
 Header file;สร้างไฟล์ header
 Height;ความสูง
-Height_Original
+Height_Original;
 Help;ช่วยเหลือ
 Hint;คำแนะนำ
 How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
@@ -529,11 +529,11 @@ Interlaced_TFF;ช่องบนสุดก่อน
 Interlaced_BFF;ช่องล่างก่อน
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
-Interleaved
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
-InternetMediaType
+Interleaved;
+Interleave_Duration;
+Interleave_Preload;
+Interleave_VideoFrames;
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -543,7 +543,7 @@ Known formats;รูปแบบที่รู้จัก
 Known parameters;พารามิเตอร์ที่รู้จัก
 Label;ป้ายชื่อ
 Language;ภาษา
-Language_More
+Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -582,8 +582,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;กรีก
 Language_en;อังกฤษ
-Language_en-gb
-Language_en-us
+Language_en-gb;
+Language_en-us;
 Language_eo;Esperanto
 Language_es;สเปน
 Language_et;เอสโตเนีย
@@ -680,7 +680,7 @@ Language_pi;บาลี
 Language_pl;โปแลนด์
 Language_ps;Pushto
 Language_pt;โปรตุเกส
-Language_pt-br
+Language_pt-br;
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -733,19 +733,19 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;จีน
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;
+Language_zh-tw;
 Language_zu;ซูลู
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
-Lightness
+Lightness;
 List;รายการ
-Lyrics
+Lyrics;
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 Menu;เมนู
 Menu stream(s);สตรีมเมนู
@@ -760,66 +760,66 @@ More;เพิ่มเติม
 Movie;ชื่อภาพยนตร์
 ms;ms
 MSDI;MSDI
-MusicBy
+MusicBy;
 MuxingMode;โหมด Muxing
-MuxingMode_MoreInfo
-MuxingMode_PackedBitstream
+MuxingMode_MoreInfo;
+MuxingMode_PackedBitstream;
 Name;ชื่อ
 Nationality;Nationality
-NetworkName
+NetworkName;
 New;ใหม่
 Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;
+NewVersion_Question_Title;
+NewVersion_Question_Content;
 No;ไม่ใช่
-Not yet
-NumColors
+Not yet;
+NumColors;
 OK;ตกลง
 One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
 Open;เปิด
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;
+OpenCandy_02;
+OpenCandy_03;
+OpenCandy_04;
+OpenCandy_05;
+OpenCandy_06;
+OpenCandy_07;
+OpenCandy_08;
+OpenCandy_09;
+OpenCandy_10;
+OpenCandy_11;
+OpenCandy_12;
+OpenCandy_13;
+OpenCandy_14;
+OpenCandy_15;
+OpenCandy_16;
+OpenCandy_17;
+OpenCandy_18;
+OpenCandy_19;
+OpenCandy_20;
+OpenCandy_21;
+OpenCandy_22;
+OpenCandy_23;
+OpenCandy_24;
+OpenCandy_25;
+OpenCandy_26;
+OpenCandy_27;
+OpenCandy_28;
+OpenCandy_29;
+OpenCandy_30;
+OpenCandy_31;
+OpenCandy_32;
+OpenCandy_33;
+OpenCandy_34;
+OpenCandy_35;
+OpenCandy_36;
 Options;ตัวเลือก
 Options_Hint;การปรับแต่ง
 Original;ต้นฉบับ
-OriginalNetworkName
-OriginalSourceForm
-OriginalSourceMedium
+OriginalNetworkName;
+OriginalSourceForm;
+OriginalSourceMedium;
 Other;อื่นๆ
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
@@ -836,9 +836,9 @@ Phone;โทรศัพท์
 PixelAspectRatio;Pixel Aspect Ratio
 PixelAspectRatio_Original;Pixel Aspect Ratio
 PlayCounter;PlayCounter
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;
+Played_First_Date;
+Played_Last_Date;
 PlayTime;เวลาเล่น
 Position;ตำแหน่ง
 Position_Total;ทั้งหมด
@@ -855,37 +855,37 @@ Recorded_Date;วันที่บันทึก
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;รีมิกซ์โดย
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;
+ReplayGain_Peak;
 Resolution;ความละเอียด
 s;s
-SamplingRate
+SamplingRate;
 Save;บันทึก
-ScanType
-ScanOrder
+ScanType;
+ScanOrder;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;ดูด้านล่าง
 Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;ตัวแยกคอลัมน์
 Separator_Lines;ตัวแยกบรรทัด
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;
+ServiceName;
+ServiceProvider;
+ServiceType;
 Set;กำหนด
 Set_Count;Set count
 Setup;ติดตั้ง
-Sharpness
+Sharpness;
 Sheet;ชีต
 Sheet (Complete);Sheet (Complete)
 Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
-Shell extension, folder
+Shell extension, folder;
 Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
 Sort;จัดเรียงโดย
-SamplingCount
+SamplingCount;
 SoundEngineer;ซาวน์เอนจิเนียร์
 Standard;มาตรฐาน
 Stream;สตรีม
@@ -893,10 +893,10 @@ Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยว�
 StreamCount;จำนวนสตรีมของชนิดนี้
 StreamID;รหัสประจำตัวสตรีม
 StreamKind;ชนิดของสตรีม
-StreamKindID
-StreamKindPos
+StreamKindID;
+StreamKindPos;
 StreamSize;ขนาดสตรีม
-StreamSize_Proportion
+StreamSize_Proportion;
 Subject;Subject
 SubTrack;แทร็กย่อย
 Summary;สรุป
@@ -923,15 +923,15 @@ ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 Title;ชื่อเรื่อง
 Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
-TimeZone
+TimeZone;
 Total;ทั้งหมด
 Track;ชื่อแทร็ค
 Track_Count;Track count
-transfer_characteristics
+transfer_characteristics;
 Translator;แปลไทยโดย 
 Tree;Tree
 Tree & Text;Tree & Text
-UniqueID
+UniqueID;
 Unknown;ไม่รู้จัก
 Url;Url
 Video;วีดีโอ
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;ไปที่เว็บไซต์ของ video codec นี้
 WebSite_Video_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา video codec นี้
 Width;Width
-Width_Original
+Width_Original;
 WriteMe;เขียนถึงฉัน
 WriteToTranslator;เขียนถึงผู้แปล
 Written_Date;วันที่เขียน

@@ -175,7 +175,7 @@ Author;Autor
 BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota: para obtener más información acerca de éste archivo, debe seleccionar una vista diferente (Hoja, árbol ...)
-BitDepth
+BitDepth;
 BitRate;Tasa de bits
 BitRate_Maximum;Tasa de bits máxima
 BitRate_Minimum;Tasa de bits mínima
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Constante
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Tasa de bits nominal
 Bits-(Pixel*Frame);Bits/(Pixel*cuadro)
-BufferSize
+BufferSize;
 Cancel;Cancelar
 Channel(s);Canal(es)
 ChannelPositions;Posiciones del canal
@@ -204,7 +204,7 @@ Choose filename;Elegir nombre de archivo
 Choose language;Elegir Idioma
 Choregrapher;Coreografía
 Chroma;Croma
-ChromaSubsampling
+ChromaSubsampling;
 Close;Cerrar
 Close all before open;Cerrar todo antes de abrir
 Codec;Códec
@@ -229,17 +229,17 @@ CodecID;ID Códec
 CodecID_Description;Descripción del códec
 Collection;Colección
 Colorimetry;Espacio de color
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;Comentarios
 CommissionedBy;Encargado por
 CompleteName;Nombre completo
 Composer;Compositor
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Tasa de compresión
-Compilation
+Compilation;
 Conductor;Conductor
 Container and general information;Información general
 ContentType;Tipo de Contenido
@@ -260,9 +260,9 @@ Date;Fecha
 Debug;Depurar
 Decimal point;Punto decimal
 Delay;Demora
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Eliminar
 Description;Descripción
 Digitized_Date;Fecha de digitalización
@@ -270,13 +270,13 @@ Dimensions;Dimensiones
 Director;Director
 DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;
 DistributedBy;Distribuído por
 Donate;Donación
 DotsPerInch;Puntos por pulgada
 Duration;Duración
-Duration_End
-Duration_Start
+Duration_End;
+Duration_Start;
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
@@ -286,7 +286,7 @@ Encoded_Library;Librería de codificación
 Encoded_Library_Settings;Opciones de codificación
 Encoded_Original;Original
 EncodedBy;Codificado por
-EPG_Positions
+EPG_Positions;
 Error_File;Error al leer el archivo
 ExecutiveProducer;Productor ejecutivo
 Exit;Salir
@@ -300,10 +300,10 @@ File;Archivo
 File size;Tamaño del archivo
 File_Append;Añadir a un archivo existente (Advertencia: tenga cuidado de tener los mismos parámetros)
 File_Created_Date;Fecha de creación del archivo
-File_Created_Date_Local
+File_Created_Date_Local;
 File_Hint;Seleccione un archivo multimedia para estudiar
 File_Modified_Date;Última fecha de modificación del archivo
-File_Modified_Date_Local
+File_Modified_Date_Local;
 FileExtension;Extensión del archivo
 FileName;Nombre del Archivo
 FileSize;Tamaño del archivo
@@ -314,7 +314,7 @@ Folder (Recursively);Carpeta general
 Folder_Hint;Selecciona una carpeta para estudiar
 FolderName;Nombre de la carpeta
 Format;Formato
-Format_Commercial
+Format_Commercial;
 Format_Description;Descripción del formato
 Format_Info;Detalles del formato
 Format_Profile;Formato del perfil
@@ -337,11 +337,11 @@ Format_Settings_ITU;Ajustes del formato, ITU
 Format_Settings_SBR;Ajustes del formato, SBR
 Format_Settings_PS;Ajustes del formato, PS
 Format_Settings_Pulldown;Ajustes del formato, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Formato de la versión
 Format_Url;Vínculo web  del formato
 FrameCount;Contador de cuadro
@@ -355,160 +355,160 @@ FrameRate_Maximum;Velocidad de cuadro Máxima
 FrameRate_Original;Velocidad de cuadro Original
 General;General
 Genre;Género
-Genre_000
-Genre_001
-Genre_002
-Genre_003
-Genre_004
-Genre_005
-Genre_006
-Genre_007
-Genre_008
-Genre_009
-Genre_010
-Genre_011
-Genre_012
-Genre_013
-Genre_014
-Genre_015
-Genre_016
-Genre_017
-Genre_018
-Genre_019
-Genre_020
-Genre_021
-Genre_022
-Genre_023
-Genre_024
-Genre_025
-Genre_026
-Genre_027
-Genre_028
-Genre_029
-Genre_030
-Genre_031
-Genre_032
-Genre_033
-Genre_034
-Genre_035
-Genre_036
-Genre_037
-Genre_038
-Genre_039
-Genre_040
-Genre_041
-Genre_042
-Genre_043
-Genre_044
-Genre_045
-Genre_046
-Genre_047
-Genre_048
-Genre_049
-Genre_050
-Genre_051
-Genre_052
-Genre_053
-Genre_054
-Genre_055
-Genre_056
-Genre_057
-Genre_058
-Genre_059
-Genre_060
-Genre_061
-Genre_062
-Genre_063
-Genre_064
-Genre_065
-Genre_066
-Genre_067
-Genre_068
-Genre_069
-Genre_070
-Genre_071
-Genre_072
-Genre_073
-Genre_074
-Genre_075
-Genre_076
-Genre_077
-Genre_078
-Genre_079
-Genre_080
-Genre_081
-Genre_082
-Genre_083
-Genre_084
-Genre_085
-Genre_086
-Genre_087
-Genre_088
-Genre_089
-Genre_090
-Genre_091
-Genre_092
-Genre_093
-Genre_094
-Genre_095
-Genre_096
-Genre_097
-Genre_098
-Genre_099
-Genre_100
-Genre_101
-Genre_102
-Genre_103
-Genre_104
-Genre_105
-Genre_106
-Genre_107
-Genre_108
-Genre_109
-Genre_110
-Genre_111
-Genre_112
-Genre_113
-Genre_114
-Genre_115
-Genre_116
-Genre_117
-Genre_118
-Genre_119
-Genre_120
-Genre_121
-Genre_122
-Genre_123
-Genre_124
-Genre_125
-Genre_126
-Genre_127
-Genre_128
-Genre_129
-Genre_130
-Genre_131
-Genre_132
-Genre_133
-Genre_134
-Genre_135
-Genre_136
-Genre_137
-Genre_138
-Genre_139
-Genre_140
-Genre_141
-Genre_142
-Genre_143
-Genre_144
-Genre_145
-Genre_146
-Genre_147
+Genre_000;
+Genre_001;
+Genre_002;
+Genre_003;
+Genre_004;
+Genre_005;
+Genre_006;
+Genre_007;
+Genre_008;
+Genre_009;
+Genre_010;
+Genre_011;
+Genre_012;
+Genre_013;
+Genre_014;
+Genre_015;
+Genre_016;
+Genre_017;
+Genre_018;
+Genre_019;
+Genre_020;
+Genre_021;
+Genre_022;
+Genre_023;
+Genre_024;
+Genre_025;
+Genre_026;
+Genre_027;
+Genre_028;
+Genre_029;
+Genre_030;
+Genre_031;
+Genre_032;
+Genre_033;
+Genre_034;
+Genre_035;
+Genre_036;
+Genre_037;
+Genre_038;
+Genre_039;
+Genre_040;
+Genre_041;
+Genre_042;
+Genre_043;
+Genre_044;
+Genre_045;
+Genre_046;
+Genre_047;
+Genre_048;
+Genre_049;
+Genre_050;
+Genre_051;
+Genre_052;
+Genre_053;
+Genre_054;
+Genre_055;
+Genre_056;
+Genre_057;
+Genre_058;
+Genre_059;
+Genre_060;
+Genre_061;
+Genre_062;
+Genre_063;
+Genre_064;
+Genre_065;
+Genre_066;
+Genre_067;
+Genre_068;
+Genre_069;
+Genre_070;
+Genre_071;
+Genre_072;
+Genre_073;
+Genre_074;
+Genre_075;
+Genre_076;
+Genre_077;
+Genre_078;
+Genre_079;
+Genre_080;
+Genre_081;
+Genre_082;
+Genre_083;
+Genre_084;
+Genre_085;
+Genre_086;
+Genre_087;
+Genre_088;
+Genre_089;
+Genre_090;
+Genre_091;
+Genre_092;
+Genre_093;
+Genre_094;
+Genre_095;
+Genre_096;
+Genre_097;
+Genre_098;
+Genre_099;
+Genre_100;
+Genre_101;
+Genre_102;
+Genre_103;
+Genre_104;
+Genre_105;
+Genre_106;
+Genre_107;
+Genre_108;
+Genre_109;
+Genre_110;
+Genre_111;
+Genre_112;
+Genre_113;
+Genre_114;
+Genre_115;
+Genre_116;
+Genre_117;
+Genre_118;
+Genre_119;
+Genre_120;
+Genre_121;
+Genre_122;
+Genre_123;
+Genre_124;
+Genre_125;
+Genre_126;
+Genre_127;
+Genre_128;
+Genre_129;
+Genre_130;
+Genre_131;
+Genre_132;
+Genre_133;
+Genre_134;
+Genre_135;
+Genre_136;
+Genre_137;
+Genre_138;
+Genre_139;
+Genre_140;
+Genre_141;
+Genre_142;
+Genre_143;
+Genre_144;
+Genre_145;
+Genre_146;
+Genre_147;
 Go to WebSite;Ir al sitio Web
-Grouping
+Grouping;
 h;h
 Header file;Cabecera
 Height;Alto
-Height_Original
+Height_Original;
 Help;Ayuda
 Hint;Pista
 How many audio streams?;¿Cuántas reproducciones de pistas de audio?
@@ -529,11 +529,11 @@ Interlaced_TFF;Campo superior primero
 Interlaced_BFF;Campo inferior primero
 Interlaced_PPF;Progresivo
 Interlaced_Progressive;Progresivo
-Interleaved
+Interleaved;
 Interleave_Duration;Entrelazado, duración
 Interleave_Preload;Entrelazado, duración de precarga
 Interleave_VideoFrames;Entrelazado, duración
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;Letras
 Lyricist;Autor de letra
 Mastered_Date;Fecha de edición
 MasteredBy;Editado por
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Muestra información detallada\r\nde un archivo multimedia:\r\nMastroska, OGG, (incluyendo OGM)\r\n\MPEG1 (incluyendo VCD)\r\nMPEG2 (incluyendo DVD y SVCD)\r\nMPEG4 (incluyendo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (incluyendo WMV, WMA)\r\nMicrosoft RIFF (incluyendo AVI, WAV)\r\nSólo formatos de sonido (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menú
 Menu stream(s);Menú de pista(s)
@@ -762,16 +762,16 @@ ms;ms
 MSDI;MSDI
 MusicBy;Música de
 MuxingMode;Modo Muxing
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;Flujo de bits empaquetado
 Name;Nombre
 Nationality;Nacionalidad
-NetworkName
+NetworkName;
 New;Nuevo
 Newest version;Buscar nueva actualización (requiere conexión a Internet)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;
+NewVersion_Question_Title;
+NewVersion_Question_Content;
 No;No
 Not yet;Aún no
 NumColors;Número de colores
@@ -817,7 +817,7 @@ OpenCandy_36;Su instalación actual no será interrumpida
 Options;Opciones
 Options_Hint;Preferencias
 Original;Original
-OriginalNetworkName
+OriginalNetworkName;
 OriginalSourceForm;Fuente original de
 OriginalSourceMedium;Fuente original medio
 Other;Otro
@@ -880,12 +880,12 @@ Sharpness;Nitidez
 Sheet;Hoja
 Sheet (Complete);Hoja (Completa)
 Shell extension;Extensión Shell (Al hacer clic derecho en el explorador habrá una opción MediaInfo)
-Shell extension, folder
+Shell extension, folder;
 Shell InfoTip;Shell InfoTip (en el explorador, mueva el ratón sobre el archivo y la información será mostrada)
 Show menu;Mostrar menú
 Show toolbar;Mostrar Barra de herramientas
 Sort;Ordenar por
-SamplingCount
+SamplingCount;
 SoundEngineer;Ingeniero de sonido
 Standard;Estándar
 Stream;Pista
@@ -923,15 +923,15 @@ ThanksTo;Gracias a
 Thousands separator;Separador de miles
 Title;Título
 Title_More;Título, más info
-TimeZone
+TimeZone;
 Total;Total
 Track;Nombre de Pista
 Track_Count;Número de pista
-transfer_characteristics
+transfer_characteristics;
 Translator;Traductor
 Tree;Árbol
 Tree & Text;Árbol y Texto
-UniqueID
+UniqueID;
 Unknown;Desconocido
 Url;Url
 Video;Video
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ir al sitio web de éste códec de video
 WebSite_Video_More;Ir al sitio web (%Url%) para buscar éste códec de video
 Width;Ancho
-Width_Original
+Width_Original;
 WriteMe;Escribir un mail al autor
 WriteToTranslator;Escribir al traductor
 Written_Date;Escrito el

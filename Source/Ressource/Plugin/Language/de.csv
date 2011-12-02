@@ -175,7 +175,7 @@ Author;Autor
 BarCode;Barcode
 Basic;Einfach
 Basic_Note;Hinweis: Für mehr Informationen über diese Datei eine andere Ansicht wählen (Baumstruktur, Tabelle...)
-BitDepth
+BitDepth;
 BitRate;Bitrate
 BitRate_Maximum;maximale Bitrate
 BitRate_Minimum;minimale Bitrate
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;konstant
 BitRate_Mode_VBR;variabel
 BitRate_Nominal;nominale Bitrate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
-BufferSize
+BufferSize;
 Cancel;Abbrechen
 Channel(s);Kanäle
 ChannelPositions;Kanal-Positionen
@@ -204,7 +204,7 @@ Choose filename;Gewünschten Dateinamen auswählen
 Choose language;Gewünschte Sprache auswählen
 Choregrapher;Choreograph
 Chroma;Chroma
-ChromaSubsampling
+ChromaSubsampling;
 Close;Schließen
 Close all before open;Vor dem Öffnen alle anderen schließen
 Codec;Codec
@@ -229,17 +229,17 @@ CodecID;Codec-ID
 CodecID_Description;Beschreibung zum Codec
 Collection;Sammlung
 Colorimetry;Colorimetrie
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;Kommentar
 CommissionedBy;In Auftrag gegeben von
 CompleteName;Vollständiger Name
 Composer;Komponist
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Kompressions-Verhältnis
-Compilation
+Compilation;
 Conductor;Leiter
 Container and general information;Containerformat und allgemeine Informationen
 ContentType;Typ des Inhalts
@@ -260,9 +260,9 @@ Date;Datum
 Debug;Debug
 Decimal point;Dezimalpunkt
 Delay;Verzögerung
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Löschen
 Description;Beschreibung
 Digitized_Date;Digitalisierungs-Datum
@@ -314,7 +314,7 @@ Folder (Recursively);Verzeichnis (rekursiv)
 Folder_Hint;Verzeichnis zum Betrachten auswählen
 FolderName;Verzeichnisname
 Format;Format
-Format_Commercial
+Format_Commercial;
 Format_Description;Format-Beschreibung
 Format_Info;Format-Details
 Format_Profile;Format-Profil
@@ -337,11 +337,11 @@ Format_Settings_ITU;Format-Einstellungen für ITU
 Format_Settings_SBR;Format-Einstellungen für SBR
 Format_Settings_PS;Format-Einstellungen für PS
 Format_Settings_Pulldown;Format-Einstellungen für Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Format-Version
 Format_Url;Web-Link zum Format
 FrameCount;Anzahl der Frames
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Zur Webseite gehen
-Grouping
+Grouping;
 h;h
 Header file;Header-Datei erstellen
 Height;Höhe
-Height_Original
+Height_Original;
 Help;Hilfe
 Hint;Hinweis
 How many audio streams?;Wieviele Audio-Streams?
@@ -529,11 +529,11 @@ Interlaced_TFF;oberes Feld zuerst
 Interlaced_BFF;unteres Feld zuerst
 Interlaced_PPF;progressiv
 Interlaced_Progressive;progressiv
-Interleaved
+Interleaved;
 Interleave_Duration;Interleave, Dauer
 Interleave_Preload;Interleave, Vorlaufsdauer
 Interleave_VideoFrames;Interleave, Dauer
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;Liedtext
 Lyricist;Liedtexter
 Mastered_Date;Mastering-Datum
 MasteredBy;Gemastert von
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Liefert sehr detaillierte Informationen\r\nüber Multimedia-Dateien:\r\nMatroska, OGG (einschließlich OGM)\r\nMPEG1 (einschließlich VCD)\r\nMPEG2 (einschließlich DVD and SVCD)\r\nMPEG4 (einschließlich Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (einschließlich WMV, WMA)\r\nMicrosoft RIFF (einschließlich AVI, WAV)\r\nAudio-Formate (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menü-Streams
@@ -885,7 +885,7 @@ Shell InfoTip;Shell InfoTip (bewege den Mauszeiger im Explorer über eine Datei 
 Show menu;Menü anzeigen
 Show toolbar;Toolbar anzeigen
 Sort;Sortiert nach
-SamplingCount
+SamplingCount;
 SoundEngineer;Tontechniker 
 Standard;Standard
 Stream;Stream
@@ -927,11 +927,11 @@ TimeZone;Zeitzone
 Total;Gesamt
 Track;Track-Name
 Track_Count;Anzahl der Tracks
-transfer_characteristics
+transfer_characteristics;
 Translator;Übersetzer
 Tree;Baumstruktur
 Tree & Text;Baumstruktur & Text
-UniqueID
+UniqueID;
 Unknown;Unbekannt
 Url;URL
 Video;Video
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Zur Webseite dieses Video-Codecs gehen
 WebSite_Video_More;Zu dieser Webseite (%Url%) gehen um diesen Video-Codec zu finden
 Width;Breite
-Width_Original
+Width_Original;
 WriteMe;Mail an den Autor
 WriteToTranslator;Mail an den Übersetzer
 Written_Date;Datum des Schreibbeginns

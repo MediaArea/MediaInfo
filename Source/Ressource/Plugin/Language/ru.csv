@@ -7,7 +7,7 @@
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
-  Config_Text_ThousandsSeparator
+  Config_Text_ThousandsSeparator;
  audio stream1; аудиопоток
  audio stream2; аудиопотока
  audio stream3; аудиопотоков

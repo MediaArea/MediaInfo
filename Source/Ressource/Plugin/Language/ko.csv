@@ -175,7 +175,7 @@ Author;작가
 BarCode;바코드
 Basic;기본
 Basic_Note;노트 : 이 파일에 관한 더 자세한 정보를 원하시면 다른 보기를 선택하세요(시트, 트리...)
-BitDepth
+BitDepth;
 BitRate;비트레이트
 BitRate_Maximum;최고 비트레이트
 BitRate_Minimum;최소 비트레이트
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;고정
 BitRate_Mode_VBR;변동
 BitRate_Nominal;명목상의 비트레이트
 Bits-(Pixel*Frame);비트/(픽셀*프레임)
-BufferSize
+BufferSize;
 Cancel;취소
 Channel(s);채널
 ChannelPositions;채널 위치
@@ -204,7 +204,7 @@ Choose filename;원하는 파일명을 선택하세요
 Choose language;원하는 언어를 선택하세요
 Choregrapher;안무가
 Chroma;색차
-ChromaSubsampling
+ChromaSubsampling;
 Close;닫기
 Close all before open;열기 전에 모두 닫기
 Codec;코덱
@@ -229,17 +229,17 @@ CodecID;코덱 ID
 CodecID_Description;코덱 설명
 Collection;콜렉션
 Colorimetry;색체계
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;주석
 CommissionedBy;의뢰
 CompleteName;전체 이름
 Composer;작곡가
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;압축률
-Compilation
+Compilation;
 Conductor;지휘자
 Container and general information;컨테이너와 일반 정보
 ContentType;내용 종류
@@ -260,9 +260,9 @@ Date;날짜
 Debug;디버그
 Decimal point;소수점
 Delay;딜레이
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;삭제
 Description;설명
 Digitized_Date;디지털화 날짜
@@ -314,7 +314,7 @@ Folder (Recursively);폴더 (하위 포함)
 Folder_Hint;조사할 폴더를 선택
 FolderName;폴더명
 Format;포맷
-Format_Commercial
+Format_Commercial;
 Format_Description;포맷 설명
 Format_Info;포맷 정보
 Format_Profile;포맷 프로파일
@@ -337,11 +337,11 @@ Format_Settings_ITU;포맷 설정, ITU
 Format_Settings_SBR;포맷 설정, SBR
 Format_Settings_PS;포맷 설정, PS
 Format_Settings_Pulldown;포맷 설정, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;포맷 버전
 Format_Url;포맷 웹링크
 FrameCount;포맷 개수
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;웹사이트로 가기
-Grouping
+Grouping;
 h;시
 Header file;헤더 파일 만들기
 Height;높이
-Height_Original
+Height_Original;
 Help;도움말
 Hint;힌트
 How many audio streams?;몇 개의 오디오 스트림?
@@ -529,11 +529,11 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;프로그레시브
 Interlaced_Progressive;프로그레시브
-Interleaved
+Interleaved;
 Interleave_Duration;인터리브,길이
 Interleave_Preload;인터리브,프리로드 길이
 Interleave_VideoFrames;인터리브,길이
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;가사
 Lyricist;작사가
 Mastered_Date;마스터 날짜
 MasteredBy;마스터
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;미디어 파일에 대한\r\n상세한 정보를 제공:\r\nMatroska, OGG (OGM 포함)\r\nMPEG1 (VCD 포함)\r\nMPEG2 (DVD와 SVCD 포함)\r\nMPEG4 (Itunes M4A 포함)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA 포함)\r\nMicrosoft RIFF (AVI, WAV 포함)\r\n음악 포맷 (AC3, DTS, AAC, AU, AIFF...)
 Menu;메뉴
 Menu stream(s);메뉴 스트림
@@ -885,7 +885,7 @@ Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓�
 Show menu;메뉴 보기
 Show toolbar;도구 모음 보기
 Sort;소팅
-SamplingCount
+SamplingCount;
 SoundEngineer;사운드 엔지니어
 Standard;표준
 Stream;스트림
@@ -927,11 +927,11 @@ TimeZone;시간대
 Total;총
 Track;트랙 이름
 Track_Count;트랙 개수
-transfer_characteristics
+transfer_characteristics;
 Translator;번역
 Tree;트리
 Tree & Text;트리 & 텍스트
-UniqueID
+UniqueID;
 Unknown;알 수 없음
 Url;Url
 Video;비디오
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;이 비디오 코덱의 웹사이트로 가기
 WebSite_Video_More;이 비디오 코덱을 찾기 위한 웹사이트(%Url%)로 가기
 Width;폭
-Width_Original
+Width_Original;
 WriteMe;제작자에게 메일쓰기
 WriteToTranslator;번역자에게 메일쓰기
 Written_Date;제작일

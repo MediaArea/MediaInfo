@@ -175,7 +175,7 @@ Author;作者
 BarCode;條碼
 Basic;基本
 Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同的視點 (表格, 樹狀圖 ...)
-BitDepth
+BitDepth;
 BitRate;流量
 BitRate_Maximum;最大流量
 BitRate_Minimum;最小流量
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;常數式
 BitRate_Mode_VBR;可變式
 BitRate_Nominal;正常流量
 Bits-(Pixel*Frame);位元/(像素*影格)
-BufferSize
+BufferSize;
 Cancel;取消
 Channel(s);聲道數
 ChannelPositions;聲道位置
@@ -204,7 +204,7 @@ Choose filename;選擇你要的檔名
 Choose language;選擇你要的語系
 Choregrapher;動作指導
 Chroma;彩度
-ChromaSubsampling
+ChromaSubsampling;
 Close;關閉
 Close all before open;開啟前關閉其它檔案
 Codec;編解碼器
@@ -229,17 +229,17 @@ CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
 Collection;收藏
 Colorimetry;比色法
-ColorSpace
+ColorSpace;
 colour_primaries;色彩原色
 Comment;註釋
 CommissionedBy;委託
 CompleteName;完整檔名
 Composer;作曲者
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;壓縮比
-Compilation
+Compilation;
 Conductor;指揮
 Container and general information;容器格式與一般訊息
 ContentType;內容型態
@@ -260,9 +260,9 @@ Date;日期
 Debug;偵錯
 Decimal point;小數點
 Delay;延遲
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;刪除
 Description;敘述
 Digitized_Date;數位化日期
@@ -314,7 +314,7 @@ Folder (Recursively);資料夾 (遞迴)
 Folder_Hint;選擇要檢視的資料夾
 FolderName;資料夾
 Format;格式
-Format_Commercial
+Format_Commercial;
 Format_Description;格式敘述
 Format_Info;格式詳細資訊
 Format_Profile;格式類型
@@ -337,11 +337,11 @@ Format_Settings_ITU;格式設定, ITU
 Format_Settings_SBR;格式設定, SBR
 Format_Settings_PS;格式設定, PS
 Format_Settings_Pulldown;格式設定, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;格式版本
 Format_Url;該格式的網址
 FrameCount;影格數
@@ -504,11 +504,11 @@ Genre_145;動畫歌曲 (Anime)
 Genre_146;日本流行樂 (JPop)
 Genre_147;新潮電子 (Synthpop)
 Go to WebSite;前往網站
-Grouping
+Grouping;
 h;時
 Header file;建立標頭檔案
 Height;畫面高度
-Height_Original
+Height_Original;
 Help;說明
 Hint;提示
 How many audio streams?;有多少音訊串流?
@@ -529,11 +529,11 @@ Interlaced_TFF;前場優先
 Interlaced_BFF;後場優先
 Interlaced_PPF;漸進式
 Interlaced_Progressive;漸進式
-Interleaved
+Interleaved;
 Interleave_Duration;交錯訊號, 持續時間
 Interleave_Preload;交錯訊號, 預先載入時間
 Interleave_VideoFrames;交錯訊號, 持續時間
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -885,7 +885,7 @@ Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯�
 Show menu;顯示選單
 Show toolbar;顯示工具列
 Sort;排序
-SamplingCount
+SamplingCount;
 SoundEngineer;音響工程師
 Standard;標準
 Stream;串流
@@ -931,7 +931,7 @@ transfer_characteristics;傳輸特性
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
-UniqueID
+UniqueID;
 Unknown;未知
 Url;相關網址
 Video;視訊
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net/zh-TW
 WebSite_Video;前往此視訊編解碼器的網站
 WebSite_Video_More;前往網站 (%Url%) 找尋此視訊編解碼器
 Width;畫面寬度
-Width_Original
+Width_Original;
 WriteMe;寫信給作者
 WriteToTranslator;寫信給譯者
 Written_Date;撰寫日期

@@ -175,7 +175,7 @@ Author;نویسنده
 BarCode;بارکد
 Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
-BitDepth
+BitDepth;
 BitRate;نرخ بيت 
 BitRate_Maximum;بیشترین نرخ بيت 
 BitRate_Minimum;کمترین نرخ بيت 
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;پايدار
 BitRate_Mode_VBR;متغییر
 BitRate_Nominal;نرخ بيت غیرواقعی  
 Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
-BufferSize
+BufferSize;
 Cancel;لغو
 Channel(s);کانال ها
 ChannelPositions;موقعیت کانال ها
@@ -204,7 +204,7 @@ Choose filename;نام فایل موردنظر را انتخاب کنید
 Choose language;زمان موردنظر را انتخاب کنید
 Choregrapher;رقاص
 Chroma;رنگينى
-ChromaSubsampling
+ChromaSubsampling;
 Close;ببند
 Close all before open;قبل از باز کردن ببند
 Codec;کدک
@@ -229,17 +229,17 @@ CodecID;هویت کدک
 CodecID_Description;شرح کدک
 Collection;جمع اورى
 Colorimetry;سنجش رنگ
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;توضيح 
 CommissionedBy;مجاز توسط
 CompleteName;نام کامل
 Composer;سراينده 
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
-Compilation
+Compilation;
 Conductor;رهبر اکسترر 
 Container and general information;محتوی و اطلاعات کلی
 ContentType;نوع محتوا
@@ -260,9 +260,9 @@ Date;تاریخ
 Debug;اشکال زدائى
 Decimal point;مميز اعشارى
 Delay;مکث
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;حذف
 Description;شرح
 Digitized_Date;تاریخ رقمى
@@ -314,7 +314,7 @@ Folder (Recursively);پوشه (Recursively)
 Folder_Hint;انتخاب پوشه
 FolderName;نام پوشه
 Format;فرمت
-Format_Commercial
+Format_Commercial;
 Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
 Format_Profile;پروفایل فرمت
@@ -337,11 +337,11 @@ Format_Settings_ITU;تنظیمات فرمت, ITU
 Format_Settings_SBR;تنظیمات فرمت, SBR
 Format_Settings_PS;تنظیمات فرمت, PS
 Format_Settings_Pulldown;تنظیمات فرمت, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;نسخه فرمت
 Format_Url;لینک فرمت
 FrameCount;تعداد فرمت
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;وب سایت
-Grouping
+Grouping;
 h;h
 Header file;ایجاد فایل سر صفحه
 Height;بلندی
-Height_Original
+Height_Original;
 Help;راهنمایی
 Hint;اشارات
 How many audio streams?;تعداد استریم صوت?
@@ -529,11 +529,11 @@ Interlaced_TFF;فیلد بالا در اول
 Interlaced_BFF;فیلد پایین در اول 
 Interlaced_PPF;تصاعدى
 Interlaced_Progressive;تصاعدى
-Interleaved
+Interleaved;
 Interleave_Duration;جاگذارى, مدت
 Interleave_Preload;جاگذارى, مدت بارگذاری
 Interleave_VideoFrames;جاگذارى, مدت
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;متن آهنگ
 Lyricist;لایرسکسیست
 Mastered_Date;تاریخ مستر
 MasteredBy;مستر شده توسط
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;منو
 Menu stream(s);استریم منو
@@ -885,7 +885,7 @@ Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info wil
 Show menu;نمایش منو
 Show toolbar;نمایش نوارابزار
 Sort;طبقه بندى توسط
-SamplingCount
+SamplingCount;
 SoundEngineer;مهندس صدا
 Standard;استاندارد
 Stream;استریم
@@ -927,11 +927,11 @@ TimeZone;منطقه ساعتى جهانى
 Total;کلی
 Track;نام ترک
 Track_Count;تعداد ترک
-transfer_characteristics
+transfer_characteristics;
 Translator;مترجم
 Tree;درختی
 Tree & Text;درختی ومتنی
-UniqueID
+UniqueID;
 Unknown;نامعلوم
 Url;Url
 Video;ویدیو
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;سایت ویدیو کدک
 WebSite_Video_More;به سایت (%Url%) برای پیدا کردن ویدیو کدک بروید
 Width;عرض
-Width_Original
+Width_Original;
 WriteMe;نوشته برای نویسنده
 WriteToTranslator;نوشته برای مترجم
 Written_Date;تاریخ نوشته

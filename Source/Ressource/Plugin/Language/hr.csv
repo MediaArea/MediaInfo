@@ -175,7 +175,7 @@ Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
-BitDepth
+BitDepth;
 BitRate;Stopa protoka podataka
 BitRate_Maximum;Maksimum protoka podataka
 BitRate_Minimum;Minimum protoka podataka
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Ustaljeno
 BitRate_Mode_VBR;Promjenjivo
 BitRate_Nominal;Nominalni protok podataka
 Bits-(Pixel*Frame);Bita/(piksela*sličica)
-BufferSize
+BufferSize;
 Cancel;Poništiti
 Channel(s);Kanali
 ChannelPositions;Položaj kanala
@@ -204,7 +204,7 @@ Choose filename;Odaberite naziv datoteke
 Choose language;Odaberite jezik
 Choregrapher;Koreograf
 Chroma;Kromatizam
-ChromaSubsampling
+ChromaSubsampling;
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
 Codec;Kôdek
@@ -229,17 +229,17 @@ CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
 Collection;Zbirka
 Colorimetry;Kolorimetrija
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;Komentar
 CommissionedBy;Prema nalogu
 CompleteName;Potpuni naziv
 Composer;Skladatelj
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
-Compilation
+Compilation;
 Conductor;Ravnatelj
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
@@ -260,9 +260,9 @@ Date;Nadnevak
 Debug;Uklanjanje pogreški
 Decimal point;Decimalna točka
 Delay;Zaostajanje
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Izbrisati
 Description;Opis
 Digitized_Date;Nadnevak digitaliziranja
@@ -314,7 +314,7 @@ Folder (Recursively);Mapa (rekurzivno)
 Folder_Hint;Odaberite mapu za promatranje
 FolderName;Naziv mape
 Format;Oblik datoteke
-Format_Commercial
+Format_Commercial;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Profile;Profil oblika datoteke
@@ -337,11 +337,11 @@ Format_Settings_ITU;Postavke oblika datoteke za ITU
 Format_Settings_SBR;Postavke oblika datoteke za SBR
 Format_Settings_PS;Postavke oblika datoteke za PS
 Format_Settings_Pulldown;Postavke oblika datoteke za Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Inačica oblika datoteke
 Format_Url;Spletna poveznica oblika datoteke
 FrameCount;Broj sličica
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Prijeći na spletni sadržaj
-Grouping
+Grouping;
 h;h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
-Height_Original
+Height_Original;
 Help;Pomoć
 Hint;Naznaka
 How many audio streams?;Koliko zvučnih tokova?
@@ -529,11 +529,11 @@ Interlaced_TFF;Najprije gornje polje
 Interlaced_BFF;Najprije donje polje
 Interlaced_PPF;Progresivno
 Interlaced_Progressive;Progresivno
-Interleaved
+Interleaved;
 Interleave_Duration;Interleave, trajanje
 Interleave_Preload;Interleave, trajanje predučitavanja
 Interleave_VideoFrames;Interleave, trajanje
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;Tekst pjesme
 Lyricist;Tekstopisac
 Mastered_Date;Nadnevak glavne snimke
 MasteredBy;Glavnu snimku napravio
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
@@ -885,7 +885,7 @@ Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku ć
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
 Sort;Poređano prema
-SamplingCount
+SamplingCount;
 SoundEngineer;Tonski tehničar
 Standard;Standardno
 Stream;Tok
@@ -923,15 +923,15 @@ ThanksTo;Zahvala
 Thousands separator;Razdjelnik tisuća
 Title;Naslov
 Title_More;Više podataka o naslovu
-TimeZone
+TimeZone;
 Total;Ukupno
 Track;Naziv snimke
 Track_Count;Broj snimke
-transfer_characteristics
+transfer_characteristics;
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
-UniqueID
+UniqueID;
 Unknown;Nepoznato
 Url;URL
 Video;Video
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Prijeći na spletnu stranicu tog video-kôdeka
 WebSite_Video_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog video-kôdeka
 Width;Širina
-Width_Original
+Width_Original;
 WriteMe;Poruka autoru
 WriteToTranslator;Poruka prevoditelju
 Written_Date;Nadnevak početka pisanja

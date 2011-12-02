@@ -175,7 +175,7 @@ Author;Auteur
 BarCode;Streepjescode
 Basic;Elementair
 Basic_Note;Let op : voor meer informatie over dit bestand, moet u een ander beeld kiezen (Blad, Boomstructuur,...)
-BitDepth
+BitDepth;
 BitRate;Bitrate
 BitRate_Maximum;Maximale bitrate
 BitRate_Minimum;Minimale bitrate
@@ -184,7 +184,7 @@ BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominale bitrate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
-BufferSize
+BufferSize;
 Cancel;Annuleren
 Channel(s);Kanaal(en)
 ChannelPositions;Kanaalposities
@@ -204,7 +204,7 @@ Choose filename;Kies uw gewenste bestandsnaam
 Choose language;Kies uw gewenste taal
 Choregrapher;Choreograaf
 Chroma;Chroma
-ChromaSubsampling
+ChromaSubsampling;
 Close;Sluiten
 Close all before open;Sluit alle alvorens te openen
 Codec;Codec
@@ -229,17 +229,17 @@ CodecID;Codec-ID
 CodecID_Description; Beschrijving van de codec
 Collection;Collectie
 Colorimetry; Colorimetrie
-ColorSpace
-colour_primaries
+ColorSpace;
+colour_primaries;
 Comment;Commentaar
 CommissionedBy;In opdracht van
 CompleteName;Volledige naam
 Composer;Componist
-Compression_Mode
-Compression_Mode_Lossless
-Compression_Mode_Lossy
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
 Compression_Ratio;Compressieverhouding
-Compilation
+Compilation;
 Conductor;Dirigent
 Container and general information;Container en algemene informatie
 ContentType;Inhoudstype
@@ -260,9 +260,9 @@ Date;Datum
 Debug;Debug
 Decimal point;Decimale punt
 Delay;Vertraging
-Delay_Source
-Delay_Source_Container
-Delay_Source_Stream
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
 Delete;Verwijderen
 Description;Beschrijving
 Digitized_Date;Digitaliseringsdatum
@@ -275,8 +275,8 @@ DistributedBy;Gedistribueerd door
 Donate;Doneren
 DotsPerInch;Punten per inch
 Duration;Duur
-Duration_End
-Duration_Start
+Duration_End;
+Duration_Start;
 Edit;Bewerken
 EditedBy;Bewerkt door
 EMail;E-Mail
@@ -286,7 +286,7 @@ Encoded_Library;Gebruikte encoderbibliotheek
 Encoded_Library_Settings;Instellingen codering
 Encoded_Original;Origineel
 EncodedBy;Gecodeerd door
-EPG_Positions
+EPG_Positions;
 Error_File;Fout tijdens lezen bestand
 ExecutiveProducer;Uitvoerend producent
 Exit;Afsluiten
@@ -300,10 +300,10 @@ File;Bestand
 File size;Bestandsgrootte
 File_Append;Toevoegen aan bestaande bestand (Waarschuwing : gebruik dezelfde parameters)
 File_Created_Date;Aanmaakdatum bestand
-File_Created_Date_Local
+File_Created_Date_Local;
 File_Hint;Kies een te onderzoeken multimediabestand
 File_Modified_Date;Datum laatste bestandswijziging
-File_Modified_Date_Local
+File_Modified_Date_Local;
 FileExtension;Bestandsextensie
 FileName;Bestandsnaam
 FileSize;Bestandsgrootte
@@ -314,7 +314,7 @@ Folder (Recursively);Map (Recursief)
 Folder_Hint;Kies een te onderzoeken map
 FolderName;Mapnaam
 Format;Formaat
-Format_Commercial
+Format_Commercial;
 Format_Description;Formaatbeschrijving
 Format_Info;Details over formaat
 Format_Profile;Formaatprofiel
@@ -337,11 +337,11 @@ Format_Settings_ITU;Formaatinstellingen, ITU
 Format_Settings_SBR;Formaatinstellingen, SBR
 Format_Settings_PS;Formaatinstellingen, PS
 Format_Settings_Pulldown;Formaatinstellingen, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
-Format_Settings_ModeExtension
-Format_Settings_GOP
+Format_Settings_Mode;
+Format_Settings_FrameMode;
+Format_Settings_Emphasis;
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
 Format_Version;Formaatversie
 Format_Url;Weblink voor formaat
 FrameCount;Framecount
@@ -504,11 +504,11 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Ga naar website
-Grouping
+Grouping;
 h;h
 Header file;Headerbestand maken
 Height;Hoogte
-Height_Original
+Height_Original;
 Help;Help
 Hint;Hint
 How many audio streams?;Hoeveel audiostromen?
@@ -529,11 +529,11 @@ Interlaced_TFF;Bovenste Veld Eerst
 Interlaced_BFF;Onderste Veld Eerst
 Interlaced_PPF;Progressief
 Interlaced_Progressive;Progressief
-Interleaved
+Interleaved;
 Interleave_Duration;Interleave, duur
 Interleave_Preload;Interleave, preloadduur
 Interleave_VideoFrames;Interleave, duur
-InternetMediaType
+InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -745,7 +745,7 @@ Lyrics;Tekst
 Lyricist;Tekstschrijver
 Mastered_Date;Datum van master
 MasteredBy;Gemastered door
-matrix_coefficients
+matrix_coefficients;
 MediaInfo_About;Levert zeer gedetailleerde informatie\r\nover multimediabestanden:\r\nMatroska, OGG (inclusief OGM)\r\nMPEG1 (inclusief VCD)\r\nMPEG2 (inclusief DVD en SVCD)\r\nMPEG4 (inclusief Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inclusief WMV, WMA)\r\nMicrosoft RIFF (inclusief AVI, WAV)\r\nGeluidsformaten (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustromen
@@ -762,16 +762,16 @@ ms;ms
 MSDI;MSDI
 MusicBy;Muziek door
 MuxingMode;Muxingmodus
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Naam
 Nationality;Nationaliteit
-NetworkName
+NetworkName;
 New;Nieuw
 Newest version;Controleer op nieuwe versies (vereist internetverbinding)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;
+NewVersion_Question_Title;
+NewVersion_Question_Content;
 No;Nee
 Not yet;Nog niet
 NumColors;Aantal kleuren
@@ -817,7 +817,7 @@ OpenCandy_36;Uw huidige installatie zal niet worden onderbroken
 Options;Opties
 Options_Hint;Voorkeuren
 Original;Origineel
-OriginalNetworkName
+OriginalNetworkName;
 OriginalSourceForm;Originele bronvorm
 OriginalSourceMedium;Originele bronmedium
 Other;Ander
@@ -880,12 +880,12 @@ Sharpness;Scherpte
 Sheet;Blad
 Sheet (Complete);Blad (Compleet)
 Shell extension;Shell-extensie (in explorer-rechtsklikmenu zal een Media Info optie te zien zijn...)
-Shell extension, folder
+Shell extension, folder;
 Shell InfoTip;Shell InfoTip (houd in explorer de muiscursor boven een bestand, info wordt getoond)
 Show menu;Menu tonen
 Show toolbar;Werkbalk tonen
 Sort;Gesorteerd op
-SamplingCount
+SamplingCount;
 SoundEngineer;Geluidstechnicus
 Standard;Standaard
 Stream;Stroom
@@ -923,15 +923,15 @@ ThanksTo;Dank aan
 Thousands separator;Scheidingsteken duizendtallen
 Title;Titel
 Title_More;Titel, meer info
-TimeZone
+TimeZone;
 Total;Totaal
 Track;Tracknaam
 Track_Count;Tracktelling
-transfer_characteristics
+transfer_characteristics;
 Translator;Vertaler
 Tree;Boomstructuur
 Tree & Text;Boomstructuur & Tekst
-UniqueID
+UniqueID;
 Unknown;Onbekend
 Url;Url
 Video;Video
@@ -956,7 +956,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ga naar de website van deze videocodec
 WebSite_Video_More;Ga naar de website (%Url%) om deze videocodec te vinden
 Width;Breedte
-Width_Original
+Width_Original;
 WriteMe;Schrijf mij
 WriteToTranslator;Schrijf naar vertaler
 Written_Date;Datum van schrijven
