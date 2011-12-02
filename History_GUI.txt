@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.52,
+--------------
++ Georgian translation
+
 Version 0.7.51, 2011-11-11
 --------------
 + #2872918, MKV: add support for default and forced track flags

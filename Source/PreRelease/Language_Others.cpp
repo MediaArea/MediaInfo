@@ -54,6 +54,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"hr");
     Run_File(Dest, L"hu");
     Run_File(Dest, L"hy");
+    Run_File(Dest, L"ka");
     Run_File(Dest, L"it");
     Run_File(Dest, L"ja");
     Run_File(Dest, L"ko");
