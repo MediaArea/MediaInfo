@@ -108,8 +108,7 @@ xcopy ..\..\Shared\Source\zlib .\zlib\ /S
 xcopy ..\..\Shared\Project\zlib\Template .\zlib\ /S
 
 rem --- Copying : Wx files ---
-xcopy ..\..\Shared\Source\wxMSW .\wxMSW\ /S
-xcopy ..\..\Shared\Project\WxWidgets\Template .\wxMSW\ /S
+xcopy ..\..\Shared\Source\wx .\wx\ /S
 
 
 rem --- Compressing Archive ---
