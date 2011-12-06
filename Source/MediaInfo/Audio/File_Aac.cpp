@@ -59,6 +59,7 @@ File_Aac::File_Aac()
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
+    IsRawStream=true;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.5?128:(MediaInfoLib::Config.ParseSpeed_Get()>=0.3?32:2);
@@ -76,6 +77,8 @@ File_Aac::File_Aac()
     aacSpectralDataResilienceFlag=false;
     aacSectionDataResilienceFlag=false;
     aacScalefactorDataResilienceFlag=false;
+    FrameSize_Min=(int32u)-1;
+    FrameSize_Max=0;
 
     //Temp - Main
     muxConfigPresent=true;
@@ -130,6 +133,20 @@ void File_Aac::Streams_Finish()
         case Mode_ADIF    :
         case Mode_ADTS    : File__Tags_Helper::Streams_Finish(); break;
         default           : ;
+    }
+
+    if (FrameSize_Min!=(int32u)-1 && FrameSize_Max)
+    {
+        if (FrameSize_Max>FrameSize_Min*1.02)
+        {
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+            Fill(Stream_Audio, 0, Audio_BitRate_Minimum, ((float64)FrameSize_Min)/1024*48000*8, 0);
+            Fill(Stream_Audio, 0, Audio_BitRate_Maximum, ((float64)FrameSize_Max)/1024*48000*8, 0);
+        }
+        else if (Config_ParseSpeed>=1.0)
+        {
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+        }
     }
 }
 
@@ -590,6 +607,11 @@ void File_Aac::Header_Parse_LATM()
 //---------------------------------------------------------------------------
 void File_Aac::Data_Parse()
 {
+    if (FrameSize_Min>Header_Size+Element_Size)
+        FrameSize_Min=Header_Size+Element_Size;
+    if (FrameSize_Max<Header_Size+Element_Size)
+        FrameSize_Max=Header_Size+Element_Size;
+
     if (Frame_Count>Frame_Count_Valid || CanFill)
     {
         Skip_XX(Element_Size,                                   "Data");
