@@ -1578,8 +1578,6 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Descriptor->second.Infos["DisplayAspectRatio"], true);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, DAR);
-            Fill(Stream_Video, StreamPos_Last, "DisplayAspectRatio_FromContainer", Descriptor->second.Infos["DisplayAspectRatio"]);
-            Fill(Stream_Video, StreamPos_Last, "DisplayAspectRatio_FromStream", DAR);
             float32 Width =Retrieve(Stream_Video, StreamPos_Last, Video_Width             ).To_float32();
             float32 Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height            ).To_float32();
             float32 DAR_F =DAR.To_float32();
@@ -1618,8 +1616,6 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                     PAR=(float32)2;
                 if (PAR>(float32)59/(float32)54*0.99 && PAR<(float32)59/(float32)54*1.01)
                     PAR=(float32)59/(float32)54;
-                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromContainer", Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio));
-                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromStream", PAR, 3);
             }
         }
 
