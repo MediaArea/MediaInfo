@@ -334,9 +334,10 @@ void File__ReferenceFilesHelper::ParseReference()
             }
         }
         MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->FileNames.Read(0));
-        Reference->FileNames=AbsoluteNames;
+        if (!AbsoluteNames.empty())
+            Reference->FileNames=AbsoluteNames;
 
-        if (AbsoluteNames[0]==MI->File_Name)
+        if (!AbsoluteNames.empty() && AbsoluteNames[0]==MI->File_Name)
         {
             MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Circular");
             if (!Config->File_KeepInfo_Get())
