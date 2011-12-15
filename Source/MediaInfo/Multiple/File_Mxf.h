@@ -32,9 +32,6 @@
     #include <MediaInfo/Multiple/File_Ancillary.h>
 #endif //defined(MEDIAINFO_ANCILLARY_YES)
 #include "MediaInfo/MediaInfo_Internal.h"
-#ifdef MEDIAINFO_EVENTS
-    #include "MediaInfo/TimeCode.h"
-#endif //MEDIAINFO_EVENTS
 #include <vector>
 //---------------------------------------------------------------------------
 
@@ -457,8 +454,8 @@ protected :
     struct track
     {
         int128u Sequence;
-        Ztring TrackName;
         int32u TrackID;
+        Ztring TrackName;
         int32u TrackNumber;
         float64 EditRate;
         bool   Stream_Finish_Done;
@@ -781,29 +778,6 @@ protected :
         int128u Clip_Code;
         bool    Duration_Detected;
     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-
-    //Tests
-    size_t  Frame_Count_InThisBodyPartition;
-    float32 VideoStream_FrameRate;
-    int32u  VideoStream_TrackNumber;
-    float64 IndexTable_IndexEditRate;
-    int64u  IndexTable_IndexStartPosition;
-    int64u  IndexTable_IndexDuration;
-    bool    Parsing_FirstBodyPartition;
-    bool    Parsing_MoreThanFirstBodyPartition;
-    bool    Parsing_FooterPartition;
-    bool    LookingForFooterRandomIndex;
-    bool    HasFooterFollowedByRip;
-    size_t  EssenceContainerData_Count;
-    int32u  EssenceContainerData_IndexSID_Value;
-    bool    EssenceContainerData_IndexSID_Present;
-    int32u  EssenceContainerData_BodySID_Value;
-    bool    EssenceContainerData_BodySID_Present;
-    bool    IndexTable_Present;
-    bool    IndexTable_IndexEntryArray_Present;
-    #if MEDIAINFO_EVENTS
-        TimeCode FrameInfo_TimeCode;
-    #endif //MEDIAINFO_EVENTS
 };
 
 } //NameSpace
