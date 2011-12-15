@@ -389,6 +389,7 @@ protected :
     bool   Track_Number_IsAvailable;
     bool   IsParsingEnd;
     bool   PartitionPack_Parsed;
+    size_t IdIsAlwaysSame_Offset;
 
     //Primer
     std::map<int16u, int128u> Primer_Values;

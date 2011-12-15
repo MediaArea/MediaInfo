@@ -850,6 +850,7 @@ File_Mxf::File_Mxf()
     Track_Number_IsAvailable=false;
     IsParsingEnd=false;
     PartitionPack_Parsed=false;
+    IdIsAlwaysSame_Offset=0;
     PartitionMetadata_PreviousPartition=(int64u)-1;
     PartitionMetadata_FooterPartition=(int64u)-1;
     TimeCode_StartTimecode=(int64u)-1;
@@ -1354,52 +1355,11 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
     {
         StreamKind_Last=Descriptor->second.StreamKind;
         StreamPos_Last=Descriptor->second.StreamPos;
-        bool HasProblem=false;
         if (StreamPos_Last==(size_t)-1)
         {
             for (size_t Pos=0; Pos<Count_Get(StreamKind_Last); Pos++)
                 if (Ztring::ToZtring(Descriptor->second.LinkedTrackID)==Retrieve(StreamKind_Last, Pos, General_ID))
                 {
-                    //Workaround for a specific file with same ID
-                    if (!Locators.empty())
-                    {
-                        for (descriptors::iterator Descriptor1=Descriptors.begin(); Descriptor1!=Descriptors.end(); Descriptor1++)
-                        {
-                            descriptors::iterator Descriptor2=Descriptor1; Descriptor2++;
-                            for (; Descriptor2!=Descriptors.end(); Descriptor2++)
-                            {
-                                if (Descriptor2->second.LinkedTrackID==Descriptor1->second.LinkedTrackID)
-                                {
-                                    HasProblem=true;
-                                    break;
-                                }
-                            }
-                            if (HasProblem)
-                                break;
-                        }
-                        if (HasProblem)
-                        {
-                            //Looking for an already existing stream
-                            StreamPos_Last=(size_t)-1;
-                            if (!Descriptor->second.Locators.empty())
-                            {
-                                locators::iterator Locator=Locators.find(Descriptor->second.Locators[0]);
-                                if (Locator!=Locators.end())
-                                {
-                                    for (size_t Pos2=0; Pos2<Count_Get(StreamKind_Last); Pos2++)
-                                    {
-                                        if (Retrieve(StreamKind_Last, Pos2, "Source")==Locator->second.EssenceLocator)
-                                        {
-                                            StreamPos_Last=Pos2;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    }
-                
                     StreamPos_Last=Pos;
                     break;
                 }
@@ -1410,8 +1370,17 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                 StreamPos_Last=0;
             else if (Descriptor->second.LinkedTrackID!=(int32u)-1)
             {
+                //Workaround for a specific file with same ID
+                if (!Locators.empty())
+                    for (descriptors::iterator Descriptor1=Descriptors.begin(); Descriptor1!=Descriptor; Descriptor1++)
+                        if (Descriptor1->second.LinkedTrackID==Descriptor->second.LinkedTrackID)
+                        {
+                            IdIsAlwaysSame_Offset++;
+                            break;
+                        }
+
                 Stream_Prepare(Descriptor->second.StreamKind);
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID+(HasProblem?StreamPos_Last:0));
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, Descriptor->second.LinkedTrackID+IdIsAlwaysSame_Offset);
             }
             else
             {
