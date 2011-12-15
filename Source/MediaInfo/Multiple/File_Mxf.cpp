@@ -84,6 +84,10 @@
 #if MEDIAINFO_SEEK
     #include <algorithm>
 #endif //MEDIAINFO_SEEK
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
+    #include "MediaInfo/TimeCode.h"
+#endif //MEDIAINFO_SEEK
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -890,6 +894,22 @@ File_Mxf::File_Mxf()
         Clip_End=0;
         Duration_Detected=false;
     #endif //MEDIAINFO_SEEK
+
+    //Tests
+    Frame_Count_InThisBodyPartition=0;
+    VideoStream_FrameRate=0;
+    VideoStream_TrackNumber=(int32u)-1;
+    IndexTable_IndexEditRate=0;
+    IndexTable_IndexStartPosition=(int64u)-1;
+    IndexTable_IndexDuration=(int64u)-1;
+    Parsing_FirstBodyPartition=false;
+    Parsing_MoreThanFirstBodyPartition=false;
+    Parsing_FooterPartition=false;
+    LookingForFooterRandomIndex=false;
+    HasFooterFollowedByRip=false;
+    EssenceContainerData_Count=0;
+    IndexTable_Present=false;
+    IndexTable_IndexEntryArray_Present=false;
 }
 
 //---------------------------------------------------------------------------
@@ -988,6 +1008,54 @@ void File_Mxf::Streams_Finish()
 
     //OperationalPattern
     Fill(Stream_General, 0, General_Format_Profile, Mxf_OperationalPattern(OperationalPattern));
+
+    //For tests
+    Fill(Stream_General, 0, "OperationalPattern_Qualifier_Bit1", (OperationalPattern.lo&(1<<1))?1:0);
+    Fill(Stream_General, 0, "OperationalPattern_Qualifier_Bit2", (OperationalPattern.lo&(1<<2))?1:0);
+    Fill(Stream_General, 0, "OperationalPattern_Qualifier_Bit3", (OperationalPattern.lo&(1<<3))?1:0);
+    Fill(Stream_General, 0, "EssenceContainerData_Count", EssenceContainerData_Count);
+    #if MEDIAINFO_EVENTS
+        if (LookingForFooterRandomIndex)
+    {
+        struct MediaInfo_Event_Mxf_FooterNotFollowedByRip_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_FooterNotFollowedByRip, 0);
+        Event.Stream_Offset=File_Offset+Buffer_Offset;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_FooterNotFollowedByRip_0));
+    }
+    {
+        struct MediaInfo_Event_Mxf_End_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_End, 0);
+        Event.Stream_Offset=File_Offset+Buffer_Offset;
+        Event.HasFooter=Parsing_FooterPartition;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_End_0));
+    }
+    #endif //MEDIAINFO_EVENTS
+    if (!Config->File_KeepInfo_Get())
+    {
+        //AS02 files in media directory
+        ZtringList FilesInMediaFolder=Dir::GetAllFileNames(ZenLib::FileName::Path_Get(File_Name)+ZenLib::PathSeparator+_T("media.dir"), Dir::Include_Files);
+        for (size_t Pos=0; Pos<FilesInMediaFolder.size(); Pos++)
+        {
+            bool IsFound=false;
+            for (size_t StreamKind=Stream_Video; StreamKind<=Stream_Audio; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                    if (FilesInMediaFolder[Pos]==Retrieve((stream_t)StreamKind, StreamPos, "Source"))
+                        IsFound=true;
+            if (!IsFound)
+                Fill(Stream_General, 0, "AS02_ExtraFilesInMediaFolder", FilesInMediaFolder[Pos]);
+        }
+    }
+    else
+    {
+        if (Essences.size()!=1)
+        {
+            Fill(Count_Get(Stream_Video)?Stream_Video:Stream_Audio, 0, "NonMonoEssence", Essences.size());
+            if (IndexTable_IndexEntryArray_Present)
+                Fill(Count_Get(Stream_Video)?Stream_Video:Stream_Audio, 0, "IndexTable", "VBR");
+            else if (IndexTable_Present)
+                Fill(Count_Get(Stream_Video)?Stream_Video:Stream_Audio, 0, "IndexTable", "CBR");
+        }
+    }
 
     //Parsing locators
     Locators_Test();
@@ -1169,7 +1237,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Stream_Prepare(NewKind, NewPos1+StreamPos);
             Merge(*Essence->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
             Ztring Parser_ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+_T("-")+Parser_ID, true);
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+(Parser_ID.empty()?Ztring():(_T("-")+Parser_ID)), true);
             for (size_t Pos=0; Pos<StreamSave.size(); Pos++)
                 if (Retrieve(StreamKind_Last, StreamPos_Last, Pos).empty())
                     Fill(StreamKind_Last, StreamPos_Last, Pos, StreamSave[Pos]);
@@ -1414,10 +1482,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                                             {
                                                 Stream_Prepare(Descriptor->second.StreamKind);
                                                 if (Track->second.TrackID!=(int32u)-1)
-                                                {
                                                     Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
-                                                    Fill(StreamKind_Last, StreamPos_Last, "Title", Track->second.TrackName);
-                                                }
                                             }
                                         }
                                     }
@@ -1547,6 +1612,8 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             Clear(Stream_Video, StreamPos_Last, Video_PixelAspectRatio);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Descriptor->second.Infos["DisplayAspectRatio"], true);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, DAR);
+            Fill(Stream_Video, StreamPos_Last, "DisplayAspectRatio_FromContainer", Descriptor->second.Infos["DisplayAspectRatio"]);
+            Fill(Stream_Video, StreamPos_Last, "DisplayAspectRatio_FromStream", DAR);
             float32 Width =Retrieve(Stream_Video, StreamPos_Last, Video_Width             ).To_float32();
             float32 Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height            ).To_float32();
             float32 DAR_F =DAR.To_float32();
@@ -1585,6 +1652,8 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                     PAR=(float32)2;
                 if (PAR>(float32)59/(float32)54*0.99 && PAR<(float32)59/(float32)54*1.01)
                     PAR=(float32)59/(float32)54;
+                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromContainer", Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio));
+                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio_FromStream", PAR, 3);
             }
         }
 
@@ -1623,7 +1692,10 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID)
         //Preparing
         Locator->second.StreamKind=StreamKind_Last;
         Locator->second.StreamPos=StreamPos_Last;
+        Fill(StreamKind_Last, StreamPos_Last, "Source_Kind", "NetworkLocator");
     }
+    else
+        Fill(StreamKind_Last, StreamPos_Last, "Source_Kind", "TextLocator");
 }
 
 //---------------------------------------------------------------------------
@@ -1690,6 +1762,15 @@ void File_Mxf::Streams_Finish_CommercialNames ()
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD422");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD422");
         }
+
+        #if MEDIAINFO_EVENTS
+            //Subfile start
+            {
+                struct MediaInfo_Event_General_SubFile_End_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_SubFile_End, 0);
+                Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_SubFile_End_0));
+            }
+        #endif //MEDIAINFO_EVENTS
     }
 }
 
@@ -2291,6 +2372,31 @@ bool File_Mxf::Synchronize()
         #if MEDIAINFO_DEMUX
             Demux_Interleave=Config->File_Demux_Interleave_Get();
         #endif //MEDIAINFO_DEMUX
+
+        //Tests
+        if (!Config->File_KeepInfo_Get())
+        {
+            //AS02 filename
+            bool FileName_IsWrong=false;
+            ZtringList Path;
+            Path.Separator_Set(0, Ztring(1, ZenLib::PathSeparator));
+            Path.Write(ZenLib::FileName::Path_Get(File_Name));
+            if (Path.size()<1)
+                FileName_IsWrong=true;
+            else
+            {
+                Ztring TargetFileName=Path[Path.size()-1]+_T(".mxf");
+                if (ZenLib::FileName::Name_Get(File_Name)+_T('.')+ZenLib::FileName::Extension_Get(File_Name)!=TargetFileName)
+                    FileName_IsWrong=true;
+            }
+            if (FileName_IsWrong)
+                Fill(Stream_General, 0, "AS02_WrongFileName", "IsWrong");
+            //AS02 files in root directory
+            ZtringList FilesInRootFolder=Dir::GetAllFileNames(ZenLib::FileName::Path_Get(File_Name), Dir::Include_Files);
+            for (size_t Pos=0; Pos<FilesInRootFolder.size(); Pos++)
+                if (FilesInRootFolder[Pos]!=File_Name)
+                    Fill(Stream_General, 0, "AS02_ExtraFilesInRootFolder", FilesInRootFolder[Pos]);
+        }
     }
 
     //Synched is OK
@@ -2595,7 +2701,6 @@ void File_Mxf::Header_Parse()
 
     if (Buffer_Offset+Element_Offset+Length>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length)>Buffer_Size) //Not complete
     {
-        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (Length>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
         {
             //Calculating the byte count not included in seek information (partition, index...)
@@ -2630,7 +2735,6 @@ void File_Mxf::Header_Parse()
         }
 
         if (Clip_Begin==(int64u)-1)
-        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         {
             if (File_Buffer_Size_Hint_Pointer)
             {
@@ -2713,6 +2817,35 @@ void File_Mxf::Data_Parse()
         } \
     } \
 
+
+    //Tests
+    #if MEDIAINFO_EVENTS
+        if (LookingForFooterRandomIndex)
+        {
+            if (!(Code_Compare1==Elements::RandomIndexMetadata1
+               && Code_Compare2==Elements::RandomIndexMetadata2
+               && Code_Compare3==Elements::RandomIndexMetadata3
+               && Code_Compare4==Elements::RandomIndexMetadata4))
+            {
+                struct MediaInfo_Event_Mxf_FooterNotFollowedByRip_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_FooterNotFollowedByRip, 0);
+                Event.Stream_Offset=File_Offset+Buffer_Offset;
+                Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_FooterNotFollowedByRip_0));
+            }
+            LookingForFooterRandomIndex=false;
+        }
+        //EssenceContainerData count
+        if (Code_Compare1==Elements::EssenceContainerData1
+          && Code_Compare2==Elements::EssenceContainerData2
+          && Code_Compare3==Elements::EssenceContainerData3
+          && Code_Compare4==Elements::EssenceContainerData4)
+        {
+            EssenceContainerData_Count++;
+            EssenceContainerData_IndexSID_Present=false;
+            EssenceContainerData_BodySID_Present=false;
+        }
+    #endif //MEDIAINFO_EVENTS
+
     //Parsing
     if (0) {}
     ELEMENT(Filler01,                                           "Filler")
@@ -2784,7 +2917,6 @@ void File_Mxf::Data_Parse()
         Element_Name(Mxf_EssenceElement(Code));
 
         //Config
-        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (!Essences_FirstEssence_Parsed)
         {
             if (Demux_UnpacketizeContainer && Descriptors.size()==1 && Descriptors.begin()->second.StreamKind==Stream_Audio)
@@ -2813,7 +2945,6 @@ void File_Mxf::Data_Parse()
 
             Essences_FirstEssence_Parsed=true;
         }
-        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
         if (IsParsingEnd)
         {
@@ -3100,6 +3231,10 @@ void File_Mxf::Data_Parse()
                                 ((File_Ancillary*)Essence->second.Parser)->HasBFrames=Descriptor->second.HasBFrames;
                                 ((File_Ancillary*)Essence->second.Parser)->AspectRatio=Descriptor->second.DisplayAspectRatio;
                                 ((File_Ancillary*)Essence->second.Parser)->FrameRate=Descriptor->second.SampleRate;
+                                #if MEDIAINFO_EVENTS
+                                    ((File_Ancillary*)Essence->second.Parser)->picture_structure=3; //Always a frame
+                                    ((File_Ancillary*)Essence->second.Parser)->cc_count_Expected=(int8u)(1200/float32_int32s(Descriptor->second.SampleRate)/2);
+                                #endif MEDIAINFO_EVENTS
                                 break;
                             }
                     }
@@ -3166,6 +3301,28 @@ void File_Mxf::Data_Parse()
                     Essence->second.IsFilled=true;
                     if (IsSub)
                         Finish();
+                }
+
+                //Tests
+                if (Code_Compare4==VideoStream_TrackNumber)
+                {
+                    #if MEDIAINFO_EVENTS
+                        //Integer number of GOP per body partition
+                        if (Frame_Count_InThisBodyPartition==0 && !Essences[Code_Compare4].Parser->IsIFrame) 
+                        {
+                            struct MediaInfo_Event_Mxf_BodyPartition_NotFollowedByIFrame_0 Event;
+                            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_BodyPartition_NotFollowedByIFrame, 0);
+                            Event.Stream_Offset=File_Offset+Buffer_Offset;
+                            Event.TrackID=Essences[Code_Compare4].TrackID;
+                            Event.Frame_Number=Essences[Code_Compare4].Parser->Frame_Count-1;
+                            Event.Frame_Kind=(int8u)-1;
+                            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_BodyPartition_NotFollowedByIFrame_0));
+                        }
+                    #endif //MEDIAINFO_EVENTS
+
+                    //Counting
+                    Frame_Count_InThisBodyPartition+=Essences[Code_Compare4].Parser->Frame_Count_InThisBlock;
+                    Essences[Code_Compare4].Parser->IsIFrame=false;
                 }
             }
         }
@@ -3568,6 +3725,9 @@ void File_Mxf::IndexTableSegment()
     {
         IndexTable_NSL=0;
         IndexTable_NPE=0;
+
+        //Tests
+        IndexTable_Present=true;
     }
 }
 
@@ -3769,6 +3929,12 @@ void File_Mxf::MPEG2VideoDescriptor()
     ELEMENT_UUID(MPEG2VideoDescriptor_BPictureCount,            "Maximum number of B pictures between P or I frames")
     ELEMENT_UUID(MPEG2VideoDescriptor_ProfileAndLevel,          "Profile and level")
     ELEMENT_UUID(MPEG2VideoDescriptor_BitRate,                  "Maximum bit rate")
+
+    if (Code2==0x3C0A) //InstanceUID
+    {
+        //Tests
+        Descriptors[InstanceUID].Infos["MPEG2VideoDescriptor_IsPresent"]=_T("IsPresent");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -3778,6 +3944,12 @@ void File_Mxf::MultipleDescriptor()
     {
         ELEMENT(3F01, MultipleDescriptor_SubDescriptorUIDs,     "SubDescriptorUIDs")
         default: FileDescriptor();
+    }
+
+    if (Code2==0x3C0A) //InstanceUID
+    {
+        //Tests
+        Descriptors[InstanceUID].Infos["MultipleDescriptor_IsPresent"]=_T("IsPresent");
     }
 }
 
@@ -3948,6 +4120,11 @@ void File_Mxf::SourcePackage()
         default: GenericPackage();
                  Packages[InstanceUID].IsSourcePackage=true;
     }
+
+    //Tests
+    //Index tables must span the same time interval as the Essence in each partition
+    if (Prefaces.size() && (Prefaces.begin()->second.PrimaryPackage.hi!=(int64u)-1 || Prefaces.begin()->second.PrimaryPackage.lo!=(int64u)-1) && InstanceUID==Prefaces.begin()->second.PrimaryPackage)
+        Fill(Stream_General, 0, "PrimaryPackage_NotMaterial", "Source");
 }
 
 //---------------------------------------------------------------------------
@@ -4028,6 +4205,12 @@ void File_Mxf::WaveAudioDescriptor()
         ELEMENT(3D32, WaveAudioDescriptor_ChannelAssignment,    "Channel assignment in use")
         default: GenericSoundEssenceDescriptor();
     }
+
+    if (Code2==0x3C0A) //InstanceUID
+    {
+        //Tests
+        Descriptors[InstanceUID].Infos["WaveAudioDescriptor_IsPresent"]=_T("IsPresent");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -4053,6 +4236,9 @@ void File_Mxf::AncPacketsDescriptor()
         if (Streams_Count==(size_t)-1)
             Streams_Count=0;
         Streams_Count++;
+
+        //Tests
+        Fill(Stream_General, 0, "AncPacketsDescriptor_IsPresent", "IsPresent");
     }
 }
 
@@ -4188,7 +4374,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 
         BS_End();
 
-        int64u TimeCode=(int64u)(Hours_Tens     *10*60*60*1000
+        int64u TimeCode_ms=(int64u)(Hours_Tens     *10*60*60*1000
                                + Hours_Units       *60*60*1000
                                + Minutes_Tens      *10*60*1000
                                + Minutes_Units        *60*1000
@@ -4196,7 +4382,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
                                + Seconds_Units           *1000
                                + (FrameRate?float64_int32s((Frames_Tens*10+Frames_Units)*1000/FrameRate):0));
 
-        Element_Info(Ztring().Duration_From_Milliseconds(TimeCode));
+        Element_Info(Ztring().Duration_From_Milliseconds(TimeCode_ms));
 
         Element_End();
 
@@ -4204,7 +4390,44 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 
         //TimeCode
         if (SDTI_TimeCode_StartTimecode==(int64u)-1)
-            SDTI_TimeCode_StartTimecode=TimeCode;
+            SDTI_TimeCode_StartTimecode=TimeCode_ms;
+        
+        //Tests
+        #if MEDIAINFO_EVENTS
+            TimeCode TimeCode_Current(Hours_Tens*10+Hours_Units,
+                                      Minutes_Tens*10+Minutes_Units, 
+                                      Seconds_Tens*10+Seconds_Units, 
+                                      Frames_Tens*10+Frames_Units,
+                                      (int8u)(float64_int64s(FrameRate)),
+                                      CPR_DropFrame);
+            if (FrameInfo_TimeCode.IsValid())
+            {
+                if (FrameInfo_TimeCode!=TimeCode_Current)
+                {
+                    TimeCode FrameInfo_TimeCode_Previous(FrameInfo_TimeCode); FrameInfo_TimeCode_Previous--;
+                    
+                    struct MediaInfo_Event_Global_TimeCode_Discountinuity_0 Event;
+                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Global_TimeCode_Discountinuity, 0);
+                    Event.Stream_Offset=File_Offset+Buffer_Offset;
+                    Event.PID=(int16u)-1;
+                    Events_PCR((int64u)-1, Event.PCR, Event.PCR_HR);
+                    Event.stream_id=(int8u)-1;
+                    Events_PTS((int64u)-1, Event.PTS, Event.PTS_HR);
+                    Events_DTS((int64u)-1, Event.DTS, Event.DTS_HR);
+                    Event.Frame_Number=Frame_Count_NotParsedIncluded;
+                    Event.IsRaw=false;
+                    Events_TimeCode(FrameInfo_TimeCode_Previous, Event.Previous, Event.Previous_HR);
+                    Events_TimeCode(FrameInfo_TimeCode, Event.Theory, Event.Theory_HR);
+                    Events_TimeCode(TimeCode_Current, Event.Reality, Event.Reality_HR);
+                    Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Global_TimeCode_Discountinuity_0));
+
+                    FrameInfo_TimeCode=TimeCode_Current;
+                }
+            }
+            else
+                FrameInfo_TimeCode=TimeCode_Current;
+            FrameInfo_TimeCode++;
+        #endif //MEDIAINFO_EVENTS
     }
     else
         Skip_XX(17,                                             "Junk");
@@ -4500,6 +4723,11 @@ void File_Mxf::CDCIEssenceDescriptor_VerticalSubsampling()
         Descriptors[InstanceUID].SubSampling_Vertical=Data;
         Subsampling_Compute(Descriptors.find(InstanceUID));
     FILLING_END();
+
+    FILLING_BEGIN();
+        //Tests
+        Descriptors[InstanceUID].Infos["VerticalSubsampling_IsPresent"]=_T("IsPresent");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4577,6 +4805,14 @@ void File_Mxf::EssenceContainerData_IndexSID()
 {
     //Parsing
     Info_B4(Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        EssenceContainerData_IndexSID_Present=true;
+        EssenceContainerData_IndexSID_Value=Data;
+        Fill(Stream_General, 0, "EssenceContainerData_IndexSID", Data);
+        if (EssenceContainerData_IndexSID_Present && EssenceContainerData_BodySID_Present && EssenceContainerData_IndexSID_Value==EssenceContainerData_BodySID_Value)
+            Fill(Stream_General, 0, "EssenceContainerData_SID_Same", "AreSame");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4585,6 +4821,14 @@ void File_Mxf::EssenceContainerData_BodySID()
 {
     //Parsing
     Info_B4(Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        EssenceContainerData_IndexSID_Present=true;
+        EssenceContainerData_IndexSID_Value=Data;
+        Fill(Stream_General, 0, "EssenceContainerData_BodySID", Data);
+        if (EssenceContainerData_IndexSID_Present && EssenceContainerData_BodySID_Present && EssenceContainerData_IndexSID_Value==EssenceContainerData_BodySID_Value)
+            Fill(Stream_General, 0, "EssenceContainerData_SID_Same", Data);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4614,6 +4858,14 @@ void File_Mxf::FileDescriptor_SampleRate()
         Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3);
         if (Descriptors[InstanceUID].SampleRate && Descriptors[InstanceUID].Duration!=(int64u)-1)
             Descriptors[InstanceUID].Infos["Duration"].From_Number(Descriptors[InstanceUID].Duration/Descriptors[InstanceUID].SampleRate*1000, 0);
+        switch (Descriptors[InstanceUID].StreamKind)
+        {
+            case Stream_Video   : 
+                                    //Tests
+                                    VideoStream_FrameRate=Descriptors[InstanceUID].SampleRate;
+                                    break;
+            default             : ;
+        }
     FILLING_END();
 }
 
@@ -4807,6 +5059,10 @@ void File_Mxf::GenericPackage_Tracks()
             Packages[InstanceUID].Tracks.push_back(Data);
         FILLING_END();
     }
+
+    //Test
+    if (Retrieve(Stream_General, 0, "MaterialPackage_Tracks_Count").empty())
+        Fill(Stream_General, 0, "MaterialPackage_Tracks_Count", Count);
 }
 
 //---------------------------------------------------------------------------
@@ -4838,6 +5094,9 @@ void File_Mxf::GenericPictureEssenceDescriptor_PictureEssenceCoding()
         Descriptors[InstanceUID].StreamKind=Stream_Video;
         Descriptors[InstanceUID].Infos["Format"]=Mxf_EssenceCompression(Data);
         Descriptors[InstanceUID].Infos["Format_Version"]=Mxf_EssenceCompression_Version(Data);
+        
+        //Tests
+        Descriptors[InstanceUID].Infos["PictureEssenceCoding_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -4885,6 +5144,9 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledHeight()
         if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==_T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height=Data;
+        
+        //Tests
+        Descriptors[InstanceUID].Infos["SampledHeight_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -4898,6 +5160,9 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledWidth()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].Width=Data;
+        
+        //Tests
+        Descriptors[InstanceUID].Infos["SampledWidth_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -5018,6 +5283,9 @@ void File_Mxf::GenericPictureEssenceDescriptor_AspectRatio()
             Descriptors[InstanceUID].DisplayAspectRatio=Data;
             Descriptors[InstanceUID].Infos["DisplayAspectRatio"].From_Number(Data, 3);
         }
+        
+        //Tests
+        Descriptors[InstanceUID].Infos["AspectRatio_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -5219,12 +5487,7 @@ void File_Mxf::GenericTrack_TrackID()
 void File_Mxf::GenericTrack_TrackName()
 {
     //Parsing
-    Ztring Data;
-    Get_UTF16B (Length2, Data,                                  "Data"); Element_Info(Data);
-
-    FILLING_BEGIN();
-        Tracks[InstanceUID].TrackName=Data;
-    FILLING_END();
+    Info_UTF16B(Length2, Data,                                  "Data"); Element_Info(Data);
 }
 
 //---------------------------------------------------------------------------
@@ -5251,6 +5514,10 @@ void File_Mxf::GenericTrack_TrackNumber()
     FILLING_BEGIN();
         Tracks[InstanceUID].TrackNumber=Data;
         Track_Number_IsAvailable=true;
+
+        //Tests
+        if ((Data&0x15000000)==0x15000000) //This is a video stream
+            VideoStream_TrackNumber=Data;
     FILLING_END();
 }
 
@@ -5476,6 +5743,9 @@ void File_Mxf::IndexTableSegment_IndexEntryArray()
             Skip_B4(                                            "PosTable");
         Element_End();
     }
+
+    //Tests
+    IndexTable_IndexEntryArray_Present=true;
 }
 
 //---------------------------------------------------------------------------
@@ -5564,6 +5834,61 @@ void File_Mxf::IndexTableSegment_IndexDuration()
         #if MEDIAINFO_SEEK
             IndexTables[IndexTables.size()-1].IndexDuration=Data;
         #endif //MEDIAINFO_SEEK
+
+    #if MEDIAINFO_EVENTS
+            if (!Parsing_FooterPartition)
+            {
+                //Regular temporal spacing since the variation in spacing exceeds 1 second or 10% of the period from partition_spacing
+                if (IndexTable_IndexEditRate)
+                {
+                    bool IsWrong=false;
+                    float64 Duration_Target=60;
+                    if (Data/IndexTable_IndexEditRate<Duration_Target*0.9 || Data/IndexTable_IndexEditRate>Duration_Target*1.1) //+/-10%
+                        IsWrong=true;
+                    if (Data/IndexTable_IndexEditRate<Duration_Target-1 || Data/IndexTable_IndexEditRate>Duration_Target+1) //+/-1 second
+                        IsWrong=true;
+                    if (IsWrong)
+                    {
+                        struct MediaInfo_Event_Mxf_BodyPartition_PartitionSpacing_NotAs02_0 Event;
+                        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_BodyPartition_PartitionSpacing_NotAs02, 0);
+                        Event.Stream_Offset=File_Offset+Buffer_Offset;
+                        Event.TrackID=Essences[VideoStream_TrackNumber].TrackID;
+                        if (Essences[VideoStream_TrackNumber].Parser)
+                            Event.Frame_Number=Essences[VideoStream_TrackNumber].Parser->Frame_Count-1;
+                        else
+                            Event.Frame_Number=(int64u)-1;
+                        Event.Start=IndexTable_IndexEditRate?(((float64)IndexTable_IndexStartPosition)*1000000000/IndexTable_IndexEditRate):0;
+                        Event.Duration=IndexTable_IndexEditRate?(((float64)Data)*1000000000/IndexTable_IndexEditRate):0;
+                        Event.Duration_Previous=IndexTable_IndexEditRate?(((float64)IndexTable_IndexDuration)*1000000000/IndexTable_IndexEditRate):0;
+                        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_BodyPartition_PartitionSpacing_NotAs02_0));
+                    }
+                }
+                //Index tables must span the same time interval as the Essence in each partition
+                if (IndexTable_IndexDuration!=(int64u)-1 && Data!=IndexTable_IndexDuration)
+                {
+                    struct MediaInfo_Event_Mxf_IndexTable_Duration_NotSame_0 Event;
+                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_IndexTable_Duration_NotSame, 0);
+                    Event.Stream_Offset=File_Offset+Buffer_Offset;
+                    Event.TrackID=Essences[VideoStream_TrackNumber].TrackID;
+                    if (Essences[VideoStream_TrackNumber].Parser)
+                        Event.Frame_Number=Essences[VideoStream_TrackNumber].Parser->Frame_Count-1;
+                    else
+                        Event.Frame_Number=(int64u)-1;
+                    Event.Start=IndexTable_IndexEditRate?(((float64)IndexTable_IndexStartPosition)*1000000000/IndexTable_IndexEditRate):0;
+                    Event.Duration=IndexTable_IndexEditRate?(((float64)Data)*1000000000/IndexTable_IndexEditRate):0;
+                    Event.Duration_Previous=IndexTable_IndexEditRate?(((float64)IndexTable_IndexDuration)*1000000000/IndexTable_IndexEditRate):0;
+                    Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_IndexTable_Duration_NotSame_0));
+                }
+            }
+        #endif //MEDIAINFO_EVENTS
+
+        //No index table in the first partition
+        if (Parsing_FirstBodyPartition)
+        {
+            Fill(Stream_General, 0, "IndexTable_InFirstBodyPartition", "InFirstBodyPartition");
+        }
+
+        IndexTable_IndexDuration=Data;
     FILLING_END();
 }
 
@@ -5713,6 +6038,11 @@ void File_Mxf::MPEG2VideoDescriptor_ConstantBFrames()
 {
     //Parsing
     Info_B1(Data,                                               "Data"); Element_Info(Data?"Yes":"No");
+
+    FILLING_BEGIN();
+        //Tests
+        Descriptors[InstanceUID].Infos["ConstantBFrames_IsPresent"]=_T("IsPresent");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -5764,6 +6094,11 @@ void File_Mxf::MPEG2VideoDescriptor_MaxGOP()
 {
     //Parsing
     Info_B2(Data,                                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        //Tests
+        Descriptors[InstanceUID].Infos["MaxGOP_IsPresent"]=_T("IsPresent");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -5776,6 +6111,11 @@ void File_Mxf::MPEG2VideoDescriptor_BPictureCount()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].HasBFrames=Data?true:false;
+    FILLING_END();
+
+    FILLING_BEGIN();
+        //Tests
+        Descriptors[InstanceUID].Infos["BPictureCount_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -5794,6 +6134,9 @@ void File_Mxf::MPEG2VideoDescriptor_ProfileAndLevel()
     FILLING_BEGIN();
         if (profile_and_level_indication_profile && profile_and_level_indication_level)
             Descriptors[InstanceUID].Infos["Format_Profile"]=Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+
+        //Tests
+        Descriptors[InstanceUID].Infos["ProfileAndLevel_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -5807,6 +6150,9 @@ void File_Mxf::MPEG2VideoDescriptor_BitRate()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].Infos["BitRate"].From_Number(Data);
+
+        //Tests
+        Descriptors[InstanceUID].Infos["BitRate_IsPresent"]=_T("IsPresent");
     FILLING_END();
 }
 
@@ -5910,6 +6256,83 @@ void File_Mxf::PartitionMetadata()
             case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);                                                          break;
             default   : ;
         }
+
+    //Tests
+    #if MEDIAINFO_EVENTS
+        //Closed and Complete
+        if ((Code.lo&0xFF00LL)!=0x0400LL) //Byte 7=4 is for Closed and Complete
+        {
+            struct MediaInfo_Event_Mxf_Partition_NotClosedComplete_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_Partition_NotClosedComplete, 0);
+            Event.Stream_Offset=File_Offset+Buffer_Offset;
+            Event.KindOfPartition=(Code.lo&0xFF0000LL)>>16;
+            Event.PartitionStatus=(Code.lo&0x00FF00LL)>> 8;
+            Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_Partition_NotClosedComplete_0));
+        }
+    #endif //MEDIAINFO_EVENTS
+    if ((Code.lo&0x0000000000FF0000LL)==0x0000000000020000LL) //Header partition
+    {
+        Fill(Stream_General, 0, "KAGSize", KAGSize);
+        #if MEDIAINFO_EVENTS
+            //Tests
+            if (File_Offset+Buffer_Offset-Header_Size)
+            {
+                struct MediaInfo_Event_Mxf_HeaderPartition_NotFirstByte_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_HeaderPartition_NotFirstByte, 0);
+                Event.Stream_Offset=File_Offset+Buffer_Offset-Header_Size;
+                Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_HeaderPartition_NotFirstByte_0));
+            }
+        #endif //MEDIAINFO_EVENTS
+    }
+    if ((Code.lo&0x0000000000FF0000LL)==0x0000000000030000LL) //Body partition
+    {
+        #if MEDIAINFO_EVENTS
+            //At least 1 GOP
+            if ((Parsing_FirstBodyPartition || Parsing_MoreThanFirstBodyPartition) && Frame_Count_InThisBodyPartition==0) //Not sure about what to do, we test if there was at least 1 frame 
+            {
+                struct MediaInfo_Event_Mxf_BodyPartition_NoGop_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_BodyPartition_NoGop, 0);
+                Event.Stream_Offset=File_Offset+Buffer_Offset;
+                Event.TrackID=Essences[VideoStream_TrackNumber].TrackID;
+                if (Essences[VideoStream_TrackNumber].Parser)
+                    Event.Frame_Number=Essences[VideoStream_TrackNumber].Parser->Frame_Count-1;
+                else
+                    Event.Frame_Number=(int64u)-1;
+                Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_BodyPartition_NoGop_0));
+            }
+
+            //More than 10 seconds per body partition
+            if (Frame_Count_InThisBodyPartition>10*VideoStream_FrameRate) 
+            {
+                struct MediaInfo_Event_Mxf_BodyPartition_MoreThan10seconds_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_Mxf, MediaInfo_Event_Mxf_BodyPartition_MoreThan10seconds, 0);
+                Event.Stream_Offset=File_Offset+Buffer_Offset;
+                Event.TrackID=Essences[VideoStream_TrackNumber].TrackID;
+                if (Essences[VideoStream_TrackNumber].Parser)
+                    Event.Frame_Number=Essences[VideoStream_TrackNumber].Parser->Frame_Count-1;
+                else
+                    Event.Frame_Number=(int64u)-1;
+                Event.Duration=float64_int64s(Frame_Count_InThisBodyPartition*VideoStream_FrameRate*1000000000);
+                Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Mxf_BodyPartition_MoreThan10seconds_0));
+            }
+        #endif //MEDIAINFO_EVENTS
+
+        if (Parsing_FirstBodyPartition && !Parsing_MoreThanFirstBodyPartition)
+        {
+            Parsing_FirstBodyPartition=false;
+            Parsing_MoreThanFirstBodyPartition=true;
+        }
+        if (!Parsing_FirstBodyPartition && !Parsing_MoreThanFirstBodyPartition)
+            Parsing_FirstBodyPartition=true;
+        Frame_Count_InThisBodyPartition=0;
+    }
+    if ((Code.lo&0x0000000000FF0000LL)==0x0000000000040000LL) //Footer partition
+    {
+        Parsing_FirstBodyPartition=false;
+        Parsing_FooterPartition=true;
+        LookingForFooterRandomIndex=true;
+        HasFooterFollowedByRip=false;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -6146,6 +6569,12 @@ void File_Mxf::SourcePackage_Descriptor()
     Get_UUID(Data,                                              "Data"); Element_Info(Ztring().From_UUID(Data));
 
     FILLING_BEGIN();
+        //Test
+        if (Packages[InstanceUID].Descriptor.hi==(int64u)-1 && Packages[InstanceUID].Descriptor.lo==(int64u)-1)
+            Fill(Stream_General, 0, "SourcePackage_Descriptors_Count", 1);
+        else
+            Fill(Stream_General, 0, "SourcePackage_Descriptors_Count", 2);
+
         Packages[InstanceUID].Descriptor=Data;
     FILLING_END();
 }
