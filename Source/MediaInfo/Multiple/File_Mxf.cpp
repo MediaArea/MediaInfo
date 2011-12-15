@@ -849,6 +849,9 @@ File_Mxf::File_Mxf()
     IsParsingMiddle_MaxOffset=(int64u)-1;
     Track_Number_IsAvailable=false;
     IsParsingEnd=false;
+    IsCheckingRandomAccessTable=false;
+    IsCheckingFooterPartitionAddress=false;
+    FooterPartitionAddress_Jumped=false;
     PartitionPack_Parsed=false;
     IdIsAlwaysSame_Offset=0;
     PartitionMetadata_PreviousPartition=(int64u)-1;
@@ -1822,15 +1825,27 @@ void File_Mxf::Read_Buffer_Continue()
         }
     }
 
-    if (IsParsingEnd && File_Offset+Buffer_Offset+4<File_Size)
+    if ((IsCheckingRandomAccessTable || IsCheckingFooterPartitionAddress) && File_Offset+Buffer_Offset+16<File_Size)
     {
-        if (Buffer_Offset+4>Buffer_Size)
+        if (Buffer_Offset+16>Buffer_Size)
         {
             Element_WaitForMoreData();
             return;
         }
-        if (CC4(Buffer+Buffer_Offset)!=0x060E2B34)
-            TryToFinish(); //No footer
+        if (CC4(Buffer+Buffer_Offset)!=0x060E2B34 || CC3(Buffer+Buffer_Offset+4)!=0x020501 || CC3(Buffer+Buffer_Offset+8)!=0x0D0102 || CC1(Buffer+Buffer_Offset+12)!=0x01)
+        {
+            if (IsCheckingRandomAccessTable || (IsCheckingFooterPartitionAddress && FooterPartitionAddress_Jumped))
+                TryToFinish(); //No footer
+            else if (IsCheckingFooterPartitionAddress)
+            {
+                IsParsingEnd=true;
+                GoToFromEnd(4); //For random access table
+                FooterPartitionAddress_Jumped=true;
+                Open_Buffer_Unsynch();
+            }
+        }
+        IsCheckingRandomAccessTable=false;
+        IsCheckingFooterPartitionAddress=false;
     }
 
     if (Config_ParseSpeed<1.0 && File_Offset+Buffer_Offset+4==File_Size)
@@ -3191,9 +3206,15 @@ void File_Mxf::Data_Parse()
 
         IsParsingEnd=true;
         if (PartitionMetadata_FooterPartition!=(int64u)-1)
+        {
             GoTo(PartitionMetadata_FooterPartition);
+            IsCheckingFooterPartitionAddress=true;
+        }
         else
+        {
             GoToFromEnd(4); //For random access table
+            FooterPartitionAddress_Jumped=true;
+        }
         Open_Buffer_Unsynch();
         if (File_Offset+Buffer_Offset>RandomIndexMetadatas_ByteOffsetParsed)
             RandomIndexMetadatas_ByteOffsetParsed=File_Offset+Buffer_Offset;
@@ -3510,36 +3531,6 @@ void File_Mxf::IndexTableSegment()
                 if (File_Offset+Buffer_Offset-Header_Size==IndexTables[Pos].StreamOffset)
                 {
                     Element_Offset=Element_Size;
-
-
-                    //Next IndexTable
-                    if (IsParsingEnd)
-                    {
-                        if (RandomIndexMetadatas.empty())
-                        {
-                            if (!RandomIndexMetadatas_AlreadyParsed)
-                            {
-                                Partitions_Pos=0;
-                                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
-                                    Partitions_Pos++;
-                                if (Partitions_Pos==Partitions.size())
-                                {
-                                    GoTo(PartitionMetadata_PreviousPartition);
-                                    Open_Buffer_Unsynch();
-                                }
-                                else
-                                    TryToFinish();
-                            }
-                        }
-                        else
-                        {
-                            GoTo(RandomIndexMetadatas[0].ByteOffset);
-                            RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
-                            PartitionPack_Parsed=false;
-                            Open_Buffer_Unsynch();
-                        }
-                    }
-
                     return;
                 }
             
@@ -3895,6 +3886,7 @@ void File_Mxf::RandomIndexMetadata()
         if (MediaInfoLib::Config.ParseSpeed_Get()<1.0 && !RandomIndexMetadatas_AlreadyParsed && !RandomIndexMetadatas.empty())
         {
             IsParsingEnd=true;
+            IsCheckingRandomAccessTable=true;
             GoTo(RandomIndexMetadatas[0].ByteOffset);
             RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
             Open_Buffer_Unsynch();
@@ -5516,34 +5508,6 @@ void File_Mxf::IndexTableSegment_IndexStartPosition()
                     {
                         IndexTables.erase(IndexTables.begin()+IndexTables.size()-1);
                         Element_Offset=Element_Size;
-                    }
-
-                    //Next IndexTable
-                    if (IsParsingEnd)
-                    {
-                        if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
-                        {
-                            if (!RandomIndexMetadatas_AlreadyParsed)
-                            {
-                                Partitions_Pos=0;
-                                while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset!=PartitionMetadata_PreviousPartition)
-                                    Partitions_Pos++;
-                                if (Partitions_Pos==Partitions.size())
-                                {
-                                    GoTo(PartitionMetadata_PreviousPartition);
-                                    Open_Buffer_Unsynch();
-                                }
-                                else
-                                    TryToFinish();
-                            }
-                        }
-                        else if (!RandomIndexMetadatas.empty())
-                        {
-                            GoTo(RandomIndexMetadatas[0].ByteOffset);
-                            RandomIndexMetadatas.erase(RandomIndexMetadatas.begin());
-                            PartitionPack_Parsed=false;
-                            Open_Buffer_Unsynch();
-                        }
                     }
 
                     return;

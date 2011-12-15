@@ -388,6 +388,9 @@ protected :
     int64u IsParsingMiddle_MaxOffset;
     bool   Track_Number_IsAvailable;
     bool   IsParsingEnd;
+    bool   IsCheckingRandomAccessTable;
+    bool   IsCheckingFooterPartitionAddress;
+    bool   FooterPartitionAddress_Jumped;
     bool   PartitionPack_Parsed;
     size_t IdIsAlwaysSame_Offset;
 
