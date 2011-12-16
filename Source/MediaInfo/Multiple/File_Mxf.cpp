@@ -891,6 +891,7 @@ File_Mxf::File_Mxf()
         Clip_Header_Size=0;
         Clip_Begin=(int64u)-1;
         Clip_End=0;
+        OverallBitrate_IsCbrForSure=0;
         Duration_Detected=false;
     #endif //MEDIAINFO_SEEK
 }
@@ -1975,6 +1976,31 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         Clip_End=((File_Mxf*)MI.Info)->Clip_End;
         Clip_Header_Size=((File_Mxf*)MI.Info)->Clip_Header_Size;
         Clip_Code=((File_Mxf*)MI.Info)->Clip_Code;
+        if (MI.Get(Stream_General, 0, General_OverallBitRate_Mode)==_T("CBR") && Partitions.size()==2 && Partitions[0].FooterPartition==Partitions[1].StreamOffset && !Descriptors.empty())
+        {
+            //Searching duration
+            int64u Duration=0;
+            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                if (Descriptor->second.Duration!=(int64u)-1 && Descriptor->second.Duration)
+                {
+                    if (Duration && Duration!=Descriptor->second.Duration)
+                    {
+                        Duration=0;
+                        break; //Not supported
+                    }
+                    Duration=Descriptor->second.Duration;
+                }
+                        
+            //Computing the count of bytes per frame
+            if (Duration)
+            {
+                int64u Begin=Partitions[0].StreamOffset+Partitions[0].PartitionPackByteCount+Partitions[0].HeaderByteCount+Partitions[0].IndexByteCount;
+                float64 BytesPerFrameF=((float64)(Partitions[0].FooterPartition-Begin)/Duration);
+                OverallBitrate_IsCbrForSure=float64_int64s(BytesPerFrameF);
+                if (OverallBitrate_IsCbrForSure!=BytesPerFrameF) //Testing integrity of the computing
+                    OverallBitrate_IsCbrForSure=0;
+            }
+        }
         Duration_Detected=true;
     }
 
@@ -2239,6 +2265,13 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             }
                         }
                         return 2; //Invalid value 
+                    }
+                    else if (OverallBitrate_IsCbrForSure)
+                    {
+                        int64u Begin=Partitions[0].StreamOffset+Partitions[0].PartitionPackByteCount+Partitions[0].HeaderByteCount+Partitions[0].IndexByteCount;
+                        GoTo(Begin+Value*OverallBitrate_IsCbrForSure);
+                        Open_Buffer_Unsynch();
+                        return 1;
                     }
                     else
                         return (size_t)-1; //Not supported
@@ -3043,6 +3076,13 @@ void File_Mxf::Data_Parse()
                             }
                         }
                     }
+                }
+                else if (OverallBitrate_IsCbrForSure)
+                {
+                    int64u Begin=Partitions[0].StreamOffset+Partitions[0].PartitionPackByteCount+Partitions[0].HeaderByteCount+Partitions[0].IndexByteCount;
+                    Essence->second.Frame_Count_NotParsedIncluded=(File_Offset+Buffer_Offset-Begin)/OverallBitrate_IsCbrForSure;
+                    if (!Descriptors.empty() && Descriptors.begin()->second.SampleRate)
+                        Essence->second.FrameInfo.PTS=Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000+((float64)Essence->second.Frame_Count_NotParsedIncluded)*1000000000/Descriptors.begin()->second.SampleRate);
                 }
                 else if (Essence->second.Frame_Count_NotParsedIncluded==0)
                 {
@@ -5855,9 +5895,10 @@ void File_Mxf::PartitionMetadata()
     {
         partition Partition;
         Partition.StreamOffset=File_Offset+Buffer_Offset-Header_Size;
-        Partition.BodyOffset=BodyOffset;
+        Partition.FooterPartition=FooterPartition;
         Partition.HeaderByteCount=HeaderByteCount;
         Partition.IndexByteCount=IndexByteCount;
+        Partition.BodyOffset=BodyOffset;
         Partitions_Pos=0;
         while (Partitions_Pos<Partitions.size() && Partitions[Partitions_Pos].StreamOffset<Partition.StreamOffset)
             Partitions_Pos++;

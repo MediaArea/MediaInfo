@@ -709,18 +709,20 @@ protected :
     struct partition
     {
         int64u StreamOffset; //From file, not MXF one
-        int64u BodyOffset;
         int64u PartitionPackByteCount; //Fill included
+        int64u FooterPartition;
         int64u HeaderByteCount;
         int64u IndexByteCount;
+        int64u BodyOffset;
 
         partition()
         {
             StreamOffset=0;
-            BodyOffset=0;
             PartitionPackByteCount=(int64u)-1;
+            FooterPartition=0;
             HeaderByteCount=0;
             IndexByteCount=0;
+            BodyOffset=0;
         }
 
         bool operator < (const partition& lhs) const
@@ -779,6 +781,7 @@ protected :
         int64u  Clip_Begin;
         int64u  Clip_End;
         int128u Clip_Code;
+        int64u  OverallBitrate_IsCbrForSure;
         bool    Duration_Detected;
     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 };
