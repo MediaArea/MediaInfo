@@ -22,6 +22,7 @@ x DVD-Video: detection of 20-bit and 24-bit PCM
 x XML output: it was sometimes containing some invalid characters
 x MPEG-4: considering default char set as ISO-8859-1
 x MXF: better handling of referencing files having the same ID for all tracks
+x MXF: Handling of MXF files with wrong FooterPartition field
 
 Version 0.7.51, 2011-11-11
 --------------
