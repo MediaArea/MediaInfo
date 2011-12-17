@@ -1144,8 +1144,17 @@ void File_Eia708::SPL()
     if (Window==NULL)
         return; //Must wait for the corresponding DFx
 
-    Window->Minimal.x=column;
-    Window->Minimal.y=row;
+    if (row<Window->Minimal.CC.size() && column<Window->Minimal.CC[Window->Minimal.y].size())
+    {
+        Window->Minimal.x=column;
+        Window->Minimal.y=row;
+    }
+    else
+    {
+        // There is a problem, resetting pen location
+        Window->Minimal.x=0;
+        Window->Minimal.y=0;
+    }
 }
 
 //---------------------------------------------------------------------------
