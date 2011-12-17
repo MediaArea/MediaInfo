@@ -41,6 +41,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_ANCILLARY_YES)
+    #include "MediaInfo/Multiple/File_Ancillary.h"
+#endif //defined(MEDIAINFO_ANCILLARY_YES)
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
@@ -130,20 +133,21 @@ void File_Lxf::Streams_Fill()
     Fill(Stream_General, 0, General_Format_Version, _T("Version "+Ztring::ToZtring(Version)));
 
     for (size_t Pos=0; Pos<Videos.size(); Pos++)
-        Streams_Fill_PerStream(Videos[Pos].Parser);
+        Streams_Fill_PerStream(Videos[Pos].Parser, 1, Pos);
     for (size_t Pos=0; Pos<Audios.size(); Pos++)
-        Streams_Fill_PerStream(Audios[Pos].Parser);
+        Streams_Fill_PerStream(Audios[Pos].Parser, 2, Pos);
 
     if (!Videos.empty())
         Fill(Stream_Video, 0, Video_CodecID, VideoFormat);
 }
 
 //---------------------------------------------------------------------------
-void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
+void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser, size_t Container_StreamKind, size_t Parser_Pos)
 {
     if (Parser==NULL)
         return;
 
+    Finish(Parser);
     if (Parser->Count_Get(Stream_Audio) && Config->File_Audio_MergeMonoStreams_Get())
     {
         if (Count_Get(Stream_Audio)==0)
@@ -155,8 +159,8 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_ForceIds_Get())
                 {
-                    for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x200+Pos); //only 1 video stream or only 1 audio stream but with separated channels, artificial id
+                    for (size_t Audio_Pos=0; Audio_Pos<Audio_Sizes.size(); Audio_Pos++)
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x200+Audio_Pos);
                 }
             #endif //MEDIAINFO_DEMUX
         }
@@ -166,7 +170,14 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser)
         Merge(*Parser);
         #if MEDIAINFO_DEMUX
             if (Config->Demux_ForceIds_Get())
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, 0x100*StreamKind_Last+StreamPos_Last); //only 1 video stream or only 1 audio stream but with separated channels, artificial id
+                for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+                    for (size_t StreamPos=0; StreamPos<Parser->Count_Get((stream_t)StreamKind); StreamPos++)
+                    {
+                        Ztring ID=Ztring::ToZtring(0x100*Container_StreamKind+Parser_Pos);
+                        if (!Parser->Retrieve((stream_t)StreamKind, StreamPos, General_ID).empty())
+                            ID+=_T('-')+Parser->Retrieve((stream_t)StreamKind, StreamPos, General_ID);
+                        Fill((stream_t)StreamKind, Count_Get((stream_t)StreamKind)-Parser->Count_Get((stream_t)StreamKind)+StreamPos, General_ID, ID, true);
+                    }
         #endif //MEDIAINFO_DEMUX
     }
 }
@@ -379,7 +390,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         if (FrameRate==0)
                             return (size_t)-1; //Not supported
                         float64 TimeStamp=((float64)Value)/FrameRate;
-                        Value=float64_int64s(TimeStamp);
+                        Value=float64_int64s(TimeStamp*1000000000); // In nanoseconds
                     }
         case 2  :   //Timestamp
                     {
@@ -473,6 +484,8 @@ bool File_Lxf::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Lxf::Header_Parse()
 {
+    while (Video_Sizes_Pos<Video_Sizes.size() && Video_Sizes[Video_Sizes_Pos]==0)
+        Video_Sizes_Pos++;
     if (Video_Sizes_Pos<Video_Sizes.size())
     {
         //Filling
@@ -481,6 +494,8 @@ void File_Lxf::Header_Parse()
         Video_Sizes_Pos++;
         return;
     }
+    while (Audio_Sizes_Pos<Audio_Sizes.size() && Audio_Sizes[Audio_Sizes_Pos]==0)
+        Audio_Sizes_Pos++;
     if (Audio_Sizes_Pos<Audio_Sizes.size())
     {
         //Filling
@@ -912,7 +927,7 @@ void File_Lxf::Video()
             FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
     #endif MEDIAINFO_SEEK
 
-    Video_Sizes_Pos=Video_Sizes[0]?0:1;
+    Video_Sizes_Pos=0;
     Element_ThisIsAList();
 }
 
@@ -932,12 +947,9 @@ void File_Lxf::Video_Stream(size_t Pos)
             if (SeekRequest==(int64u)-1)
         #endif //MEDIAINFO_SEEK
         {
-            if (Pos==1)
-            {
-                Element_Code=0x0100; //+Pos (no Pos until we know what is the other stream)
-                Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Videos_Header.TimeStamp_End-Videos_Header.Duration))/720000*FrameRate);
-                Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
-            }
+            Element_Code=0x0100+Pos;
+            Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Videos_Header.TimeStamp_End-Videos_Header.Duration))/720000*FrameRate);
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
 
@@ -985,10 +997,34 @@ void File_Lxf::Video_Stream(size_t Pos)
     {
         if (Pos==0)
         {
-            Skip_XX(Video_Sizes[Pos],                           "VBI data");
+            int8u Lines_Allocated, Lines_Used, FieldNumber;
+            Get_L1 (Lines_Allocated,                            "Lines allocated");
+            Get_L1 (Lines_Used,                                 "Lines used");
+            Get_L1 (FieldNumber,                                "Field number");
+
             if (Pos>=Videos.size())
                 Videos.resize(Pos+1);
             Videos[Pos].BytesPerFrame=Video_Sizes[Pos];
+
+            #if defined(MEDIAINFO_CDP_YES)
+                if (Videos[Pos].Parser==NULL)
+                {
+                    Videos[Pos].Parser=new File_Ancillary;
+                    ((File_Ancillary*)Videos[Pos].Parser)->InDecodingOrder=true;
+                    Videos[Pos].Parser->MustSynchronize=true;
+                    Open_Buffer_Init(Videos[Pos].Parser);
+                    Stream_Count++;
+                }
+                Videos[Pos].Parser->FrameInfo=FrameInfo;
+                Open_Buffer_Continue(Videos[Pos].Parser);
+                if (Videos[Pos].Parser->Status[IsFilled])
+                {
+                    if (Stream_Count>0)
+                        Stream_Count--;
+                }
+            #else
+                Skip_XX(Video_Sizes[Pos],                       "VBI data");
+            #endif
         }
         else
         {
@@ -1040,7 +1076,10 @@ void File_Lxf::Video_Stream(size_t Pos)
                 {
                     LookingForLastFrame=true;
                     if (2*(File_Offset+Buffer_Offset)<=File_Size)
+                    {
                         GoToFromEnd(File_Offset+Buffer_Offset);
+                        Open_Buffer_Unsynch();
+                    }
                 }
             }
         }

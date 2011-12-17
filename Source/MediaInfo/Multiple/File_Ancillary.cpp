@@ -1,4 +1,4 @@
-// File_AncillaryDataPacket - Info for SCTE 20 streams
+// File_Ancillary - Info for Ancillary (SMPTE ST291) streams
 // Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -100,7 +100,7 @@ const char* Ancillary_DataID(int8u DataID, int8u SecondaryDataID)
     else if (DataID<=0x5F)
         return "Reserved";
     else if (DataID==0x60)
-        return "Ancillary time code (Internationally registered)";
+        return "Ancillary time code"; //RP188
     else if (DataID==0x61)
     {
         switch (SecondaryDataID)
@@ -159,6 +159,7 @@ File_Ancillary::File_Ancillary()
     WithTenBit=false;
     WithChecksum=false;
     HasBFrames=false;
+    InDecodingOrder=false;
     AspectRatio=0;
     FrameRate=0;
 
@@ -194,6 +195,47 @@ void File_Ancillary::Streams_Finish()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Ancillary::Synchronize()
+{
+    //Synchronizing
+    while (Buffer_Offset+6<=Buffer_Size && ( Buffer[Buffer_Offset  ]!=0x00
+                                         ||  Buffer[Buffer_Offset+ 1]!=0xFF
+                                         ||  Buffer[Buffer_Offset+ 2]!=0xFF))
+        Buffer_Offset++;
+
+    if (!Status[IsAccepted])
+    {
+        Accept();
+
+        Fill(Stream_General, 0, General_Format, "Ancillary");
+    }
+
+    //Synched is OK
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Ancillary::Synched_Test()
+{
+    Synchronize(); //This is not always in synch directly, there may be some garbage
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+6>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x00FFFF)
+        Synched=false;
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -224,11 +266,50 @@ void File_Ancillary::Read_Buffer_Continue()
         return;
     }
 
-    if (!Status[IsAccepted])
+    if (!Status[IsAccepted] && !MustSynchronize)
         Accept();
+}
 
+//---------------------------------------------------------------------------
+void File_Ancillary::Read_Buffer_Unsynched()
+{
+    #if defined(MEDIAINFO_CDP_YES)
+        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+            delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
+        Cdp_Data.clear();
+        if (Cdp_Parser)
+            Cdp_Parser->Open_Buffer_Unsynch();
+    #endif //defined(MEDIAINFO_CDP_YES)
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
+        for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
+            delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+        AfdBarData_Data.clear();
+    #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+    AspectRatio=0;
+}
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ancillary::Header_Parse()
+{
     //Parsing
-    int8u DataID, SecondaryDataID, DataCount;
+    if (MustSynchronize)
+    {
+        if (WithTenBit)
+        {
+            Skip_L2(                                            "Ancillary data flag");
+            Skip_L2(                                            "Ancillary data flag");
+            Skip_L2(                                            "Ancillary data flag");
+        }
+        else
+        {
+            Skip_L1(                                            "Ancillary data flag");
+            Skip_L1(                                            "Ancillary data flag");
+            Skip_L1(                                            "Ancillary data flag");
+        }
+    }
     Get_L1 (DataID,                                             "Data ID");
     if (WithTenBit)
         Skip_L1(                                                "Parity+Unused"); //even:1, odd:2
@@ -238,6 +319,16 @@ void File_Ancillary::Read_Buffer_Continue()
     Get_L1 (DataCount,                                          "Data count");
     if (WithTenBit)
         Skip_L1(                                                "Parity+Unused"); //even:1, odd:2
+
+    //Filling
+    Header_Fill_Code((((int16u)DataID)<<8)|SecondaryDataID, Ztring().From_CC1(DataID)+_T('-')+Ztring().From_CC1(SecondaryDataID));
+    Header_Fill_Size(((MustSynchronize?3:0)+3+DataCount+(WithChecksum?1:0))*(WithTenBit?2:1));
+}
+
+//---------------------------------------------------------------------------
+void File_Ancillary::Data_Parse()
+{
+    Element_Info(Ancillary_DataID(DataID, SecondaryDataID));
 
     //Buffer
     int8u* Payload=new int8u[DataCount];
@@ -253,7 +344,6 @@ void File_Ancillary::Read_Buffer_Continue()
         Skip_L1(                                                "Checksum");
     if (WithTenBit)
         Skip_L1(                                                "Parity+Unused"); //even:1, odd:2
-    Element_End();
 
     FILLING_BEGIN();
         switch (DataID)
@@ -305,7 +395,7 @@ void File_Ancillary::Read_Buffer_Continue()
                                                 Open_Buffer_Init(Cdp_Parser);
                                             }
                                             Demux(Payload, (size_t)DataCount, ContentType_MainStream);
-                                            if (!HasBFrames && AspectRatio && FrameRate)
+                                            if (InDecodingOrder || (!HasBFrames && AspectRatio && FrameRate))
                                             {
                                                 if (!Cdp_Parser->Status[IsFinished])
                                                 {
@@ -357,24 +447,6 @@ void File_Ancillary::Read_Buffer_Continue()
     FILLING_END();
 
     delete[] Payload; //Payload=NULL
-}
-
-//---------------------------------------------------------------------------
-void File_Ancillary::Read_Buffer_Unsynched()
-{
-    #if defined(MEDIAINFO_CDP_YES)
-        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
-            delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
-        Cdp_Data.clear();
-        if (Cdp_Parser)
-            Cdp_Parser->Open_Buffer_Unsynch();
-    #endif //defined(MEDIAINFO_CDP_YES)
-    #if defined(MEDIAINFO_AFDBARDATA_YES)
-        for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
-            delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
-        AfdBarData_Data.clear();
-    #endif //defined(MEDIAINFO_AFDBARDATA_YES)
-    AspectRatio=0;
 }
 
 //***************************************************************************

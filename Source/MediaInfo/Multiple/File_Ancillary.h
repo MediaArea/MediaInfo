@@ -1,4 +1,4 @@
-// File_Ancillary - Info for SCTE 20 streams
+// File_Ancillary - Info for Ancillary (SMPTE ST291) streams
 // Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -17,7 +17,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about Ancillary data (SMPTE 291...)
+// Information about Ancillary data (SMPTE ST291)
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -45,6 +45,7 @@ public :
     bool    WithTenBit;
     bool    WithChecksum;
     bool    HasBFrames;
+    bool    InDecodingOrder;
     float32 AspectRatio;
     float64 FrameRate;
 
@@ -81,9 +82,22 @@ private :
     //Streams management
     void Streams_Finish();
 
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+
     //Buffer - Global
     void Read_Buffer_Continue();
     void Read_Buffer_Unsynched();
+
+    //Buffer - Per element
+    void Header_Parse();
+    void Data_Parse();
+
+    //Temp
+    int8u DataID;
+    int8u SecondaryDataID;
+    int8u DataCount;
 };
 
 } //NameSpace

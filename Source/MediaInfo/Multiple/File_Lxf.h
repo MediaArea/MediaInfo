@@ -47,7 +47,7 @@ public :
 protected :
     //Streams management
     void Streams_Fill ();
-    void Streams_Fill_PerStream (File__Analyze* Parser);
+    void Streams_Fill_PerStream (File__Analyze* Parser, size_t Container_StreamKind, size_t Parser_Pos);
     void Streams_Finish ();
 
     //Buffer - Synchro
