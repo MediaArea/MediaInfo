@@ -33,6 +33,7 @@
 #endif //defined(MEDIAINFO_ANCILLARY_YES)
 #include "MediaInfo/MediaInfo_Internal.h"
 #include <vector>
+#include <set>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -374,7 +375,7 @@ protected :
     };
     std::vector<randomindexmetadata> RandomIndexMetadatas;
     bool                             RandomIndexMetadatas_AlreadyParsed;
-    int64u                           RandomIndexMetadatas_ByteOffsetParsed;
+    std::set<int64u>                 PartitionPack_AlreadyParsed;
     size_t Streams_Count;
     int128u Code;
     int128u OperationalPattern;
@@ -636,7 +637,19 @@ protected :
         component()
         {
             Duration=(int64u)-1;
-            SourceTrackID=0;
+            SourceTrackID=(int32u)-1;
+        }
+
+        void Update (struct component &New)
+        {
+            if (New.Duration!=(int64u)-1)
+                Duration=New.Duration;
+            if (New.SourcePackageID.hi || New.SourcePackageID.lo)
+                SourcePackageID=New.SourcePackageID;
+            if (New.SourceTrackID!=(int32u)-1)
+                SourceTrackID=New.SourceTrackID;
+            if (!New.StructuralComponents.empty())
+                StructuralComponents=New.StructuralComponents;
         }
     };
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component

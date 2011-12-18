@@ -838,7 +838,6 @@ File_Mxf::File_Mxf()
 
     //Temp
     RandomIndexMetadatas_AlreadyParsed=false;
-    RandomIndexMetadatas_ByteOffsetParsed=0;
     Streams_Count=(size_t)-1;
     OperationalPattern=0;
     Buffer_Begin=(int64u)-1;
@@ -1866,6 +1865,7 @@ void File_Mxf::Read_Buffer_AfterParsing()
 {
     if (File_Offset+Buffer_Offset>=IsParsingMiddle_MaxOffset)
     {
+        Open_Buffer_Unsynch();
         Finish();
         return;
     }
@@ -1889,7 +1889,7 @@ void File_Mxf::Read_Buffer_AfterParsing()
         }
 
         //Checking if we want to seek again
-        if (!IsParsingEnd)
+        if (File_GoTo==(int64u)-1)
             TryToFinish();
     }
 }
@@ -2588,8 +2588,6 @@ void File_Mxf::Header_Parse()
             Partitions_IsCalculatingSdtiByteCount=false;
         }
     }
-    if (!IsParsingEnd && File_Offset+Buffer_Offset>RandomIndexMetadatas_ByteOffsetParsed)
-        RandomIndexMetadatas_ByteOffsetParsed=File_Offset+Buffer_Offset;
 
     #if MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
         if (!Demux_HeaderParsed && !Partitions.empty() && Partitions[Partitions.size()-1].StreamOffset+Partitions[Partitions.size()-1].PartitionPackByteCount+Partitions[Partitions.size()-1].HeaderByteCount+Partitions[Partitions.size()-1].IndexByteCount==File_Offset+Buffer_Offset)
@@ -3256,8 +3254,6 @@ void File_Mxf::Data_Parse()
             FooterPartitionAddress_Jumped=true;
         }
         Open_Buffer_Unsynch();
-        if (File_Offset+Buffer_Offset>RandomIndexMetadatas_ByteOffsetParsed)
-            RandomIndexMetadatas_ByteOffsetParsed=File_Offset+Buffer_Offset;
     }
 }
 
@@ -3916,7 +3912,7 @@ void File_Mxf::RandomIndexMetadata()
         Element_End();
 
         FILLING_BEGIN();
-            if (!RandomIndexMetadatas_AlreadyParsed && RandomIndexMetadata.ByteOffset>RandomIndexMetadatas_ByteOffsetParsed)
+            if (!RandomIndexMetadatas_AlreadyParsed && PartitionPack_AlreadyParsed.find(RandomIndexMetadata.ByteOffset)==PartitionPack_AlreadyParsed.end())
                 RandomIndexMetadatas.push_back(RandomIndexMetadata);
         FILLING_END();
     }
@@ -4761,7 +4757,7 @@ void File_Mxf::InterchangeObject_InstanceUID()
         components::iterator Component=Components.find(0);
         if (Component!=Components.end())
         {
-            Components[InstanceUID]=Component->second;
+            Components[InstanceUID].Update(Component->second);
             Components.erase(Component);
         }
     FILLING_END();
@@ -5915,6 +5911,8 @@ void File_Mxf::PartitionMetadata()
             case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);                                                          break;
             default   : ;
         }
+
+    PartitionPack_AlreadyParsed.insert(File_Offset+Buffer_Offset-Header_Size);
 }
 
 //---------------------------------------------------------------------------
