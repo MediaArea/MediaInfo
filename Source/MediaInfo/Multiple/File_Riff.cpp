@@ -138,6 +138,8 @@ File_Riff::File_Riff()
     IsWave64=false;
     IsRIFF64=false;
     IsWaveBroken=false;
+    IsNotWordAligned=false;
+    IsNotWordAligned_Tested=false;
     SecondPass=false;
     DV_FromHeader=NULL;
     Kind=Kind_None;
@@ -705,7 +707,24 @@ void File_Riff::Header_Parse()
     if (IsBigEndian)
         Get_B4 (Size,                                           "Size");
     else
+    {
         Get_L4 (Size,                                           "Size");
+
+        //Testing malformed (not word aligned)
+        if (!IsNotWordAligned_Tested)
+        {
+            if (!File_Name.empty())
+            {
+                File F(File_Name);
+                F.GoTo(File_Offset+Buffer_Offset+8+Size);
+                int8u Temp;
+                F.Read(&Temp, 1);
+                if ((Temp<'A' || Temp>'z') && Temp!=' ')
+                    IsNotWordAligned=true;
+            }
+            IsNotWordAligned_Tested=true;
+        }
+    }
 
     //RF64
     int64u Size_Complete=Size;
@@ -731,7 +750,7 @@ void File_Riff::Header_Parse()
     }
 
     //Alignment
-    if (Size_Complete%2)
+    if (Size_Complete%2 && !IsNotWordAligned)
     {
         Size_Complete++; //Always 2-byte aligned
         Alignement_ExtraByte=1;

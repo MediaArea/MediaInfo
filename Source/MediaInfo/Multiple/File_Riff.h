@@ -161,6 +161,8 @@ private :
     bool   IsWave64;
     bool   IsRIFF64;
     bool   IsWaveBroken;
+    bool   IsNotWordAligned;
+    bool   IsNotWordAligned_Tested;
     bool   SecondPass;      //Second pass for streams
     File__Analyze*  DV_FromHeader;
     enum kind
