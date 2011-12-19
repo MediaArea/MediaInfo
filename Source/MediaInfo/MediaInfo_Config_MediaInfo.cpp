@@ -37,7 +37,7 @@
 #include <algorithm>
 #if MEDIAINFO_DEMUX
     #include <cmath>
-#endif MEDIAINFO_DEMUX
+#endif //MEDIAINFO_DEMUX
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -546,7 +546,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_growingfile_delay_get"))
     {
-        return Ztring::Ztring().From_Number(File_GrowingFile_Delay_Get());
+        return Ztring::ToZtring(File_GrowingFile_Delay_Get());
     }
     else if (Option_Lower==_T("file_curl"))
     {
