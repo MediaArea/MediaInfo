@@ -7,6 +7,28 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.52, 2011-12-19
+--------------
++ MXF with referenced files: if the referenced file is not available, trying to open local files
++ MPEG Video: GOP size for I-Frame only streams
++ MXF: support of CEA-608 in ancillary data for some other formats than MPEG Video, if there is no B-frame
++ LXF: support of SMPTE ST291/CDP/CEA-608/CEA-708 in ancillary data
++ WAV: better handling of files not having word alignment
+x DV: crash (division by zero) in some cases
+x DV: DVCPRO HD was sometimes not detected (low bitrate)
+x MXF: Crash if AFD field has an invalid value
+x MXF: Wrong endianess for some big endian PCM streams
+x MXF: some MXF referencing files have wrong duration
+x MXF: duration was wrong with some specific files
+x DVD-Video: detection of 20-bit and 24-bit PCM
+x XML output: it was sometimes containing some invalid characters
+x MPEG-4: considering default char set as ISO-8859-1
+x MXF: better handling of referencing files having the same ID for all tracks
+x MXF: Handling of MXF files with wrong FooterPartition field
+x MXF: Some captions (not starting at the beginning of the file) were not detected
+x WAV: duration was missing is some cases
+x RMP3 support was broken
+
 Version 0.7.51, 2011-11-11
 --------------
 + #2872918, MKV: add support for default and forced track flags
