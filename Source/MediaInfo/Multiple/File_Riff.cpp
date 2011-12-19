@@ -53,6 +53,7 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#include <ZenLib/File.h>
 #include <ZenLib/Utils.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
