@@ -12,28 +12,28 @@ Download_Packages()
 {
 #-----------------------------------------------------------------------
 # Downloading
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo$dash$mediainfov-$1$9$6.$type"
-mv mediainfo$dash$mediainfov-$1$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo$dash$mediainfov-$1$6$9.$type"
+mv mediainfo$dash$mediainfov-$1$6$9.$type \
  download/binary/mediainfo/$mediainfov/mediainfo$dash$mediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo-gui$dash$mediainfov-$1$9$6.$type"
-mv mediainfo-gui$dash$mediainfov-$1$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo-gui$dash$mediainfov-$1$6$9.$type"
+mv mediainfo-gui$dash$mediainfov-$1$6$9.$type \
  download/binary/mediainfo-gui/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0$dash$libmediainfov-$2$9$6.$type"
-mv libmediainfo0$dash$libmediainfov-$2$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0$dash$libmediainfov-$2$6$9.$type"
+mv libmediainfo0$dash$libmediainfov-$2$6$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0-$devext$dash$libmediainfov-$2$9$6.$type"
-mv libmediainfo0-$devext$dash$libmediainfov-$2$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0-$devext$dash$libmediainfov-$2$6$9.$type"
+mv libmediainfo0-$devext$dash$libmediainfov-$2$6$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$9$6.$type"
-mv libzen0$dash$libzenv-$3$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$6$9.$type"
+mv libzen0$dash$libzenv-$3$6$9.$type \
  download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0-$devext$dash$libzenv-$3$9$6.$type"
-mv libzen0-$devext$dash$libzenv-$3$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0-$devext$dash$libzenv-$3$6$9.$type"
+mv libzen0-$devext$dash$libzenv-$3$6$9.$type \
  download/binary/libzen0/$libzenv/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
 }
 
@@ -42,12 +42,12 @@ mv libzen0-$devext$dash$libzenv-$3$9$6.$type \
 # $7=Platform, $8=CPU, $9=CPU target
 Download_Wx()
 {
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/wxGTK-2.8.12-$1$9$6.$type"
-mv wxGTK-2.8.12-$1$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/wxGTK-2.8.12-$1$6$9.$type"
+mv wxGTK-2.8.12-$1$6$9.$type \
  download/binary/wxGTK/2.8.12/wxGTK-2.8.12-1$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/wxGTK-devel-2.8.12-$1$9$6.$type"
-mv wxGTK-devel-2.8.12-$1$9$6.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/wxGTK-devel-2.8.12-$1$6$9.$type"
+mv wxGTK-devel-2.8.12-$1$6$9.$type \
  download/binary/wxGTK/2.8.12/wxGTK-devel-2.8.12-1$9.$7.$type
 }
 
@@ -129,6 +129,8 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_11.3   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.3   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed i586   .i586
