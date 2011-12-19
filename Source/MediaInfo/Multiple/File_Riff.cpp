@@ -791,7 +791,7 @@ void File_Riff::Header_Parse()
         Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Size_Complete;
         Size_Complete=Buffer_Size-(Buffer_Offset+8);
     }
-    if ((Name==Elements::WAVE_data || Name==Elements::AIFF_SSND) && AvgBytesPerSec && Demux_Rate && BlockAlign)
+    if ((Name==Elements::WAVE_data || Name==Elements::AIFF_SSND))
     {
         Buffer_DataToParse_Begin=File_Offset+Buffer_Offset+8;
         Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Size_Complete;

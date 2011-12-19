@@ -26,6 +26,7 @@ x MPEG-4: considering default char set as ISO-8859-1
 x MXF: better handling of referencing files having the same ID for all tracks
 x MXF: Handling of MXF files with wrong FooterPartition field
 x MXF: Some captions (not starting at the beginning of the file) were not detected
+x WAV: duration was missing is some cases
 
 Version 0.7.51, 2011-11-11
 --------------
