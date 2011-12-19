@@ -171,6 +171,7 @@ private :
         Kind_Avi,
         Kind_Wave,
         Kind_Aiff,
+        Kind_Rmp3,
     };
     kind Kind;
 
@@ -283,6 +284,7 @@ private :
     void RMMP ();
     void RMP3 ();
     void RMP3_data ();
+    void RMP3_data_Continue();
     void RMP3_INFO() {AVI__INFO();}
     void RMP3_INFO_IID3() {AVI__INFO_IID3();}
     void RMP3_INFO_ILYC() {AVI__INFO_ILYC();}

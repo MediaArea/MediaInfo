@@ -3038,6 +3038,7 @@ void File_Riff::RMP3()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "RMP3");
+    Kind=Kind_Rmp3;
 }
 
 //---------------------------------------------------------------------------
@@ -3045,24 +3046,41 @@ void File_Riff::RMP3_data()
 {
     Element_Name("Raw datas");
 
-    //Parsing
-    #if defined(MEDIAINFO_MPEGA_YES)
-        File_Mpega MI;
-        Open_Buffer_Init(&MI);
-        Open_Buffer_Continue(&MI);
-        Finish(&MI);
-        Merge(MI, Stream_Audio, 0, 0);
-    #else
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Codec, "MPEG1/2 Audio");
-    #endif
+    FILLING_BEGIN();
+        Fill(Stream_Audio, 0, Audio_StreamSize, Buffer_DataToParse_End-Buffer_DataToParse_Begin);
+    FILLING_END();
 
-    //Positionning
-    #if MEDIAINFO_TRACE
-		if (Trace_Activated)
-			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
-    #endif //MEDIAINFO_TRACE
-    Element_Offset=Element_TotalSize_Get()-Element_Offset; //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
+    //Parsing
+    Element_Code=0x30307762; //00wb
+
+    //Creating parser
+    File_Mpega* Parser=new File_Mpega;
+    Parser->CalculateDelay=true;
+    Parser->ShouldContinueParsing=true;
+    Open_Buffer_Init(Parser);
+    Stream[0x30300000].StreamKind=Stream_Audio;
+    Stream[0x30300000].StreamPos=0;
+    Stream[0x30300000].Parsers.push_back(Parser);
+    Stream_Prepare(Stream_Audio);
+
+    #if MEDIAINFO_DEMUX
+        if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
+            Config->Demux_EventWasSent=true; //First set is to indicate the user that header is parsed
+    #endif //MEDIAINFO_DEMUX
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::RMP3_data_Continue()
+{
+    #if MEDIAINFO_DEMUX
+        if (Element_Size)
+        {
+            Demux_random_access=true;
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+        }
+    #endif //MEDIAINFO_DEMUX
+
+    AVI__movi_xxxx();
 }
 
 //---------------------------------------------------------------------------
