@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -28,37 +28,37 @@
  chapters stream1; chapters stream
  chapters stream2; chapters streams
  chapters stream3; chapters streams
- day1;deň
+ day1; deň
  day2; dni
- day3; dny
- dB1;dB
- dB2;dB
- dB3;dB
+ day3; dni
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1; súbor
  file2; súbory
  file3; súbory
  frame1;snímka
  frame2;snímky
  frame3;snímky
- fps1;snímok/sek.
- fps2;snímok/sek.
- fps3;snímok/sek.
+ fps1; snímok/sek.
+ fps2; snímok/sek.
+ fps3; snímok/sek.
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
- GigaBit2; GigaBits
- GigaBit3; GigaBits
+ GigaBit2; GigaBitov
+ GigaBit3; GigaBitov
  GigaByte1; GigaByte
- GigaByte2; GigaBytes
- GigaByte3; GigaBytes
+ GigaByte2; GigaBytov
+ GigaByte3; GigaBytov
  hour1; hodina
  hour2;hodiny
  hour3;hodiny
@@ -67,59 +67,59 @@
  image stream2; image streams
  image stream3; image streams
  KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
- KiB; KiB
- KibiBit1; KibiBit
- KibiBit2; KibiBits
- KibiBit3; KibiBits
- KibiByte1; KibiByte
- KibiByte2; KibiBytes
- KibiByte3; KibiBytes
- KiBps; KiBps
- KiloBit1; KiloBit
- KiloBit2; KiloBits
- KiloBit3; KiloBits
- KiloByte1; KiloByte
- KiloByte2; KiloBytes
- KiloByte3; KiloBytes
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
+ KiB; kiB
+ KibiBit1; kibiBit
+ KibiBit2; kibiBitov
+ KibiBit3; kibiBitov
+ KibiByte1; kibiByte
+ KibiByte2; kibiBytov
+ KibiByte3; kibiBytov
+ KiBps; kiB/s
+ KiloBit1; kiloBit
+ KiloBit2; kiloBitov
+ KiloBit3; kiloBitov
+ KiloByte1; kiloByte
+ KiloByte2; kiloBytov
+ KiloByte3; kiloBytov
  MB; MB
  Mb; Mb
- Mbps; Mbps
- MBps; MebiBytes
+ Mbps; Mb/s
+ MBps; MebiBytov
  MebiBit1; MebiBit
- MebiBit2; MebiBits
- MebiBit3; MebiBits
+ MebiBit2; MebiBitov
+ MebiBit3; MebiBitov
  MebiByte1; MebiByte
- MebiByte2; MebiBytes
- MebiByte3; MebiBytes
+ MebiByte2; MebiBytov
+ MebiByte3; MebiBytov
  MegaBit1; MegaBit
- MegaBit2; MegaBits
- MegaBit3; MegaBits
+ MegaBit2; MegaBitov
+ MegaBit3; MegaBitov
  MegaByte1; MegaByte
- MegaByte2; MegaBytes
- MegaByte3; MegaBytes
+ MegaByte2; MegaBytov
+ MegaByte3; MegaBytov
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
- millisecond1; milisekunda
- millisecond2; milisekundy
- millisecond3; milisekundy
- minute1;minúta
- minute2;minúty
- minute3;minúty
- month1;mesiac
- month2;mesiace
- month3;mesiace
+ MiBps; MiB/s
+ millisecond1; milisekúnd
+ millisecond2; milisekúnd
+ millisecond3; milisekúnd
+ minute1; minút
+ minute2; minút
+ minute3; minút
+ month1; mesiac
+ month2; mesiace
+ month3; mesiace
  pixel1; pixel
- pixel2;pixely
- pixel3;pixely
- second1;sekunda
- second2;sekundy
- second3;sekundy
+ pixel2; pixelov
+ pixel3; pixelov
+ second1; sekúnd
+ second2; sekúnd
+ second3; sekúnd
  text stream1; text stream
  text stream2; text streams
  text stream3; text streams
@@ -133,12 +133,12 @@
  warppoint1;
  warppoint2;
  warppoint3;
- week1;týždeň
- week2;týždne
- week3;týždne
- year1;rok
- year2;roky
- year3;roky
+ week1; týždeň
+ week2; týždne
+ week3; týždne
+ year1; rok
+ year2; roky
+ year3; roky
 , ;, 
 : ;: 
 About;O programe
@@ -162,8 +162,8 @@ Arranger;Arranger
 ArtDirector;ArtDirector
 AspectRatio;Pomer strán
 AssistantDirector;AssistantDirector
-at;at
-At least one file;(You must at least open one file)
+at;pri
+At least one file;(Musíš najprv otvoriť súbor)
 Audio;Audio
 Audio stream(s);Audio streamy
 Audio_Codec_List;Audio kodeky
@@ -200,9 +200,9 @@ Choose custom sheet;Vyberte požadovaný formát zobrazení
 Choose custom text;Vyberte vlastné nastavenie textu
 Choose export format;Vyberte požadovaný exportný formát
 Choose file(s);Vyberte súbor pre otvorenie
-Choose filename;Vybetre požadovaný názov súboru
+Choose filename;Vyberte požadovaný názov súboru
 Choose language;Vybrať jazyk
-Choregrapher;Choregrapher
+Choregrapher;Choreograf
 Chroma;Chroma
 ChromaSubsampling;
 Close;Zatvoriť
@@ -225,7 +225,7 @@ Codec_Settings_Law;
 Codec_Settings_ITU;
 Codec_Profile;Profil kodeku
 Codec_Url;Adresa pre stiahnutie kodeku
-CodecID;
+CodecID;Označenie kodeku
 CodecID_Description;Popis kodeku
 Collection;Collection
 Colorimetry;
@@ -242,17 +242,17 @@ Compression_Ratio;
 Compilation;
 Conductor;Conductor
 Container and general information;Hlavné informácie
-ContentType;ContentType
-CoProducer;Coproducer
+ContentType;Typ obsahu
+CoProducer;sPoluproducent
 Copyright;Autorské práva
 CostumeDesigner;Costume designer
 Count;Count
 Country;Krajina
 Cover;Obal
-Cover_Datas;Cover datas
-Cover_Description;
+Cover_Datas;Údaje obalu
+Cover_Description;Popis obalu
 Cover_Mime;
-Cover_Type;
+Cover_Type;Typ obalu
 Cropped;
 Custom;Vlastné
 Customize;Prispôsobiť
@@ -281,11 +281,11 @@ Edit;Upraviť
 EditedBy;Upravil
 EMail;E-Mail
 Encoded_Application;Použitý software
-Encoded_Date;Encoded date
-Encoded_Library;Enkódoval
-Encoded_Library_Settings;Nastavenie enkoderu
+Encoded_Date;Dátum zakódovania
+Encoded_Library;Zakódoval
+Encoded_Library_Settings;Nastavenie kodéru
 Encoded_Original;Originál
-EncodedBy;Enkódoval
+EncodedBy;Zakódoval
 EPG_Positions;
 Error_File;Zlyhalo načítavanie súboru
 ExecutiveProducer;Executive producer
@@ -293,7 +293,7 @@ Exit;Koniec
 Exit_Hint;Ukončiť program
 Export;Exportovať
 Export_Hint;Exportovať do vybraného formátu
-Extensions;Extensions usually used
+Extensions;Všeobecne používaná koncovka
 Family;
 Fax;Fax
 File;Súbor
@@ -310,13 +310,13 @@ FileSize;Veľkosť súboru
 Folder;Adresár
 Folder (R);Adresár (R)
 Folder (R)_Hint;Select a folder to study (with all folders recursively)
-Folder (Recursively);Folder (Recursively)
+Folder (Recursively);Adresár (Recursively)
 Folder_Hint;Otvoriť všetko v adresári
 FolderName;Názov adresára
 Format;Formát
 Format_Commercial;
 Format_Description;Popis formátu
-Format_Info;Detaily formátu
+Format_Info;Informácie o formáte
 Format_Profile;Profil formátu
 Format_Settings;Nastavenia formátu
 Format_Settings_PacketBitStream;
@@ -350,10 +350,10 @@ FrameRate_Mode;Režim frekvencie snímok
 FrameRate_Mode_CFR;Konštantný
 FrameRate_Mode_VFR;Variabilný
 FrameRate_Minimum;Minimálna frekvencia snímok
-FrameRate_Nominal;
+FrameRate_Nominal;Nominálna frekvencia snímok
 FrameRate_Maximum;Maximálna frekvencia snímok
 FrameRate_Original;Pôvodná frekvencia snímok
-General;Hlavné
+General;Hlavné parametre
 Genre;žáner
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -523,12 +523,12 @@ Image_Codec_List;Codecs Image
 ImageCount;Count of image streams
 Info;Info
 Instruments;Instruments
-Interlacement;Interlacement
-Interlaced_Interlaced;Interlaced
-Interlaced_TFF;Top Field First
-Interlaced_BFF;Bottom Field First
-Interlaced_PPF;Progressive
-Interlaced_Progressive;Progressive
+Interlacement;Prekladanie riadkov obrazu
+Interlaced_Interlaced;Prekladané
+Interlaced_TFF;Horný riadok ako prvý
+Interlaced_BFF;Dolný riadok ako prvý
+Interlaced_PPF;Progresívne
+Interlaced_Progressive;Progresívne
 Interleaved;
 Interleave_Duration;
 Interleave_Preload;
@@ -537,7 +537,7 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Keywords
+Keywords;Identifikujúce slová
 Known codecs;Známe kodeky
 Known formats;Známe formáty
 Known parameters;Známe parametre
@@ -563,9 +563,9 @@ Language_bh;Bihari
 Language_bi;Bislama
 Language_bm;Bambara
 Language_bn;Bengali
-Language_bo;Tibetan
+Language_bo;Tibetsky
 Language_br;Breton
-Language_bs;Bosnian
+Language_bs;Bosansky
 Language_ca;Catalan
 Language_ce;Chechen
 Language_ch;Chamorro
@@ -575,27 +575,27 @@ Language_cs;Česky
 Language_cu;Slave
 Language_cv;Chuvash
 Language_cy;Welsh
-Language_da;Danish
+Language_da;Dánsky
 Language_de;Nemecky
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
-Language_el;Greek
+Language_el;Grécky
 Language_en;Anglicky
 Language_en-gb;Anglicky (V.Británia)
 Language_en-us;Anglicky (USA)
 Language_eo;Esperanto
 Language_es;Španielsky
-Language_et;Estonian
-Language_eu;Basque
-Language_fa;Persian
+Language_et;Estónsky
+Language_eu;Baskidsky
+Language_fa;Perzsky
 Language_ff;Fulah
-Language_fi;Finnish
+Language_fi;Fínsky
 Language_fj;Fijian
 Language_fo;Faroese
 Language_fr;Francúzsky
 Language_fy;Frisian
-Language_ga;Irish
+Language_ga;Írsky
 Language_gd;Gaelic
 Language_gl;Galician
 Language_gn;Guarani
@@ -603,12 +603,12 @@ Language_gu;Gujarati
 Language_gv;Manx
 Language_ha;Hausa
 Language_he;Hebrew
-Language_hi;Hindi
+Language_hi;Hindsky
 Language_ho;Hiri Motu
 Language_hr;Chorvátsky
 Language_ht;Haitian
 Language_hu;Maďarsky
-Language_hy;Armenian
+Language_hy;Arménsky
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -618,7 +618,7 @@ Language_ii;Sichuan Yi
 Language_ik;Inupiaq
 Language_Info;Informácie o jazyku
 Language_io;Ido
-Language_is;Icelandic
+Language_is;Islandsky
 Language_it;Taliansky
 Language_iu;Inuktitut
 Language_ja;Japonsky
@@ -627,33 +627,33 @@ Language_ka;Georgian
 Language_kg;Kongo
 Language_ki;Kikuyu
 Language_kj;Kuanyama
-Language_kk;Kazakh
+Language_kk;Kazašsky
 Language_kl;Kalaallisut
 Language_km;Khmer
 Language_kn;Kannada
 Language_ko;Kórejsky
 Language_kr;Kanuri
 Language_ks;Kashmiri
-Language_ku;Kurdish
+Language_ku;Kurdsky
 Language_kv;Komi
 Language_kw;Cornish
-Language_ky;Kirghiz
+Language_ky;Kirgyzsky
 Language_la;Latin
-Language_lb;Luxembourgish
+Language_lb;Luxembursky
 Language_lg;Ganda
 Language_li;Limburgish
 Language_ln;Lingala
 Language_lo;Lao
 Language_lt;Lithuanian
 Language_lu;Luba-Katanga
-Language_lv;Latvian
+Language_lv;Lytovsky
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
-Language_mk;Macedonian
+Language_mk;Macedónsky
 Language_ml;Malayalam
-Language_mn;Mongolian
-Language_mo;Moldavian
+Language_mn;Mongolsky
+Language_mo;Moldavsky
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -710,7 +710,7 @@ Language_te;Telugu
 Language_tg;Tajik
 Language_th;Thai
 Language_ti;Tigrinya
-Language_tk;Turkmen
+Language_tk;Turkménsky
 Language_tl;Tagalog
 Language_tn;Tswana
 Language_to;Tonga
@@ -722,9 +722,9 @@ Language_ty;Tahitian
 Language_ug;Uighur
 Language_uk;Ukrajinsky
 Language_ur;Urdu
-Language_uz;Uzbek
+Language_uz;Uzbecky
 Language_ve;Venda
-Language_vi;Vietnamese
+Language_vi;Vietnamsky
 Language_vo;Volapuk
 Language_wa;Walloon
 Language_wo;Wolof
@@ -753,19 +753,19 @@ Menu_Codec_List;
 Menu_No;Žiadne menu
 MenuCount;Count of menu streams
 Menu_Hint;More possibilities
-MenuID;
-mn;mn
+MenuID;Označenie menu
+mn; min
 Mood;Mood
 More;Viac
 Movie;Názov filmu
-ms;ms
+ms; ms
 MSDI;MSDI
-MusicBy;
+MusicBy;Hudbu zložil
 MuxingMode;
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
 Name;Názov
-Nationality;Nationality
+Nationality;Národnosť
 NetworkName;
 New;Nový
 Newest version;Pri spustení kontrolovať nové verzie
@@ -815,7 +815,7 @@ OpenCandy_34;Vyberte inštalačné nastavenia
 OpenCandy_35;
 OpenCandy_36;
 Options;Nastavenie
-Options_Hint;Predvolby
+Options_Hint;Predvoľby
 Original;Originál
 OriginalNetworkName;
 OriginalSourceForm;
@@ -837,8 +837,8 @@ PixelAspectRatio;Pomer bodov
 PixelAspectRatio_Original;Pomer bodov
 PlayCounter;PlayCounter
 Played_Count;
-Played_First_Date;
-Played_Last_Date;
+Played_First_Date;Dátum prvého prehratia
+Played_Last_Date;Dátum posledného prehratia
 PlayTime;Hrací čas
 Position;Pozícia
 Position_Total;Celkom
@@ -847,25 +847,25 @@ Producer;Producent
 ProductionDesigner;ProductionDesigner
 ProductionStudio;ProductionStudio
 Publisher;Publisher
-Purchased_Date;purchased date
+Purchased_Date;Dátum zakúpenia
 Quote character;Quote character
 RadioStation;Rozhlasová stanica
 Rating;Hodnotenie
 Recorded_Date;Dátum nahrávania
 Recorded_Location;Lokalita nahrávania
 Released_Date;Dátum vydania
-RemixedBy;Remixed by
+RemixedBy;Remixoval/-a
 ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Rozlíšenie
-s;s
+s; sek.
 SamplingRate;Sampling rate
 Save;Uložiť
 ScanType;
 ScanOrder;
 ScreenplayBy;Screenplay by
 Season;Season
-see below;see below
+see below;pozri nižšie
 Send HeaderFile;
 Separator_Columns;Oddeľovač stĺpcov
 Separator_Lines;Oddeľovač riadkov
@@ -887,7 +887,7 @@ Show toolbar;Zobraziť nástrojovú lištu
 Sort;Zoradiť podľa
 SamplingCount;
 SoundEngineer;Sound engineer
-Standard;Standard
+Standard;Štandard
 Stream;Dátový stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
@@ -897,11 +897,11 @@ StreamKindID;
 StreamKindPos;
 StreamSize;
 StreamSize_Proportion;
-Subject;Subject
+Subject;Subjekt
 SubTrack;SubTrack
 Summary;Summary
-Supported formats;Supported formats
-Supported?;Supported?
+Supported formats;Podporované formáty
+Supported?;Podporovaný?
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;
@@ -920,41 +920,41 @@ Text2;Druhý text stream
 Text3;Tretí text stream
 TextCount;Count of text streams
 ThanksTo;Poďakovanie
-Thousands separator;Thousands separator
+Thousands separator;Oddeľovač tisícok
 Title;Titul
-Title_More;Title, more info
-TimeZone;
+Title_More;Titul, ďalšie informácie
+TimeZone;Časová zóna
 Total;Celkom
 Track;Názov stopy
 Track_Count;Počet stôp
 transfer_characteristics;
-Translator;Přeložil
+Translator;Preložil
 Tree;Strom
-Tree & Text;Tree & Text
+Tree & Text;Strom a text
 UniqueID;
-Unknown;Neznámu
+Unknown;Neznámy
 Url;Url
 Video;Video
-Video stream(s);Video stream(s)
+Video stream(s);Video stream(y)
 Video_Codec_List;Video kodeky
 Video_Delay;Video delay
 Video_No;Žiadne video
 Video0_Delay;Video0 delay
 Video1;Prvý video stream
-VideoCount;Počet video streamů
+VideoCount;Počet video streamov
 View;Zobraziť
 View_Hint;Zobraziť
-Warning : more streams in the files;Warning : there are more streams in the files
+Warning : more streams in the files;Pozor: v súboroch je viacero streamov !
 Web;Web
-WebSite_Audio;Go to the web site of this audio codec
-WebSite_Audio_More;Go to the web site (%Url%) to find this audio codec
+WebSite_Audio;Navštív webstránku tohoto audiokodeku
+WebSite_Audio_More;Vyhľadaj tento audiokodek na webstránke (%Url%) 
 WebSite_General;Go to the web site of a player for this file
 WebSite_General_More;Go to the web site of a player for this file
 WebSite_Text;Go to the web site of this text codec
 WebSite_Text_More;Go to the web site (%Url%) to find this text codec
 WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ísť na stránku s týmto video-kodekom
-WebSite_Video_More;Go to the web site (%Url%) to find this video codec
+WebSite_Video_More;Vyhľadaj tento videokodek na webstránke (%Url%) 
 Width;Šírka
 Width_Original;
 WriteMe;Napíš autorovi
@@ -964,5 +964,5 @@ Written_Location;Written location
 WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;88
