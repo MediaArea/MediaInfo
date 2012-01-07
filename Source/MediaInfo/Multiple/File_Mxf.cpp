@@ -1460,6 +1460,11 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
 
     if (StreamKind_Last!=Stream_Max && StreamPos_Last!=(size_t)-1)
     {
+        //Handling buggy files
+        std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("ScanType");
+        if (Info!=Descriptor->second.Infos.end() && Info->second==_T("Interlaced") && Descriptor->second.Height==1152 && Descriptor->second.Height_Display==1152 && Descriptor->second.Width==720) //Height value is height of the frame instead of the field
+            Descriptor->second.Height_Display/=2;
+        
         //ID
         if (Descriptor->second.LinkedTrackID!=(int32u)-1 && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
         {
