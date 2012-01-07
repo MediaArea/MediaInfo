@@ -35,12 +35,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Ancillary.h"
-#if defined(MEDIAINFO_EIA608_YES)
-    #include "MediaInfo/Text/File_Eia608.h"
-#endif
-#if defined(MEDIAINFO_EIA708_YES)
-    #include "MediaInfo/Text/File_Eia708.h"
-#endif
 #if defined(MEDIAINFO_CDP_YES)
     #include "MediaInfo/Text/File_Cdp.h"
 #endif
