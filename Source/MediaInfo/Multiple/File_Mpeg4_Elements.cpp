@@ -1333,7 +1333,7 @@ void File_Mpeg4::mdat()
     {
         Fill(Stream_General, 0, General_HeaderSize, File_Offset+Buffer_Offset-Header_Size);
         Fill(Stream_General, 0, General_DataSize, Element_TotalSize_Get()+Header_Size);
-        if (File_Size!=(int64u)-1)
+        if (File_Size!=(int64u)-1 && File_Offset+Buffer_Offset+Element_TotalSize_Get()<=File_Size)
             Fill(Stream_General, 0, General_FooterSize, File_Size-(File_Offset+Buffer_Offset+Element_TotalSize_Get()));
         Fill(Stream_General, 0, General_IsStreamable, FirstMoovPos==(int64u)-1?"No":"Yes");
     }
@@ -1382,6 +1382,8 @@ void File_Mpeg4::mdat_xxxx()
     }
 
     std::map<int32u, stream>::iterator Stream=Streams.find((int32u)Element_Code);
+    if (Stream==Streams.end())
+        return;
     #if MEDIAINFO_DEMUX
         {
             //DTS
@@ -1796,6 +1798,15 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         //Exiting this element
         Skip_XX(Element_Size-Element_Offset,                    "Will be parsed");
 
+        //Configuring level
+        std::vector<int64u> Element_Sizes_Sav;
+        size_t Element_Level_Sav=Element_Level;
+        while(Element_Level)
+        {
+            Element_Sizes_Sav.push_back(Element_TotalSize_Get());
+            Element_End();
+        }
+
         //Configuring buffer
         const int8u* Buffer_Sav=Buffer;
         size_t Buffer_Size_Sav=Buffer_Size;
@@ -1810,16 +1821,8 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         Buffer_Offset=0;
         Buffer_Offset_Temp=0;
 
-        //Configuring level
-        std::vector<int64u> Element_Sizes_Sav;
-        size_t Element_Level_Sav=Element_Level;
-        while(Element_Level)
-        {
-            Element_Sizes_Sav.push_back(Element_TotalSize_Get());
-            Element_End();
-        }
-
         //Configuring file size
+        int64u File_Offset_Sav=File_Offset;
         int64u File_Size_Sav=File_Size;
         if (File_Size<File_Offset+Buffer_Offset+Element_Offset+Dest_Size)
             File_Size=File_Offset+Buffer_Offset+Element_Offset+Dest_Size;
@@ -1834,23 +1837,9 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         Open_Buffer_Continue(Dest, Dest_Size);
         delete[] Dest; //Dest=NULL;
 
-        //Resetting file size
+        //Resetting file info
+        File_Offset=File_Offset_Sav;
         File_Size=File_Size_Sav;
-        while(Element_Level)
-            Element_End();
-        Element_Level++;
-        Header_Fill_Size(File_Size);
-        Element_Level--;
-
-        //Configuring level
-        while(Element_Level<Element_Level_Sav)
-        {
-            Element_Begin();
-            Element_Begin();
-            Header_Fill_Size(Element_Sizes_Sav[0]);
-            Element_End();
-            //Ztring(), Element_Sizes_Sav[Element_Level_Sav-1-Element_Level]);
-        }
 
         //Resetting buffer
         Buffer=Buffer_Sav;
@@ -1859,6 +1848,20 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         Buffer_Temp_Size=Buffer_Temp_Size_Sav;
         Buffer_Offset=Buffer_Offset_Sav;
         Buffer_Offset_Temp=Buffer_Offset_Temp_Sav;
+
+        //Configuring level
+        while(Element_Level)
+            Element_End();
+        Element_Level++;
+        Header_Fill_Size(File_Size);
+        Element_Level--;
+        while(Element_Level<Element_Level_Sav)
+        {
+            Element_Begin();
+            Element_Begin();
+            Header_Fill_Size(Element_Sizes_Sav[0]);
+            Element_End();
+        }
 
         //Filling
         Fill(Stream_General, 0, General_Format_Settings, "Compressed header");

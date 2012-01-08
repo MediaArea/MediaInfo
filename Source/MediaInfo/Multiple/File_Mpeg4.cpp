@@ -832,8 +832,8 @@ void File_Mpeg4::Streams_Finish_CommercialNames()
         }
         else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==_T("50000000")))
         {
-            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX422");
-            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX422");
+            Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD422");
+            Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD422");
         }
     }
 }

@@ -9,6 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.53,
 --------------
+x QuickTime: crash and sometimes wrong info with some files having compressed header
+x MPEG-4: commercial format typo error (EX422 instead of HD422)
 x MXF: handling wrong MXF header having frame height instead of field height
 
 Version 0.7.52, 2011-12-19
