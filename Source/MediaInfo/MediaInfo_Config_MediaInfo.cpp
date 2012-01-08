@@ -94,7 +94,10 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_MpegTs_stream_type_Trust=true;
     File_MpegTs_Atsc_transport_stream_id_Trust=true;
     File_Bdmv_ParseTargetedFile=true;
+    #if defined(MEDIAINFO_DVDIF_YES)
     File_DvDif_DisableAudioIfIsInContainer=false;
+    File_DvDif_IgnoreTransmittingFlags=false;
+    #endif //defined(MEDIAINFO_DVDIF_YES)
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
         File_DvDif_Analysis=false;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
@@ -515,12 +518,37 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_dvdif_disableaudioifisincontainer"))
     {
-        File_DvDif_DisableAudioIfIsInContainer_Set(!(Value==_T("0") || Value.empty()));
-        return _T("");
+        #if defined(MEDIAINFO_DVDIF_YES)
+            File_DvDif_DisableAudioIfIsInContainer_Set(!(Value==_T("0") || Value.empty()));
+            return _T("");
+        #else //defined(MEDIAINFO_DVDIF_YES)
+            return _T("DVDIF is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_DVDIF_YES)
     }
     else if (Option_Lower==_T("file_dvdif_disableaudioifisincontainer_get"))
     {
-        return File_DvDif_DisableAudioIfIsInContainer_Get()?"1":"0";
+        #if defined(MEDIAINFO_DVDIF_YES)
+            return File_DvDif_DisableAudioIfIsInContainer_Get()?"1":"0";
+        #else //defined(MEDIAINFO_DVDIF_YES)
+            return _T("DVDIF is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_DVDIF_YES)
+    }
+    else if (Option_Lower==_T("file_dvdif_ignoretransmittingflags"))
+    {
+        #if defined(MEDIAINFO_DVDIF_YES)
+            File_DvDif_IgnoreTransmittingFlags_Set(!(Value==_T("0") || Value.empty()));
+            return _T("");
+        #else //defined(MEDIAINFO_DVDIF_YES)
+            return _T("DVDIF is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_DVDIF_YES)
+    }
+    else if (Option_Lower==_T("file_dvdif_ignoretransmittingflags_get"))
+    {
+        #if defined(MEDIAINFO_DVDIF_YES)
+            return File_DvDif_IgnoreTransmittingFlags_Get()?"1":"0";
+        #else //defined(MEDIAINFO_DVDIF_YES)
+            return _T("DVDIF is disabled due to compilation options");
+        #endif //defined(MEDIAINFO_DVDIF_YES)
     }
     else if (Option_Lower==_T("file_dvdif_analysis"))
     {
@@ -1396,6 +1424,7 @@ bool MediaInfo_Config_MediaInfo::File_Bdmv_ParseTargetedFile_Get ()
 }
 
 //---------------------------------------------------------------------------
+#if defined(MEDIAINFO_DVDIF_YES)
 void MediaInfo_Config_MediaInfo::File_DvDif_DisableAudioIfIsInContainer_Set (bool NewValue)
 {
     CriticalSectionLocker CSL(CS);
@@ -1408,6 +1437,23 @@ bool MediaInfo_Config_MediaInfo::File_DvDif_DisableAudioIfIsInContainer_Get ()
     bool Temp=File_DvDif_DisableAudioIfIsInContainer;
     return Temp;
 }
+#endif //defined(MEDIAINFO_DVDIF_YES)
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_DVDIF_YES)
+void MediaInfo_Config_MediaInfo::File_DvDif_IgnoreTransmittingFlags_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_DvDif_IgnoreTransmittingFlags=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_DvDif_IgnoreTransmittingFlags_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    bool Temp=File_DvDif_IgnoreTransmittingFlags;
+    return Temp;
+}
+#endif //defined(MEDIAINFO_DVDIF_YES)
 
 //---------------------------------------------------------------------------
 #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)

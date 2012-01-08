@@ -1028,6 +1028,13 @@ void File_DvDif::Header()
     BS_End();
     Skip_XX(72,                                                 "Reserved"); //Should be filled with 0xFF
 
+    if (Config->File_DvDif_IgnoreTransmittingFlags_Get())
+    {
+        TF1=false;
+        TF2=false;
+        TF3=false;
+    }
+
     FILLING_BEGIN();
         DSF_IsValid=true;
         Dseq_Old=DSF?11:9;
@@ -1055,6 +1062,13 @@ void File_DvDif::Header()
     TF1=(Buffer[Buffer_Offset+2]&0x80)?true:false;
     TF2=(Buffer[Buffer_Offset+3]&0x80)?true:false;
     TF3=(Buffer[Buffer_Offset+4]&0x80)?true:false;
+
+    if (Config->File_DvDif_IgnoreTransmittingFlags_Get())
+    {
+        TF1=false;
+        TF2=false;
+        TF3=false;
+    }
 
     FILLING_BEGIN();
         DSF_IsValid=true;
