@@ -1241,6 +1241,7 @@ void MediaInfo_Config_CodecID_Video_Matroska (InfoMap &Info)
     "V_MPEG4/MS/V3;MPEG-4 Visual;MS MPEG-4 v3;MS MPEG-4 v3;http://ffdshow-tryout.sourceforge.net/\n"
     "V_MPEG1;MPEG Video;;MPEG 1 or 2 Video;http://ffdshow-tryout.sourceforge.net/\n"
     "V_MPEG2;MPEG Video;;MPEG 1 or 2 Video;http://ffdshow-tryout.sourceforge.net/\n"
+    "V_PRORES;ProRes;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "V_REAL/RV10;RealVideo 1;;RealVideo 1.0 aka RealVideo 5;http://www.real.com\n"
     "V_REAL/RV20;RealVideo 2;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com\n"
     "V_REAL/RV30;RealVideo 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com\n"
