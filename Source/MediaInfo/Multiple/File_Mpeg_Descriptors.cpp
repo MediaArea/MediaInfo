@@ -1650,9 +1650,10 @@ void File_Mpeg_Descriptors::Descriptor_09()
         switch (table_id)
         {
             case 0x01 : //conditional_access_section
-                        if (Complete_Stream->Streams[CA_PID]->Kind!=complete_stream::stream::psi)
+                    if (Complete_Stream->Streams[CA_PID]->Kind==complete_stream::stream::unknown) //Priority to PES, if this is a PES, we skip the CA
                         {
                             Complete_Stream->Streams[CA_PID]->Kind=complete_stream::stream::psi;
+                            Complete_Stream->Streams[CA_PID]->Table_IDs.resize(0x100);
                             #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
                                 Complete_Stream->Streams[CA_PID]->Searching_Payload_Start_Set(true);
                             #endif
@@ -1661,9 +1662,10 @@ void File_Mpeg_Descriptors::Descriptor_09()
             case 0x02 : //program_map_section
                         if (elementary_PID_IsValid)
                         {
-                            if (Complete_Stream->Streams[CA_PID]->Kind!=complete_stream::stream::psi)
+                            if (Complete_Stream->Streams[CA_PID]->Kind==complete_stream::stream::unknown) //Priority to PES, if this is a PES, we skip the CA
                             {
                                 Complete_Stream->Streams[CA_PID]->Kind=complete_stream::stream::psi;
+                                Complete_Stream->Streams[CA_PID]->Table_IDs.resize(0x100);
                                 #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
                                     Complete_Stream->Streams[CA_PID]->Searching_Payload_Start_Set(true);
                                 #endif
