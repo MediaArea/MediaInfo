@@ -85,7 +85,7 @@ const int8u DTS_Resolution[]=
 {16, 20, 24, 24};
 
 //---------------------------------------------------------------------------
-const char*  DTS_ChannelPositions[]=
+const char*  DTS_ChannelPositions[16]=
 {
     "Front: C",
     "Front: C C",
@@ -106,7 +106,7 @@ const char*  DTS_ChannelPositions[]=
 };
 
 //---------------------------------------------------------------------------
-const char*  DTS_ChannelPositions2[]=
+const char*  DTS_ChannelPositions2[16]=
 {
     "1/0/0",
     "2/0/0",

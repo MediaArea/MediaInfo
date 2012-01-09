@@ -451,6 +451,15 @@ const char* Mpeg4_matrix_coefficients(int16u matrix_coefficients)
     }
 }
 
+//---------------------------------------------------------------------------
+// DTS
+#if defined(MEDIAINFO_DTS_YES)
+    extern const char*  DTS_ChannelPositions[16];
+    extern const char*  DTS_ChannelPositions2[16];
+    extern std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask);
+    extern std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask);
+#endif //defined(MEDIAINFO_DTS_YES)
+    
 //***************************************************************************
 // Constants
 //***************************************************************************
@@ -583,6 +592,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_d263=0x64323633;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dac3=0x64616333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dec3=0x64656333;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_ddts=0x64647473;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_esds=0x65736473;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_fiel=0x6669656C;
@@ -883,6 +893,7 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_d263)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dac3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dec3)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_ddts)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_fiel)
@@ -4175,6 +4186,63 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
         Fill(Stream_Audio, StreamKind_Last, Audio_Format, "E-AC-3");
         Fill(Stream_Audio, StreamKind_Last, Audio_Format, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ddts()
+{
+    //Comments about the new CodecIDs having this atom:
+    //dtsc: DTS Core only
+    //dtse: DTS Express, not having DTS Core
+    //dtsh: DTS Core + DTS Lossless (MA), mixed
+    //dtsl: DTS Lossless (MA), not having DTS Core
+    
+    int32u  DTSSamplingFrequency, maxBitrate, avgBitrate;
+    int16u  ChannelLayout;
+    int8u   CoreLayout;
+
+    //Parsing
+    Get_B4 (DTSSamplingFrequency,                               "DTSSamplingFrequency");
+    Get_B4 (maxBitrate,                                         "maxBitrate");
+    Get_B4 (avgBitrate,                                         "avgBitrate");
+    Skip_B1(                                                    "pcmSampleDepth"); // 16 or 24 bits             
+    BS_Begin();
+        Skip_S1(2,                                              "FrameDuration");  // 0 = 512, 1 = 1024, 2 = 2048, 3 = 4096
+        Skip_S1(5,                                              "StreamConstruction");
+        Skip_SB(                                                "CoreLFEPresent"); // 0 = none, 1 = LFE exists
+        Get_S1 (6,  CoreLayout,                                 "CoreLayout");
+        Skip_S2(14,                                             "CoreSize");
+        Skip_SB(                                                "StereoDownmix"); // 0 = none, 1 = downmix present
+        Skip_S1 (3,                                             "RepresentationType");
+        Get_S2 (16, ChannelLayout,                              "ChannelLayout");
+        Skip_SB(                                                "MultiAssetFlag"); // 0 = none, 1 = multiple asset
+        Skip_SB(                                                "LBRDurationMod"); // 0 = ignore, 1 = Special LBR duration modifier
+        Skip_S1(6,                                              "reserved");
+    BS_End();
+
+    FILLING_BEGIN();
+        /*
+        //Disabled until we have a sample file
+        if (DTSSamplingFrequency)
+            Fill(StreamKind_Last, StreamPos_Last, Audio_SamplingRate, DTSSamplingFrequency, 10, true); //This is the maximum sampling frequency
+        if (avgBitrate)
+            Fill(StreamKind_Last, StreamPos_Last, Audio_BitRate, avgBitrate);
+        if (maxBitrate)
+            Fill(StreamKind_Last, StreamPos_Last, Audio_BitRate_Maximum, maxBitrate);
+        #if defined(MEDIAINFO_DTS_YES)
+        if (ChannelLayout)
+        {
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_HD_SpeakerActivityMask(ChannelLayout).c_str());
+            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(ChannelLayout).c_str());
+        }
+        if (CoreLayout && CoreLayout<16)
+        {
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_ChannelPositions[CoreLayout]);
+            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_ChannelPositions2[CoreLayout]);
+        }
+        #endif //defined(MEDIAINFO_DTS_YES)
+        */
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
