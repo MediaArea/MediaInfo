@@ -318,6 +318,8 @@ bool File__Tags_Helper::Synched_Test()
             {
                 if (Base->Status[File__Analyze::IsAccepted] && Parser->Count_Get(Stream_General)>0)
                 {
+                    if (!Base->Status[File__Analyze::IsFilled])
+                        Base->Fill();
                     Parser->Read_Buffer_Finalize();
                     Base->Merge(*Parser, Stream_General, 0, 0, false);
                     Base->Merge(*Parser, Stream_Audio  , 0, 0, false);
