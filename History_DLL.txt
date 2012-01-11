@@ -13,6 +13,7 @@ Version 0.7.53,
 + Matroska: ProRes detection
 + MPEG-4: official DTS CodecIDs (dtsc/dtsh/dtsl/dtse) support, thanks to Lionel Duchateau
 + Matroska: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
++ #3471516, BLu-ray: wrong channel count for mono/3-channel/5-channel/7-channel PCM streams
 x QuickTime: crash and sometimes wrong info with some files having compressed header
 x MPEG-4: commercial format typo error (EX422 instead of HD422)
 x MXF: handling wrong MXF header having frame height instead of field height

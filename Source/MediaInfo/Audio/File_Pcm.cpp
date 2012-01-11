@@ -66,41 +66,66 @@ int32u Pcm_VOB_Frequency[]=
 };
 
 //---------------------------------------------------------------------------
-const char* Pcm_VOB_ChannelsPositions(int8u NumberOfChannels)
+const char* Pcm_VOB_ChannelsPositions(int8u channel_assignment)
 {
-    switch (NumberOfChannels)
+    switch (channel_assignment)
     {
         case  1 : return "Front: C";                                    //1 channel
-        case  2 : return "Front: L R";                                  //2 channels
-        case  3 : return "Front: L R, LFE";                             //3 channels (not sure)
-        case  4 : return "Front: L R, Side: L R";                       //4 channels
-        case  5 : return "Front: L R, Side: L R, LFE";                  //5 channels (not sure)
-        case  6 : return "Front: L C R, Side: L R, LFE";                //6 channels
-        case  7 : return "Front: L C R, Side: L R, Back: L R";          //7 channels
-        case  8 : return "Front: L C R, Side: L R, Back: L R, LFE";     //8 channels
+        case  3 : return "Front: L R";                                  //2 channels
+        case  4 : return "Front: L C R";                                //3 channels
+        case  5 : return "Front: L R, LFE";                             //3 channels
+        case  6 : return "Front: L C R, LFE";                           //4 channels
+        case  7 : return "Front: L R, Side: L R";                       //4 channels
+        case  8 : return "Front: L C R, Side: L R";                     //5 channels
+        case  9 : return "Front: L C R, Side: L R, LFE";                //6 channels
+        case 10 : return "Front: L C R, Side: L R, Back: L R";          //7 channels
+        case 11 : return "Front: L C R, Side: L R, Back: L R, LFE";     //8 channels
         default : return "";
     }
 }
 
 //---------------------------------------------------------------------------
-const char* Pcm_VOB_ChannelsPositions2(int8u NumberOfChannels)
+const char* Pcm_VOB_ChannelsPositions2(int8u channel_assignment)
 {
-    switch (NumberOfChannels)
+    switch (channel_assignment)
     {
         case  1 : return "1/0/0.0";                                     //1 channel
-        case  2 : return "2/0/0.0";                                     //2 channels
-        case  3 : return "3/0/0.1";                                     //3 channels (not sure)
-        case  4 : return "3/0/0.1";                                     //4 channels
-        case  5 : return "3/1/0.1";                                     //5 channels (not sure)
-        case  6 : return "3/2/0.1";                                     //6 channels
-        case  7 : return "3/2/1.1";                                     //7 channels
-        case  8 : return "3/2/2.1";                                     //8 channels
+        case  3 : return "2/0/0.0";                                     //2 channels
+        case  4 : return "3/0/0.0";                                     //3 channels
+        case  5 : return "2/0/0.1";                                     //3 channels
+        case  6 : return "3/0/0.1";                                     //4 channels
+        case  7 : return "2/2/0.0";                                     //4 channels
+        case  8 : return "3/2/0.0";                                     //5 channels
+        case  9 : return "3/2/0.1";                                     //6 channels
+        case 10 : return "3/2/2.0";                                     //7 channels
+        case 11 : return "3/2/2.1";                                     //8 channels
         default : return "";
     }
 }
 
 //---------------------------------------------------------------------------
-int32u Pcm_M2TS_Frequency[]=
+int8u Pcm_M2TS_channel_assignment[16]=
+{
+        0,
+        1,
+        0,
+        2,
+        3,
+        3,
+        4,
+        4,
+        5,
+        6,
+        7,
+        8,
+        0,
+        0,
+        0,
+        0,
+};
+
+//---------------------------------------------------------------------------
+int32u Pcm_M2TS_sampling_frequency[16]=
 {
         0,
     48000,
@@ -110,10 +135,18 @@ int32u Pcm_M2TS_Frequency[]=
    192000,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
 };
 
 //---------------------------------------------------------------------------
-int32u Pcm_M2TS_Resolution[]=
+int8u Pcm_M2TS_bits_per_sample[4]=
 {
         0,
        16,
@@ -402,44 +435,44 @@ void File_Pcm::VOB()
 void File_Pcm::M2TS()
 {
     //Parsing
-    int8u Unknown, Frequency, NumberOfChannels, Resolution;
-    Skip_B2(                                                    "Block size");
+    int16u  audio_data_payload_size;
+    int8u   channel_assignment, sampling_frequency, bits_per_sample;
+    Get_B2 (   audio_data_payload_size,                         "audio_data_payload_size");
     BS_Begin();
-    Get_S1 (2, Unknown,                                         "Unknown");
-    if (Unknown==0)
-    {
-        Get_S1 (2, NumberOfChannels,                            "Number of channels (plus 1?)");
-        if (NumberOfChannels)
-            NumberOfChannels--;
-    }
-    else
-    {
-        Get_S1 (2, NumberOfChannels,                            "Number of channels (minus 5)");
-        NumberOfChannels+=5;
-    }
-    Get_S1 (4, Frequency,                                       "Frequency");
-    Get_S1 (2, Resolution,                                      "Resolution");
-    Skip_S1(6,                                                  "Unknown");
+    Get_S1 (4, channel_assignment,                              "channel_assignment"); Param_Info(Pcm_M2TS_channel_assignment[channel_assignment], " channel(s)");
+    Get_S1 (4, sampling_frequency,                              "sampling_frequency"); Param_Info(Pcm_M2TS_sampling_frequency[sampling_frequency], " Hz");
+    Get_S1 (2, bits_per_sample,                                 "bits_per_sample"); Param_Info(Pcm_M2TS_bits_per_sample[bits_per_sample], " bits");
+    Skip_SB(                                                    "start_flag");
+    Skip_S1(5,                                                  "reserved");
     BS_End();
-    Skip_XX(Element_Size-Element_Offset,                        "Data");
+    Skip_XX(audio_data_payload_size,                            "audio_data_payload");
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         Accept("PCM");
 
         if (Count_Get(Stream_Audio)==0)
         {
+            int8u Channels=Pcm_M2TS_channel_assignment[channel_assignment];
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
             Fill(Stream_Audio, 0, Audio_MuxingMode, "Blu-ray");
-            Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_Frequency[Frequency]);
-            Fill(Stream_Audio, 0, Audio_BitDepth, Pcm_M2TS_Resolution[Resolution]);
-            Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannels);
-            Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannels));
-            Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannels));
-            if (NumberOfChannels%2)
-                NumberOfChannels++; //Always by pair
-            Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannels)*Pcm_M2TS_Resolution[Resolution]);
+            if (Channels)
+            {
+                if (Pcm_M2TS_sampling_frequency[sampling_frequency])
+                    Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_sampling_frequency[sampling_frequency]);
+                if (Pcm_M2TS_bits_per_sample[bits_per_sample])
+                    Fill(Stream_Audio, 0, Audio_BitDepth, Pcm_M2TS_bits_per_sample[bits_per_sample]);
+                Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+                Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(channel_assignment));
+                Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(channel_assignment));
+                if (Pcm_M2TS_sampling_frequency[sampling_frequency] && Pcm_M2TS_bits_per_sample[bits_per_sample])
+                {
+                    if (Channels%2)
+                        Channels++; //Always by pair
+                    Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_sampling_frequency[sampling_frequency]*Channels*Pcm_M2TS_bits_per_sample[bits_per_sample]);
+                }
+            }
         }
 
         Finish("PCM");
