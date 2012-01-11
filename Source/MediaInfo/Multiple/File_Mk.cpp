@@ -2151,6 +2151,7 @@ void File_Mk::Segment_Tracks_TrackEntry()
     //Default values
     Fill_Flush();
     Fill(StreamKind_Last, StreamPos_Last, "Language", "eng");
+    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Stream.size());
 }
 
 //---------------------------------------------------------------------------
