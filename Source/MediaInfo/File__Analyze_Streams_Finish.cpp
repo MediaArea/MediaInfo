@@ -89,7 +89,7 @@ void File__Analyze::Streams_Finish_Global()
     }
 
     //Image as video
-    if (Config->File_Names.size()==1 && Count_Get(Stream_Image) && !File_Name.empty() && !Config->File_IsReferenced_Get())
+    if (Config->File_Names.size()==1 && Count_Get(Stream_Image) && !File_Name.empty())
     {
         //Trying to detect continuous file names (video stream as an image) 
         FileName FileToTest(File_Name);
@@ -116,7 +116,7 @@ void File__Analyze::Streams_Finish_Global()
                 Config->File_Names.push_back(Next);
             }
 
-            if (Config->File_Names.size()<24)
+            if (!Config->File_IsReferenced_Get() && Config->File_Names.size()<24)
                 Config->File_Names.resize(1); //Removing files, wrong detection
         }
     }
