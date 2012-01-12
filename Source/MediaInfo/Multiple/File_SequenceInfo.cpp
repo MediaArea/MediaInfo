@@ -120,6 +120,7 @@ bool File_SequenceInfo::FileHeader_Begin()
             ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
             File__ReferenceFilesHelper::reference ReferenceFile;
+            ReferenceFile.StreamKind=Stream_Video;
 
             FileName FN(File_Name);
             Ztring Base=FN.Path_Get();
@@ -176,7 +177,7 @@ bool File_SequenceInfo::FileHeader_Begin()
                             if (FileNumberCount>=9)
                             {
                                 //Trying with consecutive file numbers betweens dirs
-                                Number=Ztring::ToZtring(ReferenceFiles->References.size());
+                                Number=Ztring::ToZtring(ReferenceFile.FileNames.size());
                                 FullFile=FileBase;
                                 FullFile.insert(FullFile.size()-Extension.size()-1, Number);
                                 FileNumberCount=Number.size();
@@ -199,7 +200,7 @@ bool File_SequenceInfo::FileHeader_Begin()
 
                             if (FileNumberCount<9)
                             {
-                                int32u FileNumber=FromZero?0:ReferenceFiles->References.size();
+                                int32u FileNumber=FromZero?0:ReferenceFile.FileNames.size();
                                 do
                                 {
                                     Number=Ztring::ToZtring(FileNumber);
@@ -211,8 +212,7 @@ bool File_SequenceInfo::FileHeader_Begin()
                                     if (!File::Exists(FullFile))
                                         break;
 
-                                    ReferenceFile.FileNames.push_back(Base);
-                                    ReferenceFiles->References.push_back(ReferenceFile);
+                                    ReferenceFile.FileNames.push_back(FullFile);
 
                                     FileNumber++;
                                 }
@@ -222,6 +222,8 @@ bool File_SequenceInfo::FileHeader_Begin()
                             DirNumber++;
                         }
                         while (DirNumber<1000000000);
+
+                        ReferenceFiles->References.push_back(ReferenceFile);
                     }
                 }
             }
@@ -245,4 +247,3 @@ bool File_SequenceInfo::FileHeader_Begin()
 } //NameSpace
 
 #endif //MEDIAINFO_SEQUENCEINFO_YES
-
