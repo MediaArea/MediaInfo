@@ -1256,6 +1256,12 @@ void File_Mpeg4::jp2c()
         #if MEDIAINFO_DEMUX
             if (Frame_Count_NotParsedIncluded==(int64u)-1)
                 Frame_Count_NotParsedIncluded=0;
+            if (Config->Demux_Rate_Get())
+            {
+                FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Config->Demux_Rate_Get());
+                FrameInfo.PTS=FrameInfo.DTS;
+                FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
+            }
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
