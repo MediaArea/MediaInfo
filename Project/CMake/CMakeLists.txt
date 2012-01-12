@@ -131,6 +131,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Riff.cpp
 	MediaInfo/Multiple/File_Riff_Elements.cpp
 	MediaInfo/Multiple/File_Rm.cpp
+	MediaInfo/Multiple/File_SequenceInfo.cpp
 	MediaInfo/Multiple/File_Skm.cpp
 	MediaInfo/Multiple/File_Swf.cpp
 	MediaInfo/Multiple/File_Umf.cpp

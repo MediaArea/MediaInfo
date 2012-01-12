@@ -378,6 +378,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_RM_NO) && !defined(MEDIAINFO_RM_YES)
     #define MEDIAINFO_RM_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_SEQUENCEINFO_NO) && !defined(MEDIAINFO_SEQUENCEINFO_YES)
+    #define MEDIAINFO_SEQUENCEINFO_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_SKM_NO) && !defined(MEDIAINFO_SKM_YES)
     #define MEDIAINFO_SKM_YES
 #endif

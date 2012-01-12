@@ -121,6 +121,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Riff.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Riff_Elements.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Rm.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_SequenceInfo.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Skm.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Swf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Umf.cpp \
