@@ -19,6 +19,7 @@ x MPEG-4: commercial format typo error (EX422 instead of HD422)
 x MXF: handling wrong MXF header having frame height instead of field height
 x #3471053, Tags: Id3v1 tag was used instead of Id3v2 if the file is short
 x #3463117, MPEG-TS: crash if Conditioal Access PID is same as the PES
+x Custom output: better handling of cases with special character strings (\n...) in the file content
 
 Version 0.7.52, 2011-12-19
 --------------

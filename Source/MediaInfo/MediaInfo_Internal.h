@@ -91,7 +91,7 @@ public :
 
     //General information
     Ztring  Inform ();
-    Ztring  Inform (stream_t StreamKind, size_t StreamNumber=0); //All about only a specific stream
+    Ztring  Inform (stream_t StreamKind, size_t StreamNumber, bool IsDirect); //All about only a specific stream
 
     //Get
     Ztring Get (stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind=Info_Text);
