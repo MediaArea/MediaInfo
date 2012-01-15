@@ -129,102 +129,116 @@ bool File_SequenceInfo::FileHeader_Begin()
             {
                 Ztring ToAdd=Base.substr(Pos, string::npos);
                 Pos=ToAdd.rfind(_T('_'));
-                if (Pos!=string::npos)
+                Ztring DirectoryBase=Base;
+                DirectoryBase+=ToAdd;
+                DirectoryBase+=_T('_');
+
+                size_t DirNumberCount=1;
+                Ztring Directory=DirectoryBase;
+                for (; DirNumberCount<9; DirNumberCount++)
                 {
-                    Ztring Extension=ToAdd.substr(Pos+1, string::npos);
-                    Ztring DirectoryBase=Base;
-                    DirectoryBase+=ToAdd;
-                    DirectoryBase+=_T('_');
+                    Directory+=_T('0');
+                    if (Dir::Exists(Directory))
+                        break;
+                }
 
-                    size_t DirNumberCount=1;
-                    Ztring Directory=DirectoryBase;
-                    for (; DirNumberCount<9; DirNumberCount++)
+                if (DirNumberCount<9)
+                {
+                    int32u DirNumber=0;
+                    do
                     {
-                        Directory+=_T('0');
-                        if (Dir::Exists(Directory))
-                            break;
-                    }
-
-                    if (DirNumberCount<9)
-                    {
-                        int32u DirNumber=0;
-                        do
-                        {
-                            Ztring Number=Ztring::ToZtring(DirNumber);
-                            if (Number.size()<DirNumberCount)
-                                Number.insert(0, DirNumberCount-Number.size(), _T('0'));
+                        Ztring Number=Ztring::ToZtring(DirNumber);
+                        if (Number.size()<DirNumberCount)
+                            Number.insert(0, DirNumberCount-Number.size(), _T('0'));
                             
-                            Directory=DirectoryBase;
-                            Directory+=Number;
-                            if (!Dir::Exists(Directory))
-                                break;
+                        Directory=DirectoryBase;
+                        Directory+=Number;
+                        if (!Dir::Exists(Directory))
+                            break;
 
-                            Ztring FileBase=Directory;
-                            FileBase+=ToAdd;
-                            FileBase+=_T('_');
-                            FileBase+=_T('.');
-                            FileBase+=Extension;
+                        Ztring FileBase=Directory;
+                        FileBase+=ToAdd;
+                        FileBase+=_T('_');
+                        FileBase+=_T('.');
 
-                            size_t FileNumberCount=1;
-                            Ztring FullFile=FileBase;
-                            for (; FileNumberCount<10; FileNumberCount++)
+                        size_t FileNumberCount=1;
+                        Ztring FullFile=FileBase;
+                        Ztring Extension;;
+                        for (; FileNumberCount<10; FileNumberCount++)
+                        {
+                            FullFile.insert(FullFile.begin()+FullFile.size()-Extension.size()-1, _T('0'));
+                            if (Extension.empty())
                             {
-                                FullFile.insert(FullFile.begin()+FullFile.size()-Extension.size()-1, _T('0'));
-                                if (File::Exists(FullFile))
-                                    break;
-                            }
-                            bool FromZero=true;
-                            if (FileNumberCount>=9)
-                            {
-                                //Trying with consecutive file numbers betweens dirs
-                                Number=Ztring::ToZtring(ReferenceFile.FileNames.size());
-                                FullFile=FileBase;
-                                FullFile.insert(FullFile.size()-Extension.size()-1, Number);
-                                FileNumberCount=Number.size();
-                                if (!File::Exists(FullFile))
+                                ZtringList List=Dir::GetAllFileNames(FullFile+_T('*'));
+                                if (List.size()>=2)
                                 {
-                                    FileNumberCount++;
-                                    for (; FileNumberCount<10; FileNumberCount++)
+                                    FileNumberCount=(size_t)-1; //Problem, which one to choose?
+                                    break;
+                                }
+                                else if (List.size()==1)
+                                {
+                                    FileName Temp(List[0]);
+                                    Extension=Temp.Extension_Get();
+                                    FileBase+=Extension;
+                                    FullFile=FileBase;
+                                    break;
+                                }
+                            }
+                            else if (File::Exists(FullFile))
+                                    break;
+                        }
+                        bool FromZero=true;
+                        if (FileNumberCount>=9)
+                        {
+                            //Trying with consecutive file numbers betweens dirs
+                            Number=Ztring::ToZtring(ReferenceFile.FileNames.size());
+                            FullFile=FileBase;
+                            FullFile.insert(FullFile.size()-Extension.size()-1, Number);
+                            FileNumberCount=Number.size();
+                            if (!File::Exists(FullFile))
+                            {
+                                FileNumberCount++;
+                                for (; FileNumberCount<10; FileNumberCount++)
+                                {
+                                    FullFile.insert(FullFile.begin()+FullFile.size()-Extension.size()-Number.size()-1, _T('0'));
+                                    if (File::Exists(FullFile))
                                     {
-                                        FullFile.insert(FullFile.begin()+FullFile.size()-Extension.size()-Number.size()-1, _T('0'));
-                                        if (File::Exists(FullFile))
-                                        {
-                                            FromZero=false;
-                                            break;
-                                        }
+                                        FromZero=false;
+                                        break;
                                     }
                                 }
-                                else
-                                    FromZero=false;
                             }
-
-                            if (FileNumberCount<9)
-                            {
-                                int32u FileNumber=FromZero?0:ReferenceFile.FileNames.size();
-                                do
-                                {
-                                    Number=Ztring::ToZtring(FileNumber);
-                                    if (Number.size()<FileNumberCount)
-                                        Number.insert(0, FileNumberCount-Number.size(), _T('0'));
-                            
-                                    FullFile=FileBase;
-                                    FullFile.insert(FullFile.size()-Extension.size()-1, Number);
-                                    if (!File::Exists(FullFile))
-                                        break;
-
-                                    ReferenceFile.FileNames.push_back(FullFile);
-
-                                    FileNumber++;
-                                }
-                                while (FileNumber<1000000000);
-                            }
-
-                            DirNumber++;
+                            else
+                                FromZero=false;
                         }
-                        while (DirNumber<1000000000);
 
-                        ReferenceFiles->References.push_back(ReferenceFile);
+                        if (FileNumberCount<9)
+                        {
+                            int32u FileNumber=FromZero?0:ReferenceFile.FileNames.size();
+                            do
+                            {
+                                Number=Ztring::ToZtring(FileNumber);
+                                if (Number.size()<FileNumberCount)
+                                    Number.insert(0, FileNumberCount-Number.size(), _T('0'));
+                            
+                                FullFile=FileBase;
+                                FullFile.insert(FullFile.size()-Extension.size()-1, Number);
+                                if (!File::Exists(FullFile))
+                                    break;
+
+                                ReferenceFile.FileNames.push_back(FullFile);
+
+                                FileNumber++;
+                            }
+                            while (FileNumber<1000000000);
+                        }
+
+                        DirNumber++;
                     }
+                    while (DirNumber<1000000000);
+
+                    if (!ReferenceFile.FileNames.empty())
+                        ReferenceFiles->References.push_back(ReferenceFile);
                 }
             }
         }
