@@ -214,9 +214,9 @@ Version 0.7.42, 2011-03-03
 + DXW format support
 x #3171468, ADIF: crash in some cases
 x #3169916, IFO: crash in some cases
-x #3173391, Id3v2: was using local encoding instead of ISO-8859-1 
+x #3173391, Id3v2: was using local encoding instead of ISO-8859-1
 x MPEG Video, discarding bad (always 0) group_start
-x AVC: crash with file having big log2_max_pic_order_cnt_lsb_minus4 value 
+x AVC: crash with file having big log2_max_pic_order_cnt_lsb_minus4 value
 x AVC: wrong GOP information in some cases
 x Ut Video: Color space information was wrong
 x MPEG-4 Visual: Advanced Simple@L0 was detected as Advanced Simple@L1
@@ -270,7 +270,7 @@ x D-10 (AES3) in MXF: Bit rate was wrong
 x AC-3: crash if false-positive detection of AC-3 and CRC is valid and bsid is wrongly set
 x #3141059, FLV: trying to detect partial files (so metadata are wrong) and using timestamps instead
 x #3141052, AVI: wrong duration, no detection of rec chunks, with some files
-x #3145968, RealMedia: not integer frame rate handling + HE-AAC filling 
+x #3145968, RealMedia: not integer frame rate handling + HE-AAC filling
 x Id3v2: bad handling of some tags
 x MPEG-TS/PS: Frame count / duration accuracy of some very specific files
 x MPEG-TS/PS: Not counting non-decodable frames (without the corresponding I-Frame)
@@ -1204,7 +1204,7 @@ Version 0.7.4.2 2006-12-09
 + Czech language
 + Encoders database updated with 20 new encoder versions
 + Codecs database updated with 100 new codecs (video or audio)
-x Matroska, sometimes wrong Playtime 
+x Matroska, sometimes wrong Playtime
 x MPEG-4 : some Titles were not well parsed
 x MPEG PS : some video stream were missing
 x Crash with some malformed files
@@ -1599,9 +1599,9 @@ New
 Bug fixes
 - MPEG1 and 2 : huge bugfixes : now you can believe what it say :)
 - Files > 4 GigaBytes (OK for file size, but duration calculation is sometimes NOK)
-- Quicktime : bad codec in Audio if based of Microsoft 2cc 
+- Quicktime : bad codec in Audio if based of Microsoft 2cc
 - Quicktime : sometimes don't handle compressed headers
-- multiple video streams : second streams was not displayed 
+- multiple video streams : second streams was not displayed
 - A lot of other minor bugs...
 
 

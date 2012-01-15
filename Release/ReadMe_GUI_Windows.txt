@@ -1,5 +1,5 @@
 MediaInfo - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
+Copyright (c) 2002-2012 MediaArea.net SARL, Info@MediaArea.net
 
 License
 -------
