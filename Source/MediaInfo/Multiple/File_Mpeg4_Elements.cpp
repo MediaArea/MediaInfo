@@ -1254,6 +1254,9 @@ void File_Mpeg4::jp2c()
 
         //Demux
         #if MEDIAINFO_DEMUX
+            #if MEDIAINFO_EVENTS
+                StreamIDs_Width[0]=0;
+            #endif //MEDIAINFO_EVENTS
             if (Frame_Count_NotParsedIncluded==(int64u)-1)
                 Frame_Count_NotParsedIncluded=0;
             if (Config->Demux_Rate_Get())
@@ -1290,9 +1293,6 @@ void File_Mpeg4::jp2h()
 
     FILLING_BEGIN();
         Buffer_MaximumSize=16*1024*1024; //If we are here, this is really a MPEG-4 file with JPEG-2000 image, and some atoms are very bigs...
-        #if MEDIAINFO_EVENTS
-            StreamIDs_Width[0]=0;
-        #endif //MEDIAINFO_EVENTS
     FILLING_END();
 }
 
