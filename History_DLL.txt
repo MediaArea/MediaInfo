@@ -21,6 +21,7 @@ x #3471053, Tags: Id3v1 tag was used instead of Id3v2 if the file is short
 x #3463117, MPEG-TS: crash if Conditioal Access PID is same as the PES
 x Custom output: better handling of cases with special character strings (\n...) in the file content
 x #3440664: Audio only AVI file is missing duration
+x #3453476: detection so incorrect duration information in tkhd atom
 
 Version 0.7.52, 2011-12-19
 --------------

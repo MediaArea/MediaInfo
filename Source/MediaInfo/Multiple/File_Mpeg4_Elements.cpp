@@ -2620,6 +2620,14 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
         Fill(StreamKind_Last, StreamPos_Last, "Language", Language_Get(Language));
         Streams[moov_trak_tkhd_TrackID].mdhd_Duration=Duration;
         Streams[moov_trak_tkhd_TrackID].mdhd_TimeScale=TimeScale;
+
+        //Coherency tests
+        if (Streams[moov_trak_tkhd_TrackID].tkhd_Duration==Duration && TimeScale && File_Mpeg4::TimeScale!=TimeScale)
+        {
+            float64 Ratio=((float64)TimeScale)/((float64)File_Mpeg4::TimeScale);
+            Streams[moov_trak_tkhd_TrackID].tkhd_Duration=float64_int64s(Streams[moov_trak_tkhd_TrackID].tkhd_Duration/Ratio);
+            Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Duration)*1000/TimeScale), 10, true);
+        }
     FILLING_END();
 }
 
