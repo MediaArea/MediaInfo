@@ -425,7 +425,16 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
         Inform_Set(Value.c_str());
         return Ztring();
     }
+    else if (Option_Lower==_T("output"))
+    {
+        Inform_Set(Value.c_str());
+        return Ztring();
+    }
     else if (Option_Lower==_T("inform_get"))
+    {
+        return Inform_Get();
+    }
+    else if (Option_Lower==_T("output_get"))
     {
         return Inform_Get();
     }
