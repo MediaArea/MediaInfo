@@ -308,32 +308,9 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos, bool I
                 }
                 else if (XML)
                 {
-                    if (Nom.operator()(0)>='0' && Nom.operator()(0)<='9')
-                        Nom.insert(0, 1, _T('_'));
-                    Nom.FindAndReplace(_T(" "), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T("/"), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T("("), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T(")"), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T("*"), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T(","), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T(":"), _T("_"), 0, Ztring_Recursive);
-                    Nom.FindAndReplace(_T("@"), _T("_"), 0, Ztring_Recursive);
-                    size_t Nom_Pos=0;
-                    while (Nom_Pos<Nom.size())
-                    {
-                        if (!(Nom[Nom_Pos]>=_T('A') && Nom[Nom_Pos]<=_T('Z'))
-                         && !(Nom[Nom_Pos]>=_T('a') && Nom[Nom_Pos]<=_T('z'))
-                         && !(Nom[Nom_Pos]==_T('_') && Nom_Pos)) //No numeric value as first char
-                            Nom.erase(Nom_Pos, 1);
-                        else
-                            Nom_Pos++;
-                    }
-                    if (Nom.empty())
-                        Nom="Unknown";
-                    Valeur.FindAndReplace(_T("\""), _T("&quot;"), 0, Ztring_Recursive);
-                    Valeur.FindAndReplace(_T("&"), _T("&amp;"), 0, Ztring_Recursive);
-                    Valeur.FindAndReplace(_T("<"), _T("&lt;"), 0, Ztring_Recursive);
-                    Valeur.FindAndReplace(_T(">"), _T("&gt;"), 0, Ztring_Recursive);
+                    Nom=Xml_Name_Escape(Nom);
+                    Valeur=Xml_Content_Escape(Valeur);
+
                     Retour+=_T("<");
                     Retour+=Nom;
                     Retour+=_T(">");
@@ -526,6 +503,56 @@ void MediaInfo_Internal::Traiter(Ztring &C)
     C.FindAndReplace(_T("|SC8|"), _T(")"), 0, Ztring_Recursive);
     C.FindAndReplace(_T("|SC9|"), _T("),"), 0, Ztring_Recursive);
     //C.FindAndReplace(_T("\\r\\n"), _T("\n"), 0, Ztring_Recursive);
+}
+
+//---------------------------------------------------------------------------
+Ztring MediaInfo_Internal::Xml_Name_Escape (const Ztring &Name)
+{
+    Ztring ToReturn(Name);
+
+    if (ToReturn.operator()(0)>='0' && ToReturn.operator()(0)<='9')
+        ToReturn.insert(0, 1, _T('_'));
+    ToReturn.FindAndReplace(_T(" "), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("/"), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("("), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T(")"), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("*"), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T(","), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T(":"), _T("_"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("@"), _T("_"), 0, Ztring_Recursive);
+    size_t ToReturn_Pos=0;
+    while (ToReturn_Pos<ToReturn.size())
+    {
+        if (!(ToReturn[ToReturn_Pos]>=_T('A') && ToReturn[ToReturn_Pos]<=_T('Z'))
+         && !(ToReturn[ToReturn_Pos]>=_T('a') && ToReturn[ToReturn_Pos]<=_T('z'))
+         && !(ToReturn[ToReturn_Pos]>=_T('0') && ToReturn[ToReturn_Pos]<=_T('9'))
+         && !(ToReturn[ToReturn_Pos]==_T('_')))
+            ToReturn.erase(ToReturn_Pos, 1);
+        else
+            ToReturn_Pos++;
+    }
+    if (ToReturn.empty())
+        ToReturn="Unknown";
+
+    return ToReturn;
+}
+
+//---------------------------------------------------------------------------
+Ztring MediaInfo_Internal::Xml_Content_Escape (const Ztring &Content)
+{
+    Ztring ToReturn(Content);
+
+
+    for (Char Chararacter=0; Chararacter<0x20; Chararacter++)
+        ToReturn.FindAndReplace(Ztring(1, Chararacter), _T("&#x")+Ztring::ToZtring(Chararacter/16, 16)+Ztring::ToZtring(Chararacter%16, 16)+_T(";"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(Ztring(1, 0x7F), _T("&#x7f;"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("&"), _T("&amp;"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("<"), _T("&lt;"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T(">"), _T("&gt;"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("\""), _T("&quot;"), 0, Ztring_Recursive);
+    ToReturn.FindAndReplace(_T("'"), _T("&apos;"), 0, Ztring_Recursive);
+
+    return ToReturn;
 }
 
 } //NameSpace

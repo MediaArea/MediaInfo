@@ -152,6 +152,9 @@ public :
     #endif //!defined(MEDIAINFO_READER_NO)
     MediaInfo_Config_MediaInfo Config;
 
+    Ztring Xml_Name_Escape(const Ztring &Name);
+    Ztring Xml_Content_Escape(const Ztring &Content);
+
 private :
     //Threading
     size_t  BlockMethod; //Open() return: 0=immedialtly, 1=after local info, 2=when user interaction is needed
