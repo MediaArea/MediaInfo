@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.53,
+--------------
++ --Output is synonym of --Inform option
+
 Version 0.7.52, 2011-12-19
 --------------
 + MXF with referenced files: if the referenced file is not available, trying to open local files

@@ -39,14 +39,14 @@ int Help()
     TEXTOUT("");
     TEXTOUT("Options:");
     TEXTOUT("--Help, -h         Display this help and exit");
-    TEXTOUT("--Help-Inform      Display help for Inform= option");
+    TEXTOUT("--Help-Output      Display help for Output= option");
     TEXTOUT("--Help-AnOption    Display help for \"AnOption\"");
     TEXTOUT("--Version          Display MediaInfo version and exit");
     TEXTOUT("");
     TEXTOUT("--Full , -f        Full information Display (all internal tags)");
     TEXTOUT("--Output=HTML      Full information Display with HTML tags ");
     TEXTOUT("--Output=XML       Full information Display with XML tags ");
-    TEXTOUT("--Inform=...       Template defined information Display");
+    TEXTOUT("--Output=...       Template defined information Display");
     TEXTOUT("--Info-Parameters  Display list of Inform= parameters");
     TEXTOUT("");
     TEXTOUT("--Language=raw     Display non-translated unique identifiers (internal text)");
@@ -66,9 +66,9 @@ int Help_Nothing()
 }
 
 //---------------------------------------------------------------------------
-int Help_Inform()
+int Help_Output()
 {
-    TEXTOUT("--Inform=...  Specify a template (BETA)");
+    TEXTOUT("--Output=...  Specify a template (BETA)");
     TEXTOUT("Usage: \"MediaInfo --Inform=[xxx;]Text FileName\"");
     TEXTOUT("");
     TEXTOUT("xxx can be: General, Video, Audio, Text, Chapter, Image, Menu");

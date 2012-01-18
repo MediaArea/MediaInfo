@@ -66,12 +66,8 @@ int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
     OPTION("--help",                                        Help)
     OPTION("-h",                                            Help)
     OPTION("--info-parameters",                             Info_Parameters)
-    OPTION("--inform=",                                     Inform)
     OPTION("--language",                                    Language)
-    OPTION("--output=html",                                 Output_HTML)
-    OPTION("--output=HTML",                                 Output_HTML)
-    OPTION("--output=xml",                                  Output_XML)
-    OPTION("--output=XML",                                  Output_XML)
+    OPTION("--output=",                                     Output)
     OPTION("--logfile",                                     LogFile)
     OPTION("--bom",                                         Bom)
     OPTION("--version",                                     Version)
@@ -107,7 +103,8 @@ CL_OPTION(Help)
 CL_OPTION(Help_xxx)
 {
     if (0);
-    OPTION2("--help-inform",                                Help_Inform)
+    OPTION2("--help-output",                                Help_Output)
+    OPTION2("--help-inform",                                Help_Output)
     else
         TEXTOUT("No help available yet");
 
@@ -130,7 +127,7 @@ CL_OPTION(Inform)
     //Form : --Inform=Text
     size_t Egal_Pos=Argument.find(_T('='));
     if (Egal_Pos==String::npos)
-        return Help_Inform();
+        return Help_Output();
 
     MI.Menu_Option_Preferences_Inform(Argument.substr(Egal_Pos+1));
 
@@ -148,17 +145,15 @@ CL_OPTION(Language)
 }
 
 //---------------------------------------------------------------------------
-CL_OPTION(Output_HTML)
+CL_OPTION(Output)
 {
-    MI.Menu_View_HTML();
+    //Form : --Inform=Text
+    size_t Egal_Pos=Argument.find(_T('='));
+    if (Egal_Pos==String::npos)
+        return Help_Output();
 
-    return 0;
-}
+    MI.Menu_Option_Preferences_Inform(Argument.substr(Egal_Pos+1));
 
-//---------------------------------------------------------------------------
-CL_OPTION(Output_XML)
-{
-    MI.Menu_View_XML();
     return 0;
 }
 
