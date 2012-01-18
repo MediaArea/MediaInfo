@@ -1882,6 +1882,7 @@ void File_Riff::AVI__hdlr_strl_strh()
     Stream[Stream_ID].Scale=Scale;
     Stream[Stream_ID].Rate=Rate;
     Stream[Stream_ID].Start=Start;
+    Stream[Stream_ID].Length=Length;
 }
 
 //---------------------------------------------------------------------------

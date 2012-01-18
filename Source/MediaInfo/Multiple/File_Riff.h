@@ -81,6 +81,7 @@ private :
         int32u                  Scale;
         int32u                  Rate;
         int32u                  Start;
+        int32u                  Length;
         int32u                  Compression;
         stream_t                StreamKind;
         size_t                  StreamPos;
@@ -100,6 +101,7 @@ private :
             Scale=0;
             Rate=0;
             Start=0;
+            Length=0;
             Compression=0x00000000;
             StreamKind=Stream_Max;
             StreamPos=0;

@@ -374,6 +374,8 @@ void File_Riff::Streams_Finish ()
                     Fill(Stream_Audio, StreamPos_Last, Audio_Duration, SamplingCount*1000/SamplingRate, 0, true);
                 else if (Temp->second.indx_Duration && Temp->second.Rate)
                     Fill(Stream_Audio, StreamPos_Last, Audio_Duration, ((float64)Temp->second.indx_Duration)*1000*Temp->second.Scale/Temp->second.Rate, 0, true);
+                else if (Temp->second.Rate && Temp->second.Scale!=1) //Note: some files with Scale==1 are buggy
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Duration, ((float64)Temp->second.Length)*1000*Temp->second.Scale/Temp->second.Rate, 0, true);
 
                 //Interleave
                 if (Stream[0x30300000].PacketCount && Temp->second.PacketCount)
