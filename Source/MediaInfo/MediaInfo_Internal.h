@@ -110,6 +110,10 @@ public :
     size_t State_Get ();
     size_t Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1);
 
+    //Position in a MediaInfoList class
+    bool    IsFirst;
+    bool    IsLast;
+    
     //Internal
     static bool LibraryIsModified(); //Is the library has been modified? (#defines...)
 

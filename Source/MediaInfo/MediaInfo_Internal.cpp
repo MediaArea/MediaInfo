@@ -294,6 +294,10 @@ MediaInfo_Internal::MediaInfo_Internal()
     Stream.resize(Stream_Max);
     Stream_More.resize(Stream_Max);
     
+    //Position in a MediaInfoList class
+    IsFirst=true;
+    IsLast=true;
+    
     //Threading
     BlockMethod=0;
     IsInThread=false;

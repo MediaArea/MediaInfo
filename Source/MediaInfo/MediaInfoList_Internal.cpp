@@ -176,7 +176,7 @@ void MediaInfoList_Internal::Entry()
         CS.Enter();
         if (!ToParse.empty())
         {
-            MediaInfo* MI=new MediaInfo();
+            MediaInfo_Internal* MI=new MediaInfo_Internal();
             for (std::map<String, String>::iterator Config_MediaInfo_Item=Config_MediaInfo_Items.begin(); Config_MediaInfo_Item!=Config_MediaInfo_Items.end(); Config_MediaInfo_Item++)
                 MI->Option(Config_MediaInfo_Item->first, Config_MediaInfo_Item->second);
             if (BlockMethod==1)
@@ -217,7 +217,7 @@ void MediaInfoList_Internal::Entry()
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
-    MediaInfo* MI=new MediaInfo();
+    MediaInfo_Internal* MI=new MediaInfo_Internal();
     MI->Open_Buffer_Init(File_Size_, File_Offset_);
 
     CriticalSectionLocker CSL(CS);
@@ -233,7 +233,7 @@ size_t MediaInfoList_Internal::Open_Buffer_Continue (size_t FilePos, const int8u
     if (FilePos>=Info.size() || Info[FilePos]==NULL)
         return 0;
 
-    return Info[FilePos]->Open_Buffer_Continue(ToAdd, ToAdd_Size);
+    return Info[FilePos]->Open_Buffer_Continue(ToAdd, ToAdd_Size).to_ulong();
 }
 
 //---------------------------------------------------------------------------
@@ -329,6 +329,8 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
     if (FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
         return MediaInfoLib::Config.EmptyString_Get();
 
+    Info[FilePos]->IsFirst=FilePos==0;
+    Info[FilePos]->IsLast=(FilePos+1)==Info.size();
     return Info[FilePos]->Inform();
 }
 
@@ -423,7 +425,7 @@ String MediaInfoList_Internal::Option (const String &Option, const String &Value
     else if (OptionLower==_T("create_dummy"))
     {
         Info.resize(Info.size()+1);
-        Info[Info.size()-1]=new MediaInfo();
+        Info[Info.size()-1]=new MediaInfo_Internal();
         Info[Info.size()-1]->Option(Option, Value);
         return _T("");
     }
