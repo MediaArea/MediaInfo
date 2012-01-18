@@ -499,21 +499,21 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             if (StreamKind==Stream_Video && Parameter==Video_Format_Settings_Matrix)
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Format_Settings_Matrix_"))+Value);
-                Fill(Stream_Video, StreamPos, Video_Format_Settings_Matrix_String, Translated.find(_T("Format_Settings_Matrix_"))?Translated:Value, true);
+                Fill(Stream_Video, StreamPos, Video_Format_Settings_Matrix_String, Translated.find(_T("Format_Settings_Matrix_"))?Translated:Value, Replace);
             }
 
             //Scan type
             if (StreamKind==Stream_Video && Parameter==Video_ScanType)
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Value);
-                Fill(Stream_Video, StreamPos, Video_ScanType_String, Translated.find(_T("Interlaced_"))?Translated:Value, true);
+                Fill(Stream_Video, StreamPos, Video_ScanType_String, Translated.find(_T("Interlaced_"))?Translated:Value, Replace);
             }
 
             //Scan order
             if (StreamKind==Stream_Video && Parameter==Video_ScanOrder)
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Value);
-                Fill(Stream_Video, StreamPos, Video_ScanOrder_String, Translated.find(_T("Interlaced_"))?Translated:Value, true);
+                Fill(Stream_Video, StreamPos, Video_ScanOrder_String, Translated.find(_T("Interlaced_"))?Translated:Value, Replace);
             }
 
             //Interlacement
@@ -521,9 +521,9 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             {
                 const Ztring &Z1=Retrieve(Stream_Video, StreamPos, Video_Interlacement);
                 if (Z1.size()==3)
-                    Fill(Stream_Video, StreamPos, Video_Interlacement_String, MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Z1), true);
+                    Fill(Stream_Video, StreamPos, Video_Interlacement_String, MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Z1), Replace);
                 else
-                    Fill(Stream_Video, StreamPos, Video_Interlacement_String, MediaInfoLib::Config.Language_Get(Z1), true);
+                    Fill(Stream_Video, StreamPos, Video_Interlacement_String, MediaInfoLib::Config.Language_Get(Z1), Replace);
                 if (Retrieve(Stream_Video, StreamPos, Video_Interlacement_String).empty())
                     Fill(Stream_Video, StreamPos, Video_Interlacement_String, Z1, true);
             }
@@ -532,21 +532,21 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             if (StreamKind==Stream_Video && Parameter==Video_FrameRate_Mode)
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("FrameRate_Mode_"))+Value);
-                Fill(Stream_Video, StreamPos, Video_FrameRate_Mode_String, Translated.find(_T("FrameRate_Mode_"))?Translated:Value, true);
+                Fill(Stream_Video, StreamPos, Video_FrameRate_Mode_String, Translated.find(_T("FrameRate_Mode_"))?Translated:Value, Replace);
             }
 
             //Compression_Mode
             if (Parameter==Fill_Parameter(StreamKind, Generic_Compression_Mode))
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Compression_Mode_"))+Value);
-                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Compression_Mode_String), Translated.find(_T("Compression_Mode_"))?Translated:Value, true);
+                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Compression_Mode_String), Translated.find(_T("Compression_Mode_"))?Translated:Value, Replace);
             }
 
             //Delay_Source
             if (Parameter==Fill_Parameter(StreamKind, Generic_Delay_Source))
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Delay_Source_"))+Value);
-                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Delay_Source_String), Translated.find(_T("Delay_Source_"))?Translated:Value, true);
+                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Delay_Source_String), Translated.find(_T("Delay_Source_"))?Translated:Value, Replace);
             }
         }
 
@@ -1014,8 +1014,16 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     //Handle Value before StreamKind
     if (StreamKind==Stream_Max || StreamPos>=(*Stream)[StreamKind].size())
     {
+        Ztring ParameterZ=Ztring().From_UTF8(Parameter);
+        if (Replace)
+            for (size_t Pos=0; Pos<Fill_Temp.size(); Pos++)
+                if (Fill_Temp[Pos](0)==ParameterZ)
+                {
+                    Fill_Temp.erase(Fill_Temp.begin()+Pos);
+                    Pos--;
+                }
         ZtringList NewList;
-        NewList.push_back(Ztring().From_UTF8(Parameter));
+        NewList.push_back(ParameterZ);
         NewList.push_back(Value);
         Fill_Temp.push_back(NewList);
         return; //No streams
