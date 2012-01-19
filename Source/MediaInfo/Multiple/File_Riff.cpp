@@ -266,7 +266,7 @@ void File_Riff::Streams_Finish ()
                 {
                     Delay+=((float)Temp->second.Start)*1000/Temp->second.Rate;
                     Fill(Stream_Audio, StreamPos_Last, Audio_Delay, Delay, 0, true);
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Stream", Unlimited, true, true);
                     for (size_t StreamPos=0; StreamPos<Count_Get(Stream_Video); StreamPos++)
                         Fill(Stream_Video, StreamPos, Video_Delay, 0, 10, true);
                 }
@@ -433,6 +433,21 @@ void File_Riff::Streams_Finish ()
     if (Interleaved0_1 && Interleaved0_10 && Interleaved1_1 && Interleaved1_10)
         Fill(Stream_General, 0, General_Interleaved, (Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1
                                                    || Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1)?"Yes":"No");
+
+    //Time codes
+    TimeCode_Fill(_T("ISMP"), INFO_ISMP);
+    TimeCode_Fill(_T("tc_A"), Tdat_tc_A);
+    TimeCode_Fill(_T("tc_O"), Tdat_tc_O);
+
+    //MD5
+    size_t Pos=0;
+    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+        for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+            if (Pos<MD5s.size())
+            {
+                Fill((stream_t)StreamKind, StreamPos, "MD5", MD5s[Pos]);
+                Pos++;
+            }
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -828,6 +843,39 @@ bool File_Riff::BookMark_Needed()
     SecondPass=true;
     Index_Pos.clear(); //We didn't succeed to find theses indexes :(
     return true;
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Riff::TimeCode_Fill(const Ztring &Name, const Ztring &Value)
+{
+    float64 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float64();
+    if (Value.size()==11 && FrameRate)
+    {
+        for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+            for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+            {
+                int64u Delay=0;
+                Delay+=(Value[0]-_T('0'))*10*60*60*1000;
+                Delay+=(Value[1]-_T('0'))   *60*60*1000;
+                Delay+=(Value[3]-_T('0'))   *10*60*1000;
+                Delay+=(Value[4]-_T('0'))      *60*1000;
+                Delay+=(Value[6]-_T('0'))      *10*1000;
+                Delay+=(Value[7]-_T('0'))         *1000;
+
+                int64u Frames=0;
+                Frames+=(Value[ 9]-_T('0'))*10;
+                Frames+=(Value[10]-_T('0'));
+                Delay+=float64_int64s((1000/FrameRate)*Frames);
+
+                Fill((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Delay), Delay);
+                Fill((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Delay_Source), _T("Container (")+Name+_T(")"));
+                Fill((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Delay_String4), Value);
+            }
+    }
 }
 
 //***************************************************************************

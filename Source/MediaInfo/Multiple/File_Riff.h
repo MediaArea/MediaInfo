@@ -138,6 +138,10 @@ private :
     int64u Interleaved1_10;
 
     //Temp
+    Ztring INFO_ISMP;
+    Ztring Tdat_tc_A;
+    Ztring Tdat_tc_O;
+    ZtringList MD5s;
     int64u WAVE_data_Size;  //RF64 WAVE_data real chunk size
     int64u WAVE_fact_samplesCount;  //RF64 WAVE_fact real samplesCount
     int64u Alignement_ExtraByte; //Padding from the container
@@ -176,6 +180,8 @@ private :
         Kind_Rmp3,
     };
     kind Kind;
+
+    void TimeCode_Fill(const Ztring &Name, const Ztring &Value);
 
     //Chunks
     void AIFC ();
@@ -235,6 +241,7 @@ private :
     void AVI__INFO_JUNK ();
     void AVI__INFO_xxxx ();
     void AVI__JUNK ();
+    void AVI__MD5_ ();
     void AVI__movi ();
     void AVI__movi_xxxx ();
     void AVI__movi_xxxx___dc ();

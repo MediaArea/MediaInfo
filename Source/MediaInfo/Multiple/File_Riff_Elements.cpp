@@ -291,6 +291,7 @@ namespace Elements
     const int32u AVI__INFO_ISTR=0x49535452;
     const int32u AVI__INFO_ISFT=0x49534654;
     const int32u AVI__INFO_ISHP=0x49534850;
+    const int32u AVI__INFO_ISMP=0x49534D50;
     const int32u AVI__INFO_ISRC=0x49535243;
     const int32u AVI__INFO_ISRF=0x49535246;
     const int32u AVI__INFO_ITCH=0x49544348;
@@ -298,6 +299,7 @@ namespace Elements
     const int32u AVI__INFO_IWRI=0x49575249;
     const int32u AVI__INFO_JUNK=0x4A554E4B;
     const int32u AVI__JUNK=0x4A554E4B;
+    const int32u AVI__MD5_=0x4D443520;
     const int32u AVI__movi=0x6D6F7669;
     const int32u AVI__movi_rec_=0x72656320;
     const int32u AVI__movi_xxxx_____=0x00005F5F;
@@ -454,6 +456,7 @@ void File_Riff::Data_Parse()
             ATOM_DEFAULT(AVI__INFO_xxxx)
             ATOM_END_DEFAULT
         ATOM(AVI__JUNK)
+        ATOM(AVI__MD5_)
         LIST(AVI__movi)
             ATOM_BEGIN
             LIST(AVI__movi_rec_)
@@ -1185,7 +1188,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     if (SamplesPerSec && TimeReference!=(int64u)-1)
     {
         Fill(Stream_Audio, 0, Audio_Delay, float64_int64s(((float64)TimeReference)*1000/SamplesPerSec));
-        Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
+        Fill(Stream_Audio, 0, Audio_Delay_Source, "Container (bext)");
     }
 
     //Creating the parser
@@ -2131,7 +2134,10 @@ void File_Riff::AVI__INFO_xxxx()
     }
     Element_Name(MediaInfoLib::Config.Info_Get(StreamKind, Parameter, Info_Name));
     Element_Info(Value);
-    if (!Value.empty())
+
+    if (Element_Code==Elements::AVI__INFO_ISMP)
+        INFO_ISMP=Value;
+    else if (!Value.empty())
     {
         if (Parameter!=(size_t)-1)
             Fill(StreamKind, StreamPos, Parameter, Value);
@@ -2183,6 +2189,23 @@ void File_Riff::AVI__JUNK()
     //Other libraries?
     else if (CC1(Buffer+Buffer_Offset)>=CC1("A") && CC1(Buffer+Buffer_Offset)<=CC1("z") && Retrieve(Stream_General, 0, General_Encoded_Library).empty())
         Fill(Stream_General, 0, General_Encoded_Library, (const char*)(Buffer+Buffer_Offset), (size_t)Element_Size);
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__MD5_()
+{
+    //Parsing
+    while (Element_Offset<Element_Size)
+    {
+        int128u MD5Stored;
+        Get_L16   (MD5Stored,                                   "MD5");
+        Ztring MD5_PerItem;
+        MD5_PerItem.From_Number(MD5Stored, 16);
+        while (MD5_PerItem.size()<32)
+            MD5_PerItem.insert(MD5_PerItem.begin(), '0'); //Padding with 0, this must be a 32-byte string
+        MD5_PerItem.MakeLowerCase();
+        MD5s.push_back(MD5_PerItem);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -2508,7 +2531,11 @@ void File_Riff::AVI__Tdat_tc_A()
     Element_Name("tc_A");
 
     //Parsing
-    Skip_Local(Element_Size,                                    "Unknown");
+    Ztring Value;
+    Get_Local(Element_Size, Value,                              "Unknown");
+
+    if (Value.find_first_not_of(_T("0123456789:;"))==string::npos)
+        Tdat_tc_A=Value;
 }
 
 //---------------------------------------------------------------------------
@@ -2517,7 +2544,11 @@ void File_Riff::AVI__Tdat_tc_O()
     Element_Name("tc_O");
 
     //Parsing
-    Skip_Local(Element_Size,                                    "Unknown");
+    Ztring Value;
+    Get_Local(Element_Size, Value,                              "Unknown");
+
+    if (Value.find_first_not_of(_T("0123456789:;"))==string::npos)
+        Tdat_tc_O=Value;
 }
 
 //---------------------------------------------------------------------------
@@ -3251,7 +3282,7 @@ void File_Riff::WAVE_bext()
         if (SamplesPerSec && TimeReference!=(int64u)-1)
         {
             Fill(Stream_Audio, 0, Audio_Delay, float64_int64s(((float64)TimeReference)*1000/SamplesPerSec));
-            Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
+            Fill(Stream_Audio, 0, Audio_Delay_Source, "Container (bext)");
         }
     FILLING_END();
 }
