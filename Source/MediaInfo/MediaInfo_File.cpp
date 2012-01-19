@@ -416,7 +416,7 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
         else if (Parser==_T("Rm"))          Info=new File_Rm();
     #endif
     #if defined(MEDIAINFO_SEQUENCEINFO_YES)
-        else if (Parser==_T("SequenceInfo")) Info=new File_Skm();
+        else if (Parser==_T("SequenceInfo")) Info=new File_SequenceInfo();
     #endif
     #if defined(MEDIAINFO_SKM_YES)
         else if (Parser==_T("Skm"))         Info=new File_Skm();
