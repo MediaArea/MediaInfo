@@ -1,4 +1,4 @@
-  Language_ISO639;sk
+﻿  Language_ISO639;sk
   Author_Email;
   Author_Name;Addams
   Author_OldNames;
@@ -12,34 +12,34 @@
  audio stream2; audio streamy
  audio stream3; audio streamy
  bit1; bit
- bit2; bits
- bit3; bits
+ bit2; bity
+ bit3; bitov
  bps; b/s
  Bps; B/s
  Byte1; Byte
- Byte2; Bytes
- Byte3; Bytes
+ Byte2; Byty
+ Byte3; Bytov
  channel1; kanál
  channel2; kanály
- channel3; kanály
+ channel3; kanálov
  chapter1; kapitola
  chapter2; kapitoly
- chapter3; kapitoly
+ chapter3; kapitol
  chapters stream1; chapters stream
  chapters stream2; chapters streams
  chapters stream3; chapters streams
  day1; deň
  day2; dni
- day3; dni
+ day3; dní
  dB1; dB
  dB2; dB
  dB3; dB
  file1; súbor
  file2; súbory
- file3; súbory
+ file3; súborov
  frame1;snímka
  frame2;snímky
- frame3;snímky
+ frame3;snímok
  fps1; snímok/sek.
  fps2; snímok/sek.
  fps3; snímok/sek.
@@ -60,8 +60,8 @@
  GigaByte2; GigaBytov
  GigaByte3; GigaBytov
  hour1; hodina
- hour2;hodiny
- hour3;hodiny
+ hour2; hodiny
+ hour3; hodín
  Hz; Hz
  image stream1; image stream
  image stream2; image streams
@@ -105,20 +105,20 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiB/s
- millisecond1; milisekúnd
- millisecond2; milisekúnd
+ millisecond1; milisekunda
+ millisecond2; milisekundy
  millisecond3; milisekúnd
- minute1; minút
- minute2; minút
+ minute1; minúta
+ minute2; minúty
  minute3; minút
  month1; mesiac
  month2; mesiace
- month3; mesiace
+ month3; mesiacov
  pixel1; pixel
  pixel2; pixelov
  pixel3; pixelov
- second1; sekúnd
- second2; sekúnd
+ second1; sekunda
+ second2; sekúndy
  second3; sekúnd
  text stream1; text stream
  text stream2; text streams
@@ -135,10 +135,10 @@
  warppoint3;
  week1; týždeň
  week2; týždne
- week3; týždne
+ week3; týždňo
  year1; rok
  year2; roky
- year3; roky
+ year3; rokov
 , ;, 
 : ;: 
 About;O programe

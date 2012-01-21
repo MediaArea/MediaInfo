@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.53, 2012-
 --------------
-+ Slovak translation
++ Slovak translation updated
 
 Version 0.7.52, 2011-12-19
 --------------
