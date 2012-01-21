@@ -2,7 +2,7 @@ object MainF: TMainF
   Left = 223
   Top = 273
   Caption = 'MainF'
-  ClientHeight = 789
+  ClientHeight = 869
   ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -777,7 +777,7 @@ object MainF: TMainF
     Left = 0
     Top = 0
     Width = 42
-    Height = 789
+    Height = 869
     Align = alLeft
     ButtonHeight = 39
     ButtonWidth = 39
@@ -793,6 +793,7 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
+    ExplicitHeight = 789
     object Tool_File: TToolButton
       Left = 0
       Top = 0
@@ -2156,16 +2157,28 @@ object MainF: TMainF
         OnClick = M_View_HTMLClick
       end
       object M_View_XML: TMenuItem
+        AutoCheck = True
         Caption = 'XML'
+        RadioItem = True
         OnClick = M_View_XMLClick
       end
       object M_View_MPEG7: TMenuItem
+        AutoCheck = True
         Caption = 'MPEG-7'
+        RadioItem = True
         OnClick = M_View_MPEG7Click
       end
       object M_View_PBCore: TMenuItem
+        AutoCheck = True
         Caption = 'PBCore 1.2'
+        RadioItem = True
         OnClick = M_View_PBCoreClick
+      end
+      object M_View_reVTMD: TMenuItem
+        AutoCheck = True
+        Caption = 'reVTMD'
+        RadioItem = True
+        OnClick = M_View_reVTMDClick
       end
       object M_View_Custom: TMenuItem
         AutoCheck = True
@@ -2327,7 +2340,7 @@ object MainF: TMainF
     Left = 744
     Top = 136
     Bitmap = {
-      494C01010A000E00C80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A000E00D40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2736,7 +2749,7 @@ object MainF: TMainF
     Left = 744
     Top = 160
     Bitmap = {
-      494C010107000900400120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101070009004C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       000000000000000000000000000000000000F0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
@@ -3832,6 +3845,22 @@ object MainF: TMainF
       Caption = 'e'
       RadioItem = True
       OnClick = M_View_HTMLClick
+    end
+    object ToolBar_View_XML: TMenuItem
+      Caption = 'XML'
+      RadioItem = True
+    end
+    object ToolBar_View_MPEG7: TMenuItem
+      Caption = 'MPEG-7'
+      RadioItem = True
+    end
+    object ToolBar_View_PBCore: TMenuItem
+      Caption = 'PBCore 1.2'
+      RadioItem = True
+    end
+    object ToolBar_View_reVTMD: TMenuItem
+      Caption = 'reVTMD'
+      RadioItem = True
     end
     object ToolBar_View_Custom: TMenuItem
       AutoCheck = True

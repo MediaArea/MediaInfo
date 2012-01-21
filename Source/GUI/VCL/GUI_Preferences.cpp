@@ -143,6 +143,30 @@ void __fastcall TPreferencesF::General_Output_SelChange(TObject *Sender)
     }
     if (General_Output_Sel->ItemIndex==5)
     {
+        Prefs->Config(_T("Output"))=_T("XML");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==6)
+    {
+        Prefs->Config(_T("Output"))=_T("MPEG-7");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==7)
+    {
+        Prefs->Config(_T("Output"))=_T("PBCore_1.2");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==8)
+    {
+        Prefs->Config(_T("Output"))=_T("reVTMD");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==9)
+    {
         Prefs->Config(_T("Output"))=_T("Custom");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=true;
@@ -410,7 +434,7 @@ void __fastcall TPreferencesF::General_Output_MoreClick(TObject *Sender)
         Tree->Select(Tree->Items->Item[4]);
     else if (General_Output_Sel->ItemIndex==4)
         Tree->Select(Tree->Items->Item[4]);
-    else if (General_Output_Sel->ItemIndex==5)
+    else if (General_Output_Sel->ItemIndex==9)
         Tree->Select(Tree->Items->Item[5]);
 }
 
@@ -494,13 +518,21 @@ void __fastcall TPreferencesF::GUI_Configure()
     General_Output_Sel->Items->Add(Prefs->Translate(_T("Tree")).c_str());
     General_Output_Sel->Items->Add(Prefs->Translate(_T("Text")).c_str());
     General_Output_Sel->Items->Add(Prefs->Translate(_T("HTML")).c_str());
+    General_Output_Sel->Items->Add("XML");
+    General_Output_Sel->Items->Add("MPEG-7");
+    General_Output_Sel->Items->Add("PBCore_1.2");
+    General_Output_Sel->Items->Add("reVTMD");
     General_Output_Sel->Items->Add(Prefs->Translate(_T("Custom")).c_str());
-         if (Prefs->Config(_T("Output"))==_T("Basic")) General_Output_Sel->ItemIndex=0;
-    else if (Prefs->Config(_T("Output"))==_T("Sheet"))  General_Output_Sel->ItemIndex=1;
-    else if (Prefs->Config(_T("Output"))==_T("Tree"))   General_Output_Sel->ItemIndex=2;
-    else if (Prefs->Config(_T("Output"))==_T("Text"))   General_Output_Sel->ItemIndex=3;
-    else if (Prefs->Config(_T("Output"))==_T("HTML"))   General_Output_Sel->ItemIndex=4;
-    else if (Prefs->Config(_T("Output"))==_T("Custom")) General_Output_Sel->ItemIndex=5;
+         if (Prefs->Config(_T("Output"))==_T("Basic"))      General_Output_Sel->ItemIndex=0;
+    else if (Prefs->Config(_T("Output"))==_T("Sheet"))      General_Output_Sel->ItemIndex=1;
+    else if (Prefs->Config(_T("Output"))==_T("Tree"))       General_Output_Sel->ItemIndex=2;
+    else if (Prefs->Config(_T("Output"))==_T("Text"))       General_Output_Sel->ItemIndex=3;
+    else if (Prefs->Config(_T("Output"))==_T("HTML"))       General_Output_Sel->ItemIndex=4;
+    else if (Prefs->Config(_T("Output"))==_T("XML"))        General_Output_Sel->ItemIndex=5;
+    else if (Prefs->Config(_T("Output"))==_T("MPEG-7"))     General_Output_Sel->ItemIndex=6;
+    else if (Prefs->Config(_T("Output"))==_T("PBCore_1.2")) General_Output_Sel->ItemIndex=7;
+    else if (Prefs->Config(_T("Output"))==_T("reVTMD"))     General_Output_Sel->ItemIndex=8;
+    else if (Prefs->Config(_T("Output"))==_T("Custom"))     General_Output_Sel->ItemIndex=9;
     //-Advanced
     Setup_Advanced->Caption=Prefs->Translate(_T("Advanced")).c_str();
     CB_InscrireShell->Caption=Prefs->Translate(_T("Shell extension")).c_str();

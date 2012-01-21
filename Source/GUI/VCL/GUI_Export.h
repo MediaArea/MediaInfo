@@ -52,6 +52,10 @@ __published:    // IDE-managed Components
     TTabSheet *Export_CSV;
     TTabSheet *Export_Text;
     TTabSheet *Export_HTML;
+    TTabSheet *Export_XML;
+    TTabSheet *Export_MPEG7;
+    TTabSheet *Export_PBCore;
+    TTabSheet *Export_reVTMD;
     TTabSheet *Export_Custom;
     TGroupBox *Name_Choose;
     TEdit *Name;
@@ -89,6 +93,10 @@ __published:    // IDE-managed Components
     TLabel *CSV_Decimal_Caption;
     TComboBox *CSV_Decimal;
     TSaveDialog *SaveDialog1;
+    TCheckBox *Export_XML_SideCar;
+    TCheckBox *Export_MPEG7_SideCar;
+    TCheckBox *Export_PBCore_SideCar;
+    TCheckBox *Export_reVTMD_SideCar;
     void __fastcall Name_FileSelectClick(TObject *Sender);
     void __fastcall ExportChange(TObject *Sender);
     void __fastcall OKClick(TObject *Sender);
@@ -96,6 +104,11 @@ __published:    // IDE-managed Components
     void __fastcall CSV_Stream_AudioChange(TObject *Sender);
     void __fastcall CSV_Stream_TextChange(TObject *Sender);
     void __fastcall CSV_Stream_ChaptersChange(TObject *Sender);
+    void __fastcall Export_reVTMD_SideCarClick(TObject *Sender);
+    void __fastcall Export_XML_SideCarClick(TObject *Sender);
+    void __fastcall Export_MPEG7_SideCarClick(TObject *Sender);
+    void __fastcall Export_PBCore_SideCarClick(TObject *Sender);
+
 private:    // User declarations
     void Name_Adapt();
     void Export_Run();

@@ -235,6 +235,13 @@ void Core::Menu_View_PBCore ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_reVTMD ()
+{
+    MI->Option(_T("Inform"), _T("reVTMD"));
+    Kind=Kind_reVTMD;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_MPEG7 ()
 {
     MI->Option(_T("Inform"), _T("MPEG-7"));

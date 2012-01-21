@@ -74,10 +74,6 @@ object PreferencesF: TPreferencesF
     object Setup: TTabSheet
       Caption = 'General'
       OnShow = Setup_GeneralShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Langue_C: TLabel
         Left = 0
         Top = 9
@@ -107,6 +103,7 @@ object PreferencesF: TPreferencesF
         Width = 113
         Height = 22
         Style = csDropDownList
+        DropDownCount = 10
         TabOrder = 1
         OnChange = General_Output_SelChange
         Items.Strings = (
@@ -184,10 +181,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Advanced'
       ImageIndex = 1
       OnShow = Setup_AdvancedShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object CB_ShowToolBar: TCheckBox
         Left = 0
         Top = 26
@@ -220,10 +213,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Language'
       ImageIndex = 3
       OnShow = Customize_LanguageShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Language_Caption: TLabel
         Left = 0
         Top = 0
@@ -272,10 +261,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Sheet'
       ImageIndex = 4
       OnShow = Customize_SheetShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Sheet_Caption: TLabel
         Left = 0
         Top = 0
@@ -323,10 +308,6 @@ object PreferencesF: TPreferencesF
     object Customize_TreeText: TTabSheet
       Caption = 'Tree && Text'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Tree_NotYet: TLabel
         Left = 362
         Top = 78
@@ -339,10 +320,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Custom Text'
       ImageIndex = 6
       OnShow = Customize_CustomShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Custom_Caption: TLabel
         Left = 0
         Top = 0
@@ -390,10 +367,6 @@ object PreferencesF: TPreferencesF
     object Customize: TTabSheet
       Caption = 'Customize'
       ImageIndex = 7
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
 end

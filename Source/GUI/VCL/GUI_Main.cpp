@@ -92,7 +92,7 @@ TCustomButton*              Donate_Current;
 
 //---------------------------------------------------------------------------
 const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net - Sponsored by Digimetrics");
-const size_t Title_Pos=95; //TODO: Position of Title in General.csv, should shange this...
+const size_t Title_Pos=96; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
 
@@ -216,6 +216,10 @@ void __fastcall TMainF::GUI_Configure()
     else if (Prefs->Config(_T("Output"))==_T("Tree")) {M_View_TreeClick(NULL); M_View_Tree->Checked=true;}
     else if (Prefs->Config(_T("Output"))==_T("Text")) {M_View_TextClick(NULL); M_View_Text->Checked=true;}
     else if (Prefs->Config(_T("Output"))==_T("HTML")) {M_View_HTMLClick(NULL); M_View_HTML->Checked=true;}
+    else if (Prefs->Config(_T("Output"))==_T("XML")) {M_View_XMLClick(NULL); M_View_XML->Checked=true;}
+    else if (Prefs->Config(_T("Output"))==_T("MPEG-7")) {M_View_MPEG7Click(NULL); M_View_MPEG7->Checked=true;}
+    else if (Prefs->Config(_T("Output"))==_T("PBCore_1.2")) {M_View_PBCoreClick(NULL); M_View_PBCore->Checked=true;}
+    else if (Prefs->Config(_T("Output"))==_T("reVTMD")) {M_View_reVTMDClick(NULL); M_View_reVTMD->Checked=true;}
     else if (Prefs->Config(_T("Output"))==_T("Custom")) {M_View_CustomClick(NULL); M_View_Custom->Checked=true;}
 
     //Menu - Options
@@ -776,7 +780,16 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     //Custom
     else if (Page==Page_Custom)
     {
-        I->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
+        if (M_View_XML->Checked)
+            I->Option_Static(_T("Inform"), _T("XML"));
+        else if (M_View_MPEG7->Checked)
+            I->Option_Static(_T("Inform"), _T("MPEG-7"));
+        else if (M_View_PBCore->Checked)
+            I->Option_Static(_T("Inform"), _T("PBCore_1.2"));
+        else if (M_View_reVTMD->Checked)
+            I->Option_Static(_T("Inform"), _T("reVTMD"));
+        else
+            I->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
         Ztring S1=I->Inform();
         if (S1.empty())
             S1=Prefs->Translate(_T("At least one file")).c_str();
@@ -1001,6 +1014,7 @@ void __fastcall TMainF::M_File_ExitClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EasyClick(TObject *Sender)
 {
+    I->Option_Static(_T("Inform"));
     M_View_Easy->Checked=true;
     ToolBar_View_Easy->Checked=true;
     ChangePage(Page_Easy);
@@ -1009,6 +1023,7 @@ void __fastcall TMainF::M_View_EasyClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_SheetClick(TObject *Sender)
 {
+    I->Option_Static(_T("Inform"));
     M_View_Sheet->Checked=true;
     ToolBar_View_Sheet->Checked=true;
     ChangePage(Page_Sheet);
@@ -1017,6 +1032,7 @@ void __fastcall TMainF::M_View_SheetClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_TreeClick(TObject *Sender)
 {
+    I->Option_Static(_T("Inform"));
     M_View_Tree->Checked=true;
     ToolBar_View_Tree->Checked=true;
     ChangePage(Page_Tree);
@@ -1025,6 +1041,7 @@ void __fastcall TMainF::M_View_TreeClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_TextClick(TObject *Sender)
 {
+    I->Option_Static(_T("Inform"));
     M_View_Text->Checked=true;
     ToolBar_View_Text->Checked=true;
     ChangePage(Page_Text);
@@ -1033,6 +1050,7 @@ void __fastcall TMainF::M_View_TextClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_HTMLClick(TObject *Sender)
 {
+    I->Option_Static(_T("Inform"));
     M_View_HTML->Checked=true;
     ToolBar_View_HTML->Checked=true;
     ChangePage(Page_HTML);
@@ -1045,16 +1063,22 @@ void __fastcall TMainF::M_View_XMLClick(TObject *Sender)
     I->Option_Static(_T("Language"), _T("raw"));
 
     Prefs->Details[Prefs_Custom].Write(_T("XML"));
-    M_View_Custom->Checked=true;
-    ToolBar_View_Custom->Checked=true;
+    ToolBar_View_XML->Checked=true;
     ChangePage(Page_Custom);
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 {
     Prefs->Details[Prefs_Custom].Write(_T("MPEG-7"));
-    M_View_Custom->Checked=true;
-    ToolBar_View_Custom->Checked=true;
+    ToolBar_View_MPEG7->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_reVTMDClick(TObject *Sender)
+{
+    Prefs->Details[Prefs_Custom].Write(_T("reVTMD"));
+    ToolBar_View_reVTMD->Checked=true;
     ChangePage(Page_Custom);
 }
 
@@ -1062,8 +1086,7 @@ void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 void __fastcall TMainF::M_View_PBCoreClick(TObject *Sender)
 {
     Prefs->Details[Prefs_Custom].Write(_T("PBCore_1.2"));
-    M_View_Custom->Checked=true;
-    ToolBar_View_Custom->Checked=true;
+    ToolBar_View_PBCore->Checked=true;
     ChangePage(Page_Custom);
 }
 

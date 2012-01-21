@@ -15,6 +15,7 @@ Known bugs
 Version 0.7.53, 2012-
 --------------
 + Slovak translation updated
++ Export in XML, MPEG-7, PBCore, or reVTMD format (with possibility to export to sidecar files)
 
 Version 0.7.52, 2011-12-19
 --------------

@@ -90,6 +90,30 @@ void TExportF::Name_Adapt()
         SaveDialog1->DefaultExt=_T("html");
         SaveDialog1->Filter=_T("HTML File|*.html");
     }
+    else if (Export->ActivePage==Export_XML)
+    {
+        FN.Extension_Set(_T("xml"));
+        SaveDialog1->DefaultExt=_T("xml");
+        SaveDialog1->Filter=_T("XML File|*.xml");
+    }
+    else if (Export->ActivePage==Export_MPEG7)
+    {
+        FN.Extension_Set(_T("xml"));
+        SaveDialog1->DefaultExt=_T("xml");
+        SaveDialog1->Filter=_T("MPEG-7 File|*.xml");
+    }
+    else if (Export->ActivePage==Export_PBCore)
+    {
+        FN.Extension_Set(_T("xml"));
+        SaveDialog1->DefaultExt=_T("xml");
+        SaveDialog1->Filter=_T("XML File|*.xml");
+    }
+    else if (Export->ActivePage==Export_reVTMD)
+    {
+        FN.Extension_Set(_T("xml"));
+        SaveDialog1->DefaultExt=_T("xml");
+        SaveDialog1->Filter=_T("XML File|*.xml");
+    }
     else if (Export->ActivePage==Export_Custom)
     {
         if (Prefs->Details[Prefs_Custom](Stream_Max+2, 1).size()>0 && Prefs->Details[Prefs_Custom](Stream_Max+2, 1)[0]==_T('<')) //test if HTML
@@ -115,11 +139,23 @@ int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultF
     //Aquistion of datas
     if (Name->Text.Length()==0)
         Name->Text=DefaultFolder.c_str();
-    Name_Adapt();
     ToExport=&MI;
 
     //GUI
     GUI_Configure();
+
+    Ztring Info=MI.Option(_T("Inform_Get"), Ztring());
+
+    if (Info==_T("XML"))
+        Export->ActivePage=Export_XML;
+    else if (Info==_T("MPEG-7"))
+        Export->ActivePage=Export_MPEG7;
+    else if (Info==_T("PBCore_1.2"))
+        Export->ActivePage=Export_PBCore;
+    else if (Info==_T("reVTMD"))
+        Export->ActivePage=Export_reVTMD;
+
+    ExportChange(NULL);
 
     return ShowModal();
 }
@@ -341,6 +377,70 @@ void TExportF::Export_Run()
         Text=ToExport->Inform().c_str();
         Append_Separator=_T("<hr>\r\n");
     }
+    else if (Export->ActivePage==Export_XML)
+    {
+        ToExport->Option_Static(_T("Inform"), _T("XML"));
+        if (Export_XML_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".mediainfo.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
+    else if (Export->ActivePage==Export_MPEG7)
+    {
+        ToExport->Option_Static(_T("Inform"), _T("MPEG-7"));
+        if (Export_MPEG7_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".mpeg7.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
+    else if (Export->ActivePage==Export_PBCore)
+    {
+        ToExport->Option_Static(_T("Inform"), _T("PBCore_1.2"));
+        if (Export_PBCore_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".PBCore.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
+    else if (Export->ActivePage==Export_reVTMD)
+    {
+        ToExport->Option_Static(_T("Inform"), _T("reVTMD"));
+        if (Export_reVTMD_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".reVTMD.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
     else if (Export->ActivePage==Export_Custom)
     {
         ToExport->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
@@ -381,6 +481,40 @@ void TExportF::Export_Run()
 
 void __fastcall TExportF::ExportChange(TObject *Sender)
 {
+    if (Export->ActivePage==Export_XML)
+    {
+        Export_XML_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_XML_SideCar->Checked?false:true;;
+    }
+    else if (Export->ActivePage==Export_MPEG7)
+    {
+        Export_MPEG7_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_MPEG7_SideCar->Checked?false:true;;
+    }
+    else if (Export->ActivePage==Export_PBCore)
+    {
+        Export_PBCore_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_PBCore_SideCar->Checked?false:true;;
+    }
+    else if (Export->ActivePage==Export_reVTMD)
+    {
+        Export_reVTMD_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_reVTMD_SideCar->Checked?false:true;;
+    }
+    else
+    {
+        File_Append->Visible=true;
+        Name_Choose->Visible=true;
+    }
+
     Name_Adapt();
 }
 //---------------------------------------------------------------------------
@@ -427,6 +561,29 @@ void __fastcall TExportF::CSV_Stream_ChaptersChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TExportF::Export_XML_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_XML_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_MPEG7_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_MPEG7_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_PBCore_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_PBCore_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_reVTMD_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_reVTMD_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
 
 void TExportF::GUI_Configure()
 {

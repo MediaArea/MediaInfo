@@ -69,7 +69,7 @@ int Help_Nothing()
 int Help_Output()
 {
     TEXTOUT("--Output=...  Specify a template (BETA)");
-    TEXTOUT("Usage: \"MediaInfo --Inform=[xxx;]Text FileName\"");
+    TEXTOUT("Usage: \"MediaInfo --Output=[xxx;]Text FileName\"");
     TEXTOUT("");
     TEXTOUT("xxx can be: General, Video, Audio, Text, Chapter, Image, Menu");
     TEXTOUT("Text can be the template text, or a filename");
@@ -78,13 +78,13 @@ int Help_Output()
     TEXTOUT("See --Info-Parameters for available parameters in the text");
     TEXTOUT("(Parameters must be surrounded by \"%\" sign)");
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Inform=Video;%AspectRatio% FileName\"");
+    TEXTOUT("Example: \"MediaInfo --Output=Video;%AspectRatio% FileName\"");
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Inform=Video;file://Video.txt FileName\"");
+    TEXTOUT("Example: \"MediaInfo --Output=Video;file://Video.txt FileName\"");
     TEXTOUT("and Video.txt contains ");
     TEXTOUT("\"%DisplayAspectRatio%\"        for Video Aspect Ratio.");
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Inform=file://Text.txt FileName\"");
+    TEXTOUT("Example: \"MediaInfo --Output=file://Text.txt FileName\"");
     TEXTOUT("and Text.txt contains");
     TEXTOUT("\"Video;%DisplayAspectRatio%\"  for Video Aspect Ratio.");
     TEXTOUT("\"Audio;%Format%\"              for Audio Format.");

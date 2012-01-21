@@ -62,6 +62,7 @@ public:
     void    Menu_View_HTML                  ();
     void    Menu_View_XML                   ();
     void    Menu_View_PBCore                ();
+    void    Menu_View_reVTMD           ();
     void    Menu_View_MPEG7                 ();
     void    Menu_View_Text                  ();
     void    Menu_Option_Preferences_Inform  (const MediaInfoNameSpace::String &Inform);
@@ -77,7 +78,7 @@ public:
 
     //Datas
     MediaInfoNameSpace::String &Inform_Get();
-    enum kind {Kind_Easy, Kind_Sheet, Kind_Tree, Kind_HTML, Kind_Text, Kind_XML, Kind_PBCore, Kind_MPEG7};
+    enum kind {Kind_Easy, Kind_Sheet, Kind_Tree, Kind_HTML, Kind_Text, Kind_XML, Kind_PBCore, Kind_reVTMD, Kind_MPEG7};
     kind    Kind_Get();
     MediaInfoNameSpace::String  Inform_Get          (size_t Pos, stream_t StreamKind, size_t StreamPos);
 

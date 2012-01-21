@@ -44,11 +44,11 @@ object ExportF: TExportF
     Caption = 'Choose the desired export format'
     TabOrder = 2
     object Export: TPageControl
-      Left = 9
-      Top = 17
+      Left = 3
+      Top = 18
       Width = 608
       Height = 224
-      ActivePage = Export_CSV
+      ActivePage = Export_XML
       MultiLine = True
       TabOrder = 0
       OnChange = ExportChange
@@ -149,7 +149,6 @@ object ExportF: TExportF
           Width = 44
           Height = 22
           Style = csDropDownList
-          ItemHeight = 14
           ItemIndex = 1
           TabOrder = 0
           Text = '1'
@@ -171,7 +170,6 @@ object ExportF: TExportF
           Width = 44
           Height = 22
           Style = csDropDownList
-          ItemHeight = 14
           ItemIndex = 2
           TabOrder = 1
           Text = '2'
@@ -201,7 +199,6 @@ object ExportF: TExportF
           Width = 44
           Height = 22
           Style = csDropDownList
-          ItemHeight = 14
           ItemIndex = 2
           TabOrder = 2
           Text = '2'
@@ -247,7 +244,6 @@ object ExportF: TExportF
           Width = 44
           Height = 22
           Style = csDropDownList
-          ItemHeight = 14
           ItemIndex = 1
           TabOrder = 3
           Text = '1'
@@ -261,7 +257,6 @@ object ExportF: TExportF
           Top = 103
           Width = 61
           Height = 22
-          ItemHeight = 14
           TabOrder = 4
           Text = '"'
           Items.Strings = (
@@ -272,7 +267,6 @@ object ExportF: TExportF
           Top = 129
           Width = 61
           Height = 22
-          ItemHeight = 14
           ItemIndex = 0
           TabOrder = 5
           Text = ';'
@@ -286,7 +280,6 @@ object ExportF: TExportF
           Top = 129
           Width = 61
           Height = 22
-          ItemHeight = 14
           TabOrder = 6
           Text = '\r\n'
           Items.Strings = (
@@ -308,7 +301,6 @@ object ExportF: TExportF
           Width = 61
           Height = 22
           Enabled = False
-          ItemHeight = 14
           TabOrder = 8
           Text = '.'
           Items.Strings = (
@@ -344,7 +336,6 @@ object ExportF: TExportF
           Top = 0
           Width = 61
           Height = 22
-          ItemHeight = 14
           TabOrder = 0
           Text = '"'
           Items.Strings = (
@@ -355,7 +346,6 @@ object ExportF: TExportF
           Top = 26
           Width = 61
           Height = 22
-          ItemHeight = 14
           ItemIndex = 0
           TabOrder = 1
           Text = ';'
@@ -369,7 +359,6 @@ object ExportF: TExportF
           Top = 17
           Width = 61
           Height = 22
-          ItemHeight = 14
           TabOrder = 2
           Text = '\r\n'
           Items.Strings = (
@@ -400,6 +389,54 @@ object ExportF: TExportF
           Height = 18
           Caption = 'Advanced : full information'
           TabOrder = 0
+        end
+      end
+      object Export_XML: TTabSheet
+        Caption = 'XML'
+        object Export_XML_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.mediainfo.xml)'
+          TabOrder = 0
+          OnClick = Export_XML_SideCarClick
+        end
+      end
+      object Export_MPEG7: TTabSheet
+        Caption = 'MPEG-7'
+        object Export_MPEG7_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.mpeg7)'
+          TabOrder = 0
+          OnClick = Export_MPEG7_SideCarClick
+        end
+      end
+      object Export_PBCore: TTabSheet
+        Caption = 'PBCore 1.2'
+        object Export_PBCore_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.PBCore.xml)'
+          TabOrder = 0
+          OnClick = Export_PBCore_SideCarClick
+        end
+      end
+      object Export_reVTMD: TTabSheet
+        Caption = 'reVTMD'
+        object Export_reVTMD_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.reVTMD.xml)'
+          TabOrder = 0
+          OnClick = Export_reVTMD_SideCarClick
         end
       end
       object Export_Custom: TTabSheet
