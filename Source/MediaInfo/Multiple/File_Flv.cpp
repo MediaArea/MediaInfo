@@ -1277,32 +1277,30 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="videoframerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="datasize") {}
-                else if (StringData=="lasttimestamp") {}
                 else if (StringData=="filesize") {meta_filesize=(int64u)Value;}
                 else if (StringData=="audiosize") {ToFill="StreamSize"; StreamKind=Stream_Audio; ValueS.From_Number(Value, 0); if (Value>File_Size) MetaData_NotTrustable=true;}
                 else if (StringData=="videosize") {ToFill="StreamSize"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); if (Value>File_Size) MetaData_NotTrustable=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="videodatarate") {ToFill="BitRate"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="lastkeyframetimestamp") {}
-                else if (StringData=="lastkeyframelocation") {}
                 else if (StringData=="videocodecid") {; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="audiocodecid") {}
                 else if (StringData=="audiodelay") {ToFill="Delay"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="canSeekToEnd") {}
-                else if (StringData=="keyframes_times") {}
-                else if (StringData=="keyframes_filepositions") {}
                 else if (StringData=="audiosamplerate") {ToFill="SamplingRate"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
                 else if (StringData=="audiosamplesize") {ToFill="BitDepth"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
                 else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="bytelength") {if (File_Size!=Value) MetaData_NotTrustable=true;}
-                else if (StringData=="aacaot") {}
-                else if (StringData=="audiochannels") {}
-                else if (StringData=="audiocodecid") {}
-                else if (StringData=="avclevel") {}
-                else if (StringData=="avcprofile") {}
-                else if (StringData=="moovPosition") {}
-                else {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
+                else if (!(StringData=="datasize"
+                       || StringData=="lasttimestamp"
+                       || StringData=="lastkeyframetimestamp"
+                       || StringData=="lastkeyframelocation"
+                       || StringData=="canSeekToEnd"
+                       || StringData=="keyframes_times"
+                       || StringData=="keyframes_filepositions"
+                       || StringData=="aacaot"
+                       || StringData=="audiochannels"
+                       || StringData=="audiocodecid"
+                       || StringData=="avclevel"
+                       || StringData=="avcprofile"
+                       || StringData=="moovPosition")) {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
                 #if MEDIAINFO_TRACE
                     if (ValueS.empty())
                         ValueS.From_Number(Value, 0);

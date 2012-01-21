@@ -335,11 +335,8 @@ void File_Mpeg4v::Synched_Init()
     newpred_enable=0;
     time_size=0;
     reduced_resolution_vop_enable=0;
-    shape=(int8u)-1;
-    sprite_enable=0;
     scalability=0;
     enhancement_type=0;
-    vop_time_increment_resolution=0;
     complexity_estimation_disable=false;
     opaque=false;
     transparent=false;

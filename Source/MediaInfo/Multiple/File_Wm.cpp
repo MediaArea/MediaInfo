@@ -73,7 +73,7 @@ File_Wm::File_Wm()
 
     //Stream
     Packet_Count=0;
-    MaximumDataPacketSize=0;
+    MaximumDataPacketSize=(int32u)-1;
     Header_ExtendedContentDescription_AspectRatioX=0;
     Header_ExtendedContentDescription_AspectRatioY=0;
     SizeOfMediaObject_BytesAlreadyParsed=0;
@@ -81,7 +81,6 @@ File_Wm::File_Wm()
     Codec_Description_Count=0;
     Stream_Number=0;
     Data_Parse_Padding=0;
-    MaximumDataPacketSize=(int32u)-1;
     NumberPayloads=1;
     NumberPayloads_Pos=0;
     Data_Parse_Begin=true;

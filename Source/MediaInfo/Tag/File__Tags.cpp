@@ -587,7 +587,6 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
                 if (LittleEndian2int32u(Base->Buffer+((size_t)(Base->Buffer_Size-File_EndTagSize-32+8)))==2000)
                     ApeTag_Size+=32;
                 File_EndTagSize+=ApeTag_Size;
-                TagSizeIsFinal=false;
                 ApeTag_Offset=Base->File_Size-File_EndTagSize;
                 TagSizeIsFinal=false;
             }
