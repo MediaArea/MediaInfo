@@ -739,7 +739,7 @@ void File_Vc1::FrameHeader()
 
     //Parsing
     BS_Begin();
-    int8u ptype;
+    int8u ptype=(int8u)-1;
     if (profile==3) //Advanced
     {
         int8u PictureFormat=0; //Default=Progressive frame

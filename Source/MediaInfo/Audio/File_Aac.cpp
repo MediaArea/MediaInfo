@@ -77,7 +77,7 @@ File_Aac::File_Aac()
     aacSpectralDataResilienceFlag=false;
     aacSectionDataResilienceFlag=false;
     aacScalefactorDataResilienceFlag=false;
-    FrameSize_Min=(int32u)-1;
+    FrameSize_Min=(int64u)-1;
     FrameSize_Max=0;
 
     //Temp - Main

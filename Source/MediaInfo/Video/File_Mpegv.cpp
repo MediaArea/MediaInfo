@@ -670,7 +670,7 @@ void File_Mpegv::Streams_Fill()
     //Delay
     if (group_start_FirstPass)
     {
-        float64 Time_Begin=Time_Begin_Seconds*1000;
+        float64 Time_Begin=((float64)Time_Begin_Seconds)*1000;
         if (FrameRate)
             Time_Begin+=((float64)Time_Begin_Frames)*1000/FrameRate;
         Fill(Stream_Video, 0, Video_Delay, Time_Begin, 0);
@@ -777,8 +777,8 @@ void File_Mpegv::Streams_Finish()
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
     else if (Time_End_Seconds!=Error)
     {
-        float32 Time_Begin=Time_Begin_Seconds*1000;
-        float32 Time_End =Time_End_Seconds*1000;
+        float32 Time_Begin=((float32)Time_Begin_Seconds)*1000;
+        float32 Time_End =((float32)Time_End_Seconds)*1000;
         if (FrameRate)
         {
             float32 FrameRate_Corrected=FrameRate;

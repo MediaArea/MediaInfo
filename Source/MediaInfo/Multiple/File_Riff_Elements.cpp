@@ -677,7 +677,7 @@ void File_Riff::AIFF_COMM()
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, sampleRate, 0);
 
     BlockAlign=numChannels*sampleSize/8;
-    AvgBytesPerSec=float64_int64s(BlockAlign*sampleRate);
+    AvgBytesPerSec=(int32u)float64_int64s(BlockAlign*(float64)sampleRate);
 }
 
 //---------------------------------------------------------------------------

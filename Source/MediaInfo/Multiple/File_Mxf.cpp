@@ -2688,7 +2688,7 @@ void File_Mxf::Header_Parse()
                 int64u Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length-Buffer_Size+24); //+24 for next packet header
 
                 if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
-                    (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
+                    (*File_Buffer_Size_Hint_Pointer)=(size_t)Buffer_Size_Target;
             }
 
 

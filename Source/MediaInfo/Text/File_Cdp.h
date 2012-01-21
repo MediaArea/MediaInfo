@@ -43,7 +43,7 @@ class File_Cdp : public File__Analyze
 public :
     //In
     bool    WithAppleHeader;
-    float32 AspectRatio;
+    float64 AspectRatio;
 
     //Constructor/Destructor
     File_Cdp();

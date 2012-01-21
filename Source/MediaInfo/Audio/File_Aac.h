@@ -200,8 +200,8 @@ protected :
     std::vector<int16u> aac_frame_lengths;
     int8u   num_raw_data_blocks;
     bool    protection_absent;
-    int32u  FrameSize_Min;
-    int32u  FrameSize_Max;
+    int64u  FrameSize_Min;
+    int64u  FrameSize_Max;
 
     //***********************************************************************
     // Elements - Speech coding (HVXC)

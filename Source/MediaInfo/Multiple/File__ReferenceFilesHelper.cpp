@@ -647,7 +647,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                 MI2.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
                                 MI2.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
                                 if (!MiOpenResult)
-                                    return -1;
+                                    return (size_t)-1;
                                 Duration=MI2.Get(Stream_General, 0, General_Duration).To_float64()/1000;
                             }
 
@@ -657,18 +657,18 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                             DurationF/=File_Size_Total;
                             size_t DurationM=(size_t)(DurationF*1000);
                             Ztring DurationS;
-                            DurationS+=L'0'+DurationM/(10*60*60*1000); DurationM%=10*60*60*1000;
-                            DurationS+=L'0'+DurationM/(   60*60*1000); DurationM%=   60*60*1000;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(10*60*60*1000)); DurationM%=10*60*60*1000;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(   60*60*1000)); DurationM%=   60*60*1000;
                             DurationS+=L':';
-                            DurationS+=L'0'+DurationM/(   10*60*1000); DurationM%=   10*60*1000;
-                            DurationS+=L'0'+DurationM/(      60*1000); DurationM%=      60*1000;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(   10*60*1000)); DurationM%=   10*60*1000;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(      60*1000)); DurationM%=      60*1000;
                             DurationS+=L':';
-                            DurationS+=L'0'+DurationM/(      10*1000); DurationM%=      10*1000;
-                            DurationS+=L'0'+DurationM/(         1000); DurationM%=         1000;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(      10*1000)); DurationM%=      10*1000;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(         1000)); DurationM%=         1000;
                             DurationS+=L'.';
-                            DurationS+=L'0'+DurationM/(          100); DurationM%=          100;
-                            DurationS+=L'0'+DurationM/(           10); DurationM%=           10;
-                            DurationS+=L'0'+DurationM;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(          100)); DurationM%=          100;
+                            DurationS+=L'0'+(wchar_t)(DurationM/(           10)); DurationM%=           10;
+                            DurationS+=L'0'+(wchar_t)(DurationM);
 
                             CountOfReferencesToParse=References.size();
                             bool HasProblem=false;
@@ -713,18 +713,18 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         Duration*=Value;
                         Duration/=10000;
                         Ztring DurationS;
-                        DurationS+=L'0'+Duration/(10*60*60*1000); Duration%=10*60*60*1000;
-                        DurationS+=L'0'+Duration/(   60*60*1000); Duration%=   60*60*1000;
+                        DurationS+=L'0'+(wchar_t)(Duration/(10*60*60*1000)); Duration%=10*60*60*1000;
+                        DurationS+=L'0'+(wchar_t)(Duration/(   60*60*1000)); Duration%=   60*60*1000;
                         DurationS+=L':';
-                        DurationS+=L'0'+Duration/(   10*60*1000); Duration%=   10*60*1000;
-                        DurationS+=L'0'+Duration/(      60*1000); Duration%=      60*1000;
+                        DurationS+=L'0'+(wchar_t)(Duration/(   10*60*1000)); Duration%=   10*60*1000;
+                        DurationS+=L'0'+(wchar_t)(Duration/(      60*1000)); Duration%=      60*1000;
                         DurationS+=L':';
-                        DurationS+=L'0'+Duration/(      10*1000); Duration%=      10*1000;
-                        DurationS+=L'0'+Duration/(         1000); Duration%=         1000;
+                        DurationS+=L'0'+(wchar_t)(Duration/(      10*1000)); Duration%=      10*1000;
+                        DurationS+=L'0'+(wchar_t)(Duration/(         1000)); Duration%=         1000;
                         DurationS+=L'.';
-                        DurationS+=L'0'+Duration/(          100); Duration%=          100;
-                        DurationS+=L'0'+Duration/(           10); Duration%=           10;
-                        DurationS+=L'0'+Duration;
+                        DurationS+=L'0'+(wchar_t)(Duration/(          100)); Duration%=          100;
+                        DurationS+=L'0'+(wchar_t)(Duration/(           10)); Duration%=           10;
+                        DurationS+=L'0'+(wchar_t)(Duration);
 
                         CountOfReferencesToParse=References.size();
                         bool HasProblem=false;

@@ -214,7 +214,7 @@ bool File_SequenceInfo::FileHeader_Begin()
 
                         if (FileNumberCount<9)
                         {
-                            int32u FileNumber=FromZero?0:ReferenceFile.FileNames.size();
+                            size_t FileNumber=FromZero?0:ReferenceFile.FileNames.size();
                             do
                             {
                                 Number=Ztring::ToZtring(FileNumber);

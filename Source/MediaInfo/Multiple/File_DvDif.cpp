@@ -761,7 +761,7 @@ bool File_DvDif::Demux_UnpacketizeContainer_Test()
         if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
             return false; //No complete frame
         if (Demux_Offset+8*80>Buffer_Size && File_Offset+Buffer_Size==File_Size)
-            Demux_Offset=File_Size-File_Offset; //Using the complete buffer (no next sync)
+            Demux_Offset=(size_t)(File_Size-File_Offset); //Using the complete buffer (no next sync)
 
         Demux_UnpacketizeContainer_Demux();
     }
@@ -842,7 +842,7 @@ size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         case 2  :   //Timestamp
                     {
                         //We transform TimeStamp to a frame number
-                        Value=((float64)Value)*(DSF?25.000:(30.000*1000/1001))/1000000000;
+                        Value=float64_int64s(((float64)Value)*(DSF?25.000:(30.000*1000/1001))/1000000000);
                     }
                     //No break;
         case 3  :   //FrameNumber

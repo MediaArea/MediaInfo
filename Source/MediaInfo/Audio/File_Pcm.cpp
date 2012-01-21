@@ -334,7 +334,7 @@ void File_Pcm::Data_Parse()
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer && Demux_TotalBytes<=Buffer_TotalBytes+Buffer_Offset)
             {
-                Demux_Offset=Element_Size;
+                Demux_Offset=(size_t)Element_Size;
                 Demux_UnpacketizeContainer_Demux();
             }
         #endif //MEDIAINFO_DEMUX
@@ -396,7 +396,7 @@ void File_Pcm::VOB()
         }
         else
         {
-            Demux_Offset=Buffer_Offset+Element_Size;
+            Demux_Offset=Buffer_Offset+(size_t)Element_Size;
             Buffer_Offset+=6; //Header is dropped
             Demux_UnpacketizeContainer_Demux();
             Buffer_Offset-=6;

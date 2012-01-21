@@ -116,7 +116,7 @@ bool File_Exr::Demux_UnpacketizeContainer_Test()
     {
         size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
         if (File_Buffer_Size_Hint_Pointer)
-            (*File_Buffer_Size_Hint_Pointer)=File_Size;
+            (*File_Buffer_Size_Hint_Pointer)=(size_t)File_Size;
         return false;
     }
 

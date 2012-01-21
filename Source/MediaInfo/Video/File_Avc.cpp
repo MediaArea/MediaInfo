@@ -1685,53 +1685,50 @@ void File_Avc::slice_header()
             }
         }
 
-        if (true)
+        //Purging too big array
+        int32u MaxSize;
+        switch ((*seq_parameter_set_Item)->pic_order_cnt_type)
         {
-            //Purging too big array
-            int32u MaxSize;
+            case 0 : MaxSize=(*seq_parameter_set_Item)->MaxPicOrderCntLsb*2; break;
+            case 2 : MaxSize=(*seq_parameter_set_Item)->MaxFrameNum*2; break;
+            default: MaxSize=(int32u)TemporalReferences.size();
+        }
+        if (!Status[IsFilled])
+            MaxSize*=8; //If not yet filled, several GOPs are needed for GOP structure
+
+        if (TemporalReferences.size()>=MaxSize*2)
+        {
+            TemporalReferences.erase(TemporalReferences.begin(), TemporalReferences.begin()+MaxSize);
             switch ((*seq_parameter_set_Item)->pic_order_cnt_type)
             {
-                case 0 : MaxSize=(*seq_parameter_set_Item)->MaxPicOrderCntLsb*2; break;
-                case 2 : MaxSize=(*seq_parameter_set_Item)->MaxFrameNum*2; break;
+                case 0 :    prevPicOrderCntMsb-=MaxSize;
+                            prevTopFieldOrderCnt-=MaxSize;
+                            if (MaxSize<TemporalReferences_Offset)
+                                TemporalReferences_Offset-=MaxSize;
+                            else
+                                TemporalReferences_Offset=0;
+                            break;
+                case 2 :    if (MaxSize<TemporalReferences_Offset)
+                                TemporalReferences_Offset-=MaxSize;
+                            else
+                            {
+                                int32u Diff=MaxSize-(int32u)TemporalReferences_Offset;
+                                TemporalReferences_Offset=0;
+                                if (Diff<prevFrameNumOffset)
+                                    prevFrameNumOffset-=Diff;
+                                else
+                                    prevFrameNumOffset=0;
+                            }
+                            break;
                 default: ;
             }
-            if (!Status[IsFilled])
-                MaxSize*=8; //If not yet filled, several GOPs are needed for GOP structure
-
-            if (TemporalReferences.size()>=MaxSize*2)
-            {
-                TemporalReferences.erase(TemporalReferences.begin(), TemporalReferences.begin()+MaxSize);
-                switch ((*seq_parameter_set_Item)->pic_order_cnt_type)
-                {
-                    case 0 :    prevPicOrderCntMsb-=MaxSize;
-                                prevTopFieldOrderCnt-=MaxSize;
-                                if (MaxSize<TemporalReferences_Offset)
-                                    TemporalReferences_Offset-=MaxSize;
-                                else
-                                    TemporalReferences_Offset=0;
-                                break;
-                    case 2 :    if (MaxSize<TemporalReferences_Offset)
-                                    TemporalReferences_Offset-=MaxSize;
-                                else
-                                {
-                                    size_t Diff=MaxSize-TemporalReferences_Offset;
-                                    TemporalReferences_Offset=0;
-                                    if (Diff<prevFrameNumOffset)
-                                        prevFrameNumOffset-=Diff;
-                                    else
-                                        prevFrameNumOffset=0;
-                                }
-                                break;
-                    default: ;
-                }
-                TemporalReferences_Offset_pic_order_cnt_lsb_Last-=MaxSize;
-                #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-                    if (MaxSize<GA94_03_TemporalReferences_Offset)
-                        GA94_03_TemporalReferences_Offset-=MaxSize;
-                    else
-                        GA94_03_TemporalReferences_Offset=0;
-                #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-            }
+            TemporalReferences_Offset_pic_order_cnt_lsb_Last-=MaxSize;
+            #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                if (MaxSize<GA94_03_TemporalReferences_Offset)
+                    GA94_03_TemporalReferences_Offset-=MaxSize;
+                else
+                    GA94_03_TemporalReferences_Offset=0;
+            #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         }
     FILLING_END();
 }

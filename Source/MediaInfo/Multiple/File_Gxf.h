@@ -155,7 +155,7 @@ private :
         std::vector<int32u> Flt_Offsets; //In 1024-byte
         struct seek
         {
-            int32u FrameNumber;
+            int64u FrameNumber;
             int32u StreamOffset; //In 1024-byte
         };
         std::vector<seek> Seeks;

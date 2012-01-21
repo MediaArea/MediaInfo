@@ -614,7 +614,7 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         if (Streams.empty() || Gxf_FrameRate(Streams[0x00].FrameRate_Code)==0)
                             return (size_t)-1; //Not supported
 
-                        int64u Delay;
+                        int64u Delay=0;
                         if (TimeCodes.empty())
                         {
                             if (Material_Fields_First_IsValid)
@@ -623,6 +623,7 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 Delay=0;
                         }
                         else
+                        {
                             for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); TimeCode++)
                             {
                                 int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parser)->TimeCode_First;
@@ -631,9 +632,12 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 if (TimeCode_First==(int64u)-1)
                                     Delay=0;
                                 else
+                                {
                                     Delay=TimeCode_First*1000000;
-                                break;
+                                    break;
+                                }
                             }
+                        }
                                 
                         if (Value<Delay)
                             Value=0;

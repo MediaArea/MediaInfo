@@ -606,7 +606,7 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
     {
         if (Buffer_Temp_Size==0) //If there was no copy
         {
-            Buffer_Temp_Size=File_Offset+Buffer_Size-File_GoTo;
+            Buffer_Temp_Size=(size_t)(File_Offset+Buffer_Size-File_GoTo);
             if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<Buffer_Temp_Size)
             {
                 delete[] Buffer_Temp; Buffer_Temp=NULL; Buffer_Temp_Size=0; Buffer_Temp_Size_Max=0;
@@ -622,7 +622,7 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
         }
         else //Already a copy, just moving it
         {
-            Buffer_Temp_Size=File_Offset+Buffer_Size-File_GoTo;
+            Buffer_Temp_Size=(size_t)(File_Offset+Buffer_Size-File_GoTo);
             std::memmove(Buffer_Temp, Buffer+Buffer_Size-Buffer_Temp_Size, Buffer_Temp_Size);
         }
         File_Offset+=Buffer_Size-Buffer_Temp_Size;

@@ -45,7 +45,7 @@ class File_Eia708 : public File__Analyze
 public :
     //In
     int8u cc_type;
-    float32 AspectRatio;
+    float64 AspectRatio;
 
     //Constructor/Destructor
     File_Eia708();
