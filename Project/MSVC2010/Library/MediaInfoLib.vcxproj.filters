@@ -1044,7 +1044,7 @@
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.h">
-      <Filter>Header Files\Multiple</Filter>
+      <Filter>Header Files\Export</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
