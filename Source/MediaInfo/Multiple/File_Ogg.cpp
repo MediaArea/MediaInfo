@@ -88,7 +88,7 @@ void File_Ogg::Streams_Fill()
             Stream_Temp->second.StreamPos=Count_Get(Stream_Temp->second.StreamKind)-1;
             if (!SizedBlocks && !XiphLacing)
                 Stream_Temp->second.absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream_Temp->second.Parser)->absolute_granule_position_Resolution;
-            if (Stream_Temp->second.StreamKind==Stream_Audio, Stream_Temp->second.absolute_granule_position_Resolution==0)
+            if (Stream_Temp->second.StreamKind==Stream_Audio && Stream_Temp->second.absolute_granule_position_Resolution==0)
                 Stream_Temp->second.absolute_granule_position_Resolution=Retrieve(Stream_Audio, Stream_Temp->second.StreamPos, Audio_SamplingRate).To_int64u();
             if (!IsSub && Stream_Temp->second.absolute_granule_position && Stream_Temp->second.absolute_granule_position_Resolution)
             {
