@@ -38,6 +38,7 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/Export/Export_Mpeg7.h"
+#include "MediaInfo/Export/Export_reVTMD.h"
 #include "MediaInfo/Export/Export_PBCore.h"
 #include "MediaInfo/File__Analyze.h"
 //---------------------------------------------------------------------------
@@ -75,6 +76,8 @@ Ztring MediaInfo_Internal::Inform()
         return Export_Mpeg7().Transform(*this);
     if (MediaInfoLib::Config.Inform_Get()==_T("PBCore") || MediaInfoLib::Config.Inform_Get()==_T("PBCore_1.2"))
         return Export_PBCore().Transform(*this);
+    if (MediaInfoLib::Config.Inform_Get()==_T("reVTMD"))
+        return Export_reVTMD().Transform(*this);
 
     if (!(
         MediaInfoLib::Config.Inform_Get(_T("General")).empty()

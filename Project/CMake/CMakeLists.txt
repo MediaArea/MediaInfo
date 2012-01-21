@@ -85,6 +85,7 @@ set(mediainfo_SRCS
 	MediaInfo/Duplicate/File__Duplicate_MpegTs.cpp
 	MediaInfo/Export/Export_Mpeg7.cpp
 	MediaInfo/Export/Export_PBCore.cpp
+	MediaInfo/Export/Export_reVTMD.cpp
 	MediaInfo/Image/File_Bmp.cpp
 	MediaInfo/Image/File_Dpx.cpp
 	MediaInfo/Image/File_Exr.cpp

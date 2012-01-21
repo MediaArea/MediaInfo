@@ -791,6 +791,10 @@
 					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1447,6 +1451,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_reVTMD.h"
 					>
 				</File>
 			</Filter>

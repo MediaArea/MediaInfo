@@ -75,6 +75,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Duplicate/File__Duplicate_MpegTs.cpp \
                        ../../../Source/MediaInfo/Export/Export_Mpeg7.cpp \
                        ../../../Source/MediaInfo/Export/Export_PBCore.cpp \
+                       ../../../Source/MediaInfo/Export/Export_reVTMD.cpp \
                        ../../../Source/MediaInfo/Image/File_Bmp.cpp \
                        ../../../Source/MediaInfo/Image/File_Dpx.cpp \
                        ../../../Source/MediaInfo/Image/File_Exr.cpp \
