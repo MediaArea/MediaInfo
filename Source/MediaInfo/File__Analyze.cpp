@@ -2219,16 +2219,7 @@ void File__Analyze::Finish ()
 
 void File__Analyze::Finish (File__Analyze* Parser)
 {
-    if (Parser==NULL)
-        return;
-
-    if (File_Offset+Buffer_Offset+Element_Size>=File_Size)
-    {
-        Element_Size=0;
-        Parser->Buffer_Offset=(size_t)(Parser->File_Size-Parser->File_Offset);
-    }
-
-    Parser->ForceFinish(); //The base parser wants, and is prepared to it, so nothing can be cancelled --> ForceFinish() instead of Finish()
+    ForceFinish(Parser); //The base parser wants, and is prepared to it, so nothing can be cancelled --> ForceFinish() instead of Finish()
 }
 
 //---------------------------------------------------------------------------
