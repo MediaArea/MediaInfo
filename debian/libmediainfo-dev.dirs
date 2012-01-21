@@ -2,5 +2,5 @@ usr/lib
 usr/lib/pkgconfig
 usr/include/MediaInfo
 usr/include/MediaInfoDLL
-usr/share/doc/libmediainfo0-dev
-usr/share/doc/libmediainfo0-dev/Doc
+usr/share/doc/libmediainfo-dev
+usr/share/doc/libmediainfo-dev/Doc

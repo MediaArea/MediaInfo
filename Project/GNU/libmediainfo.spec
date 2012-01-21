@@ -21,7 +21,7 @@ Source0:		libmediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
-BuildRequires:	libzen0-devel >= %libzen_version
+BuildRequires:	libzen-devel >= %libzen_version
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
 BuildRequires:	doxygen
@@ -52,13 +52,13 @@ What format (container) does MediaInfo support?
 
 This package contains the shared library for MediaInfo.
 
-%package -n libmediainfo0-devel
+%package -n libmediainfo-devel
 Summary:	Include files and mandatory libraries for development
 Group:		Development/Libraries/C and C++
 Requires:	libmediainfo0 = %{version}
-Requires:	libzen0-devel >= %libzen_version
+Requires:	libzen-devel >= %libzen_version
 
-%description -n libmediainfo0-devel
+%description -n libmediainfo-devel
 Include files and mandatory libraries for development.
 
 %prep
@@ -129,7 +129,7 @@ popd
 %doc History.txt License.html ReadMe.txt
 %{_libdir}/libmediainfo.so.*
 
-%files -n libmediainfo0-devel
+%files -n libmediainfo-devel
 %defattr(-,root,root,-)
 %doc Changes.txt Documentation.html Doc Source/Example
 %dir %{_includedir}/MediaInfo
