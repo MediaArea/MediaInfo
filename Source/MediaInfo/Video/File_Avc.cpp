@@ -1488,12 +1488,7 @@ void File_Avc::slice_header()
                             else
                                 tempPicOrderCnt=2*(FrameNumOffset+frame_num)-1;
                             
-                            if (!field_pic_flag)
-                                pic_order_cnt=tempPicOrderCnt;
-                            else if (bottom_field_flag)
-                                pic_order_cnt=tempPicOrderCnt;
-                            else
-                                pic_order_cnt=tempPicOrderCnt;
+                            pic_order_cnt=tempPicOrderCnt;
 
                             prevFrameNum=frame_num;
                             prevFrameNumOffset=FrameNumOffset;
