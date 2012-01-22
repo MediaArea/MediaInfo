@@ -271,9 +271,9 @@ protected :
     inline void Element_Info (int64s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
     inline void Element_Info (int64u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
     inline void Element_Info (int128u       Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    #ifdef NEED_SIZET
+    #ifdef SIZET_IS_ULONG
     inline void Element_Info (size_t        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    #endif //NEED_SIZET
+    #endif //SIZET_IS_ULONG
     inline void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     inline void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     inline void Element_Info_From_Milliseconds (int64u Parameter)                  {Element_Info(Ztring().Duration_From_Milliseconds(Parameter));}
@@ -327,9 +327,9 @@ public :
     inline void Param      (const char*   Parameter, int128u Value){Param(Parameter, Ztring::ToZtring(Value)+_T(" (0x")+Ztring::ToZtring(Value, 16)+_T(")"));}
     inline void Param_GUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_GUID(Value));}
     inline void Param_UUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_UUID(Value));}
-    #ifdef NEED_SIZET
+    #ifdef SIZET_IS_ULONG
     inline void Param      (const char*   Parameter, size_t Value, intu Radix=16) {Param(Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")"));}
-    #endif //NEED_SIZET
+    #endif //SIZET_IS_ULONG
     inline void Param      (const char*   Parameter, float32 Value, int8u AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
     inline void Param      (const char*   Parameter, float64 Value, int8u AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
     inline void Param      (const char*   Parameter, float80 Value, int8u AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
@@ -351,9 +351,9 @@ public :
     inline void Param_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     inline void Param_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     inline void Param_Info (float80       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    #ifdef NEED_SIZET
+    #ifdef SIZET_IS_ULONG
     inline void Param_Info (size_t        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    #endif //NEED_SIZET
+    #endif //SIZET_IS_ULONG
     inline void Param_Info_From_Milliseconds (int64u Parameter)                  {Param_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //***************************************************************************
@@ -801,9 +801,9 @@ public :
     inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float32        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
     inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float64        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
     inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float80        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
-    #ifdef NEED_SIZET
+    #ifdef SIZET_IS_ULONG
     inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
-    #endif //NEED_SIZET
+    #endif //SIZET_IS_ULONG
     //Fill with datas
     void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const Ztring  &Value, bool Replace=false);
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value.c_str(), Value.size())); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value.c_str(), Value.size()), Replace);}
@@ -820,9 +820,9 @@ public :
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, float32        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, float64        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, float80        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
-    #ifdef NEED_SIZET
+    #ifdef SIZET_IS_ULONG
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
-    #endif //NEED_SIZET
+    #endif //SIZET_IS_ULONG
     ZtringListList Fill_Temp;
     void Fill_Flush ();
     size_t Fill_Parameter(stream_t StreamKind, generic StreamPos);
