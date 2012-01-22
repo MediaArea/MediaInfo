@@ -40,7 +40,7 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/TinyXml/tinyxml.h"
+#include "tinyxml.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ bool File_Ism::FileHeader_Begin()
         return false; //ISM files are not big
     }
 
-    TiXmlDocument document(File_Name.To_Local());
+    TiXmlDocument document(File_Name.To_Local().c_str());
     if (document.LoadFile())
     {
         TiXmlElement* Root=document.FirstChildElement("smil");
@@ -121,23 +121,23 @@ bool File_Ism::FileHeader_Begin()
             TiXmlElement* Body=Root->FirstChildElement();
             while (Body)
             {
-                if (Body->ValueStr()=="body")
+                if (string(Body->Value())=="body")
                 {
                     TiXmlElement* Switch=Body->FirstChildElement();
                     while (Switch)
                     {
-                        if (Switch->ValueStr()=="switch")
+                        if (string(Switch->Value())=="switch")
                         {
                             TiXmlElement* Stream=Switch->FirstChildElement();
                             while (Stream)
                             {
-                                if (Stream->ValueStr()=="video" || Stream->ValueStr()=="audio")
+                                if (string(Stream->Value())=="video" || string(Stream->Value())=="audio")
                                 {
                                     File__ReferenceFilesHelper::reference ReferenceFile;
 
-                                    if (Stream->ValueStr()=="video")
+                                    if (string(Stream->Value())=="video")
                                         ReferenceFile.StreamKind=Stream_Video;
-                                    if (Stream->ValueStr()=="audio")
+                                    if (string(Stream->Value())=="audio")
                                         ReferenceFile.StreamKind=Stream_Audio;
 
                                     const char* Attribute=Stream->Attribute("src");
@@ -147,7 +147,7 @@ bool File_Ism::FileHeader_Begin()
                                     TiXmlElement* Param=Stream->FirstChildElement();
                                     while (Param)
                                     {
-                                        if (Param->ValueStr()=="param")
+                                        if (string(Param->Value())=="param")
                                         {
                                             Attribute=Param->Attribute("name");
                                             if (Attribute && Ztring().From_UTF8(Attribute)==_T("trackID"))

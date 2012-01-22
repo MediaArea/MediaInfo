@@ -53,7 +53,7 @@
 #endif
 #if MEDIAINFO_DEMUX
     #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
-    #include "ZenLib/Base64/base64.h"
+    #include "base64.h"
 #endif //MEDIAINFO_DEMUX
 #include "ZenLib/Utils.h"
 using namespace ZenLib;

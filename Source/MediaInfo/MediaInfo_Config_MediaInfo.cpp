@@ -32,7 +32,7 @@
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include "ZenLib/ZtringListListF.h"
 #if MEDIAINFO_IBI
-    #include "ZenLib/Base64/base64.h"
+    #include "base64.h"
 #endif //MEDIAINFO_IBI
 #include <algorithm>
 #if MEDIAINFO_DEMUX

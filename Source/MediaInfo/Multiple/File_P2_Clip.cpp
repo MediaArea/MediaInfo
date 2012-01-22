@@ -40,7 +40,7 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/TinyXml/tinyxml.h"
+#include "tinyxml.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -121,7 +121,7 @@ bool File_P2_Clip::FileHeader_Begin()
         return false;
     }
 
-    TiXmlDocument document(File_Name.To_Local());
+    TiXmlDocument document(File_Name.To_Local().c_str());
     if (document.LoadFile())
     {
         TiXmlElement* Root=document.FirstChildElement("P2Main");
@@ -164,7 +164,7 @@ bool File_P2_Clip::FileHeader_Begin()
                     size_t Audio_Count=0;
                     while (Track)
                     {
-                        string Field=Track->ValueStr();
+                        string Field=Track->Value();
                         if (Field=="Video")
                         {
                             File__ReferenceFilesHelper::reference ReferenceFile;

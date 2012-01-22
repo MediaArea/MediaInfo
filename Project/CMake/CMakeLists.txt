@@ -2,16 +2,19 @@ project(mediainfo)
 
 set(MEDIAINFO_MAJOR_VERSION 0)
 set(MEDIAINFO_MINOR_VERSION 7)
-set(MEDIAINFO_PATCH_VERSION 9)
+set(MEDIAINFO_PATCH_VERSION 53)
 set(MEDIAINFO_VERSION ${MEDIAINFO_MAJOR_VERSION}.${MEDIAINFO_MINOR_VERSION}.${MEDIAINFO_PATCH_VERSION})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../)
 
 include_directories(${ZLIB_INCLUDE_DIR})
 
-add_definitions(-DUNICODE -DMEDIAINFO_MINIMIZESIZE)
+add_definitions(-DUNICODE)
 
 set(mediainfo_SRCS
+	tinyxml.cpp
+	tinyxmlerror.cpp
+	tinyxmlparser.cpp
 	MediaInfo/File__Analyze.cpp
 	MediaInfo/File__Analyze_Buffer.cpp
 	MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp

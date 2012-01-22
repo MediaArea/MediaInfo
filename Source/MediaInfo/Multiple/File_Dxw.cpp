@@ -40,7 +40,7 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/TinyXml/tinyxml.h"
+#include "tinyxml.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ bool File_Dxw::FileHeader_Begin()
         return false; //DXW files are not big
     }
 
-    TiXmlDocument document(File_Name.To_Local());
+    TiXmlDocument document(File_Name.To_Local().c_str());
     if (document.LoadFile())
     {
         TiXmlElement* Root=document.FirstChildElement("indexFile");
@@ -128,7 +128,7 @@ bool File_Dxw::FileHeader_Begin()
             TiXmlElement* Track=Root->FirstChildElement();
             while (Track)
             {
-                if (Track->ValueStr()=="clip")
+                if (string(Track->Value())=="clip")
                 {
                     File__ReferenceFilesHelper::reference ReferenceFile;
 
@@ -172,7 +172,7 @@ bool File_Dxw::FileHeader_Begin()
                         TiXmlElement* Frame=Track->FirstChildElement();
                         while (Frame)
                         {
-                            if (Frame->ValueStr()=="frame")
+                            if (string(Frame->Value())=="frame")
                             {
                                 Attribute=Frame->Attribute("file");
                                 if (Attribute)

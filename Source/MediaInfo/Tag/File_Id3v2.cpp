@@ -89,7 +89,7 @@ extern const char* Id3v2_PictureType(int8u Type)
 #include "MediaInfo/Tag/File_Id3v2.h"
 #include "ZenLib/ZtringListList.h"
 #include "ZenLib/Utils.h"
-#include "ZenLib/Base64/base64.h"
+#include "base64.h"
 #include <cstring>
 using namespace ZenLib;
 //---------------------------------------------------------------------------

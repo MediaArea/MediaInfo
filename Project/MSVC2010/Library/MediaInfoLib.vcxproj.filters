@@ -73,6 +73,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="extra">
+      <UniqueIdentifier>{45366669-16db-4223-8550-a40e7722a6af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp">
@@ -573,6 +576,15 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp">
       <Filter>Source Files\Export</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\tinyxml.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\tinyxmlerror.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\tinyxmlparser.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1045,6 +1057,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.h">
       <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\tinyxml.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\base64.h">
+      <Filter>extra</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

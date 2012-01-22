@@ -41,7 +41,7 @@
 #include "ZenLib/File.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/TinyXml/tinyxml.h"
+#include "tinyxml.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
 //---------------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ bool File_SequenceInfo::FileHeader_Begin()
         return false; //SequenceInfo files are not big
     }
 
-    TiXmlDocument document(File_Name.To_Local());
+    TiXmlDocument document(File_Name.To_Local().c_str());
     if (document.LoadFile())
     {
         TiXmlElement* Root=document.FirstChildElement("SEQUENCEINFO");

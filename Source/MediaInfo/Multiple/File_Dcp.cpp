@@ -40,7 +40,8 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/TinyXml/tinyxml.h"
+#define TIXML_USE_STL
+#include "tinyxml.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

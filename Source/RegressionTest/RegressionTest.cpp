@@ -21,8 +21,8 @@ int _tmain(int argc, _TCHAR* argv[])
     cout<<"Basic"<<endl;
     RegressionTest_Basic(Files, DataBaseDirectory, Scenario);
 
-    cout<<"Events"<<endl;
-    RegressionTest_Events(Files, DataBaseDirectory, Scenario);
+    //cout<<"Events"<<endl;
+    //RegressionTest_Events(Files, DataBaseDirectory, Scenario);
     
     return 0;
 }

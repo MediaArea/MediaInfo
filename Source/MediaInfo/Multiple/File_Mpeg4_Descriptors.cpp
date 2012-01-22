@@ -77,7 +77,7 @@
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
 #if MEDIAINFO_DEMUX
-    #include "ZenLib/Base64/base64.h"
+    #include "base64.h"
 #endif //MEDIAINFO_DEMUX
 //---------------------------------------------------------------------------
 

@@ -40,7 +40,7 @@
 #include "ZenLib/Dir.h"
 #include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
-#include "ZenLib/TinyXml/tinyxml.h"
+#include "tinyxml.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -75,7 +75,7 @@ bool File_Xdcam_Clip::FileHeader_Begin()
         return false;
     }
 
-    TiXmlDocument document(File_Name.To_Local());
+    TiXmlDocument document(File_Name.To_Local().c_str());
     if (document.LoadFile())
     {
         TiXmlElement* Root=document.FirstChildElement("NonRealTimeMeta");
