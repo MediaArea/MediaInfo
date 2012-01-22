@@ -159,7 +159,7 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(_T("Inform"), _T("Details;0.9"));
 
 
-     /*MediaInfo MII;
+     MediaInfo MII;
      MII.Option(_T("Demux"), _T("container"));
      MII.Option(_T("File_NextPacket"), _T("1"));
 
