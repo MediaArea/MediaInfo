@@ -1,6 +1,6 @@
 Source: mediainfo
 Priority: optional
-Maintainer: MediaArea.net <info@mediaarea.net>
+Maintainer: MediaArea.net SARL <info@mediaarea.net>
 Build-Depends: debhelper (>= 5), tofrodos, libmediainfo-dev (>= 0.7.52), libzen-dev (>= 0.4.23), libwxgtk2.6-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
