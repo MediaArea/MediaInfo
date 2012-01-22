@@ -16,7 +16,7 @@ Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
-Packager:		MediaArea.net <info@mediaarea.net>
+Packager:		MediaArea.net SARL <info@mediaarea.net>
 Source0:		libmediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
@@ -24,6 +24,7 @@ BuildRequires: 	gcc-c++
 BuildRequires:	libzen-devel >= %libzen_version
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
+BuildRequires: 	glibc-devel
 BuildRequires:	doxygen
 Requires:		libzen0 >= %libzen_version
 
@@ -66,7 +67,7 @@ Include files and mandatory libraries for development.
 cp           Release/ReadMe_DLL_Linux.txt ReadMe.txt
 mv           History_DLL.txt History.txt
 dos2unix     *.txt *.html Source/Doc/*.html
-%__chmod 644 *.txt *.html Source/Doc/*.html
+%__chmod 644 *.txt *.html Source/Doc/*.html Source/Example/*.*
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS"
@@ -81,7 +82,7 @@ cp Source/Doc/*.html ./
 pushd Project/GNU/Library
 	%__chmod +x autogen
 	./autogen
-	%configure --enable-shared --disable-libcurl --disable-libmms \
+	%configure --disable-static --enable-shared --disable-libcurl --disable-libmms \
 %if ( 0%{?centos_version} && 0%{?centos_version} < 500 ) || ( 0%{?rhel_version} && 0%{?rhel_version} < 500 )  
 %else
         --enable-visibility
@@ -136,12 +137,11 @@ popd
 %{_includedir}/MediaInfo/*
 %dir %{_includedir}/MediaInfoDLL
 %{_includedir}/MediaInfoDLL/*
-%{_libdir}/libmediainfo.a
 %{_libdir}/libmediainfo.la
 %{_libdir}/libmediainfo.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net <info@mediaarea.net> - 0.7.52-0
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.52-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>

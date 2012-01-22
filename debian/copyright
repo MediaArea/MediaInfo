@@ -1,11 +1,11 @@
-This package was debianized by MediaArea.net <info@mediaarea.net> on
+This package was debianized by MediaArea.net SARL <info@mediaarea.net> on
 Wed, 26 Nov 2008 20:19:43 +0100.
 
 It was downloaded from <http://mediainfo.sourceforge.net>
 
 Upstream Author(s):
 
-    MediaArea.net <info@mediaarea.net>
+    MediaArea.net SARL <info@mediaarea.net>
 
 Copyright:
 
@@ -15,7 +15,7 @@ License:
 
     LGPL
 
-The Debian packaging is (C) 2008, MediaArea.net <info@mediaarea.net> and
+The Debian packaging is (C) 2008, MediaArea.net SARL <info@mediaarea.net> and
 is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
 
 # Please also look if there are files or directories which have a
