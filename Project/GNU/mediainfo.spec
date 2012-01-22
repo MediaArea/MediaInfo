@@ -22,8 +22,8 @@ Source0:		mediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
-BuildRequires:	libmediainfo0-devel
-BuildRequires:	libzen0-devel >= %libzen_version
+BuildRequires:	libmediainfo-devel
+BuildRequires:	libzen-devel >= %libzen_version
 BuildRequires:	pkgconfig
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
