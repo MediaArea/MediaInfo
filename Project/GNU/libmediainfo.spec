@@ -9,7 +9,7 @@
 %define libmediainfo_version	0.7.52
 %define libzen_version			0.4.23
 
-Name:			libmediainfo0
+Name:			libmediainfo
 Version:		%libmediainfo_version
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
@@ -26,47 +26,88 @@ BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
 BuildRequires: 	glibc-devel
 BuildRequires:	doxygen
-Requires:		libzen0 >= %libzen_version
 
 %description
-MediaInfo supplies technical and tag information about a video or
-audio file.
+MediaInfo is a library used for retrieving technical information and other
+metadata about audio or video files.
 
-What information can I get from MediaInfo?
-* General: title, author, director, album, track number, date, duration...
-* Video: codec, aspect, fps, bitrate...
-* Audio: codec, sample rate, channels, language, bitrate...
-* Text: language of subtitle
-* Chapters: number of chapters, list of chapters
+A non-exhaustive list of the information MediaInfo can retrieve from media
+files include:
+ - General: title, author, director, album, track number, date, duration...
+ - Video: codec, aspect, fps, bitrate...
+ - Audio: codec, sample rate, channels, language, bitrate...
+ - Text: language of subtitle
+ - Chapters: number of chapters, list of chapters
 
-DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
-MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
-RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
-VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
+MediaInfo supports the following formats:
+ - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+          MPEG-4, DVD (VOB)...
+ - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ - Subtitles: SRT, SSA, ASS, SAMI...
 
-What format (container) does MediaInfo support?
-* Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
-  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
-  H.264, AVC...)
-* Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
-* Subtitles: SRT, SSA, ASS, SAMI
+%package -n libmediainfo0
+Summary:		Library for reading metadata from media files -- shared library
+Group:			System/Libraries
+Requires:		libzen0 >= %libzen_version
+Requires:		glibc
 
-This package contains the shared library for MediaInfo.
+%description -n libmediainfo0
+MediaInfo is a library used for retrieving technical information and other
+metadata about audio or video files.
+
+A non-exhaustive list of the information MediaInfo can retrieve from media
+files include:
+ - General: title, author, director, album, track number, date, duration...
+ - Video: codec, aspect, fps, bitrate...
+ - Audio: codec, sample rate, channels, language, bitrate...
+ - Text: language of subtitle
+ - Chapters: number of chapters, list of chapters
+
+MediaInfo supports the following formats:
+ - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+          MPEG-4, DVD (VOB)...
+ - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ - Subtitles: SRT, SSA, ASS, SAMI...
+
+This package contains the shared library needed for running applications which
+use this library.
 
 %package -n libmediainfo-devel
 Summary:	Include files and mandatory libraries for development
 Group:		Development/Libraries/C and C++
 Requires:	libmediainfo0 = %{version}
 Requires:	libzen-devel >= %libzen_version
+Requires:	glibc-devel
 
 %description -n libmediainfo-devel
-Include files and mandatory libraries for development.
+MediaInfo is a library used for retrieving technical information and other
+metadata about audio or video files.
+
+A non-exhaustive list of the information MediaInfo can retrieve from media
+files include:
+ - General: title, author, director, album, track number, date, duration...
+ - Video: codec, aspect, fps, bitrate...
+ - Audio: codec, sample rate, channels, language, bitrate...
+ - Text: language of subtitle
+ - Chapters: number of chapters, list of chapters
+
+MediaInfo supports the following formats:
+ - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+          MPEG-4, DVD (VOB)...
+ - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ - Subtitles: SRT, SSA, ASS, SAMI...
+
+This package contains the headers and other development support files needed
+for compiling and linking applications and libraries which use this library.
 
 %prep
 %setup -q -n MediaInfoLib
 cp           Release/ReadMe_DLL_Linux.txt ReadMe.txt
 mv           History_DLL.txt History.txt
-dos2unix     *.txt *.html Source/Doc/*.html
+dos2unix     *.txt *.html Source/Doc/*.html Source/Example/*.*
 %__chmod 644 *.txt *.html Source/Doc/*.html Source/Example/*.*
 
 %build
@@ -125,7 +166,7 @@ popd
 
 %postun -n libmediainfo0 -p /sbin/ldconfig
 
-%files
+%files -n libmediainfo0
 %defattr(-,root,root,-)
 %doc History.txt License.html ReadMe.txt
 %{_libdir}/libmediainfo.so.*
