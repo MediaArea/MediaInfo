@@ -516,7 +516,7 @@ bool File_Dts::FileHeader_Begin()
     if (Buffer_Size<4)
         return false; //Must wait for more data
 
-    //False positives detection: Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for saying WAV
+    //False positives detection: Detect WAV files, the parser can't detect it easily, there is only 70 bytes of beginning for saying WAV
     switch (CC4(Buffer))
     {
         case 0x52494646 : //"RIFF"

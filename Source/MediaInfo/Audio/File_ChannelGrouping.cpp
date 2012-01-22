@@ -72,7 +72,7 @@ File_ChannelGrouping::File_ChannelGrouping()
     Channel_Pos=0;
     Channel_Total=1;
     SampleRate=0;
-    Endianess=0;
+    Endianness=0;
 
     //Temp
     Buffer_Offset_AlreadyInCommon=0;
@@ -103,7 +103,7 @@ void File_ChannelGrouping::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-        switch (Endianess)
+        switch (Endianness)
         {
             case 'B' : Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Big"); break;
             case 'L' : Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little"); break;

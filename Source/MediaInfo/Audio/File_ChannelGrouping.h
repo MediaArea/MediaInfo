@@ -119,7 +119,7 @@ public :
     size_t  Channel_Pos;
     size_t  Channel_Total;
     int64u  SampleRate;
-    int8u   Endianess;
+    int8u   Endianness;
 
     //Constructor/Destructor
     File_ChannelGrouping();

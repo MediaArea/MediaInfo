@@ -48,7 +48,7 @@ public :
     bool    From_Raw;
     bool    From_MpegPs;
     bool    From_Aes3;
-    int8u   Endianess;
+    int8u   Endianness;
 
     //Out
     float64 FrameRate;

@@ -108,7 +108,7 @@ class MediaInfo
     /**
      * Opens a media file.
      * Overloads method {@link #Open(int, int, int, int)}
-     * @param  begin                          buffer with the begining of datas
+     * @param  begin                          buffer with the beginning of datas
      * @param  beginSize                      size of begin
      * @return                                1 for success and 0 for failure
      * @throws HandleNotInitializedException  if the handle is null
@@ -123,7 +123,7 @@ class MediaInfo
 
     /**
      * Opens a media file.
-     * @param  begin                          buffer with the begining of datas
+     * @param  begin                          buffer with the beginning of datas
      * @param  beginSize                      size of begin
      * @param  end                            buffer with the end of datas
      * @param  endSize                        size of end

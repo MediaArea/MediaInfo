@@ -21,7 +21,7 @@ public:
 
     // event handlers (these functions should _not_ be virtual)
     void OldFiles(wxCommandEvent& event);
-    void Ressources(wxCommandEvent& event);
+    void Resources(wxCommandEvent& event);
 
 private:
     wxTextCtrl* Text;

@@ -419,7 +419,7 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(fisbone)
     else
     {
-        Skip_XX(Element_Size,                                   "Unkown");
+        Skip_XX(Element_Size,                                   "Unknown");
         Accept("OggSubElement");
         Finish("OggSubElement");
         return;

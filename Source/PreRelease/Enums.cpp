@@ -62,7 +62,7 @@ ZenLib::Ztring Enums_Create_Item(const Ztring &Directory, const Ztring &Name, Zt
 
     //Load header
     Ztring Partial;
-    Result=Enums_Create_Load(L"../Source/Ressource/Text/Enums_.2.txt", Partial);
+    Result=Enums_Create_Load(L"../Source/Resource/Text/Enums_.2.txt", Partial);
     if (!Result.empty())
         return Result;
     Partial.FindAndReplace(L"%Name%", Ztring(Name).MakeLowerCase());
@@ -70,13 +70,13 @@ ZenLib::Ztring Enums_Create_Item(const Ztring &Directory, const Ztring &Name, Zt
 
     //Load line template
     Ztring Line;
-    Result=Enums_Create_Load(L"../Source/Ressource/Text/Enums_.5.txt", Line);
+    Result=Enums_Create_Load(L"../Source/Resource/Text/Enums_.5.txt", Line);
     if (!Result.empty())
         return Result;
 
     //Read input file
     ZtringListListF ZLL;
-    ZLL.Load(Ztring(L"../Source/Ressource/Text/")+Directory+L"/"+Name+L".csv");
+    ZLL.Load(Ztring(L"../Source/Resource/Text/")+Directory+L"/"+Name+L".csv");
     for (size_t Pos=0; Pos<ZLL.size(); Pos++)
     {
         Ztring Line_Temp=Line;
@@ -92,7 +92,7 @@ ZenLib::Ztring Enums_Create_Item(const Ztring &Directory, const Ztring &Name, Zt
     }
 
     //Load footer template
-    Result=Enums_Create_Load(L"../Source/Ressource/Text/Enums_.8.txt", Partial);
+    Result=Enums_Create_Load(L"../Source/Resource/Text/Enums_.8.txt", Partial);
     if (!Result.empty())
         return Result;
     Contents+=Partial;
@@ -109,7 +109,7 @@ ZenLib::Ztring Enums_Create()
     Ztring Contents;
 
     //Load header
-    Result=Enums_Create_Load(L"../Source/Ressource/Text/Enums_.1.txt", Contents);
+    Result=Enums_Create_Load(L"../Source/Resource/Text/Enums_.1.txt", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
@@ -155,7 +155,7 @@ ZenLib::Ztring Enums_Create()
     Out+=Contents;
 
     //Load footer
-    Result=Enums_Create_Load(L"../Source/Ressource/Text/Enums_.9.txt", Contents);
+    Result=Enums_Create_Load(L"../Source/Resource/Text/Enums_.9.txt", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

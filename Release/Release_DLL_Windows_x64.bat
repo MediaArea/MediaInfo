@@ -17,7 +17,7 @@ copy ..\Doc\*.* MediaInfoDLL_Windows_x64\Developers\Doc\
 rmdir Doc /S /Q
 xcopy ..\Source\Doc\*.html MediaInfoDLL_Windows_x64\Developers\ /S
 mkdir MediaInfoDLL_Windows_x64\Developers\List_Of_Parameters
-copy ..\Source\Ressource\Text\Stream\*.csv MediaInfoDLL_Windows_x64\Developers\List_Of_Parameters
+copy ..\Source\Resource\Text\Stream\*.csv MediaInfoDLL_Windows_x64\Developers\List_Of_Parameters
 
 rem --- Copying : Include ---
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\

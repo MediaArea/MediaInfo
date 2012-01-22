@@ -2832,7 +2832,7 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_rsrc()
 {
-    Element_Name("Ressource alias");
+    Element_Name("Resource alias");
 
     //Parsing
     Skip_B4(                                                    "Flags"); //bit 0 = external/internal data
@@ -4397,15 +4397,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda()
 {
     //Parsing
-    int16u Endianess;
-    Get_B2 (Endianess,                                          "Endianess");
+    int16u Endianness;
+    Get_B2 (Endianness,                                          "Endianness");
 
     if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
         return; //Handling only the first description
 
     FILLING_BEGIN();
         if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Endianness, Endianess?"Little":"Big", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Endianness, Endianness?"Little":"Big", Unlimited, true, true);
     FILLING_END();
 }
 

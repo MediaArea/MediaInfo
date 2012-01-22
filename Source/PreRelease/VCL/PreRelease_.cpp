@@ -5,7 +5,7 @@
 
 #include "PreRelease/VCL/PreRelease_.h"
 #include "PreRelease/OldFiles.h"
-#include "PreRelease/Ressources.h"
+#include "PreRelease/Resources.h"
 #include "PreRelease/Enums.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -25,7 +25,7 @@ void __fastcall TForm1::Testiftherearetoooldfiles1Click(TObject *Sender)
 
 void __fastcall TForm1::Updateressourcefiles1Click(TObject *Sender)
 {
-    Memo1->Text=Ressources_Create().c_str();
+    Memo1->Text=Resources_Create().c_str();
     Memo1->Text=Enums_Create().c_str();
 }
 //---------------------------------------------------------------------------

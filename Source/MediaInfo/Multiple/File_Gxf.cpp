@@ -1439,7 +1439,7 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
         Streams[TrackID].IsChannelGrouping=true;
     }
     Parser->Channel_Total=2;
-    Parser->Endianess='L';
+    Parser->Endianness='L';
     Parser->ByteDepth=3;
 
     #if MEDIAINFO_DEMUX

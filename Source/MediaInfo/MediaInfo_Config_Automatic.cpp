@@ -1056,7 +1056,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Windows Media;;;M;Wm;;asf wmv wma;video/x-ms-wmv;\n"
     "WebM;;;M;Mkv;;webm;video/webm;http://www.webmproject.org/\n"
     "AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html\n"
-    "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;;http://www.avs.org.cn/;Lossy\n"
+    "AVS Video;;;V;AvsV;Audio Video Standard, Video part;;;http://www.avs.org.cn/;Lossy\n"
     "Dirac;;;V;Dirac;;drc;;http://diracvideo.org/;Lossy\n"
     "FFV1;;;V;;;;;;Lossless\n"
     "FFV2;;;V;;;;;;Lossless\n"
@@ -2289,7 +2289,7 @@ void MediaInfo_Config_CodecID_Audio_Riff (InfoMap &Info)
     "31;GSM 6.10;Microsoft;;http://www.microsoft.com/windows/\n"
     "32;Microsoft Audio;;\n"
     "33;ADPCM;Antex;\n"
-    "34;VQLPC;Control Ressources;\n"
+    "34;VQLPC;Control Resources;\n"
     "35;REAL;DSP Solutions;\n"
     "36;ADPCM;DSP Solutions;\n"
     "37;CR10;;Control Resources 10\n"
@@ -3420,7 +3420,7 @@ void MediaInfo_Config_Codec (InfoMap &Info)
     "31;GSM 6.10;2CC;A;;;Microsoft GSM 6.10;http://www.microsoft.com/windows/\n"
     "32;MSAUDIO;2CC;A;;;Microsoft Audio\n"
     "33;ADPCM;2CC;A;ADPCM;;Antex ADPCM\n"
-    "34;VQLPC;2CC;A;;;Control Ressources VQLPC\n"
+    "34;VQLPC;2CC;A;;;Control Resources VQLPC\n"
     "35;REAL;2CC;A;;;DSP Solutions Digi-REAL\n"
     "36;ADPCM;2CC;A;ADPCM;;DSP Solutions Digi-ADPCM\n"
     "37;CR10;2CC;A;;;Control Resources 10\n"
@@ -4775,8 +4775,8 @@ void MediaInfo_Config_Menu (ZtringListList &Info)
     "Original/NetworkName;;;Y YT;;;;;Legal\n"
     "Countries;;;Y YT;;;;;Legal\n"
     "TimeZones;;;Y YT;;;;;Legal\n"
-    "Chapters_Pos_Begin;;;N NI;;;Used by third-party developpers to know about the begining of the chapters list, to be used by Get(Stream_Menu, x, Pos), where Pos is an Integer between Chapters_Pos_Begin and Chapters_Pos_End;\n"
-    "Chapters_Pos_End;;;N NI;;;Used by third-party developpers to know about the end of the chapters list (this position excluded)\n"
+    "Chapters_Pos_Begin;;;N NI;;;Used by third-party developers to know about the beginning of the chapters list, to be used by Get(Stream_Menu, x, Pos), where Pos is an Integer between Chapters_Pos_Begin and Chapters_Pos_End;\n"
+    "Chapters_Pos_End;;;N NI;;;Used by third-party developers to know about the end of the chapters list (this position excluded)\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

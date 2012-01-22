@@ -428,7 +428,7 @@ const char* Indx_title_search[]=
 //---------------------------------------------------------------------------
 const char* Mpls_playback_type[]=
 {
-    "Sequencial",
+    "Sequential",
     "Random",
     "Shuffle",
     "",
@@ -778,12 +778,12 @@ struct entry
     int16u ID2;
     int32u Length;
 };
-typedef std::map<int32u, entry> entries; //Key is the start adress
+typedef std::map<int32u, entry> entries; //Key is the start address
 
 //---------------------------------------------------------------------------
 void File_Bdmv::Clpi_ExtensionData()
 {
-    entries Entries; //Key is the start adress
+    entries Entries; //Key is the start address
 
     int32u Base_Pos=(int32u)Element_Offset-4;
 
@@ -909,7 +909,7 @@ void File_Bdmv::Indx_Indexes_Index(int8u object_type)
 void File_Bdmv::Indx_ExtensionData()
 {
     //Parsing
-    std::map<int32u, int32u> exts; //Key is the start adress, value is length
+    std::map<int32u, int32u> exts; //Key is the start address, value is length
     int64u Base_Offset=Element_Offset-4; //Size is included
     int8u number_of_ext_data_entries;
     Skip_B4(                                                    "data_block_start_adress");
@@ -1439,7 +1439,7 @@ void File_Bdmv::Mpls_PlayListMarks()
 //---------------------------------------------------------------------------
 void File_Bdmv::Mpls_ExtensionData()
 {
-    entries Entries; //Key is the start adress
+    entries Entries; //Key is the start address
 
     int32u Base_Pos=(int32u)Element_Offset-4;
 

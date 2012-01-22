@@ -28,12 +28,12 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-// For developper: you can disable or enable traces
+// For developer: you can disable or enable traces
 //#define MEDIAINFO_DEBUG_CONFIG
 //#define MEDIAINFO_DEBUG_BUFFER
 //#define MEDIAINFO_DEBUG_OUTPUT
 //#define MEDIAINFO_DEBUG_WARNING_GET
-// For developper: customization of traces
+// For developer: customization of traces
 #ifdef MEDIAINFO_DEBUG_BUFFER
     const size_t MEDIAINFO_DEBUG_BUFFER_SAVE_FileSize=128*1024*1024;
 #endif //MEDIAINFO_DEBUG_BUFFER

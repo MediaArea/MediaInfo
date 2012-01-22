@@ -134,7 +134,7 @@ const int8u  Dv_ChannelsPerBlock[]=
 const char*  Dv_Pair[]=
 {
     "One pair of channels",
-    "Independant channels",
+    "Independent channels",
 };
 
 //---------------------------------------------------------------------------

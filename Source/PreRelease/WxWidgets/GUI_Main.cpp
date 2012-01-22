@@ -5,12 +5,12 @@
 #include <wx/file.h>
 #include <wx/textctrl.h>
 #include "PreRelease/OldFiles.h"
-#include "PreRelease/Ressources.h"
+#include "PreRelease/Resources.h"
 //----------------------------------------------------------------------------
 //Menu
 BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     EVT_MENU(1,  GUI_Main::OldFiles)
-    EVT_MENU(2, GUI_Main::Ressources)
+    EVT_MENU(2, GUI_Main::Resources)
 END_EVENT_TABLE()
 
 // ----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ void GUI_Main::OldFiles(wxCommandEvent& WXUNUSED(event))
     Text->SetValue(OldFiles_Test().c_str());
 }
 
-void GUI_Main::Ressources(wxCommandEvent& WXUNUSED(event))
+void GUI_Main::Resources(wxCommandEvent& WXUNUSED(event))
 {
-    Text->SetValue(Ressources_Create().c_str());
+    Text->SetValue(Resources_Create().c_str());
 }

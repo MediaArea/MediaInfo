@@ -26,7 +26,7 @@ xcopy ..\Source\*.config MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.jsl MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.vb MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.java MediaInfo_Lib_Source\Source\ /S
-xcopy ..\Source\Ressource\*.txt MediaInfo_Lib_Source\Source\Ressource\ /S
+xcopy ..\Source\Resource\*.txt MediaInfo_Lib_Source\Source\Resource\ /S
 xcopy ..\Source\*.csv MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.dfm MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.au3 MediaInfo_Lib_Source\Source\ /S

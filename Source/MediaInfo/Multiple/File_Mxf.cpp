@@ -2581,7 +2581,7 @@ void File_Mxf::Header_Parse()
     if (Partitions_IsCalculatingSdtiByteCount)
     {
         if (!(Code_Compare1==Elements::SDTI_SystemMetadataPack1
-              && (Code_Compare2&0xFF00FFFF)==(Elements::SDTI_SystemMetadataPack2&0xFF00FFFF) //Independant of Category
+              && (Code_Compare2&0xFF00FFFF)==(Elements::SDTI_SystemMetadataPack2&0xFF00FFFF) //Independent of Category
               && Code_Compare3==Elements::SDTI_SystemMetadataPack3
               && (Code_Compare4&0xFFFF0000)==(Elements::SDTI_SystemMetadataPack4&0xFFFF0000)
           ||  Code_Compare1==Elements::Filler011
@@ -8766,15 +8766,15 @@ File__Analyze* File_Mxf::ChooseParser_Aes3(const essences::iterator &Essence, co
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==_T("Big"))
-                    Parser->Endianess='B';
+                    Parser->Endianness='B';
                 else
-                    Parser->Endianess='L';
+                    Parser->Endianness='L';
             }
             else
-                Parser->Endianess='L';
+                Parser->Endianness='L';
         }
         else
-            Parser->Endianess='L';
+            Parser->Endianness='L';
 
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
@@ -8842,15 +8842,15 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==_T("Big"))
-                    Parser->Endianess='B';
+                    Parser->Endianness='B';
                 else
-                    Parser->Endianess='L';
+                    Parser->Endianness='L';
             }
             else
-                Parser->Endianess='L';
+                Parser->Endianness='L';
         }
         else
-            Parser->Endianess='L';
+            Parser->Endianness='L';
 
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
@@ -8901,15 +8901,15 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, con
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==_T("Big"))
-                    Parser->Endianess='B';
+                    Parser->Endianness='B';
                 else
-                    Parser->Endianess='L';
+                    Parser->Endianness='L';
             }
             else
-                Parser->Endianess='L';
+                Parser->Endianness='L';
         }
         else
-            Parser->Endianess='L';
+            Parser->Endianness='L';
 
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)

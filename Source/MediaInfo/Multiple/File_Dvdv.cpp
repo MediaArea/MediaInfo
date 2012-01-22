@@ -1546,7 +1546,7 @@ void File_Dvdv::VMG_VTS_ATRT()
         Element_Begin("VTS_ATRT");
             Element_Begin("Header", 4);
                 int32u Size;
-                Get_B4 (Size,                                   "End adress");
+                Get_B4 (Size,                                   "End address");
                 Size++; //Last byte
             Element_End();
             Element_Begin("Copy of VTS Category", 4);

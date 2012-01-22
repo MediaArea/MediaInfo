@@ -80,7 +80,7 @@ private :
 
     //Temp
     int8u stream_type;
-    std::map<int32u, size_t> Types; //Key is the start adress
+    std::map<int32u, size_t> Types; //Key is the start address
     int64u Mpls_PlayList_Duration;
     int16u Mpls_PlayList_number_of_SubPaths;
     bool   Mpls_PlayList_IsParsed;
