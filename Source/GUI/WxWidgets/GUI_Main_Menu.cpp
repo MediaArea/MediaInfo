@@ -90,9 +90,9 @@ END_EVENT_TABLE()
 
 //---------------------------------------------------------------------------
 #ifndef __WXMSW__
-    #include "Ressource/Image/Menu/K20/File_Open_File.xpm"
-    #include "Ressource/Image/Menu/K20/File_Open_Directory.xpm"
-    #include "Ressource/Image/Menu/K20/Help_About.xpm"
+    #include "Resource/Image/Menu/K20/File_Open_File.xpm"
+    #include "Resource/Image/Menu/K20/File_Open_Directory.xpm"
+    #include "Resource/Image/Menu/K20/Help_About.xpm"
 #endif
 
 //***************************************************************************

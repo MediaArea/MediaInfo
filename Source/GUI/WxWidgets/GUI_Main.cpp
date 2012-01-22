@@ -36,7 +36,7 @@ using namespace std;
 
 //---------------------------------------------------------------------------
 #ifndef __WXMSW__
-    #include "Ressource/Image/MediaInfo.xpm"
+    #include "Resource/Image/MediaInfo.xpm"
 #endif
 //---------------------------------------------------------------------------
 
