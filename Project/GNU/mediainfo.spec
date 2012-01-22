@@ -142,7 +142,7 @@ popd
 # icon
 %__install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
 %__install -m 644 Source/Resource/Image/MediaInfo.png \
-	%{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+	%{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 %__install -dm 755 %{buildroot}%{_datadir}/pixmaps
 %__install -m 644 Source/Resource/Image/MediaInfo.png \
 	%{buildroot}%{_datadir}/pixmaps/%{name}.png
