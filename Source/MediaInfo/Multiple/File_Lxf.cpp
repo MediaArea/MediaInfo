@@ -849,7 +849,7 @@ void File_Lxf::Audio()
     #if MEDIAINFO_SEEK
         if (FrameRate==0 && Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin!=0)
             FrameRate=((float64)1)*720000/(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin);
-    #endif MEDIAINFO_SEEK
+    #endif //MEDIAINFO_SEEK
 
     Audio_Sizes_Pos=0;
     Element_ThisIsAList();
@@ -925,7 +925,7 @@ void File_Lxf::Video()
     #if MEDIAINFO_SEEK
         if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
             FrameRate=((float64)1)*720000/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
-    #endif MEDIAINFO_SEEK
+    #endif //MEDIAINFO_SEEK
 
     Video_Sizes_Pos=0;
     Element_ThisIsAList();

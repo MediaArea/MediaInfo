@@ -48,7 +48,7 @@ extern const int32u AC3_SamplingRate[]=
 { 48000,  44100,  32000,      0,};
 
 //---------------------------------------------------------------------------
-extern const char*  AC3_Mode[]=
+const char*  AC3_Mode[]=
 {
     "CM (complete main)",
     "ME (music and effects)",
@@ -61,7 +61,7 @@ extern const char*  AC3_Mode[]=
 };
 
 //---------------------------------------------------------------------------
-extern const char*  AC3_Surround[]=
+const char*  AC3_Surround[]=
 {
     "",
     "Not Dolby Surround encoded",

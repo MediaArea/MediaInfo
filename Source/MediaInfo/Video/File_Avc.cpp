@@ -737,7 +737,7 @@ bool File_Avc::Synched_Test()
         bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
         if (RandomAccess)
             Ibi_Add();
-    #endif MEDIAINFO_IBI
+    #endif //MEDIAINFO_IBI
 
     //We continue
     return true;
@@ -1303,7 +1303,7 @@ void File_Avc::slice_header()
             Event.Flags=0;
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
         }
-    #endif MEDIAINFO_EVENTS
+    #endif //MEDIAINFO_EVENTS
     Get_UE (pic_parameter_set_id,                               "pic_parameter_set_id");
     std::vector<pic_parameter_set_struct*>::iterator pic_parameter_set_Item;
     if (pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+pic_parameter_set_id))==NULL || !(*pic_parameter_set_Item)->IsSynched)

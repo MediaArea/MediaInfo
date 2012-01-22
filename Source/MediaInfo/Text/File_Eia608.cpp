@@ -170,7 +170,7 @@ void File_Eia608::Read_Buffer_Init()
 			FrameInfo.DUR=float64_int64s(((float64)1000000000)/Config->Demux_Rate_Get());
 		if (FrameInfo.DTS==(int64u)-1)
 			FrameInfo.DTS=Config->Demux_FirstDts_Get();
-	#endif MEDIAINFO_DEMUX
+	#endif //MEDIAINFO_DEMUX
     if (FrameInfo.DUR!=(int64u)-1)
     {
         if (FrameInfo.DTS==(int64u)-1)

@@ -892,7 +892,7 @@ bool File_Mpegv::Synched_Test()
                 Ibi_Add();
             Ibi_SliceParsed=false;
         }
-    #endif MEDIAINFO_IBI
+    #endif //MEDIAINFO_IBI
 
     //We continue
     return true;
@@ -1377,7 +1377,7 @@ void File_Mpegv::picture_start()
                 Event.Flags=0;
                 Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
             }
-        #endif MEDIAINFO_EVENTS
+        #endif //MEDIAINFO_EVENTS
 
         //Detection of first I-Frame
         if (!IFrame_IsParsed)
@@ -1643,7 +1643,7 @@ void File_Mpegv::slice_start()
 
         #if MEDIAINFO_IBI
             Ibi_SliceParsed=true;
-        #endif MEDIAINFO_IBI
+        #endif //MEDIAINFO_IBI
     FILLING_END();
 }
 

@@ -781,7 +781,7 @@ void File_DvDif::Read_Buffer_Unsynched()
         if (!IsSub && File_GoTo!=(int64u)-1 && (Frame_Count
     #if MEDIAINFO_SEEK
           || Duration_Detected
-    #endif MEDIAINFO_SEEK
+    #endif //MEDIAINFO_SEEK
           ) && !FSP_WasNotSet)
     {
         int64u BytesPerFrame=12000*(DSF?12:10);

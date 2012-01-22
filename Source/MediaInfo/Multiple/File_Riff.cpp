@@ -602,7 +602,7 @@ bool File_Riff::Header_Begin()
                     return false;
             }
             else
-        #endif MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX
         if (File_Offset+Buffer_Size<=Buffer_DataToParse_End)
             Element_Size=Buffer_Size; //All the buffer is used
         else

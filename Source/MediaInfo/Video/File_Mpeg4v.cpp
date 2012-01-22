@@ -283,7 +283,7 @@ bool File_Mpeg4v::Synched_Test()
         bool RandomAccess=Buffer[Buffer_Offset+3]==0xB0; //SequenceHeader
         if (RandomAccess)
             Ibi_Add();
-    #endif MEDIAINFO_IBI
+    #endif //MEDIAINFO_IBI
 
     //We continue
     return true;
@@ -1750,7 +1750,7 @@ void File_Mpeg4v::vop_start()
                 Event.Flags=0;
                 Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
             }
-        #endif MEDIAINFO_EVENTS
+        #endif //MEDIAINFO_EVENTS
     FILLING_END();
 }
 

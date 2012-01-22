@@ -372,7 +372,7 @@ void File_Cdp::ccdata_section()
                         #if defined(MEDIAINFO_EIA708_YES)
                             ((File_Eia708*)Streams[2]->Parser)->cc_type=cc_type;
                             ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
-                        #endif defined(MEDIAINFO_EIA708_YES)
+                        #endif //defined(MEDIAINFO_EIA708_YES)
                     }
                     else
                     {
