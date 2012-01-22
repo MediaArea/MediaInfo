@@ -13,7 +13,7 @@
 Name:			mediainfo
 Version:		%mediainfo_version
 Release:		1
-Summary:		Supplies technical and tag information about a video or audio file (CLI)
+Summary:		Command-line utility for reading information from audio/video files
 Group:			Productivity/Multimedia/Other
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
@@ -44,56 +44,67 @@ Requires:	libmediainfo0 >= %libmediainfo_version
 Requires:	libzen0 >= %libzen_version
 
 %description
-MediaInfo CLI (Command Line Interface).
+MediaInfo is a utility used for retrieving technical information and other
+metadata about audio or video files.
 
-What information can I get from MediaInfo?
-* General: title, author, director, album, track number, date, duration...
-* Video: codec, aspect, fps, bitrate...
-* Audio: codec, sample rate, channels, language, bitrate...
-* Text: language of subtitle
-* Chapters: number of chapters, list of chapters
+A non-exhaustive list of the information MediaInfo can retrieve from media
+files include:
+ - General: title, author, director, album, track number, date, duration...
+ - Video: codec, aspect, fps, bitrate...
+ - Audio: codec, sample rate, channels, language, bitrate...
+ - Text: language of subtitle
+ - Chapters: number of chapters, list of chapters
 
-DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
-MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
-RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
-VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
+MediaInfo supports the following formats:
+ - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+          MPEG-4, DVD (VOB)...
+ - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ - Subtitles: SRT, SSA, ASS, SAMI...
+MediaInfo supplies technical and tag information about a video or audio file
 
-What format (container) does MediaInfo support?
-* Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
-  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
-  H.264, AVC...)
-* Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
-* Subtitles: SRT, SSA, ASS, SAMI
+This package includes the command line interface.
+
 
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %package gui
-Summary:	Supplies technical and tag information about a video or audio file (GUI)
+Summary:	Graphical utility for reading information from audio/video files
 Group:		Productivity/Multimedia/Other
 Requires:	libzen0 >= %libzen_version
 Requires:	libmediainfo0 >= %{version}
+%if %{undefined rhel_version} || 0%{?rhel_version} < 600
+%if 0%{?mandriva_version}
+Requires:	libwxgtku2.8
+%else
+%if 0%{?suse_version} && 0%{?suse_version} >= 1140
+Requires:	wxWidgets
+%else
+Requires:	wxGTK
+%endif
+%endif
+%endif
 
 %description gui
-MediaInfo (Graphical User Interface).
+MediaInfo is a utility used for retrieving technical information and other
+metadata about audio or video files.
 
-What information can I get from MediaInfo?
-* General: title, author, director, album, track number, date, duration...
-* Video: codec, aspect, fps, bitrate...
-* Audio: codec, sample rate, channels, language, bitrate...
-* Text: language of subtitle
-* Chapters: number of chapters, list of chapters
+A non-exhaustive list of the information MediaInfo can retrieve from media
+files include:
+ - General: title, author, director, album, track number, date, duration...
+ - Video: codec, aspect, fps, bitrate...
+ - Audio: codec, sample rate, channels, language, bitrate...
+ - Text: language of subtitle
+ - Chapters: number of chapters, list of chapters
 
-DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
-MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
-RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
-VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
+MediaInfo supports the following formats:
+ - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+          MPEG-4, DVD (VOB)...
+ - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ - Subtitles: SRT, SSA, ASS, SAMI...
 
-What format (container) does MediaInfo support?
-* Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
-  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
-  H.264, AVC...)
-* Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
-* Subtitles: SRT, SSA, ASS, SAMI
+This package contains the graphical user interface.
 
 %endif
 
@@ -140,7 +151,7 @@ pushd Project/GNU/GUI
 popd
 
 # icon
-%__install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
+%__install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %__install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 %__install -dm 755 %{buildroot}%{_datadir}/pixmaps
 %__install -m 644 Source/Resource/Image/MediaInfoBig.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
@@ -186,9 +197,9 @@ popd
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
 %dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/128x128
-%dir %{_datadir}/icons/hicolor/128x128/apps
-%{_datadir}/icons/hicolor/128x128/apps/*.png
+%dir %{_datadir}/icons/hicolor/256x256
+%dir %{_datadir}/icons/hicolor/256x256/apps
+%{_datadir}/icons/hicolor/256x256/apps/*.png
 %dir %{_datadir}/apps
 %dir %{_datadir}/apps/konqueror
 %dir %{_datadir}/apps/konqueror/servicemenus
@@ -201,6 +212,6 @@ popd
 %endif
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net <info@mediaarea.net> - 0.7.52-0
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.52-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
