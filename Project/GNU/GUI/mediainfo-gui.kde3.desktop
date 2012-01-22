@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=mediainfo-gui.desktop
-Encoding=UTF-8
 ServiceTypes=audio/*,video/*,image/*,application/x-flash-video
 Actions=mediainfo-gui
 X-KDE-Priority=TopLevel
