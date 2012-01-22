@@ -531,24 +531,20 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
     }
 
     //Interlacement
-    bool Interlaced;
     if ((*seq_parameter_set_Item)->mb_adaptive_frame_field_flag && Structure_Frame>0) //Interlaced macro-block
     {
         Fill(Stream_Video, 0, Video_ScanType, "MBAFF");
         Fill(Stream_Video, 0, Video_Interlacement, "MBAFF");
-        Interlaced=false;
     }
     else if ((*seq_parameter_set_Item)->frame_mbs_only_flag || Structure_Field==0) //No interlaced frame
     {
         Fill(Stream_Video, 0, Video_ScanType, "Progressive");
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-        Interlaced=false;
     }
     else
     {
         Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
         Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
-        Interlaced=true;
     }
     std::string ScanOrders, PictureTypes;
     for (size_t Pos=0; Pos<TemporalReferences.size(); Pos++)
@@ -684,7 +680,7 @@ bool File_Avc::Synchronize()
         Buffer_Offset+=2;
         while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
             Buffer_Offset+=2;
-        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+        if (Buffer_Offset>=Buffer_Size || Buffer[Buffer_Offset-1]==0x00)
             Buffer_Offset--;
     }
     if (Buffer_Offset && Buffer[Buffer_Offset-1]==0x00)
@@ -770,7 +766,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
                 Demux_Offset+=2;
                 while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
                     Demux_Offset+=2;
-                if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                if (Demux_Offset>=Buffer_Size || Buffer[Demux_Offset-1]==0x00)
                     Demux_Offset--;
             }
 
@@ -1041,7 +1037,7 @@ bool File_Avc::Header_Parser_Fill_Size()
         Buffer_Offset_Temp+=2;
         while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
             Buffer_Offset_Temp+=2;
-        if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+        if (Buffer_Offset_Temp>=Buffer_Size || Buffer[Buffer_Offset_Temp-1]==0x00)
             Buffer_Offset_Temp--;
     }
 
@@ -1151,7 +1147,7 @@ void File_Avc::Data_Parse()
         Element_Offset_3Bytes+=2;
         while(Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes]!=0x00)
             Element_Offset_3Bytes+=2;
-        if (Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00 || Element_Offset_3Bytes>=Element_Size)
+        if (Element_Offset_3Bytes>=Element_Size || Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00)
             Element_Offset_3Bytes--;
     }
 
@@ -1535,6 +1531,7 @@ void File_Avc::slice_header()
         {
             if (Frame_Count==0)
             {
+                /*
                 int8u num_reorder_frames;
                 if ((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->bitstream_restriction)
                     num_reorder_frames=(*seq_parameter_set_Item)->vui_parameters->bitstream_restriction->num_reorder_frames;
@@ -1562,6 +1559,7 @@ void File_Avc::slice_header()
                                     }
                     }
                 }
+                */
                 if (FrameInfo.PTS==(int64u)-1)
                     FrameInfo.PTS=FrameInfo.DTS+tc*(TemporalReferences_Offset_pic_order_cnt_lsb_Diff?2:1)*((!(*seq_parameter_set_Item)->frame_mbs_only_flag && field_pic_flag)?2:1); //No PTS in container
                 PTS_Begin=FrameInfo.PTS;

@@ -2407,7 +2407,7 @@ void File_MpegTs::PSI()
         }
 
         //Item removal
-        if (pid==0x0000 || !Complete_Stream->Streams[pid]->Table_IDs.empty() && Complete_Stream->Streams[pid]->Table_IDs[0x02])
+        if (pid==0x0000 || (!Complete_Stream->Streams[pid]->Table_IDs.empty() && Complete_Stream->Streams[pid]->Table_IDs[0x02]))
         {
             for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
                 if (!Complete_Stream->StreamPos_ToRemove[StreamKind].empty())

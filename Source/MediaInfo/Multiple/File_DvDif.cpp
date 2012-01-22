@@ -636,7 +636,7 @@ bool File_DvDif::Synched_Test()
                         break;
             case 1 : //Subcode
                         if (!((DBN==0 && SCT_Old==0) || (DBN!=0 && SCT_Old==1))
-                         || Number!=DBN && !(Number==2 && DBN==0))
+                         || (Number!=DBN && !(Number==2 && DBN==0)))
                         {
                             if (!Status[IsAccepted])
                                 Trusted_IsNot("Wrong order");
@@ -646,7 +646,7 @@ bool File_DvDif::Synched_Test()
                         break;
             case 2 : //VAUX
                         if (!((DBN==0 && SCT_Old==1) || (DBN!=0 && SCT_Old==2))
-                         || Number!=DBN && !(Number==3 && DBN==0))
+                         || (Number!=DBN && !(Number==3 && DBN==0)))
                         {
                             if (!Status[IsAccepted])
                                 Trusted_IsNot("Wrong order");
@@ -656,7 +656,7 @@ bool File_DvDif::Synched_Test()
                         break;
             case 3 : //Audio
                         if (!((DBN==0 && SCT_Old==2) || (DBN!=0 && SCT_Old==4))
-                         || Number!=DBN && !(Number==9 && DBN==0))
+                         || (Number!=DBN && !(Number==9 && DBN==0)))
                         {
                             if (!Status[IsAccepted])
                                 Trusted_IsNot("Wrong order");
@@ -666,7 +666,7 @@ bool File_DvDif::Synched_Test()
                         break;
             case 4 : //Video
                         if (!(SCT_Old==3 || SCT_Old==4)
-                         || Number!=DBN && !(Number==135 && DBN==0))
+                         || (Number!=DBN && !(Number==135 && DBN==0)))
                         {
                             if (!Status[IsAccepted])
                                 Trusted_IsNot("Wrong order");

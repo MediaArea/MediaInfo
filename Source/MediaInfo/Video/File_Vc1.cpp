@@ -423,7 +423,7 @@ bool File_Vc1::Synched_Test()
         bool RandomAccess=Buffer[Buffer_Offset+3]==0x0F; //SequenceHeader
         if (RandomAccess)
             Ibi_Add();
-    #endif MEDIAINFO_IBI
+    #endif //MEDIAINFO_IBI
 
         //We continue
     return true;
@@ -502,7 +502,7 @@ bool File_Vc1::Demux_UnpacketizeContainer_Test()
                 Demux_Offset+=2;
                 while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
                     Demux_Offset+=2;
-                if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                if (Demux_Offset>=Buffer_Size || Buffer[Demux_Offset-1]==0x00)
                     Demux_Offset--;
             }
 
@@ -621,7 +621,7 @@ bool File_Vc1::Header_Parser_Fill_Size()
         Buffer_Offset_Temp+=2;
         while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
             Buffer_Offset_Temp+=2;
-        if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+        if (Buffer_Offset_Temp>=Buffer_Size || Buffer[Buffer_Offset_Temp-1]==0x00)
             Buffer_Offset_Temp--;
 
         if (start_code==0x0D) //FrameHeader, we need only few bytes
@@ -937,7 +937,7 @@ void File_Vc1::FrameHeader()
                 Event.Flags=0;
                 Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
             }
-        #endif MEDIAINFO_EVENTS
+        #endif //MEDIAINFO_EVENTS
     FILLING_END();
 
     Synched=false; //We do not have the complete FrameHeader

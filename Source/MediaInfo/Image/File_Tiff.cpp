@@ -272,7 +272,6 @@ void File_Tiff::Header_Parse()
         }
     }
 
-    /*
     /* A tiff images consist in principle of two types of blocks, IFD's and data blocks                       */
     /* Each datablock, which could be a image, tiles, transperancy filter is described by one IFD.            */
     /* These IFD's can be placed at any offset in the file and are linked in a chain fashion way.             */

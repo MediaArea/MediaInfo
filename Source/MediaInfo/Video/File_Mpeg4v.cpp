@@ -600,7 +600,7 @@ bool File_Mpeg4v::Demux_UnpacketizeContainer_Test()
                 Demux_Offset+=2;
                 while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
                     Demux_Offset+=2;
-                if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                if (Demux_Offset>=Buffer_Size || Buffer[Demux_Offset-1]==0x00)
                     Demux_Offset--;
             }
 
@@ -690,7 +690,7 @@ bool File_Mpeg4v::Header_Parser_Fill_Size()
         Buffer_Offset_Temp+=2;
         while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
             Buffer_Offset_Temp+=2;
-        if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+        if (Buffer_Offset_Temp>=Buffer_Size || Buffer[Buffer_Offset_Temp-1]==0x00)
             Buffer_Offset_Temp--;
     }
 
@@ -1211,15 +1211,13 @@ void File_Mpeg4v::user_data_start()
         bool OK=true;
         for (size_t Pos=0; Pos<4; Pos++)
         {
-            if (!(Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x20 && Pos
+            if (!((Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x20 && Pos)
                || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x22
                || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x27
                || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x28
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x29 && Pos
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x30
-               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x3F
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x41
-               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x7D))
+               || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x29 && Pos)
+               || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x30 && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x3F)
+               || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x41 && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x7D)))
             {
                 OK=false;
                 break;
@@ -1240,10 +1238,8 @@ void File_Mpeg4v::user_data_start()
     while (Library_End_Offset<Element_Size
         && (Buffer[Buffer_Offset+Library_End_Offset]==0x0D
          || Buffer[Buffer_Offset+Library_End_Offset]==0x0A
-         || Buffer[Buffer_Offset+Library_End_Offset]>=0x20
-         && Buffer[Buffer_Offset+Library_End_Offset]<=0x3F
-         || Buffer[Buffer_Offset+Library_End_Offset]>=0x41
-         && Buffer[Buffer_Offset+Library_End_Offset]<=0x7D))
+         || (Buffer[Buffer_Offset+Library_End_Offset]>=0x20 && Buffer[Buffer_Offset+Library_End_Offset]<=0x3F)
+         || (Buffer[Buffer_Offset+Library_End_Offset]>=0x41 && Buffer[Buffer_Offset+Library_End_Offset]<=0x7D)))
         Library_End_Offset++;
 
     //Parsing

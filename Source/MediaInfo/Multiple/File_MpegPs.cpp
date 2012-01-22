@@ -694,7 +694,7 @@ bool File_MpegPs::Synchronize()
         Buffer_Offset+=2;
         while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
             Buffer_Offset+=2;
-        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+        if (Buffer_Offset>=Buffer_Size || Buffer[Buffer_Offset-1]==0x00)
             Buffer_Offset--;
     }
 
@@ -1130,7 +1130,7 @@ void File_MpegPs::Read_Buffer_Continue()
             Buffer_Offset_Temp+=2;
             while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
                 Buffer_Offset_Temp+=2;
-            if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+            if (Buffer_Offset_Temp>=Buffer_Size || Buffer[Buffer_Offset_Temp-1]==0x00)
                 Buffer_Offset_Temp--;
         }
 
@@ -1274,7 +1274,7 @@ bool File_MpegPs::Header_Parse_Fill_Size()
         Buffer_Offset_Temp+=2;
         while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
             Buffer_Offset_Temp+=2;
-        if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+        if (Buffer_Offset_Temp>=Buffer_Size || Buffer[Buffer_Offset_Temp-1]==0x00)
             Buffer_Offset_Temp--;
     }
 
@@ -3900,7 +3900,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     Buffer_Offset+=2;
                     while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
                         Buffer_Offset+=2;
-                    if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                    if (Buffer_Offset>=Buffer_Size || Buffer[Buffer_Offset-1]==0x00)
                         Buffer_Offset--;
                 }
                 //Parsing last bytes if needed

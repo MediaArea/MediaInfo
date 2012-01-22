@@ -147,7 +147,7 @@ bool File_Vc3::Synchronize()
         Buffer_Offset+=2;
         while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
             Buffer_Offset+=2;
-        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+        if (Buffer_Offset>=Buffer_Size || Buffer[Buffer_Offset-1]==0x00)
             Buffer_Offset--;
     }
 

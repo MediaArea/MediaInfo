@@ -115,8 +115,8 @@ void File_Wm::Streams_Finish()
         //Codec Info
         for (size_t Pos=0; Pos<CodecInfos.size(); Pos++)
         {
-            if (CodecInfos[Pos].Type==1 && Temp->second.StreamKind==Stream_Video
-             || CodecInfos[Pos].Type==2 && Temp->second.StreamKind==Stream_Audio)
+            if ((CodecInfos[Pos].Type==1 && Temp->second.StreamKind==Stream_Video)
+             || (CodecInfos[Pos].Type==2 && Temp->second.StreamKind==Stream_Audio))
             {
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, "CodecID_Description", CodecInfos[Pos].Info, true);
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Codec_Description", CodecInfos[Pos].Info, true);

@@ -514,7 +514,7 @@ bool File_Gxf::Synchronize()
             while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
                 Buffer_Offset+=4;
             for (int8u Pos=0; Pos<3; Pos++)
-                if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                if (Buffer_Offset>=Buffer_Size || Buffer[Buffer_Offset-1]==0x00)
                     Buffer_Offset--;
         }
 

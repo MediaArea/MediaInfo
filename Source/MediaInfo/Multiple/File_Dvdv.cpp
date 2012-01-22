@@ -1234,6 +1234,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                 Skip_Flags(Flags, 22, Angle change);
                 Skip_Flags(Flags, 23, Karaoke audio mix change);
                 Skip_Flags(Flags, 24, Video presentation mode change);
+                */
                 /*
                 Skip_Flags(Flags,  0, Video presentation mode change);
                 Skip_Flags(Flags,  1, Karaoke audio mix change);

@@ -990,7 +990,7 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
                 Demux_Offset+=2;
                 while(Demux_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
                     Demux_Offset+=2;
-                if (Demux_Offset<Buffer_Size && Buffer[Demux_Offset-1]==0x00 || Demux_Offset>=Buffer_Size)
+                if (Demux_Offset>=Buffer_Size || Buffer[Demux_Offset-1]==0x00)
                     Demux_Offset--;
             }
 
@@ -1164,7 +1164,7 @@ bool File_Mpegv::Header_Parser_Fill_Size()
         Buffer_Offset_Temp+=2;
         while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
             Buffer_Offset_Temp+=2;
-        if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+        if (Buffer_Offset_Temp>=Buffer_Size || Buffer[Buffer_Offset_Temp-1]==0x00)
             Buffer_Offset_Temp--;
     }
 
@@ -1252,7 +1252,7 @@ void File_Mpegv::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Mpegv::Detect_EOF()
 {
-    if (IsSub && Status[IsFilled]
+    if ((IsSub && Status[IsFilled])
      || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && Config_ParseSpeed<=0.5))
     {
         if (MustExtendParsingDuration && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
@@ -1621,7 +1621,7 @@ void File_Mpegv::slice_start()
         //Filling only if not already done
         if (!Status[IsAccepted])
             Accept("MPEG Video");
-        if (!Status[IsFilled] && (!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if ((!Status[IsFilled] && (!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid)) || Frame_Count>=Frame_Count_Valid*10)
         {
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)
@@ -1711,10 +1711,8 @@ void File_Mpegv::user_data_start()
     while (Library_End_Offset<Element_Size
         && (Buffer[Buffer_Offset+Library_End_Offset]==0x0D
          || Buffer[Buffer_Offset+Library_End_Offset]==0x0A
-         || Buffer[Buffer_Offset+Library_End_Offset]>=0x20
-         && Buffer[Buffer_Offset+Library_End_Offset]<=0x3F
-         || Buffer[Buffer_Offset+Library_End_Offset]>=0x41
-         && Buffer[Buffer_Offset+Library_End_Offset]<=0x7D))
+         || (Buffer[Buffer_Offset+Library_End_Offset]>=0x20 && Buffer[Buffer_Offset+Library_End_Offset]<=0x3F)
+         || (Buffer[Buffer_Offset+Library_End_Offset]>=0x41 && Buffer[Buffer_Offset+Library_End_Offset]<=0x7D)))
         Library_End_Offset++;
 
     //Parsing

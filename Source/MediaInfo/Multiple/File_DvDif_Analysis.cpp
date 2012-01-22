@@ -387,10 +387,10 @@ void File_DvDif::Read_Buffer_Continue()
                     //Audio errors
                     if (Buffer[Buffer_Offset+8]==0x80)
                     {
-                        if (QU==0 && Buffer[Buffer_Offset+ 9]==0x00  //16-bit 0x8000
-                         || QU==1 && Buffer[Buffer_Offset+10]==0x00  //12-bit 0x800
-                         || QU==(int8u)-1 && (Buffer[Buffer_Offset+ 9]==0x00 && Buffer[Buffer_Offset+10]==0x80 && Buffer[Buffer_Offset+11]==0x00
-                                           || Buffer[Buffer_Offset+ 9]==0x80 && Buffer[Buffer_Offset+10]==0x00)) //In case of QU is not already detected
+                        if ((QU==0 && Buffer[Buffer_Offset+ 9]==0x00)  //16-bit 0x8000
+                         || (QU==1 && Buffer[Buffer_Offset+10]==0x00)  //12-bit 0x800
+                         || (QU==(int8u)-1 && ((Buffer[Buffer_Offset+ 9]==0x00 && Buffer[Buffer_Offset+10]==0x80 && Buffer[Buffer_Offset+11]==0x00)
+                                            || (Buffer[Buffer_Offset+ 9]==0x80 && Buffer[Buffer_Offset+10]==0x00)))) //In case of QU is not already detected
                         {
                             if (Audio_Errors.empty())
                                 Audio_Errors.resize(16);
@@ -867,8 +867,8 @@ void File_DvDif::Errors_Stats_Update()
                     size_t Audio_Errors_Count=0;
                     size_t Pos_Begin=(Channel%2)*(QU_System?6:5);
                     size_t Pos_End=(Channel%2+1)*(QU_System?6:5);
-                    if (Channel>=2 && !QU_FSC
-                     || Channel< 2 &&  QU_FSC)
+                    if ((Channel>=2 && !QU_FSC)
+                     || (Channel< 2 &&  QU_FSC))
                         Pos_End=Pos_Begin; //Not here
                     if (!Audio_Invalids.empty())
                         for (size_t Pos=Pos_Begin; Pos<Pos_End; Pos++)
@@ -948,8 +948,8 @@ void File_DvDif::Errors_Stats_Update()
                 Ztring Audio_Errors_Details;
                 size_t Pos_Begin=(Channel%2)*(QU_System?6:5);
                 size_t Pos_End=(Channel%2+1)*(QU_System?6:5);
-                if (Channel>=2 && !QU_FSC
-                 || Channel< 2 &&  QU_FSC
+                if ((Channel>=2 && !QU_FSC)
+                 || (Channel< 2 &&  QU_FSC)
                  || !CH_IsPresent[Channel])
                     Pos_End=Pos_Begin; //Not here
                 for (size_t Pos=Pos_Begin; Pos<Pos_End; Pos++)
@@ -1283,9 +1283,9 @@ void File_DvDif::Errors_Stats_Update()
     Speed_Contains_NULL=0;
     Frame_AtLeast1DIF=true;
     if (Buffer_Offset+2>=Buffer_Size
-     || Buffer[Buffer_Offset  ]==0x00
-     && Buffer[Buffer_Offset+1]==0x00
-     && Buffer[Buffer_Offset+2]==0x00)
+     || (Buffer[Buffer_Offset  ]==0x00
+      && Buffer[Buffer_Offset+1]==0x00
+      && Buffer[Buffer_Offset+2]==0x00))
         Frame_AtLeast1DIF=false;
     Video_STA_Errors.clear();
     Audio_Errors.clear();

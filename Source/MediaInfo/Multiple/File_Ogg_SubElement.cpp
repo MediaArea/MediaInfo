@@ -266,10 +266,7 @@ bool File_Ogg_SubElement::Header_Begin()
 void File_Ogg_SubElement::Header_Parse()
 {
     //Parsing
-    int64u SamplesCount;
-    int32u SamplesCount4;
-    int16u SamplesCount2;
-    int8u  SamplesCount1, Type;
+    int8u  Type;
     bool lenbytes0, lenbytes1, lenbytes2;
     if (Identified && WithType)
     {
@@ -289,22 +286,16 @@ void File_Ogg_SubElement::Header_Parse()
                 if (lenbytes1)
                 {
                     if (lenbytes0)
-                        //Get_L7 (SamplesCount,                   "SamplesCount");
-                        Element_Offset+=7;
+                        Skip_L7(                                 "SamplesCount");
                     else
-                        //Get_L6 (SamplesCount,                   "SamplesCount");
-                        Element_Offset+=6;
+                        Skip_L6(                                "SamplesCount");
                 }
                 else
                 {
                     if (lenbytes0)
-                        //Get_L5 (SamplesCount,                   "SamplesCount");
-                        Element_Offset+=5;
+                        Skip_L5(                                "SamplesCount");
                     else
-                    {
-                        Get_L4 (SamplesCount4,                  "SamplesCount");
-                        SamplesCount=SamplesCount4;
-                    }
+                        Skip_L4(                                "SamplesCount");
                 }
             }
             else
@@ -312,25 +303,14 @@ void File_Ogg_SubElement::Header_Parse()
                 if (lenbytes1)
                 {
                     if (lenbytes0)
-                    {
-                        Get_L3 (SamplesCount4,                  "SamplesCount");
-                        SamplesCount=SamplesCount4;
-                    }
+                        Skip_L3 (                               "SamplesCount");
                     else
-                    {
-                        Get_L2 (SamplesCount2,                  "SamplesCount");
-                        SamplesCount=SamplesCount2;
-                    }
+                        Skip_L2 (                               "SamplesCount");
                 }
                 else
                 {
                     if (lenbytes0)
-                    {
-                        Get_L1 (SamplesCount1,                  "SamplesCount");
-                        SamplesCount=SamplesCount1;
-                    }
-                    //else
-                    //    Get_L0 (SamplesCount,                   "SamplesCount");
+                        Skip_L1 (                               "SamplesCount");
                 }
             }
         }

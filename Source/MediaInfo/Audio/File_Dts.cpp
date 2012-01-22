@@ -945,8 +945,8 @@ void File_Dts::Header_Parse()
 void File_Dts::Data_Parse()
 {
     //Partial frame
-    if (Element_Code==0 && Header_Size+Element_Size<Primary_Frame_Byte_Size_minus_1
-     || Element_Code==1 && Header_Size+Element_Size<HD_size)
+    if ((Element_Code==0 && Header_Size+Element_Size<Primary_Frame_Byte_Size_minus_1)
+     || (Element_Code==1 && Header_Size+Element_Size<HD_size))
     {
         Element_Name("Partial frame");
         Skip_XX(Element_Size,                                   "Data");
@@ -1090,7 +1090,7 @@ void File_Dts::Core_XCh(int64u Size)
     BS_End();
     if (XChFSIZE==Element_Size-(Element_Offset-6))
         XChFSIZE--; //Compatibility reason (from specs)
-    if (XChFSIZE+1-6<=Size-2)
+    if ((int64u)XChFSIZE+1-6<=Size-2)
         Skip_XX(XChFSIZE+1-6,                                   "XCh data");
     else
         Skip_XX(Size-2,                                         "XCh data (with problem)");

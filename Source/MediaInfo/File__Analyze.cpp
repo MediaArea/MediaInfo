@@ -583,7 +583,7 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
     if (Element_IsWaitingForMoreData())
         return false; //Wait for more data
     Buffer_Offset+=(size_t)Element_Offset;
-    if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
+    if ((Status[IsFinished] && !ShouldContinueParsing) || Buffer_Offset>Buffer_Size || File_GoTo!=(int64u)-1)
         return false; //Finish
     #if MEDIAINFO_DEMUX
         if (Config->Demux_EventWasSent)
@@ -878,7 +878,7 @@ bool File__Analyze::Synchronize_0x000001()
         Buffer_Offset+=2;
         while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
             Buffer_Offset+=2;
-        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+        if ((Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00) || Buffer_Offset>=Buffer_Size)
             Buffer_Offset--;
     }
 
@@ -1190,7 +1190,7 @@ bool File__Analyze::Header_Manage()
         Header_Fill_Size(Element_Size);
     }
 
-    if (Element_IsWaitingForMoreData() || (DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size || File_GoTo!=(int64u)-1) //Wait or want to have a comple data chunk
+    if (Element_IsWaitingForMoreData() || ((DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size) || File_GoTo!=(int64u)-1) //Wait or want to have a comple data chunk
         #if MEDIAINFO_DEMUX
             || (Config->Demux_EventWasSent)
         #endif //MEDIAINFO_DEMUX

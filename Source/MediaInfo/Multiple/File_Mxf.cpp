@@ -2580,13 +2580,13 @@ void File_Mxf::Header_Parse()
     }
     if (Partitions_IsCalculatingSdtiByteCount)
     {
-        if (!(Code_Compare1==Elements::SDTI_SystemMetadataPack1
-              && (Code_Compare2&0xFF00FFFF)==(Elements::SDTI_SystemMetadataPack2&0xFF00FFFF) //Independent of Category
-              && Code_Compare3==Elements::SDTI_SystemMetadataPack3
-              && (Code_Compare4&0xFFFF0000)==(Elements::SDTI_SystemMetadataPack4&0xFFFF0000)
-          ||  Code_Compare1==Elements::Filler011
-           && (Code_Compare2&0xFFFFFF00)==(Elements::Filler012&0xFFFFFF00)
-           && Code_Compare3==Elements::Filler013))
+        if (!((Code_Compare1==Elements::SDTI_SystemMetadataPack1
+            && (Code_Compare2&0xFF00FFFF)==(Elements::SDTI_SystemMetadataPack2&0xFF00FFFF) //Independent of Category
+            && Code_Compare3==Elements::SDTI_SystemMetadataPack3
+            && (Code_Compare4&0xFFFF0000)==(Elements::SDTI_SystemMetadataPack4&0xFFFF0000))
+          || ((Code_Compare1==Elements::Filler011
+            && (Code_Compare2&0xFFFFFF00)==(Elements::Filler012&0xFFFFFF00)
+            && Code_Compare3==Elements::Filler013))))
         {
             if (Partitions_Pos<Partitions.size() && !SDTI_IsInIndexStreamOffset)
                 SDTI_SizePerFrame=File_Offset+Buffer_Offset-(Partitions[Partitions_Pos].StreamOffset+Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount);
@@ -3217,7 +3217,7 @@ void File_Mxf::Data_Parse()
                 }
 
                 //Disabling this Streams
-                if (!Essence->second.IsFilled && (Essence->second.Parser->Status[IsFinished] || Essence->second.Parser->Status[IsFilled]) || Config_ParseSpeed==0)
+                if (((!Essence->second.IsFilled && Essence->second.Parser->Status[IsFinished]) || Essence->second.Parser->Status[IsFilled]) || Config_ParseSpeed==0)
                 {
                     if (Streams_Count>0)
                         Streams_Count--;
@@ -3241,8 +3241,8 @@ void File_Mxf::Data_Parse()
         MustSynchronize=true;
     }
 
-    if (!IsParsingEnd && IsParsingMiddle_MaxOffset==(int64u)-1 && MediaInfoLib::Config.ParseSpeed_Get()<1.0
-     && (!IsSub && File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
+    if ((!IsParsingEnd && IsParsingMiddle_MaxOffset==(int64u)-1 && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+     && ((!IsSub && File_Offset>=0x4000000) //TODO: 64 MB by default (security), should be changed
       || (Streams_Count==0 && !Descriptors.empty())))
     {
         Fill();

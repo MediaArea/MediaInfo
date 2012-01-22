@@ -768,8 +768,11 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 {
                     Language_Orig=Languages[Pos][0];
                     Languages[Pos][0].MakeLowerCase();
-                    if (Languages[Pos][0].size()==3 && (Languages[Pos][0]==_T("mis") || Languages[Pos][0]==_T("und") || Languages[Pos][0]==_T("???") || Languages[Pos][0]==_T("   "))
-                     || Languages[Pos][0].size()==2 && Languages[Pos][0]==_T("  "))
+                    if ((Languages[Pos][0].size()==3 && (Languages[Pos][0]==_T("mis")
+                                                      || Languages[Pos][0]==_T("und")
+                                                      || Languages[Pos][0]==_T("???")
+                                                      || Languages[Pos][0]==_T("   ")))
+                     || (Languages[Pos][0].size()==2 && Languages[Pos][0]==_T("  ")))
                         Languages[Pos].clear();
                 }
 

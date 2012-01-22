@@ -436,7 +436,7 @@ void File_Aes3::Read_Buffer_Continue()
         {
             IsPcm_Frame_Count++;
             Buffer_Offset=0;
-            if (IsSub && Buffer_Size>32*1024 || (IsSub && IsPcm_Frame_Count>1) || ChannelCount==1)
+            if ((IsSub && Buffer_Size>32*1024) || (IsSub && IsPcm_Frame_Count>1) || ChannelCount==1)
             {
                 //Raw PCM
                 MustSynchronize=false;
@@ -1555,12 +1555,12 @@ void File_Aes3::Frame_FromMpegPs()
     BS_End();
 
     //Enough data
-    if (Element_Size<4+audio_packet_size)
+    if (Element_Size<4+(int64u)audio_packet_size)
     {
         Element_WaitForMoreData();
         return;
     }
-    if (Element_Size!=4+audio_packet_size)
+    if (Element_Size!=4+(int64u)audio_packet_size)
     {
         Trusted_IsNot("Wrong size");
         Skip_XX(Element_Size-4,                             "Problem?");

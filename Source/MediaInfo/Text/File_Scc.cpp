@@ -170,7 +170,7 @@ void File_Scc::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Scc::Data_Parse()
 {
-    while (Element_Offset<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset]==0x0D || Buffer[Buffer_Offset+(size_t)Element_Offset]==0x0A)
+    while (Element_Offset<Element_Size && (Buffer[Buffer_Offset+(size_t)Element_Offset]==0x0D || Buffer[Buffer_Offset+(size_t)Element_Offset]==0x0A))
         Element_Offset++;
     if (Element_Offset==Element_Size)
         return;

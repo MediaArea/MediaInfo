@@ -898,7 +898,7 @@ void File_Mpega::Data_Parse()
     }
 
     //Partial frame
-    if (Header_Size+Element_Size<(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer])
+    if (Header_Size+Element_Size<(int64u)((Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer]))
     {
         Element_Name("Partial frame");
         Skip_XX(Element_Size,                                   "Data");

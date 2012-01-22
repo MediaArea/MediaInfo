@@ -431,8 +431,8 @@ void File_Riff::Streams_Finish ()
 
     //Interleaved
     if (Interleaved0_1 && Interleaved0_10 && Interleaved1_1 && Interleaved1_10)
-        Fill(Stream_General, 0, General_Interleaved, (Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1
-                                                   || Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1)?"Yes":"No");
+        Fill(Stream_General, 0, General_Interleaved, ((Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1)
+                                                   || (Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1))?"Yes":"No");
 
     //Time codes
     TimeCode_Fill(_T("ISMP"), INFO_ISMP);

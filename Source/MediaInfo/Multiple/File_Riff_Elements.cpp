@@ -2439,11 +2439,11 @@ void File_Riff::AVI__movi_xxxx___tx()
 void File_Riff::AVI__movi_xxxx___wb()
 {
     //Finish (if requested)
-    if ( Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
-     && (Stream[Stream_ID].Parsers.empty()
-      || Stream[Stream_ID].Parsers[0]->Status[IsFinished]
-      || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
-      || Element_Size>50000) //For PCM, we disable imediatly
+    if ((Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
+      && (Stream[Stream_ID].Parsers.empty()
+       || Stream[Stream_ID].Parsers[0]->Status[IsFinished]
+       || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00)))
+     || Element_Size>50000) //For PCM, we disable imediatly
     {
         Stream[Stream_ID].SearchingPayload=false;
         stream_Count--;
