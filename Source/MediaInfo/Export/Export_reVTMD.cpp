@@ -84,7 +84,7 @@ void reVTMD_Transform__Codec (Ztring &ToReturn, MediaInfo_Internal &MI, stream_t
             Encoded_Library_Date.FindAndReplace(_T(" "), _T("T"));
             Encoded_Library_Date+=_T('Z');
         }
-        ToReturn+=(IsCodec?_T("\t"):_T(""))+(_T("\t\t\t<creatorLibDate>")+Encoded_Library_Date)+_T("</creatorLibDate>\n");
+        ToReturn+=(IsCodec?_T("\t"):_T(""))+(_T("\t\t\t<creatorLibDate>")+MI.Xml_Content_Escape(Encoded_Library_Date))+_T("</creatorLibDate>\n");
     }
 
     //name
@@ -112,7 +112,7 @@ void reVTMD_Transform__Codec (Ztring &ToReturn, MediaInfo_Internal &MI, stream_t
             ToReturn+=_T("audio/x-");
         else
             ToReturn+=_T("application/x-");
-        ToReturn+=Ztring(MI.Get(StreamKind, StreamPos, _T("Format"))).MakeLowerCase();
+        ToReturn+=MI.Xml_Content_Escape(Ztring(MI.Get(StreamKind, StreamPos, _T("Format"))).MakeLowerCase());
         ToReturn+=_T("</mimetype>\n");
     }
 
@@ -180,7 +180,7 @@ void reVTMD_Transform_Track(Ztring &ToReturn, MediaInfo_Internal &MI, stream_t S
         Modified_Date.FindAndReplace(_T("UTC "), _T(""));
         Modified_Date.FindAndReplace(_T(" "), _T("T"));
         Modified_Date+=_T('Z');
-        ToReturn+=_T("\t\t<date type=\"file modification\">")+Modified_Date+_T("</date>\n");
+        ToReturn+=_T("\t\t<date type=\"file modification\">")+MI.Xml_Content_Escape(Modified_Date)+_T("</date>\n");
     }
 
     //duration
@@ -210,8 +210,8 @@ void reVTMD_Transform_Track(Ztring &ToReturn, MediaInfo_Internal &MI, stream_t S
             ToReturn+=_T("\t\t\t<timecode");
             Ztring Source=List_Source(Pos);
             if (!Source.empty())
-                ToReturn+=_T(" recordMethod=\"")+Source+_T('\"');
-            ToReturn+=_T(">")+List_Value(Pos)+_T("</timecode>\n");
+                ToReturn+=_T(" recordMethod=\"")+MI.Xml_Content_Escape(Source)+_T('\"');
+            ToReturn+=_T(">")+MI.Xml_Content_Escape(List_Value(Pos))+_T("</timecode>\n");
         }
     }
 
@@ -462,9 +462,9 @@ Ztring Export_reVTMD::Transform(MediaInfo_Internal &MI)
 
     //filename
     ToReturn+=_T("\t\t<filename>");
-    ToReturn+=MI.Get(Stream_General, 0, General_FileName);
+    ToReturn+=MI.Xml_Content_Escape(MI.Get(Stream_General, 0, General_FileName));
     if (!MI.Get(Stream_General, 0, General_FileExtension).empty())
-        ToReturn+=_T('.')+MI.Get(Stream_General, 0, General_FileExtension);
+        ToReturn+=_T('.')+MI.Xml_Content_Escape(MI.Get(Stream_General, 0, General_FileExtension));
     ToReturn+=_T("</filename>\n");
 
     //identifier
@@ -479,11 +479,11 @@ Ztring Export_reVTMD::Transform(MediaInfo_Internal &MI)
             {
                 ToReturn+=_T("\t\t<identifier");
                 if (!List[Pos](2).empty())
-                    ToReturn+=_T(" annotation=\"")+List[Pos](2)+_T('\"');
+                    ToReturn+=_T(" annotation=\"")+MI.Xml_Content_Escape(List[Pos](2))+_T('\"');
                 if (!List[Pos](1).empty())
-                    ToReturn+=_T(" type=\"")+List[Pos](1)+_T('\"');
+                    ToReturn+=_T(" type=\"")+MI.Xml_Content_Escape(List[Pos](1))+_T('\"');
                 ToReturn+=_T(">");
-                ToReturn+=List[Pos](0);
+                ToReturn+=MI.Xml_Content_Escape(List[Pos](0));
                 ToReturn+=_T("</identifier>\n");
             }
     }
@@ -493,7 +493,7 @@ Ztring Export_reVTMD::Transform(MediaInfo_Internal &MI)
     {
         ToReturn+=_T("\t\t<organization>\n");
         ToReturn+=_T("\t\t\t<organization_main>\n");
-        ToReturn+=_T("\t\t\t\t<name>")+MI.Get(Stream_General, 0, General_Archival_Location)+_T("</name>\n");
+        ToReturn+=_T("\t\t\t\t<name>")+MI.Xml_Content_Escape(MI.Get(Stream_General, 0, General_Archival_Location))+_T("</name>\n");
         ToReturn+=_T("\t\t\t</organization_main>\n");
         ToReturn+=_T("\t\t</organization>\n");
     }
@@ -505,7 +505,7 @@ Ztring Export_reVTMD::Transform(MediaInfo_Internal &MI)
         Modified_Date.FindAndReplace(_T("UTC "), _T(""));
         Modified_Date.FindAndReplace(_T(" "), _T("T"));
         Modified_Date+=_T('Z');
-        ToReturn+=_T("\t\t<date type=\"file modification\">")+Modified_Date+_T("</date>\n");
+        ToReturn+=_T("\t\t<date type=\"file modification\">")+MI.Xml_Content_Escape(Modified_Date)+_T("</date>\n");
     }
 
     //duration
@@ -532,7 +532,7 @@ Ztring Export_reVTMD::Transform(MediaInfo_Internal &MI)
 
     //location
     if (!MI.Get(Stream_General, 0, General_CompleteName).empty())
-        ToReturn+=_T("\t\t<location type=\"URN\">")+MI.Get(Stream_General, 0, General_CompleteName)+_T("</location>\n");
+        ToReturn+=_T("\t\t<location type=\"URN\">")+MI.Xml_Content_Escape(MI.Get(Stream_General, 0, General_CompleteName))+_T("</location>\n");
 
     //checksum
     //TODO, not yet available in MI
