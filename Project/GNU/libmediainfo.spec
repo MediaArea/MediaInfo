@@ -12,7 +12,7 @@
 Name:			libmediainfo
 Version:		%libmediainfo_version
 Release:		1
-Summary:		Supplies technical and tag information about a video or audio file
+Summary:		Library for reading information from media files
 Group:			System/Libraries
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
@@ -47,7 +47,7 @@ MediaInfo supports the following formats:
  - Subtitles: SRT, SSA, ASS, SAMI...
 
 %package -n libmediainfo0
-Summary:		Library for reading metadata from media files -- shared library
+Summary:		Library for reading information from media files -- shared library
 Group:			System/Libraries
 Requires:		libzen0 >= %libzen_version
 Requires:		glibc
@@ -75,7 +75,7 @@ This package contains the shared library needed for running applications which
 use this library.
 
 %package -n libmediainfo-devel
-Summary:	Include files and mandatory libraries for development
+Summary:	Library for reading information from media files -- development files
 Group:		Development/Libraries/C and C++
 Requires:	libmediainfo0 = %{version}
 Requires:	libzen-devel >= %libzen_version
