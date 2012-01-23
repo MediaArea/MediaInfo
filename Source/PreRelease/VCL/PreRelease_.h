@@ -16,9 +16,9 @@ __published:	// IDE-managed Components
     TMemo *Memo1;
     TMenuItem *File1;
     TMenuItem *Testiftherearetoooldfiles1;
-    TMenuItem *Updateressourcefiles1;
+    TMenuItem *Updateresourcefiles1;
     void __fastcall Testiftherearetoooldfiles1Click(TObject *Sender);
-    void __fastcall Updateressourcefiles1Click(TObject *Sender);
+    void __fastcall Updateresourcefiles1Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);

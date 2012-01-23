@@ -72,37 +72,14 @@
 			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
-			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
-				<BuildOrder>7</BuildOrder>
+			<CppCompile Include="PreRelease.cpp">
+				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>0</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
-				<BuildOrder>6</BuildOrder>
-				<BuildOrder>1</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib">
-				<BuildOrder>8</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</LibFiles>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
-				<BuildOrder>3</BuildOrder>
-				<BuildOrder>10</BuildOrder>
-			</CppCompile>
-			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_core.lib">
-				<BuildOrder>9</BuildOrder>
-				<BuildOrder>4</BuildOrder>
-			</LibFiles>
-			<CppCompile Include="..\..\..\Source\PreRelease\Enums.cpp">
-				<BuildOrder>5</BuildOrder>
 			</CppCompile>
 			<ResFiles Include="PreRelease.res">
 				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>1</BuildOrder>
 			</ResFiles>
-			<CppCompile Include="PreRelease.cpp">
-				<BuildOrder>-1</BuildOrder>
-				<BuildOrder>0</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\Source\PreRelease\VCL\PreRelease_.cpp">
 				<BuildOrder>8</BuildOrder>
 				<Form>Form1</Form>
@@ -113,8 +90,30 @@
 				<BuildOrder>9</BuildOrder>
 				<BuildOrder>4</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\PreRelease\Ressources.cpp">
+			<CppCompile Include="..\..\..\Source\PreRelease\Enums.cpp">
+				<BuildOrder>5</BuildOrder>
+			</CppCompile>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<BuildOrder>6</BuildOrder>
+				<BuildOrder>1</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<BuildOrder>7</BuildOrder>
+				<BuildOrder>0</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib">
+				<BuildOrder>8</BuildOrder>
+				<BuildOrder>2</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_core.lib">
+				<BuildOrder>9</BuildOrder>
+				<BuildOrder>4</BuildOrder>
+			</LibFiles>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
 				<BuildOrder>3</BuildOrder>
+				<BuildOrder>10</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\PreRelease\Resources.cpp">
 				<BuildOrder>10</BuildOrder>
 			</CppCompile>
 			<FormResources Include="..\..\..\Source\PreRelease\VCL\PreRelease_.dfm"/>

@@ -33,9 +33,9 @@ object Form1: TForm1
         Caption = 'Test if there are too old files'
         OnClick = Testiftherearetoooldfiles1Click
       end
-      object Updateressourcefiles1: TMenuItem
-        Caption = 'Update ressource files'
-        OnClick = Updateressourcefiles1Click
+      object Updateresourcefiles1: TMenuItem
+        Caption = 'Update resource files'
+        OnClick = Updateresourcefiles1Click
       end
     end
   end

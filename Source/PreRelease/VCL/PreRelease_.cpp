@@ -23,7 +23,7 @@ void __fastcall TForm1::Testiftherearetoooldfiles1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Updateressourcefiles1Click(TObject *Sender)
+void __fastcall TForm1::Updateresourcefiles1Click(TObject *Sender)
 {
     Memo1->Text=Resources_Create().c_str();
     Memo1->Text=Enums_Create().c_str();
