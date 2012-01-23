@@ -3,7 +3,7 @@
   Author_Name;ประสิทธิ์ แคภูเขียว
   Author_OldNames;Initial translator
   Language_Name;ไทย
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
 Accompaniment;Accompaniment
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;นักแสดง
 Actor_Character;Character played
 Added_Date;
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
+Compilation;
 CompleteName;ชื่อเต็ม
 Composer;ผู้เรียบเรียง
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
-Compilation;
 Conductor;ผู้อำนวยเพลง
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
 ContentType;ชนิดที่บรรจุ
@@ -315,6 +317,7 @@ Folder_Hint;เลือกโฟลเดอร์เพื่อเรีย�
 FolderName;ชื่อโฟลเดอร์
 Format;รูปแบบ
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
 Format_Profile;โพรไฟล์รูปแบบ
@@ -887,6 +890,10 @@ Show toolbar;แสดงแถบเครื่องมือ
 Sort;จัดเรียงโดย
 SamplingCount;
 SoundEngineer;ซาวน์เอนจิเนียร์
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;มาตรฐาน
 Stream;สตรีม
 Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยวกับสตรีม
@@ -965,4 +972,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;89
+ZZ_AutomaticLanguage_Percent;88

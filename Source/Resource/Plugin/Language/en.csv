@@ -3,7 +3,7 @@
   Author_Name;Zen
   Author_OldNames;Initial translator
   Language_Name;English
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
+ActiveFormatDescription;Active Format Description
+ActiveFormatDescription_MuxingMode;Active Format Description, Muxing mode
 Actor;Actor
 Actor_Character;Character played
 Added_Date;Added date
@@ -233,13 +235,13 @@ ColorSpace;Color space
 colour_primaries;Color primaries
 Comment;Comment
 CommissionedBy;Commissioned by
+Compilation;Compilation
 CompleteName;Complete name
 Composer;Composer
 Compression_Mode;Compression mode
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Compression ratio
-Compilation;Compilation
 Conductor;Conductor
 Container and general information;Container and general information
 ContentType;ContentType
@@ -315,6 +317,7 @@ Folder_Hint;Select a folder to examine
 FolderName;Folder name
 Format;Format
 Format_Commercial;Commercial name
+Format_Commercial_IfAny;Commercial name
 Format_Description;Format description
 Format_Info;Details for format
 Format_Profile;Format profile
@@ -887,6 +890,10 @@ Show toolbar;Show toolbar
 Sort;Sorted by
 SamplingCount;Samples count
 SoundEngineer;Sound engineer
+Source;Source
+Source_Duration;Source duration
+Source_FrameCount;Source frame count
+Source_StreamSize;Source stream size
 Standard;Standard
 Stream;Stream
 Stream_MoreInfo;More information about the stream

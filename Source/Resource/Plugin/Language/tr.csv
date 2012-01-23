@@ -3,7 +3,7 @@
   Author_Name;BouRock
   Author_OldNames;İlk çevirmen
   Language_Name;Türkçe
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; :
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;Hakkında
 About_Hint;Son sürümü bulmak ve benle nasıl bağlantı kurmanız için
 Accompaniment;Refakat
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Oyuncu
 Actor_Character;Oynayan karakter
 Added_Date;Eklenme tarihi
@@ -233,13 +235,13 @@ ColorSpace;Renk alanı
 colour_primaries;Renk öncelikleri
 Comment;Yorum
 CommissionedBy;Görevlendiren
+Compilation;
 CompleteName;Tam isim
 Composer;Besteci
 Compression_Mode;Sıkıştırma kipi
 Compression_Mode_Lossless;Kayıpsız
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Sıkıştırma oranı
-Compilation;
 Conductor;Orkestra şefi
 Container and general information;Kalıp ve genel bilgi
 ContentType;İçerik Türü
@@ -315,6 +317,7 @@ Folder_Hint;Çalışmak için klasör seç
 FolderName;Klasör adı
 Format;Biçim
 Format_Commercial;Ticari adı
+Format_Commercial_IfAny;
 Format_Description;Biçim açıklaması
 Format_Info;Biçim için ayrıntılar
 Format_Profile;Biçim profili
@@ -887,6 +890,10 @@ Show toolbar;Araç çubuğu göster
 Sort;Sıralayan
 SamplingCount;Örnek sayısı
 SoundEngineer;Ses teknisyeni
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standart
 Stream;Akış
 Stream_MoreInfo;Akış hakkında daha fazla bilgi

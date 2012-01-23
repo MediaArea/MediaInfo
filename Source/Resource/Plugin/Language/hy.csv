@@ -3,7 +3,7 @@
   Author_Name;http://haysoft.org
   Author_OldNames;NO
   Language_Name;Հայերեն
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Ծրագրի մասին
 About_Hint;Կապնվել ծրագրի հեղինակի հետ կամ բացել ծրագրի կայքը
 Accompaniment;Ուղեկցումը
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Կատարողը
 Actor_Character;Դերը
 Added_Date;Ավելացման ամսաթիվը
@@ -233,13 +235,13 @@ ColorSpace;Գույնային տարածքը
 colour_primaries;Հիմնական գույները
 Comment;Մեկնաբանություն
 CommissionedBy;Երաշխավորող
+Compilation;
 CompleteName;Ամբողջական անունը
 Composer;Կոմպոզիտորը
 Compression_Mode;Սեղման եղանակը
 Compression_Mode_Lossless;Առանց կորստի
 Compression_Mode_Lossy;Կորստով
 Compression_Ratio;Սեղման աստիճանը
-Compilation;
 Conductor;Դիրիժորը
 Container and general information;Ընդհանուր տեղեկությունը
 ContentType;Պարունակության տեսակը
@@ -315,6 +317,7 @@ Folder_Hint;Գործողություն թղթ-երի հետ
 FolderName;Թղթապանակի անունը
 Format;Տեսակը
 Format_Commercial;Կոմերցիոն անվանումը
+Format_Commercial_IfAny;
 Format_Description;Տեսակի նկարագրությունը
 Format_Info;Մանրամասն տեսակի մասին
 Format_Profile;Տեսակի պրոֆիլը
@@ -887,6 +890,10 @@ Show toolbar;Ցուցադրել վահանակը
 Sort;Դասավորել ըստ
 SamplingCount;Նմուշների քանակը
 SoundEngineer;Ձայն. ռեժիսորը
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Ստանդարտ
 Stream;Հոսքը
 Stream_MoreInfo;Լր. տեղեկություններ հոսքի մասին
@@ -964,5 +971,5 @@ Written_Location;Գրելու տեղը
 WrittenBy;Գրվել է՝
 Yes;Այո
 Your system;Ձեր համակարգը
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

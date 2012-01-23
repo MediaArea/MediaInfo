@@ -3,7 +3,7 @@
   Author_Name;だい( http://barca.daa.jp )
   Author_OldNames;barlog
   Language_Name;日本語
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;バージョン情報
 About_Hint;連絡方法と最新版チェック
 Accompaniment;演奏者
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;主演
 Actor_Character;出演名
 Added_Date;追加日
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;コメント
 CommissionedBy;コミッショナー
+Compilation;
 CompleteName;完全名称
 Composer;コンポーザ
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;圧縮解像度
-Compilation;
 Conductor;コンダクター
 Container and general information;コンテナと全般情報
 ContentType;コンテンツタイプ
@@ -315,6 +317,7 @@ Folder_Hint;このフォルダーの詳細
 FolderName;フォルダー名
 Format;フォーマット
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;詳細
 Format_Info;情報
 Format_Profile;プロファイル
@@ -887,6 +890,10 @@ Show toolbar;ツール バーを表示する
 Sort;並び替え
 SamplingCount;
 SoundEngineer;サウンドエンジニア
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;標準
 Stream;ストリーム
 Stream_MoreInfo;このストリームの詳細情報
@@ -964,5 +971,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

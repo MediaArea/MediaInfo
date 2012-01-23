@@ -3,7 +3,7 @@
   Author_Name;bvv
   Author_OldNames;Initial translator
   Language_Name;Nederlands
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Info
 About_Hint;Hoe neemt u contact met mij op en vindt u de nieuwste versie
 Accompaniment;Begeleiding
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Acteur
 Actor_Character;Personage
 Added_Date; Toegevoegde datum
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Commentaar
 CommissionedBy;In opdracht van
+Compilation;
 CompleteName;Volledige naam
 Composer;Componist
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Compressieverhouding
-Compilation;
 Conductor;Dirigent
 Container and general information;Container en algemene informatie
 ContentType;Inhoudstype
@@ -315,6 +317,7 @@ Folder_Hint;Kies een te onderzoeken map
 FolderName;Mapnaam
 Format;Formaat
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Formaatbeschrijving
 Format_Info;Details over formaat
 Format_Profile;Formaatprofiel
@@ -887,6 +890,10 @@ Show toolbar;Werkbalk tonen
 Sort;Gesorteerd op
 SamplingCount;
 SoundEngineer;Geluidstechnicus
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standaard
 Stream;Stroom
 Stream_MoreInfo;Meer informatie over de stroom

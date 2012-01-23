@@ -3,7 +3,7 @@
   Author_Name;ReX
   Author_OldNames;ReX
   Language_Name;Português (Brasil)
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;Sobre
 About_Hint;Como me contatar e buscar a versão mais nova
 Accompaniment;Acompanhamento
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Ator
 Actor_Character;Personagem representado
 Added_Date;Data de adição
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Comentário
 CommissionedBy;Representado por
+Compilation;
 CompleteName;Nome completo
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Taxa de Compressão
-Compilation;
 Conductor;Regente
 Container and general information;Container e informações gerais
 ContentType;Conteúdo
@@ -315,6 +317,7 @@ Folder_Hint;Selecione uma pasta para examinar
 FolderName;Nome da pasta
 Format;Formato
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Descrição do Formato
 Format_Info;Detalhes do codec
 Format_Profile;Perfil do Formato
@@ -887,6 +890,10 @@ Show toolbar;Exibir barra de ferramentas
 Sort;Ordenado por
 SamplingCount;
 SoundEngineer;Engenheiro de som
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Padrão
 Stream;Faixa
 Stream_MoreInfo;Mais informações sobre esta faixa
@@ -964,5 +971,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

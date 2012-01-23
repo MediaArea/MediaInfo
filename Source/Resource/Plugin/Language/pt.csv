@@ -3,7 +3,7 @@
   Author_Name;Samuel Dias
   Author_OldNames;
   Language_Name;Portugues
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Sobre
 About_Hint;Como contatar-me e encontrar a última versão
 Accompaniment;Acompanhamento
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Ator
 Actor_Character;Personagem
 Added_Date;
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Comentário
 CommissionedBy;Representado por
+Compilation;
 CompleteName;Nome completo
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
-Compilation;
 Conductor;Regente
 Container and general information;Container e informação geral
 ContentType;Conteúdo
@@ -315,6 +317,7 @@ Folder_Hint;Selecione uma pasta para examinar
 FolderName;Nome da pasta
 Format;Formato
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;
 Format_Info;
 Format_Profile;
@@ -887,6 +890,10 @@ Show toolbar;Exibir barra de ferramentas
 Sort;Ordenado por
 SamplingCount;
 SoundEngineer;Engenheiro de som
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Padrão
 Stream;Faixa
 Stream_MoreInfo;Mais informações sobre esta faixa
@@ -965,4 +972,4 @@ WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
 ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;83
+ZZ_AutomaticLanguage_Percent;82

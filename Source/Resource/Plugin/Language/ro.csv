@@ -3,7 +3,7 @@
   Author_Name;Severin Cazanescu
   Author_OldNames;Severin Cazanescu
   Language_Name;Romana
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Despre
 About_Hint;Sfaturi
 Accompaniment;Acompaniament
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Actor
 Actor_Character;Personaj
 Added_Date;
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Comentariu
 CommissionedBy;
+Compilation;
 CompleteName;Nume complet
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
-Compilation;
 Conductor;
 Container and general information;Container si informatii generale
 ContentType;Tip continut
@@ -315,6 +317,7 @@ Folder_Hint;Selectati un director pentru analiza
 FolderName;Numele directorului
 Format;Format
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;
 Format_Info;
 Format_Profile;
@@ -887,6 +890,10 @@ Show toolbar;Afisare toolbar
 Sort;Sortat de
 SamplingCount;
 SoundEngineer;Inginer de sunet
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;
 Stream;Flux
 Stream_MoreInfo;Mai multe informatii despre flux
@@ -964,5 +971,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;35
+ZZ_Automatic_Percent;34
 ZZ_AutomaticLanguage_Percent;73

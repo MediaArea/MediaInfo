@@ -3,7 +3,7 @@
   Author_Name;chriszxl, erabbit
   Author_OldNames;Initial translator
   Language_Name;简体中文
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;关于
 About_Hint;联系作者以及获得最新版
 Accompaniment;伴奏
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;演员
 Actor_Character;角色
 Added_Date;附加数据
@@ -233,13 +235,13 @@ ColorSpace;色彩空间
 colour_primaries;颜色初选
 Comment;评论
 CommissionedBy;评论人
+Compilation;
 CompleteName;完整名称
 Composer;作曲
 Compression_Mode;压缩模式
 Compression_Mode_Lossless;无损
 Compression_Mode_Lossy;有损压缩
 Compression_Ratio;压缩比
-Compilation;
 Conductor;指挥
 Container and general information;文件格式和一般信息
 ContentType;内容类型
@@ -315,6 +317,7 @@ Folder_Hint;选择文件夹
 FolderName;文件夹名　
 Format;文件格式
 Format_Commercial;格式名称
+Format_Commercial_IfAny;
 Format_Description;格式描述
 Format_Info;格式详情
 Format_Profile;格式简介
@@ -887,6 +890,10 @@ Show toolbar;显示工具栏
 Sort;排序
 SamplingCount;样本计数
 SoundEngineer;录音师
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;标准
 Stream;流
 Stream_MoreInfo;更多信息

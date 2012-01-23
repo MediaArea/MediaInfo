@@ -3,7 +3,7 @@
   Author_Name;ERa
   Author_OldNames;превод на Български
   Language_Name;Български
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator;:
   Config_Text_NumberTag;#
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;За
 About_Hint;За_Подсказване
 Accompaniment;Съпровод
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Актьор
 Actor_Character;Актьор_Характер
 Added_Date;Дата_Прибавен
@@ -233,13 +235,13 @@ ColorSpace;ЦветовоПронстранство
 colour_primaries;цветови_основи
 Comment;Коментар
 CommissionedBy;ПоръчанОт
+Compilation;
 CompleteName;ЦялосноИме
 Composer;Композитор
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;КомпресияСъотношение
-Compilation;
 Conductor;Диригент
 Container and general information;Контейнер и главна информация
 ContentType;КонтейнерТип
@@ -315,6 +317,7 @@ Folder_Hint;Папка_Подсказване
 FolderName;ПапкаИме
 Format;Формат
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Формат_Описание
 Format_Info;Формат_Инфо
 Format_Profile;Формат_Профил
@@ -887,6 +890,10 @@ Show toolbar;Показ инструментибар
 Sort;Сортиране
 SamplingCount;
 SoundEngineer;ЗвукоИнжинер
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Стандарт
 Stream;Поток
 Stream_MoreInfo;Поток_ПовечеИнфо
@@ -965,4 +972,4 @@ WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
 ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;98
+ZZ_AutomaticLanguage_Percent;97

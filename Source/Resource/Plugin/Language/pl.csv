@@ -3,7 +3,7 @@
   Author_Name;Gregg
   Author_OldNames;Gregg
   Language_Name;Polski
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator;: 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;O programie
 About_Hint;Kontakt i informacje o nowych wersjach
 Accompaniment;Akompaniament
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Aktor
 Actor_Character;Odtwarzana postać
 Added_Date;Data dodania
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Komentarz
 CommissionedBy;Powierzony przez
+Compilation;
 CompleteName;Pełna ścieżka
 Composer;Kompozytor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Stopień kompresji
-Compilation;
 Conductor;Dyrygent
 Container and general information;Zawartość i informacje ogólne
 ContentType;Rodzaj zawartosci
@@ -315,6 +317,7 @@ Folder_Hint;Wybierz folder do przeanalizowania
 FolderName;Nazwa folderu
 Format;Format
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Opis formatu
 Format_Info;Szczegóły formatu
 Format_Profile;Profil formatu
@@ -887,6 +890,10 @@ Show toolbar;Pokaż pasek narzędzi
 Sort;Sortowane po
 SamplingCount;
 SoundEngineer;Inżynier dźwięku
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standard
 Stream;Strumień
 Stream_MoreInfo;Więcej informacji o strumieniu
@@ -965,4 +972,4 @@ WrittenBy;Napisał
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;97
+ZZ_AutomaticLanguage_Percent;96

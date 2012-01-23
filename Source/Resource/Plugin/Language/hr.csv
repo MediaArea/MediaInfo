@@ -3,7 +3,7 @@
   Author_Name;Dominko Aždajić
   Author_OldNames;Dominko Aždajić
   Language_Name;Hrvatski
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;O programu...
 About_Hint;Kontakt i pronalaženje posljednje inačice
 Accompaniment;Pratnja
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Glumac
 Actor_Character;Uloga
 Added_Date;Dodano dana
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Komentar
 CommissionedBy;Prema nalogu
+Compilation;
 CompleteName;Potpuni naziv
 Composer;Skladatelj
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
-Compilation;
 Conductor;Ravnatelj
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
@@ -315,6 +317,7 @@ Folder_Hint;Odaberite mapu za promatranje
 FolderName;Naziv mape
 Format;Oblik datoteke
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Profile;Profil oblika datoteke
@@ -887,6 +890,10 @@ Show toolbar;Prikazati alatnu traku
 Sort;Poređano prema
 SamplingCount;
 SoundEngineer;Tonski tehničar
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standardno
 Stream;Tok
 Stream_MoreInfo;Više informacija o tom toku
@@ -964,5 +971,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

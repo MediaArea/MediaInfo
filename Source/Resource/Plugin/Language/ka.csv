@@ -1,9 +1,9 @@
-﻿  Language_ISO639;ka
+  Language_ISO639;ka
   Author_Email;
   Author_Name;G Release
   Author_OldNames;
   Language_Name;ქართული
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About; ამის შესახებ
 About_Hint;როგორ დამიკავშირდეთ მე და ვიპოვოთ უახლესი ვერსია
 Accompaniment;უზრუნველყოფა
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;შემსრულებელი
 Actor_Character;როლი
 Added_Date;დამატების თარიღი
@@ -233,13 +235,13 @@ ColorSpace;Color space
 colour_primaries;Color primaries
 Comment;კომენტარი
 CommissionedBy;Commissioned by
+Compilation;Compilation
 CompleteName;სრული სახელი
 Composer;Composer
 Compression_Mode;შეკუმშვის რეჟიმი
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;შეკუმშვის რატიო
-Compilation;Compilation
 Conductor;Conductor
 Container and general information;კონტეინერი და მთავარი ინფორმაცია
 ContentType;კონტენტის ტიპი
@@ -315,6 +317,7 @@ Folder_Hint;განხილვისთვის აირჩიეთ ფო
 FolderName;ფოლდერის სახელი
 Format;ფორმატი
 Format_Commercial;Commercial name
+Format_Commercial_IfAny;
 Format_Description;ფორმატის აღწერა
 Format_Info;ფორმატის დეტალები
 Format_Profile;ფორმატის პროფილი
@@ -847,6 +850,7 @@ Producer;პროდუსერი
 ProductionDesigner;პროდუქცის დიზაინერი
 ProductionStudio;პროდუქციის სტუდიო
 Publisher;გამომცემელი
+Purchased_Date;
 Quote character;Quote character
 RadioStation;რადიო სადგური
 Rating;რეიტინგი
@@ -886,6 +890,10 @@ Show toolbar;მაჩვენე პანელი
 Sort;დალაგების შესაბამისობა
 SamplingCount;ნიმუშების რაოდენობა
 SoundEngineer;ხნის ინჟინერი
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;სტანდარტი
 Stream;ნაკადი
 Stream_MoreInfo;უფრო მეტი ინფორმაცია ნაკადზე
@@ -963,5 +971,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

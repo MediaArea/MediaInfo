@@ -3,7 +3,7 @@
   Author_Name;Zen
   Author_OldNames;Traducteur initial
   Language_Name;Français
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;À propos
 About_Hint;Comment me contacter et trouver la dernière version
 Accompaniment;Accompagnement
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Acteur
 Actor_Character;Personnage joué
 Added_Date;Date d'ajout
@@ -233,13 +235,13 @@ ColorSpace;Espace de couleurs
 colour_primaries;Coordonnées de chromaticité
 Comment;Commentaire
 CommissionedBy;Commanditaire
+Compilation;Compilation
 CompleteName;Nom complet
 Composer;Compositeur
 Compression_Mode;Mode de compression
 Compression_Mode_Lossless;Sans perte
 Compression_Mode_Lossy;Avec perte
 Compression_Ratio;Taux de compression
-Compilation;Compilation
 Conductor;Chef d'orchestre
 Container and general information;Conteneur et informations générales
 ContentType;Type de contenu
@@ -315,6 +317,7 @@ Folder_Hint;Sélectionne un dossier à étudier
 FolderName;Nom du dossier
 Format;Format
 Format_Commercial;Nom commercial
+Format_Commercial_IfAny;Nom commercial
 Format_Description;Description du format
 Format_Info;Infos sur le format
 Format_Profile;Profil du format
@@ -887,6 +890,10 @@ Show toolbar;Montrer la barre d'outils
 Sort;Trié par
 SamplingCount;Nombre d'échantillons
 SoundEngineer;Ingénieur du son
+Source;Source
+Source_Duration;Durée de la source duration
+Source_FrameCount;Nombre d'images de la source
+Source_StreamSize;Taille du flux source
 Standard;Norme
 Stream;Type de flux
 Stream_MoreInfo;Plus d'information au sujet de ce flux
@@ -957,7 +964,7 @@ WebSite_Video;Aller sur le site web du codec vidéo
 WebSite_Video_More;Aller sur le site web (%Url%) du codec vidéo
 Width;Largeur
 Width_Original;Largeur
-WriteMe;écrire  l'auteur
+WriteMe;écrire à l'auteur
 WriteToTranslator;Écrire au traducteur
 Written_Date;Date d'écriture
 Written_Location;Lieu d'écriture

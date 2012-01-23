@@ -3,7 +3,7 @@
   Author_Name;Zen
   Author_OldNames;المترجم الأصلي
   Language_Name;العربية
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
 Accompaniment;مرافقة
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;ممثل
 Actor_Character;الشخصية الملعوب دورها
 Added_Date;تاريخ الاضافة
@@ -233,13 +235,13 @@ ColorSpace;لون الفضاء
 colour_primaries;إحداثيات اللونية
 Comment;تعليق
 CommissionedBy;مصاند من طرف
+Compilation;
 CompleteName;الاسم الكامل
 Composer;ملحن
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نسبة الضغط
-Compilation;
 Conductor;قائد الاوركسترا
 Container and general information;حاوية ومعلومات عامة
 ContentType;نوع المحتوى
@@ -315,6 +317,7 @@ Folder_Hint;تحديد مجلد لدراسة
 FolderName;اسم المجلد
 Format;شكل
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;وصف الشكل
 Format_Info;تفاصيل عن شكل
 Format_Profile;لبروفايل الشكل
@@ -887,6 +890,10 @@ Show toolbar;عرض شريط الأدوات
 Sort;مصنفة حسب
 SamplingCount;
 SoundEngineer;مهندس الصوت
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;قاعدي
 Stream;دفق
 Stream_MoreInfo;مزيد من المعلومات حول الدفق
@@ -964,5 +971,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

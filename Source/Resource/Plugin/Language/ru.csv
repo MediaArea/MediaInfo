@@ -3,7 +3,7 @@
   Author_Name;solokot
   Author_OldNames;lost in history
   Language_Name;Русский
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;О программе
 About_Hint;Как связаться со мной и найти последнюю версию программы
 Accompaniment;Сопровождение
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Исполнитель
 Actor_Character;Роль
 Added_Date;Дата добавлениия
@@ -233,13 +235,13 @@ ColorSpace;Цветовое пространство
 colour_primaries;Основные цвета
 Comment;Примечание
 CommissionedBy;Поручитель
+Compilation;Компиляция
 CompleteName;Полное имя
 Composer;Композитор
 Compression_Mode;Метод сжатия
 Compression_Mode_Lossless;Без потерь
 Compression_Mode_Lossy;С потерями
 Compression_Ratio;Степень сжатия
-Compilation;Компиляция
 Conductor;Дирижёр
 Container and general information;Общая информация
 ContentType;Тип содержимого
@@ -315,6 +317,7 @@ Folder_Hint;Операции с папками
 FolderName;Имя папки
 Format;Формат
 Format_Commercial;Коммерческое название
+Format_Commercial_IfAny;
 Format_Description;Описание формата
 Format_Info;Подробно о формате
 Format_Profile;Профиль формата
@@ -887,6 +890,10 @@ Show toolbar;Показывать панель
 Sort;Сортировать по
 SamplingCount;Количество образцов
 SoundEngineer;Звукорежиссёр
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Стандарт вещания
 Stream;Поток
 Stream_MoreInfo;Дополнительная информация о потоке

@@ -3,7 +3,7 @@
   Author_Name;Joergen
   Author_OldNames;Joergen
   Language_Name;Dansk
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Om
 About_Hint;Hvordan du kontakter mig og finder seneste version
 Accompaniment;Akkompagnement
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Skuespiller
 Actor_Character;Rolle
 Added_Date;Tilføjet den
@@ -233,13 +235,13 @@ ColorSpace;Farverum
 colour_primaries;
 Comment;Kommentar
 CommissionedBy;Bestilt af
+Compilation;
 CompleteName;Fulde navn
 Composer;Komponist
 Compression_Mode;Komprimeringstilstand
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
-Compilation;
 Conductor;Dirigent
 Container and general information;Container og generel information
 ContentType;Indholdstype
@@ -315,6 +317,7 @@ Folder_Hint;Vælg en mappe at undersøge
 FolderName;Mappenavn
 Format;Format
 Format_Commercial;Kommercielt navn
+Format_Commercial_IfAny;
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Profile;Formatprofil
@@ -887,6 +890,10 @@ Show toolbar;Vis værktøjslinje
 Sort;Sorteret efter
 SamplingCount;Antal samplinger
 SoundEngineer;Lydtekniker
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standard
 Stream;Strøm
 Stream_MoreInfo;Mere information om strømmen
@@ -964,5 +971,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;98

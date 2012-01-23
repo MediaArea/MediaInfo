@@ -3,7 +3,7 @@
   Author_Name;DirektX
   Author_OldNames;
   Language_Name;magyar
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Névjegy
 About_Hint;Hogyan léphet velem kapcsolatba, illetve a legfrissebb változat lelőhelye
 Accompaniment;Kíséret
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Előadó
 Actor_Character;Szerep
 Added_Date;Hozzáadva
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Megjegyzés
 CommissionedBy;Megbízó
+Compilation;
 CompleteName;Teljes név
 Composer;Zeneszerző
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Tömörítési arány
-Compilation;
 Conductor;Vezényel
 Container and general information;Gyűjtő és általános adatok
 ContentType;Tartalom típusa
@@ -315,6 +317,7 @@ Folder_Hint;Adja meg a vizsgálandó mappát
 FolderName;Mappanév
 Format;Formátum
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Formátum leírás
 Format_Info;A kódek részletei
 Format_Profile;Formátum profil
@@ -887,6 +890,10 @@ Show toolbar;Eszköztár mutatása
 Sort;Sorba rendezte
 SamplingCount;
 SoundEngineer;Hangmérnök
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Szabvány
 Stream;Sáv
 Stream_MoreInfo;Több adat a sávról
@@ -964,5 +971,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;94

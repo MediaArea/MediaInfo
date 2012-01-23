@@ -3,7 +3,7 @@
   Author_Name;Felipe Pérez
   Author_OldNames;
   Language_Name;Galego
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Sobre
 About_Hint;Como contactar comigo e atopar a última versión
 Accompaniment;Acompañamento
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Actor
 Actor_Character;Personaxe interpretado
 Added_Date;
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Comentario
 CommissionedBy;Encargado por
+Compilation;
 CompleteName;Nome completo
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Ratio de compresión
-Compilation;
 Conductor;Condutor
 Container and general information;Contedor e información xeral
 ContentType;Tipo de contido
@@ -315,6 +317,7 @@ Folder_Hint;Selecciona unha carpeta para estudar
 FolderName;Nome da carpeta
 Format;Formato
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;
 Format_Info;Info do codec
 Format_Profile;Perfil do formato
@@ -887,6 +890,10 @@ Show toolbar;Mostrar barra de ferramentas
 Sort;Ordear por
 SamplingCount;
 SoundEngineer;Enxeñeiro de son
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Estándar
 Stream;Pista
 Stream_MoreInfo;Máis información sobre esta pista
@@ -964,5 +971,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;80
+ZZ_AutomaticLanguage_Percent;84

@@ -3,7 +3,7 @@
   Author_Name;Micтэр Ш
   Author_OldNames;
   Language_Name;Беларуская
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Пра праграму
 About_Hint;Як звязацца са мной і знайсці апошнюю версію праграмы
 Accompaniment;Суправаджэнне
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Актор
 Actor_Character;Роля
 Added_Date;Дата дадання
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;Асноўныя колеры
 Comment;Каментар
 CommissionedBy;Даручальнік
+Compilation;Кампіляцыя
 CompleteName;Поўнае імя
 Composer;Кампазітар
 Compression_Mode;Метад сціску
 Compression_Mode_Lossless;Без страт
 Compression_Mode_Lossy;Са стратамі
 Compression_Ratio;Ступень сціску
-Compilation;Кампіляцыя
 Conductor;Дырыжор
 Container and general information;Агульная інфармацыя
 ContentType;Тып змесціва
@@ -315,6 +317,7 @@ Folder_Hint;Аперацыі з тэчкамі
 FolderName;Імя тэчкі
 Format;Фармат
 Format_Commercial;Камерцыйная назва
+Format_Commercial_IfAny;
 Format_Description;Апісанне фармату
 Format_Info;Падрабязна аб фармаце
 Format_Profile;Прафайл фармату
@@ -887,6 +890,10 @@ Show toolbar;Паказваць панэль
 Sort;Сартаваць па
 SamplingCount;Колькасць узораў
 SoundEngineer;Гукарэжысёр
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Стандарт вяшчання
 Stream;Струмень
 Stream_MoreInfo;Дадатковая інфармацыя аб струмені
@@ -964,5 +971,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

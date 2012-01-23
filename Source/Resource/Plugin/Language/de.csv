@@ -3,7 +3,7 @@
   Author_Name;scholly
   Author_OldNames;petruscaleus@gmx.de
   Language_Name;Deutsch
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Über
 About_Hint;Kontakt und Infos zur neuesten Version
 Accompaniment;Begleitung
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Schauspieler
 Actor_Character;Rolle
 Added_Date;Hinzufügungs-Datum
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Kommentar
 CommissionedBy;In Auftrag gegeben von
+Compilation;
 CompleteName;Vollständiger Name
 Composer;Komponist
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Kompressions-Verhältnis
-Compilation;
 Conductor;Leiter
 Container and general information;Containerformat und allgemeine Informationen
 ContentType;Typ des Inhalts
@@ -315,6 +317,7 @@ Folder_Hint;Verzeichnis zum Betrachten auswählen
 FolderName;Verzeichnisname
 Format;Format
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Format-Beschreibung
 Format_Info;Format-Details
 Format_Profile;Format-Profil
@@ -887,6 +890,10 @@ Show toolbar;Toolbar anzeigen
 Sort;Sortiert nach
 SamplingCount;
 SoundEngineer;Tontechniker 
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standard
 Stream;Stream
 Stream_MoreInfo;Mehr Informationen über den Stream
@@ -964,5 +971,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

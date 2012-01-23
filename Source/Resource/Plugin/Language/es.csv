@@ -3,7 +3,7 @@
   Author_Name;elega
   Author_OldNames;Traductor Inicial
   Language_Name;Español
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About;Acerca de 
 About_Hint;Ponerse en contacto con el autor y encontrar la última versión
 Accompaniment;Acompañamiento
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Actor
 Actor_Character;Personaje
 Added_Date;Datos agregados
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;Comentarios
 CommissionedBy;Encargado por
+Compilation;
 CompleteName;Nombre completo
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Tasa de compresión
-Compilation;
 Conductor;Conductor
 Container and general information;Información general
 ContentType;Tipo de Contenido
@@ -315,6 +317,7 @@ Folder_Hint;Selecciona una carpeta para estudiar
 FolderName;Nombre de la carpeta
 Format;Formato
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Descripción del formato
 Format_Info;Detalles del formato
 Format_Profile;Formato del perfil
@@ -887,6 +890,10 @@ Show toolbar;Mostrar Barra de herramientas
 Sort;Ordenar por
 SamplingCount;
 SoundEngineer;Ingeniero de sonido
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Estándar
 Stream;Pista
 Stream_MoreInfo;Más información acerca de la pista
@@ -964,5 +971,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;80
+ZZ_Automatic_Percent;79
 ZZ_AutomaticLanguage_Percent;95

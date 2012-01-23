@@ -3,7 +3,7 @@
   Author_Name;Yonder
   Author_OldNames;Ursprunglig översättare
   Language_Name;Svenska
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
@@ -144,6 +144,8 @@
 About; Om
 About_Hint; Kontakt - och versionsinformation
 Accompaniment; Ackompanjemang
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor; Skådespelare
 Actor_Character; Roll
 Added_Date;
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment; Kommentar
 CommissionedBy; Kommissionerad av
+Compilation;
 CompleteName; Fullständigt namn
 Composer; Kompositör
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
-Compilation;
 Conductor; Dirigent
 Container and general information; Behållare och allmän information
 ContentType; Innehållstyp
@@ -315,6 +317,7 @@ Folder_Hint; Välj en mapp att betrakta
 FolderName; Mappnamn
 Format; Format
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;
 Format_Info;
 Format_Profile;
@@ -887,6 +890,10 @@ Show toolbar; Visa verktygsfält
 Sort; Sorterad av
 SamplingCount;
 SoundEngineer; Ljudingenjör
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;
 Stream; Ström
 Stream_MoreInfo; Mer information om strömmen
@@ -964,5 +971,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;81
+ZZ_Automatic_Percent;76
+ZZ_AutomaticLanguage_Percent;80

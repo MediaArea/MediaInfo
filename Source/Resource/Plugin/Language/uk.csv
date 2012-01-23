@@ -3,7 +3,7 @@
   Author_Name;arestarh
   Author_OldNames;фоноскопія
   Language_Name;Українська
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;Про програму
 About_Hint;Контакти та пошук нової версії
 Accompaniment;Супровід
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Актор
 Actor_Character;У ролі
 Added_Date;Дата додавання
@@ -233,13 +235,13 @@ ColorSpace;Простір кольору
 colour_primaries;Основні кольори
 Comment;Примітка
 CommissionedBy;Поручитель
+Compilation;Компіляція
 CompleteName;Повна назва
 Composer;Композитор
 Compression_Mode;Тип стиснення
 Compression_Mode_Lossless;Без втрат
 Compression_Mode_Lossy;Із втратами
 Compression_Ratio;Ступінь стиснення
-Compilation;Компіляція
 Conductor;Диригент
 Container and general information;Контейнер і загальна інформація
 ContentType;Тип вмісту
@@ -315,6 +317,7 @@ Folder_Hint;Вибір каталогу
 FolderName;Назва каталогу
 Format;Формат
 Format_Commercial;Комерційна назва
+Format_Commercial_IfAny;
 Format_Description;Опис формату
 Format_Info;Деталі формату
 Format_Profile;Профіль формату
@@ -887,6 +890,10 @@ Show toolbar;Відображати панель
 Sort;Сортування
 SamplingCount;Кількість семплів
 SoundEngineer;Звукорежисер
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Стандарт
 Stream;Потік
 Stream_MoreInfo;Більше інформації про потік
@@ -965,4 +972,4 @@ WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

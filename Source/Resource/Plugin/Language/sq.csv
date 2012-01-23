@@ -3,7 +3,7 @@
   Author_Name;Besmir Godole
   Author_OldNames;Përkthyesi i parë
   Language_Name;Shqip
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; :
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;Për
 About_Hint;Si të kontaktohem dhe të gjendet versioni i fundit
 Accompaniment;Shoqëruesi
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
 Added_Date;Data e shtimit
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;Primarët e ngjyrës
 Comment;Komenti
 CommissionedBy;Autorizuar nga
+Compilation;
 CompleteName;Emri i plotë
 Composer;Kompozitori
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Raporti i kompresimit
-Compilation;
 Conductor;Dirigjenti
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
@@ -315,6 +317,7 @@ Folder_Hint;Studio një dosje
 FolderName;Emri i dosjes
 Format;Formati
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
 Format_Profile;Profili i formatit
@@ -887,6 +890,10 @@ Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
 SamplingCount;
 SoundEngineer;Inxhinieri i zërit
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;Standardi
 Stream;Rryma
 Stream_MoreInfo;Më shumë info rreth rrymës

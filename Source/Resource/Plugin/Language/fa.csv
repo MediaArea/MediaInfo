@@ -3,7 +3,7 @@
   Author_Name;Martik Panosian
   Author_OldNames;Martik
   Language_Name;Persian  فارسی
-  Config_Text_ColumnSize;32
+  Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
@@ -144,6 +144,8 @@
 About;درباره
 About_Hint;ارتباط با من و آخرین نسخه
 Accompaniment;همراهی
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
 Actor;بازیگر
 Actor_Character;بازی کاراکتر
 Added_Date;تاریخ اضافه شده
@@ -233,13 +235,13 @@ ColorSpace;
 colour_primaries;
 Comment;توضيح 
 CommissionedBy;مجاز توسط
+Compilation;
 CompleteName;نام کامل
 Composer;سراينده 
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
-Compilation;
 Conductor;رهبر اکسترر 
 Container and general information;محتوی و اطلاعات کلی
 ContentType;نوع محتوا
@@ -315,6 +317,7 @@ Folder_Hint;انتخاب پوشه
 FolderName;نام پوشه
 Format;فرمت
 Format_Commercial;
+Format_Commercial_IfAny;
 Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
 Format_Profile;پروفایل فرمت
@@ -887,6 +890,10 @@ Show toolbar;نمایش نوارابزار
 Sort;طبقه بندى توسط
 SamplingCount;
 SoundEngineer;مهندس صدا
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_StreamSize;
 Standard;استاندارد
 Stream;استریم
 Stream_MoreInfo;اطلاعات بیشتر درمورد استریم
@@ -964,5 +971,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
