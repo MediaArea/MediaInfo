@@ -13,7 +13,7 @@
 Name:			mediainfo
 Version:		%mediainfo_version
 Release:		1
-Summary:		Command-line utility for reading information from audio/video files
+Summary:		Command-line utility for reading information from media files
 Group:			Productivity/Multimedia/Other
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
@@ -69,7 +69,7 @@ This package includes the command line interface.
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %package gui
-Summary:	Graphical utility for reading information from audio/video files
+Summary:	Graphical utility for reading information from media files
 Group:		Productivity/Multimedia/Other
 Requires:	libzen0 >= %libzen_version
 Requires:	libmediainfo0 >= %{version}
