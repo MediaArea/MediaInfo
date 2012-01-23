@@ -105,9 +105,9 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- milisecond1; milisecond
- milisecond2; miliseconds
- milisecond3; miliseconds
+ millisecond1; millisecond
+ millisecond2; milliseconds
+ millisecond3; milliseconds
  minute1; minute
  minute2; minutes
  minute3; minutes
@@ -317,6 +317,7 @@ Folder_Hint;Select a folder to examine
 FolderName;Folder name
 Format;Format
 Format_Commercial;Commercial name
+Format_Commercial_IfAny;Commercial name
 Format_Description;Format description
 Format_Info;Details for format
 Format_Profile;Format profile
@@ -505,8 +506,8 @@ Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
-Grouping;Grouping
 Go to WebSite;Go to website
+Grouping;Grouping
 h;h
 Header file;Create a header file
 Height;Height
@@ -889,6 +890,10 @@ Show toolbar;Show toolbar
 Sort;Sorted by
 SamplingCount;Samples count
 SoundEngineer;Sound engineer
+Source;Source
+Source_Duration;Source duration
+Source_FrameCount;Source frame count
+Source_StreamSize;Source stream size
 Standard;Standard
 Stream;Stream
 Stream_MoreInfo;More information about the stream
@@ -968,4 +973,3 @@ Yes;Yes
 Your system;Your system
 ZZ_Automatic_Percent;100
 ZZ_AutomaticLanguage_Percent;100
-CompressionRatio;Compression ratio
