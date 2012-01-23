@@ -3024,9 +3024,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_ctts()
     //Parsing
     int32u entry_count;
     Get_B4 (entry_count,                                        "entry_count");
-    for (int32u Pos=0; Pos<entry_count; Pos++)
+    
+    //Currently no usage
+    //for (int32u Pos=0; Pos<entry_count; Pos++)
     {
-        int32u sample_count, sample_offset;
+        //int32u sample_count, sample_offset;
 
         //Too much slow
         /*
@@ -3035,11 +3037,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_ctts()
         */
 
         //Faster
+        /*
         if (Element_Offset+8>Element_Size)
             break; //Problem
         sample_count =BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
         sample_offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
         Element_Offset+=8;
+        */
     }
 }
 
