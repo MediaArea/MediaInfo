@@ -312,7 +312,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos, bool I
                 else if (XML)
                 {
                     Nom=Xml_Name_Escape(Nom);
-                    Valeur=Xml_Content_Escape(Valeur);
+                    Xml_Content_Escape_Modifying(Valeur);
 
                     Retour+=_T("<");
                     Retour+=Nom;
@@ -544,18 +544,79 @@ Ztring MediaInfo_Internal::Xml_Name_Escape (const Ztring &Name)
 Ztring MediaInfo_Internal::Xml_Content_Escape (const Ztring &Content)
 {
     Ztring ToReturn(Content);
+    return Xml_Content_Escape_Modifying(ToReturn);
+}
 
+//---------------------------------------------------------------------------
+size_t Xml_Content_Escape_MustEscape(const Ztring &Content)
+{
+    size_t Pos=0;
+    size_t Size=Content.size();
+    for (; Pos<Size; Pos++)
+    {
+        switch (Content[Pos])
+        {
+            case _T('\"'):
+            case _T('&') : 
+            case _T('\''):
+            case _T('<') : 
+            case _T('>') :
+                            return Pos;
+            default      : 
+                            if (Content[Pos]<0x20)
+                                return Pos;
+        }
+    }
 
-    for (Char Chararacter=0; Chararacter<0x20; Chararacter++)
-        ToReturn.FindAndReplace(Ztring(1, Chararacter), _T("&#x")+Ztring::ToZtring(Chararacter/16, 16)+Ztring::ToZtring(Chararacter%16, 16)+_T(";"), 0, Ztring_Recursive);
-    ToReturn.FindAndReplace(Ztring(1, 0x7F), _T("&#x7f;"), 0, Ztring_Recursive);
-    ToReturn.FindAndReplace(_T("&"), _T("&amp;"), 0, Ztring_Recursive);
-    ToReturn.FindAndReplace(_T("<"), _T("&lt;"), 0, Ztring_Recursive);
-    ToReturn.FindAndReplace(_T(">"), _T("&gt;"), 0, Ztring_Recursive);
-    ToReturn.FindAndReplace(_T("\""), _T("&quot;"), 0, Ztring_Recursive);
-    ToReturn.FindAndReplace(_T("'"), _T("&apos;"), 0, Ztring_Recursive);
+    return Pos;
+}
+Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content)
+{
+    size_t Pos=Xml_Content_Escape_MustEscape(Content);
+    if (Pos>=Content.size())
+        return Content;
+    
+    for (; Pos<Content.size(); Pos++)
+    {
+        switch (Content[Pos])
+        {
+            case _T('\"'):
+                            Content[Pos]=_T('&');
+                            Content.insert(Pos+1, _T("quot;"));
+                            Pos+=5;
+                            break;
+            case _T('&') : 
+                            Content[Pos]=_T('&');
+                            Content.insert(Pos+1, _T("amp;"));
+                            Pos+=4;
+                            break;
+            case _T('\''):
+                            Content[Pos]=_T('&');
+                            Content.insert(Pos+1, _T("apos;"));
+                            Pos+=5;
+                            break;
+            case _T('<') : 
+                            Content[Pos]=_T('&');
+                            Content.insert(Pos+1, _T("lt;"));
+                            Pos+=3;
+                            break;
+            case _T('>') :
+                            Content[Pos]=_T('&');
+                            Content.insert(Pos+1, _T("gt;"));
+                            Pos+=3;
+                            break;
+            default   : 
+                        if (Content[Pos]<0x20)
+                        {
+                            Ztring Character=_T("#x")+Ztring::ToZtring(Content[Pos]/16, 16)+Ztring::ToZtring(Content[Pos]%16, 16)+_T(";");
+                            Content[Pos]=_T('&');
+                            Content.insert(Pos+1, Character);
+                            Pos+=5;
+                        } 
+        }
+    }
 
-    return ToReturn;
+    return Content;
 }
 
 } //NameSpace

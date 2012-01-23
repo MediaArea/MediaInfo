@@ -158,6 +158,7 @@ public :
 
     Ztring Xml_Name_Escape(const Ztring &Name);
     Ztring Xml_Content_Escape(const Ztring &Content);
+    Ztring &Xml_Content_Escape_Modifying(Ztring &Content);
 
 private :
     //Threading
