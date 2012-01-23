@@ -411,6 +411,21 @@ void File_Riff::Streams_Finish ()
                     }
                 }
             }
+               
+            //Source duration
+            if (Temp->second.PacketCount && Temp->second.Length!=Temp->second.PacketCount)
+            {
+                if (StreamKind_Last==Stream_Video && Temp->second.Rate)
+                    Fill(Stream_Video, StreamPos_Last, "Source_Duration", ((float64)Temp->second.PacketCount)*1000*Temp->second.Scale/Temp->second.Rate, 0);
+                if (StreamKind_Last==Stream_Audio && Temp->second.Rate)
+                {
+                    float64 Duration_Source=((float64)Temp->second.StreamSize)*1000/Temp->second.AvgBytesPerSec;
+                    float64 Duration_Header=Retrieve(Stream_Audio, StreamPos_Last, Audio_Duration).To_float64();
+                    float64 Difference=Duration_Source-Duration_Header;
+                    if (Difference<-2 || Difference>2) //+/- 2 ms
+                        Fill(Stream_Audio, StreamPos_Last, "Source_Duration", Duration_Source, 0);
+                }
+            }
         }
 
         Temp++;
