@@ -296,26 +296,26 @@ void File_Mpeg4::Streams_Finish()
             if (Duration_stts && !(Duration_stts>=Duration_tkhd_L && Duration_stts<=Duration_tkhd_H))
             {
                 //There is a difference between media/stts atom and track atom
-                Fill(StreamKind_Last, StreamPos_Last, "Material_Duration", Duration_stts*1000, 0);
+                Fill(StreamKind_Last, StreamPos_Last, "Source_Duration", Duration_stts*1000, 0);
                 if (Temp->second.stts_Min==Temp->second.stts_Max)
                 {
                     Ztring Material_Duration_FirstFrame=Retrieve(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame");
                     if (!Material_Duration_FirstFrame.empty())
                     {
-                        Fill(StreamKind_Last, StreamPos_Last, "Material_Duration_FirstFrame", Material_Duration_FirstFrame);
+                        Fill(StreamKind_Last, StreamPos_Last, "Source_Duration_FirstFrame", Material_Duration_FirstFrame);
                         Clear(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame");
                     }
                     Ztring Material_Duration_LastFrame=Retrieve(StreamKind_Last, StreamPos_Last, "Duration_LastFrame");
                     if (!Material_Duration_LastFrame.empty())
                     {
-                        Fill(StreamKind_Last, StreamPos_Last, "Material_Duration_LastFrame", Material_Duration_LastFrame);
+                        Fill(StreamKind_Last, StreamPos_Last, "Source_Duration_LastFrame", Material_Duration_LastFrame);
                         Clear(StreamKind_Last, StreamPos_Last, "Duration_LastFrame");
                     }
                 }
                 Ztring Material_StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, "StreamSize");
                 if (!Material_StreamSize.empty())
                 {
-                    Fill(StreamKind_Last, StreamPos_Last, "Material_StreamSize", Material_StreamSize);
+                    Fill(StreamKind_Last, StreamPos_Last, "Source_StreamSize", Material_StreamSize);
                     Clear(StreamKind_Last, StreamPos_Last, "StreamSize");
                 }
                 Ztring Material_FrameCount=Retrieve(StreamKind_Last, StreamPos_Last, "FrameCount");
@@ -323,7 +323,7 @@ void File_Mpeg4::Streams_Finish()
                 if (!Material_FrameCount.empty())
                 {
                     FillFrameCount=true;
-                    Fill(StreamKind_Last, StreamPos_Last, "Material_FrameCount", Material_FrameCount);
+                    Fill(StreamKind_Last, StreamPos_Last, "Source_FrameCount", Material_FrameCount);
                     Clear(StreamKind_Last, StreamPos_Last, "FrameCount");
                 }
 

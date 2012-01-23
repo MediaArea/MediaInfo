@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.52 --> 0.7.53
+-----------------
+- MPEG-4: Material_* fields (in case of source duration different than track duration) --> Source_*
+
 0.7.44 --> 0.7.45
 -----------------
 - FLV and RIFF: Changing Sorenson H.263 to Sorenson Spark because this stream format is too much incompatible with H.263

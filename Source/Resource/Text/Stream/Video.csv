@@ -85,6 +85,11 @@ Duration_LastFrame/String;;;Y NT;;;Duration of the last frame if it is longer th
 Duration_LastFrame/String1;;;N NT;;;Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
 Duration_LastFrame/String2;;;N NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Duration_LastFrame/String3;;;N NT;;;Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM;
+Source_Duration;; ms;N YI;;;Source Play time of the stream;;
+Source_Duration/String;;;Y NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
+Source_Duration/String1;;;N NT;;;Source Play time in format : HHh MMmn SSs MMMms, XX omited if zero;;
+Source_Duration/String2;;;N NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
+Source_Duration/String3;;;N NT;;;Source Play time in format : HH:MM:SS.MMM;;
 BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR);
 BitRate_Mode/String;;;Y NT;;;Bit rate mode (Variable, Cconstant);
 BitRate;; bps;N YF;;;Bit rate in bps;
@@ -135,6 +140,7 @@ FrameRate_Nominal/String;;;Y NT;;;Nominal Frames per second (with measurement)
 FrameRate_Maximum;; fps;N YF;;;Maximum Frames per second
 FrameRate_Maximum/String;;;Y NT;;;Maximum Frames per second (with measurement)
 FrameCount;;;N NI;;;Number of frames
+Source_FrameCount;;;N NI;;;Source Number of frames
 Standard;;;Y NT;;;NTSC or PAL
 Resolution;; bit;N NI;;;Deprecated, do not use in new projects
 Resolution/String;;;N NT;;;Deprecated, do not use in new projects
@@ -178,6 +184,14 @@ StreamSize/String3;;;N NT;;;Streamsize with measurement;;
 StreamSize/String4;;;N NT;;;Streamsize with measurement;;
 StreamSize/String5;;;N NT;;;Streamsize in with percentage value;;
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
+Source_StreamSize;; byte;N YI;;;Source Streamsize in bytes;;
+Source_StreamSize/String;;;Y NT;;;Source Streamsize in with percentage value;;
+Source_StreamSize/String1;;;N NT;;;;;
+Source_StreamSize/String2;;;N NT;;;;;
+Source_StreamSize/String3;;;N NT;;;;;
+Source_StreamSize/String4;;;N NT;;;;;
+Source_StreamSize/String5;;;N NT;;;Source Streamsize in with percentage value;;
+Source_StreamSize_Proportion;;;N NT;;;Source Stream size divided by file size;;
 Alignment;;;Y NT;;;How this stream file is aligned in the container;;
 Alignment/String;;;N YT;;;;;
 Title;;;Y YI;;;Name of the track;;
