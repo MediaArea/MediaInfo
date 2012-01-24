@@ -2739,7 +2739,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
     else if (Element_Code==0xBD && private_stream_1_IsDvdVideo)
     {
         //Subtitles (CVD)
-             if (private_stream_1_ID>=0x00 && private_stream_1_ID<=0x0F)
+             if (private_stream_1_ID<=0x0F)
             return ChooseParser_RLE();
         //Subtitles (DVD)
              if (private_stream_1_ID>=0x20 && private_stream_1_ID<=0x3F)
