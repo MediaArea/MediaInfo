@@ -525,7 +525,7 @@ if test "$with_libtinyxml" = "yes"; then
 		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags tinyxml)"
 		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags tinyxml)"
 		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs tinyxml)"
-		MediaInfoLib_Requires+="$MediaInfoLib_Requires tinyxml"
+		MediaInfoLib_Requires="$MediaInfoLib_Requires tinyxml"
 		using_libtinyxml="system"
 		AM_CONDITIONAL(COMPILE_TINYXML, false)
 	else

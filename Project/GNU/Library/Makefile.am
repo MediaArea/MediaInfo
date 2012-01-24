@@ -171,9 +171,9 @@ libmediainfo_la_SOURCES = \
 
 if COMPILE_TINYXML
 libmediainfo_la_SOURCES += \
-                       ../../../Source/tinyxml.cpp \
-                       ../../../Source/tinyxmlerror.cpp \
-                       ../../../Source/tinyxmlparser.cpp
+                       ../../../Source/ThirdParty/tinyxml/tinyxml.cpp \
+                       ../../../Source/ThirdParty/tinyxml/tinyxmlerror.cpp \
+                       ../../../Source/ThirdParty/tinyxml/tinyxmlparser.cpp
 endif
 
 libmediainfo_la_LDFLAGS     = -no-undefined -version-info 0:0:0
