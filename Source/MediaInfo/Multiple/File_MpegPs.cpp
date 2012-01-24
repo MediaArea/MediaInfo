@@ -2573,7 +2573,7 @@ bool File_MpegPs::private_stream_1_Choose_DVD_ID()
 
     //Testing
     //Subtitles (CVD)
-         if (CodecID>=0x00 && CodecID<=0x0F)
+         if (CodecID<=0x0F)
     {
         private_stream_1_IsDvdVideo=true;
         private_stream_1_Offset=1;
