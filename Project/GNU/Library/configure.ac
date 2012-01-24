@@ -532,9 +532,15 @@ if test "$with_libtinyxml" = "yes"; then
 		AC_MSG_ERROR([libtinyxml is not found, please install development package of libtinyxml])
 	fi
 else
+	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/tinyxml"
 	using_libtinyxml="internal"
 	AM_CONDITIONAL(COMPILE_TINYXML, true)
 fi
+
+dnl -------------------------------------------------------------------------
+dnl base64
+dnl
+CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/base64"
 
 dnl #########################################################################
 dnl ### Compiler specific

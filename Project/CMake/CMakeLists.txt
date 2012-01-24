@@ -12,9 +12,9 @@ include_directories(${ZLIB_INCLUDE_DIR})
 add_definitions(-DUNICODE)
 
 set(mediainfo_SRCS
-	tinyxml.cpp
-	tinyxmlerror.cpp
-	tinyxmlparser.cpp
+	ThirdParty/tinyxml/tinyxml.cpp
+	ThirdParty/tinyxml/tinyxmlerror.cpp
+	ThirdParty/tinyxml/tinyxmlparser.cpp
 	MediaInfo/File__Analyze.cpp
 	MediaInfo/File__Analyze_Buffer.cpp
 	MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp

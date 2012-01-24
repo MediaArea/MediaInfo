@@ -16,6 +16,8 @@ rem --- Copying : Release ---
 xcopy Release_Lib_GNU_FromSource.sh MediaInfo_Lib_GNU_Prepare\Release\
 
 rem --- Copying : Sources ---
+xcopy ..\Source\*.h MediaInfo_Lib_GNU_Prepare\Source\
+xcopy ..\Source\*.cpp MediaInfo_Lib_GNU_Prepare\Source\
 xcopy ..\Source\MediaInfo\*.h MediaInfo_Lib_GNU_Prepare\Source\MediaInfo\ /S
 xcopy ..\Source\MediaInfo\*.cpp MediaInfo_Lib_GNU_Prepare\Source\MediaInfo\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cpp MediaInfo_Lib_GNU_Prepare\Source\MediaInfoDLL\ /S
