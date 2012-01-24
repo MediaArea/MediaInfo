@@ -12,10 +12,26 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.53, 2012-
+Version 0.7.53, 2012-01-24
 --------------
 + Slovak translation updated
 + Export in XML, MPEG-7, PBCore, or reVTMD format (with possibility to export to sidecar files)
++ DV: option for ignoring transmitting flags (TF1/TF2/TF3) (DLL and CLI only)
++ Matroska: ProRes detection
++ MPEG-4: official DTS CodecIDs (dtsc/dtsh/dtsl/dtse) support, thanks to Lionel Duchateau
++ Matroska: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
++ #3471516, BLu-ray: wrong channel count for mono/3-channel/5-channel/7-channel PCM streams
++ AVI: ISMP (SMPTE Time code), Tdat tc_o/tc_a (Adobe Premier time code) support
++ reVTMD output
+x QuickTime: crash and sometimes wrong info with some files having compressed header
+x MPEG-4: commercial format typo error (EX422 instead of HD422)
+x MXF: handling wrong MXF header having frame height instead of field height
+x #3471053, Tags: Id3v1 tag was used instead of Id3v2 if the file is short
+x #3463117, MPEG-TS: crash if Conditioal Access PID is same as the PES
+x Custom output: better handling of cases with special character strings (\n...) in the file content
+x #3440664: Audio only AVI file is missing duration
+x #3453476: detection so incorrect duration information in tkhd atom
+x Detailled XML output was producing duplicate xml-tags
 
 Version 0.7.52, 2011-12-19
 --------------
