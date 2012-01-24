@@ -1,5 +1,5 @@
 // HowToUse - Example for MediaInfoLib (commandline version)
-// Copyright (C) 2004-2007 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2004-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -19,27 +19,18 @@
 //
 // Example for MediaInfoLib
 // Command line version
-// Note : it uses wprintf instead of wcout, because
-//        MinGW doesn't support std::wcout
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #include <string>
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
 #include "ZenLib/Ztring.h" //Note : I need it for universal atoi, but you have not to use it for be able to use MediaInfoLib
 #include "MediaInfo/MediaInfo.h"
 
 using namespace MediaInfoLib;
 using namespace ZenLib;
 
-#ifdef _UNICODE
-    #define tprintf wprintf
-#else
-    #define tprintf printf
-#endif
-
-int main (int argc, ZenLib::Char *argv[])
+int main (int argc, char *argv[])
 {
     //Information about MediaInfo
     MediaInfo MI;
@@ -88,10 +79,8 @@ int main (int argc, ZenLib::Char *argv[])
     To_Display += _T("\r\n\r\nClose\r\n");
     MI.Close();
 
-    tprintf (_T("%s\r\n"), To_Display.c_str());
-    system("PAUSE");
+    std::cout<<To_Display.To_Local().c_str()<<std::endl;
     
     return 0;
 }
 //---------------------------------------------------------------------------
-
