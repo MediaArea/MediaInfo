@@ -89,9 +89,9 @@ install -d -m 755 ${install_prefix}/bin
 cp ../GNU/Library/libmediainfo-config ${install_prefix}/bin
 chmod 755 ${install_prefix}/bin/*
 #doc
-install -d -m 755 ${install_prefix}/share/doc/libmediainfo0-devel/Example
-cp ../../Source/Example/HowToUse_Dll* ${install_prefix}/share/doc/libmediainfo0-devel/Example
-chmod 644 ${install_prefix}/share/doc/libmediainfo0-devel/Example/*
+install -d -m 755 ${install_prefix}/share/doc/libmediainfo-devel/Example
+cp ../../Source/Example/HowToUse_Dll* ${install_prefix}/share/doc/libmediainfo-devel/Example
+chmod 644 ${install_prefix}/share/doc/libmediainfo-devel/Example/*
 
 #depend file
 mkdir -p ${packagecreation_prefix}
