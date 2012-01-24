@@ -24,7 +24,7 @@ x #3463117, MPEG-TS: crash if Conditioal Access PID is same as the PES
 x Custom output: better handling of cases with special character strings (\n...) in the file content
 x #3440664: Audio only AVI file is missing duration
 x #3453476: detection so incorrect duration information in tkhd atom
-x # "--Output=XML -f --Language=raw" produces duplicate xml-tags
+x Detailled XML output was producing duplicate xml-tags
 
 Version 0.7.52, 2011-12-19
 --------------
