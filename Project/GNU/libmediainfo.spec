@@ -80,6 +80,7 @@ Group:		Development/Libraries/C and C++
 Requires:	libmediainfo0 = %{version}
 Requires:	libzen-devel >= %libzen_version
 Requires:	glibc-devel
+Obsoletes:	libmediainfo0-devel
 
 %description -n libmediainfo-devel
 MediaInfo is a library used for retrieving technical information and other
