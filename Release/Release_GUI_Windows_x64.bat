@@ -14,7 +14,7 @@ copy  ..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaI
 xcopy ..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_x64\ /S
 
 @rem --- Copying : Plugins ---
-xcopy ..\Source\Ressource\Plugin\* MediaInfo_GUI_Windows_x64\Plugin\ /S
+xcopy ..\Source\Resource\Plugin\* MediaInfo_GUI_Windows_x64\Plugin\ /S
 
 @rem --- Copying : Information files ---
 copy ..\License.html MediaInfo_GUI_Windows_x64\

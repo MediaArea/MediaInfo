@@ -10,7 +10,7 @@ xcopy ..\Project\MSVC2008\CLI\Win32\Release\MediaInfo.exe MediaInfo_CLI_Windows_
 xcopy ..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaInfo_CLI_Windows_i386\ /S
 
 rem --- Copying : Plugins ---
-xcopy ..\Source\Ressource\Plugin\Custom\* MediaInfo_CLI_Windows_i386\Plugin\Custom\ /S
+xcopy ..\Source\Resource\Plugin\Custom\* MediaInfo_CLI_Windows_i386\Plugin\Custom\ /S
 
 rem --- Copying : Information files ---
 copy ..\License.* MediaInfo_CLI_Windows_i386\

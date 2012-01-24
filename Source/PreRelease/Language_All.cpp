@@ -7,7 +7,7 @@ using namespace ZenLib;
 Ztring Language_All_Run ()
 {
     ZtringListListF Origin;
-    Origin.Load(L"../Source/Ressource/Language.csv");
+    Origin.Load(L"../Source/Resource/Language.csv");
     for (int Lang=1; Lang<50; Lang++)
     {
         Ztring Name=Origin.Read(L"  Language_ISO639", Lang);
@@ -27,7 +27,7 @@ Ztring Language_All_Run ()
             }
             Dest((L"ZZ_Automatic_Percent"), 1).From_Number(Automatic*100/Origin.size());
             Dest((L"ZZ_AutomaticLanguage_Percent"), 1).From_Number(Automatic_Language*100/Origin.size());
-            Dest.Save(Ztring(L"../Source/Ressource/Plugin/Language/")+Name+L".csv");
+            Dest.Save(Ztring(L"../Source/Resource/Plugin/Language/")+Name+L".csv");
         }
     }
     

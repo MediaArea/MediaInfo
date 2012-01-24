@@ -50,10 +50,10 @@ cp -r ../Source/GUI/Common/*.cpp MediaInfo_GUI_GNU_FromSource/Source/GUI/Common/
 mkdir -p MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWidgets
 cp -r ../Source/GUI/WxWidgets/*.h MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWidgets/
 cp -r ../Source/GUI/WxWidgets/*.cpp MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWidgets/
-mkdir -p MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/Menu/K20
-cp -r ../Source/Ressource/Image/*.png MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/
-cp -r ../Source/Ressource/Image/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/
-cp -r ../Source/Ressource/Image/Menu/K20/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/Menu/K20/
+mkdir -p MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/Menu/K20
+cp -r ../Source/Resource/Image/*.png MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/
+cp -r ../Source/Resource/Image/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/
+cp -r ../Source/Resource/Image/Menu/K20/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/Menu/K20/
 
 #-----------------------------------------------------------------------
 # Copying : Release

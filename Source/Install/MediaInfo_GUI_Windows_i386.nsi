@@ -29,7 +29,7 @@ SetCompressor /FINAL /SOLID lzma
 ; Modern UI
 !include "MUI2.nsh"
 !define MUI_ABORTWARNING
-!define MUI_ICON "..\..\Source\Ressource\Image\MediaInfo.ico"
+!define MUI_ICON "..\..\Source\Resource\Image\MediaInfo.ico"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
@@ -121,13 +121,13 @@ Section "SectionPrincipale" SEC01
   File  "/oname=ReadMe.txt""..\..\Release\ReadMe_GUI_Windows.txt"
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
-  File "..\Ressource\Plugin\Custom\*.csv"
+  File "..\Resource\Plugin\Custom\*.csv"
   SetOutPath "$INSTDIR\Plugin\Language"
-  File "..\Ressource\Plugin\Language\*.csv"
+  File "..\Resource\Plugin\Language\*.csv"
   SetOutPath "$INSTDIR\Plugin\Sheet"
-  File "..\Ressource\Plugin\Sheet\*.csv"
+  File "..\Resource\Plugin\Sheet\*.csv"
   SetOutPath "$INSTDIR\Plugin\Tree"
-  File "..\Ressource\Plugin\Tree\*.csv"
+  File "..\Resource\Plugin\Tree\*.csv"
 
   # Delete files that might be present from older installation
   Delete "$INSTDIR\History_GUI.txt"
