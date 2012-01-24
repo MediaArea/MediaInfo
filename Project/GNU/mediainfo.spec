@@ -6,9 +6,9 @@
 
 # norootforbuild
 
-%define mediainfo_version		0.7.52
-%define libmediainfo_version	0.7.52
-%define libzen_version			0.4.23
+%define mediainfo_version		0.7.53
+%define libmediainfo_version	0.7.53
+%define libzen_version			0.4.24
 
 Name:			mediainfo
 Version:		%mediainfo_version
