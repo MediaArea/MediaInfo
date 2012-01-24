@@ -2,9 +2,6 @@ AUTOMAKE_OPTIONS = foreign
 
 lib_LTLIBRARIES = libmediainfo.la
 libmediainfo_la_SOURCES = \
-                       ../../../Source/tinyxml.cpp \
-                       ../../../Source/tinyxmlerror.cpp \
-                       ../../../Source/tinyxmlparser.cpp \
                        ../../../Source/MediaInfo/File__Analyze.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp \
@@ -171,6 +168,13 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Vc3.cpp \
                        ../../../Source/MediaInfo/Video/File_Y4m.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
+
+if COMPILE_TINYXML
+libmediainfo_la_SOURCES += \
+                       ../../../Source/tinyxml.cpp \
+                       ../../../Source/tinyxmlerror.cpp \
+                       ../../../Source/tinyxmlparser.cpp
+endif
 
 libmediainfo_la_LDFLAGS     = -no-undefined -version-info 0:0:0
 

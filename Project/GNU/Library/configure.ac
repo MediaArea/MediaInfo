@@ -171,6 +171,7 @@ AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [For
 AC_ARG_WITH(libz_static,        AC_HELP_STRING([--with-libz-static],        [Use static version of Zlib]),                , with_libz_static=no)
 AC_ARG_WITH(libcurl,            AC_HELP_STRING([--with-libcurl],            [Use libcurl (specific directory)]),          , with_libcurl=no)
 AC_ARG_WITH(libmms,             AC_HELP_STRING([--with-libmms],             [Use libmms (specific directory)]),           , with_libmms=no)
+AC_ARG_WITH(libtinyxml,         AC_HELP_STRING([--with-libtinyxml],         [Use libtinyxml (system)]),                   , with_libtinyxml=depend)
 
 dnl -------------------------------------------------------------------------
 dnl MediaInfo *
@@ -356,7 +357,6 @@ dnl ZenLib
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
 	if test "$enable_staticlibs" = "yes"; then
 		with_zenlib="builtin (static)"
 		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
@@ -368,7 +368,6 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 	fi
 elif test "$(libzen-config Exists)" = "yes" ; then
 	CXXFLAGS="$CXXFLAGS $(libzen-config CXXFLAGS)"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(libzen-config CXXFLAGS)"
 	if test "$enable_staticlibs" = "yes"; then
 		with_zenlib="system (static)"
 		LIBS="$LIBS $(libzen-config LIBS_Static)"
@@ -381,7 +380,6 @@ elif test "$(libzen-config Exists)" = "yes" ; then
 else
 	if pkg-config --exists libzen; then
 		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
-		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
 		if test "$enable_staticlibs" = "yes"; then
 			with_zenlib="system (static)"
 			LIBS="$LIBS $(pkg-config --variable=LIBS_Static libzen)"
@@ -519,6 +517,25 @@ else
 	using_libmms="not found"
 fi
 
+dnl -------------------------------------------------------------------------
+dnl libtinyxml
+dnl
+if test "$with_libtinyxml" = "yes"; then
+	if pkg-config --exists tinyxml; then
+		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags tinyxml)"
+		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags tinyxml)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs tinyxml)"
+		MediaInfoLib_Requires+="$MediaInfoLib_Requires tinyxml"
+		using_libtinyxml="system"
+		AM_CONDITIONAL(COMPILE_TINYXML, false)
+	else
+		AC_MSG_ERROR([libtinyxml is not found, please install development package of libtinyxml])
+	fi
+else
+	using_libtinyxml="internal"
+	AM_CONDITIONAL(COMPILE_TINYXML, true)
+fi
+
 dnl #########################################################################
 dnl ### Compiler specific
 dnl #########################################################################
@@ -644,6 +661,7 @@ AC_SUBST(MediaInfoLib_CXXFLAGS)
 AC_SUBST(MediaInfoLib_LIBS)
 AC_SUBST(MediaInfoLib_LIBS_Static)
 AC_SUBST(MediaInfoLib_Unicode)
+AC_SUBST(MediaInfoLib_Requires)
 AC_CONFIG_FILES(libmediainfo-config, [chmod u+x libmediainfo-config])
 AC_CONFIG_FILES(libmediainfo.pc)
 
@@ -668,6 +686,7 @@ echo "  Using ZenLib?                                           $with_zenlib"
 echo "  Using libcurl?                                          $using_libcurl"
 echo "  Using libmms?                                           $using_libmms"
 echo "  Using zlib?                                             $with_zlib"
+echo "  Using tinyxml?                                          $using_libtinyxml"
 echo ""
 echo "  Create static lib?                                      $enable_static"
 echo "  Create shared lib?                                      $enable_shared"
