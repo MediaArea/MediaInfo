@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.53,
+Version 0.7.53, 2012-01-24
 --------------
 + DV: option for ignoring transmitting flags (TF1/TF2/TF3) (DLL and CLI only)
 + Matroska: ProRes detection
