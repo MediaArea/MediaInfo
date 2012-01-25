@@ -4066,19 +4066,21 @@ void File_Mxf::WaveAudioDescriptor()
 //---------------------------------------------------------------------------
 void File_Mxf::Unknown1()
 {
-    switch(Code2)
-    {
-        default: FileDescriptor();
-    }
+    //switch(Code2)
+    //{
+    //    default:
+                FileDescriptor();
+    //}
 }
 
 //---------------------------------------------------------------------------
 void File_Mxf::AncPacketsDescriptor()
 {
-    switch(Code2)
-    {
-        default: FileDescriptor();
-    }
+    //switch(Code2)
+    //{
+    //    default:
+                FileDescriptor();
+    //}
 
     if (Descriptors[InstanceUID].Type==descriptor::Type_Unknown)
     {
@@ -6596,9 +6598,9 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
     {
         case 0x01 : //Item
                     {
-                    switch (Registry)
-                    {
-                        default   :
+                    //switch (Registry)
+                    //{
+                    //    default   :
                                     {
                                     switch (Structure)
                                     {
@@ -6610,14 +6612,14 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                                                     Skip_B8(    "Unknown");
                                     }
                                     }
-                    }
+                    //}
                     }
                     break;
         case 0x02 : //Group
                     {
-                    switch (Registry)
-                    {
-                        default   :
+                    //switch (Registry)
+                    //{
+                    //    default   :
                                     {
                                     switch (Structure)
                                     {
@@ -6628,7 +6630,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name, const char* (*Param) (in
                                                     Skip_B8(    "Unknown");
                                     }
                                     }
-                    }
+                    //}
                     }
                     break;
         case 0x04 : //Value
@@ -8413,13 +8415,13 @@ void File_Mxf::ChooseParser__Aaf_CP_Sound(const essences::iterator &Essence, con
 void File_Mxf::ChooseParser__Aaf_CP_Data(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     int32u Code_Compare4=(int32u)Code.lo;
-    int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
+    //int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
 
-    switch (Code_Compare4_3)
-    {
-        default   : //Unknown
+    //switch (Code_Compare4_3)
+    //{
+    //    default   : //Unknown
                     Essences[Code_Compare4].Parser=new File__Analyze();
-    }
+    //}
 }
 
 //---------------------------------------------------------------------------

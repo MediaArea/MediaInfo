@@ -136,7 +136,7 @@ bool File_Zip::FileHeader_Begin()
 //---------------------------------------------------------------------------
 void File_Zip::Read_Buffer_Continue()
 {
-    while (true)
+    for (;;)
     {
         //Probing
         if (signature==0x00000000) //If not already tested (else an element is being parsed)

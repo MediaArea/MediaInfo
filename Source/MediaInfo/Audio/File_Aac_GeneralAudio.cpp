@@ -768,7 +768,7 @@ void File_Aac::section_data()
             int8u sect_len_incr;
             if (!aacSectionDataResilienceFlag || sect_cb[g][i]<11 || (sect_cb[g][i]>11 && sect_cb[g][i]<16))
             {
-                while (true)
+                for (;;)
                 {
                     if (Data_BS_Remain()==0)
                     {
@@ -955,7 +955,7 @@ void File_Aac::ltp_data()
     Element_Begin("ltp_data");
     //int sfb;
     //bool ltp_lag_update;
-    if ( false/*AudioObjectType == ER_AAC_LD*/ ) {
+    //if (AudioObjectType == ER_AAC_LD ) {
         //~ Get_SB(ltp_lag_update,"ltp_lag_update");
         //~ if ( ltp_lag_update ) {
             //~ Get_S2(10,ltp_lag,"ltp_lag");
@@ -966,7 +966,7 @@ void File_Aac::ltp_data()
         //~ for (sfb = 0; sfb <(max_sfb<MAX_LTP_LONG_SFB?max_sfb:MAX_LTP_LONG_SFB);& sfb++ ) {
             //~ Skip_SB("ltp_long_used[sfb]");
         //~ }
-    } else {
+    //} else {
         Get_S2(11,ltp_lag,                                        "ltp_lag");
         Skip_S1(3,                                                "ltp_coef");
         if(window_sequence!=2) //EIGHT_SHORT_SEQUENCE
@@ -974,7 +974,7 @@ void File_Aac::ltp_data()
             for (int8u sfb=0; sfb<(max_sfb<40?max_sfb:40); sfb++ ) //MAX_LTP_LONG_SFB=40
                 Skip_SB("ltp_long_used[sfb]");
         }
-    }
+    //}
     Element_End();
 }
 

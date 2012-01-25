@@ -197,7 +197,7 @@ void File_Vorbis::Setup()
             if (codebook_lookup_type==1)
             {
                 vals=(int32u)floor(pow((float)codebook_entries,1.f/codebook_dimensions));
-                while(1)
+                for (;;)
                 {
                     int32u acc=1, acc1=1;
                     for(int32u i=0; i<codebook_dimensions; i++)

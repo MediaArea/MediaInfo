@@ -171,7 +171,7 @@ void MediaInfoList_Internal::Entry()
     if (ToParse_Total==0)
         return;
 
-    while (1)
+    for (;;)
     {
         CS.Enter();
         if (!ToParse.empty())

@@ -521,7 +521,7 @@ void File_Riff::Read_Buffer_Init()
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_SEEK
-size_t File_Riff::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+size_t File_Riff::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
 {
     //Only Wave and AIFF
     switch (Kind)

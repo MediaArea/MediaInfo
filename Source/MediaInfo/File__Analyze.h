@@ -1223,6 +1223,12 @@ public :
                     } \
                     break; \
 
+#define ATOM_PARTIAL(_ATOM) \
+            case Elements::_ATOM : \
+                    if (Level==Element_Level) \
+                        _ATOM(); \
+                    break; \
+
 #define ATOM_DEFAULT(_ATOM) \
             default : \
                     if (Level==Element_Level) \
@@ -1279,6 +1285,20 @@ public :
                 return; \
             } \
         } \
+    } \
+    break; \
+
+#define LIST_DEFAULT_ALONE_BEGIN(_ATOM) \
+    if (Level!=Element_Level) \
+    { \
+        Level++; \
+        if (Level==Element_Level) \
+        { \
+            Element_ThisIsAList(); \
+            _ATOM(); \
+        } \
+
+#define LIST_DEFAULT_ALONE_END \
     } \
     break; \
 

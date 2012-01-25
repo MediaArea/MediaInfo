@@ -75,7 +75,7 @@ File_Ibi::~File_Ibi()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-const Ztring &File_Ibi::Get (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, info_t KindOfInfo, info_t KindOfSearch)
+const Ztring &File_Ibi::Get (stream_t /*StreamKind*/, size_t /*StreamNumber*/, const Ztring &Parameter, info_t /*KindOfInfo*/, info_t /*KindOfSearch*/)
 {
     ibi::streams::iterator IbiStream_Temp=Ibi->Streams.begin(); //TODO: management of multiple streams
     if (IbiStream_Temp!=Ibi->Streams.end() && !IbiStream_Temp->second->Infos.empty())

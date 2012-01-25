@@ -1941,7 +1941,7 @@ void File_Avc::sei_message_buffering_period_xxl(void* xxl_)
 
 //---------------------------------------------------------------------------
 // SEI - 1
-void File_Avc::sei_message_pic_timing(int32u payloadSize, int32u seq_parameter_set_id)
+void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_parameter_set_id)
 {
     Element_Info("pic_timing");
 
@@ -2155,7 +2155,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 }
 
-void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u seq_parameter_set_id)
+void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u /*seq_parameter_set_id*/)
 {
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         //Purging too old orphelins

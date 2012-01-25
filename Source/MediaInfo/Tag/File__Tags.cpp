@@ -218,7 +218,7 @@ bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
 //---------------------------------------------------------------------------
 bool File__Tags_Helper::Synched_Test()
 {
-    while (1)
+    for (;;)
     {
         if (!Parser)
         {

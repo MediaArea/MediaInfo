@@ -751,9 +751,7 @@ void File_Mpeg4::Data_Parse()
         ATOM(jp2h_ihdr)
         ATOM_END
     LIST(mdat)
-        ATOM_BEGIN
-        ATOM_DEFAULT(mdat_xxxx)
-        ATOM_END_DEFAULT
+        ATOM_DEFAULT_ALONE(mdat_xxxx)
     LIST(mfra)
         ATOM_BEGIN
         ATOM(mfra_mfro)
@@ -787,14 +785,13 @@ void File_Mpeg4::Data_Parse()
                 ATOM_END
             ATOM(moov_meta_hdlr)
             LIST(moov_meta_ilst)
-                ATOM_BEGIN
-                LIST_DEFAULT (moov_meta_ilst_xxxx)
+                LIST_DEFAULT_ALONE_BEGIN (moov_meta_ilst_xxxx)
                     ATOM_BEGIN
                     ATOM (moov_meta_ilst_xxxx_data)
                     ATOM (moov_meta_ilst_xxxx_mean)
                     ATOM (moov_meta_ilst_xxxx_name)
                     ATOM_END
-                ATOM_END_DEFAULT
+                LIST_DEFAULT_ALONE_END
             ATOM(moov_meta_xml)
             ATOM_END
         LIST(moov_mvex)
@@ -996,14 +993,13 @@ void File_Mpeg4::Data_Parse()
                 ATOM_BEGIN
                 ATOM(moov_udta_meta_hdlr)
                 LIST(moov_udta_meta_ilst)
-                    ATOM_BEGIN
-                    LIST_DEFAULT (moov_udta_meta_ilst_xxxx);
+                    LIST_DEFAULT_ALONE_BEGIN (moov_udta_meta_ilst_xxxx)
                         ATOM_BEGIN
                         ATOM (moov_udta_meta_ilst_xxxx_data);
                         ATOM (moov_udta_meta_ilst_xxxx_mean);
                         ATOM (moov_udta_meta_ilst_xxxx_name);
                         ATOM_END
-                    ATOM_END_DEFAULT
+                    LIST_DEFAULT_ALONE_END
                 ATOM_END
             ATOM(moov_udta_ndrm)
             ATOM(moov_udta_nsav)

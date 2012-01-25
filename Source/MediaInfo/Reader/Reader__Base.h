@@ -46,7 +46,7 @@ public :
 
     //Format testing
     virtual size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name)=0;
-    virtual size_t Format_Test_PerParser_Continue (MediaInfo_Internal* MI) {return 0;};
+    virtual size_t Format_Test_PerParser_Continue (MediaInfo_Internal* /*MI*/) {return 0;};
     #if MEDIAINFO_SEEK
     virtual size_t Format_Test_PerParser_Seek (MediaInfo_Internal*, size_t, int64u, int64u) {return 0;};
     #endif //MEDIAINFO_SEEK

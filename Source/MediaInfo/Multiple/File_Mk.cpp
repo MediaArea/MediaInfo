@@ -2401,9 +2401,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds_ExtensibleWave()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MediaInfoLib::Config.Codec_Get(Ztring().From_Number((int16u)SubFormat.hi, 16)), true);
 
             //Creating the parser
-                 if (0);
             #if defined(MEDIAINFO_PCM_YES)
-            else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Ztring().From_Number((int16u)SubFormat.hi, 16))==_T("PCM"))
+            if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Ztring().From_Number((int16u)SubFormat.hi, 16))==_T("PCM"))
             {
                 //Creating the parser
                 File_Pcm MI;

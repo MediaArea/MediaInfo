@@ -794,7 +794,7 @@ void File_DvDif::Read_Buffer_Unsynched()
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_SEEK
-size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
 {
     //Init
     if (!Duration_Detected)

@@ -2311,6 +2311,7 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
 void File_Mpeg_Psi::SCTE_multilingual_text_string(int8u Size, Ztring &Value, const char* Info)
 {
     //Parsing
+    Element_Begin(Info);
     int64u End=Element_Offset+Size;
     while (Element_Offset<End)
     {
@@ -2338,6 +2339,7 @@ void File_Mpeg_Psi::SCTE_multilingual_text_string(int8u Size, Ztring &Value, con
             Skip_XX(format_effector_param_length,               "format_effector_data");
         }
     }
+    Element_End();
 }
 
 //---------------------------------------------------------------------------

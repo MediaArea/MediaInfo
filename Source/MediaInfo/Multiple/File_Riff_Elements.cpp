@@ -483,22 +483,16 @@ void File_Riff::Data_Parse()
             ATOM_DEFAULT(AVIX_movi_xxxx)
             ATOM_END_DEFAULT
         ATOM_END
-    LIST(CADP)
-        ATOM_BEGIN
-        ATOM_END
+    ATOM_PARTIAL(CADP)
     LIST(CDDA)
         ATOM_BEGIN
         ATOM(CDDA_fmt_)
         ATOM_END
-    LIST(CMJP)
-        ATOM_BEGIN
-        ATOM_END
+    ATOM_PARTIAL(CMJP)
     ATOM(CMP4)
     ATOM(IDVX)
     LIST(INDX)
-        ATOM_BEGIN
-        ATOM_DEFAULT(INDX_xxxx)
-        ATOM_END_DEFAULT
+        ATOM_DEFAULT_ALONE(INDX_xxxx)
     LIST_SKIP(JUNK)
     LIST_SKIP(menu)
     ATOM(MThd)
@@ -546,9 +540,7 @@ void File_Riff::Data_Parse()
         ATOM_BEGIN
         ATOM(WAVE__pmx)
         ATOM(WAVE_aXML)
-        LIST(WAVE_bext)
-            ATOM_BEGIN
-            ATOM_END
+        ATOM(WAVE_bext)
         LIST(WAVE_data)
             break;
         ATOM(WAVE_cue_)
@@ -558,9 +550,7 @@ void File_Riff::Data_Parse()
         ATOM(WAVE_ID3_)
         ATOM(WAVE_id3_)
         LIST(WAVE_INFO)
-            ATOM_BEGIN
-            ATOM_DEFAULT(WAVE_INFO_xxxx)
-            ATOM_END_DEFAULT
+            ATOM_DEFAULT_ALONE(WAVE_INFO_xxxx)
         ATOM(WAVE_iXML)
         ATOM_END
     LIST(wave)
@@ -2635,6 +2625,13 @@ void File_Riff::CADP()
 {
     Element_Name("CMP4 - ADPCM");
 
+    //Testing if we have enough data
+    if (Element_Size<4)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+
     //Parsing
     int32u Codec;
     Get_C4 (Codec,                                              "Codec");
@@ -2642,7 +2639,7 @@ void File_Riff::CADP()
 		if (Trace_Activated)
 			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
-    Element_Offset=Element_TotalSize_Get()-Element_Offset; //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
+    Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_Audio);
@@ -2733,8 +2730,7 @@ void File_Riff::CMJP()
         Open_Buffer_Init(Parser);
         Parser->StreamKind=Stream_Video;
         Open_Buffer_Continue(Parser);
-        Element_Offset=Element_Size;
-        Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Other data");
+        Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 
         FILLING_BEGIN();
             Stream_Prepare(Stream_Video);
@@ -2745,7 +2741,7 @@ void File_Riff::CMJP()
 
         Stream[Stream_ID].Parsers.push_back(Parser);
     #else
-        Skip_XX(Element_TotalSize_Get(),                        "Data");
+        Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 
         FILLING_BEGIN();
             Stream_Prepare(Stream_Video);

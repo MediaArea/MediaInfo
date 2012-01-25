@@ -526,7 +526,7 @@ void File_Aes3::Read_Buffer_Unsynched()
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_SEEK
-size_t File_Aes3::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
+size_t File_Aes3::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
 {
     //Init
     if (!Duration_Detected && File_Size!=(int64u)-1 && (Frame_Size==(int64u)-1 || Frame_Duration==(int64u)-1))

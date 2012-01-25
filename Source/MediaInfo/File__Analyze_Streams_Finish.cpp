@@ -103,7 +103,7 @@ void File__Analyze::Streams_Finish_Global()
             int64u Pos=Ztring(FileToTest_Name.substr(FileNameToTest_Pos)).To_int64u();
             FileToTest_Name.resize(FileNameToTest_Pos);
 
-            while (true)
+            for (;;)
             {
                 Pos++;
                 Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos);

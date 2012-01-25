@@ -182,12 +182,9 @@ const char* Mpeg4_Descriptors_StreamType(int8u ID)
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg4_Descriptors_ODProfileLevelIndication(int8u ID)
+const char* Mpeg4_Descriptors_ODProfileLevelIndication(int8u /*ID*/)
 {
-    switch (ID)
-    {
-        default   : return "";
-    }
+    return "";
 }
 
 //---------------------------------------------------------------------------

@@ -1952,6 +1952,8 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
                     if (BitRate==  22050) BitRateS=  "22.05";
                     if (BitRate==  44100) BitRateS=  "44.1";
                     if (BitRate==  88200) BitRateS=  "88.2";
+                    if (BitRate== 176400) BitRateS= "176.4";
+                    if (BitRate== 352800) BitRateS= "352.8";
                 }
             }
             if (!BitRateS.empty())
