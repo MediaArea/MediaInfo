@@ -607,6 +607,11 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_colr=0x636F6C72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_ihdr=0x69686472;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_pasp=0x70617370;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_sinf=0x73696E66;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_frma=0x66726D61;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_imif=0x696D6966;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_schi=0x73636869;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_schm=0x7363686D;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave=0x77617665;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf=0x61636266;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda=0x656E6461;
@@ -901,6 +906,13 @@ void File_Mpeg4::Data_Parse()
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_ihdr)
                                     ATOM_END
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_pasp)
+                                LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_sinf)
+                                    ATOM_BEGIN
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_frma)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_imif)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_schi)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_schm)
+                                    ATOM_END
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_wave)
                                     ATOM_BEGIN
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
@@ -3758,7 +3770,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
         Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec, false, true);
         if (Codec=="drms")
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "iTunes");
-        if (Codec=="enca")
+        if (Codec=="encv")
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
         if (Width)
             Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
@@ -4381,6 +4393,57 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_pasp()
         }
     FILLING_END();
 }
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_sinf()
+{
+    Element_Name("Protection scheme information box");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_frma()
+{
+    Element_Name("Original format box");
+
+    //Parsing
+    std::string Codec;
+    Get_String(4, Codec,                                        "data_format");
+
+    FILLING_BEGIN();
+        CodecID_Fill(Ztring(Codec.c_str()), Stream_Video, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_imif()
+{
+    NAME_VERSION_FLAG("IPMP Information box");
+
+    //Parsing
+    Descriptors();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_schi()
+{
+    Element_Name("scheme information box");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "scheme_specific_data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_sinf_schm()
+{
+    NAME_VERSION_FLAG("scheme type box");
+
+    //Parsing
+    Skip_C4(                                                    "scheme_type");
+    Skip_B4(                                                    "scheme_version");
+    if (Flags&0x000001)
+        Skip_UTF8(Element_Size-Element_Offset,                  "scheme_uri");
+}
+
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave()
 {
