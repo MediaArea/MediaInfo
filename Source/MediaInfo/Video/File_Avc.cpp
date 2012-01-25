@@ -1261,7 +1261,7 @@ void File_Avc::slice_header()
     bool    field_pic_flag=false, bottom_field_flag=false;
     BS_Begin();
     Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
-    Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) Param_Info(Avc_slice_type[slice_type]);
+    Get_UE (slice_type,                                         "slice_type"); if (slice_type<10) Param_Info(Avc_slice_type[slice_type]);
     #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_Video_SliceInfo_0 Event;
@@ -1300,6 +1300,12 @@ void File_Avc::slice_header()
             Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
         }
     #endif //MEDIAINFO_EVENTS
+    if (slice_type>=10)
+    {
+        BS_End();
+        Skip_XX(Element_Size-Element_Offset,                    "Data");
+        return;
+    }
     Get_UE (pic_parameter_set_id,                               "pic_parameter_set_id");
     std::vector<pic_parameter_set_struct*>::iterator pic_parameter_set_Item;
     if (pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+pic_parameter_set_id))==NULL || !(*pic_parameter_set_Item)->IsSynched)
