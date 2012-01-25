@@ -24,17 +24,17 @@ wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmed
 mv libmediainfo0$dash$libmediainfov-$2$6$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0-$devext$dash$libmediainfov-$2$6$9.$type"
-mv libmediainfo0-$devext$dash$libmediainfov-$2$6$9.$type \
- download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type"
+mv libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type \
+ download/binary/libmediainfo0/$libmediainfov/libmediainfo-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
 wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$6$9.$type"
 mv libzen0$dash$libzenv-$3$6$9.$type \
  download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0-$devext$dash$libzenv-$3$6$9.$type"
-mv libzen0-$devext$dash$libzenv-$3$6$9.$type \
- download/binary/libzen0/$libzenv/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-$devext$dash$libzenv-$3$6$9.$type"
+mv libzen-$devext$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen-$devext$dash$libzenv-$destversion$9.$7.$type
 }
 
 #-----------------------------------------------------------------------
