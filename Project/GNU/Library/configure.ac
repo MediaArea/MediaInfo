@@ -521,16 +521,13 @@ dnl -------------------------------------------------------------------------
 dnl libtinyxml
 dnl
 if test "$with_libtinyxml" = "yes"; then
-	if pkg-config --exists tinyxml; then
-		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags tinyxml)"
-		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags tinyxml)"
-		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs tinyxml)"
-		MediaInfoLib_Requires="$MediaInfoLib_Requires tinyxml"
-		using_libtinyxml="system"
-		AM_CONDITIONAL(COMPILE_TINYXML, false)
-	else
-		AC_MSG_ERROR([libtinyxml is not found, please install development package of libtinyxml])
-	fi
+	PKG_CHECK_MODULES([TINYXML], [tinyxml])
+	CXXFLAGS="$CXXFLAGS $TINYXML_CXXFLAGS"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $TINYXML_CXXFLAGS"
+	LIBS="$LIBS $TINYXML_LIBS"
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $TINYXML_LIBS"
+	AM_CONDITIONAL(COMPILE_TINYXML, false)
+	using_libtinyxml="system"
 else
 	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/tinyxml"
 	using_libtinyxml="internal"
@@ -667,7 +664,6 @@ AC_SUBST(MediaInfoLib_CXXFLAGS)
 AC_SUBST(MediaInfoLib_LIBS)
 AC_SUBST(MediaInfoLib_LIBS_Static)
 AC_SUBST(MediaInfoLib_Unicode)
-AC_SUBST(MediaInfoLib_Requires)
 AC_CONFIG_FILES(libmediainfo-config, [chmod u+x libmediainfo-config])
 AC_CONFIG_FILES(libmediainfo.pc)
 
