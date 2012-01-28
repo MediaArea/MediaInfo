@@ -273,8 +273,10 @@ void File_Aac::program_config_element()
             return;
         }
 
-        audioObjectType=audioObjectType_Temp;
-        sampling_frequency_index=sampling_frequency_index_Temp;
+        if (audioObjectType==(int8u)-1)
+            audioObjectType=audioObjectType_Temp;
+        if (sampling_frequency_index==(int8u)-1)
+            sampling_frequency_index=sampling_frequency_index_Temp;
 
         Infos_General["Comment"]=comment_field_data;
 
@@ -1006,7 +1008,17 @@ void File_Aac::spectral_data()
                                 return;
                             }
                             for (int16u k=sect_sfb_offset[g][sect_start[g][i]]; k<sect_sfb_offset[g][sect_end[g][i]]; k+=(sect_cb[g][i]<5?4:2))
+                            {
                                 hcod(sect_cb[g][i],             "sect_cb");
+                                if (!Element_IsOK())
+                                {
+                                    Skip_BS(Data_BS_Remain(),   "(Problem)");
+                                    if (num_window_groups>1)
+                                        Element_End();
+                                    Element_End();
+                                    return;
+                                }
+                            }
             }
         }
         if (num_window_groups>1)
@@ -1370,7 +1382,9 @@ void File_Aac::hcod(int8u sect_cb, const char* Name)
         case 11 :   //2-values, 2-step method
                     hcod_2step(sect_cb, Values, 2);
                     break;
-        default:    ;
+        default:    Trusted_IsNot("(Problem)");
+                    Element_End();
+                    return;
     }
 
     switch (sect_cb)

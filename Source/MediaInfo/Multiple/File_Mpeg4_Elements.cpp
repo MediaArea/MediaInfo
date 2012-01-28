@@ -2398,6 +2398,7 @@ void File_Mpeg4::moov_trak()
         moov_trak_tkhd_DisplayAspectRatio=0;
         moov_trak_tkhd_Rotation=0;
         Stream_Prepare(Stream_Max); //clear filling
+        Streams.erase((int32u)-1);
     FILLING_END();
 }
 
@@ -3085,7 +3086,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stco()
         Element_Offset+=4;
 
         if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+        {
+            if (Offset==0x28)
+                int A=0;
             Streams[moov_trak_tkhd_TrackID].stco.push_back(Offset);
+        }
     }
 }
 
@@ -4960,15 +4965,12 @@ void File_Mpeg4::moov_trak_tkhd()
 
     FILLING_BEGIN();
         //Case of header is after main part
-        if (StreamKind_Last!=Stream_Max)
+        std::map<int32u, stream>::iterator Temp=Streams.find((int32u)-1);
+        if (Temp!=Streams.end())
         {
-            std::map<int32u, stream>::iterator Temp=Streams.find((int32u)-1);
-            if (Temp!=Streams.end())
-            {
-                Streams[moov_trak_tkhd_TrackID]=Temp->second;
-                Temp->second.Parser=NULL; //It is a copy, we don't want that the destructor deletes the Parser
-                Streams.erase(Temp);
-            }
+            Streams[moov_trak_tkhd_TrackID]=Temp->second;
+            Temp->second.Parser=NULL; //It is a copy, we don't want that the destructor deletes the Parser
+            Streams.erase(Temp);
         }
 
         Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Duration)*1000/TimeScale));
