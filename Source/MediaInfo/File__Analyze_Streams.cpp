@@ -1190,7 +1190,9 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Paramet
             const Ztring &List_Measure_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
                  if (List_Measure_Value==_T(" byte"))
             {
-                for (size_t Pos=Parameter+1; Pos<=Parameter+5; Pos++)
+                const Ztring &Temp=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Name);
+                size_t List_Size=Temp.find(_T("StreamSize"))==string::npos?5:7; //for /String5, with percentage, and proportion
+                for (size_t Pos=Parameter+1; Pos<=Parameter+List_Size; Pos++)
                     if (Pos<(*Stream)[StreamKind][StreamPos].size())
                         (*Stream)[StreamKind][StreamPos][Pos].clear();
             }
