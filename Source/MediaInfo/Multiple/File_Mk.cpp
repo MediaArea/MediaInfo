@@ -292,6 +292,9 @@ void File_Mk::Streams_Finish()
             }
         }
 
+        if (Temp->second.FrameRate!=0 && Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate).empty())
+            Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate, Temp->second.FrameRate, 3);
+
         //Flags
         Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Default", Temp->second.Default?"Yes":"No");
         Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Forced", Temp->second.Forced?"Yes":"No");
@@ -551,6 +554,7 @@ namespace Elements
     const int64u Segment_Tracks_TrackEntry_Video_DisplayUnit=0x14B2;
     const int64u Segment_Tracks_TrackEntry_Video_DisplayWidth=0x14B0;
     const int64u Segment_Tracks_TrackEntry_Video_FlagInterlaced=0x1A;
+    const int64u Segment_Tracks_TrackEntry_Video_FrameRate=0x383E3;
     const int64u Segment_Tracks_TrackEntry_Video_PixelCropBottom=0x14AA;
     const int64u Segment_Tracks_TrackEntry_Video_PixelCropLeft=0x14CC;
     const int64u Segment_Tracks_TrackEntry_Video_PixelCropRight=0x14DD;
@@ -845,6 +849,7 @@ void File_Mk::Data_Parse()
                     ATOM(Segment_Tracks_TrackEntry_Video_DisplayUnit)
                     ATOM(Segment_Tracks_TrackEntry_Video_DisplayWidth)
                     ATOM(Segment_Tracks_TrackEntry_Video_FlagInterlaced)
+                    ATOM(Segment_Tracks_TrackEntry_Video_FrameRate)
                     ATOM(Segment_Tracks_TrackEntry_Video_PixelCropBottom)
                     ATOM(Segment_Tracks_TrackEntry_Video_PixelCropLeft)
                     ATOM(Segment_Tracks_TrackEntry_Video_PixelCropRight)
@@ -2800,6 +2805,20 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_FlagInterlaced()
 
     //Parsing
     UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_FrameRate()
+{
+    Element_Name("FrameRate");
+
+    //Parsing
+   float64 Value=Float_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        Stream[TrackNumber].FrameRate=Value;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

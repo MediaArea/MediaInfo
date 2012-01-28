@@ -216,6 +216,7 @@ private :
     void Segment_Tracks_TrackEntry_Video_DisplayUnit();
     void Segment_Tracks_TrackEntry_Video_DisplayWidth();
     void Segment_Tracks_TrackEntry_Video_FlagInterlaced();
+    void Segment_Tracks_TrackEntry_Video_FrameRate();
     void Segment_Tracks_TrackEntry_Video_PixelCropBottom();
     void Segment_Tracks_TrackEntry_Video_PixelCropLeft();
     void Segment_Tracks_TrackEntry_Video_PixelCropRight();
@@ -240,6 +241,7 @@ private :
         size_t                  PacketCount;
         int32u                  AvgBytesPerSec; //Only used by x_MS/* codecIDs
         float32                 DisplayAspectRatio;
+        float64                 FrameRate;
         bool                    Searching_Payload;
         bool                    Searching_TimeStamps;
         bool                    Searching_TimeStamp_Start;
@@ -259,6 +261,7 @@ private :
             PacketCount=0;
             AvgBytesPerSec=0;
             DisplayAspectRatio=0;
+            FrameRate=0;
             Searching_Payload=false;
             Searching_TimeStamps=false;
             Searching_TimeStamp_Start=false;
