@@ -13,6 +13,7 @@ Version 0.7.54,
 x #3479494, AVC: segmentation fault
 x #3440638, AAC: wrong detection for some malformed AAC streams
 x #3440638, MPEG-4: wrong analysis of some files having track header after media information
+x #3480111, MXF: Height was wrong for MXF with FrameLayout = Mixed fields
 
 Version 0.7.53, 2012-01-24
 --------------

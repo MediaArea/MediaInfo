@@ -802,6 +802,48 @@ const char* Mxf_Sequence_DataDefinition(int128u DataDefinition)
 }
 
 //---------------------------------------------------------------------------
+const char* Mxf_FrameLayout(int8u FrameLayout)
+{
+    switch (FrameLayout)
+    {
+        case 0x00 : return "Full frame";
+        case 0x01 : return "Separated fields";
+        case 0x02 : return "Single field";
+        case 0x03 : return "Mixed fields";
+        case 0x04 : return "Segmented frame";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mxf_FrameLayout_ScanType(int8u FrameLayout)
+{
+    switch (FrameLayout)
+    {
+        case 0x01 :
+        case 0x04 :
+        case 0xFF : //Seen in one file
+                    return "Interlaced";
+        default   :
+                    return "Progressive";
+    }
+}
+
+//---------------------------------------------------------------------------
+int8u Mxf_FrameLayout_Multiplier(int8u FrameLayout)
+{
+    switch (FrameLayout)
+    {
+        case 0x01 :
+        case 0x04 :
+        case 0xFF : //Seen in one file
+                    return 2;
+        default   :
+                    return 1;
+    }
+}
+
+//---------------------------------------------------------------------------
 extern const char* Mpegv_profile_and_level_indication_profile[];
 extern const char* Mpegv_profile_and_level_indication_level[];
 
@@ -5017,11 +5059,11 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
     FILLING_BEGIN();
         if (Data && Descriptors[InstanceUID].Infos.find("ScanType")==Descriptors[InstanceUID].Infos.end())
         {
-            if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=2;
-            if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
-            if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
+            if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=Mxf_FrameLayout_Multiplier(Data);
+            if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=Mxf_FrameLayout_Multiplier(Data);
+            if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=Mxf_FrameLayout_Multiplier(Data);
         }
-        Descriptors[InstanceUID].Infos["ScanType"]=Data?"Interlaced":"Progressive";
+        Descriptors[InstanceUID].Infos["ScanType"]=Mxf_FrameLayout_ScanType(Data);
     FILLING_END();
 }
 
