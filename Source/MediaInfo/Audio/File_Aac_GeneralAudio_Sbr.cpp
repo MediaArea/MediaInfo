@@ -212,7 +212,7 @@ bool Aac_f_master_Compute(int8u &num_env_bands_Master, int8u* f_Master, sbr_hand
     {
         int8s Temp0=Temp1;
         Power2*=Power;
-        Temp0=(int8s)(Power2+0.5);
+        Temp1=(int8s)(Power2+0.5);
         vDk1[k]=Temp1-Temp0;
     }
 
