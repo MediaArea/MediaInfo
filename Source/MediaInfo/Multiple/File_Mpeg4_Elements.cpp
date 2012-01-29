@@ -389,7 +389,69 @@ const char* Mpeg4_chan_ChannelDescription_Layout (int32u ChannelLabel)
         case 205 : return "S";
         case 206 : return "X";
         case 207 : return "Y";
-        default  : return "";
+        default  : return "?";
+    }
+}
+
+//---------------------------------------------------------------------------
+std::string Mpeg4_chan_ChannelBitmap (int32u ChannelBitmap)
+{
+    std::string Text;
+    if ((ChannelBitmap&0x0007)!=0x0000)
+        Text+="Front:";
+    if (ChannelBitmap&0x0001)
+        Text+=" L";
+    if (ChannelBitmap&0x0004)
+        Text+=" C";
+    if (ChannelBitmap&0x0002)
+        Text+=" R";
+
+    if ((ChannelBitmap&0x0600)!=0x0000)
+        Text+=", Side:";
+    if (ChannelBitmap&0x0200)
+        Text+=" L";
+    if (ChannelBitmap&0x0400)
+        Text+=" R";
+
+    if ((ChannelBitmap&0x0130)!=0x0000)
+        Text+=", Back:";
+    if (ChannelBitmap&0x0010)
+        Text+=" L";
+    if (ChannelBitmap&0x0100)
+        Text+=" C";
+    if (ChannelBitmap&0x0020)
+        Text+=" R";
+
+    if ((ChannelBitmap&0x0008)!=0x0000)
+        Text+=", LFE";
+
+    return Text;
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_chan_ChannelBitmap_Layout (int32u ChannelBitmap)
+{
+    switch(ChannelBitmap)
+    {
+        case   0 : return "L";      // Left
+        case   1 : return "R";      // Right
+        case   2 : return "C";      // Center
+        case   3 : return "LFE";    // LFEScreen
+        case   4 : return "Ls";     // LeftSurround / Back Left
+        case   5 : return "Rs";     // RightSurround / Back Right
+        case   6 : return "?";      // LeftCenter
+        case   7 : return "?";      // RightCenter
+        case   8 : return "Cs";     // CenterSurround / Back Center
+        case   9 : return "Lsd";    // LeftSurroundDirect / Side Left
+        case  10 : return "Rsd";    // RightSurroundDirect / Side Right
+        case  11 : return "?";      // TopCenterSurround
+        case  12 : return "?";      // VerticalHeightLeft / Top Front Left
+        case  13 : return "?";      // VerticalHeightCenter / Top Front Center
+        case  14 : return "?";      // VerticalHeightRight / Top Front Right"
+        case  15 : return "?";      // TopBackLeft
+        case  16 : return "?";      // TopBackCenter
+        case  17 : return "?";      // TopBackRight
+        default  : return "?";
     }
 }
 
@@ -3086,11 +3148,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stco()
         Element_Offset+=4;
 
         if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
-        {
-            if (Offset==0x28)
-                int A=0;
             Streams[moov_trak_tkhd_TrackID].stco.push_back(Offset);
-        }
     }
 }
 
@@ -4006,43 +4064,59 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
     Get_B4 (ChannelLayoutTag,                                   "ChannelLayoutTag");
     Get_B4 (ChannelBitmap,                                      "ChannelBitmap");
     Get_B4 (NumberChannelDescriptions,                          "NumberChannelDescriptions");
-    for (int32u Pos=0; Pos<NumberChannelDescriptions; Pos++)
+    if (ChannelLayoutTag==0) //UseChannelDescriptions
     {
-        int32u ChannelLabel;
-        Get_B4 (ChannelLabel,                                   "ChannelLabel");
-        if (ChannelLabel<32)
-            ChannelLabels|=(1<<ChannelLabel);
-        else
-            ChannelLabels_Valid=false;
-        ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
-        if (Pos+1<NumberChannelDescriptions)
+        for (int32u Pos=0; Pos<NumberChannelDescriptions; Pos++)
+        {
+            int32u ChannelLabel;
+            Get_B4 (ChannelLabel,                                   "ChannelLabel");
+            if (ChannelLabel<32)
+                ChannelLabels|=(1<<ChannelLabel);
+            else
+                ChannelLabels_Valid=false;
+            ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
             ChannelDescription_Layout+=_T(' ');
-        Skip_B4(                                                "ChannelFlags");
-        Skip_BF4(                                               "Coordinates (0)");
-        Skip_BF4(                                               "Coordinates (1)");
-        Skip_BF4(                                               "Coordinates (2)");
+            Skip_B4(                                                "ChannelFlags");
+            Skip_BF4(                                               "Coordinates (0)");
+            Skip_BF4(                                               "Coordinates (1)");
+            Skip_BF4(                                               "Coordinates (2)");
+        }
+        if (!ChannelDescription_Layout.empty())
+            ChannelDescription_Layout.resize(ChannelDescription_Layout.size()-1);
     }
 
     if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
         return; //Handling only the first description
 
     FILLING_BEGIN();
-        if (ChannelLayoutTag==0) //AudioChannelDescriptions
+        if (ChannelLayoutTag==0) //UseChannelDescriptions
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, NumberChannelDescriptions, 10, true);
             if (ChannelLabels_Valid)
+            {
                 Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan_ChannelDescription(ChannelLabels), true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
+            }
         }
-        else if (ChannelLayoutTag==0x10000) //kCAFChannelLayoutTag_UseChannelBitmap
+        else if (ChannelLayoutTag==0x10000) //UseChannelBitmap
         {
             int8u Channels=0;
             for (size_t Bit=0; Bit<18; Bit++)
                 if (ChannelBitmap&(1<<Bit))
+                {
                     Channels++;
+                    ChannelDescription_Layout+=Mpeg4_chan_ChannelBitmap_Layout((int32u)(Bit+1));
+                    ChannelDescription_Layout+=_T(' ');
+                }
             if (Channels)
             {
-                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan_ChannelBitmap(ChannelBitmap), true, true);
+                if (!ChannelDescription_Layout.empty())
+                {
+                    ChannelDescription_Layout.resize(ChannelDescription_Layout.size()-1);
+                    Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
+                }
             }
         }
         else if (ChannelLayoutTag>0x10000)
