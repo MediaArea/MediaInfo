@@ -175,6 +175,7 @@ private :
     bool   stream_type_IsValid;
     bool   event_id_IsValid;
     bool   IsATSC;
+    bool   ForceStreamDisplay;
 };
 
 } //NameSpace

@@ -213,8 +213,24 @@ void File_MpegTs::Streams_Update()
 void File_MpegTs::Streams_Update_Programs()
 {
     //Per stream
+    bool PerStream_AlwaysParse=ForceStreamDisplay;
+    if (!PerStream_AlwaysParse)
+    {
+        size_t Programs_Size=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.size();
+        PerStream_AlwaysParse=true;
+        if (Programs_Size<=2)
+        {
+            //Testing if it is a Blu-ray
+            for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
+                if (Program->first!=0x0000 && Program->second.registration_format_identifier!=Elements::HDMV)
+                    {
+                        PerStream_AlwaysParse=false;
+                        break;
+                    }
+        }
+    }
     for (std::set<int16u>::iterator StreamID=Complete_Stream->PES_PIDs.begin(); StreamID!=Complete_Stream->PES_PIDs.end(); StreamID++)
-        if (Complete_Stream->Streams[*StreamID]->IsUpdated_IsRegistered || Complete_Stream->Streams[*StreamID]->IsUpdated_Info) 
+        if (PerStream_AlwaysParse || Complete_Stream->Streams[*StreamID]->IsUpdated_IsRegistered || Complete_Stream->Streams[*StreamID]->IsUpdated_Info) 
         {
             Streams_Update_Programs_PerStream(*StreamID);
             Complete_Stream->Streams[*StreamID]->IsUpdated_IsRegistered=false;
@@ -298,7 +314,9 @@ void File_MpegTs::Streams_Update_Programs()
                 for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
                 {
                     int16u elementary_PID=Program->second.elementary_PIDs[Pos];
-                    if (Complete_Stream->Streams[elementary_PID]->IsRegistered && Retrieve(Stream_Menu, StreamPos_Last, "KLV_PID").To_int16u()!=elementary_PID)
+                    if (((PerStream_AlwaysParse && Complete_Stream->Streams[elementary_PID]->StreamKind!=Stream_Max)
+                      || Complete_Stream->Streams[elementary_PID]->IsRegistered)
+                     && Retrieve(Stream_Menu, StreamPos_Last, "KLV_PID").To_int16u()!=elementary_PID)
                     {
                         Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID]->StreamKind, Complete_Stream->Streams[elementary_PID]->StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID]->StreamKind, Generic_Format));
                         Formats+=Format+_T(" / ");
@@ -498,7 +516,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
         if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
         {
             int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Temp->program_numbers[0]].registration_format_identifier;
-            if ((Temp->IsRegistered ||  format_identifier==Elements::HDMV) && Mpeg_Psi_stream_type_StreamKind(Temp->stream_type, format_identifier)!=Stream_Max)
+            if (Mpeg_Psi_stream_type_StreamKind(Temp->stream_type, format_identifier)!=Stream_Max && (Temp->IsRegistered || ForceStreamDisplay || format_identifier==Elements::HDMV))
             {
                 StreamKind_Last=Mpeg_Psi_stream_type_StreamKind(Temp->stream_type, format_identifier);
                 if (StreamKind_Last==Stream_General && Temp->Parser) //Only information, no streams
@@ -514,7 +532,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
         }
 
         //By the StreamKind
-        if (StreamKind_Last==Stream_Max && Temp->StreamKind_FromDescriptor!=Stream_Max && (Temp->IsRegistered || ForceStreamDisplay))
+        if (StreamKind_Last==Stream_Max && Temp->StreamKind_FromDescriptor!=Stream_Max && (Temp->IsRegistered || ForceStreamDisplay || Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Temp->program_numbers[0]].registration_format_identifier==Elements::HDMV))
         {
             Stream_Prepare(Temp->StreamKind_FromDescriptor);
             Count=1;

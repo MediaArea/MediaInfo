@@ -714,6 +714,7 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     event_id_IsValid=false;
     current_next_indicator=false;
     IsATSC=false;
+    ForceStreamDisplay=MediaInfoLib::Config.MpegTs_ForceStreamDisplay_Get();
 }
 
 //---------------------------------------------------------------------------
@@ -2544,6 +2545,8 @@ void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
     {
         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].elementary_PIDs.push_back(elementary_PID);
         Complete_Stream->Streams[elementary_PID]->program_numbers.push_back(program_number);
+        if (ForceStreamDisplay || (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier==Elements::HDMV && Complete_Stream->Streams[elementary_PID]->stream_type==0x90)) //Testing if forcing display of all streams or if it is a PGS from Blu-ray
+            Complete_Stream->PES_PIDs.insert(elementary_PID); //Adding it for sure
     }
 }
 
