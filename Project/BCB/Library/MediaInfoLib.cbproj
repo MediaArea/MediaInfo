@@ -19,7 +19,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<IncludePath>..\..\..\Source\ThirdParty\tinyxml\;..\..\..\Source\;..\..\..\Source\MediaInfo\Video\;..\..\..\Source\MediaInfo\Image\;..\..\..\Source\MediaInfo\Audio\;..\..\..\Source\MediaInfo\Text\;..\..\..\Source\MediaInfo\Tag\;..\..\..\Source\MediaInfo\Duplicate\;..\..\..\Source\MediaInfo\;..\..\..\Source\MediaInfo\Multiple\;..\..\..\Source\MediaInfo\Archive\;..\..\..\Source\MediaInfo\Reader\;..\..\..\Source\MediaInfo\Export\;..\..\..\Source\MediaInfo\Export;..\..\..\Source\MediaInfo\Reader;..\..\..\Source\MediaInfo\Audio;..\..\..\Source\MediaInfo\Video;..\..\..\Source\MediaInfo\Image;..\..\..\Source\MediaInfo\Text;..\..\..\Source\MediaInfo\Tag;..\..\..\Source\MediaInfo\Duplicate;..\..\..\Source\MediaInfo;..\..\..\Source\MediaInfo\Multiple;..\..\..\Source\MediaInfo\Archive;$(IncludePath)</IncludePath>
+			<IncludePath>..\..\..\Source\ThirdParty\tinyxml\;..\..\..\Source\ThirdParty\base64\;..\..\..\Source\;..\..\..\Source\MediaInfo\Video\;..\..\..\Source\MediaInfo\Image\;..\..\..\Source\MediaInfo\Audio\;..\..\..\Source\MediaInfo\Text\;..\..\..\Source\MediaInfo\Tag\;..\..\..\Source\MediaInfo\Duplicate\;..\..\..\Source\MediaInfo\;..\..\..\Source\MediaInfo\Multiple\;..\..\..\Source\MediaInfo\Archive\;..\..\..\Source\MediaInfo\Reader\;..\..\..\Source\MediaInfo\Export\;..\..\..\Source\MediaInfo\Export;..\..\..\Source\MediaInfo\Reader;..\..\..\Source\MediaInfo\Audio;..\..\..\Source\MediaInfo\Video;..\..\..\Source\MediaInfo\Image;..\..\..\Source\MediaInfo\Text;..\..\..\Source\MediaInfo\Tag;..\..\..\Source\MediaInfo\Duplicate;..\..\..\Source\MediaInfo;..\..\..\Source\MediaInfo\Multiple;..\..\..\Source\MediaInfo\Archive;$(IncludePath)</IncludePath>
 			<BRCC_Defines>_RTLDLL;NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;$(BRCC_Defines)</BRCC_Defines>
 			<PackageImports>vcl.bpi;rtl.bpi;vclx.bpi;xmlrtl.bpi;vclie.bpi;inet.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;dbrtl.bpi;dsnap.bpi;bcbie.bpi;vcldb.bpi;websnap.bpi;webdsnap.bpi;vclactnband.bpi</PackageImports>
 			<TASM_Defines>_RTLDLL;NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;$(TASM_Defines)</TASM_Defines>
@@ -646,6 +646,9 @@
 			<CppCompile Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp">
 				<DependentOn>..\..\..\Source\MediaInfo\Export\Export_reVTMD.h</DependentOn>
 				<BuildOrder>168</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp">
+				<BuildOrder>169</BuildOrder>
 			</CppCompile>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

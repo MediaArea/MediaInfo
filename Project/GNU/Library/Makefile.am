@@ -166,6 +166,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Theora.cpp \
                        ../../../Source/MediaInfo/Video/File_Vc1.cpp \
                        ../../../Source/MediaInfo/Video/File_Vc3.cpp \
+                       ../../../Source/MediaInfo/Video/File_Vp8.cpp \
                        ../../../Source/MediaInfo/Video/File_Y4m.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 

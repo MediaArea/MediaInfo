@@ -432,6 +432,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Y4m.cpp"
 					>
 				</File>
@@ -1319,6 +1323,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vc3.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vp8.h"
 					>
 				</File>
 				<File

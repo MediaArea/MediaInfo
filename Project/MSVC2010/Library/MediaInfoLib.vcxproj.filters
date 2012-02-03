@@ -591,6 +591,9 @@
     <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml\tinyxmlparser.cpp">
       <Filter>ThirdParty\tinyxml</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp">
+      <Filter>Source Files\Video</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1069,6 +1072,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\ThirdParty\tinyxml\tinyxml.h">
       <Filter>ThirdParty\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vp8.h">
+      <Filter>Header Files\Video</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

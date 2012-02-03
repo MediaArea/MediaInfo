@@ -56,6 +56,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_VP8_YES)
+    #include "MediaInfo/Video/File_Vp8.h"
+#endif
 #if defined(MEDIAINFO_AAC_YES)
     #include "MediaInfo/Audio/File_Aac.h"
 #endif
@@ -264,7 +267,7 @@ void File_Mk::Streams_Finish()
             if (StreamKind_Last==Stream_Video)
             {
                 //FrameRate
-                if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty()&& Temp->second.TimeCodes.size()>1)
+                if (Temp->second.TimeCodes.size()>1)
                 {
                     //Trying to detect VFR
                     std::vector<int64s> FrameRate_Between;
@@ -282,12 +285,27 @@ void File_Mk::Streams_Finish()
                             Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
                         if (Time)
                         {
-                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000/Time);
-                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "CFR");
+                            float32 FrameRate_FromCluster=1000000000/Time/TimecodeScale;
+                            if (!Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
+                            {
+                                float32 FrameRate_FromTrack=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
+                                if (FrameRate_FromCluster*1.01<FrameRate_FromTrack*0.99
+                                 || FrameRate_FromCluster*0.99>FrameRate_FromTrack*1.01)
+                                    Clear(Stream_Video, StreamPos_Last, Video_FrameRate); //There is a problem
+                            }
+                            else
+                            {
+                                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_FromCluster);
+                                Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "CFR");
+                            }
                         }
                     }
                     else
+                    {
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
+                        if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32()==1000.0)
+                            Clear(Stream_Video, StreamPos_Last, Video_FrameRate); //Some files on the net have a frame rate of 1000, it is not possible to be sure this is the real frame rate.
+                    }
                 }
             }
         }
@@ -1353,7 +1371,7 @@ void File_Mk::Segment_Cluster()
                 Temp->second.Searching_Payload=true;
             if (Temp->second.StreamKind==Stream_Video || Temp->second.StreamKind==Stream_Audio)
                 Temp->second.Searching_TimeStamp_Start=true;
-            if (Temp->second.StreamKind==Stream_Video && Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate).empty())
+            if (Temp->second.StreamKind==Stream_Video)
                 Temp->second.Searching_TimeStamps=true;
             if (Temp->second.Searching_Payload
              || Temp->second.Searching_TimeStamp_Start
@@ -3254,6 +3272,12 @@ void File_Mk::CodecID_Manage()
         Stream[TrackNumber].Parser=new File_Mpegv;
         ((File_Mpegv*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         ((File_Mpegv*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
+    #if defined(MEDIAINFO_VP8_YES)
+    else if (Format==_T("VP8"))
+    {
+        Stream[TrackNumber].Parser=new File_Vp8;
     }
     #endif
     #if defined(MEDIAINFO_OGG_YES)

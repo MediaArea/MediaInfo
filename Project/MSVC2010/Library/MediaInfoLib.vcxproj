@@ -441,6 +441,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc3.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Y4m.cpp" />
     <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml\tinyxml.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">NotUsing</PrecompiledHeader>
@@ -630,6 +631,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vc3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vp8.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Y4m.h" />
     <ClInclude Include="..\..\..\Source\ThirdParty\base64\base64.h" />
     <ClInclude Include="..\..\..\Source\ThirdParty\tinyxml\tinyxml.h" />
