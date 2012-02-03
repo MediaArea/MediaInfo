@@ -2485,6 +2485,12 @@ void File_Mpeg_Psi::program_number_Remove()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
 {
+    if (Complete_Stream->Streams[elementary_PID]->Kind==complete_stream::stream::psi)
+    {
+        //A PID can not be PSI and PES at the same time
+        return;
+    }
+
     //stream_type
     if (stream_type!=Complete_Stream->Streams[elementary_PID]->stream_type && Complete_Stream->Streams[elementary_PID]->stream_type!=(int8u)-1)
     {
