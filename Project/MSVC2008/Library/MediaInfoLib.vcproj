@@ -932,6 +932,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_H263.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Lagarith.cpp"
 					>
 				</File>
@@ -1873,6 +1877,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Fraps.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_H263.h"
 					>
 				</File>
 				<File

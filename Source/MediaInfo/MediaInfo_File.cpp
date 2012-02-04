@@ -142,6 +142,9 @@
 #if defined(MEDIAINFO_FLIC_YES)
     #include "MediaInfo/Video/File_Flic.h"
 #endif
+#if defined(MEDIAINFO_H263_YES)
+    #include "MediaInfo/Video/File_H263.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
@@ -447,6 +450,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_FLIC_YES)
         else if (Parser==_T("Flic"))        Info=new File_Flic();
     #endif
+    #if defined(MEDIAINFO_H263_YES)
+        else if (Parser==_T("H263"))        Info=new File_H263();
+    #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
         else if (Parser==_T("Mpeg4v"))      Info=new File_Mpeg4v();
     #endif
@@ -748,6 +754,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_FLIC_YES)
         delete Info; Info=new File_Flic();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_H263_YES)
+        delete Info; Info=new File_H263();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
         delete Info; Info=new File_Mpeg4v();             if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

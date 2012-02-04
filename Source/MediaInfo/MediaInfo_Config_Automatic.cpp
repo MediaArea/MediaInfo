@@ -1314,6 +1314,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "gif ;M-GIF;;;;;;\n"
     "h261;H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
+    "H263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "hcpa;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;High;;YUV;4:2:2\n"
     "HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/;;;\n"

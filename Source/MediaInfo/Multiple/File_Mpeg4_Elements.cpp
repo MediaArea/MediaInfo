@@ -48,6 +48,9 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_H263_YES)
+    #include "MediaInfo/Video/File_H263.h"
+#endif
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
@@ -3867,6 +3870,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                         Streams[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
                     #endif //MEDIAINFO_DEMUX
                }
+            #endif
+            #if defined(MEDIAINFO_H263_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("H.263"))
+                {
+                    Streams[moov_trak_tkhd_TrackID].Parser=new File_H263;
+                    ((File_H263*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
+                }
             #endif
             #if defined(MEDIAINFO_MPEGV_YES)
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("MPEG Video") && Element_Code!=0x6D78336E && Element_Code!=0x6D783370 && Element_Code!=0x6D783570) //mx3n, mx3p, mx5p

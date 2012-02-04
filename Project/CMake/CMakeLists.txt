@@ -173,6 +173,7 @@ set(mediainfo_SRCS
 	MediaInfo/Video/File_Dirac.cpp
 	MediaInfo/Video/File_Flic.cpp
 	MediaInfo/Video/File_Fraps.cpp
+	MediaInfo/Video/File_H263.cpp
 	MediaInfo/Video/File_Lagarith.cpp
 	MediaInfo/Video/File_Mpeg4v.cpp
 	MediaInfo/Video/File_Mpegv.cpp

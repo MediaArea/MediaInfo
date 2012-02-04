@@ -594,6 +594,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_H263.cpp">
+      <Filter>Source Files\Video</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1074,6 +1077,9 @@
       <Filter>ThirdParty\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vp8.h">
+      <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_H263.h">
       <Filter>Header Files\Video</Filter>
     </ClInclude>
   </ItemGroup>

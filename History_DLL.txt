@@ -11,6 +11,7 @@ Version 0.7.54,
 --------------
 + #3480111, Matroska: parsing of WebM-style frame rate info
 + MPEG-4: more video 4CCs binded to MPEG Video
++ H.263: raw stream parsing (width, height, aspect ratio), comparison with container data
 x #3480111, Matroska: some frame rates are incorrect in the file, trying to detect this kind of malformed file
 x #3479494, AVC: segmentation fault
 x #3440638, AAC: wrong detection for some malformed AAC streams
