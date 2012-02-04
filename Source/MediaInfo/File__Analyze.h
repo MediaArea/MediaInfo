@@ -580,8 +580,19 @@ public :
     // Variable Length Code
     //***************************************************************************
 
-    void Get_VL (int32u Call(int8u Size, int32u ToCall), int32u &Info, const char* Name);
-    void Skip_VL(int32u Call(int8u Size, int32u ToCall),               const char* Name);
+   
+    struct vlc
+    {
+        int32u  value;
+        int8u   bit_increment;
+        int8s   mapped_to1;
+        int8s   mapped_to2;
+        int8s   mapped_to3;
+    };
+    #define VLC_END \
+        {(int32u)-1, (int8u)1, -1, -1, -1}
+    void Get_VL (const vlc Vlc[], size_t &Info, const char* Name);
+    void Skip_VL(const vlc Vlc[],               const char* Name);
     #define Info_VL(_CALL, _INFO, _NAME) int32u _INFO; Get_VL(_CALL, _INFO, _NAME)
 
     //***************************************************************************

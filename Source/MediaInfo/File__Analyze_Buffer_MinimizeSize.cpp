@@ -1028,37 +1028,42 @@ void File__Analyze::Skip_UI()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_VL(int32u Call(int8u Size, int32u ToCall), int32u &Info)
+void File__Analyze::Get_VL(const vlc Vlc[], size_t &Info)
 {
-    //Element size
     Info=0;
-    int32u Code=0;
-    int8u  Size=0;
-    do
-    {
-        Size++;
-        INTEGRITY_INT(1<BS->Remain(), "Size is wrong", BS->Offset_Get())
-            Code=(Code<<1)|(BS->GetB()?1:0);
-        Info=Call(Size, Code);
-        if (Info!=(int32u)-1)
-            break;
-    }
-    while (Size<=32);
+    int32u Value=0;
 
-    //Integrity
-    if (Size>32)
+    while (Vlc[Info].bit_increment!=255)
     {
-        Trusted_IsNot("Variable Length Code error");
-        Info=0;
-        return;
+        if (Vlc[Info].bit_increment)
+        {
+            if (BS->Remain()<Vlc[Info].bit_increment)
+            {
+                Trusted_IsNot("Variable Length Code error");
+                Info=0;
+                return;
+            }
+                
+            Value<<=Vlc[Info].bit_increment;
+            Value|=BS->Get1(Vlc[Info].bit_increment);
+        }
+        if (Value==Vlc[Info].value)
+        {
+            return;
+        }
+        Info++;
     }
+
+    Trusted_IsNot("Variable Length Code error");
+    Info=0;
+    return;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_VL(int32u Call(int8u Size, int32u ToCall))
+void File__Analyze::Skip_VL(const vlc Vlc[])
 {
-    int32u Info;
-    Get_VL(Call, Info);
+    size_t Info;
+    Get_VL(Vlc, Info);
 }
 
 //***************************************************************************

@@ -1423,44 +1423,51 @@ void File__Analyze::Skip_UI(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_VL(int32u Call(int8u Size, int32u ToCall), int32u &Info, const char* Name)
+void File__Analyze::Get_VL(const vlc Vlc[], size_t &Info, const char* Name)
 {
-    //Element size
     Info=0;
-    int32u Code=0;
-    int8u  Size=0;
-    do
-    {
-        Size++;
-        INTEGRITY_INT(1<BS->Remain(), "Size is wrong", BS->Offset_Get())
-        Code=(Code<<1)|(BS->GetB()?1:0);
-        Info=Call(Size, Code);
-        if (Info!=(int32u)-1)
-            break;
-    }
-    while (Size<=32);
+    int32u Value=0;
 
-    //Integrity
-    if (Size>32)
+    int8u CountOfBits=0;
+    while (Vlc[Info].bit_increment!=(int8u)-1)
     {
-        Trusted_IsNot("Variable Length Code error");
-        Info=0;
-        return;
+        if (Vlc[Info].bit_increment)
+        {
+            if (BS->Remain()<Vlc[Info].bit_increment)
+            {
+                Trusted_IsNot("Variable Length Code error");
+                Info=0;
+                return;
+            }
+                
+            Value<<=Vlc[Info].bit_increment;
+            Value|=BS->Get1(Vlc[Info].bit_increment);
+            CountOfBits+=Vlc[Info].bit_increment;
+        }
+        if (Value==Vlc[Info].value)
+        {
+            if (Trace_Activated)
+            {
+                Ztring ToDisplay=Ztring::ToZtring(Value, 2);
+                ToDisplay.insert(0, CountOfBits-ToDisplay.size(), _T('0'));
+                ToDisplay+=_T(" (")+Ztring::ToZtring(CountOfBits)+_T(" bits)");
+                Param(Name, ToDisplay);
+            }
+            return;
+        }
+        Info++;
     }
 
-    if (Trace_Activated)
-    {
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
-    }
+    Trusted_IsNot("Variable Length Code error");
+    Info=0;
+    return;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_VL(int32u Call(int8u Size, int32u ToCall), const char* Name)
+void File__Analyze::Skip_VL(const vlc Vlc[], const char* Name)
 {
-    int32u Info;
-    Get_VL(Call, Info, Name);
+    size_t Info;
+    Get_VL(Vlc, Info, Name);
 }
 
 //***************************************************************************
@@ -1828,7 +1835,11 @@ void File__Analyze::Get_S1(size_t Bits, int8u &Info, const char* Name)
 {
     INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
     Info=BS->Get1(Bits);
-    if (Trace_Activated) Param(Name, Info);
+    if (Trace_Activated)
+    {
+        Param(Name, Info);
+        Param_Info(_T("(")+Ztring::ToZtring(Bits)+_T(" bits)"));
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1990,7 +2001,10 @@ void File__Analyze::Skip_S1(size_t Bits, const char* Name)
 {
     INTEGRITY(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
     if (Trace_Activated)
+    {
         Param(Name, BS->Get1(Bits));
+        Param_Info(_T("(")+Ztring::ToZtring(Bits)+_T(" bits)"));
+    }
     else
         BS->Skip1(Bits);
 }

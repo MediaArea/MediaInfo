@@ -160,37 +160,15 @@ const int8u Vc1_FieldTypeTable[][2]=
 };
 
 //---------------------------------------------------------------------------
-int32u Vc1_ptype(int8u Size, int32u Value)
+const File__Analyze::vlc Vc1_ptype[]=
 {
-    switch (Size)
-    {
-        case 1 :
-                    switch (Value)
-                    {
-                        case 0x0 : return 1;
-                        default  : return (int32u)-1;
-                    }
-        case 2 :
-                    switch (Value)
-                    {
-                        case 0x2 : return 2;
-                        default  : return (int32u)-1;
-                    }
-        case 3 :
-                    switch (Value)
-                    {
-                        case 0x6 : return 0;
-                        default  : return (int32u)-1;
-                    }
-        case 4 :
-                    switch (Value)
-                    {
-                        case 0xE : return 3;
-                        case 0xF : return 4;
-                        default  : return (int32u)-1;
-                    }
-        default: return (int32u)-1;
-    }
+    //                                  macroblock_address_increment
+    { 	0	,	1	,	0	,	0	,	1	},
+    { 	2	,	1	,	0	,	0	,	2	},
+    { 	6	,	1	,	0	,	0	,	0	},
+    { 	14	,	1	,	0	,	0	,	3	},
+    { 	15	,	0	,	0	,	0	,	4	},
+    VLC_END
 };
 
 //---------------------------------------------------------------------------
@@ -775,9 +753,9 @@ void File_Vc1::FrameHeader()
         }
         else
         {
-            int32u ptype_;
-            Get_VL (Vc1_ptype, ptype_,                          "ptype"); if (ptype_<5) {Param_Info(Vc1_Type[(size_t)ptype_]); Element_Info(Vc1_Type[(size_t)ptype_]);}
-            ptype=(int8u)ptype_;
+            size_t ptype_;
+            Get_VL (Vc1_ptype, ptype_,                          "ptype"); if (ptype_<5) {Param_Info(Vc1_Type[Vc1_ptype[ptype_].mapped_to3]); Element_Info(Vc1_Type[Vc1_ptype[ptype_].mapped_to3]);}
+            ptype=(int8u)Vc1_ptype[ptype_].mapped_to3;
         }
         if (RefFramesCount<2 && (ptype==0 || ptype==1))
             RefFramesCount++;
