@@ -326,7 +326,7 @@ void File_Wvpk::Data_Parse()
     Frame_Count++;
 
     //Parsing
-    Element_Begin("Block Header");
+    Element_Begin1("Block Header");
     if (!FromMKV)
         Get_L2 (version,                                        "version");
     if (version/0x100==0x4)
@@ -382,7 +382,7 @@ void File_Wvpk::Data_Parse()
                     Skip_Flags(flags, 23,                           "sampling rate");
                     Skip_Flags(flags, 24,                           "sampling rate");
                     Skip_Flags(flags, 25,                           "sampling rate");
-                    Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Param_Info(Wvpk_SamplingRate[SamplingRate]);
+                    Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Param_Info1(Wvpk_SamplingRate[SamplingRate]);
                     Skip_Flags(flags, 27,                           "reserved");
                     Skip_Flags(flags, 28,                           "reserved");
                     Skip_Flags(flags, 29,                           "use IIR for negative hybrid noise shaping");
@@ -397,7 +397,7 @@ void File_Wvpk::Data_Parse()
                 Frame_Count--; //This is not a real frame
             }
             Skip_L4(                                                "crc");
-            Element_End();
+            Element_End0();
 
             int64u End=Element_Size;
             if (FromMKV && !(initial_block && final_block))
@@ -412,13 +412,13 @@ void File_Wvpk::Data_Parse()
             int8u id;
             while (Element_Offset<End)
             {
-                Element_Begin();
+                Element_Begin0();
                 int32u word_size;
                 bool large, odd_size;
                 BS_Begin();
                 Get_SB (large,                                      "large");
                 Get_SB (odd_size,                                   "odd_size");
-                Get_S1 (6, id,                                      "id"); Element_Info(Wvpk_id(id));
+                Get_S1 (6, id,                                      "id"); Element_Info1(Wvpk_id(id));
                 BS_End();
                 if (large)
                 {
@@ -445,7 +445,7 @@ void File_Wvpk::Data_Parse()
                 }
                 if (odd_size)
                     Skip_XX(1,                                      "padding");
-                Element_End();
+                Element_End0();
             }
         }
     }

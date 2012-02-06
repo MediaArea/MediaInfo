@@ -1261,7 +1261,7 @@ void File_Avc::slice_header()
     bool    field_pic_flag=false, bottom_field_flag=false;
     BS_Begin();
     Get_UE (first_mb_in_slice,                                  "first_mb_in_slice");
-    Get_UE (slice_type,                                         "slice_type"); if (slice_type<10) Param_Info(Avc_slice_type[slice_type]);
+    Get_UE (slice_type,                                         "slice_type"); Param_Info1C((slice_type<10), Avc_slice_type[slice_type]);
     #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_Video_SliceInfo_0 Event;
@@ -1622,24 +1622,24 @@ void File_Avc::slice_header()
         #if MEDIAINFO_TRACE
             if (Trace_Activated)
             {
-                Element_Info(TemporalReferences_Offset_pic_order_cnt_lsb_Last);
-                Element_Info((((*seq_parameter_set_Item)->frame_mbs_only_flag || !field_pic_flag)?_T("Frame "):(bottom_field_flag?_T("Field (Bottom) "):_T("Field (Top) ")))+Ztring::ToZtring(Frame_Count));
+                Element_Info1(TemporalReferences_Offset_pic_order_cnt_lsb_Last);
+                Element_Info1((((*seq_parameter_set_Item)->frame_mbs_only_flag || !field_pic_flag)?_T("Frame "):(bottom_field_flag?_T("Field (Bottom) "):_T("Field (Top) ")))+Ztring::ToZtring(Frame_Count));
                 if (slice_type<9)
-                    Element_Info(_T("slice_type ")+Ztring().From_Local(Avc_slice_type[slice_type]));
-                Element_Info(_T("frame_num ")+Ztring::ToZtring(frame_num));
+                    Element_Info1(_T("slice_type ")+Ztring().From_Local(Avc_slice_type[slice_type]));
+                Element_Info1(_T("frame_num ")+Ztring::ToZtring(frame_num));
                 if ((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->fixed_frame_rate_flag)
                 {
                     if (FrameInfo.PCR!=(int64u)-1)
-                        Element_Info(_T("PCR ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PCR)/1000000)));
+                        Element_Info1(_T("PCR ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PCR)/1000000)));
                     if (FrameInfo.DTS!=(int64u)-1)
-                        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+                        Element_Info1(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
                     if (FrameInfo.PTS!=(int64u)-1)
-                        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+                        Element_Info1(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
                 }
                 if ((*seq_parameter_set_Item)->pic_order_cnt_type==0)
-                    Element_Info(_T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
+                    Element_Info1(_T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
                 if (first_mb_in_slice)
-                    Element_Info(_T("first_mb_in_slice ")+Ztring::ToZtring(first_mb_in_slice));
+                    Element_Info1(_T("first_mb_in_slice ")+Ztring::ToZtring(first_mb_in_slice));
             }
         #endif //MEDIAINFO_TRACE
 
@@ -1861,9 +1861,9 @@ void File_Avc::sei()
     int32u seq_parameter_set_id=(int32u)-1;
     while(Element_Offset+1<Element_Size)
     {
-        Element_Begin("sei message");
+        Element_Begin1("sei message");
             sei_message(seq_parameter_set_id);
-        Element_End();
+        Element_End0();
     }
     BS_Begin();
     Mark_1(                                                     );
@@ -1876,7 +1876,7 @@ void File_Avc::sei_message(int32u &seq_parameter_set_id)
     //Parsing
     int32u payloadType=0, payloadSize=0;
     int8u payload_type_byte, payload_size_byte;
-    Element_Begin("sei message header");
+    Element_Begin1("sei message header");
         do
         {
             Get_B1 (payload_type_byte,                          "payload_type_byte");
@@ -1889,7 +1889,7 @@ void File_Avc::sei_message(int32u &seq_parameter_set_id)
             payloadSize+=payload_size_byte;
         }
         while(payload_size_byte==0xFF);
-    Element_End();
+    Element_End0();
 
     int64u Element_Offset_Save=Element_Offset+payloadSize;
     int64u Element_Size_Save=Element_Size;
@@ -1903,7 +1903,7 @@ void File_Avc::sei_message(int32u &seq_parameter_set_id)
         case  6 :   sei_message_recovery_point(); break;
         case 32 :   sei_message_mainconcept(payloadSize); break;
         default :
-                    Element_Info("unknown");
+                    Element_Info1("unknown");
                     Skip_XX(payloadSize,                        "data");
     }
     Element_Offset=Element_Offset_Save; //Positionning in the right place.
@@ -1914,7 +1914,7 @@ void File_Avc::sei_message(int32u &seq_parameter_set_id)
 // SEI - 0
 void File_Avc::sei_message_buffering_period(int32u &seq_parameter_set_id)
 {
-    Element_Info("buffering_period");
+    Element_Info1("buffering_period");
 
     //Parsing
     BS_Begin();
@@ -1940,8 +1940,8 @@ void File_Avc::sei_message_buffering_period_xxl(void* xxl_)
     seq_parameter_set_struct::vui_parameters_struct::xxl* xxl=(seq_parameter_set_struct::vui_parameters_struct::xxl*)xxl_;
     for (int32u SchedSelIdx=0; SchedSelIdx<xxl->SchedSel.size(); SchedSelIdx++)
     {
-        Get_S4 (xxl->initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");
-        Get_S4 (xxl->initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset/90, " ms");
+        Get_S4 (xxl->initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info2(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");
+        Get_S4 (xxl->initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info2(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset/90, " ms");
     }
 }
 
@@ -1949,7 +1949,7 @@ void File_Avc::sei_message_buffering_period_xxl(void* xxl_)
 // SEI - 1
 void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_parameter_set_id)
 {
-    Element_Info("pic_timing");
+    Element_Info1("pic_timing");
 
     //Testing if we can parsing it now. TODO: handle case seq_parameter_set_id is unknown (buffering of message, decoding in slice parsing)
     if (seq_parameter_set_id==(int32u)-1 && seq_parameter_sets.size()==1)
@@ -1986,20 +1986,20 @@ void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_paramet
             case  6 : break;
             case  7 : FrameRate_Divider=2; break;
             case  8 : FrameRate_Divider=3; break;
-            default : Param_Info("Reserved"); return; //NumClockTS is unknown
+            default : Param_Info1("Reserved"); return; //NumClockTS is unknown
         }
-        Param_Info(Avc_pic_struct[pic_struct]);
+        Param_Info1(Avc_pic_struct[pic_struct]);
         int8u NumClockTS=Avc_NumClockTS[pic_struct];
         int8u seconds_value=0, minutes_value=0, hours_value=0; //Here because theses values can be reused in later ClockTSs.
         for (int8u i=0; i<NumClockTS; i++)
         {
-            Element_Begin("ClockTS");
+            Element_Begin1("ClockTS");
             TEST_SB_SKIP(                                       "clock_timestamp_flag");
                 Ztring TimeStamp;
                 int32u time_offset=0;
                 int8u n_frames;
                 bool full_timestamp_flag, nuit_field_based_flag;
-                Info_S1(2, ct_type,                             "ct_type"); Param_Info(Avc_ct_type[ct_type]);
+                Info_S1(2, ct_type,                             "ct_type"); Param_Info1(Avc_ct_type[ct_type]);
                 Get_SB (   nuit_field_based_flag,               "nuit_field_based_flag");
                 Skip_S1(5,                                      "counting_type");
                 Get_SB (   full_timestamp_flag,                 "full_timestamp_flag");
@@ -2037,9 +2037,9 @@ void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_paramet
                     TimeStamp+=_T('.');
                     TimeStamp+=Ztring::ToZtring(Milliseconds);
                 }
-                Param_Info(TimeStamp);
+                Param_Info1(TimeStamp);
             TEST_SB_END();
-            Element_End();
+            Element_End0();
         }
     }
     BS_End();
@@ -2054,7 +2054,7 @@ void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_paramet
 // SEI - 5
 void File_Avc::sei_message_user_data_registered_itu_t_t35()
 {
-    Element_Info("user_data_registered_itu_t_t35");
+    Element_Info1("user_data_registered_itu_t_t35");
 
     //Parsing
     int8u itu_t_t35_country_code;
@@ -2093,7 +2093,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35()
 // SEI - 5 - DTG1
 void File_Avc::sei_message_user_data_registered_itu_t_t35_DTG1()
 {
-    Element_Info("Active Format Description");
+    Element_Info1("Active Format Description");
 
     //Parsing
     bool active_format_flag;
@@ -2113,7 +2113,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_DTG1()
         Mark_1_NoTrustError();
         Mark_1_NoTrustError();
         Mark_1_NoTrustError();
-        Info_S1(4, active_format,                               "active_format"); Param_Info(Avc_user_data_DTG1_active_format[active_format]);
+        Info_S1(4, active_format,                               "active_format"); Param_Info1(Avc_user_data_DTG1_active_format[active_format]);
     }
     BS_End();
 }
@@ -2143,7 +2143,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
         MustExtendParsingDuration=true;
         Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
-        Element_Info("DTVCC Transport");
+        Element_Info1("DTVCC Transport");
 
         //Coherency
         delete TemporalReferences_DelayedElement; TemporalReferences_DelayedElement=new temporal_reference();
@@ -2187,7 +2187,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
         {
             for (size_t GA94_03_Pos=GA94_03_TemporalReferences_Offset; GA94_03_Pos<TemporalReferences.size(); GA94_03_Pos+=2)
             {
-                Element_Begin("Reordered DTVCC Transport");
+                Element_Begin1("Reordered DTVCC Transport");
 
                 //Parsing
                 #if MEDIAINFO_DEMUX
@@ -2212,7 +2212,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
                 #endif //MEDIAINFO_DEMUX
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReferences[GA94_03_Pos]->GA94_03->Data, TemporalReferences[GA94_03_Pos]->GA94_03->Size);
 
-                Element_End();
+                Element_End0();
             }
             GA94_03_TemporalReferences_Offset=TemporalReferences.size();
             if (GA94_03_TemporalReferences_Offset%2)
@@ -2225,7 +2225,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
 // SEI - 5 - GA94 - 0x03
 void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_06()
 {
-    Element_Info("Bar data");
+    Element_Info1("Bar data");
 
     //Parsing
     bool   top_bar_flag, bottom_bar_flag, left_bar_flag, right_bar_flag;
@@ -2281,7 +2281,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_06()
 // SEI - 5
 void File_Avc::sei_message_user_data_unregistered(int32u payloadSize)
 {
-    Element_Info("user_data_unregistered");
+    Element_Info1("user_data_unregistered");
 
     //Parsing
     int128u uuid_iso_iec_11578;
@@ -2289,12 +2289,12 @@ void File_Avc::sei_message_user_data_unregistered(int32u payloadSize)
 
     switch (uuid_iso_iec_11578.hi)
     {
-        case  0xB748D9E6BDE945DCLL : Element_Info("x264");
+        case  0xB748D9E6BDE945DCLL : Element_Info1("x264");
                                      sei_message_user_data_unregistered_x264(payloadSize-16); break;
-        case  0x684E92AC604A57FBLL : Element_Info("eavc");
+        case  0x684E92AC604A57FBLL : Element_Info1("eavc");
                                      sei_message_user_data_unregistered_x264(payloadSize-16); break;
         default :
-                    Element_Info("unknown");
+                    Element_Info1("unknown");
                     Skip_XX(payloadSize-16,                     "data");
     }
 }
@@ -2321,7 +2321,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
             Data_Pos=Data.size();
         if (Data.find(_T("options: "), Data_Pos_Before)==Data_Pos_Before)
         {
-            Element_Begin("options");
+            Element_Begin1("options");
             size_t Options_Pos;
             size_t Options_Pos_Before=Data_Pos_Before;
             Encoded_Library_Settings.clear();
@@ -2358,7 +2358,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                 }
             }
             while (Options_Pos_Before!=Data.size());
-            Element_End();
+            Element_End0();
         }
         else
         {
@@ -2416,7 +2416,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
 // SEI - 6
 void File_Avc::sei_message_recovery_point()
 {
-    Element_Info("recovery_point");
+    Element_Info1("recovery_point");
 
     //Parsing
     BS_Begin();
@@ -2431,7 +2431,7 @@ void File_Avc::sei_message_recovery_point()
 // SEI - 32
 void File_Avc::sei_message_mainconcept(int32u payloadSize)
 {
-    Element_Info("MainConcept text");
+    Element_Info1("MainConcept text");
 
     //Parsing
     Ztring Text;
@@ -2581,7 +2581,7 @@ void File_Avc::pic_parameter_set()
                 int32u slice_group_id_Size=(int32u)(std::ceil(std::log((float32)(num_slice_groups_minus1+1))/std::log((float32)10))); //std::log is natural logarithm
             #endif
             for (int32u Pos=0; Pos<=pic_size_in_map_units_minus1; Pos++)
-                Skip_S4(slice_group_id_Size,                    "slice_group_id");
+                Skip_BS(slice_group_id_Size,                    "slice_group_id");
         }
     }
     Get_UE (num_ref_idx_l0_default_active_minus1,               "num_ref_idx_l0_default_active_minus1");
@@ -2699,7 +2699,7 @@ void File_Avc::access_unit_delimiter()
 
     int8u primary_pic_type;
     BS_Begin();
-    Get_S1 ( 3, primary_pic_type,                               "primary_pic_type"); Param_Info(Avc_primary_pic_type[primary_pic_type]);
+    Get_S1 ( 3, primary_pic_type,                               "primary_pic_type"); Param_Info1(Avc_primary_pic_type[primary_pic_type]);
     Mark_1_NoTrustError(                                        ); //Found 1 file without this bit
     BS_End();
 }
@@ -2830,7 +2830,7 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
     bool    constraint_set3_flag, separate_colour_plane_flag=false, delta_pic_order_always_zero_flag=false, frame_mbs_only_flag, mb_adaptive_frame_field_flag=false;
     Get_B1 (profile_idc,                                        "profile_idc");
     BS_Begin();
-    Element_Begin("constraints");
+    Element_Begin1("constraints");
         Skip_SB(                                                "constraint_set0_flag");
         Skip_SB(                                                "constraint_set1_flag");
         Skip_SB(                                                "constraint_set2_flag");
@@ -2839,7 +2839,7 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
         Skip_SB(                                                "reserved_zero_4bits");
         Skip_SB(                                                "reserved_zero_4bits");
         Skip_SB(                                                "reserved_zero_4bits");
-    Element_End();
+    Element_End0();
     Get_S1 ( 8, level_idc,                                      "level_idc");
     Get_UE (    Data_id,                                        "seq_parameter_set_id");
     switch (profile_idc)
@@ -2853,8 +2853,8 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
         case  86 :
         case 118 :
         case 128 :  //High profiles
-                    Element_Begin("high profile specific");
-                    Get_UE (chroma_format_idc,                  "chroma_format_idc"); if (chroma_format_idc<3) Param_Info(Avc_Colorimetry_format_idc[chroma_format_idc]);
+                    Element_Begin1("high profile specific");
+                    Get_UE (chroma_format_idc,                  "chroma_format_idc"); Param_Info1C((chroma_format_idc<3), Avc_Colorimetry_format_idc[chroma_format_idc]);
                     if (chroma_format_idc==3)
                         Get_SB (separate_colour_plane_flag,     "separate_colour_plane_flag");
                     Get_UE (bit_depth_luma_minus8,              "bit_depth_luma_minus8");
@@ -2868,7 +2868,7 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
                             TEST_SB_END();
                         }
                     TEST_SB_END();
-                    Element_End();
+                    Element_End0();
                     break;
         default  :  ;
     }
@@ -3002,7 +3002,7 @@ void File_Avc::vui_parameters(void* &vui_parameters_Item_)
     int8u   aspect_ratio_idc=0, video_format=5, colour_primaries=2, transfer_characteristics=2, matrix_coefficients=2;
     bool    aspect_ratio_info_present_flag, video_signal_type_present_flag, colour_description_present_flag=false, timing_info_present_flag, fixed_frame_rate_flag=false, nal_hrd_parameters_present_flag, vcl_hrd_parameters_present_flag, pic_struct_present_flag;
     TEST_SB_GET (aspect_ratio_info_present_flag,                "aspect_ratio_info_present_flag");
-        Get_S1 (8, aspect_ratio_idc,                            "aspect_ratio_idc"); if (aspect_ratio_idc<Avc_PixelAspectRatio_Size) Param_Info(Avc_PixelAspectRatio[aspect_ratio_idc]);
+        Get_S1 (8, aspect_ratio_idc,                            "aspect_ratio_idc"); Param_Info1C((aspect_ratio_idc<Avc_PixelAspectRatio_Size), Avc_PixelAspectRatio[aspect_ratio_idc]);
         if (aspect_ratio_idc==0xFF)
         {
             Get_S2 (16, sar_width,                              "sar_width");
@@ -3013,12 +3013,12 @@ void File_Avc::vui_parameters(void* &vui_parameters_Item_)
         Skip_SB(                                                "overscan_appropriate_flag");
     TEST_SB_END();
     TEST_SB_GET (video_signal_type_present_flag,                "video_signal_type_present_flag");
-        Get_S1 (3, video_format,                                "video_format"); Param_Info(Avc_video_format[video_format]);
+        Get_S1 (3, video_format,                                "video_format"); Param_Info1(Avc_video_format[video_format]);
         Skip_SB(                                                "video_full_range_flag");
         TEST_SB_GET (colour_description_present_flag,           "colour_description_present_flag");
-            Get_S1 (8, colour_primaries,                        "colour_primaries"); Param_Info(Avc_colour_primaries(colour_primaries));
-            Get_S1 (8, transfer_characteristics,                "transfer_characteristics"); Param_Info(Avc_transfer_characteristics(transfer_characteristics));
-            Get_S1 (8, matrix_coefficients,                     "matrix_coefficients"); Param_Info(Avc_matrix_coefficients(matrix_coefficients));
+            Get_S1 (8, colour_primaries,                        "colour_primaries"); Param_Info1(Avc_colour_primaries(colour_primaries));
+            Get_S1 (8, transfer_characteristics,                "transfer_characteristics"); Param_Info1(Avc_transfer_characteristics(transfer_characteristics));
+            Get_S1 (8, matrix_coefficients,                     "matrix_coefficients"); Param_Info1(Avc_matrix_coefficients(matrix_coefficients));
         TEST_SB_END();
     TEST_SB_END();
     TEST_SB_SKIP(                                               "chroma_loc_info_present_flag");
@@ -3115,14 +3115,14 @@ void File_Avc::hrd_parameters(void* &hrd_parameters_Item_)
     ToTest->SchedSel.resize(cpb_cnt_minus1+1);
     for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
     {
-        Element_Begin("ShedSel");
+        Element_Begin1("ShedSel");
         int32u bit_rate_value_minus1, cpb_size_value_minus1;
         Get_UE (bit_rate_value_minus1,                          "bit_rate_value_minus1");
-        ToTest->SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info(ToTest->SchedSel[SchedSelIdx].bit_rate_value, " bps");
+        ToTest->SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info2(ToTest->SchedSel[SchedSelIdx].bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
-        ToTest->SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info(ToTest->SchedSel[SchedSelIdx].cpb_size_value, " bits");
+        ToTest->SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info2(ToTest->SchedSel[SchedSelIdx].cpb_size_value, " bits");
         Get_SB (ToTest->SchedSel[SchedSelIdx].cbr_flag,         "cbr_flag");
-        Element_End();
+        Element_End0();
     }
     Get_S1 (5, initial_cpb_removal_delay_length_minus1,         "initial_cpb_removal_delay_length_minus1");
     Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");
@@ -3147,7 +3147,7 @@ void File_Avc::hrd_parameters(void* &hrd_parameters_Item_)
 void File_Avc::nal_unit_header_svc_extension()
 {
     //Parsing
-    Element_Begin("nal_unit_header_svc_extension");
+    Element_Begin1("nal_unit_header_svc_extension");
     Skip_SB(                                                    "idr_flag");
     Skip_S1( 6,                                                 "priority_id");
     Skip_SB(                                                    "no_inter_layer_pred_flag");
@@ -3158,14 +3158,14 @@ void File_Avc::nal_unit_header_svc_extension()
     Skip_SB(                                                    "discardable_flag");
     Skip_SB(                                                    "output_flag");
     Skip_S1( 2,                                                 "reserved_three_2bits");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Avc::nal_unit_header_mvc_extension()
 {
     //Parsing
-    Element_Begin("nal_unit_header_mvc_extension");
+    Element_Begin1("nal_unit_header_mvc_extension");
     Skip_SB(                                                    "non_idr_flag");
     Skip_S1( 6,                                                 "priority_id");
     Skip_S1(10,                                                 "view_id");
@@ -3173,36 +3173,36 @@ void File_Avc::nal_unit_header_mvc_extension()
     Skip_SB(                                                    "anchor_pic_flag");
     Skip_SB(                                                    "inter_view_flag");
     Skip_SB(                                                    "reserved_one_bit");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Avc::seq_parameter_set_svc_extension()
 {
     //Parsing
-    Element_Begin("seq_parameter_set_svc_extension");
+    Element_Begin1("seq_parameter_set_svc_extension");
     //Skip_SB(                                                    "");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Avc::svc_vui_parameters_extension()
 {
     //Parsing
-    Element_Begin("svc_vui_parameters_extension");
+    Element_Begin1("svc_vui_parameters_extension");
     //Skip_SB(                                                    "");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Avc::seq_parameter_set_mvc_extension(int32u subset_seq_parameter_sets_id)
 {
     //Parsing
-    Element_Begin("seq_parameter_set_mvc_extension");
+    Element_Begin1("seq_parameter_set_mvc_extension");
     int32u num_views_minus1;
     Get_UE (num_views_minus1,                                   "num_views_minus1");
     //Skip_SB(                                                    "");
-    Element_End();
+    Element_End0();
 
     std::vector<seq_parameter_set_struct*>::iterator subset_seq_parameter_sets_Item=subset_seq_parameter_sets.begin()+subset_seq_parameter_sets_id;
     FILLING_BEGIN()
@@ -3216,9 +3216,9 @@ void File_Avc::seq_parameter_set_mvc_extension(int32u subset_seq_parameter_sets_
 void File_Avc::mvc_vui_parameters_extension()
 {
     //Parsing
-    Element_Begin("mvc_vui_parameters_extension");
+    Element_Begin1("mvc_vui_parameters_extension");
     Skip_SB(                                                    "");
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -3243,7 +3243,7 @@ void File_Avc::SPS_PPS()
     BS_End();
     for (int8u Pos=0; Pos<seq_parameter_set_count; Pos++)
     {
-        Element_Begin("seq_parameter_set");
+        Element_Begin1("seq_parameter_set");
         int16u Size;
         Get_B2 (Size,                                           "Size");
         BS_Begin();
@@ -3266,12 +3266,12 @@ void File_Avc::SPS_PPS()
         Buffer_Offset-=(size_t)Element_Offset_Save;
         Element_Offset=Element_Offset_Save+Size-1;
         Element_Size=Element_Size_Save;
-        Element_End();
+        Element_End0();
     }
     Get_B1 (pic_parameter_set_count,                            "pic_parameter_set count");
     for (int8u Pos=0; Pos<pic_parameter_set_count; Pos++)
     {
-        Element_Begin("pic_parameter_set");
+        Element_Begin1("pic_parameter_set");
         int16u Size;
         Get_B2 (Size,                                           "Size");
         BS_Begin();
@@ -3291,7 +3291,7 @@ void File_Avc::SPS_PPS()
         Buffer_Offset-=(size_t)Element_Offset_Save;
         Element_Offset=Element_Offset_Save+Size-1;
         Element_Size=Element_Size_Save;
-        Element_End();
+        Element_End0();
     }
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "Padding?");

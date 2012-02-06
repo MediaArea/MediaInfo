@@ -255,7 +255,7 @@ void File_Amr::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Amr::Data_Parse()
 {
-    Element_Info(Frame_Number);
+    Element_Info1(Frame_Number);
 
     //Parsing
     Skip_XX(Element_Size,                                       "Data");

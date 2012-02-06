@@ -137,7 +137,7 @@ void File_Ape::FileHeader_Parse()
     Get_L2 (Version,                                            "Version");
     if (Version<3980) //<3.98
     {
-        Get_L2 (CompressionLevel,                               "CompressionLevel"); Param_Info(Ape_Codec_Settings(CompressionLevel));
+        Get_L2 (CompressionLevel,                               "CompressionLevel"); Param_Info1(Ape_Codec_Settings(CompressionLevel));
         Get_L2 (Flags,                                          "FormatFlags");
             Get_Flags (Flags, 0, Resolution8,                   "8-bit");
             Skip_Flags(Flags, 1,                                "crc-32");
@@ -175,7 +175,7 @@ void File_Ape::FileHeader_Parse()
         Skip_L4(                                                "APEFrameDataBytesHigh");
         Skip_L4(                                                "WavTerminatingDataBytes");
         Skip_L16(                                               "FileMD5");
-        Get_L2 (CompressionLevel,                               "CompressionLevel"); Param_Info(Ape_Codec_Settings(CompressionLevel));
+        Get_L2 (CompressionLevel,                               "CompressionLevel"); Param_Info1(Ape_Codec_Settings(CompressionLevel));
         Get_L2 (Flags,                                          "FormatFlags");
         Get_L4 (SamplesPerFrame,                                "BlocksPerFrame");
         Get_L4 (FinalFrameSamples,                              "FinalFrameBlocks");

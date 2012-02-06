@@ -1308,7 +1308,7 @@ void File_Mpegv::picture_start()
         //Parsing
         BS_Begin();
         Get_S2 (10, temporal_reference,                         "temporal_reference");
-        Get_S1 ( 3, picture_coding_type,                        "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
+        Get_S1 ( 3, picture_coding_type,                        "picture_coding_type"); Param_Info1(Mpegv_picture_coding_type[picture_coding_type]);
         Get_S2 (16, vbv_delay,                                  "vbv_delay");
         if (picture_coding_type==2 || picture_coding_type==3) //P or B
         {
@@ -1474,13 +1474,13 @@ void File_Mpegv::slice_start()
         #if MEDIAINFO_TRACE
             if (Trace_Activated)
             {
-                Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
-                Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
-                Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
+                Element_Info1(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+                Element_Info1(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
+                Element_Info1(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
                 if (FrameInfo.PTS!=(int64u)-1)
-                    Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+                    Element_Info1(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
                 if (FrameInfo.DTS!=(int64u)-1)
-                    Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+                    Element_Info1(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
                 if (Time_End_Seconds!=Error)
                 {
                     int32u Time_End  =Time_End_Seconds  *1000;
@@ -1502,7 +1502,7 @@ void File_Mpegv::slice_start()
                         Time+=_T('.');
                         Time+=Ztring::ToZtring(Milli);
                     }
-                    Element_Info(_T("time_code ")+Time);
+                    Element_Info1(_T("time_code ")+Time);
                 }
             }
         #endif //MEDIAINFO_TRACE
@@ -1515,14 +1515,14 @@ void File_Mpegv::slice_start()
                 MustExtendParsingDuration=true;
                 Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
-                Element_Begin("CDP");
+                Element_Begin1("CDP");
                 if ((*Ancillary)==NULL)
                     (*Ancillary)=new File_Ancillary();
                 (*Ancillary)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 (*Ancillary)->FrameRate=((float)(Mpegv_frame_rate[frame_rate_code] * (frame_rate_extension_n + 1)) / (float)(frame_rate_extension_d + 1));
                 if ((*Ancillary)->Status[IsAccepted]) //In order to test if there is a parser using ancillary data
                     Open_Buffer_Continue((*Ancillary), Buffer+Buffer_Offset, 0);
-                Element_End();
+                Element_End0();
             }
         #endif //defined(MEDIAINFO_CDP_YES)
 
@@ -1530,7 +1530,7 @@ void File_Mpegv::slice_start()
         #if defined(MEDIAINFO_AFDBARDATA_YES)
             if (Ancillary && *Ancillary && !(*Ancillary)->AfdBarData_Data.empty())
             {
-                Element_Begin("Active Format Description & Bar Data");
+                Element_Begin1("Active Format Description & Bar Data");
 
                 //Parsing
                 if (AfdBarData_Parser==NULL)
@@ -1548,7 +1548,7 @@ void File_Mpegv::slice_start()
                 delete (*Ancillary)->AfdBarData_Data[0]; //(*Ancillary)->AfdBarData_Data[0]=NULL;
                 (*Ancillary)->AfdBarData_Data.erase((*Ancillary)->AfdBarData_Data.begin());
 
-                Element_End();
+                Element_End0();
             }
         #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
@@ -1791,7 +1791,7 @@ void File_Mpegv::user_data_start_CC()
     Skip_B4(                                                    "identifier");
 
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
-        Element_Info("DVD Captions");
+        Element_Info1("DVD Captions");
 
         //Parsing
         #if MEDIAINFO_DEMUX
@@ -1831,7 +1831,7 @@ void File_Mpegv::user_data_start_3()
         MustExtendParsingDuration=true;
         Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
-        Element_Info("SCTE 20");
+        Element_Info1("SCTE 20");
 
         //Coherency
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
@@ -1886,7 +1886,7 @@ void File_Mpegv::user_data_start_3()
         {
             for (size_t Scte20_Pos=Scte_TemporalReference_Offset; Scte20_Pos<TemporalReference.size(); Scte20_Pos++)
             {
-                Element_Begin("Reordered SCTE 20");
+                Element_Begin1("Reordered SCTE 20");
 
                 //Parsing
                 #if MEDIAINFO_DEMUX
@@ -1917,7 +1917,7 @@ void File_Mpegv::user_data_start_3()
                         TemporalReference[Scte20_Pos]->Scte_Parsed[Pos]=true;
                     }
 
-                Element_End();
+                Element_End0();
             }
             Scte_TemporalReference_Offset=TemporalReference.size();
         }
@@ -1933,7 +1933,7 @@ void File_Mpegv::user_data_start_DTG1()
     Skip_B4(                                                    "identifier");
 
     #if defined(MEDIAINFO_AFDBARDATA_YES)
-        Element_Info("Active Format Description");
+        Element_Info1("Active Format Description");
 
         //Parsing
         if (DTG1_Parser==NULL)
@@ -2005,7 +2005,7 @@ void File_Mpegv::user_data_start_GA94_03()
         MustExtendParsingDuration=true;
         Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
-        Element_Info("DTVCC Transport");
+        Element_Info1("DTVCC Transport");
 
         //Coherency
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
@@ -2048,7 +2048,7 @@ void File_Mpegv::user_data_start_GA94_03()
         {
             for (size_t GA94_03_Pos=GA94_03_TemporalReference_Offset; GA94_03_Pos<TemporalReference.size(); GA94_03_Pos++)
             {
-                Element_Begin("Reordered DTVCC Transport");
+                Element_Begin1("Reordered DTVCC Transport");
 
                 //Parsing
                 #if MEDIAINFO_DEMUX
@@ -2070,7 +2070,7 @@ void File_Mpegv::user_data_start_GA94_03()
                 ((File_DtvccTransport*)GA94_03_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
 
-                Element_End();
+                Element_End0();
             }
             GA94_03_TemporalReference_Offset=TemporalReference.size();
         }
@@ -2084,7 +2084,7 @@ void File_Mpegv::user_data_start_GA94_03()
 void File_Mpegv::user_data_start_GA94_06()
 {
     #if defined(MEDIAINFO_AFDBARDATA_YES)
-        Element_Info("Bar Data");
+        Element_Info1("Bar Data");
 
         //Parsing
         if (GA94_06_Parser==NULL)
@@ -2118,11 +2118,11 @@ void File_Mpegv::sequence_header()
     BS_Begin();
     Get_S2 (12, horizontal_size_value,                          "horizontal_size_value");
     Get_S2 (12, vertical_size_value,                            "vertical_size_value");
-    Get_S1 ( 4, aspect_ratio_information,                       "aspect_ratio_information"); if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information]) Param_Info((float)horizontal_size_value/vertical_size_value/Mpegv_aspect_ratio1[aspect_ratio_information]); Param_Info(Mpegv_aspect_ratio2[aspect_ratio_information]);
-    Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info(Mpegv_frame_rate[frame_rate_code]);
-    Get_S3 (18, bit_rate_value_temp,                            "bit_rate_value"); Param_Info(bit_rate_value_temp*400);
+    Get_S1 ( 4, aspect_ratio_information,                       "aspect_ratio_information"); Param_Info1C((vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information]), (float)horizontal_size_value/vertical_size_value/Mpegv_aspect_ratio1[aspect_ratio_information]); Param_Info1(Mpegv_aspect_ratio2[aspect_ratio_information]);
+    Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info1(Mpegv_frame_rate[frame_rate_code]);
+    Get_S3 (18, bit_rate_value_temp,                            "bit_rate_value"); Param_Info1(bit_rate_value_temp*400);
     Mark_1 ();
-    Get_S2 (10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(2*1024*((int32u)vbv_buffer_size_value), " bytes");
+    Get_S2 (10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info2(2*1024*((int32u)vbv_buffer_size_value), " bytes");
     Skip_SB(                                                    "constrained_parameters_flag");
     TEST_SB_GET(load_intra_quantiser_matrix,                    "load_intra_quantiser_matrix");
         bool FillMatrix=Matrix_intra.empty();
@@ -2255,8 +2255,8 @@ void File_Mpegv::extension_start()
     //Parsing
     int8u extension_start_code_identifier;
     BS_Begin();
-    Get_S1 ( 4, extension_start_code_identifier,                "extension_start_code_identifier"); Param_Info(Mpegv_extension_start_code_identifier[extension_start_code_identifier]);
-    Element_Info(Mpegv_extension_start_code_identifier[extension_start_code_identifier]);
+    Get_S1 ( 4, extension_start_code_identifier,                "extension_start_code_identifier"); Param_Info1(Mpegv_extension_start_code_identifier[extension_start_code_identifier]);
+    Element_Info1(Mpegv_extension_start_code_identifier[extension_start_code_identifier]);
 
     switch (extension_start_code_identifier)
     {
@@ -2265,21 +2265,21 @@ void File_Mpegv::extension_start()
                     Peek_SB(profile_and_level_indication_escape);
                     if (profile_and_level_indication_escape)
                     {
-                        Get_S1 ( 8, profile_and_level_indication, "profile_and_level_indication"); Param_Info(Mpegv_profile_and_level_indication(profile_and_level_indication));
+                        Get_S1 ( 8, profile_and_level_indication, "profile_and_level_indication"); Param_Info1(Mpegv_profile_and_level_indication(profile_and_level_indication));
                     }
                     else
                     {
                         Skip_SB(                               "profile_and_level_indication_escape");
-                        Get_S1 ( 3, profile_and_level_indication_profile, "profile_and_level_indication_profile"); Param_Info(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile]);
-                        Get_S1 ( 4, profile_and_level_indication_level, "profile_and_level_indication_level"); Param_Info(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+                        Get_S1 ( 3, profile_and_level_indication_profile, "profile_and_level_indication_profile"); Param_Info1(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile]);
+                        Get_S1 ( 4, profile_and_level_indication_level, "profile_and_level_indication_level"); Param_Info1(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
                     }
                     Get_SB (    progressive_sequence,           "progressive_sequence");
-                    Get_S1 ( 2, chroma_format,                  "chroma_format"); Param_Info(Mpegv_Colorimetry_format[chroma_format]);
+                    Get_S1 ( 2, chroma_format,                  "chroma_format"); Param_Info1(Mpegv_Colorimetry_format[chroma_format]);
                     Get_S1 ( 2, horizontal_size_extension,      "horizontal_size_extension");
                     Get_S1 ( 2, vertical_size_extension,        "vertical_size_extension");
                     Get_S2 (12, bit_rate_extension,             "bit_rate_extension");
                     Mark_1 ();
-                    Get_S1 ( 8, vbv_buffer_size_extension,      "vbv_buffer_size_extension"); Param_Info(2*1024*((((int32u)vbv_buffer_size_extension)<<10)+vbv_buffer_size_value), " bytes");
+                    Get_S1 ( 8, vbv_buffer_size_extension,      "vbv_buffer_size_extension"); Param_Info2(2*1024*((((int32u)vbv_buffer_size_extension)<<10)+vbv_buffer_size_value), " bytes");
                     Skip_SB(                                    "low_delay");
                     Get_S1 ( 2, frame_rate_extension_n,         "frame_rate_extension_n");
                     Get_S1 ( 5, frame_rate_extension_d,         "frame_rate_extension_d");
@@ -2293,11 +2293,11 @@ void File_Mpegv::extension_start()
                 break;
         case  2 :{ //Sequence Display
                     //Parsing
-                    Get_S1 ( 3, video_format,                   "video_format"); Param_Info(Mpegv_video_format[video_format]);
+                    Get_S1 ( 3, video_format,                   "video_format"); Param_Info1(Mpegv_video_format[video_format]);
                     TEST_SB_SKIP(                               "colour_description");
-                        Get_S1 (8, colour_primaries,            "colour_primaries"); Param_Info(Mpegv_colour_primaries(colour_primaries));
-                        Get_S1 (8, transfer_characteristics,    "transfer_characteristics"); Param_Info(Mpegv_transfer_characteristics(transfer_characteristics));
-                        Get_S1 (8, matrix_coefficients,         "matrix_coefficients"); Param_Info(Mpegv_matrix_coefficients(matrix_coefficients));
+                        Get_S1 (8, colour_primaries,            "colour_primaries"); Param_Info1(Mpegv_colour_primaries(colour_primaries));
+                        Get_S1 (8, transfer_characteristics,    "transfer_characteristics"); Param_Info1(Mpegv_transfer_characteristics(transfer_characteristics));
+                        Get_S1 (8, matrix_coefficients,         "matrix_coefficients"); Param_Info1(Mpegv_matrix_coefficients(matrix_coefficients));
                     TEST_SB_END();
                     Get_S2 (14, display_horizontal_size,        "display_horizontal_size");
                     Mark_1 ();
@@ -2319,7 +2319,7 @@ void File_Mpegv::extension_start()
                     Skip_S1( 4,                                 "f_code_backward_horizontal");
                     Skip_S1( 4,                                 "f_code_backward_vertical");
                     Get_S1 ( 2, intra_dc_precision,             "intra_dc_precision");
-                    Get_S1 ( 2, picture_structure,              "picture_structure"); Param_Info(Mpegv_picture_structure[picture_structure]);
+                    Get_S1 ( 2, picture_structure,              "picture_structure"); Param_Info1(Mpegv_picture_structure[picture_structure]);
                     Get_SB (    top_field_first,                "top_field_first");
                     Skip_SB(                                    "frame_pred_frame_dct");
                     Skip_SB(                                    "concealment_motion_vectors");
@@ -2471,7 +2471,7 @@ void File_Mpegv::group_start()
             Time+=_T('.');
             Time+=Ztring::ToZtring(Frames*1000/FrameRate, 0);
         }
-        Element_Info(Time);
+        Element_Info1(Time);
     }
     else
     {

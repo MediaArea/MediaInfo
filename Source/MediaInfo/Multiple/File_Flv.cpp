@@ -600,7 +600,7 @@ void File_Flv::Streams_Finish_PerStream(stream_t StreamKind)
 void File_Flv::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("FLV header");
+    Element_Begin1("FLV header");
     std::string Signature;
     int32u Size;
     int8u  Version, Flags;
@@ -612,7 +612,7 @@ void File_Flv::FileHeader_Parse()
     Get_B4 (Size,                                               "Size");
     if (Size>9)
         Skip_XX(Size-9,                                         "Unknown");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         //Integrity
@@ -729,7 +729,7 @@ void File_Flv::Header_Parse()
     {
         int32u Timestamp_Base;
         int8u  Timestamp_Extended;
-        Get_B1 (Type,                                           "Type"); //Param_Info(Type<19?Flv_Type[Type]:_T("Unknown"));
+        Get_B1 (Type,                                           "Type"); //Param_Info1(Type<19?Flv_Type[Type]:_T("Unknown"));
         Get_B3 (BodyLength,                                     "BodyLength");
         Get_B3 (Timestamp_Base,                                 "Timestamp_Base"); //in ms
         Get_B1 (Timestamp_Extended,                             "Timestamp_Extended"); //TimeStamp = Timestamp_Extended*0x01000000+Timestamp_Base
@@ -839,7 +839,7 @@ void File_Flv::video()
 {
     Element_Name("Video");
     Stream[Stream_Video].PacketCount++;
-    Element_Info(Stream[Stream_Video].PacketCount);
+    Element_Info1(Stream[Stream_Video].PacketCount);
 
     //Handling FrameRate
     if (!video_stream_FrameRate_Detected)
@@ -852,7 +852,7 @@ void File_Flv::video()
 
     if (Element_Size==0) //Header says that video is present, but there is only one null packet
     {
-        Element_Info("Null");
+        Element_Info1("Null");
         return;
     }
 
@@ -864,12 +864,12 @@ void File_Flv::video()
 
     //Parsing
     int8u Codec, FrameType;
-    Element_Begin("Stream header");
+    Element_Begin1("Stream header");
     BS_Begin();
-    Get_S1 (4, FrameType,                                       "frameType"); Param_Info(Flv_FrameType[FrameType]);
-    Get_S1 (4, Codec,                                           "codecID"); Param_Info(Flv_Codec_Video[Codec]); Element_Info(Flv_Codec_Video[Codec]);
+    Get_S1 (4, FrameType,                                       "frameType"); Param_Info1(Flv_FrameType[FrameType]);
+    Get_S1 (4, Codec,                                           "codecID"); Param_Info1(Flv_Codec_Video[Codec]); Element_Info1(Flv_Codec_Video[Codec]);
     BS_End();
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         //Filling
@@ -916,7 +916,7 @@ void File_Flv::video_H263()
     if (Version>1)
         return;
     Skip_S1( 8,                                                 "TemporalReference");
-    Get_S1 ( 3, PictureSize,                                    "PictureSize"); Param_Info(Flv_H263_PictureSize[PictureSize]);
+    Get_S1 ( 3, PictureSize,                                    "PictureSize"); Param_Info1(Flv_H263_PictureSize[PictureSize]);
     switch (PictureSize)
     {
         case 0 :
@@ -934,7 +934,7 @@ void File_Flv::video_H263()
                 Height=Flv_H263_WidthHeight[PictureSize][1];
             }
     }
-    Get_S1 ( 2, PictureType,                                    "PictureSize"); Param_Info(Flv_H263_PictureType[PictureType]);
+    Get_S1 ( 2, PictureType,                                    "PictureSize"); Param_Info1(Flv_H263_PictureType[PictureType]);
     Skip_SB(                                                    "DeblockingFlag");
     Skip_S1( 5,                                                 "Quantizer");
     Get_SB (    ExtraInformationFlag,                           "ExtraInformationFlag");
@@ -958,9 +958,9 @@ void File_Flv::video_ScreenVideo(int8u Version)
     //Parsing
     int16u Width, Height;
     BS_Begin();
-    Info_S1( 4, BlockWidth,                                     "BlockWidth"); Param_Info((BlockWidth+1)*16);
+    Info_S1( 4, BlockWidth,                                     "BlockWidth"); Param_Info1((BlockWidth+1)*16);
     Get_S2 (12, Width,                                          "ImageWidth");
-    Info_S1( 4, BlockHeight,                                    "BlockHeight"); Param_Info((BlockHeight+1)*16);
+    Info_S1( 4, BlockHeight,                                    "BlockHeight"); Param_Info1((BlockHeight+1)*16);
     Get_S2 (12, Height,                                         "ImageHeight");
     if (Version==2)
     {
@@ -990,9 +990,9 @@ void File_Flv::video_VP6(bool WithAlpha)
     Get_S1 ( 4, VerticalAdjustment,                             "VerticalAdjustment");
     if (WithAlpha)
         Skip_S3(24,                                             "OffsetToAlpha");
-    Get_SB (    FrameMode,                                      "FrameMode"); Param_Info(Flv_VP6_FrameMode[FrameMode]);
+    Get_SB (    FrameMode,                                      "FrameMode"); Param_Info1(Flv_VP6_FrameMode[FrameMode]);
     Skip_S1( 6,                                                 "Quantization");
-    Get_SB (    Marker,                                         "Marker"); Param_Info(Flv_VP6_Marker[Marker]);
+    Get_SB (    Marker,                                         "Marker"); Param_Info1(Flv_VP6_Marker[Marker]);
     BS_End();
     if (FrameMode)
     {
@@ -1011,8 +1011,8 @@ void File_Flv::video_VP6(bool WithAlpha)
             Skip_B2(                                            "Offset");
         Skip_B1(                                                "MacroBlock_Height");
         Skip_B1(                                                "MacroBlock_Width");
-        Get_B1 (Height,                                         "Height"); Param_Info(Ztring::ToZtring(Height*16)+_T(" pixels"));
-        Get_B1 (Width,                                          "Width"); Param_Info(Ztring::ToZtring(Width*16)+_T(" pixels"));
+        Get_B1 (Height,                                         "Height"); Param_Info1(Ztring::ToZtring(Height*16)+_T(" pixels"));
+        Get_B1 (Width,                                          "Width"); Param_Info1(Ztring::ToZtring(Width*16)+_T(" pixels"));
 
         FILLING_BEGIN();
             if (Width && Height)
@@ -1029,8 +1029,8 @@ void File_Flv::video_VP6(bool WithAlpha)
 void File_Flv::video_AVC()
 {
     int8u AVCPacketType;
-    Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info(Flv_AVCPacketType(AVCPacketType));
-    Info_B3(CompositionTime,                                    "CompositionTime"); Param_Info(Ztring::ToZtring((int32s)(CompositionTime+0xFF000000)));
+    Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info1(Flv_AVCPacketType(AVCPacketType));
+    Info_B3(CompositionTime,                                    "CompositionTime"); Param_Info1(Ztring::ToZtring((int32s)(CompositionTime+0xFF000000)));
 
     switch (AVCPacketType)
     {
@@ -1081,11 +1081,11 @@ void File_Flv::audio()
 {
     Element_Name("Audio");
     Stream[Stream_Audio].PacketCount++;
-    Element_Info(Stream[Stream_Audio].PacketCount);
+    Element_Info1(Stream[Stream_Audio].PacketCount);
 
     if (Element_Size==0) //Header says that audio is present, but there is only one null packet
     {
-        Element_Info("Null");
+        Element_Info1("Null");
         return;
     }
 
@@ -1098,14 +1098,14 @@ void File_Flv::audio()
     //Parsing
     int8u  codec, sampling_rate;
     bool   is_16bit, is_stereo;
-    Element_Begin("Stream header");
+    Element_Begin1("Stream header");
     BS_Begin();
-    Get_S1 (4, codec,                                           "codec"); Param_Info(Flv_Codec_Audio[codec]); Element_Info(Flv_Codec_Audio[codec]);
-    Get_S1 (2, sampling_rate,                                   "sampling_rate"); Param_Info(Ztring::ToZtring(Flv_SamplingRate[sampling_rate])+_T(" Hz"));
-    Get_SB (   is_16bit,                                        "is_16bit"); Param_Info(Ztring::ToZtring(Flv_Resolution[is_16bit])+_T(" bits"));
-    Get_SB (   is_stereo,                                       "is_stereo"); Param_Info(Ztring::ToZtring(Flv_Channels[is_stereo])+_T(" channel(s)"));
+    Get_S1 (4, codec,                                           "codec"); Param_Info1(Flv_Codec_Audio[codec]); Element_Info1(Flv_Codec_Audio[codec]);
+    Get_S1 (2, sampling_rate,                                   "sampling_rate"); Param_Info1(Ztring::ToZtring(Flv_SamplingRate[sampling_rate])+_T(" Hz"));
+    Get_SB (   is_16bit,                                        "is_16bit"); Param_Info1(Ztring::ToZtring(Flv_Resolution[is_16bit])+_T(" bits"));
+    Get_SB (   is_stereo,                                       "is_stereo"); Param_Info1(Ztring::ToZtring(Flv_Channels[is_stereo])+_T(" channel(s)"));
     BS_End();
-    Element_End();
+    Element_End0();
 
     //Special case
     if (codec==5) //Nellymoser 8kHz mono
@@ -1177,7 +1177,7 @@ void File_Flv::audio_MPEG()
 void File_Flv::audio_AAC()
 {
     int8u AACPacketType;
-    Get_B1 (AACPacketType,                                      "AACPacketType"); Param_Info(Flv_AACPacketType(AACPacketType));
+    Get_B1 (AACPacketType,                                      "AACPacketType"); Param_Info1(Flv_AACPacketType(AACPacketType));
 
     switch (AACPacketType)
     {
@@ -1244,14 +1244,14 @@ void File_Flv::meta_SCRIPTDATAVARIABLE()
 {
     std::string StringData;
     int16u StringLength;
-    Element_Begin();
+    Element_Begin0();
     Get_B2 (StringLength,                                       "StringLength");
     Get_String(StringLength, StringData,                        "StringData");
     Element_Name(StringData.c_str());
 
     //Parsing Value
     meta_SCRIPTDATAVALUE(StringData);
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1259,7 +1259,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
 {
     //Parsing
     int8u Type;
-    Get_B1 (Type,                                               "Type"); if (Type<0x12) Param_Info(Flv_TagType[Type]);
+    Get_B1 (Type,                                               "Type"); Param_Info1C((Type<0x12), Flv_TagType[Type]);
     switch (Type)
     {
         case 0x00 : //DOUBLE --> 64 bits Big endian float
@@ -1304,7 +1304,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 #if MEDIAINFO_TRACE
                     if (ValueS.empty())
                         ValueS.From_Number(Value, 0);
-                    Element_Info(ValueS);
+                    Element_Info1(ValueS);
                 #endif //MEDIAINFO_TRACE
                 if (!ToFill.empty())
                 {
@@ -1330,7 +1330,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="hasCuePoints") {}
                 else if (StringData=="canseekontime") {}
                 else {ToFill=StringData;}
-                Element_Info(Value);
+                Element_Info1(Value);
                 Fill(Stream_General, 0, ToFill.c_str(), Value?"Yes":"No");
             }
             break;
@@ -1359,7 +1359,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                         Value.resize(Value.find(_T('\r')));
                     if (Value.find(_T('\n'))!=std::string::npos)
                         Value.resize(Value.find(_T('\n')));
-                    Element_Info(Value);
+                    Element_Info1(Value);
                     if (ToFill!=(size_t)-1)
                         Fill(Stream_General, 0, ToFill, Value);
                     else if (!ToFillS.empty())
@@ -1378,12 +1378,12 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 {
                     if (Element_Offset>=Element_Size)
                         break;
-                    Element_Begin();
+                    Element_Begin0();
                     Get_B2 (StringLength2,                          "StringLength2");
                     Get_String(StringLength2, StringData2,          "StringData2");
                     Element_Name(StringData2.empty()?"EndOfObject":StringData2.c_str());
                     meta_SCRIPTDATAVALUE(StringData+'_'+StringData2);
-                    Element_End();
+                    Element_End0();
                 }
                 meta_Level--;
             }
@@ -1397,7 +1397,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     Ztring Value;
                     Get_Local(Value_Size, Value,                "Value");
                     if (Value==_T("unknown")) Value.clear();
-                    if (!Value.empty()) Element_Info(Value);
+                    Element_Info1C((!Value.empty()), Value);
                     Fill(Stream_General, 0, StringData.c_str(), Value);
                 }
             }
@@ -1410,7 +1410,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
             {
                 int16u Value;
                 Get_B2 (Value,                                  "Value");
-                Element_Info(Value);
+                Element_Info1(Value);
                 Fill(Stream_General, 0, StringData.c_str(), Value);
             }
             break;
@@ -1418,7 +1418,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
             {
                 int32u ECMAArrayLength;
                 Get_B4 (ECMAArrayLength,                        "ECMAArrayLength");
-                Element_Info(Ztring::ToZtring(ECMAArrayLength)+_T(" elements"));
+                Element_Info1(Ztring::ToZtring(ECMAArrayLength)+_T(" elements"));
                 for (int32u Pos=0; Pos<ECMAArrayLength; Pos++)
                 {
                     meta_SCRIPTDATAVARIABLE();
@@ -1428,7 +1428,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
             }
             break;
         case 0x09 :
-            Element_Info("EndOfObject");
+            Element_Info1("EndOfObject");
             meta_LevelFinished[meta_Level]=true;
             break;
         case 0x0A : //SCRIPTDATAVARIABLE[n]
@@ -1446,12 +1446,12 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 Get_BF8(Value,                                 "Value");
                 Ztring ValueS;
                 ValueS.Date_From_Seconds_1970((int32u)(Value/1000));
-                Param_Info(ValueS);
+                Param_Info1(ValueS);
                 Skip_B2(                                        "Local_Offset_Minutes");
                 std::string ToFill;
                      if (StringData=="metadatadate") {ToFill="Tagged_Date";}
                 else {ToFill=StringData;}
-                Element_Info(ValueS);
+                Element_Info1(ValueS);
                 Fill(Stream_General, 0, ToFill.c_str(), ValueS);
             }
             break;
@@ -1470,7 +1470,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else if (StringData=="metadatacreator") {ToFill="Tagged_Application";}
                     else if (StringData=="creationdate") {ToFill="Encoded_Date"; Value.Date_From_String(Value.To_UTF8().c_str());}
                     else {ToFill=StringData;}
-                    Element_Info(Value);
+                    Element_Info1(Value);
                     if (!ToFill.empty())
                         Fill(Stream_General, 0, ToFill.c_str(), Value);
                 }
@@ -1479,7 +1479,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
         case 0x11 : //AMF3 data
             {
                 int32u TypeCode;
-                Get_B4 (TypeCode,                               "AMF3 type code"); if (TypeCode<0x0D) Param_Info(Flv_Amf3Type[TypeCode]);
+                Get_B4 (TypeCode,                               "AMF3 type code"); Param_Info1C((TypeCode<0x0D), Flv_Amf3Type[TypeCode]);
                 switch (TypeCode)
                 {
                     case 0x00 : //undefined

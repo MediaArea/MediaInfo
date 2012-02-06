@@ -202,19 +202,19 @@ void File_Elf::Read_Buffer_Continue()
     Get_L1 (classs,                                             "class");
     Get_L1 (data,                                               "data");
     Get_L1 (version1,                                           "version");
-    Get_L1 (osabi,                                              "osabi"); Param_Info(Elf_osabi(osabi));
+    Get_L1 (osabi,                                              "osabi"); Param_Info1(Elf_osabi(osabi));
     Get_L1 (abiversion,                                         "abiversion");
     Skip_XX(7,                                                  "reserved");
     if (data==1) //LE
     {
-        Get_L2 (type,                                           "type"); Param_Info(Elf_type(type));
-        Get_L2 (machine,                                        "machine"); Param_Info(Elf_machine(machine));
+        Get_L2 (type,                                           "type"); Param_Info1(Elf_type(type));
+        Get_L2 (machine,                                        "machine"); Param_Info1(Elf_machine(machine));
         Get_L4 (version4,                                       "version");
     }
     if (data==2) //BE
     {
-        Get_B2 (type,                                           "type"); Param_Info(Elf_type(type));
-        Get_B2 (machine,                                        "machine"); Param_Info(Elf_machine(machine));
+        Get_B2 (type,                                           "type"); Param_Info1(Elf_type(type));
+        Get_B2 (machine,                                        "machine"); Param_Info1(Elf_machine(machine));
         Get_B4 (version4,                                       "version");
     }
     Skip_XX(Element_Size-Element_Offset,                        "Data");

@@ -230,38 +230,23 @@ protected :
 
     //Elements - Begin
     void Element_Begin ();
-    inline void Element_Begin (const Ztring &, int64u Size=(int64u)-1) {Element_Begin(Size);}
-    void Element_Begin (int64u Size);
-    inline void Element_Begin (const char *, int64u Size=(int64u)-1) {Element_Begin(Size);}
+    #define Element_Begin0() Element_Begin()
+    #define Element_Begin1(_NAME) Element_Begin()
 
     //Elements - Name
     #define Element_Name(_A)
 
     //Elements - Info
-    inline void Element_Info (const Ztring &) {}
-    inline void Element_Info (const char*) {}
-    inline void Element_Info (const char*, const char* ) {}
-    inline void Element_Info (int8s      , const char* =NULL) {}
-    inline void Element_Info (int8u      , const char* =NULL) {}
-    inline void Element_Info (int16s     , const char* =NULL) {}
-    inline void Element_Info (int16u     , const char* =NULL) {}
-    inline void Element_Info (int32s     , const char* =NULL) {}
-    inline void Element_Info (int32u     , const char* =NULL) {}
-    inline void Element_Info (int64s     , const char* =NULL) {}
-    inline void Element_Info (int64u     , const char* =NULL) {}
-    inline void Element_Info (int128u    , const char* =NULL) {}
-    #ifdef SIZE_T_IS_LONG
-    inline void Element_Info (size_t     , const char* =NULL) {}
-    #endif //SIZE_T_IS_LONG
-    inline void Element_Info (float32    , int8u =3, const char* =NULL) {}
-    inline void Element_Info (float64    , int8u =3, const char* =NULL) {}
+    #define Element_Info1(_A)
+    #define Element_Info2(_A,_B)
+    #define Element_Info3(_A,_B_C)
+    #define Element_Info1C(_CONDITION,_A)
     #define Element_Info_From_Milliseconds(_A)
 
     //Elements - End
-    void Element_End ();
-    inline void Element_End (const Ztring &, int64u Size=(int64u)-1) {Element_End(Size);}
-    void Element_End (int64u Size);
-    inline void Element_End (const char*   , int64u Size=(int64u)-1) {Element_End(Size);}
+    inline void Element_End () {Element_End_Common_Flush();}
+    #define Element_End0() Element_End()
+    #define Element_End1(_NAME) Element_End()
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);
@@ -276,63 +261,19 @@ public :
     // Param
     //***************************************************************************
 
-    //TODO: put this in Ztring()
-    Ztring ToZtring(const char* Value, size_t Value_Size=Unlimited, bool Utf8=true)
-    {
-        if (Utf8)
-            return Ztring().From_UTF8(Value, Value_Size);
-        else
-            return Ztring().From_Local(Value, Value_Size);
-    }
-    #define VALUE(Value) \
-        Ztring::ToZtring(Value, 16).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")")
-
     //Param - Main
-    inline void Param      (const Ztring &, const Ztring&) {}
-    inline void Param      (const char*, const Ztring&) {}
-    inline void Param      (const char*, const std::string&) {}
-    inline void Param      (const char*, const char*, size_t =Unlimited, bool =true) {}
-    inline void Param      (const char*, const int8u*, size_t =Unlimited, bool =true) {}
-    inline void Param      (const char*, bool) {}
-    inline void Param      (const char*, int8u) {}
-    inline void Param      (const char*, int8s) {}
-    inline void Param      (const char*, int16u) {}
-    inline void Param      (const char*, int16s) {}
-    inline void Param      (const char*, int32u) {}
-    inline void Param      (const char*, int32s) {}
-    inline void Param      (const char*, int64u) {}
-    inline void Param      (const char*, int64s) {}
-    inline void Param      (const char*, int128u) {}
-    inline void Param_GUID (const char*, int128u) {}
-    inline void Param_UUID (const char*, int128u) {}
-    #ifdef SIZE_T_IS_LONG
-    inline void Param      (const char*, size_t, intu =16) {}
-    #endif //SIZE_T_IS_LONG
-    inline void Param      (const char*, float32, intu =3) {}
-    inline void Param      (const char*, float64, intu =3) {}
-    inline void Param      (const char*, float80, intu =3)  {}
-    inline void Param      (const int32u, const Ztring&) {}
-    inline void Param      (const int16u, const Ztring&) {}
+    #define Param1(_A)
+    #define Param2(_A,_B)
+    #define Param3(_A,_B,_C)
 
     //Param - Info
-    inline void Param_Info (const Ztring &) {}
-    inline void Param_Info (const char*) {}
-    inline void Param_Info (const char*, const char*) {}
-    inline void Param_Info (int64u     , const char* =NULL) {}
-    inline void Param_Info (int64s     , const char* =NULL) {}
-    inline void Param_Info (int32u     , const char* =NULL) {}
-    inline void Param_Info (int32s     , const char* =NULL) {}
-    inline void Param_Info (int16u     , const char* =NULL) {}
-    inline void Param_Info (int16s     , const char* =NULL) {}
-    inline void Param_Info (int8u      , const char* =NULL) {}
-    inline void Param_Info (int8s      , const char* =NULL) {}
-    inline void Param_Info (float32    , int8u =3, const char* =NULL) {}
-    inline void Param_Info (float64    , int8u =3, const char* =NULL) {}
-    inline void Param_Info (float80    , int8u =3, const char* =NULL) {}
-    #ifdef SIZE_T_IS_LONG
-    inline void Param_Info (size_t     , const char* =NULL) {}
-    #endif //SIZE_T_IS_LONG
-    inline void Param_Info_From_Milliseconds (int64u) {}
+    #define Param_Info1(_A)
+    #define Param_Info2(_A,_B)
+    #define Param_Info3(_A,_B,_C)
+    #define Param_Info1C(_CONDITION,_A)
+    #define Param_Info2C(_CONDITION,_A,_B)
+    #define Param_Info3C(_CONDITION,_A,_B,_C)
+    #define Param_Info_From_Milliseconds(A)
 
     //***************************************************************************
     // Information
@@ -344,32 +285,32 @@ public :
     // Big Endian (Integer, Float, Fixed-Point)
     //***************************************************************************
 
-    void Get_B1   (int8u   &Info);
-    void Get_B2   (int16u  &Info);
-    void Get_B3   (int32u  &Info);
-    void Get_B4   (int32u  &Info);
-    void Get_B5   (int64u  &Info);
-    void Get_B6   (int64u  &Info);
-    void Get_B7   (int64u  &Info);
-    void Get_B8   (int64u  &Info);
-    void Get_B16  (int128u &Info);
-    void Get_BF4  (float32 &Info);
-    void Get_BF8  (float64 &Info);
-    void Get_BF10 (float80 &Info);
-    void Get_BFP4 (size_t Bits, float32 &Info);
-    inline void Get_B1   (int8u   &Info, const char*) {Get_B1(Info);}
-    inline void Get_B2   (int16u  &Info, const char*) {Get_B2(Info);}
-    inline void Get_B3   (int32u  &Info, const char*) {Get_B3(Info);}
-    inline void Get_B4   (int32u  &Info, const char*) {Get_B4(Info);}
-    inline void Get_B5   (int64u  &Info, const char*) {Get_B5(Info);}
-    inline void Get_B6   (int64u  &Info, const char*) {Get_B6(Info);}
-    inline void Get_B7   (int64u  &Info, const char*) {Get_B7(Info);}
-    inline void Get_B8   (int64u  &Info, const char*) {Get_B8(Info);}
-    inline void Get_B16  (int128u &Info, const char*) {Get_B16(Info);}
-    inline void Get_BF4  (float32 &Info, const char*) {Get_BF4(Info);}
-    inline void Get_BF8  (float64 &Info, const char*) {Get_BF8(Info);}
-    inline void Get_BF10 (float80 &Info, const char*) {Get_BF10(Info);}
-    inline void Get_BFP4 (size_t Bits, float32 &Info, const char*) {Get_BFP4(Bits, Info);}
+    void Get_B1_   (int8u   &Info);
+    void Get_B2_   (int16u  &Info);
+    void Get_B3_   (int32u  &Info);
+    void Get_B4_   (int32u  &Info);
+    void Get_B5_   (int64u  &Info);
+    void Get_B6_   (int64u  &Info);
+    void Get_B7_   (int64u  &Info);
+    void Get_B8_   (int64u  &Info);
+    void Get_B16_  (int128u &Info);
+    void Get_BF4_  (float32 &Info);
+    void Get_BF8_  (float64 &Info);
+    void Get_BF10_ (float80 &Info);
+    void Get_BFP4_ (size_t Bits, float32 &Info);
+    #define Get_B1(Info, Name) Get_B1_(Info)
+    #define Get_B2(Info, Name) Get_B2_(Info)
+    #define Get_B3(Info, Name) Get_B3_(Info)
+    #define Get_B4(Info, Name) Get_B4_(Info)
+    #define Get_B5(Info, Name) Get_B5_(Info)
+    #define Get_B6(Info, Name) Get_B6_(Info)
+    #define Get_B7(Info, Name) Get_B7_(Info)
+    #define Get_B8(Info, Name) Get_B8_(Info)
+    #define Get_B16(Info, Name) Get_B16_(Info)
+    #define Get_BF4(Info, Name) Get_BF4_(Info)
+    #define Get_BF8(Info, Name) Get_BF8_(Info)
+    #define Get_BF10(Info, Name) Get_BF10_(Info)
+    #define Get_BFP4(Bits, Info, Name) Get_BFP4_(Bits, Info)
     void Peek_B1  (int8u   &Info);
     void Peek_B2  (int16u  &Info);
     void Peek_B3  (int32u  &Info);
@@ -383,151 +324,169 @@ public :
     void Peek_BF8 (float64 &Info);
     void Peek_BF10(float64 &Info);
     void Peek_BFP4(size_t Bits, float64 &Info);
-    inline void Skip_B1  (               const char*) {if (Element_Offset+1>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=1;}
-    inline void Skip_B2  (               const char*) {if (Element_Offset+2>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=2;}
-    inline void Skip_B3  (               const char*) {if (Element_Offset+3>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=3;}
-    inline void Skip_B4  (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
-    inline void Skip_B5  (               const char*) {if (Element_Offset+5>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=5;}
-    inline void Skip_B6  (               const char*) {if (Element_Offset+6>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=6;}
-    inline void Skip_B7  (               const char*) {if (Element_Offset+7>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=7;}
-    inline void Skip_B8  (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
-    inline void Skip_BF4 (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
-    inline void Skip_BF8 (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
-    inline void Skip_B16 (               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
-    inline void Skip_BFP4(size_t,                     const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;};
-    #define Info_B1(_INFO, _NAME)   int8u   _INFO; Get_B1 (_INFO, _NAME)
-    #define Info_B2(_INFO, _NAME)   int16u  _INFO; Get_B2 (_INFO, _NAME)
-    #define Info_B3(_INFO, _NAME)   int32u  _INFO; Get_B3 (_INFO, _NAME)
-    #define Info_B4(_INFO, _NAME)   int32u  _INFO; Get_B4 (_INFO, _NAME)
-    #define Info_B5(_INFO, _NAME)   int64u  _INFO; Get_B5 (_INFO, _NAME)
-    #define Info_B6(_INFO, _NAME)   int64u  _INFO; Get_B6 (_INFO, _NAME)
-    #define Info_B7(_INFO, _NAME)   int64u  _INFO; Get_B7 (_INFO, _NAME)
-    #define Info_B8(_INFO, _NAME)   int64u  _INFO; Get_B8 (_INFO, _NAME)
-    #define Info_B16(_INFO, _NAME)  int128u _INFO; Get_B16(_INFO, _NAME)
-    #define Info_BF4(_INFO, _NAME)  float32 _INFO; Get_BF4(_INFO, _NAME)
-    #define Info_BF8(_INFO, _NAME)  float64 _INFO; Get_BF8(_INFO, _NAME)
-    #define Info_BF10(_INFO, _NAME) float80 _INFO; Get_BF8(_INFO, _NAME)
-    #define Info_BFP4(_BITS, _INFO, _NAME) float32 _INFO; Get_BFP4(_BITS, _INFO, _NAME)
+    #define Skip_B1(Name) Element_Offset++
+    #define Skip_B2(Name) Element_Offset+=2
+    #define Skip_B3(Name) Element_Offset+=3
+    #define Skip_B4(Name) Element_Offset+=4
+    #define Skip_B5(Name) Element_Offset+=5
+    #define Skip_B6(Name) Element_Offset+=6
+    #define Skip_B7(Name) Element_Offset+=7
+    #define Skip_B8(Name) Element_Offset+=8
+    #define Skip_BF4(Name) Element_Offset+=4
+    #define Skip_BF8(Name) Element_Offset+=8
+    #define Skip_B16(Name) Element_Offset+=16
+    #define Skip_BFP4(Size, Name) Element_Offset+=4
+    #define Info_B1(_INFO, _NAME)   Element_Offset++
+    #define Info_B2(_INFO, _NAME)   Element_Offset+=2
+    #define Info_B3(_INFO, _NAME)   Element_Offset+=3
+    #define Info_B4(_INFO, _NAME)   Element_Offset+=4
+    #define Info_B5(_INFO, _NAME)   Element_Offset+=5
+    #define Info_B6(_INFO, _NAME)   Element_Offset+=6
+    #define Info_B7(_INFO, _NAME)   Element_Offset+=7
+    #define Info_B8(_INFO, _NAME)   Element_Offset+=8
+    #define Info_B16(_INFO, _NAME)  Element_Offset+=16
+    #define Info_BF4(_INFO, _NAME)  Element_Offset+=4
+    #define Info_BF8(_INFO, _NAME)  Element_Offset+=8
+    #define Info_BF10(_INFO, _NAME) Element_Offset+=10
+    #define Info_BFP4(_BITS, _INFO, _NAME) Element_Offset+=4
 
     //***************************************************************************
     // Little Endian
     //***************************************************************************
 
-    void Get_L1  (int8u   &Info);
-    void Get_L2  (int16u  &Info);
-    void Get_L3  (int32u  &Info);
-    void Get_L4  (int32u  &Info);
-    void Get_L5  (int64u  &Info);
-    void Get_L6  (int64u  &Info);
-    void Get_L7  (int64u  &Info);
-    void Get_L8  (int64u  &Info);
-    void Get_L16 (int128u &Info);
-    void Get_LF4 (float32 &Info);
-    void Get_LF8 (float64 &Info);
-    inline void Get_L1  (int8u   &Info, const char*) {Get_L1(Info);}
-    inline void Get_L2  (int16u  &Info, const char*) {Get_L2(Info);}
-    inline void Get_L3  (int32u  &Info, const char*) {Get_L3(Info);}
-    inline void Get_L4  (int32u  &Info, const char*) {Get_L4(Info);}
-    inline void Get_L5  (int64u  &Info, const char*) {Get_L5(Info);}
-    inline void Get_L6  (int64u  &Info, const char*) {Get_L6(Info);}
-    inline void Get_L7  (int64u  &Info, const char*) {Get_L7(Info);}
-    inline void Get_L8  (int64u  &Info, const char*) {Get_L8(Info);}
-    inline void Get_L16 (int128u &Info, const char*) {Get_L16(Info);}
-    inline void Get_LF4 (float32 &Info, const char*) {Get_LF4(Info);}
-    inline void Get_LF8 (float64 &Info, const char*) {Get_LF8(Info);}
-    void Peek_L1 (int8u   &Info);
-    void Peek_L2 (int16u  &Info);
-    void Peek_L3 (int32u  &Info);
-    void Peek_L4 (int32u  &Info);
-    void Peek_L5 (int64u  &Info);
-    void Peek_L6 (int64u  &Info);
-    void Peek_L7 (int64u  &Info);
-    void Peek_L8 (int64u  &Info);
-    void Peek_L16(int128u &Info);
-    void Peek_LF4(float32 &Info);
-    void Peek_LF8(float64 &Info);
-    inline void Skip_L1  (               const char*) {if (Element_Offset+1>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=1;}
-    inline void Skip_L2  (               const char*) {if (Element_Offset+2>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=2;}
-    inline void Skip_L3  (               const char*) {if (Element_Offset+3>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=3;}
-    inline void Skip_L4  (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
-    inline void Skip_L5  (               const char*) {if (Element_Offset+5>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=5;}
-    inline void Skip_L6  (               const char*) {if (Element_Offset+6>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=6;}
-    inline void Skip_L7  (               const char*) {if (Element_Offset+7>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=7;}
-    inline void Skip_L8  (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
-    inline void Skip_LF4 (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
-    inline void Skip_LF8 (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
-    inline void Skip_L16 (               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
-    #define Info_L1(_INFO, _NAME)  int8u   _INFO; Get_L1 (_INFO, _NAME)
-    #define Info_L2(_INFO, _NAME)  int16u  _INFO; Get_L2 (_INFO, _NAME)
-    #define Info_L3(_INFO, _NAME)  int32u  _INFO; Get_L3 (_INFO, _NAME)
-    #define Info_L4(_INFO, _NAME)  int32u  _INFO; Get_L4 (_INFO, _NAME)
-    #define Info_L5(_INFO, _NAME)  int64u  _INFO; Get_L5 (_INFO, _NAME)
-    #define Info_L6(_INFO, _NAME)  int64u  _INFO; Get_L6 (_INFO, _NAME)
-    #define Info_L7(_INFO, _NAME)  int64u  _INFO; Get_L7 (_INFO, _NAME)
-    #define Info_L8(_INFO, _NAME)  int64u  _INFO; Get_L8 (_INFO, _NAME)
-    #define Info_L16(_INFO, _NAME) int128u _INFO; Get_L16(_INFO, _NAME)
-    #define Info_LF4(_INFO, _NAME) float32 _INFO; Get_LF4(_INFO, _NAME)
-    #define Info_LF8(_INFO, _NAME) float64 _INFO; Get_LF8(_INFO, _NAME)
+    void Get_L1_   (int8u   &Info);
+    void Get_L2_   (int16u  &Info);
+    void Get_L3_   (int32u  &Info);
+    void Get_L4_   (int32u  &Info);
+    void Get_L5_   (int64u  &Info);
+    void Get_L6_   (int64u  &Info);
+    void Get_L7_   (int64u  &Info);
+    void Get_L8_   (int64u  &Info);
+    void Get_L16_  (int128u &Info);
+    void Get_LF4_  (float32 &Info);
+    void Get_LF8_  (float64 &Info);
+    void Get_LF10_ (float80 &Info);
+    void Get_LFP4_ (size_t Bits, float32 &Info);
+    #define Get_L1(Info, Name) Get_L1_(Info)
+    #define Get_L2(Info, Name) Get_L2_(Info)
+    #define Get_L3(Info, Name) Get_L3_(Info)
+    #define Get_L4(Info, Name) Get_L4_(Info)
+    #define Get_L5(Info, Name) Get_L5_(Info)
+    #define Get_L6(Info, Name) Get_L6_(Info)
+    #define Get_L7(Info, Name) Get_L7_(Info)
+    #define Get_L8(Info, Name) Get_L8_(Info)
+    #define Get_L16(Info, Name) Get_L16_(Info)
+    #define Get_LF4(Info, Name) Get_LF4_(Info)
+    #define Get_LF8(Info, Name) Get_LF8_(Info)
+    #define Get_LF10(Info, Name) Get_LF10_(Info)
+    #define Get_LFP4(Bits, Info, Name) Get_LFP4_(Bits, Info)
+    void Peek_L1  (int8u   &Info);
+    void Peek_L2  (int16u  &Info);
+    void Peek_L3  (int32u  &Info);
+    void Peek_L4  (int32u  &Info);
+    void Peek_L5  (int64u  &Info);
+    void Peek_L6  (int64u  &Info);
+    void Peek_L7  (int64u  &Info);
+    void Peek_L8  (int64u  &Info);
+    void Peek_L16 (int128u &Info);
+    void Peek_LF4 (float32 &Info);
+    void Peek_LF8 (float64 &Info);
+    void Peek_LF10(float64 &Info);
+    void Peek_LFP4(size_t Bits, float64 &Info);
+    #define Skip_L1(Name) Element_Offset++
+    #define Skip_L2(Name) Element_Offset+=2
+    #define Skip_L3(Name) Element_Offset+=3
+    #define Skip_L4(Name) Element_Offset+=4
+    #define Skip_L5(Name) Element_Offset+=5
+    #define Skip_L6(Name) Element_Offset+=6
+    #define Skip_L7(Name) Element_Offset+=7
+    #define Skip_L8(Name) Element_Offset+=8
+    #define Skip_LF4(Name) Element_Offset+=4
+    #define Skip_LF8(Name) Element_Offset+=8
+    #define Skip_L16(Name) Element_Offset+=16
+    #define Skip_LFP4(Size, Name) Element_Offset+=4
+    #define Info_L1(_INFO, _NAME)   Element_Offset++
+    #define Info_L2(_INFO, _NAME)   Element_Offset+=2
+    #define Info_L3(_INFO, _NAME)   Element_Offset+=3
+    #define Info_L4(_INFO, _NAME)   Element_Offset+=4
+    #define Info_L5(_INFO, _NAME)   Element_Offset+=5
+    #define Info_L6(_INFO, _NAME)   Element_Offset+=6
+    #define Info_L7(_INFO, _NAME)   Element_Offset+=7
+    #define Info_L8(_INFO, _NAME)   Element_Offset+=8
+    #define Info_L16(_INFO, _NAME)  Element_Offset+=16
+    #define Info_LF4(_INFO, _NAME)  Element_Offset+=4
+    #define Info_LF8(_INFO, _NAME)  Element_Offset+=8
+    #define Info_LF10(_INFO, _NAME) Element_Offset+=10
+    #define Info_LFP4(_LITS, _INFO, _NAME) Element_Offset+=4
 
     //***************************************************************************
     // Little and Big Endian together
     //***************************************************************************
 
-    void Get_D1  (int8u   &Info);
-    void Get_D2  (int16u  &Info);
-    void Get_D3  (int32u  &Info);
-    void Get_D4  (int32u  &Info);
-    void Get_D5  (int64u  &Info);
-    void Get_D6  (int64u  &Info);
-    void Get_D7  (int64u  &Info);
-    void Get_D8  (int64u  &Info);
-    void Get_D16 (int128u &Info);
-    void Get_DF4 (float32 &Info);
-    void Get_DF8 (float64 &Info);
-    inline void Get_D1  (int8u   &Info, const char*) {Get_D1(Info);}
-    inline void Get_D2  (int16u  &Info, const char*) {Get_D2(Info);}
-    inline void Get_D3  (int32u  &Info, const char*) {Get_D3(Info);}
-    inline void Get_D4  (int32u  &Info, const char*) {Get_D4(Info);}
-    inline void Get_D5  (int64u  &Info, const char*) {Get_D5(Info);}
-    inline void Get_D6  (int64u  &Info, const char*) {Get_D6(Info);}
-    inline void Get_D7  (int64u  &Info, const char*) {Get_D7(Info);}
-    inline void Get_D8  (int64u  &Info, const char*) {Get_D8(Info);}
-    inline void Get_D16 (int128u &Info, const char*) {Get_D16(Info);}
-    inline void Get_DF4 (float32 &Info, const char*) {Get_DF4(Info);}
-    inline void Get_DF8 (float64 &Info, const char*) {Get_DF8(Info);}
-    void Peek_D1 (int8u   &Info);
-    void Peek_D2 (int16u  &Info);
-    void Peek_D3 (int32u  &Info);
-    void Peek_D4 (int32u  &Info);
-    void Peek_D5 (int64u  &Info);
-    void Peek_D6 (int64u  &Info);
-    void Peek_D7 (int64u  &Info);
-    void Peek_D8 (int64u  &Info);
-    void Peek_D16(int128u &Info);
-    void Peek_DF4(float32 &Info);
-    void Peek_DF8(float64 &Info);
-    inline void Skip_D1  (               const char*) {if (Element_Offset+1>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=1;}
-    inline void Skip_D2  (               const char*) {if (Element_Offset+2>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=2;}
-    inline void Skip_D3  (               const char*) {if (Element_Offset+3>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=3;}
-    inline void Skip_D4  (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
-    inline void Skip_D5  (               const char*) {if (Element_Offset+5>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=5;}
-    inline void Skip_D6  (               const char*) {if (Element_Offset+6>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=6;}
-    inline void Skip_D7  (               const char*) {if (Element_Offset+7>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=7;}
-    inline void Skip_D8  (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
-    inline void Skip_DF4 (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
-    inline void Skip_DF8 (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
-    inline void Skip_D16 (               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
-    #define Info_D1(_INFO, _NAME)  int8u   _INFO; Get_D1 (_INFO, _NAME)
-    #define Info_D2(_INFO, _NAME)  int16u  _INFO; Get_D2 (_INFO, _NAME)
-    #define Info_D3(_INFO, _NAME)  int32u  _INFO; Get_D3 (_INFO, _NAME)
-    #define Info_D4(_INFO, _NAME)  int32u  _INFO; Get_D4 (_INFO, _NAME)
-    #define Info_D5(_INFO, _NAME)  int64u  _INFO; Get_D5 (_INFO, _NAME)
-    #define Info_D6(_INFO, _NAME)  int64u  _INFO; Get_D6 (_INFO, _NAME)
-    #define Info_D7(_INFO, _NAME)  int64u  _INFO; Get_D7 (_INFO, _NAME)
-    #define Info_D8(_INFO, _NAME)  int64u  _INFO; Get_D8 (_INFO, _NAME)
-    #define Info_D16(_INFO, _NAME) int128u _INFO; Get_D16(_INFO, _NAME)
-    #define Info_DF4(_INFO, _NAME) float32 _INFO; Get_DF4(_INFO, _NAME)
-    #define Info_DF8(_INFO, _NAME) float64 _INFO; Get_DF8(_INFO, _NAME)
+    void Get_D1_   (int8u   &Info);
+    void Get_D2_   (int16u  &Info);
+    void Get_D3_   (int32u  &Info);
+    void Get_D4_   (int32u  &Info);
+    void Get_D5_   (int64u  &Info);
+    void Get_D6_   (int64u  &Info);
+    void Get_D7_   (int64u  &Info);
+    void Get_D8_   (int64u  &Info);
+    void Get_D16_  (int128u &Info);
+    void Get_DF4_  (float32 &Info);
+    void Get_DF8_  (float64 &Info);
+    void Get_DF10_ (float80 &Info);
+    void Get_DFP4_ (size_t Bits, float32 &Info);
+    #define Get_D1(Info, Name) Get_D1_(Info)
+    #define Get_D2(Info, Name) Get_D2_(Info)
+    #define Get_D3(Info, Name) Get_D3_(Info)
+    #define Get_D4(Info, Name) Get_D4_(Info)
+    #define Get_D5(Info, Name) Get_D5_(Info)
+    #define Get_D6(Info, Name) Get_D6_(Info)
+    #define Get_D7(Info, Name) Get_D7_(Info)
+    #define Get_D8(Info, Name) Get_D8_(Info)
+    #define Get_D16(Info, Name) Get_D16_(Info)
+    #define Get_DF4(Info, Name) Get_DF4_(Info)
+    #define Get_DF8(Info, Name) Get_DF8_(Info)
+    #define Get_DF10(Info, Name) Get_DF10_(Info)
+    #define Get_DFP4(Bits, Info, Name) Get_DFP4_(Bits, Info)
+    void Peek_D1  (int8u   &Info);
+    void Peek_D2  (int16u  &Info);
+    void Peek_D3  (int32u  &Info);
+    void Peek_D4  (int32u  &Info);
+    void Peek_D5  (int64u  &Info);
+    void Peek_D6  (int64u  &Info);
+    void Peek_D7  (int64u  &Info);
+    void Peek_D8  (int64u  &Info);
+    void Peek_D16 (int128u &Info);
+    void Peek_DF4 (float32 &Info);
+    void Peek_DF8 (float64 &Info);
+    void Peek_DF10(float64 &Info);
+    void Peek_DFP4(size_t Bits, float64 &Info);
+    #define Skip_D1(Name) Element_Offset++
+    #define Skip_D2(Name) Element_Offset+=2
+    #define Skip_D3(Name) Element_Offset+=3
+    #define Skip_D4(Name) Element_Offset+=4
+    #define Skip_D5(Name) Element_Offset+=5
+    #define Skip_D6(Name) Element_Offset+=6
+    #define Skip_D7(Name) Element_Offset+=7
+    #define Skip_D8(Name) Element_Offset+=8
+    #define Skip_DF4(Name) Element_Offset+=4
+    #define Skip_DF8(Name) Element_Offset+=8
+    #define Skip_D16(Name) Element_Offset+=16
+    #define Skip_DFP4(Size, Name) Element_Offset+=4
+    #define Info_D1(_INFO, _NAME)   Element_Offset++
+    #define Info_D2(_INFO, _NAME)   Element_Offset+=2
+    #define Info_D3(_INFO, _NAME)   Element_Offset+=3
+    #define Info_D4(_INFO, _NAME)   Element_Offset+=4
+    #define Info_D5(_INFO, _NAME)   Element_Offset+=5
+    #define Info_D6(_INFO, _NAME)   Element_Offset+=6
+    #define Info_D7(_INFO, _NAME)   Element_Offset+=7
+    #define Info_D8(_INFO, _NAME)   Element_Offset+=8
+    #define Info_D16(_INFO, _NAME)  Element_Offset+=16
+    #define Info_DF4(_INFO, _NAME)  Element_Offset+=4
+    #define Info_DF8(_INFO, _NAME)  Element_Offset+=8
+    #define Info_DF10(_INFO, _NAME) Element_Offset+=10
+    #define Info_DFP4(_DITS, _INFO, _NAME) Element_Offset+=4
 
     //***************************************************************************
     // GUID
@@ -714,39 +673,39 @@ public :
     // Flags
     //***************************************************************************
 
-    void Get_Flags (int64u Flags, size_t Order, bool  &Info);
-    void Get_Flags (int64u ValueToPut,          int8u &Info);
-    inline void Get_Flags (int64u Flags, size_t Order, bool  &Info, const char*) {Get_Flags(Flags, Order, Info);}
-    inline void Get_Flags (int64u ValueToPut,          int8u &Info, const char*) {Get_Flags(ValueToPut, Info);}
-    inline void Skip_Flags(int64u, size_t,                          const char*) {}
-    inline void Skip_Flags(int64u,                                  const char*) {}
-    #define Info_Flags(_FLAGS, _ORDER, _INFO, _NAME) bool _INFO; Get_Flags (_FLAGS, _ORDER, _INFO, _NAME)
+    void Get_Flags_ (int64u Flags, size_t Order, bool  &Info);
+    void Get_FlagsM_ (int64u ValueToPut, int8u &Info); //Multiple
+    #define Get_Flags(_FLAGS, _ORDER, _INFO, _NAME) Get_Flags_(_FLAGS, _ORDER, _INFO)
+    #define Get_FlagsM(_VALUE, _INFO, _NAME) Get_FlagsM_(_VALUE, _INFO)
+    #define Skip_Flags(_FLAGS, _ORDER, _NAME)
+    #define Skip_FlagsM(_VALUE, _NAME)
+    #define Info_Flags(_FLAGS, _ORDER, _INFO, _NAME)
 
     //***************************************************************************
     // BitStream
     //***************************************************************************
 
-    void Get_BS (size_t Bits, int32u  &Info);
-    void Get_SB (             bool    &Info);
-    bool Get_SB ()                                              {bool Temp; Get_SB(Temp); return Temp;}
-    void Get_S1 (size_t Bits, int8u   &Info);
-    void Get_S2 (size_t Bits, int16u  &Info);
-    void Get_S3 (size_t Bits, int32u  &Info);
-    void Get_S4 (size_t Bits, int32u  &Info);
-    void Get_S5 (size_t Bits, int64u  &Info);
-    void Get_S6 (size_t Bits, int64u  &Info);
-    void Get_S7 (size_t Bits, int64u  &Info);
-    void Get_S8 (size_t Bits, int64u  &Info);
-    inline void Get_BS (size_t Bits, int32u  &Info, const char*) {Get_BS(Bits, Info);}
-    inline void Get_SB (             bool    &Info, const char*) {Get_SB(      Info);}
-    inline void Get_S1 (size_t Bits, int8u   &Info, const char*) {Get_S1(Bits, Info);}
-    inline void Get_S2 (size_t Bits, int16u  &Info, const char*) {Get_S2(Bits, Info);}
-    inline void Get_S3 (size_t Bits, int32u  &Info, const char*) {Get_S3(Bits, Info);}
-    inline void Get_S4 (size_t Bits, int32u  &Info, const char*) {Get_S4(Bits, Info);}
-    inline void Get_S5 (size_t Bits, int64u  &Info, const char*) {Get_S5(Bits, Info);}
-    inline void Get_S6 (size_t Bits, int64u  &Info, const char*) {Get_S6(Bits, Info);}
-    inline void Get_S7 (size_t Bits, int64u  &Info, const char*) {Get_S7(Bits, Info);}
-    inline void Get_S8 (size_t Bits, int64u  &Info, const char*) {Get_S8(Bits, Info);}
+    void Get_BS_ (size_t Bits, int32u  &Info);
+    void Get_SB_ (             bool    &Info);
+    bool Get_SB_ ()                                              {bool Temp; Get_SB_(Temp); return Temp;}
+    void Get_S1_ (size_t Bits, int8u   &Info);
+    void Get_S2_ (size_t Bits, int16u  &Info);
+    void Get_S3_ (size_t Bits, int32u  &Info);
+    void Get_S4_ (size_t Bits, int32u  &Info);
+    void Get_S5_ (size_t Bits, int64u  &Info);
+    void Get_S6_ (size_t Bits, int64u  &Info);
+    void Get_S7_ (size_t Bits, int64u  &Info);
+    void Get_S8_ (size_t Bits, int64u  &Info);
+    #define Get_BS(Bits, Info, Name) Get_BS_(Bits, Info)
+    #define Get_SB(      Info, Name) Get_SB_(      Info)
+    #define Get_S1(Bits, Info, Name) Get_S1_(Bits, Info)
+    #define Get_S2(Bits, Info, Name) Get_S2_(Bits, Info)
+    #define Get_S3(Bits, Info, Name) Get_S3_(Bits, Info)
+    #define Get_S4(Bits, Info, Name) Get_S4_(Bits, Info)
+    #define Get_S5(Bits, Info, Name) Get_S5_(Bits, Info)
+    #define Get_S6(Bits, Info, Name) Get_S6_(Bits, Info)
+    #define Get_S7(Bits, Info, Name) Get_S7_(Bits, Info)
+    #define Get_S8(Bits, Info, Name) Get_S8_(Bits, Info)
     void Peek_BS(size_t Bits, int32u  &Info);
     void Peek_SB(              bool    &Info);
     bool Peek_SB()                                              {bool Temp; Peek_SB(Temp); return Temp;}
@@ -758,88 +717,88 @@ public :
     void Peek_S6(size_t Bits, int64u  &Info);
     void Peek_S7(size_t Bits, int64u  &Info);
     void Peek_S8(size_t Bits, int64u  &Info);
-    void Skip_BS(size_t Bits);
-    void Skip_SB(           );
-    void Skip_S1(size_t Bits);
-    void Skip_S2(size_t Bits);
-    void Skip_S3(size_t Bits);
-    void Skip_S4(size_t Bits);
-    void Skip_S5(size_t Bits);
-    void Skip_S6(size_t Bits);
-    void Skip_S7(size_t Bits);
-    void Skip_S8(size_t Bits);
-    inline void Skip_BS(size_t Bits,                const char*) {BS->Skip(Bits);}
-    inline void Skip_SB(                            const char*) {BS->Skip1(1);}
-    inline void Skip_S1(size_t Bits,                const char*) {BS->Skip1(Bits);}
-    inline void Skip_S2(size_t Bits,                const char*) {BS->Skip2(Bits);}
-    inline void Skip_S3(size_t Bits,                const char*) {BS->Skip4(Bits);}
-    inline void Skip_S4(size_t Bits,                const char*) {BS->Skip4(Bits);}
-    inline void Skip_S5(size_t Bits,                const char*) {BS->Skip8(Bits);}
-    inline void Skip_S6(size_t Bits,                const char*) {BS->Skip8(Bits);}
-    inline void Skip_S7(size_t Bits,                const char*) {BS->Skip8(Bits);}
-    inline void Skip_S8(size_t Bits,                const char*) {BS->Skip8(Bits);}
+    inline void Skip_BS_(size_t Bits) {BS->Skip(Bits);}
+    inline void Skip_SB_(           ) {BS->SkipB();}
+    inline void Skip_S1_(int8u  Bits) {BS->Skip1(Bits);}
+    inline void Skip_S2_(int8u  Bits) {BS->Skip2(Bits);}
+    inline void Skip_S3_(int8u  Bits) {BS->Skip4(Bits);}
+    inline void Skip_S4_(int8u  Bits) {BS->Skip4(Bits);}
+    inline void Skip_S5_(int8u  Bits) {BS->Skip8(Bits);}
+    inline void Skip_S6_(int8u  Bits) {BS->Skip8(Bits);}
+    inline void Skip_S7_(int8u  Bits) {BS->Skip8(Bits);}
+    inline void Skip_S8_(int8u  Bits) {BS->Skip8(Bits);}
+    #define Skip_BS(Bits, Name) Skip_BS_(Bits)
+    #define Skip_SB(      Name) Skip_SB_()
+    #define Skip_S1(Bits, Name) Skip_S1_(Bits)
+    #define Skip_S2(Bits, Name) Skip_S2_(Bits)
+    #define Skip_S3(Bits, Name) Skip_S3_(Bits)
+    #define Skip_S4(Bits, Name) Skip_S4_(Bits)
+    #define Skip_S5(Bits, Name) Skip_S5_(Bits)
+    #define Skip_S6(Bits, Name) Skip_S6_(Bits)
+    #define Skip_S7(Bits, Name) Skip_S7_(Bits)
+    #define Skip_S8(Bits, Name) Skip_S8_(Bits)
     void Mark_0 ();
-    void Mark_0_NoTrustError (); //Use it for providing a warning instead of a non-trusting error
+    #define Mark_0_NoTrustError() Skip_SB_() //Use it for providing a warning instead of a non-trusting error
     void Mark_1 ();
-    void Mark_1_NoTrustError (); //Use it for providing a warning instead of a non-trusting error
-    #define Info_BS(_BITS, _INFO, _NAME) int32u  _INFO; Get_BS(_BITS, _INFO, _NAME)
-    #define Info_SB(_INFO, _NAME)        bool    _INFO; Get_SB(       _INFO, _NAME)
-    #define Info_S1(_BITS, _INFO, _NAME) int8u   _INFO; Get_S1(_BITS, _INFO, _NAME)
-    #define Info_S2(_BITS, _INFO, _NAME) int16u  _INFO; Get_S2(_BITS, _INFO, _NAME)
-    #define Info_S3(_BITS, _INFO, _NAME) int32u  _INFO; Get_S4(_BITS, _INFO, _NAME)
-    #define Info_S4(_BITS, _INFO, _NAME) int32u  _INFO; Get_S4(_BITS, _INFO, _NAME)
-    #define Info_S5(_BITS, _INFO, _NAME) int64u  _INFO; Get_S5(_BITS, _INFO, _NAME)
-    #define Info_S6(_BITS, _INFO, _NAME) int64u  _INFO; Get_S6(_BITS, _INFO, _NAME)
-    #define Info_S7(_BITS, _INFO, _NAME) int64u  _INFO; Get_S7(_BITS, _INFO, _NAME)
-    #define Info_S8(_BITS, _INFO, _NAME) int64u  _INFO; Get_S8(_BITS, _INFO, _NAME)
+    #define Mark_1_NoTrustError() Skip_SB_() //Use it for providing a warning instead of a non-trusting error
+    #define Info_BS(_BITS, _INFO, _NAME) Skip_BS_(_BITS)
+    #define Info_SB(_INFO, _NAME)        Skip_SB_(     )
+    #define Info_S1(_BITS, _INFO, _NAME) Skip_S1_(_BITS)
+    #define Info_S2(_BITS, _INFO, _NAME) Skip_S2_(_BITS)
+    #define Info_S3(_BITS, _INFO, _NAME) Skip_S3_(_BITS)
+    #define Info_S4(_BITS, _INFO, _NAME) Skip_S4_(_BITS)
+    #define Info_S5(_BITS, _INFO, _NAME) Skip_S5_(_BITS)
+    #define Info_S6(_BITS, _INFO, _NAME) Skip_S6_(_BITS)
+    #define Info_S7(_BITS, _INFO, _NAME) Skip_S7_(_BITS)
+    #define Info_S8(_BITS, _INFO, _NAME) Skip_S8_(_BITS)
 
     #define TEST_SB_GET(_CODE, _NAME) \
         { \
             Peek_SB(_CODE); \
             if (!_CODE) \
-                Skip_SB(                                        _NAME); \
+                Skip_SB_(); \
             else \
             { \
-                Element_Begin(_NAME); \
-                Skip_SB(                                        _NAME); \
+                Element_Begin0(); \
+                Skip_SB_(); \
 
     #define TEST_SB_SKIP(_NAME) \
         { \
             if (!Peek_SB()) \
-                Skip_SB(                                        _NAME); \
+                Skip_SB_(); \
             else \
             { \
-                Element_Begin(_NAME); \
-                Skip_SB(                                        _NAME); \
+                Element_Begin0(); \
+                Skip_SB_(); \
 
     #define TESTELSE_SB_GET(_CODE, _NAME) \
         { \
             Peek_SB(_CODE); \
             if (_CODE) \
             { \
-                Element_Begin(_NAME); \
-                Skip_SB(                                        _NAME); \
+                Element_Begin0(); \
+                Skip_SB_(); \
 
     #define TESTELSE_SB_SKIP(_NAME) \
         { \
             if (Peek_SB()) \
             { \
-                Element_Begin(_NAME); \
-                Skip_SB(                                        _NAME); \
+                Element_Begin0(); \
+                Skip_SB_(); \
 
     #define TESTELSE_SB_ELSE(_NAME) \
-                Element_End(); \
+                Element_End0(); \
             } \
             else \
             { \
-                Skip_SB(                                        _NAME); \
+                Skip_SB_(); \
 
     #define TESTELSE_SB_END() \
             } \
         } \
 
     #define TEST_SB_END() \
-                Element_End(); \
+                Element_End0(); \
             } \
         } \
 

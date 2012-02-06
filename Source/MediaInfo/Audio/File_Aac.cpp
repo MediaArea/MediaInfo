@@ -264,7 +264,7 @@ void File_Aac::Read_Buffer_Continue_raw_data_block()
     FILLING_BEGIN();
         //Counting
         Frame_Count++;
-        Element_Info(Ztring::ToZtring(Frame_Count));
+        Element_Info1(Ztring::ToZtring(Frame_Count));
 
         //Filling
         if (!Status[IsAccepted])
@@ -632,10 +632,10 @@ void File_Aac::Data_Parse()
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
-        Element_Info(Ztring::ToZtring(Frame_Count));
+        Element_Info1(Ztring::ToZtring(Frame_Count));
 
         //Filling
-        if (Frame_Count>=Frame_Count_Valid || CanFill)
+        if ((Frame_Count>=Frame_Count_Valid || CanFill) && Config_ParseSpeed<1.0)
         {
             //No more need data
             switch (Mode)

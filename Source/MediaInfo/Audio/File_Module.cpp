@@ -81,14 +81,14 @@ void File_Module::Read_Buffer_Continue()
     Get_Local (20, ModuleName,                                  "Module name");
     for (int8u Pos=0; Pos<31; Pos++)
     {
-        Element_Begin();
+        Element_Begin0();
         Get_Local(22, SamplesName,                              "Sample's name"); Element_Name(SamplesName);
         Skip_B2(                                                "Sample length");
         Skip_B1(                                                "Finetune value for the sample");
         Skip_B1(                                                "Volume of the sample");
         Skip_B2(                                                "Start of sample repeat offset");
         Skip_B2(                                                "Length of sample repeat");
-        Element_End();
+        Element_End0();
     }
     Skip_B1(                                                    "Number of song positions");
     Skip_B1(                                                    "0x8F");

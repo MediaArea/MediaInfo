@@ -239,7 +239,7 @@ struct complete_stream
         };
         std::map<int16u, teletext>                  Teletexts; //Key is teletext_magazine_number
         #if MEDIAINFO_TRACE
-            Ztring Element_Info;
+            Ztring Element_Info1;
         #endif //MEDIAINFO_TRACE
         stream_t                                    StreamKind;
         stream_t                                    StreamKind_FromDescriptor;

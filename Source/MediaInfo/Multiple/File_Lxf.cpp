@@ -519,17 +519,18 @@ void File_Lxf::Header_Parse()
                     {
                     Video_Sizes.resize(2);
                     int64u Size;
-                    int8u GOP_M;
+                    int64u TimeStamp, Duration;
+                    int8u GOP_M, PictureType;
                     BlockSize=0;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
-                    Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
+                    Get_L8 (TimeStamp,                          "TimeStamp"); Param_Info3(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
+                    Get_L8 (Duration,                           "Duration"); Param_Info3(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
-                    Get_S1 (4, VideoFormat,                     "Format"); Param_Info(Lxf_Format_Video[VideoFormat]);
+                    Get_S1 (4, VideoFormat,                     "Format"); Param_Info1(Lxf_Format_Video[VideoFormat]);
                     Skip_S1(7,                                  "GOP (N)");
                     Get_S1 (3, GOP_M,                           "GOP (M)");
-                    Info_S1(8, BitRate,                         "Bit rate"); Param_Info(BitRate*1000000, " bps");
-                    Info_S1(2, PictureType,                     "Picture type"); Param_Info(Lxf_PictureType[PictureType]);
+                    Info_S1(8, BitRate,                         "Bit rate"); Param_Info2(BitRate*1000000, " bps");
+                    Get_S1 (2, PictureType,                     "Picture type"); Param_Info1(Lxf_PictureType[PictureType]);
                     BS_End_LE();
                     Skip_L1(                                    "Reserved");
                     Get_L8(Size,                                "Video data size");
@@ -541,7 +542,7 @@ void File_Lxf::Header_Parse()
                     Video_Sizes[0]=Size;
                     BlockSize+=Size;
                     Skip_L4(                                    "? (Always 0x00000000)");
-                    Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info(((float64)Reverse)/720, 3, " ms");
+                    Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info3(((float64)Reverse)/720, 3, " ms");
                     if (Videos_Header.TimeStamp_Begin==(int64u)-1)
                         Videos_Header.TimeStamp_Begin=TimeStamp;
                     Videos_Header.TimeStamp_End=TimeStamp+Duration;
@@ -573,18 +574,19 @@ void File_Lxf::Header_Parse()
                     break;
         case 1  :   //Audio
                     {
+                    int64u TimeStamp, Duration;
                     int32u Size;
                     int8u Channels_Count=0;
                     bitset<32> Channels;
 
-                    Info_L8(TimeStamp,                          "TimeStamp"); Param_Info(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.PTS=FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
-                    Info_L8(Duration,                           "Duration"); Param_Info(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
+                    Get_L8 (TimeStamp,                          "TimeStamp"); Param_Info3(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.PTS=FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
+                    Get_L8 (Duration,                           "Duration"); Param_Info3(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
                     Get_S1 ( 6, SampleSize,                     "Sample size");
                     Skip_S1( 6,                                 "Sample precision");
                     Skip_S1(20,                                 "Reserved");
                     BS_End_LE();
-                    Element_Begin("Channels mask");
+                    Element_Begin1("Channels mask");
                         BS_Begin_LE();
                         for (size_t Pos=0; Pos<32; Pos++)
                         {
@@ -595,12 +597,12 @@ void File_Lxf::Header_Parse()
                                 Channels_Count++;
                         }
                         BS_End_LE();
-                    Element_End();
+                    Element_End0();
                     Get_L4(Size,                                "Block size (divided by ?)");
                     Skip_L4(                                    "Reserved");
                     Skip_L4(                                    "Reserved");
                     Skip_L4(                                    "Reserved");
-                    Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info(((float64)Reverse)/720, 3, " ms");
+                    Info_L8(Reverse,                            "Reverse TimeStamp"); Param_Info3(((float64)Reverse)/720, 3, " ms");
                     Audio_Sizes.resize(Channels_Count);
                     for (size_t Pos=0; Pos<Audio_Sizes.size(); Pos++)
                         Audio_Sizes[Pos]=Size;
@@ -634,7 +636,7 @@ void File_Lxf::Header_Parse()
                     Skip_L4(                                    "? (Always 0x00000000)");
                     Skip_L4(                                    "? (Always 0x00000000)");
                     Skip_L4(                                    "? (Always 0x00000000)");
-                    Info_L8(Reverse,                            "Reverse TimeStamp?"); Param_Info(((float64)Reverse)/720, 3, " ms");
+                    Info_L8(Reverse,                            "Reverse TimeStamp?"); Param_Info3(((float64)Reverse)/720, 3, " ms");
                     }
                     break;
         default :   BlockSize=0;
@@ -727,7 +729,7 @@ void File_Lxf::Header()
 //---------------------------------------------------------------------------
 void File_Lxf::Header_Info()
 {
-    Element_Begin("Info?");
+    Element_Begin1("Info?");
 
     //Parsing
     if (Element_Size==120)
@@ -763,13 +765,13 @@ void File_Lxf::Header_Info()
     }
     else
         Skip_XX(120,                                            "Unknown");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Lxf::Header_Meta()
 {
-    Element_Begin("Tags?");
+    Element_Begin1("Tags?");
 
     int64u Offset=0;
     int64u Pos=0;
@@ -838,7 +840,7 @@ void File_Lxf::Header_Meta()
         Pos++;
     }
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -858,7 +860,7 @@ void File_Lxf::Audio()
 //---------------------------------------------------------------------------
 void File_Lxf::Audio_Stream(size_t Pos)
 {
-    Element_Begin("Stream");
+    Element_Begin1("Stream");
 
     #if MEDIAINFO_DEMUX
         #if MEDIAINFO_SEEK
@@ -914,7 +916,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
         Audios[Pos].Parser->Fill();
     }
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -940,7 +942,7 @@ void File_Lxf::Video_Stream(size_t Pos)
         return;
     }
 
-    Element_Begin("Stream");
+    Element_Begin1("Stream");
 
     #if MEDIAINFO_DEMUX
         #if MEDIAINFO_SEEK
@@ -1063,7 +1065,7 @@ void File_Lxf::Video_Stream(size_t Pos)
         }
     }
 
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (Pos==1)

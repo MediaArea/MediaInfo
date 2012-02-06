@@ -247,7 +247,7 @@ bool File__Tags_Helper::Synched_Test()
                 File_BeginTagSize+=Parser_Buffer_Size;
                 if (Base->File_Offset_FirstSynched==(int64u)-1)
                     Base->Buffer_TotalBytes_FirstSynched_Max+=Parser_Buffer_Size;
-                Base->Element_Begin("Id3v2");
+                Base->Element_Begin1("Id3v2");
             }
             else if (ID4==0x5441472B) //"TAG+"
             {
@@ -257,7 +257,7 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File_Unknown;
                 #endif
                 Parser_Buffer_Size=227+128;
-                Base->Element_Begin("Id3+");
+                Base->Element_Begin1("Id3+");
             }
             else if (ID==0x544147) //"TAG"
             {
@@ -267,7 +267,7 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File_Unknown;
                 #endif
                 Parser_Buffer_Size=128;
-                Base->Element_Begin("Id3");
+                Base->Element_Begin1("Id3");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==Lyrics3_Offset)
             {
@@ -278,7 +278,7 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File__Analyze;
                 #endif
                 Parser_Buffer_Size=(size_t)Lyrics3_Size;
-                Base->Element_Begin("Lyrics3");
+                Base->Element_Begin1("Lyrics3");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==Lyrics3v2_Offset)
             {
@@ -289,7 +289,7 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File_Unknown;
                 #endif
                 Parser_Buffer_Size=(size_t)Lyrics3v2_Size;
-                Base->Element_Begin("Lyrics3v2");
+                Base->Element_Begin1("Lyrics3v2");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
             {
@@ -299,7 +299,7 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File_Unknown;
                 #endif
                 Parser_Buffer_Size=(size_t)ApeTag_Size;
-                Base->Element_Begin("ApeTag");
+                Base->Element_Begin1("ApeTag");
             }
             else
                 break;
@@ -336,7 +336,7 @@ bool File__Tags_Helper::Synched_Test()
                 if (Parser_Buffer_Size)
                     Base->Skip_XX(Parser_Buffer_Size,           "Data continued");
                 Base->Element_Show();
-                Base->Element_End();
+                Base->Element_End0();
             }
             else
                 break;
@@ -415,7 +415,7 @@ void File__Tags_Helper::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
         {
             bool MustElementBegin=Base->Element_Level?true:false;
             if (Base->Element_Level>0)
-                Base->Element_End(); //Element
+                Base->Element_End0(); //Element
             Base->Info(Ztring(ParserName)+_T(", wants to go to somewhere, but not valid"));
             if (MustElementBegin)
                 Base->Element_Level++;
@@ -446,7 +446,7 @@ void File__Tags_Helper::Finish (const char* ParserName)
     {
         bool MustElementBegin=Base->Element_Level?true:false;
         if (Base->Element_Level>0)
-            Base->Element_End(); //Element
+            Base->Element_End0(); //Element
         Base->Info(Ztring(ParserName)+_T(", finished but searching tags"));
         if (MustElementBegin)
             Base->Element_Level++;

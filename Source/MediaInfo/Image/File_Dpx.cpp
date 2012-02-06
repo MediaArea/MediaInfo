@@ -457,7 +457,7 @@ void File_Dpx::Data_Parse()
     if (!ShouldParseMore)
     {
         //Not related to this block, but we have not more intersting stuff, simply skip the rest
-        Element_End(); //This is not in this block, but the next one
+        Element_End0(); //This is not in this block, but the next one
         //if (Sizes[Pos_Padding])
         //    Skip_XX(Sizes[Pos_Padding],                         "Padding");
         //Skip_XX(Sizes[Pos_ImageData],                           "Image data");
@@ -478,7 +478,7 @@ void File_Dpx::GenericSectionHeader_v1()
     Element_Name("Generic section header");
 
     //Parsing
-    Element_Begin("File information");
+    Element_Begin1("File information");
     Ztring CreationDate, CreationTime;
     int32u Size_Header, Size_Total, Size_Generic, Size_Industry, Size_User;
     Skip_B4(                                                    "Magic number");
@@ -492,11 +492,11 @@ void File_Dpx::GenericSectionHeader_v1()
     Get_UTF8   (12,  CreationDate,                              "Creation Date");
     Get_UTF8   (12,  CreationTime,                              "Creation Time");
     Skip_XX(36,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Image information");
+    Element_Begin1("Image information");
     int8u ImageElements;
-    Info_B1(ImageOrientation,                                   "Image orientation"); Param_Info(DPX_Orientation[ImageOrientation>8?8:ImageOrientation]);
+    Info_B1(ImageOrientation,                                   "Image orientation"); Param_Info1(DPX_Orientation[ImageOrientation>8?8:ImageOrientation]);
     Get_B1 (ImageElements,                                      "Number of image elements");
     Skip_B2(                                                    "Unused");
     if (ImageElements>8)
@@ -515,9 +515,9 @@ void File_Dpx::GenericSectionHeader_v1()
     Skip_BFP4(9,                                                "Blue primary chromaticity - y");
     Skip_UTF8(200,                                              "Label text");
     Skip_XX(28,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Image Data Format Information");
+    Element_Begin1("Image Data Format Information");
     Skip_B1(                                                    "Data interleave");
     Skip_B1(                                                    "Packing");
     Skip_B1(                                                    "Data signed or unsigned");
@@ -526,7 +526,7 @@ void File_Dpx::GenericSectionHeader_v1()
     Skip_B4(                                                    "End of channel padding");
     Skip_XX(20,                                                 "Reserved for future use");
 
-    Element_Begin("Image Origination Information");
+    Element_Begin1("Image Origination Information");
     Skip_B4(                                                    "X offset");
     Skip_B4(                                                    "Y offset");
     Skip_UTF8  (100,                                            "FileName");
@@ -539,7 +539,7 @@ void File_Dpx::GenericSectionHeader_v1()
     Skip_BFP4(9,                                                "Y input device pitch");
     Skip_BFP4(9,                                                "Image gamma of capture device");
     Skip_XX(40,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         //Coherency tests
@@ -564,7 +564,7 @@ void File_Dpx::GenericSectionHeader_v1()
 //---------------------------------------------------------------------------
 void File_Dpx::GenericSectionHeader_v1_ImageElement()
 {
-    Element_Begin("image element");
+    Element_Begin1("image element");
     int32u Width, Height;
     Skip_B1(                                                    "Designator - Byte 0");
     Skip_B1(                                                    "Designator - Byte 1");
@@ -576,7 +576,7 @@ void File_Dpx::GenericSectionHeader_v1_ImageElement()
     Skip_BFP4(9,                                                "Minimum quantity represented");
     Skip_BFP4(9,                                                "Maximum data value");
     Skip_BFP4(9,                                                "Maximum quantity represented");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (Count_Get(Stream_Image)==0)
@@ -596,7 +596,7 @@ void File_Dpx::GenericSectionHeader_v2()
     Element_Name("Generic section header");
 
     //Parsing
-    Element_Begin("File information");
+    Element_Begin1("File information");
     std::string CreationDate, Creator, Project, Copyright; 
     int32u Size_Header, Size_Total, Size_Generic, Size_Industry, Size_User;
     Skip_String(4,                                              "Magic number");
@@ -614,12 +614,12 @@ void File_Dpx::GenericSectionHeader_v2()
     Get_String (200, Copyright,                                 "Right to use or copyright statement");
     Skip_B4(                                                    "Encryption key");
     Skip_XX(104,                                                "Reserved for future use");
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Image information");
+    Element_Begin1("Image information");
     int32u Width, Height, PAR_H, PAR_V;
     int16u ImageElements;
-    Info_B2(ImageOrientation,                                   "Image orientation");Param_Info(DPX_Orientation[ImageOrientation]);
+    Info_B2(ImageOrientation,                                   "Image orientation");Param_Info1(DPX_Orientation[ImageOrientation]);
     Get_X2 (ImageElements,                                      "Number of image elements");
     if (ImageElements>8)
         ImageElements=8;
@@ -630,9 +630,9 @@ void File_Dpx::GenericSectionHeader_v2()
     if (ImageElements!=8)
         Skip_XX((8-ImageElements)*72,                           "Padding");
     Skip_XX(52,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Image source information");
+    Element_Begin1("Image source information");
     Skip_B4(                                                    "X Offset");
     Skip_B4(                                                    "Y Offset");
     Skip_BFP4(9,                                                "X center");
@@ -643,20 +643,20 @@ void File_Dpx::GenericSectionHeader_v2()
     Skip_UTF8(24,                                               "Source image date/time");
     Skip_UTF8(32,                                               "Input device name");
     Skip_UTF8(32,                                               "Input device serial number");
-    Element_Begin("Border validity");
+    Element_Begin1("Border validity");
     Skip_B2(                                                    "XL border");
     Skip_B2(                                                    "XR border");
     Skip_B2(                                                    "YT border");
     Skip_B2(                                                    "YB border");
-    Element_End();
+    Element_End0();
     Get_X4 (PAR_H,                                              "Pixel ratio : horizontal");
     Get_X4 (PAR_V,                                              "Pixel ratio : vertical");
     
-    Element_Begin("Additional source image information");
+    Element_Begin1("Additional source image information");
     Skip_BFP4(9,                                                "X scanned size");
     Skip_BFP4(9,                                                "Y scanned size");
     Skip_XX(20,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         //Coherency tests
@@ -693,23 +693,24 @@ void File_Dpx::GenericSectionHeader_v2()
 //---------------------------------------------------------------------------
 void File_Dpx::GenericSectionHeader_v2_ImageElement()
 {
-    Element_Begin("image element");
-    Info_B4(DataSign,                                           "Data sign");Param_Info((DataSign==0?"unsigned":"signed"));
+    Element_Begin1("image element");
+    int8u BitDephs;
+    Info_B4(DataSign,                                           "Data sign");Param_Info1((DataSign==0?"unsigned":"signed"));
     Skip_B4(                                                    "Reference low data code value");
     Skip_BFP4(9,                                                "Reference low quantity represented");
     Skip_B4(                                                    "Reference high data code value");
     Skip_BFP4(9,                                                "Reference high quantity represented");
-    Info_B1(Descriptor,                                         "Descriptor");Param_Info(DPX_Descriptors(Descriptor));
-    Info_B1(TransferCharacteristic,                             "Transfer characteristic");Param_Info(DPX_TransferCharacteristic[TransferCharacteristic]);
-    Info_B1(ColorimetricSpecification,                          "Colorimetric specification");Param_Info(DPX_ColorimetricSpecification[ColorimetricSpecification]);
-    Info_B1(BitDephs,                                           "Bit depth");Param_Info(DPX_ValidBitDephs(BitDephs));
-    Info_B2(ComponentDataPackingMethod,                         "Packing");Param_Info((ComponentDataPackingMethod<8?DPX_ComponentDataPackingMethod[ComponentDataPackingMethod]:"invalid"));
-    Info_B2(ComponentDataEncodingMethod,                        "Encoding");Param_Info((ComponentDataEncodingMethod<8?DPX_ComponentDataEncodingMethod[ComponentDataEncodingMethod]:"invalid"));
+    Info_B1(Descriptor,                                         "Descriptor");Param_Info1(DPX_Descriptors(Descriptor));
+    Info_B1(TransferCharacteristic,                             "Transfer characteristic");Param_Info1(DPX_TransferCharacteristic[TransferCharacteristic]);
+    Info_B1(ColorimetricSpecification,                          "Colorimetric specification");Param_Info1(DPX_ColorimetricSpecification[ColorimetricSpecification]);
+    Get_B1 (BitDephs,                                           "Bit depth");Param_Info1(DPX_ValidBitDephs(BitDephs));
+    Info_B2(ComponentDataPackingMethod,                         "Packing");Param_Info1((ComponentDataPackingMethod<8?DPX_ComponentDataPackingMethod[ComponentDataPackingMethod]:"invalid"));
+    Info_B2(ComponentDataEncodingMethod,                        "Encoding");Param_Info1((ComponentDataEncodingMethod<8?DPX_ComponentDataEncodingMethod[ComponentDataEncodingMethod]:"invalid"));
     Skip_B4(                                                    "Offset to data");
     Skip_B4(                                                    "End-of-line padding");
     Skip_B4(                                                    "End-of-image padding");
     Skip_UTF8(32,                                               "Description of image element");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_Image);
@@ -725,7 +726,7 @@ void File_Dpx::IndustrySpecificHeader_v1()
     Element_Name("Motion picture industry specific header");
 
     //Parsing
-    Element_Begin("Motion-picture film information");
+    Element_Begin1("Motion-picture film information");
     Skip_B1(                                                    "?");
     Skip_B1(                                                    "?");
     Skip_B1(                                                    "?");
@@ -738,7 +739,7 @@ void File_Dpx::IndustrySpecificHeader_v1()
     Skip_UTF8(32,                                               "?");
     Skip_UTF8(200,                                              "?");
     Skip_XX(740,                                                "Reserved for future use");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -747,7 +748,7 @@ void File_Dpx::IndustrySpecificHeader_v2()
     Element_Name("Industry specific header");
 
     //Parsing
-    Element_Begin("Motion-picture film information");
+    Element_Begin1("Motion-picture film information");
     Skip_String(2,                                              "Film mfg. ID code");
     Skip_String(2,                                              "Film type");
     Skip_String(2,                                              "Offset in perfs");
@@ -762,14 +763,14 @@ void File_Dpx::IndustrySpecificHeader_v2()
     Skip_UTF8(32,                                               "Frame identification - e.g. keyframe");
     Skip_UTF8(100,                                              "Slate information");
     Skip_XX(56,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
     
-    Element_Begin("Television information");
+    Element_Begin1("Television information");
     Skip_B4(                                                    "SMPTE time code");
     Skip_B4(                                                    "SMPTE user bits");
-    Info_B1(Interlace,                                          "Interlace");Param_Info((Interlace==0?"noninterlaced":"2:1 interlace"));
+    Info_B1(Interlace,                                          "Interlace");Param_Info1((Interlace==0?"noninterlaced":"2:1 interlace"));
     Skip_B1(                                                    "Field number");
-    Info_B1(VideoSignalStandard,                                "Video signal standard");Param_Info(DPX_VideoSignalStandard(VideoSignalStandard));
+    Info_B1(VideoSignalStandard,                                "Video signal standard");Param_Info1(DPX_VideoSignalStandard(VideoSignalStandard));
     Skip_B1(                                                    "Zero");
     Skip_BFP4(9,                                                "Horizontal sampling rate (Hz)");
     Skip_BFP4(9,                                                "Vertical sampling rate (Hz)");
@@ -782,7 +783,7 @@ void File_Dpx::IndustrySpecificHeader_v2()
     Skip_BFP4(9,                                                "Reference white level code value");
     Skip_BFP4(9,                                                "Integration time (s)");
     Skip_XX(76,                                                 "Reserved for future use");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------

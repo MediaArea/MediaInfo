@@ -70,12 +70,12 @@ void File_Ps2Audio::SSbd()
         return;
     }
 
-    Element_Begin("SSbd (Body)");
+    Element_Begin1("SSbd (Body)");
         int32u Size;
         Skip_C4(                                                "ID");
         Get_L4 (Size,                                           "Size");
         Skip_XX(Element_Size-Element_Offset,                    "Data (Partial)");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Fill(Stream_Audio, 0, Audio_StreamSize, Size);
@@ -89,7 +89,7 @@ void File_Ps2Audio::SSbd()
 //---------------------------------------------------------------------------
 void File_Ps2Audio::SShd()
 {
-    Element_Begin("SShd (Header)", 0x18);
+    Element_Begin1("SShd (Header)");
         //Parsing
         int32u Size, Format, SamplingRate, Channels;
         Skip_C4(                                                "ID");
@@ -105,7 +105,7 @@ void File_Ps2Audio::SShd()
         Skip_L4(                                                "Bytes per channel");
         Skip_L4(                                                "Reserved");
         Skip_L4(                                                "Reserved");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Accept("PS2 Audio");

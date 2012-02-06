@@ -334,14 +334,14 @@ void File_DvbSubtitle::page_composition_segment()
     BS_End();
     while(Element_Offset<Element_Size)
     {
-        Element_Begin("Region");
+        Element_Begin1("Region");
         int16u region_horizontal_address, region_vertical_address;
         int8u region_id;
         Get_B1 (region_id,                                      "region_id");
         Skip_B1(                                                "reserved");
         Get_B2 (region_horizontal_address,                      "region_horizontal_address");
         Get_B2 (region_vertical_address,                        "region_vertical_address");
-        Element_End();
+        Element_End0();
 
         FILLING_BEGIN();
             subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].page_composition_segment=true;
@@ -369,7 +369,7 @@ void File_DvbSubtitle::region_composition_segment()
     Get_B2 (   region_height,                                   "region_height");
     BS_Begin();
     Skip_S1(3,                                                  "region_level_of_compatibility");
-    Get_S1 (3, region_depth,                                    "region_depth"); Param_Info(DvbSubtitle_region_depth[region_depth], " bits");
+    Get_S1 (3, region_depth,                                    "region_depth"); Param_Info2(DvbSubtitle_region_depth[region_depth], " bits");
     Skip_S1(2,                                                  "reserved");
     BS_End();
     Skip_B1(                                                    "CLUT_id");
@@ -381,7 +381,7 @@ void File_DvbSubtitle::region_composition_segment()
     BS_End();
     while(Element_Offset<Element_Size)
     {
-        Element_Begin("Object");
+        Element_Begin1("Object");
         int8u object_type;
         Skip_B2(                                                "object_id");
         BS_Begin();
@@ -401,7 +401,7 @@ void File_DvbSubtitle::region_composition_segment()
             default   : ;
         }
     }
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         subtitle_streams[subtitle_stream_id].pages[page_id].regions[region_id].region_composition_segment=true;

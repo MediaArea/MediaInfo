@@ -249,9 +249,9 @@ void File_Aac::AudioSpecificConfig (size_t End)
 {
     //Parsing
     bool    sbrData=false, sbrPresentFlag=false, psData=false, psPresentFlag=false;
-    Element_Begin("AudioSpecificConfig");
+    Element_Begin1("AudioSpecificConfig");
     GetAudioObjectType(audioObjectType,                         "audioObjectType");
-    Get_S1 (4, sampling_frequency_index,                        "samplingFrequencyIndex"); Param_Info(Aac_sampling_frequency[sampling_frequency_index]);
+    Get_S1 (4, sampling_frequency_index,                        "samplingFrequencyIndex"); Param_Info1(Aac_sampling_frequency[sampling_frequency_index]);
     if (sampling_frequency_index==0xF)
     {
         Get_S3 (24, sampling_frequency,                         "samplingFrequency");
@@ -259,14 +259,14 @@ void File_Aac::AudioSpecificConfig (size_t End)
     }
     else
         sampling_frequency=Aac_sampling_frequency[sampling_frequency_index];
-    Get_S1 (4, channelConfiguration,                            "channelConfiguration"); Param_Info(Aac_ChannelConfiguration[channelConfiguration]);
+    Get_S1 (4, channelConfiguration,                            "channelConfiguration"); Param_Info1(Aac_ChannelConfiguration[channelConfiguration]);
     if (audioObjectType==0x05 || audioObjectType==0x29)
     {
         extensionAudioObjectType=5;
         sbrPresentFlag=true;
         if (audioObjectType==29)
             psPresentFlag=true;
-        Get_S1 (4, extension_sampling_frequency_index,          "extensionSamplingFrequencyIndex"); Param_Info(Aac_sampling_frequency[extension_sampling_frequency_index]);
+        Get_S1 (4, extension_sampling_frequency_index,          "extensionSamplingFrequencyIndex"); Param_Info1(Aac_sampling_frequency[extension_sampling_frequency_index]);
         if (extension_sampling_frequency_index==0xF)
         {
             Get_S3 (24, extension_sampling_frequency,           "extensionSamplingFrequency");
@@ -353,9 +353,9 @@ void File_Aac::AudioSpecificConfig (size_t End)
             //~ SymbolicMusicSpecificConfig(); //ISO/IEC 14496-23
             //~ break;
         default:
-            Element_Begin("not implemented part");
+            Element_Begin1("not implemented part");
             Skip_BS(Data_BS_Remain()-End,                       "(Not implemented)");
-            Element_End();
+            Element_End0();
             if (Mode==File_Aac::Mode_ADIF || Mode==File_Aac::Mode_ADTS)
                 File__Tags_Helper::Finish();
             else
@@ -387,9 +387,9 @@ void File_Aac::AudioSpecificConfig (size_t End)
                 Get_SB(directMapping,                           "directMapping");
                 if ( ! directMapping )
                 {
-                    Element_Begin("not implemented part");
+                    Element_Begin1("not implemented part");
                     Skip_BS(Data_BS_Remain()-End,               "(Not implemented)");
-                    Element_End();
+                    Element_End0();
                     if (Mode==File_Aac::Mode_ADIF || Mode==File_Aac::Mode_ADTS)
                         File__Tags_Helper::Finish();
                     else
@@ -414,7 +414,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
                 Get_SB(sbrPresentFlag,                          "sbrPresentFlag");
                 if (sbrPresentFlag)
                 {
-                    Get_S1 (4, extension_sampling_frequency_index, "extensionSamplingFrequencyIndex"); Param_Info(Aac_sampling_frequency[extension_sampling_frequency_index]);
+                    Get_S1 (4, extension_sampling_frequency_index, "extensionSamplingFrequencyIndex"); Param_Info1(Aac_sampling_frequency[extension_sampling_frequency_index]);
                     if (extension_sampling_frequency_index==0xF)
                     {
                         Get_S3 (24, extension_sampling_frequency, "extensionSamplingFrequency");
@@ -439,7 +439,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
                 Get_SB(sbrPresentFlag,                          "sbrPresentFlag");
                 if (sbrPresentFlag)
                 {
-                    Get_S1 (4, extension_sampling_frequency_index, "extensionSamplingFrequencyIndex"); Param_Info(Aac_sampling_frequency[extension_sampling_frequency_index]);
+                    Get_S1 (4, extension_sampling_frequency_index, "extensionSamplingFrequencyIndex"); Param_Info1(Aac_sampling_frequency[extension_sampling_frequency_index]);
                     if (extension_sampling_frequency_index==0xF)
                     {
                         Get_S3 (24, extension_sampling_frequency, "extensionSamplingFrequency");
@@ -452,7 +452,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
             }
         }
     }
-    Element_End();
+    Element_End0();
     if (Data_BS_Remain()>End)
     {
         int8u LastByte=0xFF;
@@ -566,15 +566,15 @@ void File_Aac::AudioSpecificConfig_OutOfBand (int32u sampling_frequency_, int8u 
 //---------------------------------------------------------------------------
 void File_Aac::GetAudioObjectType(int8u &ObjectType, const char* Name)
 {
-    Element_Begin(Name);
+    Element_Begin1(Name);
     Get_S1(5, ObjectType,                                       "audioObjectType");
     if (ObjectType==31)
     {
         Get_S1(6, ObjectType,                                   "audioObjectTypeExt");
         ObjectType+=32;
     }
-    Element_Info(ObjectType); Element_Info(Aac_Format_Profile(ObjectType));
-    Element_End();
+    Element_Info1(ObjectType); Element_Info1(Aac_Format_Profile(ObjectType));
+    Element_End0();
 }
 
 //***************************************************************************
@@ -584,7 +584,7 @@ void File_Aac::GetAudioObjectType(int8u &ObjectType, const char* Name)
 //---------------------------------------------------------------------------
 void File_Aac::AudioMuxElement()
 {
-    Element_Begin("AudioMuxElement");
+    Element_Begin1("AudioMuxElement");
     if (muxConfigPresent)
     {
         bool useSameStreamMux;
@@ -612,19 +612,19 @@ void File_Aac::AudioMuxElement()
     }
     else
     {
-        Element_Begin("(not implemented)");
+        Element_Begin1("(not implemented)");
         Skip_BS(Data_BS_Remain(),                               "(not implemented)");
-        Element_End();
+        Element_End0();
     }
     if (Data_BS_Remain()%8)
         Skip_S1(Data_BS_Remain()%8,                             "byte_alignment");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::StreamMuxConfig()
 {
-    Element_Begin("StreamMuxConfig");
+    Element_Begin1("StreamMuxConfig");
 
     bool useSameConfig,audioMuxVersion;
     Get_SB (audioMuxVersion,                                    "audioMuxVersion");
@@ -637,9 +637,9 @@ void File_Aac::StreamMuxConfig()
     {
         if (audioMuxVersion==1)
         {
-            Element_Begin("(not implemented)");
+            Element_Begin1("(not implemented)");
             Skip_BS(Data_BS_Remain(),                               "(not implemented)");
-            Element_End();
+            Element_End0();
             //taraBufferFullness=LatmGetValue();
         }
         
@@ -680,9 +680,9 @@ void File_Aac::StreamMuxConfig()
                             Skip_S1(8,                          "latmBufferFullness[streamID[prog][lay]]");
                             if(!allStreamsSameTimeFraming)
                             {
-                                Element_Begin("(not implemented)");
+                                Element_Begin1("(not implemented)");
                                 Skip_BS(Data_BS_Remain(),       "(not implemented)");
-                                Element_End();
+                                Element_End0();
                             }
                             //~ if ((!allStreamsSameTimeFraming) &&
                             //~ (AudioObjectType[lay] == 6 || AudioObjectType[lay] == 20) &&
@@ -704,9 +704,9 @@ void File_Aac::StreamMuxConfig()
                             Skip_S1(1,                          "HVXCframeLengthTableIndex[streamID[prog][lay]]");
                             break;
                     default :
-                            Element_Begin("(not implemented)");
+                            Element_Begin1("(not implemented)");
                             Skip_BS(Data_BS_Remain(),       "(not implemented)");
-                            Element_End();
+                            Element_End0();
                 }
             }
         }
@@ -736,11 +736,11 @@ void File_Aac::StreamMuxConfig()
     }
     else
     {
-        Element_Begin("(not implemented)");
+        Element_Begin1("(not implemented)");
         Skip_BS(Data_BS_Remain(),                               "(not implemented)");
-        Element_End();
+        Element_End0();
     }
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         CanFill=true;
@@ -750,7 +750,7 @@ void File_Aac::StreamMuxConfig()
 //---------------------------------------------------------------------------
 int32u File_Aac::LatmGetValue()
 {
-    Element_Begin("LatmGetValue");
+    Element_Begin1("LatmGetValue");
     int8u valueTmp, bytesForValue;
     Get_S1(2, bytesForValue,                                    "bytesForValue");
     int32u value=0;
@@ -760,14 +760,14 @@ int32u File_Aac::LatmGetValue()
         Get_S1(8, valueTmp,                                     "valueTmp");
         value+=valueTmp;
     }
-    Element_End();
+    Element_End0();
     return value;
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::PayloadLengthInfo()
 {
-    Element_Begin("PayloadLengthInfo");
+    Element_Begin1("PayloadLengthInfo");
     int8u tmp;
     if (allStreamsSameTimeFraming)
     {
@@ -823,13 +823,13 @@ void File_Aac::PayloadLengthInfo()
             }
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::PayloadMux()
 {
-    Element_Begin("PayloadMux");
+    Element_Begin1("PayloadMux");
     if (allStreamsSameTimeFraming)
     {
         for (int8u prog=0; prog<=numProgram; prog++)
@@ -844,9 +844,9 @@ void File_Aac::PayloadMux()
                             Skip_BS(8 * (frameLength[streamID[prog][lay]] + 20),"payload[streamID[prog][lay]]");
                             break;
                     default:
-                            Element_Begin("(not implemented)");
+                            Element_Begin1("(not implemented)");
                             Skip_BS(Data_BS_Remain(),           "(not implemented)");
-                            Element_End();
+                            Element_End0();
                 }
             }
     }
@@ -865,12 +865,12 @@ void File_Aac::PayloadMux()
                         Skip_BS(8*(frameLength[streamID[prog][lay]]+20), "payload[streamID[prog][lay]]");
                         break;
                 default:
-                        Element_Begin("not implemented");
-                        Element_End();
+                        Element_Begin1("not implemented");
+                        Element_End0();
             }
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -880,7 +880,7 @@ void File_Aac::PayloadMux()
 //---------------------------------------------------------------------------
 void File_Aac::ErrorProtectionSpecificConfig()
 {
-    Element_Begin("ErrorProtectionSpecificConfig");
+    Element_Begin1("ErrorProtectionSpecificConfig");
     int8u number_of_predefined_set,number_of_concatenated_frame,interleave_type;
     Get_S1(8,number_of_predefined_set,                          "number_of_predefined_set");
     Get_S1(2,interleave_type,                                   "interleave_type");
@@ -947,7 +947,7 @@ void File_Aac::ErrorProtectionSpecificConfig()
         Skip_S1(5,                                              "header_rate");
         Skip_S1(5,                                              "header_crclen");
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -970,7 +970,7 @@ void File_Aac::adif_header()
     TEST_SB_END();
     Skip_SB(                                                    "original_copy");
     Skip_SB(                                                    "home");
-    Get_SB (    bitstream_type,                                 "bitstream_type"); Param_Info(bitstream_type?"VBR":"CBR");
+    Get_SB (    bitstream_type,                                 "bitstream_type"); Param_Info1(bitstream_type?"VBR":"CBR");
     Get_S3 (23, bitrate,                                        "bitrate");
     Get_S1 ( 4, num_program_config_elements,                    "num_program_config_elements");
     if (!bitstream_type)
@@ -1012,29 +1012,29 @@ void File_Aac::adts_frame()
     {
         if (!protection_absent)
         {
-            Element_Begin("adts_error_check");
+            Element_Begin1("adts_error_check");
                 Skip_S2(16,                                     "crc_check");
-            Element_End();
+            Element_End0();
         }
         raw_data_block();
     }
     else
     {
-        Element_Begin("adts_header_error_check");
+        Element_Begin1("adts_header_error_check");
             if (!protection_absent)
                 for (int i=1; i<=num_raw_data_blocks; i++)
                     Skip_S2(16,                                 "raw_data_block_position(i)");
             Skip_S2(16,                                         "crc_check");
-        Element_End();
+        Element_End0();
 
         for(int i=0; i<=num_raw_data_blocks; i++)
         {
             raw_data_block();
             if (!protection_absent)
             {
-                Element_Begin("adts_raw_data_block_error_check");
+                Element_Begin1("adts_raw_data_block_error_check");
                     Skip_BS(16,                                 "crc_check");
-                Element_End();
+                Element_End0();
             }
         }
     }
@@ -1045,19 +1045,19 @@ void File_Aac::adts_fixed_header()
 {
     //Parsing
     bool    id;
-    Element_Begin("adts_fixed_header");
+    Element_Begin1("adts_fixed_header");
     Skip_BS(12,                                                 "syncword");
-    Get_SB (    id,                                             "id"); Param_Info(Aac_Adts_ID[id]);
+    Get_SB (    id,                                             "id"); Param_Info1(Aac_Adts_ID[id]);
     Skip_BS( 2,                                                 "layer");
     Get_SB (    protection_absent,                              "protection_absent");
-    Get_S1 ( 2, audioObjectType,                                "profile_ObjectType"); audioObjectType++; Param_Info(Aac_audioObjectType(audioObjectType));
-    Get_S1 ( 4, sampling_frequency_index,                       "sampling_frequency_index"); Param_Info(Aac_sampling_frequency[sampling_frequency_index], " Hz");
+    Get_S1 ( 2, audioObjectType,                                "profile_ObjectType"); audioObjectType++; Param_Info1(Aac_audioObjectType(audioObjectType));
+    Get_S1 ( 4, sampling_frequency_index,                       "sampling_frequency_index"); Param_Info2(Aac_sampling_frequency[sampling_frequency_index], " Hz");
     sampling_frequency=Aac_sampling_frequency[sampling_frequency_index];
     Skip_SB(                                                    "private");
     Get_S1 ( 3, channelConfiguration,                           "channel_configuration");
     Skip_SB(                                                    "original");
     Skip_SB(                                                    "home");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (Infos["Format"].empty())
@@ -1083,13 +1083,13 @@ void File_Aac::adts_variable_header()
 {
     //Parsing
     int16u  aac_frame_length, adts_buffer_fullness;
-    Element_Begin("adts_variable_header");
+    Element_Begin1("adts_variable_header");
     Skip_SB(                                                    "copyright_id");
     Skip_SB(                                                    "copyright_id_start");
     Get_S2 (13, aac_frame_length,                               "aac_frame_length");
-    Get_S2 (11, adts_buffer_fullness,                           "adts_buffer_fullness"); Param_Info(adts_buffer_fullness==0x7FF?"VBR":"CBR");
+    Get_S2 (11, adts_buffer_fullness,                           "adts_buffer_fullness"); Param_Info1(adts_buffer_fullness==0x7FF?"VBR":"CBR");
     Get_S1 ( 2, num_raw_data_blocks,                            "num_raw_data_blocks");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         aac_frame_lengths.push_back(aac_frame_length);

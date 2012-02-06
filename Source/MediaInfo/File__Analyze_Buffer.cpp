@@ -1779,9 +1779,9 @@ void File__Analyze::Get_Flags (int64u Flags, size_t Order, bool &Info, const cha
     else
         Info=false;
 
-    Element_Begin();
+    Element_Begin0();
     if (Trace_Activated) Param(Name, Info?"Yes":"No");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1789,25 +1789,25 @@ void File__Analyze::Get_Flags (int64u ValueToPut, int8u &Info, const char* Name)
 {
     Info=(int8u)ValueToPut;
 
-    Element_Begin();
+    Element_Begin0();
     if (Trace_Activated) Param(Name, Info);
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_Flags(int64u Flags, size_t Order, const char* Name)
 {
-    Element_Begin();
+    Element_Begin0();
     if (Trace_Activated) Param(Name, (Flags&((int64u)1<<Order))?"Yes":"No");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_Flags(int64u ValueToPut, const char* Name)
 {
-    Element_Begin();
+    Element_Begin0();
     if (Trace_Activated) Param(Name, ValueToPut);
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************

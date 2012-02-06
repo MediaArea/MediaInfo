@@ -247,7 +247,7 @@ void File_Vc3::Header_Parse()
 void File_Vc3::Data_Parse()
 {
     //Parsing
-    Element_Info(Frame_Count+1);
+    Element_Info1(Frame_Count+1);
     HeaderPrefix();
     CodingControlA();
     Skip_XX(16,                                                 "Reserved");
@@ -274,10 +274,10 @@ void File_Vc3::Data_Parse()
 void File_Vc3::HeaderPrefix()
 {
     //Parsing
-    Element_Begin("Header Prefix", 5);
+    Element_Begin1("Header Prefix");
     int64u Data;
     Get_B5 (Data,                                               "Contents");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (Data==0x0000028001LL)
@@ -291,7 +291,7 @@ void File_Vc3::HeaderPrefix()
 void File_Vc3::CodingControlA()
 {
     //Parsing
-    Element_Begin("Coding Control A", 3);
+    Element_Begin1("Coding Control A");
     BS_Begin();
 
     Mark_0();
@@ -300,7 +300,7 @@ void File_Vc3::CodingControlA()
     Mark_0();
     Mark_0();
     Mark_0();
-    Info_S1(2, FFC,                                             "Field/Frame Count"); Param_Info(Vc3_FFC[FFC]);
+    Info_S1(2, FFC,                                             "Field/Frame Count"); Param_Info1(Vc3_FFC[FFC]);
 
     Mark_1();
     Mark_0();
@@ -321,14 +321,14 @@ void File_Vc3::CodingControlA()
     Mark_0();
 
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Vc3::ImageGeometry()
 {
     //Parsing
-    Element_Begin("Image Geometry", 11);
+    Element_Begin1("Image Geometry");
     Get_B2 (ALPF,                                               "Active lines-per-frame");
     Get_B2 (SPL,                                                "Samples-per-line");
     Skip_B1(                                                    "Zero");
@@ -354,17 +354,17 @@ void File_Vc3::ImageGeometry()
     Mark_0();
 
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Vc3::CompressionID()
 {
     //Parsing
-    Element_Begin("Compression ID", 4);
+    Element_Begin1("Compression ID");
     int32u Data;
     Get_B4 (Data,                                               "Compression ID");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         CID=Data;

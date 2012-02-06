@@ -623,7 +623,7 @@ void File_Dirac::Sequence_header()
 
     if (version_major<=2)
     {
-        Get_UI(base_video_format,                               "base video format"); //Param_Info(Dirac_base_video_format(base_video_format));
+        Get_UI(base_video_format,                               "base video format"); //Param_Info1(Dirac_base_video_format(base_video_format));
         Dirac_base_video_format(base_video_format, frame_width, frame_height, chroma_format, source_sampling,
                                 clean_width, clean_height, clean_left_offset, clean_top_offset,
                                 frame_rate, pixel_aspect_ratio);
@@ -632,14 +632,14 @@ void File_Dirac::Sequence_header()
             Get_UI (frame_height,                               "frame height");
         TEST_SB_END();
         TEST_SB_SKIP(                                           "custom chroma format flag");
-            Get_UI (chroma_format,                              "chroma format"); Param_Info(Dirac_chroma_format(chroma_format));
+            Get_UI (chroma_format,                              "chroma format"); Param_Info1(Dirac_chroma_format(chroma_format));
         TEST_SB_END();
         TEST_SB_SKIP(                                           "custom scan format flag");
-            Get_UI (source_sampling,                            "source sampling"); Param_Info(Dirac_source_sampling(source_sampling));
+            Get_UI (source_sampling,                            "source sampling"); Param_Info1(Dirac_source_sampling(source_sampling));
         TEST_SB_END();
         TEST_SB_SKIP(                                           "frame rate flag");
             int32u frame_rate_index;
-            Get_UI (frame_rate_index,                           "index"); Param_Info(Dirac_frame_rate(frame_rate_index));
+            Get_UI (frame_rate_index,                           "index"); Param_Info1(Dirac_frame_rate(frame_rate_index));
             if (frame_rate_index==0)
             {
                 int32u frame_rate_numer, frame_rate_denom;
@@ -652,7 +652,7 @@ void File_Dirac::Sequence_header()
         TEST_SB_END();
         TEST_SB_SKIP(                                           "pixel aspect ratio flag");
             int32u pixel_aspect_ratio_index;
-            Get_UI (pixel_aspect_ratio_index,                   "index"); Param_Info(Dirac_pixel_aspect_ratio(pixel_aspect_ratio_index));
+            Get_UI (pixel_aspect_ratio_index,                   "index"); Param_Info1(Dirac_pixel_aspect_ratio(pixel_aspect_ratio_index));
             if (pixel_aspect_ratio_index==0)
             {
                 int32u pixel_aspect_ratio_numer, pixel_aspect_ratio_denom;
@@ -699,7 +699,7 @@ void File_Dirac::Sequence_header()
                 TEST_SB_END();
             }
         TEST_SB_END();
-        Info_UI(picture_coding_mode,                            "picture coding mode"); Param_Info(Dirac_picture_coding_mode(picture_coding_mode));
+        Info_UI(picture_coding_mode,                            "picture coding mode"); Param_Info1(Dirac_picture_coding_mode(picture_coding_mode));
     }
     else
     {
@@ -879,7 +879,7 @@ void File_Dirac::picture()
             Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
 
         //Name
-        Element_Info(Ztring::ToZtring(Frame_Count));
+        Element_Info1(Ztring::ToZtring(Frame_Count));
 
         //Filling only if not already done
         Frame_Count++;

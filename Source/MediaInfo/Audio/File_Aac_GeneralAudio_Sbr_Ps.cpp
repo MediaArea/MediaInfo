@@ -69,7 +69,7 @@ void File_Aac::ps_data(size_t End)
     FILLING_END();
 
     //Parsing
-    Element_Begin("ps_data");
+    Element_Begin1("ps_data");
     bool enable_ps_header;
     Get_SB(enable_ps_header,                                    "enable_ps_header");
     if (enable_ps_header)
@@ -94,14 +94,14 @@ void File_Aac::ps_data(size_t End)
     {
         if (Data_BS_Remain()>End)
             Skip_BS(Data_BS_Remain()-End,                       "(Waiting for header)");
-        Element_End();
+        Element_End0();
         return;
     }
 
     //PS not yet parsed
     if (Data_BS_Remain()>End)
         Skip_BS(Data_BS_Remain()-End,                           "Data");
-    Element_End();
+    Element_End0();
 }
 
 } //NameSpace

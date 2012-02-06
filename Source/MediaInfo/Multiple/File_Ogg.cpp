@@ -270,7 +270,7 @@ void File_Ogg::Header_Parse()
                     Size+=Size8;
                 }
                 while (Size8==0xFF);
-                Param_Info(Size);
+                Param_Info1(Size);
                 Chunk_Sizes.push_back(Size);
                 UsedSize+=Size;
             }
@@ -350,9 +350,8 @@ void File_Ogg::Data_Parse()
             //Info
             if (!continued)
                 Peek_L1(packet_type); //Only for information
-            Element_Info(Ztring::ToZtring(packet_type, 16));
-            if (continued)
-                Element_Info("Continue");
+            Element_Info1(Ztring::ToZtring(packet_type, 16));
+            Element_Info1C((continued), "Continue");
 
             //Parsing
             if (continued || Parser->File_Offset!=Parser->File_Size)

@@ -98,13 +98,13 @@ void File_Bmp::Read_Buffer_Continue()
 {
     //Parsing
     int32u Size, DIB_Size, Offset;
-    Element_Begin("File header", 14);
+    Element_Begin1("File header");
         Skip_C2(                                                "Magic");
         Get_L4 (Size,                                           "Size");
         Skip_L2(                                                "Reserved");
         Skip_L2(                                                "Reserved");
         Get_L4 (Offset,                                         "Offset of data");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (Size!=File_Size)
@@ -120,7 +120,7 @@ void File_Bmp::Read_Buffer_Continue()
         Stream_Prepare(Stream_Image);
     FILLING_END();
 
-    Element_Begin("DIB header");
+    Element_Begin1("DIB header");
         Peek_L4 (DIB_Size);
         switch (DIB_Size)
         {
@@ -134,7 +134,7 @@ void File_Bmp::Read_Buffer_Continue()
             default  : Skip_XX(DIB_Size-4,                      "Unknown header");
             ;
         }
-    Element_End();
+    Element_End0();
 
     Skip_XX(Offset-Element_Offset,                              "Color palette");
     Skip_XX(Element_Size-Offset,                                "Bitmap data");
@@ -151,7 +151,7 @@ void File_Bmp::Read_Buffer_Continue()
 void File_Bmp::BitmapInfoHeader()
 {
     //Parsing
-    Element_Begin("Bitmap Info header", 40);
+    Element_Begin1("Bitmap Info header");
     int32u Width, Height, CompressionMethod;
     int16u BitsPerPixel;
     Skip_L4(                                                    "Size");
@@ -159,13 +159,13 @@ void File_Bmp::BitmapInfoHeader()
     Get_L4 (Height,                                             "Height");
     Skip_L2(                                                    "Color planes");
     Get_L2 (BitsPerPixel,                                       "Bits per pixel");
-    Get_L4 (CompressionMethod,                                  "Compression method"); Param_Info(Bmp_CompressionMethod(CompressionMethod));
+    Get_L4 (CompressionMethod,                                  "Compression method"); Param_Info1(Bmp_CompressionMethod(CompressionMethod));
     Skip_L4(                                                    "Image size");
     Skip_L4(                                                    "Horizontal resolution");
     Skip_L4(                                                    "Vertical resolution");
     Skip_L4(                                                    "Number of colors in the color palette");
     Skip_L4(                                                    "Number of important colors used");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Fill(Stream_Image, 0, Image_Width, Width);
@@ -180,7 +180,7 @@ void File_Bmp::BitmapInfoHeader()
 void File_Bmp::BitmapV4Header()
 {
     //Parsing
-    Element_Begin("Bitmap V4 header", 108);
+    Element_Begin1("Bitmap V4 header");
     int32u Width, Height, CompressionMethod;
     int16u BitsPerPixel;
     Skip_L4(                                                    "Size");
@@ -188,7 +188,7 @@ void File_Bmp::BitmapV4Header()
     Get_L4 (Height,                                             "Height");
     Skip_L2(                                                    "Color planes");
     Get_L2 (BitsPerPixel,                                       "Bits per pixel");
-    Get_L4 (CompressionMethod,                                  "Compression method"); Param_Info(Bmp_CompressionMethod(CompressionMethod));
+    Get_L4 (CompressionMethod,                                  "Compression method"); Param_Info1(Bmp_CompressionMethod(CompressionMethod));
     Skip_L4(                                                    "Image size");
     Skip_L4(                                                    "Horizontal resolution");
     Skip_L4(                                                    "Vertical resolution");
@@ -208,7 +208,7 @@ void File_Bmp::BitmapV4Header()
     Skip_L4(                                                    "Red Gamma");
     Skip_L4(                                                    "Green Gamma");
     Skip_L4(                                                    "Blue Gamma");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Fill(Stream_Image, 0, Image_Width, Width);

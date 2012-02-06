@@ -825,7 +825,7 @@ void File_Mpeg4v::video_object_layer_start()
     Skip_SB(                                                    "random_accessible_vol");
     Skip_S1(8,                                                  "video_object_type_indication");
     TEST_SB_SKIP(                                               "is_object_layer_identifier");
-        Get_S1 (4, video_object_layer_verid,                    "video_object_layer_verid"); Param_Info(Mpeg4v_video_object_layer_verid[video_object_layer_verid]);
+        Get_S1 (4, video_object_layer_verid,                    "video_object_layer_verid"); Param_Info1(Mpeg4v_video_object_layer_verid[video_object_layer_verid]);
         Skip_S1(3,                                              "video_object_layer_priority");
     TEST_SB_END();
     Get_S1 (4, aspect_ratio_info,                               "aspect_ratio_info");
@@ -885,7 +885,7 @@ void File_Mpeg4v::video_object_layer_start()
     }
     Mark_1 ();
     TEST_SB_SKIP(                                               "fixed_vop_rate");
-        Get_BS (time_size, fixed_vop_time_increment,            "fixed_vop_time_increment"); if (vop_time_increment_resolution>0) Param_Info(fixed_vop_time_increment*1000/vop_time_increment_resolution, " ms");
+        Get_BS (time_size, fixed_vop_time_increment,            "fixed_vop_time_increment"); Param_Info2C((vop_time_increment_resolution), fixed_vop_time_increment*1000/vop_time_increment_resolution, " ms");
     TEST_SB_END();
     if (shape!=2) //Shape!=BinaryOnly
     {
@@ -1151,7 +1151,7 @@ void File_Mpeg4v::visual_object_sequence_start()
     Element_Name("visual_object_sequence_start");
 
     //Parsing
-    Get_B1 (profile_and_level_indication,                       "profile_and_level_indication"); Param_Info(Mpeg4v_Profile_Level(profile_and_level_indication));
+    Get_B1 (profile_and_level_indication,                       "profile_and_level_indication"); Param_Info1(Mpeg4v_Profile_Level(profile_and_level_indication));
 
     //Integrity
     if (Element_Size>1)
@@ -1312,7 +1312,7 @@ void File_Mpeg4v::user_data_start()
 // Packet "B2", SNC (From Sony SNC surveillance video)
 void File_Mpeg4v::user_data_start_SNC()
 {
-    Element_Info("Sony SNC");
+    Element_Info1("Sony SNC");
 
     if (!user_data_start_SNC_Data.empty())
     {
@@ -1358,7 +1358,7 @@ void File_Mpeg4v::group_of_vop_start()
     Time+=_T(':');
     Time+=Ztring::ToZtring(Seconds);
     Time+=_T(".000");
-    Element_Info(Time);
+    Element_Info1(Time);
 
     FILLING_BEGIN();
         //Calculating
@@ -1392,10 +1392,10 @@ void File_Mpeg4v::visual_object_start()
     int8u visual_object_type;
     BS_Begin();
     TEST_SB_SKIP(                                               "is_visual_object_identifier");
-        Get_S1 ( 4, visual_object_verid,                        "visual_object_verid");  Param_Info(Mpeg4v_visual_object_verid[visual_object_verid]);
+        Get_S1 ( 4, visual_object_verid,                        "visual_object_verid");  Param_Info1(Mpeg4v_visual_object_verid[visual_object_verid]);
         Skip_BS( 3,                                             "visual_object_priority");
     TEST_SB_END();
-    Get_S1 ( 4, visual_object_type,                             "visual_object_type"); Param_Info(Mpeg4v_visual_object_type[visual_object_type]);
+    Get_S1 ( 4, visual_object_type,                             "visual_object_type"); Param_Info1(Mpeg4v_visual_object_type[visual_object_type]);
     if (visual_object_type==1 || visual_object_type==2)
     {
         TEST_SB_SKIP(                                           "video_signal_type");
@@ -1432,8 +1432,7 @@ void File_Mpeg4v::visual_object_start()
 // Packet "B6"
 void File_Mpeg4v::vop_start()
 {
-    if (FrameInfo.DTS!=(int64u)-1)
-        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+    Element_Info1C( (FrameInfo.DTS!=(int64u)-1), _T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
@@ -1447,15 +1446,15 @@ void File_Mpeg4v::vop_start()
 
     //Name
     Element_Name("vop_start");
-    Element_Info(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
+    Element_Info1(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
 
     //Parsing
     int32u vop_time_increment;
     int8u vop_coding_type;
     bool  vop_coded;
     BS_Begin();
-    Get_S1 (2, vop_coding_type,                                 "vop_coding_type"); Param_Info(Mpeg4v_vop_coding_type[vop_coding_type]);
-    Element_Info(Mpeg4v_vop_coding_type[vop_coding_type]);
+    Get_S1 (2, vop_coding_type,                                 "vop_coding_type"); Param_Info1(Mpeg4v_vop_coding_type[vop_coding_type]);
+    Element_Info1(Mpeg4v_vop_coding_type[vop_coding_type]);
     bool modulo_time_base_Continue;
     int8u modulo_time_base=0;
     do
@@ -1480,14 +1479,14 @@ void File_Mpeg4v::vop_start()
         }
     FILLING_END();
 
-    Get_S4 (time_size, vop_time_increment,                      "vop_time_increment"); if (vop_time_increment_resolution) Param_Info(vop_time_increment*1000/vop_time_increment_resolution, " ms");
+    Get_S4 (time_size, vop_time_increment,                      "vop_time_increment"); Param_Info2C((vop_time_increment_resolution), vop_time_increment*1000/vop_time_increment_resolution, " ms");
     Mark_1 ();
     Get_SB (vop_coded,                                          "vop_coded");
     if (vop_coded)
     {
         if (newpred_enable)
         {
-            Skip_S4(time_size+3<15?time_size+3:15,              "vop_id");
+            Skip_BS(time_size+3<15?time_size+3:15,              "vop_id");
             TEST_SB_SKIP(                                       "vop_id_for_prediction_indication");
                 Skip_BS(time_size+3<15?time_size+3:15,          "vop_id_for_prediction");
             TEST_SB_END();
@@ -1672,8 +1671,7 @@ void File_Mpeg4v::vop_start()
             if (Time_Begin_MilliSeconds==(int16u)-1)
                 Time_Begin_MilliSeconds=Time_End_MilliSeconds;
 
-            if (Time_End_Seconds!=(int32u)-1)
-                Element_Info(Ztring().Duration_From_Milliseconds((int64u)(Time_End_Seconds*1000+Time_End_MilliSeconds)));
+            Element_Info1C((Time_End_Seconds!=(int32u)-1), Ztring().Duration_From_Milliseconds((int64u)(Time_End_Seconds*1000+Time_End_MilliSeconds)));
 
             if (FrameInfo.DTS!=(int64u)-1)
             {

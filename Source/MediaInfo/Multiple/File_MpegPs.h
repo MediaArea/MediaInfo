@@ -152,7 +152,9 @@ private :
     bool           private_stream_1_Choose_DVD_ID();
     File__Analyze* private_stream_1_ChooseParser();
     const ZenLib::Char* private_stream_1_ChooseExtension();
-    void           private_stream_1_Element_Info();
+    #if MEDIAINFO_TRACE
+    void           private_stream_1_Element_Info1();
+    #endif //MEDIAINFO_TRACE
     int8u          private_stream_1_ID;
     size_t         private_stream_1_Offset;
     bool           private_stream_1_IsDvdVideo;

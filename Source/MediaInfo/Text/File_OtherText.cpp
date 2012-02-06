@@ -209,8 +209,8 @@ void File_OtherText::Read_Buffer_Continue()
     Fill(Stream_Text, 0, Text_Codec, Codec);
 
     //No more need data
-    Element_Begin(Format);
-    Element_End();
+    Element_Begin1(Format);
+    Element_End0();
     Finish("Other text");
 }
 

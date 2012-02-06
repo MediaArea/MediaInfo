@@ -242,13 +242,13 @@ void File_AfdBarData::Read_Buffer_Continue()
 void File_AfdBarData::afd_data()
 {
     //Parsing
-    Element_Begin("Active Format Description");
+    Element_Begin1("Active Format Description");
     BS_Begin();
     if (Format==Format_S2016_3)
     {
         Mark_0_NoTrustError();
-        Get_S1 (4, active_format,                               "active_format"); Param_Info(AfdBarData_active_format[active_format]);
-        Get_S1 (1, aspect_ratio,                                "aspect_ratio"); Param_Info(AfdBarData_aspect_ratio[aspect_ratio]);
+        Get_S1 (4, active_format,                               "active_format"); Param_Info1(AfdBarData_active_format[active_format]);
+        Get_S1 (1, aspect_ratio,                                "aspect_ratio"); Param_Info1(AfdBarData_aspect_ratio[aspect_ratio]);
         Mark_0_NoTrustError();
         Mark_0_NoTrustError();
     }
@@ -269,18 +269,18 @@ void File_AfdBarData::afd_data()
             Mark_1_NoTrustError();
             Mark_1_NoTrustError();
             Mark_1_NoTrustError();
-            Get_S1 (4, active_format,                           "active_format"); Param_Info(AfdBarData_active_format[active_format]);
+            Get_S1 (4, active_format,                           "active_format"); Param_Info1(AfdBarData_active_format[active_format]);
         }
     }
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_AfdBarData::bar_data()
 {
     //Parsing
-    Element_Begin("bar_data");
+    Element_Begin1("bar_data");
     bool   top_bar_flag, bottom_bar_flag, left_bar_flag, right_bar_flag;
     BS_Begin();
     Get_SB (top_bar_flag,                                       "top_bar_flag");
@@ -335,7 +335,7 @@ void File_AfdBarData::bar_data()
         Skip_S2(14,                                             "reserved");
     }
     BS_End();
-    Element_End();
+    Element_End0();
 
     if (Format==Format_A53_4_DTG1)
     {

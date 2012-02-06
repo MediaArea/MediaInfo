@@ -359,8 +359,8 @@ void File_Pcm::VOB()
     Skip_B2(                                                    "Bytes to skip (+1?)");
     Skip_B1(                                                    "Unknown");
     BS_Begin();
-    Get_S1 (2, BitDepth,                                        "Bit depth"); Param_Info(Pcm_VOB_BitDepth[BitDepth]);
-    Get_S1 (2, Frequency,                                       "Frequency"); Param_Info(Pcm_VOB_Frequency[Frequency]);
+    Get_S1 (2, BitDepth,                                        "Bit depth"); Param_Info1(Pcm_VOB_BitDepth[BitDepth]);
+    Get_S1 (2, Frequency,                                       "Frequency"); Param_Info1(Pcm_VOB_Frequency[Frequency]);
     Skip_SB(                                                    "Unknown");
     Get_S1 (3, NumberOfChannelsMinusOne,                        "Number of channels (minus 1)");
     BS_End();
@@ -439,9 +439,9 @@ void File_Pcm::M2TS()
     int8u   channel_assignment, sampling_frequency, bits_per_sample;
     Get_B2 (   audio_data_payload_size,                         "audio_data_payload_size");
     BS_Begin();
-    Get_S1 (4, channel_assignment,                              "channel_assignment"); Param_Info(Pcm_M2TS_channel_assignment[channel_assignment], " channel(s)");
-    Get_S1 (4, sampling_frequency,                              "sampling_frequency"); Param_Info(Pcm_M2TS_sampling_frequency[sampling_frequency], " Hz");
-    Get_S1 (2, bits_per_sample,                                 "bits_per_sample"); Param_Info(Pcm_M2TS_bits_per_sample[bits_per_sample], " bits");
+    Get_S1 (4, channel_assignment,                              "channel_assignment"); Param_Info2(Pcm_M2TS_channel_assignment[channel_assignment], " channel(s)");
+    Get_S1 (4, sampling_frequency,                              "sampling_frequency"); Param_Info2(Pcm_M2TS_sampling_frequency[sampling_frequency], " Hz");
+    Get_S1 (2, bits_per_sample,                                 "bits_per_sample"); Param_Info2(Pcm_M2TS_bits_per_sample[bits_per_sample], " bits");
     Skip_SB(                                                    "start_flag");
     Skip_S1(5,                                                  "reserved");
     BS_End();

@@ -100,10 +100,10 @@ void File_Nut::Header_Parse()
 void File_Nut::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("Nut header", 25);
+    Element_Begin1("Nut header");
     std::string file_id_string;
     Get_String(25, file_id_string,                               "file_id_string");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         //Integrity

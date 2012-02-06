@@ -213,11 +213,11 @@ bool File_Zip::archive_extra_data_record()
     int32u extra_field_length=LittleEndian2int32u(Buffer+(size_t)Element_Offset+4);
     
     //Parsing
-    Element_Begin("archive_extra_data_record");
+    Element_Begin1("archive_extra_data_record");
         Skip_C4("Archive extra data signature");
         Skip_L4("extra field length");
         Skip_XX(extra_field_length,"extra_field_data");
-    Element_End();
+    Element_End0();
     
     return true;
 }
@@ -231,11 +231,11 @@ bool File_Zip::digital_signature()
     int16u size_of_data=LittleEndian2int16u(Buffer+(size_t)Element_Offset+4);
     
     //Parsing
-    Element_Begin("digital_signature");
+    Element_Begin1("digital_signature");
         Skip_C4("Header signature");
         Skip_L2("size of data");
         Skip_XX(size_of_data,"signature data");
-    Element_End();   
+    Element_End0();   
     
     return true; 
 }
@@ -252,7 +252,7 @@ bool File_Zip::local_file_header()
         return false; //Not enough data
 
     //Parsing
-    Element_Begin("local_file_header");
+    Element_Begin1("local_file_header");
     int16u general_purpose_bit_flag,compression_method;
     bool efs;
     Skip_C4("Local file header signature");
@@ -275,10 +275,8 @@ bool File_Zip::local_file_header()
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "Reserved by PKWARE");
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "Reserved by PKWARE");
     Get_L2 (compression_method,"compression method");
-    if(compression_method<20)
-        Param_Info(Zip_compression_method[compression_method]);
-    else if(compression_method==97||compression_method==98)
-        Param_Info(Zip_compression_method[compression_method-97+20]);
+    Param_Info1C((compression_method<20), Zip_compression_method[compression_method]);
+    Param_Info1C((compression_method==97||compression_method==98), Zip_compression_method[compression_method-97+20]);
     Skip_L2("last mod file time");
     Skip_L2("last mod file date");
     Skip_L4("crc-32");
@@ -293,7 +291,7 @@ bool File_Zip::local_file_header()
         Skip_Local(file_name_length,"file name");
         Skip_Local(extra_field_length,"extra field");
     }
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Accept("Zip");
@@ -304,9 +302,9 @@ bool File_Zip::local_file_header()
 
 bool File_Zip::file_data()
 {
-    Element_Begin("file_data");
+    Element_Begin1("file_data");
         Skip_XX(compressed_size,"File_data");
-    Element_End();
+    Element_End0();
 
     if (Element_Offset>Element_Size)
     {
@@ -324,11 +322,11 @@ bool File_Zip::data_descriptor()
         if (Element_Offset+12>Element_Size)
             return false; //Not enough data
 
-        Element_Begin("data_descriptor");
+        Element_Begin1("data_descriptor");
             Skip_L4("crc-32");
             Skip_L4("compressed size");
             Skip_L4("uncompressed size");
-        Element_End();
+        Element_End0();
     }
     return true;
 }
@@ -350,9 +348,9 @@ bool File_Zip::central_directory()
     int16u version_made_by,compression_method;
 
     //Parsing
-    Element_Begin("Central directory");
+    Element_Begin1("Central directory");
     Skip_C4("central file header signature");
-    Get_L2 (version_made_by,"version made by");Param_Info((version_made_by>>8)>20?"unused":Zip_made_by[version_made_by>>8]);
+    Get_L2 (version_made_by,"version made by");Param_Info1((version_made_by>>8)>20?"unused":Zip_made_by[version_made_by>>8]);
     Skip_L2("version needed to extract");
     Get_L2 (general_purpose_bit_flag,"general purpose bit flag");
     Skip_Flags(general_purpose_bit_flag, 0,                     "encrypted file");
@@ -372,10 +370,8 @@ bool File_Zip::central_directory()
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "Reserved by PKWARE");
     //~ Skip_Flags(general_purpose_bit_flag, 4,                     "Reserved by PKWARE");
     Get_L2 (compression_method,"compression method");
-    if(compression_method<20)
-        Param_Info(Zip_compression_method[compression_method]);
-    else if(compression_method==97||compression_method==98)
-        Param_Info(Zip_compression_method[compression_method-97+20]);
+    Param_Info1C((compression_method<20), Zip_compression_method[compression_method]);
+    Param_Info1C((compression_method==97||compression_method==98), Zip_compression_method[compression_method-97+20]);
     Skip_L2("last mod file time");
     Skip_L2("last mod file date");
     Skip_L4("crc-32");
@@ -397,7 +393,7 @@ bool File_Zip::central_directory()
         Skip_Local(extra_field_length,"extra field");
         Skip_Local(file_comment_length,"file comment");
     }
-    Element_End();
+    Element_End0();
     
     return true;
 }
@@ -414,7 +410,7 @@ bool File_Zip::end_of_central_directory()
 
     //Parsing
     int32u offset;
-    Element_Begin("End of central directory");
+    Element_Begin1("End of central directory");
     Skip_C4(                                                    "end of central dir signature");
     Skip_L2(                                                    "number of this disk");
     Skip_L2(                                                    "number of the disk");// with the start of the central directory
@@ -424,7 +420,7 @@ bool File_Zip::end_of_central_directory()
     Get_L4 (offset,                                             "offset of start of central directory");// with respect to the starting disk number
     Skip_L2(                                                    "zip file comment length");
     Skip_XX(zip_comment_length,                                 "zip file comment");
-    Element_End();
+    Element_End0();
 
     //Going to first central directory (once)
     if (!end_of_central_directory_IsParsed)
@@ -448,11 +444,11 @@ bool File_Zip::Zip64_end_of_central_directory_record()
     //Parsing
     //~ int32u offset;
     int16u version_made_by;
-    Element_Begin("Zip64 End of central directory record");
+    Element_Begin1("Zip64 End of central directory record");
     Skip_C4(                                                    "Zip64 end of central dir signature");
     Skip_L8(                                                    "size of zip64 end of central directory record");
     Get_L2 (version_made_by,                                    "version made by");
-    Param_Info((version_made_by>>8)>20?"unused":Zip_made_by[version_made_by>>8]);
+    Param_Info1((version_made_by>>8)>20?"unused":Zip_made_by[version_made_by>>8]);
     Skip_L2(                                                    "version needed to extract");
     Skip_L4(                                                    "number of this disk");
     Skip_L4(                                                    "number of the disk");// with the start of the central directory
@@ -461,7 +457,7 @@ bool File_Zip::Zip64_end_of_central_directory_record()
     Skip_L8(                                                    "size of the central directory");
     Skip_L8(                                                    "offset of start of central directory"); //  with respect to the starting disk number
     Skip_XX(size_of_Zip64_end_of_central_directory_record-44,   "zip64 extensible data sector");
-    Element_End();
+    Element_End0();
     
     return true;
 }
@@ -472,12 +468,12 @@ bool File_Zip::Zip64_end_of_central_directory_locator()
         return false; //Not enough data
         
     //Parsing
-    Element_Begin("Zip64 end of central directory locator");
+    Element_Begin1("Zip64 end of central directory locator");
     Skip_C4("zip64 end of central dir locator signature");
     Skip_L4("number of the disk");// with the start of the zip64 end of central directory
     Skip_L8("relative offset of the zip64 end of central directory record");
     Skip_L4("total number of disks");
-    Element_End();
+    Element_End0();
 
     return true;
 }

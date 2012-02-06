@@ -250,9 +250,10 @@ protected :
 
     //Elements - Begin
     void Element_Begin ();
-    void Element_Begin (const Ztring &Name, int64u Size=(int64u)-1);
-    inline void Element_Begin (int64u Size) {Element_Begin(Ztring(), Size);}
-    inline void Element_Begin (const char *Name, int64u Size=(int64u)-1) {Element_Begin(Ztring().From_UTF8(Name), Size);}
+    void Element_Begin (const Ztring &Name);
+    inline void Element_Begin (const char *Name) {Element_Begin(Ztring().From_UTF8(Name));}
+    #define Element_Begin0() Element_Begin()
+    #define Element_Begin1(_NAME) Element_Begin(_NAME)
 
     //Elements - Name
     void Element_Name (const Ztring &Name);
@@ -276,13 +277,18 @@ protected :
     #endif //SIZE_T_IS_LONG
     inline void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     inline void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    #define Element_Info1(_A) Element_Info(_A)
+    #define Element_Info2(_A,_B) Element_Info(_A, _B)
+    #define Element_Info3(_A,_B_C) Element_Info(_A, _B, _C)
+    #define Element_Info1C(_CONDITION,_A) if (_CONDITION) Element_Info(_A)
     inline void Element_Info_From_Milliseconds (int64u Parameter)                  {Element_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //Elements - End
-    void Element_End ();
-    void Element_End (const Ztring &Name, int64u Size=(int64u)-1);
-    inline void Element_End (int64u Size) {Element_End(Ztring(), Size);}
-    inline void Element_End (const char *Name, int64u Size=(int64u)-1) {Element_End(Ztring().From_UTF8(Name), Size);}
+    inline void Element_End () {Element_End_Common_Flush();}
+    void Element_End (const Ztring &Name);
+    inline void Element_End (const char *Name) {Element_End(Ztring().From_UTF8(Name));}
+    #define Element_End0() Element_End()
+    #define Element_End1(_NAME) Element_End(_NAME)
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);
@@ -335,6 +341,9 @@ public :
     inline void Param      (const char*   Parameter, float80 Value, int8u AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
     inline void Param      (const int32u  Parameter, const Ztring& Value) {Param(Ztring().From_CC4(Parameter), Value);};
     inline void Param      (const int16u  Parameter, const Ztring& Value) {Param(Ztring().From_CC2(Parameter), Value);};
+    #define Param1(_A) Param_(_A)
+    #define Param2(_A,_B) Param(_A, _B)
+    #define Param3(_A,_B,_C) Param(_A, _B, _C)
 
     //Param - Info
     void Param_Info (const Ztring &Parameter);
@@ -354,6 +363,12 @@ public :
     #ifdef SIZE_T_IS_LONG
     inline void Param_Info (size_t        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
     #endif //SIZE_T_IS_LONG
+    #define Param_Info1(_A) Param_Info(_A)
+    #define Param_Info2(_A,_B) Param_Info(_A, _B)
+    #define Param_Info3(_A,_B,_C) Param_Info(_A, _B, _C)
+    #define Param_Info1C(_CONDITION,_A) if (_CONDITION) Param_Info(_A)
+    #define Param_Info2C(_CONDITION,_A,_B) if (_CONDITION) Param_Info(_A, _B)
+    #define Param_Info3C(_CONDITION,_A,_B,_C) if (_CONDITION) Param_Info(_A, _B, _C)
     inline void Param_Info_From_Milliseconds (int64u Parameter)                  {Param_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //***************************************************************************
@@ -671,6 +686,8 @@ public :
     void Get_Flags (int64u ValueToPut,          int8u &Info, const char* Name);
     void Skip_Flags(int64u Flags, size_t Order,              const char* Name);
     void Skip_Flags(int64u ValueToPut,                       const char* Name);
+    #define Get_FlagsM(_VALUE, _INFO, _NAME) Get_Flags(_VALUE, _INFO, _NAME)
+    #define Skip_FlagsM(_VALUE, _NAME) Skip_Flags(_VALUE, _NAME)
     #define Info_Flags(_FLAGS, _ORDER, _INFO, _NAME) bool _INFO; Get_Flags (_FLAGS, _ORDER, _INFO, _NAME)
 
     //***************************************************************************
@@ -731,7 +748,7 @@ public :
                 Skip_SB(                                        _NAME); \
             else \
             { \
-                Element_Begin(_NAME); \
+                Element_Begin1(_NAME); \
                 Skip_SB(                                        _NAME); \
 
     #define TEST_SB_SKIP(_NAME) \
@@ -740,7 +757,7 @@ public :
                 Skip_SB(                                        _NAME); \
             else \
             { \
-                Element_Begin(_NAME); \
+                Element_Begin1(_NAME); \
                 Skip_SB(                                        _NAME); \
 
     #define TESTELSE_SB_GET(_CODE, _NAME) \
@@ -748,18 +765,18 @@ public :
             Peek_SB(_CODE); \
             if (_CODE) \
             { \
-                Element_Begin(_NAME); \
+                Element_Begin1(_NAME); \
                 Skip_SB(                                        _NAME); \
 
     #define TESTELSE_SB_SKIP(_NAME) \
         { \
             if (Peek_SB()) \
             { \
-                Element_Begin(_NAME); \
+                Element_Begin1(_NAME); \
                 Skip_SB(                                        _NAME); \
 
     #define TESTELSE_SB_ELSE(_NAME) \
-                Element_End(); \
+                Element_End0(); \
             } \
             else \
             { \
@@ -770,7 +787,7 @@ public :
         } \
 
     #define TEST_SB_END() \
-                Element_End(); \
+                Element_End0(); \
             } \
         } \
 

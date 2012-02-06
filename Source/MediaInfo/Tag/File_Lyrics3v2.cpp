@@ -125,7 +125,7 @@ void File_Lyrics3v2::Header_Parse()
 void File_Lyrics3v2::Data_Parse()
 {
     #define CASE_INFO(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
+        case Elements::_NAME : Element_Info1(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)

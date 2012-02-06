@@ -99,7 +99,7 @@ void File_Dpg::FileHeader_Parse()
     int32u  FrameCount, FrameRate, SamplingRate;
     Skip_C4(                                                    "Signature");
     Get_L4 (FrameCount,                                         "Frame count");
-    Get_L4 (FrameRate,                                          "Frame rate"); Param_Info(FrameRate/0x100, " fps");
+    Get_L4 (FrameRate,                                          "Frame rate"); Param_Info2(FrameRate/0x100, " fps");
     Get_L4 (SamplingRate,                                       "Sampling rate");
     Skip_L4(                                                    "0x00000000");
     Get_L4 (Audio_Offset,                                       "Audio Offset");

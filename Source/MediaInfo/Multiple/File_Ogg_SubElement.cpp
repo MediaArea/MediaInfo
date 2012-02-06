@@ -619,7 +619,7 @@ void File_Ogg_SubElement::Identification_YUV4MPEG()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_video()
 {
-    Element_Info("Video");
+    Element_Info1("Video");
 
     //Parsing
     int64u TimeUnit;
@@ -662,7 +662,7 @@ void File_Ogg_SubElement::Identification_video()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_audio()
 {
-    Element_Info("Audio");
+    Element_Info1("Audio");
 
     //Parsing
     int64u TimeUnit, SamplesPerUnit;
@@ -717,7 +717,7 @@ void File_Ogg_SubElement::Identification_audio()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_text()
 {
-    Element_Info("Text");
+    Element_Info1("Text");
 
     //Parsing
     Skip_B1   (                                                 "Signature");
@@ -753,7 +753,7 @@ void File_Ogg_SubElement::Identification_fishead()
     if (Element_Offset==Element_Size)
         return;
 
-    Element_Info("Skeleton");
+    Element_Info1("Skeleton");
 
     //Parsing
     int16u VersionMajor;
@@ -781,7 +781,7 @@ void File_Ogg_SubElement::Identification_fisbone()
     if (Element_Offset==Element_Size)
         return;
 
-    Element_Info("Skeleton");
+    Element_Info1("Skeleton");
 
     //Parsing
     int32u Offset;

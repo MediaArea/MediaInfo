@@ -232,30 +232,30 @@ void File_Tga::Read_Buffer_Continue()
 void File_Tga::Tga_File_Header()
 {
     //Parsing
-    Element_Begin("Tga File Header");
+    Element_Begin1("Tga File Header");
     Get_L1 (ID_Length,                                          "ID Length");
     Get_L1 (Color_Map_Type,                                     "Color Map Type");
-    Get_L1 (Image_Type,                                         "Image Type"); Param_Info(Tga_Image_Type_Compression(Image_Type));
-    Element_End();
-    Element_Begin("Color Map Specification");
+    Get_L1 (Image_Type,                                         "Image Type"); Param_Info1(Tga_Image_Type_Compression(Image_Type));
+    Element_End0();
+    Element_Begin1("Color Map Specification");
         Get_L2 (First_Entry_Index,                              "First Entry Index");
         Get_L2 (Color_map_Length,                               "Color map Length");
         Get_L1 (Color_map_Entry_Size,                           "Color map Entry Size");
-    Element_End();
-    Element_Begin("Image Specification");
+    Element_End0();
+    Element_Begin1("Image Specification");
         Skip_L2(                                                "X-origin of Image");
         Skip_L2(                                                "Y-origin of Image");
         Get_L2 (Image_Width_,                                   "Image Width");
         Get_L2 (Image_Height_,                                  "Image Height");
         Get_L1 (Pixel_Depth,                                    "Pixel Depth");
         Get_L1 (Image_Descriptor,                               "Image Descriptor");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Tga::Image_Color_Map_Data()
 {
-    Element_Begin("Image/Color Map Data");
+    Element_Begin1("Image/Color Map Data");
     Get_Local(ID_Length, Image_ID,                              "Image ID");
     if (Color_Map_Type==1)
     {
@@ -289,7 +289,7 @@ void File_Tga::Image_Color_Map_Data()
      else
         Version=1;
     Skip_XX(Element_Size-Element_Offset-(Version==2?26:0),      "Image Data");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -298,13 +298,13 @@ void File_Tga::Tga_File_Footer()
     if (Version==1)
         return; //No footer
 
-    Element_Begin("Image/color Map Data");
+    Element_Begin1("Image/color Map Data");
     Skip_L4(                                                    "Extension Area Offset");
     Skip_L4(                                                    "Developer Directory Offset");
     Skip_Local(16,                                              "Signature");
     Skip_Local( 1,                                              "Reserved Character");
     Skip_L1(                                                    "Binary Zero String Terminator");
-    Element_End();
+    Element_End0();
 }
 
 } //NameSpace

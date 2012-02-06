@@ -154,7 +154,7 @@ bool File_Mpc::FileHeader_Begin()
 void File_Mpc::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("SV7 header", 21);
+    Element_Begin1("SV7 header");
     Ztring Encoder;
     int32u FrameCount;
     int16u TitleGain, AlbumGain;
@@ -170,19 +170,19 @@ void File_Mpc::FileHeader_Parse()
 
     Skip_L2(                                                    "MaxLevel");
     BS_Begin();
-    Get_S1 (4, Profile,                                         "Profile"); Param_Info(Mpc_Profile[Profile]);
-    Get_S1 (2, Link,                                            "Link"); Param_Info(Mpc_Link[Link]);
-    Get_S1 (2, SampleFreq,                                      "SampleFreq"); Param_Info(Mpc_SampleFreq[SampleFreq]);
+    Get_S1 (4, Profile,                                         "Profile"); Param_Info1(Mpc_Profile[Profile]);
+    Get_S1 (2, Link,                                            "Link"); Param_Info1(Mpc_Link[Link]);
+    Get_S1 (2, SampleFreq,                                      "SampleFreq"); Param_Info1(Mpc_SampleFreq[SampleFreq]);
     Skip_SB(                                                    "IntensityStereo");
     Skip_SB(                                                    "MidSideStereo");
     Skip_S1(6,                                                  "MaxBand");
     BS_End();
 
     Skip_L2(                                                    "TitlePeak");
-    Get_L2 (TitleGain,                                          "TitleGain"); Param_Info(((float32)((int16s)TitleGain))/1000, 2, " dB");
+    Get_L2 (TitleGain,                                          "TitleGain"); Param_Info3(((float32)((int16s)TitleGain))/1000, 2, " dB");
 
     Skip_L2(                                                    "AlbumPeak");
-    Get_L2 (AlbumGain,                                          "AlbumGain"); Param_Info(((float32)((int16s)TitleGain))/1000, 2, " dB");
+    Get_L2 (AlbumGain,                                          "AlbumGain"); Param_Info3(((float32)((int16s)TitleGain))/1000, 2, " dB");
 
     BS_Begin();
     Skip_S2(16,                                                 "unused");
@@ -194,9 +194,9 @@ void File_Mpc::FileHeader_Parse()
     BS_End();
 
     Get_L1 (EncoderVersion,                                     "EncoderVersion");
-    Encoder.From_Number(((float)EncoderVersion)/100, 2); if (EncoderVersion%10==0); else if (EncoderVersion%2==0) Encoder+=_T(" Beta"); else if (EncoderVersion%2==1) Encoder+=_T(" Alpha"); Param_Info(Encoder);
+    Encoder.From_Number(((float)EncoderVersion)/100, 2); if (EncoderVersion%10==0); else if (EncoderVersion%2==0) Encoder+=_T(" Beta"); else if (EncoderVersion%2==1) Encoder+=_T(" Alpha"); Param_Info1(Encoder);
 
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         File__Tags_Helper::Accept("Musepack SV7");

@@ -516,12 +516,12 @@ void File_Bdmv::Read_Buffer_Continue()
     //Parsing
     int32u type_indicator;
     int16u version_numberH;
-    Element_Begin("Header");
+    Element_Begin1("Header");
     Get_C4 (type_indicator,                                     "type_indicator");
     Data_Accept("Blu-ray");
     Get_C2 (version_numberH,                                    "version_number (High)");
     Skip_C2(                                                    "version_number (Low)");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Accept("BDMV");
@@ -537,7 +537,7 @@ void File_Bdmv::Read_Buffer_Continue()
 
     if (version_numberH==0x3031 || version_numberH==0x3032) //Version 1 or 2
     {
-        Element_Begin("Offsets");
+        Element_Begin1("Offsets");
         Types[0x28]=0; //First object
         for (size_t Start_Adress_Pos=1; Start_Adress_Pos<9; Start_Adress_Pos++)
         {
@@ -545,7 +545,7 @@ void File_Bdmv::Read_Buffer_Continue()
             Get_B4 (Start_Adress,                               Bdmv_Type(type_indicator, Start_Adress_Pos));
             Types[Start_Adress]=Start_Adress_Pos;
         }
-        Element_End();
+        Element_End0();
 
         for (std::map<int32u, size_t>::iterator Type=Types.begin(); Type!=Types.end(); Type++)
         {
@@ -554,7 +554,7 @@ void File_Bdmv::Read_Buffer_Continue()
                 if (Type->first>Element_Offset)
                     Skip_XX(Type->first-Element_Offset,         "unknown");
 
-                Element_Begin(Bdmv_Type(type_indicator, Type->second));
+                Element_Begin1(Bdmv_Type(type_indicator, Type->second));
                 int32u length;
                 Get_B4 (length,                                 "length");
                 int64u End=Element_Offset+length;
@@ -599,7 +599,7 @@ void File_Bdmv::Read_Buffer_Continue()
                 }
                 if (End>Element_Offset)
                     Skip_XX(End-Element_Offset,                 "Unknown");
-                Element_End();
+                Element_End0();
             }
         }
 
@@ -735,7 +735,7 @@ void File_Bdmv::Clpi_ProgramInfo()
         Skip_B1(                                                "Unknown");
         for (int16u Pos=0; Pos<number_of_streams_in_ps; Pos++)
         {
-            Element_Begin("Stream");
+            Element_Begin1("Stream");
             int16u stream_PID;
             int8u  Stream_Length;
             Get_B2 (stream_PID,                                 "stream_PID");
@@ -748,7 +748,7 @@ void File_Bdmv::Clpi_ProgramInfo()
                 StreamKind_Last=PID_StreamKind->second;
                 StreamPos_Last=PIDs_StreamPos.find(stream_PID)->second;
             }
-            Get_B1 (stream_type,                                "Stream type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
+            Get_B1 (stream_type,                                "Stream type"); Param_Info1(Clpi_Format(stream_type)); Element_Info1(Clpi_Format(stream_type));
             switch (Clpi_Type(stream_type))
             {
                 case Stream_Video : StreamCodingInfo_Video(); break;
@@ -759,7 +759,7 @@ void File_Bdmv::Clpi_ProgramInfo()
 
             if (Stream_End-Element_Offset)
                 Skip_XX(Stream_End-Element_Offset,              "Unknown");
-            Element_End();
+            Element_End0();
 
             FILLING_BEGIN();
                 if (StreamKind_Last!=Stream_Max)
@@ -790,7 +790,7 @@ void File_Bdmv::Clpi_ExtensionData()
     int8u number_of_ext_data_entries;
     Skip_B4(                                                    "Unknown");
     Skip_B3(                                                    "Unknown");
-    Element_Begin("Offsets");
+    Element_Begin1("Offsets");
     Get_B1 (number_of_ext_data_entries,                         "number_of_ext_data_entries");
     for (size_t Start_Adress_Pos=0; Start_Adress_Pos<number_of_ext_data_entries; Start_Adress_Pos++)
     {
@@ -804,7 +804,7 @@ void File_Bdmv::Clpi_ExtensionData()
         Entries[Base_Pos+Start_Adress].ID2=ID2;
         Entries[Base_Pos+Start_Adress].Length=Length;
     }
-    Element_End();
+    Element_End0();
 
     for (entries::iterator Entry=Entries.begin(); Entry!=Entries.end(); Entry++)
     {
@@ -813,7 +813,7 @@ void File_Bdmv::Clpi_ExtensionData()
             if (Entry->first>Element_Offset)
                 Skip_XX(Entry->first-Element_Offset, "unknown");
 
-            Element_Begin("Entry");
+            Element_Begin1("Entry");
             int32u length;
             Get_B4 (length,                                 "length");
             int64u End=Element_Offset+length;
@@ -830,7 +830,7 @@ void File_Bdmv::Clpi_ExtensionData()
             }
             if (End>Element_Offset)
                 Skip_XX(End-Element_Offset,                 "Unknown");
-            Element_End();
+            Element_End0();
         }
     }
 
@@ -851,31 +851,34 @@ void File_Bdmv::Indx_Indexes()
 {
     //Parsing
     int16u number_of_Titles;
-    Element_Begin("FirstPlayback", 12);
+    Element_Begin1("FirstPlayback");
         BS_Begin();
-        Info_S1( 2, FirstPlayback_object_type,                  "object_type"); Param_Info(Indx_object_type[FirstPlayback_object_type]);
+        int8u FirstPlayback_object_type;
+        Get_S1 ( 2, FirstPlayback_object_type,                  "object_type"); Param_Info1(Indx_object_type[FirstPlayback_object_type]);
         Skip_S4(30,                                             "reserved");
         BS_End();
         Indx_Indexes_Index(FirstPlayback_object_type);
-    Element_End();
-    Element_Begin("TopMenu", 12); {
+    Element_End0();
+    Element_Begin1("TopMenu");
         BS_Begin();
-        Info_S1( 2, TopMenu_object_type,                        "object_type"); Param_Info(Indx_object_type[TopMenu_object_type]);
+        int8u TopMenu_object_type;
+        Get_S1 ( 2, TopMenu_object_type,                        "object_type"); Param_Info1(Indx_object_type[TopMenu_object_type]);
         Skip_S4(30,                                             "reserved");
         BS_End();
         Indx_Indexes_Index(TopMenu_object_type);
-    Element_End(); }
+    Element_End0();
     Get_B2 (number_of_Titles,                                   "number_of_Titles");
     for (int16u Pos=0; Pos<number_of_Titles; Pos++)
     {
-        Element_Begin("Title", 12);
+        Element_Begin1("Title");
         BS_Begin();
-        Info_S1( 2, Title_object_type,                          "object_type"); Param_Info(Indx_object_type[Title_object_type]);
-        Info_S1( 2, Title_title_search,                         "title_search"); Param_Info(Indx_title_search[Title_title_search]);
+        int8u Title_object_type;
+        Get_S1 ( 2, Title_object_type,                          "object_type"); Param_Info1(Indx_object_type[Title_object_type]);
+        Info_S1( 2, Title_title_search,                         "title_search"); Param_Info1(Indx_title_search[Title_title_search]);
         Skip_S4(28,                                             "reserved");
         BS_End();
         Indx_Indexes_Index(Title_object_type);
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -883,20 +886,20 @@ void File_Bdmv::Indx_Indexes()
 void File_Bdmv::Indx_Indexes_Index(int8u object_type)
 {
     BS_Begin();
-    Info_S1( 2, playback_type,                                  "playback_type"); Param_Info(Indx_playback_type[object_type][playback_type]);
+    Info_S1( 2, playback_type,                                  "playback_type"); Param_Info1(Indx_playback_type[object_type][playback_type]);
     Skip_S2(14,                                                 "reserved");
     BS_End();
     switch (object_type)
     {
         case 1 : //HDMV
                 {
-                Info_B2(id_ref,                                 "id_ref"); Element_Info(id_ref);
+                Info_B2(id_ref,                                 "id_ref"); Element_Info1(id_ref);
                 Skip_B4(                                        "reserved");
                 }
                 break;
         case 2 : //BD-J
                 {
-                Info_Local(5, id_ref,                           "id_ref"); Element_Info(id_ref);
+                Info_Local(5, id_ref,                           "id_ref"); Element_Info1(id_ref);
                 Skip_B1(                                        "reserved");
                 }
                 break;
@@ -917,13 +920,13 @@ void File_Bdmv::Indx_ExtensionData()
     Get_B1 (number_of_ext_data_entries,                         "number_of_ext_data_entries");
     for (int16u Pos=0; Pos<number_of_ext_data_entries; Pos++)
     {
-        Element_Begin("ext_data_entry");
+        Element_Begin1("ext_data_entry");
         int32u ext_data_start_adress, ext_data_length;
         Skip_B2(                                                "ID1 (AVCHD)");
         Skip_B2(                                                "ID2 (Version)");
         Get_B4 (ext_data_start_adress,                          "ext_data_start_adress");
         Get_B4 (ext_data_length,                                "ext_data_length");
-        Element_End();
+        Element_End0();
         exts[ext_data_start_adress]=ext_data_length;
     }
 
@@ -934,11 +937,11 @@ void File_Bdmv::Indx_ExtensionData()
             if (Base_Offset+ext->first>Element_Offset)
                 Skip_XX(ext->first-Element_Offset,              "Unknown");
 
-            Element_Begin();
+            Element_Begin0();
             int64u End=Element_Offset+ext->second;
 
             int32u type_indicator;
-            Get_C4(type_indicator,                              "type_indicator"); Element_Info(Ztring().From_CC4(type_indicator));
+            Get_C4(type_indicator,                              "type_indicator"); Element_Info1(Ztring().From_CC4(type_indicator));
             switch (type_indicator)
             {
                 case 0x49444558 : Indx_ExtensionData_IDEX(); break;
@@ -947,7 +950,7 @@ void File_Bdmv::Indx_ExtensionData()
             }
             if (End>Element_Offset)
                 Skip_XX(End-Element_Offset,                     "Unknown");
-            Element_End();
+            Element_End0();
         }
     }
 }
@@ -983,7 +986,7 @@ void File_Bdmv::Indx_ExtensionData_IDEX()
 //---------------------------------------------------------------------------
 void File_Bdmv::Indx_ExtensionData_IDEX_UIAppInfoAVCHD()
 {
-    Element_Begin("UIAppInfoAVCHD");
+    Element_Begin1("UIAppInfoAVCHD");
 
     //Parsing
     int32u length, length2;
@@ -1004,31 +1007,31 @@ void File_Bdmv::Indx_ExtensionData_IDEX_UIAppInfoAVCHD()
     Get_B1 (AVCHD_name_length,                                  "AVCHD_name_length");
     Skip_Local(AVCHD_name_length,                               "AVCHD_name");
     Skip_XX(255-AVCHD_name_length,                              "AVCHD_name (junk)");
-    Element_Begin("additional data");
+    Element_Begin1("additional data");
     Get_B4 (length2,                                            "length2");
     Skip_XX(length2,                                            "reserved");
-    Element_End(4+length2);
+    Element_End0();
 
-    Element_End(4+length);
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Bdmv::Indx_ExtensionData_IDEX_TableOfPlayLists()
 {
-    Element_Begin("TableOfPlayLists");
+    Element_Begin1("TableOfPlayLists");
 
     //Parsing
     int32u length;
     Get_B4 (length,                                             "length");
     Skip_XX(length,                                             "unknown");
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Bdmv::Indx_ExtensionData_IDEX_MakersPrivateData()
 {
-    Element_Begin("MakersPrivateData");
+    Element_Begin1("MakersPrivateData");
 
     //Parsing
     int64u Base_Offset=Element_Offset-4; //Size is included
@@ -1040,12 +1043,12 @@ void File_Bdmv::Indx_ExtensionData_IDEX_MakersPrivateData()
     Get_B1 (number_of_maker_entries,                            "number_of_maker_entries");
     for (int8u Pos=0; Pos<number_of_maker_entries; Pos++)
     {
-        Element_Begin("maker_entry");
+        Element_Begin1("maker_entry");
         Skip_B2(                                                "maker_ID");
         Skip_B2(                                                "maker_model_code");
         Skip_B4(                                                "mpd_start_adress");
         Skip_B4(                                                "mpd_length");
-        Element_End();
+        Element_End0();
     }
 
     if (datablock_start_adress)
@@ -1055,7 +1058,7 @@ void File_Bdmv::Indx_ExtensionData_IDEX_MakersPrivateData()
         Skip_XX(length-datablock_start_adress,                  "Unknown");
     }
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1067,24 +1070,24 @@ void File_Bdmv::Mobj_MovieObjects()
     Get_B2 (number_of_mobjs,                                    "number_of_mobj");
     for (int16u mobjs_Pos=0; mobjs_Pos<number_of_mobjs; mobjs_Pos++)
     {
-        Element_Begin("mobj");
+        Element_Begin1("mobj");
         int16u number_of_navigation_commands;
         BS_Begin();
-        Info_SB(resume,                                         "resume"); Param_Info(resume?"suspend":"discard");
-        Info_SB(menu_call,                                      "menu_call"); Param_Info(menu_call?"enable":"disable");
-        Info_SB(title_search,                                   "title_search"); Param_Info(title_search?"enable":"disable");
+        Info_SB(resume,                                         "resume"); Param_Info1(resume?"suspend":"discard");
+        Info_SB(menu_call,                                      "menu_call"); Param_Info1(menu_call?"enable":"disable");
+        Info_SB(title_search,                                   "title_search"); Param_Info1(title_search?"enable":"disable");
         Skip_BS(13,                                             "reserved");
         BS_End();
         Get_B2 (number_of_navigation_commands,                  "number_of_navigation_commands");
         for (int16u navigation_command_Pos=0; navigation_command_Pos<number_of_navigation_commands; navigation_command_Pos++)
         {
-            Element_Begin("navigation_command");
+            Element_Begin1("navigation_command");
             Skip_B4(                                            "opcode");
             Skip_B4(                                            "destination");
             Skip_B4(                                            "source");
-            Element_End();
+            Element_End0();
         }
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -1100,7 +1103,7 @@ void File_Bdmv::Mpls_AppInfoPlayList()
     Skip_B1(                                                    "unknown");
     BS_Begin();
     Skip_S1(6,                                                  "unknown");
-    Info_S2(2, playback_type,                                   "playback_type"); Param_Info(Mpls_playback_type[playback_type]);
+    Info_S2(2, playback_type,                                   "playback_type"); Param_Info1(Mpls_playback_type[playback_type]);
     BS_End();
     Skip_B2(                                                    "playback_count");
     Skip_B4(                                                    "user_operation_mask_code 1");
@@ -1130,7 +1133,7 @@ void File_Bdmv::Mpls_PlayList()
 
     for (int16u SubPath_Pos=0; SubPath_Pos<number_of_SubPaths; SubPath_Pos++)
     {
-        Element_Begin("SubPath");
+        Element_Begin1("SubPath");
         int32u SubPath_length;
         int16u number_of_SubPlayItems;
         Get_B4 (SubPath_length,                                 "length");
@@ -1144,7 +1147,7 @@ void File_Bdmv::Mpls_PlayList()
 
         if (SubPath_End>Element_Offset)
             Skip_XX(SubPath_End-Element_Offset,                 "unknown");
-        Element_End(2+SubPath_length);
+        Element_End0();
     }
 
     FILLING_BEGIN();
@@ -1159,17 +1162,18 @@ void File_Bdmv::Mpls_PlayList()
 //---------------------------------------------------------------------------
 void File_Bdmv::Mpls_PlayList_PlayItem()
 {
-    Element_Begin("PlayItem");
+    Element_Begin1("PlayItem");
     Ztring Clip_Information_file_name;
+    int32u Time_In, Time_Out;
     int16u length;
     Get_B2 (length,                                         "length");
     int64u End=Element_Offset+length;
-    Get_Local (5, Clip_Information_file_name,               "Clip_Information_file_name"); Element_Info(Clip_Information_file_name);
+    Get_Local (5, Clip_Information_file_name,               "Clip_Information_file_name"); Element_Info1(Clip_Information_file_name);
     Skip_Local(4,                                           "Clip_codec_identifier");
     Skip_B2(                                                "unknown");
     Skip_B1(                                                "Unknown");
-    Info_B4(Time_In,                                        "Time (In)"); Param_Info((float32)Time_In/45000);
-    Info_B4(Time_Out,                                       "Time (Out)"); Param_Info((float32)Time_Out/45000);
+    Get_B4 (Time_In,                                        "Time (In)"); Param_Info1((float32)Time_In/45000);
+    Get_B4 (Time_Out,                                       "Time (Out)"); Param_Info1((float32)Time_Out/45000);
     Skip_B4(                                                "UO1");
     Skip_B4(                                                "UO2");
     Skip_B4(                                                "An?");
@@ -1198,13 +1202,13 @@ void File_Bdmv::Mpls_PlayList_PlayItem()
 
     if (End>Element_Offset)
         Skip_XX(End-Element_Offset,                             "unknown");
-    Element_End(2+length);
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
 {
-    Element_Begin("STN");
+    Element_Begin1("STN");
 
     int16u length;
     Get_B2 (length,                                         "length");
@@ -1230,7 +1234,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
 
     while (Element_Offset+16<=End)
     {
-        Element_Begin();
+        Element_Begin0();
         Ztring language;
         int16u mPID;
         int8u IDs_length;
@@ -1242,7 +1246,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
         Skip_B2(                                            "sPID");
         Get_B1 (IDs_length,                                 "length");
         int64u IDs_End=Element_Offset+IDs_length;
-        Get_B1 (stream_type,                                "stream_type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
+        Get_B1 (stream_type,                                "stream_type"); Param_Info1(Clpi_Format(stream_type)); Element_Info1(Clpi_Format(stream_type));
         switch (Clpi_Type(stream_type))
         {
             case Stream_Video : Mpls_PlayList_PlayItem_STN_table_Video(); break;
@@ -1250,11 +1254,11 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
             case Stream_Text  : Mpls_PlayList_PlayItem_STN_table_Text() ; break;
             default           : StreamKind_Last=Stream_Max;
         }
-        Get_Local(3, language,                              "language"); Element_Info(language);
+        Get_Local(3, language,                              "language"); Element_Info1(language);
 
         if (IDs_End-Element_Offset)
             Skip_XX(IDs_End-Element_Offset,                 "unknown");
-        Element_End();
+        Element_End0();
 
         FILLING_BEGIN();
             if (StreamKind_Last!=Stream_Max)
@@ -1271,7 +1275,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
 
     if (End>Element_Offset)
         Skip_XX(End-Element_Offset,                             "unknown");
-    Element_End(2+length);
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1280,8 +1284,8 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table_Video()
     //Parsing
     int8u Format, FrameRate;
     BS_Begin();
-    Get_S1 (4, Format,                                          "format"); Param_Info(Clpi_Video_Format[Format]);
-    Get_S1 (4, FrameRate,                                       "frame_rate"); Param_Info(Clpi_Video_FrameRate[FrameRate]);
+    Get_S1 (4, Format,                                          "format"); Param_Info1(Clpi_Video_Format[Format]);
+    Get_S1 (4, FrameRate,                                       "frame_rate"); Param_Info1(Clpi_Video_FrameRate[FrameRate]);
     BS_End();
 
     FILLING_BEGIN();
@@ -1304,8 +1308,8 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table_Audio()
     //Parsing
     int8u Channels, SamplingRate;
     BS_Begin();
-    Get_S1 (4, Channels,                                        "channel_layout"); Param_Info(Clpi_Audio_Channels[Channels]);
-    Get_S1 (4, SamplingRate,                                    "sampling_rate"); Param_Info(Clpi_Audio_SamplingRate[SamplingRate]);
+    Get_S1 (4, Channels,                                        "channel_layout"); Param_Info1(Clpi_Audio_Channels[Channels]);
+    Get_S1 (4, SamplingRate,                                    "sampling_rate"); Param_Info1(Clpi_Audio_SamplingRate[SamplingRate]);
     BS_End();
 
     FILLING_BEGIN();
@@ -1335,23 +1339,23 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table_Text()
 //---------------------------------------------------------------------------
 void File_Bdmv::Mpls_PlayList_SubPlayItem()
 {
-    Element_Begin("SubPlayItem");
+    Element_Begin1("SubPlayItem");
     Ztring Clip_Information_file_name;
     int16u length;
     Get_B2 (length,                                             "length");
     int64u End=Element_Offset+length;
-    Get_Local (5, Clip_Information_file_name,                   "Clip_Information_file_name"); Element_Info(Clip_Information_file_name);
+    Get_Local (5, Clip_Information_file_name,                   "Clip_Information_file_name"); Element_Info1(Clip_Information_file_name);
     Skip_Local(4,                                               "Clip_codec_identifier");
     Skip_B4(                                                    "unknown");
     Skip_B1(                                                    "unknown");
-    Info_B4(Time_In,                                            "time (in)"); Param_Info((float32)Time_In/45000);
-    Info_B4(Time_Out,                                           "time (out)"); Param_Info((float32)Time_Out/45000);
+    Info_B4(Time_In,                                            "time (in)"); Param_Info1((float32)Time_In/45000);
+    Info_B4(Time_Out,                                           "time (out)"); Param_Info1((float32)Time_Out/45000);
     Skip_B2(                                                    "sync PI");
     Skip_B4(                                                    "sync PTS");
 
     if (End>Element_Offset)
         Skip_XX(End-Element_Offset,                             "unknown");
-    Element_End(2+length);
+    Element_End0();
 
     FILLING_BEGIN();
         if (Mpls_PlayList_IsParsed)
@@ -1400,10 +1404,10 @@ void File_Bdmv::Mpls_PlayListMarks()
     Get_B2 (count,                                              "count");
     for (int16u Pos=0; Pos<count; Pos++)
     {
-        Element_Begin("Mark");
+        Element_Begin1("Mark");
         int8u type;
         Skip_B1(                                                "unknown");
-        Get_B1 (type,                                           "type"); Param_Info(Mpls_PlayListMarks_Mark_type(type));
+        Get_B1 (type,                                           "type"); Param_Info1(Mpls_PlayListMarks_Mark_type(type));
         switch (type)
         {
             case 1 : //entry-mark
@@ -1412,7 +1416,7 @@ void File_Bdmv::Mpls_PlayListMarks()
                     int32u time;
                     int16u stream_file_index;
                     Get_B2 (stream_file_index,                  "stream_file_index");
-                    Get_B4 (time,                               "time"); Param_Info(time/45, " milliseconds");
+                    Get_B4 (time,                               "time"); Param_Info2(time/45, " milliseconds");
                     Skip_B2(                                    "unknown");
                     Skip_B4(                                    "unknown");
 
@@ -1430,7 +1434,7 @@ void File_Bdmv::Mpls_PlayListMarks()
             default:
                     Skip_XX(12,                                 "unknwon");
         }
-        Element_End();
+        Element_End0();
     }
 
     Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
@@ -1446,7 +1450,7 @@ void File_Bdmv::Mpls_ExtensionData()
     int8u number_of_ext_data_entries;
     Skip_B4(                                                    "Unknown");
     Skip_B3(                                                    "Unknown");
-    Element_Begin("Offsets");
+    Element_Begin1("Offsets");
     Get_B1 (number_of_ext_data_entries,                         "number_of_ext_data_entries");
     for (size_t Start_Adress_Pos=0; Start_Adress_Pos<number_of_ext_data_entries; Start_Adress_Pos++)
     {
@@ -1460,7 +1464,7 @@ void File_Bdmv::Mpls_ExtensionData()
         Entries[Base_Pos+Start_Adress].ID2=ID2;
         Entries[Base_Pos+Start_Adress].Length=Length;
     }
-    Element_End();
+    Element_End0();
 
     for (entries::iterator Entry=Entries.begin(); Entry!=Entries.end(); Entry++)
     {
@@ -1469,7 +1473,7 @@ void File_Bdmv::Mpls_ExtensionData()
             if (Entry->first>Element_Offset)
                 Skip_XX(Entry->first-Element_Offset,            "unknown");
 
-            Element_Begin("Entry");
+            Element_Begin1("Entry");
             int64u End=Element_Offset+Entry->second.Length;
             switch (Entry->second.ID1)
             {
@@ -1493,7 +1497,7 @@ void File_Bdmv::Mpls_ExtensionData()
             }
             if (End>Element_Offset)
                 Skip_XX(End-Element_Offset,                     "Unknown");
-            Element_End();
+            Element_End0();
         }
     }
 
@@ -1504,7 +1508,7 @@ void File_Bdmv::Mpls_ExtensionData()
 //---------------------------------------------------------------------------
 void File_Bdmv::Mpls_ExtensionData_SubPath_entries()
 {
-    Element_Begin("SubPath_entries");
+    Element_Begin1("SubPath_entries");
     int32u length;
     int16u number_of_SubPath_extensions;
     int8u SubPath_type;
@@ -1513,7 +1517,7 @@ void File_Bdmv::Mpls_ExtensionData_SubPath_entries()
     Get_B2 (number_of_SubPath_extensions,                       "number_of_SubPath_extensions");
     for (int8u SubPath_extension=0; SubPath_extension<number_of_SubPath_extensions+Mpls_PlayList_number_of_SubPaths; SubPath_extension++)
     {
-        Element_Begin("SubPath_extension");
+        Element_Begin1("SubPath_extension");
         int32u SubPath_extension_length;
         Get_B4 (SubPath_extension_length,                       "length");
         int64u SubPath_extension_End=Element_Offset+SubPath_extension_length;
@@ -1533,11 +1537,11 @@ void File_Bdmv::Mpls_ExtensionData_SubPath_entries()
         }
         if (SubPath_extension_End-Element_Offset)
             Skip_XX(SubPath_extension_End-Element_Offset,       "Padding");
-        Element_End();
+        Element_End0();
     }
     if (End-Element_Offset)
         Skip_XX(End-Element_Offset,                             "Padding");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1546,9 +1550,9 @@ void File_Bdmv::StreamCodingInfo_Video()
     //Parsing
     int8u Format, FrameRate, AspectRatio;
     BS_Begin();
-    Get_S1 (4, Format,                                          "Format"); Param_Info(Clpi_Video_Format[Format]);
-    Get_S1 (4, FrameRate,                                       "Frame rate"); Param_Info(Clpi_Video_FrameRate[FrameRate]);
-    Get_S1 (4, AspectRatio,                                     "Aspect ratio"); Param_Info(Clpi_Video_AspectRatio[AspectRatio]);
+    Get_S1 (4, Format,                                          "Format"); Param_Info1(Clpi_Video_Format[Format]);
+    Get_S1 (4, FrameRate,                                       "Frame rate"); Param_Info1(Clpi_Video_FrameRate[FrameRate]);
+    Get_S1 (4, AspectRatio,                                     "Aspect ratio"); Param_Info1(Clpi_Video_AspectRatio[AspectRatio]);
     Skip_BS(4,                                                  "Reserved");
     BS_End();
 
@@ -1577,10 +1581,10 @@ void File_Bdmv::StreamCodingInfo_Audio()
     //Parsing
     int8u Channels, SamplingRate;
     BS_Begin();
-    Get_S1 (4, Channels,                                        "Channel layout"); Param_Info(Clpi_Audio_Channels[Channels]);
-    Get_S1 (4, SamplingRate,                                    "Sampling Rate"); Param_Info(Clpi_Audio_SamplingRate[SamplingRate]);
+    Get_S1 (4, Channels,                                        "Channel layout"); Param_Info1(Clpi_Audio_Channels[Channels]);
+    Get_S1 (4, SamplingRate,                                    "Sampling Rate"); Param_Info1(Clpi_Audio_SamplingRate[SamplingRate]);
     BS_End();
-    Info_Local(3, Language,                                     "Language"); Element_Info(Language);
+    Info_Local(3, Language,                                     "Language"); Element_Info1(Language);
 
     FILLING_BEGIN();
         if (StreamKind_Last==Stream_Max)
@@ -1603,7 +1607,7 @@ void File_Bdmv::StreamCodingInfo_Text()
     //Parsing
     if (stream_type==0x92) //Subtitle
         Skip_B1(                                                "Unknown");
-    Info_Local(3, Language,                                     "Language"); Element_Info(Language);
+    Info_Local(3, Language,                                     "Language"); Element_Info1(Language);
 
     FILLING_BEGIN();
         if (StreamKind_Last==Stream_Max)

@@ -256,11 +256,11 @@ void File_Rar::Header_Parse_Content_74()
     int8u HOST_OS, METHOD, UNP_VER;
     Get_L4 (PACK_SIZE,                                          "PACK_SIZE"); //Compressed file size
     Skip_L4(                                                    "UNP_SIZE"); //Uncompressed file size
-    Get_L1 (HOST_OS,                                            "HOST_OS"); Param_Info((HOST_OS<6?Rar_host_os[HOST_OS]:"Unknown"));
+    Get_L1 (HOST_OS,                                            "HOST_OS"); Param_Info1((HOST_OS<6?Rar_host_os[HOST_OS]:"Unknown"));
     Skip_L4(                                                    "FILE_CRC");
     Skip_L4(                                                    "FTIME"); //Date and time in standard MS DOS format
-    Get_L1 (UNP_VER,                                            "UNP_VER"); Param_Info(Rar_version_number(UNP_VER)); //RAR version needed to extract file
-    Get_L1 (METHOD,                                             "METHOD"); Param_Info(((METHOD>=0x30)&&(METHOD<0x36)?Rar_packing_method[METHOD-0x30]:"Unknown"));
+    Get_L1 (UNP_VER,                                            "UNP_VER"); Param_Info1(Rar_version_number(UNP_VER)); //RAR version needed to extract file
+    Get_L1 (METHOD,                                             "METHOD"); Param_Info1(((METHOD>=0x30)&&(METHOD<0x36)?Rar_packing_method[METHOD-0x30]:"Unknown"));
     Get_L2 (name_size,                                          "NAME_SIZE"); //File name size
     Skip_L4(                                                    "ATTR"); //File attributes
     if(high_fields)

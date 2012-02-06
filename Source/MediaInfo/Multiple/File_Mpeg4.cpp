@@ -1021,7 +1021,7 @@ bool File_Mpeg4::Header_Begin()
     #endif //MEDIAINFO_DEMUX
 
     if (IsParsing_mdat && Element_Level==0)
-        Element_Begin();
+        Element_Begin0();
 
     return true;
 }
@@ -1235,8 +1235,8 @@ bool File_Mpeg4::BookMark_Needed()
             {
                 Element_Show();
                 while (Element_Level>0)
-                    Element_End();
-                Element_Begin("Priority streams", File_Size);
+                    Element_End0();
+                Element_Begin1("Priority streams");
 
                 mdat_Pos_Temp=Temp;
                 GoTo(Temp->first);
@@ -1250,8 +1250,8 @@ bool File_Mpeg4::BookMark_Needed()
     {
         Element_Show();
         while (Element_Level>0)
-            Element_End();
-        Element_Begin("Second pass", File_Size);
+            Element_End0();
+        Element_Begin1("Second pass");
 
         mdat_Pos_Temp=mdat_Pos.begin();
         GoTo(mdat_Pos_Temp->first);

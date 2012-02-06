@@ -752,7 +752,7 @@ void File_Gxf::map()
 
     //Parsing
     int8u Version;
-    Element_Begin("Preamble");
+    Element_Begin1("Preamble");
         BS_Begin();
         Mark_1();
         Mark_1();
@@ -760,9 +760,9 @@ void File_Gxf::map()
         Get_S1(5, Version,                                      "Version");
         BS_End();
         Skip_B1(                                                "Reserved");
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Material Data");
+    Element_Begin1("Material Data");
         int16u SectionLength;
         Get_B2 (SectionLength,                                  "Section Length");
         if (Element_Offset+SectionLength>=Element_Size)
@@ -770,7 +770,7 @@ void File_Gxf::map()
         int64u Material_Data_End=Element_Offset+SectionLength;
         while (Element_Offset<Material_Data_End)
         {
-            Element_Begin("Tag");
+            Element_Begin1("Tag");
             int8u Tag, DataLength;
             Get_B1(Tag,                                         "Tag");
             Get_B1(DataLength,                                  "Data Length");
@@ -859,11 +859,11 @@ void File_Gxf::map()
                             break;
                 default   : Skip_XX(DataLength,                 "Unknown");
             }
-            Element_End();
+            Element_End0();
         }
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Track Description");
+    Element_Begin1("Track Description");
         int32u Stream_Video_FrameRate_Code=(int32u)-1, Stream_Video_FieldsPerFrame_Code=(int32u)-1;
         Get_B2 (SectionLength,                                  "Section Length");
         if (Element_Offset+SectionLength>=Element_Size)
@@ -871,17 +871,17 @@ void File_Gxf::map()
         int64u Track_Data_End=Element_Offset+SectionLength;
         while (Element_Offset<Track_Data_End)
         {
-            Element_Begin("Track");
+            Element_Begin1("Track");
             int16u TrackLength;
             int8u  MediaType, TrackID;
-            Get_B1 (MediaType,                                  "Media type"); Param_Info(Gxf_MediaTypes(MediaType&0x7F));
+            Get_B1 (MediaType,                                  "Media type"); Param_Info1(Gxf_MediaTypes(MediaType&0x7F));
             Get_B1 (TrackID,                                    "Track ID");
             Get_B2 (TrackLength,                                "Track Length");
             if (Element_Offset+TrackLength>=Track_Data_End)
                 TrackLength=(int16u)(Track_Data_End-Element_Offset);
             int64u Track_End=Element_Offset+TrackLength;
-            Element_Info(TrackID&0x3F);
-            Element_Info(Gxf_MediaTypes(MediaType&0x7F));
+            Element_Info1(TrackID&0x3F);
+            Element_Info1(Gxf_MediaTypes(MediaType&0x7F));
 
             FILLING_BEGIN();
                 MediaType&=0x7F; //Remove the last bit
@@ -1043,7 +1043,7 @@ void File_Gxf::map()
 
             while (Element_Offset<Track_End)
             {
-                Element_Begin("Tag");
+                Element_Begin1("Tag");
                 int8u Tag, DataLength;
                 Get_B1(Tag,                                     "Tag");
                 Get_B1(DataLength,                              "Data Length");
@@ -1105,7 +1105,7 @@ void File_Gxf::map()
                     case 0x50 : //Frame rate
                                 if (DataLength==4)
                                 {
-                                    Get_B4 (Streams[TrackID].FrameRate_Code, "Content"); Param_Info(Gxf_FrameRate(Streams[TrackID].FrameRate_Code)); Element_Info(Gxf_FrameRate(Streams[TrackID].FrameRate_Code));
+                                    Get_B4 (Streams[TrackID].FrameRate_Code, "Content"); Param_Info1(Gxf_FrameRate(Streams[TrackID].FrameRate_Code)); Element_Info1(Gxf_FrameRate(Streams[TrackID].FrameRate_Code));
                                     for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); TimeCode++)
                                         if (TrackID==TimeCode->first)
                                             ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FrameRate_Code=Streams[0x00].FrameRate_Code;
@@ -1118,7 +1118,7 @@ void File_Gxf::map()
                     case 0x51 : //Lines per frame
                                 if (DataLength==4)
                                 {
-                                    Get_B4 (Streams[TrackID].LinesPerFrame_Code, "Content"); Param_Info(Gxf_LinesPerFrame_Height(Streams[TrackID].LinesPerFrame_Code)); Element_Info(Gxf_LinesPerFrame_Height(Streams[TrackID].LinesPerFrame_Code));
+                                    Get_B4 (Streams[TrackID].LinesPerFrame_Code, "Content"); Param_Info1(Gxf_LinesPerFrame_Height(Streams[TrackID].LinesPerFrame_Code)); Element_Info1(Gxf_LinesPerFrame_Height(Streams[TrackID].LinesPerFrame_Code));
                                 }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
@@ -1126,7 +1126,7 @@ void File_Gxf::map()
                     case 0x52 : //Fields per frame
                                 if (DataLength==4)
                                 {
-                                    Get_B4 (Streams[TrackID].FieldsPerFrame_Code, "Content"); Param_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code)); Element_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code));
+                                    Get_B4 (Streams[TrackID].FieldsPerFrame_Code, "Content"); Param_Info1(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code)); Element_Info1(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code));
                                     if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Video)
                                     {
                                         Stream_Video_FieldsPerFrame_Code=Streams[TrackID].FieldsPerFrame_Code;
@@ -1141,9 +1141,9 @@ void File_Gxf::map()
                                 break;
                     default   : Skip_XX(DataLength,             "Unknown");
                 }
-                Element_End();
+                Element_End0();
             }
-            Element_End();
+            Element_End0();
 
             //Test on TimeCode
             if (TimeCode_Parsed && !Invalid)
@@ -1159,7 +1159,7 @@ void File_Gxf::map()
                 }
             }
         }
-    Element_End();
+    Element_End0();
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "Padding");
 
@@ -1194,7 +1194,7 @@ void File_Gxf::media()
     //Parsing
     int32u  MediaFieldNumber;
     int8u   MediaType;
-    Element_Begin("Preamble");
+    Element_Begin1("Preamble");
         Get_B1 (MediaType,                                      "Media type");
         Get_B1 (TrackNumber,                                    "Track number");
         Get_B4 (MediaFieldNumber,                               "Media field number");
@@ -1206,8 +1206,8 @@ void File_Gxf::media()
         Skip_B1(                                                "Flags");
         Skip_B1(                                                "Reserved");
         TrackNumber&=0x3F;
-    Element_End();
-    Element_Info(TrackNumber);
+    Element_End0();
+    Element_Info1(TrackNumber);
 
     //Managing audio 32768-sample DTS synchro
     if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Audio && MediaFieldNumber==Material_Fields_First && Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code) && Streams[TrackNumber].FirstFrameDuration)
@@ -1372,10 +1372,10 @@ void File_Gxf::UMF_file()
 
     //Parsing
     int32u PayloadDataLength;
-    Element_Begin("Preamble");
+    Element_Begin1("Preamble");
         Skip_B1(                                                "First/last packet flag");
         Get_B4 (PayloadDataLength,                              "Payload data length");
-    Element_End();
+    Element_End0();
 
     if (UMF_File==NULL)
     {

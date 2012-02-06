@@ -83,7 +83,7 @@ void File_Umf::Read_Buffer_Continue()
 {
     //Parsing
     int32u Tracks, Segments;
-    Element_Begin("Payload description");
+    Element_Begin1("Payload description");
     Skip_L4(                                                    "Total length of the UMF data");
     Skip_L4(                                                    "Version of this file");
     Get_L4 (Tracks,                                             "Number of tracks in the material");
@@ -96,9 +96,9 @@ void File_Umf::Read_Buffer_Continue()
     Skip_L4(                                                    "Size of the user data section");
     Skip_L4(                                                    "Reserved");
     Skip_L4(                                                    "Reserved");
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Material description");
+    Element_Begin1("Material description");
     Skip_L4(                                                    "Attributes");
     Skip_L4(                                                    "Maximum length of the material in fields");
     Skip_L4(                                                    "Minimum length of the material in fields");
@@ -116,23 +116,23 @@ void File_Umf::Read_Buffer_Continue()
     Skip_L2(                                                    "Number of time code tracks");
     Skip_L2(                                                    "Reserved");
     Skip_L2(                                                    "Number of MPEG-1, MPEG-2, and MPEG-2 HD video tracks");
-    Element_End();
+    Element_End0();
 
     for (int32u Pos=0; Pos<Tracks; Pos++)
     {
-        Element_Begin("Track description");
+        Element_Begin1("Track description");
         Skip_C1(                                                "Track information - Track type");
         Skip_C1(                                                "Track information - Track logical number");
         Skip_L2(                                                "Number of segments on this track");
-        Element_End();
+        Element_End0();
 
-        if (Element_Offset==Element_Size)
+        if (Element_Offset>=Element_Size)
             break;
     }
 
     for (int32u Pos=0; Pos<Segments; Pos++)
     {
-        Element_Begin("Media description");
+        Element_Begin1("Media description");
         int32u Type;
         int16u Length;
         Get_L2 (Length,                                         "Length of this media description");
@@ -222,16 +222,16 @@ void File_Umf::Read_Buffer_Continue()
                 Skip_L4(                                                "Reserved");
         }
         if (Element_Offset<End)
-            Skip_XX(End-Element_Offset,                         "Unknown");
-        Element_End();
+            Skip_XX(End-Element_Offset,                                 "Unknown");
+        Element_End0();
 
-        if (Element_Offset==Element_Size)
+        if (Element_Offset>=Element_Size)
             break;
     }
 
     while (Element_Offset<Element_Size)
     {
-        Element_Begin("User data");
+        Element_Begin1("User data");
         int32u Length;
             Get_L4 (Length,                                     "The length of this user data record");
             Skip_L4(                                            "Position on the material time line");
@@ -244,7 +244,7 @@ void File_Umf::Read_Buffer_Continue()
                 Skip_XX(Element_Size-Element_Offset-2,          "User data");
             Skip_L1(                                            "NULL byte");
             Skip_L1(                                            "Reserved byte");
-        Element_End();
+        Element_End0();
     }
 }
 

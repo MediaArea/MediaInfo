@@ -81,10 +81,10 @@ const char* Aac_window_sequence[4]=
 void File_Aac::GASpecificConfig ()
 {
     //Parsing
-    Element_Begin("GASpecificConfig");
+    Element_Begin1("GASpecificConfig");
     bool frameLengthFlag, dependsOnCoreCoder, extensionFlag;
     Get_SB (   frameLengthFlag,                                 "frameLengthFlag");
-    frame_length=frameLengthFlag==0?1024:960; Param_Info(frame_length, " bytes");
+    frame_length=frameLengthFlag==0?1024:960; Param_Info2(frame_length, " bytes");
     Get_SB (   dependsOnCoreCoder,                              "dependsOnCoreCoder");
     if (dependsOnCoreCoder)
         Skip_S2(14,                                             "coreCoderDelay");
@@ -116,20 +116,20 @@ void File_Aac::GASpecificConfig ()
             Skip_BS(Data_BS_Remain(),                           "Not implemented");
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::program_config_element()
 {
-    Element_Begin("program_config_element");
+    Element_Begin1("program_config_element");
     Ztring comment_field_data;
     int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
     int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
     int8u audioObjectType_Temp, sampling_frequency_index_Temp;
     Skip_S1(4,                                                  "element_instance_tag");
-    Get_S1 (2, audioObjectType_Temp,                            "object_type"); audioObjectType_Temp++; Param_Info(Aac_audioObjectType(audioObjectType_Temp));
-    Get_S1 (4, sampling_frequency_index_Temp,                   "sampling_frequency_index"); Param_Info(Aac_sampling_frequency[sampling_frequency_index_Temp]);
+    Get_S1 (2, audioObjectType_Temp,                            "object_type"); audioObjectType_Temp++; Param_Info1(Aac_audioObjectType(audioObjectType_Temp));
+    Get_S1 (4, sampling_frequency_index_Temp,                   "sampling_frequency_index"); Param_Info1(Aac_sampling_frequency[sampling_frequency_index_Temp]);
     Get_S1 (4, num_front_channel_elements,                      "num_front_channel_elements");
     Get_S1 (4, num_side_channel_elements,                       "num_side_channel_elements");
     Get_S1 (4, num_back_channel_elements,                       "num_back_channel_elements");
@@ -148,7 +148,7 @@ void File_Aac::program_config_element()
     TEST_SB_END();
     for (int8u Pos=0; Pos<num_front_channel_elements; Pos++)
     {
-        Element_Begin("front_element");
+        Element_Begin1("front_element");
         bool front_element_is_cpe;
         Get_SB (   front_element_is_cpe,                        "front_element_is_cpe");
         Skip_S1(4,                                              "front_element_tag_select");
@@ -162,11 +162,11 @@ void File_Aac::program_config_element()
             Channels_Front++;
             Channels++;
         }
-        Element_End();
+        Element_End0();
     }
     for (int8u Pos=0; Pos<num_side_channel_elements; Pos++)
     {
-        Element_Begin("side_element");
+        Element_Begin1("side_element");
         bool side_element_is_cpe;
         Get_SB (   side_element_is_cpe,                         "side_element_is_cpe");
         Skip_S1(4,                                              "side_element_tag_select");
@@ -180,11 +180,11 @@ void File_Aac::program_config_element()
             Channels_Side++;
             Channels++;
         }
-        Element_End();
+        Element_End0();
     }
     for (int8u Pos=0; Pos<num_back_channel_elements; Pos++)
     {
-        Element_Begin("back_element");
+        Element_Begin1("back_element");
         bool back_element_is_cpe;
         Get_SB (   back_element_is_cpe,                         "back_element_is_cpe");
         Skip_S1(4,                                              "back_element_tag_select");
@@ -198,35 +198,35 @@ void File_Aac::program_config_element()
             Channels_Back++;
             Channels++;
         }
-        Element_End();
+        Element_End0();
     }
     for (int8u Pos=0; Pos<num_lfe_channel_elements; Pos++)
     {
-        Element_Begin("lfe_element");
+        Element_Begin1("lfe_element");
         Skip_S1(4,                                              "lfe_element_tag_select");
         Channels_LFE++;
         Channels++;
-        Element_End();
+        Element_End0();
     }
     for (int8u Pos=0; Pos<num_assoc_data_elements; Pos++)
     {
-        Element_Begin("assoc_data_element");
+        Element_Begin1("assoc_data_element");
         Skip_S1(4,                                              "assoc_data_element_tag_select");
-        Element_End();
+        Element_End0();
     }
     for (int8u Pos=0; Pos<num_valid_cc_elements; Pos++)
     {
-        Element_Begin("valid_cc_element");
+        Element_Begin1("valid_cc_element");
         Skip_SB(                                                "cc_element_is_ind_sw");
         Skip_S1(4,                                              "valid_cc_element_tag_select");
-        Element_End();
+        Element_End0();
     }
     BS_End(); //Byte align
     Get_B1 (comment_field_bytes,                                "comment_field_bytes");
     if (comment_field_bytes)
         Get_Local(comment_field_bytes, comment_field_data,      "comment_field_data");
     BS_Begin(); //The stream needs continuity in the bitstream
-    Element_End();
+    Element_End0();
 
     //Filling
     Ztring Channels_Positions, Channels_Positions2;
@@ -345,13 +345,13 @@ void File_Aac::raw_data_block()
     }
 
     //Parsing
-    Element_Begin("raw_data_block");
+    Element_Begin1("raw_data_block");
     int8u id_syn_ele=0, id_syn_ele_Previous;
     do
     {
-        Element_Begin();
+        Element_Begin0();
         id_syn_ele_Previous=id_syn_ele;
-        Get_S1 (3, id_syn_ele,                                  "id_syn_ele"); Param_Info(Aac_id_syn_ele[id_syn_ele]); Element_Name(Aac_id_syn_ele[id_syn_ele]);
+        Get_S1 (3, id_syn_ele,                                  "id_syn_ele"); Param_Info1(Aac_id_syn_ele[id_syn_ele]); Element_Name(Aac_id_syn_ele[id_syn_ele]);
         switch (id_syn_ele)
         {
             case 0x00 : single_channel_element();           break; //ID_SCE
@@ -364,12 +364,12 @@ void File_Aac::raw_data_block()
             case 0x07 :                                     break; //ID_END
             default   :                                          ; //Can not happen
         }
-        Element_End();
+        Element_End0();
     }
     while(Element_IsOK() && Data_BS_Remain() && id_syn_ele!=0x07); //ID_END
     if (Element_IsOK() && Data_BS_Remain()%8)
         Skip_S1(Data_BS_Remain()%8,                             "byte_alignment");
-    Element_End();
+    Element_End0();
 
     if (sampling_frequency)
     {
@@ -399,15 +399,15 @@ void File_Aac::channel_pair_element()
         Get_S1(2, ms_mask_present,                              "ms_mask_present");
         if (ms_mask_present==1)
         {
-            Element_Begin("ms_mask");
+            Element_Begin1("ms_mask");
             for (int8u g=0; g<num_window_groups; g++)
             {
-                Element_Begin("window");
+                Element_Begin1("window");
                 for (int8u sfb=0; sfb<max_sfb; sfb++)
                     Skip_SB(                                    "ms_used[g][sfb]");
-                Element_End();
+                Element_End0();
             }
-            Element_End();
+            Element_End0();
         }
     }
     individual_channel_stream(common_window, false);
@@ -420,9 +420,9 @@ void File_Aac::channel_pair_element()
 void File_Aac::ics_info()
 {
     //Parsing
-    Element_Begin("ics_info");
+    Element_Begin1("ics_info");
     Skip_SB(                                                    "ics_reserved_bit");
-    Get_S1 (2, window_sequence,                                 "window_sequence"); Param_Info(Aac_window_sequence[window_sequence]);
+    Get_S1 (2, window_sequence,                                 "window_sequence"); Param_Info1(Aac_window_sequence[window_sequence]);
     Skip_SB(                                                    "window_shape");
     if (window_sequence==2) //EIGHT_SHORT_SEQUENCE
     {
@@ -463,7 +463,7 @@ void File_Aac::ics_info()
             }
         }
     }
-    Element_End();
+    Element_End0();
 
     //Calculation of windows
     switch (window_sequence)
@@ -615,10 +615,10 @@ void File_Aac::data_stream_element()
         if (Data_BS_Remain()%8)
             Skip_S1(Data_BS_Remain()%8,                         "byte_alignment");
     }
-    Element_Begin("data_stream_byte[element_instance_tag]");
+    Element_Begin1("data_stream_byte[element_instance_tag]");
     for (int16u i=0; i<cnt; i++)
         Skip_S1(8,                                                "[i]");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -697,25 +697,25 @@ void File_Aac::gain_control_data()
 //---------------------------------------------------------------------------
 void File_Aac::individual_channel_stream (bool common_window, bool scale_flag)
 {
-    Element_Begin("individual_channel_stream");
+    Element_Begin1("individual_channel_stream");
     Skip_S1(8,                                                  "global_gain");
     if (!common_window && !scale_flag)
         ics_info();
     if (!Element_IsOK())
     {
-        Element_End();
+        Element_End0();
         return;
     }
    section_data();
     if (!Element_IsOK())
     {
-        Element_End();
+        Element_End0();
         return;
     }
     scale_factor_data();
     if (!Element_IsOK())
     {
-        Element_End();
+        Element_End0();
         return;
     }
     if (!scale_flag)
@@ -742,13 +742,13 @@ void File_Aac::individual_channel_stream (bool common_window, bool scale_flag)
         //~ length_of_longest_codeword;
         //~ reordered_spectral_data ();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::section_data()
 {
-    Element_Begin("section_data");
+    Element_Begin1("section_data");
     int8u sect_esc_val;
     if (window_sequence==2) //EIGHT_SHORT_SEQUENCE
         sect_esc_val=(1<<3)-1;
@@ -757,7 +757,7 @@ void File_Aac::section_data()
     for (int8u g=0; g<num_window_groups; g++)
     {
         if (num_window_groups>1)
-            Element_Begin("windows");
+            Element_Begin1("windows");
         int8u k=0;
         int8u i=0;
         while (k<max_sfb)
@@ -776,8 +776,8 @@ void File_Aac::section_data()
                     {
                         Trusted_IsNot("Size is wrong");
                         if (num_window_groups>1)
-                            Element_End();
-                        Element_End();
+                            Element_End0();
+                        Element_End0();
                         return; //Error
                     }
                     Get_S1 ((window_sequence==2?3:5), sect_len_incr, "sect_len_incr"); // (window_sequence == EIGHT_SHORT_SEQUENCE) => 3
@@ -798,15 +798,15 @@ void File_Aac::section_data()
         }
         num_sec[g]=i;
         if (num_window_groups>1)
-            Element_End();
+            Element_End0();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::scale_factor_data()
 {
-    Element_Begin("scale_factor_data");
+    Element_Begin1("scale_factor_data");
     if (!aacScalefactorDataResilienceFlag)
     {
         bool noise_pcm_flag=true;
@@ -905,7 +905,7 @@ void File_Aac::scale_factor_data()
             //~ dpcm_noise_last_position;
         //~ }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -954,7 +954,7 @@ void File_Aac::tns_data()
 //---------------------------------------------------------------------------
 void File_Aac::ltp_data()
 {
-    Element_Begin("ltp_data");
+    Element_Begin1("ltp_data");
     //int sfb;
     //bool ltp_lag_update;
     //if (AudioObjectType == ER_AAC_LD ) {
@@ -977,17 +977,17 @@ void File_Aac::ltp_data()
                 Skip_SB("ltp_long_used[sfb]");
         }
     //}
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::spectral_data()
 {
-    Element_Begin("spectral_data");
+    Element_Begin1("spectral_data");
     for (int g = 0; g < num_window_groups; g++)
     {
         if (num_window_groups>1)
-            Element_Begin("windows");
+            Element_Begin1("windows");
         for (int8u i=0; i<num_sec[g]; i++)
         {
             switch (sect_cb[g][i])
@@ -1003,8 +1003,8 @@ void File_Aac::spectral_data()
                                 Trusted_IsNot("(Problem)");
                                 Skip_BS(Data_BS_Remain(),       "(Problem)");
                                 if (num_window_groups>1)
-                                    Element_End();
-                                Element_End();
+                                    Element_End0();
+                                Element_End0();
                                 return;
                             }
                             for (int16u k=sect_sfb_offset[g][sect_start[g][i]]; k<sect_sfb_offset[g][sect_end[g][i]]; k+=(sect_cb[g][i]<5?4:2))
@@ -1014,23 +1014,23 @@ void File_Aac::spectral_data()
                                 {
                                     Skip_BS(Data_BS_Remain(),   "(Problem)");
                                     if (num_window_groups>1)
-                                        Element_End();
-                                    Element_End();
+                                        Element_End0();
+                                    Element_End0();
                                     return;
                                 }
                             }
             }
         }
         if (num_window_groups>1)
-            Element_End();
+            Element_End0();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::extension_payload(size_t End, int8u id_aac)
 {
-    Element_Begin("extension_payload");
+    Element_Begin1("extension_payload");
     int8u extension_type;
     Get_S1 (4, extension_type,                                  "extension_type");
     switch(extension_type)
@@ -1040,13 +1040,13 @@ void File_Aac::extension_payload(size_t End, int8u id_aac)
         case 13 :   sbr_extension_data(End, id_aac, 0); break;  //EXT_SBR_DATA
         case 14 :   sbr_extension_data(End, id_aac, 1); break;  //EXT_SBR_DATA_CRC
         case  1 :   //EXT_FILL_DATA
-                    Skip_S1(4,                                  "fill_nibble"); Param_Info("must be 0000");
+                    Skip_S1(4,                                  "fill_nibble"); Param_Info1("must be 0000");
                     if (Data_BS_Remain()>End)
                     {
-                        Element_Begin("fill_byte");
+                        Element_Begin1("fill_byte");
                         while (Data_BS_Remain()>End)
-                            Skip_S1(8,                          "fill_byte[i]"); Param_Info("must be 10100101");
-                        Element_End();
+                            Skip_S1(8,                          "fill_byte[i]"); Param_Info1("must be 10100101");
+                        Element_End0();
                     }
                     break;
         case  2 :   //EXT_DATA_ELEMENT
@@ -1074,7 +1074,7 @@ void File_Aac::extension_payload(size_t End, int8u id_aac)
             Skip_BS(Data_BS_Remain()-End,                       "other_bits");
     }
 
-    Element_End();
+    Element_End0();
     if (End<Data_BS_Remain())
         Skip_BS(Data_BS_Remain()-End,                           "padding");
     if (Data_BS_Remain()!=End)
@@ -1087,7 +1087,7 @@ void File_Aac::extension_payload(size_t End, int8u id_aac)
 //---------------------------------------------------------------------------
 void File_Aac::dynamic_range_info()
 {
-    Element_Begin("dynamic_range_info");
+    Element_Begin1("dynamic_range_info");
     int8u  drc_num_bands=1;
     bool   present;
     Get_SB (present,                                            "pce_tag_present");
@@ -1120,21 +1120,21 @@ void File_Aac::dynamic_range_info()
         Skip_S1(1,                                              "dyn_rng_sgn[i]");
         Skip_S1(7,                                              "dyn_rng_ctl[i]");
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sac_extension_data(size_t End)
 {
-    Element_Begin("sac_extension_data");
+    Element_Begin1("sac_extension_data");
     Skip_S1(2,                                                  "ancType");
     Skip_SB(                                                    "ancStart");
     Skip_SB(                                                    "ancStop");
-    Element_Begin("ancDataSegmentByte");
+    Element_Begin1("ancDataSegmentByte");
     while (Data_BS_Remain()>End)
         Skip_S1(8,                                              "ancDataSegmentByte[i]");
-    Element_End();
-    Element_End();
+    Element_End0();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -1185,7 +1185,7 @@ bool File_Aac::is_noise(size_t group, size_t sfb)
 //---------------------------------------------------------------------------
 void File_Aac::hcod_sf(const char* Name)
 {
-    Element_Begin(Name);
+    Element_Begin1(Name);
     int16u Pos=0;
 
     while (huffman_sf[Pos][1])
@@ -1197,12 +1197,12 @@ void File_Aac::hcod_sf(const char* Name)
         if (Pos>240)
         {
             Skip_BS(Data_BS_Remain(),                           "Error");
-            Element_End();
+            Element_End0();
             return;
         }
     }
-    Element_Info(huffman_sf[Pos][0]-60);
-    Element_End();
+    Element_Info1(huffman_sf[Pos][0]-60);
+    Element_End0();
 
     return;
 }
@@ -1273,7 +1273,7 @@ void File_Aac::hcod_binary(int8u CodeBook, int8s* Values, int8u Values_Count)
 //---------------------------------------------------------------------------
 void File_Aac::ELDSpecificConfig ()
 {
-    Element_Begin("ELDSpecificConfig");
+    Element_Begin1("ELDSpecificConfig");
     Skip_SB("frameLengthFlag");
     Skip_SB("aacSectionDataResilienceFlag");
     Skip_SB("aacScalefactorDataResilienceFlag");
@@ -1315,7 +1315,7 @@ void File_Aac::ELDSpecificConfig ()
         //~ }
 
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1346,8 +1346,8 @@ void File_Aac::ld_sbr_header()
 
     for (int el=0; el<numSbrHeader; el++) {
         //~ sbr_header();
-        Element_Begin("not implemented");
-        Element_End();
+        Element_Begin1("not implemented");
+        Element_End0();
     }
 }
 
@@ -1360,7 +1360,7 @@ void File_Aac::hcod(int8u sect_cb, const char* Name)
 {
     int8s Values[4];
 
-    Element_Begin(Name);
+    Element_Begin1(Name);
     switch (sect_cb)
     {
         case  1 :
@@ -1383,7 +1383,7 @@ void File_Aac::hcod(int8u sect_cb, const char* Name)
                     hcod_2step(sect_cb, Values, 2);
                     break;
         default:    Trusted_IsNot("(Problem)");
-                    Element_End();
+                    Element_End0();
                     return;
     }
 
@@ -1406,7 +1406,7 @@ void File_Aac::hcod(int8u sect_cb, const char* Name)
             for (int i=0; i<2; i++)
                 if (Values[i]==16 || Values[i] == -16)
                 {
-                    Element_Begin("hcod_esc");
+                    Element_Begin1("hcod_esc");
                     bool Escape;
                     int BitCount=3;
                     do
@@ -1417,15 +1417,15 @@ void File_Aac::hcod(int8u sect_cb, const char* Name)
                     while (Escape);
 
 
-                    Skip_S1(BitCount,                           "value");
-                    Element_End();
+                    Skip_BS(BitCount,                           "value");
+                    Element_End0();
 
                 }
             break;
         default: ;
     }
 
-    Element_End();
+    Element_End0();
 }
 
 

@@ -87,7 +87,7 @@ void File_Iso9660::Read_Buffer_Continue()
 void File_Iso9660::Primary_Volume_Descriptor()
 {
     int32u Volume_Space_Size;
-    Element_Begin("Volume_Descriptor");
+    Element_Begin1("Volume_Descriptor");
     Skip_B1("Volume Descriptor Type");
     Skip_Local(5,"Standard Identifier");
     Skip_B1("Volume Descriptor Version");
@@ -95,7 +95,7 @@ void File_Iso9660::Primary_Volume_Descriptor()
     Skip_Local(32,"System Identifier");
     Skip_Local(32,"Volume Identifier");
     Skip_XX(8,"Unused field");
-    Get_D4(Volume_Space_Size,                                   "Volume Space Size"); Param_Info(Volume_Space_Size*(int64u)2048, " bytes");
+    Get_D4(Volume_Space_Size,                                   "Volume Space Size"); Param_Info2(Volume_Space_Size*(int64u)2048, " bytes");
     Skip_XX(32,"Unused field");
     Skip_B4("Volume Set Size");
     Skip_B4("Volume Sequence Number");
@@ -114,7 +114,7 @@ void File_Iso9660::Primary_Volume_Descriptor()
     Skip_Local(37,"Abstract File Identifier");
     Skip_Local(37,"Bibliographic File Identifier");
     Skip_XX(17,"Volume Creation Date and Time");
-    Element_End();
+    Element_End0();
 }
 
 } //NameSpace

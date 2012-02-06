@@ -374,7 +374,7 @@ bool File_Jpeg::Header_Parser_Fill_Size()
 void File_Jpeg::Data_Parse()
 {
     #define CASE_INFO(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Info(#_NAME); Element_Info(_DETAIL); _NAME(); break;
+        case Elements::_NAME : Element_Info1(#_NAME); Element_Info1(_DETAIL); _NAME(); break;
 
     //Parsing
     if (SOD_Parsed)
@@ -466,7 +466,7 @@ void File_Jpeg::Data_Parse()
         CASE_INFO(JPGC,                                         "JPG");
         CASE_INFO(JPGD,                                         "JPG");
         CASE_INFO(COM ,                                         "Comment");
-        default : Element_Info("Reserved");
+        default : Element_Info1("Reserved");
                   Skip_XX(Element_Size,                         "Data");
     }
 }
@@ -496,15 +496,15 @@ void File_Jpeg::SIZ()
     Get_B2 (Count,                                              "Components and initialize related arrays");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Initialize related array");
-        int8u compSubsX, compSubsY;
+        Element_Begin1("Initialize related array");
+        int8u BitDepth, compSubsX, compSubsY;
         BS_Begin();
         Skip_SB(                                                "Signed");
-        Info_S1(7, BitDepth,                                    "BitDepth"); Param_Info(1+BitDepth); Element_Info(1+BitDepth);
+        Get_S1 (7, BitDepth,                                    "BitDepth"); Param_Info1(1+BitDepth); Element_Info1(1+BitDepth);
         BS_End();
-        Get_B1 (   compSubsX,                                   "compSubsX"); Element_Info(compSubsX);
-        Get_B1 (   compSubsY,                                   "compSubsY"); Element_Info(compSubsY);
-        Element_End();
+        Get_B1 (   compSubsX,                                   "compSubsX"); Element_Info1(compSubsX);
+        Get_B1 (   compSubsY,                                   "compSubsY"); Element_Info1(compSubsY);
+        Element_End0();
 
         //Filling list of HiVi
         SamplingFactors.push_back(((float)compSubsY)/compSubsX);
@@ -568,8 +568,8 @@ void File_Jpeg::COD()
     Skip_B1(                                                    "Number of decomposition levels");
     Skip_B1(                                                    "Progression order");
     Get_B2 (Levels,                                             "Number of layers");
-    Info_B1(DimX,                                               "Code-blocks dimensions X (2^(n+2))"); Param_Info(1<<(DimX+2), " pixels");
-    Info_B1(DimY,                                               "Code-blocks dimensions Y (2^(n+2))"); Param_Info(1<<(DimY+2), " pixels");
+    Info_B1(DimX,                                               "Code-blocks dimensions X (2^(n+2))"); Param_Info2(1<<(DimX+2), " pixels");
+    Info_B1(DimY,                                               "Code-blocks dimensions Y (2^(n+2))"); Param_Info2(1<<(DimY+2), " pixels");
     Get_B1 (Style2,                                             "Style of the code-block coding passes");
         Skip_Flags(Style, 0,                                    "Selective arithmetic coding bypass");
         Skip_Flags(Style, 1,                                    "MQ states for all contexts");
@@ -587,12 +587,12 @@ void File_Jpeg::COD()
         BS_End();
         for (int16u Pos=0; Pos<Levels; Pos++)
         {
-            Element_Begin("Decomposition level");
+            Element_Begin1("Decomposition level");
             BS_Begin();
             Skip_S1(4,                                          "decomposition level width");
             Skip_S1(4,                                          "decomposition level height");
             BS_End();
-            Element_End();
+            Element_End0();
         }
     }
 
@@ -644,14 +644,14 @@ void File_Jpeg::SOF_()
     for (int8u Pos=0; Pos<Count; Pos++)
     {
         Jpeg_samplingfactor SamplingFactor;
-        Element_Begin("Component");
-        Info_B1(Ci,                                             "Ci - Component identifier"); Element_Info(Ci);
+        Element_Begin1("Component");
+        Info_B1(Ci,                                             "Ci - Component identifier"); Element_Info1(Ci);
         BS_Begin();
-        Get_S1 (4, SamplingFactor.Hi,                           "Hi - Horizontal sampling factor"); Element_Info(SamplingFactor.Hi);
-        Get_S1 (4, SamplingFactor.Vi,                           "Vi - Vertical sampling factor"); Element_Info(SamplingFactor.Vi);
+        Get_S1 (4, SamplingFactor.Hi,                           "Hi - Horizontal sampling factor"); Element_Info1(SamplingFactor.Hi);
+        Get_S1 (4, SamplingFactor.Vi,                           "Vi - Vertical sampling factor"); Element_Info1(SamplingFactor.Vi);
         BS_End();
         Skip_B1(                                                "Tqi - Quantization table destination selector");
-        Element_End();
+        Element_End0();
 
         //Filling list of HiVi
         SamplingFactors.push_back(SamplingFactor);
@@ -752,7 +752,7 @@ void File_Jpeg::APP0_AVI1()
 {
     //Parsing
     int8u  FieldOrder=(int8u)-1;
-    Element_Begin("AVI1");
+    Element_Begin1("AVI1");
         if (Element_Size==16-4)
         {
             Get_B1 (FieldOrder,                                     "Field Order");
@@ -765,7 +765,7 @@ void File_Jpeg::APP0_AVI1()
             Skip_B4(                                                "Size of 1st Field");
             Skip_B4(                                                "Size of 2nd Field");
         }
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (Frame_Count==0 && Field_Count==0)
@@ -793,7 +793,7 @@ void File_Jpeg::APP0_JFIF()
 {
     //Parsing
     Skip_B1(                                                    "Zero");
-    Element_Begin("JFIF");
+    Element_Begin1("JFIF");
         int16u Width, Height;
         int8u  Unit, ThumbailX, ThumbailY;
         Skip_B2(                                                "Version");
@@ -803,53 +803,53 @@ void File_Jpeg::APP0_JFIF()
         Get_B1 (ThumbailX,                                      "Xthumbail");
         Get_B1 (ThumbailY,                                      "Ythumbail");
         Skip_XX(3*ThumbailX*ThumbailY,                          "RGB Thumbail");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Jpeg::APP0_JFFF()
 {
     Skip_B1(                                                    "Zero");
-    Element_Begin("Extension");
+    Element_Begin1("Extension");
         Skip_B1(                                                "extension_code"); //0x10 Thumbnail coded using JPEG, 0x11 Thumbnail stored using 1 byte/pixel, 0x13 Thumbnail stored using 3 bytes/pixel
         if (Element_Size>Element_Offset)
             Skip_XX(Element_Size-Element_Offset,                "extension_data");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Jpeg::APP0_JFFF_JPEG()
 {
     //Parsing
-    Element_Begin("Thumbail JPEG");
+    Element_Begin1("Thumbail JPEG");
         if (Element_Size>Element_Offset)
             Skip_XX(Element_Size-Element_Offset,                "Data");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Jpeg::APP0_JFFF_1B()
 {
     //Parsing
-    Element_Begin("Thumbail 1 byte per pixel");
+    Element_Begin1("Thumbail 1 byte per pixel");
         int8u  ThumbailX, ThumbailY;
         Get_B1 (ThumbailX,                                      "Xthumbail");
         Get_B1 (ThumbailY,                                      "Ythumbail");
         Skip_XX(768,                                            "Palette");
         Skip_XX(ThumbailX*ThumbailY,                            "Thumbail");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Jpeg::APP0_JFFF_3B()
 {
     //Parsing
-    Element_Begin("Thumbail 3 bytes per pixel");
+    Element_Begin1("Thumbail 3 bytes per pixel");
         int8u  ThumbailX, ThumbailY;
         Get_B1 (ThumbailX,                                      "Xthumbail");
         Get_B1 (ThumbailY,                                      "Ythumbail");
         Skip_XX(3*ThumbailX*ThumbailY,                          "RGB Thumbail");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -870,14 +870,14 @@ void File_Jpeg::APP1()
 void File_Jpeg::APP1_EXIF()
 {
     //Parsing
-    Element_Begin("Exif");
+    Element_Begin1("Exif");
         int32u Alignment;
         Get_C4(Alignment,                                       "Alignment");
         if (Alignment==0x49492A00)
             Skip_B4(                                            "First_IFD");
         if (Alignment==0x4D4D2A00)
             Skip_L4(                                            "First_IFD");
-    Element_End();
+    Element_End0();
 }
 
 } //NameSpace

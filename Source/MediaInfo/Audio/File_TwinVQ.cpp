@@ -133,7 +133,7 @@ void File_TwinVQ::Header_Parse()
 void File_TwinVQ::Data_Parse()
 {
     #define ELEMENT_CASE(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
+        case Elements::_NAME : Element_Info1(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)

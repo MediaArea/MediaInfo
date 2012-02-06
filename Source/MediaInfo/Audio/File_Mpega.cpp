@@ -846,18 +846,18 @@ void File_Mpega::Header_Parse()
     //Parsing
     BS_Begin();
     Skip_S2(11,                                                 "syncword");
-    Get_S1 (2, ID,                                              "ID"); Param_Info(Mpega_Version[ID]);
-    Get_S1 (2, layer,                                           "layer"); Param_Info(Mpega_Layer[layer]);
+    Get_S1 (2, ID,                                              "ID"); Param_Info1(Mpega_Version[ID]);
+    Get_S1 (2, layer,                                           "layer"); Param_Info1(Mpega_Layer[layer]);
     Get_SB (   protection_bit,                                  "protection_bit");
-    Get_S1 (4, bitrate_index,                                   "bitrate_index"); Param_Info(Mpega_BitRate[ID][layer][bitrate_index], " Kbps");
-    Get_S1 (2, sampling_frequency,                              "sampling_frequency"); Param_Info(Mpega_SamplingRate[ID][sampling_frequency], " Hz");
+    Get_S1 (4, bitrate_index,                                   "bitrate_index"); Param_Info2(Mpega_BitRate[ID][layer][bitrate_index], " Kbps");
+    Get_S1 (2, sampling_frequency,                              "sampling_frequency"); Param_Info2(Mpega_SamplingRate[ID][sampling_frequency], " Hz");
     Get_SB (   padding_bit,                                     "padding_bit");
     Skip_SB(                                                    "private_bit");
-    Get_S1 (2, mode,                                            "mode"); Param_Info(Mpega_Channels[mode], " channels"); Param_Info(Mpega_Codec_Profile[mode]);
-    Get_S1 (2, mode_extension,                                  "mode_extension"); Param_Info(Mpega_Codec_Profile_Extension[mode_extension]);
+    Get_S1 (2, mode,                                            "mode"); Param_Info2(Mpega_Channels[mode], " channels"); Param_Info1(Mpega_Codec_Profile[mode]);
+    Get_S1 (2, mode_extension,                                  "mode_extension"); Param_Info1(Mpega_Codec_Profile_Extension[mode_extension]);
     Get_SB (   copyright,                                       "copyright");
     Get_SB (   original_home,                                   "original_home");
-    Get_S1 (2, emphasis,                                        "emphasis"); Param_Info(Mpega_Emphasis[emphasis]);
+    Get_S1 (2, emphasis,                                        "emphasis"); Param_Info1(Mpega_Emphasis[emphasis]);
     BS_End();
 
     //Coherancy
@@ -906,11 +906,10 @@ void File_Mpega::Data_Parse()
     }
 
     //PTS
-    if (FrameInfo.PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+    Element_Info1C((FrameInfo.PTS!=(int64u)-1), _T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
 
     //Name
-    Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+    Element_Info1(_T("Frame ")+Ztring::ToZtring(Frame_Count));
 
     //VBR and library headers
     if (Frame_Count<3) //No need to do it too much
@@ -986,7 +985,7 @@ void File_Mpega::Data_Parse()
     }
     if (ID==3) //MPEG-1
     {
-    Element_Begin("scfsi");
+    Element_Begin1("scfsi");
         for(int8u ch=0; ch<Mpega_Channels[mode]; ch++)
             for(int8u scfsi_band=0; scfsi_band<4; scfsi_band++)
             {
@@ -995,16 +994,16 @@ void File_Mpega::Data_Parse()
                 if (scfsi)
                     Scfsi++;
             }
-        Element_End();
+        Element_End0();
     }
     for(int8u gr=0; gr<(ID==3?2:1); gr++)
     {
-        Element_Begin("granule");
+        Element_Begin1("granule");
         if (mode>=4)
             return;
         for(int8u ch=0; ch<Mpega_Channels[mode]; ch++)
         {
-            Element_Begin("channel");
+            Element_Begin1("channel");
             Skip_S2(12,                                         "part2_3_length");
             Skip_S2(9,                                          "big_values");
             Skip_S1(8,                                          "global_gain");
@@ -1028,18 +1027,18 @@ void File_Mpega::Data_Parse()
                 {
                     if (mixed_block_flag==1)
                     {
-                        Param_Info("Mixed");
+                        Param_Info1("Mixed");
                         Block_Count[2]++; //Mixed
                     }
                     else
                     {
-                        Param_Info("Short");
+                        Param_Info1("Short");
                         Block_Count[1]++; //Short
                     }
                 }
                 else
                 {
-                    Param_Info("Long");
+                    Param_Info1("Long");
                     Block_Count[0]++; //Long
                 }
             }
@@ -1049,7 +1048,7 @@ void File_Mpega::Data_Parse()
                     Skip_S1(5,                                  "table_select");
                 Skip_S1(4,                                      "region0_count");
                 Skip_S1(3,                                      "region1_count");
-                Param_Info("Long");
+                Param_Info1("Long");
                 Block_Count[0]++; //Long
             }
             if (ID==3) //MPEG-1
@@ -1059,9 +1058,9 @@ void File_Mpega::Data_Parse()
             if (scalefac)
                 Scalefac++;
             Skip_SB(                                            "count1table_select");
-            Element_End();
+            Element_End0();
         } //channels
-        Element_End();
+        Element_End0();
     } //granules
     BS_End();
 
@@ -1091,13 +1090,13 @@ void File_Mpega::Data_Parse()
             //Parsing
             Skip_XX(Element_Offset_S-Element_Offset,            "data");
             BS_Begin();
-            Element_Begin("Surround");
+            Element_Begin1("Surround");
             Skip_S2(12,                                         "Sync");
             Skip_S1( 8,                                         "Size");
             Skip_S2(12,                                         "CRC12");
             BS_End();
             Skip_XX(Surround_Size-4,                            "data");
-            Element_End();
+            Element_End0();
 
             //Filling
             Surround_Frames++;
@@ -1158,11 +1157,11 @@ bool File_Mpega::Header_Xing()
         if (CC4(Xing_Header)==CC4("Xing") || CC4(Xing_Header)==CC4("Info"))
         {
             //This is a "tag"
-            Element_Info("Tag (Xing)");
+            Element_Info1("Tag (Xing)");
 
             //Parsing
-            Element_Begin("Xing");
-            Element_Begin("Xing header");
+            Element_Begin1("Xing");
+            Element_Begin1("Xing header");
             Skip_XX(Xing_Header_Offset,                         "Junk");
             int32u Flags;
             bool FrameCount, FileSize, TOC, Scale, Lame;
@@ -1179,7 +1178,7 @@ bool File_Mpega::Header_Xing()
                                    +(TOC?       100:0)    //TOC
                                    +(Scale?       4:0)    //Scale
                                    +(Lame?      348:0);   //Lame
-            Element_End();
+            Element_End0();
             //Element size
             if (Xing_Header_Size>Element_Size-Xing_Header_Offset)
                 return false; //Error tag size
@@ -1199,7 +1198,7 @@ bool File_Mpega::Header_Xing()
             if (Scale)
                 Get_B4 (Xing_Scale,                             "Scale");
             Ztring Lib;
-            Element_End();
+            Element_End0();
             Peek_Local(4, Lib);
             if (Lame || Lib==_T("LAME") || Lib==_T("GOGO") || Lib==_T("L3.9"))
                 Header_Encoders_Lame();
@@ -1228,13 +1227,13 @@ bool File_Mpega::Header_VBRI()
         {
             //This is a "tag"
 
-            Element_Info("Tag (VBRI)");
+            Element_Info1("Tag (VBRI)");
 
             //Parsing
             int32u VBR_FileSize_Temp;
             int16u TableSize, TableScale, EntryBytes;
             Skip_XX(Fraunhofer_Header_Offset,                   "Junk");
-            Element_Begin("VBRI");
+            Element_Begin1("VBRI");
             Skip_C4(                                            "Sync");
             Skip_B2(                                            "Version");
             Skip_B2(                                            "Delay");
@@ -1245,19 +1244,19 @@ bool File_Mpega::Header_VBRI()
             Get_B2 (TableScale,                                 "TableScale");
             Get_B2 (EntryBytes,                                 "EntryBytes");
             Skip_B2(                                            "EntryFrames"); //Count of frames per entry
-            Element_Begin("Table");
+            Element_Begin1("Table");
                 for (int16u Pos=0; Pos<TableSize; Pos++)
                 {
                     switch (EntryBytes)
                     {
-                        case 1 : {Info_B1(Entry,                "Entry"); Param_Info (Entry*TableScale, " bytes");} break;
-                        case 2 : {Info_B2(Entry,                "Entry"); Param_Info (Entry*TableScale, " bytes");} break;
-                        case 4 : {Info_B4(Entry,                "Entry"); Param_Info (Entry*TableScale, " bytes");} break;
+                        case 1 : {Info_B1(Entry,                "Entry"); Param_Info2 (Entry*TableScale, " bytes");} break;
+                        case 2 : {Info_B2(Entry,                "Entry"); Param_Info2 (Entry*TableScale, " bytes");} break;
+                        case 4 : {Info_B4(Entry,                "Entry"); Param_Info2 (Entry*TableScale, " bytes");} break;
                         default: Skip_XX(EntryBytes,            "Entry");
                     }
                 }
-            Element_End();
-            Element_End();
+            Element_End0();
+            Element_End0();
             VBR_FileSize=VBR_FileSize_Temp;
 
             //Clearing Error detection
@@ -1280,7 +1279,7 @@ bool File_Mpega::Header_Encoders()
     Buffer_Pos=BufferS.find("LAME");
     if (Buffer_Pos!=std::string::npos && Buffer_Pos<=Element_Size-8)
     {
-        Element_Info("With tag (Lame)");
+        Element_Info1("With tag (Lame)");
         Element_Offset=Buffer_Pos;
         if (Element_Offset+20<=Element_Size)
             Get_Local(20, Encoded_Library,                      "Encoded_Library");
@@ -1297,7 +1296,7 @@ bool File_Mpega::Header_Encoders()
     Buffer_Pos=BufferS.find("RCA mp3PRO Encoder");
     if (Buffer_Pos!=std::string::npos && Buffer_Pos<Element_Size-23)
     {
-        Element_Info("With tag (RCA)");
+        Element_Info1("With tag (RCA)");
         Encoded_Library="RCA ";
         Encoded_Library+=Ztring((const char*)(Buffer+Buffer_Offset+18), 5);
         return true;
@@ -1307,7 +1306,7 @@ bool File_Mpega::Header_Encoders()
     Buffer_Pos=BufferS.find("THOMSON mp3PRO Encoder");
     if (Buffer_Pos!=std::string::npos && Buffer_Pos<Element_Size-29)
     {
-        Element_Info("With tag (Thomson)");
+        Element_Info1("With tag (Thomson)");
         Encoded_Library="Thomson ";
         Encoded_Library+=Ztring((const char*)(Buffer+Buffer_Offset+22), 6);
         return true;
@@ -1317,7 +1316,7 @@ bool File_Mpega::Header_Encoders()
     Buffer_Pos=BufferS.find("MPGE");
     if (Buffer_Pos!=std::string::npos)
     {
-        Element_Info("With tag (Gogo)");
+        Element_Info1("With tag (Gogo)");
         Encoded_Library="Gogo <3.0";
         return true;
     }
@@ -1326,7 +1325,7 @@ bool File_Mpega::Header_Encoders()
     Buffer_Pos=BufferS.find("GOGO");
     if (Buffer_Pos!=std::string::npos)
     {
-        Element_Info("With tag (Gogo)");
+        Element_Info1("With tag (Gogo)");
         Encoded_Library="Gogo >=3.0";
         return true;
     }
@@ -1341,23 +1340,23 @@ void File_Mpega::Header_Encoders_Lame()
         Encoded_Library.insert(1, _T("AME")); //Ugly version string in Lame 3.99.1 "L3.99r1\0"
     if ((Encoded_Library>=_T("LAME3.90")) && Element_IsNotFinished())
     {
-        int8u Flags, EncodingFlags, BitRate, StereoMode;
-        Param_Info(Ztring(_T("V "))+Ztring::ToZtring((100-Xing_Scale)/10));
-        Param_Info(Ztring(_T("q "))+Ztring::ToZtring((100-Xing_Scale)%10));
+        int8u Flags, lowpass, EncodingFlags, BitRate, StereoMode;
+        Param_Info1(Ztring(_T("V "))+Ztring::ToZtring((100-Xing_Scale)/10));
+        Param_Info1(Ztring(_T("q "))+Ztring::ToZtring((100-Xing_Scale)%10));
         Get_Local(9, Encoded_Library,                           "Encoded_Library");
         Get_B1 (Flags,                                          "Flags");
         if ((Flags&0xF0)<=0x20) //Rev. 0 or 1, http://gabriel.mp3-tech.org/mp3infotag.html and Rev. 2 was seen.
         {
-            Param_Info(Lame_Method[Flags&0x0F]);
+            Param_Info1(Lame_Method[Flags&0x0F]);
             BitRate_Mode=Lame_BitRate_Mode[Flags&0x0F];
             if ((Flags&0x0F)==1 || (Flags&0x0F)==8) //2 possible values for CBR
                 VBR_Frames=0;
         }
-        Info_B1(lowpass,                                        "Lowpass filter value"); Param_Info(lowpass*100, " Hz");
+        Get_B1 (lowpass,                                        "Lowpass filter value"); Param_Info2(lowpass*100, " Hz");
         Skip_B4(                                                "Peak signal amplitude");
         Skip_B2(                                                "Radio Replay Gain");
         Skip_B2(                                                "Audiophile Replay Gain");
-        Get_B1 (EncodingFlags,                                  "Encoding Flags"); Param_Info(Ztring(_T("ATH Type="))+Ztring::ToZtring(Flags&0x0F));
+        Get_B1 (EncodingFlags,                                  "Encoding Flags"); Param_Info1(Ztring(_T("ATH Type="))+Ztring::ToZtring(Flags&0x0F));
             Skip_Flags(EncodingFlags, 4,                        "nspsytune");
             Skip_Flags(EncodingFlags, 5,                        "nssafejoint");
             Skip_Flags(EncodingFlags, 6,                        "nogap (after)");

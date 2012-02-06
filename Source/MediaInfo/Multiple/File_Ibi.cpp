@@ -317,7 +317,7 @@ void File_Ibi::Ebml_DocType()
 
     //Parsing
     Ztring Data;
-    Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
+    Get_Local(Element_Size, Data,                               "Data"); Element_Info1(Data);
 
     //Filling
     FILLING_BEGIN();
@@ -391,8 +391,8 @@ void File_Ibi::Stream_ByteOffset()
         int64u Item;
         Get_EB (Item,                                           "Item");
         Offset+=Item;
-        Param_Info(Pos);
-        Param_Info(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
+        Param_Info1(Pos);
+        Param_Info1(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
@@ -424,8 +424,8 @@ void File_Ibi::Stream_FrameNumber()
         int64u Item;
         Get_EB (Item,                                           "Item");
         Offset+=Item;
-        Param_Info(Pos);
-        Param_Info(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
+        Param_Info1(Pos);
+        Param_Info1(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
@@ -475,8 +475,8 @@ void File_Ibi::Stream_Dts()
         int64u Item;
         Get_EB (Item,                                           "Item");
         Offset+=Item;
-        Param_Info(Pos);
-        Param_Info(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
+        Param_Info1(Pos);
+        Param_Info1(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
@@ -538,7 +538,7 @@ void File_Ibi::CompressedIndex()
     while(Element_Level)
     {
         Element_Sizes_Sav.push_back(Element_TotalSize_Get());
-        Element_End();
+        Element_End0();
     }
 
     //Configuring file size
@@ -556,7 +556,7 @@ void File_Ibi::CompressedIndex()
     //Resetting file size
     File_Size=File_Size_Sav;
     while(Element_Level)
-        Element_End();
+        Element_End0();
     Element_Level++;
     Header_Fill_Size(File_Size);
     Element_Level--;
@@ -564,10 +564,10 @@ void File_Ibi::CompressedIndex()
     //Configuring level
     while(Element_Level<Element_Level_Sav)
     {
-        Element_Begin();
-        Element_Begin();
+        Element_Begin0();
+        Element_Begin0();
         Header_Fill_Size(Element_Sizes_Sav[0]);
-        Element_End();
+        Element_End0();
     }
 
     //Resetting buffer
@@ -590,47 +590,47 @@ void File_Ibi::UInteger_Info()
     {
         case 1 :
                 {
-                    Info_B1(Data,                               "Data"); Element_Info(Data);
+                    Info_B1(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 2 :
                 {
-                    Info_B2(Data,                               "Data"); Element_Info(Data);
+                    Info_B2(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 3 :
                 {
-                    Info_B3(Data,                               "Data"); Element_Info(Data);
+                    Info_B3(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 4 :
                 {
-                    Info_B4(Data,                               "Data"); Element_Info(Data);
+                    Info_B4(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 5 :
                 {
-                    Info_B5(Data,                               "Data"); Element_Info(Data);
+                    Info_B5(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 6 :
                 {
-                    Info_B6(Data,                               "Data"); Element_Info(Data);
+                    Info_B6(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 7 :
                 {
-                    Info_B7(Data,                               "Data"); Element_Info(Data);
+                    Info_B7(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 8 :
                 {
-                    Info_B8(Data,                               "Data"); Element_Info(Data);
+                    Info_B8(Data,                               "Data"); Element_Info1(Data);
                     return;
                 }
         case 16:
                 {
-                    Info_B16(Data,                              "Data"); Element_Info(Data);
+                    Info_B16(Data,                              "Data"); Element_Info1(Data);
                     return;
                 }
         default : Skip_XX(Element_Size,                         "Data");
@@ -645,49 +645,49 @@ int64u File_Ibi::UInteger_Get()
         case 1 :
                 {
                     int8u Data;
-                    Get_B1 (Data,                               "Data"); Element_Info(Data);
+                    Get_B1 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 2 :
                 {
                     int16u Data;
-                    Get_B2 (Data,                               "Data"); Element_Info(Data);
+                    Get_B2 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 3 :
                 {
                     int32u Data;
-                    Get_B3 (Data,                               "Data"); Element_Info(Data);
+                    Get_B3 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 4 :
                 {
                     int32u Data;
-                    Get_B4 (Data,                               "Data"); Element_Info(Data);
+                    Get_B4 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 5 :
                 {
                     int64u Data;
-                    Get_B5 (Data,                               "Data"); Element_Info(Data);
+                    Get_B5 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 6 :
                 {
                     int64u Data;
-                    Get_B6 (Data,                               "Data"); Element_Info(Data);
+                    Get_B6 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 7 :
                 {
                     int64u Data;
-                    Get_B7 (Data,                               "Data"); Element_Info(Data);
+                    Get_B7 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 8 :
                 {
                     int64u Data;
-                    Get_B8 (Data,                               "Data"); Element_Info(Data);
+                    Get_B8 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         default :   Skip_XX(Element_Size,                       "Data");
@@ -703,55 +703,55 @@ int128u File_Ibi::UInteger16_Get()
         case 1 :
                 {
                     int8u Data;
-                    Get_B1 (Data,                               "Data"); Element_Info(Data);
+                    Get_B1 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 2 :
                 {
                     int16u Data;
-                    Get_B2 (Data,                               "Data"); Element_Info(Data);
+                    Get_B2 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 3 :
                 {
                     int32u Data;
-                    Get_B3 (Data,                               "Data"); Element_Info(Data);
+                    Get_B3 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 4 :
                 {
                     int32u Data;
-                    Get_B4 (Data,                               "Data"); Element_Info(Data);
+                    Get_B4 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 5 :
                 {
                     int64u Data;
-                    Get_B5 (Data,                               "Data"); Element_Info(Data);
+                    Get_B5 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 6 :
                 {
                     int64u Data;
-                    Get_B6 (Data,                               "Data"); Element_Info(Data);
+                    Get_B6 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 7 :
                 {
                     int64u Data;
-                    Get_B7 (Data,                               "Data"); Element_Info(Data);
+                    Get_B7 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 8 :
                 {
                     int64u Data;
-                    Get_B8 (Data,                               "Data"); Element_Info(Data);
+                    Get_B8 (Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         case 16:
                 {
                     int128u Data;
-                    Get_B16(Data,                               "Data"); Element_Info(Data);
+                    Get_B16(Data,                               "Data"); Element_Info1(Data);
                     return Data;
                 }
         default :   Skip_XX(Element_Size,                       "Data");

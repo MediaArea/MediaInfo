@@ -52,42 +52,42 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Aac::HvxcSpecificConfig()
 {
-    Element_Begin("HvxcSpecificConfig");
+    Element_Begin1("HvxcSpecificConfig");
     bool isBaseLayer;
     Get_SB(isBaseLayer,                                         "isBaseLayer");
     if (isBaseLayer)
         HVXCconfig();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::HVXCconfig()
 {
-    Element_Begin("HVXCconfig");
+    Element_Begin1("HVXCconfig");
     Skip_SB(                                                    "HVXCvarMode");
     Skip_S1(2,                                                  "HVXCrateMode");
     Skip_SB(                                                    "extensionFlag");
     //~ if (extensionFlag) {
         /*< to be defined in MPEG-4 Version 2 >*/
     //~ }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::ErrorResilientHvxcSpecificConfig() {
-    Element_Begin("ErrorResilientHvxcSpecificConfig");
+    Element_Begin1("ErrorResilientHvxcSpecificConfig");
     bool isBaseLayer;
     Get_SB(isBaseLayer,"isBaseLayer");
     if (isBaseLayer) {
         ErHVXCconfig();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::ErHVXCconfig()
 {
-    Element_Begin("ErHVXCconfig");
+    Element_Begin1("ErHVXCconfig");
     bool extensionFlag;
     Skip_SB(                                                    "HVXCvarMode");
     Skip_S1(2,                                                  "HVXCrateMode");
@@ -96,7 +96,7 @@ void File_Aac::ErHVXCconfig()
     if (extensionFlag) {
         Skip_SB(                                                "var_ScalableFlag");
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -106,7 +106,7 @@ void File_Aac::ErHVXCconfig()
 //---------------------------------------------------------------------------
 void File_Aac::CelpSpecificConfig ()
 {
-    Element_Begin("CelpSpecificConfig");
+    Element_Begin1("CelpSpecificConfig");
     bool isBaseLayer;
     Get_SB(isBaseLayer,                                         "isBaseLayer");
     if (isBaseLayer)
@@ -130,13 +130,13 @@ void File_Aac::CelpSpecificConfig ()
             Skip_S1(2,                                          "CELP-BRS-id");
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::CelpHeader ()
 {
-    Element_Begin("CelpHeader");
+    Element_Begin1("CelpHeader");
     bool ExcitationMode;
     Get_SB(ExcitationMode,                                      "ExcitationMode");
     Skip_SB(                                                    "SampleRateMode");
@@ -151,13 +151,13 @@ void File_Aac::CelpHeader ()
         Skip_S1(2,                                              "NumEnhLayers");
         Skip_SB(                                                "BandwidthScalabilityMode");
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::ErrorResilientCelpSpecificConfig ()
 {
-    Element_Begin("ErrorResilientCelpSpecificConfig");
+    Element_Begin1("ErrorResilientCelpSpecificConfig");
     bool isBaseLayer;
     Get_SB(isBaseLayer,                                         "isBaseLayer");
     if (isBaseLayer)
@@ -181,13 +181,13 @@ void File_Aac::ErrorResilientCelpSpecificConfig ()
             Skip_S1(2,                                          "CELP-BRS-id");
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::ER_SC_CelpHeader ()
 {
-    Element_Begin("ER_SC_CelpHeader");
+    Element_Begin1("ER_SC_CelpHeader");
     bool ExcitationMode;
     Get_SB(ExcitationMode,                                      "ExcitationMode");
     Skip_SB(                                                    "SampleRateMode");
@@ -202,7 +202,7 @@ void File_Aac::ER_SC_CelpHeader ()
         Skip_S1(2,                                              "NumEnhLayers");
         Skip_SB(                                                "BandwidthScalabilityMode");
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -216,7 +216,7 @@ void File_Aac::ER_SC_CelpHeader ()
 //---------------------------------------------------------------------------
 void File_Aac::TTSSpecificConfig()
 {
-    Element_Begin("TTSSpecificConfig");
+    Element_Begin1("TTSSpecificConfig");
     //~ TTS_Sequence()
     //~ {
     Skip_S1(5,                                                  "TTS_Sequence_ID");
@@ -229,7 +229,7 @@ void File_Aac::TTSSpecificConfig()
     Skip_SB(                                                    "Lip_Shape_Enable");
     Skip_SB(                                                    "Trick_Mode_Enable");
     //~ }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -239,43 +239,43 @@ void File_Aac::TTSSpecificConfig()
 //---------------------------------------------------------------------------
 void File_Aac::HILNconfig()
 {
-    Element_Begin("HILNconfig");
+    Element_Begin1("HILNconfig");
     Skip_SB(                                                    "HILNquantMode");
     Skip_S1(8,                                                  "HILNmaxNumLine");
     Skip_S1(4,                                                  "HILNsampleRateCode");
     Skip_S2(12,                                                 "HILNframeLength");
     Skip_S1(2,                                                  "HILNcontMode");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::HILNenexConfig()
 {
-    Element_Begin("HILNenexConfig");
+    Element_Begin1("HILNenexConfig");
     bool HILNenhaLayer;
     Get_SB(HILNenhaLayer,                                       "HILNenhaLayer");
     if (HILNenhaLayer)
         Skip_S1(2,                                              "HILNenhaQuantMode");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::ParametricSpecificConfig()
 {
-    Element_Begin("ParametricSpecificConfig");
+    Element_Begin1("ParametricSpecificConfig");
     bool isBaseLayer;
     Get_SB(isBaseLayer,                                         "isBaseLayer");
     if (isBaseLayer)
         PARAconfig();
     else
         HILNenexConfig();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::PARAconfig()
 {
-    Element_Begin("PARAconfig");
+    Element_Begin1("PARAconfig");
     int8u PARAmode;
     Get_S1(2,PARAmode,                                          "PARAmode");
     if (PARAmode != 1)
@@ -287,7 +287,7 @@ void File_Aac::PARAconfig()
     if (PARAextensionFlag) {
         /* to be defined in MPEG-4 Phase 3 */
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -297,7 +297,7 @@ void File_Aac::PARAconfig()
 //---------------------------------------------------------------------------
 void File_Aac::SSCSpecificConfig ()
 {
-    Element_Begin("SSCSpecificConfig");
+    Element_Begin1("SSCSpecificConfig");
     Skip_S1(2,"decoder_level");
     Skip_S1(4,"update_rate");
     Skip_S1(2,"synthesis_method");
@@ -310,7 +310,7 @@ void File_Aac::SSCSpecificConfig ()
             /*reserved*/
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -320,9 +320,9 @@ void File_Aac::SSCSpecificConfig ()
 //---------------------------------------------------------------------------
 void File_Aac::MPEG_1_2_SpecificConfig()
 {
-    Element_Begin("MPEG_1_2_SpecificConfig");
+    Element_Begin1("MPEG_1_2_SpecificConfig");
     Skip_SB(                                                    "extension");
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -332,11 +332,11 @@ void File_Aac::MPEG_1_2_SpecificConfig()
 //---------------------------------------------------------------------------
 void File_Aac::DSTSpecificConfig()
 {
-    Element_Begin("DSTSpecificConfig");
+    Element_Begin1("DSTSpecificConfig");
     Skip_SB("DSDDST_Coded");
     Skip_S2(14,"N_Channels");
     Skip_SB("reserved");
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -352,14 +352,16 @@ void File_Aac::ALSSpecificConfig()
     {
         Peek_S4(32, Junk);
         if (Junk!=0x414C5300)
+        {
             Skip_SB(                                            "Unknown");
+        }
         else
             break;
     }
     if (Data_BS_Remain()==0)
         return; //There is a problem
 
-    Element_Begin("ALSSpecificConfig");
+    Element_Begin1("ALSSpecificConfig");
     bool chan_config,chan_sort,crc_enabled,aux_data_enabled;
     int32u samp_freq, samples;
     int16u channels,frame_length;
@@ -367,7 +369,7 @@ void File_Aac::ALSSpecificConfig()
     Skip_BS(32,"als_id");
     Get_BS (32, samp_freq,                                      "samp_freq");
     Get_BS (32, samples,                                        "samples");
-    Get_S2 (16, channels,                                       "channels"); Param_Info(channels+1, " channel(s)");
+    Get_S2 (16, channels,                                       "channels"); Param_Info2(channels+1, " channel(s)");
     Get_S1 (3, file_type,                                       "file_type");
     Skip_S1(3,"resolution");
     Skip_SB("floating");
@@ -396,7 +398,7 @@ void File_Aac::ALSSpecificConfig()
     {
         int16u ChBits=(int16u)ceil(log((double)(channels+1))/log((double)2));
         for (int8u c=0; c<=channels; c++)
-            Skip_S2(ChBits,                                     "chan_pos[c]");
+            Skip_BS(ChBits,                                     "chan_pos[c]");
     }
     if(Data_BS_Remain()%8)
         Skip_S1(Data_BS_Remain()%8,                             "byte_align");
@@ -407,13 +409,13 @@ void File_Aac::ALSSpecificConfig()
     #ifdef MEDIAINFO_RIFF_YES
     if (file_type==1) //WAVE file
     {
-        Element_Begin("orig_header");
+        Element_Begin1("orig_header");
         File_Riff MI;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, header_size);
         Element_Offset+=header_size;
         File__Analyze::Finish(&MI); //No merge of data, only for trace information, because this is the data about the decoded stream, not the encoded stream
-        Element_End();
+        Element_End0();
     }
     else
     #endif //MEDIAINFO_RIFF_YES
@@ -431,7 +433,7 @@ void File_Aac::ALSSpecificConfig()
         Get_B4(aux_size,                                        "aux_size");
         Skip_XX(aux_size,                                       "aux_data[]");
     }
-    Element_End();
+    Element_End0();
     BS_Begin(); //To be in sync with other objectTypes
 
     FILLING_BEGIN();
@@ -453,7 +455,7 @@ void File_Aac::ALSSpecificConfig()
 //---------------------------------------------------------------------------
 void File_Aac::SLSSpecificConfig()
 {
-    Element_Begin("SLSSpecificConfig");
+    Element_Begin1("SLSSpecificConfig");
     Skip_S1(3,"pcmWordLength");
     Skip_SB("aac_core_present");
     Skip_SB("lle_main_stream");
@@ -461,7 +463,7 @@ void File_Aac::SLSSpecificConfig()
     Skip_S1(3,"frameLength");
     if (!channelConfiguration)
         program_config_element();
-    Element_End();
+    Element_End0();
 }
 
 } //NameSpace

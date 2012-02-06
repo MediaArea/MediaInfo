@@ -698,13 +698,11 @@ void File_Vc1::FrameHeader()
 {
     //Name
     Element_Name("FrameHeader");
-    Element_Info(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
+    Element_Info1(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
     if (FrameRate)
     {
-        if (FrameInfo.PTS!=(int64u)-1)
-            Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
-        if (FrameInfo.DTS!=(int64u)-1)
-            Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+        Element_Info1C((FrameInfo.PTS!=(int64u)-1), _T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+        Element_Info1C((FrameInfo.DTS!=(int64u)-1), _T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
     }
 
     //Counting
@@ -732,7 +730,7 @@ void File_Vc1::FrameHeader()
                 PictureFormat=fcm_2?2:1; //Interlaced Field : Interlaced Frame
             }
         }
-        Param_Info(Vc1_PictureFormat[PictureFormat]);
+        Param_Info1(Vc1_PictureFormat[PictureFormat]);
         PictureFormat_Count[PictureFormat]++;
 
         if (PictureFormat==2) //Interlaced Field
@@ -741,8 +739,8 @@ void File_Vc1::FrameHeader()
             Get_S1 ( 3, ptype_,                                 "ptype");
             if (ptype_<5)
             {
-                Param_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][0]]); Element_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][0]]); //First field
-                Param_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][1]]); Element_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][1]]); //Second field
+                Param_Info1(Vc1_Type[Vc1_FieldTypeTable[ptype_][0]]); Element_Info1(Vc1_Type[Vc1_FieldTypeTable[ptype_][0]]); //First field
+                Param_Info1(Vc1_Type[Vc1_FieldTypeTable[ptype_][1]]); Element_Info1(Vc1_Type[Vc1_FieldTypeTable[ptype_][1]]); //Second field
                 ptype=Vc1_FieldTypeTable[ptype_][0]; //Saving the ptype from the first field
             }
             else
@@ -754,7 +752,7 @@ void File_Vc1::FrameHeader()
         else
         {
             size_t ptype_;
-            Get_VL (Vc1_ptype, ptype_,                          "ptype"); if (ptype_<5) {Param_Info(Vc1_Type[Vc1_ptype[ptype_].mapped_to3]); Element_Info(Vc1_Type[Vc1_ptype[ptype_].mapped_to3]);}
+            Get_VL (Vc1_ptype, ptype_,                          "ptype"); if (ptype_<5) {Param_Info1(Vc1_Type[Vc1_ptype[ptype_].mapped_to3]); Element_Info1(Vc1_Type[Vc1_ptype[ptype_].mapped_to3]);}
             ptype=(int8u)Vc1_ptype[ptype_].mapped_to3;
         }
         if (RefFramesCount<2 && (ptype==0 || ptype==1))
@@ -944,13 +942,13 @@ void File_Vc1::EntryPointHeader()
     if (hrd_param_flag)
         for (int8u Pos=0; Pos<hrd_num_leaky_buckets; Pos++)
         {
-            Element_Begin("leaky_bucket");
+            Element_Begin1("leaky_bucket");
             Skip_S1( 8,                                         "hrd_full");
-            Element_End();
+            Element_End0();
         }
     TEST_SB_SKIP(                                               "coded_size_flag");
-        Info_S2(12, coded_width,                                "coded_width"); Param_Info((coded_width+1)*2, " pixels");
-        Info_S2(12, coded_height,                               "coded_height"); Param_Info((coded_height+1)*2, " pixels");
+        Info_S2(12, coded_width,                                "coded_width"); Param_Info2((coded_width+1)*2, " pixels");
+        Info_S2(12, coded_height,                               "coded_height"); Param_Info2((coded_height+1)*2, " pixels");
     TEST_SB_END();
     if (extended_mv)
         Skip_SB(                                                "extended_dmv");
@@ -986,7 +984,7 @@ void File_Vc1::SequenceHeader()
 
     //Parsing
     BS_Begin();
-    Get_S1 ( 2, profile,                                        "profile"); Param_Info(Vc1_Profile[profile]);
+    Get_S1 ( 2, profile,                                        "profile"); Param_Info1(Vc1_Profile[profile]);
     if (profile==0 || profile==1) //Simple or Main
     {
         Skip_S1( 2,                                             "res_sm");
@@ -1012,12 +1010,12 @@ void File_Vc1::SequenceHeader()
     else if (profile==3) //Advanced
     {
         Get_S1 ( 3, level,                                      "level");
-        Get_S1 ( 2, colordiff_format,                           "colordiff_format"); Param_Info(Vc1_ColorimetryFormat[colordiff_format]);
+        Get_S1 ( 2, colordiff_format,                           "colordiff_format"); Param_Info1(Vc1_ColorimetryFormat[colordiff_format]);
         Skip_S1( 3,                                             "frmrtq_postproc");
         Skip_S1( 5,                                             "bitrtq_postproc");
         Skip_SB(                                                "postprocflag");
-        Get_S2 (12, coded_width,                                "max_coded_width"); Param_Info((coded_width+1)*2, " pixels");
-        Get_S2 (12, coded_height,                               "max_coded_height"); Param_Info((coded_height+1)*2, " pixels");
+        Get_S2 (12, coded_width,                                "max_coded_width"); Param_Info2((coded_width+1)*2, " pixels");
+        Get_S2 (12, coded_height,                               "max_coded_height"); Param_Info2((coded_height+1)*2, " pixels");
         Get_SB (    pulldown,                                   "pulldown");
         Get_SB (    interlace,                                  "interlace");
         Get_SB (    tfcntrflag,                                 "tfcntrflag - frame counter");
@@ -1025,10 +1023,10 @@ void File_Vc1::SequenceHeader()
         Skip_SB(                                                "reserved");
         Get_SB (    psf,                                        "psf - progressive segmented frame");
         TEST_SB_SKIP(                                           "display_ext");
-            Info_S2(14, display_x,                              "display_horiz_size"); Param_Info(display_x+1, " pixels");
-            Info_S2(14, display_y,                              "display_vert_size"); Param_Info(display_y+1, " pixels");
+            Info_S2(14, display_x,                              "display_horiz_size"); Param_Info2(display_x+1, " pixels");
+            Info_S2(14, display_y,                              "display_vert_size"); Param_Info2(display_y+1, " pixels");
             TEST_SB_SKIP(                                       "aspectratio_flag");
-                Get_S1 ( 4, AspectRatio,                        "aspect_ratio"); Param_Info(Vc1_PixelAspectRatio[AspectRatio]);
+                Get_S1 ( 4, AspectRatio,                        "aspect_ratio"); Param_Info1(Vc1_PixelAspectRatio[AspectRatio]);
                 if (AspectRatio==0x0F)
                 {
                     Get_S1 ( 8, AspectRatioX,                   "aspect_horiz_size");
@@ -1037,10 +1035,10 @@ void File_Vc1::SequenceHeader()
             TEST_SB_END();
             TEST_SB_GET(framerate_present,                      "framerate_flag");
                 TESTELSE_SB_GET(framerate_form,                 "framerateind");
-                    Get_S2 (16, framerateexp,                   "framerateexp"); Param_Info((float32)((framerateexp+1)/32.0), 3, " fps");
+                    Get_S2 (16, framerateexp,                   "framerateexp"); Param_Info3((float32)((framerateexp+1)/32.0), 3, " fps");
                 TESTELSE_SB_ELSE(                               "framerateind");
-                    Get_S1 ( 8, frameratecode_enr,              "frameratenr"); Param_Info(Vc1_FrameRate_enr(frameratecode_enr));
-                    Get_S1 ( 4, frameratecode_dr,               "frameratedr"); Param_Info(Vc1_FrameRate_dr(frameratecode_dr));
+                    Get_S1 ( 8, frameratecode_enr,              "frameratenr"); Param_Info1(Vc1_FrameRate_enr(frameratecode_enr));
+                    Get_S1 ( 4, frameratecode_dr,               "frameratedr"); Param_Info1(Vc1_FrameRate_dr(frameratecode_dr));
                 TESTELSE_SB_END();
             TEST_SB_END();
             TEST_SB_SKIP(                                       "color_format_flag");
@@ -1057,12 +1055,12 @@ void File_Vc1::SequenceHeader()
             hrd_buffers.clear();
             for (int8u Pos=0; Pos<hrd_num_leaky_buckets; Pos++)
             {
-                Element_Begin("leaky_bucket");
+                Element_Begin1("leaky_bucket");
                 int16u hrd_buffer;
                 Skip_S2(16,                                     "hrd_rate");
                 Get_S2(16, hrd_buffer,                         "hrd_buffer");
-                int32u hrd_buffer_value=(int32u)((hrd_buffer+1)*pow(2.0, 1+buffer_size_exponent)); Param_Info(hrd_buffer_value, " bytes");
-                Element_End();
+                int32u hrd_buffer_value=(int32u)((hrd_buffer+1)*pow(2.0, 1+buffer_size_exponent)); Param_Info2(hrd_buffer_value, " bytes");
+                Element_End0();
 
                 //Filling
                 hrd_buffers.push_back(hrd_buffer_value);

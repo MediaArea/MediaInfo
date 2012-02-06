@@ -157,7 +157,7 @@ void File_MpcSv8::Header_Parse()
 void File_MpcSv8::Data_Parse()
 {
     #define CASE_INFO(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
+        case Elements::_NAME : Element_Info1(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)
@@ -206,9 +206,9 @@ void File_MpcSv8::RG()
     //Parsing
     int16u TitleGain, AlbumGain;
     Skip_B1(                                                    "Version");
-    Get_L2 (TitleGain,                                          "Title gain"); Param_Info(((float32)((int16s)TitleGain))/1000, 2, " dB");
+    Get_L2 (TitleGain,                                          "Title gain"); Param_Info3(((float32)((int16s)TitleGain))/1000, 2, " dB");
     Skip_L2(                                                    "Title peak");
-    Get_L2 (AlbumGain,                                          "Album gain"); Param_Info(((float32)((int16s)TitleGain))/1000, 2, " dB");
+    Get_L2 (AlbumGain,                                          "Album gain"); Param_Info3(((float32)((int16s)TitleGain))/1000, 2, " dB");
     Skip_L2(                                                    "Album peak");
 }
 
@@ -224,7 +224,7 @@ void File_MpcSv8::SH()
     Get_VS (SampleCount,                                        "Sample count");
     Skip_VS(                                                    "Beginning silence");
     BS_Begin();
-    Get_S1 (3, SampleFrequency,                                 "Sample frequency"); Param_Info(Mpc_SampleFreq[SampleFrequency]);
+    Get_S1 (3, SampleFrequency,                                 "Sample frequency"); Param_Info1(Mpc_SampleFreq[SampleFrequency]);
     Skip_S1(5,                                                  "Max used bands");
     Get_S1 (4, ChannelCount,                                    "Channel count");
     Get_SB (   MidSideStereo,                                   "Mid side stereo used");

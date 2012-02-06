@@ -312,13 +312,13 @@ int16u File_Aac::sbr_huff_dec(sbr_huffman Table, const char* Name)
     int8u bit;
     int16s index = 0;
 
-    Element_Begin(Name);
+    Element_Begin1(Name);
     while (index>=0)
     {
         Get_S1(1, bit,                                          "bit");
         index=Table[index][bit];
     }
-    Element_End();
+    Element_End0();
 
     return index+64;
 }
@@ -344,7 +344,7 @@ void File_Aac::sbr_extension_data(size_t End, int8u id_aac, bool crc_flag)
         }
     FILLING_END();
 
-    Element_Begin("sbr_extension_data");
+    Element_Begin1("sbr_extension_data");
     bool bs_header_flag;
     if (crc_flag)
         Skip_S2(10,                                             "bs_sbr_crc_bits");
@@ -380,13 +380,13 @@ void File_Aac::sbr_extension_data(size_t End, int8u id_aac, bool crc_flag)
     }
     if (Data_BS_Remain()>End)
         Skip_BS(Data_BS_Remain()-End,                           "bs_fill_bits");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_header()
 {
-    Element_Begin("sbr_header");
+    Element_Begin1("sbr_header");
     Get_S1 (1, sbr->bs_amp_res_FromHeader,                      "bs_amp_res");
     Get_S1 (4, sbr->bs_start_freq,                              "bs_start_freq");
     Get_S1 (4, sbr->bs_stop_freq,                               "bs_stop_freq");
@@ -415,26 +415,26 @@ void File_Aac::sbr_header()
         Skip_SB(                                                "bs_smoothing_mode");
     }
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_data(int8u id_aac)
 {
-    Element_Begin("sbr_data");
+    Element_Begin1("sbr_data");
     switch (id_aac)
     {
         case  0 : sbr_single_channel_element();     break; //ID_SCE
         case  1 : sbr_channel_pair_element();       break; //ID_CPE
         default : ;
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_single_channel_element()
 {
-    Element_Begin("sbr_single_channel_element");
+    Element_Begin1("sbr_single_channel_element");
     bool bs_data_extra, bs_add_harmonic_flag, bs_extended_data;
     int8u bs_extension_size, bs_esc_count, bs_extension_id;
     Get_SB (bs_data_extra,                                      "bs_data_extra");
@@ -480,13 +480,13 @@ void File_Aac::sbr_single_channel_element()
             Skip_BS(Data_BS_Remain(),                           "(Error)");
 
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_grid(bool ch)
 {
-    Element_Begin("sbr_grid");
+    Element_Begin1("sbr_grid");
     int8u bs_frame_class, bs_num_rel_0, bs_num_rel_1, tmp;
     int ptr_bits;
     Get_S1(2, bs_frame_class,                                   "bs_frame_class");
@@ -510,10 +510,10 @@ void File_Aac::sbr_grid(bool ch)
             }
             ptr_bits=(int8u)ceil(log((double)sbr->bs_num_env[ch]+1)/log((double)2));
             Skip_BS(ptr_bits,                                   "bs_pointer[ch]");
-            Element_Begin("bs_freq_res[ch]");
+            Element_Begin1("bs_freq_res[ch]");
             for (int8u env=0; env<sbr->bs_num_env[ch]; env++)
                 Get_SB (sbr->bs_freq_res[ch][sbr->bs_num_env[ch]-1-env], "bs_freq_res[ch][bs_num_env[ch]-1-env]");
-            Element_End();
+            Element_End0();
             break;
         case 2 : //VARFIX
             Skip_S1(2,                                          "bs_var_bord_0[ch]");
@@ -523,10 +523,10 @@ void File_Aac::sbr_grid(bool ch)
                 Skip_S1(2,                                      "tmp");
             ptr_bits=(int8u)ceil(log((double)sbr->bs_num_env[ch]+1)/log((double)2));
             Skip_BS(ptr_bits,                                   "bs_pointer[ch]");
-            Element_Begin("bs_freq_res[ch]");
+            Element_Begin1("bs_freq_res[ch]");
             for (int8u env = 0; env < sbr->bs_num_env[ch]; env++)
                 Get_SB (sbr->bs_freq_res[ch][env],              "bs_freq_res[ch][env]");
-            Element_End();
+            Element_End0();
             break;
         case 3 : //VARVAR
             Skip_S1(2,                                          "bs_var_bord_0[ch]");
@@ -540,23 +540,23 @@ void File_Aac::sbr_grid(bool ch)
                 Skip_S1(2,                                      "tmp");
             ptr_bits=(int8u)ceil(log((double)(sbr->bs_num_env[ch]+1))/log((double)2));
             Skip_BS(ptr_bits,                                   "bs_pointer[ch]");
-            Element_Begin("bs_freq_res[ch]");
+            Element_Begin1("bs_freq_res[ch]");
             for (int8u env=0; env<sbr->bs_num_env[ch]; env++)
                 Get_SB (sbr->bs_freq_res[ch][env],              "bs_freq_res[ch][env]");
-            Element_End();
+            Element_End0();
             break;
     }
     if (sbr->bs_num_env[ch]>1)
         sbr->bs_num_noise[ch]=2;
     else
         sbr->bs_num_noise[ch]=1;
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_channel_pair_element()
 {
-    Element_Begin("sbr_channel_pair_element");
+    Element_Begin1("sbr_channel_pair_element");
     bool bs_data_extra,bs_coupling,bs_add_harmonic_flag,bs_extended_data;
     int8u bs_extension_size,bs_esc_count,bs_extension_id;
     Get_SB (bs_data_extra,                                      "bs_data_extra");
@@ -629,34 +629,34 @@ void File_Aac::sbr_channel_pair_element()
             Skip_BS(Data_BS_Remain(),                           "(Error)");
 
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_dtdf(bool ch)
 {
-    Element_Begin("sbr_dtdf");
+    Element_Begin1("sbr_dtdf");
     for (int env=0; env<sbr->bs_num_env[ch]; env++)
         Get_S1 (1, sbr->bs_df_env[ch][env],                     "bs_df_env[ch][env]");
     for (int noise=0; noise<sbr->bs_num_noise[ch]; noise++)
         Get_S1 (1, sbr->bs_df_noise[ch][noise],                 "bs_df_noise[ch][noise]");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_invf(bool)
 {
-    Element_Begin("sbr_invf");
+    Element_Begin1("sbr_invf");
     for (int n = 0; n<sbr->num_noise_bands; n++ )
          Skip_S1(2,                                             "bs_invf_mode[ch][n]");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_envelope(bool ch, bool bs_coupling)
 {
     sbr_huffman t_huff, f_huff;
-    Element_Begin("sbr_envelope");
+    Element_Begin1("sbr_envelope");
     if (bs_coupling && ch)
     {
         if (sbr->bs_amp_res[ch])
@@ -701,14 +701,14 @@ void File_Aac::sbr_envelope(bool ch, bool bs_coupling)
                 sbr_huff_dec(t_huff,                            "bs_data_env[ch][env][band]");
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_noise(bool ch, bool bs_coupling)
 {
     sbr_huffman t_huff, f_huff;
-    Element_Begin("sbr_noise");
+    Element_Begin1("sbr_noise");
     if (bs_coupling && ch)
     {
         t_huff = t_huffman_noise_bal_3_0dB;
@@ -734,16 +734,16 @@ void File_Aac::sbr_noise(bool ch, bool bs_coupling)
                 sbr_huff_dec(t_huff,                            "bs_data_noise[ch][noise][band]");
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Aac::sbr_sinusoidal_coding(bool)
 {
-    Element_Begin("sbr_sinusoidal_coding");
+    Element_Begin1("sbr_sinusoidal_coding");
     for (int8u n=0; n<sbr->num_env_bands[1]; n++)
         Skip_SB(                                                "bs_add_harmonic[ch][n]");
-    Element_End();
+    Element_End0();
 }
 
 } //NameSpace

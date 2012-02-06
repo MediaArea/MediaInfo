@@ -332,11 +332,11 @@ void File_Swf::FileHeader_Parse()
     int32u Signature;
     if (FileLength==0 && Version==0)
     {
-        Element_Begin("SWF header", 8);
+        Element_Begin1("SWF header");
             Get_C3 (Signature,                                  "Signature");
             Get_L1 (Version,                                    "Version");
             Get_L4 (FileLength,                                 "FileLength");
-        Element_End();
+        Element_End0();
     }
     else
     {
@@ -359,9 +359,9 @@ void File_Swf::FileHeader_Parse()
     BS_Begin();
     Get_BS (5, Nbits,                                           "Nbits");
     Get_BS (Nbits, Xmin,                                        "Xmin");
-    Get_BS (Nbits, Xmax,                                        "Xmax"); Param_Info((Xmax-Xmin)/20, " pixels");
+    Get_BS (Nbits, Xmax,                                        "Xmax"); Param_Info2((Xmax-Xmin)/20, " pixels");
     Get_BS (Nbits, Ymin,                                        "Ymin");
-    Get_BS (Nbits, Ymax,                                        "Ymax"); Param_Info((Ymax-Ymin)/20, " pixels");
+    Get_BS (Nbits, Ymax,                                        "Ymax"); Param_Info2((Ymax-Ymin)/20, " pixels");
     BS_End();
     if (Version<=7)
     {
@@ -375,7 +375,7 @@ void File_Swf::FileHeader_Parse()
         int16u FrameRate_8_8;
         Get_L2(FrameRate_8_8,                                   "FrameRate");
         FrameRate=FrameRate_8_8/0x0100+(((float32)(FrameRate_8_8&0x00FF))/0x0100); //8.8 format
-        Param_Info(FrameRate);
+        Param_Info1(FrameRate);
     }
     Get_L2 (FrameCount,                                         "FrameCount");
 
@@ -411,14 +411,14 @@ void File_Swf::Header_Parse()
     Get_L2 (TagCodeAndLength,                                   "TagCodeAndLength");
 
     //Filling
-    int16u Tag=(TagCodeAndLength&0xFFC0)>>6; Param_Info(Tag);
+    int16u Tag=(TagCodeAndLength&0xFFC0)>>6; Param_Info1(Tag);
     Header_Fill_Code(Tag, Ztring().From_Number(Tag, 16));
 
     //Size
     int16u Length=TagCodeAndLength&0x003F;
     if (Length<0x003F)
     {
-        Param_Info(Length, " bytes");
+        Param_Info2(Length, " bytes");
 
         //Filling
         Header_Fill_Size(Element_Offset+Length);
@@ -426,7 +426,7 @@ void File_Swf::Header_Parse()
     else
     {
         int32u Length2;
-        Get_L4(Length2,                                          "Length"); Param_Info(Length2, " bytes");
+        Get_L4(Length2,                                          "Length"); Param_Info2(Length2, " bytes");
 
         //Filling
         Header_Fill_Size(Element_Offset+Length2);
@@ -558,10 +558,10 @@ void File_Swf::DefineSound()
     int8u  SoundFormat, SoundRate, SoundSize, SoundType;
     Get_L2 (SoundId,                                            "SoundId");
     BS_Begin();
-    Get_S1 (4, SoundFormat,                                     "SoundFormat"); Param_Info(Swf_SoundFormat[SoundFormat]);
-    Get_S1 (2, SoundRate,                                       "SoundRate"); Param_Info(Swf_SoundRate[SoundRate], " Hz");
-    Get_S1 (1, SoundSize,                                       "SoundSize"); Param_Info(Swf_SoundSize[SoundSize], " bits");
-    Get_S1 (1, SoundType,                                       "SoundType"); Param_Info(Swf_SoundType[SoundType], " channel(s)");
+    Get_S1 (4, SoundFormat,                                     "SoundFormat"); Param_Info1(Swf_SoundFormat[SoundFormat]);
+    Get_S1 (2, SoundRate,                                       "SoundRate"); Param_Info2(Swf_SoundRate[SoundRate], " Hz");
+    Get_S1 (1, SoundSize,                                       "SoundSize"); Param_Info2(Swf_SoundSize[SoundSize], " bits");
+    Get_S1 (1, SoundType,                                       "SoundType"); Param_Info2(Swf_SoundType[SoundType], " channel(s)");
     BS_End();
     Skip_L4(                                                    "SoundSampleCount");
     Skip_XX(Element_Size-Element_Offset,                        "SoundData");
@@ -586,13 +586,13 @@ void File_Swf::SoundStreamHead()
     int8u  StreamSoundCompression, StreamSoundRate, StreamSoundType, StreamSoundSize;
     BS_Begin();
     Skip_S1(4,                                                  "Reserved");
-    Info_S1(2, PlaybackSoundRate,                               "PlaybackSoundRate"); Param_Info(Swf_SoundRate[PlaybackSoundRate], " Hz");
-    Info_S1(1, PlaybackSoundSize,                               "PlaybackSoundSize"); Param_Info(Swf_SoundSize[PlaybackSoundSize], " bits");
-    Info_S1(1, PlaybackSoundType,                               "PlaybackSoundType"); Param_Info(Swf_SoundType[PlaybackSoundType], " channel(s)");
-    Get_S1 (4, StreamSoundCompression,                          "StreamSoundCompression"); Param_Info(Swf_SoundFormat[StreamSoundCompression]);
-    Get_S1 (2, StreamSoundRate,                                 "StreamSoundRate"); Param_Info(Swf_SoundRate[StreamSoundRate], " Hz");
-    Get_S1 (1, StreamSoundSize,                                 "StreamSoundSize"); Param_Info(Swf_SoundSize[StreamSoundSize], " bits");
-    Get_S1 (1, StreamSoundType,                                 "StreamSoundType"); Param_Info(Swf_SoundType[StreamSoundType], " channel(s)");
+    Info_S1(2, PlaybackSoundRate,                               "PlaybackSoundRate"); Param_Info2(Swf_SoundRate[PlaybackSoundRate], " Hz");
+    Info_S1(1, PlaybackSoundSize,                               "PlaybackSoundSize"); Param_Info2(Swf_SoundSize[PlaybackSoundSize], " bits");
+    Info_S1(1, PlaybackSoundType,                               "PlaybackSoundType"); Param_Info2(Swf_SoundType[PlaybackSoundType], " channel(s)");
+    Get_S1 (4, StreamSoundCompression,                          "StreamSoundCompression"); Param_Info1(Swf_SoundFormat[StreamSoundCompression]);
+    Get_S1 (2, StreamSoundRate,                                 "StreamSoundRate"); Param_Info2(Swf_SoundRate[StreamSoundRate], " Hz");
+    Get_S1 (1, StreamSoundSize,                                 "StreamSoundSize"); Param_Info2(Swf_SoundSize[StreamSoundSize], " bits");
+    Get_S1 (1, StreamSoundType,                                 "StreamSoundType"); Param_Info2(Swf_SoundType[StreamSoundType], " channel(s)");
     BS_End();
     Get_L2 (StreamSoundSampleCount,                             "StreamSoundSampleCount");
     if (StreamSoundCompression==2)
@@ -635,7 +635,7 @@ void File_Swf::DefineVideoStream()
     Skip_BS(3,                                                  "VideoFlagsDeblocking");
     Skip_BS(1,                                                  "VideoFlagsSmoothing");
     BS_End();
-    Get_L1 (CodecID,                                            "CodecID"); Param_Info(Swf_Format_Video[CodecID]);
+    Get_L1 (CodecID,                                            "CodecID"); Param_Info1(Swf_Format_Video[CodecID]);
     if (CodecID>=16)
         CodecID=0; //Should never happen (FLV is only 4-bit sized)
 

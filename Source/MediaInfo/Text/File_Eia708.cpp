@@ -195,9 +195,9 @@ void File_Eia708::Data_Parse()
 
         if (service_number)
         {
-            Element_Begin("Service Block Packet", block_size);
+            Element_Begin1("Service Block Packet");
             Service();
-            Element_End();
+            Element_End0();
         }
     }
 }
@@ -599,7 +599,7 @@ void File_Eia708::ETX()
 //Backspace
 void File_Eia708::BS()
 {
-    Param_Info("Backspace");
+    Param_Info1("Backspace");
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)
@@ -631,7 +631,7 @@ void File_Eia708::BS()
 //Form Feed
 void File_Eia708::FF()
 {
-    Param_Info("Form Feed");
+    Param_Info1("Form Feed");
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)
@@ -670,7 +670,7 @@ void File_Eia708::FF()
 //Carriage return
 void File_Eia708::CR()
 {
-    Param_Info("Carriage return");
+    Param_Info1("Carriage return");
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)
@@ -717,7 +717,7 @@ void File_Eia708::CR()
 //Horizontal Carriage Return
 void File_Eia708::HCR()
 {
-    Param_Info("Horizontal Carriage Return");
+    Param_Info1("Horizontal Carriage Return");
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)
@@ -752,7 +752,7 @@ void File_Eia708::HCR()
 //SetCurrentWindow
 void File_Eia708::CWx(int8u WindowID)
 {
-    Param_Info("SetCurrentWindow"); Param_Info(WindowID);
+    Param_Info1("SetCurrentWindow"); Param_Info1(WindowID);
 
     Streams[service_number]->WindowID=WindowID;
 }
@@ -761,13 +761,13 @@ void File_Eia708::CWx(int8u WindowID)
 //ClearWindows
 void File_Eia708::CLW()
 {
-    Param_Info("ClearWindows");
+    Param_Info1("ClearWindows");
 
     int8u Save_WindowID=Streams[service_number]->WindowID;
     bool  Save_StandAloneCommand=StandAloneCommand;
     StandAloneCommand=false;
 
-    Element_Begin("ClearWindows");
+    Element_Begin1("ClearWindows");
     BS_Begin();
     int8u WindowID=8;
     bool HasChanged_=false;
@@ -795,7 +795,7 @@ void File_Eia708::CLW()
     }
     while (WindowID>0);
     BS_End();
-    Element_End();
+    Element_End0();
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
@@ -811,13 +811,13 @@ void File_Eia708::CLW()
 //DisplayWindows
 void File_Eia708::DSW()
 {
-    Param_Info("DisplayWindows");
+    Param_Info1("DisplayWindows");
 
     int8u Save_WindowID=Streams[service_number]->WindowID;
     bool  Save_StandAloneCommand=StandAloneCommand;
     StandAloneCommand=false;
 
-    Element_Begin("DisplayWindows");
+    Element_Begin1("DisplayWindows");
     BS_Begin();
     int8u WindowID=8;
     bool HasChanged_=false;
@@ -851,7 +851,7 @@ void File_Eia708::DSW()
     }
     while (WindowID>0);
     BS_End();
-    Element_End();
+    Element_End0();
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
@@ -867,13 +867,13 @@ void File_Eia708::DSW()
 //HideWindows
 void File_Eia708::HDW()
 {
-    Param_Info("HideWindows");
+    Param_Info1("HideWindows");
 
     int8u Save_WindowID=Streams[service_number]->WindowID;
     bool  Save_StandAloneCommand=StandAloneCommand;
     StandAloneCommand=false;
 
-    Element_Begin("HideWindows");
+    Element_Begin1("HideWindows");
     BS_Begin();
     int8u WindowID=8;
     bool HasChanged_=false;
@@ -911,7 +911,7 @@ void File_Eia708::HDW()
     }
     while (WindowID>0);
     BS_End();
-    Element_End();
+    Element_End0();
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
@@ -927,13 +927,13 @@ void File_Eia708::HDW()
 //ToggleWindows
 void File_Eia708::TGW()
 {
-    Param_Info("ToggleWindows");
+    Param_Info1("ToggleWindows");
 
     int8u Save_WindowID=Streams[service_number]->WindowID;
     bool  Save_StandAloneCommand=StandAloneCommand;
     StandAloneCommand=false;
 
-    Element_Begin("ToggleWindows");
+    Element_Begin1("ToggleWindows");
     BS_Begin();
     int8u WindowID=8;
     bool HasChanged_=false;
@@ -967,7 +967,7 @@ void File_Eia708::TGW()
     }
     while (WindowID>0);
     BS_End();
-    Element_End();
+    Element_End0();
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
@@ -983,7 +983,7 @@ void File_Eia708::TGW()
 //DeleteWindows
 void File_Eia708::DLW()
 {
-    Param_Info("DeleteWindows");
+    Param_Info1("DeleteWindows");
 
     int8u Save_WindowID=Streams[service_number]->WindowID;
     bool  Save_StandAloneCommand=StandAloneCommand;
@@ -992,7 +992,7 @@ void File_Eia708::DLW()
     //Bug in some files
     bool Bug_WindowOffset=false;
 
-    Element_Begin("DeleteWindows");
+    Element_Begin1("DeleteWindows");
     BS_Begin();
     int8u WindowID=8;
     bool HasChanged_=false;
@@ -1039,7 +1039,7 @@ void File_Eia708::DLW()
     }
     while (WindowID>0);
     BS_End();
-    Element_End();
+    Element_End0();
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
@@ -1055,17 +1055,17 @@ void File_Eia708::DLW()
 //Delay
 void File_Eia708::DLY()
 {
-    Param_Info("Delay");
-    Element_Begin("Delay");
+    Param_Info1("Delay");
+    Element_Begin1("Delay");
     Skip_B1(                        "tenths of seconds");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 //Delay Cancel
 void File_Eia708::DLC()
 {
-    Param_Info("Delay Cancel");
+    Param_Info1("Delay Cancel");
 }
 
 //---------------------------------------------------------------------------
@@ -1073,15 +1073,15 @@ void File_Eia708::DLC()
 void File_Eia708::RST()
 {
     //TODO: Should clear all buffers
-    Param_Info("Reset");
+    Param_Info1("Reset");
 }
 
 //---------------------------------------------------------------------------
 //Set Pen Attributes
 void File_Eia708::SPA()
 {
-    Param_Info("Set Pen Attributes");
-    Element_Begin("Set Pen Attributes");
+    Param_Info1("Set Pen Attributes");
+    Element_Begin1("Set Pen Attributes");
     BS_Begin();
     Skip_S1(4,                                                  "text tag");
     Skip_S1(2,                                                  "offset");
@@ -1091,15 +1091,15 @@ void File_Eia708::SPA()
     Skip_S1(3,                                                  "edge type");
     Skip_S1(3,                                                  "font style");
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 //Set Pen Color
 void File_Eia708::SPC()
 {
-    Param_Info("Set Pen Color");
-    Element_Begin("Set Pen Color");
+    Param_Info1("Set Pen Color");
+    Element_Begin1("Set Pen Color");
     BS_Begin();
     Skip_S1(2,                                                  "foreground opacity");
     Skip_S1(2,                                                  "foreground red");
@@ -1115,15 +1115,15 @@ void File_Eia708::SPC()
     Skip_S1(2,                                                  "edge green");
     Skip_S1(2,                                                  "edge blue");
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 //SetPenLocation
 void File_Eia708::SPL()
 {
-    Param_Info("SetPenLocation");
-    Element_Begin("SetPenLocation");
+    Param_Info1("SetPenLocation");
+    Element_Begin1("SetPenLocation");
     int8u row, column;
     BS_Begin();
     Mark_0();
@@ -1135,7 +1135,7 @@ void File_Eia708::SPL()
     Mark_0();
     Get_S1 (6, column,                                          "column");
     BS_End();
-    Element_End();
+    Element_End0();
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)
@@ -1161,8 +1161,8 @@ void File_Eia708::SPL()
 //SetWindowAttributes
 void File_Eia708::SWA()
 {
-    Param_Info("SetWindowAttributes");
-    Element_Begin("SetWindowAttributes");
+    Param_Info1("SetWindowAttributes");
+    Element_Begin1("SetWindowAttributes");
     BS_Begin();
     Skip_S1(2,                                                  "fill opacity");
     Skip_S1(2,                                                  "fill red");
@@ -1186,15 +1186,15 @@ void File_Eia708::SWA()
     Skip_S1(2,                                                  "edge green");
     Skip_S1(2,                                                  "edge blue");
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 //DefineWindow
 void File_Eia708::DFx(int8u WindowID)
 {
-    Param_Info("DefineWindow"); Param_Info(WindowID);
-    Element_Begin("DefineWindow");
+    Param_Info1("DefineWindow"); Param_Info1(WindowID);
+    Element_Begin1("DefineWindow");
     int8u anchor_vertical, anchor_horizontal, anchor_point, row_count, column_count;
     bool visible, relative_positioning;
     BS_Begin();
@@ -1217,7 +1217,7 @@ void File_Eia708::DFx(int8u WindowID)
     Skip_S1(4,                                                  "window style");
     Skip_S1(2,                                                  "pen style ID");
     BS_End();
-    Element_End();
+    Element_End0();
 
     Streams[service_number]->WindowID=WindowID;
     if (Streams[service_number]->Windows[WindowID]==NULL)
@@ -1295,7 +1295,7 @@ void File_Eia708::DFx(int8u WindowID)
 //---------------------------------------------------------------------------
 void File_Eia708::Character_Fill(wchar_t Character)
 {
-    Param_Info(Ztring(1, Character));
+    Param_Info1(Ztring(1, Character));
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)

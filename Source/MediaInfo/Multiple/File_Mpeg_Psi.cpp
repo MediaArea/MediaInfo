@@ -838,10 +838,10 @@ void File_Mpeg_Psi::Data_Parse()
         Get_B2(     table_id_extension,                         Mpeg_Psi_table_id_extension(table_id)); Element_Name(Ztring(Mpeg_Psi_table_id_extension(table_id))+_T("=")+Ztring::ToZtring_From_CC2(table_id_extension));
         BS_Begin();
         Skip_S1( 2,                                             "reserved");
-        Get_S1 ( 5, version_number,                             "version_number"); Element_Info(_T("Version=")+Ztring::ToZtring(version_number));
+        Get_S1 ( 5, version_number,                             "version_number"); Element_Info1(_T("Version=")+Ztring::ToZtring(version_number));
         Get_SB (    current_next_indicator,                     "current_next_indicator");
         BS_End();
-        Info_B1(    section_number,                             "section_number"); Element_Info(_T("Section=")+Ztring::ToZtring(section_number));
+        Info_B1(    section_number,                             "section_number"); Element_Info1(_T("Section=")+Ztring::ToZtring(section_number));
         Skip_B1(                                                "last_section_number");
     }
     else if (table_id==0xC1)
@@ -987,21 +987,21 @@ void File_Mpeg_Psi::Table_reserved()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_iso13818_6()
 {
-    Element_Info("Defined in ISO/IEC 13818-6");
+    Element_Info1("Defined in ISO/IEC 13818-6");
     Skip_XX(Element_Size,                                       "Data");
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_user_private()
 {
-    Element_Info("user_private");
+    Element_Info1("user_private");
     Skip_XX(Element_Size,                                       "Data");
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_forbidden()
 {
-    Element_Info("forbidden");
+    Element_Info1("forbidden");
     Skip_XX(Element_Size,                                       "Data");
 }
 
@@ -1028,10 +1028,10 @@ void File_Mpeg_Psi::program_stream_map()
     int16u elementary_stream_map_Pos=0;
     while (Element_Offset<Element_Size && elementary_stream_map_Pos<elementary_stream_map_length)
     {
-        Element_Begin();
+        Element_Begin0();
         int16u ES_info_length;
         int8u stream_type, elementary_stream_id;
-        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type_Info(stream_type, 0x00000000));
+        Get_B1 (stream_type,                                    "stream_type"); Param_Info1(Mpeg_Psi_stream_type_Info(stream_type, 0x00000000));
         Get_B1 (elementary_stream_id,                           "elementary_stream_id");
         Get_B2 (ES_info_length,                                 "ES_info_length");
         Descriptors_Size=ES_info_length;
@@ -1046,7 +1046,7 @@ void File_Mpeg_Psi::program_stream_map()
                 Descriptors_Size-=3;
         }
         Descriptors();
-        Element_End(4+ES_info_length);
+        Element_End0();
         elementary_stream_map_Pos+=4+ES_info_length;
 
         FILLING_BEGIN();
@@ -1090,13 +1090,13 @@ void File_Mpeg_Psi::Table_00()
     //Parsing
     while (Element_Offset<Element_Size)
     {
-        Element_Begin(4);
+        Element_Begin0();
         Get_B2 (    program_number,                             "program_number");
         BS_Begin();
         Skip_S1( 3,                                             "reserved");
-        Get_S2 ( 13, elementary_PID,                            program_number?"program_map_PID":"network_PID"); Element_Info(Ztring::ToZtring_From_CC2(elementary_PID));
+        Get_S2 ( 13, elementary_PID,                            program_number?"program_map_PID":"network_PID"); Element_Info1(Ztring::ToZtring_From_CC2(elementary_PID));
         BS_End();
-        Element_End(Ztring::ToZtring_From_CC2(program_number));
+        Element_End0();
 
         FILLING_BEGIN();
             if (elementary_PID
@@ -1167,9 +1167,9 @@ void File_Mpeg_Psi::Table_02()
     //Parsing
     while (Element_Offset<Element_Size)
     {
-        Element_Begin();
+        Element_Begin0();
         BS_Begin();
-        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type_Info(stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier)); Param_Info(Mpeg_Psi_stream_type_Info(stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier));
+        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info1(Mpeg_Psi_stream_type_Info(stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier)); Param_Info1(Mpeg_Psi_stream_type_Info(stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].registration_format_identifier));
         Skip_S1( 3,                                             "reserved");
         Get_S2 (13, elementary_PID,                             "elementary_PID");
         Skip_S1( 4,                                             "reserved");
@@ -1242,7 +1242,7 @@ void File_Mpeg_Psi::Table_02()
                                 //Complete_Stream->Streams[elementary_PID]->Searching_ParserTimeStamp_Start_Set(true);
                             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                             #if MEDIAINFO_TRACE
-                                Complete_Stream->Streams[elementary_PID]->Element_Info="PES";
+                                Complete_Stream->Streams[elementary_PID]->Element_Info1="PES";
                             #endif //MEDIAINFO_TRACE
                             if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
                                 Complete_Stream->Streams[elementary_PID]->ShouldDuplicate=true;
@@ -1271,7 +1271,7 @@ void File_Mpeg_Psi::Table_02()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(elementary_PID), 5+Descriptors_Size);
+        Element_End1(Ztring::ToZtring_From_CC2(elementary_PID));
     }
 
     FILLING_BEGIN();
@@ -1294,7 +1294,7 @@ void File_Mpeg_Psi::Table_02()
                     Complete_Stream->Streams[PCR_PID]->Searching_TimeStamp_Start_Set(true);
                 #if MEDIAINFO_TRACE
                     if (Complete_Stream->Streams[PCR_PID]->Kind==complete_stream::stream::unknown)
-                        Complete_Stream->Streams[PCR_PID]->Element_Info="PCR";
+                        Complete_Stream->Streams[PCR_PID]->Element_Info1="PCR";
                 #endif //MEDIAINFO_TRACE
             }
         #endif //MEDIAINFO_MPEGTS_PCR_YES
@@ -1405,9 +1405,9 @@ void File_Mpeg_Psi::Table_40()
     if (Element_Offset<Element_Size)
     {
         int16u original_network_id;
-        Element_Begin();
-        Get_B2 (transport_stream_id,                        "transport_stream_id"); Element_Info(transport_stream_id);
-        Get_B2 (original_network_id,                        "original_network_id"); Param_Info(Mpeg_Descriptors_original_network_id(original_network_id));
+        Element_Begin0();
+        Get_B2 (transport_stream_id,                        "transport_stream_id"); Element_Info1(transport_stream_id);
+        Get_B2 (original_network_id,                        "original_network_id"); Param_Info1(Mpeg_Descriptors_original_network_id(original_network_id));
         BS_Begin();
         Skip_S1( 4,                                         "reserved");
         Get_S2 (12, Descriptors_Size,                       "transport_descriptors_length");
@@ -1417,7 +1417,7 @@ void File_Mpeg_Psi::Table_40()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End();
+        Element_End0();
 
         FILLING_BEGIN();
             Complete_Stream->original_network_name=Mpeg_Descriptors_original_network_id(original_network_id);
@@ -1433,7 +1433,7 @@ void File_Mpeg_Psi::Table_42()
     Skip_B1(                                                    "reserved_future_use");
     while (Element_Offset<Element_Size)
     {
-        Element_Begin();
+        Element_Begin0();
         int64u Test;
         Peek_B5(Test);
         if (Test!=0xFFFFFFFFFFULL)
@@ -1443,7 +1443,7 @@ void File_Mpeg_Psi::Table_42()
             Skip_S1( 6,                                         "reserved_future_use");
             Skip_SB(                                            "EIT_schedule_flag");
             Skip_SB(                                            "EIT_present_following_flag");
-            Info_S1( 3, running_status,                         "running_status"); Param_Info(Mpeg_Psi_running_status[running_status]);
+            Info_S1( 3, running_status,                         "running_status"); Param_Info1(Mpeg_Psi_running_status[running_status]);
             Skip_SB(                                            "free_CA_mode");
             Get_S2 (12, Descriptors_Size,                       "ES_info_length");
             BS_End();
@@ -1453,12 +1453,12 @@ void File_Mpeg_Psi::Table_42()
             if (Descriptors_Size>0)
                 Descriptors();
 
-            Element_End(Ztring::ToZtring_From_CC2(program_number), 5+Descriptors_Size);
+            Element_End1(Ztring::ToZtring_From_CC2(program_number));
         }
         else
         {
             Skip_XX(Element_Size-Element_Offset,                    "Junk");
-            Element_End("Junk");
+            Element_End1("Junk");
         }
     }
 }
@@ -1491,16 +1491,16 @@ void File_Mpeg_Psi::Table_4E()
     }
     while (Element_Offset<Element_Size)
     {
-        Element_Begin();
+        Element_Begin0();
         int32u time, duration;
         int16u date;
         int8u running_status;
         Get_B2 (event_id,                                       "event_id");
-        Get_B2 (date,                                           "start_time (date)"); Param_Info(Date_MJD(date));
-        Get_B3 (time,                                           "start_time (time)"); Param_Info(Time_BCD(time));
-        Get_B3 (duration,                                       "duration"); Param_Info(Time_BCD(duration));
+        Get_B2 (date,                                           "start_time (date)"); Param_Info1(Date_MJD(date));
+        Get_B3 (time,                                           "start_time (time)"); Param_Info1(Time_BCD(time));
+        Get_B3 (duration,                                       "duration"); Param_Info1(Time_BCD(duration));
         BS_Begin();
-        Get_S1 ( 3, running_status,                             "running_status"); Param_Info(Mpeg_Psi_running_status[running_status]);
+        Get_S1 ( 3, running_status,                             "running_status"); Param_Info1(Mpeg_Psi_running_status[running_status]);
         Skip_SB(                                                "free_CA_mode");
         Get_S2 (12, Descriptors_Size,                           "descriptors_loop_length");
         BS_End();
@@ -1510,7 +1510,7 @@ void File_Mpeg_Psi::Table_4E()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(event_id), 11+Descriptors_Size);
+        Element_End1(Ztring::ToZtring_From_CC2(event_id));
 
         FILLING_BEGIN();
             Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[event_id].start_time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
@@ -1545,8 +1545,8 @@ void File_Mpeg_Psi::Table_70()
     //Parsing
     int32u time;
     int16u date;
-    Get_B2 (date,                                               "UTC_time (date)"); Param_Info(Date_MJD(date));
-    Get_B3 (time,                                               "UTC_time (time)"); Param_Info(Time_BCD(time));
+    Get_B2 (date,                                               "UTC_time (date)"); Param_Info1(Date_MJD(date));
+    Get_B3 (time,                                               "UTC_time (time)"); Param_Info1(Time_BCD(time));
 
     FILLING_BEGIN();
         if (Complete_Stream->Duration_Start.empty())
@@ -1562,8 +1562,8 @@ void File_Mpeg_Psi::Table_73()
     //Parsing
     int32u time;
     int16u date;
-    Get_B2 (date,                                               "UTC_time (date)"); Param_Info(Date_MJD(date));
-    Get_B3 (time,                                               "UTC_time (time)"); Param_Info(Time_BCD(time));
+    Get_B2 (date,                                               "UTC_time (date)"); Param_Info1(Date_MJD(date));
+    Get_B3 (time,                                               "UTC_time (time)"); Param_Info1(Time_BCD(time));
     BS_Begin();
     Skip_S1( 4,                                                 "DVB_reserved_for_future_use");
     Get_S2 (12, Descriptors_Size,                               "transmission_info_loop_length");
@@ -1598,11 +1598,11 @@ void File_Mpeg_Psi::Table_7F()
 
     while (Element_Offset<Element_Size)
     {
-        Element_Begin();
+        Element_Begin0();
         Get_B2 (    program_number,                             "service_id");
         BS_Begin();
         Skip_SB(                                                "DVB_reserved_future_use");
-        Info_S1( 3, running_status,                             "running_status"); Param_Info(Mpeg_Psi_running_status[running_status]);
+        Info_S1( 3, running_status,                             "running_status"); Param_Info1(Mpeg_Psi_running_status[running_status]);
         Get_S2 (12, Descriptors_Size,                           "service_loop_length");
         BS_End();
 
@@ -1611,7 +1611,7 @@ void File_Mpeg_Psi::Table_7F()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(program_number), 5+Descriptors_Size);
+        Element_End1(Ztring::ToZtring_From_CC2(program_number));
     }
 }
 
@@ -1696,8 +1696,8 @@ void File_Mpeg_Psi::Table_C7()
     for (int16u Pos=0; Pos<tables_defined; Pos++)
     {
         int16u table_type, table_type_PID;
-        Element_Begin();
-        Get_B2 (    table_type,                                 "table_type"); Param_Info(Mpeg_Psi_ATSC_table_type(table_type));
+        Element_Begin0();
+        Get_B2 (    table_type,                                 "table_type"); Param_Info1(Mpeg_Psi_ATSC_table_type(table_type));
         BS_Begin();
         Skip_S1( 3,                                             "reserved");
         Get_S2 (13, table_type_PID,                             "table_type_PID");
@@ -1714,10 +1714,9 @@ void File_Mpeg_Psi::Table_C7()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_Info(Mpeg_Psi_ATSC_table_type(table_type));
-        if (table_type>=0x0100)
-            Element_Info(table_type%0x100);
-        Element_End(Ztring::ToZtring_From_CC2(table_type_PID), 11+Descriptors_Size);
+        Element_Info1(Mpeg_Psi_ATSC_table_type(table_type));
+        Element_Info1C((table_type>=0x0100), table_type%0x100);
+        Element_End1(Ztring::ToZtring_From_CC2(table_type_PID));
 
         FILLING_BEGIN();
             if (Complete_Stream->Streams[table_type_PID]->Kind==complete_stream::stream::unknown && table_type!=0x0001 && table_type!=0x0003) //Not activing current_next_indicator='0'
@@ -1781,7 +1780,7 @@ void File_Mpeg_Psi::Table_C9()
     {
         int16u major_channel_number, minor_channel_number, source_id;
         int8u service_type;
-        Element_Begin();
+        Element_Begin0();
         Get_UTF16B(table_id==0xDA?16:14, short_name,            "short_name"); //8 chars for satellite, else 7 chars
         BS_Begin();
         Skip_S1( 4,                                             "reserved");
@@ -1856,7 +1855,7 @@ void File_Mpeg_Psi::Table_C9()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(program_number), 18+Descriptors_Size);
+        Element_End1(Ztring::ToZtring_From_CC2(program_number));
     }
 
     BS_Begin();
@@ -1882,11 +1881,11 @@ void File_Mpeg_Psi::Table_CA()
     BS_End();
     for (int8u dimension_Pos=0; dimension_Pos<dimensions_defined; dimension_Pos++)
     {
-        Element_Begin("dimension");
+        Element_Begin1("dimension");
         Ztring dimension_name;
         int8u values_defined;
         Skip_B1(                                                "dimension_name_length"); //Not used
-        ATSC_multiple_string_structure(dimension_name,          "dimension_name");  Element_Info(dimension_name);
+        ATSC_multiple_string_structure(dimension_name,          "dimension_name");  Element_Info1(dimension_name);
         BS_Begin();
         Skip_S1( 3,                                             "reserved");
         Skip_SB(                                                "graduated_scale");
@@ -1894,15 +1893,15 @@ void File_Mpeg_Psi::Table_CA()
         BS_End();
         for (int8u value_Pos=0; value_Pos<values_defined; value_Pos++)
         {
-            Element_Begin("value");
+            Element_Begin1("value");
             Ztring abbrev_rating_value, rating_value;
             Skip_B1(                                            "abbrev_rating_value_length"); //Not used
-            ATSC_multiple_string_structure(abbrev_rating_value, "abbrev_rating_value");  Element_Info(abbrev_rating_value);
+            ATSC_multiple_string_structure(abbrev_rating_value, "abbrev_rating_value");  Element_Info1(abbrev_rating_value);
             Skip_B1(                                            "rating_value_length"); //Not used
-            ATSC_multiple_string_structure(rating_value,        "rating_value"); Element_Info(rating_value);
-            Element_End();
+            ATSC_multiple_string_structure(rating_value,        "rating_value"); Element_Info1(rating_value);
+            Element_End0();
         }
-            Element_End();
+            Element_End0();
     }
 
     BS_Begin();
@@ -1933,13 +1932,13 @@ void File_Mpeg_Psi::Table_CB()
     {
         Ztring title;
         int32u start_time, length_in_seconds;
-        Element_Begin();
+        Element_Begin0();
         BS_Begin();
         Skip_SB(                                                table_id==0xD9?"off_air":"reserved");
         Skip_SB(                                                "reserved");
         Get_S2 (14, event_id,                                   "event_id");
         BS_End();
-        Get_B4 (    start_time,                                 "start_time"); Param_Info(Ztring().Date_From_Seconds_1970(start_time+315964800)); Element_Info(Ztring().Date_From_Seconds_1970(start_time+315964800-Complete_Stream->GPS_UTC_offset)); //UTC 1980-01-06 00:00:00
+        Get_B4 (    start_time,                                 "start_time"); Param_Info1(Ztring().Date_From_Seconds_1970(start_time+315964800)); Element_Info1(Ztring().Date_From_Seconds_1970(start_time+315964800-Complete_Stream->GPS_UTC_offset)); //UTC 1980-01-06 00:00:00
         BS_Begin();
         Skip_S1( 2,                                             "reserved");
         Skip_S1( 2,                                             table_id==0xCB?"ETM_location":"reserved");
@@ -1957,7 +1956,7 @@ void File_Mpeg_Psi::Table_CB()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(event_id));
+        Element_End1(Ztring::ToZtring_From_CC2(event_id));
 
         FILLING_BEGIN();
             Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid]->table_type].Events[event_id].start_time=start_time;
@@ -1979,13 +1978,13 @@ void File_Mpeg_Psi::Table_CC()
     Ztring extended_text_message;
     int16u source_id, event_id;
     Skip_B1(                                                    "protocol_version");
-    Element_Begin("ETM_id", 2);
+    Element_Begin1("ETM_id");
         Get_B2 (    source_id,                                  "source_id");
         BS_Begin();
         Get_S2 (14, event_id,                                   "event_id");
         Skip_S1( 2,                                             "lsb");
         BS_End();
-    Element_End();
+    Element_End0();
     ATSC_multiple_string_structure(extended_text_message,       "extended_text_message");
 
     FILLING_BEGIN();
@@ -2007,9 +2006,9 @@ void File_Mpeg_Psi::Table_CD()
     int32u system_time;
     int8u  GPS_UTC_offset;
     Skip_B1(                                                    "protocol_version");
-    Get_B4 (system_time,                                        "system_time"); Param_Info(Ztring().Date_From_Seconds_1970(system_time+315964800)); //UTC 1980-01-06 00:00:00
+    Get_B4 (system_time,                                        "system_time"); Param_Info1(Ztring().Date_From_Seconds_1970(system_time+315964800)); //UTC 1980-01-06 00:00:00
     Get_B1 (GPS_UTC_offset,                                     "GPS_UTC_offset");
-    Element_Begin("daylight_savings", 2);
+    Element_Begin1("daylight_savings");
         BS_Begin();
         Skip_SB(                                                "DS_status");
         Skip_SB(                                                "Reserved");
@@ -2017,7 +2016,7 @@ void File_Mpeg_Psi::Table_CD()
         Skip_S1(5,                                              "DS_day_of_month");
         BS_End();
         Skip_B1(                                                "DS_hour");
-    Element_End();
+    Element_End0();
 
     //Descriptors
     Descriptors_Size=(int16u)(Element_Size-Element_Offset);
@@ -2068,10 +2067,10 @@ void File_Mpeg_Psi::Table_FC()
     Get_S2 (12, splice_command_length,                          "splice_command_length");
     if (splice_command_length==0xFFF)
         splice_command_length=(int16u)(Element_Size-4-Element_Offset);
-    Get_S1 ( 8, splice_command_type,                            "splice_command_type"); Param_Info(Mpeg_Psi_splice_command_type(splice_command_type));
+    Get_S1 ( 8, splice_command_type,                            "splice_command_type"); Param_Info1(Mpeg_Psi_splice_command_type(splice_command_type));
     BS_End();
 
-    Element_Begin();
+    Element_Begin0();
     #undef ELEMENT_CASE
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case 0x##_NAME : Element_Name(_DETAIL); Table_FC_##_NAME(); break;
@@ -2084,7 +2083,7 @@ void File_Mpeg_Psi::Table_FC()
         ELEMENT_CASE (07, "bandwidth_reservation"); break;
         default   : Skip_XX(splice_command_length,              "Unknown");
     }
-    Element_End();
+    Element_End0();
 
     if (Element_Offset+4<Element_Size)
     {
@@ -2155,7 +2154,7 @@ void File_Mpeg_Psi::Table_FC_05()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_FC_05_break_duration()
 {
-    Element_Begin("break_duration");
+    Element_Begin1("break_duration");
 
     //Parsing
     BS_Begin();
@@ -2164,13 +2163,13 @@ void File_Mpeg_Psi::Table_FC_05_break_duration()
     Skip_S5(33,                                                 "duration");
     BS_End();
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_FC_05_splice_time()
 {
-    Element_Begin("splice_time");
+    Element_Begin1("splice_time");
 
     //Parsing
     bool time_specified_flag;
@@ -2186,7 +2185,7 @@ void File_Mpeg_Psi::Table_FC_05_splice_time()
         Skip_S5(7,                                              "reserved");
     BS_End();
 
-   Element_End();
+   Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -2233,10 +2232,10 @@ void File_Mpeg_Psi::Descriptors()
     Descriptors.event_id_IsValid=event_id_IsValid;
 
     //Parsing
-    Element_Begin("Descriptors", Descriptors_Size);
+    Element_Begin1("Descriptors");
     Open_Buffer_Init(&Descriptors);
     Open_Buffer_Continue(&Descriptors, Descriptors_Size);
-    Element_End();
+    Element_End0();
 
     //Configuring
     elementary_PID_IsValid=false;
@@ -2246,22 +2245,22 @@ void File_Mpeg_Psi::Descriptors()
 }
 
 //---------------------------------------------------------------------------
-void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* Info)
+void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* Name)
 {
     //Parsing
     Ztring string;
     int8u number_strings, number_segments;
-    Element_Begin(Info);
+    Element_Begin1(Name);
     Get_B1(number_strings,                                      "number_strings");
     for (int8u string_Pos=0; string_Pos<number_strings; string_Pos++)
     {
-        Element_Begin("String");
+        Element_Begin1("String");
         int32u ISO_639_language_code;
         Get_C3(ISO_639_language_code,                           "ISO_639_language_code");
         Get_B1(number_segments,                                 "number_segments");
         for (int8u segment_Pos=0; segment_Pos<number_segments; segment_Pos++)
         {
-            Element_Begin("Segment");
+            Element_Begin1("Segment");
             Ztring segment;
             int8u compression_type, mode, number_bytes;
             Get_B1 (compression_type,                           "compression_type");
@@ -2281,7 +2280,7 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
                 default   : Skip_XX(number_bytes,               "(Compressed)");
                             segment=_T("(Compressed)");
             }
-            Element_End(3+number_bytes);
+            Element_End0();
 
             FILLING_BEGIN();
                 if (segment.find_first_not_of(_T("\t\n "))!=std::string::npos)
@@ -2297,22 +2296,22 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
             Value+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+string+_T(" - ");
         FILLING_END();
 
-        Element_Info(string);
-        Element_End("String");
+        Element_Info1(string);
+        Element_End1("String");
     }
 
     if (!Value.empty())
         Value.resize(Value.size()-3);
 
-    Element_Info(Value);
-    Element_End();
+    Element_Info1(Value);
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
-void File_Mpeg_Psi::SCTE_multilingual_text_string(int8u Size, Ztring &Value, const char* Info)
+void File_Mpeg_Psi::SCTE_multilingual_text_string(int8u Size, Ztring &Value, const char* Name)
 {
     //Parsing
-    Element_Begin(Info);
+    Element_Begin1(Name);
     int64u End=Element_Offset+Size;
     while (Element_Offset<End)
     {
@@ -2340,7 +2339,7 @@ void File_Mpeg_Psi::SCTE_multilingual_text_string(int8u Size, Ztring &Value, con
             Skip_XX(format_effector_param_length,               "format_effector_data");
         }
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -2518,7 +2517,7 @@ void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
                 Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Scte35->pid=elementary_PID;
             }
             #if MEDIAINFO_TRACE
-                Complete_Stream->Streams[elementary_PID]->Element_Info="PSI";
+                Complete_Stream->Streams[elementary_PID]->Element_Info1="PSI";
             #endif //MEDIAINFO_TRACE
         }
         else
@@ -2526,7 +2525,7 @@ void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
             Complete_Stream->Streams[elementary_PID]->Kind=complete_stream::stream::pes;
             Complete_Stream->Streams[elementary_PID]->Infos["CodecID"].From_Number(stream_type);
             #if MEDIAINFO_TRACE
-                Complete_Stream->Streams[elementary_PID]->Element_Info="PES";
+                Complete_Stream->Streams[elementary_PID]->Element_Info1="PES";
             #endif //MEDIAINFO_TRACE
         }
         Complete_Stream->Streams[elementary_PID]->stream_type=stream_type;

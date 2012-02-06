@@ -307,7 +307,7 @@ void File_Ancillary::Header_Parse()
     Get_L1 (DataID,                                             "Data ID");
     if (WithTenBit)
         Skip_L1(                                                "Parity+Unused"); //even:1, odd:2
-    Get_L1 (SecondaryDataID,                                    "Secondary Data ID"); Param_Info(Ancillary_DataID(DataID, SecondaryDataID));
+    Get_L1 (SecondaryDataID,                                    "Secondary Data ID"); Param_Info1(Ancillary_DataID(DataID, SecondaryDataID));
     if (WithTenBit)
         Skip_L1(                                                "Parity+Unused"); //even:1, odd:2
     Get_L1 (DataCount,                                          "Data count");
@@ -322,7 +322,7 @@ void File_Ancillary::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Ancillary::Data_Parse()
 {
-    Element_Info(Ancillary_DataID(DataID, SecondaryDataID));
+    Element_Info1(Ancillary_DataID(DataID, SecondaryDataID));
 
     //Buffer
     int8u* Payload=new int8u[DataCount];

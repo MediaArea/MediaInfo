@@ -582,7 +582,7 @@ void File_Riff::Read_Buffer_Unsynched()
     if (IsSub)
     {
         while(Element_Level)
-            Element_End();
+            Element_End0();
 
         //Ancillary specific
         if (Ancillary && (*Ancillary))
@@ -629,7 +629,7 @@ bool File_Riff::Header_Begin()
         if (Buffer_Offset+(size_t)Element_Size>Buffer_Size)
             return false;
         
-        Element_Begin();
+        Element_Begin0();
         switch (Kind)
         {
             case Kind_Wave : WAVE_data_Continue(); break;
@@ -652,7 +652,7 @@ bool File_Riff::Header_Begin()
             Element_Size-=Element_Offset;
         }
         Element_Offset=0;
-        Element_End();
+        Element_End0();
 
         if (Buffer_Offset>=Buffer_Size)
             return false;
@@ -778,12 +778,12 @@ void File_Riff::Header_Parse()
         if (Name==Elements::RF64 && CC4(Buffer+Buffer_Offset+0x0C)==Elements::WAVE_ds64)
         {
             Size_Complete=LittleEndian2int64u(Buffer+Buffer_Offset+0x14);
-            Param_Info(Size_Complete);
+            Param_Info1(Size_Complete);
         }
         else if (Name==Elements::WAVE_data)
         {
             Size_Complete=WAVE_data_Size;
-            Param_Info(Size_Complete);
+            Param_Info1(Size_Complete);
         }
     }
 

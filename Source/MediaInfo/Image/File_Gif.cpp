@@ -87,13 +87,13 @@ void File_Gif::Read_Buffer_Continue()
     Get_SB (   GCT_Flag,                                        "Global Color Table Flag");
     Get_S1 (3, Resolution,                                      "Color Resolution");
     Get_SB (   Sort,                                            "Sort Flag to Global Color Table");
-    Get_S1 (3, GCT_Size,                                        "Size of Global Color Table"); Param_Info(Ztring::ToZtring((int16u)pow(2.0, 1+GCT_Size)));
+    Get_S1 (3, GCT_Size,                                        "Size of Global Color Table"); Param_Info1(Ztring::ToZtring((int16u)pow(2.0, 1+GCT_Size)));
     BS_End();
     Get_L1 (BackgroundColorIndex,                               "Background Color Index");
     Get_L1 (PixelAspectRatio,                                   "Pixel Aspect Ratio");
     if (GCT_Flag)
         Skip_XX((int16u)pow(2.0, 1+GCT_Size)*3,                 "Global Color Table");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         Accept("GIF");

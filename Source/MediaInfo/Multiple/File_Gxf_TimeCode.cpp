@@ -110,7 +110,7 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
 
     //Reading bitmap first (validity of first byte is at the end)
     Element_Offset=504*8;
-    Element_Begin("Validity");
+    Element_Begin1("Validity");
     int8u Validity[504];
     BS_Begin_LE(); //is Little Endian
     for (size_t Pos=0; Pos<504; Pos++)
@@ -121,7 +121,7 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
     }
     BS_End_LE();
     Skip_B1(                                                    "Pad");
-    Element_End();
+    Element_End0();
 
     //Parsing
     Element_Offset=0;
@@ -129,7 +129,7 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
     {
         if (Validity[Pos])
         {
-            Element_Begin("TimeCode");
+            Element_Begin1("TimeCode");
             int8u Frames_Units, Frames_Tens, Seconds_Units, Seconds_Tens, Minutes_Units, Minutes_Tens, Hours_Units, Hours_Tens;
             bool  DropFrame;
             BS_Begin();
@@ -172,10 +172,10 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
                                       + Seconds_Units           *1000
                                       + (Gxf_FrameRate(FrameRate_Code)==0?0:((Frames_Tens*10+Frames_Units)*1000/float64_int32s(Gxf_FrameRate(FrameRate_Code)/(Gxf_FrameRate(FrameRate_Code)>30?2:1)))));
 
-            Element_Info(Ztring().Duration_From_Milliseconds(TimeCode_Ms));
+            Element_Info1(Ztring().Duration_From_Milliseconds(TimeCode_Ms));
 
             BS_End();
-            Element_End();
+            Element_End0();
 
             FILLING_BEGIN();
                 if (TimeCode_First==(int64u)-1)

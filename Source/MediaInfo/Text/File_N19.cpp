@@ -231,11 +231,11 @@ void File_N19::FileHeader_Parse()
     string TCP;
     int16u LC;
     int8u TCS;
-    Info_C3   (    CPN,                                         "CPN - Code Page Number"); Param_Info(N19_CodePageNumber(CPN));
-    Get_C8    (    DFC,                                         "DFC - Disk Format Code"); Param_Info(N19_DiskFormatCode_FrameRate(DFC));
-    Info_C1   (    DSC,                                         "DSC - Display Standard Code"); Param_Info(N19_DisplayStandardCode(DSC));
+    Info_C3   (    CPN,                                         "CPN - Code Page Number"); Param_Info1(N19_CodePageNumber(CPN));
+    Get_C8    (    DFC,                                         "DFC - Disk Format Code"); Param_Info1(N19_DiskFormatCode_FrameRate(DFC));
+    Info_C1   (    DSC,                                         "DSC - Display Standard Code"); Param_Info1(N19_DisplayStandardCode(DSC));
     Skip_C2   (                                                 "CCT - Character Code Table number");
-    Get_C2    (    LC,                                          "LC - Language Code"); Param_Info(N19_LanguageCode(LC));
+    Get_C2    (    LC,                                          "LC - Language Code"); Param_Info1(N19_LanguageCode(LC));
     Get_Local (32, OPT,                                         "OPT - Original Programme Title");
     Skip_Local(32,                                              "OET - Original Episode Title");
     Skip_Local(32,                                              "TPT - Translated Programme");
@@ -345,13 +345,13 @@ void File_N19::Data_Parse()
       + ((TCI>>16)&0xFF)   *60*1000
       + ((TCI>>8 )&0xFF)      *1000
       +  float32_int32s((TCI     &0xFF)      *1000/N19_DiskFormatCode_FrameRate(DFC));
-    Param_Info(Ztring().Duration_From_Milliseconds((int64u)TCI));
+    Param_Info1(Ztring().Duration_From_Milliseconds((int64u)TCI));
     Get_B4    (TCO,                                             "TCO - Time Code Out");
     TCO=((TCO>>24)&0xFF)*60*60*1000
       + ((TCO>>16)&0xFF)   *60*1000
       + ((TCO>>8 )&0xFF)      *1000
       +  float32_int32s((TCO     &0xFF)      *1000/N19_DiskFormatCode_FrameRate(DFC));
-    Param_Info(Ztring().Duration_From_Milliseconds((int64u)TCO));
+    Param_Info1(Ztring().Duration_From_Milliseconds((int64u)TCO));
     Skip_B1   (                                                 "VP - Vertical Position");
     Skip_B1   (                                                 "JC - Justification Code");
     Skip_B1   (                                                 "CF - Comment Flag");

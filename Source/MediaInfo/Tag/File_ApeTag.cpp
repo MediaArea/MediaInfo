@@ -154,7 +154,7 @@ void File_ApeTag::Data_Parse()
 
     //Parsing
     Ztring Value;
-    Get_UTF8(Element_Size, Value,                               "Value"); Element_Info(Value);
+    Get_UTF8(Element_Size, Value,                               "Value"); Element_Info1(Value);
 
     //Filling
     transform(Key.begin(), Key.end(), Key.begin(), (int(*)(int))toupper); //(int(*)(int)) is a patch for unix

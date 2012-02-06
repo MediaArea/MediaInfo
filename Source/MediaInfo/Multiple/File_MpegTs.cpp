@@ -1050,7 +1050,7 @@ bool File_MpegTs::Synched_Test()
                         int8u table_id=Buffer[Buffer_Offset+Version_Pos]; //table_id
                         #if MEDIAINFO_TRACE
                             if (Trace_Activated)
-                                Stream->Element_Info=Mpeg_Psi_table_id(table_id);
+                                Stream->Element_Info1=Mpeg_Psi_table_id(table_id);
                         #endif //MEDIAINFO_TRACE
                         if (table_id==0xCD) //specifc case for ATSC STT
                         {
@@ -1433,7 +1433,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
                     Complete_Stream->Streams[StreamID]->Searching_Payload_Continue_Set(false);
                     #if MEDIAINFO_TRACE
                         if (Trace_Activated)
-                            Complete_Stream->Streams[StreamID]->Element_Info="PES";
+                            Complete_Stream->Streams[StreamID]->Element_Info1="PES";
                     #endif //MEDIAINFO_TRACE
                     #ifdef MEDIAINFO_MPEGTS_PCR_YES
                         Complete_Stream->Streams[StreamID]->Searching_TimeStamp_Start_Set(true);
@@ -1738,7 +1738,7 @@ void File_MpegTs::Header_Parse()
         else
             Data_Info("    ");
         */
-        Data_Info(Complete_Stream->Streams[pid]->Element_Info);
+        Data_Info(Complete_Stream->Streams[pid]->Element_Info1);
 
         //Adaptation
         if (adaptation)
@@ -1805,7 +1805,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
     if (Trace_Activated)
     {
         int64u Element_Pos_Save=Element_Offset;
-        Element_Begin("adaptation_field");
+        Element_Begin1("adaptation_field");
         int8u adaptation_field_length;
         Get_B1 (adaptation_field_length,                            "adaptation_field_length");
         if (adaptation_field_length>188-4-1) //TS size - header - adaptation_field_length
@@ -1837,7 +1837,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                     Skip_S1( 6,                                         "reserved");
                     Get_S2 ( 9, program_clock_reference_extension,      "program_clock_reference_extension");
                     int64u program_clock_reference=program_clock_reference_base*300+program_clock_reference_extension;
-                    Param_Info(program_clock_reference);
+                    Param_Info1(program_clock_reference);
                     BS_End();
                     if (Complete_Stream->Streams[pid]->Searching_TimeStamp_End
                     #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
@@ -1923,7 +1923,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 Get_B1 (adaptation_field_extension_length,          "adaptation_field_extension_length");
                 if (Element_Offset+adaptation_field_extension_length<=Element_Pos_Save+1+adaptation_field_length)
                 {
-                    Element_Begin("adaptation_field_extension", adaptation_field_extension_length);
+                    Element_Begin1("adaptation_field_extension");
                     int64u End=Element_Offset+adaptation_field_extension_length;
                     bool ltw_flag, piecewise_rate_flag, seamless_splice_flag;
                     BS_Begin();
@@ -1946,7 +1946,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                         Skip_S1( 4,                                         "splice_type");
                         int16u DTS_29, DTS_14;
                         int8u  DTS_32;
-                        Element_Begin("DTS");
+                        Element_Begin1("DTS");
                         Get_S1 ( 3, DTS_32,                                 "DTS_32");
                         Mark_1();
                         Get_S2 (15, DTS_29,                                 "DTS_29");
@@ -1960,12 +1960,12 @@ void File_MpegTs::Header_Parse_AdaptationField()
                           | (((int64u)DTS_29)<<15)
                           | (((int64u)DTS_14));
                         Element_Info_From_Milliseconds(DTS/90);
-                        Element_End();
+                        Element_End0();
                     }
                     BS_End();
                     if (Element_Offset<End)
                         Skip_XX(End-Element_Offset,                         "reserved");
-                    Element_End();
+                    Element_End0();
                 }
                 else
                     Skip_XX(Element_Pos_Save+1+adaptation_field_length-Element_Offset, "problem");
@@ -1974,7 +1974,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
 
         if (Element_Offset<Element_Pos_Save+1+adaptation_field_length)
             Skip_XX(Element_Pos_Save+1+adaptation_field_length-Element_Offset, "stuffing_bytes");
-        Element_End(1+adaptation_field_length);
+        Element_End0();
     }
     else
     {
@@ -2120,7 +2120,7 @@ void File_MpegTs::Data_Parse()
 void File_MpegTs::PES()
 {
     //Info
-    DETAILS_INFO(if (Complete_Stream->transport_stream_id_IsValid) Element_Info(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid]->stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].registration_format_identifier));)
+    DETAILS_INFO(if (Complete_Stream->transport_stream_id_IsValid) Element_Info1(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid]->stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid]->program_numbers[0]].registration_format_identifier));)
 
     //Demux
     #if MEDIAINFO_DEMUX

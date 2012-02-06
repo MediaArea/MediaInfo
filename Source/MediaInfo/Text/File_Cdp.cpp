@@ -241,13 +241,13 @@ void File_Cdp::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Cdp::cdp_header()
 {
-    Element_Begin("cdp_header");
+    Element_Begin1("cdp_header");
     int16u cdp_identifier;
     int8u cdp_frame_rate;
     Get_B2 (   cdp_identifier,                                  "cdp_identifier");
     Skip_B1(                                                    "cdp_length");
     BS_Begin();
-    Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+_T(" fps"));
+    Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info1(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+_T(" fps"));
     Skip_S1(4,                                                  "Reserved");
     Skip_SB(                                                    "time_code_present");
     Skip_SB(                                                    "ccdata_present");
@@ -259,7 +259,7 @@ void File_Cdp::cdp_header()
     Skip_SB(                                                    "Reserved");
     BS_End();
     Skip_B2(                                                    "cdp_hdr_sequence_cntr");
-    Element_End();
+    Element_End0();
 
     FILLING_BEGIN();
         if (!Status[IsAccepted])
@@ -278,7 +278,7 @@ void File_Cdp::cdp_header()
 //---------------------------------------------------------------------------
 void File_Cdp::time_code_section()
 {
-    Element_Begin("time_code_section");
+    Element_Begin1("time_code_section");
     Skip_B1(                                                    "time_code_section_id");
     BS_Begin();
     Mark_1();
@@ -296,7 +296,7 @@ void File_Cdp::time_code_section()
     Skip_S1(2,                                                  "tc_10fr");
     Skip_S1(4,                                                  "tc_1fr");
     BS_End();
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -304,7 +304,7 @@ void File_Cdp::ccdata_section()
 {
     //Parsing
     int8u cc_count;
-    Element_Begin("ccdata_section");
+    Element_Begin1("ccdata_section");
     Skip_B1(                                                    "ccdata_id");
     BS_Begin();
     Mark_1();
@@ -314,7 +314,7 @@ void File_Cdp::ccdata_section()
     BS_End();
     for (int8u Pos=0; Pos<cc_count; Pos++)
     {
-        Element_Begin("cc");
+        Element_Begin1("cc");
         int8u cc_type;
         bool  cc_valid;
         BS_Begin();
@@ -324,11 +324,11 @@ void File_Cdp::ccdata_section()
         Mark_1();
         Mark_1();
         Get_SB (   cc_valid,                                    "cc_valid");
-        Get_S1 (2, cc_type,                                     "cc_type"); Param_Info(Cdp_cc_type(cc_type));
+        Get_S1 (2, cc_type,                                     "cc_type"); Param_Info1(Cdp_cc_type(cc_type));
         BS_End();
         if (cc_valid)
         {
-            Element_Begin("cc_data");
+            Element_Begin1("cc_data");
                 //Calculating the parser position
                 int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
@@ -393,13 +393,13 @@ void File_Cdp::ccdata_section()
                 }
                 else
                     Skip_XX(2,                                  "Data");
-            Element_End();
+            Element_End0();
         }
         else
             Skip_XX(2,                                          "Junk");
-        Element_End();
+        Element_End0();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -407,7 +407,7 @@ void File_Cdp::ccsvcinfo_section()
 {
     //Parsing
     int8u svc_count;
-    Element_Begin("ccsvcinfo_section");
+    Element_Begin1("ccsvcinfo_section");
     Skip_B1(                                                    "ccsvcinfo_id");
     BS_Begin();
     Skip_SB(                                                    "reserved");
@@ -418,7 +418,7 @@ void File_Cdp::ccsvcinfo_section()
     BS_End();
     for (int8u Pos=0; Pos<svc_count; Pos++)
     {
-        Element_Begin("svc");
+        Element_Begin1("svc");
         bool  csn_size;
         BS_Begin();
         Skip_SB(                                                "reserved");
@@ -433,7 +433,7 @@ void File_Cdp::ccsvcinfo_section()
         BS_End();
 
         //svc_data_byte - caption_service_descriptor
-        Element_Begin("service");
+        Element_Begin1("service");
         Ztring language;
         bool digital_cc;
         Get_Local(3, language,                                  "language");
@@ -451,20 +451,20 @@ void File_Cdp::ccsvcinfo_section()
         Skip_SB(                                                "wide_aspect_ratio");
         Skip_S2(14,                                             "reserved");
         BS_End();
-        Element_End();
-        Element_End();
+        Element_End0();
+        Element_End0();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
 void File_Cdp::cdp_footer()
 {
-    Element_Begin("cdp_footer");
+    Element_Begin1("cdp_footer");
     Skip_B1(                                                    "cdp_footer_id");
     Skip_B2(                                                    "cdp_ftr_sequence_cntr");
     Skip_B1(                                                    "packet_checksum");
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -472,11 +472,11 @@ void File_Cdp::future_section()
 {
     //Parsing
     int8u length;
-    Element_Begin("future_section");
+    Element_Begin1("future_section");
     Skip_B1(                                                    "future_section_id");
     Get_B1 (length,                                             "length");
     Skip_XX(length,                                             "Unknown");
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************

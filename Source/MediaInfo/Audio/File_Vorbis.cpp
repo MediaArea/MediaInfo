@@ -144,7 +144,7 @@ void File_Vorbis::Setup()
     vorbis_codebook_count+=1;
     for (int Pos=0; Pos<vorbis_codebook_count; Pos++)
     {
-        Element_Begin("codebook");
+        Element_Begin1("codebook");
         Get_S3 (24, codebook,                                   "codebook");
         if (codebook!=0x564342)
             return;
@@ -219,7 +219,7 @@ void File_Vorbis::Setup()
             for(int i=0; i<vals; i++)
                 Get_BS (codebook_value_bits, codebook_multiplicands, "codebook_multiplicands");
         }
-        Element_End();
+        Element_End0();
     }
 
     //Time domain transforms
@@ -233,7 +233,8 @@ void File_Vorbis::Setup()
     Get_BS (6, vorbis_floor_count,                              "vorbis_floor_count");
     for (int32u Pos=0; Pos<vorbis_floor_count; Pos++)
     {
-        Info_BS(16, vorbis_floor_types,                         "vorbis_floor_types");
+        int16u vorbis_floor_types;
+        Get_S2(16, vorbis_floor_types,                          "vorbis_floor_types");
 
         FILLING_BEGIN();
             Fill(Stream_Audio, 0, Audio_Format_Settings_Floor, vorbis_floor_types);

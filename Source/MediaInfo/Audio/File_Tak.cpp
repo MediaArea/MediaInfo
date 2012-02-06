@@ -140,7 +140,7 @@ void File_Tak::Header_Parse()
 void File_Tak::Data_Parse()
 {
     #define CASE_INFO(_NAME) \
-        case Elements::_NAME : Element_Info(#_NAME); _NAME(); break;
+        case Elements::_NAME : Element_Info1(#_NAME); _NAME(); break;
 
     //Parsing
     switch (Element_Code)
@@ -153,6 +153,8 @@ void File_Tak::Data_Parse()
         CASE_INFO(PADDING);
         default : Skip_XX(Element_Size,                         "Data");
     }
+
+    Element_Offset=Element_Size;
 }
 
 //***************************************************************************
@@ -182,12 +184,12 @@ void File_Tak::STREAMINFO()
     Get_S1 ( 3, framesizecode,                                  "framesizecode");
     Skip_S1( 2,                                                 "unknown");
     BS_End();
-    Get_L4 (num_samples_hi,                                     "num_samples (hi)"); Param_Info((((int64u)num_samples_hi)<<2 | num_samples_lo), " samples");
-    Get_L3 (samplerate,                                         "samplerate"); Param_Info((samplerate/16)+6000, " Hz");
+    Get_L4 (num_samples_hi,                                     "num_samples (hi)"); Param_Info2((((int64u)num_samples_hi)<<2 | num_samples_lo), " samples");
+    Get_L3 (samplerate,                                         "samplerate"); Param_Info2((samplerate/16)+6000, " Hz");
     BS_Begin();
     Skip_S1( 4,                                                 "unknown");
-    Get_SB (    channels,                                       "channels"); Param_Info(channels?"Stereo":"Mono");
-    Get_S1 ( 2, samplesize,                                     "samplesize"); Param_Info(Tak_samplesize[samplesize]);
+    Get_SB (    channels,                                       "channels"); Param_Info1(channels?"Stereo":"Mono");
+    Get_S1 ( 2, samplesize,                                     "samplesize"); Param_Info1(Tak_samplesize[samplesize]);
     Skip_SB(                                                    "unknown");
     BS_End();
     Skip_L3(                                                    "crc");
@@ -223,10 +225,10 @@ void File_Tak::SEEKTABLE()
     Get_L2 (num_seekpoints,                                     "num_seekpoints");
     Skip_L1 (                                                   "unknown");
     Skip_L1 (                                                   "seek interval");
-    Element_Begin("seekpoints");
+    Element_Begin1("seekpoints");
     for (int16u Pos=0; Pos<num_seekpoints; Pos++)
         Skip_L5 (                                               "seekpoint");
-    Element_End();
+    Element_End0();
     Skip_L3(                                                    "crc");
 }
 

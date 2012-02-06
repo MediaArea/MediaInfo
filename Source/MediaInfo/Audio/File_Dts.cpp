@@ -765,42 +765,42 @@ void File_Dts::Header_Parse()
         Get_SB (isBlownUpHeader,                                "Is blown up header");
         if (isBlownUpHeader)
         {
-            Get_S2 (12, header_size,                            "Header size"); header_size++; Param_Info(header_size, " bytes");
-            Get_S3 (20, HD_size,                                "HD block size"); HD_size++; Param_Info(HD_size, " bytes");
+            Get_S2 (12, header_size,                            "Header size"); header_size++; Param_Info2(header_size, " bytes");
+            Get_S3 (20, HD_size,                                "HD block size"); HD_size++; Param_Info2(HD_size, " bytes");
         }
         else
         {
-            Get_S2 ( 8, header_size,                            "Header size"); header_size++; Param_Info(header_size, " bytes");
-            Get_S3 (16, HD_size,                                "HD block size"); HD_size++; Param_Info(HD_size, " bytes");
+            Get_S2 ( 8, header_size,                            "Header size"); header_size++; Param_Info2(header_size, " bytes");
+            Get_S3 (16, HD_size,                                "HD block size"); HD_size++; Param_Info2(HD_size, " bytes");
         }
         TESTELSE_SB_GET(StaticFieldsPresent,                    "Static fields present");
             std::vector<int32u> ActiveExSSMasks;
-            Info_S1(2, RefClockCode,                            "Reference clock code"); Param_Info(DTS_HD_RefClockCode[RefClockCode]);
-            Get_S1 (3, HD_ExSSFrameDurationCode,                "ExSS frame duration code"); HD_ExSSFrameDurationCode++; Param_Info(HD_ExSSFrameDurationCode);
+            Info_S1(2, RefClockCode,                            "Reference clock code"); Param_Info1(DTS_HD_RefClockCode[RefClockCode]);
+            Get_S1 (3, HD_ExSSFrameDurationCode,                "ExSS frame duration code"); HD_ExSSFrameDurationCode++; Param_Info1(HD_ExSSFrameDurationCode);
             TEST_SB_SKIP(                                       "Timestamp flag");
                 Skip_S5(36,                                     "Timestamp");
             TEST_SB_END();
-            Get_S1 (3, NumAudioPresent,                         "Num audio present"); NumAudioPresent++; Param_Info(NumAudioPresent, " channels");
-            Get_S1 (3, NumAssets,                               "Num assets"); NumAssets++; Param_Info(NumAssets, " assets");
-            Element_Begin("Active masks");
+            Get_S1 (3, NumAudioPresent,                         "Num audio present"); NumAudioPresent++; Param_Info2(NumAudioPresent, " channels");
+            Get_S1 (3, NumAssets,                               "Num assets"); NumAssets++; Param_Info2(NumAssets, " assets");
+            Element_Begin1("Active masks");
             for (int8u Pos=0; Pos<NumAudioPresent; Pos++)
             {
                 int32u ActiveExSSMask;
                 Get_S4 (SubStreamIndex+1, ActiveExSSMask,       "Active ExSS mask");
                 ActiveExSSMasks.push_back(ActiveExSSMask);
             }
-            Element_End();
-            Element_Begin("Active masks 2");
+            Element_End0();
+            Element_Begin1("Active masks 2");
             for (int8u Pos=0; Pos<NumAudioPresent; Pos++)
                 for (int8u Pos2=0; Pos2<SubStreamIndex+1; Pos2+=2)
                     if (ActiveExSSMasks[Pos]%2)
                         Skip_S1(8,                              "Active ExSS Mask");
-            Element_End();
+            Element_End0();
             TEST_SB_SKIP(                                       "Mix metadata Enabled");
                 int8u Bits4MixOutMask, NumMixOutConfigs;
                 Skip_S1(2,                                      "Mix metadata adjustment level");
-                Get_S1 (2, Bits4MixOutMask,                     "Bits4Mix out mask"); Bits4MixOutMask=4+Bits4MixOutMask*4; Param_Info(Bits4MixOutMask, " bits");
-                Get_S1 (2, NumMixOutConfigs,                    "Number of mix out configs"); NumMixOutConfigs++; Param_Info(NumMixOutConfigs, " configs");
+                Get_S1 (2, Bits4MixOutMask,                     "Bits4Mix out mask"); Bits4MixOutMask=4+Bits4MixOutMask*4; Param_Info2(Bits4MixOutMask, " bits");
+                Get_S1 (2, NumMixOutConfigs,                    "Number of mix out configs"); NumMixOutConfigs++; Param_Info2(NumMixOutConfigs, " configs");
                 for (int8u Pos=0; Pos<NumMixOutConfigs; Pos++)
                     Skip_S1(Bits4MixOutMask,                    "MixOutChMask");
             TEST_SB_END();
@@ -809,45 +809,45 @@ void File_Dts::Header_Parse()
             NumAssets=1;
         TESTELSE_SB_END();
         Asset_Sizes.clear();
-        Element_Begin("Sizes");
+        Element_Begin1("Sizes");
         for (int8u Pos=0; Pos<NumAssets; Pos++)
         {
             int32u Size;
             if (isBlownUpHeader)
             {
-                Get_S3 (20, Size,                               "Size"); Size++; Param_Info(Size, " bytes");
+                Get_S3 (20, Size,                               "Size"); Size++; Param_Info2(Size, " bytes");
             }
             else
             {
-                Get_S3 (16, Size,                               "Size"); Size++; Param_Info(Size, " bytes");
+                Get_S3 (16, Size,                               "Size"); Size++; Param_Info2(Size, " bytes");
             }
             Asset_Sizes.push_back(Size);
         }
-        Element_End();
+        Element_End0();
         for (int8u Asset_Pos=0; Asset_Pos<NumAssets; Asset_Pos++)
         {
-            Element_Begin("Asset");
+            Element_Begin1("Asset");
             int16u AssetSize;
             Get_S2 (9, AssetSize,                               "Asset size");
-            AssetSize++;  Param_Info(AssetSize, " bytes?");
+            AssetSize++;  Param_Info2(AssetSize, " bytes?");
             Skip_S1(3,                                          "Descriptor data for asset index");
             if (StaticFieldsPresent)
             {
                 TEST_SB_SKIP(                                   "Asset type descriptor present");
-                    Info_S1( 4, TypeDescriptor,                 "Asset type descriptor"); Param_Info(DTS_HD_TypeDescriptor[TypeDescriptor]);
+                    Info_S1( 4, TypeDescriptor,                 "Asset type descriptor"); Param_Info1(DTS_HD_TypeDescriptor[TypeDescriptor]);
                 TEST_SB_END();
                 TEST_SB_SKIP(                                   "Language descriptor present");
-                    Info_S3(24, LanguageDescriptor,             "Language descriptor"); Param_Info(Ztring().From_CC3(LanguageDescriptor));
+                    Info_S3(24, LanguageDescriptor,             "Language descriptor"); Param_Info1(Ztring().From_CC3(LanguageDescriptor));
                 TEST_SB_END();
                 TEST_SB_SKIP(                                   "Info text present");
                     int16u InfoTextByteSize;
-                    Get_S2(10, InfoTextByteSize,                "Info text size"); InfoTextByteSize++; Param_Info(InfoTextByteSize, "bytes");
+                    Get_S2(10, InfoTextByteSize,                "Info text size"); InfoTextByteSize++; Param_Info2(InfoTextByteSize, "bytes");
                     for (int16u Pos=0; Pos<InfoTextByteSize; Pos++)
                         Skip_S1(8,                              "Info text");
                 TEST_SB_END();
-                Get_S1 (5, HD_BitResolution,                    "Bit resolution"); HD_BitResolution++; Param_Info(HD_BitResolution, " bits");
-                Get_S1 (4, HD_MaximumSampleRate,                "Maximum sample rate"); Param_Info(DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], " Hz");
-                Get_S1 (8, HD_TotalNumberChannels,              "Total number of channels"); HD_TotalNumberChannels++; Param_Info(HD_TotalNumberChannels, " channels");
+                Get_S1 (5, HD_BitResolution,                    "Bit resolution"); HD_BitResolution++; Param_Info2(HD_BitResolution, " bits");
+                Get_S1 (4, HD_MaximumSampleRate,                "Maximum sample rate"); Param_Info2(DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], " Hz");
+                Get_S1 (8, HD_TotalNumberChannels,              "Total number of channels"); HD_TotalNumberChannels++; Param_Info2(HD_TotalNumberChannels, " channels");
                 TEST_SB_SKIP(                                   "1 to 1 map channels to speakers");
                     int8u SpeakerActivityMaskBits, SpeakerRemapSetsCount;
                     if (HD_TotalNumberChannels>2)
@@ -855,9 +855,9 @@ void File_Dts::Header_Parse()
                     if (HD_TotalNumberChannels>6)
                         Skip_SB(                                "Embedded 6 Channels flag"); //else is 0
                     TESTELSE_SB_SKIP(                           "Speaker mask enabled");
-                        Get_S1 (2, SpeakerActivityMaskBits,     "Speaker activity mask bits"); Param_Info(4+SpeakerActivityMaskBits*4, " bits");
+                        Get_S1 (2, SpeakerActivityMaskBits,     "Speaker activity mask bits"); Param_Info2(4+SpeakerActivityMaskBits*4, " bits");
                         SpeakerActivityMaskBits=4+SpeakerActivityMaskBits*4;
-                        Get_S2 (SpeakerActivityMaskBits, HD_SpeakerActivityMask, "Speaker activity mask"); Param_Info(DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str());
+                        Get_S2 (SpeakerActivityMaskBits, HD_SpeakerActivityMask, "Speaker activity mask"); Param_Info1(DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str());
                     TESTELSE_SB_ELSE(                           "Speaker mask enabled");
                         SpeakerActivityMaskBits=0;
                     TESTELSE_SB_END();
@@ -871,7 +871,7 @@ void File_Dts::Header_Parse()
                         //Not finnished!
                     }
                 TEST_SB_END();
-                Element_End();
+                Element_End0();
             }
         }
         BS_End();
@@ -887,22 +887,22 @@ void File_Dts::Header_Parse()
         int8u  EncoderSoftwareRevision;
         bool   crc_present;
         BS_Begin();
-        Info_SB(    FrameType,                                      "Frame Type"); Param_Info(DTS_FrameType[FrameType]);
+        Info_SB(    FrameType,                                      "Frame Type"); Param_Info1(DTS_FrameType[FrameType]);
         Skip_S1( 5,                                                 "Deficit Sample Count");
         Get_SB (    crc_present,                                    "CRC Present");
         Skip_S1( 7,                                                 "Number of PCM Sample Blocks");
         Get_S2 (14, Primary_Frame_Byte_Size_minus_1,                "Primary Frame Byte Size minus 1");
         Primary_Frame_Byte_Size_minus_1+=1;
-        if (!Word) Primary_Frame_Byte_Size_minus_1=Primary_Frame_Byte_Size_minus_1*8/14*2; Param_Info(Ztring::ToZtring(Primary_Frame_Byte_Size_minus_1)+_T(" bytes")); //Word is on 14 bits!
-        Get_S1 ( 6, channel_arrangement,                            "Audio Channel Arrangement"); Param_Info(Ztring::ToZtring(DTS_Channels[channel_arrangement])+_T(" channels"));
-        Get_S1 ( 4, sample_frequency,                               "Core Audio Sampling Frequency"); Param_Info(Ztring::ToZtring(DTS_SamplingRate[sample_frequency])+_T(" Hz"));
-        Get_S1 ( 5, bit_rate,                                       "Transmission Bit Rate"); Param_Info(Ztring::ToZtring(DTS_BitRate[bit_rate])+_T(" bps"));
+        if (!Word) Primary_Frame_Byte_Size_minus_1=Primary_Frame_Byte_Size_minus_1*8/14*2; Param_Info2(Primary_Frame_Byte_Size_minus_1, " bytes"); //Word is on 14 bits!
+        Get_S1 ( 6, channel_arrangement,                            "Audio Channel Arrangement"); Param_Info2(DTS_Channels[channel_arrangement], " channels");
+        Get_S1 ( 4, sample_frequency,                               "Core Audio Sampling Frequency"); Param_Info2(DTS_SamplingRate[sample_frequency], " Hz");
+        Get_S1 ( 5, bit_rate,                                       "Transmission Bit Rate"); Param_Info2(DTS_BitRate[bit_rate], " bps");
         Skip_SB(                                                    "Embedded Down Mix Enabled");
         Skip_SB(                                                    "Embedded Dynamic Range");
         Skip_SB(                                                    "Embedded Time Stamp");
         Skip_SB(                                                    "Auxiliary Data");
         Skip_SB(                                                    "HDCD");
-        Get_S1 ( 3, ExtensionAudioDescriptor,                       "Extension Audio Descriptor"); Param_Info(DTS_ExtensionAudioDescriptor[ExtensionAudioDescriptor]);
+        Get_S1 ( 3, ExtensionAudioDescriptor,                       "Extension Audio Descriptor"); Param_Info1(DTS_ExtensionAudioDescriptor[ExtensionAudioDescriptor]);
         Get_SB (    ExtendedCoding,                                 "Extended Coding");
         Skip_SB(                                                    "Audio Sync Word Insertion");
         Get_S1 ( 2, lfe_effects,                                    "Low Frequency Effects");
@@ -912,7 +912,7 @@ void File_Dts::Header_Parse()
         Skip_SB(                                                    "Multirate Interpolator");
         Get_S1 ( 4, EncoderSoftwareRevision,                        "Encoder Software Revision");
         Skip_S1( 2,                                                 "Copy History");
-        Get_S1 ( 2, bits_per_sample,                                "Source PCM Resolution"); Param_Info(Ztring::ToZtring(DTS_Resolution[bits_per_sample])+_T(" bits"));
+        Get_S1 ( 2, bits_per_sample,                                "Source PCM Resolution"); Param_Info1(Ztring::ToZtring(DTS_Resolution[bits_per_sample])+_T(" bits"));
         Get_SB (    ES,                                             "ES");
         Skip_SB(                                                    "Front Sum/Difference");
         Skip_SB(                                                    "Surrounds Sum/Difference");
@@ -954,11 +954,10 @@ void File_Dts::Data_Parse()
     }
 
     //Name
-    Element_Info(Ztring::ToZtring(Frame_Count));
+    Element_Info1(Ztring::ToZtring(Frame_Count));
 
     //PTS
-    if (FrameInfo.PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+    Element_Info1C((FrameInfo.PTS!=(int64u)-1), _T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
@@ -1043,24 +1042,24 @@ void File_Dts::Core()
     Skip_XX(Core_Size,                                          "Core data");
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
     {
-        Element_Begin();
+        Element_Begin0();
         Skip_B4(                                                "Magic");
         Core_X96k(XCh_Sync-Element_Offset);
-        Element_End();
+        Element_End0();
     }
     if (ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3))
     {
-        Element_Begin();
+        Element_Begin0();
         Skip_B4(                                                "Magic");
         Core_XCh(Element_Size-Element_Offset);
-        Element_End();
+        Element_End0();
     }
     if (ExtendedCoding && ExtensionAudioDescriptor==6)
     {
-        Element_Begin();
+        Element_Begin0();
         Skip_B4(                                                "Magic");
         Core_XXCh(Element_Size-Element_Offset);
-        Element_End();
+        Element_End0();
     }
 
     //Filling
@@ -1160,7 +1159,7 @@ void File_Dts::HD()
         if (Next+4>Element_Size)
             Next=Element_Size;
 
-        Element_Begin();
+        Element_Begin0();
         int32u Magic;
         Get_B4 (Magic,                                          "Magic");
         switch (Magic)
@@ -1177,7 +1176,7 @@ void File_Dts::HD()
                             Profile="HD";
                         Skip_XX(Next-Element_Offset,            "Data");
         }
-        Element_End();
+        Element_End0();
     }
 
     //Filling

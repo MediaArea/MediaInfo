@@ -171,7 +171,7 @@ void File_DtvccTransport::Read_Buffer_Unsynched()
 void File_DtvccTransport::Read_Buffer_Continue()
 {
     //Parsing
-    Element_Begin(Format==Format_DVD?"DVD Captions":"DTVCC Transport");
+    Element_Begin1(Format==Format_DVD?"DVD Captions":"DTVCC Transport");
     int8u  cc_count;
     bool   process_cc_data_flag, additional_data_flag;
     BS_Begin();
@@ -198,7 +198,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
     {
         for (int8u Pos=0; Pos<cc_count; Pos++)
         {
-            Element_Begin("cc");
+            Element_Begin1("cc");
             int8u cc_type;
             bool  cc_valid;
             BS_Begin();
@@ -212,19 +212,19 @@ void File_DtvccTransport::Read_Buffer_Continue()
                 //Modified DTVCC Transport from DVD
                 Mark_1();
                 Mark_1();
-                Get_S1 (1, cc_type,                             "cc_type"); Param_Info(DtvccTransport_cc_type(cc_type));
+                Get_S1 (1, cc_type,                             "cc_type"); Param_Info1(DtvccTransport_cc_type(cc_type));
                 cc_valid=true;
             }
             else
             {
                 //Normal DTVCC Transport
                 Get_SB (   cc_valid,                            "cc_valid");
-                Get_S1 (2, cc_type,                             "cc_type"); Param_Info(DtvccTransport_cc_type(cc_type));
+                Get_S1 (2, cc_type,                             "cc_type"); Param_Info1(DtvccTransport_cc_type(cc_type));
             }
             BS_End();
             if (cc_valid)
             {
-                Element_Begin("cc_data");
+                Element_Begin1("cc_data");
                     //Calculating the parser position
                     int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
@@ -297,11 +297,11 @@ void File_DtvccTransport::Read_Buffer_Continue()
                     }
                     else
                         Skip_XX(2,                                  "Data");
-                Element_End();
+                Element_End0();
             }
             else
                 Skip_XX(2,                                          "Junk");
-            Element_End();
+            Element_End0();
         }
     }
     else
@@ -332,7 +332,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
         }
     }
 
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************

@@ -388,7 +388,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         {
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
-                Element_End(); //This is Finish, must flush
+                Element_End0(); //This is Finish, must flush
             Buffer_Clear();
             File_Offset=File_Size;
             ForceFinish();
@@ -553,7 +553,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
 
                 //From Sub
                 while(Sub->Element_Level)
-                    Sub->Element_End();
+                    Sub->Element_End0();
                 Element[Element_Level].ToShow.Details+=Sub->Element[0].ToShow.Details;
                 Sub->Element[0].ToShow.Details.clear();
             }
@@ -736,7 +736,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 
     //Element must be Finish
     while (Element_Level>0)
-        Element_End();
+        Element_End0();
 
     //Buffer - Global
     Fill();
@@ -801,7 +801,7 @@ bool File__Analyze::Buffer_Parse()
     {
         //There is no loop handler, so we make the level down here
         while (Element_Level>0 && File_Offset+Buffer_Offset>=Element[Element_Level].Next)
-            Element_End(); //This is a buffer restart, must sync to Element level
+            Element_End0(); //This is a buffer restart, must sync to Element level
         if (File_Offset+Buffer_Offset==File_Size)
             return false; //End of file
         MustUseAlternativeParser=false; //Reset it if we go out of an element
@@ -1106,11 +1106,11 @@ bool File__Analyze::FileHeader_Manage()
 
     //From the parser
     Element_Size=Buffer_Size;
-    Element_Begin("File Header");
+    Element_Begin1("File Header");
     FileHeader_Parse();
     if (Element_Offset==0)
         Element_DoNotShow();
-    Element_End();
+    Element_End0();
     if (Status[IsFinished]) //Newest parsers set this bool if there is an error
     {
         Finish();
@@ -1174,11 +1174,11 @@ bool File__Analyze::Header_Manage()
     if (Element_Size==0)
         return false;
     Element_Offset=0;
-    Element_Begin(); //Element
+    Element_Begin0(); //Element
     #if MEDIAINFO_TRACE
         Data_Level=Element_Level;
     #endif //MEDIAINFO_TRACE
-    Element_Begin("Header"); //Header
+    Element_Begin1("Header"); //Header
 
     //Header parsing
     Header_Parse();
@@ -1198,8 +1198,8 @@ bool File__Analyze::Header_Manage()
     {
         //The header is not complete, need more data
         Element[Element_Level].WaitForMoreData=true;
-        Element_End(); //Header
-        Element_End(); //Element
+        Element_End0(); //Header
+        Element_End0(); //Element
         return false;
     }
 
@@ -1239,7 +1239,7 @@ bool File__Analyze::Header_Manage()
         Element[Element_Level-1].IsComplete=false;
     }
 
-    Element_End(); //Header
+    Element_End0(); //Header
     return true;
 }
 
@@ -1338,7 +1338,7 @@ bool File__Analyze::Data_Manage()
         if (Element_IsWaitingForMoreData())
         {
             //The data is not complete, need more data
-            Element_End(); //Element
+            Element_End0(); //Element
             Buffer_Offset-=(size_t)Header_Size;
             return false;
         }
@@ -1350,7 +1350,7 @@ bool File__Analyze::Data_Manage()
     if (File_GoTo!=(int64u)-1 || (Status[IsFinished] && !ShouldContinueParsing))
     {
         if (!Element_WantNextLevel)
-            Element_End(); //Element
+            Element_End0(); //Element
         return false;
     }
 
@@ -1366,7 +1366,7 @@ bool File__Analyze::Data_Manage()
         {
             GoTo(Element[Element_Level].Next);
             if (!Element_WantNextLevel)
-                Element_End(); //Element
+                Element_End0(); //Element
             return false;
         }
     }
@@ -1374,7 +1374,7 @@ bool File__Analyze::Data_Manage()
     {
         GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
         if (!Element_WantNextLevel)
-            Element_End(); //Element
+            Element_End0(); //Element
         return false;
     }
 
@@ -1387,7 +1387,7 @@ bool File__Analyze::Data_Manage()
         if (Config->Demux_EventWasSent)
         {
             if (!Element_WantNextLevel)
-                Element_End();
+                Element_End0();
             return false;
         }
     #endif //MEDIAINFO_DEMUX
@@ -1398,7 +1398,7 @@ bool File__Analyze::Data_Manage()
     else
         Element[0].ToShow.NoShow=false; //This should never happen, but in case of
     #endif //MEDIAINFO_TRACE
-    Element_End(); //Element
+    Element_End0(); //Element
     if (Element_WantNextLevel)
         Element_Level++;
     Element[Element_Level].UnTrusted=false;
@@ -1496,7 +1496,7 @@ void File__Analyze::Data_GoTo (int64u GoTo_, const char* ParserName)
 
     Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo_, 16));
     GoTo(GoTo_);
-    Element_End();
+    Element_End0();
 }
 #endif //MEDIAINFO_TRACE
 
@@ -1560,7 +1560,7 @@ void File__Analyze::Element_Begin()
 
     //ToShow
     #if MEDIAINFO_TRACE
-    Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
+    Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End0()
     if (Trace_Activated)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
@@ -1575,27 +1575,20 @@ void File__Analyze::Element_Begin()
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
+void File__Analyze::Element_Begin(const Ztring &Name)
 {
     //Level
     Element_Level++;
 
     //Element
     Element[Element_Level].Code=0;
-    if (Size==(int64u)-1)
-        Element[Element_Level].Next=Element[Element_Level-1].Next;
-    else
-    {
-        Element[Element_Level].Next=File_Offset+Buffer_Offset+Element_Offset+Size;
-        if (Element[Element_Level].Next>Element[Element_Level-1].Next)
-            Element[Element_Level].Next=Element[Element_Level-1].Next;
-    }
+    Element[Element_Level].Next=Element[Element_Level-1].Next;
     Element[Element_Level].WaitForMoreData=false;
     Element[Element_Level].UnTrusted=Element[Element_Level-1].UnTrusted;
     Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
 
     //ToShow
-    Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
+    Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End0()
     if (Trace_Activated)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
@@ -1605,26 +1598,6 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
         Element[Element_Level].ToShow.Details.clear();
         Element[Element_Level].ToShow.NoShow=false;
     }
-}
-#else //MEDIAINFO_TRACE
-void File__Analyze::Element_Begin(int64u Size)
-{
-    //Level
-    Element_Level++;
-
-    //Element
-    Element[Element_Level].Code=0;
-    if (Size==(int64u)-1)
-        Element[Element_Level].Next=Element[Element_Level-1].Next;
-    else
-    {
-        Element[Element_Level].Next=File_Offset+Buffer_Offset+Element_Offset+Size;
-        if (Element[Element_Level].Next>Element[Element_Level-1].Next)
-            Element[Element_Level].Next=Element[Element_Level-1].Next;
-    }
-    Element[Element_Level].WaitForMoreData=false;
-    Element[Element_Level].UnTrusted=Element[Element_Level-1].UnTrusted;
-    Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
 }
 #endif //MEDIAINFO_TRACE
 
@@ -1680,16 +1653,8 @@ void File__Analyze::Element_Info(const Ztring &Parameter)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_TRACE
-void File__Analyze::Element_End(const Ztring &Name, int64u Size)
+void File__Analyze::Element_End(const Ztring &Name)
 {
-    //Element
-    if (Size!=(int64u)-1)
-    {
-        Element[Element_Level].Next=Element[Element_Level].ToShow.Pos+Size; //TODO: change this
-        if (Element[Element_Level].Next>Element[Element_Level-1].Next)
-            Element[Element_Level].Next=Element[Element_Level-1].Next;
-    }
-
     //ToShow
     if (Trace_Activated)
     {
@@ -1700,26 +1665,7 @@ void File__Analyze::Element_End(const Ztring &Name, int64u Size)
 
     Element_End_Common_Flush();
 }
-#else //MEDIAINFO_TRACE
-void File__Analyze::Element_End(int64u Size)
-{
-    //Element
-    if (Size!=(int64u)-1)
-    {
-        if (Element[Element_Level].Next>Element[Element_Level-1].Next)
-            Element[Element_Level].Next=Element[Element_Level-1].Next;
-    }
-
-    Element_End_Common_Flush();
-}
 #endif //MEDIAINFO_TRACE
-
-//---------------------------------------------------------------------------
-void File__Analyze::Element_End()
-{
-    Element_End_Common_Flush();
-}
-
 
 //***************************************************************************
 // Element - Common
@@ -2078,7 +2024,7 @@ void File__Analyze::Accept ()
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(ParserName+_T(", accepted"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2157,7 +2103,7 @@ void File__Analyze::Fill ()
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(ParserName+_T(", filling"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2204,7 +2150,7 @@ void File__Analyze::Finish ()
             {
                 bool MustElementBegin=Element_Level?true:false;
                 if (Element_Level>0)
-                    Element_End(); //Element
+                    Element_End0(); //Element
                 //Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
                 if (MustElementBegin)
                     Element_Level++;
@@ -2240,7 +2186,7 @@ void File__Analyze::ForceFinish ()
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(ParserName+_T(", finished"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2320,7 +2266,7 @@ void File__Analyze::Reject ()
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(Ztring(ParserName)+_T(", rejected"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2368,7 +2314,7 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(Ztring(ParserName)+_T(", wants to go to somewhere, but should continue parsing"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2382,7 +2328,7 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(Ztring(ParserName)+_T(", wants to go to somewhere, but is sub, waiting data"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2394,7 +2340,7 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     {
         bool MustElementBegin=Element_Level?true:false;
         if (Element_Level>0)
-            Element_End(); //Element
+            Element_End0(); //Element
         Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
         if (MustElementBegin)
             Element_Level++; //Element
@@ -2454,7 +2400,7 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
-                Element_End(); //Element
+                Element_End0(); //Element
             Info(Ztring(ParserName)+_T(", wants to go to somewhere, but not valid"));
             if (MustElementBegin)
                 Element_Level++;
@@ -2625,10 +2571,10 @@ void File__Analyze::BookMark_Get ()
 
     Element_Show();
     while (Element_Level>0)
-        Element_End();
+        Element_End0();
     while (Element_Level<BookMark_Element_Level)
     {
-        Element_Begin("Restarting parsing...", File_Size);
+        Element_Begin1("Restarting parsing...");
         Element_WantNextLevel=true;
     }
 
@@ -2731,8 +2677,8 @@ void File__Analyze::Demux_UnpacketizeContainer_Demux_Clear ()
     Demux_TotalBytes=Buffer_TotalBytes+Demux_Offset;
     Demux_Offset=0;
     //if (Frame_Count || Field_Count)
-    //    Element_End();
-    //Element_Begin("Frame or Field");
+    //    Element_End0();
+    //Element_Begin1("Frame or Field");
 }
 #endif //MEDIAINFO_DEMUX
 

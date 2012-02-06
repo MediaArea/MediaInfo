@@ -329,13 +329,13 @@ void File_H263::Data_Parse()
         Open_Buffer_Unsynch();
         return;
     }
-    Element_Begin("Type Information (PTYPE)");
+    Element_Begin1("Type Information (PTYPE)");
         Mark_1();
         Mark_0();
         Skip_SB(                                                "Split screen indicator");
         Skip_SB(                                                "Document camera indicator");
         Skip_SB(                                                "Full Picture Freeze Release");
-        Get_S1 (3, Source_Format,                               "Source Format"); Param_Info(H263_Source_Format[Source_Format]);
+        Get_S1 (3, Source_Format,                               "Source Format"); Param_Info1(H263_Source_Format[Source_Format]);
         if (Source_Format!=7)
         {
             Skip_SB(                                            "Picture Coding Type");
@@ -344,10 +344,10 @@ void File_H263::Data_Parse()
             Skip_SB(                                            "Advanced Prediction mode");
             Skip_SB(                                            "PB-frames mode");
         }
-    Element_End();
+    Element_End0();
     if (Source_Format==7) // Extended PTYPE
     {
-        Element_Begin("Plus PTYPE (PLUSPTYPE)");
+        Element_Begin1("Plus PTYPE (PLUSPTYPE)");
             int8u Ufep, PixelAspectRatioCode=0, Width=0, Height=0;
             Get_S1 ( 3, Ufep,                                   "Update Full Extended PTYPE (UFEP)");
             switch (Ufep)
@@ -355,8 +355,8 @@ void File_H263::Data_Parse()
                 case 0  :
                             break;
                 case 1  :
-                            Element_Begin("Optional Part of PLUSPTYPE (OPPTYPE)");
-                            Get_S1 (3, Source_Format,           "Source Format"); Param_Info(H263_Source_Format[Source_Format]);
+                            Element_Begin1("Optional Part of PLUSPTYPE (OPPTYPE)");
+                            Get_S1 (3, Source_Format,           "Source Format"); Param_Info1(H263_Source_Format[Source_Format]);
                             Skip_SB(                            "Custom PCF");
                             Skip_SB(                            "Unrestricted Motion Vector (UMV) mode");
                             Skip_SB(                            "Syntax-based Arithmetic Coding (SAC) mode");
@@ -372,14 +372,14 @@ void File_H263::Data_Parse()
                             Mark_0();
                             Mark_0();
                             Mark_0();
-                            Element_End();
+                            Element_End0();
                             break;
                 default :
                             BS_End();
                             Skip_XX(Element_Size-Element_Offset, "Unknown");
                             return; //TODO: frame count...
             }
-            Element_Begin("mandatory part of PLUSPTYPE when PLUSPTYPE present (MPPTYPE)");
+            Element_Begin1("mandatory part of PLUSPTYPE when PLUSPTYPE present (MPPTYPE)");
                 Skip_S1(3,                                      "Picture Type Code");
                 Skip_SB(                                        "Reference Picture Resampling (RPR) mode");
                 Skip_SB(                                        "Reduced-Resolution Update (RRU) mode");
@@ -387,24 +387,24 @@ void File_H263::Data_Parse()
                 Mark_0();
                 Mark_0();
                 Mark_1();
-            Element_End();
-        Element_End();
+            Element_End0();
+        Element_End0();
         Skip_SB(                                                "CPM");
         Skip_S1(2,                                              "PSBI");
-        Element_Begin("Custom Picture Format (CPFMT)");
+        Element_Begin1("Custom Picture Format (CPFMT)");
             Get_S1 (4, PixelAspectRatioCode,                    "Pixel Aspect Ratio Code");
             Get_S1 (4, Width,                                   "Picture Width Indication");
-            Width++; Width<<=2; Param_Info(Width, " pixels");
+            Width++; Width<<=2; Param_Info2(Width, " pixels");
             Mark_1();
             Get_S1 (4, Height,                                  "Picture Height Indication");
-            Height<<=2; Param_Info(Height, " pixels");
-        Element_End();
+            Height<<=2; Param_Info2(Height, " pixels");
+        Element_End0();
         if (PixelAspectRatioCode==0xF)
         {
-            Element_Begin("Extended Pixel Aspect Ratio (EPAR)");
+            Element_Begin1("Extended Pixel Aspect Ratio (EPAR)");
             Get_S1 (8, PAR_W,                                   "PAR Width");
             Get_S1 (8, PAR_H,                                   "PAR Height");
-            Element_End();
+            Element_End0();
         }
         else
         {
@@ -416,7 +416,7 @@ void File_H263::Data_Parse()
     Skip_XX(Element_Size-Element_Offset,                        "Other data");
 
     FILLING_BEGIN();
-        Element_Info(Frame_Count);
+        Element_Info1(Frame_Count);
         Frame_Count++;
         
         //Filling

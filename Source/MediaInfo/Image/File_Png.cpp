@@ -173,7 +173,7 @@ void File_Png::Data_Parse()
     Element_Size-=4; //For CRC
 
     #define CASE_INFO(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
+        case Elements::_NAME : Element_Info1(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)
@@ -202,7 +202,7 @@ void File_Png::IHDR()
     Get_B4 (Width,                                              "Width");
     Get_B4 (Height,                                             "Height");
     Get_B1 (Bit_depth,                                          "Bit depth");
-    Get_B1 (Colour_type,                                        "Colour type"); Param_Info(Png_Colour_type(Colour_type));
+    Get_B1 (Colour_type,                                        "Colour type"); Param_Info1(Png_Colour_type(Colour_type));
     Get_B1 (Compression_method,                                 "Compression method");
     Skip_B1(                                                    "Filter method");
     Get_B1 (Interlace_method,                                   "Interlace method");

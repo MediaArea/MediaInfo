@@ -108,10 +108,10 @@ void File_Als::FileHeader_Parse()
     Skip_C4(                                                    "signature");
     Get_B4 (SampleRate,                                         "sample rate");
     Get_B4 (Samples,                                            "samples");
-    Get_B2 (Channels,                                           "channels-1"); Param_Info(Channels+1, " channel(s)");
+    Get_B2 (Channels,                                           "channels-1"); Param_Info2(Channels+1, " channel(s)");
     BS_Begin();
     Get_S1 (3, FileType,                                        "file type"); // WAV, RIFF, AIFF
-    Get_S1 (3, BitsPerSample,                                   "bits per sample"); Param_Info((BitsPerSample+1)*8, " bits");
+    Get_S1 (3, BitsPerSample,                                   "bits per sample"); Param_Info2((BitsPerSample+1)*8, " bits");
     Skip_SB(                                                    "floating point");
     Skip_SB(                                                    "samples are big-endian");
     BS_End();

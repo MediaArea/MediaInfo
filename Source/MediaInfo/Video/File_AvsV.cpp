@@ -473,12 +473,12 @@ void File_AvsV::video_sequence_start()
     Get_S2 (14, vertical_size,                                  "vertical_size");
     Get_S1 ( 2, chroma_format,                                  "chroma_format");
     Skip_S1( 3,                                                 "sample_precision");
-    Get_S1 ( 4, aspect_ratio,                                   "aspect_ratio"); Param_Info(AvsV_aspect_ratio[aspect_ratio]);
-    Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info(AvsV_frame_rate[frame_rate_code]);
+    Get_S1 ( 4, aspect_ratio,                                   "aspect_ratio"); Param_Info1(AvsV_aspect_ratio[aspect_ratio]);
+    Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info1(AvsV_frame_rate[frame_rate_code]);
     Get_S3 (18, bit_rate_lower,                                 "bit_rate_lower");
     Mark_1 ();
     Get_S3 (12, bit_rate_upper,                                 "bit_rate_upper");
-    bit_rate=(bit_rate_upper<<18)+bit_rate_lower; Param_Info(bit_rate*8, " bps");
+    bit_rate=(bit_rate_upper<<18)+bit_rate_lower; Param_Info2(bit_rate*8, " bps");
     Get_SB (    low_delay,                                      "low_delay");
     Mark_1 ();
     Skip_S3(18,                                                 "bbv_buffer_size");
@@ -583,14 +583,14 @@ void File_AvsV::extension_start()
     //Parsing
     int8u extension_start_code_identifier;
     BS_Begin();
-    Get_S1 ( 4, extension_start_code_identifier,                "extension_start_code_identifier"); Param_Info(AvsV_extension_start_code_identifier[extension_start_code_identifier]);
-    Element_Info(AvsV_extension_start_code_identifier[extension_start_code_identifier]);
+    Get_S1 ( 4, extension_start_code_identifier,                "extension_start_code_identifier"); Param_Info1(AvsV_extension_start_code_identifier[extension_start_code_identifier]);
+    Element_Info1(AvsV_extension_start_code_identifier[extension_start_code_identifier]);
 
          switch (extension_start_code_identifier)
     {
         case 2  :{ //sequence_display
                     //Parsing
-                    Get_S1 ( 3, video_format,                   "video_format"); Param_Info(AvsV_video_format[video_format]);
+                    Get_S1 ( 3, video_format,                   "video_format"); Param_Info1(AvsV_video_format[video_format]);
                     Skip_SB(                                    "sample_range");
                     TEST_SB_SKIP(                               "colour_description");
                         Skip_S1( 8,                             "colour_primaries");
@@ -616,7 +616,7 @@ void File_AvsV::extension_start()
                     Mark_1 ();
                     Info_S3(22, copyright_number_2,             "copyright_number_2");
                     Mark_1 ();
-                    Info_S3(22, copyright_number_3,             "copyright_number_3"); Param_Info(Ztring::ToZtring(((int64u)copyright_number_1<<44)+((int64u)copyright_number_2<<22)+(int64u)copyright_number_3, 16));
+                    Info_S3(22, copyright_number_3,             "copyright_number_3"); Param_Info1(Ztring::ToZtring(((int64u)copyright_number_1<<44)+((int64u)copyright_number_2<<22)+(int64u)copyright_number_3, 16));
                     BS_End();
                 }
                 break;
@@ -695,9 +695,8 @@ void File_AvsV::picture_start()
 
     //Name
     Element_Name("picture_start");
-    Element_Info(Ztring::ToZtring(Frame_Count));
-    if (Element_Code==0xB3)
-        Element_Info(_T("I"));
+    Element_Info1(Ztring::ToZtring(Frame_Count));
+    Element_Info1C((Element_Code==0xB3), _T("I"));
 
     //Parsing
     int8u picture_coding_type=(int8u)-1;
@@ -718,7 +717,7 @@ void File_AvsV::picture_start()
     }
     if (Element_Code==0xB6) //Only P or B
     {
-        Get_S1 ( 2, picture_coding_type,                        "picture_coding_type"); Element_Info(AvsV_picture_coding_type[picture_coding_type]);
+        Get_S1 ( 2, picture_coding_type,                        "picture_coding_type"); Element_Info1(AvsV_picture_coding_type[picture_coding_type]);
     }
     Skip_S1( 8,                                                 "picture_distance");
     if (low_delay)

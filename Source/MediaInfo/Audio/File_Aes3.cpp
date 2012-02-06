@@ -1270,24 +1270,24 @@ void File_Aes3::Frame()
 {
     //Parsing
     int32u  length_code;
-    Element_Begin("Header");
+    Element_Begin1("Header");
         BS_Begin();
         Skip_S3(Stream_Bits,                                    "Pa");
         Skip_S3(Stream_Bits,                                    "Pb");
-        Element_Begin("Pc");
+        Element_Begin1("Pc");
             Skip_S1( 3,                                         "data_stream_number");
             Skip_S1( 5,                                         "data_type_dependent");
             Skip_SB(                                            "error_flag");
-            Info_S1( 2, data_mode,                              "data_mode"); Param_Info(16+4*data_mode, " bits");
-            Get_S1 ( 5, data_type,                              "data_type"); Param_Info(Aes3_NonPCM_data_type[data_type]);
+            Info_S1( 2, data_mode,                              "data_mode"); Param_Info2(16+4*data_mode, " bits");
+            Get_S1 ( 5, data_type,                              "data_type"); Param_Info1(Aes3_NonPCM_data_type[data_type]);
             if (Stream_Bits>16)
                 Skip_S1( 4,                                     "reserved");
             if (Stream_Bits>20)
                 Skip_S1( 4,                                     "reserved");
-        Element_End();
-        Get_S3 (Stream_Bits, length_code,                       "length_code"); Param_Info(length_code/8, " bytes");
+        Element_End0();
+        Get_S3 (Stream_Bits, length_code,                       "length_code"); Param_Info2(length_code/8, " bytes");
         BS_End();
-    Element_End();
+    Element_End0();
 
     if (Parser==NULL)
     {
@@ -1548,9 +1548,9 @@ void File_Aes3::Frame_FromMpegPs()
     int16u audio_packet_size=0;
     Get_B2 (audio_packet_size,                              "audio_packet_size");
     BS_Begin();
-    Get_S1 (2, number_channels,                             "number_channels"); Param_Info(2+2*number_channels, " channels");
+    Get_S1 (2, number_channels,                             "number_channels"); Param_Info2(2+2*number_channels, " channels");
     Info_S1(8, channel_identification,                      "channel_identification");
-    Get_S1 (2, bits_per_sample,                             "bits_per_sample"); Param_Info(16+4*bits_per_sample, " bits");
+    Get_S1 (2, bits_per_sample,                             "bits_per_sample"); Param_Info2(16+4*bits_per_sample, " bits");
     Info_S1(4, alignment_bits,                              "alignment_bits");
     BS_End();
 

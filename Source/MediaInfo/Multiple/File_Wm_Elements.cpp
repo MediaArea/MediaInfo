@@ -256,7 +256,7 @@ void File_Wm::Header_FileProperties()
     int32u Flags, MaximumBitRate;
     Skip_GUID(                                                  "File ID");
     Skip_L8(                                                    "File Size");
-    Get_L8 (CreationDate,                                       "Creation Date"); Param_Info(Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
+    Get_L8 (CreationDate,                                       "Creation Date"); Param_Info1(Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
     Skip_L8(                                                    "Data Packets Count");
     Get_L8 (PlayDuration,                                       "Play Duration"); Param_Info_From_Milliseconds(PlayDuration/10000);
     Get_L8 (SendDuration,                                       "Send Duration"); Param_Info_From_Milliseconds(SendDuration/10000);
@@ -289,7 +289,7 @@ void File_Wm::Header_StreamProperties ()
     //Parsing
     int128u StreamType;
     int32u StreamTypeLength, ErrorCorrectionTypeLength;
-    Get_GUID(StreamType,                                        "StreamType"); Param_Info(Wm_StreamType(StreamType)); Element_Info(Wm_StreamType(StreamType));
+    Get_GUID(StreamType,                                        "StreamType"); Param_Info1(Wm_StreamType(StreamType)); Element_Info1(Wm_StreamType(StreamType));
     Skip_GUID(                                                  "Error Correction Type");
     Skip_L8(                                                    "Time Offset");
     Get_L4 (StreamTypeLength,                                   "Type-Specific Data Length");
@@ -297,31 +297,31 @@ void File_Wm::Header_StreamProperties ()
     Get_L2 (Stream_Number,                                      "Stream Number");
     if (Stream_Number&0x8000)
     {
-        Param_Info("Encrypted Content");
+        Param_Info1("Encrypted Content");
         Stream[Stream_Number&0x007F].Info["Encryption"]=_T("Encrypted");
     }
     Stream_Number&=0x007F; //Only 7bits
-    Element_Info(Stream_Number);
+    Element_Info1(Stream_Number);
     Skip_L4(                                                    "Reserved");
     switch (StreamType.hi)
     {
-        case Elements::Header_StreamProperties_Audio :          Element_Begin(StreamTypeLength);
+        case Elements::Header_StreamProperties_Audio :          Element_Begin0(); //size is StreamTypeLength
                                                                 Header_StreamProperties_Audio();
-                                                                Element_End(); break;
-        case Elements::Header_StreamProperties_Video :          Element_Begin(StreamTypeLength);
+                                                                Element_End0(); break;
+        case Elements::Header_StreamProperties_Video :          Element_Begin0(); //size is StreamTypeLength
                                                                 Header_StreamProperties_Video();
-                                                                Element_End(); break;
-        case Elements::Header_StreamProperties_JFIF :           Element_Begin(StreamTypeLength);
+                                                                Element_End0(); break;
+        case Elements::Header_StreamProperties_JFIF :           Element_Begin0(); //size is StreamTypeLength
                                                                 Header_StreamProperties_JFIF();
-                                                                Element_End(); break;
-        case Elements::Header_StreamProperties_DegradableJPEG : Element_Begin(StreamTypeLength);
+                                                                Element_End0(); break;
+        case Elements::Header_StreamProperties_DegradableJPEG : Element_Begin0(); //size is StreamTypeLength
                                                                 Header_StreamProperties_DegradableJPEG();
-                                                                Element_End(); break;
+                                                                Element_End0(); break;
         case Elements::Header_StreamProperties_FileTransfer :
-        case Elements::Header_StreamProperties_Binary :         Element_Begin(StreamTypeLength);
+        case Elements::Header_StreamProperties_Binary :         Element_Begin0(); //size is StreamTypeLength
                                                                 Header_StreamProperties_Binary();
                                                                 StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1;
-                                                                Element_End(); break;
+                                                                Element_End0(); break;
         default :                                               if (StreamTypeLength>0)
                                                                     Skip_XX(StreamTypeLength, "Type-Specific Data");
                                                                 StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1;
@@ -381,7 +381,7 @@ void File_Wm::Header_StreamProperties_Audio ()
     //Parsing
     if (Data_Size>0)
     {
-        Element_Begin("Codec Specific Data", Data_Size);
+        Element_Begin1("Codec Specific Data");
         switch (CodecID)
         {
             case 0x0161 :
@@ -391,14 +391,14 @@ void File_Wm::Header_StreamProperties_Audio ()
             case 0x7A22 : Header_StreamProperties_Audio_AMR(); break;
             default     : Skip_XX(Data_Size,                    "Unknown");
         }
-        Element_End();
+        Element_End0();
     }
 }
 
 //---------------------------------------------------------------------------
 void File_Wm::Header_StreamProperties_Audio_WMA ()
 {
-    Element_Info("WMA");
+    Element_Info1("WMA");
 
     //Parsing
     Skip_L4(                                                    "SamplesPerBlock");
@@ -409,7 +409,7 @@ void File_Wm::Header_StreamProperties_Audio_WMA ()
 //---------------------------------------------------------------------------
 void File_Wm::Header_StreamProperties_Audio_AMR ()
 {
-    Element_Info("AMR");
+    Element_Info1("AMR");
 
     //Parsing
     int32u Flags;
@@ -631,23 +631,23 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
         Skip_Flags(Flags, 1,                                    "Seekable");
         Skip_Flags(Flags, 2,                                    "No Cleanpoints");
         Skip_Flags(Flags, 3,                                    "Resend Live Cleanpoints");
-    Get_L2 (StreamNumber,                                       "Stream Number"); Element_Info(StreamNumber);
+    Get_L2 (StreamNumber,                                       "Stream Number"); Element_Info1(StreamNumber);
     Get_L2 (LanguageID,                                         "Stream Language ID Index");
     Get_L8 (AverageTimePerFrame,                                "Average Time Per Frame");
     Get_L2 (StreamNameCount,                                    "Stream Name Count");
     Get_L2 (PayloadExtensionSystemCount,                        "Payload Extension System Count");
     for (int16u Pos=0; Pos<StreamNameCount; Pos++)
     {
-        Element_Begin("Stream Name");
+        Element_Begin1("Stream Name");
         int16u StreamNameLength;
         Skip_L2(                                                "Language ID Index");
         Get_L2 (StreamNameLength,                               "Stream Name Length");
         Skip_UTF16L(StreamNameLength,                           "Stream Name");
-        Element_End();
+        Element_End0();
     }
     for (int16u Pos=0; Pos<PayloadExtensionSystemCount; Pos++)
     {
-        Element_Begin("Payload Extension System");
+        Element_Begin1("Payload Extension System");
         stream::payload_extension_system Payload_Extension_System;
         int32u ExtensionSystemInfoLength;
         Get_GUID(Payload_Extension_System.ID,                   "Extension System ID");
@@ -655,7 +655,7 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
         Get_L4 (ExtensionSystemInfoLength,                      "Extension System Info Length");
         if (ExtensionSystemInfoLength>0)
             Skip_XX(ExtensionSystemInfoLength,                  "Extension System Info");
-        Element_End();
+        Element_End0();
 
         //Filling
         Stream[StreamNumber].Payload_Extension_Systems.push_back(Payload_Extension_System);
@@ -667,11 +667,11 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
         //This could be everything, but in theory this is only Header_StreamProperties
         int128u Name;
         int64u Size;
-        Element_Begin("Stream Properties Object", Element_Size-Element_Offset);
-        Element_Begin("Header", 24);
+        Element_Begin1("Stream Properties Object");
+        Element_Begin1("Header");
             Get_GUID(Name,                                      "Name");
             Get_L8 (Size,                                       "Size");
-        Element_End();
+        Element_End0();
         if (Size>=24 && Element_Offset+Size-24==Element_Size)
         {
             switch (Name.hi)
@@ -682,7 +682,7 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
         }
         else
             Skip_XX(Element_Size-Element_Offset,                "Problem");
-        Element_End();
+        Element_End0();
     }
 
     //Filling
@@ -698,11 +698,11 @@ void File_Wm::Header_HeaderExtension_AdvancedMutualExclusion()
 
     //Parsing
     int16u Count;
-    Info_GUID(ExclusionType,                                    "Exclusion Type"); Param_Info(Wm_ExclusionType(ExclusionType));
+    Info_GUID(ExclusionType,                                    "Exclusion Type"); Param_Info1(Wm_ExclusionType(ExclusionType));
     Get_L2 (Count,                                              "Stream Numbers Count");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Info_L2(StreamNumber,                                   "Stream Number"); Element_Info(StreamNumber);
+        Info_L2(StreamNumber,                                   "Stream Number"); Element_Info1(StreamNumber);
     }
 }
 
@@ -726,11 +726,11 @@ void File_Wm::Header_HeaderExtension_StreamPrioritization()
     for (int16u Pos=0; Pos<Count; Pos++)
     {
         int16u Flags;
-        Element_Begin("Stream");
-        Info_L2(StreamNumber,                                   "Stream Number"); Element_Info(StreamNumber);
+        Element_Begin1("Stream");
+        Info_L2(StreamNumber,                                   "Stream Number"); Element_Info1(StreamNumber);
         Get_L2 (Flags,                                          "Flags");
             Skip_Flags(Flags, 0,                                "Mandatory");
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -755,14 +755,14 @@ void File_Wm::Header_HeaderExtension_LanguageList()
     Get_L2 (Count,                                              "Count");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Language ID");
+        Element_Begin1("Language ID");
         Get_L1 (LanguageID_Length,                              "Language ID Length");
         if (LanguageID_Length>0)
         {
             Get_UTF16L(LanguageID_Length, LanguageID,           "Language ID");
-            Element_Info(LanguageID);
+            Element_Info1(LanguageID);
         }
-        Element_End();
+        Element_End0();
 
         //Filling
         Languages.push_back(LanguageID);
@@ -786,7 +786,7 @@ void File_Wm::Header_HeaderExtension_Metadata()
     Get_L2 (Count,                                              "Description Records Count");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Description Record");
+        Element_Begin1("Description Record");
         Ztring Name, Data;
         int64u Data_Int64=0;
         int32u Data_Length;
@@ -807,9 +807,9 @@ void File_Wm::Header_HeaderExtension_Metadata()
             case 0x05 : {int16u Data_Int; Get_L2 (Data_Int,     "Data"); Data.From_Number(Data_Int); Data_Int64=Data_Int;} break;
             default   : Skip_XX(Data_Length,                    "Data"); Data=_T("(Unknown)"); break;
         }
-        Element_Info(Name);
-        Element_Info(Data);
-        Element_End();
+        Element_Info1(Name);
+        Element_Info1(Data);
+        Element_End0();
 
         if (Name==_T("IsVBR"))
             Stream[StreamNumber].Info["BitRate_Mode"]=(Data_Int64==0)?"CBR":"VBR";
@@ -850,12 +850,12 @@ void File_Wm::Header_HeaderExtension_IndexParameters()
     Get_L2 (Count,                                              "Index Specifiers Count");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Index Specifier");
+        Element_Begin1("Index Specifier");
         int16u IndexType;
         Skip_L2(                                                "Stream Number");
         Get_L2 (IndexType,                                      "Index Type");
-        Element_Info(IndexType);
-        Element_End();
+        Element_Info1(IndexType);
+        Element_End0();
     }
 }
 
@@ -908,8 +908,8 @@ void File_Wm::Header_CodecList()
     CodecInfos.resize(Count);
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Codec Entry");
-        Get_L2 (Type,                                           "Type"); Param_Info(Wm_CodecList_Kind(Type));
+        Element_Begin1("Codec Entry");
+        Get_L2 (Type,                                           "Type"); Param_Info1(Wm_CodecList_Kind(Type));
         Get_L2 (CodecNameLength,                                "Codec Name Length");
         Get_UTF16L(CodecNameLength*2, CodecName,                "Codec Name");
         Get_L2 (CodecDescriptionLength,                         "Codec Description Length");
@@ -921,7 +921,7 @@ void File_Wm::Header_CodecList()
             Skip_C4(                                            "4CC"); //Not used, we have it elsewhere
         else
             Skip_XX(CodecInformationLength,                     "Codec Information");
-        Element_End();
+        Element_End0();
 
         FILLING_BEGIN();
             CodecInfos[Pos].Type=Type;
@@ -949,22 +949,22 @@ void File_Wm::Header_ScriptCommand()
     Get_L2 (CommandTypes_Count,                                 "Command Types Count");
     for (int16u Pos=0; Pos<CommandTypes_Count; Pos++)
     {
-        Element_Begin("Command Type");
+        Element_Begin1("Command Type");
         int16u Length;
         Get_L2 (Length,                                         "Command Type Length");
         if (Length>0)
             Skip_UTF16L(Length*2,                               "Command Type");
-        Element_End();
+        Element_End0();
     }
     for (int16u Pos=0; Pos<Commands_Count; Pos++)
     {
-        Element_Begin("Command");
+        Element_Begin1("Command");
         int16u Length;
         Skip_L2(                                                "Type Index");
         Get_L2 (Length,                                         "Command Length");
         if (Length>0)
             Skip_UTF16L(Length*2,                               "Command");
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -990,7 +990,7 @@ void File_Wm::Header_Marker()
     //Parsing
     for (int32u Pos=0; Pos<Markers_Count; Pos++)
     {
-        Element_Begin("Marker");
+        Element_Begin1("Marker");
         Ztring Marker;
         int32u Marker_Length;
         Skip_L8(                                                "Offset");
@@ -1001,7 +1001,7 @@ void File_Wm::Header_Marker()
         Get_L4 (Marker_Length,                                  "Marker Description Length");
         if (Marker_Length>0)
             Get_UTF16L(Marker_Length*2, Marker,                 "Marker Description");
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -1066,7 +1066,7 @@ void File_Wm::Header_ExtendedContentDescription()
     Get_L2 (Count,                                              "Content Descriptors Count");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Content Descriptor");
+        Element_Begin1("Content Descriptor");
         Ztring Name, Value;
         int64u Value_Int64=0;
         int16u Name_Length, Value_Type, Value_Length;
@@ -1086,9 +1086,9 @@ void File_Wm::Header_ExtendedContentDescription()
             case 0x05 : {int16u Value_Int; Get_L2 (Value_Int,   "Value"); Value.From_Number(Value_Int); Value_Int64=Value_Int;} break;
             default   : Skip_XX(Value_Length,                   "Value"); Value=_T("(Unknown)"); break;
         }
-        Element_Info(Name);
-        Element_Info(Value);
-        Element_End();
+        Element_Info1(Name);
+        Element_Info1(Value);
+        Element_End0();
 
         //Filling
         if (!Value.empty())
@@ -1201,16 +1201,16 @@ void File_Wm::Header_ExtendedContentDescription()
 //---------------------------------------------------------------------------
 void File_Wm::Header_ExtendedContentDescription_ASFLeakyBucketPairs(int16u Value_Length)
 {
-    Element_Begin("ASFLeakyBucketPairs", Value_Length);
+    Element_Begin1("ASFLeakyBucketPairs");
     Skip_L2(                                                    "Reserved");
     for (int16u Pos=2; Pos<Value_Length; Pos+=8)
     {
-        Element_Begin("Bucket", 8);
+        Element_Begin1("Bucket");
         Skip_L4(                                                "BitRate");
         Skip_L4(                                                "msBufferWindow");
-        Element_End();
+        Element_End0();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1223,12 +1223,12 @@ void File_Wm::Header_StreamBitRate()
     Get_L2 (Count,                                              "Count");
     for (int16u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Stream", 6);
+        Element_Begin1("Stream");
         int32u AverageBitRate;
         int16u StreamNumber;
-        Get_L2 (StreamNumber,                                   "Stream Number"); Element_Info(StreamNumber);
-        Get_L4 (AverageBitRate,                                 "Average Bitrate"); Element_Info(AverageBitRate);
-        Element_End();
+        Get_L2 (StreamNumber,                                   "Stream Number"); Element_Info1(StreamNumber);
+        Get_L4 (AverageBitRate,                                 "Average Bitrate"); Element_Info1(AverageBitRate);
+        Element_End0();
 
         //Filling
         if (Stream[StreamNumber].AverageBitRate==0) //Prefere Average bitrate of Extended Stream Properties if present
@@ -1244,7 +1244,7 @@ void File_Wm::Header_ContentBranding()
     //Parsing
     Ztring CopyrightURL, BannerImageURL;
     int32u BannerImageData_Type, BannerImageData_Length, BannerImageURL_Length, CopyrightURL_Length;
-    Get_L4 (BannerImageData_Type,                               "Banner Image Data Type"); Param_Info(Wm_BannerImageData_Type(BannerImageData_Type));
+    Get_L4 (BannerImageData_Type,                               "Banner Image Data Type"); Param_Info1(Wm_BannerImageData_Type(BannerImageData_Type));
     Get_L4 (BannerImageData_Length,                             "Banner Image Data Length");
     if (BannerImageData_Length>0)
         Skip_XX(BannerImageData_Length,                         "Banner Image Data");
@@ -1355,41 +1355,41 @@ void File_Wm::Data_Packet()
 {
     //Counting
     Packet_Count++;
-    Element_Info(Packet_Count);
+    Element_Info1(Packet_Count);
     size_t Element_Show_Count=0;
 
     //Parsing
     int32u PacketLength=0, SizeOfMediaObject=0;
     int8u  Flags, ErrorCorrectionData_Length, ErrorCorrectionLengthType, SequenceType, PaddingLengthType, PacketLengthType;
     bool   ErrorCorrectionPresent;
-    Element_Begin("Error Correction");
+    Element_Begin1("Error Correction");
         Get_L1 (Flags,                                          "Flags");
-            Get_Flags (Flags&0x0F, ErrorCorrectionData_Length,  "Error Correction Data Length"); //4 lowest bits
+            Get_FlagsM(Flags&0x0F, ErrorCorrectionData_Length,  "Error Correction Data Length"); //4 lowest bits
             Skip_Flags(Flags, 4,                                "Opaque Data Present");
-            Get_Flags ((Flags>>5)&0x03, ErrorCorrectionLengthType, "Error Correction Length Type"); //bits 6 and 7
+            Get_FlagsM((Flags>>5)&0x03, ErrorCorrectionLengthType, "Error Correction Length Type"); //bits 6 and 7
             Get_Flags (Flags, 7, ErrorCorrectionPresent,        "Error Correction Present");
         if (ErrorCorrectionPresent && ErrorCorrectionLengthType==0 && ErrorCorrectionData_Length==2)
         {
             int8u  TypeNumber;
             Get_L1 (TypeNumber,                                 "Type/Number");
-                Skip_Flags((TypeNumber>>4)&0x0F, "Type");
-                Skip_Flags( TypeNumber    &0x0F, "Number");
+                Skip_FlagsM((TypeNumber>>4)&0x0F, "Type");
+                Skip_FlagsM( TypeNumber    &0x0F, "Number");
             Skip_L1(                                            "Cycle");
         }
-    Element_End();
+    Element_End0();
 
-    Element_Begin("Payload Parsing Information");
+    Element_Begin1("Payload Parsing Information");
         Get_L1 (Flags,                                          "Length Type Flags");
             Get_Flags (Flags, 0, MultiplePayloadsPresent,       "Multiple Payloads Present");
-            Get_Flags ((Flags>>1)&0x3, SequenceType,            "Sequence Type");
-            Get_Flags ((Flags>>3)&0x3, PaddingLengthType,       "Padding Length Type");
-            Get_Flags ((Flags>>5)&0x3, PacketLengthType,        "Packet Length Type");
+            Get_FlagsM((Flags>>1)&0x3, SequenceType,            "Sequence Type");
+            Get_FlagsM((Flags>>3)&0x3, PaddingLengthType,       "Padding Length Type");
+            Get_FlagsM((Flags>>5)&0x3, PacketLengthType,        "Packet Length Type");
             Skip_Flags(Flags, 7,                                "Error Correction Present");
         Get_L1 (Flags,                                          "Property Flags");
-            Get_Flags ( Flags    &0x3, ReplicatedDataLengthType, "Replicated Data Length Type");
-            Get_Flags ((Flags>>2)&0x3, OffsetIntoMediaObjectLengthType, "Offset Into Media Object Length Type");
-            Get_Flags ((Flags>>4)&0x3, MediaObjectNumberLengthType, "Media Object Number Length Type");
-            Get_Flags ((Flags>>6)&0x3, StreamNumberLengthType,  "Stream Number Length Type");
+            Get_FlagsM( Flags    &0x3, ReplicatedDataLengthType, "Replicated Data Length Type");
+            Get_FlagsM((Flags>>2)&0x3, OffsetIntoMediaObjectLengthType, "Offset Into Media Object Length Type");
+            Get_FlagsM((Flags>>4)&0x3, MediaObjectNumberLengthType, "Media Object Number Length Type");
+            Get_FlagsM((Flags>>6)&0x3, StreamNumberLengthType,  "Stream Number Length Type");
         switch (PacketLengthType)
         {
             case 1 : {int8u  Data; Get_L1(Data,                 "Packet Length"); PacketLength=Data;} break;
@@ -1413,17 +1413,17 @@ void File_Wm::Data_Packet()
         }
         Skip_L4(                                                "Send Time");
         Skip_L2(                                                "Duration");
-    Element_End();
+    Element_End0();
 
     if (MultiplePayloadsPresent)
     {
         //Parsing
-        Element_Begin("Multiple Payloads additional flags");
+        Element_Begin1("Multiple Payloads additional flags");
             int8u AdditionalFlags;
             Get_L1 (AdditionalFlags,                                     "Flags");
-                Get_Flags ( AdditionalFlags    &0x3F, NumberPayloads,    "Number of Payloads"); //6 bits
-                Get_Flags ((AdditionalFlags>>6)&0x03, PayloadLengthType, "Payload Length Type"); //bits 6 and 7
-        Element_End();
+                Get_FlagsM( AdditionalFlags    &0x3F, NumberPayloads,    "Number of Payloads"); //6 bits
+                Get_FlagsM((AdditionalFlags>>6)&0x03, PayloadLengthType, "Payload Length Type"); //bits 6 and 7
+        Element_End0();
     }
     else
     {
@@ -1433,12 +1433,12 @@ void File_Wm::Data_Packet()
 
     for (NumberPayloads_Pos=0; NumberPayloads_Pos<NumberPayloads; NumberPayloads_Pos++)
     {
-        Element_Begin("Payload");
+        Element_Begin1("Payload");
         int32u ReplicatedDataLength=0, PayloadLength=0;
         int8u  StreamNumber;
         Get_L1 (StreamNumber,                                   "Stream Number");
         Stream_Number=StreamNumber&0x7F; //For KeyFrame
-        Element_Info(Stream_Number);
+        Element_Info1(Stream_Number);
         switch (MediaObjectNumberLengthType)
         {
             case 1 : Skip_L1(                                   "Media Object Number"); break;
@@ -1567,7 +1567,7 @@ void File_Wm::Data_Packet()
                 Streams_Count--;
             }
         }
-        Element_End();
+        Element_End0();
     }
 
     if (Data_Parse_Padding)
@@ -1587,11 +1587,11 @@ void File_Wm::Data_Packet()
 //---------------------------------------------------------------------------
 void File_Wm::Data_Packet_ReplicatedData(int32u Size)
 {
-    Element_Begin("Replicated Data", Size);
+    Element_Begin1("Replicated Data");
     int64u Element_Offset_Final=Element_Offset+Size;
     for (size_t Pos=0; Pos<Stream[Stream_Number].Payload_Extension_Systems.size(); Pos++)
     {
-        Element_Begin();
+        Element_Begin0();
         switch (Stream[Stream_Number].Payload_Extension_Systems[Pos].ID.hi)
         {
             case Elements::Payload_Extension_System_TimeStamp :     Data_Packet_ReplicatedData_TimeStamp(); break;
@@ -1604,16 +1604,16 @@ void File_Wm::Data_Packet_ReplicatedData(int32u Size)
                                                                     //else
                                                                         Pos=Stream[Stream_Number].Payload_Extension_Systems.size(); //Disabling the rest, all is unknown
         }
-        Element_End();
+        Element_End0();
     }
 
     if (Element_Offset<Element_Offset_Final)
     {
-        Element_Begin("Other chunks");
+        Element_Begin1("Other chunks");
         Skip_XX(Element_Offset_Final-Element_Offset, "Unknown");
-        Element_End();
+        Element_End0();
     }
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------
@@ -1622,11 +1622,18 @@ void File_Wm::Data_Packet_ReplicatedData_TimeStamp()
     Element_Name("TimeStamp");
 
     //Parsing
+    int64u TS0;
     Skip_L2(                                                    "Unknown");
     Skip_L4(                                                    "Unknown");
     Skip_L4(                                                    "Unknown");
-    Info_L8(TS0,                                                "TS0"); if (TS0!=(int64u)-1) Param_Info(TS0/10000);
-    Info_L8(TS1,                                                "TS1"); if (TS1!=(int64u)-1) Param_Info(TS1/10000);
+    Get_L8 (TS0,                                                "TS0");
+    #if MEDIAINFO_TRACE
+        if (TS0!=(int64u)-1) Param_Info1(TS0/10000);
+    #endif //MEDIAINFO_TRACE
+    Info_L8(TS1,                                                "TS1");
+    #if MEDIAINFO_TRACE
+        if (TS1!=(int64u)-1) Param_Info1(TS1/10000);
+    #endif //MEDIAINFO_TRACE
     Skip_L4(                                                    "Unknown");
     Skip_L4(                                                    "Unknown");
     Skip_L4(                                                    "Unknown");
@@ -1650,12 +1657,12 @@ void File_Wm::SimpleIndex()
     Get_L4 (Count,                                              "Index Entries Count");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Element_Begin("Index Entry", 6);
+        Element_Begin1("Index Entry", 6);
         int32u PacketNumber;
         int16u PacketCount;
         Get_L4 (PacketNumber,                                   "Packet Number");
         Get_L2 (PacketCount,                                    "Packet Count");
-        Element_End();
+        Element_End0();
     }
     */
     Skip_XX(Element_TotalSize_Get()-Element_Offset,             "Indexes");
@@ -1675,28 +1682,28 @@ void File_Wm::Index()
     Get_L4 (Blocks_Count,                                       "Index Blocks Count");
     for (int16u Pos=0; Pos<Specifiers_Count; Pos++)
     {
-        Element_Begin("Specifier");
+        Element_Begin1("Specifier");
             Skip_L2(                                            "Stream Number");
             Skip_L2(                                            "Index Type");
-        Element_End();
+        Element_End0();
     }
     for (int32u Pos=0; Pos<Blocks_Count; Pos++)
     {
-        Element_Begin("Block");
+        Element_Begin1("Block");
         int32u Entry_Count;
         Get_L4 (Entry_Count,                                    "Index Entry Count");
-        Element_Begin("Block Positions");
+        Element_Begin1("Block Positions");
             for (int16u Pos=0; Pos<Specifiers_Count; Pos++)
                 Skip_L4(                                        "Position");
-        Element_End();
+        Element_End0();
         for (int32u Pos=0; Pos<Entry_Count; Pos++)
         {
-            Element_Begin("Entry");
+            Element_Begin1("Entry");
             for (int16u Pos=0; Pos<Specifiers_Count; Pos++)
                 Skip_L4(                                        "Offset");
-            Element_End();
+            Element_End0();
         }
-        Element_End();
+        Element_End0();
     }
     */
     Skip_XX(Element_TotalSize_Get()-Element_Offset,             "Indexes");

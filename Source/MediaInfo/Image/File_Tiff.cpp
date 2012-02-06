@@ -396,10 +396,10 @@ void File_Tiff::Read_Directory()
 {   
     /* Each directory consist of 4 fields */
     /* Get information for this directory */
-    Element_Begin();
+    Element_Begin0();
     ifditem   IfdItem;
-    Get_X2 (IfdItem.Tag,                                        "Tag"); Param_Info(Tiff_Tag_Name(IfdItem.Tag));
-    Get_X2 (IfdItem.Type,                                       "Type"); Param_Info(Tiff_Type_Name(IfdItem.Type));
+    Get_X2 (IfdItem.Tag,                                        "Tag"); Param_Info1(Tiff_Tag_Name(IfdItem.Tag));
+    Get_X2 (IfdItem.Type,                                       "Type"); Param_Info1(Tiff_Type_Name(IfdItem.Type));
     Get_X4 (IfdItem.Count,                                      "Count");
     Element_Name(Tiff_Tag_Name(IfdItem.Tag));
     
@@ -417,7 +417,7 @@ void File_Tiff::Read_Directory()
         Get_X4 (IFDOffset,                                      "IFDOffset");
         IfdItems[IFDOffset]=IfdItem;
     }
-    Element_End();
+    Element_End0();
 }
 
 //***************************************************************************
@@ -467,7 +467,7 @@ void File_Tiff::GetValueOffsetu(ifditem &IfdItem)
                             Get_L1 (Ret8,                       Name);
                         else
                             Get_B1 (Ret8,                       Name);
-                        Element_Info(Ztring::ToZtring(Ret8));
+                        Element_Info1(Ztring::ToZtring(Ret8));
                     #else //MEDIAINFO_TRACE
                         if (Element_Offset+1>Element_Size)
                         {
@@ -495,9 +495,9 @@ void File_Tiff::GetValueOffsetu(ifditem &IfdItem)
                             Get_B2 (Ret16,                      Name);
                         switch (IfdItem.Tag)
                         {
-                            case Tiff_Tag::Compression : Element_Info(Tiff_Compression(Ret16)); break;
-                            case Tiff_Tag::PhotometricInterpretation : Element_Info(Tiff_PhotometricInterpretation(Ret16)); break;
-                            default : Element_Info(Ztring::ToZtring(Ret16));
+                            case Tiff_Tag::Compression : Element_Info1(Tiff_Compression(Ret16)); break;
+                            case Tiff_Tag::PhotometricInterpretation : Element_Info1(Tiff_PhotometricInterpretation(Ret16)); break;
+                            default : Element_Info1(Ztring::ToZtring(Ret16));
                         }
                     #else //MEDIAINFO_TRACE
                         if (Element_Offset+2>Element_Size)
@@ -524,7 +524,7 @@ void File_Tiff::GetValueOffsetu(ifditem &IfdItem)
                             Get_L4 (Ret32,                      Name);
                         else
                             Get_B4 (Ret32,                      Name);
-                        Element_Info(Ztring::ToZtring(Ret32));
+                        Element_Info1(Ztring::ToZtring(Ret32));
                     #else //MEDIAINFO_TRACE
                         if (Element_Offset+4>Element_Size)
                         {

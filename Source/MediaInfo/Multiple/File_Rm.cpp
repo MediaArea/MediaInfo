@@ -240,14 +240,14 @@ void File_Rm::DATA()
     Skip_B4(                                                    "next_data_header"); //Offset from start of file to the next data chunk. A non-zero value refers to the file offset of the next data chunk. A value of zero means there are no more data chunks in this file. This field is not typically used.
     for (int32u Pos=0; Pos<num_packets; Pos++)
     {
-        Element_Begin("packet");
+        Element_Begin1("packet");
         Get_B2 (Version,                                        "object_version");
         INTEGRITY_VERSION(1);
         Get_B2 (length,                                         "length"); //The length of the packet in bytes.
         if (Version==0)
-            Element_Info("Media_Packet_Header");
+            Element_Info1("Media_Packet_Header");
         else
-            Element_Info("Media_Packet_Header");
+            Element_Info1("Media_Packet_Header");
         Skip_B2(                                                "stream_number"); //The 16-bit alias used to associate data packets with their associated Media Properties Header.
         Skip_B4(                                                "timestamp"); //The time stamp of the packet in milliseconds.
         if (Version==0)
@@ -271,10 +271,10 @@ void File_Rm::DATA()
         if (Pos>10)
         {
             Pos=num_packets;
-            Element_Info("(...)");
+            Element_Info1("(...)");
         }
 
-        Element_End();
+        Element_End0();
     }
     */
 }
@@ -291,14 +291,14 @@ void File_Rm::INDX()
     Skip_B4(                                                    "next_index_header"); //Offset from start of file to the next index chunk. This member enables RealMedia file format readers to find all the index chunks quickly. A value of zero for this member indicates there are no more index headers in this file.
     for (int32u Pos=0; Pos<num_indices; Pos++)
     {
-        Element_Begin("index", 14);
+        Element_Begin1("index");
         Get_B2 (Version,                                        "object_version");
         INTEGRITY_VERSION(0);
-        Element_Info("Media_Packet_Header");
+        Element_Info1("Media_Packet_Header");
         Skip_B4(                                                "timestamp"); //The time stamp (in milliseconds) associated with this record.
         Skip_B4(                                                "offset"); //The offset from the start of the file at which this packet can be found.
         Skip_B4(                                                "packet_count_for_this_packet"); //The packet number of the packet for this record. This is the same number of packets that would have been seen had the file been played from the beginning to this point.
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -329,7 +329,7 @@ void File_Rm::MDPR()
     Get_B4 (type_specific_len,                                  "type_specific_len"); //The length of the following type_specific_data in bytes
 
     //Parsing TypeSpecific
-    Element_Info(mime_type.c_str());
+    Element_Info1(mime_type.c_str());
     MDPR_IsStream=true;
          if (mime_type=="audio/x-pn-multirate-realaudio")
         MDPR_IsStream=false; //What do we with this?
@@ -591,7 +591,7 @@ void File_Rm::MDPR_fileinfo()
     //Parsing
     for (int16u Pos=0; Pos<num_properties; Pos++)
     {
-        Element_Begin("property");
+        Element_Begin1("property");
         std::string name;
         int32u size, type;
         int16u value_length;
@@ -611,7 +611,7 @@ void File_Rm::MDPR_fileinfo()
                 Skip_Local(value_length,                        "value_data"); break; //string
             default : Skip_XX(value_length,                     "unknown");
         }
-        Element_End(size);
+        Element_End0();
     }
 }
 
@@ -666,7 +666,7 @@ void File_Rm::RJMD_property(std::string Name)
     Ztring value;
     std::string name;
     int32u type, flags, num_subproperties, name_length, value_length;
-    Element_Begin("MetadataProperty");
+    Element_Begin1("MetadataProperty");
     Skip_B4(                                                    "size");
     Get_B4 (type,                                               "type");
     Get_B4 (flags,                                              "flags");
@@ -750,17 +750,17 @@ void File_Rm::RJMD_property(std::string Name)
     //Parsing
     for (int32u Pos=0; Pos<num_subproperties; Pos++)
     {
-        Element_Begin("PropListEntry");
+        Element_Begin1("PropListEntry");
         Skip_B4(                                                "offset"); //The offset for this indexed sub-property, relative to the beginning of the containing MetadataProperty.
         Skip_B4(                                                "num_props_for_name"); //The number of sub-properties that share the same name. For example, a lyrics property could have multiple versions as differentiated by the language sub-property type descriptor.
-        Element_End();
+        Element_End0();
     }
     for (int32u Pos=0; Pos<num_subproperties; Pos++)
     {
         RJMD_property(Name);
     }
 
-    Element_End();
+    Element_End0();
 }
 
 //---------------------------------------------------------------------------

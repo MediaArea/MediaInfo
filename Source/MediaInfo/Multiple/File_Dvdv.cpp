@@ -343,11 +343,11 @@ void File_Dvdv::FileHeader_Parse()
 // Elements
 //***************************************************************************
 
-#define SUBELEMENT(_BYTES, _ELEMENT) \
+#define SUBELEMENT(_ELEMENT) \
     { \
-        Element_Begin(#_ELEMENT, _BYTES); \
+        Element_Begin1(#_ELEMENT); \
         _ELEMENT(); \
-        Element_End(); \
+        Element_End0(); \
     } \
 
 //---------------------------------------------------------------------------
@@ -355,12 +355,12 @@ void File_Dvdv::VMG()
 {
     int32u Sector_Pointer_LastSector, Sector_Pointer_TT_SRPT, Sector_Pointer_VMGM_PGCI_UT, Sector_Pointer_VMG_PTL_MAIT, Sector_Pointer_VMG_VTS_ATRT, Sector_Pointer_VMG_TXTDT_MG, Sector_Pointer_VMGM_C_ADT, Sector_Pointer_VMGM_VOBU_ADMAP;
     int16u Version, Audio_Count, Text_Count;
-    Element_Info("DVD Video - VMG");
-    Element_Begin("Header", 0x100);
-        Info_B4(LastSector,                                     "Last sector of VMG set (last sector of BUP)"); Param_Info((LastSector+1)*2048, " bytes");
+    Element_Info1("DVD Video - VMG");
+    Element_Begin1("Header");
+        Info_B4(LastSector,                                     "Last sector of VMG set (last sector of BUP)"); Param_Info2((LastSector+1)*2048, " bytes");
         Skip_XX(12,                                             "Unknown");
         Get_B4 (Sector_Pointer_LastSector,                      "last sector of IFO");
-        Get_B2 (Version,                                        "version number"); Param_Info(Ztring::ToZtring((Version&0x00F0)>>4)+_T(".")+Ztring::ToZtring(Version&0x000F));
+        Get_B2 (Version,                                        "version number"); Param_Info1(Ztring::ToZtring((Version&0x00F0)>>4)+_T(".")+Ztring::ToZtring(Version&0x000F));
         Info_B4(Category,                                       "VMG category");
         Skip_B2(                                                "number of volumes");
         Skip_B2(                                                "volume number");
@@ -382,40 +382,40 @@ void File_Dvdv::VMG()
         Get_B4 (Sector_Pointer_VMGM_C_ADT,                      "sector pointer to VMGM_C_ADT (menu cell address table)");
         Get_B4 (Sector_Pointer_VMGM_VOBU_ADMAP,                 "sector pointer to VMGM_VOBU_ADMAP (menu VOBU address map)");
         Skip_XX(32,                                             "Unknown");
-    Element_End();
+    Element_End0();
 
     //-VTSM
     VTS_Attributes_AreHere=true;
-    Element_Begin("VMGM (VMG for Menu)", 0x100);
-        Element_Begin("Video streams", 1*2);
-            Element_Info(1, " streams");
-            SUBELEMENT(2, Video)
-        Element_End();
-        Element_Begin("Audio streams", 8*8);
+    Element_Begin1("VMGM (VMG for Menu)");
+        Element_Begin1("Video streams");
+            Element_Info2(1, " streams");
+            SUBELEMENT(Video)
+        Element_End0();
+        Element_Begin1("Audio streams");
             Get_B2 (Audio_Count,                                "number of audio streams in VMGM_VOBS");
-            Element_Info(Audio_Count, " streams");
+            Element_Info2(Audio_Count, " streams");
             for (int16u Pos=0; Pos<8; Pos++)
             {
                 if (Pos<Audio_Count)
-                    SUBELEMENT(8, Audio)
+                    SUBELEMENT(Audio)
                 else
                     Skip_XX(8,                                  "Reserved for Audio");
             }
             Skip_XX(16,                                         "Unknown");
-        Element_End();
-        Element_Begin("Text streams", 1*6);
+        Element_End0();
+        Element_Begin1("Text streams");
             Get_B2 (Text_Count,                                 "number of subpicture streams in VMGM_VOBS");
-            Element_Info(Text_Count, " streams");
+            Element_Info2(Text_Count, " streams");
             for (int16u Pos=0; Pos<1; Pos++)
             {
                 if (Pos<Text_Count)
-                    SUBELEMENT(6, Text)
+                    SUBELEMENT(Text)
                 else
                     Skip_XX(6,                                  "Reserved for Text");
             }
             Skip_XX(164,                                        "Unknown");
-        Element_End();
-    Element_End();
+        Element_End0();
+    Element_End0();
     Skip_XX(2048-Element_Offset,                                "Junk");
 
     //Filling
@@ -448,18 +448,21 @@ void File_Dvdv::VTS()
     //Parsing
     int32u Sector_Pointer_LastSector, Sector_Pointer_VTS_PTT_SRPT, Sector_Pointer_VTS_PGCI, Sector_Pointer_VTSM_PGCI_UT, Sector_Pointer_VTS_TMAPTI, Sector_Pointer_VTSM_C_ADT, Sector_Pointer_VTSM_VOBU_ADMAP, Sector_Pointer_VTS_C_ADT, Sector_Pointer_VTS_VOBU_ADMAP;
     int16u Version, Audio_Count, Text_Count;
-    Element_Info("DVD Video - VTS (Video Title Set)");
-    Element_Begin("Header", 0x100);
-        Info_B4(LastSector,                                     "Last sector of Title set (last sector of BUP)"); Param_Info((LastSector+1)*2048, " bytes");
+    Element_Info1("DVD Video - VTS (Video Title Set)");
+    Element_Begin1("Header");
+        Info_B4(LastSector,                                     "Last sector of Title set (last sector of BUP)"); Param_Info2((LastSector+1)*2048, " bytes");
         Skip_XX(12,                                             "Unknown");
         Get_B4 (Sector_Pointer_LastSector,                      "last sector of IFO");
-        Get_B2 (Version,                                        "version number"); Param_Info(Ztring::ToZtring((Version&0x00F0)>>4)+_T(".")+Ztring::ToZtring(Version&0x000F));
-        Info_B4(Category,                                       "VTS category"); if (Category<2) Param_Info(IFO_VTS_Category[Category]);
+        Get_B2 (Version,                                        "version number"); Param_Info1(Ztring::ToZtring((Version&0x00F0)>>4)+_T(".")+Ztring::ToZtring(Version&0x000F));
+        Info_B4(Category,                                       "VTS category");
+        #if MEDIAINFO_TRACE
+            if (Category<2) Param_Info1(IFO_VTS_Category[Category]);
+        #endif //MEDIAINFO_TRACE
         Skip_XX(90,                                             "Unknown");
         Skip_B4(                                                "end byte address of VTS_MAT");
         Skip_XX(60,                                             "Unknown");
-        Info_B4(StartSector_Menu,                               "start sector of Menu VOB"); Param_Info((StartSector_Menu+1)*2048, " bytes");
-        Info_B4(StartSector_Title,                              "start sector of Title Vob"); Param_Info((StartSector_Title+1)*2048, " bytes");
+        Info_B4(StartSector_Menu,                               "start sector of Menu VOB"); Param_Info2((StartSector_Menu+1)*2048, " bytes");
+        Info_B4(StartSector_Title,                              "start sector of Title Vob"); Param_Info2((StartSector_Title+1)*2048, " bytes");
         Get_B4 (Sector_Pointer_VTS_PTT_SRPT,                    "sector pointer to VTS_PTT_SRPT (Table of Titles and Chapters)");
         Get_B4 (Sector_Pointer_VTS_PGCI,                        "sector pointer to VTS_PGCI (Title Program Chain table)");
         Get_B4 (Sector_Pointer_VTSM_PGCI_UT,                    "sector pointer to VTSM_PGCI_UT (Menu Program Chain table)");
@@ -469,82 +472,82 @@ void File_Dvdv::VTS()
         Get_B4 (Sector_Pointer_VTS_C_ADT,                       "sector pointer to VTS_C_ADT (Title set cell address table)");
         Get_B4 (Sector_Pointer_VTS_VOBU_ADMAP,                  "sector pointer to VTS_VOBU_ADMAP (Title set VOBU address map)");
         Skip_XX(24,                                             "Unknown");
-    Element_End();
+    Element_End0();
 
     //-VTSM
-    Element_Begin("VTSM (VTS for Menu, Vob 0)", 0x100);
-        Element_Begin("Video streams", 1*2);
-            Element_Info(1, " streams");
-            SUBELEMENT(2, Video)
-        Element_End();
-        Element_Begin("Audio streams", 8*8);
+    Element_Begin1("VTSM (VTS for Menu, Vob 0)");
+        Element_Begin1("Video streams");
+            Element_Info2(1, " streams");
+            SUBELEMENT(Video)
+        Element_End0();
+        Element_Begin1("Audio streams");
             Get_B2 (Audio_Count,                                "number of audio streams in VTSM_VOBS");
-            Element_Info(Audio_Count, " streams");
+            Element_Info2(Audio_Count, " streams");
             for (int16u Pos=0; Pos<8; Pos++)
             {
                 if (Pos<Audio_Count)
-                    SUBELEMENT(8, Audio)
+                    SUBELEMENT(Audio)
                 else
                     Skip_XX(8,                                  "Reserved for Audio");
             }
             Skip_XX(16,                                         "Unknown");
-        Element_End();
-        Element_Begin("Text streams", 1*6);
+        Element_End0();
+        Element_Begin1("Text streams");
             Get_B2 (Text_Count,                                 "number of subpicture streams in VTSM_VOBS");
-            Element_Info(Text_Count, " streams");
+            Element_Info2(Text_Count, " streams");
             for (int16u Pos=0; Pos<1; Pos++)
             {
                 if (Pos<Text_Count)
-                    SUBELEMENT(6, Text)
+                    SUBELEMENT(Text)
                 else
                     Skip_XX(6,                                  "Reserved for Text");
             }
             Skip_XX(164,                                        "Unknown");
-        Element_End();
-    Element_End();
+        Element_End0();
+    Element_End0();
 
     //-VTS
     VTS_Attributes_AreHere=true;
-    Element_Begin("VTS (VTS for movie, Vob 1-9)", 0x1D8);
-        Element_Begin("Video streams", 1*2);
-            Element_Info(1, " streams");
-            SUBELEMENT(2, Video)
-        Element_End();
-        Element_Begin("Audio streams", 8*8);
+    Element_Begin1("VTS (VTS for movie, Vob 1-9)");
+        Element_Begin1("Video streams");
+            Element_Info2(1, " streams");
+            SUBELEMENT(Video)
+        Element_End0();
+        Element_Begin1("Audio streams");
             Get_B2 (Audio_Count,                                "number of audio streams in VMGM_VOBS");
-            Element_Info(Audio_Count, " streams");
+            Element_Info2(Audio_Count, " streams");
             for (int16u Pos=0; Pos<8; Pos++)
             {
                 if (Pos<Audio_Count)
-                    SUBELEMENT(8, Audio)
+                    SUBELEMENT(Audio)
                 else
                     Skip_XX(8,                                  "Reserved for Audio");
             }
             Skip_XX(16,                                         "Unknown");
-        Element_End();
-        Element_Begin("Text streams", 32*6);
+        Element_End0();
+        Element_Begin1("Text streams");
             Get_B2 (Text_Count,                                 "number of subpicture streams in VMGM_VOBS");
-            Element_Info(Text_Count, " streams");
+            Element_Info2(Text_Count, " streams");
             for (int16u Pos=0; Pos<32; Pos++)
             {
                 if (Pos<Text_Count)
-                    SUBELEMENT(6, Text)
+                    SUBELEMENT(Text)
                 else
                     Skip_XX(6,                                  "Reserved for Text");
             }
             Skip_XX(2,                                          "Unknown");
-        Element_End();
-        Element_Begin("MultiChannel Info", 8*24);
-            Element_Info(Audio_Count, " streams");
+        Element_End0();
+        Element_Begin1("MultiChannel Info");
+            Element_Info2(Audio_Count, " streams");
             for (int16u Pos=0; Pos<8; Pos++)
             {
                 if (Pos<Audio_Count)
-                    SUBELEMENT(24, MultiChannel)
+                    SUBELEMENT(MultiChannel)
                 else
                     Skip_XX(24,                                 "Reserved for multichannel extension");
             }
-        Element_End();
-    Element_End();
+        Element_End0();
+    Element_End0();
     Skip_XX(2048-Element_Offset,                                "Junk");
 
     //Filling
@@ -581,17 +584,17 @@ void File_Dvdv::Video()
     //Parsing
     int32u Codec, Standard, AspectRatio, Resolution, BitRate_Mode;
     BS_Begin();
-    Get_BS (2, Codec,                                           "Coding mode"); Param_Info(IFO_CodecV[Codec]);
-    Get_BS (2, Standard,                                        "Standard"); Param_Info(IFO_Standard[Standard]);
-    Get_BS (2, AspectRatio,                                     "Aspect ratio"); Param_Info(IFO_AspectRatio[AspectRatio]);
-    Info_BS(1, Pan,                                             "Automatic Pan/Scan"); Param_Info(Pan?"No":"Yes");
-    Info_BS(1, Letter,                                          "Automatic Letterbox"); Param_Info(Letter?"No":"Yes");
+    Get_BS (2, Codec,                                           "Coding mode"); Param_Info1(IFO_CodecV[Codec]);
+    Get_BS (2, Standard,                                        "Standard"); Param_Info1(IFO_Standard[Standard]);
+    Get_BS (2, AspectRatio,                                     "Aspect ratio"); Param_Info1(IFO_AspectRatio[AspectRatio]);
+    Info_BS(1, Pan,                                             "Automatic Pan/Scan"); Param_Info1(Pan?"No":"Yes");
+    Info_BS(1, Letter,                                          "Automatic Letterbox"); Param_Info1(Letter?"No":"Yes");
     Skip_BS(1,                                                  "CC for line 21 field 1 in GOP (NTSC only)");
     Skip_BS(1,                                                  "CC for line 21 field 2 in GOP (NTSC only)");
-    Get_BS (3, Resolution,                                      "Resolution"); Param_Info(Ztring::ToZtring(IFO_Width[Resolution])+_T("x")+Ztring::ToZtring(IFO_Height[Standard][Resolution]));
-    Info_BS(1, Letterboxed,                                     "Letterboxed"); Param_Info(Letter?"Yes":"No");
-    Get_BS (1, BitRate_Mode,                                    "Bitrate mode"); Param_Info(IFO_BitRate_Mode[BitRate_Mode]);
-    Info_BS(1, Camera,                                          "Camera/Film"); Param_Info(Letter?"Film":"Camera");
+    Get_BS (3, Resolution,                                      "Resolution"); Param_Info1(Ztring::ToZtring(IFO_Width[Resolution])+_T("x")+Ztring::ToZtring(IFO_Height[Standard][Resolution]));
+    Info_BS(1, Letterboxed,                                     "Letterboxed"); Param_Info1(Letter?"Yes":"No");
+    Get_BS (1, BitRate_Mode,                                    "Bitrate mode"); Param_Info1(IFO_BitRate_Mode[BitRate_Mode]);
+    Info_BS(1, Camera,                                          "Camera/Film"); Param_Info1(Letter?"Film":"Camera");
     BS_End();
 
     //Filling
@@ -621,20 +624,20 @@ void File_Dvdv::Audio()
     int32u Codec, LanguageType, Mode, Resolution, SamplingRate, Channels;
     int8u Language_Extension, ChannelsK=(int8u)-1;
     BS_Begin();
-    Get_BS (3, Codec,                                           "Coding mode"); Param_Info(IFO_CodecA[Codec]);
-    Info_BS(1, MultiChannel,                                    "Multichannel extension present"); Param_Info(MultiChannel?"Yes":"No");
-    Get_BS (2, LanguageType,                                    "Language type"); Param_Info(LanguageType==1?"2CC":"Unknown");
-    Get_BS (2, Mode,                                            "Application mode"); Param_Info(IFO_ModeA[Mode]);
-    Get_BS (2, Resolution,                                      "Resolution"); if (Codec==2 || Codec==3) Param_Info(IFO_ResolutionA[Resolution]); else if (Codec==4) Param_Info(Mode?"DRC":"No DRC");
-    Get_BS (2, SamplingRate,                                    "Sampling rate"); Param_Info(Ztring::ToZtring(IFO_SamplingRate[SamplingRate]));
-    Get_BS (4, Channels,                                        "Channels"); Param_Info(Channels+1, " channels");
+    Get_BS (3, Codec,                                           "Coding mode"); Param_Info1(IFO_CodecA[Codec]);
+    Info_BS(1, MultiChannel,                                    "Multichannel extension present"); Param_Info1(MultiChannel?"Yes":"No");
+    Get_BS (2, LanguageType,                                    "Language type"); Param_Info1(LanguageType==1?"2CC":"Unknown");
+    Get_BS (2, Mode,                                            "Application mode"); Param_Info1(IFO_ModeA[Mode]);
+    Get_BS (2, Resolution,                                      "Resolution"); Param_Info1C((Codec==2 || Codec==3), IFO_ResolutionA[Resolution]); Param_Info1C((Codec==4), Mode?"DRC":"No DRC");
+    Get_BS (2, SamplingRate,                                    "Sampling rate"); Param_Info1(Ztring::ToZtring(IFO_SamplingRate[SamplingRate]));
+    Get_BS (4, Channels,                                        "Channels"); Param_Info2(Channels+1, " channels");
     BS_End();
     Get_Local(3, Language,                                      "Language code");
     if (!Language.empty() && Language[0]>=0x80)
         Language.clear(); //this is 0xFF...
     if (Language==_T("iw"))
         Language=_T("he"); //Hebrew patch, is "iw" in DVDs
-    Get_B1 (Language_Extension,                                 "Language extension"); if (Language_Extension<8) Param_Info(IFO_Language_MoreA[Language_Extension]);
+    Get_B1 (Language_Extension,                                 "Language extension"); Param_Info1C((Language_Extension<8), IFO_Language_MoreA[Language_Extension]);
     Skip_B1(                                                    "Unknown");
     switch (Mode)
     {
@@ -644,11 +647,11 @@ void File_Dvdv::Audio()
             Skip_BS(1,                                          "Zero");
             Get_S1 (3, ChannelsK,                               "Channels");
                 #ifdef MEDIAINFO_AC3_YES
-                    Param_Info(AC3_ChannelPositions[ChannelsK]);
+                    Param_Info1(AC3_ChannelPositions[ChannelsK]);
                 #endif //MEDIAINFO_AC3_YES
             Skip_BS(2,                                          "Version");
-            Info_BS(1, MC,                                      "MC intro present"); Param_Info(MC?"Yes":"No");
-            Info_BS(1, Duet,                                    "Duet"); Param_Info(Duet?"Duet":"Solo");
+            Info_BS(1, MC,                                      "MC intro present"); Param_Info1(MC?"Yes":"No");
+            Info_BS(1, Duet,                                    "Duet"); Param_Info1(Duet?"Duet":"Solo");
             BS_End();
             }
             break;
@@ -656,7 +659,7 @@ void File_Dvdv::Audio()
             {
             BS_Begin();
             Skip_BS(4,                                          "Reserved");
-            Info_BS(1, DolbyDecode,                             "Suitable for Dolby surround decoding"); Param_Info(DolbyDecode?"Yes":"No");
+            Info_BS(1, DolbyDecode,                             "Suitable for Dolby surround decoding"); Param_Info1(DolbyDecode?"Yes":"No");
             Skip_BS(3,                                          "Reserved");
             BS_End();
             }
@@ -703,9 +706,9 @@ void File_Dvdv::Text()
     int32u Codec, LanguageType;
     int8u Language_Extension;
     BS_Begin();
-    Get_BS (3, Codec,                                           "Coding mode"); Param_Info(IFO_CodecT[Codec]);
+    Get_BS (3, Codec,                                           "Coding mode"); Param_Info1(IFO_CodecT[Codec]);
     Skip_BS(3,                                                  "Reserved");
-    Get_BS (2, LanguageType,                                    "Language type"); Param_Info(LanguageType==1?"2CC":"Unknown");
+    Get_BS (2, LanguageType,                                    "Language type"); Param_Info1(LanguageType==1?"2CC":"Unknown");
     BS_End();
     Skip_B1(                                                    "Reserved");
     Get_Local(3, Language,                                      "Language code");
@@ -713,7 +716,7 @@ void File_Dvdv::Text()
         Language.clear(); //this is 0xFF...
     if (Language==_T("iw"))
         Language=_T("he"); //Hebrew patch, is "iw" in DVDs
-    Get_B1 (Language_Extension,                                 "Language extension"); if (Language_Extension<16) Param_Info(IFO_Language_MoreT[Language_Extension]);
+    Get_B1 (Language_Extension,                                 "Language extension"); Param_Info1C((Language_Extension<16), IFO_Language_MoreT[Language_Extension]);
 
     //Filling
     FILLING_BEGIN();
@@ -736,35 +739,35 @@ void File_Dvdv::MultiChannel()
 {
     //Parsing
     BS_Begin();
-    Element_Begin("ACH0", 1);
+    Element_Begin1("ACH0");
         Skip_BS(7,                                              "Reserved");
         Skip_BS(1,                                              "ACH0 Guide Melody exists");
-    Element_End();
-    Element_Begin("ACH1", 1);
+    Element_End0();
+    Element_Begin1("ACH1");
         Skip_BS(7,                                              "Reserved");
         Skip_BS(1,                                              "ACH1 Guide Melody exists");
-    Element_End();
-    Element_Begin("ACH2", 1);
+    Element_End0();
+    Element_Begin1("ACH2");
         Skip_BS(4,                                              "Reserved");
         Skip_BS(1,                                              "ACH2 Guide Vocal 1 exists");
         Skip_BS(1,                                              "ACH2 Guide Vocal 2 exists");
         Skip_BS(1,                                              "ACH2 Guide Melody 1 exists");
         Skip_BS(1,                                              "ACH2 Guide Melody 2 exists");
-    Element_End();
-    Element_Begin("ACH3", 1);
+    Element_End0();
+    Element_Begin1("ACH3");
         Skip_BS(4,                                              "Reserved");
         Skip_BS(1,                                              "ACH3 Guide Vocal 1 exists");
         Skip_BS(1,                                              "ACH3 Guide Vocal 2 exists");
         Skip_BS(1,                                              "ACH3 Guide Melody A exists");
         Skip_BS(1,                                              "ACH3 Sound Effect A exists");
-    Element_End();
-    Element_Begin("ACH4", 1);
+    Element_End0();
+    Element_Begin1("ACH4");
         Skip_BS(4,                                              "Reserved");
         Skip_BS(1,                                              "ACH4 Guide Vocal 1 exists");
         Skip_BS(1,                                              "ACH4 Guide Vocal 2 exists");
         Skip_BS(1,                                              "ACH4 Guide Melody B exists");
         Skip_BS(1,                                              "ACH4 Sound Effect B exists");
-    Element_End();
+    Element_End0();
     BS_End();
     Skip_XX(19,                                                 "Unknown");
 }
@@ -831,30 +834,30 @@ void File_Dvdv::VTS_PTT_SRPT ()
 
     //Parsing
     int32u Element_RealSize;
-    Element_Begin("Header", 8);
+    Element_Begin1("Header");
         Skip_B2(                                                "Count of elements");
         Skip_B2(                                                "Unknown");
         Get_B4 (Element_RealSize,                               "End address");
         Element_RealSize++; //Last byte
-    Element_End();
-    Element_Begin("Extra data");
+    Element_End0();
+    Element_Begin1("Extra data");
         int32u Offset;
         Get_B4 (Offset,                                         "Offset of first element");
         int64u Extra_Size=Offset-Element_Offset;
         if (Extra_Size>0)
             Skip_XX(Extra_Size,                                 "Extra data (Unknown)");
-    Element_End(Extra_Size);
+    Element_End0();
 
     //For each chapter
     while (Element_Offset<Element_RealSize)
     {
         //VTS_PTT
         int16u PGCN, PGN;
-        Element_Begin(4);
+        Element_Begin0();
         Get_B2 (PGCN,                                           "Program Chain (PGCN)");
         Get_B2 (PGN,                                            "Program (PGN)");
-        Element_Name("Chapter"); Element_Info(Ztring::ToZtring(PGCN)); Element_Info(Ztring::ToZtring(PGN));
-        Element_End();
+        Element_Name("Chapter"); Element_Info1(Ztring::ToZtring(PGCN)); Element_Info1(Ztring::ToZtring(PGN));
+        Element_End0();
     }
 }
 
@@ -865,25 +868,25 @@ void File_Dvdv::VTS_PGCI ()
 
     //Parsing
     int32u EndAddress;
-    Element_Begin("Header");
+    Element_Begin1("Header");
         int32u Offset;
         Skip_B2(                                                "Number of Program Chains");
         Skip_B2(                                                "Reserved");
         Get_B4 (EndAddress,                                     "End address");
         if (EndAddress>=Element_Size)
             EndAddress=(int32u)Element_Size-1;
-        Element_Begin("PGC category", 4);
+        Element_Begin1("PGC category");
             BS_Begin();
             Skip_BS(1,                                          "entry PGC");
             Skip_BS(7,                                          "title number");
             BS_End();
             Skip_B1(                                            "Unknown");
             Skip_B2(                                            "parental management mask");
-        Element_End();
+        Element_End0();
         Get_B4 (Offset,                                         "offset to VTS_PGC - relative to VTS_PGCI");
         if (Offset-16>0)
             Skip_XX(Offset-16,                                  "Unknown");
-    Element_End(Offset);
+    Element_End0();
 
     //For each Program
     //DETAILLEVEL_SET(1.0);
@@ -900,7 +903,7 @@ void File_Dvdv::VTSM_PGCI_UT ()
 
     //Parsing
     int16u LU_Count;
-    Element_Begin("Header");
+    Element_Begin1("Header");
         int32u EndAddress, Offset;
         int8u Flags;
         Get_B2 (LU_Count,                                       "Number of Language Units");
@@ -918,26 +921,26 @@ void File_Dvdv::VTSM_PGCI_UT ()
         Get_B4 (Offset,                                         "Offset to VTSM_LU relative to VTSM_PGCI_UT");
         if (Offset-16>0)
             Skip_XX(Offset-16,                                  "Unknown");
-    Element_End(Offset);
+    Element_End0();
 
     for (int16u LU_Pos=0; LU_Pos<LU_Count; LU_Pos++)
     {
-        Element_Begin("Language Unit");
+        Element_Begin1("Language Unit");
         int32u LU_Size;
         int16u PGC_Count;
-        Element_Begin("Header");
+        Element_Begin1("Header");
             Get_B2 (PGC_Count,                                  "Number of Program Chains");
             Skip_B2(                                            "Reserved");
             Get_B4 (LU_Size,                                    "end address (last byte of last PGC in this LU) relative to VTSM_LU");
             LU_Size++; //Last byte
-            Element_Begin("PGC category", 4);
+            Element_Begin1("PGC category");
                 int32u EntryPGC;
                 BS_Begin();
                 Get_BS (1, EntryPGC,                            "Entry PGC");
                 Skip_BS(3,                                      "Unknown");
                 if (EntryPGC)
                 {
-                    Info_BS(4, MenuType,                        "menu type"); Param_Info(IFO_MenuType[MenuType]);
+                    Info_BS(4, MenuType,                        "menu type"); Param_Info1(IFO_MenuType[MenuType]);
                 }
                 else
                 {
@@ -946,15 +949,15 @@ void File_Dvdv::VTSM_PGCI_UT ()
                 BS_End();
                 Skip_B1(                                        "Unknown");
                 Skip_B2(                                        "parental management mask");
-            Element_End();
+            Element_End0();
             Get_B4 (Offset,                                     "offset to VTSM_PGC relative to VTSM_LU");
             if (Offset-16>0)
                 Skip_XX(Offset-16,                              "Unknown");
-        Element_End();
+        Element_End0();
         for (int16u PGC_Pos=0; PGC_Pos<PGC_Count; PGC_Pos++)
             PGC(Element_Offset);
 
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -964,7 +967,7 @@ void File_Dvdv::VTS_TMAPTI ()
     Element_Name("Time map");
 
     //Parsing
-    Element_Begin("Header", 8);
+    Element_Begin1("Header");
         int32u EndAddress, Offset;
         Skip_B2(                                                "Number of program chains");
         Skip_B2(                                                "Reserved");
@@ -974,13 +977,13 @@ void File_Dvdv::VTS_TMAPTI ()
         Get_B4 (Offset,                                         "Offset to VTS_TMAP 1");
         if (Offset-12>0)
             Skip_XX(Offset-12,                                  "Unknown");
-    Element_End();
+    Element_End0();
 
     //DETAILLEVEL_SET(1.0);
     while (Element_Offset<=EndAddress)
     {
         //VTS_TMAP
-        Element_Begin("Time Map");
+        Element_Begin1("Time Map");
         //std::vector<size_t> Sector_Times;
         int8u Sector_Times_SecondsPerTime;
         int16u Count;
@@ -991,17 +994,17 @@ void File_Dvdv::VTS_TMAPTI ()
         BS_Begin();
         for (int16u Pos=0; Pos<Count; Pos++)
         {
-            Element_Begin("Sector Offset", 4);
+            Element_Begin1("Sector Offset");
             int32u SectorOffset;
             Skip_BS( 1,                                         "discontinuous with previous");
             Get_BS (31, SectorOffset,                           "Sector offset within VOBS of nearest VOBU");
-            //Get_B4 (Sector_Times[Pos],                          Sector offset within VOBS of nearest VOBU);// Param_Info(Ztring().Duration_From_Milliseconds((Pos+1)*Sectors_Times_SecondsPerTime[Program_Pos]));
+            //Get_B4 (Sector_Times[Pos],                          Sector offset within VOBS of nearest VOBU);// Param_Info1(Ztring().Duration_From_Milliseconds((Pos+1)*Sectors_Times_SecondsPerTime[Program_Pos]));
             //Sector_Times[Pos]&=0x7FFFFFFF; //bit 31 is set if VOBU time codes are discontinuous with previous
-            Element_Info(SectorOffset);
-            Element_End();
+            Element_Info1(SectorOffset);
+            Element_End0();
         }
         BS_End();
-        Element_End();
+        Element_End0();
 
         //Filling
         //Sectors_Times.push_back(Sector_Times);
@@ -1016,25 +1019,25 @@ void File_Dvdv::VTSM_C_ADT ()
 
     //Parsing
     int32u EndAddress;
-    Element_Begin("Header", 8);
+    Element_Begin1("Header");
         Skip_B2(                                                "Number of cells");
         Skip_B2(                                                "Reserved");
         Get_B4 (EndAddress,                                     "End address");
         if (EndAddress>=Element_Size)
             EndAddress=(int32u)Element_Size-1;
-    Element_End();
+    Element_End0();
 
     //DETAILLEVEL_SET(1.0);
     while (Element_Offset<=EndAddress)
     {
         //ADT
-        Element_Begin("Entry", 12);
+        Element_Begin1("Entry");
         Skip_B2(                                                "VOBidn");
         Skip_B1(                                                "CELLidn");
         Skip_B1(                                                "Unknown");
         Skip_B4(                                                "Starting sector within VOB");
         Skip_B4(                                                "Ending sector within VOB");
-        Element_End();
+        Element_End0();
     }
 }
 
@@ -1045,11 +1048,11 @@ void File_Dvdv::VTSM_VOBU_ADMAP ()
 
     //Parsing
     int32u EndAddress;
-    Element_Begin("Header", 4);
+    Element_Begin1("Header");
         Get_B4 (EndAddress,                                     "End address");
         if (EndAddress>=Element_Size)
             EndAddress=(int32u)Element_Size-1;
-    Element_End();
+    Element_End0();
 
     //DETAILLEVEL_SET(1.0);
     while (Element_Offset<=EndAddress)
@@ -1066,28 +1069,28 @@ void File_Dvdv::VTS_C_ADT ()
 
     //Parsing
     int32u EndAddress;
-    Element_Begin("Header", 8);
+    Element_Begin1("Header");
         Skip_B2(                                                "Number of cells");
         Skip_B2(                                                "Reserved");
         Get_B4 (EndAddress,                                     "End address");
         if (EndAddress>=Element_Size)
             EndAddress=(int32u)Element_Size-1;
-    Element_End();
+    Element_End0();
 
     //DETAILLEVEL_SET(1.0);
     while (Element_Offset<=EndAddress)
     {
         //ADT
-        Element_Begin("Entry", 12);
+        Element_Begin1("Entry");
         int32u Start, End;
         int16u VOBidn;
         int8u CELLidn;
         Get_B2 (VOBidn,                                         "VOBidn");
         Get_B1 (CELLidn,                                        "CELLidn");
         Skip_B1(                                                "Unknown");
-        Get_B4 (Start,                                          "Starting sector within VOB"); Param_Info(Time_ADT(Start));
-        Get_B4 (End,                                            "Ending sector within VOB"); Param_Info(Time_ADT(End));
-        Element_End();
+        Get_B4 (Start,                                          "Starting sector within VOB"); Param_Info1(Time_ADT(Start));
+        Get_B4 (End,                                            "Ending sector within VOB"); Param_Info1(Time_ADT(End));
+        Element_End0();
 
         //Filling
         FILLING_BEGIN();
@@ -1103,11 +1106,11 @@ void File_Dvdv::VTS_VOBU_ADMAP ()
 
     //Parsing
     int32u EndAddress;
-    Element_Begin("Header", 4);
+    Element_Begin1("Header");
         Get_B4 (EndAddress,                                     "End address");
         if (EndAddress>=Element_Size)
             EndAddress=(int32u)Element_Size-1;
-    Element_End();
+    Element_End0();
 
     //DETAILLEVEL_SET(1.0);
     while (Element_Offset<Element_Size)
@@ -1167,12 +1170,12 @@ void File_Dvdv::Get_Duration(int64u  &Duration, const Ztring &Name)
 {
     int32u FrameRate, FF;
     int8u HH, MM, SS;
-    Element_Begin(Name, 4);
+    Element_Begin1(Name);
         Get_B1 (HH,                                     "Hours (BCD)");
         Get_B1 (MM,                                     "Minutes (BCD)");
         Get_B1 (SS,                                     "Seconds (BCD)");
         BS_Begin();
-        Get_BS (2, FrameRate,                           "Frame rate"); Param_Info(IFO_PlaybackTime_FrameRate[FrameRate], " fps");
+        Get_BS (2, FrameRate,                           "Frame rate"); Param_Info2(IFO_PlaybackTime_FrameRate[FrameRate], " fps");
         Get_BS (6, FF,                                  "Frames (BCD)");
         BS_End();
 
@@ -1181,8 +1184,8 @@ void File_Dvdv::Get_Duration(int64u  &Duration, const Ztring &Name)
                 + Ztring::ToZtring(SS, 16).To_int64u()           * 1000 //BCD
                 + Ztring::ToZtring(FF, 16).To_int64u()           * 1000/IFO_PlaybackTime_FrameRate[FrameRate]; //BCD
 
-        Element_Info(Ztring::ToZtring(Duration));
-    Element_End();
+        Element_Info1(Ztring::ToZtring(Duration));
+    Element_End0();
 }
 
 
@@ -1197,10 +1200,10 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         vector<int8u> ProgramMap;
 
         //VTS_PGC
-        Element_Begin("PGC");
+        Element_Begin1("PGC");
         int16u commands, program_map, cell_playback, cell_position;
         int8u Program_Count;
-        Element_Begin("Header", 236);
+        Element_Begin1("Header");
             int32u Flags;
             int8u Cells;
             int64u TotalDuration;
@@ -1262,11 +1265,11 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                 Skip_Flags(Flags, 23, PTT play or search);
                 Skip_Flags(Flags, 24,                               Time play or search);
                 */
-            Element_Begin("Audio Stream Controls", 8*2);
+            Element_Begin1("Audio Stream Controls");
             for (size_t Pos=0; Pos<8; Pos++)
             {
-                Element_Begin("Audio Stream Control", 2);
-                Element_Info(Ztring::ToZtring(Pos));
+                Element_Begin1("Audio Stream Control");
+                Element_Info1(Ztring::ToZtring(Pos));
                 int8u Number;
                 bool  Available;
                 BS_Begin();
@@ -1274,7 +1277,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                 Get_S1 (7, Number,                              "Stream number");
                 BS_End();
                 Skip_B1(                                        "Reserved");
-                Element_End();
+                Element_End0();
                 if (Available)
                     Stream_Control_Audio.push_back(Number);
 
@@ -1295,12 +1298,12 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                     Fill(Stream_Audio, Pos, Audio_ID_String, ID_String, true);
                 }
             }
-            Element_End();
-            Element_Begin("Subpicture Stream Controls", 32*4);
+            Element_End0();
+            Element_Begin1("Subpicture Stream Controls");
             for (size_t Pos=0; Pos<32; Pos++)
             {
-                Element_Begin("Subpicture Stream Control", 4);
-                Element_Info(Ztring::ToZtring(Pos));
+                Element_Begin1("Subpicture Stream Control");
+                Element_Info1(Ztring::ToZtring(Pos));
                 int8u Number_43, Number_Wide, Number_Letterbox, Number_PanScan;
                 bool  Available;
                 BS_Begin();
@@ -1310,7 +1313,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                 Get_B1 (Number_Wide,                            "Stream number for Wide");
                 Get_B1 (Number_Letterbox,                       "Stream number for Letterbox");
                 Get_B1 (Number_PanScan,                         "Stream number for Pan&Scan");
-                Element_End();
+                Element_End0();
                 if (Available)
                 {
                     Stream_Control_SubPicture_43.push_back(Number_43);
@@ -1329,30 +1332,30 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                     Fill(Stream_Text, Pos, Text_ID_String, ID_String, true);
                 }
             }
-            Element_End();
+            Element_End0();
             Skip_B2(                                            "next PGCN");
             Skip_B2(                                            "previous PGCN");
             Skip_B2(                                            "goup PGCN");
             Skip_B1(                                            "PGC still time - 255=infinite");
             Skip_B1(                                            "PG playback mode");
-            Element_Begin("palette", 16*4);
+            Element_Begin1("palette");
             for (int Pos=0; Pos<16; Pos++)
             {
                 Skip_B4(                                        "palette (0 - Y - Cr - Cb)");
             }
-            Element_End();
+            Element_End0();
             Get_B2 (commands,                                   "offset within PGC to commands");
             Get_B2 (program_map,                                "offset within PGC to program map");
             Get_B2 (cell_playback,                              "offset within PGC to cell playback information table");
             Get_B2 (cell_position,                              "offset within PGC to cell position information table");
-        Element_End();
+        Element_End0();
 
         //commands
         if (commands>0)
         {
             if (Element_Offset<Offset+commands)
                 Skip_XX(Offset+commands-Element_Offset,             "Unknown");
-            Element_Begin("commands");
+            Element_Begin1("commands");
             int16u PreCommands_Count, PostCommands_Count, CellCommands_Count, EndAdress;
             Get_B2 (PreCommands_Count,                          "Number of pre commands");
             Get_B2 (PostCommands_Count,                         "Number of post commands");
@@ -1360,38 +1363,38 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
             Get_B2 (EndAdress,                                  "End address relative to command table");
             if (PreCommands_Count>0)
             {
-                Element_Begin("Pre commands", PreCommands_Count*8);
+                Element_Begin1("Pre commands");
                     for (int16u Pos=0; Pos<PreCommands_Count; Pos++)
                     {
-                        Element_Begin("Pre command", 8);
+                        Element_Begin1("Pre command");
                         Skip_XX(8,                              "Pre command");
-                        Element_End();
+                        Element_End0();
                     }
-                Element_End();
+                Element_End0();
             }
             if (PostCommands_Count>0)
             {
-                Element_Begin("Post commands", PostCommands_Count*8);
+                Element_Begin1("Post commands");
                     for (int16u Pos=0; Pos<PostCommands_Count; Pos++)
                     {
-                        Element_Begin("Post command", 8);
+                        Element_Begin1("Post command");
                         Skip_XX(8,                              "Post command");
-                        Element_End();
+                        Element_End0();
                     }
-                Element_End();
+                Element_End0();
             }
             if (CellCommands_Count>0)
             {
-                Element_Begin("Cell commands", CellCommands_Count*8);
+                Element_Begin1("Cell commands");
                     for (int16u Pos=0; Pos<CellCommands_Count; Pos++)
                     {
-                        Element_Begin("Cell command", 8);
+                        Element_Begin1("Cell command");
                         Skip_XX(8,                              "Cell command");
-                        Element_End();
+                        Element_End0();
                     }
-                Element_End();
+                Element_End0();
             }
-            Element_End(EndAdress+1);
+            Element_End0();
         }
 
         //program map
@@ -1399,17 +1402,17 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         {
             if (Element_Offset<Offset+program_map)
                 Skip_XX(Offset+program_map-Element_Offset,          "Unknown");
-            Element_Begin("program map", Program_Count*1);
+            Element_Begin1("program map");
             for (int8u Pos=0; Pos<Program_Count; Pos++)
             {
-                Element_Begin("Entry", 8);
+                Element_Begin1("Entry");
                 int8u entry;
                 Get_B1( entry,  "Entry cell number");
                 ProgramMap.push_back(entry);
                 //Skip_B1(                                        "Entry cell number");
-                Element_End();
+                Element_End0();
             }
-            Element_End();
+            Element_End0();
         }
 
         //cell playback
@@ -1417,23 +1420,23 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         {
             if (Element_Offset<Offset+cell_playback)
                 Skip_XX(Offset+cell_playback-Element_Offset,        "Unknown");            
-            Element_Begin("cell playback", Cells*24);
+            Element_Begin1("cell playback");
             for (int8u Pos=0; Pos<Cells; Pos++)
             {
                 int64u CellDuration;
-                Element_Begin("cell", 24);
+                Element_Begin1("cell");
                 Skip_XX(4,                                      "ToDo");
                 Get_Duration(CellDuration,                      "Time");
                 Skip_B4(                                        "first VOBU start sector");
                 Skip_B4(                                        "first ILVU end sector");
                 Skip_B4(                                        "last VOBU start sector");
                 Skip_B4(                                        "last VOBU end sector");
-                Element_Info(Ztring::ToZtring(Pos)); Element_Info(Ztring::ToZtring(CellDuration));
-                Element_End();
+                Element_Info1(Ztring::ToZtring(Pos)); Element_Info1(Ztring::ToZtring(CellDuration));
+                Element_End0();
 
                 CellDurations.push_back(CellDuration);
             }
-            Element_End();
+            Element_End0();
         }
 
         //cell position
@@ -1441,19 +1444,19 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         {
             if (Element_Offset<Offset+cell_position)
                 Skip_XX(Offset+cell_position-Element_Offset,        "Unknown");
-            Element_Begin("cell position", Cells*4);
+            Element_Begin1("cell position");
             for (int8u Pos=0; Pos<Cells; Pos++)
             {
-                Element_Begin("cell", 4);
+                Element_Begin1("cell");
                 Skip_B2(                                        "VOBid");
                 Skip_B1(                                        "reserved");
                 Skip_B1(                                        "Cell id");
-                Element_End();
+                Element_End0();
             }
-            Element_End();
+            Element_End0();
         }
 
-        Element_End(Element_Offset-Offset);
+        Element_End0();
 
         FILLING_BEGIN();
             if (Title)
@@ -1531,7 +1534,7 @@ void File_Dvdv::VMG_VTS_ATRT()
 
     //Parsing
     int32u EndAddress;
-    Element_Begin("Header");
+    Element_Begin1("Header");
         int32u Offset;
         Skip_B4(                                                "Number of title sets");
         Get_B4 (EndAddress,                                     "End address");
@@ -1540,23 +1543,23 @@ void File_Dvdv::VMG_VTS_ATRT()
         Get_B4 (Offset,                                         "Offset to VTSM_LU relative to VTSM_PGCI_UT");
         if (Offset-12>0)
             Skip_XX(Offset-12,                                  "Unknown");
-    Element_End(Offset);
+    Element_End0();
 
     while (Element_Offset<=EndAddress)
     {
-        Element_Begin("VTS_ATRT");
-            Element_Begin("Header", 4);
+        Element_Begin1("VTS_ATRT");
+            Element_Begin1("Header");
                 int32u Size;
                 Get_B4 (Size,                                   "End address");
                 Size++; //Last byte
-            Element_End();
-            Element_Begin("Copy of VTS Category", 4);
+            Element_End0();
+            Element_Begin1("Copy of VTS Category");
                 Skip_B4(                                        "VTS Category");
-            Element_End();
-            Element_Begin("Copy of VTS attributes", Size-8);
+            Element_End0();
+            Element_Begin1("Copy of VTS attributes");
                 Skip_XX(Size-8,                                 "VTS attributes");
-            Element_End();
-        Element_End(Size);
+            Element_End0();
+        Element_End0();
     }
 }
 

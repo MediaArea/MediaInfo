@@ -112,7 +112,7 @@ void File_La::FileHeader_Parse()
     Get_L4 (FmtChunk,                                           "fmt_chunk");
     Get_L4 (FmtSize,                                            "fmt_size");
     Get_L2 (RawFormat,                                          "raw_format");
-    Get_L2 (Channels,                                           "channels"); Param_Info(Channels, " channel(s)");
+    Get_L2 (Channels,                                           "channels"); Param_Info2(Channels, " channel(s)");
     Get_L4 (SampleRate,                                         "sample_rate");
     Get_L4 (BytesPerSecond,                                     "bytes_per_second");
     Get_L2 (BytesPerSample,                                     "bytes_per_sample");
