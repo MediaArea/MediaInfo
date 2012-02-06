@@ -437,16 +437,20 @@ void File_Mpegv::Streams_Update()
                 
                 if (IsNewStream)
                 {
-                    if ((*Text_Positions[Text_Positions_Pos].Parser)==GA94_03_Parser)
-                    {
-                        Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
-                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("A/53 / ")+MuxingMode, true);
-                    }
+                    #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                        if ((*Text_Positions[Text_Positions_Pos].Parser)==GA94_03_Parser)
+                        {
+                            Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
+                            Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("A/53 / ")+MuxingMode, true);
+                        }
+                    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
                     if ((*Text_Positions[Text_Positions_Pos].Parser)==Cdp_Parser)
                     {
                         Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
                         Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
                     }
+                    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
                 }
             }
         }
@@ -706,9 +710,11 @@ void File_Mpegv::Streams_Fill()
         Streams[0x00].Searching_TimeStamp_End=true;
 
     //Caption may be in user_data, must be activated if full parsing is requested
+    #if defined(MEDIAINFO_DTVCCTRANSPORT_YES) || defined(MEDIAINFO_SCTE20_YES) || (defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES))
     Streams[0x00].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
     Streams[0xB2].Searching_Payload=GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent;
     Streams[0xB3].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
+    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES) || defined(MEDIAINFO_SCTE20_YES) || (defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES))
     if (Config_ParseSpeed>=1)
     {
         Streams[0x00].Searching_Payload=true;
@@ -1258,9 +1264,11 @@ void File_Mpegv::Detect_EOF()
         if (MustExtendParsingDuration && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
          && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
         {
-            Streams[0x00].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
-            Streams[0xB2].Searching_Payload=GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent;
-            Streams[0xB3].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
+            #if defined(MEDIAINFO_DTVCCTRANSPORT_YES) || defined(MEDIAINFO_SCTE20_YES) || (defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES))
+                Streams[0x00].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
+                Streams[0xB2].Searching_Payload=GA94_03_IsPresent || CC___IsPresent || Scte_IsPresent;
+                Streams[0xB3].Searching_Payload=GA94_03_IsPresent || Cdp_IsPresent;
+            #endif defined(MEDIAINFO_DTVCCTRANSPORT_YES) || defined(MEDIAINFO_SCTE20_YES) || (defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES))
             return;
         }
 
@@ -1615,8 +1623,8 @@ void File_Mpegv::slice_start()
         }
 
         //Autorisation of other streams
-        for (int8u Pos=0x01; Pos<=0xAF; Pos++)
-            Streams[Pos].Searching_Payload=false;
+        //TODOfor (int8u Pos=0x01; Pos<=0xAF; Pos++)
+            //Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
         if (!Status[IsAccepted])
