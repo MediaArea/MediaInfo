@@ -1405,7 +1405,7 @@ void File_Mpegv::picture_start()
         if (!Status[IsAccepted])
         {
             NextCode_Clear();
-            for (int64u Element_Name_Next=0x01; Element_Name_Next<=0x1F; Element_Name_Next++)
+            for (int64u Element_Name_Next=0x01; Element_Name_Next<=0xAF; Element_Name_Next++)
                 NextCode_Add(Element_Name_Next);
             NextCode_Add(0xB2);
             NextCode_Add(0xB5);
@@ -1413,7 +1413,7 @@ void File_Mpegv::picture_start()
         }
 
         //Autorisation of other streams
-        for (int8u Pos=0x01; Pos<=0x1F; Pos++)
+        for (int8u Pos=0x01; Pos<=0xAF; Pos++)
             Streams[Pos].Searching_Payload=true;
     FILLING_END();
 }
@@ -1615,7 +1615,7 @@ void File_Mpegv::slice_start()
         }
 
         //Autorisation of other streams
-        for (int8u Pos=0x01; Pos<=0x1F; Pos++)
+        for (int8u Pos=0x01; Pos<=0xAF; Pos++)
             Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
