@@ -297,7 +297,7 @@ public :
     void Get_BF4_  (float32 &Info);
     void Get_BF8_  (float64 &Info);
     void Get_BF10_ (float80 &Info);
-    void Get_BFP4_ (size_t Bits, float32 &Info);
+    void Get_BFP4_ (int8u  Bits, float32 &Info);
     #define Get_B1(Info, Name) Get_B1_(Info)
     #define Get_B2(Info, Name) Get_B2_(Info)
     #define Get_B3(Info, Name) Get_B3_(Info)
@@ -323,7 +323,7 @@ public :
     void Peek_BF4 (float32 &Info);
     void Peek_BF8 (float64 &Info);
     void Peek_BF10(float64 &Info);
-    void Peek_BFP4(size_t Bits, float64 &Info);
+    void Peek_BFP4(int8u  Bits, float64 &Info);
     #define Skip_B1(Name) Element_Offset++
     #define Skip_B2(Name) Element_Offset+=2
     #define Skip_B3(Name) Element_Offset+=3
@@ -366,7 +366,7 @@ public :
     void Get_LF4_  (float32 &Info);
     void Get_LF8_  (float64 &Info);
     void Get_LF10_ (float80 &Info);
-    void Get_LFP4_ (size_t Bits, float32 &Info);
+    void Get_LFP4_ (int8u  Bits, float32 &Info);
     #define Get_L1(Info, Name) Get_L1_(Info)
     #define Get_L2(Info, Name) Get_L2_(Info)
     #define Get_L3(Info, Name) Get_L3_(Info)
@@ -392,7 +392,7 @@ public :
     void Peek_LF4 (float32 &Info);
     void Peek_LF8 (float64 &Info);
     void Peek_LF10(float64 &Info);
-    void Peek_LFP4(size_t Bits, float64 &Info);
+    void Peek_LFP4(int8u  Bits, float64 &Info);
     #define Skip_L1(Name) Element_Offset++
     #define Skip_L2(Name) Element_Offset+=2
     #define Skip_L3(Name) Element_Offset+=3
@@ -435,7 +435,7 @@ public :
     void Get_DF4_  (float32 &Info);
     void Get_DF8_  (float64 &Info);
     void Get_DF10_ (float80 &Info);
-    void Get_DFP4_ (size_t Bits, float32 &Info);
+    void Get_DFP4_ (int8u  Bits, float32 &Info);
     #define Get_D1(Info, Name) Get_D1_(Info)
     #define Get_D2(Info, Name) Get_D2_(Info)
     #define Get_D3(Info, Name) Get_D3_(Info)
@@ -461,7 +461,7 @@ public :
     void Peek_DF4 (float32 &Info);
     void Peek_DF8 (float64 &Info);
     void Peek_DF10(float64 &Info);
-    void Peek_DFP4(size_t Bits, float64 &Info);
+    void Peek_DFP4(int8u  Bits, float64 &Info);
     #define Skip_D1(Name) Element_Offset++
     #define Skip_D2(Name) Element_Offset+=2
     #define Skip_D3(Name) Element_Offset+=3
@@ -688,14 +688,14 @@ public :
     void Get_BS_ (size_t Bits, int32u  &Info);
     void Get_SB_ (             bool    &Info);
     bool Get_SB_ ()                                              {bool Temp; Get_SB_(Temp); return Temp;}
-    void Get_S1_ (size_t Bits, int8u   &Info);
-    void Get_S2_ (size_t Bits, int16u  &Info);
-    void Get_S3_ (size_t Bits, int32u  &Info);
-    void Get_S4_ (size_t Bits, int32u  &Info);
-    void Get_S5_ (size_t Bits, int64u  &Info);
-    void Get_S6_ (size_t Bits, int64u  &Info);
-    void Get_S7_ (size_t Bits, int64u  &Info);
-    void Get_S8_ (size_t Bits, int64u  &Info);
+    void Get_S1_ (int8u  Bits, int8u   &Info);
+    void Get_S2_ (int8u  Bits, int16u  &Info);
+    void Get_S3_ (int8u  Bits, int32u  &Info);
+    void Get_S4_ (int8u  Bits, int32u  &Info);
+    void Get_S5_ (int8u  Bits, int64u  &Info);
+    void Get_S6_ (int8u  Bits, int64u  &Info);
+    void Get_S7_ (int8u  Bits, int64u  &Info);
+    void Get_S8_ (int8u  Bits, int64u  &Info);
     #define Get_BS(Bits, Info, Name) Get_BS_(Bits, Info)
     #define Get_SB(      Info, Name) Get_SB_(      Info)
     #define Get_S1(Bits, Info, Name) Get_S1_(Bits, Info)
@@ -706,17 +706,17 @@ public :
     #define Get_S6(Bits, Info, Name) Get_S6_(Bits, Info)
     #define Get_S7(Bits, Info, Name) Get_S7_(Bits, Info)
     #define Get_S8(Bits, Info, Name) Get_S8_(Bits, Info)
-    void Peek_BS(size_t Bits, int32u  &Info);
+    void Peek_BS(int8u  Bits, int32u  &Info);
     void Peek_SB(              bool    &Info);
     bool Peek_SB()                                              {bool Temp; Peek_SB(Temp); return Temp;}
-    void Peek_S1(size_t Bits, int8u   &Info);
-    void Peek_S2(size_t Bits, int16u  &Info);
-    void Peek_S3(size_t Bits, int32u  &Info);
-    void Peek_S4(size_t Bits, int32u  &Info);
-    void Peek_S5(size_t Bits, int64u  &Info);
-    void Peek_S6(size_t Bits, int64u  &Info);
-    void Peek_S7(size_t Bits, int64u  &Info);
-    void Peek_S8(size_t Bits, int64u  &Info);
+    void Peek_S1(int8u  Bits, int8u   &Info);
+    void Peek_S2(int8u  Bits, int16u  &Info);
+    void Peek_S3(int8u  Bits, int32u  &Info);
+    void Peek_S4(int8u  Bits, int32u  &Info);
+    void Peek_S5(int8u  Bits, int64u  &Info);
+    void Peek_S6(int8u  Bits, int64u  &Info);
+    void Peek_S7(int8u  Bits, int64u  &Info);
+    void Peek_S8(int8u  Bits, int64u  &Info);
     inline void Skip_BS_(size_t Bits) {BS->Skip(Bits);}
     inline void Skip_SB_(           ) {BS->SkipB();}
     inline void Skip_S1_(int8u  Bits) {BS->Skip1(Bits);}

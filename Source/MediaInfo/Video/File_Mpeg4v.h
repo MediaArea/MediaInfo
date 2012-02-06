@@ -127,7 +127,6 @@ private :
     int64u Frame_Count_InThisBlock_Max;
 
     //From video_object_layer
-    size_t time_size;
     int32u fixed_vop_time_increment;
     int32u Time_Begin_Seconds;
     int32u Time_End_Seconds;
@@ -136,6 +135,7 @@ private :
     int16u object_layer_width;
     int16u object_layer_height;
     int16u vop_time_increment_resolution;
+    int8u  time_size;
     int8u  visual_object_verid;
     int8u  profile_and_level_indication;
     int8u  no_of_sprite_warping_points;

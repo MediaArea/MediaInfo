@@ -50,19 +50,25 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 
 //Integrity test
-#define INTEGRITY(TOVALIDATE, ERRORTEXT, OFFSET) \
+#define INTEGRITY(TOVALIDATE) \
     if (!(TOVALIDATE)) \
     { \
-        Trusted_IsNot(ERRORTEXT); \
-        Element_Offset=Element_Size; \
+        Trusted_IsNot(); \
         return; \
     } \
 
-#define INTEGRITY_INT(TOVALIDATE, ERRORTEXT, OFFSET) \
+#define INTEGRITY_BOOL(TOVALIDATE) \
     if (!(TOVALIDATE)) \
     { \
-        Trusted_IsNot(ERRORTEXT); \
-        Element_Offset=Element_Size; \
+        Trusted_IsNot(); \
+        Info=false; \
+        return; \
+    } \
+
+#define INTEGRITY_INT(TOVALIDATE) \
+    if (!(TOVALIDATE)) \
+    { \
+        Trusted_IsNot(); \
         Info=0; \
         return; \
     } \
@@ -70,16 +76,14 @@ extern MediaInfo_Config Config;
 #define INTEGRITY_SIZE_ATLEAST(_BYTES) \
     if (Element_Offset+_BYTES>Element_Size) \
     { \
-        Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
+        Trusted_IsNot(); \
         return; \
     } \
 
 #define INTEGRITY_SIZE_ATLEAST_STRING(_BYTES) \
     if (Element_Offset+_BYTES>Element_Size) \
     { \
-        Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
+        Trusted_IsNot(); \
         Info.clear(); \
         return; \
     } \
@@ -87,8 +91,7 @@ extern MediaInfo_Config Config;
 #define INTEGRITY_SIZE_ATLEAST_INT(_BYTES) \
     if (Element_Offset+_BYTES>Element_Size) \
     { \
-        Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
+        Trusted_IsNot(); \
         Info=0; \
         return; \
     } \
@@ -96,8 +99,7 @@ extern MediaInfo_Config Config;
 #define INTEGRITY_SIZE_ATLEAST_BUFFER() \
     if (BS->Remain()==0) \
     { \
-        Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
+        Trusted_IsNot(); \
         Info=0; \
         return; \
     } \
@@ -249,7 +251,7 @@ void File__Analyze::Get_BF10_(float80 &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_BFP4_(size_t Bits, float32 &Info)
+void File__Analyze::Get_BFP4_(int8u  Bits, float32 &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
     BS_Begin();
@@ -665,13 +667,13 @@ void File__Analyze::Get_EB(int64u &Info)
         Element_Offset++;
         return;
     }
-    int32u Size=0;
-    int32u Size_Mark=0;
+    int8u  Size=0;
+    int8u  Size_Mark=0;
     BS_Begin();
     while (Size_Mark==0 && BS->Remain() && Size<=8)
     {
         Size++;
-        Peek_BS(Size, Size_Mark);
+        Peek_S1(Size, Size_Mark);
     }
 
     //Integrity
@@ -756,13 +758,13 @@ void File__Analyze::Get_ES(int64s &Info)
 {
     //Element size
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    int32u Size=0;
-    int32u Size_Mark=0;
+    int8u  Size=0;
+    int8u  Size_Mark=0;
     BS_Begin();
     while (Size_Mark==0 && BS->Remain() && Size<=8)
     {
         Size++;
-        Peek_BS(Size, Size_Mark);
+        Peek_S1(Size, Size_Mark);
     }
 
     //Integrity
@@ -857,7 +859,7 @@ void File__Analyze::Get_VS(int64u &Info)
     do
     {
         Size++;
-        INTEGRITY_INT(8<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+        INTEGRITY_INT(8<=BS->Remain())
         more_data=BS->GetB();
         Info=128*Info+BS->Get1(7);
     }
@@ -890,7 +892,7 @@ void File__Analyze::Skip_VS()
     do
     {
         Size++;
-        INTEGRITY_INT(8<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+        INTEGRITY_INT(8<=BS->Remain())
         more_data=BS->GetB();
         Info=128*Info+BS->Get1(7);
     }
@@ -921,20 +923,20 @@ void File__Analyze::Get_SE(int32s &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
     int LeadingZeroBits=0;
-    while(BS->Remain()>0 && BS->Get(1)==0)
+    while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
-    INTEGRITY(LeadingZeroBits<=32, "(Problem)", 0)
+    INTEGRITY(LeadingZeroBits<=32)
     double InfoD=pow((float)2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
-    INTEGRITY(InfoD<int32u(-1), "(Problem)", 0)
+    INTEGRITY(InfoD<int32u(-1))
     Info=(int32s)(pow((double)-1, InfoD+1)*(int32u)ceil(InfoD/2));
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_SE()
 {
-    INTEGRITY(BS->Remain(), "Size is wrong", 0)
+    INTEGRITY(BS->Remain())
     int LeadingZeroBits=0;
-    while(BS->Remain()>0 && BS->Get(1)==0)
+    while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
     BS->Skip(LeadingZeroBits);
 }
@@ -944,9 +946,9 @@ void File__Analyze::Get_UE(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
     int LeadingZeroBits=0;
-    while(BS->Remain()>0 && BS->Get(1)==0)
+    while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
-    INTEGRITY(LeadingZeroBits<=32, "(Problem)", 0)
+    INTEGRITY(LeadingZeroBits<=32)
     double InfoD=pow((float)2, (float)LeadingZeroBits);
     Info=(int32u)InfoD-1+BS->Get(LeadingZeroBits);
 }
@@ -954,9 +956,9 @@ void File__Analyze::Get_UE(int32u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_UE()
 {
-    INTEGRITY(BS->Remain(), "Size is wrong", 0)
+    INTEGRITY(BS->Remain())
     int LeadingZeroBits=0;
-    while(BS->Remain()>0 && BS->Get(1)==0)
+    while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
     BS->Skip(LeadingZeroBits);
 }
@@ -1256,147 +1258,147 @@ void File__Analyze::Get_FlagsM_ (int64u ValueToPut, int8u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_BS_(size_t Bits, int32u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get(Bits);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Get_SB_(             bool &Info)
 {
-    INTEGRITY_INT(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(1<=BS->Remain())
     Info=BS->GetB();
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S1_(size_t Bits, int8u &Info)
+void File__Analyze::Get_S1_(int8u  Bits, int8u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get1(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S2_(size_t Bits, int16u &Info)
+void File__Analyze::Get_S2_(int8u  Bits, int16u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get2(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S3_(size_t Bits, int32u &Info)
+void File__Analyze::Get_S3_(int8u  Bits, int32u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get4(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S4_(size_t Bits, int32u &Info)
+void File__Analyze::Get_S4_(int8u  Bits, int32u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get4(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S5_(size_t Bits, int64u &Info)
+void File__Analyze::Get_S5_(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S6_(size_t Bits, int64u &Info)
+void File__Analyze::Get_S6_(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S7_(size_t Bits, int64u &Info)
+void File__Analyze::Get_S7_(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_S8_(size_t Bits, int64u &Info)
+void File__Analyze::Get_S8_(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Get8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_BS(size_t Bits, int32u &Info)
+void File__Analyze::Peek_BS(int8u  Bits, int32u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek(Bits);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_SB(              bool &Info)
 {
-    INTEGRITY_INT(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(1<=BS->Remain())
     Info=BS->PeekB();
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S1(size_t Bits, int8u &Info)
+void File__Analyze::Peek_S1(int8u  Bits, int8u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek1(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S2(size_t Bits, int16u &Info)
+void File__Analyze::Peek_S2(int8u  Bits, int16u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek2(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S3(size_t Bits, int32u &Info)
+void File__Analyze::Peek_S3(int8u  Bits, int32u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek4(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S4(size_t Bits, int32u &Info)
+void File__Analyze::Peek_S4(int8u  Bits, int32u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek4(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S5(size_t Bits, int64u &Info)
+void File__Analyze::Peek_S5(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S6(size_t Bits, int64u &Info)
+void File__Analyze::Peek_S6(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S7(size_t Bits, int64u &Info)
+void File__Analyze::Peek_S7(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek8(Bits);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Peek_S8(size_t Bits, int64u &Info)
+void File__Analyze::Peek_S8(int8u  Bits, int64u &Info)
 {
-    INTEGRITY_INT(Bits<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY_INT(Bits<=BS->Remain())
     Info=BS->Peek8(Bits);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Mark_0()
 {
-    INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY(1<=BS->Remain())
     if (BS->GetB())
         Element_DoNotTrust("Mark bit is wrong");
 }
@@ -1404,7 +1406,7 @@ void File__Analyze::Mark_0()
 //---------------------------------------------------------------------------
 void File__Analyze::Mark_1()
 {
-    INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    INTEGRITY(1<=BS->Remain())
     if (!BS->GetB())
         Element_DoNotTrust("Mark bit is wrong");
 }

@@ -457,7 +457,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
     {
         int8u LastByte=0xFF;
         if (Data_BS_Remain()-End<8)
-            Peek_S1(Data_BS_Remain()-End, LastByte);
+            Peek_S1((int8u)(Data_BS_Remain()-End), LastByte);
         Skip_BS(Data_BS_Remain()-End,                           LastByte?"Unknown":"Padding");
     }
 

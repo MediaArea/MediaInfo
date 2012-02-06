@@ -1486,7 +1486,7 @@ void File_Mpeg4v::vop_start()
     {
         if (newpred_enable)
         {
-            Skip_BS(time_size+3<15?time_size+3:15,              "vop_id");
+            Skip_S3(time_size+3<15?time_size+3:15,              "vop_id");
             TEST_SB_SKIP(                                       "vop_id_for_prediction_indication");
                 Skip_BS(time_size+3<15?time_size+3:15,          "vop_id_for_prediction");
             TEST_SB_END();
