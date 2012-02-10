@@ -102,10 +102,10 @@ void File_Vp8::Read_Buffer_Continue()
 
     BS_Begin_LE(); //VP8 bitstream is Little Endian
     bool frame_type;
-    Get_SB (    frame_type,                                     "frame type");
-    Skip_S1( 3,                                                 "version number");
-    Skip_SB(                                                    "show_frame flag");
-    Skip_S3(19,                                                 "size of the first data partition");
+    Get_TB (    frame_type,                                     "frame type");
+    Skip_T1( 3,                                                 "version number");
+    Skip_TB(                                                    "show_frame flag");
+    Skip_T3(19,                                                 "size of the first data partition");
     BS_End();
 
     if (!frame_type) //I-Frame

@@ -116,7 +116,7 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<504; Pos++)
     {
         bool Validity_Bit;
-        Get_SB (Validity_Bit,                                   "Bit");
+        Get_TB (Validity_Bit,                                   "Bit");
         Validity[Pos]=Validity_Bit?1:0;
     }
     BS_End_LE();

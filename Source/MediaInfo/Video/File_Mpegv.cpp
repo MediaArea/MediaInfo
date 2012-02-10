@@ -1623,8 +1623,8 @@ void File_Mpegv::slice_start()
         }
 
         //Autorisation of other streams
-        //TODOfor (int8u Pos=0x01; Pos<=0xAF; Pos++)
-            //Streams[Pos].Searching_Payload=false;
+        for (int8u Pos=0x01; Pos<=0xAF; Pos++)
+            Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
         if (!Status[IsAccepted])

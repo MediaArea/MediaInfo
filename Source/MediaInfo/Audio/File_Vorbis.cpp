@@ -47,15 +47,15 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-int32u ilog(int32u Value)
+int8u ilog(int32u Value)
 {
-    int32u ToReturn=0;
+    int8u ToReturn=0;
     while(Value)
     {
         ToReturn++;
         Value>>=1;
     }
-    return(ToReturn);
+    return ToReturn;
 }
 
 //***************************************************************************
@@ -145,54 +145,54 @@ void File_Vorbis::Setup()
     for (int Pos=0; Pos<vorbis_codebook_count; Pos++)
     {
         Element_Begin1("codebook");
-        Get_S3 (24, codebook,                                   "codebook");
+        Get_T3 (24, codebook,                                   "codebook");
         if (codebook!=0x564342)
             return;
-        Get_BS (16, codebook_dimensions,                        "codebook_dimensions");
-        Get_BS (24, codebook_entries,                           "codebook_entries");
-        Get_BS (1, ordered,                                     "ordered");
+        Get_BT (16, codebook_dimensions,                        "codebook_dimensions");
+        Get_BT (24, codebook_entries,                           "codebook_entries");
+        Get_BT (1, ordered,                                     "ordered");
         if (!ordered)
         {
             int32u sparse;
-            Get_BS (1, sparse,                                  "sparse");
+            Get_BT (1, sparse,                                  "sparse");
             for (int32u Pos2=0; Pos2<codebook_entries; Pos2++)
             {
                 if (sparse)
                 {
                     int32u flag;
-                    Get_BS (1, flag,                            "flag");
+                    Get_BT (1, flag,                            "flag");
                     if (flag)
                     {
-                        Info_BS(5, length,                      "length");
+                        Info_BT(5, length,                      "length");
                     }
                 }
                 else
                 {
-                    Info_BS(5, length,                          "length");
+                    Info_BT(5, length,                          "length");
                 }
             }
         }
         else
         {
-            Skip_BS(5,                                          "length");
+            Skip_BT(5,                                          "length");
             int32u num;
-            for(int32u i=0; i<codebook_entries; )
+            for(int8u i=0; i<codebook_entries; )
             {
-                Get_BS (ilog(codebook_entries-i), num,          "num");
+                Get_BT (ilog(codebook_entries-i), num,          "num");
                 for(int32u j=0; j<num && i<codebook_entries; j++, i++);
             }
         }
-        Get_BS (4, codebook_lookup_type,                        "codebook_lookup_type");
+        Get_BT (4, codebook_lookup_type,                        "codebook_lookup_type");
         if (codebook_lookup_type>2)
             return; //Not decodable
         if (codebook_lookup_type>0)
         {
-            int32u codebook_value_bits;
-            Info_BS(32, codebook_minimum_value,                 "codebook_minimum_value");
-            Info_BS(32, codebook_delta_value,                   "codebook_delta_value");
-            Get_BS ( 4, codebook_value_bits,                    "codebook_value_bits");
+            int8u codebook_value_bits;
+            Info_BT(32, codebook_minimum_value,                 "codebook_minimum_value");
+            Info_BT(32, codebook_delta_value,                   "codebook_delta_value");
+            Get_T1 ( 4, codebook_value_bits,                    "codebook_value_bits");
             codebook_value_bits++;
-            Info_BS( 1, codebook_sequence_p,                    "codebook_sequence_p");
+            Info_BT( 1, codebook_sequence_p,                    "codebook_sequence_p");
             int32s vals;
             if (codebook_lookup_type==1)
             {
@@ -217,24 +217,24 @@ void File_Vorbis::Setup()
                 vals=codebook_entries*codebook_dimensions;
             int32u codebook_multiplicands;
             for(int i=0; i<vals; i++)
-                Get_BS (codebook_value_bits, codebook_multiplicands, "codebook_multiplicands");
+                Get_BT (codebook_value_bits, codebook_multiplicands, "codebook_multiplicands");
         }
         Element_End0();
     }
 
     //Time domain transforms
     int32u vorbis_time_count;
-    Get_BS (6, vorbis_time_count,                               "vorbis_time_count");
+    Get_BT (6, vorbis_time_count,                               "vorbis_time_count");
     for (int32u Pos=0; Pos<vorbis_time_count+1; Pos++)
-        Skip_BS(16,                                             "zero");
+        Skip_BT(16,                                             "zero");
 
     //Floors
     int32u vorbis_floor_count;
-    Get_BS (6, vorbis_floor_count,                              "vorbis_floor_count");
+    Get_BT (6, vorbis_floor_count,                              "vorbis_floor_count");
     for (int32u Pos=0; Pos<vorbis_floor_count; Pos++)
     {
         int16u vorbis_floor_types;
-        Get_S2(16, vorbis_floor_types,                          "vorbis_floor_types");
+        Get_T2(16, vorbis_floor_types,                          "vorbis_floor_types");
 
         FILLING_BEGIN();
             Fill(Stream_Audio, 0, Audio_Format_Settings_Floor, vorbis_floor_types);

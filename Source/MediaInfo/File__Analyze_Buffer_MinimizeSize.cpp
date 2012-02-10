@@ -125,10 +125,15 @@ void File__Analyze::BS_Begin()
 //---------------------------------------------------------------------------
 void File__Analyze::BS_Begin_LE()
 {
-    //Change the bitstream for Little Endian version
-    delete BS; BS=(BitStream*)new BitStream_LE();
+    if (Element_Offset>Element_Size)
+        return; //There is a problem
 
-    BS_Begin();
+    size_t BS_Size;
+    if (Buffer_Offset+Element_Size<=Buffer_Size)
+        BS_Size=(size_t)(Element_Size-Element_Offset);
+    else
+        BS_Size=Buffer_Size-(size_t)(Buffer_Offset+Element_Offset);
+    BT->Attach(Buffer+Buffer_Offset+(size_t)Element_Offset, BS_Size);
 }
 
 //---------------------------------------------------------------------------
@@ -142,10 +147,9 @@ void File__Analyze::BS_End()
 //---------------------------------------------------------------------------
 void File__Analyze::BS_End_LE()
 {
-    BS_End();
-
-    //Change the bitstream for the normal one
-    delete BS; BS=new BitStream;
+    BT->Byte_Align();
+    Element_Offset+=BT->Offset_Get();
+    BT->Attach(NULL, 0);
 }
 
 //***************************************************************************
@@ -922,11 +926,11 @@ void File__Analyze::Skip_VS()
 void File__Analyze::Get_SE(int32s &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
-    int LeadingZeroBits=0;
+    int8u LeadingZeroBits=0;
     while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
     INTEGRITY(LeadingZeroBits<=32)
-    double InfoD=pow((float)2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
+    double InfoD=pow((float)2, (float)LeadingZeroBits)-1+BS->Get4(LeadingZeroBits);
     INTEGRITY(InfoD<int32u(-1))
     Info=(int32s)(pow((double)-1, InfoD+1)*(int32u)ceil(InfoD/2));
 }
@@ -935,7 +939,7 @@ void File__Analyze::Get_SE(int32s &Info)
 void File__Analyze::Skip_SE()
 {
     INTEGRITY(BS->Remain())
-    int LeadingZeroBits=0;
+    int8u LeadingZeroBits=0;
     while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
     BS->Skip(LeadingZeroBits);
@@ -945,19 +949,19 @@ void File__Analyze::Skip_SE()
 void File__Analyze::Get_UE(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
-    int LeadingZeroBits=0;
+    int8u LeadingZeroBits=0;
     while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
     INTEGRITY(LeadingZeroBits<=32)
     double InfoD=pow((float)2, (float)LeadingZeroBits);
-    Info=(int32u)InfoD-1+BS->Get(LeadingZeroBits);
+    Info=(int32u)InfoD-1+BS->Get4(LeadingZeroBits);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_UE()
 {
     INTEGRITY(BS->Remain())
-    int LeadingZeroBits=0;
+    int8u LeadingZeroBits=0;
     while(BS->Remain()>0 && !BS->GetB())
         LeadingZeroBits++;
     BS->Skip(LeadingZeroBits);
@@ -1030,42 +1034,133 @@ void File__Analyze::Skip_UI()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_VL(const vlc Vlc[], size_t &Info)
+void File__Analyze::Get_VL_(const vlc Vlc[], size_t &Info)
 {
     Info=0;
     int32u Value=0;
 
-    while (Vlc[Info].bit_increment!=255)
+    for(;;)
     {
-        if (Vlc[Info].bit_increment)
+        switch (Vlc[Info].bit_increment)
         {
-            if (BS->Remain()<Vlc[Info].bit_increment)
-            {
-                Trusted_IsNot("Variable Length Code error");
-                Info=0;
-                return;
-            }
-                
-            Value<<=Vlc[Info].bit_increment;
-            Value|=BS->Get1(Vlc[Info].bit_increment);
+            case 255 : 
+                        Trusted_IsNot();
+                        return;
+            default  : ;
+                        Value<<=Vlc[Info].bit_increment;
+                        Value|=BS->Get1(Vlc[Info].bit_increment);
+                        break;
+            case   1 :
+                        Value<<=1;
+                        if (BS->GetB())
+                            Value++;
+            case   0 :  ;
         }
+        
         if (Value==Vlc[Info].value)
-        {
             return;
-        }
         Info++;
     }
-
-    Trusted_IsNot("Variable Length Code error");
-    Info=0;
-    return;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_VL(const vlc Vlc[])
+void File__Analyze::Skip_VL_(const vlc Vlc[])
 {
-    size_t Info;
-    Get_VL(Vlc, Info);
+    size_t Info=0;
+    int32u Value=0;
+
+    for(;;)
+    {
+        switch (Vlc[Info].bit_increment)
+        {
+            case 255 : 
+                        Trusted_IsNot();
+                        return;
+            default  : ;
+                        Value<<=Vlc[Info].bit_increment;
+                        Value|=BS->Get1(Vlc[Info].bit_increment);
+                        break;
+            case   1 :
+                        Value<<=1;
+                        if (BS->GetB())
+                            Value++;
+            case   0 :  ;
+        }
+        
+        if (Value==Vlc[Info].value)
+            return;
+        Info++;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_VL_Prepare(vlc_fast &Vlc)
+{
+    Vlc.Array=new int8u[((size_t)1)<<Vlc.Size];
+    Vlc.BitsToSkip=new int8u[((size_t)1)<<Vlc.Size];
+    memset(Vlc.Array, 0xFF, ((size_t)1)<<Vlc.Size);
+    int8u  Increment=0;
+    int8u  Pos=0;
+    for(; ; Pos++)
+    {
+        if (Vlc.Vlc[Pos].bit_increment==255)
+            break;
+        Increment+=Vlc.Vlc[Pos].bit_increment;
+        size_t Value=Vlc.Vlc[Pos].value<<(Vlc.Size-Increment);
+        size_t ToFill_Size=1<<(Vlc.Size-Increment);
+        for (size_t ToFill_Pos=0; ToFill_Pos<ToFill_Size; ToFill_Pos++)
+        {
+            Vlc.Array[Value+ToFill_Pos]=Pos;
+            Vlc.BitsToSkip[Value+ToFill_Pos]=Increment;
+        }
+    }
+    for (size_t Pos2=0; Pos2<(((size_t)1)<<Vlc.Size); Pos2++)
+        if (Vlc.Array[Pos2]==(int8u)-1)
+        {
+            Vlc.Array[Pos2]=Pos;
+            Vlc.BitsToSkip[Pos2]=(int8u)-1;
+        }
+}
+    
+//---------------------------------------------------------------------------
+void File__Analyze::Get_VL_(const vlc_fast &Vlc, size_t &Info)
+{
+    if (BS->Remain()<Vlc.Size)
+    {
+        Get_VL(Vlc.Vlc, Info, Name);
+        return;
+    }
+
+    int32u Value=BS->Peek4(Vlc.Size);
+    Info=Vlc.Array[Value];
+
+    if (Vlc.BitsToSkip[Value]==(int8u)-1)
+    {
+        Trusted_IsNot();
+        return;
+    }
+
+    BS->Skip(Vlc.BitsToSkip[Value]);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_VL_(const vlc_fast &Vlc)
+{
+    if (BS->Remain()<Vlc.Size)
+    {
+        Skip_VL_(Vlc.Vlc);
+        return;
+    }
+
+    int32u Value=BS->Peek4(Vlc.Size);
+
+    if (Vlc.BitsToSkip[Value]==(int8u)-1)
+    {
+        Trusted_IsNot();
+        return;
+    }
+
+    BS->Skip(Vlc.BitsToSkip[Value]);
 }
 
 //***************************************************************************
@@ -1256,10 +1351,10 @@ void File__Analyze::Get_FlagsM_ (int64u ValueToPut, int8u &Info)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_BS_(size_t Bits, int32u &Info)
+void File__Analyze::Get_BS_(int8u Bits, int32u &Info)
 {
     INTEGRITY_INT(Bits<=BS->Remain())
-    Info=BS->Get(Bits);
+    Info=BS->Get4(Bits);
 }
 
 //---------------------------------------------------------------------------
@@ -1329,7 +1424,7 @@ void File__Analyze::Get_S8_(int8u  Bits, int64u &Info)
 void File__Analyze::Peek_BS(int8u  Bits, int32u &Info)
 {
     INTEGRITY_INT(Bits<=BS->Remain())
-    Info=BS->Peek(Bits);
+    Info=BS->Peek4(Bits);
 }
 
 //---------------------------------------------------------------------------
@@ -1409,6 +1504,150 @@ void File__Analyze::Mark_1()
     INTEGRITY(1<=BS->Remain())
     if (!BS->GetB())
         Element_DoNotTrust("Mark bit is wrong");
+}
+
+//***************************************************************************
+// BitStream (Little Endian)
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_BT_(int8u Bits, int32u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_TB_(             bool &Info)
+{
+    INTEGRITY_INT(1<=BT->Remain())
+    Info=BT->GetB();
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T1_(int8u  Bits, int8u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get1(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T2_(int8u  Bits, int16u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get2(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T3_(int8u  Bits, int32u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get4(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T4_(int8u  Bits, int32u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get4(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T5_(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T6_(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T7_(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_T8_(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Get8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_BT(int8u  Bits, int32u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_TB(              bool &Info)
+{
+    INTEGRITY_INT(1<=BT->Remain())
+    Info=BT->PeekB();
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T1(int8u  Bits, int8u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek1(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T2(int8u  Bits, int16u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek2(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T3(int8u  Bits, int32u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek4(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T4(int8u  Bits, int32u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek4(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T5(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T6(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T7(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek8(Bits);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_T8(int8u  Bits, int64u &Info)
+{
+    INTEGRITY_INT(Bits<=BT->Remain())
+    Info=BT->Peek8(Bits);
 }
 
 } //NameSpace

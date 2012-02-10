@@ -170,7 +170,8 @@ File__Analyze::File__Analyze ()
     Element_Level=0;
 
     //BitStream
-    BS=new BitStream;
+    BS=new BitStream_Fast;
+    BT=new BitStream_LE;
 
     //Temp
     Status[IsAccepted]=false;
@@ -199,6 +200,7 @@ File__Analyze::~File__Analyze ()
 
     //BitStream
     delete BS; //BS=NULL;
+    delete BT; //BS=NULL;
 
     #if MEDIAINFO_IBI
         if (!IsSub)

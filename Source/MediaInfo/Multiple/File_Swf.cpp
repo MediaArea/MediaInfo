@@ -354,10 +354,11 @@ void File_Swf::FileHeader_Parse()
     //Parsing
     //Parsing - BitStream
     float32 FrameRate;
-    int32u Nbits, Xmin, Xmax, Ymin, Ymax;
+    int32u Xmin, Xmax, Ymin, Ymax;
     int16u FrameCount;
+    int8u  Nbits;
     BS_Begin();
-    Get_BS (5, Nbits,                                           "Nbits");
+    Get_S1 (5, Nbits,                                           "Nbits");
     Get_BS (Nbits, Xmin,                                        "Xmin");
     Get_BS (Nbits, Xmax,                                        "Xmax"); Param_Info2((Xmax-Xmin)/20, " pixels");
     Get_BS (Nbits, Ymin,                                        "Ymin");

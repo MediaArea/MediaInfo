@@ -27,7 +27,8 @@
 #include "MediaInfo/File__Base.h"
 #include "MediaInfo/File__Analyse_Automatic.h"
 #include "MediaInfo/MediaInfo_Config.h"
-#include "ZenLib/BitStream.h"
+#include "ZenLib/BitStream_Fast.h"
+#include "ZenLib/BitStream_LE.h"
 #include "ZenLib/int128u.h"
 #include "ZenLib/ZtringListList.h"
 #include <vector>
@@ -595,7 +596,6 @@ public :
     // Variable Length Code
     //***************************************************************************
 
-   
     struct vlc
     {
         int32u  value;
@@ -604,11 +604,21 @@ public :
         int8s   mapped_to2;
         int8s   mapped_to3;
     };
+    struct vlc_fast
+    {
+        int8u*      Array;
+        int8u*      BitsToSkip;
+        const vlc*  Vlc;
+        int8u       Size;
+    };
     #define VLC_END \
-        {(int32u)-1, (int8u)1, -1, -1, -1}
+        {(int32u)-1, (int8u)-1, 0, 0, 0}
+    void Get_VL_Prepare(vlc_fast &Vlc);
     void Get_VL (const vlc Vlc[], size_t &Info, const char* Name);
-    void Skip_VL(const vlc Vlc[],               const char* Name);
-    #define Info_VL(_CALL, _INFO, _NAME) int32u _INFO; Get_VL(_CALL, _INFO, _NAME)
+    void Get_VL (vlc_fast &Vlc, size_t &Info, const char* Name);
+    void Skip_VL(const vlc Vlc[], const char* Name);
+    void Skip_VL(vlc_fast &Vlc, const char* Name);
+    #define Info_VL(Vlc, Info, Name) size_t Info; Get_VL_(Vlc, Info, Name)
 
     //***************************************************************************
     // Characters
@@ -787,6 +797,103 @@ public :
         } \
 
     #define TEST_SB_END() \
+                Element_End0(); \
+            } \
+        } \
+
+    //***************************************************************************
+    // BitStream (Little Endian)
+    //***************************************************************************
+
+    void Get_BT (size_t Bits, int32u  &Info, const char* Name);
+    void Get_TB (             bool    &Info, const char* Name);
+    bool Get_TB(                             const char* Name)  {bool Temp; Get_TB(Temp, Name); return Temp;}
+    void Get_T1 (size_t Bits, int8u   &Info, const char* Name);
+    void Get_T2 (size_t Bits, int16u  &Info, const char* Name);
+    void Get_T3 (size_t Bits, int32u  &Info, const char* Name);
+    void Get_T4 (size_t Bits, int32u  &Info, const char* Name);
+    void Get_T5 (size_t Bits, int64u  &Info, const char* Name);
+    void Get_T6 (size_t Bits, int64u  &Info, const char* Name);
+    void Get_T7 (size_t Bits, int64u  &Info, const char* Name);
+    void Get_T8 (size_t Bits, int64u  &Info, const char* Name);
+    void Peek_BT(size_t Bits, int32u  &Info);
+    void Peek_TB(              bool    &Info);
+    bool Peek_TB()                                              {bool Temp; Peek_TB(Temp); return Temp;}
+    void Peek_T1(size_t Bits, int8u   &Info);
+    void Peek_T2(size_t Bits, int16u  &Info);
+    void Peek_T3(size_t Bits, int32u  &Info);
+    void Peek_T4(size_t Bits, int32u  &Info);
+    void Peek_T5(size_t Bits, int64u  &Info);
+    void Peek_T6(size_t Bits, int64u  &Info);
+    void Peek_T7(size_t Bits, int64u  &Info);
+    void Peek_T8(size_t Bits, int64u  &Info);
+    void Skip_BT(size_t Bits,                const char* Name);
+    void Skip_TB(                            const char* Name);
+    void Skip_T1(size_t Bits,                const char* Name);
+    void Skip_T2(size_t Bits,                const char* Name);
+    void Skip_T3(size_t Bits,                const char* Name);
+    void Skip_T4(size_t Bits,                const char* Name);
+    void Skip_T5(size_t Bits,                const char* Name);
+    void Skip_T6(size_t Bits,                const char* Name);
+    void Skip_T7(size_t Bits,                const char* Name);
+    void Skip_T8(size_t Bits,                const char* Name);
+    #define Info_BT(_BITS, _INFO, _NAME) int32u  _INFO; Get_BT(_BITS, _INFO, _NAME)
+    #define Info_TB(_INFO, _NAME)        bool    _INFO; Get_TB(       _INFO, _NAME)
+    #define Info_T1(_BITS, _INFO, _NAME) int8u   _INFO; Get_T1(_BITS, _INFO, _NAME)
+    #define Info_T2(_BITS, _INFO, _NAME) int16u  _INFO; Get_T2(_BITS, _INFO, _NAME)
+    #define Info_T3(_BITS, _INFO, _NAME) int32u  _INFO; Get_T4(_BITS, _INFO, _NAME)
+    #define Info_T4(_BITS, _INFO, _NAME) int32u  _INFO; Get_T4(_BITS, _INFO, _NAME)
+    #define Info_T5(_BITS, _INFO, _NAME) int64u  _INFO; Get_T5(_BITS, _INFO, _NAME)
+    #define Info_T6(_BITS, _INFO, _NAME) int64u  _INFO; Get_T6(_BITS, _INFO, _NAME)
+    #define Info_T7(_BITS, _INFO, _NAME) int64u  _INFO; Get_T7(_BITS, _INFO, _NAME)
+    #define Info_T8(_BITS, _INFO, _NAME) int64u  _INFO; Get_T8(_BITS, _INFO, _NAME)
+
+    #define TEST_TB_GET(_CODE, _NAME) \
+        { \
+            Peek_TB(_CODE); \
+            if (!_CODE) \
+                Skip_TB(                                        _NAME); \
+            else \
+            { \
+                Element_Begin1(_NAME); \
+                Skip_TB(                                        _NAME); \
+
+    #define TEST_TB_SKIP(_NAME) \
+        { \
+            if (!Peek_TB()) \
+                Skip_TB(                                        _NAME); \
+            else \
+            { \
+                Element_Begin1(_NAME); \
+                Skip_TB(                                        _NAME); \
+
+    #define TESTELSE_TB_GET(_CODE, _NAME) \
+        { \
+            Peek_TB(_CODE); \
+            if (_CODE) \
+            { \
+                Element_Begin1(_NAME); \
+                Skip_TB(                                        _NAME); \
+
+    #define TESTELSE_TB_SKIP(_NAME) \
+        { \
+            if (Peek_TB()) \
+            { \
+                Element_Begin1(_NAME); \
+                Skip_TB(                                        _NAME); \
+
+    #define TESTELSE_TB_ELSE(_NAME) \
+                Element_End0(); \
+            } \
+            else \
+            { \
+                Skip_TB(                                        _NAME); \
+
+    #define TESTELSE_TB_END() \
+            } \
+        } \
+
+    #define TEST_TB_END() \
                 Element_End0(); \
             } \
         } \
@@ -1049,7 +1156,8 @@ private :
     size_t Data_Level;              //Current level for Data ("Top level")
 
     //Element
-    BitStream* BS;                  //For conversion from bytes to bitstream
+    BitStream_Fast* BS;             //For conversion from bytes to bitstream
+    BitStream*      BT;             //For conversion from bytes to bitstream
 public : //TO CHANGE
     int64u Header_Size;             //Size of the header of the current element
     const Ztring &Details_Get() {return Element[0].ToShow.Details;} //Direct access to details

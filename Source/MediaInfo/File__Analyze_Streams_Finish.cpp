@@ -79,7 +79,8 @@ void File__Analyze::Streams_Finish_Global()
                 Open_Buffer_Init(&MI, IbiFile.size());
                 MI.Ibi=new ibi;
                 MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
-                (*IbiStream)=(*MI.Ibi->Streams.begin()->second);
+                if (!MI.Ibi->Streams.empty())
+                    (*IbiStream)=(*MI.Ibi->Streams.begin()->second);
             }
 
             if (IbiStream && !IbiStream->Infos.empty() && IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous && IbiStream->Infos[IbiStream->Infos.size()-1].FrameNumber!=(int64u)-1)

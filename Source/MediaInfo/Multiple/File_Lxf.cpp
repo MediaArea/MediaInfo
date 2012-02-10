@@ -526,11 +526,11 @@ void File_Lxf::Header_Parse()
                     Get_L8 (TimeStamp,                          "TimeStamp"); Param_Info3(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
                     Get_L8 (Duration,                           "Duration"); Param_Info3(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
-                    Get_S1 (4, VideoFormat,                     "Format"); Param_Info1(Lxf_Format_Video[VideoFormat]);
-                    Skip_S1(7,                                  "GOP (N)");
-                    Get_S1 (3, GOP_M,                           "GOP (M)");
-                    Info_S1(8, BitRate,                         "Bit rate"); Param_Info2(BitRate*1000000, " bps");
-                    Get_S1 (2, PictureType,                     "Picture type"); Param_Info1(Lxf_PictureType[PictureType]);
+                    Get_T1 (4, VideoFormat,                     "Format"); Param_Info1(Lxf_Format_Video[VideoFormat]);
+                    Skip_T1(7,                                  "GOP (N)");
+                    Get_T1 (3, GOP_M,                           "GOP (M)");
+                    Info_T1(8, BitRate,                         "Bit rate"); Param_Info2(BitRate*1000000, " bps");
+                    Get_T1 (2, PictureType,                     "Picture type"); Param_Info1(Lxf_PictureType[PictureType]);
                     BS_End_LE();
                     Skip_L1(                                    "Reserved");
                     Get_L8(Size,                                "Video data size");
@@ -582,16 +582,16 @@ void File_Lxf::Header_Parse()
                     Get_L8 (TimeStamp,                          "TimeStamp"); Param_Info3(((float64)TimeStamp)/720, 3, " ms"); FrameInfo.PTS=FrameInfo.DTS=float64_int64s(((float64)TimeStamp)*1000000/720);
                     Get_L8 (Duration,                           "Duration"); Param_Info3(((float64)Duration)/720, 3, " ms"); FrameInfo.DUR=float64_int64s(((float64)Duration)*1000000/720);
                     BS_Begin_LE();
-                    Get_S1 ( 6, SampleSize,                     "Sample size");
-                    Skip_S1( 6,                                 "Sample precision");
-                    Skip_S1(20,                                 "Reserved");
+                    Get_T1 ( 6, SampleSize,                     "Sample size");
+                    Skip_T1( 6,                                 "Sample precision");
+                    Skip_T1(20,                                 "Reserved");
                     BS_End_LE();
                     Element_Begin1("Channels mask");
                         BS_Begin_LE();
                         for (size_t Pos=0; Pos<32; Pos++)
                         {
                             bool Channel;
-                            Get_SB(Channel,                     "Channel");
+                            Get_TB(Channel,                     "Channel");
                             Channels[Pos]=Channel;
                             if (Channel)
                                 Channels_Count++;

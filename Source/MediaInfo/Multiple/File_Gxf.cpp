@@ -399,8 +399,11 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                         int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parser)->TimeCode_First;
                         if (TimeCode_First==(int64u)-1)
                             TimeCode_First=TimeCode->second;
-                        Fill(Stream_Video, StreamPos_Last, Video_Delay, TimeCode_First, 0);
-                        Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "Container");
+                        if (TimeCode_First!=(int64u)-1)
+                        {
+                            Fill(Stream_Video, StreamPos_Last, Video_Delay, TimeCode_First, 0);
+                            Fill(Stream_Video, StreamPos_Last, Video_Delay_Source, "Container");
+                        }
                     }
 
                 Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
