@@ -1418,7 +1418,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u stream_id)
         Mark_1();
         Mark_0();
         Get_S1 ( 3, PTS_32,                                     "PTS_32");
-        Mark_1();
+        Mark_1_NoTrustError(); //Found 0 in one file
         Get_S2 (15, PTS_29,                                     "PTS_29");
         Mark_1();
         Get_S2 (15, PTS_14,                                     "PTS_14");
@@ -1459,7 +1459,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u stream_id)
         Mark_1();
         Mark_1();
         Get_S1 ( 3, PTS_32,                                     "PTS_32");
-        Mark_1();
+        Mark_1_NoTrustError(); //Found 0 in one file
         Get_S2 (15, PTS_29,                                     "PTS_29");
         Mark_1();
         Get_S2 (15, PTS_14,                                     "PTS_14");
