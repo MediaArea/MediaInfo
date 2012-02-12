@@ -255,6 +255,8 @@ protected :
     inline void Element_Begin (const char *Name) {Element_Begin(Ztring().From_UTF8(Name));}
     #define Element_Begin0() Element_Begin()
     #define Element_Begin1(_NAME) Element_Begin(_NAME)
+    #define Element_Trace_Begin0() Element_Begin()
+    #define Element_Trace_Begin1(_NAME) Element_Begin(_NAME)
 
     //Elements - Name
     void Element_Name (const Ztring &Name);
@@ -290,6 +292,8 @@ protected :
     inline void Element_End (const char *Name) {Element_End(Ztring().From_UTF8(Name));}
     #define Element_End0() Element_End()
     #define Element_End1(_NAME) Element_End(_NAME)
+    #define Element_Trace_End0() Element_End()
+    #define Element_Trace_End1(_NAME) Element_End(_NAME)
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);

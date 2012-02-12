@@ -232,6 +232,8 @@ protected :
     void Element_Begin ();
     #define Element_Begin0() Element_Begin()
     #define Element_Begin1(_NAME) Element_Begin()
+    #define Element_Trace_Begin0()
+    #define Element_Trace_Begin1(_NAME)
 
     //Elements - Name
     #define Element_Name(_A)
@@ -247,6 +249,8 @@ protected :
     inline void Element_End () {Element_End_Common_Flush();}
     #define Element_End0() Element_End()
     #define Element_End1(_NAME) Element_End()
+    #define Element_Trace_End0()
+    #define Element_Trace_End1(_NAME)
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);
