@@ -53,7 +53,7 @@ FORMS += ../../../Source/GUI/Qt/mainwindow.ui \
     ../../../Source/GUI/Qt/editcustom.ui \
     ../../../Source/GUI/Qt/editsheet.ui \
     ../../../Source/GUI/Qt/editconfigtreetext.ui
-RESOURCES += ../../../Source/Ressource/Resources.qrc
+RESOURCES += ../../../Source/Resource/Resources.qrc
 MOC_DIR = _Automated
 UI_HEADERS_DIR = _Automated
 UI_SOURCES_DIR = _Automated
