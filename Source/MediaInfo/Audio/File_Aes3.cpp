@@ -1610,7 +1610,18 @@ void File_Aes3::Frame_FromMpegPs()
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
-            if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
+            for (size_t Pos=0; Pos<Info_Offset; Pos++)
+                if (Info[Pos])
+                {
+                    if (Pos+16<Info_Offset && Info[Pos]==0x72 && Info[Pos+1]==0xF8 && Info[Pos+2]==0x1F && Info[Pos+3]==0x4E)
+                        IsParsingNonPcm=true;
+                    else
+                        IsParsingNonPcm=false;
+
+                    break;
+                }
+                
+            if (IsParsingNonPcm)
             {
                 IsParsingNonPcm=true;
                 Parser_Parse(Info, Info_Offset);
@@ -1675,7 +1686,7 @@ void File_Aes3::Frame_FromMpegPs()
             {
                 size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
 
-                //Channel 1 (24 bits, as "s24l" codec, 4 highest bits are set to 0)
+                 //Channel 1 (24 bits, as "s24l" codec, 4 highest bits are set to 0)
                 Info[Info_Offset+0]=                                       ((Reverse8(Buffer[Buffer_Pos+0])<<4)&0xF0);
                 Info[Info_Offset+1]=(Reverse8(Buffer[Buffer_Pos+0])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+1])<<4)&0xF0);
                 Info[Info_Offset+2]=(Reverse8(Buffer[Buffer_Pos+1])>>4 ) | ((Reverse8(Buffer[Buffer_Pos+2])<<4)&0xF0);
@@ -1702,7 +1713,18 @@ void File_Aes3::Frame_FromMpegPs()
                 }
             #endif //MEDIAINFO_DEMUX
 
-            if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
+            for (size_t Pos=0; Pos<Info_Offset; Pos++)
+                if (Info[Pos])
+                {
+                    if (Pos+16<Info_Offset && Info[Pos]==0x20 && Info[Pos+1]==0x87 && Info[Pos+2]==0x6F && Info[Pos+3]==0xF0 && Info[Pos+4]==0xE1 && Info[Pos+5]==0x54)
+                        IsParsingNonPcm=true;
+                    else
+                        IsParsingNonPcm=false;
+
+                    break;
+                }
+                
+            if (IsParsingNonPcm)
             {
                 IsParsingNonPcm=true;
                 Parser_Parse(Info, Info_Offset);
@@ -1759,7 +1781,18 @@ void File_Aes3::Frame_FromMpegPs()
                 Demux(Info, Info_Offset, ContentType_MainStream);
             #endif //MEDIAINFO_DEMUX
 
-            if (IsParsingNonPcm || (Info[0]==0x20 && Info[1]==0x87 && Info[2]==0x6F))
+            for (size_t Pos=0; Pos<Info_Offset; Pos++)
+                if (Info[Pos])
+                {
+                    if (Pos+16<Info_Offset && Info[Pos]==0x72 && Info[Pos+1]==0xF8 && Info[Pos+2]==0x96 && Info[Pos+3]==0x1F && Info[Pos+4]==0x4E && Info[Pos+5]==0xA5)
+                        IsParsingNonPcm=true;
+                    else
+                        IsParsingNonPcm=false;
+
+                    break;
+                }
+                
+            if (IsParsingNonPcm)
             {
                 IsParsingNonPcm=true;
                 Parser_Parse(Info, Info_Offset);
