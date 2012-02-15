@@ -622,7 +622,7 @@ public :
     void Get_VL (vlc_fast &Vlc, size_t &Info, const char* Name);
     void Skip_VL(const vlc Vlc[], const char* Name);
     void Skip_VL(vlc_fast &Vlc, const char* Name);
-    #define Info_VL(Vlc, Info, Name) size_t Info; Get_VL_(Vlc, Info, Name)
+    #define Info_VL(Vlc, Info, Name) size_t Info; Get_VL(Vlc, Info, Name)
 
     //***************************************************************************
     // Characters
