@@ -2232,10 +2232,13 @@ void File_Mpeg_Psi::Descriptors()
     Descriptors.event_id_IsValid=event_id_IsValid;
 
     //Parsing
-    Element_Begin1("Descriptors");
-    Open_Buffer_Init(&Descriptors);
-    Open_Buffer_Continue(&Descriptors, Descriptors_Size);
-    Element_End0();
+    if (Descriptors_Size!=0)
+    {
+        Element_Begin1("Descriptors");
+        Open_Buffer_Init(&Descriptors);
+        Open_Buffer_Continue(&Descriptors, Descriptors_Size);
+        Element_End0();
+    }
 
     //Configuring
     elementary_PID_IsValid=false;
