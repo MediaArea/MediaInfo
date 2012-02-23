@@ -213,7 +213,7 @@ void File_Eia608::Read_Buffer_Continue()
             cc_data_2_Old=0x00;
             return; //Nothing to do
         }
-        else
+        else if (cc_type==0) // Field 1 only
         {
             //They should be duplicated, there is a problem
         }
@@ -650,6 +650,7 @@ void File_Eia608::Special_14(int8u cc_data_2)
         case 0x2A : //TR  - Text Restart
         case 0x2B : //RTD - Resume Text Display
                     TextMode=cc_data_2>=0x2A;
+                    XDS_Level=(size_t)-1; // No more XDS
                     StreamPos=TextMode*2+DataChannelMode;
 
                     //Alloc
