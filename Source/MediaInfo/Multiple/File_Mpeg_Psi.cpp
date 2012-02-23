@@ -1022,7 +1022,8 @@ void File_Mpeg_Psi::program_stream_map()
     Mark_1 ();
     BS_End();
     Get_B2 (Descriptors_Size,                                   "program_stream_info_length");
-    Descriptors();
+    if (Descriptors_Size>0)
+        Descriptors();
 
     Get_B2 (elementary_stream_map_length,                       "elementary_stream_map_length");
     int16u elementary_stream_map_Pos=0;
@@ -1045,7 +1046,8 @@ void File_Mpeg_Psi::program_stream_map()
             if (Descriptors_Size>=3)
                 Descriptors_Size-=3;
         }
-        Descriptors();
+        if (Descriptors_Size>0)
+            Descriptors();
         Element_End0();
         elementary_stream_map_Pos+=4+ES_info_length;
 
@@ -1132,7 +1134,8 @@ void File_Mpeg_Psi::Table_01()
     if (Element_Offset<Element_Size)
     {
         Descriptors_Size=(int16u)(Element_Size-Element_Offset);
-        Descriptors();
+        if (Descriptors_Size>0)
+            Descriptors();
     }
 }
 
@@ -1372,7 +1375,8 @@ void File_Mpeg_Psi::Table_03()
     if (Element_Offset<Element_Size)
     {
         Descriptors_Size=(int16u)(Element_Size-Element_Offset);
-        Descriptors();
+        if (Descriptors_Size>0)
+            Descriptors();
     }
 }
 
@@ -2089,7 +2093,8 @@ void File_Mpeg_Psi::Table_FC()
     {
         Get_B2 (Descriptors_Size,                               "descriptor_loop_length");
         transport_stream_id=Complete_Stream->transport_stream_id; //SCTE 35 is automaticly linked to the current transport_stream_id
-        Descriptors();
+        if (Descriptors_Size>0)
+            Descriptors();
     }
 
     if (Element_Offset+4<Element_Size)
