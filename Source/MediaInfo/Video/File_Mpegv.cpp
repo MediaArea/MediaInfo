@@ -315,6 +315,686 @@ const char* Mpegv_matrix_coefficients(int8u matrix_coefficients)
     }
 }
 
+//---------------------------------------------------------------------------
+#if MEDIAINFO_MACROBLOCKS
+const int8u Mpegv_block_count[4]=
+{
+    0,
+    6,
+    8,
+   12,
+};
+
+const File__Analyze::vlc Mpegv_macroblock_address_increment[]=
+{
+    //                                  macroblock_address_increment
+    { 	1	,	1	,	0	,	0	,	1	},
+    { 	2	,	2	,	0	,	0	,	3	},
+    { 	3	,	0	,	0	,	0	,	2	},
+    { 	2	,	1	,	0	,	0	,	5	},
+    { 	3	,	0	,	0	,	0	,	4	},
+    { 	2	,	1	,	0	,	0	,	7	},
+    { 	3	,	0	,	0	,	0	,	6	},
+    { 	6	,	2	,	0	,	0	,	9	},
+    { 	7	,	0	,	0	,	0	,	8	},
+    { 	6	,	1	,	0	,	0	,	15	},
+    { 	7	,	0	,	0	,	0	,	14	},
+    { 	8	,	0	,	0	,	0	,	13	},
+    { 	9	,	0	,	0	,	0	,	12	},
+    { 	10	,	0	,	0	,	0	,	11	},
+    { 	11	,	0	,	0	,	0	,	10	},
+    { 	18	,	2	,	0	,	0	,	21	},
+    { 	19	,	0	,	0	,	0	,	20	},
+    { 	20	,	0	,	0	,	0	,	19	},
+    { 	21	,	0	,	0	,	0	,	18	},
+    { 	22	,	0	,	0	,	0	,	17	},
+    { 	23	,	0	,	0	,	0	,	16	},
+    { 	8	,	1	,	2	,	0	,	33	}, //Escape
+    { 	24	,	0	,	0	,	0	,	33	},
+    { 	25	,	0	,	0	,	0	,	32	},
+    { 	26	,	0	,	0	,	0	,	31	},
+    { 	27	,	0	,	0	,	0	,	30	},
+    { 	28	,	0	,	0	,	0	,	29	},
+    { 	29	,	0	,	0	,	0	,	28	},
+    { 	30	,	0	,	0	,	0	,	27	},
+    { 	31	,	0	,	0	,	0	,	26	},
+    { 	32	,	0	,	0	,	0	,	25	},
+    { 	33	,	0	,	0	,	0	,	24	},
+    { 	34	,	0	,	0	,	0	,	23	},
+    { 	35	,	0	,	0	,	0	,	22	},
+    VLC_END
+};
+const File__Analyze::vlc Mpegv_dct_dc_size_luminance[]=
+{
+    {    0,   2,   0,   0,   1},
+    {    1,   0,   0,   0,   2},
+    {    4,   1,   0,   0,   0},
+    {    5,   0,   0,   0,   3},
+    {    6,   0,   0,   0,   4},
+    {   14,   1,   0,   0,   5},
+    {   30,   1,   0,   0,   6},
+    {   62,   1,   0,   0,   7},
+    {  126,   1,   0,   0,   8},
+    {  254,   1,   0,   0,   9},
+    {  510,   1,   0,   0,  10},
+    {  511,   0,   0,   0,  11},
+    VLC_END
+};
+
+const File__Analyze::vlc Mpegv_dct_dc_size_chrominance[]=
+{
+    {    0,   2,   0,   0,   0},
+    {    1,   0,   0,   0,   1},
+    {    2,   0,   0,   0,   2},
+    {    6,   1,   0,   0,   3},
+    {   14,   1,   0,   0,   4},
+    {   30,   1,   0,   0,   5},
+    {   62,   1,   0,   0,   6},
+    {  126,   1,   0,   0,   7},
+    {  254,   1,   0,   0,   8},
+    {  510,   1,   0,   0,   9},
+    { 1022,   1,   0,   0,  10},
+    { 1023,   0,   0,   0,  11},
+    VLC_END
+};
+
+const File__Analyze::vlc Mpegv_dct_coefficients_0[]=
+{
+    //                          Run     Level
+    { 	2	,	2	,	3	,	0	,	1	}, // End of Block (others) or Run=0/Level=1 (first DCT)
+    { 	3	,	0	,	3	,	0	,	-1	}, // End of Block (others) or Run=0/Level=1 (first DCT)
+    { 	6	,	2	,	0	,	1	,	1	},
+    { 	7	,	0	,	0	,	1	,	-1	},
+    { 	8	,	1	,	0	,	0	,	2	},
+    { 	9	,	0	,	0	,	0	,	-2	},
+    { 	10	,	0	,	0	,	2	,	1	},
+    { 	11	,	0	,	0	,	2	,	-1	},
+    { 	1	,	1	,	2	,	0	,	0	}, // Escape
+    { 	10	,	0	,	0	,	0	,	3	},
+    { 	11	,	0	,	0	,	0	,	-3	},
+    { 	12	,	0	,	0	,	4	,	1	},
+    { 	13	,	0	,	0	,	4	,	-1	},
+    { 	14	,	0	,	0	,	3	,	1	},
+    { 	15	,	0	,	0	,	3	,	-1	},
+    { 	8	,	1	,	0	,	7	,	1	},
+    { 	9	,	0	,	0	,	7	,	-1	},
+    { 	10	,	0	,	0	,	6	,	1	},
+    { 	11	,	0	,	0	,	6	,	-1	},
+    { 	12	,	0	,	0	,	1	,	2	},
+    { 	13	,	0	,	0	,	1	,	-2	},
+    { 	14	,	0	,	0	,	5	,	1	},
+    { 	15	,	0	,	0	,	5	,	-1	},
+    { 	8	,	1	,	0	,	2	,	2	},
+    { 	9	,	0	,	0	,	2	,	-2	},
+    { 	10	,	0	,	0	,	9	,	1	},
+    { 	11	,	0	,	0	,	9	,	-1	},
+    { 	12	,	0	,	0	,	0	,	4	},
+    { 	13	,	0	,	0	,	0	,	-4	},
+    { 	14	,	0	,	0	,	8	,	1	},
+    { 	15	,	0	,	0	,	8	,	-1	},
+    { 	64	,	1	,	0	,	13	,	1	},
+    { 	65	,	0	,	0	,	13	,	-1	},
+    { 	66	,	0	,	0	,	0	,	6	},
+    { 	67	,	0	,	0	,	0	,	-6	},
+    { 	68	,	0	,	0	,	12	,	1	},
+    { 	69	,	0	,	0	,	12	,	-1	},
+    { 	70	,	0	,	0	,	11	,	1	},
+    { 	71	,	0	,	0	,	11	,	-1	},
+    { 	72	,	0	,	0	,	3	,	2	},
+    { 	73	,	0	,	0	,	3	,	-2	},
+    { 	74	,	0	,	0	,	1	,	3	},
+    { 	75	,	0	,	0	,	1	,	-3	},
+    { 	76	,	0	,	0	,	0	,	5	},
+    { 	77	,	0	,	0	,	0	,	-5	},
+    { 	78	,	0	,	0	,	10	,	1	},
+    { 	79	,	0	,	0	,	10	,	-1	},
+    { 	16	,	2	,	0	,	16	,	1	},
+    { 	17	,	0	,	0	,	16	,	-1	},
+    { 	18	,	0	,	0	,	5	,	2	},
+    { 	19	,	0	,	0	,	5	,	-2	},
+    { 	20	,	0	,	0	,	0	,	7	},
+    { 	21	,	0	,	0	,	0	,	-7	},
+    { 	22	,	0	,	0	,	2	,	3	},
+    { 	23	,	0	,	0	,	2	,	-3	},
+    { 	24	,	0	,	0	,	1	,	4	},
+    { 	25	,	0	,	0	,	1	,	-4	},
+    { 	26	,	0	,	0	,	15	,	1	},
+    { 	27	,	0	,	0	,	15	,	-1	},
+    { 	28	,	0	,	0	,	14	,	1	},
+    { 	29	,	0	,	0	,	14	,	-1	},
+    { 	30	,	0	,	0	,	4	,	2	},
+    { 	31	,	0	,	0	,	4	,	-2	},
+    { 	32	,	2	,	0	,	0	,	11	},
+    { 	33	,	0	,	0	,	0	,	-11	},
+    { 	34	,	0	,	0	,	8	,	2	},
+    { 	35	,	0	,	0	,	8	,	-2	},
+    { 	36	,	0	,	0	,	4	,	3	},
+    { 	37	,	0	,	0	,	4	,	-3	},
+    { 	38	,	0	,	0	,	0	,	10	},
+    { 	39	,	0	,	0	,	0	,	-10	},
+    { 	40	,	0	,	0	,	2	,	4	},
+    { 	41	,	0	,	0	,	2	,	-4	},
+    { 	42	,	0	,	0	,	7	,	2	},
+    { 	43	,	0	,	0	,	7	,	-2	},
+    { 	44	,	0	,	0	,	21	,	1	},
+    { 	45	,	0	,	0	,	21	,	-1	},
+    { 	46	,	0	,	0	,	20	,	1	},
+    { 	47	,	0	,	0	,	20	,	-1	},
+    { 	48	,	0	,	0	,	0	,	9	},
+    { 	49	,	0	,	0	,	0	,	-9	},
+    { 	50	,	0	,	0	,	19	,	1	},
+    { 	51	,	0	,	0	,	19	,	-1	},
+    { 	52	,	0	,	0	,	18	,	1	},
+    { 	53	,	0	,	0	,	18	,	-1	},
+    { 	54	,	0	,	0	,	1	,	5	},
+    { 	55	,	0	,	0	,	1	,	-5	},
+    { 	56	,	0	,	0	,	3	,	3	},
+    { 	57	,	0	,	0	,	3	,	-3	},
+    { 	58	,	0	,	0	,	0	,	8	},
+    { 	59	,	0	,	0	,	0	,	-8	},
+    { 	60	,	0	,	0	,	6	,	2	},
+    { 	61	,	0	,	0	,	6	,	-2	},
+    { 	62	,	0	,	0	,	17	,	1	},
+    { 	63	,	0	,	0	,	17	,	-1	},
+    { 	32	,	1	,	0	,	10	,	2	},
+    { 	33	,	0	,	0	,	10	,	-2	},
+    { 	34	,	0	,	0	,	9	,	2	},
+    { 	35	,	0	,	0	,	9	,	-2	},
+    { 	36	,	0	,	0	,	5	,	3	},
+    { 	37	,	0	,	0	,	5	,	-3	},
+    { 	38	,	0	,	0	,	3	,	4	},
+    { 	39	,	0	,	0	,	3	,	-4	},
+    { 	40	,	0	,	0	,	2	,	5	},
+    { 	41	,	0	,	0	,	2	,	-5	},
+    { 	42	,	0	,	0	,	1	,	7	},
+    { 	43	,	0	,	0	,	1	,	-7	},
+    { 	44	,	0	,	0	,	1	,	6	},
+    { 	45	,	0	,	0	,	1	,	-6	},
+    { 	46	,	0	,	0	,	0	,	15	},
+    { 	47	,	0	,	0	,	0	,	-15	},
+    { 	48	,	0	,	0	,	0	,	14	},
+    { 	49	,	0	,	0	,	0	,	-14	},
+    { 	50	,	0	,	0	,	0	,	13	},
+    { 	51	,	0	,	0	,	0	,	-13	},
+    { 	52	,	0	,	0	,	0	,	12	},
+    { 	53	,	0	,	0	,	0	,	-12	},
+    { 	54	,	0	,	0	,	26	,	1	},
+    { 	55	,	0	,	0	,	26	,	-1	},
+    { 	56	,	0	,	0	,	25	,	1	},
+    { 	57	,	0	,	0	,	25	,	-1	},
+    { 	58	,	0	,	0	,	24	,	1	},
+    { 	59	,	0	,	0	,	24	,	-1	},
+    { 	60	,	0	,	0	,	23	,	1	},
+    { 	61	,	0	,	0	,	23	,	-1	},
+    { 	62	,	0	,	0	,	22	,	1	},
+    { 	63	,	0	,	0	,	22	,	-1	},
+    { 	32	,	1	,	0	,	0	,	31	},
+    { 	33	,	0	,	0	,	0	,	-31	},
+    { 	34	,	0	,	0	,	0	,	30	},
+    { 	35	,	0	,	0	,	0	,	-30	},
+    { 	36	,	0	,	0	,	0	,	29	},
+    { 	37	,	0	,	0	,	0	,	-29	},
+    { 	38	,	0	,	0	,	0	,	28	},
+    { 	39	,	0	,	0	,	0	,	-28	},
+    { 	40	,	0	,	0	,	0	,	27	},
+    { 	41	,	0	,	0	,	0	,	-27	},
+    { 	42	,	0	,	0	,	0	,	26	},
+    { 	43	,	0	,	0	,	0	,	-26	},
+    { 	44	,	0	,	0	,	0	,	25	},
+    { 	45	,	0	,	0	,	0	,	-25	},
+    { 	46	,	0	,	0	,	0	,	24	},
+    { 	47	,	0	,	0	,	0	,	-24	},
+    { 	48	,	0	,	0	,	0	,	23	},
+    { 	49	,	0	,	0	,	0	,	-23	},
+    { 	50	,	0	,	0	,	0	,	22	},
+    { 	51	,	0	,	0	,	0	,	-22	},
+    { 	52	,	0	,	0	,	0	,	21	},
+    { 	53	,	0	,	0	,	0	,	-21	},
+    { 	54	,	0	,	0	,	0	,	20	},
+    { 	55	,	0	,	0	,	0	,	-20	},
+    { 	56	,	0	,	0	,	0	,	19	},
+    { 	57	,	0	,	0	,	0	,	-19	},
+    { 	58	,	0	,	0	,	0	,	18	},
+    { 	59	,	0	,	0	,	0	,	-18	},
+    { 	60	,	0	,	0	,	0	,	17	},
+    { 	61	,	0	,	0	,	0	,	-17	},
+    { 	62	,	0	,	0	,	0	,	16	},
+    { 	63	,	0	,	0	,	0	,	-16	},
+    { 	32	,	1	,	0	,	0	,	40	},
+    { 	33	,	0	,	0	,	0	,	-40	},
+    { 	34	,	0	,	0	,	0	,	39	},
+    { 	35	,	0	,	0	,	0	,	-39	},
+    { 	36	,	0	,	0	,	0	,	38	},
+    { 	37	,	0	,	0	,	0	,	-38	},
+    { 	38	,	0	,	0	,	0	,	37	},
+    { 	39	,	0	,	0	,	0	,	-37	},
+    { 	40	,	0	,	0	,	0	,	36	},
+    { 	41	,	0	,	0	,	0	,	-36	},
+    { 	42	,	0	,	0	,	0	,	35	},
+    { 	43	,	0	,	0	,	0	,	-35	},
+    { 	44	,	0	,	0	,	0	,	34	},
+    { 	45	,	0	,	0	,	0	,	-34	},
+    { 	46	,	0	,	0	,	0	,	33	},
+    { 	47	,	0	,	0	,	0	,	-33	},
+    { 	48	,	0	,	0	,	0	,	32	},
+    { 	49	,	0	,	0	,	0	,	-32	},
+    { 	50	,	0	,	0	,	1	,	14	},
+    { 	51	,	0	,	0	,	1	,	-14	},
+    { 	52	,	0	,	0	,	1	,	13	},
+    { 	53	,	0	,	0	,	1	,	-13	},
+    { 	54	,	0	,	0	,	1	,	12	},
+    { 	55	,	0	,	0	,	1	,	-12	},
+    { 	56	,	0	,	0	,	1	,	11	},
+    { 	57	,	0	,	0	,	1	,	-11	},
+    { 	58	,	0	,	0	,	1	,	10	},
+    { 	59	,	0	,	0	,	1	,	-10	},
+    { 	60	,	0	,	0	,	1	,	9	},
+    { 	61	,	0	,	0	,	1	,	-9	},
+    { 	62	,	0	,	0	,	1	,	8	},
+    { 	63	,	0	,	0	,	1	,	-8	},
+    { 	32	,	1	,	0	,	1	,	18	},
+    { 	33	,	0	,	0	,	1	,	-18	},
+    { 	34	,	0	,	0	,	1	,	17	},
+    { 	35	,	0	,	0	,	1	,	-17	},
+    { 	36	,	0	,	0	,	1	,	16	},
+    { 	37	,	0	,	0	,	1	,	-16	},
+    { 	38	,	0	,	0	,	1	,	15	},
+    { 	39	,	0	,	0	,	1	,	-15	},
+    { 	40	,	0	,	0	,	6	,	3	},
+    { 	41	,	0	,	0	,	6	,	-3	},
+    { 	42	,	0	,	0	,	16	,	2	},
+    { 	43	,	0	,	0	,	16	,	-2	},
+    { 	44	,	0	,	0	,	15	,	2	},
+    { 	45	,	0	,	0	,	15	,	-2	},
+    { 	46	,	0	,	0	,	14	,	2	},
+    { 	47	,	0	,	0	,	14	,	-2	},
+    { 	48	,	0	,	0	,	13	,	2	},
+    { 	49	,	0	,	0	,	13	,	-2	},
+    { 	50	,	0	,	0	,	12	,	2	},
+    { 	51	,	0	,	0	,	12	,	-2	},
+    { 	52	,	0	,	0	,	11	,	2	},
+    { 	53	,	0	,	0	,	11	,	-2	},
+    { 	54	,	0	,	0	,	31	,	1	},
+    { 	55	,	0	,	0	,	31	,	-1	},
+    { 	56	,	0	,	0	,	30	,	1	},
+    { 	57	,	0	,	0	,	30	,	-1	},
+    { 	58	,	0	,	0	,	29	,	1	},
+    { 	59	,	0	,	0	,	29	,	-1	},
+    { 	60	,	0	,	0	,	28	,	1	},
+    { 	61	,	0	,	0	,	28	,	-1	},
+    { 	62	,	0	,	0	,	27	,	1	},
+    { 	63	,	0	,	0	,	27	,	-1	},
+    {(int32u)-1, (int8u)-1, 1, -1, -1} //
+};
+
+const File__Analyze::vlc Mpegv_dct_coefficients_1[]=
+{
+    //                          Run     Level
+    { 	4	,	3	,	0	,	0	,	1	},
+    { 	5	,	0	,	0	,	0	,	-1	},
+    { 	4	,	1	,	0	,	1	,	1	},
+    { 	5	,	0	,	0	,	1	,	-1	},
+    { 	6	,	0	,	1	,	0	,	0	},
+    { 	12	,	0	,	0	,	0	,	2	},
+    { 	13	,	0	,	0	,	0	,	-2	},
+    { 	14	,	1	,	0	,	0	,	3	},
+    { 	15	,	0	,	0	,	0	,	-3	},
+    { 	1	,	1	,	2	,	0	,	0	},
+    { 	10	,	0	,	0	,	2	,	1	},
+    { 	11	,	0	,	0	,	2	,	-1	},
+    { 	12	,	0	,	0	,	1	,	2	},
+    { 	13	,	0	,	0	,	1	,	-2	},
+    { 	14	,	0	,	0	,	3	,	1	},
+    { 	15	,	0	,	0	,	3	,	-1	},
+    { 	56	,	0	,	0	,	0	,	4	},
+    { 	57	,	0	,	0	,	0	,	-4	},
+    { 	58	,	0	,	0	,	0	,	5	},
+    { 	59	,	0	,	0	,	0	,	-5	},
+    { 	8	,	1	,	0	,	0	,	7	},
+    { 	9	,	0	,	0	,	0	,	-7	},
+    { 	10	,	0	,	0	,	0	,	6	},
+    { 	11	,	0	,	0	,	0	,	-6	},
+    { 	12	,	0	,	0	,	4	,	1	},
+    { 	13	,	0	,	0	,	4	,	-1	},
+    { 	14	,	0	,	0	,	5	,	1	},
+    { 	15	,	0	,	0	,	5	,	-1	},
+    { 	8	,	1	,	0	,	7	,	1	},
+    { 	9	,	0	,	0	,	7	,	-1	},
+    { 	10	,	0	,	0	,	8	,	1	},
+    { 	11	,	0	,	0	,	8	,	-1	},
+    { 	12	,	0	,	0	,	6	,	1	},
+    { 	13	,	0	,	0	,	6	,	-1	},
+    { 	14	,	0	,	0	,	2	,	2	},
+    { 	15	,	0	,	0	,	2	,	-2	},
+    { 	240	,	0	,	0	,	9	,	1	},
+    { 	241	,	0	,	0	,	9	,	-1	},
+    { 	242	,	0	,	0	,	1	,	3	},
+    { 	243	,	0	,	0	,	1	,	-3	},
+    { 	244	,	0	,	0	,	10	,	1	},
+    { 	245	,	0	,	0	,	10	,	-1	},
+    { 	246	,	0	,	0	,	0	,	8	},
+    { 	247	,	0	,	0	,	0	,	-8	},
+    { 	248	,	0	,	0	,	0	,	9	},
+    { 	249	,	0	,	0	,	0	,	-9	},
+    { 	64	,	1	,	0	,	1	,	5	},
+    { 	65	,	0	,	0	,	1	,	-5	},
+    { 	66	,	0	,	0	,	11	,	1	},
+    { 	67	,	0	,	0	,	11	,	-1	},
+    { 	68	,	0	,	0	,	0	,	11	},
+    { 	69	,	0	,	0	,	0	,	-11	},
+    { 	70	,	0	,	0	,	0	,	10	},
+    { 	71	,	0	,	0	,	0	,	-10	},
+    { 	72	,	0	,	0	,	13	,	1	},
+    { 	73	,	0	,	0	,	13	,	-1	},
+    { 	74	,	0	,	0	,	12	,	1	},
+    { 	75	,	0	,	0	,	12	,	-1	},
+    { 	76	,	0	,	0	,	3	,	2	},
+    { 	77	,	0	,	0	,	3	,	-2	},
+    { 	78	,	0	,	0	,	1	,	4	},
+    { 	79	,	0	,	0	,	1	,	-4	},
+    { 	500	,	0	,	0	,	0	,	12	},
+    { 	501	,	0	,	0	,	0	,	-12	},
+    { 	502	,	0	,	0	,	0	,	13	},
+    { 	503	,	0	,	0	,	0	,	-13	},
+    { 	504	,	0	,	0	,	2	,	3	},
+    { 	505	,	0	,	0	,	2	,	-3	},
+    { 	506	,	0	,	0	,	4	,	2	},
+    { 	507	,	0	,	0	,	4	,	-2	},
+    { 	508	,	0	,	0	,	0	,	14	},
+    { 	509	,	0	,	0	,	0	,	-14	},
+    { 	510	,	0	,	0	,	0	,	15	},
+    { 	511	,	0	,	0	,	0	,	-15	},
+    { 	8	,	1	,	0	,	5	,	2	},
+    { 	9	,	0	,	0	,	5	,	-2	},
+    { 	10	,	0	,	0	,	14	,	1	},
+    { 	11	,	0	,	0	,	14	,	-1	},
+    { 	14	,	0	,	0	,	15	,	1	},
+    { 	15	,	0	,	0	,	15	,	-1	},
+    { 	24	,	1	,	0	,	2	,	4	},
+    { 	25	,	0	,	0	,	2	,	-4	},
+    { 	26	,	0	,	0	,	16	,	1	},
+    { 	27	,	0	,	0	,	16	,	-1	},
+    { 	34	,	2	,	0	,	8	,	2	},
+    { 	35	,	0	,	0	,	8	,	-2	},
+    { 	36	,	0	,	0	,	4	,	3	},
+    { 	37	,	0	,	0	,	4	,	-3	},
+    { 	42	,	0	,	0	,	7	,	2	},
+    { 	43	,	0	,	0	,	7	,	-2	},
+    { 	44	,	0	,	0	,	21	,	1	},
+    { 	45	,	0	,	0	,	21	,	-1	},
+    { 	46	,	0	,	0	,	20	,	1	},
+    { 	47	,	0	,	0	,	20	,	-1	},
+    { 	50	,	0	,	0	,	19	,	1	},
+    { 	51	,	0	,	0	,	19	,	-1	},
+    { 	52	,	0	,	0	,	18	,	1	},
+    { 	53	,	0	,	0	,	18	,	-1	},
+    { 	56	,	0	,	0	,	3	,	3	},
+    { 	57	,	0	,	0	,	3	,	-3	},
+    { 	60	,	0	,	0	,	6	,	2	},
+    { 	61	,	0	,	0	,	6	,	-2	},
+    { 	62	,	0	,	0	,	17	,	1	},
+    { 	63	,	0	,	0	,	17	,	-1	},
+    { 	32	,	1	,	0	,	10	,	2	},
+    { 	33	,	0	,	0	,	10	,	-2	},
+    { 	34	,	0	,	0	,	9	,	2	},
+    { 	35	,	0	,	0	,	9	,	-2	},
+    { 	36	,	0	,	0	,	5	,	3	},
+    { 	37	,	0	,	0	,	5	,	-3	},
+    { 	38	,	0	,	0	,	3	,	4	},
+    { 	39	,	0	,	0	,	3	,	-4	},
+    { 	40	,	0	,	0	,	2	,	5	},
+    { 	41	,	0	,	0	,	2	,	-5	},
+    { 	42	,	0	,	0	,	1	,	7	},
+    { 	43	,	0	,	0	,	1	,	-7	},
+    { 	44	,	0	,	0	,	1	,	6	},
+    { 	45	,	0	,	0	,	1	,	-6	},
+    { 	54	,	0	,	0	,	26	,	1	},
+    { 	55	,	0	,	0	,	26	,	-1	},
+    { 	56	,	0	,	0	,	25	,	1	},
+    { 	57	,	0	,	0	,	25	,	-1	},
+    { 	58	,	0	,	0	,	24	,	1	},
+    { 	59	,	0	,	0	,	24	,	-1	},
+    { 	60	,	0	,	0	,	23	,	1	},
+    { 	61	,	0	,	0	,	23	,	-1	},
+    { 	62	,	0	,	0	,	22	,	1	},
+    { 	63	,	0	,	0	,	22	,	-1	},
+    { 	32	,	1	,	0	,	0	,	31	},
+    { 	33	,	0	,	0	,	0	,	-31	},
+    { 	34	,	0	,	0	,	0	,	30	},
+    { 	35	,	0	,	0	,	0	,	-30	},
+    { 	36	,	0	,	0	,	0	,	29	},
+    { 	37	,	0	,	0	,	0	,	-29	},
+    { 	38	,	0	,	0	,	0	,	28	},
+    { 	39	,	0	,	0	,	0	,	-28	},
+    { 	40	,	0	,	0	,	0	,	27	},
+    { 	41	,	0	,	0	,	0	,	-27	},
+    { 	42	,	0	,	0	,	0	,	26	},
+    { 	43	,	0	,	0	,	0	,	-26	},
+    { 	44	,	0	,	0	,	0	,	25	},
+    { 	45	,	0	,	0	,	0	,	-25	},
+    { 	46	,	0	,	0	,	0	,	24	},
+    { 	47	,	0	,	0	,	0	,	-24	},
+    { 	48	,	0	,	0	,	0	,	23	},
+    { 	49	,	0	,	0	,	0	,	-23	},
+    { 	50	,	0	,	0	,	0	,	22	},
+    { 	51	,	0	,	0	,	0	,	-22	},
+    { 	52	,	0	,	0	,	0	,	21	},
+    { 	53	,	0	,	0	,	0	,	-21	},
+    { 	54	,	0	,	0	,	0	,	20	},
+    { 	55	,	0	,	0	,	0	,	-20	},
+    { 	56	,	0	,	0	,	0	,	19	},
+    { 	57	,	0	,	0	,	0	,	-19	},
+    { 	58	,	0	,	0	,	0	,	18	},
+    { 	59	,	0	,	0	,	0	,	-18	},
+    { 	60	,	0	,	0	,	0	,	17	},
+    { 	61	,	0	,	0	,	0	,	-17	},
+    { 	62	,	0	,	0	,	0	,	16	},
+    { 	63	,	0	,	0	,	0	,	-16	},
+    { 	32	,	1	,	0	,	0	,	40	},
+    { 	33	,	0	,	0	,	0	,	-40	},
+    { 	34	,	0	,	0	,	0	,	39	},
+    { 	35	,	0	,	0	,	0	,	-39	},
+    { 	36	,	0	,	0	,	0	,	38	},
+    { 	37	,	0	,	0	,	0	,	-38	},
+    { 	38	,	0	,	0	,	0	,	37	},
+    { 	39	,	0	,	0	,	0	,	-37	},
+    { 	40	,	0	,	0	,	0	,	36	},
+    { 	41	,	0	,	0	,	0	,	-36	},
+    { 	42	,	0	,	0	,	0	,	35	},
+    { 	43	,	0	,	0	,	0	,	-35	},
+    { 	44	,	0	,	0	,	0	,	34	},
+    { 	45	,	0	,	0	,	0	,	-34	},
+    { 	46	,	0	,	0	,	0	,	33	},
+    { 	47	,	0	,	0	,	0	,	-33	},
+    { 	48	,	0	,	0	,	0	,	32	},
+    { 	49	,	0	,	0	,	0	,	-32	},
+    { 	50	,	0	,	0	,	1	,	14	},
+    { 	51	,	0	,	0	,	1	,	-14	},
+    { 	52	,	0	,	0	,	1	,	13	},
+    { 	53	,	0	,	0	,	1	,	-13	},
+    { 	54	,	0	,	0	,	1	,	12	},
+    { 	55	,	0	,	0	,	1	,	-12	},
+    { 	56	,	0	,	0	,	1	,	11	},
+    { 	57	,	0	,	0	,	1	,	-11	},
+    { 	58	,	0	,	0	,	1	,	10	},
+    { 	59	,	0	,	0	,	1	,	-10	},
+    { 	60	,	0	,	0	,	1	,	9	},
+    { 	61	,	0	,	0	,	1	,	-9	},
+    { 	62	,	0	,	0	,	1	,	8	},
+    { 	63	,	0	,	0	,	1	,	-8	},
+    { 	32	,	1	,	0	,	1	,	18	},
+    { 	33	,	0	,	0	,	1	,	-18	},
+    { 	34	,	0	,	0	,	1	,	17	},
+    { 	35	,	0	,	0	,	1	,	-17	},
+    { 	36	,	0	,	0	,	1	,	16	},
+    { 	37	,	0	,	0	,	1	,	-16	},
+    { 	38	,	0	,	0	,	1	,	15	},
+    { 	39	,	0	,	0	,	1	,	-15	},
+    { 	40	,	0	,	0	,	6	,	3	},
+    { 	41	,	0	,	0	,	6	,	-3	},
+    { 	42	,	0	,	0	,	16	,	2	},
+    { 	43	,	0	,	0	,	16	,	-2	},
+    { 	44	,	0	,	0	,	15	,	2	},
+    { 	45	,	0	,	0	,	15	,	-2	},
+    { 	46	,	0	,	0	,	14	,	2	},
+    { 	47	,	0	,	0	,	14	,	-2	},
+    { 	48	,	0	,	0	,	13	,	2	},
+    { 	49	,	0	,	0	,	13	,	-2	},
+    { 	50	,	0	,	0	,	12	,	2	},
+    { 	51	,	0	,	0	,	12	,	-2	},
+    { 	52	,	0	,	0	,	11	,	2	},
+    { 	53	,	0	,	0	,	11	,	-2	},
+    { 	54	,	0	,	0	,	31	,	1	},
+    { 	55	,	0	,	0	,	31	,	-1	},
+    { 	56	,	0	,	0	,	30	,	1	},
+    { 	57	,	0	,	0	,	30	,	-1	},
+    { 	58	,	0	,	0	,	29	,	1	},
+    { 	59	,	0	,	0	,	29	,	-1	},
+    { 	60	,	0	,	0	,	28	,	1	},
+    { 	61	,	0	,	0	,	28	,	-1	},
+    { 	62	,	0	,	0	,	27	,	1	},
+    { 	63	,	0	,	0	,	27	,	-1	},
+    {(int32u)-1, (int8u)-1, 1, -1, -1} //
+};
+
+const File__Analyze::vlc Mpegv_macroblock_type_I[]=
+{
+    {    1,   1,   0,   0, 0x02},
+    {    1,   1,   0,   0, 0x22},
+    VLC_END
+};
+
+const File__Analyze::vlc Mpegv_macroblock_type_P[]=
+{
+    {    1,   1,   0,   0, 0x14},
+    {    1,   1,   0,   0, 0x04},
+    {    1,   1,   0,   0, 0x10},
+    {    3,   2,   0,   0, 0x02},
+    {    2,   0,   0,   0, 0x34},
+    {    1,   0,   0,   0, 0x24},
+    {    1,   1,   0,   0, 0x22},
+    {(int32u)-1,(int8u)-1, 0, 0, 0}
+};
+
+const File__Analyze::vlc Mpegv_macroblock_type_B[]=
+{
+    { 	2	,	2	,	0	,	0	,	0x18	},
+    { 	3	,	0	,	0	,	0	,	0x1C	},
+    { 	2	,	1	,	0	,	0	,	0x08	},
+    { 	3	,	0	,	0	,	0	,	0x0C	},
+    { 	2	,	1	,	0	,	0	,	0x10	},
+    { 	3	,	0	,	0	,	0	,	0x14	},
+    { 	3	,	1	,	0	,	0	,	0x02	},
+    { 	2	,	0	,	0	,	0	,	0x3C	},
+    { 	3	,	1	,	0	,	0	,	0x34	},
+    { 	2	,	0	,	0	,	0	,	0x2C	},
+    { 	1	,	0	,	0	,	0	,	0x22	},
+    VLC_END
+};
+
+const File__Analyze::vlc Mpegv_motion_code[]=
+{
+    { 	1	,	1	,	0	,	0	,	0	},
+    { 	1	,	1	,	0	,	0	,	1	},
+    { 	1	,	1	,	0	,	0	,	2	},
+    { 	1	,	1	,	0	,	0	,	3	},
+    { 	3	,	2	,	0	,	0	,	4	},
+    { 	5	,	1	,	0	,	0	,	5	},
+    { 	4	,	0	,	0	,	0	,	6	},
+    { 	3	,	0	,	0	,	0	,	7	},
+    { 	11	,	2	,	0	,	0	,	8	},
+    { 	10	,	0	,	0	,	0	,	9	},
+    { 	9	,	0	,	0	,	0	,	10	},
+    { 	17	,	1	,	0	,	0	,	11	},
+    { 	16	,	0	,	0	,	0	,	12	},
+    { 	15	,	0	,	0	,	0	,	13	},
+    { 	14	,	0	,	0	,	0	,	14	},
+    { 	13	,	0	,	0	,	0	,	15	},
+    { 	12	,	0	,	0	,	0	,	16	},
+
+    VLC_END
+};
+
+const File__Analyze::vlc Mpegv_dmvector[]=
+{
+    { 	0	,	1	,	0	,	0	,	0	},
+    { 	2	,	1	,	0	,	0	,	1	},
+    { 	3	,	0	,	0	,	0	,	-1	},
+    VLC_END
+};
+
+const File__Analyze::vlc Mpegv_coded_block_pattern[]=
+{
+    //                                  cbp
+    { 	7	,	3	,	0	,	0	,	60	},
+    { 	13	,	1	,	0	,	0	,	4	},
+    { 	12	,	0	,	0	,	0	,	8	},
+    { 	11	,	0	,	0	,	0	,	16	},
+    { 	10	,	0	,	0	,	0	,	32	},
+    { 	19	,	1	,	0	,	0	,	12	},
+    { 	18	,	0	,	0	,	0	,	48	},
+    { 	17	,	0	,	0	,	0	,	20	},
+    { 	16	,	0	,	0	,	0	,	40	},
+    { 	15	,	0	,	0	,	0	,	28	},
+    { 	14	,	0	,	0	,	0	,	44	},
+    { 	13	,	0	,	0	,	0	,	52	},
+    { 	12	,	0	,	0	,	0	,	56	},
+    { 	11	,	0	,	0	,	0	,	1	},
+    { 	10	,	0	,	0	,	0	,	61	},
+    { 	9	,	0	,	0	,	0	,	2	},
+    { 	8	,	0	,	0	,	0	,	62	},
+    { 	15	,	1	,	0	,	0	,	24	},
+    { 	14	,	0	,	0	,	0	,	36	},
+    { 	13	,	0	,	0	,	0	,	3	},
+    { 	12	,	0	,	0	,	0	,	63	},
+    { 	23	,	1	,	0	,	0	,	5	},
+    { 	22	,	0	,	0	,	0	,	9	},
+    { 	21	,	0	,	0	,	0	,	17	},
+    { 	20	,	0	,	0	,	0	,	33	},
+    { 	19	,	0	,	0	,	0	,	6	},
+    { 	18	,	0	,	0	,	0	,	10	},
+    { 	17	,	0	,	0	,	0	,	18	},
+    { 	16	,	0	,	0	,	0	,	34	},
+    { 	31	,	1	,	0	,	0	,	7	},
+    { 	30	,	0	,	0	,	0	,	11	},
+    { 	29	,	0	,	0	,	0	,	19	},
+    { 	28	,	0	,	0	,	0	,	35	},
+    { 	27	,	0	,	0	,	0	,	13	},
+    { 	26	,	0	,	0	,	0	,	49	},
+    { 	25	,	0	,	0	,	0	,	21	},
+    { 	24	,	0	,	0	,	0	,	41	},
+    { 	23	,	0	,	0	,	0	,	14	},
+    { 	22	,	0	,	0	,	0	,	50	},
+    { 	21	,	0	,	0	,	0	,	22	},
+    { 	20	,	0	,	0	,	0	,	42	},
+    { 	19	,	0	,	0	,	0	,	15	},
+    { 	18	,	0	,	0	,	0	,	51	},
+    { 	17	,	0	,	0	,	0	,	23	},
+    { 	16	,	0	,	0	,	0	,	43	},
+    { 	15	,	0	,	0	,	0	,	25	},
+    { 	14	,	0	,	0	,	0	,	37	},
+    { 	13	,	0	,	0	,	0	,	26	},
+    { 	12	,	0	,	0	,	0	,	38	},
+    { 	11	,	0	,	0	,	0	,	29	},
+    { 	10	,	0	,	0	,	0	,	45	},
+    { 	9	,	0	,	0	,	0	,	53	},
+    { 	8	,	0	,	0	,	0	,	57	},
+    { 	7	,	0	,	0	,	0	,	30	},
+    { 	6	,	0	,	0	,	0	,	46	},
+    { 	5	,	0	,	0	,	0	,	54	},
+    { 	4	,	0	,	0	,	0	,	58	},
+    { 	7	,	1	,	0	,	0	,	31	},
+    { 	6	,	0	,	0	,	0	,	47	},
+    { 	5	,	0	,	0	,	0	,	55	},
+    { 	4	,	0	,	0	,	0	,	59	},
+    { 	3	,	0	,	0	,	0	,	27	},
+    { 	2	,	0	,	0	,	0	,	39	},
+    { 	1	,	0	,	0	,	0	,	0	},
+    VLC_END
+};
+
+#endif //MEDIAINFO_MACROBLOCKS
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -385,6 +1065,11 @@ File_Mpegv::File_Mpegv()
     sequence_header_IsParsed=false;
     FrameInfo.DTS=0;
     Parsing_End_ForDTS=false;
+
+    //Macroblocks
+    #if MEDIAINFO_MACROBLOCKS
+        Macroblocks_Parse=false;
+    #endif //MEDIAINFO_MACROBLOCKS
 }
 
 //---------------------------------------------------------------------------
@@ -403,6 +1088,23 @@ File_Mpegv::~File_Mpegv()
         delete DTG1_Parser; //DTG1_Parser=NULL;
         delete GA94_06_Parser; //GA94_06_Parser=NULL;
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+
+    //Macroblocks
+    #if MEDIAINFO_MACROBLOCKS
+        if (Macroblocks_Parse)
+        {
+            delete[] macroblock_address_increment_Vlc.Array; //macroblock_address_increment_Vlc.Array=NULL;
+            delete[] macroblock_address_increment_Vlc.BitsToSkip; //macroblock_address_increment_Vlc.Size=NULL;
+            delete[] dct_dc_size_luminance.Array; //dct_dc_size_luminance.Array=NULL;
+            delete[] dct_dc_size_luminance.BitsToSkip; //dct_dc_size_luminance.Size=NULL;
+            delete[] dct_dc_size_chrominance.Array; //dct_dc_size_chrominance.Array=NULL;
+            delete[] dct_dc_size_chrominance.BitsToSkip; //dct_dc_size_chrominance.Size=NULL;
+            delete[] dct_coefficients_0.Array; //dct_coefficients_0.Array=NULL;
+            delete[] dct_coefficients_0.BitsToSkip; //dct_coefficients_0.Size=NULL;
+            delete[] dct_coefficients_1.Array; //dct_coefficients_1.Array=NULL;
+            delete[] dct_coefficients_1.BitsToSkip; //dct_coefficients_1.Size=NULL;
+        }
+    #endif //MEDIAINFO_MACROBLOCKS
 }
 
 //***************************************************************************
@@ -969,6 +1671,58 @@ void File_Mpegv::Synched_Init()
     Streams[0xB3].Searching_Payload=true;
     for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
+
+    //Macroblocks
+    #if MEDIAINFO_MACROBLOCKS
+        Macroblocks_Parse=Config->File_Macroblocks_Parse_Get();
+        if (Macroblocks_Parse)
+        {
+            macroblock_address_increment_Vlc.Array=NULL;
+            macroblock_address_increment_Vlc.Vlc=Mpegv_macroblock_address_increment;
+            macroblock_address_increment_Vlc.Size=11;
+            Get_VL_Prepare(macroblock_address_increment_Vlc);
+            dct_dc_size_luminance.Array=NULL;
+            dct_dc_size_luminance.Vlc=Mpegv_dct_dc_size_luminance;
+            dct_dc_size_luminance.Size=9;
+            Get_VL_Prepare(dct_dc_size_luminance);
+            dct_dc_size_chrominance.Array=NULL;
+            dct_dc_size_chrominance.Vlc=Mpegv_dct_dc_size_chrominance;
+            dct_dc_size_chrominance.Size=10;
+            Get_VL_Prepare(dct_dc_size_chrominance);
+            dct_coefficients_0.Array=NULL;
+            dct_coefficients_0.Vlc=Mpegv_dct_coefficients_0;
+            dct_coefficients_0.Size=17;
+            Get_VL_Prepare(dct_coefficients_0);
+            dct_coefficients_1.Array=NULL;
+            dct_coefficients_1.Vlc=Mpegv_dct_coefficients_1;
+            dct_coefficients_1.Size=17;
+            Get_VL_Prepare(dct_coefficients_1);
+            macroblock_type_I.Array=NULL;
+            macroblock_type_I.Vlc=Mpegv_macroblock_type_I;
+            macroblock_type_I.Size=2;
+            Get_VL_Prepare(macroblock_type_I);
+            macroblock_type_P.Array=NULL;
+            macroblock_type_P.Vlc=Mpegv_macroblock_type_P;
+            macroblock_type_P.Size=6;
+            Get_VL_Prepare(macroblock_type_P);
+            macroblock_type_B.Array=NULL;
+            macroblock_type_B.Vlc=Mpegv_macroblock_type_B;
+            macroblock_type_B.Size=6;
+            Get_VL_Prepare(macroblock_type_B);
+            motion_code.Array=NULL;
+            motion_code.Vlc=Mpegv_motion_code;
+            motion_code.Size=11;
+            Get_VL_Prepare(motion_code);
+            dmvector.Array=NULL;
+            dmvector.Vlc=Mpegv_dmvector;
+            dmvector.Size=2;
+            Get_VL_Prepare(dmvector);
+            coded_block_pattern.Array=NULL;
+            coded_block_pattern.Vlc=Mpegv_coded_block_pattern;
+            coded_block_pattern.Size=9;
+            Get_VL_Prepare(coded_block_pattern);
+        }
+    #endif //MEDIAINFO_MACROBLOCKS
 }
 
 //***************************************************************************
@@ -1069,6 +1823,10 @@ void File_Mpegv::Read_Buffer_Unsynched()
     #if MEDIAINFO_IBI
         Ibi_SliceParsed=true;
     #endif //MEDIAINFO_IBI
+    #if MEDIAINFO_MACROBLOCKS
+        if (Macroblocks_Parse)
+            macroblock_x_PerFrame=0;
+    #endif //MEDIAINFO_MACROBLOCKS
 
     temporal_reference_Old=(int16u)-1;
     for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
@@ -1299,6 +2057,11 @@ void File_Mpegv::Detect_EOF()
 // Packet "00"
 void File_Mpegv::picture_start()
 {
+    #if MEDIAINFO_MACROBLOCKS
+        if (Macroblocks_Parse)
+            macroblock_x_PerFrame=0;
+    #endif //MEDIAINFO_MACROBLOCKS
+
     Element_Name("picture_start");
 
     //Coherency
@@ -1397,6 +2160,20 @@ void File_Mpegv::picture_start()
         //Config
         progressive_frame=true;
         picture_structure=3; //Frame is default
+        #if MEDIAINFO_MACROBLOCKS
+            if (Macroblocks_Parse)
+            {
+                spatial_temporal_weight_code_table_index=0;
+                f_code[0][0]=0;
+                f_code[0][1]=0;
+                f_code[1][0]=0;
+                f_code[1][1]=0;
+                sequence_scalable_extension_Present=false;
+                frame_pred_frame_dct=false;
+                concealment_motion_vectors=false;
+                intra_vlc_format=false;
+            }
+        #endif //MEDIAINFO_MACROBLOCKS
 
         //Temporal reference
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
@@ -1438,10 +2215,91 @@ void File_Mpegv::slice_start()
     Element_Name("slice_start");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "data");
+    #if MEDIAINFO_MACROBLOCKS
+        if (Macroblocks_Parse && MPEG_Version==2)
+        {
+            BS_Begin();
+
+            bool intra_slice_flag;
+            if (0x1000*vertical_size_extension+vertical_size_value>2800) //vertical_size
+                Skip_S1(3,                                      "slice_vertical_position_extension");
+            if (sequence_scalable_extension_Present)
+                Skip_S1(7,                                      "priority_breakpoint");
+            Skip_S1(5,                                          "quantiser_scale_code");
+            Peek_SB(intra_slice_flag);
+            if (intra_slice_flag)
+            {
+                Skip_SB(                                        "intra_slice_flag");
+                Skip_SB(                                        "intra_slice");
+                Skip_S1(7,                                      "reserved_bits");
+                for (;;)
+                {
+                    bool extra_bit_slice;
+                    Peek_SB(extra_bit_slice);
+                    if (extra_bit_slice)
+                    {
+                        Skip_S1(8,                              "extra_information_slice");
+                    }
+                    else
+                        break;
+                    if (!Data_BS_Remain())
+                    {
+                        Trusted_IsNot("extra_bit_slice is missing");
+                        return;
+                    }
+                }
+            }
+            Skip_SB(                                            "extra_bit_slice (must be 0)");
+
+            macroblock_x=(int64u)-1;
+            while (Synched) //Synched: testing if this is still valid
+            {
+                if (macroblock_x==118 && Element_Code==0x3A && Frame_Count==3)
+                    int A=0;
+                int8u Remain=0;
+                if (Data_BS_Remain()%8)
+                    Peek_S1(Data_BS_Remain()%8, Remain);
+                else
+                    Remain=Buffer[Buffer_Offset+(size_t)(Element_Size-Data_Remain())];
+                if (Remain==0)
+                {
+                    size_t BytesRemain=Data_Remain();
+                    if (BytesRemain>1)
+                    {
+                        if (Buffer[Buffer_Offset+(size_t)(Element_Size-BytesRemain)+1]==0x00)
+                        {
+                            if (BytesRemain>2)
+                            {
+                                if (Buffer[Buffer_Offset+(size_t)(Element_Size-BytesRemain)+2]==0x00)
+                                {
+                                    if (BytesRemain>3)
+                                    {
+                                        if (Buffer[Buffer_Offset+(size_t)(Element_Size-BytesRemain)+3]==0x00)
+                                            break;
+                                    }
+                                    else
+                                        break;
+                                }
+                            }
+                            else
+                                break;
+                        }
+                    }
+                    else
+                        break;
+                }
+                slice_start_macroblock();
+            }
+
+            if (Data_BS_Remain())
+                Skip_BS(Data_BS_Remain(),                       "padding");
+            BS_End();
+        }
+        else
+    #endif //MEDIAINFO_MACROBLOCK
+            Skip_XX(Element_Size,                               "data");
 
     FILLING_BEGIN();
-
         //Timestamp
         if (group_start_FirstPass && (Time_Begin_Seconds==Error || Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference<Time_Begin_Seconds*FrameRate+Time_Begin_Frames))
         {
@@ -1523,14 +2381,14 @@ void File_Mpegv::slice_start()
                 MustExtendParsingDuration=true;
                 Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
 
-                Element_Begin1("CDP");
+                Element_Trace_Begin1("CDP");
                 if ((*Ancillary)==NULL)
                     (*Ancillary)=new File_Ancillary();
                 (*Ancillary)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 (*Ancillary)->FrameRate=((float)(Mpegv_frame_rate[frame_rate_code] * (frame_rate_extension_n + 1)) / (float)(frame_rate_extension_d + 1));
                 if ((*Ancillary)->Status[IsAccepted]) //In order to test if there is a parser using ancillary data
                     Open_Buffer_Continue((*Ancillary), Buffer+Buffer_Offset, 0);
-                Element_End0();
+                Element_Trace_End0();
             }
         #endif //defined(MEDIAINFO_CDP_YES)
 
@@ -1538,7 +2396,7 @@ void File_Mpegv::slice_start()
         #if defined(MEDIAINFO_AFDBARDATA_YES)
             if (Ancillary && *Ancillary && !(*Ancillary)->AfdBarData_Data.empty())
             {
-                Element_Begin1("Active Format Description & Bar Data");
+                Element_Trace_Begin1("Active Format Description & Bar Data");
 
                 //Parsing
                 if (AfdBarData_Parser==NULL)
@@ -1556,7 +2414,7 @@ void File_Mpegv::slice_start()
                 delete (*Ancillary)->AfdBarData_Data[0]; //(*Ancillary)->AfdBarData_Data[0]=NULL;
                 (*Ancillary)->AfdBarData_Data.erase((*Ancillary)->AfdBarData_Data.begin());
 
-                Element_End0();
+                Element_Trace_End0();
             }
         #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
@@ -1623,6 +2481,9 @@ void File_Mpegv::slice_start()
         }
 
         //Autorisation of other streams
+        #if MEDIAINFO_MACROBLOCKS
+            if (!Macroblocks_Parse)
+        #endif //MEDIAINFO_MACROBLOCKS
         for (int8u Pos=0x01; Pos<=0xAF; Pos++)
             Streams[Pos].Searching_Payload=false;
 
@@ -1652,8 +2513,330 @@ void File_Mpegv::slice_start()
         #if MEDIAINFO_IBI
             Ibi_SliceParsed=true;
         #endif //MEDIAINFO_IBI
+        #if MEDIAINFO_MACROBLOCKS
+            if (Macroblocks_Parse)
+            {
+                macroblock_x++;
+                Element_Info1(Ztring::ToZtring(macroblock_x)+_T(" macroblocks"));
+                macroblock_x_PerFrame+=macroblock_x;
+            }
+        #endif //MEDIAINFO_MACROBLOCKS
     FILLING_END();
 }
+
+//---------------------------------------------------------------------------
+// Packet Packet "01" --> "AF", slice_start, macroblock
+#if MEDIAINFO_MACROBLOCKS
+enum Mpegv_macroblock_type_config //bitwise
+{
+    spatial_temporal_weight_code_flag   =0x01,
+    macroblock_intra                    =0x02,
+    macroblock_pattern                  =0x04,
+    macroblock_motion_backward          =0x08,
+    macroblock_motion_forward           =0x10,
+    macroblock_quant                    =0x20,
+};
+void File_Mpegv::slice_start_macroblock()
+{
+    frame_motion_type=(int8u)-1;
+    spatial_temporal_weight_code=0;
+
+    Element_Trace_Begin1("macroblock");
+
+    size_t macroblock_address_increment;
+    do
+    {
+        Get_VL(macroblock_address_increment_Vlc, macroblock_address_increment, "macroblock_address_increment");
+        Element_Info1(_T("macroblock_address_increment=")+Ztring::ToZtring(Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3));
+        macroblock_x+=Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3;
+    }
+    while (Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to1==2); //Escape code
+    Element_Info1(_T("macroblock_x=")+Ztring::ToZtring(macroblock_x));
+    if (Element_Code==0x44 && macroblock_x==119)
+        int a=0;
+    Element_Trace_Begin1("macroblock_modes");
+        vlc_fast* macroblock_type_X;
+        switch(picture_coding_type)
+        {
+            case 1: macroblock_type_X=&macroblock_type_I; break;
+            case 2: macroblock_type_X=&macroblock_type_P; break;
+            case 3: macroblock_type_X=&macroblock_type_B; break;
+            default : Element_DoNotTrust("Wrong picture_coding_type");
+                      Element_Trace_End0();
+                      Element_Trace_End0();
+                      return;
+        }
+        size_t macroblock_type_offset;
+        Get_VL(*macroblock_type_X, macroblock_type_offset,   "macroblock_type");
+        macroblock_type=macroblock_type_X->Vlc[macroblock_type_offset].mapped_to3;
+        if (!Synched)
+        {
+            BS_End();
+            Element_Offset=Element_Size;
+            Finish();
+            return;
+        }
+        Element_Info1(_T("macroblock_quant=")+Ztring::ToZtring(macroblock_type&macroblock_quant));
+        Element_Info1(_T("macroblock_motion_forward=")+Ztring::ToZtring(macroblock_type&macroblock_motion_forward));
+        Element_Info1(_T("macroblock_motion_backward=")+Ztring::ToZtring(macroblock_type&macroblock_motion_backward));
+        Element_Info1(_T("macroblock_pattern=")+Ztring::ToZtring(macroblock_type&macroblock_pattern));
+        Element_Info1(_T("macroblock_intra=")+Ztring::ToZtring(macroblock_type&macroblock_intra));
+        Element_Info1(_T("spatial_temporal_weight_code_flag=")+Ztring::ToZtring(macroblock_type&spatial_temporal_weight_code_flag));
+        if (macroblock_type&spatial_temporal_weight_code_flag
+         && spatial_temporal_weight_code_table_index)
+            Get_S1 (2, spatial_temporal_weight_code,            "spatial_temporal_weight_code");
+        if (macroblock_type&macroblock_intra
+         && concealment_motion_vectors)
+            frame_motion_type=2;
+        if (macroblock_type&macroblock_motion_forward
+         || macroblock_type&macroblock_motion_backward)
+        {
+            if (picture_structure==3) //Frame
+            {
+                if (!frame_pred_frame_dct)
+                    Get_S1(2, frame_motion_type,                "frame_motion_type");
+                else
+                    frame_motion_type=2;
+            }
+            else
+               Get_S1 (2, field_motion_type,                    "field_motion_type");
+        }
+        if (picture_structure==3 //Frame
+         && !frame_pred_frame_dct
+         && (macroblock_type&macroblock_intra
+          || macroblock_type&macroblock_pattern))
+            Skip_SB(                                            "dct_type");
+    Element_Trace_End0();
+    if (macroblock_type&macroblock_quant)
+        Skip_S1(5,                                              "quantiser_scale_code");
+    if (macroblock_type&macroblock_motion_forward
+    || (macroblock_type&macroblock_intra
+     && concealment_motion_vectors))
+        slice_start_macroblock_motion_vectors(false);
+    if (macroblock_type&macroblock_motion_backward)
+        slice_start_macroblock_motion_vectors(true);
+    if (macroblock_type&macroblock_intra
+     && concealment_motion_vectors) 
+        Mark_1();
+    if (macroblock_type&macroblock_pattern)
+        slice_start_macroblock_coded_block_pattern();
+    for (int8u i=0; i<block_count; i++)
+        slice_start_macroblock_block(i);
+    Element_Trace_End0();
+}
+#endif //MEDIAINFO_MACROBLOCKS
+
+//---------------------------------------------------------------------------
+// Packet Packet "01" --> "AF", slice_start, macroblock, motion_vectors
+#if MEDIAINFO_MACROBLOCKS
+void File_Mpegv::slice_start_macroblock_motion_vectors(bool s)
+{
+    Element_Trace_Begin1("motion_vectors");
+    int8u motion_vector_count;
+    switch (frame_motion_type)
+    {
+        case 1  :
+                    switch (spatial_temporal_weight_code)
+                    {
+                        case 0 :
+                        case 1 :
+                                motion_vector_count=2;
+                                break;
+                        case 2 :
+                        case 3 :
+                                motion_vector_count=1;
+                                break;
+                        default: Trusted_IsNot("spatial_temporal_weight_code problem");
+                                 Element_Trace_End0();
+                                 return;
+                    }
+                    break;
+        case 2  :
+                    motion_vector_count=1;
+                    break;
+        case 3  :
+                    switch (spatial_temporal_weight_code)
+                    {
+                        case 1 :
+                                Trusted_IsNot("spatial_temporal_weight_code problem");
+                                Element_Trace_End0();
+                                return;
+                        default:
+                                motion_vector_count=1;
+                                break;
+                    }
+        default :   Trusted_IsNot("frame_motion_type problem");
+                    Element_Trace_End0();
+                    return;
+    }
+    if (motion_vector_count==1)
+    {
+        if (!(picture_structure==3 //Frame
+           && frame_motion_type==2) //mv_format==Frame
+          && frame_motion_type!=3) //dmv!=1
+            Skip_SB(                                            "motion_vertical_field_select[0][s]");
+        slice_start_macroblock_motion_vectors_motion_vector(false, s);
+    }
+    else
+    {
+        Skip_SB(                                                "motion_vertical_field_select[0][s]");
+        slice_start_macroblock_motion_vectors_motion_vector(false, s);
+        Skip_SB(                                                "motion_vertical_field_select[1][s]");
+        slice_start_macroblock_motion_vectors_motion_vector(true, s);
+    }
+    Element_Trace_End0();
+}
+#endif //MEDIAINFO_MACROBLOCKS
+
+//---------------------------------------------------------------------------
+// Packet Packet "01" --> "AF", slice_start, macroblock, motion_vectors, motion_vector
+#if MEDIAINFO_MACROBLOCKS
+void File_Mpegv::slice_start_macroblock_motion_vectors_motion_vector(bool r, bool s)
+{
+    Element_Trace_Begin1("motion_vector");
+    size_t motion_code_;
+
+    Get_VL(motion_code, motion_code_, "motion_code[r][s][0]"); Param_Info1(Mpegv_motion_code[motion_code_].mapped_to3);
+    if (Mpegv_motion_code[motion_code_].mapped_to3)
+        Skip_SB(                           "motion_code[r][s][0] sign");
+    if (f_code[s][0]>1 && Mpegv_motion_code[motion_code_].mapped_to3)
+        Skip_S1(f_code[s][0]-1,             "motion_residual[r][s][0]");
+    if (frame_motion_type==3) //dmv==1
+    {
+        Info_VL(dmvector, dmvector_,  "dmvector[0]"); Param_Info1(Mpegv_dmvector[dmvector_].mapped_to3);
+    }
+
+    Get_VL(motion_code, motion_code_, "motion_code[r][s][1]"); Param_Info1(Mpegv_motion_code[motion_code_].mapped_to3);
+    if (Mpegv_motion_code[motion_code_].mapped_to3)
+        Skip_SB(                           "motion_code[r][s][1] sign");
+    if (f_code[s][1]>1 && Mpegv_motion_code[motion_code_].mapped_to3)
+        Skip_S1(f_code[s][1]-1,             "motion_residual[r][s][1]");
+    if (frame_motion_type==3) //dmv==1
+    {
+        Info_VL(dmvector, dmvector_,  "dmvector[1]"); Param_Info1(Mpegv_dmvector[dmvector_].mapped_to3);
+    }
+
+    Element_Trace_End0();
+}
+#endif //MEDIAINFO_MACROBLOCKS
+
+//---------------------------------------------------------------------------
+// Packet Packet "01" --> "AF", slice_start, macroblock, coded_block_pattern
+#if MEDIAINFO_MACROBLOCKS
+void File_Mpegv::slice_start_macroblock_coded_block_pattern()
+{
+    Element_Trace_Begin1("coded_block_pattern");
+    size_t coded_block_pattern_;
+    Get_VL(coded_block_pattern, coded_block_pattern_, "coded_block_pattern_420");
+    cbp=Mpegv_coded_block_pattern[coded_block_pattern_].mapped_to3;
+    switch (chroma_format)
+    {
+        case 2 :    //4:2:2
+                    {
+                    int8u coded_block_pattern_1;
+                    Get_S1 (2, coded_block_pattern_1,           "coded_block_pattern_1");
+                    cbp<<=2;
+                    cbp|=coded_block_pattern_1;
+                    }
+                    break;
+        case 3 :    //4:4:4
+                    {
+                    int8u coded_block_pattern;
+                    Get_S1 (8, coded_block_pattern,             "coded_block_pattern_1/2");
+                    cbp<<=8;
+                    cbp|=coded_block_pattern;
+                    }
+                    break;
+        default :   ;
+    }
+    Element_Info1(Ztring::ToZtring((int16u)cbp, 2));
+    Element_Trace_End0();
+}
+#endif //MEDIAINFO_MACROBLOCKS
+
+//---------------------------------------------------------------------------
+// Packet Packet "01" --> "AF", slice_start, macroblock, block
+#if MEDIAINFO_MACROBLOCKS
+void File_Mpegv::slice_start_macroblock_block(int8u i)
+{
+    //pattern_code
+    if (!(macroblock_type&macroblock_intra) && !((macroblock_type&macroblock_pattern) && (cbp&(1<<(block_count-1-i)))))
+        return;
+
+    Element_Trace_Begin1("block"); Element_Info1(i);
+    bool IsFirst;
+    const vlc* Mpegv_dct_coefficients;
+    vlc_fast* Mpegv_dct_coefficients2;
+    if (macroblock_type&macroblock_intra)
+    {
+        IsFirst=false;
+        Mpegv_dct_coefficients=intra_vlc_format?Mpegv_dct_coefficients_1:Mpegv_dct_coefficients_0;
+        Mpegv_dct_coefficients2=&(intra_vlc_format?dct_coefficients_1:dct_coefficients_0);
+        if (i<4)
+        {
+            size_t dct_dc_size_luminance_;
+            Get_VL(dct_dc_size_luminance, dct_dc_size_luminance_, "dct_dc_size_luminance"); Param_Info1(Mpegv_dct_dc_size_luminance[dct_dc_size_luminance_].mapped_to3);
+            if (Mpegv_dct_dc_size_luminance[dct_dc_size_luminance_].mapped_to3)
+                Skip_S2(Mpegv_dct_dc_size_luminance[dct_dc_size_luminance_].mapped_to3, "dct_dc_differential");
+        }
+        else
+        {
+            size_t dct_dc_size_chrominance_;
+            Get_VL(dct_dc_size_chrominance, dct_dc_size_chrominance_, "dct_dc_size_chrominance"); Param_Info1(Mpegv_dct_dc_size_chrominance[dct_dc_size_chrominance_].mapped_to3);
+            if (Mpegv_dct_dc_size_chrominance[dct_dc_size_chrominance_].mapped_to3)
+                Skip_S2((int8u)dct_dc_size_chrominance_, "dct_dc_differential");
+        }
+    }
+    else
+    {
+        IsFirst=true;
+        Mpegv_dct_coefficients=Mpegv_dct_coefficients_0;
+        Mpegv_dct_coefficients2=&dct_coefficients_0;
+    }
+
+    for (;;)
+    {
+        Element_Trace_Begin1("dct_coefficient");
+        size_t dct_coefficient;
+        Get_VL(*Mpegv_dct_coefficients2, dct_coefficient, "dct_coefficient");
+        switch (Mpegv_dct_coefficients[dct_coefficient].mapped_to1)
+        {
+            case 1 :
+                    Element_Trace_End1("End of block");
+                    Element_Trace_End0();
+                    return;
+            case 2 :
+                    #if MEDIAINFO_TRACE
+                    if (Trace_Activated)
+                    {
+                        Info_S1( 6, Run,                        "Run"); Element_Info1(Run);
+                        Info_S2(12, Level,                      "Level"); Element_Info1(Level-(Level>0x800?4096:0));
+                    }
+                    else
+                    #endif //MEDIAINFO_MACROBLOCKS
+                    Skip_S3(18,                                 "Run + Level");
+                    break;
+            case 3 :
+                    if (!IsFirst)
+                    {
+                        if (Mpegv_dct_coefficients[dct_coefficient].bit_increment)
+                        {
+                            Element_Trace_End1("End of block");
+                            Element_Trace_End0();
+                            return;
+                        }
+                        Skip_SB(                                "dct_coefficient sign");
+                    }
+            default:
+                    Element_Info1(Mpegv_dct_coefficients[dct_coefficient].mapped_to2);
+                    Element_Info1(Mpegv_dct_coefficients[dct_coefficient].mapped_to3);
+        }
+        if (IsFirst)
+            IsFirst=false;
+        Element_Trace_End0();
+    }
+}
+#endif //MEDIAINFO_MACROBLOCKS
 
 //---------------------------------------------------------------------------
 // Packet "B2"
@@ -2239,6 +3422,11 @@ void File_Mpegv::sequence_header()
             SizeToAnalyse_End=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
         }
 
+        #if MEDIAINFO_MACROBLOCKS
+            if (Macroblocks_Parse)
+                block_count=6; //chroma_format default to 4:2:0
+        #endif //MEDIAINFO_MACROBLOCKS
+
         //Setting as OK
         sequence_header_IsParsed=true;
         if (Frame_Count==0 && FrameInfo.DTS==(int64u)-1)
@@ -2296,6 +3484,10 @@ void File_Mpegv::extension_start()
                     FILLING_BEGIN();
                         if (frame_rate_extension_d)
                             FrameRate=(float)frame_rate_extension_n/frame_rate_extension_d;
+                        #if MEDIAINFO_MACROBLOCKS
+                            if (Macroblocks_Parse)
+                                block_count=Mpegv_block_count[chroma_format];
+                        #endif //MEDIAINFO_MACROBLOCKS
                     FILLING_END();
                 }
                 break;
@@ -2315,24 +3507,69 @@ void File_Mpegv::extension_start()
                 break;
         case  5 :{ //Sequence Scalable Extension
                     //Parsing
-                    Skip_S1(4,                                  "data");
+                    Skip_S2(10,                                 "lower_layer_temporal_reference");
+                    Mark_1();
+                    Skip_S2(15,                                 "lower_layer_horizontal_offset");
+                    Mark_1();
+                    Skip_S2(15,                                 "lower_layer_vertical_offset");
+                    #if MEDIAINFO_MACROBLOCKS
+                    if (Macroblocks_Parse)
+                    {
+                        sequence_scalable_extension_Present=true;
+                        Get_S1 ( 2, spatial_temporal_weight_code_table_index, "spatial_temporal_weight_code_table_index");
+                    }
+                    else
+                    #endif //MEDIAINFO_MACROBLOCKS
+                        Skip_S1( 2,                             "spatial_temporal_weight_code_table_index");
+                    Skip_SB(                                    "lower_layer_progressive_frame");
+                    Skip_SB(                                    "lower_layer_deinterlaced_field_select");
                     BS_End();
-                    Skip_XX(Element_Size-Element_Offset,        "data");
                 }
                 break;
         case  8 :{ //Picture Coding
                     //Parsing
-                    Skip_S1( 4,                                 "f_code_forward_horizontal");
-                    Skip_S1( 4,                                 "f_code_forward_vertical");
-                    Skip_S1( 4,                                 "f_code_backward_horizontal");
-                    Skip_S1( 4,                                 "f_code_backward_vertical");
+                    #if MEDIAINFO_MACROBLOCKS
+                    if (Macroblocks_Parse)
+                    {
+                        Get_S1 ( 4, f_code[0][0],               "f_code_forward_horizontal");
+                        Get_S1 ( 4, f_code[0][1],               "f_code_forward_vertical");
+                        Get_S1 ( 4, f_code[1][0],               "f_code_backward_horizontal");
+                        Get_S1 ( 4, f_code[1][1],               "f_code_backward_vertical");
+                    }
+                    else
+                    #endif //MEDIAINFO_MACROBLOCKS
+                    {
+                        Skip_S1( 4,                             "f_code_forward_horizontal");
+                        Skip_S1( 4,                             "f_code_forward_vertical");
+                        Skip_S1( 4,                             "f_code_backward_horizontal");
+                        Skip_S1( 4,                             "f_code_backward_vertical");
+                    }
                     Get_S1 ( 2, intra_dc_precision,             "intra_dc_precision");
                     Get_S1 ( 2, picture_structure,              "picture_structure"); Param_Info1(Mpegv_picture_structure[picture_structure]);
                     Get_SB (    top_field_first,                "top_field_first");
-                    Skip_SB(                                    "frame_pred_frame_dct");
-                    Skip_SB(                                    "concealment_motion_vectors");
+                    #if MEDIAINFO_MACROBLOCKS
+                    if (Macroblocks_Parse)
+                    {
+                        Get_SB (    frame_pred_frame_dct,       "frame_pred_frame_dct");
+                        Get_SB (    concealment_motion_vectors, "concealment_motion_vectors");
+                    }
+                    else
+                    #endif //MEDIAINFO_MACROBLOCKS
+                    {
+                        Skip_SB(                                "frame_pred_frame_dct");
+                        Skip_SB(                                "concealment_motion_vectors");
+                    }
                     Skip_SB(                                    "q_scale_type");
-                    Skip_SB(                                    "intra_vlc_format");
+                    #if MEDIAINFO_MACROBLOCKS
+                    if (Macroblocks_Parse)
+                    {
+                        Get_SB (    intra_vlc_format,           "intra_vlc_format");
+                    }
+                    else
+                    #endif //MEDIAINFO_MACROBLOCKS
+                    {
+                        Skip_SB(                                "intra_vlc_format");
+                    }
                     Skip_SB(                                    "alternate_scan");
                     Get_SB (    repeat_first_field,             "repeat_first_field");
                     Skip_SB(                                    "chroma_420_type");

@@ -101,6 +101,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
         File_DvDif_Analysis=false;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    #if MEDIAINFO_MACROBLOCKS
+        File_Macroblocks_Parse=false;
+    #endif //MEDIAINFO_MACROBLOCKS
     File_GrowingFile_Delay=10;
     #if defined(MEDIAINFO_LIBMMS_YES)
         File_Mmsh_Describe_Only=false;
@@ -566,6 +569,23 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
             return _T("DVDIF Analysis is disabled due to compilation options");
         #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+    }
+    else if (Option_Lower==_T("file_macroblocks_parse"))
+    {
+        #if MEDIAINFO_MACROBLOCKS
+            File_Macroblocks_Parse_Set(!(Value==_T("0") || Value.empty()));
+            return _T("");
+        #else //MEDIAINFO_MACROBLOCKS
+            return _T("Macroblock parsing is disabled due to compilation options");
+        #endif //MEDIAINFO_MACROBLOCKS
+    }
+    else if (Option_Lower==_T("file_macroblocks_parse_get"))
+    {
+        #if MEDIAINFO_MACROBLOCKS
+            return File_Macroblocks_Parse_Get()?"1":"0";
+        #else //MEDIAINFO_MACROBLOCKS
+            return _T("Macroblock parsing is disabled due to compilation options");
+        #endif //MEDIAINFO_MACROBLOCKS
     }
     else if (Option_Lower==_T("file_growingfile_delay"))
     {
@@ -1470,6 +1490,22 @@ bool MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Get ()
     return Temp;
 }
 #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_MACROBLOCKS
+void MediaInfo_Config_MediaInfo::File_Macroblocks_Parse_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Macroblocks_Parse=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_Macroblocks_Parse_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    bool Temp=File_Macroblocks_Parse;
+    return Temp;
+}
+#endif //MEDIAINFO_MACROBLOCKS
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config_MediaInfo::File_GrowingFile_Delay_Set (float64 NewValue)

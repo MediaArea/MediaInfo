@@ -91,6 +91,13 @@ private :
     //Elements
     void picture_start();
     void slice_start();
+    #if MEDIAINFO_MACROBLOCKS
+    void slice_start_macroblock();
+    void slice_start_macroblock_motion_vectors(bool s);
+    void slice_start_macroblock_motion_vectors_motion_vector(bool r, bool s);
+    void slice_start_macroblock_coded_block_pattern();
+    void slice_start_macroblock_block(int8u i);
+    #endif //MEDIAINFO_MACROBLOCKS
     void user_data_start();
     void user_data_start_3();
     void user_data_start_CC();
@@ -293,6 +300,35 @@ private :
     int64u PTS_LastIFrame;
     int64u tc;
     bool    IFrame_IsParsed;
+
+    #if MEDIAINFO_MACROBLOCKS
+        int64u  macroblock_x;
+        int64u  macroblock_x_PerFrame;
+        int16u  cbp;
+        int8u   frame_motion_type;
+        int8u   field_motion_type;
+        int8u   spatial_temporal_weight_code;
+        int8u   block_count; //Computed from chroma_format
+        int8u   macroblock_type; //Temp
+        int8u   spatial_temporal_weight_code_table_index;
+        int8u   f_code[2][2];
+        bool    Macroblocks_Parse;
+        bool    sequence_scalable_extension_Present;
+        bool    frame_pred_frame_dct;
+        bool    concealment_motion_vectors;
+        bool    intra_vlc_format;
+        vlc_fast macroblock_address_increment_Vlc;
+        vlc_fast dct_dc_size_luminance;
+        vlc_fast dct_dc_size_chrominance;
+        vlc_fast dct_coefficients_0;
+        vlc_fast dct_coefficients_1;
+        vlc_fast macroblock_type_I;
+        vlc_fast macroblock_type_P;
+        vlc_fast macroblock_type_B;
+        vlc_fast motion_code;
+        vlc_fast dmvector;
+        vlc_fast coded_block_pattern;
+    #endif //MEDIAINFO_MACROBLOCKS
 
     #if MEDIAINFO_IBI
         bool    Ibi_SliceParsed;

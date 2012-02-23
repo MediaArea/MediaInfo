@@ -47,6 +47,9 @@
     //#if !defined (MEDIAINFO_DUPLICATE_NO) && !defined (MEDIAINFO_DUPLICATE_YES) 
     //    #define MEDIAINFO_DUPLICATE_NO
     //#endif
+    #if !defined (MEDIAINFO_MACROBLOCKS_NO) && !defined (MEDIAINFO_MACROBLOCKS_YES) 
+        #define MEDIAINFO_MACROBLOCKS_NO
+    #endif
     #if !defined (MEDIAINFO_NEXTPACKET_NO) && !defined (MEDIAINFO_NEXTPACKET_YES) 
         #define MEDIAINFO_NEXTPACKET_NO
     #endif
@@ -81,6 +84,9 @@
     #endif
     #if !defined (MEDIAINFO_DUPLICATE_NO) && !defined (MEDIAINFO_DUPLICATE_YES) 
         #define MEDIAINFO_DUPLICATE_NO
+    #endif
+    #if !defined (MEDIAINFO_MACROBLOCKS_NO) && !defined (MEDIAINFO_MACROBLOCKS_YES) 
+        #define MEDIAINFO_MACROBLOCKS_NO
     #endif
     #if !defined (MEDIAINFO_NEXTPACKET_NO) && !defined (MEDIAINFO_NEXTPACKET_YES) 
         #define MEDIAINFO_NEXTPACKET_NO
@@ -144,6 +150,16 @@
         #define MEDIAINFO_DUPLICATE 0
     #else
         #define MEDIAINFO_DUPLICATE 1
+    #endif
+#endif
+#if !defined(MEDIAINFO_MACROBLOCKS)
+    #if defined(MEDIAINFO_MACROBLOCKS_NO) && defined(MEDIAINFO_MACROBLOCKS_YES)
+        #undef MEDIAINFO_MACROBLOCKS_NO //MEDIAINFO_MACROBLOCKS_YES has priority
+    #endif
+    #if defined(MEDIAINFO_MACROBLOCKS_NO)
+        #define MEDIAINFO_MACROBLOCKS 0
+    #else
+        #define MEDIAINFO_MACROBLOCKS 1
     #endif
 #endif
 #if !defined(MEDIAINFO_NEXTPACKET)
