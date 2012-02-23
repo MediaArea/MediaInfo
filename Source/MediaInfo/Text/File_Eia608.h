@@ -67,10 +67,12 @@ private :
     //Function
     void Standard (int8u Character);
 
-    std::vector<int8u> XDS_Data;
+    std::vector<std::vector<int8u>> XDS_Data;
+    size_t XDS_Level;
     bool TextMode; //CC or T
     bool DataChannelMode; //if true, CC2/CC4/T2/T4
 
+    void XDS(int8u cc_data_1, int8u cc_data_2);
     void XDS();
     void XDS_Current();
     void XDS_Current_ProgramName();

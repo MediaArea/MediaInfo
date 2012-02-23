@@ -80,6 +80,7 @@ File_Eia608::File_Eia608()
     cc_type=(int8u)-1;
 
     //Temp
+    XDS_Level=(size_t)-1;
     TextMode=false;
     DataChannelMode=false;
     cc_data_1_Old=0x00;
@@ -220,15 +221,9 @@ void File_Eia608::Read_Buffer_Continue()
         cc_data_2_Old=0x00;
     }
     
-    if ((cc_data_1 && cc_data_1<0x10) || !XDS_Data.empty()) //XDS
+    if ((cc_data_1 && cc_data_1<0x10) || (XDS_Level!=(size_t)-1 && cc_data_1>=0x20)) //XDS
     {
-        TextMode=false; //This is CC
-        XDS_Data.push_back(cc_data_1);
-        XDS_Data.push_back(cc_data_2);
-        if (cc_data_1==0x0F)
-            XDS();
-        if (XDS_Data.size()>64)
-            XDS_Data.clear(); //This is a security
+        XDS(cc_data_1, cc_data_2);
     }
     else if (cc_data_1>=0x20) //Basic characters
     {
@@ -249,15 +244,57 @@ void File_Eia608::Read_Buffer_Continue()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Eia608::XDS(int8u cc_data_1, int8u cc_data_2)
+{
+    if (cc_data_1 && cc_data_1<0x10 && cc_data_1%2==0)
+    {
+        // Continue
+        cc_data_1--;
+        for (XDS_Level=0; XDS_Level<XDS_Data.size(); XDS_Level++)
+            if (XDS_Data[XDS_Level].size()>=2 && XDS_Data[XDS_Level][0]==cc_data_1 && XDS_Data[XDS_Level][1]==cc_data_2)
+                break;
+        if (XDS_Level>=XDS_Data.size())
+            XDS_Level=(size_t)-1; // There is a problem
+
+        return;
+    }
+    else if (cc_data_1 && cc_data_1<0x0F)
+    {
+        // Start
+        for (XDS_Level=0; XDS_Level<XDS_Data.size(); XDS_Level++)
+            if (XDS_Data[XDS_Level].size()>=2 && XDS_Data[XDS_Level][0]==cc_data_1 && XDS_Data[XDS_Level][1]==cc_data_2)
+                break;
+        if (XDS_Level>=XDS_Data.size())
+        {
+            XDS_Level=XDS_Data.size();
+            XDS_Data.resize(XDS_Level+1);
+        }
+        else
+            XDS_Data[XDS_Level].clear(); // There is a problem, erasing the previous item
+    }
+    
+    if (XDS_Level==(size_t)-1)
+        return; //There is a problem
+
+    XDS_Data[XDS_Level].push_back(cc_data_1);
+    XDS_Data[XDS_Level].push_back(cc_data_2);
+    if (cc_data_1==0x0F)
+        XDS();
+    if (XDS_Level!=(size_t)-1 && XDS_Data[XDS_Level].size()>=36)
+        XDS_Data[XDS_Level].clear(); // Clear, this is a security
+    TextMode=0; // This is CC
+}
+
+//---------------------------------------------------------------------------
 void File_Eia608::XDS()
 {
-    if (XDS_Data.size()<4)
+    if (XDS_Data[XDS_Level].size()<4)
     {
-        XDS_Data.clear();
+        XDS_Data.erase(XDS_Data.begin()+XDS_Level);
         return; //There is a problem
     }
 
-    switch (XDS_Data[0])
+    switch (XDS_Data[XDS_Level][0])
     {
         case 0x01 : XDS_Current(); break;
         case 0x05 : XDS_Channel(); break;
@@ -265,13 +302,14 @@ void File_Eia608::XDS()
         default   : ;
     }
 
-    XDS_Data.clear();
+    XDS_Data.erase(XDS_Data.begin()+XDS_Level);
+    XDS_Level=(size_t)-1;
 }
 
 //---------------------------------------------------------------------------
 void File_Eia608::XDS_Current()
 {
-    switch (XDS_Data[1])
+    switch (XDS_Data[XDS_Level][1])
     {
         case 0x03 : XDS_Current_ProgramName(); break;
         case 0x05 : XDS_Current_ContentAdvisory(); break;
@@ -283,7 +321,7 @@ void File_Eia608::XDS_Current()
 //---------------------------------------------------------------------------
 void File_Eia608::XDS_Current_ContentAdvisory()
 {
-    if (XDS_Data.size()!=6)
+    if (XDS_Data[XDS_Level].size()!=6)
     {
         return; //There is a problem
     }
@@ -293,8 +331,8 @@ void File_Eia608::XDS_Current_ContentAdvisory()
 void File_Eia608::XDS_Current_ProgramName()
 {
     string ValueS;
-    for (size_t Pos=2; Pos<XDS_Data.size()-2; Pos++)
-        ValueS.append(1, (const char)(XDS_Data[Pos]));
+    for (size_t Pos=2; Pos<XDS_Data[XDS_Level].size()-2; Pos++)
+        ValueS.append(1, (const char)(XDS_Data[XDS_Level][Pos]));
     Ztring Value;
     Value.From_UTF8(ValueS.c_str());
     Element_Info1(_T("Program Name=")+Value);
@@ -303,7 +341,7 @@ void File_Eia608::XDS_Current_ProgramName()
 //---------------------------------------------------------------------------
 void File_Eia608::XDS_Current_CopyAndRedistributionControlPacket()
 {
-    if (XDS_Data.size()!=6)
+    if (XDS_Data[XDS_Level].size()!=6)
     {
         return; //There is a problem
     }
@@ -312,7 +350,7 @@ void File_Eia608::XDS_Current_CopyAndRedistributionControlPacket()
 //---------------------------------------------------------------------------
 void File_Eia608::XDS_Channel()
 {
-    switch (XDS_Data[1])
+    switch (XDS_Data[XDS_Level][1])
     {
         case 0x01 : XDS_Channel_NetworkName(); break;
         default   : ;
@@ -323,8 +361,8 @@ void File_Eia608::XDS_Channel()
 void File_Eia608::XDS_Channel_NetworkName()
 {
     string ValueS;
-    for (size_t Pos=2; Pos<XDS_Data.size()-2; Pos++)
-        ValueS.append(1, (const char)(XDS_Data[Pos]));
+    for (size_t Pos=2; Pos<XDS_Data[XDS_Level].size()-2; Pos++)
+        ValueS.append(1, (const char)(XDS_Data[XDS_Level][Pos]));
     Ztring Value;
     Value.From_UTF8(ValueS.c_str());
     Element_Info1(_T("Network Name=")+Value);
@@ -333,7 +371,7 @@ void File_Eia608::XDS_Channel_NetworkName()
 //---------------------------------------------------------------------------
 void File_Eia608::XDS_PublicService()
 {
-    switch (XDS_Data[1])
+    switch (XDS_Data[XDS_Level][1])
     {
         case 0x01 : XDS_PublicService_NationalWeatherService(); break;
         default   : ;
@@ -343,7 +381,7 @@ void File_Eia608::XDS_PublicService()
 //---------------------------------------------------------------------------
 void File_Eia608::XDS_PublicService_NationalWeatherService()
 {
-    if (XDS_Data.size()!=20)
+    if (XDS_Data[XDS_Level].size()!=20)
     {
         return; //There is a problem
     }
