@@ -1214,7 +1214,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Stream_Prepare(NewKind, NewPos1+StreamPos);
             Merge(*Essence->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
             Ztring Parser_ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+_T("-")+Parser_ID, true);
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+(Parser_ID.empty()?Ztring():(_T("-")+Parser_ID)), true);
             for (size_t Pos=0; Pos<StreamSave.size(); Pos++)
                 if (Retrieve(StreamKind_Last, StreamPos_Last, Pos).empty())
                     Fill(StreamKind_Last, StreamPos_Last, Pos, StreamSave[Pos]);
@@ -4265,7 +4265,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 
         BS_End();
 
-        int64u TimeCode=(int64u)(Hours_Tens     *10*60*60*1000
+        int64u TimeCode_ms=(int64u)(Hours_Tens     *10*60*60*1000
                                + Hours_Units       *60*60*1000
                                + Minutes_Tens      *10*60*1000
                                + Minutes_Units        *60*1000
@@ -4273,7 +4273,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
                                + Seconds_Units           *1000
                                + (FrameRate?float64_int32s((Frames_Tens*10+Frames_Units)*1000/FrameRate):0));
 
-        Element_Info1(Ztring().Duration_From_Milliseconds(TimeCode));
+        Element_Info1(Ztring().Duration_From_Milliseconds(TimeCode_ms));
 
         Element_End0();
 
@@ -4281,7 +4281,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
 
         //TimeCode
         if (SDTI_TimeCode_StartTimecode==(int64u)-1)
-            SDTI_TimeCode_StartTimecode=TimeCode;
+            SDTI_TimeCode_StartTimecode=TimeCode_ms;
     }
     else
         Skip_XX(17,                                             "Junk");
