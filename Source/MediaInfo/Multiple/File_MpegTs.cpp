@@ -154,6 +154,7 @@ File_MpegTs::File_MpegTs()
     Complete_Stream=NULL;
     Begin_MaxDuration=Config_ParseSpeed>=0.8?(int64u)-1:MediaInfoLib::Config.MpegTs_MaximumScanDuration_Get()*27/1000;
     ForceStreamDisplay=MediaInfoLib::Config.MpegTs_ForceStreamDisplay_Get();
+
     #if MEDIAINFO_SEEK
         Seek_Value=(int64u)-1;
         Seek_ID=(int64u)-1;
