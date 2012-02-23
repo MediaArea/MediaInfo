@@ -71,6 +71,25 @@ File_Scc::~File_Scc()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Scc::Streams_Finish()
+{
+    if (Parser && Parser->Status[IsAccepted])
+    {
+        Finish(Parser);
+        for (size_t Pos2=0; Pos2<Parser->Count_Get(Stream_Text); Pos2++)
+        {
+            Stream_Prepare(Stream_Text);
+            Merge(*Parser, Stream_Text, StreamPos_Last, Pos2);
+            Fill(Stream_Text, StreamPos_Last, Text_ID, Parser->Retrieve(Stream_Text, Pos2, Text_ID), true);
+        }
+    }
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -180,18 +199,12 @@ void File_Scc::Data_Parse()
     while (Element_Offset+5<=Element_Size)
     {
         int8u Buffer_Temp[2];
-        Buffer_Temp[0]=(Buffer[Buffer_Offset+(size_t)Element_Offset  ]-'0')<<4
-                     | (Buffer[Buffer_Offset+(size_t)Element_Offset+1]-'0');
-        Buffer_Temp[1]=(Buffer[Buffer_Offset+(size_t)Element_Offset+2]-'0')<<4
-                     | (Buffer[Buffer_Offset+(size_t)Element_Offset+3]-'0');
+        Buffer_Temp[0]=(Buffer[Buffer_Offset+(size_t)Element_Offset+1]-(Buffer[Buffer_Offset+(size_t)Element_Offset+1]>='a'?('a'-10):'0'))<<4
+                     | (Buffer[Buffer_Offset+(size_t)Element_Offset+2]-(Buffer[Buffer_Offset+(size_t)Element_Offset+2]>='a'?('a'-10):'0'));
+        Buffer_Temp[1]=(Buffer[Buffer_Offset+(size_t)Element_Offset+3]-(Buffer[Buffer_Offset+(size_t)Element_Offset+3]>='a'?('a'-10):'0'))<<4
+                     | (Buffer[Buffer_Offset+(size_t)Element_Offset+4]-(Buffer[Buffer_Offset+(size_t)Element_Offset+4]>='a'?('a'-10):'0'));
         Open_Buffer_Continue(Parser, Buffer_Temp, 2);
         Element_Offset+=5;
-
-        if (!Status[IsFilled] && Parser->Status[IsFilled])
-        {
-            Merge(*Parser);
-            Finish();
-        }
     }
 }
 

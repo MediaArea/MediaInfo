@@ -265,6 +265,12 @@ void File_Ancillary::Read_Buffer_Continue()
 }
 
 //---------------------------------------------------------------------------
+void File_Ancillary::Read_Buffer_AfterParsing()
+{
+    Buffer_Offset=Buffer_Size; //This is per frame
+}
+
+//---------------------------------------------------------------------------
 void File_Ancillary::Read_Buffer_Unsynched()
 {
     #if defined(MEDIAINFO_CDP_YES)
@@ -314,9 +320,14 @@ void File_Ancillary::Header_Parse()
     if (WithTenBit)
         Skip_L1(                                                "Parity+Unused"); //even:1, odd:2
 
+    //Test (in some container formats, Cheksum is present sometimes)
+    bool WithChecksum_Temp=WithChecksum;
+    if (!MustSynchronize && !WithChecksum && (3+DataCount+1)*(WithTenBit?2:1)==Buffer_Size)
+        WithChecksum_Temp=true; 
+    
     //Filling
     Header_Fill_Code((((int16u)DataID)<<8)|SecondaryDataID, Ztring().From_CC1(DataID)+_T('-')+Ztring().From_CC1(SecondaryDataID));
-    Header_Fill_Size(((MustSynchronize?3:0)+3+DataCount+(WithChecksum?1:0))*(WithTenBit?2:1));
+    Header_Fill_Size(((MustSynchronize?3:0)+3+DataCount+(WithChecksum_Temp?1:0))*(WithTenBit?2:1));
 }
 
 //---------------------------------------------------------------------------

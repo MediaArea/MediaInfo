@@ -131,9 +131,11 @@ void File_Cdp::Streams_Accept()
 //---------------------------------------------------------------------------
 void File_Cdp::Streams_Update()
 {
+    Clear(Stream_Text);
+
     //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] /*&& Streams[Pos]->Parser->Status[IsUpdated]*/ && Streams[Pos]->Parser->Count_Get(Stream_Text))
             Streams_Update_PerStream(Pos);
 }
 
@@ -142,38 +144,30 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
 {
     Update(Streams[Pos]->Parser);
 
-    //Creating the text stream if not already present
-    if (Streams[Pos]->StreamPos==(size_t)-1)
-    {
-        Streams[Pos]->StreamPos=0;
-        for (size_t Pos2=0; Pos2<Streams.size(); Pos2++)
+    if (Streams[Pos] && Streams[Pos]->Parser)
+        for (size_t Pos2=0; Pos2<Streams[Pos]->Parser->Count_Get(Stream_Text); Pos2++)
         {
-            if (Pos2==Pos)
-            {
-                Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
-                if (WithAppleHeader)
-                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", "Final Cut");
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", "CDP");
-            }
-            else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)
-                Streams[Pos]->StreamPos=Streams[Pos2]->StreamPos+1;
-            else if (Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1)
-                Streams[Pos2]->StreamPos++;
+            Stream_Prepare(Stream_Text);
+            Merge(*Streams[Pos]->Parser, Stream_Text, Pos2, StreamPos_Last);
+            if (WithAppleHeader)
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", "Final Cut");
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", "CDP");
+            Fill(Stream_Text, StreamPos_Last, Text_ID, Streams[Pos]->Parser->Retrieve(Stream_Text, Pos2, Text_ID), true);
         }
-    }
-
-    Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
-    if (Pos<2)
-        Fill(Stream_Text, Streams[Pos]->StreamPos, Text_ID, _T("608-")+Ztring::ToZtring(Pos+1), true);
 }
 
 //---------------------------------------------------------------------------
 void File_Cdp::Streams_Finish()
 {
+    Clear(Stream_Text);
+
     //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsAccepted] /*&& Streams[Pos]->Parser->Status[IsUpdated]*/)
+        {
             Finish(Streams[Pos]->Parser);
+            Streams_Update_PerStream(Pos);
+        }
 }
 
 //***************************************************************************
@@ -344,6 +338,7 @@ void File_Cdp::ccdata_section()
                     {
                         #if defined(MEDIAINFO_EIA608_YES)
                             Streams[Parser_Pos]->Parser=new File_Eia608();
+                            ((File_Eia608*)Streams[Parser_Pos]->Parser)->cc_type=cc_type;
                         #else //defined(MEDIAINFO_EIA608_YES)
                             Streams[Parser_Pos]->Parser=new File__Analyze();
                         #endif //defined(MEDIAINFO_EIA608_YES)

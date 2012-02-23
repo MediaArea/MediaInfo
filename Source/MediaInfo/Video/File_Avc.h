@@ -317,14 +317,16 @@ private :
     typedef vector<temporal_reference*> temporal_references;
     temporal_references                 TemporalReferences; //per pic_order_cnt_lsb
     temporal_reference*                 TemporalReferences_DelayedElement;
+    size_t                              TemporalReferences_Min;
+    size_t                              TemporalReferences_Max;
+    size_t                              TemporalReferences_Reserved;
     size_t                              TemporalReferences_Offset;
     size_t                              TemporalReferences_Offset_pic_order_cnt_lsb_Last;
-    bool                                TemporalReferences_Offset_Moved;
+    int64s                              TemporalReferences_pic_order_cnt_Min;
 
     //Text
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         File__Analyze*                  GA94_03_Parser;
-        size_t                          GA94_03_TemporalReferences_Offset;
         bool                            GA94_03_IsPresent;
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 
@@ -364,6 +366,7 @@ private :
     Ztring                              Encoded_Library_Settings;
     Ztring                              BitRate_Nominal;
     Ztring                              MuxingMode;
+    string                              PictureTypes_PreviousFrames;
     int64u                              tc;
     int32u                              Firstpic_order_cnt_lsbInBlock;
     int8u                               nal_ref_idc;

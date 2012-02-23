@@ -46,7 +46,7 @@ public :
     bool    WithChecksum;
     bool    HasBFrames;
     bool    InDecodingOrder;
-    float64 AspectRatio;
+    float32 AspectRatio;
     float64 FrameRate;
 
     //In/Out
@@ -88,6 +88,7 @@ private :
 
     //Buffer - Global
     void Read_Buffer_Continue();
+    void Read_Buffer_AfterParsing();
     void Read_Buffer_Unsynched();
 
     //Buffer - Per element

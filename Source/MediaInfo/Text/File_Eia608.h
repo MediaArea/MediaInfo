@@ -40,10 +40,13 @@ namespace MediaInfoLib
 // Class File_Eia608
 //***************************************************************************
 
+static const int8u Eia608_Rows=15; //Screen size, specified by the standard
+static const int8u Eia608_Columns=32; //Screen size, specified by the standard
 class File_Eia608 : public File__Analyze
 {
 public :
     //In
+    int8u   cc_type;
 
     //Constructor/Destructor
     File_Eia608();
@@ -67,7 +70,6 @@ private :
     std::vector<int8u> XDS_Data;
     bool TextMode; //CC or T
     bool DataChannelMode; //if true, CC2/CC4/T2/T4
-    bool InBack; //The back buffer is written
 
     void XDS();
     void XDS_Current();
@@ -114,18 +116,32 @@ private :
     void Character_Fill(wchar_t Character);
     void HasChanged();
     void Illegal(int8u cc_data_1, int8u cc_data_2);
-    vector<vector<character> > CC_Displayed;
-    vector<vector<character> > CC_NonDisplayed;
-    vector<vector<character> > Text_Displayed;
-    int8u Attribute_Current;
+    struct stream
+    {
+        vector<vector<character> > CC_Displayed;
+        vector<vector<character> > CC_NonDisplayed;
+        bool    InBack; //The back buffer is written
+        size_t  x;
+        size_t  y;
+        int8u   Attribute_Current;
+        size_t  RollUpLines;
+        bool    Synched;
 
-    size_t x;
-    size_t y;
-    size_t RollUpLines;
+        stream()
+        {
+            InBack=false;
+            x=0;
+            y=Eia608_Rows-1;
+            Attribute_Current=0;
+            RollUpLines=0;
+            Synched=false;
+        }
+    };
+    std::vector<stream*> Streams;
+
     int8u cc_data_1_Old;
     int8u cc_data_2_Old;
     bool   HasContent;
-    int8u  FieldNumber;
 };
 
 } //NameSpace

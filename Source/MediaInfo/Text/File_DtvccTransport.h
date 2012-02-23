@@ -71,14 +71,10 @@ private :
     struct stream
     {
         File__Analyze*  Parser;
-        size_t          StreamPos;
-        bool            IsFilled;
 
         stream()
         {
             Parser=NULL;
-            StreamPos=(size_t)-1;
-            IsFilled=false;
         }
 
         ~stream()
@@ -87,7 +83,6 @@ private :
         }
     };
     std::vector<stream*> Streams;
-    size_t               Streams_Count;
 };
 
 } //NameSpace

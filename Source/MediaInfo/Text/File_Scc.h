@@ -45,6 +45,9 @@ public :
     ~File_Scc();
 
 private :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();

@@ -78,18 +78,23 @@ File_Eia708::~File_Eia708()
 //---------------------------------------------------------------------------
 void File_Eia708::Streams_Fill()
 {
-    Stream_Prepare(Stream_Text);
-    Fill(Stream_Text, 0, Text_ID, 1); //TODO: fill with the exact service
-    Fill(Stream_Text, 0, Text_Format, "EIA-708");
-    Fill(Stream_Text, 0, Text_StreamSize, 0);
-    Fill(Stream_Text, 0, Text_BitRate_Mode, "CBR");
+    if (Config->File_Eia708_DisplayEmptyStream_Get() && Streams.size()<2)
+        Streams.resize(2);
+
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos] || (Pos && Pos<2 && Config->File_Eia708_DisplayEmptyStream_Get()))
+        {
+            Stream_Prepare(Stream_Text);
+            Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+            Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
+            Fill(Stream_Text, StreamPos_Last, Text_StreamSize, 0);
+            Fill(Stream_Text, StreamPos_Last, Text_BitRate_Mode, "CBR");
+        }
 }
 
 //---------------------------------------------------------------------------
 void File_Eia708::Streams_Finish()
 {
-    if (!HasContent)
-        Fill(Stream_Text, 0, "ContentInfo", "No content");
 }
 
 //***************************************************************************
@@ -115,10 +120,6 @@ void File_Eia708::Read_Buffer_Continue()
         }
 
         Accept("EIA-708");
-
-        //Forcing detection even if this is empty caption (option)
-        if (Config->File_Eia708_DisplayEmptyStream_Get()) //TODO: separate services
-            Fill("EIA-708");
     }
 }
 
@@ -1331,12 +1332,6 @@ void File_Eia708::Character_Fill(wchar_t Character)
     
     if (!HasContent)
         HasContent=true;
-    if (!Status[IsFilled]) //TODO: separate services
-    {
-        Fill("EIA-708");
-        if (MediaInfoLib::Config.ParseSpeed_Get()<1)
-            Finish("EIA-708");
-    }
 }
 
 //---------------------------------------------------------------------------

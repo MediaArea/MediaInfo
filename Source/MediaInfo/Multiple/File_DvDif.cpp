@@ -481,13 +481,17 @@ void File_DvDif::Streams_Fill()
 
     #if defined(MEDIAINFO_EIA608_YES)
         for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
-            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsFilled])
+            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsAccepted])
             {
-                CC_Parsers[Pos]->Finish();
-                Merge(*CC_Parsers[Pos]);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos+1, 10, true);
+                Finish(CC_Parsers[Pos]);
+                for (size_t Pos2=0; Pos2<CC_Parsers[Pos]->Count_Get(Stream_Text); Pos2++)
+                {
+                    Stream_Prepare(Stream_Text);
+                    Merge(*CC_Parsers[Pos], Stream_Text, Pos2, StreamPos_Last);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, CC_Parsers[Pos]->Retrieve(Stream_Text, Pos2, Text_ID), true);
+                }
             }
-    #endif
+    #endif //defined(MEDIAINFO_EIA608_YES)
 }
 
 //---------------------------------------------------------------------------
@@ -1626,7 +1630,10 @@ void File_DvDif::closed_captions()
         {
             CC_Parsers.resize(2);
             for (size_t Pos=0; Pos<2; Pos++)
+            {
                 CC_Parsers[Pos]=new File_Eia608();
+                ((File_Eia608*)CC_Parsers[Pos])->cc_type=Pos;
+            }
             Frame_Count_Valid*=10; //More frames
         }
         if (Dseq==0) //CC are duplicated for each DIF sequence!

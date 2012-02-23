@@ -90,7 +90,6 @@ File_DtvccTransport::File_DtvccTransport()
 
     //Temp
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
-    Streams_Count=0;
 }
 
 //---------------------------------------------------------------------------
@@ -107,9 +106,11 @@ File_DtvccTransport::~File_DtvccTransport()
 //---------------------------------------------------------------------------
 void File_DtvccTransport::Streams_Update()
 {
+    Clear(Stream_Text);
+
     //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated] && Streams[Pos]->Parser->Count_Get(Stream_Text))
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] /*&& Streams[Pos]->Parser->Status[IsUpdated]*/ && Streams[Pos]->Parser->Count_Get(Stream_Text))
             Streams_Update_PerStream(Pos);
 }
 
@@ -118,36 +119,28 @@ void File_DtvccTransport::Streams_Update_PerStream(size_t Pos)
 {
     Update(Streams[Pos]->Parser);
 
-    //Creating the text stream if not already present
-    if (Streams[Pos]->StreamPos==(size_t)-1)
-    {
-        Streams[Pos]->StreamPos=0;
-        for (size_t Pos2=0; Pos2<Streams.size(); Pos2++)
+    if (Streams[Pos] && Streams[Pos]->Parser)
+        for (size_t Pos2=0; Pos2<Streams[Pos]->Parser->Count_Get(Stream_Text); Pos2++)
         {
-            if (Pos2==Pos)
-            {
-                Stream_Prepare(Stream_Text, Streams[Pos]->StreamPos);
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?_T("DVD-Video"):_T("DTVCC Transport"), Unlimited, true);
-            }
-            else if (Pos2<Pos && Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1 && Streams[Pos2]->StreamPos>=Streams[Pos]->StreamPos)
-                Streams[Pos]->StreamPos=Streams[Pos2]->StreamPos+1;
-            else if (Streams[Pos2] && Streams[Pos2]->StreamPos!=(size_t)-1)
-                Streams[Pos2]->StreamPos++;
+            Stream_Prepare(Stream_Text);
+            Merge(*Streams[Pos]->Parser, Stream_Text, Pos2, StreamPos_Last);
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?_T("DVD-Video"):_T("DTVCC Transport"));
+            Fill(Stream_Text, StreamPos_Last, Text_ID, Streams[Pos]->Parser->Retrieve(Stream_Text, Pos2, Text_ID), true);
         }
-    }
-
-    Merge(*Streams[Pos]->Parser, Stream_Text, 0, Streams[Pos]->StreamPos);
-    if (Pos<2)
-        Fill(Stream_Text, StreamPos_Last, Text_ID, (Format==Format_DVD?_T("DVD-"):_T("608-"))+Ztring::ToZtring(Pos+1), true);
 }
 
 //---------------------------------------------------------------------------
 void File_DtvccTransport::Streams_Finish()
 {
+    Clear(Stream_Text);
+
     //Per stream
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsFilled] && Streams[Pos]->Parser->Status[IsUpdated])
+        if (Streams[Pos] && Streams[Pos]->Parser && Streams[Pos]->Parser->Status[IsAccepted] /*&& Streams[Pos]->Parser->Status[IsUpdated]*/)
+        {
             Finish(Streams[Pos]->Parser);
+            Streams_Update_PerStream(Pos);
+        }
 }
 
 //***************************************************************************
@@ -240,6 +233,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         {
                             #if defined(MEDIAINFO_EIA608_YES)
                                 Streams[Parser_Pos]->Parser=new File_Eia608();
+                                ((File_Eia608*)Streams[Parser_Pos]->Parser)->cc_type=cc_type;
                             #else
                                 Streams[Parser_Pos]->Parser=new File__Analyze();
                             #endif
@@ -285,15 +279,8 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         Element_Offset+=2;
 
                         //Filled
-                        if (!Streams[Parser_Pos]->IsFilled && Streams[Parser_Pos]->Parser->Status[IsFilled])
-                        {
-                            if (Count_Get(Stream_General)==0)
-                                Accept("DTVCC Transport");
-                            Streams_Count++;
-                            if (Streams_Count==3)
-                                Fill("DTVCC Transport");
-                            Streams[Parser_Pos]->IsFilled=true;
-                        }
+                        if (!Status[IsAccepted])
+                            Accept("DTVCC Transport");
                     }
                     else
                         Skip_XX(2,                                  "Data");
