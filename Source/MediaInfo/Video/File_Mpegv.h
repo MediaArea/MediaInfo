@@ -304,6 +304,7 @@ private :
     #if MEDIAINFO_MACROBLOCKS
         int64u  macroblock_x;
         int64u  macroblock_x_PerFrame;
+        int64u  macroblock_y_PerFrame;
         int16u  cbp;
         int8u   frame_motion_type;
         int8u   field_motion_type;

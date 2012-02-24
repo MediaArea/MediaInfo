@@ -1593,6 +1593,8 @@ bool File_Mpegv::Synched_Test()
     #if MEDIAINFO_IBI
         if (Ibi_SliceParsed)
         {
+            if (Buffer_Offset+4>Buffer_Size)
+                return false;
             if (Buffer[Buffer_Offset+3]==0x00 && Buffer_Offset+5>Buffer_Size)
                 return false;
             bool RandomAccess=(Buffer[Buffer_Offset+3]==0x00 && (Buffer[Buffer_Offset+5]&0x38)==0x08) || Buffer[Buffer_Offset+3]==0xB3; //picture_start with I-Frame || sequence_header
@@ -1825,7 +1827,10 @@ void File_Mpegv::Read_Buffer_Unsynched()
     #endif //MEDIAINFO_IBI
     #if MEDIAINFO_MACROBLOCKS
         if (Macroblocks_Parse)
+        {
             macroblock_x_PerFrame=0;
+            macroblock_y_PerFrame=0;
+        }
     #endif //MEDIAINFO_MACROBLOCKS
 
     temporal_reference_Old=(int16u)-1;
@@ -2059,7 +2064,10 @@ void File_Mpegv::picture_start()
 {
     #if MEDIAINFO_MACROBLOCKS
         if (Macroblocks_Parse)
+        {
             macroblock_x_PerFrame=0;
+            macroblock_y_PerFrame=0;
+        }
     #endif //MEDIAINFO_MACROBLOCKS
 
     Element_Name("picture_start");
@@ -2502,7 +2510,11 @@ void File_Mpegv::slice_start()
 
         //Skipping slices (if already unpacketized)
         #if MEDIAINFO_DEMUX
-            if (Demux_UnpacketizeContainer && Buffer_TotalBytes+Buffer_Offset<Demux_TotalBytes)
+            if (Demux_UnpacketizeContainer && Buffer_TotalBytes+Buffer_Offset<Demux_TotalBytes
+                #if MEDIAINFO_MACROBLOCKS
+                    && !Macroblocks_Parse
+                #endif //MEDIAINFO_MACROBLOCKS
+                )
             {
                 Element_Offset=Demux_TotalBytes-(Buffer_TotalBytes+Buffer_Offset);
             }
@@ -2517,6 +2529,7 @@ void File_Mpegv::slice_start()
                 macroblock_x++;
                 Element_Info1(Ztring::ToZtring(macroblock_x)+_T(" macroblocks"));
                 macroblock_x_PerFrame+=macroblock_x;
+                macroblock_y_PerFrame++;
             }
         #endif //MEDIAINFO_MACROBLOCKS
     FILLING_END();
