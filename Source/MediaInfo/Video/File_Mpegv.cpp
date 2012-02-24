@@ -1405,7 +1405,10 @@ void File_Mpegv::Streams_Fill()
         NextCode_Add(0x00);
         NextCode_Add(0xB8);
     }
-    for (int8u Pos=0x00; Pos<=0xB9; Pos++)
+    #if MEDIAINFO_MACROBLOCKS
+        if (!Macroblocks_Parse)
+    #endif //MEDIAINFO_MACROBLOCKS
+    for (int8u Pos=0x01; Pos<=0xAF; Pos++)
         Streams[Pos].Searching_Payload=false;
     Streams[0xB8].Searching_TimeStamp_End=true;
     if (IsSub)
@@ -2269,12 +2272,29 @@ void File_Mpegv::slice_start()
                     Remain=Buffer[Buffer_Offset+(size_t)(Element_Size-Data_Remain())];
                 if (Remain==0)
                 {
-                    int32u Remain3;
-                    size_t Bits=Data_BS_Remain();
-                    if (Bits>23)
-                        Bits=23;
-                    Peek_S3((int8u)Bits, Remain3);
-                    if (Remain3==0)
+                    size_t BytesRemain=Data_Remain();
+                    if (BytesRemain>1)
+                    {
+                        if (Buffer[Buffer_Offset+(size_t)(Element_Size-BytesRemain)+1]==0x00)
+                        {
+                            if (BytesRemain>2)
+                            {
+                                if (Buffer[Buffer_Offset+(size_t)(Element_Size-BytesRemain)+2]==0x00)
+                                {
+                                    if (BytesRemain>3)
+                                    {
+                                        if (Buffer[Buffer_Offset+(size_t)(Element_Size-BytesRemain)+3]==0x00)
+                                            break;
+                                    }
+                                    else
+                                        break;
+                                }
+                            }
+                            else
+                                break;
+                        }
+                    }
+                    else
                         break;
                 }
                 slice_start_macroblock();
@@ -2568,6 +2588,7 @@ void File_Mpegv::slice_start_macroblock()
         {
             BS_End();
             Element_Offset=Element_Size;
+            Finish();
             return;
         }
         Element_Info1(_T("macroblock_quant=")+Ztring::ToZtring(macroblock_type&macroblock_quant));
