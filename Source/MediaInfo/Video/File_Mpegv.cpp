@@ -2559,9 +2559,12 @@ void File_Mpegv::slice_start_macroblock()
     {
         Get_VL(macroblock_address_increment_Vlc, macroblock_address_increment, "macroblock_address_increment");
         Element_Info1(_T("macroblock_address_increment=")+Ztring::ToZtring(Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3));
-        macroblock_x+=Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3;
+        if (macroblock_x!=(int64u)-1)
+            macroblock_x+=Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3;
     }
     while (Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to1==2); //Escape code
+    if (macroblock_x==(int64u)-1)
+        macroblock_x=0;
     Element_Info1(_T("macroblock_x=")+Ztring::ToZtring(macroblock_x));
     Element_Trace_Begin1("macroblock_modes");
         vlc_fast* macroblock_type_X;
