@@ -67,7 +67,7 @@ private :
     //Function
     void Standard (int8u Character);
 
-    std::vector<std::vector<int8u>> XDS_Data;
+    std::vector<std::vector<int8u> > XDS_Data;
     size_t XDS_Level;
     bool TextMode; //CC or T
     bool DataChannelMode; //if true, CC2/CC4/T2/T4

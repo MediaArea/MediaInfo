@@ -2254,8 +2254,6 @@ void File_Mpegv::slice_start()
             macroblock_x=(int64u)-1;
             while (Synched) //Synched: testing if this is still valid
             {
-                if (macroblock_x==118 && Element_Code==0x3A && Frame_Count==3)
-                    int A=0;
                 int8u Remain=0;
                 if (Data_BS_Remain()%8)
                     Peek_S1(Data_BS_Remain()%8, Remain);
@@ -2552,8 +2550,6 @@ void File_Mpegv::slice_start_macroblock()
     }
     while (Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to1==2); //Escape code
     Element_Info1(_T("macroblock_x=")+Ztring::ToZtring(macroblock_x));
-    if (Element_Code==0x44 && macroblock_x==119)
-        int a=0;
     Element_Trace_Begin1("macroblock_modes");
         vlc_fast* macroblock_type_X;
         switch(picture_coding_type)
