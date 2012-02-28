@@ -147,6 +147,7 @@ void File_Eia608::Read_Buffer_Unsynched()
         }
 
     XDS_Data.clear();
+    XDS_Level=(size_t)-1;
 }
 
 //***************************************************************************
@@ -555,6 +556,8 @@ void File_Eia608::Special_11(int8u cc_data_2)
 void File_Eia608::Special_12(int8u cc_data_2)
 {
     size_t StreamPos=TextMode*2+DataChannelMode;
+    if (StreamPos>=Streams.size() || Streams[StreamPos]==NULL || !Streams[StreamPos]->Synched)
+        return; //Not synched
     
     if (Streams[StreamPos]->x && cc_data_2>=0x20 && cc_data_2<0x40)
         Streams[StreamPos]->x--; //Erasing previous character
@@ -602,6 +605,8 @@ void File_Eia608::Special_12(int8u cc_data_2)
 void File_Eia608::Special_13(int8u cc_data_2)
 {
     size_t StreamPos=TextMode*2+DataChannelMode;
+    if (StreamPos>=Streams.size() || Streams[StreamPos]==NULL || !Streams[StreamPos]->Synched)
+        return; //Not synched
     
     if (Streams[StreamPos]->x && cc_data_2>=0x20 && cc_data_2<0x40)
         Streams[StreamPos]->x--; //Erasing previous character
