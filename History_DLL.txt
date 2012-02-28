@@ -15,6 +15,7 @@ Version 0.7.54,
 + Speed improvements
 + MPEG-PS: supporting parsing of some non-conform files
 + Full support of CEA-608 (separation of CC1-CC4, T1-T4)
++ #3494722, MPEG-4: trying to detect wrong duration in track header
 x #3480111, Matroska: some frame rates are incorrect in the file, trying to detect this kind of malformed file
 x #3479494, AVC: segmentation fault
 x #3440638, AAC: wrong detection for some malformed AAC streams
