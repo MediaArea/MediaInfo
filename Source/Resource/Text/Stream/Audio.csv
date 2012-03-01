@@ -101,6 +101,8 @@ BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;;
 BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
 BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;
 BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement);;
+BitRate_Encoded;; bps;N YF;;;Encoded (with forced padding) bit rate in bps, if some container padding is present
+BitRate_Encoded/String;;;Y NT;;;Encoded (with forced padding) bit rate (with measurement), if some container padding is present
 Channel(s);; channel;N YF;;;Number of channels;;
 Channel(s)/String;;;Y NT;;;Number of channels (with measurement);;
 ChannelPositions;;;Y YT;;;Position of channels;;
@@ -109,6 +111,7 @@ ChannelLayout;;;N YT;;;Layout of channels (in the stream);;
 SamplingRate;; Hz;N YF;;;Sampling rate;;
 SamplingRate/String;;;Y NT;;;in KHz;;
 SamplingCount;;;N NI;;;Sample count (based on sampling rate);;
+Source_SamplingCount;;;N NI;;;Source Sample count (based on sampling rate);;
 FrameRate;; fps;N YF;;;Frames per second
 FrameRate/String;;;N NT;;;Frames per second (with measurement)
 FrameCount;;;N NI;;;Frame count (a frame contains a count of samples depends of the format);;
@@ -168,6 +171,22 @@ Source_StreamSize/String3;;;N NT;;;;;
 Source_StreamSize/String4;;;N NT;;;;;
 Source_StreamSize/String5;;;N NT;;;Source Streamsize in with percentage value;;
 Source_StreamSize_Proportion;;;N NT;;;Source Stream size divided by file size;;
+StreamSize_Encoded;; byte;N YI;;;Encoded Streamsize in bytes;;
+StreamSize_Encoded/String;;;Y NT;;;Encoded Streamsize in with percentage value;;
+StreamSize_Encoded/String1;;;N NT;;;;;
+StreamSize_Encoded/String2;;;N NT;;;;;
+StreamSize_Encoded/String3;;;N NT;;;;;
+StreamSize_Encoded/String4;;;N NT;;;;;
+StreamSize_Encoded/String5;;;N NT;;;Encoded Streamsize in with percentage value;;
+StreamSize_Encoded_Proportion;;;N NT;;;Encoded Stream size divided by file size;;
+Source_StreamSize_Encoded;; byte;N YI;;;Source Encoded Streamsize in bytes;;
+Source_StreamSize_Encoded/String;;;Y NT;;;Source Encoded Streamsize in with percentage value;;
+Source_StreamSize_Encoded/String1;;;N NT;;;;;
+Source_StreamSize_Encoded/String2;;;N NT;;;;;
+Source_StreamSize_Encoded/String3;;;N NT;;;;;
+Source_StreamSize_Encoded/String4;;;N NT;;;;;
+Source_StreamSize_Encoded/String5;;;N NT;;;Source Encoded Streamsize in with percentage value;;
+Source_StreamSize_Encoded_Proportion;;;N NT;;;Source Encoded Stream size divided by file size;;
 Alignment;;;N YT;;;How this stream file is aligned in the container;;
 Alignment/String;;;Y NT;;;Where this stream file is aligned in the container;;
 Interleave_VideoFrames;;;N YF;;;Between how many video frames the stream is inserted;;

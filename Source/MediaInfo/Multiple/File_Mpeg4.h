@@ -367,6 +367,8 @@ private :
         int32u                  stts_Max;
         int64u                  stts_FrameCount;
         int64u                  stts_Duration;
+        int64u                  stts_Duration_FirstFrame;
+        int64u                  stts_Duration_LastFrame;
         int64u                  stts_SampleDuration;
         int32u                  mvex_trex_default_sample_duration;
         int32u                  mvex_trex_default_sample_size;
@@ -413,6 +415,8 @@ private :
             stts_Max=0;
             stts_FrameCount=0;
             stts_Duration=0;
+            stts_Duration_FirstFrame=0;
+            stts_Duration_LastFrame=0;
             mvex_trex_default_sample_duration=0;
             mvex_trex_default_sample_size=0;
             TimeCode_TrackID=(int32u)-1;

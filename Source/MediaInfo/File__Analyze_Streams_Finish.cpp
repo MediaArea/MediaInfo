@@ -192,6 +192,24 @@ void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
             Fill(StreamKind, Pos, "BitRate", StreamSize*8*1000/Duration, 0);
     }
 
+    //BitRate_Encoded from Duration and StreamSize_Encoded
+    if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && StreamKind!=Stream_Menu && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Encoded)).empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize_Encoded)).empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty())
+    {
+        float64 Duration=0;
+        if (StreamKind==Stream_Video && !Retrieve(Stream_Video, Pos, Video_FrameCount).empty() && !Retrieve(Stream_Video, Pos, Video_FrameRate).empty())
+        {
+            int64u FrameCount=Retrieve(Stream_Video, Pos, Video_FrameCount).To_int64u();
+            float64 FrameRate=Retrieve(Stream_Video, Pos, Video_FrameRate).To_float64();
+            if (FrameCount && FrameRate)
+                Duration=FrameCount*1000/FrameRate; //More precise (example: 1 frame at 29.97 fps)
+        }
+        if (Duration==0)
+            Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_float64();
+        int64u StreamSize_Encoded=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize_Encoded)).To_int64u();
+        if (Duration>0 && StreamSize_Encoded>0)
+            Fill(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_BitRate_Encoded), StreamSize_Encoded*8*1000/Duration, 0);
+    }
+
     //Duration from Bitrate and StreamSize
     if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && Count_Get(Stream_Video)+Count_Get(Stream_Audio)>1) //If only one stream, duration will be copied later, useful for exact bitrate calculation
     {
@@ -307,11 +325,7 @@ void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
             Duration=Retrieve(Stream_General, 0, General_Duration).To_int64s();
         float SamplingRate=Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_float32();
         if (Duration && SamplingRate)
-        {
             Fill(Stream_Audio, Pos, Audio_SamplingCount, ((float64)Duration)/1000*SamplingRate, 0);
-            if (Retrieve(Stream_Audio, Pos, Audio_Format)==_T("PCM") && Retrieve(Stream_Audio, Pos, Audio_FrameCount).empty())
-                Fill(Stream_Audio, Pos, Audio_FrameCount, Retrieve(Stream_Audio, Pos, Audio_SamplingCount));
-        }
     }
 
     //Frame count
@@ -434,7 +448,7 @@ void File__Analyze::Streams_Finish_InterStreams()
     }
 
     //Video bitrate if we have all audio bitrates and overal bitrate
-    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OverallBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()>=1000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OverallBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Video, 0, Video_BitRate_Encoded).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()>=1000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
     {
         double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
@@ -495,7 +509,9 @@ void File__Analyze::Streams_Finish_InterStreams()
         bool VideobitRateIsValid=true;
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {
-            float64 AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_float64();
+            float64 AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).To_float64();
+            if (AudioBitRate==0)            
+                AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_float64();
             if (AudioBitRate>0 && AudioBitRate_Ratio)
                 VideoBitRate-=AudioBitRate/AudioBitRate_Ratio+AudioBitRate_Minus;
             else
@@ -503,7 +519,9 @@ void File__Analyze::Streams_Finish_InterStreams()
         }
         for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
         {
-            float64 TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate).To_float64();
+            float64 TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate_Encoded).To_float64();
+            if (TextBitRate==0)
+                TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate).To_float64();
             if (TextBitRate_Ratio)
                 VideoBitRate-=TextBitRate/TextBitRate_Ratio+TextBitRate_Minus;
             else

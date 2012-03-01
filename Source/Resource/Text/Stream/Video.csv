@@ -90,6 +90,16 @@ Source_Duration/String;;;Y NT;;;Source Play time in format : XXx YYy only, YYy o
 Source_Duration/String1;;;N NT;;;Source Play time in format : HHh MMmn SSs MMMms, XX omited if zero;;
 Source_Duration/String2;;;N NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
 Source_Duration/String3;;;N NT;;;Source Play time in format : HH:MM:SS.MMM;;
+Source_Duration_FirstFrame;; ms;N YI;;;Source Duration of the first frame if it is longer than others, in ms;
+Source_Duration_FirstFrame/String;;;Y NT;;;Source Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
+Source_Duration_FirstFrame/String1;;;N NT;;;Source Duration of the first frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
+Source_Duration_FirstFrame/String2;;;N NT;;;Source Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
+Source_Duration_FirstFrame/String3;;;N NT;;;Source Duration of the first frame if it is longer than others, in format : HH:MM:SS.MMM;
+Source_Duration_LastFrame;; ms;N YI;;;Source Duration of the last frame if it is longer than others, in ms;
+Source_Duration_LastFrame/String;;;Y NT;;;Source Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
+Source_Duration_LastFrame/String1;;;N NT;;;Source Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
+Source_Duration_LastFrame/String2;;;N NT;;;Source Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
+Source_Duration_LastFrame/String3;;;N NT;;;Source Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM;
 BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR);
 BitRate_Mode/String;;;Y NT;;;Bit rate mode (Variable, Cconstant);
 BitRate;; bps;N YF;;;Bit rate in bps;
@@ -100,6 +110,8 @@ BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
 BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
 BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
 BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
+BitRate_Encoded;; bps;N YF;;;Encoded (with forced padding) bit rate in bps, if some container padding is present
+BitRate_Encoded/String;;;Y NT;;;Encoded (with forced padding) bit rate (with measurement), if some container padding is present
 Width;; pixel;N YI;;;Width (aperture size if present) in pixel
 Width/String;;;Y NT;;;Width (aperture size if present) with measurement (pixel)
 Width_Offset;; pixel;N YI;;;Offset between original width and displayed width (aperture size) in pixel
@@ -176,12 +188,12 @@ Delay_Original/String3;;;N NT;;;Delay in format: HH:MM:SS.MMM;;
 Delay_Original/String4;;;N NT;;;Delay in format: HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available);
 Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example);;
 Delay_Original_Source;;;N NT;;;Delay source (Stream or empty);
-StreamSize;; byte;N YI;;;Stream size in bytes;;
+StreamSize;; byte;N YI;;;Streamsize in bytes;;
 StreamSize/String;;;Y NT;;;Streamsize in with percentage value;;
-StreamSize/String1;;;N NT;;;Streamsize with measurement;;
-StreamSize/String2;;;N NT;;;Streamsize with measurement;;
-StreamSize/String3;;;N NT;;;Streamsize with measurement;;
-StreamSize/String4;;;N NT;;;Streamsize with measurement;;
+StreamSize/String1;;;N NT;;;;;
+StreamSize/String2;;;N NT;;;;;
+StreamSize/String3;;;N NT;;;;;
+StreamSize/String4;;;N NT;;;;;
 StreamSize/String5;;;N NT;;;Streamsize in with percentage value;;
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
 Source_StreamSize;; byte;N YI;;;Source Streamsize in bytes;;
@@ -192,6 +204,22 @@ Source_StreamSize/String3;;;N NT;;;;;
 Source_StreamSize/String4;;;N NT;;;;;
 Source_StreamSize/String5;;;N NT;;;Source Streamsize in with percentage value;;
 Source_StreamSize_Proportion;;;N NT;;;Source Stream size divided by file size;;
+StreamSize_Encoded;; byte;N YI;;;Encoded Streamsize in bytes;;
+StreamSize_Encoded/String;;;Y NT;;;Encoded Streamsize in with percentage value;;
+StreamSize_Encoded/String1;;;N NT;;;;;
+StreamSize_Encoded/String2;;;N NT;;;;;
+StreamSize_Encoded/String3;;;N NT;;;;;
+StreamSize_Encoded/String4;;;N NT;;;;;
+StreamSize_Encoded/String5;;;N NT;;;Encoded Streamsize in with percentage value;;
+StreamSize_Encoded_Proportion;;;N NT;;;Encoded Stream size divided by file size;;
+Source_StreamSize_Encoded;; byte;N YI;;;Source Encoded Streamsize in bytes;;
+Source_StreamSize_Encoded/String;;;Y NT;;;Source Encoded Streamsize in with percentage value;;
+Source_StreamSize_Encoded/String1;;;N NT;;;;;
+Source_StreamSize_Encoded/String2;;;N NT;;;;;
+Source_StreamSize_Encoded/String3;;;N NT;;;;;
+Source_StreamSize_Encoded/String4;;;N NT;;;;;
+Source_StreamSize_Encoded/String5;;;N NT;;;Source Encoded Streamsize in with percentage value;;
+Source_StreamSize_Encoded_Proportion;;;N NT;;;Source Encoded Stream size divided by file size;;
 Alignment;;;Y NT;;;How this stream file is aligned in the container;;
 Alignment/String;;;N YT;;;;;
 Title;;;Y YI;;;Name of the track;;

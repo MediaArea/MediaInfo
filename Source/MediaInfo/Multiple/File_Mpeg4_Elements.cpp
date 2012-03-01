@@ -4940,13 +4940,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts_Common(int32u SampleCount, int32u
         Stream->second.stts.push_back(Stts);
         if (Pos==1 && NumberOfEntries>=2 && NumberOfEntries<=3 && Stream->second.stts_FrameCount==1 && Stts.SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
         {
-            Fill(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame", ((float32)(((int32s)Stream->second.stts_Min)-((int32s)(Stts.SampleDuration))))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+            Stream->second.stts_Duration_FirstFrame=Stream->second.stts[0].SampleDuration;
             Stream->second.stts_Min=Stts.SampleDuration;
             Stream->second.stts_Max=Stts.SampleDuration;
         }
         if (NumberOfEntries>=2 && NumberOfEntries<=3 && Pos+1==NumberOfEntries && Stts.SampleCount==1 && Stream->second.stts_Min==Stream->second.stts_Max && Stts.SampleDuration!=Stream->second.stts_Max && Stream->second.mdhd_TimeScale)
         {
-            Fill(StreamKind_Last, StreamPos_Last, "Duration_LastFrame", ((float32)(((int32s)(Stts.SampleDuration))-((int32s)Stream->second.stts_Min)))*1000/Stream->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+            Stream->second.stts_Duration_LastFrame=Stts.SampleDuration;
         }
         else
         {

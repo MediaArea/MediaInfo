@@ -131,6 +131,7 @@ File__Analyze::File__Analyze ()
         Buffer_TotalBytes_Fill_Max=Buffer_TotalBytes_FirstSynched_Max+64*1024*1024;
     else
         Buffer_TotalBytes_Fill_Max=(int64u)-1;
+    Buffer_PaddingBytes=0;
 
     //EOF
     EOF_AlreadyDetected=(Config_ParseSpeed==1.0)?true:false;

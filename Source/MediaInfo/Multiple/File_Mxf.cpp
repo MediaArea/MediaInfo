@@ -4137,12 +4137,16 @@ void File_Mxf::AncPacketsDescriptor()
 void File_Mxf::Filler()
 {
     Skip_XX(Element_Size,                                       "Junk");
+
+    Buffer_PaddingBytes+=Element_Size;
 }
 
 //---------------------------------------------------------------------------
 void File_Mxf::TerminatingFiller()
 {
     Skip_XX(Element_Size,                                       "Junk");
+
+    Buffer_PaddingBytes+=Element_Size;
 }
 
 //---------------------------------------------------------------------------

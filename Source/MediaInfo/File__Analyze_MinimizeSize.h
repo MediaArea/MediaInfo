@@ -1167,7 +1167,9 @@ protected :
     const int8u* Buffer;
 public : //TO CHANGE
     size_t Buffer_Size;
+    int64u Buffer_TotalBytes;
     int64u Buffer_TotalBytes_FirstSynched;
+    int64u Buffer_PaddingBytes;
 protected :
     int8u* Buffer_Temp;
     size_t Buffer_Temp_Size;
@@ -1176,7 +1178,6 @@ protected :
     size_t Buffer_Offset_Temp; //Temporary usage in this parser
     size_t Buffer_MinimumSize;
     size_t Buffer_MaximumSize;
-    int64u Buffer_TotalBytes;
     int64u Buffer_TotalBytes_FirstSynched_Max;
     int64u Buffer_TotalBytes_Fill_Max;
     friend class File__Tags_Helper;
