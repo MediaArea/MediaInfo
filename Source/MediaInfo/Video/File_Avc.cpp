@@ -1519,7 +1519,7 @@ void File_Avc::slice_header()
                 default:    ;
             }
 
-            if (pic_order_cnt_lsb==0)
+            if (TemporalReferences_Offset+pic_order_cnt>=3*TemporalReferences_Reserved)
             {
                 size_t Offset=TemporalReferences_Max-TemporalReferences_Offset;
                 if (Offset%2)
@@ -1541,7 +1541,7 @@ void File_Avc::slice_header()
                 }
                 else if (Offset && Offset<=2) //Only I-frames
                     TemporalReferences_Offset+=2;
-                while (TemporalReferences_Offset>=2*TemporalReferences_Reserved)
+                while (TemporalReferences_Offset+pic_order_cnt>=3*TemporalReferences_Reserved)
                 {
                     for (size_t Pos=0; Pos<TemporalReferences_Reserved; Pos++)
                         if (TemporalReferences[Pos])
