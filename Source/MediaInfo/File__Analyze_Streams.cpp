@@ -1937,7 +1937,7 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
         int32u BitRate=List[Pos].To_int32u();
 
         //Text
-        if (BitRate==      0)
+        if (BitRate==0 && (List[Pos].empty() || List[Pos][0]>_T('9')))
         {
             Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(List[Pos]));
         }
@@ -1947,7 +1947,6 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
             Ztring BitRateS;
             if (StreamKind==Stream_Audio)
             {
-                Ztring A=Retrieve(Stream_Audio, StreamPos, Audio_Format);
                 if (Parameter==Audio_BitRate
                  && (Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("PCM")
                   || Retrieve(Stream_Audio, StreamPos, Audio_Format)==_T("ADPCM")
@@ -1997,7 +1996,7 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
                     Measure.insert(1, _T("K"));
                     Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000, BitRate>100000?0:1), Measure, true));
                 }
-                else if (BitRate>0)
+                else
                     Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(BitRate), MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure), true));
             }
         }

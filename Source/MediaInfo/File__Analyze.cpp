@@ -132,6 +132,7 @@ File__Analyze::File__Analyze ()
     else
         Buffer_TotalBytes_Fill_Max=(int64u)-1;
     Buffer_PaddingBytes=0;
+    Stream_BitRateFromContainer=0;
 
     //EOF
     EOF_AlreadyDetected=(Config_ParseSpeed==1.0)?true:false;
@@ -430,6 +431,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         #endif //MEDIAINFO_DEMUX
            )
         {
+                Buffer_TotalBytes+=Buffer_Size;
                 ForceFinish();
                 return;
         }

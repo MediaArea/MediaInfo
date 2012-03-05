@@ -1170,6 +1170,7 @@ public : //TO CHANGE
     int64u Buffer_TotalBytes;
     int64u Buffer_TotalBytes_FirstSynched;
     int64u Buffer_PaddingBytes;
+    float64 Stream_BitRateFromContainer;
 protected :
     int8u* Buffer_Temp;
     size_t Buffer_Temp_Size;

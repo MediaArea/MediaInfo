@@ -415,8 +415,7 @@ void File_DvDif::Streams_Fill()
 
     if (FrameSize_Theory && !IsHd)
     {
-        float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*8;
-        if (OverallBitRate>27360000 && OverallBitRate<=30240000) OverallBitRate=DSF?28800000:28771229;
+        float64 OverallBitRate=FrameSize_Theory*(DSF?((float64)25.000):((float64)30000/1001))*8;
         if (FSC_WasSet)
         {
             if (FSP_WasNotSet)
@@ -426,7 +425,10 @@ void File_DvDif::Streams_Fill()
         }
         if (OverallBitRate)
         {
-            Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
+            if (IsSub)
+                Fill(Stream_Video, 0, Video_BitRate_Encoded, OverallBitRate, 0);
+            else
+                Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
             Fill(Stream_Video, 0, (FSC_WasSet && FSP_WasNotSet)?Video_BitRate_Maximum:Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
         }
     }
@@ -437,7 +439,27 @@ void File_DvDif::Streams_Fill()
             Stream_Prepare(Stream_Audio);
             for (std::map<std::string, Ztring>::iterator Info=Streams_Audio[Pos]->Infos.begin(); Info!=Streams_Audio[Pos]->Infos.end(); Info++)
                 Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Encoded, 0);
         }
+    
+    if (Stream_BitRateFromContainer && Retrieve(Stream_Video, 0, Video_BitRate).empty())
+    {
+        if (Stream_BitRateFromContainer>=28800000*0.98 && Stream_BitRateFromContainer<=28800000*1.02)
+        {
+            Fill(Stream_Video, 0, Video_BitRate, ((float64)28800000)*134/150*76/80, 0); 
+            Fill(Stream_Video, 0, Video_BitRate_Encoded, 28800000);
+        }
+        if (Stream_BitRateFromContainer>=57600000*0.98 && Stream_BitRateFromContainer<=57600000*1.02)
+        {
+            Fill(Stream_Video, 0, Video_BitRate, ((float64)57600000)*134/150*76/80, 0); 
+            Fill(Stream_Video, 0, Video_BitRate_Encoded, 57600000);
+        }
+        if (Stream_BitRateFromContainer>=115200000*0.98 && Stream_BitRateFromContainer<=115200000*1.02)
+        {
+            Fill(Stream_Video, 0, Video_BitRate, ((float64)115200000)*134/150*76/80, 0); 
+            Fill(Stream_Video, 0, Video_BitRate_Encoded, 115200000);
+        }
+    }
 
     //Library settings
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);

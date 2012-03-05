@@ -315,7 +315,8 @@ void File_Mpeg4::Streams_Finish()
                     int64u StreamSize=0;
                     for (size_t stsz_Pos=0; stsz_Pos<FrameCount; stsz_Pos++)
                         StreamSize+=Temp->second.stsz_Total[stsz_Pos];
-                    Fill(StreamKind_Last, StreamPos_Last, "StreamSize", StreamSize);
+                    bool HasEncodedBitRate=!Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Encoded").empty();
+                    Fill(StreamKind_Last, StreamPos_Last, HasEncodedBitRate?"StreamSize_Encoded":"StreamSize", StreamSize);
                 }
             }
             else
@@ -328,7 +329,7 @@ void File_Mpeg4::Streams_Finish()
                 if (Temp->second.stts.size()!=1 || Temp->second.mdhd_TimeScale<100 || Temp->second.stts[0].SampleDuration!=1) //TODO: test PCM
                     if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount)).empty() && Temp->second.stts_FrameCount)
                         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount), Temp->second.stts_FrameCount);
-                bool HasPadding=(Temp->second.Parser && Temp->second.Parser->Buffer_TotalBytes && ((float32)Temp->second.Parser->Buffer_PaddingBytes)/Temp->second.Parser->Buffer_TotalBytes>0.02);
+                bool HasPadding=(Temp->second.Parser && !Temp->second.Parser->Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Encoded").empty()) || (Temp->second.Parser && Temp->second.Parser->Buffer_TotalBytes && ((float32)Temp->second.Parser->Buffer_PaddingBytes)/Temp->second.Parser->Buffer_TotalBytes>0.02);
                 if (Temp->second.stsz_StreamSize)
                     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, HasPadding?Generic_StreamSize_Encoded:Generic_StreamSize), Temp->second.stsz_StreamSize);
             }
@@ -544,7 +545,7 @@ void File_Mpeg4::Streams_Finish()
                             Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
                         Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                        Fill(Stream_Audio, Pos, Audio_StreamSize, 0, 10, true); //Included in the DV stream size
+                        Fill(Stream_Audio, Pos, Audio_StreamSize_Encoded, 0); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                         Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                         Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
@@ -565,7 +566,7 @@ void File_Mpeg4::Streams_Finish()
                             Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
                         Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                        Fill(Stream_Text, Pos, Text_StreamSize, 0, 10, true); //Included in the DV stream size
+                        Fill(Stream_Text, Pos, Text_StreamSize_Encoded, 0); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
                         Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                         Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
@@ -631,7 +632,7 @@ void File_Mpeg4::Streams_Finish()
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
                     Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                     Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration), true);
-                    Fill(Stream_Audio, Pos, Audio_StreamSize, 0, 10, true); //Included in the DV stream size
+                    Fill(Stream_Audio, Pos, Audio_StreamSize_Encoded, 0); //Included in the DV stream size
                     Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                     Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
@@ -652,7 +653,7 @@ void File_Mpeg4::Streams_Finish()
                         Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
                     Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                     Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                    Fill(Stream_Text, Pos, Text_StreamSize, 0, 10, true); //Included in the DV stream size
+                    Fill(Stream_Text, Pos, Text_StreamSize_Encoded, 0); //Included in the DV stream size
                     Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
                     Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
@@ -1197,6 +1198,7 @@ bool File_Mpeg4::BookMark_Needed()
 
                     Chunk_Number++;
                 }
+                Temp->second.Parser->Stream_BitRateFromContainer=Temp->second.stsz_StreamSize*8/(((float64)Temp->second.stts_Duration)/Temp->second.mdhd_TimeScale);
                 #if MEDIAINFO_DEMUX
                     if (!Temp_stts_Durations.empty())
                     {

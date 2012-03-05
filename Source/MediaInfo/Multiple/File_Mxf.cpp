@@ -1046,6 +1046,18 @@ void File_Mxf::Streams_Finish()
         
     //Commercial names
     Streams_Finish_CommercialNames();
+
+    //Handling separate streams
+    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+        for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+            if (Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize_Encoded)).empty() && !Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_BitRate_Encoded)).empty() && !Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Duration)).empty())
+            {
+                float64 BitRate_Encoded=Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_BitRate_Encoded)).To_float64();
+                float64 Duration=Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Duration)).To_float64();
+                if (Duration)
+                    Fill((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize_Encoded), BitRate_Encoded/8*(Duration/1000), 3);
+            }
+
 }
 
 //---------------------------------------------------------------------------
@@ -1316,7 +1328,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 else
                     Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos-(StreamPos_StartAtOne?1:0), Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
                 Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Essence->second.StreamPos-(StreamPos_StartAtOne?1:0), Video_Duration));
-                Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
+                Fill(Stream_Audio, Pos, Audio_StreamSize_Encoded, 0); //Included in the DV stream size
                 Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                 Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+_T("-")+ID, true);
                 Fill(Stream_Audio, Pos, Audio_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+_T("-")+ID, true);
@@ -3012,6 +3024,20 @@ void File_Mxf::Data_Parse()
             //Stream size is sometime easy to find
             if ((Buffer_End?(Buffer_End-Buffer_Begin):Element_Size)>=File_Size*0.98) //let imagine: if element size is 98% of file size, this is the only one element in the file
                 Essence->second.Stream_Size=Buffer_End?(Buffer_End-Buffer_Begin):Element_Size;
+
+            //Compute stream bit rate if there is only one stream
+            int64u Stream_Size;
+            if (Essence->second.Stream_Size!=(int64u)-1)
+                Stream_Size=Essence->second.Stream_Size;
+            else
+                Stream_Size=File_Size; //TODO: find a way to remove header/footer correctly
+            if (Stream_Size!=(int64u)-1 && Essence->second.Parser)
+            {
+                if (Essence->second.Parser && Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1)
+                    Essences.begin()->second.Parser->Stream_BitRateFromContainer=Descriptors.begin()->second.ByteRate*8;
+                else if (Descriptors.size()==1 && Descriptors.begin()->second.Infos["Duration"].To_float64())
+                    Essences.begin()->second.Parser->Stream_BitRateFromContainer=((float64)Stream_Size)*8/(Descriptors.begin()->second.Infos["Duration"].To_float64()/1000);
+            }
         }
 
         //Demux
@@ -3205,7 +3231,7 @@ void File_Mxf::Data_Parse()
                     }
                     Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
                     if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1)
-                        Essence->second.Frame_Count_NotParsedIncluded++;
+                        Essence->second.Frame_Count_NotParsedIncluded+=Essence->second.Parser->Frame_Count_InThisBlock;
                     if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
                         Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
                     if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
@@ -3246,7 +3272,7 @@ void File_Mxf::Data_Parse()
                         else
                     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-                        Frame_Count_NotParsedIncluded++; //TODO: if !(MEDIAINFO_DEMUX || MEDIAINFO_SEEK), this is wrong for some PCM streams with ByteRate==2
+                        Frame_Count_NotParsedIncluded+=Essence->second.Parser->Frame_Count_InThisBlock; //TODO: if !(MEDIAINFO_DEMUX || MEDIAINFO_SEEK), this is wrong for some PCM streams with ByteRate==2
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                         FrameInfo.DTS+=FrameInfo.DUR;
                     if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
