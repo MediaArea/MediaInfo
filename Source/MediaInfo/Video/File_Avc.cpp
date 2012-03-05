@@ -547,6 +547,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
         Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
     }
     std::string ScanOrders, PictureTypes(PictureTypes_PreviousFrames);
+    ScanOrders.reserve(TemporalReferences.size());
     for (size_t Pos=0; Pos<TemporalReferences.size(); Pos++)
         if (TemporalReferences[Pos])
         {
@@ -1425,6 +1426,8 @@ void File_Avc::slice_header()
                                 prevPicOrderCntMsb=0;
                                 prevPicOrderCntLsb=0;
                                 TemporalReferences_Offset=TemporalReferences_Max;
+                                if (TemporalReferences_Offset%2)
+                                    TemporalReferences_Offset++;
                                 TemporalReferences_pic_order_cnt_Min=0;
                             }
                             else
@@ -1519,6 +1522,27 @@ void File_Avc::slice_header()
                 default:    ;
             }
 
+            if (pic_order_cnt<TemporalReferences_pic_order_cnt_Min)
+            {
+                if (pic_order_cnt<0)
+                {
+                    size_t Base=(size_t)(TemporalReferences_Offset+TemporalReferences_pic_order_cnt_Min);
+                    size_t ToInsert=(size_t)(TemporalReferences_pic_order_cnt_Min-pic_order_cnt);
+                    if (Base+ToInsert>=4*TemporalReferences_Reserved || Base>=4*TemporalReferences_Reserved || ToInsert+TemporalReferences_Max>=4*TemporalReferences_Reserved || TemporalReferences_Max>=4*TemporalReferences_Reserved || TemporalReferences_Max-Base>=4*TemporalReferences_Reserved)
+                    {
+                        Trusted_IsNot("Problem in temporal references");
+                        return;
+                    }
+                    Element_Info1(_T("Offset of ")+Ztring::ToZtring(ToInsert));
+                    TemporalReferences.insert(TemporalReferences.begin()+Base, ToInsert, NULL);
+                    TemporalReferences_Offset+=ToInsert;
+                    TemporalReferences_Max+=ToInsert;
+                    TemporalReferences_pic_order_cnt_Min=pic_order_cnt;
+                }
+                else if (TemporalReferences_Min>TemporalReferences_Offset+pic_order_cnt)
+                    TemporalReferences_Min=TemporalReferences_Offset+pic_order_cnt;
+            }
+
             if (TemporalReferences_Offset+pic_order_cnt>=3*TemporalReferences_Reserved)
             {
                 size_t Offset=TemporalReferences_Max-TemporalReferences_Offset;
@@ -1571,26 +1595,6 @@ void File_Avc::slice_header()
                     else
                         TemporalReferences_Max=0;
                 }
-            }
-            if (pic_order_cnt<TemporalReferences_pic_order_cnt_Min)
-            {
-                if (pic_order_cnt<0)
-                {
-                    size_t Base=(size_t)(TemporalReferences_Offset+TemporalReferences_pic_order_cnt_Min);
-                    size_t ToInsert=(size_t)(TemporalReferences_pic_order_cnt_Min-pic_order_cnt);
-                    if (Base+ToInsert>=4*TemporalReferences_Reserved || Base>=4*TemporalReferences_Reserved || ToInsert+TemporalReferences_Max>=4*TemporalReferences_Reserved || TemporalReferences_Max>=4*TemporalReferences_Reserved || TemporalReferences_Max-Base>=4*TemporalReferences_Reserved)
-                    {
-                        Trusted_IsNot("Problem in temporal references");
-                        return;
-                    }
-                    Element_Info1(_T("Offset of ")+Ztring::ToZtring(ToInsert));
-                    TemporalReferences.insert(TemporalReferences.begin()+Base, ToInsert, NULL);
-                    TemporalReferences_Offset+=ToInsert;
-                    TemporalReferences_Max+=ToInsert;
-                    TemporalReferences_pic_order_cnt_Min=pic_order_cnt;
-                }
-                else if (TemporalReferences_Min>TemporalReferences_Offset+pic_order_cnt)
-                    TemporalReferences_Min=TemporalReferences_Offset+pic_order_cnt;
             }
                 
             TemporalReferences_Offset_pic_order_cnt_lsb_Diff=(int32s)((int32s)(TemporalReferences_Offset+pic_order_cnt)-TemporalReferences_Offset_pic_order_cnt_lsb_Last);
@@ -1659,6 +1663,7 @@ void File_Avc::slice_header()
 
                 //Testing if we have enough to test GOP
                 std::string PictureTypes(PictureTypes_PreviousFrames);
+                PictureTypes.reserve(TemporalReferences.size());
                 for (size_t Pos=0; Pos<TemporalReferences.size(); Pos++)
                     if (TemporalReferences[Pos])
                     {
@@ -3346,6 +3351,15 @@ std::string File_Avc::GOP_Detect (std::string PictureTypes)
             PictureTypes.resize(PictureTypes_Limit);
         else
         {
+            //Trim
+            size_t TrimPos;
+            TrimPos=PictureTypes.find_first_not_of(' ');
+            if (TrimPos!=string::npos)
+                PictureTypes.erase(0, TrimPos);
+            TrimPos=PictureTypes.find_last_not_of(' ');
+            if (TrimPos!=string::npos)
+                PictureTypes.erase(TrimPos+1);
+
             //Finding the longest string
             ZtringList List; List.Separator_Set(0, _T(" "));
             List.Write(Ztring().From_Local(PictureTypes));
@@ -3447,6 +3461,15 @@ std::string File_Avc::ScanOrder_Detect (std::string ScanOrders)
             ScanOrders.resize(ScanOrders_Limit);
         else
         {
+            //Trim
+            size_t TrimPos;
+            TrimPos=ScanOrders.find_first_not_of(' ');
+            if (TrimPos!=string::npos)
+                ScanOrders.erase(0, TrimPos);
+            TrimPos=ScanOrders.find_last_not_of(' ');
+            if (TrimPos!=string::npos)
+                ScanOrders.erase(TrimPos+1);
+
             //Finding the longest string
             ZtringList List; List.Separator_Set(0, _T(" "));
             List.Write(Ztring().From_Local(ScanOrders));
