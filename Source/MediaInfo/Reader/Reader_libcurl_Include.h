@@ -873,6 +873,45 @@ typedef enum {
   CURLM_LAST
 } CURLMcode;
 
+typedef enum {
+  CURLVERSION_FIRST,
+  CURLVERSION_SECOND,
+  CURLVERSION_THIRD,
+  CURLVERSION_FOURTH,
+  CURLVERSION_LAST /* never actually use this */
+} CURLversion;
+
+#define CURLVERSION_NOW CURLVERSION_FOURTH
+
+typedef struct {
+  CURLversion age;          /* age of the returned struct */
+  const char *version;      /* LIBCURL_VERSION */
+  unsigned int version_num; /* LIBCURL_VERSION_NUM */
+  const char *host;         /* OS/host/cpu/machine when configured */
+  int features;             /* bitmask, see defines below */
+  const char *ssl_version;  /* human readable string */
+  long ssl_version_num;     /* not used anymore, always 0 */
+  const char *libz_version; /* human readable string */
+  /* protocols is terminated by an entry with a NULL protoname */
+  const char * const *protocols;
+
+  /* The fields below this were added in CURLVERSION_SECOND */
+  const char *ares;
+  int ares_num;
+
+  /* This field was added in CURLVERSION_THIRD */
+  const char *libidn;
+
+  /* These field were added in CURLVERSION_FOURTH */
+
+  /* Same as '_libiconv_version' if built with HAVE_ICONV */
+  int iconv_ver_num;
+
+  const char *libssh_version; /* human readable string */
+
+} curl_version_info_data;
+
+#define CURL_ERROR_SIZE 256
 
 //***************************************************************************
 // Dynamic load stuff
@@ -929,6 +968,8 @@ typedef CURLcode (*LIBCURL_curl_easy_getinfo)(CURL *curl, CURLINFO info, ...);  
 typedef struct curl_slist* (*LIBCURL_curl_slist_append)   (struct curl_slist *, const char *);   static LIBCURL_curl_slist_append    curl_slist_append;
 typedef void (*LIBCURL_curl_slist_free_all)   (struct curl_slist *);   static LIBCURL_curl_slist_free_all    curl_slist_free_all;
 typedef CURL* (*LIBCURL_curl_easy_duphandle)(CURL *curl);   static LIBCURL_curl_easy_duphandle curl_easy_duphandle;
+typedef const char* (*LIBCURL_curl_easy_strerror)(CURLcode curlcode);   static LIBCURL_curl_easy_strerror curl_easy_strerror;
+typedef curl_version_info_data* (*LIBCURL_curl_version_info)(CURLversion version);   static LIBCURL_curl_version_info curl_version_info;
 
 //---------------------------------------------------------------------------
 // Multi interface

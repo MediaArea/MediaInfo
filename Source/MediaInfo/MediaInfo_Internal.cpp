@@ -377,23 +377,39 @@ void MediaInfo_Internal::Entry()
     Config.State_Set(0);
     CS.Leave();
 
-        if (0);
-    #if defined(MEDIAINFO_LIBCURL_YES)
-        else if ((Config.File_Names[0].size()>=7
-          && Config.File_Names[0][0]==_T('h')
-          && Config.File_Names[0][1]==_T('t')
-          && Config.File_Names[0][2]==_T('t')
-          && Config.File_Names[0][3]==_T('p')
-          && Config.File_Names[0][4]==_T(':')
-          && Config.File_Names[0][5]==_T('/')
-          && Config.File_Names[0][6]==_T('/'))
-         || (Config.File_Names[0].size()>=6
-          && Config.File_Names[0][0]==_T('f')
-          && Config.File_Names[0][1]==_T('t')
-          && Config.File_Names[0][2]==_T('p')
-          && Config.File_Names[0][3]==_T(':')
-          && Config.File_Names[0][4]==_T('/')
-          && Config.File_Names[0][5]==_T('/')))
+    if ((Config.File_Names[0].size()>=6
+        && Config.File_Names[0][0]==_T('m')
+        && Config.File_Names[0][1]==_T('m')
+        && Config.File_Names[0][2]==_T('s')
+        && Config.File_Names[0][3]==_T(':')
+        && Config.File_Names[0][4]==_T('/')
+        && Config.File_Names[0][5]==_T('/'))
+        || (Config.File_Names[0].size()>=7
+        && Config.File_Names[0][0]==_T('m')
+        && Config.File_Names[0][1]==_T('m')
+        && Config.File_Names[0][2]==_T('s')
+        && Config.File_Names[0][3]==_T('h')
+        && Config.File_Names[0][4]==_T(':')
+        && Config.File_Names[0][5]==_T('/')
+        && Config.File_Names[0][6]==_T('/')))
+        #if defined(MEDIAINFO_LIBMMS_YES)
+            Reader_libmms().Format_Test(this, Config.File_Names[0]);
+        #else //MEDIAINFO_LIBMMS_YES
+            #if MEDIAINFO_EVENTS
+            {
+                struct MediaInfo_Event_Log_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
+                Event.Type=0xC0;
+                Event.Severity=0xFF;
+                Event.MessageCode=0;
+                Event.MessageString=_T("Libmms cupport is disabled due to compilation options");
+                MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+            }
+            #endif //MEDIAINFO_EVENTS
+        #endif //MEDIAINFO_LIBMMS_YES
+
+    else if (Config.File_Names[0].find(_T(':'))!=string::npos)
+        #if defined(MEDIAINFO_LIBCURL_YES)
         {
             CS.Enter();
             if (Reader)
@@ -411,26 +427,19 @@ void MediaInfo_Internal::Entry()
                     return;
             #endif //MEDIAINFO_NEXTPACKET
         }
-    #endif //MEDIAINFO_LIBCURL_YES
-
-    #if defined(MEDIAINFO_LIBMMS_YES)
-        else if ((Config.File_Names[0].size()>=6
-          && Config.File_Names[0][0]==_T('m')
-          && Config.File_Names[0][1]==_T('m')
-          && Config.File_Names[0][2]==_T('s')
-          && Config.File_Names[0][3]==_T(':')
-          && Config.File_Names[0][4]==_T('/')
-          && Config.File_Names[0][5]==_T('/'))
-         || (Config.File_Names[0].size()>=7
-          && Config.File_Names[0][0]==_T('m')
-          && Config.File_Names[0][1]==_T('m')
-          && Config.File_Names[0][2]==_T('s')
-          && Config.File_Names[0][3]==_T('h')
-          && Config.File_Names[0][4]==_T(':')
-          && Config.File_Names[0][5]==_T('/')
-          && Config.File_Names[0][6]==_T('/')))
-            Reader_libmms().Format_Test(this, Config.File_Names[0]);
-    #endif //MEDIAINFO_LIBMMS_YES
+        #else //MEDIAINFO_LIBCURL_YES
+            #if MEDIAINFO_EVENTS
+            {
+                struct MediaInfo_Event_Log_0 Event;
+                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
+                Event.Type=0xC0;
+                Event.Severity=0xFF;
+                Event.MessageCode=0;
+                Event.MessageString=_T("Libcurl support is disabled due to compilation options");
+                MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+            }
+            #endif //MEDIAINFO_EVENTS
+        #endif //MEDIAINFO_LIBCURL_YES
 
     #if defined(MEDIAINFO_DIRECTORY_YES)
         else if (Dir::Exists(Config.File_Names[0]))

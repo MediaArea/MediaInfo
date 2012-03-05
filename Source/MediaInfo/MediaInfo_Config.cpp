@@ -137,6 +137,14 @@ void MediaInfo_Config::Init()
     Quote=_T("\"");
     DecimalPoint=_T(".");
     ThousandsPoint=Ztring();
+    #if MEDIAINFO_EVENTS
+        Event_CallBackFunction=NULL;
+        Event_UserHandler=NULL;
+    #endif //MEDIAINFO_EVENTS
+    #if defined(MEDIAINFO_LIBCURL_YES)
+        Ssh_IgnoreSecurity=false;
+        Ssl_IgnoreSecurity=false;
+    #endif //defined(MEDIAINFO_LIBCURL_YES)
 
     CS.Leave();
 
@@ -594,6 +602,122 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         CustomMapping_Set(Value);
         return Ztring();
+    }
+    else if (Option_Lower==_T("event_callbackfunction"))
+    {
+        #if MEDIAINFO_EVENTS
+            return Event_CallBackFunction_Set(Value);
+        #else //MEDIAINFO_EVENTS
+            return _T("Event manager is disabled due to compilation options");
+        #endif //MEDIAINFO_EVENTS
+    }
+    else if (Option_Lower==_T("ssh_knownhostsfilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssh_KnownHostsFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssh_publickeyfilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssh_PublicKeyFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssh_privatekeyfilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssh_PrivateKeyFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssh_ignoresecurity"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssh_IgnoreSecurity_Set(Value.empty() || Value.To_float32());
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_certificatefilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_CertificateFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_certificateFormat"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_CertificateFormat_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_privatekeyfilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_PrivateKeyFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_privatekeyformat"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_PrivateKeyFormat_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_certificateauthorityfilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_CertificateAuthorityFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_certificateauthoritypath"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_CertificateAuthorityPath_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_certificaterevocationlistfilename"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_CertificateRevocationListFileName_Set(Value);
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
+    }
+    else if (Option_Lower==_T("ssl_ignoresecurity"))
+    {
+        #if defined(MEDIAINFO_LIBCURL_YES)
+            Ssl_IgnoreSecurity_Set(Value.empty() || Value.To_float32());
+            return Ztring();
+        #else // defined(MEDIAINFO_LIBCURL_YES)
+            return _T("Libcurl support is disabled due to compilation options");
+        #endif // defined(MEDIAINFO_LIBCURL_YES)
     }
     else
         return _T("Option not known");
@@ -1697,6 +1821,234 @@ bool MediaInfo_Config::CustomMapping_IsPresent(const Ztring &Format, const Ztrin
         return false;
     return true;
 }
+
+//***************************************************************************
+// Event
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+bool MediaInfo_Config::Event_CallBackFunction_IsSet ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return Event_CallBackFunction?true:false;
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+Ztring MediaInfo_Config::Event_CallBackFunction_Set (const Ztring &Value)
+{
+    ZtringList List=Value;
+
+    CriticalSectionLocker CSL(CS);
+
+    if (List.empty())
+    {
+        Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)NULL;
+        Event_UserHandler=NULL;
+    }
+    else
+        for (size_t Pos=0; Pos<List.size(); Pos++)
+        {
+            if (List[Pos].find(_T("CallBack=memory://"))==0)
+                Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)Ztring(List[Pos].substr(18, std::string::npos)).To_int64u();
+            else if (List[Pos].find(_T("UserHandler=memory://"))==0)
+                Event_UserHandler=(void*)Ztring(List[Pos].substr(21, std::string::npos)).To_int64u();
+            else
+                return("Problem during Event_CallBackFunction value parsing");
+        }
+
+    return Ztring();
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+Ztring MediaInfo_Config::Event_CallBackFunction_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return _T("CallBack=memory://")+Ztring::ToZtring((size_t)Event_CallBackFunction)+_T(";UserHandler=memory://")+Ztring::ToZtring((size_t)Event_UserHandler);
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+void MediaInfo_Config::Event_Send (const int8u* Data_Content, size_t Data_Size)
+{
+    CriticalSectionLocker CSL(CS);
+
+    if (Event_CallBackFunction)
+        Event_CallBackFunction ((unsigned char*)Data_Content, Data_Size, Event_UserHandler);
+}
+#endif //MEDIAINFO_EVENTS
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+void MediaInfo_Config::Event_Send (const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name)
+{
+    CriticalSectionLocker CSL(CS);
+
+    if (Event_CallBackFunction)
+        Event_CallBackFunction ((unsigned char*)Data_Content, Data_Size, Event_UserHandler);
+}
+#endif //MEDIAINFO_EVENTS
+
+//***************************************************************************
+// Curl
+//***************************************************************************
+
+#if defined(MEDIAINFO_LIBCURL_YES)
+void MediaInfo_Config::Ssh_PublicKeyFileName_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssh_PublicKeyFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssh_PublicKeyFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssh_PublicKeyFileName;
+}
+
+void MediaInfo_Config::Ssh_PrivateKeyFileName_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssh_PrivateKeyFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssh_PrivateKeyFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssh_PrivateKeyFileName;
+}
+
+void MediaInfo_Config::Ssh_KnownHostsFileName_Set (const Ztring &Value)
+{
+    if (Value.empty())
+        return; //empty value means "disable security" for libcurl, not acceptable
+
+    CriticalSectionLocker CSL(CS);
+    Ssh_KnownHostsFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssh_KnownHostsFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssh_KnownHostsFileName;
+}
+
+void MediaInfo_Config::Ssh_IgnoreSecurity_Set (bool Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssh_IgnoreSecurity=Value;
+}
+
+bool MediaInfo_Config::Ssh_IgnoreSecurity_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssh_IgnoreSecurity;
+}
+
+void MediaInfo_Config::Ssl_CertificateFileName_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_CertificateFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_CertificateFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_CertificateFileName;
+}
+
+void MediaInfo_Config::Ssl_CertificateFormat_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_CertificateFormat=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_CertificateFormat_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_CertificateFormat;
+}
+
+void MediaInfo_Config::Ssl_PrivateKeyFileName_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_PrivateKeyFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_PrivateKeyFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_PrivateKeyFileName;
+}
+
+void MediaInfo_Config::Ssl_PrivateKeyFormat_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_PrivateKeyFormat=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_PrivateKeyFormat_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_PrivateKeyFormat;
+}
+
+void MediaInfo_Config::Ssl_CertificateAuthorityFileName_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_CertificateAuthorityFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_CertificateAuthorityFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_CertificateAuthorityFileName;
+}
+
+void MediaInfo_Config::Ssl_CertificateAuthorityPath_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_CertificateAuthorityPath=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_CertificateAuthorityPath_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_CertificateAuthorityPath;
+}
+
+void MediaInfo_Config::Ssl_CertificateRevocationListFileName_Set (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_CertificateRevocationListFileName=Value;
+}
+
+Ztring MediaInfo_Config::Ssl_CertificateRevocationListFileName_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_CertificateRevocationListFileName;
+}
+
+void MediaInfo_Config::Ssl_IgnoreSecurity_Set (bool Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Ssl_IgnoreSecurity=Value;
+}
+
+bool MediaInfo_Config::Ssl_IgnoreSecurity_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ssl_IgnoreSecurity;
+}
+
+#endif //defined(MEDIAINFO_LIBCURL_YES)
 
 } //NameSpace
 

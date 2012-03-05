@@ -28,6 +28,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Internal_Const.h"
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 #include "ZenLib/CriticalSection.h"
 #include "ZenLib/ZtringListList.h"
 #include "ZenLib/Translation.h"
@@ -191,6 +194,44 @@ public :
     Ztring          CustomMapping_Get (const Ztring &Format, const Ztring &Field); 
     bool            CustomMapping_IsPresent (const Ztring &Format, const Ztring &Field); 
 
+          void      ErrorLog_Callback_Set(const Ztring &Value);
+          void      ErrorLog(const Ztring &Value);
+
+    #if MEDIAINFO_EVENTS
+          bool     Event_CallBackFunction_IsSet ();
+          Ztring   Event_CallBackFunction_Set (const Ztring &Value);
+          Ztring   Event_CallBackFunction_Get ();
+          void     Event_Send(const int8u* Data_Content, size_t Data_Size);
+          void     Event_Send(const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name);
+    #endif //MEDIAINFO_EVENTS
+
+    #if defined(MEDIAINFO_LIBCURL_YES)
+          void      Ssh_PublicKeyFileName_Set (const Ztring &NewValue);
+          Ztring    Ssh_PublicKeyFileName_Get ();
+          void      Ssh_PrivateKeyFileName_Set (const Ztring &NewValue);
+          Ztring    Ssh_PrivateKeyFileName_Get ();
+          void      Ssh_IgnoreSecurity_Set (bool NewValue);
+          void      Ssh_KnownHostsFileName_Set (const Ztring &NewValue);
+          Ztring    Ssh_KnownHostsFileName_Get ();
+          bool      Ssh_IgnoreSecurity_Get ();
+          void      Ssl_CertificateFileName_Set (const Ztring &NewValue);
+          Ztring    Ssl_CertificateFileName_Get ();
+          void      Ssl_CertificateFormat_Set (const Ztring &NewValue);
+          Ztring    Ssl_CertificateFormat_Get ();
+          void      Ssl_PrivateKeyFileName_Set (const Ztring &NewValue);
+          Ztring    Ssl_PrivateKeyFileName_Get ();
+          void      Ssl_PrivateKeyFormat_Set (const Ztring &NewValue);
+          Ztring    Ssl_PrivateKeyFormat_Get ();
+          void      Ssl_CertificateAuthorityFileName_Set (const Ztring &NewValue);
+          Ztring    Ssl_CertificateAuthorityFileName_Get ();
+          void      Ssl_CertificateAuthorityPath_Set (const Ztring &NewValue);
+          Ztring    Ssl_CertificateAuthorityPath_Get ();
+          void      Ssl_CertificateRevocationListFileName_Set (const Ztring &NewValue);
+          Ztring    Ssl_CertificateRevocationListFileName_Get ();
+          void      Ssl_IgnoreSecurity_Set (bool NewValue);
+          bool      Ssl_IgnoreSecurity_Get ();
+    #endif //defined(MEDIAINFO_LIBCURL_YES)
+
 private :
     int64u          MpegTs_MaximumScanDuration;
     int64u          FormatDetection_MaximumOffset;
@@ -244,6 +285,27 @@ private :
     ZenLib::CriticalSection CS;
 
     void      Language_Set (stream_t StreamKind);
+
+    //Event
+    #if MEDIAINFO_EVENTS
+    MediaInfo_Event_CallBackFunction* Event_CallBackFunction; //void Event_Handler(unsigned char* Data_Content, size_t Data_Size, void* UserHandler)
+    void*           Event_UserHandler;
+    #endif //MEDIAINFO_EVENTS
+
+    #if defined(MEDIAINFO_LIBCURL_YES)
+          Ztring    Ssh_PublicKeyFileName;
+          Ztring    Ssh_PrivateKeyFileName;
+          Ztring    Ssh_KnownHostsFileName;
+          bool      Ssh_IgnoreSecurity;
+          Ztring    Ssl_CertificateFileName;
+          Ztring    Ssl_CertificateFormat;
+          Ztring    Ssl_PrivateKeyFileName;
+          Ztring    Ssl_PrivateKeyFormat;
+          Ztring    Ssl_CertificateAuthorityFileName;
+          Ztring    Ssl_CertificateAuthorityPath;
+          Ztring    Ssl_CertificateRevocationListFileName;
+          bool      Ssl_IgnoreSecurity;
+    #endif //defined(MEDIAINFO_LIBCURL_YES)
 };
 
 extern MediaInfo_Config Config;

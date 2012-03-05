@@ -470,8 +470,7 @@ elif test -e ../../../../Shared/Project/curl/Compile.sh; then
 		AC_MSG_ERROR([Problem while compiling builtin curl])
 	fi
 else
-	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBCURL_NO"
-	using_libcurl="not found"
+	AC_MSG_ERROR([libcurl development files are not found. Install the corresponding libcurl development package (e.g. "apt-get install libcurl-dev" or "yum install libcurl-devel"])
 fi
 
 dnl -------------------------------------------------------------------------
