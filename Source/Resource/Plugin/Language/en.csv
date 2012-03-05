@@ -185,6 +185,7 @@ BitRate_Mode;Bit rate mode
 BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Nominal bit rate
+BitRate_Encoded;Encoded bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
@@ -893,7 +894,9 @@ SoundEngineer;Sound engineer
 Source;Source
 Source_Duration;Source duration
 Source_FrameCount;Source frame count
+Source_SamplingCount;Source sample count
 Source_StreamSize;Source stream size
+Source_StreamSize_Encoded;Source encoded stream size
 Standard;Standard
 Stream;Stream
 Stream_MoreInfo;More information about the stream
@@ -903,6 +906,7 @@ StreamKind;Kind of stream
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
 StreamSize;Stream size
+StreamSize_Encoded;Encoded stream size
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 SubTrack;SubTrack

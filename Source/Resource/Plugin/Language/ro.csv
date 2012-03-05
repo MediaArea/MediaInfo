@@ -185,6 +185,7 @@ BitRate_Mode;
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;
+BitRate_Encoded;
 Bits-(Pixel*Frame);
 BufferSize;
 Cancel;Anulare
@@ -893,7 +894,9 @@ SoundEngineer;Inginer de sunet
 Source;
 Source_Duration;
 Source_FrameCount;
+Source_SamplingCount;
 Source_StreamSize;
+Source_StreamSize_Encoded;
 Standard;
 Stream;Flux
 Stream_MoreInfo;Mai multe informatii despre flux
@@ -903,6 +906,7 @@ StreamKind;Tipul fluxului
 StreamKindID;
 StreamKindPos;
 StreamSize;
+StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subiect
 SubTrack;Sub-pista
