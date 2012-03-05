@@ -94,7 +94,8 @@ size_t MediaInfoList_Internal::Open(const String &File_Name, const fileoptions_t
 
     //Get all filenames
     ZtringList List;
-    if (File_Name.find(_T(':'))!=string::npos)
+    size_t Pos=File_Name.find(_T(':'));
+    if (Pos!=string::npos && Pos!=1)
         List.push_back(File_Name);
     else if (File::Exists(File_Name))
         List.push_back(File_Name);

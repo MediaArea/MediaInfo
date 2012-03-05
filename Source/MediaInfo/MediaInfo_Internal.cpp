@@ -408,7 +408,7 @@ void MediaInfo_Internal::Entry()
             #endif //MEDIAINFO_EVENTS
         #endif //MEDIAINFO_LIBMMS_YES
 
-    else if (Config.File_Names[0].find(_T(':'))!=string::npos)
+    else if (Config.File_Names[0].find(_T(':'))!=string::npos && Config.File_Names[0].find(_T(':'))!=1)
         #if defined(MEDIAINFO_LIBCURL_YES)
         {
             CS.Enter();
