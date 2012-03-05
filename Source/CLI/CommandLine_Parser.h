@@ -58,5 +58,6 @@ CL_OPTION(Default);
 //***************************************************************************
 
 void LogFile_Action(ZenLib::Ztring Inform);
+void CallBack_Set(Core &MI, void* Event_CallBackFunction);
 
 #endif

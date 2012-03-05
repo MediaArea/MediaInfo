@@ -30,6 +30,7 @@
 int Help();
 int Help_Nothing();
 int Help_Output();
+int Help_Security();
 
 //***************************************************************************
 //

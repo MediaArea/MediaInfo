@@ -64,6 +64,18 @@ inline void STRINGOUT(ZenLib::Ztring Text)
             std::cout<<Text.c_str()<<std::endl;
     #endif // UNICODE
 }
+inline void STRINGERR(ZenLib::Ztring Text)
+{
+    #ifdef UNICODE
+        #ifdef _MSC_VER
+            std::wcerr<<Text.c_str()<<std::endl;
+        #else //_MSC_VER
+            std::cerr<<Text.To_Local().c_str()<<std::endl;
+        #endif //_MSC_VER
+    #else // UNICODE
+            std::cerr<<Text.c_str()<<std::endl;
+    #endif // UNICODE
+}
 
 inline void TEXTOUT(const char* Text)
 {

@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -223,5 +224,16 @@ void LogFile_Action(ZenLib::Ztring Inform)
             File.write("\xEF\xBB\xBF", 3);
     #endif //defined(_MSC_VER) && defined(UNICODE)
     File.write(Inform_Ansi.c_str(), Inform_Ansi.size());
+}
+void CallBack_Set(Core &MI, void* Event_CallBackFunction)
+{
+    //CallBack configuration
+    #if defined(UNICODE)
+        std::wostringstream Event_CallBackFunction_Text;
+    #else
+        std::ostringstream Event_CallBackFunction_Text;
+    #endif
+    Event_CallBackFunction_Text<<"CallBack=memory://"<<(size_t)Event_CallBackFunction;
+    MI.Menu_Option_Preferences_Option(_T("Event_CallBackFunction"), Event_CallBackFunction_Text.str());
 }
 
