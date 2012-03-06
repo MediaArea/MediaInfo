@@ -29,6 +29,7 @@ x #3468235, Blu-ray: displaying PGS in all cases (even if PES is not detected, t
 x MPEG-4: channel position in case of channel atom is configured with ChannelBitmap
 x MPEG-TS: crash with some buggy files (a PID indicated as PSI and PES at the same time)
 x AES3: not detecting Dolby E stream if there is guard band before the Dolby E frame, in MPEG-TS
+x DPX: some files with some invalid fields were not detected
 
 Version 0.7.53, 2012-01-24
 --------------

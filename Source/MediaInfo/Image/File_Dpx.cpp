@@ -452,7 +452,7 @@ void File_Dpx::Data_Parse()
     //Special cases
     bool ShouldParseMore=false;
     for (size_t Pos=Pos_Padding-1; Pos>(size_t)Element_Code; Pos--) //Start from padding position (excluded), finish at current element
-        if (Sizes[Pos])
+        if (Pos<Sizes.size() && Sizes[Pos])
             ShouldParseMore=true; //More blocks are interesting
     if (!ShouldParseMore)
     {
@@ -660,6 +660,12 @@ void File_Dpx::GenericSectionHeader_v2()
 
     FILLING_BEGIN();
         //Coherency tests
+        if (Size_Generic==(int32u)-1)
+            Size_Generic=0;    
+        if (Size_Industry==(int32u)-1)
+            Size_Industry=0;    
+        if (Size_User==(int32u)-1)
+            Size_User=0;    
         if (Size_Generic+Size_Industry+Size_User>Size_Header || Size_Header>Size_Total)
         {
             Reject();
