@@ -395,8 +395,8 @@ void MediaInfo_Internal::Entry()
         #if defined(MEDIAINFO_LIBMMS_YES)
             Reader_libmms().Format_Test(this, Config.File_Names[0]);
         #else //MEDIAINFO_LIBMMS_YES
-            #if MEDIAINFO_EVENTS
             {
+            #if MEDIAINFO_EVENTS
                 struct MediaInfo_Event_Log_0 Event;
                 Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
                 Event.Type=0xC0;
@@ -404,8 +404,8 @@ void MediaInfo_Internal::Entry()
                 Event.MessageCode=0;
                 Event.MessageString=_T("Libmms cupport is disabled due to compilation options");
                 MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
-            }
             #endif //MEDIAINFO_EVENTS
+            }
         #endif //MEDIAINFO_LIBMMS_YES
 
     else if (Config.File_Names[0].find(_T(':'))!=string::npos && Config.File_Names[0].find(_T(':'))!=1)
@@ -428,8 +428,8 @@ void MediaInfo_Internal::Entry()
             #endif //MEDIAINFO_NEXTPACKET
         }
         #else //MEDIAINFO_LIBCURL_YES
-            #if MEDIAINFO_EVENTS
             {
+            #if MEDIAINFO_EVENTS
                 struct MediaInfo_Event_Log_0 Event;
                 Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
                 Event.Type=0xC0;
@@ -437,8 +437,8 @@ void MediaInfo_Internal::Entry()
                 Event.MessageCode=0;
                 Event.MessageString=_T("Libcurl support is disabled due to compilation options");
                 MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
-            }
             #endif //MEDIAINFO_EVENTS
+            }
         #endif //MEDIAINFO_LIBCURL_YES
 
     #if defined(MEDIAINFO_DIRECTORY_YES)

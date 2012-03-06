@@ -150,8 +150,10 @@ const char* Mpegv_profile_and_level_indication_level[]=
     #include "MediaInfo/Video/File_AfdBarData.h"
     #include <cstring>
 #endif //defined(MEDIAINFO_AFDBARDATA_YES)
-#if MEDIAINFO_EVENTS
+#if MEDIAINFO_MACROBLOCKS || MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#endif //MEDIAINFO_MACROBLOCKS || MEDIAINFO_EVENTS
+#if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
 using namespace ZenLib;

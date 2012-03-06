@@ -560,9 +560,7 @@ protected :
         };
         type Type;
         bool HasBFrames;
-        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-            int32u ByteRate;
-        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+        int32u ByteRate;
 
         descriptor()
         {
@@ -592,9 +590,7 @@ protected :
             ActiveFormat=(int8u)-1;
             Type=Type_Unknown;
             HasBFrames=false;
-            #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                ByteRate=(int32u)-1;
-            #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+            ByteRate=(int32u)-1;
         }
     };
     typedef std::map<int128u, descriptor> descriptors; //Key is InstanceUID of Descriptor

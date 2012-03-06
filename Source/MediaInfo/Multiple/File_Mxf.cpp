@@ -6439,9 +6439,7 @@ void File_Mxf::WaveAudioDescriptor_AvgBps()
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].Infos["BitRate"].From_Number(Data*8);
-        #if MEDIAINFO_DEMUX
-            Descriptors[InstanceUID].ByteRate=Data;
-        #endif //MEDIAINFO_DEMUX
+        Descriptors[InstanceUID].ByteRate=Data;
     FILLING_END();
 }
 
