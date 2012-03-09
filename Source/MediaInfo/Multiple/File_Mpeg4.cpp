@@ -249,6 +249,48 @@ void File_Mpeg4::Streams_Finish()
         //if (Temp->second.stsz_StreamSize)
         //    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.stsz_StreamSize);
         
+        //Edit lists coherencies
+        if (Temp->second.edts.size()>1 && Temp->second.edts[0].Duration==Temp->second.tkhd_Duration)
+        {
+            bool Duplicates=true;
+            for (size_t Pos=1; Pos<Temp->second.edts.size(); Pos++)
+                if (Temp->second.edts[Pos-1].Delay!=Temp->second.edts[Pos].Delay || Temp->second.edts[Pos-1].Duration!=Temp->second.edts[Pos].Duration || Temp->second.edts[Pos-1].Rate!=Temp->second.edts[Pos].Rate)
+                    Duplicates=false;
+            if (Duplicates)
+                Temp->second.edts.resize(1);
+        }
+
+        //Edit Lists
+        float64 Delay=0;
+        switch (Temp->second.edts.size())
+        {
+            case 0 : 
+                    break;
+            case 1 : 
+                    if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000)
+                        Delay=Temp->second.edts[0].Delay;
+                    break;
+            case 2 : 
+                    if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
+                    {
+                        Delay=Temp->second.edts[0].Duration;
+                        Temp->second.tkhd_Duration-=Temp->second.edts[0].Duration;
+                    }
+                    break;
+            default:
+                    break; //TODO: handle more complex Edit Lists
+        }
+        Delay/=TimeScale; //In seconds
+        Delay+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)).To_float64()/1000; //TODO: use TimeCode value directly instead of the rounded value
+        if (!Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)).empty() && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source))!=_T("Container"))
+        {
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)));
+        }
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), Delay*1000, 0, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container", Unlimited, true, true);
+        
+        //Fragments
         if (IsFragmented)
         {
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Temp->second.stts_Duration/((float)Temp->second.mdhd_TimeScale)*1000, 0, true);
@@ -1120,6 +1162,40 @@ bool File_Mpeg4::BookMark_Needed()
     if (!mdat_MustParse)
         return false;
 
+    //Handling of some wrong stsz and stsc atoms (ADPCM)
+    if (!IsSecondPass)
+        for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); Temp++)
+            if (Temp->second.StreamKind==Stream_Audio
+             && (Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_CodecID)==_T("ima4")
+              || Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_CodecID)==_T("11")))
+            {
+                Temp->second.stsz_StreamSize/=16;
+                Temp->second.stsz_StreamSize*=17;
+                float32 BitRate_Nominal=Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_BitRate_Nominal).To_float32();
+                if (BitRate_Nominal)
+                {
+                    BitRate_Nominal/=16;
+                    BitRate_Nominal*=17;
+                    Fill(Stream_Audio, Temp->second.StreamPos, Audio_BitRate_Nominal, BitRate_Nominal, 0, true);
+                }
+                int64u Channels=Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_Channel_s_).To_int64u();
+                if (Channels!=2)
+                {
+                    Temp->second.stsz_StreamSize/=2;
+                    Temp->second.stsz_StreamSize*=Channels;
+                }
+                for (size_t Pos=0; Pos<Temp->second.stsc.size(); Pos++)
+                {
+                    Temp->second.stsc[Pos].SamplesPerChunk/=16;
+                    Temp->second.stsc[Pos].SamplesPerChunk*=17;
+                    if (Channels!=2)
+                    {
+                        Temp->second.stsc[Pos].SamplesPerChunk/=2;
+                        Temp->second.stsc[Pos].SamplesPerChunk*=Channels;
+                    }
+                }
+            }
+
     //In case of second pass
     if (mdat_Pos.empty())
     {
@@ -1403,6 +1479,21 @@ void File_Mpeg4::Descriptors()
 //---------------------------------------------------------------------------
 void File_Mpeg4::TimeCode_Associate(int32u TrackID)
 {
+    //Trying to detect time code attached to 1 video only but for all streams in reality
+    int32u TimeCode_TrackID=(int32u)-1;
+    bool   TimeCode_TrackID_MoreThanOne=false;
+    for (std::map<int32u, stream>::iterator Strea=Streams.begin(); Strea!=Streams.end(); Strea++)
+        if (Strea->second.TimeCode_TrackID!=(int32u)-1)
+        {
+            if (TimeCode_TrackID==(int32u)-1)
+                TimeCode_TrackID=Strea->second.TimeCode_TrackID;
+            else
+                TimeCode_TrackID_MoreThanOne=true;
+        }
+    if (!TimeCode_TrackID_MoreThanOne && TimeCode_TrackID!=(int32u)-1)
+        for (std::map<int32u, stream>::iterator Strea=Streams.begin(); Strea!=Streams.end(); Strea++)
+            Strea->second.TimeCode_TrackID=TimeCode_TrackID; //For all tracks actually
+
     //Is it general or for a specific stream?
     bool IsGeneral=true;
     for (std::map<int32u, stream>::iterator Strea=Streams.begin(); Strea!=Streams.end(); Strea++)

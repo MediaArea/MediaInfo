@@ -2479,23 +2479,18 @@ void File_Mpeg4::moov_trak_edts_elst()
     NAME_VERSION_FLAG("Edit List");
 
     //Parsing
-    int32u Count, Duration, Time;
-    bool NoMoreEmpty=false;
+    int32u Count, Duration, Time, MediaRate;
     Get_B4 (Count,                                              "Number of entries");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
+        stream::edts_struct edts;
         Element_Begin1("Entry");
-        Get_B4 (Duration,                                       "Track duration"); Param_Info2((int64u)Duration*1000/TimeScale, " ms");
-        Get_B4 (Time,                                           "Media time"); Param_Info2C((Time!=(int32u)-1), (int64u)Time*1000/TimeScale, " ms");
-        if (Time==(int32u)-1 && !NoMoreEmpty)
-        {
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), (int64u)Duration*1000/TimeScale);
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
-        }
-        if (Time!=(int32u)-1)
-            NoMoreEmpty=true;
-        Info_B4(MediaRate,                                      "Media rate"); Param_Info1(((float)MediaRate)/0x10000);
+        Get_B4 (edts.Duration,                                  "Track duration"); Param_Info2((int64u)Duration*1000/TimeScale, " ms");
+        Get_B4 (edts.Delay,                                     "Media time"); Param_Info2C((Time!=(int32u)-1), (int64u)Time*1000/TimeScale, " ms");
+        Get_B4 (edts.Rate,                                      "Media rate"); Param_Info1(((float)MediaRate)/0x10000);
         Element_End0();
+
+        Streams[moov_trak_tkhd_TrackID].edts.push_back(edts);
     }
 }
 

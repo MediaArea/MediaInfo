@@ -340,6 +340,13 @@ private :
         timecode* TimeCode;
         stream_t                StreamKind;
         size_t                  StreamPos;
+        struct edts_struct
+        {
+            int32u  Duration;
+            int32u  Delay;
+            int32u  Rate;
+        };
+        std::vector<edts_struct> edts;            
         std::vector<int64u>     stco;
         struct stsc_struct
         {
