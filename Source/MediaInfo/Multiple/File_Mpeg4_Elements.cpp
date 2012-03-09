@@ -2479,7 +2479,7 @@ void File_Mpeg4::moov_trak_edts_elst()
     NAME_VERSION_FLAG("Edit List");
 
     //Parsing
-    int32u Count, Duration, Time, MediaRate;
+    int32u Count;
     Get_B4 (Count,                                              "Number of entries");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
@@ -3037,7 +3037,11 @@ void File_Mpeg4::moov_trak_mdia_minf_vmhd()
 
     FILLING_BEGIN();
         if (StreamKind_Last!=Stream_Video)
+        {
             Stream_Prepare(Stream_Video);
+            Streams[moov_trak_tkhd_TrackID].StreamKind=Stream_Video;
+            Streams[moov_trak_tkhd_TrackID].StreamPos=StreamPos_Last;
+        }
     FILLING_END();
 }
 
