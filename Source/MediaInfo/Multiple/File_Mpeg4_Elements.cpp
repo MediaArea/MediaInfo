@@ -3946,14 +3946,38 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
 }
 
 //---------------------------------------------------------------------------
+// Source: http://wiki.multimedia.cx/index.php?title=Apple_Lossless_Audio_Coding
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_alac()
 {
     Element_Name("ALAC");
 
     //Parsing
-    Skip_B4(                                                    "Reserved");
-    Skip_B2(                                                    "Reserved");
-    Skip_B2(                                                    "Count");
+    int32u  bitrate, samplerate;
+    int8u   sample_size, channels;
+    Skip_B4(                                                    "?");
+    Skip_B4(                                                    "max sample per frame");
+    Skip_B1(                                                    "?");
+    Get_B1 (sample_size,                                        "sample size");
+    Skip_B1(                                                    "rice history mult");
+    Skip_B1(                                                    "rice initial history");
+    Skip_B1(                                                    "rice kmodifier");
+    Get_B1 (channels,                                           "channels");
+    Skip_B1(                                                    "?");
+    Skip_B1(                                                    "?");
+    Skip_B4(                                                    "max coded frame size");
+    Get_B4 (bitrate,                                            "bitrate");
+    Get_B4 (samplerate,                                         "samplerate");
+
+    FILLING_BEGIN_PRECISE();
+        if (sample_size)
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, sample_size, 10, true);
+        if (channels)
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, channels, 10, true);
+        if (bitrate)
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Nominal, bitrate, 10, true);
+        if (samplerate)
+            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplerate, 10, true);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
