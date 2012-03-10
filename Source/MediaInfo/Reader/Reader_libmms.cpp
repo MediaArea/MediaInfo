@@ -32,7 +32,7 @@
 //---------------------------------------------------------------------------
 // Config
 #ifndef MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT //If not defined by the compiler
-    #define MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT 1 //0=without, 1=with libmms customized version containing DESCRIBE only API
+    #define MEDIAINFO_LIBMMS_DESCRIBE_SUPPORT 0 //0=without, 1=with libmms customized version containing DESCRIBE only API
 #endif
 //---------------------------------------------------------------------------
 
