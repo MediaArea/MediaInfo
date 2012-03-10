@@ -1208,6 +1208,10 @@ bool File_Mpeg4::BookMark_Needed()
                 size_t stsz_Pos=0;
                 size_t Chunk_FrameCount=0;
                 int32u Chunk_Number=1;
+                int32u Sample_ByteSize=0;
+                if (Temp->second.StreamKind==Stream_Audio)
+                    Sample_ByteSize=Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_BitDepth).To_int32u()*Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_Channel_s_).To_int32u()/8;
+
                 #if MEDIAINFO_DEMUX
                     stream::stts_durations Temp_stts_Durations;
                 #endif //MEDIAINFO_DEMUX
@@ -1232,7 +1236,7 @@ bool File_Mpeg4::BookMark_Needed()
                         if (stsz_Pos>=Temp->second.stsz.size())
                             break;
                     }
-                    else if (Temp->second.StreamKind==Stream_Audio && Temp->second.stsz_Sample_Size<=32 && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
+                    else if (Temp->second.StreamKind==Stream_Audio && Temp->second.stsz_Sample_Size<=Sample_ByteSize && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
                     {
                         //Same size per sample, but granularity is too small
                         mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
