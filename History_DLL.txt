@@ -28,6 +28,7 @@ x #3440638, MPEG-4: wrong analysis of some files having track header after media
 x #3480111, MXF: Height was wrong for MXF with FrameLayout = Mixed fields
 x #3468235, Blu-ray: displaying PGS in all cases (even if PES is not detected, they are too much rare)
 x #3498846, MPEG-4: delay between audio and video was no more detected
+x #3495573, MPEG-4: crash with some files having fragments
 x MPEG-4: channel position in case of channel atom is configured with ChannelBitmap
 x MPEG-TS: crash with some buggy files (a PID indicated as PSI and PES at the same time)
 x AES3: not detecting Dolby E stream if there is guard band before the Dolby E frame, in MPEG-TS

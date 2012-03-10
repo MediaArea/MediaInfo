@@ -2388,9 +2388,8 @@ void File_Mpeg4::moov_mvex_trex()
     Element_End0();
 
     FILLING_BEGIN()
-        Stream=Streams.find(moov_trak_tkhd_TrackID);
-        Stream->second.mvex_trex_default_sample_duration=default_sample_duration;
-        Stream->second.mvex_trex_default_sample_size=default_sample_size;
+        Streams[moov_trak_tkhd_TrackID].mvex_trex_default_sample_duration=default_sample_duration;
+        Streams[moov_trak_tkhd_TrackID].mvex_trex_default_sample_size=default_sample_size;
     FILLING_END()
 }
 
