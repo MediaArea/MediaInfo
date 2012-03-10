@@ -134,7 +134,7 @@ void File__Analyze::BS_End()
 void File__Analyze::BS_End_LE()
 {
     BT->Byte_Align();
-    Element_Offset+=BS->Offset_Get();
+    Element_Offset+=BT->Offset_Get();
     BT->Attach(NULL, 0);
 }
 
