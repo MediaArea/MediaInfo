@@ -366,6 +366,15 @@ void File_DvDif::Streams_Fill()
                 default   : ;
             }
         }
+        else if (Interlaced)
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+            if (FieldOrder_FF)
+                Fill(Stream_Video, 0, Video_ScanOrder, FieldOrder_FS?"BFF":"TFF");
+            else
+                Fill(Stream_Video, 0, Video_ScanOrder, FieldOrder_FS?"Bottom field only":"Top field only");
+            Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+        }
         else
         {
             Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
@@ -1591,8 +1600,8 @@ void File_DvDif::video_sourcecontrol()
     Get_S1 (3, aspect,                                          "DISP - Aspect ratio"); Param_Info1(Dv_Disp[aspect]);
 
     //PC3
-    Skip_SB(                                                    "FF - Frame/Field"); //1=Frame, 0=Field
-    Skip_SB(                                                    "FS - First/second field"); //0=Field 2, 1=Field 1, if FF=0 x is output twice, if FF=1, Field x fisrst, other second
+    Get_SB (   FieldOrder_FF,                                   "FF - Frame/Field"); //1=Frame, 0=Field
+    Get_SB (   FieldOrder_FS,                                   "FS - First/second field"); //0=Field 2, 1=Field 1, if FF=0 x is output twice, if FF=1, Field x fisrst, other second
     Skip_SB(                                                    "FC - Frame Change"); //0=Same picture as before
     Get_SB (   Interlaced,                                      "IL - Interlaced"); //1=Interlaced
     Skip_SB(                                                    "SF");

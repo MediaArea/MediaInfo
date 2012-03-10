@@ -144,6 +144,8 @@ protected :
     bool   TF3;
     int8u  aspect;
     int8u  ssyb_AP3;
+    bool   FieldOrder_FF;
+    bool   FieldOrder_FS;
     bool   Interlaced;
     bool   system;
     bool   FSC_WasSet;
