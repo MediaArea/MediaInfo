@@ -2267,11 +2267,13 @@ void File_Mpegv::slice_start()
             macroblock_x=(int64u)-1;
             while (Synched) //Synched: testing if this is still valid
             {
-                int8u Remain=0;
+                int8u Remain;
                 if (Data_BS_Remain()%8)
                     Peek_S1(Data_BS_Remain()%8, Remain);
-                else
+                else if (Data_Remain())
                     Remain=Buffer[Buffer_Offset+(size_t)(Element_Size-Data_Remain())];
+                else
+                    Remain=0;
                 if (Remain==0)
                 {
                     int32u Remain3;
