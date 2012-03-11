@@ -1898,12 +1898,14 @@ void File_Riff::AVI__hdlr_strl_vprp()
 
     //Parsing
     int32u FieldPerFrame;
+    int16u FrameAspectRatio_H, FrameAspectRatio_W;
     Skip_L4(                                                    "VideoFormatToken");
     Skip_L4(                                                    "VideoStandard");
     Skip_L4(                                                    "VerticalRefreshRate");
     Skip_L4(                                                    "HTotalInT");
     Skip_L4(                                                    "VTotalInLines");
-    Skip_L4(                                                    "FrameAspectRatio");
+    Get_L2 (FrameAspectRatio_H,                                 "FrameAspectRatio Height");
+    Get_L2 (FrameAspectRatio_W,                                 "FrameAspectRatio Width");
     Skip_L4(                                                    "FrameWidthInPixels");
     Skip_L4(                                                    "FrameHeightInLines");
     Get_L4 (FieldPerFrame,                                      "FieldPerFrame");
@@ -1920,6 +1922,11 @@ void File_Riff::AVI__hdlr_strl_vprp()
     }
     if(Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+
+    FILLING_BEGIN();
+        if (FrameAspectRatio_H && FrameAspectRatio_W)
+            Fill(Stream_Video, 0, Video_DisplayAspectRatio, ((float32)FrameAspectRatio_W)/FrameAspectRatio_H, 3);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

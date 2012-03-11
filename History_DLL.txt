@@ -22,6 +22,7 @@ Version 0.7.54,
 + Compound streams (e.g. DV): separation of video bitrate and audio bitrate
 + Blu-ray: LPCM mono real bit rate is separated from the encoded (stereo) bit rate
 + Support of https, sftp scp protocols (custom builds only)
++ AVI: vprp (OpenDML) display aspect ratio support
 x #3480111, Matroska: some frame rates are incorrect in the file, trying to detect this kind of malformed file
 x #3479494, AVC: segmentation fault
 x #3440638, AAC: wrong detection for some malformed AAC streams
