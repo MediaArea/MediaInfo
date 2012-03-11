@@ -12,9 +12,36 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.54, 2012-01-
+Version 0.7.54, 2012-03-13
 --------------
++ #3480111, Matroska: parsing of WebM-style frame rate info
++ #3499859, ALAC: parsing of the alac atom, for real bit depth / sample rate
++ #3487601, DV: fields order (TFF/BFF)
++ MPEG-4: more video 4CCs binded to MPEG Video
++ H.263: raw stream parsing (width, height, aspect ratio), comparison with container data
++ Speed improvements
++ MPEG-PS: supporting parsing of some non-conform files
++ Full support of CEA-608 (separation of CC1-CC4, T1-T4)
++ #3494722, MPEG-4: trying to detect wrong duration in track header
++ MPEG-4 with embedded MXF track (XDCAM...): separation of video bitrate and padding bitrate
++ Compound streams (e.g. DV): separation of video bitrate and audio bitrate
++ Blu-ray: LPCM mono real bit rate is separated from the encoded (stereo) bit rate
++ Support of https, sftp scp protocols (custom builds only)
++ AVI: vprp (OpenDML) display aspect ratio support
 x File names with non-US characters were sometimes not open
+x #3480111, Matroska: some frame rates are incorrect in the file, trying to detect this kind of malformed file
+x #3479494, AVC: segmentation fault
+x #3440638, AAC: wrong detection for some malformed AAC streams
+x #3440638, MPEG-4: wrong analysis of some files having track header after media information
+x #3480111, MXF: Height was wrong for MXF with FrameLayout = Mixed fields
+x #3468235, Blu-ray: displaying PGS in all cases (even if PES is not detected, they are too much rare)
+x #3498846, MPEG-4: delay between audio and video was no more detected
+x #3495573, MPEG-4: crash with some files having fragments
+x MPEG-4: channel position in case of channel atom is configured with ChannelBitmap
+x MPEG-TS: crash with some buggy files (a PID indicated as PSI and PES at the same time)
+x AES3: not detecting Dolby E stream if there is guard band before the Dolby E frame, in MPEG-TS
+x DPX: some files with some invalid fields were not detected
+x DTVCC Captions: crash with some buggy streams
 
 Version 0.7.53, 2012-01-24
 --------------
