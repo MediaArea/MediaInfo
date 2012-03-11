@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.54,
+Version 0.7.54, 2012-03-13
 --------------
 + #3480111, Matroska: parsing of WebM-style frame rate info
 + #3499859, ALAC: parsing of the alac atom, for real bit depth / sample rate
