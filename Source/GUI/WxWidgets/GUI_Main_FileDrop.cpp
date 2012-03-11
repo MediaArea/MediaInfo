@@ -29,6 +29,8 @@
 #include "GUI/WxWidgets/GUI_Main.h"
 #include "Common/Core.h"
 #include "wx/datetime.h"
+#include "wx/file.h"
+#include "wx/dir.h"
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -39,11 +41,36 @@
 #if wxUSE_DRAG_AND_DROP
 bool FileDrop::OnDropFiles(wxCoord, wxCoord, const wxArrayString& FileNames)
 {
+    #if !defined(__WXMSW__)
+        wxArrayString FileNames2;
+        for (size_t Pos=0; Pos<FileNames.size(); Pos++)
+        {
+	        if (wxFile::Exists(FileNames[Pos]) || wxDir::Exists(FileNames[Pos]))
+		        FileNames2.Add(FileNames[Pos]);
+	        else
+	        {
+		        wxString Temp(FileNames[Pos]);
+		        std::string Temp2;
+		        for (size_t Temp_Pos=0; Temp_Pos<Temp.size(); Temp_Pos++)
+			        Temp2.append(1, (char)Temp[Temp_Pos]);
+		        wxString Temp3(Temp2.c_str(), wxConvLocal);
+	            if (wxFile::Exists(Temp3) || wxDir::Exists(Temp3))
+		            FileNames2.Add(Temp3);
+	            else
+		            FileNames2.Add(FileNames[Pos]);
+	        }
+        }
+    #endif //!defined(__WXMSW__)
+
     C->Menu_File_Open_Files_Begin();
 
     wxDateTime Begin=wxDateTime::UNow();
     for (size_t Pos=0; Pos<FileNames.size(); Pos++)
+    #if defined(__WXMSW__)
         C->Menu_File_Open_Files_Continue(FileNames[Pos].c_str());
+    #else //defined(__WXMSW__)
+        C->Menu_File_Open_Files_Continue(FileNames2[Pos].c_str());
+    #endif //defined(__WXMSW__)
     wxTimeSpan Span=wxDateTime::UNow()-Begin;
     ((GUI_Main*)C->GUI_Main_Handler)->View_Refresh();
     if (((GUI_Main*)C->GUI_Main_Handler)->GetStatusBar()==NULL)
