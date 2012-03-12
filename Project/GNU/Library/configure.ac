@@ -552,6 +552,9 @@ case "${build}" in
     CFLAGS="$CFLAGS -D__MONTAVISTA__"
     CXXFLAGS="$CXXFLAGS -D__MONTAVISTA__"
   ;;
+  powerpc64-* )
+    enable_visibility="no"
+  ;;
 esac
 
 dnl -------------------------------------------------------------------------
