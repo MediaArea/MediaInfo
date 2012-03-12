@@ -80,6 +80,7 @@ Preferences::Preferences()
     NewVersion_Display=false;
 
     //Donate
+    Donated=false;
     Donate_Display=true;
 }
 
@@ -172,7 +173,6 @@ int Preferences::Config_Load()
         if (Reg_User->OpenKey(_T("Software\\MediaArea.net\\MediaInfo"), false))
         {
             //Test if donation was given
-            int Donated=0;
             if (Reg_User->ValueExists("Donated"))
                 Donated=Reg_User->ReadInteger("Donated");
             if (Donated)
@@ -181,7 +181,10 @@ int Preferences::Config_Load()
     }
     catch (...){}
     if (Config(_T("Donated"))==_T("1"))
+    {
+        Donated=true;
         Donate_Display=false;
+    }
     if (Config(_T("Donate_Display"))==_T("0"))
         Donate_Display=false;
     if ((int64u)time(NULL)-Config(_T("Install")).To_int64u()<7*24*60*60)

@@ -100,6 +100,7 @@ public:
     ZenLib::ZtringList DefaultNames; //List of list_t --> Default Filenames for a kind
 
     //Donate
+    bool Donated;
     bool Donate_Display;
     bool NewVersion_Display;
 };

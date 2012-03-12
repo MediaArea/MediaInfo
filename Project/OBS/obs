@@ -128,8 +128,6 @@ Download_Packages $1 $2 $3  x x ""           SLE_11_SP1      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      i586   .i586
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      ppc64  .ppc64
-Download_Packages $1 $2 $3  x x ""           openSUSE_11.3   i586   .i586
-Download_Packages $1 $2 $3  x x ""           openSUSE_11.3   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   i586   .i586

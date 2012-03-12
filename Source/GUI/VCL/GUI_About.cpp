@@ -89,6 +89,12 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
         WriteToTranslator->Caption=Prefs->Translate(_T("WriteToTranslator")).c_str();
         WriteToTranslator->Visible=true;
     }
+
+    if (Prefs->Donated)
+    {
+        Digimetrics->Visible=false;
+        Digimetrics_Label->Visible=false;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -131,7 +137,7 @@ void __fastcall TAboutF::WebSiteClick(TObject *Sender)
 
 
 
-void __fastcall TAboutF::ToolButton3Click(TObject *Sender)
+void __fastcall TAboutF::DigimetricsClick(TObject *Sender)
 {
     ShellExecute(NULL, NULL, _T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
 }

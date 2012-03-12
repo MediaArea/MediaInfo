@@ -74,10 +74,26 @@
 			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
-				<BuildOrder>7</BuildOrder>
-				<BuildOrder>2</BuildOrder>
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>6</BuildOrder>
+			</LibFiles>
+			<CppCompile Include="..\..\..\Source\PreRelease\Language_Others.cpp">
+				<BuildOrder>9</BuildOrder>
+				<BuildOrder>3</BuildOrder>
 			</CppCompile>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>7</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\wx\lib\bcc_lib\wxmsw28ud_core.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>9</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\wx\lib\bcc_lib\wxbase28ud.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>8</BuildOrder>
+			</LibFiles>
 			<ResFiles Include="PreRelease.res">
 				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>1</BuildOrder>
@@ -86,36 +102,22 @@
 				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>0</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\PreRelease\Language_All.cpp">
-				<BuildOrder>7</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\Source\PreRelease\VCL\PreRelease_.cpp">
 				<BuildOrder>8</BuildOrder>
 				<Form>Form1</Form>
 				<DependentOn>..\..\..\Source\PreRelease\VCL\PreRelease_.h</DependentOn>
 				<BuildOrder>4</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\PreRelease\Language_Others.cpp">
-				<BuildOrder>9</BuildOrder>
-				<BuildOrder>3</BuildOrder>
-			</CppCompile>
-			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>6</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
-				<IgnorePath>true</IgnorePath>
+			<CppCompile Include="..\..\..\Source\PreRelease\Language_All.cpp">
 				<BuildOrder>7</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\wx\lib\bcc_lib\wxbase28ud.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>8</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="..\..\..\..\wx\lib\bcc_lib\wxmsw28ud_core.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>9</BuildOrder>
-			</LibFiles>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.cpp">
+				<BuildOrder>10</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
+				<BuildOrder>10</BuildOrder>
+			</CppCompile>
 			<FormResources Include="..\..\..\Source\PreRelease\VCL\PreRelease_.dfm"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

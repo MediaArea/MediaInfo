@@ -91,7 +91,7 @@ TCustomButton*              Donate_Current;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net - Sponsored by Digimetrics");
+const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net");
 const size_t Title_Pos=96; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
@@ -581,6 +581,11 @@ void __fastcall TMainF::Translate()
             Donate_Current->Visible=true;
         }
     }
+    if (Prefs->Donated)
+    {
+        M_Digimetrics->Visible=false;
+        Tool_Digimetrics->Visible=false;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -873,7 +878,11 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     Title=Title.SubString(_T(""), _T(" - "));
          if (FilesCount==0)
         //0 fichier
+    {
         Caption=MEDIAINFO_TITLE;
+        if (Prefs->Donated)
+            Caption+=" - Sponsored by Digimetrics";
+    }
     else if (FilesCount==1)
         //un fichier
         Caption=(Title+_T(" - ")+I->Get(0, Stream_General, 0, _T("CompleteName"))).c_str();
