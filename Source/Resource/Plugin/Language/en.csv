@@ -750,7 +750,7 @@ Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 matrix_coefficients;Matrix coefficients
-MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nIt is free software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (LGPL license)
 Menu;Menu
 Menu stream(s);Menu streams
 Menu_Codec_List;Menu codecs
