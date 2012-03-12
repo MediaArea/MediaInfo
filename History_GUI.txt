@@ -14,6 +14,7 @@ Known bugs
 
 Version 0.7.54, 2012-03-13
 --------------
++ Russian translation updated
 + #3480111, Matroska: parsing of WebM-style frame rate info
 + #3499859, ALAC: parsing of the alac atom, for real bit depth / sample rate
 + #3487601, DV: fields order (TFF/BFF)

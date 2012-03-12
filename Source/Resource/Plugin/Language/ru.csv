@@ -144,8 +144,8 @@
 About;О программе
 About_Hint;Как связаться со мной и найти последнюю версию программы
 Accompaniment;Сопровождение
-ActiveFormatDescription;
-ActiveFormatDescription_MuxingMode;
+ActiveFormatDescription;Описание активного формата
+ActiveFormatDescription_MuxingMode;Описание активного формата, режим смешивания
 Actor;Исполнитель
 Actor_Character;Роль
 Added_Date;Дата добавлениия
@@ -318,7 +318,7 @@ Folder_Hint;Операции с папками
 FolderName;Имя папки
 Format;Формат
 Format_Commercial;Коммерческое название
-Format_Commercial_IfAny;
+Format_Commercial_IfAny;Коммерческое название
 Format_Description;Описание формата
 Format_Info;Подробно о формате
 Format_Profile;Профиль формата
@@ -891,11 +891,11 @@ Show toolbar;Показывать панель
 Sort;Сортировать по
 SamplingCount;Количество образцов
 SoundEngineer;Звукорежиссёр
-Source;
-Source_Duration;
-Source_FrameCount;
+Source;Оригинал
+Source_Duration;Продолжительность оригинала
+Source_FrameCount;Количество кадров оригинала
 Source_SamplingCount;
-Source_StreamSize;
+Source_StreamSize;Размер потока оригинала
 Source_StreamSize_Encoded;
 Standard;Стандарт вещания
 Stream;Поток
@@ -975,5 +975,5 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
