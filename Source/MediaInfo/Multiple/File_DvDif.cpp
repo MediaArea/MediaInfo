@@ -1660,7 +1660,7 @@ void File_DvDif::closed_captions()
         if (CC_Parsers.empty())
         {
             CC_Parsers.resize(2);
-            for (size_t Pos=0; Pos<2; Pos++)
+            for (int8u Pos=0; Pos<2; Pos++)
             {
                 CC_Parsers[Pos]=new File_Eia608();
                 ((File_Eia608*)CC_Parsers[Pos])->cc_type=Pos;

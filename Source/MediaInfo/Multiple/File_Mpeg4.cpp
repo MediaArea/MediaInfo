@@ -1191,7 +1191,7 @@ bool File_Mpeg4::BookMark_Needed()
                     if (Channels!=2)
                     {
                         Temp->second.stsc[Pos].SamplesPerChunk/=2;
-                        Temp->second.stsc[Pos].SamplesPerChunk*=Channels;
+                        Temp->second.stsc[Pos].SamplesPerChunk*=(int32u)Channels;
                     }
                 }
             }

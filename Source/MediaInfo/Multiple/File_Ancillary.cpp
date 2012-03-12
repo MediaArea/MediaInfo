@@ -322,7 +322,7 @@ void File_Ancillary::Header_Parse()
 
     //Test (in some container formats, Cheksum is present sometimes)
     bool WithChecksum_Temp=WithChecksum;
-    if (!MustSynchronize && !WithChecksum && (3+DataCount+1)*(WithTenBit?2:1)==Buffer_Size)
+    if (!MustSynchronize && !WithChecksum && (size_t)((3+DataCount+1)*(WithTenBit?2:1))==Buffer_Size)
         WithChecksum_Temp=true; 
     
     //Filling

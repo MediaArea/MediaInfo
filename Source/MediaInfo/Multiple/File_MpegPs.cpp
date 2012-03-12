@@ -1552,8 +1552,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
     if (Trace_Activated)
     {
         BS_Begin();
-        Mark_1();
-        Mark_0();
+        Mark_1_NoTrustError();
+        Mark_0_NoTrustError();
         Skip_S1(2,                                                  "PES_scrambling_control");
         Skip_SB(                                                    "PES_priority");
         Skip_SB(                                                    "data_alignment_indicator");
@@ -3054,6 +3054,9 @@ void File_MpegPs::audio_stream()
             #endif
             #if defined(MEDIAINFO_AAC_YES)
                 Streams[stream_id].Parsers.push_back(ChooseParser_Adts());
+            #endif
+            #if defined(MEDIAINFO_AAC_YES)
+                Streams[stream_id].Parsers.push_back(ChooseParser_Latm());
             #endif
         }
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)

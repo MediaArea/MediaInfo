@@ -468,7 +468,7 @@ void File_Eia708::Service()
             case 0x90 : SPA(); Pos+=2; break; //SetPenAttributes
             case 0x91 : SPC(); Pos+=3; break; //SetPenColor
             case 0x92 : SPL(); Pos+=2; break; //SetPenLocation
-            case 0x97 : SWA(); Pos+=2; break; //SetWindowAttributes
+            case 0x97 : SWA(); Pos+=5; break; //SetWindowAttributes
             case 0x98 : //DF0
             case 0x99 : //DF1
             case 0x9A : //DF2

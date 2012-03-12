@@ -49,7 +49,7 @@ public :
         Format_DVD,             //Unknown standard
     };
     format Format;
-    float32 AspectRatio;
+    float64 AspectRatio;
 
     //Constructor/Destructor
     File_DtvccTransport();

@@ -46,7 +46,7 @@ public :
     bool    WithChecksum;
     bool    HasBFrames;
     bool    InDecodingOrder;
-    float32 AspectRatio;
+    float64 AspectRatio;
     float64 FrameRate;
 
     //In/Out

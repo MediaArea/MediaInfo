@@ -1452,7 +1452,7 @@ void File_Avc::slice_header()
                             if (prevPicOrderCntLsb==(int32u)-1)
                             {
                                 PicOrderCntMsb=0;
-                                if (2*((*seq_parameter_set_Item)->max_num_ref_frames+3)<pic_order_cnt_lsb)
+                                if ((int32u)(2*((*seq_parameter_set_Item)->max_num_ref_frames+3))<pic_order_cnt_lsb)
                                     TemporalReferences_Min=pic_order_cnt_lsb-2*((*seq_parameter_set_Item)->max_num_ref_frames+3);
                             }
                             else if (pic_order_cnt_lsb<prevPicOrderCntLsb && prevPicOrderCntLsb-pic_order_cnt_lsb>=(*seq_parameter_set_Item)->MaxPicOrderCntLsb/2)
@@ -1539,8 +1539,8 @@ void File_Avc::slice_header()
                     TemporalReferences_Max+=ToInsert;
                     TemporalReferences_pic_order_cnt_Min=pic_order_cnt;
                 }
-                else if (TemporalReferences_Min>TemporalReferences_Offset+pic_order_cnt)
-                    TemporalReferences_Min=TemporalReferences_Offset+pic_order_cnt;
+                else if (TemporalReferences_Min>(size_t)(TemporalReferences_Offset+pic_order_cnt))
+                    TemporalReferences_Min=(size_t)(TemporalReferences_Offset+pic_order_cnt);
             }
 
             if (TemporalReferences_Offset+pic_order_cnt>=3*TemporalReferences_Reserved)
@@ -2179,7 +2179,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
 void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u seq_parameter_set_id)
 {
     // Skipping missing frames
-    if (TemporalReferences_Max-TemporalReferences_Min>4*(seq_parameter_sets[seq_parameter_set_id]->max_num_ref_frames+3)) // max_num_ref_frames ref frame maximum
+    if (TemporalReferences_Max-TemporalReferences_Min>(size_t)(4*(seq_parameter_sets[seq_parameter_set_id]->max_num_ref_frames+3))) // max_num_ref_frames ref frame maximum
     {
         TemporalReferences_Min=TemporalReferences_Max-4*(seq_parameter_sets[seq_parameter_set_id]->max_num_ref_frames+3);
         while (TemporalReferences[TemporalReferences_Min]==NULL)
@@ -2205,7 +2205,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
             }
             if (((File_DtvccTransport*)GA94_03_Parser)->AspectRatio==0)
             {
-                float PixelAspectRatio=1;
+                float64 PixelAspectRatio=1;
                 std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item=seq_parameter_sets.begin();
                 for (; seq_parameter_set_Item!=seq_parameter_sets.end(); seq_parameter_set_Item++)
                     if ((*seq_parameter_set_Item))
