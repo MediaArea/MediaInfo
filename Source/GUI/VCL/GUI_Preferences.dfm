@@ -31,7 +31,7 @@ object PreferencesF: TPreferencesF
   object Tree: TTreeView
     Left = 0
     Top = -1
-    Width = 150
+    Width = 190
     Height = 150
     Indent = 19
     ParentShowHint = False
@@ -64,9 +64,9 @@ object PreferencesF: TPreferencesF
     TabOrder = 2
   end
   object Page: TPageControl
-    Left = 149
+    Left = 176
     Top = 0
-    Width = 517
+    Width = 490
     Height = 157
     ActivePage = Setup
     MultiLine = True
@@ -74,6 +74,7 @@ object PreferencesF: TPreferencesF
     object Setup: TTabSheet
       Caption = 'General'
       OnShow = Setup_GeneralShow
+      ExplicitWidth = 509
       object Langue_C: TLabel
         Left = 0
         Top = 9
@@ -89,7 +90,7 @@ object PreferencesF: TPreferencesF
         Caption = 'Output :'
       end
       object General_Language_Sel: TComboBox
-        Left = 103
+        Left = 124
         Top = 0
         Width = 113
         Height = 22
@@ -98,7 +99,7 @@ object PreferencesF: TPreferencesF
         OnChange = General_Language_SelChange
       end
       object General_Output_Sel: TComboBox
-        Left = 103
+        Left = 124
         Top = 26
         Width = 113
         Height = 22
@@ -126,7 +127,7 @@ object PreferencesF: TPreferencesF
         OnClick = CB_CheckUpdateClick
       end
       object General_Language_More: TButton
-        Left = 216
+        Left = 237
         Top = 0
         Width = 57
         Height = 23
@@ -135,7 +136,7 @@ object PreferencesF: TPreferencesF
         OnClick = General_Language_MoreClick
       end
       object General_Output_More: TButton
-        Left = 216
+        Left = 237
         Top = 26
         Width = 57
         Height = 22
@@ -181,6 +182,7 @@ object PreferencesF: TPreferencesF
       Caption = 'Advanced'
       ImageIndex = 1
       OnShow = Setup_AdvancedShow
+      ExplicitWidth = 509
       object CB_ShowToolBar: TCheckBox
         Left = 0
         Top = 26
@@ -213,6 +215,7 @@ object PreferencesF: TPreferencesF
       Caption = 'Language'
       ImageIndex = 3
       OnShow = Customize_LanguageShow
+      ExplicitWidth = 509
       object Language_Caption: TLabel
         Left = 0
         Top = 0
@@ -261,6 +264,7 @@ object PreferencesF: TPreferencesF
       Caption = 'Sheet'
       ImageIndex = 4
       OnShow = Customize_SheetShow
+      ExplicitWidth = 509
       object Sheet_Caption: TLabel
         Left = 0
         Top = 0
@@ -308,6 +312,7 @@ object PreferencesF: TPreferencesF
     object Customize_TreeText: TTabSheet
       Caption = 'Tree && Text'
       ImageIndex = 6
+      ExplicitWidth = 509
       object Tree_NotYet: TLabel
         Left = 362
         Top = 78
@@ -320,6 +325,7 @@ object PreferencesF: TPreferencesF
       Caption = 'Custom Text'
       ImageIndex = 6
       OnShow = Customize_CustomShow
+      ExplicitWidth = 509
       object Custom_Caption: TLabel
         Left = 0
         Top = 0
@@ -367,6 +373,7 @@ object PreferencesF: TPreferencesF
     object Customize: TTabSheet
       Caption = 'Customize'
       ImageIndex = 7
+      ExplicitWidth = 509
     end
   end
 end
