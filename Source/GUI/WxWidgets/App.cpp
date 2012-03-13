@@ -24,7 +24,7 @@ bool App::OnInit()
         ProcessSerialNumber PSN;
         GetCurrentProcess(&PSN);
         TransformProcessType(&PSN, kProcessTransformToForegroundApplication);
-        setenv("LC_CTYPE", "UTF-8", 0)
+        setenv("LC_CTYPE", "UTF-8", 0);
     #endif //__WXMAC__
 
     setlocale(LC_ALL, "");
