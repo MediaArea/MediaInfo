@@ -870,6 +870,7 @@ File_Mxf::File_Mxf()
         Demux_Level=2; //Container
     #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
+    DataMustAlwaysBeComplete=false;
     Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
     FrameInfo.DTS=0;
@@ -2604,7 +2605,6 @@ bool File_Mxf::Header_Begin()
         #endif //MEDIAINFO_DEMUX
     }
 
-    DataMustAlwaysBeComplete=true;
     return true;
 }
 
@@ -2737,17 +2737,20 @@ void File_Mxf::Header_Parse()
         if (Clip_Begin==(int64u)-1)
         #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         {
-            if (File_Buffer_Size_Hint_Pointer)
+            if (Length<=File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.))
             {
-                int64u Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length-Buffer_Size+24); //+24 for next packet header
+                if (File_Buffer_Size_Hint_Pointer)
+                {
+                    int64u Buffer_Size_Target=(size_t)(Buffer_Offset+Element_Offset+Length-Buffer_Size+24); //+24 for next packet header
 
-                if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
-                    (*File_Buffer_Size_Hint_Pointer)=(size_t)Buffer_Size_Target;
+                    if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                        (*File_Buffer_Size_Hint_Pointer)=(size_t)Buffer_Size_Target;
+                }
+
+
+                Element_WaitForMoreData();
+                return;
             }
-
-
-            Element_WaitForMoreData();
-            return;
         }
     }
 

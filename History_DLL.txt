@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.55, 2012-0
+--------------
+x MXF, hang up with some clip-wrapped files
+
 Version 0.7.54, 2012-03-13
 --------------
 + #3480111, Matroska: parsing of WebM-style frame rate info
