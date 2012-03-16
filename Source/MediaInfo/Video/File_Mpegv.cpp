@@ -2067,14 +2067,6 @@ void File_Mpegv::Detect_EOF()
 // Packet "00"
 void File_Mpegv::picture_start()
 {
-    #if MEDIAINFO_MACROBLOCKS
-        if (Macroblocks_Parse)
-        {
-            macroblock_x_PerFrame=0;
-            macroblock_y_PerFrame=0;
-        }
-    #endif //MEDIAINFO_MACROBLOCKS
-
     Element_Name("picture_start");
 
     //Coherency
@@ -2125,12 +2117,20 @@ void File_Mpegv::picture_start()
         temporal_reference      =(Buffer[Buffer_Pos]<<2) | (Buffer[Buffer_Pos+1]>>6);
         picture_coding_type     =(Buffer[Buffer_Pos+1]>>3)&0x07;
         vbv_delay               =(Buffer[Buffer_Pos+1]<<13) | (Buffer[Buffer_Pos+2]<<5) | (Buffer[Buffer_Pos+3]>>3);
-        Element_Offset=Element_Size;
+        Element_Offset=4;
     #if MEDIAINFO_TRACE
     }
     #endif //MEDIAINFO_TRACE
 
     FILLING_BEGIN();
+        #if MEDIAINFO_MACROBLOCKS
+            if (Macroblocks_Parse)
+            {
+                macroblock_x_PerFrame=0;
+                macroblock_y_PerFrame=0;
+            }
+        #endif //MEDIAINFO_MACROBLOCKS
+
         #if MEDIAINFO_EVENTS
             {
                 struct MediaInfo_Event_Video_SliceInfo_0 Event;
