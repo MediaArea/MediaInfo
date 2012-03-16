@@ -75,6 +75,14 @@ private :
     void TimeStamp();
     void dac3();
     void dec3();
+    bool FrameSynchPoint_Test();
+    bool CRC_Compute(size_t Size);
+    size_t Core_Size_Get();
+
+    //Buffer
+    const int8u* Save_Buffer;
+    size_t Save_Buffer_Offset;
+    size_t Save_Buffer_Size;
 
     //Temp
     struct dolby
@@ -103,7 +111,6 @@ private :
     std::map<int8u, int64u> fscods;
     std::map<int8u, int64u> frmsizecods;
     size_t HD_Count;
-    int16u Size;
     int16u chanmap;
     int16u frmsiz;
     int16u HD_BitRate_Max;
@@ -115,7 +122,7 @@ private :
     int8u  bsmod;
     int8u  acmod;
     int8u  dsurmod;
-    int8u  numblks;
+    int8u  numblkscod;
     int8u  HD_StreamType;
     int8u  HD_SubStreams_Count;
     int8u  HD_SamplingRate1;
@@ -138,6 +145,7 @@ private :
     bool   TimeStamp_Parsed;
     bool   TimeStamp_DropFrame_IsValid;
     bool   TimeStamp_DropFrame_Content;
+    bool   BigEndian;
     float64 TimeStamp_Content;
 };
 
