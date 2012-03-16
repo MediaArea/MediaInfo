@@ -469,7 +469,7 @@ void File_Pcm::M2TS()
                 if (Pcm_M2TS_sampling_frequency[sampling_frequency] && Pcm_M2TS_bits_per_sample[bits_per_sample])
                 {
                     if (Channels%2)
-                        Channels++; //Always by pair
+                        Fill(Stream_Audio, 0, Audio_BitRate_Encoded, Pcm_M2TS_sampling_frequency[sampling_frequency]*(Channels+1)*Pcm_M2TS_bits_per_sample[bits_per_sample]); //Always by pair
                     Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_sampling_frequency[sampling_frequency]*Channels*Pcm_M2TS_bits_per_sample[bits_per_sample]);
                 }
             }
