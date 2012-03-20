@@ -1442,7 +1442,8 @@ void File_Ac3::Core()
             PTS_Begin=FrameInfo.PTS;
         Frame_Count++;
         Frame_Count_InThisBlock++;
-        Frame_Count_NotParsedIncluded++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         HD_AlreadyCounted=false;
         FrameInfo.DUR=32000000;
         if (fscod && AC3_SamplingRate[fscod])
