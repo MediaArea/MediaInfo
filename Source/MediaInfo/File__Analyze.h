@@ -282,7 +282,7 @@ protected :
     inline void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     #define Element_Info1(_A) Element_Info(_A)
     #define Element_Info2(_A,_B) Element_Info(_A, _B)
-    #define Element_Info3(_A,_B_C) Element_Info(_A, _B, _C)
+    #define Element_Info3(_A,_B,_C) Element_Info(_A, _B, _C)
     #define Element_Info1C(_CONDITION,_A) if (_CONDITION) Element_Info(_A)
     inline void Element_Info_From_Milliseconds (int64u Parameter)                  {Element_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 

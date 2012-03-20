@@ -241,7 +241,7 @@ protected :
     //Elements - Info
     #define Element_Info1(_A)
     #define Element_Info2(_A,_B)
-    #define Element_Info3(_A,_B_C)
+    #define Element_Info3(_A,_B,_C)
     #define Element_Info1C(_CONDITION,_A)
     #define Element_Info_From_Milliseconds(_A)
 
