@@ -9,6 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.55, 2012-0
 --------------
++ AC-3: support of little endian streams
++ LXF: support of format version 0
 x MXF: hang up with some clip-wrapped files
 
 Version 0.7.54, 2012-03-13

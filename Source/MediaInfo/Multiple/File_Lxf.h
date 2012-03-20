@@ -73,6 +73,11 @@ protected :
     void Audio_Stream(size_t Pos);
     void Video();
     void Video_Stream(size_t Pos);
+    void Video_Stream_1();
+    void Video_Stream_2();
+    void Video_Stream_2_Mpegv();
+    void Video_Stream_2_DvDif();
+    void Video_Stream_2_Avc();
 
     //Streams
     struct stream
@@ -135,8 +140,9 @@ protected :
     #if MEDIAINFO_SEEK
         int64u              SeekRequest_Divider;
         int64u              SeekRequest;
-        float64             FrameRate;
     #endif //MEDIAINFO_SEEK
+    float64                 FrameRate;
+    float64                 TimeStamp_Rate;
     bool                    Duration_Detected;
     int64u                  LastAudio_BufferOffset;
     stream_header           LastAudio_TimeOffset;
