@@ -2078,49 +2078,32 @@ void File_Mpegv::picture_start()
 
     //Parsing
     int8u picture_coding_type_Old=picture_coding_type;
-    #if MEDIAINFO_TRACE
-    if (Trace_Activated)
+    BS_Begin();
+    Get_S2 (10, temporal_reference,                             "temporal_reference");
+    Get_S1 ( 3, picture_coding_type,                            "picture_coding_type"); Param_Info1(Mpegv_picture_coding_type[picture_coding_type]);
+    Get_S2 (16, vbv_delay,                                      "vbv_delay");
+    if (picture_coding_type==2 || picture_coding_type==3) //P or B
     {
-        //Parsing
-        BS_Begin();
-        Get_S2 (10, temporal_reference,                         "temporal_reference");
-        Get_S1 ( 3, picture_coding_type,                        "picture_coding_type"); Param_Info1(Mpegv_picture_coding_type[picture_coding_type]);
-        Get_S2 (16, vbv_delay,                                  "vbv_delay");
-        if (picture_coding_type==2 || picture_coding_type==3) //P or B
-        {
-            Skip_S1(1,                                          "full_pel_forward_vector");
-            Skip_S1(3,                                          "forward_f_code");
-        }
-        if (picture_coding_type==3) //B
-        {
-            Skip_S1(1,                                          "full_pel_backward_vector");
-            Skip_S1(3,                                          "backward_f_code");
-        }
-        bool extra_bit_picture;
-        do
-        {
-            Peek_SB(extra_bit_picture);
-            if (extra_bit_picture)
-            {
-                Skip_S1(1,                                      "extra_bit_picture");
-                Skip_S1(8,                                      "extra_information_picture");
-            }
-        }
-        while (extra_bit_picture);
-        BS_End();
+        Skip_S1(1,                                              "full_pel_forward_vector");
+        Skip_S1(3,                                              "forward_f_code");
     }
-    else
+    if (picture_coding_type==3) //B
     {
-    #endif //MEDIAINFO_TRACE
-        //Parsing
-        size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        temporal_reference      =(Buffer[Buffer_Pos]<<2) | (Buffer[Buffer_Pos+1]>>6);
-        picture_coding_type     =(Buffer[Buffer_Pos+1]>>3)&0x07;
-        vbv_delay               =(Buffer[Buffer_Pos+1]<<13) | (Buffer[Buffer_Pos+2]<<5) | (Buffer[Buffer_Pos+3]>>3);
-        Element_Offset=4;
-    #if MEDIAINFO_TRACE
+        Skip_S1(1,                                              "full_pel_backward_vector");
+        Skip_S1(3,                                              "backward_f_code");
     }
-    #endif //MEDIAINFO_TRACE
+    bool extra_bit_picture;
+    do
+    {
+        Peek_SB(extra_bit_picture);
+        if (extra_bit_picture)
+        {
+            Skip_S1(1,                                          "extra_bit_picture");
+            Skip_S1(8,                                          "extra_information_picture");
+        }
+    }
+    while (extra_bit_picture);
+    BS_End();
 
     FILLING_BEGIN();
         #if MEDIAINFO_MACROBLOCKS
