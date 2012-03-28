@@ -255,16 +255,22 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
             StreamIDs[StreamIDs_Size-1]=(int64u)-1;
         if (!IsSub)
         {
-            int64u SubFile_StreamID=Config->SubFile_StreamID_Get();
-            if (SubFile_StreamID!=(int64u)-1)
+            ZtringListList SubFile_IDs;
+            SubFile_IDs.Separator_Set(0, EOL);
+            SubFile_IDs.Separator_Set(1, _T(","));
+            SubFile_IDs.Write(Config->SubFile_IDs_Get());
+            if (!SubFile_IDs.empty())
             {
-                StreamIDs_Size=2;
-                StreamIDs[1]=IsRawStream?(int64u)-1:StreamIDs[0];
-                StreamIDs_Width[1]=StreamIDs_Width[0];
-                StreamIDs[0]=SubFile_StreamID;
-                StreamIDs_Width[0]=8;
-                ParserIDs[1]=ParserIDs[0];
-                ParserIDs[0]=0x00;
+                StreamIDs_Size=1+SubFile_IDs.size();
+                StreamIDs[SubFile_IDs.size()]=IsRawStream?(int64u)-1:StreamIDs[0];
+                StreamIDs_Width[SubFile_IDs.size()]=StreamIDs_Width[0];
+                ParserIDs[SubFile_IDs.size()]=ParserIDs[0];
+                for (size_t Pos=0; Pos<SubFile_IDs.size(); Pos++)
+                {
+                    StreamIDs[Pos]=SubFile_IDs[Pos](0).To_int64u();
+                    StreamIDs_Width[Pos]=SubFile_IDs[Pos](1).To_int8u();
+                    ParserIDs[Pos]=SubFile_IDs[Pos](2).To_int8u();
+                }
             }
         }
     #endif //MEDIAINFO_EVENTS
@@ -797,6 +803,62 @@ size_t File__Analyze::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     return (size_t)-1; //Not supported
 }
 #endif //MEDIAINFO_SEEK
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_SEEK
+size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Value, int64u ID)
+{
+    //Parsing
+    switch (Method)
+    {
+        case 0  :
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :
+                    GoTo(File_Size*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 2  :   //Timestamp
+                    if (Config->Demux_Rate_Get()==0)
+                        return (size_t)-1; //Not supported
+                    Value=float64_int64s(((float64)Value)/1000000000*Config->Demux_Rate_Get());
+        case 3  :   //FrameNumber
+                    {
+                    if (Value>=Config->File_Names.size())
+                        return 2; //Invalid value
+                    int64u Offset=0;
+                    for (size_t Pos=0; Pos<Value; Pos++)
+                        Offset+=Config->File_Sizes[Pos];
+                    GoTo(Offset);
+                    Open_Buffer_Unsynch();
+                    return 1;
+                    }
+        default :   return (size_t)-1; //Not supported
+    }
+}
+#endif //MEDIAINFO_SEEK
+   
+//---------------------------------------------------------------------------
+void File__Analyze::Read_Buffer_Unsynched_OneFramePerFile()
+{
+    int64u GoTo=File_GoTo;
+    for (Frame_Count_NotParsedIncluded=0; Frame_Count_NotParsedIncluded<Config->File_Sizes.size(); Frame_Count_NotParsedIncluded++)
+    {
+        if (GoTo>=Config->File_Sizes[Frame_Count_NotParsedIncluded])
+            GoTo-=Config->File_Sizes[Frame_Count_NotParsedIncluded];
+        else
+            break;
+    }
+
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_Rate_Get())
+        {
+            FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*((float64)1000000000)/Config->Demux_Rate_Get());
+            FrameInfo.PTS=FrameInfo.DTS;
+        }
+    #endif //MEDIAINFO_DEMUX
+}
 
 //---------------------------------------------------------------------------
 bool File__Analyze::Buffer_Parse()
@@ -2675,6 +2737,31 @@ void File__Analyze::Demux_UnpacketizeContainer_Demux (bool random_access)
     if (StreamIDs_Size>=2)
         StreamIDs[StreamIDs_Size-2]=Element_Code;
     Demux_UnpacketizeContainer_Demux_Clear();
+}
+
+bool File__Analyze::Demux_UnpacketizeContainer_Test_OneFramePerFile ()
+{
+    if (Buffer_Size<Config->File_Sizes[Config->File_Names_Pos-1])
+    {
+        size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
+        if (File_Buffer_Size_Hint_Pointer)
+            (*File_Buffer_Size_Hint_Pointer)=(size_t)Config->File_Sizes[Config->File_Names_Pos-1];
+        return false;
+    }
+
+    if (Config->Demux_Rate_Get())
+    {
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Config->Demux_Rate_Get());
+        else
+            FrameInfo.DTS=(int64u)-1;
+        FrameInfo.PTS=FrameInfo.DTS;
+        FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
+    }
+    Demux_Offset=Buffer_Size;
+    Demux_UnpacketizeContainer_Demux();
+
+    return true;
 }
 
 void File__Analyze::Demux_UnpacketizeContainer_Demux_Clear ()

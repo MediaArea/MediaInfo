@@ -155,7 +155,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -342,6 +342,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ism.cpp" />
@@ -509,6 +510,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ibi_Creation.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ism.h" />

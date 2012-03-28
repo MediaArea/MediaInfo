@@ -55,6 +55,11 @@ namespace MediaInfoLib
 File_Dxw::File_Dxw()
 :File__Analyze()
 {
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_None; //TODO
+        StreamIDs_Width[0]=sizeof(size_t)*2;
+    #endif //MEDIAINFO_EVENTS
+
     //Temp
     ReferenceFiles=NULL;
 }
@@ -149,7 +154,7 @@ bool File_Dxw::FileHeader_Begin()
                                  ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 
-                        ReferenceFile.StreamID=Ztring::ToZtring(ReferenceFiles->References.size()+1);
+                        ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
                     }
 
                     Attribute=Track->Attribute("framerate");
@@ -183,7 +188,7 @@ bool File_Dxw::FileHeader_Begin()
                         }
                     }
 
-                    ReferenceFile.StreamID.From_Number(ReferenceFiles->References.size()+1);
+                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
                     ReferenceFiles->References.push_back(ReferenceFile);
                 }
 

@@ -35,9 +35,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Image/File_Exr.h"
-#if MEDIAINFO_DEMUX
-    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
-#endif //MEDIAINFO_DEMUX
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -71,10 +69,6 @@ File_Exr::File_Exr()
 {
     //Configuration
     ParserName=_T("EXR");
-
-    #if MEDIAINFO_DEMUX
-        Buffer_Offset_Save=(size_t)-1;
-    #endif //MEDIAINFO_DEMUX
 }
 
 //***************************************************************************
@@ -85,56 +79,23 @@ File_Exr::File_Exr()
 void File_Exr::Streams_Accept()
 {
     Fill(Stream_General, 0, General_Format, "EXR");
-    Stream_Prepare(Stream_Image);
-    Fill(Stream_Image, 0, Image_Format, "EXR");
+
+    if (!IsSub)
+    {
+        Streams_Accept_TestContinuousFileNames();
+    
+        Stream_Prepare(Config->File_Names.size()>1?Stream_Video:Stream_Image);
+        Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);
+        if (StreamKind_Last==Stream_Video)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Config->File_Names.size());
+    }
+    else
+        Stream_Prepare(Stream_Image);
 
     //Configuration
     Buffer_MaximumSize=64*1024*1024;
     Frame_Count_NotParsedIncluded=0;
 }
-
-//---------------------------------------------------------------------------
-void File_Exr::Streams_Finish()
-{
-}
-
-//***************************************************************************
-// Buffer - Demux
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-#if MEDIAINFO_DEMUX
-bool File_Exr::Demux_UnpacketizeContainer_Test()
-{
-    if (Buffer_Offset_Save==(size_t)-1)
-    {
-        Buffer_Offset_Save=Buffer_Offset;
-        Buffer_Offset=0; //File header must be included in the packet
-    }
-
-    if (Buffer_Size<File_Size)
-    {
-        size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
-        if (File_Buffer_Size_Hint_Pointer)
-            (*File_Buffer_Size_Hint_Pointer)=(size_t)File_Size;
-        return false;
-    }
-
-    if (Config->Demux_Rate_Get())
-    {
-        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-            FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Config->Demux_Rate_Get());
-        else
-            FrameInfo.DTS=(int64u)-1;
-        FrameInfo.PTS=FrameInfo.DTS;
-        FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
-    }
-    Demux_Offset=Buffer_Size;
-    Demux_UnpacketizeContainer_Demux();
-
-    return true;
-}
-#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer
@@ -156,38 +117,7 @@ bool File_Exr::FileHeader_Begin()
     //All should be OK...
     Accept();
 
-    //Testing if parsing is needed
-    if (Count_Get(Stream_Video))
-    {
-        //In a video stream, no need to parse all frames)
-        GoToFromEnd(0);
-        return true;
-    }
-
     return true;
-}
-
-//---------------------------------------------------------------------------
-void File_Exr::FileHeader_Parse()
-{
-    //Element_Size
-    if (Buffer_Size<8)
-    {
-        Element_WaitForMoreData();
-        return;
-    }
-
-    //Parsing
-    int32u Flags;
-    int8u Version;
-    Skip_L4(                                                    "Magic number");
-    Get_L1 (Version,                                            "Version field");
-    Get_L3 (Flags,                                              "Flags");
-
-    //Filling
-    Fill(Stream_General, 0, General_Format_Version, _T("Version ")+Ztring::ToZtring(Version));
-    Fill(Stream_Image, 0, Image_Format_Version, _T("Version ")+Ztring::ToZtring(Version));
-    Fill(Stream_Image, 0, Image_Format_Profile, (Flags&0x02)?"Tile":"Line");
 }
 
 //***************************************************************************
@@ -197,13 +127,11 @@ void File_Exr::FileHeader_Parse()
 //---------------------------------------------------------------------------
 bool File_Exr::Header_Begin()
 {
-    #if MEDIAINFO_DEMUX
-        if (Buffer_Offset_Save!=(size_t)-1)
-        {
-            Buffer_Offset=Buffer_Offset_Save;
-            Buffer_Offset_Save=(size_t)-1;
-        }
-    #endif //MEDIAINFO_DEMUX
+    //Header
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+    if (CC4(Buffer+Buffer_Offset)==0x762F3101) //"v/1"+1
+        return Buffer_Offset+12<=Buffer_Size;
 
     //Name
     name_End=0;
@@ -223,11 +151,7 @@ bool File_Exr::Header_Begin()
         return false;
     }
     if (name_End==0)
-    {
-        Frame_Count_NotParsedIncluded++;
-        Finish();
-        return false;
-    }
+        return true;
 
     //Type
     type_End=0;
@@ -257,6 +181,24 @@ bool File_Exr::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Exr::Header_Parse()
 {
+    //Header
+    if (CC4(Buffer+Buffer_Offset)==0x762F3101) //"v/1"+1
+    {
+        //Filling
+        Header_Fill_Code(0, "File header");
+        Header_Fill_Size(12);
+        return;
+    }
+
+    //Image data
+    if (name_End==0)
+    {
+        //Filling
+        Header_Fill_Code(0, "Image data");
+        Header_Fill_Size(ImageData_End-(File_Offset+Buffer_Offset));
+        return;
+    }
+        
     int32u size;
     Get_String(name_End, name,                                  "name");
     Element_Offset++; //Null byte
@@ -272,7 +214,10 @@ void File_Exr::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Exr::Data_Parse()
 {
-         if (name=="comments" && type=="string")
+    
+    if (CC4(Buffer+Buffer_Offset)==0x762F3101) //"v/1"+1 //Header
+        Header();
+    else if (name=="comments" && type=="string")
         comments();
     else if (name=="compression" && type=="compression" && Element_Size==1)
         compression();
@@ -287,6 +232,41 @@ void File_Exr::Data_Parse()
 }
 
 //---------------------------------------------------------------------------
+void File_Exr::Header()
+{
+    //Parsing
+    int32u Flags;
+    int8u Version;
+    Skip_L4(                                                    "Magic number");
+    Get_L1 (Version,                                            "Version field");
+    Get_L3 (Flags,                                              "Flags");
+
+    //Filling
+    if (Frame_Count==0)
+    {
+        Fill(Stream_General, 0, General_Format_Version, _T("Version ")+Ztring::ToZtring(Version));
+        Fill(StreamKind_Last, 0, "Format", "EXR");
+        Fill(StreamKind_Last, 0, "Format_Version", _T("Version ")+Ztring::ToZtring(Version));
+        Fill(StreamKind_Last, 0, "Format_Profile", (Flags&0x02)?"Tile":"Line");
+    }
+    Frame_Count++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
+    ImageData_End=File_Offset+Buffer_Offset+Config->File_Sizes[Config->File_Names_Pos-1];
+}
+
+//---------------------------------------------------------------------------
+void File_Exr::ImageData()
+{
+    Skip_XX(Element_Size,                                       "data");
+
+    if (!Status[IsFilled])
+        Fill();
+    if (Config_ParseSpeed<1.0)
+        Finish();
+}
+
+//---------------------------------------------------------------------------
 void File_Exr::comments ()
 {
     //Parsing
@@ -294,7 +274,8 @@ void File_Exr::comments ()
     Get_Local(Element_Size, value,                              "value");
 
     //Filling
-    Fill(Stream_Image, 0, General_Comment, value);
+    if (Frame_Count==1)
+        Fill(StreamKind_Last, 0, General_Comment, value);
 }
 
 //---------------------------------------------------------------------------
@@ -318,7 +299,9 @@ void File_Exr::compression ()
         case 0x07 : Compression="B44A"; break;
         default   : ;
     }
-    Fill(Stream_Image, 0, Image_Format_Compression, Compression.c_str());
+
+    if (Frame_Count==1)
+        Fill(StreamKind_Last, 0, "Format_Compression", Compression.c_str());
 }
 
 //---------------------------------------------------------------------------
@@ -343,8 +326,11 @@ void File_Exr::displayWindow ()
     Get_L4 (yMax,                                               "yMax");
 
     //Filling
-    Fill(Stream_Image, 0, Image_Width, xMax-xMin+1);
-    Fill(Stream_Image, 0, Image_Height, yMax-yMin+1);
+    if (Frame_Count==1)
+    {
+        Fill(StreamKind_Last, 0, "Width", xMax-xMin+1);
+        Fill(StreamKind_Last, 0, "Height", yMax-yMin+1);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -355,7 +341,8 @@ void File_Exr::pixelAspectRatio ()
     Get_LF4(value,                                              "value"); 
 
     //Filling
-    Fill(Stream_Image, 0, Image_PixelAspectRatio, value?value:1, 3);
+    if (Frame_Count==1)
+        Fill(StreamKind_Last, 0, "PixelAspectRatio", value?value:1, 3);
 }
 
 } //NameSpace

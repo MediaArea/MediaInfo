@@ -9107,21 +9107,21 @@ void File_Mxf::Locators_Test()
         for (locators::iterator Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
             if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty() && Locator->second.StreamKind!=Stream_Max) //TODO: support VBI
             {
-                File__ReferenceFilesHelper::reference Reference;
-                Reference.FileNames.push_back(Locator->second.EssenceLocator);
-                Reference.StreamKind=Locator->second.StreamKind;
-                Reference.StreamPos=Locator->second.StreamPos;
-                Reference.StreamID=Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID);
-                Reference.Delay=float64_int64s(DTS_Delay*1000000000);
+                File__ReferenceFilesHelper::reference ReferenceFile;
+                ReferenceFile.FileNames.push_back(Locator->second.EssenceLocator);
+                ReferenceFile.StreamKind=Locator->second.StreamKind;
+                ReferenceFile.StreamPos=Locator->second.StreamPos;
+                ReferenceFile.StreamID=Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID).To_int64u();
+                ReferenceFile.Delay=float64_int64s(DTS_Delay*1000000000);
                 if (Locator->second.StreamKind==Stream_Video)
                 {
                     //Searching the corresponding frame rate
                     for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
                         for (size_t LocatorPos=0; LocatorPos<Descriptor->second.Locators.size(); LocatorPos++)
                             if (Descriptor->second.Locators[LocatorPos]==Locator->first)
-                                Reference.FrameRate=Descriptor->second.SampleRate;
+                                ReferenceFile.FrameRate=Descriptor->second.SampleRate;
                 }
-                ReferenceFiles->References.push_back(Reference);
+                ReferenceFiles->References.push_back(ReferenceFile);
             }
 
         ReferenceFiles->ParseReferences();

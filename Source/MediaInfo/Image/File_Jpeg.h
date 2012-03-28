@@ -49,7 +49,7 @@ public :
 
 private :
     //Streams management
-    void Streams_Fill();
+    void Streams_Accept();
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -61,11 +61,14 @@ private :
 
     //Buffer - Demux
     #if MEDIAINFO_DEMUX
-    bool Demux_UnpacketizeContainer_Test();
+    bool Demux_UnpacketizeContainer_Test() {return Demux_UnpacketizeContainer_Test_OneFramePerFile();}
     #endif //MEDIAINFO_DEMUX
 
     //Buffer - Global
     void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID) {return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);}
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - Per element
     void Header_Parse();
@@ -165,7 +168,7 @@ private :
 
     //Temp
     int8u Height_Multiplier;
-    bool  SOD_Parsed;
+    bool  SOS_SOD_Parsed;
 };
 
 } //NameSpace

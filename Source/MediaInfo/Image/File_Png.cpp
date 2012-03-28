@@ -43,6 +43,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Image/File_Png.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -80,7 +81,47 @@ namespace Elements
 }
 
 //***************************************************************************
-// Static stuff
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Png::File_Png()
+{
+    //Config
+    #if MEDIAINFO_TRACE
+        Trace_Layers_Update(8); //Stream
+    #endif //MEDIAINFO_TRACE
+    IsRawStream=true;
+
+    //Temp
+    Signature_Parsed=false;
+}
+
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Png::Streams_Accept()
+{
+    if (!IsSub)
+    {
+        Streams_Accept_TestContinuousFileNames();
+
+        Stream_Prepare(Config->File_Names.size()>1?Stream_Video:Stream_Image);
+        Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);
+        if (StreamKind_Last==Stream_Video)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Config->File_Names.size());
+    }
+    else
+        Stream_Prepare(StreamKind_Last);
+
+    //Configuration
+    Frame_Count_NotParsedIncluded=0;
+}
+
+//***************************************************************************
+// Header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -90,10 +131,45 @@ bool File_Png::FileHeader_Begin()
     if (Buffer_Size<8)
         return false; //Must wait for more data
 
-    if (CC4(Buffer+4)!=0x0D0A1A0A)
+    if (CC4(Buffer+4)!=0x0D0A1A0A) //Byte order
     {
         Reject("PNG");
         return false;
+    }
+
+    switch (CC4(Buffer)) //Signature
+    {
+        case 0x89504E47 :
+            Accept("PNG");
+
+            Fill(Stream_General, 0, General_Format, "PNG");
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), "PNG");
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Codec), "PNG");
+
+            break;
+
+        case 0x8A4E4E47 :
+            Accept("PNG");
+
+            Fill(Stream_General, 0, General_Format, "MNG");
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), "MNG");
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Codec), "MNG");
+
+            Finish("PNG");
+            break;
+
+        case 0x8B4A4E47 :
+            Accept("PNG");
+
+            Fill(Stream_General, 0, General_Format, "JNG");
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), "JNG");
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Codec), "JNG");
+
+            Finish("PNG");
+            break;
+
+        default:
+            Reject("PNG");
     }
 
     //All should be OK...
@@ -101,53 +177,15 @@ bool File_Png::FileHeader_Begin()
 }
 
 //***************************************************************************
-// Buffer - File header
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Png::FileHeader_Parse()
+void File_Png::Read_Buffer_Unsynched()
 {
-    //Parsing
-    int32u Signature;
-    Get_B4 (Signature,                                          "Signature");
-    Skip_B4(                                                    "ByteOrder");
+    Signature_Parsed=false;
 
-    FILLING_BEGIN();
-        switch (Signature)
-        {
-            case 0x89504E47 :
-                Accept("PNG");
-
-                Fill(Stream_General, 0, General_Format, "PNG");
-
-                Stream_Prepare(Stream_Image);
-
-                break;
-
-            case 0x8A4E4E47 :
-                Accept("PNG");
-
-                Stream_Prepare(Stream_Image);
-                Fill(Stream_Image, 0, Image_Codec, "MNG");
-                Fill(Stream_Image, 0, Image_Format, "MNG");
-
-                Finish("PNG");
-                break;
-
-            case 0x8B4A4E47 :
-                Accept("PNG");
-
-                Stream_Prepare(Stream_Image);
-                Fill(Stream_Image, 0, Image_Format, "JNG");
-                Fill(Stream_Image, 0, Image_Codec, "JNG");
-
-                Finish("PNG");
-                break;
-
-            default:
-                Reject("PNG");
-        }
-    FILLING_END();
+    Read_Buffer_Unsynched_OneFramePerFile();
 }
 
 //***************************************************************************
@@ -157,6 +195,15 @@ void File_Png::FileHeader_Parse()
 //---------------------------------------------------------------------------
 void File_Png::Header_Parse()
 {
+    if (!Signature_Parsed)
+    {
+        //Filling
+        Header_Fill_Size(8);
+        Header_Fill_Code(0, "File header");
+
+        return;
+    }
+        
     //Parsing
     int32u Length, Chunk_Type;
     Get_B4 (Length,                                             "Length");
@@ -170,6 +217,12 @@ void File_Png::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Png::Data_Parse()
 {
+    if (!Signature_Parsed)
+    {
+        Signature();
+        return;
+    }
+
     Element_Size-=4; //For CRC
 
     #define CASE_INFO(_NAME, _DETAIL) \
@@ -194,6 +247,25 @@ void File_Png::Data_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Png::Signature()
+{
+    //Parsing
+    Skip_B4(                                                    "Signature");
+    Skip_B4(                                                    "ByteOrder");
+
+    Frame_Count++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
+    Signature_Parsed=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Png::IEND()
+{
+    Signature_Parsed=false;
+}
+
+//---------------------------------------------------------------------------
 void File_Png::IHDR()
 {
     //Parsing
@@ -208,8 +280,8 @@ void File_Png::IHDR()
     Get_B1 (Interlace_method,                                   "Interlace method");
 
     FILLING_BEGIN_PRECISE();
-        Fill(Stream_Image, 0, Image_Width, Width);
-        Fill(Stream_Image, 0, Image_Height, Height);
+        Fill(StreamKind_Last, 0, "Width", Width);
+        Fill(StreamKind_Last, 0, "Height", Height);
         int8u Resolution;
         switch (Colour_type)
         {
@@ -221,12 +293,11 @@ void File_Png::IHDR()
             default: Resolution=0;
         }
         if (Resolution)
-            Fill(Stream_Image, 0, Image_BitDepth, Resolution);
+            Fill(StreamKind_Last, 0, "BitDepth", Resolution);
         switch (Compression_method)
         {
             case 0 :
-                Fill(Stream_Image, 0, Image_Format, "LZ77");
-                Fill(Stream_Image, 0, Image_Codec,  "LZ77 variant");
+                Fill(StreamKind_Last, 0, "Format_Compression", "LZ77");
                 break;
             default: ;
         }
@@ -239,7 +310,10 @@ void File_Png::IHDR()
             default: ;
         }
 
-        Finish("PNG");
+    if (Status[IsFilled])
+        Fill();
+    if (Config_ParseSpeed<1.0)
+        Finish("PNG"); //No need of more
     FILLING_END();
 }
 

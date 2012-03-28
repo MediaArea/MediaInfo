@@ -47,16 +47,20 @@ public :
 private :
     //Streams management
     void Streams_Accept();
-    void Streams_Finish();
 
     //Buffer - Demux
     #if MEDIAINFO_DEMUX
-    bool Demux_UnpacketizeContainer_Test();
+    bool Demux_UnpacketizeContainer_Test() {return Demux_UnpacketizeContainer_Test_OneFramePerFile();}
     #endif //MEDIAINFO_DEMUX
 
     //Buffer - File header
     bool FileHeader_Begin();
-    void FileHeader_Parse();
+
+    //Buffer - Global
+    void Read_Buffer_Unsynched() {Read_Buffer_Unsynched_OneFramePerFile();}
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID) {return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);}
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - Per element
     bool Header_Begin();
@@ -64,6 +68,8 @@ private :
     void Data_Parse();
 
     //Elements
+    void Header();
+    void ImageData();
     void comments();
     void compression();
     void dataWindow();
@@ -75,9 +81,7 @@ private :
     std::string         type;
     size_t              name_End;
     size_t              type_End;
-    #if MEDIAINFO_DEMUX
-        size_t Buffer_Offset_Save;
-    #endif //MEDIAINFO_DEMUX
+    int64u              ImageData_End;
 };
 
 } //NameSpace

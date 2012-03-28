@@ -706,22 +706,6 @@ std::bitset<32> MediaInfo_Internal::Open_NextPacket ()
     std::bitset<32> ToReturn=Info==NULL?std::bitset<32>(0x0F):Info->Status;
     if (Demux_EventWasSent)
         ToReturn[8]=true; //bit 8 is for the reception of a frame
-    
-    #if MEDIAINFO_DEMUX
-        //Multiple images
-        if (!Demux_EventWasSent && Config.File_Names_Pos<Config.File_Names.size())
-        {
-            delete Reader; Reader=new Reader_File();
-            CS.Leave();
-            Reader->Format_Test(this, Config.File_Names[Config.File_Names_Pos]);
-            CS.Enter();
-            Info->Frame_Count_NotParsedIncluded=Config.File_Names_Pos;
-            Config.File_Names_Pos++;
-            Info->Status.reset(File__Analyze::IsFinished);
-            ToReturn.reset(File__Analyze::IsFinished);
-            return Open_NextPacket();
-        }
-    #endif //MEDIAINFO_DEMUX
 
     return ToReturn;
 }

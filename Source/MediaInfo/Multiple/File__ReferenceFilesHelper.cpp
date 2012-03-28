@@ -40,6 +40,8 @@
 #include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
+#include <set>
+#include <algorithm>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -67,10 +69,31 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File__ReferenceFilesHelper_Algo1 (const File__ReferenceFilesHelper::reference &Ref1, const File__ReferenceFilesHelper::reference &Ref2) { return (Ref1.StreamID<Ref2.StreamID);}
+bool File__ReferenceFilesHelper_Algo2 (const File__ReferenceFilesHelper::reference &Ref1, const File__ReferenceFilesHelper::reference &Ref2) { return (Ref1.StreamPos<Ref2.StreamPos);}
+bool File__ReferenceFilesHelper_Algo3 (const File__ReferenceFilesHelper::reference &Ref1, const File__ReferenceFilesHelper::reference &Ref2) { return (Ref1.StreamKind<Ref2.StreamKind);}
 void File__ReferenceFilesHelper::ParseReferences()
 {
     if (!Init_Done)
     {
+        //Testing IDs
+        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo1);
+        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo2);
+        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo3);
+        std::set<int64u> StreamList;
+        bool StreamList_DuplicatedIds=false;
+        for (Reference=References.begin(); Reference<References.end(); Reference++)
+            if (StreamList.find((*Reference).StreamID)==StreamList.end())
+                StreamList.insert((*Reference).StreamID);
+            else
+            {
+                StreamList_DuplicatedIds=true;
+                break;
+            }
+        if (StreamList_DuplicatedIds)
+            for (Reference=References.begin(); Reference<References.end(); Reference++)
+                (*Reference).StreamID=Reference-References.begin()+1;
+
         Reference=References.begin();
         Init_Done=true;
 
@@ -168,11 +191,11 @@ void File__ReferenceFilesHelper::ParseReference()
         Reference->MI=new MediaInfo_Internal();
         Reference->MI->Option(_T("File_IsReferenced"), _T("1"));
         Reference->MI->Option(_T("File_FileNameFormat"), _T("CSV"));
-        if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
-            Reference->MI->Option(_T("File_StopAfterFilled"), _T("1"));
         Reference->MI->Option(_T("File_KeepInfo"), _T("1"));
         Reference->MI->Option(_T("File_ID_OnlyRoot"), Config->File_ID_OnlyRoot_Get()?_T("1"):_T("0"));
         Reference->MI->Option(_T("File_DvDif_DisableAudioIfIsInContainer"), Config->File_DvDif_DisableAudioIfIsInContainer_Get()?_T("1"):_T("0"));
+        if (References.size()>1 || Config->File_MpegTs_ForceMenu_Get())
+            Reference->MI->Option(_T("File_MpegTs_ForceMenu"), _T("1"));
         #if MEDIAINFO_NEXTPACKET
             if (Config->NextPacket_Get())
                 Reference->MI->Option(_T("File_NextPacket"), _T("1"));
@@ -180,7 +203,26 @@ void File__ReferenceFilesHelper::ParseReference()
         #if MEDIAINFO_EVENTS
             if (Config->Event_CallBackFunction_IsSet())
                 Reference->MI->Option(_T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
-            Reference->MI->Option(_T("File_SubFile_StreamID_Set"), Reference->StreamID);
+            ZtringListList SubFile_IDs;
+            for (size_t Pos=0; Pos<MI->StreamIDs_Size; Pos++)
+            {
+                ZtringList ID;
+                if (MI->StreamIDs_Width[Pos]==0)
+                    ID.push_back(Ztring::ToZtring(-1));
+                else if (Pos+1==MI->StreamIDs_Size)
+                    ID.push_back(Ztring::ToZtring(Reference->StreamID));
+                else
+                    ID.push_back(Ztring::ToZtring(MI->StreamIDs[Pos]));
+                ID.push_back(Ztring::ToZtring(MI->StreamIDs_Width[Pos]));
+                ID.push_back(Ztring::ToZtring(MI->ParserIDs[Pos]));
+                SubFile_IDs.push_back(ID);
+            }
+            if (!SubFile_IDs.empty())
+            {
+                SubFile_IDs.Separator_Set(0, EOL);
+                SubFile_IDs.Separator_Set(1, _T(","));
+                Reference->MI->Option(_T("File_SubFile_IDs_Set"), SubFile_IDs.Read());
+            }
         #endif //MEDIAINFO_EVENTS
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
@@ -333,7 +375,9 @@ void File__ReferenceFilesHelper::ParseReference()
                 }
             }
         }
-        MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->FileNames.Read(0));
+        Reference->Source=Reference->FileNames.Read(0);
+        if (Reference->StreamKind!=Stream_Max)
+            MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->Source);
         if (!AbsoluteNames.empty())
             Reference->FileNames=AbsoluteNames;
 
@@ -412,198 +456,114 @@ void File__ReferenceFilesHelper::ParseReference()
 //---------------------------------------------------------------------------
 void File__ReferenceFilesHelper::ParseReference_Finalize ()
 {
-    //Creating stream
-    if (Reference->StreamPos==(size_t)-1)
-    {
-        if (Reference->StreamKind==Stream_Max)
+    bool StreamFound=false;
+    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+        for (size_t StreamPos=0; StreamPos<Reference->MI->Count_Get((stream_t)StreamKind); StreamPos++)
         {
-            for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
-                if (Reference->MI->Count_Get((stream_t)StreamKind))
-                {
-                    Reference->StreamKind=(stream_t)StreamKind;
-                    break;
-                }
-                
-                if (Reference->StreamKind==Stream_Max)
-                    return; //There is a problem
+            StreamKind_Last=(stream_t)StreamKind;
+            if (Reference->StreamPos!=(size_t)-1 && StreamKind_Last==Reference->StreamKind && StreamPos==0)
+            {
+                StreamPos_To=Reference->StreamPos;
+                StreamFound=true;
+            }
+            else
+                StreamPos_To=MI->Stream_Prepare((stream_t)StreamKind);
+            StreamPos_From=StreamPos;
+
+            ParseReference_Finalize_PerStream();
         }
 
-        Reference->StreamPos=MI->Stream_Prepare(Reference->StreamKind);
-    }
-
-    //Preparing
-    stream_t StreamKind_Last=Reference->StreamKind;
-    size_t StreamPos_Last=Reference->StreamPos;
-
-    //Image as video
-    if (Reference->FileNames.size()>1 && Reference->MI->Count_Get(Stream_Image))
+    if (!StreamFound && Reference->StreamKind!=Stream_Max && Reference->StreamPos!=(size_t)-1)
     {
-        Reference->MI->Info->Stream_Prepare(Stream_Video);
-        for (size_t Pos=General_ID; Pos<Reference->MI->Count_Get(Stream_Image, 0); Pos++)
-            Reference->MI->Info->Fill(Stream_Video, 0, Reference->MI->Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Reference->MI->Get(Stream_Image, 0, Pos), true);
-        Reference->MI->Info->Stream_Erase(Stream_Image, 0);
-
-        if (Reference->FrameRate)
-            Reference->MI->Info->Fill(Stream_Video, 0, Video_FrameRate, Reference->FrameRate);
-        Reference->MI->Info->Fill(Stream_Video, 0, Video_FrameCount, Reference->FileNames.size());
-
-        //Stream size (only for files not of FTP/HTTP)
-        int64u StreamSize=Reference->MI->Get(Stream_General, 0, General_FileSize).To_int64u();
-        for (size_t Pos=1; Pos<Reference->FileNames.size(); Pos++)
-        {
-            int64u OneFileSize=File::Size_Get(Reference->FileNames[Pos]);
-            StreamSize+=OneFileSize;
-            File_Size_Total+=OneFileSize;
-        }
-        Reference->MI->Info->Fill(Stream_General, 0, General_FileSize, StreamSize, 10, true);
-        Reference->MI->Info->Fill(Stream_Video, 0, Video_StreamSize, StreamSize, 10, true);
+        Ztring MuxingMode=MI->Retrieve(Reference->StreamKind, Reference->StreamPos, "MuxingMode");
+        if (!MuxingMode.empty())
+            MuxingMode.insert(0, _T(" / "));
+        MI->Fill(Reference->StreamKind, Reference->StreamPos, "MuxingMode", Reference->MI->Info->Get(Stream_General, 0, General_Format)+MuxingMode, true);
     }
+}
 
+//---------------------------------------------------------------------------
+void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
+{
     //Hacks - Before
-    Ztring CodecID=MI->Retrieve(StreamKind_Last, StreamPos_Last, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
-    Ztring ID;
-    if (Reference->StreamID.empty())
-        ID=MI->Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-    else
-        ID=Reference->StreamID;
-    MI->Clear(StreamKind_Last, StreamPos_Last, General_ID);
+    Ztring CodecID=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
+    Ztring ID_Base;
+    #if MEDIAINFO_EVENTS
+    if (MI->StreamIDs_Size && MI->StreamIDs_Size && MI->StreamIDs_Width[MI->StreamIDs_Size-1])
+    #else //MEDIAINFO_EVENTS
+    if (Reference->StreamID!=(int64u)-1)
+    #endif //MEDIAINFO_EVENTS
+        ID_Base=Ztring::ToZtring(Reference->StreamID);
+    Ztring ID=ID_Base;
+    Ztring ID_String=ID_Base;
+    Ztring MenuID;
+    Ztring MenuID_String;
 
-    MI->Merge(*Reference->MI->Info, StreamKind_Last, 0, StreamPos_Last);
+    MI->Clear(StreamKind_Last, StreamPos_To, General_ID);
 
-    //Frame rate if not present
-    if (StreamKind_Last==Stream_Video && MI->Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty() && Reference->FrameRate)
-        MI->Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Reference->FrameRate);
+    MI->Merge(*Reference->MI->Info, StreamKind_Last, StreamPos_From, StreamPos_To);
+
+    //Frame rate if available from container
+    if (StreamKind_Last==Stream_Video && Reference->FrameRate)
+        MI->Fill(Stream_Video, StreamPos_To, Video_FrameRate, Reference->FrameRate, 3 , true);
 
     //Hacks - After
-    if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_Last, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
+    if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
     {
         if (!CodecID.empty())
             CodecID+=_T(" / ");
-        CodecID+=MI->Retrieve(StreamKind_Last, StreamPos_Last, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
-        MI->Fill(StreamKind_Last, StreamPos_Last, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
+        CodecID+=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
+        MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
     }
-    if (!MI->Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty() &&  !Config->File_ID_OnlyRoot_Get())
-        ID+=_T('-')+MI->Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-    MI->Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
-    MI->Fill(StreamKind_Last, StreamPos_Last, General_ID_String, ID, true);
-
-    //Special case: MXF in MXF
-    if (Reference->MI->Info && Reference->MI->Info->Get(Stream_General, 0, General_Format)==_T("MXF"))
+    if (!(Config->File_ID_OnlyRoot_Get() && Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)<=1) || ID_Base.empty())
     {
-        MI->Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
-
-        if (Reference->MI->Info->Count_Get(Stream_Video)>0)
+        if (StreamKind_Last==Stream_Menu)
         {
-            size_t Parser_Audio_Count=Reference->MI->Info->Count_Get(Stream_Audio);
-            for (size_t Parser_Audio_Pos=0; Parser_Audio_Pos<Parser_Audio_Count; Parser_Audio_Pos++)
-            {
-                MI->Fill_Flush();
-                size_t Pos=0;
-                while (Pos<MI->Count_Get(Stream_Audio))
+            ZtringList List; List.Separator_Set(0, _T(" / ")); List.Write(MI->Retrieve(StreamKind_Last, StreamPos_To, "List"));
+            ZtringList List_String; List_String.Separator_Set(0, _T(" / ")); List_String.Write(MI->Retrieve(StreamKind_Last, StreamPos_To, "List/String"));
+            if (!ID_Base.empty())
+                for (size_t Pos=0; Pos<List.size(); Pos++)
                 {
-                    if (MI->Retrieve(Stream_Audio, Pos, General_ID).To_int32u()>ID.To_int32u())
-                        break;
-                    Pos++;
+                    List[Pos].insert(0, ID+_T("-"));
+                    List_String[Pos].insert(0, ID+_T("-"));
                 }
-                StreamPos_Last=Stream_Prepare(Stream_Audio, Pos);
-                MI->Merge(*Reference->MI->Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
-                if (MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
-                    MI->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "MXF");
-                else
-                    MI->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, _T("MXF / ")+MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode), true);
-                MI->Fill(Stream_Audio, StreamPos_Last, "Source", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source"));
-                MI->Fill(Stream_Audio, StreamPos_Last, "Source_Info", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source_Info"));
-                Ztring ID_Audio=MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
-                if (ID_Audio.find(_T('-'))!=string::npos)
-                    ID_Audio.erase(0, ID_Audio.find(_T('-')));
-                MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID+ID_Audio, true);
-                MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID+ID_Audio, true);
-            }
-            size_t Parser_Text_Count=Reference->MI->Info->Count_Get(Stream_Text);
-            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+            MI->Fill(Stream_Menu, StreamPos_To, Menu_List, List.Read(), true);
+            MI->Fill(Stream_Menu, StreamPos_To, Menu_List_String, List_String.Read(), true);
+        }
+        if (!MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
+        {
+            if (!ID_Base.empty())
+                ID+=_T('-');
+            ID+=MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID);
+            if (!ID_Base.empty())
+                ID_String+=_T('-');
+            ID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID_String);
+            if (!MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID").empty())
             {
-                MI->Fill_Flush();
-                size_t Pos=0;
-                while (Pos<MI->Count_Get(Stream_Text))
-                {
-                    if (MI->Retrieve(Stream_Text, Pos, General_ID).To_int32u()>ID.To_int32u())
-                        break;
-                    Pos++;
-                }
-                StreamPos_Last=Stream_Prepare(Stream_Text, Pos);
-                MI->Merge(*Reference->MI->Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
-                if (MI->Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
-                    MI->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "MXF");
-                else
-                    MI->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, _T("MXF / ")+MI->Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
-                MI->Fill(Stream_Text, StreamPos_Last, "Source", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source"));
-                MI->Fill(Stream_Text, StreamPos_Last, "Source_Info", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source_Info"));
-                Ztring ID_Text=MI->Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                if (ID_Text.find(_T('-'))!=string::npos)
-                    ID_Text.erase(0, ID_Text.find(_T('-')));
-                MI->Fill(Stream_Text, StreamPos_Last, Text_ID, ID+ID_Text, true);
-                MI->Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID+ID_Text, true);
+                if (!ID_Base.empty())
+                    MenuID=ID_Base+_T('-');
+                MenuID+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID");
+                if (!ID_Base.empty())
+                    MenuID_String=ID_Base+_T('-');
+                MenuID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID/String");
             }
         }
     }
-    //Special case: DV with Audio or/and Text in the video stream
-    else if (Reference->MI->Info && Reference->MI->Info->Get(Stream_General, 0, General_Format)==_T("DV") && (Reference->MI->Info->Count_Get(Stream_Audio) || Reference->MI->Info->Count_Get(Stream_Text)))
-    {
-        //Video and Audio are together
-        size_t Parser_Audio_Count=Reference->MI->Info->Count_Get(Stream_Audio);
-        for (size_t Parser_Audio_Pos=0; Parser_Audio_Pos<Parser_Audio_Count; Parser_Audio_Pos++)
-        {
-            MI->Fill_Flush();
-            size_t Pos=0;
-            while (Pos<MI->Count_Get(Stream_Audio))
-            {
-                if (MI->Retrieve(Stream_Audio, Pos, General_ID).To_int32u()>ID.To_int32u())
-                    break;
-                Pos++;
-            }
-            StreamPos_Last=Stream_Prepare(Stream_Audio, Pos);
-            MI->Merge(*Reference->MI->Info, Stream_Audio, Parser_Audio_Pos, StreamPos_Last);
-            if (MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode).empty())
-                MI->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Format), true);
-            else
-                MI->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Format)+_T(" / ")+MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_MuxingMode), true);
-            MI->Fill(Stream_Audio, StreamPos_Last, Audio_Duration, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Duration), true);
-            MI->Fill(Stream_Audio, StreamPos_Last, "Source", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source"));
-            MI->Fill(Stream_Audio, StreamPos_Last, "Source_Info", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source_Info"));
-            Ztring ID=MI->Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
-            MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_ID)+_T("-")+ID, true);
-            MI->Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_ID_String)+_T("-")+ID, true);
-        }
+    MI->Fill(StreamKind_Last, StreamPos_To, General_ID, ID, true);
+    MI->Fill(StreamKind_Last, StreamPos_To, General_ID_String, ID_String, true);
+    MI->Fill(StreamKind_Last, StreamPos_To, "MenuID", MenuID, true);
+    MI->Fill(StreamKind_Last, StreamPos_To, "MenuID/String", MenuID_String, true);
+    if (MI->Retrieve(StreamKind_Last, StreamPos_To, "Source").empty())
+        MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source);
 
-        //Video and Text are together
-        size_t Parser_Text_Count=Reference->MI->Info->Count_Get(Stream_Text);
-        for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
-        {
-            MI->Fill_Flush();
-            size_t Pos=0;
-            while (Pos<MI->Count_Get(Stream_Text))
-            {
-                if (MI->Retrieve(Stream_Text, Pos, General_ID).To_int32u()>ID.To_int32u())
-                    break;
-                Pos++;
-            }
-            StreamPos_Last=Stream_Prepare(Stream_Text, Pos);
-            MI->Merge(*Reference->MI->Info, Stream_Text, Parser_Text_Pos, StreamPos_Last);
-            if (MI->Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).empty())
-                MI->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Format), true);
-            else
-                MI->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Format)+_T(" / ")+MI->Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
-            MI->Fill(Stream_Text, StreamPos_Last, Text_Duration, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_Duration), true);
-            MI->Fill(Stream_Text, StreamPos_Last, "Source", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source"));
-            MI->Fill(Stream_Text, StreamPos_Last, "Source_Info", MI->Retrieve(Stream_Video, Reference->StreamPos, "Source_Info"));
-            Ztring ID=MI->Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-            MI->Fill(Stream_Text, StreamPos_Last, Text_ID, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_ID)+_T("-")+ID, true);
-            MI->Fill(Stream_Text, StreamPos_Last, Text_ID_String, MI->Retrieve(Stream_Video, Reference->StreamPos, Video_ID_String)+_T("-")+ID, true);
-        }
-    }
     //Others
-    else if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_Last, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
-        MI->Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Reference->MI->Info->Get(Stream_General, 0, General_Format));
+    if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
+    {
+        Ztring MuxingMode=MI->Retrieve(StreamKind_Last, StreamPos_To, "MuxingMode");
+        if (!MuxingMode.empty())
+            MuxingMode.insert(0, _T(" / "));
+        MI->Fill(StreamKind_Last, StreamPos_To, "MuxingMode", Reference->MI->Info->Get(Stream_General, 0, General_Format)+MuxingMode, true);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -684,7 +644,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                             }
                             Reference=References.begin();
                             Open_Buffer_Unsynch();
-                            return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
+                            return HasProblem?(size_t)-1:1; //Not supported value if there is a problem (TODO: better info)
                         }
 
                         CountOfReferencesToParse=References.size();
@@ -701,7 +661,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         }
                         Reference=References.begin();
                         Open_Buffer_Unsynch();
-                        return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
+                        return HasProblem?(size_t)-1:1; //Not supported value if there is a problem (TODO: better info)
                         }
                     #else //MEDIAINFO_DEMUX
                         return (size_t)-1; //Not supported
@@ -710,21 +670,26 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                     {
                         //Time percentage
                         int64u Duration=MI->Get(Stream_General, 0, General_Duration).To_int64u();
-                        Duration*=Value;
-                        Duration/=10000;
                         Ztring DurationS;
-                        DurationS+=L'0'+(wchar_t)(Duration/(10*60*60*1000)); Duration%=10*60*60*1000;
-                        DurationS+=L'0'+(wchar_t)(Duration/(   60*60*1000)); Duration%=   60*60*1000;
-                        DurationS+=L':';
-                        DurationS+=L'0'+(wchar_t)(Duration/(   10*60*1000)); Duration%=   10*60*1000;
-                        DurationS+=L'0'+(wchar_t)(Duration/(      60*1000)); Duration%=      60*1000;
-                        DurationS+=L':';
-                        DurationS+=L'0'+(wchar_t)(Duration/(      10*1000)); Duration%=      10*1000;
-                        DurationS+=L'0'+(wchar_t)(Duration/(         1000)); Duration%=         1000;
-                        DurationS+=L'.';
-                        DurationS+=L'0'+(wchar_t)(Duration/(          100)); Duration%=          100;
-                        DurationS+=L'0'+(wchar_t)(Duration/(           10)); Duration%=           10;
-                        DurationS+=L'0'+(wchar_t)(Duration);
+                        if (Duration)
+                        {
+                            Duration*=Value;
+                            Duration/=10000;
+                            DurationS+=L'0'+(wchar_t)(Duration/(10*60*60*1000)); Duration%=10*60*60*1000;
+                            DurationS+=L'0'+(wchar_t)(Duration/(   60*60*1000)); Duration%=   60*60*1000;
+                            DurationS+=L':';
+                            DurationS+=L'0'+(wchar_t)(Duration/(   10*60*1000)); Duration%=   10*60*1000;
+                            DurationS+=L'0'+(wchar_t)(Duration/(      60*1000)); Duration%=      60*1000;
+                            DurationS+=L':';
+                            DurationS+=L'0'+(wchar_t)(Duration/(      10*1000)); Duration%=      10*1000;
+                            DurationS+=L'0'+(wchar_t)(Duration/(         1000)); Duration%=         1000;
+                            DurationS+=L'.';
+                            DurationS+=L'0'+(wchar_t)(Duration/(          100)); Duration%=          100;
+                            DurationS+=L'0'+(wchar_t)(Duration/(           10)); Duration%=           10;
+                            DurationS+=L'0'+(wchar_t)(Duration);
+                        }
+                        else
+                            DurationS=Ztring::ToZtring(((float64)Value)/100)+_T('%');
 
                         CountOfReferencesToParse=References.size();
                         bool HasProblem=false;
@@ -743,21 +708,33 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
                     }
         case 2  :   //Timestamp
+                    #if MEDIAINFO_DEMUX
                     {
-                        //We transform TimeStamp to a frame number
-                        if (!FrameRate)
-                            return (size_t)-1; //Not supported
-
-                        if (References.begin()!=References.end())
+                        CountOfReferencesToParse=References.size();
+                        Ztring Time; Time.Duration_From_Milliseconds(Value/1000000);
+                        for (Reference=References.begin(); Reference!=References.end(); Reference++)
                         {
-                            int64u Delay=References.begin()->Delay;
-                            if (Value<Delay)
-                                return 2; //Invalid value 
-                            Value-=Delay;
+                            if (Reference->MI)
+                            {
+                                Ztring Result=Reference->MI->Option(_T("File_Seek"), Time);
+                                if (!Result.empty())
+                                    return 2; //Invalid value
+                            }
+                            else
+                            {
+                                //There was a problem, removing Reference
+                                References.clear();
+                                return Read_Buffer_Seek(Method, Value, ID);
+                            }
+                            Reference->Status.reset();
                         }
-                        Value=(int64u)(((float64)Value)/1000000000*FrameRate);
-                        }
-                    //No break;
+                        Reference=References.begin();
+                        Open_Buffer_Unsynch();
+                        return 1;
+                    }
+                    #else //MEDIAINFO_DEMUX
+                        return (size_t)-1; //Not supported
+                    #endif //MEDIAINFO_DEMUX
         case 3  :   //FrameNumber
                     #if MEDIAINFO_DEMUX
                         CountOfReferencesToParse=References.size();

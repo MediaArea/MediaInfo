@@ -145,8 +145,10 @@ protected :
     virtual void Read_Buffer_AfterParsing ()  {}; //Temp, should be in File__Base caller
     #if MEDIAINFO_SEEK
     virtual size_t Read_Buffer_Seek (size_t, int64u, int64u); //Temp, should be in File__Base caller
+    size_t Read_Buffer_Seek_OneFramePerFile (size_t, int64u, int64u);
     #endif //MEDIAINFO_SEEK
     virtual void Read_Buffer_Unsynched ()     {}; //Temp, should be in File__Base caller
+    void Read_Buffer_Unsynched_OneFramePerFile ();
     virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
     bool Buffer_Parse();
 
@@ -1189,6 +1191,7 @@ protected :
 
     bool FileHeader_Begin_0x000001();
     bool Synchronize_0x000001();
+    void Streams_Accept_TestContinuousFileNames();
 
 private :
 
@@ -1286,6 +1289,7 @@ public :
     #if MEDIAINFO_DEMUX
         void Demux (const int8u* Buffer, size_t Buffer_Size, contenttype ContentType);
         virtual bool Demux_UnpacketizeContainer_Test() {return true;}
+        bool Demux_UnpacketizeContainer_Test_OneFramePerFile();
         void Demux_UnpacketizeContainer_Demux(bool random_access=true);
         void Demux_UnpacketizeContainer_Demux_Clear();
         bool Demux_EventWasSent_Accept_Specific;

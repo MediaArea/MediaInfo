@@ -54,6 +54,11 @@ namespace MediaInfoLib
 File_P2_Clip::File_P2_Clip()
 :File__Analyze()
 {
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_None; //TODO
+        StreamIDs_Width[0]=sizeof(size_t)*2;
+    #endif //MEDIAINFO_EVENTS
+
     //Temp
     ReferenceFiles=NULL;
 }
@@ -224,7 +229,7 @@ bool File_P2_Clip::FileHeader_Begin()
 
                                     ReferenceFile.FileNames.push_back(MXF_File);
                                     ReferenceFile.StreamKind=Stream_Video;
-                                    ReferenceFile.StreamID=Ztring::ToZtring(ReferenceFiles->References.size()+1);
+                                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
                                     ReferenceFiles->References.push_back(ReferenceFile);
                                 }
                             #endif //defined(MEDIAINFO_MXF_YES)
@@ -254,7 +259,7 @@ bool File_P2_Clip::FileHeader_Begin()
                                     File__ReferenceFilesHelper::reference ReferenceFile;
                                     ReferenceFile.FileNames.push_back(MXF_File);
                                     ReferenceFile.StreamKind=Stream_Audio;
-                                    ReferenceFile.StreamID=Ztring::ToZtring(ReferenceFiles->References.size()+1);
+                                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
                                     ReferenceFiles->References.push_back(ReferenceFile);
 
                                     Audio_Count++;

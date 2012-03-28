@@ -1,5 +1,5 @@
-// File_Dpx - Info for DPX (SMPTE 268M) files
-// Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
+// File_Hls - Info for HLS files
+// Copyright (C) 2010-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -17,78 +17,53 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about DPX files
+// Information about HLS files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_DpxH
-#define MediaInfo_File_DpxH
+#ifndef MediaInfo_File_HlsH
+#define MediaInfo_File_HlsH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#include <map>
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
+class File__ReferenceFilesHelper;
+
 //***************************************************************************
-// Class File_Dpx
+// Class File_Hls
 //***************************************************************************
 
-class File_Dpx : public File__Analyze
+class File_Hls : public File__Analyze
 {
 public :
     //Constructor/Destructor
-    File_Dpx();
-    
+    File_Hls();
+    ~File_Hls();
+
 private :
     //Streams management
-    void Streams_Accept();
+    void Streams_Finish ();
 
-    //Buffer - Demux
-    #if MEDIAINFO_DEMUX
-    bool Demux_UnpacketizeContainer_Test() {return Demux_UnpacketizeContainer_Test_OneFramePerFile();}
-    #endif //MEDIAINFO_DEMUX
+    //Buffer - Global
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - File header
     bool FileHeader_Begin();
 
-    //Buffer - Global
-    void Read_Buffer_Unsynched() {Read_Buffer_Unsynched_OneFramePerFile();}
-    #if MEDIAINFO_SEEK
-    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID) {return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);}
-    #endif //MEDIAINFO_SEEK
-
-    //Buffer - Per element
-    void Header_Parse();
-    void Data_Parse();
-
-    //Elements
-    void GenericSectionHeader_v1();
-    void GenericSectionHeader_v2();
-    void GenericSectionHeader_v1_ImageElement();
-    void GenericSectionHeader_v2_ImageElement();
-    void IndustrySpecificHeader_v1();
-    void IndustrySpecificHeader_v2();
-    void UserDefinedHeader_v1();
-    void UserDefinedHeader_v2();
-    void Padding();
-    void ImageData();
-
     //Temp
-    std::vector<int32u> Sizes;
-    size_t              Sizes_Pos;
-    int8u               Version;
-	bool                LittleEndian;
-
-    //Helpers
-    void Get_X2 (int16u &Info, const char* Name);
-    void Get_X4 (int32u &Info, const char* Name);
+    File__ReferenceFilesHelper*     ReferenceFiles;
 };
 
 } //NameSpace
 
 #endif
+

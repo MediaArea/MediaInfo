@@ -597,6 +597,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_H263.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1081,6 +1084,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_H263.h">
       <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.h">
+      <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

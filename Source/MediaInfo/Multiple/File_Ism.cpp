@@ -55,6 +55,11 @@ namespace MediaInfoLib
 File_Ism::File_Ism()
 :File__Analyze()
 {
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_None; //TODO
+        StreamIDs_Width[0]=sizeof(size_t)*2;
+    #endif //MEDIAINFO_EVENTS
+
     //Temp
     ReferenceFiles=NULL;
 }
@@ -152,9 +157,9 @@ bool File_Ism::FileHeader_Begin()
                                             Attribute=Param->Attribute("name");
                                             if (Attribute && Ztring().From_UTF8(Attribute)==_T("trackID"))
                                             {
-                                                 Attribute=Param->Attribute("value");
-                                                 if (Attribute)
-                                                     ReferenceFile.StreamID.From_UTF8(Attribute);
+                                                Attribute=Param->Attribute("value");
+                                                if (Attribute)
+                                                    ReferenceFile.StreamID=Ztring().From_UTF8(Attribute).To_int64u();
                                             }
                                         }
                                         Param=Param->NextSiblingElement();

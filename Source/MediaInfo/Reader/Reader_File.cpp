@@ -133,6 +133,19 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     //Info
     Status=0;
     MI->Config.File_Size=F.Size_Get();
+    MI->Config.File_Current_Offset=0;
+    MI->Config.File_Current_Size=MI->Config.File_Size;
+    MI->Config.File_Sizes.clear();
+    MI->Config.File_Sizes.push_back(MI->Config.File_Size);
+    if (MI->Config.File_Names.size()>1)
+    {
+        for (size_t Pos=1; Pos<MI->Config.File_Names.size(); Pos++)
+        {
+            int64u Size=File::Size_Get(MI->Config.File_Names[Pos]);
+            MI->Config.File_Sizes.push_back(Size);
+            MI->Config.File_Size+=Size;
+        }
+    }
 
     //Partial file handling
     Ztring Config_Partial_Begin=MI->Config.File_Partial_Begin_Get();
@@ -239,14 +252,42 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     Reader_File_Count++;
                 #endif //MEDIAINFO_DEBUG
 
-                if (MI->Open_Buffer_Continue_GoTo_Get()>=F.Size_Get())
-                    break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
-                if (!(MI->Open_Buffer_Continue_GoTo_Get()>F.Position_Get() && MI->Open_Buffer_Continue_GoTo_Get()<F.Position_Get()+Buffer_NoJump)) //No smal jumps
+                int64u GoTo=Partial_Begin+MI->Open_Buffer_Continue_GoTo_Get();
+                MI->Config.File_Current_Offset=0;
+                int64u Buffer_NoJump_Temp=Buffer_NoJump;
+                if (MI->Config.File_Names.size()>1)
                 {
-                     if (!F.GoTo(Partial_Begin+MI->Open_Buffer_Continue_GoTo_Get()))
+                    size_t Pos;
+                    for (Pos=0; Pos<MI->Config.File_Sizes.size(); Pos++)
+                    {
+                        if (GoTo>=MI->Config.File_Sizes[Pos])
+                        {
+                            GoTo-=MI->Config.File_Sizes[Pos];
+                            MI->Config.File_Current_Offset+=MI->Config.File_Sizes[Pos];
+                        }
+                        else
+                            break;
+                    }
+                    if (Pos>=MI->Config.File_Sizes.size())
+                        break;
+                    if (Pos!=MI->Config.File_Names_Pos)
+                    {
+                        F.Close();
+                        F.Open(MI->Config.File_Names[Pos]);
+                        MI->Config.File_Names_Pos=Pos+1;
+                        MI->Config.File_Current_Size=MI->Config.File_Current_Offset+F.Size_Get();
+                        Buffer_NoJump_Temp=0;
+                    }
+                }
+                    
+                if (GoTo>=F.Size_Get())
+                    break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
+                if (!(GoTo>F.Position_Get() && GoTo<F.Position_Get()+Buffer_NoJump_Temp)) //No smal jumps
+                {
+                     if (!F.GoTo(GoTo))
                         break; //File is not seekable
 
-                    MI->Open_Buffer_Init((int64u)-1, F.Position_Get()-Partial_Begin);
+                    MI->Open_Buffer_Init((int64u)-1, MI->Config.File_Current_Offset+F.Position_Get()-Partial_Begin);
                 }
             }
 
@@ -277,7 +318,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
             if (MI->Config.File_IsNotGrowingAnymore)
             {
-                MI->Config.File_Size=F.Size_Get();;
+                MI->Config.File_Current_Size=MI->Config.File_Size=F.Size_Get();;
                 MI->Open_Buffer_Init(MI->Config.File_Size, F.Position_Get()-MI->Config.File_Buffer_Size);
                 MI->Config.File_IsGrowing=false;
                 MI->Config.File_IsNotGrowingAnymore=false;
@@ -289,7 +330,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     int64u FileSize_New=F.Size_Get();
                     if (MI->Config.File_Size!=FileSize_New)
                     {
-                        MI->Config.File_Size=FileSize_New;
+                        MI->Config.File_Current_Size=MI->Config.File_Size=FileSize_New;
                         MI->Open_Buffer_Init(MI->Config.File_Size, F.Position_Get()-MI->Config.File_Buffer_Size);
                         break;
                     }
@@ -306,6 +347,20 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 
             //Parser
             Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
+
+            //Testing multiple file per stream
+            if (F.Position_Get()>=F.Size_Get())
+            {
+                if (MI->Config.File_Names_Pos<MI->Config.File_Names.size())
+                {
+                    MI->Config.File_Current_Offset+=F.Size_Get();
+                    F.Close();
+                    F.Open(MI->Config.File_Names[MI->Config.File_Names_Pos]);
+                    MI->Config.File_Names_Pos++;
+                    MI->Config.File_Current_Size+=F.Size_Get();
+                }
+            }
+
             if (MI->Config.File_Buffer_Size==0)
                 break;
 

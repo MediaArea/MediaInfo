@@ -302,6 +302,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_GXF_NO) && !defined(MEDIAINFO_GXF_YES)
     #define MEDIAINFO_GXF_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_HLS_NO) && !defined(MEDIAINFO_HLS_YES)
+    #define MEDIAINFO_HLS_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_ISM_NO) && !defined(MEDIAINFO_ISM_YES)
     #define MEDIAINFO_ISM_YES
 #endif

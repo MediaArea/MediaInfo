@@ -11,6 +11,7 @@ Version 0.7.55, 2012-0
 --------------
 + AC-3: support of little endian streams
 + LXF: support of format version 0
++ HLS: support of .m3u8 index and sequence referencing a bunch of MPEG-TS files
 x MXF: hang up with some clip-wrapped files
 
 Version 0.7.54, 2012-03-13

@@ -39,20 +39,41 @@ namespace MediaInfoLib
 
 class File_Png : public File__Analyze
 {
+public :
+    //Constructor/Destructor
+    File_Png();
+
 private :
+    //Streams management
+    void Streams_Accept();
+
     //Buffer - File header
     bool FileHeader_Begin();
-    void FileHeader_Parse();
+
+    //Buffer - Demux
+    #if MEDIAINFO_DEMUX
+    bool Demux_UnpacketizeContainer_Test() {return Demux_UnpacketizeContainer_Test_OneFramePerFile();}
+    #endif //MEDIAINFO_DEMUX
+
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID) {return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);}
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 
     //Elements
+    void Signature();
     void IDAT() {Skip_XX(Element_Size, "Data");}
-    void IEND() {Skip_XX(Element_Size, "Data");}
+    void IEND();
     void IHDR();
     void PLTE() {Skip_XX(Element_Size, "Data");}
+
+    //Temp
+    bool    Signature_Parsed;
 };
 
 } //NameSpace

@@ -171,6 +171,7 @@ File_Mpeg4::File_Mpeg4()
     Vendor=0x00000000;
     FirstMdatPos=(int64u)-1;
     FirstMoovPos=(int64u)-1;
+    MajorBrand=0x00000000;
     IsSecondPass=false;
     IsParsing_mdat=false;
     IsFragmented=false;
@@ -194,6 +195,19 @@ File_Mpeg4::~File_Mpeg4()
 //***************************************************************************
 // Streams management
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::Streams_Accept()
+{
+    if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
+    {
+        Streams_Accept_TestContinuousFileNames();
+    
+        Stream_Prepare(Config->File_Names.size()>1?Stream_Video:Stream_Image);
+        if (StreamKind_Last==Stream_Video)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Config->File_Names.size());
+    }
+}
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::Streams_Finish()
@@ -762,14 +776,14 @@ void File_Mpeg4::Streams_Finish()
                 if (ReferenceFiles==NULL)
                     ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
-                File__ReferenceFilesHelper::reference Reference;
-                Reference.FileNames.push_back(Stream->second.File_Name);
-                Reference.StreamKind=Stream->second.StreamKind;
-                Reference.StreamPos=Stream->second.StreamPos;
-                Reference.StreamID=Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID);
+                File__ReferenceFilesHelper::reference ReferenceFile;
+                ReferenceFile.FileNames.push_back(Stream->second.File_Name);
+                ReferenceFile.StreamKind=Stream->second.StreamKind;
+                ReferenceFile.StreamPos=Stream->second.StreamPos;
+                ReferenceFile.StreamID=Retrieve(Stream->second.StreamKind, Stream->second.StreamPos, General_ID).To_int64u();
                 if (Stream->second.StreamKind==Stream_Video)
                 {
-                    Reference.FrameRate=Retrieve(Stream_Video, Stream->second.StreamPos, Video_FrameRate).To_float64();
+                    ReferenceFile.FrameRate=Retrieve(Stream_Video, Stream->second.StreamPos, Video_FrameRate).To_float64();
 
                     #ifdef MEDIAINFO_IBI_YES
                         for (size_t stss_Pos=0; stss_Pos<Stream->second.stss.size(); stss_Pos++)
@@ -796,7 +810,7 @@ void File_Mpeg4::Streams_Finish()
                                         IbiInfo.StreamOffset=Stream->second.stco[stco_Pos];
                                         IbiInfo.FrameNumber=Value;
                                         IbiInfo.Dts=TimeCode_DtsOffset+(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Value-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
-                                        Reference.IbiStream.Add(IbiInfo);
+                                        ReferenceFile.IbiStream.Add(IbiInfo);
                                     }
                                 }
                             }
@@ -804,7 +818,7 @@ void File_Mpeg4::Streams_Finish()
                     #endif //MEDIAINFO_IBI_YES
 
                 }
-                ReferenceFiles->References.push_back(Reference);
+                ReferenceFiles->References.push_back(ReferenceFile);
             }
 
         if (ReferenceFiles)
@@ -877,6 +891,9 @@ void File_Mpeg4::Streams_Finish_CommercialNames()
 //---------------------------------------------------------------------------
 void File_Mpeg4::Read_Buffer_Unsynched()
 {
+    if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
+        return Read_Buffer_Unsynched_OneFramePerFile();
+
     mdat_Pos_Temp=mdat_Pos.begin();
     while (mdat_Pos_Temp!=mdat_Pos.end() && mdat_Pos_Temp->first<File_GoTo)
         mdat_Pos_Temp++;
@@ -935,6 +952,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     if (ReferenceFiles)
         return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
+    if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
+        return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);
                         
     //Parsing
     switch (Method)
@@ -1121,7 +1140,7 @@ void File_Mpeg4::Header_Parse()
         //Special case: until the end of the atom
             if (Size==0)
         {
-            Size=File_Size-(File_Offset+Buffer_Offset);
+            Size=Config->File_Current_Size-(File_Offset+Buffer_Offset);
             if (Status[IsAccepted] && Element_Level==2 && Name==0x00000000) //First real level (Level 1 is atom, level 2 is header block)
             {
                 Element_Offset=0;
@@ -1137,7 +1156,7 @@ void File_Mpeg4::Header_Parse()
         //Not in specs!
         else
         {
-            Size=File_Size-(File_Offset+Buffer_Offset);
+            Size=Config->File_Current_Size-(File_Offset+Buffer_Offset);
         }
     }
 

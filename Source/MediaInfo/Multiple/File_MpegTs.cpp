@@ -1071,7 +1071,7 @@ bool File_MpegTs::Synched_Test()
                         }
                         #if MEDIAINFO_IBI
                             if (table_id==0x00)
-                                Complete_Stream->Streams[pid]->Ibi_SynchronizationOffset_BeginOfFrame=File_Offset+Buffer_Offset-Header_Size;
+                                Complete_Stream->Streams[pid]->Ibi_SynchronizationOffset_BeginOfFrame=File_Offset+Buffer_Offset;
                             if (table_id==0x02)
                                 Complete_Stream->Streams[pid]->Ibi_SynchronizationOffset_BeginOfFrame=Complete_Stream->Streams[0x0000]->Ibi_SynchronizationOffset_BeginOfFrame;
                         #endif //MEDIAINFO_IBI
@@ -1402,6 +1402,14 @@ void File_MpegTs::Read_Buffer_Continue()
         else
             Config->State_Set(((float)Buffer_TotalBytes)/(MpegTs_JumpTo_Begin+MpegTs_JumpTo_End));
     }
+
+    #if MEDIAINFO_DEMUX
+        if (Complete_Stream && pid<0x2000 && Complete_Stream->Streams[pid]->Kind==complete_stream::stream::pes && Complete_Stream->Streams[pid]->Parser && ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->Demux_StreamIsBeingParsed_type!=(int8u)-1)
+        {
+            Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser, Buffer, 0);
+            PES_Parse_Finish();
+        }
+    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -1505,6 +1513,8 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     //Reset
     Seek_Value=(int64u)-1;
     Seek_ID=(int64u)-1;
+    InfiniteLoop_Detect=0;
+    Config->Demux_IsSeeking=false;
 
     //Init
     if (!Duration_Detected)
@@ -1529,7 +1539,9 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
             Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
             MI.Option(_T("ParseSpeed"), _T("0"));
             MI.Option(_T("Demux"), Ztring());
-            size_t MiOpenResult=MI.Open(File_Name);
+            Ztring File_Names=Config->File_Names.Read();
+            MI.Option(_T("File_FileNameFormat"), _T("CSV"));
+            size_t MiOpenResult=MI.Open(File_Names);
             MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
             MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
             if (!MiOpenResult)
@@ -2285,7 +2297,14 @@ void File_MpegTs::PES()
         else
             Complete_Stream->Streams[pid]->Parser->Ibi_SynchronizationOffset_Current=File_Offset+Buffer_Offset-Header_Size;
     #endif //MEDIAINFO_IBI
+
     Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser);
+    PES_Parse_Finish();
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::PES_Parse_Finish()
+{
     if (Complete_Stream->Streams[pid]->Parser->Status[IsUpdated])
     {
         Complete_Stream->Streams[pid]->Parser->Status[IsUpdated]=false;
@@ -2346,6 +2365,7 @@ void File_MpegTs::PES()
                     Seek_ID=(int64u)-1;
                     Seek_Value=(int64u)-1;
                     InfiniteLoop_Detect=0;
+                    Config->Demux_IsSeeking=false;
                 }
                 else
                 {

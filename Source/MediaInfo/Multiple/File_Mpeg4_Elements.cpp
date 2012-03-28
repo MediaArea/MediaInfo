@@ -1256,7 +1256,6 @@ void File_Mpeg4::ftyp()
 
     //Parsing
     std::vector<int32u> ftyps;
-    int32u MajorBrand;
     Get_C4 (MajorBrand,                                         "MajorBrand");
     ftyps.push_back(MajorBrand);
     Skip_B4(                                                    "MajorBrandVersion");
@@ -1321,7 +1320,7 @@ void File_Mpeg4::jp2c()
     #if defined(MEDIAINFO_JPEG_YES)
         //Creating the parser
         File_Jpeg MI;
-        if (IsSub) //If contained in another container, this is a video stream
+        if (IsSub || Config->File_Names.size()>1) //If contained in another container or several files, this is a video stream
             MI.StreamKind=Stream_Video;
         Open_Buffer_Init(&MI);
 
@@ -1345,16 +1344,28 @@ void File_Mpeg4::jp2c()
         Open_Buffer_Continue(&MI);
 
         //Filling
-        Finish(&MI);
-
-        Accept("MPEG-4");
+        if (Frame_Count==0)
+        {
+            Accept("MPEG-4");
         
-        Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
-        Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
+            Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
+            Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
 
-        Merge(MI);
+            Finish(&MI);
+            Merge(MI, MI.StreamKind, 0, 0);
         
-        Finish("MPEG-4");
+            Fill("MPEG-4");
+            if (Config->File_Names.size()>1)
+            {
+                int64u OverHead=Config->File_Sizes[0]-Element_Size;
+                Fill(Stream_Video, 0, Video_StreamSize, File_Size-Config->File_Names.size()*OverHead, 10, true);
+            }
+            if (Config_ParseSpeed<1.0)
+                Finish("MPEG-4");
+        }
+        Frame_Count++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
     #endif
 
 }
@@ -1384,7 +1395,7 @@ void File_Mpeg4::jp2h_colr()
         case 0x01 : {
                     int32u EnumCS;
                     Get_B4 (EnumCS,                             "EnumCS - Enumerated colourspace"); Param_Info1(Mpeg4_jp2h_EnumCS(EnumCS));
-                    Fill(StreamKind_Last, StreamPos_Last, "ColorSpace", Mpeg4_jp2h_EnumCS(EnumCS));
+                    Fill(StreamKind_Last, 0, "ColorSpace", Mpeg4_jp2h_EnumCS(EnumCS));
                     }
                     break;
         case 0x02 : Skip_XX(Element_Size-Element_Offset,        "PROFILE");
@@ -3907,6 +3918,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("JPEG"))
                 {
                     Streams[moov_trak_tkhd_TrackID].Parser=new File_Jpeg;
+                    ((File_Jpeg*)Streams[moov_trak_tkhd_TrackID].Parser)->StreamKind=Stream_Video;
                 }
             #endif
             #if defined(MEDIAINFO_MPEG4_YES)

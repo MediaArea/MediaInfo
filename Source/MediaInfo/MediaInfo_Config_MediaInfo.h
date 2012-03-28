@@ -134,6 +134,8 @@ public :
     ZtringListList SubFile_Config_Get ();
     void          SubFile_StreamID_Set(int64u Value);
     int64u        SubFile_StreamID_Get();
+    void          SubFile_IDs_Set(Ztring Value);
+    Ztring        SubFile_IDs_Get();
     #endif //MEDIAINFO_EVENTS
 
     #if MEDIAINFO_EVENTS
@@ -218,6 +220,7 @@ public :
 
     //Internal to MediaInfo, not thread safe
     ZtringList    File_Names;
+    std::vector<int64u> File_Sizes;
     size_t        File_Names_Pos;
     size_t        File_Buffer_Size_Max;
     size_t        File_Buffer_Size_ToRead;
@@ -227,6 +230,8 @@ public :
     bool          File_Buffer_Repeat_IsSupported;
     bool          File_IsGrowing;
     bool          File_IsNotGrowingAnymore;
+    int64u        File_Current_Offset;
+    int64u        File_Current_Size;
     int64u        File_Size;
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
@@ -275,6 +280,7 @@ private :
     ZtringListList          SubFile_Config;
     int64u                  SubFile_StreamID;
     bool                    ParseUndecodableFrames;
+    Ztring                  SubFile_IDs;
     #endif //MEDIAINFO_EVENTS
 
     #if MEDIAINFO_DEMUX

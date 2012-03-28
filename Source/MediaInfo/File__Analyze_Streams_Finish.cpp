@@ -63,6 +63,8 @@ void File__Analyze::Streams_Finish_Global()
     {
         if (Frame_Count_NotParsedIncluded!=(int64u)-1 && File_Offset+Buffer_Size==File_Size)
             Fill(Stream_Video, 0, Video_FrameCount, Frame_Count_NotParsedIncluded);
+        else if (Config->File_Names.size()>1)
+            Fill(Stream_Video, 0, Video_FrameCount, Config->File_Names.size());
         #if MEDIAINFO_IBI
         else
         {
@@ -89,68 +91,60 @@ void File__Analyze::Streams_Finish_Global()
         #endif //MEDIAINFO_IBI
     }
 
-    //Image as video
-    if (Config->File_Names.size()==1 && Count_Get(Stream_Image) && !File_Name.empty())
-    {
-        //Trying to detect continuous file names (video stream as an image) 
-        FileName FileToTest(File_Name);
-        Ztring FileToTest_Name=FileToTest.Name_Get();
-        size_t FileNameToTest_Pos=FileToTest_Name.size();
-        while (FileNameToTest_Pos && FileToTest_Name[FileNameToTest_Pos-1]>=_T('0') && FileToTest_Name[FileNameToTest_Pos-1]<=_T('9'))
-            FileNameToTest_Pos--;
-        if (FileNameToTest_Pos!=FileToTest_Name.size())
-        {
-            size_t Numbers_Size=FileToTest_Name.size()-FileNameToTest_Pos;
-            int64u Pos=Ztring(FileToTest_Name.substr(FileNameToTest_Pos)).To_int64u();
-            FileToTest_Name.resize(FileNameToTest_Pos);
+    Streams_Finish_StreamOnly();
+    Streams_Finish_StreamOnly();
+    Streams_Finish_InterStreams();
+    Streams_Finish_StreamOnly();
+    Streams_Finish_InterStreams();
+    Streams_Finish_StreamOnly();
+    Streams_Finish_InterStreams();
+    Streams_Finish_StreamOnly();
+}
 
-            for (;;)
-            {
-                Pos++;
-                Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos);
-                if (Numbers_Size<Pos_Ztring.size())
-                    break; //Not enough place for numbers
-                Pos_Ztring.insert(0, Numbers_Size-Pos_Ztring.size(), _T('0'));
-                Ztring Next=FileToTest.Path_Get()+PathSeparator+FileToTest_Name+Pos_Ztring+_T('.')+FileToTest.Extension_Get();
-                if (!File::Exists(Next))
-                    break;
-                Config->File_Names.push_back(Next);
-            }
-
-            if (!Config->File_IsReferenced_Get() && Config->File_Names.size()<24)
-                Config->File_Names.resize(1); //Removing files, wrong detection
-        }
-    }
-    if ((Config->File_Names.size()>1 || Config->File_IsReferenced_Get()) && Count_Get(Stream_Image))
-    {
-        int64u TotalSize=File_Size;
-        for (size_t Pos=0; Pos<Config->File_Names.size(); Pos++)
-        {
-            int64u Size=File::Size_Get(Config->File_Names[Pos]);
-            if (Size!=(int64u)-1)
-                TotalSize+=Size;
-        }
-
-        Stream_Prepare(Stream_Video);
-        for (size_t Pos=General_ID; Pos<Count_Get(Stream_Image, 0); Pos++)
-            Fill(Stream_Video, 0, Get(Stream_Image, 0, Pos, Info_Name).To_UTF8().c_str(), Get(Stream_Image, 0, Pos), true);
-        Stream_Erase(Stream_Image, 0);
-
-        Fill(Stream_General, 0, General_FileSize, TotalSize, 10, true);
-        Fill(Stream_Video, 0, Video_StreamSize, TotalSize, 10, true);
-        Fill(Stream_Video, 0, Video_FrameCount, Config->File_Names.size(), 10, true);
-    }
-    if (!Config->File_Names.empty() && Config->File_Names_Pos!=1)
+//---------------------------------------------------------------------------
+void File__Analyze::Streams_Accept_TestContinuousFileNames()
+{
+    if (Config->File_Names.size()!=1)
         return;
 
-    Streams_Finish_StreamOnly();
-    Streams_Finish_StreamOnly();
-    Streams_Finish_InterStreams();
-    Streams_Finish_StreamOnly();
-    Streams_Finish_InterStreams();
-    Streams_Finish_StreamOnly();
-    Streams_Finish_InterStreams();
-    Streams_Finish_StreamOnly();
+    //Trying to detect continuous file names (e.g. video stream as an image or HLS) 
+    FileName FileToTest(File_Name);
+    Ztring FileToTest_Name=FileToTest.Name_Get();
+    size_t FileNameToTest_Pos=FileToTest_Name.size();
+    while (FileNameToTest_Pos && FileToTest_Name[FileNameToTest_Pos-1]>=_T('0') && FileToTest_Name[FileNameToTest_Pos-1]<=_T('9'))
+        FileNameToTest_Pos--;
+    if (FileNameToTest_Pos!=FileToTest_Name.size())
+    {
+        size_t Numbers_Size=FileToTest_Name.size()-FileNameToTest_Pos;
+        int64u Pos=Ztring(FileToTest_Name.substr(FileNameToTest_Pos)).To_int64u();
+        FileToTest_Name.resize(FileNameToTest_Pos);
+
+        for (;;)
+        {
+            Pos++;
+            Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos);
+            if (Numbers_Size<Pos_Ztring.size())
+                break; //Not enough place for numbers
+            Pos_Ztring.insert(0, Numbers_Size-Pos_Ztring.size(), _T('0'));
+            Ztring Next=FileToTest.Path_Get()+PathSeparator+FileToTest_Name+Pos_Ztring+_T('.')+FileToTest.Extension_Get();
+            if (!File::Exists(Next))
+                break;
+            Config->File_Names.push_back(Next);
+            int64u Size=File::Size_Get(Next);
+            Config->File_Sizes.push_back(Size);
+            Config->File_Size+=Size;
+        }
+
+        if (!Config->File_IsReferenced_Get() && Config->File_Names.size()<24)
+        {
+            Config->File_Names.resize(1); //Removing files, wrong detection
+            Config->File_Sizes.resize(1); //Removing files, wrong detection
+            Config->File_Size=Config->File_Sizes[0];
+        }
+        File_Size=Config->File_Size;
+        Element[0].Next=File_Size;
+        Fill (Stream_General, 0, General_FileSize, File_Size, 10, true);
+    }
 }
 
 //---------------------------------------------------------------------------

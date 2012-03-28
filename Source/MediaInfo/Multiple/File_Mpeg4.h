@@ -42,6 +42,7 @@ class File_Mpeg4 : public File__Analyze
 {
 protected :
     //Streams management
+    void Streams_Accept();
     void Streams_Finish();
     void Streams_Finish_CommercialNames ();
 
@@ -319,6 +320,7 @@ private :
     int64u                                  moof_traf_base_data_offset;
     int32u                                  moof_traf_default_sample_duration;
     int32u                                  moof_traf_default_sample_size;
+    int32u                                  MajorBrand;
     bool                                    IsSecondPass;
     bool                                    IsParsing_mdat;
     bool                                    IsFragmented;

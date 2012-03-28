@@ -474,6 +474,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             return _T("Event manager is disabled due to compilation options");
         #endif //MEDIAINFO_EVENTS
     }
+    else if (Option_Lower==_T("file_subfile_ids_set"))
+    {
+        #if MEDIAINFO_EVENTS
+            SubFile_IDs_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_EVENTS
+            return _T("Event manager is disabled due to compilation options");
+        #endif //MEDIAINFO_EVENTS
+    }
     else if (Option_Lower==_T("file_parseundecodableframes"))
     {
         #if MEDIAINFO_EVENTS
@@ -1239,6 +1248,22 @@ int64u MediaInfo_Config_MediaInfo::SubFile_StreamID_Get ()
     CriticalSectionLocker CSL(CS);
 
     return SubFile_StreamID;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::SubFile_IDs_Set (Ztring Value)
+{
+    CriticalSectionLocker CSL(CS);
+
+    SubFile_IDs=Value;
+}
+
+//---------------------------------------------------------------------------
+Ztring MediaInfo_Config_MediaInfo::SubFile_IDs_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+
+    return SubFile_IDs;
 }
 #endif //MEDIAINFO_EVENTS
 

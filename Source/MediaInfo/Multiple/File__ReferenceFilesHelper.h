@@ -43,9 +43,10 @@ public :
     struct reference
     {
         ZtringList          FileNames;
+        Ztring              Source; //Source file name (relative path)
         stream_t            StreamKind;
         size_t              StreamPos;
-        Ztring              StreamID;
+        int64u              StreamID;
         float64             FrameRate;
         int64u              Delay;
         MediaInfo_Internal* MI;
@@ -59,6 +60,7 @@ public :
             FileNames.Separator_Set(0, _T(","));
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
+            StreamID=(int64u)-1;
             FrameRate=0;
             Delay=0;
             MI=NULL;
@@ -81,6 +83,7 @@ private :
     //Streams management
     void ParseReference ();
     void ParseReference_Finalize ();
+    void ParseReference_Finalize_PerStream ();
     void Open_Buffer_Unsynch() {Read_Buffer_Unsynched();}
 
     //Buffer - Global
@@ -96,6 +99,9 @@ private :
     size_t                          CountOfReferencesToParse;
     float64                         FrameRate;
     float64                         Duration;
+    stream_t                        StreamKind_Last;
+    size_t                          StreamPos_From;
+    size_t                          StreamPos_To;
 
     //Helpers
     size_t Stream_Prepare(stream_t StreamKind, size_t StreamPos=(size_t)-1);
