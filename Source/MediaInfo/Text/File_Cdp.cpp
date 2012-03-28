@@ -208,6 +208,16 @@ void File_Cdp::Read_Buffer_Continue()
         FILLING_END();
     }
 
+    //CRC
+    int8u CRC=0;
+    for (size_t Pos=WithAppleHeader?8:0; Pos<Buffer_Size; Pos++)
+        CRC+=Buffer[Pos];
+    if (CRC)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "Invalid data (CRC fails)");
+        return;
+    }
+
     cdp_header();
     while(Element_Offset<Element_Size)
     {
