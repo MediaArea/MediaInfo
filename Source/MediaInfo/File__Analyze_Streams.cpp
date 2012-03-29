@@ -989,6 +989,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             Fill(Stream_Audio, StreamPos, Audio_Channel_s_, 1, 10, true); //AMR is always with 1 channel
 
         //Well known bitrate values
+        if (StreamKind==Stream_Video && (Parameter==Video_BitRate || Parameter==Video_BitRate_Nominal))
+            Video_BitRate_Rounding(StreamPos, (video)Parameter);
         if (StreamKind==Stream_Audio && (Parameter==Audio_BitRate || Parameter==Audio_BitRate_Nominal))
             Audio_BitRate_Rounding(StreamPos, (audio)Parameter);
     }
@@ -1485,6 +1487,22 @@ void File__Analyze::Video_FrameRate_Rounding(size_t Pos, video Parameter)
 
     if (FrameRate!=FrameRate_Sav)
         Fill(Stream_Video, Pos, Parameter, FrameRate, 3, true);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Video_BitRate_Rounding(size_t Pos, video Parameter)
+{
+    const Ztring& Format=Retrieve(Stream_Video, Pos, Video_Format);
+    int32u BitRate=Retrieve(Stream_Video, Pos, Parameter).To_int32u();
+    int32u BitRate_Sav=BitRate;
+    if (Format==_T("AVC"))
+    {
+        if (BitRate>= 54942720 && BitRate<= 57185280) BitRate= 56064000; //AVC-INTRA50
+        if (BitRate>=111390720 && BitRate<=115937280) BitRate=113664000; //AVC-INTRA100
+    }
+
+    if (BitRate!=BitRate_Sav)
+        Fill(Stream_Video, Pos, Parameter, BitRate, 0, true);
 }
 
 //---------------------------------------------------------------------------

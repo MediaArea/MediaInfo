@@ -1117,6 +1117,7 @@ protected :
 
     void Tags ();
     void Video_FrameRate_Rounding (size_t Pos, video Parameter);
+    void Video_BitRate_Rounding (size_t Pos, video Parameter);
     void Audio_BitRate_Rounding (size_t Pos, audio Parameter);
 
     //Utils - Finalize
