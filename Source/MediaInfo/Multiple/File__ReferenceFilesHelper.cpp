@@ -488,11 +488,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     //Hacks - Before
     Ztring CodecID=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
     Ztring ID_Base;
-    #if MEDIAINFO_EVENTS
-    if (MI->StreamIDs_Size && MI->StreamIDs_Size && MI->StreamIDs_Width[MI->StreamIDs_Size-1])
-    #else //MEDIAINFO_EVENTS
     if (Reference->StreamID!=(int64u)-1)
-    #endif //MEDIAINFO_EVENTS
         ID_Base=Ztring::ToZtring(Reference->StreamID);
     Ztring ID=ID_Base;
     Ztring ID_String=ID_Base;
