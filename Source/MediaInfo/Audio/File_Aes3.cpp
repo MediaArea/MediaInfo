@@ -1766,7 +1766,8 @@ void File_Aes3::Frame_FromMpegPs()
             for (size_t Pos=0; Pos<Info_Offset; Pos++)
                 if (Info[Pos])
                 {
-                    if (Pos+16<Info_Offset && Info[Pos]==0x72 && Info[Pos+1]==0xF8 && Info[Pos+2]==0x96 && Info[Pos+3]==0x1F && Info[Pos+4]==0x4E && Info[Pos+5]==0xA5)
+                    if (Pos+16<Info_Offset && ((Info[Pos]==0x72 && Info[Pos+1]==0xF8 && Info[Pos+2]==0x96 && Info[Pos+3]==0x1F && Info[Pos+4]==0x4E && Info[Pos+5]==0xA5)   //24-bit
+                                            || (Info[Pos]==0x20 && Info[Pos+1]==0x87 && Info[Pos+2]==0x6F && Info[Pos+3]==0xF0 && Info[Pos+4]==0xE1 && Info[Pos+5]==0x54))) //20-bit
                         IsParsingNonPcm=true;
                     else
                         IsParsingNonPcm=false;

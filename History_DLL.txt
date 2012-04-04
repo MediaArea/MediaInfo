@@ -14,6 +14,7 @@ Version 0.7.55, 2012-0
 + HLS: support of .m3u8 index and sequence referencing a bunch of MPEG-TS files
 + MPEG-4: Added support of glbl atom and corresponding 4CC (ai12, ai15, ai1q, ai5q)
 + MPEG-4: Added detection of files with mx5p files wrongly filled with raw MPEG Video instead of MXF
++ MPEG-TS: Detection of 20-bit Dolby E even if the SMPTE 302 M header is set to 24-bit
 x MXF: hang up with some clip-wrapped files
 x MPEG-4: AVC-100 bit rate was not coherent depending of the container (MPEG-4 or MXF)
 
