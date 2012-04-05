@@ -44,24 +44,41 @@ Requires:	libmediainfo0 >= %libmediainfo_version
 Requires:	libzen0 >= %libzen_version
 
 %description
-MediaInfo is a utility used for retrieving technical information and other
-metadata about audio or video files.
+MediaInfo provides easy access to technical and tag information
+about video and audio files.
 
-A non-exhaustive list of the information MediaInfo can retrieve from media
-files include:
- - General: title, author, director, album, track number, date, duration...
- - Video: codec, aspect, fps, bitrate...
- - Audio: codec, sample rate, channels, language, bitrate...
- - Text: language of subtitle
- - Chapters: number of chapters, list of chapters
+A non-exhaustive list of the information MediaInfo can retrieve:
+ - General: format, profile, commercial name of the format, duration,
+            overall bit rate, writing application and library, title,
+            author, director, album, track number, date, duration...
+ - Video: format, codec id, aspect, frame rate, bit rate, color space,
+          chroma subsampling, bit depth, scan type, scan order...
+ - Audio: format, codec id, sample rate, channels, bit depth,
+          bit rate, language...
+ - Text: format, codec id, language of subtitle...
+ - Chapters: count of chapters, list of chapters...
 
-MediaInfo supports the following formats:
- - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
-          MPEG-4, DVD (VOB)...
- - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
- - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
- - Subtitles: SRT, SSA, ASS, SAMI...
-MediaInfo supplies technical and tag information about a video or audio file
+A non-exhaustive list of the formats MediaInfo can analyze:
+ - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
+              MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
+ - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
+ - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
+          H.264/AVC, Dirac...
+ - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3,
+          FLAC, Vorbis, PCM...
+ - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53,
+              CDP, DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
+ 
+A non-exhaustive list of the features:
+ - Read many video and audio file formats
+ - View information in different formats (text, sheet, tree, HTML...)
+ - Customise these viewing formats
+ - Export information as text, CSV, HTML...
+ - Graphical user interface, command line interface, or library (.so) versions available
+ - Integrate with the shell (drag 'n' drop, and Context menu)
+ - Internationalisation: display any language on any operating system
+ - Localisation capability
+   (for which volunteers are needed - please contact me!)
 
 This package includes the command line interface.
 
@@ -69,18 +86,18 @@ This package includes the command line interface.
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %package gui
-Summary:	Graphical utility for reading information from media files
-Group:		Productivity/Multimedia/Other
-Requires:	libzen0 >= %libzen_version
-Requires:	libmediainfo0 >= %{version}
+Summary:    Graphical utility for reading information from media files
+Group:        Productivity/Multimedia/Other
+Requires:    libzen0 >= %libzen_version
+Requires:    libmediainfo0 >= %{version}
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
-Requires:	libwxgtku2.8
+Requires:    libwxgtku2.8
 %else
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
-Requires:	wxWidgets
+Requires:    wxWidgets
 %else
-Requires:	wxGTK
+Requires:    wxGTK
 %endif
 %endif
 %endif
@@ -119,35 +136,35 @@ export CXXFLAGS="$RPM_OPT_FLAGS"
 
 # build CLI
 pushd Project/GNU/CLI
-	%__chmod +x autogen
-	./autogen
-	%configure
+    %__chmod +x autogen
+    ./autogen
+    %configure
 
-	%__make %{?jobs:-j%{jobs}}
+    %__make %{?jobs:-j%{jobs}}
 popd
 
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 # now build GUI
 pushd Project/GNU/GUI
-	%__chmod +x autogen
-	./autogen
-	%configure
+    %__chmod +x autogen
+    ./autogen
+    %configure
 
-	%__make %{?jobs:-j%{jobs}}
+    %__make %{?jobs:-j%{jobs}}
 popd
 
 %endif
 
 %install
 pushd Project/GNU/CLI
-	%__make install-strip DESTDIR=%{buildroot}
+    %__make install-strip DESTDIR=%{buildroot}
 popd
 
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 pushd Project/GNU/GUI
-	%__make install-strip DESTDIR=%{buildroot}
+    %__make install-strip DESTDIR=%{buildroot}
 popd
 
 # icon
@@ -159,19 +176,19 @@ popd
 # menu-entry
 %__install -dm 755 %{buildroot}/%{_datadir}/applications
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.desktop \
-	%{buildroot}/%{_datadir}/applications
+    %{buildroot}/%{_datadir}/applications
 %if 0%{?suse_version}
   %suse_update_desktop_file -n mediainfo-gui AudioVideo AudioVideoEditing
 %endif
 %__install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
-	%{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
+    %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
 %if 0%{?suse_version}
   %suse_update_desktop_file -n %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
 %__install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
-	%{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
+    %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
 %if 0%{?suse_version}
   %suse_update_desktop_file -n %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
