@@ -7,6 +7,19 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.55, 2012-04-05
+--------------
++ AC-3: support of little endian streams
++ LXF: support of format version 0
++ HLS: support of .m3u8 index and sequence referencing a bunch of MPEG-TS files
++ MPEG-4: Added support of glbl atom and corresponding 4CC (ai12, ai15, ai1q, ai5q)
++ MPEG-4: Added detection of files with mx5p files wrongly filled with raw MPEG Video instead of MXF
++ MPEG-TS: Detection of 20-bit Dolby E even if the SMPTE 302 M header is set to 24-bit
+x #3513490, Id3v2: mapping of "Encoded by" and "Encoding library" is conform to the specs now
+x MXF: hang up with some clip-wrapped files
+x MPEG-4: AVC-100 bit rate was not coherent depending of the container (MPEG-4 or MXF)
+x reVTMD output is disabled due to its non-free (point of view of FSF and DFSG) licensing.
+
 Version 0.7.54, 2012-03-13
 --------------
 + #3480111, Matroska: parsing of WebM-style frame rate info
