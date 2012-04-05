@@ -77,7 +77,7 @@ Ztring MediaInfo_Internal::Inform()
     if (MediaInfoLib::Config.Inform_Get()==_T("PBCore") || MediaInfoLib::Config.Inform_Get()==_T("PBCore_1.2"))
         return Export_PBCore().Transform(*this);
     if (MediaInfoLib::Config.Inform_Get()==_T("reVTMD"))
-        return Export_reVTMD().Transform(*this);
+        return _T("reVTMD is disabled due to its non-free licensing."); //return Export_reVTMD().Transform(*this);
 
     if (!(
         MediaInfoLib::Config.Inform_Get(_T("General")).empty()
