@@ -17,6 +17,7 @@ Version 0.7.55, 2012-0
 + MPEG-TS: Detection of 20-bit Dolby E even if the SMPTE 302 M header is set to 24-bit
 x MXF: hang up with some clip-wrapped files
 x MPEG-4: AVC-100 bit rate was not coherent depending of the container (MPEG-4 or MXF)
+x reVTMD output is disabled due to its non-free (point of view of FSF and DFSG) licensing.
 
 Version 0.7.54, 2012-03-13
 --------------
