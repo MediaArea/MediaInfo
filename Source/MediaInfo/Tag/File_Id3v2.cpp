@@ -1150,7 +1150,7 @@ void File_Id3v2::Fill_Name()
         case Elements::TDRC : Normalize_Date(Element_Value); Fill(Stream_General, 0, General_Recorded_Date, Element_Value); break;
         case Elements::TDRL : Normalize_Date(Element_Value); Fill(Stream_General, 0, General_Released_Date, Element_Value); break;
         case Elements::TDTG : Normalize_Date(Element_Value); Fill(Stream_General, 0, General_Tagged_Date, Element_Value); break;
-        case Elements::TENC : Fill(Stream_General, 0, General_Encoded_Library, Element_Value); break;
+        case Elements::TENC : Fill(Stream_General, 0, General_EncodedBy, Element_Value); break;
         case Elements::TEXT : Fill(Stream_General, 0, General_Lyricist, Element_Value); break;
         case Elements::TFLT : Fill(Stream_General, 0, "File type", Element_Value); break;
         case Elements::TIM  :
@@ -1209,7 +1209,7 @@ void File_Id3v2::Fill_Name()
         case Elements::TSOP : Fill(Stream_General, 0, General_Performer_Sort, Element_Value); break;
         case Elements::TSOT : Fill(Stream_General, 0, General_Track_Sort, Element_Value); break;
         case Elements::TSRC : Fill(Stream_General, 0, General_ISRC, Element_Value); break;
-        case Elements::TSSE : Fill(Stream_General, 0, General_Encoded_Library_Settings, Element_Value); break;
+        case Elements::TSSE : Fill(Stream_General, 0, General_Encoded_Library, Element_Value); break;
         case Elements::TSST : Fill(Stream_General, 0, "Set subtitle", Element_Value); break;
         case Elements::TXXX : if (Element_Values(0)==_T("AccurateRipResult"))      ;
                          else if (Element_Values(0)==_T("AccurateRipDiscID"))      ;
