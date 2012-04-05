@@ -892,7 +892,7 @@ bool File_Aes3::Synched_Test()
         }
         else if (ByteSize==8)
         {
-            while ((Buffer_TotalBytes+Buffer_Offset_Temp)%6) //Padding in part of the AES3 block
+            while ((Buffer_TotalBytes+Buffer_Offset_Temp)%8) //Padding in part of the AES3 block
             {
                 if (Buffer_Offset_Temp+1>Buffer_Size)
                 {
@@ -1615,9 +1615,6 @@ void File_Aes3::Frame_FromMpegPs()
             {
                 Skip_XX(Element_Size,                       "Data");
 
-                Frame_Count_InThisBlock++;
-                if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-                    Frame_Count_NotParsedIncluded++;
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                     {
@@ -1716,9 +1713,6 @@ void File_Aes3::Frame_FromMpegPs()
             {
                 Skip_XX(Element_Size,                       "Data");
 
-                Frame_Count_InThisBlock++;
-                if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-                    Frame_Count_NotParsedIncluded++;
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                     {
@@ -1784,9 +1778,6 @@ void File_Aes3::Frame_FromMpegPs()
             {
                 Skip_XX(Element_Size,                       "Data");
 
-                Frame_Count_InThisBlock++;
-                if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-                    Frame_Count_NotParsedIncluded++;
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
                     {
@@ -1838,9 +1829,6 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     Parser->FrameInfo=FrameInfo;
     Open_Buffer_Continue(Parser, Parser_Buffer, Parser_Buffer_Size);
     #if MEDIAINFO_DEMUX
-        Frame_Count_InThisBlock++;
-        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-            Frame_Count_NotParsedIncluded++;
         if (Parser->FrameInfo.DUR!=FrameInfo.DUR && Parser->FrameInfo.DUR!=(int64u)-1)
             FrameInfo.DUR=Parser->FrameInfo.DUR;
         if (FrameInfo.DUR!=(int64u)-1)
@@ -1854,6 +1842,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
 
     if (!From_MpegPs)
     {
+        Frame_Count_InThisBlock++;
         Frame_Count++;
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
