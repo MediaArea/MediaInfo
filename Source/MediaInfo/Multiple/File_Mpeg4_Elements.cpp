@@ -3888,7 +3888,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("AVC"))
                 {
                     Streams[moov_trak_tkhd_TrackID].Parser=new File_Avc;
-                    ((File_Mpegv*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
+                    ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
                 }
             #endif
             #if defined(MEDIAINFO_H263_YES)
@@ -4024,6 +4024,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
                 delete Streams[moov_trak_tkhd_TrackID].Parser; //Streams[moov_trak_tkhd_TrackID].Parser=NULL;
 
             Streams[moov_trak_tkhd_TrackID].Parser=new File_Avc;
+            ((File_Avc*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
             #if MEDIAINFO_DEMUX
                 Element_Code=moov_trak_tkhd_TrackID;
             #endif //MEDIAINFO_DEMUX
