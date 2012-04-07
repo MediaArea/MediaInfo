@@ -1568,6 +1568,7 @@ void File_Avc::slice_header()
                 while (TemporalReferences_Offset+pic_order_cnt>=3*TemporalReferences_Reserved)
                 {
                     for (size_t Pos=0; Pos<TemporalReferences_Reserved; Pos++)
+                    {
                         if (TemporalReferences[Pos])
                         {
                             if ((Pos%2)==0)
@@ -1578,6 +1579,8 @@ void File_Avc::slice_header()
                             if ((Pos%2)==0)
                                 PictureTypes_PreviousFrames+=' ';
                         }
+                        delete TemporalReferences[Pos]; 
+                    }
                     if (PictureTypes_PreviousFrames.size()>=8*TemporalReferences.size())
                         PictureTypes_PreviousFrames.erase(PictureTypes_PreviousFrames.begin(), PictureTypes_PreviousFrames.begin()+PictureTypes_PreviousFrames.size()-TemporalReferences.size());
                     TemporalReferences.erase(TemporalReferences.begin(), TemporalReferences.begin()+TemporalReferences_Reserved);
