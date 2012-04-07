@@ -387,7 +387,7 @@ void File__Tags_Helper::GoTo (int64u GoTo, const char* ParserName)
     while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
 
     //If a jump is requested
-    if (Base->File_GoTo!=(int64u)-1)
+    if (!TagSizeIsFinal)
         return;
 
     //Positionning (if finnished)
@@ -463,16 +463,16 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
         //Id3v1
         if (Id3v1_Size==0 && File_EndTagSize==0 && Base->File_Size>=128) //Only one, at the end, larger than 128 bytes
         {
-            if (Base->File_Offset>Base->File_Size-128) //Must be at least at the end less 128 bytes
+            if (Base->File_Offset>Base->File_Size-128-32) //Must be at least at the end less 128 bytes
             {
                 Base->GoTo(Base->File_Size-128-32, "Tags detection"); //32 to be able to quickly see another tag system
                 TagSizeIsFinal=false;
                 return false;
             }
 
-            if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-128) //Must be at least at the end less 128 bytes of tags
+            if (Base->File_Offset+Base->Buffer_Size<Base->File_Size) //Must be at least at the end less 128 bytes of tags
             {
-                if (Base->File_Offset!=Base->File_Size-128)
+                if (Base->File_Offset<Base->File_Size-128-32)
                     Base->GoTo(Base->File_Size-128-32, "Tags detection");
                 TagSizeIsFinal=false;
                 return false;
