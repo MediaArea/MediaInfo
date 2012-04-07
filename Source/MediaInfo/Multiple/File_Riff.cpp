@@ -787,6 +787,15 @@ void File_Riff::Header_Parse()
         }
     }
 
+    //Coherency
+    if (Stream_Structure_Temp!=Stream_Structure.end() && Stream_Structure_Temp->second.Size==0)
+    {
+        Name=(int32u)-1;
+        Size_Complete=0; //Hack in some indexes with Size==0 (why?), ignoring content of header
+    }
+    if (File_Offset+Buffer_Offset+8+Size_Complete>File_Size)
+        Size_Complete=File_Size-(File_Offset+Buffer_Offset+8);
+
     //Alignment
     if (Size_Complete%2 && !IsNotWordAligned)
     {
