@@ -211,6 +211,9 @@ size_t File__Analyze::Stream_Erase (stream_t KindOfStream, size_t StreamPos)
 //---------------------------------------------------------------------------
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring &Value, bool Replace)
 {
+    if (Value==_T("2.395"))
+        int a=0;    
+        
     //Integrity
     if (!Status[IsAccepted] || StreamKind>Stream_Max || Parameter==(size_t)-1)
         return;
@@ -892,14 +895,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float F1=Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
             Ztring C1;
-                 if (F1>1.23 && F1<1.27) C1=_T("5:4");
-            else if (F1>1.30 && F1<1.37) C1=_T("4:3");
-            else if (F1>1.45 && F1<1.55) C1=_T("3:2");
-            else if (F1>1.70 && F1<1.85) C1=_T("16:9");
-            else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
-            else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
-            else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
+                 if (F1>=(float)1.23 && F1<(float)1.27) C1=_T("5:4");
+            else if (F1>=(float)1.30 && F1<(float)1.37) C1=_T("4:3");
+            else if (F1>=(float)1.45 && F1<(float)1.55) C1=_T("3:2");
+            else if (F1>=(float)1.74 && F1<(float)1.82) C1=_T("16:9");
+            else if (F1>=(float)1.82 && F1<(float)1.88) C1=_T("1.85:1");
+            else if (F1>=(float)2.15 && F1<(float)2.22) C1=_T("2.2:1");
+            else if (F1>=(float)2.23 && F1<(float)2.30) C1=_T("2.25:1");
+            else if (F1>=(float)2.30 && F1<(float)2.37) C1=_T("2.35:1");
+            else if (F1>=(float)2.37 && F1<(float)2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
             if (MediaInfoLib::Config.Language_Get(_T("  Language_ISO639"))==_T("fr") && C1.find(_T(":1"))==string::npos)
@@ -912,14 +916,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float F1=Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).To_float32();
             Ztring C1;
-                 if (F1>1.23 && F1<1.27) C1=_T("5:4");
-            else if (F1>1.30 && F1<1.37) C1=_T("4:3");
-            else if (F1>1.45 && F1<1.55) C1=_T("3:2");
-            else if (F1>1.70 && F1<1.85) C1=_T("16:9");
-            else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
-            else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
-            else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
+                 if (F1>=(float)1.23 && F1<(float)1.27) C1=_T("5:4");
+            else if (F1>=(float)1.30 && F1<(float)1.37) C1=_T("4:3");
+            else if (F1>=(float)1.45 && F1<(float)1.55) C1=_T("3:2");
+            else if (F1>=(float)1.74 && F1<(float)1.82) C1=_T("16:9");
+            else if (F1>=(float)1.82 && F1<(float)1.88) C1=_T("1.85:1");
+            else if (F1>=(float)2.15 && F1<(float)2.22) C1=_T("2.2:1");
+            else if (F1>=(float)2.23 && F1<(float)2.30) C1=_T("2.25:1");
+            else if (F1>=(float)2.30 && F1<(float)2.37) C1=_T("2.35:1");
+            else if (F1>=(float)2.37 && F1<(float)2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
             if (MediaInfoLib::Config.Language_Get(_T("  Language_ISO639"))==_T("fr") && C1.find(_T(":1"))==string::npos)
@@ -932,14 +937,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float F1=Retrieve(Stream_Image, StreamPos, Image_DisplayAspectRatio).To_float32();
             Ztring C1;
-                 if (F1>1.23 && F1<1.27) C1=_T("5:4");
-            else if (F1>1.30 && F1<1.37) C1=_T("4:3");
-            else if (F1>1.45 && F1<1.55) C1=_T("3:2");
-            else if (F1>1.70 && F1<1.85) C1=_T("16:9");
-            else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
-            else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
-            else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
+                 if (F1>=(float)1.23 && F1<(float)1.27) C1=_T("5:4");
+            else if (F1>=(float)1.30 && F1<(float)1.37) C1=_T("4:3");
+            else if (F1>=(float)1.45 && F1<(float)1.55) C1=_T("3:2");
+            else if (F1>=(float)1.74 && F1<(float)1.82) C1=_T("16:9");
+            else if (F1>=(float)1.82 && F1<(float)1.88) C1=_T("1.85:1");
+            else if (F1>=(float)2.15 && F1<(float)2.22) C1=_T("2.2:1");
+            else if (F1>=(float)2.23 && F1<(float)2.30) C1=_T("2.25:1");
+            else if (F1>=(float)2.30 && F1<(float)2.37) C1=_T("2.35:1");
+            else if (F1>=(float)2.37 && F1<(float)2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
             if (MediaInfoLib::Config.Language_Get(_T("  Language_ISO639"))==_T("fr") && C1.find(_T(":1"))==string::npos)
@@ -952,14 +958,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float F1=Retrieve(Stream_Image, StreamPos, Image_DisplayAspectRatio_Original).To_float32();
             Ztring C1;
-                 if (F1>1.23 && F1<1.27) C1=_T("5:4");
-            else if (F1>1.30 && F1<1.37) C1=_T("4:3");
-            else if (F1>1.45 && F1<1.55) C1=_T("3:2");
-            else if (F1>1.70 && F1<1.85) C1=_T("16:9");
-            else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
-            else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
-            else if (F1>2.30 && F1<2.37) C1=_T("2.35:1");
-            else if (F1>2.37 && F1<2.45) C1=_T("2.40:1");
+                 if (F1>=(float)1.23 && F1<(float)1.27) C1=_T("5:4");
+            else if (F1>=(float)1.30 && F1<(float)1.37) C1=_T("4:3");
+            else if (F1>=(float)1.45 && F1<(float)1.55) C1=_T("3:2");
+            else if (F1>=(float)1.74 && F1<(float)1.82) C1=_T("16:9");
+            else if (F1>=(float)1.82 && F1<(float)1.88) C1=_T("1.85:1");
+            else if (F1>=(float)2.15 && F1<(float)2.22) C1=_T("2.2:1");
+            else if (F1>=(float)2.23 && F1<(float)2.30) C1=_T("2.25:1");
+            else if (F1>=(float)2.30 && F1<(float)2.37) C1=_T("2.35:1");
+            else if (F1>=(float)2.37 && F1<(float)2.45) C1=_T("2.40:1");
             else              C1.From_Number(F1);
             C1.FindAndReplace(_T("."), MediaInfoLib::Config.Language_Get(_T("  Config_Text_FloatSeparator")));
             if (MediaInfoLib::Config.Language_Get(_T("  Language_ISO639"))==_T("fr") && C1.find(_T(":1"))==string::npos)
