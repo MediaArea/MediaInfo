@@ -1660,7 +1660,7 @@ void File_Avc::slice_header()
                     FrameInfo.PTS+=(TemporalReferences_Offset_pic_order_cnt_lsb_Diff-(field_pic_flag?1:2))/((!(*seq_parameter_set_Item)->frame_mbs_only_flag && field_pic_flag)?1:2)*(int64s)tc;
             }
 
-            if (!FirstPFrameInGop_IsParsed && (slice_type==0 || slice_type==5) && first_mb_in_slice==0) //P-Frame
+            if (!FirstPFrameInGop_IsParsed && (slice_type==0 || slice_type==5)) //P-Frame
             {
                 FirstPFrameInGop_IsParsed=true;
 
