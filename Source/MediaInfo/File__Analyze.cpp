@@ -2372,8 +2372,6 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
             ForceFinish();
         return;
     }
-    if (GoTo==File_Offset+Buffer_Offset+Element_Size)
-        return; //Is the next element
 
     if (ShouldContinueParsing)
     {
@@ -2439,7 +2437,7 @@ void File__Analyze::GoTo (int64u GoTo)
         if (!BookMark_Code.empty())
             BookMark_Get();
         if (File_GoTo==(int64u)-1)
-            Finish();
+            ForceFinish();
         return;
     }
 
