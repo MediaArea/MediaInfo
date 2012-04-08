@@ -27,7 +27,6 @@
 #include "Core.h"
 #include "ZenLib/Ztring.h"
 #include "ZenLib/File.h"
-#include <sstream>
 #include <iostream>
 //---------------------------------------------------------------------------
 

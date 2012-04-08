@@ -22,7 +22,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <sstream>
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif

@@ -56,7 +56,11 @@ void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserH
     if (Event->Type>=0xC0)
         MessageString+=_T("E: ");
 
-    MessageString+=Event->MessageString;
+    #if defined(UNICODE) || defined (_UNICODE)
+        MessageString+=Event->MessageStringU;
+    #else //defined(UNICODE) || defined (_UNICODE)
+        MessageString+=Event->MessageStringA;
+    #endif //defined(UNICODE) || defined (_UNICODE)
 
     //Special cases
     switch (Event->MessageCode)
