@@ -50,6 +50,7 @@
     #include "curl/curl.h"
 #endif
 #include <ctime>
+#include "ZenLib/File.h"
 using namespace ZenLib;
 using namespace std;
 #ifdef MEDIAINFO_DEBUG
@@ -214,11 +215,13 @@ Reader_libcurl::~Reader_libcurl ()
         return;
     
     //Cleanup
-    if (Curl_Data->CurlM)
-    {
-         curl_multi_remove_handle(Curl_Data->CurlM, Curl_Data->Curl);
-         curl_multi_cleanup(Curl_Data->CurlM);
-    }
+    #if MEDIAINFO_NEXTPACKET
+        if (Curl_Data->CurlM)
+        {
+             curl_multi_remove_handle(Curl_Data->CurlM, Curl_Data->Curl);
+             curl_multi_cleanup(Curl_Data->CurlM);
+        }
+    #endif //MEDIAINFO_NEXTPACKET
     if (Curl_Data->Curl)
         curl_easy_cleanup(Curl_Data->Curl);
     if (Curl_Data->HttpHeader)
@@ -259,15 +262,7 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
             if (!libcurl_Module)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
-                    Event.MessageCode=0;
-                    Ztring MessageString=_T("Libcurl library is not found");
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", "));
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", Libcurl library is not found"));
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -291,15 +286,7 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
             if (Errors>0)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
-                    Event.MessageCode=0;
-                    Ztring MessageString=_T("Libcurl library is not correctly loaded");
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", "));
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", Libcurl library is not correctly loaded"));
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -312,7 +299,7 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
         {
             struct MediaInfo_Event_General_Start_0 Event;
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
-            Event.Stream_Size=File::Size_Get(File_Name);
+            Event.Stream_Size=(int64u)-1;
             MI->Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Start_0));
         }
     #endif //MEDIAINFO_EVENTS
@@ -427,27 +414,17 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
-                    Ztring MessageString;
                     if (Result==CURLE_UNKNOWN_TELNET_OPTION)
-                    {
-                        MessageString="The Curl library you use has no support for secure connections.";
-                        Event.MessageCode=0xF1010101;
-                    }
+                        MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0xF1010101, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", The Curl library you use has no support for secure connections."));
                     else
                     {
+                        Ztring MessageString;
                         MessageString.From_Local(Curl_Data->ErrorBuffer);
                         if (MessageString.empty())
                             MessageString.From_Local(curl_easy_strerror(Result));
-                        Event.MessageCode=0;
+                        MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                     }
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -459,19 +436,17 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
-                    Ztring MessageString;
-                    MessageString.From_Local(Curl_Data->ErrorBuffer);
-                    if (MessageString.empty())
-                        MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
+                    if (Result==CURLE_UNKNOWN_TELNET_OPTION)
+                        MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0xF1010101, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", The Curl library you use has no support for secure connections."));
+                    else
+                    {
+                        Ztring MessageString;
+                        MessageString.From_Local(Curl_Data->ErrorBuffer);
+                        if (MessageString.empty())
+                            MessageString.From_Local(curl_easy_strerror(Result));
+                        MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
+                    }
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -483,27 +458,17 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
-                    Ztring MessageString;
                     if (Result==CURLE_UNKNOWN_TELNET_OPTION)
-                    {
-                        MessageString="The Curl library you use has no support for known_host security file, transfer would not be secure.";
-                        Event.MessageCode=0xF1010102;
-                    }
+                        MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0xF1010102, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", The Curl library you use has no support for known_host security file, transfer would not be secure."));
                     else
                     {
+                        Ztring MessageString;
                         MessageString.From_Local(Curl_Data->ErrorBuffer);
                         if (MessageString.empty())
                             MessageString.From_Local(curl_easy_strerror(Result));
-                        Event.MessageCode=0;
+                        MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                     }
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -515,19 +480,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -539,19 +497,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -563,19 +514,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -587,19 +531,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -611,19 +548,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -635,19 +565,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -659,19 +582,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -683,19 +599,12 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
@@ -704,24 +613,17 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
             if (Result)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
-                    Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0, Reader_libcurl_FileNameWithoutPassword(File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
                 return 0;
             }
         }
-   }
+    }
 
     //Test the format with buffer
     return Format_Test_PerParser_Continue(MI);
@@ -771,11 +673,15 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 CURL* Temp=curl_easy_duphandle(Curl_Data->Curl);
                 if (Temp==0)
                     return 0;
-                if (Curl_Data->CurlM)
-                        curl_multi_remove_handle(Curl_Data->CurlM, Curl_Data->Curl);
+                #if MEDIAINFO_NEXTPACKET
+                    if (Curl_Data->CurlM)
+                            curl_multi_remove_handle(Curl_Data->CurlM, Curl_Data->Curl);
+                #endif //MEDIAINFO_NEXTPACKET
                 curl_easy_cleanup(Curl_Data->Curl); Curl_Data->Curl=Temp;
-                if (Curl_Data->CurlM)
-                        curl_multi_add_handle(Curl_Data->CurlM, Curl_Data->Curl);
+                #if MEDIAINFO_NEXTPACKET
+                    if (Curl_Data->CurlM)
+                            curl_multi_add_handle(Curl_Data->CurlM, Curl_Data->Curl);
+                #endif //MEDIAINFO_NEXTPACKET
                 if (Curl_Data->MI->Open_Buffer_Continue_GoTo_Get()<0x80000000)
                 {
                     //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
@@ -820,11 +726,8 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             if (Result!=CURLE_OK && Result!=CURLE_WRITE_ERROR)
             {
                 #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_Log_0 Event;
-                    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
-                    Event.Type=0xC0;
-                    Event.Severity=0xFF;
                     Ztring MessageString;
+                    int32u MessageCode=0;
                     MessageString.From_Local(Curl_Data->ErrorBuffer);
                     if (MessageString.empty())
                         MessageString.From_Local(curl_easy_strerror(Result));
@@ -839,25 +742,17 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                             if (Protocol==_T("sftp") || Protocol==_T("scp"))
                             {
                                 MessageString=_T("The remote server's SSH fingerprint was deemed not OK (not in your known_host file).");
-                                Event.MessageCode=0xF1010103;
+                                MessageCode=0xF1010103;
                             }
                             else if (Protocol==_T("https") || Protocol==_T("ftps"))
                             {
                                 MessageString=_T("The remote server's SSL certificate was deemed not OK.");
-                                Event.MessageCode=0xF1010104;
+                                MessageCode=0xF1010104;
                             }
-                            else
-                                Event.MessageCode=0;
                         }
-                        else
-                            Event.MessageCode=0;
                     }
-                    else
-                        Event.MessageCode=0;
-                    MessageString.insert(0, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", "));
                     Curl_Data->ErrorBuffer[0]='\0';
-                    Event.MessageString=MessageString.c_str();
-                    MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, MessageCode, Reader_libcurl_FileNameWithoutPassword(Curl_Data->File_Name)+_T(", ")+MessageString);
                 #endif //MEDIAINFO_EVENTS
             }
 

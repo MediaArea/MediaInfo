@@ -144,10 +144,6 @@ enum blockmethod_t
     #undef  __T
     #define __T(__x) __x
 #endif
-typedef std::basic_string<MediaInfoLib::Char>        String;
-typedef std::basic_stringstream<MediaInfoLib::Char>  StringStream;
-typedef std::basic_istringstream<MediaInfoLib::Char> tiStringStream;
-typedef std::basic_ostringstream<MediaInfoLib::Char> toStringStream;
 //---------------------------------------------------------------------------
 
 } //NameSpace

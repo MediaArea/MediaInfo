@@ -402,7 +402,8 @@ void MediaInfo_Internal::Entry()
                 Event.Type=0xC0;
                 Event.Severity=0xFF;
                 Event.MessageCode=0;
-                Event.MessageString=_T("Libmms cupport is disabled due to compilation options");
+                Event.MessageStringU=L"Libmms cupport is disabled due to compilation options";
+                Event.MessageStringA="Libmms cupport is disabled due to compilation options";
                 MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
             #endif //MEDIAINFO_EVENTS
             }
@@ -435,7 +436,8 @@ void MediaInfo_Internal::Entry()
                 Event.Type=0xC0;
                 Event.Severity=0xFF;
                 Event.MessageCode=0;
-                Event.MessageString=_T("Libcurl support is disabled due to compilation options");
+                Event.MessageStringU=L"Libcurl support is disabled due to compilation options";
+                Event.MessageStringA="Libcurl support is disabled due to compilation options";
                 MediaInfoLib::Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
             #endif //MEDIAINFO_EVENTS
             }

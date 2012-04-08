@@ -1896,6 +1896,26 @@ void MediaInfo_Config::Event_Send (const int8u* Data_Content, size_t Data_Size, 
 }
 #endif //MEDIAINFO_EVENTS
 
+//---------------------------------------------------------------------------
+#if MEDIAINFO_EVENTS
+void MediaInfo_Config::Log_Send (int8u Type, int8u Severity, int32u MessageCode, const Ztring &Message)
+{
+    struct MediaInfo_Event_Log_0 Event;
+    Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Log, 0);
+    Event.Type=Type;
+    Event.Severity=Severity;
+    Event.Reserved2=(int8u)-1;
+    Event.Reserved3=(int8u)-1;
+    Event.MessageCode=MessageCode;
+    Event.Reserved4=(int32u)-1;
+    wstring MessageU=Message.To_Unicode();
+    string MessageA=Message.To_Local();
+    Event.MessageStringU=MessageU.c_str();
+    Event.MessageStringA=MessageA.c_str();
+    Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Log_0));
+}
+#endif //MEDIAINFO_EVENTS
+
 //***************************************************************************
 // Curl
 //***************************************************************************

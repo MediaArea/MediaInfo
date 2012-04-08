@@ -239,6 +239,8 @@ struct MediaInfo_Event_Log_0
     MediaInfo_int32u        MessageCode;
     MediaInfo_int32u        Reserved4;
     const wchar_t*          MessageString;
+    const wchar_t*          MessageStringU;
+    const char*             MessageStringA;
 };
 
 /*-------------------------------------------------------------------------*/
