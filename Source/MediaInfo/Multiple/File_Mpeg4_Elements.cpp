@@ -2968,7 +2968,10 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd_tcmi()
         Skip_Flags(TextFace, 4,                                 "Shadow");
         Skip_Flags(TextFace, 5,                                 "Condense");
         Skip_Flags(TextFace, 6,                                 "Extend");
-    Skip_BFP4(16,                                               "Text size");
+    if (Element_Size>=25 && 25+Buffer[Buffer_Offset+24]==Element_Size)
+        Skip_BFP4(16,                                           "Text size"); //Non-Standard, but found in several files
+    else
+        Skip_B2(                                                "Text size");
     Skip_B2(                                                    "Text color (red)");
     Skip_B2(                                                    "Text color (green)");
     Skip_B2(                                                    "Text color (blue)");
@@ -3336,7 +3339,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Reserved");
     Skip_B2(                                                    "Data reference index");
-    Skip_B4(                                                    "Reserved (Flags)");
+    Skip_B4(                                                    "Reserved");
     Get_B4 (TimeCodeFlags,                                      "Flags (timecode)");
         Get_Flags (TimeCodeFlags, 0, tc->DropFrame,             "Drop frame");
         Get_Flags (TimeCodeFlags, 1, tc->H24,                   "24 hour max ");
@@ -3345,7 +3348,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
     Get_B4 (tc->TimeScale,                                      "Time scale");
     Get_B4 (tc->FrameDuration,                                  "Frame duration");
     Skip_B1(                                                    "Number of frames");
-    Skip_B1(                                                    "Unknown");
+    if (Element_Size==Element_Offset+3 || (Element_Size>=Element_Offset+7 && Element_Size>=Element_Offset+7+BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+3)))
+        Skip_B3(                                                "Reserved");
+    else
+        Skip_B1(                                                "Reserved"); //Non-standard but several files are like that
 
     FILLING_BEGIN();
         //Bug in one file
