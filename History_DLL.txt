@@ -15,6 +15,7 @@ x #3514677, Video: Well known 1.85:1 display aspect ratio was incorrectly displa
 x #3513908, File interface: No output if filename contain a colon
 x AVI: infinite loop (freeze) with some files (having index containing 0-sized chunk)
 x AVC: memory leaks
+x libcurl support: libcurl config from MediaInfo is compatible with libcurl+gnutls
 
 Version 0.7.55, 2012-04-05
 --------------
