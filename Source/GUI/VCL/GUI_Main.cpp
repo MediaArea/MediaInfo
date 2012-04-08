@@ -561,6 +561,8 @@ void __fastcall TMainF::Translate()
     Ztring Language=Prefs->Translate(_T("  Language_ISO639"));
     if (Prefs->Donate_Display)
     {
+        //Donate button disabled
+        /*
         if (0);
         DONATE(de, "de")
         DONATE(en, "en")
@@ -580,6 +582,7 @@ void __fastcall TMainF::Translate()
             ((TButton*)Donate_Current)->Width=Prefs->Translate(_T("Donate")).size()*8+32;
             Donate_Current->Visible=true;
         }
+        */
     }
     if (Prefs->Donated)
     {

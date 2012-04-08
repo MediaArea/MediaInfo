@@ -13,6 +13,18 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.56, 2012-04-08
+--------------
++ Better support of machines lacking of std::stringstream
++ Better support of machines requesting explicit stdc++ library link option (e.g. some ARM embedded devices)
+x #3515515, MPEG-4: crash with MPEG-4 container + H264/AVC video stream
+x #3515393, MPEG Audio: infinite loop (freeze) with some files
+x #3514677, Video: Well known 1.85:1 display aspect ratio was incorrectly displayed as 16:9
+x #3513908, File interface: No output if filename contain a colon
+x AVI: infinite loop (freeze) with some files (having index containing 0-sized chunk)
+x AVC: memory leaks
+x libcurl support: libcurl config from MediaInfo is compatible with libcurl+gnutls
+
 Version 0.7.55, 2012-04-05
 --------------
 + Italian translation updated
