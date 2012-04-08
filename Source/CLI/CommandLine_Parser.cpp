@@ -217,7 +217,7 @@ void LogFile_Action(ZenLib::Ztring Inform)
         return;
 
     std::string Inform_Ansi=Inform.To_UTF8();
-    std::fstream File(LogFile_FileName.To_Local().c_str(), std::ios_base::out|std::ios_base::binary|std::ios_base::trunc);
+    std::fstream File(LogFile_FileName.To_Local().c_str(), std::ios_base::out|std::ios_base::trunc);
     #if defined(_MSC_VER) && defined(UNICODE)
         if (CLI_Option_Bom)
             File.write("\xEF\xBB\xBF", 3);

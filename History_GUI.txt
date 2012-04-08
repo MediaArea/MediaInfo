@@ -24,6 +24,7 @@ x #3513908, File interface: No output if filename contain a colon
 x AVI: infinite loop (freeze) with some files (having index containing 0-sized chunk)
 x AVC: memory leaks
 x libcurl support: libcurl config from MediaInfo is compatible with libcurl+gnutls
+x #3515857, CLI only: --LogFile carriage return format was not the one of the OS
 
 Version 0.7.55, 2012-04-05
 --------------
