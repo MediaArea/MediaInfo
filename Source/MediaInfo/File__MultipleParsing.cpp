@@ -407,7 +407,7 @@ File__MultipleParsing::File__MultipleParsing()
         Temp=new File_Rm(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_SEQUENCEINFO_YES)
-        Temp=new File_Skm(); Parser.push_back(Temp);
+        Temp=new File_SequenceInfo(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_SKM_YES)
         Temp=new File_Skm(); Parser.push_back(Temp);
