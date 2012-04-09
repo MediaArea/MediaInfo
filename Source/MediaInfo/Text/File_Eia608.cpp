@@ -762,8 +762,8 @@ void File_Eia608::Special_14(int8u cc_data_2)
                         HasChanged();
                     Streams[StreamPos]->x=0;
                     break; //CR  - Carriage Return
-        case 0x2E : for (size_t Pos_Y=0; Pos_Y<Eia608_Rows; Pos_Y++)
-                        for (size_t Pos_X=0; Pos_X<Eia608_Columns; Pos_X++)
+        case 0x2E : for (size_t Pos_Y=0; Pos_Y<Streams[StreamPos]->CC_NonDisplayed.size(); Pos_Y++)
+                        for (size_t Pos_X=0; Pos_X<Streams[StreamPos]->CC_NonDisplayed[Pos_Y].size(); Pos_X++)
                         {
                             Streams[StreamPos]->CC_NonDisplayed[Pos_Y][Pos_X].Value=L' ';
                             Streams[StreamPos]->CC_NonDisplayed[Pos_Y][Pos_X].Attribute=0;
