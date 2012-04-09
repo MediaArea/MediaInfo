@@ -494,9 +494,12 @@ void File_Jpeg::SIZ()
         Element_End0();
 
         //Filling list of HiVi
-        SamplingFactors.push_back(((float)compSubsY)/compSubsX);
-        if (((float)compSubsY)/compSubsX>SamplingFactors_Max)
-            SamplingFactors_Max=(int8u)((float)compSubsY)/compSubsX;
+        if (compSubsX)
+        {
+            SamplingFactors.push_back(((float)compSubsY)/compSubsX);
+            if (((float)compSubsY)/compSubsX>SamplingFactors_Max)
+                SamplingFactors_Max=(int8u)((float)compSubsY)/compSubsX;
+        }
 
         if (BitDepths.empty() || BitDepth!=BitDepths[0])
             BitDepths.push_back(BitDepth);
