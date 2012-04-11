@@ -55,6 +55,7 @@ private :
 
     //Buffer - Synchro
     bool Synchronize();
+    void Synched_Init();
     bool Synched_Test();
 
     //Buffer - Demux
@@ -64,6 +65,10 @@ private :
 
     //Buffer - Global
     void Read_Buffer_Continue ();
+    void Read_Buffer_Unsynched();
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
 
     //Buffer - Per element
     void Header_Parse();
@@ -78,6 +83,7 @@ private :
     bool FrameSynchPoint_Test();
     bool CRC_Compute(size_t Size);
     size_t Core_Size_Get();
+    size_t HD_Size_Get();
 
     //Buffer
     const int8u* Save_Buffer;
@@ -110,7 +116,22 @@ private :
     std::vector<int64u> dynrng2s;
     std::map<int8u, int64u> fscods;
     std::map<int8u, int64u> frmsizecods;
-    size_t HD_Count;
+    struct frame_info2
+    {
+        frame_info FrameInfo;
+        int64u Frame_Count;
+        int64u Frame_Count_InThisBlock;
+        int64u Frame_Count_NotParsedIncluded;
+
+        frame_info2()
+        {
+            Frame_Count=0;
+            Frame_Count_InThisBlock=0;
+            Frame_Count_NotParsedIncluded=(int64u)-1;
+        }
+    };
+    frame_info2 Info_Core;
+    frame_info2 Info_HD;
     int16u chanmap;
     int16u frmsiz;
     int16u HD_BitRate_Max;
@@ -136,9 +157,9 @@ private :
     bool   HD_MajorSync_Parsed;
     bool   HD_NoRestart;
     bool   HD_ExtraParity;
-    bool   HD_AlreadyCounted;
     bool   HD_IsVBR;
     bool   Core_IsPresent;
+    bool   HD_IsPresent;
     bool   dynrnge_Exists;
     bool   TimeStamp_IsPresent;
     bool   TimeStamp_IsParsing;
