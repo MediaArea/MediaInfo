@@ -1062,10 +1062,6 @@ bool File__Analyze::Synchro_Manage()
                 Reject();
             return false; //Wait for more data
         }
-        #if MEDIAINFO_DEMUX
-            if (Config->Demux_EventWasSent)
-                return false;
-        #endif //MEDIAINFO_DEMUX
         Synched=true;
         if (File_Offset_FirstSynched==(int64u)-1)
         {
@@ -1073,6 +1069,10 @@ bool File__Analyze::Synchro_Manage()
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
         }
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return false;
+        #endif //MEDIAINFO_DEMUX
         if (!Synchro_Manage_Test())
             return false;
     }

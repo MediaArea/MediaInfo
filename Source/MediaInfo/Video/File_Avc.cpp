@@ -1090,14 +1090,7 @@ bool File_Avc::Header_Parser_QuickSearch()
         Buffer_Offset+=4;
         Synched=false;
         if (!Synchronize())
-        {
-            if (File_Offset+Buffer_Size==File_Size)
-            {
-                Synched=true;
-                return true;
-            }
             return false;
-        }
 
         if (Buffer_Offset+6>Buffer_Size)
             return false;
