@@ -213,6 +213,7 @@ void File_VorbisCom::Data_Parse()
         else if (Key==_T("DISCID"))                 {}
         else if (Key==_T("DISCNUMBER"))             Fill(StreamKind_Common,   0, "Part", Value, true);
         else if (Key==_T("ENCODEDBY"))              Fill(StreamKind_Common,   0, "EncodedBy", Value);
+        else if (Key==_T("ENCODED-BY"))             Fill(StreamKind_Common,   0, "EncodedBy", Value);
         else if (Key==_T("ENCODER"))                Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODED_USING"))          Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODER_URL"))            Fill(StreamKind_Common,   0, "Encoded_Application/Url", Value);
@@ -224,6 +225,7 @@ void File_VorbisCom::Data_Parse()
         else if (Key==_T("LANGUAGE"))               {if (Value.find(_T("Director"))==0) Fill(StreamKind_Specific, 0, "Language_More", Value); else if (!Value.SubString(_T("["), _T("]")).empty()) Fill(StreamKind_Specific, 0, "Language", Value.SubString(_T("["), _T("]"))); else Fill(StreamKind_Specific, 0, "Language", Value);}
         else if (Key==_T("LAST_PLAYED_TIMESTAMP"))  Fill(StreamKind_Multiple, 0, "Played_Last_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("LICENCE"))                Fill(StreamKind_Common,   0, "TermsOfUse", Value);
+        else if (Key==_T("LICENSE"))                Fill(StreamKind_Common,   0, "TermsOfUse", Value);
         else if (Key==_T("LYRICS"))                 Fill(StreamKind_Common,   0, "Lyrics", Value);
         else if (Key==_T("LWING_GAIN"))             Fill(StreamKind_Multiple, 0, "ReplayGain_Gain", Value.To_float64(), 2);
         else if (Key==_T("LOCATION"))               Fill(StreamKind_Common,   0, "Recorded/Location", Value);
