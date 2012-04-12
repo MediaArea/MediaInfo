@@ -64,6 +64,38 @@ File_VorbisCom::File_VorbisCom()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_VorbisCom::Streams_Fill()
+{
+    if (!Performers.empty())
+    {
+        Artists.Separator_Set(0, _T(" / "));
+        Fill(StreamKind_Common,   0, "Performer", Performers.Read());
+    }
+
+    if (!Artists.empty() && Artists!=Performers)
+    {
+        Artists.Separator_Set(0, _T(" / "));
+        Fill(StreamKind_Common,   0, Performers.empty()?"Performer":"Composer", Artists.Read());
+    }
+
+    if (!Accompaniments.empty() && Accompaniments!=Artists && Accompaniments!=Performers)
+    {
+        Artists.Separator_Set(0, _T(" / "));
+        Fill(StreamKind_Common,   0, "Accompaniment", Accompaniments.Read());
+    }
+
+    if (!AlbumArtists.empty())
+    {
+        AlbumArtists.Separator_Set(0, _T(" / "));
+        Fill(StreamKind_Common,   0, (Performers==Artists || Performers.empty())?"Album/Performer":"Album/Composer", AlbumArtists.Read());
+    }
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -193,11 +225,11 @@ void File_VorbisCom::Data_Parse()
         Ztring Value=comment.SubString(_T("="), _T(""));
 
              if (Key==_T("ADDED_TIMESTAMP"))        Fill(StreamKind_Common,   0, "Added_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
-        else if (Key==_T("ALBUM ARTIST"))           {if (Value!=Retrieve(StreamKind_Common,   0, "Album/Performer")) Fill(StreamKind_Common,   0, "Album/Performer", Value);}
+        else if (Key==_T("ALBUM ARTIST"))           AlbumArtists.push_back(Value);
         else if (Key==_T("ALBUM"))                  Fill(StreamKind_Common,   0, "Album", Value);
         else if (Key==_T("ALBUM_COMMENT"))          Fill(StreamKind_Common,   0, "Comment", Value);
-        else if (Key==_T("ALBUMARTIST"))            {if (Value!=Retrieve(StreamKind_Common,   0, "Album/Performer")) Fill(StreamKind_Common,   0, "Album/Performer", Value);}
-        else if (Key==_T("ARTIST"))                 {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
+        else if (Key==_T("ALBUMARTIST"))            AlbumArtists.push_back(Value);
+        else if (Key==_T("ARTIST"))                 Artists.push_back(Value);
         else if (Key==_T("AUTHOR"))                 Fill(StreamKind_Common,   0, "WrittenBy", Value);
         else if (Key==_T("BUYCDURL"))               {}
         else if (Key==_T("CLASS"))                  Fill(StreamKind_Common,   0, "ContentType", Value);
@@ -217,7 +249,7 @@ void File_VorbisCom::Data_Parse()
         else if (Key==_T("ENCODER"))                Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODED_USING"))          Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODER_URL"))            Fill(StreamKind_Common,   0, "Encoded_Application/Url", Value);
-        else if (Key==_T("ENSEMBLE"))               {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Accompaniment", Value);}
+        else if (Key==_T("ENSEMBLE"))               Accompaniments.push_back(Value);
         else if (Key==_T("GENRE"))                  Fill(StreamKind_Common,   0, "Genre", Value);
         else if (Key==_T("FIRST_PLAYED_TIMESTAMP")) Fill(StreamKind_Common,   0, "Played_First_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("ISRC"))                   Fill(StreamKind_Multiple, 0, "ISRC", Value);
@@ -236,7 +268,7 @@ void File_VorbisCom::Data_Parse()
         else if (Key==_T("MUSICBRAINZ_SORTNAME"))   Fill(StreamKind_Common,   0, "Performer/Sort", Value);
         else if (Key==_T("MUSICBRAINZ_DISCID"))     {}
         else if (Key==_T("ORGANIZATION"))           Fill(StreamKind_Common,   0, "Producer", Value);
-        else if (Key==_T("PERFORMER"))              Fill(StreamKind_Common,   0, "Performer", Value);
+        else if (Key==_T("PERFORMER"))              Performers.push_back(Value);
         else if (Key==_T("PLAY_COUNT"))             Fill(StreamKind_Multiple, 0, "Played_Count", Value.To_int64u());
         else if (Key==_T("RATING"))                 Fill(StreamKind_Multiple, 0, "Rating", Value);
         else if (Key==_T("REPLAYGAIN_ALBUM_GAIN"))  Fill(StreamKind_Common,   0, "Album_ReplayGain_Gain", Value.To_float64(), 2);

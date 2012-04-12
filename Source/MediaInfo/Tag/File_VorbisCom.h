@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "ZenLib/ZtringList.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -49,6 +50,9 @@ public :
     File_VorbisCom();
 
 private :
+    //Streams management
+    void Streams_Fill();
+
     //Buffer - File header
     void FileHeader_Parse();
 
@@ -60,6 +64,10 @@ private :
     int32u user_comment_list_length;
     Ztring Chapter_Pos;
     Ztring Chapter_Time;
+    ZtringList Performers;
+    ZtringList Artists;
+    ZtringList Accompaniments;
+    ZtringList AlbumArtists;
 };
 
 } //NameSpace
