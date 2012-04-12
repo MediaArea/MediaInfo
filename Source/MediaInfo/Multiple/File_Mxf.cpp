@@ -1925,6 +1925,7 @@ void File_Mxf::Read_Buffer_AfterParsing()
 {
     if (File_Offset+Buffer_Offset>=IsParsingMiddle_MaxOffset)
     {
+        Fill();
         Open_Buffer_Unsynch();
         Finish();
         return;
@@ -3294,7 +3295,11 @@ void File_Mxf::Data_Parse()
                         Streams_Count--;
                     Essence->second.IsFilled=true;
                     if (IsSub)
+                    {
+                        Fill();
+                        Open_Buffer_Unsynch();
                         Finish();
+                    }
                 }
             }
         }
@@ -5090,7 +5095,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
 {
     //Parsing
     int8u Data;
-    Get_B1 (Data,                                               "Data"); Element_Info1(Data);
+    Get_B1 (Data,                                               "Data"); Element_Info1(Data); Param_Info1(Mxf_FrameLayout(Data)); Element_Info1(Mxf_FrameLayout(Data));
 
     FILLING_BEGIN();
         if (Data && Descriptors[InstanceUID].Infos.find("ScanType")==Descriptors[InstanceUID].Infos.end())
@@ -9141,6 +9146,8 @@ void File_Mxf::TryToFinish()
         return;
     }
 
+    Fill();
+    Open_Buffer_Unsynch();
     Finish();
 }
 

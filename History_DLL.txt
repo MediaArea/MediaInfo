@@ -11,6 +11,7 @@ Version 0.7.57, 2012-
 --------------
 + #3513490, Vorbis comment (Flac, Ogg): more tags are supported
 x #3516900, Vorbis comment (Flac, Ogg): trying to do better mapping of PERFORMER and ARTIST tags
+x MXF: wrong video frame count in some cases
 
 Version 0.7.56, 2012-04-08
 --------------
