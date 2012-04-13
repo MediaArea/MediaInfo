@@ -30,7 +30,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#if defined(MEDIAINFO_P2_YES)
+#if defined(MEDIAINFO_DCP_YES)
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -40,8 +40,8 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#define TIXML_USE_STL
-#include "tinyxml.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -105,37 +105,17 @@ size_t File_Dcp::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_Dcp::FileHeader_Begin()
 {
-    //Element_Size
-    if (File_Size<5 || File_Size>64*1024)
-    {
-        Reject("Dcp");
-        return false; //Dcp XML files are not big
-    }
+    XMLDocument document;
+    if (!FileHeader_Begin_XML(document))
+       return false;
 
-    //Element_Size
-    if (Buffer_Size<File_Size)
-        return false; //Must wait for more data
-
-    //XML header
-    if (Buffer[0]!='<'
-     || Buffer[1]!='?'
-     || Buffer[2]!='x'
-     || Buffer[3]!='m'
-     || Buffer[4]!='l')
-    {
-        Reject("Dcp");
-        return false;
-    }
-
-    TiXmlDocument document(File_Name.To_Local());
-    if (document.LoadFile())
     {
         std::string NameSpace;
-        TiXmlElement* AssetMap=document.FirstChildElement("AssetMap");
+        XMLElement* AssetMap=document.FirstChildElement("AssetMap");
         if (AssetMap==NULL)
         {
             NameSpace="am:";
-            AssetMap=document.FirstChildElement(NameSpace+"AssetMap");
+            AssetMap=document.FirstChildElement((NameSpace+"AssetMap").c_str());
         }
         if (AssetMap)
         {
@@ -145,29 +125,29 @@ bool File_Dcp::FileHeader_Begin()
 
             ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
-            TiXmlElement* IssueDate=AssetMap->FirstChildElement(NameSpace+"IssueDate");
+            XMLElement* IssueDate=AssetMap->FirstChildElement((NameSpace+"IssueDate").c_str());
             if (IssueDate)
                 Fill(Stream_General, 0, General_Encoded_Date, IssueDate->GetText());
-            TiXmlElement* Issuer=AssetMap->FirstChildElement(NameSpace+"Issuer");
+            XMLElement* Issuer=AssetMap->FirstChildElement((NameSpace+"Issuer").c_str());
             if (Issuer)
                 Fill(Stream_General, 0, General_EncodedBy, Issuer->GetText());
-            TiXmlElement* Creator=AssetMap->FirstChildElement(NameSpace+"Creator");
+            XMLElement* Creator=AssetMap->FirstChildElement((NameSpace+"Creator").c_str());
             if (Creator)
                 Fill(Stream_General, 0, General_Encoded_Library, Creator->GetText());
 
-            TiXmlElement* AssetList=AssetMap->FirstChildElement(NameSpace+"AssetList");
+            XMLElement* AssetList=AssetMap->FirstChildElement((NameSpace+"AssetList").c_str());
             if (AssetList)
             {
-                TiXmlElement* Asset=AssetList->FirstChildElement(NameSpace+"Asset");
+                XMLElement* Asset=AssetList->FirstChildElement((NameSpace+"Asset").c_str());
                 while (Asset)
                 {
-                    TiXmlElement* ChunkList=Asset->FirstChildElement(NameSpace+"ChunkList");
+                    XMLElement* ChunkList=Asset->FirstChildElement((NameSpace+"ChunkList").c_str());
                     if (ChunkList)
                     {
-                        TiXmlElement* Chunk=ChunkList->FirstChildElement(NameSpace+"Chunk");
+                        XMLElement* Chunk=ChunkList->FirstChildElement((NameSpace+"Chunk").c_str());
                         if (Chunk)
                         {
-                            TiXmlElement* Path=Chunk->FirstChildElement(NameSpace+"Path");
+                            XMLElement* Path=Chunk->FirstChildElement((NameSpace+"Path").c_str());
                             if (Path)
                             {
                                 File__ReferenceFilesHelper::reference ReferenceFile;
@@ -187,11 +167,6 @@ bool File_Dcp::FileHeader_Begin()
             Reject("Dcp");
             return false;
         }
-    }
-    else
-    {
-        Reject("Dcp");
-        return false;
     }
 
     //All should be OK...

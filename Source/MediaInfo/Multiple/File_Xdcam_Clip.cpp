@@ -40,7 +40,8 @@
 #include "ZenLib/Dir.h"
 #include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
-#include "tinyxml.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -53,38 +54,18 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 bool File_Xdcam_Clip::FileHeader_Begin()
 {
-    //Element_Size
-    if (File_Size<5 || File_Size>64*1024)
-    {
-        Reject("Xdcam_Clip");
-        return false; //Xdcam_Clip XML files are not big
-    }
+    XMLDocument document;
+    if (!FileHeader_Begin_XML(document))
+       return false;
 
-    //Element_Size
-    if (Buffer_Size<5)
-        return false; //Must wait for more data
-
-    //XML header
-    if (Buffer[0]!='<'
-     || Buffer[1]!='?'
-     || Buffer[2]!='x'
-     || Buffer[3]!='m'
-     || Buffer[4]!='l')
     {
-        Reject("Xdcam_Clip");
-        return false;
-    }
-
-    TiXmlDocument document(File_Name.To_Local().c_str());
-    if (document.LoadFile())
-    {
-        TiXmlElement* Root=document.FirstChildElement("NonRealTimeMeta");
+        XMLElement* Root=document.FirstChildElement("NonRealTimeMeta");
         if (Root)
         {
             Accept("Xdcam_Clip");
             Fill(Stream_General, 0, General_Format, "XDCAM Clip");
 
-            TiXmlElement* Element;
+            XMLElement* Element;
 
             //CreationDate
             Element=Root->FirstChildElement("CreationDate");
@@ -168,11 +149,6 @@ bool File_Xdcam_Clip::FileHeader_Begin()
             Reject("Xdcam_Clip");
             return false;
         }
-    }
-    else
-    {
-        Reject("Xdcam_Clip");
-        return false;
     }
 
     //All should be OK...

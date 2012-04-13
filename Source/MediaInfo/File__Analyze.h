@@ -36,6 +36,7 @@
 #if MEDIAINFO_IBI
     #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #endif //MEDIAINFO_IBI
+#include "tinyxml2.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -1153,6 +1154,7 @@ protected :
     //***************************************************************************
 
     bool FileHeader_Begin_0x000001();
+    bool FileHeader_Begin_XML(tinyxml2::XMLDocument &Document);
     bool Synchronize_0x000001();
     void Streams_Accept_TestContinuousFileNames();
 

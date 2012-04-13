@@ -35,13 +35,15 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Ism.h"
+#include <set>
 #include "MediaInfo/MediaInfo.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "tinyxml.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -56,7 +58,7 @@ File_Ism::File_Ism()
 :File__Analyze()
 {
     #if MEDIAINFO_EVENTS
-        ParserIDs[0]=MediaInfo_Parser_None; //TODO
+        ParserIDs[0]=MediaInfo_Parser_Ism;
         StreamIDs_Width[0]=sizeof(size_t)*2;
     #endif //MEDIAINFO_EVENTS
 
@@ -105,17 +107,12 @@ size_t File_Ism::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_Ism::FileHeader_Begin()
 {
-    //Element_Size
-    if (File_Size>1024*1024)
-    {
-        Reject("ISM");
-        return false; //ISM files are not big
-    }
+    XMLDocument document;
+    if (!FileHeader_Begin_XML(document))
+       return false;
 
-    TiXmlDocument document(File_Name.To_Local().c_str());
-    if (document.LoadFile())
     {
-        TiXmlElement* Root=document.FirstChildElement("smil");
+        XMLElement* Root=document.FirstChildElement("smil");
         if (Root)
         {
             Accept("ISM");
@@ -123,17 +120,19 @@ bool File_Ism::FileHeader_Begin()
 
             ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
-            TiXmlElement* Body=Root->FirstChildElement();
+            std::set<Ztring> FileNames;
+
+            XMLElement* Body=Root->FirstChildElement();
             while (Body)
             {
                 if (string(Body->Value())=="body")
                 {
-                    TiXmlElement* Switch=Body->FirstChildElement();
+                    XMLElement* Switch=Body->FirstChildElement();
                     while (Switch)
                     {
                         if (string(Switch->Value())=="switch")
                         {
-                            TiXmlElement* Stream=Switch->FirstChildElement();
+                            XMLElement* Stream=Switch->FirstChildElement();
                             while (Stream)
                             {
                                 if (string(Stream->Value())=="video" || string(Stream->Value())=="audio")
@@ -149,7 +148,7 @@ bool File_Ism::FileHeader_Begin()
                                     if (Attribute)
                                         ReferenceFile.FileNames.push_back(Ztring().From_UTF8(Attribute));
 
-                                    TiXmlElement* Param=Stream->FirstChildElement();
+                                    XMLElement* Param=Stream->FirstChildElement();
                                     while (Param)
                                     {
                                         if (string(Param->Value())=="param")
@@ -165,7 +164,11 @@ bool File_Ism::FileHeader_Begin()
                                         Param=Param->NextSiblingElement();
                                     }
 
-                                    ReferenceFiles->References.push_back(ReferenceFile);
+                                    if (!ReferenceFile.FileNames.empty() && !ReferenceFile.FileNames[0].empty() && FileNames.find(ReferenceFile.FileNames[0])==FileNames.end())
+                                    {
+                                        ReferenceFiles->References.push_back(ReferenceFile);
+                                        FileNames.insert(ReferenceFile.FileNames[0]);
+                                    }
                                 }
 
                                 Stream=Stream->NextSiblingElement();
@@ -184,11 +187,6 @@ bool File_Ism::FileHeader_Begin()
             Reject("ISM");
             return false;
         }
-    }
-    else
-    {
-        Reject("ISM");
-        return false;
     }
 
     //All should be OK...

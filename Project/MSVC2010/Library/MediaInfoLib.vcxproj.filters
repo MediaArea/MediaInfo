@@ -79,8 +79,8 @@
     <Filter Include="ThirdParty\base64">
       <UniqueIdentifier>{d307708b-372c-475a-98e6-a76965d555ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ThirdParty\tinyxml">
-      <UniqueIdentifier>{ec2ba1f3-4fff-4d2a-86eb-e8b5fee3e536}</UniqueIdentifier>
+    <Filter Include="ThirdParty\tinyxml2">
+      <UniqueIdentifier>{5b70a9dd-eddc-44ba-bce4-35d86e77acdb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -582,15 +582,6 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp">
       <Filter>Source Files\Export</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml\tinyxml.cpp">
-      <Filter>ThirdParty\tinyxml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml\tinyxmlerror.cpp">
-      <Filter>ThirdParty\tinyxml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml\tinyxmlparser.cpp">
-      <Filter>ThirdParty\tinyxml</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
@@ -599,6 +590,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.cpp">
       <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.cpp">
+      <Filter>ThirdParty\tinyxml2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1076,9 +1070,6 @@
     <ClInclude Include="..\..\..\Source\ThirdParty\base64\base64.h">
       <Filter>ThirdParty\base64</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\ThirdParty\tinyxml\tinyxml.h">
-      <Filter>ThirdParty\tinyxml</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vp8.h">
       <Filter>Header Files\Video</Filter>
     </ClInclude>
@@ -1090,6 +1081,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Hls.h">
       <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.h">
+      <Filter>ThirdParty\tinyxml2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

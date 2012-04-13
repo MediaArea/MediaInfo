@@ -40,8 +40,9 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "tinyxml.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -105,17 +106,12 @@ size_t File_Dxw::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_Dxw::FileHeader_Begin()
 {
-    //Element_Size
-    if (File_Size>1024*1024)
-    {
-        Reject("DXW");
-        return false; //DXW files are not big
-    }
+    XMLDocument document;
+    if (!FileHeader_Begin_XML(document))
+       return false;
 
-    TiXmlDocument document(File_Name.To_Local().c_str());
-    if (document.LoadFile())
     {
-        TiXmlElement* Root=document.FirstChildElement("indexFile");
+        XMLElement* Root=document.FirstChildElement("indexFile");
         if (Root)
         {
             const char* Attribute=Root->Attribute("xmlns");
@@ -130,7 +126,7 @@ bool File_Dxw::FileHeader_Begin()
 
             ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
-            TiXmlElement* Track=Root->FirstChildElement();
+            XMLElement* Track=Root->FirstChildElement();
             while (Track)
             {
                 if (string(Track->Value())=="clip")
@@ -174,7 +170,7 @@ bool File_Dxw::FileHeader_Begin()
                                  ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 
-                        TiXmlElement* Frame=Track->FirstChildElement();
+                        XMLElement* Frame=Track->FirstChildElement();
                         while (Frame)
                         {
                             if (string(Frame->Value())=="frame")
@@ -200,11 +196,6 @@ bool File_Dxw::FileHeader_Begin()
             Reject("DXW");
             return false;
         }
-    }
-    else
-    {
-        Reject("DXW");
-        return false;
     }
 
     //All should be OK...

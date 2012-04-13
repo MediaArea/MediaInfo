@@ -172,11 +172,9 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Y4m.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 
-if COMPILE_TINYXML
+if COMPILE_TINYXML2
 libmediainfo_la_SOURCES += \
-                       ../../../Source/ThirdParty/tinyxml/tinyxml.cpp \
-                       ../../../Source/ThirdParty/tinyxml/tinyxmlerror.cpp \
-                       ../../../Source/ThirdParty/tinyxml/tinyxmlparser.cpp
+                       ../../../Source/ThirdParty/tinyxml2/tinyxml2.cpp
 endif
 
 libmediainfo_la_LDFLAGS     = -no-undefined -version-info 0:0:0

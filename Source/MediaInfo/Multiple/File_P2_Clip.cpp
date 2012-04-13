@@ -40,7 +40,8 @@
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "tinyxml.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -104,32 +105,12 @@ size_t File_P2_Clip::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_P2_Clip::FileHeader_Begin()
 {
-    //Element_Size
-    if (File_Size<5 || File_Size>64*1024)
-    {
-        Reject("P2_Clip");
-        return false; //P2_Clip XML files are not big
-    }
+    XMLDocument document;
+    if (!FileHeader_Begin_XML(document))
+       return false;
 
-    //Element_Size
-    if (Buffer_Size<File_Size)
-        return false; //Must wait for more data
-
-    //XML header
-    if (Buffer[0]!='<'
-     || Buffer[1]!='?'
-     || Buffer[2]!='x'
-     || Buffer[3]!='m'
-     || Buffer[4]!='l')
     {
-        Reject("P2_Clip");
-        return false;
-    }
-
-    TiXmlDocument document(File_Name.To_Local().c_str());
-    if (document.LoadFile())
-    {
-        TiXmlElement* Root=document.FirstChildElement("P2Main");
+        XMLElement* Root=document.FirstChildElement("P2Main");
         if (Root)
         {
             Accept("P2_Clip");
@@ -137,10 +118,10 @@ bool File_P2_Clip::FileHeader_Begin()
 
             ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
-            TiXmlElement* ClipContent=Root->FirstChildElement("ClipContent");
+            XMLElement* ClipContent=Root->FirstChildElement("ClipContent");
             if (ClipContent)
             {
-                TiXmlElement* ChildElement;
+                XMLElement* ChildElement;
 
                 //ID
                 ChildElement=ClipContent->FirstChildElement("GlobalClipID");
@@ -162,10 +143,10 @@ bool File_P2_Clip::FileHeader_Begin()
                     Fill(Stream_General, 0, General_Duration, ((float32)Duration_Frames)*1000*EditUnit_Numerator/EditUnit_Denominator, 0);
 
                 //EssenceList
-                TiXmlElement* EssenceList=ClipContent->FirstChildElement("EssenceList");
+                XMLElement* EssenceList=ClipContent->FirstChildElement("EssenceList");
                 if (EssenceList)
                 {
-                    TiXmlElement* Track=EssenceList->FirstChildElement();
+                    XMLElement* Track=EssenceList->FirstChildElement();
                     size_t Audio_Count=0;
                     while (Track)
                     {
@@ -272,10 +253,10 @@ bool File_P2_Clip::FileHeader_Begin()
                 }
 
                 //ClipMetadata
-                TiXmlElement* ClipMetadata=ClipContent->FirstChildElement("ClipMetadata");
+                XMLElement* ClipMetadata=ClipContent->FirstChildElement("ClipMetadata");
                 if (ClipMetadata)
                 {
-                    TiXmlElement* Access=ClipMetadata->FirstChildElement("Access");
+                    XMLElement* Access=ClipMetadata->FirstChildElement("Access");
                     if (Access)
                     {
                         //CreationDate
@@ -309,17 +290,17 @@ bool File_P2_Clip::FileHeader_Begin()
                         }
                     }
 
-                    TiXmlElement* Device=ClipMetadata->FirstChildElement("Device");
+                    XMLElement* Device=ClipMetadata->FirstChildElement("Device");
                     if (Device)
                     {
                         //Manufacturer+ModelName
-                        TiXmlElement* Manufacturer=Device->FirstChildElement("Manufacturer");
-                        TiXmlElement* ModelName=Device->FirstChildElement("ModelName");
+                        XMLElement* Manufacturer=Device->FirstChildElement("Manufacturer");
+                        XMLElement* ModelName=Device->FirstChildElement("ModelName");
                         if (Manufacturer && ModelName)
                             Fill(Stream_General, 0, General_Encoded_Application, string(Manufacturer->GetText())+" "+ModelName->GetText());
                     }
 
-                    TiXmlElement* Shoot=ClipMetadata->FirstChildElement("Shoot");
+                    XMLElement* Shoot=ClipMetadata->FirstChildElement("Shoot");
                     if (Shoot)
                     {
                         //StartDate
@@ -353,18 +334,18 @@ bool File_P2_Clip::FileHeader_Begin()
                         }
 
                         //Location
-                        TiXmlElement* Location=Shoot->FirstChildElement("Location");
+                        XMLElement* Location=Shoot->FirstChildElement("Location");
                         if (Location)
                         {
                             //Longitude+Latitude
-                            TiXmlElement* Longitude=Location->FirstChildElement("Longitude");
-                            TiXmlElement* Latitude=Location->FirstChildElement("Latitude");
+                            XMLElement* Longitude=Location->FirstChildElement("Longitude");
+                            XMLElement* Latitude=Location->FirstChildElement("Latitude");
                             if (Longitude && Latitude)
                                 Fill(Stream_General, 0, General_Recorded_Location, string(Latitude->GetText())+", "+Longitude->GetText());
                         }
                     }
 
-                    TiXmlElement* Scenario=ClipMetadata->FirstChildElement("Scenario");
+                    XMLElement* Scenario=ClipMetadata->FirstChildElement("Scenario");
                     if (Scenario)
                     {
                         //ProgramName
@@ -383,7 +364,7 @@ bool File_P2_Clip::FileHeader_Begin()
                             Fill(Stream_General, 0, "Take Number", ChildElement->GetText());
                     }
 
-                    TiXmlElement* News=ClipMetadata->FirstChildElement("News");
+                    XMLElement* News=ClipMetadata->FirstChildElement("News");
                     if (News)
                     {
                         //Reporter
@@ -409,11 +390,6 @@ bool File_P2_Clip::FileHeader_Begin()
             Reject("P2_Clip");
             return false;
         }
-    }
-    else
-    {
-        Reject("P2_Clip");
-        return false;
     }
 
     //All should be OK...

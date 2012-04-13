@@ -41,8 +41,9 @@
 #include "ZenLib/File.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
-#include "tinyxml.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -101,17 +102,12 @@ size_t File_SequenceInfo::Read_Buffer_Seek (size_t Method, int64u Value, int64u 
 //---------------------------------------------------------------------------
 bool File_SequenceInfo::FileHeader_Begin()
 {
-    //Element_Size
-    if (File_Size>1024*1024)
-    {
-        Reject("SequenceInfo");
-        return false; //SequenceInfo files are not big
-    }
+    XMLDocument document;
+    if (!FileHeader_Begin_XML(document))
+       return false;
 
-    TiXmlDocument document(File_Name.To_Local().c_str());
-    if (document.LoadFile())
     {
-        TiXmlElement* Root=document.FirstChildElement("SEQUENCEINFO");
+        XMLElement* Root=document.FirstChildElement("SEQUENCEINFO");
         if (Root)
         {
             Accept("SequenceInfo");
@@ -247,11 +243,6 @@ bool File_SequenceInfo::FileHeader_Begin()
             Reject("SequenceInfo");
             return false;
         }
-    }
-    else
-    {
-        Reject("SequenceInfo");
-        return false;
     }
 
     //All should be OK...

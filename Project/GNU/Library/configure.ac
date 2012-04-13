@@ -173,7 +173,7 @@ AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [For
 AC_ARG_WITH(libz_static,        AC_HELP_STRING([--with-libz-static],        [Use static version of Zlib]),                , with_libz_static=no)
 AC_ARG_WITH(libcurl,            AC_HELP_STRING([--with-libcurl],            [Use libcurl (specific directory)]),          , with_libcurl=no)
 AC_ARG_WITH(libmms,             AC_HELP_STRING([--with-libmms],             [Use libmms (specific directory)]),           , with_libmms=no)
-AC_ARG_WITH(libtinyxml,         AC_HELP_STRING([--with-libtinyxml],         [Use libtinyxml (system)]),                   , with_libtinyxml=depend)
+AC_ARG_WITH(libtinyxml2,        AC_HELP_STRING([--with-libtinyxml2],        [Use libtinyxml2 (system)]),                  , with_libtinyxml2=depend)
 
 dnl -------------------------------------------------------------------------
 dnl MediaInfo *
@@ -521,20 +521,20 @@ else
 fi
 
 dnl -------------------------------------------------------------------------
-dnl libtinyxml
+dnl libtinyxml2
 dnl
-if test "$with_libtinyxml" = "yes"; then
-	PKG_CHECK_MODULES([TINYXML], [tinyxml])
-	CXXFLAGS="$CXXFLAGS $TINYXML_CXXFLAGS"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $TINYXML_CXXFLAGS"
-	LIBS="$LIBS $TINYXML_LIBS"
-	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $TINYXML_LIBS"
-	AM_CONDITIONAL(COMPILE_TINYXML, false)
-	using_libtinyxml="system"
+if test "$with_libtinyxml2" = "yes"; then
+	PKG_CHECK_MODULES([TINYXML2], [tinyxml2])
+	CXXFLAGS="$CXXFLAGS $TINYXML2_CXXFLAGS"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $TINYXML2_CXXFLAGS"
+	LIBS="$LIBS $TINYXML2_LIBS"
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $TINYXML2_LIBS"
+	AM_CONDITIONAL(COMPILE_TINYXML2, false)
+	using_libtinyxml2="system"
 else
-	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/tinyxml"
-	using_libtinyxml="internal"
-	AM_CONDITIONAL(COMPILE_TINYXML, true)
+	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/tinyxml2"
+	using_libtinyxml2="internal"
+	AM_CONDITIONAL(COMPILE_TINYXML2, true)
 fi
 
 dnl -------------------------------------------------------------------------
@@ -694,7 +694,7 @@ echo "  Using ZenLib?                                           $with_zenlib"
 echo "  Using libcurl?                                          $using_libcurl"
 echo "  Using libmms?                                           $using_libmms"
 echo "  Using zlib?                                             $with_zlib"
-echo "  Using tinyxml?                                          $using_libtinyxml"
+echo "  Using tinyxml2?                                          $using_libtinyxml2"
 echo ""
 echo "  Create static lib?                                      $enable_static"
 echo "  Create shared lib?                                      $enable_shared"

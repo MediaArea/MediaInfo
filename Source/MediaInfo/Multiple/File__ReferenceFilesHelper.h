@@ -50,6 +50,9 @@ public :
         float64             FrameRate;
         int64u              Delay;
         MediaInfo_Internal* MI;
+        #if MEDIAINFO_FILTER
+            int64u          Enabled;
+        #endif //MEDIAINFO_FILTER
         #if MEDIAINFO_NEXTPACKET
             std::bitset<32> Status;
         ibi::stream         IbiStream;
@@ -64,6 +67,9 @@ public :
             FrameRate=0;
             Delay=0;
             MI=NULL;
+            #if MEDIAINFO_FILTER
+                Enabled=true;
+            #endif //MEDIAINFO_FILTER
         }
     };
     typedef std::vector<reference>  references;
