@@ -27,6 +27,7 @@ distribution.
 	#include <cstdio>
 	#include <cstdlib>
 	#include <new>
+	using namespace std;
 #else
 	#include <string.h>
 	#include <stdlib.h>

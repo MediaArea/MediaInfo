@@ -30,6 +30,8 @@ distribution.
 	#include <cstdio>
 	#include <cstring>
 	#include <cstdarg>
+	#define  TINYXML2_STD using namespace std;
+	#define  TINYXML2_FILE std::FILE
 #else
 	// Not completely sure all the interesting systems
 	// can handle the new headers; can switch this if
@@ -38,6 +40,8 @@ distribution.
 	#include <ctype.h>
 	#include <stdio.h>
 	#include <memory.h>		// Needed by mac.
+	#define  TINYXML2_STD
+	#define  TINYXML2_FILE FILE
 #endif
 
 
@@ -310,7 +314,7 @@ private:
 		char mem[SIZE];
 	};
 	struct Block {
-		Chunk chunk[COUNT];
+		Chunk chunk[1024/SIZE];
 	};
 	DynArray< Block*, 10 > blockPtrs;
 	Chunk* root;
@@ -375,8 +379,8 @@ class XMLUtil
 public:
 	// Anything in the high order range of UTF-8 is assumed to not be whitespace. This isn't 
 	// correct, but simple, and usually works.
-	static const char* SkipWhiteSpace( const char* p )	{ while( !IsUTF8Continuation(*p) && isspace( *p ) ) { ++p; } return p; }
-	static char* SkipWhiteSpace( char* p )				{ while( !IsUTF8Continuation(*p) && isspace( *p ) ) { ++p; } return p; }
+	static const char* SkipWhiteSpace( const char* p )	{ TINYXML2_STD while( !IsUTF8Continuation(*p) && isspace( *p ) ) { ++p; } return p; }
+	static char* SkipWhiteSpace( char* p )				{ TINYXML2_STD while( !IsUTF8Continuation(*p) && isspace( *p ) ) { ++p; } return p; }
 
 	inline static bool StringEqual( const char* p, const char* q, int nChar=INT_MAX )  {
 		int n = 0;
@@ -392,8 +396,8 @@ public:
 		return false;
 	}
 	inline static int IsUTF8Continuation( const char p ) { return p & 0x80; }
-	inline static int IsAlphaNum( unsigned char anyByte )	{ return ( anyByte < 128 ) ? isalnum( anyByte ) : 1; }
-	inline static int IsAlpha( unsigned char anyByte )		{ return ( anyByte < 128 ) ? isalpha( anyByte ) : 1; }
+	inline static int IsAlphaNum( unsigned char anyByte )	{ TINYXML2_STD return ( anyByte < 128 ) ? isalnum( anyByte ) : 1; }
+	inline static int IsAlpha( unsigned char anyByte )		{ TINYXML2_STD return ( anyByte < 128 ) ? isalpha( anyByte ) : 1; }
 
 	static const char* ReadBOM( const char* p, bool* hasBOM );
 	// p is the starting location,
@@ -1023,7 +1027,7 @@ public:
 		Returns XML_NO_ERROR (0) on success, or
 		an errorID.
 	*/	
-	int LoadFile( FILE* );
+	int LoadFile( TINYXML2_FILE* );
 	
 	/**
 		Save the XML file to disk.
@@ -1039,7 +1043,7 @@ public:
 		Returns XML_NO_ERROR (0) on success, or
 		an errorID.
 	*/
-	int SaveFile( FILE* );
+	int SaveFile( TINYXML2_FILE* );
 
 	bool ProcessEntities() const						{ return processEntities; }
 
@@ -1329,7 +1333,7 @@ public:
 		this will print to the FILE. Else it will print
 		to memory, and the result is available in CStr()
 	*/
-	XMLPrinter( FILE* file=0 );
+	XMLPrinter( TINYXML2_FILE* file=0 );
 	~XMLPrinter()	{}
 
 	/** If streaming, write the BOM and declaration. */
@@ -1380,7 +1384,7 @@ private:
 
 	bool elementJustOpened;
 	bool firstElement;
-	FILE* fp;
+	TINYXML2_FILE* fp;
 	int depth;
 	int textDepth;
 	bool processEntities;
