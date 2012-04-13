@@ -12,6 +12,7 @@ Version 0.7.57, 2012-
 + #3513490, Vorbis comment (Flac, Ogg): more tags are supported
 x #3516900, Vorbis comment (Flac, Ogg): trying to do better mapping of PERFORMER and ARTIST tags
 x MXF: wrong video frame count in some cases
+x #3517374, GCC 4.7: compilation issues removal, thanks to SpepS
 
 Version 0.7.56, 2012-04-08
 --------------

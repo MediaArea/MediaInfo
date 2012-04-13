@@ -249,15 +249,15 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
             #else
                 libcurl_Module=dlopen(MEDIAINFODLL_NAME, RTLD_LAZY);
                 if (!libcurl_Module)
-                    libcurl_Module=dlopen("./"MEDIAINFODLL_NAME, RTLD_LAZY);
+                    libcurl_Module=dlopen("./" MEDIAINFODLL_NAME, RTLD_LAZY);
                 if (!libcurl_Module)
-                    libcurl_Module=dlopen("/usr/local/lib/"MEDIAINFODLL_NAME, RTLD_LAZY);
+                    libcurl_Module=dlopen("/usr/local/lib/" MEDIAINFODLL_NAME, RTLD_LAZY);
                 if (!libcurl_Module)
-                    libcurl_Module=dlopen("/usr/local/lib64/"MEDIAINFODLL_NAME, RTLD_LAZY);
+                    libcurl_Module=dlopen("/usr/local/lib64/" MEDIAINFODLL_NAME, RTLD_LAZY);
                 if (!libcurl_Module)
-                    libcurl_Module=dlopen("/usr/lib/"MEDIAINFODLL_NAME, RTLD_LAZY);
+                    libcurl_Module=dlopen("/usr/lib/" MEDIAINFODLL_NAME, RTLD_LAZY);
                 if (!libcurl_Module)
-                    libcurl_Module=dlopen("/usr/lib64/"MEDIAINFODLL_NAME, RTLD_LAZY);
+                    libcurl_Module=dlopen("/usr/lib64/" MEDIAINFODLL_NAME, RTLD_LAZY);
             #endif
             if (!libcurl_Module)
             {
