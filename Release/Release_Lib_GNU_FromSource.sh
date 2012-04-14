@@ -38,9 +38,9 @@ cp ../Project/GNU/Library/libmediainfo-config.in MediaInfo_Lib_GNU_FromSource/Pr
 # Copying : Source
 mkdir -p MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/base64
 cp -r ../Source/ThirdParty/base64/*.h MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/base64/
-mkdir -p MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/tinyxml
-cp -r ../Source/ThirdParty/tinyxml/*.h MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/tinyxml/
-cp -r ../Source/ThirdParty/tinyxml/*.cpp MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/tinyxml/
+mkdir -p MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/tinyxml2
+cp -r ../Source/ThirdParty/tinyxml2/*.h MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/tinyxml2/
+cp -r ../Source/ThirdParty/tinyxml2/*.cpp MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/tinyxml2/
 mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo
 cp -r ../Source/MediaInfo/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/
 cp -r ../Source/MediaInfo/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/
