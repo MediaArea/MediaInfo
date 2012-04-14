@@ -1497,6 +1497,7 @@ void File_Mpeg4::mdat_xxxx()
     if (Stream==Streams.end())
         return;
     #if MEDIAINFO_DEMUX
+        if (Streams[(int32u)Element_Code].StreamKind!=Stream_Menu && Streams[(int32u)Element_Code].StreamKind!=Stream_Max)
         {
             //DTS
             Frame_Count_NotParsedIncluded=Stream->second.stts_FramePos;
@@ -3574,6 +3575,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Skip_XX(Element_Size,                                   "Unknown");
         return;
     }
+
+    //Bug found in one file: sample size is 16 with a 24-bit CodecID ("in24")
+    if (Element_Code==0x696E3234 && SampleSize==16)
+        SampleSize=24; //Correcting the header
 
     if (moov_trak_mdia_minf_stbl_stsd_Pos)
         return; //Handling only the first description
