@@ -4413,7 +4413,13 @@ File__Analyze* File_MpegPs::ChooseParser_AES3()
         File_Aes3* Parser=new File_Aes3();
         Parser->From_MpegPs=true;
         #if MEDIAINFO_DEMUX
-            Demux_Level=4; //Intermediate
+            if (Config->Demux_Unpacketize_Get())
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
         #endif //MEDIAINFO_DEMUX
     #else
         //Filling

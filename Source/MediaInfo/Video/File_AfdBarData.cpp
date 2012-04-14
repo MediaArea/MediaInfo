@@ -146,6 +146,9 @@ const char* AfdBarData_aspect_ratio[]=
 File_AfdBarData::File_AfdBarData()
 :File__Analyze()
 {
+    //Configuration
+    PTS_DTS_Needed=true;
+
     //In
     Format=Format_Unknown;
     aspect_ratio_FromContainer=(int8u)-1;

@@ -292,6 +292,7 @@ void File_Eia608::XDS()
     if (XDS_Data[XDS_Level].size()<4)
     {
         XDS_Data.erase(XDS_Data.begin()+XDS_Level);
+        XDS_Level=(size_t)-1;
         return; //There is a problem
     }
 

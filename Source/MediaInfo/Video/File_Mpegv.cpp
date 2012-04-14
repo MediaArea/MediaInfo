@@ -93,7 +93,7 @@ const char* Mpegv_profile_and_level_indication_profile[]=
 {
     "0",
     "High",
-    "Spatial Scalable",
+    "Spatially Scalable",
     "SNR Scalable",
     "Main",
     "Simple",

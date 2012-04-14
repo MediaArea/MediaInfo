@@ -2812,6 +2812,8 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
             StreamIDs[StreamIDs_Size-1]=(int64u)-1;
         if (Config->NextPacket_Get())
             Config->Demux_EventWasSent=true;
+        if (StreamIDs_Size)
+            StreamIDs[StreamIDs_Size-1]=(int64u)-1;
     #endif //MEDIAINFO_EVENTS
 }
 #endif //MEDIAINFO_DEMUX

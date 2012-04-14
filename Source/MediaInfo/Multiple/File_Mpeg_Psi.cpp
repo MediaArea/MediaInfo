@@ -809,6 +809,7 @@ void File_Mpeg_Psi::Header_Parse()
             CRC_32=(CRC_32<<8) ^ Psi_CRC_32_Table[(CRC_32>>24)^(*CRC_32_Buffer)];
             CRC_32_Buffer++;
         }
+
         if (CRC_32)
         {
             Reject();
@@ -2212,8 +2213,6 @@ void File_Mpeg_Psi::Table_FC_07()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Descriptors()
 {
-    if (Descriptors_Size==0)
-        return;
     if (Element_Offset+Descriptors_Size>Element_Size)
     {
         Trusted_IsNot("Descriptor size too big");
@@ -2503,7 +2502,7 @@ void File_Mpeg_Psi::elementary_PID_Update(int16u PCR_PID)
     {
         if (Complete_Stream->Streams_NotParsedCount!=(size_t)-1 && Complete_Stream->Streams_NotParsedCount>0 && !Complete_Stream->Streams[elementary_PID]->IsParsed)
             Complete_Stream->Streams_NotParsedCount--; //Not parsed, and no need to parse it now
-        delete Complete_Stream->Streams[elementary_PID]->Parser; Complete_Stream->Streams[elementary_PID]->Parser=NULL;
+        delete Complete_Stream->Streams[elementary_PID]; Complete_Stream->Streams[elementary_PID]=new complete_stream::stream;
         Complete_Stream->Streams[elementary_PID]->Kind=complete_stream::stream::unknown;
     }
     if (Complete_Stream->Streams[elementary_PID]->Kind!=complete_stream::stream::pes)

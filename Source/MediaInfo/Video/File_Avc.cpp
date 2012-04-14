@@ -1276,7 +1276,7 @@ void File_Avc::slice_header()
             Event.ParserIDs=(MediaInfo_int8u* )ParserIDs;
             Event.FramePosition=Frame_Count;
             Event.FieldPosition=Field_Count;
-            Event.SlicePosition=first_mb_in_slice;
+            Event.SlicePosition=Element_IsOK()?first_mb_in_slice:(int64u)-1;
             switch (slice_type)
             {
                 case 0 :

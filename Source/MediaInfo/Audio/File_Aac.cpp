@@ -634,6 +634,8 @@ void File_Aac::Data_Parse()
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         Frame_Count++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
         Element_Info1(Ztring::ToZtring(Frame_Count));
 
         //Filling

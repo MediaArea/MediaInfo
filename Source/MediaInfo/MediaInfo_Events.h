@@ -177,10 +177,12 @@
     #undef  MAXTYPE_INT
     #define MAXTYPE_INT 64
     typedef unsigned long long  MediaInfo_int64u;
+    typedef   signed long long  MediaInfo_int64s;
 #elif defined(__WIN32__) || defined(_WIN32)
     #undef  MAXTYPE_INT
     #define MAXTYPE_INT 64
     typedef unsigned __int64    MediaInfo_int64u;
+    typedef   signed __int64    MediaInfo_int64s;
 #else
     #pragma message This machine has no 64-bit integer type?
 #endif
