@@ -45,7 +45,6 @@
 #include "ZenLib/CriticalSection.h"
 #include <map>
 #include <vector>
-#include <iostream>
 #include <clocale>
 using namespace MediaInfoLib;
 using namespace ZenLib;
