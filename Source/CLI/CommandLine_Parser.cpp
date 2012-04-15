@@ -18,10 +18,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -227,12 +225,6 @@ void LogFile_Action(ZenLib::Ztring Inform)
 void CallBack_Set(Core &MI, void* Event_CallBackFunction)
 {
     //CallBack configuration
-    #if defined(UNICODE)
-        std::wostringstream Event_CallBackFunction_Text;
-    #else
-        std::ostringstream Event_CallBackFunction_Text;
-    #endif
-    Event_CallBackFunction_Text<<"CallBack=memory://"<<(size_t)Event_CallBackFunction;
-    MI.Menu_Option_Preferences_Option(_T("Event_CallBackFunction"), Event_CallBackFunction_Text.str());
+    MI.Menu_Option_Preferences_Option(_T("Event_CallBackFunction"), _T("CallBack=memory://")+ZenLib::Ztring::ToZtring((size_t)Event_CallBackFunction));
 }
 

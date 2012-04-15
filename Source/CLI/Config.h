@@ -17,7 +17,10 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#include <iostream>
+#if defined(STREAM_MISSING)
+#else
+    #include <iostream>
+#endif
 #include <fstream>
 #include "ZenLib/Ztring.h"
 
@@ -55,7 +58,9 @@
 inline void STRINGOUT(ZenLib::Ztring Text)
 {
     #ifdef UNICODE
-        #ifdef _MSC_VER
+        #if defined(STREAM_MISSING)
+            wprintf(L"%ls\n", Text.c_str());
+        #elif defined(_MSC_VER)
             std::wcout<<Text.c_str()<<std::endl;
         #else //_MSC_VER
             std::cout<<Text.To_Local().c_str()<<std::endl;
@@ -67,13 +72,19 @@ inline void STRINGOUT(ZenLib::Ztring Text)
 inline void STRINGERR(ZenLib::Ztring Text)
 {
     #ifdef UNICODE
-        #ifdef _MSC_VER
+        #if defined(STREAM_MISSING)
+            fwprintf(stderr, L"%ls\n", Text.c_str());
+        #elif defined(_MSC_VER)
             std::wcerr<<Text.c_str()<<std::endl;
         #else //_MSC_VER
             std::cerr<<Text.To_Local().c_str()<<std::endl;
         #endif //_MSC_VER
     #else // UNICODE
+        #if defined(STREAM_MISSING)
+            fwprintf(stderr, "%s\n", Text.c_str());
+        #elif
             std::cerr<<Text.c_str()<<std::endl;
+        #endif //_MSC_VER
     #endif // UNICODE
 }
 

@@ -42,6 +42,7 @@ AC_ARG_ENABLE(arch-ppc64,       AC_HELP_STRING([--enable-arch-ppc64],       [Cre
 AC_ARG_ENABLE(arch-i386,        AC_HELP_STRING([--enable-arch-i386],        [Create Mac i386 architecture]),              , enable_arch_i386=no)
 AC_ARG_ENABLE(arch-x86_64,      AC_HELP_STRING([--enable-arch-x86_64],      [Create Mac x86_64 architecture]),            , enable_arch_x86_64=no)
 AC_ARG_ENABLE(staticlibs,       AC_HELP_STRING([--enable-staticlibs],       [Use static libmediainfo and libzen]),        , enable_staticlibs=no)
+AC_ARG_ENABLE([stream_missing],    [AS_HELP_STRING(([--enable-stream_missing],    [Disable stream support (old compilers)]))],    , [enable_stream_missing=no])
 
 dnl -------------------------------------------------------------------------
 dnl Arguments - With
@@ -104,6 +105,24 @@ dnl
 if test "$with_dll" = "yes"; then
 	AC_DEFINE(MEDIAINFO_DLL_RUNTIME)
 	LIBS="$LIBS -ldl"
+fi
+
+dnl -------------------------------------------------------------------------
+dnl Check if stream is available
+dnl
+AC_LANG([C++])
+if test "$enable_unicode" = "yes"; then
+    AC_COMPILE_IFELSE([
+        #include <sstream>
+        int main () {std::wstringstream message; message<<1.0; return 0;}], , [enable_stream_missing="yes"])
+else
+    AC_COMPILE_IFELSE([
+        #include <sstream>
+        int main () {std::stringstream message; message<<1.0; return 0;}], , [enable_stream_missing="yes"])
+fi
+
+if test "$enable_stream_missing" = "yes"; then
+	CXXFLAGS="$CXXFLAGS -DSTREAM_MISSING"
 fi
 
 dnl -------------------------------------------------------------------------
@@ -280,6 +299,8 @@ echo ""
 echo "Configured MediaInfo for '$target'"
 echo ""
 echo "  Unicode?                                                $enable_unicode"
+echo "  stream missing support?                                 $enable_stream_missing"
+echo ""
 echo "  Using libzen?                                           $with_zenlib"
 echo "  Using libmediainfo?                                     $with_mediainfolib"
 echo ""

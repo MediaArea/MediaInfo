@@ -27,7 +27,6 @@
 #include "Core.h"
 #include "ZenLib/Ztring.h"
 #include "ZenLib/File.h"
-#include <iostream>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -282,14 +281,7 @@ void Core::Menu_Debug_Details (float Value)
 {
     Details=Value;
 
-    StringStream ToSend;
-    ToSend<<_T("Details;");
-    ToSend<<Value;
-
-    if (Value==0)
-        MI->Option(_T("Inform"), String(_T("Details;0")));
-    else
-        MI->Option(_T("Inform"), String(_T("Details;0.9")));
+    MI->Option(_T("Inform"), _T("Details;")+ZenLib::Ztring::ToZtring(Value));
 }
 
 //---------------------------------------------------------------------------
