@@ -975,7 +975,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 break;
                         if (Stream==Streams.end())
                             for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-                                if (Stream->second.StreamKind==Stream_Video)
+                                if (Stream->second.StreamKind==Stream_Audio)
                                     break;
                         if (Stream==Streams.end())
                             return 0; //Not supported
@@ -1006,7 +1006,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 break;
                         if (Stream==Streams.end())
                             for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-                                if (Stream->second.StreamKind==Stream_Video)
+                                if (Stream->second.StreamKind==Stream_Audio)
                                     break;
                         if (Stream==Streams.end())
                             return 0; //Not supported
