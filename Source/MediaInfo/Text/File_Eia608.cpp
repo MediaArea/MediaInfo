@@ -179,6 +179,7 @@ void File_Eia608::Read_Buffer_Init()
 void File_Eia608::Read_Buffer_AfterParsing()
 {
     Frame_Count++;
+    Frame_Count_InThisBlock++;
     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
         Frame_Count_NotParsedIncluded++;
     if (FrameInfo.DUR!=(int64u)-1)

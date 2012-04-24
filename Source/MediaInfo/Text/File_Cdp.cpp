@@ -406,6 +406,11 @@ void File_Cdp::ccdata_section()
         Element_End0();
     }
     Element_End0();
+
+    Frame_Count++;
+    Frame_Count_InThisBlock++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
 }
 
 //---------------------------------------------------------------------------

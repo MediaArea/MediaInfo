@@ -3294,7 +3294,7 @@ void File_Mxf::Data_Parse()
                     if (Streams_Count>0)
                         Streams_Count--;
                     Essence->second.IsFilled=true;
-                    if (IsSub)
+                    if (Config_ParseSpeed<1.0 && IsSub)
                     {
                         Fill();
                         Open_Buffer_Unsynch();

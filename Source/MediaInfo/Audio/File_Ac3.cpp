@@ -1161,12 +1161,15 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
         while (Buffer_Offset+8<=Buffer_Size)
         {
             if (!FrameSynchPoint_Test())
+            {
+                Buffer_Offset=Buffer_Offset_Save;
                 return false; //Need more data
+            }
             if (Synched)
                 break;
             Buffer_Offset++;
         }
-        Buffer_Offset=Buffer_Offset_Save;;
+        Buffer_Offset=Buffer_Offset_Save;
         if (!Synched)
         {
             Synched=true;

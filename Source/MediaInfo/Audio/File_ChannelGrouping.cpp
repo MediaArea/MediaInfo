@@ -197,9 +197,15 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         if (IsPcm_Frame_Count)
         {
             Frame_Count+=IsPcm_Frame_Count;
+            Frame_Count_InThisBlock+=IsPcm_Frame_Count;
+            if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded+=IsPcm_Frame_Count;
             IsPcm_Frame_Count=0;
         }
         Frame_Count++;
+        Frame_Count_InThisBlock++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
 
         if (!Status[IsFilled])
         {
