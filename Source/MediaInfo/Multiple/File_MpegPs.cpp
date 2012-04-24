@@ -221,6 +221,7 @@ File_MpegPs::File_MpegPs()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
     Trusted_Multiplier=2;
+    DataMustAlwaysBeComplete=false;
 
     //In
     FromTS=false;
@@ -1367,7 +1368,8 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u stream_id)
         Header_Fill_Size(6+PES_packet_length);
 
     //Can be cut in small chunks
-    if (PES_packet_length!=0 && Element_Offset<Element_Size && (size_t)(6+PES_packet_length)>Buffer_Size-Buffer_Offset
+    if (!Element_IsWaitingForMoreData()
+     && PES_packet_length!=0 && Element_Offset<Element_Size && (size_t)(6+PES_packet_length)>Buffer_Size-Buffer_Offset
      && ((stream_id&0xE0)==0xC0 || (stream_id&0xF0)==0xE0))
     {
         //Return directly if we must unpack the elementary stream;
