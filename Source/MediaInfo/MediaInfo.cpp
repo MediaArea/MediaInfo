@@ -95,9 +95,9 @@ size_t MediaInfo::Open(const String &File_Name_)
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, size_t, int64u)
+size_t MediaInfo::Open (const int8u* Begin, size_t Begin_Size, const int8u* End, size_t End_Size, int64u File_Size)
 {
-    return ((MediaInfo_Internal*)Internal)->Open(Begin_, Begin_Size_);
+    return ((MediaInfo_Internal*)Internal)->Open(Begin, Begin_Size, End, End_Size, (File_Size<Begin_Size+End_Size)?(Begin_Size+End_Size):File_Size);
 }
 
 //---------------------------------------------------------------------------

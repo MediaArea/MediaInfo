@@ -475,10 +475,15 @@ void MediaInfo_Internal::Entry()
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open (const int8u* Begin, size_t Begin_Size, const int8u*, size_t, int64u File_Size)
+size_t MediaInfo_Internal::Open (const int8u* Begin, size_t Begin_Size, const int8u* End, size_t End_Size, int64u File_Size)
 {
     Open_Buffer_Init(File_Size);
     Open_Buffer_Continue(Begin, Begin_Size);
+    if (End && Begin_Size+End_Size<=File_Size)
+    {
+        Open_Buffer_Init(File_Size, File_Size-End_Size);
+        Open_Buffer_Continue(End, End_Size);
+    }
     Open_Buffer_Finalize();
 
     return 1;
