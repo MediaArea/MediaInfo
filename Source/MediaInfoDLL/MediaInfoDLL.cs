@@ -168,7 +168,7 @@ namespace MediaInfoLib
         }
         public Int64 Open_Buffer_Continue_GoTo_Get()
         {
-            return (int)MediaInfo_Open_Buffer_Continue_GoTo_Get(Handle);
+            return MediaInfo_Open_Buffer_Continue_GoTo_Get(Handle);
         }
         public int Open_Buffer_Finalize()
         {
