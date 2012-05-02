@@ -49,6 +49,9 @@ public :
         int64u              StreamID;
         float64             FrameRate;
         int64u              Delay;
+        int64u              FileSize;
+        bool                IsCircular;
+        size_t              State;
         MediaInfo_Internal* MI;
         #if MEDIAINFO_FILTER
             int64u          Enabled;
@@ -66,6 +69,9 @@ public :
             StreamID=(int64u)-1;
             FrameRate=0;
             Delay=0;
+            FileSize=(int64u)-1;
+            IsCircular=false;
+            State=0;
             MI=NULL;
             #if MEDIAINFO_FILTER
                 Enabled=true;

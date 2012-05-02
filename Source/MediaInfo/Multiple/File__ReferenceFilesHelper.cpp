@@ -94,6 +94,157 @@ void File__ReferenceFilesHelper::ParseReferences()
             for (Reference=References.begin(); Reference<References.end(); Reference++)
                 (*Reference).StreamID=Reference-References.begin()+1;
 
+        //Configuring file names
+        File_Size_Total=0;
+        Reference=References.begin();
+        while (Reference!=References.end())
+        {
+            ZtringList Names=Reference->FileNames;
+            ZtringList AbsoluteNames; AbsoluteNames.Separator_Set(0, ",");
+            for (size_t Pos=0; Pos<Names.size(); Pos++)
+            {
+                if (Names[Pos].find(_T("file:///"))==0)
+                {
+                    Names[Pos].erase(0, 8); //Removing "file:///", this is the default behaviour and this makes comparison easier
+                    Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
+                }
+                if (Names[Pos].find(_T("file://"))==0)
+                {
+                    Names[Pos].erase(0, 7); //Removing "file://", this is the default behaviour and this makes comparison easier
+                    Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
+                }
+                if (Names[Pos].find(_T("file:"))==0)
+                {
+                    Names[Pos].erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
+                    Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
+                }
+                Ztring AbsoluteName;
+                if (Names[Pos].find(_T(':'))!=1 && Names[Pos].find(_T("/"))!=0 && Names[Pos].find(_T("\\\\"))!=0) //If absolute patch
+                {
+                    AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                    if (!AbsoluteName.empty())
+                        AbsoluteName+=ZenLib::PathSeparator;
+                }
+                AbsoluteName+=Names[Pos];
+                #ifdef __WINDOWS__
+                    AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                #endif //__WINDOWS__
+                AbsoluteNames.push_back(AbsoluteName);
+            }
+            if (!File::Exists(AbsoluteNames[0]))
+            {
+                AbsoluteNames.clear();
+            
+                //Configuring file name (this time, we try to force URL decode in all cases)
+                for (size_t Pos=0; Pos<Names.size(); Pos++)
+                {
+                    Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
+                    Ztring AbsoluteName;
+                    if (Names[Pos].find(_T(':'))!=1 && Names[Pos].find(_T("/"))!=0 && Names[Pos].find(_T("\\\\"))!=0) //If absolute patch
+                    {
+                        AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                        if (!AbsoluteName.empty())
+                            AbsoluteName+=ZenLib::PathSeparator;
+                    }
+                    AbsoluteName+=Names[Pos];
+                    #ifdef __WINDOWS__
+                        AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                    #endif //__WINDOWS__
+                    AbsoluteNames.push_back(AbsoluteName);
+                }
+
+                if (!File::Exists(AbsoluteNames[0]))
+                {
+                    AbsoluteNames.clear();
+                    Names=Reference->FileNames;
+            
+                    //Configuring file name (this time, we try to test local files)
+                    size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
+                    if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
+                    {
+                        Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
+                        bool IsOk=true;
+                        for (size_t Pos=0; Pos<Names.size(); Pos++)
+                            if (Names[Pos].find(PathToRemove))
+                            {
+                                IsOk=false;
+                                break;
+                            }
+                        if (IsOk)
+                        {
+                            for (size_t Pos=0; Pos<Names.size(); Pos++)
+                            {
+                                Names[Pos].erase(0, PathSeparator_Pos+1);
+                                Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                if (!AbsoluteName.empty())
+                                    AbsoluteName+=ZenLib::PathSeparator;
+                                AbsoluteName+=Names[Pos];
+                                #ifdef __WINDOWS__
+                                    AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                                #endif //__WINDOWS__
+                                AbsoluteNames.push_back(AbsoluteName);
+                            }
+
+                            if (!File::Exists(AbsoluteNames[0]))
+                            {
+                                AbsoluteNames.clear();
+                                Names=Reference->FileNames;
+            
+                                //Configuring file name (this time, we try to test local files)
+                                size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
+                                if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
+                                    PathSeparator_Pos=Names[0].find_last_of(_T("\\/"), PathSeparator_Pos-1);
+                                if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
+                                {
+                                    Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
+                                    bool IsOk=true;
+                                    for (size_t Pos=0; Pos<Names.size(); Pos++)
+                                        if (Names[Pos].find(PathToRemove))
+                                        {
+                                            IsOk=false;
+                                            break;
+                                        }
+                                    if (IsOk)
+                                        for (size_t Pos=0; Pos<Names.size(); Pos++)
+                                        {
+                                            Names[Pos].erase(0, PathSeparator_Pos+1);
+                                            Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                            if (!AbsoluteName.empty())
+                                                AbsoluteName+=ZenLib::PathSeparator;
+                                            AbsoluteName+=Names[Pos];
+                                            #ifdef __WINDOWS__
+                                                AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                                            #endif //__WINDOWS__
+                                            AbsoluteNames.push_back(AbsoluteName);
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Reference->Source=Reference->FileNames.Read(0);
+            if (Reference->StreamKind!=Stream_Max)
+                MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->Source);
+            if (!AbsoluteNames.empty())
+                Reference->FileNames=AbsoluteNames;
+
+            if (!AbsoluteNames.empty() && AbsoluteNames[0]==MI->File_Name)
+            {
+                Reference->IsCircular=true;
+                Reference->FileNames.clear();
+            }
+            else
+                Reference->FileNames=AbsoluteNames;
+
+            Reference->FileSize=0;
+            for (size_t Pos=0; Pos<AbsoluteNames.size(); Pos++)
+                Reference->FileSize+=File::Size_Get(AbsoluteNames[Pos]);
+            File_Size_Total+=Reference->FileSize;
+
+            Reference++;
+        }
+
         Reference=References.begin();
         Init_Done=true;
 
@@ -149,6 +300,22 @@ void File__ReferenceFilesHelper::ParseReferences()
     while (Reference!=References.end())
     {
         ParseReference();
+
+        //State
+        int64u FileSize_Parsed=0;
+        for (references::iterator ReferenceTemp=References.begin(); ReferenceTemp!=References.end(); ReferenceTemp++)
+        {
+            if (ReferenceTemp->State<10000)
+            {
+                if (ReferenceTemp->MI)
+                    ReferenceTemp->State=ReferenceTemp->MI->State_Get();
+                if (ReferenceTemp->State && ReferenceTemp->FileSize!=(int64u)-1)
+                    FileSize_Parsed+=(int64u)(ReferenceTemp->FileSize*(((float)ReferenceTemp->State)/10000));
+            }
+            else
+                FileSize_Parsed+=ReferenceTemp->FileSize;
+        }
+        Config->State_Set(((float)FileSize_Parsed)/File_Size_Total);
 
         #if MEDIAINFO_DEMUX
             if (Demux_Interleave)
@@ -228,7 +395,7 @@ void File__ReferenceFilesHelper::ParseReference()
             if (Config->Demux_Unpacketize_Get())
                 Reference->MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
             if (FrameRate)
-                Reference->MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(FrameRate, 15));
+                Reference->MI->Option(_T("File_Demux_Rate"), Ztring::ToZtring(FrameRate, 25));
             switch (Config->Demux_InitData_Get())
             {
                 case 0 : Reference->MI->Option(_T("File_Demux_InitData"), _T("Event")); break;
@@ -250,138 +417,7 @@ void File__ReferenceFilesHelper::ParseReference()
             }
         #endif //MEDIAINFO_IBI
  
-        //Configuring file name
-        ZtringList Names=Reference->FileNames;
-        ZtringList AbsoluteNames; AbsoluteNames.Separator_Set(0, ",");
-        for (size_t Pos=0; Pos<Names.size(); Pos++)
-        {
-            if (Names[Pos].find(_T("file:///"))==0)
-            {
-                Names[Pos].erase(0, 8); //Removing "file:///", this is the default behaviour and this makes comparison easier
-                Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
-            }
-            if (Names[Pos].find(_T("file://"))==0)
-            {
-                Names[Pos].erase(0, 7); //Removing "file://", this is the default behaviour and this makes comparison easier
-                Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
-            }
-            if (Names[Pos].find(_T("file:"))==0)
-            {
-                Names[Pos].erase(0, 5); //Removing "file:", this is the default behaviour and this makes comparison easier
-                Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
-            }
-            Ztring AbsoluteName;
-            if (Names[Pos].find(_T(':'))!=1 && Names[Pos].find(_T("/"))!=0 && Names[Pos].find(_T("\\\\"))!=0) //If absolute patch
-            {
-                AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
-                if (!AbsoluteName.empty())
-                    AbsoluteName+=ZenLib::PathSeparator;
-            }
-            AbsoluteName+=Names[Pos];
-            #ifdef __WINDOWS__
-                AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
-            #endif //__WINDOWS__
-            AbsoluteNames.push_back(AbsoluteName);
-        }
-        if (!File::Exists(AbsoluteNames[0]))
-        {
-            AbsoluteNames.clear();
-            
-            //Configuring file name (this time, we try to force URL decode in all cases)
-            for (size_t Pos=0; Pos<Names.size(); Pos++)
-            {
-                Names[Pos]=ZenLib::Format::Http::URL_Encoded_Decode(Names[Pos]);
-                Ztring AbsoluteName;
-                if (Names[Pos].find(_T(':'))!=1 && Names[Pos].find(_T("/"))!=0 && Names[Pos].find(_T("\\\\"))!=0) //If absolute patch
-                {
-                    AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
-                    if (!AbsoluteName.empty())
-                        AbsoluteName+=ZenLib::PathSeparator;
-                }
-                AbsoluteName+=Names[Pos];
-                #ifdef __WINDOWS__
-                    AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
-                #endif //__WINDOWS__
-                AbsoluteNames.push_back(AbsoluteName);
-            }
-
-            if (!File::Exists(AbsoluteNames[0]))
-            {
-                AbsoluteNames.clear();
-                Names=Reference->FileNames;
-            
-                //Configuring file name (this time, we try to test local files)
-                size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
-                if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
-                {
-                    Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
-                    bool IsOk=true;
-                    for (size_t Pos=0; Pos<Names.size(); Pos++)
-                        if (Names[Pos].find(PathToRemove))
-                        {
-                            IsOk=false;
-                            break;
-                        }
-                    if (IsOk)
-                    {
-                        for (size_t Pos=0; Pos<Names.size(); Pos++)
-                        {
-                            Names[Pos].erase(0, PathSeparator_Pos+1);
-                            Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
-                            if (!AbsoluteName.empty())
-                                AbsoluteName+=ZenLib::PathSeparator;
-                            AbsoluteName+=Names[Pos];
-                            #ifdef __WINDOWS__
-                                AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
-                            #endif //__WINDOWS__
-                            AbsoluteNames.push_back(AbsoluteName);
-                        }
-
-                        if (!File::Exists(AbsoluteNames[0]))
-                        {
-                            AbsoluteNames.clear();
-                            Names=Reference->FileNames;
-            
-                            //Configuring file name (this time, we try to test local files)
-                            size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
-                            if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
-                                PathSeparator_Pos=Names[0].find_last_of(_T("\\/"), PathSeparator_Pos-1);
-                            if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
-                            {
-                                Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
-                                bool IsOk=true;
-                                for (size_t Pos=0; Pos<Names.size(); Pos++)
-                                    if (Names[Pos].find(PathToRemove))
-                                    {
-                                        IsOk=false;
-                                        break;
-                                    }
-                                if (IsOk)
-                                    for (size_t Pos=0; Pos<Names.size(); Pos++)
-                                    {
-                                        Names[Pos].erase(0, PathSeparator_Pos+1);
-                                        Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
-                                        if (!AbsoluteName.empty())
-                                            AbsoluteName+=ZenLib::PathSeparator;
-                                        AbsoluteName+=Names[Pos];
-                                        #ifdef __WINDOWS__
-                                            AbsoluteName.FindAndReplace(_T("/"), _T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
-                                        #endif //__WINDOWS__
-                                        AbsoluteNames.push_back(AbsoluteName);
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        Reference->Source=Reference->FileNames.Read(0);
-        if (Reference->StreamKind!=Stream_Max)
-            MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->Source);
-        if (!AbsoluteNames.empty())
-            Reference->FileNames=AbsoluteNames;
-
-        if (!AbsoluteNames.empty() && AbsoluteNames[0]==MI->File_Name)
+        if (Reference->IsCircular)
         {
             MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Circular");
             if (!Config->File_KeepInfo_Get())
@@ -399,7 +435,7 @@ void File__ReferenceFilesHelper::ParseReference()
         else
         {
             //Run
-            if (!Reference->MI->Open(AbsoluteNames.Read()))
+            if (!Reference->MI->Open(Reference->FileNames.Read()))
             {
                 MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
                 if (!Config->File_KeepInfo_Get())
@@ -414,8 +450,6 @@ void File__ReferenceFilesHelper::ParseReference()
                 }
                 Reference->FileNames.clear();
             }
-            else
-                File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
 
             #if MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
                 if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
@@ -448,6 +482,7 @@ void File__ReferenceFilesHelper::ParseReference()
         {
             Reference->StreamKind=Stream_Max;
             Reference->StreamPos=(size_t)-1;
+            Reference->State=10000;
             delete Reference->MI; Reference->MI=NULL;
         }
     }
