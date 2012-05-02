@@ -142,9 +142,12 @@ void File_Cdp::Streams_Update()
 //---------------------------------------------------------------------------
 void File_Cdp::Streams_Update_PerStream(size_t Pos)
 {
+    if (Streams[Pos]==NULL)
+        return;
+
     Update(Streams[Pos]->Parser);
 
-    if (Streams[Pos] && Streams[Pos]->Parser)
+    if (Streams[Pos]->Parser)
         for (size_t Pos2=0; Pos2<Streams[Pos]->Parser->Count_Get(Stream_Text); Pos2++)
         {
             Stream_Prepare(Stream_Text);
