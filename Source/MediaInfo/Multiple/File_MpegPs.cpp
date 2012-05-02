@@ -2335,14 +2335,14 @@ void File_MpegPs::system_header_start()
         Element_End0();
 
         FILLING_BEGIN();
-            if (stream_id==0xBD)
-                private_stream_1_Count=(int8u)-1;
-            if (stream_id==0xBF)
-                private_stream_2_Count=(int8u)-1;
-            if (stream_id==0xBF)
-                SL_packetized_stream_Count=(int8u)-1;
-            if (stream_id==0xFD)
-                extension_stream_Count=(int8u)-1;
+            switch (stream_id)
+            {
+                case 0xBD : private_stream_1_Count=(int8u)-1; break;
+                case 0xBF : private_stream_2_Count=(int8u)-1; break;
+                case 0xFA : SL_packetized_stream_Count=(int8u)-1; break;
+                case 0xFD : extension_stream_Count=(int8u)-1; break;
+                default   : ;
+            }
         FILLING_END();
 
         if (Element_IsNotFinished())
