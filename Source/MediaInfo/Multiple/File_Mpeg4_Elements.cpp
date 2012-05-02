@@ -3910,7 +3910,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 }
             #endif
             #if defined(MEDIAINFO_MPEGV_YES)
-                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("MPEG Video") && Element_Code!=0x6D78336E && Element_Code!=0x6D783370 && Element_Code!=0x6D783570 && Element_Code!=0x6D783570) //mx3n, mx3p, mx5n, mx5p
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("MPEG Video") && Element_Code!=0x6D78336E && Element_Code!=0x6D783370 && Element_Code!=0x6D78356E && Element_Code!=0x6D783570) //mx3n, mx3p, mx5n, mx5p
                 {
                     Streams[moov_trak_tkhd_TrackID].Parser=new File_Mpegv;
                     ((File_Mpegv*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
