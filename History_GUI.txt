@@ -15,6 +15,10 @@ Known bugs
 
 Version 0.7.56, 2012-04-08
 --------------
++ Basque translation added
+
+Version 0.7.56, 2012-04-08
+--------------
 + Better support of machines lacking of std::stringstream
 + Better support of machines requesting explicit stdc++ library link option (e.g. some ARM embedded devices)
 x #3515515, MPEG-4: crash with MPEG-4 container + H264/AVC video stream
