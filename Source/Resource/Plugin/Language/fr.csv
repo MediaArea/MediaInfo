@@ -750,7 +750,7 @@ Lyricist;Parolier
 Mastered_Date;Date de création
 MasteredBy;Créé par
 matrix_coefficients;Coefficients de la matrice 
-MediaInfo_About;Fournit des informations très détaillées\r\nà propos de fichiers multimédias :\r\nMatroska, OGG (including OGM)\r\nMPEG1 (incluant les VCD)\r\nMPEG2 (incluant les DVD et les SVCD)\r\nMPEG4 (incluant les fichiers Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (incluant WMV et WMA)\r\nMicrosoft RIFF (includant AVI et WAV)\r\nFormats audio divers (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;MediaInfo fournit des informations techniques et les tags à propos de vos fichiers video et audio.\r\nExcepté l'interface graphique du Mac App Store, c'est un logiciel libre, ce qui signifie qu'il est gratuit pour l'utilisateur final et que les développeurs on la liberté de l'étudier, l'améliorer et le redistribuer (licence LGPL)
 Menu;Menu
 Menu stream(s);Piste(s) menu
 Menu_Codec_List;Codecs Menu
