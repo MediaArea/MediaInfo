@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.57, 2012-
+Version 0.7.57, 2012-05-02
 --------------
 + #3513490, Vorbis comment (Flac, Ogg): more tags are supported
 + XML-based formats (P2, XDCAM, DCP, ISM, HLS...): support of UTF-16 encoding
