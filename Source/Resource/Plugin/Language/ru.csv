@@ -185,7 +185,7 @@ BitRate_Mode;Вид битрейта
 BitRate_Mode_CBR;Постоянный
 BitRate_Mode_VBR;Переменный
 BitRate_Nominal;Номинальный битрейт
-BitRate_Encoded;
+BitRate_Encoded;Закодированный битрейт
 Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
 BufferSize;Размер буфера
 Cancel;Отмена
@@ -894,9 +894,9 @@ SoundEngineer;Звукорежиссёр
 Source;Оригинал
 Source_Duration;Продолжительность оригинала
 Source_FrameCount;Количество кадров оригинала
-Source_SamplingCount;
+Source_SamplingCount;Количество примеров оригинала
 Source_StreamSize;Размер потока оригинала
-Source_StreamSize_Encoded;
+Source_StreamSize_Encoded;Закодированный размер потока оригинала
 Standard;Стандарт вещания
 Stream;Поток
 Stream_MoreInfo;Дополнительная информация о потоке
@@ -906,7 +906,7 @@ StreamKind;Тип потока
 StreamKindID;Идентификатор типа потока
 StreamKindPos;Позиция идентификатора типа потока
 StreamSize;Размер потока
-StreamSize_Encoded;
+StreamSize_Encoded;Закодированный размер потока
 StreamSize_Proportion;Пропорции потока
 Subject;Тема
 SubTrack;Подпоток
