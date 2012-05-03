@@ -93,6 +93,8 @@ Download_Packages 1  1  1   x x ""           Ubuntu_11.04  i386   _i386
 Download_Packages 1  1  1   x x ""           Ubuntu_11.04  amd64  _amd64
 Download_Packages 1  1  1   x x ""           Ubuntu_11.10  i386   _i386
 Download_Packages 1  1  1   x x ""           Ubuntu_11.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           Ubuntu_12.04  i386   _i386
+Download_Packages 1  1  1   x x ""           Ubuntu_12.04  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -139,12 +141,12 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 }
 
 
-mediainfov="0.7.56"
-libmediainfov="0.7.56"
+mediainfov="0.7.57"
+libmediainfov="0.7.57"
 libzenv="0.4.26"
 destversion="1"
 
-Download_Global 248.2 241.1 152.1
+Download_Global 263.1 248.1 152.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
