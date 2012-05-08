@@ -1028,7 +1028,12 @@ void File_Avc::Header_Parse()
     }
 
     //Filling
-    Header_Fill_Code(nal_unit_type, Ztring().From_CC1(nal_unit_type));
+    #if MEDIAINFO_TRACE
+        if (Trace_Activated)
+            Header_Fill_Code(nal_unit_type, Ztring().From_CC1(nal_unit_type));
+        else
+    #endif //MEDIAINFO_TRACE
+            Header_Fill_Code(nal_unit_type);
 }
 
 //---------------------------------------------------------------------------
@@ -1541,17 +1546,17 @@ void File_Avc::slice_header()
                 size_t Offset=TemporalReferences_Max-TemporalReferences_Offset;
                 if (Offset%2)
                     Offset++;
-                if (Offset>=TemporalReferences_Reserved && pic_order_cnt>=TemporalReferences_Reserved)
+                if (Offset>=TemporalReferences_Reserved && pic_order_cnt>=(int64s)TemporalReferences_Reserved)
                 {
                     TemporalReferences_Offset+=TemporalReferences_Reserved;
                     pic_order_cnt-=TemporalReferences_Reserved;
                     switch ((*seq_parameter_set_Item)->pic_order_cnt_type)
                     {
                         case 0 : 
-                                prevPicOrderCntMsb-=TemporalReferences_Reserved;
+                                prevPicOrderCntMsb-=(int32u)TemporalReferences_Reserved;
                                 break;
                         case 2 :
-                                prevFrameNumOffset-=TemporalReferences_Reserved/2;
+                                prevFrameNumOffset-=(int32u)TemporalReferences_Reserved/2;
                                 break;
                         default:;
                     }
@@ -1658,21 +1663,24 @@ void File_Avc::slice_header()
                 FirstPFrameInGop_IsParsed=true;
 
                 //Testing if we have enough to test GOP
-                std::string PictureTypes(PictureTypes_PreviousFrames);
-                PictureTypes.reserve(TemporalReferences.size());
-                for (size_t Pos=0; Pos<TemporalReferences.size(); Pos++)
-                    if (TemporalReferences[Pos])
-                    {
-                        if ((Pos%2)==0)
-                            PictureTypes+=Avc_slice_type[TemporalReferences[Pos]->slice_type];
-                    }
-                    else if (!PictureTypes.empty()) //Only if stream already started
-                    {
-                        if ((Pos%2)==0)
-                            PictureTypes+=' ';
-                    }
-                if (!GOP_Detect(PictureTypes).empty())
-                    Frame_Count_Valid=Frame_Count; //We have enough frames 
+                if (Frame_Count<=Frame_Count_Valid)
+                {
+                    std::string PictureTypes(PictureTypes_PreviousFrames);
+                    PictureTypes.reserve(TemporalReferences.size());
+                    for (size_t Pos=0; Pos<TemporalReferences.size(); Pos++)
+                        if (TemporalReferences[Pos])
+                        {
+                            if ((Pos%2)==0)
+                                PictureTypes+=Avc_slice_type[TemporalReferences[Pos]->slice_type];
+                        }
+                        else if (!PictureTypes.empty()) //Only if stream already started
+                        {
+                            if ((Pos%2)==0)
+                                PictureTypes+=' ';
+                        }
+                    if (!GOP_Detect(PictureTypes).empty())
+                        Frame_Count_Valid=Frame_Count; //We have enough frames 
+                }
             }
         }
 

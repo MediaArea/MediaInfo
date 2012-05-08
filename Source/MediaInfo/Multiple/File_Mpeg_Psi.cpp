@@ -1093,7 +1093,7 @@ void File_Mpeg_Psi::Table_00()
     //Parsing
     while (Element_Offset<Element_Size)
     {
-        Element_Begin0();
+        Element_Begin1("program");
         Get_B2 (    program_number,                             "program_number");
         BS_Begin();
         Skip_S1( 3,                                             "reserved");
