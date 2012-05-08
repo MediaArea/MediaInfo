@@ -1613,7 +1613,7 @@ void File_Aes3::Frame_FromMpegPs()
             }
             else
             {
-                Skip_XX(Element_Size,                       "Data");
+                Skip_XX(Element_Size-Element_Offset,            "Data");
 
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
@@ -1711,7 +1711,7 @@ void File_Aes3::Frame_FromMpegPs()
             }
             else
             {
-                Skip_XX(Element_Size,                       "Data");
+                Skip_XX(Element_Size-Element_Offset,            "Data");
 
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
@@ -1776,7 +1776,7 @@ void File_Aes3::Frame_FromMpegPs()
             }
             else
             {
-                Skip_XX(Element_Size,                       "Data");
+                Skip_XX(Element_Size-Element_Offset,            "Data");
 
                 #if MEDIAINFO_DEMUX
                     if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
