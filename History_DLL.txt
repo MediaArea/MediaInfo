@@ -9,6 +9,10 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.57, 2012-05-02
 --------------
+x MPEG-TS/MPEG-PS: regression, some files with AC-3/DTS/DVD subtitles were not well analyzed anymore
+
+Version 0.7.57, 2012-05-02
+--------------
 + #3513490, Vorbis comment (Flac, Ogg): more tags are supported
 + XML-based formats (P2, XDCAM, DCP, ISM, HLS...): support of UTF-16 encoding
 + MPEG-4: for buggy PCM, prioritizing the codec ID "in24" = 24-bit against the bit depth field
