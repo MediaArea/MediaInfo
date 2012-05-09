@@ -27,7 +27,11 @@ BuildRequires:	libzen-devel >= %libzen_version
 BuildRequires:	pkgconfig
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
-BuildRequires:	libwxgtku2.8-devel
+%ifarch x86_64
+BuildRequires:	lib64wxgtku2.8
+%else
+BuildRequires:	libwxgtku2.8
+%endif
 %else
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
 BuildRequires:	wxWidgets-devel
@@ -92,7 +96,11 @@ Requires:    libzen0 >= %libzen_version
 Requires:    libmediainfo0 >= %{version}
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
+%ifarch x86_64
+Requires:    lib64wxgtku2.8
+%else
 Requires:    libwxgtku2.8
+%endif
 %else
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
 Requires:    wxWidgets

@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.58, 2012-05-
+--------------
+x 3524672, Mandriva x86_64 GUI: i586 packages were requested by the RPM
+
 Version 0.7.57, 2012-05-02
 --------------
 + Basque translation added, Russian translation updated
