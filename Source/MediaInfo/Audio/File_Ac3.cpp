@@ -935,6 +935,11 @@ void File_Ac3::Read_Buffer_Unsynched()
     Info_Core.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
     Info_HD.FrameInfo=FrameInfo;
     Info_HD.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;   
+
+    if (Save_Buffer)
+    {
+        delete[] Save_Buffer; Save_Buffer=NULL;
+    }
     
     if (File_GoTo==0)
         Synched_Init();
@@ -1152,7 +1157,7 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
     if (TimeStamp_IsPresent)
         Buffer_Offset+=16;
 
-    if (!HD_IsPresent && Info_Core.Frame_Count==0)
+    if (!HD_IsPresent && Info_Core.Frame_Count==0 && Save_Buffer==NULL)
     {
         //Searching HD part
         size_t Buffer_Offset_Save=Buffer_Offset;
@@ -1173,6 +1178,8 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
         if (!Synched)
         {
             Synched=true;
+            if (TimeStamp_IsPresent)
+                Buffer_Offset-=16;
             return false; //Need more data
         }
     }
@@ -1190,7 +1197,11 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
 
         //Core part
         if (HD_IsPresent)
+        {
+            if (TimeStamp_IsPresent)
+                Buffer_Offset-=16;
             return true; //No AC-3 demux
+        }
     }
     else
     {
@@ -1204,9 +1215,33 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
 
 
     if (Demux_Offset>Buffer_Size && File_Offset+Buffer_Size!=File_Size)
+    {
+        if (TimeStamp_IsPresent)
+            Buffer_Offset-=16;
         return false; //No complete frame
+    }
+
+    if (Save_Buffer)
+    {
+        Demux_TotalBytes-=Buffer_Offset;
+        Demux_Offset-=Buffer_Offset;
+        File_Offset+=Buffer_Offset;
+        swap(Buffer, Save_Buffer);
+        swap(Buffer_Offset, Save_Buffer_Offset);
+        swap(Buffer_Size, Save_Buffer_Size);
+    }
 
     Demux_UnpacketizeContainer_Demux();
+
+    if (Save_Buffer)
+    {
+        swap(Buffer, Save_Buffer);
+        swap(Buffer_Offset, Save_Buffer_Offset);
+        swap(Buffer_Size, Save_Buffer_Size);
+        Demux_TotalBytes+=Buffer_Offset;
+        Demux_Offset+=Buffer_Offset;
+        File_Offset-=Buffer_Offset;
+    }
 
     if (TimeStamp_IsPresent)
         Buffer_Offset-=16;
