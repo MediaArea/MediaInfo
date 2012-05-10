@@ -203,7 +203,7 @@ void File_Mpeg4::Streams_Accept()
     {
         Streams_Accept_TestContinuousFileNames();
     
-        Stream_Prepare(Config->File_Names.size()>1?Stream_Video:Stream_Image);
+        Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         if (StreamKind_Last==Stream_Video)
             Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Config->File_Names.size());
     }

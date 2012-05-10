@@ -102,13 +102,13 @@ void File__Analyze::Streams_Finish_Global()
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Streams_Accept_TestContinuousFileNames()
+void File__Analyze::Streams_Accept_TestContinuousFileNames_Static(ZtringList &File_Names, bool IsReferenced)
 {
-    if (Config->File_Names.size()!=1)
+    if (File_Names.size()!=1)
         return;
 
     //Trying to detect continuous file names (e.g. video stream as an image or HLS) 
-    FileName FileToTest(File_Name);
+    FileName FileToTest(File_Names.Read(0));
     Ztring FileToTest_Name=FileToTest.Name_Get();
     size_t FileNameToTest_Pos=FileToTest_Name.size();
     while (FileNameToTest_Pos && FileToTest_Name[FileNameToTest_Pos-1]>=_T('0') && FileToTest_Name[FileNameToTest_Pos-1]<=_T('9'))
@@ -129,22 +129,37 @@ void File__Analyze::Streams_Accept_TestContinuousFileNames()
             Ztring Next=FileToTest.Path_Get()+PathSeparator+FileToTest_Name+Pos_Ztring+_T('.')+FileToTest.Extension_Get();
             if (!File::Exists(Next))
                 break;
-            Config->File_Names.push_back(Next);
-            int64u Size=File::Size_Get(Next);
-            Config->File_Sizes.push_back(Size);
-            Config->File_Size+=Size;
+            File_Names.push_back(Next);
         }
 
-        if (!Config->File_IsReferenced_Get() && Config->File_Names.size()<24)
-        {
-            Config->File_Names.resize(1); //Removing files, wrong detection
-            Config->File_Sizes.resize(1); //Removing files, wrong detection
-            Config->File_Size=Config->File_Sizes[0];
-        }
-        File_Size=Config->File_Size;
-        Element[0].Next=File_Size;
-        Fill (Stream_General, 0, General_FileSize, File_Size, 10, true);
+        if (!IsReferenced && File_Names.size()<24)
+            File_Names.resize(1); //Removing files, wrong detection
     }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Streams_Accept_TestContinuousFileNames()
+{
+    if (Config->File_Names.size()!=1)
+        return;
+
+    Streams_Accept_TestContinuousFileNames_Static(Config->File_Names, Config->File_IsReferenced_Get());
+        
+    if (Config->File_Names.size()==1)
+        return;
+
+    Config->File_Sizes.clear();
+    Config->File_Size=0;
+    for (size_t Pos=0; Pos<Config->File_Names.size(); Pos++)
+    {
+        int64u Size=File::Size_Get(Config->File_Names[Pos]);
+        Config->File_Sizes.push_back(Size);
+        Config->File_Size+=Size;
+    }
+
+    File_Size=Config->File_Size;
+    Element[0].Next=File_Size;
+    Fill (Stream_General, 0, General_FileSize, File_Size, 10, true);
 }
 
 //---------------------------------------------------------------------------

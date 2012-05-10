@@ -1193,6 +1193,9 @@ protected :
     bool FileHeader_Begin_0x000001();
     bool FileHeader_Begin_XML(tinyxml2::XMLDocument &Document);
     bool Synchronize_0x000001();
+public:
+    static void Streams_Accept_TestContinuousFileNames_Static(ZtringList &File_Names, bool IsReferenced);
+protected:
     void Streams_Accept_TestContinuousFileNames();
 
 private :

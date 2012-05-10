@@ -60,6 +60,7 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     Reference=References.end();
     File_Size_Total=MI->File_Size;
     Init_Done=false;
+    TestContinuousFileNames=false;
     FrameRate=0;
     Duration=0;
 }
@@ -95,7 +96,6 @@ void File__ReferenceFilesHelper::ParseReferences()
                 (*Reference).StreamID=Reference-References.begin()+1;
 
         //Configuring file names
-        File_Size_Total=0;
         Reference=References.begin();
         while (Reference!=References.end())
         {
@@ -225,7 +225,11 @@ void File__ReferenceFilesHelper::ParseReferences()
             }
             Reference->Source=Reference->FileNames.Read(0);
             if (Reference->StreamKind!=Stream_Max)
+            {
+                if (Reference->StreamPos==(size_t)-1)
+                    Reference->StreamPos=Stream_Prepare(Reference->StreamKind);
                 MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source", Reference->Source);
+            }
             if (!AbsoluteNames.empty())
                 Reference->FileNames=AbsoluteNames;
 
@@ -234,19 +238,19 @@ void File__ReferenceFilesHelper::ParseReferences()
                 Reference->IsCircular=true;
                 Reference->FileNames.clear();
             }
-            else
+            else if (!AbsoluteNames.empty())
                 Reference->FileNames=AbsoluteNames;
+            else
+            {
+                Reference->FileNames.clear();
+                MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
+            }
 
-            Reference->FileSize=0;
-            for (size_t Pos=0; Pos<AbsoluteNames.size(); Pos++)
-                Reference->FileSize+=File::Size_Get(AbsoluteNames[Pos]);
-            File_Size_Total+=Reference->FileSize;
-
+            if (TestContinuousFileNames)
+                File__Analyze::Streams_Accept_TestContinuousFileNames_Static(Reference->FileNames, true);
+    
             Reference++;
         }
-
-        Reference=References.begin();
-        Init_Done=true;
 
         #if MEDIAINFO_DEMUX
             if (Config->NextPacket_Get())
@@ -267,6 +271,7 @@ void File__ReferenceFilesHelper::ParseReferences()
 
             if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
             {
+                Reference=References.begin();
                 while (Reference!=References.end())
                 {
                     ParseReference(); //Init
@@ -290,11 +295,16 @@ void File__ReferenceFilesHelper::ParseReferences()
                     MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
                 }
 
+                FileSize_Compute();
                 Reference=References.begin();
-                Config->Demux_EventWasSent=true;
+                Init_Done=true;
                 return;
             }
         #endif //MEDIAINFO_DEMUX
+
+        FileSize_Compute();
+        Reference=References.begin();
+        Init_Done=true;
     }
 
     while (Reference!=References.end())
@@ -342,6 +352,7 @@ void File__ReferenceFilesHelper::ParseReferences()
     }
 
     //File size handling
+    FileSize_Compute();
     if (File_Size_Total!=MI->File_Size)
     {
         MI->Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
@@ -483,6 +494,7 @@ void File__ReferenceFilesHelper::ParseReference()
             Reference->StreamKind=Stream_Max;
             Reference->StreamPos=(size_t)-1;
             Reference->State=10000;
+            Reference->FileSize=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
             delete Reference->MI; Reference->MI=NULL;
         }
     }
@@ -502,7 +514,17 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                 StreamFound=true;
             }
             else
-                StreamPos_To=MI->Stream_Prepare((stream_t)StreamKind);
+            {
+                size_t ToInsert=(size_t)-1;
+                for (references::iterator ReferencePos=References.begin(); ReferencePos!=References.end(); ReferencePos++)
+                    if (ReferencePos->StreamKind==StreamKind_Last && Reference->StreamID<ReferencePos->StreamID)
+                    {
+                        ToInsert=ReferencePos->StreamPos;
+                        break;
+                    }
+                
+                StreamPos_To=Stream_Prepare((stream_t)StreamKind, ToInsert);
+            }
             StreamPos_From=StreamPos;
 
             ParseReference_Finalize_PerStream();
@@ -811,6 +833,26 @@ size_t File__ReferenceFilesHelper::Stream_Prepare (stream_t StreamKind, size_t S
                 ReferencePos->StreamPos++;
 
     return StreamPos_Last;
+}
+
+//---------------------------------------------------------------------------
+void File__ReferenceFilesHelper::FileSize_Compute ()
+{
+    File_Size_Total=MI->File_Size;
+
+    for (references::iterator Reference=References.begin(); Reference!=References.end(); Reference++)
+    {
+        if (Reference->FileSize!=(int64u)-1)
+            File_Size_Total+=Reference->FileSize;
+        else    
+        {
+            if (Reference->MI)
+                File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
+            else
+                for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
+                    File_Size_Total+=File::Size_Get(Reference->FileNames[Pos]);
+        }
+    }
 }
 
 } //NameSpace

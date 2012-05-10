@@ -108,7 +108,7 @@ void File_Png::Streams_Accept()
     {
         Streams_Accept_TestContinuousFileNames();
 
-        Stream_Prepare(Config->File_Names.size()>1?Stream_Video:Stream_Image);
+        Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);
         if (StreamKind_Last==Stream_Video)
             Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Config->File_Names.size());
