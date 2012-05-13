@@ -38,6 +38,9 @@
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
@@ -194,7 +197,7 @@ void File_Lxf::Streams_Finish()
         Streams_Fill_PerStream(Videos[1].Parser, Stream_Video, 1);
     }
     
-    if (Audios_Header.TimeStamp_Begin!=(int64u)-1)
+    if (Audios_Header.TimeStamp_End!=(int64u)-1 && Audios_Header.TimeStamp_Begin!=(int64u)-1)
     {
         int64u Duration=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin))/TimeStamp_Rate*1000);
         int64u FrameCount=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin))/Audios_Header.Duration);
@@ -205,7 +208,7 @@ void File_Lxf::Streams_Finish()
         }
         Info_General_StreamSize+=FrameCount*0x48;
     }
-    if (Videos_Header.TimeStamp_Begin!=(int64u)-1)
+    if (Videos_Header.TimeStamp_End!=(int64u)-1 && Videos_Header.TimeStamp_Begin!=(int64u)-1)
     {
         int64u Duration=float64_int64s(((float64)(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin))/TimeStamp_Rate*1000);
         int64u FrameCount=float64_int64s(((float64)(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin))/Videos_Header.Duration);
@@ -363,6 +366,8 @@ void File_Lxf::Read_Buffer_Unsynched()
     LastAudio_TimeOffset=stream_header();
     Video_Sizes_Pos=(size_t)-1;
     Audio_Sizes_Pos=(size_t)-1;
+    Videos_Header.TimeStamp_End=(int64u)-1;
+    Audios_Header.TimeStamp_End=(int64u)-1;
 
     for (size_t Pos=0; Pos<Audios.size(); Pos++)
         if (Audios[Pos].Parser)
@@ -405,7 +410,7 @@ size_t File_Lxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
         case 1  :   Open_Buffer_Unsynch(); GoTo(File_Size*Value/10000); return 1;
         case 3  :   //Frame
                     {
-                        if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
+                        if (FrameRate==0 && Videos_Header.TimeStamp_End!=(int64u)-1 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin!=0)
                             FrameRate=TimeStamp_Rate/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
                         if (FrameRate==0)
                             return (size_t)-1; //Not supported
@@ -1113,7 +1118,7 @@ void File_Lxf::Video_Stream(size_t Pos)
     Element_End0();
 
     FILLING_BEGIN();
-        if (Pos==1)
+        if (Pos==2)
         {
             Frame_Count++;
             if (Frame_Count>6 && Stream_Count==0 && !Status[IsFilled]) //5 video frames for 1 Audio frame
@@ -1122,9 +1127,9 @@ void File_Lxf::Video_Stream(size_t Pos)
                 if (MediaInfoLib::Config.ParseSpeed_Get()<1)
                 {
                     LookingForLastFrame=true;
-                    if (2*(File_Offset+Buffer_Offset)<=File_Size)
+                    if (3*(File_Offset+Buffer_Offset)<=File_Size)
                     {
-                        GoToFromEnd(File_Offset+Buffer_Offset);
+                        GoToFromEnd((File_Offset+Buffer_Offset)*2);
                         Open_Buffer_Unsynch();
                     }
                 }
@@ -1270,6 +1275,36 @@ void File_Lxf::Video_Stream_2_DvDif()
 //---------------------------------------------------------------------------
 void File_Lxf::Video_Stream_2_Avc()
 {
+    #if defined(MEDIAINFO_AVC_YES)
+        if (Videos[2].Parser==NULL)
+        {
+            Videos[2].Parser=new File_Avc;
+            ((File_Avc*)Videos[2].Parser)->FrameIsAlwaysComplete=true;
+            Open_Buffer_Init(Videos[2].Parser);
+            Stream_Count++;
+        }
+        Open_Buffer_Continue(Videos[2].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[2]);
+        if (Videos[2].Parser->Status[IsFilled])
+        {
+            if (Stream_Count>0)
+                Stream_Count--;
+        }
+    #else
+        Skip_XX(Video_Sizes[1],                       "AVC");
+
+        if (Videos[2].Parser==NULL)
+        {
+            if (FrameRate==0 && Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin)
+                FrameRate=((float64)1)*TimeStamp_Rate/(Videos_Header.TimeStamp_End-Videos_Header.TimeStamp_Begin);
+
+            Videos[2].Parser=new File__Analyze;
+            Open_Buffer_Init(Videos[2].Parser);
+            Videos[2].Parser->Stream_Prepare(Stream_Video);
+            Videos[2].Parser->Fill(Stream_Video, 0, Video_Format, "AVC");
+            if (FrameRate)
+                Videos[2].Parser->Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
+        }
+    #endif
 }
 
 } //NameSpace
