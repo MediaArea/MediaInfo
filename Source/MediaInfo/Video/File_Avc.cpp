@@ -366,6 +366,7 @@ File_Avc::File_Avc()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     PTS_DTS_Needed=true;
     IsRawStream=true;
+    Frame_Count_NotParsedIncluded=0;
 
     //In
     Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?512:2;
@@ -803,6 +804,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
             if (Config->Demux_EventWasSent)
                 return false;
         }
+
         if (IFrame_Count || RandomAccess)
         {
             bool Frame_Count_NotParsedIncluded_PlusOne=false;
@@ -837,8 +839,6 @@ void File_Avc::Synched_Init()
         FrameInfo.DTS=0; //No DTS in container
     DTS_Begin=FrameInfo.DTS;
     DTS_End=FrameInfo.DTS;
-    if (Frame_Count_NotParsedIncluded==(int64u)-1)
-        Frame_Count_NotParsedIncluded=0; //No Frame_Count_NotParsedIncluded in the container
 
     //Temporal references
     TemporalReferences_DelayedElement=NULL;
