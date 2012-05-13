@@ -940,7 +940,7 @@ void File_Ac3::Read_Buffer_Unsynched()
     {
         delete[] Save_Buffer; Save_Buffer=NULL;
     }
-    
+
     if (File_GoTo==0)
         Synched_Init();
 }
