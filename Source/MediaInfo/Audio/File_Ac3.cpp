@@ -936,10 +936,7 @@ void File_Ac3::Read_Buffer_Unsynched()
     Info_HD.FrameInfo=FrameInfo;
     Info_HD.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;   
 
-    if (Save_Buffer)
-    {
-        delete[] Save_Buffer; Save_Buffer=NULL;
-    }
+    delete[] Save_Buffer; Save_Buffer=NULL;
 
     if (File_GoTo==0)
         Synched_Init();
