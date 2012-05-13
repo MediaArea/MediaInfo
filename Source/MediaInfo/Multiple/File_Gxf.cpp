@@ -1040,7 +1040,7 @@ void File_Gxf::map()
                 }
             FILLING_END();
 
-            int8u Hours=(int8u)-1, Minutes=(int8u)-1, Seconds=(int8u)-1, Frames=(int8u)-1;
+            int8u Hours=(int8u)-1, Minutes=(int8u)-1, Seconds=(int8u)-1, Fields=(int8u)-1;
             bool  Invalid=true, DropFrame=true;
             bool  TimeCode_Parsed=false;
 
@@ -1074,7 +1074,7 @@ void File_Gxf::map()
                                     else if (MediaType==7 || MediaType==8 || MediaType==24)
                                     {
                                         //TimeCode
-                                        Get_B1 (Frames,         "Frame");
+                                        Get_B1 (Fields,         "Fields");
                                         Get_B1 (Seconds,        "Second");
                                         Get_B1 (Minutes,        "Minute");
                                         BS_Begin();
@@ -1158,7 +1158,7 @@ void File_Gxf::map()
                     TimeCodes[TrackID]=Hours  *60*60*1000
                                       +Minutes   *60*1000
                                       +Seconds      *1000
-                                      +float64_int64s(Frames*1000/FrameRate);
+                                      +float64_int64s(Fields*1000/(FrameRate*2));
                 }
             }
         }

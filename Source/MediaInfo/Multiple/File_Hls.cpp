@@ -58,6 +58,9 @@ File_Hls::File_Hls()
         ParserIDs[0]=MediaInfo_Parser_Hls;
         StreamIDs_Width[0]=0;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_EventWasSent_Accept_Specific=true;
+    #endif //MEDIAINFO_DEMUX
 
     //Temp
     ReferenceFiles=NULL;

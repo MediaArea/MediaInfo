@@ -59,6 +59,9 @@ File_Dcp::File_Dcp()
         ParserIDs[0]=MediaInfo_Parser_None; //TODO
         StreamIDs_Width[0]=sizeof(size_t)*2;
     #endif //MEDIAINFO_EVENTS
+    #if MEDIAINFO_DEMUX
+        Demux_EventWasSent_Accept_Specific=true;
+    #endif //MEDIAINFO_DEMUX
 
     //Temp
     ReferenceFiles=NULL;

@@ -57,6 +57,10 @@ namespace MediaInfoLib
 File_SequenceInfo::File_SequenceInfo()
 :File__Analyze()
 {
+    #if MEDIAINFO_DEMUX
+        Demux_EventWasSent_Accept_Specific=true;
+    #endif //MEDIAINFO_DEMUX
+
     //Temp
     ReferenceFiles=NULL;
 }

@@ -1431,6 +1431,10 @@ void File_Mpeg4::mdat()
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(8); //Streams
     #endif //MEDIAINFO_TRACE
+    #if MEDIAINFO_DEMUX
+        if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
+            Config->Demux_EventWasSent=true;
+    #endif //MEDIAINFO_DEMUX
 
     if (!Status[IsAccepted])
     {
@@ -1475,6 +1479,8 @@ void File_Mpeg4::mdat()
 
         FirstMdatPos=File_Offset+Buffer_Offset-Header_Size;
     }
+    if (File_Offset+Buffer_Offset>LastMdatPos)
+        LastMdatPos=File_Offset+Buffer_Offset+Element_TotalSize_Get();
 
     //Parsing
     #if MEDIAINFO_TRACE
@@ -3456,6 +3462,19 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tx3g()
     FILLING_BEGIN();
         CodecID_Fill(_T("tx3g"), Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
         Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "tx3g", Unlimited, true, true);
+
+        #if MEDIAINFO_DEMUX
+            if (Streams[moov_trak_tkhd_TrackID].Parser==NULL && Config_Demux)
+            {
+                Streams[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
+
+                int64u Elemen_Code_Save=Element_Code;
+                Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
+                Open_Buffer_Init(Streams[moov_trak_tkhd_TrackID].Parser);
+                Element_Code=Elemen_Code_Save;
+                mdat_MustParse=true; //Data is in MDAT
+            }
+        #endif //MEDIAINFO_DEMUX
     FILLING_END();
 }
 
@@ -5077,7 +5096,7 @@ void File_Mpeg4::moov_trak_tapt_clef()
     NAME_VERSION_FLAG("Clean Aperture Dimensions");
 
     //Parsing
-   Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
+    Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
     Skip_B4(                                                    "cleanApertureHeight"); //BFP4, but how many bits?
 }
 

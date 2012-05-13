@@ -449,12 +449,12 @@ void File_Ancillary::Data_Parse()
                         break;
             default   : ;
         }
-    FILLING_END();
 
-    Frame_Count++;
-    Frame_Count_InThisBlock++;
-    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-        Frame_Count_NotParsedIncluded++;
+        Frame_Count++;
+        Frame_Count_InThisBlock++;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded++;
+    FILLING_END();
 
     delete[] Payload; //Payload=NULL
 }

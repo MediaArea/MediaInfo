@@ -170,6 +170,7 @@ File_Mpeg4::File_Mpeg4()
     TimeScale=1;
     Vendor=0x00000000;
     FirstMdatPos=(int64u)-1;
+    LastMdatPos=0;
     FirstMoovPos=(int64u)-1;
     MajorBrand=0x00000000;
     IsSecondPass=false;
@@ -961,11 +962,58 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         case 0  :   
                     if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
-                    return (size_t)-1; //Not supported
+
+                    if (FirstMoovPos==(int64u)-1)
+                        return 6;     //Internal error
+
+                    if (Value>=LastMdatPos)
+                    {
+                        GoTo(File_Size);
+                        Open_Buffer_Unsynch();
+                        return 1;
+                    }
+
+                    {
+                        //Looking for video stream
+                        std::map<int32u, stream>::iterator Stream;
+                        for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                            if (Stream->second.StreamKind==Stream_Video)
+                                break;
+                        if (Stream==Streams.end())
+                            for (Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                                if (Stream->second.StreamKind==Stream_Audio)
+                                    break;
+                        if (Stream==Streams.end())
+                            return 0; //Not supported
+
+                        //Searching the corresponding chunk offset
+                        std::vector<int64u>::iterator Stco=Stream->second.stco.begin();
+                        if (Value<*Stco)
+                            return Read_Buffer_Seek(3, 0, ID);
+                            
+                        for (; Stco!=Stream->second.stco.end();  Stco++)
+                        {
+                            std::vector<int64u>::iterator Stco_Next=Stco; Stco_Next++;
+                            if (Stco_Next!=Stream->second.stco.end() && Value>=*Stco && Value<*Stco_Next)
+                            {
+                                GoTo(*Stco);
+                                Open_Buffer_Unsynch();
+                                return 1;
+                            }
+                        }
+
+                        GoTo(File_Size);
+                        Open_Buffer_Unsynch();
+                        return 1;
+                    }
         case 1  : 
                     if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
-                    return (size_t)-1; //Not supported
+
+                    if (FirstMoovPos==(int64u)-1)
+                        return 6;     //Internal error
+
+                    return Read_Buffer_Seek(0, FirstMdatPos+(LastMdatPos-FirstMdatPos)*Value/10000, ID);
         case 2  :   //Timestamp
                     {
                         //Looking for video stream

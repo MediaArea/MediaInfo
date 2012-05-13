@@ -1853,6 +1853,8 @@ Ztring MediaInfo_Config::Event_CallBackFunction_Set (const Ztring &Value)
         {
             if (List[Pos].find(_T("CallBack=memory://"))==0)
                 Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)Ztring(List[Pos].substr(18, std::string::npos)).To_int64u();
+            else if (List[Pos].find(_T("UserHandle=memory://"))==0)
+                Event_UserHandler=(void*)Ztring(List[Pos].substr(20, std::string::npos)).To_int64u();
             else if (List[Pos].find(_T("UserHandler=memory://"))==0)
                 Event_UserHandler=(void*)Ztring(List[Pos].substr(21, std::string::npos)).To_int64u();
             else

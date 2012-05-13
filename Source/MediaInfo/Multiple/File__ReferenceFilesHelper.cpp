@@ -58,7 +58,6 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     MI=MI_;
     Config=Config_;
     Reference=References.end();
-    File_Size_Total=MI->File_Size;
     Init_Done=false;
     TestContinuousFileNames=false;
     FrameRate=0;
@@ -289,15 +288,17 @@ void File__ReferenceFilesHelper::ParseReferences()
                     return;
 
                 //File size handling
-                if (File_Size_Total!=MI->File_Size)
+                if (MI->Config->File_Size!=MI->File_Size)
                 {
-                    MI->Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+                    MI->Fill(Stream_General, 0, General_FileSize, MI->Config->File_Size, 10, true);
                     MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
                 }
 
                 FileSize_Compute();
                 Reference=References.begin();
                 Init_Done=true;
+                
+                MI->Config->Demux_EventWasSent=true;
                 return;
             }
         #endif //MEDIAINFO_DEMUX
@@ -315,17 +316,20 @@ void File__ReferenceFilesHelper::ParseReferences()
         int64u FileSize_Parsed=0;
         for (references::iterator ReferenceTemp=References.begin(); ReferenceTemp!=References.end(); ReferenceTemp++)
         {
-            if (ReferenceTemp->State<10000)
+            if (ReferenceTemp->MI)
             {
-                if (ReferenceTemp->MI)
-                    ReferenceTemp->State=ReferenceTemp->MI->State_Get();
-                if (ReferenceTemp->State && ReferenceTemp->FileSize!=(int64u)-1)
-                    FileSize_Parsed+=(int64u)(ReferenceTemp->FileSize*(((float)ReferenceTemp->State)/10000));
+                if (ReferenceTemp->State<10000)
+                {
+                    if (ReferenceTemp->MI)
+                        ReferenceTemp->State=ReferenceTemp->MI->State_Get();
+                    if (ReferenceTemp->State && ReferenceTemp->MI->Config.File_Size!=(int64u)-1)
+                        FileSize_Parsed+=(int64u)(ReferenceTemp->MI->Config.File_Size*(((float)ReferenceTemp->State)/10000));
+                }
+                else
+                    FileSize_Parsed+=ReferenceTemp->MI->Config.File_Size;
             }
-            else
-                FileSize_Parsed+=ReferenceTemp->FileSize;
         }
-        Config->State_Set(((float)FileSize_Parsed)/File_Size_Total);
+        Config->State_Set(((float)FileSize_Parsed)/MI->Config->File_Size);
 
         #if MEDIAINFO_DEMUX
             if (Demux_Interleave)
@@ -353,9 +357,9 @@ void File__ReferenceFilesHelper::ParseReferences()
 
     //File size handling
     FileSize_Compute();
-    if (File_Size_Total!=MI->File_Size)
+    if (MI->Config->File_Size!=MI->File_Size)
     {
-        MI->Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+        MI->Fill(Stream_General, 0, General_FileSize, MI->Config->File_Size, 10, true);
         MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
     }
 }
@@ -439,6 +443,7 @@ void File__ReferenceFilesHelper::ParseReference()
                 #endif //MEDIAINFO_DEMUX
                 Reference->StreamKind=Stream_Max;
                 Reference->StreamPos=(size_t)-1;
+                Reference->FileSize=Reference->MI->Config.File_Size;
                 delete Reference->MI; Reference->MI=NULL;
             }
             Reference->FileNames.clear();
@@ -457,6 +462,7 @@ void File__ReferenceFilesHelper::ParseReference()
                     #endif //MEDIAINFO_DEMUX
                     Reference->StreamKind=Stream_Max;
                     Reference->StreamPos=(size_t)-1;
+                    Reference->FileSize=Reference->MI->Config.File_Size;
                     delete Reference->MI; Reference->MI=NULL;
                 }
                 Reference->FileNames.clear();
@@ -494,7 +500,7 @@ void File__ReferenceFilesHelper::ParseReference()
             Reference->StreamKind=Stream_Max;
             Reference->StreamPos=(size_t)-1;
             Reference->State=10000;
-            Reference->FileSize=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
+            Reference->FileSize=Reference->MI->Config.File_Size;
             delete Reference->MI; Reference->MI=NULL;
         }
     }
@@ -644,7 +650,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         {
                         if (Value)
                         {
-                            if (Value>File_Size_Total)
+                            if (Value>MI->Config->File_Size)
                                 return 2; //Invalid value
 
                             //Init
@@ -667,7 +673,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                             //Time percentage
                             float64 DurationF=Duration;
                             DurationF*=Value;
-                            DurationF/=File_Size_Total;
+                            DurationF/=MI->Config->File_Size;
                             size_t DurationM=(size_t)(DurationF*1000);
                             Ztring DurationS;
                             DurationS+=L'0'+(wchar_t)(DurationM/(10*60*60*1000)); DurationM%=10*60*60*1000;
@@ -838,20 +844,20 @@ size_t File__ReferenceFilesHelper::Stream_Prepare (stream_t StreamKind, size_t S
 //---------------------------------------------------------------------------
 void File__ReferenceFilesHelper::FileSize_Compute ()
 {
-    File_Size_Total=MI->File_Size;
+    if (MI->Config==NULL)
+        return;
+
+    MI->Config->File_Size=MI->File_Size;
 
     for (references::iterator Reference=References.begin(); Reference!=References.end(); Reference++)
     {
         if (Reference->FileSize!=(int64u)-1)
-            File_Size_Total+=Reference->FileSize;
-        else    
-        {
-            if (Reference->MI)
-                File_Size_Total+=Ztring(Reference->MI->Get(Stream_General, 0, General_FileSize)).To_int64u();
-            else
-                for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
-                    File_Size_Total+=File::Size_Get(Reference->FileNames[Pos]);
-        }
+            MI->Config->File_Size+=Reference->FileSize;
+        else if (Reference->MI && Reference->MI->Config.File_Size!=(int64u)-1)
+            MI->Config->File_Size+=Reference->MI->Config.File_Size;
+        else
+            for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
+                MI->Config->File_Size+=File::Size_Get(Reference->FileNames[Pos]);
     }
 }
 

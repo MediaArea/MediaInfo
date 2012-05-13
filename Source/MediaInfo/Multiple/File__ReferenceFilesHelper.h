@@ -106,7 +106,6 @@ private :
     File__Analyze*                  MI;
     MediaInfo_Config_MediaInfo*     Config;
     references::iterator            Reference;
-    int64u                          File_Size_Total;
     bool                            Init_Done;
     bool                            Demux_Interleave;
     size_t                          CountOfReferencesToParse;

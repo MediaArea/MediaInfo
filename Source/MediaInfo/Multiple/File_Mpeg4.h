@@ -316,6 +316,7 @@ private :
     int32u                                  Vendor;
     Ztring                                  Vendor_Version;
     int64u                                  FirstMdatPos;
+    int64u                                  LastMdatPos; //This is the position of the byte after the last byte of mdat
     int64u                                  FirstMoovPos;
     int64u                                  moof_base_data_offset;
     int64u                                  moof_traf_base_data_offset;
