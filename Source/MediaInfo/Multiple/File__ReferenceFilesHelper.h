@@ -46,6 +46,7 @@ public :
         Ztring              Source; //Source file name (relative path)
         stream_t            StreamKind;
         size_t              StreamPos;
+        size_t              MenuPos;
         int64u              StreamID;
         float64             FrameRate;
         int64u              Delay;
@@ -66,6 +67,7 @@ public :
             FileNames.Separator_Set(0, _T(","));
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
+            MenuPos=(size_t)-1;
             StreamID=(int64u)-1;
             FrameRate=0;
             Delay=0;

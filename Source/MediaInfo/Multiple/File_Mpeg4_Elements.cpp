@@ -5177,6 +5177,11 @@ void File_Mpeg4::moov_trak_tkhd()
         moov_trak_tkhd_Rotation=(float32)(std::atan2(b, a)*180.0/3.14159);
         if (moov_trak_tkhd_Rotation<0)
             moov_trak_tkhd_Rotation+=360;
+
+        #if MEDIAINFO_EVENTS
+            if (StreamIDs_Size>1 && Config->File_ID_OnlyRoot_Get())
+                StreamIDs_Width[StreamIDs_Size-1]=Streams.size()<=1?0:8; //If referenced file and more than 1 stream, referenced ID is discarded, else referenced ID is used
+        #endif //MEDIAINFO_EVENTS
     FILLING_END();
 }
 

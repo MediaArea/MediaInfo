@@ -583,11 +583,28 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             if (!ID_Base.empty())
                 for (size_t Pos=0; Pos<List.size(); Pos++)
                 {
-                    List[Pos].insert(0, ID+_T("-"));
-                    List_String[Pos].insert(0, ID+_T("-"));
+                    List[Pos].insert(0, ID_Base+_T("-"));
+                    List_String[Pos].insert(0, ID_Base+_T("-"));
                 }
             MI->Fill(Stream_Menu, StreamPos_To, Menu_List, List.Read(), true);
             MI->Fill(Stream_Menu, StreamPos_To, Menu_List_String, List_String.Read(), true);
+        }
+        if (!(Config->File_ID_OnlyRoot_Get() && Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)<=1) && Reference->MI->Count_Get(Stream_Menu)==0)
+        {
+            if (Reference->MenuPos==(size_t)-1)
+            {
+                Reference->MenuPos=MI->Stream_Prepare(Stream_Menu);
+                MI->Fill(Stream_Menu, Reference->MenuPos, General_ID, ID_Base);
+            }
+            Ztring List=Reference->MI->Get(StreamKind_Last, StreamPos_From, General_ID);
+            Ztring List_String=Reference->MI->Get(StreamKind_Last, StreamPos_From, General_ID_String);
+            if (!ID_Base.empty())
+            {
+                List.insert(0, ID_Base+_T("-"));
+                List_String.insert(0, ID_Base+_T("-"));
+            }
+            MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List, List);
+            MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List_String, List_String);
         }
         if (!MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
         {
@@ -605,6 +622,11 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
                 if (!ID_Base.empty())
                     MenuID_String=ID_Base+_T('-');
                 MenuID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID/String");
+            }
+            else if (Reference->MenuPos!=(size_t)-1)
+            {
+                MenuID=ID_Base;
+                MenuID_String=ID_Base;
             }
         }
     }
