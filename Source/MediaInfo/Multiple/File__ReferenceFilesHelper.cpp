@@ -574,7 +574,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         CodecID+=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
         MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
     }
-    if (!(Config->File_ID_OnlyRoot_Get() && Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)<=1) || ID_Base.empty())
+    if (Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1 && Reference->MI->Get(Stream_Video, 0, Video_Format)!=_T("DV"))
     {
         if (StreamKind_Last==Stream_Menu)
         {
@@ -589,7 +589,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(Stream_Menu, StreamPos_To, Menu_List, List.Read(), true);
             MI->Fill(Stream_Menu, StreamPos_To, Menu_List_String, List_String.Read(), true);
         }
-        if (!(Config->File_ID_OnlyRoot_Get() && Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)<=1) && Reference->MI->Count_Get(Stream_Menu)==0)
+        else if (!Config->File_ID_OnlyRoot_Get() && Reference->MI->Get(Stream_Video, 0, Video_Format)!=_T("DV") && References.size()>1 && Reference->MI->Count_Get(Stream_Menu)==0)
         {
             if (Reference->MenuPos==(size_t)-1)
             {
@@ -606,28 +606,28 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List, List);
             MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List_String, List_String);
         }
-        if (!MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
+    }
+    if ((!Config->File_ID_OnlyRoot_Get() || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
+    {
+        if (!ID.empty())
+            ID+=_T('-');
+        ID+=MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID);
+        if (!ID_String.empty())
+            ID_String+=_T('-');
+        ID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID_String);
+        if (!MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID").empty())
         {
             if (!ID_Base.empty())
-                ID+=_T('-');
-            ID+=MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID);
+                MenuID=ID_Base+_T('-');
+            MenuID+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID");
             if (!ID_Base.empty())
-                ID_String+=_T('-');
-            ID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID_String);
-            if (!MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID").empty())
-            {
-                if (!ID_Base.empty())
-                    MenuID=ID_Base+_T('-');
-                MenuID+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID");
-                if (!ID_Base.empty())
-                    MenuID_String=ID_Base+_T('-');
-                MenuID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID/String");
-            }
-            else if (Reference->MenuPos!=(size_t)-1)
-            {
-                MenuID=ID_Base;
-                MenuID_String=ID_Base;
-            }
+                MenuID_String=ID_Base+_T('-');
+            MenuID_String+=MI->Retrieve(StreamKind_Last, StreamPos_To, "MenuID/String");
+        }
+        else if (Reference->MenuPos!=(size_t)-1)
+        {
+            MenuID=ID_Base;
+            MenuID_String=ID_Base;
         }
     }
     MI->Fill(StreamKind_Last, StreamPos_To, General_ID, ID, true);

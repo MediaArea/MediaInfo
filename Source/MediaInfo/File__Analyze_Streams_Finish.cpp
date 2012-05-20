@@ -604,7 +604,7 @@ void File__Analyze::Streams_Finish_InterStreams()
         bool IsValid=false;
         bool IsCBR=true;
         bool IsVBR=false;
-        for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+        for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Menu; StreamKind++)
             for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
             {
                 if (!IsValid)
