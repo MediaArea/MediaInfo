@@ -2053,10 +2053,16 @@ void File_Mpeg4::moov_meta_hdlr()
     //Parsing
     Skip_C4(                                                    "Type (Quicktime)"); //Filled if Quicktime
     Get_C4 (moov_meta_hdlr_Type,                                "Metadata type");
-    Skip_C4(                                                    "Manufacturer");
-    Skip_B4(                                                    "Component reserved flags"); //Filled if Quicktime
-    Skip_B4(                                                    "Component reserved flags mask"); //Filled if Quicktime
-    Skip_Local(Element_Size-Element_Offset,                     "Component type name");
+    if (Element_Offset+12<=Element_Size)
+    {
+        Skip_C4(                                                "Manufacturer");
+        Skip_B4(                                                "Component reserved flags"); //Filled if Quicktime
+        Skip_B4(                                                "Component reserved flags mask"); //Filled if Quicktime
+        if (Element_Offset<Element_Size)
+            Skip_Local(Element_Size-Element_Offset,             "Component type name");
+    }
+    else if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -2110,6 +2116,20 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
     int32u Kind, Language;
     Ztring Value;
     Get_B4(Kind,                                                  "Kind"); Param_Info1(Mpeg4_Meta_Kind(Kind));
+
+    //Error detection
+    switch (Element_Code_Get(Element_Level-1))
+    {
+        case Elements::moov_meta__disk :
+        case Elements::moov_meta__trkn :
+                                         if (Kind)
+                                         {
+                                             //Not normal
+                                             Kind=0x00;
+                                         }
+        default                        : ;
+    }
+
     switch (Kind)
     {
         case 0x00 : //Binary
@@ -2127,8 +2147,10 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                                 Skip_B2(                        "Reserved"); //Sometimes there are 2 more bytes, unknown
 
                             //Filling
-                            Fill(Stream_General, 0, General_Part_Position, Position, 10, true);
-                            Fill(Stream_General, 0, General_Part_Position_Total, Total, 10, true);
+                            if (Position)
+                                Fill(Stream_General, 0, General_Part_Position, Position, 10, true);
+                            if (Total)
+                                Fill(Stream_General, 0, General_Part_Position_Total, Total, 10, true);
                             }
                             return;
                         case Elements::moov_meta__trkn :
@@ -2142,8 +2164,10 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                                 Skip_B2(                        "Reserved"); //Sometimes there are 2 more bytes, unknown
 
                             //Filling
-                            Fill(Stream_General, 0, General_Track_Position, Position, 10, true);
-                            Fill(Stream_General, 0, General_Track_Position_Total, Total, 10, true);
+                            if (Position)
+                                Fill(Stream_General, 0, General_Track_Position, Position, 10, true);
+                            if (Total)
+                                Fill(Stream_General, 0, General_Track_Position_Total, Total, 10, true);
                             }
                             return;
                         case Elements::moov_meta__covr :
@@ -2200,6 +2224,24 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     Get_Local(Element_Size-Element_Offset, Value, "Value");
                     break;
         case 0x0D : //JPEG
+                    Get_B4(Language,                            "Language");
+                    switch (Element_Code_Get(Element_Level-1))
+                    {
+                        case Elements::moov_meta__covr :
+                            {
+                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));
+                            std::string Data_Base64(Base64::encode(Data_Raw));
+                            Skip_XX(Element_Size-Element_Offset, "Data");
+
+                            //Filling
+                            Fill(Stream_General, 0, General_Cover_Data, Data_Base64);
+                            Fill(Stream_General, 0, General_Cover, "Yes");
+                            }
+                            return;
+                        default:
+                            Value=_T("(Binary)");
+                    }
+                    break;
         case 0x0E : //PNG
                     Get_B4(Language,                            "Language");
                     switch (Element_Code_Get(Element_Level-1))
