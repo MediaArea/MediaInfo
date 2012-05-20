@@ -73,6 +73,7 @@ File_ChannelGrouping::File_ChannelGrouping()
     Channel_Total=1;
     SampleRate=0;
     Endianness=0;
+    IsAes3=false;
 
     //Temp
     Buffer_Offset_AlreadyInCommon=0;
@@ -148,6 +149,7 @@ void File_ChannelGrouping::Read_Buffer_Init()
         Common->Parser=new File_Aes3;
         ((File_Aes3*)Common->Parser)->SampleRate=SampleRate;
         ((File_Aes3*)Common->Parser)->ByteSize=ByteDepth*Channel_Total;
+        ((File_Aes3*)Common->Parser)->IsAes3=IsAes3;
         Common->Channels.resize(Channel_Total);
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
             Common->Channels[Pos]=new common::channel;
@@ -174,7 +176,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     }
 
     //If basic PCM is already detected
-    if (Common->IsPcm)
+    if (!IsAes3 && Common->IsPcm)
     {
         if (Buffer_Size==Buffer_Offset_AlreadyInCommon)
         {
@@ -187,7 +189,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
             Demux_Level=2; //Container
             Demux_Offset=Buffer_Size;
             FrameInfo.PTS=FrameInfo.DTS;
-            if (IsPcm_Frame_Count)
+            if (FrameInfo.DUR!=(int64u)-1 && IsPcm_Frame_Count)
                 FrameInfo.DUR*=IsPcm_Frame_Count+1;
             Demux_UnpacketizeContainer_Demux();
         #endif //MEDIAINFO_DEMUX
@@ -233,7 +235,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         Common->Channels[Channel_Pos]->resize(Common->Channels[Channel_Pos]->Buffer_Size+Buffer_Size-Buffer_Offset_AlreadyInCommon);
     memcpy(Common->Channels[Channel_Pos]->Buffer+Common->Channels[Channel_Pos]->Buffer_Size, Buffer+Buffer_Offset_AlreadyInCommon, Buffer_Size-Buffer_Offset_AlreadyInCommon);
     Common->Channels[Channel_Pos]->Buffer_Size+=Buffer_Size-Buffer_Offset_AlreadyInCommon;
-    if (!Common->IsAes3)
+    if (!Common->IsAes3 && !Common->IsPcm)
         Buffer_Offset_AlreadyInCommon=Buffer_Size;
     else
         Buffer_Offset_AlreadyInCommon=0;
@@ -288,8 +290,11 @@ void File_ChannelGrouping::Read_Buffer_Continue()
             Common->IsPcm=true;
     }
 
-    if (Common->IsAes3)
+    if (Common->IsAes3 || Common->IsPcm)
+    {
         Buffer_Offset=Buffer_Size;
+        Buffer_Offset_AlreadyInCommon=0;
+    }
     else
         Element_WaitForMoreData();
 
@@ -309,6 +314,13 @@ void File_ChannelGrouping::Read_Buffer_Unsynched()
         Common->Parser->Open_Buffer_Unsynch();
 
     Buffer_Offset_AlreadyInCommon=0;
+    Common->MergedChannel.Buffer_Offset=0;
+    Common->MergedChannel.Buffer_Size=0;
+    for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
+    {
+        Common->Channels[Pos]->Buffer_Offset=0;
+        Common->Channels[Pos]->Buffer_Size=0;
+    }
 }
 
 //***************************************************************************

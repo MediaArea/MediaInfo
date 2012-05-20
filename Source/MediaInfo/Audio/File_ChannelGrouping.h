@@ -120,6 +120,7 @@ public :
     size_t  Channel_Total;
     int64u  SampleRate;
     int8u   Endianness;
+    bool    IsAes3;
 
     //Constructor/Destructor
     File_ChannelGrouping();

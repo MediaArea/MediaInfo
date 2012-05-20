@@ -48,6 +48,7 @@ public :
     bool    From_Raw;
     bool    From_MpegPs;
     bool    From_Aes3;
+    bool    IsAes3;
     int8u   Endianness;
 
     //Out

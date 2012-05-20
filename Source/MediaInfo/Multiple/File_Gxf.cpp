@@ -407,6 +407,9 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                     }
 
                 Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
+                
+                Fill(Stream_Video, StreamPos_Last, Video_ID, StreamID, 10, true);
+                Fill(Stream_Video, StreamPos_Last, "Title", Temp.MediaName);
 
                 //Special cases
                 if (Temp.Parser->Count_Get(Stream_Text))
@@ -452,6 +455,22 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                     }
 
                 Merge(*Temp.Parser, Stream_Audio, Pos, StreamPos_Last, false);
+
+                Ztring ID=Ztring::ToZtring(StreamID);
+                if (Temp.IsChannelGrouping)
+                    ID+=_T(" / ")+Ztring::ToZtring(StreamID+1); //Second half of the channel grouping
+                Ztring ID_String=ID;
+                if (!Retrieve(Stream_Audio, StreamPos_Last, Audio_ID).empty())
+                {
+                    ID+=_T('-')+Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
+                    ID_String+=_T('-')+Retrieve(Stream_Audio, StreamPos_Last, Audio_ID_String);
+                }
+                Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID_String, true);
+                Fill(Stream_Audio, StreamPos_Last, "Title", Temp.MediaName);
+                if (Temp.IsChannelGrouping)
+                    Fill(StreamKind_Last, StreamPos_Last, "Title", Streams[StreamID+1].MediaName); //Second half of the channel grouping
+
                 for (std::map<std::string, Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); Info++)
                     if (Retrieve(Stream_Audio, StreamPos_Last, Info->first.c_str()).empty())
                         Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second);
@@ -477,19 +496,6 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
 
                 StreamKind_Last=Stream_Max;
                 StreamPos_Last=(size_t)-1;
-            }
-        }
-
-        //Metadata
-        if (StreamKind_Last!=Stream_Max)
-        {
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, StreamID, 10, true);
-            Fill(StreamKind_Last, StreamPos_Last, "Title", Temp.MediaName);
-            if (Temp.IsChannelGrouping)
-            {
-                //Second half of the channel grouping
-                Fill(StreamKind_Last, StreamPos_Last, "Title", Streams[StreamID+1].MediaName);
-                Fill(StreamKind_Last, StreamPos_Last, General_ID, StreamID+1, 10);
             }
         }
     }
@@ -1248,7 +1254,8 @@ void File_Gxf::media()
                     if (TimeCode_First==(int64u)-1)
                         TimeCode_First=TimeCodes.begin()->second;
                 }
-                TimeCode_First*=1000000;
+                if (TimeCode_First!=(int64u)-1)
+                    TimeCode_First*=1000000;
                 if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)==Stream_Video)
                 {
                     if (Gxf_FrameRate(Streams[TrackNumber].FrameRate_Code))
@@ -1444,6 +1451,7 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
     Parser->Channel_Total=2;
     Parser->Endianness='L';
     Parser->ByteDepth=3;
+    Parser->IsAes3=true;
 
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer)

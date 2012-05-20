@@ -15,6 +15,7 @@ Version 0.7.57, 2012-05-02
 x Referenced files (MXF, HLS, MOV, P2, XDCAM...): issues with source name, track order, files size
 x MPEG-TS/MPEG-PS: regression, some files with AC-3/DTS/DVD subtitles were not well analyzed anymore
 x MPEG-4 channel mapping: Lt and Rt (matrix-encoded) channel mapping were missing
+x GXF: handling of buggy files having non-PCM AES3 codec identifier but actually having PCM
 
 Version 0.7.57, 2012-05-02
 --------------

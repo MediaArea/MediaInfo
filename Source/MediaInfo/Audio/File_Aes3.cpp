@@ -192,6 +192,7 @@ File_Aes3::File_Aes3()
     From_Raw=false;
     From_MpegPs=false;
     From_Aes3=false;
+    IsAes3=false;
     Endianness=0x00;
 
     //Out
@@ -386,7 +387,7 @@ void File_Aes3::Read_Buffer_Continue()
                 Element_Size=(Buffer_Size/ByteSize)*ByteSize;
             else
                 Element_Size=Buffer_Size;
-            if (Demux_UnpacketizeContainer && !(StreamIDs_Size>=2 && ParserIDs[StreamIDs_Size-2]==MediaInfo_Parser_ChannelGrouping))
+            if (Demux_UnpacketizeContainer && !(!IsAes3 && StreamIDs_Size>=2 && ParserIDs[StreamIDs_Size-2]==MediaInfo_Parser_ChannelGrouping))
             {
                 FrameInfo.PTS=FrameInfo.DTS;
                 if (SampleRate && ByteSize)
