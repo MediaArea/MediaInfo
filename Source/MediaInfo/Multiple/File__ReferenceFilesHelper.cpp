@@ -589,7 +589,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(Stream_Menu, StreamPos_To, Menu_List, List.Read(), true);
             MI->Fill(Stream_Menu, StreamPos_To, Menu_List_String, List_String.Read(), true);
         }
-        else if (!Config->File_ID_OnlyRoot_Get() && Reference->MI->Get(Stream_Video, 0, Video_Format)!=_T("DV") && References.size()>1 && Reference->MI->Count_Get(Stream_Menu)==0)
+        else if (References.size()>1 && Reference->MI->Count_Get(Stream_Menu)==0)
         {
             if (Reference->MenuPos==(size_t)-1)
             {
