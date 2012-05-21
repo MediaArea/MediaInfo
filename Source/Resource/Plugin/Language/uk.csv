@@ -144,8 +144,8 @@
 About;Про програму
 About_Hint;Контакти та пошук нової версії
 Accompaniment;Супровід
-ActiveFormatDescription;
-ActiveFormatDescription_MuxingMode;
+ActiveFormatDescription;Чинний опис формату
+ActiveFormatDescription_MuxingMode;Чинний опис формату, Режим мультиплексування
 Actor;Актор
 Actor_Character;У ролі
 Added_Date;Дата додавання
@@ -185,7 +185,7 @@ BitRate_Mode;Режим розрахунку бітрейта
 BitRate_Mode_CBR;Постійний (CBR)
 BitRate_Mode_VBR;Змінний (VBR)
 BitRate_Nominal;Номінальний бітрейт
-BitRate_Encoded;
+BitRate_Encoded;Бітрейт кодування
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадри)
 BufferSize;Розмір буфера
 Cancel;Відміна
@@ -265,7 +265,7 @@ Decimal point;Десятковий роздільник
 Delay;Затримка
 Delay_Source;Затримка, початкова
 Delay_Source_Container;Контейнер
-Delay_Source_Stream;Сирий
+Delay_Source_Stream;Сирий потік
 Delete;Видалити
 Description;Опис
 Digitized_Date;Дата оцифровування
@@ -318,7 +318,7 @@ Folder_Hint;Вибір каталогу
 FolderName;Назва каталогу
 Format;Формат
 Format_Commercial;Комерційна назва
-Format_Commercial_IfAny;
+Format_Commercial_IfAny;Комерційна назва
 Format_Description;Опис формату
 Format_Info;Деталі формату
 Format_Profile;Профіль формату
@@ -891,12 +891,12 @@ Show toolbar;Відображати панель
 Sort;Сортування
 SamplingCount;Кількість семплів
 SoundEngineer;Звукорежисер
-Source;
-Source_Duration;
-Source_FrameCount;
-Source_SamplingCount;
-Source_StreamSize;
-Source_StreamSize_Encoded;
+Source;Вихідний матеріал
+Source_Duration;Тривалість вихідного матеріалу
+Source_FrameCount;Кількість кадрів вихідного матеріалу
+Source_SamplingCount;Кількість семплів вихідного матеріалу
+Source_StreamSize;Розмір потоку вихідного матеріалу
+Source_StreamSize_Encoded;Розмір кодованого потоку вихідного матеріалу
 Standard;Стандарт
 Stream;Потік
 Stream_MoreInfo;Більше інформації про потік
@@ -906,8 +906,8 @@ StreamKind;Вид потоку
 StreamKindID;Ідентифікатор потоку
 StreamKindPos;Ідентифікатор потоку
 StreamSize;Розмір потоку
-StreamSize_Encoded;
-StreamSize_Proportion;Пропорції цього потоку
+StreamSize_Encoded;Розмір кодованого потоку
+StreamSize_Proportion;Відносний розмір потоку
 Subject;Тема
 SubTrack;Підпотік
 Summary;Підсумок
@@ -975,5 +975,5 @@ Written_Location;Місце запису
 WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;100
