@@ -1,25 +1,24 @@
-# Copyright (c) 2007-2008 oc2pus
+# Copyright (c) 2007-2012 MediaArea.net SARL <info@mediaarea.net>
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
-#
-# Please submit bugfixes or comments to toni@links2linux.de
 
 # norootforbuild
 
-%define mediainfo_version		0.7.57
-%define libmediainfo_version	0.7.57
+%define mediainfo_version		0.7.58
+%define libmediainfo_version	0.7.58
 %define libzen_version			0.4.25
 
 Name:			mediainfo
 Version:		%mediainfo_version
 Release:		1
-Summary:		Command-line utility for reading information from media files
+Summary:		Convenient unified display of the most relevant technical and tag data for video and audio files (CLI)
+
 Group:			Productivity/Multimedia/Other
-License:		GPL
+License:		LGPLv3+
 URL:			http://mediainfo.sourceforge.net/
 Packager:		MediaArea.net SARL <info@mediaarea.net>
 Source0:		mediainfo_%{version}-1.tar.gz
-BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
+
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
 BuildRequires:	libmediainfo-devel
@@ -44,45 +43,35 @@ BuildRequires: 	zlib-devel
 BuildRequires:	update-desktop-files
 %endif
 %endif
-Requires:	libmediainfo0 >= %libmediainfo_version
-Requires:	libzen0 >= %libzen_version
+Requires:	    libmediainfo0 >= %libmediainfo_version
+Requires:	    libzen0 >= %libzen_version
+
+BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
-MediaInfo provides easy access to technical and tag information
-about video and audio files.
+MediaInfo is a convenient unified display of the most relevant technical
+and tag data for video and audio files.
 
-A non-exhaustive list of the information MediaInfo can retrieve:
- - General: format, profile, commercial name of the format, duration,
-            overall bit rate, writing application and library, title,
-            author, director, album, track number, date, duration...
+The MediaInfo data display includes:
+ - Container: format, profile, commercial name of the format, duration,
+   overall bit rate, writing application and library, title, author,
+   director, album, track number, date, duration...
  - Video: format, codec id, aspect, frame rate, bit rate, color space,
-          chroma subsampling, bit depth, scan type, scan order...
- - Audio: format, codec id, sample rate, channels, bit depth,
-          bit rate, language...
+   chroma subsampling, bit depth, scan type, scan order...
+ - Audio: format, codec id, sample rate, channels, bit depth, language,
+   bit rate...
  - Text: format, codec id, language of subtitle...
  - Chapters: count of chapters, list of chapters...
 
-A non-exhaustive list of the formats MediaInfo can analyze:
+MediaInfo analyticals include:
  - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
-              MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
+   MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
  - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
  - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
-          H.264/AVC, Dirac...
- - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3,
-          FLAC, Vorbis, PCM...
- - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53,
-              CDP, DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
- 
-A non-exhaustive list of the features:
- - Read many video and audio file formats
- - View information in different formats (text, sheet, tree, HTML...)
- - Customise these viewing formats
- - Export information as text, CSV, HTML...
- - Graphical user interface, command line interface, or library (.so) versions available
- - Integrate with the shell (drag 'n' drop, and Context menu)
- - Internationalisation: display any language on any operating system
- - Localisation capability
-   (for which volunteers are needed - please contact me!)
+   H.264/AVC, Dirac...
+ - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3, FLAC...
+ - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
+   DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
 
 This package includes the command line interface.
 
@@ -90,8 +79,8 @@ This package includes the command line interface.
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %package gui
-Summary:    Graphical utility for reading information from media files
-Group:        Productivity/Multimedia/Other
+Summary:     Convenient unified display of the most relevant technical and tag data for video and audio files (GUI)
+Group:       Productivity/Multimedia/Other
 Requires:    libzen0 >= %libzen_version
 Requires:    libmediainfo0 >= %{version}
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
@@ -111,23 +100,29 @@ Requires:    wxGTK
 %endif
 
 %description gui
-MediaInfo is a utility used for retrieving technical information and other
-metadata about audio or video files.
+MediaInfo is a convenient unified display of the most relevant technical
+and tag data for video and audio files.
 
-A non-exhaustive list of the information MediaInfo can retrieve from media
-files include:
- - General: title, author, director, album, track number, date, duration...
- - Video: codec, aspect, fps, bitrate...
- - Audio: codec, sample rate, channels, language, bitrate...
- - Text: language of subtitle
- - Chapters: number of chapters, list of chapters
+The MediaInfo data display includes:
+ - Container: format, profile, commercial name of the format, duration,
+   overall bit rate, writing application and library, title, author,
+   director, album, track number, date, duration...
+ - Video: format, codec id, aspect, frame rate, bit rate, color space,
+   chroma subsampling, bit depth, scan type, scan order...
+ - Audio: format, codec id, sample rate, channels, bit depth, language,
+   bit rate...
+ - Text: format, codec id, language of subtitle...
+ - Chapters: count of chapters, list of chapters...
 
-MediaInfo supports the following formats:
- - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
-          MPEG-4, DVD (VOB)...
- - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
- - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
- - Subtitles: SRT, SSA, ASS, SAMI...
+MediaInfo analyticals include:
+ - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
+   MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
+ - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
+ - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
+   H.264/AVC, Dirac...
+ - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3, FLAC...
+ - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
+   DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
 
 This package contains the graphical user interface.
 
@@ -237,6 +232,6 @@ popd
 %endif
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.572-0
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.58
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
