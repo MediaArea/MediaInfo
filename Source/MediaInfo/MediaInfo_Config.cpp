@@ -1,5 +1,5 @@
 // MediaInfo_Config - Configuration class
-// Copyright (C) 2005-2011 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2005-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -45,7 +45,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.57");
+const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.58");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version

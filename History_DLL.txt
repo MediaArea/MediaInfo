@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.57, 2012-05-02
+Version 0.7.58, 2012-05-22
 --------------
 + AC-3: Little Endian streams support
 + LXF: AVC streams support
