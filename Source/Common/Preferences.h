@@ -1,10 +1,10 @@
 // Preferences - Manage preferences of MediaInfo
-// Copyright (C) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2002-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This program is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
-// any later version.
+// (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -48,7 +48,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#define MediaInfo_Version_GUI _T("0.7.57")
+#define MediaInfo_Version_GUI _T("0.7.58")
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
