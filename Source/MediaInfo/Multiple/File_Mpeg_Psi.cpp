@@ -1280,12 +1280,15 @@ void File_Mpeg_Psi::Table_02()
 
     FILLING_BEGIN();
         //Removing previous elementary_PIDs no more used
-        for (size_t Pos=0; Pos<elementary_PIDs_Previous.size(); Pos++)
+        if (Config->File_MpegTs_RealTime_Get())
         {
-            elementary_PID=elementary_PIDs_Previous[Pos];
-            elementary_PID_Remove();
+            for (size_t Pos=0; Pos<elementary_PIDs_Previous.size(); Pos++)
+            {
+                elementary_PID=elementary_PIDs_Previous[Pos];
+                elementary_PID_Remove();
 
-            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].Update_Needed_StreamCount=true;
+                Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].Update_Needed_StreamCount=true;
+            }
         }
 
         #ifdef MEDIAINFO_MPEGTS_PCR_YES

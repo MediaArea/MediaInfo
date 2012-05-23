@@ -93,6 +93,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_MpegTs_ForceMenu=false;
     File_MpegTs_stream_type_Trust=true;
     File_MpegTs_Atsc_transport_stream_id_Trust=true;
+    File_MpegTs_RealTime=false;
     File_Bdmv_ParseTargetedFile=true;
     #if defined(MEDIAINFO_DVDIF_YES)
     File_DvDif_DisableAudioIfIsInContainer=false;
@@ -518,6 +519,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_mpegts_atsc_transport_stream_id_trust_get"))
     {
         return File_MpegTs_Atsc_transport_stream_id_Trust_Get()?"1":"0";
+    }
+    else if (Option_Lower==_T("file_mpegts_realtime"))
+    {
+        File_MpegTs_RealTime_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_mpegts_realtime_get"))
+    {
+        return File_MpegTs_RealTime_Get()?"1":"0";
     }
     else if (Option_Lower==_T("file_bdmv_parsetargetedfile"))
     {
@@ -1452,6 +1462,21 @@ bool MediaInfo_Config_MediaInfo::File_MpegTs_Atsc_transport_stream_id_Trust_Get 
 {
     CS.Enter();
     bool Temp=File_MpegTs_Atsc_transport_stream_id_Trust;
+    CS.Leave();
+    return Temp;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_MpegTs_RealTime_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_MpegTs_RealTime=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_MpegTs_RealTime_Get ()
+{
+    CS.Enter();
+    bool Temp=File_MpegTs_RealTime;
     CS.Leave();
     return Temp;
 }
