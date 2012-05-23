@@ -74,6 +74,10 @@ File_Eia608::File_Eia608()
 :File__Analyze()
 {
     //Configuration
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Eia608;
+        StreamIDs_Width[0]=1;
+    #endif //MEDIAINFO_EVENTS
     PTS_DTS_Needed=true;
 
     //In
