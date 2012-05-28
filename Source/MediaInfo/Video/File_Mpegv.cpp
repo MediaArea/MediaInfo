@@ -3018,7 +3018,7 @@ void File_Mpegv::user_data_start_3()
             size_t Pos=TemporalReference_Offset+temporal_reference;
             do
             {
-                if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid || TemporalReference[Pos]->Scte==NULL)
+                if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid || TemporalReference[Pos]->Scte.empty())
                     break;
                 Pos--;
             }
