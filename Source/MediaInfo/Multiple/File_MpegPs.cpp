@@ -585,7 +585,11 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                     return;
             #endif //MEDIAINFO_DEMUX
         }
+        Ztring ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+        Ztring ID_String=Retrieve(StreamKind_Last, StreamPos_Last, General_ID_String);
         Merge(*Temp.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, ID_String, true);
 
         //Special cases
         if (Temp.Parsers[0]->Count_Get(Stream_Video) && Temp.Parsers[0]->Count_Get(Stream_Text))
@@ -2397,6 +2401,9 @@ void File_MpegPs::program_stream_map()
         for (int8u Pos=0; Pos<0xFF; Pos++)
             if (Parser.Complete_Stream->Streams[Pos]->stream_type!=(int8u)-1)
             {
+                if (!Parser.Complete_Stream->Transport_Streams.empty() && !Parser.Complete_Stream->Transport_Streams.begin()->second.Programs.empty())
+                    Streams[Pos].program_format_identifier=Parser.Complete_Stream->Transport_Streams.begin()->second.Programs.begin()->second.registration_format_identifier;
+                Streams[Pos].format_identifier=Parser.Complete_Stream->Streams[Pos]->registration_format_identifier;
                 Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos]->stream_type;
             }
             else
@@ -2695,13 +2702,15 @@ bool File_MpegPs::private_stream_1_Choose_DVD_ID()
 //---------------------------------------------------------------------------
 File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
 {
-    if (FromTS)
+    if (FromTS || Streams[stream_id].program_format_identifier || Streams[stream_id].format_identifier || Streams[stream_id].descriptor_tag)
     {
-        if (FromTS_format_identifier==0x42535344) //"BSSD"
+        int32u format_identifier=FromTS?FromTS_format_identifier:Streams[stream_id].format_identifier;
+        if (format_identifier==0x42535344) //"BSSD"
         {
-            return ChooseParser_AES3(); //AES3 (SMPTE 320M)
+            return ChooseParser_AES3(); //AES3 (SMPTE 302M)
         }
-        switch (FromTS_stream_type)
+        int32u stream_type=FromTS?FromTS_stream_type:Streams[stream_id].stream_type;
+        switch (stream_type)
         {
             case 0x03 :
             case 0x04 : return ChooseParser_Mpega(); //MPEG Audio
@@ -2719,7 +2728,10 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
             case 0xA2 : return ChooseParser_DTS(); //DTS
             case 0x90 : return ChooseParser_PGS(); //PGS from Bluray
             case 0xEA : return ChooseParser_NULL(); //VC1()
-            default   : switch (FromTS_descriptor_tag)
+            default   : 
+                        {
+                        int8u descriptor_tag=FromTS?FromTS_descriptor_tag:Streams[stream_id].descriptor_tag;
+                        switch (descriptor_tag)
                         {
                             case 0x56 : return ChooseParser_Teletext(); //Teletext
                             case 0x59 : return ChooseParser_DvbSubtitle(); //DVB Subtiles
@@ -2734,6 +2746,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
                                             return ChooseParser_DTS(); //DTS
                                         else
                                             return NULL;
+                        }
                         }
         }
     }

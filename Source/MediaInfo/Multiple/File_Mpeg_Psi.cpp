@@ -1010,6 +1010,7 @@ void File_Mpeg_Psi::Table_forbidden()
 void File_Mpeg_Psi::program_stream_map()
 {
     Element_Name("program_stream_map");
+    table_id=0x02; // program_map_section
 
     //Parsing
     int16u elementary_stream_map_length;
@@ -1048,7 +1049,11 @@ void File_Mpeg_Psi::program_stream_map()
                 Descriptors_Size-=3;
         }
         if (Descriptors_Size>0)
+        {
+            elementary_PID=elementary_stream_id;
+            elementary_PID_IsValid=true;
             Descriptors();
+        }
         Element_End0();
         elementary_stream_map_Pos+=4+ES_info_length;
 

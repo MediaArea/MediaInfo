@@ -201,6 +201,9 @@ private :
         stream_t       StreamKind;
         size_t         StreamPos;
         int8u          stream_type;
+        int32u         program_format_identifier;
+        int32u         format_identifier;
+        int8u          descriptor_tag;
         int8u          DVD_Identifier;
         std::vector<File__Analyze*> Parsers; //Sometimes, we need to do parallel tests
         Mpeg_TimeStamp TimeStamp_Start;
@@ -216,6 +219,9 @@ private :
             StreamKind=Stream_Max;
             StreamPos=0;
             stream_type=0;
+            program_format_identifier=0x00000000; //No info
+            format_identifier=0x00000000; //No info
+            descriptor_tag=0x00; //No info
             DVD_Identifier=0;
             StreamIsRegistred=0;
             Searching_Payload=false;
