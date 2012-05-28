@@ -4,30 +4,32 @@
 
 # norootforbuild
 
-%define libmediainfo_version	0.7.58
-%define libzen_version			0.4.25
+%define libmediainfo_version        0.7.58
+%define libzen_version              0.4.25
 
-Name:			libmediainfo
-Version:		%libmediainfo_version
-Release:		1
-Summary:		Convenient unified display of the most relevant technical and tag data for video and audio files (Library)
+Name:           libmediainfo
+Version:        %libmediainfo_version
+Release:        1
+Summary:        Most relevant technical and tag data for video and audio files (Library)
 
-Group:			System/Libraries
-License:		LGPLv3+
-URL:			http://mediainfo.sourceforge.net/
-Packager:		MediaArea.net SARL <info@mediaarea.net>
-Source0:		libmediainfo_%{version}-1.tar.gz
-BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
+Group:          System/Libraries
+License:        LGPLv3+
+URL:            http://mediainfo.sourceforge.net/
+Packager:       MediaArea.net SARL <info@mediaarea.net>
+Source0:        libmediainfo_%{version}-1.tar.gz
 
-BuildRequires:	dos2unix
-BuildRequires: 	gcc-c++
-BuildRequires:	libzen-devel >= %libzen_version
-BuildRequires:	pkgconfig
-BuildRequires: 	zlib-devel
-BuildRequires: 	glibc-devel
-BuildRequires:	doxygen
+BuildRequires:  dos2unix
+BuildRequires:  gcc-c++
+BuildRequires:  libzen-devel >= %libzen_version
+BuildRequires:  pkgconfig
+BuildRequires:  zlib-devel
+BuildRequires:  glibc-devel
+BuildRequires:  doxygen
+BuildRequires:  libtool
+BuildRequires:  automake
+BuildRequires:  autoconf
 
-BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 MediaInfo is a convenient unified display of the most relevant technical
@@ -54,13 +56,11 @@ MediaInfo analyticals include:
  - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
    DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
 
-This package contains the shared library for MediaInfo.
-
 %package -n libmediainfo0
-Summary:		Convenient unified display of the most relevant technical and tag data for video and audio files (Library)
-Group:			System/Libraries
-Requires:		libzen0 >= %libzen_version
-Requires:		glibc
+Summary:        Most relevant technical and tag data for video and audio files (Library)
+Group:          System/Libraries
+Requires:       libzen0 >= %libzen_version
+Requires:       glibc
 
 %description -n libmediainfo0
 MediaInfo is a convenient unified display of the most relevant technical
@@ -90,12 +90,12 @@ MediaInfo analyticals include:
 This package contains the shared library for MediaInfo.
 
 %package -n libmediainfo-devel
-Summary:	Convenient unified display of the most relevant technical and tag data for video and audio files (Library development files)
-Group:		Development/Libraries/C and C++
-Requires:	libmediainfo0%{?_isa} = %{version}
-Requires:	libzen-devel%{?_isa} >= %libzen_version
-Requires:	glibc-devel
-Obsoletes:	libmediainfo0-devel
+Summary:        Most relevant technical and tag data for video and audio files (Library devel)
+Group:          Development/Libraries/C and C++
+Requires:       libmediainfo0%{?_isa} = %{version}
+Requires:       libzen-devel%{?_isa} >= %libzen_version
+Requires:       glibc-devel
+Obsoletes:      libmediainfo0-devel
 
 %description -n libmediainfo-devel
 MediaInfo is a convenient unified display of the most relevant technical
@@ -138,25 +138,25 @@ export CPPFLAGS="$RPM_OPT_FLAGS"
 export CXXFLAGS="$RPM_OPT_FLAGS"
 
 pushd Source/Doc/
-	doxygen Doxyfile
+    doxygen Doxyfile
 popd
 cp Source/Doc/*.html ./
 
 pushd Project/GNU/Library
-	%__chmod +x autogen
-	./autogen
-	%configure --disable-static --enable-shared --disable-libcurl --disable-libmms \
+    %__chmod +x autogen
+    ./autogen
+    %configure --disable-static --enable-shared --disable-libcurl --disable-libmms \
 %if ( 0%{?centos_version} && 0%{?centos_version} < 500 ) || ( 0%{?rhel_version} && 0%{?rhel_version} < 500 )  
 %else
         --enable-visibility
 %endif
 
-	%__make %{?_smp_mflags}
+    %__make %{?_smp_mflags}
 popd
 
 %install
 pushd Project/GNU/Library/
-	%__make install-strip DESTDIR=%{buildroot}
+    %__make install-strip DESTDIR=%{buildroot}
 popd
 
 # MediaInfoDLL headers and MediaInfo-config
@@ -174,11 +174,11 @@ popd
 %__install -m 644 Source/MediaInfoDLL/MediaInfoDLL.py %{buildroot}%{_includedir}/MediaInfoDLL
 %__install -m 644 Source/MediaInfoDLL/MediaInfoDLL3.py %{buildroot}%{_includedir}/MediaInfoDLL
 
-%__sed -i -e 's|Version: |Version: %{version}|g' \
-	Project/GNU/Library/libmediainfo.pc
+%__sed -i -e 's|Version: |Version: %{version}|g' Project/GNU/Library/libmediainfo.pc
 %__install -dm 755 %{buildroot}%{_libdir}/pkgconfig
-%__install -m 644 Project/GNU/Library/libmediainfo.pc \
-	%{buildroot}%{_libdir}/pkgconfig
+%__install -m 644 Project/GNU/Library/libmediainfo.pc %{buildroot}%{_libdir}/pkgconfig
+
+rm -f %{buildroot}%{_libdir}/%{name}.*a
 
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
@@ -199,7 +199,6 @@ popd
 %{_includedir}/MediaInfo/*
 %dir %{_includedir}/MediaInfoDLL
 %{_includedir}/MediaInfoDLL/*
-%{_libdir}/libmediainfo.la
 %{_libdir}/libmediainfo.so
 %{_libdir}/pkgconfig/*.pc
 
