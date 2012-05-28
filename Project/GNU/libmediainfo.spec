@@ -17,6 +17,7 @@ License:		LGPLv3+
 URL:			http://mediainfo.sourceforge.net/
 Packager:		MediaArea.net SARL <info@mediaarea.net>
 Source0:		libmediainfo_%{version}-1.tar.gz
+BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
