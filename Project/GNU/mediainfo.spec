@@ -4,49 +4,49 @@
 
 # norootforbuild
 
-%define mediainfo_version		0.7.58
-%define libmediainfo_version	0.7.58
-%define libzen_version			0.4.25
+%define mediainfo_version           0.7.58
+%define libmediainfo_version        0.7.58
+%define libzen_version              0.4.25
 
-Name:			mediainfo
-Version:		%mediainfo_version
-Release:		1
-Summary:		Convenient unified display of the most relevant technical and tag data for video and audio files (CLI)
+Name:           mediainfo
+Version:        %mediainfo_version
+Release:        1
+Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
-Group:			Productivity/Multimedia/Other
-License:		LGPLv3+
-URL:			http://mediainfo.sourceforge.net/
-Packager:		MediaArea.net SARL <info@mediaarea.net>
-Source0:		mediainfo_%{version}-1.tar.gz
+Group:          Productivity/Multimedia/Other
+License:        LGPLv3+
+URL:            http://mediainfo.sourceforge.net/
+Packager:       MediaArea.net SARL <info@mediaarea.net>
+Source0:        mediainfo_%{version}-1.tar.gz
 
-BuildRequires:	dos2unix
-BuildRequires: 	gcc-c++
-BuildRequires:	libmediainfo-devel
-BuildRequires:	libzen-devel >= %libzen_version
-BuildRequires:	pkgconfig
+BuildRequires:  dos2unix
+BuildRequires:  gcc-c++
+BuildRequires:  libmediainfo-devel
+BuildRequires:  libzen-devel >= %libzen_version
+BuildRequires:  pkgconfig
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
 %ifarch x86_64
-BuildRequires:	lib64wxgtku2.8-devel
+BuildRequires:  lib64wxgtku2.8-devel
 %else
-BuildRequires:	libwxgtku2.8-devel
+BuildRequires:  libwxgtku2.8-devel
 %endif
 %else
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
-BuildRequires:	wxWidgets-devel
+BuildRequires:  wxWidgets-devel
 %else
-BuildRequires:	wxGTK-devel
+BuildRequires:  wxGTK-devel
 %endif
 %endif
-BuildRequires: 	zlib-devel
+BuildRequires:  zlib-devel
 %if 0%{?suse_version}
-BuildRequires:	update-desktop-files
+BuildRequires:  update-desktop-files
 %endif
 %endif
-Requires:	    libmediainfo0 >= %libmediainfo_version
-Requires:	    libzen0 >= %libzen_version
+Requires:       libmediainfo0 >= %libmediainfo_version
+Requires:       libzen0 >= %libzen_version
 
-BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 MediaInfo is a convenient unified display of the most relevant technical
@@ -79,7 +79,7 @@ This package includes the command line interface.
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %package gui
-Summary:     Convenient unified display of the most relevant technical and tag data for video and audio files (GUI)
+Summary:     Most relevant technical and tag data for video and audio files (GUI)
 Group:       Productivity/Multimedia/Other
 Requires:    libzen0 >= %libzen_version
 Requires:    libmediainfo0 >= %{version}

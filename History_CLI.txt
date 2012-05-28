@@ -8,17 +8,20 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
-Version 0.7.58, 2012-05-22
+Version 0.7.58, 2012-05-28
 --------------
 + AC-3: Little Endian streams support
 + LXF: AVC streams support
 + ISM: better support
 + File referencing other files (HLS, ISM...): menu in case there is more than 1 stream per referenced file
++ MPEG-TS: option for keeping streams detected at the beginning then disabled in a an update of the PMT (activated by default)
++ MPEG-PS: program_map_section support for uncommon streams embedded in MPEG-PS
 x Referenced files (MXF, HLS, MOV, P2, XDCAM...): issues with source name, track order, files size
 x MPEG-TS/MPEG-PS: regression, some files with AC-3/DTS/DVD subtitles were not well analyzed anymore
 x MPEG-4 channel mapping: Lt and Rt (matrix-encoded) channel mapping were missing
 x GXF: handling of buggy files having non-PCM AES3 codec identifier but actually having PCM
 x MPEG-4: better support of MPEG-4 files having corrupted metadata atom
+x 3529510, EIA/CEA-708: was not detected if the stream was not present at the beginning, thanks to Pete Chapman 
 
 Version 0.7.57, 2012-05-02
 --------------
