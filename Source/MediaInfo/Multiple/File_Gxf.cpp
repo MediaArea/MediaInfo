@@ -1163,8 +1163,19 @@ void File_Gxf::map()
                     float64 FrameRate=Gxf_FrameRate(Streams[TrackID].FrameRate_Code);
                     TimeCodes[TrackID]=Hours  *60*60*1000
                                       +Minutes   *60*1000
-                                      +Seconds      *1000
-                                      +float64_int64s(Fields*1000/(FrameRate*2));
+                                      +Seconds      *1000;
+                    if (!FrameRate)
+                    {
+                        //Time code frame rate is missing, using the video frame rate
+                        for (size_t Pos=0; Pos<Streams.size(); Pos++)
+                            if (Streams[Pos].FrameRate_Code!=(int32u)-1)
+                            {
+                                FrameRate=Gxf_FrameRate(Streams[Pos].FrameRate_Code);
+                                break;
+                            }
+                    }
+                    if (FrameRate)
+                        float64_int64s(Fields*1000/(FrameRate*2));
                 }
             }
         }
