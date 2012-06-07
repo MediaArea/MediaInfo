@@ -369,6 +369,7 @@ static size_t MediaInfoDLL_Load()
         #else
             dlclose(MediaInfo_Module);
        #endif
+       MediaInfo_Module=NULL;
        return (size_t)-1;
 	}
 
@@ -434,6 +435,10 @@ namespace MediaInfoDLL
 #endif
 typedef std::basic_string<Char>        String;
 typedef std::basic_stringstream<Char>  StringStream;
+typedef std::basic_istringstream<Char> iStringStream;
+typedef std::basic_ostringstream<Char> oStringStream;
+typedef std::basic_istringstream<Char> tiStringStream; // Legacy
+typedef std::basic_ostringstream<Char> toStringStream; //Legacy
 const size_t Error=(size_t)(-1);
 //---------------------------------------------------------------------------
 
