@@ -50,6 +50,7 @@ public :
 
     //Constructor/Destructor
     File_Eia608();
+    ~File_Eia608();
 
 private :
     //Streams management

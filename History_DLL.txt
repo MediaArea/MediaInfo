@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.59, 2012-
 --------------
 + GXF: crash with Time code tracks without frame rate info
+x CEA-608: Memory leaks removed
 
 Version 0.7.58, 2012-05-28
 --------------
