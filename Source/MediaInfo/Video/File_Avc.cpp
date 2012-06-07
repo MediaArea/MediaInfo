@@ -1911,6 +1911,12 @@ void File_Avc::sei_message(int32u &seq_parameter_set_id)
     Element_End0();
 
     int64u Element_Offset_Save=Element_Offset+payloadSize;
+    if (Element_Offset_Save>Element_Size)
+    {
+        Trusted_IsNot("Wrong size");
+        Skip_XX(Element_Size-Element_Offset,                    "unknown");
+        return;
+    }
     int64u Element_Size_Save=Element_Size;
     Element_Size=Element_Offset_Save;
     switch (payloadType)
@@ -1936,6 +1942,8 @@ void File_Avc::sei_message_buffering_period(int32u &seq_parameter_set_id)
     Element_Info1("buffering_period");
 
     //Parsing
+    if (Element_Offset==Element_Size)
+        return; //Nothing to do    
     BS_Begin();
     Get_UE (seq_parameter_set_id,                               "seq_parameter_set_id");
     std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
@@ -1943,6 +1951,7 @@ void File_Avc::sei_message_buffering_period(int32u &seq_parameter_set_id)
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (seq_parameter_set is missing)");
+        BS_End();
         return;
     }
     if ((*seq_parameter_set_Item)->NalHrdBpPresentFlag())

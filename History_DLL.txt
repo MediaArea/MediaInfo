@@ -11,6 +11,7 @@ Version 0.7.59, 2012-
 --------------
 + GXF: crash with Time code tracks without frame rate info
 x CEA-608: Memory leaks removed
+x AVC: crash in case of analyzing some invalid SEI
 
 Version 0.7.58, 2012-05-28
 --------------
