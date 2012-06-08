@@ -13,6 +13,10 @@ Version 0.7.59, 2012-
 x CEA-608: Memory leaks removed
 x AVC: crash in case of analyzing some invalid SEI
 
+Version 0.7.59, 2012-0
+--------------
++ MPEG-4: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
+
 Version 0.7.58, 2012-05-28
 --------------
 + AC-3: Little Endian streams support
