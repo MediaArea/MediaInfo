@@ -1487,7 +1487,7 @@ void File__Analyze::Video_FrameRate_Rounding(size_t Pos, video Parameter)
     else if (FrameRate>23.988*2 && FrameRate<=24.012*2) FrameRate=24.000*2;
     else if (FrameRate>24.988*2 && FrameRate<=25.012*2) FrameRate=25.000*2;
     else if (FrameRate>29.955*2 && FrameRate<=29.985*2) FrameRate=29.970*2;
-    else if (FrameRate>30.985*2 && FrameRate<=30.015*2) FrameRate=30.000*2;
+    else if (FrameRate>29.985*2 && FrameRate<=30.015*2) FrameRate=30.000*2;
 
     if (FrameRate!=FrameRate_Sav)
         Fill(Stream_Video, Pos, Parameter, FrameRate, 3, true);
