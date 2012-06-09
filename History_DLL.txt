@@ -15,6 +15,7 @@ x AVC: crash in case of analyzing some invalid SEI
 + MPEG-4: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
 x MPEG Audio: crash with some files having Lyrics 2 tags
 x MPEG Audio: crash with some files having APE tags
+x AVI: secondary genre comes after primary genres in the "Genre" field
 
 Version 0.7.58, 2012-05-28
 --------------

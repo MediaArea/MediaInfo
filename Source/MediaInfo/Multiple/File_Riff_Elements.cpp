@@ -2132,14 +2132,27 @@ void File_Riff::AVI__INFO_xxxx()
     Element_Name(MediaInfoLib::Config.Info_Get(StreamKind, Parameter, Info_Name));
     Element_Info1(Value);
 
-    if (Element_Code==Elements::AVI__INFO_ISMP)
-        INFO_ISMP=Value;
-    else if (!Value.empty())
+    switch (Element_Code)
     {
-        if (Parameter!=(size_t)-1)
-            Fill(StreamKind, StreamPos, Parameter, Value);
-        else
-            Fill(StreamKind, StreamPos, Ztring().From_CC4((int32u)Element_Code).To_Local().c_str(), Value, true);
+        case Elements::AVI__INFO_ISMP : INFO_ISMP=Value;
+                                        break;
+        case Elements::AVI__INFO_IGNR : 
+                                        {
+                                            Ztring ISGN=Retrieve(Stream_General, 0, General_Genre);
+                                            Clear(Stream_General, 0, General_Genre);
+                                            Fill(StreamKind, StreamPos, General_Genre, Value);
+                                            if (!ISGN.empty())
+                                                Fill(StreamKind, StreamPos, General_Genre, ISGN);
+                                        }
+                                        break;
+        default                      :
+                                        if (!Value.empty())
+                                        {
+                                            if (Parameter!=(size_t)-1)
+                                                Fill(StreamKind, StreamPos, Parameter, Value);
+                                            else
+                                                Fill(StreamKind, StreamPos, Ztring().From_CC4((int32u)Element_Code).To_Local().c_str(), Value, true);
+                                        }
     }
 }
 
