@@ -270,18 +270,18 @@ Delete;Supprimer
 Description;Description 
 Digitized_Date;Date de numérisation
 Dimensions;Dimensions
-Director;Directeur artistique
+Director;Réalisateur
 DirectorOfPhotography;Responsable de la photographie
 DisplayAspectRatio;Format à l'écran
 DisplayAspectRatio_Original;Format à l'écran d'origine
-DistributedBy;Dirstribué par
+DistributedBy;Distribué par
 Donate;Faire un don
 DotsPerInch;Point par pouce
 Duration;Durée
 Duration_End;Heure de fin
 Duration_Start;Heure de début
 Edit;Modifier
-EditedBy;Édité par
+EditedBy;Monté par
 EMail;E-mail
 Encoded_Application;Application utilisée
 Encoded_Date;Date d'encodage
@@ -848,7 +848,7 @@ Position;Position
 Position_Total;Total
 Preferences;Préférences
 Producer;Producteur
-ProductionDesigner;ProductionDesigner
+ProductionDesigner;Directeur artistique
 ProductionStudio;Studio de production
 Publisher;Publicateur
 Purchased_Date;Date d'achat

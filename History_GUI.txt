@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.59,
+--------------
++ French translation updated
+
 Version 0.7.58, 2012-05-28
 --------------
 + Ukrainian translation updated
