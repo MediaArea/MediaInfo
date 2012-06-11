@@ -283,19 +283,23 @@ void File_Mpeg4::Streams_Finish()
                     break;
             case 1 : 
                     if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000)
+                    {
                         Delay=Temp->second.edts[0].Delay;
+                        Delay=-Delay;
+                        Delay/=Temp->second.mdhd_TimeScale; //In seconds
+                    }
                     break;
             case 2 : 
                     if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
                     {
                         Delay=Temp->second.edts[0].Duration;
-                        Temp->second.tkhd_Duration-=Temp->second.edts[0].Duration;
+                        Temp->second.tkhd_Duration-=Delay;
+                        Delay/=TimeScale; //In seconds
                     }
                     break;
             default:
                     break; //TODO: handle more complex Edit Lists
         }
-        Delay/=TimeScale; //In seconds
         Delay+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)).To_float64()/1000; //TODO: use TimeCode value directly instead of the rounded value
         if (!Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)).empty() && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source))!=_T("Container"))
         {
