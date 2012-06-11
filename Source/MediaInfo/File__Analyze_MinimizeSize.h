@@ -683,7 +683,8 @@ public :
     // Unknown
     //***************************************************************************
 
-    inline void Skip_XX(int64u Bytes, const char*) {if (Element_Offset+Bytes>Element_Size) {Element_Offset=Element_Size; return;} Element_Offset+=Bytes;}
+    void Skip_XX(int64u Bytes);
+    inline void Skip_XX(int64u Bytes, const char*) {Skip_XX(Bytes);}
 
     //***************************************************************************
     // Flags

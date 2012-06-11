@@ -1354,7 +1354,14 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         if (commands>0)
         {
             if (Element_Offset<Offset+commands)
+            {
+                if (Offset+commands>Element_Size)
+                {
+                    Skip_XX(Element_Size-Element_Offset,            "Unknown");
+                    return;
+                }
                 Skip_XX(Offset+commands-Element_Offset,             "Unknown");
+            }
             Element_Begin1("commands");
             int16u PreCommands_Count, PostCommands_Count, CellCommands_Count, EndAdress;
             Get_B2 (PreCommands_Count,                          "Number of pre commands");
