@@ -18,6 +18,7 @@ x AVC: crash in case of analyzing some invalid SEI
 x MPEG Audio: crash with some files having Lyrics 2 tags
 x MPEG Audio: crash with some files having APE tags
 x AVI: secondary genre comes after primary genres in the "Genre" field
+x FLV: better handling of files containing more than 1 meta chunk
 
 Version 0.7.58, 2012-05-28
 --------------

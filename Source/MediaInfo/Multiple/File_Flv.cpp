@@ -1287,6 +1287,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="audiosamplesize") {ToFill="BitDepth"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
                 else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
+                else if (StringData=="totalframes") {ToFill="FrameCount"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="bytelength") {if (File_Size!=Value) MetaData_NotTrustable=true;}
                 else if (!(StringData=="datasize"
                        || StringData=="lasttimestamp"
@@ -1308,9 +1309,9 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 #endif //MEDIAINFO_TRACE
                 if (!ToFill.empty())
                 {
-                    Fill(StreamKind, 0, ToFill.c_str(), ValueS);
+                    Fill(StreamKind, 0, ToFill.c_str(), ValueS, true);
                     if (ToFill=="FrameRate")
-                        Fill(StreamKind, 0, "FrameRate_Mode", "CFR");
+                        Fill(StreamKind, 0, "FrameRate_Mode", "CFR", Unlimited, true, true);
                 }
             }
             break;
@@ -1331,7 +1332,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="canseekontime") {}
                 else {ToFill=StringData;}
                 Element_Info1(Value);
-                Fill(Stream_General, 0, ToFill.c_str(), Value?"Yes":"No");
+                Fill(Stream_General, 0, ToFill.c_str(), Value?"Yes":"No", Unlimited, true, true);
             }
             break;
         case 0x02 : //SCRIPTDATASTRING
@@ -1350,10 +1351,13 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else if (StringData=="Encoded_With") {ToFill=General_Encoded_Application;}
                     else if (StringData=="Encoded_By") {ToFill=General_Encoded_Application;}
                     else if (StringData=="metadatacreator") {ToFill=General_Tagged_Application;}
+                    else if (StringData=="creation_time") {ToFill=General_Encoded_Date; Value.insert(0, _T("UTC "));}
                     else if (StringData=="sourcedata") {}
                     else if (StringData=="audiocodecid") {}
                     else if (StringData=="videocodecid") {}
-                    else
+                    else if (!(StringData=="major_brand"
+                            || StringData=="minor_version"
+                            || StringData=="compatible_brands"))
                         ToFillS=StringData;
                     if (Value.find(_T('\r'))!=std::string::npos)
                         Value.resize(Value.find(_T('\r')));
@@ -1361,9 +1365,9 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                         Value.resize(Value.find(_T('\n')));
                     Element_Info1(Value);
                     if (ToFill!=(size_t)-1)
-                        Fill(Stream_General, 0, ToFill, Value);
+                        Fill(Stream_General, 0, ToFill, Value, true);
                     else if (!ToFillS.empty())
-                        Fill(Stream_General, 0, StringData.c_str(), Value);
+                        Fill(Stream_General, 0, StringData.c_str(), Value, true);
                 }
             }
             break;
@@ -1398,7 +1402,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     Get_Local(Value_Size, Value,                "Value");
                     if (Value==_T("unknown")) Value.clear();
                     Element_Info1C((!Value.empty()), Value);
-                    Fill(Stream_General, 0, StringData.c_str(), Value);
+                    Fill(Stream_General, 0, StringData.c_str(), Value, true);
                 }
             }
             break;
@@ -1411,7 +1415,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 int16u Value;
                 Get_B2 (Value,                                  "Value");
                 Element_Info1(Value);
-                Fill(Stream_General, 0, StringData.c_str(), Value);
+                Fill(Stream_General, 0, StringData.c_str(), Value, true);
             }
             break;
         case 0x08 : //SCRIPTDATAVARIABLE[ECMAArrayLength]
@@ -1452,7 +1456,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                      if (StringData=="metadatadate") {ToFill="Tagged_Date";}
                 else {ToFill=StringData;}
                 Element_Info1(ValueS);
-                Fill(Stream_General, 0, ToFill.c_str(), ValueS);
+                Fill(Stream_General, 0, ToFill.c_str(), ValueS, true);
             }
             break;
         case 0x0C : //SCRIPTDATALONGSTRING
@@ -1472,7 +1476,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else {ToFill=StringData;}
                     Element_Info1(Value);
                     if (!ToFill.empty())
-                        Fill(Stream_General, 0, ToFill.c_str(), Value);
+                        Fill(Stream_General, 0, ToFill.c_str(), Value, true);
                 }
             }
             break;
