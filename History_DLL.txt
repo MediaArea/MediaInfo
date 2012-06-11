@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.59, 2012-
 --------------
++ #3531808, AVI: detecting more inconsistencies in stream durations
 + GXF: crash with Time code tracks without frame rate info
 x CEA-608: Memory leaks removed
 x AVC: crash in case of analyzing some invalid SEI

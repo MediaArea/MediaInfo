@@ -422,7 +422,9 @@ void File_Riff::Streams_Finish ()
                     float64 Duration_Source=((float64)Temp->second.StreamSize)*1000/Temp->second.AvgBytesPerSec;
                     float64 Duration_Header=Retrieve(Stream_Audio, StreamPos_Last, Audio_Duration).To_float64();
                     float64 Difference=Duration_Source-Duration_Header;
-                    if (Difference<-2 || Difference>2) //+/- 2 ms
+                    if (Temp->second.Scale!=1 && float64_int64s(Duration_Header/Duration_Source)==Temp->second.Scale)
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Duration, Duration_Source, 0, true); //Found 1 stream with Scale not being right
+                    else if (Difference<-2 || Difference>2) //+/- 2 ms
                         Fill(Stream_Audio, StreamPos_Last, "Source_Duration", Duration_Source, 0);
                 }
             }
