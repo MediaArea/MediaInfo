@@ -3570,7 +3570,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx()
                             switch (Element_Code)
                             {
                                 case Elements::moov_trak_mdia_minf_stbl_stsd_mp4s : moov_trak_mdia_minf_stbl_stsd_xxxxStream(); break;
-                                default                                           : Skip_XX(Element_TotalSize_Get(), "Unknown");
+                                default                                           : Skip_XX(Element_TotalSize_Get()-Element_Offset, "Unknown");
                             }
     }
 
