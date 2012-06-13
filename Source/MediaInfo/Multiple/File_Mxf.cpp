@@ -432,8 +432,8 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
                                                                                         case 0x04 : return "MPEG ES mappings with Stream ID";
                                                                                         case 0x0A : return "A-law";
                                                                                         case 0x0C : return "JPEG 2000";
+                                                                                        case 0x10 : return "AVC";
                                                                                         case 0x11 : return "VC-3";
-                                                                                        case 0x16 : return "AVC";
                                                                                         default   : return "";
                                                                                     }
                                                                         default   : return "";
@@ -8345,8 +8345,8 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(const essences::iter
                                                                                         case 0x04 : return NULL; //MPEG ES mappings with Stream ID
                                                                                         case 0x0A : return ChooseParser_Alaw(Essence, Descriptor);
                                                                                         case 0x0C : return ChooseParser_Jpeg2000(Essence, Descriptor);
+                                                                                        case 0x10 : return ChooseParser_Avc(Essence, Descriptor);
                                                                                         case 0x11 : return ChooseParser_Vc3(Essence, Descriptor);
-                                                                                        case 0x16 : return ChooseParser_Avc(Essence, Descriptor);
                                                                                         default   : return NULL;
                                                                                     }
                                                                         default   : return NULL;
