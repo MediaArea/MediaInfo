@@ -405,10 +405,10 @@ struct MediaInfo_Event_General_SubFile_Start_0
     MediaInfo_int64u*       StreamIDs;
     MediaInfo_int8u*        StreamIDs_Width;
     MediaInfo_int8u*        ParserIDs;
-    char*                   FileName_Relative;
-    wchar_t*                FileName_Relative_Unicode;
-    char*                   FileName_Absolute;
-    wchar_t*                FileName_Absolute_Unicode;
+    const char*             FileName_Relative;
+    const wchar_t*          FileName_Relative_Unicode;
+    const char*             FileName_Absolute;
+    const wchar_t*          FileName_Absolute_Unicode;
 };
 
 /*-------------------------------------------------------------------------*/

@@ -9110,23 +9110,36 @@ void File_Mxf::Locators_Test()
         ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
         for (locators::iterator Locator=Locators.begin(); Locator!=Locators.end(); Locator++)
-            if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty() && Locator->second.StreamKind!=Stream_Max) //TODO: support VBI
+            if (!Locator->second.IsTextLocator && !Locator->second.EssenceLocator.empty())
             {
-                File__ReferenceFilesHelper::reference ReferenceFile;
-                ReferenceFile.FileNames.push_back(Locator->second.EssenceLocator);
-                ReferenceFile.StreamKind=Locator->second.StreamKind;
-                ReferenceFile.StreamPos=Locator->second.StreamPos;
-                ReferenceFile.StreamID=Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID).To_int64u();
-                ReferenceFile.Delay=float64_int64s(DTS_Delay*1000000000);
-                if (Locator->second.StreamKind==Stream_Video)
+                if (Locator->second.StreamKind!=Stream_Max)
                 {
-                    //Searching the corresponding frame rate
-                    for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
-                        for (size_t LocatorPos=0; LocatorPos<Descriptor->second.Locators.size(); LocatorPos++)
-                            if (Descriptor->second.Locators[LocatorPos]==Locator->first)
-                                ReferenceFile.FrameRate=Descriptor->second.SampleRate;
+                    File__ReferenceFilesHelper::reference ReferenceFile;
+                    ReferenceFile.FileNames.push_back(Locator->second.EssenceLocator);
+                    ReferenceFile.StreamKind=Locator->second.StreamKind;
+                    ReferenceFile.StreamPos=Locator->second.StreamPos;
+                    ReferenceFile.StreamID=Retrieve(Locator->second.StreamKind, Locator->second.StreamPos, General_ID).To_int64u();
+                    ReferenceFile.Delay=float64_int64s(DTS_Delay*1000000000);
+                    if (Locator->second.StreamKind==Stream_Video)
+                    {
+                        //Searching the corresponding frame rate
+                        for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+                            for (size_t LocatorPos=0; LocatorPos<Descriptor->second.Locators.size(); LocatorPos++)
+                                if (Descriptor->second.Locators[LocatorPos]==Locator->first)
+                                    ReferenceFile.FrameRate=Descriptor->second.SampleRate;
+                    }
+                    ReferenceFiles->References.push_back(ReferenceFile);
                 }
-                ReferenceFiles->References.push_back(ReferenceFile);
+                else
+                {
+                    //TODO: support VBI
+                    /*
+                    EVENT_BEGIN(General, SubFile_Start, 0)
+                        Event.FileName_Relative_Unicode=Locator->second.EssenceLocator.c_str();
+                    EVENT_END()
+                    EVENT(General, SubFile_End, 0)
+                    */
+                }
             }
 
         ReferenceFiles->ParseReferences();
