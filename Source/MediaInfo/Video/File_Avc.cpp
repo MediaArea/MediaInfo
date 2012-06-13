@@ -786,8 +786,9 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
                     if ((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)==0x80)
                         Demux_IntermediateItemFound=true;
                 }
+
+                Demux_Offset++;
             }
-            Demux_Offset++;
         }
 
         if (Demux_Offset+6>Buffer_Size && !FrameIsAlwaysComplete && File_Offset+Buffer_Size<File_Size)
@@ -797,7 +798,19 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
             Demux_Offset--;
 
         zero_byte=Buffer[Buffer_Offset+2]==0x00;
-        bool RandomAccess=(Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x07 || ((Buffer[Buffer_Offset+(zero_byte?4:3)]&0x1F)==0x09 && ((Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0x00 || (Buffer[Buffer_Offset+(zero_byte?5:4)]&0xE0)==0xA0)); //seq_parameter_set or access_unit_delimiter with value=0 or 5 (3 bits)
+        size_t Buffer_Offset_Random=Buffer_Offset;
+        if ((Buffer[Buffer_Offset_Random+(zero_byte?4:3)]&0x1F)==0x09)
+        {
+            Buffer_Offset_Random++;
+            if (zero_byte)
+                Buffer_Offset_Random++;
+            while(Buffer_Offset_Random+6<=Buffer_Size && (Buffer[Buffer_Offset_Random  ]!=0x00
+                                                       || Buffer[Buffer_Offset_Random+1]!=0x00
+                                                       || Buffer[Buffer_Offset_Random+2]!=0x01))
+                Buffer_Offset_Random++;
+            zero_byte=Buffer[Buffer_Offset_Random+2]==0x00;
+        }
+        bool RandomAccess=Buffer_Offset_Random+6<=Buffer_Size && (Buffer[Buffer_Offset_Random+(zero_byte?4:3)]&0x1F)==0x07; //seq_parameter_set
         if (!Status[IsAccepted])
         {
             Accept("AVC");

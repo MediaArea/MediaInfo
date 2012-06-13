@@ -79,8 +79,11 @@ void ibi::stream::Add (const info &Info)
     if (Infos_Pos && Info.Dts==Infos[Infos_Pos-1].Dts && Info.Dts!=(int64u)-1)
     {
         //Duplicate, updating it (in case of new frame count)
-        if (Infos_Pos && Info.FrameNumber!=(int64u)-1)
+        if (Infos_Pos && Info.FrameNumber!=(int64u)-1 && Info.FrameNumber<Infos[Infos_Pos-1].FrameNumber)
+        {
             Infos[Infos_Pos-1].FrameNumber=Info.FrameNumber;
+            Infos[Infos_Pos-1].Dts=Info.Dts;
+        }
 
         IsSynchronized=true;
         return; 
@@ -88,8 +91,11 @@ void ibi::stream::Add (const info &Info)
     if (Infos_Pos && Info.StreamOffset==Infos[Infos_Pos-1].StreamOffset)
     {
         //Duplicate, updating it (in case of new frame count)
-        if (Infos_Pos && Info.FrameNumber!=(int64u)-1)
+        if (Infos_Pos && Info.FrameNumber!=(int64u)-1 && Info.FrameNumber<Infos[Infos_Pos-1].FrameNumber)
+        {
             Infos[Infos_Pos-1].FrameNumber=Info.FrameNumber;
+            Infos[Infos_Pos-1].Dts=Info.Dts;
+        }
 
         IsSynchronized=true;
         return;

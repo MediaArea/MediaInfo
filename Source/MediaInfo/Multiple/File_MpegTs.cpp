@@ -1371,6 +1371,8 @@ void File_MpegTs::Read_Buffer_Unsynched()
                 if (((File_MpegPs*)Complete_Stream->Streams[StreamID]->Parser)->HasTimeStamps)
                     Complete_Stream->Streams[StreamID]->Searching_ParserTimeStamp_End_Set(true); //Searching only for a start found
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            if (File_GoTo==0)
+                Complete_Stream->Streams[StreamID]->Parser->Unsynch_Frame_Count=0;
             Complete_Stream->Streams[StreamID]->Parser->Open_Buffer_Unsynch();
         }
         #if MEDIAINFO_IBI
@@ -1586,7 +1588,14 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     else
                         IbiStream_Temp=Ibi.Streams.find(ID);
                     if (IbiStream_Temp==Ibi.Streams.end() || IbiStream_Temp->second->Infos.empty())
-                        return 5; //Invalid ID
+                    {
+                        for (IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
+                            if (!IbiStream_Temp->second->Infos.empty())
+                                break;
+
+                        if (IbiStream_Temp==Ibi.Streams.end())
+                            return 5; //Invalid ID
+                    }
 
                     if (!(IbiStream_Temp->second->DtsFrequencyNumerator==1000000000 && IbiStream_Temp->second->DtsFrequencyDenominator==1))
                     {
@@ -1599,7 +1608,7 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                     for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
                     {
-                        if (Value<=IbiStream_Temp->second->Infos[Pos].Dts)
+                        if (Value<=IbiStream_Temp->second->Infos[Pos].Dts || Pos+1==IbiStream_Temp->second->Infos.size())
                         {
                             if (Value<IbiStream_Temp->second->Infos[Pos].Dts && Pos)
                                 Pos--;
@@ -1646,11 +1655,18 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     else
                         IbiStream_Temp=Ibi.Streams.find(ID);
                     if (IbiStream_Temp==Ibi.Streams.end() || IbiStream_Temp->second->Infos.empty())
-                        return 5; //Invalid ID
+                    {
+                        for (IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); IbiStream_Temp++)
+                            if (!IbiStream_Temp->second->Infos.empty())
+                                break;
+
+                        if (IbiStream_Temp==Ibi.Streams.end())
+                            return 5; //Invalid ID
+                    }
 
                     for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
                     {
-                        if (Value<=IbiStream_Temp->second->Infos[Pos].FrameNumber)
+                        if (Value<=IbiStream_Temp->second->Infos[Pos].FrameNumber || Pos+1==IbiStream_Temp->second->Infos.size())
                         {
                             if (Value<IbiStream_Temp->second->Infos[Pos].FrameNumber && Pos)
                                 Pos--;
