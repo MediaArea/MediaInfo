@@ -2161,7 +2161,7 @@ void File__Analyze::Trusted_IsNot ()
             Trusted--;
     }
 
-    if (Trusted==0)
+    if (Trusted==0 && !Status[IsAccepted])
         Reject();
 }
 

@@ -2279,6 +2279,8 @@ void File_Mpegv::slice_start()
             Skip_XX(Element_Size,                               "data");
 
     FILLING_BEGIN();
+        int64u tc_ToAdd=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
+
         //Timestamp
         if (group_start_FirstPass && (Time_Begin_Seconds==Error || Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference<Time_Begin_Seconds*FrameRate+Time_Begin_Frames))
         {
@@ -2297,6 +2299,10 @@ void File_Mpegv::slice_start()
             if (IFrame_IsParsed && Frame_Count_NotParsedIncluded!=(int64u)-1)
                 Frame_Count_NotParsedIncluded--;
             Frame_Count_InThisBlock--;
+            if (FrameInfo.DTS!=(int64u)-1)
+                FrameInfo.DTS-=tc_ToAdd;
+            if (FrameInfo.PTS!=(int64u)-1)
+                FrameInfo.PTS-=tc_ToAdd;
         }
         else
         {
@@ -2425,7 +2431,6 @@ void File_Mpegv::slice_start()
             BVOPsSinceLastRefFrames=0;
         if (RefFramesCount<2 && (picture_coding_type==1 || picture_coding_type==2))
             RefFramesCount++;
-        int64u tc_ToAdd=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
         if (repeat_first_field)
         {
             if (progressive_sequence)
