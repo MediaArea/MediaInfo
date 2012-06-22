@@ -1311,14 +1311,15 @@ bool File_Mpeg4::BookMark_Needed()
                         //Each sample has its own size
                         int64u Chunk_Offset=0;
                         for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
-                        {
-                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
-                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz[stsz_Pos];
-                            Chunk_Offset+=Temp->second.stsz[stsz_Pos];
-                            stsz_Pos++;
-                            if (stsz_Pos>=Temp->second.stsz.size())
-                            break;
-                        }
+                            if (Temp->second.stsz[stsz_Pos])
+                            {
+                                mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
+                                mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz[stsz_Pos];
+                                Chunk_Offset+=Temp->second.stsz[stsz_Pos];
+                                stsz_Pos++;
+                                if (stsz_Pos>=Temp->second.stsz.size())
+                                break;
+                            }
                         if (stsz_Pos>=Temp->second.stsz.size())
                             break;
                     }
@@ -1352,12 +1353,13 @@ bool File_Mpeg4::BookMark_Needed()
                         //Same size per sample
                         int64u Chunk_Offset=0;
                         for (size_t Pos=0; Pos<Temp->second.stsc[stsc_Pos].SamplesPerChunk; Pos++)
-                        {
-                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
-                            mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
-                            Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
-                            Chunk_FrameCount++;
-                        }
+                            if (Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier)
+                            {
+                                mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].StreamID=Temp->first;
+                                mdat_Pos[Temp->second.stco[stco_Pos]+Chunk_Offset].Size=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+                                Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
+                                Chunk_FrameCount++;
+                            }
                         if (Config_ParseSpeed<1.0 && Chunk_FrameCount>=300)
                             break;
                     }
