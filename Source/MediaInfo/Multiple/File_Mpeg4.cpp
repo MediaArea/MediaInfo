@@ -143,6 +143,10 @@ Ztring Mpeg4_Language_Apple(int16u Language)
     }
 }
 
+//---------------------------------------------------------------------------
+extern const char* Mpeg4_chan(int16u Ordering);
+extern const char* Mpeg4_chan_Layout(int16u Ordering);
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -751,6 +755,17 @@ void File_Mpeg4::Streams_Finish()
                     Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original_String);
                 }
             }
+        }
+
+        //Special case: QuickTime files and Stereo streams, there is a default value in QuickTime player, a QuickTime "standard"?
+        if (StreamKind_Last==Stream_Audio
+            && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_)==_T("2")
+            && Retrieve(Stream_Audio, StreamPos_Last, Audio_ChannelLayout).empty()
+            && Retrieve(Stream_Audio, StreamPos_Last, Audio_ChannelPositions).empty()
+            && Retrieve(Stream_General, 0, General_Format_Profile)==_T("QuickTime"))
+        {
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan(101));
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, Mpeg4_chan_Layout(101));
         }
 
         Temp++;
