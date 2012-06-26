@@ -2060,7 +2060,7 @@ void File__Analyze::YesNo_YesNo(stream_t StreamKind, size_t StreamPos, size_t Pa
 //---------------------------------------------------------------------------
 void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_t StreamPos, infocodecid_format_t Format)
 {
-    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID), Value, true);
+    Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID), Value);
     const Ztring &C1=MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Format);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format), C1.empty()?Value:C1, true);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID_Info), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Description), true);

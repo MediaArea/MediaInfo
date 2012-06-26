@@ -13,6 +13,7 @@ Version 0.7.59, 2012-
 + GXF: crash with Time code tracks without frame rate info
 + MPEG-4: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
 + QuickTime: default channel map is "L R" for stereo streams (as it seems to be in QuickTime player)
++ MPEG-4: support of WMA (version 1, version 2, Pro, Lossless) in MPEG-4
 x #3533984, different behavior depending of compilation options (so Linux version was missing some info)
 x MPEG-4: audio/video delay was wrong in case of negative delay
 x CEA-608: Memory leaks removed

@@ -319,6 +319,7 @@ private :
     int64u                                  LastMdatPos; //This is the position of the byte after the last byte of mdat
     int64u                                  FirstMoovPos;
     int64u                                  moof_base_data_offset;
+    bool                                    data_offset_present;
     int64u                                  moof_traf_base_data_offset;
     int32u                                  moof_traf_default_sample_duration;
     int32u                                  moof_traf_default_sample_size;

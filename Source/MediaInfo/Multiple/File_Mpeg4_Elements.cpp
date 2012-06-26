@@ -1243,6 +1243,10 @@ void File_Mpeg4::free()
             Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
     Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
+
+    //ISM
+    if (moof_traf_base_data_offset==(int64u)-1 && !data_offset_present)
+        Stream->second.stco.push_back(File_Offset+Buffer_Offset);
 }
 
 //---------------------------------------------------------------------------
@@ -1693,6 +1697,7 @@ void File_Mpeg4::moof()
     
     IsFragmented=true;
     moof_base_data_offset=File_Offset+Buffer_Offset-Header_Size;
+    data_offset_present=true;
 }
 
 //---------------------------------------------------------------------------
@@ -1756,8 +1761,12 @@ void File_Mpeg4::moof_traf_tfhd()
         Skip_B4(                                                "sample_description_index");
     if (default_sample_duration_present)
         Get_B4 (moof_traf_default_sample_duration,              "default_sample_duration");
+    else
+        moof_traf_default_sample_duration=Stream->second.mvex_trex_default_sample_duration;
     if (default_sample_size_present)
         Get_B4 (moof_traf_default_sample_size,                  "default_sample_size");
+    else
+        moof_traf_default_sample_size=Stream->second.mvex_trex_default_sample_size;
     if (default_sample_flags_present)
         Skip_B4(                                                "default_sample_flags");
 
@@ -1765,8 +1774,6 @@ void File_Mpeg4::moof_traf_tfhd()
         Stream=Streams.find(moov_trak_tkhd_TrackID);
         if (Stream==Streams.end())
             Stream=Streams.begin();
-        moof_traf_default_sample_duration=Stream->second.mvex_trex_default_sample_duration;
-        moof_traf_default_sample_size=Stream->second.mvex_trex_default_sample_size;
     FILLING_END();
 }
 
@@ -1777,7 +1784,7 @@ void File_Mpeg4::moof_traf_trun()
 
     //Parsing
     int32u sample_count;
-    bool data_offset_present, first_sample_flags_present, sample_duration_present, sample_size_present, sample_flags_present, sample_composition_time_offset_present;
+    bool first_sample_flags_present, sample_duration_present, sample_size_present, sample_flags_present, sample_composition_time_offset_present;
         Get_Flags (Flags,  0, data_offset_present,              "data-offset-present");
         Get_Flags (Flags,  2, first_sample_flags_present,       "first-sample-flags-present");
         Get_Flags (Flags,  8, sample_duration_present,          "sample-duration-present");
@@ -1794,7 +1801,8 @@ void File_Mpeg4::moof_traf_trun()
     }
 
     //Filling
-    Stream->second.stco.push_back(data_offset_Final);
+    if (moof_traf_base_data_offset!=(int64u)-1 || data_offset_present)
+        Stream->second.stco.push_back(data_offset_Final);
     stream::stsc_struct Stsc;
     if (Stream->second.stsc.empty())
         Stsc.FirstChunk=1;
@@ -3782,7 +3790,53 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         #endif
         if (Element_Code==0x6F776D61) //"owma"
         {
-            Skip_XX(Element_Size-Element_Offset,                "WMA Pro data");
+            //Parsing
+            int32u SamplingRate, BytesPerSec;
+            int16u CodecID, Channels, Data_Size, Resolution;
+            Get_L2 (CodecID,                                            "Codec ID");
+            Get_L2 (Channels,                                           "Number of Channels");
+            Get_L4 (SamplingRate,                                       "Samples Per Second");
+            Get_L4 (BytesPerSec,                                        "Average Number of Bytes Per Second");
+            Skip_L2(                                                    "Block Alignment");
+            Get_L2 (Resolution,                                         "Bits / Sample");
+            Get_L2 (Data_Size,                                          "Codec Specific Data Size");
+
+            //Filling
+            Ztring Codec; Codec.From_Number(CodecID, 16);
+            Codec.MakeUpperCase();
+            CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BytesPerSec*8, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, Resolution, 10, true);
+
+            FILLING_BEGIN();
+                //Creating the parser
+                     if (0);
+                #if defined(MEDIAINFO_MPEGA_YES)
+                else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Ztring::ToZtring(CodecID, 16))==_T("MPEG Audio"))
+                    Streams[moov_trak_tkhd_TrackID].Parser=new File_Mpega;
+                #endif
+            FILLING_END();
+
+            //Parsing
+            if (Data_Size>0)
+            {
+                Element_Begin1("Codec Specific Data");
+                switch (CodecID)
+                {
+                    case 0x0161 :
+                                    //Parsing
+                                    Skip_L4(                            "SamplesPerBlock");
+                                    Skip_L2(                            "EncodeOptions");
+                                    Skip_L4(                            "SuperBlockAlign");    
+                                    break;
+                    default     : Skip_XX(Data_Size,                    "Unknown");
+                }
+                Element_End0();
+            }
         }
 
         #if MEDIAINFO_DEMUX
@@ -3803,7 +3857,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
         if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitDepth).empty()) //if not mp4a, and not ms*
             Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, SampleSize, 10, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate, 10, true);
 
         //Sometimes, more Atoms in this atoms
         if (Element_Offset+8<Element_Size)
@@ -3981,13 +4035,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             #if defined(MEDIAINFO_VC1_YES)
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("VC-1"))
                 {
-                    File_Vc1 MI;
-                    MI.FrameIsAlwaysComplete=true;
-                    Open_Buffer_Init(&MI);
-                    Open_Buffer_Continue(&MI);
+                    Streams[moov_trak_tkhd_TrackID].Parser=new File_Vc1;
+                    ((File_Vc1*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
+                    Open_Buffer_Init(Streams[moov_trak_tkhd_TrackID].Parser);
+                    Open_Buffer_Continue(Streams[moov_trak_tkhd_TrackID].Parser);
                     Element_Offset=Element_Size;
-                    Finish(&MI);
-                    Merge(MI, Stream_Video, 0, StreamPos_Last);
+                    mdat_MustParse=true; //Data is in MDAT
                 }
             #endif
             #if defined(MEDIAINFO_VC3_YES)
@@ -4020,7 +4073,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                     Streams[moov_trak_tkhd_TrackID].Parser=new File__Analyze; //Only for activating Demux
                 }
             #endif //MEDIAINFO_DEMUX
-            if (Streams[moov_trak_tkhd_TrackID].Parser)
+            if (Streams[moov_trak_tkhd_TrackID].Parser && !Streams[moov_trak_tkhd_TrackID].Parser->Status[IsAccepted])
             {
                 int64u Elemen_Code_Save=Element_Code;
                 Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
@@ -4735,7 +4788,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
             return; //Handling only the first description
 
         FILLING_BEGIN();
-            CodecID_Fill(Ztring::ToZtring(CodecMS, 16), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
+            Ztring OldFormat=Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID);
+            Ztring NewFormat=Ztring::ToZtring(CodecMS, 16);
+            if (OldFormat!=NewFormat)
+            {
+                Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
+                CodecID_Fill(NewFormat, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
+            }
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, CodecMS, 16, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, CodecMS, 16, true);
         FILLING_END();
@@ -4750,7 +4809,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
 
         FILLING_BEGIN();
             if (Codec!=0x6D703461) //"mp4a"
-                CodecID_Fill(Ztring().From_CC4(Codec), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+            {
+                Ztring OldFormat=Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID);
+                Ztring NewFormat=Ztring().From_CC4(Codec);
+                if (OldFormat!=NewFormat)
+                {
+                    Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
+                    CodecID_Fill(NewFormat, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+                }
+            }
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(Codec), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Ztring().From_CC4(Codec), true);
         FILLING_END();

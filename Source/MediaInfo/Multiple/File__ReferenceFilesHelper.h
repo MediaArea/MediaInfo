@@ -116,6 +116,8 @@ private :
     stream_t                        StreamKind_Last;
     size_t                          StreamPos_From;
     size_t                          StreamPos_To;
+    int64u                          DTS_Minimal;
+    int64u                          DTS_Interval;
 
     //Helpers
     size_t Stream_Prepare(stream_t StreamKind, size_t StreamPos=(size_t)-1);

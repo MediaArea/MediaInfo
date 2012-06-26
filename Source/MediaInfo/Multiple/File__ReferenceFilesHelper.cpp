@@ -42,9 +42,6 @@
 #include "ZenLib/Format/Http/Http_Utils.h"
 #include <set>
 #include <algorithm>
-#if MEDIAINFO_EVENTS
-    #include "MediaInfo/MediaInfo_Events_Internal.h"
-#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -65,6 +62,7 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     TestContinuousFileNames=false;
     FrameRate=0;
     Duration=0;
+    DTS_Interval=(int64u)-1;
 }
 
 //***************************************************************************
@@ -259,7 +257,10 @@ void File__ReferenceFilesHelper::ParseReferences()
             {
                 Demux_Interleave=Config->File_Demux_Interleave_Get();
                 if (Demux_Interleave)
+                {
                     CountOfReferencesToParse=References.size();
+                    DTS_Interval=3000000000; // 3 seconds
+                }
             }
 
             //Using the frame rate from the first stream having a frame rate
@@ -271,7 +272,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                         break;
                     }
 
-            if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
+            if (Config->NextPacket_Get())
             {
                 Reference=References.begin();
                 while (Reference!=References.end())
@@ -297,29 +298,12 @@ void File__ReferenceFilesHelper::ParseReferences()
                     MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
                 }
 
-                FileSize_Compute();
-                Reference=References.begin();
-                /*
-                #if MEDIAINFO_EVENTS
-                    struct MediaInfo_Event_General_SubFile_Start_0 Event;
-                    MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
-                    Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
-                    Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
-                    Event.FileName_Relative_Unicode=Reference->Source.c_str();
-
-                    MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
-                #endif //MEDIAINFO_EVENTS
-                */
-                Init_Done=true;
-                
-                MI->Config->Demux_EventWasSent=true;
-                return;
             }
         #endif //MEDIAINFO_DEMUX
 
         FileSize_Compute();
         Reference=References.begin();
+        Init_Done=true;
         /*
         #if MEDIAINFO_EVENTS
             struct MediaInfo_Event_General_SubFile_Start_0 Event;
@@ -332,7 +316,14 @@ void File__ReferenceFilesHelper::ParseReferences()
             MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
         #endif //MEDIAINFO_EVENTS
         */
-        Init_Done=true;
+
+        #if MEDIAINFO_DEMUX
+            if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
+            {
+                MI->Config->Demux_EventWasSent=true;
+                return;
+            }
+        #endif //MEDIAINFO_DEMUX
     }
 
     while (Reference!=References.end())
@@ -341,6 +332,7 @@ void File__ReferenceFilesHelper::ParseReferences()
 
         //State
         int64u FileSize_Parsed=0;
+        DTS_Minimal=(int64u)-1;
         for (references::iterator ReferenceTemp=References.begin(); ReferenceTemp!=References.end(); ReferenceTemp++)
         {
             if (ReferenceTemp->MI)
@@ -354,26 +346,36 @@ void File__ReferenceFilesHelper::ParseReferences()
                 }
                 else
                     FileSize_Parsed+=ReferenceTemp->MI->Config.File_Size;
+
+                //Minimal DTS
+                if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && ReferenceTemp->MI->Info && DTS_Minimal>ReferenceTemp->MI->Info->FrameInfo.DTS)
+                    DTS_Minimal=ReferenceTemp->MI->Info->FrameInfo.DTS;
             }
         }
         Config->State_Set(((float)FileSize_Parsed)/MI->Config->File_Size);
+
+        /*
+        #if MEDIAINFO_EVENTS
+            struct MediaInfo_Event_General_SubFile_End_0 Event;
+            MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
+            Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_End, 0);
+            Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_End_0);
+                    
+            Event.FileName_Relative_Unicode=Reference->Source.c_str();
+
+            MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
+        #endif //MEDIAINFO_EVENTS
+        */
 
         #if MEDIAINFO_DEMUX
             if (Demux_Interleave)
             {
                 references::iterator Reference_Next=Reference; Reference_Next++;
+
                 if (Reference_Next==References.end() && Config->NextPacket_Get() && CountOfReferencesToParse)
                     Reference=References.begin();
                 else
                     Reference=Reference_Next;
-
-                if (Config->Demux_EventWasSent)
-                    return;
-            }
-            else
-            {
-                if (Config->Demux_EventWasSent)
-                    return;
 
                 /*
                 #if MEDIAINFO_EVENTS
@@ -387,26 +389,36 @@ void File__ReferenceFilesHelper::ParseReferences()
                     MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
                 #endif //MEDIAINFO_EVENTS
                 */
-                Reference++;
-                /*
-                #if MEDIAINFO_EVENTS
-                    if (Reference!=References.end())
-                    {
-                        struct MediaInfo_Event_General_SubFile_Start_0 Event;
-                        MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
-                        Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
-                        Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
-                        Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
-                        MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
-                    }
-                #endif //MEDIAINFO_EVENTS
-                */
+                if (Config->Demux_EventWasSent)
+                    return;
+            }
+            else
+            {
+                if (Config->Demux_EventWasSent)
+                    return;
+
+                Reference++;
             }
         #else //MEDIAINFO_DEMUX
             Reference++;
         #endif //MEDIAINFO_DEMUX
+
+        /*
+        #if MEDIAINFO_EVENTS
+            if (Reference!=References.end())
+            {
+                struct MediaInfo_Event_General_SubFile_Start_0 Event;
+                MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
+                Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
+                Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
+                    
+                Event.FileName_Relative_Unicode=Reference->Source.c_str();
+
+                MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
+            }
+        #endif //MEDIAINFO_EVENTS
+        */
     }
 
     //File size handling
@@ -523,7 +535,7 @@ void File__ReferenceFilesHelper::ParseReference()
             }
 
             #if MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
-                if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
+                if (Config->NextPacket_Get())
                     return;
             #endif //MEDIAINFO_NEXTPACKET
         }
@@ -532,6 +544,8 @@ void File__ReferenceFilesHelper::ParseReference()
     if (Reference->MI)
     {
         #if MEDIAINFO_EVENTS && MEDIAINFO_NEXTPACKET
+            if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && Reference->MI->Info->FrameInfo.DTS!=(int64u)-1 && DTS_Minimal!=(int64u)-1 && Reference->MI->Info->FrameInfo.DTS>DTS_Minimal+1000000000)
+                return;
             if (Config->Event_CallBackFunction_IsSet() && !Reference->Status[File__Analyze::IsFinished])
             {
                 #if MEDIAINFO_DEMUX

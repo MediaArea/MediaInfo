@@ -183,6 +183,8 @@ File_Mpeg4::File_Mpeg4()
     moov_trak_tkhd_TrackID=(int32u)-1;
     ReferenceFiles=NULL;
     mdat_Pos_NormalParsing=false;
+    moof_traf_base_data_offset=(int64u)-1;
+    data_offset_present=true;
     #if MEDIAINFO_NEXTPACKET
         ReferenceFiles_IsParsing=false;
     #endif //MEDIAINFO_NEXTPACKET
