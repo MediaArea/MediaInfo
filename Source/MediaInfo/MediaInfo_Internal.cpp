@@ -501,7 +501,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
             SelectFromExtension(Config.File_ForceParser_Get());
             CS.Enter();
         }
-        else
+        if (Info==NULL)
         {
             Info=new File__MultipleParsing;
             Info_IsMultipleParsing=true;
