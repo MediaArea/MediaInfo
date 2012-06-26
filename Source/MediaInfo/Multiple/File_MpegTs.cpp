@@ -1007,7 +1007,7 @@ bool File_MpegTs::Synched_Test()
                 if (File__Duplicate_Get())
                     Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
             #endif //MEDIAINFO_DUPLICATE
-            return false;
+            return true;
         }
 
         //Getting pid
