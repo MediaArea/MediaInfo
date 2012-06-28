@@ -176,7 +176,7 @@ void File_Vorbis::Setup()
         {
             Skip_BT(5,                                          "length");
             int32u num;
-            for(int8u i=0; i<codebook_entries; )
+            for(int32u i=0; i<codebook_entries; )
             {
                 Get_BT (ilog(codebook_entries-i), num,          "num");
                 for(int32u j=0; j<num && i<codebook_entries; j++, i++);
