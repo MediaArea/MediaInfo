@@ -3086,7 +3086,7 @@ void File__Analyze::Ibi_Stream_Finish ()
         ibi::stream::info IbiInfo;
         IbiInfo.StreamOffset=File_Offset+Buffer_Size;
         IbiInfo.FrameNumber=Frame_Count_NotParsedIncluded;
-        IbiInfo.Dts=(FrameInfo.DTS!=(int64u)-1)?float64_int64s(((float64)FrameInfo.DTS)/1000000000*IbiStream->DtsFrequencyDenominator/IbiStream->DtsFrequencyNumerator):(int64u)-1;
+        IbiInfo.Dts=(FrameInfo.DTS!=(int64u)-1)?float64_int64s(((float64)FrameInfo.DTS)/1000000000*IbiStream->DtsFrequencyNumerator/IbiStream->DtsFrequencyDenominator):(int64u)-1;
         IbiInfo.IsContinuous=true;
         IbiStream->Add(IbiInfo);
     }
