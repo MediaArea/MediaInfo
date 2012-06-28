@@ -116,8 +116,10 @@ private :
     stream_t                        StreamKind_Last;
     size_t                          StreamPos_From;
     size_t                          StreamPos_To;
-    int64u                          DTS_Minimal;
-    int64u                          DTS_Interval;
+    #if MEDIAINFO_NEXTPACKET
+        int64u                      DTS_Minimal;
+        int64u                      DTS_Interval;
+    #endif //MEDIAINFO_NEXTPACKET
 
     //Helpers
     size_t Stream_Prepare(stream_t StreamKind, size_t StreamPos=(size_t)-1);

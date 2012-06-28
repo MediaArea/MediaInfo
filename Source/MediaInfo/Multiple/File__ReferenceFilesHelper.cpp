@@ -62,7 +62,9 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     TestContinuousFileNames=false;
     FrameRate=0;
     Duration=0;
-    DTS_Interval=(int64u)-1;
+    #if MEDIAINFO_NEXTPACKET
+        DTS_Interval=(int64u)-1;
+    #endif //MEDIAINFO_NEXTPACKET
 }
 
 //***************************************************************************
@@ -332,7 +334,9 @@ void File__ReferenceFilesHelper::ParseReferences()
 
         //State
         int64u FileSize_Parsed=0;
-        DTS_Minimal=(int64u)-1;
+        #if MEDIAINFO_NEXTPACKET
+            DTS_Minimal=(int64u)-1;
+        #endif //MEDIAINFO_NEXTPACKET
         for (references::iterator ReferenceTemp=References.begin(); ReferenceTemp!=References.end(); ReferenceTemp++)
         {
             if (ReferenceTemp->MI)
@@ -347,9 +351,11 @@ void File__ReferenceFilesHelper::ParseReferences()
                 else
                     FileSize_Parsed+=ReferenceTemp->MI->Config.File_Size;
 
-                //Minimal DTS
-                if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && ReferenceTemp->MI->Info && DTS_Minimal>ReferenceTemp->MI->Info->FrameInfo.DTS)
-                    DTS_Minimal=ReferenceTemp->MI->Info->FrameInfo.DTS;
+                #if MEDIAINFO_NEXTPACKET
+                    //Minimal DTS
+                    if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && ReferenceTemp->MI->Info && DTS_Minimal>ReferenceTemp->MI->Info->FrameInfo.DTS)
+                        DTS_Minimal=ReferenceTemp->MI->Info->FrameInfo.DTS;
+                #endif //MEDIAINFO_NEXTPACKET
             }
         }
         Config->State_Set(((float)FileSize_Parsed)/MI->Config->File_Size);
