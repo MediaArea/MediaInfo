@@ -3474,10 +3474,6 @@ void File_MpegPs::extension_stream()
                                                                 {} //IPMP Control Information stream
                                                             else if (stream_id_extension==0x01)
                                                                 {} //IPMP stream
-                                                            else if (stream_id_extension<=0x0F)
-                                                                {} //ISO/IEC 14496-17 text stream
-                                                            else if (stream_id_extension<=0x0F)
-                                                                {} //ISO/IEC 23002-3 auxiliary video stream
                                                             else if (stream_id_extension>=0x55 && stream_id_extension<=0x5F)
                                                                  Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_VC1());
                                                             else if (stream_id_extension>=0x60 && stream_id_extension<=0x6F)
