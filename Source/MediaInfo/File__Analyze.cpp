@@ -2896,7 +2896,7 @@ void File__Analyze::Ibi_Read_Buffer_Unsynched ()
     }
 }
 
-size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
+size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     //Init
     if (!Seek_Duration_Detected)
@@ -2924,13 +2924,53 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
     switch (Method)
     {
         case 0  :
-                    GoTo(Value);
-                    Open_Buffer_Unsynch();
+                    #if MEDIAINFO_IBI
+                    {
+                    for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
+                    {
+                        if (Value<=IbiStream->Infos[Pos].StreamOffset)
+                        {
+                            if (Value<IbiStream->Infos[Pos].StreamOffset && Pos)
+                                Pos--;
+
+                            //Checking continuity of Ibi
+                            if (!IbiStream->Infos[Pos].IsContinuous && Pos+1<IbiStream->Infos.size())
+                            {
+                                Config->Demux_IsSeeking=true;
+                                GoTo((IbiStream->Infos[Pos].StreamOffset+IbiStream->Infos[Pos+1].StreamOffset)/2);
+                                Open_Buffer_Unsynch();
+
+                                return 1;
+                            }
+
+                            Config->Demux_IsSeeking=false;
+
+                            GoTo(IbiStream->Infos[Pos].StreamOffset);
+                            Open_Buffer_Unsynch();
+
+                            return 1;
+                        }
+                    }
+
+                    if (IbiStream->Infos.empty())
+                    {
+                        GoTo(0);
+                        Open_Buffer_Unsynch();
+                    }
+                    else if (!IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
+                    {
+                        GoTo(IbiStream->Infos[IbiStream->Infos.size()-1].StreamOffset);
+                        Open_Buffer_Unsynch();
+                    }
+                    else
+                        return 2; //Invalid value
                     return 1;
+                    }
+                    #else //MEDIAINFO_IBI
+                    return (size_t)-2; //Not supported / IBI disabled
+                    #endif //MEDIAINFO_IBI
         case 1  :
-                    GoTo(File_Size*Value/10000);
-                    Open_Buffer_Unsynch();
-                    return 1;
+                    return Ibi_Read_Buffer_Seek(0, File_Size*Value/10000, ID);
         case 2  :   //Timestamp
                     #if MEDIAINFO_IBI
                     {
@@ -2970,9 +3010,15 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
                     }
 
                     if (IbiStream->Infos.empty())
+                    {
                         GoTo(0);
+                        Open_Buffer_Unsynch();
+                    }
                     else if (!IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
+                    {
                         GoTo(IbiStream->Infos[IbiStream->Infos.size()-1].StreamOffset);
+                        Open_Buffer_Unsynch();
+                    }
                     else
                         return 2; //Invalid value
                     return 1;
@@ -3010,9 +3056,15 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
                     }
 
                     if (IbiStream->Infos.empty())
+                    {
                         GoTo(0);
+                        Open_Buffer_Unsynch();
+                    }
                     else if (!IbiStream->Infos[IbiStream->Infos.size()-1].IsContinuous)
+                    {
                         GoTo(IbiStream->Infos[IbiStream->Infos.size()-1].StreamOffset);
+                        Open_Buffer_Unsynch();
+                    }
                     else
                         return 2; //Invalid value
                     return 1;
