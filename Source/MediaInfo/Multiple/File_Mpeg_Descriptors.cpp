@@ -2828,7 +2828,7 @@ void File_Mpeg_Descriptors::Descriptor_A1()
         Element_End1(Ztring().From_CC2(elementary_PID));
 
         //Filling
-        if (Complete_Stream->Streams[elementary_PID]->Infos["Language"].empty()) //We use only the first detected value
+        if (elementary_PID<Complete_Stream->Streams.size() && Complete_Stream->Streams[elementary_PID]->Infos["Language"].empty()) //We use only the first detected value
             Complete_Stream->Streams[elementary_PID]->Infos["Language"]=Language;
     }
 }
