@@ -24,6 +24,7 @@ x AVI: secondary genre comes after primary genres in the "Genre" field
 x FLV: better handling of files containing more than 1 meta chunk
 x MPEG-TS/MPEG-PS: was aborting during full parsing in the case of very damaged streams
 x Vorbis: infinite loop if codebook_entries>=256
+x Id3v2: crash with some unsynchronized frames, especially with UTF-16 comments
 
 Version 0.7.58, 2012-05-28
 --------------

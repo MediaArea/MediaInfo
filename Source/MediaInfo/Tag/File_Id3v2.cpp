@@ -504,6 +504,26 @@ void File_Id3v2::Header_Parse()
         }
     }
 
+    //Hanlding Unsynchronisation
+    if (Unsynchronisation_Global || Unsynchronisation_Frame)
+    {
+        if (Buffer_Offset+(size_t)Element_Offset+Size>Buffer_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        for (size_t Element_Offset_Unsynch=0; Element_Offset_Unsynch+2<Element_Offset+Size; Element_Offset_Unsynch++)
+            if (CC2(Buffer+Buffer_Offset+Element_Offset_Unsynch)==0xFF00)
+            {
+                Size++;
+                if (Buffer_Offset+(size_t)Element_Offset+Size>Buffer_Size)
+                {
+                    Element_WaitForMoreData();
+                    return;
+                }
+            }
+    }
+        
     //Filling
     Ztring ToShow;
     if (Id3v2_Version==2)
