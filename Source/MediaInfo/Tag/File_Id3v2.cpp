@@ -926,8 +926,8 @@ void File_Id3v2::APIC()
         Get_C3(Image_format,                                    "Image_format");
         switch (Image_format)
         {
-            case 0x504E47 : Mime="image/png";
-            case 0x4A5047 : Mime="image/jpeg";
+            case 0x504E47 : Mime="image/png"; break;
+            case 0x4A5047 : Mime="image/jpeg"; break;
             default       : ;
         }
     }
