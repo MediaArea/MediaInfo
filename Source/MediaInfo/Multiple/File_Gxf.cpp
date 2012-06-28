@@ -958,7 +958,6 @@ void File_Gxf::map()
                                     Parsers_Count++;
                                     Streams[TrackID].Searching_Payload=true;
                                     break;
-                                    break;
                         case 17 :   //AC-3 in AES3 (half)
                         case 18 :   //Dolby E in AES3 (half)
                                     Streams[TrackID].Parser=ChooseParser_ChannelGrouping(TrackID);
