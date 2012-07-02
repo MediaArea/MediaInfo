@@ -1662,7 +1662,7 @@ void File_Mpeg_Descriptors::Descriptor_09()
             case 0x02 : //program_map_section
                         if (elementary_PID_IsValid)
                         {
-                            if (Complete_Stream->Streams[CA_PID]->Kind==complete_stream::stream::unknown) //Priority to PES, if this is a PES, we skip the CA
+                            if (CA_PID<Complete_Stream->Streams.size() && Complete_Stream->Streams[CA_PID]->Kind==complete_stream::stream::unknown) //Priority to PES, if this is a PES, we skip the CA
                             {
                                 Complete_Stream->Streams[CA_PID]->Kind=complete_stream::stream::psi;
                                 Complete_Stream->Streams[CA_PID]->Table_IDs.resize(0x100);
