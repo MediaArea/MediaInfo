@@ -81,7 +81,7 @@ class MediaInfo
         void Close(Pointer Handle);
 
         //Infos
-        WString Inform(Pointer Handle);
+        WString Inform(Pointer Handle, int Reserved);
         WString Get(Pointer Handle, int StreamKind, int StreamNumber, WString parameter, int infoKind, int searchKind);
         WString GetI(Pointer Handle, int StreamKind, int StreamNumber, int parameterIndex, int infoKind);
         int     Count_Get(Pointer Handle, int StreamKind, int StreamNumber);
@@ -198,7 +198,7 @@ class MediaInfo
      */
     public String Inform()
     {
-        return MediaInfoDLL_Internal.INSTANCE.Inform(Handle).toString();
+        return MediaInfoDLL_Internal.INSTANCE.Inform(Handle, 0).toString();
     }
 
     /**
