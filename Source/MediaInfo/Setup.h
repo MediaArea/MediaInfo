@@ -494,6 +494,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_MPEGA_NO) && !defined(MEDIAINFO_MPEGA_YES)
     #define MEDIAINFO_MPEGA_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_OPUS_NO) && !defined(MEDIAINFO_OPUS_YES)
+    #define MEDIAINFO_OPUS_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PCM_NO) && !defined(MEDIAINFO_PCM_YES)
     #define MEDIAINFO_PCM_YES
 #endif

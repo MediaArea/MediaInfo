@@ -229,6 +229,9 @@
 #if defined(MEDIAINFO_S3M_YES)
     #include "MediaInfo/Audio/File_ScreamTracker3.h"
 #endif
+#if defined(MEDIAINFO_RKAU_YES)
+    #include "MediaInfo/Audio/File_Rkau.h"
+#endif
 #if defined(MEDIAINFO_TAK_YES)
     #include "MediaInfo/Audio/File_Tak.h"
 #endif

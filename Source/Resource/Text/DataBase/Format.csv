@@ -87,6 +87,7 @@ Scream Tracker 3;;;A;S3m;;s3m;;;
 Shorten;;;A;;;shn;;http://etree.org/shnutils/shorten/;Lossless
 SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm;Lossless
 Speex;;;A;;;;audio/speex;http://www.speex.org/;Lossy
+Opus;;;A;;;;audio/opus;http://opus-codec.org/;Lossy
 TAK;;;A;;;tak;;http://thbeck.de/Tak/Tak.html;Lossless
 TrueHD;;;A;Ac3;;dts;;;Lossless
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;;http://www.twinvq.org/english/index_en.html;

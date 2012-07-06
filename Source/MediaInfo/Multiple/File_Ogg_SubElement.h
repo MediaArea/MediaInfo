@@ -75,6 +75,7 @@ private :
     void Identification_KW_DIRAC();
     void Identification_OggMIDI();
     void Identification_MNG();
+    void Identification_OpusHead();
     void Identification_PCM();
     void Identification_PNG();
     void Identification_Speex();

@@ -740,6 +740,7 @@ A_AC3/BSID10;AC3;Mk;A;AC3;;Dolby AC3;
 A_DTS;DTS;Mk;A;DTS;;;
 A_EAC3;EAC3;Mk;A;EAC3;;Dolby Enhanced AC3;
 A_FLAC;Flac;Mk;A;Flac;;;http://flac.sourceforge.net
+A_OPUS;Opus;;;http://opus-codec.org
 A_TTA1;TTA;Mk;A;TTA;;The True Audio Lossless Codec;http://true-audio.com
 A_VORBIS;Vorbis;Mk;A;Vorbis;VBR;;http://www.vorbis.com
 A_WAVPACK4;WavPack;Mk;A;Real;VBR;;http://www.wavpack.com
@@ -778,6 +779,7 @@ whrl;Multi-Channel;Real;A;;;Real Audio Multi-Channel;http://www.real.com
 atrc;Atrac;Real;A;;;Real & Sony Atrac3;http://www.real.com
 raac;AAC-LC;Real;A;AAC;;Real Audio 10 AAC LC;http://www.real.com
 racp;AAC-HE;Real;A;AAC;;Real Audio 10 AAC-HE;http://www.real.com
+OPUS;Opus;Ogg;A;OPUS;;;http://opus-codec.org
 Vorbis;Vorbis;Ogg;A;Vorbis;;;http://www.vorbis.com
 Theora;Theora;Ogg;V;Theora;;;http://www.theora.com
 mp4a;AAC;4CC;A;AAC;;AAC (3GPP);http://www.apple.com/quicktime/download/standalone.html
