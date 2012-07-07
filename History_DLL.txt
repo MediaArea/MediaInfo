@@ -9,7 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.59, 2012-
 --------------
-+ #3540425, OGG: Opus speech format support, thanks to Lionel Duchateau
++ #3540425, OGG/MKV: Opus speech format support, thanks to Lionel Duchateau
 + #3531808, AVI: detecting more inconsistencies in stream durations
 + GXF: crash with Time code tracks without frame rate info
 + MPEG-4: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
