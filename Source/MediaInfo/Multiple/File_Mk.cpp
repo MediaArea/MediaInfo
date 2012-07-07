@@ -74,6 +74,9 @@
 #if defined(MEDIAINFO_FLAC_YES)
     #include "MediaInfo/Audio/File_Flac.h"
 #endif
+#if defined(MEDIAINFO_OPUS_YES)
+    #include "MediaInfo/Audio/File_Opus.h"
+#endif
 #if defined(MEDIAINFO_WVPK_YES)
     #include "MediaInfo/Audio/File_Wvpk.h"
 #endif
@@ -3365,6 +3368,12 @@ void File_Mk::CodecID_Manage()
     else if (Format==_T("Flac"))
     {
         Stream[TrackNumber].Parser=new File_Flac;
+    }
+    #endif
+    #if defined(MEDIAINFO_OPUS_YES)
+    else if (CodecID.find(_T("A_OPUS"))==0) //http://wiki.xiph.org/MatroskaOpus
+    {
+        Stream[TrackNumber].Parser=new File_Opus;
     }
     #endif
     #if defined(MEDIAINFO_WVPK_YES)
