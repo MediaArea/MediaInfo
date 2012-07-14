@@ -1257,6 +1257,10 @@ void File_Flv::meta_SCRIPTDATAVARIABLE()
 //---------------------------------------------------------------------------
 void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
 {
+    std::string StringDataModified(StringData);
+    if (!StringDataModified.empty() && StringDataModified[0]==_T('_'))
+        StringDataModified.erase(StringDataModified.begin());
+
     //Parsing
     int8u Type;
     Get_B1 (Type,                                               "Type"); Param_Info1C((Type<0x12), Flv_TagType[Type]);
@@ -1271,37 +1275,37 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 std::string ToFill;
                 Ztring ValueS;
                 stream_t StreamKind=Stream_General;
-                     if (StringData=="width") {ToFill="Width"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="height") {ToFill="Height"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="duration") meta_duration=Value*1000;
-                else if (StringData=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="videoframerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="filesize") {meta_filesize=(int64u)Value;}
-                else if (StringData=="audiosize") {ToFill="StreamSize"; StreamKind=Stream_Audio; ValueS.From_Number(Value, 0); if (Value>File_Size) MetaData_NotTrustable=true;}
-                else if (StringData=="videosize") {ToFill="StreamSize"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); if (Value>File_Size) MetaData_NotTrustable=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="videodatarate") {ToFill="BitRate"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="videocodecid") {; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="audiodelay") {ToFill="Delay"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="audiosamplerate") {ToFill="SamplingRate"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
-                else if (StringData=="audiosamplesize") {ToFill="BitDepth"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
-                else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="totalframes") {ToFill="FrameCount"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="bytelength") {if (File_Size!=Value) MetaData_NotTrustable=true;}
-                else if (!(StringData=="datasize"
-                       || StringData=="lasttimestamp"
-                       || StringData=="lastkeyframetimestamp"
-                       || StringData=="lastkeyframelocation"
-                       || StringData=="canSeekToEnd"
-                       || StringData=="keyframes_times"
-                       || StringData=="keyframes_filepositions"
-                       || StringData=="aacaot"
-                       || StringData=="audiochannels"
-                       || StringData=="audiocodecid"
-                       || StringData=="avclevel"
-                       || StringData=="avcprofile"
-                       || StringData=="moovPosition")) {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
+                     if (StringDataModified=="width") {ToFill="Width"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="height") {ToFill="Height"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="duration") meta_duration=Value*1000;
+                else if (StringDataModified=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
+                else if (StringDataModified=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="videoframerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="filesize") {meta_filesize=(int64u)Value;}
+                else if (StringDataModified=="audiosize") {ToFill="StreamSize"; StreamKind=Stream_Audio; ValueS.From_Number(Value, 0); if (Value>File_Size) MetaData_NotTrustable=true;}
+                else if (StringDataModified=="videosize") {ToFill="StreamSize"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); if (Value>File_Size) MetaData_NotTrustable=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="videodatarate") {ToFill="BitRate"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="videocodecid") {; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringDataModified=="audiodelay") {ToFill="Delay"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value*1000, 0);}
+                else if (StringDataModified=="audiosamplerate") {ToFill="SamplingRate"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
+                else if (StringDataModified=="audiosamplesize") {ToFill="BitDepth"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
+                else if (StringDataModified=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
+                else if (StringDataModified=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
+                else if (StringDataModified=="totalframes") {ToFill="FrameCount"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0);}
+                else if (StringDataModified=="bytelength") {if (File_Size!=Value) MetaData_NotTrustable=true;}
+                else if (!(StringDataModified=="datasize"
+                       || StringDataModified=="lasttimestamp"
+                       || StringDataModified=="lastkeyframetimestamp"
+                       || StringDataModified=="lastkeyframelocation"
+                       || StringDataModified=="canSeekToEnd"
+                       || StringDataModified=="keyframes_times"
+                       || StringDataModified=="keyframes_filepositions"
+                       || StringDataModified=="aacaot"
+                       || StringDataModified=="audiochannels"
+                       || StringDataModified=="audiocodecid"
+                       || StringDataModified=="avclevel"
+                       || StringDataModified=="avcprofile"
+                       || StringDataModified=="moovPosition")) {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
                 #if MEDIAINFO_TRACE
                     if (ValueS.empty())
                         ValueS.From_Number(Value, 0);
@@ -1320,16 +1324,16 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 int8u Value;
                 Get_B1 (Value,                                  "Value");
                 std::string ToFill;
-                     if (StringData=="haskeyframes") {}
-                else if (StringData=="hasKeyframes") {}
-                else if (StringData=="hasVideo") {}
-                else if (StringData=="stereo") {}
-                else if (StringData=="canSeekToEnd") {}
-                else if (StringData=="hasAudio") {}
-                else if (StringData=="hasmetadata") {}
-                else if (StringData=="hasMetadata") {}
-                else if (StringData=="hasCuePoints") {}
-                else if (StringData=="canseekontime") {}
+                     if (StringDataModified=="haskeyframes") {}
+                else if (StringDataModified=="hasKeyframes") {}
+                else if (StringDataModified=="hasVideo") {}
+                else if (StringDataModified=="stereo") {}
+                else if (StringDataModified=="canSeekToEnd") {}
+                else if (StringDataModified=="hasAudio") {}
+                else if (StringDataModified=="hasmetadata") {}
+                else if (StringDataModified=="hasMetadata") {}
+                else if (StringDataModified=="hasCuePoints") {}
+                else if (StringDataModified=="canseekontime") {}
                 else {ToFill=StringData;}
                 Element_Info1(Value);
                 Fill(Stream_General, 0, ToFill.c_str(), Value?"Yes":"No", Unlimited, true, true);
@@ -1345,19 +1349,19 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     Get_UTF8(Value_Size, Value,                 "Value");
                     size_t ToFill=(size_t)-1;
                     std::string ToFillS;
-                         if (StringData=="creator") {ToFill=General_Encoded_Application;}
-                    else if (StringData=="creationdate") {ToFill=General_Encoded_Date; Value.Date_From_String(Value.To_UTF8().c_str());}
-                    else if (StringData=="encoder") {ToFill=General_Encoded_Application;}
-                    else if (StringData=="Encoded_With") {ToFill=General_Encoded_Application;}
-                    else if (StringData=="Encoded_By") {ToFill=General_Encoded_Application;}
-                    else if (StringData=="metadatacreator") {ToFill=General_Tagged_Application;}
-                    else if (StringData=="creation_time") {ToFill=General_Encoded_Date; Value.insert(0, _T("UTC "));}
-                    else if (StringData=="sourcedata") {}
-                    else if (StringData=="audiocodecid") {}
-                    else if (StringData=="videocodecid") {}
-                    else if (!(StringData=="major_brand"
-                            || StringData=="minor_version"
-                            || StringData=="compatible_brands"))
+                         if (StringDataModified=="creator") {ToFill=General_Encoded_Application;}
+                    else if (StringDataModified=="creationdate") {ToFill=General_Encoded_Date; Value.Date_From_String(Value.To_UTF8().c_str());}
+                    else if (StringDataModified=="encoder") {ToFill=General_Encoded_Application;}
+                    else if (StringDataModified=="Encoded_With") {ToFill=General_Encoded_Application;}
+                    else if (StringDataModified=="Encoded_By") {ToFill=General_Encoded_Application;}
+                    else if (StringDataModified=="metadatacreator") {ToFill=General_Tagged_Application;}
+                    else if (StringDataModified=="creation_time") {ToFill=General_Encoded_Date; Value.insert(0, _T("UTC "));}
+                    else if (StringDataModified=="sourcedata") {}
+                    else if (StringDataModified=="audiocodecid") {}
+                    else if (StringDataModified=="videocodecid") {}
+                    else if (!(StringDataModified=="major_brand"
+                            || StringDataModified=="minor_version"
+                            || StringDataModified=="compatible_brands"))
                         ToFillS=StringData;
                     if (Value.find(_T('\r'))!=std::string::npos)
                         Value.resize(Value.find(_T('\r')));
