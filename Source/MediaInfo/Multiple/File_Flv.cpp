@@ -1065,7 +1065,7 @@ void File_Flv::video_AVC()
                     Open_Buffer_Continue(Stream[Stream_Video].Parser);
 
                     //Disabling this stream
-                    if (Stream[Stream_Video].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Video].Parser->Count_Get(Stream_Video)>0)
+                    if (Stream[Stream_Video].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Video].Parser->Count_Get(Stream_Video)>0 || (Config_ParseSpeed<1.0 && Stream[Stream_Video].PacketCount>=300))
                          video_stream_Count=false;
                 #else
                     Skip_XX(Element_Size-Element_Offset,        "AVC Data");
