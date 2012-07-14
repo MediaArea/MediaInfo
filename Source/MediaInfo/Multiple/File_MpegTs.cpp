@@ -967,15 +967,23 @@ void File_MpegTs::Streams_Finish()
 bool File_MpegTs::Synchronize()
 {
     //Synchronizing
-    while (       Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7+1<=Buffer_Size
-      && !(Buffer[Buffer_Offset+188*0+BDAV_Size*1+TSP_Size*0]==0x47
-        && Buffer[Buffer_Offset+188*1+BDAV_Size*2+TSP_Size*1]==0x47
-        && Buffer[Buffer_Offset+188*2+BDAV_Size*3+TSP_Size*2]==0x47
-        && Buffer[Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3]==0x47
-        && Buffer[Buffer_Offset+188*4+BDAV_Size*5+TSP_Size*4]==0x47
-        && Buffer[Buffer_Offset+188*5+BDAV_Size*6+TSP_Size*5]==0x47
-        && Buffer[Buffer_Offset+188*6+BDAV_Size*7+TSP_Size*6]==0x47
-        && Buffer[Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7]==0x47))
+    while (       Buffer_Offset+188*16+BDAV_Size*16+TSP_Size*16<=Buffer_Size
+      && !(Buffer[Buffer_Offset+188* 0+BDAV_Size* 1+TSP_Size* 0]==0x47
+        && Buffer[Buffer_Offset+188* 1+BDAV_Size* 2+TSP_Size* 1]==0x47
+        && Buffer[Buffer_Offset+188* 2+BDAV_Size* 3+TSP_Size* 2]==0x47
+        && Buffer[Buffer_Offset+188* 3+BDAV_Size* 4+TSP_Size* 3]==0x47
+        && Buffer[Buffer_Offset+188* 4+BDAV_Size* 5+TSP_Size* 4]==0x47
+        && Buffer[Buffer_Offset+188* 5+BDAV_Size* 6+TSP_Size* 5]==0x47
+        && Buffer[Buffer_Offset+188* 6+BDAV_Size* 7+TSP_Size* 6]==0x47
+        && Buffer[Buffer_Offset+188* 7+BDAV_Size* 8+TSP_Size* 7]==0x47
+        && Buffer[Buffer_Offset+188* 8+BDAV_Size* 9+TSP_Size* 8]==0x47
+        && Buffer[Buffer_Offset+188* 9+BDAV_Size*10+TSP_Size* 9]==0x47
+        && Buffer[Buffer_Offset+188*10+BDAV_Size*11+TSP_Size*10]==0x47
+        && Buffer[Buffer_Offset+188*11+BDAV_Size*12+TSP_Size*11]==0x47
+        && Buffer[Buffer_Offset+188*12+BDAV_Size*13+TSP_Size*12]==0x47
+        && Buffer[Buffer_Offset+188*13+BDAV_Size*14+TSP_Size*13]==0x47
+        && Buffer[Buffer_Offset+188*14+BDAV_Size*15+TSP_Size*14]==0x47
+        && Buffer[Buffer_Offset+188*15+BDAV_Size*16+TSP_Size*15]==0x47))
     {
         Buffer_Offset++;
         while (       Buffer_Offset+BDAV_Size+1<=Buffer_Size
@@ -983,7 +991,7 @@ bool File_MpegTs::Synchronize()
             Buffer_Offset++;
     }
 
-    if (Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7>=Buffer_Size)
+    if (Buffer_Offset+188*16+BDAV_Size*16+TSP_Size*16>=Buffer_Size)
         return false;
 
     //Synched is OK
@@ -1703,7 +1711,17 @@ bool File_MpegTs::FileHeader_Begin()
 {
     if (Buffer_Size<8)
         return false; //Wait for more data
-    if (CC8(Buffer+Buffer_Offset)==0x444C472056312E30LL)
+
+    //False positives detection: detect some headers from other files, DV parser is not smart enough
+    if (CC8(Buffer+Buffer_Offset)==0x444C472056312E30LL //DLG
+     || CC4(Buffer)==0x52494646  //RIFF
+     || CC4(Buffer+4)==0x66747970  //ftyp
+     || CC4(Buffer+4)==0x66726565  //free
+     || CC4(Buffer+4)==0x6D646174  //mdat
+     || CC4(Buffer+4)==0x6D6F6F76  //moov
+     || CC4(Buffer+4)==0x736B6970  //skip
+     || CC4(Buffer+4)==0x77696465  //wide
+     || CC4(Buffer)==0x060E2B34) //MXF begin
     {
         Reject("MPEG-TS");
         return true;
