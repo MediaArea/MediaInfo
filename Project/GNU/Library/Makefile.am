@@ -60,6 +60,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Mpc.cpp \
                        ../../../Source/MediaInfo/Audio/File_MpcSv8.cpp \
                        ../../../Source/MediaInfo/Audio/File_Mpega.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Opus.cpp \
                        ../../../Source/MediaInfo/Audio/File_Pcm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ps2Audio.cpp \
                        ../../../Source/MediaInfo/Audio/File_Rkau.cpp \

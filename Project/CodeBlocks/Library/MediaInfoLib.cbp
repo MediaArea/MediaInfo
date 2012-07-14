@@ -67,7 +67,8 @@
 		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Mpega.cpp" />
-		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Mpega.h" />
+		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_MpeOpusPcm.cpp" />
+		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Opus.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Pcm.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Pcm.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Audio\File_Tta.cpp" />
