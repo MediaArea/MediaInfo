@@ -3,7 +3,7 @@ MediaInfo.Dll : dynamic library
 HowToUse.exe  : static-linked example
 HowToUse_Dll  : dynamic-linked example
 
-For DLL, there are two versions of functions : 
+For DLL, there are two versions of functions :
 - MediaInfoLib_XXX : Unicode version (international, UTF16, 2-byte characters), this become the main version, there are not only English language in the world ;-). So now Chinese / French / German languages can be showed in same time
 - MediaInfoLibA_XXX : Deprecated, Ansi version (localized, UTF8, 1-byte characters), as the old DLL : you should link your old code to this functions.
 
