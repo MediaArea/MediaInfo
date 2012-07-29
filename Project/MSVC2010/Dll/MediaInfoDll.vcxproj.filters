@@ -20,4 +20,9 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
