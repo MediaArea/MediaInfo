@@ -131,7 +131,11 @@
 #undef MEDIAINFO_EXP
 #if defined(__WINDOWS__) && !defined(__MINGW32__) //MinGW32 does not support _declspec
     #ifdef MEDIAINFO_DLL_EXPORT
-        #define MEDIAINFO_EXP extern _declspec(dllexport)
+        #if defined(MEDIAINFODLL_EXPORTS_NODLLEXPORT)
+            #define MEDIAINFO_EXP extern
+        #else //!defined(MEDIAINFODLL_EXPORTS_NODLLEXPORT)
+            #define MEDIAINFO_EXP extern _declspec(dllexport)
+        #endif //!defined(MEDIAINFODLL_EXPORTS_NODLLEXPORT)
     #else
         #define MEDIAINFO_EXP extern _declspec(dllimport)
     #endif
