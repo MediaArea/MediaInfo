@@ -69,10 +69,6 @@
     <Filter Include="Header Files\Export">
       <UniqueIdentifier>{fb691036-49d1-42d5-a991-92e4e43a27ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{5dc08159-7486-493c-b920-e170f1b36077}</UniqueIdentifier>
     </Filter>
