@@ -362,7 +362,12 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             }
 
             if (MI->Config.File_Buffer_Size==0)
+            {
+                #if MEDIAINFO_EVENTS
+                    MediaInfoLib::Config.Log_Send(0xC0, 0xFF, 0xF0F00101, "File read error");
+                #endif //MEDIAINFO_EVENTS
                 break;
+            }
 
             #if MEDIAINFO_DEMUX
                 if (MI->Config.Demux_EventWasSent)
