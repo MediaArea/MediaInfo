@@ -330,7 +330,8 @@ void File__ReferenceFilesHelper::ParseReferences()
 
     while (Reference!=References.end())
     {
-        ParseReference();
+        if (Reference->MI==NULL || !Reference->Status[File__Analyze::IsFinished])
+            ParseReference();
 
         //State
         int64u FileSize_Parsed=0;
