@@ -32,6 +32,7 @@ x MPEG-PS: crash in case of language info in descriptors
 x Java binding: crash with MediaInfo::Inform() (Windows 32-bit only)
 x MPEG-TS: false-positive in case of some MPEG-4 files with wrong extension
 x FLV: crash in some specific cases (malformed files)
+x 3548314, MVC: Scan type was wrong with MVC-only (without the underlying AVC stream) stream
 
 Version 0.7.58, 2012-05-28
 --------------
