@@ -1178,8 +1178,9 @@ void File_Bdmv::Mpls_PlayList_PlayItem()
     Skip_B4(                                                "UO2");
     Skip_B4(                                                "An?");
 
+    Mpls_PlayList_PlayItem_Duration=Time_Out-Time_In;
     if (Time_Out>Time_In)
-        Mpls_PlayList_Duration+=Time_Out-Time_In;
+        Mpls_PlayList_Duration+=Mpls_PlayList_PlayItem_Duration;
 
     Mpls_PlayList_PlayItem_STN_table();
 
@@ -1269,6 +1270,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_table()
                     Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(mPID), true);
                 }
                 Fill(StreamKind_Last, StreamPos_Last, "Language", language);
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Mpls_PlayList_PlayItem_Duration/45);
             }
         FILLING_END();
     }

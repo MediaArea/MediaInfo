@@ -82,6 +82,7 @@ private :
     int8u stream_type;
     std::map<int32u, size_t> Types; //Key is the start address
     int64u Mpls_PlayList_Duration;
+    int64u Mpls_PlayList_PlayItem_Duration;
     int16u Mpls_PlayList_number_of_SubPaths;
     bool   Mpls_PlayList_IsParsed;
     std::set<Ztring> Clip_Information_file_names;
