@@ -330,7 +330,9 @@ void File__ReferenceFilesHelper::ParseReferences()
 
     while (Reference!=References.end())
     {
+        #if MEDIAINFO_NEXTPACKET
         if (Reference->MI==NULL || !Reference->Status[File__Analyze::IsFinished])
+        #endif //MEDIAINFO_NEXTPACKET
             ParseReference();
 
         //State
