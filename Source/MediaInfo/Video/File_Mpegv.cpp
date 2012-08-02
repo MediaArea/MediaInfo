@@ -1063,6 +1063,7 @@ File_Mpegv::File_Mpegv()
     //Temp
     SizeToAnalyse_Begin=1*1024*1024;
     SizeToAnalyse_End=1*1024*1024;
+    Frame_Count_LastIFrame=(int64u)-1;
     Searching_TimeStamp_Start_DoneOneTime=false;
     sequence_header_IsParsed=false;
     FrameInfo.DTS=0;
@@ -2106,6 +2107,9 @@ void File_Mpegv::picture_start()
     BS_End();
 
     FILLING_BEGIN();
+        if (picture_coding_type==1)
+            Frame_Count_LastIFrame=Frame_Count_NotParsedIncluded;
+
         #if MEDIAINFO_MACROBLOCKS
             if (Macroblocks_Parse)
             {
@@ -2326,6 +2330,8 @@ void File_Mpegv::slice_start()
             if (Trace_Activated)
             {
                 Element_Info1(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+                if (Frame_Count_LastIFrame!=(int64u)-1)
+                    Element_Info1(_T("Frame reordered ")+Ztring::ToZtring(Frame_Count_LastIFrame+temporal_reference));
                 Element_Info1(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
                 Element_Info1(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
                 if (FrameInfo.PTS!=(int64u)-1)
