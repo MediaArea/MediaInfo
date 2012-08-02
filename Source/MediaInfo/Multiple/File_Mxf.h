@@ -792,6 +792,7 @@ protected :
         int128u Clip_Code;
         int64u  OverallBitrate_IsCbrForSure;
         bool    Duration_Detected;
+        bool    DetectDuration();
     #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 };
 

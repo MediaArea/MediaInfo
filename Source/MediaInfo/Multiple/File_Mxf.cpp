@@ -2008,6 +2008,67 @@ void File_Mxf::Read_Buffer_Unsynched()
 }
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+bool File_Mxf::DetectDuration ()
+{
+    if (Duration_Detected)
+        return false;
+
+    MediaInfo_Internal MI;
+    MI.Option(_T("File_IsSub"), _T("1"));
+    MI.Option(_T("File_KeepInfo"), _T("1"));
+    Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
+    Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
+    MI.Option(_T("ParseSpeed"), _T("0"));
+    MI.Option(_T("Demux"), Ztring());
+    size_t MiOpenResult=MI.Open(File_Name);
+    MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+    MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+    if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("MXF"))
+        return false;
+    Partitions=((File_Mxf*)MI.Info)->Partitions;
+    std::sort(Partitions.begin(), Partitions.end());
+    IndexTables=((File_Mxf*)MI.Info)->IndexTables;
+    std::sort(IndexTables.begin(), IndexTables.end());
+    SDTI_SizePerFrame=((File_Mxf*)MI.Info)->SDTI_SizePerFrame;
+    Clip_Begin=((File_Mxf*)MI.Info)->Clip_Begin;
+    Clip_End=((File_Mxf*)MI.Info)->Clip_End;
+    Clip_Header_Size=((File_Mxf*)MI.Info)->Clip_Header_Size;
+    Clip_Code=((File_Mxf*)MI.Info)->Clip_Code;
+    Tracks=((File_Mxf*)MI.Info)->Tracks; //In one file (*-009.mxf), the TrackNumber is known only at the end of the file (Open and incomplete header/footer)
+    for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+        Track->second.Stream_Finish_Done=false; //Reseting the value, it is not done in this instance
+    if (MI.Get(Stream_General, 0, General_OverallBitRate_Mode)==_T("CBR") && Partitions.size()==2 && Partitions[0].FooterPartition==Partitions[1].StreamOffset && !Descriptors.empty())
+    {
+        //Searching duration
+        int64u Duration=0;
+        for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+            if (Descriptor->second.Duration!=(int64u)-1 && Descriptor->second.Duration)
+            {
+                if (Duration && Duration!=Descriptor->second.Duration)
+                {
+                    Duration=0;
+                    break; //Not supported
+                }
+                Duration=Descriptor->second.Duration;
+            }
+                        
+        //Computing the count of bytes per frame
+        if (Duration)
+        {
+            int64u Begin=Partitions[0].StreamOffset+Partitions[0].PartitionPackByteCount+Partitions[0].HeaderByteCount+Partitions[0].IndexByteCount;
+            float64 BytesPerFrameF=((float64)(Partitions[0].FooterPartition-Begin)/Duration);
+            OverallBitrate_IsCbrForSure=float64_int64s(BytesPerFrameF);
+            if (OverallBitrate_IsCbrForSure!=BytesPerFrameF) //Testing integrity of the computing
+                OverallBitrate_IsCbrForSure=0;
+        }
+    }
+    Duration_Detected=true;
+
+    return true;
+}
+#endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+
 #if MEDIAINFO_SEEK
 size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
@@ -2017,52 +2078,8 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     //Init
     if (!Duration_Detected)
     {
-        MediaInfo_Internal MI;
-        MI.Option(_T("File_KeepInfo"), _T("1"));
-        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
-        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
-        MI.Option(_T("ParseSpeed"), _T("0"));
-        MI.Option(_T("Demux"), Ztring());
-        size_t MiOpenResult=MI.Open(File_Name);
-        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
-        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
-        if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("MXF"))
+        if (!DetectDuration())
             return 0;
-        Partitions=((File_Mxf*)MI.Info)->Partitions;
-        std::sort(Partitions.begin(), Partitions.end());
-        IndexTables=((File_Mxf*)MI.Info)->IndexTables;
-        std::sort(IndexTables.begin(), IndexTables.end());
-        SDTI_SizePerFrame=((File_Mxf*)MI.Info)->SDTI_SizePerFrame;
-        Clip_Begin=((File_Mxf*)MI.Info)->Clip_Begin;
-        Clip_End=((File_Mxf*)MI.Info)->Clip_End;
-        Clip_Header_Size=((File_Mxf*)MI.Info)->Clip_Header_Size;
-        Clip_Code=((File_Mxf*)MI.Info)->Clip_Code;
-        if (MI.Get(Stream_General, 0, General_OverallBitRate_Mode)==_T("CBR") && Partitions.size()==2 && Partitions[0].FooterPartition==Partitions[1].StreamOffset && !Descriptors.empty())
-        {
-            //Searching duration
-            int64u Duration=0;
-            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
-                if (Descriptor->second.Duration!=(int64u)-1 && Descriptor->second.Duration)
-                {
-                    if (Duration && Duration!=Descriptor->second.Duration)
-                    {
-                        Duration=0;
-                        break; //Not supported
-                    }
-                    Duration=Descriptor->second.Duration;
-                }
-                        
-            //Computing the count of bytes per frame
-            if (Duration)
-            {
-                int64u Begin=Partitions[0].StreamOffset+Partitions[0].PartitionPackByteCount+Partitions[0].HeaderByteCount+Partitions[0].IndexByteCount;
-                float64 BytesPerFrameF=((float64)(Partitions[0].FooterPartition-Begin)/Duration);
-                OverallBitrate_IsCbrForSure=float64_int64s(BytesPerFrameF);
-                if (OverallBitrate_IsCbrForSure!=BytesPerFrameF) //Testing integrity of the computing
-                    OverallBitrate_IsCbrForSure=0;
-            }
-        }
-        Duration_Detected=true;
     }
 
     //Parsing
@@ -2969,6 +2986,15 @@ void File_Mxf::Data_Parse()
                 for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
                     if (Track->second.TrackNumber==Code_Compare4)
                         Essence->second.TrackID=Track->second.TrackID;
+                #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                    if (Essence->second.TrackID==(int32u)-1 && !Duration_Detected && !Config->File_IsSub_Get())
+                    {
+                        DetectDuration(); //In one file (*-009.mxf), the TrackNumber is known only at the end of the file (Open and incomplete header/footer)
+                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                            if (Track->second.TrackNumber==Code_Compare4)
+                                Essence->second.TrackID=Track->second.TrackID;
+                    }
+                #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 Essence->second.TrackID_WasLookedFor=true;
             }
 
