@@ -1182,6 +1182,10 @@ void File_Bdmv::Mpls_PlayList_PlayItem()
     if (Time_Out>Time_In)
         Mpls_PlayList_Duration+=Mpls_PlayList_PlayItem_Duration;
 
+    std::vector<size_t> StreamCount_Before;
+    for (size_t StreamKind=Stream_General; StreamKind<Stream_Max; StreamKind++)
+        StreamCount_Before.push_back(Count_Get((stream_t)StreamKind));
+
     Mpls_PlayList_PlayItem_STN_table();
 
     if (Clip_Information_file_names.find(Clip_Information_file_name)==Clip_Information_file_names.end() && File_Name.size()>10+1+8)
@@ -1196,7 +1200,15 @@ void File_Bdmv::Mpls_PlayList_PlayItem()
         MediaInfo_Internal MI;
         MI.Option(_T("File_Bdmv_ParseTargetedFile"), Config->File_Bdmv_ParseTargetedFile_Get()?_T("1"):_T("0"));
         if (MI.Open(CLPI_File))
-            Merge(MI, Stream_Video, 0, 0);
+        {
+            for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<MI.Count_Get((stream_t)StreamKind); StreamPos++)
+                {
+                    while (StreamCount_Before[StreamKind]+StreamPos>=Count_Get((stream_t)StreamKind))
+                        Stream_Prepare((stream_t)StreamKind);
+                    Merge(MI, (stream_t)StreamKind, StreamPos, StreamCount_Before[StreamKind]+StreamPos);
+                }
+        }
 
         Clip_Information_file_names.insert(Clip_Information_file_name);
     }
@@ -1360,12 +1372,13 @@ void File_Bdmv::Mpls_PlayList_SubPlayItem()
     Element_End0();
 
     FILLING_BEGIN();
+        /*
         if (Mpls_PlayList_IsParsed)
         {
-            if (!File_Name.empty())
+            if (File_Name.size()>=10+1+8)
             {
                 Ztring CLPI_File=File_Name;
-                CLPI_File.resize(CLPI_File.size()-10-1-8);
+                CLPI_File.resize(CLPI_File.size()-(10+1+8));
                 CLPI_File+=_T("CLIPINF");
                 CLPI_File+=PathSeparator;
                 CLPI_File+=Clip_Information_file_name;
@@ -1391,6 +1404,7 @@ void File_Bdmv::Mpls_PlayList_SubPlayItem()
                 }
             }
         }
+        */
     FILLING_END();
 }
 

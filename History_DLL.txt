@@ -35,6 +35,7 @@ x MPEG-TS: false-positive in case of some MPEG-4 files with wrong extension
 x FLV: crash in some specific cases (malformed files)
 x 3548314, MVC: Scan type was wrong with MVC-only (without the underlying AVC stream) stream
 x 3553588, MPLS: stream duration was wrong with standalone (without the referenced M2TS) files
+x 3553588, MPLS: incoherent behavior with MPLS having more than one PlayListItem
 x 3554154, MPEG-TS: crash with some corrupted streams
 
 Version 0.7.58, 2012-05-28
