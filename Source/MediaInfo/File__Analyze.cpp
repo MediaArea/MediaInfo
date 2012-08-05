@@ -1350,9 +1350,19 @@ bool File__Analyze::Header_Manage()
     {
         Element[Element_Level].UnTrusted=false;
         Header_Fill_Code(0, "Problem");
-        Element_Offset=1; //Unsynchronizing to the next byte
-        Header_Fill_Size(1);
-        Synched=false;
+        if (MustSynchronize)
+        {
+            //Unsynchronizing to the next byte
+            Element_Offset=1;
+            Header_Fill_Size(1);
+            Synched=false;
+        }
+        else
+        {
+            //Can not synchronize anymore in this block
+            Element_Offset=Element[Element_Level-2].Next-(File_Offset+Buffer_Offset);
+            Header_Fill_Size(Element_Offset);
+        }
     }
 
     if (Element_IsWaitingForMoreData() || ((DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size) || File_GoTo!=(int64u)-1) //Wait or want to have a comple data chunk

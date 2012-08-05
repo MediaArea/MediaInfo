@@ -799,9 +799,16 @@ void File_Mpeg_Psi::Header_Parse()
     //Element[Element_Level-1].IsComplete=true;
 
     //CRC32
+    if (table_id<=0x06 && !section_syntax_indicator)
+    {
+        Trusted_IsNot("CRC error");
+        CRC_32=0xffffffff;
+        Reject();
+        return;
+    }
     if (section_syntax_indicator || table_id==0xC1)
     {
-        int32u CRC_32=0xffffffff;
+        CRC_32=0xffffffff;
         const int8u* CRC_32_Buffer=Buffer+Buffer_Offset+(size_t)Element_Offset-3; //table_id position
 
         while(CRC_32_Buffer<Buffer+Buffer_Offset+(size_t)Element_Offset+section_length) //from table_id to the end, CRC_32 included
@@ -812,6 +819,7 @@ void File_Mpeg_Psi::Header_Parse()
 
         if (CRC_32)
         {
+            Trusted_IsNot("CRC error");
             Reject();
             return;
         }
@@ -826,9 +834,9 @@ void File_Mpeg_Psi::Header_Parse()
 void File_Mpeg_Psi::Data_Parse()
 {
     //Check if OK
-    if(CRC_32!=0)
+    if (table_id<=0x06 && !section_syntax_indicator)
     {
-        Skip_XX(Element_Size,                                   "Data (CRC failed)");
+        Skip_XX(Element_Size,                                   "Data (section_syntax_indicator failed)");
         Finish("PSI");
         return;
     }
