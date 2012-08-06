@@ -27,7 +27,7 @@ x MPEG-TS/MPEG-PS: regression, some files with AC-3/DTS/DVD subtitles were not w
 x MPEG-4 channel mapping: Lt and Rt (matrix-encoded) channel mapping were missing
 x GXF: handling of buggy files having non-PCM AES3 codec identifier but actually having PCM
 x MPEG-4: better support of MPEG-4 files having corrupted metadata atom
-x 3529510, EIA/CEA-708: was not detected if the stream was not present at the beginning, thanks to Pete Chapman 
+x 3529510, EIA/CEA-708: was not detected if the stream was not present at the beginning, thanks to Pete Chapman
 
 Version 0.7.57, 2012-05-02
 --------------
