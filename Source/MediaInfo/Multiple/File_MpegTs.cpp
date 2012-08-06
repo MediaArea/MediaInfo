@@ -231,7 +231,7 @@ void File_MpegTs::Streams_Update_Programs()
         }
     }
     for (std::set<int16u>::iterator StreamID=Complete_Stream->PES_PIDs.begin(); StreamID!=Complete_Stream->PES_PIDs.end(); StreamID++)
-        if (PerStream_AlwaysParse || Complete_Stream->Streams[*StreamID]->IsUpdated_IsRegistered || Complete_Stream->Streams[*StreamID]->IsUpdated_Info) 
+        if (PerStream_AlwaysParse || Complete_Stream->Streams[*StreamID]->IsUpdated_IsRegistered || Complete_Stream->Streams[*StreamID]->IsUpdated_Info)
         {
             Streams_Update_Programs_PerStream(*StreamID);
             Complete_Stream->Streams[*StreamID]->IsUpdated_IsRegistered=false;
@@ -2490,13 +2490,13 @@ void File_MpegTs::PSI()
                     do
                     {
                         Pos--;
-                        
+
                         //Erasing text substreams
                         Ztring ID_ToFind=Retrieve((stream_t)StreamKind, Complete_Stream->StreamPos_ToRemove[StreamKind][Pos], General_ID)+_T('-');
                         for (size_t TextPos=0; TextPos<Count_Get(Stream_Text); TextPos++)
                             if (Retrieve(Stream_Text, TextPos, General_ID).find(ID_ToFind)==0)
                                  Stream_Erase(Stream_Text, TextPos);
-                        
+
                         //Erasing the stream
                         Stream_Erase((stream_t)StreamKind, Complete_Stream->StreamPos_ToRemove[StreamKind][Pos]);
 

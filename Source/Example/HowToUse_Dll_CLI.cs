@@ -31,8 +31,8 @@ using MediaInfoLib;
 
 namespace MediaInfoLib_MSCS
 {
-	public class CLI
-	{
+    public class CLI
+    {
         [STAThread]
         static void Main(string[] Args)
         {
@@ -47,17 +47,17 @@ namespace MediaInfoLib_MSCS
             }
 
             //Information about MediaInfo
-			ToDisplay += "\r\n\r\nInfo_Parameters\r\n";
-			ToDisplay += MI.Option("Info_Parameters");
+            ToDisplay += "\r\n\r\nInfo_Parameters\r\n";
+            ToDisplay += MI.Option("Info_Parameters");
 
-			ToDisplay += "\r\n\r\nInfo_Capacities\r\n";
+            ToDisplay += "\r\n\r\nInfo_Capacities\r\n";
             ToDisplay += MI.Option("Info_Capacities");
 
-			ToDisplay += "\r\n\r\nInfo_Codecs\r\n";
+            ToDisplay += "\r\n\r\nInfo_Codecs\r\n";
             ToDisplay += MI.Option("Info_Codecs");
 
-			//An example of how to use the library
-			ToDisplay += "\r\n\r\nOpen\r\n";
+            //An example of how to use the library
+            ToDisplay += "\r\n\r\nOpen\r\n";
             String File_Name;
             if (Args.Length == 0)
                 File_Name = "Example.ogg";
@@ -65,13 +65,13 @@ namespace MediaInfoLib_MSCS
                 File_Name = Args[0];
             MI.Open(File_Name);
 
-			ToDisplay += "\r\n\r\nInform with Complete=false\r\n";
-			MI.Option("Complete");
-			ToDisplay += MI.Inform();
+            ToDisplay += "\r\n\r\nInform with Complete=false\r\n";
+            MI.Option("Complete");
+            ToDisplay += MI.Inform();
 
             ToDisplay += "\r\n\r\nInform with Complete=true\r\n";
-			MI.Option("Complete", "1");
-			ToDisplay += MI.Inform();
+            MI.Option("Complete", "1");
+            ToDisplay += MI.Inform();
 
             ToDisplay += "\r\n\r\nCustom Inform\r\n";
             MI.Option("Inform", "General;File size is %FileSize% bytes");
@@ -95,8 +95,8 @@ namespace MediaInfoLib_MSCS
             ToDisplay += "\r\n\r\nClose\r\n";
             MI.Close();
 
-			//Displaying the text
-			Console.Out.WriteLine(ToDisplay);
-		}
-	}
+            //Displaying the text
+            Console.Out.WriteLine(ToDisplay);
+        }
+    }
 }

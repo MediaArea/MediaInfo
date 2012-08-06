@@ -16,7 +16,7 @@
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 
+
 //---------------------------------------------------------------------------
 // Pre-compilation
 #include "MediaInfo/PreComp.h"
@@ -88,7 +88,7 @@ const Ztring &File_Ibi::Get (stream_t /*StreamKind*/, size_t /*StreamNumber*/, c
                 Get_Temp=_T("StreamOffset=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].StreamOffset)
                        + _T(" / FrameNumber=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].FrameNumber)
                        + _T(" / Dts=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].Dts);
-                return Get_Temp; 
+                return Get_Temp;
             }
     }
 
@@ -399,7 +399,7 @@ void File_Ibi::Stream_ByteOffset()
             {
                 //Filling information for ID after data
                 if (Ibi->Streams[ID_Current]==NULL)
-                    Ibi->Streams[ID_Current]=new ibi::stream();    
+                    Ibi->Streams[ID_Current]=new ibi::stream();
                 if (Pos>=Ibi->Streams[ID_Current]->Infos.size())
                 {
                     Ibi->Streams[ID_Current]->Infos.push_back(ibi::stream::info());
@@ -432,7 +432,7 @@ void File_Ibi::Stream_FrameNumber()
             {
                 //Filling information for ID after data
                 if (Ibi->Streams[ID_Current]==NULL)
-                    Ibi->Streams[ID_Current]=new ibi::stream();    
+                    Ibi->Streams[ID_Current]=new ibi::stream();
                 if (Pos>=Ibi->Streams[ID_Current]->Infos.size())
                 {
                     Ibi->Streams[ID_Current]->Infos.push_back(ibi::stream::info());
@@ -483,7 +483,7 @@ void File_Ibi::Stream_Dts()
             {
                 //Filling information for ID after data
                 if (Ibi->Streams[ID_Current]==NULL)
-                    Ibi->Streams[ID_Current]=new ibi::stream();    
+                    Ibi->Streams[ID_Current]=new ibi::stream();
                 if (Pos>=Ibi->Streams[ID_Current]->Infos.size())
                 {
                     Ibi->Streams[ID_Current]->Infos.push_back(ibi::stream::info());

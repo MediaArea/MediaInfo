@@ -191,8 +191,8 @@ public :
     ZtringListList  SubFile_Config_Get ();
 
     void            CustomMapping_Set (const Ztring &Value);
-    Ztring          CustomMapping_Get (const Ztring &Format, const Ztring &Field); 
-    bool            CustomMapping_IsPresent (const Ztring &Format, const Ztring &Field); 
+    Ztring          CustomMapping_Get (const Ztring &Format, const Ztring &Field);
+    bool            CustomMapping_IsPresent (const Ztring &Format, const Ztring &Field);
 
           void      ErrorLog_Callback_Set(const Ztring &Value);
           void      ErrorLog(const Ztring &Value);

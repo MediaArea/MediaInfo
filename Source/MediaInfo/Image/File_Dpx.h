@@ -43,7 +43,7 @@ class File_Dpx : public File__Analyze
 public :
     //Constructor/Destructor
     File_Dpx();
-    
+
 private :
     //Streams management
     void Streams_Accept();
@@ -82,7 +82,7 @@ private :
     std::vector<int32u> Sizes;
     size_t              Sizes_Pos;
     int8u               Version;
-	bool                LittleEndian;
+    bool                LittleEndian;
 
     //Helpers
     void Get_X2 (int16u &Info, const char* Name);

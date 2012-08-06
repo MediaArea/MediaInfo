@@ -230,15 +230,15 @@ void File_Eia708::Service()
             case 0x0C : FF(); break; //Form Feed
             case 0x0D : CR(); break; //Carriage Return
             case 0x0E : HCR(); break; //Horizontal Carriage Return
-            case 0x01 : 
-            case 0x02 : 
-            case 0x04 : 
-            case 0x05 : 
-            case 0x06 : 
-            case 0x07 : 
-            case 0x09 : 
-            case 0x0A : 
-            case 0x0B : 
+            case 0x01 :
+            case 0x02 :
+            case 0x04 :
+            case 0x05 :
+            case 0x06 :
+            case 0x07 :
+            case 0x09 :
+            case 0x0A :
+            case 0x0B :
             case 0x0F : break; //1-byte long undefined code
             case 0x10 : //EXT1
                         {
@@ -448,7 +448,7 @@ void File_Eia708::Service()
             case 0x7E : Character_Fill(L'~'     ); break;
             case 0x7F : Character_Fill(L'\x266A'); break;
             //CEA-708-D, Section 7.1.5 (C1)
-            case 0x80 : //CW0 
+            case 0x80 : //CW0
             case 0x81 : //CW1
             case 0x82 : //CW2
             case 0x83 : //CW3
@@ -687,7 +687,7 @@ void File_Eia708::CR()
         //Rolling up window
         for (int8u Pos_Y=0; Pos_Y<Window->row_count-1; Pos_Y++)
             Window->Minimal.CC[Pos_Y]=Window->Minimal.CC[Pos_Y+1];
-        
+
         //SetPenLocation
         y=Window->row_count-1;
 
@@ -697,7 +697,7 @@ void File_Eia708::CR()
 
         if (Window->visible)
         {
-            //Updating global area 
+            //Updating global area
             for (int8u Pos_Y=0; Pos_Y<Window->row_count; Pos_Y++)
                 for (int8u Pos_X=0; Pos_X<Window->column_count; Pos_X++)
                     if (Window->Minimal.Window_y+Pos_Y<(int8u)Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_X<(int8u)Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y].size())
@@ -727,7 +727,7 @@ void File_Eia708::HCR()
     if (Window==NULL)
         return; //Must wait for the corresponding DFx
     int8u y=Window->Minimal.y;
-    
+
     for (int8u Pos_X=0; Pos_X<Window->column_count; Pos_X++)
     {
         //Clearing window
@@ -782,7 +782,7 @@ void File_Eia708::CLW()
         {
             Streams[service_number]->WindowID=WindowID;
             window* Window=Streams[service_number]->Windows[WindowID];
-            
+
             //ClearWindow is like Form Feed
             FF();
 
@@ -800,7 +800,7 @@ void File_Eia708::CLW()
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
-    
+
     if (HasChanged_)
     {
         //Has changed
@@ -831,7 +831,7 @@ void File_Eia708::DSW()
         if (IsSet)
         {
             window* Window=Streams[service_number]->Windows[WindowID];
-            
+
             if (Window && !Window->visible)
             {
                 Window->visible=true;
@@ -856,7 +856,7 @@ void File_Eia708::DSW()
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
-    
+
     if (HasChanged_)
     {
         //Has changed
@@ -888,7 +888,7 @@ void File_Eia708::HDW()
         if (IsSet)
         {
             window* Window=Streams[service_number]->Windows[WindowID];
-            
+
             if (Window && Window->visible)
             {
                 Window->visible=false;
@@ -916,7 +916,7 @@ void File_Eia708::HDW()
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
-    
+
     if (HasChanged_)
     {
         //Has changed
@@ -947,7 +947,7 @@ void File_Eia708::TGW()
         if (IsSet)
         {
             window* Window=Streams[service_number]->Windows[WindowID];
-            
+
             if (Window)
             {
                 Window->visible=!Window->visible;
@@ -972,7 +972,7 @@ void File_Eia708::TGW()
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
-    
+
     if (HasChanged_)
     {
         //Has changed
@@ -1044,7 +1044,7 @@ void File_Eia708::DLW()
 
     Streams[service_number]->WindowID=Save_WindowID;
     StandAloneCommand=Save_StandAloneCommand;
-    
+
     if (HasChanged_)
     {
         //Has changed
@@ -1338,7 +1338,7 @@ void File_Eia708::Character_Fill(wchar_t Character)
         x++;
         Window->Minimal.x=x;
     }
-    
+
     if (!HasContent)
         HasContent=true;
 }

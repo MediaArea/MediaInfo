@@ -81,7 +81,7 @@ static bool utf8=false;
 const char* WC2MB(void* Handle, const wchar_t* Text)
 {
     CriticalSectionLocker Locker(Critical);
-    
+
     //Coherancy
     if (MI_Handle.find(Handle)==MI_Handle.end())
     {
@@ -91,7 +91,7 @@ const char* WC2MB(void* Handle, const wchar_t* Text)
             MediaInfo_Info_Ansi="Your software uses an outdated interface, you must use MediaInfo.DLL 0.6 instead"; //Compatibility <0.7 : return a message
         return MediaInfo_Info_Ansi.c_str();
     }
-    
+
     //Adaptation
     if (utf8)
        MI_Handle[Handle]->Ansi=Ztring(Text).To_UTF8();
@@ -110,7 +110,7 @@ const wchar_t* MB2WC(void* Handle, const char* Text)
         MI_FromAnsi[Handle].Unicode.resize(2);
     }
     MI_FromAnsi[Handle].Pos=(MI_FromAnsi[Handle].Pos==0?1:0); //Changing the position
-       
+
     //Adaptation
     if (utf8)
         return MI_FromAnsi[Handle].Unicode[MI_FromAnsi[Handle].Pos].From_UTF8(Text).c_str();

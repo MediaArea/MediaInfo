@@ -37,64 +37,64 @@ using MediaInfoLib;
 
 namespace MediaInfoLib_MSCS
 {
-	/// <summary>
-	/// Summary description for Form1.
-	/// </summary>
-	public class Form1 : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.RichTextBox richTextBox1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for Form1.
+    /// </summary>
+    public class Form1 : System.Windows.Forms.Form
+    {
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public Form1()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public Form1()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing )
+        {
+            if( disposing )
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose( disposing );
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Méthode requise pour la prise en charge du concepteur - ne modifiez pas
-		/// le contenu de cette méthode avec l'éditeur de code.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas
+        /// le contenu de cette méthode avec l'éditeur de code.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
+            //
             // richTextBox1
-            // 
+            //
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(768, 512);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
-            // 
+            //
             // Form1
-            // 
+            //
             this.ClientSize = new System.Drawing.Size(770, 514);
             this.Controls.Add(this.richTextBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -104,54 +104,54 @@ namespace MediaInfoLib_MSCS
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
 
 
-		[STAThread]
-		static void Main() 
-		{
-			Application.Run(new Form1());
-		}
+        [STAThread]
+        static void Main()
+        {
+            Application.Run(new Form1());
+        }
 
-		private void Form1_Load(object sender, System.EventArgs e)
-		{
-			//Test if version of DLL is compatible : 3rd argument is "version of DLL tested;Your application name;Your application version"
+        private void Form1_Load(object sender, System.EventArgs e)
+        {
+            //Test if version of DLL is compatible : 3rd argument is "version of DLL tested;Your application name;Your application version"
             String ToDisplay;
             MediaInfo MI = new MediaInfo();
 
             ToDisplay = MI.Option("Info_Version", "0.7.0.0;MediaInfoDLL_Example_CS;0.7.0.0");
-			if (ToDisplay.Length == 0)
-			{
+            if (ToDisplay.Length == 0)
+            {
                 richTextBox1.Text = "MediaInfo.Dll: this version of the DLL is not compatible";
-				return;
-			}
+                return;
+            }
 
-			//Information about MediaInfo
-			ToDisplay += "\r\n\r\nInfo_Parameters\r\n";
-			ToDisplay += MI.Option("Info_Parameters");
+            //Information about MediaInfo
+            ToDisplay += "\r\n\r\nInfo_Parameters\r\n";
+            ToDisplay += MI.Option("Info_Parameters");
 
-			ToDisplay += "\r\n\r\nInfo_Capacities\r\n";
+            ToDisplay += "\r\n\r\nInfo_Capacities\r\n";
             ToDisplay += MI.Option("Info_Capacities");
 
-			ToDisplay += "\r\n\r\nInfo_Codecs\r\n";
+            ToDisplay += "\r\n\r\nInfo_Codecs\r\n";
             ToDisplay += MI.Option("Info_Codecs");
 
-			//An example of how to use the library
-			ToDisplay += "\r\n\r\nOpen\r\n";
-			MI.Open("Example.ogg");
+            //An example of how to use the library
+            ToDisplay += "\r\n\r\nOpen\r\n";
+            MI.Open("Example.ogg");
 
-			ToDisplay += "\r\n\r\nInform with Complete=false\r\n";
-			MI.Option("Complete");
-			ToDisplay += MI.Inform();
+            ToDisplay += "\r\n\r\nInform with Complete=false\r\n";
+            MI.Option("Complete");
+            ToDisplay += MI.Inform();
 
             ToDisplay += "\r\n\r\nInform with Complete=true\r\n";
-			MI.Option("Complete", "1");
-			ToDisplay += MI.Inform();
+            MI.Option("Complete", "1");
+            ToDisplay += MI.Inform();
 
             ToDisplay += "\r\n\r\nCustom Inform\r\n";
             MI.Option("Inform", "General;File size is %FileSize% bytes");
@@ -175,8 +175,8 @@ namespace MediaInfoLib_MSCS
             ToDisplay += "\r\n\r\nClose\r\n";
             MI.Close();
 
-			//Displaying the text
-			richTextBox1.Text = ToDisplay;
-		}
-	}
+            //Displaying the text
+            richTextBox1.Text = ToDisplay;
+        }
+    }
 }

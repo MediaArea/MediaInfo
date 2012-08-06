@@ -21,7 +21,7 @@
 // TIFF - Format
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// From 
+// From
 // http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf
 // http://www.fileformat.info/format/tiff/
 // http://en.wikipedia.org/wiki/Tagged_Image_File_Format
@@ -61,7 +61,7 @@ namespace MediaInfoLib
 namespace Tiff_Tag
 {
     const int16u ImageWidth                 = 256;
-    const int16u ImageLength                = 257; 
+    const int16u ImageLength                = 257;
     const int16u BitsPerSample              = 258;
     const int16u Compression                = 259;
     const int16u PhotometricInterpretation  = 262;
@@ -75,15 +75,15 @@ const char* Tiff_Tag_Name(int32u Tag)
 {
     switch (Tag)
     {
-        case Tiff_Tag::ImageWidth                   : return "ImageWidth"; 
-        case Tiff_Tag::ImageLength                  : return "ImageLength"; 
-        case Tiff_Tag::BitsPerSample                : return "BitsPerSample"; 
-        case Tiff_Tag::Compression                  : return "Compression"; 
-        case Tiff_Tag::PhotometricInterpretation    : return "PhotometricInterpretation"; 
-        case Tiff_Tag::ImageDescription             : return "ImageDescription"; 
-        case Tiff_Tag::SamplesPerPixel              : return "SamplesPerPixel"; 
-        case Tiff_Tag::ExtraSamples                 : return "ExtraSamples"; 
-        default                                     : return "Unknown"; 
+        case Tiff_Tag::ImageWidth                   : return "ImageWidth";
+        case Tiff_Tag::ImageLength                  : return "ImageLength";
+        case Tiff_Tag::BitsPerSample                : return "BitsPerSample";
+        case Tiff_Tag::Compression                  : return "Compression";
+        case Tiff_Tag::PhotometricInterpretation    : return "PhotometricInterpretation";
+        case Tiff_Tag::ImageDescription             : return "ImageDescription";
+        case Tiff_Tag::SamplesPerPixel              : return "SamplesPerPixel";
+        case Tiff_Tag::ExtraSamples                 : return "ExtraSamples";
+        default                                     : return "Unknown";
     }
 }
 
@@ -100,10 +100,10 @@ const char* Tiff_Type_Name(int32u Type)
 {
     switch (Type)
     {
-        case Tiff_Type::Byte                        : return "Byte"; 
-        case Tiff_Type::Short                       : return "Short"; 
-        case Tiff_Type::Long                        : return "Long"; 
-        default                                     : return ""; //Unknown 
+        case Tiff_Type::Byte                        : return "Byte";
+        case Tiff_Type::Short                       : return "Short";
+        case Tiff_Type::Long                        : return "Long";
+        default                                     : return ""; //Unknown
     }
 }
 
@@ -133,7 +133,7 @@ const char* Tiff_Compression(int32u Compression)
         default    : return ""; //Unknown
     }
 }
-    
+
 //---------------------------------------------------------------------------
 const char* Tiff_Compression_Mode(int32u Compression)
 {
@@ -147,7 +147,7 @@ const char* Tiff_Compression_Mode(int32u Compression)
         default    : return ""; //Unknown or depends of the compresser (e.g. JPEG can be lossless or lossy)
     }
 }
-    
+
 //---------------------------------------------------------------------------
 const char* Tiff_PhotometricInterpretation(int32u PhotometricInterpretation)
 {
@@ -226,7 +226,7 @@ bool File_Tiff::FileHeader_Begin()
         LittleEndian = true;
     else if (CC4(Buffer)==0x4D4D002A)
         LittleEndian = false;
-    else 
+    else
     {
         Reject("TIFF");
         return false;
@@ -245,7 +245,7 @@ void File_Tiff::FileHeader_Parse()
     int32u IFDOffset;
     Skip_B4(                                                    "Magic");
     Get_X4 (IFDOffset,                                          "IFDOffset");
-    
+
     FILLING_BEGIN();
         //Initial IFD
         GoTo(IFDOffset, "TIFF");
@@ -280,9 +280,9 @@ void File_Tiff::Header_Parse()
     /* A creator of a tiff file must describe the "main image" in the first IFD, this means that a            */
     /* reader, such this one, only need to read the first IFD in order to get the bitdepth, resolution etc.   */
     /* of the main image.                                                                                     */
- 
+
     /* Read one IFD and print out the result */
-    
+
     /* Scan the tiff file for the IFD's (Image File Directory)                */
     /* As long as the IFD offset to the next IFD in the file is not 0         */
 
@@ -292,9 +292,9 @@ void File_Tiff::Header_Parse()
 
     //Filling
     Header_Fill_Code(0xFFFFFFFF, "IFD"); //OxFFFFFFFF can not be a Tag, so using it as a magic value
-    Header_Fill_Size(2+12*((int64u)NrOfDirectories)+4); //2 for header + 12 per directory + 4 for next IFD offset 
-}    
-    
+    Header_Fill_Size(2+12*((int64u)NrOfDirectories)+4); //2 for header + 12 per directory + 4 for next IFD offset
+}
+
 //---------------------------------------------------------------------------
 void File_Tiff::Data_Parse()
 {
@@ -304,7 +304,7 @@ void File_Tiff::Data_Parse()
         //Default values
         Infos.clear();
         Infos[Tiff_Tag::BitsPerSample]=_T("1");
-        
+
         //Parsing new IFD
         while (Element_Offset+4<Element_Size)
             Read_Directory();
@@ -335,7 +335,7 @@ void File_Tiff::Data_Parse()
 void File_Tiff::Data_Parse_Fill()
 {
     Stream_Prepare(Stream_Image);
-        
+
     infos::iterator Info;
 
     //Width
@@ -393,7 +393,7 @@ void File_Tiff::Data_Parse_Fill()
 
 //---------------------------------------------------------------------------
 void File_Tiff::Read_Directory()
-{   
+{
     /* Each directory consist of 4 fields */
     /* Get information for this directory */
     Element_Begin0();
@@ -402,11 +402,11 @@ void File_Tiff::Read_Directory()
     Get_X2 (IfdItem.Type,                                       "Type"); Param_Info1(Tiff_Type_Name(IfdItem.Type));
     Get_X4 (IfdItem.Count,                                      "Count");
     Element_Name(Tiff_Tag_Name(IfdItem.Tag));
-    
+
     if (Tiff_Type_Size(IfdItem.Type)*IfdItem.Count<=4)
     {
         GetValueOffsetu(IfdItem);
-            
+
         /* Padding up, skip dummy bytes */
         if (Tiff_Type_Size(IfdItem.Type)*IfdItem.Count<4)
             Skip_XX(Tiff_Type_Size(IfdItem.Type)*IfdItem.Count, "Padding");

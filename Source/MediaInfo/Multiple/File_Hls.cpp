@@ -116,7 +116,7 @@ bool File_Hls::FileHeader_Begin()
 
     if (Buffer_Size<File_Size)
         return false; //Wait for complete file
-    
+
     Ztring Document; Document.From_UTF8((char*)Buffer, Buffer_Size);
     ZtringList Lines;
     size_t LinesSeparator_Pos=Document.find_first_of(_T("\r\n"));

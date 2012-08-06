@@ -16,7 +16,7 @@
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 
+
 //---------------------------------------------------------------------------
 // Pre-compilation
 #include "MediaInfo/PreComp.h"
@@ -377,8 +377,8 @@ void File_Mk::Header_Parse()
     if (Null==0x00)
     {
         if (Buffer_Offset_Temp==0)
-            Buffer_Offset_Temp=Buffer_Offset+1;    
-            
+            Buffer_Offset_Temp=Buffer_Offset+1;
+
         while (Buffer_Offset_Temp<Buffer_Size)
         {
             if (Buffer[Buffer_Offset_Temp])
@@ -390,7 +390,7 @@ void File_Mk::Header_Parse()
             Element_WaitForMoreData();
             return;
         }
-            
+
         Header_Fill_Code((int32u)-1); //Should be (int64u)-1 but Borland C++ does not like this
         Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
         Buffer_Offset_Temp=0;

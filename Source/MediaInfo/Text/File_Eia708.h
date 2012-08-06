@@ -170,10 +170,10 @@ private :
     void SPL();                 //SetPenLocation
     void SWA();                 //SetWindowAttributes
     void DFx(int8u WindowID);   //DefineWindow
-    
+
     //Temp
     bool StandAloneCommand; //If this is a command simulated from another command
-    
+
     //Helpers
     void Service();
     void Character_Fill(wchar_t Character);

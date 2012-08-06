@@ -53,7 +53,7 @@ public :
 
     //Out
     float64 FrameRate;
-    
+
     //Constructor/Destructor
     File_Aes3();
     ~File_Aes3();

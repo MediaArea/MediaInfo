@@ -54,7 +54,7 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
             Dir::Create(DataBaseDirectory+_T("\\Basic\\New"));
         New[StreamKind].Save(DataBaseDirectory+_T("\\Basic\\New\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
     }
-    
+
     cout<<" Diff"<<endl;
     ZtringListListF* Diff=new ZtringListListF[Stream_Max];
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
@@ -95,7 +95,7 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
                         }
                         Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=New[StreamKind](New_Pos, LinePos)+_T(" --- ")+Ref[StreamKind](Ref_Pos, LinePos);
                     }
-                
+
                 Ref_Pos++;
                 New_Pos++;
             }

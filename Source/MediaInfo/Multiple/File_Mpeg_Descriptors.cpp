@@ -2259,7 +2259,7 @@ void File_Mpeg_Descriptors::Descriptor_59()
                 default    : ;
             }
         FILLING_END();
-        
+
         Element_End0();
     }
 

@@ -155,7 +155,7 @@ const char* DPX_ColorimetricSpecification[]=
     "Not applicable",
     "Reserved for future use"
 };
- 
+
 //---------------------------------------------------------------------------
 const char* DPX_ValidBitDephs(int8u i)
 {
@@ -301,7 +301,7 @@ void File_Dpx::Streams_Accept()
     if (!IsSub)
     {
         Streams_Accept_TestContinuousFileNames();
-    
+
         Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);
         if (StreamKind_Last==Stream_Video)
@@ -574,7 +574,7 @@ void File_Dpx::GenericSectionHeader_v2()
 
     //Parsing
     Element_Begin1("File information");
-    std::string CreationDate, Creator, Project, Copyright; 
+    std::string CreationDate, Creator, Project, Copyright;
     int32u Size_Header, Size_Total, Size_Generic, Size_Industry, Size_User;
     Skip_String(4,                                              "Magic number");
     Get_X4 (Size_Header,                                        "Offset to image data");
@@ -628,7 +628,7 @@ void File_Dpx::GenericSectionHeader_v2()
     Element_End0();
     Get_X4 (PAR_H,                                              "Pixel ratio : horizontal");
     Get_X4 (PAR_V,                                              "Pixel ratio : vertical");
-    
+
     Element_Begin1("Additional source image information");
     Skip_BFP4(9,                                                "X scanned size");
     Skip_BFP4(9,                                                "Y scanned size");
@@ -640,9 +640,9 @@ void File_Dpx::GenericSectionHeader_v2()
         if (Size_Generic==(int32u)-1)
             Size_Generic=Element_Size;
         if (Size_Industry==(int32u)-1)
-            Size_Industry=0;    
+            Size_Industry=0;
         if (Size_User==(int32u)-1)
-            Size_User=0;    
+            Size_User=0;
         if (Size_Generic+Size_Industry+Size_User>Size_Header || Size_Header>Size_Total)
         {
             Reject();
@@ -752,7 +752,7 @@ void File_Dpx::IndustrySpecificHeader_v2()
     Skip_UTF8(100,                                              "Slate information");
     Skip_XX(56,                                                 "Reserved for future use");
     Element_End0();
-    
+
     Element_Begin1("Television information");
     Skip_B4(                                                    "SMPTE time code");
     Skip_B4(                                                    "SMPTE user bits");
@@ -793,7 +793,7 @@ void File_Dpx::UserDefinedHeader_v2()
     {
         //Not in spec
         Skip_XX(Sizes[Pos_UserDefined],                         "Unknown");
-        return;            
+        return;
     }
     Skip_UTF8(32,                                               "User identification");
     Skip_XX(Sizes[Pos_UserDefined]-32,                          "User defined");

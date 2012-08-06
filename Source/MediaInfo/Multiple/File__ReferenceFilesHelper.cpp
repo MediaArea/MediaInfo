@@ -136,7 +136,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             if (!File::Exists(AbsoluteNames[0]))
             {
                 AbsoluteNames.clear();
-            
+
                 //Configuring file name (this time, we try to force URL decode in all cases)
                 for (size_t Pos=0; Pos<Names.size(); Pos++)
                 {
@@ -159,7 +159,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 {
                     AbsoluteNames.clear();
                     Names=Reference->FileNames;
-            
+
                     //Configuring file name (this time, we try to test local files)
                     size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
                     if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
@@ -191,7 +191,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                             {
                                 AbsoluteNames.clear();
                                 Names=Reference->FileNames;
-            
+
                                 //Configuring file name (this time, we try to test local files)
                                 size_t PathSeparator_Pos=Names[0].find_last_of(_T("\\/"));
                                 if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
@@ -250,7 +250,7 @@ void File__ReferenceFilesHelper::ParseReferences()
 
             if (TestContinuousFileNames)
                 File__Analyze::Streams_Accept_TestContinuousFileNames_Static(Reference->FileNames, true);
-    
+
             Reference++;
         }
 
@@ -312,7 +312,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
             Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
             Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
+
             Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
             MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
@@ -369,7 +369,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
             Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_End, 0);
             Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_End_0);
-                    
+
             Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
             MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
@@ -392,7 +392,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                     MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
                     Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
                     Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
+
                     Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
                     MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
@@ -421,7 +421,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
                 Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
                 Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
+
                 Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
                 MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
@@ -506,7 +506,7 @@ void File__ReferenceFilesHelper::ParseReference()
                     Reference->MI->Option(_T("File_Ibi"), IbiText);
             }
         #endif //MEDIAINFO_IBI
- 
+
         if (Reference->IsCircular)
         {
             MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Circular");
@@ -605,7 +605,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                         ToInsert=ReferencePos->StreamPos;
                         break;
                     }
-                
+
                 StreamPos_To=Stream_Prepare((stream_t)StreamKind, ToInsert);
             }
             StreamPos_From=StreamPos;
@@ -746,7 +746,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
     //Parsing
     switch (Method)
     {
-        case 0  :   
+        case 0  :
                     #if MEDIAINFO_DEMUX
                         {
                         if (Value)
@@ -826,7 +826,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                     #else //MEDIAINFO_DEMUX
                         return (size_t)-1; //Not supported
                     #endif //MEDIAINFO_DEMUX
-        case 1  :   
+        case 1  :
                     {
                         //Time percentage
                         int64u Duration=MI->Get(Stream_General, 0, General_Duration).To_int64u();

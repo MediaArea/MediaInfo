@@ -43,7 +43,7 @@ class File_Exr : public File__Analyze
 public :
     //Constructor/Destructor
     File_Exr();
-    
+
 private :
     //Streams management
     void Streams_Accept();

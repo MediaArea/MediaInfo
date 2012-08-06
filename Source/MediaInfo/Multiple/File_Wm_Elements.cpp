@@ -339,7 +339,7 @@ void File_Wm::Header_StreamProperties ()
 void File_Wm::Header_StreamProperties_Audio ()
 {
     Element_Name("Audio");
-    
+
     //Parsing
     int32u SamplingRate, BytesPerSec;
     int16u CodecID, Channels, Data_Size, Resolution;
@@ -403,7 +403,7 @@ void File_Wm::Header_StreamProperties_Audio_WMA ()
     //Parsing
     Skip_L4(                                                    "SamplesPerBlock");
     Skip_L2(                                                    "EncodeOptions");
-    Skip_L4(                                                    "SuperBlockAlign");    
+    Skip_L4(                                                    "SuperBlockAlign");
 }
 
 //---------------------------------------------------------------------------
@@ -982,7 +982,7 @@ void File_Wm::Header_Marker()
     Get_L2 (Name_Length,                                        "Name Length");
     if (Name_Length>0)
         Skip_UTF16L(Name_Length,                                "Name");
-    
+
     //Filling
     if (Markers_Count>0)
         Stream_Prepare(Stream_Menu);

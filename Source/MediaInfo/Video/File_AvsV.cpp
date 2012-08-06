@@ -669,7 +669,7 @@ void File_AvsV::extension_start()
                 }
 
     }
-    
+
     //Not sure, but the 3 first official files have this
     if (Element_Size-Element_Offset)
     {

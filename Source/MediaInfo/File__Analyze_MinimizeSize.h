@@ -1,4 +1,4 @@
-// File__Analyze - 
+// File__Analyze -
 // Copyright (C) 2009-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it

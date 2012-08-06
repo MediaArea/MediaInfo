@@ -407,7 +407,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                     }
 
                 Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
-                
+
                 Fill(Stream_Video, StreamPos_Last, Video_ID, StreamID, 10, true);
                 Fill(Stream_Video, StreamPos_Last, "Title", Temp.MediaName);
 
@@ -647,7 +647,7 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                                 }
                             }
                         }
-                                
+
                         if (Value<Delay)
                             Value=0;
                         else
@@ -1295,7 +1295,7 @@ void File_Gxf::media()
                         if (Material_Fields_First_IsValid && MediaFieldNumber!=Material_Fields_First && Streams[TrackNumber].FirstFrameDuration) //In case of offset, MediaFieldNumber-Material_Fields_First is not well rounded
                         {
                             FrameInfo.PTS+=Streams[TrackNumber].FirstFrameDuration;
-                            Frame_Count_NotParsedIncluded++; 
+                            Frame_Count_NotParsedIncluded++;
                         }
                         FrameInfo.DTS=FrameInfo.PTS;
                     }

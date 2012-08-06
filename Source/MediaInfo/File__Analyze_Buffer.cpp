@@ -1436,7 +1436,7 @@ void File__Analyze::Get_VL(const vlc Vlc[], size_t &Info, const char* Name)
     {
         switch (Vlc[Info].bit_increment)
         {
-            case 255 : 
+            case 255 :
                         Trusted_IsNot("Variable Length Code error");
                         return;
             default  : ;
@@ -1451,7 +1451,7 @@ void File__Analyze::Get_VL(const vlc Vlc[], size_t &Info, const char* Name)
                         CountOfBits++;
             case   0 :  ;
         }
-        
+
         if (Value==Vlc[Info].value)
         {
             if (Trace_Activated)
@@ -1495,7 +1495,7 @@ void File__Analyze::Get_VL_Prepare(vlc_fast &Vlc)
             Vlc.BitsToSkip[Pos2]=(int8u)-1;
         }
 }
-    
+
 //---------------------------------------------------------------------------
 void File__Analyze::Get_VL(vlc_fast &Vlc, size_t &Info, const char* Name)
 {

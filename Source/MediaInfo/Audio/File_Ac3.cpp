@@ -934,7 +934,7 @@ void File_Ac3::Read_Buffer_Unsynched()
     Info_Core.FrameInfo=FrameInfo;
     Info_Core.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
     Info_HD.FrameInfo=FrameInfo;
-    Info_HD.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;   
+    Info_HD.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
 
     delete[] Save_Buffer; Save_Buffer=NULL;
 
@@ -1333,7 +1333,7 @@ void File_Ac3::Data_Parse()
     //Parsing
     switch (Element_Code)
     {
-        case 0 : 
+        case 0 :
                     FrameInfo=Info_Core.FrameInfo;
                     Frame_Count=Info_Core.Frame_Count;
                     Frame_Count_InThisBlock=Info_Core.Frame_Count_InThisBlock;
@@ -1346,7 +1346,7 @@ void File_Ac3::Data_Parse()
                     Info_Core.Frame_Count_InThisBlock=Frame_Count_InThisBlock;
                     Info_Core.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
                     break;
-        case 1 : 
+        case 1 :
                     FrameInfo=Info_HD.FrameInfo;
                     Frame_Count=Info_HD.Frame_Count;
                     Frame_Count_InThisBlock=Info_HD.Frame_Count_InThisBlock;
@@ -1604,7 +1604,7 @@ void File_Ac3::Core()
 void File_Ac3::HD()
 {
     Trusted=1000;
-    
+
     //Parsing
     int32u Synch;
     Peek_B3(Synch);
@@ -2046,12 +2046,12 @@ bool File_Ac3::CRC_Compute(size_t Size)
 
     return (CRC_16==0x0000);
 }
-    
+
 //---------------------------------------------------------------------------
 size_t File_Ac3::Core_Size_Get()
 {
     BigEndian=Buffer[Buffer_Offset]==0x0B;
-    
+
     int16u Size=(int16u)-1;
     bsid=(Buffer[(size_t)(Buffer_Offset+(BigEndian?5:4))]&0xF8)>>3;
     if (bsid<=0x08)
@@ -2081,7 +2081,7 @@ size_t File_Ac3::HD_Size_Get()
 {
     size_t Size=BigEndian2int16u(Buffer+Buffer_Offset)&0x0FFF;
     Size*=2;
-    
+
     return Size;
 }
 

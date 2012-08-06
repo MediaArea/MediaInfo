@@ -9,10 +9,10 @@
 //------------------------------------------------------------------------------
 
 namespace asp_net_web_application {
-    
-    
+
+
     public partial class _Default {
-        
+
         /// <summary>
         /// form1 control.
         /// </summary>

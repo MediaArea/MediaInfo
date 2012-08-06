@@ -1426,7 +1426,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
         if (cell_playback>0)
         {
             if (Element_Offset<Offset+cell_playback)
-                Skip_XX(Offset+cell_playback-Element_Offset,        "Unknown");            
+                Skip_XX(Offset+cell_playback-Element_Offset,        "Unknown");
             Element_Begin1("cell playback");
             for (int8u Pos=0; Pos<Cells; Pos++)
             {

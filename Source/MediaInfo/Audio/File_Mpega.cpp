@@ -254,7 +254,7 @@ const int8u Mpega_SlotSize[4]= //A frame is coposed of slots
     1, // Layer3
     1, // Layer2
     4, // Layer1
-};                       
+};
 
 //---------------------------------------------------------------------------
 const int16u Mpega_CRC12_Table[]=

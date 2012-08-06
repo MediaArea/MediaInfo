@@ -527,7 +527,7 @@ void File_Aac::pulse_data()
     int8u number_pulse;
     Get_S1(2,number_pulse,                                      "number_pulse");
     Skip_S1(6,                                                  "pulse_start_sfb");
-    for (int i = 0; i < number_pulse+1; i++) 
+    for (int i = 0; i < number_pulse+1; i++)
     {
         Skip_S1(5,                                              "pulse_offset[i]");
         Skip_S1(4,                                              "pulse_amp[i]");
@@ -914,14 +914,14 @@ void File_Aac::tns_data()
     int8u n_filt_bits=2;
     int8u length_bits=6;
     int8u order_bits=5;
-    
+
     if (window_sequence==2) //EIGHT_SHORT_SEQUENCE
     {
         n_filt_bits=1;
         length_bits=4;
         order_bits=3;
     }
-    
+
     for (int8u w=0; w<num_windows; w++)
     {
         int8u start_coef_bits, n_filt;
@@ -931,7 +931,7 @@ void File_Aac::tns_data()
             bool coef_res;
             Get_SB (coef_res,                                   "coef_res[w]");
             start_coef_bits=coef_res?4:3;
-            
+
             for (int8u filt=0; filt<n_filt; filt++)
             {
                 int8u order;

@@ -13,7 +13,7 @@ HRESULT CMediaInfoShellExt_::Load (LPCOLESTR wszFilename, DWORD)
     FileName = wszFilename;
 
     //OK
-	return S_OK;
+    return S_OK;
 }
 
 HRESULT CMediaInfoShellExt_::GetInfoTip (DWORD, LPWSTR* ppwszTip)
@@ -26,9 +26,9 @@ HRESULT CMediaInfoShellExt_::GetInfoTip (DWORD, LPWSTR* ppwszTip)
         return E_FAIL;
 
     //Creating tooltip
-	ToolTip=_T("MediaInfo:\n");
-	MediaInfoDLL::MediaInfo I;
-	I.Option(_T("Inform"), _T("Summary"));
+    ToolTip=_T("MediaInfo:\n");
+    MediaInfoDLL::MediaInfo I;
+    I.Option(_T("Inform"), _T("Summary"));
     I.Open(FileName);
     for (size_t StreamKind=0; StreamKind<(size_t)MediaInfoDLL::Stream_Max; StreamKind++)
         for (size_t StreamPos=0; StreamPos<I.Count_Get((MediaInfoDLL::stream_t)StreamKind); StreamPos++)
@@ -44,8 +44,8 @@ HRESULT CMediaInfoShellExt_::GetInfoTip (DWORD, LPWSTR* ppwszTip)
     if (ToolTip.size()>2)
         ToolTip.resize(ToolTip.size()-2); //Removing the ending \r\n
 
-    //Allocate a buffer for Explorer.  Note that the must pass the string 
-    //back as a Unicode string, so the string length is multiplied by the 
+    //Allocate a buffer for Explorer.  Note that the must pass the string
+    //back as a Unicode string, so the string length is multiplied by the
     //size of a Unicode character.
     *ppwszTip=(LPWSTR)Malloc->Alloc((ToolTip.size()+1)*sizeof(wchar_t));
 
@@ -53,12 +53,12 @@ HRESULT CMediaInfoShellExt_::GetInfoTip (DWORD, LPWSTR* ppwszTip)
     Malloc->Release();
 
     //Enough memory?
-	if (*ppwszTip==NULL)
+    if (*ppwszTip==NULL)
         return E_OUTOFMEMORY;
 
     //Use the Unicode string copy function to put the tooltip text in the buffer.
     wcscpy_s(*ppwszTip, ToolTip.size()+1, T2COLE(ToolTip.c_str()));
 
     //OK
-	return S_OK;
+    return S_OK;
 }

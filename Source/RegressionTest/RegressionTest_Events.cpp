@@ -198,7 +198,7 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
         return; //There is a problem
 
     if (UserHandle->PerEvent[Event_Generic->EventCode].F==NULL)
-    {    
+    {
         Ztring Number; Number.From_Number(Event_Generic->EventCode, 16);
         while (Number.size()<8)
             Number.insert(0, 1, _T('0'));
@@ -213,7 +213,7 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
             Dir::Create(FileName(Name).Path_Get());
         UserHandle->PerEvent[Event_Generic->EventCode].F=fopen(Name.To_Local().c_str(), "w");
     }
-    
+
     /*Retrieving EventID*/
     ParserID    =(unsigned char) ((Event_Generic->EventCode&0xFF000000)>>24);
     EventID     =(unsigned short)((Event_Generic->EventCode&0x00FFFF00)>>8 );
@@ -230,7 +230,7 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
 
     switch (ParserID)
     {
-        case MediaInfo_Parser_None :    
+        case MediaInfo_Parser_None :
                 switch (EventID)
                 {
                     case MediaInfo_Event_General_Start                                          : if (EventVersion==0 && Data_Size==sizeof(struct MediaInfo_Event_General_Start_0)) General_Start_0((struct MediaInfo_Event_General_Start_0*)Data_Content, UserHandle); break;
@@ -292,7 +292,7 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
         }
     }
 
-    
+
     for (size_t FilesList_Pos=0; FilesList_Pos<FilesList.size(); FilesList_Pos++)
     {
         cout<<" "<<FilesList_Pos+1<<"/"<<FilesList.size()<<" "<<FilesList[FilesList_Pos].Name.To_Local()<<endl;
@@ -301,7 +301,7 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
         Ztring MI_Result;
 
         //**********************************************************************
-        // Configuring                                        
+        // Configuring
         //**********************************************************************
 
         // CallBack configuration
@@ -316,7 +316,7 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
             wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
             return;
         }
-        
+
         //Retrieiving basic data
         MI.Open(FilesList[FilesList_Pos].Name);
         Ztring Delay_10s=Ztring().Duration_From_Milliseconds(Ztring(MI.Get(Stream_Video, 0, _T("Delay"))).To_int64u()+10000);

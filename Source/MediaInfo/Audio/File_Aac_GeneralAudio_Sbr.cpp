@@ -683,7 +683,7 @@ void File_Aac::sbr_envelope(bool ch, bool bs_coupling)
             f_huff = f_huffman_env_1_5dB;
         }
     }
-    
+
     for (int8u env=0; env<sbr->bs_num_env[ch]; env++)
     {
         if (sbr->bs_df_env[ch][env] == 0)

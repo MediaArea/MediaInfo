@@ -199,7 +199,7 @@ void File_Bmp::BitmapV4Header()
     Skip_L4(                                                    "Blue Channel bit mask");
     Skip_L4(                                                    "Alpha Channel bit mask");
     Skip_L4(                                                    "Color Space endpoints");
-    Skip_L4(                                                    "Color Space endpoints"); 
+    Skip_L4(                                                    "Color Space endpoints");
     Skip_L4(                                                    "Color Space endpoints");
     Skip_L4(                                                    "Color Space endpoints");
     Skip_L4(                                                    "Color Space endpoints");

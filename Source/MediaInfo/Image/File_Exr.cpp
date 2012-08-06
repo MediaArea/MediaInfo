@@ -83,7 +83,7 @@ void File_Exr::Streams_Accept()
     if (!IsSub)
     {
         Streams_Accept_TestContinuousFileNames();
-    
+
         Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);
         if (StreamKind_Last==Stream_Video)
@@ -198,14 +198,14 @@ void File_Exr::Header_Parse()
         Header_Fill_Size(ImageData_End-(File_Offset+Buffer_Offset));
         return;
     }
-        
+
     int32u size;
     Get_String(name_End, name,                                  "name");
     Element_Offset++; //Null byte
     Get_String(type_End, type,                                  "type");
     Element_Offset++; //Null byte
     Get_L4 (size,                                               "size");
-        
+
     //Filling
     Header_Fill_Code(0, Ztring().From_Local(name.c_str()));
     Header_Fill_Size(name_End+1+type_End+1+4+size);
@@ -214,7 +214,7 @@ void File_Exr::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Exr::Data_Parse()
 {
-    
+
     if (CC4(Buffer+Buffer_Offset)==0x762F3101) //"v/1"+1 //Header
         Header();
     else if (name=="comments" && type=="string")
@@ -338,7 +338,7 @@ void File_Exr::pixelAspectRatio ()
 {
     //Parsing
     float value;
-    Get_LF4(value,                                              "value"); 
+    Get_LF4(value,                                              "value");
 
     //Filling
     if (Frame_Count==1)

@@ -213,7 +213,7 @@ Reader_libcurl::~Reader_libcurl ()
 {
     if (Curl_Data==NULL)
         return;
-    
+
     //Cleanup
     #if MEDIAINFO_NEXTPACKET
         if (Curl_Data->CurlM)
@@ -766,7 +766,7 @@ size_t Reader_libcurl::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 if (MI->Config.Demux_EventWasSent)
                     return 2; //Must return immediately
             #endif //MEDIAINFO_DEMUX
-                
+
             //Threading
             if (MI->IsTerminating())
                 break; //Termination is requested

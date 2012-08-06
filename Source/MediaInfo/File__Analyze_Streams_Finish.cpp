@@ -107,7 +107,7 @@ void File__Analyze::Streams_Accept_TestContinuousFileNames_Static(ZtringList &Fi
     if (File_Names.size()!=1)
         return;
 
-    //Trying to detect continuous file names (e.g. video stream as an image or HLS) 
+    //Trying to detect continuous file names (e.g. video stream as an image or HLS)
     FileName FileToTest(File_Names.Read(0));
     Ztring FileToTest_Name=FileToTest.Name_Get();
     size_t FileNameToTest_Pos=FileToTest_Name.size();
@@ -144,7 +144,7 @@ void File__Analyze::Streams_Accept_TestContinuousFileNames()
         return;
 
     Streams_Accept_TestContinuousFileNames_Static(Config->File_Names, Config->File_IsReferenced_Get());
-        
+
     if (Config->File_Names.size()==1)
         return;
 
@@ -533,7 +533,7 @@ void File__Analyze::Streams_Finish_InterStreams()
             float64 AudioBitRate=0;
             if (!Retrieve(Stream_Audio, Pos, Audio_BitRate).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate)[0]<=_T('9')) //Note: quick test if it is a number
                 AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_float64();
-            else if (!Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded)[0]<=_T('9')) //Note: quick test if it is a number        
+            else if (!Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded)[0]<=_T('9')) //Note: quick test if it is a number
                 AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).To_float64();
             else
                 VideobitRateIsValid=false;
@@ -543,7 +543,7 @@ void File__Analyze::Streams_Finish_InterStreams()
         for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
         {
             float64 TextBitRate;
-            if (Retrieve(Stream_Text, Pos, Text_BitRate_Encoded).empty())            
+            if (Retrieve(Stream_Text, Pos, Text_BitRate_Encoded).empty())
                 TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate).To_float64();
             else
                 TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate_Encoded).To_float64();

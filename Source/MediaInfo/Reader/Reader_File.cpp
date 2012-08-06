@@ -279,7 +279,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                         Buffer_NoJump_Temp=0;
                     }
                 }
-                    
+
                 if (GoTo>=F.Size_Get())
                     break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
                 if (!(GoTo>F.Position_Get() && GoTo<F.Position_Get()+Buffer_NoJump_Temp)) //No smal jumps
@@ -298,7 +298,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             {
                 delete[] MI->Config.File_Buffer;
                 if (MI->Config.File_Buffer_Size_Max==0)
-                    MI->Config.File_Buffer_Size_Max=1;    
+                    MI->Config.File_Buffer_Size_Max=1;
                 while (MI->Config.File_Buffer_Size_ToRead>MI->Config.File_Buffer_Size_Max)
                     MI->Config.File_Buffer_Size_Max*=2;
                 MI->Config.File_Buffer=new int8u[MI->Config.File_Buffer_Size_Max];

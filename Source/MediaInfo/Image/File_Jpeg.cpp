@@ -220,7 +220,7 @@ bool File_Jpeg::FileHeader_Begin()
     }
 
     Accept();
-    
+
     //All should be OK...
     return true;
 }
@@ -620,7 +620,7 @@ void File_Jpeg::SOD()
             Frame_Count_NotParsedIncluded++;
     }
     if (Status[IsFilled])
-        Fill();    
+        Fill();
     if (Config_ParseSpeed<1.0)
         Finish("JPEG 2000"); //No need of more
 }
@@ -733,7 +733,7 @@ void File_Jpeg::SOS()
             Frame_Count_NotParsedIncluded++;
     }
     if (Status[IsFilled])
-        Fill();    
+        Fill();
     if (Config_ParseSpeed<1.0)
         Finish("JPEG"); //No need of more
     FILLING_END();

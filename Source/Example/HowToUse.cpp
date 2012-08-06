@@ -80,7 +80,7 @@ int main (int argc, char *argv[])
     MI.Close();
 
     std::cout<<To_Display.To_Local().c_str()<<std::endl;
-    
+
     return 0;
 }
 //---------------------------------------------------------------------------

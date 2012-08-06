@@ -125,7 +125,7 @@ void File_ImpulseTracker::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Stereo?2:1);
-        
+
         //No more need data
         Finish("Impulse Tracker");
     FILLING_END();

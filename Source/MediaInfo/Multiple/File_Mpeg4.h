@@ -351,7 +351,7 @@ private :
             int32u  Delay;
             int32u  Rate;
         };
-        std::vector<edts_struct> edts;            
+        std::vector<edts_struct> edts;
         std::vector<int64u>     stco;
         struct stsc_struct
         {

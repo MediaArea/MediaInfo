@@ -305,7 +305,7 @@ bool File_H263::Header_Parser_Fill_Size()
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;
     return true;
-    
+
 }
 
 //---------------------------------------------------------------------------
@@ -418,7 +418,7 @@ void File_H263::Data_Parse()
     FILLING_BEGIN();
         Element_Info1(Frame_Count);
         Frame_Count++;
-        
+
         //Filling
         if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
         {

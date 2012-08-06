@@ -196,7 +196,7 @@ void File_Lxf::Streams_Finish()
         Finish(Videos[1].Parser);
         Streams_Fill_PerStream(Videos[1].Parser, Stream_Video, 1);
     }
-    
+
     if (Audios_Header.TimeStamp_End!=(int64u)-1 && Audios_Header.TimeStamp_Begin!=(int64u)-1)
     {
         int64u Duration=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin))/TimeStamp_Rate*1000);
@@ -705,7 +705,7 @@ void File_Lxf::Header_Parse()
 
     if (Element_Offset<HeaderSize)
         Skip_XX(Header_Size-Element_Offset,                     "Unknown");
-        
+
     if (Buffer_Offset+Element_Offset+BlockSize>Buffer_Size)
     {
         //Hints

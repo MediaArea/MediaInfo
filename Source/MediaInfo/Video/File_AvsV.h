@@ -60,7 +60,7 @@ private :
     bool Synchronize() {return Synchronize_0x000001();}
     bool Synched_Test();
     void Synched_Init();
-    
+
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parser_QuickSearch();
@@ -76,7 +76,7 @@ private :
     void picture_start();
     void video_edit();
     void reserved();
-    
+
     //Count of a Packets
     size_t progressive_frame_Count;
     size_t Interlaced_Top;

@@ -2136,7 +2136,7 @@ void File_Riff::AVI__INFO_xxxx()
     {
         case Elements::AVI__INFO_ISMP : INFO_ISMP=Value;
                                         break;
-        case Elements::AVI__INFO_IGNR : 
+        case Elements::AVI__INFO_IGNR :
                                         {
                                             Ztring ISGN=Retrieve(Stream_General, 0, General_Genre);
                                             Clear(Stream_General, 0, General_Genre);
@@ -2258,10 +2258,10 @@ void File_Riff::AVI__movi()
     if (NeedOldIndex || (stream_Count==0 && Index_Pos.empty()))
     {
         //Jumping
-		#if MEDIAINFO_TRACE
-			if (Trace_Activated)
-				Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
-		#endif //MEDIAINFO_TRACE
+        #if MEDIAINFO_TRACE
+            if (Trace_Activated)
+                Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+        #endif //MEDIAINFO_TRACE
         Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
         return;
     }
@@ -2656,8 +2656,8 @@ void File_Riff::CADP()
     int32u Codec;
     Get_C4 (Codec,                                              "Codec");
     #if MEDIAINFO_TRACE
-		if (Trace_Activated)
-			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
+        if (Trace_Activated)
+            Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get()-Element_Offset)+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
     Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 
@@ -2681,9 +2681,9 @@ void File_Riff::CDDA()
 //---------------------------------------------------------------------------
 void File_Riff::CDDA_fmt_()
 {
-    //Specs: http://fr.wikipedia.org/wiki/Compact_Disc_Audio_track 
+    //Specs: http://fr.wikipedia.org/wiki/Compact_Disc_Audio_track
     //Specs: http://www.moon-soft.com/program/FORMAT/sound/cda.htm
-    
+
     Element_Name("Stream format");
 
     //Parsing
@@ -2713,7 +2713,7 @@ void File_Riff::CDDA_fmt_()
     FILLING_BEGIN();
         int32u TPosition=TPositionM*60*75+TPositionS*75+TPositionF;
         int32u TDuration=TDurationM*60*75+TDurationS*75+TDurationF;
-    
+
         Fill(Stream_General, 0, General_Track_Position, tracknb);
         Fill(Stream_General, 0, General_Format, "CDDA");
         Fill(Stream_General, 0, General_Format_Info, "Compact Disc for Digital Audio");
@@ -2842,8 +2842,8 @@ void File_Riff::JUNK()
 
     //Parse
     #if MEDIAINFO_TRACE
-		if (Trace_Activated)
-			Param("Junk", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+        if (Trace_Activated)
+            Param("Junk", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
     Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 }
@@ -2884,8 +2884,8 @@ void File_Riff::MTrk()
 
     //Parsing
     #if MEDIAINFO_TRACE
-		if (Trace_Activated)
-			Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
+        if (Trace_Activated)
+            Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
     Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
 

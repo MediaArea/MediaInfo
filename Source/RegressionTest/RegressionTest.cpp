@@ -13,7 +13,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
     if (argc!=4)
         return 1;
-    
+
     Ztring Files=argv[1];
     Ztring DataBaseDirectory=argv[2];
     int32u Scenario=Ztring(argv[3]).To_int32u();
@@ -23,7 +23,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
     //cout<<"Events"<<endl;
     //RegressionTest_Events(Files, DataBaseDirectory, Scenario);
-    
+
     return 0;
 }
 

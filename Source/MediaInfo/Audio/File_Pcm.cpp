@@ -377,7 +377,7 @@ void File_Pcm::VOB()
                 size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
 
                 std::memcpy(Info+Info_Offset, Buffer+Buffer_Pos, 4*(NumberOfChannelsMinusOne+1));
-                                
+
                 Info_Offset+=4*(NumberOfChannelsMinusOne+1);
                 Element_Offset+=5*(NumberOfChannelsMinusOne+1);
             }

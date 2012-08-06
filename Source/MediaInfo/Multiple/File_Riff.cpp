@@ -171,7 +171,7 @@ void File_Riff::Streams_Finish ()
         Merge(**Ancillary);
         return;
     }
-    
+
     //Global
     if (IsRIFF64)
         Fill(Stream_General, 0, General_Format_Profile, "RF64");
@@ -411,7 +411,7 @@ void File_Riff::Streams_Finish ()
                     }
                 }
             }
-               
+
             //Source duration
             if (Temp->second.PacketCount && Temp->second.Length!=Temp->second.PacketCount)
             {
@@ -630,7 +630,7 @@ bool File_Riff::Header_Begin()
 
         if (Buffer_Offset+(size_t)Element_Size>Buffer_Size)
             return false;
-        
+
         Element_Begin0();
         switch (Kind)
         {

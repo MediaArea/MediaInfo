@@ -139,10 +139,10 @@ private :
         bool    frame_mbs_only_flag;
         bool    mb_adaptive_frame_field_flag;
         bool    IsSynched; //Computed value
-            
+
         //Computed values
         bool    NalHrdBpPresentFlag() {return vui_parameters && vui_parameters->NAL;}
-        bool    VclHrdBpPresentFlag() {return vui_parameters && vui_parameters->VCL;} 
+        bool    VclHrdBpPresentFlag() {return vui_parameters && vui_parameters->VCL;}
         bool    CpbDpbDelaysPresentFlag() {return vui_parameters && (vui_parameters->NAL || vui_parameters->VCL);}
         int8u   ChromaArrayType() {return separate_colour_plane_flag?0:chroma_format_idc;}
 

@@ -223,7 +223,7 @@ void File_Aac::Read_Buffer_Continue()
 {
     if (Element_Size==0)
         return;
-        
+
     switch(Mode)
     {
         case Mode_AudioSpecificConfig : Read_Buffer_Continue_AudioSpecificConfig(); break;
@@ -644,8 +644,8 @@ void File_Aac::Data_Parse()
             //No more need data
             switch (Mode)
             {
-                case Mode_ADTS        : 
-                case Mode_LATM        : 
+                case Mode_ADTS        :
+                case Mode_LATM        :
                                         Fill();
                                         if (!IsSub)
                                             File__Tags_Helper::Finish(); break;

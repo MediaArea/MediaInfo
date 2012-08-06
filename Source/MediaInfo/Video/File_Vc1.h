@@ -119,7 +119,7 @@ private :
     bool   psf;
     bool   pulldown;
     bool   panscan_flag;
-    
+
     //Stream
     struct stream
     {

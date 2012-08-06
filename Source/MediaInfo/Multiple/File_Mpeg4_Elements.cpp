@@ -524,7 +524,7 @@ const char* Mpeg4_matrix_coefficients(int16u matrix_coefficients)
     extern std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask);
     extern std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask);
 #endif //defined(MEDIAINFO_DTS_YES)
-    
+
 //***************************************************************************
 // Constants
 //***************************************************************************
@@ -1357,13 +1357,13 @@ void File_Mpeg4::jp2c()
         if (Frame_Count==0)
         {
             Accept("MPEG-4");
-        
+
             Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
             Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
 
             Finish(&MI);
             Merge(MI, MI.StreamKind, 0, 0);
-        
+
             Fill("MPEG-4");
             if (Config->File_Names.size()>1)
             {
@@ -1411,7 +1411,7 @@ void File_Mpeg4::jp2h_colr()
         case 0x02 : Skip_XX(Element_Size-Element_Offset,        "PROFILE");
                     break;
         default   : Skip_XX(Element_Size-Element_Offset,        "Unknown");
-                    return;     
+                    return;
     }
 }
 
@@ -1698,7 +1698,7 @@ void File_Mpeg4::moof()
         Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
         return;
     }
-    
+
     IsFragmented=true;
     moof_base_data_offset=File_Offset+Buffer_Offset-Header_Size;
     data_offset_present=true;
@@ -3175,7 +3175,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_ctts()
     //Parsing
     int32u entry_count;
     Get_B4 (entry_count,                                        "entry_count");
-    
+
     //Currently no usage
     //for (int32u Pos=0; Pos<entry_count; Pos++)
     {
@@ -3273,7 +3273,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
 */
 
         if (Streams[moov_trak_tkhd_TrackID].stss.empty() && sample_number==0)
-            Offset=0;    
+            Offset=0;
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-Offset);
     }
 
@@ -3572,13 +3572,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx()
             case Elements::moov_trak_mdia_minf_stbl_stsd_mp4v : Stream_Prepare(Stream_Video); break;
             default                                           : ;
         }
-    
+
     switch (StreamKind_Last)
     {
         case Stream_Video : moov_trak_mdia_minf_stbl_stsd_xxxxVideo(); break;
         case Stream_Audio : moov_trak_mdia_minf_stbl_stsd_xxxxSound(); break;
         case Stream_Text  : moov_trak_mdia_minf_stbl_stsd_xxxxText (); break;
-        default           : 
+        default           :
                             switch (Element_Code)
                             {
                                 case Elements::moov_trak_mdia_minf_stbl_stsd_mp4s : moov_trak_mdia_minf_stbl_stsd_xxxxStream(); break;
@@ -3835,7 +3835,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                                     //Parsing
                                     Skip_L4(                            "SamplesPerBlock");
                                     Skip_L2(                            "EncodeOptions");
-                                    Skip_L4(                            "SuperBlockAlign");    
+                                    Skip_L4(                            "SuperBlockAlign");
                                     break;
                     default     : Skip_XX(Data_Size,                    "Unknown");
                 }
@@ -4497,7 +4497,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ddts()
     //dtse: DTS Express, not having DTS Core
     //dtsh: DTS Core + DTS Lossless (MA), mixed
     //dtsl: DTS Lossless (MA), not having DTS Core
-    
+
     int32u  DTSSamplingFrequency, maxBitrate, avgBitrate;
     int16u  ChannelLayout;
     int8u   CoreLayout;
@@ -4506,7 +4506,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ddts()
     Get_B4 (DTSSamplingFrequency,                               "DTSSamplingFrequency");
     Get_B4 (maxBitrate,                                         "maxBitrate");
     Get_B4 (avgBitrate,                                         "avgBitrate");
-    Skip_B1(                                                    "pcmSampleDepth"); // 16 or 24 bits             
+    Skip_B1(                                                    "pcmSampleDepth"); // 16 or 24 bits
     BS_Begin();
         Skip_S1(2,                                              "FrameDuration");  // 0 = 512, 1 = 1024, 2 = 2048, 3 = 4096
         Skip_S1(5,                                              "StreamConstruction");
@@ -4629,11 +4629,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_glbl()
 {
     Element_Name("Global");
-    
+
     if (Retrieve(Stream_Video, StreamPos_Last, Video_MuxingMode)==_T("MXF"))
     {
         Clear(Stream_Video, StreamPos_Last, Video_MuxingMode);
-        delete Streams[moov_trak_tkhd_TrackID].Parser; 
+        delete Streams[moov_trak_tkhd_TrackID].Parser;
         #if defined(MEDIAINFO_MPEGV_YES)
             Streams[moov_trak_tkhd_TrackID].Parser=new File_Mpegv;
         #else //defined(MEDIAINFO_MPEGV_YES)
@@ -4886,7 +4886,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx()
     //Options
     if (Element_Offset+2>Element_Size)
         return; //No options
-        
+
     //Parsing
     int16u Option_Size;
     Get_L2 (Option_Size,                                        "cbSize");
@@ -4942,7 +4942,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
 */
 
         if (Streams[moov_trak_tkhd_TrackID].stss.empty() && sample_number==0)
-            Offset=0;    
+            Offset=0;
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-Offset);
     }
 
@@ -5016,7 +5016,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         int32u Size_Min=(int32u)-1, Size_Max=0;
         /*
         if (FieldSize==4)
-            BS_Begin(); //Too much slow   
+            BS_Begin(); //Too much slow
         */
         for (int32u Pos=0; Pos<Sample_Count; Pos++)
         {
@@ -5062,7 +5062,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         }
         /*
         if (FieldSize==4)
-            BS_End(); //Too much slow    
+            BS_End(); //Too much slow
         */
 
         if (Stream->second.stss.empty() && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
@@ -5089,7 +5089,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
     Stream->second.stts_Max=0;
     Stream->second.stts_FrameCount=0;
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
-        std::map<int32u, int64u> Duration_FrameCount; //key is duration 
+        std::map<int32u, int64u> Duration_FrameCount; //key is duration
         int64u Duration_FrameCount_Max=0;
         int32u Duration_FrameCount_Max_Duration=0;
         if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("DV") && Streams[moov_trak_tkhd_TrackID].Parser && ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts==NULL)
@@ -5853,7 +5853,7 @@ void File_Mpeg4::moov_udta_xxxx()
                 if (!IsText)
                 {
                     Skip_XX(Element_Size,                       "Unknown");
-                    return;    
+                    return;
                 }
 
                 while(Element_Offset<Element_Size)

@@ -94,7 +94,7 @@ void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, std::vector<std::ve
 {
     if (Config)
         return; //Already done
-        
+
     if (Stream_)
     {
         Stream=Stream_;

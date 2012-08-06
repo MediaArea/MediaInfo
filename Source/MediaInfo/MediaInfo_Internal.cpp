@@ -293,11 +293,11 @@ MediaInfo_Internal::MediaInfo_Internal()
 
     Stream.resize(Stream_Max);
     Stream_More.resize(Stream_Max);
-    
+
     //Position in a MediaInfoList class
     IsFirst=true;
     IsLast=true;
-    
+
     //Threading
     BlockMethod=0;
     IsInThread=false;
@@ -333,7 +333,7 @@ MediaInfo_Internal::~MediaInfo_Internal()
 size_t MediaInfo_Internal::Open(const String &File_Name_)
 {
     Close();
-    
+
     CS.Enter();
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open, File=");Debug+=Ztring(File_Name_).c_str();)
     Config.File_Names.clear();
@@ -995,7 +995,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
             size_t Method=(size_t)-1;
             int64u SeekValue=(int64u)-1;
             int64u ID=(int64u)-1;
-            
+
             ZtringList List; List.Separator_Set(0, _T(","));
             List.Write(Value);
             for (size_t Pos=0; Pos<List.size(); Pos++)
@@ -1023,17 +1023,17 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
                     SeekValue=0;
                     size_t Value_Pos=ValueZ.find(_T(":"));
                     if (Value_Pos==string::npos)
-                        Value_Pos=ValueZ.size();    
+                        Value_Pos=ValueZ.size();
                     SeekValue+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*60*1000*1000*1000;
                     ValueZ.erase(0, Value_Pos+1);
                     Value_Pos=ValueZ.find(_T(":"));
                     if (Value_Pos==string::npos)
-                        Value_Pos=ValueZ.size();    
+                        Value_Pos=ValueZ.size();
                     SeekValue+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*1000*1000*1000;
                     ValueZ.erase(0, Value_Pos+1);
                     Value_Pos=ValueZ.find(_T("."));
                     if (Value_Pos==string::npos)
-                        Value_Pos=ValueZ.size();    
+                        Value_Pos=ValueZ.size();
                     SeekValue+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*1000*1000*1000;
                     ValueZ.erase(0, Value_Pos+1);
                     if (!ValueZ.empty())

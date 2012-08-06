@@ -59,7 +59,7 @@ private :
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
-    
+
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();

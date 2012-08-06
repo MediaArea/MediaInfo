@@ -203,7 +203,7 @@ void File_Png::Header_Parse()
 
         return;
     }
-        
+
     //Parsing
     int32u Length, Chunk_Type;
     Get_B4 (Length,                                             "Length");

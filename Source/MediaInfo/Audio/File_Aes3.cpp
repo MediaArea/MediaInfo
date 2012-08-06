@@ -292,7 +292,7 @@ void File_Aes3::Streams_Fill()
     {
         if (Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).empty() && BitRate!=(int64u)-1)
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
-        
+
         if (!IsSub && NotPCM_SizePerFrame!=(int64u)-1 && NotPCM_SizePerFrame && FrameRate)
         {
             int64u BitRate=float64_int64s(NotPCM_SizePerFrame*8*FrameRate);
@@ -570,7 +570,7 @@ size_t File_Aes3::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
                     {
                     if (Frame_Duration==(int64u)-1 || Frame_Size==(int64u)-1)
                         return (size_t)-1; //Not supported
-                    
+
                     Unsynch_Frame_Count=float64_int64s(((float64)Value)/Frame_Duration);
                     GoTo(Unsynch_Frame_Count*Frame_Size);
                     Open_Buffer_Unsynch();
@@ -580,7 +580,7 @@ size_t File_Aes3::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
                     {
                     if (Frame_Size==(int64u)-1)
                         return (size_t)-1; //Not supported
-                    
+
                     Unsynch_Frame_Count=Value;
                     GoTo(Unsynch_Frame_Count*Frame_Size);
                     Open_Buffer_Unsynch();
@@ -917,7 +917,7 @@ bool File_Aes3::Synched_Test()
         }
 
         if (Frame_Count && NotPCM_SizePerFrame==(int64u)-1)
-            NotPCM_SizePerFrame=Buffer_Offset_Temp;    
+            NotPCM_SizePerFrame=Buffer_Offset_Temp;
         #if MEDIAINFO_TRACE
             if (Buffer_Offset_Temp-Buffer_Offset)
             {
@@ -1117,7 +1117,7 @@ void File_Aes3::Data_Parse()
 {
     if (!Status[IsAccepted])
         Accept("AES3");
-    
+
     if (Container_Bits==Stream_Bits && Endianness=='B')
         Frame();
     else
@@ -1606,7 +1606,7 @@ void File_Aes3::Frame_FromMpegPs()
 
                     break;
                 }
-                
+
             if (IsParsingNonPcm)
             {
                 IsParsingNonPcm=true;
@@ -1704,7 +1704,7 @@ void File_Aes3::Frame_FromMpegPs()
 
                     break;
                 }
-                
+
             if (IsParsingNonPcm)
             {
                 IsParsingNonPcm=true;
@@ -1769,7 +1769,7 @@ void File_Aes3::Frame_FromMpegPs()
 
                     break;
                 }
-                
+
             if (IsParsingNonPcm)
             {
                 IsParsingNonPcm=true;

@@ -192,13 +192,13 @@ private :
     {
         File__Analyze**  Parser;
         size_t          StreamPos;
-        
+
         text_position()
         {
             Parser=NULL;
             StreamPos=(size_t)-1;
         }
-        
+
         text_position(File__Analyze* &Parser_)
         {
             Parser=&Parser_;

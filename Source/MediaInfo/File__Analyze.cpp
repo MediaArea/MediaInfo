@@ -420,7 +420,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         }
         else
             File_Offset+=Buffer_Offset;
-        
+
         return;
     }
     if (Buffer_Offset>=Buffer_Size)
@@ -841,7 +841,7 @@ size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Va
     }
 }
 #endif //MEDIAINFO_SEEK
-   
+
 //---------------------------------------------------------------------------
 void File__Analyze::Read_Buffer_Unsynched_OneFramePerFile()
 {
@@ -2403,7 +2403,7 @@ void File__Analyze::ForceFinish ()
     //Real stream size
     if (Config_ParseSpeed==1 && IsRawStream && Buffer_TotalBytes)
     {
-        //Exception with text streams embedded in video 
+        //Exception with text streams embedded in video
         if (StreamKind_Last==Stream_Text)
             StreamKind_Last=Stream_Video;
 
@@ -3010,7 +3010,7 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
                             }
 
                             Config->Demux_IsSeeking=false;
-                            
+
                             GoTo(IbiStream->Infos[Pos].StreamOffset);
                             Open_Buffer_Unsynch();
 

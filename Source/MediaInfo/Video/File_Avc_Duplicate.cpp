@@ -174,7 +174,7 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
             if (Extra==1)
             {
                 SPS_SQS[0]=0x01; //Profile FLV
-                SPS_SQS[1]=(!seq_parameter_sets.empty() && seq_parameter_sets[0])?seq_parameter_sets[0]->profile_idc:0x00; //Compatible Profile. TODO: Handling more than 1 seq_parameter_set 
+                SPS_SQS[1]=(!seq_parameter_sets.empty() && seq_parameter_sets[0])?seq_parameter_sets[0]->profile_idc:0x00; //Compatible Profile. TODO: Handling more than 1 seq_parameter_set
                 SPS_SQS[2]=0x00; //Reserved
             }
             else

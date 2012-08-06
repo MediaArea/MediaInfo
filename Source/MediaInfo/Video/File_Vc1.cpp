@@ -163,11 +163,11 @@ const int8u Vc1_FieldTypeTable[][2]=
 const File__Analyze::vlc Vc1_ptype[]=
 {
     //                                  macroblock_address_increment
-    { 	0	,	1	,	0	,	0	,	1	},
-    { 	2	,	1	,	0	,	0	,	2	},
-    { 	6	,	1	,	0	,	0	,	0	},
-    { 	14	,	1	,	0	,	0	,	3	},
-    { 	15	,	0	,	0	,	0	,	4	},
+    {   0   ,   1   ,   0   ,   0   ,   1   },
+    {   2   ,   1   ,   0   ,   0   ,   2   },
+    {   6   ,   1   ,   0   ,   0   ,   0   },
+    {   14  ,   1   ,   0   ,   0   ,   3   },
+    {   15  ,   0   ,   0   ,   0   ,   4   },
     VLC_END
 };
 

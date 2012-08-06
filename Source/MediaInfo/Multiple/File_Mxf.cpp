@@ -138,7 +138,7 @@ namespace Elements
     //Item - Elements - User organization registred for private use - Avid - Generic Container - Version 1
     UUID(GenericContainer_Avid,                                 060E2B34, 01020101, 0E040301, 00000000)
 
-    //Item - Elements - Interpretive - 
+    //Item - Elements - Interpretive -
     UUID(DMScheme1_PrimaryExtendedSpokenLanguage,               060E2B34, 01010107, 03010102, 03110000)
     UUID(DMScheme1_SecondaryExtendedSpokenLanguage,             060E2B34, 01010107, 03010102, 03110000)
     UUID(DMScheme1_OriginalExtendedSpokenLanguage,              060E2B34, 01010107, 03010102, 03110000)
@@ -1053,7 +1053,7 @@ void File_Mxf::Streams_Finish()
             return;
         }
     #endif //MEDIAINFO_NEXTPACKET
-        
+
     //Commercial names
     Streams_Finish_CommercialNames();
 
@@ -1150,7 +1150,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         for (size_t Pos=0; Pos<DMSegment->second.TrackIDs.size(); Pos++)
             if (DMSegment->second.TrackIDs[Pos]==TrackID)
                 DMScheme1s_List.push_back(DMSegment->second.Framework);
-        
+
     if (Config_ParseSpeed<=1.0)
     {
         Fill(Essence->second.Parser);
@@ -1276,7 +1276,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     else //Normal
     {
         Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
-        
+
         for (size_t Pos=0; Pos<DMScheme1s_List.size(); Pos++)
         {
             dmscheme1s::iterator DMScheme1=DMScheme1s.find(DMScheme1s_List[Pos]);
@@ -1565,7 +1565,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
         std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("ScanType");
         if (Info!=Descriptor->second.Infos.end() && Info->second==_T("Interlaced") && Descriptor->second.Height==1152 && Descriptor->second.Height_Display==1152 && Descriptor->second.Width==720) //Height value is height of the frame instead of the field
             Descriptor->second.Height_Display/=2;
-        
+
         //ID
         if (Descriptor->second.LinkedTrackID!=(int32u)-1 && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
         {
@@ -1904,7 +1904,7 @@ void File_Mxf::Read_Buffer_Continue()
                     {
                         switch (SearchingPartitionPack[Pos+14])
                         {
-                            case 0x02 : 
+                            case 0x02 :
                             case 0x04 :
                                         {
                                         //Filling duration
@@ -1981,7 +1981,7 @@ void File_Mxf::Read_Buffer_AfterParsing()
         Finish();
         return;
     }
-        
+
     if (File_Offset+Buffer_Size>=File_Size)
     {
         if (IsParsingEnd)
@@ -2103,7 +2103,7 @@ bool File_Mxf::DetectDuration ()
                 }
                 Duration=Descriptor->second.Duration;
             }
-                        
+
         //Computing the count of bytes per frame
         if (Duration)
         {
@@ -2125,7 +2125,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     if (ReferenceFiles)
         return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
-                        
+
     //Init
     if (!Duration_Detected)
     {
@@ -2136,7 +2136,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     //Parsing
     switch (Method)
     {
-        case 0  :   
+        case 0  :
                     {
                     //Calculating the byte count not included in seek information (partition, index...)
                     Partitions_Pos=0;
@@ -2186,7 +2186,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             {
                                 int64u FrameToAdd=(Value-(StreamOffset_Offset+Stream_Offset))/IndexTables[Pos].EditUnitByteCount;
                                 Stream_Offset+=FrameToAdd*IndexTables[Pos].EditUnitByteCount;
-                            
+
                                 GoTo(Buffer_Begin+Stream_Offset);
                                 Open_Buffer_Unsynch();
                                 return 1;
@@ -2194,14 +2194,14 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             else
                                 Stream_Offset+=IndexTables[Pos].IndexDuration*IndexTables[Pos].EditUnitByteCount;
                         }
-                        return 2; //Invalid value 
+                        return 2; //Invalid value
                     }
-                    
+
                     GoTo(Value);
                     Open_Buffer_Unsynch();
                     return 1;
                     }
-        case 1  :   
+        case 1  :
                     return Read_Buffer_Seek(0, File_Size*Value/10000, ID);
         case 2  :   //Timestamp
                     {
@@ -2217,7 +2217,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         {
                             int64u Delay=float64_int64s(DTS_Delay*1000000000);
                             if (Value<Delay)
-                                return 2; //Invalid value 
+                                return 2; //Invalid value
                             Value-=Delay;
                         }
                         Value=float64_int64s(((float64)Value)/1000000000*Descriptor->second.SampleRate);
@@ -2269,7 +2269,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
                             Partitions_Pos++;
                         }
-                            
+
                         if (Clip_Begin!=(int64u)-1)
                         {
                             Buffer_Begin=Clip_Begin;
@@ -2301,8 +2301,8 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         }
 
                         if (IndexTables[IndexTables.size()-1].IndexDuration && IndexTables[IndexTables.size()-1].IndexStartPosition!=(int64u)-1 && Value>=IndexTables[IndexTables.size()-1].IndexStartPosition+IndexTables[IndexTables.size()-1].IndexDuration) //Considering IndexDuration=0 as unlimited
-                            return 2; //Invalid value    
-                            
+                            return 2; //Invalid value
+
                         int64u StreamOffset=0;
                         for (size_t Pos=0; Pos<IndexTables.size(); Pos++)
                         {
@@ -2323,7 +2323,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
                             Partitions_Pos++;
                         }
-                            
+
                         if (Clip_Begin!=(int64u)-1)
                         {
                             Buffer_Begin=Clip_Begin;
@@ -2356,13 +2356,13 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                     if (Value<IndexTables[Pos].IndexStartPosition)
                                     {
                                         if (Pos==0)
-                                            break; //There is a problem    
+                                            break; //There is a problem
                                         Pos--; //In previous index
                                     }
                                 }
 
                                 int64u StreamOffset=IndexTables[Pos].Entries[(size_t)(Value-IndexTables[Pos].IndexStartPosition)].StreamOffset;
-                                
+
                                 //Calculating the byte count not included in seek information (partition, index...)
                                 int64u StreamOffset_Offset=0;
                                 Partitions_Pos=0;
@@ -2371,7 +2371,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                     StreamOffset_Offset+=Partitions[Partitions_Pos].PartitionPackByteCount+Partitions[Partitions_Pos].HeaderByteCount+Partitions[Partitions_Pos].IndexByteCount;
                                     Partitions_Pos++;
                                 }
-                            
+
                                 if (Clip_Begin!=(int64u)-1)
                                 {
                                     Buffer_Begin=Clip_Begin;
@@ -2393,7 +2393,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 return 1;
                             }
                         }
-                        return 2; //Invalid value 
+                        return 2; //Invalid value
                     }
                     else if (OverallBitrate_IsCbrForSure)
                     {
@@ -2784,7 +2784,7 @@ void File_Mxf::Header_Parse()
             }
             else
                 StreamOffset_Offset=0;
-        
+
             if (StreamOffset_Offset<=File_Offset+Buffer_Offset
              && !Partitions_IsFooter
              && !(Code_Compare1==Elements::OpenIncompleteHeaderPartition1   //Skipping any kind of Partition
@@ -3736,12 +3736,12 @@ void File_Mxf::IndexTableSegment()
                     Element_Offset=Element_Size;
                     return;
                 }
-            
+
             IndexTables.push_back(indextable());
             IndexTables[IndexTables.size()-1].StreamOffset=File_Offset+Buffer_Offset-Header_Size;
         #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
     }
-        
+
     switch(Code2)
     {
         ELEMENT(3F05, IndexTableSegment_EditUnitByteCount,      "Edit Unit Byte Count")
@@ -4214,7 +4214,7 @@ void File_Mxf::TimecodeComponent()
         TimeCode_DropFrame=false;
         DTS_Delay=0;
     }
-    
+
     switch(Code2)
     {
         ELEMENT(1501, TimecodeComponent_StartTimecode,          "StartTimecode")
@@ -4314,7 +4314,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
             SDTI_IsInIndexStreamOffset=false;
         SDTI_IsPresent=true;
     }
-    
+
     //Parsing
     int8u SMB, CPR_Rate, Format;
     bool SMB_UL_Present, SMB_CreationTimeStamp, SMB_UserTimeStamp, CPR_DropFrame;
@@ -4359,7 +4359,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
         case 0x0A : FrameRate=96; break;
         case 0x0B : FrameRate=100; break;
         case 0x0C : FrameRate=120; break;
-        default   : FrameRate=0; break;    
+        default   : FrameRate=0; break;
     }
     if (CPR_DropFrame)
     {
@@ -5002,7 +5002,7 @@ void File_Mxf::GenerationInterchangeObject_GenerationUID()
 void File_Mxf::GenericDescriptor_Locators()
 {
     Descriptors[InstanceUID].Locators.clear();
-    
+
     //Parsing
     //Vector
     int32u Count, Length;
@@ -5679,10 +5679,10 @@ void File_Mxf::IndexTableSegment_DeltaEntryArray()
     for (int32u Pos=0; Pos<NDE; Pos++)
     {
         Element_Begin1("Delta Entry");
-        Skip_B1(                                                "PosTableIndex");    
-        Skip_B1(                                                "Slice");    
+        Skip_B1(                                                "PosTableIndex");
+        Skip_B1(                                                "Slice");
         Skip_B4(                                                "Element Delta");
-        Element_End0();    
+        Element_End0();
     }
 }
 
@@ -8856,7 +8856,7 @@ void File_Mxf::ChooseParser__Avid_Picture(const essences::iterator &Essence, con
 File__Analyze* File_Mxf::ChooseParser_Avc(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
         File_Avc* Parser=new File_Avc;
@@ -8874,7 +8874,7 @@ File__Analyze* File_Mxf::ChooseParser_Avc(const essences::iterator &Essence, con
 File__Analyze* File_Mxf::ChooseParser_DV(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     #if defined(MEDIAINFO_DVDIF_YES)
         File_DvDif* Parser=new File_DvDif;
@@ -8892,7 +8892,7 @@ File__Analyze* File_Mxf::ChooseParser_DV(const essences::iterator &Essence, cons
 File__Analyze* File_Mxf::ChooseParser_Mpeg4v(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     #if defined(MEDIAINFO_MPEG4V_YES)
         File_Mpeg4v* Parser=new File_Mpeg4v;
@@ -8911,7 +8911,7 @@ File__Analyze* File_Mxf::ChooseParser_Mpeg4v(const essences::iterator &Essence, 
 File__Analyze* File_Mxf::ChooseParser_Mpegv(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     #if defined(MEDIAINFO_MPEGV_YES)
         File_Mpegv* Parser=new File_Mpegv();
@@ -8929,7 +8929,7 @@ File__Analyze* File_Mxf::ChooseParser_Mpegv(const essences::iterator &Essence, c
 File__Analyze* File_Mxf::ChooseParser_Raw(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     File__Analyze* Parser=new File_Unknown();
     Open_Buffer_Init(Parser);
@@ -8942,7 +8942,7 @@ File__Analyze* File_Mxf::ChooseParser_Raw(const essences::iterator &Essence, con
 File__Analyze* File_Mxf::ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     File__Analyze* Parser=new File_Unknown();
     Open_Buffer_Init(Parser);
@@ -8955,7 +8955,7 @@ File__Analyze* File_Mxf::ChooseParser_RV24(const essences::iterator &Essence, co
 File__Analyze* File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     #if defined(MEDIAINFO_VC3_YES)
         File_Vc3* Parser=new File_Vc3;
@@ -9009,7 +9009,7 @@ File__Analyze* File_Mxf::ChooseParser_Ac3(const essences::iterator &Essence, con
 File__Analyze* File_Mxf::ChooseParser_Aes3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
-    
+
     //Filling
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
@@ -9054,7 +9054,7 @@ File__Analyze* File_Mxf::ChooseParser_Aes3(const essences::iterator &Essence, co
 File__Analyze* File_Mxf::ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
-    
+
     //Filling
     File__Analyze* Parser=new File_Unknown();
     Open_Buffer_Init(Parser);
@@ -9068,7 +9068,7 @@ File__Analyze* File_Mxf::ChooseParser_Alaw(const essences::iterator &Essence, co
 File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
-    
+
     //Creating the parser
     //if (Descriptor->second.BlockAlign==3) //Channels==1 && ((StreamPos_Last%2==0) || Streams.find(moov_trak_tkhd_TrackID-1)!=Streams.end() && Streams[moov_trak_tkhd_TrackID-1].IsPcmMono))
     {
@@ -9078,7 +9078,7 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
             essences::iterator FirstChannel=Essences.find(Essence->first-1);
             if (FirstChannel==Essences.end() || !FirstChannel->second.IsChannelGrouping)
                 return ChooseParser_Pcm(Essence, Descriptor); //Not a channel grouping
-                
+
             Parser=new File_ChannelGrouping;
             Parser->Channel_Pos=1;
             Parser->Common=((File_ChannelGrouping*)Essences[Essence->first-1].Parser)->Common;
@@ -9125,7 +9125,7 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
 File__Analyze* File_Mxf::ChooseParser_Mpega(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
-    
+
     //Filling
     #if defined(MEDIAINFO_MPEGA_YES)
         File_Mpega* Parser=new File_Mpega;
@@ -9143,7 +9143,7 @@ File__Analyze* File_Mxf::ChooseParser_Mpega(const essences::iterator &Essence, c
 File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
-    
+
     //Creating the parser
     #if defined(MEDIAINFO_AES3_YES)
         File_Aes3* Parser=new File_Aes3;
@@ -9189,7 +9189,7 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, con
 File__Analyze* File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
-    
+
     //Filling
     #if defined(MEDIAINFO_JPEG_YES)
         File_Jpeg* Parser=new File_Jpeg;
@@ -9276,7 +9276,7 @@ void File_Mxf::Locators_CleanUp()
 void File_Mxf::Locators_Test()
 {
     Locators_CleanUp();
-    
+
     if (!Locators.empty() && ReferenceFiles==NULL)
     {
         ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
@@ -9304,7 +9304,7 @@ void File_Mxf::Locators_Test()
                                 ReferenceFile.FrameRate=Descriptor->second.SampleRate;
                 }
 
-        
+
                 if (ReferenceFile.StreamID!=(int32u)-1)
                 {
                     //Descriptive Metadata
@@ -9314,7 +9314,7 @@ void File_Mxf::Locators_Test()
                         for (size_t Pos=0; Pos<DMSegment->second.TrackIDs.size(); Pos++)
                             if (DMSegment->second.TrackIDs[Pos]==ReferenceFile.StreamID)
                                 DMScheme1s_List.push_back(DMSegment->second.Framework);
-        
+
                     for (size_t Pos=0; Pos<DMScheme1s_List.size(); Pos++)
                     {
                         dmscheme1s::iterator DMScheme1=DMScheme1s.find(DMScheme1s_List[Pos]);

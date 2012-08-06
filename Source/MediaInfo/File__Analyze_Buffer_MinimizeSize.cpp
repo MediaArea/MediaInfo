@@ -1039,7 +1039,7 @@ void File__Analyze::Get_VL_(const vlc Vlc[], size_t &Info)
     {
         switch (Vlc[Info].bit_increment)
         {
-            case 255 : 
+            case 255 :
                         Trusted_IsNot();
                         return;
             default  : ;
@@ -1052,7 +1052,7 @@ void File__Analyze::Get_VL_(const vlc Vlc[], size_t &Info)
                             Value++;
             case   0 :  ;
         }
-        
+
         if (Value==Vlc[Info].value)
             return;
         Info++;
@@ -1069,7 +1069,7 @@ void File__Analyze::Skip_VL_(const vlc Vlc[])
     {
         switch (Vlc[Info].bit_increment)
         {
-            case 255 : 
+            case 255 :
                         Trusted_IsNot();
                         return;
             default  : ;
@@ -1082,7 +1082,7 @@ void File__Analyze::Skip_VL_(const vlc Vlc[])
                             Value++;
             case   0 :  ;
         }
-        
+
         if (Value==Vlc[Info].value)
             return;
         Info++;
@@ -1117,7 +1117,7 @@ void File__Analyze::Get_VL_Prepare(vlc_fast &Vlc)
             Vlc.BitsToSkip[Pos2]=(int8u)-1;
         }
 }
-    
+
 //---------------------------------------------------------------------------
 void File__Analyze::Get_VL_(const vlc_fast &Vlc, size_t &Info)
 {

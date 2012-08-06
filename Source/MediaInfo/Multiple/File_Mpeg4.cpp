@@ -198,7 +198,7 @@ File_Mpeg4::File_Mpeg4()
 File_Mpeg4::~File_Mpeg4()
 {
 }
-    
+
 //***************************************************************************
 // Streams management
 //***************************************************************************
@@ -209,7 +209,7 @@ void File_Mpeg4::Streams_Accept()
     if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
     {
         Streams_Accept_TestContinuousFileNames();
-    
+
         Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         if (StreamKind_Last==Stream_Video)
             Fill(Stream_Video, StreamPos_Last, Video_FrameCount, Config->File_Names.size());
@@ -270,7 +270,7 @@ void File_Mpeg4::Streams_Finish()
 
         //if (Temp->second.stsz_StreamSize)
         //    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.stsz_StreamSize);
-        
+
         //Edit lists coherencies
         if (Temp->second.edts.size()>1 && Temp->second.edts[0].Duration==Temp->second.tkhd_Duration)
         {
@@ -286,9 +286,9 @@ void File_Mpeg4::Streams_Finish()
         float64 Delay=0;
         switch (Temp->second.edts.size())
         {
-            case 0 : 
+            case 0 :
                     break;
-            case 1 : 
+            case 1 :
                     if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000)
                     {
                         Delay=Temp->second.edts[0].Delay;
@@ -296,7 +296,7 @@ void File_Mpeg4::Streams_Finish()
                         Delay/=Temp->second.mdhd_TimeScale; //In seconds
                     }
                     break;
-            case 2 : 
+            case 2 :
                     if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
                     {
                         Delay=Temp->second.edts[0].Duration;
@@ -315,7 +315,7 @@ void File_Mpeg4::Streams_Finish()
         }
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), Delay*1000, 0, true);
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container", Unlimited, true, true);
-        
+
         //Fragments
         if (IsFragmented)
         {
@@ -812,7 +812,7 @@ void File_Mpeg4::Streams_Finish()
                         for (size_t stss_Pos=0; stss_Pos<Stream->second.stss.size(); stss_Pos++)
                         {
                             int64u Value=Stream->second.stss[stss_Pos];
-                        
+
                             //Searching the corresponding stco
                             std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
                             int64u SamplePos=0;
@@ -977,11 +977,11 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
         return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
     if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
         return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);
-                        
+
     //Parsing
     switch (Method)
     {
-        case 0  :   
+        case 0  :
                     if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
 
@@ -1012,7 +1012,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         std::vector<int64u>::iterator Stco=Stream->second.stco.begin();
                         if (Value<*Stco)
                             return Read_Buffer_Seek(3, 0, ID);
-                            
+
                         for (; Stco!=Stream->second.stco.end();  Stco++)
                         {
                             std::vector<int64u>::iterator Stco_Next=Stco; Stco_Next++;
@@ -1028,7 +1028,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         Open_Buffer_Unsynch();
                         return 1;
                     }
-        case 1  : 
+        case 1  :
                     if (Value==0)
                         return Read_Buffer_Seek(3, 0, ID);
 
@@ -1204,7 +1204,7 @@ void File_Mpeg4::Header_Parse()
         Name=0x6D6F6F76; //moov
     if (Name==0x61766964) //avid
         Name=0x6D646174; //mdat
-    
+
     if (Size<8)
     {
         //Special case: until the end of the atom
@@ -1384,8 +1384,8 @@ bool File_Mpeg4::BookMark_Needed()
         mdat_Pos_Temp=mdat_Pos.begin();
     }
     if (mdat_Pos.empty())
-        return false;    
-        
+        return false;
+
     IsParsing_mdat=false;
     if (!mdat_Pos_ToParseInPriority_StreamIDs.empty())
     {

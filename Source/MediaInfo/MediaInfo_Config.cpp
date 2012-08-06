@@ -249,7 +249,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         String Value_Lower(Value);
         transform(Value_Lower.begin(), Value_Lower.end(), Value_Lower.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
-        
+
              if (Value_Lower==_T("all"))
             Demux_Set(7);
         else if (Value_Lower==_T("frame"))
@@ -1703,7 +1703,7 @@ Ztring MediaInfo_Config::Info_Codecs_Get ()
         ToReturn+=Temp->second.Read();
         ToReturn+=EOL;
         Temp++;
-    }    
+    }
 
     return ToReturn;
 }

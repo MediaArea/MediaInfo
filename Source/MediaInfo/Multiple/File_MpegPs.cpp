@@ -2728,7 +2728,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
             case 0xA2 : return ChooseParser_DTS(); //DTS
             case 0x90 : return ChooseParser_PGS(); //PGS from Bluray
             case 0xEA : return ChooseParser_NULL(); //VC1()
-            default   : 
+            default   :
                         {
                         int8u descriptor_tag=FromTS?FromTS_descriptor_tag:Streams[stream_id].descriptor_tag;
                         switch (descriptor_tag)

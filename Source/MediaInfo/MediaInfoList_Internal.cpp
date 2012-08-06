@@ -57,14 +57,14 @@ MediaInfoList_Internal::MediaInfoList_Internal(size_t Count_Init)
 : Thread()
 {
     CriticalSectionLocker CSL(CS);
-    
+
     //Initialisation
     Info.reserve(Count_Init);
     for (size_t Pos=0; Pos<Info.size(); Pos++)
         Info[Pos]=NULL;
     ToParse_AlreadyDone=0;
     ToParse_Total=0;
-    
+
     //Threading
     BlockMethod=0;
     State=0;
@@ -259,7 +259,7 @@ void MediaInfoList_Internal::Close(size_t FilePos)
         delete Info[FilePos]; Info[FilePos]=NULL;
         Info.erase(Info.begin()+FilePos);
     }
-    
+
     ToParse_AlreadyDone=0;
     ToParse_Total=0;
 }

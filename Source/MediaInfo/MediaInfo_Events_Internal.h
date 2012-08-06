@@ -1,4 +1,4 @@
-// MediaInfo_Events - 
+// MediaInfo_Events -
 // Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it

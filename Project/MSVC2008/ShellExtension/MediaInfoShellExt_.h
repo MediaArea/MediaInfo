@@ -18,37 +18,37 @@ struct __declspec(uuid("00021500-0000-0000-c000-000000000046")) IQueryInfo;
 // CMediaInfoShellExt_
 
 class ATL_NO_VTABLE CMediaInfoShellExt_ :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CMediaInfoShellExt_, &CLSID_MediaInfoShellExt_>,
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CMediaInfoShellExt_, &CLSID_MediaInfoShellExt_>,
     public IPersistFile,
     public IQueryInfo
 {
 public:
-	CMediaInfoShellExt_()
-	{
-	}
+    CMediaInfoShellExt_()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_MEDIAINFOSHELLEXT_)
 
 DECLARE_NOT_AGGREGATABLE(CMediaInfoShellExt_)
 
 BEGIN_COM_MAP(CMediaInfoShellExt_)
-	COM_INTERFACE_ENTRY(IPersistFile)
-	COM_INTERFACE_ENTRY(IQueryInfo)
+    COM_INTERFACE_ENTRY(IPersistFile)
+    COM_INTERFACE_ENTRY(IQueryInfo)
 END_COM_MAP()
 
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
 protected:
     std::wstring FileName;

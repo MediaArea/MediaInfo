@@ -450,22 +450,22 @@ void File_DvDif::Streams_Fill()
                 Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Encoded, 0);
         }
-    
+
     if (Stream_BitRateFromContainer && Retrieve(Stream_Video, 0, Video_BitRate).empty())
     {
         if (Stream_BitRateFromContainer>=28800000*0.98 && Stream_BitRateFromContainer<=28800000*1.02)
         {
-            Fill(Stream_Video, 0, Video_BitRate, ((float64)28800000)*134/150*76/80, 0); 
+            Fill(Stream_Video, 0, Video_BitRate, ((float64)28800000)*134/150*76/80, 0);
             Fill(Stream_Video, 0, Video_BitRate_Encoded, 28800000);
         }
         if (Stream_BitRateFromContainer>=57600000*0.98 && Stream_BitRateFromContainer<=57600000*1.02)
         {
-            Fill(Stream_Video, 0, Video_BitRate, ((float64)57600000)*134/150*76/80, 0); 
+            Fill(Stream_Video, 0, Video_BitRate, ((float64)57600000)*134/150*76/80, 0);
             Fill(Stream_Video, 0, Video_BitRate_Encoded, 57600000);
         }
         if (Stream_BitRateFromContainer>=115200000*0.98 && Stream_BitRateFromContainer<=115200000*1.02)
         {
-            Fill(Stream_Video, 0, Video_BitRate, ((float64)115200000)*134/150*76/80, 0); 
+            Fill(Stream_Video, 0, Video_BitRate, ((float64)115200000)*134/150*76/80, 0);
             Fill(Stream_Video, 0, Video_BitRate_Encoded, 115200000);
         }
     }
@@ -821,7 +821,7 @@ void File_DvDif::Read_Buffer_Unsynched()
     {
         int64u BytesPerFrame=12000*(DSF?12:10);
         if (FSC_WasSet)
-            BytesPerFrame*=2;    
+            BytesPerFrame*=2;
         Frame_Count_NotParsedIncluded=File_GoTo/BytesPerFrame;
         FrameInfo.PTS=FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded/(DSF?25.000:(30.000*1000/1001))*1000000000);
     }
@@ -845,7 +845,7 @@ size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
         MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
         if (!MiOpenResult || MI.Get(Stream_General, 0, General_Format)!=_T("DV"))
             return 0;
-        
+
         TotalFrames=Ztring(MI.Get(Stream_Video, 0, Video_FrameCount)).To_int64u();
         int64u VideoBitRate=Ztring(MI.Get(Stream_Video, 0, Video_BitRate)).To_int64u();
         if (VideoBitRate==0 || VideoBitRate>=50000000)
@@ -885,7 +885,7 @@ size_t File_DvDif::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
                     {
                         int64u BytesPerFrame=12000*(DSF?12:10);
                         if (FSC_WasSet)
-                            BytesPerFrame*=2;    
+                            BytesPerFrame*=2;
                         GoTo(BytesPerFrame*Value);
                         Open_Buffer_Unsynch();
                         Frame_Count_NotParsedIncluded=Value;
@@ -974,7 +974,7 @@ void File_DvDif::Header_Parse()
         Header_Fill_Size(80);
         return;
     }
-    
+
     //Parsing
     SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
     Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;

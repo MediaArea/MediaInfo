@@ -178,7 +178,7 @@ const char* Avc_pic_struct[]=
     "top field",
     "bottom field",
     "top field, bottom field",
-    "bottom field, top field",                                                     
+    "bottom field, top field",
     "top field, bottom field, top field repeated",
     "bottom field, top field, bottom field repeated",
     "frame doubling",
@@ -408,7 +408,7 @@ void File_Avc::Streams_Fill()
 {
     for (std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item=seq_parameter_sets.begin(); seq_parameter_set_Item!=seq_parameter_sets.end(); seq_parameter_set_Item++)
         if ((*seq_parameter_set_Item))
-            Streams_Fill(seq_parameter_set_Item);    
+            Streams_Fill(seq_parameter_set_Item);
     for (std::vector<seq_parameter_set_struct*>::iterator subset_seq_parameter_set_Item=subset_seq_parameter_sets.begin(); subset_seq_parameter_set_Item!=subset_seq_parameter_sets.end(); subset_seq_parameter_set_Item++)
         if ((*subset_seq_parameter_set_Item))
         {
@@ -873,7 +873,7 @@ void File_Avc::Synched_Init()
     //Status
     IFrame_Count=0;
     prevPicOrderCntMsb=0;
-    prevPicOrderCntLsb=(int32u)-1; 
+    prevPicOrderCntLsb=(int32u)-1;
     prevTopFieldOrderCnt=(int32u)-1;
     prevFrameNum=(int32u)-1;
     prevFrameNumOffset=(int32u)-1;
@@ -954,7 +954,7 @@ void File_Avc::Read_Buffer_Unsynched()
     Interlaced_Top=0;
     Interlaced_Bottom=0;
     prevPicOrderCntMsb=0;
-    prevPicOrderCntLsb=(int32u)-1; 
+    prevPicOrderCntLsb=(int32u)-1;
     prevTopFieldOrderCnt=(int32u)-1;
     prevFrameNum=(int32u)-1;
     prevFrameNumOffset=(int32u)-1;
@@ -1430,7 +1430,7 @@ void File_Avc::slice_header()
             int64s pic_order_cnt=0;
             switch ((*seq_parameter_set_Item)->pic_order_cnt_type)
             {
-                case 0 : 
+                case 0 :
                             {
                             if (Element_Code==5) //IDR
                             {
@@ -1487,7 +1487,7 @@ void File_Avc::slice_header()
                             pic_order_cnt=bottom_field_flag?BottomFieldOrderCnt:TopFieldOrderCnt;
                             }
                             break;
-                case 2 : 
+                case 2 :
                             {
                             bool Has5=false;
                             for (std::vector<int8u>::iterator Temp=memory_management_control_operations.begin(); Temp!=memory_management_control_operations.end(); Temp++)
@@ -1499,7 +1499,7 @@ void File_Avc::slice_header()
                             if (Has5)
                                 prevFrameNumOffset=0;
                             int32u FrameNumOffset;
-                            
+
                             if (Element_Code==5) //IdrPicFlag
                             {
                                 TemporalReferences_Offset=TemporalReferences_Max;
@@ -1521,12 +1521,12 @@ void File_Avc::slice_header()
                                 tempPicOrderCnt=2*(FrameNumOffset+frame_num);
                             else
                                 tempPicOrderCnt=2*(FrameNumOffset+frame_num)-1;
-                            
+
                             pic_order_cnt=tempPicOrderCnt;
 
                             prevFrameNum=frame_num;
                             prevFrameNumOffset=FrameNumOffset;
-                            
+
                             pic_order_cnt_lsb=frame_num;
                             }
                             break;
@@ -1565,7 +1565,7 @@ void File_Avc::slice_header()
                     pic_order_cnt-=TemporalReferences_Reserved;
                     switch ((*seq_parameter_set_Item)->pic_order_cnt_type)
                     {
-                        case 0 : 
+                        case 0 :
                                 prevPicOrderCntMsb-=(int32u)TemporalReferences_Reserved;
                                 break;
                         case 2 :
@@ -1590,7 +1590,7 @@ void File_Avc::slice_header()
                             if ((Pos%2)==0)
                                 PictureTypes_PreviousFrames+=' ';
                         }
-                        delete TemporalReferences[Pos]; 
+                        delete TemporalReferences[Pos];
                     }
                     if (PictureTypes_PreviousFrames.size()>=8*TemporalReferences.size())
                         PictureTypes_PreviousFrames.erase(PictureTypes_PreviousFrames.begin(), PictureTypes_PreviousFrames.begin()+PictureTypes_PreviousFrames.size()-TemporalReferences.size());
@@ -1610,13 +1610,13 @@ void File_Avc::slice_header()
                         TemporalReferences_Max=0;
                 }
             }
-                
+
             TemporalReferences_Offset_pic_order_cnt_lsb_Diff=(int32s)((int32s)(TemporalReferences_Offset+pic_order_cnt)-TemporalReferences_Offset_pic_order_cnt_lsb_Last);
             TemporalReferences_Offset_pic_order_cnt_lsb_Last=(size_t)(TemporalReferences_Offset+pic_order_cnt);
             if (TemporalReferences_Max<=TemporalReferences_Offset_pic_order_cnt_lsb_Last)
                 TemporalReferences_Max=TemporalReferences_Offset_pic_order_cnt_lsb_Last+((*seq_parameter_set_Item)->frame_mbs_only_flag?2:1);
             if (TemporalReferences_Min>TemporalReferences_Offset_pic_order_cnt_lsb_Last)
-                TemporalReferences_Min=TemporalReferences_Offset_pic_order_cnt_lsb_Last;    
+                TemporalReferences_Min=TemporalReferences_Offset_pic_order_cnt_lsb_Last;
             if (TemporalReferences_DelayedElement)
             {
                 delete TemporalReferences[TemporalReferences_Offset_pic_order_cnt_lsb_Last]; TemporalReferences[TemporalReferences_Offset_pic_order_cnt_lsb_Last]=TemporalReferences_DelayedElement;
@@ -1692,7 +1692,7 @@ void File_Avc::slice_header()
                                 PictureTypes+=' ';
                         }
                     if (!GOP_Detect(PictureTypes).empty())
-                        Frame_Count_Valid=Frame_Count; //We have enough frames 
+                        Frame_Count_Valid=Frame_Count; //We have enough frames
                 }
             }
         }
@@ -1956,7 +1956,7 @@ void File_Avc::sei_message_buffering_period(int32u &seq_parameter_set_id)
 
     //Parsing
     if (Element_Offset==Element_Size)
-        return; //Nothing to do    
+        return; //Nothing to do
     BS_Begin();
     Get_UE (seq_parameter_set_id,                               "seq_parameter_set_id");
     std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
@@ -1977,7 +1977,7 @@ void File_Avc::sei_message_buffering_period(int32u &seq_parameter_set_id)
 void File_Avc::sei_message_buffering_period_xxl(void* xxl_)
 {
     if (xxl_==NULL)
-        return;    
+        return;
     seq_parameter_set_struct::vui_parameters_struct::xxl* xxl=(seq_parameter_set_struct::vui_parameters_struct::xxl*)xxl_;
     for (int32u SchedSelIdx=0; SchedSelIdx<xxl->SchedSel.size(); SchedSelIdx++)
     {
@@ -2706,15 +2706,15 @@ void File_Avc::pic_parameter_set()
         std::vector<pic_parameter_set_struct*>::iterator pic_parameter_sets_Item=pic_parameter_sets.begin()+pic_parameter_set_id;
         delete *pic_parameter_sets_Item; *pic_parameter_sets_Item=new pic_parameter_set_struct();
         (*pic_parameter_sets_Item)->IsSynched                                       =true;
-        (*pic_parameter_sets_Item)->seq_parameter_set_id                            =(int8u)seq_parameter_set_id;    
-        (*pic_parameter_sets_Item)->entropy_coding_mode_flag                        =entropy_coding_mode_flag;    
-        (*pic_parameter_sets_Item)->bottom_field_pic_order_in_frame_present_flag    =bottom_field_pic_order_in_frame_present_flag;    
-        (*pic_parameter_sets_Item)->num_ref_idx_l0_default_active_minus1            =(int8u)num_ref_idx_l0_default_active_minus1;    
-        (*pic_parameter_sets_Item)->num_ref_idx_l1_default_active_minus1            =(int8u)num_ref_idx_l1_default_active_minus1;    
-        (*pic_parameter_sets_Item)->weighted_pred_flag                              =weighted_pred_flag;    
-        (*pic_parameter_sets_Item)->weighted_bipred_idc                             =weighted_bipred_idc;    
-        (*pic_parameter_sets_Item)->redundant_pic_cnt_present_flag                  =redundant_pic_cnt_present_flag;    
-        
+        (*pic_parameter_sets_Item)->seq_parameter_set_id                            =(int8u)seq_parameter_set_id;
+        (*pic_parameter_sets_Item)->entropy_coding_mode_flag                        =entropy_coding_mode_flag;
+        (*pic_parameter_sets_Item)->bottom_field_pic_order_in_frame_present_flag    =bottom_field_pic_order_in_frame_present_flag;
+        (*pic_parameter_sets_Item)->num_ref_idx_l0_default_active_minus1            =(int8u)num_ref_idx_l0_default_active_minus1;
+        (*pic_parameter_sets_Item)->num_ref_idx_l1_default_active_minus1            =(int8u)num_ref_idx_l1_default_active_minus1;
+        (*pic_parameter_sets_Item)->weighted_pred_flag                              =weighted_pred_flag;
+        (*pic_parameter_sets_Item)->weighted_bipred_idc                             =weighted_bipred_idc;
+        (*pic_parameter_sets_Item)->redundant_pic_cnt_present_flag                  =redundant_pic_cnt_present_flag;
+
         //Autorisation of other streams
         if (!seq_parameter_sets.empty())
         {
@@ -2985,10 +2985,10 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
 
         //Filling from stream
         (*Data_Item)->IsSynched                                     =true;
-        (*Data_Item)->constraint_set3_flag                          =constraint_set3_flag;    
-        (*Data_Item)->profile_idc                                   =profile_idc;    
-        (*Data_Item)->level_idc                                     =level_idc;    
-        (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc; 
+        (*Data_Item)->constraint_set3_flag                          =constraint_set3_flag;
+        (*Data_Item)->profile_idc                                   =profile_idc;
+        (*Data_Item)->level_idc                                     =level_idc;
+        (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc;
         (*Data_Item)->separate_colour_plane_flag                    =separate_colour_plane_flag;
         (*Data_Item)->bit_depth_luma_minus8                         =(int8u)bit_depth_luma_minus8;
         (*Data_Item)->bit_depth_chroma_minus8                       =(int8u)bit_depth_chroma_minus8;

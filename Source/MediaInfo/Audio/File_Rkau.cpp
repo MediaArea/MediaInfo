@@ -100,11 +100,11 @@ bool File_Rkau::FileHeader_Begin()
 void File_Rkau::FileHeader_Parse()
 {
     //Parsing
-	Ztring version;
+    Ztring version;
     int32u SampleRate, source_bytes;
-	int8u Channels, BitsPerSample, Quality, Flags;
-	bool joint_stereo, streaming, vrq_lossy_mode;
-	
+    int8u Channels, BitsPerSample, Quality, Flags;
+    bool joint_stereo, streaming, vrq_lossy_mode;
+
     Skip_Local(3,                                               "Signature");
     Get_Local (1, version,                                      "Version");
     Get_L4 (source_bytes,                                       "SourceBytes");
@@ -139,7 +139,7 @@ void File_Rkau::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
-	
+
     FILLING_END();
 
     //No more needed data

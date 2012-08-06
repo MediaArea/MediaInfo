@@ -620,7 +620,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0xA5 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AC3", Error, false, true); break;
             case 0xA6 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AC3+", Error, false, true); break;
             case 0xA9 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "DTS", Error, false, true); break;
-            case 0xAA : 
+            case 0xAA :
             case 0xAB : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "DTS-HD", Error, false, true); break;
             case 0xAC : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "DTS Express", Error, false, true); break;
             case 0xD1 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "EVRC", Error, false, true); break;
@@ -714,7 +714,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                         break;
             case 0xA3 : //VC-1
                         #if defined(MEDIAINFO_VC1_YES)
-                            Parser=new File_Vc1; 
+                            Parser=new File_Vc1;
                         #endif
                         break;
             case 0xA4 : //Dirac

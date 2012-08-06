@@ -38,7 +38,7 @@ namespace MediaInfoLib
 //***************************************************************************
 
 class File_Tiff : public File__Analyze
-{ 
+{
 public:
     //Constructor/Destructor
     File_Tiff();
@@ -53,10 +53,10 @@ private :
     void Data_Parse();
     void Data_Parse_Fill();
 
-	//Elements
+    //Elements
     void Read_Directories();
-	void Read_Directory();
-		
+    void Read_Directory();
+
     //Temp
     struct ifditem
     {
@@ -68,12 +68,12 @@ private :
     ifditems IfdItems;
     typedef std::map<int16u, ZtringList> infos; //Key is Tag value
     infos Infos;
-	bool LittleEndian;
+    bool LittleEndian;
 
     //Helpers
     void Get_X2 (int16u &Info, const char* Name);
     void Get_X4 (int32u &Info, const char* Name);
-	void GetValueOffsetu(ifditem &IfdItem);
+    void GetValueOffsetu(ifditem &IfdItem);
 };
 
 } //NameSpace

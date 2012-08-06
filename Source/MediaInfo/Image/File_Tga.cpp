@@ -217,7 +217,7 @@ void File_Tga::Read_Buffer_Continue()
                             ;
             }
         }
-    
+
         Accept();
         Fill();
         Finish();

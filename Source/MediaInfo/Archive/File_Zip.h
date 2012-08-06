@@ -42,11 +42,11 @@ class File_Zip : public File__Analyze
 protected :
     //Buffer - File header
     bool FileHeader_Begin();
-    
+
 
     //Buffer - Global
     void Read_Buffer_Continue ();
-    
+
     int32u compressed_size;
     bool data_descriptor_set;
     int32u signature;

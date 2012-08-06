@@ -323,8 +323,8 @@ void File_Ancillary::Header_Parse()
     //Test (in some container formats, Cheksum is present sometimes)
     bool WithChecksum_Temp=WithChecksum;
     if (!MustSynchronize && !WithChecksum && (size_t)((3+DataCount+1)*(WithTenBit?2:1))==Buffer_Size)
-        WithChecksum_Temp=true; 
-    
+        WithChecksum_Temp=true;
+
     //Filling
     Header_Fill_Code((((int16u)DataID)<<8)|SecondaryDataID, Ztring().From_CC1(DataID)+_T('-')+Ztring().From_CC1(SecondaryDataID));
     Header_Fill_Size(((MustSynchronize?3:0)+3+DataCount+(WithChecksum_Temp?1:0))*(WithTenBit?2:1));

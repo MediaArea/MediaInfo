@@ -47,7 +47,7 @@ public :
 
 public :
     File_Swf();
-    
+
 private :
     //Buffer
     bool FileHeader_Begin();

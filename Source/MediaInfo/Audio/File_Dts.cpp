@@ -202,7 +202,7 @@ std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
         if (SpeakerActivityMask&0x8000)
             Text+=", HiRear: L R";
     }
-        
+
     if (SpeakerActivityMask&0x0008)
         Text+=", LFE";
     if (SpeakerActivityMask&0x1000)
@@ -270,7 +270,7 @@ std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask)
         if (SpeakerActivityMask&0x8000)
             Text+=".2";
     }
-        
+
     if (SpeakerActivityMask&0x0008)
         Text+=".1";
     if (SpeakerActivityMask&0x1000)
@@ -605,7 +605,7 @@ bool File_Dts::Synchronize()
         }
         return false;
     }
-    
+
     //Configuration - 14 bits or Little Endian
     switch (CC1(Buffer+Buffer_Offset))
     {

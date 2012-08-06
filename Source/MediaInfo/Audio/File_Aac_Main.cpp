@@ -642,13 +642,13 @@ void File_Aac::StreamMuxConfig()
             Element_End0();
             //taraBufferFullness=LatmGetValue();
         }
-        
+
         int8u streamCnt = 0;
 
         Get_SB (allStreamsSameTimeFraming,                      "allStreamsSameTimeFraming");
         Get_S1 (6, numSubFrames,                                "numSubFrames");
         Get_S1 (4, numProgram,                                  "numProgram");
-        
+
         for (int8u prog=0; prog<=numProgram; prog++)
         {
             Get_S1(3,numLayer,                                  "numLayer");
@@ -661,7 +661,7 @@ void File_Aac::StreamMuxConfig()
                     useSameConfig=0;
                 else
                     Get_SB(useSameConfig,                       "useSameConfig");
-                    
+
                 if (!useSameConfig)
                 {
                     if (audioMuxVersion==0)
@@ -890,7 +890,7 @@ void File_Aac::ErrorProtectionSpecificConfig()
     {
         int8u number_of_class;
         Get_S1(6,number_of_class,                               "number_of_class[i]");
-        for (int8u j = 0; j < number_of_class; j++) 
+        for (int8u j = 0; j < number_of_class; j++)
         {
             bool length_escape,fec_type,rate_escape,crclen_escape;
             Get_SB(length_escape,                               "length_escape[i][j]");
@@ -899,21 +899,21 @@ void File_Aac::ErrorProtectionSpecificConfig()
             if (number_of_concatenated_frame != 1)
                 Skip_SB(                                        "concatenate_flag[i][j]");
             Get_SB(fec_type,                                    "fec_type[i][j]");
-            if(!fec_type) 
+            if(!fec_type)
                 Skip_SB(                                        "termination_switch[i][j]");
-            if (interleave_type == 2) 
+            if (interleave_type == 2)
                 Skip_S1(2,                                      "interleave_switch[i][j]");
             Skip_SB(                                            "class_optional");
-            if (length_escape) 
+            if (length_escape)
             {
                 /* ESC */
                 Skip_S1(4,                                      "number_of_bits_for_length[i][j]");
             }
-            else 
+            else
             {
                 Skip_S2(16,                                     "class_length[i][j]");
             }
-            if (!rate_escape) 
+            if (!rate_escape)
             { /* not ESC */
                 if(fec_type)
                 {
@@ -924,7 +924,7 @@ void File_Aac::ErrorProtectionSpecificConfig()
                     Skip_S1(5,                                  "class_rate[i][j]");
                 }
             }
-            if (!crclen_escape) 
+            if (!crclen_escape)
             {
             /* not ESC */
             Skip_S1(5,                                          "class_crclen[i][j]");
@@ -932,9 +932,9 @@ void File_Aac::ErrorProtectionSpecificConfig()
         }
         bool class_reordered_output;
         Get_SB(class_reordered_output,                          "class_reordered_output");
-        if ( class_reordered_output ) 
+        if ( class_reordered_output )
         {
-            for (int j = 0; j < number_of_class; j++ ) 
+            for (int j = 0; j < number_of_class; j++ )
             {
                 Skip_S1(6,                                      "class_output_order[i][j]");
             }
@@ -942,7 +942,7 @@ void File_Aac::ErrorProtectionSpecificConfig()
     }
     bool header_protection;
     Get_SB(header_protection,                                   "header_protection");
-    if (header_protection) 
+    if (header_protection)
     {
         Skip_S1(5,                                              "header_rate");
         Skip_S1(5,                                              "header_crclen");

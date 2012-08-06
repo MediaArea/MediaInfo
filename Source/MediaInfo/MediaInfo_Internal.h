@@ -113,7 +113,7 @@ public :
     //Position in a MediaInfoList class
     bool    IsFirst;
     bool    IsLast;
-    
+
     //Internal
     static bool LibraryIsModified(); //Is the library has been modified? (#defines...)
 

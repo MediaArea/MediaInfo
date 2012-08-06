@@ -120,7 +120,7 @@ bool File_Y4m::FileHeader_Begin()
     }
 
     for (; HeaderEnd<Buffer_Size; HeaderEnd++)
-    {    
+    {
         if (Buffer[HeaderEnd]==0x0A)
         {
             Accept();

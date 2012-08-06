@@ -54,7 +54,7 @@ namespace MediaInfoLib
         Text,
         Chapters,
         Image,
-		Menu,
+        Menu,
     }
 
     public enum InfoKind
@@ -88,7 +88,7 @@ namespace MediaInfoLib
 
     public class MediaInfo
     {
-        //Import of DLL functions. DO NOT USE until you know what you do (MediaInfo DLL do NOT use CoTaskMemAlloc to allocate memory)  
+        //Import of DLL functions. DO NOT USE until you know what you do (MediaInfo DLL do NOT use CoTaskMemAlloc to allocate memory)
         [DllImport("MediaInfo.dll")]
         private static extern IntPtr MediaInfo_New();
         [DllImport("MediaInfo.dll")]
@@ -246,7 +246,7 @@ namespace MediaInfoLib
 
     public class MediaInfoList
     {
-        //Import of DLL functions. DO NOT USE until you know what you do (MediaInfo DLL do NOT use CoTaskMemAlloc to allocate memory)  
+        //Import of DLL functions. DO NOT USE until you know what you do (MediaInfo DLL do NOT use CoTaskMemAlloc to allocate memory)
         [DllImport("MediaInfo.dll")]
         private static extern IntPtr MediaInfoList_New();
         [DllImport("MediaInfo.dll")]

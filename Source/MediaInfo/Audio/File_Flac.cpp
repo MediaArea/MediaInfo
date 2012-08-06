@@ -62,7 +62,7 @@ File_Flac::File_Flac()
 
     //In
     VorbisHeader=false;
-    
+
     //Temp
     Last_metadata_block=false;
 }

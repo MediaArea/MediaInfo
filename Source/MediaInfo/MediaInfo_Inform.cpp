@@ -557,12 +557,12 @@ size_t Xml_Content_Escape_MustEscape(const Ztring &Content)
         switch (Content[Pos])
         {
             case _T('\"'):
-            case _T('&') : 
+            case _T('&') :
             case _T('\''):
-            case _T('<') : 
+            case _T('<') :
             case _T('>') :
                             return Pos;
-            default      : 
+            default      :
                             if (Content[Pos]<0x20)
                                 return Pos;
         }
@@ -575,7 +575,7 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content)
     size_t Pos=Xml_Content_Escape_MustEscape(Content);
     if (Pos>=Content.size())
         return Content;
-    
+
     for (; Pos<Content.size(); Pos++)
     {
         switch (Content[Pos])
@@ -585,7 +585,7 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content)
                             Content.insert(Pos+1, _T("quot;"));
                             Pos+=5;
                             break;
-            case _T('&') : 
+            case _T('&') :
                             Content[Pos]=_T('&');
                             Content.insert(Pos+1, _T("amp;"));
                             Pos+=4;
@@ -595,7 +595,7 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content)
                             Content.insert(Pos+1, _T("apos;"));
                             Pos+=5;
                             break;
-            case _T('<') : 
+            case _T('<') :
                             Content[Pos]=_T('&');
                             Content.insert(Pos+1, _T("lt;"));
                             Pos+=3;
@@ -605,14 +605,14 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content)
                             Content.insert(Pos+1, _T("gt;"));
                             Pos+=3;
                             break;
-            default   : 
+            default   :
                         if (Content[Pos]<0x20)
                         {
                             Ztring Character=_T("#x")+Ztring::ToZtring(Content[Pos]/16, 16)+Ztring::ToZtring(Content[Pos]%16, 16)+_T(";");
                             Content[Pos]=_T('&');
                             Content.insert(Pos+1, Character);
                             Pos+=5;
-                        } 
+                        }
         }
     }
 

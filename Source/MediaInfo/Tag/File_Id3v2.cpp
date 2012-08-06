@@ -314,7 +314,7 @@ File_Id3v2::File_Id3v2()
 {
     //Configuration
     Buffer_MaximumSize=8*1024*1024;
-    
+
     //Temp
     Id3v2_Size=0;
 }
@@ -523,7 +523,7 @@ void File_Id3v2::Header_Parse()
                 }
             }
     }
-        
+
     //Filling
     Ztring ToShow;
     if (Id3v2_Version==2)

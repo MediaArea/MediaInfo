@@ -53,8 +53,8 @@ void File_DvDif::Read_Buffer_Continue()
         if (Config->File_DvDif_Analysis_Get())
             Analyze_Activated=true;
         else
-            return;    
-    }       
+            return;
+    }
 
     //Errors stats
     while (Buffer_Offset+80<=Buffer_Size)
@@ -468,8 +468,8 @@ void File_DvDif::Errors_Stats_Update()
         if (Config->File_DvDif_Analysis_Get())
             Analyze_Activated=true;
         else
-            return;    
-    }       
+            return;
+    }
 
     bool Errors_AreDetected=false;
     bool Infos_AreDetected=false;
@@ -1300,8 +1300,8 @@ void File_DvDif::Errors_Stats_Update_Finnish()
         if (Config->File_DvDif_Analysis_Get())
             Analyze_Activated=true;
         else
-            return;    
-    }       
+            return;
+    }
 
     //Preparing next frame
     Speed_FrameCount--;
@@ -1428,7 +1428,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
             Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.FramePos=Speed_FrameCount;
             Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.TimeCode=Speed_TimeCodeZ_Current;
             if (Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.FramePos-(Speed_TimeStampsZ_Pos?Speed_TimeStampsZ[Speed_TimeStampsZ_Pos-1].Last.FramePos:0)==1) //Only one frame, the "Last" part is not filled
-                Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.TimeCode=Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].First.TimeCode; 
+                Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.TimeCode=Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].First.TimeCode;
             Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.Date=Speed_RecDateZ_Current;
             Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.Time=Speed_RecTimeZ_Current;
             if (Speed_TimeStampsZ[Speed_TimeStampsZ_Pos].Last.FramePos-(Speed_TimeStampsZ_Pos?Speed_TimeStampsZ[Speed_TimeStampsZ_Pos-1].Last.FramePos:0)==1)
@@ -1485,7 +1485,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
                 Ztring Start_Padded=Ztring::ToZtring(Start);
                 if (Start_Padded.size()<8)
                     Start_Padded.insert(0, 8-Start_Padded.size(), _T(' '));
-                
+
                 Errors_Stats_End_Lines+=Start_Padded;
 
                 int64u End=Speed_TimeStampsZ[Pos].Last.FramePos-1;
@@ -1567,7 +1567,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
             Errors_Stats_End_Lines+=_T('&');
         }
     }
-    
+
     //One block
     if (!Errors_Stats_End_Lines.empty())
     {

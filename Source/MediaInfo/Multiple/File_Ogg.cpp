@@ -60,7 +60,7 @@ File_Ogg::File_Ogg()
     //Temp - Global
     StreamsToDo=0;
     Parsing_End=false;
-    
+
     //Temp - Stream
     Chunk_Sizes_Finished=true;
     packet_type=0;
@@ -213,7 +213,7 @@ bool File_Ogg::Synchronize()
             Buffer_Offset++;
         return false;
     }
-    
+
     //Synched is OK
     return true;
 }

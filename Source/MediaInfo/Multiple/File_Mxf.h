@@ -743,7 +743,7 @@ protected :
     bool   SDTI_IsInIndexStreamOffset; //Used to test if SDTI packet is used for Index StreamOffset calculation
     int64u SystemScheme1_TimeCodeArray_StartTimecode;
     int64u SystemScheme1_FrameRateFromDescriptor;
-    bool   Essences_FirstEssence_Parsed; 
+    bool   Essences_FirstEssence_Parsed;
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
     #if defined(MEDIAINFO_ANCILLARY_YES)
@@ -824,7 +824,7 @@ protected :
         typedef std::vector<indextable> indextables;
         indextables                     IndexTables;
         size_t                          IndexTables_Pos;
-        
+
         //Other
         int64u  Clip_Header_Size;
         int64u  Clip_Begin;

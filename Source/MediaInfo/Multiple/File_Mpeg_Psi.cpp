@@ -2461,7 +2461,7 @@ void File_Mpeg_Psi::program_number_Remove()
         for (size_t Pos=0; Pos<Complete_Stream->Streams[elementary_PID_Temp]->program_numbers.size(); Pos++)
             if (Complete_Stream->Streams[elementary_PID_Temp]->program_numbers[Pos]==program_number)
                 Complete_Stream->Streams[elementary_PID_Temp]->program_numbers.erase(Complete_Stream->Streams[elementary_PID_Temp]->program_numbers.begin()+Pos);
-        
+
         //Removing parser if no more program_number
         if (Complete_Stream->Streams[elementary_PID_Temp]->program_numbers.empty())
         {

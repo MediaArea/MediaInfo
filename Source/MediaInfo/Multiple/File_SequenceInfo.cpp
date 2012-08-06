@@ -150,7 +150,7 @@ bool File_SequenceInfo::FileHeader_Begin()
                         Ztring Number=Ztring::ToZtring(DirNumber);
                         if (Number.size()<DirNumberCount)
                             Number.insert(0, DirNumberCount-Number.size(), _T('0'));
-                            
+
                         Directory=DirectoryBase;
                         Directory+=Number;
                         if (!Dir::Exists(Directory))
@@ -220,7 +220,7 @@ bool File_SequenceInfo::FileHeader_Begin()
                                 Number=Ztring::ToZtring(FileNumber);
                                 if (Number.size()<FileNumberCount)
                                     Number.insert(0, FileNumberCount-Number.size(), _T('0'));
-                            
+
                                 FullFile=FileBase;
                                 FullFile.insert(FullFile.size()-Extension.size()-1, Number);
                                 if (!File::Exists(FullFile))

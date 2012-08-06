@@ -388,17 +388,17 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
                 ValueInt64u=0;
                 size_t Value_Pos=ValueZ.find(_T(":"));
                 if (Value_Pos==string::npos)
-                    Value_Pos=ValueZ.size();    
+                    Value_Pos=ValueZ.size();
                 ValueInt64u+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*60*1000*1000*1000;
                 ValueZ.erase(0, Value_Pos+1);
                 Value_Pos=ValueZ.find(_T(":"));
                 if (Value_Pos==string::npos)
-                    Value_Pos=ValueZ.size();    
+                    Value_Pos=ValueZ.size();
                 ValueInt64u+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*60*1000*1000*1000;
                 ValueZ.erase(0, Value_Pos+1);
                 Value_Pos=ValueZ.find(_T("."));
                 if (Value_Pos==string::npos)
-                    Value_Pos=ValueZ.size();    
+                    Value_Pos=ValueZ.size();
                 ValueInt64u+=Ztring(ValueZ.substr(0, Value_Pos)).To_int64u()*1000*1000*1000;
                 ValueZ.erase(0, Value_Pos+1);
                 if (!ValueZ.empty())

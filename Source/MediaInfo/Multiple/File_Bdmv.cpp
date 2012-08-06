@@ -640,7 +640,7 @@ void File_Bdmv::BDMV()
             }
         }
     }
-    
+
     if (MaxDuration_Pos!=(size_t)-1)
     {
         //Merging
