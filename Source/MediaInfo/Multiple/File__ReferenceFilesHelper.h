@@ -53,6 +53,7 @@ public :
         int64u              FileSize;
         bool                IsCircular;
         size_t              State;
+        std::map<std::string, Ztring> Infos;
         MediaInfo_Internal* MI;
         #if MEDIAINFO_FILTER
             int64u          Enabled;

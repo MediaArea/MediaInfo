@@ -783,15 +783,9 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                         Languages[Pos][0]=MediaInfoLib::Config.Iso639_1_Get(Languages[Pos][0]);
                     if (Languages[Pos][0].size()>3 && !MediaInfoLib::Config.Iso639_Find(Languages[Pos][0]).empty())
                         Languages[Pos][0]=MediaInfoLib::Config.Iso639_Find(Languages[Pos][0]);
-                    if (Languages[Pos][0].size()>3 && !MediaInfoLib::Config.Language_Get(_T("Language_")+Languages[Pos][0].substr(0, 2)).empty())
-                        Languages[Pos][0]=Languages[Pos][0].substr(0, 2);
                     if (Languages[Pos][0].size()>3)
                         Languages[Pos][0]=Language_Orig; //We failed to detect language, using the original version
                 }
-
-                //Country name
-                if (Languages[Pos].size()>=2)
-                    Languages[Pos][1].MakeLowerCase();
             }
 
             if (Languages.Read()!=Retrieve(StreamKind, StreamPos, Parameter))
@@ -812,9 +806,18 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                             Language_Translated=Languages[Pos][0]; //No translation found
                         if (Languages[Pos].size()>=2)
                         {
-                            Language_Translated+=_T(" (");
-                            Language_Translated+=Ztring(Languages[Pos][1]).MakeUpperCase();
-                            Language_Translated+=_T(")");
+                            if (Languages[Pos].size()==2 && Languages[Pos][0].size()>=2 && Languages[Pos][0].size()<=3 && (Languages[Pos][1][0]&0xDF)>=_T('A') && (Languages[Pos][1][0]&0xDF)<=_T('Z') && (Languages[Pos][1][1]&0xDF)>=_T('A') && (Languages[Pos][1][1]&0xDF)<=_T('Z'))
+                            {
+                                Language_Translated+=_T(" (");
+                                Language_Translated+=Ztring(Languages[Pos][1]).MakeUpperCase();
+                                Language_Translated+=_T(")");
+                            }
+                            else
+                                for (size_t Pos2=1; Pos2<Languages[Pos].size(); Pos2++)
+                                {
+                                    Language_Translated+=_T('-'); //As the original string
+                                    Language_Translated+=Languages[Pos][Pos2];
+                                }
                         }
                         Language1.push_back(Language_Translated);
                         if (Languages[Pos][0].size()==2)

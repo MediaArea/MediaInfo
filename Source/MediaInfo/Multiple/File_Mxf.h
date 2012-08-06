@@ -80,7 +80,7 @@ protected :
     void Streams_Finish_Track (int128u TrackUID);
     void Streams_Finish_Essence (int32u EssenceUID, int128u TrackUID);
     void Streams_Finish_Descriptor (int128u DescriptorUID, int128u PackageUID);
-    void Streams_Finish_Locator (int128u LocatorUID);
+    void Streams_Finish_Locator (int128u DescriptorUID, int128u LocatorUID);
     void Streams_Finish_Component (int128u ComponentUID, float64 EditRate);
     void Streams_Finish_Identification (int128u IdentificationUID);
     void Streams_Finish_CommercialNames ();
@@ -135,7 +135,7 @@ protected :
     void WaveAudioDescriptor();
     void MPEG2VideoDescriptor();
     void JPEG2000PictureSubDescriptor();
-    void Unknown1();
+    void VbiPacketsDescriptor();
     void AncPacketsDescriptor();
     void OpenIncompleteHeaderPartition();
     void ClosedIncompleteHeaderPartition();
@@ -159,6 +159,7 @@ protected :
     void SDTI_DataMetadataSet();
     void SDTI_ControlMetadataSet();
     void SystemScheme1();
+    void DMScheme1();
     void Omneon_010201010100();
     void Omneon_010201020100();
 
@@ -194,6 +195,7 @@ protected :
     void ContentStorage_Packages();                             //1901
     void ContentStorage_EssenceContainerData();                 //1902
     void DMSegment_DMFramework();                               //6101
+    void DMSegment_TrackIDs();                                  //6102
     void EssenceContainerData_LinkedPackageUID();               //2701
     void EssenceContainerData_IndexSID();                       //3F06
     void EssenceContainerData_BodySID();                        //3F07
@@ -280,6 +282,9 @@ protected :
     void JPEG2000PictureSubDescriptor_Csiz();                   //800A
     void JPEG2000PictureSubDescriptor_PictureComponentSizing(); //800B
     void MultipleDescriptor_SubDescriptorUIDs();                //3F01
+    void DMScheme1_PrimaryExtendedSpokenLanguage();             //
+    void DMScheme1_SecondaryExtendedSpokenLanguage();           //
+    void DMScheme1_OriginalExtendedSpokenLanguage();            //
     void MPEG2VideoDescriptor_SingleSequence();                 //
     void MPEG2VideoDescriptor_ConstantBFrames();                //
     void MPEG2VideoDescriptor_CodedContentType();               //
@@ -602,12 +607,14 @@ protected :
         Ztring      EssenceLocator;
         stream_t    StreamKind;
         size_t      StreamPos;
+        int32u      LinkedTrackID;
         bool        IsTextLocator;
 
         locator()
         {
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
+            LinkedTrackID=(int32u)-1;
             IsTextLocator=false;
         }
 
@@ -650,6 +657,39 @@ protected :
     };
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
     components Components;
+
+    //Descriptive Metadata - DMSegments
+    struct dmsegment
+    {
+        int128u     Framework;
+        std::vector<int32u> TrackIDs;
+
+        dmsegment()
+        {
+        }
+
+        ~dmsegment()
+        {
+        }
+    };
+    typedef std::map<int128u, dmsegment> dmsegments; //Key is InstanceUID of the DMSegment
+    dmsegments DMSegments;
+
+    //Descriptive Metadata - DMScheme1
+    struct dmscheme1
+    {
+        Ztring      PrimaryExtendedSpokenLanguage;
+
+        dmscheme1()
+        {
+        }
+
+        ~dmscheme1()
+        {
+        }
+    };
+    typedef std::map<int128u, dmscheme1> dmscheme1s; //Key is InstanceUID of the DMScheme1
+    dmscheme1s DMScheme1s;
 
     //Parsers
     void           ChooseParser__FromEssence(const essences::iterator &Essence, const descriptors::iterator &Descriptor);

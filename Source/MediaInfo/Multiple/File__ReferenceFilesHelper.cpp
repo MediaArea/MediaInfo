@@ -713,6 +713,8 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     MI->Fill(StreamKind_Last, StreamPos_To, "MenuID/String", MenuID_String, true);
     if (MI->Retrieve(StreamKind_Last, StreamPos_To, "Source").empty())
         MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source);
+    for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); Info++)
+        MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
 
     //Others
     if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
