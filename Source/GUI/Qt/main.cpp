@@ -32,9 +32,9 @@ using namespace ZenLib;
     Ztring().From_UTF8(_DATA.toUtf8())
 
 #ifdef _WIN32
-	Q_IMPORT_PLUGIN(qsvg)
+    Q_IMPORT_PLUGIN(qsvg)
 #endif //_WIN32
- 
+
 using namespace std;
 
 int main(int argc, char *argv[])

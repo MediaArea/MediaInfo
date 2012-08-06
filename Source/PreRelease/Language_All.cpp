@@ -49,7 +49,7 @@ Ztring Language_All_Run ()
             Dest.Save(Ztring(L"../Source/Resource/Plugin/Language/")+Name+L".csv");
         }
     }
-    
+
     return L"OK";
 }
 //---------------------------------------------------------------------------

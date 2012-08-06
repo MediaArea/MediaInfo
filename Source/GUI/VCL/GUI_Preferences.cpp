@@ -221,7 +221,7 @@ void __fastcall TPreferencesF::Sheet_EditClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Sheet_NewClick(TObject *Sender)
 {
-	UnicodeString S1=_T("New");
+    UnicodeString S1=_T("New");
     if (!InputQuery(_T("New sheet"), _T("Enter name of new sheet"), S1))
         return;
 
@@ -340,8 +340,8 @@ void __fastcall TPreferencesF::Advanced_CloseAllAutoClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
 {
-	UnicodeString S1=_T("New");
-	if (!InputQuery(_T("New language"), _T("Enter name of new language"), S1))
+    UnicodeString S1=_T("New");
+    if (!InputQuery(_T("New language"), _T("Enter name of new language"), S1))
         return;
 
     Prefs->Create(Prefs_Language, S1.c_str());
@@ -364,8 +364,8 @@ void __fastcall TPreferencesF::Language_DeleteClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Custom_NewClick(TObject *Sender)
 {
-	UnicodeString S1=_T("New");
-	if (!InputQuery(_T("New Output"), _T("Enter name of new Output"), S1))
+    UnicodeString S1=_T("New");
+    if (!InputQuery(_T("New Output"), _T("Enter name of new Output"), S1))
         return;
 
     Prefs->Create(Prefs_Custom, S1.c_str());

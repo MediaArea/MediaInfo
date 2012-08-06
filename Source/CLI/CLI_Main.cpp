@@ -45,7 +45,7 @@ using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //****************************************************************************
-// Event to manage         
+// Event to manage
 //****************************************************************************
 
 void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserHandler)
@@ -78,7 +78,7 @@ void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserH
 }
 
 //****************************************************************************
-// The callback function                                                   
+// The callback function
 //****************************************************************************
 
 void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_Size, void* UserHandler_Void)
@@ -164,7 +164,7 @@ int main(int argc, char* argv_ansi[])
 
     //Output, in a file if needed
     LogFile_Action(MI.Inform_Get());
-    
+
     return Files_Count?0:1;
 }
 //---------------------------------------------------------------------------

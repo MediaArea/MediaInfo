@@ -40,7 +40,7 @@
 //---------------------------------------------------------------------------
 class TGUI_Main_ : public TForm
 {
-__published:	// IDE-managed Components
+__published:    // IDE-managed Components
     TMainMenu *MainMenu1;
     TMenuItem *Menu_File;
     TMenuItem *Menu_File_Open;
@@ -73,8 +73,8 @@ __published:	// IDE-managed Components
     void __fastcall Menu_View_TextClick(TObject *Sender);
     void __fastcall Menu_File_ExitClick(TObject *Sender);
     void __fastcall Menu_Debug_DetailsClick(TObject *Sender);
-private:	// User declarations
-public:		// User declarations
+private:    // User declarations
+public:     // User declarations
     __fastcall TGUI_Main_(TComponent* Owner);
     __fastcall ~TGUI_Main_();
 

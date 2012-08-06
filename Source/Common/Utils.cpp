@@ -21,10 +21,10 @@
 #pragma hdrstop
 
 #define NO_WIN32_LEAN_AND_MEAN
-#include <vcl.h>						// WideCharToString
+#include <vcl.h>                        // WideCharToString
 #include <windows.h>
 #include <shlobj.h>
-#include <vfw.h>						// ICINFO
+#include <vfw.h>                        // ICINFO
 #include <wx/string.h>
 #include <wx/file.h>
 #include <wx/filename.h>
@@ -40,27 +40,27 @@ ZtringListList *Audio_Temp;
 //Used to know audio
 bool CALLBACK acmDriverEnumCallback (HACMDRIVERID hadid, DWORD dwInstance, DWORD fdwSupport)
 {
-	Audio_Temp->Separator_Set(0, _T("\r\n"));
-	Audio_Temp->Separator_Set(1, _T("aaa"));
-    HACMDRIVER	had;
-	ACMDRIVERDETAILS	add;
-	ACMFORMATTAGDETAILS	aftd;
-	int		v;
+    Audio_Temp->Separator_Set(0, _T("\r\n"));
+    Audio_Temp->Separator_Set(1, _T("aaa"));
+    HACMDRIVER  had;
+    ACMDRIVERDETAILS    add;
+    ACMFORMATTAGDETAILS aftd;
+    int     v;
 
-	memset (&add, 0, sizeof (ACMDRIVERDETAILS));
-	add.cbStruct = sizeof (ACMDRIVERDETAILS);
-	acmDriverDetails (hadid, &add, 0);
+    memset (&add, 0, sizeof (ACMDRIVERDETAILS));
+    add.cbStruct = sizeof (ACMDRIVERDETAILS);
+    acmDriverDetails (hadid, &add, 0);
 
-	if (acmDriverOpen (&had, hadid, 0))
-		return TRUE;					// Error, but go to next
+    if (acmDriverOpen (&had, hadid, 0))
+        return TRUE;                    // Error, but go to next
 
-	for (DWORD i=0 ; i<add.cFormatTags ; i++)
-	{
-		memset (&aftd, 0, sizeof (ACMFORMATTAGDETAILS));
-		aftd.cbStruct = sizeof (ACMFORMATTAGDETAILS);
-		aftd.dwFormatTagIndex = i;
-		if (acmFormatTagDetails (had, &aftd, ACM_FORMATTAGDETAILSF_INDEX))						// Error
-			break;
+    for (DWORD i=0 ; i<add.cFormatTags ; i++)
+    {
+        memset (&aftd, 0, sizeof (ACMFORMATTAGDETAILS));
+        aftd.cbStruct = sizeof (ACMFORMATTAGDETAILS);
+        aftd.dwFormatTagIndex = i;
+        if (acmFormatTagDetails (had, &aftd, ACM_FORMATTAGDETAILSF_INDEX))                      // Error
+            break;
 
         _TCHAR C1[30]; _itot(aftd.dwFormatTag, C1, 16);
         Ztring Codec=C1;
@@ -69,13 +69,13 @@ bool CALLBACK acmDriverEnumCallback (HACMDRIVERID hadid, DWORD dwInstance, DWORD
         Codec.MakeUpperCase();
         if (Audio_Temp->Find(Codec)==Error)
         {
-    		(*Audio_Temp)(Audio_Temp->size(), 0)=Codec;
-    		(*Audio_Temp)(Audio_Temp->size()-1, 2)=aftd.szFormatTag;
+            (*Audio_Temp)(Audio_Temp->size(), 0)=Codec;
+            (*Audio_Temp)(Audio_Temp->size()-1, 2)=aftd.szFormatTag;
         }
         (*Audio_Temp)(Codec, 4)=_T("Yes");
-	}
-	acmDriverClose (had, 0);
-	return TRUE;						// Finished with this driver, go to next
+    }
+    acmDriverClose (had, 0);
+    return TRUE;                        // Finished with this driver, go to next
 }
 
 
@@ -84,8 +84,8 @@ void Codecs_Enumerate(ZenLib::ZtringListList &Video, ZenLib::ZtringListList &Aud
     Audio_Temp=&Audio;
 
     //Enumerate VFW Video codecs
-    ICINFO	icinfo;
-    int		count=0;
+    ICINFO  icinfo;
+    int     count=0;
 
     while (ICInfo (ICTYPE_VIDEO, count, &icinfo))
     {
@@ -122,49 +122,49 @@ _TCHAR            szInitDir[MAX_PATH];
 
 int __stdcall BffolderCallbackProc (HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
-	if (uMsg == BFFM_INITIALIZED)
-	{
-		SetWindowText (hwnd, _T("Media Info"));	// Caption
-		SendMessage (hwnd, BFFM_ENABLEOK, 0, TRUE);
+    if (uMsg == BFFM_INITIALIZED)
+    {
+        SetWindowText (hwnd, _T("Media Info")); // Caption
+        SendMessage (hwnd, BFFM_ENABLEOK, 0, TRUE);
         SendMessage (hwnd, BFFM_SETSELECTION, true, (LPARAM)&szInitDir);
     }
-	return 0;
+    return 0;
 }
 
 ZenLib::Ztring ShowOpenFolder()
 {
    //Browse
-    LPMALLOC		lpMalloc;
-    LPSHELLFOLDER	lpShellFolder;
-    BROWSEINFO		bi;
-    LPITEMIDLIST	ItemID;
+    LPMALLOC        lpMalloc;
+    LPSHELLFOLDER   lpShellFolder;
+    BROWSEINFO      bi;
+    LPITEMIDLIST    ItemID;
 
-	// We initialize the SHBrowseForFolder function
+    // We initialize the SHBrowseForFolder function
 
-	if (SHGetMalloc (&lpMalloc) != NOERROR)
-		return _T("");
+    if (SHGetMalloc (&lpMalloc) != NOERROR)
+        return _T("");
     if (SHGetDesktopFolder (&lpShellFolder) != NOERROR)
-		return _T("");
-	ZeroMemory (&bi, sizeof (BROWSEINFO));
-	bi.ulFlags += BIF_RETURNONLYFSDIRS;
+        return _T("");
+    ZeroMemory (&bi, sizeof (BROWSEINFO));
+    bi.ulFlags += BIF_RETURNONLYFSDIRS;
 
-	bi.hwndOwner = Application->Handle;
-	bi.pszDisplayName = szInitDir;
-	bi.lpszTitle = _T("Select your directory");
-	bi.lpfn = BffolderCallbackProc;
+    bi.hwndOwner = Application->Handle;
+    bi.pszDisplayName = szInitDir;
+    bi.lpszTitle = _T("Select your directory");
+    bi.lpfn = BffolderCallbackProc;
 
-	ItemID = SHBrowseForFolder (&bi);	// Display the search directory dialog
+    ItemID = SHBrowseForFolder (&bi);   // Display the search directory dialog
 
-	lpShellFolder->Release ();
-	if (ItemID != NULL)
-	{
-		SHGetPathFromIDList (ItemID, szInitDir);
-		lpMalloc->Free (ItemID);
-		lpMalloc->Release ();
+    lpShellFolder->Release ();
+    if (ItemID != NULL)
+    {
+        SHGetPathFromIDList (ItemID, szInitDir);
+        lpMalloc->Free (ItemID);
+        lpMalloc->Release ();
 
-		//Open
+        //Open
         return wxString(szInitDir, wxConvLocal).c_str();;
-	}
+    }
     else
         return _T("");
 }
@@ -174,7 +174,7 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
 {
     //Reading file
     wxFile FB1;
-	FB1.Open(FileName.c_str());
+    FB1.Open(FileName.c_str());
     char* Tout=new char[262144];
     int Capture=FB1.Read(Tout, 262144);
 
@@ -185,6 +185,6 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
 
     //Purge
     delete Tout;
-	MessageBox(Handle, Prefs->Translate(_T("Send HeaderFile")).c_str(), Prefs->Translate(_T("Header file")).c_str(), 0);
+    MessageBox(Handle, Prefs->Translate(_T("Send HeaderFile")).c_str(), Prefs->Translate(_T("Header file")).c_str(), 0);
 }
 

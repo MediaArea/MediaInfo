@@ -35,10 +35,10 @@ void Run_File(ZtringListListF &Dest, Ztring Language)
     for (int LangPos=1; LangPos<50; LangPos++)
         if (Lang==0 && (Dest(L"  Language_ISO639", LangPos)==Language || Dest(L"  Language_ISO639", LangPos).size()==0))
            Lang=LangPos;
-    
+
     //Delete BOM characters if present
     Origin(0, 0)=L"  Author_Email";
-    
+
     //Complete
     for (size_t Pos=0; Pos<Origin.size(); Pos++)
     {
@@ -49,7 +49,7 @@ void Run_File(ZtringListListF &Dest, Ztring Language)
             Dest_Pos=Dest.Find(Origin(Pos, 0), 0, 0, L"==", Ztring_CaseSensitive);
         }
         Dest(Dest_Pos, Lang)=Origin(Pos, 1);
-    }     
+    }
 }
 
 Ztring Language_Others_Run ()
@@ -95,7 +95,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"zh-TW");
 
     Dest.Save();
-    
+
     return L"OK";
 }
 //---------------------------------------------------------------------------

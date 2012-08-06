@@ -15,28 +15,28 @@ USEFORM("..\..\..\Source\GUI\VCL\GUI_Preferences.cpp", PreferencesF); /* TTntFor
 //---------------------------------------------------------------------------
 WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 {
-	try
-	{
-		Application->Initialize();
-		Application->Title = "MediaInfo";
+    try
+    {
+        Application->Initialize();
+        Application->Title = "MediaInfo";
         Application->CreateForm(__classid(TMainF), &MainF);
          Application->Run();
-	}
-	catch (Exception &exception)
-	{
-		Application->ShowException(&exception);
-	}
-	catch (...)
-	{
-		try
-		{
-			throw Exception("");
-		}
-		catch (Exception &exception)
-		{
-			Application->ShowException(&exception);
-		}
-	}
-	return 0;
+    }
+    catch (Exception &exception)
+    {
+        Application->ShowException(&exception);
+    }
+    catch (...)
+    {
+        try
+        {
+            throw Exception("");
+        }
+        catch (Exception &exception)
+        {
+            Application->ShowException(&exception);
+        }
+    }
+    return 0;
 }
 //---------------------------------------------------------------------------

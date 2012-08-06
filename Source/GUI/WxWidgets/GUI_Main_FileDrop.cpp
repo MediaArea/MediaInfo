@@ -45,20 +45,20 @@ bool FileDrop::OnDropFiles(wxCoord, wxCoord, const wxArrayString& FileNames)
         wxArrayString FileNames2;
         for (size_t Pos=0; Pos<FileNames.size(); Pos++)
         {
-	        if (wxFile::Exists(FileNames[Pos]) || wxDir::Exists(FileNames[Pos]))
-		        FileNames2.Add(FileNames[Pos]);
-	        else
-	        {
-		        wxString Temp(FileNames[Pos]);
-		        std::string Temp2;
-		        for (size_t Temp_Pos=0; Temp_Pos<Temp.size(); Temp_Pos++)
-			        Temp2.append(1, (char)Temp[Temp_Pos]);
-		        wxString Temp3(Temp2.c_str(), wxConvLocal);
-	            if (wxFile::Exists(Temp3) || wxDir::Exists(Temp3))
-		            FileNames2.Add(Temp3);
-	            else
-		            FileNames2.Add(FileNames[Pos]);
-	        }
+            if (wxFile::Exists(FileNames[Pos]) || wxDir::Exists(FileNames[Pos]))
+                FileNames2.Add(FileNames[Pos]);
+            else
+            {
+                wxString Temp(FileNames[Pos]);
+                std::string Temp2;
+                for (size_t Temp_Pos=0; Temp_Pos<Temp.size(); Temp_Pos++)
+                    Temp2.append(1, (char)Temp[Temp_Pos]);
+                wxString Temp3(Temp2.c_str(), wxConvLocal);
+                if (wxFile::Exists(Temp3) || wxDir::Exists(Temp3))
+                    FileNames2.Add(Temp3);
+                else
+                    FileNames2.Add(FileNames[Pos]);
+            }
         }
     #endif //!defined(__WXMSW__)
 

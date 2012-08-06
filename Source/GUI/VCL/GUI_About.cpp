@@ -106,7 +106,7 @@ void __fastcall TAboutF::NewVersionClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TAboutF::DonateClick(TObject *Sender)
 {
-	ShellExecute(NULL, NULL, MEDIAINFO_DONATE, NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, MEDIAINFO_DONATE, NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------

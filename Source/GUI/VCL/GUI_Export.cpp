@@ -42,9 +42,9 @@ TExportF *ExportF;
 using namespace MediaInfoNameSpace;
 using namespace ZenLib;
 #ifdef _UNICODE
-	#define ZEN_UNICODE(A) A.w_str()
+    #define ZEN_UNICODE(A) A.w_str()
 #else
-	#define ZEN_UNICODE(A) Ztring().From_Unicode(A.c_str()).c_str()
+    #define ZEN_UNICODE(A) Ztring().From_Unicode(A.c_str()).c_str()
 #endif //_UNICODE
 //---------------------------------------------------------------------------
 
@@ -54,14 +54,14 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 __fastcall TExportF::TExportF(TComponent* Owner)
-	: TForm(Owner)
+    : TForm(Owner)
 {
 }
 
 //---------------------------------------------------------------------------
 void TExportF::Name_Adapt()
 {
-	FileName FN=ZEN_UNICODE(Name->Text);
+    FileName FN=ZEN_UNICODE(Name->Text);
 
     if (FN.Name_Get().size()==0)
         FN.Name_Set(_T("Example"));

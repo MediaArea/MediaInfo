@@ -55,7 +55,7 @@ using namespace ZenLib;
     QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
-    
+
 #define VERSION "0.7.34"
 
 MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -103,7 +103,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     ui->actionAbout->setIcon(style()->standardIcon(QStyle::SP_DialogHelpButton));
     ui->actionExport->setIcon(style()->standardIcon(QStyle::SP_DialogSaveButton));
     /* TODO
-	QIcon::setThemeName("gnome-dust");
+    QIcon::setThemeName("gnome-dust");
     ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
     ui->actionOpen->setIcon(QIcon::fromTheme("document-open",QIcon(":/icon/openfile.svg")));
     ui->actionExport->setIcon(QIcon::fromTheme("document-save",QIcon(":/icon/export.svg")));
