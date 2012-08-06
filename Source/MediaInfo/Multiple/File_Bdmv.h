@@ -70,7 +70,7 @@ private :
     void Mpls_PlayList_PlayItem_STN_table_Video();
     void Mpls_PlayList_PlayItem_STN_table_Audio();
     void Mpls_PlayList_PlayItem_STN_table_Text();
-    void Mpls_PlayList_SubPlayItem();
+    void Mpls_PlayList_SubPlayItem(int8u SubPath_type, int16u Pos);
     void Mpls_PlayListMarks();
     void Mpls_ExtensionData();
     void Mpls_ExtensionData_SubPath_entries();
