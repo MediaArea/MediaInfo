@@ -99,8 +99,8 @@ const char* Ancillary_DataID(int8u DataID, int8u SecondaryDataID)
     {
         switch (SecondaryDataID)
         {
-            case 0x01 : return "CEA-708 (CDP)";
-            case 0x02 : return "CEA-608";
+            case 0x01 : return "EIA-708 (CDP)";
+            case 0x02 : return "EIA-608";
             default   : return "S334-1-2007 Defined data services?";
         }
     }
