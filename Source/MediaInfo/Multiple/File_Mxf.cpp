@@ -3316,7 +3316,7 @@ void File_Mxf::Data_Parse()
                     {
                         Essence->second.Parser->Accept();
                         Essence->second.Parser->Stream_Prepare(Stream_Text);
-                        Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_Format, "CEA-608");
+                        Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-608");
                         Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "VBI / Line 21");
                     }
                     if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1)
