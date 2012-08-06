@@ -1229,7 +1229,11 @@ void File_Mpeg4::cdat()
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         Streams[(int32u)Element_Code].Parser->FrameInfo=FrameInfo;
     #endif //MEDIAINFO_DEMUX
-    Open_Buffer_Continue(Streams[(int32u)Element_Code].Parser);
+    while (Element_Offset+2<=Element_Size)
+    {
+        Open_Buffer_Continue(Streams[(int32u)Element_Code].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+        Element_Offset+=2;
+    }
 }
 
 //---------------------------------------------------------------------------

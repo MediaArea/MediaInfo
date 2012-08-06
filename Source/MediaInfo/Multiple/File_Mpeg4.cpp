@@ -239,6 +239,7 @@ void File_Mpeg4::Streams_Finish()
     {
         for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
         {
+            Stream->second.Parser->Finish();
             if (Stream->second.Parser->Count_Get(Stream_Text))
             {
                 Stream_Prepare(Stream_Text);
