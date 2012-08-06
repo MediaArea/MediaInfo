@@ -251,6 +251,8 @@ private :
         size_t                  ContentCompSettings_Buffer_Size;
         int8u*                  ContentCompSettings_Buffer;
         std::map<std::string, Ztring> Infos;
+        int64u                  TrackDefaultDuration;
+        std::map<int64u, int64u> Segment_Cluster_BlockGroup_BlockDuration_Counts;
 
         stream()
         {
@@ -270,6 +272,7 @@ private :
             ContentCompAlgo=(int32u)-1;
             ContentCompSettings_Buffer_Size=0;
             ContentCompSettings_Buffer=NULL;
+            TrackDefaultDuration=0;
         }
 
         ~stream()
@@ -310,7 +313,6 @@ private :
     int64u  TimecodeScale;
     float64 Duration;
     int64u  TrackNumber;
-    int64u  TrackDefaultDuration;
     int64u  TrackVideoDisplayWidth;
     int64u  TrackVideoDisplayHeight;
     int32u  AvgBytesPerSec;
@@ -346,6 +348,8 @@ private :
     std::vector<int64u> Segment_Seeks;
     int64u              Segment_Tag_TrackUID;
     std::vector<Ztring> Segment_Tag_SimpleTag_TagNames;
+    int64u Segment_Cluster_BlockGroup_BlockDuration_Value;
+    int64u Segment_Cluster_BlockGroup_BlockDuration_TrackNumber;
 };
 
 } //NameSpace

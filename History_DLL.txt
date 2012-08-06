@@ -40,6 +40,7 @@ x 3553588, MPLS: stream duration was wrong with standalone (without the referenc
 x 3553588, MPLS: incoherent behavior with MPLS having more than one PlayListItem
 x 3554154, MPEG-TS: crash with some corrupted streams
 x MOV: all EIA/CEA-608 captions were not well detected
+x Matroska: Trying to better detect VFR streams, frame rate was wrong in case of interlaced content
 
 Version 0.7.58, 2012-05-28
 --------------

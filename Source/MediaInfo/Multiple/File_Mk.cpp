@@ -205,6 +205,9 @@ void File_Mk::Streams_Finish()
         Fill(Stream_General, 0, General_Duration, Duration*int64u_float64(TimecodeScale)/1000000.0, 0);
     for (std::map<int64u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
     {
+        StreamKind_Last=Temp->second.StreamKind;
+        StreamPos_Last=Temp->second.StreamPos;
+
         if (Temp->second.DisplayAspectRatio!=0)
         {
             Fill(Stream_Video, Temp->second.StreamPos, Video_DisplayAspectRatio, Temp->second.DisplayAspectRatio, 3, true);
@@ -216,9 +219,77 @@ void File_Mk::Streams_Finish()
 
         if (Temp->second.Parser)
         {
-            StreamKind_Last=Temp->second.StreamKind;
-            StreamPos_Last=Temp->second.StreamPos;
+            Fill(Temp->second.Parser);
+            if (Config_ParseSpeed<=1.0)
+                Temp->second.Parser->Open_Buffer_Unsynch();
+        }
 
+        //Video specific
+        if (StreamKind_Last==Stream_Video)
+        {
+            //FrameRate
+            bool IsVfr=false;
+            if (Temp->second.Segment_Cluster_BlockGroup_BlockDuration_Counts.size()>2)
+                IsVfr=true;
+            else if (Temp->second.TimeCodes.size()>1)
+            {
+                //Trying to detect VFR
+                std::vector<int64s> FrameRate_Between;
+                std::sort(Temp->second.TimeCodes.begin(), Temp->second.TimeCodes.end()); //This is PTS, no DTS --> Some frames are out of order
+                for (size_t Pos=1; Pos<Temp->second.TimeCodes.size(); Pos++)
+                    FrameRate_Between.push_back(Temp->second.TimeCodes[Pos]-Temp->second.TimeCodes[Pos-1]);
+                if (FrameRate_Between.size()>1)
+                {
+                    int64s FrameRate_Between_Last=FrameRate_Between[FrameRate_Between.size()-1];
+                    size_t Pos=FrameRate_Between.size()-2;
+                    while (Pos)
+                    {
+                        if (FrameRate_Between[Pos]!=FrameRate_Between_Last)
+                            break;
+                        Pos--;
+                    }
+                    if (Pos)
+                        FrameRate_Between.resize(Pos+1); //We peek 40 frames, and remove the last ones, because this is PTS, no DTS --> Some frames are out of order
+                }
+                std::sort(FrameRate_Between.begin(), FrameRate_Between.end());
+                if (FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
+                    && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
+                {
+                    float Time=0;
+                    if (Temp->second.TimeCodes.size()>30)
+                        Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
+                    else if (Temp->second.TrackDefaultDuration)
+                        Time=(float)Temp->second.TrackDefaultDuration/TimecodeScale; //TrackDefaultDuration is maybe more precise than the time code
+                    else
+                        Time=(float)(Temp->second.TimeCodes[Temp->second.TimeCodes.size()-1]-Temp->second.TimeCodes[0])/(Temp->second.TimeCodes.size()-1);
+                    if (Time)
+                    {
+                        float32 FrameRate_FromCluster=1000000000/Time/TimecodeScale;
+                        if (Temp->second.Parser)
+                        {
+                            float32 FrameRate_FromParser=Temp->second.Parser->Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
+                            if (FrameRate_FromParser
+                             && FrameRate_FromParser*2>FrameRate_FromCluster*0.9
+                             && FrameRate_FromParser*2<FrameRate_FromCluster*1.1) //TODO: awfull method to detect interlaced content with one field per block
+                                FrameRate_FromCluster/=2;
+                        }
+                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_FromCluster);
+                    }
+                }
+                else
+                    IsVfr=true;
+            }
+            else if (Temp->second.TrackDefaultDuration)
+            {
+                float32 FrameRate_FromCluster=1000000000/(float32)Temp->second.TrackDefaultDuration;
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_FromCluster);
+            }
+
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, IsVfr?"VFR":"CFR");
+        }
+
+        if (Temp->second.Parser)
+        {
             //Delay
             if (Temp->second.TimeCode_Start!=(int64u)-1 && TimecodeScale)
             {
@@ -247,12 +318,6 @@ void File_Mk::Streams_Finish()
             Duration_Temp=Retrieve(StreamKind_Last, Temp->second.StreamPos, Fill_Parameter(StreamKind_Last, Generic_Duration)); //Duration from stream is sometimes false
             Codec_Temp=Retrieve(StreamKind_Last, Temp->second.StreamPos, Fill_Parameter(StreamKind_Last, Generic_Codec)); //We want to keep the 4CC
 
-            if (Config_ParseSpeed<=1.0)
-            {
-                Fill(Temp->second.Parser);
-                Temp->second.Parser->Open_Buffer_Unsynch();
-            }
-
             Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Duration_Temp, true);
@@ -266,50 +331,11 @@ void File_Mk::Streams_Finish()
               || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
                 Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
-            //Video specific
-            if (StreamKind_Last==Stream_Video)
+            //VFR
+            if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode)==_T("VFR") && Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Original).empty())
             {
-                //FrameRate
-                if (Temp->second.TimeCodes.size()>1)
-                {
-                    //Trying to detect VFR
-                    std::vector<int64s> FrameRate_Between;
-                    std::sort(Temp->second.TimeCodes.begin(), Temp->second.TimeCodes.end()); //This is PTS, no DTS --> Some frames are out of order
-                    for (size_t Pos=1; Pos<Temp->second.TimeCodes.size(); Pos++)
-                        FrameRate_Between.push_back(Temp->second.TimeCodes[Pos]-Temp->second.TimeCodes[Pos-1]);
-                    if (FrameRate_Between.size()>31)
-                        FrameRate_Between.resize(31); //We peek 40 frames, and remove the last ones, because this is PTS, no DTS --> Some frames are out of order
-                    std::sort(FrameRate_Between.begin(), FrameRate_Between.end());
-                    if (FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
-                     && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
-                    {
-                        float Time=0;
-                        if (Temp->second.TimeCodes.size()>30)
-                            Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
-                        if (Time)
-                        {
-                            float32 FrameRate_FromCluster=1000000000/Time/TimecodeScale;
-                            if (!Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
-                            {
-                                float32 FrameRate_FromTrack=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
-                                if (FrameRate_FromCluster*1.01<FrameRate_FromTrack*0.99
-                                 || FrameRate_FromCluster*0.99>FrameRate_FromTrack*1.01)
-                                    Clear(Stream_Video, StreamPos_Last, Video_FrameRate); //There is a problem
-                            }
-                            else
-                            {
-                                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_FromCluster);
-                                Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "CFR");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
-                        if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32()==1000.0)
-                            Clear(Stream_Video, StreamPos_Last, Video_FrameRate); //Some files on the net have a frame rate of 1000, it is not possible to be sure this is the real frame rate.
-                    }
-                }
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate));
+                Clear(Stream_Video, StreamPos_Last, Video_FrameRate);
             }
         }
 
@@ -1412,6 +1438,9 @@ void File_Mk::Segment_Cluster()
 void File_Mk::Segment_Cluster_BlockGroup()
 {
     Element_Name("BlockGroup");
+
+    Segment_Cluster_BlockGroup_BlockDuration_Value=(int64u)-1;
+    Segment_Cluster_BlockGroup_BlockDuration_TrackNumber=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -1448,6 +1477,12 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             Stream[TrackNumber].TimeCodes.push_back(Segment_Cluster_TimeCode_Value+TimeCode);
             if (Stream[TrackNumber].TimeCodes.size()>40)
                 Stream[TrackNumber].Searching_TimeStamps=false;
+        }
+
+        if (Segment_Cluster_BlockGroup_BlockDuration_Value!=(int64u)-1)
+        {
+            Stream[TrackNumber].Segment_Cluster_BlockGroup_BlockDuration_Counts[Segment_Cluster_BlockGroup_BlockDuration_Value]++;
+            Segment_Cluster_BlockGroup_BlockDuration_Value=(int64u)-1;
         }
     FILLING_END();
 
@@ -1618,7 +1653,17 @@ void File_Mk::Segment_Cluster_BlockGroup_BlockDuration()
     Element_Name("BlockDuration");
 
     //Parsing
-    UInteger_Info();
+    int64u Segment_Cluster_TimeCode_Value=UInteger_Get();
+
+    FILLING_BEGIN();
+        if (Segment_Cluster_BlockGroup_BlockDuration_TrackNumber!=(int64u)-1)
+        {
+            Stream[Segment_Cluster_BlockGroup_BlockDuration_TrackNumber].Segment_Cluster_BlockGroup_BlockDuration_Counts[Segment_Cluster_TimeCode_Value]++;
+            Segment_Cluster_BlockGroup_BlockDuration_TrackNumber=(int64u)-1;
+        }
+        else
+            Segment_Cluster_BlockGroup_BlockDuration_Value=Segment_Cluster_TimeCode_Value;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2166,7 +2211,6 @@ void File_Mk::Segment_Tracks_TrackEntry()
     InfoCodecID_Format_Type=InfoCodecID_Format_Matroska;
     TrackType=(int64u)-1;
     TrackNumber=(int64u)-1;
-    TrackDefaultDuration=0;
     TrackVideoDisplayWidth=0;
     TrackVideoDisplayHeight=0;
     AvgBytesPerSec=0;
@@ -2548,15 +2592,7 @@ void File_Mk::Segment_Tracks_TrackEntry_DefaultDuration()
     int64u UInteger=UInteger_Get();
 
     FILLING_BEGIN();
-        TrackDefaultDuration=UInteger;
-        //FrameRate
-        if (TrackDefaultDuration && StreamKind_Last==Stream_Video)
-        {
-            float64 FrameRate=1000000000.0/TrackDefaultDuration;
-            if (FrameRate>=23.975 && FrameRate<=23.977)
-                FrameRate=23.976; //One example was seen with 23.975
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
-        }
+        Stream[TrackNumber].TrackDefaultDuration=UInteger;
     FILLING_END();
 }
 
@@ -2707,14 +2743,6 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackType()
         {
             case 0x01 :
                         Stream_Prepare(Stream_Video);
-                        //FrameRate
-                        if (TrackDefaultDuration)
-                        {
-                            float64 FrameRate=1000000000.0/TrackDefaultDuration;
-                            if (FrameRate>=23.975 && FrameRate<=23.977)
-                                FrameRate=23.976; //One example was seen with 23.975
-                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
-                        }
                         break;
             case 0x02 :
                         Stream_Prepare(Stream_Audio);
