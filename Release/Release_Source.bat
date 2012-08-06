@@ -22,7 +22,7 @@
 rem --- Clean up ---
 del MediaInfo_Lib_Source.tar
 del libmediainfo_.tar.bz2
-del libmediainfo_-1.tar.gz 
+del libmediainfo_-1.tar.gz
 del libmediainfo__AllInclusive.7z
 rmdir MediaInfo_Lib_Source /S /Q
 rmdir ZenLib /S /Q

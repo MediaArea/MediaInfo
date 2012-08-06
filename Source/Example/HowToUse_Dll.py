@@ -41,8 +41,8 @@ MI = MediaInfo()
 
 Version=MI.Option_Static("Info_Version", "0.7.7.0;MediaInfoDLL_Example_Python;0.7.7.0")
 if Version=="":
-	print "MediaInfo.Dll: this version of the DLL is not compatible"
-	exit
+    print "MediaInfo.Dll: this version of the DLL is not compatible"
+    exit
 
 
 #Information about MediaInfo
