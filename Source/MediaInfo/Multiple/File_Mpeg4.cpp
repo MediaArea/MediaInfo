@@ -582,13 +582,6 @@ void File_Mpeg4::Streams_Finish()
                     }
                 }
 
-                //TimeCode specific
-                if (StreamKind_Last==Stream_Video && Retrieve(Stream_Menu, StreamPos_Last, Menu_Format)==_T("TimeCode"))
-                {
-                    Clear(Stream_Menu, StreamPos_Last, "Duration");
-                    Clear(Stream_Menu, StreamPos_Last, "StreamSize");
-                }
-
                 //Special case: AAC
                 if (StreamKind_Last==Stream_Audio
                  && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")

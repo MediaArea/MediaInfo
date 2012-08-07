@@ -176,6 +176,7 @@ set(mediainfo_SRCS
 	MediaInfo/Video/File_Lagarith.cpp
 	MediaInfo/Video/File_Mpeg4v.cpp
 	MediaInfo/Video/File_Mpegv.cpp
+	MediaInfo/Video/File_ProRes.cpp
 	MediaInfo/Video/File_Theora.cpp
 	MediaInfo/Video/File_Vc1.cpp
 	MediaInfo/Video/File_Vc3.cpp

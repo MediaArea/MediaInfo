@@ -168,6 +168,8 @@
 		<Unit filename="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Video\File_Mpegv.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Video\File_Mpegv.h" />
+		<Unit filename="..\..\..\Source\MediaInfo\Video\File_ProRes.cpp" />
+		<Unit filename="..\..\..\Source\MediaInfo\Video\File_ProRes.h" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

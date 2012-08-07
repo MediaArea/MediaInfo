@@ -376,6 +376,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Lagarith.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpegv.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_ProRes.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Theora.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc1.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Bmp.cpp" />
@@ -582,6 +583,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Lagarith.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpegv.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_ProRes.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Theora.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vc1.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Cdp.h" />

@@ -19,6 +19,7 @@ Version 0.7.59, 2012-
 + FLV: handling of metadata with an underscore before the real metadata name
 + MXF: support of files with header missing TrackNumber in the descriptor (if it is present only in footer)
 + MXF: Language from DMS-1
++ ProRes: analysis of the ProRes raw stream (including scan order for interlaced content)
 x #3533984, different behavior depending of compilation options (so Linux version was missing some info)
 x MPEG-4: audio/video delay was wrong in case of negative delay
 x CEA-608: Memory leaks removed

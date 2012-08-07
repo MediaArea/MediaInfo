@@ -54,6 +54,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_MPEGV_YES)
+    #include "MediaInfo/Video/File_ProRes.h"
+#endif
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
@@ -482,19 +485,19 @@ const char* Mpeg4_jp2h_EnumCS(int32u EnumCS)
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg4_colour_primaries(int16u colour_primaries)
+extern const char* Mpeg4_colour_primaries(int16u colour_primaries)
 {
     switch (colour_primaries)
     {
         case  1 : return "BT.709-2, SMPTE 274M, SMPTE 296M"; //white x = 0.3127 y = 0.3290 / red x=0.640 y = 0.330 / green x = 0.300 y = 0.600 / blue x = 0.150 y = 0.060
         case  5 : return "SMPTE RP145, SMPTE 170M, SMPTE 240M, SMPTE 274M, SMPTE 293M"; //white x = 0.3127 y = 0.3290 / red x = 0.64 y = 0.33 / green x = 0.29 y = 0.60 / blue x = 0.15 y = 0.06
-        case  6 : return "BT.709-2, SMPTE 274M, SMPTE 296M"; //white x = 0.3127 y = 0.3290 / red x = 0.630 y = 0.340 / green x = 0.310 y = 0.595 / blue x = 0.155 y = 0.070 (weird... Not same as 1)
+        case  6 : return "BT.601-4, SMPTE 170M, SMPTE 293M"; //white x = 0.3127 y = 0.3290 / red x = 0.630 y = 0.340 / green x = 0.310 y = 0.595 / blue x = 0.155 y = 0.070
         default : return "";
     }
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg4_transfer_characteristics(int16u transfer_characteristics)
+extern const char* Mpeg4_transfer_characteristics(int16u transfer_characteristics)
 {
     switch (transfer_characteristics)
     {
@@ -505,7 +508,7 @@ const char* Mpeg4_transfer_characteristics(int16u transfer_characteristics)
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg4_matrix_coefficients(int16u matrix_coefficients)
+extern const char* Mpeg4_matrix_coefficients(int16u matrix_coefficients)
 {
     switch (matrix_coefficients)
     {
@@ -4034,6 +4037,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 {
                     Streams[moov_trak_tkhd_TrackID].Parser=new File_Mpegv;
                     ((File_Mpegv*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
+                }
+            #endif
+            #if defined(MEDIAINFO_MPEGV_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("ProRes"))
+                {
+                    Streams[moov_trak_tkhd_TrackID].Parser=new File_ProRes;
                 }
             #endif
             #if defined(MEDIAINFO_VC1_YES)
