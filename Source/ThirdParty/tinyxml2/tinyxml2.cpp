@@ -29,6 +29,7 @@ distribution.
 #include <cstddef>
 
 using namespace tinyxml2;
+using namespace std;
 
 static const char LINE_FEED				= (char)0x0a;			// all line endings are normalized to LF
 static const char LF = LINE_FEED;
@@ -1654,7 +1655,7 @@ void XMLDocument::PrintError() const
 }
 
 
-XMLPrinter::XMLPrinter( FILE* file, bool compact ) : 
+XMLPrinter::XMLPrinter( std::FILE* file, bool compact ) :
 	elementJustOpened( false ), 
 	firstElement( true ),
 	fp( file ), 

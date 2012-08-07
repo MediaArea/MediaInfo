@@ -298,7 +298,7 @@ private:
 		char mem[SIZE];
 	};
 	struct Block {
-		Chunk chunk[COUNT];
+		Chunk chunk[1024/SIZE];
 	};
 	DynArray< Block*, 10 > blockPtrs;
 	Chunk* root;
@@ -363,8 +363,8 @@ class XMLUtil
 public:
 	// Anything in the high order range of UTF-8 is assumed to not be whitespace. This isn't 
 	// correct, but simple, and usually works.
-	static const char* SkipWhiteSpace( const char* p )	{ while( !IsUTF8Continuation(*p) && isspace( *reinterpret_cast<const unsigned char*>(p) ) ) { ++p; } return p; }
-	static char* SkipWhiteSpace( char* p )				{ while( !IsUTF8Continuation(*p) && isspace( *reinterpret_cast<unsigned char*>(p) ) )		{ ++p; } return p; }
+	static const char* SkipWhiteSpace( const char* p )	{ while( !IsUTF8Continuation(*p) && std::isspace( *reinterpret_cast<const unsigned char*>(p) ) ) { ++p; } return p; }
+	static char* SkipWhiteSpace( char* p )				{ while( !IsUTF8Continuation(*p) && std::isspace( *reinterpret_cast<unsigned char*>(p) ) )		{ ++p; } return p; }
 
 	inline static bool StringEqual( const char* p, const char* q, int nChar=INT_MAX )  {
 		int n = 0;
@@ -380,8 +380,8 @@ public:
 		return false;
 	}
 	inline static int IsUTF8Continuation( const char p ) { return p & 0x80; }
-	inline static int IsAlphaNum( unsigned char anyByte )	{ return ( anyByte < 128 ) ? isalnum( anyByte ) : 1; }
-	inline static int IsAlpha( unsigned char anyByte )		{ return ( anyByte < 128 ) ? isalpha( anyByte ) : 1; }
+	inline static int IsAlphaNum( unsigned char anyByte )	{ return ( anyByte < 128 ) ? std::isalnum( anyByte ) : 1; }
+	inline static int IsAlpha( unsigned char anyByte )		{ return ( anyByte < 128 ) ? std::isalpha( anyByte ) : 1; }
 
 	static const char* ReadBOM( const char* p, bool* hasBOM );
 	// p is the starting location,
@@ -1068,7 +1068,7 @@ public:
 		Returns XML_NO_ERROR (0) on success, or
 		an errorID.
 	*/	
-	int LoadFile( FILE* );
+	int LoadFile( std::FILE* );
 	
 	/**
 		Save the XML file to disk.
@@ -1084,7 +1084,7 @@ public:
 		Returns XML_NO_ERROR (0) on success, or
 		an errorID.
 	*/
-	int SaveFile( FILE* );
+	int SaveFile( std::FILE* );
 
 	bool ProcessEntities() const						{ return processEntities; }
 
@@ -1385,7 +1385,7 @@ public:
 		If 'compact' is set to true, then output is created
 		with only required whitespace and newlines.
 	*/
-	XMLPrinter( FILE* file=0, bool compact = false );
+	XMLPrinter( std::FILE* file=0, bool compact = false );
 	~XMLPrinter()	{}
 
 	/** If streaming, write the BOM and declaration. */
@@ -1453,7 +1453,7 @@ private:
 
 	bool elementJustOpened;
 	bool firstElement;
-	FILE* fp;
+	std::FILE* fp;
 	int depth;
 	int textDepth;
 	bool processEntities;
