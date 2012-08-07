@@ -159,6 +159,7 @@ AC_ARG_ENABLE(flic,    AC_HELP_STRING([--disable-flic],    [Disable Video - FLIC
 AC_ARG_ENABLE(h263,    AC_HELP_STRING([--disable-h263],    [Disable Video - H.263]),                                      MediaInfoH263=$enableval,    MediaInfoH263=depend)
 AC_ARG_ENABLE(mpeg4v,  AC_HELP_STRING([--disable-mpeg4v],  [Disable Video - MPEG-4 Video based formats (DivX, XviD...)]), MediaInfoMpeg4v=$enableval,  MediaInfoMpeg4v=depend)
 AC_ARG_ENABLE(mpegv,   AC_HELP_STRING([--disable-mpegv],   [Disable Video - MPEG-Video]),                                 MediaInfoMpegv=$enableval,   MediaInfoMpegv=depend)
+AC_ARG_ENABLE(prores,  AC_HELP_STRING([--disable-prores],  [Disable Video - ProRes]),                                     MediaInfoProRes=$enableval,  MediaInfoProRes=depend)
 AC_ARG_ENABLE(theora,  AC_HELP_STRING([--disable-theora],  [Disable Video - Theora]),                                     MediaInfoTheora=$enableval,  MediaInfoTheora=depend)
 AC_ARG_ENABLE(vc1,     AC_HELP_STRING([--disable-vc1],     [Disable Video - VC-1]),                                       MediaInfoVc1=$enableval,     MediaInfoVc1=depend)
 AC_ARG_ENABLE(vc3,     AC_HELP_STRING([--disable-vc3],     [Disable Video - VC-3 (DNxHD)]),                               MediaInfoVc3=$enableval,     MediaInfoVc3=depend)
@@ -285,6 +286,7 @@ if test "$MediaInfoFlic"    = "no";  then AC_DEFINE(MEDIAINFO_FLIC_NO)    fi; if
 if test "$MediaInfoH263"    = "no";  then AC_DEFINE(MEDIAINFO_H263_NO)    fi; if test "$MediaInfoH263"    = "yes"; then AC_DEFINE(MEDIAINFO_H263_YES)    fi
 if test "$MediaInfoMpeg4v"  = "no";  then AC_DEFINE(MEDIAINFO_MPEG4V_NO)  fi; if test "$MediaInfoMpeg4v"  = "yes"; then AC_DEFINE(MEDIAINFO_MPEG4V_YES)  fi
 if test "$MediaInfoMpegv"   = "no";  then AC_DEFINE(MEDIAINFO_MPEGV_NO)   fi; if test "$MediaInfoMpegv"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEGV_YES)   fi
+if test "$MediaInfoProRes"  = "no";  then AC_DEFINE(MEDIAINFO_PRORES_NO)  fi; if test "$MediaInfoProRes"  = "yes"; then AC_DEFINE(MEDIAINFO_PRORES_YES)  fi
 if test "$MediaInfoTheora"  = "no";  then AC_DEFINE(MEDIAINFO_THEORA_NO)  fi; if test "$MediaInfoTheora"  = "yes"; then AC_DEFINE(MEDIAINFO_THEORA_YES)  fi
 if test "$MediaInfoVc1"     = "no";  then AC_DEFINE(MEDIAINFO_VC1_NO)     fi; if test "$MediaInfoVc1"     = "yes"; then AC_DEFINE(MEDIAINFO_VC1_YES)     fi
 if test "$MediaInfoVc3"     = "no";  then AC_DEFINE(MEDIAINFO_VC3_NO)     fi; if test "$MediaInfoVc3"     = "yes"; then AC_DEFINE(MEDIAINFO_VC3_YES)     fi
@@ -802,7 +804,8 @@ Mcho "Flic   " "$MediaInfoFlic"
 Mcho "H263   " "$MediaInfoH263"
 Mcho "Mpeg4v " "$MediaInfoMpeg4v"
 Mcho "Mpegv  " "$MediaInfoMpegv"
-Mcho "Mpegv  " "$MediaInfoTheora"
+Mcho "ProRes " "$MediaInfoProRes"
+Mcho "Theora " "$MediaInfoTheora"
 Mcho "Vc1    " "$MediaInfoVc1"
 Mcho "Vc3    " "$MediaInfoVc3"
 Mcho "VP8    " "$MediaInfoVp8"

@@ -413,6 +413,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_MPEGV_NO) && !defined(MEDIAINFO_MPEGV_YES)
     #define MEDIAINFO_MPEGV_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_PRORES_NO) && !defined(MEDIAINFO_PRORES_YES)
+    #define MEDIAINFO_PRORES_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC1_NO) && !defined(MEDIAINFO_VC1_YES)
     #define MEDIAINFO_VC1_YES
 #endif

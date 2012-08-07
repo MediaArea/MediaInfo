@@ -54,7 +54,7 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
-#if defined(MEDIAINFO_MPEGV_YES)
+#if defined(MEDIAINFO_PRORES_YES)
     #include "MediaInfo/Video/File_ProRes.h"
 #endif
 #if defined(MEDIAINFO_VC1_YES)
