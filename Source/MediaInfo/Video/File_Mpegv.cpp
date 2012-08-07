@@ -34,6 +34,76 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_MPEG4V_YES) || defined(MEDIAINFO_AVC_YES) || defined(MEDIAINFO_MPEG4_YES) || defined(MEDIAINFO_PRORES_YES)
+//---------------------------------------------------------------------------
+
+namespace MediaInfoLib
+{
+
+#include "ZenLib/Conf.h"
+using namespace ZenLib;
+
+//---------------------------------------------------------------------------
+extern const char* Mpegv_colour_primaries(int8u colour_primaries)
+{
+    switch (colour_primaries)
+    {
+        case  1 : return "BT.709";
+        case  4 : return "BT.470 System M";
+        case  5 : return "BT.601 PAL";
+        case  6 : return "BT.601 NTSC";
+        case  7 : return "SMPTE 240M"; //Same as BT.601 NTSC
+        case  8 : return "Generic film";
+        default : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+extern const char* Mpegv_transfer_characteristics(int8u transfer_characteristics)
+{
+    switch (transfer_characteristics)
+    {
+        case  1 : return "BT.709";
+        case  4 : return "BT.470 System M";
+        case  5 : return "BT.470 System B, BT.470 System G";
+        case  6 : return "BT.601";
+        case  7 : return "SMPTE 240M";
+        case  8 : return "Linear";
+        case  9 : return "Logarithmic (100:1)";                         //Added in MPEG-4 Visual
+        case 10 : return "Logarithmic (316.22777:1)";                   //Added in MPEG-4 Visual
+        case 11 : return "IEC 61966-2-4";                               //Added in AVC
+        case 12 : return "BT.1361 extended colour gamut system";        //Added in AVC
+        default : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+extern const char* Mpegv_matrix_coefficients(int8u matrix_coefficients)
+{
+    switch (matrix_coefficients)
+    {
+        case  0 : return "RGB";                                         //Added in AVC
+        case  1 : return "BT.709";
+        case  4 : return "FCC 73.682";
+        case  5 : return "BT.601";
+        case  6 : return "BT.601";
+        case  7 : return "SMPTE 240M";
+        case  8 : return "YCgCo";                                       //Added in AVC
+        default : return "";
+    }
+}
+
+} //NameSpace
+
+//---------------------------------------------------------------------------
+#endif //...
+//---------------------------------------------------------------------------
+
+//***************************************************************************
+// Infos (Global)
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 #if defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_MPEGPS_YES) || defined(MEDIAINFO_MXF_YES)
 //---------------------------------------------------------------------------
 
@@ -273,49 +343,6 @@ const char* Mpegv_extension_start_code_identifier[]=
     "",
     "",
 };
-
-//---------------------------------------------------------------------------
-const char* Mpegv_colour_primaries(int8u colour_primaries)
-{
-    switch (colour_primaries)
-    {
-        case  1 : return "BT.709";
-        case  4 : return "BT.470-2 system M";
-        case  5 : return "BT.470-2 System B, BT.470-2 System G";
-        case  6 : return "SMPTE 170M";
-        case  7 : return "SMPTE 240M";
-        default : return "";
-    }
-}
-
-//---------------------------------------------------------------------------
-const char* Mpegv_transfer_characteristics(int8u transfer_characteristics)
-{
-    switch (transfer_characteristics)
-    {
-        case  1 : return "BT.709";
-        case  4 : return "BT.470-2 System M";
-        case  5 : return "BT.470-2 System B, BT.470-2 System G";
-        case  6 : return "SMPTE 170M";
-        case  7 : return "SMPTE 240M";
-        case  8 : return "Linear";
-        default : return "";
-    }
-}
-
-//---------------------------------------------------------------------------
-const char* Mpegv_matrix_coefficients(int8u matrix_coefficients)
-{
-    switch (matrix_coefficients)
-    {
-        case  1 : return "BT.709";
-        case  4 : return "FCC";
-        case  5 : return "BT.470-2 System B, BT.470-2 System G";
-        case  6 : return "SMPTE 170M";
-        case  7 : return "SMPTE 240M";
-        default : return "";
-    }
-}
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_MACROBLOCKS

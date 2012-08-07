@@ -45,9 +45,9 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-const char* Mpeg4_colour_primaries(int16u colour_primaries);
-const char* Mpeg4_transfer_characteristics(int16u transfer_characteristics);
-const char* Mpeg4_matrix_coefficients(int16u matrix_coefficients);
+const char* Mpegv_colour_primaries(int8u colour_primaries);
+const char* Mpegv_transfer_characteristics(int8u transfer_characteristics);
+const char* Mpegv_matrix_coefficients(int8u matrix_coefficients);
 
 //---------------------------------------------------------------------------
 const char* ProRes_chrominance_factor(int8u chrominance_factor)
@@ -147,9 +147,9 @@ void File_ProRes::Read_Buffer_Continue()
         Skip_S1(2,                                              "reserved");
         BS_End();
         Skip_B1(                                                "reserved");
-        Get_B1 (primaries,                                      "primaries"); Param_Info1(Mpeg4_colour_primaries(primaries));
-        Get_B1 (transf_func,                                    "transf_func"); Param_Info1(Mpeg4_transfer_characteristics(transf_func));
-        Get_B1 (colorMatrix,                                    "colorMatrix"); Param_Info1(Mpeg4_matrix_coefficients(colorMatrix));
+        Get_B1 (primaries,                                      "primaries"); Param_Info1(Mpegv_colour_primaries(primaries));
+        Get_B1 (transf_func,                                    "transf_func"); Param_Info1(Mpegv_transfer_characteristics(transf_func));
+        Get_B1 (colorMatrix,                                    "colorMatrix"); Param_Info1(Mpegv_matrix_coefficients(colorMatrix));
         BS_Begin();
         Skip_S1(4,                                              "src_pix_fmt");
         Skip_S1(4,                                              "alpha_info");
@@ -182,9 +182,9 @@ void File_ProRes::Read_Buffer_Continue()
             Fill(Stream_Video, 0, Video_ChromaSubsampling, ProRes_chrominance_factor(chrominance_factor));
             Fill(Stream_Video, 0, Video_ScanType, ProRes_frame_type_ScanType(frame_type));
             Fill(Stream_Video, 0, Video_ScanOrder, ProRes_frame_type_ScanOrder(frame_type));
-            Fill(Stream_Video, 0, "colour_primaries", Mpeg4_colour_primaries(primaries));
-            Fill(Stream_Video, 0, "transfer_characteristics", Mpeg4_transfer_characteristics(transf_func));
-            Fill(Stream_Video, 0, "matrix_coefficients", Mpeg4_matrix_coefficients(colorMatrix));
+            Fill(Stream_Video, 0, "colour_primaries", Mpegv_colour_primaries(primaries));
+            Fill(Stream_Video, 0, "transfer_characteristics", Mpegv_transfer_characteristics(transf_func));
+            Fill(Stream_Video, 0, "matrix_coefficients", Mpegv_matrix_coefficients(colorMatrix));
 
             Finish();
         }

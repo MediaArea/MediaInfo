@@ -228,6 +228,11 @@ const char* Mpeg4v_vop_coding_type[]=
     "S",
 };
 
+//---------------------------------------------------------------------------
+const char* Mpegv_colour_primaries(int8u colour_primaries);
+const char* Mpegv_transfer_characteristics(int8u transfer_characteristics);
+const char* Mpegv_matrix_coefficients(int8u matrix_coefficients);
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -325,6 +330,9 @@ void File_Mpeg4v::Synched_Init()
     sprite_enable=0;
     estimation_method=0;
     chroma_format=(int8u)-1;
+    colour_primaries=(int8u)-1;
+    transfer_characteristics=(int8u)-1;
+    matrix_coefficients=(int8u)-1;
     quarter_sample=false;
     low_delay=false;
     load_intra_quant_mat=false;
@@ -414,6 +422,12 @@ void File_Mpeg4v::Streams_Fill()
     Fill(Stream_Video, 0, Video_BitDepth, bits_per_pixel);
     if (chroma_format<4)
         Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
+    if (colour_primaries!=(int8u)-1)
+    {
+        Fill(Stream_Video, 0, "colour_primaries", Mpegv_colour_primaries(colour_primaries));
+        Fill(Stream_Video, 0, "transfer_characteristics", Mpegv_transfer_characteristics(transfer_characteristics));
+        Fill(Stream_Video, 0, "matrix_coefficients", Mpegv_matrix_coefficients(matrix_coefficients));
+    }
     if (low_delay)
     {
         Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "No");
@@ -1402,9 +1416,9 @@ void File_Mpeg4v::visual_object_start()
             Skip_S1(3,                                          "video_format");
             Skip_SB(                                            "video_range");
             TEST_SB_SKIP(                                       "colour_description");
-                Skip_S1(8,                                      "colour_primaries");
-                Skip_S1(8,                                      "transfer_characteristics");
-                Skip_S1(8,                                      "matrix_coefficients");
+                Get_S1 (8, colour_primaries,                    "colour_primaries"); Param_Info1(Mpegv_colour_primaries(colour_primaries));
+                Get_S1 (8, transfer_characteristics,            "transfer_characteristics"); Param_Info1(Mpegv_transfer_characteristics(transfer_characteristics));
+                Get_S1 (8, matrix_coefficients,                 "matrix_coefficients"); Param_Info1(Mpegv_matrix_coefficients(matrix_coefficients));
             TEST_SB_END();
         TEST_SB_END();
         BS_End();

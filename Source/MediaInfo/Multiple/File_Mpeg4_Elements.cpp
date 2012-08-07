@@ -485,39 +485,9 @@ const char* Mpeg4_jp2h_EnumCS(int32u EnumCS)
 }
 
 //---------------------------------------------------------------------------
-extern const char* Mpeg4_colour_primaries(int16u colour_primaries)
-{
-    switch (colour_primaries)
-    {
-        case  1 : return "BT.709-2, SMPTE 274M, SMPTE 296M"; //white x = 0.3127 y = 0.3290 / red x=0.640 y = 0.330 / green x = 0.300 y = 0.600 / blue x = 0.150 y = 0.060
-        case  5 : return "SMPTE RP145, SMPTE 170M, SMPTE 240M, SMPTE 274M, SMPTE 293M"; //white x = 0.3127 y = 0.3290 / red x = 0.64 y = 0.33 / green x = 0.29 y = 0.60 / blue x = 0.15 y = 0.06
-        case  6 : return "BT.601-4, SMPTE 170M, SMPTE 293M"; //white x = 0.3127 y = 0.3290 / red x = 0.630 y = 0.340 / green x = 0.310 y = 0.595 / blue x = 0.155 y = 0.070
-        default : return "";
-    }
-}
-
-//---------------------------------------------------------------------------
-extern const char* Mpeg4_transfer_characteristics(int16u transfer_characteristics)
-{
-    switch (transfer_characteristics)
-    {
-        case  1 : return "BT.709-2, SMPTE 170M, SMPTE 274M, SMPTE 293M, SMPTE 296M";
-        case  7 : return "SMPTE 240M, SMPTE 274M";
-        default : return "";
-    }
-}
-
-//---------------------------------------------------------------------------
-extern const char* Mpeg4_matrix_coefficients(int16u matrix_coefficients)
-{
-    switch (matrix_coefficients)
-    {
-        case  1 : return "BT.709-2, SMPTE 274M, SMPTE 296M";
-        case  6 : return "BT.470-4 System B, BT.470-4 System G, BT.601-4, SMPTE 170M, SMPTE 293M";
-        case  7 : return "SMPTE 240M, SMPTE 274M";
-        default : return "";
-    }
-}
+const char* Mpegv_colour_primaries(int8u colour_primaries);
+const char* Mpegv_transfer_characteristics(int8u transfer_characteristics);
+const char* Mpegv_matrix_coefficients(int8u matrix_coefficients);
 
 //---------------------------------------------------------------------------
 // DTS
@@ -4039,7 +4009,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                     ((File_Mpegv*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
                 }
             #endif
-            #if defined(MEDIAINFO_MPEGV_YES)
+            #if defined(MEDIAINFO_PRORES_YES)
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("ProRes"))
                 {
                     Streams[moov_trak_tkhd_TrackID].Parser=new File_ProRes;
@@ -4356,14 +4326,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_colr()
     //Parsing
     int16u  colour_primaries, transfer_characteristics, matrix_coefficients;
     Skip_C4(                                                    "Color parameter type");
-    Get_B2 (colour_primaries,                                   "Primaries index"); Param_Info1(Mpeg4_colour_primaries(colour_primaries));
-    Get_B2 (transfer_characteristics,                           "Transfer function index"); Param_Info1(Mpeg4_transfer_characteristics(transfer_characteristics));
-    Get_B2 (matrix_coefficients,                                "Matrix index"); Param_Info1(Mpeg4_matrix_coefficients(matrix_coefficients));
+    Get_B2 (colour_primaries,                                   "Primaries index"); Param_Info1(Mpegv_colour_primaries(colour_primaries));
+    Get_B2 (transfer_characteristics,                           "Transfer function index"); Param_Info1(Mpegv_transfer_characteristics(transfer_characteristics));
+    Get_B2 (matrix_coefficients,                                "Matrix index"); Param_Info1(Mpegv_matrix_coefficients(matrix_coefficients));
 
     FILLING_BEGIN();
-        Fill(Stream_Video, StreamPos_Last, "colour_primaries", Mpeg4_colour_primaries(colour_primaries));
-        Fill(Stream_Video, StreamPos_Last, "transfer_characteristics", Mpeg4_transfer_characteristics(transfer_characteristics));
-        Fill(Stream_Video, StreamPos_Last, "matrix_coefficients", Mpeg4_matrix_coefficients(matrix_coefficients));
+        Fill(Stream_Video, StreamPos_Last, "colour_primaries", Mpegv_colour_primaries(colour_primaries));
+        Fill(Stream_Video, StreamPos_Last, "transfer_characteristics", Mpegv_transfer_characteristics(transfer_characteristics));
+        Fill(Stream_Video, StreamPos_Last, "matrix_coefficients", Mpegv_matrix_coefficients(matrix_coefficients));
     FILLING_END();
 }
 

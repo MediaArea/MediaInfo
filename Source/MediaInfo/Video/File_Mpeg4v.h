@@ -147,6 +147,9 @@ private :
     int8u  sprite_enable;
     int8u  estimation_method;
     int8u  chroma_format;
+    int8u  colour_primaries;
+    int8u  transfer_characteristics;
+    int8u  matrix_coefficients;
     bool   quarter_sample;
     bool   low_delay;
     bool   load_intra_quant_mat;
