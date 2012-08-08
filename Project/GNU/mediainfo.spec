@@ -4,8 +4,8 @@
 
 # norootforbuild
 
-%define mediainfo_version           0.7.58
-%define libmediainfo_version        0.7.58
+%define mediainfo_version           0.7.59
+%define libmediainfo_version        0.7.59
 %define libzen_version              0.4.25
 
 Name:           mediainfo
@@ -232,6 +232,6 @@ popd
 %endif
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.58
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.59
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
