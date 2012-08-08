@@ -104,7 +104,7 @@ void File_Gif::Read_Buffer_Continue()
         Fill(Stream_Image, 0, Image_Format, __T("GIF"));
         Fill(Stream_Image, 0, Image_Format_Profile, Version);
         Fill(Stream_Image, 0, Image_Codec, __T("GIF")+Version);
-        if (Image_PixelAspectRatio)
+        if (PixelAspectRatio)
             Fill(Stream_Image, 0, Image_PixelAspectRatio, (((float)PixelAspectRatio)+15)/64);
 
         Finish("GIF");
