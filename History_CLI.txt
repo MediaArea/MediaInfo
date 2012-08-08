@@ -8,6 +8,49 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
+Version 0.7.59, 2012-08-08
+--------------
++ License: Switched back to LGPLv2+Exceptions
++ #3555183, PCX support, thanks to Lionel Duchateau
++ #3555182, PSD support, thanks to Lionel Duchateau
++ #3555181, Matroska: ALAC detection, thanks to Lionel Duchateau
++ #3540425, OGG/MKV: Opus speech format support, thanks to Lionel Duchateau
++ #3531808, AVI: detecting more inconsistencies in stream durations
++ GXF: crash with Time code tracks without frame rate info
++ MPEG-4: stream order (hidden by default), in order to provide the same numbers as mkvtoolnix 5.2+ Track ID
++ QuickTime: default channel map is "L R" for stereo streams (as it seems to be in QuickTime player)
++ MPEG-4: support of WMA (version 1, version 2, Pro, Lossless) in MPEG-4
++ FLV: handling of metadata with an underscore before the real metadata name
++ MXF: support of files with header missing TrackNumber in the descriptor (if it is present only in footer)
++ MXF: Language from DMS-1
++ ProRes: analysis of the ProRes raw stream (including scan order for interlaced content)
++ colour_primaries, transfer_characteristics, matrix_coefficients: canonicalization of results
++ MPEG-4 Visual: colour_primaries, transfer_characteristics, matrix_coefficients
++ ProRes: colour_primaries, transfer_characteristics, matrix_coefficients
++ GIF: Display Aspect Ratio
+x #3533984, different behavior depending of compilation options (so Linux version was missing some info)
+x MPEG-4: audio/video delay was wrong in case of negative delay
+x CEA-608: Memory leaks removed
+x AVC: crash in case of analyzing some invalid SEI
+x MPEG Audio: crash with some files having Lyrics 2 tags
+x MPEG Audio: crash with some files having APE tags
+x AVI: secondary genre comes after primary genres in the "Genre" field
+x FLV: better handling of files containing more than 1 meta chunk
+x MPEG-TS/MPEG-PS: was aborting during full parsing in the case of very damaged streams
+x Vorbis: infinite loop if codebook_entries>=256
+x Id3v2: crash with some unsynchronized frames, especially with UTF-16 comments
+x Id3v2: Wrong mime type of covers
+x MPEG-PS: crash in case of language info in descriptors
+x Java binding: crash with MediaInfo::Inform() (Windows 32-bit only)
+x MPEG-TS: false-positive in case of some MPEG-4 files with wrong extension
+x FLV: crash in some specific cases (malformed files)
+x 3548314, MVC: Scan type was wrong with MVC-only (without the underlying AVC stream) stream
+x 3553588, MPLS: stream duration was wrong with standalone (without the referenced M2TS) files
+x 3553588, MPLS: incoherent behavior with MPLS having more than one PlayListItem
+x 3554154, MPEG-TS: crash with some corrupted streams
+x MOV: all EIA/CEA-608 captions were not well detected
+x Matroska: Trying to better detect VFR streams, frame rate was wrong in case of interlaced content
+
 Version 0.7.58, 2012-05-28
 --------------
 + AC-3: Little Endian streams support
