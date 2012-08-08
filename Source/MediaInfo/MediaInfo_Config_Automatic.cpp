@@ -1137,6 +1137,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "LZ77;;;I;;;;;\n"
     "MNG;;;I;Mng;Multiple-Image Network Graphic;mng;;;Lossless\n"
     "PNG;;;I;Png;Portable Network Graphic;png;image/png;;Lossless\n"
+    "PSD;;;I;Psd;Photoshop File Format;psd;image/psd;http://www.adobe.com/;Lossless\n"
     "RIFF Palette;;;I;Riff;RIFF Palette;;;\n"
     "RLE;;;I;;Run-length encoding;rle;;\n"
     "TIFF;;;I;Tiff;;tiff tif;image/tiff;\n"

@@ -84,6 +84,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Image/File_Ico.cpp \
                        ../../../Source/MediaInfo/Image/File_Jpeg.cpp \
                        ../../../Source/MediaInfo/Image/File_Png.cpp \
+                       ../../../Source/MediaInfo/Image/File_Psd.cpp \
                        ../../../Source/MediaInfo/Image/File_Rle.cpp \
                        ../../../Source/MediaInfo/Image/File_Tiff.cpp \
                        ../../../Source/MediaInfo/Image/File_Tga.cpp \

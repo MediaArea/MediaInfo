@@ -599,6 +599,9 @@
 #if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_PNG_NO) && !defined(MEDIAINFO_PNG_YES)
     #define MEDIAINFO_PNG_YES
 #endif
+#if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_PSD_NO) && !defined(MEDIAINFO_PSD_YES)
+    #define MEDIAINFO_PSD_YES
+#endif
 #if !defined(MEDIAINFO_IMAGE_NO) && !defined(MEDIAINFO_RLE_NO) && !defined(MEDIAINFO_RLE_YES)
     #define MEDIAINFO_RLE_YES
 #endif

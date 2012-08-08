@@ -95,6 +95,7 @@ set(mediainfo_SRCS
 	MediaInfo/Image/File_Ico.cpp
 	MediaInfo/Image/File_Jpeg.cpp
 	MediaInfo/Image/File_Png.cpp
+	MediaInfo/Image/File_Psd.cpp
 	MediaInfo/Image/File_Rle.cpp
 	MediaInfo/Image/File_Tiff.cpp
 	MediaInfo/Image/File_Tga.cpp

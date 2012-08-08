@@ -252,6 +252,9 @@
 #if defined(MEDIAINFO_PNG_YES)
     #include "MediaInfo/Image/File_Png.h"
 #endif
+#if defined(MEDIAINFO_PSD_YES)
+    #include "MediaInfo/Image/File_Psd.h"
+#endif
 #if defined(MEDIAINFO_TIFF_YES)
     #include "MediaInfo/Image/File_Tiff.h"
 #endif
@@ -551,6 +554,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_PNG_YES)
         Temp=new File_Png(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_PSD_YES)
+        Temp=new File_Psd(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_TIFF_YES)
         Temp=new File_Tiff(); Parser.push_back(Temp);

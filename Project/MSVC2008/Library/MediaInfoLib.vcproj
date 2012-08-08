@@ -1008,6 +1008,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_Psd.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Rle.cpp"
 					>
 				</File>
@@ -1701,6 +1705,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Png.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_Psd.h"
 					>
 				</File>
 				<File

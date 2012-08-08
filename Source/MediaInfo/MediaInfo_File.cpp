@@ -286,6 +286,9 @@
 #if defined(MEDIAINFO_PNG_YES)
     #include "MediaInfo/Image/File_Png.h"
 #endif
+#if defined(MEDIAINFO_PSD_YES)
+    #include "MediaInfo/Image/File_Psd.h"
+#endif
 #if defined(MEDIAINFO_TIFF_YES)
     #include "MediaInfo/Image/File_Tiff.h"
 #endif
@@ -601,6 +604,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_PNG_YES)
         else if (Parser==__T("Png"))         Info=new File_Png();
     #endif
+    #if defined(MEDIAINFO_PSD_YES)
+        else if (Parser==__T("Psd"))         Info=new File_Psd();
+    #endif
     #if defined(MEDIAINFO_TIFF_YES)
         else if (Parser==__T("Tiff"))        Info=new File_Tiff();
     #endif
@@ -895,6 +901,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_PNG_YES)
         delete Info; Info=new File_Png();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_PSD_YES)
+        delete Info; Info=new File_Psd();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TIFF_YES)
         delete Info; Info=new File_Tiff();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
