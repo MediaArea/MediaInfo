@@ -1,5 +1,5 @@
 // File_Pcx - Info for CX files
-// Copyright (C) 2012-2012 Lionel DUCHATEAU, kurtnoise@free.fr
+// Copyright (C) 2012-2012 Lionel Duchateau, kurtnoise@free.fr
 // Copyright (C) 2005-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it

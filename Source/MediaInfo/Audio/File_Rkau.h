@@ -1,6 +1,6 @@
 // File_Rkau - Info for RKAU files
-// Copyright (C) 2011-2011 MediaArea.net SARL, Info@MediaArea.net
-// Copyright (C) 2011-2011 Lionel DUCHATEAU, kurtnoise@free.fr
+// Copyright (C) 2011-2012 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2011-2012 Lionel Duchateau, kurtnoise@free.fr
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by

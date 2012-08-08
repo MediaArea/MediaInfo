@@ -1,6 +1,6 @@
 // File_Celt - Info for CELT files
-// Copyright (C) 2010-2011 Lionel Duchateau, kurtnoise@free.fr
-// Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2010-2012 Lionel Duchateau, kurtnoise@free.fr
+// Copyright (C) 2010-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by
