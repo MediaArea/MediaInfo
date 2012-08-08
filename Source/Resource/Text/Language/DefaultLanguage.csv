@@ -4,10 +4,10 @@
   Author_OldNames;Initial translator
   Language_Name;English
   Config_Text_ColumnSize;40
-  Config_Text_Separator; : 
+  Config_Text_Separator; :
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
-  Config_Text_ThousandsSeparator; 
+  Config_Text_ThousandsSeparator;
  audio stream1; audio stream
  audio stream2; audio streams
  audio stream3; audio streams
@@ -139,8 +139,8 @@
  year1; year
  year2; years
  year3; years
-, ;, 
-: ;: 
+, ;,
+: ;:
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal

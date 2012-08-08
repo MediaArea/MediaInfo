@@ -141,7 +141,7 @@ DTNT;Media-100;4CC;V;;;Media-100
 DUCK;TrueMotion S;4CC;V;;;Duck Corporation True Motion S
 DV10;BlueFish;4CC;V;;;BlueFish444 (lossless RGBA, YUV 10-bit)
 DV25;DVCPro;4CC;V;DV;;Matrox DVCPRO
-DV50;DVCPro5;4CC;V;DV;;Matrox 
+DV50;DVCPro5;4CC;V;DV;;Matrox
 DVAN;Pinnacle DV300;4CC;V;DV;;Pinnacle miroVideo DV300 SW only;
 DVC ;Apple DV NTSC;4CC;V;DV;;Apple QuickTime DV (DVCPRO NTSC);http://www.apple.com/quicktime/download/standalone.html
 dvc ;Apple DV NTSC;4CC;V;DV;;Apple QuickTime DV (DVCPRO NTSC);http://www.apple.com/quicktime/download/standalone.html
@@ -571,10 +571,10 @@ U<YA;Discreet YUV;4CC;V;;;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel);
 U263;UB H.263;4CC;V;;;UB Video H.263/H.263+/H.263++ Decoder;http://eMajix.com
 UCOD;ClearVideo;4CC;V;;;ClearVideo (fractal compression-based);
 ULRA;RGBA;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGBA;4:4:4:4
-ULRG;RGB;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGB;4:4:4 
+ULRG;RGB;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGB;4:4:4
 ULTI;Ultimotion;4CC;V;;;IBM Ultimotion;
 ULY0;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:2
-ULY2;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:0 
+ULY2;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:0
 UMP4;UB MPEG-4;4CC;V;MPEG-4V;;UB Video MPEG 4;http://www.fourcc.org/indexyuv.htm
 UYNV;YUV;4CC;V;YUV;;Nvidia 16bpp. A direct copy of UYVY registered by Nvidia to work around problems in some olds which did not like hardware which offered more than 2 UYVY surfaces.;http://www.fourcc.org/indexyuv.htm
 UYVP;YUV;4CC;V;YUV;;Evans & Sutherland 24bpp. YCbCr 4:2:2 extended precision 10-bits per component in U0Y0V0Y1 order;
