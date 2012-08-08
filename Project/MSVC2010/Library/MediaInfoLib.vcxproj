@@ -289,6 +289,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\File_Unknown.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Dpx.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Exr.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Pcx.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Psd.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Tga.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo.cpp" />
@@ -473,6 +474,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\File_Unknown.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dpx.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Exr.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Pcx.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Psd.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Tga.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo.h" />

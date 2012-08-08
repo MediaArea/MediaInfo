@@ -106,6 +106,7 @@ JPEG;;;I;Jpeg;;jpeg jpg jpe;image/jpeg;;Lossy
 JPEG 2000;;;I;Jpeg;;jp2;image/jp2;http://www.morgan-multimedia.com/JPEG 2000/;
 LZ77;;;I;;;;;;
 MNG;;;I;Mng;Multiple-Image Network Graphic;mng;;;Lossless
+PCX;;;I;pcx;Personal Computer eXchange;pcx;image/pcx;;Lossless
 PNG;;;I;Png;Portable Network Graphic;png;image/png;;Lossless
 PSD;;;I;Psd;Photoshop File Format;psd;image/psd;http://www.adobe.com/;Lossless
 RIFF Palette;;;I;Riff;RIFF Palette;;;;

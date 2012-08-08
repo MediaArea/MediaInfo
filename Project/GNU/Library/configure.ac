@@ -110,6 +110,7 @@ AC_ARG_ENABLE(exr,     AC_HELP_STRING([--disable-exr],     [Disable Image - EXR]
 AC_ARG_ENABLE(gif,     AC_HELP_STRING([--disable-gif],     [Disable Image - GIF]),                                        MediaInfoGif=$enableval,     MediaInfoGif=depend)
 AC_ARG_ENABLE(ico,     AC_HELP_STRING([--disable-ico],     [Disable Image - ICO]),                                        MediaInfoIco=$enableval,     MediaInfoIco=depend)
 AC_ARG_ENABLE(jpeg,    AC_HELP_STRING([--disable-jpeg],    [Disable Image - JPEG]),                                       MediaInfoJpeg=$enableval,    MediaInfoJpeg=depend)
+AC_ARG_ENABLE(pcx,     AC_HELP_STRING([--disable-pcx],     [Disable Image - PCX]),                                        MediaInfoPcx=$enableval,     MediaInfoPcx=depend)
 AC_ARG_ENABLE(png,     AC_HELP_STRING([--disable-png],     [Disable Image - PNG]),                                        MediaInfoPng=$enableval,     MediaInfoPng=depend)
 AC_ARG_ENABLE(psd,     AC_HELP_STRING([--disable-psd],     [Disable Image - PSD]),                                        MediaInfoPsd=$enableval,     MediaInfoPsd=depend)
 AC_ARG_ENABLE(rle,     AC_HELP_STRING([--disable-rle],     [Disable Image - Run-length encoding]),                        MediaInfoRle=$enableval,     MediaInfoRle=depend)
@@ -239,6 +240,7 @@ if test "$MediaInfoExr"     = "no";  then AC_DEFINE(MEDIAINFO_EXR_NO)     fi; if
 if test "$MediaInfoGif"     = "no";  then AC_DEFINE(MEDIAINFO_GIF_NO)     fi; if test "$MediaInfoGif"     = "yes"; then AC_DEFINE(MEDIAINFO_GIF_YES)     fi
 if test "$MediaInfoIco"     = "no";  then AC_DEFINE(MEDIAINFO_ICO_NO)     fi; if test "$MediaInfoIco"     = "yes"; then AC_DEFINE(MEDIAINFO_ICO_YES)     fi
 if test "$MediaInfoJpeg"    = "no";  then AC_DEFINE(MEDIAINFO_JPEG_NO)    fi; if test "$MediaInfoJpeg"    = "yes"; then AC_DEFINE(MEDIAINFO_JPEG_YES)    fi
+if test "$MediaInfoPcx"     = "no";  then AC_DEFINE(MEDIAINFO_PCX_NO)     fi; if test "$MediaInfoPcx"     = "yes"; then AC_DEFINE(MEDIAINFO_PCX_YES)     fi
 if test "$MediaInfoPng"     = "no";  then AC_DEFINE(MEDIAINFO_PNG_NO)     fi; if test "$MediaInfoPng"     = "yes"; then AC_DEFINE(MEDIAINFO_PNG_YES)     fi
 if test "$MediaInfoPsd"     = "no";  then AC_DEFINE(MEDIAINFO_PSD_NO)     fi; if test "$MediaInfoPsd"     = "yes"; then AC_DEFINE(MEDIAINFO_PSD_YES)     fi
 if test "$MediaInfoTiff"    = "no";  then AC_DEFINE(MEDIAINFO_TIFF_NO)    fi; if test "$MediaInfoTiff"    = "yes"; then AC_DEFINE(MEDIAINFO_TIFF_YES)    fi
@@ -758,6 +760,7 @@ Mcho "Exr    " "$MediaInfoDpx"
 Mcho "Gif    " "$MediaInfoGif"
 Mcho "Ico    " "$MediaInfoIco"
 Mcho "Jpeg   " "$MediaInfoJpeg"
+Mcho "Pcx    " "$MediaInfoPcx"
 Mcho "Png    " "$MediaInfoPng"
 Mcho "Psd    " "$MediaInfoPsd"
 Mcho "Tiff   " "$MediaInfoTiff"

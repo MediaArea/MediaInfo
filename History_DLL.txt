@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.59, 2012-
 --------------
 + License: Switched back to LGPLv2+Exceptions
++ #3555183, PCX support, thanks to Lionel Duchateau
 + #3555182, PSD support, thanks to Lionel Duchateau
 + #3555181, Matroska: ALAC detection, thanks to Lionel Duchateau
 + #3540425, OGG/MKV: Opus speech format support, thanks to Lionel Duchateau

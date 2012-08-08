@@ -104,6 +104,7 @@
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Ico.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Jpeg.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Jpeg.h" />
+		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Pcx.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Png.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Psd.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Png.h" />

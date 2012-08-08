@@ -283,6 +283,9 @@
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
+#if defined(MEDIAINFO_PCX_YES)
+    #include "MediaInfo/Image/File_Pcx.h"
+#endif
 #if defined(MEDIAINFO_PNG_YES)
     #include "MediaInfo/Image/File_Png.h"
 #endif
@@ -601,6 +604,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_JPEG_YES)
         else if (Parser==__T("Jpeg"))        Info=new File_Jpeg();
     #endif
+    #if defined(MEDIAINFO_PCX_YES)
+        else if (Parser==__T("PCX"))         Info=new File_Pcx();
+    #endif
     #if defined(MEDIAINFO_PNG_YES)
         else if (Parser==__T("Png"))         Info=new File_Png();
     #endif
@@ -898,6 +904,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_JPEG_YES)
         delete Info; Info=new File_Jpeg();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_PCX_YES)
+        delete Info; Info=new File_Pcx();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_PNG_YES)
         delete Info; Info=new File_Png();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
