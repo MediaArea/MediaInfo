@@ -129,7 +129,11 @@
 
 /*-------------------------------------------------------------------------*/
 #if defined (_WIN32) || defined (WIN32)
-    #define MEDIAINFODLL_NAME  "MediaInfo.dll"
+    #ifdef _UNICODE
+        #define MEDIAINFODLL_NAME  L"MediaInfo.dll"
+    #else //_UNICODE
+        #define MEDIAINFODLL_NAME  "MediaInfo.dll"
+    #endif //_UNICODE
 #elif defined(__APPLE__) && defined(__MACH__)
     #define MEDIAINFODLL_NAME  "libmediainfo.0.dylib"
     #define __stdcall
@@ -313,7 +317,7 @@ static size_t MediaInfoDLL_Load()
     #ifdef MEDIAINFO_GLIBC
         MediaInfo_Module=g_module_open(MEDIAINFODLL_NAME, G_MODULE_BIND_LAZY);
     #elif defined (_WIN32) || defined (WIN32)
-        MediaInfo_Module=LoadLibrary(__T(MEDIAINFODLL_NAME));
+        MediaInfo_Module=LoadLibrary(MEDIAINFODLL_NAME);
     #else
         MediaInfo_Module=dlopen(MEDIAINFODLL_NAME, RTLD_LAZY);
         if (!MediaInfo_Module)
@@ -492,7 +496,7 @@ enum fileoptions_t
     FileOption_Max          =0x04
 };
 
-const String Unable_Load_DLL=__T("Unable to load ")__T(MEDIAINFODLL_NAME);
+const String Unable_Load_DLL=__T("Unable to load ")MEDIAINFODLL_NAME;
 #define MEDIAINFO_TEST_VOID \
     if (!IsReady()) return
 #define MEDIAINFO_TEST_INT \
