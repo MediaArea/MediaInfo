@@ -1,7 +1,7 @@
 .mp3;MPEG Audio;;;;
 A104;AMR;;;http://www.apple.com/quicktime/download/standalone.html;Wide band
 ac-3;AC-3;;;;
-alac;ALAC;;Apple Lossless Format;http://www.apple.com/quicktime/download/standalone.html;
+alac;ALAC;;Apple Lossless Audio Codec;http://www.apple.com/quicktime/download/standalone.html;
 alaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html;
 dtsc;DTS;;Digital Theater Systems;http://www.dts.com;
 dtsh;DTS;HRA;Digital Theater Systems High Res;http://www.dts.com;

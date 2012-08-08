@@ -2198,6 +2198,7 @@ void MediaInfo_Config_CodecID_Audio_Matroska (InfoMap &Info)
     "A_AAC/MPEG4/LC/SBR/PS;AAC;;\n"
     "A_AAC/MPEG4/SSR;AAC\n"
     "A_AAC/MPEG4/LTP;AAC\n"
+    "A_ALAC;ALAC;;Apple Lossless Audio Codec;http://www.apple.com/quicktime/download/standalone.html\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -2210,7 +2211,7 @@ void MediaInfo_Config_CodecID_Audio_Mpeg4 (InfoMap &Info)
     ".mp3;MPEG Audio;;;\n"
     "A104;AMR;;;http://www.apple.com/quicktime/download/standalone.html;Wide band\n"
     "ac-3;AC-3;;;\n"
-    "alac;ALAC;;Apple Lossless Format;http://www.apple.com/quicktime/download/standalone.html\n"
+    "alac;ALAC;;Apple Lossless Audio Codec;http://www.apple.com/quicktime/download/standalone.html\n"
     "alaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "dtsc;DTS;;Digital Theater Systems;http://www.dts.com\n"
     "dtsh;DTS;HRA;Digital Theater Systems High Res;http://www.dts.com\n"
