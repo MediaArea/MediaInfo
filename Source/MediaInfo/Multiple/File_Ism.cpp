@@ -157,7 +157,7 @@ bool File_Ism::FileHeader_Begin()
                                         if (string(Param->Value())=="param")
                                         {
                                             Attribute=Param->Attribute("name");
-                                            if (Attribute && Ztring().From_UTF8(Attribute)==_T("trackID"))
+                                            if (Attribute && Ztring().From_UTF8(Attribute)==__T("trackID"))
                                             {
                                                 Attribute=Param->Attribute("value");
                                                 if (Attribute)

@@ -424,7 +424,7 @@ File_Flv::File_Flv()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("FLV");
+    ParserName=__T("FLV");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Flv;
         StreamIDs_Width[0]=2;
@@ -495,9 +495,9 @@ void File_Flv::Streams_Fill()
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
 
         //Special case: AAC
-        if (Retrieve(Stream_Audio, 0, Audio_Format)==_T("AAC")
-         || Retrieve(Stream_Audio, 0, Audio_Format)==_T("MPEG Audio")
-         || Retrieve(Stream_Audio, 0, Audio_Format)==_T("Vorbis"))
+        if (Retrieve(Stream_Audio, 0, Audio_Format)==__T("AAC")
+         || Retrieve(Stream_Audio, 0, Audio_Format)==__T("MPEG Audio")
+         || Retrieve(Stream_Audio, 0, Audio_Format)==__T("Vorbis"))
             Clear(Stream_Audio, 0, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
     }
 
@@ -729,7 +729,7 @@ void File_Flv::Header_Parse()
     {
         int32u Timestamp_Base;
         int8u  Timestamp_Extended;
-        Get_B1 (Type,                                           "Type"); //Param_Info1(Type<19?Flv_Type[Type]:_T("Unknown"));
+        Get_B1 (Type,                                           "Type"); //Param_Info1(Type<19?Flv_Type[Type]:__T("Unknown"));
         Get_B3 (BodyLength,                                     "BodyLength");
         Get_B3 (Timestamp_Base,                                 "Timestamp_Base"); //in ms
         Get_B1 (Timestamp_Extended,                             "Timestamp_Extended"); //TimeStamp = Timestamp_Extended*0x01000000+Timestamp_Base
@@ -1011,8 +1011,8 @@ void File_Flv::video_VP6(bool WithAlpha)
             Skip_B2(                                            "Offset");
         Skip_B1(                                                "MacroBlock_Height");
         Skip_B1(                                                "MacroBlock_Width");
-        Get_B1 (Height,                                         "Height"); Param_Info1(Ztring::ToZtring(Height*16)+_T(" pixels"));
-        Get_B1 (Width,                                          "Width"); Param_Info1(Ztring::ToZtring(Width*16)+_T(" pixels"));
+        Get_B1 (Height,                                         "Height"); Param_Info1(Ztring::ToZtring(Height*16)+__T(" pixels"));
+        Get_B1 (Width,                                          "Width"); Param_Info1(Ztring::ToZtring(Width*16)+__T(" pixels"));
 
         FILLING_BEGIN();
             if (Width && Height)
@@ -1101,9 +1101,9 @@ void File_Flv::audio()
     Element_Begin1("Stream header");
     BS_Begin();
     Get_S1 (4, codec,                                           "codec"); Param_Info1(Flv_Codec_Audio[codec]); Element_Info1(Flv_Codec_Audio[codec]);
-    Get_S1 (2, sampling_rate,                                   "sampling_rate"); Param_Info1(Ztring::ToZtring(Flv_SamplingRate[sampling_rate])+_T(" Hz"));
-    Get_SB (   is_16bit,                                        "is_16bit"); Param_Info1(Ztring::ToZtring(Flv_Resolution[is_16bit])+_T(" bits"));
-    Get_SB (   is_stereo,                                       "is_stereo"); Param_Info1(Ztring::ToZtring(Flv_Channels[is_stereo])+_T(" channel(s)"));
+    Get_S1 (2, sampling_rate,                                   "sampling_rate"); Param_Info1(Ztring::ToZtring(Flv_SamplingRate[sampling_rate])+__T(" Hz"));
+    Get_SB (   is_16bit,                                        "is_16bit"); Param_Info1(Ztring::ToZtring(Flv_Resolution[is_16bit])+__T(" bits"));
+    Get_SB (   is_stereo,                                       "is_stereo"); Param_Info1(Ztring::ToZtring(Flv_Channels[is_stereo])+__T(" channel(s)"));
     BS_End();
     Element_End0();
 
@@ -1258,7 +1258,7 @@ void File_Flv::meta_SCRIPTDATAVARIABLE()
 void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
 {
     std::string StringDataModified(StringData);
-    if (!StringDataModified.empty() && StringDataModified[0]==_T('_'))
+    if (!StringDataModified.empty() && StringDataModified[0]==__T('_'))
         StringDataModified.erase(StringDataModified.begin());
 
     //Parsing
@@ -1355,7 +1355,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else if (StringDataModified=="Encoded_With") {ToFill=General_Encoded_Application;}
                     else if (StringDataModified=="Encoded_By") {ToFill=General_Encoded_Application;}
                     else if (StringDataModified=="metadatacreator") {ToFill=General_Tagged_Application;}
-                    else if (StringDataModified=="creation_time") {ToFill=General_Encoded_Date; Value.insert(0, _T("UTC "));}
+                    else if (StringDataModified=="creation_time") {ToFill=General_Encoded_Date; Value.insert(0, __T("UTC "));}
                     else if (StringDataModified=="sourcedata") {}
                     else if (StringDataModified=="audiocodecid") {}
                     else if (StringDataModified=="videocodecid") {}
@@ -1363,10 +1363,10 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                             || StringDataModified=="minor_version"
                             || StringDataModified=="compatible_brands"))
                         ToFillS=StringData;
-                    if (Value.find(_T('\r'))!=std::string::npos)
-                        Value.resize(Value.find(_T('\r')));
-                    if (Value.find(_T('\n'))!=std::string::npos)
-                        Value.resize(Value.find(_T('\n')));
+                    if (Value.find(__T('\r'))!=std::string::npos)
+                        Value.resize(Value.find(__T('\r')));
+                    if (Value.find(__T('\n'))!=std::string::npos)
+                        Value.resize(Value.find(__T('\n')));
                     Element_Info1(Value);
                     if (ToFill!=(size_t)-1)
                         Fill(Stream_General, 0, ToFill, Value, true);
@@ -1404,7 +1404,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 {
                     Ztring Value;
                     Get_Local(Value_Size, Value,                "Value");
-                    if (Value==_T("unknown")) Value.clear();
+                    if (Value==__T("unknown")) Value.clear();
                     Element_Info1C((!Value.empty()), Value);
                     Fill(Stream_General, 0, StringData.c_str(), Value, true);
                 }
@@ -1426,7 +1426,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
             {
                 int32u ECMAArrayLength;
                 Get_B4 (ECMAArrayLength,                        "ECMAArrayLength");
-                Element_Info1(Ztring::ToZtring(ECMAArrayLength)+_T(" elements"));
+                Element_Info1(Ztring::ToZtring(ECMAArrayLength)+__T(" elements"));
                 for (int32u Pos=0; Pos<ECMAArrayLength; Pos++)
                 {
                     meta_SCRIPTDATAVARIABLE();

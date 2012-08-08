@@ -56,14 +56,14 @@ void File_Adpcm::Read_Buffer_Continue()
     Fill(Stream_General, 0, Audio_Format, "ADPCM");
     Fill(Stream_General, 0, Audio_Codec, "ADPCM");
     Ztring Profile, Firm;
-         if (Codec==_T("alaw"))             {Profile=_T("A-Law");}
-    else if (Codec==_T("ulaw"))             {Profile=_T("U-Law");}
-    else if (Codec==_T("ima4"))             {                     Firm=_T("IMA");}
-    else if (Codec==_T("6"))                {Profile=_T("A-Law");}
-    else if (Codec==_T("7"))                {Profile=_T("U-Law");}
-    else if (Codec==_T("102"))              {Profile=_T("A-Law");}
-    else if (Codec==_T("171"))              {Profile=_T("U-Law"); Firm=_T("Unisys");}
-    else if (Codec==_T("172"))              {Profile=_T("A-Law"); Firm=_T("Unisys");}
+         if (Codec==__T("alaw"))             {Profile=__T("A-Law");}
+    else if (Codec==__T("ulaw"))             {Profile=__T("U-Law");}
+    else if (Codec==__T("ima4"))             {                     Firm=__T("IMA");}
+    else if (Codec==__T("6"))                {Profile=__T("A-Law");}
+    else if (Codec==__T("7"))                {Profile=__T("U-Law");}
+    else if (Codec==__T("102"))              {Profile=__T("A-Law");}
+    else if (Codec==__T("171"))              {Profile=__T("U-Law"); Firm=__T("Unisys");}
+    else if (Codec==__T("172"))              {Profile=__T("A-Law"); Firm=__T("Unisys");}
 
     if (!Profile.empty())
         Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);

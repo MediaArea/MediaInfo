@@ -88,18 +88,18 @@ bool File_Avc::File__Duplicate_Set (const Ztring &Value)
     {
         //Detecting if we want to remove
         bool ToRemove=false;
-        if (Current->find(_T('-'))==0)
+        if (Current->find(__T('-'))==0)
         {
             ToRemove=true;
             Current->erase(Current->begin());
         }
 
         //Managing targets
-        if (Current->find(_T("file:"))==0
-         || Current->find(_T("memory:"))==0)
+        if (Current->find(__T("file:"))==0
+         || Current->find(__T("memory:"))==0)
             (ToRemove?Targets_ToRemove:Targets_ToAdd).push_back(Current);
         //Parser name
-        else if (Current->find(_T("parser=Avc"))==0)
+        else if (Current->find(__T("parser=Avc"))==0)
             IsForUs=true;
         //Managing orders
         else
@@ -122,7 +122,7 @@ bool File_Avc::File__Duplicate_Set (const Ztring &Value)
 
     //For each order to add
     for (std::vector<ZtringList::iterator>::iterator Order=Orders_ToAdd.begin(); Order<Orders_ToAdd.end(); Order++)
-        if ((**Order)==_T("format=Flv"))
+        if ((**Order)==__T("format=Flv"))
             FLV=true;
 
     return true;

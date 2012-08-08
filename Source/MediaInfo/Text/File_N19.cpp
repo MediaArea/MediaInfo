@@ -268,9 +268,9 @@ void File_N19::FileHeader_Parse()
 
         Fill(Stream_General, 0, General_Format, "N19");
         Fill(Stream_General, 0, General_Title, OPT);
-        RD.insert(0, _T("20"));
-        RD.insert(4, _T("-"));
-        RD.insert(7, _T("-"));
+        RD.insert(0, __T("20"));
+        RD.insert(4, __T("-"));
+        RD.insert(7, __T("-"));
         Fill(Stream_General, 0, General_Recorded_Date, RD);
         Fill(Stream_General, 0, General_Country, Ztring(CO).MakeLowerCase());
         Fill(Stream_General, 0, General_DistributedBy, EN);
@@ -309,9 +309,9 @@ void File_N19::FileHeader_Parse()
             }
         }
         Fill(Stream_Text, 0, Text_Width, MNC.To_int32u());
-        Fill(Stream_Text, 0, Text_Width_String, Ztring::ToZtring(MNC.To_int32u())+_T(" characters"), true);
+        Fill(Stream_Text, 0, Text_Width_String, Ztring::ToZtring(MNC.To_int32u())+__T(" characters"), true);
         Fill(Stream_Text, 0, Text_Height, MNR.To_int32u());
-        Fill(Stream_Text, 0, Text_Height_String, Ztring::ToZtring(MNR.To_int32u())+_T(" characters"), true);
+        Fill(Stream_Text, 0, Text_Height_String, Ztring::ToZtring(MNR.To_int32u())+__T(" characters"), true);
         Fill(Stream_Text, 0, Text_Language, N19_LanguageCode(LC));
 
         //Init
@@ -328,7 +328,7 @@ void File_N19::Header_Parse()
 {
     //Filling
     Header_Fill_Size(128);
-    Header_Fill_Code(0, _T("TTI"));
+    Header_Fill_Code(0, __T("TTI"));
 }
 
 //---------------------------------------------------------------------------

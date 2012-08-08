@@ -147,7 +147,7 @@ File_Ancillary::File_Ancillary()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("Ancillary");
+    ParserName=__T("Ancillary");
 
     //In
     WithTenBit=false;
@@ -182,7 +182,7 @@ void File_Ancillary::Streams_Finish()
             {
                 Merge(*Cdp_Parser, Stream_Text, StreamPos, StreamPos);
                 Ztring MuxingMode=Cdp_Parser->Retrieve(Stream_Text, StreamPos, "MuxingMode");
-                Fill(Stream_Text, StreamPos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
+                Fill(Stream_Text, StreamPos, "MuxingMode", __T("Ancillary data / ")+MuxingMode, true);
             }
         }
     #endif //defined(MEDIAINFO_CDP_YES)
@@ -326,7 +326,7 @@ void File_Ancillary::Header_Parse()
         WithChecksum_Temp=true;
 
     //Filling
-    Header_Fill_Code((((int16u)DataID)<<8)|SecondaryDataID, Ztring().From_CC1(DataID)+_T('-')+Ztring().From_CC1(SecondaryDataID));
+    Header_Fill_Code((((int16u)DataID)<<8)|SecondaryDataID, Ztring().From_CC1(DataID)+__T('-')+Ztring().From_CC1(SecondaryDataID));
     Header_Fill_Size(((MustSynchronize?3:0)+3+DataCount+(WithChecksum_Temp?1:0))*(WithTenBit?2:1));
 }
 

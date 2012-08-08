@@ -349,7 +349,7 @@ void File_Eia608::XDS_Current_ProgramName()
         ValueS.append(1, (const char)(XDS_Data[XDS_Level][Pos]));
     Ztring Value;
     Value.From_UTF8(ValueS.c_str());
-    Element_Info1(_T("Program Name=")+Value);
+    Element_Info1(__T("Program Name=")+Value);
 }
 
 //---------------------------------------------------------------------------
@@ -379,7 +379,7 @@ void File_Eia608::XDS_Channel_NetworkName()
         ValueS.append(1, (const char)(XDS_Data[XDS_Level][Pos]));
     Ztring Value;
     Value.From_UTF8(ValueS.c_str());
-    Element_Info1(_T("Network Name=")+Value);
+    Element_Info1(__T("Network Name=")+Value);
 }
 
 //---------------------------------------------------------------------------

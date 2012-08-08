@@ -51,7 +51,7 @@ File_Scc::File_Scc()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("SCC");
+    ParserName=__T("SCC");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Scc;
     #endif //MEDIAINFO_EVENTS
@@ -183,7 +183,7 @@ void File_Scc::Header_Parse()
 
     //Filling
     Header_Fill_Size(End-Buffer_Offset);
-    Header_Fill_Code(0, _T("Block"));
+    Header_Fill_Code(0, __T("Block"));
 }
 
 //---------------------------------------------------------------------------

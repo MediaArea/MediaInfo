@@ -97,7 +97,7 @@ File_ChannelGrouping::~File_ChannelGrouping()
 //---------------------------------------------------------------------------
 void File_ChannelGrouping::Streams_Fill()
 {
-    if (Common->Parser->Count_Get(Stream_Audio)==0 || Common->Parser->Get(Stream_Audio, 0, Audio_Format)==_T("PCM"))
+    if (Common->Parser->Count_Get(Stream_Audio)==0 || Common->Parser->Get(Stream_Audio, 0, Audio_Format)==__T("PCM"))
     {
         Fill(Stream_General, 0, General_Format, "PCM");
         Stream_Prepare(Stream_Audio);
@@ -275,7 +275,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     {
         if (!Status[IsFilled] && Common->Parser->Status[IsAccepted])
         {
-            if (Common->Parser->Get(Stream_Audio, 0, Audio_Format)==_T("PCM"))
+            if (Common->Parser->Get(Stream_Audio, 0, Audio_Format)==__T("PCM"))
                 Common->IsPcm=true;
             else
             {

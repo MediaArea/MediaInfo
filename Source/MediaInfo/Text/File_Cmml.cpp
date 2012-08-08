@@ -105,10 +105,10 @@ void File_Cmml::Configuration()
 
     FILLING_BEGIN();
         Ztring Value;
-        Value=Data.SubString(_T("<head>"), _T("</head>"));
+        Value=Data.SubString(__T("<head>"), __T("</head>"));
         if (!Value.empty())
-            Fill(Stream_Text, 0, Text_Title, Value.SubString(_T("<title>"), _T("</title>")));
-        if (Data.find(_T("<clip"))!=string::npos)
+            Fill(Stream_Text, 0, Text_Title, Value.SubString(__T("<title>"), __T("</title>")));
+        if (Data.find(__T("<clip"))!=string::npos)
             Finish("CMML");
     FILLING_END();
 }

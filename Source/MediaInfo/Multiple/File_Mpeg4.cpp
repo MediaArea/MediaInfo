@@ -121,11 +121,11 @@ Ztring Mpeg4_Encoded_Library(int32u Vendor)
 {
     switch (Vendor)
     {
-        case 0x33495658 : return _T("3ivX");                //3IVX
-        case 0x6170706C : return _T("Apple QuickTime");     //appl
-        case 0x6E696B6F : return _T("Nikon");               //niko
-        case 0x6F6C796D : return _T("Olympus");             //olym
-        case 0x6F6D6E65 : return _T("Omneon");              //omne
+        case 0x33495658 : return __T("3ivX");                //3IVX
+        case 0x6170706C : return __T("Apple QuickTime");     //appl
+        case 0x6E696B6F : return __T("Nikon");               //niko
+        case 0x6F6C796D : return __T("Olympus");             //olym
+        case 0x6F6D6E65 : return __T("Omneon");              //omne
         default: return Ztring().From_CC4(Vendor);
     }
 }
@@ -135,10 +135,10 @@ Ztring Mpeg4_Language_Apple(int16u Language)
 {
     switch (Language)
     {
-        case  0 : return _T("en");
-        case  1 : return _T("fr");
-        case  2 : return _T("de");
-        case  6 : return _T("es");
+        case  0 : return __T("en");
+        case  1 : return __T("fr");
+        case  2 : return __T("de");
+        case  6 : return __T("es");
         default: return Ztring::ToZtring(Language);
     }
 }
@@ -235,7 +235,7 @@ void File_Mpeg4::Streams_Finish()
     #endif //defined(MEDIAINFO_REFERENCES_YES) && MEDIAINFO_NEXTPACKET
 
     //Final Cut EIA-608 format
-    if (Retrieve(Stream_General, 0, General_Format)==_T("Final Cut EIA-608"))
+    if (Retrieve(Stream_General, 0, General_Format)==__T("Final Cut EIA-608"))
     {
         for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
         {
@@ -244,7 +244,7 @@ void File_Mpeg4::Streams_Finish()
             {
                 Stream_Prepare(Stream_Text);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, Stream->first==1?"608-1":"608-2");
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("Final Cut"), Unlimited);
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", __T("Final Cut"), Unlimited);
                 Merge(*Stream->second.Parser, Stream_Text, 0, StreamPos_Last);
             }
         }
@@ -308,7 +308,7 @@ void File_Mpeg4::Streams_Finish()
                     break; //TODO: handle more complex Edit Lists
         }
         Delay+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)).To_float64()/1000; //TODO: use TimeCode value directly instead of the rounded value
-        if (!Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)).empty() && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source))!=_T("Container"))
+        if (!Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)).empty() && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source))!=__T("Container"))
         {
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)));
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)));
@@ -456,7 +456,7 @@ void File_Mpeg4::Streams_Finish()
                 Ztring FrameRate_Temp, FrameRate_Mode_Temp, Duration_Temp, Delay_Temp;
                 if (StreamKind_Last==Stream_Video)
                 {
-                    if (Temp->second.Parser && Retrieve(Stream_Video, 0, Video_CodecID_Hint)==_T("DVCPRO HD"))
+                    if (Temp->second.Parser && Retrieve(Stream_Video, 0, Video_CodecID_Hint)==__T("DVCPRO HD"))
                     {
                         Temp->second.Parser->Clear(Stream_Video, 0, Video_FrameRate);
                         Temp->second.Parser->Clear(Stream_Video, 0, Video_Width);
@@ -471,14 +471,14 @@ void File_Mpeg4::Streams_Finish()
                     Delay_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Delay);
 
                     //Special case: DV 1080i and MPEG-4 header is lying (saying this is 1920 pixel wide, but this is 1440 pixel wide)
-                    if (Temp->second.Parser->Get(Stream_Video, 0, Video_Format)==_T("DV") && Retrieve(Stream_Video, StreamKind_Last, Video_Width)==_T("1080"))
+                    if (Temp->second.Parser->Get(Stream_Video, 0, Video_Format)==__T("DV") && Retrieve(Stream_Video, StreamKind_Last, Video_Width)==__T("1080"))
                         Clear(Stream_Video, StreamKind_Last, Video_Width);
                 }
 
                 //Special case - Multiple sub-streams in a stream
-                if ((Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping") && Temp->second.Parser->Count_Get(Stream_Audio))
-                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("Final Cut EIA-608")
-                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("Final Cut CDP"))
+                if ((Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==__T("ChannelGrouping") && Temp->second.Parser->Count_Get(Stream_Audio))
+                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==__T("Final Cut EIA-608")
+                 ||  Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==__T("Final Cut CDP"))
                 {
                     //Before
                     Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize));
@@ -493,12 +493,12 @@ void File_Mpeg4::Streams_Finish()
                     stream_t NewKind=StreamKind_Last;
                     size_t NewPos1;
                     Ztring ID;
-                    if (Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==_T("ChannelGrouping"))
+                    if (Temp->second.Parser->Retrieve(Stream_General, 0, General_Format)==__T("ChannelGrouping"))
                     {
                         //Channel coupling, removing the 2 corresponding streams
                         NewPos1=(StreamPos_Last/2)*2;
                         size_t NewPos2=NewPos1+1;
-                        ID=Retrieve(StreamKind_Last, NewPos1, General_ID)+_T(" / ")+Retrieve(StreamKind_Last, NewPos2, General_ID);
+                        ID=Retrieve(StreamKind_Last, NewPos1, General_ID)+__T(" / ")+Retrieve(StreamKind_Last, NewPos2, General_ID);
 
                         Stream_Erase(NewKind, NewPos2);
                         Stream_Erase(NewKind, NewPos1);
@@ -531,7 +531,7 @@ void File_Mpeg4::Streams_Finish()
                         Stream_Prepare(NewKind, NewPos1+StreamPos);
                         Merge(*Temp->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
                         Ztring Parser_ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+_T("-")+Parser_ID, true);
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+__T("-")+Parser_ID, true);
                         for (size_t Pos=0; Pos<StreamSave.size(); Pos++)
                             if (Retrieve(StreamKind_Last, StreamPos_Last, Pos).empty())
                                 Fill(StreamKind_Last, StreamPos_Last, Pos, StreamSave[Pos]);
@@ -558,7 +558,7 @@ void File_Mpeg4::Streams_Finish()
                     if (!Delay_Temp.empty() && Delay_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_Delay))
                     {
                         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
-                            if (Retrieve(Stream_Audio, Pos, "MuxingMode_MoreInfo")==_T("Muxed in Video #1"))
+                            if (Retrieve(Stream_Audio, Pos, "MuxingMode_MoreInfo")==__T("Muxed in Video #1"))
                             {
                                 //Fill(Stream_Audio, Pos, Audio_Delay_Original, Retrieve(Stream_Audio, Pos, Audio_Delay));
                                 Fill(Stream_Audio, Pos, Audio_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
@@ -569,7 +569,7 @@ void File_Mpeg4::Streams_Finish()
                                 Fill(Stream_Audio, Pos, Audio_Delay_Original_Source, Retrieve(Stream_Video, StreamPos_Last, Video_Delay_Original_Source), true);
                             }
                         for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
-                            if (Retrieve(Stream_Text, Pos, "MuxingMode_MoreInfo")==_T("Muxed in Video #1"))
+                            if (Retrieve(Stream_Text, Pos, "MuxingMode_MoreInfo")==__T("Muxed in Video #1"))
                             {
                                 //Fill(Stream_Text, Pos, Text_Delay_Original, Retrieve(Stream_Text, Pos, Text_Delay));
                                 Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
@@ -584,9 +584,9 @@ void File_Mpeg4::Streams_Finish()
 
                 //Special case: AAC
                 if (StreamKind_Last==Stream_Audio
-                 && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
-                  || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
-                  || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
+                 && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("AAC")
+                  || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("MPEG Audio")
+                  || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("Vorbis")))
                     Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
                 //Special case: DV with Audio or/and Text in the video stream
@@ -603,12 +603,12 @@ void File_Mpeg4::Streams_Finish()
                         if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
                             Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
                         else
-                            Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
-                        Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                            Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+__T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, __T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                         Fill(Stream_Audio, Pos, Audio_StreamSize_Encoded, 0); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
-                        Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
+                        Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+__T("-")+ID, true);
                         Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
                         Fill(Stream_Audio, Pos, "Source_Info", Retrieve(Stream_Video, Temp->second.StreamPos, "Source_Info"));
                     }
@@ -624,12 +624,12 @@ void File_Mpeg4::Streams_Finish()
                         if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
                             Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
                         else
-                            Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
-                        Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                            Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+__T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
+                        Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, __T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                         Fill(Stream_Text, Pos, Text_StreamSize_Encoded, 0); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
+                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+__T("-")+ID, true);
                         Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
                         Fill(Stream_Text, Pos, "Source_Info", Retrieve(Stream_Video, Temp->second.StreamPos, "Source_Info"));
                     }
@@ -659,7 +659,7 @@ void File_Mpeg4::Streams_Finish()
             if (CodecID!=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID)))
             {
                 if (!CodecID.empty())
-                    CodecID+=_T(" / ");
+                    CodecID+=__T(" / ");
                 CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
                 Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
             }
@@ -690,12 +690,12 @@ void File_Mpeg4::Streams_Finish()
                     if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
                     else
-                        Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
-                    Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+__T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
+                    Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, __T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                     Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration), true);
                     Fill(Stream_Audio, Pos, Audio_StreamSize_Encoded, 0); //Included in the DV stream size
                     Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
-                    Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
+                    Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+__T("-")+ID, true);
                     Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
                     Fill(Stream_Audio, Pos, "Source_Info", Retrieve(Stream_Video, Temp->second.StreamPos, "Source_Info"));
                 }
@@ -711,12 +711,12 @@ void File_Mpeg4::Streams_Finish()
                     if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
                         Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
                     else
-                        Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+_T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
-                    Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+__T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
+                    Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, __T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                     Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                     Fill(Stream_Text, Pos, Text_StreamSize_Encoded, 0); //Included in the DV stream size
                     Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-                    Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
+                    Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+__T("-")+ID, true);
                     Fill(Stream_Text, Pos, "Source", Retrieve(Stream_Video, Temp->second.StreamPos, "Source"));
                     Fill(Stream_Text, Pos, "Source_Info", Retrieve(Stream_Video, Temp->second.StreamPos, "Source_Info"));
                 }
@@ -755,10 +755,10 @@ void File_Mpeg4::Streams_Finish()
 
         //Special case: QuickTime files and Stereo streams, there is a default value in QuickTime player, a QuickTime "standard"?
         if (StreamKind_Last==Stream_Audio
-            && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_)==_T("2")
+            && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_)==__T("2")
             && Retrieve(Stream_Audio, StreamPos_Last, Audio_ChannelLayout).empty()
             && Retrieve(Stream_Audio, StreamPos_Last, Audio_ChannelPositions).empty()
-            && Retrieve(Stream_General, 0, General_Format_Profile)==_T("QuickTime"))
+            && Retrieve(Stream_General, 0, General_Format_Profile)==__T("QuickTime"))
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan(101));
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, Mpeg4_chan_Layout(101));
@@ -771,7 +771,7 @@ void File_Mpeg4::Streams_Finish()
         Ztring VendorS=Mpeg4_Encoded_Library(Vendor);
         if (!Vendor_Version.empty())
         {
-            VendorS+=_T(' ');
+            VendorS+=__T(' ');
             VendorS+=Vendor_Version;
         }
         Fill(Stream_General, 0, General_Encoded_Library, VendorS);
@@ -860,7 +860,7 @@ void File_Mpeg4::Streams_Finish_CommercialNames()
     if (Count_Get(Stream_Video)==1)
     {
         Streams_Finish_StreamOnly();
-        if (Retrieve(Stream_Video, 0, Video_Format)==_T("DV") && Retrieve(Stream_Video, 0, Video_Format_Commercial)==_T("DVCPRO HD"))
+        if (Retrieve(Stream_Video, 0, Video_Format)==__T("DV") && Retrieve(Stream_Video, 0, Video_Format_Commercial)==__T("DVCPRO HD"))
         {
             int32u BitRate=Retrieve(Stream_Video, 0, Video_BitRate).To_int32u();
             int32u BitRate_Max=Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int32u();
@@ -875,24 +875,24 @@ void File_Mpeg4::Streams_Finish_CommercialNames()
              if (!Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny).empty())
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
-            Fill(Stream_General, 0, General_Format_Commercial, Retrieve(Stream_General, 0, General_Format)+_T(' ')+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
+            Fill(Stream_General, 0, General_Format_Commercial, Retrieve(Stream_General, 0, General_Format)+__T(' ')+Retrieve(Stream_Video, 0, Video_Format_Commercial_IfAny));
         }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("18000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("18000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==_T("18000000")))
+        else if (Retrieve(Stream_Video, 0, Video_Format)==__T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=__T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==__T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==__T("18000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==__T("18000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==__T("18000000")))
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 18");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX 18");
         }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("25000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("25000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==_T("25000000")))
+        else if (Retrieve(Stream_Video, 0, Video_Format)==__T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=__T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==__T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==__T("25000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==__T("25000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==__T("25000000")))
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 25");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX 25");
         }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("35000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("35000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==_T("35000000")))
+        else if (Retrieve(Stream_Video, 0, Video_Format)==__T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=__T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==__T("4:2:0") && (Retrieve(Stream_Video, 0, Video_BitRate)==__T("35000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==__T("35000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==__T("35000000")))
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM EX 35");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM EX 35");
         }
-        else if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=_T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==_T("4:2:2") && (Retrieve(Stream_Video, 0, Video_BitRate)==_T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==_T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==_T("50000000")))
+        else if (Retrieve(Stream_Video, 0, Video_Format)==__T("MPEG Video") && Retrieve(Stream_Video, 0, Video_Format_Settings_GOP)!=__T("N=1") && Retrieve(Stream_Video, 0, Video_Colorimetry)==__T("4:2:2") && (Retrieve(Stream_Video, 0, Video_BitRate)==__T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Nominal)==__T("50000000") || Retrieve(Stream_Video, 0, Video_BitRate_Maximum)==__T("50000000")))
         {
             Fill(Stream_General, 0, General_Format_Commercial_IfAny, "XDCAM HD422");
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "XDCAM HD422");
@@ -1248,8 +1248,8 @@ bool File_Mpeg4::BookMark_Needed()
     if (!IsSecondPass)
         for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); Temp++)
             if (Temp->second.StreamKind==Stream_Audio
-             && (Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_CodecID)==_T("ima4")
-              || Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_CodecID)==_T("11")))
+             && (Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_CodecID)==__T("ima4")
+              || Retrieve(Stream_Audio, Temp->second.StreamPos, Audio_CodecID)==__T("11")))
             {
                 Temp->second.stsz_StreamSize/=16;
                 Temp->second.stsz_StreamSize*=17;
@@ -1504,8 +1504,8 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
     Value.append(1, (Char)((Meta&0x00FF0000)>>16));
     Value.append(1, (Char)((Meta&0x0000FF00)>> 8));
     Value.append(1, (Char)((Meta&0x000000FF)>> 0));
-    if (MediaInfoLib::Config.CustomMapping_IsPresent(_T("MP4"), Value))
-        Parameter=MediaInfoLib::Config.CustomMapping_Get(_T("MP4"), Value).To_Local();
+    if (MediaInfoLib::Config.CustomMapping_IsPresent(__T("MP4"), Value))
+        Parameter=MediaInfoLib::Config.CustomMapping_Get(__T("MP4"), Value).To_Local();
 
     return Method;
 }
@@ -1549,9 +1549,9 @@ void File_Mpeg4::Descriptors()
 
     //Special case: AAC
     if (StreamKind_Last==Stream_Audio
-     && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
-      || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
-      || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
+     && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("AAC")
+      || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("MPEG Audio")
+      || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("Vorbis")))
         Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
     //Parser from Descriptor
@@ -1594,9 +1594,9 @@ void File_Mpeg4::TimeCode_Associate(int32u TrackID)
         {
             if (Strea->second.StreamKind==Stream_Video)
             {
-                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("DropFrame="))+(Streams[TrackID].TimeCode->DropFrame?_T("Yes"):_T("No")));
-                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("24HourMax="))+(Streams[TrackID].TimeCode->H24?_T("Yes"):_T("No")));
-                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("IsVisual="))+(Streams[TrackID].TimeCode_IsVisual?_T("Yes"):_T("No")));
+                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(__T("DropFrame="))+(Streams[TrackID].TimeCode->DropFrame?__T("Yes"):__T("No")));
+                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(__T("24HourMax="))+(Streams[TrackID].TimeCode->H24?__T("Yes"):__T("No")));
+                Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(__T("IsVisual="))+(Streams[TrackID].TimeCode_IsVisual?__T("Yes"):__T("No")));
             }
             Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay", Streams[TrackID].Parser->Get(Stream_General, 0, "Delay"));
             Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Source", "Container");

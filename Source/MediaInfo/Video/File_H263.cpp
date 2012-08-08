@@ -136,7 +136,7 @@ File_H263::File_H263()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("H.263");
+    ParserName=__T("H.263");
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
     IsRawStream=true;

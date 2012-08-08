@@ -49,7 +49,7 @@ File_Rle::File_Rle()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("RLE");
+    ParserName=__T("RLE");
 }
 
 //***************************************************************************

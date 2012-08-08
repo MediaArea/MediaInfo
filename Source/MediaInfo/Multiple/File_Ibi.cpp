@@ -85,9 +85,9 @@ const Ztring &File_Ibi::Get (stream_t /*StreamKind*/, size_t /*StreamNumber*/, c
         for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size()-1; Pos++)
             if (IbiStream_Temp->second->Infos[Pos].FrameNumber==FrameNumber || IbiStream_Temp->second->Infos[Pos+1].FrameNumber>FrameNumber)
             {
-                Get_Temp=_T("StreamOffset=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].StreamOffset)
-                       + _T(" / FrameNumber=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].FrameNumber)
-                       + _T(" / Dts=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].Dts);
+                Get_Temp=__T("StreamOffset=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].StreamOffset)
+                       + __T(" / FrameNumber=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].FrameNumber)
+                       + __T(" / Dts=")+Ztring::ToZtring(IbiStream_Temp->second->Infos[Pos].Dts);
                 return Get_Temp;
             }
     }
@@ -322,7 +322,7 @@ void File_Ibi::Ebml_DocType()
     //Filling
     FILLING_BEGIN();
 
-        if (Data==_T("MediaInfo Index"))
+        if (Data==__T("MediaInfo Index"))
             Accept("Ibi");
         else
         {
@@ -392,7 +392,7 @@ void File_Ibi::Stream_ByteOffset()
         Get_EB (Item,                                           "Item");
         Offset+=Item;
         Param_Info1(Pos);
-        Param_Info1(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
+        Param_Info1(Ztring::ToZtring(Offset)+__T(" (0x")+Ztring::ToZtring(Offset, 16)+__T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
@@ -425,7 +425,7 @@ void File_Ibi::Stream_FrameNumber()
         Get_EB (Item,                                           "Item");
         Offset+=Item;
         Param_Info1(Pos);
-        Param_Info1(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
+        Param_Info1(Ztring::ToZtring(Offset)+__T(" (0x")+Ztring::ToZtring(Offset, 16)+__T(')'));
 
         FILLING_BEGIN();
             if (Ibi)
@@ -476,7 +476,7 @@ void File_Ibi::Stream_Dts()
         Get_EB (Item,                                           "Item");
         Offset+=Item;
         Param_Info1(Pos);
-        Param_Info1(Ztring::ToZtring(Offset)+_T(" (0x")+Ztring::ToZtring(Offset, 16)+_T(')'));
+        Param_Info1(Ztring::ToZtring(Offset)+__T(" (0x")+Ztring::ToZtring(Offset, 16)+__T(')'));
 
         FILLING_BEGIN();
             if (Ibi)

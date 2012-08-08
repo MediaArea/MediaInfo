@@ -98,7 +98,7 @@ File_Cdp::File_Cdp()
     PTS_DTS_Needed=true;
 
     //Temp
-    ParserName=_T("CDP");
+    ParserName=__T("CDP");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Cdp;
         StreamIDs_Width[0]=1;
@@ -254,7 +254,7 @@ void File_Cdp::cdp_header()
     Get_B2 (   cdp_identifier,                                  "cdp_identifier");
     Skip_B1(                                                    "cdp_length");
     BS_Begin();
-    Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info1(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+_T(" fps"));
+    Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info1(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+__T(" fps"));
     Skip_S1(4,                                                  "Reserved");
     Skip_SB(                                                    "time_code_present");
     Skip_SB(                                                    "ccdata_present");

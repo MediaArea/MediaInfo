@@ -533,20 +533,20 @@ size_t File_Aes3::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
     if (!Duration_Detected && File_Size!=(int64u)-1 && (Frame_Size==(int64u)-1 || Frame_Duration==(int64u)-1))
     {
         MediaInfo_Internal MI;
-        MI.Option(_T("File_KeepInfo"), _T("1"));
-        Ztring ParseSpeed_Save=MI.Option(_T("ParseSpeed_Get"), _T(""));
-        Ztring Demux_Save=MI.Option(_T("Demux_Get"), _T(""));
-        MI.Option(_T("ParseSpeed"), _T("0"));
-        MI.Option(_T("Demux"), Ztring());
+        MI.Option(__T("File_KeepInfo"), __T("1"));
+        Ztring ParseSpeed_Save=MI.Option(__T("ParseSpeed_Get"), __T(""));
+        Ztring Demux_Save=MI.Option(__T("Demux_Get"), __T(""));
+        MI.Option(__T("ParseSpeed"), __T("0"));
+        MI.Option(__T("Demux"), Ztring());
         size_t MiOpenResult=MI.Open(File_Name);
-        MI.Option(_T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
-        MI.Option(_T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+        MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+        MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
         if (!MiOpenResult)
             return 0;
 
-        int64u FrameCount=MI.Get(Stream_Audio, 0, _T("FrameCount")).To_int64u();
-        int64u Duration=MI.Get(Stream_Audio, 0, _T("Duration")).To_int64u();
-        int64u DataSize=MI.Get(Stream_General, 0, _T("DataSize")).To_int64u();
+        int64u FrameCount=MI.Get(Stream_Audio, 0, __T("FrameCount")).To_int64u();
+        int64u Duration=MI.Get(Stream_Audio, 0, __T("Duration")).To_int64u();
+        int64u DataSize=MI.Get(Stream_General, 0, __T("DataSize")).To_int64u();
         if (FrameCount && Duration)
             Frame_Duration=Duration*1000000/FrameCount; //In nanoseconds
         if (FrameCount && DataSize)
@@ -1361,7 +1361,7 @@ void File_Aes3::Frame()
             if (OverallBitRate)
             {
                 OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
-                Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+_T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
+                Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+__T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
             }
             int64u BitRate=Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
             if (BitRate)
@@ -1853,7 +1853,7 @@ void File_Aes3::Parser_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Si
     {
         //Filling
         Merge(*Parser);
-        ZtringList OverallBitRates; OverallBitRates.Separator_Set(0, _T(" / ")); OverallBitRates.Write(Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
+        ZtringList OverallBitRates; OverallBitRates.Separator_Set(0, __T(" / ")); OverallBitRates.Write(Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
         if (!OverallBitRates.empty())
         {
             int64u OverallBitRate=OverallBitRates[0].To_int64u();

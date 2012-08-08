@@ -65,7 +65,7 @@ public :
 
         reference()
         {
-            FileNames.Separator_Set(0, _T(","));
+            FileNames.Separator_Set(0, __T(","));
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             MenuPos=(size_t)-1;

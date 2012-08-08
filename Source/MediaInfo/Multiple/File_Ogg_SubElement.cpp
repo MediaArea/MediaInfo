@@ -672,7 +672,7 @@ void File_Ogg_SubElement::Identification_video()
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(fccHandler))==_T("MPEG-4 Visual"))
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(fccHandler))==__T("MPEG-4 Visual"))
     {
         Parser=new File_Mpeg4v;
         ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
@@ -709,7 +709,7 @@ void File_Ogg_SubElement::Identification_audio()
     //Filling
     Stream_Prepare(Stream_Audio);
     Ztring Codec; Codec.From_CC4(fccHandler);
-    Codec.TrimLeft(_T('0'));
+    Codec.TrimLeft(__T('0'));
     CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec);
     if (AvgBytesPerSec<0x80000000) //This is a signed value, and negative values are not OK
@@ -721,7 +721,7 @@ void File_Ogg_SubElement::Identification_audio()
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEGA_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(__T("MPEG-"))==0)
     {
         Parser=new File_Mpega;
     }

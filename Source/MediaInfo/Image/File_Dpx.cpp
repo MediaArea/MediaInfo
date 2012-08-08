@@ -285,7 +285,7 @@ File_Dpx::File_Dpx()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("DPX");
+    ParserName=__T("DPX");
 }
 
 //***************************************************************************
@@ -533,8 +533,8 @@ void File_Dpx::GenericSectionHeader_v1()
         //Filling meta
         if (Frame_Count==0)
         {
-            Fill(Stream_General, 0, General_Encoded_Date, CreationDate+_T(' ')+CreationTime); //ToDo: transform it in UTC
-            Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", CreationDate+_T(' ')+CreationTime); //ToDo: transform it in UTC
+            Fill(Stream_General, 0, General_Encoded_Date, CreationDate+__T(' ')+CreationTime); //ToDo: transform it in UTC
+            Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", CreationDate+__T(' ')+CreationTime); //ToDo: transform it in UTC
         }
     FILLING_END();
 }

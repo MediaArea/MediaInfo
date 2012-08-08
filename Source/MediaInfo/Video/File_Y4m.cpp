@@ -62,7 +62,7 @@ File_Y4m::File_Y4m()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("YUV4MPEG2");
+    ParserName=__T("YUV4MPEG2");
     IsRawStream=true;
     Frame_Count_NotParsedIncluded=0;
 
@@ -162,18 +162,18 @@ void File_Y4m::FileHeader_Parse()
                             }
                             break;
                 case 'C' :  //Color space
-                            if (List[Pos]==_T("C420jpeg") || List[Pos]==_T("C420paldv") || List[Pos]==_T("C420"))
+                            if (List[Pos]==__T("C420jpeg") || List[Pos]==__T("C420paldv") || List[Pos]==__T("C420"))
                             {
                                 Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:2:0");
                                 Multiplier=3;
                                 Divisor=2;
                             }
-                            if (List[Pos]==_T("C422"))
+                            if (List[Pos]==__T("C422"))
                             {
                                 Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:2:2");
                                 Multiplier=2;
                             }
-                            if (List[Pos]==_T("C444"))
+                            if (List[Pos]==__T("C444"))
                             {
                                 Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:4:4");
                                 Multiplier=3;

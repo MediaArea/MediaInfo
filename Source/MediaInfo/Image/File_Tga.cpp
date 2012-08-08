@@ -96,7 +96,7 @@ const char* Tga_Image_Type_ColorSpace(int8u Image_Type)
 File_Tga::File_Tga()
 {
     //Configuration
-    ParserName=_T("TGA");
+    ParserName=__T("TGA");
     Buffer_MaximumSize=64*1024*1024; //We need to load the complete file for footer check, choosing an high value for an image
 }
 
@@ -108,7 +108,7 @@ File_Tga::File_Tga()
 void File_Tga::Streams_Fill()
 {
     Fill(Stream_General, 0, General_Format, "TGA");
-    Fill(Stream_General, 0, General_Format_Version, _T("Version ")+Ztring::ToZtring(Version));
+    Fill(Stream_General, 0, General_Format_Version, __T("Version ")+Ztring::ToZtring(Version));
     Fill(Stream_General, 0, General_Title, Image_ID);
 
     Stream_Prepare(Stream_Image);

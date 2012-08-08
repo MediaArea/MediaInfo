@@ -463,8 +463,8 @@ namespace MediaInfoDLL
 
 //---------------------------------------------------------------------------
 //Char types
-#undef  _T
-#define _T(__x)     __T(__x)
+#undef  __T
+#define __T(__x)     __T(__x)
 #if defined(UNICODE) || defined (_UNICODE)
     typedef wchar_t Char;
     #undef  __T
@@ -547,10 +547,10 @@ public :
     String Inform ()  {return MediaInfo_Inform(Handle, 0);};
     String Get (stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind=Info_Text)  {return MediaInfo_GetI (Handle, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter, (MediaInfo_info_C)InfoKind);};
     String Get (stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text, info_t SearchKind=Info_Name)  {return MediaInfo_Get (Handle, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), (MediaInfo_info_C)InfoKind, (MediaInfo_info_C)SearchKind);};
-    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T(""))  {return MediaInfo_SetI (Handle, ToSet.c_str(), (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter, OldValue.c_str());};
-    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=_T(""))  {return MediaInfo_Set (Handle, ToSet.c_str(), (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), OldValue.c_str());};
-    String        Option (const String &Option, const String &Value=_T(""))  {return MediaInfo_Option (Handle, Option.c_str(), Value.c_str());};
-    static String Option_Static (const String &Option, const String &Value=_T(""))  {return MediaInfo_Option (NULL, Option.c_str(), Value.c_str());};
+    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=__T(""))  {return MediaInfo_SetI (Handle, ToSet.c_str(), (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter, OldValue.c_str());};
+    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=__T(""))  {return MediaInfo_Set (Handle, ToSet.c_str(), (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), OldValue.c_str());};
+    String        Option (const String &Option, const String &Value=__T(""))  {return MediaInfo_Option (Handle, Option.c_str(), Value.c_str());};
+    static String Option_Static (const String &Option, const String &Value=__T(""))  {return MediaInfo_Option (NULL, Option.c_str(), Value.c_str());};
     size_t                  State_Get ()  {return MediaInfo_State_Get(Handle);};
     size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=-1)  {return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
 
@@ -574,10 +574,10 @@ public :
     String Inform (size_t FilePos=-1)  {return MediaInfoList_Inform(Handle, FilePos, 0);};
     String Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind=Info_Text)  {return MediaInfoList_GetI (Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter, (MediaInfo_info_C)InfoKind);};
     String Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text, info_t SearchKind=Info_Name)  {return MediaInfoList_Get (Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), (MediaInfo_info_C)InfoKind, (MediaInfo_info_C)SearchKind);};
-    size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T(""))  {return MediaInfoList_SetI (Handle, ToSet.c_str(), FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter, OldValue.c_str());};
-    size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=_T(""))  {return MediaInfoList_Set (Handle, ToSet.c_str(), FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), OldValue.c_str());};
-    String        Option (const String &Option, const String &Value=_T(""))  {return MediaInfoList_Option (Handle, Option.c_str(), Value.c_str());};
-    static String Option_Static (const String &Option, const String &Value=_T(""))  {return MediaInfoList_Option (NULL, Option.c_str(), Value.c_str());};
+    size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=__T(""))  {return MediaInfoList_SetI (Handle, ToSet.c_str(), FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter, OldValue.c_str());};
+    size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=__T(""))  {return MediaInfoList_Set (Handle, ToSet.c_str(), FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), OldValue.c_str());};
+    String        Option (const String &Option, const String &Value=__T(""))  {return MediaInfoList_Option (Handle, Option.c_str(), Value.c_str());};
+    static String Option_Static (const String &Option, const String &Value=__T(""))  {return MediaInfoList_Option (NULL, Option.c_str(), Value.c_str());};
     size_t                  State_Get ()  {return MediaInfoList_State_Get(Handle);};
     size_t                  Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=-1)  {return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
     size_t                  Count_Get ()  {return MediaInfoList_Count_Get_Files(Handle);};

@@ -484,7 +484,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
     Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
-    Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc))+_T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
+    Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc))+__T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
     Fill(Stream_Video, 0, Video_Format_Profile, Profile);
     Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
@@ -566,8 +566,8 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
         }
     if ((*seq_parameter_set_Item)->max_num_ref_frames>0)
     {
-        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring((*seq_parameter_set_Item)->max_num_ref_frames)+_T(" Ref Frames"));
-        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring((*seq_parameter_set_Item)->max_num_ref_frames)+_T(" Ref Frames"));
+        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring((*seq_parameter_set_Item)->max_num_ref_frames)+__T(" Ref Frames"));
+        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring((*seq_parameter_set_Item)->max_num_ref_frames)+__T(" Ref Frames"));
         Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, (*seq_parameter_set_Item)->max_num_ref_frames);
         Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, (*seq_parameter_set_Item)->max_num_ref_frames);
     }
@@ -580,7 +580,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
 //---------------------------------------------------------------------------
 void File_Avc::Streams_Fill_subset(std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item)
 {
-    Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc))+_T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
+    Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc))+__T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
     Ztring Profile_Base=Retrieve(Stream_Video, 0, Video_Format_Profile);
     Fill(Stream_Video, 0, Video_Format_Profile, Profile, true);
     if (!Profile_Base.empty())
@@ -606,7 +606,7 @@ void File_Avc::Streams_Finish()
             for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
             {
                 Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
-                Fill(Stream_Text, Pos, "MuxingMode", _T("SCTE 128 / ")+MuxingMode, true);
+                Fill(Stream_Text, Pos, "MuxingMode", __T("SCTE 128 / ")+MuxingMode, true);
             }
         }
     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -1515,7 +1515,7 @@ void File_Avc::slice_header()
                         Trusted_IsNot("Problem in temporal references");
                         return;
                     }
-                    Element_Info1(_T("Offset of ")+Ztring::ToZtring(ToInsert));
+                    Element_Info1(__T("Offset of ")+Ztring::ToZtring(ToInsert));
                     TemporalReferences.insert(TemporalReferences.begin()+Base, ToInsert, NULL);
                     TemporalReferences_Offset+=ToInsert;
                     TemporalReferences_Max+=ToInsert;
@@ -1672,23 +1672,23 @@ void File_Avc::slice_header()
             if (Trace_Activated)
             {
                 Element_Info1(TemporalReferences_Offset_pic_order_cnt_lsb_Last);
-                Element_Info1((((*seq_parameter_set_Item)->frame_mbs_only_flag || !field_pic_flag)?_T("Frame "):(bottom_field_flag?_T("Field (Bottom) "):_T("Field (Top) ")))+Ztring::ToZtring(Frame_Count));
+                Element_Info1((((*seq_parameter_set_Item)->frame_mbs_only_flag || !field_pic_flag)?__T("Frame "):(bottom_field_flag?__T("Field (Bottom) "):__T("Field (Top) ")))+Ztring::ToZtring(Frame_Count));
                 if (slice_type<9)
-                    Element_Info1(_T("slice_type ")+Ztring().From_Local(Avc_slice_type[slice_type]));
-                Element_Info1(_T("frame_num ")+Ztring::ToZtring(frame_num));
+                    Element_Info1(__T("slice_type ")+Ztring().From_Local(Avc_slice_type[slice_type]));
+                Element_Info1(__T("frame_num ")+Ztring::ToZtring(frame_num));
                 if ((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->fixed_frame_rate_flag)
                 {
                     if (FrameInfo.PCR!=(int64u)-1)
-                        Element_Info1(_T("PCR ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PCR)/1000000)));
+                        Element_Info1(__T("PCR ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PCR)/1000000)));
                     if (FrameInfo.DTS!=(int64u)-1)
-                        Element_Info1(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+                        Element_Info1(__T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
                     if (FrameInfo.PTS!=(int64u)-1)
-                        Element_Info1(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+                        Element_Info1(__T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
                 }
                 if ((*seq_parameter_set_Item)->pic_order_cnt_type==0)
-                    Element_Info1(_T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
+                    Element_Info1(__T("pic_order_cnt_lsb ")+Ztring::ToZtring(pic_order_cnt_lsb));
                 if (first_mb_in_slice)
-                    Element_Info1(_T("first_mb_in_slice ")+Ztring::ToZtring(first_mb_in_slice));
+                    Element_Info1(__T("first_mb_in_slice ")+Ztring::ToZtring(first_mb_in_slice));
             }
         #endif //MEDIAINFO_TRACE
 
@@ -2036,7 +2036,7 @@ void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_paramet
                         TEST_SB_END();
                     TEST_SB_END();
                 }
-                TimeStamp=Ztring::ToZtring(hours_value)+_T(':')+Ztring::ToZtring(minutes_value)+_T(':')+Ztring::ToZtring(seconds_value);
+                TimeStamp=Ztring::ToZtring(hours_value)+__T(':')+Ztring::ToZtring(minutes_value)+__T(':')+Ztring::ToZtring(seconds_value);
                 if ((*seq_parameter_set_Item)->CpbDpbDelaysPresentFlag())
                 {
                     int8u time_offset_length=(*seq_parameter_set_Item)->vui_parameters->NAL?(*seq_parameter_set_Item)->vui_parameters->NAL->time_offset_length:(*seq_parameter_set_Item)->vui_parameters->VCL->time_offset_length; //Spec is not precise, I am not sure
@@ -2046,7 +2046,7 @@ void File_Avc::sei_message_pic_timing(int32u /*payloadSize*/, int32u seq_paramet
                 if ((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->time_scale)
                 {
                     float32 Milliseconds=((float32)(n_frames*((*seq_parameter_set_Item)->vui_parameters->num_units_in_tick*(1+(nuit_field_based_flag?1:0)))+time_offset))/(*seq_parameter_set_Item)->vui_parameters->time_scale;
-                    TimeStamp+=_T('.');
+                    TimeStamp+=__T('.');
                     TimeStamp+=Ztring::ToZtring(Milliseconds);
                 }
                 Param_Info1(TimeStamp);
@@ -2334,10 +2334,10 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
     size_t Loop=0;
     do
     {
-        Data_Pos=Data.find(_T(" - "), Data_Pos_Before);
+        Data_Pos=Data.find(__T(" - "), Data_Pos_Before);
         if (Data_Pos==std::string::npos)
             Data_Pos=Data.size();
-        if (Data.find(_T("options: "), Data_Pos_Before)==Data_Pos_Before)
+        if (Data.find(__T("options: "), Data_Pos_Before)==Data_Pos_Before)
         {
             Element_Begin1("options");
             size_t Options_Pos;
@@ -2345,7 +2345,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
             Encoded_Library_Settings.clear();
             do
             {
-                Options_Pos=Data.find(_T(" "), Options_Pos_Before);
+                Options_Pos=Data.find(__T(" "), Options_Pos_Before);
                 if (Options_Pos==std::string::npos)
                     Options_Pos=Data.size();
                 Ztring option;
@@ -2355,7 +2355,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                 {
                     Ztring Separator;
                     Peek_Local(1, Separator);
-                    if (Separator==_T(" "))
+                    if (Separator==__T(" "))
                     {
                         Skip_Local(1,                               "separator");
                         Options_Pos_Before+=1;
@@ -2366,13 +2366,13 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                 while (Options_Pos_Before!=Data.size());
 
                 //Filling
-                if (option!=_T("options:"))
+                if (option!=__T("options:"))
                 {
                     if (!Encoded_Library_Settings.empty())
-                        Encoded_Library_Settings+=_T(" / ");
+                        Encoded_Library_Settings+=__T(" / ");
                     Encoded_Library_Settings+=option;
-                    if (option.find(_T("bitrate="))==0)
-                        BitRate_Nominal=option.substr(8)+_T("000"); //After "bitrate="
+                    if (option.find(__T("bitrate="))==0)
+                        BitRate_Nominal=option.substr(8)+__T("000"); //After "bitrate="
                 }
             }
             while (Options_Pos_Before!=Data.size());
@@ -2393,9 +2393,9 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                     Value.erase(Value.end()-1);
                 Encoded_Library=Value;
             }
-            if (Loop==1 && Encoded_Library.find(_T("x264"))==0)
+            if (Loop==1 && Encoded_Library.find(__T("x264"))==0)
             {
-                Encoded_Library+=_T(" - ");
+                Encoded_Library+=__T(" - ");
                 Encoded_Library+=Value;
             }
         }
@@ -2411,20 +2411,20 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
     while (Data_Pos_Before!=Data.size());
 
     //Encoded_Library
-    if (Encoded_Library.find(_T("eavc "))==0)
+    if (Encoded_Library.find(__T("eavc "))==0)
     {
-        Encoded_Library_Name=_T("eavc");
-        Encoded_Library_Version=Encoded_Library.SubString(_T("eavc "), _T(""));
+        Encoded_Library_Name=__T("eavc");
+        Encoded_Library_Version=Encoded_Library.SubString(__T("eavc "), __T(""));
     }
-    else if (Encoded_Library.find(_T("x264 - "))==0)
+    else if (Encoded_Library.find(__T("x264 - "))==0)
     {
-        Encoded_Library_Name=_T("x264");
-        Encoded_Library_Version=Encoded_Library.SubString(_T("x264 - "), _T(""));
+        Encoded_Library_Name=__T("x264");
+        Encoded_Library_Version=Encoded_Library.SubString(__T("x264 - "), __T(""));
     }
-    else if (Encoded_Library.find(_T("SUPER(C) by eRightSoft "))==0)
+    else if (Encoded_Library.find(__T("SUPER(C) by eRightSoft "))==0)
     {
-        Encoded_Library_Name=_T("SUPER(C) by eRightSoft");
-        Encoded_Library_Date=Ztring(_T("UTC "))+Encoded_Library.SubString(_T("2000-"), _T(" "));
+        Encoded_Library_Name=__T("SUPER(C) by eRightSoft");
+        Encoded_Library_Date=Ztring(__T("UTC "))+Encoded_Library.SubString(__T("2000-"), __T(" "));
     }
     else
         Encoded_Library_Name=Encoded_Library;
@@ -2455,11 +2455,11 @@ void File_Avc::sei_message_mainconcept(int32u payloadSize)
     Ztring Text;
     Get_Local(payloadSize, Text,                                "text");
 
-    if (Text.find(_T("produced by MainConcept H.264/AVC Codec v"))!=std::string::npos)
+    if (Text.find(__T("produced by MainConcept H.264/AVC Codec v"))!=std::string::npos)
     {
-        Encoded_Library=Text.SubString(_T("produced by "), _T(" MainConcept AG"));
-        Encoded_Library_Name=_T("MainConcept H.264/AVC Codec");
-        Encoded_Library_Version=Text.SubString(_T("produced by MainConcept H.264/AVC Codec v"), _T(" (c) "));
+        Encoded_Library=Text.SubString(__T("produced by "), __T(" MainConcept AG"));
+        Encoded_Library_Name=__T("MainConcept H.264/AVC Codec");
+        Encoded_Library_Version=Text.SubString(__T("produced by MainConcept H.264/AVC Codec v"), __T(" (c) "));
         Encoded_Library_Date=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_MainConcept_Avc, Encoded_Library_Version, InfoLibrary_Date);
     }
 }
@@ -3325,7 +3325,7 @@ void File_Avc::SPS_PPS()
     FILLING_BEGIN_PRECISE();
         //Detection of some bugs in the file
         if (!seq_parameter_sets.empty() && seq_parameter_sets[0] && (Profile!=seq_parameter_sets[0]->profile_idc || Level!=seq_parameter_sets[0]->level_idc))
-            MuxingMode=Ztring("Container profile=")+Ztring().From_Local(Avc_profile_idc(Profile))+_T("@")+Ztring().From_Number(((float)Level)/10, 1);
+            MuxingMode=Ztring("Container profile=")+Ztring().From_Local(Avc_profile_idc(Profile))+__T("@")+Ztring().From_Number(((float)Level)/10, 1);
 
         MustParse_SPS_PPS=false;
         if (!Status[IsAccepted])
@@ -3358,7 +3358,7 @@ std::string File_Avc::GOP_Detect (std::string PictureTypes)
                 PictureTypes.erase(TrimPos+1);
 
             //Finding the longest string
-            ZtringList List; List.Separator_Set(0, _T(" "));
+            ZtringList List; List.Separator_Set(0, __T(" "));
             List.Write(Ztring().From_Local(PictureTypes));
             size_t MaxLength=0;
             size_t MaxLength_Pos=0;
@@ -3407,14 +3407,14 @@ std::string File_Avc::GOP_Detect (std::string PictureTypes)
                     }
                 if (IsOK)
                 {
-                    GOP+=_T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+_T(", ");
+                    GOP+=__T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+__T(", ");
                     if (P_Positions[0]-I_Pos1>GOP_BFrames_Max)
                         GOP_BFrames_Max=P_Positions[0]-I_Pos1;
                 }
             }
             if (IsOK)
             {
-                GOP+=_T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
+                GOP+=__T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
                 GOPs.push_back(GOP);
             }
             else
@@ -3468,7 +3468,7 @@ std::string File_Avc::ScanOrder_Detect (std::string ScanOrders)
                 ScanOrders.erase(TrimPos+1);
 
             //Finding the longest string
-            ZtringList List; List.Separator_Set(0, _T(" "));
+            ZtringList List; List.Separator_Set(0, __T(" "));
             List.Write(Ztring().From_Local(ScanOrders));
             size_t MaxLength=0;
             size_t MaxLength_Pos=0;

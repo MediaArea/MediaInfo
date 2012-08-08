@@ -921,7 +921,11 @@ extern "C"
 {
 
 #if defined (_WIN32) || defined (WIN32)
-    #define MEDIAINFODLL_NAME  "libcurl.dll"
+    #ifdef _UNICODE
+        #define MEDIAINFODLL_NAME  L"libcurl.dll"
+    #else //_UNICODE
+        #define MEDIAINFODLL_NAME  "libcurl.dll"
+    #endif //_UNICODE
 #elif defined(__APPLE__) && defined(__MACH__)
     #define MEDIAINFODLL_NAME  "libcurl.0.dylib"
     #define __stdcall

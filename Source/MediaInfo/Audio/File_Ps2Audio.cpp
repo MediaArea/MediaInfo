@@ -116,8 +116,8 @@ void File_Ps2Audio::SShd()
         Ztring FormatS;
         switch(Format)
         {
-            case 0x00000001 : FormatS=_T("PCM"); break;
-            case 0x00000010 : FormatS=_T("ADPCM"); break;
+            case 0x00000001 : FormatS=__T("PCM"); break;
+            case 0x00000010 : FormatS=__T("ADPCM"); break;
             default         : ;
         }
         Fill(Stream_Audio, 0, Audio_Format, FormatS);

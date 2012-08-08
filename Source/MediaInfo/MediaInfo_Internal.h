@@ -98,15 +98,15 @@ public :
     Ztring Get (stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text, info_t SearchKind=Info_Name);
 
     //Set
-    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T(""));
-    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=_T(""));
+    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=__T(""));
+    size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=__T(""));
 
     //Output_Buffered
     size_t Output_Buffer_Get (const String &Value);
     size_t Output_Buffer_Get (size_t Pos);
 
     //Info
-    String Option (const String &Option, const String &Value=_T(""));
+    String Option (const String &Option, const String &Value=__T(""));
     size_t State_Get ();
     size_t Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1);
 

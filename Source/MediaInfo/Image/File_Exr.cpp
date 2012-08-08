@@ -68,7 +68,7 @@ File_Exr::File_Exr()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("EXR");
+    ParserName=__T("EXR");
 }
 
 //***************************************************************************
@@ -244,9 +244,9 @@ void File_Exr::Header()
     //Filling
     if (Frame_Count==0)
     {
-        Fill(Stream_General, 0, General_Format_Version, _T("Version ")+Ztring::ToZtring(Version));
+        Fill(Stream_General, 0, General_Format_Version, __T("Version ")+Ztring::ToZtring(Version));
         Fill(StreamKind_Last, 0, "Format", "EXR");
-        Fill(StreamKind_Last, 0, "Format_Version", _T("Version ")+Ztring::ToZtring(Version));
+        Fill(StreamKind_Last, 0, "Format_Version", __T("Version ")+Ztring::ToZtring(Version));
         Fill(StreamKind_Last, 0, "Format_Profile", (Flags&0x02)?"Tile":"Line");
     }
     Frame_Count++;

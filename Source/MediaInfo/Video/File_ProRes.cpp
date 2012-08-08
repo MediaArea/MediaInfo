@@ -88,9 +88,9 @@ Ztring ProRes_creatorID(int32u creatorID)
 {
     switch (creatorID)
     {
-        case 0x61706C30 : return _T("Apple"); //apl0
-        case 0x61727269 : return  _T("Arnold & Richter Cine Technik"); //arri
-        case 0x616A6130 : return _T("AJA Kona Hardware"); //aja0
+        case 0x61706C30 : return __T("Apple"); //apl0
+        case 0x61727269 : return  __T("Arnold & Richter Cine Technik"); //arri
+        case 0x616A6130 : return __T("AJA Kona Hardware"); //aja0
         default         : return Ztring().From_CC4(creatorID);
     }
 }
@@ -104,7 +104,7 @@ File_ProRes::File_ProRes()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("ProRes");
+    ParserName=__T("ProRes");
 }
 
 //***************************************************************************
@@ -175,7 +175,7 @@ void File_ProRes::Read_Buffer_Continue()
             Accept();
             Fill();
 
-            Fill(Stream_Video, 0, Video_Format_Version, _T("Version ")+Ztring::ToZtring(version));
+            Fill(Stream_Video, 0, Video_Format_Version, __T("Version ")+Ztring::ToZtring(version));
             Fill(Stream_Video, 0, Video_Width, frameWidth);
             Fill(Stream_Video, 0, Video_Height, frameHeight);
             Fill(Stream_Video, 0, Video_Encoded_Library, ProRes_creatorID(creatorID));

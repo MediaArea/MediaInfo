@@ -103,7 +103,7 @@ void File_Ogg::Streams_Fill()
                     Stream_Temp->second.StreamPos=0;
                 }
                 Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, General_ID, Stream_Temp->first);
-                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, General_ID_String, Ztring::ToZtring(Stream_Temp->first)+_T(" (0x")+Ztring::ToZtring(Stream_Temp->first, 16)+_T(')'), true);
+                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, General_ID_String, Ztring::ToZtring(Stream_Temp->first)+__T(" (0x")+Ztring::ToZtring(Stream_Temp->first, 16)+__T(')'), true);
             }
         }
         Stream_Temp++;

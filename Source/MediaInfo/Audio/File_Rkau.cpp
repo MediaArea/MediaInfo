@@ -133,7 +133,7 @@ void File_Rkau::FileHeader_Parse()
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "RK Audio");
         Fill(Stream_Audio, 0, Audio_Codec, "Rkau");
-        Fill(Stream_Audio, 0, Audio_Encoded_Library, _T("1.0") + version);
+        Fill(Stream_Audio, 0, Audio_Encoded_Library, __T("1.0") + version);
         Fill(Stream_Audio, 0, Audio_Compression_Mode, (Quality==0)?"Lossless":"Lossy");
         Fill(Stream_Audio, 0, Audio_BitDepth, BitsPerSample);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);

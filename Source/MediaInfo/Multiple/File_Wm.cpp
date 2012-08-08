@@ -61,7 +61,7 @@ File_Wm::File_Wm()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("Wm");
+    ParserName=__T("Wm");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Wm;
         StreamIDs_Width[0]=2;
@@ -189,7 +189,7 @@ void File_Wm::Streams_Finish()
             if (Temp->second.StreamKind==Stream_Video)
                 Format_Profile=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format_Profile);
             Finish(Temp->second.Parser);
-            if (Temp->second.Parser->Get(Stream_Video, 0, Video_Format)==_T("MPEG Video"))
+            if (Temp->second.Parser->Get(Stream_Video, 0, Video_Format)==__T("MPEG Video"))
                 {
                     //Width/Height are junk
                     Clear(Stream_Video, Temp->second.StreamPos, Video_Width);

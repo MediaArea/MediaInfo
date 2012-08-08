@@ -118,7 +118,7 @@ bool File_Dxw::FileHeader_Begin()
         if (Root)
         {
             const char* Attribute=Root->Attribute("xmlns");
-            if (Attribute==NULL || Ztring().From_UTF8(Attribute)!=_T("urn:digimetrics-xml-wrapper"))
+            if (Attribute==NULL || Ztring().From_UTF8(Attribute)!=__T("urn:digimetrics-xml-wrapper"))
             {
                 Reject("DXW");
                 return false;
@@ -145,11 +145,11 @@ bool File_Dxw::FileHeader_Begin()
                         if (Attribute)
                         {
                             Ztring StreamKind; StreamKind.From_UTF8(Attribute);
-                            if (StreamKind==_T("video"))
+                            if (StreamKind==__T("video"))
                                  ReferenceFile.StreamKind=Stream_Video;
-                            if (StreamKind==_T("audio"))
+                            if (StreamKind==__T("audio"))
                                  ReferenceFile.StreamKind=Stream_Audio;
-                            if (StreamKind==_T("data"))
+                            if (StreamKind==__T("data"))
                                  ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 
@@ -165,11 +165,11 @@ bool File_Dxw::FileHeader_Begin()
                         if (Attribute)
                         {
                             Ztring StreamKind; StreamKind.From_UTF8(Attribute);
-                            if (StreamKind==_T("video"))
+                            if (StreamKind==__T("video"))
                                  ReferenceFile.StreamKind=Stream_Video;
-                            if (StreamKind==_T("audio"))
+                            if (StreamKind==__T("audio"))
                                  ReferenceFile.StreamKind=Stream_Audio;
-                            if (StreamKind==_T("data"))
+                            if (StreamKind==__T("data"))
                                  ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 

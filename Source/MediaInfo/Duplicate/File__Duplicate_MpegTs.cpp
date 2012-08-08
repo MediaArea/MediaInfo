@@ -80,7 +80,7 @@ File__Duplicate_MpegTs::File__Duplicate_MpegTs (const Ztring &Target)
 bool File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
 {
     //Form: "program_number"
-    if (Value.find(_T("program_number="))==0)
+    if (Value.find(__T("program_number="))==0)
     {
         int16u program_number=Ztring(Value.substr(15, std::string::npos)).To_int16u();
         if (ToRemove)
@@ -101,7 +101,7 @@ bool File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
             PAT.begin()->second.ConfigurationHasChanged=true;
     }
     //Form: "program_map_PID"
-    else if (Value.find(_T("program_map_PID="))==0)
+    else if (Value.find(__T("program_map_PID="))==0)
     {
         int16u program_map_PID=Ztring(Value.substr(16, std::string::npos)).To_int16u();
         if (ToRemove)
@@ -122,7 +122,7 @@ bool File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
             PMT[program_map_PID].ConfigurationHasChanged=true;
     }
     //Form: "elementary_PID"
-    else if (Value.find(_T("elementary_PID="))==0)
+    else if (Value.find(__T("elementary_PID="))==0)
     {
         int16u elementary_PID=Ztring(Value.substr(15, std::string::npos)).To_int16u();
         if (ToRemove)

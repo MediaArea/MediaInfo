@@ -115,9 +115,9 @@ void File_Amr::Streams_Fill()
     Fill(Stream_Audio, 0, Audio_Codec, "AMR");
     if (!Codec.empty())
     {
-        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec, InfoCodecID_Profile)==_T("Narrow band"))
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec, InfoCodecID_Profile)==__T("Narrow band"))
             IsWB=false;
-        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec, InfoCodecID_Profile)==_T("Wide band"))
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec, InfoCodecID_Profile)==__T("Wide band"))
             IsWB=true;
         Channels=1;
     }

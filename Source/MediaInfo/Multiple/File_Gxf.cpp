@@ -241,7 +241,7 @@ File_Gxf::File_Gxf()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("GXF");
+    ParserName=__T("GXF");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Gxf;
         StreamIDs_Width[0]=2;
@@ -301,9 +301,9 @@ void File_Gxf::Streams_Finish()
         if (Gxf_MediaTypes_StreamKind(Streams[StreamID].MediaType)==Stream_Video)
         {
             Ztring Title=Streams[StreamID].MediaName;
-            size_t Title_Extension_Offset=Title.find(_T(".M0"));
+            size_t Title_Extension_Offset=Title.find(__T(".M0"));
             if (Title_Extension_Offset==std::string::npos || Title_Extension_Offset!=Title.size()-3)
-                Title_Extension_Offset=Title.find(_T(".H0"));
+                Title_Extension_Offset=Title.find(__T(".H0"));
             if (Title_Extension_Offset!=std::string::npos && Title_Extension_Offset==Title.size()-3)
             {
                 Title.resize(Title.size()-3);
@@ -313,13 +313,13 @@ void File_Gxf::Streams_Finish()
         if (Gxf_MediaTypes_StreamKind(Streams[StreamID].MediaType)==Stream_Audio && Config->File_Audio_MergeMonoStreams_Get())
         {
             Ztring Title=Streams[StreamID].MediaName;
-            size_t Title_Extension_Offset=Title.find(_T(".A0"));
+            size_t Title_Extension_Offset=Title.find(__T(".A0"));
             if (Title_Extension_Offset!=std::string::npos && Title_Extension_Offset==Title.size()-3)
             {
                 Title.resize(Title.size()-3);
                 for (size_t StreamID2=StreamID+1; StreamID2<Streams.size(); StreamID2++)
                 {
-                    if (Streams[StreamID2].MediaName==Title+_T(".A")+Ztring::ToZtring(StreamID2-StreamID))
+                    if (Streams[StreamID2].MediaName==Title+__T(".A")+Ztring::ToZtring(StreamID2-StreamID))
                     {
                         Streams[StreamID].MediaName=Title;
                         if (Streams[StreamID].Parser && Streams[StreamID2].Parser)
@@ -350,7 +350,7 @@ void File_Gxf::Streams_Finish()
 
         //We trust more the MPEG Video bitrate thant the rest
         //TODO: Chech why there is incohenrency (mainly about Material File size info in the sample)
-        if (Retrieve(Stream_Video, 0, Video_Format)==_T("MPEG Video"))
+        if (Retrieve(Stream_Video, 0, Video_Format)==__T("MPEG Video"))
             Fill(Stream_Video, 0, Video_BitRate, Retrieve(Stream_Video, 0, Video_BitRate_Nominal));
     }
     if (Material_File_Size_IsValid)
@@ -421,8 +421,8 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                         Stream_Prepare(Stream_Text);
                         Merge(*Temp.Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
                         Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                        Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
-                        Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                        Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
+                        Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
                         Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
                         Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
                         Fill(Stream_Text, StreamPos_Last, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
@@ -458,12 +458,12 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
 
                 Ztring ID=Ztring::ToZtring(StreamID);
                 if (Temp.IsChannelGrouping)
-                    ID+=_T(" / ")+Ztring::ToZtring(StreamID+1); //Second half of the channel grouping
+                    ID+=__T(" / ")+Ztring::ToZtring(StreamID+1); //Second half of the channel grouping
                 Ztring ID_String=ID;
                 if (!Retrieve(Stream_Audio, StreamPos_Last, Audio_ID).empty())
                 {
-                    ID+=_T('-')+Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
-                    ID_String+=_T('-')+Retrieve(Stream_Audio, StreamPos_Last, Audio_ID_String);
+                    ID+=__T('-')+Retrieve(Stream_Audio, StreamPos_Last, Audio_ID);
+                    ID_String+=__T('-')+Retrieve(Stream_Audio, StreamPos_Last, Audio_ID_String);
                 }
                 Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID, true);
                 Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID_String, true);
@@ -485,8 +485,8 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                     Stream_Prepare(Stream_Text);
                     Merge(*Temp.Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
                     Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                    Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
-                    Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
                     Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
                     Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
                     Fill(Stream_Text, StreamPos_Last, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);

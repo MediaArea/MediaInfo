@@ -201,14 +201,14 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
     {
         Ztring Number; Number.From_Number(Event_Generic->EventCode, 16);
         while (Number.size()<8)
-            Number.insert(0, 1, _T('0'));
-        Ztring Name=Ztring(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+_T("\\")+Ztring::ToZtring(UserHandle->Scenario)+_T("\\")+Number+_T("\\")+UserHandle->Name.Name_Get()+_T(".txt"));
-        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\Events\\New")))
-            Dir::Create(UserHandle->DataBaseDirectory+_T("\\Events\\New"));
-        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()))
-            Dir::Create(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get());
-        if (!Dir::Exists(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+_T("\\")+Ztring::ToZtring(UserHandle->Scenario)))
-            Dir::Create(UserHandle->DataBaseDirectory+_T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+_T("\\")+Ztring::ToZtring(UserHandle->Scenario));
+            Number.insert(0, 1, __T('0'));
+        Ztring Name=Ztring(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+__T("\\")+Ztring::ToZtring(UserHandle->Scenario)+__T("\\")+Number+__T("\\")+UserHandle->Name.Name_Get()+__T(".txt"));
+        if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New")))
+            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New"));
+        if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()))
+            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get());
+        if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+__T("\\")+Ztring::ToZtring(UserHandle->Scenario)))
+            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+__T("\\")+Ztring::ToZtring(UserHandle->Scenario));
         if (!Dir::Exists(FileName(Name).Path_Get()))
             Dir::Create(FileName(Name).Path_Get());
         UserHandle->PerEvent[Event_Generic->EventCode].F=fopen(Name.To_Local().c_str(), "w");
@@ -258,15 +258,15 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
 
     cout<<" Analyzing"<<endl;
     ZtringListListF FilesList_Source;
-    if (FileName(Files).Extension_Get()==_T("csv"))
-        FilesList_Source.Load(DataBaseDirectory+_T("\\Events\\FilesList.csv"));
+    if (FileName(Files).Extension_Get()==__T("csv"))
+        FilesList_Source.Load(DataBaseDirectory+__T("\\Events\\FilesList.csv"));
     else
     {
         FilesList_Source.push_back(ZtringList());
         //if (File::Exists(Files))
             FilesList_Source.push_back(Files);
         //else
-        //    FilesList_Source.push_back(Files+_T("\\*.*"));
+        //    FilesList_Source.push_back(Files+__T("\\*.*"));
     }
     vector<UserHandle_struct> FilesList;
     for (size_t FilesList_Source_Pos=1; FilesList_Source_Pos<FilesList_Source.size(); FilesList_Source_Pos++)
@@ -309,58 +309,58 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
         // form is "CallBack=memory://handlerInDecimal;UserHandler=memory://handlerInDecimal"
         // UserHandler is a unique value wich will be provided to the callback function, in order to know which MediaInfo instance send the event
         wostringstream Event_CallBackFunction_Text;
-        Event_CallBackFunction_Text<<_T("CallBack=memory://")<<(MediaInfo_int64u)Event_CallBackFunction<<_T(";UserHandler=memory://")<<(MediaInfo_int64u)&FilesList[FilesList_Pos];
-        MI_Result=MI.Option(_T("File_Event_CallBackFunction"), Event_CallBackFunction_Text.str());
+        Event_CallBackFunction_Text<<__T("CallBack=memory://")<<(MediaInfo_int64u)Event_CallBackFunction<<__T(";UserHandler=memory://")<<(MediaInfo_int64u)&FilesList[FilesList_Pos];
+        MI_Result=MI.Option(__T("File_Event_CallBackFunction"), Event_CallBackFunction_Text.str());
         if (!MI_Result.empty())
         {
-            wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
+            wcout<<__T("MediaInfo error: ")<<MI_Result<<endl;
             return;
         }
 
         //Retrieiving basic data
         MI.Open(FilesList[FilesList_Pos].Name);
-        Ztring Delay_10s=Ztring().Duration_From_Milliseconds(Ztring(MI.Get(Stream_Video, 0, _T("Delay"))).To_int64u()+10000);
+        Ztring Delay_10s=Ztring().Duration_From_Milliseconds(Ztring(MI.Get(Stream_Video, 0, __T("Delay"))).To_int64u()+10000);
 
         if (FilesList[FilesList_Pos].ParseSpeed)
         {
-            MI_Result=MI.Option(_T("ParseSpeed"), _T("1.0"));
+            MI_Result=MI.Option(__T("ParseSpeed"), __T("1.0"));
             if (!MI_Result.empty())
             {
-                wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
+                wcout<<__T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
         }
 
         if (FilesList[FilesList_Pos].DemuxContainerOnly)
         {
-            MI_Result=MI.Option(_T("Demux"), _T("container"));
+            MI_Result=MI.Option(__T("Demux"), __T("container"));
             if (!MI_Result.empty())
             {
-                wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
+                wcout<<__T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
 
-            MI_Result=MI.Option(_T("File_Demux_Unpacketize"), _T("1"));
+            MI_Result=MI.Option(__T("File_Demux_Unpacketize"), __T("1"));
             if (!MI_Result.empty())
             {
-                wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
+                wcout<<__T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
 
-            MI_Result=MI.Option(_T("File_Demux_PCM_20bitTo16bit"), _T("1"));
+            MI_Result=MI.Option(__T("File_Demux_PCM_20bitTo16bit"), __T("1"));
             if (!MI_Result.empty())
             {
-                wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
+                wcout<<__T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
         }
 
         if (FilesList[FilesList_Pos].NextPacket)
         {
-            MI_Result=MI.Option(_T("File_NextPacket"), _T("1"));
+            MI_Result=MI.Option(__T("File_NextPacket"), __T("1"));
             if (!MI_Result.empty())
             {
-                wcout<<_T("MediaInfo error: ")<<MI_Result<<endl;
+                wcout<<__T("MediaInfo error: ")<<MI_Result<<endl;
                 return;
             }
         }
@@ -376,13 +376,13 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
                 {
                     Counter++;
                     if (Counter==0)
-                        MI.Option(_T("File_Seek"), _T("0"));
+                        MI.Option(__T("File_Seek"), __T("0"));
                     if (Counter==100)
-                        MI.Option(_T("File_Seek"), Delay_10s);
+                        MI.Option(__T("File_Seek"), Delay_10s);
                     if (Counter==200)
-                        MI.Option(_T("File_Seek"), _T("Frame=100"));
+                        MI.Option(__T("File_Seek"), __T("Frame=100"));
                     if (Counter==300)
-                        MI.Option(_T("File_Seek"), _T("95%"));
+                        MI.Option(__T("File_Seek"), __T("95%"));
                 }
             }
         }
@@ -391,12 +391,12 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
     }
 
     cout<<" Diff"<<endl;
-    ZtringList Ref=Dir::GetAllFileNames(DataBaseDirectory+_T("\\Events\\Ref\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)+_T("*.*"));
-    ZtringList New=Dir::GetAllFileNames(DataBaseDirectory+_T("\\Events\\New\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)+_T("*.*"));
+    ZtringList Ref=Dir::GetAllFileNames(DataBaseDirectory+__T("\\Events\\Ref\\")+FileName(Files).Name_Get()+__T("\\")+Ztring::ToZtring(Scenario)+__T("*.*"));
+    ZtringList New=Dir::GetAllFileNames(DataBaseDirectory+__T("\\Events\\New\\")+FileName(Files).Name_Get()+__T("\\")+Ztring::ToZtring(Scenario)+__T("*.*"));
     for (size_t Ref_Pos=0; Ref_Pos<Ref.size(); Ref_Pos++)
     {
         Ztring Ref_ToFind=Ref[Ref_Pos];
-        Ref_ToFind.FindAndReplace(_T("\\Events\\Ref\\"), _T("\\Events\\New\\"));
+        Ref_ToFind.FindAndReplace(__T("\\Events\\Ref\\"), __T("\\Events\\New\\"));
         size_t New_RefPos=New.Find(Ref_ToFind);
         bool IsDiff=false;
         if (New_RefPos!=(size_t)-1)
@@ -426,21 +426,21 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
         {
             //Not in new or is different
             Ztring Diff_Name=Ref[Ref_Pos];
-            Diff_Name.FindAndReplace(_T("\\Events\\Ref\\"), _T("\\Events\\Diff\\"));
-            if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff")))
-                Dir::Create(DataBaseDirectory+_T("\\Events\\Diff"));
-            if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()))
-                Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get());
-            if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)))
-                Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario));
+            Diff_Name.FindAndReplace(__T("\\Events\\Ref\\"), __T("\\Events\\Diff\\"));
+            if (!Dir::Exists(DataBaseDirectory+__T("\\Events\\Diff")))
+                Dir::Create(DataBaseDirectory+__T("\\Events\\Diff"));
+            if (!Dir::Exists(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get()))
+                Dir::Create(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get());
+            if (!Dir::Exists(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get()+__T("\\")+Ztring::ToZtring(Scenario)))
+                Dir::Create(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get()+__T("\\")+Ztring::ToZtring(Scenario));
             if (!Dir::Exists(FileName(Diff_Name).Path_Get()))
                 Dir::Create(FileName(Diff_Name).Path_Get());
             if (!IsDiff)
-                File::Copy(Ref[Ref_Pos], Diff_Name+_T(".RefAlone.txt")); //Not in new
+                File::Copy(Ref[Ref_Pos], Diff_Name+__T(".RefAlone.txt")); //Not in new
             else
             {
-                File::Copy(Ref[Ref_Pos], Diff_Name+_T(".Ref.txt")); //Diff
-                File::Copy(New[New_RefPos], Diff_Name+_T(".New.txt"));
+                File::Copy(Ref[Ref_Pos], Diff_Name+__T(".Ref.txt")); //Diff
+                File::Copy(New[New_RefPos], Diff_Name+__T(".New.txt"));
             }
         }
         if (New_RefPos!=(size_t)-1)
@@ -450,15 +450,15 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
     {
         //Not in ref
         Ztring Diff_Name=New[New_Pos];
-        Diff_Name.FindAndReplace(_T("\\Events\\New\\"), _T("\\Events\\Diff\\"));
-        if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff")))
-            Dir::Create(DataBaseDirectory+_T("\\Events\\Diff"));
-        if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()))
-            Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get());
-        if (!Dir::Exists(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario)))
-            Dir::Create(DataBaseDirectory+_T("\\Events\\Diff\\")+FileName(Files).Name_Get()+_T("\\")+Ztring::ToZtring(Scenario));
+        Diff_Name.FindAndReplace(__T("\\Events\\New\\"), __T("\\Events\\Diff\\"));
+        if (!Dir::Exists(DataBaseDirectory+__T("\\Events\\Diff")))
+            Dir::Create(DataBaseDirectory+__T("\\Events\\Diff"));
+        if (!Dir::Exists(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get()))
+            Dir::Create(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get());
+        if (!Dir::Exists(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get()+__T("\\")+Ztring::ToZtring(Scenario)))
+            Dir::Create(DataBaseDirectory+__T("\\Events\\Diff\\")+FileName(Files).Name_Get()+__T("\\")+Ztring::ToZtring(Scenario));
         if (!Dir::Exists(FileName(Diff_Name).Path_Get()))
             Dir::Create(FileName(Diff_Name).Path_Get());
-         File::Copy(New[New_Pos], Diff_Name+_T(".NewAlone.txt")); //Not in new
+         File::Copy(New[New_Pos], Diff_Name+__T(".NewAlone.txt")); //Not in new
     }
 }

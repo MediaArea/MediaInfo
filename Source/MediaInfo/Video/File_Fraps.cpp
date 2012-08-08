@@ -49,7 +49,7 @@ File_Fraps::File_Fraps()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("Fraps");
+    ParserName=__T("Fraps");
 }
 
 //***************************************************************************

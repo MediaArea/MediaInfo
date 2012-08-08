@@ -77,7 +77,7 @@ File_DtvccTransport::File_DtvccTransport()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("DTVCC Transport");
+    ParserName=__T("DTVCC Transport");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_DtvccTransport;
         StreamIDs_Width[0]=1;
@@ -127,7 +127,7 @@ void File_DtvccTransport::Streams_Update_PerStream(size_t Pos)
         {
             Stream_Prepare(Stream_Text);
             Merge(*Streams[Pos]->Parser, Stream_Text, Pos2, StreamPos_Last);
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?_T("DVD-Video"):_T("DTVCC Transport"));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?__T("DVD-Video"):__T("DTVCC Transport"));
             Fill(Stream_Text, StreamPos_Last, Text_ID, Streams[Pos]->Parser->Retrieve(Stream_Text, Pos2, Text_ID), true);
         }
 }

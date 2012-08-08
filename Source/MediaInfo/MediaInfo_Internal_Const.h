@@ -133,8 +133,6 @@ enum blockmethod_t
 
 //---------------------------------------------------------------------------
 //Char types
-#undef  _T
-#define _T(__x)     __T(__x)
 #if defined(UNICODE) || defined (_UNICODE)
     typedef wchar_t Char;
     #undef  __T

@@ -118,9 +118,9 @@ void File_ImpulseTracker::Read_Buffer_Continue()
         Accept("Impulse Tracker");
 
         Fill(Stream_General, 0, General_Format, "Impulse Tracker");
-        Fill(Stream_General, 0, General_Format_Version, Ztring(_T("Version "))+Ztring::ToZtring(VersionMajor)+_T(".")+Ztring::ToZtring(VersionMinor/16)+Ztring::ToZtring(VersionMinor%16));
+        Fill(Stream_General, 0, General_Format_Version, Ztring(__T("Version "))+Ztring::ToZtring(VersionMajor)+__T(".")+Ztring::ToZtring(VersionMinor/16)+Ztring::ToZtring(VersionMinor%16));
         Fill(Stream_General, 0, General_Track, SongName);
-        Fill(Stream_General, 0, General_Encoded_Application, Ztring(_T("Impulse Tracker ")+Ztring::ToZtring(SoftwareVersionMajor)+_T(".")+Ztring::ToZtring(SoftwareVersionMinor/16)+Ztring::ToZtring(SoftwareVersionMinor%16)));
+        Fill(Stream_General, 0, General_Encoded_Application, Ztring(__T("Impulse Tracker ")+Ztring::ToZtring(SoftwareVersionMajor)+__T(".")+Ztring::ToZtring(SoftwareVersionMinor/16)+Ztring::ToZtring(SoftwareVersionMinor%16)));
         Fill(Stream_General, 0, "BPM", TS);
 
         Stream_Prepare(Stream_Audio);

@@ -52,7 +52,7 @@ File_Vp8::File_Vp8()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("VP8");
+    ParserName=__T("VP8");
     IsRawStream=true;
 
     //In

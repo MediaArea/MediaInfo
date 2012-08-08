@@ -1033,7 +1033,7 @@ File_Mpegv::File_Mpegv()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("MPEG Video");
+    ParserName=__T("MPEG Video");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Mpegv;
         StreamIDs_Width[0]=16;
@@ -1173,14 +1173,14 @@ void File_Mpegv::Streams_Update()
                         if ((*Text_Positions[Text_Positions_Pos].Parser)==GA94_03_Parser)
                         {
                             Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
-                            Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("A/53 / ")+MuxingMode, true);
+                            Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", __T("A/53 / ")+MuxingMode, true);
                         }
                     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
                     if ((*Text_Positions[Text_Positions_Pos].Parser)==Cdp_Parser)
                     {
                         Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
-                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
+                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", __T("Ancillary data / ")+MuxingMode, true);
                     }
                     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
                 }
@@ -1311,17 +1311,17 @@ void File_Mpegv::Streams_Fill()
         std::vector<Ztring> GOPs;
         size_t GOP_Frame_Count=0;
         size_t GOP_BFrames_Max=0;
-        size_t I_Pos1=CodingType.find(_T('I'));
+        size_t I_Pos1=CodingType.find(__T('I'));
         while (I_Pos1!=std::string::npos)
         {
-            size_t I_Pos2=CodingType.find(_T('I'), I_Pos1+1);
+            size_t I_Pos2=CodingType.find(__T('I'), I_Pos1+1);
             if (I_Pos2!=std::string::npos)
             {
                 std::vector<size_t> P_Positions;
                 size_t P_Position=I_Pos1;
                 do
                 {
-                    P_Position=CodingType.find(_T('P'), P_Position+1);
+                    P_Position=CodingType.find(__T('P'), P_Position+1);
                     if (P_Position<I_Pos2)
                         P_Positions.push_back(P_Position);
                 }
@@ -1329,11 +1329,11 @@ void File_Mpegv::Streams_Fill()
                 Ztring GOP;
                 if (!P_Positions.empty())
                 {
-                    GOP+=_T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+_T(", ");
+                    GOP+=__T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+__T(", ");
                     if (P_Positions[0]-I_Pos1>GOP_BFrames_Max)
                         GOP_BFrames_Max=P_Positions[0]-I_Pos1;
                 }
-                GOP+=_T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
+                GOP+=__T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
                 GOPs.push_back(GOP);
                 GOP_Frame_Count+=I_Pos2-I_Pos1;
             }
@@ -1353,7 +1353,7 @@ void File_Mpegv::Streams_Fill()
                 GOPs.clear(); //Not a fixed GOP
         }
         else if (TemporalReference.size()==1 && CodingType=="I" && Frame_Count>1)
-            GOPs.push_back(_T("N=1"));
+            GOPs.push_back(__T("N=1"));
         if (!GOPs.empty())
             Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOPs[0]);
     }
@@ -1361,8 +1361,8 @@ void File_Mpegv::Streams_Fill()
     //Profile
     if (!profile_and_level_indication_escape && profile_and_level_indication_profile!=(int8u)-1 && profile_and_level_indication_level!=(int8u)-1)
     {
-        Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
-        Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
+        Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+__T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
+        Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+__T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
     }
     else if (profile_and_level_indication_escape)
     {
@@ -1410,9 +1410,9 @@ void File_Mpegv::Streams_Fill()
         if (FrameRate)
             Time_Begin+=((float64)Time_Begin_Frames)*1000/FrameRate;
         Fill(Stream_Video, 0, Video_Delay, Time_Begin, 0);
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(__T("drop_frame_flag="))+(group_start_drop_frame_flag?__T("1"):__T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(__T("closed_gop="))+(group_start_closed_gop?__T("1"):__T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(__T("broken_link="))+(group_start_broken_link?__T("1"):__T("0")));
         Fill(Stream_Video, 0, Video_Delay_Source, "Stream");
     }
 
@@ -1473,38 +1473,38 @@ void File_Mpegv::Streams_Fill()
     if (intra_dc_precision!=(int8u)-1)
     {
         Fill(Stream_Video, 0, "intra_dc_precision", 8+intra_dc_precision);
-        (*Stream_More)[Stream_Video][0](Ztring().From_Local("intra_dc_precision"), Info_Options)=_T("N NT");
+        (*Stream_More)[Stream_Video][0](Ztring().From_Local("intra_dc_precision"), Info_Options)=__T("N NT");
     }
 
     //Commercial name
-    if (Retrieve(Stream_Video, 0, Video_Format_Version)==_T("Version 2")
-     && Retrieve(Stream_Video, 0, Video_DisplayAspectRatio)==_T("1.778")
-     && Retrieve(Stream_Video, 0, Video_BitDepth)==_T("8")
-     && Retrieve(Stream_Video, 0, Video_ChromaSubsampling)==_T("4:2:0"))
+    if (Retrieve(Stream_Video, 0, Video_Format_Version)==__T("Version 2")
+     && Retrieve(Stream_Video, 0, Video_DisplayAspectRatio)==__T("1.778")
+     && Retrieve(Stream_Video, 0, Video_BitDepth)==__T("8")
+     && Retrieve(Stream_Video, 0, Video_ChromaSubsampling)==__T("4:2:0"))
     {
         //HDV1
-        if (Retrieve(Stream_Video, 0, Video_Width)==_T("1280")
-         && Retrieve(Stream_Video, 0, Video_Height)==_T("720")
-         && Retrieve(Stream_Video, 0, Video_ScanType)==_T("Progressive")
-         && (Retrieve(Stream_Video, 0, Video_FrameRate)==_T("60.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("59.940") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("24.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("23.976") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("25.000"))
-         && (Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("Main@High") || Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("Main@High 1440"))
+        if (Retrieve(Stream_Video, 0, Video_Width)==__T("1280")
+         && Retrieve(Stream_Video, 0, Video_Height)==__T("720")
+         && Retrieve(Stream_Video, 0, Video_ScanType)==__T("Progressive")
+         && (Retrieve(Stream_Video, 0, Video_FrameRate)==__T("60.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("59.940") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("24.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("23.976") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("25.000"))
+         && (Retrieve(Stream_Video, 0, Video_Format_Profile)==__T("Main@High") || Retrieve(Stream_Video, 0, Video_Format_Profile)==__T("Main@High 1440"))
          && Retrieve(Stream_Video, 0, Video_BitRate).To_int64u()<20000000 && Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int64u()<20000000)
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "HDV 720p");
 
         //HDV2
-        if (Retrieve(Stream_Video, 0, Video_Width)==_T("1440")
-         && Retrieve(Stream_Video, 0, Video_Height)==_T("1080")
-         && Retrieve(Stream_Video, 0, Video_Format_Profile)==_T("Main@High 1440")
+        if (Retrieve(Stream_Video, 0, Video_Width)==__T("1440")
+         && Retrieve(Stream_Video, 0, Video_Height)==__T("1080")
+         && Retrieve(Stream_Video, 0, Video_Format_Profile)==__T("Main@High 1440")
          && Retrieve(Stream_Video, 0, Video_BitRate).To_int64u()<27000000 && Retrieve(Stream_Video, 0, Video_BitRate_Maximum).To_int64u()<27000000)
         {
             //Interlaced
-            if (Retrieve(Stream_Video, 0, Video_ScanType)==_T("Interlaced")
-             && (Retrieve(Stream_Video, 0, Video_FrameRate)==_T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("25.000")))
+            if (Retrieve(Stream_Video, 0, Video_ScanType)==__T("Interlaced")
+             && (Retrieve(Stream_Video, 0, Video_FrameRate)==__T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("25.000")))
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "HDV 1080i");
 
             //Progressive
-            if (Retrieve(Stream_Video, 0, Video_ScanType)==_T("Progressive")
-             && (Retrieve(Stream_Video, 0, Video_FrameRate)==_T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("24.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("23.976") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==_T("25.000")))
+            if (Retrieve(Stream_Video, 0, Video_ScanType)==__T("Progressive")
+             && (Retrieve(Stream_Video, 0, Video_FrameRate)==__T("30.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("29.970") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("24.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("23.976") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("50.000") || Retrieve(Stream_Video, 0, Video_FrameRate)==__T("25.000")))
             Fill(Stream_Video, 0, Video_Format_Commercial_IfAny, "HDV 1080p");
         }
     }
@@ -2356,15 +2356,15 @@ void File_Mpegv::slice_start()
         #if MEDIAINFO_TRACE
             if (Trace_Activated)
             {
-                Element_Info1(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+                Element_Info1(__T("Frame ")+Ztring::ToZtring(Frame_Count));
                 if (Frame_Count_LastIFrame!=(int64u)-1)
-                    Element_Info1(_T("Frame reordered ")+Ztring::ToZtring(Frame_Count_LastIFrame+temporal_reference));
-                Element_Info1(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
-                Element_Info1(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
+                    Element_Info1(__T("Frame reordered ")+Ztring::ToZtring(Frame_Count_LastIFrame+temporal_reference));
+                Element_Info1(__T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
+                Element_Info1(__T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
                 if (FrameInfo.PTS!=(int64u)-1)
-                    Element_Info1(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+                    Element_Info1(__T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
                 if (FrameInfo.DTS!=(int64u)-1)
-                    Element_Info1(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+                    Element_Info1(__T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
                 if (Time_End_Seconds!=Error)
                 {
                     int32u Time_End  =Time_End_Seconds  *1000;
@@ -2377,16 +2377,16 @@ void File_Mpegv::slice_start()
 
                     Ztring Time;
                     Time+=Ztring::ToZtring(Hours);
-                    Time+=_T(':');
+                    Time+=__T(':');
                     Time+=Ztring::ToZtring(Minutes);
-                    Time+=_T(':');
+                    Time+=__T(':');
                     Time+=Ztring::ToZtring(Seconds);
                     if (FrameRate!=0)
                     {
-                        Time+=_T('.');
+                        Time+=__T('.');
                         Time+=Ztring::ToZtring(Milli);
                     }
-                    Element_Info1(_T("time_code ")+Time);
+                    Element_Info1(__T("time_code ")+Time);
                 }
             }
         #endif //MEDIAINFO_TRACE
@@ -2538,7 +2538,7 @@ void File_Mpegv::slice_start()
             if (Macroblocks_Parse)
             {
                 macroblock_x++;
-                Element_Info1(Ztring::ToZtring(macroblock_x)+_T(" macroblocks"));
+                Element_Info1(Ztring::ToZtring(macroblock_x)+__T(" macroblocks"));
                 macroblock_x_PerFrame+=macroblock_x;
                 macroblock_y_PerFrame++;
             }
@@ -2569,14 +2569,14 @@ void File_Mpegv::slice_start_macroblock()
     do
     {
         Get_VL(macroblock_address_increment_Vlc, macroblock_address_increment, "macroblock_address_increment");
-        Element_Info1(_T("macroblock_address_increment=")+Ztring::ToZtring(Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3));
+        Element_Info1(__T("macroblock_address_increment=")+Ztring::ToZtring(Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3));
         if (macroblock_x!=(int64u)-1)
             macroblock_x+=Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to3;
     }
     while (Mpegv_macroblock_address_increment[macroblock_address_increment].mapped_to1==2); //Escape code
     if (macroblock_x==(int64u)-1)
         macroblock_x=0;
-    Element_Info1(_T("macroblock_x=")+Ztring::ToZtring(macroblock_x));
+    Element_Info1(__T("macroblock_x=")+Ztring::ToZtring(macroblock_x));
     Element_Trace_Begin1("macroblock_modes");
         vlc_fast* macroblock_type_X;
         switch(picture_coding_type)
@@ -2598,12 +2598,12 @@ void File_Mpegv::slice_start_macroblock()
             Element_Offset=Element_Size;
             return;
         }
-        Element_Info1(_T("macroblock_quant=")+Ztring::ToZtring(macroblock_type&macroblock_quant));
-        Element_Info1(_T("macroblock_motion_forward=")+Ztring::ToZtring(macroblock_type&macroblock_motion_forward));
-        Element_Info1(_T("macroblock_motion_backward=")+Ztring::ToZtring(macroblock_type&macroblock_motion_backward));
-        Element_Info1(_T("macroblock_pattern=")+Ztring::ToZtring(macroblock_type&macroblock_pattern));
-        Element_Info1(_T("macroblock_intra=")+Ztring::ToZtring(macroblock_type&macroblock_intra));
-        Element_Info1(_T("spatial_temporal_weight_code_flag=")+Ztring::ToZtring(macroblock_type&spatial_temporal_weight_code_flag));
+        Element_Info1(__T("macroblock_quant=")+Ztring::ToZtring(macroblock_type&macroblock_quant));
+        Element_Info1(__T("macroblock_motion_forward=")+Ztring::ToZtring(macroblock_type&macroblock_motion_forward));
+        Element_Info1(__T("macroblock_motion_backward=")+Ztring::ToZtring(macroblock_type&macroblock_motion_backward));
+        Element_Info1(__T("macroblock_pattern=")+Ztring::ToZtring(macroblock_type&macroblock_pattern));
+        Element_Info1(__T("macroblock_intra=")+Ztring::ToZtring(macroblock_type&macroblock_intra));
+        Element_Info1(__T("spatial_temporal_weight_code_flag=")+Ztring::ToZtring(macroblock_type&spatial_temporal_weight_code_flag));
         if (macroblock_type&spatial_temporal_weight_code_flag
          && spatial_temporal_weight_code_table_index)
             Get_S1 (2, spatial_temporal_weight_code,            "spatial_temporal_weight_code");
@@ -2938,57 +2938,57 @@ void File_Mpegv::user_data_start()
         Skip_XX(Element_Size-Element_Offset,                    "junk");
 
     //Cleanup
-    while(Temp.size()>3 && Temp[1]==_T('e') && Temp[2]==_T('n') && Temp[3]==_T('c'))
+    while(Temp.size()>3 && Temp[1]==__T('e') && Temp[2]==__T('n') && Temp[3]==__T('c'))
         Temp.erase(0, 1);
-    while(Temp.size()>5 && Temp[3]==_T('M') && Temp[4]==_T('P') && Temp[5]==_T('E'))
+    while(Temp.size()>5 && Temp[3]==__T('M') && Temp[4]==__T('P') && Temp[5]==__T('E'))
         Temp.erase(0, 1);
 
     //Cleanup
-    while(!Temp.empty() && Temp[0]==_T('0'))
+    while(!Temp.empty() && Temp[0]==__T('0'))
         Temp.erase(0, 1);
 
     FILLING_BEGIN();
         if (!Temp.empty())
         {
-            if (Temp.find(_T("build"))==0)
-                Library+=Ztring(_T(" "))+Temp;
+            if (Temp.find(__T("build"))==0)
+                Library+=Ztring(__T(" "))+Temp;
             else
                 Library=Temp;
 
             //Library
-            if (Temp.find(_T("Created with Nero"))==0)
+            if (Temp.find(__T("Created with Nero"))==0)
             {
-                Library_Name=_T("Ahead Nero");
+                Library_Name=__T("Ahead Nero");
             }
-            else if (Library.find(_T("encoded by avi2mpg1 ver "))==0)
+            else if (Library.find(__T("encoded by avi2mpg1 ver "))==0)
             {
-                Library_Name=_T("avi2mpg1");
-                Library_Version=Library.SubString(_T("encoded by avi2mpg1 ver "), _T(""));
+                Library_Name=__T("avi2mpg1");
+                Library_Version=Library.SubString(__T("encoded by avi2mpg1 ver "), __T(""));
             }
-            else if (Library.find(_T("encoded by TMPGEnc (ver. "))==0)
+            else if (Library.find(__T("encoded by TMPGEnc (ver. "))==0)
             {
-                Library_Name=_T("TMPGEnc");
-                Library_Version=Library.SubString(_T("encoded by TMPGEnc (ver. "), _T(")"));
+                Library_Name=__T("TMPGEnc");
+                Library_Version=Library.SubString(__T("encoded by TMPGEnc (ver. "), __T(")"));
             }
-            else if (Library.find(_T("encoded by TMPGEnc 4.0 XPress Version. "))==0)
+            else if (Library.find(__T("encoded by TMPGEnc 4.0 XPress Version. "))==0)
             {
-                Library_Name=_T("TMPGEnc XPress");
-                Library_Version=Library.SubString(_T("encoded by TMPGEnc 4.0 XPress Version. "), _T(""));
+                Library_Name=__T("TMPGEnc XPress");
+                Library_Version=Library.SubString(__T("encoded by TMPGEnc 4.0 XPress Version. "), __T(""));
             }
-            else if (Library.find(_T("encoded by TMPGEnc MPEG Editor "))==0)
+            else if (Library.find(__T("encoded by TMPGEnc MPEG Editor "))==0)
             {
-                Library_Name=_T("TMPGEnc MPEG Editor");
-                Library_Version=Library.SubString(_T("Version. "), _T(""));
+                Library_Name=__T("TMPGEnc MPEG Editor");
+                Library_Version=Library.SubString(__T("Version. "), __T(""));
             }
-            else if (Library.find(_T("encoded by TMPGEnc "))==0)
+            else if (Library.find(__T("encoded by TMPGEnc "))==0)
             {
-                Library_Name=_T("TMPGEnc");
-                Library_Version=Library.SubString(_T("encoded by TMPGEnc "), _T(""));
+                Library_Name=__T("TMPGEnc");
+                Library_Version=Library.SubString(__T("encoded by TMPGEnc "), __T(""));
             }
-            else if (Library.find(_T("MPEG Encoder v"))==0)
+            else if (Library.find(__T("MPEG Encoder v"))==0)
             {
-                Library_Name=_T("MPEG Encoder by Tristan Savatier");
-                Library_Version=Library.SubString(_T("MPEG Encoder v"), _T(" by"));
+                Library_Name=__T("MPEG Encoder by Tristan Savatier");
+                Library_Version=Library.SubString(__T("MPEG Encoder v"), __T(" by"));
             }
             else
                 Library_Name=Library;
@@ -3347,7 +3347,7 @@ void File_Mpegv::sequence_header()
             {
                 Ztring Value=Ztring::ToZtring(intra_quantiser, 16);
                 if (Value.size()==1)
-                    Value.insert(0, _T("0"));
+                    Value.insert(0, __T("0"));
                 Matrix_intra+=Value;
             }
         }
@@ -3362,7 +3362,7 @@ void File_Mpegv::sequence_header()
             {
                 Ztring Value=Ztring::ToZtring(non_intra_quantiser, 16);
                 if (Value.size()==1)
-                    Value.insert(0, _T("0"));
+                    Value.insert(0, __T("0"));
                 Matrix_nonintra+=Value;
             }
         }
@@ -3729,13 +3729,13 @@ void File_Mpegv::group_start()
         BS_End();
         Ztring Time;
         Time+=Ztring::ToZtring(Hours);
-        Time+=_T(':');
+        Time+=__T(':');
         Time+=Ztring::ToZtring(Minutes);
-        Time+=_T(':');
+        Time+=__T(':');
         Time+=Ztring::ToZtring(Seconds);
         if (FrameRate!=0)
         {
-            Time+=_T('.');
+            Time+=__T('.');
             Time+=Ztring::ToZtring(Frames*1000/FrameRate, 0);
         }
         Element_Info1(Time);

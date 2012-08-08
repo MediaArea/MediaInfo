@@ -233,37 +233,37 @@ void File_Aac::program_config_element()
     switch (Channels_Front)
     {
         case  0 : break;
-        case  1 : Channels_Positions+=_T("Front: C"); break;
-        case  2 : Channels_Positions+=_T("Front: L R"); break;
-        case  3 : Channels_Positions+=_T("Front: L C R"); break;
-        default : Channels_Positions+=_T("Front: "); Channels_Positions+=Ztring::ToZtring(Channels_Front); //Which config?
+        case  1 : Channels_Positions+=__T("Front: C"); break;
+        case  2 : Channels_Positions+=__T("Front: L R"); break;
+        case  3 : Channels_Positions+=__T("Front: L C R"); break;
+        default : Channels_Positions+=__T("Front: "); Channels_Positions+=Ztring::ToZtring(Channels_Front); //Which config?
     }
     switch (Channels_Side)
     {
         case  0 : break;
-        case  1 : Channels_Positions+=_T(", Side: C"); break;
-        case  2 : Channels_Positions+=_T(", Side: L R"); break;
-        case  3 : Channels_Positions+=_T(", Side: L C R"); break;
-        default : Channels_Positions+=_T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
+        case  1 : Channels_Positions+=__T(", Side: C"); break;
+        case  2 : Channels_Positions+=__T(", Side: L R"); break;
+        case  3 : Channels_Positions+=__T(", Side: L C R"); break;
+        default : Channels_Positions+=__T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
     }
     switch (Channels_Back)
     {
         case  0 : break;
-        case  1 : Channels_Positions+=_T(", Back: C"); break;
-        case  2 : Channels_Positions+=_T(", Back: L R"); break;
-        case  3 : Channels_Positions+=_T(", Back: L C R"); break;
-        default : Channels_Positions+=_T(", Back: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
+        case  1 : Channels_Positions+=__T(", Back: C"); break;
+        case  2 : Channels_Positions+=__T(", Back: L R"); break;
+        case  3 : Channels_Positions+=__T(", Back: L C R"); break;
+        default : Channels_Positions+=__T(", Back: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
     }
     switch (Channels_LFE)
     {
         case  0 : break;
-        case  1 : Channels_Positions+=_T(", LFE"); break;
-        default : Channels_Positions+=_T(", LFE= "); Channels_Positions+=Ztring::ToZtring(Channels_LFE); //Which config?
+        case  1 : Channels_Positions+=__T(", LFE"); break;
+        default : Channels_Positions+=__T(", LFE= "); Channels_Positions+=Ztring::ToZtring(Channels_LFE); //Which config?
     }
-    Channels_Positions2=Ztring::ToZtring(Channels_Front)+_T('/')
-                       +Ztring::ToZtring(Channels_Side)+_T('/')
+    Channels_Positions2=Ztring::ToZtring(Channels_Front)+__T('/')
+                       +Ztring::ToZtring(Channels_Side)+__T('/')
                        +Ztring::ToZtring(Channels_Back)
-                       +(Channels_LFE?_T(".1"):_T(""));
+                       +(Channels_LFE?__T(".1"):__T(""));
 
     FILLING_BEGIN();
         //Integrity test
@@ -290,36 +290,36 @@ void File_Aac::program_config_element()
 
         if (!Infos["Format_Settings_SBR"].empty())
         {
-            Infos["Format_Profile"]=_T("HE-AAC");
+            Infos["Format_Profile"]=__T("HE-AAC");
             Ztring SamplingRate=Infos["SamplingRate"];
             Infos["SamplingRate"].From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10);
             if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
             {
-                Infos["Format_Profile"]+=_T(" / LC");
-                Infos["SamplingRate"]+=_T(" / ")+SamplingRate;
+                Infos["Format_Profile"]+=__T(" / LC");
+                Infos["SamplingRate"]+=__T(" / ")+SamplingRate;
             }
-            Infos["Format_Settings_SBR"]=_T("Yes (Implicit)");
-            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
+            Infos["Format_Settings_SBR"]=__T("Yes (Implicit)");
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+__T("-SBR");
         }
 
         if (!Infos["Format_Settings_PS"].empty())
         {
-            Infos["Format_Profile"]=_T("HE-AACv2");
+            Infos["Format_Profile"]=__T("HE-AACv2");
             Ztring Channels=Infos["Channel(s)"];
             Ztring ChannelPositions=Infos["ChannelPositions"];
             Ztring SamplingRate=Infos["SamplingRate"];
-            Infos["Channel(s)"]=_T("2");
-            Infos["ChannelPositions"]=_T("Front: L R");
+            Infos["Channel(s)"]=__T("2");
+            Infos["ChannelPositions"]=__T("Front: L R");
             if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
             {
-                Infos["Format_Profile"]+=_T(" / HE-AAC / LC");
-                Infos["Channel(s)"]+=_T(" / ")+Channels+_T(" / ")+Channels;
-                Infos["ChannelPositions"]+=_T(" / ")+ChannelPositions+_T(" / ")+ChannelPositions;
-                Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+                Infos["Format_Profile"]+=__T(" / HE-AAC / LC");
+                Infos["Channel(s)"]+=__T(" / ")+Channels+__T(" / ")+Channels;
+                Infos["ChannelPositions"]+=__T(" / ")+ChannelPositions+__T(" / ")+ChannelPositions;
+                Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+__T(" / ")+SamplingRate;
             }
-            Infos["Format_Settings_PS"]=_T("Yes (Implicit)");
+            Infos["Format_Settings_PS"]=__T("Yes (Implicit)");
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+__T("-SBR-PS");
         }
     FILLING_END();
 }

@@ -45,19 +45,19 @@ namespace MediaInfo_Debug_MediaInfo
 
 #if defined (MEDIAINFO_DEBUG_CONFIG) || defined (MEDIAINFO_DEBUG_BUFFER) || defined (MEDIAINFO_DEBUG_OUTPUT)
     #ifdef WINDOWS
-        const Char* MediaInfo_Debug_Name=_T("MediaInfo_Debug");
+        const Char* MediaInfo_Debug_Name=__T("MediaInfo_Debug");
     #else
-        const Char* MediaInfo_Debug_Name=_T("/tmp/MediaInfo_Debug");
+        const Char* MediaInfo_Debug_Name=__T("/tmp/MediaInfo_Debug");
     #endif
 #endif
 
 #ifdef MEDIAINFO_DEBUG_CONFIG
     #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND) \
         { \
-            File F(Ztring(MediaInfo_Debug_Name)+_T(".Config.static.txt"), File::Access_Write_Append); \
+            File F(Ztring(MediaInfo_Debug_Name)+__T(".Config.static.txt"), File::Access_Write_Append); \
             Ztring Debug; \
             _TOAPPEND; \
-            Debug+=_T("\r\n"); \
+            Debug+=__T("\r\n"); \
             F.Write(Debug); \
             F.Close(); \
         }
@@ -209,20 +209,20 @@ String MediaInfo::Option (const String &Option, const String &Value)
 //---------------------------------------------------------------------------
 String MediaInfo::Option_Static (const String &Option, const String &Value)
 {
-    MEDIAINFO_DEBUG_STATIC(Debug+=_T("Option_Static, Option=");Debug+=Ztring(Option);Debug+=_T(", Value=");Debug+=Ztring(Value);)
+    MEDIAINFO_DEBUG_STATIC(Debug+=__T("Option_Static, Option=");Debug+=Ztring(Option);Debug+=__T(", Value=");Debug+=Ztring(Value);)
     MediaInfoLib::Config.Init(); //Initialize Configuration
 
-         if (Option==_T("Info_Capacities"))
+         if (Option==__T("Info_Capacities"))
     {
-        return _T("Option disactivated for this version, will come back soon!");
+        return __T("Option disactivated for this version, will come back soon!");
         //MediaInfo_Internal MI;
         //return MI.Option(Option);
     }
-    else if (Option==_T("Info_Version"))
+    else if (Option==__T("Info_Version"))
     {
         Ztring ToReturn=MediaInfoLib::Config.Info_Version_Get();
         if (MediaInfo_Internal::LibraryIsModified())
-            ToReturn+=_T(" modified");
+            ToReturn+=__T(" modified");
         return ToReturn;
     }
     else

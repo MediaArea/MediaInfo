@@ -138,11 +138,11 @@ void File_Celt::Comment()
             Get_Local(size, value,                              "value");
 
         //Filling
-        if (value.find(_T("CELT "))!=std::string::npos)
+        if (value.find(__T("CELT "))!=std::string::npos)
         {
-            Ztring Version=value.SubString(_T("CELT "), _T(" ("));
-            Fill(Stream_Audio, 0, Audio_Encoded_Library, _T("CELT ")+Version);
-            Fill(Stream_Audio, 0, Audio_Encoded_Library_Name, _T("CELT"));
+            Ztring Version=value.SubString(__T("CELT "), __T(" ("));
+            Fill(Stream_Audio, 0, Audio_Encoded_Library, __T("CELT ")+Version);
+            Fill(Stream_Audio, 0, Audio_Encoded_Library_Name, __T("CELT"));
             Fill(Stream_Audio, 0, Audio_Encoded_Library_Version, Version);
         }
         else if (!value.empty())

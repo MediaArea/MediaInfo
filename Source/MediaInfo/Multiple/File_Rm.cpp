@@ -88,7 +88,7 @@ void File_Rm::Header_Parse()
     if (FromMKV_StreamType!=Stream_Max)
     {
         //Filling
-        Header_Fill_Code(0, _T("Real Media Header"));
+        Header_Fill_Code(0, __T("Real Media Header"));
         Header_Fill_Size(Element_Size);
         return;
     }

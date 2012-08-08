@@ -45,37 +45,37 @@ int main (int argc, Char *argv[])
 {
     //Information about MediaInfo
     MediaInfo MI;
-    String To_Display=MI.Option(_T("Info_Version"), _T("0.7.13;MediaInfoDLL_Example_MSVC;0.7.13")).c_str();
+    String To_Display=MI.Option(__T("Info_Version"), __T("0.7.13;MediaInfoDLL_Example_MSVC;0.7.13")).c_str();
 
-    To_Display += _T("\r\n\r\nInfo_Parameters\r\n");
-    To_Display += MI.Option(_T("Info_Parameters")).c_str();
+    To_Display += __T("\r\n\r\nInfo_Parameters\r\n");
+    To_Display += MI.Option(__T("Info_Parameters")).c_str();
 
-    To_Display += _T("\r\n\r\nInfo_Codecs\r\n");
-    To_Display += MI.Option(_T("Info_Codecs")).c_str();
+    To_Display += __T("\r\n\r\nInfo_Codecs\r\n");
+    To_Display += MI.Option(__T("Info_Codecs")).c_str();
 
     //An example of how to use the library
-    To_Display += _T("\r\n\r\nOpen\r\n");
-    MI.Open(_T("Example.ogg"));
+    To_Display += __T("\r\n\r\nOpen\r\n");
+    MI.Open(__T("Example.ogg"));
 
-    To_Display += _T("\r\n\r\nInform with Complete=false\r\n");
-    MI.Option(_T("Complete"));
+    To_Display += __T("\r\n\r\nInform with Complete=false\r\n");
+    MI.Option(__T("Complete"));
     To_Display += MI.Inform().c_str();
 
-    To_Display += _T("\r\n\r\nInform with Complete=true\r\n");
-    MI.Option(_T("Complete"), _T("1"));
+    To_Display += __T("\r\n\r\nInform with Complete=true\r\n");
+    MI.Option(__T("Complete"), __T("1"));
     To_Display += MI.Inform().c_str();
 
-    To_Display += _T("\r\n\r\nCustom Inform\r\n");
-    MI.Option(_T("Inform"), _T("General;Example : FileSize=%FileSize%"));
+    To_Display += __T("\r\n\r\nCustom Inform\r\n");
+    MI.Option(__T("Inform"), __T("General;Example : FileSize=%FileSize%"));
     To_Display += MI.Inform().c_str();
 
-    To_Display += _T("\r\n\r\nGet with Stream=General and Parameter=\"FileSize\"\r\n");
-    To_Display += MI.Get(Stream_General, 0, _T("FileSize"), Info_Text, Info_Name).c_str();
+    To_Display += __T("\r\n\r\nGet with Stream=General and Parameter=\"FileSize\"\r\n");
+    To_Display += MI.Get(Stream_General, 0, __T("FileSize"), Info_Text, Info_Name).c_str();
 
-    To_Display += _T("\r\n\r\nGetI with Stream=General and Parameter=46\r\n");
+    To_Display += __T("\r\n\r\nGetI with Stream=General and Parameter=46\r\n");
     To_Display += MI.Get(Stream_General, 0, 46, Info_Text).c_str();
 
-    To_Display += _T("\r\n\r\nCount_Get with StreamKind=Stream_Audio\r\n");
+    To_Display += __T("\r\n\r\nCount_Get with StreamKind=Stream_Audio\r\n");
     #ifdef __MINGW32__
         Char* C1=new Char[33];
         _itot (MI.Count_Get(Stream_Audio), C1, 10);
@@ -87,13 +87,13 @@ int main (int argc, Char *argv[])
         To_Display += SS.str();
     #endif
 
-    To_Display += _T("\r\n\r\nGet with Stream=General and Parameter=\"AudioCount\"\r\n");
-    To_Display += MI.Get(Stream_General, 0, _T("AudioCount"), Info_Text, Info_Name).c_str();
+    To_Display += __T("\r\n\r\nGet with Stream=General and Parameter=\"AudioCount\"\r\n");
+    To_Display += MI.Get(Stream_General, 0, __T("AudioCount"), Info_Text, Info_Name).c_str();
 
-    To_Display += _T("\r\n\r\nGet with Stream=Audio and Parameter=\"StreamCount\"\r\n");
-    To_Display += MI.Get(Stream_Audio, 0, _T("StreamCount"), Info_Text, Info_Name).c_str();
+    To_Display += __T("\r\n\r\nGet with Stream=Audio and Parameter=\"StreamCount\"\r\n");
+    To_Display += MI.Get(Stream_Audio, 0, __T("StreamCount"), Info_Text, Info_Name).c_str();
 
-    To_Display += _T("\r\n\r\nClose\r\n");
+    To_Display += __T("\r\n\r\nClose\r\n");
     MI.Close();
 
     #ifdef _UNICODE
@@ -159,7 +159,7 @@ int main (int argc, Char *argv[])
     MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
 
     //Get() example
-    String To_Display=MI.Get(Stream_General, 0, _T("Format"));
+    String To_Display=MI.Get(Stream_General, 0, __T("Format"));
 
     #ifdef _UNICODE
         std::wcout << To_Display;

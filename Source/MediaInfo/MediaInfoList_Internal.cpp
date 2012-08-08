@@ -94,7 +94,7 @@ size_t MediaInfoList_Internal::Open(const String &File_Name, const fileoptions_t
 
     //Get all filenames
     ZtringList List;
-    size_t Pos=File_Name.find(_T(':'));
+    size_t Pos=File_Name.find(__T(':'));
     if (Pos!=string::npos && Pos!=1)
         List.push_back(File_Name);
     else if (File::Exists(File_Name))
@@ -152,7 +152,7 @@ void MediaInfoList_Internal::Entry()
             for (std::map<String, String>::iterator Config_MediaInfo_Item=Config_MediaInfo_Items.begin(); Config_MediaInfo_Item!=Config_MediaInfo_Items.end(); Config_MediaInfo_Item++)
                 MI->Option(Config_MediaInfo_Item->first, Config_MediaInfo_Item->second);
             if (BlockMethod==1)
-                MI->Option(_T("Thread"), _T("1"));
+                MI->Option(__T("Thread"), __T("1"));
             MI->Open(ToParse.front());
             if (BlockMethod==1)
             {
@@ -275,11 +275,11 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
     {
         Ztring Retour;
         FilePos=0;
-        ZtringListList MediaInfo_Custom_View; MediaInfo_Custom_View.Write(Option(_T("Inform_Get")));
+        ZtringListList MediaInfo_Custom_View; MediaInfo_Custom_View.Write(Option(__T("Inform_Get")));
         bool XML=false;
-        if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
+        if (MediaInfoLib::Config.Inform_Get()==__T("XML"))
             XML=true;
-        if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")+MediaInfoLib::Config.LineSeparator_Get()+_T("<Mediainfo version=\"")+MediaInfoLib::Config.Info_Version_Get().SubString(_T(" v"), Ztring())+_T("\">")+MediaInfoLib::Config.LineSeparator_Get();
+        if (XML) Retour+=__T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")+MediaInfoLib::Config.LineSeparator_Get()+__T("<Mediainfo version=\"")+MediaInfoLib::Config.Info_Version_Get().SubString(__T(" v"), Ztring())+__T("\">")+MediaInfoLib::Config.LineSeparator_Get();
         else
         Retour+=MediaInfo_Custom_View("Page_Begin");
         while (FilePos<Info.size())
@@ -291,7 +291,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
             }
             FilePos++;
         }
-        if (XML) Retour+=_T("</Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
+        if (XML) Retour+=__T("</Mediainfo>")+MediaInfoLib::Config.LineSeparator_Get();
         else Retour+=MediaInfo_Custom_View("Page_End");//
         return Retour.c_str();
     }
@@ -383,33 +383,33 @@ String MediaInfoList_Internal::Option (const String &Option, const String &Value
 {
     CriticalSectionLocker CSL(CS);
     Ztring OptionLower=Option; OptionLower.MakeLowerCase();
-         if (Option==_T(""))
-        return _T("");
-    else if (OptionLower==_T("manguage_update"))
+         if (Option==__T(""))
+        return __T("");
+    else if (OptionLower==__T("manguage_update"))
     {
         //Special case : Language_Update must update all MediaInfo classes
         for (unsigned int Pos=0; Pos<Info.size(); Pos++)
             if (Info[Pos])
-                Info[Pos]->Option(_T("language_update"), Value);
+                Info[Pos]->Option(__T("language_update"), Value);
 
-        return _T("");
+        return __T("");
     }
-    else if (OptionLower==_T("create_dummy"))
+    else if (OptionLower==__T("create_dummy"))
     {
         Info.resize(Info.size()+1);
         Info[Info.size()-1]=new MediaInfo_Internal();
         Info[Info.size()-1]->Option(Option, Value);
-        return _T("");
+        return __T("");
     }
-    else if (OptionLower==_T("thread"))
+    else if (OptionLower==__T("thread"))
     {
         BlockMethod=1;
-        return _T("");
+        return __T("");
     }
-    else if (OptionLower.find(_T("file_"))==0)
+    else if (OptionLower.find(__T("file_"))==0)
     {
         Config_MediaInfo_Items[Option]=Value;
-        return _T("");
+        return __T("");
     }
     else
         return MediaInfo::Option_Static(Option, Value);

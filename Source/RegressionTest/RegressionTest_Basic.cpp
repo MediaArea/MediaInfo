@@ -16,8 +16,8 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
 {
     ZtringListListF* Ref=new ZtringListListF[Stream_Max];
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
-        if (File::Exists(DataBaseDirectory+_T("\\Basic\\Ref\\")+Ztring::ToZtring(StreamKind)+_T(".csv")))
-            Ref[StreamKind].Load(DataBaseDirectory+_T("\\Basic\\Ref\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        if (File::Exists(DataBaseDirectory+__T("\\Basic\\Ref\\")+Ztring::ToZtring(StreamKind)+__T(".csv")))
+            Ref[StreamKind].Load(DataBaseDirectory+__T("\\Basic\\Ref\\")+Ztring::ToZtring(StreamKind)+__T(".csv"));
 
     ZtringListListF* New=new ZtringListListF[Stream_Max];
 
@@ -43,16 +43,16 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
             for (size_t StreamPos=0; StreamPos<MIL.Count_Get(FilePos, (stream_t)StreamKind); StreamPos++)
             {
                 New[StreamKind].push_back(ZtringList());
-                New[StreamKind].at(New[StreamKind].size()-1).push_back(MIL.Get(FilePos, Stream_General, 0, _T("CompleteName")));
+                New[StreamKind].at(New[StreamKind].size()-1).push_back(MIL.Get(FilePos, Stream_General, 0, __T("CompleteName")));
                 for (size_t LinePos=0; LinePos<MIL.Count_Get(FilePos, (stream_t)StreamKind, StreamPos); LinePos++)
                     New[StreamKind].at(New[StreamKind].size()-1).push_back(MIL.Get(FilePos, (stream_t)StreamKind, StreamPos, LinePos));
             }
 
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
-        if (!Dir::Exists(DataBaseDirectory+_T("\\Basic\\New")))
-            Dir::Create(DataBaseDirectory+_T("\\Basic\\New"));
-        New[StreamKind].Save(DataBaseDirectory+_T("\\Basic\\New\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+        if (!Dir::Exists(DataBaseDirectory+__T("\\Basic\\New")))
+            Dir::Create(DataBaseDirectory+__T("\\Basic\\New"));
+        New[StreamKind].Save(DataBaseDirectory+__T("\\Basic\\New\\")+Ztring::ToZtring(StreamKind)+__T(".csv"));
     }
 
     cout<<" Diff"<<endl;
@@ -93,7 +93,7 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
                             Diff[StreamKind](Diff[StreamKind].size()-1, 0)=New[StreamKind](New_Pos, 0);
                             IsDiff=true;
                         }
-                        Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=New[StreamKind](New_Pos, LinePos)+_T(" --- ")+Ref[StreamKind](Ref_Pos, LinePos);
+                        Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=New[StreamKind](New_Pos, LinePos)+__T(" --- ")+Ref[StreamKind](Ref_Pos, LinePos);
                     }
 
                 Ref_Pos++;
@@ -108,7 +108,7 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
             Diff[StreamKind](Diff[StreamKind].size()-1, 0)=Ref[StreamKind](Ref_Pos, 0);
             for (size_t LinePos=1; LinePos<Ref[StreamKind][Ref_Pos].size(); LinePos++)
                 if (!Ref[StreamKind](Ref_Pos, LinePos).empty())
-                    Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=_T(" --- ")+Ref[StreamKind](Ref_Pos, LinePos);
+                    Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=__T(" --- ")+Ref[StreamKind](Ref_Pos, LinePos);
         }
         for (; New_Pos<New[StreamKind].size(); New_Pos++)
         {
@@ -116,7 +116,7 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
             Diff[StreamKind](Diff[StreamKind].size()-1, 0)=New[StreamKind](New_Pos, 0);
             for (size_t LinePos=1; LinePos<New[StreamKind][New_Pos].size(); LinePos++)
                 if (!New[StreamKind](New_Pos, LinePos).empty())
-                    Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=New[StreamKind](New_Pos, LinePos)+_T(" --- ");
+                    Diff[StreamKind](Diff[StreamKind].size()-1, LinePos)=New[StreamKind](New_Pos, LinePos)+__T(" --- ");
         }
     }
 
@@ -125,9 +125,9 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
         if (!Diff[StreamKind].empty())
         {
             Diff[StreamKind].insert(Diff[StreamKind].begin(), New[StreamKind](0));
-            if (!Dir::Exists(DataBaseDirectory+_T("\\Basic\\Diff")))
-                Dir::Create(DataBaseDirectory+_T("\\Basic\\Diff"));
-            Diff[StreamKind].Save(DataBaseDirectory+_T("\\Basic\\Diff\\")+Ztring::ToZtring(StreamKind)+_T(".csv"));
+            if (!Dir::Exists(DataBaseDirectory+__T("\\Basic\\Diff")))
+                Dir::Create(DataBaseDirectory+__T("\\Basic\\Diff"));
+            Diff[StreamKind].Save(DataBaseDirectory+__T("\\Basic\\Diff\\")+Ztring::ToZtring(StreamKind)+__T(".csv"));
         }
     }
 }

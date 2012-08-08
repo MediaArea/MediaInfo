@@ -50,7 +50,7 @@ File_Teletext::File_Teletext()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("Teletext");
+    ParserName=__T("Teletext");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Teletext;
     #endif //MEDIAINFO_EVENTS

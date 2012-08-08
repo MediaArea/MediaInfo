@@ -75,7 +75,7 @@ Ztring AvsV_level(int8u level_id)
         case 0x40 : return "@6.0";
         case 0x42 : return "@6.2";
         default :
-            return _T('@')+Ztring::ToZtring(level_id);
+            return __T('@')+Ztring::ToZtring(level_id);
     }
 }
 
@@ -696,7 +696,7 @@ void File_AvsV::picture_start()
     //Name
     Element_Name("picture_start");
     Element_Info1(Ztring::ToZtring(Frame_Count));
-    Element_Info1C((Element_Code==0xB3), _T("I"));
+    Element_Info1C((Element_Code==0xB3), __T("I"));
 
     //Parsing
     int8u picture_coding_type=(int8u)-1;

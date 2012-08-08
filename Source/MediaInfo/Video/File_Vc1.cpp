@@ -268,7 +268,7 @@ void File_Vc1::Streams_Fill()
 
     Ztring Profile=Vc1_Profile[profile];
     if (profile==3)
-        Profile+=_T("@L")+Ztring::ToZtring(level);
+        Profile+=__T("@L")+Ztring::ToZtring(level);
     Fill(Stream_Video, 0, Video_Format_Profile, Profile);
     Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
     Fill(Stream_Video, 0, Video_Colorimetry, Vc1_ColorimetryFormat[colordiff_format]);
@@ -698,11 +698,11 @@ void File_Vc1::FrameHeader()
 {
     //Name
     Element_Name("FrameHeader");
-    Element_Info1(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
+    Element_Info1(Ztring(__T("Frame ")+Ztring::ToZtring(Frame_Count)));
     if (FrameRate)
     {
-        Element_Info1C((FrameInfo.PTS!=(int64u)-1), _T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
-        Element_Info1C((FrameInfo.DTS!=(int64u)-1), _T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
+        Element_Info1C((FrameInfo.PTS!=(int64u)-1), __T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000+Frame_Count_InThisBlock*1000/FrameRate)));
+        Element_Info1C((FrameInfo.DTS!=(int64u)-1), __T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
     }
 
     //Counting

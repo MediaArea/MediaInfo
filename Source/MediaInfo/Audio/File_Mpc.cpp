@@ -194,7 +194,7 @@ void File_Mpc::FileHeader_Parse()
     BS_End();
 
     Get_L1 (EncoderVersion,                                     "EncoderVersion");
-    Encoder.From_Number(((float)EncoderVersion)/100, 2); if (EncoderVersion%10==0); else if (EncoderVersion%2==0) Encoder+=_T(" Beta"); else if (EncoderVersion%2==1) Encoder+=_T(" Alpha"); Param_Info1(Encoder);
+    Encoder.From_Number(((float)EncoderVersion)/100, 2); if (EncoderVersion%10==0); else if (EncoderVersion%2==0) Encoder+=__T(" Beta"); else if (EncoderVersion%2==1) Encoder+=__T(" Alpha"); Param_Info1(Encoder);
 
     Element_End0();
 

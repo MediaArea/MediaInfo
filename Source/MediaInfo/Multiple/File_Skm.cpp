@@ -131,7 +131,7 @@ void File_Skm::Header_Parse()
     Skip_B4(                                                    "PreviousTagSize");
     if (File_Offset+Buffer_Offset+4<File_Size)
     {
-        Get_B1 (Type,                                           "Type"); //Param_Info1(Type<19?Flv_Type[Type]:_T("Unknown"));
+        Get_B1 (Type,                                           "Type"); //Param_Info1(Type<19?Flv_Type[Type]:__T("Unknown"));
         Get_B3 (BodyLength,                                     "BodyLength");
         Skip_B3(                                                "Timestamp_Base"); //in ms
         Skip_B1(                                                "Timestamp_Extended"); //TimeStamp = Timestamp_Extended*0x01000000+Timestamp_Base

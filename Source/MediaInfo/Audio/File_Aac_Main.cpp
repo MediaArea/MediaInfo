@@ -489,7 +489,7 @@ void File_Aac::AudioSpecificConfig_OutOfBand (int32u sampling_frequency_, int8u 
         if (Infos.find("Format_Settings_SBR")!=Infos.end())
         {
             sbrData=true;
-            sbrPresentFlag=Infos["Format_Settings_SBR"].find(_T("Yes"))!=string::npos;
+            sbrPresentFlag=Infos["Format_Settings_SBR"].find(__T("Yes"))!=string::npos;
         }
         else
         {
@@ -499,7 +499,7 @@ void File_Aac::AudioSpecificConfig_OutOfBand (int32u sampling_frequency_, int8u 
         if (Infos.find("Format_Settings_PS")!=Infos.end())
         {
             psData=true;
-            psPresentFlag=Infos["Format_Settings_PS"].find(_T("Yes"))!=string::npos;
+            psPresentFlag=Infos["Format_Settings_PS"].find(__T("Yes"))!=string::npos;
         }
         else
         {
@@ -523,44 +523,44 @@ void File_Aac::AudioSpecificConfig_OutOfBand (int32u sampling_frequency_, int8u 
 
     if (sbrPresentFlag)
     {
-        Infos["Format_Profile"]=_T("HE-AAC");
+        Infos["Format_Profile"]=__T("HE-AAC");
         Ztring SamplingRate=Infos["SamplingRate"];
         Infos["SamplingRate"].From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10);
         if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
         {
-            Infos["Format_Profile"]+=_T(" / LC");
-            Infos["SamplingRate"]+=_T(" / ")+SamplingRate;
+            Infos["Format_Profile"]+=__T(" / LC");
+            Infos["SamplingRate"]+=__T(" / ")+SamplingRate;
         }
-        Infos["Format_Settings_SBR"]=_T("Yes (Implicit)");
-        Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR");
+        Infos["Format_Settings_SBR"]=__T("Yes (Implicit)");
+        Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+__T("-SBR");
     }
     else if (sbrData)
-        Infos["Format_Settings_SBR"]=_T("No (Explicit)");
+        Infos["Format_Settings_SBR"]=__T("No (Explicit)");
 
     if (psPresentFlag)
     {
-        Infos["Format_Profile"]=_T("HE-AACv2");
+        Infos["Format_Profile"]=__T("HE-AACv2");
         Ztring Channels=Infos["Channel(s)"];
         Ztring ChannelPositions=Infos["ChannelPositions"];
         Ztring SamplingRate=Infos["SamplingRate"];
-        Infos["Channel(s)"]=_T("2");
-        Infos["ChannelPositions"]=_T("Front: L R");
+        Infos["Channel(s)"]=__T("2");
+        Infos["ChannelPositions"]=__T("Front: L R");
         if (MediaInfoLib::Config.LegacyStreamDisplay_Get())
         {
-            Infos["Format_Profile"]+=_T(" / HE-AAC / LC");
-            Infos["Channel(s)"]+=_T(" / ")+Channels+_T(" / ")+Channels;
-            Infos["ChannelPositions"]+=_T(" / ")+ChannelPositions+_T(" / ")+ChannelPositions;
-            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+_T(" / ")+SamplingRate;
+            Infos["Format_Profile"]+=__T(" / HE-AAC / LC");
+            Infos["Channel(s)"]+=__T(" / ")+Channels+__T(" / ")+Channels;
+            Infos["ChannelPositions"]+=__T(" / ")+ChannelPositions+__T(" / ")+ChannelPositions;
+            Infos["SamplingRate"]=Ztring().From_Number((extension_sampling_frequency_index==(int8u)-1)?(sampling_frequency*2):extension_sampling_frequency, 10)+__T(" / ")+SamplingRate;
         }
-        Infos["Format_Settings_PS"]=_T("Yes (Implicit)");
+        Infos["Format_Settings_PS"]=__T("Yes (Implicit)");
         if (StreamPos_Last!=(size_t)-1)
         {
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+_T("-SBR-PS");
+            Infos["Codec"]=Ztring().From_Local(Aac_audioObjectType(audioObjectType))+__T("-SBR-PS");
         }
     }
     else if (psData)
-        Infos["Format_Settings_PS"]=_T("No (Explicit)");
+        Infos["Format_Settings_PS"]=__T("No (Explicit)");
 }
 
 //---------------------------------------------------------------------------

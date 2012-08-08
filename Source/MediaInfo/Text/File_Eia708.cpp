@@ -173,7 +173,7 @@ void File_Eia708::Header_Parse()
     Get_S1(6, packet_size,                                      "packet_size_code");
     BS_End();
 
-    Header_Fill_Code(0, _T("DTVCC packet"));
+    Header_Fill_Code(0, __T("DTVCC packet"));
     Header_Fill_Size(packet_size==0?128:(packet_size*2));
 }
 
@@ -776,7 +776,7 @@ void File_Eia708::CLW()
     {
         WindowID--;
         bool IsSet;
-        Get_SB (   IsSet,                                       Ztring(_T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
+        Get_SB (   IsSet,                                       Ztring(__T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
 
         if (IsSet)
         {
@@ -826,7 +826,7 @@ void File_Eia708::DSW()
     {
         WindowID--;
         bool IsSet;
-        Get_SB (   IsSet,                                       Ztring(_T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
+        Get_SB (   IsSet,                                       Ztring(__T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
 
         if (IsSet)
         {
@@ -883,7 +883,7 @@ void File_Eia708::HDW()
         WindowID--;
 
         bool IsSet;
-        Get_SB (   IsSet,                                       Ztring(_T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
+        Get_SB (   IsSet,                                       Ztring(__T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
 
         if (IsSet)
         {
@@ -942,7 +942,7 @@ void File_Eia708::TGW()
     {
         WindowID--;
         bool IsSet;
-        Get_SB (   IsSet,                                       Ztring(_T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
+        Get_SB (   IsSet,                                       Ztring(__T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
 
         if (IsSet)
         {
@@ -1001,7 +1001,7 @@ void File_Eia708::DLW()
     {
         WindowID--;
         bool IsSet;
-        Get_SB (   IsSet,                                       Ztring(_T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
+        Get_SB (   IsSet,                                       Ztring(__T("window ")+Ztring::ToZtring(WindowID)).To_Local().c_str());
 
         //Bug in some files
         if (IsSet && WindowID==1 && Streams[service_number]->Windows[0]!=NULL && Streams[service_number]->Windows[1]==NULL) //Mix between Windows 0 and 1

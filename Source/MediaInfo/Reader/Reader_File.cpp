@@ -100,8 +100,8 @@ size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
             {
                 if(Extension.size()==Extensions.size())
                     break; //Only one extenion in the list
-                if(Extensions.find(Extension+_T(" "))!=Error
-                || Extensions.find(_T(" ")+Extension)!=Error)
+                if(Extensions.find(Extension+__T(" "))!=Error
+                || Extensions.find(__T(" ")+Extension)!=Error)
                     break;
             }
             Format++;
@@ -149,9 +149,9 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 
     //Partial file handling
     Ztring Config_Partial_Begin=MI->Config.File_Partial_Begin_Get();
-    if (!Config_Partial_Begin.empty() && Config_Partial_Begin[0]>=_T('0') && Config_Partial_Begin[0]<=_T('9'))
+    if (!Config_Partial_Begin.empty() && Config_Partial_Begin[0]>=__T('0') && Config_Partial_Begin[0]<=__T('9'))
     {
-        if (Config_Partial_Begin.find(_T('%'))==Config_Partial_Begin.size()-1)
+        if (Config_Partial_Begin.find(__T('%'))==Config_Partial_Begin.size()-1)
             Partial_Begin=float64_int64s(MI->Config.File_Size*Config_Partial_Begin.To_float64()/100);
         else
             Partial_Begin=Config_Partial_Begin.To_int64u();
@@ -161,9 +161,9 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     else
         Partial_Begin=0;
     Ztring Config_Partial_End=MI->Config.File_Partial_End_Get();
-    if (!Config_Partial_End.empty() && Config_Partial_End[0]>=_T('0') && Config_Partial_End[0]<=_T('9'))
+    if (!Config_Partial_End.empty() && Config_Partial_End[0]>=__T('0') && Config_Partial_End[0]<=__T('9'))
     {
-        if (Config_Partial_End.find(_T('%'))==Config_Partial_End.size()-1)
+        if (Config_Partial_End.find(__T('%'))==Config_Partial_End.size()-1)
             Partial_End=float64_int64s(MI->Config.File_Size*Config_Partial_End.To_float64()/100);
         else
             Partial_End=Config_Partial_End.To_int64u();
@@ -179,7 +179,7 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
     MI->Open_Buffer_Init((Partial_End<=MI->Config.File_Size?Partial_End:MI->Config.File_Size)-Partial_Begin, File_Name);
 
     //Buffer
-    MI->Option(_T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&MI->Config.File_Buffer_Size_ToRead)));
+    MI->Option(__T("File_Buffer_Size_Hint_Pointer"), Ztring::ToZtring((size_t)(&MI->Config.File_Buffer_Size_ToRead)));
     MI->Config.File_Buffer_Repeat_IsSupported=true;
 
     //Test the format with buffer

@@ -74,7 +74,7 @@ File_Scte20::File_Scte20()
 :File__Analyze()
 {
     //Configuration
-    ParserName=_T("SCTE 20");
+    ParserName=__T("SCTE 20");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Scte20;
         StreamIDs_Width[0]=1;

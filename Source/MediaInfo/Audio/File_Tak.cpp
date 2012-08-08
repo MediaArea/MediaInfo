@@ -284,18 +284,18 @@ void File_Tak::ENCODERINFO()
     BS_End();
 
     FILLING_BEGIN();
-        Ztring Version=Ztring::ToZtring(Major)+_T('.')+Ztring::ToZtring(Minor)+_T('.')+Ztring::ToZtring(Revision);
-        Ztring Preset=_T("-p")+Ztring::ToZtring(Preset_lo);
+        Ztring Version=Ztring::ToZtring(Major)+__T('.')+Ztring::ToZtring(Minor)+__T('.')+Ztring::ToZtring(Revision);
+        Ztring Preset=__T("-p")+Ztring::ToZtring(Preset_lo);
         switch (Preset_hi)
         {
             case 0x00 :                 break;
-            case 0x01 : Preset+=_T('e'); break;
-            case 0x02 : Preset+=_T('m'); break;
-            default   : Preset+=_T('-')+Ztring::ToZtring(Preset_hi, 16); //Unknown
+            case 0x01 : Preset+=__T('e'); break;
+            case 0x02 : Preset+=__T('m'); break;
+            default   : Preset+=__T('-')+Ztring::ToZtring(Preset_hi, 16); //Unknown
         }
 
         Fill(Stream_Audio, 0, Audio_Encoded_Library, "TAK");
-        Fill(Stream_Audio, 0, Audio_Encoded_Library_String, _T("TAK ")+Version);
+        Fill(Stream_Audio, 0, Audio_Encoded_Library_String, __T("TAK ")+Version);
         Fill(Stream_Audio, 0, Audio_Encoded_Library_Name, "TAK");
         Fill(Stream_Audio, 0, Audio_Encoded_Library_Version, Version);
         Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Preset);

@@ -303,7 +303,7 @@ void File_Tiff::Data_Parse()
     {
         //Default values
         Infos.clear();
-        Infos[Tiff_Tag::BitsPerSample]=_T("1");
+        Infos[Tiff_Tag::BitsPerSample]=__T("1");
 
         //Parsing new IFD
         while (Element_Offset+4<Element_Size)
@@ -445,7 +445,7 @@ void File_Tiff::Get_X4(int32u &Info, const char* Name)
 //---------------------------------------------------------------------------
 void File_Tiff::GetValueOffsetu(ifditem &IfdItem)
 {
-    ZtringList &Info=Infos[IfdItem.Tag]; Info.clear(); Info.Separator_Set(0, _T(" / "));
+    ZtringList &Info=Infos[IfdItem.Tag]; Info.clear(); Info.Separator_Set(0, __T(" / "));
     const char* Name=Tiff_Tag_Name(IfdItem.Tag);
 
     if (IfdItem.Count>=10)

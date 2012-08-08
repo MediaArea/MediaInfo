@@ -19,18 +19,18 @@ END_EVENT_TABLE()
 
 // frame constructor
 GUI_Main::GUI_Main(const wxPoint& pos, const wxSize& size, long style)
-:wxFrame(NULL, -1, _T("MediaInfoLib - Too old files test"), pos, size, style)
+:wxFrame(NULL, -1, __T("MediaInfoLib - Too old files test"), pos, size, style)
 {
     // set the frame icon
     SetIcon(wxICON(mondrian));
 
     //Menu
     wxMenu *Menu_File = new wxMenu;
-    Menu_File->Append(1, _T("Test if there are too old files"));
-    Menu_File->Append(2, _T("Update ressource files"));
+    Menu_File->Append(1, __T("Test if there are too old files"));
+    Menu_File->Append(2, __T("Update ressource files"));
 
     wxMenuBar *menuBar = new wxMenuBar();
-    menuBar->Append(Menu_File, _T("&File"));
+    menuBar->Append(Menu_File, __T("&File"));
     SetMenuBar(menuBar);
 
     Text=new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,

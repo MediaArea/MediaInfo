@@ -53,36 +53,36 @@ namespace MediaInfoLib
 Ztring Kate_Category(const Ztring &Category)
 {
     //http://wiki.xiph.org/index.php/OggText#Categories_of_Text_Codecs
-    if (Category==_T("CC"))
-        return _T("Closed caption");
-    if (Category==_T("SUB"))
-        return _T("Subtitles");
-    if (Category==_T("TAD"))
-        return _T("Textual audio descriptions");
-    if (Category==_T("KTV"))
-        return _T("Karaoke");
-    if (Category==_T("TIK"))
-        return _T("Ticker text");
-    if (Category==_T("AR"))
-        return _T("Active regions");
-    if (Category==_T("NB"))
-        return _T("Semantic annotations");
-    if (Category==_T("META"))
-        return _T("Metadata, mostly machine-readable");
-    if (Category==_T("TRX"))
-        return _T("Transcript");
-    if (Category==_T("LRC"))
-        return _T("Lyrics");
-    if (Category==_T("LIN"))
-        return _T("Linguistic markup");
-    if (Category==_T("CUE"))
-        return _T("Cue points");
+    if (Category==__T("CC"))
+        return __T("Closed caption");
+    if (Category==__T("SUB"))
+        return __T("Subtitles");
+    if (Category==__T("TAD"))
+        return __T("Textual audio descriptions");
+    if (Category==__T("KTV"))
+        return __T("Karaoke");
+    if (Category==__T("TIK"))
+        return __T("Ticker text");
+    if (Category==__T("AR"))
+        return __T("Active regions");
+    if (Category==__T("NB"))
+        return __T("Semantic annotations");
+    if (Category==__T("META"))
+        return __T("Metadata, mostly machine-readable");
+    if (Category==__T("TRX"))
+        return __T("Transcript");
+    if (Category==__T("LRC"))
+        return __T("Lyrics");
+    if (Category==__T("LIN"))
+        return __T("Linguistic markup");
+    if (Category==__T("CUE"))
+        return __T("Cue points");
 
     //From Kate
-    if (Category==_T("K-SLD-I"))
-        return _T("Slides, as images");
-    if (Category==_T("K-SLD-T"))
-        return _T("Slides, as text");
+    if (Category==__T("K-SLD-I"))
+        return __T("Slides, as images");
+    if (Category==__T("K-SLD-T"))
+        return __T("Slides, as text");
     return Category;
 }
 

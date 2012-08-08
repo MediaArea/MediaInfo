@@ -534,7 +534,7 @@ void File_Jpeg::SIZ()
                 SamplingFactors.push_back(0);
             Ztring ChromaSubsampling;
             for (size_t Pos=0; Pos<SamplingFactors.size(); Pos++)
-                ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+_T(':');
+                ChromaSubsampling+=Ztring::ToZtring(SamplingFactors[Pos], 0)+__T(':');
             if (!ChromaSubsampling.empty())
             {
                 ChromaSubsampling.resize(ChromaSubsampling.size()-1);

@@ -119,7 +119,7 @@ void File_ScreamTracker3::Read_Buffer_Continue()
         Fill(Stream_General, 0, General_Format, "Scream Tracker 3");
         Fill(Stream_General, 0, General_Track, SongName);
         if ((SoftwareVersionMajor&0xF0)==0x10)
-            Fill(Stream_General, 0, General_Encoded_Application, Ztring(_T("Scream Tracker ")+Ztring::ToZtring(SoftwareVersionMajor)+_T(".")+Ztring::ToZtring(SoftwareVersionMinor/16)+Ztring::ToZtring(SoftwareVersionMinor%16)));
+            Fill(Stream_General, 0, General_Encoded_Application, Ztring(__T("Scream Tracker ")+Ztring::ToZtring(SoftwareVersionMajor)+__T(".")+Ztring::ToZtring(SoftwareVersionMinor/16)+Ztring::ToZtring(SoftwareVersionMinor%16)));
         Fill(Stream_General, 0, "BPM", TS);
 
         Stream_Prepare(Stream_Audio);

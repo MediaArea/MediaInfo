@@ -82,11 +82,11 @@ ZenLib::Ztring Enums_Create_Item(const Ztring &Directory, const Ztring &Name, Zt
         Ztring Line_Temp=Line;
         Line_Temp.FindAndReplace(L"%Name%", Name);
         Ztring &ToAdd=ZLL(Pos, 0);
-        ToAdd.FindAndReplace(_T("/"), _T("_")); //C++ does not accept "/" in names
-        ToAdd.FindAndReplace(_T("("), _T("_")); //C++ does not accept "(" in names
-        ToAdd.FindAndReplace(_T(")"), _T("_")); //C++ does not accept ")" in names
-        ToAdd.FindAndReplace(_T("*"), _T("_")); //C++ does not accept "*" in names
-        ToAdd.FindAndReplace(_T("-"), _T("_")); //C++ does not accept "-" in names
+        ToAdd.FindAndReplace(__T("/"), __T("_")); //C++ does not accept "/" in names
+        ToAdd.FindAndReplace(__T("("), __T("_")); //C++ does not accept "(" in names
+        ToAdd.FindAndReplace(__T(")"), __T("_")); //C++ does not accept ")" in names
+        ToAdd.FindAndReplace(__T("*"), __T("_")); //C++ does not accept "*" in names
+        ToAdd.FindAndReplace(__T("-"), __T("_")); //C++ does not accept "-" in names
         Line_Temp.FindAndReplace(L"%Line%", ToAdd);
         Contents+=Line_Temp;
     }
