@@ -104,49 +104,49 @@ void GUI_Main::Menu_Create()
 {
     //File - Open
     Menu_File_Open              =new wxMenu;
-    Menu_File_Open_Files        =Menu_File_Open->Append(ID_Menu_File_Open_Files, _T("Open &file(s)"));
-    Menu_File_Open_Directory    =Menu_File_Open->Append(ID_Menu_File_Open_Directory, _T("Open &directory"));
+    Menu_File_Open_Files        =Menu_File_Open->Append(ID_Menu_File_Open_Files, __T("Open &file(s)"));
+    Menu_File_Open_Directory    =Menu_File_Open->Append(ID_Menu_File_Open_Directory, __T("Open &directory"));
 
     //File
     Menu_File=new wxMenu;
-                                 Menu_File->Append(ID_Menu_File_Open, _T("Open"), Menu_File_Open);
+                                 Menu_File->Append(ID_Menu_File_Open, __T("Open"), Menu_File_Open);
                                  Menu_File->AppendSeparator();
-    Menu_File_Quit              =Menu_File->Append(wxID_EXIT, _T("E&xit\tAlt-X"), _T("Quit this program"));
+    Menu_File_Quit              =Menu_File->Append(wxID_EXIT, __T("E&xit\tAlt-X"), __T("Quit this program"));
 
     //View
     Menu_View                   =new wxMenu;
-    Menu_View_Easy              =Menu_View->AppendRadioItem(ID_Menu_View_Easy, _T("Easy"), _T("Easy view"));
-    Menu_View_Sheet             =Menu_View->AppendRadioItem(ID_Menu_View_Sheet, _T("Sheet"), _T("Sheet view"));
-    Menu_View_Tree              =Menu_View->AppendRadioItem(ID_Menu_View_Tree, _T("Tree"), _T("Tree view"));
-    Menu_View_HTML              =Menu_View->AppendRadioItem(ID_Menu_View_HTML, _T("HTML"), _T("HTML view"));
-    Menu_View_Text              =Menu_View->AppendRadioItem(ID_Menu_View_Text, _T("Text"), _T("Text view"));
+    Menu_View_Easy              =Menu_View->AppendRadioItem(ID_Menu_View_Easy, __T("Easy"), __T("Easy view"));
+    Menu_View_Sheet             =Menu_View->AppendRadioItem(ID_Menu_View_Sheet, __T("Sheet"), __T("Sheet view"));
+    Menu_View_Tree              =Menu_View->AppendRadioItem(ID_Menu_View_Tree, __T("Tree"), __T("Tree view"));
+    Menu_View_HTML              =Menu_View->AppendRadioItem(ID_Menu_View_HTML, __T("HTML"), __T("HTML view"));
+    Menu_View_Text              =Menu_View->AppendRadioItem(ID_Menu_View_Text, __T("Text"), __T("Text view"));
 
     //Debug - Demux
     Menu_Debug_Demux            =new wxMenu;
-    Menu_Debug_Demux_None       =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_None, _T("No demux"));
-    Menu_Debug_Demux_Elementary =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_Elementary, _T("Elementary streams only"));
-    Menu_Debug_Demux_All        =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_All, _T("All streams"));
+    Menu_Debug_Demux_None       =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_None, __T("No demux"));
+    Menu_Debug_Demux_Elementary =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_Elementary, __T("Elementary streams only"));
+    Menu_Debug_Demux_All        =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_All, __T("All streams"));
 
     //Debug
     Menu_Debug                  =new wxMenu;
-    Menu_Debug_Complete         =Menu_Debug->AppendCheckItem(ID_Menu_Debug_Complete, _T("Complete"), _T("Complete"));
-    Menu_Debug_Details          =Menu_Debug->AppendCheckItem(ID_Menu_Debug_Details, _T("Details"), _T("Details text view"));
-                                 Menu_Debug->Append(ID_Menu_Debug_Demux, _T("Demux"), Menu_Debug_Demux);
+    Menu_Debug_Complete         =Menu_Debug->AppendCheckItem(ID_Menu_Debug_Complete, __T("Complete"), __T("Complete"));
+    Menu_Debug_Details          =Menu_Debug->AppendCheckItem(ID_Menu_Debug_Details, __T("Details"), __T("Details text view"));
+                                 Menu_Debug->Append(ID_Menu_Debug_Demux, __T("Demux"), Menu_Debug_Demux);
 
     //Help
     Menu_Help                   =new wxMenu;
-    Menu_Help_About             =Menu_Help->Append(wxID_ABOUT, _T("&About...\tF1"), _T("Show about dialog"));
+    Menu_Help_About             =Menu_Help->Append(wxID_ABOUT, __T("&About...\tF1"), __T("Show about dialog"));
                                  Menu_Help->AppendSeparator();
-    Menu_Help_Info_Formats      =Menu_Help->Append(ID_Menu_Help_Info_Formats, _T("Known formats"));
-    Menu_Help_Info_Codecs       =Menu_Help->Append(ID_Menu_Help_Info_Codecs, _T("Known codecs"));
-    Menu_Help_Info_Parameters   =Menu_Help->Append(ID_Menu_Help_Info_Parameters, _T("Known parameters"));
+    Menu_Help_Info_Formats      =Menu_Help->Append(ID_Menu_Help_Info_Formats, __T("Known formats"));
+    Menu_Help_Info_Codecs       =Menu_Help->Append(ID_Menu_Help_Info_Codecs, __T("Known codecs"));
+    Menu_Help_Info_Parameters   =Menu_Help->Append(ID_Menu_Help_Info_Parameters, __T("Known parameters"));
 
     //Main
     Menu=new wxMenuBar();
-    Menu->Append(Menu_File,     _T("&File"));
-    Menu->Append(Menu_View,     _T("&View"));
-    Menu->Append(Menu_Debug,    _T("&Debug"));
-    Menu->Append(Menu_Help,     _T("&Help"));
+    Menu->Append(Menu_File,     __T("&File"));
+    Menu->Append(Menu_View,     __T("&View"));
+    Menu->Append(Menu_Debug,    __T("&Debug"));
+    Menu->Append(Menu_Help,     __T("&Help"));
     SetMenuBar(Menu);
 }
 
@@ -158,7 +158,7 @@ void GUI_Main::Menu_Create()
 void GUI_Main::OnMenu_File_Open_Files(wxCommandEvent& WXUNUSED(event))
 {
     //User interaction
-    wxFileDialog* Dialog=new wxFileDialog(this, _T("Choose a file"), _T(""), _T(""), _T("*.*"), wxOPEN|wxFILE_MUST_EXIST|wxMULTIPLE);
+    wxFileDialog* Dialog=new wxFileDialog(this, __T("Choose a file"), __T(""), __T(""), __T("*.*"), wxOPEN|wxFILE_MUST_EXIST|wxMULTIPLE);
     if (Dialog->ShowModal()!=wxID_OK)
     {
         delete Dialog;
@@ -181,7 +181,7 @@ void GUI_Main::OnMenu_File_Open_Files(wxCommandEvent& WXUNUSED(event))
 void GUI_Main::OnMenu_File_Open_Directory(wxCommandEvent& WXUNUSED(event))
 {
     //User interaction
-    wxDirDialog* Dialog=new wxDirDialog(this, _T("Choose a directory"));
+    wxDirDialog* Dialog=new wxDirDialog(this, __T("Choose a directory"));
     if (Dialog->ShowModal()!=wxID_OK)
         return;
     wxString DirName=Dialog->GetPath();
@@ -302,29 +302,29 @@ void GUI_Main::OnMenu_Debug_Details(wxCommandEvent& WXUNUSED(event))
 void GUI_Main::OnMenu_Debug_Demux_None(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
-    C->Menu_Debug_Demux(_T(""));
+    C->Menu_Debug_Demux(__T(""));
 }
 
 //---------------------------------------------------------------------------
 void GUI_Main::OnMenu_Debug_Demux_Elementary(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
-    C->Menu_Debug_Demux(_T("1"));
+    C->Menu_Debug_Demux(__T("1"));
 }
 
 //---------------------------------------------------------------------------
 void GUI_Main::OnMenu_Debug_Demux_All(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
-    C->Menu_Debug_Demux(_T("All"));
+    C->Menu_Debug_Demux(__T("All"));
 }
 
 //---------------------------------------------------------------------------
 void GUI_Main::OnMenu_Help_About(wxCommandEvent& WXUNUSED(event))
 {
     //Showing
-    wxString Version=C->Menu_Option_Preferences_Option(_T("Info_Version"), _T("")).c_str();
-    wxMessageBox(_T("This is the About dialog of the minimal MediaInfo sample.\n")+Version+_T("\nMediaInfo supplies technical and tag information about \na video or audio file.\nTo get more info's visit \nhttp://mediainfo.sourceforge.net"), _T("About Minimal"), wxOK | wxICON_INFORMATION, this);
+    wxString Version=C->Menu_Option_Preferences_Option(__T("Info_Version"), __T("")).c_str();
+    wxMessageBox(__T("This is the About dialog of the minimal MediaInfo sample.\n")+Version+__T("\nMediaInfo supplies technical and tag information about \na video or audio file.\nTo get more info's visit \nhttp://mediainfo.sourceforge.net"), __T("About Minimal"), wxOK | wxICON_INFORMATION, this);
 }
 
 //---------------------------------------------------------------------------
@@ -370,9 +370,9 @@ void GUI_Main::ToolBar_Create()
         ToolBar->SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP
     ToolBar->SetToolBitmapSize(wxSize(32, 32));
-    ToolBar->AddTool(ID_Menu_File_Open_Files, _T("Open &file(s)"), wxICON(File_Open_File));
-    ToolBar->AddTool(ID_Menu_File_Open_Directory, _T("Open &directory"), wxICON(File_Open_Directory));
+    ToolBar->AddTool(ID_Menu_File_Open_Files, __T("Open &file(s)"), wxICON(File_Open_File));
+    ToolBar->AddTool(ID_Menu_File_Open_Directory, __T("Open &directory"), wxICON(File_Open_Directory));
     ToolBar->AddSeparator();
-    ToolBar->AddTool(wxID_ABOUT, _T("About"), wxICON(Help_About));
+    ToolBar->AddTool(wxID_ABOUT, __T("About"), wxICON(Help_About));
     ToolBar->Realize();
 }

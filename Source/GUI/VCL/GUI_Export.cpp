@@ -64,69 +64,69 @@ void TExportF::Name_Adapt()
     FileName FN=ZEN_UNICODE(Name->Text);
 
     if (FN.Name_Get().size()==0)
-        FN.Name_Set(_T("Example"));
+        FN.Name_Set(__T("Example"));
 
          if (Export->ActivePage==Export_CSV)
     {
-        FN.Extension_Set(_T("csv"));
-        SaveDialog1->DefaultExt=_T("csv");
-        SaveDialog1->Filter=_T("CSV File|*.csv");
+        FN.Extension_Set(__T("csv"));
+        SaveDialog1->DefaultExt=__T("csv");
+        SaveDialog1->Filter=__T("CSV File|*.csv");
     }
     else if (Export->ActivePage==Export_Sheet)
     {
-        FN.Extension_Set(_T("csv"));
-        SaveDialog1->DefaultExt=_T("csv");
-        SaveDialog1->Filter=_T("CSV File|*.csv");
+        FN.Extension_Set(__T("csv"));
+        SaveDialog1->DefaultExt=__T("csv");
+        SaveDialog1->Filter=__T("CSV File|*.csv");
     }
     else if (Export->ActivePage==Export_Text)
     {
-        FN.Extension_Set(_T("txt"));
-        SaveDialog1->DefaultExt=_T("txt");
-        SaveDialog1->Filter=_T("Text File|*.txt");
+        FN.Extension_Set(__T("txt"));
+        SaveDialog1->DefaultExt=__T("txt");
+        SaveDialog1->Filter=__T("Text File|*.txt");
     }
     else if (Export->ActivePage==Export_HTML)
     {
-        FN.Extension_Set(_T("html"));
-        SaveDialog1->DefaultExt=_T("html");
-        SaveDialog1->Filter=_T("HTML File|*.html");
+        FN.Extension_Set(__T("html"));
+        SaveDialog1->DefaultExt=__T("html");
+        SaveDialog1->Filter=__T("HTML File|*.html");
     }
     else if (Export->ActivePage==Export_XML)
     {
-        FN.Extension_Set(_T("xml"));
-        SaveDialog1->DefaultExt=_T("xml");
-        SaveDialog1->Filter=_T("XML File|*.xml");
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("XML File|*.xml");
     }
     else if (Export->ActivePage==Export_MPEG7)
     {
-        FN.Extension_Set(_T("xml"));
-        SaveDialog1->DefaultExt=_T("xml");
-        SaveDialog1->Filter=_T("MPEG-7 File|*.xml");
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("MPEG-7 File|*.xml");
     }
     else if (Export->ActivePage==Export_PBCore)
     {
-        FN.Extension_Set(_T("xml"));
-        SaveDialog1->DefaultExt=_T("xml");
-        SaveDialog1->Filter=_T("XML File|*.xml");
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("XML File|*.xml");
     }
     else if (Export->ActivePage==Export_reVTMD)
     {
-        FN.Extension_Set(_T("xml"));
-        SaveDialog1->DefaultExt=_T("xml");
-        SaveDialog1->Filter=_T("XML File|*.xml");
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("XML File|*.xml");
     }
     else if (Export->ActivePage==Export_Custom)
     {
-        if (Prefs->Details[Prefs_Custom](Stream_Max+2, 1).size()>0 && Prefs->Details[Prefs_Custom](Stream_Max+2, 1)[0]==_T('<')) //test if HTML
+        if (Prefs->Details[Prefs_Custom](Stream_Max+2, 1).size()>0 && Prefs->Details[Prefs_Custom](Stream_Max+2, 1)[0]==__T('<')) //test if HTML
         {
-            FN.Extension_Set(_T("html"));
-            SaveDialog1->DefaultExt=_T("html");
-            SaveDialog1->Filter=_T("HTML files|*.htm *.html");
+            FN.Extension_Set(__T("html"));
+            SaveDialog1->DefaultExt=__T("html");
+            SaveDialog1->Filter=__T("HTML files|*.htm *.html");
         }
         else
         {
-            FN.Extension_Set(_T("txt"));
-            SaveDialog1->DefaultExt=_T("txt");
-            SaveDialog1->Filter=_T("Text files|*.txt");
+            FN.Extension_Set(__T("txt"));
+            SaveDialog1->DefaultExt=__T("txt");
+            SaveDialog1->Filter=__T("Text files|*.txt");
         }
     }
 
@@ -144,15 +144,15 @@ int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultF
     //GUI
     GUI_Configure();
 
-    Ztring Info=MI.Option(_T("Inform_Get"), Ztring());
+    Ztring Info=MI.Option(__T("Inform_Get"), Ztring());
 
-    if (Info==_T("XML"))
+    if (Info==__T("XML"))
         Export->ActivePage=Export_XML;
-    else if (Info==_T("MPEG-7"))
+    else if (Info==__T("MPEG-7"))
         Export->ActivePage=Export_MPEG7;
-    else if (Info==_T("PBCore_1.2"))
+    else if (Info==__T("PBCore_1.2"))
         Export->ActivePage=Export_PBCore;
-    else if (Info==_T("reVTMD"))
+    else if (Info==__T("reVTMD"))
         Export->ActivePage=Export_reVTMD;
 
     ExportChange(NULL);
@@ -177,7 +177,7 @@ void TExportF::Export_Run()
 {
     //Create text for the file
     Ztring Text;
-    Ztring Append_Separator=_T("\r\n");
+    Ztring Append_Separator=__T("\r\n");
 
          if (Export->ActivePage==Export_CSV)
     {
@@ -191,15 +191,15 @@ void TExportF::Export_Run()
         //General
         ZtringListListF CSV;
         ZtringListList Parameters;
-        Parameters.Write(MediaInfo::Option_Static(_T("Info_Parameters_CSV")));
+        Parameters.Write(MediaInfo::Option_Static(__T("Info_Parameters_CSV")));
         int Pos_Start=1;
-        int Pos_End=Parameters.Find(_T("Video"))-1;
+        int Pos_End=Parameters.Find(__T("Video"))-1;
         int CSV_Pos=0;
 
         for (int I1=0; I1<Pos_End-Pos_Start; I1++)
-            if (MediaInfo_Complete || ToExport->Get(0, Stream_General, 0, I1, Info_Options)[InfoOption_ShowInInform]==_T('Y'))
+            if (MediaInfo_Complete || ToExport->Get(0, Stream_General, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
             {
-                CSV(0, CSV_Pos)=Ztring(_T("General "))+Parameters(Pos_Start+I1, 0);
+                CSV(0, CSV_Pos)=Ztring(__T("General "))+Parameters(Pos_Start+I1, 0);
                 for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                     CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_General, 0, I1);
                 CSV_Pos++;
@@ -207,14 +207,14 @@ void TExportF::Export_Run()
 
         //Video
         Pos_Start=Pos_End+2;
-        Pos_End=Parameters.Find(_T("Audio"))-1;
+        Pos_End=Parameters.Find(__T("Audio"))-1;
 
         for (int I1=0; I1<Pos_End-Pos_Start; I1++)
         {
             for (int Count=0; Count<CSV_Stream_Video->ItemIndex; Count++)
-            if (MediaInfo_Complete || ToExport->Get(0, Stream_Video, 0, I1, Info_Options)[InfoOption_ShowInInform]==_T('Y'))
+            if (MediaInfo_Complete || ToExport->Get(0, Stream_Video, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
-                    CSV(0, CSV_Pos)=Ztring(_T("Video "))+Ztring::ToZtring(Count)+_T(" ")+Parameters(Pos_Start+I1, 0);
+                    CSV(0, CSV_Pos)=Ztring(__T("Video "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
                     for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                         CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Video, 0, I1);
                     CSV_Pos++;
@@ -223,13 +223,13 @@ void TExportF::Export_Run()
 
         //Audio
         Pos_Start=Pos_End+2;
-        Pos_End=Parameters.Find(_T("Text"))-1;
+        Pos_End=Parameters.Find(__T("Text"))-1;
         for (int Count=0; Count<CSV_Stream_Audio->ItemIndex; Count++)
         {
             for (int I1=0; I1<Pos_End-Pos_Start; I1++)
-            if (MediaInfo_Complete || ToExport->Get(0, Stream_Audio, 0, I1, Info_Options)[InfoOption_ShowInInform]==_T('Y'))
+            if (MediaInfo_Complete || ToExport->Get(0, Stream_Audio, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
-                    CSV(0, CSV_Pos)=Ztring(_T("Audio "))+Ztring::ToZtring(Count)+_T(" ")+Parameters(Pos_Start+I1, 0);
+                    CSV(0, CSV_Pos)=Ztring(__T("Audio "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
                     for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                         CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Audio, Count, I1);
                     CSV_Pos++;
@@ -238,13 +238,13 @@ void TExportF::Export_Run()
 
         //Text
         Pos_Start=Pos_End+2;
-        Pos_End=Parameters.Find(_T("Chapters"))-1;
+        Pos_End=Parameters.Find(__T("Chapters"))-1;
         for (int Count=0; Count<CSV_Stream_Text->ItemIndex; Count++)
         {
             for (int I1=0; I1<Pos_End-Pos_Start; I1++)
-                if (MediaInfo_Complete || ToExport->Get(0, Stream_Text, 0, I1, Info_Options)[InfoOption_ShowInInform]==_T('Y'))
+                if (MediaInfo_Complete || ToExport->Get(0, Stream_Text, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
-                    CSV(0, CSV_Pos)=Ztring(_T("Text "))+Ztring::ToZtring(Count)+_T(" ")+Parameters(Pos_Start+I1, 0);
+                    CSV(0, CSV_Pos)=Ztring(__T("Text "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
                     for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                         CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Text, Count, I1);
                     CSV_Pos++;
@@ -257,9 +257,9 @@ void TExportF::Export_Run()
         for (int Count=0; Count<CSV_Stream_Chapters->ItemIndex; Count++)
         {
             for (int I1=0; I1<Pos_End-Pos_Start; I1++)
-            if (MediaInfo_Complete || ToExport->Get(0, Stream_Chapters, 0, I1, Info_Options)[InfoOption_ShowInInform]==_T('Y'))
+            if (MediaInfo_Complete || ToExport->Get(0, Stream_Chapters, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
-                    CSV(0, CSV_Pos)=Ztring(_T("Chapters "))+Ztring::ToZtring(Count)+_T(" ")+Parameters(Pos_Start+I1, 0);
+                    CSV(0, CSV_Pos)=Ztring(__T("Chapters "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
                     for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                         CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Chapters, Count, I1);
                     CSV_Pos++;
@@ -268,17 +268,17 @@ void TExportF::Export_Run()
 
         //Separators
         Ztring Separator_Col=ZEN_UNICODE(CSV_Separator_Col->Text);
-        if (Separator_Col==_T("(Tab)"))
-            Separator_Col=_T("\t");
+        if (Separator_Col==__T("(Tab)"))
+            Separator_Col=__T("\t");
         Ztring Separator_Line=ZEN_UNICODE(CSV_Separator_Line->Text);
-        if (Separator_Line==_T("(Default)"))
+        if (Separator_Line==__T("(Default)"))
         #ifdef WIN32
-            Separator_Line=_T("\r\n");
+            Separator_Line=__T("\r\n");
         #else
             #error
         #endif //WIN32
-        Separator_Line.FindAndReplace(_T("\\r"), _T("\r"));
-        Separator_Line.FindAndReplace(_T("\\n"), _T("\n"));
+        Separator_Line.FindAndReplace(__T("\\r"), __T("\r"));
+        Separator_Line.FindAndReplace(__T("\\n"), __T("\n"));
         Append_Separator=Separator_Line.c_str();
         Ztring Quote=ZEN_UNICODE(CSV_Quote->Text);
         CSV.Separator_Set(0, Separator_Line);
@@ -295,44 +295,44 @@ void TExportF::Export_Run()
         //Configure
         for (size_t Pos=0; Pos<Prefs->Details[Prefs_Sheet].size(); Pos++)
         {
-            Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
+            Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
             //Searching kind of stream
             stream_t S;
-            ZenLib::Char C=_T('G');
+            ZenLib::Char C=__T('G');
             if (Prefs->Details[Prefs_Sheet].Find(Z1)==(size_t)-1)
                 break;
             C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
             switch (C)
             {
-              case _T('G'): S=Stream_General; break;
-              case _T('V'): S=Stream_Video; break;
-              case _T('A'): S=Stream_Audio; break;
-              case _T('T'): S=Stream_Text; break;
-              case _T('C'): S=Stream_Chapters; break;
+              case __T('G'): S=Stream_General; break;
+              case __T('V'): S=Stream_Video; break;
+              case __T('A'): S=Stream_Audio; break;
+              case __T('T'): S=Stream_Text; break;
+              case __T('C'): S=Stream_Chapters; break;
               default: S=Stream_General;
             }
             SheetF(0, Pos)=ToExport->Get(0, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3), Info_Name_Text);
-            if (C!=_T('G'))
-                SheetF(0, Pos)=Prefs->Details[Prefs_Sheet](Z1, 1)+Prefs->Details[Prefs_Sheet](Z1, 2)+_T(" ")+SheetF(0, Pos);
+            if (C!=__T('G'))
+                SheetF(0, Pos)=Prefs->Details[Prefs_Sheet](Z1, 1)+Prefs->Details[Prefs_Sheet](Z1, 2)+__T(" ")+SheetF(0, Pos);
         }
         //Show all available files
         for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
             for (size_t Pos=0; Pos<Prefs->Details[Prefs_Sheet].size(); Pos++)
             {
-                Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
+                Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
                 //Searching Stream kind
                 stream_t S;
-                ZenLib::Char C=_T('G');
+                ZenLib::Char C=__T('G');
                 if (Prefs->Details[Prefs_Sheet].Find(Z1)==(size_t)-1)
                     break;
                 C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
                 switch (C)
                 {
-                  case _T('G'): S=Stream_General; break;
-                  case _T('V'): S=Stream_Video; break;
-                  case _T('A'): S=Stream_Audio; break;
-                  case _T('T'): S=Stream_Text; break;
-                  case _T('C'): S=Stream_Chapters; break;
+                  case __T('G'): S=Stream_General; break;
+                  case __T('V'): S=Stream_Video; break;
+                  case __T('A'): S=Stream_Audio; break;
+                  case __T('T'): S=Stream_Text; break;
+                  case __T('C'): S=Stream_Chapters; break;
                   default: S=Stream_General;
                 }
                 //Showing
@@ -341,21 +341,21 @@ void TExportF::Export_Run()
 
         //Separators
         Ztring Separator_Col=ZEN_UNICODE(Sheet_Separator_Col->Text);
-        if (Separator_Col==_T("(Tab)"))
-            Separator_Col=_T("\t");
+        if (Separator_Col==__T("(Tab)"))
+            Separator_Col=__T("\t");
         Ztring Separator_Line=ZEN_UNICODE(Sheet_Separator_Line->Text);
-        if (Separator_Line==_T("(Default)"))
+        if (Separator_Line==__T("(Default)"))
         #ifdef WIN32
-            Separator_Line=_T("\r\n");
+            Separator_Line=__T("\r\n");
         #else
             #error
         #endif //WIN32
-        if (Separator_Line==_T("\\r\\n"))
-            Separator_Line=_T("\r\n");
-        if (Separator_Line==_T("\\r"))
-            Separator_Line=_T("\r");
-        if (Separator_Line==_T("\\n"))
-            Separator_Line=_T("\n");
+        if (Separator_Line==__T("\\r\\n"))
+            Separator_Line=__T("\r\n");
+        if (Separator_Line==__T("\\r"))
+            Separator_Line=__T("\r");
+        if (Separator_Line==__T("\\n"))
+            Separator_Line=__T("\n");
         Ztring Quote=ZEN_UNICODE(Sheet_Quote->Text);
         Append_Separator=Separator_Line.c_str();
         SheetF.Separator_Set(0, Separator_Line);
@@ -368,25 +368,25 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_Text)
     {
-        ToExport->Option_Static(_T("Inform"));
+        ToExport->Option_Static(__T("Inform"));
         Text=ToExport->Inform().c_str();
     }
     else if (Export->ActivePage==Export_HTML)
     {
-        ToExport->Option_Static(_T("Inform"), _T("HTML"));
+        ToExport->Option_Static(__T("Inform"), __T("HTML"));
         Text=ToExport->Inform().c_str();
-        Append_Separator=_T("<hr>\r\n");
+        Append_Separator=__T("<hr>\r\n");
     }
     else if (Export->ActivePage==Export_XML)
     {
-        ToExport->Option_Static(_T("Inform"), _T("XML"));
+        ToExport->Option_Static(__T("Inform"), __T("XML"));
         if (Export_XML_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
             {
                 Text=ToExport->Inform(Pos).c_str();
                 File F;
-                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".mediainfo.xml"));
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mediainfo.xml"));
                 F.Write(Text);
             }
             return;
@@ -395,14 +395,14 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_MPEG7)
     {
-        ToExport->Option_Static(_T("Inform"), _T("MPEG-7"));
+        ToExport->Option_Static(__T("Inform"), __T("MPEG-7"));
         if (Export_MPEG7_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
             {
                 Text=ToExport->Inform(Pos).c_str();
                 File F;
-                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".mpeg7.xml"));
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mpeg7.xml"));
                 F.Write(Text);
             }
             return;
@@ -411,14 +411,14 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_PBCore)
     {
-        ToExport->Option_Static(_T("Inform"), _T("PBCore_1.2"));
+        ToExport->Option_Static(__T("Inform"), __T("PBCore_1.2"));
         if (Export_PBCore_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
             {
                 Text=ToExport->Inform(Pos).c_str();
                 File F;
-                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".PBCore.xml"));
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".PBCore.xml"));
                 F.Write(Text);
             }
             return;
@@ -427,14 +427,14 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_reVTMD)
     {
-        ToExport->Option_Static(_T("Inform"), _T("reVTMD"));
+        ToExport->Option_Static(__T("Inform"), __T("reVTMD"));
         if (Export_reVTMD_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
             {
                 Text=ToExport->Inform(Pos).c_str();
                 File F;
-                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, _T("CompleteName")).c_str())+_T(".reVTMD.xml"));
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".reVTMD.xml"));
                 F.Write(Text);
             }
             return;
@@ -443,7 +443,7 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_Custom)
     {
-        ToExport->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
+        ToExport->Option_Static(__T("Inform"), Prefs->Details[Prefs_Custom].Read());
         if (Custom_One->State==cbChecked)
         {
             for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
@@ -452,7 +452,7 @@ void TExportF::Export_Run()
                 //Put begin and end of file
                 Z1=Prefs->Details[Prefs_Custom](Stream_Max+2, 1)+Z1; //Begin
                 Z1+=Prefs->Details[Prefs_Custom](Stream_Max+4, 1); //End
-                Z1.FindAndReplace(_T("\\r\\n"),_T( "\r\n"), 0, Ztring_Recursive);
+                Z1.FindAndReplace(__T("\\r\\n"),__T( "\r\n"), 0, Ztring_Recursive);
                 Text=Z1.c_str();;//Write file
                 File F;
                 FileName FN=ZEN_UNICODE(Name->Text);
@@ -588,35 +588,35 @@ void __fastcall TExportF::Export_reVTMD_SideCarClick(TObject *Sender)
 void TExportF::GUI_Configure()
 {
     //Translation
-    Caption=Prefs->Translate(_T("Export")).c_str();
-    Export_Choose->Caption=Prefs->Translate(_T("Choose export format")).c_str();
-    CSV_Stream_Video_Caption->Caption=Prefs->Translate(_T("How many video streams?")).c_str();
-    CSV_Stream_Video_Warning->Caption=Prefs->Translate(_T("Warning : more streams in the files")).c_str();
-    CSV_Stream_Audio_Caption->Caption=Prefs->Translate(_T("How many audio streams?")).c_str();
-    CSV_Stream_Audio_Warning->Caption=Prefs->Translate(_T("Warning : more streams in the files")).c_str();
-    CSV_Stream_Text_Caption->Caption=Prefs->Translate(_T("How many text streams?")).c_str();
-    CSV_Stream_Text_Warning->Caption=Prefs->Translate(_T("Warning : more streams in the files")).c_str();
-    CSV_Stream_Chapters_Caption->Caption=Prefs->Translate(_T("How many chapters streams?")).c_str();
-    CSV_Stream_Chapters_Warning->Caption=Prefs->Translate(_T("Warning : more streams in the files")).c_str();
-    CSV_Separator_Col_Caption->Caption=Prefs->Translate(_T("Separator_Columns")).c_str();
-    CSV_Decimal_Caption->Caption=Prefs->Translate(_T("Decimal point")).c_str();
-    CSV_Separator_Line_Caption->Caption=Prefs->Translate(_T("Separator_Lines")).c_str();
-    CSV_Quote_Caption->Caption=Prefs->Translate(_T("Quote character")).c_str();
-    CSV_Advanced->Caption=Prefs->Translate(_T("Advanced mode")).c_str();
-    Export_Sheet->Caption=Prefs->Translate(_T("Sheet")).c_str();
-    Sheet_Separator_Col_Caption->Caption=Prefs->Translate(_T("Separator_Columns")).c_str();
-    Sheet_Separator_Line_Caption->Caption=Prefs->Translate(_T("Separator_Lines")).c_str();
-    Sheet_Quote_Caption->Caption=Prefs->Translate(_T("Quote character")).c_str();
-    Export_Text->Caption=Prefs->Translate(_T("Text")).c_str();
-    Text_Advanced->Caption=Prefs->Translate(_T("Advanced mode")).c_str();
-    Export_HTML->Caption=Prefs->Translate(_T("HTML")).c_str();
-    HTML_Advanced->Caption=Prefs->Translate(_T("Advanced mode")).c_str();
-    Export_Custom->Caption=Prefs->Translate(_T("Custom")).c_str();
-    Custom_One->Caption=Prefs->Translate(_T("One output file per input file")).c_str();
-    Name_Choose->Caption=Prefs->Translate(_T("Choose filename")).c_str();
-    File_Append->Caption=Prefs->Translate(_T("File_Append")).c_str();
-    OK->Caption=Prefs->Translate(_T("OK")).c_str();
-    Cancel->Caption=Prefs->Translate(_T("Cancel")).c_str();
+    Caption=Prefs->Translate(__T("Export")).c_str();
+    Export_Choose->Caption=Prefs->Translate(__T("Choose export format")).c_str();
+    CSV_Stream_Video_Caption->Caption=Prefs->Translate(__T("How many video streams?")).c_str();
+    CSV_Stream_Video_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
+    CSV_Stream_Audio_Caption->Caption=Prefs->Translate(__T("How many audio streams?")).c_str();
+    CSV_Stream_Audio_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
+    CSV_Stream_Text_Caption->Caption=Prefs->Translate(__T("How many text streams?")).c_str();
+    CSV_Stream_Text_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
+    CSV_Stream_Chapters_Caption->Caption=Prefs->Translate(__T("How many chapters streams?")).c_str();
+    CSV_Stream_Chapters_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
+    CSV_Separator_Col_Caption->Caption=Prefs->Translate(__T("Separator_Columns")).c_str();
+    CSV_Decimal_Caption->Caption=Prefs->Translate(__T("Decimal point")).c_str();
+    CSV_Separator_Line_Caption->Caption=Prefs->Translate(__T("Separator_Lines")).c_str();
+    CSV_Quote_Caption->Caption=Prefs->Translate(__T("Quote character")).c_str();
+    CSV_Advanced->Caption=Prefs->Translate(__T("Advanced mode")).c_str();
+    Export_Sheet->Caption=Prefs->Translate(__T("Sheet")).c_str();
+    Sheet_Separator_Col_Caption->Caption=Prefs->Translate(__T("Separator_Columns")).c_str();
+    Sheet_Separator_Line_Caption->Caption=Prefs->Translate(__T("Separator_Lines")).c_str();
+    Sheet_Quote_Caption->Caption=Prefs->Translate(__T("Quote character")).c_str();
+    Export_Text->Caption=Prefs->Translate(__T("Text")).c_str();
+    Text_Advanced->Caption=Prefs->Translate(__T("Advanced mode")).c_str();
+    Export_HTML->Caption=Prefs->Translate(__T("HTML")).c_str();
+    HTML_Advanced->Caption=Prefs->Translate(__T("Advanced mode")).c_str();
+    Export_Custom->Caption=Prefs->Translate(__T("Custom")).c_str();
+    Custom_One->Caption=Prefs->Translate(__T("One output file per input file")).c_str();
+    Name_Choose->Caption=Prefs->Translate(__T("Choose filename")).c_str();
+    File_Append->Caption=Prefs->Translate(__T("File_Append")).c_str();
+    OK->Caption=Prefs->Translate(__T("OK")).c_str();
+    Cancel->Caption=Prefs->Translate(__T("Cancel")).c_str();
 
     //Sheet - Warnings
     CSV_Stream_Change(CSV_Stream_Video, CSV_Stream_Video_Warning, Stream_Video);

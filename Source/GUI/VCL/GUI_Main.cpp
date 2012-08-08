@@ -91,7 +91,7 @@ TCustomButton*              Donate_Current;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net");
+const ZenLib::Char* MEDIAINFO_TITLE=__T("MediaInfo - http:\/\/mediainfo.sourceforge.net");
 const size_t Title_Pos=96; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
@@ -203,7 +203,7 @@ void __fastcall TMainF::GUI_Configure()
 
     #ifndef MEDIAINFOGUI_UPDATE_NO
     //Web Updates
-    if (Prefs->Config(_T("CheckUpdate"))==_T("1"))
+    if (Prefs->Config(__T("CheckUpdate"))==__T("1"))
     {
         WebF=new TWebF(this);
         WebF->Execute();
@@ -211,21 +211,21 @@ void __fastcall TMainF::GUI_Configure()
     #endif //MEDIAINFOGUI_UPDATE_NO
 
     //Menu - View
-         if (Prefs->Config(_T("Output"))==_T("Basic")) {M_View_EasyClick(NULL); M_View_Easy->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("Sheet")) {M_View_SheetClick(NULL); M_View_Sheet->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("Tree")) {M_View_TreeClick(NULL); M_View_Tree->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("Text")) {M_View_TextClick(NULL); M_View_Text->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("HTML")) {M_View_HTMLClick(NULL); M_View_HTML->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("XML")) {M_View_XMLClick(NULL); M_View_XML->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("MPEG-7")) {M_View_MPEG7Click(NULL); M_View_MPEG7->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("PBCore_1.2")) {M_View_PBCoreClick(NULL); M_View_PBCore->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("reVTMD")) {M_View_reVTMDClick(NULL); M_View_reVTMD->Checked=true;}
-    else if (Prefs->Config(_T("Output"))==_T("Custom")) {M_View_CustomClick(NULL); M_View_Custom->Checked=true;}
+         if (Prefs->Config(__T("Output"))==__T("Basic")) {M_View_EasyClick(NULL); M_View_Easy->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("Sheet")) {M_View_SheetClick(NULL); M_View_Sheet->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("Tree")) {M_View_TreeClick(NULL); M_View_Tree->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("Text")) {M_View_TextClick(NULL); M_View_Text->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("HTML")) {M_View_HTMLClick(NULL); M_View_HTML->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("XML")) {M_View_XMLClick(NULL); M_View_XML->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7")) {M_View_MPEG7Click(NULL); M_View_MPEG7->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("PBCore_1.2")) {M_View_PBCoreClick(NULL); M_View_PBCore->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("reVTMD")) {M_View_reVTMDClick(NULL); M_View_reVTMD->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("Custom")) {M_View_CustomClick(NULL); M_View_Custom->Checked=true;}
 
     //Menu - Options
-    M_Options_ShowToolBar->Checked=Prefs->Config(_T("ShowToolBar")).To_int32s();
-    M_Options_ShowMenu->Checked=Prefs->Config(_T("ShowMenu")).To_int32s();
-    M_Options_CloseAllAuto->Checked=Prefs->Config(_T("CloseAllAuto")).To_int32s();
+    M_Options_ShowToolBar->Checked=Prefs->Config(__T("ShowToolBar")).To_int32s();
+    M_Options_ShowMenu->Checked=Prefs->Config(__T("ShowMenu")).To_int32s();
+    M_Options_CloseAllAuto->Checked=Prefs->Config(__T("CloseAllAuto")).To_int32s();
 
     //Toolbar
     ToolBar->Visible=M_Options_ShowToolBar->Checked;
@@ -362,7 +362,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         int Total=0;
         for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
         {
-            Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
+            Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
             Total+=Prefs->Details[Prefs_Sheet](Z1, 4).To_int32s();
         }
         if (Total==0)
@@ -370,7 +370,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         //Set column widthes
         for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
         {
-            Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
+            Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
             Page_Sheet_Sheet->ColWidths[Pos]=Prefs->Details[Prefs_Sheet](Z1, 4).To_int32s()*Page_Sheet_Sheet->ClientWidth/Total-1;
         }
     }
@@ -447,49 +447,49 @@ void __fastcall TMainF::Translate()
     }
 
     //Menu
-    M_File->Caption=Prefs->Translate(_T("File")).c_str();
-    M_File_Open->Caption=Prefs->Translate(_T("Open")).c_str();
-    M_File_Open_File->Caption=Prefs->Translate(_T("File")).c_str();
-    M_File_Open_Folder->Caption=(Prefs->Translate(_T("Folder"))+_T("...")).c_str();
+    M_File->Caption=Prefs->Translate(__T("File")).c_str();
+    M_File_Open->Caption=Prefs->Translate(__T("Open")).c_str();
+    M_File_Open_File->Caption=Prefs->Translate(__T("File")).c_str();
+    M_File_Open_Folder->Caption=(Prefs->Translate(__T("Folder"))+__T("...")).c_str();
     if (IsWin9X())
         M_File_Open_Folder->Visible=false;
-    M_File_Close->Caption=Prefs->Translate(_T("Close")).c_str();
-    M_File_Close_File->Caption=Prefs->Translate(_T("File")).c_str();
-    M_File_Close_All->Caption=Prefs->Translate(_T("All")).c_str();
-    M_File_Export->Caption=Prefs->Translate(_T("Export")).c_str();
-    M_File_Exit->Caption=Prefs->Translate(_T("Exit")).c_str();
-    M_View->Caption=Prefs->Translate(_T("View")).c_str();
-    M_View_Easy->Caption=Prefs->Translate(_T("Basic")).c_str();
-    M_View_Sheet->Caption=Prefs->Translate(_T("Sheet")).c_str();
-    M_View_Tree->Caption=Prefs->Translate(_T("Tree")).c_str();
-    M_View_Text->Caption=Prefs->Translate(_T("Text")).c_str();
-    M_View_HTML->Caption=Prefs->Translate(_T("HTML")).c_str();
-    M_View_Custom->Caption=Prefs->Translate(_T("Custom")).c_str();
-    M_View_System->Caption=Prefs->Translate(_T("Your system")).c_str();
-    M_Options->Caption=Prefs->Translate(_T("Options")).c_str();
-    M_Options_ShowToolBar->Caption=Prefs->Translate(_T("Show toolbar")).c_str();
-    M_Options_ShowMenu->Caption=Prefs->Translate(_T("Show menu")).c_str();
-    M_Options_CloseAllAuto->Caption=Prefs->Translate(_T("Close all before open")).c_str();
-    M_Options_Preferences->Caption=Prefs->Translate(_T("Preferences")).c_str();
-    M_Debug->Caption=Prefs->Translate(_T("Debug")).c_str();
-    M_Debug_Header->Caption=Prefs->Translate(_T("Header file")).c_str();
-    M_Debug_Advanced->Caption=Prefs->Translate(_T("Advanced mode")).c_str();
-    M_Help->Caption=Prefs->Translate(_T("Help")).c_str();
-    M_Help_About->Caption=Prefs->Translate(_T("About")).c_str();
-    M_Help_SupportedFormats->Caption=Prefs->Translate(_T("Known formats")).c_str();
-    M_Help_SupportedCodecs->Caption=Prefs->Translate(_T("Known codecs")).c_str();
-    M_Help_SupportedParameters->Caption=Prefs->Translate(_T("Known parameters")).c_str();
-    M_Language->Caption=Prefs->Translate(_T("Language")).c_str();
+    M_File_Close->Caption=Prefs->Translate(__T("Close")).c_str();
+    M_File_Close_File->Caption=Prefs->Translate(__T("File")).c_str();
+    M_File_Close_All->Caption=Prefs->Translate(__T("All")).c_str();
+    M_File_Export->Caption=Prefs->Translate(__T("Export")).c_str();
+    M_File_Exit->Caption=Prefs->Translate(__T("Exit")).c_str();
+    M_View->Caption=Prefs->Translate(__T("View")).c_str();
+    M_View_Easy->Caption=Prefs->Translate(__T("Basic")).c_str();
+    M_View_Sheet->Caption=Prefs->Translate(__T("Sheet")).c_str();
+    M_View_Tree->Caption=Prefs->Translate(__T("Tree")).c_str();
+    M_View_Text->Caption=Prefs->Translate(__T("Text")).c_str();
+    M_View_HTML->Caption=Prefs->Translate(__T("HTML")).c_str();
+    M_View_Custom->Caption=Prefs->Translate(__T("Custom")).c_str();
+    M_View_System->Caption=Prefs->Translate(__T("Your system")).c_str();
+    M_Options->Caption=Prefs->Translate(__T("Options")).c_str();
+    M_Options_ShowToolBar->Caption=Prefs->Translate(__T("Show toolbar")).c_str();
+    M_Options_ShowMenu->Caption=Prefs->Translate(__T("Show menu")).c_str();
+    M_Options_CloseAllAuto->Caption=Prefs->Translate(__T("Close all before open")).c_str();
+    M_Options_Preferences->Caption=Prefs->Translate(__T("Preferences")).c_str();
+    M_Debug->Caption=Prefs->Translate(__T("Debug")).c_str();
+    M_Debug_Header->Caption=Prefs->Translate(__T("Header file")).c_str();
+    M_Debug_Advanced->Caption=Prefs->Translate(__T("Advanced mode")).c_str();
+    M_Help->Caption=Prefs->Translate(__T("Help")).c_str();
+    M_Help_About->Caption=Prefs->Translate(__T("About")).c_str();
+    M_Help_SupportedFormats->Caption=Prefs->Translate(__T("Known formats")).c_str();
+    M_Help_SupportedCodecs->Caption=Prefs->Translate(__T("Known codecs")).c_str();
+    M_Help_SupportedParameters->Caption=Prefs->Translate(__T("Known parameters")).c_str();
+    M_Language->Caption=Prefs->Translate(__T("Language")).c_str();
 
     //ToolBar
-    Tool_File->Hint=Prefs->Translate(_T("File_Hint")).c_str();
-    Tool_Folder->Hint=Prefs->Translate(_T("Folder_Hint")).c_str();
+    Tool_File->Hint=Prefs->Translate(__T("File_Hint")).c_str();
+    Tool_Folder->Hint=Prefs->Translate(__T("Folder_Hint")).c_str();
     if (IsWin9X())
         Tool_Folder->Visible=false;
-    Tool_Export->Hint=Prefs->Translate(_T("Export_Hint")).c_str();
-    Tool_Options->Hint=Prefs->Translate(_T("Options_Hint")).c_str();
-    Tool_About->Hint=Prefs->Translate(_T("About_Hint")).c_str();
-    Tool_View->Hint=Prefs->Translate(_T("View_Hint")).c_str();
+    Tool_Export->Hint=Prefs->Translate(__T("Export_Hint")).c_str();
+    Tool_Options->Hint=Prefs->Translate(__T("Options_Hint")).c_str();
+    Tool_About->Hint=Prefs->Translate(__T("About_Hint")).c_str();
+    Tool_View->Hint=Prefs->Translate(__T("View_Hint")).c_str();
     //TODO : Tool_View Hint
     ToolBar_View_Easy->Caption=M_View_Easy->Caption;
     ToolBar_View_Sheet->Caption=M_View_Sheet->Caption;
@@ -501,64 +501,64 @@ void __fastcall TMainF::Translate()
     ToolBar_View_ShowMenu->Caption=M_Options_ShowMenu->Caption;
 
     //Main interface
-    Page_Easy->Caption=Prefs->Translate(_T("Basic")).c_str();
-    Page_Sheet->Caption=Prefs->Translate(_T("Sheet")).c_str();
-    Page_Tree->Caption=Prefs->Translate(_T("Tree")).c_str();
-    Page_Text->Caption=Prefs->Translate(_T("Text")).c_str();
-    Page_HTML->Caption=Prefs->Translate(_T("HTML")).c_str();
-    Page_Custom->Caption=Prefs->Translate(_T("Custom")).c_str();
-    Page_System->Caption=Prefs->Translate(_T("Your system")).c_str();
+    Page_Easy->Caption=Prefs->Translate(__T("Basic")).c_str();
+    Page_Sheet->Caption=Prefs->Translate(__T("Sheet")).c_str();
+    Page_Tree->Caption=Prefs->Translate(__T("Tree")).c_str();
+    Page_Text->Caption=Prefs->Translate(__T("Text")).c_str();
+    Page_HTML->Caption=Prefs->Translate(__T("HTML")).c_str();
+    Page_Custom->Caption=Prefs->Translate(__T("Custom")).c_str();
+    Page_System->Caption=Prefs->Translate(__T("Your system")).c_str();
 
     //Easy interface
-    Page_Easy_G1_Web->Caption =Prefs->Translate(_T("WebSite_General")).c_str();
-    Page_Easy_V1_Web->Caption=Prefs->Translate(_T("WebSite_Video")).c_str();
-    Page_Easy_A1_Web->Caption=Prefs->Translate(_T("WebSite_Audio")).c_str();
-    Page_Easy_A2_Web->Caption=Prefs->Translate(_T("WebSite_Audio")).c_str();
-    Page_Easy_T1_Web->Caption=Prefs->Translate(_T("WebSite_Text")).c_str();
-    Page_Easy_T2_Web->Caption=Prefs->Translate(_T("WebSite_Text")).c_str();
-    Page_Easy_T3_Web->Caption=Prefs->Translate(_T("WebSite_Text")).c_str();
-    Page_Easy_G1->Caption=Prefs->Translate(_T("Container and general information")).c_str();
-    Page_Easy_V1->Caption=Prefs->Translate(_T("Video1")).c_str();
-    Page_Easy_A1->Caption=Prefs->Translate(_T("Audio1")).c_str();
-    Page_Easy_A2->Caption=Prefs->Translate(_T("Audio2")).c_str();
-    Page_Easy_T1->Caption=Prefs->Translate(_T("Text1")).c_str();
-    Page_Easy_T2->Caption=Prefs->Translate(_T("Text2")).c_str();
-    Page_Easy_T3->Caption=Prefs->Translate(_T("Text3")).c_str();
-    Page_Easy_Note->Caption=Prefs->Translate(_T("Basic_Note")).c_str();
+    Page_Easy_G1_Web->Caption =Prefs->Translate(__T("WebSite_General")).c_str();
+    Page_Easy_V1_Web->Caption=Prefs->Translate(__T("WebSite_Video")).c_str();
+    Page_Easy_A1_Web->Caption=Prefs->Translate(__T("WebSite_Audio")).c_str();
+    Page_Easy_A2_Web->Caption=Prefs->Translate(__T("WebSite_Audio")).c_str();
+    Page_Easy_T1_Web->Caption=Prefs->Translate(__T("WebSite_Text")).c_str();
+    Page_Easy_T2_Web->Caption=Prefs->Translate(__T("WebSite_Text")).c_str();
+    Page_Easy_T3_Web->Caption=Prefs->Translate(__T("WebSite_Text")).c_str();
+    Page_Easy_G1->Caption=Prefs->Translate(__T("Container and general information")).c_str();
+    Page_Easy_V1->Caption=Prefs->Translate(__T("Video1")).c_str();
+    Page_Easy_A1->Caption=Prefs->Translate(__T("Audio1")).c_str();
+    Page_Easy_A2->Caption=Prefs->Translate(__T("Audio2")).c_str();
+    Page_Easy_T1->Caption=Prefs->Translate(__T("Text1")).c_str();
+    Page_Easy_T2->Caption=Prefs->Translate(__T("Text2")).c_str();
+    Page_Easy_T3->Caption=Prefs->Translate(__T("Text3")).c_str();
+    Page_Easy_Note->Caption=Prefs->Translate(__T("Basic_Note")).c_str();
 
     //Sheet interface
-    Page_Sheet_G->Hint=Prefs->Translate(_T("Format")).c_str();
-    Page_Sheet_V->Hint=Prefs->Translate(_T("Video")).c_str();
-    Page_Sheet_A->Hint=Prefs->Translate(_T("Audio")).c_str();
-    Page_Sheet_T->Hint=Prefs->Translate(_T("Text")).c_str();
-    Page_Sheet_C->Hint=Prefs->Translate(_T("Chapters")).c_str();
-    Page_Sheet_Text->Hint=Prefs->Translate(_T("Stream_MoreInfo")).c_str();
+    Page_Sheet_G->Hint=Prefs->Translate(__T("Format")).c_str();
+    Page_Sheet_V->Hint=Prefs->Translate(__T("Video")).c_str();
+    Page_Sheet_A->Hint=Prefs->Translate(__T("Audio")).c_str();
+    Page_Sheet_T->Hint=Prefs->Translate(__T("Text")).c_str();
+    Page_Sheet_C->Hint=Prefs->Translate(__T("Chapters")).c_str();
+    Page_Sheet_Text->Hint=Prefs->Translate(__T("Stream_MoreInfo")).c_str();
 
     //System interface
-    Page_System_Buttons_Video->Caption=Prefs->Translate(_T("Video")).c_str();
-    Page_System_Buttons_Audio->Caption=Prefs->Translate(_T("Audio")).c_str();
-    Page_System_Buttons_Text->Caption=Prefs->Translate(_T("Text")).c_str();
-    Page_System_Sheet->Columns->Items[0]->Caption=Prefs->Translate(_T("SystemId")).c_str();
-    Page_System_Sheet->Columns->Items[1]->Caption=Prefs->Translate(_T("Name")).c_str();
-    Page_System_Sheet->Columns->Items[2]->Caption=Prefs->Translate(_T("More")).c_str();
-    Page_System_Sheet->Columns->Items[3]->Caption=Prefs->Translate(_T("Web")).c_str();
-    Page_System_Sheet->Columns->Items[4]->Caption=Prefs->Translate(_T("Supported?")).c_str();
+    Page_System_Buttons_Video->Caption=Prefs->Translate(__T("Video")).c_str();
+    Page_System_Buttons_Audio->Caption=Prefs->Translate(__T("Audio")).c_str();
+    Page_System_Buttons_Text->Caption=Prefs->Translate(__T("Text")).c_str();
+    Page_System_Sheet->Columns->Items[0]->Caption=Prefs->Translate(__T("SystemId")).c_str();
+    Page_System_Sheet->Columns->Items[1]->Caption=Prefs->Translate(__T("Name")).c_str();
+    Page_System_Sheet->Columns->Items[2]->Caption=Prefs->Translate(__T("More")).c_str();
+    Page_System_Sheet->Columns->Items[3]->Caption=Prefs->Translate(__T("Web")).c_str();
+    Page_System_Sheet->Columns->Items[4]->Caption=Prefs->Translate(__T("Supported?")).c_str();
 
     //Title
-    OpenDialog1->Title=Prefs->Translate(_T("Choose files")).c_str();
+    OpenDialog1->Title=Prefs->Translate(__T("Choose files")).c_str();
 
     //MediaInfo
-    I->Option_Static(_T("Language"), Prefs->Details[Prefs_Language].Read());
+    I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
 
     //New version
-    M_NewVersion->Caption=(_T(" | ")+Prefs->Translate(_T("NewVersion_Menu"))).c_str();
+    M_NewVersion->Caption=(__T(" | ")+Prefs->Translate(__T("NewVersion_Menu"))).c_str();
     M_NewVersion->Visible=Prefs->NewVersion_Display;
 
     //Donate
-    #define DONATE(_LANG, _TEXT) else if (Language==_T(_TEXT)) {Donate_Current=Donate_##_LANG; Donate_Current->Visible=true;}
+    #define DONATE(_LANG, _TEXT) else if (Language==__T(_TEXT)) {Donate_Current=Donate_##_LANG; Donate_Current->Visible=true;}
     for (size_t Pos=0; Pos<Donates.size(); Pos++)
         Donates[Pos]->Visible=false;
-    Ztring Language=Prefs->Translate(_T("  Language_ISO639"));
+    Ztring Language=Prefs->Translate(__T("  Language_ISO639"));
     if (Prefs->Donate_Display)
     {
         //Donate button disabled
@@ -578,8 +578,8 @@ void __fastcall TMainF::Translate()
         else
         {
             Donate_Current=Donate___;
-            ((TButton*)Donate_Current)->Caption=Prefs->Translate(_T("Donate")).c_str();
-            ((TButton*)Donate_Current)->Width=Prefs->Translate(_T("Donate")).size()*8+32;
+            ((TButton*)Donate_Current)->Caption=Prefs->Translate(__T("Donate")).c_str();
+            ((TButton*)Donate_Current)->Width=Prefs->Translate(__T("Donate")).size()*8+32;
             Donate_Current->Visible=true;
         }
         */
@@ -604,7 +604,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         size_t ItemIndex_Save=Page_Easy_File->ItemIndex;
         Page_Easy_File->Items->Clear();
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
-            Page_Easy_File->Items->Add(I->Get(FilePos, Stream_General, 0, _T("CompleteName")).c_str());
+            Page_Easy_File->Items->Add(I->Get(FilePos, Stream_General, 0, __T("CompleteName")).c_str());
         if (ItemIndex_Save!=-1 && ItemIndex_Save<FilesCount)
             Page_Easy_File->ItemIndex=ItemIndex_Save;
         else if (FilesCount>0)
@@ -621,26 +621,26 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             //Configure
             Page_Sheet_Sheet->RowCount=1+FilesCount;
             Page_Sheet_Sheet->FixedRows=1;
-            Page_Sheet_Sheet->ColCount=Prefs->Details[Prefs_Sheet](_T("ColumnsCount")).To_int32s();
+            Page_Sheet_Sheet->ColCount=Prefs->Details[Prefs_Sheet](__T("ColumnsCount")).To_int32s();
             for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
             {
-                Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
+                Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
                 //Searching kind of stream
                 stream_t S;
-                ZenLib::Char C=_T('G');
+                ZenLib::Char C=__T('G');
                 if (Prefs->Details[Prefs_Sheet](Z1, 1).size())
                     C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
                 switch (C)
                 {
-                  case _T('G'): S=Stream_General; break;
-                  case _T('V'): S=Stream_Video; break;
-                  case _T('A'): S=Stream_Audio; break;
-                  case _T('T'): S=Stream_Text; break;
-                  case _T('C'): S=Stream_Chapters; break;
+                  case __T('G'): S=Stream_General; break;
+                  case __T('V'): S=Stream_Video; break;
+                  case __T('A'): S=Stream_Audio; break;
+                  case __T('T'): S=Stream_Text; break;
+                  case __T('C'): S=Stream_Chapters; break;
                   default: S=Stream_General;
                 }
                 Page_Sheet_Sheet->Cells[Pos][0]=I->Get(0, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3), Info_Name_Text).c_str();
-                if (C!=_T('G'))
+                if (C!=__T('G'))
                     Page_Sheet_Sheet->Cells[Pos][0]=WideString((Prefs->Details[Prefs_Sheet](Z1, 1)+Prefs->Details[Prefs_Sheet](Z1, 2)).c_str())+WideString(' ')+Page_Sheet_Sheet->Cells[Pos][0];
                 FormResize(NULL);
             }
@@ -648,19 +648,19 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
                 for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
                 {
-                    Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
+                    Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
                     //Searching Stream kind
                     stream_t S;
-                    ZenLib::Char C=_T('G');
+                    ZenLib::Char C=__T('G');
                     if (Prefs->Details[Prefs_Sheet](Z1, 1).size())
                         C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
                     switch (C)
                     {
-                      case _T('G'): S=Stream_General; break;
-                      case _T('V'): S=Stream_Video; break;
-                      case _T('A'): S=Stream_Audio; break;
-                      case _T('T'): S=Stream_Text; break;
-                      case _T('C'): S=Stream_Chapters; break;
+                      case __T('G'): S=Stream_General; break;
+                      case __T('V'): S=Stream_Video; break;
+                      case __T('A'): S=Stream_Audio; break;
+                      case __T('T'): S=Stream_Text; break;
+                      case __T('C'): S=Stream_Chapters; break;
                       default: S=Stream_General;
                     }
                     //Showing
@@ -672,8 +672,8 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             Page_Sheet_Sheet->RowCount=1;
             Page_Sheet_Sheet->ColCount=1;
             Page_Sheet_Sheet->ColWidths[0]=Page_Sheet_Sheet->ClientWidth;
-            Page_Sheet_Sheet->Cells[0][0]=Prefs->Translate(_T("At least one file")).c_str();
-            Page_Sheet_G->Text=_T("");
+            Page_Sheet_Sheet->Cells[0][0]=Prefs->Translate(__T("At least one file")).c_str();
+            Page_Sheet_G->Text=__T("");
         }
         bool B;
         Page_Sheet_SheetSelectCell(Page_Sheet_Sheet, Page_Sheet_Sheet->Col, Page_Sheet_Sheet->Row, B);
@@ -682,27 +682,27 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     //Tree
     else if (Page==Page_Tree)
     {
-        bool Commplete=I->Option_Static(_T("Complete_Get"))!=_T("");
+        bool Commplete=I->Option_Static(__T("Complete_Get"))!=__T("");
         Page_Tree_Tree->Visible=false;
         Page_Tree_Tree->Items->Clear();
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
         {
             //Pour chaque fichier
-            TTreeNode* Parent=Page_Tree_Tree->Items->Add(NULL, I->Get(FilePos, Stream_General, 0, _T("CompleteName")).c_str());
+            TTreeNode* Parent=Page_Tree_Tree->Items->Add(NULL, I->Get(FilePos, Stream_General, 0, __T("CompleteName")).c_str());
 
             for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
             {
                 //Pour chaque type de flux
-                Ztring StreamKindText=I->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind/String"), Info_Text).c_str();
+                Ztring StreamKindText=I->Get(FilePos, (stream_t)StreamKind, 0, __T("StreamKind/String"), Info_Text).c_str();
                 unsigned StreamsCount=I->Count_Get(FilePos, (stream_t)StreamKind);
                 for (size_t StreamPos=Stream_General; StreamPos<StreamsCount; StreamPos++)
                 {
                     //Pour chaque stream
                     Ztring A=StreamKindText;
-                    Ztring B=I->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindPos"), Info_Text).c_str();
-                    if (B!=_T(""))
+                    Ztring B=I->Get(FilePos, (stream_t)StreamKind, StreamPos, __T("StreamKindPos"), Info_Text).c_str();
+                    if (B!=__T(""))
                     {
-                        A+=_T(" #");
+                        A+=__T(" #");
                         A+=B;
                     }
                     TTreeNode* Node=Page_Tree_Tree->Items->AddChild(Parent, A.c_str());
@@ -714,14 +714,14 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                         A+=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text);
                         /*TEST wchar_t C=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform];
                         */
-                        if ((Commplete || I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+                        if ((Commplete || I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==__T('Y')) && I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=__T(""))
                         {
                             //Quoi Refresh?
                             Ztring D=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text);
                             if (D.empty())
                                 D=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
                             //Affichage
-                            Page_Tree_Tree->Items->AddChild(Node, (D + _T(": ") + A.c_str()).c_str());
+                            Page_Tree_Tree->Items->AddChild(Node, (D + __T(": ") + A.c_str()).c_str());
                         }
                     }
                 }
@@ -732,41 +732,41 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
 
         //Specific in case of no file
         if (I->Count_Get()==0)
-            Page_Tree_Tree->Items->AddChild(NULL, Prefs->Translate(_T("At least one file")).c_str());
+            Page_Tree_Tree->Items->AddChild(NULL, Prefs->Translate(__T("At least one file")).c_str());
     }
 
     //Text
     else if (Page==Page_Text)
     {
         if (M_Debug_Details50->Checked)
-            I->Option_Static(_T("Inform"), _T("Details;0.5"));
+            I->Option_Static(__T("Inform"), __T("Details;0.5"));
         else if (M_Debug_Details90->Checked)
-            I->Option_Static(_T("Inform"), _T("Details;0.9"));
+            I->Option_Static(__T("Inform"), __T("Details;0.9"));
         else if (M_Debug_Details100->Checked)
-            I->Option_Static(_T("Inform"), _T("Details;1"));
+            I->Option_Static(__T("Inform"), __T("Details;1"));
         else
-            I->Option_Static(_T("Inform"));
+            I->Option_Static(__T("Inform"));
         Page_Text_Text->Text=I->Inform().c_str();
 
         //Specific in case of no file
         if (FilesCount==0)
-            Page_Text_Text->Text=Prefs->Translate(_T("At least one file")).c_str();
+            Page_Text_Text->Text=Prefs->Translate(__T("At least one file")).c_str();
     }
 
     //HTML
     else if (Page==Page_HTML)
     {
-        I->Option_Static(_T("Inform"), _T("HTML"));
+        I->Option_Static(__T("Inform"), __T("HTML"));
         if (FilesCount>0)
         {
             //Creating file
             Ztring S1=I->Inform().c_str();
             File F;
-            if (FileName_Temp==_T(""))
+            if (FileName_Temp==__T(""))
             {
-                FileName_Temp=FileName::TempFileName_Create(_T("MI_"));
+                FileName_Temp=FileName::TempFileName_Create(__T("MI_"));
                 File::Delete(FileName_Temp);
-                FileName_Temp+=_T(".html");
+                FileName_Temp+=__T(".html");
             }
             F.Create(FileName_Temp, true);
             F.Write(S1);
@@ -776,7 +776,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         }
         else
         {
-            Ztring TempA; TempA=Prefs->Translate(_T("At least one file"));
+            Ztring TempA; TempA=Prefs->Translate(__T("At least one file"));
             Ztring Temp;
             Temp+=L"about:<html><body>";
             Temp+=TempA.To_Unicode();
@@ -789,18 +789,18 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     else if (Page==Page_Custom)
     {
         if (M_View_XML->Checked)
-            I->Option_Static(_T("Inform"), _T("XML"));
+            I->Option_Static(__T("Inform"), __T("XML"));
         else if (M_View_MPEG7->Checked)
-            I->Option_Static(_T("Inform"), _T("MPEG-7"));
+            I->Option_Static(__T("Inform"), __T("MPEG-7"));
         else if (M_View_PBCore->Checked)
-            I->Option_Static(_T("Inform"), _T("PBCore_1.2"));
+            I->Option_Static(__T("Inform"), __T("PBCore_1.2"));
         else if (M_View_reVTMD->Checked)
-            I->Option_Static(_T("Inform"), _T("reVTMD"));
+            I->Option_Static(__T("Inform"), __T("reVTMD"));
         else
-            I->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
+            I->Option_Static(__T("Inform"), Prefs->Details[Prefs_Custom].Read());
         Ztring S1=I->Inform();
         if (S1.empty())
-            S1=Prefs->Translate(_T("At least one file")).c_str();
+            S1=Prefs->Translate(__T("At least one file")).c_str();
         if (S1.size()>1 && S1[0]=='<' && S1[1]=='h')
         {
             //Supposing this is HTML
@@ -808,11 +808,11 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             Page_Custom_HTML->Visible=true;
             //Creating file
             File F;
-            if (FileName_Temp==_T(""))
+            if (FileName_Temp==__T(""))
             {
-                FileName_Temp=FileName::TempFileName_Create(_T("MI_"));
+                FileName_Temp=FileName::TempFileName_Create(__T("MI_"));
                 File::Delete(FileName_Temp);
-                FileName_Temp+=_T(".html");
+                FileName_Temp+=__T(".html");
             }
             F.Create(FileName_Temp, true);
             F.Write(S1);
@@ -836,7 +836,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         if (!Page_System_Already)
         {
             //Know codecs
-            ZtringListList ListT=I->Option_Static(_T("Info_Codecs")).c_str();
+            ZtringListList ListT=I->Option_Static(__T("Info_Codecs")).c_str();
             ZtringListList List; //TODO : replace by Ztring::Delete1
             for (size_t Pos=0; Pos<ListT.size(); Pos++)
             {
@@ -844,20 +844,20 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                 List(Pos, 1)=ListT(Pos, 1);
                 List(Pos, 2)=ListT(Pos, 6);
                 List(Pos, 3)=ListT(Pos, 7);
-                if (ListT(Pos, 2)==_T("2CC"))
+                if (ListT(Pos, 2)==__T("2CC"))
                 {
                     //Format 2CC
                     while (List(Pos, 0).size()<4)
-                        List(Pos, 0)=Ztring(_T("0"))+List(Pos, 0);
+                        List(Pos, 0)=Ztring(__T("0"))+List(Pos, 0);
                 }
             }
             bool Audio=false;
             bool Subtitle=false;
             for (size_t I=0; I<List.size(); I++)
             {
-                if (List(I, 0)==_T("0000"))
+                if (List(I, 0)==__T("0000"))
                     Audio=true;
-                if (List(I, 0)==_T("S_TEXT/UTF8"))
+                if (List(I, 0)==__T("S_TEXT/UTF8"))
                     Subtitle=true;
                 if (Subtitle)
                     Page_System_Text.push_back(List.Read(I));
@@ -878,7 +878,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
 
     //Form title
     Ztring Title=GUI_Text(Caption);
-    Title=Title.SubString(_T(""), _T(" - "));
+    Title=Title.SubString(__T(""), __T(" - "));
          if (FilesCount==0)
         //0 fichier
     {
@@ -888,10 +888,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     }
     else if (FilesCount==1)
         //un fichier
-        Caption=(Title+_T(" - ")+I->Get(0, Stream_General, 0, _T("CompleteName"))).c_str();
+        Caption=(Title+__T(" - ")+I->Get(0, Stream_General, 0, __T("CompleteName"))).c_str();
     else
         //Plusieurs selections
-        Caption=(Title+_T(" - ")+Ztring::ToZtring(FilesCount)+Prefs->Translate(_T(" file2"))).c_str();
+        Caption=(Title+__T(" - ")+Ztring::ToZtring(FilesCount)+Prefs->Translate(__T(" file2"))).c_str();
 
     //Configure Default options
     if (FilesCount>0)
@@ -944,9 +944,9 @@ void __fastcall TMainF::M_File_Open_FileClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
 {
-    Ztring S1=OpenFolder_Show(Application->Handle, _T("Select your directory"), _T("MediaInfo"));
+    Ztring S1=OpenFolder_Show(Application->Handle, __T("Select your directory"), __T("MediaInfo"));
 
-    if (S1!=_T(""))
+    if (S1!=__T(""))
     {
         // First we clear the list
         if (M_Options_CloseAllAuto->Checked)
@@ -988,7 +988,7 @@ void __fastcall TMainF::M_Help_SupportedParametersClick(TObject *Sender)
     Page_Custom_HTML->Visible=false;
     Page->ActivePage=Page_Custom;
     FormResize(Sender);
-    Page_Custom_Text->Text=I->Option_Static(_T("Info_Parameters")).c_str();
+    Page_Custom_Text->Text=I->Option_Static(__T("Info_Parameters")).c_str();
 }
 
 //---------------------------------------------------------------------------
@@ -1007,7 +1007,7 @@ void __fastcall TMainF::M_File_ExportClick(TObject *Sender)
         {
             Name=Prefs->BaseFolder;
             Name.resize(Name.size()-1);
-            Name=Name.substr(0, Name.rfind(_T("\\"))+1); //Folder of MediaInfo
+            Name=Name.substr(0, Name.rfind(__T("\\"))+1); //Folder of MediaInfo
         }
         else
             Name=GUI_Text(OpenDialog1->InitialDir);
@@ -1026,7 +1026,7 @@ void __fastcall TMainF::M_File_ExitClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EasyClick(TObject *Sender)
 {
-    I->Option_Static(_T("Inform"));
+    I->Option_Static(__T("Inform"));
     M_View_Easy->Checked=true;
     ToolBar_View_Easy->Checked=true;
     ChangePage(Page_Easy);
@@ -1035,7 +1035,7 @@ void __fastcall TMainF::M_View_EasyClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_SheetClick(TObject *Sender)
 {
-    I->Option_Static(_T("Inform"));
+    I->Option_Static(__T("Inform"));
     M_View_Sheet->Checked=true;
     ToolBar_View_Sheet->Checked=true;
     ChangePage(Page_Sheet);
@@ -1044,7 +1044,7 @@ void __fastcall TMainF::M_View_SheetClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_TreeClick(TObject *Sender)
 {
-    I->Option_Static(_T("Inform"));
+    I->Option_Static(__T("Inform"));
     M_View_Tree->Checked=true;
     ToolBar_View_Tree->Checked=true;
     ChangePage(Page_Tree);
@@ -1053,7 +1053,7 @@ void __fastcall TMainF::M_View_TreeClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_TextClick(TObject *Sender)
 {
-    I->Option_Static(_T("Inform"));
+    I->Option_Static(__T("Inform"));
     M_View_Text->Checked=true;
     ToolBar_View_Text->Checked=true;
     ChangePage(Page_Text);
@@ -1062,7 +1062,7 @@ void __fastcall TMainF::M_View_TextClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_HTMLClick(TObject *Sender)
 {
-    I->Option_Static(_T("Inform"));
+    I->Option_Static(__T("Inform"));
     M_View_HTML->Checked=true;
     ToolBar_View_HTML->Checked=true;
     ChangePage(Page_HTML);
@@ -1072,16 +1072,16 @@ void __fastcall TMainF::M_View_HTMLClick(TObject *Sender)
 void __fastcall TMainF::M_View_XMLClick(TObject *Sender)
 {
     //Language
-    I->Option_Static(_T("Language"), _T("raw"));
+    I->Option_Static(__T("Language"), __T("raw"));
 
-    Prefs->Details[Prefs_Custom].Write(_T("XML"));
+    Prefs->Details[Prefs_Custom].Write(__T("XML"));
     ToolBar_View_XML->Checked=true;
     ChangePage(Page_Custom);
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(_T("MPEG-7"));
+    Prefs->Details[Prefs_Custom].Write(__T("MPEG-7"));
     ToolBar_View_MPEG7->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1089,7 +1089,7 @@ void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_reVTMDClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(_T("reVTMD"));
+    Prefs->Details[Prefs_Custom].Write(__T("reVTMD"));
     ToolBar_View_reVTMD->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1097,7 +1097,7 @@ void __fastcall TMainF::M_View_reVTMDClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_PBCoreClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(_T("PBCore_1.2"));
+    Prefs->Details[Prefs_Custom].Write(__T("PBCore_1.2"));
     ToolBar_View_PBCore->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1186,15 +1186,15 @@ void __fastcall TMainF::M_Help_AboutClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
 {
-    if (I->Option_Static(_T("Complete_Get"))!=_T(""))
+    if (I->Option_Static(__T("Complete_Get"))!=__T(""))
     {
-        I->Option_Static(_T("Complete"));
+        I->Option_Static(__T("Complete"));
         M_Debug_Advanced->Checked=false;
         M_Debug_Avanced_More->Visible=false;
     }
     else
     {
-        I->Option_Static(_T("Complete"), _T("1"));
+        I->Option_Static(__T("Complete"), __T("1"));
         M_Debug_Advanced->Checked=true;
         M_Debug_Avanced_More->Visible=true;
     }
@@ -1205,14 +1205,14 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_DummyClick(TObject *Sender)
 {
-    I->Option(_T("Create_Dummy"));
+    I->Option(__T("Create_Dummy"));
     Refresh();
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_Dummy_MovieClick(TObject *Sender)
 {
-    I->Option(_T("Create_Dummy"), _T("Movie"));
+    I->Option(__T("Create_Dummy"), __T("Movie"));
     Refresh();
 }
 
@@ -1224,7 +1224,7 @@ void __fastcall TMainF::M_Help_SupportedCodecsClick(TObject *Sender)
     Page->ActivePage=Page_Custom;
     FormResize(Sender);
 
-    Page_Custom_Text->Text=I->Option_Static(_T("Info_Codecs")).c_str();
+    Page_Custom_Text->Text=I->Option_Static(__T("Info_Codecs")).c_str();
 }
 
 //---------------------------------------------------------------------------
@@ -1235,7 +1235,7 @@ void __fastcall TMainF::M_Help_SupportedFormatsClick(TObject *Sender)
     Page->ActivePage=Page_Custom;
     FormResize(Sender);
 
-    Page_Custom_Text->Text=I->Option_Static(_T("Info_Capacities")).c_str();
+    Page_Custom_Text->Text=I->Option_Static(__T("Info_Capacities")).c_str();
 }
 
 //---------------------------------------------------------------------------
@@ -1271,7 +1271,7 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
     if (Page_Position<0)
         Page_Position=0;
 
-    I->Option(_T("Inform"), _T("Summary"));
+    I->Option(__T("Inform"), __T("Summary"));
     for (int KindOfStream=0; KindOfStream<Stream_Max; KindOfStream++)
     {
         //Inform
@@ -1280,33 +1280,33 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
             if (Page_Easy_X_Codec[KindOfStream][StreamPos])
             {
                 //Main
-                Page_Easy_X_Codec[KindOfStream][StreamPos]->Caption=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("Inform")).c_str();
+                Page_Easy_X_Codec[KindOfStream][StreamPos]->Caption=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("Inform")).c_str();
                 if (Page_Easy_File->ItemIndex!=-1) //To avoid refresh on the first GUI show
                     Page_Easy_X[KindOfStream][StreamPos]->Visible=Page_Easy_X_Codec[KindOfStream][StreamPos]->Caption.Length();
                 //Web
-                Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("CodecID/Url")).c_str();
+                Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("CodecID/Url")).c_str();
                 if (Page_Easy_X_Web_Url[KindOfStream][StreamPos].empty())
-                    Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("Format/Url")).c_str();
+                    Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("Format/Url")).c_str();
                 Page_Easy_X_Web[KindOfStream][StreamPos]->Visible=Page_Easy_X_Web_Url[KindOfStream][StreamPos].size();
             }
         }
         //List
         if (Page_Easy_X_List[KindOfStream] && KindOfStream!=Stream_General)
         {
-            if (I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind")).size()>0)
+            if (I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind")).size()>0)
             {
-                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("Count"));
-                Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
+                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("Count"));
+                Ztring Z2=Ztring(__T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text);
                 Z2.MakeLowerCase();
                 if (I->Count_Get(Page_Position, (stream_t)KindOfStream)>1)
-                    Z2+=_T(" stream2");
+                    Z2+=__T(" stream2");
                 else
-                    Z2+=_T(" stream1");
-                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
-                Page_Easy_X_List[KindOfStream]->Caption=(I->Get(Page_Position, Stream_General, 0, Z1)+Prefs->Translate(Z2)+Prefs->Translate(_T(": "))+I->Get(Page_Easy_File->ItemIndex, Stream_General, 0, Z3)).c_str();
+                    Z2+=__T(" stream1");
+                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List"));
+                Page_Easy_X_List[KindOfStream]->Caption=(I->Get(Page_Position, Stream_General, 0, Z1)+Prefs->Translate(Z2)+Prefs->Translate(__T(": "))+I->Get(Page_Easy_File->ItemIndex, Stream_General, 0, Z3)).c_str();
             }
             else
-                Page_Easy_X_List[KindOfStream]->Caption=_T("");
+                Page_Easy_X_List[KindOfStream]->Caption=__T("");
         }
     }
 
@@ -1320,12 +1320,12 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
     {
         Ztring Z1=I->Get(Page_Position, Stream_General, 0, MI_Pos);
         Ztring Options=I->Get(Page_Position, Stream_General, 0, MI_Pos, Info_Options);
-        if (Options.size()>InfoOption_ShowInInform && Options[InfoOption_ShowInInform]==_T('Y') && Z1.size()>0)
+        if (Options.size()>InfoOption_ShowInInform && Options[InfoOption_ShowInInform]==__T('Y') && Z1.size()>0)
         {
             Ztring Z2=I->Get(Page_Position, Stream_General, 0, MI_Pos, Info_Name_Text);
             if (Z2.size()==0)
                 Z2=I->Get(Page_Position, Stream_General, 0, MI_Pos, Info_Name);
-            Z2+=Prefs->Translate(_T(": "));
+            Z2+=Prefs->Translate(__T(": "));
             Z2+=Z1;
             if (Tag_Pos<EASY_TAG_MAX)
             {
@@ -1340,7 +1340,7 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
 
     //Specific in case of no file
     if (I->Count_Get()==0)
-        Page_Easy_G1_Codec->Caption=Prefs->Translate(_T("At least one file")).c_str();
+        Page_Easy_G1_Codec->Caption=Prefs->Translate(__T("At least one file")).c_str();
 }
 
 //---------------------------------------------------------------------------
@@ -1383,15 +1383,15 @@ void __fastcall TMainF::Page_Sheet_SheetSelectCell(TObject *Sender, int ACol,
             {
                     Page_Sheet_X[KindOfStream]->Enabled=false;
                     Page_Sheet_X[KindOfStream]->Style=csSimple;
-                    Page_Sheet_X[KindOfStream]->Text=_T("");
+                    Page_Sheet_X[KindOfStream]->Text=__T("");
                     Page_Sheet_X[KindOfStream]->Enabled=false;
             }
             else if (Stream_Count==1)
             {
                 Page_Sheet_X[KindOfStream]->Style=Stdctrls::csDropDownList;
                 Page_Sheet_X[KindOfStream]->Items->Clear();
-                I->Option(_T("Inform"), _T("Summary"));
-                Page_Sheet_X[KindOfStream]->Items->Add(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("Inform")).c_str());
+                I->Option(__T("Inform"), __T("Summary"));
+                Page_Sheet_X[KindOfStream]->Items->Add(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("Inform")).c_str());
                 Page_Sheet_X[KindOfStream]->ItemIndex=0;
                 Page_Sheet_X[KindOfStream]->Enabled=true;
             }
@@ -1399,12 +1399,12 @@ void __fastcall TMainF::Page_Sheet_SheetSelectCell(TObject *Sender, int ACol,
             {
                 Page_Sheet_X[KindOfStream]->Style=Stdctrls::csDropDownList;
                 Page_Sheet_X[KindOfStream]->Items->Clear();
-                I->Option(_T("Inform"), _T("Summary"));
-                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("Count"));
-                Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T(" streams"); Z2.MakeLowerCase();
-                Page_Sheet_X[KindOfStream]->Items->Add((I->Get(Page_Position, Stream_General, 0, Z1.c_str())+Prefs->Translate(Z2)+Prefs->Translate(_T(", "))+Prefs->Translate(_T("see below"))).c_str());
+                I->Option(__T("Inform"), __T("Summary"));
+                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("Count"));
+                Ztring Z2=Ztring(__T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T(" streams"); Z2.MakeLowerCase();
+                Page_Sheet_X[KindOfStream]->Items->Add((I->Get(Page_Position, Stream_General, 0, Z1.c_str())+Prefs->Translate(Z2)+Prefs->Translate(__T(", "))+Prefs->Translate(__T("see below"))).c_str());
                 for (int A=0; A<Stream_Count; A++)
-                    Page_Sheet_X[KindOfStream]->Items->Add(I->Get(Page_Position, (stream_t)KindOfStream, A, _T("Inform")).c_str());
+                    Page_Sheet_X[KindOfStream]->Items->Add(I->Get(Page_Position, (stream_t)KindOfStream, A, __T("Inform")).c_str());
                 Page_Sheet_X[KindOfStream]->ItemIndex=0;
                 Page_Sheet_X[KindOfStream]->Enabled=true;
             }
@@ -1438,26 +1438,26 @@ void __fastcall TMainF::Page_Sheet_Change(TObject *Sender)
         I1=Page_Sheet_X[KindOfStream]->ItemIndex-1;
 
     //Fill info
-    Page_Sheet_X[KindOfStream]->Hint=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Info")).c_str();
-    Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Url")).c_str();
+    Page_Sheet_X[KindOfStream]->Hint=I->Get(Page_Position, (stream_t)KindOfStream, I1, __T("CodecID/Info")).c_str();
+    Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, __T("CodecID/Url")).c_str();
     if (Page_Sheet_X_Web_Url[KindOfStream].empty())
-        Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("Format/Url")).c_str();
-    if (Page_Sheet_X_Web_Url[KindOfStream]==_T(""))
+        Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, __T("Format/Url")).c_str();
+    if (Page_Sheet_X_Web_Url[KindOfStream]==__T(""))
     {
         Page_Sheet_X_Web[KindOfStream]->Enabled=false;
-        Page_Sheet_X_Web[KindOfStream]->Hint=_T("");
+        Page_Sheet_X_Web[KindOfStream]->Hint=__T("");
     }
     else
     {
         Page_Sheet_X_Web[KindOfStream]->Enabled=true;
-        Ztring Z1=Ztring(_T("WebSite_"))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"))+_T("_More");
+        Ztring Z1=Ztring(__T("WebSite_"))+I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"))+__T("_More");
         Z1=Prefs->Translate(Z1);
-        Z1.FindAndReplace(_T("%Url%"), Page_Sheet_X_Web_Url[KindOfStream]);
+        Z1.FindAndReplace(__T("%Url%"), Page_Sheet_X_Web_Url[KindOfStream]);
         Page_Sheet_X_Web[KindOfStream]->Hint=Z1.c_str();
     }
 
-    I->Option(_T("Inform"), _T(""));
-    Page_Sheet_Text->Text=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("Inform")).c_str();
+    I->Option(__T("Inform"), __T(""));
+    Page_Sheet_Text->Text=I->Get(Page_Position, (stream_t)KindOfStream, I1, __T("Inform")).c_str();
 }
 
 //---------------------------------------------------------------------------
@@ -1468,7 +1468,7 @@ void __fastcall TMainF::Page_Sheet_WebClick(TObject *Sender)
     while (Page_Sheet_X_Web[KindOfStream]!=Sender)
         KindOfStream++;
 
-    ShellExecute(NULL, _T("open"), Page_Sheet_X_Web_Url[KindOfStream].c_str(), NULL, NULL, 0);
+    ShellExecute(NULL, __T("open"), Page_Sheet_X_Web_Url[KindOfStream].c_str(), NULL, NULL, 0);
 }
 
 //---------------------------------------------------------------------------
@@ -1569,72 +1569,72 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_deClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_enClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_esClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_frClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_itClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_jaClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_plClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_zh_CNClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediainfo.sourceforge.net/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate___Click(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(__T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(__T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 void __fastcall TMainF::M_DigimetricsClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 

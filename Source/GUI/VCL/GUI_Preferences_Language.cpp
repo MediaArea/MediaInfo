@@ -57,8 +57,8 @@ void __fastcall TPreferences_LanguageF::OKClick(TObject *Sender)
 int TPreferences_LanguageF::Run(const Ztring &Name)
 {
     ZtringListListF Default;
-    Default.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Language]+_T("\\")+Prefs->DefaultNames[Prefs_Language]+_T(".csv"));
-    EditedLanguage.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Language]+_T("\\")+Name+_T(".csv"));
+    Default.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Language]+__T("\\")+Prefs->DefaultNames[Prefs_Language]+__T(".csv"));
+    EditedLanguage.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Language]+__T("\\")+Name+__T(".csv"));
     Grille->RowCount=Default.size()+1;
     Grille->Cells[0][0]="Program name";
     Grille->Cells[1][0]="Default translation";

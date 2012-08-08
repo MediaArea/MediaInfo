@@ -104,8 +104,8 @@ void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
     if (Pos1!=(size_t)-1)
     {
         //Not the root level
-        LevelBase=Text.find_first_not_of(_T(' '), Pos1+9)-(Pos1+9);
-        Pos1=Text.find(_T('\n'), Pos1)+1;
+        LevelBase=Text.find_first_not_of(__T(' '), Pos1+9)-(Pos1+9);
+        Pos1=Text.find(__T('\n'), Pos1)+1;
     }
     else
     {
@@ -115,18 +115,18 @@ void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
     }
     while (Pos2!=(size_t)-1)
     {
-        Pos2=Text.find(_T('\n'), Pos1); //Pos to the next line
+        Pos2=Text.find(__T('\n'), Pos1); //Pos to the next line
         #ifdef WIN32
             #define SIZE 1
         #else
             #define SIZE 0
         #endif
-        Level=Text.find_first_not_of(_T(' '), Pos1+9)-(Pos1+9);
+        Level=Text.find_first_not_of(__T(' '), Pos1+9)-(Pos1+9);
         if (Level==LevelBase+1)
         {
             //Showing line
             String Line=Text.substr(Pos1, Pos2-Pos1-SIZE);
-            if (Line.size()>10 && Line[9]==_T(' '))
+            if (Line.size()>10 && Line[9]==__T(' '))
             {
                 Line.erase(9, Level);
             }

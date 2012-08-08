@@ -39,10 +39,10 @@
     } \
 
 #define OPTION(_TEXT, _TOLAUNCH) \
-    else if (Argument.find(_T(_TEXT))==0)        LAUNCH(_TOLAUNCH) \
+    else if (Argument.find(__T(_TEXT))==0)        LAUNCH(_TOLAUNCH) \
 
 #define OPTION2(_TEXT, _TOLAUNCH) \
-    else if (Argument.find(_T(_TEXT))==0)        _TOLAUNCH(); \
+    else if (Argument.find(__T(_TEXT))==0)        _TOLAUNCH(); \
 
 
 //***************************************************************************
@@ -123,7 +123,7 @@ CL_OPTION(Info_Parameters)
 CL_OPTION(Inform)
 {
     //Form : --Inform=Text
-    size_t Egal_Pos=Argument.find(_T('='));
+    size_t Egal_Pos=Argument.find(__T('='));
     if (Egal_Pos==String::npos)
         return Help_Output();
 
@@ -135,7 +135,7 @@ CL_OPTION(Inform)
 //---------------------------------------------------------------------------
 CL_OPTION(Language)
 {
-    size_t Egal_Pos=Argument.find(_T('='));
+    size_t Egal_Pos=Argument.find(__T('='));
     if (Egal_Pos!=String::npos)
         MI.Menu_Language(Argument.substr(Egal_Pos+1));
 
@@ -146,7 +146,7 @@ CL_OPTION(Language)
 CL_OPTION(Output)
 {
     //Form : --Inform=Text
-    size_t Egal_Pos=Argument.find(_T('='));
+    size_t Egal_Pos=Argument.find(__T('='));
     if (Egal_Pos==String::npos)
         return Help_Output();
 
@@ -194,7 +194,7 @@ CL_OPTION(LogFile)
 CL_OPTION(Default)
 {
     //Form : --Option=Text
-    size_t Egal_Pos=Argument.find(_T('='));
+    size_t Egal_Pos=Argument.find(__T('='));
     if (Egal_Pos<2)
         return 0;
     MediaInfoNameSpace::String Option(Argument, 2, Egal_Pos-2);
@@ -202,7 +202,7 @@ CL_OPTION(Default)
     if (Egal_Pos!=std::string::npos)
         Value.assign(Argument, Egal_Pos+1, std::string::npos);
     else
-        Value=_T('1');
+        Value=__T('1');
 
     MI.Menu_Option_Preferences_Option(Option, Value);
 
@@ -225,6 +225,6 @@ void LogFile_Action(ZenLib::Ztring Inform)
 void CallBack_Set(Core &MI, void* Event_CallBackFunction)
 {
     //CallBack configuration
-    MI.Menu_Option_Preferences_Option(_T("Event_CallBackFunction"), _T("CallBack=memory://")+ZenLib::Ztring::ToZtring((size_t)Event_CallBackFunction));
+    MI.Menu_Option_Preferences_Option(__T("Event_CallBackFunction"), __T("CallBack=memory://")+ZenLib::Ztring::ToZtring((size_t)Event_CallBackFunction));
 }
 

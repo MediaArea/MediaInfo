@@ -36,7 +36,7 @@
 
 //---------------------------------------------------------------------------
 GUI_Main_Text::GUI_Main_Text(Core* _C, wxWindow* parent)
-    : wxTextCtrl(parent, -1, _T(""), wxPoint(0, 0), wxSize(parent->GetClientSize().GetWidth()-0, parent->GetClientSize().GetHeight()-0), wxTE_READONLY|wxTE_MULTILINE|wxTE_RICH|wxTE_RICH2),
+    : wxTextCtrl(parent, -1, __T(""), wxPoint(0, 0), wxSize(parent->GetClientSize().GetWidth()-0, parent->GetClientSize().GetHeight()-0), wxTE_READONLY|wxTE_MULTILINE|wxTE_RICH|wxTE_RICH2),
     GUI_Main_Common_Core(_C)
 {
     wxFont Font;

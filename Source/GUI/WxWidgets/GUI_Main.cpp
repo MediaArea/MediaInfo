@@ -66,7 +66,7 @@ using namespace std;
 //---------------------------------------------------------------------------
 // Constructor
 GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint& pos, const wxSize& size, long style)
-:wxFrame(NULL, -1, _T("MediaInfo"), pos, size, style)
+:wxFrame(NULL, -1, __T("MediaInfo"), pos, size, style)
 {
     //Set the frame icon
     #ifdef WIN32 //Win32 use the first icon as file icon
@@ -111,7 +111,7 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
     {
         //First part of argument (before "=") should be case insensitive
         String Argument(argv[Pos]);
-        size_t Egal_Pos=Argument.find(_T('='));
+        size_t Egal_Pos=Argument.find(__T('='));
         if (Egal_Pos==string::npos)
             Egal_Pos=Argument.size();
         transform(Argument.begin(), Argument.begin()+Egal_Pos, Argument.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix

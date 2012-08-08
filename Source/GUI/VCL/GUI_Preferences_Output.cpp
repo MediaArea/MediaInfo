@@ -75,26 +75,26 @@ __fastcall TPreferences_OutputF::TPreferences_OutputF(TComponent* Owner)
 void __fastcall TPreferences_OutputF::ListeChange(TObject *Sender)
 {
     Ztring C1=Memo->Text.c_str();
-    C1.FindAndReplace(_T("\r\n"), _T("\\r\\n"));
+    C1.FindAndReplace(__T("\r\n"), __T("\\r\\n"));
     Output(AncienItemIndex, 1)=C1;
 
     C1=Output.Read(Liste->ItemIndex, 1);
-    C1.FindAndReplace(_T("\\r\\n"), _T("\r\n"));
+    C1.FindAndReplace(__T("\\r\\n"), __T("\r\n"));
     Memo->Text=C1.c_str();
     AncienItemIndex=Liste->ItemIndex;
 
     //Gestion texte
     Infos->Items->Clear();
     if (Liste->ItemIndex==0)
-        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("General\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("General\r\n"), __T("\r\n\r\n")));
     if (Liste->ItemIndex==1)
-        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Video\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Video\r\n"), __T("\r\n\r\n")));
     if (Liste->ItemIndex==2)
-        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Audio\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Audio\r\n"), __T("\r\n\r\n")));
     if (Liste->ItemIndex==3)
-        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Text\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Text\r\n"), __T("\r\n\r\n")));
     if (Liste->ItemIndex==4)
-        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Chapters\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Chapters\r\n"), __T("\r\n\r\n")));
 
     for (size_t Pos=0; Pos<Infos_Parameters.size(); Pos++)
         Infos->Items->Add(Infos_Parameters.Read(Pos, 0).c_str());
@@ -103,7 +103,7 @@ void __fastcall TPreferences_OutputF::ListeChange(TObject *Sender)
 void __fastcall TPreferences_OutputF::OKClick(TObject *Sender)
 {
     ListeChange(NULL);
-    Output.Save(Repertoire+_T("\\MediaInfo.View.")+Nom+_T(".csv"));
+    Output.Save(Repertoire+__T("\\MediaInfo.View.")+Nom+__T(".csv"));
 }
 //---------------------------------------------------------------------------
 
@@ -111,12 +111,12 @@ int TPreferences_OutputF::Afficher(const Ztring &Folder, const Ztring &Name)
 {
     Repertoire=Folder;
     Nom=Name;
-    Output.Load(Folder+_T("\\MediaInfo.View.")+Nom+_T(".csv"));
+    Output.Load(Folder+__T("\\MediaInfo.View.")+Nom+__T(".csv"));
 
     Liste->ItemIndex=0;
 
     Ztring C1=Output.Read(0, 1);
-    C1.FindAndReplace(_T("\\r\\n"), _T("\r\n"));
+    C1.FindAndReplace(__T("\\r\\n"), __T("\r\n"));
     Memo->Text=C1.c_str();
     AncienItemIndex=Liste->ItemIndex;
 
@@ -128,7 +128,7 @@ int TPreferences_OutputF::Afficher(const Ztring &Folder, const Ztring &Name)
 void __fastcall TPreferences_OutputF::InfosChange(TObject *Sender)
 {
     AnsiString S1=Memo->Text;
-    AnsiString S2=AnsiString(_T("%"))+Infos->Text+("%");
+    AnsiString S2=AnsiString(__T("%"))+Infos->Text+("%");
     S1.Insert(S2, Memo->SelStart+1);
     Memo->Text=S1;
 }

@@ -38,18 +38,18 @@ END_EVENT_TABLE()
 
 // frame constructor
 GUI_Main::GUI_Main(const wxPoint& pos, const wxSize& size, long style)
-:wxFrame(NULL, -1, _T("MediaInfo PreRelease"), pos, size, style)
+:wxFrame(NULL, -1, __T("MediaInfo PreRelease"), pos, size, style)
 {
     // set the frame icon
     SetIcon(wxICON(mondrian));
 
     //Menu
     wxMenu *Menu_File = new wxMenu;
-    Menu_File->Append(1, _T("Create other language files from All.csv"));
-    Menu_File->Append(2, _T("Update All.csv from other language files"));
+    Menu_File->Append(1, __T("Create other language files from All.csv"));
+    Menu_File->Append(2, __T("Update All.csv from other language files"));
 
     wxMenuBar *menuBar = new wxMenuBar();
-    menuBar->Append(Menu_File, _T("&File"));
+    menuBar->Append(Menu_File, __T("&File"));
     SetMenuBar(menuBar);
 
     Text=new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,

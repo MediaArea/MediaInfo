@@ -57,7 +57,7 @@ size_t GUI_Main_Common_Core::FilesPos_Get()
 //---------------------------------------------------------------------------
 String GUI_Main_Common_Core::FileName_Get()
 {
-    return C->MI->Get(File_Pos, Stream_General, 0, _T("CompleteName")).c_str();
+    return C->MI->Get(File_Pos, Stream_General, 0, __T("CompleteName")).c_str();
 }
 
 //***************************************************************************
@@ -77,24 +77,24 @@ size_t GUI_Main_Common_Core::StreamsCount_Get(stream_t StreamKind)
 //---------------------------------------------------------------------------
 String GUI_Main_Common_Core::Summary_Get(stream_t StreamKind, size_t StreamPos)
 {
-    C->MI->Option(_T("Inform"), _T("Summary"));
-    return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+    C->MI->Option(__T("Inform"), __T("Summary"));
+    return C->MI->Get(File_Pos, StreamKind, StreamPos, __T("Inform")).c_str();
 }
 
 //---------------------------------------------------------------------------
 String GUI_Main_Common_Core::Inform_Get(stream_t StreamKind, size_t StreamPos)
 {
-    C->MI->Option(_T("Inform"), _T(""));
-    return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+    C->MI->Option(__T("Inform"), __T(""));
+    return C->MI->Get(File_Pos, StreamKind, StreamPos, __T("Inform")).c_str();
 }
 
 //---------------------------------------------------------------------------
 String GUI_Main_Common_Core::CodecID_Url_Get(stream_t StreamKind, size_t StreamPos)
 {
-    if (!C->MI->Get(File_Pos, StreamKind, StreamPos, _T("CodecID/Url")).empty())
-        return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("CodecID/Url")).c_str();
+    if (!C->MI->Get(File_Pos, StreamKind, StreamPos, __T("CodecID/Url")).empty())
+        return C->MI->Get(File_Pos, StreamKind, StreamPos, __T("CodecID/Url")).c_str();
     else
-        return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Format/Url")).c_str();
+        return C->MI->Get(File_Pos, StreamKind, StreamPos, __T("Format/Url")).c_str();
 }
 
 

@@ -75,7 +75,7 @@ bool FileDrop::OnDropFiles(wxCoord, wxCoord, const wxArrayString& FileNames)
     ((GUI_Main*)C->GUI_Main_Handler)->View_Refresh();
     if (((GUI_Main*)C->GUI_Main_Handler)->GetStatusBar()==NULL)
         ((GUI_Main*)C->GUI_Main_Handler)->CreateStatusBar();
-    ((GUI_Main*)C->GUI_Main_Handler)->GetStatusBar()->SetLabel(Span.Format(_T("%Ss %lms")));
+    ((GUI_Main*)C->GUI_Main_Handler)->GetStatusBar()->SetLabel(Span.Format(__T("%Ss %lms")));
     return true;
 }
 #endif //wxUSE_DRAG_AND_DROP

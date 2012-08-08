@@ -38,11 +38,11 @@ TAboutF *AboutF;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_ABOUT=     _T("MediaInfo X.X.X.X\\r\\nCopyright (C) 2002-2012 MediaArea.net SARL");
-const ZenLib::Char* MEDIAINFO_URL=       _T("http://mediainfo.sourceforge.net");
-const ZenLib::Char* MEDIAINFO_NEWVERSION=_T("http://sourceforge.net/projects/mediainfo/files/");
-const ZenLib::Char* MEDIAINFO_DONATE=    _T("http://mediainfo.sourceforge.net/Donate");
-const ZenLib::Char* MEDIAINFO_MAILTO=    _T("mailto:zenitram@users.sourceforge.net");
+const ZenLib::Char* MEDIAINFO_ABOUT=     __T("MediaInfo X.X.X.X\\r\\nCopyright (C) 2002-2012 MediaArea.net SARL");
+const ZenLib::Char* MEDIAINFO_URL=       __T("http://mediainfo.sourceforge.net");
+const ZenLib::Char* MEDIAINFO_NEWVERSION=__T("http://sourceforge.net/projects/mediainfo/files/");
+const ZenLib::Char* MEDIAINFO_DONATE=    __T("http://mediainfo.sourceforge.net/Donate");
+const ZenLib::Char* MEDIAINFO_MAILTO=    __T("mailto:zenitram@users.sourceforge.net");
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -61,32 +61,32 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
     //Information
     ZenLib::Ztring C1;
     C1+=MEDIAINFO_ABOUT;
-    C1.FindAndReplace(_T("X.X.X.X"), MediaInfo_Version_GUI);
-    C1+=_T("\r\n\r\n");
-    C1+=Prefs->Translate(_T("MediaInfo_About")).c_str();
-    C1.FindAndReplace(_T("\\r\\n"), _T("\r\n"), 0, ZenLib::Ztring_Recursive);
+    C1.FindAndReplace(__T("X.X.X.X"), MediaInfo_Version_GUI);
+    C1+=__T("\r\n\r\n");
+    C1+=Prefs->Translate(__T("MediaInfo_About")).c_str();
+    C1.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, ZenLib::Ztring_Recursive);
     Memo->Text=C1.c_str();
 
     //Translation
-    Caption=Prefs->Translate(_T("About")).c_str();
-    OK->Caption=Prefs->Translate(_T("OK")).c_str();
-    WebSite->Caption=Prefs->Translate(_T("Go to WebSite")).c_str();
-    NewVersion->Caption=Prefs->Translate(_T("CheckNewVersion")).c_str();
-    Donate->Caption=Prefs->Translate(_T("Donate")).c_str();
-    WriteMe->Caption=Prefs->Translate(_T("WriteMe")).c_str();
-    if (Prefs->Translate(_T("  Author_Name")).size()==0)
+    Caption=Prefs->Translate(__T("About")).c_str();
+    OK->Caption=Prefs->Translate(__T("OK")).c_str();
+    WebSite->Caption=Prefs->Translate(__T("Go to WebSite")).c_str();
+    NewVersion->Caption=Prefs->Translate(__T("CheckNewVersion")).c_str();
+    Donate->Caption=Prefs->Translate(__T("Donate")).c_str();
+    WriteMe->Caption=Prefs->Translate(__T("WriteMe")).c_str();
+    if (Prefs->Translate(__T("  Author_Name")).size()==0)
         Translator->Visible=false;
     else
     {
-        Translator->Caption=(Prefs->Translate(_T("Translator"))+Prefs->Translate(_T(": "))+Prefs->Translate(_T("  Author_Name"))).c_str();
+        Translator->Caption=(Prefs->Translate(__T("Translator"))+Prefs->Translate(__T(": "))+Prefs->Translate(__T("  Author_Name"))).c_str();
         Translator->Visible=true;
     }
-    Translator_Url=Prefs->Translate(_T("  Author_Email"));
-    if (Translator_Url.size()==0 || Translator_Url==_T("Zen@mediaarea.net"))
+    Translator_Url=Prefs->Translate(__T("  Author_Email"));
+    if (Translator_Url.size()==0 || Translator_Url==__T("Zen@mediaarea.net"))
         WriteToTranslator->Visible=false;
     else
     {
-        WriteToTranslator->Caption=Prefs->Translate(_T("WriteToTranslator")).c_str();
+        WriteToTranslator->Caption=Prefs->Translate(__T("WriteToTranslator")).c_str();
         WriteToTranslator->Visible=true;
     }
 
@@ -118,7 +118,7 @@ void __fastcall TAboutF::WriteMeClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TAboutF::WriteToTranslatorClick(TObject *Sender)
 {
-    ZenLib::Ztring Url=ZenLib::Ztring(_T("mailto:"))+Translator_Url;
+    ZenLib::Ztring Url=ZenLib::Ztring(__T("mailto:"))+Translator_Url;
     ShellExecute(NULL, NULL, Url.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
@@ -139,7 +139,7 @@ void __fastcall TAboutF::WebSiteClick(TObject *Sender)
 
 void __fastcall TAboutF::DigimetricsClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, _T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 

@@ -70,12 +70,12 @@ __fastcall TPreferences_SheetF::TPreferences_SheetF(TComponent* Owner)
 
 int TPreferences_SheetF::Run(const Ztring &Name)
 {
-    EditedSheet.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Sheet]+_T("\\")+Name+_T(".csv"));
-    ColumnsCount->ItemIndex=EditedSheet(_T("ColumnsCount"), 1).To_int32s();
+    EditedSheet.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Sheet]+__T("\\")+Name+__T(".csv"));
+    ColumnsCount->ItemIndex=EditedSheet(__T("ColumnsCount"), 1).To_int32s();
     Columns_Adapt();
     for (int Pos=0; Pos<Columns_Count; Pos++)
     {
-        Ztring Z1=_T("Column");
+        Ztring Z1=__T("Column");
         Z1+=Ztring::ToZtring(Pos);
         int ItemIndex;
         AnsiString A=EditedSheet(Z1, 1).c_str();
@@ -108,7 +108,7 @@ int TPreferences_SheetF::Run(const Ztring &Name)
 
 void __fastcall TPreferences_SheetF::ColumnsCountChange(TObject *Sender)
 {
-    EditedSheet(_T("ColumnsCount"))=GUI_Text(ColumnsCount->Text);
+    EditedSheet(__T("ColumnsCount"))=GUI_Text(ColumnsCount->Text);
     Columns_Adapt();
 }
 //---------------------------------------------------------------------------
@@ -116,7 +116,7 @@ void __fastcall TPreferences_SheetF::ColumnsCountChange(TObject *Sender)
 void TPreferences_SheetF::Columns_Adapt()
 {
     int Before=Columns_Count;
-    Columns_Count=EditedSheet(_T("ColumnsCount")).To_int32s();
+    Columns_Count=EditedSheet(__T("ColumnsCount")).To_int32s();
     if (Columns_Count<0)
         Columns_Count=0;
     else if (Columns_Count>SHEETF_COLUMNS)
@@ -205,15 +205,15 @@ void __fastcall TPreferences_SheetF::Column_Kind0Change(TObject *Sender)
     //Fill Column_Parameter
     Column_Parameter[Pos]->Items->Clear();
     if (Column_Kind[Pos]->ItemIndex==0) //General
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("General"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("General"))+__T("\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==1) //Video
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Video"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Video"))+__T("\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==2) //Audio
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Audio"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Audio"))+__T("\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==3) //Text
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Text"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Text"))+__T("\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==4) //Chapters
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Chapters"))+_T("\r\n"), _T("")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Chapters"))+__T("\r\n"), __T("")));
     for (size_t Info_Pos=0; Info_Pos<Infos_Parameters[Pos].size(); Info_Pos++)
         Column_Parameter[Pos]->Items->Add(Infos_Parameters[Pos].Read(Info_Pos, 0).c_str());
     Column_Parameter[Pos]->ItemIndex=0;
@@ -246,12 +246,12 @@ void __fastcall TPreferences_SheetF::FormResize(TObject *Sender)
 void __fastcall TPreferences_SheetF::OKClick(TObject *Sender)
 {
     //Set count
-    EditedSheet(_T("ColumnsCount"))=Ztring::ToZtring(Columns_Count);
+    EditedSheet(__T("ColumnsCount"))=Ztring::ToZtring(Columns_Count);
 
     //Set lines
     for (int Pos=0; Pos<Columns_Count; Pos++)
     {
-        Ztring Z1=_T("Column");
+        Ztring Z1=__T("Column");
         Z1+=Ztring::ToZtring(Pos);
         EditedSheet(Z1, 1)=GUI_Text(Column_Kind[Pos]->Text);
         EditedSheet(Z1, 2)=GUI_Text(Column_Pos[Pos]->Text);
@@ -262,7 +262,7 @@ void __fastcall TPreferences_SheetF::OKClick(TObject *Sender)
     //Delete extra lines no more needed
     for (int Pos=SHEETF_COLUMNS-1; Pos>=Columns_Count; Pos--)
     {
-        Ztring Z1=_T("Column");
+        Ztring Z1=__T("Column");
         Z1+=Ztring::ToZtring(Pos);
         int I1=EditedSheet.Find(Z1);
         if (I1!=-1)
@@ -270,9 +270,9 @@ void __fastcall TPreferences_SheetF::OKClick(TObject *Sender)
     }
 
     //TODO: Purge blank lines, but why is there blank lines?
-    while (EditedSheet.Find(_T(""))!=-1)
+    while (EditedSheet.Find(__T(""))!=-1)
     {
-        int I1=EditedSheet.Find(_T(""));
+        int I1=EditedSheet.Find(__T(""));
         EditedSheet.erase(&EditedSheet(I1));
     }
 

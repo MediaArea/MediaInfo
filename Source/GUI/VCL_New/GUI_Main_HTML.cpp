@@ -57,11 +57,11 @@ void GUI_Main_HTML::GUI_Refresh()
     MediaInfoLib::String S1=C->Inform_Get().c_str();
     /*
     File F;
-    if (FileName_Temp==_T(""))
+    if (FileName_Temp==__T(""))
     {
-        FileName_Temp=FileName::TempFileName_Create(_T("MI_"));
+        FileName_Temp=FileName::TempFileName_Create(__T("MI_"));
         File::Delete(FileName_Temp);
-        FileName_Temp+=_T(".html");
+        FileName_Temp+=__T(".html");
     }
     F.Create(FileName_Temp, true);
     F.Write(S1);

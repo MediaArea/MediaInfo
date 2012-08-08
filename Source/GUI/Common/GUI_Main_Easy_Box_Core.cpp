@@ -109,11 +109,11 @@ String GUI_Main_Easy_Box_Core::Box_Get()
     String Temp;
     switch (StreamKind)
     {
-        case Stream_General : Temp=_T("General"); break;
-        case Stream_Video   : Temp=_T("Video");   break;
-        case Stream_Audio   : Temp=_T("Audio");   break;
-        case Stream_Text    : Temp=_T("Text");    break;
-        default             : Temp=_T("");
+        case Stream_General : Temp=__T("General"); break;
+        case Stream_Video   : Temp=__T("Video");   break;
+        case Stream_Audio   : Temp=__T("Audio");   break;
+        case Stream_Text    : Temp=__T("Text");    break;
+        default             : Temp=__T("");
     }
 
     return Temp;
@@ -124,7 +124,7 @@ String GUI_Main_Easy_Box_Core::Text_Get()
 {
     //First line
     if (Lines_Count_Get()==0)
-        return _T("");
+        return __T("");
     String Temp=Parent_Core->Summary_Get(StreamKind, StreamPos);
 
     //Depend of StreamKind
@@ -142,15 +142,15 @@ String GUI_Main_Easy_Box_Core::Text_Get()
         {
             if (C->MI->Count_Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream)>0)
             {
-                String Z1=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure))+_T("StreamCount");
-                String Z2=String(_T(" "))+C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
+                String Z1=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Measure))+__T("StreamCount");
+                String Z2=String(__T(" "))+C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text);
                 if (C->MI->Count_Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream)==1)
-                    Z2+=_T(" stream");//_T(" stream1");
+                    Z2+=__T(" stream");//__T(" stream1");
                 else
-                    Z2+=_T(" streams");//_T(" stream2");
-                String Z3=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
+                    Z2+=__T(" streams");//__T(" stream2");
+                String Z3=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List"));
                 Temp+=EOL;
-                Temp+=(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, Z1)+/*Prefs->Translate(*/Z2/*)*/+/*Prefs->Translate(*/_T(": ")/*)*/+C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, Z3)).c_str();
+                Temp+=(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, Z1)+/*Prefs->Translate(*/Z2/*)*/+/*Prefs->Translate(*/__T(": ")/*)*/+C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, Z3)).c_str();
                 Lines++;
             }
 
@@ -161,7 +161,7 @@ String GUI_Main_Easy_Box_Core::Text_Get()
     else if (Lines_Count_Get()>1)
     {
         //Other than Stream_General
-        String Title=C->MI->Get(Parent_Core->FilesPos_Get(), StreamKind, StreamPos, _T("Title"));
+        String Title=C->MI->Get(Parent_Core->FilesPos_Get(), StreamKind, StreamPos, __T("Title"));
         if (!Title.empty())
         {
             Temp+=EOL;
@@ -183,7 +183,7 @@ String GUI_Main_Easy_Box_Core::Tags_Get()
 {
     //First line
     if (StreamKind!=Stream_General || Lines_Count_Get()==0)
-        return _T("");
+        return __T("");
 
     size_t MI_Pos=Title_Pos; //Should begin with "Title"
     size_t MI_Max=C->MI->Count_Get(Parent_Core->FilesPos_Get(), Stream_General, 0);
@@ -193,12 +193,12 @@ String GUI_Main_Easy_Box_Core::Tags_Get()
     {
         String Z1=C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, MI_Pos);
         String Options=C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, MI_Pos, Info_Options);
-        if (Options.size()>InfoOption_ShowInInform && Options[InfoOption_ShowInInform]==_T('Y') && Z1.size()>0)
+        if (Options.size()>InfoOption_ShowInInform && Options[InfoOption_ShowInInform]==__T('Y') && Z1.size()>0)
         {
             String Z2=C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, MI_Pos, Info_Name_Text);
             if (Z2.size()==0)
                 Z2=C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, MI_Pos, Info_Name);
-            Z2+=/*Prefs->Translate(*/_T(": ")/*)*/;
+            Z2+=/*Prefs->Translate(*/__T(": ")/*)*/;
             Z2+=Z1;
             if (Lines>0)
                 Temp+=EOL;
@@ -218,9 +218,9 @@ String GUI_Main_Easy_Box_Core::Tags_Get()
 String GUI_Main_Easy_Box_Core::Button_Get()
 {
     if (StreamKind==Stream_General)
-        return _T("Go to the website of a player for this file");
+        return __T("Go to the website of a player for this file");
     else
-        return _T("Go to the website of this codec");
+        return __T("Go to the website of this codec");
 }
 
 //---------------------------------------------------------------------------

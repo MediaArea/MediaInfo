@@ -30,7 +30,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const MediaInfoNameSpace::Char* MEDIAINFO_TITLE=_T("MediaInfo - http://mediainfo.sourceforge.net");
+const MediaInfoNameSpace::Char* MEDIAINFO_TITLE=__T("MediaInfo - http://mediainfo.sourceforge.net");
 ZenLib::Ztring Text_Temp;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ size_t Core::Menu_File_Open_File (const String& FileName)
 void Core::Menu_File_Open_Files_Begin (bool Close, bool WithThread)
 {
     if(WithThread)
-        MI->Option(_T("Thread"), _T("1"));
+        MI->Option(__T("Thread"), __T("1"));
     if(Close)
         MI->Close();
 }
@@ -95,11 +95,11 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     size_t From_Buffer_Size; //The size of the read file buffer
 
     //Preparing to fill MediaInfo with a buffer
-    MI.Option(_T("ReadByHuman"), _T("0"));
-    MI.Option(_T("File_ForceParser"), _T("MpegTs"));
-    MI.Option(_T("File_MpegTs_ForceMenu"), _T("1"));
+    MI.Option(__T("ReadByHuman"), __T("0"));
+    MI.Option(__T("File_ForceParser"), __T("MpegTs"));
+    MI.Option(__T("File_MpegTs_ForceMenu"), __T("1"));
     MI.Open_Buffer_Init();
-    MI.Option(_T("File_IsSeekable"), _T("0"));
+    MI.Option(__T("File_IsSeekable"), __T("0"));
     int A=0;
 
     //The parsing loop
@@ -120,11 +120,11 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
         if (CanWrite_OnlyIfParsingIsOk)
         {
             MI.Open_Buffer_Finalize();
-            //MI.Option(_T("ReadByHuman"), _T("0"));
-            //MI.Option(_T("File_ForceParser"), _T("MpegTs"));
-            //MI.Option(_T("File_MpegTs_ForceMenu"), _T("1"));
+            //MI.Option(__T("ReadByHuman"), __T("0"));
+            //MI.Option(__T("File_ForceParser"), __T("MpegTs"));
+            //MI.Option(__T("File_MpegTs_ForceMenu"), __T("1"));
             MI.Open_Buffer_Init();
-            //MI.Option(_T("File_IsSeekable"), _T("0"));
+            //MI.Option(__T("File_IsSeekable"), __T("0"));
             return 0;
             CanWrite_OnlyIfParsingIsOk=false;
             int64u File_Pos=From.Position_Get();
@@ -141,43 +141,43 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     delete[] From_Buffer;
 
     return 0;
-    //MI->Option(_T("Trace_Format"), _T("csv"));
-    //MI->Option(_T("Trace_Level"), _T("Container1;1"));
-    //MI->Option(_T("File_MpegTs_ForceMenu"), _T("1"));
-    //MI->Option(_T("File_Demux_Unpacketize"), _T("1"));
-    //MI->Option(_T("ParseSpeed"), _T("1.0"));
-    //MI->Option(_T("Inform"), _T("Details;0.9"));
-    //MI->Option(_T("Language"), _T("raw"));
-    //MI->Option(_T("Complete"), _T("1"));
-    //MI->Option(_T("File_MpegTs_ForceMenu"), _T("1"));
-    //MI->Option(_T("Trace_Format"), _T("csv"));
-    //MI->Option(_T("Trace_Level"), _T("Container1;1"));
-    //MI->Option(_T("ParseSpeed"), _T("0.1"));
-    //MI->Option(_T("Inform"), _T("CSV"));
-    //MI->Option(_T("Inform"), _T("Details;0.9"));
+    //MI->Option(__T("Trace_Format"), __T("csv"));
+    //MI->Option(__T("Trace_Level"), __T("Container1;1"));
+    //MI->Option(__T("File_MpegTs_ForceMenu"), __T("1"));
+    //MI->Option(__T("File_Demux_Unpacketize"), __T("1"));
+    //MI->Option(__T("ParseSpeed"), __T("1.0"));
+    //MI->Option(__T("Inform"), __T("Details;0.9"));
+    //MI->Option(__T("Language"), __T("raw"));
+    //MI->Option(__T("Complete"), __T("1"));
+    //MI->Option(__T("File_MpegTs_ForceMenu"), __T("1"));
+    //MI->Option(__T("Trace_Format"), __T("csv"));
+    //MI->Option(__T("Trace_Level"), __T("Container1;1"));
+    //MI->Option(__T("ParseSpeed"), __T("0.1"));
+    //MI->Option(__T("Inform"), __T("CSV"));
+    //MI->Option(__T("Inform"), __T("Details;0.9"));
 
 
      MediaInfo MII;
-     MII.Option(_T("Demux"), _T("container"));
-     MII.Option(_T("File_NextPacket"), _T("1"));
+     MII.Option(__T("Demux"), __T("container"));
+     MII.Option(__T("File_NextPacket"), __T("1"));
 
      MII.Open(FileName);
      while (MII.Open_NextPacket()&0x100)
      {
-        MII.Option(_T("File_Seek"), _T("2000000"));
-        MII.Option(_T("File_Seek"), _T("50%"));
+        MII.Option(__T("File_Seek"), __T("2000000"));
+        MII.Option(__T("File_Seek"), __T("50%"));
      }*/
 
-    //MI->Option(_T("MpegTs_MaximumScanDuration"), _T("60"));
-    //MI->Option(_T("mpegts_maximumoffset"), _T("1880"));
-    //MI->Option(_T("Trace_Level"), _T("Container1;1"));
-    //MI->Option(_T("ParseSpeed"), _T("1.0"));
-    //MI->Option(_T("LegacyStreamDisplay"), _T("0"));
-    //MI->Option(_T("File_MpegTs_Atsc_transport_stream_id_Trust"), _T("0"));
-    //MI->Option(_T("Trace_Level"), _T("Container1;1"));
-    //MI->Option(_T("Language"), _T("raw"));
-    //MI->Option(_T("demux"), _T("container"));
-    //MI->Option(_T("file_demux_unpacketize"), _T("1"));
+    //MI->Option(__T("MpegTs_MaximumScanDuration"), __T("60"));
+    //MI->Option(__T("mpegts_maximumoffset"), __T("1880"));
+    //MI->Option(__T("Trace_Level"), __T("Container1;1"));
+    //MI->Option(__T("ParseSpeed"), __T("1.0"));
+    //MI->Option(__T("LegacyStreamDisplay"), __T("0"));
+    //MI->Option(__T("File_MpegTs_Atsc_transport_stream_id_Trust"), __T("0"));
+    //MI->Option(__T("Trace_Level"), __T("Container1;1"));
+    //MI->Option(__T("Language"), __T("raw"));
+    //MI->Option(__T("demux"), __T("container"));
+    //MI->Option(__T("file_demux_unpacketize"), __T("1"));
     return MI->Open(FileName);
 }
 
@@ -190,22 +190,22 @@ void Core::Menu_File_Open_Directory (const String &DirectoryName)
 //---------------------------------------------------------------------------
 void Core::Menu_View_Easy ()
 {
-    Text=_T("Easy");
+    Text=__T("Easy");
     Kind=Kind_Easy;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_Sheet ()
 {
-    MI->Option(_T("Inform"), String());
-    Text=_T("Sheet");
+    MI->Option(__T("Inform"), String());
+    Text=__T("Sheet");
     Kind=Kind_Sheet;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_Tree ()
 {
-    Text=_T("Root\n Item");
+    Text=__T("Root\n Item");
     Kind=Kind_Tree;
     if (Details>0)
         Menu_Debug_Details(Details);
@@ -214,42 +214,42 @@ void Core::Menu_View_Tree ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_HTML ()
 {
-    MI->Option(_T("Inform"), _T("HTML"));
+    MI->Option(__T("Inform"), __T("HTML"));
     Kind=Kind_HTML;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_XML ()
 {
-    MI->Option(_T("Inform"), _T("XML"));
+    MI->Option(__T("Inform"), __T("XML"));
     Kind=Kind_XML;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_PBCore ()
 {
-    MI->Option(_T("Inform"), _T("PBCore"));
+    MI->Option(__T("Inform"), __T("PBCore"));
     Kind=Kind_PBCore;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_reVTMD ()
 {
-    MI->Option(_T("Inform"), _T("reVTMD"));
+    MI->Option(__T("Inform"), __T("reVTMD"));
     Kind=Kind_reVTMD;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_MPEG7 ()
 {
-    MI->Option(_T("Inform"), _T("MPEG-7"));
+    MI->Option(__T("Inform"), __T("MPEG-7"));
     Kind=Kind_MPEG7;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_Text ()
 {
-    MI->Option(_T("Inform"), String());
+    MI->Option(__T("Inform"), String());
     Kind=Kind_Text;
     if (Details>0)
         Menu_Debug_Details(Details);
@@ -258,7 +258,7 @@ void Core::Menu_View_Text ()
 //---------------------------------------------------------------------------
 void Core::Menu_Option_Preferences_Inform (const String& Inform)
 {
-    MI->Option(_T("Inform"), Inform);
+    MI->Option(__T("Inform"), Inform);
 }
 
 //---------------------------------------------------------------------------
@@ -271,9 +271,9 @@ String Core::Menu_Option_Preferences_Option (const String& Param, const String& 
 void Core::Menu_Debug_Complete (bool Value)
 {
     if (Value)
-        MI->Option(_T("Complete"), _T("1"));
+        MI->Option(__T("Complete"), __T("1"));
     else
-        MI->Option(_T("Complete"), _T("0"));
+        MI->Option(__T("Complete"), __T("0"));
 }
 
 //---------------------------------------------------------------------------
@@ -281,7 +281,7 @@ void Core::Menu_Debug_Details (float Value)
 {
     Details=Value;
 
-    MI->Option(_T("Inform"), _T("Details;")+ZenLib::Ztring::ToZtring(Value));
+    MI->Option(__T("Inform"), __T("Details;")+ZenLib::Ztring::ToZtring(Value));
 }
 
 //---------------------------------------------------------------------------
@@ -291,37 +291,37 @@ void Core::Menu_Debug_Demux (const String &Value)
         return;
     Demux=Value;
 
-    MI->Option(_T("Demux"), Value);
+    MI->Option(__T("Demux"), Value);
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_Help_Version ()
 {
-    Text=MI->Option(_T("Info_Version"));
+    Text=MI->Option(__T("Info_Version"));
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_Help_Info_Formats ()
 {
-    Text=MI->Option(_T("Info_Capacities"));
+    Text=MI->Option(__T("Info_Capacities"));
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_Help_Info_Codecs ()
 {
-    Text=MI->Option(_T("Info_Codecs"));
+    Text=MI->Option(__T("Info_Codecs"));
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_Help_Info_Parameters ()
 {
-    Text=MI->Option(_T("Info_Parameters"));
+    Text=MI->Option(__T("Info_Parameters"));
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_Language (const String& Language)
 {
-    MI->Option(_T("Language"), Language);
+    MI->Option(__T("Language"), Language);
 }
 
 //***************************************************************************
@@ -347,8 +347,8 @@ Core::kind Core::Kind_Get ()
 //---------------------------------------------------------------------------
 String Core::Inform_Get(size_t Pos, stream_t StreamKind, size_t StreamPos)
 {
-    MI->Option(_T("Inform"), String());
-    return MI->Get(Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+    MI->Option(__T("Inform"), String());
+    return MI->Get(Pos, StreamKind, StreamPos, __T("Inform")).c_str();
 }
 
 // Accessors
@@ -365,8 +365,8 @@ size_t Core::Count_Get(size_t File_Pos, stream_t StreamKind, size_t StreamNumber
 //---------------------------------------------------------------------------
 String Core::Summary_Get(int File_Pos, stream_t StreamKind, size_t StreamPos)
 {
-    MI->Option(_T("Inform"), _T("Summary"));
-    return MI->Get(File_Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+    MI->Option(__T("Inform"), __T("Summary"));
+    return MI->Get(File_Pos, StreamKind, StreamPos, __T("Inform")).c_str();
 }
 
 //---------------------------------------------------------------------------
@@ -382,27 +382,27 @@ String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, cons
 //---------------------------------------------------------------------------
 String Core::StreamName (stream_t StreamKind) {
     switch(StreamKind) {
-    case Stream_General: return _T("General");
+    case Stream_General: return __T("General");
         break;
-    case Stream_Audio: return _T("Audio");
+    case Stream_Audio: return __T("Audio");
         break;
-    case Stream_Video: return _T("Video");
+    case Stream_Video: return __T("Video");
         break;
-    case Stream_Chapters: return _T("Chapters");
+    case Stream_Chapters: return __T("Chapters");
         break;
-    case Stream_Image: return _T("Image");
+    case Stream_Image: return __T("Image");
         break;
-    case Stream_Menu: return _T("Menu");
+    case Stream_Menu: return __T("Menu");
         break;
-    case Stream_Text: return _T("Text");
+    case Stream_Text: return __T("Text");
         break;
-    default: return _T("Unknown stream");
+    default: return __T("Unknown stream");
         break;
     }
 }
 
 String Core::Parameters () {
-    return MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"));
+    return MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"));
 }
 
 size_t Core::State_Get() {

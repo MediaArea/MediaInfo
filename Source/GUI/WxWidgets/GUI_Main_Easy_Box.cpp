@@ -167,12 +167,12 @@ void GUI_Main_Easy_Box::GUI_Resize()
 void GUI_Main_Easy_Box::OnClick(wxCommandEvent&)
 {
     //Showing
-    //wxMessageBox(Button_Click().c_str(), _T("Should launch"), wxOK | wxICON_INFORMATION, this);
+    //wxMessageBox(Button_Click().c_str(), __T("Should launch"), wxOK | wxICON_INFORMATION, this);
     #if defined (_WINDOWS)
-        ShellExecute(NULL, _T("open"), Button_Click().c_str(), NULL, NULL, 0); //wxExecute(_T("cmd /C start ")+Button_Click());
+        ShellExecute(NULL, __T("open"), Button_Click().c_str(), NULL, NULL, 0); //wxExecute(__T("cmd /C start ")+Button_Click());
     #elif defined (_MACOS) || defined (_MACOSX)
-        wxExecute((_T("open ")+Button_Click()).c_str());
+        wxExecute((__T("open ")+Button_Click()).c_str());
     #else
-        wxExecute(_T("xdg-open ")+Button_Click());
+        wxExecute(__T("xdg-open ")+Button_Click());
     #endif
 }

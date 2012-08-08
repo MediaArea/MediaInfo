@@ -53,7 +53,7 @@ void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserH
     String MessageString;
 
     if (Event->Type>=0xC0)
-        MessageString+=_T("E: ");
+        MessageString+=__T("E: ");
 
     #if defined(UNICODE) || defined (_UNICODE)
         MessageString+=Event->MessageStringU;
@@ -64,10 +64,10 @@ void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserH
     //Special cases
     switch (Event->MessageCode)
     {
-        case 0xF1010101 : MessageString+=_T(" If you want to use such protocols, compile libcurl with SSL/SSH support"); break;
+        case 0xF1010101 : MessageString+=__T(" If you want to use such protocols, compile libcurl with SSL/SSH support"); break;
         case 0xF1010102 :
-        case 0xF1010103 : MessageString+=_T(" If you are in a secure environment, do \"ssh %YourServerName%\" in order to add the fingerprint to the known_hosts file. If you want to ignore security issues, use --Ssh_IgnoreSecurity option"); break;
-        case 0xF1010104 : MessageString+=_T(" If you want to ignore security issues, use --Ssl_IgnoreSecurity option."); break;
+        case 0xF1010103 : MessageString+=__T(" If you are in a secure environment, do \"ssh %YourServerName%\" in order to add the fingerprint to the known_hosts file. If you want to ignore security issues, use --Ssh_IgnoreSecurity option"); break;
+        case 0xF1010104 : MessageString+=__T(" If you want to ignore security issues, use --Ssl_IgnoreSecurity option."); break;
         default         : ;
     }
 
@@ -120,7 +120,7 @@ int main(int argc, char* argv_ansi[])
         _setmode(_fileno(stderr), _O_U8TEXT);
         CLI_Option_Bom=false;
     #endif
-    MediaInfo::Option_Static(_T("LineSeparator"), _T("\n")); //Using sdtout
+    MediaInfo::Option_Static(__T("LineSeparator"), __T("\n")); //Using sdtout
 
     //Configure MediaInfo core
     Core MI;
@@ -135,7 +135,7 @@ int main(int argc, char* argv_ansi[])
     {
         //First part of argument (before "=") should be case insensitive
         String Argument(argv[Pos]);
-        size_t Egal_Pos=Argument.find(_T('='));
+        size_t Egal_Pos=Argument.find(__T('='));
         if (Egal_Pos==string::npos)
             Egal_Pos=Argument.size();
         transform(Argument.begin(), Argument.begin()+Egal_Pos, Argument.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix

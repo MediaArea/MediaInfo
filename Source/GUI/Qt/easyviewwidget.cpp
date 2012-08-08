@@ -54,7 +54,7 @@ void EasyViewWidget::refreshDisplay() {
     QComboBox* fileChoice = new QComboBox();
     layout->addWidget(fileChoice);
     for (size_t Pos=0; Pos<C->Count_Get(); Pos++)
-        fileChoice->addItem( wstring2QString(C->Get(Pos, Stream_General, 0, _T("CompleteName"))), (int)Pos);
+        fileChoice->addItem( wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))), (int)Pos);
 
     fileChoice->setCurrentIndex(FilePos);
 
@@ -103,15 +103,15 @@ QGroupBox* EasyViewWidget::createBox(stream_t StreamKind, int StreamPos) {
         {
             if (C->Count_Get(FilePos, (stream_t)KindOfStream)>0)
             {
-                String Z1=String(C->Get(FilePos, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure))+_T("StreamCount");
-                String Z2=String(_T(" "))+C->Get(FilePos, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
+                String Z1=String(C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Measure))+__T("StreamCount");
+                String Z2=String(__T(" "))+C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text);
                 if (C->Count_Get(FilePos, (stream_t)KindOfStream)==1)
-                    Z2+=_T(" stream");//_T(" stream1");
+                    Z2+=__T(" stream");//__T(" stream1");
                 else
-                    Z2+=_T(" streams");//_T(" stream2");
-                String Z3=String(C->Get(FilePos, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
+                    Z2+=__T(" streams");//__T(" stream2");
+                String Z3=String(C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List"));
                 Temp+="\n";
-                Temp+=wstring2QString((C->Get(FilePos, (stream_t)KindOfStream, 0, Z1)+Z2+_T(": ")+C->Get(FilePos, Stream_General, 0, Z3)));
+                Temp+=wstring2QString((C->Get(FilePos, (stream_t)KindOfStream, 0, Z1)+Z2+__T(": ")+C->Get(FilePos, Stream_General, 0, Z3)));
                 Lines++;
             }
 
@@ -122,7 +122,7 @@ QGroupBox* EasyViewWidget::createBox(stream_t StreamKind, int StreamPos) {
     else if (Lines_Count_Get(StreamKind)>1)
     {
         //Other than Stream_General
-        QString Title = QString(wstring2QString(C->Get(FilePos, StreamKind, StreamPos, _T("Title"))));
+        QString Title = QString(wstring2QString(C->Get(FilePos, StreamKind, StreamPos, __T("Title"))));
         if (!Title.isEmpty())
         {
             Temp+="\n";
@@ -166,12 +166,12 @@ QString EasyViewWidget::Tags_Get_General()
     {
         String Z1=C->Get(FilePos, Stream_General, 0, MI_Pos);
         String Options=C->Get(FilePos, Stream_General, 0, MI_Pos, Info_Options);
-        if (Options.size()>InfoOption_ShowInInform && Options[InfoOption_ShowInInform]==_T('Y') && Z1.size()>0)
+        if (Options.size()>InfoOption_ShowInInform && Options[InfoOption_ShowInInform]==__T('Y') && Z1.size()>0)
         {
             String Z2=C->Get(FilePos, Stream_General, 0, MI_Pos, Info_Name_Text);
             if (Z2.size()==0)
                 Z2=C->Get(FilePos, Stream_General, 0, MI_Pos, Info_Name);
-            Z2+=_T(": ");
+            Z2+=__T(": ");
             Z2+=Z1;
             if (Lines>0)
                 Temp+="\n";

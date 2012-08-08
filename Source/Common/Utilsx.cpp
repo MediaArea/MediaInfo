@@ -41,8 +41,8 @@ ZtringListList *Audio_Temp;
 //Used to know audio
 bool CALLBACK acmDriverEnumCallback (HACMDRIVERID hadid, DWORD dwInstance, DWORD fdwSupport)
 {
-    Audio_Temp->Separator_Set(0, _T("\r\n"));
-    Audio_Temp->Separator_Set(1, _T("aaa"));
+    Audio_Temp->Separator_Set(0, __T("\r\n"));
+    Audio_Temp->Separator_Set(1, __T("aaa"));
     HACMDRIVER    had;
     ACMDRIVERDETAILS    add;
     ACMFORMATTAGDETAILS    aftd;
@@ -66,14 +66,14 @@ bool CALLBACK acmDriverEnumCallback (HACMDRIVERID hadid, DWORD dwInstance, DWORD
         _TCHAR C1[30]; _itot(aftd.dwFormatTag, C1, 16);
         Ztring Codec=C1;
         while (Codec.size()<4)
-            Codec=Ztring(_T("0"))+Codec;
+            Codec=Ztring(__T("0"))+Codec;
         Codec.MakeUpperCase();
         if (Audio_Temp->Find(Codec)<0)
         {
             (*Audio_Temp)(Audio_Temp->size(), 0)=Codec;
             (*Audio_Temp)(Audio_Temp->size()-1, 2)=aftd.szFormatTag;
         }
-        (*Audio_Temp)(Codec, 4)=_T("Yes");
+        (*Audio_Temp)(Codec, 4)=__T("Yes");
     }
     acmDriverClose (had, 0);
     return TRUE;                        // Finished with this driver, go to next
@@ -99,11 +99,11 @@ void Codecs_Enumerate(ZenLib::ZtringListList &Video, ZenLib::ZtringListList &Aud
             Video(Video.size(), 0).From_Local((char *)&icinfo.fccHandler, 0, 4);
             Video(Video.size()-1, 2).From_Local((char *)&icinfo.fccType, 0, 4);
             Video(Video.size()-1, 3).From_Unicode(icinfo.szDriver);
-            Video(Video.size()-1, 4)=_T("Yes");
+            Video(Video.size()-1, 4)=__T("Yes");
         }
         else
         {
-            Video(Codec, 4)=_T("Yes");
+            Video(Codec, 4)=__T("Yes");
         }
         count++;
     }
@@ -125,11 +125,11 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
 
     //Writing file
     File FB2;
-    FB2.Create(FileName+_T(".header"), true);
+    FB2.Create(FileName+__T(".header"), true);
     FB2.Write(Tout, Capture);
 
     //Purge
     delete Tout;
-    Application->MessageBox(Prefs->Translate(_T("Send HeaderFile")).c_str(), Prefs->Translate(_T("Header file")).c_str());
+    Application->MessageBox(Prefs->Translate(__T("Send HeaderFile")).c_str(), Prefs->Translate(__T("Header file")).c_str());
 }
 
