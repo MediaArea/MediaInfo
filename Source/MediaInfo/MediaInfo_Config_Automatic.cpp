@@ -1,19 +1,19 @@
-// Helpers - Automaticly generated methods for MediaInfo
-// Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
+// File__Analyze - Base for analyze files
+// Copyright (C) 2005-2012 MediaArea.net SARL, Info@MediaArea.net
 //
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License, or (at your option) any later version.
+// This library is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Library General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// any later version.
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Library General Public License for more details.
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Library General Public License for more details.
 //
-// You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// You should have received a copy of the GNU Library General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+//
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -542,7 +542,7 @@ void MediaInfo_Config_DefaultLanguage (Translation &Info)
     "Genre_138;Black Metal\n"
     "Genre_139;Crossover\n"
     "Genre_140;Contemporary Christian\n"
-    "Genre_141;Christian Rock \n"
+    "Genre_141;Christian Rock\n"
     "Genre_142;Merengue\n"
     "Genre_143;Salsa\n"
     "Genre_144;Trash Metal\n"
@@ -1044,7 +1044,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "DVD Video;;;M;Dvdv;;ifo;;\n"
     "Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com/go/getflashplayer\n"
     "GXF;;;M;Gxf;SMPTE 360M;gxf;;\n"
-    "HLS;;;M;Hls;;m3u8;;\n"
+    "HLS;;;M;Hls;;m3u8;\n"
     "Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html\n"
     "ISM;Internet Streaming Media;;M;Ism;;ism;;\n"
     "IVF;;;M;Ivf;;ivf;;\n"
@@ -1279,10 +1279,10 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "apco;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Proxy;;YUV;4:2:2\n"
     "ap4c;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:4:4\n"
     "ap4h;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:4:4\n"
-    "ai12;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;\n"
-    "ai15;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;\n"
-    "ai1q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;\n"
-    "ai5q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;\n"
+    "ai12;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
+    "ai15;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
+    "ai1q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
+    "ai5q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
     "avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "AVdv;DV;;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2\n"
@@ -2716,7 +2716,7 @@ void MediaInfo_Config_Codec (InfoMap &Info)
     "DUCK;TrueMotion S;4CC;V;;;Duck Corporation True Motion S\n"
     "DV10;BlueFish;4CC;V;;;BlueFish444 (lossless RGBA, YUV 10-bit)\n"
     "DV25;DVCPro;4CC;V;DV;;Matrox DVCPRO\n"
-    "DV50;DVCPro5;4CC;V;DV;;Matrox \n"
+    "DV50;DVCPro5;4CC;V;DV;;Matrox\n"
     "DVAN;Pinnacle DV300;4CC;V;DV;;Pinnacle miroVideo DV300 SW only\n"
     "DVC ;Apple DV NTSC;4CC;V;DV;;Apple QuickTime DV (DVCPRO NTSC);http://www.apple.com/quicktime/download/standalone.html\n"
     "dvc ;Apple DV NTSC;4CC;V;DV;;Apple QuickTime DV (DVCPRO NTSC);http://www.apple.com/quicktime/download/standalone.html\n"
@@ -3146,10 +3146,10 @@ void MediaInfo_Config_Codec (InfoMap &Info)
     "U263;UB H.263;4CC;V;;;UB Video H.263/H.263+/H.263++ Decoder;http://eMajix.com\n"
     "UCOD;ClearVideo;4CC;V;;;ClearVideo (fractal compression-based)\n"
     "ULRA;RGBA;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGBA;4:4:4:4\n"
-    "ULRG;RGB;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGB;4:4:4 \n"
+    "ULRG;RGB;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGB;4:4:4\n"
     "ULTI;Ultimotion;4CC;V;;;IBM Ultimotion\n"
     "ULY0;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:2\n"
-    "ULY2;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:0 \n"
+    "ULY2;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:0\n"
     "UMP4;UB MPEG-4;4CC;V;MPEG-4V;;UB Video MPEG 4;http://www.fourcc.org/indexyuv.htm\n"
     "UYNV;YUV;4CC;V;YUV;;Nvidia 16bpp. A direct copy of UYVY registered by Nvidia to work around problems in some olds which did not like hardware which offered more than 2 UYVY surfaces.;http://www.fourcc.org/indexyuv.htm\n"
     "UYVP;YUV;4CC;V;YUV;;Evans & Sutherland 24bpp. YCbCr 4:2:2 extended precision 10-bits per component in U0Y0V0Y1 order\n"
@@ -4091,7 +4091,7 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     "Format_Commercial_IfAny;;;Y NT;;;Commercial name used by vendor for theses setings if there is one\n"
     "Format_Version;;;Y NT;;;Version of this format\n"
     "Format_Profile;;;Y NT;;;Profile of the Format\n"
-    "Format_Compression;;;Y NT;;;Compression method used;\n"
+    "Format_Compression;;;N YT;;;Compression mode of the Format\n"
     "MultiView_BaseProfile;;;Y NT;;;Multiview, profile of the base stream\n"
     "MultiView_Count;;;Y NT;;;Multiview, count of views\n"
     "MultiView_Layout;;;Y NT;;;Multiview, how views are muxed in the container in case of it is not muxing in the stream\n"
@@ -4230,7 +4230,7 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     "Colorimetry;;;N NT;;;Deprecated, do not use in new projects\n"
     "ColorSpace;;;Y YT;;\n"
     "ChromaSubsampling;;;Y YT;;\n"
-    "BitDepth;; bit;N YI;;;16/24/32 \n"
+    "BitDepth;; bit;N YI;;;16/24/32\n"
     "BitDepth/String;;;Y NT;;;16/24/32 bits\n"
     "ScanType;;;N YT;;\n"
     "ScanType/String;;;Y NT;;\n"
@@ -4817,7 +4817,7 @@ void MediaInfo_Config_Image (ZtringListList &Info)
     "Format_Commercial_IfAny;;;Y NT;;;Commercial name used by vendor for theses setings if there is one\n"
     "Format_Version;;;Y NT;;;Version of this format\n"
     "Format_Profile;;;Y NT;;;Profile of the Format\n"
-    "Format_Compression;;;Y NT;;;Compression method used;\n"
+    "Format_Compression;;;N YT;;;Compression mode of the Format\n"
     "Format_Settings;;;Y NT;;;Settings needed for decoder used\n"
     "Format_Settings_Wrapping;;;Y YT;;;Wrapping mode (Frame wrapped or Clip wrapped)\n"
     "InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)\n"
