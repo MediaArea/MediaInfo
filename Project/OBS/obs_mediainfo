@@ -79,8 +79,6 @@ Download_Packages 1  1  1   x x ""           Debian_5      i386   _i386
 Download_Packages 1  1  1   x x ""           Debian_5      amd64 _amd64
 Download_Packages 1  1  1   x x ""           Debian_6.0    i386   _i386
 Download_Packages 1  1  1   x x ""           Debian_6.0    amd64  _amd64
-Download_Packages 1  1  1   x x ""           Ubuntu_8.04   i386   _i386
-Download_Packages 1  1  1   x x ""           Ubuntu_8.04   amd64  _amd64
 Download_Packages 1  1  1   x x ""           Ubuntu_9.04   i386   _i386
 Download_Packages 1  1  1   x x ""           Ubuntu_9.04   amd64  _amd64
 Download_Packages 1  1  1   x x ""           Ubuntu_9.10   i386   _i386
@@ -103,12 +101,10 @@ Download_Packages $1 $2 $3  x x ""           CentOS_5        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_6        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_14       i386   .i386
-Download_Packages $1 $2 $3  x x ""           Fedora_14       x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_15       i386   .i386
-Download_Packages $1 $2 $3  x x ""           Fedora_15       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_16       i386   .i386
 Download_Packages $1 $2 $3  x x ""           Fedora_16       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_17       i386   .i386
+Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2008   i586   .i586
 Download_Packages $1 $2 $3  x x ""           Mandriva_2008   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2009.1 i586   .i586
@@ -134,6 +130,8 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed i586   .i586
