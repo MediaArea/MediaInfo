@@ -2066,7 +2066,7 @@ bool File_Mxf::DetectDuration ()
         return false;
 
     MediaInfo_Internal MI;
-    MI.Option(__T("File_IsSub"), __T("1"));
+    MI.Option(__T("File_IsDetectingDuration"), __T("1"));
     MI.Option(__T("File_KeepInfo"), __T("1"));
     Ztring ParseSpeed_Save=MI.Option(__T("ParseSpeed_Get"), __T(""));
     Ztring Demux_Save=MI.Option(__T("Demux_Get"), __T(""));
@@ -3039,7 +3039,7 @@ void File_Mxf::Data_Parse()
                     if (Track->second.TrackNumber==Code_Compare4)
                         Essence->second.TrackID=Track->second.TrackID;
                 #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                    if (Essence->second.TrackID==(int32u)-1 && !Duration_Detected && !Config->File_IsSub_Get())
+                    if (Essence->second.TrackID==(int32u)-1 && !Duration_Detected && !Config->File_IsDetectingDuration_Get())
                     {
                         DetectDuration(); //In one file (*-009.mxf), the TrackNumber is known only at the end of the file (Open and incomplete header/footer)
                         for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)

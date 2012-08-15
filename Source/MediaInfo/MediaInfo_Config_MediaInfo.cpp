@@ -55,6 +55,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 {
     FileIsSeekable=true;
     FileIsSub=false;
+    FileIsDetectingDuration=false;
     FileIsReferenced=false;
     FileKeepInfo=false;
     FileStopAfterFilled=false;
@@ -170,6 +171,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_issub_get"))
     {
         return File_IsSub_Get()?"1":"0";
+    }
+    if (Option_Lower==__T("file_isdetectingduration"))
+    {
+        File_IsDetectingDuration_Set(!(Value==__T("0") || Value.empty()));
+        return __T("");
+    }
+    else if (Option_Lower==__T("file_isdetectingduration_get"))
+    {
+        return File_IsDetectingDuration_Get()?"1":"0";
     }
     if (Option_Lower==__T("file_isreferenced"))
     {
@@ -720,6 +730,23 @@ bool MediaInfo_Config_MediaInfo::File_IsSub_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return FileIsSub;
+}
+
+//***************************************************************************
+// File Is Detecting Duration
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_IsDetectingDuration_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    FileIsDetectingDuration=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_IsDetectingDuration_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return FileIsDetectingDuration;
 }
 
 //***************************************************************************

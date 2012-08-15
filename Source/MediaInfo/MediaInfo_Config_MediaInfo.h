@@ -66,6 +66,9 @@ public :
     void          File_IsSub_Set (bool NewValue);
     bool          File_IsSub_Get ();
 
+    void          File_IsDetectingDuration_Set (bool NewValue);
+    bool          File_IsDetectingDuration_Get ();
+
     void          File_IsReferenced_Set (bool NewValue);
     bool          File_IsReferenced_Get ();
 
@@ -245,6 +248,7 @@ public :
 private :
     bool                    FileIsSeekable;
     bool                    FileIsSub;
+    bool                    FileIsDetectingDuration;
     bool                    FileIsReferenced;
     bool                    FileKeepInfo;
     bool                    FileStopAfterFilled;
