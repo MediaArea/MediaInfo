@@ -26,11 +26,11 @@
 !macroend
 
 !macro MediaInfo_Extensions_Install
-  ;Removing Atak_Snajpera's "MediaInfoLite" stuff in registry (not supported by MediaArea.net, but MediaInfo official website has bug reports about this software) 
+  ;Removing Atak_Snajpera's "MediaInfoLite" stuff in registry (not supported by MediaArea.net, but MediaInfo official website has bug reports about this software)
   DeleteRegKey HKCU "Software\\Classes\\*\\Shell\\Media Info"
   DeleteRegKey HKCR "*\\Shell\\MediaInfo"
   DeleteRegKey HKCU "Software\\MediaInfo"
-  
+
   ; Per item
   !insertmacro MediaInfo_Extensions_Install_I ".264"
   !insertmacro MediaInfo_Extensions_Install_I ".3g2"
@@ -56,8 +56,8 @@
   !insertmacro MediaInfo_Extensions_Install_I ".dvr-ms"
   !insertmacro MediaInfo_Extensions_Install_I ".eac3"
   !insertmacro MediaInfo_Extensions_Install_I ".evo"
-  !insertmacro MediaInfo_Extensions_Install_I ".flac"
   !insertmacro MediaInfo_Extensions_Install_I ".f4v"
+  !insertmacro MediaInfo_Extensions_Install_I ".flac"
   !insertmacro MediaInfo_Extensions_Install_I ".flc"
   !insertmacro MediaInfo_Extensions_Install_I ".fli"
   !insertmacro MediaInfo_Extensions_Install_I ".flv"
@@ -115,8 +115,8 @@
   !insertmacro MediaInfo_Extensions_Install_I ".rm"
   !insertmacro MediaInfo_Extensions_Install_I ".rmvb"
   !insertmacro MediaInfo_Extensions_Install_I ".smv"
-  !insertmacro MediaInfo_Extensions_Install_I ".swf"
   !insertmacro MediaInfo_Extensions_Install_I ".stl"
+  !insertmacro MediaInfo_Extensions_Install_I ".swf"
   !insertmacro MediaInfo_Extensions_Install_I ".tp"
   !insertmacro MediaInfo_Extensions_Install_I ".trp"
   !insertmacro MediaInfo_Extensions_Install_I ".ts"
@@ -130,10 +130,10 @@
   !insertmacro MediaInfo_Extensions_Install_I ".wv"
   !insertmacro MediaInfo_Extensions_Install_I ".wvc"
   !insertmacro MediaInfo_Extensions_Install_I ".y4m"
-  !insertmacro MediaInfo_Extensions_Install_I "Folder"
   !insertmacro MediaInfo_Extensions_Install_I "audio"
   !insertmacro MediaInfo_Extensions_Install_I "Directory.Audio"
   !insertmacro MediaInfo_Extensions_Install_I "Directory.Video"
+  !insertmacro MediaInfo_Extensions_Install_I "Folder"
   !insertmacro MediaInfo_Extensions_Install_I "video"
 !macroend
 
@@ -155,7 +155,6 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".amr"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".ape"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".asf"
-  !insertmacro MediaInfo_Extensions_Uninstall_I ".avi"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".avs"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".bdmv"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".clpi"
@@ -225,8 +224,8 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".rm"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".rmvb"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".smv"
-  !insertmacro MediaInfo_Extensions_Uninstall_I ".swf"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".stl"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".swf"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".tp"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".trp"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".ts"
@@ -240,11 +239,9 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wv"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wvc"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".y4m"
-  !insertmacro MediaInfo_Extensions_Uninstall_I "Folder"
   !insertmacro MediaInfo_Extensions_Uninstall_I "audio"
   !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Audio"
   !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Video"
+  !insertmacro MediaInfo_Extensions_Uninstall_I "Folder"
   !insertmacro MediaInfo_Extensions_Uninstall_I "video"
 !macroend
-
-
