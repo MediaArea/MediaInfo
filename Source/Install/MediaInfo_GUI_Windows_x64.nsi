@@ -82,7 +82,7 @@ SetCompressor /FINAL /SOLID lzma
 ; Info
 VIProductVersion "${PRODUCT_VERSION4}"
 VIAddVersionKey "CompanyName" "${PRODUCT_PUBLISHER}"
-VIAddVersionKey "ProductName" "${PRODUCT_NAME}" 
+VIAddVersionKey "ProductName" "${PRODUCT_NAME}"
 VIAddVersionKey "ProductVersion" "${PRODUCT_VERSION4}"
 VIAddVersionKey "FileDescription" "All about your audio and video files"
 VIAddVersionKey "FileVersion" "${PRODUCT_VERSION4}"
