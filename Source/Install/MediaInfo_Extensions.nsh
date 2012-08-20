@@ -239,6 +239,7 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wmv"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wv"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wvc"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".y4m"
   !insertmacro MediaInfo_Extensions_Uninstall_I "Folder"
   !insertmacro MediaInfo_Extensions_Uninstall_I "audio"
   !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Audio"
