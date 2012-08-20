@@ -3124,7 +3124,7 @@ void File__Analyze::Ibi_Stream_Finish (int64u Numerator, int64u Denominator)
         IbiStream->DtsFrequencyDenominator=Denominator;
         for (size_t Pos=0; Pos<IbiStream->Infos.size(); Pos++)
             if (IbiStream->Infos[Pos].Dts!=(int64u)-1)
-                IbiStream->Infos[Pos].Dts=float64_int64s(((float64)IbiStream->Infos[Pos].Dts)/1000000000/Denominator*Numerator);;
+                IbiStream->Infos[Pos].Dts=float64_int64s(((float64)IbiStream->Infos[Pos].Dts)/1000000000/Denominator*Numerator);
     }
 }
 
