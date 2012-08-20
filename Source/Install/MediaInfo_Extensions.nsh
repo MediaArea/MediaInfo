@@ -155,6 +155,7 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".amr"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".ape"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".asf"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".avi"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".avs"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".bdmv"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".clpi"
