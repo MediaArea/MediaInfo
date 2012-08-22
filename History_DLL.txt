@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.60, 2012-
+--------------
+x Matroska: some streams were wrongly detected sa VFR
+
 Version 0.7.59, 2012-08-08
 --------------
 + License: Switched back to LGPLv2+Exceptions

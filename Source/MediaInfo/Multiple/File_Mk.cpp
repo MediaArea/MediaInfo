@@ -210,6 +210,11 @@ void File_Mk::Streams_Finish()
 
         if (Temp->second.DisplayAspectRatio!=0)
         {
+            //Corrections
+            if (Temp->second.DisplayAspectRatio>=1.777 && Temp->second.DisplayAspectRatio<=1.778)
+                Temp->second.DisplayAspectRatio=((float32)16)/9;    
+            if (Temp->second.DisplayAspectRatio>=1.333 && Temp->second.DisplayAspectRatio<=1.334)
+                Temp->second.DisplayAspectRatio=((float32)4)/3;    
             Fill(Stream_Video, Temp->second.StreamPos, Video_DisplayAspectRatio, Temp->second.DisplayAspectRatio, 3, true);
             int64u Width=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Width).To_int64u();
             int64u Height=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Height).To_int64u();
@@ -244,7 +249,8 @@ void File_Mk::Streams_Finish()
                     size_t Pos=FrameRate_Between.size()-2;
                     while (Pos)
                     {
-                        if (FrameRate_Between[Pos]!=FrameRate_Between_Last)
+                        if (!(FrameRate_Between[Pos]*0.9<FrameRate_Between_Last
+                           && FrameRate_Between[Pos]*1.1>FrameRate_Between_Last))
                             break;
                         Pos--;
                     }
