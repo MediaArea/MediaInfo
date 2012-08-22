@@ -11,6 +11,7 @@ Version 0.7.60, 2012-
 --------------
 + MPEG-TS/PS: improved detection of buggy time stamps
 x Matroska: some streams were wrongly detected sa VFR
+x #3538378, XML output: invalid characters, now if there is an invalid character, data is transported in base64
 
 Version 0.7.59, 2012-08-08
 --------------
