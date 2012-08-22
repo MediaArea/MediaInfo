@@ -628,7 +628,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
          StreamKind_Last=Temp.StreamKind;
          StreamPos_Last=Temp.StreamPos;
 
-        int64u Start=(int64u)-1, End=(int64u)-1;
+        int64u Start=(int64u)-1, End=(int64u)-1, ByteDifference=(int64u)-1;
         if (Temp.TimeStamp_Start.DTS.TimeStamp!=(int64u)-1 && Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1)
         {
             Start=Temp.TimeStamp_Start.DTS.TimeStamp;
@@ -638,32 +638,33 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
         {
             Start=Temp.TimeStamp_Start.PTS.TimeStamp;
             End=Temp.TimeStamp_End.PTS.TimeStamp;
+            if (Temp.TimeStamp_Start.PTS.File_Pos<Temp.TimeStamp_End.PTS.File_Pos)
+                ByteDifference=Temp.TimeStamp_End.PTS.File_Pos-Temp.TimeStamp_Start.PTS.File_Pos;
         }
         if (Start!=(int64u)-1 && End!=(int64u)-1)
         {
             //TimeStamp
-            if (End<Start)
+            if (End<0x100000000LL && Start>0x100000000LL) //Testing coherancy: no 13 hours long files.
                 End+=0x200000000LL; //33 bits, cyclic
-            int64u Duration=End-Start;
-            if (File_Size!=(int64u)-1 && File_Size>1024*1024*16 && End>=0x200000000LL)
+            if (Start<End)
             {
-                //Testing coherancy
-                if (Duration/90>16*3600*1000)
-                    Duration=0; //Disabling it
-            }
-            if (Duration)
-            {
-                if (StreamKind_Last==Stream_Video)
+                int64u Duration=End-Start;
+                if (ByteDifference!=(int64u)-1)
                 {
-                    float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
-                    if (FrameRate!=0)
-                        Duration+=Ztring::ToZtring(90*1000/FrameRate, 0).To_int64u(); //We imagine that there is one frame in it
+                    float BitRate=(ByteDifference*8)/(((float)Duration)/9000);
+                    if (BitRate>10000000000)
+                        Duration=0;
                 }
                 if (Duration)
                 {
+                    if (StreamKind_Last==Stream_Video)
+                    {
+                        float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
+                        if (FrameRate!=0)
+                            Duration+=Ztring::ToZtring(90*1000/FrameRate, 0).To_int64u(); //We imagine that there is one frame in it
+                    }
+
                     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Duration/90, 10, true);
-                    if (Duration>FrameInfo.DTS)
-                        FrameInfo.DTS=Duration; //Saving maximum Duration
                 }
             }
         }
@@ -1446,6 +1447,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u stream_id)
         }
         if (Searching_TimeStamp_Start && Streams[stream_id].Searching_TimeStamp_Start && stream_id!=0xBD && stream_id!=0xFD) //0xBD and 0xFD can contain multiple streams, TimeStamp management is in Streams management
         {
+            Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
             Streams[stream_id].Searching_TimeStamp_Start=false;
         }
@@ -1487,6 +1489,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u stream_id)
         }
         if (Searching_TimeStamp_Start && Streams[stream_id].Searching_TimeStamp_Start)
         {
+            Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
         }
         Element_Info_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/90));
@@ -1675,6 +1678,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
         }
         if (Searching_TimeStamp_Start && Streams[stream_id].Searching_TimeStamp_Start)
         {
+            Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
             Streams[stream_id].Searching_TimeStamp_Start=false;
         }
@@ -1745,6 +1749,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
         }
         if (Searching_TimeStamp_Start && Streams[stream_id].Searching_TimeStamp_Start)
         {
+            Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
             //Streams[stream_id].Searching_TimeStamp_Start=false; //Done with DTS
         }
@@ -3622,6 +3627,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                 }
                 if (Searching_TimeStamp_Start && Temp.Searching_TimeStamp_Start)
                 {
+                    Temp.TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
                     Temp.TimeStamp_Start.PTS.TimeStamp=Streams[stream_id].TimeStamp_End.PTS.TimeStamp;
                     Temp.Searching_TimeStamp_Start=false;
                 }

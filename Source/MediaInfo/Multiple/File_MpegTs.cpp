@@ -860,27 +860,30 @@ void File_MpegTs::Streams_Update_Duration_Update()
         {
             if ((*Stream)->TimeStamp_End<0x100000000LL*300 && (*Stream)->TimeStamp_Start>0x100000000LL*300)
                 (*Stream)->TimeStamp_End+=0x200000000LL*300; //33 bits, cyclic
-            float64 Duration=((float64)((int64s)((*Stream)->TimeStamp_End-(*Stream)->TimeStamp_Start)))/27000;
-
-            Fill(Stream_General, 0, General_Duration, Duration, 6, true);
-            if (Duration)
-                Fill(Stream_General, 0, General_OverallBitRate, ((*Stream)->TimeStamp_End_Offset-(*Stream)->TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
-
-            (*Stream)->TimeStamp_End_IsUpdated=false;
-            (*Stream)->IsPCR_Duration=Duration;
-
-            //Filling menu duration
-            if (Count_Get(Stream_Menu))
+            if ((*Stream)->TimeStamp_Start<(*Stream)->TimeStamp_End)
             {
-                complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
-                if (Transport_Stream!=Complete_Stream->Transport_Streams.end())
+                float64 Duration=((float64)((int64s)((*Stream)->TimeStamp_End-(*Stream)->TimeStamp_Start)))/27000;
+
+                Fill(Stream_General, 0, General_Duration, Duration, 6, true);
+                if (Duration)
+                    Fill(Stream_General, 0, General_OverallBitRate, ((*Stream)->TimeStamp_End_Offset-(*Stream)->TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
+
+                (*Stream)->TimeStamp_End_IsUpdated=false;
+                (*Stream)->IsPCR_Duration=Duration;
+
+                //Filling menu duration
+                if (Count_Get(Stream_Menu))
                 {
-                    //Per program
-                    for (size_t Pos=0; Pos<(*Stream)->program_numbers.size(); Pos++)
+                    complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
+                    if (Transport_Stream!=Complete_Stream->Transport_Streams.end())
                     {
-                        int16u program_number=(*Stream)->program_numbers[Pos];
-                        if (Transport_Stream->second.Programs[program_number].IsRegistered) //Only if the menu is already displayed
-                            Fill(Stream_Menu, Transport_Stream->second.Programs[program_number].StreamPos, Menu_Duration, Duration, 6, true);
+                        //Per program
+                        for (size_t Pos=0; Pos<(*Stream)->program_numbers.size(); Pos++)
+                        {
+                            int16u program_number=(*Stream)->program_numbers[Pos];
+                            if (Transport_Stream->second.Programs[program_number].IsRegistered) //Only if the menu is already displayed
+                                Fill(Stream_Menu, Transport_Stream->second.Programs[program_number].StreamPos, Menu_Duration, Duration, 6, true);
+                        }
                     }
                 }
             }

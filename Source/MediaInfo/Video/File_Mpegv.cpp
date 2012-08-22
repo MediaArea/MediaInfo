@@ -1404,7 +1404,7 @@ void File_Mpegv::Streams_Fill()
     }
 
     //Delay
-    if (group_start_FirstPass)
+    if (group_start_FirstPass && Time_Begin_Seconds!=Error)
     {
         float64 Time_Begin=((float64)Time_Begin_Seconds)*1000;
         if (FrameRate)
@@ -1516,7 +1516,7 @@ void File_Mpegv::Streams_Finish()
     //Duration
     if (PTS_End>PTS_Begin)
         Fill(Stream_Video, 0, Video_Duration, float64_int64s(((float64)(PTS_End-PTS_Begin))/1000000));
-    else if (Time_End_Seconds!=Error)
+    else if (!TimeCodeIsNotTrustable && Time_End_Seconds!=Error)
     {
         float32 Time_Begin=((float32)Time_Begin_Seconds)*1000;
         float32 Time_End =((float32)Time_End_Seconds)*1000;
@@ -2313,10 +2313,16 @@ void File_Mpegv::slice_start()
         int64u tc_ToAdd=tc/((progressive_sequence || picture_structure==3)?1:2); //Progressive of Frame
 
         //Timestamp
-        if (group_start_FirstPass && (Time_Begin_Seconds==Error || Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference<Time_Begin_Seconds*FrameRate+Time_Begin_Frames))
+        if (!TimeCodeIsNotTrustable && group_start_FirstPass && (Time_Begin_Seconds==Error || (Frame_Count<16 && Time_Current_Seconds*FrameRate+Time_Current_Frames+temporal_reference<Time_Begin_Seconds*FrameRate+Time_Begin_Frames))) //Accepting a lower time code at the beginning of the stream
         {
             Time_Begin_Seconds=Time_Current_Seconds;
             Time_Begin_Frames =Time_Current_Frames+(int8u)temporal_reference;
+        }
+        if (!TimeCodeIsNotTrustable && (Time_Current_Seconds<Time_Begin_Seconds || (Time_Current_Seconds==Time_Begin_Seconds && Time_Current_Frames+(int8u)temporal_reference<Time_Begin_Frames)))
+        {
+            //Time code loop
+            TimeCodeIsNotTrustable=true;
+            Time_End_Seconds=(size_t)-1;
         }
         if (!TimeCodeIsNotTrustable && (picture_coding_type==1 || picture_coding_type==2)) //IFrame or PFrame
         {
@@ -2484,7 +2490,7 @@ void File_Mpegv::slice_start()
         if (FrameInfo.PTS!=(int64u)-1)
         {
             FrameInfo.PTS+=tc_ToAdd;
-            if (PTS_End<FrameInfo.PTS)
+            if (FrameInfo.PTS!=(int64u)-1 && (FrameInfo.PTS>PTS_End || (PTS_End>1000000000 && FrameInfo.PTS<=PTS_End-1000000000))) //More than current PTS_End or less than current PTS_End minus 1 second (there is a problem?)
                 PTS_End=FrameInfo.PTS;
         }
 
@@ -3778,7 +3784,6 @@ void File_Mpegv::group_start()
         {
             //Time code is always 0
             TimeCodeIsNotTrustable=true;
-            Time_Begin_Seconds=(size_t)-1;
             Time_End_Seconds=(size_t)-1;
             return;
         }

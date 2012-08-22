@@ -1711,7 +1711,7 @@ void File_Avc::slice_header()
             FrameInfo.PTS+=tc;
         if (FrameInfo.DTS!=(int64u)-1)
             FrameInfo.DTS+=tc;
-        if (FrameInfo.PTS!=(int64u)-1 && PTS_End<FrameInfo.PTS)
+        if (FrameInfo.PTS!=(int64u)-1 && (FrameInfo.PTS>PTS_End || (PTS_End>1000000000 && FrameInfo.PTS<=PTS_End-1000000000))) //More than current PTS_End or less than current PTS_End minus 1 second (there is a problem?)
             PTS_End=FrameInfo.PTS;
 
         #if MEDIAINFO_DUPLICATE
