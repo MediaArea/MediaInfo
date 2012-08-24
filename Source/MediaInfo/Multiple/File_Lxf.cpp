@@ -197,10 +197,10 @@ void File_Lxf::Streams_Finish()
         Streams_Fill_PerStream(Videos[1].Parser, Stream_Video, 1);
     }
 
-    if (Audios_Header.TimeStamp_End!=(int64u)-1 && Audios_Header.TimeStamp_Begin!=(int64u)-1)
+    if (Audios_Header.TimeStamp_End!=(int64u)-1 && Audios_Header.TimeStamp_Begin!=(int64u)-1 && Audios_Header.Duration_First!=(int64u)-1)
     {
         int64u Duration=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin))/TimeStamp_Rate*1000);
-        int64u FrameCount=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin))/Audios_Header.Duration);
+        int64u FrameCount=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.TimeStamp_Begin))/Audios_Header.Duration_First);
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {
             Fill(Stream_Audio, Pos, Audio_Duration, Duration);
@@ -226,7 +226,8 @@ void File_Lxf::Streams_Finish()
                 if (Audios[Pos].BytesPerFrame!=(int64u)-1)
                     Info_General_StreamSize+=Audios[Pos].BytesPerFrame*Retrieve(Stream_Audio, Pos, Audio_FrameCount).To_int64u();
             Fill(Stream_General, 0, General_StreamSize, Info_General_StreamSize);
-            Fill(Stream_Video, 0, Video_StreamSize, File_Size-Info_General_StreamSize);
+            if (Info_General_StreamSize<File_Size)
+                Fill(Stream_Video, 0, Video_StreamSize, File_Size-Info_General_StreamSize);
         }
     }
 }
@@ -670,6 +671,8 @@ void File_Lxf::Header_Parse()
                         Audios_Header.TimeStamp_Begin=TimeStamp;
                     Audios_Header.TimeStamp_End=TimeStamp+Duration;
                     Audios_Header.Duration=Duration;
+                    if (Audios_Header.Duration_First==(int64u)-1 && Duration)
+                        Audios_Header.Duration_First=Duration;
                     LastAudio_BufferOffset=File_Offset+Buffer_Offset;
                     LastAudio_TimeOffset=stream_header(TimeStamp, TimeStamp+Duration, Duration, (int8u)-1);
                     #if MEDIAINFO_DEMUX
