@@ -24,6 +24,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  libmediainfo-devel
 BuildRequires:  libzen-devel >= %libzen_version
 BuildRequires:  pkgconfig
+BuildRequires:  libtool
+BuildRequires:  automake
+BuildRequires:  autoconf
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
 %ifarch x86_64
