@@ -652,7 +652,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                 if (ByteDifference!=(int64u)-1)
                 {
                     float BitRate=(ByteDifference*8)/(((float)Duration)/9000);
-                    if (BitRate>10000000000)
+                    if (BitRate>10000000000LL)
                         Duration=0;
                 }
                 if (Duration)
