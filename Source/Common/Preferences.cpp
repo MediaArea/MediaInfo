@@ -903,6 +903,81 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
         }
     }
 
+    //Icon part
+    Result=RegOpenKeyEx(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo").c_str()).c_str(), 0, KEY_READ|KEY_WRITE, &Key);
+    if (Result!=ERROR_SUCCESS && Result!=2) //2=not found
+    {
+        char lpMsgBuf[1000];
+        FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, Result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), lpMsgBuf, 1000, NULL);
+        return 0;
+    }
+
+    if (Result==ERROR_SUCCESS)
+    {
+        //MediaInfo shell extension is known
+        if (ShellExtension)
+        {
+            //test if good writing
+            Ztring ShellExtensionToWrite=__T("\"") + Ztring(Application->ExeName.c_str()) +__T("\"");
+            DWORD ShellExtension_Size=65536;
+            ZenLib::Char ShellExtension_Chars[65536];
+            Result=RegQueryValueEx(Key, __T("Icon"), 0, NULL, (LPBYTE)&ShellExtension_Chars, &ShellExtension_Size);
+            if (Result!=ERROR_SUCCESS || ShellExtensionToWrite!=ShellExtension_Chars)
+            {
+                //This is not the good shell extension, writing new one
+                Result=RegSetValueEx(Key, __T("Icon"), 0, REG_SZ, (LPBYTE)ShellExtensionToWrite.c_str(), (ShellExtensionToWrite.size()+1)*sizeof(ZenLib::Char));
+                if (Result!=ERROR_SUCCESS)
+                {
+                    RegCloseKey(Key);
+                    return 0;
+                }
+                RegCloseKey(Key);
+                IsChanged=true;
+            }
+        }
+        else// if (Player!=__T("Folder"))
+        {
+            //Should not be here, deleting
+            RegCloseKey(Key);
+            Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo").c_str()).c_str());
+            if (Result!=ERROR_SUCCESS)
+            {
+                char lpMsgBuf[1000];
+                FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, Result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), lpMsgBuf, 1000, NULL);
+                return 0;
+            }
+            Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell").c_str()).c_str()); //Clear it if empty
+
+            IsChanged=true;
+        }
+        Reg->CloseKey();
+    }
+    else
+    {
+        //MediaInfo Shell extension is not known
+        if (ShellExtension)
+        {
+            //Create it
+            Result=RegCreateKeyEx(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell\\MediaInfo").c_str()).c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &Key, NULL);
+            if (Result!=ERROR_SUCCESS)
+            {
+                char lpMsgBuf[1000];
+                FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, Result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), lpMsgBuf, 1000, NULL);
+                RegCloseKey(Key);
+                return 0;
+            }
+            Ztring ShellExtensionToWrite=__T("\"") + Ztring(Application->ExeName.c_str()) +__T("\"");
+            Result=RegSetValueEx(Key, __T("Icon"), 0, REG_SZ, (LPBYTE)ShellExtensionToWrite.c_str(), (ShellExtensionToWrite.size()+1)*sizeof(ZenLib::Char));
+            if (Result!=ERROR_SUCCESS)
+            {
+                RegCloseKey(Key);
+                return 0;
+            }
+            RegCloseKey(Key);
+            IsChanged=true;
+        }
+    }
+
     return 1;
 }
 

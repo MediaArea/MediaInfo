@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.60, 2012-
+--------------
++ #3285550, GUI: added shell extension icon
+
 Version 0.7.59, 2012-08-08
 --------------
 + License: Switched back to LGPLv2+Exceptions
