@@ -18,6 +18,7 @@ x #3538378, XML output: invalid characters, now if there is an invalid character
 x LXF: wrong video bit rate with some files
 x AC-3/E-AC-3: hang up with some Little Endian streams
 x AAC: wrong min and max bit rate in case of partial (default) parsing, disabling it
+x AVC: crash or hang up with some malformed/scrambled streams
 
 Version 0.7.59, 2012-08-08
 --------------

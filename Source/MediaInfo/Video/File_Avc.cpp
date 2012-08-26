@@ -1533,7 +1533,13 @@ void File_Avc::slice_header()
                     TemporalReferences_Min=(size_t)(TemporalReferences_Offset+pic_order_cnt);
             }
 
-            if (TemporalReferences_Offset+pic_order_cnt>=3*TemporalReferences_Reserved)
+            if (pic_order_cnt<0 && TemporalReferences_Offset<-pic_order_cnt) //Found in playreadyEncryptedBlowUp.ts without encryption test
+            {
+                Trusted_IsNot("Problem in temporal references");
+                return;
+            }
+
+            if ((int64s)(TemporalReferences_Offset+pic_order_cnt)>=3*TemporalReferences_Reserved)
             {
                 size_t Offset=TemporalReferences_Max-TemporalReferences_Offset;
                 if (Offset%2)
