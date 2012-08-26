@@ -63,7 +63,7 @@ extern const char* Mpegv_transfer_characteristics(int8u transfer_characteristics
 {
     switch (transfer_characteristics)
     {
-        case  1 : return "BT.709";
+        case  1 : return "BT.709"; //Same as BT.609
         case  4 : return "BT.470 System M";
         case  5 : return "BT.470 System B, BT.470 System G";
         case  6 : return "BT.601";
