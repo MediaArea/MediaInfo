@@ -1242,6 +1242,14 @@ void File_Avc::slice_layer_without_partitioning_IDR()
 //
 void File_Avc::slice_header()
 {
+    //Encryption management
+    if (CA_system_ID_MustSkipSlices)
+    {
+        //Is not decodable
+        Finish("AVC");
+        return;
+    }
+    
     //Parsing
     int32u  slice_type, pic_order_cnt_lsb=(int32u)-1;
     int32u  first_mb_in_slice, pic_parameter_set_id, frame_num, num_ref_idx_l0_active_minus1, num_ref_idx_l1_active_minus1;

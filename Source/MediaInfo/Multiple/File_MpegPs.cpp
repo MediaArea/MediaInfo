@@ -2505,7 +2505,10 @@ void File_MpegPs::private_stream_1()
             }
         #endif //MEDIAINFO_EVENTS
         for (size_t Pos=0; Pos<Streams_Private1[private_stream_1_ID].Parsers.size(); Pos++)
+        {
+            Streams_Private1[private_stream_1_ID].Parsers[Pos]->CA_system_ID_MustSkipSlices=CA_system_ID_MustSkipSlices;
             Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Pos]);
+        }
         #if MEDIAINFO_EVENTS
             if (private_stream_1_Offset)
             {
@@ -3080,7 +3083,10 @@ void File_MpegPs::audio_stream()
             #endif
         }
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)
+        {
+            Streams[stream_id].Parsers[Pos]->CA_system_ID_MustSkipSlices=CA_system_ID_MustSkipSlices;
             Open_Buffer_Init(Streams[stream_id].Parsers[Pos]);
+        }
     }
 
     //Demux
@@ -3169,6 +3175,7 @@ void File_MpegPs::video_stream()
         }
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)
         {
+            Streams[stream_id].Parsers[Pos]->CA_system_ID_MustSkipSlices=CA_system_ID_MustSkipSlices;
             Open_Buffer_Init(Streams[stream_id].Parsers[Pos]);
             #if MEDIAINFO_IBI
                 if (FromTS)
@@ -3278,7 +3285,10 @@ void File_MpegPs::SL_packetized_stream()
             #endif
         }
         for (size_t Pos=0; Pos<Streams[stream_id].Parsers.size(); Pos++)
+        {
+            Streams[stream_id].Parsers[Pos]->CA_system_ID_MustSkipSlices=CA_system_ID_MustSkipSlices;
             Open_Buffer_Init(Streams[stream_id].Parsers[Pos]);
+        }
     }
 
     //Parsing
@@ -3522,7 +3532,10 @@ void File_MpegPs::extension_stream()
 
         //Init
         for (size_t Pos=0; Pos<Streams_Extension[stream_id_extension].Parsers.size(); Pos++)
+        {
+            Streams_Extension[stream_id_extension].Parsers[Pos]->CA_system_ID_MustSkipSlices=CA_system_ID_MustSkipSlices;
             Open_Buffer_Init(Streams_Extension[stream_id_extension].Parsers[Pos]);
+        }
     }
 
     //Demux

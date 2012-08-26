@@ -101,6 +101,8 @@ extern const char* Mpeg_Descriptors_stream_Format(int8u descriptor_tag, int32u f
 extern const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_identifier);
 extern stream_t    Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identifier);
 
+extern const char* Mpeg_Descriptors_CA_system_ID(int16u CA_system_ID);
+
 //---------------------------------------------------------------------------
 Ztring Decimal_Hexa(int64u Number)
 {
@@ -549,7 +551,9 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             Temp->StreamPos=StreamPos;
 
             //Encryption
-            if (Temp->IsScrambled>16)
+            if (Temp->CA_system_ID)
+                Fill(StreamKind_Last, StreamPos, "Encryption", Mpeg_Descriptors_CA_system_ID(Temp->CA_system_ID));
+            else if (Temp->IsScrambled>16)
                 Fill(StreamKind_Last, StreamPos, "Encryption", "Encrypted");
 
             //TS info
@@ -2305,6 +2309,7 @@ void File_MpegTs::PES()
             //Filling
             Streams[pid]->Parser=new File_Unknown();
         #endif
+        Complete_Stream->Streams[pid]->Parser->CA_system_ID_MustSkipSlices=Complete_Stream->Streams[pid]->CA_system_ID_MustSkipSlices;
         #if MEDIAINFO_IBI
             if (Ibi.Streams[pid]==NULL)
                 Ibi.Streams[pid]=new ibi::stream;

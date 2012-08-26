@@ -2234,6 +2234,14 @@ void File_Mpegv::picture_start()
 // Packet "01" --> "AF"
 void File_Mpegv::slice_start()
 {
+    //Encryption management
+    if (CA_system_ID_MustSkipSlices)
+    {
+        //Is not decodable
+        Finish("MPEG Video");
+        return;
+    }
+    
     if (!Status[IsAccepted])
     {
         if (!NextCode_Test())

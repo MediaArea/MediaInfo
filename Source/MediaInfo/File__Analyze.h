@@ -1264,6 +1264,7 @@ public :
 
     //Configuration
     bool MustSynchronize;
+    bool CA_system_ID_MustSkipSlices;
 
     //Demux
     enum contenttype

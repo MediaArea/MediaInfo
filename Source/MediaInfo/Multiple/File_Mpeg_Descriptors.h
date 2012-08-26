@@ -278,7 +278,9 @@ struct complete_stream
         bool                                        IsRegistered;
         bool                                        IsUpdated_IsRegistered;
         bool                                        IsUpdated_Info;
+        bool                                        CA_system_ID_MustSkipSlices;
         size_t                                      IsScrambled;
+        int16u                                      CA_system_ID;
         int16u                                      SubStream_pid;
         #if MEDIAINFO_IBI
             int64u                                  Ibi_SynchronizationOffset_BeginOfFrame;
@@ -326,6 +328,8 @@ struct complete_stream
             IsUpdated_IsRegistered=false;
             IsUpdated_Info=false;
             IsScrambled=false;
+            CA_system_ID_MustSkipSlices=false;
+            CA_system_ID=0x0000;
             SubStream_pid=0x0000;
             #if MEDIAINFO_IBI
                 Ibi_SynchronizationOffset_BeginOfFrame=(int64u)-1;
