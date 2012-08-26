@@ -102,6 +102,7 @@
     #endif
 #endif //MEDIAINFO_GXF_YES
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -3103,14 +3104,18 @@ void File_Riff::RMP3_data()
     Element_Code=0x30307762; //00wb
 
     //Creating parser
-    File_Mpega* Parser=new File_Mpega;
-    Parser->CalculateDelay=true;
-    Parser->ShouldContinueParsing=true;
-    Open_Buffer_Init(Parser);
-    Stream[0x30300000].StreamKind=Stream_Audio;
-    Stream[0x30300000].StreamPos=0;
-    Stream[0x30300000].Parsers.push_back(Parser);
-    Stream_Prepare(Stream_Audio);
+    #if defined(MEDIAINFO_AAC_YES)
+        File_Mpega* Parser=new File_Mpega;
+        Parser->CalculateDelay=true;
+        Parser->ShouldContinueParsing=true;
+        Open_Buffer_Init(Parser);
+        Stream[0x30300000].StreamKind=Stream_Audio;
+        Stream[0x30300000].StreamPos=0;
+        Stream[0x30300000].Parsers.push_back(Parser);
+        Stream_Prepare(Stream_Audio);
+    #else //MEDIAINFO_MPEG4_YES
+        Skip_XX(Element_Size-Element_Offset,                    "(AudioSpecificConfig)");
+    #endif
 
     #if MEDIAINFO_DEMUX
         if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())

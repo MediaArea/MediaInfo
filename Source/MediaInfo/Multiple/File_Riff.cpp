@@ -165,12 +165,14 @@ File_Riff::~File_Riff()
 void File_Riff::Streams_Finish ()
 {
     //Ancillary specific
-    if (Ancillary && (*Ancillary))
-    {
-        Finish(*Ancillary);
-        Merge(**Ancillary);
-        return;
-    }
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        if (Ancillary && (*Ancillary))
+        {
+            Finish(*Ancillary);
+            Merge(**Ancillary);
+            return;
+        }
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
     //Global
     if (IsRIFF64)
@@ -586,9 +588,11 @@ void File_Riff::Read_Buffer_Unsynched()
         while(Element_Level)
             Element_End0();
 
-        //Ancillary specific
-        if (Ancillary && (*Ancillary))
-            (*Ancillary)->Open_Buffer_Unsynch();
+        #if defined(MEDIAINFO_ANCILLARY_YES)
+            //Ancillary specific
+            if (Ancillary && (*Ancillary))
+                (*Ancillary)->Open_Buffer_Unsynch();
+        #endif //defined(MEDIAINFO_ANCILLARY_YES)
     }
 }
 
