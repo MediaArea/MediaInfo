@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.60, 2012-
 --------------
 + MPEG-TS/PS: improved detection of buggy time stamps
++ DPX: color primaries and transfer characteristics
 x Matroska: some streams were wrongly detected sa VFR
 x #3538378, XML output: invalid characters, now if there is an invalid character, data is transported in base64
 x LXF: wrong video bit rate with some files
