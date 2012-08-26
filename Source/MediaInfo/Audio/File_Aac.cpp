@@ -140,8 +140,11 @@ void File_Aac::Streams_Finish()
         if (FrameSize_Max>FrameSize_Min*1.02)
         {
             Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR", Unlimited, true, true);
-            Fill(Stream_Audio, 0, Audio_BitRate_Minimum, ((float64)FrameSize_Min)/1024*48000*8, 0);
-            Fill(Stream_Audio, 0, Audio_BitRate_Maximum, ((float64)FrameSize_Max)/1024*48000*8, 0);
+            if (Config_ParseSpeed>=1.0)
+            {
+                Fill(Stream_Audio, 0, Audio_BitRate_Minimum, ((float64)FrameSize_Min)/1024*48000*8, 0);
+                Fill(Stream_Audio, 0, Audio_BitRate_Maximum, ((float64)FrameSize_Max)/1024*48000*8, 0);
+            }
         }
         else if (Config_ParseSpeed>=1.0)
         {
