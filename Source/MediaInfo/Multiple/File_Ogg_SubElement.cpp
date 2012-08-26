@@ -543,6 +543,7 @@ void File_Ogg_SubElement::Identification_OpusHead()
         Fill(Stream_Audio, 0, Audio_Codec, "Opus");
     #endif
     WithType=false;
+    absolute_granule_position_Resolution=48000; // From specs: "It is possible to run a decoder at other sampling rates, but the format and this specification always count samples assuming a 48 kHz decoding rate."
 }
 
 //---------------------------------------------------------------------------
