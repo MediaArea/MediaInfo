@@ -1,7 +1,7 @@
 libmediainfo.so - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2011 MediaArea.net SARL, Info@MediaArea.net
+Copyright (c) 2002-2012 MediaArea.net SARL, Info@MediaArea.net
 
-This program is freeware (LGLPv3+).
+This program is freeware (LGLPv2+).
 See License.html for more information.
 
 
