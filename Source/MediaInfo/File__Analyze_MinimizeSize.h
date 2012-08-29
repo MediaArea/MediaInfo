@@ -1135,7 +1135,6 @@ protected :
 
 protected :
     //Save for speed improvement
-    float           Config_ParseSpeed;
     int8u           Config_Demux;
     Ztring          Config_LineSeparator;
     bool            IsSub;

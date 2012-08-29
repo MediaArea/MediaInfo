@@ -203,7 +203,7 @@ void File_Riff::Streams_Finish ()
             StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize)); //We want to keep the 4CC of AVI
 
             //Merging
-            if (Config_ParseSpeed<=1.0)
+            if (Config->ParseSpeed<=1.0)
             {
                 Fill(Temp->second.Parsers[0]);
                 Temp->second.Parsers[0]->Open_Buffer_Unsynch();
@@ -644,7 +644,7 @@ bool File_Riff::Header_Begin()
             default        : AVI__movi_xxxx();
         }
 
-        if (Config_ParseSpeed<1.0 && File_Offset+Buffer_Offset+Element_Offset-Buffer_DataToParse_Begin>=0x10000)
+        if (Config->ParseSpeed<1.0 && File_Offset+Buffer_Offset+Element_Offset-Buffer_DataToParse_Begin>=0x10000)
         {
             Buffer_Offset=(size_t)(Buffer_DataToParse_End-File_Offset);
             if (Buffer_Offset<Buffer_Size)

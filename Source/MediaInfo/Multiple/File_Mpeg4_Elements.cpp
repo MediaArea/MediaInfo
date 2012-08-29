@@ -1343,7 +1343,7 @@ void File_Mpeg4::jp2c()
                 int64u OverHead=Config->File_Sizes[0]-Element_Size;
                 Fill(Stream_Video, 0, Video_StreamSize, File_Size-Config->File_Names.size()*OverHead, 10, true);
             }
-            if (Config_ParseSpeed<1.0)
+            if (Config->ParseSpeed<1.0)
                 Finish("MPEG-4");
         }
         Frame_Count++;
@@ -4007,6 +4007,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 {
                     Streams[moov_trak_tkhd_TrackID].Parser=new File_Mpegv;
                     ((File_Mpegv*)Streams[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
+                    #if MEDIAINFO_ADVANCED
+                        ((File_Mpegv*)Streams[moov_trak_tkhd_TrackID].Parser)->InitDataNotRepeated_Optional=true;
+                    #endif // MEDIAINFO_ADVANCED
                 }
             #endif
             #if defined(MEDIAINFO_PRORES_YES)

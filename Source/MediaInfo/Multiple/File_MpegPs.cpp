@@ -1091,7 +1091,7 @@ void File_MpegPs::Read_Buffer_Continue()
 
     if (!IsSub)
     {
-        if (Config_ParseSpeed>=1.0)
+        if (Config->ParseSpeed>=1.0)
             Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
         else if (Buffer_TotalBytes>2*SizeToAnalyze)
             Config->State_Set((float)0.99); //Nearly the end
@@ -1208,7 +1208,7 @@ void File_MpegPs::Read_Buffer_AfterParsing()
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
         Fill("MPEG-PS");
-        if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && Config_ParseSpeed<1.0)
+        if (!ShouldContinueParsing && File_Offset+Buffer_Size+SizeToAnalyze<File_Size && Config->ParseSpeed<1.0)
         {
             //Jumping
             GoToFromEnd(SizeToAnalyze, "MPEG-PS");
@@ -2055,7 +2055,7 @@ void File_MpegPs::Data_Parse()
 //Jumping to the last DTS if needed
 bool File_MpegPs::BookMark_Needed()
 {
-    if (IsSub || Streams.empty() || Config_ParseSpeed>=1.0)
+    if (IsSub || Streams.empty() || Config->ParseSpeed>=1.0)
         return false;
 
     int64u ToJump=(int64u)-1;

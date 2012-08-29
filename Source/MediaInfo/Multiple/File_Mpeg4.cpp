@@ -435,7 +435,7 @@ void File_Mpeg4::Streams_Finish()
         //Parser specific
         if (Temp->second.Parser)
         {
-            if (Config_ParseSpeed<=1.0)
+            if (Config->ParseSpeed<=1.0)
             {
                 Fill(Temp->second.Parser);
                 Temp->second.Parser->Open_Buffer_Unsynch();
@@ -1356,7 +1356,7 @@ bool File_Mpeg4::BookMark_Needed()
                                 Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
                                 Chunk_FrameCount++;
                             }
-                        if (Config_ParseSpeed<1.0 && Chunk_FrameCount>=300)
+                        if (Config->ParseSpeed<1.0 && Chunk_FrameCount>=300)
                             break;
                     }
 

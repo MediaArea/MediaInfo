@@ -225,7 +225,7 @@ void File_Mk::Streams_Finish()
         if (Temp->second.Parser)
         {
             Fill(Temp->second.Parser);
-            if (Config_ParseSpeed<=1.0)
+            if (Config->ParseSpeed<=1.0)
                 Temp->second.Parser->Open_Buffer_Unsynch();
         }
 

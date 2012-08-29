@@ -255,6 +255,9 @@ struct complete_stream
             int64u                                  TimeStamp_End_Offset;
             int16u                                  PCR_PID; //If this pid has no PCR, decide which PCR should be used
             bool                                    TimeStamp_End_IsUpdated;
+            float64                                 TimeStamp_InstantaneousBitRate;
+            size_t                                  TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr;
+            size_t                                  TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr;
         #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
         int16u                                      FMC_ES_ID;
@@ -304,6 +307,9 @@ struct complete_stream
                 TimeStamp_End_Offset=(int64u)-1;
                 PCR_PID=0x0000;
                 TimeStamp_End_IsUpdated=false;
+                TimeStamp_InstantaneousBitRate=0;
+                TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr=0;
+                TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr=0;
             #endif //MEDIAINFO_MPEGTS_PCR_YES
             registration_format_identifier=0x00000000;
             FMC_ES_ID=0x0000;
