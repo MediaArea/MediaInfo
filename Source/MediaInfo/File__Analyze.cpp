@@ -3146,4 +3146,3 @@ void File__Analyze::Ibi_Add ()
 #endif //MEDIAINFO_IBI
 
 } //NameSpace
-

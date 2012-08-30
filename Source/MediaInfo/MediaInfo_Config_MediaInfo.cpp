@@ -1699,4 +1699,3 @@ float MediaInfo_Config_MediaInfo::State_Get ()
 }
 
 } //NameSpace
-

@@ -1,5 +1,5 @@
 /* MediaInfoDLL - All info about media files, for DLL
-// Copyright (C) 2002-2009 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2002-2012 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by
@@ -145,7 +145,7 @@
 /*-------------------------------------------------------------------------*/
 /*Char types                                                               */
 #undef  __T
-#define __T(__x)     __T(__x)
+#define __T(__x)    __T(__x)
 #if defined(UNICODE) || defined (_UNICODE)
     typedef wchar_t MediaInfo_Char;
     #undef  __T
@@ -180,7 +180,7 @@ typedef unsigned char       MediaInfo_int8u;
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
-/*NULL                                                                      */
+/*NULL                                                                     */
 #ifndef NULL
     #define NULL 0
 #endif
@@ -427,7 +427,7 @@ namespace MediaInfoDLL
 //---------------------------------------------------------------------------
 //MediaInfo_Char types
 #undef  __T
-#define __T(__x)     __T(__x)
+#define __T(__x)    __T(__x)
 #if defined(UNICODE) || defined (_UNICODE)
     typedef wchar_t Char;
     #undef  __T
@@ -510,8 +510,8 @@ const String Unable_Load_DLL=__T("Unable to load ")MEDIAINFODLL_NAME;
 class MediaInfo
 {
 public :
-    MediaInfo ()                {if (!MediaInfo_Module) MediaInfoDLL_Load(); if (!MediaInfo_Module) {Handle=NULL; return;}; Handle=MediaInfo_New();};
-    ~MediaInfo ()               {MEDIAINFO_TEST_VOID; MediaInfo_Delete(Handle);};
+    MediaInfo ()        {if (!MediaInfo_Module) MediaInfoDLL_Load(); if (!MediaInfo_Module) {Handle=NULL; return;}; Handle=MediaInfo_New();};
+    ~MediaInfo ()       {MEDIAINFO_TEST_VOID; MediaInfo_Delete(Handle);};
 
     //File
     size_t Open (const String &File) {MEDIAINFO_TEST_INT; return MediaInfo_Open(Handle, File.c_str());};
@@ -533,8 +533,8 @@ public :
     size_t Output_Buffer_Get (size_t Pos) {return MediaInfo_Output_Buffer_GetI(Handle, Pos);}
     String        Option (const String &Option, const String &Value=__T(""))  {MEDIAINFO_TEST_STRING; return MediaInfo_Option (Handle, Option.c_str(), Value.c_str());};
     static String Option_Static (const String &Option, const String &Value=__T(""))  {if (!MediaInfo_Module) MediaInfoDLL_Load(); MEDIAINFO_TEST_STRING_STATIC; return MediaInfo_Option (NULL, Option.c_str(), Value.c_str());};
-    size_t                  State_Get ()  {MEDIAINFO_TEST_INT; return MediaInfo_State_Get(Handle);};
-    size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1)  {MEDIAINFO_TEST_INT; return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
+    size_t        State_Get () {MEDIAINFO_TEST_INT; return MediaInfo_State_Get(Handle);};
+    size_t        Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1)  {MEDIAINFO_TEST_INT; return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
 
     bool IsReady() {return (Handle && MediaInfo_Module)?true:false;}
 
@@ -545,8 +545,8 @@ private :
 class MediaInfoList
 {
 public :
-    MediaInfoList ()                {MediaInfoDLL_Load(); if (!MediaInfoDLL_IsLoaded()) {Handle=NULL; return;}; Handle=MediaInfoList_New();};
-    ~MediaInfoList ()               {MEDIAINFO_TEST_VOID; MediaInfoList_Delete(Handle); MediaInfoDLL_UnLoad();};
+    MediaInfoList ()        {MediaInfoDLL_Load(); if (!MediaInfoDLL_IsLoaded()) {Handle=NULL; return;}; Handle=MediaInfoList_New();};
+    ~MediaInfoList ()       {MEDIAINFO_TEST_VOID; MediaInfoList_Delete(Handle); MediaInfoDLL_UnLoad();};
 
     //File
     size_t Open (const String &File, const fileoptions_t Options=FileOption_Nothing) {MEDIAINFO_TEST_INT; return MediaInfoList_Open(Handle, File.c_str(), (MediaInfo_fileoptions_C)Options);};

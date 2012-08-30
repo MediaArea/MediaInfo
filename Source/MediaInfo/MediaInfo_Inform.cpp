@@ -591,7 +591,7 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content, size_
                             Content.insert(Pos+1, __T("quot;"));
                             Pos+=5;
                             break;
-            case __T('&') :
+            case __T('&'):
                             Content[Pos]=__T('&');
                             Content.insert(Pos+1, __T("amp;"));
                             Pos+=4;
@@ -601,17 +601,17 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content, size_
                             Content.insert(Pos+1, __T("apos;"));
                             Pos+=5;
                             break;
-            case __T('<') :
+            case __T('<'):
                             Content[Pos]=__T('&');
                             Content.insert(Pos+1, __T("lt;"));
                             Pos+=3;
                             break;
-            case __T('>') :
+            case __T('>'):
                             Content[Pos]=__T('&');
                             Content.insert(Pos+1, __T("gt;"));
                             Pos+=3;
                             break;
-            default   :
+            default:
                         if (Content[Pos]<0x20)
                         {
                             /* Is still invalid XML
@@ -633,4 +633,3 @@ Ztring &MediaInfo_Internal::Xml_Content_Escape_Modifying (Ztring &Content, size_
 }
 
 } //NameSpace
-

@@ -2301,4 +2301,3 @@ bool MediaInfo_Config::Ssl_IgnoreSecurity_Get ()
 #endif //defined(MEDIAINFO_LIBCURL_YES)
 
 } //NameSpace
-

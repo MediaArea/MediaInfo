@@ -131,5 +131,3 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
         }
     }
 }
-
-
