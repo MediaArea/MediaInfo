@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.60, 2012-
+Version 0.7.60, 2012-09-02
 --------------
 + MPEG-TS/PS: improved detection of buggy time stamps
 + DPX: color primaries and transfer characteristics
@@ -15,6 +15,7 @@ Version 0.7.60, 2012-
 + MPEG-TS: Name of some scrambling algorithms
 + MPEG-TS: detection of CBR/VBR at container level
 + MPEG Video: better detection of variable GOP
++ MPEG-TS: average, minimum, maximum PCR distance (hidden by default and you must parse the whole file with --ParseSpeed=1 option)
 x Matroska: some streams were wrongly detected sa VFR
 x #3538378, XML output: invalid characters, now if there is an invalid character, data is transported in base64
 x LXF: wrong video bit rate with some files
