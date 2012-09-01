@@ -13,9 +13,24 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
-Version 0.7.60, 2012-
+Version 0.7.60, 2012-09-02
 --------------
 + #3285550, GUI: added shell extension icon
++ MPEG-TS/PS: improved detection of buggy time stamps
++ DPX: color primaries and transfer characteristics
++ MPEG-TS: Added support of scrambled streams without transport_scrambling_control bit set (e.g. PlayReady)
++ MPEG-TS: Name of some scrambling algorithms
++ MPEG-TS: detection of CBR/VBR at container level
++ MPEG Video: better detection of variable GOP
+x Matroska: some streams were wrongly detected sa VFR
+x #3538378, XML output: invalid characters, now if there is an invalid character, data is transported in base64
+x LXF: wrong video bit rate with some files
+x AC-3/E-AC-3: hang up with some Little Endian streams
+x AAC: wrong min and max bit rate in case of partial (default) parsing, disabling it
+x AVC: crash or hang up with some malformed/scrambled streams
+x Opus: wrong duration in case of non-48kHz stream
+x MOV: 25 fps + drop frame time codes were not handled correctly
+
 
 Version 0.7.59, 2012-08-08
 --------------
