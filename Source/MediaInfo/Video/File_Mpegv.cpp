@@ -2336,7 +2336,7 @@ void File_Mpegv::slice_start()
         Finish("MPEG Video");
         return;
     }
-    
+
     if (!Status[IsAccepted])
     {
         if (!NextCode_Test())
@@ -2657,7 +2657,7 @@ void File_Mpegv::slice_start()
             if (Slices_Count)
                 return;
             Slices_Count++;
-            
+
             //sequence_header
             if (picture_coding_type==1 && (!Has_sequence_header || !Has_sequence_extension))
             {

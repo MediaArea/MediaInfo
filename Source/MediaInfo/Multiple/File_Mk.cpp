@@ -212,9 +212,9 @@ void File_Mk::Streams_Finish()
         {
             //Corrections
             if (Temp->second.DisplayAspectRatio>=1.777 && Temp->second.DisplayAspectRatio<=1.778)
-                Temp->second.DisplayAspectRatio=((float32)16)/9;    
+                Temp->second.DisplayAspectRatio=((float32)16)/9;
             if (Temp->second.DisplayAspectRatio>=1.333 && Temp->second.DisplayAspectRatio<=1.334)
-                Temp->second.DisplayAspectRatio=((float32)4)/3;    
+                Temp->second.DisplayAspectRatio=((float32)4)/3;
             Fill(Stream_Video, Temp->second.StreamPos, Video_DisplayAspectRatio, Temp->second.DisplayAspectRatio, 3, true);
             int64u Width=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Width).To_int64u();
             int64u Height=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Height).To_int64u();

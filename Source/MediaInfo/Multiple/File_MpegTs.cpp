@@ -316,7 +316,6 @@ void File_MpegTs::Streams_Update_Programs()
         //Per source (ATSC)
         if (Transport_Stream->second.source_id_IsValid)
         {
-            std::map<Ztring, Ztring> EPGs;
             complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Transport_Stream->second.source_id);
             if (Source!=Complete_Stream->Sources.end())
             {

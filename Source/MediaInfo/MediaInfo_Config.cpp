@@ -1694,7 +1694,7 @@ const Ztring MediaInfo_Config::Iso639_Find (const Ztring &Value)
     Ztring Value_Lower(Value);
     Value_Lower.MakeLowerCase();
 
-    for (Translation::iterator Trans=Info.begin(); Trans!=Info.end(); Trans++)
+    for (Translation::iterator Trans=Info.begin(); Trans!=Info.end(); ++Trans)
     {
         Trans->second.MakeLowerCase();
         if (Trans->second==Value_Lower && Trans->first.find(__T("Language_"))==0)
@@ -1833,7 +1833,7 @@ Ztring MediaInfo_Config::Info_Codecs_Get ()
     {
         ToReturn+=Temp->second.Read();
         ToReturn+=EOL;
-        Temp++;
+        ++Temp;
     }
 
     return ToReturn;

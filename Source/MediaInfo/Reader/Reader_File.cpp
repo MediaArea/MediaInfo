@@ -104,7 +104,7 @@ size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
                 || Extensions.find(__T(" ")+Extension)!=Error)
                     break;
             }
-            Format++;
+            ++Format;
         }
     }
     if (Format!=FormatList.end())

@@ -1538,7 +1538,7 @@ void File_Mpeg4::mdat_xxxx()
                 {
                     if (((File_Mpeg4_TimeCode*)Stream->second.Parser)->Pos!=(int32u)-1)
                     {
-                        for (std::map<int32u, stream>::iterator StreamTemp=Streams.begin(); StreamTemp!=Streams.end(); StreamTemp++)
+                        for (std::map<int32u, stream>::iterator StreamTemp=Streams.begin(); StreamTemp!=Streams.end(); ++StreamTemp)
                             if (StreamTemp->second.TimeCode_TrackID==Stream->first)
                             {
                                 TimeCode_FrameOffset=((File_Mpeg4_TimeCode*)Stream->second.Parser)->Pos;
@@ -5169,7 +5169,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts_Common(int32u SampleCount, int32u
                 stts_Duration.DTS_Begin=0;
             else
             {
-                stream::stts_durations::iterator Previous=Streams[moov_trak_tkhd_TrackID].stts_Durations.end(); Previous--;
+                stream::stts_durations::iterator Previous=Streams[moov_trak_tkhd_TrackID].stts_Durations.end(); --Previous;
                 stts_Duration.DTS_Begin=Previous->DTS_End;
             }
             stts_Duration.DTS_End=stts_Duration.DTS_Begin+Stts.SampleCount*Stts.SampleDuration;

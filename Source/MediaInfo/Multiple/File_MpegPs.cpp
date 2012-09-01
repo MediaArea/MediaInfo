@@ -2897,9 +2897,6 @@ void File_MpegPs::private_stream_1_Element_Info1()
         //AC3+
         else if (private_stream_1_ID>=0xC0 && private_stream_1_ID<=0xCF)
             Element_Info1("AC3+");
-        //PS2
-        else if (private_stream_1_ID>=0xC0 && private_stream_1_ID<=0xCF)
-            Element_Info1("PS2");
     }
 }
 #endif //MEDIAINFO_TRACE

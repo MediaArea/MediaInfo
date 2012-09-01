@@ -399,7 +399,7 @@ void File_Riff::Streams_Finish ()
                         Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Interleave_Duration_String);
                     }
                     int64u Audio_FirstBytes=0;
-                    for (std::map<int64u, stream_structure>::iterator Stream_Structure_Temp=Stream_Structure.begin(); Stream_Structure_Temp!=Stream_Structure.end(); Stream_Structure_Temp++)
+                    for (std::map<int64u, stream_structure>::iterator Stream_Structure_Temp=Stream_Structure.begin(); Stream_Structure_Temp!=Stream_Structure.end(); ++Stream_Structure_Temp)
                     {
                         if (Stream_Structure_Temp->second.Name==0x30300000)
                             break;
@@ -432,7 +432,7 @@ void File_Riff::Streams_Finish ()
             }
         }
 
-        Temp++;
+        ++Temp;
     }
 
     //Some work on the first video stream

@@ -1953,7 +1953,6 @@ void File_Riff::AVI__idx1()
         Idx1_Offset=0; //Fixing base of movi atom, the index think it is the start of the file
 
     //Parsing
-    std::map <int64u, size_t> Stream_Count;
     while (Element_Offset+16<=Element_Size)
     {
         //Is too slow
@@ -1995,7 +1994,7 @@ void File_Riff::AVI__idx1()
     //Interleaved
     size_t Pos0=0;
     size_t Pos1=0;
-    for (std::map<int64u, stream_structure>::iterator Temp=Stream_Structure.begin(); Temp!=Stream_Structure.end(); Temp++)
+    for (std::map<int64u, stream_structure>::iterator Temp=Stream_Structure.begin(); Temp!=Stream_Structure.end(); ++Temp)
     {
         switch (Temp->second.Name)
         {
@@ -2239,7 +2238,7 @@ void File_Riff::AVI__movi()
                 Temp->second.SearchingPayload=false;
                 stream_Count--;
             }
-            Temp++;
+            ++Temp;
         }
     }
 
@@ -2491,9 +2490,9 @@ void File_Riff::AVI__movi_StreamJump()
             std::map<int32u, stream>::iterator Temp=Stream.begin();
             while (Temp!=Stream.end())
             {
-                for (size_t Pos=0; Pos<Temp->second.Parsers.size(); Pos++)
+                for (size_t Pos=0; Pos<Temp->second.Parsers.size(); ++Pos)
                     Temp->second.Parsers[Pos]->Open_Buffer_Unsynch();
-                Temp++;
+                ++Temp;
             }
             Finish("AVI"); //The rest is already parsed
         }

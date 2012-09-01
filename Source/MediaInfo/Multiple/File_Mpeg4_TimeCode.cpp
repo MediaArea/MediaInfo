@@ -68,7 +68,7 @@ void File_Mpeg4_TimeCode::Streams_Fill()
         int64s  Pos_Temp=Pos;
         float64 FrameRate_WithDF=NumberOfFrames;
         if (DropFrame)
-        {    
+        {
             float64 FramesPerHour_NDF=FrameRate_WithDF*60*60;
             FrameRate_WithDF*=(FramesPerHour_NDF-108)/FramesPerHour_NDF;
         }

@@ -1106,7 +1106,6 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 GoTo(Offset);
                                 Open_Buffer_Unsynch();
                                 return 1;
-                                break;
                             }
                         }
 
