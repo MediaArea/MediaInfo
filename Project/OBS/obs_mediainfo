@@ -101,9 +101,9 @@ Download_Packages $1 $2 $3  x x ""           CentOS_5        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_6        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_16       i386   .i386
+Download_Packages $1 $2 $3  x x ""           Fedora_16       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_16       x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_17       i386   .i386
+Download_Packages $1 $2 $3  x x ""           Fedora_17       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2008   i586   .i586
 Download_Packages $1 $2 $3  x x ""           Mandriva_2008   x86_64 .x86_64
@@ -144,7 +144,7 @@ libmediainfov="0.7.59"
 libzenv="0.4.28"
 destversion="1"
 
-Download_Global 284.2 274.1 179.2
+Download_Global 284.1 274.1 179.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
