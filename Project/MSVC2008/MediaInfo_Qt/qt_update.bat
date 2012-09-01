@@ -11,7 +11,7 @@ mkdir _Automated
 ..\..\..\..\Qt\bin\moc ..\..\..\Source\GUI\Qt\editsheet.h -o_Automated\moc_editsheet.cpp
 ..\..\..\..\Qt\bin\moc ..\..\..\Source\GUI\Qt\configtreetext.h -o_Automated\moc_configtreetext.cpp
 ..\..\..\..\Qt\bin\moc ..\..\..\Source\GUI\Qt\editconfigtreetext.h -o_Automated\moc_editconfigtreetext.cpp
-..\..\..\..\Qt\bin\rcc ..\..\..\Source\Ressource\Resources.qrc -o _Automated\qrc_Resources.cpp
+..\..\..\..\Qt\bin\rcc ..\..\..\Source\Resource\Resources.qrc -o _Automated\qrc_Resources.cpp
 ..\..\..\..\Qt\bin\uic ..\..\..\Source\GUI\Qt\export.ui -o _Automated\ui_export.h
 ..\..\..\..\Qt\bin\uic ..\..\..\Source\GUI\Qt\mainwindow.ui -o _Automated\ui_mainwindow.h
 ..\..\..\..\Qt\bin\uic ..\..\..\Source\GUI\Qt\preferences.ui -o _Automated\ui_preferences.h
