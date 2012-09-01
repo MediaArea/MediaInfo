@@ -1274,31 +1274,29 @@ bool File_MpegTs::Synched_Test()
                                 )
                                 {
                                     Header_Parse_Events_Duration(program_clock_reference);
-                                    #if MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
-                                        if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
+                                    if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
+                                    {
+                                        float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
+                                        float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
+                                        float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
+                                        if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
                                         {
-                                            float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
-                                            float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
-                                            float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
-                                            #if MEDIAINFO_ADVANCED
-                                                if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
-                                                {
-                                                    float64 Config_VbrDetection_Delta_Temp=Config_VbrDetection_Delta;
-                                                    if (Config_VbrDetection_Delta==0 && TimeStamp_InstantaneousBitRate)
-                                                        Config_VbrDetection_Delta_Temp=((float64)(BDAV_Size+188+TSP_Size))/TimeStamp_InstantaneousBitRate;
-                                                    if (TimeStamp_InstantaneousBitRate<Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1-Config_VbrDetection_Delta_Temp) || TimeStamp_InstantaneousBitRate>Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1+Config_VbrDetection_Delta_Temp))
-                                                    {
-                                                        Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr++;
-                                                        if (Config_VbrDetection_GiveUp && Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr>=Config_VbrDetection_Occurences)
-                                                            Config->ParseSpeed=0;
-                                                    }
-                                                    else
-                                                        Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
-                                                }
-                                            #endif //MEDIAINFO_ADVANCED
-                                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                                            float64 Config_VbrDetection_Delta_Temp=Config_VbrDetection_Delta;
+                                            if (Config_VbrDetection_Delta==0 && TimeStamp_InstantaneousBitRate)
+                                                Config_VbrDetection_Delta_Temp=((float64)(BDAV_Size+188+TSP_Size))/TimeStamp_InstantaneousBitRate;
+                                            if (TimeStamp_InstantaneousBitRate<Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1-Config_VbrDetection_Delta_Temp) || TimeStamp_InstantaneousBitRate>Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1+Config_VbrDetection_Delta_Temp))
+                                            {
+                                                Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr++;
+                                                #if MEDIAINFO_ADVANCED
+                                                    if (Config_VbrDetection_GiveUp && Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr>=Config_VbrDetection_Occurences)
+                                                        Config->ParseSpeed=0;
+                                                #endif // MEDIAINFO_ADVANCED
+                                            }
+                                            else
+                                                Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
                                         }
-                                    #endif // MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
+                                        Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                                    }
                                     Complete_Stream->Streams[pid]->TimeStamp_End=program_clock_reference;
                                     Complete_Stream->Streams[pid]->TimeStamp_End_IsUpdated=true;
                                     Complete_Stream->Streams[pid]->TimeStamp_End_Offset=File_Offset+Buffer_Offset;
@@ -1956,31 +1954,29 @@ void File_MpegTs::Header_Parse_AdaptationField()
                      )
                     {
                         Header_Parse_Events_Duration(program_clock_reference);
-                        #if MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
-                            if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
+                        if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
+                        {
+                            float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
+                            float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
+                            float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
+                            if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
                             {
-                                float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
-                                float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
-                                float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
-                                #if MEDIAINFO_ADVANCED
-                                    if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
-                                    {
-                                        float64 Config_VbrDetection_Delta_Temp=Config_VbrDetection_Delta;
-                                        if (Config_VbrDetection_Delta==0 && TimeStamp_InstantaneousBitRate)
-                                            Config_VbrDetection_Delta_Temp=((float64)(BDAV_Size+188+TSP_Size))/TimeStamp_InstantaneousBitRate;
-                                        if (TimeStamp_InstantaneousBitRate<Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1-Config_VbrDetection_Delta_Temp) || TimeStamp_InstantaneousBitRate>Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1+Config_VbrDetection_Delta_Temp))
-                                        {
-                                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr++;
-                                            if (Config_VbrDetection_GiveUp && Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr>=Config_VbrDetection_Occurences)
-                                                Config->ParseSpeed=0;
-                                        }
-                                        else
-                                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
-                                    }
-                                #endif //MEDIAINFO_ADVANCED
-                                Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                                float64 Config_VbrDetection_Delta_Temp=Config_VbrDetection_Delta;
+                                if (Config_VbrDetection_Delta==0 && TimeStamp_InstantaneousBitRate)
+                                    Config_VbrDetection_Delta_Temp=((float64)(BDAV_Size+188+TSP_Size))/TimeStamp_InstantaneousBitRate;
+                                if (TimeStamp_InstantaneousBitRate<Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1-Config_VbrDetection_Delta_Temp) || TimeStamp_InstantaneousBitRate>Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1+Config_VbrDetection_Delta_Temp))
+                                {
+                                    Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr++;
+                                    #if MEDIAINFO_ADVANCED
+                                        if (Config_VbrDetection_GiveUp && Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr>=Config_VbrDetection_Occurences)
+                                            Config->ParseSpeed=0;
+                                    #endif // MEDIAINFO_ADVANCED
+                                }
+                                else
+                                    Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
                             }
-                        #endif // MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
+                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                        }
                         Complete_Stream->Streams[pid]->TimeStamp_End=program_clock_reference;
                         Complete_Stream->Streams[pid]->TimeStamp_End_IsUpdated=true;
                         Complete_Stream->Streams[pid]->TimeStamp_End_Offset=File_Offset+Buffer_Offset;
@@ -2138,31 +2134,29 @@ void File_MpegTs::Header_Parse_AdaptationField()
                      )
                     {
                         Header_Parse_Events_Duration(program_clock_reference);
-                        #if MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
-                            if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
+                        if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
+                        {
+                            float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
+                            float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
+                            float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
+                            if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
                             {
-                                float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
-                                float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
-                                float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
-                                #if MEDIAINFO_ADVANCED
-                                    if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
-                                    {
-                                        float64 Config_VbrDetection_Delta_Temp=Config_VbrDetection_Delta;
-                                        if (Config_VbrDetection_Delta==0 && TimeStamp_InstantaneousBitRate)
-                                            Config_VbrDetection_Delta_Temp=((float64)(BDAV_Size+188+TSP_Size))/TimeStamp_InstantaneousBitRate;
-                                        if (TimeStamp_InstantaneousBitRate<Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1-Config_VbrDetection_Delta_Temp) || TimeStamp_InstantaneousBitRate>Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1+Config_VbrDetection_Delta_Temp))
-                                        {
-                                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr++;
-                                            if (Config_VbrDetection_GiveUp && Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr>=Config_VbrDetection_Occurences)
-                                                Config->ParseSpeed=0;
-                                        }
-                                        else
-                                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
-                                    }
-                                #endif //MEDIAINFO_ADVANCED
-                                Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                                float64 Config_VbrDetection_Delta_Temp=Config_VbrDetection_Delta;
+                                if (Config_VbrDetection_Delta==0 && TimeStamp_InstantaneousBitRate)
+                                    Config_VbrDetection_Delta_Temp=((float64)(BDAV_Size+188+TSP_Size))/TimeStamp_InstantaneousBitRate;
+                                if (TimeStamp_InstantaneousBitRate<Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1-Config_VbrDetection_Delta_Temp) || TimeStamp_InstantaneousBitRate>Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate*(1+Config_VbrDetection_Delta_Temp))
+                                {
+                                    Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr++;
+                                    #if MEDIAINFO_ADVANCED
+                                        if (Config_VbrDetection_GiveUp && Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr>=Config_VbrDetection_Occurences)
+                                            Config->ParseSpeed=0;
+                                    #endif // MEDIAINFO_ADVANCED
+                                }
+                                else
+                                    Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
                             }
-                        #endif // MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
+                            Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                        }
                         Complete_Stream->Streams[pid]->TimeStamp_End=program_clock_reference;
                         Complete_Stream->Streams[pid]->TimeStamp_End_IsUpdated=true;
                         Complete_Stream->Streams[pid]->TimeStamp_End_Offset=File_Offset+Buffer_Offset;
