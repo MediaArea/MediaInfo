@@ -399,4 +399,3 @@ class MediaInfoList:
         return MediaInfoList_Count_Get (self.Handle, FilePos, StreamKind, StreamNumber=-1)
     def Count_Get_Files(self):
         return MediaInfoList_Count_Get_Files (self.Handle)
-

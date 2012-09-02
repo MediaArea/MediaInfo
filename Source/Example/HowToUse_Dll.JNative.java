@@ -81,7 +81,7 @@ public static void main(String... args) throws Exception
 
     To_Display += "\r\n\r\nClose\r\n";
     MI.Close();
-	
+
     System.out.println(To_Display);
     }
 }

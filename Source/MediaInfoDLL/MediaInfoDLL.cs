@@ -228,22 +228,6 @@ namespace MediaInfoLib
         public int Count_Get(StreamKind StreamKind) { return Count_Get(StreamKind, -1); }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public class MediaInfoList
     {
         //Import of DLL functions. DO NOT USE until you know what you do (MediaInfo DLL do NOT use CoTaskMemAlloc to allocate memory)

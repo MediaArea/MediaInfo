@@ -36,9 +36,9 @@ import org.xvolks.jnative.pointers.memory.NativeMemoryBlock;
  */
 class MediaInfo
 {
-    
+
     /* static_fields */
-    
+
     final public static int Stream_General       = 0;
     final public static int Stream_Video         = 1;
     final public static int Stream_Audio         = 2;
@@ -57,8 +57,8 @@ class MediaInfo
     final public static int Info_Info            = 6;
     final public static int Info_HowTo           = 7;
     final public static int Info_Max             = 8;
-    
-    
+
+
     /* The MediaInfo handle */
     private String handle = null;
     private JNative new_jnative;
@@ -66,7 +66,7 @@ class MediaInfo
     /* The library to be used */
     private static String libraryName = "";
 
-    
+
     /**
      * Constructor that initializes the new MediaInfo object.
      * @throws NativeException  JNative Exception.
@@ -103,8 +103,8 @@ class MediaInfo
         handle = new_jnative.getRetVal();
         Option("CharSet", "UTF-8");
     }
-    
-    
+
+
     /**
      * Opens a media file.
      * Overloads method {@link #Open(int, int, int, int)}
@@ -119,7 +119,7 @@ class MediaInfo
     {
         return Open(begin, beginSize, 0, 0);
     }
-    
+
 
     /**
      * Opens a media file.
@@ -145,7 +145,7 @@ class MediaInfo
         jnative.setParameter(3, Type.INT, String.valueOf(end));
         jnative.setParameter(4, Type.INT, String.valueOf(endSize));
         jnative.invoke();
-        
+
         /* Retrieving data */
         int ret = Integer.parseInt(jnative.getRetVal());
 
@@ -240,8 +240,8 @@ class MediaInfo
     {
         return Get(streamKind, streamNumber, parameter, infoKind, MediaInfo.Info_Name);
     }
-    
-    
+
+
     /**
      * Gets the specific file info according to the parameters.
      * @param streamKind                      type of stream. Can be any of the Stream_XX values {@link <a href="#field_detail">Field details</a>}
@@ -277,8 +277,8 @@ class MediaInfo
 
         return ret;
     }
-    
-    
+
+
     /**
      * Gets the specific file info according to the parameters.
      * Overloads method {@link #Get(int, int, int, int)}.
@@ -294,8 +294,8 @@ class MediaInfo
     {
         return Get(streamKind, streamNumber, parameter, MediaInfo.Info_Text);
     }
-    
-    
+
+
     /**
      * Gets the specific file info according to the parameters.
      * @param streamKind                      type of stream. Can be any of the Stream_XX values {@link <a href="#field_detail">Field details</a>}
@@ -310,7 +310,7 @@ class MediaInfo
     {
         if (handle == null)
             throw new HandleNotInitializedException("Handle is not initialized.");
-     
+
         /*JNative call */
         JNative jnative = new JNative(libraryName, "MediaInfoA_GetI");
         jnative.setRetVal(Type.INT);
@@ -326,8 +326,8 @@ class MediaInfo
 
         return ret;
     }
-    
-    
+
+
     /**
      * Sets the option
      * Overloads method {@link #Option(String, String)}
@@ -341,8 +341,8 @@ class MediaInfo
     {
         return Option(option, "");
     }
-    
-    
+
+
     /**
      * Sets the option with value
      * @param option                          name of option
@@ -373,7 +373,7 @@ class MediaInfo
 
         return ret;
     }
-    
+
 
     /**
      * Sets the option (you do not need to create a MediaInfo handle)
@@ -388,8 +388,8 @@ class MediaInfo
     {
         return Option_Static(option, "");
     }
-    
-    
+
+
     /**
      * Sets the option (you do not need to create a MediaInfo handle)
      * @param option                          name of option
@@ -444,8 +444,8 @@ class MediaInfo
 
         return ret;
     }
-    
-    
+
+
     /**
      * Gets the count of streams
      * Overloads method {@link #Count_Get(int, int)}.
@@ -459,8 +459,8 @@ class MediaInfo
     {
         return Count_Get(streamKind, -1);
     }
-    
-    
+
+
     /**
      * Gets the count of streams
      * @param streamKind                      type of stream. Can be any of the Stream_XX values {@link <a href="#field_detail">Field details</a>}
@@ -494,7 +494,7 @@ class MediaInfo
      * @throws HandleNotInitializedException  if the handle is null
      * @throws NativeException                JNative Exception
      */
-    protected void finalize() throws HandleNotInitializedException, NativeException, Exception 
+    protected void finalize() throws HandleNotInitializedException, NativeException, Exception
     {
         if (handle == null)
             throw new HandleNotInitializedException("Handle is not initialized.");
@@ -589,7 +589,7 @@ class MediaInfo
                 setLibraryName("libmediainfo.so.0");
         }
     }
-    
+
 
     /**
      * Sets the name of the library to be used.

@@ -5,7 +5,7 @@ unit MediaInfoDll;
     (c)2008 by Norbert Mereg (Icebob)
 
     http://mediainfo.sourceforge.net
-                                                                }
+}
 
 
 interface
@@ -28,7 +28,7 @@ type TMIStreamKind =
     Stream_Max
 );
 
-type TMIInfo = 
+type TMIInfo =
 (
     Info_Name,
     Info_Text,

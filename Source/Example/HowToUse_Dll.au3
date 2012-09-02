@@ -33,7 +33,7 @@ DllCall($DLL, "wstr", "MediaInfo_Option", "ptr", 0, "wstr", "Complete", "wstr", 
 $Inform=DllCall($DLL, "wstr", "MediaInfo_Inform", "ptr", $Handle[0], "int", 0)
 MsgBox(0, "Inform with Complete=true", $Inform[0])
 
-;Custom Inform 
+;Custom Inform
 DllCall($DLL, "wstr", "MediaInfo_Option", "ptr", 0, "wstr", "Inform", "wstr", "General;Example : FileSize=%FileSize%")
 $Inform=DllCall($DLL, "wstr", "MediaInfo_Inform", "ptr", $Handle[0], "int", 0)
 MsgBox(0, "Custom Inform", $Inform[0])
@@ -88,7 +88,7 @@ DllCall($DLL, "wstr", "MediaInfoList_Option", "ptr", 0, "wstr", "Complete", "wst
 $Inform=DllCall($DLL, "wstr", "MediaInfoList_Inform", "ptr", $Handle[0], "int", $i, "int", 0)
 MsgBox(0, "Inform with Complete=true", $Inform[0])
 
-;Custom Inform 
+;Custom Inform
 DllCall($DLL, "wstr", "MediaInfoList_Option", "ptr", 0, "wstr", "Inform", "wstr", "General;Example : FileSize=%FileSize%")
 $Inform=DllCall($DLL, "wstr", "MediaInfoList_Inform", "ptr", $Handle[0], "int", $i, "int", 0)
 MsgBox(0, "Custom Inform", $Inform[0])
@@ -117,7 +117,6 @@ Next
 
 ;Delete MediaInfoList handle
 $Handle=DllCall($DLL, "none", "MediaInfoList_Delete", "ptr", $Handle[0])
-
 
 
 ;Close the DLL

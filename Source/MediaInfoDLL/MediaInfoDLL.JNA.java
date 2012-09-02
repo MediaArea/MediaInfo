@@ -18,7 +18,7 @@
  *
  **/
 
-// Note: the original stuff was well packaged with Java style, 
+// Note: the original stuff was well packaged with Java style,
 // but I (the main developer) prefer to keep an easiest for me
 // way to have all sources and example in the same place
 // Removed stuff:
@@ -107,40 +107,40 @@ class MediaInfo
          * Unique name of parameter.
          */
         Name,
-    
+
         /**
          * Value of parameter.
          */
         Text,
-    
+
         /**
          * Unique name of measure unit of parameter.
          */
         Measure,
-    
+
         Options,
-    
+
         /**
          * Translated name of parameter.
          */
         Name_Text,
-    
+
         /**
          * Translated name of measure unit.
          */
         Measure_Text,
-    
+
         /**
          * More information about the parameter.
          */
         Info,
-    
+
         /**
          * How this parameter is supported, could be N (No), B (Beta), R (Read only), W
          * (Read/Write).
          */
         HowTo,
-    
+
         /**
          * Domain of this piece of information.
          */
@@ -157,7 +157,7 @@ class MediaInfo
     {
         if (Handle == null)
             throw new IllegalStateException();
-    
+
         MediaInfoDLL_Internal.INSTANCE.Delete(Handle);
         Handle = null;
     }
@@ -172,7 +172,7 @@ class MediaInfo
     //File
     /**
      * Open a file and collect information about it (technical information and tags).
-     * 
+     *
      * @param file full name of the file to open
      * @return 1 if file was opened, 0 if file was not not opened
      */
@@ -183,7 +183,7 @@ class MediaInfo
 
     /**
      * Close a file opened before with Open().
-     * 
+     *
      */
     public void Close()
     {
@@ -193,7 +193,7 @@ class MediaInfo
     //Information
     /**
      * Get all details about a file.
-     * 
+     *
      * @return All details about a file in one string
      */
     public String Inform()
@@ -203,7 +203,7 @@ class MediaInfo
 
     /**
      * Get a piece of information about a file (parameter is a string).
-     * 
+     *
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @param StreamNumber Stream number in Kind of Stream (first, second...)
      * @param parameter Parameter you are looking for in the Stream (Codec, width, bitrate...),
@@ -218,7 +218,7 @@ class MediaInfo
 
     /**
      * Get a piece of information about a file (parameter is a string).
-     * 
+     *
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @param StreamNumber Stream number in Kind of Stream (first, second...)
      * @param parameter Parameter you are looking for in the Stream (Codec, width, bitrate...),
@@ -235,7 +235,7 @@ class MediaInfo
 
     /**
      * Get a piece of information about a file (parameter is a string).
-     * 
+     *
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @param StreamNumber Stream number in Kind of Stream (first, second...)
      * @param parameter Parameter you are looking for in the Stream (Codec, width, bitrate...),
@@ -253,7 +253,7 @@ class MediaInfo
 
     /**
      * Get a piece of information about a file (parameter is an integer).
-     * 
+     *
 
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @param StreamNumber Stream number in Kind of Stream (first, second...)
@@ -269,7 +269,7 @@ class MediaInfo
 
     /**
      * Get a piece of information about a file (parameter is an integer).
-     * 
+     *
 
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @param StreamNumber Stream number in Kind of Stream (first, second...)
@@ -287,7 +287,7 @@ class MediaInfo
     /**
      * Count of Streams of a Stream kind (StreamNumber not filled), or count of piece of
      * information in this Stream.
-     * 
+     *
 
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @return number of Streams of the given Stream kind
@@ -301,7 +301,7 @@ class MediaInfo
     /**
      * Count of Streams of a Stream kind (StreamNumber not filled), or count of piece of
      * information in this Stream.
-     * 
+     *
      * @param StreamKind Kind of Stream (general, video, audio...)
      * @param StreamNumber Stream number in this kind of Stream (first, second...)
      * @return number of Streams of the given Stream kind
@@ -316,7 +316,7 @@ class MediaInfo
     //Options
     /**
      * Configure or get information about MediaInfo.
-     * 
+     *
      * @param Option The name of option
      * @return Depends on the option: by default "" (nothing) means No, other means Yes
      */
@@ -327,7 +327,7 @@ class MediaInfo
 
     /**
      * Configure or get information about MediaInfo.
-     * 
+     *
      * @param Option The name of option
      * @param Value The value of option
      * @return Depends on the option: by default "" (nothing) means No, other means Yes
@@ -339,7 +339,7 @@ class MediaInfo
 
     /**
      * Configure or get information about MediaInfo (Static version).
-     * 
+     *
      * @param Option The name of option
      * @return Depends on the option: by default "" (nothing) means No, other means Yes
      */
@@ -350,7 +350,7 @@ class MediaInfo
 
     /**
      * Configure or get information about MediaInfo(Static version).
-     * 
+     *
      * @param Option The name of option
      * @param Value The value of option
      * @return Depends on the option: by default "" (nothing) means No, other means Yes

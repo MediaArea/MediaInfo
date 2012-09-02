@@ -53,7 +53,7 @@ struct UserHandle_struct
 
     void Clear()
     {
-        for (map<int32u, perevent>::iterator Item=PerEvent.begin(); Item!=PerEvent.end(); Item++)
+        for (map<int32u, perevent>::iterator Item=PerEvent.begin(); Item!=PerEvent.end(); ++Item)
             fclose (Item->second.F);
         PerEvent.clear();
     }
