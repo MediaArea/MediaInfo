@@ -45,7 +45,6 @@ bool CALLBACK acmDriverEnumCallback (HACMDRIVERID hadid, DWORD dwInstance, DWORD
     HACMDRIVER  had;
     ACMDRIVERDETAILS    add;
     ACMFORMATTAGDETAILS aftd;
-    int     v;
 
     memset (&add, 0, sizeof (ACMDRIVERDETAILS));
     add.cbStruct = sizeof (ACMDRIVERDETAILS);
@@ -118,7 +117,7 @@ void Codecs_Enumerate(ZenLib::ZtringListList &Video, ZenLib::ZtringListList &Aud
 // Select directory code
 // Extracted from TBffolder by Torsten Johann (t-johann@gmx.de)
 
-_TCHAR            szInitDir[MAX_PATH];
+_TCHAR szInitDir[MAX_PATH];
 
 int __stdcall BffolderCallbackProc (HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
@@ -184,7 +183,7 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
     FB2.Write(Tout, Capture);
 
     //Purge
-    delete Tout;
+    delete [] Tout;
     MessageBox(Handle, Prefs->Translate(__T("Send HeaderFile")).c_str(), Prefs->Translate(__T("Header file")).c_str(), 0);
 }
 

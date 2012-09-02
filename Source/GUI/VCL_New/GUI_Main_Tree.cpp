@@ -121,7 +121,7 @@ void GUI_Main_Tree::Item_Show(TTreeNode *Item)
         {
             //Showing line
             MediaInfoLib::String Line=Text.substr(Pos1, Pos2-Pos1-SIZE);
-            if (Line.size()>10 & Line[9]==__T(' '))
+            if (Line.size()>10 && Line[9]==__T(' '))
             {
                 Line.erase(9, Level);
             }

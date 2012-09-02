@@ -270,7 +270,7 @@ QDir MainWindow::getCommonDir(Core*C) {
     QList<QStringList> list;
     QStringList dirName;
     unsigned fileCount = (unsigned)C->Count_Get();
-    if(fileCount<=0)
+    if(fileCount==0)
         return QDir::home();
     for(unsigned filePos=0;filePos<fileCount;filePos++)
         list.append(QDir::toNativeSeparators(wstring2QString(C->Get(filePos,Stream_General, 0, __T("CompleteName")))).split(QDir::separator ()));

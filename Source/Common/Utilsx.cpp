@@ -43,10 +43,9 @@ bool CALLBACK acmDriverEnumCallback (HACMDRIVERID hadid, DWORD dwInstance, DWORD
 {
     Audio_Temp->Separator_Set(0, __T("\r\n"));
     Audio_Temp->Separator_Set(1, __T("aaa"));
-    HACMDRIVER    had;
+    HACMDRIVER had;
     ACMDRIVERDETAILS    add;
-    ACMFORMATTAGDETAILS    aftd;
-    int        v;
+    ACMFORMATTAGDETAILS aftd;
 
     memset (&add, 0, sizeof (ACMDRIVERDETAILS));
     add.cbStruct = sizeof (ACMDRIVERDETAILS);
@@ -86,8 +85,8 @@ void Codecs_Enumerate(ZenLib::ZtringListList &Video, ZenLib::ZtringListList &Aud
     Audio_Temp=&Audio;
 
     //Enumerate VFW Video codecs
-    ICINFO    icinfo;
-    int        count=0;
+    ICINFO  icinfo;
+    int     count=0;
 
      while (ICInfo (ICTYPE_VIDEO, count, &icinfo))
     {
@@ -129,7 +128,7 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
     FB2.Write(Tout, Capture);
 
     //Purge
-    delete Tout;
+    delete [] Tout;
     Application->MessageBox(Prefs->Translate(__T("Send HeaderFile")).c_str(), Prefs->Translate(__T("Header file")).c_str());
 }
 
