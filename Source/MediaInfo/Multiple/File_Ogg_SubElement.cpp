@@ -272,10 +272,10 @@ bool File_Ogg_SubElement::Header_Begin()
 void File_Ogg_SubElement::Header_Parse()
 {
     //Parsing
-    int8u  Type;
-    bool lenbytes0, lenbytes1, lenbytes2;
+    int8u Type;
     if (Identified && WithType)
     {
+        bool lenbytes0, lenbytes1, lenbytes2;
         Get_L1 (Type,                                               "Type");
             Skip_Flags(Type, 0,                                     "Indicates data packet");
             Get_Flags (Type, 1, lenbytes2,                          "Bit 2 of lenbytes");
