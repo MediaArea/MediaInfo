@@ -4,13 +4,13 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Wed Aug 08 11:24:42 2012
+/* at Sun Sep 02 11:05:30 2012
  */
 /* Compiler settings for MediaInfoShellExt.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
     protocol : dce , ms_ext, c_ext
-    error checks: allocation ref bounds_check enum stub_data
-    VC __declspec() decoration level:
+    error checks: allocation ref bounds_check enum stub_data 
+    VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -30,7 +30,7 @@
 #pragma warning( disable: 4152 )  /* function/data pointer conversion in expression */
 #pragma warning( disable: 4100 ) /* unreferenced arguments in x86 call */
 
-#pragma optimize("", off )
+#pragma optimize("", off ) 
 
 #define USE_STUBLESS_PROXY
 
@@ -49,11 +49,11 @@
 
 #include "MediaInfoShellExt.h"
 
-#define TYPE_FORMAT_STRING_SIZE   3
-#define PROC_FORMAT_STRING_SIZE   1
-#define EXPR_FORMAT_STRING_SIZE   1
-#define TRANSMIT_AS_TABLE_SIZE    0
-#define WIRE_MARSHAL_TABLE_SIZE   0
+#define TYPE_FORMAT_STRING_SIZE   3                                 
+#define PROC_FORMAT_STRING_SIZE   1                                 
+#define EXPR_FORMAT_STRING_SIZE   1                                 
+#define TRANSMIT_AS_TABLE_SIZE    0            
+#define WIRE_MARSHAL_TABLE_SIZE   0            
 
 typedef struct _MediaInfoShellExt_MIDL_TYPE_FORMAT_STRING
     {
@@ -74,7 +74,7 @@ typedef struct _MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING
     } MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING;
 
 
-static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax =
+static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
 
@@ -108,7 +108,7 @@ static const MediaInfoShellExt_MIDL_PROC_FORMAT_STRING MediaInfoShellExt__MIDL_P
         0,
         {
 
-            0x0
+			0x0
         }
     };
 
@@ -116,9 +116,9 @@ static const MediaInfoShellExt_MIDL_TYPE_FORMAT_STRING MediaInfoShellExt__MIDL_T
     {
         0,
         {
-            NdrFcShort( 0x0 ),  /* 0 */
+			NdrFcShort( 0x0 ),	/* 0 */
 
-            0x0
+			0x0
         }
     };
 
@@ -147,7 +147,7 @@ static const MIDL_STUBLESS_PROXY_INFO IMediaInfoShellExt__ProxyInfo =
     };
 
 
-static const MIDL_SERVER_INFO IMediaInfoShellExt__ServerInfo =
+static const MIDL_SERVER_INFO IMediaInfoShellExt__ServerInfo = 
     {
     &Object_StubDesc,
     0,
@@ -157,7 +157,7 @@ static const MIDL_SERVER_INFO IMediaInfoShellExt__ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(3) _IMediaInfoShellExt_ProxyVtbl =
+CINTERFACE_PROXY_VTABLE(3) _IMediaInfoShellExt_ProxyVtbl = 
 {
     0,
     &IID_IMediaInfoShellExt_,
@@ -175,7 +175,7 @@ const CInterfaceStubVtbl _IMediaInfoShellExt_StubVtbl =
     CStdStubBuffer_METHODS
 };
 
-static const MIDL_STUB_DESC Object_StubDesc =
+static const MIDL_STUB_DESC Object_StubDesc = 
     {
     0,
     NdrOleAllocate,
@@ -199,30 +199,30 @@ static const MIDL_STUB_DESC Object_StubDesc =
     0
     };
 
-const CInterfaceProxyVtbl * const _MediaInfoShellExt_ProxyVtblList[] =
+const CInterfaceProxyVtbl * const _MediaInfoShellExt_ProxyVtblList[] = 
 {
     ( CInterfaceProxyVtbl *) &_IMediaInfoShellExt_ProxyVtbl,
     0
 };
 
-const CInterfaceStubVtbl * const _MediaInfoShellExt_StubVtblList[] =
+const CInterfaceStubVtbl * const _MediaInfoShellExt_StubVtblList[] = 
 {
     ( CInterfaceStubVtbl *) &_IMediaInfoShellExt_StubVtbl,
     0
 };
 
-PCInterfaceName const _MediaInfoShellExt_InterfaceNamesList[] =
+PCInterfaceName const _MediaInfoShellExt_InterfaceNamesList[] = 
 {
     "IMediaInfoShellExt_",
     0
 };
 
 
-#define _MediaInfoShellExt_CHECK_IID(n) IID_GENERIC_CHECK_IID( _MediaInfoShellExt, pIID, n)
+#define _MediaInfoShellExt_CHECK_IID(n)	IID_GENERIC_CHECK_IID( _MediaInfoShellExt, pIID, n)
 
 int __stdcall _MediaInfoShellExt_IID_Lookup( const IID * pIID, int * pIndex )
 {
-
+    
     if(!_MediaInfoShellExt_CHECK_IID(0))
         {
         *pIndex = 0;
@@ -232,13 +232,13 @@ int __stdcall _MediaInfoShellExt_IID_Lookup( const IID * pIID, int * pIndex )
     return 0;
 }
 
-const ExtendedProxyFileInfo MediaInfoShellExt_ProxyFileInfo =
+const ExtendedProxyFileInfo MediaInfoShellExt_ProxyFileInfo = 
 {
     (PCInterfaceProxyVtblList *) & _MediaInfoShellExt_ProxyVtblList,
     (PCInterfaceStubVtblList *) & _MediaInfoShellExt_StubVtblList,
     (const PCInterfaceName * ) & _MediaInfoShellExt_InterfaceNamesList,
     0, /* no delegation */
-    & _MediaInfoShellExt_IID_Lookup,
+    & _MediaInfoShellExt_IID_Lookup, 
     1,
     2,
     0, /* table of [async_uuid] interfaces */
