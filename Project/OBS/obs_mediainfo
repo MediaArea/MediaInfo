@@ -141,10 +141,10 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 
 mediainfov="0.7.60"
 libmediainfov="0.7.60"
-libzenv="0.4.28"
+libzenv="0.4.28x"
 destversion="1"
 
-Download_Global 284.1 274.1 179.1
+Download_Global 6.5 7.1 200.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
