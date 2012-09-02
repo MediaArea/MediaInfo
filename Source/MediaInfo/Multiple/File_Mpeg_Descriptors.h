@@ -258,6 +258,12 @@ struct complete_stream
             float64                                 TimeStamp_InstantaneousBitRate;
             size_t                                  TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr;
             size_t                                  TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr;
+            #if MEDIAINFO_ADVANCED
+                int64u                              TimeStamp_Distance_Min;
+                int64u                              TimeStamp_Distance_Max;
+                int64u                              TimeStamp_Distance_Total;
+                size_t                              TimeStamp_Distance_Count;
+            #endif // MEDIAINFO_ADVANCED
         #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
         int16u                                      FMC_ES_ID;
@@ -310,6 +316,12 @@ struct complete_stream
                 TimeStamp_InstantaneousBitRate=0;
                 TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr=0;
                 TimeStamp_InstantaneousBitRate_BitRateMode_IsVbr=0;
+                #if MEDIAINFO_ADVANCED
+                    TimeStamp_Distance_Min=(int64u)-1;
+                    TimeStamp_Distance_Max=0;
+                    TimeStamp_Distance_Total=0;
+                    TimeStamp_Distance_Count=0;
+                #endif // MEDIAINFO_ADVANCED
             #endif //MEDIAINFO_MPEGTS_PCR_YES
             registration_format_identifier=0x00000000;
             FMC_ES_ID=0x0000;

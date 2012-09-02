@@ -214,6 +214,12 @@ void File_MpegTs::Streams_Update()
             //Bit rate mode
             bool IsVbr=false;
             bool IsCbr=false;
+            #if MEDIAINFO_ADVANCED
+                int64u  TimeStamp_Distance_Min=(int64u)-1;
+                int64u  TimeStamp_Distance_Max=0;
+                int64u  TimeStamp_Distance_Total=0;
+                size_t  TimeStamp_Distance_Count=0;
+            #endif // MEDIAINFO_ADVANCED
             for (std::map<int16u, int16u>::iterator PCR_PID=Complete_Stream->PCR_PIDs.begin(); PCR_PID!=Complete_Stream->PCR_PIDs.end(); PCR_PID++)
                 if (Complete_Stream->Streams[PCR_PID->first])
                 {
@@ -221,12 +227,40 @@ void File_MpegTs::Streams_Update()
                         IsVbr=true;
                     if (Complete_Stream->Streams[PCR_PID->first]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr)
                         IsCbr=true;
+                    #if MEDIAINFO_ADVANCED
+                    TimeStamp_Distance_Total+=Complete_Stream->Streams[PCR_PID->first]->TimeStamp_Distance_Total;
+                    TimeStamp_Distance_Count+=Complete_Stream->Streams[PCR_PID->first]->TimeStamp_Distance_Count;
+                    if (TimeStamp_Distance_Min>Complete_Stream->Streams[PCR_PID->first]->TimeStamp_Distance_Min)
+                        TimeStamp_Distance_Min=Complete_Stream->Streams[PCR_PID->first]->TimeStamp_Distance_Min;
+                    if (TimeStamp_Distance_Max<Complete_Stream->Streams[PCR_PID->first]->TimeStamp_Distance_Max)
+                        TimeStamp_Distance_Max=Complete_Stream->Streams[PCR_PID->first]->TimeStamp_Distance_Max;
+                    #endif // MEDIAINFO_ADVANCED
                 }
             Clear(Stream_General, 0, General_OverallBitRate_Mode);
             if (IsVbr)
                 Fill(Stream_General, 0, General_OverallBitRate_Mode, "VBR");
             else if (IsCbr)
                 Fill(Stream_General, 0, General_OverallBitRate_Mode, "CBR");
+            #if MEDIAINFO_ADVANCED
+                if (TimeStamp_Distance_Max<270000000) //TODO: there are some errors in some files, why?
+                {
+                    if (TimeStamp_Distance_Count)
+                    {
+                        Fill(Stream_General, 0, "PCR_Distance_Average", ((float64)TimeStamp_Distance_Total)/27000000/TimeStamp_Distance_Count, 9);
+                        (*Stream_More)[Stream_General][0](Ztring().From_Local("PCR_Distance_Average"), Info_Options)=__T("N NT");
+                    }
+                    if (TimeStamp_Distance_Min!=(int64u)-1)
+                    {
+                        Fill(Stream_General, 0, "PCR_Distance_Min", ((float64)TimeStamp_Distance_Min)/27000000, 9);
+                        (*Stream_More)[Stream_General][0](Ztring().From_Local("PCR_Distance_Min"), Info_Options)=__T("N NT");
+                    }
+                    if (TimeStamp_Distance_Max)
+                    {
+                        Fill(Stream_General, 0, "PCR_Distance_Max", ((float64)TimeStamp_Distance_Max)/27000000, 9);
+                        (*Stream_More)[Stream_General][0](Ztring().From_Local("PCR_Distance_Max"), Info_Options)=__T("N NT");
+                    }
+                }
+            #endif // MEDIAINFO_ADVANCED
         }
     #endif //MEDIAINFO_MPEGTS_PCR_YES
 
@@ -1275,7 +1309,10 @@ bool File_MpegTs::Synched_Test()
                                     Header_Parse_Events_Duration(program_clock_reference);
                                     if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
                                     {
-                                        float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
+                                        if (program_clock_reference+0x12c00000000LL<Complete_Stream->Streams[pid]->TimeStamp_End)
+                                            program_clock_reference+=0x25800000000LL; //33 bits and *300
+                                        int64u  Duration_27M=program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End;
+                                        float64 Duration=((float64)Duration_27M)/27000000; //in seconds
                                         float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
                                         float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
@@ -1295,6 +1332,14 @@ bool File_MpegTs::Synched_Test()
                                                 Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
                                         }
                                         Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                                        #if MEDIAINFO_ADVANCED
+                                            if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Min>Duration_27M)
+                                                Complete_Stream->Streams[pid]->TimeStamp_Distance_Min=Duration_27M;
+                                            if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Max<Duration_27M)
+                                                Complete_Stream->Streams[pid]->TimeStamp_Distance_Max=Duration_27M;
+                                            Complete_Stream->Streams[pid]->TimeStamp_Distance_Total+=Duration_27M;
+                                            Complete_Stream->Streams[pid]->TimeStamp_Distance_Count++;
+                                        #endif // MEDIAINFO_ADVANCED
                                     }
                                     Complete_Stream->Streams[pid]->TimeStamp_End=program_clock_reference;
                                     Complete_Stream->Streams[pid]->TimeStamp_End_IsUpdated=true;
@@ -1955,7 +2000,10 @@ void File_MpegTs::Header_Parse_AdaptationField()
                         Header_Parse_Events_Duration(program_clock_reference);
                         if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
                         {
-                            float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
+                            if (program_clock_reference+0x12c00000000LL<Complete_Stream->Streams[pid]->TimeStamp_End)
+                                program_clock_reference+=0x25800000000LL; //33 bits and *300
+                            int64u  Duration_27M=program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End;
+                            float64 Duration=((float64)Duration_27M)/27000000; //in seconds
                             float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
                             float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
                             if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
@@ -1975,6 +2023,14 @@ void File_MpegTs::Header_Parse_AdaptationField()
                                     Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
                             }
                             Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                            #if MEDIAINFO_ADVANCED
+                                if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Min>Duration_27M)
+                                    Complete_Stream->Streams[pid]->TimeStamp_Distance_Min=Duration_27M;
+                                if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Max<Duration_27M)
+                                    Complete_Stream->Streams[pid]->TimeStamp_Distance_Max=Duration_27M;
+                                Complete_Stream->Streams[pid]->TimeStamp_Distance_Total+=Duration_27M;
+                                Complete_Stream->Streams[pid]->TimeStamp_Distance_Count++;
+                            #endif // MEDIAINFO_ADVANCED
                         }
                         Complete_Stream->Streams[pid]->TimeStamp_End=program_clock_reference;
                         Complete_Stream->Streams[pid]->TimeStamp_End_IsUpdated=true;
@@ -2135,7 +2191,10 @@ void File_MpegTs::Header_Parse_AdaptationField()
                         Header_Parse_Events_Duration(program_clock_reference);
                         if (Complete_Stream->Streams[pid]->TimeStamp_End_Offset!=(int64u)-1)
                         {
-                            float64 Duration=((float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End))/27000000; //in seconds
+                            if (program_clock_reference+0x12c00000000LL<Complete_Stream->Streams[pid]->TimeStamp_End)
+                                program_clock_reference+=0x25800000000LL; //33 bits and *300
+                            int64u  Duration_27M=program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End;
+                            float64 Duration=((float64)Duration_27M)/27000000; //in seconds
                             float64 Bytes=((float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset))*8;
                             float64 TimeStamp_InstantaneousBitRate=Bytes/Duration;
                             if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate)
@@ -2155,6 +2214,14 @@ void File_MpegTs::Header_Parse_AdaptationField()
                                     Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_BitRateMode_IsCbr++;
                             }
                             Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate=TimeStamp_InstantaneousBitRate;
+                            #if MEDIAINFO_ADVANCED
+                                if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Min>Duration_27M)
+                                    Complete_Stream->Streams[pid]->TimeStamp_Distance_Min=Duration_27M;
+                                if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Max<Duration_27M)
+                                    Complete_Stream->Streams[pid]->TimeStamp_Distance_Max=Duration_27M;
+                                Complete_Stream->Streams[pid]->TimeStamp_Distance_Total+=Duration_27M;
+                                Complete_Stream->Streams[pid]->TimeStamp_Distance_Count++;
+                            #endif // MEDIAINFO_ADVANCED
                         }
                         Complete_Stream->Streams[pid]->TimeStamp_End=program_clock_reference;
                         Complete_Stream->Streams[pid]->TimeStamp_End_IsUpdated=true;
