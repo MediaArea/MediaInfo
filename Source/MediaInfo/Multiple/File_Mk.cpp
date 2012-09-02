@@ -241,8 +241,15 @@ void File_Mk::Streams_Finish()
                 //Trying to detect VFR
                 std::vector<int64s> FrameRate_Between;
                 std::sort(Temp->second.TimeCodes.begin(), Temp->second.TimeCodes.end()); //This is PTS, no DTS --> Some frames are out of order
+                size_t FramesToAdd=0;
                 for (size_t Pos=1; Pos<Temp->second.TimeCodes.size(); Pos++)
-                    FrameRate_Between.push_back(Temp->second.TimeCodes[Pos]-Temp->second.TimeCodes[Pos-1]);
+                {
+                    int64u Duration=Temp->second.TimeCodes[Pos]-Temp->second.TimeCodes[Pos-1];
+                    if (Duration)
+                        FrameRate_Between.push_back(Duration);
+                    else
+                        FramesToAdd++;
+                }
                 if (FrameRate_Between.size()>1)
                 {
                     int64s FrameRate_Between_Last=FrameRate_Between[FrameRate_Between.size()-1];
@@ -262,8 +269,8 @@ void File_Mk::Streams_Finish()
                     && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
                 {
                     float Time=0;
-                    if (Temp->second.TimeCodes.size()>30)
-                        Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
+                    if (Temp->second.TimeCodes.size()>30+FramesToAdd)
+                        Time=(float)(Temp->second.TimeCodes[30+FramesToAdd]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
                     else if (Temp->second.TrackDefaultDuration)
                         Time=(float)Temp->second.TrackDefaultDuration/TimecodeScale; //TrackDefaultDuration is maybe more precise than the time code
                     else
