@@ -7,6 +7,11 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+
+Version 0.7.60, 2012-
+--------------
+x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
+
 Version 0.7.60, 2012-09-02
 --------------
 + MPEG-TS/PS: improved detection of buggy time stamps

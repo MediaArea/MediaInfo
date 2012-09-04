@@ -264,6 +264,8 @@ void File_Mk::Streams_Finish()
                     if (Pos)
                         FrameRate_Between.resize(Pos+1); //We peek 40 frames, and remove the last ones, because this is PTS, no DTS --> Some frames are out of order
                 }
+                if (FrameRate_Between.size()>=30+1+FramesToAdd)
+                    FrameRate_Between.resize((FrameRate_Between.size()-4>30+1+FramesToAdd)?(FrameRate_Between.size()-4):(30+1+FramesToAdd)); //We peek 40 frames, and remove the last ones, because this is PTS, no DTS --> Some frames are out of order
                 std::sort(FrameRate_Between.begin(), FrameRate_Between.end());
                 if (FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
                     && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
@@ -289,7 +291,7 @@ void File_Mk::Streams_Finish()
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_FromCluster);
                     }
                 }
-                else
+                else if (!FrameRate_Between.empty())
                     IsVfr=true;
             }
             else if (Temp->second.TrackDefaultDuration)
