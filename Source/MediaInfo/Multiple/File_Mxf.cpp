@@ -880,7 +880,6 @@ File_Mxf::File_Mxf()
     #endif //MEDIAINFO_DEMUX
     MustSynchronize=true;
     DataMustAlwaysBeComplete=false;
-    Buffer_MaximumSize=16*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
     Buffer_TotalBytes_Fill_Max=(int64u)-1; //Disabling this feature for this format, this is done in the parser
     FrameInfo.DTS=0;
     Frame_Count_NotParsedIncluded=0;
@@ -2477,10 +2476,6 @@ bool File_Mxf::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Mxf::Synched_Test()
 {
-    //Trailing 0x00
-    while(Buffer_Offset+1<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
-        Buffer_Offset++;
-
     //Must have enough buffer for having header
     if (Buffer_Offset+16>Buffer_Size)
         return false;
@@ -2684,6 +2679,8 @@ void File_Mxf::Header_Parse()
     int64u Length;
     Get_UL(Code,                                                "Code", NULL);
     Get_BER(Length,                                             "Length");
+    if (Element_IsWaitingForMoreData())
+        return;
 
     //Filling
     int32u Code_Compare1=Code.hi>>32;
@@ -4904,6 +4901,9 @@ void File_Mxf::FileDescriptor_EssenceContainer()
 
         Descriptors[InstanceUID].EssenceContainer=EssenceContainer;
         Descriptors[InstanceUID].Infos["Format_Settings_Wrapping"].From_UTF8(Mxf_EssenceContainer_Mapping(Code6, Code7, Code8));
+        
+        if (!DataMustAlwaysBeComplete && Descriptors[InstanceUID].Infos["Format_Settings_Wrapping"].find(__T("Frame"))!=string::npos)
+            DataMustAlwaysBeComplete=true;
     FILLING_END();
 }
 
@@ -8713,6 +8713,7 @@ void File_Mxf::ChooseParser__Aaf_GC_Picture(const essences::iterator &Essence, c
         case 0x05 : //SMPTE 381M, Frame wrapped
                     Essences[Code_Compare4].Parser=ChooseParser_Mpegv(Essence, Descriptor); //Trying...
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Frame");
+                    DataMustAlwaysBeComplete=true;
                     break;
         case 0x06 : //SMPTE 381M, Clip wrapped
                     Essences[Code_Compare4].Parser=ChooseParser_Mpegv(Essence, Descriptor); //Trying...
@@ -8757,6 +8758,7 @@ void File_Mxf::ChooseParser__Aaf_GC_Sound(const essences::iterator &Essence, con
         case 0x08 : //A-law, Frame wrapped
                     Essences[Code_Compare4].Parser=ChooseParser_Alaw(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Frame");
+                    DataMustAlwaysBeComplete=true;
                     break;
         case 0x09 : //A-law, Clip wrapped
                     Essences[Code_Compare4].Parser=ChooseParser_Alaw(Essence, Descriptor);
@@ -8838,6 +8840,7 @@ void File_Mxf::ChooseParser__Avid_Picture(const essences::iterator &Essence, con
         case 0x05 : //VC-1, Frame wrapped
                     Essences[Code_Compare4].Parser=ChooseParser_Vc3(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Frame");
+                    DataMustAlwaysBeComplete=true;
                     break;
         case 0x06 : //VC-1, Clip wrapped
                     Essences[Code_Compare4].Parser=ChooseParser_Vc3(Essence, Descriptor);

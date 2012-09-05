@@ -293,7 +293,6 @@ bool File_Lxf::Synchronize()
         Fill(Stream_General, 0, General_Format, "LXF");
 
         File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
-        Buffer_MaximumSize=16*1024*1024;
     }
 
     #if MEDIAINFO_SEEK

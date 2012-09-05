@@ -1357,10 +1357,6 @@ void File_Mpeg4::jp2c()
 void File_Mpeg4::jp2h()
 {
     Element_Name("JPEG-2000 header");
-
-    FILLING_BEGIN();
-        Buffer_MaximumSize=16*1024*1024; //If we are here, this is really a MPEG-4 file with JPEG-2000 image, and some atoms are very bigs...
-    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3099,10 +3095,6 @@ void File_Mpeg4::moov_trak_mdia_minf_vmhd()
 void File_Mpeg4::moov_trak_mdia_minf_stbl()
 {
     Element_Name("Sample Table");
-
-    FILLING_BEGIN();
-        Buffer_MaximumSize=16*1024*1024; //If we are here, this is really a MPEG-4 file, and some atoms are very bigs...
-    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

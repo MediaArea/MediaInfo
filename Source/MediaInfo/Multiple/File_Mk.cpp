@@ -1031,8 +1031,6 @@ void File_Mk::Ebml_DocType()
             Reject("Matroska");
             return;
         }
-
-        Buffer_MaximumSize=8*1024*1024;
     FILLING_END();
 }
 

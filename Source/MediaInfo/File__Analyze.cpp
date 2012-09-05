@@ -122,7 +122,7 @@ File__Analyze::File__Analyze ()
     Buffer_Offset=0;
     Buffer_Offset_Temp=0;
     Buffer_MinimumSize=0;
-    Buffer_MaximumSize=1024*1024;
+    Buffer_MaximumSize=16*1024*1024;
     Buffer_TotalBytes_FirstSynched=0;
     Buffer_TotalBytes=0;
     if (MediaInfoLib::Config.FormatDetection_MaximumOffset_Get())
@@ -1453,7 +1453,13 @@ void File__Analyze::Header_Fill_Code(int64u Code)
 void File__Analyze::Header_Fill_Size(int64u Size)
 {
     if (Size==0)
-        Trusted_IsNot("Header can't be 0");
+        Trusted_IsNot("Block can't have a size of 0");
+    if (DataMustAlwaysBeComplete && Size>Buffer_MaximumSize)
+    {
+        Element[Element_Level].IsComplete=true;
+        Element[Element_Level-1].IsComplete=true;
+        Trusted_IsNot("Block is too big");
+    }
 
     if (Element[Element_Level].UnTrusted)
         return;

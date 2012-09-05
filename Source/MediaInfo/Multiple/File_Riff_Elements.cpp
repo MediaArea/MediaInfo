@@ -763,14 +763,13 @@ void File_Riff::AVI_()
     }
 
     Data_Accept("AVI");
-    Buffer_MaximumSize*=16;
 
     //Filling
     Fill(Stream_General, 0, General_Format, "AVI");
     Kind=Kind_Avi;
 
-    //Configuring
-    Buffer_MaximumSize=32*1024*1024;
+    //Configuration
+    Buffer_MaximumSize=64*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p)
 }
 
 //---------------------------------------------------------------------------

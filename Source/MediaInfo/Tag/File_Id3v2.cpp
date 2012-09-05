@@ -312,9 +312,6 @@ namespace Elements
 File_Id3v2::File_Id3v2()
 :File__Analyze()
 {
-    //Configuration
-    Buffer_MaximumSize=8*1024*1024;
-
     //Temp
     Id3v2_Size=0;
 }
