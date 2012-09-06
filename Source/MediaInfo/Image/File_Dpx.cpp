@@ -67,6 +67,7 @@ const char* DPX_Descriptors0[]=
     "Green (G)",
     "Blue (B)",
     "Alpha (matte)",
+    "", //No info
     "Luma (Y)",
     "Color Difference (CB, CR, subsampled by two)",
     "Depth (Z)",
