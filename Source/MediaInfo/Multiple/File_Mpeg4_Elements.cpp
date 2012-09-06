@@ -4566,6 +4566,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
 {
     //Source: http://developer.apple.com/quicktime/icefloe/dispatch019.html#fiel
+    //Source: QuickTimeFileFormat2011.pdf:
+    // 1 – T is displayed earliest, T is stored first in the file.
+    // 6 – B is displayed earliest, B is stored first in the file.
+    // 9 – B is displayed earliest, T is stored first in the file.
+    //14 – T is displayed earliest, B is stored first in the file.
     Element_Name("Field/Frame Information");
 
     //Parsing
