@@ -4901,7 +4901,7 @@ void File_Mxf::FileDescriptor_EssenceContainer()
 
         Descriptors[InstanceUID].EssenceContainer=EssenceContainer;
         Descriptors[InstanceUID].Infos["Format_Settings_Wrapping"].From_UTF8(Mxf_EssenceContainer_Mapping(Code6, Code7, Code8));
-        
+
         if (!DataMustAlwaysBeComplete && Descriptors[InstanceUID].Infos["Format_Settings_Wrapping"].find(__T("Frame"))!=string::npos)
             DataMustAlwaysBeComplete=true;
     FILLING_END();

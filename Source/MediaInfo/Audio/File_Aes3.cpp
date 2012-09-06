@@ -609,7 +609,7 @@ bool File_Aes3::Synchronize()
             Reject();
             return false;
         }
-        
+
         if ((ByteSize==0 || ByteSize==4) && ((Buffer_TotalBytes+Buffer_Offset)%4)==0)
         {
             if (Buffer[Buffer_Offset  ]==0xF8

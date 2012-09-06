@@ -64,7 +64,7 @@ MediaInfoList_Internal::MediaInfoList_Internal(size_t Count_Init)
         Info[Pos]=NULL;
     ToParse_AlreadyDone=0;
     ToParse_Total=0;
-	CountValid=0;
+    CountValid=0;
 
     //Threading
     BlockMethod=0;
