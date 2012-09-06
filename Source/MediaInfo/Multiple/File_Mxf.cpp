@@ -1883,7 +1883,7 @@ void File_Mxf::Read_Buffer_Continue()
             {
                 File F;
                 F.Open(File_Name);
-                int8u SearchingPartitionPack[65536];
+                int8u* SearchingPartitionPack=new int8u[65536];
                 size_t SearchingPartitionPack_Size=F.Read(SearchingPartitionPack, 65536);
                 for (size_t Pos=0; Pos+16<SearchingPartitionPack_Size; Pos++)
                     if (SearchingPartitionPack[Pos   ]==0x06
@@ -1928,7 +1928,7 @@ void File_Mxf::Read_Buffer_Continue()
                             default   : ;
                         }
                     }
-
+                delete[] SearchingPartitionPack; //SearchingPartitionPack=NULL
             }
 
             Config->State_Set(((float)Buffer_TotalBytes)/Config->File_Size);
