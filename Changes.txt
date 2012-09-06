@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.60 --> 0.7.61
+-----------------
+- MPEG-TS: Menu stream, KLVA_PID and SCTE35_PID removed and formats are in "Format" field
+
 0.7.58 --> 0.7.59
 -----------------
 - colour_primaries, transfer_characteristics, matrix_coefficients: canonicalization of results

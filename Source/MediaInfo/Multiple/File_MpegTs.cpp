@@ -375,11 +375,19 @@ void File_MpegTs::Streams_Update_Programs()
                 for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
                 {
                     int16u elementary_PID=Program->second.elementary_PIDs[Pos];
-                    if (((PerStream_AlwaysParse && Complete_Stream->Streams[elementary_PID]->StreamKind!=Stream_Max)
-                      || Complete_Stream->Streams[elementary_PID]->IsRegistered)
-                     && Retrieve(Stream_Menu, StreamPos_Last, "KLV_PID").To_int16u()!=elementary_PID)
+                    if (PerStream_AlwaysParse || Complete_Stream->Streams[elementary_PID]->IsRegistered)
                     {
                         Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID]->StreamKind, Complete_Stream->Streams[elementary_PID]->StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID]->StreamKind, Generic_Format));
+                        if (Format.empty())
+                            Format=Mpeg_Psi_stream_type_Format(Complete_Stream->Streams[elementary_PID]->stream_type, Program->second.registration_format_identifier);
+                        if (Format.empty())
+                        {
+                            std::map<std::string, Ztring>::iterator Format_FromInfo=Complete_Stream->Streams[elementary_PID]->Infos.find("Format");
+                            if (Format_FromInfo!=Complete_Stream->Streams[elementary_PID]->Infos.end())
+                                Format=Format_FromInfo->second;
+                        }
+                        if (Format.empty())
+                            Program->second.HasNotDisplayableStreams=true;
                         Formats+=Format+__T(" / ");
                         Codecs+=Retrieve(Complete_Stream->Streams[elementary_PID]->StreamKind, Complete_Stream->Streams[elementary_PID]->StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID]->StreamKind, Generic_Codec))+__T(" / ");
                         if (Complete_Stream->Streams[elementary_PID]->StreamKind!=Stream_Max)
@@ -414,6 +422,7 @@ void File_MpegTs::Streams_Update_Programs()
                 {
                     if (!Transport_Stream->second.Programs.empty()
                      && (Transport_Stream->second.Programs.size()>1
+                      || Transport_Stream->second.Programs.begin()->second.HasNotDisplayableStreams
                       || !Transport_Stream->second.Programs.begin()->second.Infos.empty()
                       || !Transport_Stream->second.Programs.begin()->second.DVB_EPG_Blocks.empty()
                       || (Transport_Stream->second.Programs.begin()->second.source_id_IsValid && Complete_Stream->Sources.find(Transport_Stream->second.Programs.begin()->second.source_id)!=Complete_Stream->Sources.end())
