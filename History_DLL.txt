@@ -15,6 +15,7 @@ Version 0.7.60, 2012-
 + MPEG-TS: Menu part lists PID in the PMT order instead of increasing order
 x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
 x CEA-708: crash with some malformed streams
+x MPEG-TS: crash when PCR is corrupted (same value at different offsets)
 
 Version 0.7.60, 2012-09-02
 --------------
