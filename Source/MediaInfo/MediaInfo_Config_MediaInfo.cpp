@@ -30,6 +30,7 @@
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#include "MediaInfo/MediaInfo_Config.h"
 #include "ZenLib/ZtringListListF.h"
 #if MEDIAINFO_IBI
     #include "base64.h"
