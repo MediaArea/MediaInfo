@@ -2464,9 +2464,6 @@ bool File_Mxf::Synchronize()
         Fill(Stream_General, 0, General_Format, "MXF");
 
         File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
-        #if MEDIAINFO_DEMUX
-            Demux_Interleave=Config->File_Demux_Interleave_Get();
-        #endif //MEDIAINFO_DEMUX
     }
 
     //Synched is OK
