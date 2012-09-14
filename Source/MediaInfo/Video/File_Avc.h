@@ -118,6 +118,12 @@ private :
                 NAL=NULL;
                 VCL=NULL;
                 bitstream_restriction=NULL;
+                aspect_ratio_info_present_flag=false;
+                video_signal_type_present_flag=false;
+                colour_description_present_flag=false;
+                timing_info_present_flag=false;
+                fixed_frame_rate_flag=false;
+                pic_struct_present_flag=false;
             }
 
             ~vui_parameters_struct()
