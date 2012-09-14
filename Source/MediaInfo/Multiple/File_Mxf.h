@@ -788,7 +788,6 @@ protected :
 
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         bool Demux_HeaderParsed;
-        bool Demux_Interleave;
         size_t CountOfLocatorsToParse;
         float64 Demux_Rate;
 

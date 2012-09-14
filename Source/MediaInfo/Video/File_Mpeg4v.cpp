@@ -273,15 +273,20 @@ void File_Mpeg4v::OnlyVOP()
 bool File_Mpeg4v::Synched_Test()
 {
     //Must have enough buffer for having header
-    if (Buffer_Offset+3>Buffer_Size)
+    if (Buffer_Offset+4>Buffer_Size)
         return false;
 
     //Quick test of synchro
-    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+    if (Buffer[Buffer_Offset  ]!=0x00
+     || Buffer[Buffer_Offset+1]!=0x00
+     || Buffer[Buffer_Offset+2]!=0x01)
+    {
         Synched=false;
+        return true;
+    }
 
     //Quick search
-    if (Synched && !Header_Parser_QuickSearch())
+    if (!Header_Parser_QuickSearch())
         return false;
 
     #if MEDIAINFO_IBI
@@ -742,14 +747,7 @@ bool File_Mpeg4v::Header_Parser_QuickSearch()
         Buffer_Offset+=4;
         Synched=false;
         if (!Synchronize())
-        {
-            if (File_Offset+Buffer_Size==File_Size)
-            {
-                Synched=true;
-                return true;
-            }
             return false;
-        }
 
         if (Buffer_Offset+4>Buffer_Size)
             return false;

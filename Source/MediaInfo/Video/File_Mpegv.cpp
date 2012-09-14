@@ -1655,19 +1655,20 @@ bool File_Mpegv::Synched_Test()
     }
 
     //Quick search
-    if (Synched && !Header_Parser_QuickSearch())
+    if (!Header_Parser_QuickSearch())
         return false;
 
     #if MEDIAINFO_IBI
         if (Ibi_SliceParsed)
         {
-            if (Buffer_Offset+4>Buffer_Size)
-                return false;
-            if (Buffer[Buffer_Offset+3]==0x00 && Buffer_Offset+5>Buffer_Size)
-                return false;
-            bool RandomAccess=(Buffer[Buffer_Offset+3]==0x00 && (Buffer[Buffer_Offset+5]&0x38)==0x08) || Buffer[Buffer_Offset+3]==0xB3; //picture_start with I-Frame || sequence_header
-            if (RandomAccess)
-                Ibi_Add();
+            if (Buffer[Buffer_Offset+3]==0x00)
+            {
+                if (Buffer_Offset+6>Buffer_Size)
+                    return false;
+                bool RandomAccess=(Buffer[Buffer_Offset+5]&0x38)==0x08 || Buffer[Buffer_Offset+3]==0xB3; //picture_start with I-Frame || sequence_header
+                if (RandomAccess)
+                    Ibi_Add();
+            }
             Ibi_SliceParsed=false;
         }
     #endif //MEDIAINFO_IBI
@@ -2065,14 +2066,7 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         Buffer_Offset+=4;
         Synched=false;
         if (!Synchronize())
-        {
-            if (File_Offset+Buffer_Size==File_Size)
-            {
-                Synched=true;
-                return true;
-            }
             return false;
-        }
 
         if (Buffer_Offset+4>Buffer_Size)
             return false;

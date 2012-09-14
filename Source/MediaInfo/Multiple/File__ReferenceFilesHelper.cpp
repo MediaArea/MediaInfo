@@ -271,6 +271,8 @@ void File__ReferenceFilesHelper::ParseReferences()
                     DTS_Interval=3000000000; // 3 seconds
                 }
             }
+            else
+                Demux_Interleave=false;
 
             //Using the frame rate from the first stream having a frame rate
             if (!FrameRate)
