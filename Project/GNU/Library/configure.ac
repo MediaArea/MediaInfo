@@ -408,15 +408,24 @@ dnl -------------------------------------------------------------------------
 dnl libcurl
 dnl
 if test -d $with_libcurl; then
-	CXXFLAGS="$CXXFLAGS -I$with_libcurl $(pkg-config --cflags $with_libcurl/libcurl.pc)"
+	if test -f $with_libcurl/libcurl.pc; then
+		libcurlpcfile="$with_libcurl/libcurl.pc"
+	else
+		if test -f "$with_libcurl/lib/pkgconfig/libcurl.pc"; then
+			libcurlpcfile="$with_libcurl/lib/pkgconfig/libcurl.pc"
+		else
+			AC_MSG_ERROR([Problem while configuring builtin curl (libcurl.pc not found)])
+		fi
+	fi
+	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags $libcurlpcfile)"
 	if test "$enable_staticlibs" = "yes"; then
 		using_libcurl="custom (static)"
-		LIBS="$LIBS -static $with_libcurl/lib -L$(pkg-config --libs --static $with_libcurl/libcurl.pc)"
-		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L$with_libcurl/lib $(pkg-config --libs --static $with_libcurl/libcurl.pc)"
+		LIBS="$LIBS $(pkg-config --libs --static $libcurlpcfile)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --libs --static $libcurlpcfile)"
 	else
 		using_libcurl="custom"
-		LIBS="$LIBS $with_libcurl/lib -L$(pkg-config --libs $with_libcurl/libcurl.pc)"
-		MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L$with_libcurl/lib $(pkg-config --libs $with_libcurl/libcurl.pc)"
+		LIBS="$LIBS $with_libcurl/lib $(pkg-config --libs $libcurlpcfile)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs $libcurlpcfile)"
 	fi
 elif test "$with_libcurl" = "no"; then
 	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBCURL_NO"
