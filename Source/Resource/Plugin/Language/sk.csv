@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -783,7 +783,7 @@ OK;OK
 One output file per input file;One output file per input file
 Open;Otvoriť
 OpenCandy_01;Sťahovanie
-OpenCandy_02;Dokončené:    % 
+OpenCandy_02;Dokončené:    %
 OpenCandy_03;Internetové spojenie prerušené!
 OpenCandy_04;Sťahovanie ukončené.
 OpenCandy_05;Kliknutím nainštalujte.
@@ -884,7 +884,7 @@ Set_Count;Set count
 Setup;Hlavné
 Sharpness;
 Sheet;List
-Sheet (Complete);List (kompletný)  
+Sheet (Complete);List (kompletný) 
 Shell extension;Integrovať do kontextového menu Prieskumníka (pravé tlačíidlo myši)
 Shell extension, folder;
 Shell InfoTip;Integrovať do kontextového menu (pri nadídení myši na súbor)
@@ -960,14 +960,14 @@ View_Hint;Zobraziť
 Warning : more streams in the files;Pozor: v súboroch je viacero streamov !
 Web;Web
 WebSite_Audio;Navštív webstránku tohoto audiokodeku
-WebSite_Audio_More;Vyhľadaj tento audiokodek na webstránke (%Url%) 
+WebSite_Audio_More;Vyhľadaj tento audiokodek na webstránke (%Url%)
 WebSite_General;Go to the web site of a player for this file
 WebSite_General_More;Go to the web site of a player for this file
 WebSite_Text;Go to the web site of this text codec
 WebSite_Text_More;Go to the web site (%Url%) to find this text codec
 WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ísť na stránku s týmto video-kodekom
-WebSite_Video_More;Vyhľadaj tento videokodek na webstránke (%Url%) 
+WebSite_Video_More;Vyhľadaj tento videokodek na webstránke (%Url%)
 Width;Šírka
 Width_Original;
 WriteMe;Napíš autorovi

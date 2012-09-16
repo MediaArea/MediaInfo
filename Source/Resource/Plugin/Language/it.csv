@@ -156,7 +156,7 @@ Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Allineamento
-Alignment_Aligned;Audio allineato 
+Alignment_Aligned;Audio allineato
 Alignment_Split;Audio splittato
 All;Tutti
 Archival_Location;Posizione dell'archivio
@@ -243,7 +243,7 @@ Compression_Mode;Modo compressione
 Compression_Mode_Lossless;Senza perdita
 Compression_Mode_Lossy;Con perdita
 Compression_Ratio; Rapporto compressione
-Conductor;Direttore d'orchestra 
+Conductor;Direttore d'orchestra
 Container and general information;Tipo di file e informazioni generali
 ContentType;Contenuto
 CoProducer;Coproduttore
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -747,7 +747,7 @@ Lightness;Luminosità
 List;Elenco
 Lyrics;Testo
 Lyricist;Autore del testo
-Mastered_Date;Data di incisione 
+Mastered_Date;Data di incisione
 MasteredBy;Inciso da
 matrix_coefficients;Coefficienti matrici
 MediaInfo_About;Ottieni informazioni dettagliate\r\nsu file multimediali:\r\nMatroska, OGG e OGM\r\nMPEG1 (VCD)\r\nMPEG2 (DVD e SVCD)\r\nMPEG4 e Itunes M4A\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV e WMA)\r\nMicrosoft RIFF (AVI e WAV)\r\nFile audio (AC3,DTS,AAC,AU,AIFF...)

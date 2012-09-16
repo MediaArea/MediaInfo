@@ -500,7 +500,7 @@ Genre_137;heavy metal
 Genre_138;black metal
 Genre_139;crossover
 Genre_140;modern keresztény
-Genre_141;keresztény rock 
+Genre_141;keresztény rock
 Genre_142;merengue
 Genre_143;salsa
 Genre_144;trash metal
@@ -877,7 +877,7 @@ Separator_Columns;Oszlop elválasztó
 Separator_Lines;Sor elválasztó
 ServiceChannel;Szolgáltatás csatornája
 ServiceName;Szolgáltatás neve
-ServiceProvider;Szolgáltató 
+ServiceProvider;Szolgáltató
 ServiceType;Szolgáltatás típusa
 Set;Sorszám
 Set_Count;Összesen

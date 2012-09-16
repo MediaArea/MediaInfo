@@ -24,7 +24,7 @@
  channel3; канал(-и,-ів)
  chapter1; розділ
  chapter2; розділ(-и,-ів)
- chapter3; розділ(-и,-ів) 
+ chapter3; розділ(-и,-ів)
  chapters stream1; потік розділів
  chapters stream2; потік(-оки,-оків) розділів
  chapters stream3; потік(-оки,-оків) розділів
@@ -33,7 +33,7 @@
  day3; дн.
  dB1; дБ
  dB2; дБ
- dB3; дБ 
+ dB3; дБ
  file1; файл
  file2; файла
  file3; файли
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal

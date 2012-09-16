@@ -213,7 +213,7 @@ Close all before open;ปิดทั้งหมดก่อนเปิด
 Codec;Codec
 Codec_Description;รายละเอียด Codec
 Codec_Info;รายละเอียดของ codec
-Codec_Settings;ตั้งค่า Codec 
+Codec_Settings;ตั้งค่า Codec
 Codec_Settings_PacketBitStream;ตั้งค่า Codec, Packet bitstream
 Codec_Settings_BVOP;ตั้งค่า Codec, BVOP
 Codec_Settings_QPel;ตั้งค่า Codec, QPel
@@ -941,7 +941,7 @@ Total;ทั้งหมด
 Track;ชื่อแทร็ค
 Track_Count;Track count
 transfer_characteristics;
-Translator;แปลไทยโดย 
+Translator;แปลไทยโดย
 Tree;Tree
 Tree & Text;Tree & Text
 UniqueID;

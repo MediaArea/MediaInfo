@@ -25,7 +25,7 @@
  chapter1; فصل
  chapter2; فصل ها
  chapter3; فصل ها
- chapters stream1;استریم  فصل 
+ chapters stream1;استریم  فصل
  chapters stream2;استریم  فصل  ها
  chapters stream3;استریم  فصل  ها
  day1;روز
@@ -163,7 +163,7 @@ Archival_Location;مسیر بایگانی
 Arranger;مرتب کننده
 ArtDirector;کارگردان هنری
 AspectRatio;نسبت تصوير
-AssistantDirector;دستیار کارگردان 
+AssistantDirector;دستیار کارگردان
 at;در
 At least one file;(حداقل یک فایل را باز کنید)
 Audio;صوت
@@ -178,13 +178,13 @@ BarCode;بارکد
 Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
 BitDepth;
-BitRate;نرخ بيت 
-BitRate_Maximum;بیشترین نرخ بيت 
-BitRate_Minimum;کمترین نرخ بيت 
-BitRate_Mode;حالت نرخ بيت 
+BitRate;نرخ بيت
+BitRate_Maximum;بیشترین نرخ بيت
+BitRate_Minimum;کمترین نرخ بيت
+BitRate_Mode;حالت نرخ بيت
 BitRate_Mode_CBR;پايدار
 BitRate_Mode_VBR;متغییر
-BitRate_Nominal;نرخ بيت غیرواقعی  
+BitRate_Nominal;نرخ بيت غیرواقعی 
 BitRate_Encoded;
 Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
 BufferSize;
@@ -234,16 +234,16 @@ Collection;جمع اورى
 Colorimetry;سنجش رنگ
 ColorSpace;
 colour_primaries;
-Comment;توضيح 
+Comment;توضيح
 CommissionedBy;مجاز توسط
 Compilation;
 CompleteName;نام کامل
-Composer;سراينده 
+Composer;سراينده
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
-Conductor;رهبر اکسترر 
+Conductor;رهبر اکسترر
 Container and general information;محتوی و اطلاعات کلی
 ContentType;نوع محتوا
 CoProducer;تهیه کننده
@@ -256,7 +256,7 @@ Cover_Datas;داده روکش ها
 Cover_Description;شرح روکش
 Cover_Mime;روکش MIME
 Cover_Type;نوع روکش
-Cropped;بریدن اندازه 
+Cropped;بریدن اندازه
 Custom;دیگر
 Customize;شخصی سازی
 Date;تاریخ
@@ -269,12 +269,12 @@ Delay_Source_Stream;
 Delete;حذف
 Description;شرح
 Digitized_Date;تاریخ رقمى
-Dimensions;اندازه گرفتن 
+Dimensions;اندازه گرفتن
 Director;کارگردان
 DirectorOfPhotography;کارگردان عکسبرداری
 DisplayAspectRatio;نمایش نسبت تصوير
 DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
-DistributedBy;توزيع شده توسط 
+DistributedBy;توزيع شده توسط
 Donate;کمک مالی
 DotsPerInch;نقطه بر اینچ
 Duration;مدت
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -530,7 +530,7 @@ Instruments;ساز
 Interlacement;بهم پيچيدگى
 Interlaced_Interlaced;درهم بافته
 Interlaced_TFF;فیلد بالا در اول
-Interlaced_BFF;فیلد پایین در اول 
+Interlaced_BFF;فیلد پایین در اول
 Interlaced_PPF;تصاعدى
 Interlaced_Progressive;تصاعدى
 Interleaved;
@@ -759,7 +759,7 @@ MenuCount;تعداد استریم منو
 Menu_Hint;احتمالات بیشتر
 MenuID;هویت منو
 mn;mn
-Mood;حالت 
+Mood;حالت
 More;بیشتر
 Movie;نام فیلم
 ms;ms
@@ -769,7 +769,7 @@ MuxingMode;حالت تسهيم کننده
 MuxingMode_MoreInfo;حالت تسهيم کننده, اطلاعات بیشتر
 MuxingMode_PackedBitstream;Packed bitstream
 Name;نام
-Nationality;مليت 
+Nationality;مليت
 NetworkName;نام شبکه
 New;جدید
 Newest version;کنترل برای نسخه جدید نیاز به اینترنت

@@ -230,7 +230,7 @@ Codec_Profile;Profile du codec
 Codec_Url;Lien Internet sur le codec
 CodecID;Identifiant du codec
 CodecID_Description;Description du codec
-Collection;Collection 
+Collection;Collection
 Colorimetry;Colorimétrie
 ColorSpace;Espace de couleurs
 colour_primaries;Coordonnées de chromaticité
@@ -267,7 +267,7 @@ Delay_Source;Délai, origine
 Delay_Source_Container;Conteneur
 Delay_Source_Stream;Flux brut
 Delete;Supprimer
-Description;Description 
+Description;Description
 Digitized_Date;Date de numérisation
 Dimensions;Dimensions
 Director;Réalisateur
@@ -298,7 +298,7 @@ Export;Exporte
 Export_Hint;Exporte dans un format personnalisé
 Extensions;Extensions généralement utilisées
 Family;Famille
-Fax;Fax 
+Fax;Fax
 File;Fichier
 File size;Taille du fichier
 File_Append;Ajouter à un fichier déjà existant (Faites attention à ce que les paramètres soient identiques)
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -629,12 +629,12 @@ Language_ja;Japonais
 Language_jv;Javanais
 Language_ka;Géorgien
 Language_kg;Kongo
-Language_ki;Kikuyu 
+Language_ki;Kikuyu
 Language_kj;Kuanyama
 Language_kk;Kazakh
 Language_kl;Groenlandais
 Language_km;Khmer
-Language_kn;Kannada 
+Language_kn;Kannada
 Language_ko;Coréen
 Language_kr;Kanouri
 Language_ks;Kashmiri
@@ -688,7 +688,7 @@ Language_pt-br;Portugais (Brésil)
 Language_qu;Quechua
 Language_rm;Rhéto-roman
 Language_rn;Rundi
-Language_ro;Roumain 
+Language_ro;Roumain
 Language_ru;Russe
 Language_rw;Rwanda
 Language_sa;Sanskrit
@@ -749,7 +749,7 @@ Lyrics;Paroles
 Lyricist;Parolier
 Mastered_Date;Date de création
 MasteredBy;Créé par
-matrix_coefficients;Coefficients de la matrice 
+matrix_coefficients;Coefficients de la matrice
 MediaInfo_About;MediaInfo fournit des informations techniques et les tags à propos de vos fichiers video et audio.\r\nExcepté l'interface graphique du Mac App Store, c'est un logiciel libre, ce qui signifie qu'il est gratuit pour l'utilisateur final et que les développeurs on la liberté de l'étudier, l'améliorer et le redistribuer (licence LGPL)
 Menu;Menu
 Menu stream(s);Piste(s) menu

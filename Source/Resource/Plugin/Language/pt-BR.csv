@@ -405,8 +405,8 @@ Genre_042;Soul
 Genre_043;Punk
 Genre_044;Space
 Genre_045;Meditative
-Genre_046;Pop Instrumental 
-Genre_047;Rock Instrumental 
+Genre_046;Pop Instrumental
+Genre_047;Rock Instrumental
 Genre_048;Ethnic
 Genre_049;Gothic
 Genre_050;Darkwave
@@ -452,8 +452,8 @@ Genre_089;Bluegrass
 Genre_090;Avantgarde
 Genre_091;Gothic Rock
 Genre_092;Rock Progressivo
-Genre_093;Rock Psicodélico 
-Genre_094;Rock Sinfônico 
+Genre_093;Rock Psicodélico
+Genre_094;Rock Sinfônico
 Genre_095;Slow Rock
 Genre_096;Big Band
 Genre_097;Chorus
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -543,8 +543,8 @@ ISBN;ISBN
 ISRC;ISRC
 Keywords;Palavras chave
 Known codecs;Codecs conhecidos
-Known formats;Formatos 
-Known parameters;Parâmetros 
+Known formats;Formatos
+Known parameters;Parâmetros
 Label;Rótulo
 Language;Idioma
 Language_More;Idioma, mais informações
@@ -554,12 +554,12 @@ Language_ae;Avestan
 Language_af;Africano
 Language_ak;Akan
 Language_am;Amárico
-Language_an;Aragonês 
+Language_an;Aragonês
 Language_ar;Árabe
 Language_as;Assamese
 Language_av;Avar
 Language_ay;Aymara
-Language_az;Azeri 
+Language_az;Azeri
 Language_ba;Bashkir
 Language_be;Bielorusso
 Language_bg;Búlgaro
@@ -577,8 +577,8 @@ Language_co;Corso
 Language_cr;Cree
 Language_cs;Tcheco
 Language_cu;Slave
-Language_cv;Tchuvache 
-Language_cy;Galês 
+Language_cv;Tchuvache
+Language_cy;Galês
 Language_da;Danish
 Language_de;Alemão
 Language_dv;Divehi
@@ -599,7 +599,7 @@ Language_fj;Fijian
 Language_fo;Faroese
 Language_fr;Francês
 Language_fy;Frísia
-Language_ga;Iirlandês 
+Language_ga;Iirlandês
 Language_gd;Gaélico
 Language_gl;Galician
 Language_gn;Guarani
@@ -631,26 +631,26 @@ Language_ka;Georgian
 Language_kg;Kongo
 Language_ki;Kikuyu
 Language_kj;Kuanyama
-Language_kk;Cazaque 
+Language_kk;Cazaque
 Language_kl;Kalaallisut
 Language_km;Khmer
 Language_kn;Kannada
 Language_ko;Coreano
 Language_kr;Kanuri
 Language_ks;Kashmiri
-Language_ku;Curdo 
+Language_ku;Curdo
 Language_kv;Komi
 Language_kw;Cornish
 Language_ky;Quirguistanês
 Language_la;Latim
-Language_lb;Lluxemburguês 
+Language_lb;Lluxemburguês
 Language_lg;Ganda
-Language_li;Limburguês 
+Language_li;Limburguês
 Language_ln;Lingala
 Language_lo;Lao
 Language_lt;Lituâno
 Language_lu;Luba-Katanga
-Language_lv;Letão 
+Language_lv;Letão
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
@@ -664,7 +664,7 @@ Language_mt;Maltese
 Language_mul;Múltiplos Idiomas
 Language_my;Birmanês
 Language_na;Nauru
-Language_nb;Norueguês 
+Language_nb;Norueguês
 Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
@@ -678,11 +678,11 @@ Language_oc;Occitano
 Language_oj;Ojibwa
 Language_om;Oromo
 Language_or;Oriya
-Language_os;Osseto 
+Language_os;Osseto
 Language_pa;Panjabi
 Language_pi;Pali
 Language_pl;Polonês
-Language_ps;Pachto 
+Language_ps;Pachto
 Language_pt;Português
 Language_pt-br;Português (Brazil)
 Language_qu;Quechua
@@ -708,10 +708,10 @@ Language_ss;Swati
 Language_st;Sotho
 Language_su;Sundanês
 Language_sv;Suéco
-Language_sw;Suaíli 
+Language_sw;Suaíli
 Language_ta;Tamil
 Language_te;Telugu
-Language_tg;Tadjique 
+Language_tg;Tadjique
 Language_th;Thai
 Language_ti;Tigrinya
 Language_tk;Turkmen
@@ -726,7 +726,7 @@ Language_ty;Taitiano
 Language_ug;Uigure
 Language_uk;Ucrâniano
 Language_ur;Urdu
-Language_uz;Uzbeque 
+Language_uz;Uzbeque
 Language_ve;Venda
 Language_vi;Vietnamita
 Language_vo;Volapuk
@@ -850,7 +850,7 @@ Preferences;Preferências
 Producer;Produtor
 ProductionDesigner;Designer de Produção
 ProductionStudio;Estúdio de Produção
-Publisher;Publicador 
+Publisher;Publicador
 Purchased_Date;Data de aquisição
 Quote character;Caracter Aspas
 RadioStation;Estação de Rádio
@@ -929,14 +929,14 @@ Text streams;Faixas de texto
 Text_Codec_List;Codecs de texto
 Text_No;Sem texto
 Text1;Primeira faixa de texto
-Text2;Segunda 
-Text3;Teceira 
+Text2;Segunda
+Text3;Teceira
 TextCount;Número de faixas de texto
 ThanksTo;Abrigado à
 Thousands separator;Separador de milhar
 Title;Título
 Title_More;Título, mais info.
-TimeZone;Hora local 
+TimeZone;Hora local
 Total;Total
 Track;Nome da faixa
 Track_Count;Número da faixa

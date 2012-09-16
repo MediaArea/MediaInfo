@@ -165,7 +165,7 @@ ArtDirector;Director artístic
 AspectRatio;Ràtio
 AssistantDirector;Assistent del Director
 at;a
-At least one file;(heu de tenir com a mínim un arxiu obert) 
+At least one file;(heu de tenir com a mínim un arxiu obert)
 Audio;Àudio
 Audio stream(s);pistes d'àudio
 Audio_Codec_List;Codecs d'àudio
@@ -176,7 +176,7 @@ AudioCount;Total de pistes d'àudio
 Author;Autor
 BarCode;Codi de barres
 Basic;Bàsic
-Basic_Note;Nota : per a més informació quant aquest arxiu, heu de triar una vista diferent (fulla, arbre...) 
+Basic_Note;Nota : per a més informació quant aquest arxiu, heu de triar una vista diferent (fulla, arbre...)
 BitDepth;
 BitRate;Bit ràtio
 BitRate_Maximum;
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal

@@ -251,8 +251,8 @@ Copyright;حقوق
 CostumeDesigner;مصمم ازياء
 Count;عدد
 Country;دولة
-Cover;غلاف 
-Cover_Datas;معلومات عن الغلاف 
+Cover;غلاف
+Cover_Datas;معلومات عن الغلاف
 Cover_Description;وصف الغلاف
 Cover_Mime;غلاف MIME
 Cover_Type;الغلاف الأصلي
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -555,7 +555,7 @@ Language_af;Afrikaans
 Language_ak;Akan
 Language_am;አማርኛ amarəñña
 Language_an;Aragonese
-Language_ar;العربية 
+Language_ar;العربية
 Language_as;অসমীয়া
 Language_av;Авар мацӀ
 Language_ay;Aymara
@@ -603,7 +603,7 @@ Language_ga;Gaeilge
 Language_gd;Gaelic
 Language_gl;Galego
 Language_gn;Guarani
-Language_gu;ગુજરાતી 
+Language_gu;ગુજરાતી
 Language_gv;yn Ghaelg
 Language_ha;هَوْسَ
 Language_he;עִבְרִית
@@ -637,7 +637,7 @@ Language_km;ភាសាខ្មែរ
 Language_kn;Kannada
 Language_ko;한국어
 Language_kr;Kanuri
-Language_ks;كأشُر 
+Language_ks;كأشُر
 Language_ku;كوردی
 Language_kv;Коми
 Language_kw;Kernewek
@@ -661,7 +661,7 @@ Language_mo;Moldavian
 Language_mr;मराठी
 Language_ms;بهاس ملايو
 Language_mt;Malti
-Language_mul;لغات متعددة 
+Language_mul;لغات متعددة
 Language_my;Burmese
 Language_na;Ekaiairũ Naoero
 Language_nb;norsk
@@ -723,7 +723,7 @@ Language_ts;Tsonga
 Language_tt;татарча
 Language_tw;Twi
 Language_ty;Reo Tahiti
-Language_ug;ئۇيغۇرچە‎ 
+Language_ug;ئۇيغۇرچە‎
 Language_uk;українська
 Language_ur;اردو
 Language_uz;O‘zbek
@@ -765,7 +765,7 @@ Movie;اسم الفيلم
 ms;ms
 MSDI;MSDI
 MusicBy;الموسيقى من قبل
-MuxingMode;نوع الـmuxing 
+MuxingMode;نوع الـmuxing
 MuxingMode_MoreInfo;نوع الـmuxing ،مزيد من المعلومات
 MuxingMode_PackedBitstream;Packed bitstream
 Name;اسم
@@ -875,7 +875,7 @@ see below;انظر أدناه
 Send HeaderFile;الرجاء ارسال ملف Header الى :   http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;فاصل أعمدة
 Separator_Lines;فاصل الأسطر
-ServiceChannel;قناة الخدمة 
+ServiceChannel;قناة الخدمة
 ServiceName;اسم الخدمة
 ServiceProvider;مزود الخدمة
 ServiceType;نوع الخدمة

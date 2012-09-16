@@ -271,7 +271,7 @@ Description;Beschreibung
 Digitized_Date;Digitalisierungs-Datum
 Dimensions;Dimensionen
 Director;Regisseur
-DirectorOfPhotography;Chefkameramann 
+DirectorOfPhotography;Chefkameramann
 DisplayAspectRatio;Bildseitenverhältnis
 DisplayAspectRatio_Original;Ursprüngliches Bildseitenverhältnis
 DistributedBy;Vertrieb durch
@@ -892,7 +892,7 @@ Show menu;Menü anzeigen
 Show toolbar;Toolbar anzeigen
 Sort;Sortiert nach
 SamplingCount;
-SoundEngineer;Tontechniker 
+SoundEngineer;Tontechniker
 Source;
 Source_Duration;
 Source_FrameCount;
@@ -918,7 +918,7 @@ Supported?;Unterstützt?
 Synopsis;Fazit
 SystemId;ID
 Tagged_Application;Tagging-Anwendung
-Tagged_Date;Tagging-Datum 
+Tagged_Date;Tagging-Datum
 Technician;Techniker
 TermsOfUse;Verwendungsrichtlinien
 Text;Text
