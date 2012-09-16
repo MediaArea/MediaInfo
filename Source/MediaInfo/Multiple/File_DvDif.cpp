@@ -326,6 +326,7 @@ void File_DvDif::Streams_Fill()
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
     Fill(Stream_Video, 0, Video_BitDepth, 8);
     bool IsHd=false;
+    float FrameRate_Multiplicator=1;
     switch (video_source_stype)
     {
         case 0x00 :
@@ -342,11 +343,12 @@ void File_DvDif::Streams_Fill()
         case 0x18 :
                     Fill(Stream_Video, 0, Video_Width, 960);
                     Fill(Stream_Video, 0, Video_Height, 720);
+                    FrameRate_Multiplicator=2;
                     IsHd=true;
                     break;
         default   : ;
     }
-    Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
+    Fill(Stream_Video, 0, Video_FrameRate, (system?25.000:29.970)*FrameRate_Multiplicator);
     Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
     if (video_sourcecontrol_IsParsed)
     {
@@ -357,6 +359,10 @@ void File_DvDif::Streams_Fill()
                 case 0x14 :
                 case 0x15 :
                             Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+                            if (FieldOrder_FF)
+                                Fill(Stream_Video, 0, Video_ScanOrder, FieldOrder_FS?"TFF":"BFF");
+                            else
+                                Fill(Stream_Video, 0, Video_ScanOrder, FieldOrder_FS?"Top field only":"Bottom field only");
                             Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
                             break;
                 case 0x18 :

@@ -1561,8 +1561,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
     if (StreamKind_Last!=Stream_Max && StreamPos_Last!=(size_t)-1)
     {
         //Handling buggy files
-        std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("ScanType");
-        if (Info!=Descriptor->second.Infos.end() && Info->second==__T("Interlaced") && Descriptor->second.Height==1152 && Descriptor->second.Height_Display==1152 && Descriptor->second.Width==720) //Height value is height of the frame instead of the field
+        if (Descriptor->second.ScanType==__T("Interlaced") && Descriptor->second.Height==1152 && Descriptor->second.Height_Display==1152 && Descriptor->second.Width==720) //Height value is height of the frame instead of the field
             Descriptor->second.Height_Display/=2;
 
         //ID
@@ -1710,6 +1709,35 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
             }
             if (Retrieve(Stream_Video, 0, Video_ActiveFormatDescription_String).empty())
                 Fill(Stream_Video, 0, Video_ActiveFormatDescription_String, Descriptor->second.ActiveFormat);
+        }
+
+        //ScanType / ScanOrder
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType_Original).empty())
+        {
+            //ScanType
+            if (!Descriptor->second.ScanType.empty() && (Descriptor->second.ScanType!=Retrieve(Stream_Video, StreamPos_Last, Video_ScanType) && !(Descriptor->second.ScanType==__T("Interlaced") && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==__T("MBAFF"))))
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_ScanType_Original, Retrieve(Stream_Video, StreamPos_Last, Video_ScanType));
+                Fill(Stream_Video, StreamPos_Last, Video_ScanType, Descriptor->second.ScanType, true);
+            }
+
+            //ScanOrder
+            Ztring ScanOrder_Temp;
+            if ((Descriptor->second.FieldDominance==1 && Descriptor->second.FieldTopness==1) || (Descriptor->second.FieldDominance!=1 && Descriptor->second.FieldTopness==2))
+                ScanOrder_Temp.From_UTF8("TFF");
+            if ((Descriptor->second.FieldDominance==1 && Descriptor->second.FieldTopness==2) || (Descriptor->second.FieldDominance!=1 && Descriptor->second.FieldTopness==1))
+                    ScanOrder_Temp.From_UTF8("BFF");
+            if ((!ScanOrder_Temp.empty() && ScanOrder_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_ScanOrder)) || !Retrieve(Stream_Video, StreamPos_Last, Video_ScanType_Original).empty())
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_ScanOrder_Original, Retrieve(Stream_Video, StreamPos_Last, Video_ScanOrder), true);
+                if (ScanOrder_Temp.empty())
+                {
+                    Clear(Stream_Video, StreamPos_Last, Video_ScanOrder);
+                    Clear(Stream_Video, StreamPos_Last, Video_ScanOrder_String);
+                }
+                else
+                    Fill(Stream_Video, StreamPos_Last, Video_ScanOrder, ScanOrder_Temp, true);
+            }
         }
     }
 
@@ -5101,8 +5129,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredHeight()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
-        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==__T("Interlaced"))
+        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
             Data*=2; //This is per field
         if (Descriptors[InstanceUID].Height==(int32u)-1)
             Descriptors[InstanceUID].Height=Data;
@@ -5132,8 +5159,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledHeight()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
-        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==__T("Interlaced"))
+        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height=Data;
     FILLING_END();
@@ -5177,8 +5203,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayHeight()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
-        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==__T("Interlaced"))
+        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height_Display=Data;
     FILLING_END();
@@ -5219,8 +5244,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayYOffset()
     Get_B4 (Data,                                               "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        std::map<std::string, Ztring>::iterator Info=Descriptors[InstanceUID].Infos.find("ScanType");
-        if (Info!=Descriptors[InstanceUID].Infos.end() && Info->second==__T("Interlaced"))
+        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
             Data*=2; //This is per field
         Descriptors[InstanceUID].Height_Display_Offset=Data;
     FILLING_END();
@@ -5235,13 +5259,13 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
     Get_B1 (Data,                                               "Data"); Element_Info1(Data); Param_Info1(Mxf_FrameLayout(Data)); Element_Info1(Mxf_FrameLayout(Data));
 
     FILLING_BEGIN();
-        if (Data && Descriptors[InstanceUID].Infos.find("ScanType")==Descriptors[InstanceUID].Infos.end())
+        if (Descriptors[InstanceUID].ScanType.empty())
         {
             if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=Mxf_FrameLayout_Multiplier(Data);
             if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=Mxf_FrameLayout_Multiplier(Data);
             if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=Mxf_FrameLayout_Multiplier(Data);
         }
-        Descriptors[InstanceUID].Infos["ScanType"]=Mxf_FrameLayout_ScanType(Data);
+        Descriptors[InstanceUID].ScanType.From_UTF8(Mxf_FrameLayout_ScanType(Data));
     FILLING_END();
 }
 
@@ -5249,14 +5273,29 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
 // 0x320D
 void File_Mxf::GenericPictureEssenceDescriptor_VideoLineMap()
 {
+    int64u VideoLineMapEntries_Total=0;
+    
     //Parsing
     int32u Count, Length;
     Get_B4 (Count,                                              "Count");
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Skip_B4(                                                "VideoLineMapEntry");
+        int32u VideoLineMapEntry;
+        Get_B4 (VideoLineMapEntry,                              "VideoLineMapEntry");
+
+        VideoLineMapEntries_Total+=VideoLineMapEntry;
     }
+
+    FILLING_BEGIN();
+        // Cryptic formula:
+        //    odd odd field 2 upper
+        //    odd even field 1 upper
+        //    even odd field 1 upper
+        //    even even field 2 upper
+        if (Count==2)
+            Descriptors[InstanceUID].FieldTopness=(VideoLineMapEntries_Total%2)?1:2;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -5305,7 +5344,13 @@ void File_Mxf::GenericPictureEssenceDescriptor_ImageAlignmentOffset()
 void File_Mxf::GenericPictureEssenceDescriptor_FieldDominance()
 {
     //Parsing
-    Info_B1(Data,                                               "Data"); Element_Info1(Data);
+    int8u Data;
+    Get_B1 (Data,                                               "Data"); Element_Info1(Data);
+
+    FILLING_BEGIN();
+        Descriptors[InstanceUID].FieldDominance=Data;
+    FILLING_END();
+    //Parsing
 }
 
 //---------------------------------------------------------------------------
@@ -5980,13 +6025,13 @@ void File_Mxf::MPEG2VideoDescriptor_CodedContentType()
     Get_B1 (Data,                                               "Data"); Element_Info1(Mxf_MPEG2_CodedContentType(Data));
 
     FILLING_BEGIN();
-        if (Data==2 && Descriptors[InstanceUID].Infos.find("ScanType")==Descriptors[InstanceUID].Infos.end())
+        if (Data==2 && Descriptors[InstanceUID].ScanType.empty())
         {
             if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=2;
             if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
             if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
         }
-        Descriptors[InstanceUID].Infos["ScanType"]=Mxf_MPEG2_CodedContentType(Data);
+        Descriptors[InstanceUID].ScanType.From_UTF8(Mxf_MPEG2_CodedContentType(Data));
     FILLING_END();
 }
 
@@ -9198,10 +9243,7 @@ File__Analyze* File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence
         File_Jpeg* Parser=new File_Jpeg;
         Parser->StreamKind=Stream_Video;
         if (Descriptor!=Descriptors.end())
-        {
-            std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("ScanType");
-            Parser->Interlaced=Info!=Descriptor->second.Infos.end() && Info->second==__T("Interlaced");
-        }
+            Parser->Interlaced=Descriptor->second.ScanType==__T("Interlaced");
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
