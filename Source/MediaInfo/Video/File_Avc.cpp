@@ -649,6 +649,7 @@ bool File_Avc::FileHeader_Begin()
 bool File_Avc::Synchronize()
 {
     //Synchronizing
+    size_t Buffer_Offset_Min=Buffer_Offset;
     while(Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
                                         || Buffer[Buffer_Offset+1]!=0x00
                                         || Buffer[Buffer_Offset+2]!=0x01))
@@ -659,7 +660,7 @@ bool File_Avc::Synchronize()
         if (Buffer_Offset>=Buffer_Size || Buffer[Buffer_Offset-1]==0x00)
             Buffer_Offset--;
     }
-    if (Buffer_Offset && Buffer[Buffer_Offset-1]==0x00)
+    if (Buffer_Offset>Buffer_Offset_Min && Buffer[Buffer_Offset-1]==0x00)
         Buffer_Offset--;
 
     //Parsing last bytes if needed
