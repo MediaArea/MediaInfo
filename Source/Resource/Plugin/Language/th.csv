@@ -866,7 +866,9 @@ s;s
 SamplingRate;
 Save;บันทึก
 ScanType;
+ScanType_Original;
 ScanOrder;
+ScanOrder_Original;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;ดูด้านล่าง
@@ -976,4 +978,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;88
+ZZ_AutomaticLanguage_Percent;87

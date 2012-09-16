@@ -866,7 +866,9 @@ s;s
 SamplingRate;Örnekleme oranı
 Save;Kaydet
 ScanType;Tarama türü
+ScanType_Original;
 ScanOrder;Tarama sırası
+ScanOrder_Original;
 ScreenplayBy;Senaryo
 Season;Sezon
 see below;aşağı bakın

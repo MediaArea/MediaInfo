@@ -866,7 +866,9 @@ s;s
 SamplingRate;Raporti i shëmbëllimit
 Save;Ruaj
 ScanType;Lloji i skanimit
+ScanType_Original;
 ScanOrder;Rendi i skanimit
+ScanOrder_Original;
 ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
 see below;shih poshtë

@@ -866,7 +866,9 @@ s; վայր.
 SamplingRate;Հաճախականությունը
 Save;Պահպանել
 ScanType;Ստուգման տեսակը
+ScanType_Original;
 ScanOrder;Ստուգման հերթը
+ScanOrder_Original;
 ScreenplayBy;Սցենարը՝
 Season;Խաղաշրջանը
 see below;նայեք ներքև

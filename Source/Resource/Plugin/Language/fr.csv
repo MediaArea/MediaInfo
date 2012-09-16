@@ -865,8 +865,10 @@ Resolution;Résolution
 s;s
 SamplingRate;Echantillonnage
 Save;Sauvegarder
-ScanType;Type d'image
-ScanOrder;Ordre des images
+ScanType;Type de balayage
+ScanType_Original;Type de balayage original
+ScanOrder;Ordre de balayage
+ScanOrder_Original;Ordre original de balayage
 ScreenplayBy;Joué par
 Season;Saison
 see below;voir ci-dessous

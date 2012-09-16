@@ -866,7 +866,9 @@ s; s
 SamplingRate; Samplingstakt
 Save; Spara
 ScanType;
+ScanType_Original;
 ScanOrder;
+ScanOrder_Original;
 ScreenplayBy; Framträdande av
 Season; Säsong
 see below; se nedan

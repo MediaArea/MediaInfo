@@ -866,7 +866,9 @@ s;s
 SamplingRate;Učestalost uzorkovanja
 Save;Pohraniti
 ScanType;Vrsta pregledavanja
+ScanType_Original;
 ScanOrder;Redoslijed pregledavanja
+ScanOrder_Original;
 ScreenplayBy;Scenarij
 Season;Razdoblje
 see below;pogledati dolje
@@ -975,5 +977,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

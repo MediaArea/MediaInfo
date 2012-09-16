@@ -866,7 +866,9 @@ s;s
 SamplingRate;Sampling rate
 Save;დამახსოვრება
 ScanType;სკანირების ტიპი
+ScanType_Original;
 ScanOrder;Scan order
+ScanOrder_Original;
 ScreenplayBy;Screenplay by
 Season;სეზონი
 see below;see below

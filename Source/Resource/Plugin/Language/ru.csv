@@ -866,7 +866,9 @@ s; с.
 SamplingRate;Частота
 Save;Сохранить
 ScanType;Тип развёртки
+ScanType_Original;
 ScanOrder;Порядок развёртки
+ScanOrder_Original;
 ScreenplayBy;Сценарист
 Season;Сезон
 see below;см. ниже

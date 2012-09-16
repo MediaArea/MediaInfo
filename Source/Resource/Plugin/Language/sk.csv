@@ -866,7 +866,9 @@ s; sek.
 SamplingRate;Sampling rate
 Save;Uložiť
 ScanType;
+ScanType_Original;
 ScanOrder;
+ScanOrder_Original;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;pozri nižšie
@@ -975,5 +977,5 @@ Written_Location;Written location
 WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;86

@@ -866,7 +866,9 @@ s;s
 SamplingRate;Sampling rate
 Save;Salva
 ScanType;Tipo scansione
+ScanType_Original;
 ScanOrder;Ordine scansione
+ScanOrder_Original;
 ScreenplayBy;Sceneggiatura
 Season;Stagione n.
 see below;continua...
@@ -975,5 +977,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si
 Your system;Info sul sistema
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

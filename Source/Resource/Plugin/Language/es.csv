@@ -866,7 +866,9 @@ s;seg.
 SamplingRate;Velocidad de muestreo
 Save;Guardar
 ScanType;Tipo de exploración
+ScanType_Original;
 ScanOrder;Orden de la exploración
+ScanOrder_Original;
 ScreenplayBy;Guión por
 Season;Sesión
 see below;Ver más abajo

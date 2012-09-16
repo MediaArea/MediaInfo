@@ -866,7 +866,9 @@ s;sek.
 SamplingRate;Samplingsrate
 Save;Gem
 ScanType;Skantype
+ScanType_Original;
 ScanOrder;Skanorden
+ScanOrder_Original;
 ScreenplayBy;Manuskript af
 Season;Sæson
 see below;se nedenunder

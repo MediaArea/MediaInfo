@@ -866,7 +866,9 @@ s; mp
 SamplingRate;Mintavételezési gyakoriság
 Save;Mentés
 ScanType;Sorváltás típusa
+ScanType_Original;
 ScanOrder;Sorváltási sorrend
+ScanOrder_Original;
 ScreenplayBy;Forgatókönyvíró
 Season;Évad
 see below;lásd alant
@@ -975,5 +977,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;88
+ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;94

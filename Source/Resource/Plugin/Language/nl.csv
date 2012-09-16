@@ -866,7 +866,9 @@ s;s
 SamplingRate;Samplerate
 Save;Opslaan
 ScanType;Scansoort
+ScanType_Original;
 ScanOrder;Scanvolgorde
+ScanOrder_Original;
 ScreenplayBy;Draaiboek door
 Season;Seizoen
 see below;zie onder

@@ -866,7 +866,9 @@ s;s
 SamplingRate;أخذ العينات
 Save;حفظ
 ScanType;تفحص نوع
+ScanType_Original;
 ScanOrder;ترتيب التفحص
+ScanOrder_Original;
 ScreenplayBy;سيناري
 Season;الموسم
 see below;انظر أدناه

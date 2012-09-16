@@ -866,7 +866,9 @@ s;s
 SamplingRate;Ratio de mostraxe
 Save;Gardar
 ScanType;
+ScanType_Original;
 ScanOrder;
+ScanOrder_Original;
 ScreenplayBy;Guión de
 Season;Tempada
 see below;ver abaixo

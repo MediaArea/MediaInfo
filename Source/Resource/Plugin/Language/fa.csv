@@ -866,7 +866,9 @@ s;s
 SamplingRate;نرخ نمونه
 Save;ذخیره
 ScanType;نوع اسکن
+ScanType_Original;
 ScanOrder;دستور اسکن
+ScanOrder_Original;
 ScreenplayBy;نمايشنامه توسط
 Season;فصل
 see below;پایین را ببینید
@@ -975,5 +977,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

@@ -866,7 +866,9 @@ s;초
 SamplingRate;샘플링레이트
 Save;저장
 ScanType;스캔 방식
+ScanType_Original;
 ScanOrder;스캔 순서
+ScanOrder_Original;
 ScreenplayBy;각본
 Season;시즌
 see below;아래 참고
@@ -975,5 +977,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

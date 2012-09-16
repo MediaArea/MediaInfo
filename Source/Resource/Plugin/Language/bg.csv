@@ -866,7 +866,9 @@ s;с
 SamplingRate;ВъзпроизвежданеСкорост
 Save;Запази
 ScanType;СканиранеТип
+ScanType_Original;
 ScanOrder;СканиранеРед
+ScanOrder_Original;
 ScreenplayBy;СценарийОт
 Season;Сезон
 see below;виж долу

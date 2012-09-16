@@ -866,7 +866,9 @@ s;s
 SamplingRate;Sampling rate
 Save;Save
 ScanType;Scan type
+ScanType_Original;Original scan type
 ScanOrder;Scan order
+ScanOrder_Original;Original scan order
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below

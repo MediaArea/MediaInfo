@@ -866,7 +866,9 @@ s;Video srautai (s)
 SamplingRate;Atrankos tempas
 Save;Išsaugoti
 ScanType;Skenavimo tipas
+ScanType_Original;
 ScanOrder;Skenavimo tvarka
+ScanOrder_Original;
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
 see below;žiūrėti žemiau

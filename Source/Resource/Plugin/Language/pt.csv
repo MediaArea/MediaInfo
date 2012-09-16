@@ -866,7 +866,9 @@ s;s
 SamplingRate;Taxa de amostragem
 Save;Salvar
 ScanType;
+ScanType_Original;
 ScanOrder;
+ScanOrder_Original;
 ScreenplayBy;Roteirista
 Season;Temporada
 see below;veja abaixo
@@ -975,5 +977,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;78
+ZZ_Automatic_Percent;77
 ZZ_AutomaticLanguage_Percent;82

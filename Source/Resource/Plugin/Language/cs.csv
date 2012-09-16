@@ -866,7 +866,9 @@ s;s
 SamplingRate;Sampling rate
 Save;Uložit
 ScanType;
+ScanType_Original;
 ScanOrder;
+ScanOrder_Original;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
@@ -976,4 +978,4 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;82
+ZZ_AutomaticLanguage_Percent;81

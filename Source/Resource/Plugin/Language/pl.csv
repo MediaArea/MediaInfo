@@ -866,7 +866,9 @@ s;s
 SamplingRate;Częstotliwość próbkowania
 Save;Zapisz
 ScanType;Rodzaj skanu
+ScanType_Original;
 ScanOrder;Kolejność skanu
+ScanOrder_Original;
 ScreenplayBy;Scenariusz
 Season;Seria
 see below;zobacz poniżej
@@ -976,4 +978,4 @@ WrittenBy;Napisał
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;96
+ZZ_AutomaticLanguage_Percent;95
