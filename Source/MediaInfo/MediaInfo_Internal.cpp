@@ -84,17 +84,17 @@ namespace MediaInfo_Debug_MediaInfo_Internal
             Debug+=__T("\r\n"); \
             if (!Debug_Config.Opened_Get()) \
             { \
-                if (File_Names.empty()) \
+                if (Config.File_Names.empty()) \
                     Debug_Config.Create(Ztring(MediaInfo_Debug_Name)+__T(".")+Ztring::ToZtring((size_t)this, 16)+__T(".Config.txt")); \
                 else \
                 { \
                     Ztring File_Temp; \
-                    if (File_Names[0].rfind(__T('\\'))!=string::npos) \
-                        File_Temp=File_Names[0].substr(File_Names[0].rfind(__T('\\'))+1, string::npos); \
-                    else if (File_Names[0].rfind(__T('/'))!=string::npos) \
-                        File_Temp=File_Names[0].substr(File_Names[0].rfind(__T('/'))+1, string::npos); \
+                    if (Config.File_Names[0].rfind(__T('\\'))!=string::npos) \
+                        File_Temp=Config.File_Names[0].substr(Config.File_Names[0].rfind(__T('\\'))+1, string::npos); \
+                    else if (Config.File_Names[0].rfind(__T('/'))!=string::npos) \
+                        File_Temp=Config.File_Names[0].substr(Config.File_Names[0].rfind(__T('/'))+1, string::npos); \
                     else \
-                        File_Temp=File_Names[0]; \
+                        File_Temp=Config.File_Names[0]; \
                     Debug_Config.Create(Ztring(MediaInfo_Debug_Name)+__T(".")+Ztring::ToZtring((size_t)this, 16)+__T(".")+File_Temp+__T(".Config.txt")); \
                 } \
             } \
@@ -145,31 +145,31 @@ namespace MediaInfo_Debug_MediaInfo_Internal
         { \
             if (!Debug_Buffer_Stream.Opened_Get()) \
             { \
-                if (File_Names.empty()) \
+                if (Config.File_Names.empty()) \
                     Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+__T(".")+Ztring::ToZtring((size_t)this, 16)+__T(".Buffer.Stream.0000000000000000")); \
                 else \
                 { \
                     Ztring File_Temp; \
-                    if (File_Names[0].rfind(__T('\\'))!=string::npos) \
-                        File_Temp=File_Names[0].substr(File_Names[0].rfind(__T('\\'))+1, string::npos); \
-                    else if (File_Names[0].rfind(__T('/'))!=string::npos) \
-                        File_Temp=File_Names[0].substr(File_Names[0].rfind(__T('/'))+1, string::npos); \
+                    if (Config.File_Names[0].rfind(__T('\\'))!=string::npos) \
+                        File_Temp=Config.File_Names[0].substr(Config.File_Names[0].rfind(__T('\\'))+1, string::npos); \
+                    else if (Config.File_Names[0].rfind(__T('/'))!=string::npos) \
+                        File_Temp=Config.File_Names[0].substr(Config.File_Names[0].rfind(__T('/'))+1, string::npos); \
                     else \
-                        File_Temp=File_Names[0]; \
+                        File_Temp=Config.File_Names[0]; \
                     Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+__T(".")+Ztring::ToZtring((size_t)this, 16)+__T(".")+File_Temp+__T(".Buffer.Stream.0000000000000000")); \
                 } \
                 Debug_Buffer_Stream_Order=0; \
-                if (File_Names.empty()) \
+                if (Config.File_Names.empty()) \
                     Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+__T(".")+Ztring::ToZtring((size_t)this, 16)+__T(".Buffer.Sizes.0000000000000000")); \
                 else \
                 { \
                     Ztring File_Temp; \
-                    if (File_Names[0].rfind(__T('\\'))!=string::npos) \
-                        File_Temp=File_Names[0].substr(File_Names[0].rfind(__T('\\'))+1, string::npos); \
-                    else if (File_Names[0].rfind(__T('/'))!=string::npos) \
-                        File_Temp=File_Names[0].substr(File_Names[0].rfind(__T('/'))+1, string::npos); \
+                    if (Config.File_Names[0].rfind(__T('\\'))!=string::npos) \
+                        File_Temp=Config.File_Names[0].substr(Config.File_Names[0].rfind(__T('\\'))+1, string::npos); \
+                    else if (Config.File_Names[0].rfind(__T('/'))!=string::npos) \
+                        File_Temp=Config.File_Names[0].substr(Config.File_Names[0].rfind(__T('/'))+1, string::npos); \
                     else \
-                        File_Temp=File_Names[0]; \
+                        File_Temp=Config.File_Names[0]; \
                     Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+__T(".")+Ztring::ToZtring((size_t)this, 16)+__T(".")+File_Temp+__T(".Buffer.Sizes.0000000000000000")); \
                 } \
                 Debug_Buffer_Sizes_Count=0; \
