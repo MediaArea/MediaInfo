@@ -320,14 +320,17 @@ void File__ReferenceFilesHelper::ParseReferences()
         Init_Done=true;
         /*
         #if MEDIAINFO_EVENTS
-            struct MediaInfo_Event_General_SubFile_Start_0 Event;
-            MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
-            Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
-            Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
+            if (Reference_Next!=References.end())
+            {
+                struct MediaInfo_Event_General_SubFile_Start_0 Event;
+                MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
+                Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
+                Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
+                    
+                Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
-            Event.FileName_Relative_Unicode=Reference->Source.c_str();
-
-            MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
+                MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
+            }
         #endif //MEDIAINFO_EVENTS
         */
 
@@ -381,8 +384,6 @@ void File__ReferenceFilesHelper::ParseReferences()
             MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
             Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_End, 0);
             Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_End_0);
-
-            Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
             MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
         #endif //MEDIAINFO_EVENTS

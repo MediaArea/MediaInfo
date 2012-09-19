@@ -537,6 +537,9 @@ public :
     File_Mpeg_Descriptors();
 
 private :
+    //Buffer - File header
+    void FileHeader_Parse();
+
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
