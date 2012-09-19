@@ -1442,13 +1442,13 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u stream_id)
                 Streams[stream_id].TimeStamp_End.PTS.TimeStamp=FrameInfo.PTS;
             while (FrameInfo.PTS+0x100000000LL<Streams[stream_id].TimeStamp_End.PTS.TimeStamp)
                 FrameInfo.PTS+=0x200000000LL;
-            Streams[stream_id].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
-            Streams[stream_id].TimeStamp_End.PTS.TimeStamp=FrameInfo.PTS;
+            Streams[stream_id].TimeStamp_End.DTS.File_Pos=Streams[stream_id].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
+            Streams[stream_id].TimeStamp_End.DTS.TimeStamp=Streams[stream_id].TimeStamp_End.PTS.TimeStamp=FrameInfo.PTS;
         }
         if (Searching_TimeStamp_Start && Streams[stream_id].Searching_TimeStamp_Start && stream_id!=0xBD && stream_id!=0xFD) //0xBD and 0xFD can contain multiple streams, TimeStamp management is in Streams management
         {
-            Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
-            Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
+            Streams[stream_id].TimeStamp_Start.DTS.File_Pos=Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
+            Streams[stream_id].TimeStamp_Start.DTS.TimeStamp=Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
             Streams[stream_id].Searching_TimeStamp_Start=false;
         }
         Element_Info_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/90));
@@ -1673,13 +1673,13 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
                 Streams[stream_id].TimeStamp_End.PTS.TimeStamp=FrameInfo.PTS;
             while (FrameInfo.PTS+0x100000000LL<Streams[stream_id].TimeStamp_End.PTS.TimeStamp)
                 FrameInfo.PTS+=0x200000000LL;
-            Streams[stream_id].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
-            Streams[stream_id].TimeStamp_End.PTS.TimeStamp=FrameInfo.PTS;
+            Streams[stream_id].TimeStamp_End.DTS.File_Pos=Streams[stream_id].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
+            Streams[stream_id].TimeStamp_End.DTS.TimeStamp=Streams[stream_id].TimeStamp_End.PTS.TimeStamp=FrameInfo.PTS;
         }
         if (Searching_TimeStamp_Start && Streams[stream_id].Searching_TimeStamp_Start)
         {
-            Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
-            Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
+            Streams[stream_id].TimeStamp_Start.DTS.File_Pos=Streams[stream_id].TimeStamp_Start.PTS.File_Pos=File_Offset+Buffer_Offset;
+            Streams[stream_id].TimeStamp_Start.DTS.TimeStamp=Streams[stream_id].TimeStamp_Start.PTS.TimeStamp=FrameInfo.PTS;
             Streams[stream_id].Searching_TimeStamp_Start=false;
         }
         FrameInfo.DTS=FrameInfo.PTS=FrameInfo.PTS*1000000/90; //In ns
