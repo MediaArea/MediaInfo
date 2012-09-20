@@ -1013,8 +1013,9 @@ void File_Avc::Header_Parse()
         Get_S1 ( 5, nal_unit_type,                              "nal_unit_type");
         BS_End();
 
-        //Filling
-        Header_Fill_Size(Element_Offset+Size-1);
+        FILLING_BEGIN()
+            Header_Fill_Size(Element_Offset+Size-1);
+        FILLING_END()
     }
 
     //Filling
