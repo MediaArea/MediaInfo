@@ -440,9 +440,11 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         #endif //MEDIAINFO_DEMUX
            )
         {
-                Buffer_TotalBytes+=Buffer_Size;
                 ForceFinish();
-                return;
+                #if MEDIAINFO_DEMUX
+                    if (Config->Demux_EventWasSent)
+                        return;
+                #endif //MEDIAINFO_DEMUX
         }
 
         if (Buffer_Temp_Size==0) //If there was no copy
@@ -482,11 +484,14 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Reserving unused data
     if ((int64u)-1-Buffer_Offset<File_Offset) //In case of unknown filesize, File_Offset may be (int64u)-1
         Buffer_Offset=(size_t)((int64u)-1-File_Offset);
-    Buffer_Size-=Buffer_Offset;
-    File_Offset+=Buffer_Offset;
-    if (Buffer_Offset_Temp>=Buffer_Offset)
-        Buffer_Offset_Temp-=Buffer_Offset;
-    Buffer_Offset=0;
+    if (Buffer_Offset)
+    {
+        Buffer_Size-=Buffer_Offset;
+        File_Offset+=Buffer_Offset;
+        if (Buffer_Offset_Temp>=Buffer_Offset)
+            Buffer_Offset_Temp-=Buffer_Offset;
+        Buffer_Offset=0;
+    }
 
     //Is it OK?
     if (Buffer_Size>Buffer_MaximumSize)

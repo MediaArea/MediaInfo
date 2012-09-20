@@ -320,7 +320,7 @@ void File__ReferenceFilesHelper::ParseReferences()
         Init_Done=true;
         /*
         #if MEDIAINFO_EVENTS
-            if (Reference_Next!=References.end())
+            if (Reference!=References.end())
             {
                 struct MediaInfo_Event_General_SubFile_Start_0 Event;
                 MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);

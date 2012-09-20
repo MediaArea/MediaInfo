@@ -97,7 +97,7 @@ public :
         int8u   ParserIDs[16];
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
-        int8u   Demux_Level; //bit 0=frame, bit 1=container, bit 2=elementary (eg MPEG-TS), default with frame set
+        int8u   Demux_Level; //bit 0=frame, bit 1=container, bit 2=elementary (eg MPEG-TS), bit 3=ancillary (e.g. DTVCC), default with frame set
         bool    Demux_random_access;
         bool    Demux_UnpacketizeContainer;
         bool    Demux_IntermediateItemFound;
