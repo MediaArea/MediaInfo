@@ -666,7 +666,6 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
         #else // MEDIAINFO_ADVANCED
             return __T("advanced features are disabled due to compilation options");
         #endif // MEDIAINFO_ADVANCED
-        return Ztring();
     }
     else if (Option_Lower==__T("mpegts_vbrdetection_delta_get"))
     {

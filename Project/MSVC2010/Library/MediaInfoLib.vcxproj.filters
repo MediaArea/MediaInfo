@@ -1105,5 +1105,8 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Pcx.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

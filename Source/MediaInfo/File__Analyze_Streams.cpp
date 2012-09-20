@@ -1430,31 +1430,43 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         if (!Width_Temp.empty() && Width_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_Width))
         {
             Fill(Stream_Video, StreamPos_To, Video_Width_Original, (*Stream)[Stream_Video][StreamPos_To][Video_Width], true);
+            Fill(Stream_Video, StreamPos_To, "Width_FromStream", (*Stream)[Stream_Video][StreamPos_To][Video_Width], true);
+            Fill(Stream_Video, StreamPos_To, "Width_FromContainer", Width_Temp, true);
             Fill(Stream_Video, StreamPos_To, Video_Width, Width_Temp, true);
         }
         if (!Height_Temp.empty() && Height_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_Height))
         {
             Fill(Stream_Video, StreamPos_To, Video_Height_Original, (*Stream)[Stream_Video][StreamPos_To][Video_Height], true);
+            Fill(Stream_Video, StreamPos_To, "Height_FromStream", (*Stream)[Stream_Video][StreamPos_To][Video_Height], true);
+            Fill(Stream_Video, StreamPos_To, "Height_FromContainer", Height_Temp, true);
             Fill(Stream_Video, StreamPos_To, Video_Height, Height_Temp, true);
         }
         if (!PixelAspectRatio_Temp.empty() && PixelAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_PixelAspectRatio))
         {
             Fill(Stream_Video, StreamPos_To, Video_PixelAspectRatio_Original, PixelAspectRatio_Original, true);
+            Fill(Stream_Video, StreamPos_To, "PixelAspectRatio_FromStream", PixelAspectRatio_Original, true);
+            Fill(Stream_Video, StreamPos_To, "PixelAspectRatio_FromContainer", PixelAspectRatio_Temp, true);
             Fill(Stream_Video, StreamPos_To, Video_PixelAspectRatio, PixelAspectRatio_Temp, true);
         }
         if (!DisplayAspectRatio_Temp.empty() && DisplayAspectRatio_Temp!=DisplayAspectRatio_Original)
         {
             Fill(Stream_Video, StreamPos_To, Video_DisplayAspectRatio_Original, DisplayAspectRatio_Original, true);
+            Fill(Stream_Video, StreamPos_To, "DisplayAspectRatio_FromStream", DisplayAspectRatio_Original, true);
+            Fill(Stream_Video, StreamPos_To, "DisplayAspectRatio_FromContainer", DisplayAspectRatio_Temp, true);
             Fill(Stream_Video, StreamPos_To, Video_DisplayAspectRatio, DisplayAspectRatio_Temp, true);
         }
         if (!FrameRate_Temp.empty() && FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate))
         {
             Fill(Stream_Video, StreamPos_To, Video_FrameRate_Original, (*Stream)[Stream_Video][StreamPos_To][Video_FrameRate], true);
+            Fill(Stream_Video, StreamPos_To, "FrameRate_FromStream", (*Stream)[Stream_Video][StreamPos_To][Video_FrameRate], true);
+            Fill(Stream_Video, StreamPos_To, "FrameRate_FromContainer", FrameRate_Temp, true);
             Fill(Stream_Video, StreamPos_To, Video_FrameRate, FrameRate_Temp, true);
         }
         if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate_Mode))
         {
             Fill(Stream_Video, StreamPos_To, Video_FrameRate_Mode_Original, (*Stream)[Stream_Video][StreamPos_To][Video_FrameRate_Mode], true);
+            Fill(Stream_Video, StreamPos_To, "FrameRate_Mode_FromStream", (*Stream)[Stream_Video][StreamPos_To][Video_FrameRate_Mode], true);
+            Fill(Stream_Video, StreamPos_To, "FrameRate_Mode_FromContainer", FrameRate_Mode_Temp, true);
             Fill(Stream_Video, StreamPos_To, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
         }
         if (!ScanType_Temp.empty() && (ScanType_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_ScanType) && !(ScanType_Temp==__T("Interlaced") && Retrieve(Stream_Video, StreamPos_To, Video_ScanType)==__T("MBAFF"))))

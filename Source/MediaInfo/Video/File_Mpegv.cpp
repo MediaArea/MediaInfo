@@ -226,6 +226,7 @@ const char* Mpegv_profile_and_level_indication_level[]=
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
 #endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
 
@@ -2202,34 +2203,24 @@ void File_Mpegv::picture_start()
             Slices_Count=0;
         #endif // MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
         #if MEDIAINFO_EVENTS
+            Slices_Count=0;
             {
-                struct MediaInfo_Event_Video_SliceInfo_0 Event;
-                Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_Video_SliceInfo, 0);
-                Event.Stream_Offset=File_Offset+Buffer_Offset;
-                Event.PCR=FrameInfo.PCR;
-                Event.PTS=FrameInfo.PTS;
-                Event.DTS=FrameInfo.DTS;
-                Event.DUR=FrameInfo.DUR;
-                Event.StreamIDs_Size=StreamIDs_Size;
-                Event.StreamIDs=(MediaInfo_int64u*)StreamIDs;
-                Event.StreamIDs_Width=(MediaInfo_int8u*)StreamIDs_Width;
-                Event.ParserIDs=(MediaInfo_int8u* )ParserIDs;
-                Event.FramePosition=Frame_Count;
-                Event.FieldPosition=Field_Count;
-                Event.SlicePosition=0;
-                switch (picture_coding_type)
-                {
-                    case 1 :
-                                Event.SliceType=0; break;
-                    case 2 :
-                                Event.SliceType=1; break;
-                    case 3 :
-                                Event.SliceType=2; break;
-                    default:
-                                Event.SliceType=(int8u)-1;
-                }
-                Event.Flags=0;
-                Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_Video_SliceInfo_0));
+                EVENT_BEGIN (Video, SliceInfo, 0)
+                    Event.FieldPosition=Field_Count;
+                    Event.SlicePosition=0;
+                    switch (picture_coding_type)
+                    {
+                        case 1 :
+                                    Event.SliceType=0; break;
+                        case 2 :
+                                    Event.SliceType=1; break;
+                        case 3 :
+                                    Event.SliceType=2; break;
+                        default:
+                                    Event.SliceType=(int8u)-1;
+                    }
+                    Event.Flags=0;
+                EVENT_END   ()
             }
         #endif //MEDIAINFO_EVENTS
 
