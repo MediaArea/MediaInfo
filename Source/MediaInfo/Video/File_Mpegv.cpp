@@ -2459,9 +2459,9 @@ void File_Mpegv::slice_start()
         #if MEDIAINFO_TRACE
             if (Trace_Activated)
             {
-                Element_Info1(__T("Frame ")+Ztring::ToZtring(Frame_Count));
+                Element_Info1(__T("Frame (decoding order) ")+Ztring::ToZtring(Frame_Count));
                 if (Frame_Count_LastIFrame!=(int64u)-1)
-                    Element_Info1(__T("Frame reordered ")+Ztring::ToZtring(Frame_Count_LastIFrame+temporal_reference));
+                    Element_Info1(__T("Frame (presentation order) ")+Ztring::ToZtring(Frame_Count_LastIFrame+temporal_reference));
                 Element_Info1(__T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
                 Element_Info1(__T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
                 if (FrameInfo.PTS!=(int64u)-1)
@@ -3155,10 +3155,12 @@ void File_Mpegv::user_data_start_CC()
             CC___Parser->FrameInfo.PTS=FrameInfo.PTS;
             CC___Parser->FrameInfo.DTS=FrameInfo.DTS;
         }
-        int8u Demux_Level_Save=Demux_Level;
-        Demux_Level=8; //Ancillary
-        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
-        Demux_Level=Demux_Level_Save;
+        #if MEDIAINFO_DEMUX
+            int8u Demux_Level_Save=Demux_Level;
+            Demux_Level=8; //Ancillary
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+            Demux_Level=Demux_Level_Save;
+        #endif // MEDIAINFO_DEMUX
         Open_Buffer_Continue(CC___Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Element_Offset=Element_Size;
     #else //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -3258,10 +3260,12 @@ void File_Mpegv::user_data_start_3()
                             Scte_Parser->FrameInfo.PTS=FrameInfo.PTS-(TemporalReference.size()-1-Scte20_Pos)*tc;
                             Scte_Parser->FrameInfo.DTS=FrameInfo.DTS-(TemporalReference.size()-1-Scte20_Pos)*tc;
                         }
-                        int8u Demux_Level_Save=Demux_Level;
-                        Demux_Level=8; //Ancillary
-                        Demux(TemporalReference[Scte20_Pos]->Scte[Pos]->Data, TemporalReference[Scte20_Pos]->Scte[Pos]->Size, ContentType_MainStream);
-                        Demux_Level=Demux_Level_Save;
+                        #if MEDIAINFO_DEMUX
+                            int8u Demux_Level_Save=Demux_Level;
+                            Demux_Level=8; //Ancillary
+                            Demux(TemporalReference[Scte20_Pos]->Scte[Pos]->Data, TemporalReference[Scte20_Pos]->Scte[Pos]->Size, ContentType_MainStream);
+                            Demux_Level=Demux_Level_Save;
+                        #endif // MEDIAINFO_DEMUX
                         Open_Buffer_Continue(Scte_Parser, TemporalReference[Scte20_Pos]->Scte[Pos]->Data, TemporalReference[Scte20_Pos]->Scte[Pos]->Size);
                         TemporalReference[Scte20_Pos]->Scte_Parsed[Pos]=true;
                     }
@@ -3415,10 +3419,12 @@ void File_Mpegv::user_data_start_GA94_03()
                     GA94_03_Parser->FrameInfo.PTS=FrameInfo.PTS-(FrameInfo.PTS!=(int64u)-1?((TemporalReference.size()-1-GA94_03_Pos)*tc):0);
                     GA94_03_Parser->FrameInfo.DTS=FrameInfo.DTS-(FrameInfo.DTS!=(int64u)-1?((TemporalReference.size()-1-GA94_03_Pos)*tc):0);
                 }
-                int8u Demux_Level_Save=Demux_Level;
-                Demux_Level=8; //Ancillary
-                Demux(TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size, ContentType_MainStream);
-                Demux_Level=Demux_Level_Save;
+                #if MEDIAINFO_DEMUX
+                    int8u Demux_Level_Save=Demux_Level;
+                    Demux_Level=8; //Ancillary
+                    Demux(TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size, ContentType_MainStream);
+                    Demux_Level=Demux_Level_Save;
+                #endif // MEDIAINFO_DEMUX
                 ((File_DtvccTransport*)GA94_03_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
 
