@@ -20,6 +20,7 @@ x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
 x CEA-708: crash with some malformed streams
 x MPEG-TS: crash when PCR is corrupted (same value at different offsets)
 x QuickTIme: wrong channel count report in case of buggy chan atom. Now the stream description has priority over chan atom
+x E-AC-3: duration was wrong in some cases
 
 Version 0.7.60, 2012-09-02
 --------------

@@ -936,7 +936,15 @@ void File_Ac3::Streams_Finish()
     else if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.PTS>PTS_Begin)
     {
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000));
-        Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000/32));
+        float64 FrameDuration;
+        if (bsid<=0x08)
+            FrameDuration=32;
+        else if (bsid>0x0A && bsid<=0x10)
+            FrameDuration=((float64)32)/6;
+        else
+            FrameDuration=0;
+        if (FrameDuration)
+            Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000/FrameDuration));
     }
 }
 
@@ -1623,8 +1631,6 @@ void File_Ac3::Core()
 //---------------------------------------------------------------------------
 void File_Ac3::HD()
 {
-    Trusted=1000;
-
     //Parsing
     int32u Synch;
     Peek_B3(Synch);
