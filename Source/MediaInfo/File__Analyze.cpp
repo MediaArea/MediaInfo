@@ -493,7 +493,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         Buffer_Offset=(size_t)((int64u)-1-File_Offset);
     if (Buffer_Offset)
     {
-        if (Buffer_Offset>=FrameInfo.Buffer_Offset_End)
+        if (Buffer_Offset>=FrameInfo.Buffer_Offset_End && FrameInfo_Next.DTS!=(int64u)-1)
         {
             FrameInfo=FrameInfo_Next;
             FrameInfo_Next=frame_info();
@@ -1312,7 +1312,7 @@ bool File__Analyze::Synchro_Manage_Test()
                     return false;
             }
         #endif //MEDIAINFO_DEMUX
-        if (Buffer_Offset>=FrameInfo.Buffer_Offset_End)
+        if (Buffer_Offset>=FrameInfo.Buffer_Offset_End && FrameInfo_Next.DTS!=(int64u)-1)
         {
             FrameInfo=FrameInfo_Next;
             FrameInfo_Next=frame_info();
@@ -1627,13 +1627,16 @@ bool File__Analyze::Data_Manage()
 
         if (Buffer_Offset+(Element_WantNextLevel?Element_Offset:Element_Size)>=FrameInfo.Buffer_Offset_End)
         {
-            FrameInfo=FrameInfo_Next;
-            FrameInfo_Next=frame_info();
-
             if (Frame_Count_Previous<Frame_Count)
                 Frame_Count_Previous=Frame_Count;
             if (Field_Count_Previous<Field_Count)
                 Field_Count_Previous=Field_Count;
+        }
+
+        if (Buffer_Offset+(Element_WantNextLevel?Element_Offset:Element_Size)>=FrameInfo.Buffer_Offset_End && FrameInfo_Next.DTS!=(int64u)-1)
+        {
+            FrameInfo=FrameInfo_Next;
+            FrameInfo_Next=frame_info();
         }
 
         //Testing the parser result

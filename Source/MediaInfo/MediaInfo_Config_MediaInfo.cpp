@@ -1453,7 +1453,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
     else if (!File_Name.empty())
     {
         MediaInfo_Event_Generic* Event_Generic=(MediaInfo_Event_Generic*)Data_Content;
-        if ((Event_Generic->EventCode&0x00FFFF04)==((MediaInfo_Event_Global_Demux<<8)|0x03)) //Demux version 4
+        if ((Event_Generic->EventCode&0x00FFFFFF)==((MediaInfo_Event_Global_Demux<<8)|0x04)) //Demux version 4
         {
             if (!MediaInfoLib::Config.Demux_Get())
                 return;
