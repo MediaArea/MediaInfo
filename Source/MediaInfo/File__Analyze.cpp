@@ -2358,9 +2358,9 @@ void File__Analyze::Accept ()
                     Config->Demux_EventWasSent=true;
             #endif //MEDIAINFO_DEMUX
         }
-    #endif //MEDIAINFO_EVENTS
 
-    Config->Event_Accepted(this);
+        Config->Event_Accepted(this);
+    #endif //MEDIAINFO_EVENTS
 }
 
 void File__Analyze::Accept (File__Analyze* Parser)
