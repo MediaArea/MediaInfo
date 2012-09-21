@@ -2203,7 +2203,6 @@ void File_Mpegv::picture_start()
             Slices_Count=0;
         #endif // MEDIAINFO_ADVANCED || MEDIAINFO_EVENTS
         #if MEDIAINFO_EVENTS
-            Slices_Count=0;
             {
                 EVENT_BEGIN (Video, SliceInfo, 0)
                     Event.FieldPosition=Field_Count;

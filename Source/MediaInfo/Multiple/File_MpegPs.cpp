@@ -2544,11 +2544,11 @@ void File_MpegPs::private_stream_1()
         Skip_XX(private_stream_1_Offset-Element_Offset,         "DVD-Video data");
 
     #if MEDIAINFO_EVENTS
+        StreamIDs[StreamIDs_Size-1]=Element_Code;
         if (private_stream_1_Offset)
         {
             //Multiple substreams in 1 stream
-            StreamIDs[StreamIDs_Size-1]=Element_Code;
-            Element_Code=private_stream_1_ID; //The upper level ID is filled by Element_Code in the common code
+            StreamIDs[StreamIDs_Size]=Element_Code=private_stream_1_ID;
             StreamIDs_Width[StreamIDs_Size]=2;
             ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
             StreamIDs_Size++;
@@ -3566,7 +3566,19 @@ void File_MpegPs::extension_stream()
     {
         if (!Streams_Extension[0x71].Parsers.empty())
         {
+            #if MEDIAINFO_EVENTS
+                //Multiple substreams in 1 stream
+                StreamIDs[StreamIDs_Size-1]=Element_Code;
+                StreamIDs[StreamIDs_Size]=Element_Code=0x71;
+                StreamIDs_Width[StreamIDs_Size]=2;
+                ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+                StreamIDs_Size++;
+            #endif //MEDIAINFO_EVENTS
             xxx_stream_Parse(Streams_Extension[0x71], extension_stream_Count);
+            #if MEDIAINFO_EVENTS
+                StreamIDs_Size--;
+                Element_Code=StreamIDs[StreamIDs_Size-1];
+            #endif //MEDIAINFO_EVENTS
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_EventWasSent)
                 {
@@ -3577,7 +3589,19 @@ void File_MpegPs::extension_stream()
         }
         if (!Streams_Extension[0x76].Parsers.empty())
         {
+            #if MEDIAINFO_EVENTS
+                //Multiple substreams in 1 stream
+                StreamIDs[StreamIDs_Size-1]=Element_Code;
+                StreamIDs[StreamIDs_Size]=Element_Code=0x76;
+                StreamIDs_Width[StreamIDs_Size]=2;
+                ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+                StreamIDs_Size++;
+            #endif //MEDIAINFO_EVENTS
             xxx_stream_Parse(Streams_Extension[0x76], extension_stream_Count);
+            #if MEDIAINFO_EVENTS
+                StreamIDs_Size--;
+                Element_Code=StreamIDs[StreamIDs_Size-1];
+            #endif //MEDIAINFO_EVENTS
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_EventWasSent)
                 {
@@ -3589,7 +3613,19 @@ void File_MpegPs::extension_stream()
     }
     else
     {
+        #if MEDIAINFO_EVENTS
+            //Multiple substreams in 1 stream
+            StreamIDs[StreamIDs_Size-1]=Element_Code;
+            StreamIDs[StreamIDs_Size]=Element_Code=stream_id_extension;
+            StreamIDs_Width[StreamIDs_Size]=2;
+            ParserIDs[StreamIDs_Size]=MediaInfo_Parser_MpegPs_Ext;
+            StreamIDs_Size++;
+        #endif //MEDIAINFO_EVENTS
         xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
+        #if MEDIAINFO_EVENTS
+            StreamIDs_Size--;
+            Element_Code=StreamIDs[StreamIDs_Size-1];
+        #endif //MEDIAINFO_EVENTS
         #if MEDIAINFO_DEMUX
             if (Config->Demux_EventWasSent)
             {
