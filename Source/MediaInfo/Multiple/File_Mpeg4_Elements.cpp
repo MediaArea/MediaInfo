@@ -1408,10 +1408,6 @@ void File_Mpeg4::mdat()
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(8); //Streams
     #endif //MEDIAINFO_TRACE
-    #if MEDIAINFO_DEMUX
-        if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
-            Config->Demux_EventWasSent=true;
-    #endif //MEDIAINFO_DEMUX
 
     if (!Status[IsAccepted])
     {
