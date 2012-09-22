@@ -983,7 +983,7 @@ void File_MpegTs::Streams_Finish()
             {
                 int64u File_Size_Temp=File_Size;
                 File_Size=File_Offset+Buffer_Offset+Element_Offset;
-                Open_Buffer_Continue(Complete_Stream->Streams[StreamID]->Parser, Buffer, 0);
+                Open_Buffer_Continue(Complete_Stream->Streams[StreamID]->Parser, Buffer, 0, false);
                 File_Size=File_Size_Temp;
                 Finish(Complete_Stream->Streams[StreamID]->Parser);
                 #if MEDIAINFO_DEMUX
@@ -1431,13 +1431,19 @@ void File_MpegTs::Synched_Init()
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)
         Complete_Stream->Streams[StreamID]=new complete_stream::stream;
     Complete_Stream->Streams[0x0000]->Searching_Payload_Start_Set(true);
-    Complete_Stream->Streams[0x0000]->Kind=complete_stream::stream::psi;
+    Complete_Stream->Streams[0x0000]->Kind=complete_stream::stream::psi;                        // Program Association Table
     Complete_Stream->Streams[0x0000]->Table_IDs.resize(0x100);
-    Complete_Stream->Streams[0x0000]->Table_IDs[0x00]=new complete_stream::stream::table_id; //program_association_section
+    Complete_Stream->Streams[0x0000]->Table_IDs[0x00]=new complete_stream::stream::table_id;    // program_association_section
     Complete_Stream->Streams[0x0001]->Searching_Payload_Start_Set(true);
-    Complete_Stream->Streams[0x0001]->Kind=complete_stream::stream::psi;
+    Complete_Stream->Streams[0x0001]->Kind=complete_stream::stream::psi;                        // Conditional Access Table
     Complete_Stream->Streams[0x0001]->Table_IDs.resize(0x100);
-    Complete_Stream->Streams[0x0001]->Table_IDs[0x01]=new complete_stream::stream::table_id; //conditional_access_section
+    Complete_Stream->Streams[0x0001]->Table_IDs[0x01]=new complete_stream::stream::table_id;    // CA_section
+    Complete_Stream->Streams[0x0002]->Searching_Payload_Start_Set(true);
+    Complete_Stream->Streams[0x0002]->Kind=complete_stream::stream::psi;                        // Transport Stream Description Table
+    Complete_Stream->Streams[0x0002]->Table_IDs.resize(0x100);
+    Complete_Stream->Streams[0x0003]->Searching_Payload_Start_Set(true);
+    Complete_Stream->Streams[0x0003]->Kind=complete_stream::stream::psi;                        // IPMP Control Information Table
+    Complete_Stream->Streams[0x0003]->Table_IDs.resize(0x100);
 
     //Temp
     MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:Buffer_TotalBytes_LastSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
@@ -1532,7 +1538,7 @@ void File_MpegTs::Read_Buffer_Continue()
     #if MEDIAINFO_DEMUX
         if (Complete_Stream && pid<0x2000 && Complete_Stream->Streams[pid]->Kind==complete_stream::stream::pes && Complete_Stream->Streams[pid]->Parser && ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->Demux_StreamIsBeingParsed_type!=(int8u)-1)
         {
-            Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser, Buffer, 0);
+            Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser, Buffer, 0, false);
             PES_Parse_Finish();
         }
     #endif //MEDIAINFO_DEMUX

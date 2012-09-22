@@ -1553,7 +1553,7 @@ void File_Aes3::Frame_FromMpegPs()
         Element_WaitForMoreData();
         return;
     }
-    if (Element_Size!=4+(int64u)audio_packet_size)
+    if (Element_Size!=4+(int64u)audio_packet_size || bits_per_sample==3 || audio_packet_size%((1+number_channels)*(5+bits_per_sample)))
     {
         Trusted_IsNot("Wrong size");
         Skip_XX(Element_Size-4,                             "Problem?");
