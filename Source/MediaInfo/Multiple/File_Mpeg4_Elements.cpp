@@ -1465,6 +1465,10 @@ void File_Mpeg4::mdat()
             Param("Data", Ztring("(")+Ztring::ToZtring(Element_TotalSize_Get())+Ztring(" bytes)"));
     #endif //MEDIAINFO_TRACE
     Element_Offset=Element_TotalSize_Get(); //Not using Skip_XX() because we want to skip data we don't have, and Skip_XX() does a test on size of buffer
+
+    //ISM
+    if (moof_traf_base_data_offset==(int64u)-1 && !data_offset_present)
+        Stream->second.stco.push_back(File_Offset+Buffer_Offset);
 }
 
 //---------------------------------------------------------------------------
@@ -1474,6 +1478,12 @@ void File_Mpeg4::mdat_xxxx()
     {
         Element_WaitForMoreData();
         return;
+    }
+
+    if (!IsSub)
+    {
+        if (Config->ParseSpeed>=1.0)
+            Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
     }
 
     std::map<int32u, stream>::iterator Stream=Streams.find((int32u)Element_Code);
@@ -1488,6 +1498,7 @@ void File_Mpeg4::mdat_xxxx()
             {
                 stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin()+Stream->second.stts_Durations_Pos;
                 FrameInfo.DTS=TimeCode_DtsOffset+(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Frame_Count_NotParsedIncluded-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
+                FrameInfo.PTS=Streams[(int32u)Element_Code].PtsDtsAreSame?FrameInfo.DTS:(int64u)-1;
                 FrameInfo.DUR=((int64u)stts_Duration->SampleDuration)*1000000000/Stream->second.mdhd_TimeScale;
                 Streams[(int32u)Element_Code].stts_FramePos++;
                 if (Stream->second.stts_FramePos>=stts_Duration->Pos_End)
@@ -1560,27 +1571,22 @@ void File_Mpeg4::mdat_StreamJump()
 {
     //Finding right file offset
     int64u ToJump=File_Size;
-    /*if (!mdat_Pos_ToParseInPriority_StreamIDs.empty())
+    if (mdat_Pos_Temp!=mdat_Pos.end())
     {
-        //Hanlding StreamIDs to pars in priority
-        if (!Streams[mdat_Pos_ToParseInPriority_StreamIDs[0]].stco.empty())
-            ToJump=Streams[mdat_Pos_ToParseInPriority_StreamIDs[0]].stco[0];
-        //if (<File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1)) //If in this element, else
-            mdat_Pos_ToParseInPriority_StreamIDs.erase(mdat_Pos_ToParseInPriority_StreamIDs.begin());
-    }
-    else*/ if (mdat_Pos_Temp!=mdat_Pos.end())
         ToJump=mdat_Pos_Temp->first;
+        if (Config->ParseSpeed==1)
+        {
+            std::map<int64u, int64u>::iterator StreamOffset_Jump_Temp=StreamOffset_Jump.find(ToJump);
+            if (StreamOffset_Jump_Temp!=StreamOffset_Jump.end())
+            {
+                ToJump=StreamOffset_Jump_Temp->second;
+                mdat_Pos_Temp=mdat_Pos.find(ToJump);
+            }
+        }
+    }
     if (ToJump>File_Size)
         ToJump=File_Size;
-    /*if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1)) //We want always Element mdat
-    {
-        if (!Status[IsAccepted])
-            Data_Accept("MPEG-4");
-        Data_GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1), "MPEG-4"); //Not in this chunk
-        Element_Show();
-        IsParsing_mdat=false;
-    }
-    else*/ if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
+    if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
     {
         if (!Status[IsAccepted])
             Data_Accept("MPEG-4");
@@ -3710,6 +3716,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         {
             //Info of stream size
             Streams[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier=Channels*SampleSize/8;
+            Streams[moov_trak_tkhd_TrackID].PtsDtsAreSame=true;
 
             //Creating the parser
             File_Pcm MI;
@@ -3806,6 +3813,25 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                 }
                 Element_End0();
             }
+
+            //Demux
+            #if MEDIAINFO_DEMUX
+                switch (Config->Demux_InitData_Get())
+                {
+                    case 0 :    //In demux event
+                                Demux_Level=2; //Container
+                                Demux(Buffer+Buffer_Offset+Element_Offset-(18+Data_Size), (size_t)(18+Data_Size), ContentType_Header);
+                                break;
+                    case 1 :    //In field
+                                {
+                                std::string Data_Raw((const char*)(Buffer+Buffer_Offset+Element_Offset-(18+Data_Size)), (size_t)(18+Data_Size));
+                                std::string Data_Base64(Base64::encode(Data_Raw));
+                                Fill(Stream_Audio, StreamPos_Last, "Demux_InitBytes", Data_Base64);
+                                }
+                                break;
+                    default :   ;
+                }
+            #endif //MEDIAINFO_DEMUX
         }
 
         #if MEDIAINFO_DEMUX
@@ -4253,8 +4279,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
         {
             //Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, NumberChannelDescriptions, 10, true); //Channel count from this atom should not be used as a primary source, it may be wrong
             if (ChannelLabels_Valid)
+            {
                 Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan_ChannelDescription(ChannelLabels), true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
+            }
         }
         else if (ChannelLayoutTag==0x10000) //UseChannelBitmap
         {
@@ -5187,8 +5215,8 @@ void File_Mpeg4::moov_trak_tapt_clef()
     NAME_VERSION_FLAG("Clean Aperture Dimensions");
 
     //Parsing
-    Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
-    Skip_B4(                                                    "cleanApertureHeight"); //BFP4, but how many bits?
+    Skip_BFP4(16,                                               "cleanApertureWidth");
+    Skip_BFP4(16,                                               "cleanApertureHeight");
 }
 
 //---------------------------------------------------------------------------
@@ -5197,8 +5225,8 @@ void File_Mpeg4::moov_trak_tapt_prof()
     NAME_VERSION_FLAG("Production Aperture Dimensions");
 
     //Parsing
-    Skip_B4(                                                    "productionApertureWidth"); //BFP4, but how many bits?
-    Skip_B4(                                                    "productionApertureHeight"); //BFP4, but how many bits?
+    Skip_BFP4(16,                                               "productionApertureWidth");
+    Skip_BFP4(16,                                               "productionApertureHeight");
 }
 
 //---------------------------------------------------------------------------
@@ -5207,8 +5235,8 @@ void File_Mpeg4::moov_trak_tapt_enof()
     NAME_VERSION_FLAG("Encoded Pixels Dimensions");
 
     //Parsing
-    Skip_B4(                                                    "encodedApertureWidth"); //BFP4, but how many bits?
-    Skip_B4(                                                    "encodedApertureHeight"); //BFP4, but how many bits?
+    Skip_BFP4(16,                                               "encodedApertureWidth");
+    Skip_BFP4(16,                                               "encodedApertureHeight");
 }
 
 //---------------------------------------------------------------------------
