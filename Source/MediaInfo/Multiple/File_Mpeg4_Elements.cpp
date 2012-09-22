@@ -1570,15 +1570,17 @@ void File_Mpeg4::mdat_StreamJump()
     if (mdat_Pos_Temp!=mdat_Pos.end())
     {
         ToJump=mdat_Pos_Temp->first;
-        if (Config->ParseSpeed==1)
-        {
-            std::map<int64u, int64u>::iterator StreamOffset_Jump_Temp=StreamOffset_Jump.find(ToJump);
-            if (StreamOffset_Jump_Temp!=StreamOffset_Jump.end())
+        #if MEDIAINFO_DEMUX
+            if (Config->ParseSpeed==1)
             {
-                ToJump=StreamOffset_Jump_Temp->second;
-                mdat_Pos_Temp=mdat_Pos.find(ToJump);
+                std::map<int64u, int64u>::iterator StreamOffset_Jump_Temp=StreamOffset_Jump.find(ToJump);
+                if (StreamOffset_Jump_Temp!=StreamOffset_Jump.end())
+                {
+                    ToJump=StreamOffset_Jump_Temp->second;
+                    mdat_Pos_Temp=mdat_Pos.find(ToJump);
+                }
             }
-        }
+        #endif // MEDIAINFO_DEMUX
     }
     if (ToJump>File_Size)
         ToJump=File_Size;
@@ -3712,7 +3714,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         {
             //Info of stream size
             Streams[moov_trak_tkhd_TrackID].stsz_Sample_Multiplier=Channels*SampleSize/8;
-            Streams[moov_trak_tkhd_TrackID].PtsDtsAreSame=true;
+            #if MEDIAINFO_DEMUX
+                Streams[moov_trak_tkhd_TrackID].PtsDtsAreSame=true;
+            #endif // MEDIAINFO_DEMUX
 
             //Creating the parser
             File_Pcm MI;
