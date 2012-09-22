@@ -1474,7 +1474,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
                     ID.From_CC4((int32u)Event->StreamIDs[Pos]);
                     File_Name_Final+=__T('.')+ID;
                 }
-                else if (Event->StreamIDs_Width[Pos] && Event->StreamIDs_Width[Pos])
+                else if (Event->StreamIDs_Width[Pos])
                 {
                     Ztring ID;
                     ID.From_Number(Event->StreamIDs[Pos], 16);
