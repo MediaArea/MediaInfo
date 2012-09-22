@@ -1534,22 +1534,24 @@ bool File_Mpeg4::BookMark_Needed()
         }
         mdat_Pos_Temp=mdat_Pos.begin();
 
-        if (!stco_IsDifferent && Muxing.size()==2)
-        {
-            std::map<int32u, struct muxing>::iterator Muxing_1=Muxing.begin();
-            std::map<int32u, struct muxing>::iterator Muxing_2=Muxing.begin(); Muxing_2++;
-            if (Muxing_1->second.MaximalOffset>Muxing_2->second.MinimalOffset)
-                swap(Muxing_1, Muxing_2);
-            if (Muxing_1->second.MaximalOffset<=Muxing_2->second.MinimalOffset)
+        #if MEDIAINFO_DEMUX
+            if (!stco_IsDifferent && Muxing.size()==2)
             {
-                for (size_t stco_Pos=1; stco_Pos<stco_Count; stco_Pos++)
+                std::map<int32u, struct muxing>::iterator Muxing_1=Muxing.begin();
+                std::map<int32u, struct muxing>::iterator Muxing_2=Muxing.begin(); Muxing_2++;
+                if (Muxing_1->second.MaximalOffset>Muxing_2->second.MinimalOffset)
+                    swap(Muxing_1, Muxing_2);
+                if (Muxing_1->second.MaximalOffset<=Muxing_2->second.MinimalOffset)
                 {
-                    StreamOffset_Jump[Streams[Muxing_1->first].stco[stco_Pos]]=Streams[Muxing_2->first].stco[stco_Pos-1];
-                    StreamOffset_Jump[Streams[Muxing_2->first].stco[stco_Pos]]=Streams[Muxing_1->first].stco[stco_Pos];
+                    for (size_t stco_Pos=1; stco_Pos<stco_Count; stco_Pos++)
+                    {
+                        StreamOffset_Jump[Streams[Muxing_1->first].stco[stco_Pos]]=Streams[Muxing_2->first].stco[stco_Pos-1];
+                        StreamOffset_Jump[Streams[Muxing_2->first].stco[stco_Pos]]=Streams[Muxing_1->first].stco[stco_Pos];
+                    }
+                    StreamOffset_Jump[Streams[Muxing_2->first].stco[0]]=Streams[Muxing_2->first].stco[stco_Count-1];
                 }
-                StreamOffset_Jump[Streams[Muxing_2->first].stco[0]]=Streams[Muxing_2->first].stco[stco_Count-1];
             }
-        }
+        #endif //MEDIAINFO_DEMUX
     }
     if (mdat_Pos.empty())
         return false;
