@@ -2135,9 +2135,6 @@ bool File_MpegPs::BookMark_Needed()
 void File_MpegPs::MPEG_program_end()
 {
     Element_Name("MPEG_program_end");
-
-    //Filling
-    Synched=false; //We don't know what can be after
 }
 
 //---------------------------------------------------------------------------
