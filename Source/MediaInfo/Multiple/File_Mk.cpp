@@ -1754,6 +1754,9 @@ void File_Mk::Segment_Cluster_SilentTracks_SilentTrackNumber()
 //---------------------------------------------------------------------------
 void File_Mk::Segment_Cluster_SimpleBlock()
 {
+    Segment_Cluster_BlockGroup_BlockDuration_Value=(int64u)-1;
+    Segment_Cluster_BlockGroup_BlockDuration_TrackNumber=(int64u)-1;
+
     Segment_Cluster_BlockGroup_Block();
 }
 
