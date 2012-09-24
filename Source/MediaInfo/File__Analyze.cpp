@@ -250,6 +250,7 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
     //Configuring
     if (MediaInfoLib::Config.FormatDetection_MaximumOffset_Get())
         Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
+    Config->ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
     if (Config->File_IsSub_Get())
         IsSub=true;
     #if MEDIAINFO_DEMUX
@@ -866,6 +867,12 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
         if (Status[IsAccepted])
         {
             EVENT_BEGIN (General, End, 0)
+                if (Event.StreamIDs_Size>=1)
+                    Event.StreamIDs[Event.StreamIDs_Size-1]=(int64u)-1;
+                Event.PCR=(int64u)-1;
+                Event.DTS=(int64u)-1;
+                Event.PTS=(int64u)-1;
+                Event.DUR=(int64u)-1;
                 Event.Stream_Bytes_Analyzed=Buffer_TotalBytes;
                 Event.Stream_Size=File_Size;
                 Event.Stream_Bytes_Padding=Buffer_PaddingBytes;
