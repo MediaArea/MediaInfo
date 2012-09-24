@@ -586,7 +586,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         else
         {
             if (Offsets_Buffer[0]>=Buffer_Offset-Header_Size && (Sub->Offsets_Stream.empty() || Sub->Offsets_Stream[Sub->Offsets_Stream.size()-1]+Sub->Buffer_Size-Sub->Offsets_Buffer[Sub->Offsets_Stream.size()-1]!=Offsets_Stream[0]))
-            {    
+            {
                 if (Buffer_Offset-Header_Size<Offsets_Buffer[0])
                 {
                     Sub->Offsets_Stream.push_back(Offsets_Stream[0]);

@@ -5274,7 +5274,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
 void File_Mxf::GenericPictureEssenceDescriptor_VideoLineMap()
 {
     int64u VideoLineMapEntries_Total=0;
-    
+
     //Parsing
     int32u Count, Length;
     Get_B4 (Count,                                              "Count");

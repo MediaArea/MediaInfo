@@ -41,7 +41,7 @@ using namespace MediaInfoNameSpace;
     #endif //_UNICODE
 #endif //__MINGW32
 
-int main (int argc, Char *argv[])
+int main (int /*argc*/, Char * /*argv[]*/)
 {
     //Information about MediaInfo
     MediaInfo MI;

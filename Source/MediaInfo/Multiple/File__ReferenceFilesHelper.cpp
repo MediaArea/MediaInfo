@@ -271,7 +271,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 if (Demux_Interleave)
                 {
                     CountOfReferencesToParse=References.size();
-                    for (references::iterator ReferenceSource=References.begin(); ReferenceSource!=References.end(); ReferenceSource++)
+                    for (references::iterator ReferenceSource=References.begin(); ReferenceSource!=References.end(); ++ReferenceSource)
                         if (ReferenceSource->FileNames.empty())
                             CountOfReferencesToParse--;
                     DTS_Interval=3000000000; // 3 seconds
@@ -328,7 +328,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
                 Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
                 Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
+
                 Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
                 MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
@@ -405,7 +405,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                         MI->Event_Prepare((struct MediaInfo_Event_Generic*)&Event);
                         Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
                         Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
-                    
+
                         Event.FileName_Relative_Unicode=Reference->Source.c_str();
 
                         MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);

@@ -143,7 +143,7 @@ MediaInfo_Config_MediaInfo::~MediaInfo_Config_MediaInfo()
     delete[] File_Buffer; //File_Buffer=NULL;
 
     #if MEDIAINFO_EVENTS
-        for (events_delayed::iterator Event=Events_Delayed.begin(); Event!=Events_Delayed.end(); Event++)
+        for (events_delayed::iterator Event=Events_Delayed.begin(); Event!=Events_Delayed.end(); ++Event)
             for (size_t Pos=0; Pos<Event->second.size(); Pos++)
                 delete Event->second[Pos]; //Event->second[Pos]=NULL;
     #endif //MEDIAINFO_EVENTS
@@ -1497,7 +1497,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
 
 void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
 {
-    for (events_delayed::iterator Event=Events_Delayed.begin(); Event!=Events_Delayed.end(); Event++)
+    for (events_delayed::iterator Event=Events_Delayed.begin(); Event!=Events_Delayed.end(); ++Event)
         if (Event->first==Source)
         {
             for (size_t Pos=0; Pos<Event->second.size(); Pos++)

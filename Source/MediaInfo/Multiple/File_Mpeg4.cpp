@@ -967,7 +967,7 @@ void File_Mpeg4::Read_Buffer_Unsynched()
                         StreamOffset_Temp=StreamOffset_Jump_Temp->first;
                     else
                     {
-                        StreamOffset_Jump_Temp++;
+                        ++StreamOffset_Jump_Temp;
                         if (StreamOffset_Jump_Temp==StreamOffset_Jump.end())
                             break;
                         StreamOffset_Temp=StreamOffset_Jump_Temp->second;
@@ -993,9 +993,9 @@ void File_Mpeg4::Read_Buffer_Unsynched()
                         //Searching the corresponding frame position
                         std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
                         int64u SamplePos=0;
-                        for (; Stsc!=Stream->second.stsc.end();  Stsc++)
+                        for (; Stsc!=Stream->second.stsc.end();  ++Stsc)
                         {
-                            std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; Stsc_Next++;
+                            std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; ++Stsc_Next;
                             if (Stsc_Next!=Stream->second.stsc.end() && stco_Pos+1>=Stsc_Next->FirstChunk)
                             {
                                 int64u CountOfSamples=(Stsc_Next->FirstChunk-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
@@ -1009,7 +1009,7 @@ void File_Mpeg4::Read_Buffer_Unsynched()
                                 Stream->second.stts_FramePos=SamplePos;
 
                                 //Searching the corresponding duration block position
-                                for (stream::stts_durations::iterator Stts_Duration=Stream->second.stts_Durations.begin(); Stts_Duration!=Stream->second.stts_Durations.end(); Stts_Duration++)
+                                for (stream::stts_durations::iterator Stts_Duration=Stream->second.stts_Durations.begin(); Stts_Duration!=Stream->second.stts_Durations.end(); ++Stts_Duration)
                                     if (SamplePos>=Stts_Duration->Pos_Begin && SamplePos<Stts_Duration->Pos_End)
                                     {
                                         Stream->second.stts_Durations_Pos=Stts_Duration-Stream->second.stts_Durations.begin();
@@ -1067,9 +1067,9 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                                         if (Value<*Stco)
                                                             return Read_Buffer_Seek(3, 0, ID);
                             
-                                                        for (; Stco!=Stream->second.stco.end();  Stco++)
+                                                        for (; Stco!=Stream->second.stco.end(); ++Stco)
                                                         {
-                                                            std::vector<int64u>::iterator Stco_Next=Stco; Stco_Next++;
+                                                            std::vector<int64u>::iterator Stco_Next=Stco; ++Stco_Next;
                                                             if (Stco_Next!=Stream->second.stco.end() && Value>=*Stco && Value<*Stco_Next)
                                                             {
                                                                 if (JumpTo>*Stco)
@@ -1110,7 +1110,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 case Stream_Text  :
                                                     {
                                                         //Searching the corresponding frame
-                                                        for (stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin(); stts_Duration!=Stream->second.stts_Durations.end(); stts_Duration++)
+                                                        for (stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin(); stts_Duration!=Stream->second.stts_Durations.end(); ++stts_Duration)
                                                         {
                                                             if (Value>=stts_Duration->DTS_Begin && Value<stts_Duration->DTS_End)
                                                             {
@@ -1131,9 +1131,9 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                                                 //Searching the corresponding stco
                                                                 std::vector<stream::stsc_struct>::iterator Stsc=Stream->second.stsc.begin();
                                                                 int64u SamplePos=0;
-                                                                for (; Stsc!=Stream->second.stsc.end();  Stsc++)
+                                                                for (; Stsc!=Stream->second.stsc.end(); ++Stsc)
                                                                 {
-                                                                    std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; Stsc_Next++;
+                                                                    std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; ++Stsc_Next;
                                                                     int64u CountOfSamples=((Stsc_Next==Stream->second.stsc.end()?Stream->second.stco.size():Stsc_Next->FirstChunk)-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
                                                                     if (Stsc_Next!=Stream->second.stsc.end() && FrameNumber>=SamplePos+CountOfSamples)
                                                                         SamplePos+=CountOfSamples;
@@ -1538,7 +1538,7 @@ bool File_Mpeg4::BookMark_Needed()
             if (!stco_IsDifferent && Muxing.size()==2)
             {
                 std::map<int32u, struct muxing>::iterator Muxing_1=Muxing.begin();
-                std::map<int32u, struct muxing>::iterator Muxing_2=Muxing.begin(); Muxing_2++;
+                std::map<int32u, struct muxing>::iterator Muxing_2=Muxing.begin(); ++Muxing_2;
                 if (Muxing_1->second.MaximalOffset>Muxing_2->second.MinimalOffset)
                     swap(Muxing_1, Muxing_2);
                 if (Muxing_1->second.MaximalOffset<=Muxing_2->second.MinimalOffset)
