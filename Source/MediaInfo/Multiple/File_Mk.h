@@ -278,7 +278,7 @@ private :
         ~stream()
         {
             delete Parser; //Parser=NULL;
-            delete ContentCompSettings_Buffer; //ContentCompSettings_Buffer=NULL;
+            delete[] ContentCompSettings_Buffer; //ContentCompSettings_Buffer=NULL;
         }
     };
     std::map<int64u, stream> Stream;
