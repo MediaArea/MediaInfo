@@ -1087,10 +1087,16 @@ bool File_Avc::Header_Parser_QuickSearch()
         Buffer_Offset+=4;
         Synched=false;
         if (!Synchronize())
+        {
             return false;
+            UnSynched_IsNotJunk=true;
+        }
 
         if (Buffer_Offset+6>Buffer_Size)
+        {
             return false;
+            UnSynched_IsNotJunk=true;
+        }
     }
 
     Trusted_IsNot("AVC, Synchronisation lost");

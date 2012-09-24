@@ -145,6 +145,7 @@ public :
     int64u Frame_Count_NotParsedIncluded;
     int64u FrameNumber_PresentationOrder;
     bool   Synched;                    //Data is synched
+    bool   UnSynched_IsNotJunk;        //Data is actually synched
     bool   MustExtendParsingDuration;  //Data has some substreams difficult to detect (e.g. captions), must wait a bit before final filling
 
 protected :

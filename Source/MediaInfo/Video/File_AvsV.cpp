@@ -363,7 +363,10 @@ bool File_AvsV::Header_Parser_QuickSearch()
         Buffer_Offset+=4;
         Synched=false;
         if (!Synchronize_0x000001())
+        {
             return false;
+            UnSynched_IsNotJunk=true;
+        }
     }
 
     if (Buffer_Offset+3==Buffer_Size)

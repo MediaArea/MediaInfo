@@ -2047,6 +2047,7 @@ void File_Mxf::Read_Buffer_Unsynched()
             Buffer_Header_Size=0;
             MustSynchronize=true;
             Synched=false;
+            UnSynched_IsNotJunk=true;
         }
         else
             Synched=true; //Always in clip data

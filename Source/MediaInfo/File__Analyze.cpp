@@ -149,6 +149,7 @@ File__Analyze::File__Analyze ()
     //Synchro
     MustParseTheHeaderFile=true;
     Synched=false;
+    UnSynched_IsNotJunk=false;
     MustExtendParsingDuration=false;
     Trusted=Error;
     Trusted_Multiplier=1;
@@ -816,6 +817,7 @@ void File__Analyze::Open_Buffer_Unsynch ()
     if (!MustSynchronize || (MustSynchronize && File_Offset_FirstSynched!=(int64u)-1)) //Synched at least once
     {
         Synched=false;
+        UnSynched_IsNotJunk=true;
         Read_Buffer_Unsynched();
         Ibi_Read_Buffer_Unsynched();
     }
@@ -1020,6 +1022,8 @@ bool File__Analyze::Buffer_Parse()
     //Data
     if (!Data_Manage())
         return false; //Wait for more data
+
+    Buffer_TotalBytes_LastSynched=Buffer_TotalBytes+Buffer_Offset;
 
     return Buffer_Offset!=Buffer_Size;
 }
@@ -1279,8 +1283,10 @@ bool File__Analyze::Synchro_Manage()
         Synched=true;
         if (!IsSub)
         {
-            Buffer_JunkBytes+=Buffer_TotalBytes+Buffer_Offset-Buffer_TotalBytes_LastSynched;
+            if (!UnSynched_IsNotJunk)
+                Buffer_JunkBytes+=Buffer_TotalBytes+Buffer_Offset-Buffer_TotalBytes_LastSynched;
             Buffer_TotalBytes_LastSynched=Buffer_TotalBytes+Buffer_Offset;
+            UnSynched_IsNotJunk=false;
         }
         if (File_Offset_FirstSynched==(int64u)-1)
         {
@@ -1348,6 +1354,13 @@ bool File__Analyze::Synchro_Manage_Test()
             return false; //Wait for more data
         }
         Synched=true;
+        if (!IsSub)
+        {
+            if (!UnSynched_IsNotJunk)
+                Buffer_JunkBytes+=Buffer_TotalBytes+Buffer_Offset-Buffer_TotalBytes_LastSynched;
+            Buffer_TotalBytes_LastSynched=Buffer_TotalBytes+Buffer_Offset;
+            UnSynched_IsNotJunk=false;
+        }
         if (File_Offset_FirstSynched==(int64u)-1)
         {
             Synched_Init();
