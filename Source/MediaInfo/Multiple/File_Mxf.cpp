@@ -9380,6 +9380,8 @@ void File_Mxf::Locators_Test()
 //---------------------------------------------------------------------------
 void File_Mxf::TryToFinish()
 {
+    Frame_Count_NotParsedIncluded=(int64u)-1;
+    
     if (!IsSub && IsParsingEnd && File_Size!=(int64u)-1 && Config->ParseSpeed<1 && IsParsingMiddle_MaxOffset==(int64u)-1 && File_Size/2>0x4000000) //TODO: 64 MB by default;
     {
         IsParsingMiddle_MaxOffset=File_Size/2+0x4000000; //TODO: 64 MB by default;
@@ -9389,10 +9391,6 @@ void File_Mxf::TryToFinish()
         Streams_Count=(size_t)-1;
         return;
     }
-
-    Fill();
-    Open_Buffer_Unsynch();
-    Finish();
 }
 
 } //NameSpace
