@@ -46,6 +46,10 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
+#if MEDIAINFO_EVENTS
+    class File__Analyze;
+#endif //MEDIAINFO_EVENTS
+
 //***************************************************************************
 // Class MediaInfo_Config_MediaInfo
 //***************************************************************************
