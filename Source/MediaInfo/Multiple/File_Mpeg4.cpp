@@ -1360,6 +1360,17 @@ void File_Mpeg4::Header_Parse()
 }
 
 //---------------------------------------------------------------------------
+struct Mpeg4_muxing
+{
+    int64u  MinimalOffset;
+    int64u  MaximalOffset;
+
+    Mpeg4_muxing()
+    {
+        MinimalOffset=(int64u)-1;
+        MaximalOffset=0;
+    }
+};
 bool File_Mpeg4::BookMark_Needed()
 {
     if (!mdat_MustParse)
@@ -1402,18 +1413,7 @@ bool File_Mpeg4::BookMark_Needed()
     //In case of second pass
     if (mdat_Pos.empty())
     {
-        struct muxing
-        {
-            int64u  MinimalOffset;
-            int64u  MaximalOffset;
-
-            muxing()
-            {
-                MinimalOffset=(int64u)-1;
-                MaximalOffset=0;
-            }
-        };
-        std::map<int32u, struct muxing> Muxing; //key is StreamID
+        std::map<int32u, struct Mpeg4_muxing> Muxing; //key is StreamID
         size_t  stco_Count=(size_t)-1;
         bool    stco_IsDifferent=false;
         
@@ -1537,8 +1537,8 @@ bool File_Mpeg4::BookMark_Needed()
         #if MEDIAINFO_DEMUX
             if (!stco_IsDifferent && Muxing.size()==2)
             {
-                std::map<int32u, struct muxing>::iterator Muxing_1=Muxing.begin();
-                std::map<int32u, struct muxing>::iterator Muxing_2=Muxing.begin(); ++Muxing_2;
+                std::map<int32u, struct Mpeg4_muxing>::iterator Muxing_1=Muxing.begin();
+                std::map<int32u, struct Mpeg4_muxing>::iterator Muxing_2=Muxing.begin(); ++Muxing_2;
                 if (Muxing_1->second.MaximalOffset>Muxing_2->second.MinimalOffset)
                     swap(Muxing_1, Muxing_2);
                 if (Muxing_1->second.MaximalOffset<=Muxing_2->second.MinimalOffset)
