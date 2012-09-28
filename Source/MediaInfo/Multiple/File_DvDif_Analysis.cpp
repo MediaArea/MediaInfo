@@ -471,12 +471,13 @@ void File_DvDif::Errors_Stats_Update()
             return;
     }
 
-    bool Errors_AreDetected=false;
-    bool Infos_AreDetected=false;
-    bool Arb_AreDetected=false;
     Ztring Errors_Stats_Line;
     if (Speed_FrameCount) //We must have at least one complete frame
     {
+        bool Errors_AreDetected=false;
+        bool Infos_AreDetected=false;
+        bool Arb_AreDetected=false;
+
         #if MEDIAINFO_EVENTS
             //Demux
             struct MediaInfo_Event_DvDif_Analysis_Frame_0 Event;

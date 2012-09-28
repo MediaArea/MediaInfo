@@ -1066,7 +1066,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                                         std::vector<int64u>::iterator Stco=Stream->second.stco.begin();
                                                         if (Value<*Stco)
                                                             return Read_Buffer_Seek(3, 0, ID);
-                            
+
                                                         for (; Stco!=Stream->second.stco.end(); ++Stco)
                                                         {
                                                             std::vector<int64u>::iterator Stco_Next=Stco; ++Stco_Next;
@@ -1161,7 +1161,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         Open_Buffer_Unsynch();
                         return 1;
                     }
-        case 3  :   
+        case 3  :
                     //FrameNumber
                     {
                         //Looking for video stream
@@ -1224,7 +1224,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 {
                                     //TODO
                                 }
-                                
+
                                 GoTo(Offset);
                                 Open_Buffer_Unsynch();
                                 return 1;
@@ -1416,7 +1416,7 @@ bool File_Mpeg4::BookMark_Needed()
         std::map<int32u, struct Mpeg4_muxing> Muxing; //key is StreamID
         size_t  stco_Count=(size_t)-1;
         bool    stco_IsDifferent=false;
-        
+
         //For each stream
         for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); ++Temp)
         {
@@ -1428,7 +1428,7 @@ bool File_Mpeg4::BookMark_Needed()
                     return false;
                 }
             #endif // MEDIAINFO_DEMUX
-    
+
             if (Temp->second.Parser && (!Temp->second.stsz.empty() || Temp->second.stsz_Sample_Size))
             {
                 if (!stco_IsDifferent)
@@ -1456,7 +1456,7 @@ bool File_Mpeg4::BookMark_Needed()
                         Muxing[Temp->first].MinimalOffset=Temp->second.stco[stco_Pos];
                     if (Muxing[Temp->first].MaximalOffset<Temp->second.stco[stco_Pos])
                         Muxing[Temp->first].MaximalOffset=Temp->second.stco[stco_Pos];
-                    
+
                     while (stsc_Pos+1<Temp->second.stsc.size() && Chunk_Number>=Temp->second.stsc[stsc_Pos+1].FirstChunk)
                         stsc_Pos++;
 
