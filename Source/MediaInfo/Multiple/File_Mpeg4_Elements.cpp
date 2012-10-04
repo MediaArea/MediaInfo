@@ -2852,6 +2852,8 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
         return;
     }
     int64u End=Element_Offset-8+record_size;
+    if (End>Element_Size)
+        End=Element_Size; //Found one file having record_size = the size of the atom, header included
     Get_B2 (alias_kind,                                         "alias kind"); Param_Info1(alias_kind?"directory":"file");
     Get_B1 (volume_name_string_length,                          "volume name string length");
     if (volume_name_string_length>27)
