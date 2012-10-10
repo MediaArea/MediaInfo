@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 
-lib_LTLIBRARIES = libmediainfo.la
-libmediainfo_la_SOURCES = \
+lib_LTLIBRARIES = lib@MediaInfoLib_LibName@.la
+lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/File__Analyze.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp \
@@ -177,10 +177,10 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 
 if COMPILE_TINYXML2
-libmediainfo_la_SOURCES += \
+lib@MediaInfoLib_LibName@_la_SOURCES += \
                        ../../../Source/ThirdParty/tinyxml2/tinyxml2.cpp
 endif
 
-libmediainfo_la_LDFLAGS     = -no-undefined -version-info 0:0:0
+lib@MediaInfoLib_LibName@_la_LDFLAGS     = -no-undefined -version-info 0:0:0
 
 INCLUDES = -I../../../Source -I../../../../ZenLib/Source

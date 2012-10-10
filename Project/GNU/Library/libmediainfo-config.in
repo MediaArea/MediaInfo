@@ -13,3 +13,6 @@ fi
 if test "$1" = "Exists"; then
 echo yes
 fi
+if test "$1" = "la_name"; then
+echo lib@MediaInfoLib_LibName@.la
+fi

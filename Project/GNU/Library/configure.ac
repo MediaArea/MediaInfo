@@ -177,6 +177,7 @@ AC_ARG_WITH(libz_static,        AC_HELP_STRING([--with-libz-static],        [Use
 AC_ARG_WITH(libcurl,            AC_HELP_STRING([--with-libcurl],            [Use libcurl (specific directory)]),          , with_libcurl=no)
 AC_ARG_WITH(libmms,             AC_HELP_STRING([--with-libmms],             [Use libmms (specific directory)]),           , with_libmms=no)
 AC_ARG_WITH(libtinyxml2,        AC_HELP_STRING([--with-libtinyxml2],        [Use libtinyxml2 (system)]),                  , with_libtinyxml2=depend)
+AC_ARG_WITH(libmediainfo-name,  AC_HELP_STRING([--with-libmediainfo-name],  [Force libmediainfo filename]),               , with_libmediainfo_name=mediainfo)
 
 dnl -------------------------------------------------------------------------
 dnl MediaInfo *
@@ -553,6 +554,11 @@ else
 fi
 
 dnl -------------------------------------------------------------------------
+dnl libmediainfo-name
+dnl
+MediaInfoLib_LibName="$with_libmediainfo_name"
+
+dnl -------------------------------------------------------------------------
 dnl base64
 dnl
 CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/base64"
@@ -674,8 +680,8 @@ dnl #########################################################################
 dnl ### MediaInfoLib flags
 dnl #########################################################################
 
-MediaInfoLib_LIBS=" -L$(pwd) -lmediainfo $MediaInfoLib_LIBS"
-MediaInfoLib_LIBS_Static=" $(pwd)/.libs/libmediainfo.a $MediaInfoLib_LIBS_Static"
+MediaInfoLib_LIBS=" -L$(pwd) -l$with_libmediainfo_name $MediaInfoLib_LIBS"
+MediaInfoLib_LIBS_Static=" $(pwd)/.libs/lib$with_libmediainfo_name.a $MediaInfoLib_LIBS_Static"
 
 dnl #########################################################################
 dnl ### Output
@@ -685,6 +691,7 @@ AC_SUBST(MediaInfoLib_CXXFLAGS)
 AC_SUBST(MediaInfoLib_LIBS)
 AC_SUBST(MediaInfoLib_LIBS_Static)
 AC_SUBST(MediaInfoLib_Unicode)
+AC_SUBST(MediaInfoLib_LibName)
 AC_CONFIG_FILES(libmediainfo-config, [chmod u+x libmediainfo-config])
 AC_CONFIG_FILES(libmediainfo.pc)
 
