@@ -57,7 +57,7 @@ private :
     void Stream();
 
     //Temp
-    int8u Identification_Done;
+    bool Identification_Done;
 };
 
 } //NameSpace
