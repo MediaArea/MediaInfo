@@ -66,7 +66,11 @@ inline void STRINGOUT(ZenLib::Ztring Text)
             std::cout<<Text.To_Local().c_str()<<std::endl;
         #endif //_MSC_VER
     #else // UNICODE
+        #if defined(STREAM_MISSING)
+            fwprintf(stdout, "%s\n", Text.c_str());
+        #else
             std::cout<<Text.c_str()<<std::endl;
+        #endif //_MSC_VER
     #endif // UNICODE
 }
 inline void STRINGERR(ZenLib::Ztring Text)
@@ -82,7 +86,7 @@ inline void STRINGERR(ZenLib::Ztring Text)
     #else // UNICODE
         #if defined(STREAM_MISSING)
             fwprintf(stderr, "%s\n", Text.c_str());
-        #elif
+        #else
             std::cerr<<Text.c_str()<<std::endl;
         #endif //_MSC_VER
     #endif // UNICODE
