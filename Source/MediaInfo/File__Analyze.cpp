@@ -2564,6 +2564,10 @@ void File__Analyze::ForceFinish ()
 
         Fill(StreamKind_Last, 0, "StreamSize", Buffer_TotalBytes, 10, true);
     }
+
+    //Frame count
+    if (Config->ParseSpeed==1 && IsRawStream && Frame_Count && Frame_Count!=(int64u)-1 && Retrieve(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_FrameCount)).empty())
+        Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_FrameCount), Frame_Count);
 }
 
 void File__Analyze::ForceFinish (File__Analyze* Parser)
