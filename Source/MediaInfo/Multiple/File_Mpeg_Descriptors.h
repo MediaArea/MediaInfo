@@ -31,6 +31,7 @@
 #include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
 #include "MediaInfo/Duplicate/File__Duplicate_MpegTs.h"
 #include <map>
+#include <cfloat>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

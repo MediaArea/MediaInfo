@@ -1,4 +1,4 @@
-// File_Pcm - Info for PCM files
+// File_Pcm_Vob - Info for PCM (from DVD) files
 // Copyright (C) 2007-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -17,13 +17,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about PCM files
+// Information about PCM (from DVD) files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_PcmH
-#define MediaInfo_File_PcmH
+#ifndef MediaInfo_File_Pcm_VobH
+#define MediaInfo_File_Pcm_VobH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -34,32 +34,26 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Pcm
+// Class File_Pcm_Vob
 //***************************************************************************
 
-class File_Pcm : public File__Analyze
+class File_Pcm_Vob : public File__Analyze
 {
 public :
-    //In
-    int64u          Frame_Count_Valid;
-    ZenLib::Ztring  Codec;
-    int16u          BitDepth;
-    int16u          Channels;
-    int32u          SamplingRate;
-
     //Constructor/Destructor
-    File_Pcm();
+    File_Pcm_Vob();
 
 private :
     //Streams management
     void Streams_Fill();
 
-    //Buffer - File header
-    bool FileHeader_Begin();
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 
-    //Buffer - Per element
-    void Header_Parse();
-    void Data_Parse();
+    //Temp
+    int8u   BitDepth;
+    int8u   Frequency;
+    int8u   NumberOfChannelsMinusOne;
 };
 
 } //NameSpace

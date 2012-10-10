@@ -67,10 +67,13 @@
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
 #if defined(MEDIAINFO_PCM_YES)
-    #include "MediaInfo/Audio/File_Pcm.h"
+    #include "MediaInfo/Audio/File_Pcm_M2ts.h"
 #endif
-#if defined(MEDIAINFO_AES3_YES)
-    #include "MediaInfo/Audio/File_Aes3.h"
+#if defined(MEDIAINFO_PCM_YES)
+    #include "MediaInfo/Audio/File_Pcm_Vob.h"
+#endif
+#if defined(MEDIAINFO_SMPTEST0302_YES)
+    #include "MediaInfo/Audio/File_SmpteSt0302.h"
 #endif
 #if defined(MEDIAINFO_PS2A_YES)
     #include "MediaInfo/Audio/File_Ps2Audio.h"
@@ -4393,16 +4396,15 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
 {
     //Filling
     #if defined(MEDIAINFO_PCM_YES)
-        File_Pcm* Parser=new File_Pcm();
-        Parser->IsRawPcm=false;
-        Ztring Codec;
+        File__Analyze* Parser;
         switch (FromTS_stream_type)
         {
-            case 0x80 : Codec=__T("M2TS"); break;
-            case 0x83 : Codec=__T("EVOB"); break;
-            default   : Codec=__T("VOB");
+            case 0x80 :
+                        Parser=new File_Pcm_M2ts();
+                        break;
+            default   :
+                        Parser=new File_Pcm_Vob();
         }
-        ((File_Pcm*)Parser)->Codec=Codec;
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
             {
@@ -4504,9 +4506,8 @@ File__Analyze* File_MpegPs::ChooseParser_PGS()
 File__Analyze* File_MpegPs::ChooseParser_AES3()
 {
     //Filling
-    #if defined(MEDIAINFO_AES3_YES)
-        File_Aes3* Parser=new File_Aes3();
-        Parser->From_MpegPs=true;
+    #if defined(MEDIAINFO_SMPTEST0302_YES)
+        File_SmpteSt0302* Parser=new File_SmpteSt0302();
         #if MEDIAINFO_DEMUX
             if (Config->Demux_Unpacketize_Get())
             {

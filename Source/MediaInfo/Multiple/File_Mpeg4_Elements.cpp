@@ -3722,6 +3722,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
             //Creating the parser
             File_Pcm MI;
+            MI.Frame_Count_Valid=0;
             MI.Codec=Ztring().From_Local(Codec.c_str());
             Open_Buffer_Init(&MI);
 

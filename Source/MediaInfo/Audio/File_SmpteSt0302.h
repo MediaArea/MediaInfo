@@ -1,5 +1,5 @@
-// File_Pcm - Info for PCM files
-// Copyright (C) 2007-2012 MediaArea.net SARL, Info@MediaArea.net
+// File_SmpteSt0302 - Info for SMPTE ST0302
+/// Copyright (C) 2008-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by
@@ -17,13 +17,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about PCM files
+// Information about SMPTE ST0302
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_PcmH
-#define MediaInfo_File_PcmH
+#ifndef MediaInfo_File_SmpteSt0302H
+#define MediaInfo_File_SmpteSt0302H
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -34,34 +34,36 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Pcm
+// Class File_SmpteSt0302
 //***************************************************************************
 
-class File_Pcm : public File__Analyze
+class File_SmpteSt0302 : public File__Analyze
 {
 public :
-    //In
-    int64u          Frame_Count_Valid;
-    ZenLib::Ztring  Codec;
-    int16u          BitDepth;
-    int16u          Channels;
-    int32u          SamplingRate;
-
     //Constructor/Destructor
-    File_Pcm();
+    File_SmpteSt0302();
+    ~File_SmpteSt0302();
 
 private :
     //Streams management
+    void Streams_Accept();
     void Streams_Fill();
 
-    //Buffer - File header
-    bool FileHeader_Begin();
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 
-    //Buffer - Per element
-    void Header_Parse();
-    void Data_Parse();
+    //Temp
+    int16u  audio_packet_size;
+    int8u   number_channels;
+    int8u   bits_per_sample;
+
+    //Parsers
+    std::vector<File__Analyze*> Parsers;
+    void            Parsers_Init();
+    void            Parsers_Parse(const int8u* Parser_Buffer, size_t Parser_Buffer_Size);
 };
 
 } //NameSpace
 
 #endif
+

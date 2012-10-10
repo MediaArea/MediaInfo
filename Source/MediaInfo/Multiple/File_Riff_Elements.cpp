@@ -1238,6 +1238,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     {
         //Creating the parser
         File_Pcm MI;
+        MI.Frame_Count_Valid=0;
         MI.Codec=Codec;
         MI.BitDepth=BitsPerSample;
 
@@ -1432,6 +1433,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
             {
                 //Creating the parser
                 File_Pcm MI;
+                MI.Frame_Count_Valid=0;
                 MI.Codec=Ztring().From_Number((int16u)SubFormat.hi, 16);
                 MI.BitDepth=BitsPerSample;
 

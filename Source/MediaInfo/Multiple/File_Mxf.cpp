@@ -344,19 +344,19 @@ const char* Mxf_EssenceElement(int128u EssenceElement)
 
     switch (Code5)
     {
-        case 0x05 : //CP Picture (SMPTE 326M)
+        case 0x05 : //CP Picture (SMPTE 386M)
                     switch (Code7)
                     {
                         case 0x01 : return "D-10 Video";
                         default   : return "Unknown stream";
                     }
-        case 0x06 : //CP Sound (SMPTE 326M)
+        case 0x06 : //CP Sound (SMPTE 386M)
                     switch (Code7)
                     {
                         case 0x10 : return "D-10 Audio";
                         default   : return "Unknown stream";
                     }
-        case 0x07 : //CP Data (SMPTE 326M)
+        case 0x07 : //CP Data (SMPTE 386M)
                     return "";
         case 0x14 : //MXF in MXF?
                     switch (Code7)
@@ -434,7 +434,7 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
                                                                         case 0x02 : //Essence container kind
                                                                                     switch (Code6)
                                                                                     {
-                                                                                        case 0x01 : return "D-10 Audio";
+                                                                                        case 0x01 : return "D-10"; // Video and Audio
                                                                                         case 0x02 : return "DV";
                                                                                         case 0x05 : return "Uncompressed pictures";
                                                                                         case 0x06 : return "PCM";
@@ -635,7 +635,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
                                                                         case 0x00 : return "PCM";
                                                                         case 0x01 : return "PCM";
                                                                         case 0x7E : return "PCM"; //AIFF
-                                                                        case 0x7F : return "PCM";
+                                                                        case 0x7F : return "PCM"; // TODO: Undefined
                                                                         default   : return "";
                                                                     }
                                                         case 0x02 : //Compressed coding
@@ -7140,9 +7140,9 @@ void File_Mxf::Info_UL_01xx01_Items()
                                     Info_B1(Code5,              "Item Type Identifier");
                                     switch (Code5)
                                     {
-                                        case 0x05 : Param_Info1("CP Picture (SMPTE 326M)"); break;
-                                        case 0x06 : Param_Info1("CP Sound (SMPTE 326M)"); break;
-                                        case 0x07 : Param_Info1("CP Data (SMPTE 326M)"); break;
+                                        case 0x05 : Param_Info1("CP Picture (SMPTE 386M)"); break;
+                                        case 0x06 : Param_Info1("CP Sound (SMPTE 386M)"); break;
+                                        case 0x07 : Param_Info1("CP Data (SMPTE 386M)"); break;
                                         case 0x14 : Param_Info1("MXF in MXF? (To confirm)"); break;
                                         case 0x15 : Param_Info1("GC Picture"); break;
                                         case 0x16 : Param_Info1("GC Sound"); break;
@@ -7697,7 +7697,7 @@ void File_Mxf::Info_UL_040101_Values()
                                             break;
                                         case 0x7F :
                                             {
-                                            Param_Info1("PCM");
+                                            Param_Info1("Undefined");
                                             Skip_B3(            "Reserved");
                                             }
                                             break;
@@ -7959,7 +7959,7 @@ void File_Mxf::Info_UL_040101_Values()
                                                 case 0x06 :
                                                     {
                                                     Param_Info1("AES-BWF");
-                                                    Info_B1(Code7,      "Mapping Kind"); Param_Info1(Mxf_EssenceContainer_Mapping(Code6, Code7, 0x7F));
+                                                    Info_B1(Code7,      "Mapping Kind"); Param_Info1(Mxf_EssenceContainer_Mapping(Code6, Code7, 0x00));
                                                     Skip_B1(            "Locally defined");
                                                     }
                                                     break;
@@ -8666,7 +8666,7 @@ void File_Mxf::ChooseParser__Avid(const essences::iterator &Essence, const descr
 }
 
 //---------------------------------------------------------------------------
-// 0x05, SMPTE 326M
+// 0x05, SMPTE 386M
 void File_Mxf::ChooseParser__Aaf_CP_Picture(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     int32u Code_Compare4=(int32u)Code.lo;
@@ -8686,7 +8686,7 @@ void File_Mxf::ChooseParser__Aaf_CP_Picture(const essences::iterator &Essence, c
 }
 
 //---------------------------------------------------------------------------
-// 0x06, SMPTE 326M
+// 0x06, SMPTE 386M
 void File_Mxf::ChooseParser__Aaf_CP_Sound(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     int32u Code_Compare4=(int32u)Code.lo;
@@ -8706,7 +8706,7 @@ void File_Mxf::ChooseParser__Aaf_CP_Sound(const essences::iterator &Essence, con
 }
 
 //---------------------------------------------------------------------------
-// 0x07, SMPTE 326M
+// 0x07, SMPTE 386M
 void File_Mxf::ChooseParser__Aaf_CP_Data(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     int32u Code_Compare4=(int32u)Code.lo;

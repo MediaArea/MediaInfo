@@ -1,5 +1,5 @@
-// File_Pcm - Info for PCM files
-// Copyright (C) 2007-2012 MediaArea.net SARL, Info@MediaArea.net
+// File_SmpteSt0331 - Info about SMPTE ST 331 streams
+// Copyright (C) 2008-2012 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by
@@ -17,13 +17,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about PCM files
+// Information about SMPTE ST 331 streams
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_PcmH
-#define MediaInfo_File_PcmH
+#ifndef MediaInfo_File_SmpteSt0331H
+#define MediaInfo_File_SmpteSt0331H
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -34,34 +34,30 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Pcm
+// Class File_SmpteSt0331
 //***************************************************************************
 
-class File_Pcm : public File__Analyze
+class File_SmpteSt0331 : public File__Analyze
 {
 public :
     //In
-    int64u          Frame_Count_Valid;
-    ZenLib::Ztring  Codec;
-    int16u          BitDepth;
-    int16u          Channels;
-    int32u          SamplingRate;
+    int32u  QuantizationBits;
 
     //Constructor/Destructor
-    File_Pcm();
+    File_SmpteSt0331();
 
 private :
     //Streams management
     void Streams_Fill();
 
-    //Buffer - File header
-    bool FileHeader_Begin();
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 
-    //Buffer - Per element
-    void Header_Parse();
-    void Data_Parse();
+    //Temp
+    int8u   Channels_valid;
 };
 
 } //NameSpace
 
 #endif
+

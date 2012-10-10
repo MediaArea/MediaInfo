@@ -2492,6 +2492,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds_ExtensibleWave()
             {
                 //Creating the parser
                 File_Pcm MI;
+                MI.Frame_Count_Valid=0;
                 MI.Codec=Ztring().From_Number((int16u)SubFormat.hi, 16);
 
                 //Parsing

@@ -134,7 +134,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_TRACE_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MEDIAINFO_TRACE_NO;MEDIAINFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_NEXTPACKET_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -152,7 +152,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_ADVANCEDx_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_TRACEx_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -274,7 +274,12 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Opus.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_M2ts.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_Vob.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Rkau.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0302.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0337.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
@@ -461,7 +466,12 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Opus.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_M2ts.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_Vob.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Rkau.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0302.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.h" />
+    <ClInclude Include="..\..\..\source\mediainfo\audio\File_SmpteSt0337.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />

@@ -85,14 +85,14 @@ void General_Move_Request_0 (struct MediaInfo_Event_General_Move_Request_0* Even
 {
     echoF("MediaInfo has requested to seek\n");
 
-    echo1("Stream_Offset=%08x\n", Event->Stream_Offset);
+    echo1("StreamOffset=%08x\n", Event->StreamOffset);
 }
 
 void General_Move_Done_0 (struct MediaInfo_Event_General_Move_Done_0* Event, struct UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo has seek\n");
 
-    echo1("Stream_Offset=%08x\n", Event->Stream_Offset);
+    echo1("StreamOffset=%08x\n", Event->StreamOffset);
 }
 
 void General_SubFile_Start_0 (struct MediaInfo_Event_General_SubFile_Start_0* Event, struct UserHandle_struct* UserHandle)
@@ -108,14 +108,14 @@ void General_SubFile_End_0 (struct MediaInfo_Event_General_SubFile_End_0* Event,
     echoF("MediaInfo has finished the parsing a new file from the source file\n");
 }
 
-void Global_Demux_3(struct MediaInfo_Event_Global_Demux_3 *Event, struct UserHandle_struct* UserHandle)
+void Global_Demux_4(struct MediaInfo_Event_Global_Demux_4 *Event, struct UserHandle_struct* UserHandle)
 {
     if (!UserHandle->DemuxContainerOnly)
         return;
 
     echoF("MediaInfo Demux\n");
 
-    echo1("Stream_Offset=%08x,", Event->Stream_Offset);
+    echo1("StreamOffset=%08x,", Event->StreamOffset);
     echo1(" Frame_Number=%u\n", Event->FrameNumber);
     echo0("IDs=");
     for (size_t Pos=0; Pos<Event->StreamIDs_Size; Pos++)
@@ -149,10 +149,10 @@ void Video_SliceInfo_0(struct MediaInfo_Event_Video_SliceInfo_0 *Event, struct U
 
     echoF("MediaInfo Demux\n");
 
-    echo1("Stream_Offset=%08x,", Event->Stream_Offset);
-    echo1(" FramePosition=%u,", Event->FramePosition);
-    echo1(" FieldPosition=%u,", Event->FramePosition);
-    echo1(" SlicePosition=%u,", Event->FramePosition);
+    echo1("StreamOffset=%08x,", Event->StreamOffset);
+    echo1(" FramePosition=%u,", Event->FrameNumber);
+    echo1(" FieldPosition=%u,", Event->FieldPosition);
+    echo1(" SlicePosition=%u,", Event->SlicePosition);
     echo0("IDs=");
     for (size_t Pos=0; Pos<Event->StreamIDs_Size; Pos++)
         switch (Event->StreamIDs_Width[Pos])
@@ -223,7 +223,7 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
     //*Global to all parsers
     switch (EventID)
     {
-                    CASE (Global, Demux, 3)
+                    CASE (Global, Demux, 4)
                     CASE (Video, SliceInfo, 0)
                     default                                                                     : ;
     }

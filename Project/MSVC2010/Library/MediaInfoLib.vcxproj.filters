@@ -176,6 +176,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
@@ -601,6 +604,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Pcx.cpp">
       <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_M2ts.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_Vob.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0302.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0337.cpp">
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1107,6 +1125,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events_Internal.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_M2ts.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_Vob.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0302.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\mediainfo\audio\File_SmpteSt0337.h">
+      <Filter>Header Files\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
