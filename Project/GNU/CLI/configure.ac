@@ -50,6 +50,7 @@ dnl
 AC_ARG_WITH(macosx-sdk,         AC_HELP_STRING([--with-macosx-sdk],         [Force the Mac SDK]),                         , with_macosx_sdk=no)
 AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [Force the Mac Version]),                     , with_macosx_version_min=no)
 AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],            [Do not link to libmediainfo, dynamic loading]), , with_dll=no)
+AC_ARG_WITH(libmediainfo-name,  AC_HELP_STRING([--with-libmediainfo-name],  [Force libmediainfo filename]),                  		  , with_libmediainfo_name=mediainfo)
 
 dnl -------------------------------------------------------------------------
 dnl External options
@@ -147,10 +148,15 @@ dnl ### Needed libs
 dnl #########################################################################
 
 dnl -------------------------------------------------------------------------
+dnl libmediainfo-name
+dnl
+MediaInfoLib_LibName="$with_libmediainfo_name"
+
+dnl -------------------------------------------------------------------------
 dnl MediaInfoLib
 dnl
 if test "$with_dll" != "yes"; then
-	if test -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
+	if test -e ../../../../MediaInfoLib/Project/GNU/Library/lib$with_libmediainfo_name.la; then
 		CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
 		if test "$enable_staticlibs" = "yes"; then
 			with_mediainfolib="builtin (static)"
@@ -169,14 +175,14 @@ if test "$with_dll" != "yes"; then
 			LIBS="$LIBS $(libmediainfo-config LIBS)"
 		fi
 	else
-		if pkg-config --exists libmediainfo; then
+		if pkg-config --exists lib$with_libmediainfo_name; then
 			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
 			if test "$enable_staticlibs" = "yes"; then
 				with_mediainfolib="system (static)"
-				LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
+				LIBS="$LIBS $(pkg-config --variable=Libs_Static lib$with_libmediainfo_name)"
 			else
 				with_mediainfolib="system"
-				LIBS="$LIBS $(pkg-config --libs libmediainfo)"
+				LIBS="$LIBS $(pkg-config --libs lib$with_libmediainfo_name)"
 			fi
 		else
 			AC_MSG_ERROR([libmediainfo configuration is not found])

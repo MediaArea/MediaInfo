@@ -52,11 +52,11 @@ if test -e MediaInfoLib/Project/GNU/Library/configure; then
  cd MediaInfoLib/Project/GNU/Library/
  test -e Makefile && rm Makefile
  chmod u+x configure
- ./configure $*
+ ./configure --enable-staticlibs $*
  if test -e Makefile; then
   make clean
   Zen_Make
-  if test -e libmediainfo.la; then
+  if test "$(./libmediainfo-config la_name)" != "" && test -e $(./libmediainfo-config la_name); then
    echo MediaInfoLib compiled
   else
    echo Problem while compiling MediaInfoLib
