@@ -209,6 +209,7 @@ private :
         Mpeg_TimeStamp TimeStamp_Start;
         Mpeg_TimeStamp TimeStamp_End;
         size_t         StreamIsRegistred;
+        size_t         StreamOrder;
         bool           Searching_Payload;
         bool           Searching_TimeStamp_Start;
         bool           Searching_TimeStamp_End;
@@ -224,6 +225,7 @@ private :
             descriptor_tag=0x00; //No info
             DVD_Identifier=0;
             StreamIsRegistred=0;
+            StreamOrder=(size_t)-1;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;
@@ -247,6 +249,8 @@ private :
     bool   video_stream_Unlimited;
     int16u Buffer_DataSizeToParse;
     std::vector<int64u> video_stream_PTS;
+    size_t StreamOrder_CountOfPrivateStreams_Minus1;
+    size_t StreamOrder_CountOfPrivateStreams_Temp;
 
     //Helpers
     bool Header_Parser_QuickSearch();

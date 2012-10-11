@@ -503,6 +503,7 @@ void File_MpegPs::Streams_Finish()
         Streams_Finish_PerStream(StreamID, Streams[StreamID], KindOfStream_Main);
 
     //For each private Streams
+    StreamOrder_CountOfPrivateStreams_Temp=0;
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
         Streams_Finish_PerStream(StreamID, Streams_Private1[StreamID], KindOfStream_Private);
 
@@ -601,6 +602,23 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
         Merge(*Temp.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
         Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
         Fill(StreamKind_Last, StreamPos_Last, General_ID_String, ID_String, true);
+        if (!IsSub)
+            switch (KindOfStream)
+            {
+                case KindOfStream_Private   :
+                                                if (Streams[0xBD].StreamOrder!=(size_t)-1)
+                                                    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Streams[0xBD].StreamOrder+StreamOrder_CountOfPrivateStreams_Temp);
+                                                if (StreamOrder_CountOfPrivateStreams_Minus1 && StreamOrder_CountOfPrivateStreams_Temp<StreamOrder_CountOfPrivateStreams_Minus1)
+                                                    StreamOrder_CountOfPrivateStreams_Temp++;
+                                                break;
+                case KindOfStream_Extension :
+                                                if (Streams[0xFD].StreamOrder!=(size_t)-1)
+                                                    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Streams[0xFD].StreamOrder);
+                                                break;
+                default                     :
+                                                if (Temp.StreamOrder!=(size_t)-1)
+                                                    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Temp.StreamOrder);
+            }
 
         //Special cases
         if (Temp.Parsers[0]->Count_Get(Stream_Video) && Temp.Parsers[0]->Count_Get(Stream_Text))
@@ -626,7 +644,22 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                 Fill(Stream_Text, StreamPos_Last, Text_ID, ID, true);
                 Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp.StreamPos, Video_ID_String)+__T("-")+Temp.Parsers[0]->Retrieve(Stream_Text, Parser_Pos, Text_ID), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay), true);
-            }
+                if (!IsSub)
+                    switch (KindOfStream)
+                    {
+                        case KindOfStream_Private   :
+                                                        if (Streams[0xBD].StreamOrder!=(size_t)-1)
+                                                            Fill(Stream_Text, StreamPos_Last, "StreamOrder", Streams[0xBD].StreamOrder);
+                                                        break;
+                        case KindOfStream_Extension :
+                                                        if (Streams[0xFD].StreamOrder!=(size_t)-1)
+                                                            Fill(Stream_Text, StreamPos_Last, "StreamOrder", Streams[0xFD].StreamOrder);
+                                                        break;
+                        default                     :
+                                                        if (Temp.StreamOrder!=(size_t)-1)
+                                                            Fill(Stream_Text, StreamPos_Last, "StreamOrder", Temp.StreamOrder);
+                    }
+                }
 
             StreamKind_Last=Temp.StreamKind;
             StreamPos_Last=Temp.StreamPos;
@@ -2311,6 +2344,9 @@ void File_MpegPs::system_header_start()
     private_stream_2_Count=0;
     SL_packetized_stream_Count=0;
 
+    //StreamOrder
+    StreamOrder_CountOfPrivateStreams_Minus1=0;
+
     //Parsing
     int32u rate_bound;
     int8u  audio_bound, video_bound;
@@ -2328,6 +2364,7 @@ void File_MpegPs::system_header_start()
     Skip_SB(                                                    "packet_rate_restriction_flag");
     Skip_S1( 7,                                                 "reserved_byte");
     bool one=false;
+    size_t StreamOrder=0;
     if (Element_IsNotFinished())
         Peek_SB(one);
     while (one)
@@ -2374,6 +2411,14 @@ void File_MpegPs::system_header_start()
                 case 0xFA : SL_packetized_stream_Count=(int8u)-1; break;
                 case 0xFD : extension_stream_Count=(int8u)-1; break;
                 default   : ;
+            }
+
+            if (stream_id==0xBD && Streams[stream_id].StreamOrder!=(size_t)-1)
+                StreamOrder_CountOfPrivateStreams_Minus1++;
+            else if (stream_id>0xB9)
+            {
+                Streams[stream_id].StreamOrder=StreamOrder;
+                StreamOrder++;
             }
         FILLING_END();
 

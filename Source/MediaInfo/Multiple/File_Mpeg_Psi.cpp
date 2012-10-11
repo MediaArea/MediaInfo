@@ -1092,6 +1092,7 @@ void File_Mpeg_Psi::Table_00()
 
     if (Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount==(size_t)-1)
         Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount=0;
+    Complete_Stream->Transport_Streams[table_id_extension].programs_List.clear();
 
     //Saving previous status
     std::map<int16u, complete_stream::transport_stream::program> program_numbers_Previous=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs;
@@ -2417,6 +2418,7 @@ void File_Mpeg_Psi::program_number_Update()
     {
         Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount++;
         Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].pid=elementary_PID;
+        Complete_Stream->Transport_Streams[table_id_extension].programs_List.push_back(program_number);
         if (Complete_Stream->Streams.size()<0x2000)
             Complete_Stream->Streams.resize(0x2000); //TODO: find the reason this code is called
         Complete_Stream->Streams[elementary_PID]->program_numbers.push_back(program_number);

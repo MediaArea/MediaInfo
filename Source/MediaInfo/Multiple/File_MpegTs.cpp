@@ -401,6 +401,10 @@ void File_MpegTs::Streams_Update_Programs()
                         Fill(Stream_Menu, StreamPos_Last, Menu_ID_String, Decimal_Hexa(Program->second.pid), true);
                         Fill(Stream_Menu, StreamPos_Last, Menu_MenuID, Program->first, 10, true);
                         Fill(Stream_Menu, StreamPos_Last, Menu_MenuID_String, Decimal_Hexa(Program->first), true);
+                        Clear(Stream_Menu, StreamPos_Last, "StreamOrder");
+                        for (size_t programs_List_Pos=0; programs_List_Pos<Transport_Stream->second.programs_List.size(); ++programs_List_Pos)
+                            if (Transport_Stream->second.programs_List[programs_List_Pos]==Program->first)
+                                Fill(Stream_Menu, StreamPos_Last, "StreamOrder", programs_List_Pos);
                         for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); ++Info)
                             Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second, true);
                         Program->second.Infos.clear();
@@ -605,6 +609,25 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 Fill(StreamKind_Last, StreamPos, General_MenuID_String, Decimal_Hexa(Temp->program_numbers[Pos]), Pos==0);
             }
 
+            //StreamOrder
+            Clear(StreamKind_Last, StreamPos, "StreamOrder");
+            for (size_t program_FromStream=0; program_FromStream<Temp->program_numbers.size(); ++program_FromStream)
+            {
+                int16u program_number=Temp->program_numbers[program_FromStream];
+                std::vector<int16u> &programs_List=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].programs_List;
+                size_t programs_List_Pos=0;
+                for (; programs_List_Pos<programs_List.size(); ++programs_List_Pos)
+                    if (programs_List[programs_List_Pos]==program_number)
+                        break;
+                if (programs_List_Pos<programs_List.size())
+                {
+                    complete_stream::transport_stream::program &Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number];
+                    for (size_t elementary_PID_Pos=0; elementary_PID_Pos<Program.elementary_PIDs.size(); ++elementary_PID_Pos)
+                        if (Program.elementary_PIDs[elementary_PID_Pos]==StreamID)
+                            Fill(StreamKind_Last, StreamPos, "StreamOrder",  Ztring::ToZtring(programs_List_Pos)+__T('-')+Ztring::ToZtring(elementary_PID_Pos));
+                }
+            }
+
             //Special cases
             if (StreamKind_Last==Stream_Video && Temp->Parser && Temp->Parser->Count_Get(Stream_Text))
             {
@@ -638,6 +661,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", __T("Muxed in Video #")+Ztring().From_Number(Temp->StreamPos+1), true);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, ID, true);
                 Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID_String, true);
+                Fill(Stream_Text, StreamPos_Last, "StreamOrder", Retrieve(Stream_Video, Temp->StreamPos, "StreamOrder"), true);
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID), true);
                 Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID_String), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp->StreamPos, Video_Duration), true);

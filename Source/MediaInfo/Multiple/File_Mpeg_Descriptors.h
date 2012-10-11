@@ -156,6 +156,7 @@ struct complete_stream
         };
         typedef std::map<int16u, program> programs; //Key is program_number
         programs Programs; //Key is program_number
+        std::vector<int16u> programs_List;
         size_t   Programs_NotParsedCount;
 
         //Per IOD

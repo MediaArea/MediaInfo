@@ -6142,6 +6142,7 @@ void File_Mxf::MultipleDescriptor_SubDescriptorUIDs()
 
         FILLING_BEGIN();
             Descriptors[InstanceUID].SubDescriptors.push_back(Data);
+            Descriptors[Data].Infos["StreamOrder"].From_Number(Pos);
         FILLING_END();
     }
 }

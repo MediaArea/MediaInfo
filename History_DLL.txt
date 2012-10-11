@@ -17,6 +17,7 @@ Version 0.7.60, 2012-
 + DV100: scan order
 + MXF: scan order
 + MPEG-TS: Maximum and minimum overal bit rate (only if parse speed is set to 1
++ MPEG-TS, MPEG-S, MXF, AVI, WM: StreamOrder field added
 x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
 x CEA-708: crash with some malformed streams
 x MPEG-TS: crash when PCR is corrupted (same value at different offsets)
