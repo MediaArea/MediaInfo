@@ -62,6 +62,7 @@ mkdir -p MediaInfo_DLL_$1_$2/Developpers/Source/Example
 cp ../Source/Example/HowToUse* MediaInfo_DLL_$1_$2/Developpers/Source/Example/
 mkdir -p MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo
 cp ../Source/MediaInfo/MediaInfo.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
+cp ../Source/MediaInfo/MediaInfo_Const.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
 cp ../Source/MediaInfo/MediaInfo_Events.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
 cp ../Source/MediaInfo/MediaInfoList.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
 mkdir -p MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL
