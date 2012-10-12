@@ -35,8 +35,6 @@
 
 //---------------------------------------------------------------------------
 #include "ZenLib/Utils.h"
-#include "MediaInfo/MediaInfo_Internal.h"
-#include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/Export/Export_Mpeg7.h"
 #include "MediaInfo/Export/Export_reVTMD.h"
 #include "MediaInfo/Export/Export_PBCore.h"

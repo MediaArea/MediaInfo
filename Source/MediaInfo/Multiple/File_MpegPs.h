@@ -29,7 +29,6 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
-#include <map>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

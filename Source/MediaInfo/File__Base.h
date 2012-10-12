@@ -29,8 +29,6 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Setup.h"
 #include "MediaInfo/MediaInfo_Config.h"
-#include "ZenLib/ZtringListList.h"
-using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

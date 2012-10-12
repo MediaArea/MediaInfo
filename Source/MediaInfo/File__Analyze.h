@@ -23,21 +23,14 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/Setup.h"
 #include "MediaInfo/File__Base.h"
 #include "MediaInfo/File__Analyse_Automatic.h"
-#include "MediaInfo/MediaInfo_Config.h"
 #include "ZenLib/BitStream_Fast.h"
 #include "ZenLib/BitStream_LE.h"
-#include "ZenLib/int128u.h"
-#include "ZenLib/ZtringListList.h"
-#include <vector>
-#include <bitset>
 #if MEDIAINFO_IBI
     #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #endif //MEDIAINFO_IBI
 #include "tinyxml2.h"
-using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

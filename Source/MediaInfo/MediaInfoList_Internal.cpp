@@ -26,13 +26,11 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/Setup.h"
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 #include "MediaInfoList_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
-#include "ZenLib/ZtringListList.h"
 #include "ZenLib/File.h"
 #include "ZenLib/Dir.h"
 #include "MediaInfo/Reader/Reader_Directory.h"

@@ -35,10 +35,12 @@
 #include "ZenLib/ZtringListList.h"
 #include "ZenLib/Translation.h"
 #include "ZenLib/InfoMap.h"
-#include <map>
-#include <vector>
 #include <bitset>
 using namespace ZenLib;
+using std::vector;        
+using std::string;        
+using std::map;
+using std::make_pair;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

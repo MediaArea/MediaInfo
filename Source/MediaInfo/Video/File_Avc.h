@@ -25,7 +25,6 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/File__Duplicate.h"
-using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

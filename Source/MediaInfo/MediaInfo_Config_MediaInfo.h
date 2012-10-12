@@ -35,12 +35,8 @@
     #include "ZenLib/File.h"
 #endif //MEDIAINFO_EVENTS
 #include "ZenLib/CriticalSection.h"
-#include "ZenLib/ZtringListList.h"
 #include "ZenLib/Translation.h"
 #include "ZenLib/InfoMap.h"
-#include <map>
-#include <vector>
-using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

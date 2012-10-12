@@ -25,7 +25,6 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/MediaInfo_Internal.h"
-#include <map>
 class File_MpegPs;
 //---------------------------------------------------------------------------
 
