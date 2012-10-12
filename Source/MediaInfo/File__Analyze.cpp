@@ -3003,13 +3003,13 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
                 Offsets_Buffer_Temp[0]=0;
                 for (size_t Pos=1; Pos<Offsets_Buffer_Temp.size(); Pos++)
                     Offsets_Buffer_Temp[Pos]-=Buffer_Offset+Element_Offset;
-                Event.Offsets_Stream=Offsets_Stream_Temp.data();
-                Event.Offsets_Content=Offsets_Buffer_Temp.data();
+                Event.Offsets_Stream=&Offsets_Stream_Temp.front();
+                Event.Offsets_Content=&Offsets_Buffer_Temp.front();
             }
             else
             {
-                Event.Offsets_Stream=Offsets_Stream.data();
-                Event.Offsets_Content=Offsets_Buffer.data();
+                Event.Offsets_Stream=&Offsets_Stream.front();
+                Event.Offsets_Content=&Offsets_Buffer.front();
             }
             Event.OriginalContent_Size=OriginalBuffer_Size;
             Event.OriginalContent=OriginalBuffer;
