@@ -1260,7 +1260,7 @@ void File_Id3v2::Fill_Name()
         case Elements::WXXX : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Elements::BUF  : break;
         case Elements::CNT  : break;
-        case Elements::COM  : Fill(Stream_General, 0, "Comment", Element_Value); break;
+        case Elements::COM  : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Elements::CRA  : break;
         case Elements::CRM  : break;
         case Elements::EQU  : break;
@@ -1336,7 +1336,7 @@ void File_Id3v2::Fill_Name()
         case Elements::TXX  : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Elements::TYE  : Year=Element_Value; break;
         case Elements::UFI  : Fill(Stream_Audio,   0, "UID", Element_Value); break;
-        case Elements::ULT  : break;
+        case Elements::ULT  : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Elements::WAF  : break;
         case Elements::WAR  : Fill(Stream_General, 0, General_Service_Url, Element_Value); break;
         case Elements::WAS  : Fill(Stream_General, 0, "Official audio source webpage", Element_Value); break;
