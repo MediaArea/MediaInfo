@@ -62,9 +62,14 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Mpega.cpp \
                        ../../../Source/MediaInfo/Audio/File_Opus.cpp \
                        ../../../Source/MediaInfo/Audio/File_Pcm.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Pcm_M2ts.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Pcm_Vob.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ps2Audio.cpp \
                        ../../../Source/MediaInfo/Audio/File_Rkau.cpp \
                        ../../../Source/MediaInfo/Audio/File_ScreamTracker3.cpp \
+                       ../../../Source/MediaInfo/Audio/File_SmpteSt0302.cpp \
+                       ../../../Source/MediaInfo/Audio/File_SmpteSt0331.cpp \
+                       ../../../Source/MediaInfo/Audio/File_SmpteSt0337.cpp \
                        ../../../Source/MediaInfo/Audio/File_Speex.cpp \
                        ../../../Source/MediaInfo/Audio/File_Tak.cpp \
                        ../../../Source/MediaInfo/Audio/File_Tta.cpp \
