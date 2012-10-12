@@ -1406,7 +1406,7 @@ bool File_MpegPs::Header_Parse_PES_packet(int8u stream_id)
     }
 
     //Video unlimited specific
-    if (PES_packet_length==0 || File_Offset+Buffer_Size>=File_Size)
+    if (PES_packet_length==0)
     {
         if (!Header_Parse_Fill_Size())
         {

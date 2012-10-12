@@ -29,6 +29,7 @@ x MPEG-TS: bit rate mode detection was sometimes too much strict about CBR
 x DV: wrong detection in case of buggy audio header (if present and set to 0xFF)
 x MPEG-4: crash in case of buggy aperture size atom
 x MediaInfo_Const.h was missing in the DLL package for Mac
+x MPEG-PS: detection of phantom streams
 
 Version 0.7.60, 2012-09-02
 --------------
