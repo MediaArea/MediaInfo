@@ -104,6 +104,9 @@ protected:
     float   Details;
     MediaInfoNameSpace::String  Demux;
 
+private:
+    Core (const Core&);
+
     friend class GUI_Main_Common_Core;
     friend class GUI_Main_Easy_Core;
     friend class GUI_Main_Easy_Box_Core;

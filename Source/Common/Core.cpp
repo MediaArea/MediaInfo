@@ -45,6 +45,8 @@ Core::Core()
 {
     MI=new MediaInfoNameSpace::MediaInfoList;
 
+    GUI_Main_Handler=NULL;
+    Kind=Kind_Easy;
     Details=0;
 }
 
