@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.61
+--------------
++ Bigger default window
+
 Version 0.7.60, 2012-09-02
 --------------
 + #3285550, GUI: added shell extension icon
@@ -30,7 +34,6 @@ x AAC: wrong min and max bit rate in case of partial (default) parsing, disablin
 x AVC: crash or hang up with some malformed/scrambled streams
 x Opus: wrong duration in case of non-48kHz stream
 x MOV: 25 fps + drop frame time codes were not handled correctly
-
 
 Version 0.7.59, 2012-08-08
 --------------
