@@ -15,6 +15,7 @@ Known bugs
 
 Version 0.7.61
 --------------
++ Italian translation updated
 + Bigger default window
 
 Version 0.7.60, 2012-09-02

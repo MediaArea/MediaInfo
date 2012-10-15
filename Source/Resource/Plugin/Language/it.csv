@@ -66,7 +66,7 @@
  image stream1; flusso immagine
  image stream2; flusso immagini
  image stream3; flusso immagini
- KB; Kbps
+ KB;KB
  Kb; Kb
  KBps; KBps
  Kbps; Kbps
@@ -88,21 +88,21 @@
  MB; MB
  Mb; Mb
  Mbps; Mbps
- MBps; MebiBytes
+ MBps; MebiByte
  MebiBit1; MeBit
- MebiBit2; MebiBits
- MebiBit3; MebiBits
- MebiByte1; MebiByts
- MebiByte2; MebiBytes
- MebiByte3; MebiBytes
+ MebiBit2; MebiBit
+ MebiBit3; MebiBit
+ MebiByte1; MebiByte
+ MebiByte2; MebiByte
+ MebiByte3; MebiByte
  MegaBit1; MegaBit
- MegaBit2; MegaBits
- MegaBit3; MegaBits
+ MegaBit2; MegaBit
+ MegaBit3; MegaBit
  MegaByte1; MegaByte
- MegaByte2; MegaBytes
- MegaByte3; MegaBytes
+ MegaByte2; MegaByte
+ MegaByte3; MegaByte
  MHz; MHz
- MiB; Mb
+ MiB;MiB
  Mib; Mib
  MiBps; MiBps
  millisecond1; millisecondo
@@ -156,13 +156,13 @@ Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Allineamento
-Alignment_Aligned;Audio allineato
+Alignment_Aligned;Audio allineato 
 Alignment_Split;Audio splittato
 All;Tutti
 Archival_Location;Posizione dell'archivio
 Arranger;Compositore
 ArtDirector;Regista
-AspectRatio;Rapport aspetto
+AspectRatio;Rapporto d'aspetto
 AssistantDirector;Assistente regista
 at;a
 At least one file;(Devi aprire almeno un file)
@@ -212,7 +212,7 @@ Close;Chiudi
 Close all before open;Chiudi tutto prima di aprire
 Codec;Codec
 Codec_Description;Descrizione del codec
-Codec_Info;Dettagli sui codec
+Codec_Info;Dettagli sul codec
 Codec_Settings;Impostazioni del codec
 Codec_Settings_PacketBitStream;Impostazioni del codec, Packet bitstream
 Codec_Settings_BVOP;Impostazioni del codec, BVOP
@@ -243,7 +243,7 @@ Compression_Mode;Modo compressione
 Compression_Mode_Lossless;Senza perdita
 Compression_Mode_Lossy;Con perdita
 Compression_Ratio; Rapporto compressione
-Conductor;Direttore d'orchestra
+Conductor;Direttore d'orchestra 
 Container and general information;Tipo di file e informazioni generali
 ContentType;Contenuto
 CoProducer;Coproduttore
@@ -500,7 +500,7 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock
+Genre_141;Christian Rock 
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
@@ -747,7 +747,7 @@ Lightness;Luminosità
 List;Elenco
 Lyrics;Testo
 Lyricist;Autore del testo
-Mastered_Date;Data di incisione
+Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
 matrix_coefficients;Coefficienti matrici
 MediaInfo_About;Ottieni informazioni dettagliate\r\nsu file multimediali:\r\nMatroska, OGG e OGM\r\nMPEG1 (VCD)\r\nMPEG2 (DVD e SVCD)\r\nMPEG4 e Itunes M4A\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV e WMA)\r\nMicrosoft RIFF (AVI e WAV)\r\nFile audio (AC3,DTS,AAC,AU,AIFF...)
