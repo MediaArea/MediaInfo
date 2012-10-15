@@ -3305,17 +3305,25 @@ void File_Mxf::Data_Parse()
             {
                 //Ancillary with
                 int16u Count;
-                Get_B2 (Count,                                  "Number of packets");
+                Get_B2 (Count,                                  "Number of Lines");
+                if (Count*14>Element_Size)
+                {
+                    Essence->second.Parser->Finish();
+                    Skip_XX(Element_Size-2,                     "Unknown");
+                    Count=0;
+                }
                 for (int16u Pos=0; Pos<Count; Pos++)
                 {
                     Element_Begin1("Packet");
+                    int32u Size2, Count2;
                     int16u LineNumber, Size;
                     Get_B2 (LineNumber,                         "Line Number");
                     Skip_B1(                                    "Wrapping Type");
                     Skip_B1(                                    "Payload Sample Coding");
                     Get_B2 (Size,                               "Payload Sample Count");
-                    Skip_B4(                                    "Size?");
-                    Skip_B4(                                    "Count?");
+                    Get_B4 (Size2,                              "Size?");
+                    Get_B4 (Count2,                             "Count?");
+
                     if (FrameInfo.DTS!=(int64u)-1)
                         Essence->second.Parser->FrameInfo.DTS=FrameInfo.DTS;
                     if (FrameInfo.PTS!=(int64u)-1)
@@ -3334,6 +3342,8 @@ void File_Mxf::Data_Parse()
                                 break;
                             }
                     }
+                    if (Element_Offset+Size>Element_Size)
+                        Size=Element_Size-Element_Offset;
                     Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
                     if ((Code_Compare4&0xFF00FF00)==0x17000100 && LineNumber==21 && Essence->second.Parser->Count_Get(Stream_Text)==0)
                     {
@@ -3342,17 +3352,17 @@ void File_Mxf::Data_Parse()
                         Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-608");
                         Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "VBI / Line 21");
                     }
-                    if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1)
-                        Essence->second.Frame_Count_NotParsedIncluded+=Essence->second.Parser->Frame_Count_InThisBlock;
-                    if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
-                    if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.FrameInfo.PTS+=Essence->second.FrameInfo.DUR;
                     Element_Offset+=Size;
-                    if (Size%4)
-                        Skip_XX(4-(Size%4),                     "Padding");
+                    if (Size<Size2*Count2)
+                        Skip_XX(Size2*Count2-Size,              "Padding");
                     Element_End0();
                 }
+                if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1)
+                    Essence->second.Frame_Count_NotParsedIncluded++;
+                if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
+                    Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
+                if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
+                    Essence->second.FrameInfo.PTS+=Essence->second.FrameInfo.DUR;
             }
             else if (Element_Size)
             {
@@ -8826,8 +8836,8 @@ void File_Mxf::ChooseParser__Aaf_GC_Data(const essences::iterator &Essence, cons
 
     switch (Code_Compare4_3)
     {
-        case 0x01 : //VBI
-                    Essences[Code_Compare4].Parser=new File__Analyze(); //TODO: VBI is not yet well supported
+        case 0x01 : //VBI, SMPTE ST 436
+                    Essences[Code_Compare4].Parser=new File__Analyze();
                     break;
         case 0x02 : //Ancillary
                     if (Ancillary)

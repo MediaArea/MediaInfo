@@ -18,6 +18,7 @@ Version 0.7.60, 2012-
 + MXF: scan order
 + MPEG-TS: Maximum and minimum overal bit rate (only if parse speed is set to 1)
 + MPEG-TS, MPEG-S, MXF, AVI, WM: StreamOrder field added
++ MXF: better support of malformed VANC streams
 x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
 x #3570092, Id3v2: support of old COM and ULT fields
 x CEA-708: crash with some malformed streams
