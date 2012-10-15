@@ -751,14 +751,14 @@ bool File_Mpeg4v::Header_Parser_QuickSearch()
         Synched=false;
         if (!Synchronize())
         {
-            return false;
             UnSynched_IsNotJunk=true;
+            return false;
         }
 
         if (Buffer_Offset+4>Buffer_Size)
         {
-            return false;
             UnSynched_IsNotJunk=true;
+            return false;
         }
     }
 

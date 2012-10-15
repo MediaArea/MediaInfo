@@ -4339,7 +4339,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_clap()
         return; //Handling only the first description
 
     FILLING_BEGIN();
-        if (apertureWidth_D && apertureWidth_D && apertureHeight_N && apertureHeight_D)
+        if (apertureWidth_N && apertureWidth_D && apertureHeight_N && apertureHeight_D)
         {
             Streams[moov_trak_tkhd_TrackID].CleanAperture_Width=((float)apertureWidth_N)/apertureWidth_D;
             Streams[moov_trak_tkhd_TrackID].CleanAperture_Height=((float)apertureHeight_N)/apertureHeight_D;

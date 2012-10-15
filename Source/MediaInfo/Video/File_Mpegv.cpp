@@ -2068,14 +2068,14 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         Synched=false;
         if (!Synchronize())
         {
-            return false;
             UnSynched_IsNotJunk=true;
+            return false;
         }
 
         if (Buffer_Offset+4>Buffer_Size)
         {
-            return false;
             UnSynched_IsNotJunk=true;
+            return false;
         }
     }
 
@@ -3810,8 +3810,8 @@ void File_Mpegv::extension_start()
                             TemporalReference[TemporalReference_Offset+temporal_reference]->repeat_first_field=repeat_first_field;
                             TemporalReference[TemporalReference_Offset+temporal_reference]->HasPictureCoding=true;
                         }
-                    FILLING_END();
-                }
+                    }
+                FILLING_END();
                 break;
         case  9 :{ //Picture Spatial Scalable Extension
                     //Parsing

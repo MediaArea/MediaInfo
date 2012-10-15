@@ -364,8 +364,8 @@ bool File_AvsV::Header_Parser_QuickSearch()
         Synched=false;
         if (!Synchronize_0x000001())
         {
-            return false;
             UnSynched_IsNotJunk=true;
+            return false;
         }
     }
 
@@ -589,7 +589,7 @@ void File_AvsV::extension_start()
     Get_S1 ( 4, extension_start_code_identifier,                "extension_start_code_identifier"); Param_Info1(AvsV_extension_start_code_identifier[extension_start_code_identifier]);
     Element_Info1(AvsV_extension_start_code_identifier[extension_start_code_identifier]);
 
-         switch (extension_start_code_identifier)
+    switch (extension_start_code_identifier)
     {
         case 2  :{ //sequence_display
                     //Parsing
@@ -670,7 +670,6 @@ void File_AvsV::extension_start()
                     BS_End();
                     Skip_XX(Element_Size-Element_Offset,        "data");
                 }
-
     }
 
     //Not sure, but the 3 first official files have this

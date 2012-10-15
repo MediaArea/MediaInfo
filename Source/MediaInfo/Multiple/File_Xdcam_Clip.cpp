@@ -69,7 +69,6 @@ bool File_Xdcam_Clip::FileHeader_Begin()
 
             //CreationDate
             Element=Root->FirstChildElement("CreationDate");
-            string A=Element->Attribute("value");
             if (Element)
                 Fill(Stream_General, 0, General_Recorded_Date, Element->Attribute("value"));
 
