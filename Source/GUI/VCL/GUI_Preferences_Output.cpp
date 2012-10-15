@@ -68,7 +68,7 @@ TPreferences_OutputF *Preferences_OutputF;
 __fastcall TPreferences_OutputF::TPreferences_OutputF(TComponent* Owner)
     : TForm(Owner)
 {
-    //AncienItemIndex=0;
+    AncienItemIndex=0;
 }
 //---------------------------------------------------------------------------
 
