@@ -115,7 +115,7 @@ void MediaInfo_Config::Init()
         InitDataNotRepeated_GiveUp=false;
     #endif //MEDIAINFO_ADVANCED
     MpegTs_MaximumOffset=32*1024*1024;
-    MpegTs_MaximumScanDuration=16000000000LL;
+    MpegTs_MaximumScanDuration=32000000000LL;
     MpegTs_ForceStreamDisplay=false;
     #if MEDIAINFO_ADVANCED
         MpegTs_VbrDetection_Delta=0;

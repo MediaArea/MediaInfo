@@ -1052,7 +1052,7 @@ File_Mpegv::File_Mpegv()
 
     //In
     MPEG_Version=1;
-    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?40:2;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?512:2;
     FrameIsAlwaysComplete=false;
     TimeCodeIsNotTrustable=false;
     #if defined(MEDIAINFO_ANCILLARY_YES)
@@ -1317,56 +1317,6 @@ void File_Mpegv::Streams_Fill()
                 Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
             }
         }
-
-        //GOP
-        std::vector<Ztring> GOPs;
-        size_t GOP_Frame_Count=0;
-        size_t GOP_BFrames_Max=0;
-        size_t I_Pos1=CodingType.find(__T('I'));
-        while (I_Pos1!=std::string::npos)
-        {
-            size_t I_Pos2=CodingType.find(__T('I'), I_Pos1+1);
-            if (I_Pos2!=std::string::npos)
-            {
-                std::vector<size_t> P_Positions;
-                size_t P_Position=I_Pos1;
-                do
-                {
-                    P_Position=CodingType.find(__T('P'), P_Position+1);
-                    if (P_Position<I_Pos2)
-                        P_Positions.push_back(P_Position);
-                }
-                while (P_Position<I_Pos2);
-                Ztring GOP;
-                if (!P_Positions.empty())
-                {
-                    GOP+=__T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+__T(", ");
-                    if (P_Positions[0]-I_Pos1>GOP_BFrames_Max)
-                        GOP_BFrames_Max=P_Positions[0]-I_Pos1;
-                }
-                GOP+=__T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
-                GOPs.push_back(GOP);
-                GOP_Frame_Count+=I_Pos2-I_Pos1;
-            }
-            I_Pos1=I_Pos2;
-        }
-
-        if (GOP_Frame_Count+GOP_BFrames_Max>=Frame_Count && !GOPs.empty())
-            GOPs.resize(GOPs.size()-1); //Removing the last one, there may have uncomplete B-frame filling
-
-        if (!GOPs.empty())
-        {
-            size_t Unique=0;
-            for (size_t Pos=1; Pos<GOPs.size(); Pos++)
-                if (GOPs[Pos]!=GOPs[0])
-                    Unique++;
-            if ((Frame_Count<Frame_Count_Valid*10 && Unique) || Unique>2) //In order to accept some unsynch //TODO: change the method, synching with next I-Frame
-                GOPs.clear(); //Not a fixed GOP
-        }
-        else if (TemporalReference.size()==1 && CodingType=="I" && Frame_Count>1)
-            GOPs.push_back(__T("N=1"));
-        if (!GOPs.empty())
-            Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOPs[0]);
     }
 
     //Profile
@@ -1553,22 +1503,55 @@ void File_Mpegv::Streams_Finish()
     }
 
     //picture_coding_types
-    if (picture_coding_types.size()>1)
+    if (!picture_coding_types.empty())
     {
         int64u MaxCount=0;
+        int64u Total=0;
         string MaxCount_type;
         for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
+        {
             if (Temp->second>MaxCount)
             {
                 MaxCount=Temp->second;
                 MaxCount_type=Temp->first;
             }
-        int64u Count=0;
-        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
-            if (Temp->first!=MaxCount_type)
-                Count+=Temp->second;
-        if (Count>=Config_VariableGopDetection_Occurences)
-            Clear(Stream_Video, 0, Video_Format_Settings_GOP);
+            Total+=Temp->second;
+        }
+
+        if (Total>=4)
+        {
+            int64u Count=0;
+            for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
+                if (Temp->first!=MaxCount_type)
+                    Count+=Temp->second;
+
+            if (Count<Total/2 && Count<Config_VariableGopDetection_Occurences)
+            {
+                size_t M=1;
+                size_t M_Max=1;
+                for (size_t Pos=1; Pos<MaxCount_type.size(); Pos++)
+                    if (MaxCount_type[Pos]==__T('B'))
+                    {
+                        M++;
+                        if (M>M_Max)
+                            M_Max=M;
+                    }
+                    else
+                        M=1;
+                Ztring GOP;
+                if (M_Max>1)
+                {
+                    GOP+=__T("M=");
+                    GOP+=Ztring::ToZtring(M_Max);
+                    GOP+=__T(", ");
+                }
+                GOP+=__T("N=");
+                GOP+=Ztring::ToZtring(MaxCount_type.size());
+                Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOP, true);
+            }
+            else
+                Fill(Stream_Video, 0, Video_Format_Settings_GOP, "Variable", Unlimited, true, true);
+        }
     }
 
     //InitDataNotRepeated
@@ -1734,6 +1717,7 @@ void File_Mpegv::Synched_Init()
     temporal_reference_LastIFrame=0;
     tc=0;
     IFrame_IsParsed=false;
+    IFrame_Count=0;
     #if MEDIAINFO_IBI
         Ibi_SliceParsed=true;
     #endif //MEDIAINFO_IBI
@@ -2117,7 +2101,7 @@ void File_Mpegv::Detect_EOF()
     if ((IsSub && Status[IsFilled])
      || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && Config->ParseSpeed<=0.5))
     {
-        if (MustExtendParsingDuration && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
+        if (MustExtendParsingDuration && Frame_Count<Frame_Count_Valid
          && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
         {
             #if defined(MEDIAINFO_DTVCCTRANSPORT_YES) || defined(MEDIAINFO_SCTE20_YES) || (defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES))
@@ -2443,6 +2427,7 @@ void File_Mpegv::slice_start()
         {
             temporal_reference_LastIFrame=temporal_reference;
             PTS_LastIFrame=FrameInfo.PTS;
+            IFrame_Count++;
         }
         if (PTS_LastIFrame!=(int64u)-1)
         {
@@ -2606,7 +2591,9 @@ void File_Mpegv::slice_start()
         //Filling only if not already done
         if (!Status[IsAccepted])
             Accept("MPEG Video");
-        if ((!Status[IsFilled] && (!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid)) || Frame_Count>=Frame_Count_Valid*10)
+        if (IFrame_Count==8)
+            Frame_Count_Valid=Frame_Count; //We have enough frames
+        if ((!Status[IsFilled] && (!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid)) || Frame_Count>=512)
         {
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)
