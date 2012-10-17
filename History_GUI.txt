@@ -15,6 +15,7 @@ Known bugs
 
 Version 0.7.61
 --------------
++ x64 and i386 Windows installers are merged, now only one installer
 + Italian translation updated
 + Bigger default window
 
