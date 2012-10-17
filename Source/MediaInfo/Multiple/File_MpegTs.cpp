@@ -904,6 +904,7 @@ void File_MpegTs::Streams_Update_Duration_Update()
         int64u  TimeStamp_Distance_Max=0;
         int64u  TimeStamp_Distance_Total=0;
         size_t  TimeStamp_Distance_Count=0;
+        int64u  TimeStamp_HasProblems=0;
     #endif // MEDIAINFO_ADVANCED
 
     for (std::map<int16u, int16u>::iterator PCR_PID=Complete_Stream->PCR_PIDs.begin(); PCR_PID!=Complete_Stream->PCR_PIDs.end(); ++PCR_PID)
@@ -976,6 +977,7 @@ void File_MpegTs::Streams_Update_Duration_Update()
                         TimeStamp_Distance_Min=(*Stream)->TimeStamp_Distance_Min;
                     if (TimeStamp_Distance_Max<(*Stream)->TimeStamp_Distance_Max)
                         TimeStamp_Distance_Max=(*Stream)->TimeStamp_Distance_Max;
+                    TimeStamp_HasProblems+=(*Stream)->TimeStamp_HasProblems;
                 }
             #endif // MEDIAINFO_ADVANCED
         }
@@ -1013,6 +1015,11 @@ void File_MpegTs::Streams_Update_Duration_Update()
                 Fill(Stream_General, 0, "PCR_Distance_Max", ((float64)TimeStamp_Distance_Max)/27000000, 9, true);
                 (*Stream_More)[Stream_General][0](Ztring().From_Local("PCR_Distance_Max"), Info_Options)=__T("N NT");
             }
+            {
+                Fill(Stream_General, 0, "PCR_Invalid_Count", TimeStamp_HasProblems, 10, true);
+                (*Stream_More)[Stream_General][0](Ztring().From_Local("PCR_Invalid_Count"), Info_Options)=__T("N NT");
+            }
+                
         }
     #endif // MEDIAINFO_ADVANCED
 }
