@@ -1556,8 +1556,8 @@ void File_Mpegv::Streams_Finish()
 
     //InitDataNotRepeated
     #if MEDIAINFO_ADVANCED
-        if (!InitDataNotRepeated_Optional && InitDataNotRepeated>=Config_InitDataNotRepeated_Occurences)
-            Fill(Stream_Video, 0, "InitDataNotRepeated", "Yes", Unlimited, true, true);
+        if (!InitDataNotRepeated_Optional && Config_InitDataNotRepeated_Occurences!=(int64u)-1)
+            Fill(Stream_Video, 0, "InitDataRepeated", InitDataNotRepeated>=Config_InitDataNotRepeated_Occurences?"No":"Yes", Unlimited, true, true);
     #endif // MEDIAINFO_ADVANCED
 
     //Other parsers
