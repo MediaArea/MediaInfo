@@ -928,7 +928,6 @@ void File_Avc::Read_Buffer_Unsynched()
             (*pic_parameter_set_Item)->IsSynched=false;
 
     //Status
-    IFrame_Count=0;
     Interlaced_Top=0;
     Interlaced_Bottom=0;
     prevPicOrderCntMsb=0;
