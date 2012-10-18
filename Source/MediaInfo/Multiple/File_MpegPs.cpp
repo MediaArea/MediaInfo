@@ -608,17 +608,17 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
             {
                 case KindOfStream_Private   :
                                                 if (Streams[0xBD].StreamOrder!=(size_t)-1)
-                                                    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Streams[0xBD].StreamOrder+StreamOrder_CountOfPrivateStreams_Temp);
+                                                    Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Streams[0xBD].StreamOrder+StreamOrder_CountOfPrivateStreams_Temp);
                                                 if (StreamOrder_CountOfPrivateStreams_Minus1 && StreamOrder_CountOfPrivateStreams_Temp<StreamOrder_CountOfPrivateStreams_Minus1)
                                                     StreamOrder_CountOfPrivateStreams_Temp++;
                                                 break;
                 case KindOfStream_Extension :
                                                 if (Streams[0xFD].StreamOrder!=(size_t)-1)
-                                                    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Streams[0xFD].StreamOrder);
+                                                    Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Streams[0xFD].StreamOrder);
                                                 break;
                 default                     :
                                                 if (Temp.StreamOrder!=(size_t)-1)
-                                                    Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Temp.StreamOrder);
+                                                    Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Temp.StreamOrder);
             }
             Fill(StreamKind_Last, StreamPos_Last, General_FirstPacketOrder, Temp.FirstPacketOrder);
         }
@@ -653,15 +653,15 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                     {
                         case KindOfStream_Private   :
                                                         if (Streams[0xBD].StreamOrder!=(size_t)-1)
-                                                            Fill(Stream_Text, StreamPos_Last, "StreamOrder", Streams[0xBD].StreamOrder);
+                                                            Fill(Stream_Text, StreamPos_Last, General_StreamOrder, Streams[0xBD].StreamOrder);
                                                         break;
                         case KindOfStream_Extension :
                                                         if (Streams[0xFD].StreamOrder!=(size_t)-1)
-                                                            Fill(Stream_Text, StreamPos_Last, "StreamOrder", Streams[0xFD].StreamOrder);
+                                                            Fill(Stream_Text, StreamPos_Last, General_StreamOrder, Streams[0xFD].StreamOrder);
                                                         break;
                         default                     :
                                                         if (Temp.StreamOrder!=(size_t)-1)
-                                                            Fill(Stream_Text, StreamPos_Last, "StreamOrder", Temp.StreamOrder);
+                                                            Fill(Stream_Text, StreamPos_Last, General_StreamOrder, Temp.StreamOrder);
                     }
                     Fill(StreamKind_Last, StreamPos_Last, General_FirstPacketOrder, Temp.FirstPacketOrder);
                 }

@@ -211,7 +211,7 @@ void File_Riff::Streams_Finish ()
             Finish(Temp->second.Parsers[0]);
             Merge(*Temp->second.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
             Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
-            Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
+            Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
 
             //Hacks - After
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), StreamSize, true);
