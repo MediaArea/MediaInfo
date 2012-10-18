@@ -35,6 +35,8 @@ x MPEG-4: crash in case of buggy aperture size atom
 x MediaInfo_Const.h was missing in the DLL package for Mac
 x MPEG-PS: detection of phantom streams
 x WAV: detection of malformed >4GB WAV files was no more working
+x DTS: computing bit rate from frame size instead of targeted transmission rate
+x DTS: setting the bit rate to "unknown" for Master Audio instead of instantaneous bit rate
 
 Version 0.7.60, 2012-09-02
 --------------
