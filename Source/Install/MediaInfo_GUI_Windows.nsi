@@ -84,12 +84,12 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Info
 VIProductVersion "${PRODUCT_VERSION4}"
-VIAddVersionKey "CompanyName" "${PRODUCT_PUBLISHER}"
-VIAddVersionKey "ProductName" "${PRODUCT_NAME}"
-VIAddVersionKey "ProductVersion" "${PRODUCT_VERSION4}"
-VIAddVersionKey "FileDescription" "All about your audio and video files"
-VIAddVersionKey "FileVersion" "${PRODUCT_VERSION4}"
-VIAddVersionKey "LegalCopyright" "${PRODUCT_PUBLISHER}"
+VIAddVersionKey "CompanyName"      "${PRODUCT_PUBLISHER}"
+VIAddVersionKey "ProductName"      "${PRODUCT_NAME}"
+VIAddVersionKey "ProductVersion"   "${PRODUCT_VERSION4}"
+VIAddVersionKey "FileDescription"  "All about your audio and video files"
+VIAddVersionKey "FileVersion"      "${PRODUCT_VERSION4}"
+VIAddVersionKey "LegalCopyright"   "${PRODUCT_PUBLISHER}"
 VIAddVersionKey "OriginalFilename" "${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows.exe"
 BrandingText " "
 
@@ -103,29 +103,30 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
-  ${If} ${RunningX64}
-    SetRegView 64
-  ${EndIf}
+${If} ${RunningX64}
+  SetRegView 64
+${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
 
 Section "SectionPrincipale" SEC01
+  SetOverwrite on
   SetOutPath "$SMPROGRAMS"
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
-  ${If} ${RunningX64}
-    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\x64\Release\MediaInfo.dll"
-    File  "/oname=MediaInfo_i386.dll""..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
-  ${Else}
-    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
-  ${EndIf}
+${If} ${RunningX64}
+  File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe"
+  File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
+  File "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\x64\Release\MediaInfo.dll"
+  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
+${Else}
+  File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe"
+  File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
+  File "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
+${EndIf}
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
-  File  "/oname=ReadMe.txt""..\..\Release\ReadMe_GUI_Windows.txt"
+  File "/oname=ReadMe.txt" "..\..\Release\ReadMe_GUI_Windows.txt"
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
   File "..\Resource\Plugin\Custom\*.csv"
@@ -155,21 +156,20 @@ SectionEnd
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
   WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\MediaInfo.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName"     "$(^Name)"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher"       "${PRODUCT_PUBLISHER}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\MediaInfo.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon"     "$INSTDIR\MediaInfo.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion"  "${PRODUCT_VERSION}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout"    "${PRODUCT_WEB_SITE}"
   Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /s'
   !insertmacro MediaInfo_Extensions_Install
 
-  ; File size, taken from SumatraPDF installer
-  ${If} ${AtLeastWin7}
+${If} ${AtLeastWin7}
   ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
   IntFmt $0 "0x%08X" $0 ; Convert the decimal KB value in $0 to DWORD, put it right back into $0
   WriteRegDWORD ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "EstimatedSize" "$0" ; Create/Write the reg key with the dword value
-  ${EndIf}
+${EndIf}
 SectionEnd
 
 
