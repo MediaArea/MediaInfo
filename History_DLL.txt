@@ -20,6 +20,7 @@ Version 0.7.61, 2012-
 + MPEG-TS, MPEG-S, MXF, AVI, WM: StreamOrder field added
 + MXF: better support of malformed VANC streams
 + MPEG Video: improved detection of the GOP (more frames are used), "Variable" value
++ MPEG-PS: FirstPacketOrder info added
 x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
 x #3570092, Id3v2: support of old COM and ULT fields
 x CEA-708: crash with some malformed streams

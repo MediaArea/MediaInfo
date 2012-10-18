@@ -603,6 +603,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
         Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
         Fill(StreamKind_Last, StreamPos_Last, General_ID_String, ID_String, true);
         if (!IsSub)
+        {
             switch (KindOfStream)
             {
                 case KindOfStream_Private   :
@@ -619,6 +620,8 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                                                 if (Temp.StreamOrder!=(size_t)-1)
                                                     Fill(StreamKind_Last, StreamPos_Last, "StreamOrder", Temp.StreamOrder);
             }
+            Fill(StreamKind_Last, StreamPos_Last, General_FirstPacketOrder, Temp.FirstPacketOrder);
+        }
 
         //Special cases
         if (Temp.Parsers[0]->Count_Get(Stream_Video) && Temp.Parsers[0]->Count_Get(Stream_Text))
@@ -645,6 +648,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                 Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp.StreamPos, Video_ID_String)+__T("-")+Temp.Parsers[0]->Retrieve(Stream_Text, Parser_Pos, Text_ID), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay), true);
                 if (!IsSub)
+                {
                     switch (KindOfStream)
                     {
                         case KindOfStream_Private   :
@@ -659,7 +663,9 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
                                                         if (Temp.StreamOrder!=(size_t)-1)
                                                             Fill(Stream_Text, StreamPos_Last, "StreamOrder", Temp.StreamOrder);
                     }
+                    Fill(StreamKind_Last, StreamPos_Last, General_FirstPacketOrder, Temp.FirstPacketOrder);
                 }
+            }
 
             StreamKind_Last=Temp.StreamKind;
             StreamPos_Last=Temp.StreamPos;
@@ -829,6 +835,7 @@ void File_MpegPs::Synched_Init()
 
     //Temp
     stream_id_extension=0x55; //Default is set to VC-1, should never happens, but happens sometimes
+    FirstPacketOrder_Last=0;
 
     //Case of extraction from MPEG-TS files
     if (File_Offset==0 && Buffer_Size>=4 && ((CC4(Buffer)&0xFFFFFFF0)==0x000001E0 || (CC4(Buffer)&0xFFFFFFE0)==0x000001C0 || CC4(Buffer)==0x000001BD || CC4(Buffer)==0x000001FA || CC4(Buffer)==0x000001FD))
@@ -2548,6 +2555,8 @@ void File_MpegPs::private_stream_1()
         Streams_Private1[private_stream_1_ID].Searching_Payload=true;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=true;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_End=true;
+        Streams_Private1[private_stream_1_ID].FirstPacketOrder=FirstPacketOrder_Last;
+        FirstPacketOrder_Last++;
 
         //New parsers
         Streams_Private1[private_stream_1_ID].Parsers.push_back(private_stream_1_ChooseParser());
@@ -3128,6 +3137,8 @@ void File_MpegPs::audio_stream()
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
         Streams[stream_id].StreamIsRegistred++;
+        Streams[stream_id].FirstPacketOrder=FirstPacketOrder_Last;
+        FirstPacketOrder_Last++;
 
         //New parsers
         Streams[stream_id].Parsers.push_back(private_stream_1_ChooseParser());
@@ -3218,6 +3229,8 @@ void File_MpegPs::video_stream()
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
         Streams[stream_id].StreamIsRegistred++;
+        Streams[stream_id].FirstPacketOrder=FirstPacketOrder_Last;
+        FirstPacketOrder_Last++;
 
         //New parsers
         switch (Streams[stream_id].stream_type)
@@ -3325,6 +3338,8 @@ void File_MpegPs::SL_packetized_stream()
 
         //Registering
         Streams[stream_id].StreamIsRegistred++;
+        Streams[stream_id].FirstPacketOrder=FirstPacketOrder_Last;
+        FirstPacketOrder_Last++;
         if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[stream_id].Searching_TimeStamp_Start=true;
@@ -3512,6 +3527,8 @@ void File_MpegPs::extension_stream()
         Streams_Extension[stream_id_extension].Searching_Payload=true;
         Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=true;
         Streams_Extension[stream_id_extension].Searching_TimeStamp_End=true;
+        Streams_Extension[stream_id_extension].FirstPacketOrder=FirstPacketOrder_Last;
+        FirstPacketOrder_Last++;
 
         //New parsers
         if (Streams_Extension[stream_id_extension].stream_type && Streams_Extension[stream_id_extension].stream_type<0x80) //Standard
