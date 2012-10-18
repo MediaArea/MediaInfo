@@ -37,8 +37,8 @@
 #include "ZenLib/InfoMap.h"
 #include <bitset>
 using namespace ZenLib;
-using std::vector;        
-using std::string;        
+using std::vector;
+using std::string;
 using std::map;
 using std::make_pair;
 //---------------------------------------------------------------------------

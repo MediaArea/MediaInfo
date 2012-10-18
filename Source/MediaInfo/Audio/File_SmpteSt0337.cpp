@@ -334,7 +334,7 @@ bool File_SmpteSt0337::Synchronize()
 {
     // Guard band
     size_t Buffer_Offset_Base=Buffer_Offset;
-    
+
     // Synchronizing
     while (Buffer_Offset+16<=Buffer_Size)
     {

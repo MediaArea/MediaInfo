@@ -1019,7 +1019,7 @@ void File_MpegTs::Streams_Update_Duration_Update()
                 Fill(Stream_General, 0, "PCR_Invalid_Count", TimeStamp_HasProblems, 10, true);
                 (*Stream_More)[Stream_General][0](Ztring().From_Local("PCR_Invalid_Count"), Info_Options)=__T("N NT");
             }
-                
+
         }
     #endif // MEDIAINFO_ADVANCED
 }

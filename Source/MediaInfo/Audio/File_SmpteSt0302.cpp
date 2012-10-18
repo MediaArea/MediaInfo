@@ -84,7 +84,7 @@ void File_SmpteSt0302::Streams_Accept()
     SmpteSt0337->Container_Bits_Original=(4+bits_per_sample)*4;
     SmpteSt0337->Container_Bits=SmpteSt0337->Container_Bits_Original==20?24:SmpteSt0337->Container_Bits_Original;
     Parsers.push_back(SmpteSt0337);
-    
+
     // Raw PCM
     File_Pcm* Pcm=new File_Pcm();
     Pcm->Codec.From_Local("SMPTE ST 337");
@@ -297,7 +297,7 @@ void File_SmpteSt0302::Read_Buffer_Continue()
             delete Parsers[Pos]; //Parsers[Pos]=NULL;
         Parsers.erase(Parsers.begin(), Parsers.begin()+Parsers.size()-1);
     }
-        
+
     if (!Status[IsFilled] && Parsers.size()==1 && Parsers[0]->Status[IsFinished])
     {
         //Filling
