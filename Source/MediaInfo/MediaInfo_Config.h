@@ -92,6 +92,9 @@ public :
           void      LegacyStreamDisplay_Set (bool Value);
           bool      LegacyStreamDisplay_Get ();
 
+          void      SkipBinaryData_Set (bool Value);
+          bool      SkipBinaryData_Get ();
+
           void      ParseSpeed_Set (float32 NewValue);
           float32   ParseSpeed_Get ();
 
@@ -294,6 +297,7 @@ private :
     bool            Language_Raw;
     bool            ReadByHuman;
     bool            LegacyStreamDisplay;
+    bool            SkipBinaryData;
     int8u           Demux;
     Ztring          Version;
     Ztring          ColumnSeparator;
