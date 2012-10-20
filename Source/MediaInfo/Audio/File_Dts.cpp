@@ -498,8 +498,6 @@ void File_Dts::Streams_Finish()
     {
         Parser->Finish();
         Merge(*Parser, Stream_Audio, 0, 0);
-        Fill(Stream_Audio, 0, Audio_MuxingMode, BigEndian?"BE":"LE");
-        Fill(Stream_Audio, 0, Audio_MuxingMode, Word?"16":"14");
         if (!Word)
         {
             ZtringList BitRates;
@@ -517,13 +515,14 @@ void File_Dts::Streams_Finish()
             }
             Fill(Stream_Audio, 0, Audio_BitRate, BitRates.Read(), true);
         }
-        return;
     }
+    Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, BigEndian?"Big":"Little", Unlimited, true, true);
+    Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Word?"16":"14", Unlimited, true, true);
 
     if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.PTS>PTS_Begin)
     {
-        Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000));
-        Fill(Stream_Audio, 0, Audio_FrameCount, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000/32));
+        Fill(Stream_Audio, 0, Audio_Duration, ((float64)(FrameInfo.PTS-PTS_Begin))/1000000, 0, true);
+        Fill(Stream_Audio, 0, Audio_FrameCount, ((float64)(FrameInfo.PTS-PTS_Begin))/1000000/32, 0, true);
     }
 }
 

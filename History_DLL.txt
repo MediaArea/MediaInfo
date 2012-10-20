@@ -37,6 +37,7 @@ x MPEG-PS: detection of phantom streams
 x WAV: detection of malformed >4GB WAV files was no more working
 x DTS: computing bit rate from frame size instead of targeted transmission rate
 x DTS: setting the bit rate to "unknown" for Master Audio instead of instantaneous bit rate
+x DTS: Display of endianess and word size was not coherent
 
 Version 0.7.60, 2012-09-02
 --------------
