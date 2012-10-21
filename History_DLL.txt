@@ -8,7 +8,7 @@ bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
 
-Version 0.7.61, 2012-
+Version 0.7.61, 2012-10-22
 --------------
 + MPEG-TS: SCTE 35 and KLV streams are better displayed (in Menu part)
 + MPEG-TS: Menu part contains the list of PID with unknown format
