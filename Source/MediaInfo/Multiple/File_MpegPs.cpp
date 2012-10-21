@@ -437,10 +437,16 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
             Ztring ID=__T("189");
             if (StreamID)
                 ID+=__T("-")+Ztring::ToZtring(StreamID);
+            if (!Temp.Parsers[0]->Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
+                ID+=__T("-")+Temp.Parsers[0]->Retrieve(StreamKind_Last, StreamPos, General_ID);
             Fill(StreamKind_Last, StreamPos, General_ID, ID, true);
             Ztring ID_String=__T("189 (0xBD)");
             if (StreamID)
                 ID_String+=__T("-")+Ztring::ToZtring(StreamID)+__T(" (0x")+Ztring::ToZtring(StreamID, 16)+__T(")");
+            if (!Temp.Parsers[0]->Retrieve(StreamKind_Last, StreamPos, General_ID_String).empty())
+                ID_String+=__T("-")+Temp.Parsers[0]->Retrieve(StreamKind_Last, StreamPos, General_ID_String);
+            else if (!Temp.Parsers[0]->Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
+                ID_String+=__T("-")+Temp.Parsers[0]->Retrieve(StreamKind_Last, StreamPos, General_ID);
             Fill(StreamKind_Last, StreamPos, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
             if (StreamID)
                 Fill(StreamKind_Last, StreamPos, "MuxingMode", "DVD-Video", Unlimited, true, true);

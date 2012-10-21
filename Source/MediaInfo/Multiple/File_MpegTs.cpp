@@ -594,7 +594,13 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             else if (Count>1)
             {
                 Ztring ID=Retrieve(StreamKind_Last, StreamPos, General_ID);
+                size_t ID_Pos=ID.find(__T('-'));
+                if (ID_Pos!=string::npos)
+                    ID.erase(ID.begin(), ID.begin()+ID_Pos+1); //Removing the PS part
                 Ztring ID_String=Retrieve(StreamKind_Last, StreamPos, General_ID_String);
+                size_t ID_String_Pos=ID_String.find(__T('-'));
+                if (ID_String_Pos!=string::npos)
+                    ID_String.erase(ID_String.begin(), ID_String.begin()+ID_String_Pos+1); //Removing the PS part
                 Fill(StreamKind_Last, StreamPos, General_ID, Ztring::ToZtring(StreamID)+__T('-')+ID, true);
                 Fill(StreamKind_Last, StreamPos, General_ID_String, Decimal_Hexa(StreamID)+__T('-')+ID_String, true);
             }
