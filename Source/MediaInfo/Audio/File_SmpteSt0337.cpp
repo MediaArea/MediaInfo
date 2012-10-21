@@ -195,6 +195,15 @@ void File_SmpteSt0337::Streams_Fill()
     {
         Fill(Parser);
         Merge(*Parser);
+
+        int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
+        if (OverallBitRate)
+        {
+            OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
+            Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+__T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
+        }
+        if (Parser->Count_Get(Stream_Audio))
+            FrameRate=Retrieve(Stream_Audio, 0, Audio_FrameRate).To_float64();
     }
     else if (data_type!=(int8u)-1)
     {
@@ -1094,19 +1103,6 @@ void File_SmpteSt0337::Data_Parse()
         Frame_Count++;
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
-
-        if (!Status[IsFilled] && Parser->Status[IsFilled])
-        {
-            Merge(*Parser);
-            int64u OverallBitRate=Parser->Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u();
-            if (OverallBitRate)
-            {
-                OverallBitRate*=Element_Size; OverallBitRate/=Element_Size-Stream_Bits*4/8;
-                Fill(Stream_General, 0, General_OverallBitRate, Ztring::ToZtring(OverallBitRate)+__T(" / ")+Parser->Retrieve(Stream_General, 0, General_OverallBitRate));
-            }
-            if (Parser->Count_Get(Stream_Audio))
-                FrameRate=Retrieve(Stream_Audio, 0, Audio_FrameRate).To_float64();
-        }
 
         if (Frame_Count>=2 && Parser->Status[IsFinished])
             Finish("AES3");

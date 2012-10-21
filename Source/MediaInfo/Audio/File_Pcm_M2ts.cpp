@@ -164,6 +164,9 @@ void File_Pcm_M2ts::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Pcm_M2ts::Read_Buffer_Continue()
 {
+    if (Buffer_Size==0)
+        return;
+
     //Parsing
     int16u  audio_data_payload_size;
     Get_B2 (   audio_data_payload_size,                         "audio_data_payload_size");

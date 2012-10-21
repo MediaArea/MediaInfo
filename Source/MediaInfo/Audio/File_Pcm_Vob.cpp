@@ -154,6 +154,9 @@ void File_Pcm_Vob::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Pcm_Vob::Read_Buffer_Continue()
 {
+    if (Buffer_Size==0)
+        return;
+
     //Parsing
     Skip_B1(                                                    "Frame number");
     Skip_B2(                                                    "Bytes to skip (+1?)");

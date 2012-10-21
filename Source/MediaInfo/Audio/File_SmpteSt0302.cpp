@@ -44,6 +44,9 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
+#if MEDIAINFO_DEMUX
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -237,34 +240,30 @@ void File_SmpteSt0302::Read_Buffer_Continue()
     FrameInfo.DUR=((int64u)audio_packet_size)*1000000000/((1+number_channels)*(5+bits_per_sample)*48000);
 
     #if MEDIAINFO_DEMUX
-        //if (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")) //TODO: to but in an "advanced" version
+        Demux_random_access=true;
+
+        if (Config->Demux_PCM_20bitTo16bit_Get())
         {
-            Demux_random_access=true;
+            size_t Info2_Size=((size_t)Element_Size-4)*2/3;
+            int8u* Info2=new int8u[Info2_Size];
+            size_t Info2_Pos=0;
+            size_t Info_Pos=0;
 
-            /*
-            if (Config->Demux_PCM_20bitTo16bit_Get())
+            while (Info_Pos<Info_Offset)
             {
-                size_t Info2_Size=((size_t)Element_Size-4)*2/3;
-                int8u* Info2=new int8u[Info2_Size];
-                size_t Info2_Pos=0;
-                size_t Info_Pos=0;
+                Info2[Info2_Pos+0]=Info[Info_Pos+1];
+                Info2[Info2_Pos+1]=Info[Info_Pos+2];
+                Info2[Info2_Pos+2]=Info[Info_Pos+4];
+                Info2[Info2_Pos+3]=Info[Info_Pos+5];
 
-                while (Info_Pos<Info_Offset)
-                {
-                    Info2[Info2_Pos+0]=Info[Info_Pos+1];
-                    Info2[Info2_Pos+1]=Info[Info_Pos+2];
-                    Info2[Info2_Pos+2]=Info[Info_Pos+4];
-                    Info2[Info2_Pos+3]=Info[Info_Pos+5];
-
-                    Info2_Pos+=4;
-                    Info_Pos+=6;
-                }
-
-                Demux(Info2, Info2_Pos, ContentType_MainStream);
+                Info2_Pos+=4;
+                Info_Pos+=6;
             }
-            else*/
-                Demux(Info, Info_Offset, ContentType_MainStream);
+
+            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
         }
+        else
+            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
     #endif //MEDIAINFO_DEMUX
 
     //Parsers
