@@ -8,6 +8,38 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
+Version 0.7.61, 2012-10-22
+--------------
++ MPEG-TS: SCTE 35 and KLV streams are better displayed (in Menu part)
++ MPEG-TS: Menu part contains the list of PID with unknown format
++ MPEG-TS: Menu part lists PID in the PMT order instead of increasing order
++ Display of both container and stream scan type and scan order
++ DV100: scan order
++ MXF: scan order
++ MPEG-TS: Maximum and minimum overal bit rate (only if parse speed is set to 1)
++ MPEG-TS, MPEG-S, MXF, AVI, WM: StreamOrder field added
++ MXF: better support of malformed VANC streams
++ MPEG Video: improved detection of the GOP (more frames are used), "Variable" value
++ MPEG-PS: FirstPacketOrder info added
++ SkipBinaryData option
+x #3564456, Matroska: some (other) streams were wrongly detected sa VFR
+x #3570092, Id3v2: support of old COM and ULT fields
+x CEA-708: crash with some malformed streams
+x MPEG-TS: crash when PCR is corrupted (same value at different offsets)
+x QuickTIme: wrong channel count report in case of buggy chan atom. Now the stream description has priority over chan atom
+x E-AC-3: duration was wrong in some cases
+x Matroska: random wrong analysis in case of SimpleBlock mode
+x #3574436, MOV: hang on files having buggy "alis" atom
+x MPEG-TS: bit rate mode detection was sometimes too much strict about CBR
+x DV: wrong detection in case of buggy audio header (if present and set to 0xFF)
+x MPEG-4: crash in case of buggy aperture size atom
+x MediaInfo_Const.h was missing in the DLL package for Mac
+x MPEG-PS: detection of phantom streams
+x WAV: detection of malformed >4GB WAV files was no more working
+x DTS: computing bit rate from frame size instead of targeted transmission rate
+x DTS: setting the bit rate to "unknown" for Master Audio instead of instantaneous bit rate
+x DTS: Display of endianess and word size was not coherent
+
 Version 0.7.60, 2012-09-02
 --------------
 + MPEG-TS/PS: improved detection of buggy time stamps
