@@ -158,7 +158,6 @@ Section -Post
   Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /s'
   !insertmacro MediaInfo_Extensions_Install
 
-  ; File size, taken from SumatraPDF installer
   ${If} ${AtLeastWin7}
   ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
   IntFmt $0 "0x%08X" $0 ; Convert the decimal KB value in $0 to DWORD, put it right back into $0
