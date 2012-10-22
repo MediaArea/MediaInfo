@@ -93,13 +93,15 @@ Download_Packages 1  1  1   x x ""           Ubuntu_11.10  i386   _i386
 Download_Packages 1  1  1   x x ""           Ubuntu_11.10  amd64  _amd64
 Download_Packages 1  1  1   x x ""           Ubuntu_12.04  i386   _i386
 Download_Packages 1  1  1   x x ""           Ubuntu_12.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           Ubuntu_12.10  i386   _i386
+Download_Packages 1  1  1   x x ""           Ubuntu_12.10  amd64  _amd64
 
 type="rpm"
 devext="devel"
 dash="-"
 Download_Packages $1 $2 $3  x x ""           CentOS_5        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           CentOS_6        i386   .i386
+Download_Packages $1 $2 $3  x x ""           CentOS_6        i686   .i686
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_16       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_16       x86_64 .x86_64
@@ -117,7 +119,7 @@ Download_Packages $1 $2 $3  x x -mdv2011.0   Mandriva_2011   i586   .i586
 Download_Packages $1 $2 $3  x x -mdv2011.0   Mandriva_2011   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           RHEL_5          i386   .i386
 Download_Packages $1 $2 $3  x x ""           RHEL_5          x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           RHEL_6          i386   .i386
+Download_Packages $1 $2 $3  x x ""           RHEL_6          i686   .i686
 Download_Packages $1 $2 $3  x x ""           RHEL_6          x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           SLE_11          i586   .i586
 Download_Packages $1 $2 $3  x x ""           SLE_11          x86_64 .x86_64
