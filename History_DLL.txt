@@ -8,6 +8,10 @@ bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
 
+Version 0.7.62, 2012-
+--------------
++ Division by 0 in case of 0 byte long file
+
 Version 0.7.61, 2012-10-22
 --------------
 + MPEG-TS: SCTE 35 and KLV streams are better displayed (in Menu part)

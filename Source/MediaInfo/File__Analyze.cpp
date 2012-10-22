@@ -392,7 +392,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 
     //Parsing
     if (!IsSub)
-        Config->State_Set(((float)Buffer_TotalBytes)/Config->File_Size);
+        Config->State_Set(Config->File_Size?(((float)Buffer_TotalBytes)/Config->File_Size):1);
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         while (Open_Buffer_Continue_Loop());
 
