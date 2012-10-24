@@ -1099,6 +1099,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         Value=Value*Stream->second.mdhd_TimeScale/1000000000; //Transformed in mpeg4 ticks
                         if (Value>TimeCode_FrameOffset*Stream->second.stts_Duration/Stream->second.stts_FrameCount) //Removing Time Code offset
                             Value-=TimeCode_FrameOffset*Stream->second.stts_Duration/Stream->second.stts_FrameCount;
+                        else
+                            Value=0; //Sooner
 
                         //Looking for the minimal stream offset, for every video/audio/text stream
                         int64u JumpTo=File_Size;
