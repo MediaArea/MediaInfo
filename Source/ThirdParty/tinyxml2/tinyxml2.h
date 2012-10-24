@@ -349,14 +349,15 @@ public:
                 name, _maxAllocs, _maxAllocs*SIZE/1024, _currentAllocs, SIZE, _nAllocs, _blockPtrs.Size() );
     }
 
+    enum { COUNT = 1024/SIZE }; // Some compilers do not accept to use COUNT in private part if COUNT is private
+
 private:
-    enum { COUNT = 1024/SIZE };
     union Chunk {
         Chunk*  next;
         char    mem[SIZE];
     };
     struct Block {
-        Chunk chunk[1024/SIZE];
+        Chunk chunk[COUNT];
     };
     DynArray< Block*, 10 > _blockPtrs;
     Chunk* _root;
