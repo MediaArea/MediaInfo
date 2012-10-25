@@ -70,6 +70,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         NextPacket=false;
     #endif //MEDIAINFO_NEXTPACKET
     #if MEDIAINFO_FILTER
+        File_Filter_Audio=false;
         File_Filter_HasChanged_=false;
     #endif //MEDIAINFO_FILTER
     #if MEDIAINFO_EVENTS
@@ -321,7 +322,12 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_filter"))
     {
         #if MEDIAINFO_FILTER
-            File_Filter_Set(Ztring(Value).To_int64u());
+            Ztring ValueLowerCase=Ztring(Value).MakeLowerCase();
+            if (ValueLowerCase==__T("audio"))
+                File_Filter_Audio_Set(true);
+            else
+                File_Filter_Set(ValueLowerCase.To_int64u());
+            return Ztring();
             return __T("");
         #else //MEDIAINFO_FILTER
             return __T("Filter manager is disabled due to compilation options");
@@ -1025,6 +1031,18 @@ bool MediaInfo_Config_MediaInfo::File_Filter_Get ()
     CriticalSectionLocker CSL(CS);
     bool Exist=!File_Filter_16.empty();
     return Exist;
+}
+
+void MediaInfo_Config_MediaInfo::File_Filter_Audio_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Filter_Audio=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_Filter_Audio_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_Filter_Audio;
 }
 
 bool MediaInfo_Config_MediaInfo::File_Filter_HasChanged ()

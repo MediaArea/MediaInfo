@@ -123,6 +123,8 @@ public :
     void          File_Filter_Set     (int64u NewValue);
     bool          File_Filter_Get     (const int16u  Value);
     bool          File_Filter_Get     ();
+    void          File_Filter_Audio_Set (bool NewValue);
+    bool          File_Filter_Audio_Get ();
     bool          File_Filter_HasChanged();
     #endif //MEDIAINFO_FILTER
 
@@ -280,6 +282,7 @@ private :
 
     #if MEDIAINFO_FILTER
     std::map<int16u, bool>  File_Filter_16;
+    bool                    File_Filter_Audio;
     bool                    File_Filter_HasChanged_;
     #endif //MEDIAINFO_FILTER
 
