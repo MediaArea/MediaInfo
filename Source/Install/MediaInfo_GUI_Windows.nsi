@@ -41,6 +41,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 ; !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe" //Removing it because it is run in admin privileges
+!define MUI_WELCOMEFINISHPAGE_BITMAP "..\..\Source\Resource\Image\Windows_Finish.bmp"
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_WELCOME
