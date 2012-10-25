@@ -89,13 +89,15 @@ void File__ReferenceFilesHelper::ParseReferences()
 {
     if (!Init_Done)
     {
-        if (MI->Config->File_Filter_Audio_Get())
-            for (size_t Pos=0; Pos<References.size(); Pos++)
-                if (References[Pos].StreamKind!=Stream_Audio)
-                {
-                    References.erase(References.begin()+Pos);
-                    Pos--;
-                }
+        #if MEDIAINFO_FILTER
+            if (MI->Config->File_Filter_Audio_Get())
+                for (size_t Pos=0; Pos<References.size(); Pos++)
+                    if (References[Pos].StreamKind!=Stream_Audio)
+                    {
+                        References.erase(References.begin()+Pos);
+                        Pos--;
+                    }
+        #endif //MEDIAINFO_FILTER
 
         //Testing IDs
         std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo1);
