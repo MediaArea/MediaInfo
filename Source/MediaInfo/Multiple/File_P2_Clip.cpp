@@ -1,17 +1,17 @@
 // File_P2_Clip - Info for P2 Clip (XML) files
-// Copyright (C) 2010-2012 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2010-2011 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
-// under the terms of the GNU Library General Public License as published by
-// the Free Software Foundation, either version 2 of the License, or
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
 // any later version.
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU Library General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU Library General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this library. If not, see <http://www.gnu.org/licenses/>.
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -204,8 +204,8 @@ bool File_P2_Clip::FileHeader_Begin()
                                  && (File_Name[File_Name.size()-10-5]&(~0x20))==__T('C'))
                                 {
                                     Ztring file=File_Name.substr(File_Name.size()-10, 6);
-                                    Ztring MXF_File=File_Name;
-                                    MXF_File.resize(MXF_File.size()-(10+1+4));
+                                    Ztring MXF_File=__T("..");
+                                    MXF_File+=PathSeparator;
                                     MXF_File+=__T("VIDEO");
                                     MXF_File+=PathSeparator;
                                     MXF_File+=file;
@@ -229,8 +229,8 @@ bool File_P2_Clip::FileHeader_Begin()
                                  && (File_Name[File_Name.size()-10-5]&(~0x20))==__T('C'))
                                 {
                                     Ztring file=File_Name.substr(File_Name.size()-10, 6);
-                                    Ztring MXF_File=File_Name;
-                                    MXF_File.resize(MXF_File.size()-(10+1+4));
+                                    Ztring MXF_File=__T("..");
+                                    MXF_File+=PathSeparator;
                                     MXF_File+=__T("AUDIO");
                                     MXF_File+=PathSeparator;
                                     MXF_File+=file;
@@ -402,4 +402,3 @@ bool File_P2_Clip::FileHeader_Begin()
 } //NameSpace
 
 #endif //MEDIAINFO_P2_YES
-
