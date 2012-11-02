@@ -143,7 +143,7 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream, size_t StreamPos)
             Fill (Stream_General, 0, General_CompleteName, File_Name);
             Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
             Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
-            Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
+            Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name));
         }
         else
         {
