@@ -174,6 +174,7 @@ namespace Elements
     UUID(Track,                                                 060E2B34, 02530101, 0D010101, 01013B00)
     UUID(DMSegment,                                             060E2B34, 02530101, 0D010101, 01014100)
     UUID(GenericSoundEssenceDescriptor,                         060E2B34, 02530101, 0D010101, 01014200)
+    UUID(GenericDataEssenceDescriptor,                          060E2B34, 02530101, 0D010101, 01014300)
     UUID(MultipleDescriptor,                                    060E2B34, 02530101, 0D010101, 01014400)
     UUID(AES3PCMDescriptor,                                     060E2B34, 02530101, 0D010101, 01014700)
     UUID(WaveAudioDescriptor,                                   060E2B34, 02530101, 0D010101, 01014800)
@@ -2937,6 +2938,7 @@ void File_Mxf::Data_Parse()
     ELEMENT(Track,                                              "Track")
     ELEMENT(DMSegment,                                          "Descriptive Metadata Segment")
     ELEMENT(GenericSoundEssenceDescriptor,                      "Generic Sound Essence Descriptor")
+    ELEMENT(GenericDataEssenceDescriptor,                       "Generic Data Essence Descriptor")
     ELEMENT(MultipleDescriptor,                                 "Multiple Descriptor")
     ELEMENT(AES3PCMDescriptor,                                  "AES3 Descriptor")
     ELEMENT(WaveAudioDescriptor,                                "Wave Audio Descriptor")
@@ -3921,6 +3923,17 @@ void File_Mxf::GenericSoundEssenceDescriptor()
 }
 
 //---------------------------------------------------------------------------
+void File_Mxf::GenericDataEssenceDescriptor()
+{
+    //Parsing
+    switch(Code2)
+    {
+        ELEMENT(3E01, GenericDataEssenceDescriptor_DataEssenceCoding, "DataEssenceCoding")
+        default: FileDescriptor();
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::GenericTrack()
 {
     //Parsing
@@ -4285,7 +4298,7 @@ void File_Mxf::VbiPacketsDescriptor()
     //switch(Code2)
     //{
     //    default:
-                FileDescriptor();
+                GenericDataEssenceDescriptor();
     //}
 
     if (Descriptors[InstanceUID].Type==descriptor::Type_Unknown)
@@ -4303,7 +4316,7 @@ void File_Mxf::AncPacketsDescriptor()
     //switch(Code2)
     //{
     //    default:
-                FileDescriptor();
+                GenericDataEssenceDescriptor();
     //}
 
     if (Descriptors[InstanceUID].Type==descriptor::Type_Unknown)
@@ -5285,6 +5298,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
 void File_Mxf::GenericPictureEssenceDescriptor_VideoLineMap()
 {
     int64u VideoLineMapEntries_Total=0;
+    bool   VideoLineMapEntry_IsZero=false;
 
     //Parsing
     int32u Count, Length;
@@ -5295,7 +5309,10 @@ void File_Mxf::GenericPictureEssenceDescriptor_VideoLineMap()
         int32u VideoLineMapEntry;
         Get_B4 (VideoLineMapEntry,                              "VideoLineMapEntry");
 
-        VideoLineMapEntries_Total+=VideoLineMapEntry;
+        if (VideoLineMapEntry)
+            VideoLineMapEntries_Total+=VideoLineMapEntry;
+        else
+            VideoLineMapEntry_IsZero=true;
     }
 
     FILLING_BEGIN();
@@ -5304,7 +5321,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_VideoLineMap()
         //    odd even field 1 upper
         //    even odd field 1 upper
         //    even even field 2 upper
-        if (Count==2)
+        if (Count==2 && !VideoLineMapEntry_IsZero)
             Descriptors[InstanceUID].FieldTopness=(VideoLineMapEntries_Total%2)?1:2;
     FILLING_END();
 }
@@ -5509,6 +5526,14 @@ void File_Mxf::GenericSoundEssenceDescriptor_DialNorm()
 {
     //Parsing
     Info_B1(Data,                                               "Data"); Element_Info2(Data, " dB");
+}
+
+//---------------------------------------------------------------------------
+// 0x3E01
+void File_Mxf::GenericDataEssenceDescriptor_DataEssenceCoding()
+{
+    //Parsing
+    Skip_UL(                                                    "UUID");
 }
 
 //---------------------------------------------------------------------------

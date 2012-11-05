@@ -130,6 +130,7 @@ protected :
     void Track();
     void DMSegment();
     void GenericSoundEssenceDescriptor();
+    void GenericDataEssenceDescriptor();
     void MultipleDescriptor();
     void AES3PCMDescriptor();
     void WaveAudioDescriptor();
@@ -246,6 +247,7 @@ protected :
     void GenericSoundEssenceDescriptor_SoundEssenceCompression(); //3D06
     void GenericSoundEssenceDescriptor_ChannelCount();          //3D07
     void GenericSoundEssenceDescriptor_DialNorm();              //3D0C
+    void GenericDataEssenceDescriptor_DataEssenceCoding();      //3E01
     void GenericTrack_TrackID();                                //4801
     void GenericTrack_TrackName();                              //4802
     void GenericTrack_Sequence();                               //4803
