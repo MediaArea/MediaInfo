@@ -146,6 +146,7 @@ File_Ancillary::File_Ancillary()
 {
     //Configuration
     ParserName=__T("Ancillary");
+    PTS_DTS_Needed=true;
 
     //In
     WithTenBit=false;

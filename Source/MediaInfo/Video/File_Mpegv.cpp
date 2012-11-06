@@ -1168,6 +1168,9 @@ void File_Mpegv::Streams_Update()
             Update(*Text_Positions[Text_Positions_Pos].Parser);
             for (size_t Pos=0; Pos<(*Text_Positions[Text_Positions_Pos].Parser)->Count_Get(Stream_Text); Pos++)
             {
+                //Saving previous Muxing mode
+                Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
+
                 bool IsNewStream=false;
                 if (Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, Text_ID)!=(*Text_Positions[Text_Positions_Pos].Parser)->Get(Stream_Text, Pos, Text_ID))
                 {
@@ -1182,19 +1185,14 @@ void File_Mpegv::Streams_Update()
                 {
                     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                         if ((*Text_Positions[Text_Positions_Pos].Parser)==GA94_03_Parser)
-                        {
-                            Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
-                            Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", __T("A/53 / ")+MuxingMode, true);
-                        }
+                            MuxingMode=__T("A/53 / ")+Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
                     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-                    if ((*Text_Positions[Text_Positions_Pos].Parser)==Cdp_Parser)
-                    {
-                        Ztring MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
-                        Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", __T("Ancillary data / ")+MuxingMode, true);
-                    }
+                        if ((*Text_Positions[Text_Positions_Pos].Parser)==Cdp_Parser)
+                            MuxingMode=__T("Ancillary data / ")+Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
                     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
                 }
+                Fill(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode", MuxingMode, true);
             }
         }
     }
@@ -2488,6 +2486,8 @@ void File_Mpegv::slice_start()
                     (*Ancillary)=new File_Ancillary();
                 (*Ancillary)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 (*Ancillary)->FrameRate=((float)(Mpegv_frame_rate[frame_rate_code] * (frame_rate_extension_n + 1)) / (float)(frame_rate_extension_d + 1));
+                if ((*Ancillary)->PTS_DTS_Needed)
+                    (*Ancillary)->FrameInfo.DTS=FrameInfo.DTS;
                 if ((*Ancillary)->Status[IsAccepted]) //In order to test if there is a parser using ancillary data
                     Open_Buffer_Continue((*Ancillary), Buffer+Buffer_Offset, 0);
                 Element_Trace_End0();
