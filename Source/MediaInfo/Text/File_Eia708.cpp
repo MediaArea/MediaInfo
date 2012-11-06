@@ -1181,8 +1181,8 @@ void File_Eia708::SWA()
     Skip_S1(4,                                                  "effect speed");
     Skip_S1(2,                                                  "effect direction");
     Skip_S1(2,                                                  "display effect");
-    Mark_0();
-    Mark_0();
+    Mark_0_NoTrustError();
+    Mark_0_NoTrustError();
     Skip_S1(2,                                                  "edge red");
     Skip_S1(2,                                                  "edge green");
     Skip_S1(2,                                                  "edge blue");
