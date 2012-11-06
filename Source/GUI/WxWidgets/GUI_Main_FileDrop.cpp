@@ -67,9 +67,9 @@ bool FileDrop::OnDropFiles(wxCoord, wxCoord, const wxArrayString& FileNames)
     wxDateTime Begin=wxDateTime::UNow();
     for (size_t Pos=0; Pos<FileNames.size(); Pos++)
     #if defined(__WXMSW__)
-        C->Menu_File_Open_Files_Continue(FileNames[Pos].c_str());
+        C->Menu_File_Open_Files_Continue(String(FileNames[Pos].c_str()));
     #else //defined(__WXMSW__)
-        C->Menu_File_Open_Files_Continue(FileNames2[Pos].c_str());
+        C->Menu_File_Open_Files_Continue(String(FileNames2[Pos].c_str()));
     #endif //defined(__WXMSW__)
     wxTimeSpan Span=wxDateTime::UNow()-Begin;
     ((GUI_Main*)C->GUI_Main_Handler)->View_Refresh();

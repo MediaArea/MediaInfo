@@ -158,7 +158,7 @@ void GUI_Main::Menu_Create()
 void GUI_Main::OnMenu_File_Open_Files(wxCommandEvent& WXUNUSED(event))
 {
     //User interaction
-    wxFileDialog* Dialog=new wxFileDialog(this, __T("Choose a file"), __T(""), __T(""), __T("*.*"), wxOPEN|wxFILE_MUST_EXIST|wxMULTIPLE);
+    wxFileDialog* Dialog=new wxFileDialog(this, __T("Choose a file"), __T(""), __T(""), __T("*.*"), wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE);
     if (Dialog->ShowModal()!=wxID_OK)
     {
         delete Dialog;
@@ -171,7 +171,7 @@ void GUI_Main::OnMenu_File_Open_Files(wxCommandEvent& WXUNUSED(event))
     //Configuring
     C->Menu_File_Open_Files_Begin();
     for (size_t Pos=0; Pos<FileNames.size(); Pos++)
-        C->Menu_File_Open_Files_Continue(FileNames[Pos].c_str());
+        C->Menu_File_Open_Files_Continue(String(FileNames[Pos].c_str()));
 
     //Showing
     View->GUI_Refresh();
@@ -189,7 +189,7 @@ void GUI_Main::OnMenu_File_Open_Directory(wxCommandEvent& WXUNUSED(event))
 
     //Configuring
     C->Menu_File_Open_Files_Begin();
-    C->Menu_File_Open_Files_Continue(DirName.c_str());
+    C->Menu_File_Open_Files_Continue(String(DirName.c_str()));
 
     //Showing
     View->GUI_Refresh();
