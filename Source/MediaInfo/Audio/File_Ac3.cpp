@@ -942,7 +942,7 @@ void File_Ac3::Streams_Finish()
     {
         Fill(Stream_Audio, 0, Audio_Duration, float64_int64s(((float64)(FrameInfo.PTS-PTS_Begin))/1000000));
         float64 FrameDuration;
-        if (bsid<=0x09)
+        if (bsid<=0x08)
             FrameDuration=32;
         else if (bsid<=0x09)
             FrameDuration=16; // Unofficial hack for low sample rate (e.g. 22.05 kHz)
