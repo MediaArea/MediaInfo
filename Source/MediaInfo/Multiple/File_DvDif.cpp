@@ -1437,7 +1437,7 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
-        if (!IgnoreAudio && Streams_Audio.empty() && Dv_Audio_SamplingRate[SamplingRate] && Dv_Audio_BitDepth[Resolution] && Dv_Audio_SamplingRate[SamplingRate] && Dv_Audio_BitDepth[Resolution])
+        if (!IgnoreAudio && Streams_Audio.empty() && Dv_Audio_SamplingRate[SamplingRate] && Dv_Audio_BitDepth[Resolution])
         {
             //Calculating the count of audio
             size_t Audio_Count=1;
