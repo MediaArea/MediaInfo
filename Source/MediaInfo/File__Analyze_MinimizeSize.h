@@ -514,9 +514,9 @@ public :
     // UUID
     //***************************************************************************
 
-    void Get_UUID (int128u &Info);
-    inline void Get_UUID (int128u &Info, const char*) {Get_UUID(Info);}
-    void Peek_UUID(int128u &Info);
+    inline void Get_UUID (int128u &Info) {Get_B16_(Info);}
+    inline void Get_UUID (int128u &Info, const char*) {Get_B16_(Info);}
+    inline void Peek_UUID(int128u &Info) {Peek_B16(Info);}
     inline void Skip_UUID(               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
     #define Info_UUID(_INFO, _NAME) int128u _INFO; Get_UUID(_INFO, _NAME)
 
@@ -853,7 +853,7 @@ public :
     inline void Skip_TB_(           ) {BT->SkipB();}
     inline void Skip_T1_(int8u  Bits) {BT->Skip1(Bits);}
     inline void Skip_T2_(int8u  Bits) {BT->Skip2(Bits);}
-    inline void Skip_T6_(int8u  Bits) {BT->Skip8(Bits);}
+    inline void Skip_T4_(int8u  Bits) {BT->Skip4(Bits);}
     inline void Skip_T8_(int8u  Bits) {BT->Skip8(Bits);}
     #define Skip_BT(Bits, Name) Skip_BT_(Bits)
     #define Skip_TB(      Name) Skip_TB_()
