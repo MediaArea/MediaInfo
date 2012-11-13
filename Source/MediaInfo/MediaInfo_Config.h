@@ -156,7 +156,6 @@ public :
           Ztring    Inform_Get (const Ztring &Value);
 
           void      Inform_Replace_Set (const ZtringListList &NewInform_Replace);
-          Ztring    Inform_Replace_Get ();
           ZtringListList Inform_Replace_Get_All ();
 
     const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);

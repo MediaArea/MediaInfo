@@ -473,7 +473,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     }
     else if (Option_Lower==__T("inform_replace_get"))
     {
-        return Inform_Replace_Get();
+        return Inform_Get();
     }
     else if (Option_Lower==__T("details")) //Legacy for trace_level
     {
@@ -1532,12 +1532,6 @@ void MediaInfo_Config::Inform_Replace_Set (const ZtringListList &NewValue_Replac
         if (NewValue_Replace[Pos].size()==2)
             Custom_View_Replace(NewValue_Replace[Pos][0])=NewValue_Replace[Pos][1];
     }
-}
-
-Ztring MediaInfo_Config::Inform_Replace_Get ()
-{
-    CriticalSectionLocker CSL(CS);
-    return Custom_View.Read();
 }
 
 ZtringListList MediaInfo_Config::Inform_Replace_Get_All ()
