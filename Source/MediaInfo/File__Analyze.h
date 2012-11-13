@@ -816,42 +816,26 @@ public :
     bool Get_TB(                             const char* Name)  {bool Temp; Get_TB(Temp, Name); return Temp;}
     void Get_T1 (size_t Bits, int8u   &Info, const char* Name);
     void Get_T2 (size_t Bits, int16u  &Info, const char* Name);
-    void Get_T3 (size_t Bits, int32u  &Info, const char* Name);
     void Get_T4 (size_t Bits, int32u  &Info, const char* Name);
-    void Get_T5 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_T6 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_T7 (size_t Bits, int64u  &Info, const char* Name);
     void Get_T8 (size_t Bits, int64u  &Info, const char* Name);
     void Peek_BT(size_t Bits, int32u  &Info);
     void Peek_TB(              bool    &Info);
     bool Peek_TB()                                              {bool Temp; Peek_TB(Temp); return Temp;}
     void Peek_T1(size_t Bits, int8u   &Info);
     void Peek_T2(size_t Bits, int16u  &Info);
-    void Peek_T3(size_t Bits, int32u  &Info);
     void Peek_T4(size_t Bits, int32u  &Info);
-    void Peek_T5(size_t Bits, int64u  &Info);
-    void Peek_T6(size_t Bits, int64u  &Info);
-    void Peek_T7(size_t Bits, int64u  &Info);
     void Peek_T8(size_t Bits, int64u  &Info);
     void Skip_BT(size_t Bits,                const char* Name);
     void Skip_TB(                            const char* Name);
     void Skip_T1(size_t Bits,                const char* Name);
     void Skip_T2(size_t Bits,                const char* Name);
-    void Skip_T3(size_t Bits,                const char* Name);
     void Skip_T4(size_t Bits,                const char* Name);
-    void Skip_T5(size_t Bits,                const char* Name);
-    void Skip_T6(size_t Bits,                const char* Name);
-    void Skip_T7(size_t Bits,                const char* Name);
     void Skip_T8(size_t Bits,                const char* Name);
     #define Info_BT(_BITS, _INFO, _NAME) int32u  _INFO; Get_BT(_BITS, _INFO, _NAME)
     #define Info_TB(_INFO, _NAME)        bool    _INFO; Get_TB(       _INFO, _NAME)
     #define Info_T1(_BITS, _INFO, _NAME) int8u   _INFO; Get_T1(_BITS, _INFO, _NAME)
     #define Info_T2(_BITS, _INFO, _NAME) int16u  _INFO; Get_T2(_BITS, _INFO, _NAME)
-    #define Info_T3(_BITS, _INFO, _NAME) int32u  _INFO; Get_T4(_BITS, _INFO, _NAME)
     #define Info_T4(_BITS, _INFO, _NAME) int32u  _INFO; Get_T4(_BITS, _INFO, _NAME)
-    #define Info_T5(_BITS, _INFO, _NAME) int64u  _INFO; Get_T5(_BITS, _INFO, _NAME)
-    #define Info_T6(_BITS, _INFO, _NAME) int64u  _INFO; Get_T6(_BITS, _INFO, _NAME)
-    #define Info_T7(_BITS, _INFO, _NAME) int64u  _INFO; Get_T7(_BITS, _INFO, _NAME)
     #define Info_T8(_BITS, _INFO, _NAME) int64u  _INFO; Get_T8(_BITS, _INFO, _NAME)
 
     #define TEST_TB_GET(_CODE, _NAME) \

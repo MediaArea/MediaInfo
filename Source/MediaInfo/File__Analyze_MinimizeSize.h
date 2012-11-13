@@ -834,62 +834,38 @@ public :
     bool Get_TB_ ()                                              {bool Temp; Get_TB_(Temp); return Temp;}
     void Get_T1_ (int8u  Bits, int8u   &Info);
     void Get_T2_ (int8u  Bits, int16u  &Info);
-    void Get_T3_ (int8u  Bits, int32u  &Info);
     void Get_T4_ (int8u  Bits, int32u  &Info);
-    void Get_T5_ (int8u  Bits, int64u  &Info);
-    void Get_T6_ (int8u  Bits, int64u  &Info);
-    void Get_T7_ (int8u  Bits, int64u  &Info);
     void Get_T8_ (int8u  Bits, int64u  &Info);
     #define Get_BT(Bits, Info, Name) Get_BT_(Bits, Info)
     #define Get_TB(      Info, Name) Get_TB_(      Info)
     #define Get_T1(Bits, Info, Name) Get_T1_(Bits, Info)
     #define Get_T2(Bits, Info, Name) Get_T2_(Bits, Info)
-    #define Get_T3(Bits, Info, Name) Get_T3_(Bits, Info)
     #define Get_T4(Bits, Info, Name) Get_T4_(Bits, Info)
-    #define Get_T5(Bits, Info, Name) Get_T5_(Bits, Info)
-    #define Get_T6(Bits, Info, Name) Get_T6_(Bits, Info)
-    #define Get_T7(Bits, Info, Name) Get_T7_(Bits, Info)
     #define Get_T8(Bits, Info, Name) Get_T8_(Bits, Info)
     void Peek_BT(int8u  Bits, int32u  &Info);
     void Peek_TB(              bool    &Info);
     bool Peek_TB()                                              {bool Temp; Peek_TB(Temp); return Temp;}
     void Peek_T1(int8u  Bits, int8u   &Info);
     void Peek_T2(int8u  Bits, int16u  &Info);
-    void Peek_T3(int8u  Bits, int32u  &Info);
     void Peek_T4(int8u  Bits, int32u  &Info);
-    void Peek_T5(int8u  Bits, int64u  &Info);
-    void Peek_T6(int8u  Bits, int64u  &Info);
-    void Peek_T7(int8u  Bits, int64u  &Info);
     void Peek_T8(int8u  Bits, int64u  &Info);
     inline void Skip_BT_(size_t Bits) {BT->Skip(Bits);}
     inline void Skip_TB_(           ) {BT->SkipB();}
     inline void Skip_T1_(int8u  Bits) {BT->Skip1(Bits);}
     inline void Skip_T2_(int8u  Bits) {BT->Skip2(Bits);}
-    inline void Skip_T3_(int8u  Bits) {BT->Skip4(Bits);}
-    inline void Skip_T4_(int8u  Bits) {BT->Skip4(Bits);}
-    inline void Skip_T5_(int8u  Bits) {BT->Skip8(Bits);}
     inline void Skip_T6_(int8u  Bits) {BT->Skip8(Bits);}
-    inline void Skip_T7_(int8u  Bits) {BT->Skip8(Bits);}
     inline void Skip_T8_(int8u  Bits) {BT->Skip8(Bits);}
     #define Skip_BT(Bits, Name) Skip_BT_(Bits)
     #define Skip_TB(      Name) Skip_TB_()
     #define Skip_T1(Bits, Name) Skip_T1_(Bits)
     #define Skip_T2(Bits, Name) Skip_T2_(Bits)
-    #define Skip_T3(Bits, Name) Skip_T3_(Bits)
     #define Skip_T4(Bits, Name) Skip_T4_(Bits)
-    #define Skip_T5(Bits, Name) Skip_T5_(Bits)
-    #define Skip_T6(Bits, Name) Skip_T6_(Bits)
-    #define Skip_T7(Bits, Name) Skip_T7_(Bits)
     #define Skip_T8(Bits, Name) Skip_T8_(Bits)
     #define Info_BT(_BITS, _INFO, _NAME) Skip_BT_(_BITS)
     #define Info_TB(_INFO, _NAME)        Skip_TB_(     )
     #define Info_T1(_BITS, _INFO, _NAME) Skip_T1_(_BITS)
     #define Info_T2(_BITS, _INFO, _NAME) Skip_T2_(_BITS)
-    #define Info_T3(_BITS, _INFO, _NAME) Skip_T3_(_BITS)
     #define Info_T4(_BITS, _INFO, _NAME) Skip_T4_(_BITS)
-    #define Info_T5(_BITS, _INFO, _NAME) Skip_T5_(_BITS)
-    #define Info_T6(_BITS, _INFO, _NAME) Skip_T6_(_BITS)
-    #define Info_T7(_BITS, _INFO, _NAME) Skip_T7_(_BITS)
     #define Info_T8(_BITS, _INFO, _NAME) Skip_T8_(_BITS)
 
     #define TEST_TB_GET(_CODE, _NAME) \
