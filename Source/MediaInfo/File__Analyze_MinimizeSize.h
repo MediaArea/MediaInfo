@@ -554,7 +554,7 @@ public :
     inline void Get_UE (int32u &Info, const char*) {Get_UE(Info);}
     inline void Get_SE (int32s &Info, const char*) {Get_SE(Info);}
     void Skip_UE();
-    void Skip_SE();
+    inline void Skip_SE() {Skip_UE();}
     inline void Skip_UE(              const char*) {Skip_UE();}
     inline void Skip_SE(              const char*) {Skip_SE();}
     #define Info_UE(_INFO, _NAME) int32u _INFO; Get_UE(_INFO, _NAME)

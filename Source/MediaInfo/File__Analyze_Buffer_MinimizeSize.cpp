@@ -919,16 +919,6 @@ void File__Analyze::Get_SE(int32s &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_SE()
-{
-    INTEGRITY(BS->Remain())
-    int8u LeadingZeroBits=0;
-    while(BS->Remain()>0 && !BS->GetB())
-        LeadingZeroBits++;
-    BS->Skip(LeadingZeroBits);
-}
-
-//---------------------------------------------------------------------------
 void File__Analyze::Get_UE(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
