@@ -636,7 +636,12 @@ bool File_Riff::Header_Begin()
         if (Buffer_Offset+(size_t)Element_Size>Buffer_Size)
             return false;
 
+        // Fake header
         Element_Begin0();
+        Element_Begin0();
+        Header_Fill_Size(Buffer_DataToParse_End-(File_Offset+Buffer_Offset));
+        Element_End();
+
         switch (Kind)
         {
             case Kind_Wave : WAVE_data_Continue(); break;
@@ -658,6 +663,13 @@ bool File_Riff::Header_Begin()
         }
         Element_Offset=0;
         Element_End0();
+
+        if (Status[IsFinished] || (File_GoTo!=(int64u)-1 && (File_GoTo<=Buffer_DataToParse_Begin || File_GoTo>=Buffer_DataToParse_End)))
+        {
+            Buffer_DataToParse_Begin=(int64u)-1;
+            Buffer_DataToParse_End=0;
+            return false;
+        }
 
         if (Buffer_Offset>=Buffer_Size)
             return false;

@@ -318,7 +318,6 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp" />
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Als.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Amr.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Amv.cpp" />
@@ -526,7 +525,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h" />
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Als.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Amr.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Amv.h" />

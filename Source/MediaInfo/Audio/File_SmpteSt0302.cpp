@@ -262,6 +262,28 @@ void File_SmpteSt0302::Read_Buffer_Continue()
 
             Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
         }
+        else if (true) //Config->Demux_PCM_20bitTo24bit_Get() && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
+        {
+            size_t Info2_Size=((size_t)Element_Size-4);
+            int8u* Info2=new int8u[Info2_Size];
+            size_t Info2_Pos=0;
+            size_t Info_Pos=0;
+
+            while (Info_Pos<Info_Offset)
+            {
+                Info2[Info2_Pos+0]=0x00;
+                Info2[Info2_Pos+1]=Info[Info_Pos+1];
+                Info2[Info2_Pos+2]=Info[Info_Pos+2];
+                Info2[Info2_Pos+3]=0x00;
+                Info2[Info2_Pos+4]=Info[Info_Pos+4];
+                Info2[Info2_Pos+5]=Info[Info_Pos+5];
+
+                Info2_Pos+=6;
+                Info_Pos+=6;
+            }
+
+            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
+        }
         else
             Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
     #endif //MEDIAINFO_DEMUX

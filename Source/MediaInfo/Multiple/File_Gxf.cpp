@@ -51,7 +51,10 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
-#if defined(MEDIAINFO_AES3_YES)
+#if defined(MEDIAINFO_PCM_YES)
+    #include "MediaInfo/Audio/File_Pcm.h"
+#endif
+#if defined(MEDIAINFO_SMPTEST0337_YES)
     #include "MediaInfo/Audio/File_ChannelGrouping.h"
 #endif
 #if MEDIAINFO_EVENTS
@@ -322,12 +325,12 @@ void File_Gxf::Streams_Finish()
                     if (Streams[StreamID2].MediaName==Title+__T(".A")+Ztring::ToZtring(StreamID2-StreamID))
                     {
                         Streams[StreamID].MediaName=Title;
-                        if (Streams[StreamID].Parser && Streams[StreamID2].Parser)
+                        if (Streams[StreamID].Parsers.size()==1 && Streams[StreamID2].Parsers.size()==1)
                         {
-                            int32u Channels=Streams[StreamID].Parser->Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int32u()+Streams[StreamID2].Parser->Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int32u();
-                            Streams[StreamID].Parser->Fill(Stream_Audio, 0, Audio_Channel_s_, Channels, 10, true);
-                            int32u BitRate=Streams[StreamID].Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u()+Streams[StreamID2].Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
-                            Streams[StreamID].Parser->Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 10, true);
+                            int32u Channels=Streams[StreamID].Parsers[0]->Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int32u()+Streams[StreamID2].Parsers[0]->Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int32u();
+                            Streams[StreamID].Parsers[0]->Fill(Stream_Audio, 0, Audio_Channel_s_, Channels, 10, true);
+                            int32u BitRate=Streams[StreamID].Parsers[0]->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u()+Streams[StreamID2].Parsers[0]->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
+                            Streams[StreamID].Parsers[0]->Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 10, true);
                         }
                         Streams[StreamID2].MediaType=(int8u)-1;
                     }
@@ -366,16 +369,16 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
         return;
 
     //By the parser
-    if (Temp.Parser && Temp.Parser->Status[IsAccepted])
+    if (Temp.Parsers.size()==1 && Temp.Parsers[0]->Status[IsAccepted])
     {
         StreamKind_Last=Stream_Max;
         StreamPos_Last=(size_t)-1;
         if (Config->ParseSpeed<=1.0)
         {
-            Fill(Temp.Parser);
-            Temp.Parser->Open_Buffer_Unsynch();
+            Fill(Temp.Parsers[0]);
+            Temp.Parsers[0]->Open_Buffer_Unsynch();
         }
-        Finish(Temp.Parser);
+        Finish(Temp.Parsers[0]);
 
         //Video
         bool IsTimeCode=false;
@@ -384,7 +387,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 IsTimeCode=true;
         if (!IsTimeCode && Temp.DisplayInfo)
         {
-            if (Temp.Parser->Count_Get(Stream_Video))
+            if (Temp.Parsers[0]->Count_Get(Stream_Video))
             {
                 Stream_Prepare(Stream_Video);
 
@@ -396,7 +399,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 else
                     for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); ++TimeCode)
                     {
-                        int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parser)->TimeCode_First;
+                        int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parsers[0])->TimeCode_First;
                         if (TimeCode_First==(int64u)-1)
                             TimeCode_First=TimeCode->second;
                         if (TimeCode_First!=(int64u)-1)
@@ -406,20 +409,20 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                         }
                     }
 
-                Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
+                Merge(*Temp.Parsers[0], Stream_Video, 0, StreamPos_Last);
 
                 Fill(Stream_Video, StreamPos_Last, Video_ID, StreamID, 10, true);
                 Fill(Stream_Video, StreamPos_Last, "Title", Temp.MediaName);
 
                 //Special cases
-                if (Temp.Parser->Count_Get(Stream_Text))
+                if (Temp.Parsers[0]->Count_Get(Stream_Text))
                 {
                     //Video and Text are together
-                    size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
+                    size_t Parser_Text_Count=Temp.Parsers[0]->Count_Get(Stream_Text);
                     for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
                     {
                         Stream_Prepare(Stream_Text);
-                        Merge(*Temp.Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                        Merge(*Temp.Parsers[0], Stream_Text, Parser_Text_Pos, StreamPos_Last);
                         Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
                         Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
                         Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
@@ -435,7 +438,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
             }
 
             //Audio
-            for (size_t Pos=0; Pos<Temp.Parser->Count_Get(Stream_Audio); Pos++)
+            for (size_t Pos=0; Pos<Temp.Parsers[0]->Count_Get(Stream_Audio); Pos++)
             {
                 Stream_Prepare(Stream_Audio);
 
@@ -447,18 +450,19 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 else
                     for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); ++TimeCode)
                     {
-                        int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parser)->TimeCode_First;
+                        int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parsers[0])->TimeCode_First;
                         if (TimeCode_First==(int64u)-1)
                             TimeCode_First=TimeCode->second;
                         Fill(Stream_Audio, StreamPos_Last, Audio_Delay, TimeCode_First, 0);
                         Fill(Stream_Audio, StreamPos_Last, Audio_Delay_Source, "Container");
                     }
 
-                Merge(*Temp.Parser, Stream_Audio, Pos, StreamPos_Last, false);
+                Merge(*Temp.Parsers[0], Stream_Audio, Pos, StreamPos_Last, false);
 
-                Ztring ID=Ztring::ToZtring(StreamID);
+                Ztring ID;
                 if (Temp.IsChannelGrouping)
-                    ID+=__T(" / ")+Ztring::ToZtring(StreamID+1); //Second half of the channel grouping
+                    ID=Ztring::ToZtring(StreamID-1)+__T(" / "); //First half of the channel grouping
+                ID+=Ztring::ToZtring(StreamID); //Second half of the channel grouping or standalone
                 Ztring ID_String=ID;
                 if (!Retrieve(Stream_Audio, StreamPos_Last, Audio_ID).empty())
                 {
@@ -467,9 +471,9 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 }
                 Fill(Stream_Audio, StreamPos_Last, Audio_ID, ID, true);
                 Fill(Stream_Audio, StreamPos_Last, Audio_ID_String, ID_String, true);
-                Fill(Stream_Audio, StreamPos_Last, "Title", Temp.MediaName);
                 if (Temp.IsChannelGrouping)
-                    Fill(StreamKind_Last, StreamPos_Last, "Title", Streams[StreamID+1].MediaName); //Second half of the channel grouping
+                    Fill(Stream_Audio, StreamPos_Last, "Title", Streams[StreamID-1].MediaName); //First half of the channel grouping
+                Fill(StreamKind_Last, StreamPos_Last, "Title", Temp.MediaName); //Second half of the channel grouping or standalone
 
                 for (std::map<std::string, Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); ++Info)
                     if (Retrieve(Stream_Audio, StreamPos_Last, Info->first.c_str()).empty())
@@ -477,13 +481,13 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
             }
 
             //Text
-            if (Temp.Parser->Count_Get(Stream_Text))
+            if (Temp.Parsers[0]->Count_Get(Stream_Text))
             {
-                size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
+                size_t Parser_Text_Count=Temp.Parsers[0]->Count_Get(Stream_Text);
                 for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
                 {
                     Stream_Prepare(Stream_Text);
-                    Merge(*Temp.Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                    Merge(*Temp.Parsers[0], Stream_Text, Parser_Text_Pos, StreamPos_Last);
                     Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
                     Fill(Stream_Text, StreamPos_Last, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
                     Fill(Stream_Text, StreamPos_Last, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
@@ -600,8 +604,8 @@ bool File_Gxf::Synched_Test()
 void File_Gxf::Read_Buffer_Unsynched()
 {
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser)
-            Streams[Pos].Parser->Open_Buffer_Unsynch();
+        for (size_t Parser_Pos=0; Parser_Pos<Streams[Pos].Parsers.size(); Parser_Pos++)
+            Streams[Pos].Parsers[Parser_Pos]->Open_Buffer_Unsynch();
 
     #if MEDIAINFO_SEEK
         IFrame_IsParsed=false;
@@ -635,7 +639,7 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
                         {
                             for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); ++TimeCode)
                             {
-                                int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parser)->TimeCode_First;
+                                int64u TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCode->first].Parsers[0])->TimeCode_First;
                                 if (TimeCode_First==(int64u)-1)
                                     TimeCode_First=TimeCode->second;
                                 if (TimeCode_First==(int64u)-1)
@@ -697,11 +701,12 @@ bool File_Gxf::Header_Begin()
     #if MEDIAINFO_DEMUX
         //Handling of multiple frames in one block
         if (Element_Code==0xBF && Config->Demux_Unpacketize_Get()) //media block
-        {
-            Open_Buffer_Continue(Streams[TrackNumber].Parser, Buffer+Buffer_Offset, 0);
-            if (Config->Demux_EventWasSent)
-                return false;
-        }
+            for (size_t Pos=0; Pos<Streams[TrackNumber].Parsers.size(); Pos++)
+            {
+                Open_Buffer_Continue(Streams[TrackNumber].Parsers[Pos], Buffer+Buffer_Offset, 0);
+                if (Config->Demux_EventWasSent)
+                    return false;
+            }
     #endif //MEDIAINFO_DEMUX
 
     return true;
@@ -897,7 +902,7 @@ void File_Gxf::map()
                 TrackID&=0x3F; //Remove the 2 last bits
                 Streams[TrackID].MediaType=MediaType;
                 Streams[TrackID].TrackID=TrackID;
-                if (Streams[TrackID].Parser==NULL)
+                if (Streams[TrackID].Parsers.empty())
                 {
                     Streams[TrackID].MediaType=MediaType;
                     Streams[TrackID].TrackID=TrackID;
@@ -910,78 +915,106 @@ void File_Gxf::map()
                     {
                         case  3 :
                         case  4 :  //JPEG
-                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Streams[TrackID].Parser->Accept();
-                                    Streams[TrackID].Parser->Fill();
-                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Video);
-                                    Streams[TrackID].Parser->Fill(Stream_Video, 0, Video_Format, "JPEG");
+                                    {
+                                        File__Analyze* Parser=new File__Analyze;
+                                        Open_Buffer_Init(Parser);
+                                        Parser->Accept();
+                                        Parser->Fill();
+                                        Parser->Stream_Prepare(Stream_Video);
+                                        Parser->Fill(Stream_Video, 0, Video_Format, "JPEG");
+                                        Streams[TrackID].Parsers.push_back(Parser);
+                                    }
                                     break;
                         case  7 :
                         case  8 :
                         case 24 :  //TimeCode
-                                    Streams[TrackID].Parser=new File_Gxf_TimeCode;
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Parsers_Count++;
-                                    Streams[TrackID].Searching_Payload=true;
-                                    TimeCodes[TrackID]=(int64u)-1;
+                                    {
+                                        File__Analyze* Parser=new File_Gxf_TimeCode;
+                                        Open_Buffer_Init(Parser);
+                                        Streams[TrackID].Parsers.push_back(Parser);
+
+                                        Parsers_Count++;
+                                        Streams[TrackID].Searching_Payload=true;
+                                        TimeCodes[TrackID]=(int64u)-1;
+                                    }
                                     break;
                         case  9 :
                         case 10 :
-                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Streams[TrackID].Parser->Accept();
-                                    Streams[TrackID].Parser->Fill();
-                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Audio);
-                                    Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
-                                    Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little");
-                                    Audio_Count++;
+                                    {
+                                        File__Analyze* Parser=new File__Analyze;
+                                        Open_Buffer_Init(Parser);
+                                        Parser->Accept();
+                                        Parser->Fill();
+                                        Parser->Stream_Prepare(Stream_Audio);
+                                        Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+                                        Parser->Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little");
+                                        Streams[TrackID].Parsers.push_back(Parser);
+
+                                        Audio_Count++;
+                                    }
                                     break;
                         case 11 :
                         case 12 :
                         case 20 :
                         case 22 :
                         case 23 :   //MPEG Video
-                                    Streams[TrackID].Parser=new File_Mpegv();
-                                    ((File_Mpegv*)Streams[TrackID].Parser)->FrameIsAlwaysComplete=true;
-                                    ((File_Mpegv*)Streams[TrackID].Parser)->Ancillary=&Ancillary;
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Parsers_Count++;
-                                    Streams[TrackID].Searching_Payload=true;
+                                     {
+                                        File__Analyze* Parser=new File_Mpegv();
+                                        ((File_Mpegv*)Parser)->FrameIsAlwaysComplete=true;
+                                        ((File_Mpegv*)Parser)->Ancillary=&Ancillary;
+                                        Open_Buffer_Init(Parser);
+                                        Streams[TrackID].Parsers.push_back(Parser);
+
+                                        Parsers_Count++;
+                                        Streams[TrackID].Searching_Payload=true;
+                                     }
                                     break;
                         case 13 :
                         case 14 :
                         case 15 :
                         case 16 :   //DV
-                                    Streams[TrackID].Parser=new File_DvDif();
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Parsers_Count++;
-                                    Streams[TrackID].Searching_Payload=true;
-                                    break;
-                        case 17 :   //AC-3 in AES3 (half)
-                        case 18 :   //Dolby E in AES3 (half)
-                                    Streams[TrackID].Parser=ChooseParser_ChannelGrouping(TrackID);
-                                    if (Streams[TrackID].Parser)
                                     {
-                                        Open_Buffer_Init(Streams[TrackID].Parser);
+                                        File__Analyze* Parser=new File_DvDif();
+                                        Open_Buffer_Init(Parser);
+                                        Streams[TrackID].Parsers.push_back(Parser);
+
                                         Parsers_Count++;
                                         Streams[TrackID].Searching_Payload=true;
                                     }
-                                    Audio_Count++;
+                                    break;
+                        case 17 :   //AC-3 in AES3 (half)
+                        case 18 :   //Dolby E in AES3 (half)
+                                    {
+                                        File__Analyze* Parser=ChooseParser_ChannelGrouping(TrackID);
+                                        if (Parser)
+                                        {
+                                            Open_Buffer_Init(Parser);
+                                            Streams[TrackID].Parsers.push_back(Parser);
+
+                                            Parsers_Count++;
+                                            Audio_Count++;
+                                            Streams[TrackID].Searching_Payload=true;
+                                        }
+                                    }
                                     break;
                         case 21 :   //Ancillary Metadata
-                                    Streams[TrackID].Parser=new File_Riff();
-                                    ((File_Riff*)Streams[TrackID].Parser)->Ancillary=&Ancillary;
-                                    Open_Buffer_Init(Streams[TrackID].Parser);
-                                    Parsers_Count++;
-                                    Streams[TrackID].Searching_Payload=true;
-                                    Ancillary=new File_Ancillary;
-                                    Ancillary->WithTenBit=true;
-                                    Ancillary->WithChecksum=true;
-                                    Open_Buffer_Init(Ancillary);
-                                    AncillaryData_StreamID=TrackID;
-                                    if (SizeToAnalyze<8*16*1024*1024)
-                                        SizeToAnalyze*=8; //10x more, to be sure to find captions
+                                    {
+                                        File__Analyze* Parser=new File_Riff();
+                                        ((File_Riff*)Parser)->Ancillary=&Ancillary;
+                                        Open_Buffer_Init(Parser);
+                                        Streams[TrackID].Parsers.push_back(Parser);
+
+                                        Parsers_Count++;
+                                        Streams[TrackID].Searching_Payload=true;
+
+                                        Ancillary=new File_Ancillary;
+                                        Ancillary->WithTenBit=true;
+                                        Ancillary->WithChecksum=true;
+                                        Open_Buffer_Init(Ancillary);
+                                        AncillaryData_StreamID=TrackID;
+                                        if (SizeToAnalyze<8*16*1024*1024)
+                                            SizeToAnalyze*=8; //10x more, to be sure to find captions
+                                    }
                                     break;
                         default :   ;
                     }
@@ -1116,7 +1149,8 @@ void File_Gxf::map()
                                     Get_B4 (Streams[TrackID].FrameRate_Code, "Content"); Param_Info1(Gxf_FrameRate(Streams[TrackID].FrameRate_Code)); Element_Info1(Gxf_FrameRate(Streams[TrackID].FrameRate_Code));
                                     for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); ++TimeCode)
                                         if (TrackID==TimeCode->first)
-                                            ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FrameRate_Code=Streams[0x00].FrameRate_Code;
+                                            for (size_t Pos=0; Pos<Streams[TrackID].Parsers.size(); Pos++)
+                                                ((File_Gxf_TimeCode*)Streams[TrackID].Parsers[Pos])->FrameRate_Code=Streams[0x00].FrameRate_Code;
                                     if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Video)
                                         Stream_Video_FrameRate_Code=Streams[TrackID].FrameRate_Code;
                                 }
@@ -1142,7 +1176,8 @@ void File_Gxf::map()
                                     }
                                     for (std::map<int8u, int64u>::iterator TimeCode=TimeCodes.begin(); TimeCode!=TimeCodes.end(); ++TimeCode)
                                         if (TrackID==TimeCode->first)
-                                            ((File_Gxf_TimeCode*)Streams[TrackID].Parser)->FieldsPerFrame_Code=Streams[0x00].FieldsPerFrame_Code;
+                                            for (size_t Pos=0; Pos<Streams[TrackID].Parsers.size(); Pos++)
+                                                ((File_Gxf_TimeCode*)Streams[TrackID].Parsers[Pos])->FieldsPerFrame_Code=Streams[0x00].FieldsPerFrame_Code;
                                 }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
@@ -1260,7 +1295,7 @@ void File_Gxf::media()
                 int64u TimeCode_First=0;
                 if (!TimeCodes.empty())
                 {
-                    TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCodes.begin()->first].Parser)->TimeCode_First;
+                    TimeCode_First=((File_Gxf_TimeCode*)Streams[TimeCodes.begin()->first].Parsers[0])->TimeCode_First;
                     if (TimeCode_First==(int64u)-1)
                         TimeCode_First=TimeCodes.begin()->second;
                 }
@@ -1319,7 +1354,7 @@ void File_Gxf::media()
                 {
                     if (Gxf_MediaTypes_StreamKind(Streams[TrackNumber].MediaType)!=Stream_Audio)
                         Frame_Count_NotParsedIncluded=(MediaFieldNumber-(Material_Fields_First_IsValid?Material_Fields_First:0))/Material_Fields_FieldsPerFrame;
-                    Demux_Level=(Streams[TrackNumber].Parser && (Streams[TrackNumber].Parser->Demux_UnpacketizeContainer || Streams[TrackNumber].Parser->Demux_Level==2))?4:2; //Intermediate (D-10 Audio) / Container
+                    Demux_Level=(!Streams[TrackNumber].Parsers.empty() && (Streams[TrackNumber].Parsers[0]->Demux_UnpacketizeContainer || Streams[TrackNumber].Parsers[0]->Demux_Level==2))?4:2; //Intermediate (D-10 Audio) / Container
                     Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
                 }
                 Element_Code=0xBF; //media
@@ -1334,20 +1369,45 @@ void File_Gxf::media()
         return;
     }
 
-    if (Streams[TrackNumber].Parser)
+    for (size_t Pos=0; Pos<Streams[TrackNumber].Parsers.size(); Pos++)
     {
-        Streams[TrackNumber].Parser->FrameInfo.DTS=FrameInfo.DTS;
-        Open_Buffer_Continue(Streams[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Streams[TrackNumber].Parser->Status[IsFilled])
-        {
-            Streams[TrackNumber].Searching_Payload=false;
+        Streams[TrackNumber].Parsers[Pos]->FrameInfo.DTS=FrameInfo.DTS;
+        Open_Buffer_Continue(Streams[TrackNumber].Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
 
-            if (Parsers_Count>0)
-                Parsers_Count--;
-            if (Parsers_Count==0)
+        //Multiple parsers
+        if (Streams[TrackNumber].Parsers.size()>1)
+        {
+            if (!Streams[TrackNumber].Parsers[Pos]->Status[IsAccepted] && Streams[TrackNumber].Parsers[Pos]->Status[IsFinished])
             {
-                Finish();
+                delete *(Streams[TrackNumber].Parsers.begin()+Pos);
+                Streams[TrackNumber].Parsers.erase(Streams[TrackNumber].Parsers.begin()+Pos);
+                Pos--;
             }
+            else if (Streams[TrackNumber].Parsers.size()>1 && Streams[TrackNumber].Parsers[Pos]->Status[IsAccepted])
+            {
+                File__Analyze* Parser=Streams[TrackNumber].Parsers[Pos];
+                for (size_t Pos2=0; Pos2<Streams[TrackNumber].Parsers.size(); Pos2++)
+                {
+                    if (Pos2!=Pos)
+                        delete *(Streams[TrackNumber].Parsers.begin()+Pos2);
+                }
+                Streams[TrackNumber].Parsers.clear();
+                Streams[TrackNumber].Parsers.push_back(Parser);
+            }
+        }
+    }
+
+    Element_Offset=Element_Size;
+
+    if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Streams[TrackNumber].Parsers.size()==1 && Streams[TrackNumber].Parsers[0]->Status[IsFilled])
+    {
+        Streams[TrackNumber].Searching_Payload=false;
+
+        if (Parsers_Count>0)
+            Parsers_Count--;
+        if (Parsers_Count==0)
+        {
+            Finish();
         }
     }
 }
@@ -1445,23 +1505,25 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
             return NULL; //Not a channel grouping
 
         Parser=new File_ChannelGrouping;
+        Parser->CanBePcm=true;;
         Parser->Channel_Pos=1;
-        Parser->Common=((File_ChannelGrouping*)Streams[TrackID-1].Parser)->Common;
+        Parser->Common=((File_ChannelGrouping*)Streams[TrackID-1].Parsers[0])->Common;
         Parser->StreamID=TrackID-1;
-        Streams[TrackID].DisplayInfo=false;
+        Streams[TrackID].IsChannelGrouping=true;
     }
     else
     {
         Parser=new File_ChannelGrouping;
+        Parser->CanBePcm=true;;
         Parser->Channel_Pos=0;
         //if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
         Parser->SampleRate=48000; //TODO: find where this piece of info is avaialble
         Streams[TrackID].IsChannelGrouping=true;
+        Streams[TrackID].DisplayInfo=false;
     }
     Parser->Channel_Total=2;
     Parser->Endianness='L';
     Parser->ByteDepth=3;
-    Parser->IsAes3=true;
 
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer)

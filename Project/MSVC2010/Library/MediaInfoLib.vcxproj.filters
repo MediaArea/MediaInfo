@@ -176,12 +176,6 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Als.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>

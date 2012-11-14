@@ -271,7 +271,7 @@ private :
     File__Analyze* ChooseParser_SDDS();
     File__Analyze* ChooseParser_AAC();
     File__Analyze* ChooseParser_PCM();
-    File__Analyze* ChooseParser_AES3();
+    File__Analyze* ChooseParser_SmpteSt0302();
     File__Analyze* ChooseParser_RLE();
     File__Analyze* ChooseParser_DvbSubtitle();
     File__Analyze* ChooseParser_PGS();

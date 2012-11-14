@@ -484,12 +484,13 @@ protected :
     tracks Tracks;
 
     //Essence
+    typedef std::vector<File__Analyze*> parsers;
     struct essence
     {
         stream_t StreamKind;
         size_t   StreamPos;
         size_t   StreamPos_Initial;
-        File__Analyze* Parser;
+        parsers Parsers;
         std::map<std::string, Ztring> Infos;
         int64u Stream_Size;
         int32u TrackID;
@@ -506,7 +507,6 @@ protected :
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
             StreamPos_Initial=(size_t)-1;
-            Parser=NULL;
             Stream_Size=(int64u)-1;
             TrackID=(int32u)-1;
             TrackID_WasLookedFor=false;
@@ -520,7 +520,8 @@ protected :
 
         ~essence()
         {
-            delete Parser; //Parser=NULL;
+            for (size_t Pos=0; Pos<Parsers.size(); Pos++)
+                delete Parsers[Pos];
         }
     };
     typedef std::map<int32u, essence> essences; //Key is TrackNumber
@@ -711,23 +712,24 @@ protected :
     void           ChooseParser__Aaf_GC_Compound(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser__Avid(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser__Avid_Picture(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser__FromEssenceContainer(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Avc(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_DV(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Mpeg4v(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Mpegv(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Raw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Aes3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Mpega(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Pcm(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
-    File__Analyze* ChooseParser_Jpeg2000(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser__FromEssenceContainer(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Avc(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_DV(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Mpeg4v(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Mpegv(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Raw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Mpega(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Pcm(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_SmpteSt0331(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_SmpteSt0337(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_Jpeg2000(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
 
     //Helpers
     void Subsampling_Compute(descriptors::iterator Descriptor);

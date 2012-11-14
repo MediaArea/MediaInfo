@@ -2575,8 +2575,8 @@ void File_MpegPs::private_stream_1()
             #if defined(MEDIAINFO_DTS_YES)
                 Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_DTS());
             #endif
-            #if defined(MEDIAINFO_AES3_YES)
-                Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_AES3());
+            #if defined(MEDIAINFO_SMPTEST0337_YES)
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(ChooseParser_SmpteSt0302());
             #endif
         }
         #if MEDIAINFO_EVENTS
@@ -2801,7 +2801,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
         int32u format_identifier=FromTS?FromTS_format_identifier:Streams[stream_id].format_identifier;
         if (format_identifier==0x42535344) //"BSSD"
         {
-            return ChooseParser_AES3(); //AES3 (SMPTE 302M)
+            return ChooseParser_SmpteSt0302(); //AES3 (SMPTE 302M)
         }
         int32u stream_type=FromTS?FromTS_stream_type:Streams[stream_id].stream_type;
         switch (stream_type)
@@ -4571,7 +4571,7 @@ File__Analyze* File_MpegPs::ChooseParser_PGS()
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_MpegPs::ChooseParser_AES3()
+File__Analyze* File_MpegPs::ChooseParser_SmpteSt0302()
 {
     //Filling
     #if defined(MEDIAINFO_SMPTEST0302_YES)

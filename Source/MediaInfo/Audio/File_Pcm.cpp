@@ -93,6 +93,7 @@ File_Pcm::File_Pcm()
     BitDepth=0;
     Channels=0;
     SamplingRate=0;
+    Endianness='\0';
 }
 
 //***************************************************************************
@@ -172,6 +173,8 @@ void File_Pcm::Streams_Fill()
     else if (Codec==__T("4243"))             {ITU=__T("G.726");}
     else if (Codec==__T("A105"))             {ITU=__T("G.726");}
     else if (Codec==__T("A107"))             {ITU=__T("G.726");}
+    else if (File_Pcm::Endianness=='B')      {                   Endianness=__T("Big");}
+    else if (File_Pcm::Endianness=='L')      {                   Endianness=__T("Little");}
 
     Fill(Stream_Audio, 0, Audio_Codec_String, "PCM");
     Fill(Stream_Audio, 0, Audio_Codec_Family, "PCM");
@@ -264,7 +267,7 @@ void File_Pcm::Data_Parse()
     Skip_XX(Element_Size,                                       "Data"); //It is impossible to detect... Default is no detection, only filling
 
     Frame_Count++;
-    if (!Status[IsAccepted] && Frame_Count>=2)
+    if ((!Status[IsAccepted] && Frame_Count>=2) || File_Offset+Buffer_Size>=File_Size)
     {
         Accept();
         Finish();

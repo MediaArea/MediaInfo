@@ -59,10 +59,7 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
-#if defined(MEDIAINFO_AES3_YES)
-    #include "MediaInfo/Audio/File_Aes3.h"
-#endif
-#if defined(MEDIAINFO_AES3_YES)
+#if defined(MEDIAINFO_SMPTEST0337_YES)
     #include "MediaInfo/Audio/File_ChannelGrouping.h"
 #endif
 #if defined(MEDIAINFO_MPEGA_YES)
@@ -70,6 +67,12 @@
 #endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
+#endif
+#if defined(MEDIAINFO_SMPTEST0331_YES)
+    #include "MediaInfo/Audio/File_SmpteSt0331.h"
+#endif
+#if defined(MEDIAINFO_SMPTEST0337_YES)
+    #include "MediaInfo/Audio/File_SmpteSt0337.h"
 #endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
@@ -963,8 +966,8 @@ File_Mxf::~File_Mxf()
 void File_Mxf::Streams_Fill()
 {
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-        if (Essence->second.Parser)
-            Fill(Essence->second.Parser);
+        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+            Fill(*Parser);
 }
 
 //---------------------------------------------------------------------------
@@ -987,29 +990,39 @@ void File_Mxf::Streams_Finish()
 
     //Per stream
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-        if (Essence->second.Parser)
+    {
+        if (Essence->second.Parsers.size()!=1 && Essence->second.StreamKind==Stream_Audio) // Last parser is PCM, impossible to detect with another method if htere is only one block
         {
-            if (!Essence->second.Parser->Status[IsFinished])
+            for (size_t Pos=0; Pos<Essence->second.Parsers.size()-1; Pos++)
+                delete Essence->second.Parsers[Pos];
+            Essence->second.Parsers.erase(Essence->second.Parsers.begin(), Essence->second.Parsers.begin()+Essence->second.Parsers.size()-1);
+            Essence->second.Parsers[0]->Accept();
+            Essence->second.Parsers[0]->Fill();
+        }
+        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+        {
+            if (!(*Parser)->Status[IsFinished])
             {
                 int64u File_Size_Temp=File_Size;
                 File_Size=File_Offset+Buffer_Offset+Element_Offset;
-                Open_Buffer_Continue(Essence->second.Parser, Buffer, 0);
+                Open_Buffer_Continue(*Parser, Buffer, 0);
                 File_Size=File_Size_Temp;
-                Finish(Essence->second.Parser);
+                Finish(*Parser);
                 #if MEDIAINFO_DEMUX
                     if (Config->Demux_EventWasSent)
                         return;
                 #endif //MEDIAINFO_DEMUX
             }
         }
+    }
 
     if (!Track_Number_IsAvailable)
     {
         if (Tracks.empty())
         {
             for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-                if (Essence->second.Parser)
-                    Merge(*Essence->second.Parser);
+                for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+                    Merge(*(*Parser));
         }
         else
             for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
@@ -1136,8 +1149,9 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     if (Essence==Essences.end() || Essence->second.Stream_Finish_Done)
         return;
 
-    if (Essence->second.Parser==NULL)
+    if (Essence->second.Parsers.size()!=1)
         return;
+    parsers::iterator Parser=Essence->second.Parsers.begin();
 
     //Descriptive Metadata
     std::vector<int128u> DMScheme1s_List;
@@ -1153,16 +1167,16 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
 
     if (Config->ParseSpeed<=1.0)
     {
-        Fill(Essence->second.Parser);
-        Essence->second.Parser->Open_Buffer_Unsynch();
+        Fill(*Parser);
+        (*Parser)->Open_Buffer_Unsynch();
     }
-    Finish(Essence->second.Parser);
+    Finish(*Parser);
     StreamKind_Last=Stream_Max;
-    if (Essence->second.Parser->Count_Get(Stream_Video))
+    if ((*Parser)->Count_Get(Stream_Video))
         Stream_Prepare(Stream_Video);
-    else if (Essence->second.Parser->Count_Get(Stream_Audio))
+    else if ((*Parser)->Count_Get(Stream_Audio))
         Stream_Prepare(Stream_Audio);
-    else if (Essence->second.Parser->Count_Get(Stream_Text))
+    else if ((*Parser)->Count_Get(Stream_Text))
         Stream_Prepare(Stream_Text);
     else if (Essence->second.StreamKind!=Stream_Max)
         Stream_Prepare(Essence->second.StreamKind);
@@ -1205,7 +1219,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Fill(StreamKind_Last, StreamPos_Last, "Delay_SystemScheme1", SystemScheme1_TimeCodeArray_StartTimecode);
 
     //Special case - Multiple sub-streams in a stream
-    if (Essence->second.Parser->Retrieve(Stream_General, 0, General_Format)==__T("ChannelGrouping") && Essence->second.Parser->Count_Get(Stream_Audio))
+    if ((*Parser)->Retrieve(Stream_General, 0, General_Format)==__T("ChannelGrouping") && (*Parser)->Count_Get(Stream_Audio))
     {
         //Before
         Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize));
@@ -1243,10 +1257,10 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Stream_Erase(NewKind, NewPos1);
 
         //After
-        for (size_t StreamPos=0; StreamPos<Essence->second.Parser->Count_Get(NewKind); StreamPos++)
+        for (size_t StreamPos=0; StreamPos<(*Parser)->Count_Get(NewKind); StreamPos++)
         {
             Stream_Prepare(NewKind, NewPos1+StreamPos);
-            Merge(*Essence->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
+            Merge(*(*Parser), StreamKind_Last, StreamPos, StreamPos_Last);
             Ztring Parser_ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
             Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+(Parser_ID.empty()?Ztring():(__T("-")+Parser_ID)), true);
             for (size_t Pos=0; Pos<StreamSave.size(); Pos++)
@@ -1267,15 +1281,15 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
 
         //Positioning other streams
         for (essences::iterator Essence_Temp=Essence; Essence_Temp!=Essences.end(); ++Essence_Temp)
-            if (Essence_Temp->second.Parser && Essence_Temp->second.Parser->Count_Get(Stream_Audio))
+            if (*(Essence_Temp->second.Parsers.begin()) && (*(Essence_Temp->second.Parsers.begin()))->Count_Get(Stream_Audio))
             {
                 Essence_Temp->second.StreamPos-=2; //ChannelGrouping
-                Essence_Temp->second.StreamPos+=Essence_Temp->second.Parser->Count_Get(Stream_Audio);
+                Essence_Temp->second.StreamPos+=(*(Essence_Temp->second.Parsers.begin()))->Count_Get(Stream_Audio);
             }
     }
     else //Normal
     {
-        Merge(*Essence->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+        Merge(*(*Parser), StreamKind_Last, 0, StreamPos_Last);
 
         for (size_t Pos=0; Pos<DMScheme1s_List.size(); Pos++)
         {
@@ -1286,10 +1300,10 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             }
         }
 
-        for (size_t StreamPos=1; StreamPos<Essence->second.Parser->Count_Get(StreamKind_Last); StreamPos++) //If more than 1 stream, TODO: better way to do this
+        for (size_t StreamPos=1; StreamPos<(*Parser)->Count_Get(StreamKind_Last); StreamPos++) //If more than 1 stream, TODO: better way to do this
         {
             Stream_Prepare(StreamKind_Last);
-            Merge(*Essence->second.Parser, StreamKind_Last, StreamPos, StreamPos_Last);
+            Merge(*(*Parser), StreamKind_Last, StreamPos, StreamPos_Last);
         }
     }
 
@@ -1323,7 +1337,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         }
         if (!ID.empty())
         {
-            for (size_t StreamPos=StreamPos_Last-(Essence->second.Parser->Count_Get(StreamKind_Last)?(Essence->second.Parser->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
+            for (size_t StreamPos=StreamPos_Last-((*Parser)->Count_Get(StreamKind_Last)?((*Parser)->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
             {
                 Ztring ID_Temp(ID);
                 if (!Retrieve(StreamKind_Last, StreamPos, General_ID).empty())
@@ -1338,7 +1352,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         }
         if (!Tracks[TrackUID].TrackName.empty())
         {
-            for (size_t StreamPos=StreamPos_Last-(Essence->second.Parser->Count_Get(StreamKind_Last)?(Essence->second.Parser->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
+            for (size_t StreamPos=StreamPos_Last-((*Parser)->Count_Get(StreamKind_Last)?((*Parser)->Count_Get(StreamKind_Last)-1):0); StreamPos<=StreamPos_Last; StreamPos++) //If more than 1 stream
                 Fill(StreamKind_Last, StreamPos, "Title", Tracks[TrackUID].TrackName);
         }
     }
@@ -1348,22 +1362,22 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==__T("DV"))
         {
             if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
-                Fill(Stream_General, 0, General_Recorded_Date, Essence->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
+                Fill(Stream_General, 0, General_Recorded_Date, (*Parser)->Retrieve(Stream_General, 0, General_Recorded_Date));
 
             //Video and Audio are together
-            size_t Audio_Count=Essence->second.Parser->Count_Get(Stream_Audio);
+            size_t Audio_Count=(*Parser)->Count_Get(Stream_Audio);
             for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
             {
                 Fill_Flush();
                 Stream_Prepare(Stream_Audio);
                 size_t Pos=Count_Get(Stream_Audio)-1;
-                Essence->second.Parser->Finish();
+                (*Parser)->Finish();
                 if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
                 {
                     Fill(Stream_Audio, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), DTS_Delay*1000, 0, true);
                     Fill(Stream_Audio, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
                 }
-                Merge(*Essence->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
+                Merge(*(*Parser), Stream_Audio, Audio_Pos, StreamPos_Last);
                 if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
                     Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Essence->second.StreamPos-(StreamPos_StartAtOne?1:0), Video_Format), true);
                 else
@@ -1382,23 +1396,22 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     #endif
 
     //Special case - MPEG Video + Captions
-    if (StreamKind_Last==Stream_Video && Essence->second.Parser && Essence->second.Parser->Count_Get(Stream_Text))
+    if (StreamKind_Last==Stream_Video && (*Parser)->Count_Get(Stream_Text))
     {
         //Video and Text are together
-        File__Analyze* Parser=Essence->second.Parser;
-        size_t Parser_Text_Count=Parser->Count_Get(Stream_Text);
+        size_t Parser_Text_Count=(*Parser)->Count_Get(Stream_Text);
         for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
         {
             size_t StreamPos_Video=StreamPos_Last;
             Fill_Flush();
             Stream_Prepare(Stream_Text);
-            Parser->Finish();
+            (*Parser)->Finish();
             if (TimeCode_RoundedTimecodeBase && TimeCode_StartTimecode!=(int64u)-1)
             {
                 Fill(Stream_Text, Parser_Text_Pos, Fill_Parameter(StreamKind_Last, Generic_Delay), DTS_Delay*1000, 0, true);
                 Fill(Stream_Text, Parser_Text_Pos, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
             }
-            Merge(*Parser, Stream_Text, Parser_Text_Pos, StreamPos_Last);
+            Merge(*(*Parser), Stream_Text, Parser_Text_Pos, StreamPos_Last);
             Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Video, Video_Duration));
             Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
             if (Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode).find(__T("Ancillary"))!=string::npos)
@@ -2055,9 +2068,9 @@ void File_Mxf::Read_Buffer_Unsynched()
     }
 
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-        if (Essence->second.Parser)
+        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
         {
-            Essence->second.Parser->Open_Buffer_Unsynch();
+            (*Parser)->Open_Buffer_Unsynch();
             Essence->second.FrameInfo=frame_info();
             if (!File_GoTo)
                 Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
@@ -2307,10 +2320,10 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             Code=Clip_Code;
                             MustSynchronize=false;
                             #if MEDIAINFO_DEMUX
-                                if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parser && Essences.begin()->second.Parser->Demux_UnpacketizeContainer)
+                                if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parsers.size()==1 && (*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer)
                                 {
-                                    Essences.begin()->second.Parser->Demux_Level=1; //Frame
-                                    Essences.begin()->second.Parser->Demux_UnpacketizeContainer=false;
+                                    (*(Essences.begin()->second.Parsers.begin()))->Demux_Level=1; //Frame
+                                    (*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer=false;
                                 }
                             #endif //MEDIAINFO_DEMUX
                         }
@@ -2361,10 +2374,10 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                             Code=Clip_Code;
                             MustSynchronize=false;
                             #if MEDIAINFO_DEMUX
-                                if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parser && Essences.begin()->second.Parser->Demux_UnpacketizeContainer)
+                                if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parsers.size()==1 && (*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer)
                                 {
-                                    Essences.begin()->second.Parser->Demux_Level=1; //Frame
-                                    Essences.begin()->second.Parser->Demux_UnpacketizeContainer=false;
+                                    (*(Essences.begin()->second.Parsers.begin()))->Demux_Level=1; //Frame
+                                    (*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer=false;
                                 }
                             #endif //MEDIAINFO_DEMUX
                         }
@@ -2409,10 +2422,10 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                     Code=Clip_Code;
                                     MustSynchronize=false;
                                     #if MEDIAINFO_DEMUX
-                                        if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parser && Essences.begin()->second.Parser->Demux_UnpacketizeContainer)
+                                        if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parsers.size()==1 && (*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer)
                                         {
-                                            Essences.begin()->second.Parser->Demux_Level=1; //Frame
-                                            Essences.begin()->second.Parser->Demux_UnpacketizeContainer=false;
+                                            (*(Essences.begin()->second.Parsers.begin()))->Demux_Level=1; //Frame
+                                            (*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer=false;
                                         }
                                     #endif //MEDIAINFO_DEMUX
                                 }
@@ -3051,7 +3064,7 @@ void File_Mxf::Data_Parse()
         if (Essence==Essences.end())
             Essence=Essences.insert(make_pair(Code_Compare4,essence())).first;
 
-        if (Essence->second.Parser==NULL)
+        if (Essence->second.Parsers.empty())
         {
             //Format_Settings_Wrapping
             if (Descriptors.size()==1 && (Descriptors.begin()->second.Infos.find("Format_Settings_Wrapping")==Descriptors.begin()->second.Infos.end() || Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty()) && (Buffer_End?(Buffer_End-Buffer_Begin):Element_Size)>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
@@ -3093,19 +3106,19 @@ void File_Mxf::Data_Parse()
                             Descriptor->second.Infos["Format_Settings_Endianness"]=__T("Little");
                     }
 
-                    Essence->second.Parser=ChooseParser(Essence, Descriptor); //Searching by the descriptor
-                    if (Essence->second.Parser==NULL)
+                    ChooseParser(Essence, Descriptor); //Searching by the descriptor
+                    if (Essence->second.Parsers.empty())
                         ChooseParser__FromEssence(Essence, Descriptor); //Searching by the track identifier
 
                     #ifdef MEDIAINFO_VC3_YES
                         if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==__T("VC-3"))
-                            ((File_Vc3*)Essence->second.Parser)->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
+                            ((File_Vc3*)(*(Essence->second.Parsers.begin())))->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
                     #endif //MEDIAINFO_VC3_YES
                     break;
                 }
 
             //Searching by the track identifier
-            if (Essence->second.Parser==NULL)
+            if (Essence->second.Parsers.empty())
                 ChooseParser__FromEssence(Essence, Descriptors.end());
 
             //Demux
@@ -3119,11 +3132,11 @@ void File_Mxf::Data_Parse()
                     Element_Code=Code.lo;
             #endif //MEDIAINFO_DEMUX
 
-            if (Essence->second.Parser)
+            Element_Code=Essence->second.TrackID;
+            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
             {
-                Element_Code=Essence->second.TrackID;
-                Open_Buffer_Init(Essence->second.Parser);
-                if (Essence->second.Parser->Status[IsFinished])
+                Open_Buffer_Init(*Parser);
+                if ((*Parser)->Status[IsFinished])
                     if (Streams_Count>0)
                         Streams_Count--;
             }
@@ -3138,12 +3151,14 @@ void File_Mxf::Data_Parse()
                 Stream_Size=Essence->second.Stream_Size;
             else
                 Stream_Size=File_Size; //TODO: find a way to remove header/footer correctly
-            if (Stream_Size!=(int64u)-1 && Essence->second.Parser)
+            if (Stream_Size!=(int64u)-1)
             {
-                if (Essence->second.Parser && Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1)
-                    Essences.begin()->second.Parser->Stream_BitRateFromContainer=Descriptors.begin()->second.ByteRate*8;
+                if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1)
+                    for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+                        (*Parser)->Stream_BitRateFromContainer=Descriptors.begin()->second.ByteRate*8;
                 else if (Descriptors.size()==1 && Descriptors.begin()->second.Infos["Duration"].To_float64())
-                    Essences.begin()->second.Parser->Stream_BitRateFromContainer=((float64)Stream_Size)*8/(Descriptors.begin()->second.Infos["Duration"].To_float64()/1000);
+                    for (parsers::iterator Parser=Essences.begin()->second.Parsers.begin(); Parser!=Essences.begin()->second.Parsers.end(); Parser++)
+                        (*Parser)->Stream_BitRateFromContainer=((float64)Stream_Size)*8/(Descriptors.begin()->second.Infos["Duration"].To_float64()/1000);
             }
         }
 
@@ -3153,7 +3168,7 @@ void File_Mxf::Data_Parse()
                 Element_Code=Essence->second.TrackID;
             else
                 Element_Code=Code.lo;
-            Demux_Level=(Essence->second.Parser && (Essence->second.Parser->Demux_UnpacketizeContainer || Essence->second.Parser->Demux_Level==2))?4:2; //Intermediate (D-10 Audio) / Container
+            Demux_Level=(!Essence->second.Parsers.empty() && ((*(Essence->second.Parsers.begin()))->Demux_UnpacketizeContainer || (*(Essence->second.Parsers.begin()))->Demux_Level==2))?4:2; //Intermediate (D-10 Audio) / Container
             Essence->second.FrameInfo.DUR=(int64u)-1;
              #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                 //Calculating the byte count not included in seek information (partition, index...)
@@ -3266,11 +3281,12 @@ void File_Mxf::Data_Parse()
                 {
                     Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
                     #if MEDIAINFO_DEMUX
-                        if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parser && !Essences.begin()->second.Parser->Demux_UnpacketizeContainer)
-                        {
-                            Essences.begin()->second.Parser->Demux_Level=2; //Container
-                            Essences.begin()->second.Parser->Demux_UnpacketizeContainer=true;
-                        }
+                        if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && !Essences.begin()->second.Parsers.empty() && !(*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer)
+                            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+                            {
+                                (*Parser)->Demux_Level=2; //Container
+                                (*Parser)->Demux_UnpacketizeContainer=true;
+                            }
                     #endif //MEDIAINFO_DEMUX
                 }
 
@@ -3301,16 +3317,18 @@ void File_Mxf::Data_Parse()
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         #endif //MEDIAINFO_DEMUX
 
-        if (Essence->second.Parser && !Essence->second.Parser->Status[IsFinished])
+        if (!Essence->second.Parsers.empty() && !(*(Essence->second.Parsers.begin()))->Status[IsFinished])
         {
             if ((Code_Compare4&0xFF00FF00)==0x17000100 || (Code_Compare4&0xFF00FF00)==0x17000200)
             {
+                parsers::iterator Parser=Essence->second.Parsers.begin();
+                    
                 //Ancillary with
                 int16u Count;
                 Get_B2 (Count,                                  "Number of Lines");
                 if (Count*14>Element_Size)
                 {
-                    Essence->second.Parser->Finish();
+                    (*Parser)->Finish();
                     Skip_XX(Element_Size-2,                     "Unknown");
                     Count=0;
                 }
@@ -3327,32 +3345,32 @@ void File_Mxf::Data_Parse()
                     Get_B4 (Count2,                             "Count?");
 
                     if (FrameInfo.DTS!=(int64u)-1)
-                        Essence->second.Parser->FrameInfo.DTS=FrameInfo.DTS;
+                        (*Parser)->FrameInfo.DTS=FrameInfo.DTS;
                     if (FrameInfo.PTS!=(int64u)-1)
-                        Essence->second.Parser->FrameInfo.PTS=FrameInfo.PTS;
+                        (*Parser)->FrameInfo.PTS=FrameInfo.PTS;
                     if (FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.Parser->FrameInfo.DUR=FrameInfo.DUR;
-                    if (Essence->second.Parser->ParserName==__T("Ancillary") && (((File_Ancillary*)Essence->second.Parser)->FrameRate==0 || ((File_Ancillary*)Essence->second.Parser)->AspectRatio==0))
+                        (*Parser)->FrameInfo.DUR=FrameInfo.DUR;
+                    if ((*Parser)->ParserName==__T("Ancillary") && (((File_Ancillary*)(*Parser))->FrameRate==0 || ((File_Ancillary*)(*Parser))->AspectRatio==0))
                     {
                         //Configuring with video info
                         for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); ++Descriptor)
                             if (Descriptor->second.StreamKind==Stream_Video)
                             {
-                                ((File_Ancillary*)Essence->second.Parser)->HasBFrames=Descriptor->second.HasBFrames;
-                                ((File_Ancillary*)Essence->second.Parser)->AspectRatio=Descriptor->second.DisplayAspectRatio;
-                                ((File_Ancillary*)Essence->second.Parser)->FrameRate=Descriptor->second.SampleRate;
+                                ((File_Ancillary*)(*Parser))->HasBFrames=Descriptor->second.HasBFrames;
+                                ((File_Ancillary*)(*Parser))->AspectRatio=Descriptor->second.DisplayAspectRatio;
+                                ((File_Ancillary*)(*Parser))->FrameRate=Descriptor->second.SampleRate;
                                 break;
                             }
                     }
                     if (Element_Offset+Size>Element_Size)
                         Size=Element_Size-Element_Offset;
-                    Open_Buffer_Continue(Essence->second.Parser, Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
-                    if ((Code_Compare4&0xFF00FF00)==0x17000100 && LineNumber==21 && Essence->second.Parser->Count_Get(Stream_Text)==0)
+                    Open_Buffer_Continue((*Parser), Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
+                    if ((Code_Compare4&0xFF00FF00)==0x17000100 && LineNumber==21 && (*Parser)->Count_Get(Stream_Text)==0)
                     {
-                        Essence->second.Parser->Accept();
-                        Essence->second.Parser->Stream_Prepare(Stream_Text);
-                        Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-608");
-                        Essence->second.Parser->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "VBI / Line 21");
+                        (*Parser)->Accept();
+                        (*Parser)->Stream_Prepare(Stream_Text);
+                        (*Parser)->Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-608");
+                        (*Parser)->Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, "VBI / Line 21");
                     }
                     Element_Offset+=Size;
                     if (Size<Size2*Count2)
@@ -3368,49 +3386,76 @@ void File_Mxf::Data_Parse()
             }
             else if (Element_Size)
             {
-                //Parsing
-                if (FrameInfo.DTS!=(int64u)-1)
-                    Essence->second.Parser->FrameInfo.DTS=FrameInfo.DTS;
-                if (FrameInfo.PTS!=(int64u)-1)
-                    Essence->second.Parser->FrameInfo.PTS=FrameInfo.PTS;
-                if (FrameInfo.DUR!=(int64u)-1)
-                    Essence->second.Parser->FrameInfo.DUR=FrameInfo.DUR;
-                Open_Buffer_Continue(Essence->second.Parser);
-                #if MEDIAINFO_DEMUX
-                    if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parser && Essences.begin()->second.Parser->Demux_UnpacketizeContainer)
-                    {
-                        Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded=(int64u)-1;
-                        Essence->second.FrameInfo.DTS=FrameInfo.DTS=(int64u)-1;
-                        Essence->second.FrameInfo.PTS=FrameInfo.PTS=(int64u)-1;
-                    }
-                    else
-                #endif //MEDIAINFO_DEMUX
+                for (size_t Pos=0; Pos<Essence->second.Parsers.size(); Pos++)
                 {
-                    #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                        if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.SampleRate)
+                    //Parsing
+                    if (FrameInfo.DTS!=(int64u)-1)
+                        Essence->second.Parsers[Pos]->FrameInfo.DTS=FrameInfo.DTS;
+                    if (FrameInfo.PTS!=(int64u)-1)
+                        Essence->second.Parsers[Pos]->FrameInfo.PTS=FrameInfo.PTS;
+                    if (FrameInfo.DUR!=(int64u)-1)
+                        Essence->second.Parsers[Pos]->FrameInfo.DUR=FrameInfo.DUR;
+                    Open_Buffer_Continue(Essence->second.Parsers[Pos], Buffer+Buffer_Offset, Element_Size);
+                    #if MEDIAINFO_DEMUX
+                        if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && Essences.begin()->second.Parsers[Pos]->Demux_UnpacketizeContainer)
                         {
-                            float64 BytePerFrame=Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate;
-                            float64 Frame_Count_NotParsedIncluded_Precise=(File_Offset+Buffer_Offset+Element_Size-(StreamOffset_Offset+Buffer_Header_Size))/BytePerFrame; //In case of audio at frame rate not an integer
-                            Frame_Count_NotParsedIncluded=float64_int64s(Frame_Count_NotParsedIncluded_Precise);
+                            Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded=(int64u)-1;
+                            Essence->second.FrameInfo.DTS=FrameInfo.DTS=(int64u)-1;
+                            Essence->second.FrameInfo.PTS=FrameInfo.PTS=(int64u)-1;
                         }
                         else
-                    #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-                    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-                        Frame_Count_NotParsedIncluded+=Essence->second.Parser->Frame_Count_InThisBlock; //TODO: if !(MEDIAINFO_DEMUX || MEDIAINFO_SEEK), this is wrong for some PCM streams with ByteRate==2
-                    if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
-                        FrameInfo.DTS+=FrameInfo.DUR;
-                    if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
-                        FrameInfo.PTS+=FrameInfo.DUR;
-                    Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
-                    if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
-                    if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
-                        Essence->second.FrameInfo.PTS+=Essence->second.FrameInfo.DUR;
+                    #endif //MEDIAINFO_DEMUX
+                    {
+                        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                            if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.SampleRate)
+                            {
+                                float64 BytePerFrame=Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate;
+                                float64 Frame_Count_NotParsedIncluded_Precise=(File_Offset+Buffer_Offset+Element_Size-(StreamOffset_Offset+Buffer_Header_Size))/BytePerFrame; //In case of audio at frame rate not an integer
+                                Frame_Count_NotParsedIncluded=float64_int64s(Frame_Count_NotParsedIncluded_Precise);
+                            }
+                            else
+                        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+                            Frame_Count_NotParsedIncluded+=Essence->second.Parsers[Pos]->Frame_Count_InThisBlock; //TODO: if !(MEDIAINFO_DEMUX || MEDIAINFO_SEEK), this is wrong for some PCM streams with ByteRate==2
+                        if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
+                            FrameInfo.DTS+=FrameInfo.DUR;
+                        if (FrameInfo.PTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
+                            FrameInfo.PTS+=FrameInfo.DUR;
+                        Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
+                        if (Essence->second.FrameInfo.DTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
+                            Essence->second.FrameInfo.DTS+=Essence->second.FrameInfo.DUR;
+                        if (Essence->second.FrameInfo.PTS!=(int64u)-1 && Essence->second.FrameInfo.DUR!=(int64u)-1)
+                            Essence->second.FrameInfo.PTS+=Essence->second.FrameInfo.DUR;
+                    }
+
+                    //Multiple parsers
+                    if (Essence->second.Parsers.size()>1)
+                    {
+                        if (!Essence->second.Parsers[Pos]->Status[IsAccepted] && Essence->second.Parsers[Pos]->Status[IsFinished])
+                        {
+                            delete *(Essence->second.Parsers.begin()+Pos);
+                            Essence->second.Parsers.erase(Essence->second.Parsers.begin()+Pos);
+                            Pos--;
+                        }
+                        else if (Essence->second.Parsers.size()>1 && Essence->second.Parsers[Pos]->Status[IsAccepted])
+                        {
+                            File__Analyze* Parser=Essence->second.Parsers[Pos];
+                            for (size_t Pos2=0; Pos2<Essence->second.Parsers.size(); Pos2++)
+                            {
+                                if (Pos2!=Pos)
+                                    delete *(Essence->second.Parsers.begin()+Pos2);
+                            }
+                            Essence->second.Parsers.clear();
+                            Essence->second.Parsers.push_back(Parser);
+                        }
+                    }
                 }
+
+                Element_Offset=Element_Size;
             }
 
             //Disabling this Streams
-            if (((!Essence->second.IsFilled && Essence->second.Parser->Status[IsFinished]) || Essence->second.Parser->Status[IsFilled]) || Config->ParseSpeed==0)
+            if (((!Essence->second.IsFilled && Essence->second.Parsers.size()==1 && Essence->second.Parsers[0]->Status[IsFinished]) || Essence->second.Parsers[0]->Status[IsFilled]) || Config->ParseSpeed==0)
             {
                 if (Streams_Count>0)
                     Streams_Count--;
@@ -8432,7 +8477,7 @@ void File_Mxf::Get_BER(int64u &Value, const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     if ((Descriptor->second.EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || (Descriptor->second.EssenceCompression.lo&0xFF00000000000000LL)!=0x0400000000000000LL)
         return ChooseParser__FromEssenceContainer (Essence, Descriptor);
@@ -8457,7 +8502,7 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
                                                     {
                                                         case 0x01 : return ChooseParser_Raw(Essence, Descriptor);
                                                         case 0x7F : return ChooseParser_RV24(Essence, Descriptor);
-                                                        default   : return NULL;
+                                                        default   : return;
                                                     }
                                         case 0x02 : //Compressed coding
                                                     switch (Code5)
@@ -8472,21 +8517,21 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
                                                                         case 0x11 : return ChooseParser_Mpegv(Essence, Descriptor);
                                                                         case 0x20 : return ChooseParser_Mpeg4v(Essence, Descriptor);
                                                                         case 0x32 : return ChooseParser_Avc(Essence, Descriptor);
-                                                                        default   : return NULL;
+                                                                        default   : return;
                                                                     }
                                                         case 0x02 : return ChooseParser_DV(Essence, Descriptor);
                                                         case 0x03 : //Individual Picture Coding Schemes
                                                                     switch (Code6)
                                                                     {
                                                                         case 0x01 : return ChooseParser_Jpeg2000(Essence, Descriptor);
-                                                                        default   : return NULL;
+                                                                        default   : return;
                                                                     }
                                                         case 0x71 : return ChooseParser_Vc3(Essence, Descriptor);
-                                                        default   : return NULL;
+                                                        default   : return;
                                                     }
-                                         default   : return NULL;
+                                         default   : return;
                                     }
-                         default   : return NULL;
+                         default   : return;
                     }
         case 0x02 : //Sound
                     switch (Code3)
@@ -8510,7 +8555,7 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
                                                                                                      else
                                                                                                         return ChooseParser_Alaw(Essence, Descriptor);
                                                                                         case 0x10 : return ChooseParser_Pcm(Essence, Descriptor); //DV 12-bit
-                                                                                        default   : return NULL;
+                                                                                        default   : return;
                                                                                     }
                                                                         case 0x02 : //SMPTE 338M Audio Coding
                                                                                     switch (Code7)
@@ -8520,13 +8565,13 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
                                                                                         case 0x05 :
                                                                                         case 0x06 : return ChooseParser_Mpega(Essence, Descriptor);
                                                                                         case 0x1C : return ChooseParser_ChannelGrouping(Essence, Descriptor); //Dolby E (in 2 mono streams)
-                                                                                        default   : return NULL;
+                                                                                        default   : return;
                                                                                     }
                                                                         case 0x03 : //MPEG-2 Coding (not defined in SMPTE 338M)
                                                                                     switch (Code7)
                                                                                     {
                                                                                         case 0x01 : return ChooseParser_Aac(Essence, Descriptor);
-                                                                                        default   : return NULL;
+                                                                                        default   : return;
                                                                                     }
                                                                         case 0x04 : //MPEG-4 Audio Coding
                                                                                     switch (Code7)
@@ -8539,22 +8584,22 @@ File__Analyze* File_Mxf::ChooseParser(const essences::iterator &Essence, const d
                                                                                         case 0x06 :
                                                                                         case 0x07 :
                                                                                         case 0x08 : return ChooseParser_Aac(Essence, Descriptor);
-                                                                                        default   : return NULL;
+                                                                                        default   : return;
                                                                                     }
-                                                                        default   : return NULL;
+                                                                        default   : return;
                                                                     }
-                                                         default   : return NULL;
+                                                         default   : return;
                                                     }
-                                         default   : return NULL;
+                                         default   : return;
                                     }
-                         default   : return NULL;
+                         default   : return;
                     }
-        default   : return NULL;
+        default   : return;
     }
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser__FromEssenceContainer(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     int8u Code1=(int8u)((Descriptor->second.EssenceContainer.lo&0xFF00000000000000LL)>>56);
     int8u Code2=(int8u)((Descriptor->second.EssenceContainer.lo&0x00FF000000000000LL)>>48);
@@ -8584,26 +8629,30 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(const essences::iter
                                                                                         case 0x01 : switch(Descriptor->second.StreamKind)
                                                                                                     {
                                                                                                         case Stream_Video : return ChooseParser_Mpegv(Essence, Descriptor);
-                                                                                                        case Stream_Audio : return ChooseParser_Aes3(Essence, Descriptor);
-                                                                                                        default           : return NULL;
+                                                                                                        case Stream_Audio : return ChooseParser_SmpteSt0331(Essence, Descriptor);
+                                                                                                        default           : return;
                                                                                                     }
-                                                                                        case 0x02 : return NULL; //DV
+                                                                                        case 0x02 : return; //DV
                                                                                         case 0x05 : return ChooseParser_Raw(Essence, Descriptor);
-                                                                                        case 0x06 : if (Descriptor->second.ChannelCount==1) return ChooseParser_ChannelGrouping(Essence, Descriptor); else return ChooseParser_Pcm(Essence, Descriptor); //PCM, but one file is found with Dolby E in it
-                                                                                        case 0x04 : return NULL; //MPEG ES mappings with Stream ID
+                                                                                        case 0x06 : if (Descriptor->second.ChannelCount==1) //PCM, but one file is found with Dolby E in it
+                                                                                                        ChooseParser_ChannelGrouping(Essence, Descriptor);
+                                                                                                    if (Descriptor->second.ChannelCount==2) //PCM, but one file is found with Dolby E in it
+                                                                                                        ChooseParser_SmpteSt0337(Essence, Descriptor);
+                                                                                                    return ChooseParser_Pcm(Essence, Descriptor);
+                                                                                        case 0x04 : return; //MPEG ES mappings with Stream ID
                                                                                         case 0x0A : return ChooseParser_Alaw(Essence, Descriptor);
                                                                                         case 0x0C : return ChooseParser_Jpeg2000(Essence, Descriptor);
                                                                                         case 0x10 : return ChooseParser_Avc(Essence, Descriptor);
                                                                                         case 0x11 : return ChooseParser_Vc3(Essence, Descriptor);
-                                                                                        default   : return NULL;
+                                                                                        default   : return;
                                                                                     }
-                                                                        default   : return NULL;
+                                                                        default   : return;
                                                                     }
-                                                         default   : return NULL;
+                                                         default   : return;
                                                     }
-                                         default   : return NULL;
+                                         default   : return;
                                     }
-                        default   : return NULL;
+                        default   : return;
                     }
         case 0x0E : //Private Use
                     switch (Code2)
@@ -8621,17 +8670,17 @@ File__Analyze* File_Mxf::ChooseParser__FromEssenceContainer(const essences::iter
                                                                                     switch (Code6)
                                                                                     {
                                                                                         case 0x06 : return ChooseParser_Vc3(Essence, Descriptor);
-                                                                                        default   : return NULL;
+                                                                                        default   : return;
                                                                                     }
-                                                                        default   : return NULL;
+                                                                        default   : return;
                                                                     }
-                                                         default   : return NULL;
+                                                         default   : return;
                                                     }
-                                         default   : return NULL;
+                                         default   : return;
                                     }
-                        default   : return NULL;
+                        default   : return;
                     }
-        default   : return NULL;
+        default   : return;
     }
 }
 
@@ -8644,7 +8693,7 @@ void File_Mxf::ChooseParser__FromEssence(const essences::iterator &Essence, cons
     {
         case Elements::GenericContainer_Aaf3        : return ChooseParser__Aaf(Essence, Descriptor);
         case Elements::GenericContainer_Avid3       : return ChooseParser__Avid(Essence, Descriptor);
-        default                                     : Essences[(int32u)Code.lo].Parser=new File__Analyze();
+        default                                     : return;
     }
 }
 
@@ -8681,7 +8730,7 @@ void File_Mxf::ChooseParser__Aaf(const essences::iterator &Essence, const descri
                     ChooseParser__Aaf_GC_Compound(Essence, Descriptor);
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8697,7 +8746,7 @@ void File_Mxf::ChooseParser__Avid(const essences::iterator &Essence, const descr
                     ChooseParser__Avid_Picture(Essence, Descriptor);
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8714,10 +8763,10 @@ void File_Mxf::ChooseParser__Aaf_CP_Picture(const essences::iterator &Essence, c
     switch (Code_Compare4_3)
     {
         case 0x01 : //D-10 Video, SMPTE 386M
-                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(Essence, Descriptor);
+                    ChooseParser_Mpegv(Essence, Descriptor);
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8734,10 +8783,10 @@ void File_Mxf::ChooseParser__Aaf_CP_Sound(const essences::iterator &Essence, con
     switch (Code_Compare4_3)
     {
         case 0x10 : //D-10 Audio, SMPTE 386M
-                    Essences[Code_Compare4].Parser=ChooseParser_Aes3(Essence, Descriptor);
+                    ChooseParser_SmpteSt0331(Essence, Descriptor);
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8745,14 +8794,6 @@ void File_Mxf::ChooseParser__Aaf_CP_Sound(const essences::iterator &Essence, con
 // 0x07, SMPTE 386M
 void File_Mxf::ChooseParser__Aaf_CP_Data(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
-    int32u Code_Compare4=(int32u)Code.lo;
-    //int8u  Code_Compare4_3=(int8u)(Code_Compare4>>8);
-
-    //switch (Code_Compare4_3)
-    //{
-    //    default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
-    //}
 }
 
 //---------------------------------------------------------------------------
@@ -8765,9 +8806,9 @@ void File_Mxf::ChooseParser__Aaf_14(const essences::iterator &Essence, const des
     switch (Code_Compare4_3)
     {
         case 0x01 : //MXF in MXF?
-                    Essences[Code_Compare4].Parser=new File_Mxf();
+                    Essence->second.Parsers.push_back(new File_Mxf());
                     break;
-        default   : Essences[Code_Compare4].Parser=new File__Analyze();
+        default   : ;
     }
 }
 
@@ -8784,32 +8825,32 @@ void File_Mxf::ChooseParser__Aaf_GC_Picture(const essences::iterator &Essence, c
     switch (Code_Compare4_3)
     {
         case 0x01 : //RV24
-                    Essences[Code_Compare4].Parser=ChooseParser_RV24(Essence, Descriptor);
+                    ChooseParser_RV24(Essence, Descriptor);
                     break;
         case 0x02 : //Raw video
-                    Essences[Code_Compare4].Parser=ChooseParser_Raw(Essence, Descriptor);
+                    ChooseParser_Raw(Essence, Descriptor);
                     break;
         case 0x05 : //SMPTE 381M, Frame wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(Essence, Descriptor); //Trying...
+                    ChooseParser_Mpegv(Essence, Descriptor); //Trying...
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Frame");
                     DataMustAlwaysBeComplete=true;
                     break;
         case 0x06 : //SMPTE 381M, Clip wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(Essence, Descriptor); //Trying...
+                    ChooseParser_Mpegv(Essence, Descriptor); //Trying...
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Clip");
                     break;
         case 0x07 : //SMPTE 381M, Custom wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Mpegv(Essence, Descriptor); //Trying...
+                    ChooseParser_Mpegv(Essence, Descriptor); //Trying...
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Custom");
                     break;
         case 0x08 : //JPEG 2000
-                    Essences[Code_Compare4].Parser=ChooseParser_Jpeg2000(Essence, Descriptor);
+                    ChooseParser_Jpeg2000(Essence, Descriptor);
                     break;
         case 0x0D : //VC-3
-                    Essences[Code_Compare4].Parser=ChooseParser_Vc3(Essence, Descriptor);
+                    ChooseParser_Vc3(Essence, Descriptor);
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8829,26 +8870,26 @@ void File_Mxf::ChooseParser__Aaf_GC_Sound(const essences::iterator &Essence, con
         case 0x02 : //BWF (PCM)
         case 0x03 : //DV Audio (PCM)
         case 0x04 : //P2 Audio (PCM)
-                    Essences[Code_Compare4].Parser=ChooseParser_Pcm(Essences.begin(), Descriptors.begin());
+                    ChooseParser_Pcm(Essence, Descriptor);
                     break;
         case 0x05 : //MPEG Audio
-                    Essences[Code_Compare4].Parser=ChooseParser_Mpega(Essence, Descriptor);
+                    ChooseParser_Mpega(Essence, Descriptor);
                     break;
         case 0x08 : //A-law, Frame wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Alaw(Essence, Descriptor);
+                    ChooseParser_Alaw(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Frame");
                     DataMustAlwaysBeComplete=true;
                     break;
         case 0x09 : //A-law, Clip wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Alaw(Essence, Descriptor);
+                    ChooseParser_Alaw(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Clip");
                     break;
         case 0x0A : //A-law, Custom wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Alaw(Essence, Descriptor);
+                    ChooseParser_Alaw(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Custom");
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8862,16 +8903,12 @@ void File_Mxf::ChooseParser__Aaf_GC_Data(const essences::iterator &Essence, cons
     switch (Code_Compare4_3)
     {
         case 0x01 : //VBI, SMPTE ST 436
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    Essence->second.Parsers.push_back(new File__Analyze());
                     break;
         case 0x02 : //Ancillary
-                    if (Ancillary)
-                        Essences[Code_Compare4].Parser=Ancillary;
-                    else
-                    {
-                        Essences[Code_Compare4].Parser=new File_Ancillary();
-                        Ancillary=(File_Ancillary*)Essences[Code_Compare4].Parser;
-                    }
+                    if (!Ancillary)
+                        Ancillary=new File_Ancillary();
+                    Essence->second.Parsers.push_back(Ancillary);
                     Ancillary_IsBinded=true;
                     break;
         case 0x08 : //Line Wrapped Data Element, SMPTE 384M
@@ -8879,7 +8916,7 @@ void File_Mxf::ChooseParser__Aaf_GC_Data(const essences::iterator &Essence, cons
         case 0x0A : //Line Wrapped HANC Data Element, SMPTE 384M
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8897,10 +8934,10 @@ void File_Mxf::ChooseParser__Aaf_GC_Compound(const essences::iterator &Essence, 
     {
         case 0x01 : //DV
         case 0x02 : //DV
-                    Essences[Code_Compare4].Parser=ChooseParser_DV(Essence, Descriptor);
+                    ChooseParser_DV(Essence, Descriptor);
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
@@ -8917,25 +8954,25 @@ void File_Mxf::ChooseParser__Avid_Picture(const essences::iterator &Essence, con
     switch (Code_Compare4_3)
     {
         case 0x05 : //VC-1, Frame wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Vc3(Essence, Descriptor);
+                    ChooseParser_Vc3(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Frame");
                     DataMustAlwaysBeComplete=true;
                     break;
         case 0x06 : //VC-1, Clip wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Vc3(Essence, Descriptor);
+                    ChooseParser_Vc3(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Clip");
                     break;
         case 0x07 : //VC-1, Custom wrapped
-                    Essences[Code_Compare4].Parser=ChooseParser_Vc3(Essence, Descriptor);
+                    ChooseParser_Vc3(Essence, Descriptor);
                     Essences[Code_Compare4].Infos["Format_Settings_Wrapping"]=__T("Custom");
                     break;
         default   : //Unknown
-                    Essences[Code_Compare4].Parser=new File__Analyze();
+                    ;
     }
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Avc(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Avc(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -8949,11 +8986,11 @@ File__Analyze* File_Mxf::ChooseParser_Avc(const essences::iterator &Essence, con
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "AVC");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_DV(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_DV(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -8967,11 +9004,11 @@ File__Analyze* File_Mxf::ChooseParser_DV(const essences::iterator &Essence, cons
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Audio, 0, Audio_Format, "DV");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Mpeg4v(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Mpeg4v(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -8986,11 +9023,11 @@ File__Analyze* File_Mxf::ChooseParser_Mpeg4v(const essences::iterator &Essence, 
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Mpegv(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Mpegv(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -9007,11 +9044,11 @@ File__Analyze* File_Mxf::ChooseParser_Mpegv(const essences::iterator &Essence, c
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Raw(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Raw(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -9020,11 +9057,11 @@ File__Analyze* File_Mxf::ChooseParser_Raw(const essences::iterator &Essence, con
     Open_Buffer_Init(Parser);
     Parser->Stream_Prepare(Stream_Video);
     Parser->Fill(Stream_Video, 0, Video_Format, "YUV");
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -9033,11 +9070,11 @@ File__Analyze* File_Mxf::ChooseParser_RV24(const essences::iterator &Essence, co
     Open_Buffer_Init(Parser);
     Parser->Stream_Prepare(Stream_Video);
     Parser->Fill(Stream_Video, 0, Video_Format, "RV24");
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -9051,11 +9088,11 @@ File__Analyze* File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, con
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "VC-3");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
 
@@ -9069,11 +9106,11 @@ File__Analyze* File_Mxf::ChooseParser_Aac(const essences::iterator &Essence, con
         Parser->Stream_Prepare(Stream_Audio);
         Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
 
@@ -9087,56 +9124,11 @@ File__Analyze* File_Mxf::ChooseParser_Ac3(const essences::iterator &Essence, con
         Parser->Stream_Prepare(Stream_Audio);
         Parser->Fill(Stream_Audio, 0, Audio_Format, "AC-3");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Aes3(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
-{
-    Essence->second.StreamKind=Stream_Audio;
-
-    //Filling
-    #if defined(MEDIAINFO_AES3_YES)
-        File_Aes3* Parser=new File_Aes3;
-        Parser->From_Raw=true;
-        if (Descriptor!=Descriptors.end())
-        {
-            if (Descriptor->second.QuantizationBits!=(int32u)-1)
-                Parser->QuantizationBits=Descriptor->second.QuantizationBits;
-            if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
-                Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
-            if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
-            {
-                if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))
-                    Parser->Endianness='B';
-                else
-                    Parser->Endianness='L';
-            }
-            else
-                Parser->Endianness='L';
-        }
-        else
-            Parser->Endianness='L';
-
-        #if MEDIAINFO_DEMUX
-            if (Demux_UnpacketizeContainer)
-            {
-                Parser->Demux_Level=2; //Container
-                Parser->Demux_UnpacketizeContainer=true;
-            }
-        #endif //MEDIAINFO_DEMUX
-    #else
-        //Filling
-        File__Analyze* Parser=new File_Unknown();
-        Open_Buffer_Init(Parser);
-        Parser->Stream_Prepare(Stream_Audio);
-        Parser->Fill(Stream_Audio, 0, Audio_Format, "AAC");
-    #endif
-    return Parser;
-}
-
-//---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
 
@@ -9145,12 +9137,12 @@ File__Analyze* File_Mxf::ChooseParser_Alaw(const essences::iterator &Essence, co
     Open_Buffer_Init(Parser);
     Parser->Stream_Prepare(Stream_Audio);
     Parser->Fill(Stream_Audio, 0, Audio_Format, "Alaw");
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
 
@@ -9166,7 +9158,7 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
 
             Parser=new File_ChannelGrouping;
             Parser->Channel_Pos=1;
-            Parser->Common=((File_ChannelGrouping*)Essences[Essence->first-1].Parser)->Common;
+            Parser->Common=((File_ChannelGrouping*)Essences[Essence->first-1].Parsers[0])->Common;
             Parser->StreamID=Essence->second.TrackID-1;
         }
         else
@@ -9202,12 +9194,12 @@ File__Analyze* File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &
             }
         #endif //MEDIAINFO_DEMUX
 
-        return Parser;
+        Essence->second.Parsers.push_back(Parser);
     }
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Mpega(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Mpega(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
 
@@ -9221,25 +9213,27 @@ File__Analyze* File_Mxf::ChooseParser_Mpega(const essences::iterator &Essence, c
         Parser->Stream_Prepare(Stream_Audio);
         Parser->Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Audio;
 
     //Creating the parser
-    #if defined(MEDIAINFO_AES3_YES)
-        File_Aes3* Parser=new File_Aes3;
+    #if defined(MEDIAINFO_PCM_YES)
+        File_Pcm* Parser=new File_Pcm;
         if (Descriptor!=Descriptors.end())
         {
-            if (Descriptor->second.BlockAlign!=(int16u)-1)
-                Parser->ByteSize=Descriptor->second.BlockAlign;
-            if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
-                Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
             if (Descriptor->second.Infos.find("Channel(s)")!=Descriptor->second.Infos.end())
-                Parser->ChannelCount=Descriptor->second.Infos["Channel(s)"].To_int32u();
+            {
+                Parser->Channels=Descriptor->second.Infos["Channel(s)"].To_int32u();
+            }
+            if (Parser->Channels && Descriptor->second.BlockAlign!=(int32u)-1)
+                Parser->BitDepth=Descriptor->second.BlockAlign*8/Parser->Channels;
+            else if (Descriptor->second.QuantizationBits!=(int32u)-1)
+                Parser->BitDepth=Descriptor->second.QuantizationBits;
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))
@@ -9260,18 +9254,75 @@ File__Analyze* File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, con
                 Parser->Demux_UnpacketizeContainer=true;
             }
         #endif //MEDIAINFO_DEMUX
-    #else
-        //Filling
-        File__Analyze* Parser=new File_Unknown();
-        Open_Buffer_Init(Parser);
-        Parser->Stream_Prepare(Stream_Audio);
-        Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+
+        Essence->second.Parsers.push_back(Parser);
     #endif
-    return Parser;
 }
 
 //---------------------------------------------------------------------------
-File__Analyze* File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+void File_Mxf::ChooseParser_SmpteSt0331(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+{
+    Essence->second.StreamKind=Stream_Audio;
+
+    //Filling
+    #if defined(MEDIAINFO_SMPTEST0331_YES)
+        File_SmpteSt0331* Parser=new File_SmpteSt0331;
+        if (Descriptor->second.QuantizationBits!=(int32u)-1)
+            Parser->QuantizationBits=Descriptor->second.QuantizationBits;
+
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
+
+        Essence->second.Parsers.push_back(Parser);
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser_SmpteSt0337(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+{
+    Essence->second.StreamKind=Stream_Audio;
+
+    //Filling
+    #if defined(MEDIAINFO_SMPTEST0337_YES)
+        File_SmpteSt0337* Parser=new File_SmpteSt0337;
+        if (Descriptor!=Descriptors.end())
+        {
+            if (Descriptor->second.BlockAlign!=(int32u)-1)
+                Parser->Container_Bits=Descriptor->second.BlockAlign*4;
+            else if (Descriptor->second.QuantizationBits!=(int32u)-1)
+                Parser->Container_Bits=Descriptor->second.QuantizationBits;
+            if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
+            {
+                if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))
+                    Parser->Endianness='B';
+                else
+                    Parser->Endianness='L';
+            }
+            else
+                Parser->Endianness='L';
+        }
+        else
+            Parser->Endianness='L';
+
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
+
+        Essence->second.Parsers.push_back(Parser);
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
 {
     Essence->second.StreamKind=Stream_Video;
 
@@ -9288,7 +9339,7 @@ File__Analyze* File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "JPEG 2000");
     #endif
-    return Parser;
+    Essence->second.Parsers.push_back(Parser);
 }
 
 //***************************************************************************

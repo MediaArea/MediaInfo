@@ -69,7 +69,7 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
-#if defined(MEDIAINFO_AES3_YES)
+#if defined(MEDIAINFO_SMPTEST0337_YES)
     #include "MediaInfo/Audio/File_ChannelGrouping.h"
 #endif
 #if defined(MEDIAINFO_AMR_YES)

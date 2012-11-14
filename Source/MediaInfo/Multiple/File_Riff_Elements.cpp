@@ -72,9 +72,6 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
-#if defined(MEDIAINFO_AES3_YES)
-    #include "MediaInfo/Audio/File_Aes3.h"
-#endif
 #if defined(MEDIAINFO_DTS_YES)
     #include "MediaInfo/Audio/File_Dts.h"
 #endif
@@ -89,6 +86,9 @@
 #endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
+#endif
+#if defined(MEDIAINFO_SMPTEST0337_YES)
+    #include "MediaInfo/Audio/File_SmpteSt0337.h"
 #endif
 #if defined(MEDIAINFO_ID3_YES)
     #include "MediaInfo/Tag/File_Id3.h"
@@ -1215,11 +1215,15 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         }
 
         {
-            File_Aes3* Parser=new File_Aes3;
-            Parser->SampleRate=SamplesPerSec;
-            Parser->ByteSize=AvgBytesPerSec/SamplesPerSec;
-            Parser->QuantizationBits=AvgBytesPerSec*8/SamplesPerSec/Channels;
+            File_SmpteSt0337* Parser=new File_SmpteSt0337;
+            Parser->Container_Bits=AvgBytesPerSec*8/SamplesPerSec/Channels;
             Parser->ShouldContinueParsing=true;
+            Stream[Stream_ID].Parsers.push_back(Parser);
+        }
+
+        {
+            File_Pcm* Parser=new File_Pcm;
+            Parser->Endianness='L';
             Stream[Stream_ID].Parsers.push_back(Parser);
         }
     }
@@ -2451,11 +2455,10 @@ void File_Riff::AVI__movi_xxxx___tx()
 void File_Riff::AVI__movi_xxxx___wb()
 {
     //Finish (if requested)
-    if ((Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
-      && (Stream[Stream_ID].Parsers.empty()
-       || Stream[Stream_ID].Parsers[0]->Status[IsFinished]
-       || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00)))
-     || Element_Size>50000) //For PCM, we disable imediatly
+    if (Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
+     && (Stream[Stream_ID].Parsers.empty()
+      || Stream[Stream_ID].Parsers[0]->Status[IsFinished]
+      || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00)))
     {
         Stream[Stream_ID].SearchingPayload=false;
         stream_Count--;
@@ -3252,7 +3255,6 @@ void File_Riff::WAVE()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "Wave");
-    Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, "Little");
     Kind=Kind_Wave;
 }
 

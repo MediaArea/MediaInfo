@@ -459,9 +459,6 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_LATM_NO) && !defined(MEDIAINFO_LATM_YES)
     #define MEDIAINFO_LATM_YES
 #endif
-#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AES3_NO) && !defined(MEDIAINFO_AES3_YES)
-    #define MEDIAINFO_AES3_YES
-#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AMR_NO) && !defined(MEDIAINFO_AMR_YES)
     #define MEDIAINFO_AMR_YES
 #endif

@@ -229,10 +229,12 @@ void File_SmpteSt0337::Streams_Fill()
 
     for (size_t Pos=0; Pos<Count_Get(StreamKind_Last); Pos++)
     {
+        if (Endianness=='L' && Retrieve(StreamKind_Last, Pos, "Format_Settings_Endianness")==__T("Little"))
+            Endianness='B';
         switch (Endianness)
         {
-            case 'B' : Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Big"); break;
-            case 'L' : Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Little"); break;
+            case 'B' : Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Big", Unlimited, true, true); break;
+            case 'L' : Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Little", Unlimited, true, true); break;
             default  : ;
         }
         Fill(StreamKind_Last, Pos, "Format_Settings_Mode", Container_Bits_Original);
@@ -240,7 +242,8 @@ void File_SmpteSt0337::Streams_Fill()
             Fill(StreamKind_Last, Pos, Fill_Parameter(StreamKind_Last, Generic_BitDepth), Stream_Bits);
 
         Fill(StreamKind_Last, Pos, "MuxingMode", "AES3");
-        Fill(StreamKind_Last, Pos, Fill_Parameter(StreamKind_Last, Generic_BitRate_Mode), "CBR");
+        if (Retrieve(StreamKind_Last, Pos, Fill_Parameter(StreamKind_Last, Generic_BitRate_Mode))!=__T("CBR"))
+            Fill(StreamKind_Last, Pos, Fill_Parameter(StreamKind_Last, Generic_BitRate_Mode), "CBR");
         if (File_Size!=(int64u)-1 && FrameSizes.size()==1)
             Fill(StreamKind_Last, Pos, Fill_Parameter(StreamKind_Last, Generic_FrameCount), File_Size/FrameSizes.begin()->first);
         if (Retrieve(StreamKind_Last, Pos, Fill_Parameter(StreamKind_Last, Generic_Duration)).empty())
@@ -598,6 +601,9 @@ bool File_SmpteSt0337::Synchronize()
         return false;
     }
 
+    if (!Status[IsAccepted])
+        Accept("AES3");
+
     // Synched
     return true;
 }
@@ -873,9 +879,6 @@ void File_SmpteSt0337::Header_Parse()
 //---------------------------------------------------------------------------
 void File_SmpteSt0337::Data_Parse()
 {
-    if (!Status[IsAccepted])
-        Accept("AES3");
-
     // Adapting
     const int8u* Save_Buffer=NULL;
     size_t Save_Buffer_Offset=Buffer_Offset;
