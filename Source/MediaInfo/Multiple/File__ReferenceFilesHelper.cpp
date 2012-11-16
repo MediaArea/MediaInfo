@@ -105,7 +105,7 @@ void File__ReferenceFilesHelper::ParseReferences()
         std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo3);
         std::set<int64u> StreamList;
         bool StreamList_DuplicatedIds=false;
-        for (Reference=References.begin(); Reference<References.end(); Reference++)
+        for (Reference=References.begin(); Reference<References.end(); ++Reference)
             if (StreamList.find((*Reference).StreamID)==StreamList.end())
                 StreamList.insert((*Reference).StreamID);
             else
@@ -114,7 +114,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 break;
             }
         if (StreamList_DuplicatedIds)
-            for (Reference=References.begin(); Reference<References.end(); Reference++)
+            for (Reference=References.begin(); Reference<References.end(); ++Reference)
                 (*Reference).StreamID=Reference-References.begin()+1;
 
         //Configuring file names
@@ -271,7 +271,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             if (TestContinuousFileNames)
                 File__Analyze::Streams_Accept_TestContinuousFileNames_Static(Reference->FileNames, true);
 
-            Reference++;
+            ++Reference;
         }
 
         #if MEDIAINFO_DEMUX
@@ -433,7 +433,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 Reference++;
             }
         #else //MEDIAINFO_DEMUX
-            Reference++;
+            ++Reference;
         #endif //MEDIAINFO_DEMUX
 
         #if MEDIAINFO_EVENTS

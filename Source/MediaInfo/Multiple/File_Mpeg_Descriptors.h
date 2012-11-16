@@ -513,7 +513,7 @@ struct complete_stream
         while (Duplicates_Temp!=Duplicates.end())
         {
             delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
-            Duplicates_Temp++;
+            ++Duplicates_Temp;
         }
     }
 };

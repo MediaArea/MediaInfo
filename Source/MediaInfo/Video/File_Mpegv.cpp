@@ -1506,7 +1506,7 @@ void File_Mpegv::Streams_Finish()
         int64u MaxCount=0;
         int64u Total=0;
         string MaxCount_type;
-        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
+        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); ++Temp)
         {
             if (Temp->second>MaxCount)
             {
@@ -1519,7 +1519,7 @@ void File_Mpegv::Streams_Finish()
         if (Total>=4)
         {
             int64u Count=0;
-            for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
+            for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); ++Temp)
                 if (Temp->first!=MaxCount_type)
                     Count+=Temp->second;
 
@@ -2256,14 +2256,14 @@ void File_Mpegv::picture_start()
                     {
                         int64u MaxCount=0;
                         string MaxCount_type;
-                        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
+                        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); ++Temp)
                             if (Temp->second>MaxCount)
                             {
                                 MaxCount=Temp->second;
                                 MaxCount_type=Temp->first;
                             }
                         int64u Count=0;
-                        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); Temp++)
+                        for (std::map<std::string, int64u>::iterator Temp=picture_coding_types.begin(); Temp!=picture_coding_types.end(); ++Temp)
                             if (Temp->first!=MaxCount_type)
                                 Count+=Temp->second;
                         if (Count>=Config_VariableGopDetection_Occurences)

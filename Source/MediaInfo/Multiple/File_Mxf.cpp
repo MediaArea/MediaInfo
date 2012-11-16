@@ -966,7 +966,7 @@ File_Mxf::~File_Mxf()
 void File_Mxf::Streams_Fill()
 {
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
             Fill(*Parser);
 }
 
@@ -991,7 +991,7 @@ void File_Mxf::Streams_Finish()
     //Per stream
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
     {
-        if (Essence->second.Parsers.size()!=1 && Essence->second.StreamKind==Stream_Audio) // Last parser is PCM, impossible to detect with another method if htere is only one block
+        if (Essence->second.Parsers.size()!=1 && Essence->second.StreamKind==Stream_Audio) // Last parser is PCM, impossible to detect with another method if there is only one block
         {
             for (size_t Pos=0; Pos<Essence->second.Parsers.size()-1; Pos++)
                 delete Essence->second.Parsers[Pos];
@@ -999,7 +999,7 @@ void File_Mxf::Streams_Finish()
             Essence->second.Parsers[0]->Accept();
             Essence->second.Parsers[0]->Fill();
         }
-        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
         {
             if (!(*Parser)->Status[IsFinished])
             {
@@ -1021,7 +1021,7 @@ void File_Mxf::Streams_Finish()
         if (Tracks.empty())
         {
             for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-                for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+                for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
                     Merge(*(*Parser));
         }
         else
@@ -2068,7 +2068,7 @@ void File_Mxf::Read_Buffer_Unsynched()
     }
 
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
-        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
         {
             (*Parser)->Open_Buffer_Unsynch();
             Essence->second.FrameInfo=frame_info();
@@ -3133,7 +3133,7 @@ void File_Mxf::Data_Parse()
             #endif //MEDIAINFO_DEMUX
 
             Element_Code=Essence->second.TrackID;
-            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
             {
                 Open_Buffer_Init(*Parser);
                 if ((*Parser)->Status[IsFinished])
@@ -3154,10 +3154,10 @@ void File_Mxf::Data_Parse()
             if (Stream_Size!=(int64u)-1)
             {
                 if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1)
-                    for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+                    for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
                         (*Parser)->Stream_BitRateFromContainer=Descriptors.begin()->second.ByteRate*8;
                 else if (Descriptors.size()==1 && Descriptors.begin()->second.Infos["Duration"].To_float64())
-                    for (parsers::iterator Parser=Essences.begin()->second.Parsers.begin(); Parser!=Essences.begin()->second.Parsers.end(); Parser++)
+                    for (parsers::iterator Parser=Essences.begin()->second.Parsers.begin(); Parser!=Essences.begin()->second.Parsers.end(); ++Parser)
                         (*Parser)->Stream_BitRateFromContainer=((float64)Stream_Size)*8/(Descriptors.begin()->second.Infos["Duration"].To_float64()/1000);
             }
         }
