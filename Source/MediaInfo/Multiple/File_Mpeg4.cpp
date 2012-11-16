@@ -603,10 +603,6 @@ void File_Mpeg4::Streams_Finish()
                         Stream_Prepare(Stream_Audio);
                         size_t Pos=Count_Get(Stream_Audio)-1;
                         Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
-                        if (Retrieve(Stream_Audio, Pos, Audio_MuxingMode).empty())
-                            Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
-                        else
-                            Fill(Stream_Audio, Pos, Audio_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+__T(" / ")+Retrieve(Stream_Audio, Pos, Audio_MuxingMode), true);
                         Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, __T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                         Fill(Stream_Audio, Pos, Audio_StreamSize_Encoded, 0); //Included in the DV stream size
@@ -624,10 +620,6 @@ void File_Mpeg4::Streams_Finish()
                         Stream_Prepare(Stream_Text);
                         size_t Pos=Count_Get(Stream_Text)-1;
                         Merge(*Temp->second.Parser, Stream_Text, Text_Pos, StreamPos_Last);
-                        if (Retrieve(Stream_Text, Pos, Text_MuxingMode).empty())
-                            Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format), true);
-                        else
-                            Fill(Stream_Text, Pos, Text_MuxingMode, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format)+__T(" / ")+Retrieve(Stream_Text, Pos, Text_MuxingMode), true);
                         Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, __T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                         Fill(Stream_Text, Pos, Text_StreamSize_Encoded, 0); //Included in the DV stream size

@@ -11,7 +11,8 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.62, 2012-
 --------------
 + AC-3: support of 22.05 kHz streams (out of specs but they exist)
-+ Division by 0 in case of 0 byte long file
+x Division by 0 in case of 0 byte long file
+x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV
 
 Version 0.7.61, 2012-10-22
 --------------
