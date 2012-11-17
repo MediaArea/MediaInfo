@@ -1210,7 +1210,17 @@ bool File_Ac3::Demux_UnpacketizeContainer_Test()
 
     if (Buffer[Buffer_Offset]==0x0B && Buffer[Buffer_Offset+1]==0x77)
     {
-        FrameInfo.DUR=32000000;
+        bsid=Buffer[Buffer_Offset+5]>>3;
+        if (bsid<=0x08)
+            FrameInfo.DUR=32000000;
+        else if (bsid<=0x09)
+            FrameInfo.DUR=16000000; // Unofficial hack for low sample rate (e.g. 22.05 kHz)
+        else if (bsid>0x0A && bsid<=0x10)
+        {
+            numblkscod=(Buffer[Buffer_Offset+4]>>4)&0x3;
+            int8u numblks=numblkscod==3?6:numblkscod+1;
+            FrameInfo.DUR=32000000*numblks/6;
+        }
 
         Demux_Offset=Buffer_Offset+Core_Size_Get();
 
@@ -1611,7 +1621,10 @@ void File_Ac3::Core()
         else if (bsid<=0x09)
             FrameInfo.DUR=16000000; // Unofficial hack for low sample rate (e.g. 22.05 kHz)
         else if (bsid>0x0A && bsid<=0x10)
-            FrameInfo.DUR=5333333;
+        {
+            int8u numblks=numblkscod==3?6:numblkscod+1;
+            FrameInfo.DUR=32000000*numblks/6;
+        }
         if (fscod && AC3_SamplingRate[fscod])
         {
             FrameInfo.DUR*=48000;
