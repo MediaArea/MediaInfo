@@ -721,9 +721,9 @@ bool File_SmpteSt0337::Synched_Test()
                         case 32 :
                                     switch (Stream_Bits)
                                     {
-                                        case 16 : if (CC6(Buffer+Buffer_Offset)!=0x0000F87200004E1FLL) {Synched=false; return true;} break;
-                                        case 20 : if (CC6(Buffer+Buffer_Offset)!=0x006F87200054E1F0LL) {Synched=false; return true;} break;
-                                        case 24 : if (CC6(Buffer+Buffer_Offset)!=0x0096F87200A5F41FLL) {Synched=false; return true;} break;
+                                        case 16 : if (CC8(Buffer+Buffer_Offset)!=0x0000F87200004E1FLL) {Synched=false; return true;} break;
+                                        case 20 : if (CC8(Buffer+Buffer_Offset)!=0x006F87200054E1F0LL) {Synched=false; return true;} break;
+                                        case 24 : if (CC8(Buffer+Buffer_Offset)!=0x0096F87200A5F41FLL) {Synched=false; return true;} break;
                                         default : ;
                                     }
                                     break;
@@ -799,9 +799,9 @@ void File_SmpteSt0337::Header_Parse()
                         case 32 :
                                     switch (Stream_Bits)
                                     {
-                                        case 16 : Size=BigEndian2int16u(Buffer+Buffer_Offset+0xC)   ; break;
-                                        case 20 : Size=BigEndian2int24u(Buffer+Buffer_Offset+0xC)>>4; break;
-                                        case 24 : Size=BigEndian2int24u(Buffer+Buffer_Offset+0xC)   ; break;
+                                        case 16 : Size=BigEndian2int16u(Buffer+Buffer_Offset+0xE)   ; break;
+                                        case 20 : Size=BigEndian2int24u(Buffer+Buffer_Offset+0xD)>>4; break;
+                                        case 24 : Size=BigEndian2int24u(Buffer+Buffer_Offset+0xD)   ; break;
                                         default : ;
                                     }
                                     break;
