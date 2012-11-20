@@ -538,34 +538,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             while (Pos);
         }
 
-        //MpegPs_DtsPresent
-        if (!MpegPs_Data.empty())
-        {
-            size_t Pos=MpegPs_Data.size()-1;
-            do
-            {
-                if (MpegPs_Data[Pos].Buffer_Offset>Buffer_Offset)
-                    MpegPs_Data[Pos].Buffer_Offset-=Buffer_Offset;
-                else
-                {
-                    MpegPs_Data[Pos].Buffer_Offset=0;
-                    MpegPs_Data.erase(MpegPs_Data.begin(), MpegPs_Data.begin()+Pos);
-                    if (MpegPs_Pos!=(size_t)-1 && Pos)
-                    {
-                        if (Pos<MpegPs_Pos)
-                            MpegPs_Pos-=Pos;
-                        else
-                            MpegPs_Pos=0;
-                    }
-                    break;
-                }
-                if (Pos==0)
-                    break;    
-                Pos--;
-            }
-            while (Pos);
-        }
-
         Buffer_Offset=0;
     }
 
