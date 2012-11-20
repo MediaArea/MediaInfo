@@ -145,6 +145,7 @@ void File_ChannelGrouping::Read_Buffer_Init()
 
         File_SmpteSt0337* Parser=new File_SmpteSt0337;
         Parser->Endianness=Endianness;
+        Parser->Container_Bits=ByteDepth*8;
         Common->Parsers.push_back(Parser);
 
         if (CanBePcm)
@@ -170,8 +171,10 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     //Handling of multiple frames in one block
     if (Buffer_Size==0)
     {
+        Offsets_Stream.clear();
+        Offsets_Buffer.clear();
         for (size_t Pos=0; Pos<Common->Parsers.size(); Pos++)
-            Open_Buffer_Continue(Common->Parsers[Pos], Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, 0);
+            Open_Buffer_Continue(Common->Parsers[Pos], Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, 0, false);
         return;
     }
 
@@ -194,6 +197,10 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         Common->Channels[Channel_Pos]->resize(Common->Channels[Channel_Pos]->Buffer_Size+Buffer_Size);
     memcpy(Common->Channels[Channel_Pos]->Buffer+Common->Channels[Channel_Pos]->Buffer_Size, Buffer, Buffer_Size);
     Common->Channels[Channel_Pos]->Buffer_Size+=Buffer_Size;
+    Common->Channels[Channel_Pos]->Offsets_Stream.insert(Common->Channels[Channel_Pos]->Offsets_Stream.begin(), Offsets_Stream.begin(), Offsets_Stream.end());
+    Offsets_Stream.clear();
+    Common->Channels[Channel_Pos]->Offsets_Buffer.insert(Common->Channels[Channel_Pos]->Offsets_Buffer.begin(), Offsets_Buffer.begin(), Offsets_Buffer.end());
+    Offsets_Buffer.clear();
     Skip_XX(Buffer_Size,                                        "Channel grouping data");
     Common->Channel_Current++;
     if (Common->Channel_Current>=Channel_Total)
@@ -204,17 +211,28 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
         if (Minimum>Common->Channels[Pos]->Buffer_Size-Common->Channels[Pos]->Buffer_Offset)
             Minimum=Common->Channels[Pos]->Buffer_Size-Common->Channels[Pos]->Buffer_Offset;
-    while (Minimum>=ByteDepth)
+    if (Minimum>=ByteDepth)
     {
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
         {
-            if (Common->MergedChannel.Buffer_Size+Minimum>Common->MergedChannel.Buffer_Size_Max)
-                Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum);
-            memcpy(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Size, Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset, ByteDepth);
-            Common->Channels[Pos]->Buffer_Offset+=ByteDepth;
-            Common->MergedChannel.Buffer_Size+=ByteDepth;
+            Common->MergedChannel.Offsets_Stream.insert(Common->MergedChannel.Offsets_Stream.end(), Common->Channels[Pos]->Offsets_Stream.begin(), Common->Channels[Pos]->Offsets_Stream.end());
+            Common->Channels[Pos]->Offsets_Stream.clear();
+            Common->MergedChannel.Offsets_Buffer.insert(Common->MergedChannel.Offsets_Buffer.end(), Common->Channels[Pos]->Offsets_Buffer.begin(), Common->Channels[Pos]->Offsets_Buffer.end());
+            Common->Channels[Pos]->Offsets_Buffer.clear();
         }
-        Minimum-=ByteDepth;
+
+        while (Minimum>=ByteDepth)
+        {
+            for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
+            {
+                if (Common->MergedChannel.Buffer_Size+Minimum>Common->MergedChannel.Buffer_Size_Max)
+                    Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum);
+                memcpy(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Size, Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset, ByteDepth);
+                Common->Channels[Pos]->Buffer_Offset+=ByteDepth;
+                Common->MergedChannel.Buffer_Size+=ByteDepth;
+            }
+            Minimum-=ByteDepth;
+        }
     }
 
     if (Common->MergedChannel.Buffer_Size>Common->MergedChannel.Buffer_Offset)
@@ -225,7 +243,11 @@ void File_ChannelGrouping::Read_Buffer_Continue()
                 Common->Parsers[Pos]->FrameInfo=FrameInfo_Next; //AES3 parse has its own buffer management
             else
                 Common->Parsers[Pos]->FrameInfo=FrameInfo;
-            Open_Buffer_Continue(Common->Parsers[Pos], Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset);
+            Common->Parsers[Pos]->Offsets_Stream.insert(Common->Parsers[Pos]->Offsets_Stream.end(), Common->MergedChannel.Offsets_Stream.begin(), Common->MergedChannel.Offsets_Stream.end());
+            Common->Parsers[Pos]->Offsets_Buffer.insert(Common->Parsers[Pos]->Offsets_Buffer.end(), Common->MergedChannel.Offsets_Buffer.begin(), Common->MergedChannel.Offsets_Buffer.end());
+            for (size_t Offsets_Pos_Temp=Common->Parsers[Pos]->Offsets_Buffer.size()-Common->MergedChannel.Offsets_Buffer.size(); Offsets_Pos_Temp<Common->Parsers[Pos]->Offsets_Buffer.size(); Offsets_Pos_Temp++)
+                Common->Parsers[Pos]->Offsets_Buffer[Offsets_Pos_Temp]+=Common->Parsers[Pos]->Buffer_Size/Common->Channels.size();
+            Open_Buffer_Continue(Common->Parsers[Pos], Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, false);
 
             //Multiple parsers
             if (Common->Parsers.size()>1)
@@ -250,6 +272,8 @@ void File_ChannelGrouping::Read_Buffer_Continue()
             }
         }
         Common->MergedChannel.Buffer_Offset=Common->MergedChannel.Buffer_Size;
+        Common->MergedChannel.Offsets_Stream.clear();
+        Common->MergedChannel.Offsets_Buffer.clear();
     }
     if (!Status[IsAccepted] && Common->Parsers.size()==1 && Common->Parsers[0]->Status[IsAccepted])
         Accept();

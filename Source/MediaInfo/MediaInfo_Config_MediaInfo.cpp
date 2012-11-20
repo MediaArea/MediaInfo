@@ -1523,7 +1523,7 @@ void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
                 Event_Send(NULL, Event->second[Pos]->Data_Content, Event->second[Pos]->Data_Size, Event->second[Pos]->File_Name);
 
                 int32u EventCode=*((int32u*)Event->second[Pos]->Data_Content);
-                if (EventCode&0x00FFFF00==(MediaInfo_Event_Global_Demux<<8) && NextPacket_Get())
+                if ((EventCode&0x00FFFF00)==(MediaInfo_Event_Global_Demux<<8) && NextPacket_Get())
                     Demux_EventWasSent=true;
 
                 delete Event->second[Pos]; //Event->second[Pos]=NULL;

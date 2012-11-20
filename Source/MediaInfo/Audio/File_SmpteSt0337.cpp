@@ -879,6 +879,13 @@ void File_SmpteSt0337::Header_Parse()
 //---------------------------------------------------------------------------
 void File_SmpteSt0337::Data_Parse()
 {
+    #if MEDIAINFO_DEMUX
+        FrameInfo.PTS=FrameInfo.DTS;
+        Demux_random_access=true;
+        Element_Code=(int64u)-1;
+        Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream);
+    #endif //MEDIAINFO_DEMUX
+
     // Adapting
     const int8u* Save_Buffer=NULL;
     size_t Save_Buffer_Offset=Buffer_Offset;
@@ -1074,12 +1081,14 @@ void File_SmpteSt0337::Data_Parse()
 
     if (Parser && !Parser->Status[IsFinished])
     {
+        /*
         #if MEDIAINFO_DEMUX
             FrameInfo.PTS=FrameInfo.DTS;
             Demux_random_access=true;
             Element_Code=(int64u)-1;
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
         #endif // MEDIAINFO_DEMUX
+        */
 
         Parser->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));

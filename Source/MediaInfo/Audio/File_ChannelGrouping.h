@@ -53,6 +53,8 @@ public :
             size_t          Buffer_Offset;
             size_t          Buffer_Size;
             size_t          Buffer_Size_Max;
+            std::vector<int64u> Offsets_Stream;
+            std::vector<int64u> Offsets_Buffer;
 
             channel()
             {

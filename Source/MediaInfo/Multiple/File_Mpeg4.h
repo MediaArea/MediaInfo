@@ -331,7 +331,7 @@ private :
     struct stream
     {
         Ztring                  File_Name;
-        File__Analyze*          Parser;
+        std::vector<File__Analyze*> Parsers;
         MediaInfo_Internal*     MI;
         struct timecode
         {
@@ -413,7 +413,6 @@ private :
 
         stream()
         {
-            Parser=NULL;
             MI=NULL;
             TimeCode=NULL;
             StreamKind=Stream_Max;
@@ -453,7 +452,8 @@ private :
 
         ~stream()
         {
-            delete Parser; //Parser=NULL;
+            for (size_t Pos=0; Pos<Parsers.size(); Pos++)
+                delete Parsers[Pos];
             delete MI; //MI=NULL;
             delete TimeCode; //TimeCode=NULL;
         }
