@@ -429,8 +429,8 @@ int Preferences::ExplorerShell()
     Reg->RootKey = HKEY_CLASSES_ROOT;
     TRegistry* Reg_User=new TRegistry;
 
-    ZtringListList Liste;
-    Liste=__T(
+    ZtringListList List;
+    List=__T(
         ".264;H264File\r\n"
         ".3g2;mpeg4File\r\n"
         ".3gp;mpeg4File\r\n"
@@ -577,10 +577,10 @@ int Preferences::ExplorerShell()
      || (MajorVersion==5 && MinorVersion>=1)) //WinXP or more in 5.x family
     {
         //Removing old stuff
-        for (size_t I1=0; I1<Liste.size(); I1++)
+        for (size_t I1=0; I1<List.size(); I1++)
         {
             //Remove shell ext except "Folder"
-            if (Reg->OpenKey(Liste(I1, 0).c_str(), false))
+            if (Reg->OpenKey(List(I1, 0).c_str(), false))
             {
                 //test if extension is known
                 AnsiString Player=Reg->ReadString(__T(""));
@@ -608,7 +608,7 @@ int Preferences::ExplorerShell()
             }
 
             //Remove shell ext except "Folder" (user part)
-            if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+Liste(I1, 0)+__T("\\UserChoice")).c_str(), false))
+            if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+List(I1, 0)+__T("\\UserChoice")).c_str(), false))
             {
                 //test if extension is known
                 AnsiString Player=Reg_User->ReadString("Progid");
@@ -632,37 +632,37 @@ int Preferences::ExplorerShell()
 
         //Adding/removing to SystemFileAssociations
         int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
-        for (size_t I1=0; I1<Liste.size(); I1++)
+        for (size_t I1=0; I1<List.size(); I1++)
         {
             //Remove shell ext except "Folder"
-            if (Liste(I1, 0)!=__T("Folder"))
-                ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+Liste(I1, 0)).c_str(), ShellExtension, IsChanged, Reg_User);
+            if (List(I1, 0)!=__T("Folder"))
+                ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+List(I1, 0)).c_str(), ShellExtension, IsChanged, Reg_User);
         }
         ExplorerShell_Edit("Software\\Classes\\Directory", Config.Read(__T("ShellExtension_Folder")).To_int32s(), IsChanged, Reg_User);
     }
     else
     {
         int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
-        for (size_t I1=0; I1<Liste.size(); I1++)
+        for (size_t I1=0; I1<List.size(); I1++)
         {
-            if (Liste(I1, 0)==__T("Folder"))
+            if (List(I1, 0)==__T("Folder"))
                 ShellExtension=Config.Read(__T("ShellExtension_Folder")).To_int32s();
 
             //Open (or create) a extension. Create only if Sheel extension is wanted
-            if (Reg->OpenKey(Liste(I1, 0).c_str(), ShellExtension))
+            if (Reg->OpenKey(List(I1, 0).c_str(), ShellExtension))
             {
                 //test if extension is known
                 AnsiString Player=Reg->ReadString(__T(""));
                 if (Player=="")
                 {
                     //extension not known, will use our default
-                    Player=Liste(I1, 1).c_str();
+                    Player=List(I1, 1).c_str();
                     try {Reg->WriteString(__T(""), Player);} catch (...){}
                     IsChanged=true;
                 }
                 Reg->CloseKey();
 
-                if (Liste(I1, 0)==__T("Folder"))
+                if (List(I1, 0)==__T("Folder"))
                     Player="Folder";
 
                 //Test if old Media Info shell extension is known
@@ -719,8 +719,8 @@ int Preferences::ExplorerShell()
             }
 
             //Open (or create) a extension (user). Create only if Shell extension is wanted
-            Ztring A=Liste(I1, 0);
-            if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+Liste(I1, 0)+__T("\\UserChoice")).c_str(), false))
+            Ztring A=List(I1, 0);
+            if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+List(I1, 0)+__T("\\UserChoice")).c_str(), false))
             {
                 //test if extension is known
                 AnsiString Player=Reg_User->ReadString("Progid");
@@ -1013,8 +1013,8 @@ int Preferences::ShellToolTip()
 
     int32s ShellInfoTip=Config.Read(__T("ShellInfoTip")).To_int32s();
 
-    ZtringListList Liste;
-    Liste=__T(
+    ZtringListList List;
+    List=__T(
         ".264;H264File\r\n"
         ".3g2;mpeg4File\r\n"
         ".3gp;mpeg4File\r\n"
@@ -1178,13 +1178,13 @@ int Preferences::ShellToolTip()
                 Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, __T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_"), KEY_WOW64_64KEY, 0);
                 Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, __T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID"), KEY_WOW64_64KEY, 0);
                 Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, __T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1"), KEY_WOW64_64KEY, 0);
-                for (size_t I1=0; I1<Liste.size(); I1++)
+                for (size_t I1=0; I1<List.size(); I1++)
                 {
                     //Remove
-                    if (!Liste(I1, 0).empty())
+                    if (!List(I1, 0).empty())
                     {
-                        Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+Liste(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str(), KEY_WOW64_64KEY, 0);
-                        //Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+Liste(I1, 0)+__T("\\shellex")).c_str(), KEY_WOW64_64KEY, 0);
+                        Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str(), KEY_WOW64_64KEY, 0);
+                        //Result=_RegDeleteKeyEx(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex")).c_str(), KEY_WOW64_64KEY, 0);
                     }
                 }
             }
@@ -1202,13 +1202,13 @@ int Preferences::ShellToolTip()
                 Result=RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_"));
                 Result=RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID"));
                 Result=RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1"));
-                for (size_t I1=0; I1<Liste.size(); I1++)
+                for (size_t I1=0; I1<List.size(); I1++)
                 {
                     //Remove
-                    if (!Liste(I1, 0).empty())
+                    if (!List(I1, 0).empty())
                     {
-                        Result=RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+Liste(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str());
-                        //Result=RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+Liste(I1, 0)+__T("\\shellex")).c_str());
+                        Result=RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str());
+                        //Result=RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex")).c_str());
                     }
                 }
             }
@@ -1239,11 +1239,11 @@ int Preferences::ShellToolTip()
             AddKey(__T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CurVer"), __T(""), __T("MediaInfoShellExt.MediaInfoShellExt_.1"));
             AddKey(__T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1"), __T(""), __T("MediaInfoShellExt_ Class"));
             AddKey(__T("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID"), __T(""), __T("{869C14C8-1830-491F-B575-5F9AB40D2B42}"));
-            for (size_t I1=0; I1<Liste.size(); I1++)
+            for (size_t I1=0; I1<List.size(); I1++)
             {
                 //Add
-                if (!Liste(I1, 0).empty())
-                    AddKey(__T("Software\\Classes\\")+Liste(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}"), __T(""), __T("{869C14C8-1830-491F-B575-5F9AB40D2B42}"));
+                if (!List(I1, 0).empty())
+                    AddKey(__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}"), __T(""), __T("{869C14C8-1830-491F-B575-5F9AB40D2B42}"));
             }
             IsChanged=true;
         }
