@@ -3282,7 +3282,7 @@ void File_Mxf::Data_Parse()
                     Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
                     #if MEDIAINFO_DEMUX
                         if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && !Essences.begin()->second.Parsers.empty() && !(*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer)
-                            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); Parser++)
+                            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
                             {
                                 (*Parser)->Demux_Level=2; //Container
                                 (*Parser)->Demux_UnpacketizeContainer=true;
@@ -3322,7 +3322,7 @@ void File_Mxf::Data_Parse()
             if ((Code_Compare4&0xFF00FF00)==0x17000100 || (Code_Compare4&0xFF00FF00)==0x17000200)
             {
                 parsers::iterator Parser=Essence->second.Parsers.begin();
-                    
+
                 //Ancillary with
                 int16u Count;
                 Get_B2 (Count,                                  "Number of Lines");

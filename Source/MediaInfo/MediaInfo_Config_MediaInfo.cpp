@@ -328,7 +328,6 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             else
                 File_Filter_Set(ValueLowerCase.To_int64u());
             return Ztring();
-            return __T("");
         #else //MEDIAINFO_FILTER
             return __T("Filter manager is disabled due to compilation options");
         #endif //MEDIAINFO_FILTER

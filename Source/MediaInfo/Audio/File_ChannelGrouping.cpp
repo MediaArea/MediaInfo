@@ -82,7 +82,7 @@ File_ChannelGrouping::File_ChannelGrouping()
 File_ChannelGrouping::~File_ChannelGrouping()
 {
     Common->Instances--;
-    
+
     if (Common->Instances==0)
     {
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)

@@ -1525,17 +1525,21 @@ void File_Wm::Data_Packet()
         if (Stream[Stream_Number].Parser && Stream[Stream_Number].SearchingPayload)
         {
             //Handling of spanned on multiple chunks
-            bool FrameIsAlwaysComplete=true;
+            #if defined(MEDIAINFO_VC1_YES)
+                bool FrameIsAlwaysComplete=true;
+            #endif
             if (PayloadLength!=SizeOfMediaObject)
             {
                 if (SizeOfMediaObject_BytesAlreadyParsed==0)
                     SizeOfMediaObject_BytesAlreadyParsed=SizeOfMediaObject-PayloadLength;
                 else
                     SizeOfMediaObject_BytesAlreadyParsed-=PayloadLength;
-                if (SizeOfMediaObject_BytesAlreadyParsed!=0)
-                    FrameIsAlwaysComplete=false;
-                else
+                if (SizeOfMediaObject_BytesAlreadyParsed==0)
                     Element_Show_Count++;
+                #if defined(MEDIAINFO_VC1_YES)
+                else
+                    FrameIsAlwaysComplete=false;
+                #endif
             }
             else
                 Element_Show_Count++;
