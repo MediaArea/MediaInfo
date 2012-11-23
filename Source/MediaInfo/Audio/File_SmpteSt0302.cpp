@@ -217,7 +217,7 @@ void File_SmpteSt0302::Read_Buffer_Continue()
                         Info_Offset+=6;
                         Element_Offset+=6;
                         break;
-                case 2  : //24 bits
+            case 2  : //24 bits
                         //Channel 1 (24 bits, as "s24l" codec)
                         Info[Info_Offset+0] = Reverse8(Buffer[Buffer_Pos+0] );
                         Info[Info_Offset+1] = Reverse8(Buffer[Buffer_Pos+1] );
@@ -242,7 +242,7 @@ void File_SmpteSt0302::Read_Buffer_Continue()
     #if MEDIAINFO_DEMUX
         Demux_random_access=true;
 
-        if (Config->Demux_PCM_20bitTo16bit_Get())
+        if (bits_per_sample==1 && Config->Demux_PCM_20bitTo16bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
             size_t Info2_Size=((size_t)Element_Size-4)*2/3;
             int8u* Info2=new int8u[Info2_Size];
@@ -262,7 +262,7 @@ void File_SmpteSt0302::Read_Buffer_Continue()
 
             Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
         }
-        else if (true) //Config->Demux_PCM_20bitTo24bit_Get() && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
+        else if (bits_per_sample==1 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
             size_t Info2_Size=((size_t)Element_Size-4);
             int8u* Info2=new int8u[Info2_Size];

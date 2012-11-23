@@ -165,6 +165,8 @@ public :
     bool          Demux_ForceIds_Get ();
     void          Demux_PCM_20bitTo16bit_Set (bool NewValue);
     bool          Demux_PCM_20bitTo16bit_Get ();
+    void          Demux_PCM_20bitTo24bit_Set (bool NewValue);
+    bool          Demux_PCM_20bitTo24bit_Get ();
     void          Demux_Unpacketize_Set (bool NewValue);
     bool          Demux_Unpacketize_Get ();
     void          Demux_Rate_Set (float64 NewValue);
@@ -325,6 +327,7 @@ private :
     #if MEDIAINFO_DEMUX
     bool                    Demux_ForceIds;
     bool                    Demux_PCM_20bitTo16bit;
+    bool                    Demux_PCM_20bitTo24bit;
     bool                    Demux_Unpacketize;
     float64                 Demux_Rate;
     int64u                  Demux_FirstDts;

@@ -1045,6 +1045,29 @@ void File_Lxf::Audio_Stream(size_t Pos)
 
                 Demux(SixteenBit, SixteenBit_Pos, ContentType_MainStream);
             }
+            else if (SampleSize==20 && Config->Demux_PCM_20bitTo24bit_Get())
+            {
+                //Padding bits 3-0 (Little endian)
+                int8u* Output=new int8u[(size_t)Audio_Sizes[Pos]*24/20];
+                size_t Output_Pos=0;
+                size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
+                size_t Buffer_Max=Buffer_Offset+(size_t)(Element_Offset+Audio_Sizes[Pos]);
+
+                while (Buffer_Pos+5<=Buffer_Max)
+                {
+                    Output[Output_Pos  ] =  Buffer[Buffer_Pos+0]<<4                                 ;
+                    Output[Output_Pos+1] = (Buffer[Buffer_Pos+1]<<4  ) | (Buffer[Buffer_Pos+0]>>4  );
+                    Output[Output_Pos+2] = (Buffer[Buffer_Pos+2]<<4  ) | (Buffer[Buffer_Pos+1]>>4  );
+                    Output[Output_Pos+3] =  Buffer[Buffer_Pos+2]&0xF0                               ;
+                    Output[Output_Pos+4] =  Buffer[Buffer_Pos+3]                                    ;
+                    Output[Output_Pos+5] =  Buffer[Buffer_Pos+4]                                    ;
+
+                    Buffer_Pos+=5;
+                    Output_Pos+=6;
+                }
+
+                Demux(Output, Output_Pos, ContentType_MainStream);
+            }
             else
                 Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
         }
