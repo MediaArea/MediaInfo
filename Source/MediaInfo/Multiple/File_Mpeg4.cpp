@@ -238,7 +238,7 @@ void File_Mpeg4::Streams_Finish()
     #endif //defined(MEDIAINFO_REFERENCES_YES) && MEDIAINFO_NEXTPACKET
 
     //Final Cut EIA-608 format
-    if (Retrieve(Stream_General, 0, General_Format)==__T("Final Cut EIA-608") && Stream->second.Parsers.size()!=1)
+    if (Retrieve(Stream_General, 0, General_Format)==__T("Final Cut EIA-608"))
     {
         for (streams::iterator Stream=Streams.begin(); Stream!=Streams.end(); ++Stream)
         {
@@ -433,6 +433,15 @@ void File_Mpeg4::Streams_Finish()
         {
             //There is a difference between media/mdhd atom and track atom
             Fill(StreamKind_Last, StreamPos_Last, "mdhd_Duration", ((float32)Temp->second.mdhd_Duration)/Temp->second.mdhd_TimeScale*1000, 0);
+        }
+
+        //When there are few frames, difficult to detect PCM
+        if (Temp->second.IsPcm && !Temp->second.Parsers.empty() && !Temp->second.Parsers[0]->Status[IsAccepted])
+        {
+            for (size_t Pos=0; Pos<Temp->second.Parsers.size()-1; Pos++)
+                delete Temp->second.Parsers[Pos];
+            Temp->second.Parsers.erase(Temp->second.Parsers.begin(), Temp->second.Parsers.begin()+Temp->second.Parsers.size()-1);
+            Temp->second.Parsers[0]->Accept();
         }
 
         //Parser specific
@@ -1731,11 +1740,9 @@ void File_Mpeg4::Descriptors()
     if (MI.Parser)
     {
         for (size_t Pos=0; Pos<Streams[moov_trak_tkhd_TrackID].Parsers.size(); Pos++)
-        {
-            if (Streams[moov_trak_tkhd_TrackID].Parsers[Pos])
-                delete Streams[moov_trak_tkhd_TrackID].Parsers[Pos];
-            Streams[moov_trak_tkhd_TrackID].Parsers.push_back(MI.Parser);
-        }
+            delete Streams[moov_trak_tkhd_TrackID].Parsers[Pos];
+        Streams[moov_trak_tkhd_TrackID].Parsers.clear();
+        Streams[moov_trak_tkhd_TrackID].Parsers.push_back(MI.Parser);
         mdat_MustParse=true;
     }
 }

@@ -385,6 +385,7 @@ private :
         int32u                  mvex_trex_default_sample_size;
         int32u                  TimeCode_TrackID;
         bool                    TimeCode_IsVisual;
+        bool                    IsPcm;
         bool                    IsPcmMono;
         bool                    IsPriorityStream;
         bool                    IsFilled;
@@ -434,6 +435,7 @@ private :
             mvex_trex_default_sample_size=0;
             TimeCode_TrackID=(int32u)-1;
             TimeCode_IsVisual=false;
+            IsPcm=false;
             IsPcmMono=false;
             IsPriorityStream=false;
             IsFilled=false;

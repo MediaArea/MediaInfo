@@ -3783,6 +3783,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             #endif //MEDIAINFO_DEMUX
             Parser->Codec=Ztring().From_Local(Codec.c_str());
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+            Streams[moov_trak_tkhd_TrackID].IsPcm=true;
         }
         #endif
         #if defined(MEDIAINFO_MPEGA_YES)
@@ -4698,6 +4699,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_glbl()
         Clear(Stream_Video, StreamPos_Last, Video_MuxingMode);
         for (size_t Pos=0; Pos<Streams[moov_trak_tkhd_TrackID].Parsers.size(); Pos++)
             delete Streams[moov_trak_tkhd_TrackID].Parsers[Pos];
+        Streams[moov_trak_tkhd_TrackID].Parsers.clear();
         #if defined(MEDIAINFO_MPEGV_YES)
             File_Mpegv* Parser=new File_Mpegv;
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
@@ -5157,8 +5159,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
         std::map<int32u, int64u> Duration_FrameCount; //key is duration
         int64u Duration_FrameCount_Max=0;
         int32u Duration_FrameCount_Max_Duration=0;
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==__T("DV") && Streams[moov_trak_tkhd_TrackID].Parser && ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts==NULL)
-            ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=new File_DvDif::stts;
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==__T("DV") && Streams[moov_trak_tkhd_TrackID].Parsers[0] && ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts==NULL)
+            ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts=new File_DvDif::stts;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
     #if MEDIAINFO_DEMUX
@@ -5180,7 +5182,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                 DV_stts_Part.Pos_Begin=Stream->second.stts_FrameCount-SampleCount;
                 DV_stts_Part.Pos_End=Stream->second.stts_FrameCount;
                 DV_stts_Part.Duration=SampleDuration;
-                ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->push_back(DV_stts_Part);
+                ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts->push_back(DV_stts_Part);
 
                 Duration_FrameCount[SampleDuration]+=Stream->second.stts_FrameCount;
                 if (Duration_FrameCount_Max<=Duration_FrameCount[SampleDuration])
@@ -5201,17 +5203,17 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                 if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==__T("DV"))
                 {
                     //Clean up the "normal" value
-                    for (size_t Pos=0; Pos<((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->size(); Pos++)
+                    for (size_t Pos=0; Pos<((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts->size(); Pos++)
                     {
-                        if (((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->at(Pos).Duration==Duration_FrameCount_Max_Duration)
+                        if (((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts->at(Pos).Duration==Duration_FrameCount_Max_Duration)
                         {
-                            ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->erase(((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->begin()+Pos);
+                            ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts->erase(((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts->begin()+Pos);
                             Pos--;
                         }
                     }
 
-                    if (((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->empty())
-                        {delete ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts; ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=NULL;}
+                    if (((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts->empty())
+                        {delete ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts; ((File_DvDif*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Mpeg4_stts=NULL;}
                 }
             #endif //MEDIAINFO_DVDIF_ANALYZE_YES
         }

@@ -211,6 +211,7 @@ void File_SmpteSt0337::Streams_Fill()
         {
             Stream_Prepare(Smpte_St0337_data_type_StreamKind[data_type]);
             Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Format), Smpte_St0337_data_type[data_type]);
+            Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_Codec), Smpte_St0337_data_type[data_type]);
         }
     }
 
@@ -233,8 +234,14 @@ void File_SmpteSt0337::Streams_Fill()
             Endianness='B';
         switch (Endianness)
         {
-            case 'B' : Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Big", Unlimited, true, true); break;
-            case 'L' : Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Little", Unlimited, true, true); break;
+            case 'B' :
+                        Fill(StreamKind_Last, Pos, "Format_Settings", "Big");
+                        Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Big", Unlimited, true, true);
+                        break;
+            case 'L' : 
+                        Fill(StreamKind_Last, Pos, "Format_Settings", "Little");
+                        Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Little", Unlimited, true, true);
+                        break;
             default  : ;
         }
         Fill(StreamKind_Last, Pos, "Format_Settings_Mode", Container_Bits_Original);
