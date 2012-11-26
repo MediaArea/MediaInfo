@@ -2427,7 +2427,10 @@ void File_Riff::AVI__movi_xxxx()
             }
 
             if (Config->Demux_EventWasSent)
+            {
+                Demux_Parser=Stream[Stream_ID].Parsers[Pos];
                 return;
+            }
         }
     Element_Offset=Element_Size;
 

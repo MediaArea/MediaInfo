@@ -144,6 +144,9 @@ File_Riff::File_Riff()
     SecondPass=false;
     DV_FromHeader=NULL;
     Kind=Kind_None;
+    #if MEDIAINFO_DEMUX
+    Demux_Parser=NULL;
+    #endif //MEDIAINFO_DEMUX
 
     //Pointers
     Stream_Structure_Temp=Stream_Structure.end();
