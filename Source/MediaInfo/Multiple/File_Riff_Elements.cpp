@@ -1182,6 +1182,30 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Fill(Stream_Audio, 0, Audio_Delay_Source, "Container (bext)");
     }
 
+    //Specific cases
+    #if defined(MEDIAINFO_DTS_YES) || defined(MEDIAINFO_SMPTEST0337_YES)
+    if (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==__T("Wave")) //Some DTS or SMPTE ST 337 streams are coded "1"
+    {
+        #if defined(MEDIAINFO_DTS_YES)
+        {
+            File_Dts* Parser=new File_Dts;
+            Parser->Frame_Count_Valid=2;
+            Parser->ShouldContinueParsing=true;
+            Stream[Stream_ID].Parsers.push_back(Parser);
+        }
+        #endif
+
+        #if defined(MEDIAINFO_SMPTEST0337_YES)
+        {
+            File_SmpteSt0337* Parser=new File_SmpteSt0337;
+            Parser->Container_Bits=AvgBytesPerSec*8/SamplesPerSec/Channels;
+            Parser->ShouldContinueParsing=true;
+            Stream[Stream_ID].Parsers.push_back(Parser);
+        }
+        #endif
+    }
+    #endif
+
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEGA_YES)
@@ -1204,28 +1228,12 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_DTS_YES)
-    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==__T("DTS")
-          || (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))) //Some DTS streams are coded "1"
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==__T("DTS"))
     {
-        {
-            File_Dts* Parser=new File_Dts;
-            Parser->Frame_Count_Valid=2;
-            Parser->ShouldContinueParsing=true;
-            Stream[Stream_ID].Parsers.push_back(Parser);
-        }
-
-        {
-            File_SmpteSt0337* Parser=new File_SmpteSt0337;
-            Parser->Container_Bits=AvgBytesPerSec*8/SamplesPerSec/Channels;
-            Parser->ShouldContinueParsing=true;
-            Stream[Stream_ID].Parsers.push_back(Parser);
-        }
-
-        {
-            File_Pcm* Parser=new File_Pcm;
-            Parser->Endianness='L';
-            Stream[Stream_ID].Parsers.push_back(Parser);
-        }
+        File_Dts* Parser=new File_Dts;
+        Parser->Frame_Count_Valid=2;
+        Parser->ShouldContinueParsing=true;
+        Stream[Stream_ID].Parsers.push_back(Parser);
     }
     #endif
     #if defined(MEDIAINFO_AAC_YES)
@@ -1241,19 +1249,12 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     #if defined(MEDIAINFO_PCM_YES)
     else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==__T("PCM"))
     {
-        //Creating the parser
-        File_Pcm MI;
-        MI.Frame_Count_Valid=0;
-        MI.Codec=Codec;
-        MI.BitDepth=BitsPerSample;
-
-        //Parsing
-        Open_Buffer_Init(&MI);
-        Open_Buffer_Continue(&MI, 0);
-
-        //Filling
-        Finish(&MI);
-        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        File_Pcm* Parser=new File_Pcm;
+        Parser->Codec=Codec;
+        Parser->Endianness='L';
+        Parser->BitDepth=BitsPerSample;
+        Stream[Stream_ID].Parsers.push_back(Parser);
+        Stream[Stream_ID].IsPcm=true;
     }
     #endif
     #if defined(MEDIAINFO_ADPCM_YES)

@@ -3594,7 +3594,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 {
     Element_Name("Audio");
 
-    int32u SampleRate, Channels, SampleSize;
+    int32u SampleRate, Channels, SampleSize, Flags;
     int16u Version, ID;
     Get_B2 (Version,                                            "Version");
     Skip_B2(                                                    "Revision level");
@@ -3632,7 +3632,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Get_B4 (Channels,                                       "Number of channels");
         Skip_B4(                                                "Reserved (0x7F000000)");
         Get_B4 (SampleSize,                                     "Sample size");
-        Skip_B4(                                                "Flags");
+        Get_B4 (Flags,                                          "Flags");
         Skip_B4(                                                "Bytes per packet");
         Skip_B4(                                                "Frames per packet");
 
@@ -3781,6 +3781,21 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                     Parser->Demux_UnpacketizeContainer=true;
                 }
             #endif //MEDIAINFO_DEMUX
+            if (Version==2)
+            {
+                if (Flags&0x01)
+                    Parser->Endianness='F';
+                else
+                {
+                    Parser->Endianness=(Flags&0x02)?'B':'L';
+                    Parser->Sign=(Flags&0x04)?'S':'U';
+                }
+            }
+            else
+            {
+                Parser->Endianness='L';
+                Parser->Sign='U';
+            }
             Parser->Codec=Ztring().From_Local(Codec.c_str());
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             Streams[moov_trak_tkhd_TrackID].IsPcm=true;

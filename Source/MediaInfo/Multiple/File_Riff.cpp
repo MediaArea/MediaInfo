@@ -190,6 +190,15 @@ void File_Riff::Streams_Finish ()
         if (Temp->second.StreamSize>0)
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.StreamSize);
 
+        //When there are few frames, difficult to detect PCM
+        if (Temp->second.IsPcm && !Temp->second.Parsers.empty() && !Temp->second.Parsers[0]->Status[IsAccepted])
+        {
+            for (size_t Pos=0; Pos<Temp->second.Parsers.size()-1; Pos++)
+                delete Temp->second.Parsers[Pos];
+            Temp->second.Parsers.erase(Temp->second.Parsers.begin(), Temp->second.Parsers.begin()+Temp->second.Parsers.size()-1);
+            Temp->second.Parsers[0]->Accept();
+        }
+
         //Parser specific
         if (Temp->second.Parsers.size()==1)
         {

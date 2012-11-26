@@ -93,6 +93,7 @@ private :
         bool                    SearchingPayload;
         bool                    Specific_IsMpeg4v;
         bool                    ChunksAreComplete;
+        bool                    IsPcm;
 
         stream()
         {
@@ -113,6 +114,7 @@ private :
             SearchingPayload=true;
             Specific_IsMpeg4v=false;
             ChunksAreComplete=true;
+            IsPcm=false;
         }
 
         ~stream()

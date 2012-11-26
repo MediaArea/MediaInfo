@@ -47,6 +47,7 @@ public :
     int16u          Channels;
     int32u          SamplingRate;
     int8u           Endianness;
+    int8u           Sign;
 
     //Constructor/Destructor
     File_Pcm();
