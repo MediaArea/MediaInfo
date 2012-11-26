@@ -1191,6 +1191,14 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
             File_Dts* Parser=new File_Dts;
             Parser->Frame_Count_Valid=2;
             Parser->ShouldContinueParsing=true;
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_Unpacketize_Get() && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))
+                {
+                    Parser->Demux_Level=2; //Container
+                    Parser->Demux_UnpacketizeContainer=true;
+                    Demux_Level=4; //Intermediate
+                }
+            #endif //MEDIAINFO_DEMUX
             Stream[Stream_ID].Parsers.push_back(Parser);
         }
         #endif
@@ -1200,6 +1208,14 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
             File_SmpteSt0337* Parser=new File_SmpteSt0337;
             Parser->Container_Bits=AvgBytesPerSec*8/SamplesPerSec/Channels;
             Parser->ShouldContinueParsing=true;
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_Unpacketize_Get() && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))
+                {
+                    Parser->Demux_Level=2; //Container
+                    Parser->Demux_UnpacketizeContainer=true;
+                    Demux_Level=4; //Intermediate
+                }
+            #endif //MEDIAINFO_DEMUX
             Stream[Stream_ID].Parsers.push_back(Parser);
         }
         #endif
@@ -1253,6 +1269,14 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Parser->Codec=Codec;
         Parser->Endianness='L';
         Parser->BitDepth=BitsPerSample;
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get() && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+                Demux_Level=4; //Intermediate
+            }
+        #endif //MEDIAINFO_DEMUX
         Stream[Stream_ID].Parsers.push_back(Parser);
         Stream[Stream_ID].IsPcm=true;
     }
@@ -2401,7 +2425,11 @@ void File_Riff::AVI__movi_xxxx()
                     Pos=0;
                 }
             }
+
+            if (Config->Demux_EventWasSent)
+                return;
         }
+    Element_Offset=Element_Size;
 
     //Some specific stuff
     switch (Element_Code&0x0000FFFF) //2 last bytes
@@ -3392,6 +3420,7 @@ void File_Riff::WAVE_data_Continue()
         }
     #endif //MEDIAINFO_DEMUX
 
+    Element_Code=0x30300000;
     AVI__movi_xxxx();
 }
 

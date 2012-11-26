@@ -218,9 +218,32 @@ void File_Riff::Streams_Finish ()
                 Temp->second.Parsers[0]->Open_Buffer_Unsynch();
             }
             Finish(Temp->second.Parsers[0]);
-            Merge(*Temp->second.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
-            Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
+            Ztring ID;
+            if (Retrieve(Stream_General, 0, "Format")!=__T("Wave"))
+                ID.From_Number(((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
+            Ztring ID_String=ID;
+            if (!Temp->second.Parsers.empty() && Temp->second.Parsers[0]->Count_Get(StreamKind_Last))
+                for (size_t Pos=0; Pos<Temp->second.Parsers[0]->Count_Get(StreamKind_Last); Pos++)
+                {
+                    Merge(*Temp->second.Parsers[0], StreamKind_Last, Pos, StreamPos_Last+Pos);
+                    if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
+                    {
+                        if (!ID.empty())
+                        {
+                            ID+=__T('-');
+                            ID_String+=__T('-');
+                        }
+                        ID+=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+                        ID_String+=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+                    }
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
+                    Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ID_String, true);
+                }
+            else
+            {
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
+                Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ID_String, true);
+            }
 
             //Hacks - After
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), StreamSize, true);
@@ -609,6 +632,19 @@ void File_Riff::Read_Buffer_Unsynched()
         #endif //defined(MEDIAINFO_ANCILLARY_YES)
     }
 }
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+void File_Riff::Read_Buffer_Continue()
+{
+    if (Demux_Parser)
+    {
+        Open_Buffer_Continue(Demux_Parser, Buffer+Buffer_Offset, 0, false);
+        //if (Config->Demux_EventWasSent)
+        //    return;
+    }
+}
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer
