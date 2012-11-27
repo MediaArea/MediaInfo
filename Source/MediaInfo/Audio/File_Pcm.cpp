@@ -251,6 +251,20 @@ bool File_Pcm::FileHeader_Begin()
 
     return true;
 }
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
+void File_Pcm::Read_Buffer_Continue()
+{
+    if (Demux_UnpacketizeContainer && !Status[IsAccepted] && Frame_Count_Valid && Frame_Count+1>=Frame_Count_Valid)
+        Accept();
+}
+#endif //MEDIAINFO_DEMUX
+
 //***************************************************************************
 // Buffer - Per element
 //***************************************************************************

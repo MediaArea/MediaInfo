@@ -101,7 +101,6 @@ File_Riff::File_Riff()
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         Demux_Level=2; //Container
-        Demux_EventWasSent_Accept_Specific=true;
     #endif //MEDIAINFO_DEMUX
     DataMustAlwaysBeComplete=false;
 
@@ -222,30 +221,31 @@ void File_Riff::Streams_Finish ()
             }
             Finish(Temp->second.Parsers[0]);
             Ztring ID;
-            if (Retrieve(Stream_General, 0, "Format")!=__T("Wave"))
+            if (Retrieve(Stream_General, 0, "Format")!=__T("Wave") && Retrieve(Stream_General, 0, "Format")!=__T("AIFF"))
                 ID.From_Number(((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
-            Ztring ID_String=ID;
             if (!Temp->second.Parsers.empty() && Temp->second.Parsers[0]->Count_Get(StreamKind_Last))
                 for (size_t Pos=0; Pos<Temp->second.Parsers[0]->Count_Get(StreamKind_Last); Pos++)
                 {
+                    Ztring Temp_ID=ID;
+                    Ztring Temp_ID_String=ID;
                     Merge(*Temp->second.Parsers[0], StreamKind_Last, Pos, StreamPos_Last+Pos);
                     if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
                     {
-                        if (!ID.empty())
+                        if (!Temp_ID.empty())
                         {
-                            ID+=__T('-');
-                            ID_String+=__T('-');
+                            Temp_ID+=__T('-');
+                            Temp_ID_String+=__T('-');
                         }
-                        ID+=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
-                        ID_String+=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+                        Temp_ID+=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+                        Temp_ID_String+=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
                     }
-                    Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
-                    Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ID_String, true);
+                    Fill(StreamKind_Last, StreamPos_Last, General_ID, Temp_ID, true);
+                    Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Temp_ID_String, true);
                 }
             else
             {
                 Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
-                Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ID_String, true);
+                Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, ID, true);
             }
 
             //Hacks - After
@@ -913,7 +913,10 @@ void File_Riff::Header_Parse()
     if ((Name==Elements::WAVE_data || Name==Elements::AIFF_SSND))
     {
         Buffer_DataToParse_Begin=File_Offset+Buffer_Offset+8;
-        Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Size_Complete;
+        if (Size_Complete)
+            Buffer_DataToParse_End=File_Offset+Buffer_Offset+8+Size_Complete;
+        else
+            Buffer_DataToParse_End=File_Size; //Found one file with 0 as size of data part
         Size_Complete=0;
     }
 
