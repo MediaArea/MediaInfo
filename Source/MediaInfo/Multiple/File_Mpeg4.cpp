@@ -1536,6 +1536,18 @@ bool File_Mpeg4::BookMark_Needed()
                     }
                 #endif //MEDIAINFO_DEMUX
             }
+
+            //special cases
+            #if MEDIAINFO_DEMUX
+                if (Temp->second.stsz.empty() && Temp->second.StreamKind==Stream_Video && Retrieve(Stream_Video, Temp->second.StreamPos, Video_CodecID)==__T("AV1x"))
+                {
+                    //Found unknown data before the raw content
+                    int64u Width=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Width).To_int64u();
+                    int64u Height=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Height).To_int64u();
+                    if (Width && Height && Temp->second.stsz_Sample_Size>(Width*Height*2))
+                        Temp->second.Demux_Offset=Temp->second.stsz_Sample_Size-(Width*Height*2); // YUV 4:2:2 8 bit = 2 bytes per pixel
+                }
+            #endif //MEDIAINFO_DEMUX
         }
         mdat_Pos_Temp=mdat_Pos.begin();
 

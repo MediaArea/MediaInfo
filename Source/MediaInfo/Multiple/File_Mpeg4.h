@@ -160,8 +160,11 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_xxxxStream();
     void moov_trak_mdia_minf_stbl_stsd_xxxxText();
     void moov_trak_mdia_minf_stbl_stsd_xxxxVideo();
-    void moov_trak_mdia_minf_stbl_stsd_xxxx_avcC();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_alac();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_ACLR();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_APRG();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_ARES();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_avcC();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_bitr();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_btrt();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_chan();
@@ -394,6 +397,7 @@ private :
         float32                 CleanAperture_PixelAspectRatio;
         #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             int8u               Demux_Level;
+            int64u              Demux_Offset;
 
             struct stts_duration
             {
@@ -444,6 +448,7 @@ private :
             CleanAperture_PixelAspectRatio=0;
             #if MEDIAINFO_DEMUX
                 Demux_Level=2; //Container
+                Demux_Offset=0;
                 stts_Durations_Pos=0;
                 stts_FramePos=0;
             #endif //MEDIAINFO_DEMUX

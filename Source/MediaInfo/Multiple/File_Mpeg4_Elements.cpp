@@ -621,6 +621,9 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_tx3g=0x74783367;
     const int64u moov_trak_mdia_minf_stbl_stsd_tx3g_ftab=0x66746162;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_alac=0x616C6163;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_ACLR=0x41434C52;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_APRG=0x41505247;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_ARES=0x41524553;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_avcC=0x61766343;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_bitr=0x62697472;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
@@ -925,6 +928,9 @@ void File_Mpeg4::Data_Parse()
                             LIST_DEFAULT(moov_trak_mdia_minf_stbl_stsd_xxxx)
                                 ATOM_BEGIN
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_alac)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_ACLR)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_APRG)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_ARES)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_avcC)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_bitr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_btrt)
@@ -3979,7 +3985,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
 {
     Element_Name("Video");
 
-    int16u Width, Height, ColorTableID;
+    int16u Width, Height, Depth, ColorTableID;
     int8u  CompressorName_Size;
     Skip_B2(                                                    "Version");
     Skip_B2(                                                    "Revision level");
@@ -4003,7 +4009,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
     else
         //this is hard-coded 32-byte string
         Skip_Local(32,                                          "Compressor name");
-    Skip_B2(                                                    "Depth");
+    Get_B2 (Depth,                                              "Depth");
     Get_B2 (ColorTableID,                                       "Color table ID");
     if (ColorTableID==0 && Width && Height) //In one file, if Zero-filled, Color table is not present
         Skip_XX(32,                                             "Color Table");
@@ -4151,6 +4157,19 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 }
         }
 
+        //RGB(A)
+        if (Codec=="raw ")
+        {
+            if (Depth==32)
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_Format, "RGBA", Unlimited, true, true);
+                Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "RGBA", Unlimited, true, true);
+                Fill(Stream_Video, StreamPos_Last, Video_BitDepth, Depth/4);
+            }
+            else
+                Fill(Stream_Video, StreamPos_Last, Video_BitDepth, Depth/3);
+        }
+
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
              && ((CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='z') || (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='0' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='9'))
@@ -4196,6 +4215,56 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_alac()
         if (samplerate)
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplerate, 10, true);
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ACLR()
+{
+    Element_Name("Avid ACLR");
+
+    //Parsing
+    Skip_C4(                                                    "tag");
+    Skip_C4(                                                    "vers");
+    Skip_B4(                                                    "yuv range"); //full 1 / normal 2
+    Skip_B4(                                                    "unknown (always 0?)");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_APRG()
+{
+    Element_Name("Avid APRG");
+
+    //Parsing
+    Skip_C4(                                                    "tag");
+    Skip_C4(                                                    "vers");
+    Skip_B4(                                                    "unknown (always 1?)");
+    Skip_B4(                                                    "unknown (always 0?)");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ARES()
+{
+    Element_Name("Avid ARES");
+
+    //Parsing
+    //Source: http://lists.apple.com/archives/quicktime-api/2012/Mar/msg00039.html
+    int32u x1;
+    Skip_C4(                                                    "tag");
+    Skip_C4(                                                    "vers");
+    Skip_B4(                                                    "cid"); //Compression ID, From inspection this is 160 for MPEG 50, 161 for MPEG 40 and 162 for MPEG 30. 171 for raw?
+    Skip_B4(                                                    "width");
+    Skip_B4(                                                    "height"); //Of a field
+    Get_B4 (x1,                                                 "x1");  //1=Progressive, 2=Interlaced
+    Skip_B4(                                                    "zero");
+    Skip_B4(                                                    "x2"); //4=Interlaced, 5=Progressive 1080, 6 Progressive not 1080?
+
+    switch (x1)
+    {
+        case 0x01 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Progressive", Unlimited, true, true); break;
+        case 0x02 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Interlaced", Unlimited, true, true); break;
+        default   : ;
+    }
+        
 }
 
 //---------------------------------------------------------------------------
