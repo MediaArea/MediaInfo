@@ -55,6 +55,7 @@ const int32u Vc3_CompressedFrameSize(int32u CompressionID)
         case 1241 : return 917504;
         case 1242 : return 606208;
         case 1243 : return 917504;
+        case 1244 : return 606208;
         case 1250 : return 458752;
         case 1251 : return 458752;
         case 1252 : return 303104;
