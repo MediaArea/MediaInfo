@@ -236,6 +236,14 @@ void File_Pcm::Streams_Fill()
     }
 }
 
+//---------------------------------------------------------------------------
+void File_Pcm::Streams_Finish()
+{
+    //No frames in PCM!
+    Frame_Count=(int64u)-1;
+    Frame_Count_NotParsedIncluded=(int64u)-1;
+}
+
 //***************************************************************************
 // Buffer - File header
 //***************************************************************************
@@ -298,7 +306,7 @@ void File_Pcm::Data_Parse()
     if ((!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid) || File_Offset+Buffer_Size>=File_Size)
     {
         Accept();
-        Finish();
+        Fill();
     }
 }
 

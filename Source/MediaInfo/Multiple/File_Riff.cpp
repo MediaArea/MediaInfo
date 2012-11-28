@@ -201,6 +201,10 @@ void File_Riff::Streams_Finish ()
             Temp->second.Parsers[0]->Accept();
         }
 
+        Ztring ID;
+        if (Temp->first!=(int32u)-1)
+            ID.From_Number(((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
+
         //Parser specific
         if (Temp->second.Parsers.size()==1)
         {
@@ -220,9 +224,6 @@ void File_Riff::Streams_Finish ()
                 Temp->second.Parsers[0]->Open_Buffer_Unsynch();
             }
             Finish(Temp->second.Parsers[0]);
-            Ztring ID;
-            if (Retrieve(Stream_General, 0, "Format")!=__T("Wave") && Retrieve(Stream_General, 0, "Format")!=__T("AIFF"))
-                ID.From_Number(((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
             if (!Temp->second.Parsers.empty() && Temp->second.Parsers[0]->Count_Get(StreamKind_Last))
                 for (size_t Pos=0; Pos<Temp->second.Parsers[0]->Count_Get(StreamKind_Last); Pos++)
                 {
@@ -352,7 +353,7 @@ void File_Riff::Streams_Finish ()
             #endif
         }
         else if (StreamKind_Last!=Stream_General)
-            Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
 
         //Duration
         if (Temp->second.PacketCount>0)

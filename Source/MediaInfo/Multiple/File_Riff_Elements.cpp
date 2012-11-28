@@ -683,7 +683,7 @@ void File_Riff::AIFF_COMM()
     #if defined(MEDIAINFO_PCM_YES)
         File_Pcm* Parser=new File_Pcm;
         Parser->Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID);
-        if (Parser->Codec.empty())
+        if (Parser->Codec.empty() || Parser->Codec==__T("NONE"))
             Parser->Endianness='B';
         Parser->BitDepth=sampleSize;
         #if MEDIAINFO_DEMUX
@@ -2376,6 +2376,7 @@ void File_Riff::AVI__movi_xxxx()
             Element_Code=Stream_ID;
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
             Element_Code=Element_Code_Old;
+            Frame_Count_NotParsedIncluded=(int64u)-1;
         }
         else //WAV
         {
@@ -3159,12 +3160,11 @@ void File_Riff::RMP3_data()
 {
     Element_Name("Raw datas");
 
-    FILLING_BEGIN();
-        Fill(Stream_Audio, 0, Audio_StreamSize, Buffer_DataToParse_End-Buffer_DataToParse_Begin);
-    FILLING_END();
+    Fill(Stream_Audio, 0, Audio_StreamSize, Buffer_DataToParse_End-Buffer_DataToParse_Begin);
+    Stream_Prepare(Stream_Audio);
 
     //Creating parser
-    #if defined(MEDIAINFO_AAC_YES)
+    #if defined(MEDIAINFO_MPEGA_YES)
         File_Mpega* Parser=new File_Mpega;
         Parser->CalculateDelay=true;
         Parser->ShouldContinueParsing=true;
@@ -3172,9 +3172,9 @@ void File_Riff::RMP3_data()
         Stream[(int64u)-1].StreamKind=Stream_Audio;
         Stream[(int64u)-1].StreamPos=0;
         Stream[(int64u)-1].Parsers.push_back(Parser);
-        Stream_Prepare(Stream_Audio);
     #else //MEDIAINFO_MPEG4_YES
-        Skip_XX(Element_Size-Element_Offset,                    "(AudioSpecificConfig)");
+        Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
+        Skip_XX(Buffer_DataToParse_End-Buffer_DataToParse_Begin, "Data");
     #endif
 }
 
@@ -3189,6 +3189,7 @@ void File_Riff::RMP3_data_Continue()
         }
     #endif //MEDIAINFO_DEMUX
 
+    Element_Code=(int64u)-1;
     AVI__movi_xxxx();
 }
 
@@ -3306,7 +3307,6 @@ void File_Riff::WAVE()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "Wave");
-    Stream_Prepare(Stream_Audio);
     Kind=Kind_Wave;
     #if MEDIAINFO_EVENTS
         StreamIDs_Width[0]=0;
@@ -3441,6 +3441,7 @@ void File_Riff::WAVE_data_Continue()
         }
         Demux_random_access=true;
         Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+        Frame_Count_NotParsedIncluded=(int64u)-1;
     #endif //MEDIAINFO_DEMUX
 
     Element_Code=(int64u)-1;

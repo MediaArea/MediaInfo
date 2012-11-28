@@ -1812,10 +1812,9 @@ void File__Analyze::Skip_PA(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(1);
     int8u Size=Buffer[Buffer_Offset+(size_t)Element_Offset];
-    int8u Pad=(Size%2)?0:1;
-    INTEGRITY_SIZE_ATLEAST(1+Size+Pad);
+    INTEGRITY_SIZE_ATLEAST(1+Size);
     if (Trace_Activated && Size) Param(Name, Ztring().From_Local((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset+1), (size_t)Size));
-    Element_Offset+=1+Size+Pad;
+    Element_Offset+=1+Size;
 }
 
 //***************************************************************************
