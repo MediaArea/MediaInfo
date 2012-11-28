@@ -1288,7 +1288,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "ai15;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
     "ai1q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
     "ai5q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
-    "AV1x;YUV;;;;;;YUV;4:2:0\n"
+    "AV1x;YUV;;;;;;YUV;4:2:2\n"
     "avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "AVdv;DV;;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2\n"
