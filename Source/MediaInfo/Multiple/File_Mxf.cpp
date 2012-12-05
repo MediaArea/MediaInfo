@@ -9081,6 +9081,7 @@ void File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descrip
     //Filling
     #if defined(MEDIAINFO_VC3_YES)
         File_Vc3* Parser=new File_Vc3;
+        Parser->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
