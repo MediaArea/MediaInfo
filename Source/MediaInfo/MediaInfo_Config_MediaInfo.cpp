@@ -83,7 +83,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Demux_ForceIds=false;
         Demux_PCM_20bitTo16bit=false;
         Demux_PCM_20bitTo24bit=false;
-        Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10=true;
+        Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10=false;
         Demux_Unpacketize=false;
         Demux_Rate=0;
         Demux_FirstDts=(int64u)-1;
