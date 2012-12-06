@@ -9228,13 +9228,13 @@ void File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, const descrip
         if (Descriptor!=Descriptors.end())
         {
             if (Descriptor->second.Infos.find("Channel(s)")!=Descriptor->second.Infos.end())
-            {
                 Parser->Channels=Descriptor->second.Infos["Channel(s)"].To_int32u();
-            }
-            if (Parser->Channels && Descriptor->second.BlockAlign!=(int32u)-1)
+            if (Parser->Channels && Descriptor->second.BlockAlign!=(int16u)-1)
                 Parser->BitDepth=Descriptor->second.BlockAlign*8/Parser->Channels;
             else if (Descriptor->second.QuantizationBits!=(int32u)-1)
                 Parser->BitDepth=Descriptor->second.QuantizationBits;
+            else if (Descriptor->second.Infos.find("BitDepth")!=Descriptor->second.Infos.end())
+                Parser->BitDepth=Descriptor->second.Infos["BitDepth"].To_int16u();
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))
