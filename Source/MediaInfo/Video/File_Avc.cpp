@@ -848,7 +848,9 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
                 case 3: Size=BigEndian2int32u(Buffer+Buffer_Offset);
                         Buffer_Offset+=4;
                         break;
-                default:return false; //Problem
+                default: //Problem
+                        delete [] TranscodedBuffer;
+                        return false;
             }
 
             //Coherency checking
