@@ -703,9 +703,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Als.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
