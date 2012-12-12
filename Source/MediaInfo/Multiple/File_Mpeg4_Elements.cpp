@@ -4936,8 +4936,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda()
         return; //Handling only the first description
 
     FILLING_BEGIN();
-        if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM"))
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Endianness, Endianness?"Little":"Big", Unlimited, true, true);
+        if (Streams[moov_trak_tkhd_TrackID].IsPcm)
+        {
+            if (Streams[moov_trak_tkhd_TrackID].Parsers.size()==1)
+                ((File_Pcm*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Endianness=Endianness?'L':'B';
+            if (Streams[moov_trak_tkhd_TrackID].Parsers.size()==2)
+            {
+                ((File_ChannelGrouping*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Endianness=Endianness?'L':'B';
+                ((File_Pcm*)Streams[moov_trak_tkhd_TrackID].Parsers[1])->Endianness=Endianness?'L':'B';
+            }
+        }
     FILLING_END();
 }
 

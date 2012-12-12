@@ -119,11 +119,11 @@ void File_Pcm::Streams_Fill()
     else if (Codec==__T("A_PCM/INT/BIG"))    {Firm=__T("");      Endianness='B';}
     else if (Codec==__T("A_PCM/INT/LITTLE")) {Firm=__T("");      Endianness='L';}
     else if (Codec==__T("A_PCM/INT/FLOAT"))  {Firm=__T("");      Endianness='B'; Sign='F';}
-    else if (Codec==__T("fl32"))             {                   Endianness='B'; Sign='F'; BitDepth=32;}
-    else if (Codec==__T("fl64"))             {                   Endianness='B'; Sign='F'; BitDepth=64;}
-    else if (Codec==__T("in24"))             {                   Endianness='B'; Sign='U'; BitDepth=24;}
-    else if (Codec==__T("in32"))             {                   Endianness='B'; Sign='U'; BitDepth=32;}
-    else if (Codec==__T("raw "))             {                   Endianness='L'; Sign='U';}
+    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth=32;}
+    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth=64;}
+    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth=24;}
+    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth=32;}
+    else if (Codec==__T("raw "))             {  if (!Endianness) Endianness='L'; Sign='U';}
     else if (Codec==__T("twos"))             {                   Endianness='B'; Sign='S';}
     else if (Codec==__T("sowt"))             {                   Endianness='L'; Sign='S';}
     else if (Codec==__T("SWF ADPCM"))        {Firm=__T("SWF");}
