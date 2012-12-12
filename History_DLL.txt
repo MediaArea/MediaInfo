@@ -16,6 +16,7 @@ x Division by 0 in case of 0 byte long file
 x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV
 x P2 Clip: wrong uppercase/lowercase in the file name of source files.
 x MOV: PCM endianness was sometimes wrong
+x MPEG-4: JPEG interlacement was sometimes wrong
 
 Version 0.7.61, 2012-10-22
 --------------
