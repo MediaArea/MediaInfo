@@ -217,7 +217,7 @@ void File_SmpteSt0302::Read_Buffer_Continue()
                         Info_Offset+=6;
                         Element_Offset+=6;
                         break;
-            case 2  : //24 bits
+            case 2  :   //24 bits
                         //Channel 1 (24 bits, as "s24l" codec)
                         Info[Info_Offset+0] = Reverse8(Buffer[Buffer_Pos+0] );
                         Info[Info_Offset+1] = Reverse8(Buffer[Buffer_Pos+1] );
@@ -260,7 +260,9 @@ void File_SmpteSt0302::Read_Buffer_Continue()
                 Info_Pos+=6;
             }
 
-            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
+            Element_Offset=0;
+            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset, (size_t)Element_Size);
+            Element_Offset=4;
         }
         else if (bits_per_sample==1 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
@@ -282,10 +284,16 @@ void File_SmpteSt0302::Read_Buffer_Continue()
                 Info_Pos+=6;
             }
 
-            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
+            Element_Offset=0;
+            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset, (size_t)Element_Size);
+            Element_Offset=4;
         }
         else
-            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset+4, (size_t)Element_Size-4);
+        {
+            Element_Offset=0;
+            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset, (size_t)Element_Size);
+            Element_Offset=4;
+        }
     #endif //MEDIAINFO_DEMUX
 
     //Parsers
