@@ -43,7 +43,7 @@ class MediaInfo
     final public static int Stream_Video         = 1;
     final public static int Stream_Audio         = 2;
     final public static int Stream_Text          = 3;
-    final public static int Stream_Chapters      = 4;
+    final public static int Stream_Other         = 4;
     final public static int Stream_Image         = 5;
     final public static int Stream_Menu          = 6;
     final public static int Stream_Max           = 7;

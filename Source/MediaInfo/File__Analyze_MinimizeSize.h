@@ -1084,7 +1084,7 @@ protected :
     void Streams_Finish_StreamOnly_Video(size_t StreamPos);
     void Streams_Finish_StreamOnly_Audio(size_t StreamPos);
     void Streams_Finish_StreamOnly_Text(size_t StreamPos);
-    void Streams_Finish_StreamOnly_Chapters(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Other(size_t StreamPos);
     void Streams_Finish_StreamOnly_Image(size_t StreamPos);
     void Streams_Finish_StreamOnly_Menu(size_t StreamPos);
     void Streams_Finish_InterStreams();

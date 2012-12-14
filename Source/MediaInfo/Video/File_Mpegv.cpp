@@ -1363,7 +1363,7 @@ void File_Mpegv::Streams_Fill()
     }
 
     //Delay
-    if (group_start_FirstPass && Time_Begin_Seconds!=Error)
+    if (group_start_FirstPass && !TimeCodeIsNotTrustable && Time_Begin_Seconds!=Error)
     {
         float64 Time_Begin=((float64)Time_Begin_Seconds)*1000;
         if (FrameRate)
@@ -1373,6 +1373,11 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(__T("closed_gop="))+(group_start_closed_gop?__T("1"):__T("0")));
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(__T("broken_link="))+(group_start_broken_link?__T("1"):__T("0")));
         Fill(Stream_Video, 0, Video_Delay_Source, "Stream");
+        Fill(Stream_Video, 0, Video_Delay_DropFrame, group_start_drop_frame_flag?"Yes":"No");
+
+        Fill(Stream_Video, 0, Video_TimeCode_FirstFrame, TimeCode_FirstFrame.c_str());
+        if (IsSub)
+            Fill(Stream_Video, 0, Video_TimeCode_Source, "Group of pictures header");
     }
 
     //BVOP
@@ -3917,6 +3922,7 @@ void File_Mpegv::group_start()
             //Time code is always 0
             TimeCodeIsNotTrustable=true;
             Time_End_Seconds=(size_t)-1;
+            TimeCode_FirstFrame.clear();
             return;
         }
 
@@ -3932,6 +3938,18 @@ void File_Mpegv::group_start()
             group_start_drop_frame_flag=drop_frame_flag;
             group_start_closed_gop=closed_gop;
             group_start_broken_link=broken_link;
+
+            TimeCode_FirstFrame+=('0'+Hours/10);
+            TimeCode_FirstFrame+=('0'+Hours%10);
+            TimeCode_FirstFrame+=':';
+            TimeCode_FirstFrame+=('0'+Minutes/10);
+            TimeCode_FirstFrame+=('0'+Minutes%10);
+            TimeCode_FirstFrame+=':';
+            TimeCode_FirstFrame+=('0'+Seconds/10);
+            TimeCode_FirstFrame+=('0'+Seconds%10);
+            TimeCode_FirstFrame+=drop_frame_flag?';':':';
+            TimeCode_FirstFrame+=('0'+Frames/10);
+            TimeCode_FirstFrame+=('0'+Frames%10);
         }
 
         RefFramesCount=0;

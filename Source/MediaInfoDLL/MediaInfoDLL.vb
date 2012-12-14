@@ -33,7 +33,7 @@ Public Enum StreamKind As UInteger
     Visual
     Audio
     Text
-    Chapters
+    Other
     Image
     Menu
     Max

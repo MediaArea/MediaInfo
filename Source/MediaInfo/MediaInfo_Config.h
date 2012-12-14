@@ -306,7 +306,7 @@ private :
     Ztring          DecimalPoint;
     Ztring          ThousandsPoint;
     Translation     Language; //ex. : "KB;Ko"
-    ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Chapters", "Image"
+    ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Other", "Image"
     ZtringListList  Custom_View_Replace; //ToReplace;ReplaceBy
     trace_Format    Trace_Format;
 

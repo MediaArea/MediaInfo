@@ -209,7 +209,7 @@ ZenLib::Ztring Resources_Create()
         return Result;
     Out+=Contents;
 
-    Result=Resources_Create_Item(L"Stream", L"Chapters", L"ZtringListList", Contents);
+    Result=Resources_Create_Item(L"Stream", L"Other", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

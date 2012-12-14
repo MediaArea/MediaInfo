@@ -82,7 +82,7 @@ ZenLib::Ztring Enums_Create_Item(const Ztring &Directory, const Ztring &Name, Zt
         Ztring Line_Temp=Line;
         Line_Temp.FindAndReplace(L"%Name%", Name);
         Ztring &ToAdd=ZLL(Pos, 0);
-        ToAdd.FindAndReplace(__T("/"), __T("_")); //C++ does not accept "/" in names
+        ToAdd.FindAndReplace(__T("/"), __T("_"), 0, Ztring_Recursive); //C++ does not accept "/" in names
         ToAdd.FindAndReplace(__T("("), __T("_")); //C++ does not accept "(" in names
         ToAdd.FindAndReplace(__T(")"), __T("_")); //C++ does not accept ")" in names
         ToAdd.FindAndReplace(__T("*"), __T("_")); //C++ does not accept "*" in names
@@ -139,7 +139,7 @@ ZenLib::Ztring Enums_Create()
         return Result;
     Out+=Contents;
 
-    Result=Enums_Create_Item(L"Stream", L"Chapters", Contents);
+    Result=Enums_Create_Item(L"Stream", L"Other", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

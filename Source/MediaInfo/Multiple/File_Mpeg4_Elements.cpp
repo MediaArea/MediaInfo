@@ -1493,7 +1493,7 @@ void File_Mpeg4::mdat_xxxx()
     if (Stream==Streams.end())
         return;
     #if MEDIAINFO_DEMUX
-        if (Streams[(int32u)Element_Code].StreamKind!=Stream_Menu && Streams[(int32u)Element_Code].StreamKind!=Stream_Max)
+        if (Streams[(int32u)Element_Code].StreamKind!=Stream_Other && Streams[(int32u)Element_Code].StreamKind!=Stream_Max)
         {
             //DTS
             Frame_Count_NotParsedIncluded=Stream->second.stts_FramePos;
@@ -1543,7 +1543,7 @@ void File_Mpeg4::mdat_xxxx()
         #if MEDIAINFO_DEMUX
             if (!Stream->second.IsFilled && Stream->second.Parsers[Pos]->Status[IsFilled])
             {
-                if (Stream->second.StreamKind==Stream_Menu) //If this is a TimeCode track
+                if (Stream->second.StreamKind==Stream_Other) //If this is a TimeCode track
                 {
                     if (((File_Mpeg4_TimeCode*)Stream->second.Parsers[Pos])->Pos!=(int32u)-1)
                     {
@@ -3010,8 +3010,9 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd()
     Element_Name("TimeCode");
 
     //Filling
-    Stream_Prepare(Stream_Menu);
-    Fill(Stream_Menu, StreamPos_Last, Menu_Format, "TimeCode");
+    Stream_Prepare(Stream_Other);
+    Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+    Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "Time code track");
 }
 
 //---------------------------------------------------------------------------

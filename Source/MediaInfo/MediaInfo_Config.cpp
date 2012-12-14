@@ -75,7 +75,7 @@ void MediaInfo_Config_General                 (ZtringListList &Info);
 void MediaInfo_Config_Video                   (ZtringListList &Info);
 void MediaInfo_Config_Audio                   (ZtringListList &Info);
 void MediaInfo_Config_Text                    (ZtringListList &Info);
-void MediaInfo_Config_Chapters                (ZtringListList &Info);
+void MediaInfo_Config_Other                   (ZtringListList &Info);
 void MediaInfo_Config_Image                   (ZtringListList &Info);
 void MediaInfo_Config_Menu                    (ZtringListList &Info);
 void MediaInfo_Config_Summary                 (ZtringListList &Info);
@@ -1594,7 +1594,7 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
         case Stream_Audio    : KindOfStreamS=__T("A"); break;
         case Stream_Text     : KindOfStreamS=__T("T"); break;
         case Stream_Image    : KindOfStreamS=__T("I"); break;
-        case Stream_Chapters : KindOfStreamS=__T("C"); break;
+        case Stream_Other : KindOfStreamS=__T("C"); break;
         case Stream_Menu     : KindOfStreamS=__T("M"); break;
         case Stream_Max      : KindOfStreamS=__T(" "); break;
     }
@@ -1731,7 +1731,7 @@ const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &V
             case Stream_Video :     MediaInfo_Config_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
             case Stream_Audio :     MediaInfo_Config_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
             case Stream_Text :      MediaInfo_Config_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
-            case Stream_Chapters :  MediaInfo_Config_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Other :     MediaInfo_Config_Other(Info[Stream_Other]);       Language_Set(Stream_Other); break;
             case Stream_Image :     MediaInfo_Config_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
             case Stream_Menu :      MediaInfo_Config_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
             default:;
@@ -1757,7 +1757,7 @@ const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, size_t Pos, inf
             case Stream_Video :     MediaInfo_Config_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
             case Stream_Audio :     MediaInfo_Config_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
             case Stream_Text :      MediaInfo_Config_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
-            case Stream_Chapters :  MediaInfo_Config_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Other :     MediaInfo_Config_Other(Info[Stream_Other]);       Language_Set(Stream_Other); break;
             case Stream_Image :     MediaInfo_Config_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
             case Stream_Menu :      MediaInfo_Config_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
             default:;
@@ -1785,7 +1785,7 @@ const ZtringListList &MediaInfo_Config::Info_Get(stream_t KindOfStream)
             case Stream_Video :     MediaInfo_Config_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
             case Stream_Audio :     MediaInfo_Config_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
             case Stream_Text :      MediaInfo_Config_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
-            case Stream_Chapters :  MediaInfo_Config_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Other :     MediaInfo_Config_Other(Info[Stream_Other]);       Language_Set(Stream_Other); break;
             case Stream_Image :     MediaInfo_Config_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
             case Stream_Menu :      MediaInfo_Config_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
             default:;
@@ -1805,7 +1805,7 @@ Ztring MediaInfo_Config::Info_Parameters_Get ()
     MediaInfo_Config_Video(Info[Stream_Video]);
     MediaInfo_Config_Audio(Info[Stream_Audio]);
     MediaInfo_Config_Text(Info[Stream_Text]);
-    MediaInfo_Config_Chapters(Info[Stream_Chapters]);
+    MediaInfo_Config_Other(Info[Stream_Other]);
     MediaInfo_Config_Image(Info[Stream_Image]);
     MediaInfo_Config_Menu(Info[Stream_Menu]);
 

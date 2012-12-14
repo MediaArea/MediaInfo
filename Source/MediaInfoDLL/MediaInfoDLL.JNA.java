@@ -96,7 +96,7 @@ class MediaInfo
         Video,
         Audio,
         Text,
-        Chapters,
+        Other,
         Image,
         Menu;
     }

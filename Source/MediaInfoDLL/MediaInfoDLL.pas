@@ -22,7 +22,7 @@ type TMIStreamKind =
     Stream_Video,
     Stream_Audio,
     Stream_Text,
-    Stream_Chapters,
+    Stream_Other,
     Stream_Image,
     Stream_Menu,
     Stream_Max

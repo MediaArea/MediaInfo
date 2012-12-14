@@ -85,7 +85,17 @@ private :
     int32u Material_Fields_FieldsPerFrame;
     int8u  Parsers_Count;
     int8u  AncillaryData_StreamID;
-    std::map<int8u, int64u> TimeCodes; //Key is StreamID
+    struct tc
+    {
+        int64u Milliseconds;
+        string String;
+
+        tc()
+        {
+            Milliseconds=(int64u)-1;
+        }
+    };
+    std::map<int8u, tc> TimeCodes; //Key is StreamID
     bool   Material_Fields_First_IsValid;
     bool   Material_Fields_Last_IsValid;
     bool   Material_File_Size_IsValid;

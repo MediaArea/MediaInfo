@@ -51,7 +51,8 @@ public :
     int32u FieldsPerFrame_Code;
 
     //Out
-    int64u TimeCode_First;
+    int64u TimeCode_FirstFrame_ms;
+    string TimeCode_FirstFrame;
 
     //Constructor/Destructor
     File_Gxf_TimeCode();

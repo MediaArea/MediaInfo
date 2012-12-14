@@ -52,7 +52,7 @@ namespace MediaInfoLib
         Video,
         Audio,
         Text,
-        Chapters,
+        Other,
         Image,
         Menu,
     }

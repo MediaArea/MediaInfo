@@ -1368,7 +1368,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Stream_Prepare(StreamKind);
 
     //Specific stuff
-    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, ScanType_Temp, ScanOrder_Temp, Delay_Temp, Delay_Source_Temp, Delay_Settings_Temp, Source_Temp, Source_Kind_Temp, Source_Info_Temp;
+    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, ScanType_Temp, ScanOrder_Temp, Delay_Temp, Delay_DropFrame_Temp, Delay_Source_Temp, Delay_Settings_Temp, Source_Temp, Source_Kind_Temp, Source_Info_Temp;
     if (StreamKind==Stream_Video)
     {
         Width_Temp=Retrieve(Stream_Video, StreamPos_To, Video_Width);
@@ -1384,6 +1384,8 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     {
         Fill(StreamKind, StreamPos_To, "Delay_Original", Retrieve(StreamKind, StreamPos_To, "Delay"), true);
         Clear(StreamKind, StreamPos_To, "Delay");
+        Fill(StreamKind, StreamPos_To, "Delay_Original_DropFrame", Retrieve(StreamKind, StreamPos_To, "Delay_DropFrame"), true);
+        Clear(StreamKind, StreamPos_To, "Delay_DropFrame");
         Fill(StreamKind, StreamPos_To, "Delay_Original_Source", Retrieve(StreamKind, StreamPos_To, "Delay_Source"), true);
         Clear(StreamKind, StreamPos_To, "Delay_Source");
         if (!ToAdd.Retrieve(StreamKind, StreamPos_To, "Format").empty()) //Exception: MPEG-4 TimeCode, settings are in the MPEG-4 header
@@ -1396,6 +1398,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     {
         Delay_Temp=Retrieve(StreamKind, StreamPos_To, "Delay"); //We want to keep the Delay from the stream
         Delay_Settings_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_Settings"); //We want to keep the Delay_Settings from the stream
+        Delay_DropFrame_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_DropFrame"); //We want to keep the Delay_Source from the stream
         Delay_Source_Temp=Retrieve(StreamKind, StreamPos_To, "Delay_Source"); //We want to keep the Delay_Source from the stream
     }
     Source_Temp=Retrieve(StreamKind, StreamPos_To, "Source");
@@ -1480,6 +1483,8 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Fill(StreamKind, StreamPos_To, "Delay", Delay_Temp, true);
         Fill(StreamKind, StreamPos_To, "Delay_Original_Settings", Retrieve(StreamKind, StreamPos_To, "Delay_Settings"), true);
         Fill(StreamKind, StreamPos_To, "Delay_Settings", Delay_Settings_Temp, true);
+        Fill(StreamKind, StreamPos_To, "Delay_Original_DropFrame", Retrieve(StreamKind, StreamPos_To, "Delay_DropFrame"), true);
+        Fill(StreamKind, StreamPos_To, "Delay_DropFrame", Delay_DropFrame_Temp, true);
         Fill(StreamKind, StreamPos_To, "Delay_Original_Source", Retrieve(StreamKind, StreamPos_To, "Delay_Source"), true);
         Fill(StreamKind, StreamPos_To, "Delay_Source", Delay_Source_Temp, true);
     }
@@ -2216,6 +2221,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_String3 : return Video_Delay_String3;
                                     case Generic_Delay_String4 : return Video_Delay_String4;
                                     case Generic_Delay_Settings : return Video_Delay_Settings;
+                                    case Generic_Delay_DropFrame : return Video_Delay_DropFrame;
                                     case Generic_Delay_Source : return Video_Delay_Source;
                                     case Generic_Delay_Source_String : return Video_Delay_Source_String;
                                     case Generic_Delay_Original : return Video_Delay_Original;
@@ -2225,6 +2231,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_Original_String3 : return Video_Delay_Original_String3;
                                     case Generic_Delay_Original_String4 : return Video_Delay_Original_String4;
                                     case Generic_Delay_Original_Settings : return Video_Delay_Original_Settings;
+                                    case Generic_Delay_Original_DropFrame : return Video_Delay_Original_DropFrame;
                                     case Generic_Delay_Original_Source : return Video_Delay_Original_Source;
                                     case Generic_StreamSize : return Video_StreamSize;
                                     case Generic_StreamSize_String : return Video_StreamSize_String;
@@ -2321,6 +2328,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_String3 : return Audio_Delay_String3;
                                     case Generic_Delay_String4 : return Audio_Delay_String4;
                                     case Generic_Delay_Settings : return Audio_Delay_Settings;
+                                    case Generic_Delay_DropFrame : return Audio_Delay_DropFrame;
                                     case Generic_Delay_Source : return Audio_Delay_Source;
                                     case Generic_Delay_Source_String : return Audio_Delay_Source_String;
                                     case Generic_Delay_Original : return Audio_Delay_Original;
@@ -2330,6 +2338,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_Original_String3 : return Audio_Delay_Original_String3;
                                     case Generic_Delay_Original_String4 : return Audio_Delay_Original_String4;
                                     case Generic_Delay_Original_Settings : return Audio_Delay_Original_Settings;
+                                    case Generic_Delay_Original_DropFrame : return Audio_Delay_Original_DropFrame;
                                     case Generic_Delay_Original_Source : return Audio_Delay_Original_Source;
                                     case Generic_Video_Delay : return Audio_Video_Delay;
                                     case Generic_Video_Delay_String : return Audio_Video_Delay_String;
@@ -2434,6 +2443,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_String3 : return Text_Delay_String3;
                                     case Generic_Delay_String4 : return Text_Delay_String4;
                                     case Generic_Delay_Settings : return Text_Delay_Settings;
+                                    case Generic_Delay_DropFrame : return Text_Delay_DropFrame;
                                     case Generic_Delay_Source : return Text_Delay_Source;
                                     case Generic_Delay_Source_String : return Text_Delay_Source_String;
                                     case Generic_Delay_Original : return Text_Delay_Original;
@@ -2443,6 +2453,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Delay_Original_String3 : return Text_Delay_Original_String3;
                                     case Generic_Delay_Original_String4 : return Text_Delay_Original_String4;
                                     case Generic_Delay_Original_Settings : return Text_Delay_Original_Settings;
+                                    case Generic_Delay_Original_DropFrame : return Text_Delay_Original_DropFrame;
                                     case Generic_Delay_Original_Source : return Text_Delay_Original_Source;
                                     case Generic_Video_Delay : return Text_Video_Delay;
                                     case Generic_Video_Delay_String : return Text_Video_Delay_String;
@@ -2525,7 +2536,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Language : return Image_Language;
                                     default: return (size_t)-1;
                                 }
-        case Stream_Chapters : return (size_t)-1;
+        case Stream_Other :     return (size_t)-1;
         case Stream_Menu :
                                 switch (StreamPos)
                                 {

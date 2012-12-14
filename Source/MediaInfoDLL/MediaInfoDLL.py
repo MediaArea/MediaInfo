@@ -50,7 +50,7 @@ else:
 
 
 class Stream:
-    General, Video, Audio, Text, Chapters, Image, Menu, Max = range(8)
+    General, Video, Audio, Text, Other, Image, Menu, Max = range(8)
 
 class Info:
     Name, Text, Measure, Options, Name_Text, Measure_Text, Info, HowTo, Max = range(9)

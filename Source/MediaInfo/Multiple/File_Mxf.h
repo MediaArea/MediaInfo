@@ -81,7 +81,7 @@ protected :
     void Streams_Finish_Essence (int32u EssenceUID, int128u TrackUID);
     void Streams_Finish_Descriptor (int128u DescriptorUID, int128u PackageUID);
     void Streams_Finish_Locator (int128u DescriptorUID, int128u LocatorUID);
-    void Streams_Finish_Component (int128u ComponentUID, float64 EditRate);
+    void Streams_Finish_Component (int128u ComponentUID, float64 EditRate, int32u TrackID);
     void Streams_Finish_Identification (int128u IdentificationUID);
     void Streams_Finish_CommercialNames ();
 
@@ -645,10 +645,20 @@ protected :
         int32u  SourceTrackID;
         std::vector<int128u> StructuralComponents; //Sequence from MaterialPackage only
 
+        //Time code component
+        int16u  TimeCode_RoundedTimecodeBase;
+        int64u  TimeCode_StartTimecode;
+        bool    TimeCode_DropFrame;
+
         component()
         {
             Duration=(int64u)-1;
             SourceTrackID=(int32u)-1;
+
+            //Time code component
+            TimeCode_RoundedTimecodeBase=(int16u)-1;
+            TimeCode_StartTimecode=(int64u)-1;
+            TimeCode_DropFrame=false;
         }
 
         void Update (struct component &New)
@@ -746,11 +756,13 @@ protected :
     bool   TimeCode_DropFrame;
     float64 DTS_Delay; //In seconds
     bool   StreamPos_StartAtOne; //information about the base of StreamPos (0 or 1, 1 is found in 1 file)
-    int64u SDTI_TimeCode_StartTimecode;
+    string SDTI_TimeCode_StartTimecode;
+    int64u SDTI_TimeCode_StartTimecode_ms;
     int64u SDTI_SizePerFrame;
     bool   SDTI_IsPresent; //Used to test if SDTI packet is used for Index StreamOffset calculation
     bool   SDTI_IsInIndexStreamOffset; //Used to test if SDTI packet is used for Index StreamOffset calculation
-    int64u SystemScheme1_TimeCodeArray_StartTimecode;
+    string SystemScheme1_TimeCodeArray_StartTimecode;
+    int64u SystemScheme1_TimeCodeArray_StartTimecode_ms;
     int64u SystemScheme1_FrameRateFromDescriptor;
     bool   Essences_FirstEssence_Parsed;
     int32u IndexTable_NSL;

@@ -37,7 +37,7 @@ public enum StreamKind
 	Visual,
 	Audio,
 	Text,
-	Chapters,
+	Other,
 	Image,
 	Menu,
 	Max

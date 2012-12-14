@@ -1793,8 +1793,15 @@ void File_Mpeg4::TimeCode_Associate(int32u TrackID)
                 Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(__T("24HourMax="))+(Streams[TrackID].TimeCode->H24?__T("Yes"):__T("No")));
                 Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(__T("IsVisual="))+(Streams[TrackID].TimeCode_IsVisual?__T("Yes"):__T("No")));
             }
-            Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay", Streams[TrackID].Parsers[0]->Get(Stream_General, 0, "Delay"));
-            Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Source", "Container");
+            if (Strea->second.StreamKind!=Stream_Other)
+            {
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay", Streams[TrackID].Parsers[0]->Get(Stream_General, 0, "Delay"));
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_DropFrame", Streams[TrackID].TimeCode->DropFrame?__T("Yes"):__T("No"));
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Source", "Container");
+            }
+
+            //Fill(Strea->second.StreamKind, Strea->second.StreamPos, "TimeCode_FirstFrame", Streams[TrackID].Parsers[0]->Get(Stream_General, 0, "TimeCode_FirstFrame"));
+            //Fill(Strea->second.StreamKind, Strea->second.StreamPos, "TimeCode_Source", Streams[TrackID].Parsers[0]->Get(Stream_General, 0, "TimeCode_Source"));
         }
  }
 

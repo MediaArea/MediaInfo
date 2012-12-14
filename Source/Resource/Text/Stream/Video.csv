@@ -183,6 +183,7 @@ Delay/String2;;;N NT;;;Delay with measurement;
 Delay/String3;;;N NT;;;Delay in format : HH:MM:SS.MMM;
 Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
 Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
+Delay_DropFrame;;;N NT;;;Delay drop frame;
 Delay_Source;;;N NT;;;Delay source (Container or Stream or empty);
 Delay_Source/String;;;N NT;;;Delay source (Container or Stream or empty);
 Delay_Original;; ms;N NI;;;Delay fixed in the raw stream (relative) IN MS;
@@ -192,7 +193,16 @@ Delay_Original/String2;;;N NT;;;Delay with measurement;
 Delay_Original/String3;;;N NT;;;Delay in format: HH:MM:SS.MMM;;
 Delay_Original/String4;;;N NT;;;Delay in format: HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available);
 Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example);;
+Delay_Original_DropFrame;;;N NT;;;Delay drop frame info;
 Delay_Original_Source;;;N NT;;;Delay source (Stream or empty);
+TimeStamp_FirstFrame;; ms;N YI;;;TimeStamp fixed in the stream (relative) IN MS;
+TimeStamp_FirstFrame/String;;;Y NT;;;TimeStamp with measurement;
+TimeStamp_FirstFrame/String1;;;N NT;;;TimeStamp with measurement;
+TimeStamp_FirstFrame/String2;;;N NT;;;TimeStamp with measurement;
+TimeStamp_FirstFrame/String3;;;N NT;;;TimeStamp in format : HH:MM:SS.MMM;
+TimeCode_FirstFrame;;;Y YC;;;Time code in HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available) format
+TimeCode_Settings;;;Y YT;;;Time code settings
+TimeCode_Source;;;Y YT;;;Time code source (Container, Stream, SystemScheme1, SDTI, ANC...)
 StreamSize;; byte;N YI;;;Streamsize in bytes;;
 StreamSize/String;;;Y NT;;;Streamsize in with percentage value;;
 StreamSize/String1;;;N NT;;;;;

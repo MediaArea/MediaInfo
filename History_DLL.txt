@@ -12,6 +12,8 @@ Version 0.7.62, 2012-
 --------------
 + AC-3: support of 22.05 kHz streams (out of specs but they exist)
 + MOV: support of AVID metadata (interlacement information)
++ Time code dedicated tracks (MOV, MXF, GXF)
++ MPEG Video Time code
 x Division by 0 in case of 0 byte long file
 x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV
 x P2 Clip: wrong uppercase/lowercase in the file name of source files.

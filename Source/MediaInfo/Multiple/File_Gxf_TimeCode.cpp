@@ -71,7 +71,7 @@ File_Gxf_TimeCode::File_Gxf_TimeCode()
     FieldsPerFrame_Code=(int32u)-1;
 
     //Out
-    TimeCode_First=(int64u)-1;
+    TimeCode_FirstFrame_ms=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -87,12 +87,20 @@ File_Gxf_TimeCode::~File_Gxf_TimeCode()
 void File_Gxf_TimeCode::Streams_Fill()
 {
     Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
+    Fill(Stream_Video, 0, Video_Delay, TimeCode_FirstFrame_ms);
+    if (TimeCode_FirstFrame.size()==11)
+        Fill(Stream_Video, StreamPos_Last, Video_Delay_DropFrame, TimeCode_FirstFrame[8]==';'?"Yes":"No");
     Fill(Stream_Video, 0, Video_Delay_Source, "Container");
+    Fill(Stream_Video, 0, Video_TimeCode_FirstFrame, TimeCode_FirstFrame.c_str());
+    Fill(Stream_Video, 0, Video_TimeCode_Source, "Time code track");
 
     Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Delay, TimeCode_First);
+    Fill(Stream_Audio, 0, Audio_Delay, TimeCode_FirstFrame_ms);
+    if (TimeCode_FirstFrame.size()==11)
+        Fill(Stream_Audio, StreamPos_Last, Audio_Delay_DropFrame, TimeCode_FirstFrame[8]==';'?"Yes":"No");
     Fill(Stream_Audio, 0, Audio_Delay_Source, "Container");
+    Fill(Stream_Audio, 0, Video_TimeCode_FirstFrame, TimeCode_FirstFrame.c_str());
+    Fill(Stream_Audio, 0, Video_TimeCode_Source, "Time code track");
 }
 
 //***************************************************************************
@@ -174,12 +182,27 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
 
             Element_Info1(Ztring().Duration_From_Milliseconds(TimeCode_Ms));
 
+            if (TimeCode_FirstFrame.empty())
+            {
+                TimeCode_FirstFrame+=('0'+Hours_Tens);
+                TimeCode_FirstFrame+=('0'+Hours_Units);
+                TimeCode_FirstFrame+=':';
+                TimeCode_FirstFrame+=('0'+Minutes_Tens);
+                TimeCode_FirstFrame+=('0'+Minutes_Units);
+                TimeCode_FirstFrame+=':';
+                TimeCode_FirstFrame+=('0'+Seconds_Tens);
+                TimeCode_FirstFrame+=('0'+Seconds_Units);
+                TimeCode_FirstFrame+=DropFrame?';':':';
+                TimeCode_FirstFrame+=('0'+Frames_Tens);
+                TimeCode_FirstFrame+=('0'+Frames_Units);
+            }
+
             BS_End();
             Element_End0();
 
             FILLING_BEGIN();
-                if (TimeCode_First==(int64u)-1)
-                    TimeCode_First=TimeCode_Ms;
+                if (TimeCode_FirstFrame_ms==(int64u)-1)
+                    TimeCode_FirstFrame_ms=TimeCode_Ms;
             FILLING_END();
         }
         else
@@ -190,7 +213,7 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
     Element_Offset+=64;
 
     FILLING_BEGIN();
-    if (!Status[IsFilled] && TimeCode_First!=(int64u)-1)
+    if (!Status[IsFilled] && TimeCode_FirstFrame_ms!=(int64u)-1)
     {
         Accept();
         Fill();

@@ -77,6 +77,7 @@
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
+#include "MediaInfo/TimeCode.h"
 #include "MediaInfo/File_Unknown.h"
 #include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
@@ -915,11 +916,11 @@ File_Mxf::File_Mxf()
     TimeCode_DropFrame=false;
     DTS_Delay=0;
     StreamPos_StartAtOne=true;
-    SDTI_TimeCode_StartTimecode=(int64u)-1;
+    SDTI_TimeCode_StartTimecode_ms=(int64u)-1;
     SDTI_SizePerFrame=0;
     SDTI_IsPresent=false;
     SDTI_IsInIndexStreamOffset=true;
-    SystemScheme1_TimeCodeArray_StartTimecode=(int64u)-1;
+    SystemScheme1_TimeCodeArray_StartTimecode_ms=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
     Essences_FirstEssence_Parsed=false;
     ReferenceFiles=NULL;
@@ -1057,6 +1058,38 @@ void File_Mxf::Streams_Finish()
     //OperationalPattern
     Fill(Stream_General, 0, General_Format_Profile, Mxf_OperationalPattern(OperationalPattern));
 
+    //Time codes
+    if (SDTI_TimeCode_StartTimecode_ms!=(int64u)-1)
+    {
+        bool IsDuplicate=false;
+        for (size_t Pos2=0; Pos2<Count_Get(Stream_Other); Pos2++)
+            if (Retrieve(Stream_Other, Pos2, "TimeCode_Source")==__T("SDTI"))
+                IsDuplicate=true;
+        if (!IsDuplicate)
+        {
+            Fill_Flush();
+            Stream_Prepare(Stream_Other);
+            Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, SDTI_TimeCode_StartTimecode.c_str());
+            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "SDTI");
+        }
+    }
+    if (SystemScheme1_TimeCodeArray_StartTimecode_ms!=(int64u)-1)
+    {
+        bool IsDuplicate=false;
+        for (size_t Pos2=0; Pos2<Count_Get(Stream_Other); Pos2++)
+            if (Retrieve(Stream_Other, Pos2, "TimeCode_Source")==__T("System scheme 1"))
+                IsDuplicate=true;
+        if (!IsDuplicate)
+        {
+            Fill_Flush();
+            Stream_Prepare(Stream_Other);
+            Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, SystemScheme1_TimeCodeArray_StartTimecode.c_str());
+            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "System scheme 1");
+        }
+    }
+    
     //Parsing locators
     Locators_Test();
     #if MEDIAINFO_NEXTPACKET
@@ -1135,8 +1168,7 @@ void File_Mxf::Streams_Finish_Track(int128u TrackUID)
     Streams_Finish_Essence(Track->second.TrackNumber, TrackUID);
 
     //Sequence
-    if (StreamKind_Last!=Stream_Max)
-        Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate);
+    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate, Track->second.TrackID);
 
     //Done
     Track->second.Stream_Finish_Done=true;
@@ -1212,11 +1244,28 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     {
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), DTS_Delay*1000, 0, true);
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container");
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_DropFrame), TimeCode_DropFrame?"Yes":"No");
+
+        //TimeCode TC(TimeCode_StartTimecode, TimeCode_RoundedTimecodeBase, TimeCode_DropFrame);
+        //Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_TimeCode_FirstFrame), TC.ToString().c_str());
+        //Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_TimeCode_Source), "Time code track (stripped)");
     }
-    if (SDTI_TimeCode_StartTimecode!=(int64u)-1)
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_SDTI", SDTI_TimeCode_StartTimecode);
-    if (SystemScheme1_TimeCodeArray_StartTimecode!=(int64u)-1)
-        Fill(StreamKind_Last, StreamPos_Last, "Delay_SystemScheme1", SystemScheme1_TimeCodeArray_StartTimecode);
+    if (SDTI_TimeCode_StartTimecode_ms!=(int64u)-1)
+    {
+        Fill(StreamKind_Last, StreamPos_Last, "Delay_SDTI", SDTI_TimeCode_StartTimecode_ms);
+        (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Delay_SDTI"), Info_Options)=__T("N NT");
+
+        //Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_TimeCode_FirstFrame), SDTI_TimeCode_StartTimecode.c_str());
+        //Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_TimeCode_Source), "SDTI");
+    }
+    if (SystemScheme1_TimeCodeArray_StartTimecode_ms!=(int64u)-1)
+    {
+        Fill(StreamKind_Last, StreamPos_Last, "Delay_SystemScheme1", SystemScheme1_TimeCodeArray_StartTimecode_ms);
+        (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Delay_SystemScheme1"), Info_Options)=__T("N NT");
+
+        //Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_TimeCode_FirstFrame), SystemScheme1_TimeCodeArray_StartTimecode.c_str());
+        //Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_TimeCode_Source), "System scheme 1");
+    }
 
     //Special case - Multiple sub-streams in a stream
     if ((*Parser)->Retrieve(Stream_General, 0, General_Format)==__T("ChannelGrouping") && (*Parser)->Count_Get(Stream_Audio))
@@ -1849,7 +1898,7 @@ void File_Mxf::Streams_Finish_CommercialNames ()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate)
+void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, int32u TrackID)
 {
     components::iterator Component=Components.find(ComponentUID);
     if (Component==Components.end())
@@ -1858,6 +1907,29 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate)
     //Duration
     if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1)
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
+
+    //For the sequence, searching Structural componenents
+    for (size_t Pos=0; Pos<Component->second.StructuralComponents.size(); Pos++)
+    {
+        components::iterator Component2=Components.find(Component->second.StructuralComponents[Pos]);
+        if (Component2!=Components.end() && Component2->second.TimeCode_StartTimecode!=(int64u)-1 && !Config->File_IsReferenced_Get())
+        {
+            bool IsDuplicate=false;
+            for (size_t Pos2=0; Pos2<Count_Get(Stream_Other); Pos2++)
+                if (Ztring::ToZtring(TrackID)==Retrieve(Stream_Other, Pos2, "ID"))
+                    IsDuplicate=true;
+            if (!IsDuplicate)
+            {
+                TimeCode TC(Component2->second.TimeCode_StartTimecode, Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
+                Stream_Prepare(Stream_Other);
+                Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+                Fill(Stream_Other, StreamPos_Last, Other_ID, TrackID);
+                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, TC.ToString().c_str());
+                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "Time code track");
+                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Settings, "Striped");
+            }
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -4524,8 +4596,22 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
         Skip_B8(                                            "Zero");
 
         //TimeCode
-        if (SDTI_TimeCode_StartTimecode==(int64u)-1)
-            SDTI_TimeCode_StartTimecode=TimeCode_ms;
+        if (SDTI_TimeCode_StartTimecode_ms==(int64u)-1)
+        {
+            SDTI_TimeCode_StartTimecode_ms=TimeCode_ms;
+            
+            SDTI_TimeCode_StartTimecode+=('0'+Hours_Tens);
+            SDTI_TimeCode_StartTimecode+=('0'+Hours_Units);
+            SDTI_TimeCode_StartTimecode+=':';
+            SDTI_TimeCode_StartTimecode+=('0'+Minutes_Tens);
+            SDTI_TimeCode_StartTimecode+=('0'+Minutes_Units);
+            SDTI_TimeCode_StartTimecode+=':';
+            SDTI_TimeCode_StartTimecode+=('0'+Seconds_Tens);
+            SDTI_TimeCode_StartTimecode+=('0'+Seconds_Units);
+            SDTI_TimeCode_StartTimecode+=DropFrame?';':':';
+            SDTI_TimeCode_StartTimecode+=('0'+Frames_Tens);
+            SDTI_TimeCode_StartTimecode+=('0'+Frames_Units);
+        }
     }
     else
         Skip_XX(17,                                             "Junk");
@@ -6620,8 +6706,22 @@ void File_Mxf::SystemScheme1_TimeCodeArray()
         Element_End0();
 
         //TimeCode
-        if (SystemScheme1_TimeCodeArray_StartTimecode==(int64u)-1)
-            SystemScheme1_TimeCodeArray_StartTimecode=TimeCode;
+        if (SystemScheme1_TimeCodeArray_StartTimecode_ms==(int64u)-1 && !IsParsingEnd && IsParsingMiddle_MaxOffset==(int64u)-1)
+        {
+            SystemScheme1_TimeCodeArray_StartTimecode_ms=TimeCode;
+            
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Hours_Tens);
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Hours_Units);
+            SystemScheme1_TimeCodeArray_StartTimecode+=':';
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Minutes_Tens);
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Minutes_Units);
+            SystemScheme1_TimeCodeArray_StartTimecode+=':';
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Seconds_Tens);
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Seconds_Units);
+            SystemScheme1_TimeCodeArray_StartTimecode+=DropFrame?';':':';
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Frames_Tens);
+            SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Frames_Units);
+        }
     }
 }
 
@@ -6660,6 +6760,8 @@ void File_Mxf::TimecodeComponent_StartTimecode()
                 }
             }
         }
+
+        Components[InstanceUID].TimeCode_StartTimecode=Data;
     FILLING_END();
 }
 
@@ -6685,6 +6787,8 @@ void File_Mxf::TimecodeComponent_RoundedTimecodeBase()
                 }
             }
         }
+
+        Components[InstanceUID].TimeCode_RoundedTimecodeBase=Data;
     FILLING_END();
 }
 
@@ -6706,6 +6810,8 @@ void File_Mxf::TimecodeComponent_DropFrame()
                 DTS_Delay/=1000;
             }
         }
+
+        Components[InstanceUID].TimeCode_DropFrame=Data;
     FILLING_END();
 }
 

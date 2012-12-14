@@ -18,7 +18,7 @@ GeneralCount;1;;N NI;;;Number of general streams
 VideoCount;;;N NI;;;Number of video streams
 AudioCount;;;N NI;;;Number of audio streams
 TextCount;;;N NI;;;Number of text streams
-ChaptersCount;;;N NI;;;Number of chapters streams
+OtherCount;;;N NI;;;Number of other streams
 ImageCount;;;N NI;;;Number of image streams
 MenuCount;;;N NI;;;Number of menu streams
 Video_Format_List;;;N NT;;;Video Codecs in this file, separated by /
@@ -33,10 +33,10 @@ Text_Format_List;;;N NT;;;Text Codecs in this file, separated by /
 Text_Format_WithHint_List;;;N NT;;;Text Codecs in this file with popular name (hint),separated by /
 Text_Codec_List;;;N NT;;;Deprecated, do not use in new projects
 Text_Language_List;;;N NT;;;Text languages in this file, separated by /
-Chapters_Format_List;;;N NT;;;Chapters Codecs in this file, separated by /
-Chapters_Format_WithHint_List;;;N NT;;;Chapters Codecs in this file with popular name (hint), separated by /
-Chapters_Codec_List;;;N NT;;;Deprecated, do not use in new projects
-Chapters_Language_List;;;N NT;;;Chapters languages in this file, separated by /
+Other_Format_List;;;N NT;;;Other formats in this file, separated by /
+Other_Format_WithHint_List;;;N NT;;;Other formats in this file with popular name (hint), separated by /
+Other_Codec_List;;;N NT;;;Deprecated, do not use in new projects
+Other_Language_List;;;N NT;;;Chapters languages in this file, separated by /
 Image_Format_List;;;N NT;;;Image Codecs in this file, separated by /
 Image_Format_WithHint_List;;;N NT;;;Image Codecs in this file with popular name (hint), separated by /
 Image_Codec_List;;;N NT;;;Deprecated, do not use in new projects
