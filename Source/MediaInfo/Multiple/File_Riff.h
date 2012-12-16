@@ -185,6 +185,9 @@ private :
         Kind_Rmp3,
     };
     kind Kind;
+    #if defined(MEDIAINFO_GXF_YES)
+        int32u rcrd_fld__anc__pos__LineNumber;
+    #endif //defined(MEDIAINFO_GXF_YES)
 
     void TimeCode_Fill(const Ztring &Name, const Ztring &Value);
 

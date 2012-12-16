@@ -3079,6 +3079,8 @@ void File_Riff::rcrd_fld_()
 void File_Riff::rcrd_fld__anc_()
 {
     Element_Name("Ancillary data sample description");
+
+    rcrd_fld__anc__pos__LineNumber=(int32u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -3087,7 +3089,7 @@ void File_Riff::rcrd_fld__anc__pos_()
     Element_Name("Ancillary data sample description");
 
     //Parsing
-    Skip_L4(                                                    "Video line number");
+    Get_L4 (rcrd_fld__anc__pos__LineNumber,                     "Video line number");
     Skip_L4(                                                    "Ancillary video color difference or luma space");
     Skip_L4(                                                    "Ancillary video space");
 }
@@ -3100,6 +3102,7 @@ void File_Riff::rcrd_fld__anc__pyld()
     if (Ancillary)
     {
         (*Ancillary)->FrameInfo.DTS=FrameInfo.DTS;
+        (*Ancillary)->LineNumber=rcrd_fld__anc__pos__LineNumber;
         Open_Buffer_Continue(*Ancillary);
     }
 }

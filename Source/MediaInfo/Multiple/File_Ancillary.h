@@ -48,6 +48,7 @@ public :
     bool    InDecodingOrder;
     float64 AspectRatio;
     float64 FrameRate;
+    int32u  LineNumber;
 
     //In/Out
     struct buffered_data

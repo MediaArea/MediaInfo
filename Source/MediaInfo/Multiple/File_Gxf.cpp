@@ -376,12 +376,15 @@ void File_Gxf::Streams_Finish()
         if (TimeCode_FirstFrame_ms!=(int64u)-1)
         {
             Stream_Prepare(Stream_Other);
-            Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
             Fill(Stream_Other, StreamPos_Last, Other_ID, TimeCode->first);
+            Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+            Fill(Stream_Other, StreamPos_Last, Other_Format, "SMPTE TC");
+            //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
             Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, TimeCode_FirstFrame.c_str());
-            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "Time code track");
             if (TimeCode_FirstFrame_Striped)
                 Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Settings, "Striped");
+            if (TimeCode->first<Streams.size())
+                Fill(Stream_Other, StreamPos_Last, Other_Title, Streams[TimeCode->first].MediaName);
         }
     }
 }
@@ -541,6 +544,30 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                     Fill(Stream_Text, StreamPos_Last, Text_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
                     Fill(Stream_Text, StreamPos_Last, Text_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
                     Fill(Stream_Text, StreamPos_Last, "Title", Temp.MediaName);
+                }
+
+                StreamKind_Last=Stream_Max;
+                StreamPos_Last=(size_t)-1;
+            }
+
+            //Other
+            if (Temp.Parsers[0]->Count_Get(Stream_Other))
+            {
+                size_t Parser_Other_Count=Temp.Parsers[0]->Count_Get(Stream_Other);
+                for (size_t Parser_Other_Pos=0; Parser_Other_Pos<Parser_Other_Count; Parser_Other_Pos++)
+                {
+                    Stream_Prepare(Stream_Other);
+                    Merge(*Temp.Parsers[0], Stream_Other, Parser_Other_Pos, StreamPos_Last);
+                    Ztring ID=Retrieve(Stream_Other, StreamPos_Last, Other_ID);
+                    Fill(Stream_Other, StreamPos_Last, Other_ID, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
+                    Fill(Stream_Other, StreamPos_Last, Other_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+__T("-")+ID, true);
+                    /*
+                    Fill(Stream_Other, StreamPos_Last, Other_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
+                    Fill(Stream_Other, StreamPos_Last, Other_Delay_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Source), true);
+                    Fill(Stream_Other, StreamPos_Last, Other_Delay_Original, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original), true);
+                    Fill(Stream_Other, StreamPos_Last, Other_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
+                    */
+                    Fill(Stream_Other, StreamPos_Last, "Title", Temp.MediaName);
                 }
 
                 StreamKind_Last=Stream_Max;

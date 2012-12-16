@@ -138,7 +138,7 @@ void File_Lxf::Streams_Fill()
 {
     Fill(Stream_General, 0, General_Format_Version, __T("Version "+Ztring::ToZtring(Version)));
 
-    for (size_t Pos=0; Pos<Videos.size(); Pos++)
+    for (size_t Pos=2; Pos<Videos.size(); Pos++) //TODO: better handling of fill/finish for Ancillary data
         Streams_Fill_PerStream(Videos[Pos].Parser, 1, Pos);
     for (size_t Pos=0; Pos<Audios.size(); Pos++)
         Streams_Fill_PerStream(Audios[Pos].Parser, 2, Pos);
@@ -191,7 +191,7 @@ void File_Lxf::Streams_Fill_PerStream(File__Analyze* Parser, size_t Container_St
 //---------------------------------------------------------------------------
 void File_Lxf::Streams_Finish()
 {
-    if (Videos[1].Parser && Count_Get(Stream_Text)==0) //TODO: better handling of fill/finish
+    if (Videos[1].Parser) //TODO: better handling of fill/finish for Ancillary data
     {
         Finish(Videos[1].Parser);
         Streams_Fill_PerStream(Videos[1].Parser, Stream_Video, 1);

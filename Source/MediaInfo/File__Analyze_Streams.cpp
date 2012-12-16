@@ -2496,6 +2496,31 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Language : return Text_Language;
                                     default: return (size_t)-1;
                                 }
+        case Stream_Other :
+                                switch (StreamPos)
+                                {
+                                    case Generic_Format : return Other_Format;
+                                    case Generic_Format_Info : return Other_Format_Info;
+                                    case Generic_Format_Url : return Other_Format_Url;
+                                    case Generic_Format_Commercial : return Other_Format_Commercial;
+                                    case Generic_Format_Commercial_IfAny : return Other_Format_Commercial_IfAny;
+                                    case Generic_Format_Version : return Other_Format_Version;
+                                    case Generic_Format_Profile : return Other_Format_Profile;
+                                    case Generic_Format_Settings : return Other_Format_Settings;
+                                    case Generic_CodecID : return Other_CodecID;
+                                    case Generic_CodecID_Info : return Other_CodecID_Info;
+                                    case Generic_CodecID_Hint : return Other_CodecID_Hint;
+                                    case Generic_CodecID_Url : return Other_CodecID_Url;
+                                    case Generic_CodecID_Description : return Other_CodecID_Description;
+                                    case Generic_Duration : return Other_Duration;
+                                    case Generic_Duration_String : return Other_Duration_String;
+                                    case Generic_Duration_String1 : return Other_Duration_String1;
+                                    case Generic_Duration_String2 : return Other_Duration_String2;
+                                    case Generic_Duration_String3 : return Other_Duration_String3;
+                                    case Generic_FrameCount : return Other_FrameCount;
+                                    case Generic_Language : return Other_Language;
+                                    default: return (size_t)-1;
+                                }
         case Stream_Image :
                                 switch (StreamPos)
                                 {
@@ -2536,7 +2561,6 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Language : return Image_Language;
                                     default: return (size_t)-1;
                                 }
-        case Stream_Other :     return (size_t)-1;
         case Stream_Menu :
                                 switch (StreamPos)
                                 {

@@ -170,6 +170,7 @@ void File_Riff::Streams_Finish ()
     #if defined(MEDIAINFO_ANCILLARY_YES)
         if (Ancillary && (*Ancillary))
         {
+            Clear();
             Finish(*Ancillary);
             Merge(**Ancillary);
             return;

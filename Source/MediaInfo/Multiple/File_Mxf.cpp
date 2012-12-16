@@ -1070,8 +1070,9 @@ void File_Mxf::Streams_Finish()
             Fill_Flush();
             Stream_Prepare(Stream_Other);
             Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+            Fill(Stream_Other, StreamPos_Last, Other_Format, "SMPTE TC");
+            Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "SDTI");
             Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, SDTI_TimeCode_StartTimecode.c_str());
-            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "SDTI");
         }
     }
     if (SystemScheme1_TimeCodeArray_StartTimecode_ms!=(int64u)-1)
@@ -1085,8 +1086,9 @@ void File_Mxf::Streams_Finish()
             Fill_Flush();
             Stream_Prepare(Stream_Other);
             Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+            Fill(Stream_Other, StreamPos_Last, Other_Format, "SMPTE TC");
+            Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "System scheme 1");
             Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, SystemScheme1_TimeCodeArray_StartTimecode.c_str());
-            Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "System scheme 1");
         }
     }
     
@@ -1210,6 +1212,8 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         Stream_Prepare(Stream_Audio);
     else if ((*Parser)->Count_Get(Stream_Text))
         Stream_Prepare(Stream_Text);
+    else if ((*Parser)->Count_Get(Stream_Other))
+        Stream_Prepare(Stream_Other);
     else if (Essence->second.StreamKind!=Stream_Max)
         Stream_Prepare(Essence->second.StreamKind);
     else
@@ -1356,7 +1360,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         }
     }
 
-    if (Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty() || StreamKind_Last==Stream_Text) //TODO: better way to do detect subID
+    if (Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty() || StreamKind_Last==Stream_Text || StreamKind_Last==Stream_Other) //TODO: better way to do detect subID
     {
         //Looking for Material package TrackID
         int32u TrackID=(int32u)-1;
@@ -1922,10 +1926,11 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, 
             {
                 TimeCode TC(Component2->second.TimeCode_StartTimecode, Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
                 Stream_Prepare(Stream_Other);
-                Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
                 Fill(Stream_Other, StreamPos_Last, Other_ID, TrackID);
+                Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+                Fill(Stream_Other, StreamPos_Last, Other_Format, "MXF TC");
+                //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
                 Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, TC.ToString().c_str());
-                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "Time code track");
                 Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Settings, "Striped");
             }
         }
@@ -3422,6 +3427,8 @@ void File_Mxf::Data_Parse()
                         (*Parser)->FrameInfo.PTS=FrameInfo.PTS;
                     if (FrameInfo.DUR!=(int64u)-1)
                         (*Parser)->FrameInfo.DUR=FrameInfo.DUR;
+                    if ((*Parser)->ParserName==__T("Ancillary"))
+                        ((File_Ancillary*)(*Parser))->LineNumber=LineNumber;
                     if ((*Parser)->ParserName==__T("Ancillary") && (((File_Ancillary*)(*Parser))->FrameRate==0 || ((File_Ancillary*)(*Parser))->AspectRatio==0))
                     {
                         //Configuring with video info

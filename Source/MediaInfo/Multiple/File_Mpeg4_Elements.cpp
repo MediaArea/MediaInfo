@@ -3012,7 +3012,8 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd()
     //Filling
     Stream_Prepare(Stream_Other);
     Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
-    Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Source, "Time code track");
+    Fill(Stream_Other, StreamPos_Last, Other_Format, "QuickTime TC");
+    //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
 }
 
 //---------------------------------------------------------------------------

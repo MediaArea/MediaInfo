@@ -13,6 +13,11 @@ Version 0.7.62, 2012-
 + AC-3: support of 22.05 kHz streams (out of specs but they exist)
 + MOV: support of AVID metadata (interlacement information)
 + Time code dedicated tracks (MOV, MXF, GXF)
++ Time code track (MPEG-4/MOV, GXF, MXF)
++ Time code in SDTI (MXF)
++ Time code in System scheme 1 (MXF)
++ Time code in SMPTE RP 188 (aka SMPTE ST 12-2 aka ATC aka VANC) (GXF, LXF, MXF)
++ Time code in SMPTE RP 196 (aka HANC)
 + MPEG Video Time code
 x Division by 0 in case of 0 byte long file
 x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV
