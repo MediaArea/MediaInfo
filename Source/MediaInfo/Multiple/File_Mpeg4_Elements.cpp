@@ -1527,7 +1527,7 @@ void File_Mpeg4::mdat_xxxx()
             }
 
             Demux_Level=Streams[(int32u)Element_Code].Demux_Level;
-            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+            Demux(Buffer+Buffer_Offset+Streams[(int32u)Element_Code].Demux_Offset, (size_t)Element_Size-Streams[(int32u)Element_Code].Demux_Offset, ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
 
