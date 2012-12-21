@@ -408,6 +408,9 @@ void File_MpegTs::Streams_Update_Programs()
                         for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); ++Info)
                             Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second, true);
                         Program->second.Infos.clear();
+                        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos_Option.begin(); Info!=Program->second.Infos_Option.end(); ++Info)
+                            (*Stream_More)[Stream_Menu][StreamPos_Last](Ztring().From_Local(Info->first.c_str()), Info_Options)=Info->second;
+                        Program->second.Infos_Option.clear();
 
                         if (!Formats.empty())
                             Formats.resize(Formats.size()-3);
@@ -581,6 +584,9 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                     Fill(StreamKind_Last, StreamPos, Info->first.c_str(), Info->second, true);
             }
             Temp->Infos.clear();
+            for (std::map<std::string, ZenLib::Ztring>::iterator Info=Temp->Infos_Option.begin(); Info!=Temp->Infos_Option.end(); ++Info)
+                (*Stream_More)[StreamKind_Last][StreamPos](Ztring().From_Local(Info->first.c_str()), Info_Options)=Info->second;
+            Temp->Infos_Option.clear();
 
             //Common
             if (Temp->SubStream_pid!=0x0000) //Wit a substream

@@ -1609,6 +1609,15 @@ void File_Mpeg_Descriptors::Descriptor_05()
                                         break;
                             case true : //Per PES
                                         Complete_Stream->Streams[elementary_PID]->registration_format_identifier=format_identifier;
+                                        Complete_Stream->Streams[elementary_PID]->Infos["format_identifier"]=Ztring().From_CC4(format_identifier);
+                                        if (Complete_Stream->Streams[elementary_PID]->Infos["format_identifier"].size()!=4)
+                                        {
+                                            Ztring Temp; Temp.From_Number(format_identifier, 16);
+                                            if (Temp.size()<8)
+                                                Temp.insert(0, 8-Temp.size(), __T('0'));
+                                            Complete_Stream->Streams[elementary_PID]->Infos["format_identifier"]=__T("0x")+Temp;
+                                        }
+                                        Complete_Stream->Streams[elementary_PID]->Infos_Option["format_identifier"]=__T("N NT");
                                         if (format_identifier==Elements::KLVA)
                                         {
                                             Complete_Stream->Streams[elementary_PID]->Infos["Format"]=__T("KLV");
@@ -1622,7 +1631,25 @@ void File_Mpeg_Descriptors::Descriptor_05()
                         break;
             default    : ;
         }
-    FILLING_END();
+    FILLING_END()
+    else
+    {
+        switch (table_id)
+        {
+            case 0x02 : //program_map_section
+                        switch (elementary_PID_IsValid)
+                        {
+                            case false : //Per program
+                                        break;
+                            case true : //Per PES
+                                        Complete_Stream->Streams[elementary_PID]->Infos["format_identifier"]=__T("(INVALID)");
+                                        Complete_Stream->Streams[elementary_PID]->Infos_Option["format_identifier"]=__T("N NT");
+                                        break;
+                        }
+                        break;
+            default    : ;
+        }
+    }
 }
 
 //---------------------------------------------------------------------------

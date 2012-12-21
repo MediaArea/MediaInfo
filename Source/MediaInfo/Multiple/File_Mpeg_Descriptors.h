@@ -60,6 +60,7 @@ struct complete_stream
         {
             bool HasChanged;
             std::map<std::string, Ztring> Infos;
+            std::map<std::string, Ztring> Infos_Option;
             std::map<Ztring, Ztring> EPGs;
             std::vector<int16u> elementary_PIDs;
             size_t StreamPos; //Stream_Menu
@@ -234,6 +235,7 @@ struct complete_stream
         typedef std::vector<table_id*>              table_ids;
         table_ids                                   Table_IDs; //Key is table_id
         std::map<std::string, Ztring>               Infos;
+        std::map<std::string, Ztring>               Infos_Option;
         std::map<int8u, Ztring>                     Languages; //Key is caption_service_number or 128+line21_field
         struct teletext
         {
