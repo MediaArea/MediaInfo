@@ -43,6 +43,7 @@ class File_Lxf : public File__Analyze
 public :
     //Constructor/Destructor
     File_Lxf();
+    ~File_Lxf();
 
 protected :
     //Streams management
@@ -91,8 +92,9 @@ protected :
             BytesPerFrame=(int64u)-1;
         }
     };
-    std::vector<stream> Videos;
-    std::vector<stream> Audios;
+    typedef std::vector<stream> streams;
+    streams Videos;
+    streams Audios;
     struct stream_header
     {
         int64u          TimeStamp_Begin;

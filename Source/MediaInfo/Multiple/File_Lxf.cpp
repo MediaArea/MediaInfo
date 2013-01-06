@@ -129,6 +129,15 @@ File_Lxf::File_Lxf()
     LastAudio_BufferOffset=(int64u)-1;
 }
 
+//---------------------------------------------------------------------------
+File_Lxf::~File_Lxf()
+{
+    for (size_t Pos=0; Pos<Videos.size(); Pos++)
+        delete Videos[Pos].Parser;
+    for (size_t Pos=0; Pos<Audios.size(); Pos++)
+        delete Audios[Pos].Parser;
+}
+
 //***************************************************************************
 // Streams management
 //***************************************************************************
@@ -1044,6 +1053,8 @@ void File_Lxf::Audio_Stream(size_t Pos)
                 }
 
                 Demux(SixteenBit, SixteenBit_Pos, ContentType_MainStream);
+
+                delete[] SixteenBit; 
             }
             else if (SampleSize==20 && Config->Demux_PCM_20bitTo24bit_Get())
             {
@@ -1067,6 +1078,8 @@ void File_Lxf::Audio_Stream(size_t Pos)
                 }
 
                 Demux(Output, Output_Pos, ContentType_MainStream);
+
+                delete[] Output; 
             }
             else
                 Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
