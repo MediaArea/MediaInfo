@@ -307,7 +307,7 @@ dnl Unicode
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
 	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
-elif test "$(libzen-config Exists)" = "yes" ; then
+elif test "$(command -v libzen-config)" ; then
 	enable_unicode="$(libzen-config Unicode)"
 else
 	if pkg-config --exists libzen; then
@@ -377,7 +377,7 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 	fi
-elif test "$(libzen-config Exists)" = "yes" ; then
+elif test "$(command -v libzen-config)" ; then
 	CXXFLAGS="$CXXFLAGS $(libzen-config CXXFLAGS)"
 	if test "$enable_staticlibs" = "yes"; then
 		with_zenlib="system (static)"
