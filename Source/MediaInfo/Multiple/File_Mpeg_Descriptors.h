@@ -60,7 +60,8 @@ struct complete_stream
         {
             bool HasChanged;
             std::map<std::string, Ztring> Infos;
-            std::map<std::string, Ztring> Infos_Option;
+            std::map<std::string, Ztring> ExtraInfos_Content;
+            std::map<std::string, Ztring> ExtraInfos_Option;
             std::map<Ztring, Ztring> EPGs;
             std::vector<int16u> elementary_PIDs;
             size_t StreamPos; //Stream_Menu

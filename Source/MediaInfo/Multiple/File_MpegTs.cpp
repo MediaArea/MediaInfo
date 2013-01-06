@@ -408,9 +408,12 @@ void File_MpegTs::Streams_Update_Programs()
                         for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); ++Info)
                             Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second, true);
                         Program->second.Infos.clear();
-                        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos_Option.begin(); Info!=Program->second.Infos_Option.end(); ++Info)
+                        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.ExtraInfos_Content.begin(); Info!=Program->second.ExtraInfos_Content.end(); ++Info)
+                            Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second, true);
+                        Program->second.ExtraInfos_Content.clear();
+                        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.ExtraInfos_Option.begin(); Info!=Program->second.ExtraInfos_Option.end(); ++Info)
                             (*Stream_More)[Stream_Menu][StreamPos_Last](Ztring().From_Local(Info->first.c_str()), Info_Options)=Info->second;
-                        Program->second.Infos_Option.clear();
+                        Program->second.ExtraInfos_Option.clear();
 
                         if (!Formats.empty())
                             Formats.resize(Formats.size()-3);

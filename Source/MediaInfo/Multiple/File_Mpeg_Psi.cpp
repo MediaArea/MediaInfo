@@ -1384,11 +1384,11 @@ void File_Mpeg_Psi::Table_02()
 
         if (Buffer_Offset>=4)
         {
-            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].Infos["pointer_field"].From_Number(Buffer_Offset-4);
-            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].Infos_Option["pointer_field"]=__T("N NT");
+            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].ExtraInfos_Content["pointer_field"].From_Number(Buffer_Offset-4);
+            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].ExtraInfos_Option["pointer_field"]=__T("N NT");
         }
-        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].Infos["section_length"].From_Number(Element_Size+4);
-        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].Infos_Option["section_length"]=__T("N NT");
+        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].ExtraInfos_Content["section_length"].From_Number(Element_Size+4);
+        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].ExtraInfos_Option["section_length"]=__T("N NT");
     FILLING_END();
 }
 
