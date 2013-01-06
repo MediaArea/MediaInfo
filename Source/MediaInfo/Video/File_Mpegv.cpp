@@ -2526,7 +2526,7 @@ void File_Mpegv::slice_start()
         #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
         //Counting
-        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+        if (!MustExtendParsingDuration && File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
         if (!TimeCodeIsNotTrustable && (picture_coding_type==1 || picture_coding_type==2)) //IFrame or PFrame
         {
@@ -2596,9 +2596,9 @@ void File_Mpegv::slice_start()
         //Filling only if not already done
         if (!Status[IsAccepted])
             Accept("MPEG Video");
-        if (IFrame_Count==8)
+        if (!MustExtendParsingDuration && IFrame_Count==8)
             Frame_Count_Valid=Frame_Count; //We have enough frames
-        if ((!Status[IsFilled] && (!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid)) || Frame_Count>=512)
+        if (!Status[IsFilled] && ((!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*4))
         {
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)

@@ -1839,7 +1839,7 @@ void File_Mpeg4::moof_traf_trun()
             //Filling
             Stream->second.stsz_StreamSize+=sample_size;
             Stream->second.stsz_Total.push_back(sample_size);
-            if (Stream->second.stsz.size()<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+            if (Stream->second.stsz.size()<FrameCount_MaxPerStream)
                 Stream->second.stsz.push_back(sample_size);
         }
         if (sample_flags_present)
@@ -3153,7 +3153,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_co64()
         Offset=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=8;
 
-        if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+        if (Pos<FrameCount_MaxPerStream)
             Streams[moov_trak_tkhd_TrackID].stco.push_back(Offset);
     }
 }
@@ -3227,7 +3227,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stco()
         Offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
 
-        if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+        if (Pos<FrameCount_MaxPerStream)
             Streams[moov_trak_tkhd_TrackID].stco.push_back(Offset);
     }
 }
@@ -3308,7 +3308,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsc()
         */
 
         //Faster
-        if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+        if (Pos<FrameCount_MaxPerStream)
         {
             if (Element_Offset+12>Element_Size)
                 break; //Problem
@@ -5236,7 +5236,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 Size_Min=Size;
             if (Size>Size_Max)
                 Size_Max=Size;
-            if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+            if (Pos<FrameCount_MaxPerStream)
                 Stream->second.stsz.push_back(Size);
         }
         /*

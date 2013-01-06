@@ -1242,6 +1242,21 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 #endif //MEDIAINFO_SEEK
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::Read_Buffer_Init()
+{
+    if (MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+        FrameCount_MaxPerStream=(int64u)-1;
+    else if (MediaInfoLib::Config.ParseSpeed_Get()<=0.3)
+        FrameCount_MaxPerStream=512;
+    else
+        FrameCount_MaxPerStream=2048;
+}
+
+//***************************************************************************
 // Buffer
 //***************************************************************************
 
@@ -1518,7 +1533,7 @@ bool File_Mpeg4::BookMark_Needed()
                                 Chunk_Offset+=Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier;
                                 Chunk_FrameCount++;
                             }
-                        if (Config->ParseSpeed<1.0 && Chunk_FrameCount>=300)
+                        if (Chunk_FrameCount>=FrameCount_MaxPerStream)
                             break;
                     }
 

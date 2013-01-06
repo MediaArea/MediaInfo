@@ -51,6 +51,7 @@ File_Eia708::File_Eia708()
 {
     //Config
     PTS_DTS_Needed=true;
+    MustSynchronize=true;
 
     //In
     cc_type=(int8u)-1;
@@ -98,6 +99,33 @@ void File_Eia708::Streams_Finish()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Eia708::Synchronize()
+{
+    if (cc_type!=3)
+        return false; //Waiting for sync from underlying layer
+
+    if (!Status[IsAccepted])
+        Accept("EIA-708");
+
+    //Synched is OK
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Eia708::Synched_Test()
+{
+    if (cc_type==4) //Magic value saying that the buffer must be kept (this is only a point of synchro from the undelying layer)
+        Buffer_Offset=Buffer_Size; //Sync point
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -110,25 +138,11 @@ void File_Eia708::Read_Buffer_Init()
 void File_Eia708::Read_Buffer_Continue()
 {
     FrameInfo.PTS=FrameInfo.DTS;
-
-    if (!Status[IsAccepted])
-    {
-        if (cc_type!=3)
-        {
-            Skip_B2(                                                "Waiting for header");
-            return;
-        }
-
-        Accept("EIA-708");
-    }
 }
 
 //---------------------------------------------------------------------------
 void File_Eia708::Read_Buffer_Unsynched()
 {
-    if (cc_type==4) //Magic value saying that the buffer must be kept (this is only a point of synchro from the undelying layer)
-        return;
-
     for (int8u service_number=1; service_number<Streams.size(); service_number++)
         if (Streams[service_number])
         {

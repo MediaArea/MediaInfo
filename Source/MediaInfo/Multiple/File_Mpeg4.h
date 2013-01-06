@@ -51,6 +51,7 @@ public :
 
 private :
     //Buffer - Global
+    void Read_Buffer_Init();
     void Read_Buffer_Unsynched();
     #if MEDIAINFO_SEEK
     size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
@@ -321,6 +322,7 @@ private :
     int64u                                  LastMdatPos; //This is the position of the byte after the last byte of mdat
     int64u                                  FirstMoovPos;
     int64u                                  moof_base_data_offset;
+    int64u                                  FrameCount_MaxPerStream;
     bool                                    data_offset_present;
     int64u                                  moof_traf_base_data_offset;
     int32u                                  moof_traf_default_sample_duration;
