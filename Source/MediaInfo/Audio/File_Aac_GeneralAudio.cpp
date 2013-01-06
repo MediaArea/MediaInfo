@@ -795,6 +795,14 @@ void File_Aac::section_data()
                 sfb_cb[g][sfb]=sect_cb[g][i];
             k+= sect_len;
             i++;
+            if (i>64)
+            {
+                Trusted_IsNot("Increment is wrong");
+                if (num_window_groups>1)
+                    Element_End0();
+                Element_End0();
+                return; //Error
+            }
         }
         num_sec[g]=i;
         if (num_window_groups>1)
