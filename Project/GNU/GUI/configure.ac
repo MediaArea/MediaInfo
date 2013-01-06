@@ -98,13 +98,13 @@ dnl
 dnl Download and compile
 WxBuiltInCompile()
 {
-	if test -e ../../../../Shared/Project/WxWidgets/Compile.sh; then
+	if test -e ../../../../Shared/Project/WxWidgets.sh; then
 		cd ../../../../Shared/Project/WxWidgets
 		chmod u+x Compile.sh
 		./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --build=$build
 		cd $Home
-		if test -e ../../../../Shared/Source/WxWidgets/Compile/wx-config; then
-			if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --version)" = "x"; then
+		if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
+			if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
 				echo TEST a
 				with_wxwidgets="no"
 			else
@@ -126,10 +126,10 @@ WxBuiltInCompile()
 dnl Search for a good build, else built it
 WxBuiltInSearchGoodBuild()
 {
-	if test -e ../../../../Shared/Source/WxWidgets/Compile/wx-config; then
+	if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
 		dnl There is already a compiled version
-		if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
-			if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --version)" = "x"; then
+		if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
+			if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
 				dnl Not well compiled, try to compile again
 				WxBuiltInCompile
 			else
@@ -149,7 +149,13 @@ WxBuiltInSearchGoodBuild()
 dnl The test
 if test "$with_wxwidgets" = "yes"; then
     dnl Searching system libs
-    AM_PATH_WXCONFIG(2.6.0, WxSystemLibs=1, WxSystemLibs=0, [base], --unicode=$enable_unicode --static=$with_wx_static)
+    if type sysctl &> /dev/null; then
+        dnl version 2.9 for Mac
+        WxVersion="2.9.0"
+    else
+        WxVersion="2.6.0"
+    fi
+    AM_PATH_WXCONFIG("$WxVersion", WxSystemLibs=1, WxSystemLibs=0, [base], --unicode=$enable_unicode --static=$with_wx_static)
     if test "$WxSystemLibs" != 1; then
         dnl Searching builtin libs
 		WxBuiltInSearchGoodBuild
@@ -166,7 +172,7 @@ if test "$with_wxwidgets" = "yes"; then
 			where wxWidgets libraries are installed (returned by
 			'wx-config --libs' or 'wx-config --static --libs' command)
 			is in LD_LIBRARY_PATH or equivalent variable and
-			wxWidgets version is 2.6.0 or above, and the compilation 
+			wxWidgets version is 2.9.0 or above, and the compilation 
 			is compatible with 
 			--unicode=$enable_unicode --static=$with_wx_static
 			])
@@ -179,7 +185,7 @@ if test "$with_wxwidgets" = "yes"; then
 		fi
 	fi
 	if test "$with_wxwidgets" = "builtin"; then
-       ZenLib_Wx_Config="../../../../Shared/Source/WxWidgets/Compile/wx-config"
+       ZenLib_Wx_Config="../../../../Shared/Source/WxWidgets/wx-config"
 	fi
 fi
 
