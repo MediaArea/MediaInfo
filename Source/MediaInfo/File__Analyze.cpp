@@ -3087,6 +3087,10 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
 #if MEDIAINFO_DEMUX
 void File__Analyze::Demux_UnpacketizeContainer_Demux (bool random_access)
 {
+    //Coherency test
+    if (Demux_Offset<Buffer_Offset)
+        Demux_Offset=Buffer_Offset;
+    
     Demux_random_access=random_access;
 
     if (StreamIDs_Size>=2)
