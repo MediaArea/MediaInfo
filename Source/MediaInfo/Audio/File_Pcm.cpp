@@ -283,7 +283,15 @@ void File_Pcm::Header_Parse()
     //Filling
     Header_Fill_Code(0, "Block");
     if (BitDepth && Channels)
-        Header_Fill_Size((Element_Size/(BitDepth*Channels/8))*(BitDepth*Channels/8)); //A complete sample
+    {
+        int64u Size=(Element_Size/(BitDepth*Channels/8))*(BitDepth*Channels/8); //A complete sample
+        if (Element_Size && Size==0)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        Header_Fill_Size(Size);
+    }
     else
         Header_Fill_Size(Element_Size); // Unknown sample size
 }
@@ -294,7 +302,7 @@ void File_Pcm::Data_Parse()
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer)
         {
-            Demux_Offset=(size_t)Element_Size;
+            Demux_Offset=Buffer_Offset+(size_t)Element_Size;
             Demux_UnpacketizeContainer_Demux();
         }
     #endif //MEDIAINFO_DEMUX
