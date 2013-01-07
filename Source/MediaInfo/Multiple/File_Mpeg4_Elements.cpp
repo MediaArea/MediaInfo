@@ -2755,7 +2755,7 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
     Get_DATE1904_DEPENDOFVERSION(Date_Created,                  "Creation time");
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
     Get_B4(TimeScale,                                           "Time scale");
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (TimeScale) {Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");}
     Get_B2 (Language,                                           "Language"); Param_Info1(Language_Get(Language));
     Skip_B2(                                                    "Quality");
 
@@ -5429,7 +5429,7 @@ void File_Mpeg4::moov_trak_tkhd()
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
     Get_B4 (moov_trak_tkhd_TrackID,                             "Track ID"); Element_Info1(moov_trak_tkhd_TrackID);
     Skip_B4(                                                    "Reserved");
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (TimeScale) {Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");}
     Skip_B4(                                                    "Reserved");
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Layer");

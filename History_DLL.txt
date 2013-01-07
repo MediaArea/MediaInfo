@@ -21,6 +21,7 @@ Version 0.7.62, 2012-
 + MPEG Video Time code
 + MPEG-TS: format_identifier, pointer_field, section_length (hidden by default)
 + CEA-608/708: caption detection duration is increased to 60 seconds (or 64 MB) in order to miss less caption content
+x #727, MOV: crash with some malformed files (Time scale set to 0)
 x #728, AAC: crash with some malformed streams
 x Division by 0 in case of 0 byte long file
 x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV

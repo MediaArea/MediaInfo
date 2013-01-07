@@ -296,7 +296,8 @@ void File_Mpeg4::Streams_Finish()
                     {
                         Delay=Temp->second.edts[0].Delay;
                         Delay=-Delay;
-                        Delay/=Temp->second.mdhd_TimeScale; //In seconds
+                        if (Temp->second.mdhd_TimeScale)
+                            Delay/=Temp->second.mdhd_TimeScale; //In seconds
                     }
                     break;
             case 2 :
