@@ -875,10 +875,13 @@ void File_Ac3::Streams_Finish()
         else if (bsid<=9 && frmsizecods.size()==1 && fscods.size()==1 && Frame_Count_HD==0)
         {
             int16u Size=AC3_FrameSize_Get(frmsizecods.begin()->first, fscods.begin()->first);
-            if (TimeStamp_IsPresent)
-                Size+=16;
-            Frame_Count_ForDuration=(File_Size-File_Offset_FirstSynched)/Size; //Only complete frames
-            Fill(Stream_Audio, 0, Audio_StreamSize, Frame_Count_ForDuration*Size);
+            if (Size)
+            {
+                if (TimeStamp_IsPresent)
+                    Size+=16;
+                Frame_Count_ForDuration=(File_Size-File_Offset_FirstSynched)/Size; //Only complete frames
+                Fill(Stream_Audio, 0, Audio_StreamSize, Frame_Count_ForDuration*Size);
+            }
         }
         if (Frame_Count_ForDuration)
         {
