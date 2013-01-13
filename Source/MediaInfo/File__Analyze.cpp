@@ -865,7 +865,8 @@ void File__Analyze::Open_Buffer_Unsynch ()
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Update ()
 {
-    Streams_Update();
+    if (Status[IsAccepted])
+        Streams_Update();
 
     Status[File__Analyze::IsUpdated]=false;
     for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
