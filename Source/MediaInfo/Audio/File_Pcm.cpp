@@ -91,6 +91,7 @@ File_Pcm::File_Pcm()
     //In
     Frame_Count_Valid=2;
     BitDepth=0;
+    BitDepth_Original=0;
     Channels=0;
     SamplingRate=0;
     Endianness='\0';
@@ -111,6 +112,10 @@ void File_Pcm::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
     }
 
+    //BitDepth_Original filling if needed
+    if (!BitDepth_Original)
+        BitDepth_Original=BitDepth;
+
     //Filling
     Ztring Firm, ITU;
          if (Codec==__T("EVOB"))             {Firm=__T("");      Endianness='B'; Sign='S';}                        //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
@@ -119,17 +124,17 @@ void File_Pcm::Streams_Fill()
     else if (Codec==__T("A_PCM/INT/BIG"))    {Firm=__T("");      Endianness='B';}
     else if (Codec==__T("A_PCM/INT/LITTLE")) {Firm=__T("");      Endianness='L';}
     else if (Codec==__T("A_PCM/INT/FLOAT"))  {Firm=__T("");      Endianness='B'; Sign='F';}
-    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth=32;}
-    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth=64;}
-    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth=24;}
-    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth=32;}
+    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth_Original=32;}
+    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth_Original=64;}
+    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth_Original=24;}
+    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth_Original=32;}
     else if (Codec==__T("raw "))             {  if (!Endianness) Endianness='L'; Sign='U';}
     else if (Codec==__T("twos"))             {                   Endianness='B'; Sign='S';}
     else if (Codec==__T("sowt"))             {                   Endianness='L'; Sign='S';}
     else if (Codec==__T("SWF ADPCM"))        {Firm=__T("SWF");}
-    else if (Codec==__T("1"))                {   if (BitDepth)
+    else if (Codec==__T("1"))                {   if (BitDepth_Original)
                                                 {
-                                                    if (BitDepth>8)
+                                                    if (BitDepth_Original>8)
                                                     {            Endianness='L'; Sign='S';}
                                                     else
                                                     {                            Sign='U';}
@@ -221,8 +226,8 @@ void File_Pcm::Streams_Fill()
     Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
 
     //BitDepth
-    if (BitDepth)
-        Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth);
+    if (BitDepth_Original)
+        Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth_Original);
     
     //Channels
     if (Channels)
@@ -300,10 +305,63 @@ void File_Pcm::Header_Parse()
 void File_Pcm::Data_Parse()
 {
     #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
+        FrameInfo.PTS=FrameInfo.DTS;
+        Demux_random_access=true;
+        Element_Code=(int64u)-1;
+
+        if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo16bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
-            Demux_Offset=Buffer_Offset+(size_t)Element_Size;
-            Demux_UnpacketizeContainer_Demux();
+            size_t Info_Offset=(size_t)Element_Size;
+            const int8u* Info=Buffer+Buffer_Offset;
+            size_t Info2_Size=Info_Offset*2/3;
+            int8u* Info2=new int8u[Info2_Size];
+            size_t Info2_Pos=0;
+            size_t Info_Pos=0;
+
+            while (Info_Pos<Info_Offset)
+            {
+                Info2[Info2_Pos+0]=Info[Info_Pos+1];
+                Info2[Info2_Pos+1]=Info[Info_Pos+2];
+                Info2[Info2_Pos+2]=Info[Info_Pos+4];
+                Info2[Info2_Pos+3]=Info[Info_Pos+5];
+
+                Info2_Pos+=4;
+                Info_Pos+=6;
+            }
+
+            Element_Offset=0;
+            Demux(Info2, Info2_Pos, ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
+            Element_Offset=4;
+        }
+        else if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
+        {
+            size_t Info_Offset=(size_t)Element_Size;
+            const int8u* Info=Buffer+Buffer_Offset;
+            size_t Info2_Size=((size_t)Element_Size-4);
+            int8u* Info2=new int8u[Info2_Size];
+            size_t Info2_Pos=0;
+            size_t Info_Pos=0;
+
+            while (Info_Pos<Info_Offset)
+            {
+                Info2[Info2_Pos+0]=0x00;
+                Info2[Info2_Pos+1]=Info[Info_Pos+1];
+                Info2[Info2_Pos+2]=Info[Info_Pos+2];
+                Info2[Info2_Pos+3]=0x00;
+                Info2[Info2_Pos+4]=Info[Info_Pos+4];
+                Info2[Info2_Pos+5]=Info[Info_Pos+5];
+
+                Info2_Pos+=6;
+                Info_Pos+=6;
+            }
+
+            Element_Offset=0;
+            Demux(Info2, Info2_Pos, ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
+            Element_Offset=4;
+        }
+        else
+        {
+            Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
         }
     #endif //MEDIAINFO_DEMUX
 

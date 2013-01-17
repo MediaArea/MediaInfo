@@ -44,6 +44,7 @@ public :
     int64u          Frame_Count_Valid;
     ZenLib::Ztring  Codec;
     int16u          BitDepth;
+    int16u          BitDepth_Original; // In the case of demux from 20-bit stream, data is provided in 24-bit form
     int16u          Channels;
     int32u          SamplingRate;
     int8u           Endianness;

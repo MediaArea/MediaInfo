@@ -890,7 +890,7 @@ void File_SmpteSt0337::Data_Parse()
         FrameInfo.PTS=FrameInfo.DTS;
         Demux_random_access=true;
         Element_Code=(int64u)-1;
-        Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream);
+        Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
     #endif //MEDIAINFO_DEMUX
 
     // Adapting
