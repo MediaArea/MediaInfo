@@ -335,29 +335,7 @@ void File_Pcm::Data_Parse()
         }
         else if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
-            size_t Info_Offset=(size_t)Element_Size;
-            const int8u* Info=Buffer+Buffer_Offset;
-            size_t Info2_Size=((size_t)Element_Size-4);
-            int8u* Info2=new int8u[Info2_Size];
-            size_t Info2_Pos=0;
-            size_t Info_Pos=0;
-
-            while (Info_Pos<Info_Offset)
-            {
-                Info2[Info2_Pos+0]=0x00;
-                Info2[Info2_Pos+1]=Info[Info_Pos+1];
-                Info2[Info2_Pos+2]=Info[Info_Pos+2];
-                Info2[Info2_Pos+3]=0x00;
-                Info2[Info2_Pos+4]=Info[Info_Pos+4];
-                Info2[Info2_Pos+5]=Info[Info_Pos+5];
-
-                Info2_Pos+=6;
-                Info_Pos+=6;
-            }
-
-            Element_Offset=0;
-            Demux(Info2, Info2_Pos, ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
-            Element_Offset=4;
+            Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
         }
         else
         {
