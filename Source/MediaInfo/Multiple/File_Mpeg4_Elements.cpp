@@ -98,6 +98,7 @@
 #include "base64.h"
 #include <cmath>
 #include <zlib.h>
+#include <algorithm>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -3257,25 +3258,34 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
     Get_B4 (sample_count,                                       "sample-count");
 
     int32u Offset=1; //By default, begin at 1
+    bool stss_PreviouslyEmpty=Streams[moov_trak_tkhd_TrackID].stss.empty();
     for (int32u Pos=0; Pos<sample_count; Pos++)
     {
         int32u sample_number;
 
         //Too much slow
+        /*
         Get_B4 (sample_number,                                  "sample-number");
+        */
 
         //Faster
-/*
         if (Element_Offset+4>Element_Size)
             break; //Problem
         sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
-*/
 
-        if (Streams[moov_trak_tkhd_TrackID].stss.empty() && sample_number==0)
+        //Coherency testing (first frame is 0 or 1)
+        if (sample_number==0)
+        {
+            for (size_t Pos=0; Streams[moov_trak_tkhd_TrackID].stss.size(); Pos++)
+                Streams[moov_trak_tkhd_TrackID].stss[Pos]--;
             Offset=0;
+        }
+
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-Offset);
     }
+    if (!stss_PreviouslyEmpty)
+        std::sort(Streams[moov_trak_tkhd_TrackID].stss.begin(), Streams[moov_trak_tkhd_TrackID].stss.end());
 
     //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
     //TODO: compute Bit rate mode from stps
@@ -5105,25 +5115,34 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
     Get_B4 (entry_count,                                        "entry-count");
 
     int32u Offset=1; //By default, begin at 1
+    bool stss_PreviouslyEmpty=Streams[moov_trak_tkhd_TrackID].stss.empty();
     for (int32u Pos=0; Pos<entry_count; Pos++)
     {
         int32u sample_number;
 
         //Too much slow
+        /*
         Get_B4 (sample_number,                                  "sample-number");
+        */
 
-/*
         //Faster
         if (Element_Offset+4>Element_Size)
             break; //Problem
         sample_number=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
         Element_Offset+=4;
-*/
 
-        if (Streams[moov_trak_tkhd_TrackID].stss.empty() && sample_number==0)
+        //Coherency testing (first frame is 0 or 1)
+        if (sample_number==0)
+        {
+            for (size_t Pos=0; Streams[moov_trak_tkhd_TrackID].stss.size(); Pos++)
+                Streams[moov_trak_tkhd_TrackID].stss[Pos]--;
             Offset=0;
+        }
+
         Streams[moov_trak_tkhd_TrackID].stss.push_back(sample_number-Offset);
     }
+    if (!stss_PreviouslyEmpty)
+        std::sort(Streams[moov_trak_tkhd_TrackID].stss.begin(), Streams[moov_trak_tkhd_TrackID].stss.end());
 
     //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
     //TODO: compute Bit rate mode from stss

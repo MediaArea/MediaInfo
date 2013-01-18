@@ -1098,11 +1098,16 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     return Read_Buffer_Seek(0, FirstMdatPos+(LastMdatPos-FirstMdatPos)*Value/10000, ID);
         case 2  :   //Timestamp
                     {
-                        Value=Value*Stream->second.mdhd_TimeScale/1000000000; //Transformed in mpeg4 ticks
-                        if (Value>TimeCode_FrameOffset*Stream->second.stts_Duration/Stream->second.stts_FrameCount) //Removing Time Code offset
-                            Value-=TimeCode_FrameOffset*Stream->second.stts_Duration/Stream->second.stts_FrameCount;
-                        else
-                            Value=0; //Sooner
+                        //Searching time stamp offset due to Time code offset
+                        for (std::map<int32u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); ++Stream)
+                            if (Stream->second.StreamKind==Stream_Video)
+                            {
+                                if (Value>TimeCode_FrameOffset*1000000000/Stream->second.mdhd_TimeScale) //Removing Time Code offset
+                                    Value-=TimeCode_FrameOffset*1000000000/Stream->second.mdhd_TimeScale;
+                                else
+                                    Value=0; //Sooner
+                                break;
+                            }
 
                         //Looking for the minimal stream offset, for every video/audio/text stream
                         int64u JumpTo=File_Size;
@@ -1113,12 +1118,14 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                 case Stream_Audio :
                                 case Stream_Text  :
                                                     {
+                                                        int64u Value2=float64_int64s(((float64)Value)*Stream->second.mdhd_TimeScale/1000000000); //Transformed in mpeg4 ticks (per track)
+
                                                         //Searching the corresponding frame
                                                         for (stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin(); stts_Duration!=Stream->second.stts_Durations.end(); ++stts_Duration)
                                                         {
-                                                            if (Value>=stts_Duration->DTS_Begin && Value<stts_Duration->DTS_End)
+                                                            if (Value2>=stts_Duration->DTS_Begin && Value2<stts_Duration->DTS_End)
                                                             {
-                                                                int64u FrameNumber=stts_Duration->Pos_Begin+(Value-stts_Duration->DTS_Begin)/stts_Duration->SampleDuration;
+                                                                int64u FrameNumber=stts_Duration->Pos_Begin+(Value2-stts_Duration->DTS_Begin)/stts_Duration->SampleDuration;
 
                                                                 //Searching the I-Frame
                                                                 if (!Stream->second.stss.empty())
