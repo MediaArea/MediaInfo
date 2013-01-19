@@ -1,11 +1,10 @@
 /**
- * MediaInfoDLL - All info about media files, for DLL (JNA version)
- *
- * Copyright (C) 2009-2009 Jerome Martinez, Zen@MediaArea.net
+ * MediaInfoDLL - All info about media files, for DLL
+ * Copyright (C) 2009-2012 MediaArea.net SARL, Info@MediaArea.net
  *
  * This library is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * under the terms of the GNU Library General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
  * any later version.
  *
  * This library is distributed in the hope that it will be useful,
