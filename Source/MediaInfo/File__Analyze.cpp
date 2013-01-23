@@ -100,7 +100,7 @@ File__Analyze::File__Analyze ()
     Offsets_Pos=(size_t)-1;
     OriginalBuffer=NULL;
     OriginalBuffer_Size=0;
-    OriginalBuffer_ParserStreamOffset=0;
+    OriginalBuffer_Capacity=0;
 
     //Out
     Frame_Count=0;
@@ -212,6 +212,7 @@ File__Analyze::~File__Analyze ()
 {
     //Buffer
     delete[] Buffer_Temp; //Buffer_Temp=NULL;
+    delete[] OriginalBuffer;
 
     //BitStream
     delete BS; //BS=NULL;
@@ -504,6 +505,15 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             FrameInfo_Next=frame_info();
         }
 
+        if (OriginalBuffer)
+        {
+            float64 Ratio=((float64)OriginalBuffer_Size)/Buffer_Size;
+            size_t Temp_Size=(size_t)float64_int64s(((float64)Buffer_Offset)*Ratio);
+
+            OriginalBuffer_Size-=Temp_Size;
+            memmove(OriginalBuffer, OriginalBuffer+Buffer_Offset, OriginalBuffer_Size);
+        }
+
         Buffer_Size-=Buffer_Offset;
         File_Offset+=Buffer_Offset;
         if (Buffer_Offset_Temp>=Buffer_Offset)
@@ -630,12 +640,12 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
             {
                 if (Buffer_Offset-Header_Size<Offsets_Buffer[0])
                 {
-                    Sub->Offsets_Stream.push_back(Offsets_Stream[0]-Sub->OriginalBuffer_ParserStreamOffset);
+                    Sub->Offsets_Stream.push_back(Offsets_Stream[0]);
                     Sub->Offsets_Buffer.push_back(Sub->Buffer_Size+Offsets_Buffer[0]-(Buffer_Offset+Element_Offset));
                 }
                 else
                 {
-                    Sub->Offsets_Stream.push_back(Offsets_Stream[0]+Buffer_Offset+Element_Offset-Offsets_Buffer[0]-Sub->OriginalBuffer_ParserStreamOffset);
+                    Sub->Offsets_Stream.push_back(Offsets_Stream[0]+Buffer_Offset+Element_Offset-Offsets_Buffer[0]);
                     Sub->Offsets_Buffer.push_back(Sub->Buffer_Size);
                 }
             }
@@ -645,12 +655,12 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
                     if (Buffer_Offset-Header_Size<Offsets_Buffer[Pos])
                     {
                         Sub->Offsets_Stream.push_back(Offsets_Stream[Pos]);
-                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_ParserStreamOffset+Sub->Buffer_Size+Offsets_Buffer[Pos]-(Buffer_Offset+Element_Offset));
+                        Sub->Offsets_Buffer.push_back(Sub->Buffer_Size+Offsets_Buffer[Pos]-(Buffer_Offset+Element_Offset));
                     }
                     else
                     {
                         Sub->Offsets_Stream.push_back(Offsets_Stream[Pos]+Buffer_Offset+Element_Offset-Offsets_Buffer[Pos]);
-                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_ParserStreamOffset+Sub->Buffer_Size);
+                        Sub->Offsets_Buffer.push_back(Sub->Buffer_Size);
                     }
                 }
         }
@@ -1086,6 +1096,7 @@ void File__Analyze::Buffer_Clear()
     Buffer_Offset_Temp=0;
     Buffer_MinimumSize=0;
 
+    OriginalBuffer_Size=0;
     Offsets_Stream.clear();
     Offsets_Buffer.clear();
     Offsets_Pos=(size_t)-1;

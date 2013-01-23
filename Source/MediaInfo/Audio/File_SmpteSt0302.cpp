@@ -283,20 +283,16 @@ void File_SmpteSt0302::Read_Buffer_Continue()
             }
 
             Element_Offset=0;
-            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset, (size_t)Element_Size);
+            Demux(Info2, Info2_Pos, ContentType_MainStream, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             Element_Offset=4;
         }
         else if (bits_per_sample==1 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
-            Element_Offset=0;
-            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset, (size_t)Element_Size);
-            Element_Offset=4;
+            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         }
         else
         {
-            Element_Offset=0;
-            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset, (size_t)Element_Size);
-            Element_Offset=4;
+            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         }
     #endif //MEDIAINFO_DEMUX
 
@@ -304,14 +300,18 @@ void File_SmpteSt0302::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Parsers.size(); Pos++)
     {
         Parsers[Pos]->FrameInfo=FrameInfo;
-        Parsers[Pos]->OriginalBuffer=Buffer+Buffer_Offset;
-        Parsers[Pos]->OriginalBuffer_ParserStreamOffset=(size_t)Element_Offset;
-        Parsers[Pos]->OriginalBuffer_Size=(size_t)Element_Size;
+        if (Parsers[Pos]->OriginalBuffer_Size+Element_Size-Element_Offset>Parsers[Pos]->OriginalBuffer_Capacity)
+        {
+            int8u* Temp=Parsers[Pos]->OriginalBuffer;
+            Parsers[Pos]->OriginalBuffer_Capacity=Parsers[Pos]->OriginalBuffer_Size+Element_Size-Element_Offset;
+            Parsers[Pos]->OriginalBuffer=new int8u[Parsers[Pos]->OriginalBuffer_Capacity];
+            std::memcpy(Parsers[Pos]->OriginalBuffer, Temp, Parsers[Pos]->OriginalBuffer_Size);
+            delete[] Temp;
+        }
+        std::memcpy(Parsers[Pos]->OriginalBuffer+Parsers[Pos]->OriginalBuffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Parsers[Pos]->OriginalBuffer_Size+=(size_t)(Element_Size-Element_Offset);
         Open_Buffer_Continue(Parsers[Pos], Info, Info_Offset);
         Element_Offset=Element_Size;
-        Parsers[Pos]->OriginalBuffer=NULL;
-        Parsers[Pos]->OriginalBuffer_ParserStreamOffset=0;
-        Parsers[Pos]->OriginalBuffer_Size=0;
 
         if (Parsers.size()>1 && Parsers[Pos]->Status[IsAccepted])
         {

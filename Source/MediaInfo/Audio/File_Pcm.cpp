@@ -308,6 +308,19 @@ void File_Pcm::Data_Parse()
         FrameInfo.PTS=FrameInfo.DTS;
         Demux_random_access=true;
         Element_Code=(int64u)-1;
+        int8u* Temp;
+        size_t Temp_Size;
+        if (OriginalBuffer_Size)
+        {
+            float64 Ratio=((float64)OriginalBuffer_Size)/Buffer_Size;
+            Temp=OriginalBuffer+(size_t)float64_int64s(((float64)Buffer_Offset)*Ratio);
+            Temp_Size=(size_t)float64_int64s(((float64)Element_Size)*Ratio);
+        }
+        else
+        {
+            Temp=NULL;
+            Temp_Size=0;
+        }
 
         if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo16bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
@@ -329,17 +342,15 @@ void File_Pcm::Data_Parse()
                 Info_Pos+=6;
             }
 
-            Element_Offset=0;
-            Demux(Info2, Info2_Pos, ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
-            Element_Offset=4;
+            Demux(Info2, Info2_Pos, ContentType_MainStream, Temp, Temp_Size);
         }
         else if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
         {
-            Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream, Temp, Temp_Size);
         }
         else
         {
-            Demux(Buffer+Buffer_Offset-Header_Size, (size_t)(Header_Size+Element_Size), ContentType_MainStream, OriginalBuffer, OriginalBuffer?((size_t)(OriginalBuffer_Size-(Buffer_Size-Element_Size))):0);
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream, Temp, Temp_Size);
         }
     #endif //MEDIAINFO_DEMUX
 

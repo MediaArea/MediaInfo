@@ -123,9 +123,9 @@ public :
     std::vector<int64u> Offsets_Stream;
     std::vector<int64u> Offsets_Buffer;
     size_t              Offsets_Pos;
-    const int8u*        OriginalBuffer;
-    size_t              OriginalBuffer_ParserStreamOffset;
+    int8u*              OriginalBuffer;
     size_t              OriginalBuffer_Size;
+    size_t              OriginalBuffer_Capacity;
 
     //Out
     int64u PTS_Begin;                  //In nanoseconds
