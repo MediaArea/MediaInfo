@@ -1131,7 +1131,7 @@ void File_SmpteSt0337::Data_Parse()
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
 
-        if (Frame_Count>=2 && Parser->Status[IsFinished])
+        if (Parser==NULL || (Frame_Count>=2 && Parser->Status[IsFinished]))
             Finish("AES3");
     FILLING_END();
 
