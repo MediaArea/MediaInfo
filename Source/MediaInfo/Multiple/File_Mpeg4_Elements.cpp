@@ -3809,11 +3809,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                     Parser->Sign=(Flags&0x04)?'S':'U';
                 }
             }
-            else
-            {
-                Parser->Endianness='L';
-                Parser->Sign='U';
-            }
             Parser->Codec=Ztring().From_Local(Codec.c_str());
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             Streams[moov_trak_tkhd_TrackID].IsPcm=true;

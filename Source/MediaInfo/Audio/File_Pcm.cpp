@@ -118,26 +118,27 @@ void File_Pcm::Streams_Fill()
 
     //Filling
     Ztring Firm, ITU;
-         if (Codec==__T("EVOB"))             {Firm=__T("");      Endianness='B'; Sign='S';}                        //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
-    else if (Codec==__T("VOB"))              {Firm=__T("");      Endianness='B'; Sign='S';}                        //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
-    else if (Codec==__T("M2TS"))             {Firm=__T("");      Endianness='B'; Sign='S';}                        //PCM Signed         Big Endian
+         if (Codec==__T("EVOB"))             {Firm=__T("");      Endianness='B';            Sign='S';}                        //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==__T("VOB"))              {Firm=__T("");      Endianness='B';            Sign='S';}                        //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==__T("M2TS"))             {Firm=__T("");      Endianness='B';            Sign='S';}                        //PCM Signed         Big Endian
     else if (Codec==__T("A_PCM/INT/BIG"))    {Firm=__T("");      Endianness='B';}
     else if (Codec==__T("A_PCM/INT/LITTLE")) {Firm=__T("");      Endianness='L';}
-    else if (Codec==__T("A_PCM/INT/FLOAT"))  {Firm=__T("");      Endianness='B'; Sign='F';}
-    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth_Original=32;}
-    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; Sign='F'; BitDepth_Original=64;}
-    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth_Original=24;}
-    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; Sign='U'; BitDepth_Original=32;}
-    else if (Codec==__T("raw "))             {  if (!Endianness) Endianness='L'; Sign='U';}
-    else if (Codec==__T("twos"))             {                   Endianness='B'; Sign='S';}
-    else if (Codec==__T("sowt"))             {                   Endianness='L'; Sign='S';}
+    else if (Codec==__T("A_PCM/INT/FLOAT"))  {Firm=__T("");      Endianness='B';            Sign='F';}
+    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='F'; BitDepth_Original=32;}
+    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='F'; BitDepth_Original=64;}
+    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='U'; BitDepth_Original=24;}
+    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='U'; BitDepth_Original=32;}
+    else if (Codec==__T("raw "))             {  if (!Endianness) Endianness='L';            Sign='U';}
+    else if (Codec==__T("twos"))             {                   Endianness='B';            Sign='S';}
+    else if (Codec==__T("sowt"))             {                   Endianness='L';            Sign='S';}
+    else if (Codec==__T("lpcm"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='S';}
     else if (Codec==__T("SWF ADPCM"))        {Firm=__T("SWF");}
     else if (Codec==__T("1"))                {   if (BitDepth_Original)
                                                 {
                                                     if (BitDepth_Original>8)
-                                                    {            Endianness='L'; Sign='S';}
+                                                    {            Endianness='L';            Sign='S';}
                                                     else
-                                                    {                            Sign='U';}
+                                                    {                                       Sign='U';}
                                                 }
                                             }
     else if (Codec==__T("2"))                {Firm=__T("Microsoft");}
@@ -200,7 +201,7 @@ void File_Pcm::Streams_Fill()
     {
         case 'B': Value="Big"; break;
         case 'L': Value="Little"; break;
-        default : Value="";
+        default : Value=""; //Default behavior for MOV file (from tests)
     }
     Fill(Stream_Audio, 0, Audio_Format_Settings, Value);
     Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, Value);
@@ -212,7 +213,7 @@ void File_Pcm::Streams_Fill()
     {
         case 'S': Value="Signed"; break;
         case 'U': Value="Unsigned"; break;
-        default : Value="";
+        default : Value=""; //Default behavior for MOV file (from tests)
     }
     Fill(Stream_Audio, 0, Audio_Format_Settings, Value);
     Fill(Stream_Audio, 0, Audio_Format_Settings_Sign, Value);
