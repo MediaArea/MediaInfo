@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.62, 2012-
 --------------
++ ARIB STD B24/B37 caption detection (both Japanese and Brazilian versions)
 + AC-3: support of 22.05 kHz streams (out of specs but they exist)
 + MOV: support of AVID metadata (interlacement information)
 + Time code dedicated tracks (MOV, MXF, GXF)

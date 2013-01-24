@@ -614,6 +614,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0337.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -701,9 +704,6 @@
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Als.h">
@@ -1134,6 +1134,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\source\mediainfo\audio\File_SmpteSt0337.h">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.h">
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

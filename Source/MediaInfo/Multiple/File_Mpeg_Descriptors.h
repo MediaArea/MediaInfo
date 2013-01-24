@@ -685,6 +685,11 @@ private :
     void Descriptor_A9() {Skip_XX(Element_Size, "Data");};
     void Descriptor_AA();
     void Descriptor_AB() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_C1();
+    void Descriptor_C8();
+    void Descriptor_DE();
+    void Descriptor_FC();
+    void Descriptor_FD();
 
     //SCTE 35
     void CUEI_00();

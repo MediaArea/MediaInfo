@@ -600,7 +600,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 if (!Format_Profile.empty() && Complete_Stream->Streams[Temp->SubStream_pid] && Complete_Stream->Streams[Temp->SubStream_pid]->Parser)
                     Fill(Stream_Video, StreamPos, Video_Format_Profile, Complete_Stream->Streams[Temp->SubStream_pid]->Parser->Retrieve(Stream_Video, 0, Video_Format_Profile)+__T(" / ")+Format_Profile, true);
             }
-            else if (Count>1)
+            else if (Count>1 || (StreamKind_Last==Stream_Text && Retrieve(StreamKind_Last, StreamPos, General_ID).find(__T('-'))!=string::npos))
             {
                 Ztring ID=Retrieve(StreamKind_Last, StreamPos, General_ID);
                 size_t ID_Pos=ID.find(__T('-'));
@@ -1173,6 +1173,9 @@ bool File_MpegTs::Synched_Test()
         pid=(Buffer[Buffer_Offset+BDAV_Size+1]&0x1F)<<8
           |  Buffer[Buffer_Offset+BDAV_Size+2];
 
+        if (pid==241)
+            int A=0;    
+            
         complete_stream::stream* Stream=Complete_Stream->Streams[pid];
         if (Stream->Searching)
         {
@@ -2784,6 +2787,12 @@ void File_MpegTs::PES_Parse_Finish()
 //---------------------------------------------------------------------------
 void File_MpegTs::PSI()
 {
+//    if (pid!=0 && pid!=0x101/*0x2f0*/)
+    {
+  //      Element_DoNotShow();
+    //    return;    
+    }
+
     //Initializing
     if (payload_unit_start_indicator)
     {

@@ -152,7 +152,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBMMS_NO;MEDIAINFO_TRACEx_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_NOx;MEDIAINFO_EVENTS_NOx;MEDIAINFO_DEMUX_NOx;MEDIAINFO_DUPLICATE_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NOx;MEDIAINFO_IBI_NOx;MEDIAINFO_NEXTPACKET_NOx;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
@@ -366,6 +366,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scc.cpp" />
@@ -580,6 +581,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Swf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scc.h" />

@@ -153,6 +153,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_DvbSubtitle.cpp \
                        ../../../Source/MediaInfo/Text/File_DtvccTransport.cpp \
                        ../../../Source/MediaInfo/Text/File_Kate.cpp \
+                       ../../../Source/MediaInfo/Text/File_AribStdB24B37.cpp \
                        ../../../Source/MediaInfo/Text/File_Eia608.cpp \
                        ../../../Source/MediaInfo/Text/File_Eia708.cpp \
                        ../../../Source/MediaInfo/Text/File_N19.cpp \

@@ -47,7 +47,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DUPLICATE_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_NEXTPACKET_NO"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -1228,6 +1228,10 @@
 				Name="Text"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cdp.cpp"
 					>
 				</File>
@@ -1996,6 +2000,10 @@
 				Name="Text"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cdp.h"
 					>
 				</File>
@@ -2148,6 +2156,14 @@
 				<File
 					RelativePath="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.h"

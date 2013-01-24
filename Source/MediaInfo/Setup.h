@@ -558,6 +558,9 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_ARIBSTDB24B37_NO) && !defined(MEDIAINFO_ARIBSTDB24B37_YES)
+    #define MEDIAINFO_ARIBSTDB24B37_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CDP_NO) && !defined(MEDIAINFO_CDP_YES)
     #define MEDIAINFO_CDP_YES
 #endif
