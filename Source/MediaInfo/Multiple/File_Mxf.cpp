@@ -3534,7 +3534,7 @@ void File_Mxf::Data_Parse()
             }
 
             //Disabling this Streams
-            if (((!Essence->second.IsFilled && Essence->second.Parsers.size()==1 && Essence->second.Parsers[0]->Status[IsFinished]) || Essence->second.Parsers[0]->Status[IsFilled]))
+            if (!Essence->second.IsFilled && Essence->second.Parsers.size()==1 && Essence->second.Parsers[0]->Status[IsFilled])
             {
                 if (Streams_Count>0)
                     Streams_Count--;
