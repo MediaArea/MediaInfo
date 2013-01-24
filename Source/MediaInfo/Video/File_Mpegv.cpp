@@ -3459,6 +3459,10 @@ void File_Mpegv::sequence_header()
 {
     Element_Name("sequence_header");
 
+    //Reset
+    display_horizontal_size=0;
+    display_vertical_size=0;
+
     //Reading
     int32u bit_rate_value_temp;
     BS_Begin();

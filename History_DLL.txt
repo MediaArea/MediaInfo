@@ -28,6 +28,7 @@ x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video i
 x P2 Clip: wrong uppercase/lowercase in the file name of source files.
 x MOV: PCM endianness was sometimes wrong
 x MPEG-4: JPEG interlacement was sometimes wrong
+x MPEG Video: wrong DAR information in case of DAR change between begin and end of the file
 
 Version 0.7.61, 2012-10-22
 --------------
