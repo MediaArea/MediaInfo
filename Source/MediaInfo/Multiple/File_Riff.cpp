@@ -645,6 +645,7 @@ void File_Riff::Read_Buffer_Continue()
     if (Demux_Parser)
     {
         Open_Buffer_Continue(Demux_Parser, Buffer+Buffer_Offset, 0, false);
+        Demux_Parser=NULL;
         //if (Config->Demux_EventWasSent)
         //    return;
     }
