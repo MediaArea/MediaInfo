@@ -160,6 +160,10 @@ void File__Analyze::Streams_Accept_TestContinuousFileNames()
     File_Size=Config->File_Size;
     Element[0].Next=File_Size;
     Fill (Stream_General, 0, General_FileSize, File_Size, 10, true);
+    Fill (Stream_General, 0, General_CompleteName_Last, Config->File_Names[Config->File_Names.size()-1], true);
+    Fill (Stream_General, 0, General_FolderName_Last, FileName::Path_Get(Config->File_Names[Config->File_Names.size()-1]), true);
+    Fill (Stream_General, 0, General_FileName_Last, FileName::Name_Get(Config->File_Names[Config->File_Names.size()-1]), true);
+    Fill (Stream_General, 0, General_FileExtension_Last, FileName::Extension_Get(Config->File_Names[Config->File_Names.size()-1]), true);
 }
 
 //---------------------------------------------------------------------------
