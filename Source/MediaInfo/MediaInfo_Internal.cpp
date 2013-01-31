@@ -1123,4 +1123,20 @@ size_t MediaInfo_Internal::State_Get ()
     return (size_t)(Config.State_Get()*10000);
 }
 
+//---------------------------------------------------------------------------
+void MediaInfo_Internal::TestContinuousFileNames ()
+{
+    CriticalSectionLocker CSL(CS);
+    if (Info)
+        Info->TestContinuousFileNames();
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Internal::Event_Prepare (struct MediaInfo_Event_Generic* Event)
+{
+    CriticalSectionLocker CSL(CS);
+    if (Info)
+        Info->TestContinuousFileNames();
+}
+
 } //NameSpace

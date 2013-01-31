@@ -302,7 +302,7 @@ void File_Dpx::Streams_Accept()
 
     if (!IsSub)
     {
-        Streams_Accept_TestContinuousFileNames();
+        TestContinuousFileNames();
 
         Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);

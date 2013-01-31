@@ -253,6 +253,9 @@ public :
     int64u        File_Current_Size;
     int64u        File_Size;
     float32       ParseSpeed;
+    #if MEDIAINFO_EVENTS
+    Ztring        File_Names_RootDirectory;
+    #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
         #if MEDIAINFO_SEEK

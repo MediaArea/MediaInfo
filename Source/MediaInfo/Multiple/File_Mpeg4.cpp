@@ -208,7 +208,7 @@ void File_Mpeg4::Streams_Accept()
 {
     if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
     {
-        Streams_Accept_TestContinuousFileNames();
+        TestContinuousFileNames();
 
         Stream_Prepare((Config->File_Names.size()>1 || Config->File_IsReferenced_Get())?Stream_Video:Stream_Image);
         if (StreamKind_Last==Stream_Video)

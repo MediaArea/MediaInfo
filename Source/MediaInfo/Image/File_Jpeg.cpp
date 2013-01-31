@@ -182,7 +182,7 @@ void File_Jpeg::Streams_Accept()
 {
     if (!IsSub)
     {
-        Streams_Accept_TestContinuousFileNames();
+        TestContinuousFileNames();
 
         Stream_Prepare(Config->File_Names.size()>1?Stream_Video:StreamKind);
         Fill(StreamKind_Last, StreamPos_Last, "StreamSize", File_Size);

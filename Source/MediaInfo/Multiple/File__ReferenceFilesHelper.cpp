@@ -268,9 +268,6 @@ void File__ReferenceFilesHelper::ParseReferences()
                 MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
             }
 
-            if (TestContinuousFileNames)
-                File__Analyze::Streams_Accept_TestContinuousFileNames_Static(Reference->FileNames, true);
-
             ++Reference;
         }
 
@@ -481,6 +478,7 @@ void File__ReferenceFilesHelper::ParseReference()
         #if MEDIAINFO_EVENTS
             if (Config->Event_CallBackFunction_IsSet())
                 Reference->MI->Option(__T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+            Reference->MI->Config.File_Names_RootDirectory=FileName(MI->File_Name).Path_Get();
             ZtringListList SubFile_IDs;
             for (size_t Pos=0; Pos<MI->StreamIDs_Size; Pos++)
             {
