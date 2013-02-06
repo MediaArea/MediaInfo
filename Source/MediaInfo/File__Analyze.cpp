@@ -3126,15 +3126,15 @@ bool File__Analyze::Demux_UnpacketizeContainer_Test_OneFramePerFile ()
         return false;
     }
 
-    if (Config->Demux_Rate_Get())
-    {
-        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-            FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Config->Demux_Rate_Get());
-        else
-            FrameInfo.DTS=(int64u)-1;
-        FrameInfo.PTS=FrameInfo.DTS;
-        FrameInfo.DUR=float64_int64s(1000000000/Config->Demux_Rate_Get());
-    }
+    float64 Demux_Rate=Config->Demux_Rate_Get();
+    if (!Demux_Rate)
+        Demux_Rate=25;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Demux_Rate);
+    else
+        FrameInfo.DTS=(int64u)-1;
+    FrameInfo.PTS=FrameInfo.DTS;
+    FrameInfo.DUR=float64_int64s(1000000000/Demux_Rate);
     Demux_Offset=Buffer_Size;
     Demux_UnpacketizeContainer_Demux();
 
