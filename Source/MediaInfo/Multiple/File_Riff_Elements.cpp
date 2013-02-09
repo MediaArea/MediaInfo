@@ -2034,10 +2034,12 @@ void File_Riff::AVI__idx1()
         int32u StreamID=BigEndian2int32u   (Buffer+Buffer_Offset+(size_t)Element_Offset   )&0xFFFF0000;
         int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+ 8);
         int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+12);
-        Stream[StreamID].StreamSize+=Size;
-        Stream[StreamID].PacketCount++;
-        Stream_Structure[Idx1_Offset+Offset].Name=StreamID;
-        Stream_Structure[Idx1_Offset+Offset].Size=Size;
+        stream& Stream_Item=Stream[StreamID];
+        Stream_Item.StreamSize+=Size;
+        Stream_Item.PacketCount++;
+        stream_structure& Stream_Structure_Item=Stream_Structure[Idx1_Offset+Offset];
+        Stream_Structure_Item.Name=StreamID;
+        Stream_Structure_Item.Size=Size;
         Element_Offset+=16;
     }
 
