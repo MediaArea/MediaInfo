@@ -1288,13 +1288,12 @@ void File_Mpegv::Streams_Fill()
                 Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
             }
         }
-        std::string TempRef, CodingType;
+        std::string TempRef;
         for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
             if (TemporalReference[Pos] && TemporalReference[Pos]->HasPictureCoding)
             {
                 TempRef+=TemporalReference[Pos]->top_field_first?"T":"B";
                 TempRef+=TemporalReference[Pos]->repeat_first_field?"3":"2";
-                CodingType+=Mpegv_picture_coding_type[TemporalReference[Pos]->picture_coding_type];
             }
         if (TempRef.find('3')!=std::string::npos)
         {
