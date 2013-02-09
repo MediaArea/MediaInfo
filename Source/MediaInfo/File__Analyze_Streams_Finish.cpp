@@ -104,6 +104,9 @@ void File__Analyze::Streams_Finish_Global()
 //---------------------------------------------------------------------------
 void File__Analyze::TestContinuousFileNames()
 {
+    if (!Config->File_TestContinuousFileNames_Get())
+        return;
+
     size_t Pos=Config->File_Names.size();
     
     //Trying to detect continuous file names (e.g. video stream as an image or HLS)

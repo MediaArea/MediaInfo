@@ -1136,7 +1136,7 @@ void MediaInfo_Internal::Event_Prepare (struct MediaInfo_Event_Generic* Event)
 {
     CriticalSectionLocker CSL(CS);
     if (Info)
-        Info->TestContinuousFileNames();
+        Info->Event_Prepare(Event);
 }
 
 } //NameSpace

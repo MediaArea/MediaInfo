@@ -76,6 +76,9 @@ public :
     void          File_IsReferenced_Set (bool NewValue);
     bool          File_IsReferenced_Get ();
 
+    void          File_TestContinuousFileNames_Set (bool NewValue);
+    bool          File_TestContinuousFileNames_Get ();
+
     void          File_KeepInfo_Set (bool NewValue);
     bool          File_KeepInfo_Get ();
 
@@ -158,6 +161,7 @@ public :
     Ztring        Event_CallBackFunction_Get ();
     void          Event_Send(File__Analyze* Source, const int8u* Data_Content, size_t Data_Size, const Ztring &File_Name=Ztring());
     void          Event_Accepted(File__Analyze* Source);
+    void          Event_SubFile_Start(const Ztring &FileName_Absolute);
     #endif //MEDIAINFO_EVENTS
 
     #if MEDIAINFO_DEMUX
@@ -268,6 +272,7 @@ private :
     bool                    FileIsSub;
     bool                    FileIsDetectingDuration;
     bool                    FileIsReferenced;
+    bool                    FileTestContinuousFileNames;
     bool                    FileKeepInfo;
     bool                    FileStopAfterFilled;
     bool                    FileStopSubStreamAfterFilled;

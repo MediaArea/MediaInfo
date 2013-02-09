@@ -32,6 +32,9 @@
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "ZenLib/ZtringListListF.h"
+#if MEDIAINFO_EVENTS
+    #include "ZenLib/FileName.h"
+#endif //MEDIAINFO_EVENTS
 #if MEDIAINFO_IBI
     #include "base64.h"
 #endif //MEDIAINFO_IBI
@@ -58,6 +61,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileIsSub=false;
     FileIsDetectingDuration=false;
     FileIsReferenced=false;
+    FileTestContinuousFileNames=true;
     FileKeepInfo=false;
     FileStopAfterFilled=false;
     FileStopSubStreamAfterFilled=false;
@@ -203,6 +207,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_isreferenced_get"))
     {
         return File_IsReferenced_Get()?"1":"0";
+    }
+    if (Option_Lower==__T("file_testcontinuousfilenames"))
+    {
+        File_TestContinuousFileNames_Set(!(Value==__T("0") || Value.empty()));
+        return __T("");
+    }
+    else if (Option_Lower==__T("file_testcontinuousfilenames_get"))
+    {
+        return File_TestContinuousFileNames_Get()?"1":"0";
     }
     if (Option_Lower==__T("file_keepinfo"))
     {
@@ -840,6 +853,23 @@ bool MediaInfo_Config_MediaInfo::File_KeepInfo_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return FileKeepInfo;
+}
+
+//***************************************************************************
+// File test continuous file names
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_TestContinuousFileNames_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    FileTestContinuousFileNames=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_TestContinuousFileNames_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return FileTestContinuousFileNames;
 }
 
 //***************************************************************************
@@ -1527,9 +1557,6 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
             if (!MediaInfoLib::Config.Demux_Get())
                 return;
 
-            if (File_Name.empty())
-                return;
-
             MediaInfo_Event_Global_Demux_4* Event=(MediaInfo_Event_Global_Demux_4*)Data_Content;
 
             Ztring File_Name_Final(File_Name);
@@ -1583,6 +1610,46 @@ void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
             Events_Delayed.erase(Event->first);
             return;
         }
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Event_SubFile_Start(const Ztring &FileName_Absolute)
+{
+    Ztring FileName_Relative;
+    if (File_Names_RootDirectory.empty())
+    {
+        FileName FN(FileName_Absolute);
+        FileName_Relative=FN.Name_Get();
+        if (!FN.Extension_Get().empty())
+        {
+            FileName_Relative+=__T('.');
+            FileName_Relative+=FN.Extension_Get();
+        }
+    }
+    else
+    {
+        Ztring Root=File_Names_RootDirectory+PathSeparator;
+        FileName_Relative=FileName_Absolute;
+        if (FileName_Relative.find(Root)==0)
+            FileName_Relative.erase(0, Root.size());
+    }
+
+    struct MediaInfo_Event_General_SubFile_Start_0 Event;
+    memset(&Event, 0xFF, sizeof(struct MediaInfo_Event_Generic));
+    Event.EventCode=MediaInfo_EventCode_Create(0, MediaInfo_Event_General_SubFile_Start, 0);
+    Event.EventSize=sizeof(struct MediaInfo_Event_General_SubFile_Start_0);
+    Event.StreamIDs_Size=0;
+
+    std::string FileName_Relative_Ansi=FileName_Relative.To_UTF8();
+    std::wstring FileName_Relative_Unicode=FileName_Relative.To_Unicode();
+    std::string FileName_Absolute_Ansi=FileName_Absolute.To_UTF8();
+    std::wstring FileName_Absolute_Unicode=FileName_Absolute.To_Unicode();
+    Event.FileName_Relative=FileName_Relative_Ansi.c_str();
+    Event.FileName_Relative_Unicode=FileName_Relative_Unicode.c_str();
+    Event.FileName_Absolute=FileName_Absolute_Ansi.c_str();
+    Event.FileName_Absolute_Unicode=FileName_Absolute_Unicode.c_str();
+
+    Event_Send(NULL, (const int8u*)&Event, Event.EventSize);
 }
 #endif //MEDIAINFO_EVENTS
 
