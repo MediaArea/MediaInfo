@@ -87,7 +87,6 @@ private :
     size_t Save_Buffer_Size;
 
     //Temp
-    std::map<int32u, int64u> HD_Sizes;
     std::vector<ZenLib::int32u> Asset_Sizes;
     Ztring Profile;
     int32u Original_Size;
