@@ -145,7 +145,9 @@ private :
 public :
     bool SelectFromExtension (const String &Parser); //Select File_* from the parser name
     void TestContinuousFileNames();
-    void Event_Prepare (struct MediaInfo_Event_Generic* Event);
+    #if MEDIAINFO_EVENTS
+        void Event_Prepare (struct MediaInfo_Event_Generic* Event);
+    #endif // MEDIAINFO_EVENTS
     #if !defined(MEDIAINFO_READER_NO)
         int  ListFormats(const String &File_Name=String());
     #else //!defined(MEDIAINFO_READER_NO)
