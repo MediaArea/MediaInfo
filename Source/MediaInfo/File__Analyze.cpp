@@ -973,13 +973,35 @@ size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Va
     switch (Method)
     {
         case 0  :
-                    GoTo(Value);
+                    {
+                    if (Value>=Config->File_Size)
+                        return 2; //Invalid value
+                    int64u Offset=0;
+                    for (size_t Pos=0; Pos<Config->File_Sizes.size(); Pos++)
+                    {
+                        Offset+=Config->File_Sizes[Pos];
+                        if (Offset>=Value)
+                        {
+                            Offset-=Config->File_Sizes[Pos];
+                            break;
+                        }
+                    }
+                    GoTo(Offset);
                     Open_Buffer_Unsynch();
                     return 1;
+                    }
         case 1  :
-                    GoTo(File_Size*Value/10000);
+                    {
+                    if (Value>=10000)
+                        return 2; //Invalid value
+                    size_t FilePos=(size_t)((((float32)Value)/10000)*Config->File_Sizes.size());
+                    int64u Offset=0;
+                    for (size_t Pos=0; Pos<FilePos; Pos++)
+                        Offset+=Config->File_Sizes[Pos];
+                    GoTo(Offset);
                     Open_Buffer_Unsynch();
                     return 1;
+                    }
         case 2  :   //Timestamp
                     if (Config->Demux_Rate_Get()==0)
                         return (size_t)-1; //Not supported
