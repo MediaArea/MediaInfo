@@ -1992,7 +1992,7 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
     //Per value
     for (size_t Pos=0; Pos<List.size(); Pos++)
     {
-        int32u BitRate=List[Pos].To_int32u();
+        int64u BitRate=List[Pos].To_int64u();
 
         //Text
         if (BitRate==0 && (List[Pos].empty() || List[Pos][0]>__T('9')))
@@ -2042,7 +2042,13 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
             else
             {
                 //Standard
-                if (BitRate>10000000)
+                if (BitRate>10000000000)
+                {
+                    Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
+                    Measure.insert(1, __T("G"));
+                    Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000000000, BitRate>100000000000?0:1), Measure, true));
+                }
+                else if (BitRate>10000000)
                 {
                     Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
                     Measure.insert(1, __T("M"));
