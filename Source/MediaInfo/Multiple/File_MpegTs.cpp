@@ -1172,9 +1172,6 @@ bool File_MpegTs::Synched_Test()
         //Getting pid
         pid=(Buffer[Buffer_Offset+BDAV_Size+1]&0x1F)<<8
           |  Buffer[Buffer_Offset+BDAV_Size+2];
-
-        if (pid==241)
-            int A=0;    
             
         complete_stream::stream* Stream=Complete_Stream->Streams[pid];
         if (Stream->Searching)
