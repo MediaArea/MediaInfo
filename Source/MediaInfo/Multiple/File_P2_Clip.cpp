@@ -150,7 +150,9 @@ bool File_P2_Clip::FileHeader_Begin()
                 if (EssenceList)
                 {
                     XMLElement* Track=EssenceList->FirstChildElement();
+                    #if defined(MEDIAINFO_MXF_YES)
                     size_t Audio_Count=0;
+                    #endif
                     while (Track)
                     {
                         string Field=Track->Value();

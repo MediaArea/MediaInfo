@@ -1091,7 +1091,7 @@ void File_Mxf::Streams_Finish()
             Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, SystemScheme1_TimeCodeArray_StartTimecode.c_str());
         }
     }
-    
+
     //Parsing locators
     Locators_Test();
     #if MEDIAINFO_NEXTPACKET
@@ -4606,7 +4606,7 @@ void File_Mxf::SDTI_SystemMetadataPack() //SMPTE 385M + 326M
         if (SDTI_TimeCode_StartTimecode_ms==(int64u)-1)
         {
             SDTI_TimeCode_StartTimecode_ms=TimeCode_ms;
-            
+
             SDTI_TimeCode_StartTimecode+=('0'+Hours_Tens);
             SDTI_TimeCode_StartTimecode+=('0'+Hours_Units);
             SDTI_TimeCode_StartTimecode+=':';
@@ -6716,7 +6716,7 @@ void File_Mxf::SystemScheme1_TimeCodeArray()
         if (SystemScheme1_TimeCodeArray_StartTimecode_ms==(int64u)-1 && !IsParsingEnd && IsParsingMiddle_MaxOffset==(int64u)-1)
         {
             SystemScheme1_TimeCodeArray_StartTimecode_ms=TimeCode;
-            
+
             SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Hours_Tens);
             SystemScheme1_TimeCodeArray_StartTimecode+=('0'+Hours_Units);
             SystemScheme1_TimeCodeArray_StartTimecode+=':';

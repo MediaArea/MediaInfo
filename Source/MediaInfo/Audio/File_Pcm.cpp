@@ -184,7 +184,7 @@ void File_Pcm::Streams_Fill()
     Fill(Stream_Audio, 0, Audio_Codec_String, "PCM");
     Fill(Stream_Audio, 0, Audio_Codec_Family, "PCM");
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-    
+
     //SamplingRate
     if (SamplingRate)
         Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
@@ -229,11 +229,11 @@ void File_Pcm::Streams_Fill()
     //BitDepth
     if (BitDepth_Original)
         Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth_Original);
-    
+
     //Channels
     if (Channels)
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
-    
+
     //ChannelsPositions
     if (Codec==__T("SMPTE ST 337"))
     {

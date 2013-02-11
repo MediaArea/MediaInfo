@@ -108,7 +108,7 @@ void File__Analyze::TestContinuousFileNames()
         return;
 
     size_t Pos=Config->File_Names.size();
-    
+
     //Trying to detect continuous file names (e.g. video stream as an image or HLS)
     FileName FileToTest(Config->File_Names.Read(Config->File_Names.size()-1));
     Ztring FileToTest_Name=FileToTest.Name_Get();

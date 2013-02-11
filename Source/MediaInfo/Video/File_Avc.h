@@ -54,7 +54,7 @@ public :
 
 private :
     File_Avc(const File_Avc &File_Avc); //No copy
-        
+
     //Structures - seq_parameter_set
     struct seq_parameter_set_struct
     {

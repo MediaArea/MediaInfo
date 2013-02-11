@@ -131,7 +131,7 @@ private :
         string  ISO_639_language_code;
         int8u   DMF_reception;
         int8u   Format;
-        
+
         int16u  G[4];
         int8u   G_Width[4];
         int8u   GL;         // Locked
@@ -144,7 +144,7 @@ private :
         {
             DMF_reception=(int8u)-1;
             Format=(int8u)-1;
-            
+
             // Table 8-2 Initial status
             G[0]=GS_Kanji;
             G[1]=GS_Alphanumeric;

@@ -440,7 +440,7 @@ void File_AribStdB24B37::caption_management() //caption_management_data()
     }
     BS_End();
     Get_B1 (num_languages,                                      "num_languages");
-    
+
     Streams.clear();
     Streams.resize(num_languages);
     for (int8u pos_languages=0; pos_languages<num_languages; pos_languages++)
@@ -468,7 +468,7 @@ void File_AribStdB24B37::caption_management() //caption_management_data()
             Streams[pos_languages].ISO_639_language_code=ISO_639_language_code;
             Streams[pos_languages].DMF_reception=DMF_reception;
             Streams[pos_languages].Format=Format;
-            
+
             // Special case
             if (ISO_639_language_code=="por")
             {
@@ -501,7 +501,7 @@ void File_AribStdB24B37::caption_statement() //caption_data()
         Skip_XX(Element_Size-Element_Offset,                    "Data");
         return; //Not supported (e.g. Portuguese from Brazil, ISDB-Tb)
     }
-        
+
     //Parsing
     int32u data_unit_loop_length;
     int8u  TMD;
@@ -576,7 +576,7 @@ void File_AribStdB24B37::JIS (int8u Row, int8u Column)
 {
     // Encoding is JIS, but we have only Shift-JIS to Unicode algo, we transform JIS to Shift-JIS (Windows-31J)
     // See http://en.wikipedia.org/wiki/Shift_JIS for the formula
-    
+
     if (Column<32)
         return; // Problem
 
@@ -660,7 +660,7 @@ void File_AribStdB24B37::Character (int8u G_Value, int8u FirstByte, int8u Second
                         Skip_B2(                                "Character");
                         if (Value<=Compute(84, 6))
                             JIS(FirstByte, SecondByte);
-                        else 
+                        else
                             switch (Value)
                             {
                                 case Compute(92,  1): JIS( 35,  42); break;
@@ -722,7 +722,7 @@ void File_AribStdB24B37::Character (int8u G_Value, int8u FirstByte, int8u Second
                         {
                             case 1 : Skip_C1("Character (unsupported)"); break;
                             case 2 : Skip_C2("Character (unsupported)"); break;
-                            default: Skip_XX(Streams[(size_t)(Element_Code-1)].G_Width[G_Value], "Character (unsupported)"); 
+                            default: Skip_XX(Streams[(size_t)(Element_Code-1)].G_Width[G_Value], "Character (unsupported)");
                         }
     }
 }
@@ -732,8 +732,8 @@ void File_AribStdB24B37::control_code()
 {
     int8u control_code;
     Peek_B1(control_code);
-    
-    switch (control_code) 
+
+    switch (control_code)
     {
         // Table 7-15 C0 control set
         case 0x00 : NUL(); break;
@@ -910,7 +910,7 @@ void File_AribStdB24B37::ESC()
     switch (P1)
     {
         // Table 7-2 Designation of graphic sets
-        case 0x24 : 
+        case 0x24 :
                     {
                     int8u P2;
                     Get_B1 (P2,                                 "P2");
@@ -1190,7 +1190,7 @@ void File_AribStdB24B37::CSI()
                             if (Params.size()>=1 && Params[0]<0x100)
                                 Streams[(size_t)(Element_Code-1)].Format=(int8u)Params[0];
                             break;
-                case 0x54: 
+                case 0x54:
                             Element_Info1("CCC - Composite Character Composition");
                             break;
                 case 0x56:

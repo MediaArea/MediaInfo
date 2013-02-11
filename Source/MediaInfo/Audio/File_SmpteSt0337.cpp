@@ -238,7 +238,7 @@ void File_SmpteSt0337::Streams_Fill()
                         Fill(StreamKind_Last, Pos, "Format_Settings", "Big");
                         Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Big", Unlimited, true, true);
                         break;
-            case 'L' : 
+            case 'L' :
                         Fill(StreamKind_Last, Pos, "Format_Settings", "Little");
                         Fill(StreamKind_Last, Pos, "Format_Settings_Endianness", "Little", Unlimited, true, true);
                         break;

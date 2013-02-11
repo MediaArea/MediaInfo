@@ -702,7 +702,7 @@ void File_Riff::AIFF_COMM()
         BlockAlign=numChannels*sampleSize/8;
         AvgBytesPerSec=(int32u)float64_int64s(BlockAlign*sampleRate);
     #endif //MEDIAINFO_DEMUX
-        
+
     Element_Code=(int64u)-1;
     for (size_t Pos=0; Pos<Stream[Stream_ID].Parsers.size(); Pos++)
         Open_Buffer_Init(Stream[Stream_ID].Parsers[Pos]);

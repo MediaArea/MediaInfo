@@ -738,7 +738,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
 
         //Random access check
         RandomAccess=false;
-        
+
         //Computing final size
         size_t TranscodedBuffer_Size=0;
         while (Buffer_Offset+SizeOfNALU_Minus1+1+1<=Buffer_Size)
@@ -764,7 +764,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
             //Coherency checking
             if (Size==0 || Buffer_Offset+Size>Buffer_Size || (Buffer_Offset+Size!=Buffer_Size && Buffer_Offset+Size+SizeOfNALU_Minus1+1>Buffer_Size))
                 Size=Buffer_Size-Buffer_Offset;
-            
+
             //Random access check
             if (!RandomAccess && Buffer_Offset+SizeOfNALU_Minus1+1<Buffer_Size && (Buffer[Buffer_Offset+SizeOfNALU_Minus1+1]&0x1F) && (Buffer[Buffer_Offset+SizeOfNALU_Minus1+1]&0x1F)<=5) //Is a slice
             {
@@ -788,7 +788,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
             TranscodedBuffer_Size+=Size;
             Buffer_Offset+=Size;
         }
-        Buffer_Offset=0;    
+        Buffer_Offset=0;
 
         //Adding SPS/PPS sizes
         if (RandomAccess)
@@ -831,7 +831,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
             TranscodedBuffer_Pos++;
             TranscodedBuffer[TranscodedBuffer_Pos]=0x01;
             TranscodedBuffer_Pos++;
-            
+
             //Block
             size_t Size;
             switch (SizeOfNALU_Minus1)
@@ -856,7 +856,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
             //Coherency checking
             if (Size==0 || Buffer_Offset+Size>Buffer_Size || (Buffer_Offset+Size!=Buffer_Size && Buffer_Offset+Size+SizeOfNALU_Minus1+1>Buffer_Size))
                 Size=Buffer_Size-Buffer_Offset;
-            
+
             std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, Buffer+Buffer_Offset, Size);
             TranscodedBuffer_Pos+=Size;
             Buffer_Offset+=Size;
@@ -971,7 +971,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
         Buffer=Buffer_Temp;
         Buffer_Size=Buffer_Temp_Size;
     }
-    
+
     return true;
 }
 #endif //MEDIAINFO_DEMUX
@@ -1395,7 +1395,7 @@ void File_Avc::Data_Parse()
         if (!Streams.empty() && Streams[(size_t)Element_Code].ShouldDuplicate)
             File__Duplicate_Write(Element_Code);
     #endif //MEDIAINFO_DUPLICATE
-        
+
     #if MEDIAINFO_DEMUX
         if (Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10)
         {
