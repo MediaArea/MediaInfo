@@ -580,14 +580,14 @@ void File_AribStdB24B37::JIS (int8u Row, int8u Column)
     if (Column<32)
         return; // Problem
 
-    char ShiftJIS[2];
-    ShiftJIS[0]=((Row+1)>>1) + (Row<=94?112:176);
-    if (Row%2)
-        ShiftJIS[1]=Column+31+(Column>=96);
-    else
-        ShiftJIS[1]=Column+126;
-
     #ifdef __WINDOWS__
+        char ShiftJIS[2];
+        ShiftJIS[0]=((Row+1)>>1) + (Row<=94?112:176);
+        if (Row%2)
+            ShiftJIS[1]=Column+31+(Column>=96);
+        else
+            ShiftJIS[1]=Column+126;
+
         wchar_t Temp[5];
         int CharSize=MultiByteToWideChar(932, 0, ShiftJIS, 2, Temp, 500); //932 = Shift-JIS (Windows-31J)
         if (CharSize>0)
@@ -1187,7 +1187,7 @@ void File_AribStdB24B37::CSI()
                             break;
                 case 0x53:
                             Element_Info1("SWF - Set Writing Format");
-                            if (Params.size()>=1 && Params[0]<0x100)
+                            if (!Params.empty() && Params[0]<0x100)
                                 Streams[(size_t)(Element_Code-1)].Format=(int8u)Params[0];
                             break;
                 case 0x54:
