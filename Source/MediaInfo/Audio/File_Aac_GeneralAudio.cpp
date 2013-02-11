@@ -373,6 +373,10 @@ void File_Aac::raw_data_block()
 
     if (sampling_frequency)
     {
+        if (FrameInfo.PTS!=(int64u)-1)
+            Element_Info1(__T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.PTS)/1000000)));
+        if (FrameInfo.DTS!=(int64u)-1)
+            Element_Info1(__T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
         FrameInfo.DTS+=float64_int64s(((float64)frame_length)*1000000000/sampling_frequency);
         FrameInfo.PTS=FrameInfo.DTS;
     }

@@ -327,6 +327,10 @@ bool File_Aac::Synchronize_ADTS()
                 break;
             if (File_Offset+Buffer_Offset+aac_frame_length!=File_Size-File_EndTagSize)
             {
+                //Padding
+                while (Buffer_Offset+aac_frame_length+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length]==0x00)
+                    aac_frame_length++;
+                    
                 if (Buffer_Offset+aac_frame_length+2>Buffer_Size)
                     return false; //Need more data
 
@@ -339,6 +343,10 @@ bool File_Aac::Synchronize_ADTS()
                     int16u aac_frame_length2=(CC3(Buffer+Buffer_Offset+aac_frame_length+3)>>5)&0x1FFF;
                     if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2!=File_Size-File_EndTagSize)
                     {
+                        //Padding
+                        while (Buffer_Offset+aac_frame_length+aac_frame_length2+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length+aac_frame_length2]==0x00)
+                            aac_frame_length2++;
+                    
                         if (Buffer_Offset+aac_frame_length+aac_frame_length2+2>Buffer_Size)
                             return false; //Need more data
 
@@ -351,6 +359,10 @@ bool File_Aac::Synchronize_ADTS()
                             int16u aac_frame_length3=(CC3(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2+3)>>5)&0x1FFF;
                             if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3!=File_Size-File_EndTagSize)
                             {
+                                //Padding
+                                while (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3]==0x00)
+                                    aac_frame_length3++;
+                    
                                 if (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2>Buffer_Size)
                                     return false; //Need more data
 
@@ -475,6 +487,10 @@ bool File_Aac::Synched_Test_ADTS()
     if (!File__Tags_Helper::Synched_Test())
         return false;
 
+    //Null padding
+    while (Buffer_Offset+2<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
+        Buffer_Offset++;
+    
     //Must have enough buffer for having header
     if (Buffer_Offset+2>Buffer_Size)
         return false;
