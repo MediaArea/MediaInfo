@@ -1356,7 +1356,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "hdvd;MPEG Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
     "hdve;MPEG Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
     "hdvf;MPEG Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
-    "icod;Intermediate Codec;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
+    "icod;AIC;;Apple Intermediate Codec;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:0\n"
     "j420;YUV;;;;;;YUV;4:2:0\n"
     "jpeg;JPEG;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "kpcd;Photo CD;;;;;;\n"

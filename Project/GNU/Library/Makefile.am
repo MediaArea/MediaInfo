@@ -162,6 +162,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_Scc.cpp \
                        ../../../Source/MediaInfo/Text/File_Scte20.cpp \
                        ../../../Source/MediaInfo/Text/File_Teletext.cpp \
+                       ../../../Source/MediaInfo/Video/File_Aic.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc_Duplicate.cpp \
                        ../../../Source/MediaInfo/Video/File_AvsV.cpp \

@@ -5,6 +5,7 @@ No break in binary compatibily (no crash), but some details.
 0.7.61 --> 0.7.62
 -----------------
 - MOV "menu" moved to "other", for better separation of time code tracks
+- "Intermediate Codec" is renamed to "AIC" (Apple Intermediate Codec)
 
 0.7.60 --> 0.7.61
 -----------------

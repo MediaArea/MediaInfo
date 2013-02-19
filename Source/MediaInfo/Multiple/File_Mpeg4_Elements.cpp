@@ -45,6 +45,9 @@
 #if defined(MEDIAINFO_MXF_YES)
     #include "MediaInfo/Multiple/File_Mxf.h"
 #endif
+#if defined(MEDIAINFO_AIC_YES)
+    #include "MediaInfo/Video/File_Aic.h"
+#endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
@@ -4073,6 +4076,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                         Streams[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
                     #endif //MEDIAINFO_DEMUX
                }
+            #endif
+            #if defined(MEDIAINFO_AIC_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==__T("AIC"))
+                {
+                    File_Aic* Parser=new File_Aic;
+                    Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+                }
             #endif
             #if defined(MEDIAINFO_AVC_YES)
                 if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==__T("AVC"))

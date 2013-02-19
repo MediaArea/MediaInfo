@@ -393,6 +393,9 @@
 
 //---------------------------------------------------------------------------
 // Video
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AIC_NO) && !defined(MEDIAINFO_AIC_YES)
+    #define MEDIAINFO_AIC_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AFDBARDATA_NO) && !defined(MEDIAINFO_AFDBARDATA_YES)
     #define MEDIAINFO_AFDBARDATA_YES
 #endif

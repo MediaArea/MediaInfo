@@ -156,6 +156,7 @@ AC_ARG_ENABLE(teletext,  AC_HELP_STRING([--disable-teletext],  [Disable Text - T
 AC_ARG_ENABLE(kate,    AC_HELP_STRING([--disable-kate],    [Disable Text - Kate]),                                        MediaInfoKate=$enableval,    MediaInfoKate=depend)
 AC_ARG_ENABLE(pgs,     AC_HELP_STRING([--disable-pgs] ,    [Disable Text - PGS]),                                         MediaInfoPgs=$enableval,     MediaInfoPgs=depend)
 AC_ARG_ENABLE(scc,     AC_HELP_STRING([--disable-scc] ,    [Disable Text - SCC]),                                         MediaInfoScc=$enableval,     MediaInfoScc=depend)
+AC_ARG_ENABLE(aic,     AC_HELP_STRING([--disable-aic],     [Disable Video - AIC (Apple Intermediate Codec)]),             MediaInfoAic=$enableval,     MediaInfoAic=depend)
 AC_ARG_ENABLE(avc,     AC_HELP_STRING([--disable-avc],     [Disable Video - AVC/H264]),                                   MediaInfoAvc=$enableval,     MediaInfoAvc=depend)
 AC_ARG_ENABLE(avsV,    AC_HELP_STRING([--disable-avsv],    [Disable Video - AVS (Chinese)]),                              MediaInfoAvsV=$enableval,    MediaInfoAvsV=depend)
 AC_ARG_ENABLE(flic,    AC_HELP_STRING([--disable-flic],    [Disable Video - FLIC (fli, flc)]),                            MediaInfoFlic=$enableval,    MediaInfoFlic=depend)
@@ -287,6 +288,7 @@ if test "$MediaInfoTeletext" = "no";  then AC_DEFINE(MEDIAINFO_TELETEXT_NO) fi; 
 if test "$MediaInfoKate"    = "no";  then AC_DEFINE(MEDIAINFO_KATE_NO)    fi; if test "$MediaInfoKate"    = "yes"; then AC_DEFINE(MEDIAINFO_KATE_YES)    fi
 if test "$MediaInfoPgs"     = "no";  then AC_DEFINE(MEDIAINFO_PGS_NO)     fi; if test "$MediaInfoPgs"     = "yes"; then AC_DEFINE(MEDIAINFO_PGS_YES)     fi
 if test "$MediaInfoScc"     = "no";  then AC_DEFINE(MEDIAINFO_PGS_NO)     fi; if test "$MediaInfoScc"     = "yes"; then AC_DEFINE(MEDIAINFO_PGS_YES)     fi
+if test "$MediaInfoAic"     = "no";  then AC_DEFINE(MEDIAINFO_AIC_NO)     fi; if test "$MediaInfoAic"     = "yes"; then AC_DEFINE(MEDIAINFO_AIC_YES)     fi
 if test "$MediaInfoAvc"     = "no";  then AC_DEFINE(MEDIAINFO_AVC_NO)     fi; if test "$MediaInfoAvc"     = "yes"; then AC_DEFINE(MEDIAINFO_AVC_YES)     fi
 if test "$MediaInfoAvsV"    = "no";  then AC_DEFINE(MEDIAINFO_AVSV_NO)    fi; if test "$MediaInfoAvsV"    = "yes"; then AC_DEFINE(MEDIAINFO_AVSV_YES)    fi
 if test "$MediaInfoFlic"    = "no";  then AC_DEFINE(MEDIAINFO_FLIC_NO)    fi; if test "$MediaInfoFlic"    = "yes"; then AC_DEFINE(MEDIAINFO_FLIC_YES)    fi
@@ -822,6 +824,7 @@ Mcho "Teletext " "$MediaInfoTeletext"
 Mcho "Kate   " "$MediaInfoKate"
 Mcho "Pgs    " "$MediaInfoPgs"
 Mcho "Scc    " "$MediaInfoScc"
+Mcho "Aic    " "$MediaInfoAic"
 Mcho "Avc    " "$MediaInfoAvc"
 Mcho "AvsV   " "$MediaInfoAvsV"
 Mcho "Flic   " "$MediaInfoFlic"

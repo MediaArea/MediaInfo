@@ -617,6 +617,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Aic.cpp">
+      <Filter>Source Files\Video</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1137,6 +1140,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.h">
       <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Aic.h">
+      <Filter>Header Files\Video</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

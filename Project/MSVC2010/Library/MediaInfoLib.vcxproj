@@ -372,6 +372,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\TimeCode.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Aic.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp" />
@@ -588,6 +589,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scte20.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\TimeCode.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Aic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AvsV.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h" />
