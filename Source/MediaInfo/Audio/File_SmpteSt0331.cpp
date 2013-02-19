@@ -39,18 +39,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_SmpteSt0331.h"
-#if defined(MEDIAINFO_AAC_YES)
-    #include "MediaInfo/Audio/File_Aac.h"
-#endif
-#if defined(MEDIAINFO_AC3_YES)
-    #include "MediaInfo/Audio/File_Ac3.h"
-#endif
-#if defined(MEDIAINFO_DOLBYE_YES)
-    #include "MediaInfo/Audio/File_DolbyE.h"
-#endif
-#if defined(MEDIAINFO_MPEGA_YES)
-    #include "MediaInfo/Audio/File_Mpega.h"
-#endif
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
@@ -195,7 +183,7 @@ void File_SmpteSt0331::Read_Buffer_Continue()
             Demux_random_access=true;
             Element_Code=(int64u)-1;
             Element_Offset=0;
-            Demux(Info, Info_Offset, ContentType_MainStream, Buffer+Buffer_Offset, Element_Size);
+            Demux(Info, Info_Offset, ContentType_MainStream);
             Element_Offset=4;
         #endif //MEDIAINFO_DEMUX
 

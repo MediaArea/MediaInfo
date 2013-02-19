@@ -42,7 +42,6 @@ class File_SmpteSt0337 : public File__Analyze
 public :
     // In
     int8u   Container_Bits;
-    int8u   Container_Bits_Original; // In the case of demux from 20-bit stream, data is provided in 24-bit form
     int8u   Endianness;
 
     // Constructor/Destructor

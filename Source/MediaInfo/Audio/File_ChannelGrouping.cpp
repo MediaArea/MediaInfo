@@ -70,13 +70,13 @@ File_ChannelGrouping::File_ChannelGrouping()
     IsRawStream=true;
 
     //In
-    ByteDepth=0;
+    BitDepth=0;
+    SamplingRate=0;
+    Endianness=0;
+    CanBePcm=false;
     Common=NULL;
     Channel_Pos=0;
     Channel_Total=1;
-    SampleRate=0;
-    Endianness=0;
-    CanBePcm=false;
 }
 
 File_ChannelGrouping::~File_ChannelGrouping()
@@ -137,32 +137,47 @@ void File_ChannelGrouping::Read_Buffer_Init()
 {
     if (Common==NULL)
     {
+        //Common
         Common=new common;
         Common->Channels.resize(Channel_Total);
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
             Common->Channels[Pos]=new common::channel;
         Element_Code=(int64u)-1;
 
-        File_SmpteSt0337* Parser=new File_SmpteSt0337;
-        Parser->Endianness=Endianness;
-        Parser->Container_Bits=ByteDepth*8;
-        Common->Parsers.push_back(Parser);
-
-        if (CanBePcm)
+        //SMPTE ST 337
         {
-            File_Pcm* Parser=new File_Pcm;
+            File_SmpteSt0337* Parser=new File_SmpteSt0337;
+            Parser->Container_Bits=BitDepth;
             Parser->Endianness=Endianness;
             Common->Parsers.push_back(Parser);
         }
 
+        //PCM
+        if (CanBePcm)
+        {
+            File_Pcm* Parser=new File_Pcm;
+            Parser->BitDepth=BitDepth;
+            Parser->Channels=Channel_Total;
+            Parser->SamplingRate=SamplingRate;
+            Parser->Endianness=Endianness;
+            Common->Parsers.push_back(Parser);
+        }
+
+        //for all parsers
         for (size_t Pos=0; Pos<Common->Parsers.size(); Pos++)
+        {
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_Unpacketize_Get())
+                {
+                    Common->Parsers[Pos]->Demux_UnpacketizeContainer=true;
+                    Common->Parsers[Pos]->Demux_Level=2; //Container
+                    Demux_Level=4; //Intermediate
+                }
+            #endif //MEDIAINFO_DEMUX
             Open_Buffer_Init(Common->Parsers[Pos]);
+        }
     }
     Common->Instances++;
-
-    #if MEDIAINFO_DEMUX
-         Demux_UnpacketizeContainer=Config->Demux_Unpacketize_Get();
-    #endif //MEDIAINFO_DEMUX
 }
 
 //---------------------------------------------------------------------------
@@ -180,15 +195,6 @@ void File_ChannelGrouping::Read_Buffer_Continue()
 
     //Demux
     #if MEDIAINFO_DEMUX
-        if (Demux_UnpacketizeContainer)
-        {
-            for (size_t Pos=0; Pos<Common->Parsers.size(); Pos++)
-            {
-                Common->Parsers[Pos]->Demux_UnpacketizeContainer=true;
-                Common->Parsers[Pos]->Demux_Level=2; //Container
-            }
-            Demux_Level=4; //Intermediate
-        }
         Demux(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Offset, Common->MergedChannel.Buffer_Size-Common->MergedChannel.Buffer_Offset, ContentType_MainStream);
     #endif //MEDIAINFO_EVENTS
 
@@ -211,7 +217,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
         if (Minimum>Common->Channels[Pos]->Buffer_Size-Common->Channels[Pos]->Buffer_Offset)
             Minimum=Common->Channels[Pos]->Buffer_Size-Common->Channels[Pos]->Buffer_Offset;
-    if (Minimum>=ByteDepth)
+    if (Minimum*8>=BitDepth)
     {
         for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
         {
@@ -221,17 +227,84 @@ void File_ChannelGrouping::Read_Buffer_Continue()
             Common->Channels[Pos]->Offsets_Buffer.clear();
         }
 
-        while (Minimum>=ByteDepth)
+        while (Minimum*8>=BitDepth)
         {
-            for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
+            switch (BitDepth)
             {
-                if (Common->MergedChannel.Buffer_Size+Minimum>Common->MergedChannel.Buffer_Size_Max)
-                    Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum);
-                memcpy(Common->MergedChannel.Buffer+Common->MergedChannel.Buffer_Size, Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset, ByteDepth);
-                Common->Channels[Pos]->Buffer_Offset+=ByteDepth;
-                Common->MergedChannel.Buffer_Size+=ByteDepth;
+                case 16:
+                    // Source: 16XE / L3L2 L1L0 + R3R2 R1R0
+                    // Dest  : 16XE / L3L2 L1L0 R3R2 R1R0
+                    for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
+                    {
+                        if (Common->MergedChannel.Buffer_Size+Minimum>Common->MergedChannel.Buffer_Size_Max)
+                            Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum);
+                        Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Common->Channels[Pos]->Buffer[Common->Channels[Pos]->Buffer_Offset++];
+                        Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Common->Channels[Pos]->Buffer[Common->Channels[Pos]->Buffer_Offset++];
+                    }
+                    Minimum-=2;
+                    break;
+                case 20:
+                    // Source: 20BE / L4L3 L2L1 L0L4 L3L2 L1L0 + R4R3 R2R1 R0R4 R3R2 R1R0
+                    // Dest  : 20BE / L4L3 L2L1 L0R4 R3R2 R1R0 L4L3 L2L1 L0R4 R2R1 R1R0
+                    if (Endianness=='B')
+                        for (size_t Pos=0; Pos+1<Common->Channels.size(); Pos+=2)
+                        {
+                            if (Common->MergedChannel.Buffer_Size+Minimum*2>Common->MergedChannel.Buffer_Size_Max)
+                                Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum*2);
+                            int8u* Channel1=Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset;
+                            int8u* Channel2=Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset;
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel1[0];
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel1[1];
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel1[0]&0xF0) | (Channel2[0]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel2[0]<<4  ) | (Channel2[1]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel2[1]<<4  ) | (Channel2[2]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel1[2]<<4  ) | (Channel1[3]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel1[3]<<4  ) | (Channel1[4]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel1[4]<<4  ) | (Channel2[2]&0x0F);
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel2[3];
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel2[4];
+                            Common->Channels[Pos]->Buffer_Offset+=5;
+                            Common->Channels[Pos+1]->Buffer_Offset+=5;
+                        }
+                    // Source: 20LE / L1L0 L3L2 L0L4 L2L1 L4L3 + R1R0 R3R2 R0R4 R2R1 R4R3
+                    // Dest  : 20LE / L1L0 L3L2 R0L4 R2R1 R4R3 L1L0 L3L2 R0L4 R2R1 R4R3
+                    else
+                        for (size_t Pos=0; Pos+1<Common->Channels.size(); Pos+=2)
+                        {
+                            if (Common->MergedChannel.Buffer_Size+Minimum*2>Common->MergedChannel.Buffer_Size_Max)
+                                Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum*2);
+                            int8u* Channel1=Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset;
+                            int8u* Channel2=Common->Channels[Pos]->Buffer+Common->Channels[Pos]->Buffer_Offset;
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel1[0];
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel1[1];
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel2[0]<<4  ) | (Channel1[2]&0x0F);
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel2[1]<<4  ) | (Channel2[0]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel2[2]<<4  ) | (Channel2[1]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel1[3]<<4  ) | (Channel1[2]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel1[4]<<4  ) | (Channel1[3]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]=(Channel2[2]&0xF0) | (Channel1[4]>>4  );
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel2[3];
+                            Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Channel2[4];
+                            Common->Channels[Pos]->Buffer_Offset+=5;
+                            Common->Channels[Pos+1]->Buffer_Offset+=5;
+                        }
+                    Minimum-=5; //2.5 twice
+                    break;
+                case 24:
+                    // Source: 24XE / L5L4 L3L2 L1L0 + R5R4 R3R2 R1R0
+                    // Dest  : 24XE / L5L4 L3L2 L1L0 R5R4 R3R2 R1R0
+                    for (size_t Pos=0; Pos<Common->Channels.size(); Pos++)
+                    {
+                        if (Common->MergedChannel.Buffer_Size+Minimum>Common->MergedChannel.Buffer_Size_Max)
+                            Common->MergedChannel.resize(Common->MergedChannel.Buffer_Size+Minimum);
+                        Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Common->Channels[Pos]->Buffer[Common->Channels[Pos]->Buffer_Offset++];
+                        Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Common->Channels[Pos]->Buffer[Common->Channels[Pos]->Buffer_Offset++];
+                        Common->MergedChannel.Buffer[Common->MergedChannel.Buffer_Size++]= Common->Channels[Pos]->Buffer[Common->Channels[Pos]->Buffer_Offset++];
+                    }
+                    Minimum-=3;
+                    break;
+                default: ;
             }
-            Minimum-=ByteDepth;
         }
     }
 
@@ -241,8 +314,11 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         {
             if (FrameInfo_Next.DTS!=(int64u)-1)
                 Common->Parsers[Pos]->FrameInfo=FrameInfo_Next; //AES3 parse has its own buffer management
-            else
+            else if (FrameInfo.DTS!=(int64u)-1)
+            {
                 Common->Parsers[Pos]->FrameInfo=FrameInfo;
+                FrameInfo=frame_info();
+            }
             Common->Parsers[Pos]->Offsets_Stream.insert(Common->Parsers[Pos]->Offsets_Stream.end(), Common->MergedChannel.Offsets_Stream.begin(), Common->MergedChannel.Offsets_Stream.end());
             Common->Parsers[Pos]->Offsets_Buffer.insert(Common->Parsers[Pos]->Offsets_Buffer.end(), Common->MergedChannel.Offsets_Buffer.begin(), Common->MergedChannel.Offsets_Buffer.end());
             for (size_t Offsets_Pos_Temp=Common->Parsers[Pos]->Offsets_Buffer.size()-Common->MergedChannel.Offsets_Buffer.size(); Offsets_Pos_Temp<Common->Parsers[Pos]->Offsets_Buffer.size(); Offsets_Pos_Temp++)
@@ -311,4 +387,3 @@ void File_ChannelGrouping::Read_Buffer_Unsynched()
 } //NameSpace
 
 #endif //MEDIAINFO_SMPTEST0337_YES
-

@@ -69,7 +69,7 @@ File_Gxf_TimeCode::File_Gxf_TimeCode()
 :File__Analyze()
 {
     //Configuration
-    ParserName=__T("GXF");
+    ParserName=__T("Time code");
     #if MEDIAINFO_EVENTS
         ParserIDs[0]=MediaInfo_Parser_Gxf;
         StreamIDs_Width[0]=0;

@@ -155,12 +155,13 @@ File_Ancillary::File_Ancillary()
     WithChecksum=false;
     HasBFrames=false;
     InDecodingOrder=false;
+    LineNumber_IsSecondField=false;
     AspectRatio=0;
     FrameRate=0;
     LineNumber=(int32u)-1;
-
-    //Temp
-    Cdp_Parser=NULL;
+    #if defined(MEDIAINFO_CDP_YES)
+        Cdp_Parser=NULL;
+    #endif //defined(MEDIAINFO_CDP_YES)
 }
 
 //---------------------------------------------------------------------------
@@ -270,6 +271,11 @@ void File_Ancillary::Read_Buffer_Continue()
 void File_Ancillary::Read_Buffer_AfterParsing()
 {
     Buffer_Offset=Buffer_Size; //This is per frame
+
+    Frame_Count++;
+    Frame_Count_InThisBlock++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
 }
 
 //---------------------------------------------------------------------------
@@ -415,12 +421,17 @@ void File_Ancillary::Data_Parse()
                                         if (LineNumber!=(int32u)-1)
                                             for (size_t Pos=0; Pos<Count_Get(Stream_Other); Pos++)
                                             {
-                                                if (__T("Line")+Ztring::ToZtring(LineNumber)==Retrieve(Stream_Other, Pos, Other_ID))
+                                                if (__T("Line")+Ztring::ToZtring(LineNumber)==Retrieve(Stream_Other, Pos, Other_ID)
+                                                 && ((!LineNumber_IsSecondField && Retrieve(Stream_Other, Pos, "IsSecondField").empty()) || (LineNumber_IsSecondField && !Retrieve(Stream_Other, Pos, "IsSecondField").empty()))
+                                                 && Parser.Settings==Retrieve(Stream_Other, Pos, Other_TimeCode_Settings).To_UTF8())
                                                     Exists=true;
                                             }
                                         else
-                                            if (Count_Get(Stream_Other)!=0)
-                                                Exists=true;
+                                            for (size_t Pos=0; Pos<Count_Get(Stream_Other); Pos++)
+                                            {
+                                                if (Parser.Settings==Retrieve(Stream_Other, Pos, Other_TimeCode_Settings).To_UTF8())
+                                                    Exists=true;
+                                            }
                                         if (!Exists)
                                         {
                                             Stream_Prepare(Stream_Other);
@@ -431,6 +442,8 @@ void File_Ancillary::Data_Parse()
                                             Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Ancillary data / SMPTE RP 188");
                                             if (LineNumber!=(int32u)-1)
                                                 Fill(Stream_Other, StreamPos_Last, Other_ID, __T("Line")+Ztring::ToZtring(LineNumber));
+                                            if (LineNumber_IsSecondField)
+                                                Fill(Stream_Other, StreamPos_Last, "IsSecondField", "Yes");
                                         }
                                         }
                                         break;
@@ -554,11 +567,6 @@ void File_Ancillary::Data_Parse()
                         break;
             default   : ;
         }
-
-        Frame_Count++;
-        Frame_Count_InThisBlock++;
-        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
-            Frame_Count_NotParsedIncluded++;
     FILLING_END();
 
     delete[] Payload; //Payload=NULL

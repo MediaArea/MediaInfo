@@ -3777,11 +3777,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                 else
                 {
                     Parser->Channel_Pos=0;
-                    Parser->SampleRate=SampleRate;
                     Streams[moov_trak_tkhd_TrackID].IsPcmMono=true;
                 }
                 Parser->Channel_Total=2;
-                Parser->ByteDepth=SampleSize/8;
+                Parser->SamplingRate=SampleRate;
+                Parser->BitDepth=SampleSize;
 
                 #if MEDIAINFO_DEMUX
                     Streams[moov_trak_tkhd_TrackID].Demux_Level=Config->Demux_Unpacketize_Get()?0:4; //Intermediate

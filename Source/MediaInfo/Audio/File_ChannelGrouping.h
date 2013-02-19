@@ -44,7 +44,11 @@ class File_ChannelGrouping : public File__Analyze
 {
 public :
     //In
-    size_t  ByteDepth;
+    size_t  BitDepth;
+    int64u  SamplingRate;
+    int8u   Endianness;
+    bool    CanBePcm;
+
     struct common
     {
         struct channel
@@ -115,9 +119,6 @@ public :
     common* Common;
     size_t  Channel_Pos;
     size_t  Channel_Total;
-    int64u  SampleRate;
-    int8u   Endianness;
-    bool    CanBePcm;
 
     //Constructor/Destructor
     File_ChannelGrouping();

@@ -505,9 +505,10 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             FrameInfo_Next=frame_info();
         }
 
+        float64 Ratio=1;
         if (OriginalBuffer)
         {
-            float64 Ratio=((float64)OriginalBuffer_Size)/Buffer_Size;
+            Ratio=((float64)OriginalBuffer_Size)/Buffer_Size;
             size_t Temp_Size=(size_t)float64_int64s(((float64)Buffer_Offset)*Ratio);
 
             OriginalBuffer_Size-=Temp_Size;
@@ -536,8 +537,8 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                     }
                     else
                     {
-                        Offsets_Stream[Pos]+=Buffer_Offset/2-Offsets_Buffer[Pos];
-                        Offsets_Stream[Pos+1]+=Buffer_Offset/2-Offsets_Buffer[Pos+1];
+                        Offsets_Stream[Pos]+=Buffer_Offset*Ratio/2-Offsets_Buffer[Pos];
+                        Offsets_Stream[Pos+1]+=Buffer_Offset*Ratio/2-Offsets_Buffer[Pos+1];
                         Offsets_Buffer[Pos]=0;
                         Offsets_Buffer[Pos+1]=0;
                         Offsets_Buffer.erase(Offsets_Buffer.begin(), Offsets_Buffer.begin()+Pos);
@@ -562,11 +563,11 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 size_t Pos=Offsets_Buffer.size()-1;
                 do
                 {
-                    if (Offsets_Buffer[Pos]>Buffer_Offset)
-                        Offsets_Buffer[Pos]-=Buffer_Offset;
+                    if (Offsets_Buffer[Pos]>Buffer_Offset*Ratio)
+                        Offsets_Buffer[Pos]-=Buffer_Offset*Ratio;
                     else
                     {
-                        Offsets_Stream[Pos]+=Buffer_Offset-Offsets_Buffer[Pos];
+                        Offsets_Stream[Pos]+=Buffer_Offset*Ratio-Offsets_Buffer[Pos];
                         Offsets_Buffer[Pos]=0;
                         Offsets_Buffer.erase(Offsets_Buffer.begin(), Offsets_Buffer.begin()+Pos);
                         Offsets_Stream.erase(Offsets_Stream.begin(), Offsets_Stream.begin()+Pos);
@@ -598,7 +599,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
 }
 
-void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd, size_t ToAdd_Size, bool IsNewPacket)
+void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd, size_t ToAdd_Size, bool IsNewPacket, float64 Ratio)
 {
     if (Sub==NULL)
         return;
@@ -631,14 +632,14 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     {
         if (Offsets_Stream.empty())
         {
-            Sub->Offsets_Stream.push_back(File_Offset+Buffer_Offset+Element_Offset);
+            Sub->Offsets_Stream.push_back(File_Offset+(Buffer_Offset+Element_Offset)*Ratio);
             Sub->Offsets_Buffer.push_back(Sub->Buffer_Size);
         }
         else
         {
             if (Offsets_Buffer[0]>=Buffer_Offset-Header_Size && (Sub->Offsets_Stream.empty() || Sub->Offsets_Stream[Sub->Offsets_Stream.size()-1]+Sub->Buffer_Size-Sub->Offsets_Buffer[Sub->Offsets_Stream.size()-1]!=Offsets_Stream[0]))
             {
-                if (Buffer_Offset-Header_Size<Offsets_Buffer[0])
+                if ((Buffer_Offset-Header_Size)*Ratio<Offsets_Buffer[0])
                 {
                     Sub->Offsets_Stream.push_back(Offsets_Stream[0]);
                     Sub->Offsets_Buffer.push_back(Sub->Buffer_Size+Offsets_Buffer[0]-(Buffer_Offset+Element_Offset));
@@ -646,25 +647,40 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
                 else
                 {
                     Sub->Offsets_Stream.push_back(Offsets_Stream[0]+Buffer_Offset+Element_Offset-Offsets_Buffer[0]);
-                    Sub->Offsets_Buffer.push_back(Sub->Buffer_Size);
+                    Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size);
                 }
             }
             for (size_t Pos=1; Pos<Offsets_Stream.size(); Pos++)
-                if (Offsets_Buffer[Pos]>=Buffer_Offset-Header_Size && Offsets_Buffer[Pos]<Buffer_Offset+Element_Size)
+                if (Offsets_Buffer[Pos]>=Buffer_Offset+Element_Offset && Offsets_Buffer[Pos]<Buffer_Offset+Element_Size)
                 {
-                    if (Buffer_Offset-Header_Size<Offsets_Buffer[Pos])
+                    if ((Buffer_Offset-Header_Size)*Ratio<Offsets_Buffer[Pos])
                     {
                         Sub->Offsets_Stream.push_back(Offsets_Stream[Pos]);
-                        Sub->Offsets_Buffer.push_back(Sub->Buffer_Size+Offsets_Buffer[Pos]-(Buffer_Offset+Element_Offset));
+                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size+Offsets_Buffer[Pos]-(Buffer_Offset+Element_Offset));
                     }
                     else
                     {
                         Sub->Offsets_Stream.push_back(Offsets_Stream[Pos]+Buffer_Offset+Element_Offset-Offsets_Buffer[Pos]);
-                        Sub->Offsets_Buffer.push_back(Sub->Buffer_Size);
+                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size);
                     }
                 }
         }
     }
+
+    if (Ratio!=1)
+    {
+        if (Sub->OriginalBuffer_Size+Element_Size-Element_Offset>Sub->OriginalBuffer_Capacity)
+        {
+            int8u* Temp=Sub->OriginalBuffer;
+            Sub->OriginalBuffer_Capacity=Sub->OriginalBuffer_Size+Element_Size-Element_Offset;
+            Sub->OriginalBuffer=new int8u[Sub->OriginalBuffer_Capacity];
+            std::memcpy(Sub->OriginalBuffer, Temp, Sub->OriginalBuffer_Size);
+            delete[] Temp;
+        }
+        std::memcpy(Sub->OriginalBuffer+Sub->OriginalBuffer_Size, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Sub->OriginalBuffer_Size+=(size_t)(Element_Size-Element_Offset);
+    }
+
     if (Sub->FrameInfo.DTS!=(int64u)-1)
         Sub->FrameInfo.Buffer_Offset_End=Sub->Buffer_Offset+Sub->Buffer_Size+ToAdd_Size;
     else if (Sub->FrameInfo_Previous.DTS!=(int64u)-1)
@@ -3026,7 +3042,7 @@ void File__Analyze::Event_Prepare(struct MediaInfo_Event_Generic* Event)
 // Demux
 //***************************************************************************
 #if MEDIAINFO_DEMUX
-void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype Content_Type, const int8u* OriginalBuffer, size_t OriginalBuffer_Size)
+void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype Content_Type, const int8u* xx, size_t xxx)
 {
     if (!(Config_Demux&Demux_Level))
         return;
@@ -3056,6 +3072,9 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
             Event.Offsets_Size=Offsets_Buffer.size();
             std::vector<int64u> Offsets_Stream_Temp;
             std::vector<int64u> Offsets_Buffer_Temp;
+            float64 Ratio=1;
+            if (OriginalBuffer_Size)
+                Ratio=((float64)File__Analyze::OriginalBuffer_Size)/File__Analyze::Buffer_Size;
             if (Offsets_Buffer.empty())
             {
                 Event.Offsets_Stream=NULL;
@@ -3088,7 +3107,7 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
                 }
                 else
                 {
-                    while (Pos+1<Offsets_Buffer_Temp.size() && Offsets_Buffer_Temp[Pos+1]<Buffer_Offset+Element_Offset)
+                    while (Pos+1<Offsets_Buffer_Temp.size() && Offsets_Buffer_Temp[Pos+1]<(Buffer_Offset+Element_Offset)*Ratio)
                         Pos++;
                     if (Pos)
                     {
@@ -3096,10 +3115,10 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
                         Offsets_Stream_Temp.erase(Offsets_Stream_Temp.begin(), Offsets_Stream_Temp.begin()+Pos);
                         Event.Offsets_Size-=Pos;
                     }
-                    Offsets_Stream_Temp[0]+=Buffer_Offset+Element_Offset-Offsets_Buffer_Temp[0];
+                    Offsets_Stream_Temp[0]+=(Buffer_Offset+Element_Offset)*Ratio-Offsets_Buffer_Temp[0];
                     Offsets_Buffer_Temp[0]=0;
                     for (size_t Pos=1; Pos<Offsets_Buffer_Temp.size(); Pos++)
-                        Offsets_Buffer_Temp[Pos]-=Buffer_Offset+Element_Offset;
+                        Offsets_Buffer_Temp[Pos]-=(Buffer_Offset+Element_Offset)*Ratio;
                 }
                 Event.Offsets_Stream=&Offsets_Stream_Temp.front();
                 Event.Offsets_Content=&Offsets_Buffer_Temp.front();
@@ -3109,8 +3128,8 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
                 Event.Offsets_Stream=&Offsets_Stream.front();
                 Event.Offsets_Content=&Offsets_Buffer.front();
             }
-            Event.OriginalContent_Size=OriginalBuffer_Size;
-            Event.OriginalContent=OriginalBuffer;
+            Event.OriginalContent_Size=OriginalBuffer_Size?((size_t)float64_int64s(((float64)(Element_Size-Element_Offset))*Ratio)):0;
+            Event.OriginalContent=OriginalBuffer_Size?(OriginalBuffer+(size_t)float64_int64s(((float64)(Buffer_Offset+Element_Offset))*Ratio)):NULL;
         EVENT_END()
 
         if (StreamIDs_Size)

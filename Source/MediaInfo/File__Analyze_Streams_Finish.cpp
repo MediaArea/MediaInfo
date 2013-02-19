@@ -535,10 +535,10 @@ void File__Analyze::Streams_Finish_InterStreams()
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {
             float64 AudioBitRate=0;
-            if (!Retrieve(Stream_Audio, Pos, Audio_BitRate).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate)[0]<=__T('9')) //Note: quick test if it is a number
-                AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_float64();
-            else if (!Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded)[0]<=__T('9')) //Note: quick test if it is a number
+            if (!Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded)[0]<=__T('9')) //Note: quick test if it is a number
                 AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate_Encoded).To_float64();
+            else if (!Retrieve(Stream_Audio, Pos, Audio_BitRate).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate)[0]<=__T('9')) //Note: quick test if it is a number
+                AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_float64();
             else
                 VideobitRateIsValid=false;
             if (VideobitRateIsValid && AudioBitRate_Ratio)

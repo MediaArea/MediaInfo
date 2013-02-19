@@ -9280,13 +9280,13 @@ void File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &Essence, c
             Parser=new File_ChannelGrouping;
             Parser->Channel_Pos=0;
             if (Descriptor!=Descriptors.end() && Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
-                Parser->SampleRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
+                Parser->SamplingRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
             Essence->second.IsChannelGrouping=true;
         }
         Parser->Channel_Total=2;
         if (Descriptor!=Descriptors.end())
         {
-            Parser->ByteDepth=Descriptor->second.BlockAlign<=4?Descriptor->second.BlockAlign:(Descriptor->second.BlockAlign/2); //In one file, BlockAlign is size of the aggregated channelgroup
+            Parser->BitDepth=Descriptor->second.BlockAlign<=4?(Descriptor->second.BlockAlign*8):(Descriptor->second.BlockAlign*4); //In one file, BlockAlign is size of the aggregated channelgroup
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))

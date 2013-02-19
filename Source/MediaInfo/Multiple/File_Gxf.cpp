@@ -1597,13 +1597,13 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
         Parser->CanBePcm=true;;
         Parser->Channel_Pos=0;
         //if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
-        Parser->SampleRate=48000; //TODO: find where this piece of info is avaialble
         Streams[TrackID].IsChannelGrouping=true;
         Streams[TrackID].DisplayInfo=false;
     }
+    Parser->BitDepth=24;
     Parser->Channel_Total=2;
+    Parser->SamplingRate=48000; //TODO: find where this piece of info is avaialble
     Parser->Endianness='L';
-    Parser->ByteDepth=3;
 
     #if MEDIAINFO_DEMUX
         if (Demux_UnpacketizeContainer)

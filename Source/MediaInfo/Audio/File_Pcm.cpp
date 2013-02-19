@@ -91,7 +91,6 @@ File_Pcm::File_Pcm()
     //In
     Frame_Count_Valid=2;
     BitDepth=0;
-    BitDepth_Original=0;
     Channels=0;
     SamplingRate=0;
     Endianness='\0';
@@ -112,10 +111,6 @@ void File_Pcm::Streams_Fill()
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
     }
 
-    //BitDepth_Original filling if needed
-    if (!BitDepth_Original)
-        BitDepth_Original=BitDepth;
-
     //Filling
     Ztring Firm, ITU;
          if (Codec==__T("EVOB"))             {Firm=__T("");      Endianness='B';            Sign='S';}                        //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
@@ -124,18 +119,18 @@ void File_Pcm::Streams_Fill()
     else if (Codec==__T("A_PCM/INT/BIG"))    {Firm=__T("");      Endianness='B';}
     else if (Codec==__T("A_PCM/INT/LITTLE")) {Firm=__T("");      Endianness='L';}
     else if (Codec==__T("A_PCM/INT/FLOAT"))  {Firm=__T("");      Endianness='B';            Sign='F';}
-    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='F'; BitDepth_Original=32;}
-    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='F'; BitDepth_Original=64;}
-    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='U'; BitDepth_Original=24;}
-    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='U'; BitDepth_Original=32;}
+    else if (Codec==__T("fl32"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='F'; BitDepth=32;}
+    else if (Codec==__T("fl64"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='F'; BitDepth=64;}
+    else if (Codec==__T("in24"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='U'; BitDepth=24;}
+    else if (Codec==__T("in32"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='U'; BitDepth=32;}
     else if (Codec==__T("raw "))             {  if (!Endianness) Endianness='L';            Sign='U';}
     else if (Codec==__T("twos"))             {                   Endianness='B';            Sign='S';}
     else if (Codec==__T("sowt"))             {                   Endianness='L';            Sign='S';}
     else if (Codec==__T("lpcm"))             {  if (!Endianness) Endianness='B'; if (!Sign) Sign='S';}
     else if (Codec==__T("SWF ADPCM"))        {Firm=__T("SWF");}
-    else if (Codec==__T("1"))                {   if (BitDepth_Original)
+    else if (Codec==__T("1"))                {   if (BitDepth)
                                                 {
-                                                    if (BitDepth_Original>8)
+                                                    if (BitDepth>8)
                                                     {            Endianness='L';            Sign='S';}
                                                     else
                                                     {                                       Sign='U';}
@@ -201,7 +196,7 @@ void File_Pcm::Streams_Fill()
     {
         case 'B': Value="Big"; break;
         case 'L': Value="Little"; break;
-        default : Value=""; //Default behavior for MOV file (from tests)
+        default : Value="";
     }
     Fill(Stream_Audio, 0, Audio_Format_Settings, Value);
     Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, Value);
@@ -213,7 +208,7 @@ void File_Pcm::Streams_Fill()
     {
         case 'S': Value="Signed"; break;
         case 'U': Value="Unsigned"; break;
-        default : Value=""; //Default behavior for MOV file (from tests)
+        default : Value="";
     }
     Fill(Stream_Audio, 0, Audio_Format_Settings, Value);
     Fill(Stream_Audio, 0, Audio_Format_Settings_Sign, Value);
@@ -227,12 +222,16 @@ void File_Pcm::Streams_Fill()
     Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
 
     //BitDepth
-    if (BitDepth_Original)
-        Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth_Original);
-
+    if (BitDepth)
+        Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth);
+    
     //Channels
     if (Channels)
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+    
+    //Bit rate
+    if (SamplingRate && BitDepth && Channels)
+        Fill(Stream_Audio, 0, Audio_BitRate, SamplingRate*BitDepth*Channels);
 
     //ChannelsPositions
     if (Codec==__T("SMPTE ST 337"))
@@ -274,7 +273,7 @@ bool File_Pcm::FileHeader_Begin()
 #if MEDIAINFO_DEMUX
 void File_Pcm::Read_Buffer_Continue()
 {
-    if (Demux_UnpacketizeContainer && !Status[IsAccepted] && Frame_Count_Valid && Frame_Count+1>=Frame_Count_Valid)
+    if (Demux_UnpacketizeContainer && !Status[IsAccepted] && Buffer_Size && Frame_Count_Valid && Frame_Count+1>=Frame_Count_Valid)
         Accept();
 }
 #endif //MEDIAINFO_DEMUX
@@ -309,49 +308,66 @@ void File_Pcm::Data_Parse()
         FrameInfo.PTS=FrameInfo.DTS;
         Demux_random_access=true;
         Element_Code=(int64u)-1;
-        int8u* Temp;
-        size_t Temp_Size;
-        if (OriginalBuffer_Size)
-        {
-            float64 Ratio=((float64)OriginalBuffer_Size)/Buffer_Size;
-            Temp=OriginalBuffer+(size_t)float64_int64s(((float64)Buffer_Offset)*Ratio);
-            Temp_Size=(size_t)float64_int64s(((float64)Element_Size)*Ratio);
-        }
-        else
-        {
-            Temp=NULL;
-            Temp_Size=0;
-        }
 
-        if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo16bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
+        if (BitDepth==20 && Endianness=='L' && Config->Demux_PCM_20bitTo16bit_Get())
         {
             size_t Info_Offset=(size_t)Element_Size;
             const int8u* Info=Buffer+Buffer_Offset;
-            size_t Info2_Size=Info_Offset*2/3;
+            size_t Info2_Size=Info_Offset*4/5;
             int8u* Info2=new int8u[Info2_Size];
             size_t Info2_Pos=0;
             size_t Info_Pos=0;
 
-            while (Info_Pos<Info_Offset)
+            //Removing bits 3-0 (Little endian)
+            // Dest  : 20LE / L1L0 L3L2 R0L4 R2R1 R4R3
+            // Source:        L2L1 L4L3 R2R1 R4R2
+            while (Info_Pos+5<=Info_Offset)
             {
-                Info2[Info2_Pos+0]=Info[Info_Pos+1];
-                Info2[Info2_Pos+1]=Info[Info_Pos+2];
-                Info2[Info2_Pos+2]=Info[Info_Pos+4];
-                Info2[Info2_Pos+3]=Info[Info_Pos+5];
+                Info2[Info2_Pos  ] =(Info[Info_Pos+1]<<4  ) | (Info[Info_Pos+0]>>4  );
+                Info2[Info2_Pos+1] =(Info[Info_Pos+2]<<4  ) | (Info[Info_Pos+1]>>4  );
+                Info2[Info2_Pos+2] = Info[Info_Pos+3]                                ;
+                Info2[Info2_Pos+3] = Info[Info_Pos+4]                                ;
 
                 Info2_Pos+=4;
-                Info_Pos+=6;
+                Info_Pos+=5;
             }
 
-            Demux(Info2, Info2_Pos, ContentType_MainStream, Temp, Temp_Size);
+            Demux(Info2, Info2_Pos, ContentType_MainStream);
+
+            delete[] Info2; 
         }
-        else if (BitDepth_Original==20 && Config->Demux_PCM_20bitTo24bit_Get()) // && (StreamIDs_Size==0 || Config->ID_Format_Get(StreamIDs[0]==(int64u)-1?Ztring():Ztring::ToZtring(StreamIDs[0]))==__T("PCM")))
+        else if (BitDepth==20 && Endianness=='L' && Config->Demux_PCM_20bitTo24bit_Get())
         {
-            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream, Temp, Temp_Size);
+            size_t Info_Offset=(size_t)Element_Size;
+            const int8u* Info=Buffer+Buffer_Offset;
+            size_t Info2_Size=Info_Offset*6/5;
+            int8u* Info2=new int8u[Info2_Size];
+            size_t Info2_Pos=0;
+            size_t Info_Pos=0;
+
+            //Padding bits 3-0 (Little endian)
+            // Dest  : 20LE / L1L0 L3L2 R0L4 R2R1 R4R3
+            // Source:        L0XX L2L1 L4L3 R0XX R2R1 R4R2
+            while (Info_Pos+5<=Info_Offset)
+            {
+                Info2[Info2_Pos  ] = Info[Info_Pos+0]<<4                             ;
+                Info2[Info2_Pos+1] =(Info[Info_Pos+1]<<4  ) | (Info[Info_Pos+0]>>4  );
+                Info2[Info2_Pos+2] =(Info[Info_Pos+2]<<4  ) | (Info[Info_Pos+1]>>4  );
+                Info2[Info2_Pos+3] = Info[Info_Pos+2]&0xF0                           ;
+                Info2[Info2_Pos+4] = Info[Info_Pos+3]                                ;
+                Info2[Info2_Pos+5] = Info[Info_Pos+4]                                ;
+
+                Info2_Pos+=6;
+                Info_Pos+=5;
+            }
+
+            Demux(Info2, Info2_Pos, ContentType_MainStream);
+
+            delete[] Info2; 
         }
         else
         {
-            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream, Temp, Temp_Size);
+            Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
 
