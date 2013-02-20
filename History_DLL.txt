@@ -27,6 +27,7 @@ Version 0.7.62, 2012-
 + Image files as a video stream: file name of the last file
 x #727, MOV: crash with some malformed files (Time scale set to 0)
 x #728, AAC: crash with some malformed streams
+x Id3v2: crash with some malformed tags
 x Bit rate display was "0 bps" if the real bit rate is more than 4 Gbps
 x Division by 0 in case of 0 byte long file
 x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV
