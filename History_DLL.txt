@@ -13,6 +13,7 @@ Version 0.7.62, 2012-
 + ARIB STD B24/B37 caption detection (both Japanese and Brazilian versions)
 + LXF: support of AVC, VC-3, MPEG audio, AC-3, Dolby E, and AAC detection and analysis
 + AC-3: support of 22.05 kHz streams (out of specs but they exist)
++ MOV: AIC (Apple Intermediate Codec) scan type detection
 + MOV: support of AVID metadata (interlacement information)
 + Time code dedicated tracks (MOV, MXF, GXF)
 + Time code track (MPEG-4/MOV, GXF, MXF)
