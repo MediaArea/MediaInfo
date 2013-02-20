@@ -157,7 +157,7 @@ File_MpegTs::File_MpegTs()
 
     //Data
     MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-    MpegTs_JumpTo_End=32*1024*1024;
+    MpegTs_JumpTo_End=MediaInfoLib::Config.MpegTs_MaximumOffset_Get()/4;
     Searching_TimeStamp_Start=true;
     Complete_Stream=NULL;
     Begin_MaxDuration=MediaInfoLib::Config.ParseSpeed_Get()>=0.8?(int64u)-1:MediaInfoLib::Config.MpegTs_MaximumScanDuration_Get()*27/1000;
@@ -1504,7 +1504,8 @@ bool File_MpegTs::Synched_Test()
                                         {
                                             //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
                                             MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched;
-                                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
+                                            if (MpegTs_JumpTo_End>MpegTs_JumpTo_Begin)
+                                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                                         }
                                     }
                                 }
@@ -1557,7 +1558,7 @@ void File_MpegTs::Synched_Init()
 
     //Temp
     MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:Buffer_TotalBytes_LastSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-    MpegTs_JumpTo_End=32*1024*1024;
+    MpegTs_JumpTo_End=MediaInfoLib::Config.MpegTs_MaximumOffset_Get()/4;
     Buffer_TotalBytes_LastSynched=Buffer_TotalBytes_FirstSynched;
     if (MpegTs_JumpTo_Begin==(int64u)-1 || MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
     {
@@ -2235,7 +2236,8 @@ void File_MpegTs::Header_Parse_AdaptationField()
                             {
                                 //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
                                 MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched;
-                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
+                                if (MpegTs_JumpTo_End>MpegTs_JumpTo_Begin)
+                                    MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                             }
                         }
                     }
@@ -2460,7 +2462,8 @@ void File_MpegTs::Header_Parse_AdaptationField()
                             {
                                 //We are already parsing 16 seconds (for all PCRs), we don't hope to have more info
                                 MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset-Buffer_TotalBytes_FirstSynched;
-                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
+                                if (MpegTs_JumpTo_End>MpegTs_JumpTo_Begin)
+                                    MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                             }
                         }
                     }

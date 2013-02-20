@@ -23,7 +23,7 @@ Version 0.7.62, 2012-
 + Time code in SMPTE RP 196 (aka HANC)
 + MPEG Video Time code
 + MPEG-TS: format_identifier, pointer_field, section_length (hidden by default)
-+ CEA-608/708: caption detection duration is increased to 60 seconds (or 64 MB) in order to miss less caption content
++ CEA-608/708: caption detection duration is increased to 15 seconds (or 64 MB) in order to miss less caption content
 + Image files as a video stream: file name of the last file
 x #727, MOV: crash with some malformed files (Time scale set to 0)
 x #728, AAC: crash with some malformed streams

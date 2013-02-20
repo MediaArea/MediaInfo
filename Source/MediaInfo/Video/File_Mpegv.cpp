@@ -2597,7 +2597,7 @@ void File_Mpegv::slice_start()
             Accept("MPEG Video");
         if (!MustExtendParsingDuration && IFrame_Count==8)
             Frame_Count_Valid=Frame_Count; //We have enough frames
-        if (!Status[IsFilled] && ((!MustExtendParsingDuration && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*4))
+        if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
         {
             Fill("MPEG Video");
             if (File_Size==(int64u)-1)

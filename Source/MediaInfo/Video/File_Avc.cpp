@@ -1973,11 +1973,7 @@ void File_Avc::slice_header()
         {
             if (!GA94_03_IsPresent && IFrame_Count>=8)
                 Frame_Count_Valid=Frame_Count; //We have enough frames
-            #ifdef MEDIAINFO_DTVCCTRANSPORT_YES
-            if (((!GA94_03_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*4)) //Going more far if captions are detected
-            #else //MEDIAINFO_DTVCCTRANSPORT_YES
             if (Frame_Count>=Frame_Count_Valid)
-            #endif //MEDIAINFO_DTVCCTRANSPORT_YES
             {
                 Fill("AVC");
                 if (!IsSub && !Streams[(size_t)Element_Code].ShouldDuplicate && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
