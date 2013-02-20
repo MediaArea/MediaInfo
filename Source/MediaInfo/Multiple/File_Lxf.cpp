@@ -1342,6 +1342,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
         */
 
         #ifdef MEDIAINFO_SMPTEST0337_YES
+        if (!(Pos%2 && Audios[Pos-1].Parsers.size()<=1)) //If the first half-stream was already rejected, don't try this one
         {
             File_ChannelGrouping* Parser=new File_ChannelGrouping;
             if (Pos%2 && !Audios[Pos-1].Parsers.empty())
