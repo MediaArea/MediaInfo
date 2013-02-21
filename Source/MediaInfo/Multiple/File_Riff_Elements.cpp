@@ -1177,10 +1177,6 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     if (Element_Offset+2<=Element_Size)
         Get_L2 (BitsPerSample,                                  "BitsPerSample");
 
-    //Coherency
-    if (Channels==0 || SamplesPerSec==0 || AvgBytesPerSec==0)
-        return;
-
     //Filling
     Stream_Prepare(Stream_Audio);
     Stream[Stream_ID].Compression=FormatTag;
@@ -1189,9 +1185,12 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, (Channels!=5 || FormatTag==0xFFFE)?Channels:6);
-    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec);
-    Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
+    if (Channels)
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, (Channels!=5 || FormatTag==0xFFFE)?Channels:6);
+    if (SamplesPerSec)
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec);
+    if (AvgBytesPerSec)
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
     if (BitsPerSample)
         Fill(Stream_Audio, StreamPos_Last, Audio_BitDepth, BitsPerSample);
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
