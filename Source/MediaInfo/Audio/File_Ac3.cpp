@@ -1085,7 +1085,6 @@ bool File_Ac3::Synchronize()
     }
 
     //Synched
-    Data_Accept("AC-3");
     return true;
 }
 
@@ -1642,6 +1641,8 @@ void File_Ac3::Core()
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
 
         //Filling
+        if (!Status[IsAccepted])
+            Accept("AC-3");
         if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
         {
             Fill("AC-3");
@@ -1833,6 +1834,8 @@ void File_Ac3::HD()
             FrameInfo.PTS=FrameInfo.DTS;
 
         //Filling
+        if (!Status[IsAccepted])
+            Accept("AC-3");
         if (!Status[IsFilled] && !Core_IsPresent && Frame_Count>=Frame_Count_Valid*32)
         {
             Fill("AC-3");

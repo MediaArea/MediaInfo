@@ -67,7 +67,10 @@ size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
     #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_General_Start_0 Event;
+            memset(&Event, 0xFF, sizeof(struct MediaInfo_Event_Generic));
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
+            Event.EventSize=sizeof(struct MediaInfo_Event_General_Start_0);
+            Event.StreamIDs_Size=0;
             Event.Stream_Size=File::Size_Get(File_Name);
             MI->Config.Event_Send(NULL, (const int8u*)&Event, sizeof(MediaInfo_Event_General_Start_0));
         }

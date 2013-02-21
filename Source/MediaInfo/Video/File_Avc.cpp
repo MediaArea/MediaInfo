@@ -264,22 +264,6 @@ const char* Mpegv_transfer_characteristics(int8u transfer_characteristics);
 const char* Mpegv_matrix_coefficients(int8u matrix_coefficients);
 
 //---------------------------------------------------------------------------
-const char* Avc_matrix_coefficients(int8u matrix_coefficients)
-{
-    switch (matrix_coefficients)
-    {
-        case  0 : return "RGB";
-        case  1 : return "BT.709-5, BT.1361, IEC 61966-2-4 709, SMPTE RP177";
-        case  4 : return "FTC 73.682";
-        case  5 : return "BT.470-6 System B, BT.470-6 System G, BT.601-6 625, BT.1358 625, BT.1700 625 PAL, BT.1700 625 SECAM, IEC 61966-2-4 601";
-        case  6 : return "BT.601-6 525, BT.1358 525, BT.1700 NTSC, SMPTE 170M";
-        case  7 : return "SMPTE 240M";
-        case  8 : return "YCgCo";
-        default : return "";
-    }
-}
-
-//---------------------------------------------------------------------------
 const char* Avc_user_data_GA94_cc_type(int8u cc_type)
 {
     switch (cc_type)
@@ -731,7 +715,7 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
     size_t          Buffer_Temp_Size=0;
     bool            RandomAccess=true; //Default, in case of problem
 
-    if (Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10)
+    if ((MustParse_SPS_PPS || SizedBlocks) && Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10)
     {
         if (MustParse_SPS_PPS)
             return true; //Wait for SPS and PPS
@@ -2472,7 +2456,12 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
             }
             #if MEDIAINFO_DEMUX
                 if (TemporalReferences[TemporalReferences_Min]->GA94_03)
+                {
+                    int8u Demux_Level_Save=Demux_Level;
+                    Demux_Level=8; //Ancillary
                     Demux(TemporalReferences[TemporalReferences_Min]->GA94_03->Data, TemporalReferences[TemporalReferences_Min]->GA94_03->Size, ContentType_MainStream);
+                    Demux_Level=Demux_Level_Save;
+                }
                 Element_Code=Element_Code_Old;
             #endif //MEDIAINFO_DEMUX
             if (TemporalReferences[TemporalReferences_Min]->GA94_03)

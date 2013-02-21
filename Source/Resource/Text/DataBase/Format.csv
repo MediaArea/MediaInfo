@@ -51,9 +51,9 @@ VC-1;;;V;Vc1;;vc1;video/vc1;;Lossy
 YUV4MPEG2;;;V;Y4m;;y4m;;;Lossless
 VP8;;;V;;;;;http://www.webmproject.org/;Lossy
 YUV;;;V;;;;;;Lossless
-AAC;;;A;;Advanced Audio Codec;aac;;;Lossy
+AAC;;;A;;Advanced Audio Codec;;;;Lossy
 AC-3;;;A;Ac3;Audio Coding 3;ac3;;;Lossy
-ADIF;;;A;Adif;Audio Data Interchange Format;aac;;;
+ADIF;;;A;Adif;Audio Data Interchange Format;;;;
 ADTS;;;A;Adts;Audio Data Transport Stream;aac;;;
 ALS;;;A;Als;MPEG-4 Audio Lossless Coding;als;;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads;Lossless
 AMR;;;A;Amr;Adaptive Multi-Rate;amr;audio/AMR;http://www.apple.com/quicktime/download/standalone.html;

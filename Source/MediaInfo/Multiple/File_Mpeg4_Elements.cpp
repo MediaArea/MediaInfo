@@ -4290,7 +4290,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ARES()
         case 0x02 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Interlaced", Unlimited, true, true); break;
         default   : ;
     }
-
 }
 
 //---------------------------------------------------------------------------

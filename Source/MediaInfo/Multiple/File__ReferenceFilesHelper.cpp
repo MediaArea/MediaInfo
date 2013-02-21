@@ -63,6 +63,7 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     Reference=References.end();
     Init_Done=false;
     TestContinuousFileNames=false;
+    ContainerHasNoId=false;
     FrameRate=0;
     Duration=0;
     #if MEDIAINFO_NEXTPACKET
@@ -92,15 +93,13 @@ void File__ReferenceFilesHelper::ParseReferences()
 {
     if (!Init_Done)
     {
-        #if MEDIAINFO_FILTER
-            if (MI->Config->File_Filter_Audio_Get())
-                for (size_t Pos=0; Pos<References.size(); Pos++)
-                    if (References[Pos].StreamKind!=Stream_Audio)
-                    {
-                        References.erase(References.begin()+Pos);
-                        Pos--;
-                    }
-        #endif //MEDIAINFO_FILTER
+        if (MI->Config->File_Filter_Audio_Get())
+            for (size_t Pos=0; Pos<References.size(); Pos++)
+                if (References[Pos].StreamKind!=Stream_Audio)
+                {
+                    References.erase(References.begin()+Pos);
+                    Pos--;
+                }
 
         //Testing IDs
         std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo1);
@@ -671,7 +670,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List_String, List_String);
         }
     }
-    if ((!Config->File_ID_OnlyRoot_Get() || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
+    if ((ContainerHasNoId || !Config->File_ID_OnlyRoot_Get() || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
     {
         if (!ID.empty())
             ID+=__T('-');

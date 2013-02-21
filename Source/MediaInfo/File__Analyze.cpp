@@ -687,9 +687,6 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         Sub->FrameInfo_Previous.Buffer_Offset_End=Sub->Buffer_Offset+Sub->Buffer_Size+ToAdd_Size;
     if (Sub->FrameInfo_Previous.DTS!=(int64u)-1)
     {
-        if (Sub->Buffer_Size)
-            Sub->FrameInfo_Previous.Buffer_Offset_End=Sub->Buffer_Size;
-
         Sub->FrameInfo_Next=Sub->FrameInfo;
         Sub->FrameInfo=Sub->FrameInfo_Previous;
         Sub->FrameInfo_Previous=frame_info();
@@ -1350,6 +1347,9 @@ bool File__Analyze::Synchro_Manage()
     //Testing if synchro is OK
     if (Synched)
     {
+        if (!IsSub)
+            Buffer_TotalBytes_LastSynched=Buffer_TotalBytes+Buffer_Offset;
+
         if (!Synchro_Manage_Test())
             return false;
     }

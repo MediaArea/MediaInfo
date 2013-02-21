@@ -37,8 +37,8 @@
 #include "MediaInfo/Text/File_AribStdB24B37.h"
 #include <vector>
 #ifdef __WINDOWS__
-        #undef __TEXT
-        #include "windows.h"
+    #undef __TEXT
+    #include "windows.h"
 #endif // __WINDOWS__
 //---------------------------------------------------------------------------
 

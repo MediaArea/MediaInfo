@@ -480,7 +480,7 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
 
     // Audio
     #if defined(MEDIAINFO_AAC_YES)
-        else if (Parser==__T("Aac"))         {Info=new File_Aac(); ((File_Aac*)Info)->Mode=File_Aac::Mode_ADTS;} // Prioritization against ADIF
+        else if (Parser==__T("Adts"))       {Info=new File_Aac(); ((File_Aac*)Info)->Mode=File_Aac::Mode_ADTS;} // Prioritization against ADIF
     #endif
     #if defined(MEDIAINFO_AC3_YES)
         else if (Parser==__T("Ac3"))         Info=new File_Ac3();

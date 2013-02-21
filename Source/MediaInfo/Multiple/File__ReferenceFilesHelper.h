@@ -84,6 +84,7 @@ public :
     typedef std::vector<reference>  references;
     references                      References;
     bool                            TestContinuousFileNames;
+    bool                            ContainerHasNoId;
 
     //Streams management
     void ParseReferences();
