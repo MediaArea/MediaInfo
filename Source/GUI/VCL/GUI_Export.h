@@ -66,12 +66,12 @@ __published:    // IDE-managed Components
     TComboBox *CSV_Stream_Audio;
     TLabel *CSV_Stream_Text_Caption;
     TComboBox *CSV_Stream_Text;
-    TLabel *CSV_Stream_Chapters_Caption;
-    TComboBox *CSV_Stream_Chapters;
+    TLabel *CSV_Stream_Other_Caption;
+    TComboBox *CSV_Stream_Other;
     TLabel *CSV_Stream_Video_Warning;
     TLabel *CSV_Stream_Audio_Warning;
     TLabel *CSV_Stream_Text_Warning;
-    TLabel *CSV_Stream_Chapters_Warning;
+    TLabel *CSV_Stream_Other_Warning;
     TCheckBox *Text_Advanced;
     TCheckBox *HTML_Advanced;
     TLabel *CSV_Quote_Caption;
@@ -103,7 +103,7 @@ __published:    // IDE-managed Components
     void __fastcall CSV_Stream_VideoChange(TObject *Sender);
     void __fastcall CSV_Stream_AudioChange(TObject *Sender);
     void __fastcall CSV_Stream_TextChange(TObject *Sender);
-    void __fastcall CSV_Stream_ChaptersChange(TObject *Sender);
+    void __fastcall CSV_Stream_OtherChange(TObject *Sender);
     void __fastcall Export_reVTMD_SideCarClick(TObject *Sender);
     void __fastcall Export_XML_SideCarClick(TObject *Sender);
     void __fastcall Export_MPEG7_SideCarClick(TObject *Sender);

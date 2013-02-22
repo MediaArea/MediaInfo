@@ -390,13 +390,13 @@ String Core::StreamName (stream_t StreamKind) {
         break;
     case Stream_Video: return __T("Video");
         break;
-    case Stream_Chapters: return __T("Chapters");
+    case Stream_Text: return __T("Text");
+        break;
+    case Stream_Other: return __T("Other");
         break;
     case Stream_Image: return __T("Image");
         break;
     case Stream_Menu: return __T("Menu");
-        break;
-    case Stream_Text: return __T("Text");
         break;
     default: return __T("Unknown stream");
         break;

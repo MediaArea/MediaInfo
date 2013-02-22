@@ -254,14 +254,14 @@ void TExportF::Export_Run()
         //Chapters
         Pos_Start=Pos_End+2;
         Pos_End=Parameters.size()-1;
-        for (int Count=0; Count<CSV_Stream_Chapters->ItemIndex; Count++)
+        for (int Count=0; Count<CSV_Stream_Other->ItemIndex; Count++)
         {
             for (int I1=0; I1<Pos_End-Pos_Start; I1++)
-            if (MediaInfo_Complete || ToExport->Get(0, Stream_Chapters, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
+            if (MediaInfo_Complete || ToExport->Get(0, Stream_Other, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
                     CSV(0, CSV_Pos)=Ztring(__T("Chapters "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
                     for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
-                        CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Chapters, Count, I1);
+                        CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Other, Count, I1);
                     CSV_Pos++;
                 }
         }
@@ -308,7 +308,7 @@ void TExportF::Export_Run()
               case __T('V'): S=Stream_Video; break;
               case __T('A'): S=Stream_Audio; break;
               case __T('T'): S=Stream_Text; break;
-              case __T('C'): S=Stream_Chapters; break;
+              case __T('C'): S=Stream_Other; break;
               default: S=Stream_General;
             }
             SheetF(0, Pos)=ToExport->Get(0, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3), Info_Name_Text);
@@ -332,7 +332,7 @@ void TExportF::Export_Run()
                   case __T('V'): S=Stream_Video; break;
                   case __T('A'): S=Stream_Audio; break;
                   case __T('T'): S=Stream_Text; break;
-                  case __T('C'): S=Stream_Chapters; break;
+                  case __T('C'): S=Stream_Other; break;
                   default: S=Stream_General;
                 }
                 //Showing
@@ -555,9 +555,9 @@ void __fastcall TExportF::CSV_Stream_TextChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TExportF::CSV_Stream_ChaptersChange(TObject *Sender)
+void __fastcall TExportF::CSV_Stream_OtherChange(TObject *Sender)
 {
-    CSV_Stream_Change(CSV_Stream_Chapters, CSV_Stream_Chapters_Warning, Stream_Chapters);
+    CSV_Stream_Change(CSV_Stream_Other, CSV_Stream_Other_Warning, Stream_Other);
 }
 //---------------------------------------------------------------------------
 
@@ -596,8 +596,8 @@ void TExportF::GUI_Configure()
     CSV_Stream_Audio_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
     CSV_Stream_Text_Caption->Caption=Prefs->Translate(__T("How many text streams?")).c_str();
     CSV_Stream_Text_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
-    CSV_Stream_Chapters_Caption->Caption=Prefs->Translate(__T("How many chapters streams?")).c_str();
-    CSV_Stream_Chapters_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
+    CSV_Stream_Other_Caption->Caption=Prefs->Translate(__T("How many chapters streams?")).c_str();
+    CSV_Stream_Other_Warning->Caption=Prefs->Translate(__T("Warning : more streams in the files")).c_str();
     CSV_Separator_Col_Caption->Caption=Prefs->Translate(__T("Separator_Columns")).c_str();
     CSV_Decimal_Caption->Caption=Prefs->Translate(__T("Decimal point")).c_str();
     CSV_Separator_Line_Caption->Caption=Prefs->Translate(__T("Separator_Lines")).c_str();
@@ -622,7 +622,7 @@ void TExportF::GUI_Configure()
     CSV_Stream_Change(CSV_Stream_Video, CSV_Stream_Video_Warning, Stream_Video);
     CSV_Stream_Change(CSV_Stream_Audio, CSV_Stream_Audio_Warning, Stream_Audio);
     CSV_Stream_Change(CSV_Stream_Text, CSV_Stream_Text_Warning, Stream_Text);
-    CSV_Stream_Change(CSV_Stream_Chapters, CSV_Stream_Chapters_Warning, Stream_Chapters);
+    CSV_Stream_Change(CSV_Stream_Other, CSV_Stream_Other_Warning, Stream_Other);
 }
 
 //***************************************************************************

@@ -138,7 +138,7 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Easy_X_List [Stream_Video]     =Page_Easy_General_List_V;
     Page_Easy_X_List [Stream_Audio]     =Page_Easy_General_List_A;
     Page_Easy_X_List [Stream_Text]      =Page_Easy_General_List_T;
-    Page_Easy_X_List [Stream_Chapters]  =Page_Easy_General_List_C;
+    Page_Easy_X_List [Stream_Other]  =Page_Easy_General_List_C;
     Page_Easy_X_Tag[0]=Page_Easy_General_Tag1;
     Page_Easy_X_Tag[1]=Page_Easy_General_Tag2;
     Page_Easy_X_Tag[2]=Page_Easy_General_Tag3;
@@ -149,12 +149,12 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Sheet_X[Stream_Video]=Page_Sheet_V;
     Page_Sheet_X[Stream_Audio]=Page_Sheet_A;
     Page_Sheet_X[Stream_Text]=Page_Sheet_T;
-    Page_Sheet_X[Stream_Chapters]=Page_Sheet_C;
+    Page_Sheet_X[Stream_Other]=Page_Sheet_C;
     Page_Sheet_X_Web[Stream_General]=Page_Sheet_G_Web;
     Page_Sheet_X_Web[Stream_Video]=Page_Sheet_V_Web;
     Page_Sheet_X_Web[Stream_Audio]=Page_Sheet_A_Web;
     Page_Sheet_X_Web[Stream_Text]=Page_Sheet_T_Web;
-    Page_Sheet_X_Web[Stream_Chapters]=Page_Sheet_C_Web;
+    Page_Sheet_X_Web[Stream_Other]=Page_Sheet_C_Web;
     //-Donate
     Donates.push_back(Donate_de);
     Donates.push_back(Donate_en);
@@ -642,7 +642,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                   case __T('V'): S=Stream_Video; break;
                   case __T('A'): S=Stream_Audio; break;
                   case __T('T'): S=Stream_Text; break;
-                  case __T('C'): S=Stream_Chapters; break;
+                  case __T('C'): S=Stream_Other; break;
                   default: S=Stream_General;
                 }
                 Page_Sheet_Sheet->Cells[Pos][0]=I->Get(0, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3), Info_Name_Text).c_str();
@@ -666,7 +666,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                       case __T('V'): S=Stream_Video; break;
                       case __T('A'): S=Stream_Audio; break;
                       case __T('T'): S=Stream_Text; break;
-                      case __T('C'): S=Stream_Chapters; break;
+                      case __T('C'): S=Stream_Other; break;
                       default: S=Stream_General;
                     }
                     //Showing
