@@ -8,7 +8,7 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
-Version 0.7.62, 2012-02-23
+Version 0.7.62, 2012-02-22
 --------------
 + ARIB STD B24/B37 caption detection (both Japanese and Brazilian versions)
 + LXF: support of AVC, VC-3, MPEG audio, AC-3, Dolby E, and AAC detection and analysis
