@@ -936,6 +936,11 @@ ThanksTo;감사
 Thousands separator;천단위 구분자
 Title;제목
 Title_More;제목, 자세히
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;시간대
 Total;총
 Track;트랙 이름
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;번역
 Tree;트리
 Tree & Text;트리 & 텍스트
+Type;
 UniqueID;
 Unknown;알 수 없음
 Url;Url

@@ -936,6 +936,11 @@ ThanksTo;Falënderime për
 Thousands separator;Ndarësi i mijësheve
 Title;Titulli
 Title_More;Titulli, më tepër info
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Ora lokale
 Total;Totali
 Track;Emri i kolonës
@@ -944,6 +949,7 @@ transfer_characteristics;Karakteristikat e transferimit
 Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
+Type;
 UniqueID;
 Unknown;Nuk e di
 Url;URL
@@ -977,5 +983,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

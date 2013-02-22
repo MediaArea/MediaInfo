@@ -936,6 +936,11 @@ ThanksTo;Köszönetnyilvánítás
 Thousands separator;Ezres elválasztó jel
 Title;Cím
 Title_More;Cím, több adat
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Összesen
 Track;Sáv
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Fordító
 Tree;Fa
 Tree & Text;Fa és szöveg
+Type;
 UniqueID;
 Unknown;Ismeretlen
 Url;Url
@@ -978,4 +984,4 @@ WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;94
+ZZ_AutomaticLanguage_Percent;93

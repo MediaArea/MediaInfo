@@ -936,6 +936,11 @@ ThanksTo;Ευχαριστώ τους
 Thousands separator;Διαχωριστής χιλιάδων
 Title;Τίτλος
 Title_More;Τίτλος, περισσότερες πληροφορίες
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Total
 Track;Track name
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Μεταφραστής
 Tree;Δένδρο
 Tree & Text;Δένδρο & Κείμενο
+Type;
 UniqueID;
 Unknown;Άγνωστο
 Url;Url
@@ -978,4 +984,4 @@ WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
 ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;82
+ZZ_AutomaticLanguage_Percent;81

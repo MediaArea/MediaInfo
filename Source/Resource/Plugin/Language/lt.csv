@@ -936,6 +936,11 @@ ThanksTo;Dėkojame
 Thousands separator;Tūkstančių skirtukas
 Title;Antraštė
 Title_More;Antraštė, daugiau info
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Iš viso
 Track;Takelio pavadinimas
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Vertėjas
 Tree;Medis
 Tree & Text;Medis ir tekstas
+Type;
 UniqueID;
 Unknown;Nežinomas
 Url;Url
@@ -977,5 +983,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;87

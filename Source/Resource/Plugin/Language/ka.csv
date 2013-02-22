@@ -936,6 +936,11 @@ ThanksTo;მადლობას ვუხდით
 Thousands separator;Thousands separator
 Title;სათაური
 Title_More;სათაურზე მეტი ინფორმაცია
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Timezone
 Total;ჯამში
 Track;ტრეკის სახელი
@@ -944,6 +949,7 @@ transfer_characteristics;Transfer characteristics
 Translator;მთარგმნელი
 Tree;სვეტი
 Tree & Text;სვეტი & ტექსტი
+Type;
 UniqueID;უნიკალური ID
 Unknown;უცნობია
 Url;Url
@@ -977,5 +983,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

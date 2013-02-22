@@ -936,6 +936,11 @@ ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 Title;ชื่อเรื่อง
 Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;ทั้งหมด
 Track;ชื่อแทร็ค
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;แปลไทยโดย
 Tree;Tree
 Tree & Text;Tree & Text
+Type;
 UniqueID;
 Unknown;ไม่รู้จัก
 Url;Url

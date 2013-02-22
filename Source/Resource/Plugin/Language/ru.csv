@@ -936,6 +936,11 @@ ThanksTo;Благодарности
 Thousands separator;Разделитель тысяч
 Title;Заголовок
 Title_More;Заголовок, дополнительно
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Часовой пояс
 Total;Всего
 Track;Трек
@@ -944,6 +949,7 @@ transfer_characteristics;Характеристики трансфера
 Translator;Переводчик
 Tree;Дерево
 Tree & Text;Дерево и текст
+Type;
 UniqueID;Уникальный идентификатор
 Unknown;Неизвестно
 Url;Ссылка

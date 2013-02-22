@@ -936,6 +936,11 @@ ThanksTo;Eskerrak
 Thousands separator;Milaka bananatzaile
 Title;Izenburua
 Title_More;Izenburua, argibide gehiago
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Ordu-Eremua
 Total;Guztira
 Track;Bide izena
@@ -944,6 +949,7 @@ transfer_characteristics;Eskualdaketa ezaugarriak
 Translator;Itzultzailea
 Tree;Zuhaitza
 Tree & Text;Zuhaitza eta Idazkia
+Type;
 UniqueID;ID bakarra
 Unknown;Ezezaguna
 Url;Url-a
@@ -977,5 +983,5 @@ Written_Location;Idazte helbidea
 WrittenBy;Idazlea
 Yes;Bai
 Your system;Zure sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

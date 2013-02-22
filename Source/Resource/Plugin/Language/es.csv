@@ -936,6 +936,11 @@ ThanksTo;Gracias a
 Thousands separator;Separador de miles
 Title;Título
 Title_More;Título, más info
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Total
 Track;Nombre de Pista
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Traductor
 Tree;Árbol
 Tree & Text;Árbol y Texto
+Type;
 UniqueID;
 Unknown;Desconocido
 Url;Url
@@ -977,5 +983,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;93

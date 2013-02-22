@@ -936,6 +936,11 @@ ThanksTo;Zahvala
 Thousands separator;Razdjelnik tisuća
 Title;Naslov
 Title_More;Više podataka o naslovu
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Ukupno
 Track;Naziv snimke
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
+Type;
 UniqueID;
 Unknown;Nepoznato
 Url;URL

@@ -936,6 +936,11 @@ ThanksTo;Teşekkürler
 Thousands separator;Binlik basamak ayırıcı
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Saat dilimi
 Total;Toplam
 Track;Parça adı
@@ -944,6 +949,7 @@ transfer_characteristics;Aktarım nitelikleri
 Translator;Çevirmen
 Tree;Ağaç
 Tree & Text;Ağaç ve Metin
+Type;
 UniqueID;Eşsiz ID
 Unknown;Bilinmiyor
 Url;Url
@@ -977,5 +983,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

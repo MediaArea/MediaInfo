@@ -936,6 +936,11 @@ ThanksTo; Tack till
 Thousands separator; Tusentalsseparator
 Title; titel
 Title_More; Title, mer info
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total; Totalt
 Track; Spårnamn
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator; Översättare
 Tree; Träd
 Tree & Text; Träd & Text
+Type;
 UniqueID;
 Unknown; Okänd
 Url; Url
@@ -977,5 +983,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;76
-ZZ_AutomaticLanguage_Percent;80
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;79

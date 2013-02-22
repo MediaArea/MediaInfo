@@ -936,6 +936,11 @@ ThanksTo;Շնորհակալ ենք
 Thousands separator;Հազարյակի բաժանիչը
 Title;Անունը
 Title_More;Անունը, լրացուցիչ
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Ժամային գոտին
 Total;Ընդամենը
 Track;Շավիղը
@@ -944,6 +949,7 @@ transfer_characteristics;Փոխանցման բնութագրումը
 Translator;Hrant Ohanyan
 Tree;Ծառի տեսքով
 Tree & Text;Ծառի տեսքով և տեքստ
+Type;
 UniqueID;Բացառիկ ID-ին
 Unknown;Անհայտ է
 Url;Հղումը
@@ -977,5 +983,5 @@ Written_Location;Գրելու տեղը
 WrittenBy;Գրվել է՝
 Yes;Այո
 Your system;Ձեր համակարգը
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

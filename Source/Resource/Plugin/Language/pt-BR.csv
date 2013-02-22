@@ -936,6 +936,11 @@ ThanksTo;Abrigado à
 Thousands separator;Separador de milhar
 Title;Título
 Title_More;Título, mais info.
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Hora local
 Total;Total
 Track;Nome da faixa
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Tradutor
 Tree;Raiz
 Tree & Text;Raiz & Texto
+Type;
 UniqueID;
 Unknown;Desconhecido
 Url;Url

@@ -936,6 +936,11 @@ ThanksTo;謝辞
 Thousands separator;区切り
 Title;タイトル
 Title_More;タイトルと詳細情報
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;タイムゾーン
 Total;計
 Track;トラック名
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;翻訳者
 Tree;ツリー
 Tree & Text;ツリーとテキスト
+Type;
 UniqueID;
 Unknown;不明
 Url;Url

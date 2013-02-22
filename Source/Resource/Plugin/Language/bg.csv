@@ -936,6 +936,11 @@ ThanksTo;БлагодарениеНа
 Thousands separator;Хиляден разделител
 Title;Име
 Title_More;Име_Повече
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;ВремеваЗона
 Total;Общо
 Track;Номер
@@ -944,6 +949,7 @@ transfer_characteristics;трансфер_характеристики
 Translator;Преводач
 Tree;Дърво
 Tree & Text;Дърво и Текст
+Type;
 UniqueID;
 Unknown;Незнаен
 Url;ЮРЛ
@@ -978,4 +984,4 @@ WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
 ZZ_Automatic_Percent;93
-ZZ_AutomaticLanguage_Percent;97
+ZZ_AutomaticLanguage_Percent;96

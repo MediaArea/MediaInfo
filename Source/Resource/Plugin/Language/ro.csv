@@ -936,6 +936,11 @@ ThanksTo;Multumita
 Thousands separator;Separator mii
 Title;Titlu
 Title_More;Titlu, mai multe informatii
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Total
 Track;Nume pista
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Traducator
 Tree;Arbore
 Tree & Text;Arbore si text
+Type;
 UniqueID;
 Unknown;Necunoscut
 Url;

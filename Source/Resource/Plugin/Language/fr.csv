@@ -936,6 +936,11 @@ ThanksTo;Remerciements
 Thousands separator;Séparateur de milliers
 Title;Titre
 Title_More;Titre, plus d'info
+TimeCode;Time code
+TimeCode_FirstFrame;Time code de la première image
+TimeCode_Settings;Paramètres du time code
+TimeCode_Source;Source du time code
+TimeStamp;Time stamp
 TimeZone;Fuseau horaire
 Total;Total
 Track;Piste
@@ -944,6 +949,7 @@ transfer_characteristics;Caractéristiques du transfert
 Translator;Traducteur
 Tree;Arbre
 Tree & Text;Arbre & Texte
+Type;Type
 UniqueID;Identifiant unique
 Unknown;Inconnu
 Url;Url

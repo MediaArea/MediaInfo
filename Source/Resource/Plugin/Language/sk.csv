@@ -936,6 +936,11 @@ ThanksTo;Poďakovanie
 Thousands separator;Oddeľovač tisícok
 Title;Titul
 Title_More;Titul, ďalšie informácie
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Časová zóna
 Total;Celkom
 Track;Názov stopy
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Preložil
 Tree;Strom
 Tree & Text;Strom a text
+Type;
 UniqueID;
 Unknown;Neznámy
 Url;Url

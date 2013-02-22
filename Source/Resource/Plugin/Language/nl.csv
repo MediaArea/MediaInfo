@@ -936,6 +936,11 @@ ThanksTo;Dank aan
 Thousands separator;Scheidingsteken duizendtallen
 Title;Titel
 Title_More;Titel, meer info
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;
 Total;Totaal
 Track;Tracknaam
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;Vertaler
 Tree;Boomstructuur
 Tree & Text;Boomstructuur & Tekst
+Type;
 UniqueID;
 Unknown;Onbekend
 Url;Url

@@ -936,6 +936,11 @@ ThanksTo;感謝
 Thousands separator;千位分隔符號
 Title;標題
 Title_More;標題, 詳細資訊
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;時區
 Total;總和
 Track;音軌
@@ -944,6 +949,7 @@ transfer_characteristics;傳輸特性
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
+Type;
 UniqueID;
 Unknown;未知
 Url;相關網址
@@ -977,5 +983,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

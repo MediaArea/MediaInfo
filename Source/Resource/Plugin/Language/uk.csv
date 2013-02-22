@@ -936,6 +936,11 @@ ThanksTo;Подяка
 Thousands separator;Роздільник розрядів
 Title;Заголовок
 Title_More;Більше інформації про заголовок
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Часовий пояс
 Total;Сумарно
 Track;Назва доріжки
@@ -944,6 +949,7 @@ transfer_characteristics;Характеристики трансферу
 Translator;Перекладач
 Tree;Дерево
 Tree & Text;Дерево і текст
+Type;
 UniqueID;Унікальний ID
 Unknown;Невідомо
 Url;Посилання

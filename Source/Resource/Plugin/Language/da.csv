@@ -936,6 +936,11 @@ ThanksTo;Tak til
 Thousands separator;Tusindseparator
 Title;Titel
 Title_More;Titel, mere info
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;Tidszone
 Total;Totalt
 Track;Spornavn
@@ -944,6 +949,7 @@ transfer_characteristics;Overførselskarakteristika
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+Type;
 UniqueID;Unik ID
 Unknown;Ukendt
 Url;Url
@@ -977,5 +983,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;97

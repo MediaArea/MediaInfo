@@ -936,6 +936,11 @@ ThanksTo;تشکر از
 Thousands separator;هزاران جداکننده
 Title;عنوان
 Title_More;عنوان, اطلاعات بیشتر
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeStamp;
 TimeZone;منطقه ساعتى جهانى
 Total;کلی
 Track;نام ترک
@@ -944,6 +949,7 @@ transfer_characteristics;
 Translator;مترجم
 Tree;درختی
 Tree & Text;درختی ومتنی
+Type;
 UniqueID;
 Unknown;نامعلوم
 Url;Url
