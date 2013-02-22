@@ -1171,7 +1171,7 @@ void File_SmpteSt0337::Data_Parse()
             std::swap(Element_Size, Save_Element_Size);
             File_Offset-=Buffer_Offset;
         }
-        
+
         if (data_type==28) //If Dolby E, we must demux the SMPTE ST 337 header too (TODO: add an option for forcing SMPTE ST 337 header)
         {
             int64u Demux_Element_Offset=Element_Offset;

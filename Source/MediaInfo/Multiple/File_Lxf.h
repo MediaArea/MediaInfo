@@ -142,7 +142,7 @@ protected :
     #if MEDIAINFO_DEMUX
         File__Analyze* DemuxParser;
     #endif //MEDIAINFO_DEMUX
-    
+
     //Seek
     typedef std::map<int64u, stream_header> time_offsets;
     time_offsets            TimeOffsets;

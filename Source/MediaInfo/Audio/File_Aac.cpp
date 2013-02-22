@@ -330,7 +330,7 @@ bool File_Aac::Synchronize_ADTS()
                 //Padding
                 while (Buffer_Offset+aac_frame_length+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length]==0x00)
                     aac_frame_length++;
-                    
+
                 if (Buffer_Offset+aac_frame_length+2>Buffer_Size)
                     return false; //Need more data
 
@@ -346,7 +346,7 @@ bool File_Aac::Synchronize_ADTS()
                         //Padding
                         while (Buffer_Offset+aac_frame_length+aac_frame_length2+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length+aac_frame_length2]==0x00)
                             aac_frame_length2++;
-                    
+
                         if (Buffer_Offset+aac_frame_length+aac_frame_length2+2>Buffer_Size)
                             return false; //Need more data
 
@@ -362,7 +362,7 @@ bool File_Aac::Synchronize_ADTS()
                                 //Padding
                                 while (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3]==0x00)
                                     aac_frame_length3++;
-                    
+
                                 if (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2>Buffer_Size)
                                     return false; //Need more data
 
@@ -490,7 +490,7 @@ bool File_Aac::Synched_Test_ADTS()
     //Null padding
     while (Buffer_Offset+2<=Buffer_Size && Buffer[Buffer_Offset]==0x00)
         Buffer_Offset++;
-    
+
     //Must have enough buffer for having header
     if (Buffer_Offset+2>Buffer_Size)
         return false;

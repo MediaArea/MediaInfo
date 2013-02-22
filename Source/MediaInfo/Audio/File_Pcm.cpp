@@ -224,11 +224,11 @@ void File_Pcm::Streams_Fill()
     //BitDepth
     if (BitDepth)
         Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth);
-    
+
     //Channels
     if (Channels)
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
-    
+
     //Bit rate
     if (SamplingRate && BitDepth && Channels)
         Fill(Stream_Audio, 0, Audio_BitRate, SamplingRate*BitDepth*Channels);
@@ -334,7 +334,7 @@ void File_Pcm::Data_Parse()
 
             Demux(Info2, Info2_Pos, ContentType_MainStream);
 
-            delete[] Info2; 
+            delete[] Info2;
         }
         else if (BitDepth==20 && Endianness=='L' && Config->Demux_PCM_20bitTo24bit_Get())
         {
@@ -363,7 +363,7 @@ void File_Pcm::Data_Parse()
 
             Demux(Info2, Info2_Pos, ContentType_MainStream);
 
-            delete[] Info2; 
+            delete[] Info2;
         }
         else
         {

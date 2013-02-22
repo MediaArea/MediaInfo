@@ -1448,7 +1448,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
 
                 Demux(SixteenBit, SixteenBit_Pos, ContentType_MainStream);
 
-                delete[] SixteenBit; 
+                delete[] SixteenBit;
             }
             else if (SampleSize==20 && Config->Demux_PCM_20bitTo24bit_Get())
             {
@@ -1473,7 +1473,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
 
                 Demux(Output, Output_Pos, ContentType_MainStream);
 
-                delete[] Output; 
+                delete[] Output;
             }
             else
                 Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
@@ -1577,7 +1577,7 @@ void File_Lxf::Video_Stream_1()
         Skip_XX(Video_Sizes[1],                         "Unknown");
         return;
     }
-        
+
     int8u Lines_Allocated, Lines_Used;
     Get_L1 (Lines_Allocated,                            "Lines allocated");
     Get_L1 (Lines_Used,                                 "Lines used");
@@ -1587,7 +1587,7 @@ void File_Lxf::Video_Stream_1()
         Skip_XX(Video_Sizes[1]-2,                       "Unknown");
         return;
     }
-        
+
     Videos[1].BytesPerFrame=Video_Sizes[1]-(2+Lines_Allocated);
     int64u BytesPerLine=Videos[1].BytesPerFrame/Lines_Allocated;
 
