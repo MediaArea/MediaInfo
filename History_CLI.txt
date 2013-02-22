@@ -8,6 +8,36 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
+Version 0.7.62, 2012-02-23
+--------------
++ ARIB STD B24/B37 caption detection (both Japanese and Brazilian versions)
++ LXF: support of AVC, VC-3, MPEG audio, AC-3, Dolby E, and AAC detection and analysis
++ AC-3: support of 22.05 kHz streams (out of specs but they exist)
++ MOV: AIC (Apple Intermediate Codec) scan type detection
++ MOV: support of AVID metadata (interlacement information)
++ Time code dedicated tracks (MOV, MXF, GXF)
++ Time code track (MPEG-4/MOV, GXF, MXF)
++ Time code in SDTI (MXF)
++ Time code in System scheme 1 (MXF)
++ Time code in SMPTE RP 188 (aka SMPTE ST 12-2 aka ATC aka VANC) (GXF, LXF, MXF)
++ Time code in SMPTE RP 196 (aka HANC)
++ MPEG Video Time code
++ MPEG-TS: format_identifier, pointer_field, section_length (hidden by default)
++ CEA-608/708: caption detection duration is increased to 15 seconds (or 64 MB) in order to miss less caption content
++ Image files as a video stream: file name of the last file
+x #727, MOV: crash with some malformed files (Time scale set to 0)
+x #728, AAC: crash with some malformed streams
+x #681, AVI: was not analyzing VBR streams without bit rate info in header
+x #736: Division by 0 with 0-byte files
+x Id3v2: crash with some malformed tags
+x Bit rate display was "0 bps" if the real bit rate is more than 4 Gbps
+x Division by 0 in case of 0 byte long file
+x MPEG-4: wrong muxing mode information in case of A/53 captions in MPEG Video in MOV
+x P2 Clip: wrong uppercase/lowercase in the file name of source files.
+x MOV: PCM endianness was sometimes wrong
+x MPEG-4: JPEG interlacement was sometimes wrong
+x MPEG Video: wrong DAR information in case of DAR change between begin and end of the file
+
 Version 0.7.61, 2012-10-22
 --------------
 + MPEG-TS: SCTE 35 and KLV streams are better displayed (in Menu part)

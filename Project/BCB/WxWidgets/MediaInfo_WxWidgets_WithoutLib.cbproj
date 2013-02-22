@@ -520,9 +520,9 @@
 				<DependentOn>..\..\..\Source\GUI\WxWidgets\GUI_Main_HTML.h</DependentOn>
 				<BuildOrder>116</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp">
-				<BuildOrder>18</BuildOrder>
-				<BuildOrder>113</BuildOrder>
+			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_FileDrop.cpp">
+				<BuildOrder>117</BuildOrder>
+				<BuildOrder>11</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp">
 				<BuildOrder>19</BuildOrder>
@@ -532,13 +532,13 @@
 				<BuildOrder>62</BuildOrder>
 				<BuildOrder>126</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp">
-				<BuildOrder>95</BuildOrder>
-				<BuildOrder>39</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp">
+				<BuildOrder>43</BuildOrder>
+				<BuildOrder>148</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_FileDrop.cpp">
-				<BuildOrder>117</BuildOrder>
-				<BuildOrder>11</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Gzip.cpp">
+				<BuildOrder>81</BuildOrder>
+				<BuildOrder>80</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_TimeCode.cpp">
 				<BuildOrder>61</BuildOrder>
@@ -548,10 +548,12 @@
 				<BuildOrder>67</BuildOrder>
 				<BuildOrder>121</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp">
-				<BuildOrder>43</BuildOrder>
-				<BuildOrder>148</BuildOrder>
-			</CppCompile>
+			<ResourceCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main.rc">
+				<BuildOrder>8</BuildOrder>
+				<Form>GUI_Main.res</Form>
+				<DependentOn>..\..\..\Source\GUI\WxWidgets\GUI_Main.h</DependentOn>
+				<BuildOrder>103</BuildOrder>
+			</ResourceCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Dummy.cpp">
 				<BuildOrder>44</BuildOrder>
 				<BuildOrder>150</BuildOrder>
@@ -560,16 +562,14 @@
 				<BuildOrder>68</BuildOrder>
 				<BuildOrder>123</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Easy_Box.cpp">
-				<BuildOrder>104</BuildOrder>
-				<BuildOrder>10</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp">
+				<BuildOrder>41</BuildOrder>
+				<BuildOrder>147</BuildOrder>
 			</CppCompile>
-			<ResourceCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main.rc">
-				<BuildOrder>8</BuildOrder>
-				<Form>GUI_Main.res</Form>
-				<DependentOn>..\..\..\Source\GUI\WxWidgets\GUI_Main.h</DependentOn>
-				<BuildOrder>103</BuildOrder>
-			</ResourceCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp">
+				<BuildOrder>95</BuildOrder>
+				<BuildOrder>39</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Other.cpp">
 				<BuildOrder>45</BuildOrder>
 				<BuildOrder>149</BuildOrder>
@@ -578,13 +578,12 @@
 				<BuildOrder>80</BuildOrder>
 				<BuildOrder>134</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp">
-				<BuildOrder>41</BuildOrder>
-				<BuildOrder>147</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Zip.cpp">
+				<BuildOrder>85</BuildOrder>
+				<BuildOrder>29</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Gzip.cpp">
-				<BuildOrder>81</BuildOrder>
-				<BuildOrder>80</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.cpp">
+				<BuildOrder>166</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4.cpp">
 				<BuildOrder>58</BuildOrder>
@@ -595,12 +594,13 @@
 				<DependentOn>..\..\..\Source\GUI\WxWidgets\GUI_Main_Sheet.h</DependentOn>
 				<BuildOrder>120</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff.cpp">
-				<BuildOrder>70</BuildOrder>
-				<BuildOrder>124</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp">
+				<BuildOrder>75</BuildOrder>
+				<BuildOrder>139</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.cpp">
-				<BuildOrder>166</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp">
+				<BuildOrder>63</BuildOrder>
+				<BuildOrder>128</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Tree.cpp">
 				<BuildOrder>16</BuildOrder>
@@ -612,9 +612,10 @@
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.h</DependentOn>
 				<BuildOrder>141</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp">
-				<BuildOrder>75</BuildOrder>
-				<BuildOrder>139</BuildOrder>
+			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Easy.cpp">
+				<BuildOrder>9</BuildOrder>
+				<DependentOn>..\..\..\Source\GUI\WxWidgets\GUI_Main_Easy.h</DependentOn>
+				<BuildOrder>105</BuildOrder>
 			</CppCompile>
 			<ResFiles Include="MediaInfo_WxWidgets_WithoutLib.res">
 				<BuildOrder>-1</BuildOrder>
@@ -624,14 +625,12 @@
 				<BuildOrder>46</BuildOrder>
 				<BuildOrder>142</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Zip.cpp">
-				<BuildOrder>85</BuildOrder>
-				<BuildOrder>29</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_DtvccTransport.cpp">
+				<BuildOrder>175</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Easy.cpp">
-				<BuildOrder>9</BuildOrder>
-				<DependentOn>..\..\..\Source\GUI\WxWidgets\GUI_Main_Easy.h</DependentOn>
-				<BuildOrder>105</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff.cpp">
+				<BuildOrder>70</BuildOrder>
+				<BuildOrder>124</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm_Elements.cpp">
 				<BuildOrder>76</BuildOrder>
@@ -641,8 +640,9 @@
 				<BuildOrder>64</BuildOrder>
 				<BuildOrder>130</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_DtvccTransport.cpp">
-				<BuildOrder>175</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_7z.cpp">
+				<BuildOrder>77</BuildOrder>
+				<BuildOrder>131</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_File.cpp">
 				<BuildOrder>49</BuildOrder>
@@ -652,13 +652,12 @@
 				<BuildOrder>89</BuildOrder>
 				<BuildOrder>25</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientWrapper.c">
-				<BuildOrder>85</BuildOrder>
-				<BuildOrder>29</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.cpp">
+				<BuildOrder>165</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_7z.cpp">
-				<BuildOrder>77</BuildOrder>
-				<BuildOrder>131</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Ace.cpp">
+				<BuildOrder>78</BuildOrder>
+				<BuildOrder>133</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp">
 				<BuildOrder>74</BuildOrder>
@@ -667,9 +666,6 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif.cpp">
 				<BuildOrder>54</BuildOrder>
 				<BuildOrder>160</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.cpp">
-				<BuildOrder>165</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\ZtringListList.cpp">
 				<BuildOrder>91</BuildOrder>
@@ -686,20 +682,24 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Scte20.cpp">
 				<BuildOrder>177</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientWrapper.c">
+				<BuildOrder>85</BuildOrder>
+				<BuildOrder>29</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libmms.cpp">
 				<BuildOrder>168</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp">
-				<BuildOrder>91</BuildOrder>
-				<BuildOrder>23</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Bdmv.cpp">
 				<BuildOrder>51</BuildOrder>
 				<BuildOrder>157</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Ace.cpp">
-				<BuildOrder>78</BuildOrder>
-				<BuildOrder>133</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_Others.cpp">
+				<BuildOrder>194</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp">
+				<BuildOrder>48</BuildOrder>
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h</DependentOn>
+				<BuildOrder>143</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_Descriptors.cpp">
 				<BuildOrder>59</BuildOrder>
@@ -709,14 +709,13 @@
 				<BuildOrder>55</BuildOrder>
 				<BuildOrder>159</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff_Elements.cpp">
-				<BuildOrder>71</BuildOrder>
-				<BuildOrder>137</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Skm.cpp">
+				<BuildOrder>73</BuildOrder>
+				<BuildOrder>138</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp">
-				<BuildOrder>48</BuildOrder>
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h</DependentOn>
-				<BuildOrder>143</BuildOrder>
+			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Easy_Box.cpp">
+				<BuildOrder>104</BuildOrder>
+				<BuildOrder>10</BuildOrder>
 			</CppCompile>
 			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Handler.h">
 				<BuildOrder>199</BuildOrder>
@@ -725,9 +724,8 @@
 				<BuildOrder>84</BuildOrder>
 				<BuildOrder>30</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Skm.cpp">
-				<BuildOrder>73</BuildOrder>
-				<BuildOrder>138</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dxw.cpp">
+				<BuildOrder>209</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\int128u.cpp">
 				<BuildOrder>97</BuildOrder>
@@ -737,11 +735,13 @@
 				<BuildOrder>86</BuildOrder>
 				<BuildOrder>22</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_Others.cpp">
-				<BuildOrder>194</BuildOrder>
+			<CppCompile Include="..\..\..\Source\GUI\Common\GUI_Main_Easy_Core.cpp">
+				<BuildOrder>5</BuildOrder>
+				<BuildOrder>109</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dxw.cpp">
-				<BuildOrder>209</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff_Elements.cpp">
+				<BuildOrder>71</BuildOrder>
+				<BuildOrder>137</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp">
 				<BuildOrder>164</BuildOrder>
@@ -749,9 +749,9 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_Directory.cpp">
 				<BuildOrder>167</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\Common\GUI_Main_Easy_Core.cpp">
-				<BuildOrder>5</BuildOrder>
-				<BuildOrder>109</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp">
+				<BuildOrder>52</BuildOrder>
+				<BuildOrder>156</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_Main.cpp">
 				<BuildOrder>193</BuildOrder>
@@ -760,13 +760,13 @@
 				<BuildOrder>66</BuildOrder>
 				<BuildOrder>122</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Flv.cpp">
-				<BuildOrder>56</BuildOrder>
-				<BuildOrder>152</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp">
+				<BuildOrder>8</BuildOrder>
+				<BuildOrder>106</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp">
-				<BuildOrder>52</BuildOrder>
-				<BuildOrder>156</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dpg.cpp">
+				<BuildOrder>53</BuildOrder>
+				<BuildOrder>158</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Tiff.cpp">
 				<BuildOrder>13</BuildOrder>
@@ -775,9 +775,9 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio.cpp">
 				<BuildOrder>190</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp">
-				<BuildOrder>8</BuildOrder>
-				<BuildOrder>106</BuildOrder>
+			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Menu.cpp">
+				<BuildOrder>13</BuildOrder>
+				<BuildOrder>118</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Bzip2.cpp">
 				<BuildOrder>79</BuildOrder>
@@ -786,12 +786,14 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Xdcam_Clip.cpp">
 				<BuildOrder>183</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AfdBarData.cpp">
-				<BuildOrder>176</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.cpp">
+				<BuildOrder>93</BuildOrder>
+				<DependentOn>..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.h</DependentOn>
+				<BuildOrder>38</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main_Menu.cpp">
-				<BuildOrder>13</BuildOrder>
-				<BuildOrder>118</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Flv.cpp">
+				<BuildOrder>56</BuildOrder>
+				<BuildOrder>152</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp">
 				<BuildOrder>99</BuildOrder>
@@ -800,15 +802,13 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac_GeneralAudio_Sbr.cpp">
 				<BuildOrder>191</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.cpp">
-				<BuildOrder>93</BuildOrder>
-				<DependentOn>..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.h</DependentOn>
-				<BuildOrder>38</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dpg.cpp">
-				<BuildOrder>53</BuildOrder>
-				<BuildOrder>158</BuildOrder>
-			</CppCompile>
+			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Handler.h">
+				<BuildOrder>205</BuildOrder>
+			</None>
+			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>217</BuildOrder>
+			</LibFiles>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ape.cpp">
 				<BuildOrder>94</BuildOrder>
 				<BuildOrder>37</BuildOrder>
@@ -817,13 +817,14 @@
 				<BuildOrder>5</BuildOrder>
 				<BuildOrder>103</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tak.cpp">
-				<BuildOrder>163</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Tar.cpp">
+				<BuildOrder>84</BuildOrder>
+				<BuildOrder>27</BuildOrder>
 			</CppCompile>
-			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>217</BuildOrder>
-			</LibFiles>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp">
+				<BuildOrder>18</BuildOrder>
+				<BuildOrder>113</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_Elements.cpp">
 				<BuildOrder>60</BuildOrder>
 				<BuildOrder>154</BuildOrder>
@@ -831,30 +832,29 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Dpx.cpp">
 				<BuildOrder>192</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Tar.cpp">
-				<BuildOrder>84</BuildOrder>
-				<BuildOrder>27</BuildOrder>
-			</CppCompile>
+			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Cookies.h">
+				<BuildOrder>197</BuildOrder>
+			</None>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Handler.cpp">
 				<BuildOrder>198</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf.cpp">
 				<BuildOrder>172</BuildOrder>
 			</CppCompile>
-			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Handler.h">
-				<BuildOrder>205</BuildOrder>
-			</None>
-			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Cookies.h">
-				<BuildOrder>197</BuildOrder>
-			</None>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Utils.cpp">
+				<BuildOrder>202</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tak.cpp">
+				<BuildOrder>163</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Request.cpp">
 				<BuildOrder>200</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Scc.cpp">
 				<BuildOrder>218</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Utils.cpp">
-				<BuildOrder>202</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Handler.cpp">
+				<BuildOrder>204</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Cookies.cpp">
 				<BuildOrder>196</BuildOrder>
@@ -862,12 +862,12 @@
 			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Request.h">
 				<BuildOrder>201</BuildOrder>
 			</None>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp">
-				<BuildOrder>42</BuildOrder>
-				<BuildOrder>146</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Handler.cpp">
-				<BuildOrder>204</BuildOrder>
+			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_html.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>219</BuildOrder>
+			</LibFiles>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_reVTMD.cpp">
+				<BuildOrder>222</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\Source\GUI\Common\GUI_Main_Easy_Box_Core.cpp">
 				<BuildOrder>4</BuildOrder>
@@ -876,22 +876,22 @@
 			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Request.h">
 				<BuildOrder>207</BuildOrder>
 			</None>
-			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_html.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>219</BuildOrder>
-			</LibFiles>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_DvbSubtitle.cpp">
+				<BuildOrder>215</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dcp.cpp">
 				<BuildOrder>217</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ivf.cpp">
 				<BuildOrder>183</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp">
-				<BuildOrder>63</BuildOrder>
-				<BuildOrder>128</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_TwinVQ.cpp">
+				<BuildOrder>16</BuildOrder>
+				<BuildOrder>112</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_DvbSubtitle.cpp">
-				<BuildOrder>215</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp">
+				<BuildOrder>42</BuildOrder>
+				<BuildOrder>146</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Lxf.cpp">
 				<BuildOrder>184</BuildOrder>
@@ -899,12 +899,11 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ibi_Creation.cpp">
 				<BuildOrder>210</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_TwinVQ.cpp">
-				<BuildOrder>16</BuildOrder>
-				<BuildOrder>112</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_SmpteSt0302.cpp">
+				<BuildOrder>228</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_reVTMD.cpp">
-				<BuildOrder>222</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_DolbyE.cpp">
+				<BuildOrder>189</BuildOrder>
 			</CppCompile>
 			<None Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Http\Http_Utils.h">
 				<BuildOrder>203</BuildOrder>
@@ -912,11 +911,11 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_ChannelGrouping.cpp">
 				<BuildOrder>194</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_SequenceInfo.cpp">
-				<BuildOrder>221</BuildOrder>
+			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Request.cpp">
+				<BuildOrder>206</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_DolbyE.cpp">
-				<BuildOrder>189</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AfdBarData.cpp">
+				<BuildOrder>176</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Opus.cpp">
 				<BuildOrder>224</BuildOrder>
@@ -924,8 +923,8 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Exr.cpp">
 				<BuildOrder>213</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Format\Html\Html_Request.cpp">
-				<BuildOrder>206</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_SmpteSt0331.cpp">
+				<BuildOrder>229</BuildOrder>
 			</CppCompile>
 			<LibFiles Include="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_core.lib">
 				<IgnorePath>true</IgnorePath>
@@ -934,11 +933,11 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Psd.cpp">
 				<BuildOrder>226</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_SmpteSt0302.cpp">
-				<BuildOrder>228</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm_Vob.cpp">
+				<BuildOrder>232</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_SmpteSt0331.cpp">
-				<BuildOrder>229</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_SequenceInfo.cpp">
+				<BuildOrder>221</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_SmpteSt0337.cpp">
 				<BuildOrder>230</BuildOrder>
@@ -946,8 +945,11 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm_M2ts.cpp">
 				<BuildOrder>231</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm_Vob.cpp">
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Arib_B24.cpp">
 				<BuildOrder>232</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\TimeCode.cpp">
+				<BuildOrder>233</BuildOrder>
 			</CppCompile>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
