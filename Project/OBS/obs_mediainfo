@@ -107,6 +107,8 @@ Download_Packages $1 $2 $3  x x ""           Fedora_16       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_16       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_17       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_18       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_18       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2008   i586   .i586
 Download_Packages $1 $2 $3  x x ""           Mandriva_2008   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2009.1 i586   .i586
@@ -141,12 +143,12 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 }
 
 
-mediainfov="0.7.61"
-libmediainfov="0.7.61"
-libzenv="0.4.28x"
+mediainfov="0.7.62"
+libmediainfov="0.7.62"
+libzenv="0.4.28"
 destversion="1"
 
-Download_Global 6.5 7.1 200.1
+Download_Global 294.1 288.1 180.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
