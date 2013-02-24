@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.63
+--------------
+x #738, mediainfo-qt doesn't build
+
 Version 0.7.62, 2012-02-22
 --------------
 + ARIB STD B24/B37 caption detection (both Japanese and Brazilian versions)

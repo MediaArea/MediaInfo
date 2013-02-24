@@ -49,7 +49,7 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     stream = new QComboBox();
     for (int streamKind=(int)Stream_General; streamKind<(int)Stream_Max; streamKind++)
     {
-        if(streamKind==Stream_Chapters)
+        if(streamKind==Stream_Other)
             continue;
         stream->addItem(wstring2QString(C->StreamName((stream_t)streamKind)),streamKind);
     }
