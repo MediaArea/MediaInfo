@@ -1207,6 +1207,8 @@ void File_SmpteSt0337::Data_Parse()
             }
             else
                 Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
+
+            Element_Offset=Demux_Element_Offset;
         }
         else
             Demux(Buffer+Buffer_Offset+Container_Bits/2, (size_t)(Element_Size-Container_Bits/2), ContentType_MainStream);
