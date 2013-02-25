@@ -17,7 +17,7 @@ Version 0.7.63
 --------------
 x #738, mediainfo-qt doesn't build
 
-Version 0.7.62, 2012-02-22
+Version 0.7.62, 2013-02-22
 --------------
 + ARIB STD B24/B37 caption detection (both Japanese and Brazilian versions)
 + LXF: support of AVC, VC-3, MPEG audio, AC-3, Dolby E, and AAC detection and analysis
