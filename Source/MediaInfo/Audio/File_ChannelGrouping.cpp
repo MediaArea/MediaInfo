@@ -178,11 +178,19 @@ void File_ChannelGrouping::Read_Buffer_Init()
         }
     }
     Common->Instances++;
+    Common->Instances_Max++;
 }
 
 //---------------------------------------------------------------------------
 void File_ChannelGrouping::Read_Buffer_Continue()
 {
+    //Verifying that all instances are still present
+    if (Common->Instances!=Common->Instances_Max)
+    {
+        Reject();
+        return;
+    }
+    
     //Handling of multiple frames in one block
     if (Buffer_Size==0)
     {

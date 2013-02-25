@@ -262,6 +262,7 @@ public :
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
+    File__Analyze*  Events_Delayed_CurrentSource;
         #if MEDIAINFO_SEEK
         bool      Demux_IsSeeking;
         #endif //MEDIAINFO_SEEK

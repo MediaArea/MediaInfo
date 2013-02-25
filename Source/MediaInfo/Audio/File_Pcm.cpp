@@ -89,7 +89,7 @@ File_Pcm::File_Pcm()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=2;
+    Frame_Count_Valid=4;
     BitDepth=0;
     Channels=0;
     SamplingRate=0;
@@ -264,22 +264,6 @@ bool File_Pcm::FileHeader_Begin()
 
     return true;
 }
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-#if MEDIAINFO_DEMUX
-void File_Pcm::Read_Buffer_Continue()
-{
-    if (Demux_UnpacketizeContainer && !Status[IsAccepted] && Buffer_Size && Frame_Count_Valid && Frame_Count+1>=Frame_Count_Valid)
-    {
-        Accept();
-        Fill();
-    }
-}
-#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // Buffer - Per element

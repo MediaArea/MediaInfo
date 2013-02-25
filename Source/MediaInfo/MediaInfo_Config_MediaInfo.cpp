@@ -139,6 +139,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
+        Events_Delayed_CurrentSource=NULL;
         #if MEDIAINFO_SEEK
            Demux_IsSeeking=false;
         #endif //MEDIAINFO_SEEK
@@ -1597,15 +1598,23 @@ void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
         if (Event->first==Source)
         {
             for (size_t Pos=0; Pos<Event->second.size(); Pos++)
-            {
-                Event_Send(NULL, Event->second[Pos]->Data_Content, Event->second[Pos]->Data_Size, Event->second[Pos]->File_Name);
+                if (Event->second[Pos])
+                {
+                    Event_Send(NULL, Event->second[Pos]->Data_Content, Event->second[Pos]->Data_Size, Event->second[Pos]->File_Name);
 
-                int32u EventCode=*((int32u*)Event->second[Pos]->Data_Content);
-                if ((EventCode&0x00FFFF00)==(MediaInfo_Event_Global_Demux<<8) && NextPacket_Get())
-                    Demux_EventWasSent=true;
+                    int32u EventCode=*((int32u*)Event->second[Pos]->Data_Content);
+                    bool IsDemux=(EventCode&0x00FFFF00)==(MediaInfo_Event_Global_Demux<<8);
 
-                delete Event->second[Pos]; //Event->second[Pos]=NULL;
-            }
+                    delete Event->second[Pos]; Event->second[Pos]=NULL;
+
+                    if (IsDemux && NextPacket_Get())
+                    {
+                        Demux_EventWasSent=true;
+                        Event->second.erase(Event->second.begin(), Event->second.begin()+Pos);
+                        Events_Delayed_CurrentSource=Source;
+                        return;
+                    }
+                }
 
             Events_Delayed.erase(Event->first);
             return;

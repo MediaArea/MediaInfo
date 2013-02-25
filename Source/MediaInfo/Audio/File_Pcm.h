@@ -60,11 +60,6 @@ private :
     //Buffer - File header
     bool FileHeader_Begin();
 
-    //Buffer - Global
-    #if MEDIAINFO_DEMUX
-    void Read_Buffer_Continue ();
-    #endif //MEDIAINFO_DEMUX
-
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();

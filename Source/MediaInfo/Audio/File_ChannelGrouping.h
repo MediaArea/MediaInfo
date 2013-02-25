@@ -102,11 +102,13 @@ public :
         size_t              Channel_Current;
         std::vector<File__Analyze*> Parsers;
         size_t              Instances;
+        size_t              Instances_Max;
 
         common()
         {
             Channel_Current=0;
             Instances=0;
+            Instances_Max=0;
         }
 
         ~common()
