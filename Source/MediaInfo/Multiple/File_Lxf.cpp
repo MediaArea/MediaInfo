@@ -1482,6 +1482,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
     */
 
     //Parsing
+    Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.Duration))/TimeStamp_Rate*FrameRate);
     for (size_t Pos2=0; Pos2<Audios[Pos].Parsers.size(); Pos2++)
     {
         if (Audios[Pos].Parsers[Pos2]->FrameInfo.DTS==(int64u)-1 || !((FrameInfo.DUR/2>FrameInfo.DTS || Audios[Pos].Parsers[Pos2]->FrameInfo.DTS>=FrameInfo.DTS-FrameInfo.DUR/2) && Audios[Pos].Parsers[Pos2]->FrameInfo.DTS<FrameInfo.DTS+FrameInfo.DUR/2))

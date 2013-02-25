@@ -274,7 +274,10 @@ bool File_Pcm::FileHeader_Begin()
 void File_Pcm::Read_Buffer_Continue()
 {
     if (Demux_UnpacketizeContainer && !Status[IsAccepted] && Buffer_Size && Frame_Count_Valid && Frame_Count+1>=Frame_Count_Valid)
+    {
         Accept();
+        Fill();
+    }
 }
 #endif //MEDIAINFO_DEMUX
 
@@ -375,6 +378,8 @@ void File_Pcm::Data_Parse()
     Skip_XX(Element_Size,                                       "Data"); //It is impossible to detect... Default is no detection, only filling
 
     Frame_Count++;
+    if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+        Frame_Count_NotParsedIncluded++;
     if ((!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid) || File_Offset+Buffer_Size>=File_Size)
     {
         Accept();

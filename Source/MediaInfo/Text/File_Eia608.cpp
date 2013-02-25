@@ -78,6 +78,7 @@ File_Eia608::File_Eia608()
         ParserIDs[0]=MediaInfo_Parser_Eia608;
         StreamIDs_Width[0]=1;
     #endif //MEDIAINFO_EVENTS
+    ParserName=__T("EIA-608");
     PTS_DTS_Needed=true;
 
     //In
