@@ -1014,6 +1014,10 @@ bool File_Ac3::Synchronize()
     if (MustParse_dac3 || MustParse_dec3)
         return true;
 
+    //Padding
+    while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0x00)
+        Buffer_Offset++;
+
     //Synchronizing
     while (Buffer_Offset+8<=Buffer_Size)
     {

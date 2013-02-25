@@ -603,6 +603,10 @@ bool File_Dts::Synchronize()
 //---------------------------------------------------------------------------
 bool File_Dts::Synched_Test()
 {
+    //Padding
+    while (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0x00)
+        Buffer_Offset++;
+
     //Must have enough buffer for having header
     if (Buffer_Offset+6>Buffer_Size)
         return false;
