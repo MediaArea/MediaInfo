@@ -334,14 +334,16 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     //Deleyed events
-    if (Config->Events_Delayed_CurrentSource)
-    {
-        File__Analyze* Temp=Config->Events_Delayed_CurrentSource;
-        Config->Events_Delayed_CurrentSource=NULL;
-        Config->Event_Accepted(Temp);
+    #if MEDIAINFO_DEMUX
         if (Config->Events_Delayed_CurrentSource)
-            return;
-    }
+        {
+            File__Analyze* Temp=Config->Events_Delayed_CurrentSource;
+            Config->Events_Delayed_CurrentSource=NULL;
+            Config->Event_Accepted(Temp);
+            if (Config->Events_Delayed_CurrentSource)
+                return;
+        }
+    #endif //MEDIAINFO_DEMUX
     
     Frame_Count_InThisBlock=0;
 
