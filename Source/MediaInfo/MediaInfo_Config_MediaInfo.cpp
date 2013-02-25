@@ -1605,6 +1605,20 @@ void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
                     int32u EventCode=*((int32u*)Event->second[Pos]->Data_Content);
                     bool IsDemux=(EventCode&0x00FFFF00)==(MediaInfo_Event_Global_Demux<<8);
 
+                    if (IsDemux)
+                    {
+                        MediaInfo_Event_Global_Demux_4* Old=(MediaInfo_Event_Global_Demux_4*)Event->second[Pos]->Data_Content;
+                        delete[] Old->Content; Old->Content=NULL;
+                        if (Old->Offsets_Size)
+                        {
+                            delete[] Old->Offsets_Content; Old->Offsets_Content=NULL;
+                        }
+                        if (Old->Offsets_Size)
+                        {
+                            delete[] Old->OriginalContent; Old->OriginalContent=NULL;
+                        }
+                    }
+
                     delete Event->second[Pos]; Event->second[Pos]=NULL;
 
                     if (IsDemux && NextPacket_Get())
