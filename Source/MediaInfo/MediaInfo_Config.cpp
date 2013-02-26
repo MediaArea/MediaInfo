@@ -568,7 +568,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     }
     else if (Option_Lower==__T("info_parameters_csv"))
     {
-        return Info_Parameters_Get();
+        return Info_Parameters_Get(Value==__T("Complete"));
     }
     else if (Option_Lower==__T("info_codecs"))
     {
@@ -1796,7 +1796,7 @@ const ZtringListList &MediaInfo_Config::Info_Get(stream_t KindOfStream)
 }
 
 //---------------------------------------------------------------------------
-Ztring MediaInfo_Config::Info_Parameters_Get ()
+Ztring MediaInfo_Config::Info_Parameters_Get (bool Complete)
 {
     CriticalSectionLocker CSL(CS);
 
@@ -1820,8 +1820,13 @@ Ztring MediaInfo_Config::Info_Parameters_Get ()
         for (size_t Pos=0; Pos<Info[StreamKind].size(); Pos++)
             if (!Info[StreamKind].Read(Pos, Info_Name).empty())
             {
-                ToReturn(ToReturn_Pos, 0)=Info[StreamKind].Read(Pos, Info_Name);
-                ToReturn(ToReturn_Pos, 1)=Info[StreamKind].Read(Pos, Info_Info);
+                if (Complete)
+                    ToReturn.push_back(Info[StreamKind].Read(Pos));
+                else
+                {
+                    ToReturn(ToReturn_Pos, 0)=Info[StreamKind].Read(Pos, Info_Name);
+                    ToReturn(ToReturn_Pos, 1)=Info[StreamKind].Read(Pos, Info_Info);
+                }
                 ToReturn_Pos++;
             }
         ToReturn_Pos++;

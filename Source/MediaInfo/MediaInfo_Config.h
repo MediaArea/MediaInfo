@@ -176,7 +176,7 @@ public :
     const Ztring   &Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo=Info_Text);
     const ZtringListList &Info_Get(stream_t KindOfStream); //Should not be, but too difficult to hide it
 
-          Ztring    Info_Parameters_Get ();
+          Ztring    Info_Parameters_Get (bool Complete=false);
           Ztring    Info_Tags_Get       () const;
           Ztring    Info_CodecsID_Get   ();
           Ztring    Info_Codecs_Get     ();
