@@ -364,6 +364,11 @@ void File_Pcm::Data_Parse()
     Frame_Count++;
     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
         Frame_Count_NotParsedIncluded++;
+    if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
+    {
+        FrameInfo.DTS+=FrameInfo.DUR;
+        FrameInfo.PTS=FrameInfo.DTS;
+    }
     if ((!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid) || File_Offset+Buffer_Size>=File_Size)
     {
         Accept();
