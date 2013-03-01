@@ -528,6 +528,17 @@ void File__Analyze::Streams_Finish_InterStreams()
             TextBitRate_Ratio   =0.99;
             TextBitRate_Minus   =0;
         }
+        if (Get(Stream_General, 0, __T("Format"))==__T("MXF"))
+        {
+            GeneralBitRate_Ratio=1;
+            GeneralBitRate_Minus=1000;
+            VideoBitRate_Ratio  =1.00;
+            VideoBitRate_Minus  =1000;
+            AudioBitRate_Ratio  =1.00;
+            AudioBitRate_Minus  =1000;
+            TextBitRate_Ratio   =1.00;
+            TextBitRate_Minus   =1000;
+        }
 
         //Testing
         float64 VideoBitRate=Retrieve(Stream_General, 0, General_OverallBitRate).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
