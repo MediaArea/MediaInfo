@@ -142,6 +142,11 @@ File_Lxf::File_Lxf()
         Demux_EventWasSent_Accept_Specific=true;
     #endif //MEDIAINFO_DEMUX
 
+    //Streams
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        Ancillary=NULL;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
+
     //Temp
     LookingForLastFrame=false;
     Stream_Count=0;
@@ -1616,12 +1621,12 @@ void File_Lxf::Video_Stream_1()
             Element_Begin1("VANC line");
             if (Videos[1].Parsers.empty())
             {
-                File_Ancillary* Parser=new File_Ancillary;
-                Parser->InDecodingOrder=true;
-                Parser->WithChecksum=true;
-                Parser->MustSynchronize=true;
-                Open_Buffer_Init(Parser);
-                Videos[1].Parsers.push_back(Parser);
+                Ancillary=new File_Ancillary;
+                Ancillary->InDecodingOrder=true;
+                Ancillary->WithChecksum=true;
+                Ancillary->MustSynchronize=true;
+                Open_Buffer_Init(Ancillary);
+                Videos[1].Parsers.push_back(Ancillary);
                 Stream_Count++;
             }
             Videos[1].Parsers[0]->FrameInfo=FrameInfo;
@@ -1749,7 +1754,13 @@ void File_Lxf::Video_Stream_2()
             Videos[2].Parsers.push_back(new File_DvDif());
         #endif //MEDIAINFO_DVDIF_YES
         #ifdef MEDIAINFO_MPEGV_YES
-            Videos[2].Parsers.push_back(new File_Mpegv());
+        {
+            File_Mpegv* Parser=new File_Mpegv();
+            #if defined(MEDIAINFO_ANCILLARY_YES)
+                Parser->Ancillary=&Ancillary;
+            #endif //defined(MEDIAINFO_ANCILLARY_YES)
+            Videos[2].Parsers.push_back(Parser);
+        }
         #endif //MEDIAINFO_MPEGV_YES
         #ifdef MEDIAINFO_AVC_YES
             Videos[2].Parsers.push_back(new File_Avc());

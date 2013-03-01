@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.63, 2013-
 --------------
++ LXF: AFD (from ancillary stream) support
 x MXF: Dolby E streams starting only at the second or third frame were not well detected
 
 Version 0.7.62, 2013-02-22

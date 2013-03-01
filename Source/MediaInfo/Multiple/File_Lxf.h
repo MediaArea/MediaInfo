@@ -28,6 +28,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#if defined(MEDIAINFO_ANCILLARY_YES)
+    #include <MediaInfo/Multiple/File_Ancillary.h>
+#endif //defined(MEDIAINFO_ANCILLARY_YES)
 #include <vector>
 //---------------------------------------------------------------------------
 
@@ -122,6 +125,9 @@ protected :
     };
     stream_header Videos_Header;
     stream_header Audios_Header;
+    #if defined(MEDIAINFO_ANCILLARY_YES)
+        File_Ancillary* Ancillary;
+    #endif //defined(MEDIAINFO_ANCILLARY_YES)
 
     //Temp
     bool                    LookingForLastFrame;
