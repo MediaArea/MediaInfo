@@ -12,6 +12,7 @@ Version 0.7.63, 2013-
 --------------
 + LXF: AFD (from ancillary stream) support
 x MXF: Dolby E streams starting only at the second or third frame were not well detected
+x MPEG-4/MOV: reducing analysis time for I-frame only video streams
 
 Version 0.7.62, 2013-02-22
 --------------

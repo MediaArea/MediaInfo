@@ -1561,6 +1561,31 @@ void File_Mpeg4::mdat_xxxx()
                 }
 
                 Stream->second.IsFilled=true;
+
+                if (Config->ParseSpeed<1)
+                {
+                    bool File_Offset_Next_IsValid;
+                    int64u File_Offset_Next;
+                    if (mdat_Pos_Temp!=mdat_Pos.end())
+                    {
+                        File_Offset_Next=mdat_Pos_Temp->first;
+                        File_Offset_Next_IsValid=true;
+                    }
+                    else
+                    {
+                        File_Offset_Next=(int64u)-1;
+                        File_Offset_Next_IsValid=false;
+                    }
+                    mdat_pos mdat_Pos_New;
+                    for (mdat_pos::iterator mdat_Pos_Item=mdat_Pos.begin(); mdat_Pos_Item!=mdat_Pos.end(); ++mdat_Pos_Item)
+                        if (mdat_Pos_Item->second.StreamID!=Stream->first)
+                            mdat_Pos_New[mdat_Pos_Item->first]=mdat_Pos_Item->second;
+                    mdat_Pos=mdat_Pos_New;
+                    if (File_Offset_Next_IsValid)
+                        for (mdat_Pos_Temp=mdat_Pos.begin(); mdat_Pos_Temp!=mdat_Pos.end(); ++mdat_Pos_Temp)
+                            if (mdat_Pos_Temp->first>=File_Offset_Next)
+                                break;
+                }
             }
         #endif //MEDIAINFO_DEMUX
 
