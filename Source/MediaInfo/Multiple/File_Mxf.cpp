@@ -2147,13 +2147,9 @@ void File_Mxf::Read_Buffer_Unsynched()
             Synched=true; //Always in clip data
     }
 
+    Frame_Count_NotParsedIncluded=(int64u)-1;
     FrameInfo=frame_info();
     FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
-    if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
-        FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
-    else if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
-        FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
-    Frame_Count_NotParsedIncluded=(int64u)-1;
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         //Calculating the byte count not included in seek information (partition, index...)
         int64u FutureFileOffset=File_GoTo==(int64u)-1?(File_Offset+Buffer_Offset):File_GoTo;
@@ -2274,7 +2270,13 @@ void File_Mxf::Read_Buffer_Unsynched()
         {
             FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
         }
-    #endif //MEDIAINFO_SEEK
+
+        if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+            FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
+        else
+    #endif //if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+            if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+                FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
 
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
         for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
