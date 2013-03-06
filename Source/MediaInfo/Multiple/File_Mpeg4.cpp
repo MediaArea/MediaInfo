@@ -1618,7 +1618,7 @@ bool File_Mpeg4::BookMark_Needed()
         mdat_Pos_ToParseInPriority_StreamIDs.erase(mdat_Pos_ToParseInPriority_StreamIDs.begin());
     }
 
-    if (File_GoTo==(int64u)-1 && !mdat_Pos_NormalParsing)
+    if (File_GoTo==(int64u)-1 && !mdat_Pos_NormalParsing && !mdat_Pos.empty() && mdat_Pos.begin()->first<File_Size)  //Skipping data not in a truncated file
     {
         Element_Show();
         while (Element_Level>0)
