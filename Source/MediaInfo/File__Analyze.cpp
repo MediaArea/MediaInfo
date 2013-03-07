@@ -2634,7 +2634,6 @@ void File__Analyze::ForceFinish ()
                 return;
         #endif //MEDIAINFO_DEMUX
         Streams_Finish();
-        Ibi_Stream_Finish();
         #if MEDIAINFO_DEMUX
             if (Config->Demux_EventWasSent)
                 return;
@@ -2654,6 +2653,7 @@ void File__Analyze::ForceFinish ()
             if (Config->Demux_EventWasSent)
                 return;
         #endif //MEDIAINFO_DEMUX
+        Ibi_Stream_Finish();
     }
 
     Status[IsFinished]=true;
@@ -3409,10 +3409,10 @@ size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u 
 
 void File__Analyze::Ibi_Stream_Finish ()
 {
-    if (IsSub || IbiStream==NULL || IbiStream->Infos.empty())
+    if (IsSub)
         return;
 
-    if (File_Offset+Buffer_Size==File_Size)
+    if (!(IbiStream==NULL || IbiStream->Infos.empty()) && File_Offset+Buffer_Size==File_Size)
     {
         ibi::stream::info IbiInfo;
         IbiInfo.StreamOffset=File_Offset+Buffer_Size;
@@ -3424,14 +3424,58 @@ void File__Analyze::Ibi_Stream_Finish ()
 
     if (Config_Ibi_Create)
     {
-        ibi Ibi;
-        Ibi.Streams[(int64u)-1]=new ibi::stream(*IbiStream);
+        if (!(IbiStream==NULL || IbiStream->Infos.empty()))
+            Ibi.Streams[(int64u)-1]=new ibi::stream(*IbiStream);
+
+        //Inform_Data
+        ZtringListList Content;
+        for (size_t StreamKind=Stream_General; StreamKind<Stream_Max; ++StreamKind)
+        {
+            ZtringListList Source=MediaInfoLib::Config.Info_Get((stream_t)StreamKind);
+                
+            for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); ++StreamPos)
+            {
+                ZtringList KindAndPos;
+                KindAndPos.push_back(Get((stream_t)StreamKind, StreamPos, __T("StreamKind")));
+                Content.push_back(KindAndPos);
+                    
+                //Standard
+                for (size_t Pos=0; Pos<Source.size(); ++Pos)
+                {
+                    Ztring &Options=Source[Pos](Info_Options);
+                    if (InfoOption_ShowInSupported<Options.size() && Options[InfoOption_ShowInSupported]==__T('Y') && Pos<(*Stream)[StreamKind][StreamPos].size() && !(*Stream)[StreamKind][StreamPos][Pos].empty())
+                    {
+                        ZtringList Line;
+                        Line.push_back(Source[Pos][Info_Name]);
+                        Line.push_back((*Stream)[StreamKind][StreamPos][Pos]);
+                        Content.push_back(Line);
+                    }
+                }
+
+                //Additional
+                for (size_t Pos=0; Pos<(*Stream_More)[StreamKind][StreamPos].size(); ++Pos)
+                {
+                    ZtringList Line=(*Stream_More)[StreamKind][StreamPos][Pos];
+                    Line.resize(Info_Options+1);
+                    Content.push_back(Line);
+                }
+
+                //Separator
+                Content.push_back(Ztring());
+            }
+        }
+        if (!Content.empty())
+            Content.resize(Content.size()-1);
+        Ibi.Inform_Data=Content.Read();
 
         //IBI Creation
         File_Ibi_Creation IbiCreation(Ibi);
         Ztring IbiText=IbiCreation.Finish();
         if (!IbiText.empty())
+        {
             Fill(Stream_General, 0, "IBI", IbiText);
+            (*Stream_More)[Stream_General][0]("IBI", Info_Options)=__T("N NT");
+        }
     }
 }
 

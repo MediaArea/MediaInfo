@@ -48,6 +48,9 @@
 #if defined(MEDIAINFO_LIBMMS_YES)
     #include "MediaInfo/Reader/Reader_libmms.h"
 #endif
+#if defined(MEDIAINFO_IBI_YES)
+    #include "MediaInfo/Multiple/File_Ibi.h"
+#endif
 #include <cmath>
 #ifdef MEDIAINFO_DEBUG_WARNING_GET
     #include <iostream>
@@ -333,6 +336,27 @@ MediaInfo_Internal::~MediaInfo_Internal()
 size_t MediaInfo_Internal::Open(const String &File_Name_)
 {
     Close();
+
+    //External IBI
+    #if defined(MEDIAINFO_IBI_YES)
+        if (Config.Ibi_UseIbiInfoIfAvailable_Get())
+        {
+            std::string IbiFile=Config.Ibi_Get();
+            if (!IbiFile.empty())
+            {
+                Info=new File_Ibi();
+                Open_Buffer_Init(IbiFile.size(), File_Name_);
+                Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
+                Open_Buffer_Finalize();
+
+                if (!Get(Stream_General, 0, __T("Format")).empty() && Get(Stream_General, 0, __T("Format"))!=__T("Ibi"))
+                    return 1;
+
+                //Nothing interesting
+                delete Info; Info=NULL;
+            }
+        }
+    #endif //MEDIAINFO_IBI_YES
 
     CS.Enter();
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=__T("Open, File=");Debug+=Ztring(File_Name_).c_str();)

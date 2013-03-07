@@ -76,6 +76,10 @@ private :
     void Stream_FrameNumber();
     void Stream_Dts();
     void CompressedIndex();
+    void WritingApplication();
+    void WritingApplication_Name();
+    void WritingApplication_Version();
+    void InformData();
 
     //Data
     int64u   UInteger_Get();

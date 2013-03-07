@@ -303,9 +303,6 @@ private :
         int64u                      Seek_ID;
         bool                        Duration_Detected;
     #endif //MEDIAINFO_SEEK
-    #if MEDIAINFO_SEEK && MEDIAINFO_IBI
-        ibi Ibi;
-    #endif //MEDIAINFO_SEEK && MEDIAINFO_IBI
 };
 
 } //NameSpace

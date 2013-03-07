@@ -1645,16 +1645,14 @@ bool File_Mpegv::Synched_Test()
         return false;
 
     #if MEDIAINFO_IBI
-        if (Ibi_SliceParsed)
+        if ((Ibi_SliceParsed && (Buffer[Buffer_Offset+3]==0x00)) || Buffer[Buffer_Offset+3]==0xB3) // picture_start without sequence_header or sequence_header
         {
-            if (Buffer[Buffer_Offset+3]==0x00)
-            {
-                if (Buffer_Offset+6>Buffer_Size)
-                    return false;
-                bool RandomAccess=(Buffer[Buffer_Offset+5]&0x38)==0x08 || Buffer[Buffer_Offset+3]==0xB3; //picture_start with I-Frame || sequence_header
-                if (RandomAccess)
-                    Ibi_Add();
-            }
+            if (Buffer_Offset+6>Buffer_Size)
+                return false;
+            bool RandomAccess=(Buffer[Buffer_Offset+5]&0x38)==0x08 || Buffer[Buffer_Offset+3]==0xB3; //picture_start with I-Frame || sequence_header
+            if (RandomAccess)
+                Ibi_Add();
+
             Ibi_SliceParsed=false;
         }
     #endif //MEDIAINFO_IBI

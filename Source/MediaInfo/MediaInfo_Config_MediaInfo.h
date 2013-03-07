@@ -190,6 +190,8 @@ public :
     std::string   Ibi_Get ();
     void          Ibi_Create_Set (bool NewValue);
     bool          Ibi_Create_Get ();
+    void          Ibi_UseIbiInfoIfAvailable_Set (bool NewValue);
+    bool          Ibi_UseIbiInfoIfAvailable_Get ();
     #endif //MEDIAINFO_IBI
 
     //Specific
@@ -350,6 +352,7 @@ private :
     #if MEDIAINFO_IBI
     std::string             Ibi;
     bool                    Ibi_Create;
+    bool                    Ibi_UseIbiInfoIfAvailable;
     #endif //MEDIAINFO_IBI
 
     //Specific

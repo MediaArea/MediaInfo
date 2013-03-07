@@ -96,6 +96,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #endif //MEDIAINFO_DEMUX
     #if MEDIAINFO_IBI
         Ibi_Create=false;
+        Ibi_UseIbiInfoIfAvailable=false;
     #endif //MEDIAINFO_IBI
 
     //Specific
@@ -515,6 +516,18 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
                 Ibi_Create_Set(false);
             else
                 Ibi_Create_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_IBI
+            return __T("IBI support is disabled due to compilation options");
+        #endif //MEDIAINFO_IBI
+    }
+    else if (Option_Lower==__T("file_ibi_useibiinfoifavailable"))
+    {
+        #if MEDIAINFO_IBI
+            if (Value.empty())
+                Ibi_UseIbiInfoIfAvailable_Set(false);
+            else
+                Ibi_UseIbiInfoIfAvailable_Set(true);
             return Ztring();
         #else //MEDIAINFO_IBI
             return __T("IBI support is disabled due to compilation options");
@@ -1353,6 +1366,7 @@ string MediaInfo_Config_MediaInfo::Ibi_Get ()
     CriticalSectionLocker CSL(CS);
     return Ibi;
 }
+
 //---------------------------------------------------------------------------
 void MediaInfo_Config_MediaInfo::Ibi_Create_Set (bool NewValue)
 {
@@ -1364,6 +1378,19 @@ bool MediaInfo_Config_MediaInfo::Ibi_Create_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return Ibi_Create;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Ibi_UseIbiInfoIfAvailable_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Ibi_UseIbiInfoIfAvailable=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::Ibi_UseIbiInfoIfAvailable_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Ibi_UseIbiInfoIfAvailable;
 }
 #endif //MEDIAINFO_IBI
 

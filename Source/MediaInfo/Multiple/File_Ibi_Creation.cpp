@@ -38,10 +38,17 @@
 #include <cstring>
 #include <zlib.h>
 #include "base64.h"
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
+
+//***************************************************************************
+// Info
+//***************************************************************************
+
+extern const Char*  MediaInfo_Version;
 
 //***************************************************************************
 // Ibi structure
@@ -317,6 +324,35 @@ File_Ibi_Creation::~File_Ibi_Creation()
 //---------------------------------------------------------------------------
 void File_Ibi_Creation::Set(const ibi &Ibi)
 {
+    //Writing application
+    {
+        string Version=Ztring(MediaInfo_Version).SubString(__T(" - v"), Ztring()).To_UTF8();
+        buffer* Buffer=new buffer;
+        Buffer->Content=new int8u[1+int64u2Ebml(NULL, 1+1+9+1+int64u2Ebml(NULL, Version.size())+Version.size())+1+1+9+1+int64u2Ebml(NULL, Version.size())+Version.size()];
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x03);                       //Writing application
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 1+1+9+1+1+Version.size());   //Size
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x01);                       //Writing application name
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 9);                          //Size
+        std::memcpy(Buffer->Content+Buffer->Size, "MediaInfo", 9); Buffer->Size+=9;          //Content
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x02);                       //Writing application version
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, Version.size());             //Size
+        std::memcpy(Buffer->Content+Buffer->Size, Version.c_str(), Version.size()); Buffer->Size+=Version.size(); //Content
+        Buffers.push_back(Buffer);
+    }
+    
+    //InformData
+    if (!Ibi.Inform_Data.empty())
+    {
+        string Content(Ibi.Inform_Data.To_UTF8());
+        buffer* Buffer=new buffer;
+        Buffer->Content=new int8u[1+int64u2Ebml(NULL, Content.size())+Content.size()];
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x04);                                              //InformData
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, Content.size());                                    //Size
+        std::memcpy(Buffer->Content+Buffer->Size, Content.c_str(), Content.size()); Buffer->Size+=Content.size();   //Content
+        Buffers.push_back(Buffer);
+    }
+
+    //Streams
     for (ibi::streams::const_iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); ++IbiStream_Temp)
         Add(IbiStream_Temp->first, *IbiStream_Temp->second);
 }
@@ -396,8 +432,9 @@ Ztring File_Ibi_Creation::Finish()
     size_t Main_Offset=0;
 
     //Header
+    size_t Header_Offset=4+1+2+1+15+2+1+1;                                  //Size (Code + Size + Content, twice)
     Main_Offset+=int64u2Ebml(Main+Main_Offset, 0x0A45DFA3);                 //EBML
-    Main_Offset+=int64u2Ebml(Main+Main_Offset, 2+1+15+2+1+1);               //Size (Code + Size + Content, twice)
+    Main_Offset+=int64u2Ebml(Main+Main_Offset, Header_Offset-(4+1));        //Size (Complete header size minus header header size)
     Main_Offset+=int64u2Ebml(Main+Main_Offset, 0x0282);                     //DocType
     Main_Offset+=int64u2Ebml(Main+Main_Offset, 15);                         //Size
     std::memcpy(Main+Main_Offset, "MediaInfo Index", 15); Main_Offset+=15;  //Content
@@ -412,24 +449,23 @@ Ztring File_Ibi_Creation::Finish()
         Main_Offset+=Buffers[Pos]->Size;
     }
 
-
-
     //Compressed
     buffer Buffer;
-    int8u* Compressed=new int8u[Main_Offset];
-    unsigned long Compressed_OffsetWihtoutHeader=(unsigned long)Main_Offset;
-    if (compress2(Compressed, &Compressed_OffsetWihtoutHeader, Main, (unsigned long)Main_Offset, Z_BEST_COMPRESSION)==Z_OK && Compressed_OffsetWihtoutHeader+100<Main_Offset)
+    size_t UncompressedSize=Main_Offset-Header_Offset;
+    int8u* Compressed=new int8u[UncompressedSize];
+    unsigned long CompressedSize=(unsigned long)Main_Offset;
+    if (compress2(Compressed, &CompressedSize, Main+Header_Offset, (unsigned long)UncompressedSize, Z_BEST_COMPRESSION)==Z_OK && CompressedSize<UncompressedSize)
     {
-        size_t Header_Offset=4+1+2+1+15+2+1+1; //Same header
-        Header_Offset+=int64u2Ebml(Main+Header_Offset, 0x02);                   //Compressed index
-        Header_Offset+=int64u2Ebml(Main+Header_Offset, int64u2Ebml(NULL, Main_Offset)+Compressed_OffsetWihtoutHeader); //Size
-        Header_Offset+=int64u2Ebml(Main+Header_Offset, Main_Offset);            //Uncompressed size
+        Main_Offset=Header_Offset; //Removing uncompressed content
+        Main_Offset+=int64u2Ebml(Main+Main_Offset, 0x02);                                                               //Compressed index
+        Main_Offset+=int64u2Ebml(Main+Main_Offset, int64u2Ebml(NULL, UncompressedSize)+CompressedSize);                 //Size
+        Main_Offset+=int64u2Ebml(Main+Main_Offset, UncompressedSize);                                                   //Uncompressed size
 
         //Filling
-        Buffer.Size=Header_Offset+Compressed_OffsetWihtoutHeader;
+        Buffer.Size=Main_Offset+CompressedSize;
         Buffer.Content=new int8u[Buffer.Size];
-        std::memcpy(Buffer.Content, Main, Header_Offset); //Same header + Compressed index header
-        std::memcpy(Buffer.Content+Header_Offset, Compressed, Compressed_OffsetWihtoutHeader); //Same header
+        std::memcpy(Buffer.Content, Main, Main_Offset);                                                                 //File header + compressed data header
+        std::memcpy(Buffer.Content+Main_Offset, Compressed, CompressedSize);                                            //Compressed data
     }
     else
     {

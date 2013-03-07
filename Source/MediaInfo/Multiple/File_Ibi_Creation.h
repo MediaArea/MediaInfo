@@ -83,6 +83,8 @@ struct ibi
     typedef std::map<int64u, stream*>   streams;
     streams                             Streams;
 
+    Ztring                              Inform_Data;
+
     //Constructor/Destructor
     ibi();
     ~ibi();

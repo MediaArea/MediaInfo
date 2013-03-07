@@ -1286,7 +1286,8 @@ public :
         bool    Config_Ibi_Create;
         int64u  Ibi_SynchronizationOffset_Current;
         int64u  Ibi_SynchronizationOffset_BeginOfFrame;
-        ibi::stream* IbiStream;
+        ibi     Ibi; //If Main only
+        ibi::stream* IbiStream; //If sub only
         size_t  Ibi_Read_Buffer_Seek        (size_t Method, int64u Value, int64u ID);
         void    Ibi_Read_Buffer_Unsynched   ();
         void    Ibi_Stream_Finish           ();

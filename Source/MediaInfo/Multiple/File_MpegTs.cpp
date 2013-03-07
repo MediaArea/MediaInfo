@@ -1075,13 +1075,9 @@ void File_MpegTs::Streams_Finish()
     #endif //MEDIAINFO_DUPLICATE
 
     #if MEDIAINFO_IBI
-        if (Config_Ibi_Create)
+        if (!IsSub && Config_Ibi_Create)
         {
-            ibi Ibi_Temp;
             for (ibi::streams::iterator IbiStream_Temp=Ibi.Streams.begin(); IbiStream_Temp!=Ibi.Streams.end(); ++IbiStream_Temp)
-                Ibi_Temp.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
-
-            for (ibi::streams::iterator IbiStream_Temp=Ibi_Temp.Streams.begin(); IbiStream_Temp!=Ibi_Temp.Streams.end(); ++IbiStream_Temp)
             {
                 if (IbiStream_Temp->second && IbiStream_Temp->second->DtsFrequencyNumerator==1000000000 && IbiStream_Temp->second->DtsFrequencyDenominator==1)
                 {
@@ -1100,12 +1096,6 @@ void File_MpegTs::Streams_Finish()
                     }
                 }
             }
-
-            //IBI Creation
-            File_Ibi_Creation IbiCreation(Ibi_Temp);
-            Ztring IbiText=IbiCreation.Finish();
-            if (!IbiText.empty())
-                Fill(Stream_General, 0, "IBI", IbiText, true);
         }
     #endif //MEDIAINFO_IBI
 }

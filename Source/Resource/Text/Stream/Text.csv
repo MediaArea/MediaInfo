@@ -5,34 +5,34 @@ StreamKind;Text;;N NI;;;Stream type name
 StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
-StreamOrder;;;N NI;;;Stream order in the file, whatever is the kind of stream (base=0)
-FirstPacketOrder;;;N NI;;;Order of the first fully decodable packet met in the file, whatever is the kind of stream (base=0)
+StreamOrder;;;N YI;;;Stream order in the file, whatever is the kind of stream (base=0)
+FirstPacketOrder;;;N YI;;;Order of the first fully decodable packet met in the file, whatever is the kind of stream (base=0)
 Inform;;;N NT;;;Last **Inform** call
-ID;;;N YI;;;A ID for this stream in this file
-ID/String;;;Y NT;;;A ID for this stream in this file
-UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
-UniqueID/String;;;Y NT;;;A unique ID for this stream, should be copied with stream copy
-MenuID;;;N YI;;;A menu ID for this stream in this file
-MenuID/String;;;Y NT;;;A menu ID for this stream in this file
+ID;;;N YI;;;The ID for this stream in this file
+ID/String;;;Y NT;;;The ID for this stream in this file
+UniqueID;;;N YI;;;The unique ID for this stream, should be copied with stream copy
+UniqueID/String;;;Y NT;;;The unique ID for this stream, should be copied with stream copy
+MenuID;;;N YI;;;The menu ID for this stream in this file
+MenuID/String;;;Y NT;;;The menu ID for this stream in this file
 Format;;;Y YT;;;Format used
 Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Format_Commercial;;;N NT;;;Commercial name used by vendor for theses setings or Format field if there is no difference
-Format_Commercial_IfAny;;;Y NT;;;Commercial name used by vendor for theses setings if there is one
+Format_Commercial_IfAny;;;Y YT;;;Commercial name used by vendor for theses setings if there is one
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Compression;;;Y NT;;;Compression method used;;
 Format_Settings;;;Y NT;;;Settings needed for decoder used
 Format_Settings_Wrapping;;;Y YT;;;Wrapping mode (Frame wrapped or Clip wrapped)
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
-MuxingMode;;;Y NT;;;How this stream is muxed in the container
+MuxingMode;;;Y YT;;;How this stream is muxed in the container
 MuxingMode_MoreInfo;;;Y NT;;;More info (text) about the muxing mode
-CodecID;;;Y NT;;;Codec ID (found in some containers);;
+CodecID;;;Y YT;;;Codec ID (found in some containers);;
 CodecID/String;;;Y NT;;;Codec ID (found in some containers);;
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
 CodecID/Url;;;N NT;;;A link for more details about this codec ID
-CodecID_Description;;;Y NT;;;Manual description given by the container
+CodecID_Description;;;Y YT;;;Manual description given by the container
 Codec;;;N YT;;;Deprecated
 Codec/String;;;N NT;;;Deprecated
 Codec/Info;;;N NT;;;Deprecated
