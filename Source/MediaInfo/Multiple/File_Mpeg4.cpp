@@ -1259,9 +1259,9 @@ void File_Mpeg4::Read_Buffer_Init()
     if (MediaInfoLib::Config.ParseSpeed_Get()==1.00)
         FrameCount_MaxPerStream=(int64u)-1;
     else if (MediaInfoLib::Config.ParseSpeed_Get()<=0.3)
-        FrameCount_MaxPerStream=512;
+        FrameCount_MaxPerStream=128;
     else
-        FrameCount_MaxPerStream=2048;
+        FrameCount_MaxPerStream=512;
 }
 
 //***************************************************************************
