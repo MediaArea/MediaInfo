@@ -831,7 +831,7 @@ void File_Lxf::Data_Parse()
         if (Element_Code&0x000100 && (Element_Code&0xFF)==2) //Checking Video stream 2
         {
             Frame_Count++;
-            if (!Status[IsFilled] && ((Frame_Count>6 && Stream_Count==0) || Frame_Count>300)) //5 video frames for 1 Audio frame
+            if (!Status[IsFilled] && ((Frame_Count>6 && (Stream_Count==0 ||Config->ParseSpeed==0.0)) || Frame_Count>300)) //5 video frames for 1 Audio frame
             {
                 Fill("LXF");
                 if (MediaInfoLib::Config.ParseSpeed_Get()<1)
