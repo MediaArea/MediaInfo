@@ -80,6 +80,10 @@ private :
     void WritingApplication_Name();
     void WritingApplication_Version();
     void InformData();
+    void SourceInfo();
+    void SourceInfo_IndexCreationDate();
+    void SourceInfo_SourceModificationDate();
+    void SourceInfo_SourceSize();
 
     //Data
     int64u   UInteger_Get();

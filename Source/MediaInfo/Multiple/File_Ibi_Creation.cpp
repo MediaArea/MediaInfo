@@ -36,8 +36,15 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #include <cstring>
+#include <ctime>
 #include <zlib.h>
 #include "base64.h"
+#include "ZenLib/File.h"
+#include "ZenLib/OS_Utils.h"
+#ifdef WINDOWS
+    #undef __TEXT
+    #include <windows.h>
+#endif
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -324,6 +331,76 @@ File_Ibi_Creation::~File_Ibi_Creation()
 //---------------------------------------------------------------------------
 void File_Ibi_Creation::Set(const ibi &Ibi)
 {
+    //Source information
+    if (!Ibi.FileName.empty())
+    {
+        int64s CurrentDate=(int64s)time(NULL)*1000000000LL; //From seconds to nanoseconds
+        CurrentDate-=978307200000000000LL; //Count of nanoseconds between January 1, 1970 (time_t base) and January 1, 2001 (EBML base)
+
+        int64s LastModifiedDate;
+        bool   LastModifiedDate_IsValid=false;
+        int64s FileSize;
+        bool   FileSize_IsValid=false;
+
+        #if defined WINDOWS
+            HANDLE File_Handle;
+            #ifdef UNICODE
+                #ifndef ZENLIB_NO_WIN9X_SUPPORT
+                if (IsWin9X_Fast())
+                    File_Handle=CreateFileW(Ibi.FileName.c_str(), 0, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+                else
+                #endif //ZENLIB_NO_WIN9X_SUPPORT
+                    File_Handle=CreateFileW(Ibi.FileName.c_str(), 0, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+            #else
+                File_Handle=CreateFile(File_Name.c_str(), 0, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+            #endif //UNICODE
+            if (File_Handle!=INVALID_HANDLE_VALUE)
+            {
+                FILETIME TimeFT;
+                if (GetFileTime(File_Handle, NULL, NULL, &TimeFT))
+                {
+                    LastModifiedDate=(0x100000000LL*TimeFT.dwHighDateTime+TimeFT.dwLowDateTime)*100; //From 100-nanoseconds to nanoseconds
+                    LastModifiedDate-=12622780800000000LL; //Count of nanoseconds between January 1, 1601 (Windows base) and January 1, 2001 (EBML base)
+                    LastModifiedDate_IsValid=true;
+                }
+
+                DWORD High; DWORD Low=GetFileSize(File_Handle, &High);
+                if (Low!=INVALID_FILE_SIZE)
+                {
+                    FileSize=0x100000000ULL*High+Low;
+                    FileSize_IsValid=true;
+                }
+            }
+        #endif //WINDOWS
+
+        size_t BlockSizeWithoutHeader=1+1+8; //Index creation date + Source file size
+        if (LastModifiedDate_IsValid)
+            BlockSizeWithoutHeader+=1+1+8; //Source file modification date
+        if (FileSize_IsValid)
+            BlockSizeWithoutHeader+=1+1+8; //Source file size
+            
+        buffer* Buffer=new buffer;
+        Buffer->Content=new int8u[1+int64u2Ebml(NULL, 1+int64u2Ebml(NULL, BlockSizeWithoutHeader))+BlockSizeWithoutHeader];
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x05);                                                  //Source information
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, BlockSizeWithoutHeader);                                //Size
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x01);                                                  //Index creation date
+        Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 8);                                                     //Size
+        int64u2BigEndian(Buffer->Content+Buffer->Size, (int64u)CurrentDate); Buffer->Size+=8;                           //Content
+        if (LastModifiedDate_IsValid)
+        {
+            Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x02);                                              //Source file modification date
+            Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 8);                                                 //Size
+            int64u2BigEndian(Buffer->Content+Buffer->Size, (int64u)LastModifiedDate); Buffer->Size+=8;                  //Content
+        }
+        if (FileSize_IsValid)
+        {
+            Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x03);                                              //Source file size
+            Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 8);                                                 //Size
+            int64u2BigEndian(Buffer->Content+Buffer->Size, (int64u)CurrentDate); Buffer->Size+=8;                       //Content
+        }
+        Buffers.push_back(Buffer);
+    }
+
     //Writing application
     {
         string Version=Ztring(MediaInfo_Version).SubString(__T(" - v"), Ztring()).To_UTF8();

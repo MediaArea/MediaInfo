@@ -84,6 +84,7 @@ struct ibi
     streams                             Streams;
 
     Ztring                              Inform_Data;
+    Ztring                              FileName;
 
     //Constructor/Destructor
     ibi();

@@ -183,6 +183,10 @@ namespace Elements
     const int64u WritingApplication_Name=1;
     const int64u WritingApplication_Version=2;
     const int64u InformData=4;
+    const int64u SourceInfo=5;
+    const int64u SourceInfo_IndexCreationDate=1;
+    const int64u SourceInfo_SourceModificationDate=2;
+    const int64u SourceInfo_SourceSize=3;
 }
 
 //---------------------------------------------------------------------------
@@ -245,9 +249,13 @@ void File_Ibi::Data_Parse()
             ATOM(WritingApplication_Name)
             ATOM(WritingApplication_Version)
         ATOM_END_MK
+    LIST(SourceInfo)
+        ATOM_BEGIN
+            ATOM(SourceInfo_IndexCreationDate)
+            ATOM(SourceInfo_SourceModificationDate)
+            ATOM(SourceInfo_SourceSize)
+        ATOM_END_MK
     ATOM(InformData)
-    DATA_DEFAULT
-        Finish("Ibi");
     DATA_END_DEFAULT
 }
 
@@ -610,6 +618,39 @@ void File_Ibi::WritingApplication_Version()
 
     //Parsing
     Skip_UTF8(Element_Size,                                     "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Ibi::SourceInfo()
+{
+    Element_Name("Source Information");
+}
+
+//---------------------------------------------------------------------------
+void File_Ibi::SourceInfo_IndexCreationDate()
+{
+    Element_Name("Index Creation Date");
+
+    //Parsing
+    Skip_B8(                                                    "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Ibi::SourceInfo_SourceModificationDate()
+{
+    Element_Name("Source Modification Date");
+
+    //Parsing
+    Skip_B8(                                                    "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Ibi::SourceInfo_SourceSize()
+{
+    Element_Name("Source Size");
+
+    //Parsing
+    Skip_B8(                                                    "Data");
 }
 
 //---------------------------------------------------------------------------

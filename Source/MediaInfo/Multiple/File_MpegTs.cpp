@@ -51,7 +51,6 @@
     #if MEDIAINFO_SEEK
         #include "MediaInfo/Multiple/File_Ibi.h"
     #endif //MEDIAINFO_SEEK
-    #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #endif //MEDIAINFO_IBI
 using namespace std;
 //---------------------------------------------------------------------------
