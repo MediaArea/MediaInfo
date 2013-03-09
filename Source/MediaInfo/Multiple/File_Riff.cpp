@@ -154,6 +154,9 @@ File_Riff::File_Riff()
 //---------------------------------------------------------------------------
 File_Riff::~File_Riff()
 {
+    for (std::map<int32u, stream>::iterator Stream_Item=Stream.begin(); Stream_Item!=Stream.begin(); ++Stream_Item)
+        for (size_t Pos=0; Pos<Stream_Item->second.Parsers.size(); Pos++)
+            delete Stream_Item->second.Parsers[Pos]; //Stream_Item->second.Parsers[Pos]=NULL;
     #ifdef MEDIAINFO_DVDIF_YES
         delete (File_DvDif*)DV_FromHeader; //DV_FromHeader=NULL
     #endif //MEDIAINFO_DVDIF_YES
@@ -510,14 +513,6 @@ void File_Riff::Streams_Finish ()
                 Pos++;
             }
 
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        Stream.clear();
-        Stream_Structure.clear();
-        delete DV_FromHeader; DV_FromHeader=NULL;
-    }
-
     //Commercial names
     if (Count_Get(Stream_Video)==1)
     {
@@ -625,6 +620,10 @@ size_t File_Riff::Read_Buffer_Seek (size_t Method, int64u Value, int64u /*ID*/)
 //---------------------------------------------------------------------------
 void File_Riff::Read_Buffer_Unsynched()
 {
+    for (std::map<int32u, stream>::iterator Stream_Item=Stream.begin(); Stream_Item!=Stream.end(); ++Stream_Item)
+        for (size_t Pos=0; Pos<Stream_Item->second.Parsers.size(); Pos++)
+            Stream_Item->second.Parsers[Pos]->Open_Buffer_Unsynch();
+
     if (IsSub)
     {
         while(Element_Level)

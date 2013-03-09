@@ -2423,6 +2423,11 @@ void File_Riff::AVI__movi_xxxx()
     for (size_t Pos=0; Pos<Stream[Stream_ID].Parsers.size(); Pos++)
         if (Stream[Stream_ID].Parsers[Pos])
         {
+            if (FrameInfo.PTS!=(int64u)-1)
+                Stream[Stream_ID].Parsers[Pos]->FrameInfo.PTS=FrameInfo.PTS;
+            if (FrameInfo.DTS!=(int64u)-1)
+                Stream[Stream_ID].Parsers[Pos]->FrameInfo.DTS=FrameInfo.DTS;
+                
             Open_Buffer_Continue(Stream[Stream_ID].Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             Element_Show();
             if (Stream[Stream_ID].Parsers.size()==1 && Stream[Stream_ID].Parsers[Pos]->Buffer_Size>0)
