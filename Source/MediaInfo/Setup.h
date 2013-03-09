@@ -435,6 +435,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC3_NO) && !defined(MEDIAINFO_VC3_YES)
     #define MEDIAINFO_VC3_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_TIMECODE_NO) && !defined(MEDIAINFO_TIMECODE_YES)
+    #define MEDIAINFO_TIMECODE_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THEORA_NO) && !defined(MEDIAINFO_THEORA_YES)
     #define MEDIAINFO_THEORA_YES
 #endif

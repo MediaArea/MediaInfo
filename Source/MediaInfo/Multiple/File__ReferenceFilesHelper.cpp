@@ -275,7 +275,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             ++Reference;
         }
 
-        #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
             if (Config->NextPacket_Get())
             {
                 Demux_Interleave=Config->File_Demux_Interleave_Get();
@@ -327,19 +327,19 @@ void File__ReferenceFilesHelper::ParseReferences()
                 }
 
             }
-        #endif //MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
 
         FileSize_Compute();
         Reference=References.begin();
         Init_Done=true;
 
-        #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
             if (Config->NextPacket_Get() && MI->Demux_EventWasSent_Accept_Specific)
             {
                 MI->Config->Demux_EventWasSent=true;
                 return;
             }
-        #endif //MEDIAINFO_DEMUX
+        #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
     }
 
     while (Reference!=References.end())
@@ -386,7 +386,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             MI->Config->Event_Send(NULL, (const int8u*)&Event, Event.EventSize, MI->File_Name);
         #endif //MEDIAINFO_EVENTS
 
-        #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
             if (Demux_Interleave)
             {
                 references::iterator Reference_Next=Reference; ++Reference_Next;
@@ -406,7 +406,7 @@ void File__ReferenceFilesHelper::ParseReferences()
 
                 Reference++;
             }
-        #else //MEDIAINFO_DEMUX
+        #else //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
             ++Reference;
         #endif //MEDIAINFO_DEMUX
     }
@@ -735,7 +735,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
     switch (Method)
     {
         case 0  :
-                    #if MEDIAINFO_DEMUX
+                    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                         {
                         if (Value)
                         {
@@ -811,10 +811,11 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         Open_Buffer_Unsynch();
                         return HasProblem?(size_t)-1:1; //Not supported value if there is a problem (TODO: better info)
                         }
-                    #else //MEDIAINFO_DEMUX
+                    #else //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                         return (size_t)-1; //Not supported
-                    #endif //MEDIAINFO_DEMUX
+                    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
         case 1  :
+                    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                     {
                         //Time percentage
                         int64u Duration=MI->Get(Stream_General, 0, General_Duration).To_int64u();
@@ -855,8 +856,11 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         Open_Buffer_Unsynch();
                         return HasProblem?2:1; //Invalid value if there is a problem (TODO: better info)
                     }
+                    #else //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
+                        return (size_t)-1; //Not supported
+                    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
         case 2  :   //Timestamp
-                    #if MEDIAINFO_DEMUX
+                    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                     {
                         CountOfReferencesToParse=References.size();
                         Ztring Time; Time.Duration_From_Milliseconds(Value/1000000);
@@ -880,11 +884,11 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         Open_Buffer_Unsynch();
                         return 1;
                     }
-                    #else //MEDIAINFO_DEMUX
+                    #else //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                         return (size_t)-1; //Not supported
-                    #endif //MEDIAINFO_DEMUX
+                    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
         case 3  :   //FrameNumber
-                    #if MEDIAINFO_DEMUX
+                    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                         CountOfReferencesToParse=References.size();
                         for (Reference=References.begin(); Reference!=References.end(); Reference++)
                         {
@@ -905,9 +909,9 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                         Reference=References.begin();
                         Open_Buffer_Unsynch();
                         return 1;
-                    #else //MEDIAINFO_DEMUX
+                    #else //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                         return (size_t)-1; //Not supported
-                    #endif //MEDIAINFO_DEMUX
+                    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
          default :   return 0;
     }
 }

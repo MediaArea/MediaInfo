@@ -181,7 +181,9 @@ File_Mpeg4::File_Mpeg4()
     IsParsing_mdat=false;
     IsFragmented=false;
     moov_trak_tkhd_TrackID=(int32u)-1;
-    ReferenceFiles=NULL;
+    #if defined(MEDIAINFO_REFERENCES_YES)
+        ReferenceFiles=NULL;
+    #endif //defined(MEDIAINFO_REFERENCES_YES)
     mdat_Pos_NormalParsing=false;
     moof_traf_base_data_offset=(int64u)-1;
     data_offset_present=true;
@@ -950,7 +952,7 @@ void File_Mpeg4::Read_Buffer_Unsynched()
         for (size_t Pos=0; Pos<Stream->second.Parsers.size(); Pos++)
             Stream->second.Parsers[Pos]->Open_Buffer_Unsynch();
 
-        #if MEDIAINFO_SEEK
+        #if MEDIAINFO_SEEK && MEDIAINFO_DEMUX
             //Searching the next position for this stream
             int64u StreamOffset=(int64u)-1;
             if (StreamOffset_Jump.empty() || File_GoTo==mdat_Pos.begin()->first)
@@ -1024,7 +1026,7 @@ void File_Mpeg4::Read_Buffer_Unsynched()
 
                         break;
                     }
-        #endif //MEDIAINFO_SEEK
+        #endif //MEDIAINFO_SEEK && MEDIAINFO_DEMUX
     }
 }
 
@@ -1032,8 +1034,10 @@ void File_Mpeg4::Read_Buffer_Unsynched()
 #if MEDIAINFO_SEEK
 size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
-    if (ReferenceFiles)
-        return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
+    #if defined(MEDIAINFO_REFERENCES_YES)
+        if (ReferenceFiles)
+            return ReferenceFiles->Read_Buffer_Seek(Method, Value, ID);
+    #endif //defined(MEDIAINFO_REFERENCES_YES)
     if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
         return Read_Buffer_Seek_OneFramePerFile(Method, Value, ID);
 
@@ -1097,6 +1101,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                     return Read_Buffer_Seek(0, FirstMdatPos+(LastMdatPos-FirstMdatPos)*Value/10000, ID);
         case 2  :   //Timestamp
+                    #if MEDIAINFO_DEMUX
                     {
                         //Searching time stamp offset due to Time code offset
                         for (std::map<int32u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); ++Stream)
@@ -1172,8 +1177,12 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         Open_Buffer_Unsynch();
                         return 1;
                     }
+                    #else //MEDIAINFO_DEMUX
+                        return (size_t)-1; //Not supported
+                    #endif //MEDIAINFO_DEMUX
         case 3  :
                     //FrameNumber
+                    #if MEDIAINFO_DEMUX
                     {
                         //Looking for video stream
                         std::map<int32u, stream>::iterator Stream;
@@ -1244,6 +1253,9 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                         return 2; //Invalid value
                     }
+                    #else //MEDIAINFO_DEMUX
+                        return (size_t)-1; //Not supported
+                    #endif //MEDIAINFO_DEMUX
         default :   return 0;
     }
 }

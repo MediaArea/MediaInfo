@@ -1648,13 +1648,15 @@ void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
 
                     delete Event->second[Pos]; Event->second[Pos]=NULL;
 
-                    if (IsDemux && NextPacket_Get())
-                    {
-                        Demux_EventWasSent=true;
-                        Event->second.erase(Event->second.begin(), Event->second.begin()+Pos);
-                        Events_Delayed_CurrentSource=Source;
-                        return;
-                    }
+                    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
+                        if (IsDemux && NextPacket_Get())
+                        {
+                            Demux_EventWasSent=true;
+                            Event->second.erase(Event->second.begin(), Event->second.begin()+Pos);
+                            Events_Delayed_CurrentSource=Source;
+                            return;
+                        }
+                    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                 }
 
             Events_Delayed.erase(Event->first);

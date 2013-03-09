@@ -41,7 +41,9 @@
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events.h"
 #endif //MEDIAINFO_EVENTS
-#include "MediaInfo/Multiple/File_Gxf_TimeCode.h"
+#if defined(MEDIAINFO_TIMECODE_YES)
+    #include "MediaInfo/Multiple/File_Gxf_TimeCode.h"
+#endif
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <cstring>
 //---------------------------------------------------------------------------
@@ -167,11 +169,15 @@ File_Ancillary::File_Ancillary()
 //---------------------------------------------------------------------------
 File_Ancillary::~File_Ancillary()
 {
-    delete Cdp_Parser; //Cdp_Parser=NULL;
-    for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
-        delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
-    for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
-        delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+    #if defined(MEDIAINFO_CDP_YES)
+        delete Cdp_Parser; //Cdp_Parser=NULL;
+        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+            delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
+    #endif //defined(MEDIAINFO_CDP_YES)
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
+        for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
+            delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+    #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 }
 
 //---------------------------------------------------------------------------
@@ -254,11 +260,13 @@ void File_Ancillary::Read_Buffer_Continue()
 
     if (Element_Size==0)
     {
-        //Keeping only one, TODO: parse it without video stream
-        for (size_t Pos=1; Pos<AfdBarData_Data.size(); Pos++)
-            delete AfdBarData_Data[Pos]; //AfdBarData_Data[0]=NULL;
-        if (!AfdBarData_Data.empty())
-            AfdBarData_Data.resize(1);
+        #if defined(MEDIAINFO_AFDBARDATA_YES)
+            //Keeping only one, TODO: parse it without video stream
+            for (size_t Pos=1; Pos<AfdBarData_Data.size(); Pos++)
+                delete AfdBarData_Data[Pos]; //AfdBarData_Data[0]=NULL;
+            if (!AfdBarData_Data.empty())
+                AfdBarData_Data.resize(1);
+        #endif //defined(MEDIAINFO_AFDBARDATA_YES)
 
         return;
     }
@@ -411,6 +419,7 @@ void File_Ancillary::Data_Parse()
                         {
                             case 0x60 : // (from SMPTE RP 188 / SMPTE ST 12-2)
                                         // Time code ATC
+                                        #if defined(MEDIAINFO_TIMECODE_YES)
                                         {
                                         File_Gxf_TimeCode Parser;
                                         Parser.IsAtc=true;
@@ -446,6 +455,7 @@ void File_Ancillary::Data_Parse()
                                                 Fill(Stream_Other, StreamPos_Last, "IsSecondField", "Yes");
                                         }
                                         }
+                                        #endif //defined(MEDIAINFO_TIMECODE_YES)
                                         break;
                             default   : ;
                             ;

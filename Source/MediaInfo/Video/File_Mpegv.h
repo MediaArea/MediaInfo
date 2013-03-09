@@ -225,11 +225,11 @@ private :
         File__Analyze*              DTG1_Parser;
         File__Analyze*              GA94_06_Parser;
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+    #if defined(MEDIAINFO_CDP_YES)
         File__Analyze*              Cdp_Parser;
         bool                        Cdp_IsPresent;
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
         File__Analyze*              AfdBarData_Parser;
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 

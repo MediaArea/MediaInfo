@@ -184,10 +184,10 @@ void File_MpegTs::Streams_Accept()
 {
     Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
 
-    #if MEDIAINFO_DEMUX
+    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
         if (Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
             Config->Demux_EventWasSent=true;
-    #endif //MEDIAINFO_DEMUX
+    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
 }
 
 //---------------------------------------------------------------------------
@@ -1748,54 +1748,58 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     Seek_Value=(int64u)-1;
     Seek_ID=(int64u)-1;
     InfiniteLoop_Detect=0;
-    Config->Demux_IsSeeking=false;
+    #if MEDIAINFO_DEMUX
+        Config->Demux_IsSeeking=false;
+    #endif //MEDIAINFO_DEMUX
 
     //Init
     if (!Duration_Detected)
     {
         //External IBI
-        std::string IbiFile=Config->Ibi_Get();
-        if (!IbiFile.empty())
-        {
-            Ibi.Streams.clear(); //TODO: support IBI data from different inputs
-
-            File_Ibi MI;
-            Open_Buffer_Init(&MI, IbiFile.size());
-            MI.Ibi=&Ibi;
-            MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
-        }
-        //Creating base IBI from a quick analysis of the file
-        else
-        {
-            MediaInfo_Internal MI;
-            MI.Option(__T("File_KeepInfo"), __T("1"));
-            Ztring ParseSpeed_Save=MI.Option(__T("ParseSpeed_Get"), __T(""));
-            Ztring Demux_Save=MI.Option(__T("Demux_Get"), __T(""));
-            MI.Option(__T("ParseSpeed"), __T("0"));
-            MI.Option(__T("Demux"), Ztring());
-            Ztring File_Names=Config->File_Names.Read();
-            MI.Option(__T("File_FileNameFormat"), __T("CSV"));
-            size_t MiOpenResult=MI.Open(File_Names);
-            MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
-            MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
-            if (!MiOpenResult)
-                return 0;
-            for (ibi::streams::iterator IbiStream_Temp=((File_MpegTs*)MI.Info)->Ibi.Streams.begin(); IbiStream_Temp!=((File_MpegTs*)MI.Info)->Ibi.Streams.end(); ++IbiStream_Temp)
+        #if MEDIAINFO_IBI
+            std::string IbiFile=Config->Ibi_Get();
+            if (!IbiFile.empty())
             {
-                if (Ibi.Streams[IbiStream_Temp->first]==NULL)
-                    Ibi.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
-                Ibi.Streams[IbiStream_Temp->first]->Unsynch();
-                for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
-                {
-                    Ibi.Streams[IbiStream_Temp->first]->Add(IbiStream_Temp->second->Infos[Pos]);
-                    if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
-                        Ibi.Streams[IbiStream_Temp->first]->Unsynch();
-                }
-                Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                Ibi.Streams.clear(); //TODO: support IBI data from different inputs
+
+                File_Ibi MI;
+                Open_Buffer_Init(&MI, IbiFile.size());
+                MI.Ibi=&Ibi;
+                MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
             }
-            if (Ibi.Streams.empty())
-                return 4; //Problem during IBI file parsing
-        }
+            //Creating base IBI from a quick analysis of the file
+            else
+            {
+                MediaInfo_Internal MI;
+                MI.Option(__T("File_KeepInfo"), __T("1"));
+                Ztring ParseSpeed_Save=MI.Option(__T("ParseSpeed_Get"), __T(""));
+                Ztring Demux_Save=MI.Option(__T("Demux_Get"), __T(""));
+                MI.Option(__T("ParseSpeed"), __T("0"));
+                MI.Option(__T("Demux"), Ztring());
+                Ztring File_Names=Config->File_Names.Read();
+                MI.Option(__T("File_FileNameFormat"), __T("CSV"));
+                size_t MiOpenResult=MI.Open(File_Names);
+                MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+                if (!MiOpenResult)
+                    return 0;
+                for (ibi::streams::iterator IbiStream_Temp=((File_MpegTs*)MI.Info)->Ibi.Streams.begin(); IbiStream_Temp!=((File_MpegTs*)MI.Info)->Ibi.Streams.end(); ++IbiStream_Temp)
+                {
+                    if (Ibi.Streams[IbiStream_Temp->first]==NULL)
+                        Ibi.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
+                    Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                    for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                    {
+                        Ibi.Streams[IbiStream_Temp->first]->Add(IbiStream_Temp->second->Infos[Pos]);
+                        if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
+                            Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                    }
+                    Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                }
+                if (Ibi.Streams.empty())
+                    return 4; //Problem during IBI file parsing
+            }
+        #endif //#if MEDIAINFO_IBI
 
         Duration_Detected=true;
     }
@@ -2746,7 +2750,7 @@ void File_MpegTs::PES_Parse_Finish()
         #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
     }
 
-    #if MEDIAINFO_SEEK
+    #if MEDIAINFO_SEEK && MEDIAINFO_IBI
         if (Seek_ID!=(int64u)-1)
         {
             if (Ibi.Streams[Seek_ID]->IsModified)
@@ -2772,7 +2776,7 @@ void File_MpegTs::PES_Parse_Finish()
                 }
             }
         }
-    #endif //MEDIAINFO_SEEK
+    #endif //MEDIAINFO_SEEK && MEDIAINFO_IBI
 }
 
 //---------------------------------------------------------------------------

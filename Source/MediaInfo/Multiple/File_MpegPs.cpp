@@ -955,46 +955,48 @@ size_t File_MpegPs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     if (!Duration_Detected)
     {
         //External IBI
-        std::string IbiFile=Config->Ibi_Get();
-        if (!IbiFile.empty())
-        {
-            Ibi.Streams.clear(); //TODO: support IBI data from different inputs
-
-            File_Ibi MI;
-            Open_Buffer_Init(&MI, IbiFile.size());
-            MI.Ibi=&Ibi;
-            MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
-        }
-        //Creating base IBI from a quick analysis of the file
-        else
-        {
-            MediaInfo_Internal MI;
-            MI.Option(__T("File_KeepInfo"), __T("1"));
-            Ztring ParseSpeed_Save=MI.Option(__T("ParseSpeed_Get"), __T(""));
-            Ztring Demux_Save=MI.Option(__T("Demux_Get"), __T(""));
-            MI.Option(__T("ParseSpeed"), __T("0"));
-            MI.Option(__T("Demux"), Ztring());
-            size_t MiOpenResult=MI.Open(File_Name);
-            MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
-            MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
-            if (!MiOpenResult)
-                return 0;
-            for (ibi::streams::iterator IbiStream_Temp=((File_MpegPs*)MI.Info)->Ibi.Streams.begin(); IbiStream_Temp!=((File_MpegPs*)MI.Info)->Ibi.Streams.end(); ++IbiStream_Temp)
+        #if MEDIAINFO_IBI
+            std::string IbiFile=Config->Ibi_Get();
+            if (!IbiFile.empty())
             {
-                if (Ibi.Streams[IbiStream_Temp->first]==NULL)
-                    Ibi.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
-                Ibi.Streams[IbiStream_Temp->first]->Unsynch();
-                for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
-                {
-                    Ibi.Streams[IbiStream_Temp->first]->Add(IbiStream_Temp->second->Infos[Pos]);
-                    if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
-                        Ibi.Streams[IbiStream_Temp->first]->Unsynch();
-                }
-                Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                Ibi.Streams.clear(); //TODO: support IBI data from different inputs
+
+                File_Ibi MI;
+                Open_Buffer_Init(&MI, IbiFile.size());
+                MI.Ibi=&Ibi;
+                MI.Open_Buffer_Continue((const int8u*)IbiFile.c_str(), IbiFile.size());
             }
-            if (Ibi.Streams.empty())
-                return 4; //Problem during IBI file parsing
-        }
+            //Creating base IBI from a quick analysis of the file
+            else
+            {
+                MediaInfo_Internal MI;
+                MI.Option(__T("File_KeepInfo"), __T("1"));
+                Ztring ParseSpeed_Save=MI.Option(__T("ParseSpeed_Get"), __T(""));
+                Ztring Demux_Save=MI.Option(__T("Demux_Get"), __T(""));
+                MI.Option(__T("ParseSpeed"), __T("0"));
+                MI.Option(__T("Demux"), Ztring());
+                size_t MiOpenResult=MI.Open(File_Name);
+                MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+                if (!MiOpenResult)
+                    return 0;
+                for (ibi::streams::iterator IbiStream_Temp=((File_MpegPs*)MI.Info)->Ibi.Streams.begin(); IbiStream_Temp!=((File_MpegPs*)MI.Info)->Ibi.Streams.end(); ++IbiStream_Temp)
+                {
+                    if (Ibi.Streams[IbiStream_Temp->first]==NULL)
+                        Ibi.Streams[IbiStream_Temp->first]=new ibi::stream(*IbiStream_Temp->second);
+                    Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                    for (size_t Pos=0; Pos<IbiStream_Temp->second->Infos.size(); Pos++)
+                    {
+                        Ibi.Streams[IbiStream_Temp->first]->Add(IbiStream_Temp->second->Infos[Pos]);
+                        if (!IbiStream_Temp->second->Infos[Pos].IsContinuous)
+                            Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                    }
+                    Ibi.Streams[IbiStream_Temp->first]->Unsynch();
+                }
+                if (Ibi.Streams.empty())
+                    return 4; //Problem during IBI file parsing
+            }
+        #endif //#if MEDIAINFO_IBI
 
         Duration_Detected=true;
     }
@@ -3951,7 +3953,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
         #endif //MEDIAINFO_DEMUX
     #endif //MEDIAINFO_EVENTS
 
-    #if MEDIAINFO_SEEK
+    #if MEDIAINFO_SEEK && MEDIAINFO_IBI
         if (Seek_ID!=(int64u)-1)
         {
             if (Ibi.Streams[Seek_ID]->IsModified)
@@ -3980,7 +3982,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
                     }
             }
         }
-    #endif //MEDIAINFO_SEEK
+    #endif //MEDIAINFO_SEEK && MEDIAINFO_IBI
 }
 
 //***************************************************************************

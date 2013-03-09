@@ -470,7 +470,9 @@ private :
     typedef std::map<int32u, stream> streams;
     streams             Streams;
     streams::iterator   Stream;
-    File__ReferenceFilesHelper* ReferenceFiles;
+    #if defined(MEDIAINFO_REFERENCES_YES)
+        File__ReferenceFilesHelper* ReferenceFiles;
+    #endif //defined(MEDIAINFO_REFERENCES_YES)
     #if MEDIAINFO_NEXTPACKET
         bool                    ReferenceFiles_IsParsing;
     #endif //MEDIAINFO_NEXTPACKET

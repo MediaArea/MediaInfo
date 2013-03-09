@@ -1028,9 +1028,13 @@ size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Va
                     return 1;
                     }
         case 2  :   //Timestamp
-                    if (Config->Demux_Rate_Get()==0)
+                    #if MEDIAINFO_DEMUX
+                        if (Config->Demux_Rate_Get()==0)
+                            return (size_t)-1; //Not supported
+                        Value=float64_int64s(((float64)Value)/1000000000*Config->Demux_Rate_Get());
+                    #else //MEDIAINFO_DEMUX
                         return (size_t)-1; //Not supported
-                    Value=float64_int64s(((float64)Value)/1000000000*Config->Demux_Rate_Get());
+                    #endif //MEDIAINFO_DEMUX
         case 3  :   //FrameNumber
                     {
                     if (Value>=Config->File_Names.size())
@@ -2479,10 +2483,10 @@ void File__Analyze::Accept ()
                     strncpy(Event.Name, ParserName.To_Local().c_str(), 15);
             EVENT_END   ()
 
-            #if MEDIAINFO_DEMUX
+            #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
                 if (!Demux_EventWasSent_Accept_Specific && Config->NextPacket_Get() && Config->Event_CallBackFunction_IsSet())
                     Config->Demux_EventWasSent=true;
-            #endif //MEDIAINFO_DEMUX
+            #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
         }
 
         Config->Event_Accepted(this);
@@ -3146,8 +3150,10 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
 
         if (StreamIDs_Size)
             StreamIDs[StreamIDs_Size-1]=(int64u)-1;
-        if (Status[IsAccepted] && Config->NextPacket_Get())
-            Config->Demux_EventWasSent=true;
+        #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
+            if (Status[IsAccepted] && Config->NextPacket_Get())
+                Config->Demux_EventWasSent=true;
+        #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
         if (StreamIDs_Size)
             StreamIDs[StreamIDs_Size-1]=(int64u)-1;
     #endif //MEDIAINFO_EVENTS

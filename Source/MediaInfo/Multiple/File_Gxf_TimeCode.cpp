@@ -30,7 +30,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#if defined(MEDIAINFO_GXF_YES)
+#if defined(MEDIAINFO_TIMECODE_YES)
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -46,7 +46,25 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-extern double Gxf_FrameRate(int32u Content);
+#if defined(MEDIAINFO_GXF_YES)
+    extern double Gxf_FrameRate(int32u Content);
+#else //defined(MEDIAINFO_GXF_YES)
+    double Gxf_FrameRate(int32u Content) //TODO: remove any relationship with GXF
+    {
+        switch (Content)
+        {
+            case 1 : return 60.000;
+            case 2 : return 59.940;
+            case 3 : return 50.000;
+            case 4 : return 30.000;
+            case 5 : return 29.970;
+            case 6 : return 25.000;
+            case 7 : return 24.000;
+            case 8 : return 23.976;
+            default: return  0.000;
+        }
+    }
+#endif //defined(MEDIAINFO_GXF_YES)
 
 //---------------------------------------------------------------------------
 const char* Atc_PayloadType (int8u PayloadType)
@@ -345,4 +363,4 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
 
 } //NameSpace
 
-#endif //MEDIAINFO_GXF_YES
+#endif //MEDIAINFO_TIMECODE_YES
