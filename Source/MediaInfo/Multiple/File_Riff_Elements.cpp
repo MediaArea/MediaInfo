@@ -1480,20 +1480,26 @@ void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
             else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Ztring().From_Number((int16u)SubFormat.hi, 16))==__T("PCM"))
             {
                 //Creating the parser
-                File_Pcm MI;
-                MI.Frame_Count_Valid=0;
-                MI.Codec=Ztring().From_Number((int16u)SubFormat.hi, 16);
-                MI.BitDepth=BitsPerSample;
-
-                //Parsing
-                Open_Buffer_Init(&MI);
-                Open_Buffer_Continue(&MI, 0);
-
-                //Filling
-                Finish(&MI);
-                Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+                File_Pcm* Parser=new File_Pcm;
+                Parser->Codec=Ztring().From_GUID(SubFormat);
+                Parser->Endianness='L';
+                Parser->Sign='S';
+                Parser->BitDepth=BitsPerSample;
+                #if MEDIAINFO_DEMUX
+                    if (Config->Demux_Unpacketize_Get() && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))
+                    {
+                        Parser->Demux_Level=2; //Container
+                        Parser->Demux_UnpacketizeContainer=true;
+                        Demux_Level=4; //Intermediate
+                    }
+                #endif //MEDIAINFO_DEMUX
+                Stream[Stream_ID].Parsers.push_back(Parser);
+                Stream[Stream_ID].IsPcm=true;
             }
             #endif
+
+            for (size_t Pos=0; Pos<Stream[Stream_ID].Parsers.size(); Pos++)
+                Open_Buffer_Init(Stream[Stream_ID].Parsers[Pos]);
         }
         else
         {
