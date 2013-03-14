@@ -671,7 +671,8 @@ void File_Aac::Data_Parse()
                 case Mode_LATM        :
                                         Fill();
                                         if (!IsSub)
-                                            File__Tags_Helper::Finish(); break;
+                                            File__Tags_Helper::Finish();
+                                        break;
                 default               : ; //No header
             }
 
