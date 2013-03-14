@@ -154,7 +154,7 @@ File_Riff::File_Riff()
 //---------------------------------------------------------------------------
 File_Riff::~File_Riff()
 {
-    for (std::map<int32u, stream>::iterator Stream_Item=Stream.begin(); Stream_Item!=Stream.begin(); ++Stream_Item)
+    for (std::map<int32u, stream>::iterator Stream_Item=Stream.begin(); Stream_Item!=Stream.end(); ++Stream_Item)
         for (size_t Pos=0; Pos<Stream_Item->second.Parsers.size(); Pos++)
             delete Stream_Item->second.Parsers[Pos]; //Stream_Item->second.Parsers[Pos]=NULL;
     #ifdef MEDIAINFO_DVDIF_YES
