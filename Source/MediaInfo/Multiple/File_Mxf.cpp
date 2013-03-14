@@ -6729,7 +6729,8 @@ void File_Mxf::SystemScheme1_TimeCodeArray()
 void File_Mxf::TextLocator_LocatorName()
 {
     //Parsing
-    Info_UTF16B(Length2, Data,                                  "Data"); Element_Info1(Data);
+    Ztring Data;
+    Get_UTF16B (Length2, Data,                                  "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
         Locators[InstanceUID].EssenceLocator=Data;

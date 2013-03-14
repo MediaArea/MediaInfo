@@ -1597,12 +1597,13 @@ void File_Bdmv::StreamCodingInfo_Video()
 void File_Bdmv::StreamCodingInfo_Audio()
 {
     //Parsing
+    Ztring Language;
     int8u Channels, SamplingRate;
     BS_Begin();
     Get_S1 (4, Channels,                                        "Channel layout"); Param_Info1(Clpi_Audio_Channels[Channels]);
     Get_S1 (4, SamplingRate,                                    "Sampling Rate"); Param_Info1(Clpi_Audio_SamplingRate[SamplingRate]);
     BS_End();
-    Info_Local(3, Language,                                     "Language"); Element_Info1(Language);
+    Get_Local(3, Language,                                      "Language"); Element_Info1(Language);
 
     FILLING_BEGIN();
         if (StreamKind_Last==Stream_Max)
@@ -1623,9 +1624,10 @@ void File_Bdmv::StreamCodingInfo_Audio()
 void File_Bdmv::StreamCodingInfo_Text()
 {
     //Parsing
+    Ztring Language;
     if (stream_type==0x92) //Subtitle
         Skip_B1(                                                "Unknown");
-    Info_Local(3, Language,                                     "Language"); Element_Info1(Language);
+    Get_Local(3, Language,                                      "Language"); Element_Info1(Language);
 
     FILLING_BEGIN();
         if (StreamKind_Last==Stream_Max)
