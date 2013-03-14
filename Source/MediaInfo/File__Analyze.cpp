@@ -1806,13 +1806,6 @@ bool File__Analyze::Data_Manage()
             return false;
         }
     }
-    if (File_GoTo==(int64u)-1 && Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
-    {
-        GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
-        if (!Element_WantNextLevel)
-            Element_End0(); //Element
-        return false;
-    }
 
     Buffer_Offset+=(size_t)Element_Offset;
     Header_Size=0;

@@ -14,6 +14,7 @@ Version 0.7.63, 2013-
 x #742, MPEG-4/MOV, crash with some truncated/invalid files
 x MXF: Dolby E streams starting only at the second or third frame were not well detected
 x MPEG-4/MOV: reducing analysis time for I-frame only video streams
+x CEA-708: weird behavior phantom streams are displayed) in case of buggy CEA-708
 
 Version 0.7.62, 2013-02-22
 --------------
