@@ -1749,6 +1749,8 @@ void File_Mpeg4::moof_traf()
 
     //Filling
     moof_traf_base_data_offset=(int64u)-1;
+    if (Streams.empty())
+        Streams[(int32u)-1]; //Creating a virtual track in case there is no track
     Stream=Streams.begin(); //Using first track in case there is no track header
     moof_traf_default_sample_duration=Stream->second.mvex_trex_default_sample_duration;
     moof_traf_default_sample_size=Stream->second.mvex_trex_default_sample_size;
