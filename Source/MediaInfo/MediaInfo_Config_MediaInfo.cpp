@@ -136,6 +136,8 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Buffer_Repeat_IsSupported=false;
     File_IsGrowing=false;
     File_IsNotGrowingAnymore=false;
+    File_Current_Offset=0;
+    File_Current_Size=(int64u)-1;
     File_Size=(int64u)-1;
     ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
     #if MEDIAINFO_DEMUX

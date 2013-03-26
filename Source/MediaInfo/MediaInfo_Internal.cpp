@@ -517,6 +517,13 @@ size_t MediaInfo_Internal::Open (const int8u* Begin, size_t Begin_Size, const in
 size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &File_Name)
 {
     CriticalSectionLocker CSL(CS);
+
+    if (Config.File_Names.size()<=1) //If analyzing multiple files, theses members are adapted in File_Reader.cpp
+    {
+        if (File_Size_!=(int64u)-1)
+            Config.File_Size=Config.File_Current_Size=File_Size_;
+    }
+
     if (Info==NULL)
     {
         if (!Config.File_ForceParser_Get().empty())
@@ -557,6 +564,14 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
             delete[] Temp;
         }
     #endif //MEDIAINFO_DEBUG_BUFFER
+
+    if (Config.File_Names.size()<=1) //If analyzing multiple files, theses members are adapted in File_Reader.cpp
+    {
+        if (File_Size_!=(int64u)-1)
+            Config.File_Size=Config.File_Current_Size=File_Size_;
+        if (File_Offset_!=(int64u)-1)
+            Config.File_Current_Offset=File_Offset_;
+    }
 
     if (Info==NULL || File_Size_!=(int64u)-1)
         Open_Buffer_Init(File_Size_);
