@@ -17,6 +17,7 @@ x MXF: Dolby E streams starting only at the second or third frame were not well 
 x MPEG-4/MOV: reducing analysis time for I-frame only video streams
 x CEA-708: weird behavior phantom streams are displayed) in case of buggy CEA-708
 x AVI: crash with audio delay and AvgBytesPerSec of 0
+x Wrong demuxing of the caption stream in the case of AVC streams without frame_mbs_only_flag but having 2 fields in one slice.
 
 Version 0.7.62, 2013-02-22
 --------------

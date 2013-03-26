@@ -2470,7 +2470,7 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
             Element_End0();
         #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
 
-        TemporalReferences_Min+=(seq_parameter_sets[seq_parameter_set_id]->frame_mbs_only_flag?2:1);
+        TemporalReferences_Min+=((seq_parameter_sets[seq_parameter_set_id]->frame_mbs_only_flag | !TemporalReferences[TemporalReferences_Min]->IsField)?2:1);
     }
 }
 
