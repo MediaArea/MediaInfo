@@ -99,26 +99,28 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 void File__Analyze::BS_Begin()
 {
-    if (Element_Offset>Element_Size)
-        Element_Offset=Element_Size;
     size_t BS_Size;
     if (Buffer_Offset+Element_Size<=Buffer_Size)
         BS_Size=(size_t)(Element_Size-Element_Offset);
+    else if (Buffer_Offset+Element_Offset<=Buffer_Size)
+        BS_Size=Buffer_Size-(size_t)(Buffer_Offset+Element_Offset);
     else
-        BS_Size=Buffer_Size-(Buffer_Offset+(size_t)Element_Offset);
+        BS_Size=0;
+
     BS->Attach(Buffer+Buffer_Offset+(size_t)Element_Offset, BS_Size);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::BS_Begin_LE()
 {
-    if (Element_Offset>Element_Size)
-        Element_Offset=Element_Size;
     size_t BS_Size;
     if (Buffer_Offset+Element_Size<=Buffer_Size)
         BS_Size=(size_t)(Element_Size-Element_Offset);
+    else if (Buffer_Offset+Element_Offset<=Buffer_Size)
+        BS_Size=Buffer_Size-(size_t)(Buffer_Offset+Element_Offset);
     else
-        BS_Size=Buffer_Size-(Buffer_Offset+(size_t)Element_Offset);
+        BS_Size=0;
+
     BT->Attach(Buffer+Buffer_Offset+(size_t)Element_Offset, BS_Size);
 }
 
