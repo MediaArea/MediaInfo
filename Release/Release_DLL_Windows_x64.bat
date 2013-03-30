@@ -29,7 +29,7 @@ mkdir MediaInfoDLL_Windows_x64\
 rem --- Copying : Documentation ---
 mkdir Doc
 cd ..\Source\Doc
-..\..\..\Shared\Binary\Doxygen
+..\..\..\Shared\Binary\Windows_i386\Doxygen\doxygen
 cd ..\..\Release
 mkdir MediaInfoDLL_Windows_x64\Developers\Doc\
 copy ..\Doc\*.* MediaInfoDLL_Windows_x64\Developers\Doc\
