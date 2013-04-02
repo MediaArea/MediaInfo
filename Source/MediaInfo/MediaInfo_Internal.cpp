@@ -598,7 +598,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
             struct MediaInfo_Event_General_Start_0 Event;
             memset(&Event, 0xFF, sizeof(struct MediaInfo_Event_Generic));
             Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
-            Event.EventSize=sizeof(struct MediaInfo_Event_General_Move_Done_0);
+            Event.EventSize=sizeof(struct MediaInfo_Event_General_Start_0);
             Event.StreamIDs_Size=0;
             Event.Stream_Size=File_Size_;
             Config.Event_Send(NULL, (const int8u*)&Event, sizeof(MediaInfo_Event_General_Start_0));
