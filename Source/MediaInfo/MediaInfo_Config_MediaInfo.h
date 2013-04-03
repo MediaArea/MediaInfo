@@ -97,6 +97,11 @@ public :
     void          File_ID_OnlyRoot_Set (bool NewValue);
     bool          File_ID_OnlyRoot_Get ();
 
+    #if MEDIAINFO_MD5
+    void          File_Md5_Set (bool NewValue);
+    bool          File_Md5_Get ();
+    #endif //MEDIAINFO_MD5
+
     void          File_FileName_Set (const Ztring &NewValue);
     Ztring        File_FileName_Get ();
 
@@ -282,6 +287,9 @@ private :
     bool                    Audio_MergeMonoStreams;
     bool                    File_Demux_Interleave;
     bool                    File_ID_OnlyRoot;
+    #if MEDIAINFO_MD5
+        bool                File_Md5;
+    #endif //MEDIAINFO_MD5
     Ztring                  File_FileName;
     Ztring                  File_FileNameFormat;
     float64                 File_TimeToLive;

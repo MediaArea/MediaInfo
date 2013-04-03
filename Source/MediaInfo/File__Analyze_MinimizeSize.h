@@ -1294,6 +1294,11 @@ public :
 
     int64u  Unsynch_Frame_Count;
 
+    //MD5
+    #if MEDIAINFO_MD5
+        struct MD5Context* MD5;
+    #endif //MEDIAINFO_MD5
+
     #if MEDIAINFO_SEEK
     private:
         bool Seek_Duration_Detected;

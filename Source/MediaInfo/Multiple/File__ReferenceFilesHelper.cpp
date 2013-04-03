@@ -438,6 +438,10 @@ void File__ReferenceFilesHelper::ParseReference()
             if (Config->NextPacket_Get())
                 Reference->MI->Option(__T("File_NextPacket"), __T("1"));
         #endif //MEDIAINFO_NEXTPACKET
+        #if MEDIAINFO_MD5
+            if (MI->MD5)
+                Reference->MI->Option(__T("File_MD5"), __T("1"));
+        #endif //MEDIAINFO_MD5
         #if MEDIAINFO_EVENTS
             if (Config->Event_CallBackFunction_IsSet())
                 Reference->MI->Option(__T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
@@ -630,6 +634,15 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     //Frame rate if available from container
     if (StreamKind_Last==Stream_Video && Reference->FrameRate)
         MI->Fill(Stream_Video, StreamPos_To, Video_FrameRate, Reference->FrameRate, 3 , true);
+
+    //MD5
+    #if MEDIAINFO_MD5
+        if (MI->MD5)
+        {
+            MI->Fill(StreamKind_Last, StreamPos_To, "MD5", Reference->MI->Get(Stream_General, 0, __T("MD5")));
+            (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("MD5"), Info_Options)=__T("N NT");
+        }
+    #endif //MEDIAINFO_MD5
 
     //Hacks - After
     if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
