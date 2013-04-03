@@ -827,6 +827,9 @@ void File_Dpx::ImageData()
     Frame_Count++;
     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
         Frame_Count_NotParsedIncluded++;
+
+    if (Config->ParseSpeed<1.0)
+        Finish("DPX"); //No need of more
 }
 
 //***************************************************************************
