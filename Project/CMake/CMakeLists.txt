@@ -13,6 +13,7 @@ add_definitions(-DUNICODE)
 
 set(mediainfo_SRCS
 	ThirdParty/tinyxml2/tinyxml2.cpp
+	ThirdParty/md5/md5.c
 	MediaInfo/File__Analyze.cpp
 	MediaInfo/File__Analyze_Buffer.cpp
 	MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp

@@ -438,8 +438,12 @@ void File__ReferenceFilesHelper::ParseReference()
             if (Config->NextPacket_Get())
                 Reference->MI->Option(__T("File_NextPacket"), __T("1"));
         #endif //MEDIAINFO_NEXTPACKET
+        #if MEDIAINFO_ADVANCED
+            if (Config->File_Source_List_Get())
+                Reference->MI->Option(__T("File_Source_List"), __T("1"));
+        #endif //MEDIAINFO_ADVANCED
         #if MEDIAINFO_MD5
-            if (MI->MD5)
+            if (Config->File_Md5_Get())
                 Reference->MI->Option(__T("File_MD5"), __T("1"));
         #endif //MEDIAINFO_MD5
         #if MEDIAINFO_EVENTS
@@ -635,15 +639,6 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     if (StreamKind_Last==Stream_Video && Reference->FrameRate)
         MI->Fill(Stream_Video, StreamPos_To, Video_FrameRate, Reference->FrameRate, 3 , true);
 
-    //MD5
-    #if MEDIAINFO_MD5
-        if (MI->MD5)
-        {
-            MI->Fill(StreamKind_Last, StreamPos_To, "MD5", Reference->MI->Get(Stream_General, 0, __T("MD5")));
-            (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("MD5"), Info_Options)=__T("N NT");
-        }
-    #endif //MEDIAINFO_MD5
-
     //Hacks - After
     if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
     {
@@ -725,6 +720,49 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MuxingMode.insert(0, __T(" / "));
         MI->Fill(StreamKind_Last, StreamPos_To, "MuxingMode", Reference->MI->Info->Get(Stream_General, 0, General_Format)+MuxingMode, true);
     }
+
+    //Source_List
+    #if MEDIAINFO_ADVANCED
+        if (Config->File_Source_List_Get() && MI->Get(Stream_General, 0, __T("Format"))!=__T("HLS")) //TODO: support of HLS
+        {
+            if (Reference->FileNames.size()>1 && (Reference->MI->Count_Get(Stream_Menu)==0 || StreamKind_Last==Stream_Menu))
+            {
+                /* unstable (HLS)
+                if (Reference->MI->Config.File_Names.size()>1)
+                {
+                    MI->Fill(StreamKind_Last, StreamPos_To, "Source_List", Reference->MI->Get(Stream_General, 0, __T("FileName")));
+                    (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("Source_List"), Info_Options)=__T("N NT");
+                }
+                */
+                Ztring SourcePath=FileName::Path_Get(MI->Retrieve(Stream_General, 0, General_CompleteName));
+                size_t SourcePath_Size=SourcePath.size()+1; //Path size + path separator size
+                for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
+                {
+                    Ztring Temp=Reference->FileNames[Pos];
+                    Temp.erase(0, SourcePath_Size);
+                    MI->Fill(StreamKind_Last, StreamPos_To, "Source_List", Temp);
+                }
+                (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("Source_List"), Info_Options)=__T("N NT");
+            }
+            else
+            {
+                MI->Fill(StreamKind_Last, StreamPos_To, "Source_List", Reference->MI->Get(Stream_General, 0, __T("Source_List")));
+                (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("Source_List"), Info_Options)=__T("N NT");
+            }
+        }
+    #endif //MEDIAINFO_ADVANCED
+
+    //MD5
+    #if MEDIAINFO_MD5
+        if (Config->File_Md5_Get() && MI->Get(Stream_General, 0, __T("Format"))!=__T("HLS")) //TODO: support of HLS
+        {
+            if (Reference->MI->Count_Get(Stream_Menu)==0 || StreamKind_Last==Stream_Menu)
+            {
+                MI->Fill(StreamKind_Last, StreamPos_To, "MD5", Reference->MI->Get(Stream_General, 0, __T("MD5")));
+                (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("MD5"), Info_Options)=__T("N NT");
+            }
+        }
+    #endif //MEDIAINFO_MD5
 }
 
 //---------------------------------------------------------------------------

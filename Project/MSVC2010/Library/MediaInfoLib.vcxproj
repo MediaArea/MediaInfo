@@ -151,7 +151,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;../../../Source/ThirdParty/MD5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_TRACE_NOx;MEDIAINFO_EVENTS_NOx;MEDIAINFO_DEMUX_NOx;MEDIAINFO_DUPLICATE_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NOx;MEDIAINFO_IBI_NOx;MEDIAINFO_NEXTPACKET_NOx;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -452,6 +452,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc3.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vp8.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Y4m.cpp" />
+    <ClCompile Include="..\..\..\Source\ThirdParty\MD5\md5.c" />
     <ClCompile Include="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -631,6 +632,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vp8.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Y4m.h" />
     <ClInclude Include="..\..\..\Source\ThirdParty\base64\base64.h" />
+    <ClInclude Include="..\..\..\Source\ThirdParty\MD5\md5.h" />
     <ClInclude Include="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>

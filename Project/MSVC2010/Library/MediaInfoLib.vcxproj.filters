@@ -78,6 +78,9 @@
     <Filter Include="ThirdParty\tinyxml2">
       <UniqueIdentifier>{5b70a9dd-eddc-44ba-bce4-35d86e77acdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty\md5">
+      <UniqueIdentifier>{5b14e18b-04eb-4989-8bf1-122caf5fae73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp">
@@ -620,6 +623,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Aic.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\MD5\md5.c">
+      <Filter>ThirdParty\md5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1143,6 +1149,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Aic.h">
       <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\MD5\md5.h">
+      <Filter>ThirdParty\md5</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

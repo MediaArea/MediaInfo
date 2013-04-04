@@ -68,7 +68,12 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     Audio_MergeMonoStreams=false;
     File_Demux_Interleave=false;
     File_ID_OnlyRoot=false;
-    File_Md5=false;
+    #if MEDIAINFO_ADVANCED
+        File_Source_List=false;
+    #endif //MEDIAINFO_ADVANCED
+    #if MEDIAINFO_MD5
+        File_Md5=false;
+    #endif //MEDIAINFO_MD5
     File_TimeToLive=0;
     File_Buffer_Size_Hint_Pointer=NULL;
     #if MEDIAINFO_NEXTPACKET
@@ -276,14 +281,23 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_ID_OnlyRoot_Get()?"1":"0";
     }
+    else if (Option_Lower==__T("file_source_list"))
+    {
+        #if MEDIAINFO_MD5
+            File_Source_List_Set(!(Value==__T("0") || Value.empty()));
+            return Ztring();
+        #else //MEDIAINFO_MD5
+            return __T("MD5 is disabled due to compilation options");
+        #endif //MEDIAINFO_MD5
+    }
     else if (Option_Lower==__T("file_md5"))
     {
-        File_Md5_Set(!(Value==__T("0") || Value.empty()));
-        return __T("");
-    }
-    else if (Option_Lower==__T("file_md5_get"))
-    {
-        return File_Md5_Get()?"1":"0";
+        #if MEDIAINFO_MD5
+            File_Md5_Set(!(Value==__T("0") || Value.empty()));
+            return Ztring();
+        #else //MEDIAINFO_MD5
+            return __T("MD5 is disabled due to compilation options");
+        #endif //MEDIAINFO_MD5
     }
     else if (Option_Lower==__T("file_filename"))
     {
@@ -981,6 +995,21 @@ bool MediaInfo_Config_MediaInfo::File_Md5_Get ()
     return File_Md5;
 }
 #endif //MEDIAINFO_MD5
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED
+void MediaInfo_Config_MediaInfo::File_Source_List_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Source_List=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_Source_List_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_Source_List;
+}
+#endif //MEDIAINFO_ADVANCED
 
 //***************************************************************************
 // File name from somewhere else

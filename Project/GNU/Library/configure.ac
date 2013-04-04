@@ -178,6 +178,7 @@ AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [For
 AC_ARG_WITH(libz_static,        AC_HELP_STRING([--with-libz-static],        [Use static version of Zlib]),                , with_libz_static=no)
 AC_ARG_WITH(libcurl,            AC_HELP_STRING([--with-libcurl],            [Use libcurl (specific directory)]),          , with_libcurl=no)
 AC_ARG_WITH(libmms,             AC_HELP_STRING([--with-libmms],             [Use libmms (specific directory)]),           , with_libmms=no)
+AC_ARG_WITH(libmd5,             AC_HELP_STRING([--with-libmd5],             [Use libmd5 (system)]),                       , with_libmd5=depend)
 AC_ARG_WITH(libtinyxml2,        AC_HELP_STRING([--with-libtinyxml2],        [Use libtinyxml2 (system)]),                  , with_libtinyxml2=depend)
 AC_ARG_WITH(libmediainfo-name,  AC_HELP_STRING([--with-libmediainfo-name],  [Force libmediainfo filename]),               , with_libmediainfo_name=mediainfo)
 
@@ -541,6 +542,23 @@ else
 fi
 
 dnl -------------------------------------------------------------------------
+dnl libmd5
+dnl
+if test "$with_libmd5" = "yes"; then
+	PKG_CHECK_MODULES([MD5], [md5])
+	CXXFLAGS="$CXXFLAGS $MD5_CXXFLAGS"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $MD5_CXXFLAGS"
+	LIBS="$LIBS $MD5_LIBS"
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $MD5_LIBS"
+	AM_CONDITIONAL(COMPILE_MD5, false)
+	using_libmd5="system"
+else
+	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/md5"
+	using_libmd5="internal"
+	AM_CONDITIONAL(COMPILE_MD5, true)
+fi
+
+dnl -------------------------------------------------------------------------
 dnl libtinyxml2
 dnl
 if test "$with_libtinyxml2" = "yes"; then
@@ -720,7 +738,8 @@ echo "  Using ZenLib?                                           $with_zenlib"
 echo "  Using libcurl?                                          $using_libcurl"
 echo "  Using libmms?                                           $using_libmms"
 echo "  Using zlib?                                             $with_zlib"
-echo "  Using tinyxml2?                                          $using_libtinyxml2"
+echo "  Using md5?                                              $using_libmd5"
+echo "  Using tinyxml2?                                         $using_libtinyxml2"
 echo ""
 echo "  Create static lib?                                      $enable_static"
 echo "  Create shared lib?                                      $enable_shared"

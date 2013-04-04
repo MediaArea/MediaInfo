@@ -40,7 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
+				AdditionalIncludeDirectories="../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/md5;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
 				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_TRACE_NO;MEDIAINFO_EVENTS_NO;MEDIAINFO_DEMUX_NO;MEDIAINFO_DUPLICATE_NO;MEDIAINFO_DVDIF_ANALYZE_NO;MEDIAINFO_MPEGTS_DUPLICATE_NO;MEDIAINFO_LIBCURL_DLL_RUNTIME;MEDIAINFO_LIBCURL_NO;MEDIAINFO_SEEK_NO;MEDIAINFO_IBI_NO;MEDIAINFO_NEXTPACKET_NO"
 				StringPooling="true"
@@ -1597,6 +1597,26 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\ThirdParty\tinyxml2\tinyxml2.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="md5"
+				>
+				<File
+					RelativePath="..\..\..\Source\ThirdParty\md5\md5.c"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\ThirdParty\md5\md5.h"
 					>
 				</File>
 			</Filter>

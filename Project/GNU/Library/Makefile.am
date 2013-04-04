@@ -182,6 +182,11 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Y4m.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 
+if COMPILE_MD5
+lib@MediaInfoLib_LibName@_la_SOURCES += \
+                       ../../../Source/ThirdParty/md5/md5.c
+endif
+
 if COMPILE_TINYXML2
 lib@MediaInfoLib_LibName@_la_SOURCES += \
                        ../../../Source/ThirdParty/tinyxml2/tinyxml2.cpp

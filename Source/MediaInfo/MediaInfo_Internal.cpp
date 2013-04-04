@@ -569,8 +569,6 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     {
         if (File_Size_!=(int64u)-1)
             Config.File_Size=Config.File_Current_Size=File_Size_;
-        if (File_Offset_!=(int64u)-1)
-            Config.File_Current_Offset=File_Offset_;
     }
 
     if (Info==NULL || File_Size_!=(int64u)-1)

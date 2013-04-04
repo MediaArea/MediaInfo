@@ -155,6 +155,21 @@ void File__Analyze::TestContinuousFileNames()
     Fill (Stream_General, 0, General_FolderName_Last, FileName::Path_Get(Config->File_Names[Config->File_Names.size()-1]), true);
     Fill (Stream_General, 0, General_FileName_Last, FileName::Name_Get(Config->File_Names[Config->File_Names.size()-1]), true);
     Fill (Stream_General, 0, General_FileExtension_Last, FileName::Extension_Get(Config->File_Names[Config->File_Names.size()-1]), true);
+
+    #if MEDIAINFO_ADVANCED
+        if (Config->File_Source_List_Get())
+        {
+            Ztring SourcePath=FileName::Path_Get(Retrieve(Stream_General, 0, General_CompleteName));
+            size_t SourcePath_Size=SourcePath.size()+1; //Path size + path separator size
+            for (size_t Pos=0; Pos<Config->File_Names.size(); Pos++)
+            {
+                Ztring Temp=Config->File_Names[Pos];
+                Temp.erase(0, SourcePath_Size);
+                Fill(Stream_General, 0, "Source_List", Temp);
+            }
+            (*Stream_More)[Stream_General][0](Ztring().From_Local("Source_List"), Info_Options)=__T("N NT");
+        }
+    #endif //MEDIAINFO_ADVANCED
 }
 
 //---------------------------------------------------------------------------

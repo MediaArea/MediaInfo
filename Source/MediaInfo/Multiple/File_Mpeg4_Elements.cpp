@@ -1615,7 +1615,10 @@ void File_Mpeg4::mdat_xxxx()
     //Next piece of data
     Element_Offset=Element_Size;
     Element_Show();
-    mdat_StreamJump();
+    #if MEDIAINFO_MD5
+        if (MD5==NULL)
+    #endif //MEDIAINFO_MD5
+        mdat_StreamJump();
 }
 
 //---------------------------------------------------------------------------

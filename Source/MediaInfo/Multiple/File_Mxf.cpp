@@ -6373,10 +6373,28 @@ void File_Mxf::PartitionMetadata()
     if ((Code.lo&0xFF0000)==0x020000) //If Header Partition Pack
         switch ((Code.lo>>8)&0xFF)
         {
-            case 0x01 : Fill(Stream_General, 0, General_Format_Settings, "Open / Incomplete"  , Unlimited, true, true); if (Config->ParseSpeed>=1.0) Config->File_IsGrowing=true; break;
-            case 0x02 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Incomplete", Unlimited, true, true);                                                          break;
-            case 0x03 : Fill(Stream_General, 0, General_Format_Settings, "Open / Complete"    , Unlimited, true, true); if (Config->ParseSpeed>=1.0) Config->File_IsGrowing=true; break;
-            case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);                                                          break;
+            case 0x01 : Fill(Stream_General, 0, General_Format_Settings, "Open / Incomplete"  , Unlimited, true, true);
+                        if (Config->ParseSpeed>=1.0)
+                        {
+                            Config->File_IsGrowing=true;
+                            #if MEDIAINFO_MD5
+                                delete MD5; MD5=NULL;
+                            #endif //MEDIAINFO_MD5
+                            break;
+                        }
+            case 0x02 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Incomplete", Unlimited, true, true);
+                        break;
+            case 0x03 : Fill(Stream_General, 0, General_Format_Settings, "Open / Complete"    , Unlimited, true, true);
+                        if (Config->ParseSpeed>=1.0)
+                        {
+                            Config->File_IsGrowing=true;
+                            #if MEDIAINFO_MD5
+                                delete MD5; MD5=NULL;
+                            #endif //MEDIAINFO_MD5
+                            break;
+                        }
+            case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);
+                        break;
             default   : ;
         }
 

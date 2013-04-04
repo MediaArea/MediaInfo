@@ -31,6 +31,12 @@
     #include "MediaInfo/Multiple/File_Ibi_Creation.h"
 #endif //MEDIAINFO_IBI
 #include "tinyxml2.h"
+#if MEDIAINFO_MD5
+    extern "C"
+    {
+        #include <md5.h>
+    }
+#endif //MEDIAINFO_MD5
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
