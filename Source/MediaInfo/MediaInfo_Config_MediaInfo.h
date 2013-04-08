@@ -98,6 +98,11 @@ public :
     bool          File_ID_OnlyRoot_Get ();
 
     #if MEDIAINFO_ADVANCED
+        void          File_IgnoreSequenceFileSize_Set (bool NewValue);
+        bool          File_IgnoreSequenceFileSize_Get ();
+    #endif //MEDIAINFO_ADVANCED
+
+    #if MEDIAINFO_ADVANCED
         void          File_Source_List_Set (bool NewValue);
         bool          File_Source_List_Get ();
     #endif //MEDIAINFO_ADVANCED
@@ -293,6 +298,7 @@ private :
     bool                    File_Demux_Interleave;
     bool                    File_ID_OnlyRoot;
     #if MEDIAINFO_ADVANCED
+        bool                File_IgnoreSequenceFileSize;
         bool                File_Source_List;
     #endif //MEDIAINFO_ADVANCED
     #if MEDIAINFO_MD5

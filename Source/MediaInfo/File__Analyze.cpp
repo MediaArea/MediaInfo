@@ -1490,6 +1490,8 @@ bool File__Analyze::Synchro_Manage_Test()
         {
             Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
             Trusted_IsNot("Synchronisation lost");
+            while (Element_Level)
+                Element_End();
         }
     }
 

@@ -413,7 +413,11 @@ void File__ReferenceFilesHelper::ParseReferences()
 
     //File size handling
     FileSize_Compute();
-    if (MI->Config->File_Size!=MI->File_Size)
+    if (MI->Config->File_Size!=MI->File_Size
+        #if MEDIAINFO_ADVANCED
+            && !Config->File_IgnoreSequenceFileSize_Get()
+        #endif //MEDIAINFO_ADVANCED
+            )
     {
         MI->Fill(Stream_General, 0, General_FileSize, MI->Config->File_Size, 10, true);
         MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
@@ -439,6 +443,8 @@ void File__ReferenceFilesHelper::ParseReference()
                 Reference->MI->Option(__T("File_NextPacket"), __T("1"));
         #endif //MEDIAINFO_NEXTPACKET
         #if MEDIAINFO_ADVANCED
+            if (Config->File_IgnoreSequenceFileSize_Get())
+                Reference->MI->Option(__T("File_IgnoreSequenceFileSize"), __T("1"));
             if (Config->File_Source_List_Get())
                 Reference->MI->Option(__T("File_Source_List"), __T("1"));
         #endif //MEDIAINFO_ADVANCED
@@ -1000,8 +1006,13 @@ void File__ReferenceFilesHelper::FileSize_Compute ()
         else if (Reference->MI && Reference->MI->Config.File_Size!=(int64u)-1)
             MI->Config->File_Size+=Reference->MI->Config.File_Size;
         else
-            for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
-                MI->Config->File_Size+=File::Size_Get(Reference->FileNames[Pos]);
+        {
+            #if MEDIAINFO_ADVANCED
+                if (!Config->File_IgnoreSequenceFileSize_Get())
+            #endif //MEDIAINFO_ADVANCED
+                    for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
+                        MI->Config->File_Size+=File::Size_Get(Reference->FileNames[Pos]);
+        }
     }
 }
 

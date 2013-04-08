@@ -69,6 +69,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_Demux_Interleave=false;
     File_ID_OnlyRoot=false;
     #if MEDIAINFO_ADVANCED
+        File_IgnoreSequenceFileSize=false;
         File_Source_List=false;
     #endif //MEDIAINFO_ADVANCED
     #if MEDIAINFO_MD5
@@ -280,6 +281,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_id_onlyroot_get"))
     {
         return File_ID_OnlyRoot_Get()?"1":"0";
+    }
+    else if (Option_Lower==__T("file_ignoresequencefilesize"))
+    {
+        #if MEDIAINFO_MD5
+            File_IgnoreSequenceFileSize_Set(!(Value==__T("0") || Value.empty()));
+            return Ztring();
+        #else //MEDIAINFO_MD5
+            return __T("Disabled due to compilation options");
+        #endif //MEDIAINFO_MD5
     }
     else if (Option_Lower==__T("file_source_list"))
     {
@@ -995,6 +1005,21 @@ bool MediaInfo_Config_MediaInfo::File_Md5_Get ()
     return File_Md5;
 }
 #endif //MEDIAINFO_MD5
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED
+void MediaInfo_Config_MediaInfo::File_IgnoreSequenceFileSize_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_IgnoreSequenceFileSize=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_IgnoreSequenceFileSize_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_IgnoreSequenceFileSize;
+}
+#endif //MEDIAINFO_ADVANCED
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_ADVANCED

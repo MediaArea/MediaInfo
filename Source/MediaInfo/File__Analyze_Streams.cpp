@@ -164,7 +164,11 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream, size_t StreamPos)
     }
 
     //File size
-    if ((!IsSub || !File_Name.empty()) && KindOfStream==Stream_General && File_Size!=(int64u)-1)
+    if (((!IsSub || !File_Name.empty()) && KindOfStream==Stream_General && File_Size!=(int64u)-1)
+        #if MEDIAINFO_ADVANCED
+            && !Config->File_IgnoreSequenceFileSize_Get()
+        #endif //MEDIAINFO_ADVANCED
+                )
         Fill (Stream_General, 0, General_FileSize, File_Size);
 
     //Fill with already ready data
