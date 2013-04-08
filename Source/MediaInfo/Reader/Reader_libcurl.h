@@ -46,7 +46,7 @@ public :
     virtual ~Reader_libcurl();
 
     //Format testing
-    size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    size_t Format_Test(MediaInfo_Internal* MI, String File_Name);
     size_t Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name);
     size_t Format_Test_PerParser_Continue (MediaInfo_Internal* MI);
     size_t Format_Test_PerParser_Seek (MediaInfo_Internal* MI, size_t Method, int64u Value, int64u ID);

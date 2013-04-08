@@ -45,7 +45,7 @@ public :
     virtual ~Reader_Directory() {}
 
     //Format testing
-    size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    size_t Format_Test(MediaInfo_Internal* MI, String File_Name);
 
     //For the list
     void Directory_Cleanup(ZtringList &List);

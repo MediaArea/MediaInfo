@@ -51,8 +51,8 @@ using namespace std;
     int64u Reader_File_BytesRead_Total=0;
     int64u Reader_File_BytesRead=0;
     int64u Reader_File_Count=1;
-    #include <iostream>
 #endif // MEDIAINFO_DEBUG
+    #include <iostream>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -61,9 +61,9 @@ namespace MediaInfoLib
 const size_t Buffer_NoJump=128*1024;
 
 //---------------------------------------------------------------------------
-size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_File::Format_Test(MediaInfo_Internal* MI, String File_Name)
 {
-    //std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
+    std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
     #if MEDIAINFO_EVENTS
         {
             struct MediaInfo_Event_General_Start_0 Event;
@@ -267,7 +267,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     size_t Pos;
                     for (Pos=0; Pos<MI->Config.File_Sizes.size(); Pos++)
                     {
-                        if (GoTo>=MI->Config.File_Sizes[Pos])
+                        if (GoTo>MI->Config.File_Sizes[Pos])
                         {
                             GoTo-=MI->Config.File_Sizes[Pos];
                             MI->Config.File_Current_Offset+=MI->Config.File_Sizes[Pos];

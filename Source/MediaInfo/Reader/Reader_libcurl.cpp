@@ -234,7 +234,7 @@ Reader_libcurl::~Reader_libcurl ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, String File_Name)
 {
     #if defined MEDIAINFO_LIBCURL_DLL_RUNTIME
         if (libcurl_Module_Count==0)

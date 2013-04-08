@@ -69,7 +69,7 @@ const size_t Buffer_NormalSize=64*1024;
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_libmms::Format_Test(MediaInfo_Internal* MI, String File_Name)
 {
     mmsx_t* Handle;
 

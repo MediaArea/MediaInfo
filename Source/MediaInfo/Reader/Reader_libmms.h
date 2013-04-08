@@ -45,7 +45,7 @@ public :
     virtual ~Reader_libmms() {}
 
     //Format testing
-    size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    size_t Format_Test(MediaInfo_Internal* MI, String File_Name);
 };
 
 } //NameSpace
