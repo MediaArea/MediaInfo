@@ -898,6 +898,7 @@ File_Mxf::File_Mxf()
     OperationalPattern=0;
     Buffer_Begin=(int64u)-1;
     Buffer_End=0;
+    Buffer_End_Unlimited=false;
     Buffer_Header_Size=0;
     Preface_Current.hi=0;
     Preface_Current.lo=0;
@@ -2051,6 +2052,9 @@ void File_Mxf::Read_Buffer_Continue()
                         }
                     }
                 delete[] SearchingPartitionPack; //SearchingPartitionPack=NULL
+
+                if (Buffer_End && Buffer_End_Unlimited)
+                    Buffer_End=Config->File_Size; //Updating Clip end in case the 
             }
 
             Config->State_Set(((float)Buffer_TotalBytes)/Config->File_Size);
@@ -2105,6 +2109,13 @@ void File_Mxf::Read_Buffer_AfterParsing()
 
     if (File_Offset+Buffer_Size>=File_Size)
     {
+        if (Partitions_IsCalculatingHeaderByteCount)
+        {
+            Partitions_IsCalculatingHeaderByteCount=false;
+            if (Partitions_Pos<Partitions.size())
+                Partitions[Partitions_Pos].PartitionPackByteCount=File_Offset+Buffer_Offset-Partitions[Partitions_Pos].StreamOffset;
+        }
+
         if (IsParsingEnd)
         {
             if (PartitionMetadata_PreviousPartition && RandomIndexMetadatas.empty() && !RandomIndexMetadatas_AlreadyParsed)
@@ -2138,6 +2149,7 @@ void File_Mxf::Read_Buffer_Unsynched()
         {
             Buffer_Begin=(int64u)-1;
             Buffer_End=0;
+            Buffer_End_Unlimited=false;
             Buffer_Header_Size=0;
             MustSynchronize=true;
             Synched=false;
@@ -2147,9 +2159,13 @@ void File_Mxf::Read_Buffer_Unsynched()
             Synched=true; //Always in clip data
     }
 
-    Frame_Count_NotParsedIncluded=(int64u)-1;
     FrameInfo=frame_info();
     FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
+    if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+        FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
+    else if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+        FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+    Frame_Count_NotParsedIncluded=(int64u)-1;
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         //Calculating the byte count not included in seek information (partition, index...)
         int64u FutureFileOffset=File_GoTo==(int64u)-1?(File_Offset+Buffer_Offset):File_GoTo;
@@ -2767,8 +2783,12 @@ bool File_Mxf::Header_Begin()
                 Element_Size/=Descriptors.begin()->second.BlockAlign;
                 Element_Size*=Descriptors.begin()->second.BlockAlign;
                 Element_Size-=File_Offset+Buffer_Offset-Buffer_Begin;
+                if (Config->File_IsGrowing && Element_Size && File_Offset+Buffer_Offset+Element_Size>Buffer_End)
+                    return false; //Waiting for more data
                 while (Element_Size && File_Offset+Buffer_Offset+Element_Size>Buffer_End)
                     Element_Size-=Descriptors.begin()->second.BlockAlign;
+                if (Element_Size==0)
+                    Element_Size=Buffer_End-(File_Offset+Buffer_Offset);
                 if (Buffer_Offset+Element_Size>Buffer_Size)
                     return false;
             }
@@ -2922,6 +2942,27 @@ void File_Mxf::Header_Parse()
     Get_BER(Length,                                             "Length");
     if (Element_IsWaitingForMoreData())
         return;
+
+    if (Length==0 && Essences.empty() && Retrieve(Stream_General, 0, General_Format_Settings).find(__T(" / Incomplete"))!=string::npos)
+    {
+        if (Buffer_Offset+Element_Offset+4>Buffer_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        
+        if (BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset)!=0x060E2B34)
+        {
+            Buffer_End_Unlimited=true;
+            Length=File_Size-(File_Offset+Buffer_Offset+Element_Offset);
+        }
+    }
+
+	if (Config->File_IsGrowing && File_Offset+Buffer_Offset+Element_Offset+Length>File_Size)
+	{
+		Element_WaitForMoreData();
+		return;
+	}
 
     //Filling
     int32u Code_Compare1=Code.hi>>32;
@@ -3549,6 +3590,7 @@ void File_Mxf::Data_Parse()
     {
         Buffer_Begin=(int64u)-1;
         Buffer_End=0;
+        Buffer_End_Unlimited=false;
         Buffer_Header_Size=0;
         MustSynchronize=true;
     }
@@ -6380,8 +6422,8 @@ void File_Mxf::PartitionMetadata()
                             #if MEDIAINFO_MD5
                                 delete MD5; MD5=NULL;
                             #endif //MEDIAINFO_MD5
-                            break;
                         }
+                        break;
             case 0x02 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Incomplete", Unlimited, true, true);
                         break;
             case 0x03 : Fill(Stream_General, 0, General_Format_Settings, "Open / Complete"    , Unlimited, true, true);
@@ -6391,8 +6433,8 @@ void File_Mxf::PartitionMetadata()
                             #if MEDIAINFO_MD5
                                 delete MD5; MD5=NULL;
                             #endif //MEDIAINFO_MD5
-                            break;
                         }
+                        break;
             case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);
                         break;
             default   : ;

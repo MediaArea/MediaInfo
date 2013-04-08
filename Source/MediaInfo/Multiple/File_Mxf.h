@@ -389,6 +389,7 @@ protected :
     int128u InstanceUID;
     int64u Buffer_Begin;
     int64u Buffer_End;
+    bool   Buffer_End_Unlimited;
     int64u Buffer_Header_Size;
     int16u Code2;
     int16u Length2;
