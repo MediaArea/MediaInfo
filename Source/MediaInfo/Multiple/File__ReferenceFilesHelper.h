@@ -52,6 +52,7 @@ public :
         int64u              Delay;
         int64u              FileSize;
         bool                IsCircular;
+        bool                IsMain;
         size_t              State;
         std::map<std::string, Ztring> Infos;
         MediaInfo_Internal* MI;
@@ -76,6 +77,7 @@ public :
             Delay=0;
             FileSize=(int64u)-1;
             IsCircular=false;
+            IsMain=false;
             State=0;
             MI=NULL;
             #if MEDIAINFO_FILTER
@@ -87,6 +89,8 @@ public :
     references                      References;
     bool                            TestContinuousFileNames;
     bool                            ContainerHasNoId;
+    bool                            HasMainFile;
+    int64u                          ID_Max;
 
     //Streams management
     void ParseReferences();

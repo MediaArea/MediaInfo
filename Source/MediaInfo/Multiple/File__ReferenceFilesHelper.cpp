@@ -64,6 +64,8 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     Init_Done=false;
     TestContinuousFileNames=false;
     ContainerHasNoId=false;
+    HasMainFile=false;
+    ID_Max=0;
     FrameRate=0;
     Duration=0;
     #if MEDIAINFO_NEXTPACKET
@@ -436,7 +438,7 @@ void File__ReferenceFilesHelper::ParseReference()
         Reference->MI->Option(__T("File_KeepInfo"), __T("1"));
         Reference->MI->Option(__T("File_ID_OnlyRoot"), Config->File_ID_OnlyRoot_Get()?__T("1"):__T("0"));
         Reference->MI->Option(__T("File_DvDif_DisableAudioIfIsInContainer"), Config->File_DvDif_DisableAudioIfIsInContainer_Get()?__T("1"):__T("0"));
-        if (References.size()>1 || Config->File_MpegTs_ForceMenu_Get())
+        if ((References.size()>1 || Config->File_MpegTs_ForceMenu_Get()) && !Reference->IsMain && !HasMainFile)
             Reference->MI->Option(__T("File_MpegTs_ForceMenu"), __T("1"));
         #if MEDIAINFO_NEXTPACKET
             if (Config->NextPacket_Get())
@@ -630,12 +632,28 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     //Hacks - Before
     Ztring CodecID=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
     Ztring ID_Base;
-    if (Reference->StreamID!=(int64u)-1)
+    if (HasMainFile)
+        ID_Base=Ztring::ToZtring(ID_Max+Reference->StreamID-1);
+    else if (Reference->StreamID!=(int64u)-1)
         ID_Base=Ztring::ToZtring(Reference->StreamID);
     Ztring ID=ID_Base;
     Ztring ID_String=ID_Base;
     Ztring MenuID;
     Ztring MenuID_String;
+
+    if (!HasMainFile && Reference->IsMain)
+    {
+        MI->Fill(Stream_General, 0, General_Format, Reference->MI->Get(Stream_General, 0, General_Format) , true);
+        MI->Fill(Stream_General, 0, General_CompleteName, Reference->MI->Get(Stream_General, 0, General_CompleteName) , true);
+        MI->Fill(Stream_General, 0, General_FileExtension, Reference->MI->Get(Stream_General, 0, General_FileExtension) , true);
+        HasMainFile=true;
+    }
+    if (Reference->IsMain)
+    {
+        int64u ID_New=Reference->MI->Get(StreamKind_Last, StreamPos_From, General_ID).To_int64u();
+        if (ID_Max<ID_New)
+            ID_Max=ID_New;
+    }
 
     MI->Clear(StreamKind_Last, StreamPos_To, General_ID);
 
@@ -646,14 +664,14 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         MI->Fill(Stream_Video, StreamPos_To, Video_FrameRate, Reference->FrameRate, 3 , true);
 
     //Hacks - After
-    if (CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
+    if (!Reference->IsMain && CodecID!=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID)))
     {
         if (!CodecID.empty())
             CodecID+=__T(" / ");
         CodecID+=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
         MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
     }
-    if (Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1 && Reference->MI->Get(Stream_Video, 0, Video_Format)!=__T("DV"))
+    if (!Reference->IsMain && Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1 && Reference->MI->Get(Stream_Video, 0, Video_Format)!=__T("DV"))
     {
         if (StreamKind_Last==Stream_Menu)
         {
@@ -686,7 +704,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List_String, List_String);
         }
     }
-    if ((ContainerHasNoId || !Config->File_ID_OnlyRoot_Get() || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
+    if (!Reference->IsMain && (ContainerHasNoId || !Config->File_ID_OnlyRoot_Get() || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
     {
         if (!ID.empty())
             ID+=__T('-');
@@ -709,17 +727,20 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MenuID_String=ID_Base;
         }
     }
-    MI->Fill(StreamKind_Last, StreamPos_To, General_ID, ID, true);
-    MI->Fill(StreamKind_Last, StreamPos_To, General_ID_String, ID_String, true);
-    MI->Fill(StreamKind_Last, StreamPos_To, "MenuID", MenuID, true);
-    MI->Fill(StreamKind_Last, StreamPos_To, "MenuID/String", MenuID_String, true);
-    if (MI->Retrieve(StreamKind_Last, StreamPos_To, "Source").empty())
-        MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source);
+    if (!Reference->IsMain)
+    {
+        MI->Fill(StreamKind_Last, StreamPos_To, General_ID, ID, true);
+        MI->Fill(StreamKind_Last, StreamPos_To, General_ID_String, ID_String, true);
+        MI->Fill(StreamKind_Last, StreamPos_To, "MenuID", MenuID, true);
+        MI->Fill(StreamKind_Last, StreamPos_To, "MenuID/String", MenuID_String, true);
+        if (MI->Retrieve(StreamKind_Last, StreamPos_To, "Source").empty())
+            MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source);
+    }
     for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); ++Info)
         MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
 
     //Others
-    if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
+    if (!HasMainFile && Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
     {
         Ztring MuxingMode=MI->Retrieve(StreamKind_Last, StreamPos_To, "MuxingMode");
         if (!MuxingMode.empty())
@@ -729,7 +750,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
 
     //Source_List
     #if MEDIAINFO_ADVANCED
-        if (Config->File_Source_List_Get() && MI->Get(Stream_General, 0, __T("Format"))!=__T("HLS")) //TODO: support of HLS
+        if (!HasMainFile && Config->File_Source_List_Get() && MI->Get(Stream_General, 0, __T("Format"))!=__T("HLS")) //TODO: support of HLS
         {
             if (Reference->FileNames.size()>1 && (Reference->MI->Count_Get(Stream_Menu)==0 || StreamKind_Last==Stream_Menu))
             {
@@ -760,7 +781,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
 
     //MD5
     #if MEDIAINFO_MD5
-        if (Config->File_Md5_Get() && MI->Get(Stream_General, 0, __T("Format"))!=__T("HLS")) //TODO: support of HLS
+        if (!HasMainFile && Config->File_Md5_Get() && MI->Get(Stream_General, 0, __T("Format"))!=__T("HLS")) //TODO: support of HLS
         {
             if (Reference->MI->Count_Get(Stream_Menu)==0 || StreamKind_Last==Stream_Menu)
             {

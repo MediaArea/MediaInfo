@@ -153,6 +153,14 @@ bool File_Dxw::FileHeader_Begin()
                                  ReferenceFile.StreamKind=Stream_Text; //Not sure this is a right mapping, but this is only used when file is missing
                         }
 
+                        Attribute=Track->Attribute("source");
+                        if (Attribute)
+                        {
+                            Ztring StreamKind; StreamKind.From_UTF8(Attribute);
+                            if (StreamKind==__T("main"))
+                                 ReferenceFile.IsMain=true;
+                        }
+
                         ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
                     }
 
@@ -200,6 +208,8 @@ bool File_Dxw::FileHeader_Begin()
             return false;
         }
     }
+
+    Element_Offset=File_Size;
 
     //All should be OK...
     return true;

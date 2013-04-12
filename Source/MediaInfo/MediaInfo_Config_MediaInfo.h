@@ -112,6 +112,11 @@ public :
         bool          File_Md5_Get ();
     #endif //MEDIAINFO_MD5
 
+    #if defined(MEDIAINFO_REFERENCES_YES)
+        void          File_CheckSideCarFiles_Set (bool NewValue);
+        bool          File_CheckSideCarFiles_Get ();
+    #endif //defined(MEDIAINFO_REFERENCES_YES)
+
     void          File_FileName_Set (const Ztring &NewValue);
     Ztring        File_FileName_Get ();
 
@@ -304,6 +309,9 @@ private :
     #if MEDIAINFO_MD5
         bool                File_Md5;
     #endif //MEDIAINFO_MD5
+    #if defined(MEDIAINFO_REFERENCES_YES)
+        bool                File_CheckSideCarFiles;
+    #endif //defined(MEDIAINFO_REFERENCES_YES)
     Ztring                  File_FileName;
     Ztring                  File_FileNameFormat;
     float64                 File_TimeToLive;

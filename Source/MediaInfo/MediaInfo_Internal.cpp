@@ -36,6 +36,7 @@
 #include "MediaInfo/File__MultipleParsing.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/File.h"
+#include "ZenLib/FileName.h"
 #if defined(MEDIAINFO_DIRECTORY_YES)
     #include "MediaInfo/Reader/Reader_Directory.h"
 #endif
@@ -51,6 +52,7 @@
 #if defined(MEDIAINFO_IBI_YES)
     #include "MediaInfo/Multiple/File_Ibi.h"
 #endif
+#include "MediaInfo/Multiple/File_Dxw.h"
 #include <cmath>
 #ifdef MEDIAINFO_DEBUG_WARNING_GET
     #include <iostream>
@@ -475,16 +477,72 @@ void MediaInfo_Internal::Entry()
     #if defined(MEDIAINFO_FILE_YES)
         else if (File::Exists(Config.File_Names[0]))
         {
-            CS.Enter();
-            if (Reader)
+            string Dxw;
+            if (Config.File_CheckSideCarFiles_Get() && !Config.File_IsReferenced_Get())
             {
-                CS.Leave();
-                return; //There is a problem
-            }
-            Reader=new Reader_File();
-            CS.Leave();
+                FileName Test(Config.File_Names[0]);
+                Ztring FileExtension=Test.Extension_Get();
+                FileExtension.MakeLowerCase();
 
-            Reader->Format_Test(this, Config.File_Names[0]);
+                if (FileExtension!=__T("mov"))
+                {
+                    Test.Extension_Set(__T("mov"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".mov\" />\r\n";
+                }
+                if (FileExtension!=__T("mp4"))
+                {
+                    Test.Extension_Set(__T("mp4"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".mp4\" />\r\n";
+                }
+                if (FileExtension!=__T("stl"))
+                {
+                    Test.Extension_Set(__T("stl"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".stl\" />\r\n";
+                }
+
+                Ztring Name=Test.Name_Get();
+                Ztring BaseName=Name.SubString(Ztring(), __T("_"));
+                if (!BaseName.empty())
+                {
+                    ZtringList List;
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_audio.mp4"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.stl"), Dir::Include_Files);
+                    for (size_t Pos=0; Pos<List.size(); Pos++)
+                        Dxw+=" <clip file=\""+List[Pos].To_UTF8()+"\" />\r\n";
+                }
+
+                if (!Dxw.empty())
+                {
+                    Dxw.insert(0, "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
+                            "<indexFile xmlns=\"urn:digimetrics-xml-wrapper\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn:digimetrics-xml-wrapper DMSCLIP.XSD\">\r\n"
+                            " <clip source=\"main\" file=\""+FileName(Config.File_Names[0]).Name_Get().To_UTF8()+"."+FileName(Config.File_Names[0]).Extension_Get().To_UTF8()+"\" />\r\n");
+                    Dxw.append("</indexFile>\r\n");
+                    Config.File_FileNameFormat_Set(__T("Dxw"));
+                }
+            }
+
+            if (Dxw.empty())
+            {
+                CS.Enter();
+                if (Reader)
+                {
+                    CS.Leave();
+                    return; //There is a problem
+                }
+                Reader=new Reader_File();
+                CS.Leave();
+
+                Reader->Format_Test(this, Config.File_Names[0]);
+            }
+            else
+            {
+                Open_Buffer_Init(Dxw.size(), FileName(Config.File_Names[0]).Path_Get()+PathSeparator+FileName(Config.File_Names[0]).Name_Get());
+                Open_Buffer_Continue((const int8u*)Dxw.c_str(), Dxw.size());
+                Open_Buffer_Finalize();
+            }
 
             #if MEDIAINFO_NEXTPACKET
                 if (Config.NextPacket_Get())

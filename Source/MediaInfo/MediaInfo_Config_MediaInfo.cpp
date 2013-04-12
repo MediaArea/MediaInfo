@@ -75,6 +75,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #if MEDIAINFO_MD5
         File_Md5=false;
     #endif //MEDIAINFO_MD5
+    #if defined(MEDIAINFO_REFERENCES_YES)
+        File_CheckSideCarFiles=false;
+    #endif //defined(MEDIAINFO_REFERENCES_YES)
     File_TimeToLive=0;
     File_Buffer_Size_Hint_Pointer=NULL;
     #if MEDIAINFO_NEXTPACKET
@@ -308,6 +311,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //MEDIAINFO_MD5
             return __T("MD5 is disabled due to compilation options");
         #endif //MEDIAINFO_MD5
+    }
+    else if (Option_Lower==__T("file_checksidecarfiles"))
+    {
+        #if defined(MEDIAINFO_REFERENCES_YES)
+            File_CheckSideCarFiles_Set(!(Value==__T("0") || Value.empty()));
+            return Ztring();
+        #else //defined(MEDIAINFO_REFERENCES_YES)
+            return __T("Disabled due to compilation options");
+        #endif //defined(MEDIAINFO_REFERENCES_YES)
     }
     else if (Option_Lower==__T("file_filename"))
     {
@@ -1005,6 +1017,21 @@ bool MediaInfo_Config_MediaInfo::File_Md5_Get ()
     return File_Md5;
 }
 #endif //MEDIAINFO_MD5
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_REFERENCES_YES)
+void MediaInfo_Config_MediaInfo::File_CheckSideCarFiles_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_CheckSideCarFiles=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_CheckSideCarFiles_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_CheckSideCarFiles;
+}
+#endif //defined(MEDIAINFO_REFERENCES_YES)
 
 //---------------------------------------------------------------------------
 #if MEDIAINFO_ADVANCED
