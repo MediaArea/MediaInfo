@@ -227,7 +227,7 @@ const char* Mpeg4_chan(int16u Ordering)
         case 127 : return "Front: L Lc Rc R, Side: L R, LFE";
         case 128 : return "Front: L C R, Side: L R, Rear: L R, LFE";
         case 129 : return "Front: L C R, Side: L R, Rear: L R, LFE";
-        case 130 : return "Front: L C R, Side: L R, LFE / L R (Matrix)";
+        case 130 : return "Front: L C R, Side: L R, LF, Front: L R (Matrix)";
         case 131 : return "Front: L R, Rear: C";
         case 132 : return "Front: L R, Side: L R";
         case 133 : return "Front: L R, LFE";
@@ -327,7 +327,7 @@ const char* Mpeg4_chan_Layout(int16u Ordering)
 }
 
 //---------------------------------------------------------------------------
-std::string Mpeg4_chan_ChannelDescription (int32u ChannelLabels)
+std::string Mpeg4_chan_ChannelDescription (int64u ChannelLabels)
 {
     std::string Text;
     if ((ChannelLabels&0x000E)!=0x0000)
@@ -340,14 +340,22 @@ std::string Mpeg4_chan_ChannelDescription (int32u ChannelLabels)
         Text+=" R";
 
     if ((ChannelLabels&0x0C00)!=0x0000)
-        Text+=", Side:";
+    {
+        if (!Text.empty())
+            Text+=", ";
+        Text+="Side:";
+    }
     if (ChannelLabels&0x0400)
         Text+=" L";
     if (ChannelLabels&0x0800)
         Text+=" R";
 
     if ((ChannelLabels&0x0260)!=0x0000)
-        Text+=", Back:";
+    {
+        if (!Text.empty())
+            Text+=", ";
+        Text+="Back:";
+    }
     if (ChannelLabels&0x0020)
         Text+=" L";
     if (ChannelLabels&0x0200)
@@ -356,7 +364,24 @@ std::string Mpeg4_chan_ChannelDescription (int32u ChannelLabels)
         Text+=" R";
 
     if ((ChannelLabels&0x0010)!=0x0000)
-        Text+=", LFE";
+    {
+        if (!Text.empty())
+            Text+=", ";
+        Text+="LFE";
+    }
+
+    if (ChannelLabels&0x000000C000000000LL)
+    {
+        if (!Text.empty())
+            Text+=", ";
+        Text+="Front:";
+    }
+    if (ChannelLabels&0x0000004000000000LL)
+        Text+=" L";
+    if (ChannelLabels&0x0000008000000000LL)
+        Text+=" R";
+    if (ChannelLabels&0x000000C000000000LL)
+        Text+=" (Matrix)";
 
     return Text;
 }
@@ -399,6 +424,22 @@ const char* Mpeg4_chan_ChannelDescription_Layout (int32u ChannelLabel)
         case 205 : return "S";
         case 206 : return "X";
         case 207 : return "Y";
+        case 0x10000 : return "Discrete-0";
+        case 0x10001 : return "Discrete-1";
+        case 0x10002 : return "Discrete-2";
+        case 0x10003 : return "Discrete-3";
+        case 0x10004 : return "Discrete-4";
+        case 0x10005 : return "Discrete-5";
+        case 0x10006 : return "Discrete-6";
+        case 0x10007 : return "Discrete-7";
+        case 0x10008 : return "Discrete-8";
+        case 0x10009 : return "Discrete-9";
+        case 0x1000A : return "Discrete-10";
+        case 0x1000B : return "Discrete-11";
+        case 0x1000C : return "Discrete-12";
+        case 0x1000D : return "Discrete-13";
+        case 0x1000E : return "Discrete-14";
+        case 0x1000F : return "Discrete-15";
         default  : return "?";
     }
 }
@@ -4440,9 +4481,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
     NAME_VERSION_FLAG("Channels");
 
     //Parsing
-    //From http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_spec/CAF_spec.html#//apple_ref/doc/uid/TP40001862-CH210-DontLinkElementID_25
+    //From http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_spec/CAF_spec.html
     std::string ChannelDescription_Layout;
-    int32u ChannelLayoutTag, ChannelBitmap, NumberChannelDescriptions, ChannelLabels=0;
+    int64u ChannelLabels=0;
+    int32u ChannelLayoutTag, ChannelBitmap, NumberChannelDescriptions;
     bool ChannelLabels_Valid=true;
     Get_B4 (ChannelLayoutTag,                                   "ChannelLayoutTag");
     Get_B4 (ChannelBitmap,                                      "ChannelBitmap");
@@ -4453,8 +4495,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
         {
             int32u ChannelLabel;
             Get_B4 (ChannelLabel,                                   "ChannelLabel");
-            if (ChannelLabel<32)
-                ChannelLabels|=(1<<ChannelLabel);
+            if (ChannelLabel<64)
+                ChannelLabels|=(((int64u)1)<<ChannelLabel);
             else
                 ChannelLabels_Valid=false;
             ChannelDescription_Layout+=Mpeg4_chan_ChannelDescription_Layout(ChannelLabel);
@@ -4474,12 +4516,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
     FILLING_BEGIN();
         if (ChannelLayoutTag==0) //UseChannelDescriptions
         {
-            //Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, NumberChannelDescriptions, 10, true); //Channel count from this atom should not be used as a primary source, it may be wrong
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
             if (ChannelLabels_Valid)
-            {
                 Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Mpeg4_chan_ChannelDescription(ChannelLabels), true, true);
-                Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, ChannelDescription_Layout.c_str(), Unlimited, true, true);
-            }
+            else
+                Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, ChannelDescription_Layout);
         }
         else if (ChannelLayoutTag==0x10000) //UseChannelBitmap
         {
