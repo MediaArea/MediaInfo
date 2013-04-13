@@ -27,10 +27,10 @@
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
-#define wstring2QString(_DATA) \
-    QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
-#define QString2wstring(_DATA) \
-    Ztring().From_UTF8(_DATA.toUtf8())
+
+#define wstring2QString(_DATA)  QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
+#define QString2wstring(_DATA)  Ztring().From_UTF8(_DATA.toUtf8())
+
 
 ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *parent) :
     QHBoxLayout(parent)
