@@ -61,6 +61,8 @@ namespace MediaInfoLib
 /// @version 0.7
 //***************************************************************************
 
+class MediaInfoList_Internal;
+
 class MEDIAINFO_EXP MediaInfoList
 {
 public :
@@ -218,7 +220,11 @@ public :
     size_t                  Count_Get ();
 
 private :
-    void* Internal;
+    MediaInfoList_Internal* Internal;
+
+    //Constructor
+    MediaInfoList (const MediaInfoList&);                   // Prevent copy-construction
+    MediaInfoList& operator=(const MediaInfoList&);         // Prevent assignment
 };
 
 } //NameSpace

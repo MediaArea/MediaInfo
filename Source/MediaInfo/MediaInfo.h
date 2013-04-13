@@ -55,8 +55,7 @@
 namespace MediaInfoLib
 {
 
-class File__Analyze;
-class Internet__Base;
+class MediaInfo_Internal;
 
 //***************************************************************************
 /// @brief MediaInfo
@@ -250,7 +249,11 @@ public :
     size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1);
 
 private :
-    void* Internal;
+    MediaInfo_Internal* Internal;
+
+    //Constructor
+    MediaInfo (const MediaInfo&);                           // Prevent copy-construction
+    MediaInfo& operator=(const MediaInfo&);                 // Prevent assignment
 };
 
 } //NameSpace

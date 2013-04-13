@@ -1971,9 +1971,9 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
         Skip_B2(                                                "previous_PES_packet_CRC");
         Element_End0();
     }
-    bool PES_private_data_flag=false, pack_header_field_flag=false, program_packet_sequence_counter_flag=false, p_STD_buffer_flag=false, PES_extension_flag_2=false; //Need it for DCA event
     if (PES_extension_flag && Element_Offset<Element_Pos_After_Data)
     {
+        bool PES_private_data_flag=false, pack_header_field_flag=false, program_packet_sequence_counter_flag=false, p_STD_buffer_flag=false, PES_extension_flag_2=false;
         Element_Begin1("PES_extension_flag");
         BS_Begin();
         Get_SB (PES_private_data_flag,                          "PES_private_data_flag");
@@ -3407,14 +3407,11 @@ void File_MpegPs::SL_packetized_stream()
         {
             BS_Begin();
             int8u paddingBits=0;
-            bool paddingFlag=false, idleFlag=false, DegPrioflag=false, OCRflag=false,
-                 accessUnitStartFlag=false, accessUnitEndFlag=false,
-                 decodingTimeStampFlag=false, compositionTimeStampFlag=false,
-                 instantBitrateFlag=false;
+            bool paddingFlag=false, idleFlag=false, OCRflag=false, accessUnitStartFlag=false;
             if (SLConfig->useAccessUnitStartFlag)
                 Get_SB (accessUnitStartFlag,                        "accessUnitStartFlag");
             if (SLConfig->useAccessUnitEndFlag)
-                Get_SB (accessUnitEndFlag,                          "accessUnitEndFlag");
+                Skip_SB(                                            "accessUnitEndFlag");
             if (SLConfig->OCRLength>0)
                 Get_SB (OCRflag,                                    "OCRflag");
             if (SLConfig->useIdleFlag)
@@ -3425,6 +3422,7 @@ void File_MpegPs::SL_packetized_stream()
                 Get_S1(3, paddingBits,                              "paddingBits");
             if (!idleFlag && (!paddingFlag || paddingBits!=0))
             {
+                bool DegPrioflag=false;
                 if (SLConfig->packetSeqNumLength>0)
                     Skip_S2(SLConfig->packetSeqNumLength,           "packetSequenceNumber");
                 if (SLConfig->degradationPriorityLength>0)
@@ -3435,6 +3433,7 @@ void File_MpegPs::SL_packetized_stream()
                     Skip_S8(SLConfig->OCRLength,                    "objectClockReference");
                 if (accessUnitStartFlag)
                 {
+                    bool decodingTimeStampFlag=false, compositionTimeStampFlag=false, instantBitrateFlag=false;
                     if (SLConfig->useRandomAccessPointFlag)
                         Skip_SB(                                    "randomAccessPointFlag");
                     if (SLConfig->AU_seqNumLength >0)

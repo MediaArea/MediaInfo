@@ -232,23 +232,27 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         Streams[Parser_Pos]=new stream;
                     if (Streams[Parser_Pos]->Parser==NULL)
                     {
-                        if (cc_type<2)
-                        {
-                            #if defined(MEDIAINFO_EIA608_YES)
-                                Streams[Parser_Pos]->Parser=new File_Eia608();
-                                ((File_Eia608*)Streams[Parser_Pos]->Parser)->cc_type=cc_type;
-                            #else
-                                Streams[Parser_Pos]->Parser=new File__Analyze();
-                            #endif
-                        }
-                        else
-                        {
-                            #if defined(MEDIAINFO_EIA708_YES)
-                                Streams[Parser_Pos]->Parser=new File_Eia708();
-                            #else
-                                Streams[Parser_Pos]->Parser=new File__Analyze();
-                            #endif
-                        }
+                        #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+                            if (cc_type<2)
+                            {
+                                #if defined(MEDIAINFO_EIA608_YES)
+                                    Streams[Parser_Pos]->Parser=new File_Eia608();
+                                    ((File_Eia608*)Streams[Parser_Pos]->Parser)->cc_type=cc_type;
+                                #else //defined(MEDIAINFO_EIA608_YES)
+                                    Streams[Parser_Pos]->Parser=new File__Analyze();
+                                #endif //defined(MEDIAINFO_EIA608_YES)
+                            }
+                            else
+                            {
+                                #if defined(MEDIAINFO_EIA708_YES)
+                                    Streams[Parser_Pos]->Parser=new File_Eia708();
+                                #else //defined(MEDIAINFO_EIA708_YES)
+                                    Streams[Parser_Pos]->Parser=new File__Analyze();
+                                #endif //defined(MEDIAINFO_EIA708_YES)
+                            }
+                        #else //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+                            Streams[Parser_Pos]->Parser=new File__Analyze();
+                        #endif //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
                         Open_Buffer_Init(Streams[Parser_Pos]->Parser);
                     }
                     Demux(Buffer+(size_t)(Buffer_Offset+Element_Offset), 2, ContentType_MainStream);

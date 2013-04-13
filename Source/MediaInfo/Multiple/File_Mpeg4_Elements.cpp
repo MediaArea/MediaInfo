@@ -1572,7 +1572,7 @@ void File_Mpeg4::mdat_xxxx()
             }
 
             Demux_Level=Streams[(int32u)Element_Code].Demux_Level;
-            Demux(Buffer+Buffer_Offset+Streams[(int32u)Element_Code].Demux_Offset, (size_t)Element_Size-Streams[(int32u)Element_Code].Demux_Offset, ContentType_MainStream);
+            Demux(Buffer+Buffer_Offset+Streams[(int32u)Element_Code].Demux_Offset, (size_t)(Element_Size-Streams[(int32u)Element_Code].Demux_Offset), ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
 
@@ -3686,7 +3686,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 {
     Element_Name("Audio");
 
-    int32u SampleRate, Channels, SampleSize, Flags;
+    int32u SampleRate, Channels, SampleSize, Flags=0;
     int16u Version, ID;
     Get_B2 (Version,                                            "Version");
     Skip_B2(                                                    "Revision level");
@@ -3854,8 +3854,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                     Streams[moov_trak_tkhd_TrackID].IsPcmMono=true;
                 }
                 Parser->Channel_Total=2;
-                Parser->SamplingRate=SampleRate;
-                Parser->BitDepth=SampleSize;
+                Parser->SamplingRate=(int16u)SampleRate;
+                Parser->BitDepth=(int8u)SampleSize;
 
                 #if MEDIAINFO_DEMUX
                     Streams[moov_trak_tkhd_TrackID].Demux_Level=Config->Demux_Unpacketize_Get()?0:4; //Intermediate
@@ -4590,14 +4590,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_colr()
     //Parsing
     int16u  colour_primaries, transfer_characteristics, matrix_coefficients;
     Skip_C4(                                                    "Color parameter type");
-    Get_B2 (colour_primaries,                                   "Primaries index"); Param_Info1(Mpegv_colour_primaries(colour_primaries));
-    Get_B2 (transfer_characteristics,                           "Transfer function index"); Param_Info1(Mpegv_transfer_characteristics(transfer_characteristics));
-    Get_B2 (matrix_coefficients,                                "Matrix index"); Param_Info1(Mpegv_matrix_coefficients(matrix_coefficients));
+    Get_B2 (colour_primaries,                                   "Primaries index"); Param_Info1(Mpegv_colour_primaries((int8u)colour_primaries));
+    Get_B2 (transfer_characteristics,                           "Transfer function index"); Param_Info1(Mpegv_transfer_characteristics((int8u)transfer_characteristics));
+    Get_B2 (matrix_coefficients,                                "Matrix index"); Param_Info1(Mpegv_matrix_coefficients((int8u)matrix_coefficients));
 
     FILLING_BEGIN();
-        Fill(Stream_Video, StreamPos_Last, "colour_primaries", Mpegv_colour_primaries(colour_primaries));
-        Fill(Stream_Video, StreamPos_Last, "transfer_characteristics", Mpegv_transfer_characteristics(transfer_characteristics));
-        Fill(Stream_Video, StreamPos_Last, "matrix_coefficients", Mpegv_matrix_coefficients(matrix_coefficients));
+        Fill(Stream_Video, StreamPos_Last, "colour_primaries", Mpegv_colour_primaries((int8u)colour_primaries));
+        Fill(Stream_Video, StreamPos_Last, "transfer_characteristics", Mpegv_transfer_characteristics((int8u)transfer_characteristics));
+        Fill(Stream_Video, StreamPos_Last, "matrix_coefficients", Mpegv_matrix_coefficients((int8u)matrix_coefficients));
     FILLING_END();
 }
 

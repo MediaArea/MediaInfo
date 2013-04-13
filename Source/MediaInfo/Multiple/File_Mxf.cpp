@@ -1928,7 +1928,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, 
                     IsDuplicate=true;
             if (!IsDuplicate)
             {
-                TimeCode TC(Component2->second.TimeCode_StartTimecode, Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
+                TimeCode TC(Component2->second.TimeCode_StartTimecode, (int8u)Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
                 Stream_Prepare(Stream_Other);
                 Fill(Stream_Other, StreamPos_Last, Other_ID, TrackID);
                 Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
@@ -3492,7 +3492,7 @@ void File_Mxf::Data_Parse()
                             }
                     }
                     if (Element_Offset+Size>Element_Size)
-                        Size=Element_Size-Element_Offset;
+                        Size=(int16u)(Element_Size-Element_Offset);
                     Open_Buffer_Continue((*Parser), Buffer+Buffer_Offset+(size_t)(Element_Offset), Size);
                     if ((Code_Compare4&0xFF00FF00)==0x17000100 && LineNumber==21 && (*Parser)->Count_Get(Stream_Text)==0)
                     {
@@ -3520,7 +3520,7 @@ void File_Mxf::Data_Parse()
                         Essence->second.Parsers[Pos]->FrameInfo.PTS=Essence->second.FrameInfo.PTS;
                     if (Essence->second.FrameInfo.DUR!=(int64u)-1)
                         Essence->second.Parsers[Pos]->FrameInfo.DUR=Essence->second.FrameInfo.DUR;
-                    Open_Buffer_Continue(Essence->second.Parsers[Pos], Buffer+Buffer_Offset, Element_Size);
+                    Open_Buffer_Continue(Essence->second.Parsers[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
 
                     //Multiple parsers
                     if (Essence->second.Parsers.size()>1)
@@ -6872,7 +6872,7 @@ void File_Mxf::TimecodeComponent_DropFrame()
             }
         }
 
-        Components[InstanceUID].TimeCode_DropFrame=Data;
+        Components[InstanceUID].TimeCode_DropFrame=Data?true:false;
     FILLING_END();
 }
 
@@ -9334,13 +9334,13 @@ void File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &Essence, c
             Parser=new File_ChannelGrouping;
             Parser->Channel_Pos=0;
             if (Descriptor!=Descriptors.end() && Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
-                Parser->SamplingRate=Descriptor->second.Infos["SamplingRate"].To_int32u();
+                Parser->SamplingRate=Descriptor->second.Infos["SamplingRate"].To_int16u();
             Essence->second.IsChannelGrouping=true;
         }
         Parser->Channel_Total=2;
         if (Descriptor!=Descriptors.end())
         {
-            Parser->BitDepth=Descriptor->second.BlockAlign<=4?(Descriptor->second.BlockAlign*8):(Descriptor->second.BlockAlign*4); //In one file, BlockAlign is size of the aggregated channelgroup
+            Parser->BitDepth=(int8u)(Descriptor->second.BlockAlign<=4?(Descriptor->second.BlockAlign*8):(Descriptor->second.BlockAlign*4)); //In one file, BlockAlign is size of the aggregated channelgroup
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))
@@ -9398,13 +9398,13 @@ void File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, const descrip
         if (Descriptor!=Descriptors.end())
         {
             if (Descriptor->second.Infos.find("Channel(s)")!=Descriptor->second.Infos.end())
-                Parser->Channels=Descriptor->second.Infos["Channel(s)"].To_int32u();
+                Parser->Channels=Descriptor->second.Infos["Channel(s)"].To_int8u();
             if (Parser->Channels && Descriptor->second.BlockAlign!=(int16u)-1)
-                Parser->BitDepth=Descriptor->second.BlockAlign*8/Parser->Channels;
-            else if (Descriptor->second.QuantizationBits!=(int32u)-1)
-                Parser->BitDepth=Descriptor->second.QuantizationBits;
+                Parser->BitDepth=(int8u)(Descriptor->second.BlockAlign*8/Parser->Channels);
+            else if (Descriptor->second.QuantizationBits<256)
+                Parser->BitDepth=(int8u)Descriptor->second.QuantizationBits;
             else if (Descriptor->second.Infos.find("BitDepth")!=Descriptor->second.Infos.end())
-                Parser->BitDepth=Descriptor->second.Infos["BitDepth"].To_int16u();
+                Parser->BitDepth=Descriptor->second.Infos["BitDepth"].To_int8u();
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))
@@ -9463,10 +9463,10 @@ void File_Mxf::ChooseParser_SmpteSt0337(const essences::iterator &Essence, const
         File_SmpteSt0337* Parser=new File_SmpteSt0337;
         if (Descriptor!=Descriptors.end())
         {
-            if (Descriptor->second.BlockAlign!=(int32u)-1)
-                Parser->Container_Bits=Descriptor->second.BlockAlign*4;
+            if (Descriptor->second.BlockAlign<64)
+                Parser->Container_Bits=(int8u)(Descriptor->second.BlockAlign*4);
             else if (Descriptor->second.QuantizationBits!=(int32u)-1)
-                Parser->Container_Bits=Descriptor->second.QuantizationBits;
+                Parser->Container_Bits=(int8u)Descriptor->second.QuantizationBits;
             if (Descriptor->second.Infos.find("Format_Settings_Endianness")!=Descriptor->second.Infos.end())
             {
                 if (Descriptor->second.Infos["Format_Settings_Endianness"]==__T("Big"))

@@ -81,7 +81,7 @@ MediaInfo::MediaInfo()
 //---------------------------------------------------------------------------
 MediaInfo::~MediaInfo()
 {
-    delete (MediaInfo_Internal*)Internal; //Internal=NULL;
+    delete Internal; //Internal=NULL;
 }
 
 //***************************************************************************
@@ -91,43 +91,43 @@ MediaInfo::~MediaInfo()
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open(const String &File_Name_)
 {
-    return ((MediaInfo_Internal*)Internal)->Open(File_Name_);
+    return Internal->Open(File_Name_);
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open (const int8u* Begin, size_t Begin_Size, const int8u* End, size_t End_Size, int64u File_Size)
 {
-    return ((MediaInfo_Internal*)Internal)->Open(Begin, Begin_Size, End, End_Size, (File_Size<Begin_Size+End_Size)?(Begin_Size+End_Size):File_Size);
+    return Internal->Open(Begin, Begin_Size, End, End_Size, (File_Size<Begin_Size+End_Size)?(Begin_Size+End_Size):File_Size);
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Init (int64u File_Size, int64u File_Offset)
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Init(File_Size, File_Offset);
+    return Internal->Open_Buffer_Init(File_Size, File_Offset);
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size).to_ulong();
+    return Internal->Open_Buffer_Continue(ToAdd, ToAdd_Size).to_ulong();
 }
 
 //---------------------------------------------------------------------------
 int64u MediaInfo::Open_Buffer_Continue_GoTo_Get ()
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Continue_GoTo_Get();
+    return Internal->Open_Buffer_Continue_GoTo_Get();
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Finalize ()
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Finalize();
+    return Internal->Open_Buffer_Finalize();
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_NextPacket ()
 {
-    return ((MediaInfo_Internal*)Internal)->Open_NextPacket().to_ulong();
+    return Internal->Open_NextPacket().to_ulong();
 }
 
 //---------------------------------------------------------------------------
@@ -139,7 +139,7 @@ size_t MediaInfo::Save()
 //---------------------------------------------------------------------------
 void MediaInfo::Close()
 {
-    return ((MediaInfo_Internal*)Internal)->Close();
+    return Internal->Close();
 }
 
 //***************************************************************************
@@ -149,19 +149,19 @@ void MediaInfo::Close()
 //---------------------------------------------------------------------------
 String MediaInfo::Inform(size_t)
 {
-    return ((MediaInfo_Internal*)Internal)->Inform();
+    return Internal->Inform();
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
 {
-    return ((MediaInfo_Internal*)Internal)->Get(StreamKind, StreamPos, Parameter, KindOfInfo);
+    return Internal->Get(StreamKind, StreamPos, Parameter, KindOfInfo);
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    return ((MediaInfo_Internal*)Internal)->Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch);
+    return Internal->Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch);
 }
 
 //***************************************************************************
@@ -187,13 +187,13 @@ size_t MediaInfo::Set(const String &, stream_t, size_t, const String &, const St
 //---------------------------------------------------------------------------
 size_t MediaInfo::Output_Buffer_Get (const String &Value)
 {
-    return ((MediaInfo_Internal*)Internal)->Output_Buffer_Get(Value);
+    return Internal->Output_Buffer_Get(Value);
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Output_Buffer_Get (size_t Pos)
 {
-    return ((MediaInfo_Internal*)Internal)->Output_Buffer_Get(Pos);
+    return Internal->Output_Buffer_Get(Pos);
 }
 
 //***************************************************************************
@@ -203,7 +203,7 @@ size_t MediaInfo::Output_Buffer_Get (size_t Pos)
 //---------------------------------------------------------------------------
 String MediaInfo::Option (const String &Option, const String &Value)
 {
-    return ((MediaInfo_Internal*)Internal)->Option(Option, Value);
+    return Internal->Option(Option, Value);
 }
 
 //---------------------------------------------------------------------------
@@ -232,14 +232,14 @@ String MediaInfo::Option_Static (const String &Option, const String &Value)
 //---------------------------------------------------------------------------
 size_t MediaInfo::Count_Get (stream_t StreamKind, size_t StreamPos)
 {
-    return ((MediaInfo_Internal*)Internal)->Count_Get(StreamKind, StreamPos);
+    return Internal->Count_Get(StreamKind, StreamPos);
 
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::State_Get ()
 {
-    return ((MediaInfo_Internal*)Internal)->State_Get();
+    return Internal->State_Get();
 }
 
 } //NameSpace

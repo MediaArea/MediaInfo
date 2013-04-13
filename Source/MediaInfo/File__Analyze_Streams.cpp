@@ -37,9 +37,6 @@
 #include "ZenLib/FileName.h"
 #include "ZenLib/BitStream_LE.h"
 #include <cmath>
-#ifdef SS
-   #undef SS //Solaris defines this somewhere
-#endif
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -1783,7 +1780,7 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
     //Per value
     for (size_t Pos=0; Pos<List.size(); Pos++)
     {
-        int32s HH, MM, SS, MS;
+        int32s HH, MM, Sec, MS;
         Ztring DurationString1, DurationString2, DurationString3;
         bool Negative=false;
         MS=List[Pos].To_int32s(); //in ms
@@ -1836,25 +1833,25 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
         }
 
         //Seconds
-        SS=MS/1000; //s
-        if (SS>0 || MM>0 || HH>0)
+        Sec=MS/1000; //s
+        if (Sec>0 || MM>0 || HH>0)
         {
             if (DurationString1.size()>0)
                 DurationString1+=__T(" ");
-            DurationString1+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(__T("s"));
+            DurationString1+=Ztring::ToZtring(Sec)+MediaInfoLib::Config.Language_Get(__T("s"));
             if (DurationString2.size()<5)
             {
                 if (DurationString2.size()>0)
                     DurationString2+=__T(" ");
-                DurationString2+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(__T("s"));
+                DurationString2+=Ztring::ToZtring(Sec)+MediaInfoLib::Config.Language_Get(__T("s"));
             }
             else if (DurationString2.size()==0)
-                DurationString2+=Ztring::ToZtring(SS)+MediaInfoLib::Config.Language_Get(__T("s"));
-            if (SS<10)
-                DurationString3+=Ztring(__T("0"))+Ztring::ToZtring(SS)+__T(".");
+                DurationString2+=Ztring::ToZtring(Sec)+MediaInfoLib::Config.Language_Get(__T("s"));
+            if (Sec<10)
+                DurationString3+=Ztring(__T("0"))+Ztring::ToZtring(Sec)+__T(".");
             else
-                DurationString3+=Ztring::ToZtring(SS)+__T(".");
-            MS-=SS*1000;
+                DurationString3+=Ztring::ToZtring(Sec)+__T(".");
+            MS-=Sec*1000;
         }
         else
         {
@@ -1862,7 +1859,7 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
         }
 
         //Milliseconds
-        if (MS>0 || SS>0 || MM>0 || HH>0)
+        if (MS>0 || Sec>0 || MM>0 || HH>0)
         {
             if (DurationString1.size()>0)
                 DurationString1+=__T(" ");

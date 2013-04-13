@@ -1750,13 +1750,13 @@ void File_Avc::slice_header()
                     TemporalReferences_Min=(size_t)(TemporalReferences_Offset+pic_order_cnt);
             }
 
-            if (pic_order_cnt<0 && TemporalReferences_Offset<-pic_order_cnt) //Found in playreadyEncryptedBlowUp.ts without encryption test
+            if (pic_order_cnt<0 && TemporalReferences_Offset<(size_t)(-pic_order_cnt)) //Found in playreadyEncryptedBlowUp.ts without encryption test
             {
                 Trusted_IsNot("Problem in temporal references");
                 return;
             }
 
-            if ((int64s)(TemporalReferences_Offset+pic_order_cnt)>=3*TemporalReferences_Reserved)
+            if ((size_t)(TemporalReferences_Offset+pic_order_cnt)>=3*TemporalReferences_Reserved)
             {
                 size_t Offset=TemporalReferences_Max-TemporalReferences_Offset;
                 if (Offset%2)
@@ -2564,23 +2564,21 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
         Skip_XX(payloadSize,                                    "Unknown");
         return; //This is not a text string
     }
-    size_t Data_Pos;
     size_t Data_Pos_Before=0;
     size_t Loop=0;
     do
     {
-        Data_Pos=Data.find(__T(" - "), Data_Pos_Before);
+        size_t Data_Pos=Data.find(__T(" - "), Data_Pos_Before);
         if (Data_Pos==std::string::npos)
             Data_Pos=Data.size();
         if (Data.find(__T("options: "), Data_Pos_Before)==Data_Pos_Before)
         {
             Element_Begin1("options");
-            size_t Options_Pos;
             size_t Options_Pos_Before=Data_Pos_Before;
             Encoded_Library_Settings.clear();
             do
             {
-                Options_Pos=Data.find(__T(" "), Options_Pos_Before);
+                size_t Options_Pos=Data.find(__T(" "), Options_Pos_Before);
                 if (Options_Pos==std::string::npos)
                     Options_Pos=Data.size();
                 Ztring option;

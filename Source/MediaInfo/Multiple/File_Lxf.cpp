@@ -717,7 +717,6 @@ void File_Lxf::Header_Parse()
                     {
                     int32u Size;
                     int8u Channels_Count=0;
-                    bitset<32> Channels;
 
                     if (Version==0)
                     {
@@ -735,7 +734,6 @@ void File_Lxf::Header_Parse()
                         {
                             bool Channel;
                             Get_TB(Channel,                     "Channel");
-                            Channels[Pos]=Channel;
                             if (Channel)
                                 Channels_Count++;
                         }

@@ -3278,8 +3278,10 @@ void File_Mk::CodecID_Manage()
     }
 
     //Creating the parser
-    const Ztring &Format=MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Type, CodecID, InfoCodecID_Format);
-         if (0);
+    #if defined(MEDIAINFO_MPEG4V_YES) || defined(MEDIAINFO_AVC_YES) || defined(MEDIAINFO_VC1_YES) || defined(MEDIAINFO_DIRAC_YES) || defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_VP8_YES) || defined(MEDIAINFO_OGG_YES)
+        const Ztring &Format=MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Type, CodecID, InfoCodecID_Format);
+    #endif
+        if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
     else if (Format==__T("MPEG-4 Visual"))
     {

@@ -2451,9 +2451,9 @@ void File_Mpegv::slice_start()
                     Element_Info1(__T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)FrameInfo.DTS)/1000000)));
                 if (Time_End_Seconds!=Error)
                 {
-                    int32u Time_End  =Time_End_Seconds  *1000;
+                    int64u Time_End  =Time_End_Seconds  *1000;
                     if (FrameRate)
-                        Time_End  +=(int32u)float32_int32s((Time_Current_Frames+temporal_reference)*1000/FrameRate);
+                        Time_End  +=float32_int32s((Time_Current_Frames+temporal_reference)*1000/FrameRate);
                     size_t Hours  = Time_End/60/60/1000;
                     size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
                     size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;

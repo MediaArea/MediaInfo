@@ -520,7 +520,7 @@ void File_Dpx::GenericSectionHeader_v1()
     FILLING_BEGIN();
         //Coherency tests
         if (File_Offset+Buffer_Offset+Size_Total>=Config->File_Current_Size)
-            Size_Total=Config->File_Current_Size-(File_Offset+Buffer_Offset); //The total size is bigger than the real size
+            Size_Total=(int32u)(Config->File_Current_Size-(File_Offset+Buffer_Offset)); //The total size is bigger than the real size
         if (Size_Generic+Size_Industry+Size_User>Size_Header || Size_Header>Size_Total)
         {
             Reject();
@@ -642,9 +642,9 @@ void File_Dpx::GenericSectionHeader_v2()
     FILLING_BEGIN();
         //Coherency tests
         if (File_Offset+Buffer_Offset+Size_Total!=Config->File_Current_Size)
-            Size_Total=Config->File_Current_Size-(File_Offset+Buffer_Offset); //The total size is bigger than the real size
+            Size_Total=(int32u)(Config->File_Current_Size-(File_Offset+Buffer_Offset)); //The total size is bigger than the real size
         if (Size_Generic==(int32u)-1)
-            Size_Generic=Element_Size;
+            Size_Generic=(int32u)Element_Size;
         if (Size_Industry==(int32u)-1)
             Size_Industry=0;
         if (Size_User==(int32u)-1)

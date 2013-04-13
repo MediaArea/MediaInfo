@@ -168,7 +168,7 @@ void File_Gxf_TimeCode::Read_Buffer_Continue()
 
     //Parsing
     Element_Offset=0;
-    for (size_t Pos=0; Pos<(IsAtc?1:504); Pos++)
+    for (size_t Pos=0; Pos<(IsAtc?(size_t)1:(size_t)504); Pos++)
     {
         if (IsAtc || Validity[Pos])
         {

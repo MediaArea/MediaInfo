@@ -128,7 +128,6 @@ bool File_SequenceInfo::FileHeader_Begin()
             if (Pos!=string::npos)
             {
                 Ztring ToAdd=Base.substr(Pos, string::npos);
-                Pos=ToAdd.rfind(__T('_'));
                 Ztring DirectoryBase=Base;
                 DirectoryBase+=ToAdd;
                 DirectoryBase+=__T('_');

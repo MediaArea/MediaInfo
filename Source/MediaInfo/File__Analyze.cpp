@@ -360,7 +360,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             MD5Init(MD5);
         }
         if (MD5)
-            MD5Update(MD5, ToAdd, ToAdd_Size);
+            MD5Update(MD5, ToAdd, (unsigned int)ToAdd_Size);
     #endif //MEDIAINFO_MD5
 
     //Integrity
@@ -593,8 +593,8 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                     }
                     else
                     {
-                        Offsets_Stream[Pos]+=Buffer_Offset*Ratio/2-Offsets_Buffer[Pos];
-                        Offsets_Stream[Pos+1]+=Buffer_Offset*Ratio/2-Offsets_Buffer[Pos+1];
+                        Offsets_Stream[Pos]+=float64_int64s(Buffer_Offset*Ratio/2)-Offsets_Buffer[Pos];
+                        Offsets_Stream[Pos+1]+=float64_int64s(Buffer_Offset*Ratio/2)-Offsets_Buffer[Pos+1];
                         Offsets_Buffer[Pos]=0;
                         Offsets_Buffer[Pos+1]=0;
                         Offsets_Buffer.erase(Offsets_Buffer.begin(), Offsets_Buffer.begin()+Pos);
@@ -620,10 +620,10 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 do
                 {
                     if (Offsets_Buffer[Pos]>Buffer_Offset*Ratio)
-                        Offsets_Buffer[Pos]-=Buffer_Offset*Ratio;
+                        Offsets_Buffer[Pos]-=float64_int64s(Buffer_Offset*Ratio);
                     else
                     {
-                        Offsets_Stream[Pos]+=Buffer_Offset*Ratio-Offsets_Buffer[Pos];
+                        Offsets_Stream[Pos]+=float64_int64s(Buffer_Offset*Ratio)-Offsets_Buffer[Pos];
                         Offsets_Buffer[Pos]=0;
                         Offsets_Buffer.erase(Offsets_Buffer.begin(), Offsets_Buffer.begin()+Pos);
                         Offsets_Stream.erase(Offsets_Stream.begin(), Offsets_Stream.begin()+Pos);
@@ -688,7 +688,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     {
         if (Offsets_Stream.empty())
         {
-            Sub->Offsets_Stream.push_back(File_Offset+(Buffer_Offset+Element_Offset)*Ratio);
+            Sub->Offsets_Stream.push_back(File_Offset+float64_int64s((Buffer_Offset+Element_Offset)*Ratio));
             Sub->Offsets_Buffer.push_back(Sub->Buffer_Size);
         }
         else
@@ -728,7 +728,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         if (Sub->OriginalBuffer_Size+Element_Size-Element_Offset>Sub->OriginalBuffer_Capacity)
         {
             int8u* Temp=Sub->OriginalBuffer;
-            Sub->OriginalBuffer_Capacity=Sub->OriginalBuffer_Size+Element_Size-Element_Offset;
+            Sub->OriginalBuffer_Capacity=(size_t)(Sub->OriginalBuffer_Size+Element_Size-Element_Offset);
             Sub->OriginalBuffer=new int8u[Sub->OriginalBuffer_Capacity];
             std::memcpy(Sub->OriginalBuffer, Temp, Sub->OriginalBuffer_Size);
             delete[] Temp;
@@ -1101,8 +1101,8 @@ void File__Analyze::Read_Buffer_Unsynched_OneFramePerFile()
     int64u GoTo=File_GoTo;
     for (Frame_Count_NotParsedIncluded=0; Frame_Count_NotParsedIncluded<Config->File_Sizes.size(); Frame_Count_NotParsedIncluded++)
     {
-        if (GoTo>=Config->File_Sizes[Frame_Count_NotParsedIncluded])
-            GoTo-=Config->File_Sizes[Frame_Count_NotParsedIncluded];
+        if (GoTo>=Config->File_Sizes[(size_t)Frame_Count_NotParsedIncluded])
+            GoTo-=Config->File_Sizes[(size_t)Frame_Count_NotParsedIncluded];
         else
             break;
     }
@@ -2287,8 +2287,6 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
     if (Element[Element_Level].UnTrusted)
         return;
 
-    const size_t Padding_Value=40;
-
     //Line separator
     if (!Element[Element_Level].ToShow.Details.empty())
         Element[Element_Level].ToShow.Details+=Config_LineSeparator;
@@ -2304,6 +2302,8 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
     {
         case MediaInfo_Config::Trace_Format_Tree        :
                     {
+                    const size_t Padding_Value=40;
+
                     //Show Parameter
                     Ztring Param; Param=Parameter;
                     if (Param.size()>Padding_Value) Param.resize(Padding_Value);
@@ -3183,10 +3183,10 @@ void File__Analyze::Demux (const int8u* Buffer, size_t Buffer_Size, contenttype 
                         Offsets_Stream_Temp.erase(Offsets_Stream_Temp.begin(), Offsets_Stream_Temp.begin()+Pos);
                         Event.Offsets_Size-=Pos;
                     }
-                    Offsets_Stream_Temp[0]+=(Buffer_Offset+Element_Offset)*Ratio-Offsets_Buffer_Temp[0];
+                    Offsets_Stream_Temp[0]+=float64_int64s((Buffer_Offset+Element_Offset)*Ratio)-Offsets_Buffer_Temp[0];
                     Offsets_Buffer_Temp[0]=0;
                     for (size_t Pos=1; Pos<Offsets_Buffer_Temp.size(); Pos++)
-                        Offsets_Buffer_Temp[Pos]-=(Buffer_Offset+Element_Offset)*Ratio;
+                        Offsets_Buffer_Temp[Pos]-=float64_int64s((Buffer_Offset+Element_Offset)*Ratio);
                 }
                 Event.Offsets_Stream=&Offsets_Stream_Temp.front();
                 Event.Offsets_Content=&Offsets_Buffer_Temp.front();

@@ -58,6 +58,7 @@ class MediaInfo_Config
 {
 public :
     //Constructor/Destructor
+    MediaInfo_Config() {}
     void Init(); //Must be called instead of constructor
 
     //General
@@ -347,6 +348,10 @@ private :
           Ztring    Ssl_CertificateRevocationListFileName;
           bool      Ssl_IgnoreSecurity;
     #endif //defined(MEDIAINFO_LIBCURL_YES)
+
+    //Constructor
+    MediaInfo_Config (const MediaInfo_Config&);             // Prevent copy-construction
+    MediaInfo_Config& operator=(const MediaInfo_Config&);   // Prevent assignment
 };
 
 extern MediaInfo_Config Config;

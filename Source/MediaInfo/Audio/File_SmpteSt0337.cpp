@@ -267,7 +267,7 @@ void File_SmpteSt0337::Read_Buffer_Unsynched()
 {
     if (Frame_Count_NotParsedIncluded!=(int64u)-1 && FrameRate)
     {
-        Frame_Count_NotParsedIncluded=File_GoTo/FrameRate;
+        Frame_Count_NotParsedIncluded=float64_int64s(File_GoTo/FrameRate);
         FrameInfo.DTS=Frame_Count_NotParsedIncluded*1000000000/48000;
     }
 }
@@ -292,7 +292,7 @@ size_t File_SmpteSt0337::Read_Buffer_Seek (size_t Method, int64u Value, int64u I
         if (!MiOpenResult)
             return 0;
 
-        FrameRate=MI.Get(Stream_Audio, 0, __T("FrameCount")).To_int64u();
+        FrameRate=MI.Get(Stream_Audio, 0, __T("FrameRate")).To_float64();
 
         Duration_Detected=true;
     }
@@ -304,8 +304,8 @@ size_t File_SmpteSt0337::Read_Buffer_Seek (size_t Method, int64u Value, int64u I
                     if (FrameRate)
                     {
                         float64 FrameSize=3072000/FrameRate;
-                        int64u  FrameCount=Value/FrameSize;
-                        Value=(int64u)(FrameCount*FrameSize);
+                        int64u  FrameCount=float64_int64s(Value/FrameSize);
+                        Value=float64_int64s(FrameCount*FrameSize);
                     }
                     GoTo(Value);
                     Open_Buffer_Unsynch();
@@ -320,7 +320,7 @@ size_t File_SmpteSt0337::Read_Buffer_Seek (size_t Method, int64u Value, int64u I
                     {
                         float64 FrameSize=3072000/FrameRate;
                         Unsynch_Frame_Count=float64_int64s(((float64)Value)/1000000000*FrameRate);
-                        GoTo(Unsynch_Frame_Count*FrameSize);
+                        GoTo(float64_int64s(Unsynch_Frame_Count*FrameSize));
                         Open_Buffer_Unsynch();
                         return 1;
                     }
@@ -333,7 +333,7 @@ size_t File_SmpteSt0337::Read_Buffer_Seek (size_t Method, int64u Value, int64u I
                     {
                         float64 FrameSize=3072000/FrameRate;
                         Unsynch_Frame_Count=Value;
-                        GoTo(Unsynch_Frame_Count*FrameSize);
+                        GoTo(float64_int64s(Unsynch_Frame_Count*FrameSize));
                         Open_Buffer_Unsynch();
                         return 1;
                     }
@@ -873,7 +873,7 @@ void File_SmpteSt0337::Header_Parse()
         Offset/=Container_Bits/4;
         Offset*=Container_Bits/4;
         bool IsOK=true;
-        for (size_t Pos=0; Pos<Container_Bits/4; Pos++)
+        for (int8u Pos=0; Pos<Container_Bits/4; Pos++)
             if (Buffer[Buffer_Offset+Pos]!=Buffer[Offset+Pos])
             {
                 IsOK=false;
@@ -903,9 +903,9 @@ void File_SmpteSt0337::Data_Parse()
 
     // Adapting
     const int8u* Save_Buffer=NULL;
-    size_t Save_Buffer_Offset;
-    size_t Save_Buffer_Size;
-    int64u Save_Element_Size;
+    size_t Save_Buffer_Offset=0;
+    size_t Save_Buffer_Size=0;
+    int64u Save_Element_Size=0;
 
     if (Endianness=='L'|| Container_Bits!=Stream_Bits)
     {

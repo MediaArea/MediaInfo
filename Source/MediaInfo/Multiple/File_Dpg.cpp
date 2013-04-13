@@ -147,40 +147,42 @@ void File_Dpg::Read_Buffer_Continue()
     if (!Parser)
         return; //Not ready
 
-    if (Audio_Size)
-    {
-        #if defined(MEDIAINFO_MPEGA_YES)
-            Open_Buffer_Continue(Parser, (size_t)((File_Offset+Buffer_Size<Audio_Offset+Audio_Size)?Buffer_Size:(Audio_Offset+Audio_Size-File_Offset)));
-            if (Parser->Status[IsAccepted])
-            {
-                Finish(Parser);
-                Merge(*Parser, Stream_Audio, 0, 0);
-                #if defined(MEDIAINFO_MPEGV_YES)
-                    Audio_Size=0;
-                    Open_Buffer_Unsynch();
-                    Data_GoTo(Video_Offset, "DPG");
-                    delete Parser; Parser=new File_Mpegv();
-                    Open_Buffer_Init(Parser);
-                #else
-                    Finish("DPG");
-                #endif
-            }
-        #endif
-    }
-    else
-    {
-        #if defined(MEDIAINFO_MPEGV_YES)
-            Open_Buffer_Continue(Parser, (size_t)((File_Offset+Buffer_Size<Video_Offset+Video_Size)?Buffer_Size:(Video_Offset+Video_Size-File_Offset)));
-            if (Parser->Status[IsAccepted])
-            {
-                //Merging
-                Finish(Parser);
-                Merge(*Parser, Stream_Video, 0, 0);
+    #if defined(MEDIAINFO_MPEGA_YES) || defined(MEDIAINFO_MPEGV_YES)
+        if (Audio_Size)
+        {
+            #if defined(MEDIAINFO_MPEGA_YES)
+                Open_Buffer_Continue(Parser, (size_t)((File_Offset+Buffer_Size<Audio_Offset+Audio_Size)?Buffer_Size:(Audio_Offset+Audio_Size-File_Offset)));
+                if (Parser->Status[IsAccepted])
+                {
+                    Finish(Parser);
+                    Merge(*Parser, Stream_Audio, 0, 0);
+                    #if defined(MEDIAINFO_MPEGV_YES)
+                        Audio_Size=0;
+                        Open_Buffer_Unsynch();
+                        Data_GoTo(Video_Offset, "DPG");
+                        delete Parser; Parser=new File_Mpegv();
+                        Open_Buffer_Init(Parser);
+                    #else
+                        Finish("DPG");
+                    #endif
+                }
+            #endif
+        }
+        else
+        {
+            #if defined(MEDIAINFO_MPEGV_YES)
+                Open_Buffer_Continue(Parser, (size_t)((File_Offset+Buffer_Size<Video_Offset+Video_Size)?Buffer_Size:(Video_Offset+Video_Size-File_Offset)));
+                if (Parser->Status[IsAccepted])
+                {
+                    //Merging
+                    Finish(Parser);
+                    Merge(*Parser, Stream_Video, 0, 0);
 
-                Finish("DPG");
-            }
-        #endif
-    }
+                    Finish("DPG");
+                }
+            #endif
+        }
+    #endif //defined(MEDIAINFO_MPEGA_YES) || defined(MEDIAINFO_MPEGV_YES)
 
     //Positioning
     Buffer_Offset=Buffer_Size; //We have already parsed this data

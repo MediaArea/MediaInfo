@@ -409,7 +409,7 @@ public :
     void Get_BF4  (float32 &Info, const char* Name);
     void Get_BF8  (float64 &Info, const char* Name);
     void Get_BF10 (float80 &Info, const char* Name);
-    void Get_BFP4 (size_t Bits, float32 &Info, const char* Name);
+    void Get_BFP4 (int8u Bits, float32 &Info, const char* Name);
     void Peek_B1  (int8u   &Info);
     void Peek_B2  (int16u  &Info);
     void Peek_B3  (int32u  &Info);
@@ -435,7 +435,7 @@ public :
     void Skip_BF4 (               const char* Name);
     void Skip_BF8 (               const char* Name);
     void Skip_BF10(               const char* Name);
-    void Skip_BFP4(size_t Bits,                const char* Name);
+    void Skip_BFP4(int8u Bits,                const char* Name);
     #define Info_B1(_INFO, _NAME)   int8u   _INFO; Get_B1  (_INFO, _NAME)
     #define Info_B2(_INFO, _NAME)   int16u  _INFO; Get_B2  (_INFO, _NAME)
     #define Info_B3(_INFO, _NAME)   int32u  _INFO; Get_B3  (_INFO, _NAME)
@@ -719,38 +719,38 @@ public :
     // BitStream
     //***************************************************************************
 
-    void Get_BS (size_t Bits, int32u  &Info, const char* Name);
+    void Get_BS (int8u  Bits, int32u  &Info, const char* Name);
     void Get_SB (             bool    &Info, const char* Name);
     bool Get_SB(                             const char* Name)  {bool Temp; Get_SB(Temp, Name); return Temp;}
-    void Get_S1 (size_t Bits, int8u   &Info, const char* Name);
-    void Get_S2 (size_t Bits, int16u  &Info, const char* Name);
-    void Get_S3 (size_t Bits, int32u  &Info, const char* Name);
-    void Get_S4 (size_t Bits, int32u  &Info, const char* Name);
-    void Get_S5 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_S6 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_S7 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_S8 (size_t Bits, int64u  &Info, const char* Name);
-    void Peek_BS(size_t Bits, int32u  &Info);
-    void Peek_SB(              bool    &Info);
+    void Get_S1 (int8u  Bits, int8u   &Info, const char* Name);
+    void Get_S2 (int8u  Bits, int16u  &Info, const char* Name);
+    void Get_S3 (int8u  Bits, int32u  &Info, const char* Name);
+    void Get_S4 (int8u  Bits, int32u  &Info, const char* Name);
+    void Get_S5 (int8u  Bits, int64u  &Info, const char* Name);
+    void Get_S6 (int8u  Bits, int64u  &Info, const char* Name);
+    void Get_S7 (int8u  Bits, int64u  &Info, const char* Name);
+    void Get_S8 (int8u  Bits, int64u  &Info, const char* Name);
+    void Peek_BS(int8u  Bits, int32u  &Info);
+    void Peek_SB(             bool    &Info);
     bool Peek_SB()                                              {bool Temp; Peek_SB(Temp); return Temp;}
-    void Peek_S1(size_t Bits, int8u   &Info);
-    void Peek_S2(size_t Bits, int16u  &Info);
-    void Peek_S3(size_t Bits, int32u  &Info);
-    void Peek_S4(size_t Bits, int32u  &Info);
-    void Peek_S5(size_t Bits, int64u  &Info);
-    void Peek_S6(size_t Bits, int64u  &Info);
-    void Peek_S7(size_t Bits, int64u  &Info);
-    void Peek_S8(size_t Bits, int64u  &Info);
+    void Peek_S1(int8u  Bits, int8u   &Info);
+    void Peek_S2(int8u  Bits, int16u  &Info);
+    void Peek_S3(int8u  Bits, int32u  &Info);
+    void Peek_S4(int8u  Bits, int32u  &Info);
+    void Peek_S5(int8u  Bits, int64u  &Info);
+    void Peek_S6(int8u  Bits, int64u  &Info);
+    void Peek_S7(int8u  Bits, int64u  &Info);
+    void Peek_S8(int8u  Bits, int64u  &Info);
     void Skip_BS(size_t Bits,                const char* Name);
     void Skip_SB(                            const char* Name);
-    void Skip_S1(size_t Bits,                const char* Name);
-    void Skip_S2(size_t Bits,                const char* Name);
-    void Skip_S3(size_t Bits,                const char* Name);
-    void Skip_S4(size_t Bits,                const char* Name);
-    void Skip_S5(size_t Bits,                const char* Name);
-    void Skip_S6(size_t Bits,                const char* Name);
-    void Skip_S7(size_t Bits,                const char* Name);
-    void Skip_S8(size_t Bits,                const char* Name);
+    void Skip_S1(int8u  Bits,                const char* Name);
+    void Skip_S2(int8u  Bits,                const char* Name);
+    void Skip_S3(int8u  Bits,                const char* Name);
+    void Skip_S4(int8u  Bits,                const char* Name);
+    void Skip_S5(int8u  Bits,                const char* Name);
+    void Skip_S6(int8u  Bits,                const char* Name);
+    void Skip_S7(int8u  Bits,                const char* Name);
+    void Skip_S8(int8u  Bits,                const char* Name);
     void Mark_0 ();
     void Mark_0_NoTrustError (); //Use it for providing a warning instead of a non-trusting error
     void Mark_1 ();
@@ -1467,10 +1467,10 @@ public :
     ATOM_BEGIN \
 
 #define DATA_END \
-        default : ; \
-            Skip_XX(Element_TotalSize_Get(), "Unknown"); \
-    }} \
-     \
+            default : ; \
+                Skip_XX(Element_TotalSize_Get(), "Unknown"); \
+        } \
+    } \
 
 #define DATA_DEFAULT \
         default : \

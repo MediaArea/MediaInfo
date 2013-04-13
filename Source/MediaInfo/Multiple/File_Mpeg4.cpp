@@ -306,7 +306,7 @@ void File_Mpeg4::Streams_Finish()
                     if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
                     {
                         Delay=Temp->second.edts[0].Duration;
-                        Temp->second.tkhd_Duration-=Delay;
+                        Temp->second.tkhd_Duration-=float64_int64s(Delay);
                         Delay/=TimeScale; //In seconds
                     }
                     break;
@@ -932,14 +932,18 @@ void File_Mpeg4::Read_Buffer_Unsynched()
     #if MEDIAINFO_SEEK
         //Searching the ID of the first stream to be demuxed
         std::map<int32u, stream>::iterator Next_Stream=Streams.end();
-        size_t Next_Stream_Stco=(size_t)-1;
+        #if MEDIAINFO_DEMUX
+            size_t Next_Stream_Stco=(size_t)-1;
+        #endif //MEDIAINFO_DEMUX
         for (std::map<int32u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); ++Stream)
         {
             for (size_t Stco_Pos=0; Stco_Pos<Stream->second.stco.size(); Stco_Pos++)
                 if (Stream->second.stco[Stco_Pos]==mdat_Pos_Temp->first)
                 {
                     Next_Stream=Stream;
-                    Next_Stream_Stco=Stco_Pos;
+                    #if MEDIAINFO_DEMUX
+                        Next_Stream_Stco=Stco_Pos;
+                    #endif //MEDIAINFO_DEMUX
                     break;
                 }
             if (Next_Stream!=Streams.end())

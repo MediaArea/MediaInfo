@@ -43,9 +43,9 @@ public :
     //In
     int64u          Frame_Count_Valid;
     ZenLib::Ztring  Codec;
-    int16u          BitDepth;
-    int16u          Channels;
     int32u          SamplingRate;
+    int8u           BitDepth;
+    int8u           Channels;
     int8u           Endianness;
     int8u           Sign;
 

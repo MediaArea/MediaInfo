@@ -44,8 +44,8 @@ class File_ChannelGrouping : public File__Analyze
 {
 public :
     //In
-    size_t  BitDepth;
-    int64u  SamplingRate;
+    int8u   BitDepth;
+    int16u  SamplingRate;
     int8u   Endianness;
     bool    CanBePcm;
 
@@ -119,8 +119,8 @@ public :
     };
     int64u  StreamID;
     common* Common;
-    size_t  Channel_Pos;
-    size_t  Channel_Total;
+    int8u   Channel_Pos;
+    int8u   Channel_Total;
 
     //Constructor/Destructor
     File_ChannelGrouping();

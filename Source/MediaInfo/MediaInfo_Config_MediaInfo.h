@@ -420,6 +420,10 @@ private :
     #endif //defined(MEDIAINFO_LIBCURL_YES)
 
     ZenLib::CriticalSection CS;
+
+    //Constructor
+    MediaInfo_Config_MediaInfo (const MediaInfo_Config_MediaInfo&);             // Prevent copy-construction
+    MediaInfo_Config_MediaInfo& operator=(const MediaInfo_Config_MediaInfo&);   // Prevent assignment
 };
 
 } //NameSpace

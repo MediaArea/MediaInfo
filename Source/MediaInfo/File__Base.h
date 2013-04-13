@@ -114,6 +114,11 @@ public :
     //Divers
     void Clear();
 
+private :
+    //Constructor
+    File__Base (const File__Base&);                         // Prevent copy-construction
+    File__Base& operator=(const File__Base&);               // Prevent assignment
+
 public :  //A virer
     friend class File__Analyze;
     friend class File__MultipleParsing;

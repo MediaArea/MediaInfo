@@ -917,7 +917,7 @@ void File_MpegTs::Streams_Update_Duration_Update()
         int64u  TimeStamp_Distance_Min=(int64u)-1;
         int64u  TimeStamp_Distance_Max=0;
         int64u  TimeStamp_Distance_Total=0;
-        size_t  TimeStamp_Distance_Count=0;
+        int64u  TimeStamp_Distance_Count=0;
         int64u  TimeStamp_HasProblems=0;
     #endif // MEDIAINFO_ADVANCED
 
@@ -955,7 +955,7 @@ void File_MpegTs::Streams_Update_Duration_Update()
                 }
 
                 (*Stream)->TimeStamp_End_IsUpdated=false;
-                (*Stream)->IsPCR_Duration=Duration;
+                (*Stream)->IsPCR_Duration=(float64)Duration;
 
                 //Filling menu duration
                 if (Count_Get(Stream_Menu))
@@ -1426,7 +1426,7 @@ bool File_MpegTs::Synched_Test()
                                                         Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Min_Raw=TimeStamp_InstantaneousBitRate_Current_Raw;
                                                     if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Max_Raw<TimeStamp_InstantaneousBitRate_Current_Raw)
                                                         Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Max_Raw=TimeStamp_InstantaneousBitRate_Current_Raw;
-                                                    float64 Distance=(float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End);
+                                                    int64u Distance=program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End;
                                                     if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Min>Distance)
                                                         Complete_Stream->Streams[pid]->TimeStamp_Distance_Min=Distance;
                                                     if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Max<Distance)
@@ -2164,7 +2164,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                                             Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Min_Raw=TimeStamp_InstantaneousBitRate_Current_Raw;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Max_Raw<TimeStamp_InstantaneousBitRate_Current_Raw)
                                             Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Max_Raw=TimeStamp_InstantaneousBitRate_Current_Raw;
-                                        float64 Distance=(float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End);
+                                        int64u Distance=program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Min>Distance)
                                             Complete_Stream->Streams[pid]->TimeStamp_Distance_Min=Distance;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Max<Distance)
@@ -2390,7 +2390,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                                             Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Min_Raw=InstantaneousBitRate_Raw;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Max_Raw<InstantaneousBitRate_Raw)
                                             Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Max_Raw=InstantaneousBitRate_Raw;
-                                        float64 Distance=(float64)(program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End);
+                                        int64u Distance=program_clock_reference-Complete_Stream->Streams[pid]->TimeStamp_End;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Min>Distance)
                                             Complete_Stream->Streams[pid]->TimeStamp_Distance_Min=Distance;
                                         if (Complete_Stream->Streams[pid]->TimeStamp_Distance_Max<Distance)
