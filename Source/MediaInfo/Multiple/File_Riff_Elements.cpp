@@ -3184,9 +3184,10 @@ void File_Riff::RMP3_data()
         Parser->CalculateDelay=true;
         Parser->ShouldContinueParsing=true;
         Open_Buffer_Init(Parser);
-        Stream[(int32u)-1].StreamKind=Stream_Audio;
-        Stream[(int32u)-1].StreamPos=0;
-        Stream[(int32u)-1].Parsers.push_back(Parser);
+        stream& StreamItem=Stream[(int32u)-1];
+        StreamItem.StreamKind=Stream_Audio;
+        StreamItem.StreamPos=0;
+        StreamItem.Parsers.push_back(Parser);
     #else //MEDIAINFO_MPEG4_YES
         Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
         Skip_XX(Buffer_DataToParse_End-Buffer_DataToParse_Begin, "Data");
