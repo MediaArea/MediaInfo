@@ -422,8 +422,8 @@ void File_AvsV::Data_Parse()
         case 0xB4:
         case 0xB8: reserved(); break;
         default:
-            if (Element_Code>=0x00
-             && Element_Code<=0xAF) slice();
+            if (Element_Code>=0x00 && Element_Code<=0xAF)
+                slice();
             else
             {
                 if (Frame_Count==0 && Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched_Max)

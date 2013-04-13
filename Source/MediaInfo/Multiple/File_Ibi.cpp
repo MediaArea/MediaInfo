@@ -693,7 +693,7 @@ void File_Ibi::InformData()
                     break; //Problem
                 Pos++;
             }
-                    
+
             Fill(StreamKind_Last, StreamPos_Last, Fields[Pos][0].To_UTF8().c_str(), Fields[Pos][1], true);
             if (Info_Options<Fields[Pos].size())
                 (*Stream_More)[StreamKind_Last][StreamPos_Last](Fields[Pos][0].To_UTF8().c_str(), Info_Options)=Fields[Pos][Info_Options];

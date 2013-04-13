@@ -190,7 +190,7 @@ void File_ChannelGrouping::Read_Buffer_Continue()
         Reject();
         return;
     }
-    
+
     //Handling of multiple frames in one block
     if (Buffer_Size==0)
     {

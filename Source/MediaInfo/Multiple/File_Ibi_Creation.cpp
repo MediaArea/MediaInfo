@@ -301,7 +301,8 @@ size_t EbmlBlock(int8u* List, size_t List_MaxSize, int64u Code, int8u* Content, 
     {
         List+=int64u2Ebml(List, Code);
         List+=int64u2Ebml(List, Content_Size);
-        std::memcpy(List, Content, Content_Size); List+=Content_Size;//Content
+        std::memcpy(List, Content, Content_Size);
+        List+=Content_Size; //Content
     }
 
     return Code_EbmlSize+Content_EbmlSize+Content_Size;
@@ -378,7 +379,7 @@ void File_Ibi_Creation::Set(const ibi &Ibi)
             BlockSizeWithoutHeader+=1+1+8; //Source file modification date
         if (FileSize_IsValid)
             BlockSizeWithoutHeader+=1+1+8; //Source file size
-            
+
         buffer* Buffer=new buffer;
         Buffer->Content=new int8u[1+int64u2Ebml(NULL, 1+int64u2Ebml(NULL, BlockSizeWithoutHeader))+BlockSizeWithoutHeader];
         Buffer->Size+=int64u2Ebml(Buffer->Content+Buffer->Size, 0x05);                                                  //Source information
@@ -416,7 +417,7 @@ void File_Ibi_Creation::Set(const ibi &Ibi)
         std::memcpy(Buffer->Content+Buffer->Size, Version.c_str(), Version.size()); Buffer->Size+=Version.size(); //Content
         Buffers.push_back(Buffer);
     }
-    
+
     //InformData
     if (!Ibi.Inform_Data.empty())
     {

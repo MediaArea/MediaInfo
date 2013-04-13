@@ -349,7 +349,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 return;
         }
     #endif //MEDIAINFO_DEMUX
-    
+
     Frame_Count_InThisBlock=0;
 
     //MD5
@@ -362,7 +362,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         if (MD5)
             MD5Update(MD5, ToAdd, ToAdd_Size);
     #endif //MEDIAINFO_MD5
-    
+
     //Integrity
     if (Status[IsFinished])
         return;
@@ -3490,13 +3490,13 @@ void File__Analyze::Ibi_Stream_Finish ()
         for (size_t StreamKind=Stream_General; StreamKind<Stream_Max; ++StreamKind)
         {
             ZtringListList Source=MediaInfoLib::Config.Info_Get((stream_t)StreamKind);
-                
+
             for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); ++StreamPos)
             {
                 ZtringList KindAndPos;
                 KindAndPos.push_back(Get((stream_t)StreamKind, StreamPos, __T("StreamKind")));
                 Content.push_back(KindAndPos);
-                    
+
                 //Standard
                 for (size_t Pos=0; Pos<Source.size(); ++Pos)
                 {

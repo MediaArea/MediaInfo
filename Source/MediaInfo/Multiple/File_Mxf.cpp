@@ -2054,7 +2054,7 @@ void File_Mxf::Read_Buffer_Continue()
                 delete[] SearchingPartitionPack; //SearchingPartitionPack=NULL
 
                 if (Buffer_End && Buffer_End_Unlimited)
-                    Buffer_End=Config->File_Size; //Updating Clip end in case the 
+                    Buffer_End=Config->File_Size; //Updating Clip end in case the
             }
 
             Config->State_Set(((float)Buffer_TotalBytes)/Config->File_Size);
@@ -2951,7 +2951,7 @@ void File_Mxf::Header_Parse()
             Element_WaitForMoreData();
             return;
         }
-        
+
         if (BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset)!=0x060E2B34)
         {
             Buffer_End_Unlimited=true;
@@ -2959,11 +2959,11 @@ void File_Mxf::Header_Parse()
         }
     }
 
-	if (Config->File_IsGrowing && File_Offset+Buffer_Offset+Element_Offset+Length>File_Size)
-	{
-		Element_WaitForMoreData();
-		return;
-	}
+    if (Config->File_IsGrowing && File_Offset+Buffer_Offset+Element_Offset+Length>File_Size)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
 
     //Filling
     int32u Code_Compare1=Code.hi>>32;
@@ -3316,14 +3316,14 @@ void File_Mxf::Data_Parse()
             //Searching the corresponding Track (for TrackID)
             if (!Essence->second.TrackID_WasLookedFor)
             {
-                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                     if (Track->second.TrackNumber==Code_Compare4)
                         Essence->second.TrackID=Track->second.TrackID;
                 #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
                     if (Essence->second.TrackID==(int32u)-1 && !Duration_Detected && !Config->File_IsDetectingDuration_Get())
                     {
                         DetectDuration(); //In one file (*-009.mxf), the TrackNumber is known only at the end of the file (Open and incomplete header/footer)
-                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                             if (Track->second.TrackNumber==Code_Compare4)
                                 Essence->second.TrackID=Track->second.TrackID;
                     }
@@ -9315,7 +9315,7 @@ void File_Mxf::ChooseParser_ChannelGrouping(const essences::iterator &Essence, c
     Essence->second.StreamKind=Stream_Audio;
 
     //Creating the parser
-    if (!((Essence->second.StreamPos-(StreamPos_StartAtOne?1:0))%2 && Essences[Essence->first-1].Parsers.size()<=1)) 
+    if (!((Essence->second.StreamPos-(StreamPos_StartAtOne?1:0))%2 && Essences[Essence->first-1].Parsers.size()<=1))
     {
         File_ChannelGrouping* Parser;
         if ((Essence->second.StreamPos-(StreamPos_StartAtOne?1:0))%2) //If the first half-stream was already rejected, don't try this one
