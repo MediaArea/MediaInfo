@@ -112,7 +112,8 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
 int main(int argc, char* argv_ansi[])
 {
     //Localisation
-    setlocale(LC_ALL, """""");
+    setlocale(LC_ALL, "");
+    MediaInfo::Option_Static(__T("CharSet"), __T(""));
 
     //Initialize terminal (to fix Unicode output on Win32)
     #if defined(_MSC_VER) && defined(UNICODE)
