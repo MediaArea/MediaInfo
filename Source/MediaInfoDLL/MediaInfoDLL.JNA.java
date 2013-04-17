@@ -27,6 +27,7 @@
 import static java.util.Collections.singletonMap;
 
 import java.lang.reflect.Method;
+import java.net.URL;
 
 import com.sun.jna.FunctionMapper;
 import com.sun.jna.Library;
@@ -37,6 +38,7 @@ import com.sun.jna.WString;
 
 class MediaInfo
 {
+    static String LibraryPath="mediainfo";
     static
     {
         // libmediainfo for linux depends on libzen
@@ -46,7 +48,38 @@ class MediaInfo
             // If we do not, the system will look for dependencies, but only in the library path.
             String os=System.getProperty("os.name");
             if (os!=null && !os.toLowerCase().startsWith("windows") && !os.toLowerCase().startsWith("mac"))
-                NativeLibrary.getInstance("zen");
+            {
+                final ClassLoader loader=MediaInfo.class.getClassLoader();
+                final String LocalPath;
+                if (loader!=null)
+                {
+                    LocalPath=loader.getResource(MediaInfo.class.getName().replace('.', '/')+ ".class").getPath().replace("MediaInfo.class", "");
+                    try
+                    {
+                        NativeLibrary.getInstance(LocalPath+"libzen.so.0"); // Local path
+                    }
+                    catch (LinkageError e)
+                    {
+                        NativeLibrary.getInstance("zen"); // Default path 
+                    }
+                }
+                else
+                {
+                    LocalPath="";
+                    NativeLibrary.getInstance("zen"); // Default path 
+                }
+                if (LocalPath.length()>0)
+                {
+                    try
+                    {
+                        NativeLibrary.getInstance(LocalPath+"libmediainfo.so.0"); // Local path
+                        LibraryPath=LocalPath+"libmediainfo.so.0";
+                    }
+                    catch (LinkageError e)
+                    {
+                    }
+                }
+            }
         }
         catch (LinkageError  e)
         {
@@ -58,7 +91,7 @@ class MediaInfo
     interface MediaInfoDLL_Internal extends Library
     {
 
-        MediaInfoDLL_Internal INSTANCE = (MediaInfoDLL_Internal) Native.loadLibrary("mediainfo", MediaInfoDLL_Internal.class, singletonMap(OPTION_FUNCTION_MAPPER, new FunctionMapper()
+        MediaInfoDLL_Internal INSTANCE = (MediaInfoDLL_Internal) Native.loadLibrary(LibraryPath, MediaInfoDLL_Internal.class, singletonMap(OPTION_FUNCTION_MAPPER, new FunctionMapper()
             {
 
                 @Override
