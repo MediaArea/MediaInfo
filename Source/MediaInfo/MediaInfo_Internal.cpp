@@ -484,17 +484,41 @@ void MediaInfo_Internal::Entry()
                 Ztring FileExtension=Test.Extension_Get();
                 FileExtension.MakeLowerCase();
 
-                if (FileExtension!=__T("mov"))
+                if (FileExtension!=__T("dfxp"))
                 {
-                    Test.Extension_Set(__T("mov"));
+                    Test.Extension_Set(__T("dfxp"));
                     if (File::Exists(Test))
-                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".mov\" />\r\n";
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".dfxp\" />\r\n";
                 }
-                if (FileExtension!=__T("mp4"))
+                if (FileExtension!=__T("sami"))
                 {
-                    Test.Extension_Set(__T("mp4"));
+                    Test.Extension_Set(__T("sami"));
                     if (File::Exists(Test))
-                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".mp4\" />\r\n";
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".sami\" />\r\n";
+                }
+                if (FileExtension!=__T("sc2"))
+                {
+                    Test.Extension_Set(__T("sc2"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".sc2\" />\r\n";
+                }
+                if (FileExtension!=__T("scc"))
+                {
+                    Test.Extension_Set(__T("scc"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".scc\" />\r\n";
+                }
+                if (FileExtension!=__T("smi"))
+                {
+                    Test.Extension_Set(__T("smi"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".smi\" />\r\n";
+                }
+                if (FileExtension!=__T("srt"))
+                {
+                    Test.Extension_Set(__T("srt"));
+                    if (File::Exists(Test))
+                        Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".srt\" />\r\n";
                 }
                 if (FileExtension!=__T("stl"))
                 {
@@ -509,7 +533,27 @@ void MediaInfo_Internal::Entry()
                 {
                     ZtringList List;
                     List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_audio.mp4"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.dfxp"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.sami"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.sc2"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.scc"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.smi"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.srt"), Dir::Include_Files);
                     List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_sub.stl"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.dfxp"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.sami"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.sc2"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.scc"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.smi"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.srt"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_forcesub.stl"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.dfxp"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.sami"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.sc2"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.scc"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.smi"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.srt"), Dir::Include_Files);
+                    List+=Dir::GetAllFileNames(Test.Path_Get()+PathSeparator+BaseName+__T("_*_cc.stl"), Dir::Include_Files);
                     for (size_t Pos=0; Pos<List.size(); Pos++)
                         Dxw+=" <clip file=\""+List[Pos].To_UTF8()+"\" />\r\n";
                 }
