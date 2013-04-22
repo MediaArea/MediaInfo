@@ -14,9 +14,12 @@
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest.cpp" />
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Basic.cpp" />
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Events.cpp" />
+    <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Md5.cpp" />
+    <ClCompile Include="..\..\..\Source\ThirdParty\md5\md5.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\RegressionTest\RegressionTest.h" />
+    <ClInclude Include="..\..\..\Source\ThirdParty\md5\md5.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91C094CA-1170-4CE4-9B79-17324C8DACA8}</ProjectGuid>
@@ -62,7 +65,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\Source\ThirdParty\md5;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>

@@ -13,6 +13,8 @@ Version 0.7.63, 2013-
 + LXF: AFD (from ancillary stream) support
 + Detection of some side car files and showing them as a single package (optional)
 + MOV: more channel positions information
++ TTML: detection
++ SAMI: detection
 + .so: search a local copy of the library before trying default path
 x #742, MPEG-4/MOV, crash with some truncated/invalid files
 x #746, MPEG-4/MOV: crash with files having moof atom and no moov atom

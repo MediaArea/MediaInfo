@@ -1309,7 +1309,7 @@ bool File__Analyze::FileHeader_Begin_0x000001()
 bool File__Analyze::FileHeader_Begin_XML(XMLDocument &Document)
 {
     //Element_Size
-    if (File_Size<32 || File_Size>1024*1024)
+    if (File_Size<32 || File_Size>16*1024*1024)
     {
         Reject();
         return false; //XML files are not expected to be so big

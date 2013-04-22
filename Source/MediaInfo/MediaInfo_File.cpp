@@ -253,6 +253,12 @@
 #if defined(MEDIAINFO_SCC_YES)
     #include "MediaInfo/Text/File_Scc.h"
 #endif
+#if defined(MEDIAINFO_SUBRIP_YES)
+    #include "MediaInfo/Text/File_SubRip.h"
+#endif
+#if defined(MEDIAINFO_TTML_YES)
+    #include "MediaInfo/Text/File_Ttml.h"
+#endif
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
@@ -563,11 +569,17 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
         else if (Parser==__T("CEA-608"))     Info=new File_Eia608();
         else if (Parser==__T("EIA-608"))     Info=new File_Eia608();
     #endif
-    #if defined(MEDIAINFO_OTHERTEXT_YES)
+    #if defined(MEDIAINFO_N19_YES)
         else if (Parser==__T("N19"))         Info=new File_N19();
     #endif
     #if defined(MEDIAINFO_SCC_YES)
         else if (Parser==__T("SCC"))         Info=new File_Scc();
+    #endif
+    #if defined(MEDIAINFO_SUBRIP_YES)
+        else if (Parser==__T("SubRip"))      Info=new File_SubRip();
+    #endif
+    #if defined(MEDIAINFO_TTML_YES)
+        else if (Parser==__T("TTML"))        Info=new File_Ttml();
     #endif
     #if defined(MEDIAINFO_OTHERTEXT_YES)
         else if (Parser==__T("OtherText"))   Info=new File_OtherText();
@@ -869,6 +881,12 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_SCC_YES)
         delete Info; Info=new File_Scc();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_SUBRIP_YES)
+        delete Info; Info=new File_SubRip();             if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_TTML_YES)
+        delete Info; Info=new File_Ttml();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_OTHERTEXT_YES)
         delete Info; Info=new File_OtherText();          if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

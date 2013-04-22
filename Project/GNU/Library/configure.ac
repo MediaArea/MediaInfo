@@ -152,7 +152,9 @@ AC_ARG_ENABLE(dvbsubtitle,  AC_HELP_STRING([--disable-dvbSsubtitle],  [Disable T
 AC_ARG_ENABLE(aribstdb24b37, AC_HELP_STRING([--disable-aribstdb24],  [Disable Text - Closed captions (ARIB STD B24/B37)]), MediaInfoaribstdb24b37=$enableval, MediaInfoaribstdb24b37=depend)
 AC_ARG_ENABLE(eia608,  AC_HELP_STRING([--disable-eia608],  [Disable Text - Closed captions (EIA-608)]),                   MediaInfoEia608=$enableval,  MediaInfoEia608=depend)
 AC_ARG_ENABLE(eia708,  AC_HELP_STRING([--disable-eia708],  [Disable Text - Closed captions (EIA-708)]),                   MediaInfoEia708=$enableval,  MediaInfoEia708=depend)
+AC_ARG_ENABLE(subrip,  AC_HELP_STRING([--disable-subrip],  [Disable Text - SubRip]),                                      MediaInfoSubRip=$enableval,  MediaInfoSubRip=depend)
 AC_ARG_ENABLE(teletext,  AC_HELP_STRING([--disable-teletext],  [Disable Text - Teletext]),                                MediaInfoTeletext=$enableval, MediaInfoTeletext=depend)
+AC_ARG_ENABLE(ttml,    AC_HELP_STRING([--disable-ttml],    [Disable Text - TTML]),                                        MediaInfoTtml=$enableval,    MediaInfoTtml=depend)
 AC_ARG_ENABLE(kate,    AC_HELP_STRING([--disable-kate],    [Disable Text - Kate]),                                        MediaInfoKate=$enableval,    MediaInfoKate=depend)
 AC_ARG_ENABLE(pgs,     AC_HELP_STRING([--disable-pgs] ,    [Disable Text - PGS]),                                         MediaInfoPgs=$enableval,     MediaInfoPgs=depend)
 AC_ARG_ENABLE(scc,     AC_HELP_STRING([--disable-scc] ,    [Disable Text - SCC]),                                         MediaInfoScc=$enableval,     MediaInfoScc=depend)
@@ -285,7 +287,9 @@ if test "$MediaInfoDvbSubtitle" = "no"; then AC_DEFINE(MEDIAINFO_DVBSUBTITLE_NO)
 if test "$MediaInfoaribstdb24b37" = "no"; then AC_DEFINE(MEDIAINFO_ARIBSTDB24B37_NO) fi; if test "$MediaInfoaribstdb24b37" = "yes"; then AC_DEFINE(MEDIAINFO_ARIBSTDB24B37_YES) fi
 if test "$MediaInfoEia608"  = "no";  then AC_DEFINE(MEDIAINFO_EIA608_NO)  fi; if test "$MediaInfoEia608"  = "yes"; then AC_DEFINE(MEDIAINFO_EIA608_YES)  fi
 if test "$MediaInfoEia708"  = "no";  then AC_DEFINE(MEDIAINFO_EIA708_NO)  fi; if test "$MediaInfoEia708"  = "yes"; then AC_DEFINE(MEDIAINFO_EIA708_YES)  fi
+if test "$MediaInfoSubRip"  = "no";  then AC_DEFINE(MEDIAINFO_SUBRIP_NO)  fi; if test "$MediaInfoSubRip"  = "yes"; then AC_DEFINE(MEDIAINFO_SUBRIP_YES) fi
 if test "$MediaInfoTeletext" = "no";  then AC_DEFINE(MEDIAINFO_TELETEXT_NO) fi; if test "$MediaInfoTeletext" = "yes"; then AC_DEFINE(MEDIAINFO_TELETEXT_YES) fi
+if test "$MediaInfoTtml"    = "no";  then AC_DEFINE(MEDIAINFO_TTML_NO)    fi; if test "$MediaInfoTtml"    = "yes"; then AC_DEFINE(MEDIAINFO_TTML_YES) fi
 if test "$MediaInfoKate"    = "no";  then AC_DEFINE(MEDIAINFO_KATE_NO)    fi; if test "$MediaInfoKate"    = "yes"; then AC_DEFINE(MEDIAINFO_KATE_YES)    fi
 if test "$MediaInfoPgs"     = "no";  then AC_DEFINE(MEDIAINFO_PGS_NO)     fi; if test "$MediaInfoPgs"     = "yes"; then AC_DEFINE(MEDIAINFO_PGS_YES)     fi
 if test "$MediaInfoScc"     = "no";  then AC_DEFINE(MEDIAINFO_PGS_NO)     fi; if test "$MediaInfoScc"     = "yes"; then AC_DEFINE(MEDIAINFO_PGS_YES)     fi
@@ -839,7 +843,9 @@ Mcho "Cmml   " "$MediaInfoCmml"
 Mcho "DvbSubtitle " "$MediaInfoDvbSubtitle"
 Mcho "Eia608 " "$MediaInfoEia608"
 Mcho "Eia708 " "$MediaInfoEia708"
+Mcho "SubRip " "$MediaInfoSubRip"
 Mcho "Teletext " "$MediaInfoTeletext"
+Mcho "Ttml   " "$MediaInfoTtml"
 Mcho "Kate   " "$MediaInfoKate"
 Mcho "Pgs    " "$MediaInfoPgs"
 Mcho "Scc    " "$MediaInfoScc"

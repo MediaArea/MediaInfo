@@ -190,6 +190,10 @@ void File_OtherText::Read_Buffer_Continue()
        Format=__T("CPC Captioning");
        Codec=__T("CPC Captioning");
     }
+    else if (Lines[0].find(__T("<SAMI>"))==0)
+    {
+       Format=__T("SAMI");
+    }
     else
         return;
 

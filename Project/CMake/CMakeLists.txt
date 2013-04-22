@@ -167,7 +167,9 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_Pgs.cpp
 	MediaInfo/Text/File_Scc.cpp
 	MediaInfo/Text/File_Scte20.cpp
+	MediaInfo/Text/File_SubRip.cpp
 	MediaInfo/Text/File_Teletext.cpp
+	MediaInfo/Text/File_Ttml.cpp
 	MediaInfo/Video/File_Aic.cpp
 	MediaInfo/Video/File_Avc.cpp
 	MediaInfo/Video/File_Avc_Duplicate.cpp

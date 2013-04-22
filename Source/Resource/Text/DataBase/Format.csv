@@ -127,9 +127,12 @@ Captions 32;;;T;Other;;txt;;;Lossless
 Captions Inc;;;T;Other;;txt;;;Lossless
 CPC Captioning;;;T;Other;;txt;;http://www.cpcweb.com/Captioning/cap_software.htm;Lossless
 Cheeta;;;T;Other;;asc;;;Lossless
+N19;;;T;N19;;stl;;;Lossless
+SAMI;;;T;Sami;;smi sami;;;Lossless
+SCC;;;T;SCC;;scc;;;Lossless
+SubRip;;;T;SubRip;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
+TTML;;;T;TTML;;dfxp;;;Lossless
 SSA;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
-SubRip;;;T;Other;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
 Blender;;;O;Other;;blenders;;http://www.blender3d.com;
 AutoCAD;;;O;Other;;;;http://www.autodesk.com;
-N19;;;T;N19;;stl;;;Lossless
 PlayLater Video;;;V;Other;;;;http://www.playon.tv/playlater;

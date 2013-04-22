@@ -231,6 +231,15 @@
 #if defined(MEDIAINFO_N19_YES)
     #include "MediaInfo/Text/File_N19.h"
 #endif
+#if defined(MEDIAINFO_SCC_YES)
+    #include "MediaInfo/Text/File_Scc.h"
+#endif
+#if defined(MEDIAINFO_SUBRIP_YES)
+    #include "MediaInfo/Text/File_SubRip.h"
+#endif
+#if defined(MEDIAINFO_TTML_YES)
+    #include "MediaInfo/Text/File_Ttml.h"
+#endif
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
@@ -536,6 +545,15 @@ File__MultipleParsing::File__MultipleParsing()
     // Text
     #if defined(MEDIAINFO_N19_YES)
         Parser.push_back(new File_N19());
+    #endif
+    #if defined(MEDIAINFO_SCC_YES)
+        Parser.push_back(new File_Scc());
+    #endif
+    #if defined(MEDIAINFO_SUBRIP_YES)
+        Parser.push_back(new File_SubRip());
+    #endif
+    #if defined(MEDIAINFO_TTML_YES)
+        Parser.push_back(new File_Ttml());
     #endif
     #if defined(MEDIAINFO_OTHERTEXT_YES)
         Parser.push_back(new File_OtherText());
