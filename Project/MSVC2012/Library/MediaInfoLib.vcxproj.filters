@@ -626,6 +626,12 @@
     <ClCompile Include="..\..\..\Source\ThirdParty\md5\md5.c">
       <Filter>ThirdParty\md5</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_SubRip.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Ttml.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1152,6 +1158,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\ThirdParty\md5\md5.h">
       <Filter>ThirdParty\md5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_SubRip.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Ttml.h">
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
