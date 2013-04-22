@@ -399,7 +399,7 @@ Genre_036;Game;Game; Жанр_036;Joc;Game;Game;Game;Game;;Gamea;Game;Game;Game;
 Genre_037;Sound Clip;Sound Clip; Жанр_037;Sound Clip;Sound Clip;Lydklip;Sound Clip;Sound Clip;;Sound Klipa;Sound Clip;Sound Clip;Sound Clip;Sound Clip;sound clip;Brano musicale;Sound Clip;Sound Clip;Garso klipas;Geluidsfragment;Klip dźwiękowy;Sound Clip;Sound Clip;;Sound Clip;Sound Clip;Sound Clip; Sound Clip;คลิปเสียง;Ses Klibi;Sound Clip;Sound Clip;音效素材 (Sound Clip);Sound Clip;Sound Clip;Sound Clip
 Genre_038;Gospel;Gospel; Жанр_038;Gospel;Gospel;Gospel;Gospel;Gospel;;Gospela;Gospel;Gospel;Gospel;Gospel;gospel;Gospel;Gospel;Gospel;Gospel;Gospel;Gospel;Gospel;Gospel;;Gospel;Gospel;Gospel; Gospel;Gospel;Gospel;Gospel;Gospel;福音 (Gospel);Gospel;Gospel;Gospel
 Genre_039;Noise;Noise; Жанр_039;Noise;Noise;Noise;Noise;Noise;;Noisea;Noise;Noise;Noise;Noise;zaj;Noise;Noise;Noise;Triukšmas;Noise;Szum;Noise;Noise;;Noise;Noise;Noise; Noise;Noise;Noise;Noise;Noise;噪音 (Noise);Šum;Noise;Noise
-Genre_040;AlternRock;AlternRock; Жанр_040;AlternRock;AlternRock;Alternativ rock;AlternRock;AlternRock;;AlternRocka;AlternRock;Rock Alternatif;AlternRock;AlternRock;alternrock;Rock alternativo;AlternRock;AlternRock;AlternRokas;Alternatieve Rock;Altern Rock;Rock Alternativo;Rock Alternativo;;AlternRock;AlternRock;AlternRock; AlternRock;AlternRock;AlternRock;AlternRock;AlternRock;另類搖滾 (AlternRock);AlternRock;AlternRock;AlternRock
+Genre_040;AlternRock;AlternRock; Жанр_040;AlternRock;AlternRock;Alternativ rock;AlternRock;Alt. Rock;;AlternRocka;AlternRock;Rock Alternatif;AlternRock;AlternRock;alternrock;Rock alternativo;AlternRock;AlternRock;AlternRokas;Alternatieve Rock;Altern Rock;Rock Alternativo;Rock Alternativo;;AlternRock;AlternRock;AlternRock; AlternRock;AlternRock;AlternRock;AlternRock;AlternRock;另類搖滾 (AlternRock);AlternRock;AlternRock;AlternRock
 Genre_041;Bass;Bass; Жанр_041;Bass;Bass;Bass;Bass;Bass;;Bassa;Bass;Bass;Bass;Bass;bass;Bass;Bass;Bass;Žemi;Bass;Bass;Bass;Bass;;Bass;Bass;Bass; Bass;Bass;Bass;Bass;Bass;貝斯 (Bass);Bass;Bass;Bass
 Genre_042;Soul;Soul; Жанр_042;Soul;Soul;Soul;Soul;Soul;;Soula;Soul;Soul;Soul;Soul;soul;Soul;Soul;Soul;Sielos;Soul;Soul;Soul;Soul;;Soul;Soul;Soul; Soul;Soul;Soul;Soul;Soul;靈魂樂 (Soul);Soul;Soul;Soul
 Genre_043;Punk;Punk; Жанр_043;Punk;Punk;Punk;Punk;Punk;;Punka;Punk;Punk;Punk;Punk;punk;Punk;Punk;Punk;Pankų;Punk;Punk;Punk;Punk;;Punk;Punk;Punk; Punk;Punk;Punk;Punk;Punk;龐克 (Punk);Punk;Punk;Punk
@@ -418,7 +418,7 @@ Genre_055;Dream;Dream; Жанр_055;Dream;Dream;Dream;Dream;Dream;;Dreama;Dream;
 Genre_056;Southern Rock;Southern Rock; Жанр_056;Southern Rock;Southern Rock;Southern Rock;Southern Rock;Southern Rock;;Southern Rocka;Southern Rock;Southern Rock;Southern Rock;Southern Rock;southern rock;Rock del Sud;Southern Rock;Southern Rock;Pietų Rokas;Southern Rock;Południowy Rock;Southern Rock;Southern Rock;;Southern Rock;Southern Rock;Southern Rock; Southern Rock;Southern Rock;Güney Rock;Southern Rock;Southern Rock;南方搖滾 (Southern Rock);Southern Rock;Southern Rock;Southern Rock
 Genre_057;كوميديا Comedy;Comedy; Жанр_057;Comèdia;Comedy;Comedy;Comedy;Comedy;;Komedia;Comedy;Comedy;Comedy;Comedy;comedy;Commedia;Comedy;Comedy;Kodedijos;Comedy;Komedia;Comedy;Comedy;;Comedy;Comedy;Comedy; Comedy;Comedy;Komedi;Comedy;Comedy;喜劇 (Comedy);Komedija;Comedy;Comedy
 Genre_058;عبادة Cult;Cult; Жанр_058;Cult;Cult;Cult;Cult;Cult;;Culta;Cult;Cult;Cult;Cult;cult;Cult;Cult;Cult;Kultinė;Cult;Cult;Cult;Cult;;Cult;Cult;Cult; Cult;Cult;Cult;Cult;Cult;狂熱 (Cult);Cult;Cult;Cult
-Genre_059;Gangsta;Gangsta; Жанр_059;Gangsta;Gangsta;Gangsta;Gangsta;Gangsta;;Gangsta;Gangsta;Gangsta;Gangsta;Gangsta;gangsta;Gangsta;Gangsta;Gangsta;Gangsterių;Gangsta;Gangsta;Gangsta;Gangsta;;Gangsta;Gangsta;Gangsta; Gangsta;Gangsta;Gangsta;Gangsta;Gangsta;幫派 (Gangsta);Gangsta;Gangsta;Gangsta
+Genre_059;Gangsta;Gangsta; Жанр_059;Gangsta;Gangsta;Gangsta;Gangsta;Gangsta Rap;;Gangsta;Gangsta;Gangsta;Gangsta;Gangsta;gangsta;Gangsta;Gangsta;Gangsta;Gangsterių;Gangsta;Gangsta;Gangsta;Gangsta;;Gangsta;Gangsta;Gangsta; Gangsta;Gangsta;Gangsta;Gangsta;Gangsta;幫派 (Gangsta);Gangsta;Gangsta;Gangsta
 Genre_060;Top 40;Top 40; Жанр_060;Top 40;Top 40;Top 40;Top 40;Top 40;;Top 40;Top 40;Top 40;Top 40;Top 40;top 40;Top 40;Top 40;Top 40;Top 40;Top 40;Top 40;Top 40;Top 40;;Top 40;Top 40;Top 40; Top 40;Top 40;Top 40;Top 40;Top 40;排行榜 (Top 40);Top 40;Top 40;Top 40
 Genre_061;Christian Rap;Christian Rap; Жанр_061;Christian Rap;Christian Rap;Kristent rock;Christian Rap;Christian Rap;;Kristau Rapa;Christian Rap;Christian Rap;Christian Rap;Christian Rap;keresztény rap;Rap Cristiano;Christian Rap;Christian Rap;Krikščionių Repas;Christelijke Rap;Chrześcijański Rap;Christian Rap;Christian Rap;;Christian Rap;Christian Rap;Christian Rap; Christian Rap;คริสเตียนแร็ป;Christian Rap;Christian Rap;Christian Rap;基督饒舌 (Christian Rap);Christian Rap;Christian Rap;Christian Rap
 Genre_062;البوب / فونك Pop/Funk;Pop/Funk; Жанр_062;Pop/Funk;Pop/Funk;Pop/Funk;Pop/Funk;Pop/Funk;;Pop/Funka;Pop/Funk;Pop/Funk;Pop/Funk;Pop/Funk;pop/funk;Pop/Funk;Pop/Funk;Pop/Funk;Pop/Funk;Pop/Funk;Pop Funk;Pop/Funk;Pop/Funk;;Pop/Funk;Pop/Funk;Pop/Funk; Pop/Funk;ป๊อบ/ฟังค์;Pop/Funk;Pop/Funk;Pop/Funk;流行/瘋客 (Pop/Funk);Pop/Funk;Pop/Funk;Pop/Funk
@@ -426,7 +426,7 @@ Genre_063;Jungle;Jungle; Жанр_063;Jungle;Jungle;Jungle;Jungle;Jungle;;Jungle
 Genre_064;Native American;Native American; Жанр_064;Native American;Native American;Native American;Native American;Native American;;Indira Amerikarra;Native American;Native American;Native American;Native American;amerikai bennszülött;Dei Nativi Americani;Native American;Native American;Gimtoji amerika;Native American;Native American;Native American;Native American;;Native American;Native American;Native American; Native American;Native American;Native American;Native American;Native American;美洲原住民 (Native American);Native American;Native American;Native American
 Genre_065;ملهى Cabaret;Cabaret; Жанр_065;Cabaret;Cabaret;Cabaret;Cabaret;Cabaret;;Kabareta;Cabaret;Cabaret;Cabaret;Cabaret;kabaré;Cabaret;Cabaret;Cabaret;Kabaretas;Cabaret;Kabaret;Cabaret;Cabaret;;Cabaret;Cabaret;Cabaret; Cabaret;คาบาเรต์;Cabaret;Cabaret;Cabaret;酒館 (Cabaret);Kabaret;Cabaret;Cabaret
 Genre_066;New Wave;New Wave; Жанр_066;New Wave;New Wave;New Wave;New Wave;New Wave;;New Wavea;New Wave;New Wave;New Wave;New Wave;újhullám;New Wave;New Wave;New Wave;Naujoji banga;New Wave;Nowa fala;New Wave;New Wave;;New Wave;New Wave;New Wave; New Wave;New Wave;New Wave;New Wave;New Wave;新潮 (New Wave);New Wave;New Wave;New Wave
-Genre_067;Psychadelic;Psychadelic; Жанр_067;Psychadelic;Psychadelic;Psykedelisk;Psychadelic;Psychadelic;;Psikodelikoa;Psychadelic;Psychadelic;Psychadelic;Psychadelic;psychadelic;Psychedelic;Psychadelic;Psychadelic;Psichodelinė;Psychedelisch;Psychodelia;Psychadelic;Psychadelic;;Psychadelic;Psychadelic;Psychadelic; Psychadelic;Psychadelic;Psychadelic;Psychadelic;Psychadelic;迷幻 (Psychedelic);Psychadelic;Psychadelic;Psychadelic
+Genre_067;Psychadelic;Psychadelic; Жанр_067;Psychadelic;Psychadelic;Psykedelisk;Psychadelic;Psychedelic;;Psikodelikoa;Psychadelic;Psychadelic;Psychadelic;Psychadelic;psychadelic;Psychedelic;Psychadelic;Psychadelic;Psichodelinė;Psychedelisch;Psychodelia;Psychadelic;Psychadelic;;Psychadelic;Psychadelic;Psychadelic; Psychadelic;Psychadelic;Psychadelic;Psychadelic;Psychadelic;迷幻 (Psychedelic);Psychadelic;Psychadelic;Psychadelic
 Genre_068;Rave;Rave; Жанр_068;Rave;Rave;Rave;Rave;Rave;;Ravea;Rave;Rave;Rave;Rave;rave;Rave;Rave;Rave;Reivas;Rave;Rave;Rave;Rave;;Rave;Rave;Rave; Rave;แร็ฟ;Rave;Rave;Rave;銳舞 (Rave);Rave;Rave;Rave
 Genre_069;Showtunes;Showtunes; Жанр_069;Showtunes;Showtunes;Showtune;Showtunes;Showtunes;;Showtunesa;Showtunes;Showtunes;Showtunes;Showtunes;showtunes;Showtunes;Showtunes;Showtunes;Šou;Showtunes;Showtunes;Showtunes;Showtunes;;Showtunes;Showtunes;Showtunes; Showtunes;Showtunes;Showtunes;Showtunes;Showtunes;秀場音樂 (Showtunes);Priredbene melodije;Showtunes;Showtunes
 Genre_070;Trailer;Trailer; Жанр_070;Trailer;Trailer;Trailer;Trailer;Trailer;;Trailerra;Trailer;Trailer;Trailer;Trailer;trailer;Trailer;Trailer;Trailer;Bandomasis;Trailer;Trailer;Trailer;Trailer;;Trailer;Trailer;Trailer; Trailer;Trailer;Trailer;Trailer;Trailer;預告片 (Trailer);Trailer;Trailer;Trailer
@@ -443,8 +443,8 @@ Genre_080;Folk;Folk; Жанр_080;Folk;Folk;Folk;Folk;Folk;;Folka;Folk;Folk;Folk
 Genre_081;Folk-Rock;Folk-Rock; Жанр_081;Folk-Rock;Folk-Rock;Folk-Rock;Folk-Rock;Folk-Rock;;Folk-Rocka;Folk-Rock;Folk-Rock;Folk-Rock;Folk-Rock;folk-rock;Folk-Rock;Folk-Rock;Folk-Rock;Folk-rokas;Folkrock;Folk-Rock;Folk-Rock;Folk-Rock;;Folk-Rock;Folk-Rock;Folk-Rock; Folk-Rock;โฟล์ค-ร็อค;Folk-Rock;Folk-Rock;Folk-Rock;民歌搖滾 (Folk-Rock);Folk-Rock;Folk-Rock;Folk-Rock
 Genre_082;National Folk;National Folk; Жанр_082;National Folk;National Folk;National Folk;National Folk;National Folk;;Folk Nazionala;National Folk;Folk Nationale;National Folk;National Folk;nemzeti népzene;Natinal Folk;National Folk;National Folk;Nacionalinis folkas;National Folk;Narodowy folk;National Folk;National Folk;;National Folk;National Folk;National Folk; National Folk;National Folk;National Folk;National Folk;National Folk;National Folk;National Folk;National Folk;National Folk
 Genre_083;Swing;Swing; Жанр_083;Swing;Swing;Swing;Swing;Swing;;Swinga;Swing;Swing;Swing;Swing;swing;Swing;Swing;Swing;Svingas;Swing;Swing;Swing;Swing;;Swing;Swing;Swing; Swing;Swing;Swing;Swing;Swing;搖擺 (Swing);Swing;Swing;Swing
-Genre_084;Fast Fusion;Fast Fusion; Жанр_084;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;;Fast Fusiona;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;fast fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;;Fast Fusion;Fast Fusion;Fast Fusion; Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;快速融合 (Fast Fusion);Fast Fusion;Fast Fusion;Fast Fusion
-Genre_085;Bebob;Bebob; Жанр_085;Bebob;Bebob;Bebob;Bebob;Bebob;;Beboba;Bebob;Bebob;Bebob;Bebob;bebob;Bebob;Bebob;Bebob;Bebob;Bebob;Bebob;Bebob;Bebob;;Bebob;Bebob;Bebob; Bebob;Bebob;Bebob;Bebob;Bebob;咆勃 (Bebop);Bebob;Bebob;Bebob
+Genre_084;Fast Fusion;Fast Fusion; Жанр_084;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast-Fusion;;Fast Fusiona;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;fast fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;;Fast Fusion;Fast Fusion;Fast Fusion; Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;Fast Fusion;快速融合 (Fast Fusion);Fast Fusion;Fast Fusion;Fast Fusion
+Genre_085;Bebob;Bebob; Жанр_085;Bebob;Bebob;Bebob;Bebob;Bebop;;Beboba;Bebob;Bebob;Bebob;Bebob;bebob;Bebob;Bebob;Bebob;Bebob;Bebob;Bebob;Bebob;Bebob;;Bebob;Bebob;Bebob; Bebob;Bebob;Bebob;Bebob;Bebob;咆勃 (Bebop);Bebob;Bebob;Bebob
 Genre_086;Latin;Latin; Жанр_086;Latin;Latin;Latin;Latin;Latin;;Latina;Latin;Latin;Latin;Latin;latin;Latin;Latin;Latin;Lotynų;Latin;Latynoska;Latino;Latino;;Latin;Latin;Latin; Latin;ลาติน;Latin;Latin;Latin;拉丁 (Latin);Latin;Latin;Latin
 Genre_087;Revival;Revival; Жанр_087;Revival;Revival;Revival;Revival;Revival;;Revivala;Revival;Revival;Revival;Revival;revival;Revival;Revival;Revival;Revival;Revival;Revival;Revival;Revival;;Revival;Revival;Revival; Revival;Revival;Revival;Revival;Revival;復興 (Revival);Revival;Revival;Revival
 Genre_088;Celtic;Celtic; Жанр_088;Celtic;Celtic;Celtic;Celtic;Celtic;;Zeltiarra;Celtic;Celtic;Celtic;Celtic;kelta;Celtic;Celtic;Celtic;Keltų;Keltisch;Celtycka;Celtic;Celtic;;Celtic;Celtic;Celtic; Celtic;Celtic;Celtic;Celtic;Celtic;克爾特 (Celtic);Celtic;Celtic;Celtic
@@ -482,7 +482,7 @@ Genre_119;Freestyle;Freestyle; Жанр_119;Freestyle;Freestyle;Freestyle;Freest
 Genre_120;Duet;Duet; Жанр_120;Duet;Duet;Duet;Duet;Duet;;Dueta;Duet;Duet;Duet;Duet;duett;Duet;Duet;Duet;Duet;Duet;Duet;Dueto;Dueto;;Duet;Duet;Duet; Duet;Duet;Duet;Duet;Duet;二重奏 (Duet);Duet;Duet;Duet
 Genre_121;Punk Rock;Punk Rock; Жанр_121;Punk Rock;Punk Rock;Punkrock;Punk Rock;Punk Rock;;Punk Rocka;Punk Rock;Punk Rock;Punk Rock;Punk Rock;punk rock;Punk Rock;Punk Rock;Punk Rock;Punk Rock;Punkrock;Punk Rock;Punk Rock;Punk Rock;;Punk Rock;Punk Rock;Punk Rock; Punk Rock;พังค์ร็อค;Punk Rock;Punk Rock;Punk Rock;龐克搖滾 (Punk Rock);Punk Rock;Punk Rock;Punk Rock
 Genre_122;Drum Solo;Drum Solo; Жанр_122;Solo de Bateria;Drum Solo;Trummesolo;Drum Solo;Drum Solo;;Drum Soloa;Drum Solo;Drum Solo;Drum Solo;Drum Solo;dobszóló;Drum Solo;Drum Solo;Drum Solo;Drum Solo;Drumsolo;Solo perkusyjne;Drum Solo;Drum Solo;;Drum Solo;Drum Solo;Drum Solo; Drum Solo;Drum Solo;Drum Solo;Drum Solo;Drum Solo;獨鼓 (Drum Solo);Solo udaraljki;Drum Solo;Drum Solo
-Genre_123;A capella;A capella; Жанр_123;A capella;A capella;A capella;A capella;A capella;;A capella;A capella;A capella;A capella;A capella;a capella;A capella;A capella;A capella;A capella;A capella;A capella;A capella;A capella;;A capella;A capella;A capella; A capella;อะ คัปเปลา;A capella;A capella;A capella;無伴奏 (A capella);A capella;A capella;A capella
+Genre_123;A capella;A capella; Жанр_123;A capella;A capella;A capella;A capella;A Cappella;;A capella;A capella;A capella;A capella;A capella;a capella;A capella;A capella;A capella;A capella;A capella;A capella;A capella;A capella;;A capella;A capella;A capella; A capella;อะ คัปเปลา;A capella;A capella;A capella;無伴奏 (A capella);A capella;A capella;A capella
 Genre_124;Euro-House;Euro-House; Жанр_124;Euro-House;Euro-House;Euro-House;Euro-House;Euro-House;;Euro-Housea;Euro-House;Euro-House;Euro-House;Euro-House;euro-house;Euro-House;Euro-House;Euro-House;Euro-House;Euro-House;Euro-House;Euro-House;Euro-House;;Euro-House;Euro-House;Euro-House; Euro-House;Euro-House;Euro-House;Euro-House;Euro-House;歐式-浩室 (Euro-House);Euro-House;Euro-House;Euro-House
 Genre_125;Dance Hall;Dance Hall; Жанр_125;Dance Hall;Dance Hall;Dance Hall;Dance Hall;Dance Hall;;Dance Halla;Dance Hall;Dance Hall;Dance Hall;Dance Hall;dance hall;Dance Hall;Dance Hall;Dance Hall;Dance Hall;Dancehall;Dance Hall;Dance Hall;Dance Hall;;Dance Hall;Dance Hall;Dance Hall; Dance Hall;Dance Hall;Dance Hall;Dance Hall;Dance Hall;舞廳 (Dance Hall);Dance Hall;Dance Hall;Dance Hall
 Genre_126;Goa;Goa; Жанр_126;Goa;Goa;Goa;Goa;Goa;;Goa;Goa;Goa;Goa;Goa;goa;Goa;Goa;Goa;Goa;Goa;Goa;Goa;Goa;;Goa;Goa;Goa; Goa;Goa;Goa;Goa;Goa;果亞 (Goa);Goa;Goa;Goa
@@ -491,8 +491,8 @@ Genre_128;Club-House;Club-House; Жанр_128;Club-House;Club-House;Club-House;C
 Genre_129;Hardcore;Hardcore; Жанр_129;Hardcore;Hardcore;Hardcore;Hardcore;Hardcore;;Hardcorea;Hardcore;Hardcore;Hardcore;Hardcore;hardcore;Hardcore;Hardcore;Hardcore;Hardcore;Hardcore;Hardcore;Hardcore;Hardcore;;Hardcore;Hardcore;Hardcore; Hardcore;ฮาร์ดคอร์;Hardcore;Hardcore;Hardcore;硬派 (Hardcore);Hardcore;Hardcore;Hardcore
 Genre_130;Terror;Terror; Жанр_130;Terror;Terror;Terror;Terror;Terror;;Beldurrezkoa;Terror;Terror;Terror;Terror;terror;Terror;Terror;Terror;Terror;Terror;Terror;Terror;Terror;;Terror;Terror;Terror; Terror;Terror;Terror;Terror;Terror;驚悚 (Terror);Terror;Terror;Terror
 Genre_131;Indie;Indie; Жанр_131;Indie;Indie;Indie;Indie;Indie;;Indiea;Indie;Indie;Indie;Indie;indie;Indie;Indie;Indie;Indie;Indie;Niezależna;Indie;Indie;;Indie;Indie;Indie; Indie;อินดี้;Indie;Indie;Indie;獨立製作 (Indie);Indie;Indie;Indie
-Genre_132;Britpop;Britpop; Жанр_132;Britpop;Britpop;Britpop;Britpop;Britpop;;Britpopa;Britpop;Britpop;Britpop;Britpop;britpop;Britpop;Britpop;Britpop;Britpop;Britpop;Britpop;Britpop;Britpop;;Britpop;Britpop;Britpop; Britpop;Britpop;Britpop;Britpop;Britpop;英式搖滾 (Britpop);Britpop;Britpop;Britpop
-Genre_133;Negerpunk;Negerpunk; Жанр_133;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;;Negerpunka;Negerpunk;Negerpunk;Negerpunk;Negerpunk;negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;;Negerpunk;Negerpunk;Negerpunk; Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;黑人龐克 (Negerpunk);Negerpunk;Negerpunk;Negerpunk
+Genre_132;Britpop;Britpop; Жанр_132;Britpop;Britpop;Britpop;Britpop;BritPop;;Britpopa;Britpop;Britpop;Britpop;Britpop;britpop;Britpop;Britpop;Britpop;Britpop;Britpop;Britpop;Britpop;Britpop;;Britpop;Britpop;Britpop; Britpop;Britpop;Britpop;Britpop;Britpop;英式搖滾 (Britpop);Britpop;Britpop;Britpop
+Genre_133;Negerpunk;Negerpunk; Жанр_133;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Afro-Punk;;Negerpunka;Negerpunk;Negerpunk;Negerpunk;Negerpunk;negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;;Negerpunk;Negerpunk;Negerpunk; Negerpunk;Negerpunk;Negerpunk;Negerpunk;Negerpunk;黑人龐克 (Negerpunk);Negerpunk;Negerpunk;Negerpunk
 Genre_134;Polsk Punk;Polsk Punk; Жанр_134;Polsk Punk;Polsk Punk;Polsk punk;Polsk Punk;Polsk Punk;;Polsk Punka;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;polsk punk;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;;Polsk Punk;Polsk Punk;Polsk Punk; Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;Polsk Punk;波蘭龐克 (Polsk Punk);Polsk Punk;Polsk Punk;Polsk Punk
 Genre_135;Beat;Beat; Жанр_135;Beat;Beat;Beat;Beat;Beat;;Beata;Beat;Beat;Beat;Beat;beat;Beat;Beat;Beat;Beat;Beat;Beat;Beat;Beat;;Beat;Beat;Beat; Beat;Beat;Beat;Beat;Beat;打擊樂 (Beat);Beat;Beat;Beat
 Genre_136;Christian Gangsta Rap;Christian Gangsta Rap; Жанр_136;Christian Gangsta Rap;Christian Gangsta Rap;Kristent Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;;Kristau Gangsta Rapa;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;keresztény gengszter rap;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;Chrześcijański Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap; Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap;基督幫派饒舌 (Christian Gangsta Rap);Christian Gangsta Rap;Christian Gangsta Rap;Christian Gangsta Rap
@@ -503,10 +503,54 @@ Genre_140;Contemporary Christian;Contemporary Christian; Жанр_140;Contempora
 Genre_141;Christian Rock;Christian Rock; Жанр_141;Christian Rock;Christian Rock;Kristent rock;Christian Rock;Christian Rock;;Kristau Rocka;Christian Rock;Christian Rock;Christian Rock;Christian Rock;keresztény rock;Christian Rock ;Christian Rock;Christian Rock;Christian Rock;Christelijke Rock;Chrześcijański rock;Christian Rock;Christian Rock;;Christian Rock;Christian Rock;Christian Rock; Christian Rock;คริสเตียนร็อค;Christian Rock;Christian Rock;Christian Rock;基督搖滾 (Christian Rock);Christian Rock;Christian Rock;Christian Rock
 Genre_142;Merengue;Merengue; Жанр_142;Merengue;Merengue;Merengue;Merengue;Merengue;;Merengea;Merengue;Merengue;Merengue;Merengue;merengue;Merengue;Merengue;Merengue;Merengue;Merengue;Merenque;Merengue;Merengue;;Merengue;Merengue;Merengue; Merengue;Merengue;Merengue;Merengue;Merengue;美倫格 (Merengue);Merengue;Merengue;Merengue
 Genre_143;Salsa;Salsa; Жанр_143;Salsa;Salsa;Salsa;Salsa;Salsa;;Salsa;Salsa;Salsa;Salsa;Salsa;salsa;Salsa;Salsa;Salsa;Salsa;Salsa;Salsa;Salsa;Salsa;;Salsa;Salsa;Salsa; Salsa;Salsa;Salsa;Salsa;Salsa;莎莎 (Salsa);Salsa;Salsa;Salsa
-Genre_144;Trash Metal;Trash Metal; Жанр_144;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;;Trash Metala;Trash Metal;Trash Metal;Trash Metal;Trash Metal;trash metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;;Trash Metal;Trash Metal;Trash Metal; Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;敲擊金屬 (Thrash Metal);Trash Metal;Trash Metal;Trash Metal
+Genre_144;Trash Metal;Trash Metal; Жанр_144;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Thrash Metal;;Trash Metala;Trash Metal;Trash Metal;Trash Metal;Trash Metal;trash metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;;Trash Metal;Trash Metal;Trash Metal; Trash Metal;Trash Metal;Trash Metal;Trash Metal;Trash Metal;敲擊金屬 (Thrash Metal);Trash Metal;Trash Metal;Trash Metal
 Genre_145;انمي Anime;Anime; Жанр_145;Anime;Anime;Anime;Anime;Anime;;Anima;Anime;Anime;Anime;Anime;anime;Anime;Anime;Anime;Anime;Anime;Anime;Anime;Anime;;Anime;Anime;Anime; Anime;Anime;Anime;Anime;Anime;動畫歌曲 (Anime);Anime;Anime;Anime
 Genre_146;JPop;JPop; Жанр_146;JPop;JPop;JPop;JPop;JPop;;JPopa;JPop;JPop;JPop;JPop;jpop;JPop;JPop;JPop;JPop;JPop;JPop;JPop;JPop;;JPop;JPop;JPop; JPop;เจป๊อบ;JPop;JPop;JPop;日本流行樂 (JPop);JPop;JPop;JPop
 Genre_147;Synthpop;Synthpop; Жанр_147;Synthpop;Synthpop;Synthpop;Synthpop;Synthpop;;Synthpopa;Synthpop;Synthpop;Synthpop;Synthpop;synthpop;Synthpop;Synthpop;Synthpop;Synthpop;Synthpop;Synhpop;Synthpop;Synthpop;;Synthpop;Synthpop;Synthpop; Synthpop;Synthpop;Synthpop;Synthpop;Synthpop;新潮電子 (Synthpop);Synthpop;Synthpop;Synthpop
+Genre_148;;;;;;;;Abstract
+Genre_149;;;;;;;;Art Rock
+Genre_150;;;;;;;;Baroque
+Genre_151;;;;;;;;Bhangra
+Genre_152;;;;;;;;Big Beat
+Genre_153;;;;;;;;Breakbeat
+Genre_154;;;;;;;;Chillout
+Genre_155;;;;;;;;Downtempo
+Genre_156;;;;;;;;Dub
+Genre_157;;;;;;;;EBM
+Genre_158;;;;;;;;Eclectic
+Genre_159;;;;;;;;Electro
+Genre_160;;;;;;;;Electroclash
+Genre_161;;;;;;;;Emo
+Genre_162;;;;;;;;Experimental
+Genre_163;;;;;;;;Garage
+Genre_164;;;;;;;;Global
+Genre_165;;;;;;;;IDM
+Genre_166;;;;;;;;Illbient
+Genre_167;;;;;;;;Industro-Goth
+Genre_168;;;;;;;;Jam Band
+Genre_169;;;;;;;;Krautrock
+Genre_170;;;;;;;;Leftfield
+Genre_171;;;;;;;;Lounge
+Genre_172;;;;;;;;Math Rock
+Genre_173;;;;;;;;New Romantic
+Genre_174;;;;;;;;Nu-Breakz
+Genre_175;;;;;;;;Post-Punk
+Genre_176;;;;;;;;Post-Rock
+Genre_177;;;;;;;;Psytrance
+Genre_178;;;;;;;;Shoegaze
+Genre_179;;;;;;;;Space Rock
+Genre_180;;;;;;;;Trop Rock
+Genre_181;;;;;;;;World Music
+Genre_182;;;;;;;;Neoclassical
+Genre_183;;;;;;;;Audiobook
+Genre_184;;;;;;;;Audio Theatre
+Genre_185;;;;;;;;Neue Deutsche Welle
+Genre_186;;;;;;;;Podcast
+Genre_187;;;;;;;;Indie Rock
+Genre_188;;;;;;;;G-Funk
+Genre_189;;;;;;;;Dubstep
+Genre_190;;;;;;;;Garage Rock
+Genre_191;;;;;;;;Psybient
 Go to WebSite;زيارة الموقع;Перайсці на сайт;Към Уебсайта;Ves-hi a la pàgina;Web programu;Gå til websted;Zur Webseite gehen;Go to website;Ir al sitio Web;Joan webgunera;وب سایت;Aller sur le site Web;Ir ao web;Επίσκεψη του δυκτιακού τόπου;A weblap meglátogatása;Vai al sito internet;Web サイトへ移動;웹사이트로 가기;Eiti į internetinę svetainę;Ga naar website;Odwiedź stronę programu;Ir para o site;Ir para o site;;Перейти на сайт программы;Web programu;Shko te trualli në rrjetë; Besök hemsida;ไปที่เว็บไซต์;Web sitesine git;Перейти до сайту;访问网站;前往網站;Prijeći na spletni sadržaj;Բացել կայքը;გადადით ვებ-გვერდძე
 Grouping;;Групаванне;;;;;;Grouping;;Multzokapena;;Grouping;;;;Raggruppamento;;;;;;;;;Группирование;;;;;;Групування;;;;;დაჯგუფება
 h;h;г.;х;h;h;t;h;h;h;h;h;h;h;h; óra;o;時;시;v;h;h;h;h;h; ч.;h;h; h;h;s; год.;小时;時;h; ժ.;h
