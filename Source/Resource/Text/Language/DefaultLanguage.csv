@@ -399,7 +399,7 @@ Genre_036;Game
 Genre_037;Sound Clip
 Genre_038;Gospel
 Genre_039;Noise
-Genre_040;AlternRock
+Genre_040;Alt. Rock
 Genre_041;Bass
 Genre_042;Soul
 Genre_043;Punk
@@ -418,7 +418,7 @@ Genre_055;Dream
 Genre_056;Southern Rock
 Genre_057;Comedy
 Genre_058;Cult
-Genre_059;Gangsta
+Genre_059;Gangsta Rap
 Genre_060;Top 40
 Genre_061;Christian Rap
 Genre_062;Pop/Funk
@@ -426,7 +426,7 @@ Genre_063;Jungle
 Genre_064;Native American
 Genre_065;Cabaret
 Genre_066;New Wave
-Genre_067;Psychadelic
+Genre_067;Psychedelic
 Genre_068;Rave
 Genre_069;Showtunes
 Genre_070;Trailer
@@ -443,8 +443,8 @@ Genre_080;Folk
 Genre_081;Folk-Rock
 Genre_082;National Folk
 Genre_083;Swing
-Genre_084;Fast Fusion
-Genre_085;Bebob
+Genre_084;Fast-Fusion
+Genre_085;Bebop
 Genre_086;Latin
 Genre_087;Revival
 Genre_088;Celtic
@@ -482,7 +482,7 @@ Genre_119;Freestyle
 Genre_120;Duet
 Genre_121;Punk Rock
 Genre_122;Drum Solo
-Genre_123;A capella
+Genre_123;A Cappella
 Genre_124;Euro-House
 Genre_125;Dance Hall
 Genre_126;Goa
@@ -491,8 +491,8 @@ Genre_128;Club-House
 Genre_129;Hardcore
 Genre_130;Terror
 Genre_131;Indie
-Genre_132;Britpop
-Genre_133;Negerpunk
+Genre_132;BritPop
+Genre_133;Afro-Punk
 Genre_134;Polsk Punk
 Genre_135;Beat
 Genre_136;Christian Gangsta Rap
@@ -503,10 +503,54 @@ Genre_140;Contemporary Christian
 Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
-Genre_144;Trash Metal
+Genre_144;Thrash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
+Genre_148;Abstract
+Genre_149;Art Rock
+Genre_150;Baroque
+Genre_151;Bhangra
+Genre_152;Big Beat
+Genre_153;Breakbeat
+Genre_154;Chillout
+Genre_155;Downtempo
+Genre_156;Dub
+Genre_157;EBM
+Genre_158;Eclectic
+Genre_159;Electro
+Genre_160;Electroclash
+Genre_161;Emo
+Genre_162;Experimental
+Genre_163;Garage
+Genre_164;Global
+Genre_165;IDM
+Genre_166;Illbient
+Genre_167;Industro-Goth
+Genre_168;Jam Band
+Genre_169;Krautrock
+Genre_170;Leftfield
+Genre_171;Lounge
+Genre_172;Math Rock
+Genre_173;New Romantic
+Genre_174;Nu-Breakz
+Genre_175;Post-Punk
+Genre_176;Post-Rock
+Genre_177;Psytrance
+Genre_178;Shoegaze
+Genre_179;Space Rock
+Genre_180;Trop Rock
+Genre_181;World Music
+Genre_182;Neoclassical
+Genre_183;Audiobook
+Genre_184;Audio Theatre
+Genre_185;Neue Deutsche Welle
+Genre_186;Podcast
+Genre_187;Indie Rock
+Genre_188;G-Funk
+Genre_189;Dubstep
+Genre_190;Garage Rock
+Genre_191;Psybient
 Go to WebSite;Go to website
 Grouping;Grouping
 h;h
