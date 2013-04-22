@@ -27,6 +27,7 @@ x CEA-708: weird behavior phantom streams are displayed) in case of buggy CEA-70
 x AVI: crash with audio delay and AvgBytesPerSec of 0
 x Wrong demuxing of the caption stream in the case of AVC streams without frame_mbs_only_flag but having 2 fields in one slice.
 x DPX: parsing was very slow with a sequence of files.
+x MXF: Pre-charge duration was not read, time code of the first frame was wrong if "Origin" is not 0
 
 Version 0.7.62, 2013-02-22
 --------------

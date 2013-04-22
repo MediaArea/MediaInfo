@@ -81,7 +81,7 @@ protected :
     void Streams_Finish_Essence (int32u EssenceUID, int128u TrackUID);
     void Streams_Finish_Descriptor (int128u DescriptorUID, int128u PackageUID);
     void Streams_Finish_Locator (int128u DescriptorUID, int128u LocatorUID);
-    void Streams_Finish_Component (int128u ComponentUID, float64 EditRate, int32u TrackID);
+    void Streams_Finish_Component (int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin);
     void Streams_Finish_Identification (int128u IdentificationUID);
     void Streams_Finish_CommercialNames ();
 
@@ -470,6 +470,7 @@ protected :
         Ztring TrackName;
         int32u TrackNumber;
         float64 EditRate;
+        int64u  Origin;
         bool   Stream_Finish_Done;
 
         track()
@@ -478,6 +479,7 @@ protected :
             TrackID=(int32u)-1;
             TrackNumber=(int32u)-1;
             EditRate=(float64)0;
+            Origin=0;
             Stream_Finish_Done=false;
         }
     };

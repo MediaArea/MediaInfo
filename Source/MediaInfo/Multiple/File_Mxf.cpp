@@ -1174,7 +1174,7 @@ void File_Mxf::Streams_Finish_Track(int128u TrackUID)
     Streams_Finish_Essence(Track->second.TrackNumber, TrackUID);
 
     //Sequence
-    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate, Track->second.TrackID);
+    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate, Track->second.TrackID, Track->second.Origin);
 
     //Done
     Track->second.Stream_Finish_Done=true;
@@ -1906,7 +1906,7 @@ void File_Mxf::Streams_Finish_CommercialNames ()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, int32u TrackID)
+void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin)
 {
     components::iterator Component=Components.find(ComponentUID);
     if (Component==Components.end())
@@ -1928,7 +1928,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, 
                     IsDuplicate=true;
             if (!IsDuplicate)
             {
-                TimeCode TC(Component2->second.TimeCode_StartTimecode, (int8u)Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
+                TimeCode TC(Component2->second.TimeCode_StartTimecode-Origin, (int8u)Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
                 Stream_Prepare(Stream_Other);
                 Fill(Stream_Other, StreamPos_Last, Other_ID, TrackID);
                 Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
@@ -6894,7 +6894,15 @@ void File_Mxf::Track_EditRate()
 void File_Mxf::Track_Origin()
 {
     //Parsing
-    Info_B8(Data,                                                "Data"); Element_Info1(Data);
+    int64u Data;
+    Get_B8 (Data,                                                "Data"); Element_Info1(Data);
+
+    FILLING_BEGIN();
+        if (Data)
+            int A=0;    
+        if (Data!=(int64u)-1)
+            Tracks[InstanceUID].Origin=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
