@@ -2597,11 +2597,29 @@ void File_Riff::AVI__PrmA()
     Element_Name("Adobe Premiere PrmA");
 
     //Parsing
-    Skip_C4(                                                    "FourCC");
-    Skip_B4(                                                    "Size");
-    Skip_B4(                                                    "Unknown");
-    Skip_B4(                                                    "Width");
-    Skip_B4(                                                    "Height");
+    int32u FourCC, Size;
+    Get_C4 (FourCC,                                             "FourCC");
+    Get_B4 (Size,                                               "Size");
+    switch (FourCC)
+    {
+        case 0x50415266:
+                        if (Size==20)
+                        {
+                        int32u PAR_X, PAR_Y; 
+                        Skip_B4(                                                    "Unknown");
+                        Get_B4 (PAR_X,                                              "PAR_X");
+                        Get_B4 (PAR_Y,                                              "PAR_Y");
+
+                        if (PAR_Y)
+                            PAR=((float64)PAR_X)/PAR_Y;
+                        }
+                        else
+                            Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+                        break;
+        default:
+                        for (int32u Pos=8; Pos<Size; Pos++)
+                            Skip_B4(                                                "Unknown");
+    }
 }
 
 //---------------------------------------------------------------------------

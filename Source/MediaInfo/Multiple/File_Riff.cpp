@@ -202,6 +202,10 @@ void File_Riff::Streams_Finish ()
             Temp->second.Parsers[0]->Accept();
         }
 
+        //PAR
+        if (PAR && StreamKind_Last==Stream_Video)
+            Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PAR);
+
         Ztring ID;
         if (Temp->first!=(int32u)-1)
             ID.From_Number(((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
@@ -555,6 +559,8 @@ void File_Riff::Read_Buffer_Init()
          if (Demux_Rate==0)
              Demux_Rate=25; //Default value
     #endif //MEDIAINFO_DEMUX
+
+    PAR=0;
 }
 
 //---------------------------------------------------------------------------

@@ -154,6 +154,7 @@ private :
     int64u Buffer_DataToParse_End;
     int32u AvgBytesPerSec;
     int16u BlockAlign;
+    float64 PAR;
     float64 Demux_Rate;
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
