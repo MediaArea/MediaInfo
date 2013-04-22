@@ -6898,8 +6898,6 @@ void File_Mxf::Track_Origin()
     Get_B8 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Data)
-            int A=0;    
         if (Data!=(int64u)-1)
             Tracks[InstanceUID].Origin=Data;
     FILLING_END();
