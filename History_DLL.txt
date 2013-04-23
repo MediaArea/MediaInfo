@@ -18,6 +18,7 @@ Version 0.7.63, 2013-
 + ID3: updated list of genres, thanks to Mats
 + .so: search a local copy of the library before trying default path
 + AVI: Support of Adobe PARf (Aspect Ratio) chunk
++ VC-3: Scan order
 x #742, MPEG-4/MOV, crash with some truncated/invalid files
 x #746, MPEG-4/MOV: crash with files having moof atom and no moov atom
 x #747, Inconsistent hang with buffer API

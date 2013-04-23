@@ -85,6 +85,22 @@ const char* Vc3_FFC[4]=
 };
 
 //---------------------------------------------------------------------------
+const char* Vc3_FFC_ScanOrder[4]=
+{
+    "",
+    "",
+    "TFF",
+    "BFF",
+};
+
+//---------------------------------------------------------------------------
+const char* Vc3_FFE[2]=
+{
+    "Interlaced",
+    "Progressive",
+};
+
+//---------------------------------------------------------------------------
 const char* Vc3_SST[2]=
 {
     "Progressive",
@@ -108,6 +124,7 @@ File_Vc3::File_Vc3()
 
     //Temp
     Data_ToParse=0;
+    FFC_FirstFrame=(int8u)-1;
 }
 
 //***************************************************************************
@@ -129,6 +146,8 @@ void File_Vc3::Streams_Fill()
     Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
     Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:2:2");
     Fill(Stream_Video, 0, Video_ScanType, Vc3_SST[SST]);
+    if (FFC_FirstFrame!=(int8u)-1)
+        Fill(Stream_Video, 0, Video_ScanOrder, Vc3_FFC_ScanOrder[FFC_FirstFrame]);
 }
 
 //***************************************************************************
@@ -255,6 +274,9 @@ void File_Vc3::Data_Parse()
     ImageGeometry();
     Skip_XX( 5,                                                 "Reserved");
     CompressionID();
+    CodingControlB();
+    Skip_XX( 3,                                                 "Reserved");
+    TimeCode();
 
     Skip_XX(640-Element_Offset,                                 "ToDo");
     Skip_XX(Element_Size-Element_Offset,                        "Data");
@@ -306,13 +328,14 @@ void File_Vc3::CodingControlA()
     Element_Begin1("Coding Control A");
     BS_Begin();
 
+    int8u FFC;
     Mark_0();
     Mark_0();
     Mark_0();
     Mark_0();
     Mark_0();
     Mark_0();
-    Info_S1(2, FFC,                                             "Field/Frame Count"); Param_Info1(Vc3_FFC[FFC]);
+    Get_S1 (2, FFC,                                             "Field/Frame Count"); Param_Info1(Vc3_FFC[FFC]);
 
     Mark_1();
     Mark_0();
@@ -334,6 +357,11 @@ void File_Vc3::CodingControlA()
 
     BS_End();
     Element_End0();
+
+    FILLING_BEGIN();
+        if (FFC_FirstFrame==(int8u)-1)
+            FFC_FirstFrame=FFC;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -361,7 +389,7 @@ void File_Vc3::ImageGeometry()
     Mark_0();
     Mark_0();
     Mark_1();
-    Get_SB (   SST,                                             "Source scan type");
+    Get_SB (   SST,                                             "Source scan type"); Param_Info1(Vc3_SST[SST]);
     Mark_0();
     Mark_0();
 
@@ -384,6 +412,54 @@ void File_Vc3::CompressionID()
         if (Data_ToParse==0)
             Reject("VC-3");
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Vc3::CodingControlB()
+{
+    //Parsing
+    Element_Begin1("Coding Control B");
+    BS_Begin();
+
+    Info_S1(1, FFE,                                             "Field/Frame Count"); Param_Info1(Vc3_FFE[FFE]);
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+
+    BS_End();
+    Element_End0();
+}
+
+//---------------------------------------------------------------------------
+void File_Vc3::TimeCode()
+{
+    //Parsing
+    Element_Begin1("Time Code");
+    bool TCP;
+
+    BS_Begin();
+    Get_SB (   TCP,                                             "TCP: Time Code Present");
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    Mark_0();
+    BS_End();
+
+    if (TCP)
+    {
+        Skip_B8(                                                "Time Code");
+    }
+    else
+        Skip_B8(                                                "Junk");
+
+    Element_End0();
 }
 
 //***************************************************************************

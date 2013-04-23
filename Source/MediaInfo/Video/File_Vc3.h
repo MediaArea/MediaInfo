@@ -83,6 +83,7 @@ private :
     int16u  ALPF;
     int16u  SPL;
     int8u   SBD;
+    int8u   FFC_FirstFrame;
     bool    SST;
 };
 
