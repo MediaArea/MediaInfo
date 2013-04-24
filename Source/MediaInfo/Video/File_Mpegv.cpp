@@ -1187,6 +1187,10 @@ void File_Mpegv::Streams_Update()
                         if ((*Text_Positions[Text_Positions_Pos].Parser)==GA94_03_Parser)
                             MuxingMode=__T("A/53 / ")+Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
                     #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+                    #if defined(MEDIAINFO_SCTE20_YES)
+                        if ((*Text_Positions[Text_Positions_Pos].Parser)==Scte_Parser)
+                            MuxingMode=Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
+                    #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
                     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
                         if ((*Text_Positions[Text_Positions_Pos].Parser)==Cdp_Parser)
                             MuxingMode=__T("Ancillary data / ")+Retrieve(Stream_Text, Text_Positions[Text_Positions_Pos].StreamPos+Pos, "MuxingMode");
