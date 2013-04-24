@@ -3857,10 +3857,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
                 Parser->SamplingRate=(int16u)SampleRate;
                 Parser->BitDepth=(int8u)SampleSize;
 
-                #if MEDIAINFO_DEMUX
-                    Streams[moov_trak_tkhd_TrackID].Demux_Level=Config->Demux_Unpacketize_Get()?0:4; //Intermediate
-                #endif //MEDIAINFO_DEMUX
-
                 Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             }
 
@@ -3886,6 +3882,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Parser->Codec=Ztring().From_Local(Codec.c_str());
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             Streams[moov_trak_tkhd_TrackID].IsPcm=true;
+
+            #if MEDIAINFO_DEMUX
+                Streams[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
+            #endif //MEDIAINFO_DEMUX
         }
         #endif
         #if defined(MEDIAINFO_MPEGA_YES)
