@@ -674,6 +674,13 @@ protected :
                 SourceTrackID=New.SourceTrackID;
             if (!New.StructuralComponents.empty())
                 StructuralComponents=New.StructuralComponents;
+            if (New.TimeCode_StartTimecode!=(int64u)-1)
+                TimeCode_StartTimecode=New.TimeCode_StartTimecode;
+            if (New.TimeCode_RoundedTimecodeBase!=(int16u)-1)
+            {
+                TimeCode_RoundedTimecodeBase=New.TimeCode_RoundedTimecodeBase;
+                TimeCode_DropFrame=New.TimeCode_DropFrame;
+            }
         }
     };
     typedef std::map<int128u, component> components; //Key is InstanceUID of the component
