@@ -1,16 +1,16 @@
 ## MediaInfoDLL - All info about media files, for DLL
 #  Copyright (C) 2002-2012 MediaArea.net SARL, Info@MediaArea.net
-# 
+#
 #  This library is free software: you can redistribute it and/or modify it
 #  under the terms of the GNU Library General Public License as published by
 #  the Free Software Foundation, either version 2 of the License, or
 #  any later version.
-# 
+#
 #  This library is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU Library General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU Library General Public License
 #  along with this library. If not, see <http:# www.gnu.org/licenses/>.
 #
@@ -364,38 +364,38 @@ class MediaInfoList:
 
     #Handling
     def __init__(self):
-        self.Handle=MediaInfoList_New()
+        self.Handle = self.MediaInfoList_New()
     def __del__(self):
-        MediaInfoList_Delete(self.Handle)
+        self.MediaInfoList_Delete(self.Handle)
     def Open(self, Files, Options=FileOptions.Nothing):
-        return MediaInfoList_Open(self.Handle, Files, Options)
+        return self.MediaInfoList_Open(self.Handle, Files, Options)
     def Open_Buffer(self, Begin, Begin_Size, End=None, End_Size=0):
-        return MediaInfoList_Open_Buffer (self.Handle, Begin, Begin_Size, End, End_Size)
+        return self.MediaInfoList_Open_Buffer (self.Handle, Begin, Begin_Size, End, End_Size)
     def Save(self, FilePos):
-        return MediaInfoList_Save(self.Handle, FilePos)
+        return self.MediaInfoList_Save(self.Handle, FilePos)
     def Close(self, FilePos):
-        MediaInfoList_Close (self.Handle, FilePos)
+        self.MediaInfoList_Close (self.Handle, FilePos)
 
     #General information
     def Inform(self, FilePos, Reserved=0):
-        return MediaInfoList_Inform (self.Handle, FilePos, Reserved)
+        return self.MediaInfoList_Inform (self.Handle, FilePos, Reserved)
     def GetI(self, FilePos, StreamKind, StreamNumber, Parameter, InfoKind=Info.Text):
-        return MediaInfoList_GetI (self.Handle, FilePos, StreamKind, StreamNumber, Parameter, InfoKind)
+        return self.MediaInfoList_GetI (self.Handle, FilePos, StreamKind, StreamNumber, Parameter, InfoKind)
     def Get(self, FilePos, StreamKind, StreamNumber, Parameter, InfoKind=Info.Text, SearchKind=Info.Name):
-        return MediaInfoList_Get (self.Handle, FilePos, StreamKind, StreamNumber, (Parameter), InfoKind, SearchKind)
+        return self.MediaInfoList_Get (self.Handle, FilePos, StreamKind, StreamNumber, (Parameter), InfoKind, SearchKind)
     def SetI(self, ToSet, FilePos, StreamKind, StreamNumber, Parameter, OldParameter=u""):
-        return MediaInfoList_SetI (self, Handle, ToSet, FilePos, StreamKind, StreamNumber, Parameter, OldParameter)
+        return self.MediaInfoList_SetI (self, Handle, ToSet, FilePos, StreamKind, StreamNumber, Parameter, OldParameter)
     def Set(self, ToSet, FilePos, StreamKind, StreamNumber, Parameter, OldParameter=u""):
-        return MediaInfoList_Set (self.Handle, ToSet, FilePos, StreamKind, StreamNumber, Parameter, OldParameter)
+        return self.MediaInfoList_Set (self.Handle, ToSet, FilePos, StreamKind, StreamNumber, Parameter, OldParameter)
 
     #Options
     def Option(self, Option, Value=u""):
-        return MediaInfoList_Option (self.Handle, Option, Value)
+        return self.MediaInfoList_Option (self.Handle, Option, Value)
     def Option_Static(self, Option, Value=u""):
-        return MediaInfoList_Option(None, Option, Value)
+        return self.MediaInfoList_Option(None, Option, Value)
     def State_Get(self):
-        return MediaInfoList_State_Get (self.Handle)
+        return self.MediaInfoList_State_Get (self.Handle)
     def Count_Get(self, FilePos, StreamKind, StreamNumber):
-        return MediaInfoList_Count_Get (self.Handle, FilePos, StreamKind, StreamNumber=-1)
+        return self.MediaInfoList_Count_Get (self.Handle, FilePos, StreamKind, StreamNumber=-1)
     def Count_Get_Files(self):
-        return MediaInfoList_Count_Get_Files (self.Handle)
+        return self.MediaInfoList_Count_Get_Files (self.Handle)
