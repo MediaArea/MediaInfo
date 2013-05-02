@@ -267,7 +267,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     size_t Pos;
                     for (Pos=0; Pos<MI->Config.File_Sizes.size(); Pos++)
                     {
-                        if (GoTo>MI->Config.File_Sizes[Pos])
+                        if (GoTo>=MI->Config.File_Sizes[Pos])
                         {
                             GoTo-=MI->Config.File_Sizes[Pos];
                             MI->Config.File_Current_Offset+=MI->Config.File_Sizes[Pos];
@@ -360,8 +360,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 {
                     if (MI->Config.File_Names.size()==1)
                     {
-                        if (Growing_Temp==(int64u)-1)
-                            Growing_Temp=F.Size_Get();
+                        Growing_Temp=F.Size_Get();
                         if (MI->Config.File_Size!=Growing_Temp)
                         {
                             MI->Config.File_Current_Size=MI->Config.File_Size=Growing_Temp;
@@ -371,11 +370,8 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     }
                     else
                     {
-                        if (Growing_Temp==(int64u)-1)
-                        {
-                            Growing_Temp=MI->Config.File_Names.size();
-                            MI->TestContinuousFileNames();
-                        }
+                        Growing_Temp=MI->Config.File_Names.size();
+                        MI->TestContinuousFileNames();
                         if (MI->Config.File_Names.size()!=Growing_Temp)
                         {
                             MI->Open_Buffer_Init(MI->Config.File_Size, MI->Config.File_Current_Offset+F.Position_Get()-MI->Config.File_Buffer_Size);
