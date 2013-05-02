@@ -1420,7 +1420,8 @@ bool File__Analyze::Synchro_Manage()
         //Buffer_TotalBytes_Fill_Max
         if (!Status[IsFilled] && Buffer_TotalBytes>=Buffer_TotalBytes_Fill_Max)
         {
-            Reject(); //There was a wrong detection
+            Open_Buffer_Unsynch();
+            GoToFromEnd(0);
             return false;
         }
         if (!Synchronize())
@@ -1428,7 +1429,10 @@ bool File__Analyze::Synchro_Manage()
             if (Status[IsFinished])
                 Finish(); //Finish
             if (!IsSub && File_Offset_FirstSynched==(int64u)-1 && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
-                Reject();
+            {
+                Open_Buffer_Unsynch();
+                GoToFromEnd(0);
+            }
             return false; //Wait for more data
         }
         Synched=true;
