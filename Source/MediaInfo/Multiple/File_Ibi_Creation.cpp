@@ -552,7 +552,7 @@ Ztring File_Ibi_Creation::Finish()
     std::string Data_Base64(Base64::encode(Data_Raw));
 
     delete[] Main; //Main=NULL;
-    
+
     return Ztring().From_UTF8(Data_Base64);
 }
 

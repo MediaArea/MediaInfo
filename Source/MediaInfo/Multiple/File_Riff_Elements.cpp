@@ -2433,7 +2433,7 @@ void File_Riff::AVI__movi_xxxx()
                 Stream[Stream_ID].Parsers[Pos]->FrameInfo.PTS=FrameInfo.PTS;
             if (FrameInfo.DTS!=(int64u)-1)
                 Stream[Stream_ID].Parsers[Pos]->FrameInfo.DTS=FrameInfo.DTS;
-                
+
             Open_Buffer_Continue(Stream[Stream_ID].Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             Element_Show();
             if (Stream[Stream_ID].Parsers.size()==1 && Stream[Stream_ID].Parsers[Pos]->Buffer_Size>0)
@@ -2605,7 +2605,7 @@ void File_Riff::AVI__PrmA()
         case 0x50415266:
                         if (Size==20)
                         {
-                        int32u PAR_X, PAR_Y; 
+                        int32u PAR_X, PAR_Y;
                         Skip_B4(                                                    "Unknown");
                         Get_B4 (PAR_X,                                              "PAR_X");
                         Get_B4 (PAR_Y,                                              "PAR_Y");
