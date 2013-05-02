@@ -53,6 +53,7 @@ private :
 
     //Buffer - Synchro
     bool Synchronize();
+    bool Synched_Test();
 
     //Buffer - Global
     void Read_Buffer_Unsynched();
