@@ -1,5 +1,5 @@
 // File_Mpeg4 - Info for MPEG-4 files
-// Copyright (C) 2005-2012 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2005-2013 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by
@@ -17,7 +17,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Elements part
+// Contributor: Lionel Duchateau, kurtnoise@free.fr
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -677,9 +677,10 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_colr=0x636F6C72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_d263=0x64323633;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dac3=0x64616333;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dec3=0x64656333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_ddts=0x64647473;
-    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
+	const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1=0x64766331;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_esds=0x65736473;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_fiel=0x6669656C;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_glbl=0x676C626C;
@@ -739,9 +740,15 @@ namespace Elements
     const int64u moov_trak_tkhd=0x746B6864;
     const int64u moov_trak_tref=0x74726566;
     const int64u moov_trak_tref_dpnd=0x64706E64;
+	const int64u moov_trak_tref_chap=0x63686170;
+	const int64u moov_trak_tref_clcp=0x636C6370;
+	const int64u moov_trak_tref_fall=0x66616C6C;
+	const int64u moov_trak_tref_folw=0x666F6C77;
+	const int64u moov_trak_tref_forc=0x666F7263;
+    const int64u moov_trak_tref_hint=0x68696E74;	
     const int64u moov_trak_tref_ipir=0x69706972;
-    const int64u moov_trak_tref_hint=0x68696E74;
     const int64u moov_trak_tref_mpod=0x6D706F64;
+	const int64u moov_trak_tref_scpt=0x73637074;
     const int64u moov_trak_tref_ssrc=0x73737263;
     const int64u moov_trak_tref_sync=0x73796E63;
     const int64u moov_trak_tref_tmcd=0x746D6364;
@@ -984,9 +991,10 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_colr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_d263)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dac3)
+								ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dec3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_ddts)
-                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
+								ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_fiel)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_glbl)
@@ -4636,7 +4644,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_d263()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 {
-    Element_Name("AC-3");
+    Element_Name("AC3SpecificBox");
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
 
     //Parsing
@@ -4698,9 +4706,33 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
+{
+    Element_Name("AMR decode config");
+
+    //Parsing
+    int32u Vendor;
+    int8u  Version;
+    Get_C4 (Vendor,                                             "Encoder vendor");
+    Get_B1 (Version,                                            "Encoder version");
+    Skip_B2(                                                    "Packet modes");
+    Skip_B1(                                                    "Number of packet mode changes");
+    Skip_B1(                                                    "Samples per packet");
+
+    if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
+        return; //Handling only the first description
+
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Mpeg4_Vendor(Vendor));
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+__T(' ')+Ztring::ToZtring(Version));
+    Ztring Encoded_Library_String=Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(__T(" Revision ")+Ztring::ToZtring(Version)):Ztring());
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Encoded_Library_String, true);
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
 {
-    Element_Name("E-AC-3");
+    Element_Name("EAC3SpecificBox");
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
 
     if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
@@ -4738,6 +4770,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ddts()
 {
+    Element_Name("DTSSpecificBox");
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
+
+    if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
+    {
+        return; //Handling only the first description
+    }
+
     //Comments about the new CodecIDs having this atom:
     //dtsc: DTS Core only
     //dtse: DTS Express, not having DTS Core
@@ -4767,9 +4807,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ddts()
         Skip_S1(6,                                              "reserved");
     BS_End();
 
-    FILLING_BEGIN();
-        /*
-        //Disabled until we have a sample file
+    FILLING_BEGIN();        
         if (DTSSamplingFrequency)
             Fill(StreamKind_Last, StreamPos_Last, Audio_SamplingRate, DTSSamplingFrequency, 10, true); //This is the maximum sampling frequency
         if (avgBitrate)
@@ -4788,33 +4826,132 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_ddts()
             Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_ChannelPositions2[CoreLayout]);
         }
         #endif //defined(MEDIAINFO_DTS_YES)
-        */
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
 {
-    Element_Name("AMR decode config");
+    Element_Name("VC1SpecificBox");
+	
+	// Parsing
+	int32u hrd_buffer, hrd_rate, framerate;
+	int8u profile, level, frmrtq_pp, bitrtq_pp, dquant, vtransform, overlap, syncmarker, rangered, maxbframes, quantizer, finterpflag, no_interlace, no_multiple_seq, no_multiple_entry, no_slice_code, no_bframe, seqhdr;
+	bool cbr, loopfilter, multires, fastuvmc,  extended_mv;
 
-    //Parsing
-    int32u Vendor;
-    int8u  Version;
-    Get_C4 (Vendor,                                             "Encoder vendor");
-    Get_B1 (Version,                                            "Encoder version");
-    Skip_B2(                                                    "Packet modes");
-    Skip_B1(                                                    "Number of packet mode changes");
-    Skip_B1(                                                    "Samples per packet");
+	BS_Begin();
+		Get_S1 (4, profile,                                     "Profile");
+		Get_S1 (3, level,                                       "Level");
+		Skip_SB(                                                "reserved");
+    BS_End();		
+    		
+	switch(profile)
+	{
+		case 0 : // Simple Profile
+		case 4 : // Main Profile
+				BS_Begin();
+					Get_S1 (3, level,                           "Level");      // should be the same as above
+					Get_SB (cbr,                                "CBR");        // should be equal to 1 if CBR Mode, 0 otherwhise
+					Skip_S1(4,                                  "Reserved");   // should be set to 0					
+				BS_End();	
+				Get_B3 (hrd_buffer,                             "HRD_Buffer"); // Buffer Size of Hypothetical Reference Decoder in ms
+				Get_B4 (hrd_rate,                               "HRD_Rate");   // Peak Transmisson Rate of the Hypothetical Reference Decoder in bps
+				Get_B4 (framerate,                              "FrameRate");  // Rounded FPS of the track
+				BS_Begin();
+					Get_S1 (4, profile,                         "Profile");    // should be the same as above
+					Get_S1 (3, frmrtq_pp,                       "Frmrtq_postproc"); 
+					Get_S1 (5, bitrtq_pp,                       "Bitrtq_postproc");
+					Get_SB (loopfilter,                         "Loopfilter");
+					Skip_SB(                                    "Reserved");   // should be set to 0
+					Get_SB (multires,                           "MultiRes");
+					Skip_SB(                                    "Reserved");   // should be set to 1
+					Get_SB (fastuvmc,                           "Fastuvmc");
+					Get_SB (extended_mv,                        "Extended_mv");
+					Get_S1 (2, dquant,                          "Dquant");
+					Get_S1 (1, vtransform,                      "Vtransform");
+					Skip_SB(                                    "Reserved");   // should be set to 0
+					Get_S1 (1, overlap,                         "Overlap");
+					Get_S1 (1, syncmarker,                      "Syncmarker");
+					Get_S1 (1, rangered,                        "Rangered");
+					Get_S1 (3, maxbframes,                      "MaxBFrames"); // should be equal to 0 with SP
+					Get_S1 (2, quantizer,                       "Quantizer");
+					Get_S1 (1, finterpflag,                     "Finterpflag");
+					Skip_SB(	                                "Reserved");   // should be set to 1
+				BS_End();	
+		break;
+		case 12 : // Advanced Profile
+				BS_Begin();
+					Get_S1 (3, level,                           "Level");      // should be the same as above
+					Get_SB (cbr,                                "CBR");        // should be equal to 1 if CBR Mode, 0 otherwhise
+					Skip_S1(6,                                  "Reserved");   // should be set to 0					
+					Get_S1 (1, no_interlace,                    "No Interlace"); // should be set to 0 for Interlaced Content
+					Get_S1 (1, no_multiple_seq,                 "No Multiple Sequence");
+					Get_S1 (1, no_multiple_entry,               "No Multiple Entry");
+					Get_S1 (1, no_slice_code,                   "No Slice Code");
+					Get_S1 (1, no_bframe,                       "No BFrame");
+					Skip_SB(                                    "Reserved");
+				BS_End();
+				Get_B4 (framerate,                              "FrameRate");
+				Get_B1 (seqhdr,                                 "Sequence HDR");							
+		break;
+	}
 
-    if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
-        return; //Handling only the first description
+    FILLING_BEGIN();  
+        #if defined(MEDIAINFO_VC1_YES)	
+		if ((profile) && (level))
+		{	
+			Ztring Profile, Level;
+			
+			switch (profile)
+			{
+				case 0  : Profile=__T("Simple"); break;
+				case 4  : Profile=__T("Main"); break;
+				case 12 : Profile=__T("Advanced"); break;
+				default : Profile=__T("");
+            }
+			Profile+=__T("@");
+			
+			if (profile == 0) // Simple Profile
+			{
+				switch (level)
+				{
+					case 0  : Level=__T("Low"); break;
+					case 2  : Level=__T("Medium"); break; 
+					default : Level=__T("");
+				}
+			}
+			else if (profile == 4) // Main Profile
+			{
+				switch (level)
+				{
+					case 0  : Level=__T("Low"); break;
+					case 2  : Level=__T("Medium"); break; 
+					case 4  : Level=__T("High"); break; 
+					default : Level=__T("");
+				}
+			}
+			else if (profile == 12) // Advanced Profile
+			{
+				switch (level)
+				{
+					case 0  : Level=__T("L0"); break;
+					case 1  : Level=__T("L1"); break;					
+					case 2  : Level=__T("L2"); break; 
+					case 3  : Level=__T("L3"); break;					
+					case 4  : Level=__T("L4"); break; 
+					default : Level=__T("");
+				}
+			}			
+			Profile+=Level;
+			Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, Profile);
+			Fill(Stream_Video, StreamPos_Last, Video_Codec_Profile, Profile);
+		}
+		#endif //defined(MEDIAINFO_VC1_YES)
+		if (framerate)
+			Fill(StreamKind_Last, StreamPos_Last, Video_FrameRate, framerate, 3);			
+	FILLING_END();
+}	
 
-    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Mpeg4_Vendor(Vendor));
-    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+__T(' ')+Ztring::ToZtring(Version));
-    Ztring Encoded_Library_String=Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(__T(" Revision ")+Ztring::ToZtring(Version)):Ztring());
-    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Encoded_Library_String, true);
-}
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
@@ -5581,6 +5718,26 @@ void File_Mpeg4::moov_trak_tref()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_tref_chap()
+{
+    Element_Name("Chapters List");
+
+    //Parsing
+    int32u TrackID;
+    Get_B4(TrackID,                                             "track-ID");
+}	
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_tref_clcp()
+{
+    Element_Name("Closed Caption Track");
+
+    //Parsing
+    int32u TrackID;
+    Get_B4(TrackID,                                             "track-ID");
+}	
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tref_dpnd()
 {
     Element_Name("MPEG-4 dependency");
@@ -5591,9 +5748,29 @@ void File_Mpeg4::moov_trak_tref_dpnd()
 }
 
 //---------------------------------------------------------------------------
-void File_Mpeg4::moov_trak_tref_ipir()
+void File_Mpeg4::moov_trak_tref_fall()
 {
-    Element_Name("IPI declarations");
+    Element_Name("Audio Track Reference");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_B4(                                                "track-ID");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_tref_folw()
+{
+    Element_Name("Default Track");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_B4(                                                "track-ID");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_tref_forc()
+{
+    Element_Name("Forced Subtitle Track");
 
     //Parsing
     while (Element_Offset<Element_Size)
@@ -5611,6 +5788,16 @@ void File_Mpeg4::moov_trak_tref_hint()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_tref_ipir()
+{
+    Element_Name("IPI declarations");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_B4(                                                "track-ID");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tref_mpod()
 {
     Element_Name("included elementary stream");
@@ -5619,6 +5806,17 @@ void File_Mpeg4::moov_trak_tref_mpod()
     while (Element_Offset<Element_Size)
         Skip_B4(                                                "track-ID");
 }
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_tref_scpt()
+{
+    Element_Name("transcript");
+
+    //Parsing
+    while (Element_Offset<Element_Size)
+        Skip_B4(                                                "track-ID");
+}
+
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tref_ssrc()
