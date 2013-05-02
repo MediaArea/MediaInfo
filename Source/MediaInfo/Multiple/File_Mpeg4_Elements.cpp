@@ -4373,7 +4373,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
     Get_B1 (Version,                                            "Version");
     if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
     {
-        Skip_XX(Element_Size,                                   "Data not analyzed");
+        Skip_XX(Element_Size-Element_Offset,                    "Data not analyzed");
         return; //Handling only the first description
     }
     else if (Version==1)
