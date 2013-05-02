@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.62 --> 0.7.63
+-----------------
+- XML: dt:dt is replaced by dt (for binary data)
+
 0.7.61 --> 0.7.62
 -----------------
 - MOV "menu" moved to "other", for better separation of time code tracks
