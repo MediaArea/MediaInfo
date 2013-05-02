@@ -3,7 +3,7 @@ Notes:
 + Added
 - Deleted
 x Correction
-#number is the identifier of bug report/requested feature/patch
+#number is the identifier of bug report (B), requested feature (F) or patch (P)
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
@@ -19,11 +19,12 @@ Version 0.7.63, 2013-
 + .so: search a local copy of the library before trying default path
 + AVI: Support of Adobe PARf (Aspect Ratio) chunk
 + VC-3: Scan order
-x #742, MPEG-4/MOV, crash with some truncated/invalid files
-x #746, MPEG-4/MOV: crash with files having moof atom and no moov atom
-x #747, Inconsistent hang with buffer API
-x #757, MediaInfoDLL.py MediaInfoList was not working, thanks to Elbenfreund
-x #740, XML: dt:dt is replaced by dt (for binary data)
++ #P65, Flac/Ogg DISCTOTAL metadata support, thanks to Kurtnoise 
+x #B742, MPEG-4/MOV, crash with some truncated/invalid files
+x #B746, MPEG-4/MOV: crash with files having moof atom and no moov atom
+x #B747, Inconsistent hang with buffer API
+x #B757, MediaInfoDLL.py MediaInfoList was not working, thanks to Elbenfreund
+x #B740, XML: dt:dt is replaced by dt (for binary data)
 x MXF: Dolby E streams starting only at the second or third frame were not well detected
 x MPEG-4/MOV: reducing analysis time for I-frame only video streams
 x CEA-708: weird behavior phantom streams are displayed) in case of buggy CEA-708

@@ -244,6 +244,7 @@ void File_VorbisCom::Data_Parse()
         else if (Key==__T("DISC"))                   Fill(StreamKind_Common,   0, "Part", Value, true);
         else if (Key==__T("DISCID"))                 {}
         else if (Key==__T("DISCNUMBER"))             Fill(StreamKind_Common,   0, "Part", Value, true);
+        else if (Key==__T("DISCTOTAL"))              Fill(StreamKind_Common,   0, "Part/Position_Total", Value);
         else if (Key==__T("ENCODEDBY"))              Fill(StreamKind_Common,   0, "EncodedBy", Value);
         else if (Key==__T("ENCODED-BY"))             Fill(StreamKind_Common,   0, "EncodedBy", Value);
         else if (Key==__T("ENCODER"))                Fill(StreamKind_Common,   0, "Encoded_Application", Value);
