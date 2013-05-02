@@ -2944,7 +2944,11 @@ void File_Mxf::Header_Parse()
     if (Element_IsWaitingForMoreData())
         return;
 
-    if (Length==0 && Essences.empty() && Retrieve(Stream_General, 0, General_Format_Settings).find(__T(" / Incomplete"))!=string::npos)
+    if (Length==0
+	 && ((int32u)Code.hi)==Elements::GenericContainer_Aaf2
+	 && (((int32u)(Code.lo>>32))==Elements::GenericContainer_Aaf3 || ((int32u)(Code.lo>>32))==Elements::GenericContainer_Avid3)
+     && Retrieve(Stream_General, 0, General_Format_Settings).find(__T(" / Incomplete"))!=string::npos
+	 )
     {
         if (Buffer_Offset+Element_Offset+4>Buffer_Size)
         {
@@ -3371,10 +3375,10 @@ void File_Mxf::Data_Parse()
                 {
                     Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
                     Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay)*1000000000+FrameInfo.DTS;
-                    if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
-                        Essence->second.FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
-                    else if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+                    if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
                         Essence->second.FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+                    else if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+                        Essence->second.FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
                     #if MEDIAINFO_DEMUX
                         if (Buffer_End && Demux_UnpacketizeContainer && Essences.size()==1 && !Essences.begin()->second.Parsers.empty() && !(*(Essences.begin()->second.Parsers.begin()))->Demux_UnpacketizeContainer)
                             for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
