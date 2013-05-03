@@ -1729,6 +1729,14 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
 
 void MediaInfo_Config_MediaInfo::Event_Accepted (File__Analyze* Source)
 {
+    #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
+        if (Demux_EventWasSent && NextPacket_Get())
+        {
+            Events_Delayed_CurrentSource=Source;
+            return;
+        }
+    #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
+
     for (events_delayed::iterator Event=Events_Delayed.begin(); Event!=Events_Delayed.end(); ++Event)
         if (Event->first==Source)
         {
