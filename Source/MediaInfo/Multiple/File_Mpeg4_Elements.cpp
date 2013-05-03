@@ -4835,7 +4835,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
     Element_Name("VC1SpecificBox");
 	
 	// Parsing
-	int32u hrd_buffer, hrd_rate, framerate;
+	int32u hrd_buffer, hrd_rate, framerate=0;
 	int8u profile, level, frmrtq_pp, bitrtq_pp, dquant, vtransform, overlap, syncmarker, rangered, maxbframes, quantizer, finterpflag, no_interlace, no_multiple_seq, no_multiple_entry, no_slice_code, no_bframe, seqhdr;
 	bool cbr, loopfilter, multires, fastuvmc,  extended_mv;
 
@@ -5733,8 +5733,8 @@ void File_Mpeg4::moov_trak_tref_clcp()
     Element_Name("Closed Caption Track");
 
     //Parsing
-    int32u TrackID;
-    Get_B4(TrackID,                                             "track-ID");
+    while (Element_Offset<Element_Size)
+        Skip_B4(                                                "track-ID");
 }	
 
 //---------------------------------------------------------------------------
