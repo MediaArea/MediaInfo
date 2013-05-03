@@ -45,6 +45,26 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+const bool Vc3_FromCID_IsSupported (int32u CompressionID)
+{
+    switch (CompressionID)
+    {
+        case 1235 :
+        case 1237 :
+        case 1238 :
+        case 1241 :
+        case 1242 :
+        case 1243 :
+        case 1250 :
+        case 1251 :
+        case 1252 :
+        case 1253 :
+                    return true;
+        default   : return false;
+    }
+}
+
+//---------------------------------------------------------------------------
 const int32u Vc3_CompressedFrameSize(int32u CompressionID)
 {
     switch (CompressionID)
@@ -74,6 +94,19 @@ const int8u Vc3_SBD(int32u SBD) //Sample Bit Depth
         default: return  0;
     }
 };
+
+//---------------------------------------------------------------------------
+const int8u Vc3_SBD_FromCID (int32u CompressionID)
+{
+    switch (CompressionID)
+    {
+        case 1235 :
+        case 1241 :
+        case 1250 :
+                    return 10;
+        default   : return 8;
+    }
+}
 
 //---------------------------------------------------------------------------
 const char* Vc3_FFC[4]=
@@ -106,6 +139,45 @@ const char* Vc3_SST[2]=
     "Progressive",
     "Interlaced",
 };
+
+//---------------------------------------------------------------------------
+const char* Vc3_SST_FromCID (int32u CompressionID)
+{
+    switch (CompressionID)
+    {
+        case 1241 :
+        case 1242 :
+        case 1243 :
+                    return Vc3_SST[1];
+        default   : return Vc3_SST[0];
+    }
+}
+
+//---------------------------------------------------------------------------
+const int16u Vc3_SPL_FromCID (int32u CompressionID)
+{
+    switch (CompressionID)
+    {
+        case 1250 :
+        case 1251 :
+        case 1252 :
+                    return 1280;
+        default   : return 1920;
+    }
+}
+
+//---------------------------------------------------------------------------
+const int16u Vc3_ALPF_PerFrame_FromCID (int32u CompressionID)
+{
+    switch (CompressionID)
+    {
+        case 1250 :
+        case 1251 :
+        case 1252 :
+                    return 720;
+        default   : return 1080;
+    }
+}
 
 //***************************************************************************
 // Constructor/Destructor
@@ -140,12 +212,22 @@ void File_Vc3::Streams_Fill()
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     if (FrameRate)
         Fill(Stream_Video, 0, Video_BitRate, Vc3_CompressedFrameSize(CID)*8*FrameRate, 0);
-    Fill(Stream_Video, 0, Video_Width, SPL);
-    Fill(Stream_Video, 0, Video_Height, ALPF);
-    Fill(Stream_Video, 0, Video_BitDepth, Vc3_SBD(SBD));
-    Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
-    Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:2:2");
-    Fill(Stream_Video, 0, Video_ScanType, Vc3_SST[SST]);
+    if (Vc3_FromCID_IsSupported(CID))
+    {
+        Fill(Stream_Video, 0, Video_Width, Vc3_SPL_FromCID(CID));
+        Fill(Stream_Video, 0, Video_Height, Vc3_ALPF_PerFrame_FromCID(CID));
+        Fill(Stream_Video, 0, Video_BitDepth, Vc3_SBD_FromCID(CID));
+        Fill(Stream_Video, 0, Video_ScanType, Vc3_SST_FromCID(CID));
+        Fill(Stream_Video, 0, Video_ColorSpace, "YUV");
+        Fill(Stream_Video, 0, Video_ChromaSubsampling, "4:2:2");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Width, SPL);
+        Fill(Stream_Video, 0, Video_Height, ALPF*(SST?2:1));
+        Fill(Stream_Video, 0, Video_BitDepth, Vc3_SBD(SBD));
+        Fill(Stream_Video, 0, Video_ScanType, Vc3_SST[SST]);
+    }
     if (FFC_FirstFrame!=(int8u)-1)
         Fill(Stream_Video, 0, Video_ScanOrder, Vc3_FFC_ScanOrder[FFC_FirstFrame]);
 }

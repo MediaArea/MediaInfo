@@ -33,6 +33,7 @@ x Wrong demuxing of the caption stream in the case of AVC streams without frame_
 x DPX: parsing was very slow with a sequence of files.
 x MXF: Pre-charge duration was not read, time code of the first frame was wrong if "Origin" is not 0
 x FLV: file was sometimes (e.g. most of the file padded with zeroes) fully parsed
+x VC-3: Using values from specifications (based on compression ID) instead of SBD/SST/SPL/APLF from bitstream
 
 Version 0.7.62, 2013-02-22
 --------------
