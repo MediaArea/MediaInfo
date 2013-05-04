@@ -93,6 +93,9 @@
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
+#if defined(MEDIAINFO_TIMEDTEXT_YES)
+    #include "MediaInfo/Text/File_TimedText.h"
+#endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
@@ -1063,10 +1066,16 @@ void File_Mpeg4::Data_Parse()
             ATOM(moov_trak_tkhd)
             LIST(moov_trak_tref)
                 ATOM_BEGIN
+                ATOM(moov_trak_tref_chap)
+                ATOM(moov_trak_tref_clcp)
                 ATOM(moov_trak_tref_dpnd)
+                ATOM(moov_trak_tref_fall)
+                ATOM(moov_trak_tref_folw)
+                ATOM(moov_trak_tref_forc)
                 ATOM(moov_trak_tref_ipir)
                 ATOM(moov_trak_tref_hint)
                 ATOM(moov_trak_tref_mpod)
+                ATOM(moov_trak_tref_scpt)
                 ATOM(moov_trak_tref_ssrc)
                 ATOM(moov_trak_tref_sync)
                 ATOM(moov_trak_tref_tmcd)
@@ -2734,9 +2743,14 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
             case Elements::moov_trak_mdia_hdlr_sbtl :
                 if (StreamKind_Last!=Stream_Text)
                 {
-                    Stream_Prepare(Stream_Text);
-                    if (SubType!=Elements::moov_trak_mdia_hdlr_text)
-                        Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Ztring().From_CC4(SubType));
+                    if (Streams[moov_trak_tkhd_TrackID].IsChapter)
+                        Stream_Prepare(Stream_Menu);
+                    else
+                    {
+                        Stream_Prepare(Stream_Text);
+                        if (SubType!=Elements::moov_trak_mdia_hdlr_text)
+                            Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Ztring().From_CC4(SubType));
+                    }
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_subp :
@@ -3608,22 +3622,19 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tx3g()
     Element_End0();
 
     FILLING_BEGIN();
-        CodecID_Fill(__T("tx3g"), Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+        CodecID_Fill(__T("tx3g"), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Mpeg4);
         Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "tx3g", Unlimited, true, true);
 
-        #if MEDIAINFO_DEMUX
-            if (Streams[moov_trak_tkhd_TrackID].Parsers.empty() && Config_Demux)
-            {
-                File__Analyze* Parser=new File__Analyze; //Only for activating Demux
-
-                int64u Elemen_Code_Save=Element_Code;
-                Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
-                Open_Buffer_Init(Parser);
-                Element_Code=Elemen_Code_Save;
-                Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
-                mdat_MustParse=true; //Data is in MDAT
-            }
-        #endif //MEDIAINFO_DEMUX
+        #ifdef MEDIAINFO_TIMEDTEXT_YES
+            File_TimedText* Parser=new File_TimedText;
+            int64u Elemen_Code_Save=Element_Code;
+            Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
+            Open_Buffer_Init(Parser);
+            Element_Code=Elemen_Code_Save;
+            Parser->IsChapter=Streams[moov_trak_tkhd_TrackID].IsChapter;
+            Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+            mdat_MustParse=true; //Data is in MDAT
+        #endif //MEDIAINFO_TIMEDTEXT_YES
     FILLING_END();
 }
 
@@ -5732,7 +5743,14 @@ void File_Mpeg4::moov_trak_tref_chap()
 
     //Parsing
     int32u TrackID;
-    Get_B4(TrackID,                                             "track-ID");
+    while (Element_Offset<Element_Size)
+    {
+        Get_B4(TrackID,                                         "track-ID");
+
+        FILLING_BEGIN();
+            Streams[TrackID].IsChapter=true;
+        FILLING_END();
+    }
 }	
 
 //---------------------------------------------------------------------------

@@ -616,6 +616,9 @@
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_TELETEXT_NO) && !defined(MEDIAINFO_TELETEXT_YES)
     #define MEDIAINFO_TELETEXT_YES
 #endif
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_TIMEDTEXT_NO) && !defined(MEDIAINFO_TIMEDTEXT_YES)
+    #define MEDIAINFO_TIMEDTEXT_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_TTML_NO) && !defined(MEDIAINFO_TTML_YES)
     #define MEDIAINFO_TTML_YES
 #endif

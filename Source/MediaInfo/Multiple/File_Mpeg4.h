@@ -401,6 +401,7 @@ private :
         bool                    IsPcmMono;
         bool                    IsPriorityStream;
         bool                    IsFilled;
+        bool                    IsChapter;
         float32                 CleanAperture_Width;
         float32                 CleanAperture_Height;
         float32                 CleanAperture_PixelAspectRatio;
@@ -452,6 +453,7 @@ private :
             IsPcmMono=false;
             IsPriorityStream=false;
             IsFilled=false;
+            IsChapter=false;
             CleanAperture_Width=0;
             CleanAperture_Height=0;
             CleanAperture_PixelAspectRatio=0;
