@@ -4206,7 +4206,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 }
             #endif
             #if defined(MEDIAINFO_VC1_YES)
-                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==__T("VC-1"))
+                if (Element_Code!=0x76632D31 && MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==__T("VC-1")) // If "vc-1" CodecID, there is a dvc1 atom, not using the hack with Sequence Header direct search
                 {
                     File_Vc1* Parser=new File_Vc1;
                     Parser->FrameIsAlwaysComplete=true;
@@ -4836,7 +4836,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
 	
 	// Parsing
 	int32u hrd_buffer, hrd_rate, framerate=0;
-	int8u profile, level, frmrtq_pp, bitrtq_pp, dquant, vtransform, overlap, syncmarker, rangered, maxbframes, quantizer, finterpflag, no_interlace, no_multiple_seq, no_multiple_entry, no_slice_code, no_bframe, seqhdr;
+	int8u profile, level, frmrtq_pp, bitrtq_pp, dquant, vtransform, overlap, syncmarker, rangered, maxbframes, quantizer, finterpflag, no_interlace, no_multiple_seq, no_multiple_entry, no_slice_code, no_bframe;
 	bool cbr, loopfilter, multires, fastuvmc,  extended_mv;
 
 	BS_Begin();
@@ -4892,7 +4892,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
 					Skip_SB(                                    "Reserved");
 				BS_End();
 				Get_B4 (framerate,                              "FrameRate");
-				Get_B1 (seqhdr,                                 "Sequence HDR");							
+				Element_Begin1("Sequence HDR");							
+                    File_Vc1* Parser=new File_Vc1;
+                    Parser->FrameIsAlwaysComplete=true;
+                    Open_Buffer_Init(Parser);
+                    Open_Buffer_Continue(Parser);
+                    Element_Offset=Element_Size;
+                    Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+                    mdat_MustParse=true; //Data is in MDAT*/
+                Element_End0();
 		break;
 	}
 
@@ -4947,7 +4955,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
 			Fill(Stream_Video, StreamPos_Last, Video_Codec_Profile, Profile);
 		}
 		#endif //defined(MEDIAINFO_VC1_YES)
-		if (framerate)
+		if (framerate && framerate!=(int32u)-1)
 			Fill(StreamKind_Last, StreamPos_Last, Video_FrameRate, framerate, 3);			
 	FILLING_END();
 }	
