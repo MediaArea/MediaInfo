@@ -89,7 +89,7 @@ const int16u Flv_SamplingRate[]=
     8000, //Special case for Nellymoser 8kHz mono
 };
 
-const char* Flv_Format_Audio[]=
+const char* Flv_Format_Audio[16]=
 {
     "PCM",
     "ADPCM",
@@ -109,7 +109,7 @@ const char* Flv_Format_Audio[]=
     "",
 };
 
-const char* Flv_Format_Profile_Audio[]=
+const char* Flv_Format_Profile_Audio[16]=
 {
     "",
     "",
@@ -129,7 +129,7 @@ const char* Flv_Format_Profile_Audio[]=
     "",
 };
 
-const char* Flv_Codec_Audio[]=
+const char* Flv_Codec_Audio[16]=
 {
     "Uncompressed",
     "ADPCM",
@@ -149,7 +149,7 @@ const char* Flv_Codec_Audio[]=
     "",
 };
 
-const char* Flv_CodecID_Hint_Audio[]=
+const char* Flv_CodecID_Hint_Audio[16]=
 {
     "",
     "",
@@ -169,7 +169,7 @@ const char* Flv_CodecID_Hint_Audio[]=
     "",
 };
 
-const char* Flv_Format_Video[]=
+const char* Flv_Format_Video[16]=
 {
     "",
     "",
@@ -183,13 +183,13 @@ const char* Flv_Format_Video[]=
     "",
     "",
     "",
-    "",
+    "HEVC",
     "",
     "",
     "",
 };
 
-const char* Flv_Format_Profile_Video[]=
+const char* Flv_Format_Profile_Video[16]=
 {
     "",
     "",
@@ -209,7 +209,7 @@ const char* Flv_Format_Profile_Video[]=
     "",
 };
 
-const char* Flv_Codec_Video[]=
+const char* Flv_Codec_Video[16]=
 {
     "",
     "",
@@ -223,13 +223,13 @@ const char* Flv_Codec_Video[]=
     "",
     "",
     "",
-    "",
+    "HEVC",
     "",
     "",
     "",
 };
 
-const char* Flv_CodecID_Hint_Video[]=
+const char* Flv_CodecID_Hint_Video[16]=
 {
     "",
     "",
@@ -902,15 +902,12 @@ void File_Flv::video()
         {
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);
-            if (Codec<8)
-            {
-                Fill(Stream_Video, 0, Video_Format, Flv_Format_Video[Codec]);
-                Fill(Stream_Video, 0, Video_Format_Profile, Flv_Format_Profile_Video[Codec]);
-                Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
-                Fill(Stream_Video, 0, Video_CodecID, Codec);
-                Fill(Stream_Video, 0, Video_CodecID_Hint, Flv_CodecID_Hint_Video[Codec]);
-                Fill(Stream_Video, 0, Video_BitDepth, 8); //FLV is not known to support another bit depth
-            }
+            Fill(Stream_Video, 0, Video_Format, Flv_Format_Video[Codec]);
+            Fill(Stream_Video, 0, Video_Format_Profile, Flv_Format_Profile_Video[Codec]);
+            Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
+            Fill(Stream_Video, 0, Video_CodecID, Codec);
+            Fill(Stream_Video, 0, Video_CodecID_Hint, Flv_CodecID_Hint_Video[Codec]);
+            Fill(Stream_Video, 0, Video_BitDepth, 8); //FLV is not known to support another bit depth
 
             MustSynchronize=true; // Now, synchronization test is possible
         }

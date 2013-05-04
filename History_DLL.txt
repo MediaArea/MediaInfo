@@ -21,7 +21,8 @@ Version 0.7.63, 2013-
 + VC-3: Scan order
 + #P65, Flac/Ogg DISCTOTAL metadata support, thanks to Kurtnoise
 + #P67, MOV, add Hap Video to the database, thanks to Kurtnoise
-+ #P67, FLV, add VP9 to the database, thanks to Kurtnoise
++ #P67, Matroska, add VP9 to the database, thanks to Kurtnoise
++ #P68, FLV, add HEVC detection in the FLV parser
 x #B742, MPEG-4/MOV, crash with some truncated/invalid files
 x #B746, MPEG-4/MOV: crash with files having moof atom and no moov atom
 x #B747, Inconsistent hang with buffer API
