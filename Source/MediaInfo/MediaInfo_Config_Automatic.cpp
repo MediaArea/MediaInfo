@@ -1313,9 +1313,11 @@ void MediaInfo_Config_CodecID_Video_Matroska (InfoMap &Info)
     "V_REAL/RV10;RealVideo 1;;RealVideo 1.0 aka RealVideo 5;http://www.real.com\n"
     "V_REAL/RV20;RealVideo 2;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com\n"
     "V_REAL/RV30;RealVideo 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com\n"
-    "V_REAL/RV40;RealVideo 4;;RealVideo 4.0 aka RealVideo 9;http://www.real.com\n"
-    "V_THEORA;Theora;;;http://www.theora.org\n"
-    "V_VP8;VP8;;;http://www.webmproject.org/\n"
+    "V_REAL/RV40;RealVideo 4;;RealVideo 4.0 aka RealVideo 9;"http://www.real.com
+V_THEORA";Theora;;;"http://www.theora.org
+V_VP8";VP8;;;"http://www.webmproject.org/
+V_VP9";VP9;;;"http://www.webmproject.org/
+"\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -1379,13 +1381,16 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "DVOR;Digital Voodoo;;Digital Voodoo intermediate raw;http://www.digitalvoodoo.net/;;;\n"
     "dvpp;DV;DVCPRO;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2\n"
     "DVTV;Digital Voodoo;;Digital Voodoo intermediate 2vuy;http://www.digitalvoodoo.net/;;;\n"
-    "DVVT;Digital Voodoo;;Digital Voodoo intermediate v210;http://www.digitalvoodoo.net/;;;\n"
-    "encv;(Encrypted);;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
-    "gif ;M-GIF;;;;;;\n"
-    "h261;H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
-    "h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
-    "H263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
-    "h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
+    "DVVT;Digital Voodoo;;Digital Voodoo intermediate v210;http://www.digitalvoodoo.net/;;;;"
+encv";(Encrypted);;;http://www.apple.com/quicktime/download/standalone.html;;;;"
+gif ";M-GIF;;;;;;;"
+Hap1";Hap;;Hap Video Codec;https://github.com/Vidvox/hap;;;;"
+Hap5";Hap Alpha;;Hap Video Codec;https://github.com/Vidvox/hap;;;;"
+HapY";Hap Q;;Hap Video Codec;https://github.com/Vidvox/hap;;;;"
+h261";H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;;"
+h263";H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;;"
+H263";H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;;"
+h264";H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "hcpa;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;High;;YUV;4:2:2\n"
     "HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/;;;\n"
     "hdv1;MPEG Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV\n"
