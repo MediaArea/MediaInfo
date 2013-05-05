@@ -3491,8 +3491,20 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_text()
     Skip_Local(TextName_Size,                                   "Text name");
 
     FILLING_BEGIN();
-        CodecID_Fill(__T("text"), Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
-        Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "text", Unlimited, true, true);
+        CodecID_Fill(__T("text"), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "text", Unlimited, true, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "Timed Text", Unlimited, true, true);
+
+        #ifdef MEDIAINFO_TIMEDTEXT_YES
+            File_TimedText* Parser=new File_TimedText;
+            int64u Elemen_Code_Save=Element_Code;
+            Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
+            Open_Buffer_Init(Parser);
+            Element_Code=Elemen_Code_Save;
+            Parser->IsChapter=Streams[moov_trak_tkhd_TrackID].IsChapter;
+            Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+            mdat_MustParse=true; //Data is in MDAT
+        #endif //MEDIAINFO_TIMEDTEXT_YES
     FILLING_END();
 }
 
@@ -3623,7 +3635,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tx3g()
 
     FILLING_BEGIN();
         CodecID_Fill(__T("tx3g"), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Mpeg4);
-        Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "tx3g", Unlimited, true, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "tx3g", Unlimited, true, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "Timed Text", Unlimited, true, true);
 
         #ifdef MEDIAINFO_TIMEDTEXT_YES
             File_TimedText* Parser=new File_TimedText;
