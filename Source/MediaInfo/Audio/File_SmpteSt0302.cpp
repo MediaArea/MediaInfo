@@ -137,7 +137,6 @@ void File_SmpteSt0302::Streams_Fill()
 
     if (Count_Get(Stream_Audio)==1)
     {
-        Fill(Stream_Audio, 0, Audio_BitRate_Encoded, (5+bits_per_sample)*(1+number_channels)*8*48000);
         if (Retrieve(Stream_Audio, 0, Audio_BitRate).empty())
            Fill(Stream_Audio, 0, Audio_BitRate, (4+bits_per_sample)*(1+number_channels)*8*48000);
         if (Retrieve(Stream_Audio, 0, Audio_Format)==__T("PCM"))
@@ -147,6 +146,10 @@ void File_SmpteSt0302::Streams_Fill()
             Clear(Stream_Audio, 0, Audio_Codec_Family);
         }
     }
+
+    Fill(Stream_Audio, 0, Audio_BitRate_Encoded, (5+bits_per_sample)*(1+number_channels)*8*48000);
+    for (size_t Pos=1; Pos<Count_Get(Stream_Audio); Pos++)
+        Fill(Stream_Audio, Pos, Audio_BitRate_Encoded, 0);
 }
 
 //***************************************************************************

@@ -161,6 +161,7 @@ File_SmpteSt0337::File_SmpteSt0337()
     Stream_Bits=0;
     data_type=(int8u)-1;
     GuardBand_Before=0;
+    GuardBand_After=0;
 
     // Parser
     Parser=NULL;
@@ -890,6 +891,10 @@ void File_SmpteSt0337::Header_Parse()
     // Filling
     Header_Fill_Size(Container_Bits*4/8+Size/8);
     Header_Fill_Code(0, "AES3");
+
+    //Guard band
+    if (IsSub && FrameInfo.DTS!=(int64u)-1)
+        GuardBand_After+=Element_Size-(Container_Bits*4/8+Size/8);
 }
 
 //---------------------------------------------------------------------------
@@ -1225,6 +1230,15 @@ void File_SmpteSt0337::Data_Parse()
 
     if (Parser && !Parser->Status[IsFinished])
     {
+        switch(data_type)
+        {
+            case 28 :
+                        ((File_DolbyE*)Parser)->GuardBand_Before+=GuardBand_Before;
+                        ((File_DolbyE*)Parser)->GuardBand_After+=GuardBand_After;
+                        break;
+            default : ;
+        }
+
         Parser->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Element_Offset=Element_Size;
@@ -1263,6 +1277,7 @@ void File_SmpteSt0337::Data_Parse()
 
     // Guard band
     GuardBand_Before=0;
+    GuardBand_After=0;
 }
 
 //***************************************************************************

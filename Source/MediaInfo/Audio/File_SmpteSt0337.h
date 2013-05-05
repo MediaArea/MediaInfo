@@ -80,6 +80,7 @@ private :
     int8u   data_type;
     std::map<int64u, int64u> FrameSizes;
     int64u  GuardBand_Before;
+    int64u  GuardBand_After;
 
     // Parser
     File__Analyze* Parser;

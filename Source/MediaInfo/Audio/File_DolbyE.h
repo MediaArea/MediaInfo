@@ -40,15 +40,16 @@ namespace MediaInfoLib
 class File_DolbyE : public File__Analyze
 {
 public :
+    //In
+    int64u GuardBand_Before;
+    int64u GuardBand_After;
+
     //Constructor/Destructor
     File_DolbyE();
 
 private :
     //Streams management
     void Streams_Fill();
-
-    //Buffer - File header
-    bool FileHeader_Begin();
 
     //Buffer - Synchro
     bool Synchronize();
@@ -57,6 +58,23 @@ private :
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
+
+    //Elements
+    void Block();
+
+    //Helpers
+    bool Descramble_16bit();
+    bool Descramble_20bit();
+
+    //Temp
+    int64u  SMPTE_time_code_StartTimecode;
+    int8u   ProgramConfiguration;
+    int8u   FrameRate;
+    int8u   BitDepth;
+    bool    ScrambledBitStream;
+    int8u*  Descrambled_Buffer; //Used in case of scrambled bitstream
+    int64u  GuardBand_Before_Initial;
+    int64u  GuardBand_After_Initial;
 };
 
 } //NameSpace
