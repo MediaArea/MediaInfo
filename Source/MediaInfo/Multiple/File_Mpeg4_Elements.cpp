@@ -687,6 +687,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_esds=0x65736473;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_fiel=0x6669656C;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_glbl=0x676C626C;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC=0x68766343;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm=0x6964666D;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_atom=0x61746F6D;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_qtat=0x71746174;
@@ -1001,6 +1002,7 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_fiel)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_glbl)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_idfm)
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h)
                                     ATOM_BEGIN
@@ -5086,6 +5088,118 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_glbl()
     //Parsing
     for (size_t Pos=0; Pos<Streams[moov_trak_tkhd_TrackID].Parsers.size(); Pos++)
         Open_Buffer_Continue(Streams[moov_trak_tkhd_TrackID].Parsers[Pos]);
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC()
+{
+    Element_Name("HEVCDecoderConfigurationRecord");
+
+    //Parsing
+	//int32u profile_compatibility_indications;
+	//int16u constraint_indicator_flags, avgFrameRate;
+    int8u Version, chromaFormat, bitDepthLumaMinus8, bitDepthChromaMinus8;
+    //int8u profile_space, profile_idc, level_idc, min_spatial_segmentation_idc;
+	int8u numOfArrays, constantFrameRate, numTemporalLayers, lengthSizeMinusOne;
+	bool tier_flag, temporalIdNested, array_completeness;
+    Get_B1 (Version,                                            "Version");
+    if (moov_trak_mdia_minf_stbl_stsd_Pos>1)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+        return; //Handling only the first description
+    }
+    else if (Version==1)
+    {
+        /*
+        the file we have does not conform to the (draft) specs we have, skipping them
+        BS_Begin();
+	        Get_S1 (2, profile_space,                           "profile_space");
+	        Get_SB (   tier_flag,                               "tier_flag");
+	        Get_S1 (5, profile_idc,                             "profile_idc");
+        BS_End();
+        Get_B4 (profile_compatibility_indications,              "profile_compatibility_indications");
+        Get_B2 (constraint_indicator_flags,                     "constraint_indicator_flags");
+        Get_B1 (level_idc,                                      "level_idc");
+        Get_B1 (min_spatial_segmentation_idc,                   "min_spatial_segmentation_idc");
+        */
+        Skip_XX(14,                                             "Unknown");
+        BS_Begin();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Skip_S1(2,                                          "parallelismType");
+        BS_End();
+        BS_Begin();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Get_S1 (2, chromaFormat,                            "chromaFormat");
+        BS_End();
+        BS_Begin();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Get_S1 (3, bitDepthLumaMinus8,                      "bitDepthLumaMinus8");
+        BS_End();
+        BS_Begin();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Mark_1_NoTrustError();
+	        Get_S1 (3, bitDepthChromaMinus8,                    "bitDepthChromaMinus8");
+        BS_End();
+        Skip_B2(                                                "avgFrameRate");
+        BS_Begin();
+	        Get_S1 (2, constantFrameRate,                       "constantFrameRate");
+	        Get_S1 (3, numTemporalLayers,                       "numTemporalLayers");
+	        Get_SB (   temporalIdNested,                        "temporalIdNested");
+	        Get_S1 (2, lengthSizeMinusOne,                      "lengthSizeMinusOne");
+        BS_End();
+        Get_B1 (numOfArrays,                                    "numOfArrays");
+        for (size_t ArrayPos=0; ArrayPos<numOfArrays; ArrayPos++)
+        {
+            Element_Begin1("Array");
+            int16u numNalus;
+            int8u NAL_unit_type;
+            BS_Begin();
+	            Skip_SB(                                        "array_completeness");
+                Mark_0_NoTrustError();
+	            Get_S1 (6, NAL_unit_type,                       "NAL_unit_type");
+            BS_End();
+            Get_B2 (numNalus,                                   "numNalus");
+            for (size_t NaluPos=0; NaluPos<numNalus; NaluPos++)
+            {
+                Element_Begin1("nalUnit");
+                int16u nalUnitLength;
+                Get_B2 (nalUnitLength,                          "nalUnitLength");
+                Skip_XX(nalUnitLength,                          "NALU (ToDo)");
+                Element_End0();
+            }
+            Element_End0();
+        }
+    }
+    else
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+
+    //Filling
+    FILLING_BEGIN()
+        //if (avgFrameRate)
+        //    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, avgFrameRate);
+        //Fill(Stream_Video, StreamPos_Last, Video_BitRate_Nominal, constantFrameRate);
+
+		//Ztring Profile=Ztring().From_Number(profile_idc)+__T("@L")+Ztring().From_Number(((float)level_idc)/10, 1);
+		//Fill(Stream_Video, 0, Video_Format_Profile, Profile);
+		//Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

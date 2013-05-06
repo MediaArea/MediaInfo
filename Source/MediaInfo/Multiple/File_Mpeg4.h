@@ -1,5 +1,5 @@
 // File_Mpeg4 - Info for MPEG-4 files
-// Copyright (C) 2004-2012 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2004-2013 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Library General Public License as published by
@@ -180,6 +180,7 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_xxxx_esds();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_fiel();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_glbl();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_idfm();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h() {jp2h();}
     void moov_trak_mdia_minf_stbl_stsd_xxxx_jp2h_colr() {jp2h_colr();}

@@ -24,6 +24,7 @@ Version 0.7.63, 2013-
 + #P67, Matroska, add VP9 to the database, thanks to Kurtnoise
 + #P68, FLV, add HEVC detection in the FLV parser
 + #P66, MOV, tref/chap handling, with chapters information, thanks to Kurtnoise
++ #P72, MOV, HEVC/H265 detection and basic support, thanks to Kurtnoise
 x #B742, MPEG-4/MOV, crash with some truncated/invalid files
 x #B746, MPEG-4/MOV: crash with files having moof atom and no moov atom
 x #B747, Inconsistent hang with buffer API
