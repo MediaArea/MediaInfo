@@ -1279,7 +1279,6 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     if ((*Parser)->Retrieve(Stream_General, 0, General_Format)==__T("ChannelGrouping") && (*Parser)->Count_Get(Stream_Audio))
     {
         //Before
-        Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize));
         if (StreamKind_Last==Stream_Audio)
         {
             Clear(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Sign);
@@ -1321,10 +1320,22 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             Ztring Parser_ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
             Fill(StreamKind_Last, StreamPos_Last, General_ID, ID+(Parser_ID.empty()?Ztring():(__T("-")+Parser_ID)), true);
             for (size_t Pos=0; Pos<StreamSave.size(); Pos++)
-                if (Retrieve(StreamKind_Last, StreamPos_Last, Pos).empty())
+            {
+                if (Pos==Fill_Parameter(StreamKind_Last, Generic_BitRate) && (*Parser)->Count_Get(NewKind)>1 && (!StreamSave[Pos].empty() || StreamPos))
+                    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate_Encoded), StreamPos?0:(StreamSave[Pos].To_int64u()*2));
+                else if (Pos==Fill_Parameter(StreamKind_Last, Generic_StreamSize) && (*Parser)->Count_Get(NewKind)>1 && (!StreamSave[Pos].empty() || StreamPos))
+                    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize_Encoded), StreamPos?0:(StreamSave[Pos].To_int64u()*2));
+                else if (Retrieve(StreamKind_Last, StreamPos_Last, Pos).empty())
                     Fill(StreamKind_Last, StreamPos_Last, Pos, StreamSave[Pos]);
+            }
             for (size_t Pos=0; Pos<StreamMoreSave.size(); Pos++)
+            {
                 Fill(StreamKind_Last, StreamPos_Last, StreamMoreSave(Pos, 0).To_Local().c_str(), StreamMoreSave(Pos, 1));
+                if (StreamMoreSave(Pos, Info_Name)==__T("Delay_SDTI"))
+                    (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Delay_SDTI"), Info_Options)=__T("N NT");
+                if (StreamMoreSave(Pos, Info_Name)==__T("Delay_SystemScheme1"))
+                    (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Delay_SystemScheme1"), Info_Options)=__T("N NT");
+            }
 
             for (size_t Pos=0; Pos<DMScheme1s_List.size(); Pos++)
             {
@@ -1585,13 +1596,17 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
                                                 }
                                         if (StreamPos_Last==(size_t)-1 && !Descriptor->second.Locators.empty()) //TODO: 1 file has a TimeCode stream linked to a video stream, and it is displayed if Locator test is removed. Why? AS02 files streams are not filled if I remove completely this block, why?
                                         {
-                                            Stream_Prepare(Descriptor->second.StreamKind);
+                                            if (Descriptor->second.StreamKind!=Stream_Max)
+                                                Stream_Prepare(Descriptor->second.StreamKind);
                                             if (Track->second.TrackID!=(int32u)-1)
                                             {
                                                 if (Descriptor->second.LinkedTrackID==(int32u)-1)
                                                     Descriptor->second.LinkedTrackID=Track->second.TrackID;
-                                                Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
-                                                Fill(StreamKind_Last, StreamPos_Last, "Title", Track->second.TrackName);
+                                                if (Descriptor->second.StreamKind!=Stream_Max)
+                                                {
+                                                    Fill(StreamKind_Last, StreamPos_Last, General_ID, ID);
+                                                    Fill(StreamKind_Last, StreamPos_Last, "Title", Track->second.TrackName);
+                                                }
                                             }
                                         }
                                     }
@@ -1685,7 +1700,18 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
         //Info
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); ++Info)
             if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
-                Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+            {
+                Ztring A=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+                if (Info->first=="BitRate" && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T(" / "))!=string::npos)
+                {
+                    if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate)).empty() || Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T("-"))!=string::npos)
+                        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate_Encoded), Info->second.To_int64u()*2, 10, true);
+                    else
+                        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate), Info->second.To_int64u()*2, 10, true);
+                }
+                else
+                    Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
+            }
 
         //Bitrate (PCM)
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM") && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Wrapping).find(__T("D-10"))!=string::npos)
@@ -1914,7 +1940,23 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, 
 
     //Duration
     if (EditRate && StreamKind_Last!=Stream_Max && Component->second.Duration!=(int64u)-1)
+    {
         Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
+        size_t ID_SubStreamInfo_Pos=Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T("-"));
+        if (ID_SubStreamInfo_Pos!=string::npos)
+        {
+            Ztring ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
+            ID.resize(ID_SubStreamInfo_Pos+1);
+            size_t StreamPos_Last_Temp=StreamPos_Last;
+            while (StreamPos_Last_Temp)
+            {
+                StreamPos_Last_Temp--;
+                if (Retrieve(StreamKind_Last, StreamPos_Last_Temp, General_ID).find(ID)!=0)
+                    break;
+                Fill(StreamKind_Last, StreamPos_Last_Temp, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
+            }
+        }
+    }
 
     //For the sequence, searching Structural componenents
     for (size_t Pos=0; Pos<Component->second.StructuralComponents.size(); Pos++)
