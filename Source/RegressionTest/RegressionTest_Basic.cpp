@@ -8,9 +8,109 @@
 #include "ZenLib\File.h"
 #include "ZenLib\Dir.h"
 #include "RegressionTest/RegressionTest.h"
+#include "MediaInfo\MediaInfo_Events.h"
+#include "ctime"
 using namespace MediaInfoDLL;
 using namespace ZenLib;
 using namespace std;
+
+/***************************************************************************/
+/* Events                                                                  */
+/***************************************************************************/
+
+
+struct UserHandle_struct
+{
+    Ztring Name;
+    int64u Size;
+    File   Time_File;
+    time_t Time_Start;
+    Ztring Parser;
+
+    UserHandle_struct()
+    {
+        Size=(int64u)-1;
+        Time_Start=(time_t)-1;
+        Time_Start=(time_t)-1;
+    }
+};
+
+void Basic_General_Start_0 (struct MediaInfo_Event_General_Start_0* Event, struct UserHandle_struct* UserHandle)
+{
+    UserHandle->Name=Event->FileName_Unicode;
+    UserHandle->Size=Event->Stream_Size;
+    UserHandle->Time_Start=time(NULL);
+    UserHandle->Parser.clear();
+}
+
+void Basic_General_End_0 (struct MediaInfo_Event_General_End_0* Event, struct UserHandle_struct* UserHandle)
+{
+    time_t Diff;
+    if (UserHandle->Time_Start!=(time_t)-1)
+        Diff=time(NULL)-UserHandle->Time_Start;
+    else
+        Diff=(time_t)-1;
+
+    if (Diff!=(time_t)-1)
+        UserHandle->Time_File.Write(UserHandle->Name+__T(';')+Ztring::ToZtring(UserHandle->Size)+__T(';')+Ztring::ToZtring(Diff)+EOL);
+
+    UserHandle->Time_Start=(time_t)-1;
+    UserHandle->Parser.clear();
+}
+
+void Basic_General_Parser_Selected_0 (struct MediaInfo_Event_General_Parser_Selected_0* Event, struct UserHandle_struct* UserHandle)
+{
+    if (Event->Name)
+        UserHandle->Parser.From_UTF8(Event->Name);
+    else
+        UserHandle->Parser.clear();
+}
+
+/***************************************************************************/
+/* The callback function                                                   */
+/***************************************************************************/
+
+#define CASE(_PARSER,_EVENT,_VERSION) \
+    case MediaInfo_Event_##_PARSER##_##_EVENT : if (EventVersion==_VERSION && Data_Size>=sizeof(struct MediaInfo_Event_##_PARSER##_##_EVENT##_##_VERSION)) _PARSER##_##_EVENT##_##_VERSION((struct MediaInfo_Event_##_PARSER##_##_EVENT##_##_VERSION*)Data_Content, UserHandle); break;
+
+void __stdcall Basic_Event_CallBackFunction(unsigned char* Data_Content, size_t Data_Size, void* UserHandle_Void)
+{
+    /*Retrieving UserHandle*/
+    struct UserHandle_struct*           UserHandle=(struct UserHandle_struct*)UserHandle_Void;
+    struct MediaInfo_Event_Generic*     Event_Generic=(struct MediaInfo_Event_Generic*) Data_Content;
+    unsigned char                       ParserID;
+    unsigned short                      EventID;
+    unsigned char                       EventVersion;
+
+    /*integrity tests*/
+    if (Data_Size<4)
+        return; //There is a problem
+
+    /*Retrieving EventID*/
+    ParserID    =(unsigned char) ((Event_Generic->EventCode&0xFF000000)>>24);
+    EventID     =(unsigned short)((Event_Generic->EventCode&0x00FFFF00)>>8 );
+    EventVersion=(unsigned char) ( Event_Generic->EventCode&0x000000FF     );
+
+
+    switch (ParserID)
+    {
+        case MediaInfo_Parser_None :
+                switch (EventID)
+                {
+                    case MediaInfo_Event_General_Start                                          : if (EventVersion==0 && Data_Size>=sizeof(struct MediaInfo_Event_General_Start_0)) Basic_General_Start_0((struct MediaInfo_Event_General_Start_0*)Data_Content, UserHandle); break;
+                    case MediaInfo_Event_General_End                                            : if (EventVersion==0 && Data_Size>=sizeof(struct MediaInfo_Event_General_End_0)) Basic_General_End_0((struct MediaInfo_Event_General_End_0*)Data_Content, UserHandle); break;
+                    case MediaInfo_Event_General_Parser_Selected                                : if (EventVersion==0 && Data_Size>=sizeof(struct MediaInfo_Event_General_Parser_Selected_0)) Basic_General_Parser_Selected_0((struct MediaInfo_Event_General_Parser_Selected_0*)Data_Content, UserHandle); break;
+                    default                                                                     : ;
+                }
+                break;
+        default : ; //ParserID is unknown
+    }
+}
+
+/***************************************************************************/
+/* The callback function                                                   */
+/***************************************************************************/
+
 
 void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenario)
 {
@@ -21,8 +121,19 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
 
     ZtringListListF* New=new ZtringListListF[Stream_Max];
 
-    cout<<" Analyzing"<<endl;
     MediaInfoList MIL;
+    struct UserHandle_struct UserHandle;
+
+    //Times
+    wostringstream Event_CallBackFunction_Text;
+    Event_CallBackFunction_Text<<__T("CallBack=memory://")<<(MediaInfo_int64u)Basic_Event_CallBackFunction<<__T(";UserHandler=memory://")<<(MediaInfo_int64u)&UserHandle;
+    MIL.Option(__T("File_Event_CallBackFunction"), Event_CallBackFunction_Text.str());
+    if (!Dir::Exists(DataBaseDirectory+__T("\\Basic\\Diff")))
+        Dir::Create(DataBaseDirectory+__T("\\Basic\\Diff"));
+    File::Delete(DataBaseDirectory+__T("\\Basic\\Diff\\Times.csv"));
+    UserHandle.Time_File.Open(DataBaseDirectory+__T("\\Basic\\Diff\\Times.csv"), File::Access_Write_Append);
+
+    cout<<" Analyzing"<<endl;
     MIL.Open(Files);
 
     cout<<" Retrieving new data"<<endl;

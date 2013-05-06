@@ -332,6 +332,8 @@ struct MediaInfo_Event_General_Start_0
 {
     MEDIAINFO_EVENT_GENERIC
     MediaInfo_int64u        Stream_Size;
+    const char*             FileName;
+    const wchar_t*          FileName_Unicode;
 };
 
 /*-------------------------------------------------------------------------*/
