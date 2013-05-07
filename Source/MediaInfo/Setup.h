@@ -427,6 +427,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_H263_NO) && !defined(MEDIAINFO_H263_YES)
     #define MEDIAINFO_H263_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_HEVC_NO) && !defined(MEDIAINFO_HEVC_YES)
+    #define MEDIAINFO_HEVC_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_LAGARITH_NO) && !defined(MEDIAINFO_LAGARITH_YES)
     #define MEDIAINFO_LAGARITH_YES
 #endif

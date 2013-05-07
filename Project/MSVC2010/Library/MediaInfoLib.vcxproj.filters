@@ -635,6 +635,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_TimedText.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Hevc.cpp">
+      <Filter>Source Files\Video</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1170,6 +1173,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_TimedText.h">
       <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Hevc.h">
+      <Filter>Header Files\Video</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

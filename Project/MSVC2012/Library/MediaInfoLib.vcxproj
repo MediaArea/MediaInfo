@@ -527,6 +527,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Fraps.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_H263.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Hevc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Lagarith.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpegv.cpp" />
@@ -761,6 +762,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Flic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Fraps.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_H263.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Hevc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Lagarith.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpegv.h" />
