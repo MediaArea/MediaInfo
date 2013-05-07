@@ -25,6 +25,7 @@ Version 0.7.63, 2013-
 + #P68, FLV, add HEVC detection in the FLV parser
 + #P66, MOV, tref/chap handling, with chapters information, thanks to Kurtnoise
 + #P72, MOV, HEVC/H265 detection and basic support, thanks to Kurtnoise
++ MPEG-TS, HEVC/H265 support
 + 16:10 DAR known value
 x #B742, MPEG-4/MOV, crash with some truncated/invalid files
 x #B746, MPEG-4/MOV: crash with files having moof atom and no moov atom

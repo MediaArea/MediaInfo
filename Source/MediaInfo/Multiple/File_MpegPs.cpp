@@ -39,6 +39,9 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_HEVC_YES)
+    #include "MediaInfo/Video/File_Hevc.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
@@ -3258,6 +3261,7 @@ void File_MpegPs::video_stream()
         {
             case 0x10 : Streams[stream_id].Parsers.push_back(ChooseParser_Mpeg4v()); break;
             case 0x1B : Streams[stream_id].Parsers.push_back(ChooseParser_Avc()   ); break;
+            case 0x27 : Streams[stream_id].Parsers.push_back(ChooseParser_Hevc()  ); break;
             case 0x01 :
             case 0x02 :
             case 0x80 : Streams[stream_id].Parsers.push_back(ChooseParser_Mpegv() ); break;
@@ -4238,6 +4242,31 @@ File__Analyze* File_MpegPs::ChooseParser_Avc()
     return Parser;
 }
 
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_Hevc()
+{
+    //Filling
+    #if defined(MEDIAINFO_HEVC_YES)
+        File_Hevc* Parser=new File_Hevc;
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+            {
+                Demux_UnpacketizeContainer=false; //No demux from this parser
+                Demux_Level=4; //Intermediate
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
+    #else
+        //Filling
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Video);
+        Parser->Fill(Stream_Video, 0, Video_Codec,  "HEVC");
+        Parser->Fill(Stream_Video, 0, Video_Format, "HEVC");
+    #endif
+    return Parser;
+}
 //---------------------------------------------------------------------------
 File__Analyze* File_MpegPs::ChooseParser_VC1()
 {

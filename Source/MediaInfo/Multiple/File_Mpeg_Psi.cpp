@@ -119,6 +119,7 @@ const char* Mpeg_Psi_stream_type_Format(int8u stream_type, int32u format_identif
         case 0x1E : return "MPEG Video"; //ISO/IEC 23002-3
         case 0x1F : return "AVC";
         case 0x20 : return "AVC";
+        case 0x27 : return "HEVC";
         default :
             switch (format_identifier)
             {
@@ -185,6 +186,7 @@ const char* Mpeg_Psi_stream_type_Codec(int8u stream_type, int32u format_identifi
         case 0x1E : return "MPEG-2V";
         case 0x1F : return "AVC";
         case 0x20 : return "AVC";
+        case 0x27 : return "HEVC";
         default :
             switch (format_identifier)
             {
@@ -338,6 +340,7 @@ const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifie
         case 0x1E : return "Auxiliary video data stream as defined in ISO/IEC 23002-3";
         case 0x1F : return "SVC video sub-bitstream of an AVC video stream conforming to one or more profiles defined in Annex G of ITU-T Rec. H.264 | ISO/IEC 14496-10";
         case 0x20 : return "MVC video sub-bitstream of an AVC video stream conforming to one or more profiles defined in Annex H of ITU-T Rec. H.264 | ISO/IEC 14496-10";
+        case 0x27 : return "ITU-T Rec. H.265 | ISO/IEC 23008-2 MPEG-H Part 2 / HEVC video stream";
         case 0x7F : return "IPMP stream";
         default :
             if (stream_type<=0x7F) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";

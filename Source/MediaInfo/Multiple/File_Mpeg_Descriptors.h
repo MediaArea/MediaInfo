@@ -609,6 +609,18 @@ private :
     void Descriptor_2D() {Skip_XX(Element_Size, "Data");};
     void Descriptor_2E() {Skip_XX(Element_Size, "Data");};
     void Descriptor_2F();
+    void Descriptor_30() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_31() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_32() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_33() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_34() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_35() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_36() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_37() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_38() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_39() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_3A() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_3F() {Skip_XX(Element_Size, "Data");};
     void Descriptor_40();
     void Descriptor_41();
     void Descriptor_42() {Skip_XX(Element_Size, "Data");};

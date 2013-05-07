@@ -1299,6 +1299,18 @@ void File_Mpeg_Descriptors::Data_Parse()
             ELEMENT_CASE(2D, "MPEG-4_text");
             ELEMENT_CASE(2E, "MPEG-4_audio_extension");
             ELEMENT_CASE(2F, "Auxiliary_video_data");
+            ELEMENT_CASE(30, "SVC extension");
+            ELEMENT_CASE(31, "MVC extension");
+            ELEMENT_CASE(32, "J2K video");
+            ELEMENT_CASE(33, "MVC operation point");
+            ELEMENT_CASE(34, "MPEG2_stereoscopic_video_format");
+            ELEMENT_CASE(35, "Stereoscopic_program_info");
+            ELEMENT_CASE(36, "Stereoscopic_video_info");
+            ELEMENT_CASE(37, "ODUpdate");
+            ELEMENT_CASE(38, "Transport_profile");
+            ELEMENT_CASE(39, "HEVC video");
+            ELEMENT_CASE(3A, "HEVC timing and HRD");
+            ELEMENT_CASE(3F, "Extension");
 
             //Following is in private sections, in case there is not network type detected
             ELEMENT_CASE(40, "DVB - network_name_descriptor");

@@ -262,6 +262,7 @@ private :
     File__Analyze* ChooseParser_Mpegv();
     File__Analyze* ChooseParser_Mpeg4v();
     File__Analyze* ChooseParser_Avc();
+    File__Analyze* ChooseParser_Hevc();
     File__Analyze* ChooseParser_VC1();
     File__Analyze* ChooseParser_Dirac();
     File__Analyze* ChooseParser_Mpega();
