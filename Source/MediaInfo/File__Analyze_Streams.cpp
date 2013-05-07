@@ -909,6 +909,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  if (F1>=(float)1.23 && F1<(float)1.27) C1=__T("5:4");
             else if (F1>=(float)1.30 && F1<(float)1.37) C1=__T("4:3");
             else if (F1>=(float)1.45 && F1<(float)1.55) C1=__T("3:2");
+            else if (F1>=(float)1.55 && F1<(float)1.65) C1=__T("16:10");
             else if (F1>=(float)1.74 && F1<(float)1.82) C1=__T("16:9");
             else if (F1>=(float)1.82 && F1<(float)1.88) C1=__T("1.85:1");
             else if (F1>=(float)2.15 && F1<(float)2.22) C1=__T("2.2:1");
@@ -930,6 +931,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  if (F1>=(float)1.23 && F1<(float)1.27) C1=__T("5:4");
             else if (F1>=(float)1.30 && F1<(float)1.37) C1=__T("4:3");
             else if (F1>=(float)1.45 && F1<(float)1.55) C1=__T("3:2");
+            else if (F1>=(float)1.55 && F1<(float)1.65) C1=__T("16:10");
             else if (F1>=(float)1.74 && F1<(float)1.82) C1=__T("16:9");
             else if (F1>=(float)1.82 && F1<(float)1.88) C1=__T("1.85:1");
             else if (F1>=(float)2.15 && F1<(float)2.22) C1=__T("2.2:1");
@@ -951,6 +953,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  if (F1>=(float)1.23 && F1<(float)1.27) C1=__T("5:4");
             else if (F1>=(float)1.30 && F1<(float)1.37) C1=__T("4:3");
             else if (F1>=(float)1.45 && F1<(float)1.55) C1=__T("3:2");
+            else if (F1>=(float)1.55 && F1<(float)1.65) C1=__T("16:10");
             else if (F1>=(float)1.74 && F1<(float)1.82) C1=__T("16:9");
             else if (F1>=(float)1.82 && F1<(float)1.88) C1=__T("1.85:1");
             else if (F1>=(float)2.15 && F1<(float)2.22) C1=__T("2.2:1");
@@ -972,6 +975,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  if (F1>=(float)1.23 && F1<(float)1.27) C1=__T("5:4");
             else if (F1>=(float)1.30 && F1<(float)1.37) C1=__T("4:3");
             else if (F1>=(float)1.45 && F1<(float)1.55) C1=__T("3:2");
+            else if (F1>=(float)1.55 && F1<(float)1.65) C1=__T("16:10");
             else if (F1>=(float)1.74 && F1<(float)1.82) C1=__T("16:9");
             else if (F1>=(float)1.82 && F1<(float)1.88) C1=__T("1.85:1");
             else if (F1>=(float)2.15 && F1<(float)2.22) C1=__T("2.2:1");
