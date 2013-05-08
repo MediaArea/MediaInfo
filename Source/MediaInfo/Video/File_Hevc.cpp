@@ -576,7 +576,7 @@ void File_Hevc::Data_Parse()
         case 37 : end_of_bitstream(); break;
         case 38 : filler_data(); break;
         case 39 :
-        case 40 : 
+        case 40 :
                   sei(); break;
         default :
             Skip_XX(Element_Size-Element_Offset, "Data");
@@ -828,8 +828,8 @@ void File_Hevc::pic_parameter_set()
     int8u   num_extra_slice_header_bits;
     bool    tiles_enabled_flag, dependent_slice_segments_enabled_flag;
     BS_Begin();
-    Get_UE (   	pps_pic_parameter_set_id,                       "pps_pic_parameter_set_id");
-    Get_UE (   	pps_seq_parameter_set_id,                       "pps_seq_parameter_set_id");
+    Get_UE (    pps_pic_parameter_set_id,                       "pps_pic_parameter_set_id");
+    Get_UE (    pps_seq_parameter_set_id,                       "pps_seq_parameter_set_id");
     std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
     if (pps_seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+pps_seq_parameter_set_id))==NULL || !(*seq_parameter_set_Item)->IsSynched)
     {
@@ -1175,18 +1175,18 @@ void File_Hevc::profile_tier_level(int8u maxNumSubLayersMinus1)
 void File_Hevc::SPS_PPS()
 {
     //Parsing
-	int32u profile_compatibility_indications;
-	int16u constraint_indicator_flags;
+    int32u profile_compatibility_indications;
+    int16u constraint_indicator_flags;
     int8u chromaFormat, bitDepthLumaMinus8, bitDepthChromaMinus8;
     int8u profile_space, profile_idc, level_idc, min_spatial_segmentation_idc;
-	int8u numOfArrays, constantFrameRate, numTemporalLayers;
-	bool temporalIdNested;
+    int8u numOfArrays, constantFrameRate, numTemporalLayers;
+    bool temporalIdNested;
 
     //Warning: based on a draft of the specification, it is definitely not compliant to the final specification (unknown addtional bytes)
     BS_Begin();
-	    Get_S1 (2, profile_space,                               "profile_space");
-	    Skip_SB(                                                "tier_flag");
-	    Get_S1 (5, profile_idc,                                 "profile_idc");
+        Get_S1 (2, profile_space,                               "profile_space");
+        Skip_SB(                                                "tier_flag");
+        Get_S1 (5, profile_idc,                                 "profile_idc");
     BS_End();
     Get_B4 (profile_compatibility_indications,                  "profile_compatibility_indications");
     Get_B2 (constraint_indicator_flags,                         "constraint_indicator_flags");
@@ -1198,45 +1198,45 @@ void File_Hevc::SPS_PPS()
     Skip_B1(                                                    "Unknown");
     Skip_B1(                                                    "Unknown");
     BS_Begin();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Skip_S1(2,                                              "parallelismType");
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Skip_S1(2,                                              "parallelismType");
     BS_End();
     BS_Begin();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Get_S1 (2, chromaFormat,                                "chromaFormat");
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Get_S1 (2, chromaFormat,                                "chromaFormat");
     BS_End();
     BS_Begin();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Get_S1 (3, bitDepthLumaMinus8,                          "bitDepthLumaMinus8");
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Get_S1 (3, bitDepthLumaMinus8,                          "bitDepthLumaMinus8");
     BS_End();
     BS_Begin();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Mark_1_NoTrustError();
-	    Get_S1 (3, bitDepthChromaMinus8,                        "bitDepthChromaMinus8");
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Get_S1 (3, bitDepthChromaMinus8,                        "bitDepthChromaMinus8");
     BS_End();
     Skip_B2(                                                    "avgFrameRate");
     BS_Begin();
-	    Get_S1 (2, constantFrameRate,                           "constantFrameRate");
-	    Get_S1 (3, numTemporalLayers,                           "numTemporalLayers");
-	    Get_SB (   temporalIdNested,                            "temporalIdNested");
-	    Get_S1 (2, lengthSizeMinusOne,                          "lengthSizeMinusOne");
+        Get_S1 (2, constantFrameRate,                           "constantFrameRate");
+        Get_S1 (3, numTemporalLayers,                           "numTemporalLayers");
+        Get_SB (   temporalIdNested,                            "temporalIdNested");
+        Get_S1 (2, lengthSizeMinusOne,                          "lengthSizeMinusOne");
     BS_End();
     Get_B1 (numOfArrays,                                        "numOfArrays");
     for (size_t ArrayPos=0; ArrayPos<numOfArrays; ArrayPos++)
@@ -1245,9 +1245,9 @@ void File_Hevc::SPS_PPS()
         int16u numNalus;
         int8u NAL_unit_type;
         BS_Begin();
-	        Skip_SB(                                            "array_completeness");
+            Skip_SB(                                            "array_completeness");
             Mark_0_NoTrustError();
-	        Get_S1 (6, NAL_unit_type,                           "NAL_unit_type");
+            Get_S1 (6, NAL_unit_type,                           "NAL_unit_type");
         BS_End();
         Get_B2 (numNalus,                                       "numNalus");
         for (size_t NaluPos=0; NaluPos<numNalus; NaluPos++)
@@ -1260,7 +1260,7 @@ void File_Hevc::SPS_PPS()
                 Trusted_IsNot("Size is wrong");
                 break; //There is an error
             }
-            
+
             //Header
             int8u nal_unit_type;
             BS_Begin();

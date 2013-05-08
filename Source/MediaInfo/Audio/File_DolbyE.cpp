@@ -517,9 +517,9 @@ void File_DolbyE::Block()
     }
     Skip_S2(14,                                                 "Unknown");
     Get_S1 ( 6, ProgramConfiguration,                           "Program configuration"); Param_Info1(DolbyE_ChannelPositions[ProgramConfiguration]);
-    Get_S1 ( 4, FrameRate,                                		"Frame rate 1"); Param_Info3(Mpegv_frame_rate[FrameRate], 3, " fps");
-    Skip_S1( 4,                        							"Frame rate 2? Always same as Frame rate 1");
-    Skip_S2(16,                                     			"Frame number?");
+    Get_S1 ( 4, FrameRate,                                      "Frame rate 1"); Param_Info3(Mpegv_frame_rate[FrameRate], 3, " fps");
+    Skip_S1( 4,                                                 "Frame rate 2? Always same as Frame rate 1");
+    Skip_S2(16,                                                 "Frame number?");
     Element_Begin1("SMPTE time code?");
     int8u Frames_Units, Frames_Tens, Seconds_Units, Seconds_Tens, Minutes_Units, Minutes_Tens, Hours_Units, Hours_Tens;
     bool  DropFrame;
@@ -554,7 +554,7 @@ void File_DolbyE::Block()
     Get_S1 (2, Frames_Tens,                                     "Frames (Tens)");
     Get_S1 (4, Frames_Units,                                    "Frames (Units)");
 
-    Skip_BS(Data_BS_Remain(),								    "Unknown");
+    Skip_BS(Data_BS_Remain(),                                   "Unknown");
 
     if (Hours_Tens<3)
     {

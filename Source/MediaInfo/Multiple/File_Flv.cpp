@@ -660,7 +660,7 @@ bool File_Flv::Synchronize()
 {
     if (File_Offset+Buffer_Offset+4==File_Size)
         return true; // Used by seek from end
-        
+
     //Synchronizing
     while (Buffer_Offset+15<=Buffer_Size)
     {

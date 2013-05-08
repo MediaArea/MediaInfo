@@ -2987,10 +2987,10 @@ void File_Mxf::Header_Parse()
         return;
 
     if (Length==0
-	 && ((int32u)Code.hi)==Elements::GenericContainer_Aaf2
-	 && (((int32u)(Code.lo>>32))==Elements::GenericContainer_Aaf3 || ((int32u)(Code.lo>>32))==Elements::GenericContainer_Avid3)
+     && ((int32u)Code.hi)==Elements::GenericContainer_Aaf2
+     && (((int32u)(Code.lo>>32))==Elements::GenericContainer_Aaf3 || ((int32u)(Code.lo>>32))==Elements::GenericContainer_Avid3)
      && Retrieve(Stream_General, 0, General_Format_Settings).find(__T(" / Incomplete"))!=string::npos
-	 )
+     )
     {
         if (Buffer_Offset+Element_Offset+4>Buffer_Size)
         {
