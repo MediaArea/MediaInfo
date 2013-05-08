@@ -1240,7 +1240,7 @@ bool File_Avc::Header_Parser_QuickSearch()
         else
             start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
 
-        //Searching start33
+        //Searching start
         if (Streams[start_code].Searching_Payload
          || Streams[start_code].ShouldDuplicate)
             return true;
