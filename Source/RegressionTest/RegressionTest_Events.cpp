@@ -5,12 +5,12 @@
 #include <stdio.h>
 #include <map>
 #include "tchar.h"
-#include "MediaInfoDLL\MediaInfoDLL.h"
-#include "MediaInfo\MediaInfo_Events.h"
-#include "ZenLib\ZtringListListF.h"
-#include "ZenLib\Dir.h"
-#include "ZenLib\File.h"
-#include "ZenLib\FileName.h"
+#include "MediaInfoDLL/MediaInfoDLL.h"
+#include "MediaInfo/MediaInfo_Events.h"
+#include "ZenLib/ZtringListListF.h"
+#include "ZenLib/Dir.h"
+#include "ZenLib/File.h"
+#include "ZenLib/FileName.h"
 #include "RegressionTest/RegressionTest.h"
 using namespace MediaInfoDLL;
 using namespace ZenLib;

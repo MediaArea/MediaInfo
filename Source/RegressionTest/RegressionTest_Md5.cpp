@@ -4,10 +4,10 @@
 #include <iostream>
 #include <iomanip>
 #include "tchar.h"
-#include "MediaInfoDLL\MediaInfoDLL.h"
-#include "ZenLib\ZtringListListF.h"
-#include "ZenLib\File.h"
-#include "ZenLib\Dir.h"
+#include "MediaInfoDLL/MediaInfoDLL.h"
+#include "ZenLib/ZtringListListF.h"
+#include "ZenLib/File.h"
+#include "ZenLib/Dir.h"
 extern "C"
 {
 #include "md5.h"

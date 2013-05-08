@@ -3,12 +3,12 @@
 
 #include <iostream>
 #include "tchar.h"
-#include "MediaInfoDLL\MediaInfoDLL.h"
-#include "ZenLib\ZtringListListF.h"
-#include "ZenLib\File.h"
-#include "ZenLib\Dir.h"
+#include "MediaInfoDLL/MediaInfoDLL.h"
+#include "ZenLib/ZtringListListF.h"
+#include "ZenLib/File.h"
+#include "ZenLib/Dir.h"
 #include "RegressionTest/RegressionTest.h"
-#include "MediaInfo\MediaInfo_Events.h"
+#include "MediaInfo/MediaInfo_Events.h"
 #include "ctime"
 using namespace MediaInfoDLL;
 using namespace ZenLib;
