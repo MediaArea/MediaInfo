@@ -746,7 +746,7 @@ void File_Ac3::Streams_Fill()
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("bsid"), Info_Options)=__T("N NT");
         Fill(Stream_Audio, 0, "acmod", acmod);
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("acmod"), Info_Options)=__T("N NT");
-        Fill(Stream_Audio, 0, "lfeon", lfeon);
+        Fill(Stream_Audio, 0, "lfeon", lfeon?1:0);
         (*Stream_More)[Stream_Audio][0](Ztring().From_Local("lfeon"), Info_Options)=__T("N NT");
     }
 
