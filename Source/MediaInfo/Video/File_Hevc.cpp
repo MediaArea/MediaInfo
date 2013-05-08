@@ -247,6 +247,13 @@ bool File_Hevc::Synchronize()
     if (Buffer_Offset+4>Buffer_Size)
         return false;
 
+    if (File_Offset==0 && Buffer_Offset==0 && (Buffer[3]==0xE0 || Buffer[3]==0xFE))
+    {
+        //It is from MPEG-PS
+        Reject();
+        return false;
+    }
+
     //Synched is OK
     Synched=true;
     return true;
@@ -291,6 +298,8 @@ bool File_Hevc::Demux_UnpacketizeContainer_Test()
 //---------------------------------------------------------------------------
 void File_Hevc::Synched_Init()
 {
+    Accept(); //TEMP
+    
     //FrameInfo
     PTS_End=0;
     if (FrameInfo.DTS==(int64u)-1)
@@ -305,11 +314,11 @@ void File_Hevc::Synched_Init()
 
     //Default values
     Streams.resize(0x100);
-    Streams[33].Searching_Payload=true; //seq_parameter_set
+    Streams[32].Searching_Payload=true; //video_parameter_set
     Streams[35].Searching_Payload=true; //access_unit_delimiter
     Streams[39].Searching_Payload=true; //sei
-    for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
-        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
+    for (int8u Pos=0xFF; Pos>=48; Pos--)
+        Streams[Pos].Searching_Payload=true; //unspecified
 }
 
 //***************************************************************************
@@ -461,14 +470,14 @@ bool File_Hevc::Header_Parser_QuickSearch()
         || (Buffer[Buffer_Offset+2]==0x00 && Buffer[Buffer_Offset+3]==0x01)))
     {
         //Getting start_code
-        int8u start_code;
+        int8u nal_unit_type;
         if (Buffer[Buffer_Offset+2]==0x00)
-            start_code=CC1(Buffer+Buffer_Offset+4)&0x1F;
+            nal_unit_type=(CC1(Buffer+Buffer_Offset+4)&0x7E)>>1;
         else
-            start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
+            nal_unit_type=(CC1(Buffer+Buffer_Offset+3)&0x7E)>>1;
 
-        //Searching start33
-        if (Streams[start_code].Searching_Payload)
+        //Searching start
+        if (Streams[nal_unit_type].Searching_Payload)
             return true;
 
         //Synchronizing
@@ -579,7 +588,9 @@ void File_Hevc::Data_Parse()
         case 40 :
                   sei(); break;
         default :
-            Skip_XX(Element_Size-Element_Offset, "Data");
+                  Skip_XX(Element_Size-Element_Offset, "Data");
+                  if (Element_Code>=48)
+                      Trusted_IsNot("Unspecified");
     }
 
     if (!ThreeByte_List.empty())
@@ -730,9 +741,13 @@ void File_Hevc::video_parameter_set()
             //hrd_parameters
         }
     TEST_SB_END();
-    TEST_SB_SKIP(                                               "vps_extension_flag");
+    TESTELSE_SB_SKIP(                                           "vps_extension_flag");
         Skip_BS(Data_BS_Remain(),                               "vps_extension_data");
-    TEST_SB_END();
+    TESTELSE_SB_ELSE(                                           "vps_extension_flag");
+        Mark_1();
+        while (Data_BS_Remain())
+            Mark_0();
+    TESTELSE_SB_END();
     BS_End();
 
     FILLING_BEGIN_PRECISE()
@@ -744,6 +759,16 @@ void File_Hevc::video_parameter_set()
 
         //Filling from stream
         (*Data_Item)->IsSynched                                     =true;
+
+        //NextCode
+        NextCode_Clear();
+        NextCode_Add(33);
+
+        //Autorisation of other streams
+        Streams[33].Searching_Payload=true; //seq_parameter_set
+        Streams[36].Searching_Payload=true; //end_of_seq
+        Streams[37].Searching_Payload=true; //end_of_bitstream
+        Streams[38].Searching_Payload=true; //filler_data
     FILLING_END()
 }
 
@@ -756,8 +781,9 @@ void File_Hevc::seq_parameter_set()
     //Warning: based on a draft of the specification, it is maybe not compliant to the final specification
 
     //Parsing
-    int32u  sps_seq_parameter_set_id, chroma_format_idc, pic_width_in_luma_samples, pic_height_in_luma_samples, bit_depth_luma_minus8, bit_depth_chroma_minus8;
+    int32u  sps_seq_parameter_set_id, chroma_format_idc, pic_width_in_luma_samples, pic_height_in_luma_samples, bit_depth_luma_minus8, bit_depth_chroma_minus8, log2_max_pic_order_cnt_lsb_minus4, num_short_term_ref_pic_sets;
     int8u   sps_video_parameter_set_id, sps_max_sub_layers_minus1;
+    bool    sps_sub_layer_ordering_info_present_flag;
     BS_Begin();
     Get_S1 (4, sps_video_parameter_set_id,                      "sps_video_parameter_set_id");
     std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item;
@@ -784,6 +810,69 @@ void File_Hevc::seq_parameter_set()
     TEST_SB_END();
     Get_UE (   bit_depth_luma_minus8,                           "bit_depth_luma_minus8");
     Get_UE (   bit_depth_chroma_minus8,                         "bit_depth_chroma_minus8");
+    Get_UE (   log2_max_pic_order_cnt_lsb_minus4,               "log2_max_pic_order_cnt_lsb_minus4");
+    Get_SB (   sps_sub_layer_ordering_info_present_flag,        "sps_sub_layer_ordering_info_present_flag");
+    for (int32u SubLayerPos=(sps_sub_layer_ordering_info_present_flag?0:sps_max_sub_layers_minus1); SubLayerPos<=sps_max_sub_layers_minus1; SubLayerPos++)
+    {
+        Element_Begin1("SubLayer");
+        Skip_UE(                                                "sps_max_dec_pic_buffering_minus1");
+        Skip_UE(                                                "sps_max_num_reorder_pics");
+        Skip_UE(                                                "sps_max_latency_increase_plus1");
+        Element_End0();
+    }
+    Skip_UE(                                                    "log2_min_luma_coding_block_size_minus3");
+    Skip_UE(                                                    "log2_diff_max_min_luma_coding_block_size");
+    Skip_UE(                                                    "log2_min_transform_block_size_minus2");
+    Skip_UE(                                                    "log2_diff_max_min_transform_block_size");
+    Skip_UE(                                                    "max_transform_hierarchy_depth_inter");
+    Skip_UE(                                                    "max_transform_hierarchy_depth_intra");
+    TEST_SB_SKIP(                                               "scaling_list_enabled_flag");
+        TEST_SB_SKIP(                                           "sps_scaling_list_data_present_flag");
+            Skip_XX(Data_BS_Remain(),                           "(ToDo) scaling_list_data");
+            //scaling_list_data();
+        TEST_SB_END();
+    TEST_SB_END();
+    Skip_SB(                                                    "amp_enabled_flag");
+    Skip_SB(                                                    "sample_adaptive_offset_enabled_flag");
+    TEST_SB_SKIP(                                               "pcm_enabled_flag");
+        Element_Begin1("pcm");
+        Skip_S1(4,                                              "pcm_sample_bit_depth_luma_minus1");
+        Skip_S1(4,                                              "pcm_sample_bit_depth_chroma_minus1");
+        Skip_UE(                                                "log2_min_pcm_luma_coding_block_size_minus3");
+        Skip_UE(                                                "log2_diff_max_min_pcm_luma_coding_block_size");
+        Skip_SB(                                                "pcm_loop_filter_disabled_flag");
+        Element_End0();
+    TEST_SB_END();
+    Get_UE (   num_short_term_ref_pic_sets,                     "num_short_term_ref_pic_sets");
+    if (num_short_term_ref_pic_sets>64)
+    {
+        BS_End();
+        Trusted_IsNot("num_short_term_ref_pic_sets not valid");
+        return; //Problem, not valid
+    }
+    /*
+    for (int32u short_term_ref_pic_pos=0; short_term_ref_pic_pos<num_short_term_ref_pic_sets; short_term_ref_pic_pos++)
+        short_term_ref_pic_set((int8u)short_term_ref_pic_pos, (int8u)num_short_term_ref_pic_sets);
+    TEST_SB_SKIP(                                               "long_term_ref_pics_present_flag");
+        Element_Begin1("long_term_ref_pics");
+        int32u num_long_term_ref_pics_sps;
+        Get_UE (num_long_term_ref_pics_sps,                     "num_long_term_ref_pics_sps");
+        for (int32u long_term_ref_pics_sps_pos=0; long_term_ref_pics_sps_pos<num_long_term_ref_pics_sps; long_term_ref_pics_sps_pos++)
+        {
+            Skip_BS(log2_max_pic_order_cnt_lsb_minus4+4,        "lt_ref_pic_poc_lsb_sps");
+            Skip_SB(                                            "used_by_curr_pic_lt_sps_flag");
+        }
+        Element_End0();
+    TEST_SB_END();
+    Skip_SB(                                                    "sps_temporal_mvp_enabled_flag");
+    Skip_SB(                                                    "strong_intra_smoothing_enabled_flag");
+    TEST_SB_SKIP(                                               "vui_parameters_present_flag");
+        //vui_parameters(vui_parameters_Item);
+    TEST_SB_END();
+    //TEST_SB_SKIP(                                               "sps_extension_flag");
+    //    Skip_BS(Data_BS_Remain(),                               "sps_extension_data");
+    //TEST_SB_END();
+    */
     BS_End();
     Skip_XX(Element_Size-Element_Offset,                        "(ToDo)");
 
@@ -792,6 +881,11 @@ void File_Hevc::seq_parameter_set()
         if (sps_seq_parameter_set_id>=16)
         {
             Trusted_IsNot("sps_seq_parameter_set_id not valid");
+            return; //Problem, not valid
+        }
+        if (log2_max_pic_order_cnt_lsb_minus4>12)
+        {
+            Trusted_IsNot("log2_max_pic_order_cnt_lsb_minus4 not valid");
             return; //Problem, not valid
         }
 
@@ -809,9 +903,16 @@ void File_Hevc::seq_parameter_set()
         (*Data_Item)->pic_width_in_luma_samples                     =pic_width_in_luma_samples;
         (*Data_Item)->pic_height_in_luma_samples                    =pic_height_in_luma_samples;
         (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc;
-        (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc;
+        (*Data_Item)->log2_max_pic_order_cnt_lsb_minus4             =(int8u)log2_max_pic_order_cnt_lsb_minus4;
         (*Data_Item)->bit_depth_luma_minus8                         =(int8u)bit_depth_luma_minus8;
         (*Data_Item)->bit_depth_chroma_minus8                       =(int8u)bit_depth_chroma_minus8;
+
+        //NextCode
+        NextCode_Clear();
+        NextCode_Add(34);
+
+        //Autorisation of other streams
+        Streams[34].Searching_Payload=true; //pic_parameter_set
     FILLING_END()
 }
 
@@ -895,9 +996,13 @@ void File_Hevc::pic_parameter_set()
     Skip_SB(                                                    "lists_modification_present_flag");
     Skip_UE(                                                    "log2_parallel_merge_level_minus2");
     Skip_SB(                                                    "slice_segment_header_extension_present_flag");
-    TEST_SB_SKIP(                                               "pps_extension_flag");
+    TESTELSE_SB_SKIP(                                           "pps_extension_flag");
         Skip_BS(Data_BS_Remain(),                               "pps_extension_data");
-    TEST_SB_END();
+    TESTELSE_SB_ELSE(                                           "pps_extension_flag");
+        Mark_1();
+        while (Data_BS_Remain())
+            Mark_0();
+    TESTELSE_SB_END();
     BS_End();
 
     FILLING_BEGIN_PRECISE();
@@ -944,6 +1049,27 @@ void File_Hevc::pic_parameter_set()
         //Setting as OK
         if (!Status[IsAccepted])
             Accept("HEVC");
+
+        //NextCode
+        NextCode_Clear();
+
+        //Autorisation of other streams
+        Streams[ 0].Searching_Payload=true; //slice_segment_layer
+        Streams[ 1].Searching_Payload=true; //slice_segment_layer
+        Streams[ 2].Searching_Payload=true; //slice_segment_layer
+        Streams[ 3].Searching_Payload=true; //slice_segment_layer
+        Streams[16].Searching_Payload=true; //slice_segment_layer
+        Streams[17].Searching_Payload=true; //slice_segment_layer
+        Streams[18].Searching_Payload=true; //slice_segment_layer
+        Streams[19].Searching_Payload=true; //slice_segment_layer
+        Streams[20].Searching_Payload=true; //slice_segment_layer
+        Streams[21].Searching_Payload=true; //slice_segment_layer
+        Streams[ 4].Searching_Payload=true; //slice_layer
+        Streams[ 5].Searching_Payload=true; //slice_layer
+        Streams[ 6].Searching_Payload=true; //slice_layer
+        Streams[ 7].Searching_Payload=true; //slice_layer
+        Streams[ 8].Searching_Payload=true; //slice_layer
+        Streams[ 9].Searching_Payload=true; //slice_layer
     FILLING_END();
 }
 
@@ -1162,6 +1288,47 @@ void File_Hevc::profile_tier_level(int8u maxNumSubLayersMinus1)
             Skip_S1(8,                                          "sub_layer_level_idc");
         }
         Element_End0();
+    }
+
+    Element_End0();
+}
+
+//---------------------------------------------------------------------------
+void File_Hevc::short_term_ref_pic_set(int8u stRpsIdx, int8u num_short_term_ref_pic_sets)
+{
+    Element_Begin1("short_term_ref_pic_set");
+
+    bool inter_ref_pic_set_prediction_flag=false;
+    if (stRpsIdx)
+        Get_SB (inter_ref_pic_set_prediction_flag,              "inter_ref_pic_set_prediction_flag");
+    if (inter_ref_pic_set_prediction_flag)
+    {
+        int32u delta_idx_minus1=0;
+        if (stRpsIdx==num_short_term_ref_pic_sets)
+            Get_UE (delta_idx_minus1,                           "delta_idx_minus1");
+        Skip_SB(                                                "delta_rps_sign");
+        int32u RefRpsIdx=stRpsIdx-(delta_idx_minus1+1);
+        Skip_UE(                                                "abs_delta_rps_minus1");
+        for (int32u j=0; j<=RefRpsIdx; j++)
+            TEST_SB_SKIP(                                       "used_by_curr_pic_flag");
+                Skip_SB(                                        "use_delta_flag");
+            TEST_SB_END();
+    }
+    else
+    {
+        int32u num_negative_pics, num_positive_pics;
+        Get_UE (num_negative_pics,                              "num_negative_pics");
+        Get_UE (num_positive_pics,                              "num_positive_pics");
+        for (int32u i=0; i<num_negative_pics; i++)
+        {
+            Skip_UE(                                            "delta_poc_s0_minus1");
+            Skip_SB(                                            "used_by_curr_pic_s0_flag");
+        }
+        for (int32u i=0; i<num_positive_pics; i++)
+        {
+            Skip_UE(                                            "delta_poc_s1_minus1");
+            Skip_SB(                                            "used_by_curr_pic_s1_flag");
+        }
     }
 
     Element_End0();

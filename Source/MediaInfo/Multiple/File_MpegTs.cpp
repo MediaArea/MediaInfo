@@ -538,6 +538,16 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             }
         }
 
+        //By registration_format_identifier
+        if (StreamKind_Last==Stream_Max && Temp->registration_format_identifier && Temp->IsRegistered && Mpeg_Descriptors_registration_format_identifier_StreamKind(Temp->registration_format_identifier)!=Stream_Max)
+        {
+            StreamKind_Last=Mpeg_Descriptors_registration_format_identifier_StreamKind(Temp->registration_format_identifier);
+            Stream_Prepare(StreamKind_Last);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Descriptors_registration_format_identifier_Format(Temp->registration_format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Descriptors_registration_format_identifier_Format(Temp->registration_format_identifier));
+            Count=1;
+        }
+
         //By the stream_type
         if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid && !Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.empty())
         {

@@ -1126,6 +1126,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "FLIC;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html;Lossy\n"
     "H.261;;;V;;;h261;video/H261;;Lossy\n"
     "H.263;;;V;;;h263;video/H263;;Lossy\n"
+    "HEVC;;;V;Hevc;High Efficiency Video Coding;avc h264;video/H265;http://www.itu.int\n"
     "MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;video/MPV;;Lossy\n"
     "MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES;;Lossy\n"
     "Theora;;;V;;;;;http://www.theora.org/;Lossy\n"

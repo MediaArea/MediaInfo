@@ -60,6 +60,7 @@ namespace Elements
     const int32u DTS3=0x44545333; //DTS
     const int32u GA94=0x47413934; //ATSC - Terrestrial
     const int32u HDMV=0x48444D56; //BluRay
+    const int32u HEVC=0x48455643; //HEVC
     const int32u KLVA=0x4B4C5641; //KLV Packets
     const int32u S14A=0x53313441; //ATSC - Satellite
     const int32u SCTE=0x53435445; //SCTE
@@ -629,6 +630,7 @@ const char* Mpeg_Descriptors_registration_format_identifier_Format(int32u format
         case Elements::DTS3 : return "DTS"; //2048
         case Elements::GA94 : return "ATSC - Terrestrial";
         case Elements::HDMV : return "Blu-ray";
+        case Elements::HEVC : return "HEVC";
         case Elements::KLVA : return "KLV";
         case Elements::S14A : return "ATSC - Satellite";
         case Elements::SCTE : return "SCTE 54 2003 - DV Service Multiplex and Transport System for Cable Television";
@@ -648,6 +650,7 @@ stream_t Mpeg_Descriptors_registration_format_identifier_StreamKind(int32u forma
         case Elements::DTS1 : return Stream_Audio;
         case Elements::DTS2 : return Stream_Audio;
         case Elements::DTS3 : return Stream_Audio;
+        case Elements::HEVC : return Stream_Video;
         case Elements::VC_1 : return Stream_Video;
         default :             return Stream_Max;
     }
@@ -681,6 +684,7 @@ const char* Mpeg_Descriptors_stream_Format(int8u descriptor_tag, int32u format_i
                 case Elements::DTS2 : return "DTS";
                 case Elements::DTS3 : return "DTS";
                 case Elements::KLVA : return "KLV";
+                case Elements::HEVC : return "HEVC";
                 case Elements::VC_1 : return "VC-1";
                 case Elements::drac : return "Dirac";
                 default                     :
@@ -727,6 +731,7 @@ const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_id
                 case Elements::DTS2 : return "DTS";
                 case Elements::DTS3 : return "DTS";
                 case Elements::KLVA : return "KLV";
+                case Elements::HEVC : return "HEVC";
                 case Elements::VC_1 : return "VC-1";
                 case Elements::drac : return "Dirac";
                 default                     :
@@ -772,6 +777,7 @@ stream_t Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identi
                 case Elements::DTS1 : return Stream_Audio;
                 case Elements::DTS2 : return Stream_Audio;
                 case Elements::DTS3 : return Stream_Audio;
+                case Elements::HEVC : return Stream_Video;
                 case Elements::VC_1 : return Stream_Video;
                 case Elements::drac : return Stream_Video;
                 default                     :

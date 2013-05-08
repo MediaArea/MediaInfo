@@ -839,7 +839,7 @@ void File_MpegPs::Synched_Init()
     FirstPacketOrder_Last=0;
 
     //Case of extraction from MPEG-TS files
-    if (File_Offset==0 && Buffer_Size>=4 && ((CC4(Buffer)&0xFFFFFFF0)==0x000001E0 || (CC4(Buffer)&0xFFFFFFE0)==0x000001C0 || CC4(Buffer)==0x000001BD || CC4(Buffer)==0x000001FA || CC4(Buffer)==0x000001FD))
+    if (File_Offset==0 && Buffer_Size>=4 && ((CC4(Buffer)&0xFFFFFFF0)==0x000001E0 || (CC4(Buffer)&0xFFFFFFE0)==0x000001C0 || CC4(Buffer)==0x000001BD || CC4(Buffer)==0x000001FA || CC4(Buffer)==0x000001FD || CC4(Buffer)==0x000001FE))
     {
         FromTS=true; //We want to anlyze this kind of file
         MPEG_Version=2; //By default, MPEG-TS is version 2
@@ -867,6 +867,9 @@ void File_MpegPs::Synched_Init()
         Streams[0xFD].Searching_Payload=true;            //extension_stream
         Streams[0xFD].Searching_TimeStamp_Start=true;    //extension_stream
         Streams[0xFD].Searching_TimeStamp_End=true;      //extension_stream
+        Streams[0xFE].Searching_Payload=true;            //extension_stream?
+        Streams[0xFE].Searching_TimeStamp_Start=true;    //extension_stream?
+        Streams[0xFE].Searching_TimeStamp_End=true;      //extension_stream?
     }
 }
 
@@ -2125,6 +2128,7 @@ void File_MpegPs::Data_Parse()
         case 0xFB : Element_Name("FlexMux_stream"); Skip_XX(Element_Size, "Data"); break;
         case 0xFC : Element_Name("descriptive data stream"); Skip_XX(Element_Size, "Data"); break;
         case 0xFD : extension_stream(); break;
+        case 0xFE : video_stream(); break;
         case 0xFF : Element_Name("program_stream_directory"); Skip_XX(Element_Size, "Data"); break;
         default:
                  if ((stream_id&0xE0)==0xC0) audio_stream();
@@ -3271,6 +3275,9 @@ void File_MpegPs::video_stream()
                         #endif
                         #if defined(MEDIAINFO_AVC_YES)
                             Streams[stream_id].Parsers.push_back(ChooseParser_Avc());
+                        #endif
+                        #if defined(MEDIAINFO_HEVC_YES)
+                            Streams[stream_id].Parsers.push_back(ChooseParser_Hevc());
                         #endif
                         #if defined(MEDIAINFO_MPEG4V_YES)
                             Streams[stream_id].Parsers.push_back(ChooseParser_Mpeg4v());

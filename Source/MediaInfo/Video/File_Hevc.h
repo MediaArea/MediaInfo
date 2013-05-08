@@ -68,6 +68,7 @@ private :
         int32u  pic_height_in_luma_samples;
         int8u   video_parameter_set_id;
         int8u   chroma_format_idc;
+        int8u   log2_max_pic_order_cnt_lsb_minus4;
         int8u   bit_depth_luma_minus8;
         int8u   bit_depth_chroma_minus8;
         bool    IsSynched; //Computed value
@@ -130,6 +131,7 @@ private :
     //Packets - SubElements
     void slice_segment_header();
     void profile_tier_level(int8u maxNumSubLayersMinus1);
+    void short_term_ref_pic_set(int8u stRpsIdx, int8u num_short_term_ref_pic_sets);
 
     //Packets - Specific
     void SPS_PPS();
