@@ -3276,9 +3276,9 @@ void File_MpegPs::video_stream()
                         #if defined(MEDIAINFO_AVC_YES)
                             Streams[stream_id].Parsers.push_back(ChooseParser_Avc());
                         #endif
-                        #if defined(MEDIAINFO_HEVC_YES)
-                            Streams[stream_id].Parsers.push_back(ChooseParser_Hevc());
-                        #endif
+                        //#if defined(MEDIAINFO_HEVC_YES)
+                        //    Streams[stream_id].Parsers.push_back(ChooseParser_Hevc());
+                        //#endif
                         #if defined(MEDIAINFO_MPEG4V_YES)
                             Streams[stream_id].Parsers.push_back(ChooseParser_Mpeg4v());
                         #endif
