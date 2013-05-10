@@ -95,12 +95,22 @@ const char* Hevc_slice_type(int32u slice_type)
 {
     switch (slice_type)
     {
-        case 0 : return "B";
-        case 1 : return "P";
+        case 0 : return "P";
+        case 1 : return "B";
         case 2 : return "I";
         default: return "";
     }
 };
+
+//---------------------------------------------------------------------------
+extern const char* Mpegv_colour_primaries(int8u colour_primaries);
+extern const char* Mpegv_transfer_characteristics(int8u transfer_characteristics);
+extern const char* Mpegv_matrix_coefficients(int8u matrix_coefficients);
+
+//---------------------------------------------------------------------------
+extern const int8u Avc_PixelAspectRatio_Size;
+extern const float32 Avc_PixelAspectRatio[];
+extern const char* Avc_video_format[];
 
 //***************************************************************************
 // Constructor/Destructor
@@ -124,7 +134,7 @@ File_Hevc::File_Hevc()
     Frame_Count_NotParsedIncluded=0;
 
     //In
-    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?512:2;
+    Frame_Count_Valid=MediaInfoLib::Config.ParseSpeed_Get()>=0.3?2:2; //Note: should be replaced by "512:2" when I-frame/GOP detection is OK
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     SizedBlocks=false;
@@ -298,8 +308,6 @@ bool File_Hevc::Demux_UnpacketizeContainer_Test()
 //---------------------------------------------------------------------------
 void File_Hevc::Synched_Init()
 {
-    Accept(); //TEMP
-    
     //FrameInfo
     PTS_End=0;
     if (FrameInfo.DTS==(int64u)-1)
@@ -781,6 +789,7 @@ void File_Hevc::seq_parameter_set()
     //Warning: based on a draft of the specification, it is maybe not compliant to the final specification
 
     //Parsing
+    void*   vui_parameters_Item=NULL;
     int32u  sps_seq_parameter_set_id, chroma_format_idc, pic_width_in_luma_samples, pic_height_in_luma_samples, bit_depth_luma_minus8, bit_depth_chroma_minus8, log2_max_pic_order_cnt_lsb_minus4, num_short_term_ref_pic_sets;
     int8u   sps_video_parameter_set_id, sps_max_sub_layers_minus1;
     bool    sps_sub_layer_ordering_info_present_flag;
@@ -850,9 +859,7 @@ void File_Hevc::seq_parameter_set()
         Trusted_IsNot("num_short_term_ref_pic_sets not valid");
         return; //Problem, not valid
     }
-    /*
-    for (int32u short_term_ref_pic_pos=0; short_term_ref_pic_pos<num_short_term_ref_pic_sets; short_term_ref_pic_pos++)
-        short_term_ref_pic_set((int8u)short_term_ref_pic_pos, (int8u)num_short_term_ref_pic_sets);
+    short_term_ref_pic_sets((int8u)num_short_term_ref_pic_sets);
     TEST_SB_SKIP(                                               "long_term_ref_pics_present_flag");
         Element_Begin1("long_term_ref_pics");
         int32u num_long_term_ref_pics_sps;
@@ -867,12 +874,15 @@ void File_Hevc::seq_parameter_set()
     Skip_SB(                                                    "sps_temporal_mvp_enabled_flag");
     Skip_SB(                                                    "strong_intra_smoothing_enabled_flag");
     TEST_SB_SKIP(                                               "vui_parameters_present_flag");
-        //vui_parameters(vui_parameters_Item);
+        vui_parameters(vui_parameters_Item);
     TEST_SB_END();
-    //TEST_SB_SKIP(                                               "sps_extension_flag");
-    //    Skip_BS(Data_BS_Remain(),                               "sps_extension_data");
-    //TEST_SB_END();
-    */
+    TESTELSE_SB_SKIP(                                           "sps_extension_flag");
+        Skip_BS(Data_BS_Remain(),                               "sps_extension_data");
+    TESTELSE_SB_ELSE(                                           "sps_extension_flag");
+        Mark_1();
+        while (Data_BS_Remain())
+            Mark_0();
+    TESTELSE_SB_END();
     BS_End();
     Skip_XX(Element_Size-Element_Offset,                        "(ToDo)");
 
@@ -881,11 +891,13 @@ void File_Hevc::seq_parameter_set()
         if (sps_seq_parameter_set_id>=16)
         {
             Trusted_IsNot("sps_seq_parameter_set_id not valid");
+            delete (seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
             return; //Problem, not valid
         }
         if (log2_max_pic_order_cnt_lsb_minus4>12)
         {
             Trusted_IsNot("log2_max_pic_order_cnt_lsb_minus4 not valid");
+            delete (seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
             return; //Problem, not valid
         }
 
@@ -906,6 +918,7 @@ void File_Hevc::seq_parameter_set()
         (*Data_Item)->log2_max_pic_order_cnt_lsb_minus4             =(int8u)log2_max_pic_order_cnt_lsb_minus4;
         (*Data_Item)->bit_depth_luma_minus8                         =(int8u)bit_depth_luma_minus8;
         (*Data_Item)->bit_depth_chroma_minus8                       =(int8u)bit_depth_chroma_minus8;
+        (*Data_Item)->vui_parameters                                =(seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
 
         //NextCode
         NextCode_Clear();
@@ -1219,6 +1232,7 @@ void File_Hevc::slice_segment_header()
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (pic_parameter_set is missing)");
+        Element_End0();
         return;
     }
     if (!first_slice_segment_in_pic_flag)
@@ -1226,6 +1240,8 @@ void File_Hevc::slice_segment_header()
         if ((*pic_parameter_set_Item)->dependent_slice_segments_enabled_flag)
             Get_SB (dependent_slice_segment_flag,               "dependent_slice_segment_flag");
         //Skip_BS(Ceil( Log2( PicSizeInCtbsY ) ),               "slice_segment_address");
+        Skip_BS(Data_BS_Remain(),                               "(ToDo)");
+        Element_End0();
         return;
     }
     if (!dependent_slice_segment_flag)
@@ -1234,6 +1250,7 @@ void File_Hevc::slice_segment_header()
         Get_UE (slice_type,                                     "slice_type"); Param_Info1(Hevc_slice_type(slice_type));
     }
     //TODO...
+    Skip_BS(Data_BS_Remain(),                                   "(ToDo)");
 
     Element_End0();
 }
@@ -1294,44 +1311,225 @@ void File_Hevc::profile_tier_level(int8u maxNumSubLayersMinus1)
 }
 
 //---------------------------------------------------------------------------
-void File_Hevc::short_term_ref_pic_set(int8u stRpsIdx, int8u num_short_term_ref_pic_sets)
+void File_Hevc::short_term_ref_pic_sets(int8u num_short_term_ref_pic_sets)
 {
-    Element_Begin1("short_term_ref_pic_set");
+    Element_Begin1("short_term_ref_pic_sets");
+    int32u num_pics=0;
 
-    bool inter_ref_pic_set_prediction_flag=false;
-    if (stRpsIdx)
-        Get_SB (inter_ref_pic_set_prediction_flag,              "inter_ref_pic_set_prediction_flag");
-    if (inter_ref_pic_set_prediction_flag)
+    for (int32u stRpsIdx=0; stRpsIdx<num_short_term_ref_pic_sets; stRpsIdx++)
     {
-        int32u delta_idx_minus1=0;
-        if (stRpsIdx==num_short_term_ref_pic_sets)
-            Get_UE (delta_idx_minus1,                           "delta_idx_minus1");
-        Skip_SB(                                                "delta_rps_sign");
-        int32u RefRpsIdx=stRpsIdx-(delta_idx_minus1+1);
-        Skip_UE(                                                "abs_delta_rps_minus1");
-        for (int32u j=0; j<=RefRpsIdx; j++)
-            TEST_SB_SKIP(                                       "used_by_curr_pic_flag");
-                Skip_SB(                                        "use_delta_flag");
-            TEST_SB_END();
-    }
-    else
-    {
-        int32u num_negative_pics, num_positive_pics;
-        Get_UE (num_negative_pics,                              "num_negative_pics");
-        Get_UE (num_positive_pics,                              "num_positive_pics");
-        for (int32u i=0; i<num_negative_pics; i++)
+        Element_Begin1("short_term_ref_pic_set");
+        bool inter_ref_pic_set_prediction_flag=false;
+        if (stRpsIdx)
+            Get_SB (inter_ref_pic_set_prediction_flag,              "inter_ref_pic_set_prediction_flag");
+        if (inter_ref_pic_set_prediction_flag)
         {
-            Skip_UE(                                            "delta_poc_s0_minus1");
-            Skip_SB(                                            "used_by_curr_pic_s0_flag");
+            int32u  delta_idx_minus1=0, abs_delta_rps_minus1;
+            bool    delta_rps_sign;
+            if (stRpsIdx==num_short_term_ref_pic_sets)
+                Get_UE (delta_idx_minus1,                           "delta_idx_minus1");
+            if (delta_idx_minus1+1>stRpsIdx)
+            {
+                Skip_BS(Data_BS_Remain(),                           "(Problem)");
+                Element_End0();
+                Element_End0();
+                return;
+            }
+            Get_SB (   delta_rps_sign,                              "delta_rps_sign");
+            Get_UE (   abs_delta_rps_minus1,                        "abs_delta_rps_minus1");
+            int32u num_pics_new=0;
+            for(int32u pic_pos=0 ; pic_pos<=num_pics; pic_pos++)
+            {
+                TESTELSE_SB_SKIP(                                   "used_by_curr_pic_flag");
+                    num_pics_new++;
+                TESTELSE_SB_ELSE(                                   "used_by_curr_pic_flag");
+                    bool use_delta_flag;
+                    Get_SB (use_delta_flag,                         "use_delta_flag");
+                    if (use_delta_flag)
+                        num_pics_new++;
+                TESTELSE_SB_END();
+            }
+            num_pics=num_pics_new;
         }
-        for (int32u i=0; i<num_positive_pics; i++)
+        else
         {
-            Skip_UE(                                            "delta_poc_s1_minus1");
-            Skip_SB(                                            "used_by_curr_pic_s1_flag");
+            int32u num_negative_pics, num_positive_pics;
+            Get_UE (num_negative_pics,                              "num_negative_pics");
+            Get_UE (num_positive_pics,                              "num_positive_pics");
+            num_pics=num_negative_pics+num_positive_pics;
+            for (int32u i=0; i<num_negative_pics; i++)
+            {
+                Skip_UE(                                            "delta_poc_s0_minus1");
+                Skip_SB(                                            "used_by_curr_pic_s0_flag");
+            }
+            for (int32u i=0; i<num_positive_pics; i++)
+            {
+                Skip_UE(                                            "delta_poc_s1_minus1");
+                Skip_SB(                                            "used_by_curr_pic_s1_flag");
+            }
         }
+        Element_End0();
     }
 
     Element_End0();
+}
+
+//---------------------------------------------------------------------------
+void File_Hevc::vui_parameters(void* &vui_parameters_Item_)
+{
+    //Parsing
+    void    *NAL=NULL, *VCL=NULL;
+    int32u  num_units_in_tick=(int32u)-1, time_scale=(int32u)-1;
+    int16u  sar_width=(int16u)-1, sar_height=(int16u)-1;
+    int8u   aspect_ratio_idc=0, video_format=5, colour_primaries=2, transfer_characteristics=2, matrix_coefficients=2;
+    bool    aspect_ratio_info_present_flag, video_signal_type_present_flag, colour_description_present_flag=false, timing_info_present_flag, fixed_frame_rate_flag=false, nal_hrd_parameters_present_flag, vcl_hrd_parameters_present_flag, pic_struct_present_flag;
+    TEST_SB_GET (aspect_ratio_info_present_flag,                "aspect_ratio_info_present_flag");
+        Get_S1 (8, aspect_ratio_idc,                            "aspect_ratio_idc"); Param_Info1C((aspect_ratio_idc<Avc_PixelAspectRatio_Size), Avc_PixelAspectRatio[aspect_ratio_idc]);
+        if (aspect_ratio_idc==0xFF)
+        {
+            Get_S2 (16, sar_width,                              "sar_width");
+            Get_S2 (16, sar_height,                             "sar_height");
+        }
+    TEST_SB_END();
+    TEST_SB_SKIP(                                               "overscan_info_present_flag");
+        Skip_SB(                                                "overscan_appropriate_flag");
+    TEST_SB_END();
+    TEST_SB_GET (video_signal_type_present_flag,                "video_signal_type_present_flag");
+        Get_S1 (3, video_format,                                "video_format"); Param_Info1(Avc_video_format[video_format]);
+        Skip_SB(                                                "video_full_range_flag");
+        TEST_SB_GET (colour_description_present_flag,           "colour_description_present_flag");
+            Get_S1 (8, colour_primaries,                        "colour_primaries"); Param_Info1(Mpegv_colour_primaries(colour_primaries));
+            Get_S1 (8, transfer_characteristics,                "transfer_characteristics"); Param_Info1(Mpegv_transfer_characteristics(transfer_characteristics));
+            Get_S1 (8, matrix_coefficients,                     "matrix_coefficients"); Param_Info1(Mpegv_matrix_coefficients(matrix_coefficients));
+        TEST_SB_END();
+    TEST_SB_END();
+    TEST_SB_SKIP(                                               "chroma_loc_info_present_flag");
+        Skip_UE(                                                "chroma_sample_loc_type_top_field");
+        Skip_UE(                                                "chroma_sample_loc_type_bottom_field");
+    TEST_SB_END();
+    Skip_SB(                                                    "neutral_chroma_indication_flag");
+    Skip_SB(                                                    "field_seq_flag");
+    Skip_SB(                                                    "frame_field_info_present_flag");
+    TEST_SB_SKIP(                                               "default_display_window_flag ");
+        Skip_UE(                                                "def_disp_win_left_offset");
+        Skip_UE(                                                "def_disp_win_right_offset");
+        Skip_UE(                                                "def_disp_win_top_offset");
+        Skip_UE(                                                "def_disp_win_bottom_offset");
+    TEST_SB_END();
+    TEST_SB_GET (timing_info_present_flag,                      "timing_info_present_flag");
+        Get_S4 (32, num_units_in_tick,                          "num_units_in_tick");
+        Get_S4 (32, time_scale,                                 "time_scale");
+        Get_SB (    fixed_frame_rate_flag,                      "fixed_frame_rate_flag");
+        TEST_SB_SKIP(                                           "vui_poc_proportional_to_timing_flag");
+            Skip_UE(                                            "vui_num_ticks_poc_diff_one_minus1");
+        TEST_SB_END();
+    TEST_SB_END();
+    TEST_SB_GET (nal_hrd_parameters_present_flag,               "nal_hrd_parameters_present_flag");
+        hrd_parameters(NAL);
+    TEST_SB_END();
+    TEST_SB_GET (vcl_hrd_parameters_present_flag,               "vcl_hrd_parameters_present_flag");
+        hrd_parameters(VCL);
+    TEST_SB_END();
+    if (nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
+        Skip_SB(                                                "low_delay_hrd_flag");
+    Get_SB (   pic_struct_present_flag,                         "pic_struct_present_flag");
+    TEST_SB_SKIP(                                               "bitstream_restriction_flag");
+        Skip_SB(                                                "tiles_fixed_structure_flag");
+        Skip_SB(                                                "motion_vectors_over_pic_boundaries_flag");
+        Skip_SB(                                                "restricted_ref_pic_lists_flag");
+        Skip_UE(                                                "min_spatial_segmentation_idc");
+        Skip_UE(                                                "max_bytes_per_pic_denom");
+        Skip_UE(                                                "max_bits_per_min_cu_denom");
+        Skip_UE(                                                "log2_max_mv_length_horizontal");
+        Skip_UE(                                                "log2_max_mv_length_vertical");
+    TEST_SB_END();
+
+    FILLING_BEGIN();
+        seq_parameter_set_struct::vui_parameters_struct* vui_parameters_Item=new seq_parameter_set_struct::vui_parameters_struct();
+        vui_parameters_Item_=vui_parameters_Item;
+        vui_parameters_Item->aspect_ratio_info_present_flag=aspect_ratio_info_present_flag;
+        if (aspect_ratio_info_present_flag)
+        {
+            vui_parameters_Item->aspect_ratio_idc=aspect_ratio_idc;
+            if (aspect_ratio_idc==0xFF)
+            {
+                vui_parameters_Item->sar_width=sar_width;
+                vui_parameters_Item->sar_height=sar_height;
+            }
+        }
+        vui_parameters_Item->video_signal_type_present_flag=video_signal_type_present_flag;
+        if (video_signal_type_present_flag)
+        {
+            vui_parameters_Item->video_format=video_format;
+            vui_parameters_Item->colour_description_present_flag=colour_description_present_flag;
+            if (colour_description_present_flag)
+            {
+                vui_parameters_Item->colour_primaries=colour_primaries;
+                vui_parameters_Item->transfer_characteristics=transfer_characteristics;
+                vui_parameters_Item->matrix_coefficients=matrix_coefficients;
+            }
+        }
+        vui_parameters_Item->timing_info_present_flag=timing_info_present_flag;
+        if (timing_info_present_flag)
+        {
+            vui_parameters_Item->num_units_in_tick=num_units_in_tick;
+            vui_parameters_Item->time_scale=time_scale;
+            vui_parameters_Item->fixed_frame_rate_flag=fixed_frame_rate_flag;
+        }
+        vui_parameters_Item->NAL=(seq_parameter_set_struct::vui_parameters_struct::xxl*)NAL;
+        vui_parameters_Item->VCL=(seq_parameter_set_struct::vui_parameters_struct::xxl*)VCL;
+        vui_parameters_Item->pic_struct_present_flag=pic_struct_present_flag;
+    FILLING_ELSE();
+        delete (seq_parameter_set_struct::vui_parameters_struct::xxl*)NAL;
+        delete (seq_parameter_set_struct::vui_parameters_struct::xxl*)VCL;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Hevc::hrd_parameters(void* &hrd_parameters_Item_)
+{
+    //Parsing
+    int32u cpb_cnt_minus1;
+    int8u  bit_rate_scale, cpb_size_scale, initial_cpb_removal_delay_length_minus1, cpb_removal_delay_length_minus1, dpb_output_delay_length_minus1, time_offset_length;
+    Get_UE (   cpb_cnt_minus1,                                  "cpb_cnt_minus1");
+    Get_S1 (4, bit_rate_scale,                                  "bit_rate_scale");
+    Get_S1 (4, cpb_size_scale,                                  "cpb_size_scale");
+    if (cpb_cnt_minus1>31)
+    {
+        Trusted_IsNot("cpb_cnt_minus1 too high");
+        cpb_cnt_minus1=0;
+    }
+    seq_parameter_set_struct::vui_parameters_struct::xxl* ToTest=new seq_parameter_set_struct::vui_parameters_struct::xxl();
+    hrd_parameters_Item_=ToTest;
+    ToTest->SchedSel.resize(cpb_cnt_minus1+1);
+    for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
+    {
+        Element_Begin1("ShedSel");
+        int32u bit_rate_value_minus1, cpb_size_value_minus1;
+        Get_UE (bit_rate_value_minus1,                          "bit_rate_value_minus1");
+        ToTest->SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info2(ToTest->SchedSel[SchedSelIdx].bit_rate_value, " bps");
+        Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
+        ToTest->SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info2(ToTest->SchedSel[SchedSelIdx].cpb_size_value, " bits");
+        Get_SB (ToTest->SchedSel[SchedSelIdx].cbr_flag,         "cbr_flag");
+        Element_End0();
+    }
+    Get_S1 (5, initial_cpb_removal_delay_length_minus1,         "initial_cpb_removal_delay_length_minus1");
+    Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");
+    Get_S1 (5, dpb_output_delay_length_minus1,                  "dpb_output_delay_length_minus1");
+    Get_S1 (5, time_offset_length,                              "time_offset_length");
+
+    //Validity test
+    if (!Element_IsOK() || (ToTest->SchedSel.size()==1 && ToTest->SchedSel[0].bit_rate_value==64))
+    {
+        delete ToTest; ToTest=NULL; hrd_parameters_Item_=NULL; //We do not trust this kind of data
+        return;
+    }
+
+    //Filling
+    ToTest->initial_cpb_removal_delay_length_minus1                                 =initial_cpb_removal_delay_length_minus1;
+    ToTest->cpb_removal_delay_length_minus1                                         =cpb_removal_delay_length_minus1;
+    ToTest->dpb_output_delay_length_minus1                                          =dpb_output_delay_length_minus1;
+    ToTest->time_offset_length                                                      =time_offset_length;
 }
 
 //***************************************************************************
@@ -1422,7 +1620,7 @@ void File_Hevc::SPS_PPS()
             Element_Begin1("nalUnit");
             int16u nalUnitLength;
             Get_B2 (nalUnitLength,                              "nalUnitLength");
-            if (Element_Offset+nalUnitLength>Element_Size)
+            if (nalUnitLength<2 || Element_Offset+nalUnitLength>Element_Size)
             {
                 Trusted_IsNot("Size is wrong");
                 break; //There is an error
@@ -1459,10 +1657,7 @@ void File_Hevc::SPS_PPS()
         Element_End0();
     }
 
-    //Filling
-    FILLING_BEGIN_PRECISE();
-        MustParse_SPS_PPS=false;
-    FILLING_END();
+    MustParse_SPS_PPS=false;
 }
 
 } //NameSpace

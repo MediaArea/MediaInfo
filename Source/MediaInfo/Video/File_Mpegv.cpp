@@ -54,6 +54,7 @@ extern const char* Mpegv_colour_primaries(int8u colour_primaries)
         case  6 : return "BT.601 NTSC";
         case  7 : return "SMPTE 240M"; //Same as BT.601 NTSC
         case  8 : return "Generic film";
+        case  9 : return "BT.2020";                                     //Added in HEVC
         default : return "";
     }
 }
@@ -73,6 +74,9 @@ extern const char* Mpegv_transfer_characteristics(int8u transfer_characteristics
         case 10 : return "Logarithmic (316.22777:1)";                   //Added in MPEG-4 Visual
         case 11 : return "IEC 61966-2-4";                               //Added in AVC
         case 12 : return "BT.1361 extended colour gamut system";        //Added in AVC
+        case 13 : return "sYCC";                                        //Added in HEVC
+        case 14 : return "BT.2020";                                     //Added in HEVC
+        case 15 : return "BT.2020";                                     //Added in HEVC
         default : return "";
     }
 }
@@ -89,6 +93,8 @@ extern const char* Mpegv_matrix_coefficients(int8u matrix_coefficients)
         case  6 : return "BT.601";
         case  7 : return "SMPTE 240M";
         case  8 : return "YCgCo";                                       //Added in AVC
+        case  9 : return "BT.2020 non-constant";                        //Added in HEVC
+        case 10 : return "BT.2020 constant";                            //Added in HEVC
         default : return "";
     }
 }
