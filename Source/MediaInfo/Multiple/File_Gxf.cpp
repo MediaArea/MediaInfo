@@ -525,7 +525,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
 
                 for (std::map<std::string, Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); ++Info)
                     if (Info->first=="BitRate" && Temp.Parsers[0]->Count_Get(Stream_Audio)>1)
-                        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Encoded, Pos?__T("0"):Info->second); // In case of more than 1 audio sub-stream Encoded bit rate is the bit rate of all streams + overhead
+                        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Encoded, Pos?Ztring(__T("0")):Info->second); // In case of more than 1 audio sub-stream Encoded bit rate is the bit rate of all streams + overhead
                     else if (Retrieve(Stream_Audio, StreamPos_Last, Info->first.c_str()).empty())
                         Fill(Stream_Audio, StreamPos_Last, Info->first.c_str(), Info->second);
             }
