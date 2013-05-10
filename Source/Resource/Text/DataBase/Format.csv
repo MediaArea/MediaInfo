@@ -27,6 +27,7 @@ MTV;;;M;Other;Chinese hack of MPEG-1 layer 3;mtv;;http://en.wikipedia.org/wiki/C
 MXF;;;M;Mxf;;mxf;application/mxf;;
 NSV;;;M;Nsv;Nullsoft Streaming Video;nsv;;http://winamp.com;
 Ogg;;;M;Ogg;;ogg ogm opus;video/ogg;http://www.free-codecs.com/Ogg_DirectShow_Filters_download.htm;
+PMP;;;M;Pmp;Playstation Portable;pmp;;;
 QuickTime;;;M;Mpeg4;Original Apple specifications;mov qt;video/quicktime;http://www.apple.com/quicktime/download/standalone.html;
 RealMedia;;;M;Rm;;rm rmvb ra;application/vnd.rn-realmedia;;
 RIFF-MMP;;;M;Riff;RIFF Multimedia Movie;;;;

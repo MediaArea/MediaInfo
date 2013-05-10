@@ -93,6 +93,9 @@
 #if defined(MEDIAINFO_P2_YES)
     #include "MediaInfo/Multiple/File_P2_Clip.h"
 #endif
+#if defined(MEDIAINFO_PMP_YES)
+    #include "MediaInfo/Multiple/File_Pmp.h"
+#endif
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif
@@ -413,6 +416,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_P2_YES)
         Parser.push_back(new File_P2_Clip());
+    #endif
+    #if defined(MEDIAINFO_PMP_YES)
+        Parser.push_back(new File_Pmp());
     #endif
     #if defined(MEDIAINFO_RIFF_YES)
         Parser.push_back(new File_Riff());
