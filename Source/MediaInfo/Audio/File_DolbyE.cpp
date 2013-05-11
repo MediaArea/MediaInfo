@@ -438,9 +438,9 @@ void File_DolbyE::Header_Parse()
 void File_DolbyE::Data_Parse()
 {
     //In case of scrambling
-    const int8u*    Save_Buffer;
-    size_t          Save_Buffer_Offset;
-    int64u          Save_File_Offset;
+    const int8u*    Save_Buffer=NULL;
+    size_t          Save_Buffer_Offset=0;
+    int64u          Save_File_Offset=0;
     if (ScrambledBitStream)
     {
         //We must change the buffer,
