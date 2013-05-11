@@ -1192,6 +1192,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Pmp.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Riff.cpp"
 					>
 				</File>
@@ -1909,6 +1913,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_P2_Clip.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Pmp.h"
 					>
 				</File>
 				<File

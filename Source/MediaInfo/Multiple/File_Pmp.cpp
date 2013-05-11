@@ -49,7 +49,7 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-const char* Pmp_video_format(int8u video_format)
+const char* Pmp_video_format(int32u video_format)
 {
     switch (video_format)
     {
@@ -60,7 +60,7 @@ const char* Pmp_video_format(int8u video_format)
 }
 
 //---------------------------------------------------------------------------
-const char* Pmp_audio_format(int8u audio_format)
+const char* Pmp_audio_format(int32u audio_format)
 {
     switch (audio_format)
     {
@@ -90,7 +90,7 @@ bool File_Pmp::FileHeader_Begin()
 void File_Pmp::FileHeader_Parse()
 {
      //Parsing
-    int32u version, video_format, nb_frames, video_width, video_height, time_base_num, time_base_den, audio_format, sample_rate, channels;
+    int32u version, video_format=0, nb_frames=0, video_width=0, video_height=0, time_base_num=0, time_base_den=0, audio_format=0, sample_rate=0, channels=0;
 
     Skip_C4(                                                    "Signature");
     Get_L4 (version,                                            "Version");

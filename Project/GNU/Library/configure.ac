@@ -135,6 +135,7 @@ AC_ARG_ENABLE(mpegts-pestimestamp, AC_HELP_STRING([--disable-mpegts-pestimestamp
 AC_ARG_ENABLE(mxf,     AC_HELP_STRING([--disable-mxf],     [Disable Multiple - MXF]),                                     MediaInfoMxf=$enableval,     MediaInfoMxf=depend)
 AC_ARG_ENABLE(nut,     AC_HELP_STRING([--disable-nut],     [Disable Multiple - Nut]),                                     MediaInfoNut=$enableval,     MediaInfoNut=depend)
 AC_ARG_ENABLE(ogg,     AC_HELP_STRING([--disable-ogg],     [Disable Multiple - OGG (ogg, ogm)]),                          MediaInfoOgg=$enableval,     MediaInfoOgg=depend)
+AC_ARG_ENABLE(pmp,     AC_HELP_STRING([--disable-pmp],     [Disable Multiple - Playstation Portable (PMP)]),              MediaInfoPmp=$enableval,     MediaInfoPmp=depend)
 AC_ARG_ENABLE(riff,    AC_HELP_STRING([--disable-riff],    [Disable Multiple - RIFF based formats (AVI...)]),             MediaInfoRiff=$enableval,    MediaInfoRiff=depend)
 AC_ARG_ENABLE(rm,      AC_HELP_STRING([--disable-rm],      [Disable Multiple - Real Media]),                              MediaInfoRm=$enableval,      MediaInfoRm=depend)
 AC_ARG_ENABLE(skm,     AC_HELP_STRING([--disable-skm],     [Disable Multiple - SKM]),                                     MediaInfoSkm=$enableval,     MediaInfoSkm=depend)
@@ -272,6 +273,7 @@ if test "$MediaInfoMpegTsPesTimeStamp" = "no"; then AC_DEFINE(MEDIAINFO_MPEGTS_P
 if test "$MediaInfoMxf"     = "no";  then AC_DEFINE(MEDIAINFO_MXF_NO)     fi; if test "$MediaInfoMxf"     = "yes"; then AC_DEFINE(MEDIAINFO_MXF_YES)     fi
 if test "$MediaInfoNut"     = "no";  then AC_DEFINE(MEDIAINFO_NUT_NO)     fi; if test "$MediaInfoNut"     = "yes"; then AC_DEFINE(MEDIAINFO_NUT_YES)     fi
 if test "$MediaInfoOgg"     = "no";  then AC_DEFINE(MEDIAINFO_OGG_NO)     fi; if test "$MediaInfoOgg"     = "yes"; then AC_DEFINE(MEDIAINFO_OGG_YES)     fi
+if test "$MediaInfoPmp"     = "no";  then AC_DEFINE(MEDIAINFO_PMP_NO)     fi; if test "$MediaInfoPmp"     = "yes"; then AC_DEFINE(MEDIAINFO_PMP_YES)     fi
 if test "$MediaInfoRiff"    = "no";  then AC_DEFINE(MEDIAINFO_RIFF_NO)    fi; if test "$MediaInfoRiff"    = "yes"; then AC_DEFINE(MEDIAINFO_RIFF_YES)    fi
 if test "$MediaInfoRm"      = "no";  then AC_DEFINE(MEDIAINFO_RM_NO)      fi; if test "$MediaInfoRm"      = "yes"; then AC_DEFINE(MEDIAINFO_RM_YES)      fi
 if test "$MediaInfoSkm"     = "no";  then AC_DEFINE(MEDIAINFO_SKM_NO)     fi; if test "$MediaInfoSkm"     = "yes"; then AC_DEFINE(MEDIAINFO_SKM_YES)     fi
@@ -831,6 +833,7 @@ Mcho "MpegTs (Parser time stamp)" "$MediaInfoMpegTsPesTimeStamp"
 Mcho "Mxf    " "$MediaInfoMxf"
 Mcho "Nut    " "$MediaInfoNut"
 Mcho "Ogg    " "$MediaInfoOgg"
+Mcho "Pmp    " "$MediaInfoPmp"
 Mcho "Riff   " "$MediaInfoRiff"
 Mcho "Rm     " "$MediaInfoRm"
 Mcho "Skm    " "$MediaInfoSkm"
