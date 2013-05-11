@@ -170,13 +170,16 @@ void File_Hevc::Streams_Fill()
 void File_Hevc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item)
 {
     Ztring Profile;
-    if ((*seq_parameter_set_Item)->profile_idc)
-        Profile=Ztring().From_Local(Hevc_profile_idc((*seq_parameter_set_Item)->profile_idc));
-    if ((*seq_parameter_set_Item)->level_idc)
+    if ((*seq_parameter_set_Item)->profile_space==0)
     {
         if ((*seq_parameter_set_Item)->profile_idc)
-            Profile+=__T('@');
-        Profile+=__T('L')+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
+            Profile=Ztring().From_Local(Hevc_profile_idc((*seq_parameter_set_Item)->profile_idc));
+        if ((*seq_parameter_set_Item)->level_idc)
+        {
+            if ((*seq_parameter_set_Item)->profile_idc)
+                Profile+=__T('@');
+            Profile+=__T('L')+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
+        }
     }
     Fill(Stream_Video, 0, Video_Format_Profile, Profile);
     Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
@@ -358,7 +361,7 @@ void File_Hevc::Header_Parse()
     }
 
     //Parsing
-    int8u nal_unit_type;
+    int8u nal_unit_type, nuh_temporal_id_plus1;
     if (!SizedBlocks)
     {
         if (Buffer[Buffer_Offset+2]==0x00)
@@ -367,19 +370,18 @@ void File_Hevc::Header_Parse()
         BS_Begin();
         Mark_0 ();
         Get_S1 (6, nal_unit_type,                               "nal_unit_type");
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Skip_S1(3,                                              "nuh_temporal_id_plus1");
+        Get_S1 (6, nuh_layer_id,                                "nuh_layer_id");
+        Get_S1 (3, nuh_temporal_id_plus1,                       "nuh_temporal_id_plus1");
         BS_End();
+
         if (!Header_Parser_Fill_Size())
         {
             Element_WaitForMoreData();
             return;
         }
+
+        if (nuh_temporal_id_plus1==0)
+            Trusted_IsNot("nuh_temporal_id_plus1");
     }
     else
     {
@@ -412,14 +414,12 @@ void File_Hevc::Header_Parse()
         BS_Begin();
         Mark_0 ();
         Get_S1 (6, nal_unit_type,                               "nal_unit_type");
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Mark_0_NoTrustError ();
-        Skip_S1(3,                                              "nuh_temporal_id_plus1");
+        Get_S1 (6, nuh_layer_id,                                "nuh_layer_id");
+        Get_S1 (3, nuh_temporal_id_plus1,                       "nuh_temporal_id_plus1");
         BS_End();
+
+        if (nuh_temporal_id_plus1==0)
+            Trusted_IsNot("nuh_temporal_id_plus1");
 
         FILLING_BEGIN()
             Header_Fill_Size(Element_Offset+Size-2);
@@ -519,6 +519,12 @@ void File_Hevc::Data_Parse()
         return;
     }
 
+    if (nuh_layer_id)
+    {
+        //Skip_XX(Element_Size,                                   "(Extension)");
+        //return;
+    }
+        
     //Trailing zeroes
     int64u Element_Size_SaveBeforeZeroes=Element_Size;
     if (Element_Size)
@@ -651,28 +657,34 @@ void File_Hevc::slice_segment_layer()
     Skip_XX(Element_Size-Element_Offset,                        "(ToDo)");
 
     FILLING_BEGIN();
+        if (slice_pic_parameter_set_id==(int32u)-1)
+            return;
+
         //Count of I-Frames
         if (first_slice_segment_in_pic_flag && Element_Code==20)
             IFrame_Count++;
 
-        //Frame_Count
-        Frame_Count++;
-        if (IFrame_Count && Frame_Count_NotParsedIncluded!=(int64u)-1)
-            Frame_Count_NotParsedIncluded++;
-        Frame_Count_InThisBlock++;
-
-        //Filling only if not already done
-        if (Frame_Count==1 && !Status[IsAccepted])
-            Accept("HEVC");
-        if (!Status[IsFilled])
+        if (first_slice_segment_in_pic_flag)
         {
-            if (IFrame_Count>=8)
-                Frame_Count_Valid=Frame_Count; //We have enough frames
-            if (Frame_Count>=Frame_Count_Valid)
+            //Frame_Count
+            Frame_Count++;
+            if (IFrame_Count && Frame_Count_NotParsedIncluded!=(int64u)-1)
+                Frame_Count_NotParsedIncluded++;
+            Frame_Count_InThisBlock++;
+
+            //Filling only if not already done
+            if (Frame_Count==1 && !Status[IsAccepted])
+                Accept("HEVC");
+            if (!Status[IsFilled])
             {
-                Fill("HEVC");
-                if (!IsSub && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
-                    Finish("HEVC");
+                if (IFrame_Count>=8)
+                    Frame_Count_Valid=Frame_Count; //We have enough frames
+                if (Frame_Count>=Frame_Count_Valid)
+                {
+                    Fill("HEVC");
+                    if (!IsSub && MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+                        Finish("HEVC");
+                }
             }
         }
     FILLING_END();
@@ -711,13 +723,25 @@ void File_Hevc::video_parameter_set()
     //Parsing
     int32u  vps_num_layer_sets_minus1;
     int8u   vps_video_parameter_set_id, vps_max_sub_layers_minus1, vps_max_layer_id;
-    bool    vps_sub_layer_ordering_info_present_flag;
+    bool    vps_temporal_id_nesting_flag, vps_sub_layer_ordering_info_present_flag;
     BS_Begin();
     Get_S1 (4,  vps_video_parameter_set_id,                     "vps_video_parameter_set_id");
     Skip_S1(2,                                                  "vps_reserved_three_2bits");
     Skip_S1(6,                                                  "vps_reserved_zero_6bits");
     Get_S1 (3,  vps_max_sub_layers_minus1,                      "vps_max_sub_layers_minus1");
-    Skip_SB(                                                    "vps_temporal_id_nesting_flag");
+    if (vps_max_sub_layers_minus1>6)
+    {
+        Trusted_IsNot("vps_max_sub_layers_minus1 not valid");
+        BS_End();
+        return; //Problem, not valid
+    }
+    Get_SB (    vps_temporal_id_nesting_flag,                   "vps_temporal_id_nesting_flag");
+    if (vps_max_sub_layers_minus1==0 && !vps_temporal_id_nesting_flag)
+    {
+        Trusted_IsNot("vps_temporal_id_nesting_flag not valid");
+        BS_End();
+        return; //Problem, not valid
+    }
     Skip_S2(16,                                                 "vps_reserved_0xffff_16bits");
     profile_tier_level(vps_max_sub_layers_minus1);
     Get_SB (   vps_sub_layer_ordering_info_present_flag,        "vps_sub_layer_ordering_info_present_flag");
@@ -731,27 +755,50 @@ void File_Hevc::video_parameter_set()
     }
     Get_S1 ( 6, vps_max_layer_id,                               "vps_max_layer_id");
     Get_UE (    vps_num_layer_sets_minus1,                      "vps_num_layer_sets_minus1");
+    if (vps_num_layer_sets_minus1>=1024)
+    {
+        Trusted_IsNot("vps_num_layer_sets_minus1 not valid");
+        BS_End();
+        return; //Problem, not valid
+    }
     for (int32u LayerSetPos=1; LayerSetPos<=vps_num_layer_sets_minus1; LayerSetPos++)
         for (int8u LayerId=0; LayerId<=vps_max_layer_id; LayerId++)
             Skip_SB(                                            "layer_id_included_flag");
     TEST_SB_SKIP(                                               "vps_timing_info_present_flag");
-        int32u vps_num_hrd_parameters;
+        int32u vps_time_scale, vps_num_hrd_parameters;
         Skip_S4(32,                                             "vps_num_units_in_tick");
-        Skip_S4(32,                                             "vps_time_scale");
+        Get_S4 (32, vps_time_scale,                             "vps_time_scale");
+        if (vps_time_scale==0)
+        {
+            Trusted_IsNot("vps_time_scale not valid");
+            Element_End0();
+            BS_End();
+            return; //Problem, not valid
+        }
         TEST_SB_SKIP(                                           "vps_poc_proportional_to_timing_flag");
             Skip_UE(                                            "vps_num_ticks_poc_diff_one_minus1");
         TEST_SB_END();
         Get_UE (    vps_num_hrd_parameters,                     "vps_num_hrd_parameters");
+        if (vps_num_hrd_parameters>1024)
+        {
+            Trusted_IsNot("vps_num_hrd_parameters not valid");
+            vps_num_hrd_parameters=0;
+        }
         for (int32u HrdPos=0; HrdPos<vps_num_hrd_parameters; HrdPos++)
         {
-            Skip_UE(                                            "hrd_layer_set_idx");
+            int32u hrd_layer_set_idx;
+            Get_UE (   hrd_layer_set_idx,                       "hrd_layer_set_idx");
+            if (hrd_layer_set_idx>=1024)
+                Trusted_IsNot("hrd_layer_set_idx not valid");
             if (HrdPos)
                 Skip_SB(                                        "cprms_present_flag");
+            Trusted_IsNot("hrd_parameters not supported");
             //hrd_parameters
         }
     TEST_SB_END();
     TESTELSE_SB_SKIP(                                           "vps_extension_flag");
         Skip_BS(Data_BS_Remain(),                               "vps_extension_data");
+        Trusted_IsNot("(Not supported)"); // Should be skipped, but the detection is too sensible in that case, do not remove it until the detection is adapted
     TESTELSE_SB_ELSE(                                           "vps_extension_flag");
         Mark_1();
         while (Data_BS_Remain())
@@ -801,6 +848,7 @@ void File_Hevc::seq_parameter_set()
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (video_parameter_set is missing)");
+        BS_End();
         return;
     }
     Get_S1 (3, sps_max_sub_layers_minus1,                       "sps_max_sub_layers_minus1");
@@ -808,6 +856,12 @@ void File_Hevc::seq_parameter_set()
     profile_tier_level(sps_max_sub_layers_minus1);
     Get_UE (   sps_seq_parameter_set_id,                        "sps_seq_parameter_set_id");
     Get_UE (   chroma_format_idc,                               "chroma_format_idc"); Param_Info1(Hevc_chroma_format_idc((int8u)chroma_format_idc));
+    if (chroma_format_idc>=4)
+    {
+        Trusted_IsNot("chroma_format_idc not valid");
+        BS_End();
+        return; //Problem, not valid
+    }
     if (chroma_format_idc==3)
         Skip_SB(                                                "separate_colour_plane_flag");
     Get_UE (    pic_width_in_luma_samples,                      "pic_width_in_luma_samples");
@@ -819,8 +873,23 @@ void File_Hevc::seq_parameter_set()
         Skip_UE(                                                "conf_win_bottom_offset");
     TEST_SB_END();
     Get_UE (   bit_depth_luma_minus8,                           "bit_depth_luma_minus8");
+    if (bit_depth_luma_minus8>6)
+    {
+        Trusted_IsNot("bit_depth_luma_minus8 not valid");
+        return; //Problem, not valid
+    }
     Get_UE (   bit_depth_chroma_minus8,                         "bit_depth_chroma_minus8");
+    if (bit_depth_chroma_minus8>6)
+    {
+        Trusted_IsNot("bit_depth_chroma_minus8 not valid");
+        return; //Problem, not valid
+    }
     Get_UE (   log2_max_pic_order_cnt_lsb_minus4,               "log2_max_pic_order_cnt_lsb_minus4");
+    if (log2_max_pic_order_cnt_lsb_minus4>12)
+    {
+        Trusted_IsNot("log2_max_pic_order_cnt_lsb_minus4 not valid");
+        return; //Problem, not valid
+    }
     Get_SB (   sps_sub_layer_ordering_info_present_flag,        "sps_sub_layer_ordering_info_present_flag");
     for (int32u SubLayerPos=(sps_sub_layer_ordering_info_present_flag?0:sps_max_sub_layers_minus1); SubLayerPos<=sps_max_sub_layers_minus1; SubLayerPos++)
     {
@@ -838,7 +907,7 @@ void File_Hevc::seq_parameter_set()
     Skip_UE(                                                    "max_transform_hierarchy_depth_intra");
     TEST_SB_SKIP(                                               "scaling_list_enabled_flag");
         TEST_SB_SKIP(                                           "sps_scaling_list_data_present_flag");
-            Skip_XX(Data_BS_Remain(),                           "(ToDo) scaling_list_data");
+            Trusted_IsNot("scaling_list_data not supported");
             //scaling_list_data();
         TEST_SB_END();
     TEST_SB_END();
@@ -879,29 +948,15 @@ void File_Hevc::seq_parameter_set()
     TEST_SB_END();
     TESTELSE_SB_SKIP(                                           "sps_extension_flag");
         Skip_BS(Data_BS_Remain(),                               "sps_extension_data");
+        Trusted_IsNot("(Not supported)"); // Should be skipped, but the detection is too sensible in that case, do not remove it until the detection is adapted
     TESTELSE_SB_ELSE(                                           "sps_extension_flag");
         Mark_1();
         while (Data_BS_Remain())
             Mark_0();
     TESTELSE_SB_END();
     BS_End();
-    Skip_XX(Element_Size-Element_Offset,                        "(ToDo)");
 
     FILLING_BEGIN_PRECISE()
-        //Integrity
-        if (sps_seq_parameter_set_id>=16)
-        {
-            Trusted_IsNot("sps_seq_parameter_set_id not valid");
-            delete (seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
-            return; //Problem, not valid
-        }
-        if (log2_max_pic_order_cnt_lsb_minus4>12)
-        {
-            Trusted_IsNot("log2_max_pic_order_cnt_lsb_minus4 not valid");
-            delete (seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
-            return; //Problem, not valid
-        }
-
         //Creating Data
         if (sps_seq_parameter_set_id>=seq_parameter_sets.size())
             seq_parameter_sets.resize(sps_seq_parameter_set_id+1);
@@ -911,8 +966,12 @@ void File_Hevc::seq_parameter_set()
         //Filling from stream
         (*Data_Item)->IsSynched                                     =true;
         (*Data_Item)->video_parameter_set_id                        =(int8u)sps_video_parameter_set_id;
+        (*Data_Item)->profile_space                                 =profile_space;
         (*Data_Item)->profile_idc                                   =profile_idc;
         (*Data_Item)->level_idc                                     =level_idc;
+        (*Data_Item)->general_progressive_source_flag               =general_progressive_source_flag;
+        (*Data_Item)->general_interlaced_source_flag                =general_interlaced_source_flag;
+        (*Data_Item)->general_frame_only_constraint_flag            =general_frame_only_constraint_flag;
         (*Data_Item)->pic_width_in_luma_samples                     =pic_width_in_luma_samples;
         (*Data_Item)->pic_height_in_luma_samples                    =pic_height_in_luma_samples;
         (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc;
@@ -944,12 +1003,24 @@ void File_Hevc::pic_parameter_set()
     bool    tiles_enabled_flag, dependent_slice_segments_enabled_flag;
     BS_Begin();
     Get_UE (    pps_pic_parameter_set_id,                       "pps_pic_parameter_set_id");
+    if (pps_pic_parameter_set_id>=64)
+    {
+        Trusted_IsNot("pic_parameter_set_id not valid");
+        BS_End();
+        return; //Problem, not valid
+    }
     Get_UE (    pps_seq_parameter_set_id,                       "pps_seq_parameter_set_id");
+    if (pps_seq_parameter_set_id>=16)
+    {
+        Trusted_IsNot("seq_parameter_set_id not valid");
+        return; //Problem, not valid
+    }
     std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
     if (pps_seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+pps_seq_parameter_set_id))==NULL || !(*seq_parameter_set_Item)->IsSynched)
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (seq_parameter_set is missing)");
+        BS_End();
         return;
     }
     Get_SB (    dependent_slice_segments_enabled_flag,          "dependent_slice_segments_enabled_flag");
@@ -1003,8 +1074,7 @@ void File_Hevc::pic_parameter_set()
         }
     TEST_SB_END();
     TEST_SB_SKIP(                                               "pps_scaling_list_data_present_flag ");
-        BS_End();
-        Skip_XX(Element_Size-Element_Offset,                    "(ToDo)");
+        Trusted_IsNot("scaling_list_data not supported");
         //scaling_list_data();
     TEST_SB_END();
     Skip_SB(                                                    "lists_modification_present_flag");
@@ -1012,6 +1082,7 @@ void File_Hevc::pic_parameter_set()
     Skip_SB(                                                    "slice_segment_header_extension_present_flag");
     TESTELSE_SB_SKIP(                                           "pps_extension_flag");
         Skip_BS(Data_BS_Remain(),                               "pps_extension_data");
+        Trusted_IsNot("(Not supported)"); // Should be skipped, but the detection is too sensible in that case, do not remove it until the detection is adapted
     TESTELSE_SB_ELSE(                                           "pps_extension_flag");
         Mark_1();
         while (Data_BS_Remain())
@@ -1020,18 +1091,6 @@ void File_Hevc::pic_parameter_set()
     BS_End();
 
     FILLING_BEGIN_PRECISE();
-        //Integrity
-        if (pps_pic_parameter_set_id>=64)
-        {
-            Trusted_IsNot("pic_parameter_set_id not valid");
-            return; //Problem, not valid
-        }
-        if (pps_seq_parameter_set_id>=16)
-        {
-            Trusted_IsNot("seq_parameter_set_id not valid");
-            return; //Problem, not valid
-        }
-
         //NextCode
         //NextCode_Clear();
         //NextCode_Add(0x05);
@@ -1060,10 +1119,6 @@ void File_Hevc::pic_parameter_set()
         //    }
         //}
 
-        //Setting as OK
-        if (!Status[IsAccepted])
-            Accept("HEVC");
-
         //NextCode
         NextCode_Clear();
 
@@ -1072,18 +1127,18 @@ void File_Hevc::pic_parameter_set()
         Streams[ 1].Searching_Payload=true; //slice_segment_layer
         Streams[ 2].Searching_Payload=true; //slice_segment_layer
         Streams[ 3].Searching_Payload=true; //slice_segment_layer
-        Streams[16].Searching_Payload=true; //slice_segment_layer
-        Streams[17].Searching_Payload=true; //slice_segment_layer
-        Streams[18].Searching_Payload=true; //slice_segment_layer
-        Streams[19].Searching_Payload=true; //slice_segment_layer
-        Streams[20].Searching_Payload=true; //slice_segment_layer
-        Streams[21].Searching_Payload=true; //slice_segment_layer
         Streams[ 4].Searching_Payload=true; //slice_layer
         Streams[ 5].Searching_Payload=true; //slice_layer
         Streams[ 6].Searching_Payload=true; //slice_layer
         Streams[ 7].Searching_Payload=true; //slice_layer
         Streams[ 8].Searching_Payload=true; //slice_layer
         Streams[ 9].Searching_Payload=true; //slice_layer
+        Streams[16].Searching_Payload=true; //slice_segment_layer
+        Streams[17].Searching_Payload=true; //slice_segment_layer
+        Streams[18].Searching_Payload=true; //slice_segment_layer
+        Streams[19].Searching_Payload=true; //slice_segment_layer
+        Streams[20].Searching_Payload=true; //slice_segment_layer
+        Streams[21].Searching_Payload=true; //slice_segment_layer
     FILLING_END();
 }
 
@@ -1222,7 +1277,6 @@ void File_Hevc::slice_segment_header()
     Element_Begin1("slice_segment_header");
 
     //Parsing
-    int32u  slice_pic_parameter_set_id, slice_type;
     bool    dependent_slice_segment_flag=false;
     Get_SB (   first_slice_segment_in_pic_flag,                 "first_slice_segment_in_pic_flag");
     if (RapPicFlag)
@@ -1234,6 +1288,8 @@ void File_Hevc::slice_segment_header()
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (pic_parameter_set is missing)");
         Element_End0();
+        slice_pic_parameter_set_id=(int32u)-1;
+        slice_type=(int32u)-1;
         return;
     }
     if (!first_slice_segment_in_pic_flag)
@@ -1243,6 +1299,7 @@ void File_Hevc::slice_segment_header()
         //Skip_BS(Ceil( Log2( PicSizeInCtbsY ) ),               "slice_segment_address");
         Skip_BS(Data_BS_Remain(),                               "(ToDo)");
         Element_End0();
+        slice_type=(int32u)-1;
         return;
     }
     if (!dependent_slice_segment_flag)
@@ -1263,14 +1320,25 @@ void File_Hevc::profile_tier_level(int8u maxNumSubLayersMinus1)
 
     //Parsing
     std::vector<bool>sub_layer_profile_present_flags, sub_layer_level_present_flags;
-    Info_S1(2,  general_profile_space,                          "general_profile_space");
+    Get_S1 (2,  profile_space,                                  "general_profile_space");
     Skip_SB(                                                    "general_tier_flag");
     Get_S1 (5,  profile_idc,                                    "general_profile_idc");
-    Skip_S4(32,                                                 "general_profile_compatibility_flags");
-    Skip_SB(                                                    "general_progressive_source_flag");
-    Skip_SB(                                                    "general_interlaced_source_flag");
+    Element_Begin1("general_profile_compatibility_flags");
+        for (int8u profile_pos=0; profile_pos<32; profile_pos++)
+            if (profile_pos==profile_idc)
+            {
+                bool general_profile_compatibility_flag;
+                Get_SB (    general_profile_compatibility_flag, "general_profile_compatibility_flag");
+                if (!general_profile_compatibility_flag)
+                    Trusted_IsNot("general_profile_compatibility_flag not valid");
+            }
+            else
+                Skip_SB(                                        "general_profile_compatibility_flag");
+    Element_End0();
+    Get_SB (    general_progressive_source_flag,                "general_progressive_source_flag");
+    Get_SB (    general_interlaced_source_flag,                 "general_interlaced_source_flag");
     Skip_SB(                                                    "general_non_packed_constraint_flag");
-    Skip_SB(                                                    "general_frame_only_constraint_flag");
+    Get_SB (    general_frame_only_constraint_flag,             "general_frame_only_constraint_flag");
     Skip_S8(44,                                                 "general_reserved_zero_44bits");
     Get_S1 (8,  level_idc,                                      "general_level_idc");
     for (int32u SubLayerPos=0; SubLayerPos<maxNumSubLayersMinus1; SubLayerPos++)
@@ -1628,17 +1696,14 @@ void File_Hevc::SPS_PPS()
             }
 
             //Header
-            int8u nal_unit_type;
+            int8u nal_unit_type, nuh_temporal_id_plus1;
             BS_Begin();
             Mark_0 ();
             Get_S1 (6, nal_unit_type,                           "nal_unit_type");
-            Mark_0_NoTrustError ();
-            Mark_0_NoTrustError ();
-            Mark_0_NoTrustError ();
-            Mark_0_NoTrustError ();
-            Mark_0_NoTrustError ();
-            Mark_0_NoTrustError ();
-            Skip_S1(3,                                          "nuh_temporal_id_plus1");
+            Get_S1 (6, nuh_layer_id,                            "nuh_layer_id");
+            Get_S1 (3, nuh_temporal_id_plus1,                   "nuh_temporal_id_plus1");
+            if (nuh_temporal_id_plus1==0)
+                Trusted_IsNot("nuh_temporal_id_plus1 is invalid");
             BS_End();
 
             //Data

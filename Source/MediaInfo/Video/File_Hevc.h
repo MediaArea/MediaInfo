@@ -132,6 +132,7 @@ private :
             }
         };
         vui_parameters_struct* vui_parameters;
+        int32u  profile_space;
         int32u  profile_idc;
         int32u  level_idc;
         int32u  pic_width_in_luma_samples;
@@ -141,6 +142,9 @@ private :
         int8u   log2_max_pic_order_cnt_lsb_minus4;
         int8u   bit_depth_luma_minus8;
         int8u   bit_depth_chroma_minus8;
+        bool    general_progressive_source_flag;
+        bool    general_interlaced_source_flag;
+        bool    general_frame_only_constraint_flag;
         bool    IsSynched; //Computed value
     };
     typedef vector<seq_parameter_set_struct*> seq_parameter_set_structs;
@@ -234,8 +238,15 @@ private :
 
     //Temp
     int32u  chroma_format_idc;
+    int32u  slice_pic_parameter_set_id;
+    int32u  slice_type;
+    int8u   nuh_layer_id;
+    int8u   profile_space;
     int8u   profile_idc;
     int8u   level_idc;
+    bool    general_progressive_source_flag;
+    bool    general_interlaced_source_flag;
+    bool    general_frame_only_constraint_flag;
     bool    RapPicFlag;
     bool    first_slice_segment_in_pic_flag;
 };
