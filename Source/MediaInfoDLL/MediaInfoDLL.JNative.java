@@ -1,22 +1,8 @@
-/**
- * MediaInfoDLL - All info about media files, for DLL (JNA version)
- * Copyright (C) 2006-2006 Bro3, bro3@users.sourceforge.net
- * Copyright (C) 2006-2012 MediaArea.net SARL, Info@MediaArea.net
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
  *
- * This library is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Library General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
- *
- **/
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
 
 import org.xvolks.jnative.JNative;
 import org.xvolks.jnative.Type;

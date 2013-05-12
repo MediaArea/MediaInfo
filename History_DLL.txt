@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.63, 2013-05-13
 --------------
++ Switched to a BSD-style license
 + LXF: AFD (from ancillary stream) support
 + Detection of some side car files and showing them as a single package (optional)
 + MOV: more channel positions information

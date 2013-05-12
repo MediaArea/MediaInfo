@@ -1,21 +1,8 @@
-/**
- * MediaInfoDLL - All info about media files, for DLL
- * Copyright (C) 2009-2012 MediaArea.net SARL, Info@MediaArea.net
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
  *
- * This library is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Library General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
- *
- **/
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
 
 // Note: the original stuff was well packaged with Java style,
 // but I (the main developer) prefer to keep an easiest for me
@@ -97,7 +84,11 @@ class MediaInfo
                 @Override
                 public String getFunctionName(NativeLibrary lib, Method method)
                 {
-                    // MediaInfo_New(), MediaInfo_Open() ...
+                    /*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
                     return "MediaInfo_" + method.getName();
                 }
             }
