@@ -557,13 +557,15 @@ dnl
 if test "$with_libmd5" = "yes"; then
 	PKG_CHECK_MODULES([MD5], [md5])
 	CXXFLAGS="$CXXFLAGS $MD5_CXXFLAGS"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $MD5_CXXFLAGS"
+	CFLAGS="$CFLAGS $MD5_CFLAGS"
+	MediaInfoLib_CFLAGS="$MediaInfoLib_CFLAGS $MD5_CFLAGS"
 	LIBS="$LIBS $MD5_LIBS"
 	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $MD5_LIBS"
 	AM_CONDITIONAL(COMPILE_MD5, false)
 	using_libmd5="system"
 else
 	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/md5"
+	CFLAGS="$CFLAGS -I../../../Source/ThirdParty/md5"
 	using_libmd5="internal"
 	AM_CONDITIONAL(COMPILE_MD5, true)
 fi
