@@ -13,7 +13,7 @@ Release:        1
 Summary:        Most relevant technical and tag data for video and audio files (Library)
 
 Group:          System/Libraries
-License:        LGPLv3+
+License:        BSD-2-Clause
 URL:            http://mediainfo.sourceforge.net/
 Packager:       MediaArea.net SARL <info@mediaarea.net>
 Source0:        libmediainfo_%{version}-1.tar.gz

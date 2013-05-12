@@ -21,7 +21,7 @@ BEGIN
             VALUE "FileDescription", "MediaInfo Shell ToolTip"
             VALUE "FileVersion", "0,7,63,0"
             VALUE "InternalName", "MediaInfo_ToolTip.dll"
-            VALUE "LegalCopyright", "GPL"
+            VALUE "LegalCopyright", "BSD-2-Clause"
             VALUE "OriginalFilename", "MediaInfo_ToolTip.dll"
             VALUE "ProductName", "MediaInfo"
             VALUE "ProductVersion", "0,7,63,0"

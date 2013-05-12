@@ -137,7 +137,7 @@
 						<VersionInfoKeys Name="FileDescription">Library for read info about media files</VersionInfoKeys>
 						<VersionInfoKeys Name="FileVersion">0.7.3.9</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName">MediaInfoLib - BCB6</VersionInfoKeys>
-						<VersionInfoKeys Name="LegalCopyright">LGPL</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalCopyright">BSD-2-Clause</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename">MediaInfo.dll</VersionInfoKeys>
 						<VersionInfoKeys Name="ProductName">MediaInfoLib</VersionInfoKeys>

@@ -49,7 +49,7 @@ BEGIN
             VALUE "FileDescription", "Read info about media files (command line)\0"
             VALUE "FileVersion", "0.4.0.0\0"
             VALUE "InternalName", "MediaInfo - Cmd - Win32 - Microsoft\0"
-            VALUE "LegalCopyright", "GPL\0"
+            VALUE "LegalCopyright", "BSD-2-Clause\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "MediaInfo.exe\0"
             VALUE "PrivateBuild", "\0"

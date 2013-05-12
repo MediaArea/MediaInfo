@@ -18,7 +18,7 @@ AutoIncrementVer=0
 ServerSupportFiles=0
 VersionCompanyName="http://mediainfo.sourceforge.net"
 VersionFileDescription="ActiveX Wrapper for MediaInfo by Ingo Brückl"
-VersionLegalCopyright="LGPL"
+VersionLegalCopyright="BSD"
 CondComp="MEDIAINFO_NO_ENUMS = 1"
 CompilationType=0
 OptimizationType=0
