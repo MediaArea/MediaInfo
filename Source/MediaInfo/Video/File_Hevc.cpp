@@ -28,6 +28,7 @@
     #include "MediaInfo/MediaInfo_Events.h"
     #include "MediaInfo/MediaInfo_Events_Internal.h"
 #endif //MEDIAINFO_EVENTS
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
