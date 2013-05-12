@@ -33,12 +33,11 @@ using namespace ZenLib;
 
 
 ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *parent) :
-    QHBoxLayout(parent)
+    QHBoxLayout(parent),
+    pos(pos),
+    C(C),
+    col(c),
 {
-    this->pos = pos;
-    this->C = C;
-    this->col = c;
-
     QLineEdit* lineedit = new QLineEdit(c.name);
     this->addWidget(lineedit);
     spinbox = new QSpinBox();

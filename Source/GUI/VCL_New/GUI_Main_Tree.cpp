@@ -91,8 +91,6 @@ void GUI_Main_Tree::GUI_Resize()
 //---------------------------------------------------------------------------
 void GUI_Main_Tree::Item_Show(TTreeNode *Item)
 {
-    TTreeNode* ItemID;
-    size_t Level=0;
     size_t Pos1=TextPos[Item];
     size_t Pos2=0;
     size_t LevelBase;
@@ -116,7 +114,7 @@ void GUI_Main_Tree::Item_Show(TTreeNode *Item)
         #else
             #define SIZE 0
         #endif
-        Level=Text.find_first_not_of(__T(' '), Pos1+9)-(Pos1+9);
+        size_t Level=Text.find_first_not_of(__T(' '), Pos1+9)-(Pos1+9);
         if (Level==LevelBase+1)
         {
             //Showing line
@@ -127,7 +125,7 @@ void GUI_Main_Tree::Item_Show(TTreeNode *Item)
             }
             if (!Line.empty())
             {
-                ItemID==VCL->Items->Add(Item, Line.c_str());
+                TTreeNode* ItemID==VCL->Items->Add(Item, Line.c_str());
                 TextPos[ItemID]=Pos1;
             }
         }
