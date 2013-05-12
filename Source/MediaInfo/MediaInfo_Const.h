@@ -113,18 +113,18 @@ enum fileoptions_t
 #undef  __T
 #define __T(__x)     __T(__x)
 #if defined(UNICODE) || defined (_UNICODE)
-    typedef wchar_t Char;
+    typedef wchar_t Char;                                               ///< Unicode/Ansi independant char
     #undef  __T
     #define __T(__x) L ## __x
 #else
-    typedef char Char;
+    typedef char Char;                                                  ///< Unicode/Ansi independant char
     #undef  __T
     #define __T(__x) __x
 #endif
-typedef std::basic_string<MediaInfoLib::Char>        String;
-typedef std::basic_stringstream<MediaInfoLib::Char>  StringStream;
-typedef std::basic_istringstream<MediaInfoLib::Char> tiStringStream;
-typedef std::basic_ostringstream<MediaInfoLib::Char> toStringStream;
+typedef std::basic_string<MediaInfoLib::Char>        String;            ///< Unicode/Ansi independant string
+typedef std::basic_stringstream<MediaInfoLib::Char>  StringStream;      ///< Unicode/Ansi independant stringstream
+typedef std::basic_istringstream<MediaInfoLib::Char> tiStringStream;    ///< Unicode/Ansi independant istringstream
+typedef std::basic_ostringstream<MediaInfoLib::Char> toStringStream;    ///< Unicode/Ansi independant ostringstream 
 //---------------------------------------------------------------------------
 
 } //NameSpace

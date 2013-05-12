@@ -64,7 +64,6 @@ HTML_FILE_EXTENSION    = .html
 HTML_HEADER            = 
 HTML_FOOTER            = 
 HTML_STYLESHEET        = 
-HTML_ALIGN_MEMBERS     = YES
 
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output

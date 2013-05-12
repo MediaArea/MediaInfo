@@ -506,6 +506,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Const.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events_Internal.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Internal.h" />

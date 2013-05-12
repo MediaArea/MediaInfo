@@ -1183,5 +1183,8 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Pmp.h">
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Const.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
