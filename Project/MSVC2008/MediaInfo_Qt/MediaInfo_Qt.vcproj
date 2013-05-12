@@ -527,11 +527,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\_Automated\ui_mainwindow.h"
+					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\QMake\GUI\_Automated\ui_mainwindow.h"
+					RelativePath=".\_Automated\ui_mainwindow.h"
 					>
 				</File>
 				<File
