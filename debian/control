@@ -41,7 +41,7 @@ Description: MediaInfo is a convenient unified display of the most relevant tech
 Package: mediainfo-gui
 Section: utils
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.63), libzen0 (>= 0.4.29), libwxgtk2.6-0, zlib1g
+Depends: libmediainfo0 (>= 0.7.63), libzen0 (>= 0.4.29), libwxgtk2.8-0, zlib1g
 Description: MediaInfo is a convenient unified display of the most relevant technical
  and tag data for video and audio files.
  .

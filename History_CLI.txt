@@ -3,10 +3,46 @@ Notes :
 + Added
 - Deleted
 x Correction
-#number is the identifier of bug report/requested feature/patch
+#number is the identifier of bug report (B), requested feature (F) or patch (P)
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+
+Version 0.7.63, 2013-05-13
+--------------
++ Switched to a BSD-2-Clause license
++ LXF: AFD (from ancillary stream) support
++ Detection of some side car files and showing them as a single package (optional)
++ MOV: more channel positions information
++ TTML: detection
++ SAMI: detection
++ ID3: updated list of genres, thanks to Mats
++ .so: search a local copy of the library before trying default path
++ AVI: Support of Adobe PARf (Aspect Ratio) chunk
++ VC-3: Scan order
++ #P65, Flac/Ogg DISCTOTAL metadata support, thanks to Kurtnoise
++ #P67, MOV, add Hap Video to the database, thanks to Kurtnoise
++ #P67, Matroska, add VP9 to the database, thanks to Kurtnoise
++ #P68, FLV, add HEVC detection in the FLV parser
++ #P66, MOV, tref/chap handling, with chapters information, thanks to Kurtnoise
++ #P72, MOV, HEVC/H265 detection and basic support, thanks to Kurtnoise
++ #F382/P75, PMP format detection
++ MPEG-TS, HEVC/H265 support
++ 16:10 DAR known value
+x #B742, MPEG-4/MOV, crash with some truncated/invalid files
+x #B746, MPEG-4/MOV: crash with files having moof atom and no moov atom
+x #B747, Inconsistent hang with buffer API
+x #B757, MediaInfoDLL.py MediaInfoList was not working, thanks to Elbenfreund
+x #B740, XML: dt:dt is replaced by dt (for binary data)
+x MXF: Dolby E streams starting only at the second or third frame were not well detected
+x MPEG-4/MOV: reducing analysis time for I-frame only video streams
+x CEA-708: weird behavior phantom streams are displayed) in case of buggy CEA-708
+x AVI: crash with audio delay and AvgBytesPerSec of 0
+x Wrong demuxing of the caption stream in the case of AVC streams without frame_mbs_only_flag but having 2 fields in one slice.
+x DPX: parsing was very slow with a sequence of files.
+x MXF: Pre-charge duration was not read, time code of the first frame was wrong if "Origin" is not 0
+x FLV: file was sometimes (e.g. most of the file padded with zeroes) fully parsed
+x VC-3: Using values from specifications (based on compression ID) instead of SBD/SST/SPL/APLF from bitstream
 
 Version 0.7.62, 2012-02-22
 --------------
