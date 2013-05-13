@@ -1,29 +1,26 @@
-# Copyright (c) 2007-2012 MediaArea.net SARL <info@mediaarea.net>
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-
-# norootforbuild
-
 %define mediainfo_version           0.7.63
 %define libmediainfo_version        0.7.63
 %define libzen_version              0.4.29
 
 Name:           mediainfo
-Version:        %mediainfo_version
+Version:        %{mediainfo_version}
 Release:        1
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
-Group:          Productivity/Multimedia/Other
-License:        LGPLv3+
+Group:          Applications/Multimedia
+License:        BSD-2-Clause
 URL:            http://mediainfo.sourceforge.net/
 Packager:       MediaArea.net SARL <info@mediaarea.net>
-Source0:        mediainfo_%{version}-1.tar.gz
+Source0:        %{name}_%{version}-1.tar.gz
 
-BuildRequires:  dos2unix
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++
-BuildRequires:  libmediainfo-devel
-BuildRequires:  libzen-devel >= %libzen_version
 BuildRequires:  pkgconfig
+BuildRequires:  libmediainfo-devel >= %{libmediainfo_version}
+BuildRequires:  libzen-devel >= %{libzen_version}
+BuildRequires:  pkgconfig
+BuildRequires:  wxGTK-devel
+BuildRequires:  zlib-devel
 BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
@@ -45,47 +42,41 @@ BuildRequires:  zlib-devel
 %if 0%{?suse_version}
 BuildRequires:  update-desktop-files
 %endif
+%if 0%{?fedora_version}
+BuildRequires:  desktop-file-utils
 %endif
-Requires:       libmediainfo0 >= %libmediainfo_version
-Requires:       libzen0 >= %libzen_version
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+%endif
 
 %description
 MediaInfo is a convenient unified display of the most relevant technical
 and tag data for video and audio files.
 
-The MediaInfo data display includes:
- - Container: format, profile, commercial name of the format, duration,
-   overall bit rate, writing application and library, title, author,
-   director, album, track number, date, duration...
- - Video: format, codec id, aspect, frame rate, bit rate, color space,
-   chroma subsampling, bit depth, scan type, scan order...
- - Audio: format, codec id, sample rate, channels, bit depth, language,
-   bit rate...
- - Text: format, codec id, language of subtitle...
- - Chapters: count of chapters, list of chapters...
+What information can I get from MediaInfo?
+* General: title, author, director, album, track number, date, duration...
+* Video: codec, aspect, fps, bitrate...
+* Audio: codec, sample rate, channels, language, bitrate...
+* Text: language of subtitle
+* Chapters: number of chapters, list of chapters
 
-MediaInfo analyticals include:
- - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
-   MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
- - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
- - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
-   H.264/AVC, Dirac...
- - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3, FLAC...
- - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
-   DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
+DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
+MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
+RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
+VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
+
+What format (container) does MediaInfo support?
+* Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
+  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
+  H.264, AVC...)
+* Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
+* Subtitles: SRT, SSA, ASS, SAMI
 
 This package includes the command line interface.
 
-
-%if %{undefined rhel_version} || 0%{?rhel_version} < 600
-
 %package gui
-Summary:     Most relevant technical and tag data for video and audio files (GUI)
-Group:       Productivity/Multimedia/Other
-Requires:    libzen0 >= %libzen_version
-Requires:    libmediainfo0 >= %{version}
+Summary:    Supplies technical and tag information about a video or audio file (GUI)
+Group:      Applications/Multimedia
+Requires:   libzen >= %{libzen_version}
+Requires:   libmediainfo >= %{libmediainfo_version}
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
 %ifarch x86_64
@@ -106,116 +97,104 @@ Requires:    wxGTK
 MediaInfo is a convenient unified display of the most relevant technical
 and tag data for video and audio files.
 
-The MediaInfo data display includes:
- - Container: format, profile, commercial name of the format, duration,
-   overall bit rate, writing application and library, title, author,
-   director, album, track number, date, duration...
- - Video: format, codec id, aspect, frame rate, bit rate, color space,
-   chroma subsampling, bit depth, scan type, scan order...
- - Audio: format, codec id, sample rate, channels, bit depth, language,
-   bit rate...
- - Text: format, codec id, language of subtitle...
- - Chapters: count of chapters, list of chapters...
+What information can I get from MediaInfo?
+* General: title, author, director, album, track number, date, duration...
+* Video: codec, aspect, fps, bitrate...
+* Audio: codec, sample rate, channels, language, bitrate...
+* Text: language of subtitle
+* Chapters: number of chapters, list of chapters
 
-MediaInfo analyticals include:
- - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
-   MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
- - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
- - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
-   H.264/AVC, Dirac...
- - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3, FLAC...
- - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
-   DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
+DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
+MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
+RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
+VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
 
-This package contains the graphical user interface.
+What format (container) does MediaInfo support?
+* Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
+  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
+  H.264, AVC...)
+* Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
+* Subtitles: SRT, SSA, ASS, SAMI
 
-%endif
+This package includes the graphical user interface.
 
 %prep
 %setup -q -n MediaInfo
-dos2unix     *.html *.txt Release/*.txt
-%__chmod 644 *.html *.txt Release/*.txt
+sed -i 's/.$//' *.txt *.html Release/*.txt
+
+find Source -type f -exec chmod 644 {} ';'
+chmod 644 *.html *.txt Release/*.txt
+
+pushd Project/GNU/CLI
+    autoreconf -i
+popd
+
+pushd Project/GNU/GUI
+    autoreconf -i
+popd
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
-export CXXFLAGS="$RPM_OPT_FLAGS"
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
 
 # build CLI
 pushd Project/GNU/CLI
-    %__chmod +x autogen
-    ./autogen
     %configure
-
-    %__make %{?jobs:-j%{jobs}}
+    make %{?_smp_mflags}
 popd
-
-%if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 # now build GUI
 pushd Project/GNU/GUI
-    %__chmod +x autogen
-    ./autogen
     %configure
-
-    %__make %{?jobs:-j%{jobs}}
+    make %{?_smp_mflags}
 popd
 
-%endif
 
 %install
 pushd Project/GNU/CLI
-    %__make install-strip DESTDIR=%{buildroot}
+    make install DESTDIR=%{buildroot}
 popd
 
-%if %{undefined rhel_version} || 0%{?rhel_version} < 600
-
 pushd Project/GNU/GUI
-    %__make install-strip DESTDIR=%{buildroot}
+    make install DESTDIR=%{buildroot}
 popd
 
 # icon
-%__install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
-%__install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
-%__install -dm 755 %{buildroot}%{_datadir}/pixmaps
-%__install -m 644 Source/Resource/Image/MediaInfoBig.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
+install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
+install -dm 755 %{buildroot}%{_datadir}/pixmaps
+install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 # menu-entry
-%__install -dm 755 %{buildroot}/%{_datadir}/applications
-%__install -m 644 Project/GNU/GUI/mediainfo-gui.desktop \
-    %{buildroot}/%{_datadir}/applications
+install -dm 755 %{buildroot}/%{_datadir}/applications
+install -m 644 Project/GNU/GUI/mediainfo-gui.desktop %{buildroot}/%{_datadir}/applications
 %if 0%{?suse_version}
   %suse_update_desktop_file -n mediainfo-gui AudioVideo AudioVideoEditing
 %endif
-%__install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
-%__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
-    %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
+%if 0%{?fedora_version}
+  desktop-file-install --dir="%{buildroot}%{_datadir}/applications" -m 644 Project/GNU/GUI/mediainfo-gui.desktop
+%endif
+install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
+install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
 %if 0%{?suse_version}
   %suse_update_desktop_file -n %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
-%__install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
-%__install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
+install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
+install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
     %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
 %if 0%{?suse_version}
   %suse_update_desktop_file -n %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
 
-%endif
-
-%clean
-[ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
 
 %files
 %defattr(-,root,root,-)
-%doc Release/ReadMe_CLI_Linux.txt
-%doc License.html History_CLI.txt
+%doc Release/ReadMe_CLI_Linux.txt License.html History_CLI.txt
 %{_bindir}/mediainfo
-
-%if %{undefined rhel_version} || 0%{?rhel_version} < 600
 
 %files gui
 %defattr(-,root,root,-)
-%doc Release/ReadMe_GUI_Linux.txt
-%doc License.html History_GUI.txt
+%doc Release/ReadMe_GUI_Linux.txt License.html History_GUI.txt
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
@@ -232,9 +211,9 @@ popd
 %dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
-%endif
 
 %changelog
 * Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.63
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
+- Fedora style made by Vasiliy N. Glazov <vascom2@gmail.com>
