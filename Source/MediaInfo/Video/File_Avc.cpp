@@ -553,7 +553,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
 }
 
 //---------------------------------------------------------------------------
-void File_Avc::Streams_Fill_subset(std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item)
+void File_Avc::Streams_Fill_subset(const std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item)
 {
     Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc))+__T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
     Ztring Profile_Base=Retrieve(Stream_Video, 0, Video_Format_Profile);

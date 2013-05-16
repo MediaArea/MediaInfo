@@ -293,7 +293,7 @@ const char* Mxf_MPEG2_CodedContentType(int8u CodedContentType)
 }
 
 //---------------------------------------------------------------------------
-const char* Mxf_OperationalPattern(int128u OperationalPattern)
+const char* Mxf_OperationalPattern(const int128u OperationalPattern)
 {
     //Item and Package Complexity
     int32u Code_Compare4=(int32u)OperationalPattern.lo;
@@ -326,7 +326,7 @@ const char* Mxf_OperationalPattern(int128u OperationalPattern)
 }
 
 //---------------------------------------------------------------------------
-const char* Mxf_EssenceElement(int128u EssenceElement)
+const char* Mxf_EssenceElement(const int128u EssenceElement)
 {
     if ((EssenceElement.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3401020100LL)
         return "";
@@ -396,7 +396,7 @@ const char* Mxf_EssenceElement(int128u EssenceElement)
 }
 
 //---------------------------------------------------------------------------
-const char* Mxf_EssenceContainer(int128u EssenceContainer)
+const char* Mxf_EssenceContainer(const int128u EssenceContainer)
 {
     if ((EssenceContainer.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL)
         return "";
@@ -555,7 +555,7 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
 }
 
 //---------------------------------------------------------------------------
-const char* Mxf_EssenceCompression(int128u EssenceCompression)
+const char* Mxf_EssenceCompression(const int128u EssenceCompression)
 {
     if ((EssenceCompression.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3404010100LL || !((EssenceCompression.lo&0xFF00000000000000LL)==0x0400000000000000LL || (EssenceCompression.lo&0xFF00000000000000LL)==0x0E00000000000000LL))
         return "";
@@ -713,7 +713,7 @@ const char* Mxf_EssenceCompression(int128u EssenceCompression)
 }
 
 //---------------------------------------------------------------------------
-const char* Mxf_EssenceCompression_Version(int128u EssenceCompression)
+const char* Mxf_EssenceCompression_Version(const int128u EssenceCompression)
 {
     int8u Code2=(int8u)((EssenceCompression.lo&0x00FF000000000000LL)>>48);
     int8u Code3=(int8u)((EssenceCompression.lo&0x0000FF0000000000LL)>>40);
@@ -782,7 +782,7 @@ const char* Mxf_EssenceCompression_Version(int128u EssenceCompression)
 }
 
 //---------------------------------------------------------------------------
-const char* Mxf_Sequence_DataDefinition(int128u DataDefinition)
+const char* Mxf_Sequence_DataDefinition(const int128u DataDefinition)
 {
     int8u Code4=(int8u)((DataDefinition.lo&0x000000FF00000000LL)>>32);
     int8u Code5=(int8u)((DataDefinition.lo&0x00000000FF000000LL)>>24);
@@ -1110,7 +1110,7 @@ void File_Mxf::Streams_Finish()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Preface (int128u PrefaceUID)
+void File_Mxf::Streams_Finish_Preface (const int128u PrefaceUID)
 {
     prefaces::iterator Preface=Prefaces.find(PrefaceUID);
     if (Preface==Prefaces.end())
@@ -1125,7 +1125,7 @@ void File_Mxf::Streams_Finish_Preface (int128u PrefaceUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_ContentStorage (int128u ContentStorageUID)
+void File_Mxf::Streams_Finish_ContentStorage (const int128u ContentStorageUID)
 {
     contentstorages::iterator ContentStorage=ContentStorages.find(ContentStorageUID);
     if (ContentStorage==ContentStorages.end())
@@ -1136,7 +1136,7 @@ void File_Mxf::Streams_Finish_ContentStorage (int128u ContentStorageUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Package (int128u PackageUID)
+void File_Mxf::Streams_Finish_Package (const int128u PackageUID)
 {
     packages::iterator Package=Packages.find(PackageUID);
     if (Package==Packages.end() || !Package->second.IsSourcePackage)
@@ -1149,7 +1149,7 @@ void File_Mxf::Streams_Finish_Package (int128u PackageUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Track(int128u TrackUID)
+void File_Mxf::Streams_Finish_Track(const int128u TrackUID)
 {
     tracks::iterator Track=Tracks.find(TrackUID);
     if (Track==Tracks.end() || Track->second.Stream_Finish_Done)
@@ -1510,7 +1510,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageUID)
+void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int128u PackageUID)
 {
     descriptors::iterator Descriptor=Descriptors.find(DescriptorUID);
     if (Descriptor==Descriptors.end())
@@ -1831,7 +1831,7 @@ void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID, int128u PackageU
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Locator(int128u DescriptorUID, int128u LocatorUID)
+void File_Mxf::Streams_Finish_Locator(const int128u DescriptorUID, const int128u LocatorUID)
 {
     descriptors::iterator Descriptor=Descriptors.find(DescriptorUID);
     if (Descriptor==Descriptors.end())
@@ -1919,7 +1919,7 @@ void File_Mxf::Streams_Finish_CommercialNames ()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin)
+void File_Mxf::Streams_Finish_Component(const int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin)
 {
     components::iterator Component=Components.find(ComponentUID);
     if (Component==Components.end())
@@ -1971,7 +1971,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float64 EditRate, 
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Identification (int128u IdentificationUID)
+void File_Mxf::Streams_Finish_Identification (const int128u IdentificationUID)
 {
     identifications::iterator Identification=Identifications.find(IdentificationUID);
     if (Identification==Identifications.end())
@@ -2035,8 +2035,8 @@ void File_Mxf::Read_Buffer_Continue()
             {
                 File F;
                 F.Open(File_Name);
-                int8u* SearchingPartitionPack=new int8u[65536];
-                size_t SearchingPartitionPack_Size=F.Read(SearchingPartitionPack, 65536);
+                std::vector<int8u> SearchingPartitionPack(65536);
+                size_t SearchingPartitionPack_Size=F.Read(&SearchingPartitionPack[0], SearchingPartitionPack.size());
                 for (size_t Pos=0; Pos+16<SearchingPartitionPack_Size; Pos++)
                     if (SearchingPartitionPack[Pos   ]==0x06
                      && SearchingPartitionPack[Pos+ 1]==0x0E
@@ -2080,7 +2080,6 @@ void File_Mxf::Read_Buffer_Continue()
                             default   : ;
                         }
                     }
-                delete[] SearchingPartitionPack; //SearchingPartitionPack=NULL
 
                 if (Buffer_End && Buffer_End_Unlimited)
                     Buffer_End=Config->File_Size; //Updating Clip end in case the
