@@ -3365,7 +3365,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
         Element_Offset+=4;
 
         //Coherency testing (first frame is 0 or 1)
-        if (sample_number==0)
+        if (sample_number==0 && Offset)
         {
             for (size_t Pos=0; Streams[moov_trak_tkhd_TrackID].stss.size(); Pos++)
                 Streams[moov_trak_tkhd_TrackID].stss[Pos]--;
@@ -5412,9 +5412,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
         Element_Offset+=4;
 
         //Coherency testing (first frame is 0 or 1)
-        if (sample_number==0)
+        if (sample_number==0 && Offset)
         {
-            for (size_t Pos=0; Streams[moov_trak_tkhd_TrackID].stss.size(); Pos++)
+            for (size_t Pos=0; Pos<Streams[moov_trak_tkhd_TrackID].stss.size(); Pos++)
                 Streams[moov_trak_tkhd_TrackID].stss[Pos]--;
             Offset=0;
         }

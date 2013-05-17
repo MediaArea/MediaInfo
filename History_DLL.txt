@@ -11,6 +11,8 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.64, 2013-
 --------------
 + E-AC-3: support of streams having substreams (e.g. more than 6 channels)
+x Matroska: crash with some malformed files
+x MOV: crash/infinite loop with some malformed files
 
 Version 0.7.63, 2013-05-13
 --------------

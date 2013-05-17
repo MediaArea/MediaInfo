@@ -254,8 +254,9 @@ void File_Mk::Streams_Finish()
                 if (FrameRate_Between.size()>=30+1+FramesToAdd)
                     FrameRate_Between.resize((FrameRate_Between.size()-4>30+1+FramesToAdd)?(FrameRate_Between.size()-4):(30+1+FramesToAdd)); //We peek 40 frames, and remove the last ones, because this is PTS, no DTS --> Some frames are out of order
                 std::sort(FrameRate_Between.begin(), FrameRate_Between.end());
-                if (FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
-                    && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
+                if (!FrameRate_Between.empty()
+                 && FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
+                 && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
                 {
                     float Time=0;
                     if (Temp->second.TimeCodes.size()>30+FramesToAdd)
