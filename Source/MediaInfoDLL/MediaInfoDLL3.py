@@ -190,17 +190,17 @@ class MediaInfo:
     #General information
     def Inform(self):
         if MustUseAnsi:
-            return str(self.MediaInfoA_Inform(self.Handle, 0), "utf_8")
+            return str(self.MediaInfoA_Inform(self.Handle, 0), "utf_8", 'ignore')
         else:
             return self.MediaInfo_Inform(self.Handle, 0)
     def Get(self, StreamKind, StreamNumber, Parameter, InfoKind=Info.Text, SearchKind=Info.Name):
         if MustUseAnsi:
-            return str(self.MediaInfoA_Get(self.Handle, StreamKind, StreamNumber, Parameter.encode("utf-8"), InfoKind, SearchKind), "utf_8")
+            return str(self.MediaInfoA_Get(self.Handle, StreamKind, StreamNumber, Parameter.encode("utf-8"), InfoKind, SearchKind), "utf_8", 'ignore')
         else:
             return self.MediaInfo_Get(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind, SearchKind)
     def GetI(self, StreamKind, StreamNumber, Parameter, InfoKind=Info.Text):
         if MustUseAnsi:
-            return str(self.MediaInfoA_GetI(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind), "utf_8")
+            return str(self.MediaInfoA_GetI(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind), "utf_8", 'ignore')
         else:
             return self.MediaInfo_GetI(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind)
     def Set(self, ToSet, StreamKind, StreamNumber, Parameter, OldParameter=""):
@@ -217,12 +217,12 @@ class MediaInfo:
     #Options
     def Option(self, Option, Value=""):
         if MustUseAnsi:
-            return str(self.MediaInfoA_Option(self.Handle, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8")
+            return str(self.MediaInfoA_Option(self.Handle, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8", 'ignore')
         else:
             return self.MediaInfo_Option(self.Handle, Option, Value)
     def Option_Static(self, Option, Value=""):
         if MustUseAnsi:
-            return str(self.MediaInfoA_Option(None, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8")
+            return str(self.MediaInfoA_Option(None, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8", 'ignore')
         else:
             return self.MediaInfo_Option(None, Option, Value)
     def State_Get(self):
