@@ -125,9 +125,25 @@ void File_Ibi::Header_Parse()
     Peek_B1(Null);
     if (Null==0x00)
     {
-        Skip_B1(                                                "Zero byte");
+        if (Buffer_Offset_Temp==0)
+            Buffer_Offset_Temp=Buffer_Offset+1;
+
+        while (Buffer_Offset_Temp<Buffer_Size)
+        {
+            if (Buffer[Buffer_Offset_Temp])
+                break;
+            Buffer_Offset_Temp++;
+        }
+        if (Buffer_Offset_Temp>=Buffer_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+
         Header_Fill_Code((int32u)-1); //Should be (int64u)-1 but Borland C++ does not like this
-        Header_Fill_Size(1);
+        Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
+        Buffer_Offset_Temp=0;
+
         return;
     }
 

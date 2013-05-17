@@ -1164,7 +1164,7 @@ void File_Avc::Header_Parse()
         BS_End();
 
         FILLING_BEGIN()
-            Header_Fill_Size(Element_Offset+Size-1);
+            Header_Fill_Size(Size?(Element_Offset-1+Size):(Buffer_Size-Buffer_Offset)); //If Size is 0, it is not normal, we skip the complete frame
         FILLING_END()
     }
 

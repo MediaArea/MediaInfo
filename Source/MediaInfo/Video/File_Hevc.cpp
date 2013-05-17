@@ -410,7 +410,7 @@ void File_Hevc::Header_Parse()
             Trusted_IsNot("nuh_temporal_id_plus1");
 
         FILLING_BEGIN()
-            Header_Fill_Size(Element_Offset+Size-2);
+            Header_Fill_Size(Size?(Element_Offset-2+Size):(Buffer_Size-Buffer_Offset)); //If Size is 0, it is not normal, we skip the complete frame
         FILLING_END()
     }
 
