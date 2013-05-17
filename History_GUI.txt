@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.64, 2013-
+--------------
++ Basque and Russian translations updated
+
 Version 0.7.63, 2013-05-13
 --------------
 + Switched to a BSD-2-Clause license
