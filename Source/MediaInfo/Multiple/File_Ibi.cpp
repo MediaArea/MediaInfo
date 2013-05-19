@@ -518,6 +518,12 @@ void File_Ibi::Stream_Dts()
 
 void File_Ibi::CompressedIndex()
 {
+    if (!Status[IsAccepted])
+    {
+        Reject("Ibi");
+        return;
+    }
+
     Element_Name("Compressed Index");
     int64u UncompressedSize;
     Get_EB (UncompressedSize,                                   "Uncompressed size");
@@ -527,7 +533,17 @@ void File_Ibi::CompressedIndex()
     unsigned long Dest_Size=(unsigned long)UncompressedSize;
 
     //Uncompressing
-    int8u* Dest=new int8u[Dest_Size];
+    int8u* Dest;
+    try
+    {
+        Dest=new int8u[Dest_Size];
+    }
+    catch (...)
+    {
+        //Memory error
+        Reject();
+        return;
+    }
     if (uncompress((Bytef*)Dest, &Dest_Size, (const Bytef*)Buffer+Buffer_Offset+(size_t)Element_Offset, Source_Size)<0)
     {
         Skip_XX(Element_Size-Element_Offset,                    "Problem during the decompression");

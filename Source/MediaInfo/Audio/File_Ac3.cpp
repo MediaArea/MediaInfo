@@ -1270,8 +1270,8 @@ bool File_Ac3::Synched_Test()
     //TimeStamp
     if (TimeStamp_IsPresent && !TimeStamp_Parsed)
     {
-        if (!( Buffer[Buffer_Offset+0x00]==0x01    //Magic value? Always 0x01
-           &&  Buffer[Buffer_Offset+0x01]==0x10    //Size? Always 0x10
+        if (!( Buffer[Buffer_Offset+0x00]==0x01         //Magic value? Always 0x01
+           &&  Buffer[Buffer_Offset+0x01]==0x10         //Size? Always 0x10
            &&  Buffer[Buffer_Offset+0x02]==0x00         //First  byte of HH? Always 0x00
            && (Buffer[Buffer_Offset+0x03]>>4 )<0x6      //Second byte of HH? First  4 bits must be <0x6
            && (Buffer[Buffer_Offset+0x03]&0xF)<0xA      //Second byte of HH? Second 4 bits must be <0xA
@@ -1283,9 +1283,7 @@ bool File_Ac3::Synched_Test()
            && (Buffer[Buffer_Offset+0x07]&0xF)<0xA      //Second byte of SS? Second 4 bits must be <0xA
            &&  Buffer[Buffer_Offset+0x08]==0x00         //First  byte of FF? Always 0x00
            && (Buffer[Buffer_Offset+0x09]>>4 )<0x4      //Second byte of FF? First  4 bits must be <0x4
-           && (Buffer[Buffer_Offset+0x09]&0xF)<0xA      //Second byte of FF? Second 4 bits must be <0xA
-           &&  Buffer[Buffer_Offset+0x10]==0x0B         //TimeStamp is followed by AC-3
-           &&  Buffer[Buffer_Offset+0x11]==0x77))
+           && (Buffer[Buffer_Offset+0x09]&0xF)<0xA))    //Second byte of FF? Second 4 bits must be <0xA
             TimeStamp_IsPresent=false;
     }
     if (TimeStamp_IsPresent && !TimeStamp_Parsed)
@@ -2036,8 +2034,12 @@ void File_Ac3::HD()
 
         //Filling
         if (!Status[IsAccepted])
+        {
             Accept("AC-3");
-        if (!Status[IsFilled] && !Core_IsPresent && Frame_Count>=Frame_Count_Valid*32)
+            if (Frame_Count_Valid<10000)
+                Frame_Count_Valid*=32;
+        }
+        if (!Status[IsFilled] && !Core_IsPresent && Frame_Count>=Frame_Count_Valid)
         {
             Fill("AC-3");
 
