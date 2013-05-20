@@ -43,7 +43,8 @@ struct UserHandle_struct
 
 void Basic_General_Start_0 (struct MediaInfo_Event_General_Start_0* Event, struct UserHandle_struct* UserHandle)
 {
-    UserHandle->Name=Event->FileName_Unicode;
+    if (Event->FileName_Unicode)
+        UserHandle->Name=Event->FileName_Unicode;
     UserHandle->Size=Event->Stream_Size;
     UserHandle->Time_Start=time(NULL);
     UserHandle->Parser.clear();
