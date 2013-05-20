@@ -456,6 +456,9 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 Element_End0(); //This is Finish, must flush
             Buffer_Clear();
             File_Offset=File_Size;
+            Config->File_Current_Offset=Config->File_Current_Offset;
+            Config->File_Current_Size=0;
+            Config->File_Names_Pos=Config->File_Names.size();
             ForceFinish();
             return;
         }
@@ -1171,7 +1174,12 @@ void File__Analyze::Buffer_Clear()
     if (!Status[IsFinished])
         File_Offset+=Buffer_Size;
     else
+    {
         File_Offset=File_Size;
+        Config->File_Current_Offset=Config->File_Current_Offset;
+        Config->File_Current_Size=0;
+        Config->File_Names_Pos=Config->File_Names.size();
+    }
     Buffer_Size=0;
     Buffer_Temp_Size=0;
     Buffer_Offset=0;
