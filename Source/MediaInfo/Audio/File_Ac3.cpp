@@ -1694,10 +1694,10 @@ void File_Ac3::Core_Frame()
             Skip_SB(                                                "copyrightb - Copyright Bit");
             Skip_SB(                                                "origbs - Original Bit Stream");
             TEST_SB_SKIP(                                           "timecod1e");
-                Skip_S1(14,                                         "timecod1");
+                Skip_S1(14,                                         "timecod1"); //Note: if timecod is used, change the bitstream parsing for bsid==0x06
             TEST_SB_END();
             TEST_SB_SKIP(                                           "timecod2e");
-                Skip_S1(14,                                         "timecod2");
+                Skip_S1(14,                                         "timecod2"); //Note: if timecod is used, change the bitstream parsing for bsid==0x06
             TEST_SB_END();
             TEST_SB_SKIP(                                           "addbsie");
                 int8u addbsil;
@@ -2319,16 +2319,17 @@ bool File_Ac3::CRC_Compute(size_t Size)
     while(CRC_16_Buffer<CRC_16_Buffer_End)
     {
         CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
-        CRC_16_Buffer++;
 
         //CRC bytes inversion
-        if (CRC_16_Buffer==CRC_16_Buffer_EndMinus3 && ((*CRC_16_Buffer)&0x01)) //CRC inversion bit
+        if (CRC_16_Buffer==CRC_16_Buffer_EndMinus3 && bsid<=0x09 && ((*CRC_16_Buffer)&0x01)) //CRC inversion bit
         {
-            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(~(*CRC_16_Buffer))];
             CRC_16_Buffer++;
-            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(~(*CRC_16_Buffer))];
+            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^((int8u)(~(*CRC_16_Buffer)))];
             CRC_16_Buffer++;
+            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^((int8u)(~(*CRC_16_Buffer)))];
         }
+
+        CRC_16_Buffer++;
 
         //5/8 intermediate test
         if (CRC_16_Buffer==CRC_16_Buffer_5_8 && bsid<=0x09 && CRC_16!=0x0000)
