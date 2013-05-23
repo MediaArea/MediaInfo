@@ -103,7 +103,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wx/include;../../../../wx/lib/vc_lib/MSVC2010/$(Platform)/mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wx/lib/vc_lib/MSVC2010/$(Platform)/mswud;../../../../wx/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -116,7 +116,7 @@
       <AdditionalIncludeDirectories>../../../../wxMSW/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>wxbase28ud.lib;wxmsw28ud_core.lib;wxmsw28ud_html.lib;comctl32.lib;advapi32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase29ud.lib;wxmsw29ud_core.lib;wxmsw29ud_html.lib;wxpngd.lib;comctl32.lib;advapi32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\..\wx\lib\vc_lib\\MSVC2010\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -210,7 +210,6 @@
     <ClInclude Include="..\..\..\Source\CLI\Help.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main.rc" />
     <ResourceCompile Include="MediaInfo_GUI.rc" />
   </ItemGroup>
   <ItemGroup>
