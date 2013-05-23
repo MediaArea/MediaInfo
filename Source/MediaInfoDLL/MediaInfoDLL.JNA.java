@@ -317,7 +317,11 @@ class MediaInfo
      */
     public int Count_Get(StreamKind StreamKind)
     {
-        return MediaInfoDLL_Internal.INSTANCE.Count_Get(Handle, StreamKind.ordinal(), -1);
+        //We should use NativeLong for -1, but it fails on 64-bit
+		//int Count_Get(Pointer Handle, int StreamKind, NativeLong StreamNumber);
+		//return MediaInfoDLL_Internal.INSTANCE.Count_Get(Handle, StreamKind.ordinal(), -1);
+		//so we use slower Get() with a character string
+		return Integer.parseInt(Get(StreamKind, 0, "StreamCount").toString());
     }
 
 
