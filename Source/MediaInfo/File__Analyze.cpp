@@ -282,9 +282,9 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_)
         }
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_IBI
-        if (!IsSub)
-            IbiStream=new ibi::stream;
         Config_Ibi_Create=Config->Ibi_Create_Get() && Config->ParseSpeed==1.0;
+        if (Config_Ibi_Create && !IsSub && IbiStream==NULL)
+            IbiStream=new ibi::stream;
     #endif //MEDIAINFO_IBI
 }
 
