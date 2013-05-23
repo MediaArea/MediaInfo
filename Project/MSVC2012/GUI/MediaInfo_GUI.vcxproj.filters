@@ -142,9 +142,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\Source\GUI\WxWidgets\GUI_Main.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
     <ResourceCompile Include="MediaInfo_GUI.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>

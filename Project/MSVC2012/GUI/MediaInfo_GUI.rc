@@ -32,3 +32,11 @@ BEGIN
         VALUE "Translation", 0x409, 1200
     END
 END
+
+//Icons
+aaaaaaaa                        ICON "../../../Source/Resource/Image/MediaInfo_TinyOnly.ico"
+File_Open_File                  ICON "../../../Source/Resource/Image/Menu/K20/File_Open_File.ico"
+File_Open_Directory             ICON "../../../Source/Resource/Image/Menu/K20/File_Open_Directory.ico"
+Help_About                      ICON "../../../Source/Resource/Image/Menu/K20/Help_About.ico"
+
+
