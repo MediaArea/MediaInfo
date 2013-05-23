@@ -389,7 +389,7 @@ void File_AribStdB24B37::Data_Parse()
                     Skip_XX(Element_Size,                       "Waiting for caption_management");
                     break;
                 }
-                if (Element_Code<Streams.size())
+                if (Element_Code>Streams.size())
                 {
                     Skip_XX(Element_Size,                       "Unknown service");
                     Trusted_IsNot("Invalid service number");
