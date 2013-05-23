@@ -15,7 +15,7 @@ Known bugs
 
 Version 0.7.64, 2013-
 --------------
-+ Basque and Russian translations updated
++ Portuguese, Basque and Russian translations updated
 
 Version 0.7.63, 2013-05-13
 --------------
