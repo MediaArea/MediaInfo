@@ -80,7 +80,7 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
 
 
     //*Retrieving EventID
-    MediaInfo_int8u     ParserID    =(MediaInfo_int8u) ((Event_Generic->EventCode&0xFF000000)>>24);
+    //MediaInfo_int8u     ParserID    =(MediaInfo_int8u) ((Event_Generic->EventCode&0xFF000000)>>24);
     MediaInfo_int16u    EventID     =(MediaInfo_int16u)((Event_Generic->EventCode&0x00FFFF00)>>8 );
     MediaInfo_int8u     EventVersion=(MediaInfo_int8u) ( Event_Generic->EventCode&0x000000FF     );
 
