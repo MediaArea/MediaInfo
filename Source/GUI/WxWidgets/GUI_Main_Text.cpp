@@ -30,7 +30,7 @@ GUI_Main_Text::GUI_Main_Text(Core* _C, wxWindow* parent)
     Font.SetFamily(wxFONTFAMILY_MODERN);
     wxTextAttr Attr;
     Attr.SetFont(Font);
-    //Attr.SetFontSize(8);
+    Attr.SetFontSize(8);
     SetDefaultStyle(Attr);
 
     //Drag and Drop

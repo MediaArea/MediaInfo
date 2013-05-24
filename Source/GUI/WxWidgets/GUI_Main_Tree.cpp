@@ -81,6 +81,8 @@ void GUI_Main_Tree::GUI_Resize()
 //---------------------------------------------------------------------------
 void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
 {
+    DeleteChildren(Item);
+    
     wxTreeItemId ItemID;
     //wxFont Font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
     //wxFont Font(10, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
@@ -143,6 +145,6 @@ void GUI_Main_Tree::OnItemExpanding(wxTreeEvent& event)
 
 void GUI_Main_Tree::OnItemCollapsing(wxTreeEvent& event)
 {
-    CollapseAndReset(event.GetItem());
-    SetItemHasChildren(event.GetItem());
+    //CollapseAndReset(event.GetItem());
+    //SetItemHasChildren(event.GetItem());
 }
