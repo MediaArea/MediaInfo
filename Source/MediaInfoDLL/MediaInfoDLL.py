@@ -250,7 +250,12 @@ class MediaInfo:
     def State_Get(self):
         return self.MediaInfo_State_Get(self.Handle)
     def Count_Get(self, StreamKind, StreamNumber=-1):
-        return self.MediaInfo_Count_Get(self.Handle, StreamKind, StreamNumber)
+        if StreamNumber == -1:
+				#We should use -1 the same way, but it fails on 64-bit
+				#so we use slower Get() with a character string
+                return int(self.Get(StreamKind, 0, "StreamCount"))
+        else:
+                return self.MediaInfo_Count_Get(self.Handle, StreamKind, StreamNumber)
 
 
 class MediaInfoList:
