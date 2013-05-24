@@ -1994,9 +1994,8 @@ void File_Mpeg4::moov_ainf()
     NAME_VERSION_FLAG("Asset Information");
 
     //Parsing
-    Skip_B4(                                                    "Profile Version");
-    Skip_C4(                                                    "APID");
-    Skip_XX(Element_Size-Element_Offset,                        "Data");
+    Skip_C4(                                                    "profile_version");
+    Skip_String(Element_Size-Element_Offset,                    "APID");
 }
 
 //---------------------------------------------------------------------------
