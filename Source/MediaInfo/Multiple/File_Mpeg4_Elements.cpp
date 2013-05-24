@@ -545,6 +545,7 @@ const char* Mpegv_matrix_coefficients(int8u matrix_coefficients);
 //---------------------------------------------------------------------------
 namespace Elements
 {
+    const int64u bloc=0x626C6F63;
     const int64u cdat=0x63646174;
     const int64u cdt2=0x63647432;
     const int64u free=0x66726565;
@@ -569,6 +570,7 @@ namespace Elements
     const int64u moof_traf_tfhd=0x74666864;
     const int64u moof_traf_trun=0x7472756E;
     const int64u moov=0x6D6F6F76;
+    const int64u moov_ainf=0x61696E66;
     const int64u moov_cmov=0x636D6F76;
     const int64u moov_cmov_cmvd=0x636D7664;
     const int64u moov_cmov_dcom=0x64636F6D;
@@ -787,6 +789,7 @@ namespace Elements
     const int64u moov_udta_WLOC=0x574C4F43;
     const int64u moov_udta_XMP_=0x584D505F;
     const int64u moov_udta_yrrc=0x79727263;
+    const int64u pdin=0x7064696E;	
     const int64u PICT=0x50494354;
     const int64u pckg=0x70636B67;
     const int64u pnot=0x706E6F74;
@@ -833,6 +836,7 @@ void File_Mpeg4::Data_Parse()
 
     //Parsing
     DATA_BEGIN
+    ATOM(bloc)
     ATOM(cdat)
     ATOM(cdt2)
     LIST_SKIP(free)
@@ -864,6 +868,7 @@ void File_Mpeg4::Data_Parse()
         ATOM_END
     LIST(moov)
         ATOM_BEGIN
+        ATOM(moov_ainf)
         LIST(moov_cmov)
             ATOM_BEGIN
             ATOM(moov_cmov_dcom)
@@ -1134,6 +1139,7 @@ void File_Mpeg4::Data_Parse()
             ATOM_DEFAULT (moov_udta_xxxx); //User data
             ATOM_END_DEFAULT
         ATOM_END
+    ATOM(pdin)			
     ATOM(PICT)
     ATOM(RDAO)
     ATOM(RDAS)
@@ -1239,6 +1245,17 @@ void File_Mpeg4::Data_Parse()
         } \
         Param_Info1(_INFO); \
     } \
+
+//-------------------------------------------------------------------------
+void File_Mpeg4::bloc()
+{
+    NAME_VERSION_FLAG("Base Location");
+
+    //Parsing
+    Skip_XX(256,                                                "baseLocation");
+    Skip_XX(256,                                                "purchaseLocation");
+    Skip_XX(512,                                                "Reserved");
+}
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::cdat()
@@ -1969,6 +1986,17 @@ void File_Mpeg4::moov()
                 Stream_Erase((stream_t)StreamKind, Count_Get((stream_t)StreamKind)-1);
     }
     */
+}
+
+//-------------------------------------------------------------------------
+void File_Mpeg4::moov_ainf()
+{
+    NAME_VERSION_FLAG("Asset Information");
+
+    //Parsing
+    Skip_B4(                                                    "Profile Version");
+    Skip_C4(                                                    "APID");
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
 }
 
 //---------------------------------------------------------------------------
@@ -6501,6 +6529,19 @@ void File_Mpeg4::moov_udta_xxxx()
             }
             break;
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::pdin()
+{
+    NAME_VERSION_FLAG("Progressive Download Information");
+
+    //Parsing
+	while (Element_Offset<Element_Size) 
+	{
+		Skip_B4(                                                "Rate");
+		Skip_B4(                                                "Initial Delay");
+	}
 }
 
 //---------------------------------------------------------------------------
