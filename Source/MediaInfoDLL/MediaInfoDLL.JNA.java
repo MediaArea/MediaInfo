@@ -321,7 +321,10 @@ class MediaInfo
 		//int Count_Get(Pointer Handle, int StreamKind, NativeLong StreamNumber);
 		//return MediaInfoDLL_Internal.INSTANCE.Count_Get(Handle, StreamKind.ordinal(), -1);
 		//so we use slower Get() with a character string
-		return Integer.parseInt(Get(StreamKind, 0, "StreamCount").toString());
+		String StreamCount = Get(StreamKind, 0, "StreamCount");
+		if (StreamCount == null || StreamCount.length() == 0)
+			return 0;
+		return Integer.parseInt(StreamCount);
     }
 
 
