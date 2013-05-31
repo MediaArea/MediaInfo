@@ -17,6 +17,7 @@ x MOV: crash/long parsing with some malformed files
 x AC-3: crashes and freezes fix
 x Java 64-bit: Count_Get(StreamKind) was always returning 0
 x Python 64-bit: Count_Get(StreamKind) was always returning 0
+x DTS: some streams were not detected
 
 Version 0.7.63, 2013-05-13
 --------------

@@ -881,7 +881,7 @@ void File_Dts::Data_Parse()
     //If filled
     if (Status[IsFilled])
     {
-        Skip_XX(Element_Size,                                   "Data");
+        Skip_XX(Element_Size-Element_Offset,                    "Data");
         return;
     }
 
@@ -1300,11 +1300,11 @@ bool File_Dts::FrameSynchPoint_Test()
                 if (BigEndian)
                     Size=((Buffer[Buffer_Offset+6]&0x03)<<12)
                        | ( Buffer[Buffer_Offset+7]      << 4)
-                       | ((Buffer[Buffer_Offset+8]&0x0C)>> 2);
+                       | ((Buffer[Buffer_Offset+8]&0x3C)>> 2);
                 else
                     Size=((Buffer[Buffer_Offset+7]&0x03)<<12)
                        | ( Buffer[Buffer_Offset+6]      << 4)
-                       | ((Buffer[Buffer_Offset+9]&0x3F)>> 2);
+                       | ((Buffer[Buffer_Offset+9]&0x3C)>> 2);
                 Size++;
                 Original_Size=Size*16/14;
             }
