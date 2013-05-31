@@ -2451,10 +2451,10 @@ void File_Mpegv::slice_start()
                     int64u Time_End  =Time_End_Seconds  *1000;
                     if (FrameRate)
                         Time_End  +=float32_int32s((Time_Current_Frames+temporal_reference)*1000/FrameRate);
-                    size_t Hours  = Time_End/60/60/1000;
-                    size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
-                    size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
-                    size_t Milli  =(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
+                    size_t Hours  =(size_t) Time_End/60/60/1000;
+                    size_t Minutes=(size_t)(Time_End-(Hours*60*60*1000))/60/1000;
+                    size_t Seconds=(size_t)(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
+                    size_t Milli  =(size_t)(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
 
                     Ztring Time;
                     Time+=Ztring::ToZtring(Hours);
