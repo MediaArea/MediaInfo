@@ -1229,7 +1229,7 @@ float64 File_Dts::BitRate_Get(bool WithHD)
                 default     :   SamplePerFrames=    0; break; //Can never happen (4 bits)
             }
             if (SamplePerFrames)
-                BitRate+=HD_size*8*DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]/SamplePerFrames;
+                BitRate+=((float64)HD_size)*8*DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]/SamplePerFrames;
         }
         //if (Primary_Frame_Byte_Size && Profile==__T("HRA"))
         //    BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size; //HD block are not in the nominal bitrate
