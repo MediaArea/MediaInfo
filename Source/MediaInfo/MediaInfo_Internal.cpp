@@ -575,6 +575,17 @@ void MediaInfo_Internal::Entry()
                     Open_Buffer_Continue((const int8u*)Dxw.c_str(), Dxw.size());
                     Open_Buffer_Finalize();
                 }
+            #else //defined(MEDIAINFO_REFERENCES_YES)
+                CS.Enter();
+                if (Reader)
+                {
+                    CS.Leave();
+                    return; //There is a problem
+                }
+                Reader=new Reader_File();
+                CS.Leave();
+
+                Reader->Format_Test(this, Config.File_Names[0]);
             #endif //defined(MEDIAINFO_REFERENCES_YES)
 
             #if MEDIAINFO_NEXTPACKET
