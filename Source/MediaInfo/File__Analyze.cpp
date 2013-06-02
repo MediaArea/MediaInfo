@@ -491,7 +491,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
 
     //Buffer handling
-    if (Buffer_Offset!=Buffer_Size) //all is not used
+    if (Buffer_Offset<=Buffer_Size) //all is not used
     {
         if (File_Offset+Buffer_Size>=File_Size //No more data will come
         #if MEDIAINFO_DEMUX
@@ -1856,7 +1856,7 @@ bool File__Analyze::Data_Manage()
         }
     }
 
-    Buffer_Offset+=(size_t)Element_Offset;
+    Buffer_Offset+=(size_t)((!Element_WantNextLevel && Element_Offset<Element_Size)?Element_Size:Element_Offset);
     Header_Size=0;
     Element_Size=0;
     Element_Offset=0;
