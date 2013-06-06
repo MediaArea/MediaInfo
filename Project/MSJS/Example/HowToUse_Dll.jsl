@@ -40,140 +40,140 @@ import System.Text.*;
  */
 public class Form1 extends System.Windows.Forms.Form
 {
-	private System.Windows.Forms.RichTextBox richTextBox1;
-	/**
-	 * Required designer variable.
-	 */
-	private System.ComponentModel.Container components = null;
+    private System.Windows.Forms.RichTextBox richTextBox1;
+    /**
+     * Required designer variable.
+     */
+    private System.ComponentModel.Container components = null;
 
-	public Form1()
-	{
-		//
-		// Required for Windows Form Designer support
-		//
-		InitializeComponent();
+    public Form1()
+    {
+        //
+        // Required for Windows Form Designer support
+        //
+        InitializeComponent();
 
-		//
-		// TODO: Add any constructor code after InitializeComponent call
-		//
-	}
+        //
+        // TODO: Add any constructor code after InitializeComponent call
+        //
+    }
 
-	/**
-	 * Clean up any resources being used.
-	 */
-	protected void Dispose(boolean disposing)
-	{
-		if (disposing)
-		{
-			if (components != null)
-			{
-				components.Dispose();
-			}
-		}
-		super.Dispose(disposing);
-	}
+    /**
+     * Clean up any resources being used.
+     */
+    protected void Dispose(boolean disposing)
+    {
+        if (disposing)
+        {
+            if (components != null)
+            {
+                components.Dispose();
+            }
+        }
+        super.Dispose(disposing);
+    }
 
-	#region Windows Form Designer generated code
-	/**
-	 * Required method for Designer support - do not modify
-	 * the contents of this method with the code editor.
-	 */
-	private void InitializeComponent()
-	{
-		this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-		this.SuspendLayout();
-		// 
-		// richTextBox1
-		// 
-		this.richTextBox1.set_Font(new System.Drawing.Font("Microsoft Sans Serif", 8.25F));
-		this.richTextBox1.set_Location(new System.Drawing.Point(0, 0));
-		this.richTextBox1.set_Name("richTextBox1");
-		this.richTextBox1.set_Size(new System.Drawing.Size(768, 512));
-		this.richTextBox1.set_TabIndex(0);
-		this.richTextBox1.set_Text("");
-		// 
-		// Form1
-		// 
-		this.set_AutoScaleBaseSize(new System.Drawing.Size(5, 13));
-		this.set_ClientSize(new System.Drawing.Size(774, 514));
-		this.get_Controls().Add(this.richTextBox1);
-		this.set_FormBorderStyle(System.Windows.Forms.FormBorderStyle.Fixed3D);
-		this.set_Name("Form1");
-		this.set_StartPosition(System.Windows.Forms.FormStartPosition.CenterScreen);
-		this.set_Text("MediaInfo.Dll Example");
-		this.add_Load( new System.EventHandler(this.Form1_Load) );
-		this.ResumeLayout(false);
+    #region Windows Form Designer generated code
+    /**
+     * Required method for Designer support - do not modify
+     * the contents of this method with the code editor.
+     */
+    private void InitializeComponent()
+    {
+        this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+        this.SuspendLayout();
+        //
+        // richTextBox1
+        //
+        this.richTextBox1.set_Font(new System.Drawing.Font("Microsoft Sans Serif", 8.25F));
+        this.richTextBox1.set_Location(new System.Drawing.Point(0, 0));
+        this.richTextBox1.set_Name("richTextBox1");
+        this.richTextBox1.set_Size(new System.Drawing.Size(768, 512));
+        this.richTextBox1.set_TabIndex(0);
+        this.richTextBox1.set_Text("");
+        //
+        // Form1
+        //
+        this.set_AutoScaleBaseSize(new System.Drawing.Size(5, 13));
+        this.set_ClientSize(new System.Drawing.Size(774, 514));
+        this.get_Controls().Add(this.richTextBox1);
+        this.set_FormBorderStyle(System.Windows.Forms.FormBorderStyle.Fixed3D);
+        this.set_Name("Form1");
+        this.set_StartPosition(System.Windows.Forms.FormStartPosition.CenterScreen);
+        this.set_Text("MediaInfo.Dll Example");
+        this.add_Load( new System.EventHandler(this.Form1_Load) );
+        this.ResumeLayout(false);
 
-	}
-	#endregion
+    }
+    #endregion
 
-	/**
-	 * The main entry point for the application.
-	 */
+    /**
+     * The main entry point for the application.
+     */
 
-	public static void main(String[] args) 
-	{
-		Application.Run(new Form1());
-	}
+    public static void main(String[] args)
+    {
+        Application.Run(new Form1());
+    }
 
-	private void Form1_Load (Object sender, System.EventArgs e)
-	{
-		//Test if version of DLL is compatible : 3rd argument is "version of DLL tested;Your application name;Your application version"
-		String ToDisplay;
-		MediaInfo MI = new MediaInfo();
+    private void Form1_Load (Object sender, System.EventArgs e)
+    {
+        //Test if version of DLL is compatible : 3rd argument is "version of DLL tested;Your application name;Your application version"
+        String ToDisplay;
+        MediaInfo MI = new MediaInfo();
 
-		ToDisplay = MI.Option("Info_Version", "0.7.0.0;MediaInfoDLL_Example_MSJS;0.7.0.0");
-		if (ToDisplay.length() == 0)
-		{
-			richTextBox1.set_Text("MediaInfo.Dll: this version of the DLL is not compatible");
-			return;
-		}
+        ToDisplay = MI.Option("Info_Version", "0.7.0.0;MediaInfoDLL_Example_MSJS;0.7.0.0");
+        if (ToDisplay.length() == 0)
+        {
+            richTextBox1.set_Text("MediaInfo.Dll: this version of the DLL is not compatible");
+            return;
+        }
 
-		//Information about MediaInfo
-		ToDisplay += "\r\n\r\nInfo_Parameters\r\n";
-		ToDisplay += MI.Option("Info_Parameters");
+        //Information about MediaInfo
+        ToDisplay += "\r\n\r\nInfo_Parameters\r\n";
+        ToDisplay += MI.Option("Info_Parameters");
 
-		ToDisplay += "\r\n\r\nInfo_Capacities\r\n";
-		ToDisplay += MI.Option("Info_Capacities");
+        ToDisplay += "\r\n\r\nInfo_Capacities\r\n";
+        ToDisplay += MI.Option("Info_Capacities");
 
-		ToDisplay += "\r\n\r\nInfo_Codecs\r\n";
-		ToDisplay += MI.Option("Info_Codecs");
+        ToDisplay += "\r\n\r\nInfo_Codecs\r\n";
+        ToDisplay += MI.Option("Info_Codecs");
 
-		//An example of how to use the library
-		ToDisplay += "\r\n\r\nOpen\r\n";
-		MI.Open("Example.ogg");
+        //An example of how to use the library
+        ToDisplay += "\r\n\r\nOpen\r\n";
+        MI.Open("Example.ogg");
 
-		ToDisplay += "\r\n\r\nInform with Complete=false\r\n";
-		MI.Option("Complete");
-		ToDisplay += MI.Inform();
+        ToDisplay += "\r\n\r\nInform with Complete=false\r\n";
+        MI.Option("Complete");
+        ToDisplay += MI.Inform();
 
-		ToDisplay += "\r\n\r\nInform with Complete=true\r\n";
-		MI.Option("Complete", "1");
-		ToDisplay += MI.Inform();
+        ToDisplay += "\r\n\r\nInform with Complete=true\r\n";
+        MI.Option("Complete", "1");
+        ToDisplay += MI.Inform();
 
-		ToDisplay += "\r\n\r\nCustom Inform\r\n";
-		MI.Option("Inform", "General;Example : FileSize=%FileSize%");
-		ToDisplay += MI.Inform();
+        ToDisplay += "\r\n\r\nCustom Inform\r\n";
+        MI.Option("Inform", "General;Example : FileSize=%FileSize%");
+        ToDisplay += MI.Inform();
 
-		ToDisplay += "\r\n\r\nGet with Stream=General and Parameter=//FileSize//\r\n";
-		ToDisplay += MI.Get(StreamKind.General, 0, "FileSize");
+        ToDisplay += "\r\n\r\nGet with Stream=General and Parameter=//FileSize//\r\n";
+        ToDisplay += MI.Get(StreamKind.General, 0, "FileSize");
 
-		ToDisplay += "\r\n\r\nGetI with Stream=General and Parameter=46\r\n";
-		ToDisplay += MI.Get(StreamKind.General, 0, 46);
+        ToDisplay += "\r\n\r\nGetI with Stream=General and Parameter=46\r\n";
+        ToDisplay += MI.Get(StreamKind.General, 0, 46);
 
-		ToDisplay += "\r\n\r\nCount_Get with StreamKind=Stream_Audio\r\n";
-		ToDisplay += MI.Count_Get(StreamKind.Audio);
+        ToDisplay += "\r\n\r\nCount_Get with StreamKind=Stream_Audio\r\n";
+        ToDisplay += MI.Count_Get(StreamKind.Audio);
 
-		ToDisplay += "\r\n\r\nGet with Stream=General and Parameter=//AudioCount//\r\n";
-		ToDisplay += MI.Get(StreamKind.General, 0, "AudioCount");
+        ToDisplay += "\r\n\r\nGet with Stream=General and Parameter=//AudioCount//\r\n";
+        ToDisplay += MI.Get(StreamKind.General, 0, "AudioCount");
 
-		ToDisplay += "\r\n\r\nGet with Stream=Audio and Parameter=//StreamCount//\r\n";
-		ToDisplay += MI.Get(StreamKind.Audio, 0, "StreamCount");
+        ToDisplay += "\r\n\r\nGet with Stream=Audio and Parameter=//StreamCount//\r\n";
+        ToDisplay += MI.Get(StreamKind.Audio, 0, "StreamCount");
 
-		ToDisplay += "\r\n\r\nClose\r\n";
-		MI.Close();
+        ToDisplay += "\r\n\r\nClose\r\n";
+        MI.Close();
 
-		//Displaying the text
-		richTextBox1.set_Text(ToDisplay);
-	}
+        //Displaying the text
+        richTextBox1.set_Text(ToDisplay);
+    }
 }

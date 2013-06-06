@@ -7,10 +7,10 @@
 /* at Fri Oct 12 18:30:59 2012
  */
 /* Compiler settings for MediaInfoShellExt.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0595 
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0595
     protocol : dce , ms_ext, c_ext
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -43,13 +43,13 @@
 #pragma once
 #endif
 
-/* Forward Declarations */ 
+/* Forward Declarations */
 
 #ifndef __IMediaInfoShellExt__FWD_DEFINED__
 #define __IMediaInfoShellExt__FWD_DEFINED__
 typedef interface IMediaInfoShellExt_ IMediaInfoShellExt_;
 
-#endif 	/* __IMediaInfoShellExt__FWD_DEFINED__ */
+#endif  /* __IMediaInfoShellExt__FWD_DEFINED__ */
 
 
 #ifndef __MediaInfoShellExt__FWD_DEFINED__
@@ -61,7 +61,7 @@ typedef class MediaInfoShellExt_ MediaInfoShellExt_;
 typedef struct MediaInfoShellExt_ MediaInfoShellExt_;
 #endif /* __cplusplus */
 
-#endif 	/* __MediaInfoShellExt__FWD_DEFINED__ */
+#endif  /* __MediaInfoShellExt__FWD_DEFINED__ */
 
 
 /* header files for imported files */
@@ -70,45 +70,45 @@ typedef struct MediaInfoShellExt_ MediaInfoShellExt_;
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
 
 #ifndef __IMediaInfoShellExt__INTERFACE_DEFINED__
 #define __IMediaInfoShellExt__INTERFACE_DEFINED__
 
 /* interface IMediaInfoShellExt_ */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 
 EXTERN_C const IID IID_IMediaInfoShellExt_;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
-    
+
     MIDL_INTERFACE("6482FE39-D67B-49E5-BAA1-EBDDB318055D")
     IMediaInfoShellExt_ : public IUnknown
     {
     public:
     };
-    
-    
-#else 	/* C style interface */
+
+
+#else   /* C style interface */
 
     typedef struct IMediaInfoShellExt_Vtbl
     {
         BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )(
             IMediaInfoShellExt_ * This,
             /* [in] */ REFIID riid,
-            /* [annotation][iid_is][out] */ 
+            /* [annotation][iid_is][out] */
             _COM_Outptr_  void **ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+
+        ULONG ( STDMETHODCALLTYPE *AddRef )(
             IMediaInfoShellExt_ * This);
-        
-        ULONG ( STDMETHODCALLTYPE *Release )( 
+
+        ULONG ( STDMETHODCALLTYPE *Release )(
             IMediaInfoShellExt_ * This);
-        
+
         END_INTERFACE
     } IMediaInfoShellExt_Vtbl;
 
@@ -117,30 +117,30 @@ EXTERN_C const IID IID_IMediaInfoShellExt_;
         CONST_VTBL struct IMediaInfoShellExt_Vtbl *lpVtbl;
     };
 
-    
+
 
 #ifdef COBJMACROS
 
 
-#define IMediaInfoShellExt__QueryInterface(This,riid,ppvObject)	\
-    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+#define IMediaInfoShellExt__QueryInterface(This,riid,ppvObject) \
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) )
 
-#define IMediaInfoShellExt__AddRef(This)	\
-    ( (This)->lpVtbl -> AddRef(This) ) 
+#define IMediaInfoShellExt__AddRef(This)    \
+    ( (This)->lpVtbl -> AddRef(This) )
 
-#define IMediaInfoShellExt__Release(This)	\
-    ( (This)->lpVtbl -> Release(This) ) 
+#define IMediaInfoShellExt__Release(This)   \
+    ( (This)->lpVtbl -> Release(This) )
 
 
 #endif /* COBJMACROS */
 
 
-#endif 	/* C style interface */
+#endif  /* C style interface */
 
 
 
 
-#endif 	/* __IMediaInfoShellExt__INTERFACE_DEFINED__ */
+#endif  /* __IMediaInfoShellExt__INTERFACE_DEFINED__ */
 
 
 
@@ -148,7 +148,7 @@ EXTERN_C const IID IID_IMediaInfoShellExt_;
 #define __MediaInfoShellExtLib_LIBRARY_DEFINED__
 
 /* library MediaInfoShellExtLib */
-/* [helpstring][version][uuid] */ 
+/* [helpstring][version][uuid] */
 
 
 EXTERN_C const IID LIBID_MediaInfoShellExtLib;

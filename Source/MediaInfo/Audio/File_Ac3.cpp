@@ -212,13 +212,13 @@ Ztring AC3_chanmap_ChannelPositions (int16u chanmap)
     if (!Side.empty())
     {
         if (!ToReturn.empty())
-            ToReturn+=__T(", ");  
+            ToReturn+=__T(", ");
         ToReturn+=__T("Side:")+Side;
     }
     if (!Back.empty())
     {
         if (!ToReturn.empty())
-            ToReturn+=__T(", ");  
+            ToReturn+=__T(", ");
         ToReturn+=__T("Back:")+Back;
     }
     ToReturn+=More;
@@ -237,11 +237,11 @@ int8u AC3_chanmap_Channels (int16u chanmap)
         {
             switch (Pos)
             {
-                case  5 :   
-                case  6 :   
-                case  9 :   
-                case 10 :   
-                case 11 :   
+                case  5 :
+                case  6 :
+                case  9 :
+                case 10 :
+                case 11 :
                             Channels+=2; break;
                 default:
                             Channels++; break;
@@ -810,7 +810,7 @@ void File_Ac3::Streams_Fill()
                                     chanmap_Final|=1; // LFE position in chanmap is bit 0
                             }
                         }
-                
+
                         Fill(Stream_Audio, 0, Audio_Channel_s_, AC3_chanmap_Channels(chanmap_Final));
                         Fill(Stream_Audio, 0, Audio_ChannelPositions, AC3_chanmap_ChannelPositions(chanmap_Final));
                 }
@@ -1787,7 +1787,7 @@ void File_Ac3::Core_Frame()
 
         //Information
         if (strmtyp>1)
-            strmtyp=0; //TODO: check a file with strmtyp==2    
+            strmtyp=0; //TODO: check a file with strmtyp==2
         if (strmtyp==0)
             substreamid_Independant_Current=substreamid;
         if (bsid_Max==(int8u)-1 || bsid>bsid_Max)
@@ -2373,7 +2373,7 @@ size_t File_Ac3::Core_Size_Get()
                     Element_WaitForMoreData();
                 break;
             }
-                
+
             int8u bsid=Buffer[Buffer_Offset+Size+5]>>3;
             if (bsid<=0x09 || bsid>0x10)
                 break; //Not E-AC-3

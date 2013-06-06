@@ -124,7 +124,7 @@ enum fileoptions_t
 typedef std::basic_string<MediaInfoLib::Char>        String;            ///< Unicode/Ansi independant string
 typedef std::basic_stringstream<MediaInfoLib::Char>  StringStream;      ///< Unicode/Ansi independant stringstream
 typedef std::basic_istringstream<MediaInfoLib::Char> tiStringStream;    ///< Unicode/Ansi independant istringstream
-typedef std::basic_ostringstream<MediaInfoLib::Char> toStringStream;    ///< Unicode/Ansi independant ostringstream 
+typedef std::basic_ostringstream<MediaInfoLib::Char> toStringStream;    ///< Unicode/Ansi independant ostringstream
 //---------------------------------------------------------------------------
 
 } //NameSpace

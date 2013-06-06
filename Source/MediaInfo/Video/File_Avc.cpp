@@ -1473,7 +1473,7 @@ void File_Avc::slice_header()
     }
 
     Element_Begin1("slice_header");
-    
+
     //Parsing
     int32u  slice_type, pic_order_cnt_lsb=(int32u)-1;
     int32u  first_mb_in_slice, pic_parameter_set_id, frame_num, num_ref_idx_l0_active_minus1, num_ref_idx_l1_active_minus1, disable_deblocking_filter_idc, num_slice_groups_minus1, slice_group_map_type, slice_group_change_cycle=(int32u)-1;
@@ -1534,8 +1534,8 @@ void File_Avc::slice_header()
             return;
         }
     }
-	if ((*seq_parameter_set_Item)->separate_colour_plane_flag==1)
-		Skip_S1(2,                                              "color_plane_id");
+    if ((*seq_parameter_set_Item)->separate_colour_plane_flag==1)
+        Skip_S1(2,                                              "color_plane_id");
     num_ref_idx_l0_active_minus1=(*pic_parameter_set_Item)->num_ref_idx_l0_default_active_minus1; //Default
     num_ref_idx_l1_active_minus1=(*pic_parameter_set_Item)->num_ref_idx_l1_default_active_minus1; //Default
     Get_BS ((*seq_parameter_set_Item)->log2_max_frame_num_minus4+4, frame_num, "frame_num");
@@ -1593,43 +1593,43 @@ void File_Avc::slice_header()
     if (nal_ref_idc)
         dec_ref_pic_marking(memory_management_control_operations);
 
-    if ((*pic_parameter_set_Item)->entropy_coding_mode_flag && 
-		(slice_type!=2 && slice_type!=7 && //I-Frames
-		 slice_type!=4 && slice_type!=9))  //SI-Frames 
-		Skip_UE(                                               "cabac_init_idc");
+    if ((*pic_parameter_set_Item)->entropy_coding_mode_flag &&
+        (slice_type!=2 && slice_type!=7 && //I-Frames
+         slice_type!=4 && slice_type!=9))  //SI-Frames
+        Skip_UE(                                               "cabac_init_idc");
     Skip_SE(                                                   "slice_qp_delta");
     switch (slice_type)
     {
         case 3 : //SP-Frame
-		case 4 : //SI-Frame
+        case 4 : //SI-Frame
         case 8 : //SP-Frame
-		case 9 : //SI-Frame
+        case 9 : //SI-Frame
                 switch (slice_type)
                 {
                     case 3 : //SP-Frame
                     case 8 : //SP-Frame
-							Skip_SB(                           "sp_for_switch_flag");
+                            Skip_SB(                           "sp_for_switch_flag");
                             break;
                     default:    ;
                 }
-     			Skip_SE (                                      "slice_qs_delta");
-				break;
+                Skip_SE (                                      "slice_qs_delta");
+                break;
         default:    ;
     }
     if ((*pic_parameter_set_Item)->deblocking_filter_control_present_flag)
     {
-		Get_UE(disable_deblocking_filter_idc,                  "disable_deblocking_filter_idc");
-		if (disable_deblocking_filter_idc!=1)
-		{
-			Skip_SE(                                           "slice_alpha_c0_offset_div2");
-			Skip_SE(                                           "slice_beta_offset_div2");
-		}	
+        Get_UE(disable_deblocking_filter_idc,                  "disable_deblocking_filter_idc");
+        if (disable_deblocking_filter_idc!=1)
+        {
+            Skip_SE(                                           "slice_alpha_c0_offset_div2");
+            Skip_SE(                                           "slice_beta_offset_div2");
+        }
     }
     num_slice_groups_minus1=(*pic_parameter_set_Item)->num_slice_groups_minus1; //Default
     slice_group_map_type=(*pic_parameter_set_Item)->slice_group_map_type; //Default
     if (num_slice_groups_minus1 > 0 && slice_group_map_type >=3 && slice_group_map_type <=5)
-     	Get_BS ((*seq_parameter_set_Item)->log2_max_slice_group_change_cycle_minus4+4, slice_group_change_cycle, "slice_group_change_cycle");
-    
+        Get_BS ((*seq_parameter_set_Item)->log2_max_slice_group_change_cycle_minus4+4, slice_group_change_cycle, "slice_group_change_cycle");
+
     Element_End0();
 
     FILLING_BEGIN();
@@ -2963,7 +2963,7 @@ void File_Avc::pic_parameter_set()
         (*pic_parameter_sets_Item)->num_ref_idx_l1_default_active_minus1            =(int8u)num_ref_idx_l1_default_active_minus1;
         (*pic_parameter_sets_Item)->weighted_pred_flag                              =weighted_pred_flag;
         (*pic_parameter_sets_Item)->weighted_bipred_idc                             =weighted_bipred_idc;
-        (*pic_parameter_sets_Item)->deblocking_filter_control_present_flag          =deblocking_filter_control_present_flag;   		
+        (*pic_parameter_sets_Item)->deblocking_filter_control_present_flag          =deblocking_filter_control_present_flag;
         (*pic_parameter_sets_Item)->redundant_pic_cnt_present_flag                  =redundant_pic_cnt_present_flag;
 
         //Autorisation of other streams

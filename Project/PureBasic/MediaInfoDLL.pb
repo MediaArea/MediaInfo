@@ -81,7 +81,7 @@ Define MediainfoA_Open.protoMediaInfoA_Open                 = GetFunction(MI_ptr
 Define MediainfoA_Count_Get.protoMediaInfoA_Count_Get       = GetFunction(MI_ptr, "MediaInfoA_Count_Get")
 Define MediaInfoA_Get.protoMediaInfoA_Get                   = GetFunction(MI_ptr, "MediaInfoA_Get")
 Define MediaInfoA_GetI.protoMediaInfoA_GetI                 = GetFunction(MI_ptr, "MediaInfoA_GetI")
-Define MediaInfoA_Inform.protoMediaInfoA_Inform             = GetFunction(MI_ptr, "MediaInfoA_Inform")  
+Define MediaInfoA_Inform.protoMediaInfoA_Inform             = GetFunction(MI_ptr, "MediaInfoA_Inform")
 Define MediaInfoA_Option.protoMediaInfoA_Option             = GetFunction(MI_ptr, "MediaInfoA_Option")
 Define MediainfoA_close.protoMediaInfoA_Close               = GetFunction(MI_ptr, "MediaInfoA_Close")
 

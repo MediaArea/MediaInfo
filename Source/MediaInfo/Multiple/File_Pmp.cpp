@@ -85,17 +85,17 @@ void File_Pmp::FileHeader_Parse()
     Get_L4 (version,                                            "Version");
     if (version==1)
     {
-		Get_L4 (video_format,                                   "video_format");
-		Get_L4 (nb_frames,                                      "number of frames");
-		Get_L4 (video_width,                                    "video_width");
-		Get_L4 (video_height,                                   "video_height");
-		Get_L4 (time_base_num,                                  "time_base_num");
-		Get_L4 (time_base_den,                                  "time_base_den");
-		Skip_L4(                                                "number of audio streams");
-		Get_L4 (audio_format,                                   "audio_format");
-		Get_L4 (channels,                                       "channels");
-		Skip_L4(                                                "unknown");
-		Get_L4 (sample_rate,                                    "sample_rate");
+        Get_L4 (video_format,                                   "video_format");
+        Get_L4 (nb_frames,                                      "number of frames");
+        Get_L4 (video_width,                                    "video_width");
+        Get_L4 (video_height,                                   "video_height");
+        Get_L4 (time_base_num,                                  "time_base_num");
+        Get_L4 (time_base_den,                                  "time_base_den");
+        Skip_L4(                                                "number of audio streams");
+        Get_L4 (audio_format,                                   "audio_format");
+        Get_L4 (channels,                                       "channels");
+        Skip_L4(                                                "unknown");
+        Get_L4 (sample_rate,                                    "sample_rate");
     }
 
     FILLING_BEGIN();

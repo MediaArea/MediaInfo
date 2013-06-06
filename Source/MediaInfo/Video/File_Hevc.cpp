@@ -512,7 +512,7 @@ void File_Hevc::Data_Parse()
         //Skip_XX(Element_Size,                                   "(Extension)");
         //return;
     }
-        
+
     //Trailing zeroes
     int64u Element_Size_SaveBeforeZeroes=Element_Size;
     if (Element_Size)

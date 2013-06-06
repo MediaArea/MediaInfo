@@ -192,7 +192,7 @@ private :
         bool    weighted_pred_flag;
         bool    redundant_pic_cnt_present_flag;
         bool    IsSynched; //Computed value
-        bool    deblocking_filter_control_present_flag;		
+        bool    deblocking_filter_control_present_flag;
 
         #if MEDIAINFO_DEMUX
         int8u*  Iso14496_10_Buffer;

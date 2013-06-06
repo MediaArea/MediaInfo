@@ -789,7 +789,7 @@ namespace Elements
     const int64u moov_udta_WLOC=0x574C4F43;
     const int64u moov_udta_XMP_=0x584D505F;
     const int64u moov_udta_yrrc=0x79727263;
-    const int64u pdin=0x7064696E;	
+    const int64u pdin=0x7064696E;
     const int64u PICT=0x50494354;
     const int64u pckg=0x70636B67;
     const int64u pnot=0x706E6F74;
@@ -1139,7 +1139,7 @@ void File_Mpeg4::Data_Parse()
             ATOM_DEFAULT (moov_udta_xxxx); //User data
             ATOM_END_DEFAULT
         ATOM_END
-    ATOM(pdin)			
+    ATOM(pdin)
     ATOM(PICT)
     ATOM(RDAO)
     ATOM(RDAS)
@@ -6536,11 +6536,11 @@ void File_Mpeg4::pdin()
     NAME_VERSION_FLAG("Progressive Download Information");
 
     //Parsing
-	while (Element_Offset<Element_Size) 
-	{
-		Skip_B4(                                                "Rate");
-		Skip_B4(                                                "Initial Delay");
-	}
+    while (Element_Offset<Element_Size)
+    {
+        Skip_B4(                                                "Rate");
+        Skip_B4(                                                "Initial Delay");
+    }
 }
 
 //---------------------------------------------------------------------------

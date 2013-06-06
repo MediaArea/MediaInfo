@@ -101,7 +101,7 @@ AddGadgetItem(display_gagdet, -1, "Ex03:Info_Capacities:   "+ PeekS(info_ptr)+#C
 
 info_ptr = MediaInfoA_Option(Handle, "Info_Codecs", "")
 AddGadgetItem(display_gagdet, -1, "Ex04:Info_Codecs:   "+#CRLF$+ PeekS(info_ptr)+#CRLF$)
- 
+
 ;***************************************************************************
 ; Examples of how To use the library
 ;***************************************************************************
@@ -129,13 +129,13 @@ info_ptr = MediaInfoA_GetI(Handle, #Stream_General, 0, 46, #Info_Text)
 AddGadgetItem(display_gagdet, -1, "Ex09: Get with Stream=General and Parameter=46:   "+ PeekS(info_ptr)+#CRLF$)
 
 info_ptr = MediaInfoA_Count_Get(Handle, #Stream_Audio, -1)
-AddGadgetItem(display_gagdet, -1, "Ex10: Count_Get with StreamKind=Stream_Audio:   "+ Str(info_ptr)+#CRLF$)    
+AddGadgetItem(display_gagdet, -1, "Ex10: Count_Get with StreamKind=Stream_Audio:   "+ Str(info_ptr)+#CRLF$)
 
 info_ptr = MediaInfoA_Get(Handle, #Stream_General, 0, "AudioCount", #Info_Text, #Info_Name)
-AddGadgetItem(display_gagdet, -1, "Ex11: Get with Stream=General and Parameter=AudioCount:   "+ PeekS(info_ptr)+#CRLF$)  
+AddGadgetItem(display_gagdet, -1, "Ex11: Get with Stream=General and Parameter=AudioCount:   "+ PeekS(info_ptr)+#CRLF$)
 
 info_ptr = MediaInfoA_Get(Handle, #Stream_Audio, 0, "StreamCount", #Info_Text, #Info_Name)
-AddGadgetItem(display_gagdet, -1, "Ex12: Get with Stream=Audio and Parameter=StreamCount:   "+ PeekS(info_ptr)+#CRLF$) 
+AddGadgetItem(display_gagdet, -1, "Ex12: Get with Stream=Audio and Parameter=StreamCount:   "+ PeekS(info_ptr)+#CRLF$)
 
 ;***************************************************************************
 ; main loop
