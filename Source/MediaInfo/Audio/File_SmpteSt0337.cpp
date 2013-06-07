@@ -1256,6 +1256,7 @@ void File_SmpteSt0337::Data_Parse()
 
     if (Save_Buffer)
     {
+        delete[] Buffer;
         Buffer=Save_Buffer;
         Buffer_Offset=Save_Buffer_Offset;
         Buffer_Size=Save_Buffer_Size;
