@@ -104,8 +104,10 @@ extern const int8u AC3_Channels[]=
 #include "MediaInfo/Audio/File_Ac3.h"
 #include <vector>
 #include <cmath>
-#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
-#include "MediaInfo/MediaInfo_Internal.h"
+#if MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
+#endif //MEDIAINFO_EVENTS
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
