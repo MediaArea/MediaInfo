@@ -34,7 +34,12 @@ namespace MediaInfoLib
 void File_OtherText::Read_Buffer_Continue()
 {
     if (Buffer_Size<0x200)
+    {
+        Element_WaitForMoreData();
         return;
+    }
+
+    Element_Offset=File_Size-(File_Offset+Buffer_Offset);
 
     Ztring Format, FormatMore, Codec;
     Ztring File;

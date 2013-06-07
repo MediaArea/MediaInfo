@@ -175,6 +175,8 @@ bool File_Hls::FileHeader_Begin()
         ReferenceFiles->TestContinuousFileNames=true;
     }
 
+    Element_Offset=File_Size;
+
     //All should be OK...
     return true;
 }

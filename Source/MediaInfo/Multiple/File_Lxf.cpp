@@ -1631,6 +1631,9 @@ void File_Lxf::Video_Stream_1()
         #endif
     }
     Skip_XX((Lines_Allocated-Lines_Used)*BytesPerLine,          "Unused lines");
+
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 }
 
 //---------------------------------------------------------------------------
