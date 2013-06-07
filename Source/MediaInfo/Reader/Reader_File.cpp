@@ -400,6 +400,10 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         }
     }
 
+    //Deleting buffer
+    delete[] MI->Config.File_Buffer; MI->Config.File_Buffer=NULL;
+    MI->Config.File_Buffer_Size_Max=0;
+
     #ifdef MEDIAINFO_DEBUG
         std::cout<<std::hex<<Reader_File_Offset<<" - "<<Reader_File_Offset+Reader_File_BytesRead<<" : "<<std::dec<<Reader_File_BytesRead<<" bytes"<<std::endl;
         std::cout<<"Total: "<<std::dec<<Reader_File_BytesRead_Total<<" bytes in "<<Reader_File_Count<<" blocks"<<std::endl;
