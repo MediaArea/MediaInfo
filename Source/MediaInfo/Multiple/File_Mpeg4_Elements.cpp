@@ -5132,7 +5132,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC()
             File_Hevc* Parser=new File_Hevc;
             Parser->FrameIsAlwaysComplete=true;
             Open_Buffer_Init(Parser);
-            Parser->MustParse_SPS_PPS=true;
+            Parser->MustParse_VPS_SPS_PPS=true;
             Parser->MustSynchronize=false;
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             mdat_MustParse=true; //Data is in MDAT

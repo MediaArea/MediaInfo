@@ -34,6 +34,9 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_HEVC_YES)
+    #include "MediaInfo/Video/File_Hevc.h"
+#endif
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
@@ -3266,7 +3269,7 @@ void File_Mk::CodecID_Manage()
     }
 
     //Creating the parser
-    #if defined(MEDIAINFO_MPEG4V_YES) || defined(MEDIAINFO_AVC_YES) || defined(MEDIAINFO_VC1_YES) || defined(MEDIAINFO_DIRAC_YES) || defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_VP8_YES) || defined(MEDIAINFO_OGG_YES)
+    #if defined(MEDIAINFO_MPEG4V_YES) || defined(MEDIAINFO_AVC_YES) || defined(MEDIAINFO_HEVC_YES) || defined(MEDIAINFO_VC1_YES) || defined(MEDIAINFO_DIRAC_YES) || defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_VP8_YES) || defined(MEDIAINFO_OGG_YES)
         const Ztring &Format=MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Type, CodecID, InfoCodecID_Format);
     #endif
         if (0);
@@ -3288,6 +3291,20 @@ void File_Mk::CodecID_Manage()
             ((File_Avc*)Stream[TrackNumber].Parser)->MustSynchronize=false;
             ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
             ((File_Avc*)Stream[TrackNumber].Parser)->SizedBlocks=true;
+        }
+    }
+    #endif
+    #if defined(MEDIAINFO_HEVC_YES)
+    else if (Format==__T("HEVC"))
+    {
+        Stream[TrackNumber].Parser=new File_Hevc;
+        ((File_Hevc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        if (InfoCodecID_Format_Type==InfoCodecID_Format_Matroska)
+        {
+            ((File_Hevc*)Stream[TrackNumber].Parser)->MustSynchronize=false;
+            ((File_Hevc*)Stream[TrackNumber].Parser)->MustParse_VPS_SPS_PPS=true;
+            ((File_Hevc*)Stream[TrackNumber].Parser)->MustParse_VPS_SPS_PPS_FromMatroska=true;
+            ((File_Hevc*)Stream[TrackNumber].Parser)->SizedBlocks=true;
         }
     }
     #endif
