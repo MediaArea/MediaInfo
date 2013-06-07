@@ -2997,6 +2997,27 @@ void File_Mxf::Header_Parse()
         return;
     }
 
+    if (Length==0 && Essences.empty() && Retrieve(Stream_General, 0, General_Format_Settings).find(__T(" / Incomplete"))!=string::npos)
+    {
+        if (Buffer_Offset+Element_Offset+4>Buffer_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        
+        if (BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset)!=0x060E2B34)
+        {
+            Buffer_End_Unlimited=true;
+            Length=File_Size-(File_Offset+Buffer_Offset+Element_Offset);
+        }
+    }
+
+	if (Config->File_IsGrowing && File_Offset+Buffer_Offset+Element_Offset+Length>File_Size)
+	{
+		Element_WaitForMoreData();
+		return;
+	}
+
     //Filling
     int32u Code_Compare1=Code.hi>>32;
     int32u Code_Compare2=(int32u)Code.hi;
@@ -6472,6 +6493,16 @@ void File_Mxf::PartitionMetadata()
                         }
                         break;
             case 0x04 : Fill(Stream_General, 0, General_Format_Settings, "Closed / Complete"  , Unlimited, true, true);
+                        break;
+            default   : ;
+        }
+
+    if ((Code.lo&0xFF0000)==0x040000) //If Footer Partition Pack
+        switch ((Code.lo>>8)&0xFF)
+        {
+            case 0x02 : 
+            case 0x04 :
+                        Config->File_IsGrowing=false;
                         break;
             default   : ;
         }

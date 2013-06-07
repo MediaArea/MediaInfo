@@ -921,7 +921,7 @@ void File_Mk::Data_Parse()
                 ATOM_END_MK
             ATOM_END_MK
         ATOM_END_MK
-    DATA_END_DEFAULT
+    DATA_END
 }
 
 //***************************************************************************

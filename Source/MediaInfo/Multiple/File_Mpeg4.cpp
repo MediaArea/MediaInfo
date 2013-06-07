@@ -1300,17 +1300,16 @@ void File_Mpeg4::Header_Parse()
     if (IsParsing_mdat)
     {
         //Positionning
-        if (File_Offset+Buffer_Offset<mdat_Pos_Temp->first)
+        if (mdat_Pos_Temp==mdat_Pos.end() || File_Offset+Buffer_Offset<mdat_Pos_Temp->first)
         {
-            if (File_Offset+Buffer_Size>mdat_Pos_Temp->first)
-            {
-                Buffer_Offset=(size_t)(File_Offset+Buffer_Size-mdat_Pos_Temp->first);
-            }
-            else
-            {
-                Buffer_Offset=Buffer_Size;
-                return;
-            }
+            Header_Fill_Code(0, "(Junk)");
+            int64u Size=mdat_Pos_Temp==mdat_Pos.end()?Element_TotalSize_Get():(mdat_Pos_Temp->first-(File_Offset+Buffer_Offset));
+            if (Size>1 && Size>=Buffer_MaximumSize/2)
+                Size=Buffer_MaximumSize;
+            if (Size==Element_TotalSize_Get())
+                IsParsing_mdat=false;
+            Header_Fill_Size(Size);
+            return;
         }
 
         //Filling
@@ -1405,6 +1404,19 @@ struct Mpeg4_muxing
 };
 bool File_Mpeg4::BookMark_Needed()
 {
+    #if MEDIAINFO_MD5
+        if (!mdat_MustParse && !mdat_Pos_NormalParsing && Config->File_Md5_Get() && FirstMdatPos<FirstMoovPos)
+        {
+            Element_Show();
+            while (Element_Level>0)
+                Element_End0();
+            mdat_Pos_NormalParsing=true;
+            GoTo(0);
+            IsSecondPass=true;
+            return false;
+        }
+    #endif //MEDIAINFO_MD5
+
     if (!mdat_MustParse)
         return false;
 
@@ -1509,7 +1521,7 @@ bool File_Mpeg4::BookMark_Needed()
                         if (stsz_Pos>=Temp->second.stsz.size())
                             break;
                     }
-                    else if (Temp->second.StreamKind==Stream_Audio && Temp->second.stsz_Sample_Size<=Sample_ByteSize && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
+                    else if (Temp->second.StreamKind==Stream_Audio && (!Sample_ByteSize || Temp->second.stsz_Sample_Size<=Sample_ByteSize) && Temp->second.stsc[stsc_Pos].SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
                     {
                         //Same size per sample, but granularity is too small
                         mdat_Pos[Temp->second.stco[stco_Pos]].StreamID=Temp->first;
@@ -1555,7 +1567,7 @@ bool File_Mpeg4::BookMark_Needed()
                 for (size_t Pos=0; Pos<Temp->second.Parsers.size(); Pos++)
                     Temp->second.Parsers[Pos]->Stream_BitRateFromContainer=Temp->second.stsz_StreamSize*8/(((float64)Temp->second.stts_Duration)/Temp->second.mdhd_TimeScale);
                 #if MEDIAINFO_DEMUX
-                    if (!Temp_stts_Durations.empty())
+                    if (FrameCount_MaxPerStream==(int64u)-1 && !Temp_stts_Durations.empty())
                     {
                         Temp->second.stts_Durations=Temp_stts_Durations;
                         for (stsc_Pos=0; stsc_Pos<Temp->second.stsc.size(); stsc_Pos++)
@@ -1631,7 +1643,15 @@ bool File_Mpeg4::BookMark_Needed()
         Element_Begin1("Second pass");
 
         mdat_Pos_Temp=mdat_Pos.begin();
-        GoTo(mdat_Pos_Temp->first);
+        #if MEDIAINFO_MD5
+            if (Config->File_Md5_Get())
+            {
+                GoTo(0);
+                Md5_ParseUpTo=mdat_Pos_Temp->first;
+            }
+            else
+        #endif //MEDIAINFO_MD5
+                GoTo(mdat_Pos_Temp->first);
         IsParsing_mdat=true;
         mdat_Pos_NormalParsing=true;
     }

@@ -772,8 +772,21 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         {
             if (Reference->MI->Count_Get(Stream_Menu)==0 || StreamKind_Last==Stream_Menu)
             {
-                MI->Fill(StreamKind_Last, StreamPos_To, "MD5", Reference->MI->Get(Stream_General, 0, __T("MD5")));
-                (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("MD5"), Info_Options)=__T("N NT");
+                if (!Reference->MI->Get(StreamKind_Last, StreamPos_To, __T("Source_MD5_Generated")).empty())
+                {
+                    MI->Fill(StreamKind_Last, StreamPos_To, "Source_MD5_Generated", Reference->MI->Get(Stream_General, 0, __T("Source_MD5_Generated")));
+                    (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("Source_MD5_Generated"), Info_Options)=__T("N NT");
+                }
+                else if (!Reference->MI->Get(Stream_General, 0, __T("Source_MD5_Generated")).empty())
+                {
+                    MI->Fill(StreamKind_Last, StreamPos_To, "Source_MD5_Generated", Reference->MI->Get(Stream_General, 0, __T("Source_MD5_Generated")));
+                    (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("Source_MD5_Generated"), Info_Options)=__T("N NT");
+                }
+                else if (!Reference->MI->Get(Stream_General, 0, __T("MD5_Generated")).empty())
+                {
+                    MI->Fill(StreamKind_Last, StreamPos_To, "Source_MD5_Generated", Reference->MI->Get(Stream_General, 0, __T("MD5_Generated")));
+                    (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("Source_MD5_Generated"), Info_Options)=__T("N NT");
+                }
             }
         }
     #endif //MEDIAINFO_MD5

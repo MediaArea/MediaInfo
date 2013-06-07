@@ -14,6 +14,7 @@ Version 0.7.64, 2013-
 + JPEG: detection of YUVA, RGB, RGBA and YCCK color spaces
 + MPEG Audio: detection of Id3v1 inside an MPEG Audio frame
 + Matroska: support of HEVC/H.265 (based on specifications draft from DivX inc)
++ MD5 generation option (work in progress)
 x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
 x Matroska: crash with some malformed files
 x MOV: crash/long parsing with some malformed files
