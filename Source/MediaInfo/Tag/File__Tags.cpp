@@ -139,102 +139,136 @@ bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
         return false;
     }
 
-    //ID
-    if (Base->Buffer_Offset+Synchro_Offset+3>Base->Buffer_Size)
-        return false;
-    switch (Base->Buffer[Base->Buffer_Offset+Synchro_Offset])
+    if (!Synchro_Offset)
     {
-        case 0x49 : //"ID3"
-                    switch (CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset))
-                    {
-                        case 0x494433 : //"ID3"
-                                        if (Synchro_Offset)
-                                        {
-                                            Tag_Found=true; //This is an ID3 tag after a complete chunk, waiting for the chunk to be parsed
-                                            return true;
-                                        }
-                                        if (!Synched_Test()) //Handling begin/intermediate Id3v2
-                                            return false;
-                                        return Synchronize(Tag_Found, Synchro_Offset);
-                        default       : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
-                                        {
-                                            Tag_Found=true;
-                                            return true;
-                                        };
-                    }
-                    break;
-        case 0x54 : //"TAG"
-        case 0x4C : //"LYR"
-        case 0x41 : //"APE"
-                    switch (CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset))
-                    {
-                        case 0x544147 : //"TAG"
-                        case 0x4C5952 : //"LYR"
-                        case 0x415045 : //"APE"
-                                        if (TagSizeIsFinal && Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize)
-                                        {
-                                            Tag_Found=true;
-                                            return Synched_Test();
-                                        }
-                                        else if (Base->File_Offset+Base->Buffer_Size==Base->File_Size)
-                                        {
-                                             while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
-                                             Tag_Found=Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize;
-                                             return true;
-                                        }
-                                        else
-                                            return false; //Need more data
-                        default       : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
-                                        {
-                                            Tag_Found=true;
-                                            return true;
-                                        };
-                    }
-                    break;
-        default   : if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
-                    {
-                        Tag_Found=true;
-                        return true;
-                    };
+        if (!Synched_Test()) //Handling begin/intermediate Id3v2
+            return false;
     }
 
-    Tag_Found=false;
-    return Base->File_GoTo==(int64u)-1;
+    //ID
+    if (Base->Buffer_Offset+Synchro_Offset+8>Base->Buffer_Size)
+        return false;
+    int32u ID3=CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset);
+    int64u ID8=CC8(Base->Buffer+Base->Buffer_Offset+Synchro_Offset);
+    if (ID3==0x494433 //"ID3"
+     || ID8==0x4150455441474558LL //"APETAGEX"
+     || ID8==0x4C59524943534245LL //"LYRICSBE"
+     || ID3==0x544147) //"TAG" / "TAG+"
+        Tag_Found=true;
+    else
+        Tag_Found=false;
+
+    return true;
 }
 
 //---------------------------------------------------------------------------
 bool File__Tags_Helper::Synched_Test()
 {
+    if (SearchingForEndTags)
+        return true;
+
     for (;;)
     {
         if (!Parser)
         {
             //Must have enough buffer for having header
-            if (Base->Buffer_Offset+4>Base->Buffer_Size)
+            if (Base->Buffer_Offset+8>Base->Buffer_Size)
                 return Base->IsSub; //If IsSub, we consider this is a complete block
 
             //Quick test of synchro
             int32u ID=CC3(Base->Buffer+Base->Buffer_Offset);
             int32u ID4=CC4(Base->Buffer+Base->Buffer_Offset);
+            int64u ID8=CC8(Base->Buffer+Base->Buffer_Offset);
                  if (ID==0x494433) //"ID3"
             {
                 if (Base->Buffer_Offset+10>Base->Buffer_Size)
                     return false;
-                #ifdef MEDIAINFO_ID3V2_YES
-                    Parser=new File_Id3v2;
-                #else
-                    Parser=new File_Unknown;
-                #endif
                 int32u Size=BigEndian2int32u(Base->Buffer+Base->Buffer_Offset+6);
                 Parser_Buffer_Size=(((Size>>0)&0x7F)
                                   | ((Size>>1)&0x3F80)
                                   | ((Size>>2)&0x1FC000)
                                   | ((Size>>3)&0x0FE00000))
                                   +10;
-                File_BeginTagSize+=Parser_Buffer_Size;
+                if (Base->Buffer_Offset+Parser_Buffer_Size>Base->Buffer_Size)
+                    return false;
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
                 if (Base->File_Offset_FirstSynched==(int64u)-1)
                     Base->Buffer_TotalBytes_FirstSynched_Max+=Parser_Buffer_Size;
+                #ifdef MEDIAINFO_ID3V2_YES
+                    Parser=new File_Id3v2;
+                #else
+                    Parser=new File_Unknown;
+                #endif
                 Base->Element_Begin1("Id3v2");
+            }
+            else if (ID8==0x4150455441474558LL) //"APETAGEX"
+            {
+                if (Base->Buffer_Offset+16>Base->Buffer_Size)
+                    return false;
+                Parser_Buffer_Size=LittleEndian2int32u(Base->Buffer+Base->Buffer_Offset+12);
+                if (LittleEndian2int32u(Base->Buffer+Base->Buffer_Offset+8))
+                    Parser_Buffer_Size+=32;
+                if (Base->Buffer_Offset+Parser_Buffer_Size>Base->Buffer_Size)
+                    return false;
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
+                if (Base->File_Offset_FirstSynched==(int64u)-1)
+                    Base->Buffer_TotalBytes_FirstSynched_Max+=Parser_Buffer_Size;
+                #ifdef MEDIAINFO_APETAG_YES
+                    Parser=new File_ApeTag;
+                #else
+                    Parser=new File_Unknown;
+                #endif
+                Base->Element_Begin1("ApeTag");
+            }
+            else if (ID8==0x4C59524943534245LL) //"LYRICSBE"
+            {
+                if (Base->Buffer_Offset+16>Base->Buffer_Size)
+                    return false;
+                //Searching for "LYRICS200"
+                std::string Buf((const char*)(Base->Buffer+Base->Buffer_Offset), Base->Buffer_Size-Base->Buffer_Offset);
+                size_t Pos2=Buf.find("LYRICS200");
+                size_t Pos1=std::string::npos;
+                if (Pos2==std::string::npos)
+                    Pos1=Buf.find("LYRICSEND");
+                if (Pos2!=std::string::npos)
+                    Parser_Buffer_Size=Pos2+9;
+                else if (Pos1!=std::string::npos)
+                    Parser_Buffer_Size=Pos1+9;
+                else
+                    Parser_Buffer_Size=(size_t)(Base->File_Size-(Base->File_Offset+Base->Buffer_Offset));
+                if (Base->Buffer_Offset+Parser_Buffer_Size>Base->Buffer_Size)
+                    return false;
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
+                if (Base->File_Offset_FirstSynched==(int64u)-1)
+                    Base->Buffer_TotalBytes_FirstSynched_Max+=Parser_Buffer_Size;
+                if (Pos2!=std::string::npos)
+                {
+                    #ifdef MEDIAINFO_LYRICS3V2_YES
+                        Parser=new File_Lyrics3v2;
+                        ((File_Lyrics3v2*)Parser)->TotalSize=Parser_Buffer_Size;
+                    #else
+                        Parser=new File_Unknown;
+                    #endif
+                    Base->Element_Begin1("Lyrics2");
+                }
+                else if (Pos1!=std::string::npos)
+                {
+                    #ifdef MEDIAINFO_LYRICS3_YES
+                        Parser=new File_Lyrics3;
+                        ((File_Lyrics3*)Parser)->TotalSize=Parser_Buffer_Size;
+                    #else
+                        Parser=new File_Unknown;
+                    #endif
+                    Base->Element_Begin1("Lyrics");
+                }
+                else
+                {
+                    Parser=new File_Unknown;
+                    Base->Element_Begin1("Problem");
+                }
             }
             else if (ID4==0x5441472B) //"TAG+"
             {
@@ -254,6 +288,8 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File_Unknown;
                 #endif
                 Parser_Buffer_Size=128;
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
                 Base->Element_Begin1("Id3");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==Lyrics3_Offset)
@@ -265,6 +301,8 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File__Analyze;
                 #endif
                 Parser_Buffer_Size=(size_t)Lyrics3_Size;
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
                 Base->Element_Begin1("Lyrics3");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==Lyrics3v2_Offset)
@@ -276,6 +314,8 @@ bool File__Tags_Helper::Synched_Test()
                     Parser=new File_Unknown;
                 #endif
                 Parser_Buffer_Size=(size_t)Lyrics3v2_Size;
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
                 Base->Element_Begin1("Lyrics3v2");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
@@ -285,6 +325,8 @@ bool File__Tags_Helper::Synched_Test()
                 #else
                     Parser=new File_Unknown;
                 #endif
+                if (!TagSizeIsFinal)
+                    File_BeginTagSize+=Parser_Buffer_Size;
                 Parser_Buffer_Size=(size_t)ApeTag_Size;
                 Base->Element_Begin1("ApeTag");
             }
