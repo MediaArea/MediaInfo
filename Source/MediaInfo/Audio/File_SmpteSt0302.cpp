@@ -268,12 +268,14 @@ void File_SmpteSt0302::Read_Buffer_Continue()
         {
             for (size_t Pos2=0; Pos2<Pos; Pos2++)
                 delete Parsers[Pos2]; //Parsers[Pos2]=NULL;
-            for (size_t Pos2=Pos+1; Pos2<Parsers.size()-1; Pos2++)
+            for (size_t Pos2=Pos+1; Pos2<Parsers.size(); Pos2++)
                 delete Parsers[Pos2]; //Parsers[Pos2]=NULL;
             Parsers.resize(Pos+1);
             Parsers.erase(Parsers.begin(), Parsers.begin()+Parsers.size()-1);
         }
     }
+
+    delete[] Info;
 
     FrameInfo.DTS+=FrameInfo.DUR;
 

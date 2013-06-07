@@ -20,6 +20,7 @@ x Java 64-bit: Count_Get(StreamKind) was always returning 0
 x Python 64-bit: Count_Get(StreamKind) was always returning 0
 x DTS: some streams were not detected
 x DTS: some memory leaks with 14-bit streams
+x SMPTE ST 302: memory leaks
 x Total failure if MEDIAINFO_REFERENCES_NO #define was used
 
 Version 0.7.63, 2013-05-13
