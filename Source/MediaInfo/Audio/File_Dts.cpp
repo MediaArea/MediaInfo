@@ -881,6 +881,18 @@ void File_Dts::Data_Parse()
     //If filled
     if (Status[IsFilled])
     {
+        //Little Endian and 14-bit streams management
+        if (Save_Buffer)
+        {
+            delete[] Buffer;
+            Buffer=Save_Buffer; Save_Buffer=NULL;
+            Buffer_Offset=Save_Buffer_Offset;
+            Buffer_Size=Save_Buffer_Size;
+            File_Offset-=Buffer_Offset;
+            if (!Word)
+                Element_Size=Element_Size*16/14;
+        }
+
         Skip_XX(Element_Size-Element_Offset,                    "Data");
         return;
     }
