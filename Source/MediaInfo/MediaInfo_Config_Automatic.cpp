@@ -1200,7 +1200,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Cheeta;;;T;Other;;asc;;;Lossless\n"
     "N19;;;T;N19;;stl;;;Lossless\n"
     "SAMI;;;T;Sami;;smi sami;;;Lossless\n"
-    "SCC;;;T;SCC;;scc;;;Lossless\n"
+    "SCC;;;T;SCC;;scc sc2;;;Lossless\n"
     "SubRip;;;T;SubRip;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless\n"
     "TTML;;;T;TTML;;dfxp;;;Lossless\n"
     "SSA;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless\n"

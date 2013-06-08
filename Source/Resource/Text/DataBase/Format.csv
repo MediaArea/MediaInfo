@@ -131,7 +131,7 @@ CPC Captioning;;;T;Other;;txt;;http://www.cpcweb.com/Captioning/cap_software.htm
 Cheeta;;;T;Other;;asc;;;Lossless
 N19;;;T;N19;;stl;;;Lossless
 SAMI;;;T;Sami;;smi sami;;;Lossless
-SCC;;;T;SCC;;scc;;;Lossless
+SCC;;;T;SCC;;scc sc2;;;Lossless
 SubRip;;;T;SubRip;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
 TTML;;;T;TTML;;dfxp;;;Lossless
 SSA;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
