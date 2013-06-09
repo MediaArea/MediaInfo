@@ -436,7 +436,7 @@ void File_Lxf::Read_Buffer_Continue()
     #if MEDIAINFO_DEMUX
         if (DemuxParser)
         {
-            Open_Buffer_Continue(DemuxParser, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Continue(DemuxParser, Buffer+Buffer_Offset, 0, false);
             if (!Config->Demux_EventWasSent)
                 DemuxParser=NULL; //No more need of it
         }

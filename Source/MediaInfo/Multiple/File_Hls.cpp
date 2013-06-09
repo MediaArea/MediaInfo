@@ -137,6 +137,8 @@ bool File_Hls::FileHeader_Begin()
     Fill(Stream_General, 0, General_Format, "HLS");
 
     ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
+    if (!IsSub)
+        ReferenceFiles->ContainerHasNoId=true;
 
     File__ReferenceFilesHelper::reference ReferenceFile;
 

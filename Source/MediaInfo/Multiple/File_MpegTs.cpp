@@ -1517,6 +1517,7 @@ bool File_MpegTs::Synched_Test()
 
     if (File_Offset+Buffer_Size>=File_Size)
         Detect_EOF(); //for TRP files
+
     return false; //Not enough data
 }
 
