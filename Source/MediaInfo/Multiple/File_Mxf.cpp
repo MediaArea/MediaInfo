@@ -2031,7 +2031,7 @@ void File_Mxf::Read_Buffer_Continue()
     {
         if (Config->ParseSpeed>=1.0)
         {
-            if (Config->File_IsGrowing)
+            if (Config->File_IsGrowing && !Config->File_IsNotGrowingAnymore)
             {
                 File F;
                 F.Open(File_Name);
@@ -9702,6 +9702,11 @@ void File_Mxf::Locators_Test()
                 }
 
                 ReferenceFiles->References.push_back(ReferenceFile);
+            }
+            else
+            {
+                Fill(Stream_General, 0, "UnsupportedSources", Locator->second.EssenceLocator);
+                (*Stream_More)[Stream_General][0](Ztring().From_Local("UnsupportedSources"), Info_Options)=__T("N NT");
             }
 
         ReferenceFiles->ParseReferences();
