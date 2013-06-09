@@ -1687,7 +1687,7 @@ void File_Mpegv::Synched_Init()
     frame_rate_code=0;
     profile_and_level_indication_profile=(int8u)-1;
     profile_and_level_indication_level=(int8u)-1;
-    chroma_format=0;
+    chroma_format=1; //Default is 4:2:0
     horizontal_size_extension=0;
     vertical_size_extension=0;
     frame_rate_extension_n=0;
@@ -2216,6 +2216,9 @@ void File_Mpegv::picture_start()
             if (picture_coding_type==1 || picture_coding_type==4) //I-Frame or D-Frame
                 IFrame_IsParsed=true;
         }
+
+        if (Frame_Count_LastIFrame!=(int64u)-1)
+            FrameNumber_PresentationOrder=Frame_Count_LastIFrame+temporal_reference;
 
         //Config
         progressive_frame=true;
