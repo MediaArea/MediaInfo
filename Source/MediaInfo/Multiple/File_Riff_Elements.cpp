@@ -67,6 +67,9 @@
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
+#if defined(MEDIAINFO_SUBRIP_YES)
+    #include "MediaInfo/Text/File_Subrip.h"
+#endif
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
@@ -1619,10 +1622,15 @@ void File_Riff::AVI__hdlr_strl_strf_txts()
         if (Element_Size==0)
         {
             //Creating the parser
-            #if defined(MEDIAINFO_OTHERTEXT_YES)
-                Stream[Stream_ID].Parsers.push_back(new File_OtherText);
-                Open_Buffer_Init(Stream[Stream_ID].Parsers[0]);
+            #if defined(MEDIAINFO_SUBRIP_YES)
+                Stream[Stream_ID].Parsers.push_back(new File_SubRip);
             #endif
+            #if defined(MEDIAINFO_OTHERTEXT_YES)
+                Stream[Stream_ID].Parsers.push_back(new File_OtherText); //For SSA
+            #endif
+
+            for (size_t Pos=0; Pos<Stream[Stream_ID].Parsers.size(); Pos++)
+                Open_Buffer_Init(Stream[Stream_ID].Parsers[Pos]);
         }
         else
         {
@@ -2599,7 +2607,7 @@ void File_Riff::AVI__movi_StreamJump()
             {
                 #if MEDIAINFO_MD5
                     if (Config->File_Md5_Get() && SecondPass)
-                        Md5_ParseUpTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2);
+                        Md5_ParseUpTo=ToJump;
                     else
                 #endif //MEDIAINFO_MD5
                         GoTo(ToJump, "AVI"); //Not just after
