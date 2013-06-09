@@ -9322,7 +9322,8 @@ void File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descrip
     //Filling
     #if defined(MEDIAINFO_VC3_YES)
         File_Vc3* Parser=new File_Vc3;
-        Parser->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
+        if (Descriptor!=Descriptors.end())
+            Parser->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();
@@ -9512,7 +9513,7 @@ void File_Mxf::ChooseParser_SmpteSt0331(const essences::iterator &Essence, const
     //Filling
     #if defined(MEDIAINFO_SMPTEST0331_YES)
         File_SmpteSt0331* Parser=new File_SmpteSt0331;
-        if (Descriptor->second.QuantizationBits!=(int32u)-1)
+        if (Descriptor!=Descriptors.end() && Descriptor->second.QuantizationBits!=(int32u)-1)
             Parser->QuantizationBits=Descriptor->second.QuantizationBits;
 
         #if MEDIAINFO_DEMUX
@@ -9594,7 +9595,7 @@ void File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence, const de
 //---------------------------------------------------------------------------
 void File_Mxf::Subsampling_Compute(descriptors::iterator Descriptor)
 {
-    if (Descriptor->second.SubSampling_Horizontal==(int32u)-1 || Descriptor->second.SubSampling_Vertical==(int32u)-1)
+    if (Descriptor!=Descriptors.end() && (Descriptor->second.SubSampling_Horizontal==(int32u)-1 || Descriptor->second.SubSampling_Vertical==(int32u)-1))
         return;
 
     switch (Descriptor->second.SubSampling_Horizontal)
