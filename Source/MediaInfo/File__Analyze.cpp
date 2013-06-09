@@ -726,7 +726,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->PES_FirstByte_IsAvailable=PES_FirstByte_IsAvailable;
     Sub->PES_FirstByte_Value=PES_FirstByte_Value;
-    if (IsNewPacket)
+    if (IsNewPacket && ToAdd_Size)
     {
         if (Offsets_Stream.empty())
         {
@@ -2927,10 +2927,6 @@ void File__Analyze::GoTo (int64u GoTo)
 
     if (IsSub && Config->ParseSpeed==1)
         return;
-
-    #if MEDIAINFO_MD5
-        delete MD5; MD5=NULL; //MD5 not possible with a seek
-    #endif //MEDIAINFO_MD5
 
     if (GoTo==File_Size)
     {
