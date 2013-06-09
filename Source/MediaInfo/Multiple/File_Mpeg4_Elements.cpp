@@ -2113,7 +2113,6 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         FirstMoovPos=(int64u)-1;
 
         //Parsing
-        //Open_Buffer_Continue(Dest, Dest_Size);
         Buffer=Dest;
         Buffer_Size=Dest_Size;
         while (Open_Buffer_Continue_Loop());

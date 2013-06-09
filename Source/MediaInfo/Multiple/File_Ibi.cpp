@@ -586,7 +586,9 @@ void File_Ibi::CompressedIndex()
     Element_Level--;
 
     //Parsing
-    Open_Buffer_Continue(Dest, Dest_Size);
+    Buffer=Dest;
+    Buffer_Size=Dest_Size;
+    while (Open_Buffer_Continue_Loop());
     delete[] Dest; //Dest=NULL;
 
     //Resetting file size

@@ -1650,7 +1650,13 @@ bool File__Analyze::FileHeader_Manage()
     }
 
     //Positionning
-    Buffer_Offset+=(size_t)Element_Offset;
+    if ((Buffer_Size && Buffer_Offset+Element_Offset>Buffer_Size) || (sizeof(size_t)<sizeof(int64u) && Buffer_Offset+Element_Offset>=(int64u)(size_t)-1))
+    {
+        GoTo(File_Offset+Buffer_Offset+Element_Offset);
+        return false;
+    }
+    else
+        Buffer_Offset+=(size_t)Element_Offset;
 
     MustParseTheHeaderFile=false;
     return true;
@@ -1901,7 +1907,15 @@ bool File__Analyze::Data_Manage()
     {
         if (!Element_WantNextLevel)
             Element_End0(); //Element
-        Buffer_Offset+=(size_t)Element_Offset;
+        if (!Element_WantNextLevel && Element_Offset<Element_Size)
+            Buffer_Offset+=(size_t)Element_Size;
+        else
+        {
+            if (sizeof(size_t)<sizeof(int64u) && Buffer_Offset+Element_Offset>=(int64u)(size_t)-1)
+                GoTo(File_Offset+Buffer_Offset+Element_Offset);
+            else
+                Buffer_Offset+=(size_t)Element_Offset;
+        }
         Header_Size=0;
         Element_Size=0;
         Element_Offset=0;
