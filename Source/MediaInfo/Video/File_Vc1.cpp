@@ -1160,6 +1160,15 @@ void File_Vc1::SequenceHeader()
                 Accept("VC-1");
             Finish("VC-1");
         }
+
+        #if MEDIAINFO_DEMUX
+            if (InitData_Buffer_Size!=(size_t)-1)
+            {
+                InitData_Buffer_Size=(size_t)(Header_Size+Element_Size);
+                InitData_Buffer=new int8u[InitData_Buffer_Size];
+                std::memcpy(InitData_Buffer, Buffer+Buffer_Offset-(size_t)Header_Size, (size_t)(Header_Size+Element_Size));
+            }
+        #endif //MEDIAINFO_DEMUX
     FILLING_END();
 }
 
