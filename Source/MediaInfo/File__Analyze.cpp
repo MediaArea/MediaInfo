@@ -449,7 +449,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Temp+=Ztring().From_CC2(BigEndian2int16u(Digest+12));
             Temp+=Ztring().From_CC2(BigEndian2int16u(Digest+14));
             Temp.MakeLowerCase();
-            const char* MD5Pos=Config->File_Names.size()>1?"MD5_List":"MD5";
+            const char* MD5Pos=Config->File_Names.size()>1?"Source_List_MD5_Generated":"MD5_Generated";
             if (Config->File_Names_Pos<=1 && !Retrieve(Stream_General, 0, MD5Pos).empty() && Retrieve(Stream_General, 0, MD5Pos)==Temp)
                 Clear(Stream_General, 0, MD5Pos);
             Fill(Stream_General, 0, MD5Pos, Temp);
