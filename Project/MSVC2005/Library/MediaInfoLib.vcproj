@@ -420,6 +420,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Canopus.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Dirac.cpp"
 					>
 				</File>
@@ -1395,6 +1399,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Canopus.h"
 					>
 				</File>
 				<File

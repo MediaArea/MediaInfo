@@ -172,10 +172,11 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_TimedText.cpp
 	MediaInfo/Text/File_Ttml.cpp
 	MediaInfo/Video/File_Aic.cpp
+	MediaInfo/Video/File_AfdBarData.cpp
 	MediaInfo/Video/File_Avc.cpp
 	MediaInfo/Video/File_Avc_Duplicate.cpp
 	MediaInfo/Video/File_AvsV.cpp
-	MediaInfo/Video/File_AfdBarData.cpp
+	MediaInfo/Video/File_Canopus.cpp
 	MediaInfo/Video/File_Dirac.cpp
 	MediaInfo/Video/File_Flic.cpp
 	MediaInfo/Video/File_Fraps.cpp

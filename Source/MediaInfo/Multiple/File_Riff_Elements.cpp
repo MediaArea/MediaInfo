@@ -46,6 +46,9 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_CANOPUS_YES)
+    #include "MediaInfo/Video/File_Canopus.h"
+#endif
 #if defined(MEDIAINFO_FRAPS_YES)
     #include "MediaInfo/Video/File_Fraps.h"
 #endif
@@ -1754,6 +1757,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     {
         File_Avc* Parser=new File_Avc;
         Parser->FrameIsAlwaysComplete=true;
+        Stream[Stream_ID].Parsers.push_back(Parser);
+    }
+    #endif
+    #if defined(MEDIAINFO_CANOPUS_YES)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==__T("Canopus HQ"))
+    {
+        File_Canopus* Parser=new File_Canopus;
         Stream[Stream_ID].Parsers.push_back(Parser);
     }
     #endif

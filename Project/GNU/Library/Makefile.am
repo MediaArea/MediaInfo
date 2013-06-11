@@ -167,10 +167,11 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_TimedText.cpp \
                        ../../../Source/MediaInfo/Text/File_Ttml.cpp \
                        ../../../Source/MediaInfo/Video/File_Aic.cpp \
+                       ../../../Source/MediaInfo/Video/File_AfdBarData.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc_Duplicate.cpp \
                        ../../../Source/MediaInfo/Video/File_AvsV.cpp \
-                       ../../../Source/MediaInfo/Video/File_AfdBarData.cpp \
+                       ../../../Source/MediaInfo/Video/File_Canopuscpp \
                        ../../../Source/MediaInfo/Video/File_Dirac.cpp \
                        ../../../Source/MediaInfo/Video/File_Flic.cpp \
                        ../../../Source/MediaInfo/Video/File_Fraps.cpp \
