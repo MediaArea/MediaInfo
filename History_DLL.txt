@@ -17,6 +17,7 @@ Version 0.7.64, 2013-
 + Canopus: detection of scan mode, scan order, pixel aspect ratio
 + MD5 generation option (work in progress)
 x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
+x #B765, Matroska: was parsing the complete file if a stream indicated in the header is not present
 x Matroska: crash with some malformed files
 x MOV: crash/long parsing with some malformed files
 x AC-3: crashes and freezes fix
