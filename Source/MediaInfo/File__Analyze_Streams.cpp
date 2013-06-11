@@ -1360,7 +1360,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         Stream_Prepare(StreamKind);
 
     //Specific stuff
-    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, ScanType_Temp, ScanOrder_Temp, Delay_Temp, Delay_DropFrame_Temp, Delay_Source_Temp, Delay_Settings_Temp, Source_Temp, Source_Kind_Temp, Source_Info_Temp;
+    Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, ScanType_Temp, ScanOrder_Temp, Channels_Temp, Delay_Temp, Delay_DropFrame_Temp, Delay_Source_Temp, Delay_Settings_Temp, Source_Temp, Source_Kind_Temp, Source_Info_Temp;
     if (StreamKind==Stream_Video)
     {
         Width_Temp=Retrieve(Stream_Video, StreamPos_To, Video_Width);
@@ -1371,6 +1371,10 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate_Mode); //We want to keep the FrameRate_Mode of AVI 120 fps
         ScanType_Temp=Retrieve(Stream_Video, StreamPos_To, Video_ScanType);
         ScanOrder_Temp=Retrieve(Stream_Video, StreamPos_To, Video_ScanOrder);
+    }
+    if (StreamKind==Stream_Audio)
+    {
+        Channels_Temp=Retrieve(Stream_Audio, StreamPos_To, Audio_Channel_s_);
     }
     if (ToAdd.Retrieve(StreamKind, StreamPos_From, Fill_Parameter(StreamKind, Generic_Delay_Source))==__T("Container"))
     {
@@ -1467,6 +1471,14 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
             }
             else
                 Fill(Stream_Video, StreamPos_To, Video_ScanOrder, ScanOrder_Temp, true);
+        }
+    }
+    if (StreamKind==Stream_Audio)
+    {
+        if (!Channels_Temp.empty() && Channels_Temp!=Retrieve(Stream_Audio, StreamPos_To, Audio_Channel_s_))
+        {
+            Fill(Stream_Audio, StreamPos_To, Audio_Channel_s__Original, (*Stream)[Stream_Audio][StreamPos_To][Audio_Channel_s_], true);
+            Fill(Stream_Audio, StreamPos_To, Audio_Channel_s_, Channels_Temp, true);
         }
     }
     if (!Delay_Source_Temp.empty() && Delay_Source_Temp!=Retrieve(StreamKind, StreamPos_To, "Delay_Source"))

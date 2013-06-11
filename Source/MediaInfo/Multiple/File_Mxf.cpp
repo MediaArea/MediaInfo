@@ -1229,6 +1229,8 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             if (Descriptor->second.StreamKind!=Stream_Max)
             {
                 Descriptor->second.StreamPos=StreamPos_Last;
+                if (Descriptor->second.StreamKind==Stream_Audio && StreamKind_Last==Stream_Audio && Descriptor->second.ChannelCount!=(int32u)-1)
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Descriptor->second.ChannelCount);
             }
             break;
         }
