@@ -56,7 +56,6 @@ File__Tags_Helper::File__Tags_Helper()
 
     //Temp
     Parser=NULL;
-    Parser_Streams_Fill=NULL;
     Id3v1_Offset=(int64u)-1;
     Lyrics3_Offset=(int64u)-1;
     Lyrics3v2_Offset=(int64u)-1;
@@ -74,7 +73,8 @@ File__Tags_Helper::File__Tags_Helper()
 File__Tags_Helper::~File__Tags_Helper()
 {
     delete Parser; //Parser=NULL;
-    delete Parser_Streams_Fill; //Parser_Streams_Fill=NULL;
+    for (size_t Pos=0; Pos<Parser_Streams_Fill.size(); Pos++)
+        delete Parser_Streams_Fill[Pos]; //Parser_Streams_Fill[Pos]=NULL;
 }
 
 //***************************************************************************
@@ -84,13 +84,23 @@ File__Tags_Helper::~File__Tags_Helper()
 //---------------------------------------------------------------------------
 void File__Tags_Helper::Streams_Fill()
 {
-    if (Parser_Streams_Fill && Parser_Streams_Fill->Status[File__Analyze::IsAccepted])
+    for (size_t Pos=0; Pos<Parser_Streams_Fill.size(); Pos++)
     {
-        Parser_Streams_Fill->Read_Buffer_Finalize();
-        Base->Merge(*Parser_Streams_Fill, Stream_General, 0, 0, false);
-        Base->Merge(*Parser_Streams_Fill, Stream_Audio  , 0, 0, false);
+        if (Parser_Streams_Fill[Pos] && Parser_Streams_Fill[Pos]->Status[File__Analyze::IsAccepted])
+        {
+            #ifndef MEDIAINFO_ID3V2_YES
+                const bool Priority=false;
+            #else
+                bool Priority=Parser_Streams_Fill_Priority[Pos];
+            #endif
+
+            Parser_Streams_Fill[Pos]->Read_Buffer_Finalize();
+            Base->Merge(*(Parser_Streams_Fill[Pos]), Stream_General, 0, 0, Priority);
+            Base->Merge(*(Parser_Streams_Fill[Pos]), Stream_Audio  , 0, 0, Priority);
+        }
+        delete Parser_Streams_Fill[Pos]; //Parser_Streams_Fill[Pos]=NULL;
     }
-    delete Parser_Streams_Fill; Parser_Streams_Fill=NULL;
+    Parser_Streams_Fill.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -169,6 +179,12 @@ bool File__Tags_Helper::Synched_Test()
 
     for (;;)
     {
+        #ifdef MEDIAINFO_ID3V2_YES
+            bool Priority=false;
+        #else
+            const bool Priority=false;
+        #endif
+
         if (!Parser)
         {
             //Must have enough buffer for having header
@@ -197,6 +213,7 @@ bool File__Tags_Helper::Synched_Test()
                     Base->Buffer_TotalBytes_FirstSynched_Max+=Parser_Buffer_Size;
                 #ifdef MEDIAINFO_ID3V2_YES
                     Parser=new File_Id3v2;
+                    Priority=true;
                 #else
                     Parser=new File_Unknown;
                 #endif
@@ -350,17 +367,17 @@ bool File__Tags_Helper::Synched_Test()
                     if (!Base->Status[File__Analyze::IsFilled])
                         Base->Fill();
                     Parser->Read_Buffer_Finalize();
-                    Base->Merge(*Parser, Stream_General, 0, 0, false);
-                    Base->Merge(*Parser, Stream_Audio  , 0, 0, false);
+                    Base->Merge(*Parser, Stream_General, 0, 0, Priority);
+                    Base->Merge(*Parser, Stream_Audio  , 0, 0, Priority);
                     delete Parser; Parser=NULL;
-                }
-                else if (Parser_Streams_Fill==NULL) //Currently using only the first detected tag
-                {
-                    Parser_Streams_Fill=Parser; Parser=NULL;
                 }
                 else
                 {
-                    delete Parser; Parser=NULL;
+                    Parser_Streams_Fill.push_back(Parser);
+                    #ifdef MEDIAINFO_ID3V2_YES
+                        Parser_Streams_Fill_Priority.push_back(Priority);
+                    #endif
+                    Parser=NULL;
                 }
                 if (Parser_Buffer_Size)
                     Base->Skip_XX(Parser_Buffer_Size,           "Data continued");
