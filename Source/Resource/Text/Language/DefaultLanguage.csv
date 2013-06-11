@@ -189,7 +189,8 @@ BitRate_Encoded;Encoded bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
-Channel(s);Channel(s)
+Channel(s);Channel count
+Channel(s)_Original;Original Channel count
 ChannelPositions;Channel positions
 Chapter(s);Chapter(s)
 Chapters;Chapters

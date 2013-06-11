@@ -106,6 +106,8 @@ BitRate_Encoded;; bps;N YF;;;Encoded (with forced padding) bit rate in bps, if s
 BitRate_Encoded/String;;;Y NT;;;Encoded (with forced padding) bit rate (with measurement), if some container padding is present
 Channel(s);; channel;N YF;;;Number of channels;;
 Channel(s)/String;;;Y NT;;;Number of channels (with measurement);;
+Channel(s)_Original;; channel;N YF;;;Number of channels;;
+Channel(s)_Original/String;;;Y NT;;;Number of channels (with measurement);;
 ChannelPositions;;;Y YT;;;Position of channels;;
 ChannelPositions/String2;;;N NT;;;Position of channels (x/y.z format);;
 ChannelLayout;;;N YT;;;Layout of channels (in the stream);;
