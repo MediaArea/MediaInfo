@@ -570,6 +570,8 @@ U<Y ;Discreet YUV;4CC;V;YUV;;Discreet UC YUV 4:2:2:4 10 bit;
 U<YA;Discreet YUV;4CC;V;;;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel);
 U263;UB H.263;4CC;V;;;UB Video H.263/H.263+/H.263++ Decoder;http://eMajix.com
 UCOD;ClearVideo;4CC;V;;;ClearVideo (fractal compression-based);
+ULH0;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:0
+ULH2;YUV;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;YUV;4:2:2
 ULRA;RGBA;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGBA;4:4:4:4
 ULRG;RGB;Ut Video;Ut Video Lossless Codec;http://umezawa.dyndns.info/archive/utvideo;;;RGB;4:4:4
 ULTI;Ultimotion;4CC;V;;;IBM Ultimotion;
