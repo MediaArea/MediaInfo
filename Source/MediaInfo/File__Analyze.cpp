@@ -3101,6 +3101,11 @@ void File__Analyze::Trace_Layers_Update(size_t Layer)
 //---------------------------------------------------------------------------
 bool File__Analyze::Element_IsOK ()
 {
+    #if !MEDIAINFO_TRACE
+        if (BS && BS->BufferUnderRun)
+            Trusted_IsNot();
+    #endif //MEDIAINFO_TRACE
+    
     return !Element[Element_Level].WaitForMoreData && !Element[Element_Level].UnTrusted;
 }
 
