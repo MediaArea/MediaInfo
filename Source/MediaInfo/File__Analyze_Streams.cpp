@@ -1518,16 +1518,16 @@ void File__Analyze::Video_FrameRate_Rounding(size_t Pos, video Parameter)
 
          if (FrameRate> 9.990 && FrameRate<=10.010) FrameRate=10.000;
     else if (FrameRate>14.990 && FrameRate<=15.010) FrameRate=15.000;
-    else if (FrameRate>23.964 && FrameRate<=23.988) FrameRate=23.976;
-    else if (FrameRate>23.988 && FrameRate<=24.012) FrameRate=24.000;
-    else if (FrameRate>24.988 && FrameRate<=25.012) FrameRate=25.000;
-    else if (FrameRate>29.955 && FrameRate<=29.985) FrameRate=29.970;
-    else if (FrameRate>29.985 && FrameRate<=30.015) FrameRate=30.000;
-    else if (FrameRate>23.964*2 && FrameRate<=23.988*2) FrameRate=23.976*2;
-    else if (FrameRate>23.988*2 && FrameRate<=24.012*2) FrameRate=24.000*2;
-    else if (FrameRate>24.988*2 && FrameRate<=25.012*2) FrameRate=25.000*2;
-    else if (FrameRate>29.955*2 && FrameRate<=29.985*2) FrameRate=29.970*2;
-    else if (FrameRate>29.985*2 && FrameRate<=30.015*2) FrameRate=30.000*2;
+    else if (FrameRate>23.952 && FrameRate<=23.988) FrameRate=23.976;
+    else if (FrameRate>23.988 && FrameRate<=24.024) FrameRate=24.000;
+    else if (FrameRate>24.975 && FrameRate<=25.025) FrameRate=25.000;
+    else if (FrameRate>29.940 && FrameRate<=29.985) FrameRate=29.970;
+    else if (FrameRate>29.970 && FrameRate<=30.030) FrameRate=30.000;
+    else if (FrameRate>23.952*2 && FrameRate<=23.988*2) FrameRate=23.976*2;
+    else if (FrameRate>23.988*2 && FrameRate<=24.024*2) FrameRate=24.000*2;
+    else if (FrameRate>24.975*2 && FrameRate<=25.025*2) FrameRate=25.000*2;
+    else if (FrameRate>29.940*2 && FrameRate<=29.985*2) FrameRate=29.970*2;
+    else if (FrameRate>29.970*2 && FrameRate<=30.030*2) FrameRate=30.000*2;
 
     if (FrameRate!=FrameRate_Sav)
         Fill(Stream_Video, Pos, Parameter, FrameRate, 3, true);
