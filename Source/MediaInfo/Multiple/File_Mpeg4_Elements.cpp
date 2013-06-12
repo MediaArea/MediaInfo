@@ -2482,7 +2482,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             Parameter.clear(); //Set as already filled
                         }
                     }
-                    if (Parameter=="Compilation")
+                    if (Parameter=="Compilation" || Parameter=="HDVideo" || Parameter=="iTunesU" || Parameter=="Podcast")
                     {
                         if (Value==__T("1"))
                             Value=__T("Yes");
@@ -2493,6 +2493,61 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     {
                         if (Value==__T("0"))
                             Value.clear();
+                    }
+                    if (Parameter=="ContentType")
+                    {
+                             if (Value==__T("0"))  Value=__T("Movie");
+                        else if (Value==__T("1"))  Value=__T("Music");
+                        else if (Value==__T("2"))  Value=__T("Audiobook");
+                        else if (Value==__T("5"))  Value=__T("Whacked Bookmark");
+                        else if (Value==__T("6"))  Value=__T("Music Video");
+                        else if (Value==__T("9"))  Value=__T("Short Film");
+                        else if (Value==__T("10")) Value=__T("TV Show");
+                        else if (Value==__T("11")) Value=__T("Booklet");
+                        else if (Value==__T("14")) Value=__T("Ringtone");
+                        else if (Value==__T("21")) Value=__T("Podcast");
+                        else Value=__T("Unknown Type");
+                        Fill(Stream_General, 0, General_ContentType, Value);
+                    }
+                    if (Parameter=="AppleStoreAccountType")
+                    {
+                        if (Value==__T("0")) 
+                            Value=__T("iTunes");
+                        else
+                            Value=__T("AOL");
+                        Fill(Stream_General, 0, General_ServiceName, Value);
+                    }
+                    if (Parameter=="Rating")
+                    {
+                             if (Value==__T("0")) Value=__T("None");
+                        else if (Value==__T("2")) Value=__T("Clean");
+                        else Value=__T("Explicit");
+                    }
+                    if (Parameter=="AppleStoreCountry")
+                    {
+                             if (Value==__T("143441")) Value=__T("United States");
+                        else if (Value==__T("143442")) Value=__T("France");
+                        else if (Value==__T("143443")) Value=__T("Germany");
+                        else if (Value==__T("143444")) Value=__T("United Kingdom");
+                        else if (Value==__T("143445")) Value=__T("Austria");
+                        else if (Value==__T("143446")) Value=__T("Belgium");
+                        else if (Value==__T("143447")) Value=__T("Finland");
+                        else if (Value==__T("143448")) Value=__T("Greece");
+                        else if (Value==__T("143449")) Value=__T("Ireland");
+                        else if (Value==__T("143450")) Value=__T("Italy");
+                        else if (Value==__T("143451")) Value=__T("Luxembourg");
+                        else if (Value==__T("143452")) Value=__T("Netherlands");
+                        else if (Value==__T("143453")) Value=__T("Portugal");
+                        else if (Value==__T("143454")) Value=__T("Spain");
+                        else if (Value==__T("143455")) Value=__T("Canada");
+                        else if (Value==__T("143456")) Value=__T("Sweden");
+                        else if (Value==__T("143457")) Value=__T("Norway");
+                        else if (Value==__T("143458")) Value=__T("Denmark");
+                        else if (Value==__T("143459")) Value=__T("Switzerland");
+                        else if (Value==__T("143460")) Value=__T("Australia");
+                        else if (Value==__T("143461")) Value=__T("New Zealand");
+                        else if (Value==__T("143462")) Value=__T("Japan");
+                        else Value=__T("Unknown Country");
                     }
                     if (!Parameter.empty())
                     {
