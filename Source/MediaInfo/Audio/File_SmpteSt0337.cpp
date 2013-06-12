@@ -420,7 +420,7 @@ bool File_SmpteSt0337::Synchronize()
              && Buffer[Buffer_Offset+2]==0x96
              && Buffer[Buffer_Offset+3]==0x1F
              && Buffer[Buffer_Offset+4]==0x4E
-             && Buffer[Buffer_Offset+5]==0x5A) // 24-bit, LE
+             && Buffer[Buffer_Offset+5]==0xA5) // 24-bit, LE
             {
                 Container_Bits=24;
                 Stream_Bits=24;
@@ -987,7 +987,7 @@ void File_SmpteSt0337::Data_Parse()
         {
             // Source: 24LE / L1L0 L3L2 L5L3 R1R0 R3R2 R5R4
             // Dest  : 24BE / L5L3 L3L2 L1L0 R5R4 R3R2 R1R0
-            while (Element_Offset+8<=Element_Size)
+            while (Element_Offset+6<=Element_Size)
             {
                 size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
 
@@ -998,7 +998,7 @@ void File_SmpteSt0337::Data_Parse()
                 *(Info_Temp++)= Buffer[Buffer_Pos+4]                                    ;
                 *(Info_Temp++)= Buffer[Buffer_Pos+3]                                    ;
 
-                Element_Offset+=8;
+                Element_Offset+=6;
             }
         }
 
