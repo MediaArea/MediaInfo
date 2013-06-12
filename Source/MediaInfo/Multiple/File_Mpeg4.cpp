@@ -668,6 +668,13 @@ void File_Mpeg4::Streams_Finish()
                 Fill(StreamKind_Last, StreamPos_Last, "Source_Original", Source_Original, true);
                 Fill(StreamKind_Last, StreamPos_Last, "Source_Original_Info", Source_Original_Info, true);
             }
+            if (StreamKind_Last==Stream_Audio
+             && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)!=__T("PCM")
+             && !Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original).empty())
+            {
+                Clear(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 6, 10, true); //The PCM channel count is fake
+            }
 
             //Muxing Mode
             Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", Temp->second.MI->Get(Stream_General, 0, General_Format));

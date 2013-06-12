@@ -337,6 +337,18 @@ void File_Mk::Streams_Finish()
               || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("Vorbis")))
                 Clear(Stream_Audio, StreamPos_Last, Audio_BitDepth); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
+            //Special case: 5.1
+            if (StreamKind_Last==Stream_Audio
+             && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("AC-3")
+              || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("E-AC-3")
+              || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("DTS"))
+             && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original)==__T("6")
+             && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_)==__T("5"))
+            {
+                Clear(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 6, 10, true); //Some muxers do not count LFE in the channel count, let's say it is normal
+            }
+
             //VFR
             if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode)==__T("VFR") && Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Original).empty())
             {

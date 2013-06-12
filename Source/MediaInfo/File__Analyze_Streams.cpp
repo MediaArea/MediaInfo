@@ -1475,10 +1475,24 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     }
     if (StreamKind==Stream_Audio)
     {
-        if (!Channels_Temp.empty() && Channels_Temp!=Retrieve(Stream_Audio, StreamPos_To, Audio_Channel_s_))
-        {
-            Fill(Stream_Audio, StreamPos_To, Audio_Channel_s__Original, (*Stream)[Stream_Audio][StreamPos_To][Audio_Channel_s_], true);
-            Fill(Stream_Audio, StreamPos_To, Audio_Channel_s_, Channels_Temp, true);
+        if (!Channels_Temp.empty())
+        {    
+            //Test with legacy streams information
+            bool IsOk=(Channels_Temp==Retrieve(Stream_Audio, StreamPos_To, Audio_Channel_s_));
+            if (!IsOk)
+            {
+                ZtringList Temp; Temp.Separator_Set(0, __T(" / "));
+                Temp.Write(Retrieve(Stream_Audio, StreamPos_To, Audio_Channel_s_));
+                for (size_t Pos=0; Pos<Temp.size(); Pos++)
+                    if (Channels_Temp==Temp[Pos])
+                        IsOk=true;
+            }
+            
+            if (!IsOk)
+            {
+                Fill(Stream_Audio, StreamPos_To, Audio_Channel_s__Original, (*Stream)[Stream_Audio][StreamPos_To][Audio_Channel_s_], true);
+                Fill(Stream_Audio, StreamPos_To, Audio_Channel_s_, Channels_Temp, true);
+            }
         }
     }
     if (!Delay_Source_Temp.empty() && Delay_Source_Temp!=Retrieve(StreamKind, StreamPos_To, "Delay_Source"))

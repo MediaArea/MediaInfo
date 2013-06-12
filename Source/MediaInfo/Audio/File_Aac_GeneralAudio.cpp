@@ -254,8 +254,9 @@ void File_Aac::program_config_element()
 
     FILLING_BEGIN();
         //Integrity test
-        if (Aac_sampling_frequency[sampling_frequency_index_Temp]==0 || Channels_Front<Channels_Side || Channels_Side<Channels_Back)
+        if (Aac_sampling_frequency[sampling_frequency_index_Temp]==0 || Channels>24) // TODO: full_2023548870.mp4 is buggy
         {
+            Trusted_IsNot("sampling frequency / channels");
             Skip_BS(Data_BS_Remain(),                               "(Unknown frequency)");
             return;
         }

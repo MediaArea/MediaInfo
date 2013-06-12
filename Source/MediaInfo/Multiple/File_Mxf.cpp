@@ -1227,11 +1227,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         if (Descriptor->second.LinkedTrackID==Essence->second.TrackID)
         {
             if (Descriptor->second.StreamKind!=Stream_Max)
-            {
                 Descriptor->second.StreamPos=StreamPos_Last;
-                if (Descriptor->second.StreamKind==Stream_Audio && StreamKind_Last==Stream_Audio && Descriptor->second.ChannelCount!=(int32u)-1)
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Descriptor->second.ChannelCount);
-            }
             break;
         }
 
@@ -1348,6 +1344,15 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     }
     else //Normal
     {
+        //From descriptor
+        if ((*Parser)->Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM")) // MXF handles channel count only with PCM, not with compressed data 
+            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); ++Descriptor)
+                if (Descriptor->second.LinkedTrackID==Essence->second.TrackID && Descriptor->second.StreamKind==Stream_Audio && StreamKind_Last==Stream_Audio && Descriptor->second.ChannelCount!=(int32u)-1)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Descriptor->second.ChannelCount);
+                    break;
+                }
+
         Merge(*(*Parser), StreamKind_Last, 0, StreamPos_Last);
 
         for (size_t Pos=0; Pos<DMScheme1s_List.size(); Pos++)

@@ -239,6 +239,16 @@ void File_Riff::Streams_Finish ()
                     }
                     Fill(StreamKind_Last, StreamPos_Last, General_ID, Temp_ID, true);
                     Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Temp_ID_String, true);
+
+                    //Special case: Compressed audio hidden in PCM
+                    if (StreamKind_Last==Stream_Audio
+                     && Temp->second.Compression==1
+                     && Retrieve(Stream_General, 0, General_Format)==__T("Wave") //Some DTS or SMPTE ST 337 streams are coded "1"
+                     && !Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original).empty())
+                    {
+                        Clear(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original);
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 6, 10, true); //The PCM channel count is fake
+                    }
                 }
             else
             {
