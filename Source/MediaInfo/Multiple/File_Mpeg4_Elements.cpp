@@ -614,6 +614,7 @@ namespace Elements
     const int64u moov_trak_mdia_hdlr_soun=0x736F756E;
     const int64u moov_trak_mdia_hdlr_subp=0x73756270;
     const int64u moov_trak_mdia_hdlr_text=0x74657874;
+    const int64u moov_trak_mdia_hdlr_tmcd=0x746D6364;
     const int64u moov_trak_mdia_hdlr_vide=0x76696465;
     const int64u moov_trak_mdia_imap=0x696D6170;
     const int64u moov_trak_mdia_imap_sean=0x7365616E;
@@ -2868,6 +2869,14 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                     }
                 }
                 break;
+            case Elements::moov_trak_mdia_hdlr_tmcd :
+                if (StreamKind_Last!=Stream_Text)
+                {
+                    Stream_Prepare(Stream_Other);
+                    Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+                    Fill(Stream_Other, StreamPos_Last, Other_Format, "QuickTime TC");
+                }
+                break;
             case Elements::moov_trak_mdia_hdlr_subp :
                 if (StreamKind_Last!=Stream_Text)
                 {
@@ -3220,24 +3229,12 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_gmin()
 void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd()
 {
     Element_Name("TimeCode");
-
-    //Filling
-    Stream_Prepare(Stream_Other);
-    Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
-    Fill(Stream_Other, StreamPos_Last, Other_Format, "QuickTime TC");
-    //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_gmhd_tcmi()
 {
     moov_trak_mdia_minf_gmhd_tmcd_tcmi();
-
-    //Filling
-    Stream_Prepare(Stream_Other);
-    Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
-    Fill(Stream_Other, StreamPos_Last, Other_Format, "QuickTime TC");
-    //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
 }
 
 //---------------------------------------------------------------------------
@@ -3666,6 +3663,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
         if (tc->TimeScale==25 && tc->FrameDuration==100)
             tc->TimeScale=2500;
 
+        if (StreamKind_Last!=Stream_Other)
+        {
+            Stream_Prepare(Stream_Other);
+            Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+            Fill(Stream_Other, StreamPos_Last, Other_Format, "QuickTime TC");
+            Streams[moov_trak_tkhd_TrackID].StreamKind=Stream_Other;
+            Streams[moov_trak_tkhd_TrackID].StreamPos=StreamPos_Last;
+        }
+ 
         //Filling
         Streams[moov_trak_tkhd_TrackID].TimeCode=tc;
 
@@ -3705,7 +3711,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd_name()
     Get_Local(Size, Value,                                      "Value");
 
     FILLING_BEGIN();
-        Fill(Stream_General, 0, General_OriginalSourceMedium, Value);
+        Fill(Stream_Other, StreamPos_Last, "Title", Value);
     FILLING_END();
 }
 
