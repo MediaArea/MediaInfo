@@ -23,6 +23,7 @@ x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
 x #B765, Matroska: was parsing the complete file if a stream indicated in the header is not present
 x #763, MXF: detection of incoherency of channel count between bitstream and wrapper
 x #B762, Matroska: detecting 23.976 frame rate (instead of 23.962 fps due to imprecise timestamp)
+x #759, QuickTime: detection of time codes having tcmi not embedded in tmcd box
 x Matroska: crash with some malformed files
 x MOV: crash/long parsing with some malformed files
 x AC-3: crashes and freezes fix

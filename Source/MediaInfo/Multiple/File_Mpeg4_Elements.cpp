@@ -638,6 +638,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_gmhd_gmin=0x676D696E;
     const int64u moov_trak_mdia_minf_gmhd_tmcd=0x746D6364;
     const int64u moov_trak_mdia_minf_gmhd_tmcd_tcmi=0x74636D69;
+    const int64u moov_trak_mdia_minf_gmhd_tcmi=0x74636D69;
     const int64u moov_trak_mdia_minf_hint=0x68696E74;
     const int64u moov_trak_mdia_minf_hdlr=0x68646C72;
     const int64u moov_trak_mdia_minf_hmhd=0x686D6864;
@@ -952,6 +953,7 @@ void File_Mpeg4::Data_Parse()
                             ATOM_BEGIN
                             ATOM(moov_trak_mdia_minf_gmhd_tmcd_tcmi)
                             ATOM_END
+                        ATOM(moov_trak_mdia_minf_gmhd_tcmi)
                         ATOM_END
                     ATOM(moov_trak_mdia_minf_hint)
                     ATOM(moov_trak_mdia_minf_hmhd)
@@ -3218,6 +3220,18 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_gmin()
 void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd()
 {
     Element_Name("TimeCode");
+
+    //Filling
+    Stream_Prepare(Stream_Other);
+    Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+    Fill(Stream_Other, StreamPos_Last, Other_Format, "QuickTime TC");
+    //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_gmhd_tcmi()
+{
+    moov_trak_mdia_minf_gmhd_tmcd_tcmi();
 
     //Filling
     Stream_Prepare(Stream_Other);

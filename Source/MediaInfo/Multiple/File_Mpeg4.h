@@ -124,6 +124,7 @@ private :
     void moov_trak_mdia_minf_gmhd_gmin();
     void moov_trak_mdia_minf_gmhd_tmcd();
     void moov_trak_mdia_minf_gmhd_tmcd_tcmi();
+    void moov_trak_mdia_minf_gmhd_tcmi();
     void moov_trak_mdia_minf_hint();
     void moov_trak_mdia_minf_hdlr();
     void moov_trak_mdia_minf_hmhd();
