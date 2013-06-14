@@ -19,6 +19,7 @@ Version 0.7.64, 2013-
 + Id3v2: reading of all Id3v2 blocks (no more only the first one) at the beginning of the file
 + MPEG-4: support of few additional iTunes tags, thanks to Kurtnoise
 + AVI: detection of Ut Video, thanks to Kurtnoise
++ MXF: detection of Dolby E even if EssenceCompression is not SMPTE 337
 x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
 x #B765, Matroska: was parsing the complete file if a stream indicated in the header is not present
 x #763, MXF: detection of incoherency of channel count between bitstream and wrapper
