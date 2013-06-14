@@ -1356,6 +1356,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
             File_SmpteSt0337* Parser=new File_SmpteSt0337;
             Parser->Container_Bits=SampleSize;
             Parser->Endianness='L';
+            Parser->Aligned=true;
 
             Audios[Pos].Parsers.push_back(Parser);
         }

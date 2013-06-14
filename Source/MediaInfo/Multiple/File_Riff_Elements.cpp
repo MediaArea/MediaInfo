@@ -675,6 +675,27 @@ void File_Riff::AIFF_COMM()
     Stream_ID=(int32u)-1;
     stream_Count=1;
 
+    //Specific cases
+    #if defined(MEDIAINFO_SMPTEST0337_YES)
+    if (Retrieve(Stream_Audio, 0, Audio_CodecID).empty() && numChannels==2 && sampleSize<=32 && sampleRate==48000) //Some SMPTE ST 337 streams are hidden in PCM stream
+    {
+        File_SmpteSt0337* Parser=new File_SmpteSt0337;
+        Parser->Endianness='B';
+        Parser->Aligned=true;
+        Parser->Container_Bits=(int8u)sampleSize;
+        Parser->ShouldContinueParsing=true;
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_Unpacketize_Get())
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+                Demux_Level=4; //Intermediate
+            }
+        #endif //MEDIAINFO_DEMUX
+        Stream[Stream_ID].Parsers.push_back(Parser);
+    }
+    #endif
+
     #if defined(MEDIAINFO_PCM_YES)
         File_Pcm* Parser=new File_Pcm;
         Parser->Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID);
@@ -1220,6 +1241,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         {
             File_SmpteSt0337* Parser=new File_SmpteSt0337;
             Parser->Container_Bits=(int8u)(AvgBytesPerSec*8/SamplesPerSec/Channels);
+            Parser->Aligned=true;
             Parser->ShouldContinueParsing=true;
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_Unpacketize_Get() && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))

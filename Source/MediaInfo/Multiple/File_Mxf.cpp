@@ -9568,6 +9568,7 @@ void File_Mxf::ChooseParser_SmpteSt0337(const essences::iterator &Essence, const
         }
         else
             Parser->Endianness='L';
+        Parser->Aligned=true;
 
         #if MEDIAINFO_DEMUX
             if (Demux_UnpacketizeContainer)
