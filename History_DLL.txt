@@ -27,6 +27,7 @@ x #B765, Matroska: was parsing the complete file if a stream indicated in the he
 x #763, MXF: detection of incoherency of channel count between bitstream and wrapper
 x #B762, Matroska: detecting 23.976 frame rate (instead of 23.962 fps due to imprecise timestamp)
 x #759, QuickTime: detection of time codes having tcmi not embedded in tmcd box
+x #B766, RMVB: a/v delay is incorrect, currently disabling it
 x Matroska: crash with some malformed files
 x MOV: crash/long parsing with some malformed files
 x AC-3: crashes and freezes fix
