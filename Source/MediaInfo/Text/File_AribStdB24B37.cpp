@@ -356,9 +356,9 @@ void File_AribStdB24B37::Read_Buffer_Continue()
     if (ParseCcis)
     {
         Skip_C4(                                                "CCIS_code");
-        Get_B1 (   Caption_conversion_type,                     "Caption_conversion_type"); Param_Info(AribStdB24B37_Caption_conversion_type(Caption_conversion_type));
+        Get_B1 (   Caption_conversion_type,                     "Caption_conversion_type"); Param_Info1(AribStdB24B37_Caption_conversion_type(Caption_conversion_type));
         BS_Begin();
-        Info_S1(2, DRCS_conversion_type,                        "DRCS_conversion_type"); Param_Info(AribStdB24B37_DRCS_conversion_type(DRCS_conversion_type));
+        Info_S1(2, DRCS_conversion_type,                        "DRCS_conversion_type"); Param_Info1(AribStdB24B37_DRCS_conversion_type(DRCS_conversion_type));
         Skip_S1(6,                                              "reserved");
         BS_End();
         BS_End();
