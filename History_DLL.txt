@@ -22,6 +22,7 @@ Version 0.7.64, 2013-
 + MXF: detection of Dolby E even if EssenceCompression is not SMPTE 337
 + AIFF: detection of Dolby E
 + AIFF: detection of not aligned Dolby E
++ ARIB B24/B37: Caption_conversion_type display (HD, SD, Mobile)
 x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
 x #B765, Matroska: was parsing the complete file if a stream indicated in the header is not present
 x #763, MXF: detection of incoherency of channel count between bitstream and wrapper
