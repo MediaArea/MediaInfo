@@ -681,7 +681,6 @@ void File_Riff::AIFF_COMM()
     {
         File_SmpteSt0337* Parser=new File_SmpteSt0337;
         Parser->Endianness='B';
-        Parser->Aligned=true;
         Parser->Container_Bits=(int8u)sampleSize;
         Parser->ShouldContinueParsing=true;
         #if MEDIAINFO_DEMUX
