@@ -1601,7 +1601,7 @@ bool File_Mpeg4::BookMark_Needed()
                             }
                         #endif //MEDIAINFO_DEMUX
                     }
-                    else
+                    else if (stsc_Pos<Temp->second.stsc.size())
                     {
                         //Same size per sample
                         int64u Chunk_Offset=0;
