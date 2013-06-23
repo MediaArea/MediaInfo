@@ -204,8 +204,6 @@ bool File_Jpeg::FileHeader_Begin()
         return false;
     }
 
-    Accept();
-
     //All should be OK...
     return true;
 }
@@ -496,6 +494,7 @@ void File_Jpeg::SIZ()
         if (Frame_Count==0 && Field_Count==0)
         {
             Accept("JPEG 2000");
+            Fill("JPEG 2000");
 
             if (Count_Get(StreamKind_Last)==0)
                 Stream_Prepare(StreamKind_Last);
@@ -600,7 +599,7 @@ void File_Jpeg::SOD()
     SOS_SOD_Parsed=true;
     if (Interlaced)
         Field_Count++;
-    if (!Interlaced && Field_Count%2==0)
+    if (!Interlaced || Field_Count%2==0)
     {
         Frame_Count++;
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
@@ -643,6 +642,7 @@ void File_Jpeg::SOF_()
         if (Frame_Count==0 && Field_Count==0)
         {
             Accept("JPEG");
+            Fill("JPEG");
 
             if (Count_Get(StreamKind_Last)==0)
                 Stream_Prepare(StreamKind_Last);
@@ -770,7 +770,7 @@ void File_Jpeg::SOS()
     SOS_SOD_Parsed=true;
     if (Interlaced)
         Field_Count++;
-    if (!Interlaced && Field_Count%2==0)
+    if (!Interlaced || Field_Count%2==0)
     {
         Frame_Count++;
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
@@ -826,6 +826,8 @@ void File_Jpeg::APP0_AVI1()
     FILLING_BEGIN();
         if (Frame_Count==0 && Field_Count==0)
         {
+            Accept();
+
             switch (FieldOrder)
             {
                 case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); Fill(Stream_Video, 0, Video_ScanType, "Progressive"); break;
