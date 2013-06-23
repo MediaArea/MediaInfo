@@ -786,7 +786,7 @@ void File_Aac::section_data()
             sect_len+=sect_len_incr;
             sect_start[g][i]=k;
             sect_end[g][i]=k+sect_len;
-            for (int8u sfb=k; sfb<k+sect_len; sfb++)
+            for (int16u sfb=k; sfb<k+sect_len; sfb++)
                 sfb_cb[g][sfb]=sect_cb[g][i];
             k+= sect_len;
             i++;

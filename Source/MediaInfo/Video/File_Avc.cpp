@@ -317,6 +317,9 @@ File_Avc::File_Avc()
     MustParse_SPS_PPS=false;
     SizedBlocks=false;
 
+    //Temporal references
+    TemporalReferences_DelayedElement=NULL;
+
     //Text
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         GA94_03_Parser=NULL;
