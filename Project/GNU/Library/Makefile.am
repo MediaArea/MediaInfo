@@ -171,7 +171,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc_Duplicate.cpp \
                        ../../../Source/MediaInfo/Video/File_AvsV.cpp \
-                       ../../../Source/MediaInfo/Video/File_Canopuscpp \
+                       ../../../Source/MediaInfo/Video/File_Canopus.cpp \
                        ../../../Source/MediaInfo/Video/File_Dirac.cpp \
                        ../../../Source/MediaInfo/Video/File_Flic.cpp \
                        ../../../Source/MediaInfo/Video/File_Fraps.cpp \

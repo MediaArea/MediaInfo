@@ -71,7 +71,7 @@
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
 #if defined(MEDIAINFO_SUBRIP_YES)
-    #include "MediaInfo/Text/File_Subrip.h"
+    #include "MediaInfo/Text/File_SubRip.h"
 #endif
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
