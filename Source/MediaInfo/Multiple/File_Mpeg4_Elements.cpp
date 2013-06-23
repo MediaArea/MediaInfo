@@ -2689,7 +2689,7 @@ void File_Mpeg4::moov_mvhd()
     Get_DATE1904_DEPENDOFVERSION(Date_Created,                  "Creation time");
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
     Get_B4(TimeScale,                                           "Time scale"); Param_Info1(Ztring::ToZtring(TimeScale)+__T(" Hz"));
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info1(Ztring::ToZtring((int64u)Duration*1000/TimeScale)+__T(" ms"));
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (TimeScale) Param_Info1(Ztring::ToZtring((int64u)Duration*1000/TimeScale)+__T(" ms"));
     Get_B4 (Rate,                                               "Preferred rate"); Param_Info1(Ztring::ToZtring(((float32)Rate)/0x10000));
     Get_B2 (Volume,                                             "Preferred volume"); Param_Info1(Ztring::ToZtring(((float32)Volume)/0x100));
     Skip_XX(10,                                                 "Reserved");
@@ -2767,8 +2767,8 @@ void File_Mpeg4::moov_trak_edts_elst()
     {
         stream::edts_struct edts;
         Element_Begin1("Entry");
-        Get_B4 (edts.Duration,                                  "Track duration"); Param_Info2((int64u)edts.Duration*1000/TimeScale, " ms");
-        Get_B4 (edts.Delay,                                     "Media time"); Param_Info2C((edts.Delay!=(int32u)-1), (int64u)edts.Delay*1000/TimeScale, " ms");
+        Get_B4 (edts.Duration,                                  "Track duration"); if (TimeScale) Param_Info2((int64u)edts.Duration*1000/TimeScale, " ms");
+        Get_B4 (edts.Delay,                                     "Media time"); if (TimeScale) Param_Info2C((edts.Delay!=(int32u)-1), (int64u)edts.Delay*1000/TimeScale, " ms");
         Get_B4 (edts.Rate,                                      "Media rate"); Param_Info1(((float)edts.Rate)/0x10000);
         Element_End0();
 
@@ -2782,7 +2782,7 @@ void File_Mpeg4::moov_trak_load()
     Element_Name("Preload");
 
     //Parsing
-    Info_B4(PreloadTime,                                        "Preload time"); Param_Info2(PreloadTime*1000/TimeScale, " ms");
+    Info_B4(PreloadTime,                                        "Preload time"); if (TimeScale) Param_Info2(PreloadTime*1000/TimeScale, " ms");
     Info_B4(PreloadFlags,                                       "Flags");
         Skip_Flags(PreloadFlags, 0,                             "PreloadAlways");
         Skip_Flags(PreloadFlags, 1,                             "TrackEnabledPreload");
@@ -2976,7 +2976,7 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
     Get_DATE1904_DEPENDOFVERSION(Date_Created,                  "Creation time");
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
     Get_B4(TimeScale,                                           "Time scale");
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (TimeScale) {Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");}
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (TimeScale) Param_Info2(Duration*1000/TimeScale, " ms");
     Get_B2 (Language,                                           "Language"); Param_Info1(Language_Get(Language));
     Skip_B2(                                                    "Quality");
 

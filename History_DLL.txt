@@ -30,6 +30,7 @@ x #B762, Matroska: detecting 23.976 frame rate (instead of 23.962 fps due to imp
 x #B759, QuickTime: detection of time codes having tcmi not embedded in tmcd box
 x #B766, RMVB: a/v delay is incorrect, currently disabling it
 x #B768, MPEG-4, crash with some MPEG-4 files
+x #B769, MPEG-4, crash with some MPEG-4 files
 x Matroska: crash with some malformed files
 x MOV: crash/long parsing with some malformed files
 x AC-3: crashes and freezes fix
