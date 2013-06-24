@@ -655,14 +655,19 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             
             //Language
             std::map<int8u, string>  Eia708_Languages; //Key is caption_service_number
-            Eia708_Languages.insert(Temp->Eia708_Languages.begin(), Temp->Eia708_Languages.end()); //From video descriptor
+            Eia708_Languages.insert(Temp->Eia708_Languages.begin(), Temp->Eia708_Languages.end()); //708 from video descriptor
+            bool Eia608_FromDescriptor=Temp->Eia608_IsPresent;
             for (size_t ProgramPos=0; ProgramPos<Complete_Stream->Streams[ID_Video]->program_numbers.size(); ProgramPos++)
             {
-                //From program descriptor
+                //608 from program descriptor
+                if (!Eia608_FromDescriptor)
+                    Eia608_FromDescriptor=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia608_IsPresent;
+                
+                //708 from program descriptor
                 Eia708_Languages.insert(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia708_Languages.begin(),
                                         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia708_Languages.end());
                 
-                //From ATSC EIT
+                //608/708 from ATSC EIT
                 if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id_IsValid)
                 {
                     int16u source_id=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id;
@@ -670,11 +675,16 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                     if (Source!=Complete_Stream->Sources.end())
                         for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ++ATSC_EPG_Block)
                             for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); ++Event)
+                            {
                                 Eia708_Languages.insert(Event->second.Eia708_Languages.begin(), Event->second.Eia708_Languages.end());
+                                if (!Eia608_FromDescriptor)
+                                    Eia608_FromDescriptor=Event->second.Eia608_IsPresent;
+                            }
                 }
             }
 
             size_t Text_Count=Temp->Parser->Count_Get(Stream_Text);
+            bool Eia608_IsPresent=false;
             for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
             {
                 Ztring Parser_ID=Temp->Parser->Retrieve(Stream_Text, Text_Pos, Text_ID);
@@ -715,9 +725,45 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                         Eia708_Languages.erase(Language);
                     }
                 }
+                if (Retrieve(Stream_Text, StreamPos_Last, Text_Format).find(__T("EIA-608"))!=string::npos)
+                    Eia608_IsPresent=true;
             }
 
-            //Undetected text streams but present is service_descriptor
+            //Undetected text streams but present is service_descriptor - 608
+            if (Eia608_FromDescriptor && !Eia608_IsPresent)
+            {
+                Ztring ID=Retrieve(Stream_Video, Temp->StreamPos, Video_ID)+__T("-608");
+                Ztring ID_String=Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+__T("-608");
+                StreamPos_Last=(size_t)-1;
+                for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                    if (Retrieve(Stream_Text, Pos, Text_ID)==ID && Retrieve(Stream_Text, Pos, "MuxingMode")==__T("A/53 / DTVCC Transport"))
+                    {
+                        StreamPos_Last=Pos;
+                        break;
+                    }
+
+                if (StreamPos_Last==(size_t)-1)
+                {
+                    Stream_Prepare(Stream_Text, StreamPos_Last);
+                    Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-608");
+                    Fill(Stream_Text, StreamPos_Last, Text_StreamSize, 0);
+                    Fill(Stream_Text, StreamPos_Last, Text_BitRate_Mode, "CBR");
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", __T("A/53 / DTVCC Transport"));
+                }
+
+                if (!IsSub)
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", __T("Muxed in Video #")+Ztring().From_Number(Temp->StreamPos+1), true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID_String, true);
+                Fill(Stream_Text, StreamPos_Last, General_StreamOrder, Retrieve(Stream_Video, Temp->StreamPos, General_StreamOrder), true);
+                Fill(Stream_Text, StreamPos_Last, Text_MenuID, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID), true);
+                Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID_String), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp->StreamPos, Video_Duration), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp->StreamPos, Video_Delay), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Temp->StreamPos, Video_Delay_Source), true);
+            }
+
+            //Undetected text streams but present is service_descriptor - 708
             for (std::map<int8u, string>::iterator Language=Eia708_Languages.begin(); Language!=Eia708_Languages.end(); Language++)
             {
                 //TODO: merge both methods (see above)

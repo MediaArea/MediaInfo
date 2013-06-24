@@ -67,6 +67,7 @@ struct complete_stream
             bool   Update_Needed_StreamCount;
             bool   Update_Needed_StreamPos;
             bool   Update_Needed_Info;
+            bool   Eia608_IsPresent;
 
             //DVB
             struct dvb_epg_block
@@ -141,6 +142,7 @@ struct complete_stream
                 Update_Needed_StreamPos=false;
                 Update_Needed_Info=false;
                 DVB_EPG_Blocks_IsUpdated=false;
+                Eia608_IsPresent=false;
                 Scte35=NULL;
             }
         };
@@ -289,6 +291,7 @@ struct complete_stream
         bool                                        IsUpdated_IsRegistered;
         bool                                        IsUpdated_Info;
         bool                                        CA_system_ID_MustSkipSlices;
+        bool                                        Eia608_IsPresent;
         size_t                                      IsScrambled;
         int16u                                      CA_system_ID;
         int16u                                      SubStream_pid;
@@ -354,6 +357,7 @@ struct complete_stream
             IsScrambled=false;
             CA_system_ID_MustSkipSlices=false;
             CA_system_ID=0x0000;
+            Eia608_IsPresent=false;
             SubStream_pid=0x0000;
             #if MEDIAINFO_IBI
                 Ibi_SynchronizationOffset_BeginOfFrame=(int64u)-1;
@@ -437,10 +441,12 @@ struct complete_stream
                 Ztring  title;
                 std::map<int8u, string>  Eia708_Languages; //Key is caption_service_number
                 std::map<int16u, Ztring> texts;
+                bool                     Eia608_IsPresent;
 
                 event()
                 {
                     start_time=(int32u)-1;
+                    Eia608_IsPresent=false;
                 }
             };
 
