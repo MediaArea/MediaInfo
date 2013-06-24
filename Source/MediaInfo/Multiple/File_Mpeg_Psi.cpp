@@ -1168,6 +1168,7 @@ void File_Mpeg_Psi::Table_02()
     BS_End();
 
     //Descriptors
+    transport_stream_id=Complete_Stream->transport_stream_id;
     program_number=table_id_extension;
     program_number_IsValid=true;
     if (Descriptors_Size>0)

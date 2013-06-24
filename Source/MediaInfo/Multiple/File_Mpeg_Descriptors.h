@@ -48,6 +48,7 @@ struct complete_stream
         struct program
         {
             bool HasChanged;
+            std::map<int8u, string> Eia708_Languages; //Sometimes, it is in program descriptors instead of inside the video stream descriptors //Key is caption_service_number
             std::map<std::string, Ztring> Infos;
             std::map<std::string, Ztring> ExtraInfos_Content;
             std::map<std::string, Ztring> ExtraInfos_Option;
@@ -226,7 +227,7 @@ struct complete_stream
         table_ids                                   Table_IDs; //Key is table_id
         std::map<std::string, Ztring>               Infos;
         std::map<std::string, Ztring>               Infos_Option;
-        std::map<int8u, Ztring>                     Languages; //Key is caption_service_number or 128+line21_field
+        std::map<int8u, string>                     Eia708_Languages; //Key is caption_service_number
         struct teletext
         {
             std::map<std::string, Ztring>           Infos;
@@ -434,7 +435,7 @@ struct complete_stream
                 int32u  start_time;
                 Ztring  duration;
                 Ztring  title;
-                std::map<int8u, Ztring>  Languages; //Key is caption_service_number or 128+line21_field
+                std::map<int8u, string>  Eia708_Languages; //Key is caption_service_number
                 std::map<int16u, Ztring> texts;
 
                 event()

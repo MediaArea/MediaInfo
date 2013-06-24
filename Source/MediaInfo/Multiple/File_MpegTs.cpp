@@ -646,9 +646,34 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
         }
 
         //Special cases
-        if (Temp->Parser && Temp->Parser->Count_Get(Stream_Video) && Temp->Parser->Count_Get(Stream_Text))
+        if (Temp->Parser && Temp->Parser->Count_Get(Stream_Video))
         {
-            //Video and Text are together
+            //Video and Text may be together
+
+            //Retrieving IDs
+            int16u ID_Video=Retrieve(Stream_Video, StreamPos_Last, Text_ID).To_int16u();
+            
+            //Language
+            std::map<int8u, string>  Eia708_Languages; //Key is caption_service_number
+            Eia708_Languages.insert(Temp->Eia708_Languages.begin(), Temp->Eia708_Languages.end()); //From video descriptor
+            for (size_t ProgramPos=0; ProgramPos<Complete_Stream->Streams[ID_Video]->program_numbers.size(); ProgramPos++)
+            {
+                //From program descriptor
+                Eia708_Languages.insert(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia708_Languages.begin(),
+                                        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia708_Languages.end());
+                
+                //From ATSC EIT
+                if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id_IsValid)
+                {
+                    int16u source_id=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id;
+                    complete_stream::sources::iterator Source=Complete_Stream->Sources.find(source_id);
+                    if (Source!=Complete_Stream->Sources.end())
+                        for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ++ATSC_EPG_Block)
+                            for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); ++Event)
+                                Eia708_Languages.insert(Event->second.Eia708_Languages.begin(), Event->second.Eia708_Languages.end());
+                }
+            }
+
             size_t Text_Count=Temp->Parser->Count_Get(Stream_Text);
             for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
             {
@@ -659,14 +684,62 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 Ztring ID_String=Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+__T('-')+Parser_ID;
                 StreamPos_Last=(size_t)-1;
                 for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
-                    if (Retrieve(Stream_Text, Pos, Text_ID)==ID && Retrieve(Stream_Video, Pos, "MuxingMode")==Temp->Parser->Retrieve(Stream_Text, Text_Pos, "MuxingMode"))
+                    if (Retrieve(Stream_Text, Pos, Text_ID)==ID && Retrieve(Stream_Text, Pos, "MuxingMode")==Temp->Parser->Retrieve(Stream_Text, Text_Pos, "MuxingMode"))
                     {
                         StreamPos_Last=Pos;
                         break;
                     }
                 if (StreamPos_Last==(size_t)-1)
                     Stream_Prepare(Stream_Text, StreamPos_Last);
+                if (!IsSub)
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", __T("Muxed in Video #")+Ztring().From_Number(Temp->StreamPos+1), true);
                 Merge(*Temp->Parser, Stream_Text, Text_Pos, StreamPos_Last);
+
+                Fill(Stream_Text, StreamPos_Last, Text_ID, ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, ID_String, true);
+                Fill(Stream_Text, StreamPos_Last, General_StreamOrder, Retrieve(Stream_Video, Temp->StreamPos, General_StreamOrder), true);
+                Fill(Stream_Text, StreamPos_Last, Text_MenuID, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID), true);
+                Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp->StreamPos, Video_MenuID_String), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp->StreamPos, Video_Duration), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp->StreamPos, Video_Delay), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Temp->StreamPos, Video_Delay_Source), true);
+
+                if (Retrieve(Stream_Text, StreamPos_Last, Text_Format).find(__T("EIA-708"))!=string::npos && Retrieve(Stream_Text, StreamPos_Last, Text_Language).empty())
+                {
+                    Ztring ID_Complete=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                    int8u  ID_Text=Ztring(ID_Complete.substr(ID_Complete.rfind(__T('-'))+1, string::npos)).To_int8u();
+                    std::map<int8u, string>::iterator Language=Eia708_Languages.find(ID_Text);
+                    if (Language!=Eia708_Languages.end())
+                    {
+                        Fill(Stream_Text, StreamPos_Last, Text_Language, Language->second);
+                        Eia708_Languages.erase(Language);
+                    }
+                }
+            }
+
+            //Undetected text streams but present is service_descriptor
+            for (std::map<int8u, string>::iterator Language=Eia708_Languages.begin(); Language!=Eia708_Languages.end(); Language++)
+            {
+                //TODO: merge both methods (see above)
+                Ztring Parser_ID=Ztring::ToZtring(Language->first);
+                Ztring ID=Retrieve(Stream_Video, Temp->StreamPos, Video_ID)+__T('-')+Parser_ID;
+                Ztring ID_String=Retrieve(Stream_Video, Temp->StreamPos, Video_ID_String)+__T('-')+Parser_ID;
+                StreamPos_Last=(size_t)-1;
+                for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                    if (Retrieve(Stream_Text, Pos, Text_ID)==ID && Retrieve(Stream_Text, Pos, "MuxingMode")==__T("A/53 / DTVCC Transport"))
+                    {
+                        StreamPos_Last=Pos;
+                        break;
+                    }
+                if (StreamPos_Last==(size_t)-1)
+                {
+                    Stream_Prepare(Stream_Text, StreamPos_Last);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, Language->first); //TODO: put this in File_Eia708
+                    Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
+                    Fill(Stream_Text, StreamPos_Last, Text_StreamSize, 0);
+                    Fill(Stream_Text, StreamPos_Last, Text_BitRate_Mode, "CBR");
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", __T("A/53 / DTVCC Transport"));
+                }
 
                 if (!IsSub)
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", __T("Muxed in Video #")+Ztring().From_Number(Temp->StreamPos+1), true);
@@ -679,46 +752,8 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp->StreamPos, Video_Delay), true);
                 Fill(Stream_Text, StreamPos_Last, Text_Delay_Source, Retrieve(Stream_Video, Temp->StreamPos, Video_Delay_Source), true);
 
-                if (Retrieve(Stream_Text, StreamPos_Last, Text_Format).find(__T("EIA-"))!=string::npos)
-                {
-                    //Retrieving IDs
-                    Ztring ID_Complete=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                    int16u ID_Video=ID_Complete.To_int16u();
-                    int8u  ID_Text=Ztring(ID_Complete.substr(ID_Complete.rfind(__T('-'))+1, string::npos)).To_int8u();
-                    if (ID_Complete.find(__T("-608-"))!=string::npos) //CEA-608 caption
-                        ID_Text+=128;
-
-                    //ATSC EIT
-                    for (size_t ProgramPos=0; ProgramPos<Complete_Stream->Streams[ID_Video]->program_numbers.size(); ProgramPos++)
-                    {
-                        if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id_IsValid)
-                        {
-                            int16u source_id=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id;
-                            complete_stream::sources::iterator Source=Complete_Stream->Sources.find(source_id);
-                            if (Source!=Complete_Stream->Sources.end())
-                            {
-                                bool IsFound=false;
-
-                                for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ++ATSC_EPG_Block)
-                                {
-                                    for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); ++Event)
-                                    {
-                                        if (!Event->second.Languages[ID_Text].empty())
-                                        {
-                                            Fill(Stream_Text, StreamPos_Last, Text_Language, Event->second.Languages[ID_Text]);
-                                            IsFound=true;
-                                            break;
-                                        }
-                                        if (IsFound)
-                                            break;
-                                    }
-                                    if (IsFound)
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
+                //Language
+                Fill(Stream_Text, StreamPos_Last, Text_Language, Language->second);
             }
 
             StreamKind_Last=Temp->StreamKind;

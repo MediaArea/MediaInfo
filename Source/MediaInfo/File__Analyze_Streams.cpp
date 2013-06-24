@@ -687,7 +687,12 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         }
         if (StreamKind==Stream_Text && Parameter==Text_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Text, StreamPos, Text_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
         {
-            Fill(Stream_Text, StreamPos, Text_Video_Delay, Value.To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s(), 10, true);
+            Ztring MuxingMode_MoreInfo=Get(Stream_Text, StreamPos, "MuxingMode_MoreInfo");
+            Ztring StreamID=MuxingMode_MoreInfo.SubString(__T("Muxed in Video #"), Ztring());
+            size_t StreamID_Int=(size_t)StreamID.To_int64u();
+            if (StreamID_Int)
+                StreamID_Int--;
+            Fill(Stream_Text, StreamPos, Text_Video_Delay, Value.To_int64s()-Retrieve(Stream_Video, StreamID_Int, Video_Delay).To_int64s(), 10, true);
             if (Retrieve(Stream_Text, StreamPos, Text_Video_Delay).To_int64u()==0)
                 for (size_t Pos=Text_Video_Delay+1; Pos<=Text_Video_Delay+4; Pos++)
                     if (Pos<(*Stream)[Stream_Text][StreamPos].size())
@@ -733,7 +738,12 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         }
         if (StreamKind==Stream_Text && Parameter==Text_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Text, StreamPos, Text_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
         {
-            Fill(Stream_Text, StreamPos, Text_Video0_Delay, Value.To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s(), 10, true);
+            Ztring MuxingMode_MoreInfo=Get(Stream_Text, StreamPos, "MuxingMode_MoreInfo");
+            Ztring StreamID=MuxingMode_MoreInfo.SubString(__T("Muxed in Video #"), Ztring());
+            size_t StreamID_Int=(size_t)StreamID.To_int64u();
+            if (StreamID_Int)
+                StreamID_Int--;
+            Fill(Stream_Text, StreamPos, Text_Video0_Delay, Value.To_int64s()-Retrieve(Stream_Video, StreamID_Int, Video_Delay).To_int64s(), 10, true);
             if (Retrieve(Stream_Text, StreamPos, Text_Video0_Delay).To_int64u()==0)
                 for (size_t Pos=Text_Video0_Delay+1; Pos<=Text_Video0_Delay+4; Pos++)
                     if (Pos<(*Stream)[Stream_Text][StreamPos].size())
