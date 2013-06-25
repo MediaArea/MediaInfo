@@ -708,7 +708,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     Sub->File_Offset=File_Offset+Buffer_Offset+Element_Offset;
     if (Sub->File_Size!=File_Size)
     {
-        for (size_t Pos=0; Pos<Sub->Element_Level; Pos++)
+        for (size_t Pos=0; Pos<=Sub->Element_Level; Pos++)
             if (Sub->Element[Pos].Next==Sub->File_Size)
                 Sub->Element[Pos].Next=File_Size;
         Sub->File_Size=File_Size;
@@ -1052,7 +1052,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
                 Event.Stream_Size=File_Size;
                 Event.Stream_Bytes_Padding=Buffer_PaddingBytes;
                 Event.Stream_Bytes_Junk=Buffer_JunkBytes;
-                if (!IsSub && MustSynchronize && !Synched)
+                if (!IsSub && MustSynchronize && !Synched && !UnSynched_IsNotJunk)
                     Event.Stream_Bytes_Junk+=Buffer_TotalBytes+Buffer_Offset-Buffer_TotalBytes_LastSynched;
             EVENT_END   ()
         }

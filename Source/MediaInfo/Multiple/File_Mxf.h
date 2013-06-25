@@ -766,6 +766,9 @@ protected :
     bool   Essences_FirstEssence_Parsed;
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
+    #if MEDIAINFO_ADVANCED
+        int64u Footer_Position;
+    #endif //MEDIAINFO_ADVANCED
     #if defined(MEDIAINFO_ANCILLARY_YES)
         File_Ancillary* Ancillary;
         bool            Ancillary_IsBinded;

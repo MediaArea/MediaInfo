@@ -911,6 +911,9 @@ File_Mxf::File_Mxf()
     SystemScheme1_TimeCodeArray_StartTimecode_ms=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
     Essences_FirstEssence_Parsed=false;
+    #if MEDIAINFO_ADVANCED
+        Footer_Position=(int64u)-1;
+    #endif //MEDIAINFO_ADVANCED
     ReferenceFiles=NULL;
     #if MEDIAINFO_NEXTPACKET
         ReferenceFiles_IsParsing=false;
@@ -1093,6 +1096,12 @@ void File_Mxf::Streams_Finish()
         }
     #endif //MEDIAINFO_NEXTPACKET
 
+    //Sizes
+    #if MEDIAINFO_ADVANCED
+        if (Footer_Position!=(int64u)-1)
+            Fill(Stream_General, 0, General_FooterSize, File_Size-Footer_Position);
+    #endif //MEDIAINFO_ADVANCED
+
     //Commercial names
     Streams_Finish_CommercialNames();
 
@@ -1190,7 +1199,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
             if (DMSegment->second.TrackIDs[Pos]==TrackID)
                 DMScheme1s_List.push_back(DMSegment->second.Framework);
 
-    if (Config->ParseSpeed<=1.0)
+    if (Config->ParseSpeed<1.0)
     {
         Fill(*Parser);
         (*Parser)->Open_Buffer_Unsynch();
@@ -2040,6 +2049,7 @@ void File_Mxf::Read_Buffer_Continue()
     {
         if (Config->ParseSpeed>=1.0)
         {
+            bool Buffer_End_IsUpdated=false;
             if (Config->File_IsGrowing && !Config->File_IsNotGrowingAnymore)
             {
                 File F;
@@ -2083,6 +2093,11 @@ void File_Mxf::Read_Buffer_Continue()
                                             Fill(Stream_General, 0, General_Format_Settings, MI.Get(Stream_General, 0, General_Format_Settings), true);
                                             Fill(Stream_General, 0, General_Duration, MI.Get(Stream_General, 0, General_Duration), true);
                                             Fill(Stream_General, 0, General_FileSize, MI.Get(Stream_General, 0, General_FileSize), true);
+                                            if (Buffer_End_Unlimited)
+                                            {
+                                                Buffer_End=MI.Get(Stream_General, 0, General_FileSize).To_int64u()-MI.Get(Stream_General, 0, General_FooterSize).To_int64u();
+                                                Buffer_End_IsUpdated=true;
+                                            }
                                         }
                                         }
                                         break;
@@ -2090,7 +2105,7 @@ void File_Mxf::Read_Buffer_Continue()
                         }
                     }
 
-                if (Buffer_End && Buffer_End_Unlimited)
+                if (Buffer_End && Buffer_End_Unlimited && !Buffer_End_IsUpdated)
                     Buffer_End=Config->File_Size; //Updating Clip end in case the
             }
 
@@ -6507,6 +6522,7 @@ void File_Mxf::PartitionMetadata()
         }
 
     if ((Code.lo&0xFF0000)==0x040000) //If Footer Partition Pack
+    {
         switch ((Code.lo>>8)&0xFF)
         {
             case 0x02 : 
@@ -6515,6 +6531,12 @@ void File_Mxf::PartitionMetadata()
                         break;
             default   : ;
         }
+
+        #if MEDIAINFO_ADVANCED
+            if (Footer_Position==(int64u)-1)
+                Footer_Position=File_Offset+Buffer_Offset-Header_Size;
+        #endif //MEDIAINFO_ADVANCED
+    }
 
     PartitionPack_AlreadyParsed.insert(File_Offset+Buffer_Offset-Header_Size);
 }
