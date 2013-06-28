@@ -1743,13 +1743,13 @@ void File_MpegTs::Read_Buffer_AfterParsing()
              && !Complete_Stream->NoPatPmt)
             {
                 //Activating all streams as PES
+                Complete_Stream->Streams_NotParsedCount=(size_t)-1;
                 for (size_t StreamID=0; StreamID<0x2000; StreamID++)
                 {
                     delete Complete_Stream->Streams[StreamID]; Complete_Stream->Streams[StreamID]=new complete_stream::stream;
                 }
                 for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
                 {
-                    Complete_Stream->Streams_NotParsedCount=(size_t)-1;
                     Complete_Stream->Streams[StreamID]->Kind=complete_stream::stream::pes;
                     Complete_Stream->Streams[StreamID]->Searching_Payload_Start_Set(true);
                     Complete_Stream->Streams[StreamID]->Searching_Payload_Continue_Set(false);
@@ -2653,6 +2653,11 @@ void File_MpegTs::PES()
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 Complete_Stream->Streams[pid]->Searching_ParserTimeStamp_Start_Set(false);
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            if (!Complete_Stream->Streams[pid]->IsParsed && Complete_Stream->Streams_NotParsedCount)
+            {
+                Complete_Stream->Streams[pid]->IsParsed=true;
+                Complete_Stream->Streams_NotParsedCount--;
+            }
         }
         Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
 
@@ -2685,8 +2690,11 @@ void File_MpegTs::PES()
                 Complete_Stream->Streams[pid]->Searching_ParserTimeStamp_Start_Set(false);
                 Complete_Stream->Streams[pid]->Searching_ParserTimeStamp_End_Set(false);
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            if (!Complete_Stream->Streams[pid]->IsParsed && Complete_Stream->Streams_NotParsedCount)
+            {
                 Complete_Stream->Streams[pid]->IsParsed=true;
                 Complete_Stream->Streams_NotParsedCount--;
+            }
             return;
         }
 
@@ -2814,7 +2822,7 @@ void File_MpegTs::PES_Parse_Finish()
         {
             Complete_Stream->Streams[pid]->Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[pid]->Searching_Payload_Continue_Set(false);
-            if (Complete_Stream->Streams_NotParsedCount)
+            if (!Complete_Stream->Streams[pid]->IsParsed && Complete_Stream->Streams_NotParsedCount)
             {
                 Complete_Stream->Streams[pid]->IsParsed=true;
                 Complete_Stream->Streams_NotParsedCount--;
