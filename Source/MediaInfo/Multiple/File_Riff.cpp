@@ -935,13 +935,18 @@ bool File_Riff::BookMark_Needed()
         return false; //No need
 
     Stream_Structure_Temp=Stream_Structure.begin();
-    #if MEDIAINFO_MD5
-        if (Config->File_Md5_Get())
-            GoTo(0);
-        else
-    #endif //MEDIAINFO_MD5
-            if (!Stream_Structure.empty())
+    if (!Stream_Structure.empty())
+    {
+        #if MEDIAINFO_MD5
+            if (Config->File_Md5_Get())
+            {
+                GoTo(0);
+                Md5_ParseUpTo=Stream_Structure_Temp->first;
+            }
+            else
+        #endif //MEDIAINFO_MD5
                 GoTo(Stream_Structure_Temp->first);
+    }
     NeedOldIndex=false;
     SecondPass=true;
     Index_Pos.clear(); //We didn't succeed to find theses indexes :(
