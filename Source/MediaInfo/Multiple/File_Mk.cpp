@@ -1071,6 +1071,12 @@ void File_Mk::Segment()
 {
     Element_Name("Segment");
 
+    if (!Status[IsAccepted])
+    {
+        Accept("Matroska");
+        Fill(Stream_General, 0, General_Format, "Matroska"); //Default is Matroska
+    }
+
     Segment_Offset_Begin=File_Offset+Buffer_Offset;
     Segment_Offset_End=File_Offset+Buffer_Offset+Element_TotalSize_Get();
 }

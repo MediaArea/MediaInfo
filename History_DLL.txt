@@ -25,6 +25,7 @@ Version 0.7.64, 2013-
 + ARIB B24/B37: Caption_conversion_type display (HD, SD, Mobile)
 + MPEG-TS: displaying CEA-708 service and CEA-608 presence if the corresponding ATSC descriptor is present
 + MPEG-TS: quicker analysis in the case of quick parsing option
++ #F412, Matroska: Handling of files having no DocType
 x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
 x #B765, Matroska: was parsing the complete file if a stream indicated in the header is not present
 x #B763, MXF: detection of incoherency of channel count between bitstream and wrapper
