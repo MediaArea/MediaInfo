@@ -4589,6 +4589,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
             //Parsing
             Open_Buffer_Continue(Parser);
 
+            Parser->MustParse_SPS_PPS=false;
             Parser->SizedBlocks=true;  //Now this is SizeBlocks
         #else
             Skip_XX(Element_Size,                               "AVC Data");

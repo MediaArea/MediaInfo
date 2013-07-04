@@ -2909,7 +2909,7 @@ void File_Avc::pic_parameter_set()
         bool transform_8x8_mode_flag;
         Get_SB (transform_8x8_mode_flag,                        "transform_8x8_mode_flag");
         TEST_SB_SKIP(                                           "pic_scaling_matrix_present_flag");
-        for (int8u Pos=0; Pos<6+(transform_8x8_mode_flag?2:0); Pos++ )
+        for (int8u Pos=0; Pos<6+(transform_8x8_mode_flag?((*seq_parameter_set_Item)->chroma_format_idc!=3?2:6):0); Pos++ )
             {
                 TEST_SB_SKIP(                                   "pic_scaling_list_present_flag");
                     scaling_list(Pos<6?16:64);

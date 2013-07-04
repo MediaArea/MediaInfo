@@ -34,6 +34,7 @@ x #B759, QuickTime: detection of time codes having tcmi not embedded in tmcd box
 x #B766, RMVB: a/v delay is incorrect, currently disabling it
 x #B768, MPEG-4, crash with some MPEG-4 files
 x #B769, MPEG-4, crash with some MPEG-4 files
+x #B764, AVC: wrong parsing of some streams having pic_scaling_matrix
 x AVC, crash with some AVC streams
 x AAC, infinite loop with some AAC streams
 x FLV, infinite loop with some FLV files
