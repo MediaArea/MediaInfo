@@ -17,7 +17,7 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "http://mediainfo.sourceforge.net"
+            VALUE "CompanyName", "http://MediaArea.net/MediaInfo"
             VALUE "FileDescription", "MediaInfo Shell ToolTip"
             VALUE "FileVersion", "0,7,63,0"
             VALUE "InternalName", "MediaInfo_ToolTip.dll"

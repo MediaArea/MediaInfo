@@ -917,7 +917,7 @@ ScanOrder_Original;Original scan order
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
-Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Send HeaderFile;Please send me the Header file here : https://sourceforge.net/p/mediainfo/bugs/
 Separator_Columns;columns separator
 Separator_Lines;lines separator
 ServiceChannel;Service channel number
@@ -1016,7 +1016,7 @@ WebSite_General;Go to the web site of a player for this file
 WebSite_General_More;Go to the web site of a player for this file
 WebSite_Text;Go to the web site of this text codec
 WebSite_Text_More;Go to the web site (%Url%) to find this text codec
-WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Go to the web site of this video codec
 WebSite_Video_More;Go to the web site (%Url%) to find this video codec
 Width;Width

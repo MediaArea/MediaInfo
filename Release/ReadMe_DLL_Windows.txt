@@ -1,15 +1,12 @@
-MediaInfo.Dll - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2012 MediaArea.net SARL, Info@MediaArea.net
+MediaInfo.Dll - http://MediaArea.net/MediaInfo
+Copyright (c) MediaArea.net SARL, Info@MediaArea.net
 
-This program is freeware (LGLPv2+).
+This program is freeware (BSD-style license).
 See License.html for more information.
 
 
 For software developers
 -----------------------
-You can use it as you want (example: without this text file, without sources),
-but a reference to "http://mediainfo.sourceforge.net" in your software would be appreciated.
-
 There are examples for:
 - BCB: Borland C++ Builder 12 (aka 2009)
 - Delphi: Borland Delphi 12 (aka 2009)

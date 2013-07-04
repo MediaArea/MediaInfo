@@ -5,11 +5,12 @@ Notes:
 x Correction
 #number is the identifier of bug report (B), requested feature (F) or patch (P)
 bug reports and feature request are here:
-http://sourceforge.net/tracker/?group_id=86862
+https://sourceforge.net/p/mediainfo/_list/tickets
 
 
 Version 0.7.64, 2013-
 --------------
++ New canonical URL of the website: http://MediaArea.net/MediaInfo
 + E-AC-3: support of streams having substreams (e.g. more than 6 channels)
 + JPEG: detection of YUVA, RGB, RGBA and YCCK color spaces
 + MPEG Audio: detection of Id3v1 inside an MPEG Audio frame

@@ -8,7 +8,7 @@ Summary:        Most relevant technical and tag data for video and audio files
 
 Group:          System/Libraries
 License:        BSD-2-Clause
-URL:            http://mediainfo.sourceforge.net/
+URL:            http://MediaArea.net/MediaInfo
 Packager:       MediaArea.net SARL <info@mediaarea.net>
 Source0:        %{name}_%{version}-1.tar.gz
 

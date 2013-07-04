@@ -4,7 +4,7 @@ unit MediaInfoDll;
   MediaInfoLib (MediaInfo.dll v0.7.7.6) Interface for Delphi
     (c)2008 by Norbert Mereg (Icebob)
 
-    http://mediainfo.sourceforge.net
+    http://MediaArea.net/MediaInfo
 }
 
 

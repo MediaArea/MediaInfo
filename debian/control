@@ -4,7 +4,7 @@ Maintainer: MediaArea.net SARL <info@mediaarea.net>
 Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen-dev (>= 0.4.29), zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
-Homepage: http://mediainfo.sourceforge.net
+Homepage: http://MediaArea.net/MediaInfo
 Vcs-Svn: https://mediainfo.svn.sourceforge.net/svnroot/mediainfo/MediaInfoLib/
 Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfoLib/
 

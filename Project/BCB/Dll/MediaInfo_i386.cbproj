@@ -133,7 +133,7 @@
 						<VersionInfo Name="CodePage">1252</VersionInfo>
 					</VersionInfo>
 					<VersionInfoKeys>
-						<VersionInfoKeys Name="CompanyName">http://mediainfo.sourceforge.net</VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">http://MediaArea.net/MediaInfo</VersionInfoKeys>
 						<VersionInfoKeys Name="FileDescription">Library for read info about media files</VersionInfoKeys>
 						<VersionInfoKeys Name="FileVersion">0.7.3.9</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName">MediaInfoLib - BCB6</VersionInfoKeys>

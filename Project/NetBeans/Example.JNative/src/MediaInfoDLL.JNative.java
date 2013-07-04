@@ -13,7 +13,7 @@ import org.xvolks.jnative.pointers.memory.NativeMemoryBlock;
 
 /**
  * Class to retrieve info about media files.
- * MediaInfo library (http://mediainfo.sourceforge.net) is used
+ * MediaInfo library (http://MediaArea.net/MediaInfo) is used
  * by the help of JNative (http://jnative.sourceforge.net)
  * to obtain technical the info about the files.
  *

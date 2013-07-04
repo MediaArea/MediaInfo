@@ -16,7 +16,7 @@ MinorVer=7
 RevisionVer=2
 AutoIncrementVer=0
 ServerSupportFiles=0
-VersionCompanyName="http://mediainfo.sourceforge.net"
+VersionCompanyName="http://MediaArea.net/MediaInfo"
 VersionFileDescription="ActiveX Wrapper for MediaInfo by Ingo Brückl"
 VersionLegalCopyright="BSD"
 CondComp="MEDIAINFO_NO_ENUMS = 1"

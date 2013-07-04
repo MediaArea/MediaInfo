@@ -45,7 +45,7 @@ BEGIN
         BLOCK "040c04b0"
         BEGIN
             VALUE "Comments", "\0"
-            VALUE "CompanyName", "http://mediainfolib.sourceforge.net\0"
+            VALUE "CompanyName", "http://MediaArea.net/MediaInfo\0"
             VALUE "FileDescription", "Read info about media files (command line)\0"
             VALUE "FileVersion", "0,7,63,0\0"
             VALUE "InternalName", "MediaInfo - Cmd - Win32 - Microsoft\0"
