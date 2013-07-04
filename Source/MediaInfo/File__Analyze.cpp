@@ -740,12 +740,12 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
                 if ((Buffer_Offset-Header_Size)*Ratio<Offsets_Buffer[0])
                 {
                     Sub->Offsets_Stream.push_back(Offsets_Stream[0]);
-                    Sub->Offsets_Buffer.push_back(Sub->Buffer_Size+Offsets_Buffer[0]-(Buffer_Offset+Element_Offset));
+                    Sub->Offsets_Buffer.push_back((Sub->OriginalBuffer_Size?Sub->OriginalBuffer_Size:Sub->Buffer_Size)+Offsets_Buffer[0]-(Buffer_Offset+Element_Offset));
                 }
                 else
                 {
                     Sub->Offsets_Stream.push_back(Offsets_Stream[0]+Buffer_Offset+Element_Offset-Offsets_Buffer[0]);
-                    Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size);
+                    Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size?Sub->OriginalBuffer_Size:Sub->Buffer_Size);
                 }
             }
             for (size_t Pos=1; Pos<Offsets_Stream.size(); Pos++)
@@ -754,12 +754,12 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
                     if ((Buffer_Offset-Header_Size)*Ratio<Offsets_Buffer[Pos])
                     {
                         Sub->Offsets_Stream.push_back(Offsets_Stream[Pos]);
-                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size+Offsets_Buffer[Pos]-(Buffer_Offset+Element_Offset));
+                        Sub->Offsets_Buffer.push_back((Sub->OriginalBuffer_Size?Sub->OriginalBuffer_Size:Sub->Buffer_Size)+Offsets_Buffer[Pos]-(Buffer_Offset+Element_Offset));
                     }
                     else
                     {
                         Sub->Offsets_Stream.push_back(Offsets_Stream[Pos]+Buffer_Offset+Element_Offset-Offsets_Buffer[Pos]);
-                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size);
+                        Sub->Offsets_Buffer.push_back(Sub->OriginalBuffer_Size?Sub->OriginalBuffer_Size:Sub->Buffer_Size);
                     }
                 }
         }
