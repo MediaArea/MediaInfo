@@ -263,7 +263,6 @@ void File_SmpteSt0302::Read_Buffer_Continue()
     {
         Parsers[Pos]->FrameInfo=FrameInfo;
         Open_Buffer_Continue(Parsers[Pos], Info, Info_Offset, true, Ratio);
-        Element_Offset=Element_Size;
 
         if (Parsers.size()>1 && Parsers[Pos]->Status[IsAccepted])
         {
@@ -275,6 +274,7 @@ void File_SmpteSt0302::Read_Buffer_Continue()
             Parsers.erase(Parsers.begin(), Parsers.begin()+Parsers.size()-1);
         }
     }
+    Element_Offset=Element_Size;
 
     delete[] Info;
 
