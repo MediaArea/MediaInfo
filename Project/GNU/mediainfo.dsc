@@ -4,7 +4,7 @@ Binary: mediainfo, mediainfo-gui
 Architecture: any
 Version: 0.7.63-1
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
-Homepage: http://mediainfo.sourceforge.net
+Homepage: http://MediaArea.net/MediaInfo
 Standards-Version: 3.7.3
 Build-Depends: debhelper (>= 5), tofrodos, libmediainfo-dev (>=0.7.63), libzen-dev (>= 0.4.29), libwxgtk2.6-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
 Files: 

@@ -974,7 +974,7 @@
 						<VersionInfoKeys Name="FileDescription">Read info about media files</VersionInfoKeys>
 						<VersionInfoKeys Name="FileVersion">0.7.5.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName">MediaInfo_GUI - BCB with DLL</VersionInfoKeys>
-						<VersionInfoKeys Name="LegalCopyright">GPL</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalCopyright">BSD-2-Clause</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
 						<VersionInfoKeys Name="ProductName">MediaInfo</VersionInfoKeys>

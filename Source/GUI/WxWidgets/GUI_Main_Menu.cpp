@@ -311,7 +311,7 @@ void GUI_Main::OnMenu_Help_About(wxCommandEvent& WXUNUSED(event))
 {
     //Showing
     wxString Version=C->Menu_Option_Preferences_Option(__T("Info_Version"), __T("")).c_str();
-    wxMessageBox(__T("This is the About dialog of the minimal MediaInfo sample.\n")+Version+__T("\nMediaInfo supplies technical and tag information about \na video or audio file.\nTo get more info's visit \nhttp://mediainfo.sourceforge.net"), __T("About Minimal"), wxOK | wxICON_INFORMATION, this);
+    wxMessageBox(__T("This is the About dialog of the minimal MediaInfo sample.\n")+Version+__T("\nMediaInfo supplies technical and tag information about \na video or audio file.\nTo get more info's visit \nhttp://MediaArea.net/MediaInfo"), __T("About Minimal"), wxOK | wxICON_INFORMATION, this);
 }
 
 //---------------------------------------------------------------------------

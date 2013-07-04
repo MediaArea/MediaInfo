@@ -794,7 +794,7 @@ Lyricist;Abestidazlea
 Mastered_Date;Masterizatze eguna
 MasteredBy;Masterizatzailea
 matrix_coefficients;Matrize ezaugarriak
-MediaInfo_About;MediaInfo-k sarbide erraza eskaintzen du bideo eta audio agirien argibide teknikoetara eta etiketara.\r\nSoftware askea da, honek esanahi du dohainekoa dela erabiltzaileentzat eta garatzaileek askatasuna dutela ikertzeko, hobetzeko eta programa birbanatzeko (LGPL baimena)
+MediaInfo_About;MediaInfo-k sarbide erraza eskaintzen du bideo eta audio agirien argibide teknikoetara eta etiketara.\r\nSoftware askea da, honek esanahi du dohainekoa dela erabiltzaileentzat eta garatzaileek askatasuna dutela ikertzeko, hobetzeko eta programa birbanatzeko (BSD baimena)
 Menu;Menua
 Menu stream(s);Menu jarioak
 Menu_Codec_List;Menu kodekak
@@ -1015,7 +1015,7 @@ WebSite_General;Joan agiri honentzako irakurgailu webgunera
 WebSite_General_More;Joan agiri honentzako irakurgailu webgunera
 WebSite_Text;Joan idazki kode honen webgunera
 WebSite_Text_More;Joan webgunera (%Url%) idazki kodek hau bilatzeko
-WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Joan bideo kodek honen webgunera
 WebSite_Video_More;Joan webgunera (%Url%) bideo kodek hau bilatzeko
 Width;Zabalera

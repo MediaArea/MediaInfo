@@ -41,7 +41,7 @@ void About::on_okButton_clicked()
 
 void About::on_website_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://mediainfo.sourceforge.net"));
+    QDesktopServices::openUrl(QUrl("http://MediaArea.net/MediaInfo"));
 }
 
 void About::on_mail_clicked()
@@ -51,11 +51,11 @@ void About::on_mail_clicked()
 
 void About::on_donate_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://mediainfo.sourceforge.net/Donate"));
+    QDesktopServices::openUrl(QUrl("http://MediaArea.net/MediaInfo/Donate"));
 }
 
 void About::on_checkversion_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://sourceforge.net/project/showfiles.php?group_id=86862&package_id=90341"));
+    QDesktopServices::openUrl(QUrl("http://MediaArea.net/MediaInfo"));
     // copied from the VCL interface, not adapted for multi-plateform.
 }

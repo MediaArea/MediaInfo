@@ -5,8 +5,12 @@ Notes :
 x Correction
 #number is the identifier of bug report (B), requested feature (F) or patch (P)
 bug reports and feature request are here :
-http://sourceforge.net/tracker/?group_id=86862
+https://sourceforge.net/p/mediainfo/_list/tickets
 
+
+Version 0.7.64, 2013-
+--------------
++ New canonical URL of the website: http://MediaArea.net/MediaInfo
 
 Version 0.7.63, 2013-05-13
 --------------

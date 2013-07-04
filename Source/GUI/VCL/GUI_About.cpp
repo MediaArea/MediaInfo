@@ -25,11 +25,11 @@ TAboutF *AboutF;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_ABOUT=     __T("MediaInfo X.X.X.X\\r\\nCopyright (C) 2002-2012 MediaArea.net SARL");
-const ZenLib::Char* MEDIAINFO_URL=       __T("http://mediainfo.sourceforge.net");
-const ZenLib::Char* MEDIAINFO_NEWVERSION=__T("http://sourceforge.net/projects/mediainfo/files/");
-const ZenLib::Char* MEDIAINFO_DONATE=    __T("http://mediainfo.sourceforge.net/Donate");
-const ZenLib::Char* MEDIAINFO_MAILTO=    __T("mailto:zenitram@users.sourceforge.net");
+const ZenLib::Char* MEDIAINFO_ABOUT=     __T("MediaInfo X.X.X.X\\r\\nCopyright (c) MediaArea.net SARL");
+const ZenLib::Char* MEDIAINFO_URL=       __T("http://MediaArea.net/MediaInfo");
+const ZenLib::Char* MEDIAINFO_NEWVERSION=__T("http://MediaArea.net/MediaInfo");
+const ZenLib::Char* MEDIAINFO_DONATE=    __T("http://MediaArea.net/MediaInfo/Donate");
+const ZenLib::Char* MEDIAINFO_MAILTO=    __T("mailto:info@mediaarea.net");
 //---------------------------------------------------------------------------
 
 //***************************************************************************

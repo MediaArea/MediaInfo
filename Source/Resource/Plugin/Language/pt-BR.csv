@@ -1015,7 +1015,7 @@ WebSite_General;Ir até o site que oferece um reprodutor para esse arquivo
 WebSite_General_More;Ir até o site que oferece um reprodutor para esse arquivo
 WebSite_Text;Ir até o site deste codec de texto
 WebSite_Text_More;No site (%Url%) você encontra este codec de texto
-WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Ir até o site deste codec de vídeo
 WebSite_Video_More;No site (%Url%) você encontra este codec de vídeo
 Width;Largura

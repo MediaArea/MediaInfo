@@ -5,16 +5,17 @@ Notes :
 x Bug correction
 #number is the identifier of bug report (B), requested feature (F) or patch (P)
 Bug reports and feature request are here :
-http://sourceforge.net/tracker/?group_id=86862
+https://sourceforge.net/p/mediainfo/_list/tickets
 
 Known bugs
 ----------
 - Languages (other than english and French) : not all words are translated, I need translators!
-- Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
+- Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
 Version 0.7.64, 2013-
 --------------
++ New canonical URL of the website: http://MediaArea.net/MediaInfo
 + Portuguese, Basque and Russian translations updated
 
 Version 0.7.63, 2013-05-13

@@ -337,7 +337,7 @@ void __fastcall ThreadInternetCheck::Execute()
         return; //No internet connexion
 
     HTTP_Client H;
-    if (H.Open(Ztring(__T("http://mediaarea.net/mediainfo_check/changelog_"))+MediaInfo_Version_GUI+__T(".bin"))==0)
+    if (H.Open(Ztring(__T("http://MediaArea.net/MediaInfo_check/changelog_"))+MediaInfo_Version_GUI+__T(".bin"))==0)
         return;
 
     Ztring Z=H.Read();
@@ -360,7 +360,7 @@ void __fastcall ThreadInternetCheck::Execute()
         Message.FindAndReplace(__T("%Version%"), NewestVersion);
         switch(Application->MessageBox(Message.c_str(), Prefs->Translate(__T("NewVersion_Question_Title")).c_str(), MB_YESNO))
         {
-            case IDYES : ShellExecute(NULL, NULL, (Ztring(__T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+            case IDYES : ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
             default    : ;
         }
         //Inscription version connue pour pas repeter l'avertissement

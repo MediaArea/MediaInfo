@@ -1,7 +1,7 @@
 This package was debianized by MediaArea.net SARL <info@mediaarea.net> on
 Wed, 26 Nov 2008 20:19:43 +0100.
 
-It was downloaded from <http://mediainfo.sourceforge.net>
+It was downloaded from <http://MediaArea.net/MediaInfo>
 
 Upstream Author(s):
 
@@ -9,14 +9,14 @@ Upstream Author(s):
 
 Copyright:
 
-    <Copyright (C) 2008 Jerome Martinez>
+    <Copyright (c) MediaArea.net SARL>
 
 License:
 
-    LGPL
+    BSD-2-Clause
 
-The Debian packaging is (C) 2008, MediaArea.net SARL <info@mediaarea.net> and
-is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+The Debian packaging is Copyright (c) MediaArea.net SARL and
+is licensed under the BSD-2-Clause, see `/usr/share/common-licenses/BSD'.
 
 # Please also look if there are files or directories which have a
 # different copyright/license attached and list them here.

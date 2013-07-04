@@ -1,9 +1,9 @@
-MediaInfo - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
+MediaInfo - http://MediaArea.net/MediaInfo
+Copyright (c) MediaArea.net SARL, Info@MediaArea.net
 
 License
 -------
-This program is freeware (LGLPv2+).
+This program is freeware (BSD-style license).
 See License.html for more information.
 
 

@@ -41,7 +41,7 @@ __fastcall TWebF::TWebF(TComponent* Owner)
 void __fastcall TWebF::Execute()
 {
     Show();
-    Browser->Navigate((UnicodeString(L"http://mediainfo.sourceforge.net/Log?Name=MediaInfoGUI&Version=")+MediaInfo_Version_GUI+L"&Lib="+MediaInfo_Version_GUI).w_str());
+    Browser->Navigate((UnicodeString(L"http://MediaArea.net/MediaInfo/Log?Name=MediaInfoGUI&Version=")+MediaInfo_Version_GUI+L"&Lib="+MediaInfo_Version_GUI).w_str());
 }
 //---------------------------------------------------------------------------
 void __fastcall TWebF::BrowserNavigateComplete2(TObject *Sender,

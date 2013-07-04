@@ -17,7 +17,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const MediaInfoNameSpace::Char* MEDIAINFO_TITLE=__T("MediaInfo - http://mediainfo.sourceforge.net");
+const MediaInfoNameSpace::Char* MEDIAINFO_TITLE=__T("MediaInfo - http://MediaArea.net/MediaInfo");
 ZenLib::Ztring Text_Temp;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
