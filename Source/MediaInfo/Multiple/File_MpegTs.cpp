@@ -764,7 +764,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             }
 
             //Undetected text streams but present is service_descriptor - 708
-            for (std::map<int8u, string>::iterator Language=Eia708_Languages.begin(); Language!=Eia708_Languages.end(); Language++)
+            for (std::map<int8u, string>::iterator Language=Eia708_Languages.begin(); Language!=Eia708_Languages.end(); ++Language)
             {
                 //TODO: merge both methods (see above)
                 Ztring Parser_ID=Ztring::ToZtring(Language->first);
