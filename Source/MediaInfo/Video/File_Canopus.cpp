@@ -149,18 +149,18 @@ void File_Canopus::Read_Buffer_Continue()
                 Fill(Stream_Video, 0, Video_PixelAspectRatio, ((float32)PAR_X)/PAR_Y, 3);
             switch (FieldOrder)
             {
-                case 0 : 
+                case 0 :
                         Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
                         Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
                         break;
-                case 1 : 
+                case 1 :
                         Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
                         Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
                         break;
-                case 2 : 
+                case 2 :
                         Fill(Stream_Video, 0, Video_ScanType, "Progressive");
                         break;
-                default : ; 
+                default : ;
             }
 
             Finish();

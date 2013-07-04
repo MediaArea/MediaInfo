@@ -755,7 +755,7 @@ void File__ReferenceFilesHelper::List_Compute()
 
     stream_t StreamKind_Target=Reference->MenuPos==(size_t)-1?StreamKind:Stream_Menu;
     size_t   StreamPos_Target=Reference->MenuPos==(size_t)-1?StreamPos:Reference->MenuPos;
-            
+
     //MD5
     #if MEDIAINFO_MD5
         if (!HasMainFile && Config->File_Md5_Get())
@@ -782,7 +782,7 @@ void File__ReferenceFilesHelper::List_Compute()
             }
         }
     #endif //MEDIAINFO_MD5
-        
+
     //Source_List
     #if MEDIAINFO_ADVANCED
         if (!HasMainFile && Config->File_Source_List_Get())

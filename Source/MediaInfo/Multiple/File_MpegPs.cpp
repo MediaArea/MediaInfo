@@ -2006,7 +2006,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
                     Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[0]);
                     Streams_Private1[private_stream_1_ID].StreamIsRegistred=true;
                 }
-                
+
                 if (Streams_Private1[private_stream_1_ID].Parsers.size()==1)
                 {
                     File_AribStdB24B37* Parser=(File_AribStdB24B37*)Streams_Private1[private_stream_1_ID].Parsers[0];

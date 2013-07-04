@@ -117,7 +117,7 @@
 #endif
 
 /*-------------------------------------------------------------------------*/
-#if defined (_WIN32) || defined (WIN32)
+#if defined(_WIN32) || defined(WIN32)
     #ifdef _UNICODE
         #define MEDIAINFODLL_NAME L"MediaInfo.dll"
     #else //_UNICODE
@@ -130,13 +130,13 @@
     #define MEDIAINFODLL_NAME "libmediainfo.so.0"
     #define __stdcall
     #include <new> //for size_t
-#endif //!defined(_WIN32) || defined (WIN32)
+#endif //!defined(_WIN32) || defined(WIN32)
 
 /*-------------------------------------------------------------------------*/
 /*Char types                                                               */
 #undef  __T
 #define __T(__x)    __T(__x)
-#if defined(UNICODE) || defined (_UNICODE)
+#if defined(UNICODE) || defined(_UNICODE)
     typedef wchar_t MediaInfo_Char;
     #undef  __T
     #define __T(__x) L ## __x
@@ -227,9 +227,9 @@ extern "C"
 #ifdef MEDIAINFO_GLIBC
     #include <gmodule.h>
     static GModule* MediaInfo_Module = NULL;
-#elif defined (_WIN32) || defined (WIN32)
+#elif defined(_WIN32) || defined(WIN32)
     #include <windows.h>
-    static HMODULE  MediaInfo_Module = NULL;
+    static HMODULE MediaInfo_Module = NULL;
 #else
     #include <dlfcn.h>
     static void* MediaInfo_Module = NULL;
@@ -243,7 +243,7 @@ extern "C"
 #define MEDIAINFOLIST_ASSIGN(_Name,_Name2) \
     if (!g_module_symbol (MediaInfo_Module, "MediaInfoList" MEDIAINFO_Ansi "_" _Name2, (gpointer*)&MediaInfoList_##_Name)) \
         Errors++;
-#elif defined (_WIN32) || defined (WIN32)
+#elif defined(_WIN32) || defined(WIN32)
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
     MediaInfo_##_Name=(MEDIAINFO_##_Name)GetProcAddress(MediaInfo_Module, "MediaInfo" MEDIAINFO_Ansi "_" _Name2); \
     if (MediaInfo_##_Name==NULL) Errors++;
@@ -330,7 +330,7 @@ extern "C"
     /* Load library */
     #ifdef MEDIAINFO_GLIBC
         MediaInfo_Module = g_module_open(MEDIAINFODLL_NAME, G_MODULE_BIND_LAZY);
-    #elif defined (_WIN32) || defined (WIN32)
+    #elif defined(_WIN32) || defined(WIN32)
         MediaInfo_Module = LoadLibrary(MEDIAINFODLL_NAME);
     #else
         MediaInfo_Module = dlopen(MEDIAINFODLL_NAME, RTLD_LAZY);
@@ -381,7 +381,7 @@ extern "C"
         // Unload DLL with errors
         #ifdef MEDIAINFO_GLIBC
             g_module_close(MediaInfo_Module);
-        #elif defined (_WIN32) || defined (WIN32)
+        #elif defined(_WIN32) || defined(WIN32)
             FreeLibrary(MediaInfo_Module);
         #else
             dlclose(MediaInfo_Module);
@@ -410,7 +410,7 @@ extern "C"
 
     #ifdef MEDIAINFO_GLIBC
         g_module_close(MediaInfo_Module);
-    #elif defined (_WIN32) || defined (WIN32)
+    #elif defined(_WIN32) || defined(WIN32)
         FreeLibrary(MediaInfo_Module);
     #else
         dlclose(MediaInfo_Module);
@@ -441,7 +441,7 @@ namespace MediaInfoDLL
     //MediaInfo_Char types
 #undef  __T
 #define __T(__x)    __T(__x)
-#if defined(UNICODE) || defined (_UNICODE)
+#if defined(UNICODE) || defined(_UNICODE)
     typedef wchar_t Char;
     #undef  __T
     #define __T(__x) L ## __x

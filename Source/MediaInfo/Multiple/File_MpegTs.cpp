@@ -652,7 +652,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
 
             //Retrieving IDs
             int16u ID_Video=Retrieve(Stream_Video, StreamPos_Last, Text_ID).To_int16u();
-            
+
             //Language
             std::map<int8u, string>  Eia708_Languages; //Key is caption_service_number
             Eia708_Languages.insert(Temp->Eia708_Languages.begin(), Temp->Eia708_Languages.end()); //708 from video descriptor
@@ -662,11 +662,11 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                 //608 from program descriptor
                 if (!Eia608_FromDescriptor)
                     Eia608_FromDescriptor=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia608_IsPresent;
-                
+
                 //708 from program descriptor
                 Eia708_Languages.insert(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia708_Languages.begin(),
                                         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].Eia708_Languages.end());
-                
+
                 //608/708 from ATSC EIT
                 if (Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[ID_Video]->program_numbers[ProgramPos]].source_id_IsValid)
                 {

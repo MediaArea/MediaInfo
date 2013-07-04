@@ -58,9 +58,9 @@ namespace Elements
     const int64u moov_meta___ART=0xA9415254;
     const int64u moov_meta___alb=0xA9616C62;
     const int64u moov_meta___ard=0xA9617264;
-    const int64u moov_meta___arg=0xA9617267; 
+    const int64u moov_meta___arg=0xA9617267;
     const int64u moov_meta___aut=0xA9617574;
-    const int64u moov_meta___con=0xA963696E; 
+    const int64u moov_meta___con=0xA963696E;
     const int64u moov_meta___cmt=0xA9636D74;
     const int64u moov_meta___cpy=0xA9637079;
     const int64u moov_meta___day=0xA9646179;
@@ -75,25 +75,25 @@ namespace Elements
     const int64u moov_meta___hos=0xA9686F73;
     const int64u moov_meta___inf=0xA9696E66;
     const int64u moov_meta___key=0xA96B6579;
-    const int64u moov_meta___lyr=0xA96C7972; 
+    const int64u moov_meta___lyr=0xA96C7972;
     const int64u moov_meta___mak=0xA96D616B;
     const int64u moov_meta___mod=0xA96D6F64;
     const int64u moov_meta___nam=0xA96E616D;
-    const int64u moov_meta___ope=0xA96F7065;  
+    const int64u moov_meta___ope=0xA96F7065;
     const int64u moov_meta___prd=0xA9707264;
     const int64u moov_meta___PRD=0xA9505244;
     const int64u moov_meta___prf=0xA9707266;
     const int64u moov_meta___req=0xA9726571;
     const int64u moov_meta___sne=0xA9736E65;
-    const int64u moov_meta___sol=0xA9736F6C; 
+    const int64u moov_meta___sol=0xA9736F6C;
     const int64u moov_meta___src=0xA9737263;
-    const int64u moov_meta___st3=0xA9737403; 
+    const int64u moov_meta___st3=0xA9737403;
     const int64u moov_meta___swr=0xA9737772;
     const int64u moov_meta___too=0xA9746F6F;
-    const int64u moov_meta___url=0xA975726C; 
+    const int64u moov_meta___url=0xA975726C;
     const int64u moov_meta___wrn=0xA977726E;
     const int64u moov_meta___wrt=0xA9777274;
-    const int64u moov_meta___xpd=0xA9787064;  
+    const int64u moov_meta___xpd=0xA9787064;
     const int64u moov_meta__aART=0x61415254;
     const int64u moov_meta__akID=0x616B4944;
     const int64u moov_meta__albm=0x616C626D;
@@ -109,7 +109,7 @@ namespace Elements
     const int64u moov_meta__disk=0x6469736B;
     const int64u moov_meta__dscp=0x64736370;
     const int64u moov_meta__egid=0x65676964;
-    const int64u moov_meta__flvr=0x666C7672; 
+    const int64u moov_meta__flvr=0x666C7672;
     const int64u moov_meta__gnre=0x676E7265;
     const int64u moov_meta__geID=0x67654944;
     const int64u moov_meta__grup=0x67727570;
@@ -126,9 +126,9 @@ namespace Elements
     const int64u moov_meta__purl=0x7075726C;
     const int64u moov_meta__rate=0x72617465;
     const int64u moov_meta__rndu=0x726E6475;
-    const int64u moov_meta__rpdu=0x72706475; 
+    const int64u moov_meta__rpdu=0x72706475;
     const int64u moov_meta__rtng=0x72746E67;
-    const int64u moov_meta__sdes=0x73646573; 
+    const int64u moov_meta__sdes=0x73646573;
     const int64u moov_meta__sfID=0x73664944;
     const int64u moov_meta__soaa=0x736F6161;
     const int64u moov_meta__soal=0x736F616C;
@@ -146,9 +146,9 @@ namespace Elements
     const int64u moov_meta__tvnn=0x74766E6E;
     const int64u moov_meta__tvsh=0x74767368;
     const int64u moov_meta__tvsn=0x7476736E;
-    const int64u moov_meta__xid_=0x78696420; 
+    const int64u moov_meta__xid_=0x78696420;
     const int64u moov_meta__year=0x79656172;
-    const int64u moov_meta__yyrc=0x79797263;  
+    const int64u moov_meta__yyrc=0x79797263;
     const int64u skip=0x736B6970;
     const int64u wide=0x77696465;
 }
@@ -1743,10 +1743,10 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         //http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/QuickTime.html#ItemList
         case Elements::moov_meta___alb : Parameter="Album"; Method=Method_String; break;
         case Elements::moov_meta___ard : Parameter="Director"; Method=Method_String; break;
-        case Elements::moov_meta___arg : Parameter="Arranger"; Method=Method_String; break; 
+        case Elements::moov_meta___arg : Parameter="Arranger"; Method=Method_String; break;
         case Elements::moov_meta___ART : Parameter="Performer"; Method=Method_String; break;
         case Elements::moov_meta___aut : Parameter="Performer"; Method=Method_String; break;
-        case Elements::moov_meta___con : Parameter="Conductor"; Method=Method_String; break;  
+        case Elements::moov_meta___con : Parameter="Conductor"; Method=Method_String; break;
         case Elements::moov_meta___cmt : Parameter="Comment"; Method=Method_String; break;
         case Elements::moov_meta___cpy : Parameter="Copyright"; Method=Method_String; break;
         case Elements::moov_meta___day : Parameter="Recorded_Date"; Method=Method_String; break;
@@ -1761,11 +1761,11 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___hos : Parameter="HostComputer"; Method=Method_String; break;
         case Elements::moov_meta___inf : Parameter="Title/More"; Method=Method_String; break;
         case Elements::moov_meta___key : Parameter="Keywords"; Method=Method_String; break;
-        case Elements::moov_meta___lyr : Parameter="Lyrics"; Method=Method_String; break; 
+        case Elements::moov_meta___lyr : Parameter="Lyrics"; Method=Method_String; break;
         case Elements::moov_meta___mak : Parameter="Make"; Method=Method_String; break;
         case Elements::moov_meta___mod : Parameter="Model"; Method=Method_String; break;
         case Elements::moov_meta___nam : Parameter="Title"; Method=Method_String3; break;
-        case Elements::moov_meta___ope : Parameter="Original/Performer"; Method=Method_String; break; 
+        case Elements::moov_meta___ope : Parameter="Original/Performer"; Method=Method_String; break;
         case Elements::moov_meta___prd : Parameter="Producer"; Method=Method_String; break;
         case Elements::moov_meta___PRD : Parameter="Product"; Method=Method_String; break;
         case Elements::moov_meta___prf : Parameter="Performer"; Method=Method_String; break;
@@ -1776,7 +1776,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___st3 : Parameter="Subtitle"; Method=Method_String; break;
         case Elements::moov_meta___swr : Parameter="Encoded_Application"; Method=Method_String; break;
         case Elements::moov_meta___too : Parameter="Encoded_Application"; Method=Method_String; break;
-        case Elements::moov_meta___url : Parameter="Track/Url"; Method=Method_String; break; 
+        case Elements::moov_meta___url : Parameter="Track/Url"; Method=Method_String; break;
         case Elements::moov_meta___wrn : Parameter="Warning"; Method=Method_String; break;
         case Elements::moov_meta___wrt : Parameter="Composer"; Method=Method_String; break;
         case Elements::moov_meta___xpd : Parameter="ExecutiveProducer"; Method=Method_String; break;
@@ -1794,7 +1794,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__disk : Parameter="Part"; Method=Method_Binary; break;
         case Elements::moov_meta__dscp : Parameter="Title/More"; Method=Method_String2; break;
         case Elements::moov_meta__egid : Parameter="EpisodeGlobalUniqueID"; Method=Method_Binary; break;
-        case Elements::moov_meta__flvr : Parameter="Flavour"; Method=Method_Binary; break; 
+        case Elements::moov_meta__flvr : Parameter="Flavour"; Method=Method_Binary; break;
         case Elements::moov_meta__gnre : Parameter="Genre"; Method=Method_String2; break;
         case Elements::moov_meta__geID : Parameter="GenreID"; Method=Method_Binary; break;
         case Elements::moov_meta__grup : Parameter="Grouping"; Method=Method_String; break;
@@ -1809,9 +1809,9 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__plID : Parameter="PlayListID"; Method=Method_Binary; break;
         case Elements::moov_meta__purd : Parameter="PurchaseDate"; Method=Method_String; break;
         case Elements::moov_meta__purl : Parameter="PodcastURL"; Method=Method_String; break;
-        case Elements::moov_meta__rate : Parameter="Rating"; Method=Method_Binary; break; 
+        case Elements::moov_meta__rate : Parameter="Rating"; Method=Method_Binary; break;
         case Elements::moov_meta__rtng : Parameter="Rating"; Method=Method_Binary; break;
-        case Elements::moov_meta__sdes : Parameter="Description"; Method=Method_String; break; 
+        case Elements::moov_meta__sdes : Parameter="Description"; Method=Method_String; break;
         case Elements::moov_meta__sfID : Parameter="AppleStoreCountry"; Method=Method_Binary; break;
         case Elements::moov_meta__soaa : Parameter="Album/Performer/Sort"; Method=Method_String; break; //SortAlbumArtist
         case Elements::moov_meta__soal : Parameter="Album/Sort"; Method=Method_String2; break; //SortAlbum
@@ -1862,7 +1862,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, const std::s
     else if (Meta=="com.apple.quicktime.displayname") Parameter="Title";
     else if (Meta=="DATE") Parameter="Encoded_Date";
     else if (Meta=="iTunEXTC") Parameter="ContentRating";
-    else if (Meta=="iTunMOVI") Parameter="iTunMOVI"; 
+    else if (Meta=="iTunMOVI") Parameter="iTunMOVI";
     else if (Meta=="iTunNORM") Parameter="";
     else if (Meta=="iTunes_CDDB_IDs") Parameter="";
     else if (Meta=="iTunSMPB") Parameter="";

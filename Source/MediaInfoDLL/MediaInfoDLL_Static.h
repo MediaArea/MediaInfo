@@ -63,9 +63,9 @@
 
 /*---------------------------------------------------------------------------*/
 /*Unix (Linux, HP, Sun, BeOS...)*/
-#if defined(UNIX) || defined(_UNIX) || defined(__UNIX__) \
-    || defined(__unix) || defined(__unix__) \
-    || defined(____SVR4____) || defined(__LINUX__) || defined(__sgi) \
+#if defined(UNIX) || defined(_UNIX) || defined(__UNIX__)                    \
+    || defined(__unix) || defined(__unix__)                                 \
+    || defined(____SVR4____) || defined(__LINUX__) || defined(__sgi)        \
     || defined(__hpux) || defined(sun) || defined(__SUN__) || defined(_AIX) \
     || defined(__EMX__) || defined(__VMS) || defined(__BEOS__)
     #ifndef UNIX
@@ -209,10 +209,10 @@ typedef enum MediaInfo_infooptions_t
 /** @brief File opening options */
 typedef enum MediaInfo_fileoptions_t
 {
-    MediaInfo_FileOption_Nothing        =0x00,
-    MediaInfo_FileOption_NoRecursive    =0x01,
-    MediaInfo_FileOption_CloseAll       =0x02,
-    MediaInfo_FileOption_Max            =0x04
+    MediaInfo_FileOption_Nothing     = 0x00,
+    MediaInfo_FileOption_NoRecursive = 0x01,
+    MediaInfo_FileOption_CloseAll    = 0x02,
+    MediaInfo_FileOption_Max         = 0x04
 } MediaInfo_fileoptions_C;
 
 #ifdef __cplusplus
@@ -230,7 +230,7 @@ DLL wrapper for MediaInfo.h \n
 */
 /***************************************************************************/
 
-#if defined (MEDIAINFO_DLL_EXPORT) || (defined (UNICODE) || defined (_UNICODE)) //DLL construction or Unicode
+#if defined(MEDIAINFO_DLL_EXPORT) || (defined(UNICODE) || defined(_UNICODE)) //DLL construction or Unicode
 /** @brief A 'new' MediaInfo interface, return a Handle, don't forget to delete it after using it*/
 MEDIAINFO_EXP void*             __stdcall MediaInfo_New (); /*you must ALWAYS call MediaInfo_Delete(Handle) in order to free memory*/
 /** @brief A 'new' MediaInfo interface (with a quick init of useful options : "**VERSION**;**APP_NAME**;**APP_VERSION**", but without debug information, use it only if you know what you do), return a Handle, don't forget to delete it after using it*/
@@ -275,7 +275,7 @@ MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Option (void* Handle, const 
 MEDIAINFO_EXP size_t            __stdcall MediaInfo_State_Get (void* Handle);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Count_Get */
 MEDIAINFO_EXP size_t            __stdcall MediaInfo_Count_Get (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber); /*Default : StreamNumber=-1*/
-#else //defined (MEDIAINFO_DLL_EXPORT) || (defined (UNICODE) || defined (_UNICODE))
+#else //defined(MEDIAINFO_DLL_EXPORT) || (defined(UNICODE) || defined(_UNICODE))
     #define MediaInfo_New               MediaInfoA_New
     #define MediaInfo_New_Quick         MediaInfoA_New_Quick
     #define MediaInfo_Delete            MediaInfoA_Delete
@@ -293,7 +293,7 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfo_Count_Get (void* Handle, Med
     #define MediaInfo_Option            MediaInfoA_Option
     #define MediaInfo_State_Get         MediaInfoA_State_Get
     #define MediaInfo_Count_Get         MediaInfoA_Count_Get
-#endif //defined (MEDIAINFO_DLL_EXPORT) || (defined (UNICODE) || defined (_UNICODE))
+#endif //defined(MEDIAINFO_DLL_EXPORT) || (defined(UNICODE) || defined(_UNICODE))
 
 /** @brief A 'new' MediaInfo interface, return a Handle, don't forget to delete it after using it*/
 MEDIAINFO_EXP void*             __stdcall MediaInfoA_New (); /*you must ALWAYS call MediaInfo_Delete(Handle) in order to free memory*/
@@ -341,7 +341,7 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfoA_State_Get (void* Handle);
 MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Count_Get (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber); /*Default : StreamNumber=-1*/
 
 
-#if defined (MEDIAINFO_DLL_EXPORT) || (defined (UNICODE) || defined (_UNICODE)) //DLL construction or Unicode
+#if defined(MEDIAINFO_DLL_EXPORT) || (defined(UNICODE) || defined(_UNICODE)) //DLL construction or Unicode
 /** @brief A 'new' MediaInfoList interface, return a Handle, don't forget to delete it after using it*/
 MEDIAINFO_EXP void*             __stdcall MediaInfoList_New (); /*you must ALWAYS call MediaInfoList_Delete(Handle) in order to free memory*/
 /** @brief A 'new' MediaInfoList interface (with a quick init of useful options : "**VERSION**;**APP_NAME**;**APP_VERSION**", but without debug information, use it only if you know what you do), return a Handle, don't forget to delete it after using it*/
@@ -374,7 +374,7 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfoList_State_Get (void* Handle)
 MEDIAINFO_EXP size_t            __stdcall MediaInfoList_Count_Get (void* Handle, size_t FilePos, MediaInfo_stream_C StreamKind, size_t StreamNumber); /*Default : StreamNumber=-1*/
 /** @brief Wrapper for MediaInfoListLib::MediaInfoList::Count_Get */
 MEDIAINFO_EXP size_t            __stdcall MediaInfoList_Count_Get_Files (void* Handle);
-#else //defined (MEDIAINFO_DLL_EXPORT) || (defined (UNICODE) || defined (_UNICODE))
+#else //defined(MEDIAINFO_DLL_EXPORT) || (defined(UNICODE) || defined(_UNICODE))
     #define MediaInfoList_New               MediaInfoListA_New
     #define MediaInfoList_New_Quick         MediaInfoListA_New_Quick
     #define MediaInfoList_Delete            MediaInfoListA_Delete
@@ -394,7 +394,7 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfoList_Count_Get_Files (void* H
     #define MediaInfoList_State_Get         MediaInfoListA_State_Get
     #define MediaInfoList_Count_Get         MediaInfoListA_Count_Get
     #define MediaInfoList_Count_Get_Files   MediaInfoListA_Count_Get_Files
-#endif //defined (MEDIAINFO_DLL_EXPORT) || (defined (UNICODE) || defined (_UNICODE))
+#endif //defined(MEDIAINFO_DLL_EXPORT) || (defined(UNICODE) || defined(_UNICODE))
 
 /* Warning : Deprecated, use MediaInfo_Option("Info_Version", "**YOUR VERSION COMPATIBLE**") instead */
 MEDIAINFO_EXP const char*       __stdcall MediaInfo_Info_Version ();
@@ -441,7 +441,7 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfoListA_Count_Get_Files (void* 
 
 #ifdef __cplusplus
 //DLL C++ wrapper for C functions
-#if !defined(MediaInfoH) && !defined (MEDIAINFO_DLL_EXPORT) //No Lib include and No DLL construction
+#if !defined(MediaInfoH) && !defined(MEDIAINFO_DLL_EXPORT) //No Lib include and No DLL construction
 
 //---------------------------------------------------------------------------
 #include <string>
@@ -453,8 +453,8 @@ namespace MediaInfoDLL
 //---------------------------------------------------------------------------
 //Char types
 #undef  __T
-#define __T(__x)     __T(__x)
-#if defined(UNICODE) || defined (_UNICODE)
+#define __T(__x)    __T(__x)
+#if defined(UNICODE) || defined(_UNICODE)
     typedef wchar_t Char;
     #undef  __T
     #define __T(__x) L ## __x
@@ -505,7 +505,7 @@ enum infooptions_t
 {
     InfoOption_ShowInInform,        ///< Show this parameter in Inform()
     InfoOption_Reserved,            ///<
-    InfoOption_ShowInSupported,        ///< Internal use only (info : Must be showed in Info_Capacities() )
+    InfoOption_ShowInSupported,     ///< Internal use only (info : Must be showed in Info_Capacities())
     InfoOption_TypeOfValue,         ///< Value return by a standard Get() can be : T (Text), I (Integer, warning up to 64 bits), F (Float), D (Date), B (Binary datas coded Base64) (Numbers are in Base 10)
     InfoOption_Max
 };
@@ -513,10 +513,10 @@ enum infooptions_t
 /// @brief File opening options
 enum fileoptions_t
 {
-    FileOption_Nothing      =0x00,
-    FileOption_NoRecursive  =0x01,  ///< Do not browse folders recursively
-    FileOption_CloseAll     =0x02,  ///< Close all files before open
-    FileOption_Max          =0x04
+    FileOption_Nothing     = 0x00,
+    FileOption_NoRecursive = 0x01,  ///< Do not browse folders recursively
+    FileOption_CloseAll    = 0x02,  ///< Close all files before open
+    FileOption_Max         = 0x04
 };
 
 //---------------------------------------------------------------------------
@@ -540,8 +540,8 @@ public :
     size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=__T(""))  {return MediaInfo_Set (Handle, ToSet.c_str(), (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), OldValue.c_str());};
     String        Option (const String &Option, const String &Value=__T(""))  {return MediaInfo_Option (Handle, Option.c_str(), Value.c_str());};
     static String Option_Static (const String &Option, const String &Value=__T(""))  {return MediaInfo_Option (NULL, Option.c_str(), Value.c_str());};
-    size_t                  State_Get ()  {return MediaInfo_State_Get(Handle);};
-    size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=-1)  {return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
+    size_t        State_Get ()  {return MediaInfo_State_Get(Handle);};
+    size_t        Count_Get (stream_t StreamKind, size_t StreamNumber=-1)  {return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
 
 private :
     void* Handle;
@@ -567,16 +567,16 @@ public :
     size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=__T(""))  {return MediaInfoList_Set (Handle, ToSet.c_str(), FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber, Parameter.c_str(), OldValue.c_str());};
     String        Option (const String &Option, const String &Value=__T(""))  {return MediaInfoList_Option (Handle, Option.c_str(), Value.c_str());};
     static String Option_Static (const String &Option, const String &Value=__T(""))  {return MediaInfoList_Option (NULL, Option.c_str(), Value.c_str());};
-    size_t                  State_Get ()  {return MediaInfoList_State_Get(Handle);};
-    size_t                  Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=-1)  {return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
-    size_t                  Count_Get ()  {return MediaInfoList_Count_Get_Files(Handle);};
+    size_t        State_Get ()  {return MediaInfoList_State_Get(Handle);};
+    size_t        Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=-1)  {return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
+    size_t        Count_Get ()  {return MediaInfoList_Count_Get_Files(Handle);};
 
 private :
     void* Handle;
 };
 
 } //NameSpace
-#endif//#if !defined(MediaInfoH) && !defined (MEDIAINFO_DLL_EXPORT) && !(defined (UNICODE) || defined (_UNICODE))
+#endif//#if !defined(MediaInfoH) && !defined(MEDIAINFO_DLL_EXPORT) && !(defined(UNICODE) || defined(_UNICODE))
 #endif /*__cplusplus*/
 
 

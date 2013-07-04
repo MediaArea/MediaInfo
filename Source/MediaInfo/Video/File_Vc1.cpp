@@ -543,7 +543,7 @@ bool File_Vc1::Demux_UnpacketizeContainer_Test()
                      && Buffer[Header_End+2]==0x01
                      && Buffer[Header_End+2]==0x0D)
                     break;
-                
+
                 switch (Config->Demux_InitData_Get())
                 {
                     case 0 :    //In demux event

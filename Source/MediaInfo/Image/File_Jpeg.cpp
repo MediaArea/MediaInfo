@@ -655,7 +655,7 @@ void File_Jpeg::SOF_()
             Fill(StreamKind_Last, 0, Fill_Parameter(StreamKind_Last, Generic_BitDepth), Resolution);
             Fill(StreamKind_Last, 0, "Height", Height*(Interlaced?2:1));
             Fill(StreamKind_Last, 0, "Width", Width);
-            
+
             //ColorSpace from http://docs.oracle.com/javase/1.4.2/docs/api/javax/imageio/metadata/doc-files/jpeg_metadata.html
             switch (APPE_Adobe0_transform)
             {
@@ -677,7 +677,7 @@ void File_Jpeg::SOF_()
                             {
                                 case 1 :    Fill(StreamKind_Last, 0, "ColorSpace", "Y"); break;
                                 case 2 :    Fill(StreamKind_Last, 0, "ColorSpace", "YA"); break;
-                                case 3 :    
+                                case 3 :
                                                  if (!APP0_JFIF_Parsed && Ci['R']==1 && Ci['G']==1 && Ci['B']==1)                                                       //RGB
                                                 Fill(StreamKind_Last, 0, "ColorSpace", "RGB");
                                             else if ((Ci['Y']==1 && ((Ci['C']==1 && Ci['c']==1)                                                                         //YCc
@@ -688,7 +688,7 @@ void File_Jpeg::SOF_()
                                                   || (SamplingFactors[0].Ci==1 && SamplingFactors[1].Ci==2 && SamplingFactors[2].Ci==3))                                //123
                                                 Fill(StreamKind_Last, 0, "ColorSpace", "YUV");
                                             break;
-                                case 4 :    
+                                case 4 :
                                                  if (!APP0_JFIF_Parsed && Ci['R']==1 && Ci['G']==1 && Ci['B']==1 && Ci['A']==1)                                         //RGBA
                                                 Fill(StreamKind_Last, 0, "ColorSpace", "RGBA");
                                             else if ((Ci['Y']==1 && Ci['A']==1 && ((Ci['C']==1 && Ci['c']==1)                                                           //YCcA

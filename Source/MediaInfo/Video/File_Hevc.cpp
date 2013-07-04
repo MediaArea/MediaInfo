@@ -1598,8 +1598,8 @@ void File_Hevc::hrd_parameters(void* &hrd_parameters_Item_)
 void File_Hevc::VPS_SPS_PPS()
 {
     if (MustParse_VPS_SPS_PPS_FromMatroska)
-        return VPS_SPS_PPS_FromMatroska();    
-        
+        return VPS_SPS_PPS_FromMatroska();
+
     //Parsing
     int32u profile_compatibility_indications;
     int16u constraint_indicator_flags;

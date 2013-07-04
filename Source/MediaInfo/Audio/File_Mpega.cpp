@@ -890,11 +890,11 @@ void File_Mpega::Header_Parse()
 
     //Filling
     int64u Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
-    
+
     //Special case: tags is inside the last frame
     if (File_Offset+Buffer_Offset+Size>=File_Size-File_EndTagSize)
         Size=File_Size-File_EndTagSize-(File_Offset+Buffer_Offset);
-    
+
     Header_Fill_Size(Size);
     Header_Fill_Code(0, "audio_data");
 

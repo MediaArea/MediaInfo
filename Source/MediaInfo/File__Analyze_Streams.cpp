@@ -1486,7 +1486,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     if (StreamKind==Stream_Audio)
     {
         if (!Channels_Temp.empty())
-        {    
+        {
             //Test with legacy streams information
             bool IsOk=(Channels_Temp==Retrieve(Stream_Audio, StreamPos_To, Audio_Channel_s_));
             if (!IsOk)
@@ -1497,7 +1497,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
                     if (Channels_Temp==Temp[Pos])
                         IsOk=true;
             }
-            
+
             if (!IsOk)
             {
                 Fill(Stream_Audio, StreamPos_To, Audio_Channel_s__Original, (*Stream)[Stream_Audio][StreamPos_To][Audio_Channel_s_], true);

@@ -1354,7 +1354,7 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
     else //Normal
     {
         //From descriptor
-        if ((*Parser)->Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM")) // MXF handles channel count only with PCM, not with compressed data 
+        if ((*Parser)->Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM")) // MXF handles channel count only with PCM, not with compressed data
             for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); ++Descriptor)
                 if (Descriptor->second.LinkedTrackID==Essence->second.TrackID && Descriptor->second.StreamKind==Stream_Audio && StreamKind_Last==Stream_Audio && Descriptor->second.ChannelCount!=(int32u)-1)
                 {
@@ -3028,7 +3028,7 @@ void File_Mxf::Header_Parse()
             Element_WaitForMoreData();
             return;
         }
-        
+
         if (BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset)!=0x060E2B34)
         {
             Buffer_End_Unlimited=true;
@@ -3036,11 +3036,11 @@ void File_Mxf::Header_Parse()
         }
     }
 
-	if (Config->File_IsGrowing && File_Offset+Buffer_Offset+Element_Offset+Length>File_Size)
-	{
-		Element_WaitForMoreData();
-		return;
-	}
+    if (Config->File_IsGrowing && File_Offset+Buffer_Offset+Element_Offset+Length>File_Size)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
 
     //Filling
     int32u Code_Compare1=Code.hi>>32;
@@ -6525,7 +6525,7 @@ void File_Mxf::PartitionMetadata()
     {
         switch ((Code.lo>>8)&0xFF)
         {
-            case 0x02 : 
+            case 0x02 :
             case 0x04 :
                         Config->File_IsGrowing=false;
                         break;

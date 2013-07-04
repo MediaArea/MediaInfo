@@ -2514,7 +2514,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     }
                     if (Parameter=="AppleStoreAccountType")
                     {
-                        if (Value==__T("0")) 
+                        if (Value==__T("0"))
                             Value=__T("iTunes");
                         else
                             Value=__T("AOL");
@@ -3671,7 +3671,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
             Streams[moov_trak_tkhd_TrackID].StreamKind=Stream_Other;
             Streams[moov_trak_tkhd_TrackID].StreamPos=StreamPos_Last;
         }
- 
+
         //Filling
         Streams[moov_trak_tkhd_TrackID].TimeCode=tc;
 

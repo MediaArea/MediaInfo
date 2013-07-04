@@ -27,7 +27,7 @@ void WriteMd5Info(const Ztring &FileName, MediaInfo &MI, const Ztring &DataBaseD
 {
     int8u* Buffer=new int8u[0x1000000];
     File F;
-        
+
     String MD5_FromMI=MI.Get(Stream_General, 0, __T("MD5"));
     String Format=MI.Get(Stream_General, 0, __T("Format"));
 
