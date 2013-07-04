@@ -47,6 +47,7 @@ x SMPTE ST 302: memory leaks
 x SMPTE ST 337: memory leaks
 x Total failure if MEDIAINFO_REFERENCES_NO #define was used
 x QuickTime: Time code name is in "Title" field
+x MPEG-4/QuickTime: handling of weird "negative" frame duration is stts
 
 Version 0.7.63, 2013-05-13
 --------------

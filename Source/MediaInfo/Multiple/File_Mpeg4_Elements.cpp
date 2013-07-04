@@ -5794,7 +5794,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts_Common(int32u SampleCount, int32u
             if (Stts.SampleDuration>Stream->second.stts_Max) Stream->second.stts_Max=Stts.SampleDuration;
         }
         Stream->second.stts_FrameCount+=Stts.SampleCount;
-        Stream->second.stts_Duration+=Stts.SampleCount*Stts.SampleDuration;
+        if (Stts.SampleDuration<0x80000000)
+            Stream->second.stts_Duration+=Stts.SampleCount*Stts.SampleDuration;
+        else
+            Stream->second.stts_Duration-=Stts.SampleCount*(((int32u)-1)-Stts.SampleDuration+1); //Negative value
 
         #if MEDIAINFO_DEMUX
             stream::stts_duration stts_Duration;
