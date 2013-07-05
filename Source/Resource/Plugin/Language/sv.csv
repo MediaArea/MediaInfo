@@ -1015,7 +1015,7 @@ WebSite_General; Gå till hemsidan till en spelare som klarar detta codec
 WebSite_General_More; Gå till denna sida (%Url%) för att hitta passande spelare
 WebSite_Text; Gå till hemsidan för detta textcodec
 WebSite_Text_More; Gå till denna sida (%Url%) för att hitta passande textcodec
-WebSite_Url; http://MediaArea.net/MediaInfo
+WebSite_Url; http://mediaarea.net/MediaInfo
 WebSite_Video; Gå till hemsidan för detta videocodec
 WebSite_Video_More; Gå till denna sida (%Url%) för att hitta passande videocodec
 Width; Bredd

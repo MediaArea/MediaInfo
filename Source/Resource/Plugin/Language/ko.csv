@@ -1015,7 +1015,7 @@ WebSite_General;이 파일을 재생하기 위한 플레이어의 웹사이트�
 WebSite_General_More;이 파일을 재생하기 위한 플레이어의 웹사이트로 가기
 WebSite_Text;이 텍스트 코덱의 웹사이트로 가기
 WebSite_Text_More;이 텍스트 코덱을 찾기 위한 웹사이트(%Url%)로 가기
-WebSite_Url;http://MediaArea.net/MediaInfo
+WebSite_Url;http://mediaarea.net/MediaInfo
 WebSite_Video;이 비디오 코덱의 웹사이트로 가기
 WebSite_Video_More;이 비디오 코덱을 찾기 위한 웹사이트(%Url%)로 가기
 Width;폭

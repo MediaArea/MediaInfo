@@ -1015,7 +1015,7 @@ WebSite_General;Go to the web site of a player for this file
 WebSite_General_More;Go to the web site of a player for this file
 WebSite_Text;Go to the web site of this text codec
 WebSite_Text_More;Go to the web site (%Url%) to find this text codec
-WebSite_Url;http://MediaArea.net/MediaInfo
+WebSite_Url;http://mediaarea.net/MediaInfo
 WebSite_Video;Ísť na stránku s týmto video-kodekom
 WebSite_Video_More;Vyhľadaj tento videokodek na webstránke (%Url%)
 Width;Šírka

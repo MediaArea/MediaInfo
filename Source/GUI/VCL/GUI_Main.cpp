@@ -78,7 +78,7 @@ TCustomButton*              Donate_Current;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const ZenLib::Char* MEDIAINFO_TITLE=__T("MediaInfo - http:\/\/MediaArea.net/MediaInfo");
+const ZenLib::Char* MEDIAINFO_TITLE=__T("MediaArea.net/MediaInfo");
 const size_t Title_Pos=96; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
@@ -1562,55 +1562,55 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_deClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_enClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_esClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_frClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_itClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_jaClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_plClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_zh_CNClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://mediaarea.net/MediaInfo/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------

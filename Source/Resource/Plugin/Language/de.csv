@@ -1015,7 +1015,7 @@ WebSite_General;Zur Webseite eines Players für diese Datei gehen
 WebSite_General_More;Zu dieser Webseite (%Url%) gehen um einen passenden Player für diese Datei zu finden
 WebSite_Text;Zur Webseite dieses Text-Codecs gehen
 WebSite_Text_More;Zu dieser Webseite (%Url%) gehen um diesen Text-Codec zu finden
-WebSite_Url;http://MediaArea.net/MediaInfo
+WebSite_Url;http://mediaarea.net/MediaInfo
 WebSite_Video;Zur Webseite dieses Video-Codecs gehen
 WebSite_Video_More;Zu dieser Webseite (%Url%) gehen um diesen Video-Codec zu finden
 Width;Breite

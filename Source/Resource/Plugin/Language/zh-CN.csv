@@ -1015,7 +1015,7 @@ WebSite_General;访问此播放程序的网页
 WebSite_General_More;更多播放程序的网页
 WebSite_Text;访问此文字编解码器的网页
 WebSite_Text_More;更多文字编解码器的网页
-WebSite_Url;网址http://MediaArea.net/MediaInfo
+WebSite_Url;网址http://mediaarea.net/MediaInfo
 WebSite_Video;访问此视频编解码器的网页
 WebSite_Video_More;更多视频编解码器的网页(%Url%)
 Width;画面宽度

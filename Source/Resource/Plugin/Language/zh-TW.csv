@@ -1015,7 +1015,7 @@ WebSite_General;前往此播放程式的網站
 WebSite_General_More;前往此播放程式的網站
 WebSite_Text;前往此文字編解碼器的網站
 WebSite_Text_More;前往網站 (%Url%) 找尋此文字編解碼器
-WebSite_Url;http://MediaArea.net/MediaInfo/zh-TW
+WebSite_Url;http://mediaarea.net/MediaInfo/zh-TW
 WebSite_Video;前往此視訊編解碼器的網站
 WebSite_Video_More;前往網站 (%Url%) 找尋此視訊編解碼器
 Width;畫面寬度
