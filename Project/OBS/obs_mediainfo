@@ -83,20 +83,20 @@ mkdir download/binary/libzen0/$libzenv/
 type="deb"
 devext="dev"
 dash="_"
-Download_Packages 2  1  1   x x ""           Debian_6.0    i386   _i386
-Download_Packages 2  1  1   x x ""           Debian_6.0    amd64  _amd64
-Download_Packages 2  1  1   x x ""           Debian_7.0    i386   _i386
-Download_Packages 2  1  1   x x ""           Debian_7.0    amd64  _amd64
-Download_Packages 2  1  1   x x ""           xUbuntu_10.04  i386   _i386
-Download_Packages 2  1  1   x x ""           xUbuntu_10.04  amd64  _amd64
-Download_Packages 2  1  1   x x ""           xUbuntu_11.10  i386   _i386
-Download_Packages 2  1  1   x x ""           xUbuntu_11.10  amd64  _amd64
-Download_Packages 2  1  1   x x ""           xUbuntu_12.04  i386   _i386
-Download_Packages 2  1  1   x x ""           xUbuntu_12.04  amd64  _amd64
-Download_Packages 2  1  1   x x ""           xUbuntu_12.10  i386   _i386
-Download_Packages 2  1  1   x x ""           xUbuntu_12.10  amd64  _amd64
-Download_Packages 2  1  1   x x ""           xUbuntu_13.04  i386   _i386
-Download_Packages 2  1  1   x x ""           xUbuntu_13.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           Debian_6.0    i386   _i386
+Download_Packages 1  1  1   x x ""           Debian_6.0    amd64  _amd64
+Download_Packages 1  1  1   x x ""           Debian_7.0    i386   _i386
+Download_Packages 1  1  1   x x ""           Debian_7.0    amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_10.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_10.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_11.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_11.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_12.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_12.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_12.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_12.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_13.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_13.04  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -105,10 +105,10 @@ Download_Packages $1 $2 $3  x x ""           CentOS_5        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_6        i686   .i686
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_17       i686   .i686
-Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_18       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_18       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_19       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_19       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2009.1 i586   .i586
 Download_Packages $1 $2 $3  x x ""           Mandriva_2009.1 x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Mandriva_2010   i586   .i586
@@ -148,7 +148,7 @@ libmediainfov="0.7.64"
 libzenv="0.4.29"
 destversion="1"
 
-Download_Global 17.1 15.1 246.1
+Download_Global 7.1 4.1 246.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
