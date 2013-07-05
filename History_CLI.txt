@@ -8,9 +8,49 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.64, 2013-
+Version 0.7.64, 2013-07-05
 --------------
 + New canonical URL of the website: http://MediaArea.net/MediaInfo
++ E-AC-3: support of streams having substreams (e.g. more than 6 channels)
++ JPEG: detection of YUVA, RGB, RGBA and YCCK color spaces
++ MPEG Audio: detection of Id3v1 inside an MPEG Audio frame
++ Matroska: support of HEVC/H.265 (based on specifications draft from DivX inc)
++ Canopus: detection of scan mode, scan order, pixel aspect ratio
++ MD5 generation option (work in progress)
++ Id3v2: reading of all Id3v2 blocks (no more only the first one) at the beginning of the file
++ MPEG-4: support of few additional iTunes tags, thanks to Kurtnoise
++ AVI: detection of Ut Video, thanks to Kurtnoise
++ MXF: detection of Dolby E even if EssenceCompression is not SMPTE 337
++ AIFF: detection of Dolby E
++ AIFF: detection of not aligned Dolby E
++ ARIB B24/B37: Caption_conversion_type display (HD, SD, Mobile)
++ MPEG-TS: displaying CEA-708 service and CEA-608 presence if the corresponding ATSC descriptor is present
++ MPEG-TS: quicker analysis in the case of quick parsing option
++ #F412, Matroska: Handling of files having no DocType
+x #B761, MPEG-TS/ARIB: crash with some streams, thanks to maki
+x #B765, Matroska: was parsing the complete file if a stream indicated in the header is not present
+x #B763, MXF: detection of incoherency of channel count between bitstream and wrapper
+x #B762, Matroska: detecting 23.976 frame rate (instead of 23.962 fps due to imprecise timestamp)
+x #B759, QuickTime: detection of time codes having tcmi not embedded in tmcd box
+x #B766, RMVB: a/v delay is incorrect, currently disabling it
+x #B768, MPEG-4, crash with some MPEG-4 files
+x #B769, MPEG-4, crash with some MPEG-4 files
+x #B764, AVC: wrong parsing of some streams having pic_scaling_matrix
+x AVC, crash with some AVC streams
+x AAC, infinite loop with some AAC streams
+x FLV, infinite loop with some FLV files
+x Matroska: crash with some malformed files
+x MOV: crash/long parsing with some malformed files
+x AC-3: crashes and freezes fix
+x Java 64-bit: Count_Get(StreamKind) was always returning 0
+x Python 64-bit: Count_Get(StreamKind) was always returning 0
+x DTS: some streams were not detected
+x DTS: some memory leaks with 14-bit streams
+x SMPTE ST 302: memory leaks
+x SMPTE ST 337: memory leaks
+x Total failure if MEDIAINFO_REFERENCES_NO #define was used
+x QuickTime: Time code name is in "Title" field
+x MPEG-4/QuickTime: handling of weird "negative" frame duration is stts
 
 Version 0.7.63, 2013-05-13
 --------------
