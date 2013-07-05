@@ -69,7 +69,7 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
         Translator->Visible=true;
     }
     Translator_Url=Prefs->Translate(__T("  Author_Email"));
-    if (Translator_Url.size()==0 || Translator_Url==__T("Zen@mediaarea.net"))
+    if (Translator_Url.size()==0 || Translator_Url==__T("Info@MediaArea.net"))
         WriteToTranslator->Visible=false;
     else
     {
