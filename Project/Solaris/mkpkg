@@ -9,7 +9,7 @@ release=`uname -r`
 
 #Creation of known directories and filenames
 name="libmediainfo0"
-version="0.7.63"
+version="0.7.64"
 Home=`pwd`
 install_prefix=${Home}/mk_package
 packagecreation_prefix=${Home}/create_package

@@ -8,7 +8,7 @@ bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.64, 2013-
+Version 0.7.64, 2013-07-05
 --------------
 + New canonical URL of the website: http://MediaArea.net/MediaInfo
 + E-AC-3: support of streams having substreams (e.g. more than 6 channels)
