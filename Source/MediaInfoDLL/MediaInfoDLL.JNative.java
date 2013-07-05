@@ -18,7 +18,7 @@ import org.xvolks.jnative.pointers.memory.NativeMemoryBlock;
  * to obtain technical the info about the files.
  *
  * @author bro3@users.sourceforge.net
- * @author zen@mediaarea.net
+ * @author Info@MediaArea.net
  */
 class MediaInfo
 {

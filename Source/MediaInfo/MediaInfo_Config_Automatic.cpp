@@ -28,7 +28,7 @@ void MediaInfo_Config_DefaultLanguage (Translation &Info)
     Info.Separator_Set(0, __T("\n"));
     Info.Write(Ztring().From_UTF8(
     "  Language_ISO639;en\n"
-    "  Author_Email;Zen@mediaarea.net\n"
+    "  Author_Email;Info@MediaArea.net\n"
     "  Author_Name;Zen\n"
     "  Author_OldNames;Initial translator\n"
     "  Language_Name;English\n"
