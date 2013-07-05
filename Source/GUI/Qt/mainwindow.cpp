@@ -147,7 +147,7 @@ bool MainWindow::isNewer(QString distant, QString local) {
 
 void MainWindow::checkForNewVersion() {
     QString version = VERSION;
-    QUrl url = QUrl("http://MediaArea.net/mediainfo_check/changelog_"+version+".bin");
+    QUrl url = QUrl("http://MediaArea.net/MediaInfo_check/changelog_"+version+".bin");
     file = "";
     reply = qnam.get(QNetworkRequest(url));
     qDebug() << "downloading " << url.toString();

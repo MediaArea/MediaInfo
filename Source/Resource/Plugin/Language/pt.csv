@@ -1015,7 +1015,7 @@ WebSite_General;Ir para o site de um leitor para este ficheiro
 WebSite_General_More;Ir para o site de um leitor para este ficheiro
 WebSite_Text;Ir para o site deste codec de texto
 WebSite_Text_More;Ir para o site (%Url%) para encontrar este codec de texto
-WebSite_Url;http://mediaarea.net/MediaInfo
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Ir para o site deste codec de vídeo
 WebSite_Video_More;Ir para o site (%Url%) para encontrar este codec de vídeo
 Width;Largura

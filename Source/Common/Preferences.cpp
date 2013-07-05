@@ -337,7 +337,7 @@ void __fastcall ThreadInternetCheck::Execute()
         return; //No internet connexion
 
     HTTP_Client H;
-    if (H.Open(Ztring(__T("http://mediaarea.net/mediainfo_check/changelog_"))+MediaInfo_Version_GUI+__T(".bin"))==0)
+    if (H.Open(Ztring(__T("http://MediaArea.net/mediainfo_check/changelog_"))+MediaInfo_Version_GUI+__T(".bin"))==0)
         return;
 
     Ztring Z=H.Read();

@@ -1015,7 +1015,7 @@ WebSite_General;Aller sur le site web d'un lecteur pour ce fichier
 WebSite_General_More;Aller sur le site web (%Url%) d'un lecteur pour ce fichier
 WebSite_Text;Aller sur le site web du codec text
 WebSite_Text_More;Aller sur le site web (%Url%) du codec texte
-WebSite_Url;http://mediaarea.net/MediaInfo/
+WebSite_Url;http://MediaArea.net/MediaInfo/
 WebSite_Video;Aller sur le site web du codec vidéo
 WebSite_Video_More;Aller sur le site web (%Url%) du codec vidéo
 Width;Largeur

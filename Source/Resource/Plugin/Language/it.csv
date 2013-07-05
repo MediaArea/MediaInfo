@@ -1015,7 +1015,7 @@ WebSite_General;Vai al sito internet del player per questo file
 WebSite_General_More;Vai al sito internet del player per questo file
 WebSite_Text;Vai al sito internet per questo sottotitolo
 WebSite_Text_More;Vai al sito internet (%Url%) per info su questo sottotitolo
-WebSite_Url;http://mediaarea.net/MediaInfo
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Vai al sito internet per info su questo codec video
 WebSite_Video_More;Vai al sito internet (%Url%) per info su questo video
 Width;Larghezza
