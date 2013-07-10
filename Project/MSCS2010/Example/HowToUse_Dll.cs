@@ -1,21 +1,9 @@
-// MediaInfoDLL - All info about media files
-// This software is provided 'as-is', without any express or implied
-// warranty.  In no event will the authors be held liable for any damages
-// arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented; you must not
-//    claim that you wrote the original software. If you use this software
-//    in a product, an acknowledgment in the product documentation would be
-//    appreciated but is not required.
-// 2. Altered source versions must be plainly marked as such, and must not be
-//    misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
-//
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
 // Microsoft Visual C# example
@@ -119,46 +107,6 @@ namespace MediaInfoLib_MSCS
             Application.Run(new Form1());
         }
 
-
-        public enum InitialCrcValue { Zeros, NonZero1 = 0xffff, NonZero2 = 0x1D0F }
-
-        public class Crc16Ccitt {
-            const ushort poly = 4129;
-            ushort[] table = new ushort[256];
-            ushort initialValue = 0;
-
-            public ushort ComputeChecksum(byte[] bytes) {
-                ushort crc = this.initialValue;
-                for(int i = 0; i < bytes.Length; ++i) {
-                    crc = (ushort)((crc << 8) ^ table[((crc >> 8) ^ (0xff & bytes[i]))]);
-                }
-                return crc;
-            }
-
-            public byte[] ComputeChecksumBytes(byte[] bytes) {
-                ushort crc = ComputeChecksum(bytes);
-                return BitConverter.GetBytes(crc);
-            }
-
-            public Crc16Ccitt(InitialCrcValue initialValue) {
-                this.initialValue = (ushort)initialValue;
-                ushort temp, a;
-                for(int i = 0; i < table.Length; ++i) {
-                    temp = 0;
-                    a = (ushort)(i << 8);
-                    for(int j = 0; j < 8; ++j) {
-                        if(((temp ^ a) & 0x8000) != 0) {
-                            temp = (ushort)((temp << 1) ^ poly);
-                        } else {
-                            temp <<= 1;
-                        }
-                        a <<= 1;
-                    }
-                    table[i] = temp;
-                }
-            }
-        }
-
         private void Form1_Load(object sender, System.EventArgs e)
         {
             //Test if version of DLL is compatible : 3rd argument is "version of DLL tested;Your application name;Your application version"
@@ -218,10 +166,6 @@ namespace MediaInfoLib_MSCS
 
             //Example with a stream
             //ToDisplay+="\r\n"+ExampleWithStream()+"\r\n";
-
-            Crc16Ccitt A=new Crc16Ccitt(InitialCrcValue.Zeros);
-            byte[] B = { 0x84, 0x00, 0x00, 0x00, 0x6B, 0x00, 0x00, 0x00, 0x67, 0x1F, 0x20, 0x00, 0x00, 0x62, 0x0C, 0x9B, 0x35, 0x35, 0x38, 0x3B, 0x34, 0x31, 0x36, 0x20, 0x56, 0x9B, 0x38, 0x31, 0x3B, 0x33, 0x32, 0x20, 0x5F, 0x90, 0x6F, 0x90, 0x20, 0x41, 0x90, 0x7E, 0x9B, 0x31, 0x3B, 0x30, 0x30, 0x30, 0x30, 0x20, 0x63, 0x9B, 0x30, 0x20, 0x58, 0x1C, 0x40, 0x40, 0x1C, 0x46, 0x40, 0x90, 0x20, 0x40, 0x90, 0x50, 0xC9, 0xB3, 0xC7, 0x89, 0x20, 0x1D, 0x61, 0x1B, 0x7E, 0xC0, 0xA4, 0xE9, 0xF3, 0xC1, 0xF3, 0x8A, 0x24, 0x72, 0x21, 0x29, 0x88, 0x1C, 0x4F, 0x41, 0x89, 0xE1, 0xAD, 0xB7, 0xB3, 0x8A, 0x21, 0x29, 0x89, 0x20, 0x8A, 0x21, 0x44, 0x89, 0xA4, 0xF3, 0xBF, 0xF9, 0xCD, 0xC3, 0xC8, 0x8A, 0x21, 0x29 };
-            ushort C=A.ComputeChecksum(B);
 
             //Displaying the text
             richTextBox1.Text = ToDisplay;
