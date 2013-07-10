@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
 using System.Text;
+using System.IO;
 using MediaInfoLib;
 
 namespace MediaInfoLib_MSCS
@@ -163,8 +164,58 @@ namespace MediaInfoLib_MSCS
             ToDisplay += "\r\n\r\nClose\r\n";
             MI.Close();
 
+            //Example with a stream
+            //ToDisplay+="\r\n"+ExampleWithStream()+"\r\n";
+
             //Displaying the text
             richTextBox1.Text = ToDisplay;
+        }
+
+        String ExampleWithStream()
+        {
+            //Initilaizing MediaInfo
+            MediaInfo MI = new MediaInfo();
+
+            //From: preparing an example file for reading
+            FileStream From = new FileStream("Example.ogg", FileMode.Open, FileAccess.Read);
+
+            //From: preparing a memory buffer for reading
+            byte[] From_Buffer = new byte[64*1024];
+            int    From_Buffer_Size; //The size of the read file buffer
+
+            //Preparing to fill MediaInfo with a buffer
+            MI.Open_Buffer_Init(From.Length, 0);
+
+            //The parsing loop
+            do
+            {
+                //Reading data somewhere, do what you want for this.
+                From_Buffer_Size=From.Read(From_Buffer, 0, 64*1024);
+
+                //Sending the buffer to MediaInfo
+                System.Runtime.InteropServices.GCHandle GC = System.Runtime.InteropServices.GCHandle.Alloc(From_Buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
+                IntPtr From_Buffer_IntPtr = GC.AddrOfPinnedObject();
+                if (MI.Open_Buffer_Continue(From_Buffer_IntPtr, (IntPtr)From_Buffer_Size) == 0) //Note: How to provide a buffer[]?
+                {
+                    GC.Free();
+                    break;
+                }
+                GC.Free();
+
+                //Testing if MediaInfo request to go elsewhere
+                if (MI.Open_Buffer_Continue_GoTo_Get()!=-1)
+                {
+                    Int64 Position=From.Seek(MI.Open_Buffer_Continue_GoTo_Get(), SeekOrigin.Begin); //Position the file
+                    MI.Open_Buffer_Init(From.Length, Position); //Informing MediaInfo we have seek
+                }
+            }
+            while (From_Buffer_Size>0);
+
+            //Finalizing
+            MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
+
+            //Get() example
+            return MI.Get(StreamKind.General, 0, "Format");
         }
     }
 }
