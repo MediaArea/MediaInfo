@@ -164,6 +164,18 @@ int16u AC3_acmod2chanmap[]=
 };
 
 //---------------------------------------------------------------------------
+int16u AC3_chan_loc2chanmap(int16u chan_loc)
+{
+    int16u chanmap=0;
+
+    for (int8u Pos=0; Pos<9; Pos++)
+        if (chan_loc&(1<<Pos))
+            chanmap|=(1<<(10-Pos));
+
+    return chanmap;
+};
+
+//---------------------------------------------------------------------------
 Ztring AC3_chanmap_ChannelPositions (int16u chanmap)
 {
     Ztring Front;
@@ -2145,21 +2157,24 @@ void File_Ac3::dec3()
     //Parsing
     BS_Begin();
     int8u num_ind_sub;
-    Skip_S2(13,                                                 "data_rate");
-    Get_S1 ( 3, num_ind_sub,                                    "num_ind_sub");
-    for (int8u Pos=0; Pos<num_ind_sub; Pos++)
+    Info_S2(13, data_rate,                                      "data_rate"); Param_Info2(data_rate, " kbps");
+    Get_S1 ( 3, num_ind_sub,                                    "num_ind_sub"); Param_Info2(num_ind_sub+1, " independant substreams");
+    for (int8u Pos=0; Pos<=num_ind_sub; Pos++)
     {
         Element_Begin1("independent substream");
         int8u num_dep_sub;
-        Get_S1 (2, fscod,                                       "fscod");
+        Get_S1 (2, fscod,                                       "fscod"); Param_Info2(AC3_SamplingRate[fscod], " Hz");
         Get_S1 (5, bsid,                                        "bsid");
-        Get_S1 (3, bsmod_Max[Pos][0],                           "bsmod");
-        Get_S1 (3, acmod_Max[Pos][0],                           "acmod");
-        Get_SB (   lfeon_Max[Pos][0],                           "lfeon");
+        Get_S1 (5, bsmod_Max[Pos][0],                           "bsmod"); Param_Info1(AC3_Mode[bsmod_Max[Pos][0]]);
+        Get_S1 (3, acmod_Max[Pos][0],                           "acmod"); Param_Info1(AC3_ChannelPositions[acmod_Max[Pos][0]]);
+        Get_SB (   lfeon_Max[Pos][0],                           "lfeon"); Param_Info1(lfeon_Max[Pos][0]?"LFE present":"");
         Skip_S1(3,                                              "reserved");
-        Get_S1 (4, num_dep_sub,                                 "num_dep_sub");
+        Get_S1 (4, num_dep_sub,                                 "num_dep_sub"); Param_Info2(num_dep_sub, " dependant substreams");
         if (num_dep_sub>0)
-            Skip_S2(9,                                          "chan_loc");
+        {
+            int16u chan_loc;
+            Get_S2 (9, chan_loc,                                "chan_loc"); Param_Info1(AC3_chanmap_ChannelPositions(AC3_chan_loc2chanmap(chan_loc)));
+        }
         else
             Skip_SB(                                            "reserved");
         Element_End0();
@@ -2372,7 +2387,7 @@ size_t File_Ac3::Core_Size_Get()
         {
             if (Buffer_Offset+Size+6>Buffer_Size)
             {
-                if (!IsSub && !Save_Buffer)
+                if (!IsSub && !Save_Buffer && File_Offset+Buffer_Offset+Size!=File_Size)
                     Element_WaitForMoreData();
                 break;
             }
