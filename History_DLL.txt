@@ -11,6 +11,7 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 Version 0.7.65, 2013-
 --------------
 + MXF: forcing detection of MPEG Video in case EssenceCompression is not present but MPEG2VideoDescriptor is present
+x MPEG-4: wrong demux of some E-AC-3 streams
 
 Version 0.7.64, 2013-07-05
 --------------
