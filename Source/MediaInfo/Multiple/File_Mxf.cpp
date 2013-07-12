@@ -4226,6 +4226,8 @@ void File_Mxf::MaterialPackage()
 //---------------------------------------------------------------------------
 void File_Mxf::MPEG2VideoDescriptor()
 {
+    Descriptors[InstanceUID].Infos["Format"]="MPEG Video";
+    
     std::map<int16u, int128u>::iterator Primer_Value=Primer_Values.find(Code2);
     if (Primer_Value==Primer_Values.end()) //if not a standard code or unknown user defined code
     {
