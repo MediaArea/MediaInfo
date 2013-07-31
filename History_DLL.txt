@@ -12,6 +12,7 @@ Version 0.7.65, 2013-
 --------------
 + MXF: forcing detection of MPEG Video in case EssenceCompression is not present but MPEG2VideoDescriptor is present
 x MPEG-4: wrong demux of some E-AC-3 streams
+x AAC: detection of HE-AACv2 was missing if the library is configured with fast detection
 
 Version 0.7.64, 2013-07-05
 --------------
