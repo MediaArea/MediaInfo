@@ -58,6 +58,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #if MEDIAINFO_ADVANCED
         File_IgnoreSequenceFileSize=false;
         File_Source_List=false;
+        File_Demux_Unpacketize_StreamLayoutChange_Skip=false;
     #endif //MEDIAINFO_ADVANCED
     #if MEDIAINFO_MD5
         File_Md5=false;
@@ -298,6 +299,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //MEDIAINFO_MD5
             return __T("MD5 is disabled due to compilation options");
         #endif //MEDIAINFO_MD5
+    }
+    else if (Option_Lower==__T("file_demux_unpacketize_streamlayoutchange_skip"))
+    {
+        #if MEDIAINFO_ADVANCED
+            File_Demux_Unpacketize_StreamLayoutChange_Skip_Set(!(Value==__T("0") || Value.empty()));
+            return Ztring();
+        #else //MEDIAINFO_ADVANCED
+            return __T("Advanced features disabled due to compilation options");
+        #endif //MEDIAINFO_ADVANCED
     }
     else if (Option_Lower==__T("file_md5"))
     {
@@ -1059,6 +1069,21 @@ bool MediaInfo_Config_MediaInfo::File_Source_List_Get ()
 }
 #endif //MEDIAINFO_ADVANCED
 
+//---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED
+void MediaInfo_Config_MediaInfo::File_Demux_Unpacketize_StreamLayoutChange_Skip_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Demux_Unpacketize_StreamLayoutChange_Skip=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_Demux_Unpacketize_StreamLayoutChange_Skip_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_Demux_Unpacketize_StreamLayoutChange_Skip;
+}
+#endif //MEDIAINFO_ADVANCED
+
 //***************************************************************************
 // File name from somewhere else
 //***************************************************************************
@@ -1656,11 +1681,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
 
         // Copying buffers
         int32u* EventCode=(int32u*)Data_Content;
-        if (((*EventCode)&0x00FFFFFF)==((MediaInfo_Event_Global_Demux<<8)|4) && Data_Size==sizeof(MediaInfo_Event_Global_Demux_4)) /*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license that can
- *  be found in the License.html file in the root of the source tree.
- */
+        if (((*EventCode)&0x00FFFFFF)==((MediaInfo_Event_Global_Demux<<8)|4) && Data_Size==sizeof(MediaInfo_Event_Global_Demux_4))
         {
             MediaInfo_Event_Global_Demux_4* Old=(MediaInfo_Event_Global_Demux_4*)Data_Content;
             MediaInfo_Event_Global_Demux_4* New=(MediaInfo_Event_Global_Demux_4*)Event->Data_Content;
