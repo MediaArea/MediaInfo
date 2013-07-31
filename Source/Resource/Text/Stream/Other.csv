@@ -1,8 +1,8 @@
 Count;;;N NI;;;Count of objects available in this stream
 Status;;;N NI;;;bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Other;;N NI;;;Stream type name
-StreamKind/String;;;N NI;;;Stream type name
+StreamKind;Other;;N NT;;;Stream type name
+StreamKind/String;;;N NT;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 StreamOrder;;;N YI;;;Stream order in the file, whatever is the kind of stream (base=0)
