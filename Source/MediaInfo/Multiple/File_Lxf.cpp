@@ -1472,6 +1472,17 @@ void File_Lxf::Audio_Stream(size_t Pos)
     #endif //MEDIAINFO_DEMUX
     */
 
+    #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_SEEK
+            if (SeekRequest==(int64u)-1)
+        #endif //MEDIAINFO_SEEK
+        {
+            Element_Code=0x200+Pos;
+            Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.Duration))/TimeStamp_Rate*FrameRate);
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
+        }
+    #endif //MEDIAINFO_DEMUX
+
     //Parsing
     Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.Duration))/TimeStamp_Rate*FrameRate);
     for (size_t Pos2=0; Pos2<Audios[Pos].Parsers.size(); Pos2++)
