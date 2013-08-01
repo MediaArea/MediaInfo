@@ -921,17 +921,19 @@ void File_Mpega::Header_Parse()
     mode_Count[mode]++;
 
     FILLING_BEGIN();
-        #if MEDIAINFO_ADVANCED
-            if (!Frame_Count)
-            {
-                File_Demux_Unpacketize_StreamLayoutChange_Skip=Config->File_Demux_Unpacketize_StreamLayoutChange_Skip_Get();
-                if (File_Demux_Unpacketize_StreamLayoutChange_Skip)
+        #if MEDIAINFO_DEMUX
+            #if MEDIAINFO_ADVANCED
+                if (!Frame_Count)
                 {
-                    sampling_frequency_Frame0=sampling_frequency;
-                    mode_Frame0=mode;
+                    File_Demux_Unpacketize_StreamLayoutChange_Skip=Config->File_Demux_Unpacketize_StreamLayoutChange_Skip_Get();
+                    if (File_Demux_Unpacketize_StreamLayoutChange_Skip)
+                    {
+                        sampling_frequency_Frame0=sampling_frequency;
+                        mode_Frame0=mode;
+                    }
                 }
-            }
-        #endif //MEDIAINFO_ADVANCED
+            #endif //MEDIAINFO_ADVANCED
+        #endif //MEDIAINFO_DEMUX
     FILLING_END();
 }
 

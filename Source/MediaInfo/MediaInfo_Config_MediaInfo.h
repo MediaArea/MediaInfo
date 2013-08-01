@@ -96,10 +96,12 @@ public :
         bool          File_Source_List_Get ();
     #endif //MEDIAINFO_ADVANCED
 
-    #if MEDIAINFO_ADVANCED
-        void          File_Demux_Unpacketize_StreamLayoutChange_Skip_Set (bool NewValue);
-        bool          File_Demux_Unpacketize_StreamLayoutChange_Skip_Get ();
-    #endif //MEDIAINFO_ADVANCED
+    #if MEDIAINFO_DEMUX
+        #if MEDIAINFO_ADVANCED
+            void          File_Demux_Unpacketize_StreamLayoutChange_Skip_Set (bool NewValue);
+            bool          File_Demux_Unpacketize_StreamLayoutChange_Skip_Get ();
+        #endif //MEDIAINFO_ADVANCED
+    #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_MD5
         void          File_Md5_Set (bool NewValue);
@@ -299,7 +301,9 @@ private :
     #if MEDIAINFO_ADVANCED
         bool                File_IgnoreSequenceFileSize;
         bool                File_Source_List;
-        bool                File_Demux_Unpacketize_StreamLayoutChange_Skip;
+        #if MEDIAINFO_DEMUX
+            bool                File_Demux_Unpacketize_StreamLayoutChange_Skip;
+        #endif //MEDIAINFO_DEMUX
     #endif //MEDIAINFO_ADVANCED
     #if MEDIAINFO_MD5
         bool                File_Md5;

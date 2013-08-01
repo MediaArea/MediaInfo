@@ -58,7 +58,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #if MEDIAINFO_ADVANCED
         File_IgnoreSequenceFileSize=false;
         File_Source_List=false;
-        File_Demux_Unpacketize_StreamLayoutChange_Skip=false;
+        #if MEDIAINFO_DEMUX
+            File_Demux_Unpacketize_StreamLayoutChange_Skip=false;
+        #endif //MEDIAINFO_DEMUX
     #endif //MEDIAINFO_ADVANCED
     #if MEDIAINFO_MD5
         File_Md5=false;
@@ -302,9 +304,13 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==__T("file_demux_unpacketize_streamlayoutchange_skip"))
     {
-        #if MEDIAINFO_ADVANCED
-            File_Demux_Unpacketize_StreamLayoutChange_Skip_Set(!(Value==__T("0") || Value.empty()));
-            return Ztring();
+        #if MEDIAINFO_DEMUX
+		    #if MEDIAINFO_ADVANCED
+                File_Demux_Unpacketize_StreamLayoutChange_Skip_Set(!(Value==__T("0") || Value.empty()));
+                return Ztring();
+            #else //MEDIAINFO_ADVANCED
+                return __T("Advanced features disabled due to compilation options");
+            #endif //MEDIAINFO_ADVANCED
         #else //MEDIAINFO_ADVANCED
             return __T("Advanced features disabled due to compilation options");
         #endif //MEDIAINFO_ADVANCED
@@ -1070,6 +1076,7 @@ bool MediaInfo_Config_MediaInfo::File_Source_List_Get ()
 #endif //MEDIAINFO_ADVANCED
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_DEMUX
 #if MEDIAINFO_ADVANCED
 void MediaInfo_Config_MediaInfo::File_Demux_Unpacketize_StreamLayoutChange_Skip_Set (bool NewValue)
 {
@@ -1083,6 +1090,7 @@ bool MediaInfo_Config_MediaInfo::File_Demux_Unpacketize_StreamLayoutChange_Skip_
     return File_Demux_Unpacketize_StreamLayoutChange_Skip;
 }
 #endif //MEDIAINFO_ADVANCED
+#endif //MEDIAINFO_DEMUX
 
 //***************************************************************************
 // File name from somewhere else
