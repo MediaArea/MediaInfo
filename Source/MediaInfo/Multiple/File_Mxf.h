@@ -563,6 +563,7 @@ protected :
         };
         type Type;
         bool HasBFrames;
+        bool HasMPEG2VideoDescriptor;
         int32u ByteRate;
 
         descriptor()
@@ -595,6 +596,7 @@ protected :
             FieldDominance=1; //Default is field 1 temporaly first
             Type=Type_Unknown;
             HasBFrames=false;
+            HasMPEG2VideoDescriptor=false;
             ByteRate=(int32u)-1;
         }
     };

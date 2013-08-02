@@ -1706,7 +1706,6 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); ++Info)
             if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
             {
-                Ztring A=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
                 if (Info->first=="BitRate" && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T(" / "))!=string::npos)
                 {
                     if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate)).empty() || Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T("-"))!=string::npos)
@@ -1717,6 +1716,8 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
                 else
                     Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
             }
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Descriptor->second.HasMPEG2VideoDescriptor)
+            Fill(Stream_Video, StreamPos_Last, Video_Format, "MPEG Video");
 
         //Bitrate (PCM)
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM") && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Wrapping).find(__T("D-10"))!=string::npos)
@@ -4226,7 +4227,7 @@ void File_Mxf::MaterialPackage()
 //---------------------------------------------------------------------------
 void File_Mxf::MPEG2VideoDescriptor()
 {
-    Descriptors[InstanceUID].Infos["Format"]="MPEG Video";
+    Descriptors[InstanceUID].HasMPEG2VideoDescriptor=true;
     
     std::map<int16u, int128u>::iterator Primer_Value=Primer_Values.find(Code2);
     if (Primer_Value==Primer_Values.end()) //if not a standard code or unknown user defined code
@@ -5275,6 +5276,12 @@ void File_Mxf::InterchangeObject_InstanceUID()
         descriptors::iterator Descriptor=Descriptors.find(0);
         if (Descriptor!=Descriptors.end())
         {
+            descriptors::iterator Descriptor_Previous=Descriptors.find(InstanceUID);
+            if (Descriptor_Previous!=Descriptors.end())
+            {
+                //Merging
+                Descriptor->second.Infos.insert(Descriptor_Previous->second.Infos.begin(), Descriptor_Previous->second.Infos.end()); //TODO: better implementation
+            }
             Descriptors[InstanceUID]=Descriptor->second;
             Descriptors.erase(Descriptor);
         }
