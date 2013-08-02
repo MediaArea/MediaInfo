@@ -1719,7 +1719,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec_CC), Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
         }
         Fill(StreamKind_Last, StreamPos_Last, "Width", Width, 10, true);
-        Fill(StreamKind_Last, StreamPos_Last, "Height", Height, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, "Height", Height>=0x80000000?(-Height):Height, 10, true); // AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
         if (Resolution==32 && Compression==0x74736363) //tscc
             Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
         else if (Compression==0x44495633) //DIV3
