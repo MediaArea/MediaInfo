@@ -258,6 +258,7 @@ File_Gxf::File_Gxf()
         Ancillary=NULL;
     #endif //defined(MEDIAINFO_ANCILLARY_YES)
     SizeToAnalyze=16*1024*1024;
+    IsParsingMiddle_MaxOffset=(int64u)-1;
     Audio_Count=0;
     Element_Code=0x00; //Element_Code is used as a test for pre-existing parsing, it must be initialized
 
@@ -751,6 +752,18 @@ size_t File_Gxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u)
     }
 }
 #endif //MEDIAINFO_SEEK
+
+//---------------------------------------------------------------------------
+void File_Gxf::Read_Buffer_AfterParsing()
+{
+    if (File_GoTo==(int64u)-1 && File_Offset+Buffer_Offset>=IsParsingMiddle_MaxOffset)
+    {
+        Fill();
+        Open_Buffer_Unsynch();
+        Finish();
+        return;
+    }
+}
 
 //***************************************************************************
 // Buffer - Per element
@@ -1431,7 +1444,7 @@ void File_Gxf::media()
     #endif //MEDIAINFO_DEMUX
 
     //Needed?
-    if (!Streams[TrackNumber].Searching_Payload)
+    if (!Streams[TrackNumber].Searching_Payload && IsParsingMiddle_MaxOffset==(int64u)-1)
     {
         Skip_XX(Element_Size-Element_Offset,                    "data");
         //Element_DoNotShow();
@@ -1468,7 +1481,7 @@ void File_Gxf::media()
 
     Element_Offset=Element_Size;
 
-    if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Streams[TrackNumber].Parsers.size()==1 && Streams[TrackNumber].Parsers[0]->Status[IsFilled])
+    if (IsParsingMiddle_MaxOffset!=(int64u)-1 && Config->ParseSpeed<1 && Streams[TrackNumber].Parsers.size()==1 && Streams[TrackNumber].Parsers[0]->Status[IsFilled])
     {
         Streams[TrackNumber].Searching_Payload=false;
 
@@ -1476,7 +1489,7 @@ void File_Gxf::media()
             Parsers_Count--;
         if (Parsers_Count==0)
         {
-            Finish();
+            TryToFinish();
         }
     }
 }
@@ -1560,7 +1573,7 @@ void File_Gxf::Detect_EOF()
 {
     if (File_Offset+Buffer_Size>=SizeToAnalyze)
     {
-        Finish();
+        TryToFinish();
     }
 }
 
@@ -1603,6 +1616,21 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
     #endif //MEDIAINFO_DEMUX
 
     return Parser;
+}
+
+//---------------------------------------------------------------------------
+void File_Gxf::TryToFinish()
+{
+    if (!IsSub && File_Size!=(int64u)-1 && Config->ParseSpeed<1 && IsParsingMiddle_MaxOffset==(int64u)-1 && File_Size/2>SizeToAnalyze*4)
+    {
+        IsParsingMiddle_MaxOffset=File_Size/2+SizeToAnalyze*4;
+        GoTo(File_Size/2);
+        Open_Buffer_Unsynch();
+        Parsers_Count=(int8u)-1;
+        return;
+    }
+
+    Finish();
 }
 
 } //NameSpace
