@@ -1485,16 +1485,24 @@ void File_Mpegv::Streams_Finish()
     }
     else if (!TimeCodeIsNotTrustable && Time_End_Seconds!=Error && FrameRate)
     {
-        TimeCode TC;
-        TC.FramesPerSecond=(int8u)ceil(FrameRate);
-        TC.DropFrame=(FrameRate-ceil(FrameRate))?true:false;
-        TC.Hours=(int8u)(Time_End_Seconds/3600);
-        TC.Minutes=(int8u)((Time_End_Seconds%3600)/60);
-        TC.Seconds=(int8u)(Time_End_Seconds%60);
-        TC.Frames=(int8u)Time_End_Frames;
-        int32u FrameCount=TC.ToFrames();
-        Fill(Stream_Video, 0, Video_FrameCount, FrameCount, 0);
-        Fill(Stream_Video, 0, Video_Duration, FrameCount/FrameRate*1000, 0);
+        TimeCode Time_Begin_TC;
+        Time_Begin_TC.FramesPerSecond=(int8u)ceil(FrameRate);
+        Time_Begin_TC.DropFrame=(FrameRate-ceil(FrameRate))?true:false;
+        Time_Begin_TC.Hours=(int8u)(Time_Begin_Seconds/3600);
+        Time_Begin_TC.Minutes=(int8u)((Time_Begin_Seconds%3600)/60);
+        Time_Begin_TC.Seconds=(int8u)(Time_Begin_Seconds%60);
+        Time_Begin_TC.Frames=(int8u)Time_Begin_Frames;
+        TimeCode Time_End_TC;
+        Time_End_TC.FramesPerSecond=(int8u)ceil(FrameRate);
+        Time_End_TC.DropFrame=(FrameRate-ceil(FrameRate))?true:false;
+        Time_End_TC.Hours=(int8u)(Time_End_Seconds/3600);
+        Time_End_TC.Minutes=(int8u)((Time_End_Seconds%3600)/60);
+        Time_End_TC.Seconds=(int8u)(Time_End_Seconds%60);
+        Time_End_TC.Frames=(int8u)Time_End_Frames;
+        int32u Time_Begin_FrameCount=Time_Begin_TC.ToFrames();
+        int32u Time_End_FrameCount=Time_End_TC.ToFrames();
+        Fill(Stream_Video, 0, Video_FrameCount, Time_End_FrameCount-Time_Begin_FrameCount, 0);
+        Fill(Stream_Video, 0, Video_Duration, (Time_End_FrameCount-Time_Begin_FrameCount)/FrameRate*1000, 0);
     }
 
     //picture_coding_types
@@ -2275,7 +2283,7 @@ void File_Mpegv::picture_start()
             picture_coding_types_Current+=Mpegv_picture_coding_type[picture_coding_type];
 
         //Detecting streams with only I-Frames
-        if (picture_coding_type==1 && picture_coding_type_Old==1)
+        if (picture_coding_type==1 && picture_coding_type_Old==1 && !FirstFieldFound)
             temporal_reference_Old=(int16u)-1; //Resetting temporal_reference_Old
 
         //NextCode
