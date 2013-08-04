@@ -23,13 +23,13 @@ using namespace ZenLib;
 using namespace std;
 
 const char* F_FileName;
-#define echoF(_format) UserHandle_struct::perevent &PerEvent=UserHandle->PerEvent[Event->EventCode]; if (!PerEvent.F_MoreThanOnce) {fprintf(PerEvent.F, _format); PerEvent.F_MoreThanOnce=true; } fprintf(PerEvent.F, "\n");
+#define echoF(_format) Events_UserHandle_struct::perevent &PerEvent=UserHandle->PerEvent[Event->EventCode]; if (!PerEvent.F_MoreThanOnce) {fprintf(PerEvent.F, _format); PerEvent.F_MoreThanOnce=true; } fprintf(PerEvent.F, "\n");
 #define echo0(_format) fprintf(PerEvent.F, _format)
 #define echo1(_format, Arg1) fprintf(PerEvent.F, _format, Arg1)
 #define echo2(_format, Arg1, Arg2) fprintf(PerEvent.F, _format, Arg1, Arg2)
 #define echo4(_format, Arg1, Arg2, Arg3, Arg4) fprintf(PerEvent.F, _format, Arg1, Arg2, Arg3, Arg4)
 
-struct UserHandle_struct
+struct Events_UserHandle_struct
 {
     FileName Name;
     Ztring Files;
@@ -48,7 +48,7 @@ struct UserHandle_struct
     bool DemuxContainerOnly;
     bool Seek;
 
-    UserHandle_struct()
+    Events_UserHandle_struct()
     {
         Custom=false;
         ParseSpeed=false;
@@ -66,42 +66,42 @@ struct UserHandle_struct
 
 };
 
-void General_Start_0 (struct MediaInfo_Event_General_Start_0* Event, struct UserHandle_struct* UserHandle)
+void General_Start_0 (struct MediaInfo_Event_General_Start_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo starts\n");
 
     echo1("Stream_Size=%i\n", Event->Stream_Size);
 }
 
-void General_End_0 (struct MediaInfo_Event_General_End_0* Event, struct UserHandle_struct* UserHandle)
+void General_End_0 (struct MediaInfo_Event_General_End_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo ends\n");
 
     echo1("Stream_Bytes_Analyzed=%i\n", Event->Stream_Bytes_Analyzed);
 }
 
-void General_Parser_Selected_0 (struct MediaInfo_Event_General_Parser_Selected_0* Event, struct UserHandle_struct* UserHandle)
+void General_Parser_Selected_0 (struct MediaInfo_Event_General_Parser_Selected_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo has selected the parser\n");
 
     echo1("Name=%s\n", Event->Name);
 }
 
-void General_Move_Request_0 (struct MediaInfo_Event_General_Move_Request_0* Event, struct UserHandle_struct* UserHandle)
+void General_Move_Request_0 (struct MediaInfo_Event_General_Move_Request_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo has requested to seek\n");
 
     echo1("StreamOffset=%08x\n", Event->StreamOffset);
 }
 
-void General_Move_Done_0 (struct MediaInfo_Event_General_Move_Done_0* Event, struct UserHandle_struct* UserHandle)
+void General_Move_Done_0 (struct MediaInfo_Event_General_Move_Done_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo has seek\n");
 
     echo1("StreamOffset=%08x\n", Event->StreamOffset);
 }
 
-void General_SubFile_Start_0 (struct MediaInfo_Event_General_SubFile_Start_0* Event, struct UserHandle_struct* UserHandle)
+void General_SubFile_Start_0 (struct MediaInfo_Event_General_SubFile_Start_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo is parsing a new file from the source file\n");
 
@@ -109,12 +109,12 @@ void General_SubFile_Start_0 (struct MediaInfo_Event_General_SubFile_Start_0* Ev
     echo1("FileName_Absolute=%s\n", Event->FileName_Absolute);
 }
 
-void General_SubFile_End_0 (struct MediaInfo_Event_General_SubFile_End_0* Event, struct UserHandle_struct* UserHandle)
+void General_SubFile_End_0 (struct MediaInfo_Event_General_SubFile_End_0* Event, struct Events_UserHandle_struct* UserHandle)
 {
     echoF("MediaInfo has finished the parsing a new file from the source file\n");
 }
 
-void Global_Demux_4(struct MediaInfo_Event_Global_Demux_4 *Event, struct UserHandle_struct* UserHandle)
+void Global_Demux_4(struct MediaInfo_Event_Global_Demux_4 *Event, struct Events_UserHandle_struct* UserHandle)
 {
     if (!UserHandle->DemuxContainerOnly)
         return;
@@ -148,7 +148,7 @@ void Global_Demux_4(struct MediaInfo_Event_Global_Demux_4 *Event, struct UserHan
     echo1(" Flags=%08x\n", Event->Flags);
 }
 
-void Video_SliceInfo_0(struct MediaInfo_Event_Video_SliceInfo_0 *Event, struct UserHandle_struct* UserHandle)
+void Video_SliceInfo_0(struct MediaInfo_Event_Video_SliceInfo_0 *Event, struct Events_UserHandle_struct* UserHandle)
 {
     if (!UserHandle->DemuxContainerOnly)
         return;
@@ -193,7 +193,7 @@ void Video_SliceInfo_0(struct MediaInfo_Event_Video_SliceInfo_0 *Event, struct U
 void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_Size, void* UserHandle_Void)
 {
     /*Retrieving UserHandle*/
-    struct UserHandle_struct*           UserHandle=(struct UserHandle_struct*)UserHandle_Void;
+    struct Events_UserHandle_struct*           UserHandle=(struct Events_UserHandle_struct*)UserHandle_Void;
     struct MediaInfo_Event_Generic*     Event_Generic=(struct MediaInfo_Event_Generic*) Data_Content;
     unsigned char                       ParserID;
     unsigned short                      EventID;
@@ -208,13 +208,13 @@ void __stdcall Event_CallBackFunction(unsigned char* Data_Content, size_t Data_S
         Ztring Number; Number.From_Number(Event_Generic->EventCode, 16);
         while (Number.size()<8)
             Number.insert(0, 1, __T('0'));
-        Ztring Name=Ztring(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+__T("\\")+Ztring::ToZtring(UserHandle->Scenario)+__T("\\")+Number+__T("\\")+UserHandle->Name.Name_Get()+__T(".txt"));
+        Ztring Name=Ztring(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+Ztring::ToZtring(UserHandle->Scenario)+__T("\\")+Number+__T("\\")+UserHandle->Name.Name_Get()+__T(".txt"));
         if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New")))
             Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New"));
-        if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()))
-            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get());
-        if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+__T("\\")+Ztring::ToZtring(UserHandle->Scenario)))
-            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+FileName(UserHandle->Files).Name_Get()+__T("\\")+Ztring::ToZtring(UserHandle->Scenario));
+       if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+Ztring::ToZtring(UserHandle->Scenario)))
+            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+Ztring::ToZtring(UserHandle->Scenario));
+       if (!Dir::Exists(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+Ztring::ToZtring(UserHandle->Scenario)+__T("\\")+Number))
+            Dir::Create(UserHandle->DataBaseDirectory+__T("\\Events\\New\\")+Ztring::ToZtring(UserHandle->Scenario)+__T("\\")+Number);
         if (!Dir::Exists(FileName(Name).Path_Get()))
             Dir::Create(FileName(Name).Path_Get());
         UserHandle->PerEvent[Event_Generic->EventCode].F=fopen(Name.To_Local().c_str(), "w");
@@ -268,19 +268,18 @@ void RegressionTest_Events(Ztring Files, Ztring DataBaseDirectory, int32u Scenar
         FilesList_Source.Load(DataBaseDirectory+__T("\\Events\\FilesList.csv"));
     else
     {
-        FilesList_Source.push_back(ZtringList());
-        //if (File::Exists(Files))
+        if (File::Exists(Files))
             FilesList_Source.push_back(Files);
-        //else
-        //    FilesList_Source.push_back(Files+__T("\\*.*"));
+        else
+            FilesList_Source.push_back(Files+__T("\\*.*"));
     }
-    vector<UserHandle_struct> FilesList;
-    for (size_t FilesList_Source_Pos=1; FilesList_Source_Pos<FilesList_Source.size(); FilesList_Source_Pos++)
+    vector<Events_UserHandle_struct> FilesList;
+    for (size_t FilesList_Source_Pos=0; FilesList_Source_Pos<FilesList_Source.size(); FilesList_Source_Pos++)
     {
         ZtringList Temp=Dir::GetAllFileNames(FilesList_Source[FilesList_Source_Pos](0));
         for (size_t Temp_Pos=0; Temp_Pos<Temp.size(); Temp_Pos++)
         {
-            UserHandle_struct ToAdd;
+            struct Events_UserHandle_struct ToAdd;
             ToAdd.Name=Temp[Temp_Pos];
             ToAdd.DataBaseDirectory=DataBaseDirectory;
             ToAdd.Files=Files;
