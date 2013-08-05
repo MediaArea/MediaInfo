@@ -1807,7 +1807,7 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
         while (Demux_Offset+4<=Buffer_Size)
         {
             //Synchronizing
-            while(Demux_Offset+3<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
+            while(Demux_Offset+4<=Buffer_Size && (Buffer[Demux_Offset  ]!=0x00
                                                 || Buffer[Demux_Offset+1]!=0x00
                                                 || Buffer[Demux_Offset+2]!=0x01))
             {
@@ -1817,28 +1817,28 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
                 if (Demux_Offset>=Buffer_Size || Buffer[Demux_Offset-1]==0x00)
                     Demux_Offset--;
             }
+            if (Demux_Offset+4>Buffer_Size)
+                break;
 
-            if (Demux_Offset+4<=Buffer_Size)
+            if (Demux_IntermediateItemFound)
             {
-                if (Demux_IntermediateItemFound)
+                bool MustBreak;
+                switch (Buffer[Demux_Offset+3])
                 {
-                    bool MustBreak;
-                    switch (Buffer[Demux_Offset+3])
-                    {
-                        case 0x00 :
-                        case 0xB3 :
-                                    MustBreak=true; break;
-                        default   : MustBreak=false;
-                    }
-                    if (MustBreak)
-                        break; //while() loop
+                    case 0x00 :
+                    case 0xB3 :
+                                MustBreak=true; break;
+                    default   : MustBreak=false;
                 }
-                else
-                {
-                    if (!Buffer[Demux_Offset+3])
-                        Demux_IntermediateItemFound=true;
-                }
+                if (MustBreak)
+                    break; //while() loop
             }
+            else
+            {
+                if (!Buffer[Demux_Offset+3])
+                    Demux_IntermediateItemFound=true;
+            }
+
             Demux_Offset++;
         }
 

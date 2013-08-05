@@ -868,23 +868,23 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
                         Demux_Offset--;
                 }
 
-                if (Demux_Offset+6<=Buffer_Size)
-                {
-                    zero_byte=Buffer[Demux_Offset+2]==0x00;
-                    if (Demux_IntermediateItemFound)
-                    {
-                        if (!(((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)!=0x80)
-                           || (Buffer[Demux_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
-                            break;
-                    }
-                    else
-                    {
-                        if ((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)==0x80)
-                            Demux_IntermediateItemFound=true;
-                    }
+                if (Demux_Offset+6>Buffer_Size)
+                    break;
 
-                    Demux_Offset++;
+                zero_byte=Buffer[Demux_Offset+2]==0x00;
+                if (Demux_IntermediateItemFound)
+                {
+                    if (!(((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)!=0x80)
+                        || (Buffer[Demux_Offset+(zero_byte?4:3)]&0x1F)==0x0C))
+                        break;
                 }
+                else
+                {
+                    if ((Buffer[Demux_Offset+(zero_byte?4:3)]&0x1B)==0x01 && (Buffer[Demux_Offset+(zero_byte?5:4)]&0x80)==0x80)
+                        Demux_IntermediateItemFound=true;
+                }
+
+                Demux_Offset++;
             }
 
             if (Demux_Offset+6>Buffer_Size && !FrameIsAlwaysComplete && File_Offset+Buffer_Size<File_Size)
