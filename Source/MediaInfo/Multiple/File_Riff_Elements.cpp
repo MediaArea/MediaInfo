@@ -2621,7 +2621,7 @@ void File_Riff::AVI__movi_StreamJump()
     {
         do
             Stream_Structure_Temp++;
-        while (Stream_Structure_Temp!=Stream_Structure.end() && !Stream[(int32u)Stream_Structure_Temp->second.Name].SearchingPayload);
+        while (Stream_Structure_Temp!=Stream_Structure.end() && !(Stream[(int32u)Stream_Structure_Temp->second.Name].SearchingPayload && Config->ParseSpeed<1.0));
         if (Stream_Structure_Temp!=Stream_Structure.end())
         {
             int64u ToJump=Stream_Structure_Temp->first;
