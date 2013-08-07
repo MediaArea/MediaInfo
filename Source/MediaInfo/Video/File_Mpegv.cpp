@@ -222,7 +222,9 @@ const char* Mpegv_profile_and_level_indication_level[]=
     #include "MediaInfo/MediaInfo_Events.h"
     #include "MediaInfo/MediaInfo_Events_Internal.h"
 #endif //MEDIAINFO_EVENTS
+#include <cmath>
 using namespace ZenLib;
+using namespace std;
 
 #undef FILLING_BEGIN
 #define FILLING_BEGIN() \
