@@ -643,4 +643,10 @@ struct MediaInfo_Event_DvDif_Analysis_Frame_0
 
 #define MediaInfo_Parser_AribStdB24B37  0xF9
 
+/***************************************************************************/
+/* TTML                                                                    */
+/***************************************************************************/
+
+#define MediaInfo_Parser_Ttml           0xFA
+
 #endif //MediaInfo_EventsH

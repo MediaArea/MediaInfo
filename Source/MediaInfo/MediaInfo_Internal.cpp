@@ -514,6 +514,12 @@ void MediaInfo_Internal::Entry()
                         if (File::Exists(Test))
                             Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".stl\" />\r\n";
                     }
+                    if (FileExtension!=__T("ttml"))
+                    {
+                        Test.Extension_Set(__T("ttml"));
+                        if (File::Exists(Test))
+                            Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".ttml\" />\r\n";
+                    }
 
                     Ztring Name=Test.Name_Get();
                     Ztring BaseName=Name.SubString(Ztring(), __T("_"));
