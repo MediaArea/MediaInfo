@@ -721,8 +721,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         MI->Fill(StreamKind_Last, StreamPos_To, General_ID_String, ID_String, true);
         MI->Fill(StreamKind_Last, StreamPos_To, "MenuID", MenuID, true);
         MI->Fill(StreamKind_Last, StreamPos_To, "MenuID/String", MenuID_String, true);
-        if (MI->Retrieve(StreamKind_Last, StreamPos_To, "Source").empty())
-            MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source);
+        MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source, true);
     }
     for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); ++Info)
         MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
@@ -764,6 +763,15 @@ void File__ReferenceFilesHelper::List_Compute()
             {
                 if (Reference->MI->Config.File_Names.size()==1)
                 {
+                    if (MI->Retrieve(StreamKind_Target, StreamPos_Target, "Source").empty())
+                    {
+                        Ztring SourcePath=FileName::Path_Get(MI->Retrieve(Stream_General, 0, General_CompleteName));
+                        size_t SourcePath_Size=SourcePath.size()+1; //Path size + path separator size
+                        Ztring Temp=Reference->MI->Config.File_Names[0];
+                        if (!Config->File_IsReferenced_Get())
+                            Temp.erase(0, SourcePath_Size);
+                        MI->Fill(StreamKind_Target, StreamPos_Target, "Source", Temp);
+                    }
                     MI->Fill(StreamKind_Target, StreamPos_Target, "Source_MD5_Generated", Reference->MI->Get(Stream_General, 0, __T("MD5_Generated")));
                     (*MI->Stream_More)[StreamKind_Target][StreamPos_Target](Ztring().From_Local("Source_MD5_Generated"), Info_Options)=__T("N NT");
                 }

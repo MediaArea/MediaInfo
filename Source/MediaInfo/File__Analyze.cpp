@@ -342,13 +342,16 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 
     //MD5
     #if MEDIAINFO_MD5
-        if (!IsSub && !Buffer_Temp_Size && File_Offset==Config->File_Current_Offset && Config->File_Md5_Get())
+        if (ToAdd_Size)
         {
-            delete MD5; MD5=new struct MD5Context;
-            MD5Init(MD5);
+            if (!IsSub && !Buffer_Temp_Size && File_Offset==Config->File_Current_Offset && Config->File_Md5_Get())
+            {
+                delete MD5; MD5=new struct MD5Context;
+                MD5Init(MD5);
+            }
+            if (MD5)
+                MD5Update(MD5, ToAdd, (unsigned int)ToAdd_Size);
         }
-        if (MD5)
-            MD5Update(MD5, ToAdd, (unsigned int)ToAdd_Size);
     #endif //MEDIAINFO_MD5
 
     //Integrity
