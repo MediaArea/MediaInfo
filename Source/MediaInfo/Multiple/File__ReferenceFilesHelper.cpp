@@ -52,6 +52,7 @@ File__ReferenceFilesHelper::File__ReferenceFilesHelper(File__Analyze* MI_, Media
     TestContinuousFileNames=false;
     ContainerHasNoId=false;
     HasMainFile=false;
+    HasMainFile_Filled=false;
     ID_Max=0;
     FrameRate=0;
     Duration=0;
@@ -465,19 +466,30 @@ void File__ReferenceFilesHelper::ParseReference()
             if (Reference->FileNames.size()>1)
                 Reference->MI->Option(__T("File_TestContinuousFileNames"), __T("0"));
             ZtringListList SubFile_IDs;
-            for (size_t Pos=0; Pos<MI->StreamIDs_Size; Pos++)
+            if (Reference->IsMain)
+                HasMainFile=true;
+            if (HasMainFile && !Reference->IsMain)
             {
                 ZtringList ID;
-                if (MI->StreamIDs_Width[Pos]==0)
-                    ID.push_back(Ztring::ToZtring(-1));
-                else if (Pos+1==MI->StreamIDs_Size)
-                    ID.push_back(Ztring::ToZtring(Reference->StreamID));
-                else
-                    ID.push_back(Ztring::ToZtring(MI->StreamIDs[Pos]));
-                ID.push_back(Ztring::ToZtring(MI->StreamIDs_Width[Pos]));
-                ID.push_back(Ztring::ToZtring(MI->ParserIDs[Pos]));
+                ID.push_back(Ztring::ToZtring((((int64u)MediaInfo_Parser_SideCar)<<56)|Reference->StreamID-1));
+                ID.push_back(Ztring::ToZtring(16));
+                ID.push_back(Ztring::ToZtring(MediaInfo_Parser_SideCar));
                 SubFile_IDs.push_back(ID);
             }
+            else if (!Reference->IsMain)
+                for (size_t Pos=0; Pos<MI->StreamIDs_Size; Pos++)
+                {
+                    ZtringList ID;
+                    if (MI->StreamIDs_Width[Pos]==0)
+                        ID.push_back(Ztring::ToZtring(-1));
+                    else if (Pos+1==MI->StreamIDs_Size)
+                        ID.push_back(Ztring::ToZtring(Reference->StreamID));
+                    else
+                        ID.push_back(Ztring::ToZtring(MI->StreamIDs[Pos]));
+                    ID.push_back(Ztring::ToZtring(MI->StreamIDs_Width[Pos]));
+                    ID.push_back(Ztring::ToZtring(MI->ParserIDs[Pos]));
+                    SubFile_IDs.push_back(ID);
+                }
             if (!SubFile_IDs.empty())
             {
                 SubFile_IDs.Separator_Set(0, EOL);
@@ -636,8 +648,12 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     //Hacks - Before
     Ztring CodecID=MI->Retrieve(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_CodecID));
     Ztring ID_Base;
-    if (HasMainFile)
+    if (HasMainFile_Filled && !Reference->IsMain)
+    {
         ID_Base=Ztring::ToZtring(ID_Max+Reference->StreamID-1);
+        MI->Fill(StreamKind_Last, StreamPos_From, "SideCar_FilePos", Reference->StreamID-1);
+        (*MI->Stream_More)[StreamKind_Last][StreamPos_From](Ztring().From_Local("SideCar_FilePos"), Info_Options)=__T("N NT");
+    }
     else if (Reference->StreamID!=(int64u)-1)
         ID_Base=Ztring::ToZtring(Reference->StreamID);
     Ztring ID=ID_Base;
@@ -645,12 +661,13 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     Ztring MenuID;
     Ztring MenuID_String;
 
-    if (!HasMainFile && Reference->IsMain)
+    if (!HasMainFile_Filled && Reference->IsMain)
     {
         MI->Fill(Stream_General, 0, General_Format, Reference->MI->Get(Stream_General, 0, General_Format) , true);
         MI->Fill(Stream_General, 0, General_CompleteName, Reference->MI->Get(Stream_General, 0, General_CompleteName) , true);
         MI->Fill(Stream_General, 0, General_FileExtension, Reference->MI->Get(Stream_General, 0, General_FileExtension) , true);
         HasMainFile=true;
+        HasMainFile_Filled=true;
     }
     if (Reference->IsMain)
     {

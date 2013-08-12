@@ -1631,7 +1631,10 @@ bool File__Analyze::FileHeader_Manage()
         return false;
     }
     else
+    {
         Buffer_Offset+=(size_t)Element_Offset;
+        Element_Offset=0;
+    }
 
     MustParseTheHeaderFile=false;
     return true;

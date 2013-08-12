@@ -81,6 +81,7 @@ public :
     bool                            TestContinuousFileNames;
     bool                            ContainerHasNoId;
     bool                            HasMainFile;
+    bool                            HasMainFile_Filled;
     int64u                          ID_Max;
 
     //Streams management
@@ -136,4 +137,3 @@ private :
 } //NameSpace
 
 #endif
-
