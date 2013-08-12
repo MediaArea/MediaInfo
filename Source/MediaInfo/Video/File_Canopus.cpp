@@ -22,6 +22,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_Canopus.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -163,7 +164,8 @@ void File_Canopus::Read_Buffer_Continue()
                 default : ;
             }
 
-            Finish();
+            if (Config->ParseSpeed<1.0)
+                Finish();
         }
     FILLING_END();
 }
