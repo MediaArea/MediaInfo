@@ -12,6 +12,7 @@ Version 0.7.65, 2013-
 --------------
 + MXF: forcing detection of MPEG Video in case EssenceCompression is not present but MPEG2VideoDescriptor is present
 + GXF: detection of some captions and time codes event if they are not present at the beginning of the file (testing middle of the file)
++ DASH MPD: basic support
 x #B775, AVI: AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
 x #B780, MPEG-TS: crash with some files having PAT/PMT change between begin and end of the file
 x MPEG-4: wrong demux of some E-AC-3 streams

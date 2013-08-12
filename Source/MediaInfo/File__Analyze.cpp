@@ -1386,65 +1386,25 @@ bool File__Analyze::FileHeader_Begin_XML(XMLDocument &Document)
     //XML header
     Ztring Data;
          if ((Buffer[0]=='<'
-           && Buffer[1]=='?'
-           && Buffer[2]=='x'
-           && Buffer[3]=='m'
-           && Buffer[4]=='l')
-          || (Buffer[0]==0xEF
-           && Buffer[1]==0xBB
-           && Buffer[2]==0xBF
-           && Buffer[3]=='<'
-           && Buffer[4]=='?'
-           && Buffer[5]=='x'
-           && Buffer[6]=='m'
-           && Buffer[7]=='l'))
-        Data.From_UTF8((const char*)Buffer, Buffer_Size);
-    else if ((Buffer[0]=='<'
-           && Buffer[1]==0x00
-           && Buffer[2]=='?'
-           && Buffer[3]==0x00
-           && Buffer[4]=='x'
-           && Buffer[5]==0x00
-           && Buffer[6]=='m'
-           && Buffer[7]==0x00
-           && Buffer[8]=='l'
-           && Buffer[9]==0x00)
+           && Buffer[1]==0x00)
           || (Buffer[0]==0xFF
            && Buffer[1]==0xFE
            && Buffer[2]=='<'
-           && Buffer[3]==0x00
-           && Buffer[4]=='?'
-           && Buffer[5]==0x00
-           && Buffer[6]=='x'
-           && Buffer[7]==0x00
-           && Buffer[8]=='m'
-           && Buffer[9]==0x00
-           && Buffer[10]=='l'
-           && Buffer[11]==0x00))
+           && Buffer[3]==0x00))
         Data.From_UTF16LE((const char*)Buffer, Buffer_Size);
     else if ((Buffer[0]==0x00
-           && Buffer[1]=='<'
-           && Buffer[2]==0x00
-           && Buffer[3]=='?'
-           && Buffer[4]==0x00
-           && Buffer[5]=='x'
-           && Buffer[6]==0x00
-           && Buffer[7]=='m'
-           && Buffer[8]==0x00
-           && Buffer[9]=='l')
+           && Buffer[1]=='<')
           || (Buffer[0]==0xFE
            && Buffer[1]==0xFF
            && Buffer[2]==0x00
-           && Buffer[3]=='<'
-           && Buffer[4]==0x00
-           && Buffer[5]=='?'
-           && Buffer[6]==0x00
-           && Buffer[7]=='x'
-           && Buffer[8]==0x00
-           && Buffer[9]=='m'
-           && Buffer[10]==0x00
-           && Buffer[11]=='l'))
+           && Buffer[3]=='<'))
         Data.From_UTF16BE((const char*)Buffer, Buffer_Size);
+    else if ((Buffer[0]=='<')
+          || (Buffer[0]==0xEF
+           && Buffer[1]==0xBB
+           && Buffer[2]==0xBF
+           && Buffer[3]=='<'))
+        Data.From_UTF8((const char*)Buffer, Buffer_Size);
     else
     {
         Reject();

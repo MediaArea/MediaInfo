@@ -551,6 +551,7 @@ namespace Elements
     const int64u free=0x66726565;
     const int64u ftyp=0x66747970;
     const int64u ftyp_qt=0x71742020;
+    const int64u ftyp_dash=0x64617368;
     const int64u ftyp_isom=0x69736F6D;
     const int64u ftyp_caqv=0x63617176;
     const int64u idat=0x69646174;
@@ -1346,6 +1347,7 @@ void File_Mpeg4::ftyp()
         for (size_t Pos=0; Pos<ftyps.size(); Pos++)
             switch (ftyps[Pos])
             {
+                case Elements::ftyp_dash : if (Config->File_Names.size()==1)TestContinuousFileNames(1, __T("m4s")); break;
                 case Elements::ftyp_caqv : Fill(StreamKind_Last, StreamPos_Last, "Encoded_Application", "Casio Digital Camera"); break;
                 default : ;
             }
@@ -1899,12 +1901,8 @@ void File_Mpeg4::moof_traf_tfhd()
         Skip_B4(                                                "sample_description_index");
     if (default_sample_duration_present)
         Get_B4 (moof_traf_default_sample_duration,              "default_sample_duration");
-    else
-        moof_traf_default_sample_duration=Stream->second.mvex_trex_default_sample_duration;
     if (default_sample_size_present)
         Get_B4 (moof_traf_default_sample_size,                  "default_sample_size");
-    else
-        moof_traf_default_sample_size=Stream->second.mvex_trex_default_sample_size;
     if (default_sample_flags_present)
         Skip_B4(                                                "default_sample_flags");
 
@@ -1912,6 +1910,10 @@ void File_Mpeg4::moof_traf_tfhd()
         Stream=Streams.find(moov_trak_tkhd_TrackID);
         if (Stream==Streams.end())
             Stream=Streams.begin();
+        if (!default_sample_duration_present)
+            moof_traf_default_sample_duration=Stream->second.mvex_trex_default_sample_duration;
+        if (!default_sample_size_present)
+            moof_traf_default_sample_size=Stream->second.mvex_trex_default_sample_size;
     FILLING_END();
 }
 
@@ -4849,7 +4851,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
         {
             File_Ac3* Parser=new File_Ac3;
             Open_Buffer_Init(Parser);
-            Parser->Frame_Count_Valid=2;
             Parser->MustParse_dac3=true;
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             mdat_MustParse=true; //Data is in MDAT

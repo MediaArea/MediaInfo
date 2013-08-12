@@ -343,6 +343,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DashMpd.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.cpp" />
@@ -515,6 +516,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DashMpd.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dxw.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf_TimeCode.h" />

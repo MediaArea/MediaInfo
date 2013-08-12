@@ -93,9 +93,6 @@ void File__ReferenceFilesHelper::ParseReferences()
         #endif //MEDIAINFO_FILTER
 
         //Testing IDs
-        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo1);
-        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo2);
-        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo3);
         std::set<int64u> StreamList;
         bool StreamList_DuplicatedIds=false;
         for (Reference=References.begin(); Reference<References.end(); ++Reference)
@@ -109,6 +106,11 @@ void File__ReferenceFilesHelper::ParseReferences()
         if (StreamList_DuplicatedIds)
             for (Reference=References.begin(); Reference<References.end(); ++Reference)
                 (*Reference).StreamID=Reference-References.begin()+1;
+        if (References.size()==1 && References.begin()->StreamID==(int64u)-1)
+            ContainerHasNoId=true;
+        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo1);
+        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo2);
+        std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo3);
 
         //Configuring file names
         Reference=References.begin();
@@ -146,7 +148,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 #endif //__WINDOWS__
                 AbsoluteNames.push_back(AbsoluteName);
             }
-            if (!File::Exists(AbsoluteNames[0]))
+            if (AbsoluteNames.empty() || !File::Exists(AbsoluteNames[0]))
             {
                 AbsoluteNames.clear();
 
@@ -168,13 +170,13 @@ void File__ReferenceFilesHelper::ParseReferences()
                     AbsoluteNames.push_back(AbsoluteName);
                 }
 
-                if (!File::Exists(AbsoluteNames[0]))
+                if (AbsoluteNames.empty() || !File::Exists(AbsoluteNames[0]))
                 {
                     AbsoluteNames.clear();
                     Names=Reference->FileNames;
 
                     //Configuring file name (this time, we try to test local files)
-                    size_t PathSeparator_Pos=Names[0].find_last_of(__T("\\/"));
+                    size_t PathSeparator_Pos=Names.empty()?string::npos:Names[0].find_last_of(__T("\\/"));
                     if (PathSeparator_Pos!=string::npos && PathSeparator_Pos)
                     {
                         Ztring PathToRemove=Names[0].substr(0, PathSeparator_Pos);
@@ -233,6 +235,9 @@ void File__ReferenceFilesHelper::ParseReferences()
                                             AbsoluteNames.push_back(AbsoluteName);
                                         }
                                 }
+
+                                if (!AbsoluteNames.empty() && !File::Exists(AbsoluteNames[0]))
+                                    AbsoluteNames.clear();
                             }
                         }
                     }
@@ -258,7 +263,19 @@ void File__ReferenceFilesHelper::ParseReferences()
             else
             {
                 Reference->FileNames.clear();
-                MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
+                if (Reference->StreamKind!=Stream_Max)
+                {
+                    MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
+                    if (MI->Retrieve(Reference->StreamKind, Reference->StreamPos, General_ID).empty())
+                        MI->Fill(Reference->StreamKind, Reference->StreamPos, General_ID, Reference->StreamID);
+                    for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); ++Info)
+                    {
+                        if (Info->first=="CodecID")
+                            MI->CodecID_Fill(Info->second, Reference->StreamKind, Reference->StreamPos, InfoCodecID_Format_Mpeg4);
+                        else
+                            MI->Fill(Reference->StreamKind, Reference->StreamPos, Info->first.c_str(), Info->second);
+                    }
+                }
             }
 
             ++Reference;
@@ -724,7 +741,8 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source, true);
     }
     for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); ++Info)
-        MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
+        if (MI->Retrieve(StreamKind_Last, StreamPos_To, Info->first.c_str()).empty())
+            MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
 
     //Others
     if (!HasMainFile && Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))

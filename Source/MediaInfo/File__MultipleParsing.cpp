@@ -23,6 +23,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_DASHMPD_YES)
+    #include "MediaInfo/Multiple/File_DashMpd.h"
+#endif
 #if defined(MEDIAINFO_DCP_YES)
     #include "MediaInfo/Multiple/File_Dcp.h"
 #endif
@@ -343,6 +346,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         Parser.push_back(new File_Cdxa());
+    #endif
+    #if defined(MEDIAINFO_DASHMPD_YES)
+        Parser.push_back(new File_DashMpd());
     #endif
     #if defined(MEDIAINFO_DCP_YES)
         Parser.push_back(new File_Dcp());

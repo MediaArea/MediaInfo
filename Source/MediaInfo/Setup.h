@@ -290,6 +290,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_CDXA_NO) && !defined(MEDIAINFO_CDXA_YES)
     #define MEDIAINFO_CDXA_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DASHMPD_NO) && !defined(MEDIAINFO_DASHMPD_YES)
+    #define MEDIAINFO_DASHMPD_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DCP_NO) && !defined(MEDIAINFO_DCP_YES)
     #define MEDIAINFO_DCP_YES
 #endif

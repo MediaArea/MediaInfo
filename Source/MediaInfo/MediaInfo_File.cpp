@@ -35,6 +35,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_DASHMPD_YES)
+    #include "MediaInfo/Multiple/File_DashMpd.h"
+#endif
 #if defined(MEDIAINFO_DCP_YES)
     #include "MediaInfo/Multiple/File_Dcp.h"
 #endif
@@ -368,6 +371,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_CDXA_YES)
         else if (Parser==__T("Cdxa"))        Info=new File_Cdxa();
     #endif
+    #if defined(MEDIAINFO_DASHMPD_YES)
+        else if (Parser==__T("DashMpd"))     Info=new File_DashMpd();
+    #endif
     #if defined(MEDIAINFO_DCP_YES)
         else if (Parser==__T("Dcp"))         Info=new File_Dcp();
     #endif
@@ -678,6 +684,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         delete Info; Info=new File_Cdxa();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_DASHMPD_YES)
+        delete Info; Info=new File_DashMpd();            if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DCP_YES)
         delete Info; Info=new File_Dcp();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

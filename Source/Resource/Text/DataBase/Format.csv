@@ -8,6 +8,7 @@ Blu-ray Movie object;;;M;Bdmv;;bdmv;;;
 Blu-ray Playlist;;;M;Bdmv;;mpls;;;
 CDDA;;;M;Riff;;cda;;;
 CDXA;;;M;Cdxa;;dat;;;
+DASH MPD;;;M;DashMpd;;mpd;application/dash+xml;;Lossy
 DV;;;M;DvdDif;;dv dif;video/DV;;Lossy
 DivX;;;M;Riff;Hack of AVI;divx;video/vnd.avi;http://www.divx.com;
 DPG;;;M;Dpg;Nintendo DS;dpg;;;

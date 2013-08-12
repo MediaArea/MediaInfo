@@ -105,6 +105,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Ancillary.cpp
 	MediaInfo/Multiple/File_Bdav.cpp
 	MediaInfo/Multiple/File_Cdxa.cpp
+	MediaInfo/Multiple/File_DashMpd.cpp
 	MediaInfo/Multiple/File_Dcp.cpp
 	MediaInfo/Multiple/File_Dpg.cpp
 	MediaInfo/Multiple/File_DvDif.cpp

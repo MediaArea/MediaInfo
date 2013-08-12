@@ -1078,6 +1078,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Blu-ray Playlist;;;M;Bdmv;;mpls;;\n"
     "CDDA;;;M;Riff;;cda;;\n"
     "CDXA;;;M;Cdxa;;dat;;\n"
+    "DASH MPD;;;M;DashMpd;;mpd;application/dash+xml;;Lossy\n"
     "DV;;;M;DvdDif;;dv dif;video/DV;;Lossy\n"
     "DivX;;;M;Riff;Hack of AVI;divx;video/vnd.avi;http://www.divx.com\n"
     "DPG;;;M;Dpg;Nintendo DS;dpg;;\n"
