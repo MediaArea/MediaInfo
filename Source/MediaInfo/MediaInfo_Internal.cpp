@@ -342,7 +342,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
                     return 1;
 
                 //Nothing interesting
-                delete Info; Info=NULL;
+                Close();
             }
         }
     #endif //MEDIAINFO_IBI_YES
