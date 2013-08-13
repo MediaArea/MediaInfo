@@ -17,6 +17,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -28,9 +29,29 @@ namespace MediaInfoLib
 
 class File_SubRip : public File__Analyze
 {
+public :
+    File_SubRip();
+
 private :
+    //Buffer - File header
+    bool FileHeader_Begin();
+
     //Buffer - Global
+    #if MEDIAINFO_SEEK
+    size_t Read_Buffer_Seek (size_t Method, int64u Value, int64u ID);
+    #endif //MEDIAINFO_SEEK
     void Read_Buffer_Continue();
+
+    //Temp
+    #if MEDIAINFO_DEMUX
+    struct item
+    {
+        int64u PTS_Begin;
+        int64u PTS_End;
+        Ztring Content;
+    };
+    std::vector<item> Items;
+    #endif //MEDIAINFO_DEMUX
 };
 
 } //NameSpace

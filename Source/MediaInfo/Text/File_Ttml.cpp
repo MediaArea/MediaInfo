@@ -58,13 +58,13 @@ int64u Ttml_str2timecode(const char* Value)
                        +(int64u)(Value[4]-'0')      *60*1000000000
                        +(int64u)(Value[6]-'0')      *10*1000000000
                        +(int64u)(Value[7]-'0')         *1000000000;
-        if (Length>=9 && Value[8]=='.')
+        if (Length>=9 && (Value[8]=='.' || Value[8]==','))
         {
             if (Length>9+9)
                 Length=9+9; //Nanoseconds max    
             const char* Value_End=Value+Length;
             Value+=9;
-            int64u Multiplier=1000000000;
+            int64u Multiplier=100000000;
             while (Value<Value_End)
             {
                 ToReturn+=(int64u)(*Value-'0')*Multiplier;

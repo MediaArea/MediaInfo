@@ -520,6 +520,18 @@ void MediaInfo_Internal::Entry()
                         if (File::Exists(Test))
                             Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".ttml\" />\r\n";
                     }
+                    if (FileExtension!=__T("ssa"))
+                    {
+                        Test.Extension_Set(__T("ssa"));
+                        if (File::Exists(Test))
+                            Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".ssa\" />\r\n";
+                    }
+                    if (FileExtension!=__T("ass"))
+                    {
+                        Test.Extension_Set(__T("ass"));
+                        if (File::Exists(Test))
+                            Dxw+=" <clip file=\""+Test.Name_Get().To_UTF8()+".ass\" />\r\n";
+                    }
 
                     Ztring Name=Test.Name_Get();
                     Ztring BaseName=Name.SubString(Ztring(), __T("_"));
