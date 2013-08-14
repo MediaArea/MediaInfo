@@ -762,7 +762,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
 
     //Others
-    if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
+    if (!Reference->IsMain && Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
     {
         Ztring MuxingMode=MI->Retrieve(StreamKind_Last, StreamPos_To, "MuxingMode");
         if (!MuxingMode.empty())

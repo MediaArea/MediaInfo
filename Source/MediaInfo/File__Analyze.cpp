@@ -3360,6 +3360,9 @@ void File__Analyze::Ibi_Read_Buffer_Unsynched ()
 
 size_t File__Analyze::Ibi_Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
+    if (IbiStream==NULL)
+        return (size_t)-1;
+
     //Init
     if (!Seek_Duration_Detected)
     {

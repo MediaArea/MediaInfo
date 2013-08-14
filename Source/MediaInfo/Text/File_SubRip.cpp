@@ -219,40 +219,6 @@ size_t File_SubRip::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 void File_SubRip::Read_Buffer_Continue()
 {
-    #if MEDIAINFO_DEMUX
-        Demux(Buffer, Buffer_Size, ContentType_MainStream);
-    #endif //MEDIAINFO_DEMUX
-
-    // Output
-    #if MEDIAINFO_EVENTS
-        for (size_t Pos=0; Pos<Items.size(); Pos++)
-        {
-            /*
-            Frame_Count_NotParsedIncluded=Frame_Count;
-            EVENT_BEGIN (Global, SimpleText, 0)
-                Event.DTS=DTS_Begin;
-                Event.PTS=Event.DTS;
-                Event.DUR=DTS_End-DTS_Begin;
-                Event.Content=Content.c_str();
-                Event.Field=(int8u)-1;
-                Event.MuxingMode=(int8u)-1;
-                Event.Service=(int8u)Element_Code;
-            EVENT_END   ()
-            EVENT_BEGIN (Global, SimpleText, 0)
-                Event.DTS=DTS_End;
-                Event.PTS=Event.DTS;
-                Event.DUR=0;
-                Event.Content=__T("");
-                Event.Field=(int8u)-1;
-                Event.MuxingMode=(int8u)-1;
-                Event.Service=(int8u)Element_Code;
-            EVENT_END   ()
-            */
-
-            Frame_Count++;
-        }
-    #endif MEDIAINFO_EVENTS
-
     Element_Offset=File_Size;
 }
 
