@@ -651,8 +651,8 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
     if (HasMainFile_Filled && !Reference->IsMain)
     {
         ID_Base=Ztring::ToZtring(ID_Max+Reference->StreamID-1);
-        MI->Fill(StreamKind_Last, StreamPos_From, "SideCar_FilePos", Reference->StreamID-1);
-        (*MI->Stream_More)[StreamKind_Last][StreamPos_From](Ztring().From_Local("SideCar_FilePos"), Info_Options)=__T("N NT");
+        MI->Fill(StreamKind_Last, StreamPos_To, "SideCar_FilePos", Reference->StreamID-1);
+        (*MI->Stream_More)[StreamKind_Last][StreamPos_To](Ztring().From_Local("SideCar_FilePos"), Info_Options)=__T("N NT");
     }
     else if (Reference->StreamID!=(int64u)-1)
         ID_Base=Ztring::ToZtring(Reference->StreamID);
@@ -726,7 +726,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(Stream_Menu, Reference->MenuPos, Menu_List_String, List_String);
         }
     }
-    if (!Reference->IsMain && (ContainerHasNoId || !Config->File_ID_OnlyRoot_Get() || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
+    if (!Reference->IsMain && (ContainerHasNoId || !Config->File_ID_OnlyRoot_Get() || Reference->MI->Get(Stream_General, 0, General_Format)==__T("SCC") || Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)>1) && !MI->Retrieve(StreamKind_Last, StreamPos_To, General_ID).empty())
     {
         if (!ID.empty())
             ID+=__T('-');
@@ -762,7 +762,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(StreamKind_Last, StreamPos_To, Info->first.c_str(), Info->second);
 
     //Others
-    if (!HasMainFile && Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
+    if (Reference->MI->Info && MI->Retrieve(StreamKind_Last, StreamPos_To, Reference->MI->Info->Fill_Parameter(StreamKind_Last, Generic_Format))!=Reference->MI->Info->Get(Stream_General, 0, General_Format))
     {
         Ztring MuxingMode=MI->Retrieve(StreamKind_Last, StreamPos_To, "MuxingMode");
         if (!MuxingMode.empty())

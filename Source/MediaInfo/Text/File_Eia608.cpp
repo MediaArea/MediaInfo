@@ -109,6 +109,8 @@ void File_Eia608::Streams_Fill()
                 string ID=StreamPos<2?"CC":"T";
                 ID+='1'+(cc_type*2)+(StreamPos%2);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, ID);
+                Fill(Stream_Text, StreamPos_Last, "ServiceName", ID);
+                (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("ServiceName"), Info_Options)=__T("N NT");
             }
         }
 }
@@ -147,6 +149,17 @@ void File_Eia608::Read_Buffer_Unsynched()
 
     XDS_Data.clear();
     XDS_Level=(size_t)-1;
+
+    #if MEDIAINFO_EVENTS
+        TextMode=true;  DataChannelMode=true;
+        HasChanged();
+        TextMode=true;  DataChannelMode=false;
+        HasChanged();
+        TextMode=false; DataChannelMode=true;
+        HasChanged();
+        TextMode=false; DataChannelMode=false;
+        HasChanged();
+    #endif //MEDIAINFO_EVENTS
 }
 
 //***************************************************************************
