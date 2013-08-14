@@ -172,31 +172,33 @@ bool File_SubRip::FileHeader_Begin()
     Temp.FindAndReplace(__T("\r"), __T("\n"), 0, Ztring_Recursive);
     List.Write(Temp);
 
-    size_t Pos=0;
-    for (;;)
-    {
-        if (Pos>=List.size())
-            break;
-
-        if (List[Pos].size()>=3)
+    #if MEDIAINFO_DEMUX
+        size_t Pos=0;
+        for (;;)
         {
-            Ztring PTS_Begin_String=List[Pos][1].SubString(Ztring(), __T(" --> "));
-            Ztring PTS_End_String=List[Pos][1].SubString(__T(" --> "), Ztring());
-            item Item;
-            Item.PTS_Begin=SubRip_str2timecode(PTS_Begin_String.To_UTF8().c_str());
-            Item.PTS_End=SubRip_str2timecode(PTS_End_String.To_UTF8().c_str());
-            for (size_t Pos2=2; Pos2<List[Pos].size(); Pos2++)
-            {
-                List[Pos][Pos2].Trim();
-                Item.Content+=List[Pos][Pos2];
-                if (Pos2+1<List[Pos].size())
-                    Item.Content+=EOL;
-            }
-            Items.push_back(Item);
-        }
+            if (Pos>=List.size())
+                break;
 
-        Pos++;
-    }
+            if (List[Pos].size()>=3)
+            {
+                Ztring PTS_Begin_String=List[Pos][1].SubString(Ztring(), __T(" --> "));
+                Ztring PTS_End_String=List[Pos][1].SubString(__T(" --> "), Ztring());
+                item Item;
+                Item.PTS_Begin=SubRip_str2timecode(PTS_Begin_String.To_UTF8().c_str());
+                Item.PTS_End=SubRip_str2timecode(PTS_End_String.To_UTF8().c_str());
+                for (size_t Pos2=2; Pos2<List[Pos].size(); Pos2++)
+                {
+                    List[Pos][Pos2].Trim();
+                    Item.Content+=List[Pos][Pos2];
+                    if (Pos2+1<List[Pos].size())
+                        Item.Content+=EOL;
+                }
+                Items.push_back(Item);
+            }
+
+            Pos++;
+        }
+    #endif //MEDIAINFO_DEMUX
 
     return true;
 }
