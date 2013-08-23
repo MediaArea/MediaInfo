@@ -1525,6 +1525,7 @@ bool File_Mpeg4::BookMark_Needed()
 
         //For each stream
         for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); ++Temp)
+            if (!Temp->second.Parsers.empty())
         {
             #if MEDIAINFO_DEMUX
                 if (Config_Demux && Config->File_Demux_Interleave_Get() && !Temp->second.File_Name.empty())
