@@ -154,7 +154,62 @@ void File_ProRes::Read_Buffer_Continue()
     Element_End();
     if (Element_Offset!=8+hdrSize)
         IsOk=false;
-    Skip_XX(Element_Size-Element_Offset,                        "Picture layout");
+    for (int8u PictureNumber=0; PictureNumber<(frame_type?2:1); PictureNumber++)
+    {
+        Element_Begin1("Picture layout");
+            int16u total_slices;
+            vector<int16u> slices_size;
+            Element_Begin1("Picture header");
+                int64u pic_hdr_End;
+                int32u pic_data_size;
+                int8u pic_hdr_size;
+                Get_B1 (pic_hdr_size,                               "pic_hdr_size");
+                if (pic_hdr_size<64)
+                {
+                    Trusted_IsNot("pic_hdr_size");
+                    Element_End();
+                    Element_End();
+                    return;
+                }
+                pic_hdr_End=Element_Offset+pic_hdr_size/8-((pic_hdr_size%8)?0:1);
+                Get_B4 (pic_data_size,                              "pic_data_size");
+                if (pic_data_size<8)
+                {
+                    Trusted_IsNot("pic_data_size");
+                    Element_End();
+                    Element_End();
+                    return;
+                }
+                Get_B2 (total_slices,                               "total_slices");
+                BS_Begin();
+                Skip_S1(4,                                          "slice_width_factor");
+                Skip_S1(4,                                          "slice_height_factor");
+                BS_End();
+                if (Element_Offset<pic_hdr_End)
+                    Skip_XX(pic_hdr_End-Element_Offset,             "Unknown");
+            Element_End();
+            Element_Begin1("Slice index table");
+                for (int16u Pos=0; Pos<total_slices; Pos++)
+                {
+                    int16u slice_size;
+                    Get_B2 (slice_size,                             "slice_size");
+                    slices_size.push_back(slice_size);
+                }
+            Element_End();
+            for (int16u Pos=0; Pos<slices_size.size(); Pos++)
+            {
+                Skip_XX(slices_size[Pos],                           "slice data");
+            }
+        Element_End();
+    }
+    bool IsZeroes=true;
+    for (size_t Pos=(size_t)Element_Offset; Pos<(size_t)Element_Size; Pos++)
+        if (Buffer[Buffer_Offset+Pos])
+        {
+            IsZeroes=false;
+            break;
+        }
+    Skip_XX(Element_Size-Element_Offset,                        IsZeroes?"Zeroes":"Unknown");
 
     FILLING_BEGIN();
         if (IsOk && Name==0x69637066 && !Status[IsAccepted]) //icpf
