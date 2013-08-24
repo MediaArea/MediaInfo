@@ -149,7 +149,7 @@ bool File_SubRip::FileHeader_Begin()
         return true;
     }
 
-    if (File_Size!=(int64u)-1 && Buffer_Size!=File_Size)
+    if (!IsSub && File_Size!=(int64u)-1 && Buffer_Size!=File_Size)
     {
         Element_WaitForMoreData();
         return false;

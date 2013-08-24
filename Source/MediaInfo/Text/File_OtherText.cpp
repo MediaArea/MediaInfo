@@ -61,8 +61,8 @@ void File_OtherText::Read_Buffer_Continue()
     }
     if (File.size()>0x1000)
         File.resize(0x1000); //Do not work on too big
-    File.FindAndReplace(__T("\r\n"), __T("\n"), Ztring_Recursive);
-    File.FindAndReplace(__T("\r"), __T("\n"), Ztring_Recursive);
+    File.FindAndReplace(__T("\r\n"), __T("\n"), 0, Ztring_Recursive);
+    File.FindAndReplace(__T("\r"), __T("\n"), 0, Ztring_Recursive);
     Lines.Separator_Set(0, __T("\n"));
     Lines.Write(File);
     Lines.resize(0x20);
