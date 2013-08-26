@@ -160,7 +160,7 @@ void File_ProRes::Read_Buffer_Continue()
             int16u total_slices;
             vector<int16u> slices_size;
             Element_Begin1("Picture header");
-                int64u pic_hdr_End;
+                int64u pic_hdr_End, pic_data_End;
                 int32u pic_data_size;
                 int8u pic_hdr_size;
                 Get_B1 (pic_hdr_size,                               "pic_hdr_size");
@@ -180,6 +180,7 @@ void File_ProRes::Read_Buffer_Continue()
                     Element_End();
                     return;
                 }
+                pic_data_End=Element_Offset+pic_data_size-5;
                 Get_B2 (total_slices,                               "total_slices");
                 BS_Begin();
                 Skip_S1(4,                                          "slice_width_factor");
@@ -200,6 +201,8 @@ void File_ProRes::Read_Buffer_Continue()
             {
                 Skip_XX(slices_size[Pos],                           "slice data");
             }
+            if (Element_Offset<pic_data_End)
+                Skip_XX(pic_data_End-Element_Offset,                "Unknown");
         Element_End();
     }
     bool IsZeroes=true;
