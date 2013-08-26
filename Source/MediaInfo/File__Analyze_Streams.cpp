@@ -1238,6 +1238,10 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Paramet
                 if (Parameter+1<(*Stream)[StreamKind][StreamPos].size())
                     (*Stream)[StreamKind][StreamPos][Parameter+1].clear();
             }
+            else if (Parameter+1<(*Stream)[StreamKind][StreamPos].size() && MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter+1, Info_Name).find(__T("/String"))!=string::npos)
+            {
+                (*Stream)[StreamKind][StreamPos][Parameter+1].clear();
+            }
         }
 
         return;

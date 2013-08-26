@@ -17,6 +17,7 @@ Version 0.7.65, 2013-
 x #B775, AVI: AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
 x #B780, MPEG-TS: crash with some files having PAT/PMT change between begin and end of the file
 x #B782, PBCore 1.2: some fields were not in the right order
+x #B784, some humain readable strings were not removed when the corresponding field is removed
 x MPEG-4: wrong demux of some E-AC-3 streams
 x AAC: detection of HE-AACv2 was missing if the library is configured with fast detection
 x MPEG Video: wrong computing of duration of raw stream in case of drop frame time code
