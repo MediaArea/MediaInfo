@@ -296,7 +296,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_unpacketize_streamlayoutchange_skip"))
     {
         #if MEDIAINFO_DEMUX
-		    #if MEDIAINFO_ADVANCED
+            #if MEDIAINFO_ADVANCED
                 File_Demux_Unpacketize_StreamLayoutChange_Skip_Set(!(Value==__T("0") || Value.empty()));
                 return Ztring();
             #else //MEDIAINFO_ADVANCED

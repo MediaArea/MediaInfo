@@ -61,7 +61,7 @@ int64u Ttml_str2timecode(const char* Value)
         if (Length>=9 && (Value[8]=='.' || Value[8]==','))
         {
             if (Length>9+9)
-                Length=9+9; //Nanoseconds max    
+                Length=9+9; //Nanoseconds max
             const char* Value_End=Value+Length;
             Value+=9;
             int64u Multiplier=100000000;
@@ -138,7 +138,7 @@ size_t File_Ttml::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 bool File_Ttml::FileHeader_Begin()
 {
     document=new tinyxml2::XMLDocument;
-    
+
     if (!FileHeader_Begin_XML(*document))
        return false;
 
@@ -204,7 +204,7 @@ void File_Ttml::Read_Buffer_Continue()
             if (!strcmp(p->Value(), "p"))
             {
                 const char* Attribute;
-                
+
                 int64u DTS_Begin=(int64u)-1;
                 Attribute=p->Attribute("begin");
                 if (Attribute)

@@ -251,7 +251,7 @@ void File_Mpeg4::Streams_Accept()
         for (size_t Pos=0; pos<ftyps
         TestContinuousFileNames();*/
     }
-    
+
     if (!IsSub && MajorBrand==0x6A703220) //"jp2 "
     {
         TestContinuousFileNames();

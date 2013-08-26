@@ -95,7 +95,7 @@ stream_t DashMpd_mimeType_StreamKind (const char* mimeType)
 Ztring DashMpd_codecid_CodecID (const char* codecid)
 {
     Ztring CodecID;
-    
+
     Ztring Codecs; Codecs.From_UTF8(codecid);
     size_t DotPos=Codecs.find(__T('.'));
     if (DotPos==4 && Codecs.substr(0, DotPos).find(__T("mp4"))==0)
@@ -110,7 +110,7 @@ Ztring DashMpd_codecid_CodecID (const char* codecid)
         //TODO per format, rfc 6381 //ReferenceFile.Infos["Format_Profile"]=;
     }
     CodecID.FindAndReplace(__T("0x"), Ztring(), 0, Ztring_Recursive);
-    
+
     return CodecID;
 }
 
@@ -163,7 +163,7 @@ struct template_generic
 void template_generic::AdaptationSet_Attributes_Parse (XMLElement* Item)
 {
     const char* Attribute;
-    
+
     //Attributes - mineType
     Attribute=Item->Attribute("mimeType");
     if (Attribute)
@@ -183,7 +183,7 @@ void template_generic::AdaptationSet_Attributes_Parse (XMLElement* Item)
 void template_generic::SegmentTemplate_Attributes_Parse (XMLElement* Item)
 {
     const char* Attribute;
-    
+
     //Attributes - initialization
     Attribute=Item->Attribute("initialization");
     if (Attribute)
@@ -217,7 +217,7 @@ void template_generic::SegmentTimeline_Attributes_Parse (XMLElement* Item)
 {
     const char* Attribute;
     segmenttimeline SegmentTimeLine;
-                                                    
+
     //Attributes - t (start time)
     Attribute=Item->Attribute("t");
     if (Attribute)
@@ -511,7 +511,7 @@ bool File_DashMpd::FileHeader_Begin()
                         if (string(Period_Item->Value())=="AdaptationSet")
                         {
                             template_generic Template_Generic(BaseURL, FileName(File_Name).Path_Get());
-                            
+
                             Template_Generic.AdaptationSet_Attributes_Parse(Period_Item);
 
                             //Sub
@@ -546,7 +546,7 @@ bool File_DashMpd::FileHeader_Begin()
                                 {
                                     template_generic Template_Generic_PerRepresentation(Template_Generic);
 
-                                    Template_Generic_PerRepresentation.Representation_Attributes_Parse(AdaptationSet_Item);       
+                                    Template_Generic_PerRepresentation.Representation_Attributes_Parse(AdaptationSet_Item);
 
                                     //Sub
                                     for (XMLElement* Representation_Item=AdaptationSet_Item->FirstChildElement(); Representation_Item; Representation_Item=Representation_Item->NextSiblingElement())

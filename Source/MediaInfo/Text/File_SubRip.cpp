@@ -58,7 +58,7 @@ int64u SubRip_str2timecode(const char* Value)
         if (Length>=9 && (Value[8]=='.' || Value[8]==','))
         {
             if (Length>9+9)
-                Length=9+9; //Nanoseconds max    
+                Length=9+9; //Nanoseconds max
             const char* Value_End=Value+Length;
             Value+=9;
             int64u Multiplier=100000000;
