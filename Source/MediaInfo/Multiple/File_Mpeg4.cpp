@@ -1886,6 +1886,7 @@ void File_Mpeg4::Descriptors()
     //Preparing
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
+    MI.PosOfStream=StreamPos_Last;
     MI.Parser_DoNotFreeIt=true;
 
     int64u Elemen_Code_Save=Element_Code;

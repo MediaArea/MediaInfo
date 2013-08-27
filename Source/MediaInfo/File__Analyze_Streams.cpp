@@ -160,7 +160,13 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream, size_t StreamPos)
         if (Fill_Temp(Pos, 0).IsNumber())
             Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_int32u(), Fill_Temp(Pos, 1));
         else
+        {
             Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_UTF8().c_str(), Fill_Temp(Pos, 1));
+            #if MEDIAINFO_DEMUX
+                if (!Retrieve(KindOfStream, StreamPos_Last, "Demux_InitBytes").empty())
+                    (*Stream_More)[KindOfStream][StreamPos_Last](Ztring().From_Local("Demux_InitBytes"), Info_Options)=__T("N NT"); //TODO: find a better way to hide additional fields by default
+            #endif //MEDIAINFO_DEMUX
+        }
     Fill_Temp.clear();
 
     return StreamPos_Last; //The position in the stream count
