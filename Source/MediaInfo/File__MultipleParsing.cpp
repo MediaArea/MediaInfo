@@ -47,6 +47,9 @@
 #if defined(MEDIAINFO_GXF_YES)
     #include "MediaInfo/Multiple/File_Gxf.h"
 #endif
+#if defined(MEDIAINFO_HDSF4M_YES)
+    #include "MediaInfo/Multiple/File_HdsF4m.h"
+#endif
 #if defined(MEDIAINFO_HLS_YES)
     #include "MediaInfo/Multiple/File_Hls.h"
 #endif
@@ -370,6 +373,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_GXF_YES)
         Parser.push_back(new File_Gxf());
+    #endif
+    #if defined(MEDIAINFO_HDSF4M_YES)
+        Parser.push_back(new File_HdsF4m());
     #endif
     #if defined(MEDIAINFO_HLS_YES)
         Parser.push_back(new File_Hls());

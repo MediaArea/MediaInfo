@@ -15,6 +15,7 @@ DPG;;;M;Dpg;Nintendo DS;dpg;;;
 DVD Video;;;M;Dvdv;;ifo;;;
 Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com/go/getflashplayer;
 GXF;;;M;Gxf;SMPTE 360M;gxf;;;
+HDS F4M;Flash Media Manifest;;M;HdsF4m;;f4m;
 HLS;;;M;Hls;;m3u8;;
 Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html;
 ISM;Internet Streaming Media;;M;Ism;;ism;;;

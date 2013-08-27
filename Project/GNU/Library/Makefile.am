@@ -107,6 +107,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Flv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Gxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Gxf_TimeCode.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_HdsF4m.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Hls.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ibi.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ibi_Creation.cpp \

@@ -1085,6 +1085,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "DVD Video;;;M;Dvdv;;ifo;;\n"
     "Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com/go/getflashplayer\n"
     "GXF;;;M;Gxf;SMPTE 360M;gxf;;\n"
+    "HDS F4M;Flash Media Manifest;;M;HdsF4m;;f4m;\n"
     "HLS;;;M;Hls;;m3u8;\n"
     "Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html\n"
     "ISM;Internet Streaming Media;;M;Ism;;ism;;\n"

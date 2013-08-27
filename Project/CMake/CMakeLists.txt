@@ -113,6 +113,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Dvdv.cpp
 	MediaInfo/Multiple/File_Dxw.cpp
 	MediaInfo/Multiple/File_Flv.cpp
+	MediaInfo/Multiple/File_HdsF4m.cpp
 	MediaInfo/Multiple/File_Gxf.cpp
 	MediaInfo/Multiple/File_Gxf_TimeCode.cpp
 	MediaInfo/Multiple/File_Ibi.cpp
