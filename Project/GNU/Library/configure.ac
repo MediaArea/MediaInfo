@@ -127,7 +127,9 @@ AC_ARG_ENABLE(dvdif-analyze, AC_HELP_STRING([--enable-dvdif-analyze],   [Enable 
 AC_ARG_ENABLE(dvdv,    AC_HELP_STRING([--disable-dvdv],    [Disable Multiple - DVD-Video]),                               MediaInfoDvdv=$enableval,    MediaInfoDvdv=depend)
 AC_ARG_ENABLE(dxw,     AC_HELP_STRING([--disable-dxw],     [Disable Multiple - DXW]),                                     MediaInfoDxw=$enableval,     MediaInfoDxw=depend)
 AC_ARG_ENABLE(flv,     AC_HELP_STRING([--disable-flv],     [Disable Multiple - FLV (Flash video)]),                       MediaInfoFlv=$enableval,     MediaInfoFlv=depend)
+AC_ARG_ENABLE(gxf,     AC_HELP_STRING([--disable-gxf],     [Disable Multiple - GXF]),                                     MediaInfoGxf=$enableval,     MediaInfoGxf=depend)
 AC_ARG_ENABLE(hdsf4m,  AC_HELP_STRING([--disable-hdsf4m],  [Disable Multiple - HDS F4M (Flash Media Manifest)]),          MediaInfoHdsF4m=$enableval,  MediaInfoHdsf4m=depend)
+AC_ARG_ENABLE(hls,     AC_HELP_STRING([--disable-hls],     [Disable Multiple - HLS]),                                     MediaInfoHls=$enableval,     MediaInfoHls=depend)
 AC_ARG_ENABLE(mk,      AC_HELP_STRING([--disable-mk],      [Disable Multiple - Matroska]),                                MediaInfoMk=$enableval,      MediaInfoMk=depend)
 AC_ARG_ENABLE(mpeg4,   AC_HELP_STRING([--disable-mpeg4],   [Disable Multiple - MPEG-4 based formats (MOV, AAC...)]),      MediaInfoMpeg4=$enableval,   MediaInfoMpeg4=depend)
 AC_ARG_ENABLE(mpegps,  AC_HELP_STRING([--disable-mpegps],  [Disable Multiple - MPEG-PS]),                                 MediaInfoMpegPs=$enableval,  MediaInfoMpegPs=depend)
@@ -268,7 +270,9 @@ if test "$MediaInfoDvDifAnalyze" = "no";  then AC_DEFINE(MEDIAINFO_DVDIF_ANALYZE
 if test "$MediaInfoDvdv"    = "no";  then AC_DEFINE(MEDIAINFO_DVDV_NO)    fi; if test "$MediaInfoDvdv"    = "yes"; then AC_DEFINE(MEDIAINFO_DVDV_YES)    fi
 if test "$MediaInfoDxw"     = "no";  then AC_DEFINE(MEDIAINFO_DXW_NO)     fi; if test "$MediaInfoDxw"     = "yes"; then AC_DEFINE(MEDIAINFO_DXW_YES)     fi
 if test "$MediaInfoFlv"     = "no";  then AC_DEFINE(MEDIAINFO_FLV_NO)     fi; if test "$MediaInfoFlv"     = "yes"; then AC_DEFINE(MEDIAINFO_FLV_YES)     fi
+if test "$MediaInfoGxf"     = "no";  then AC_DEFINE(MEDIAINFO_GXF_NO)     fi; if test "$MediaInfoGxf"     = "yes"; then AC_DEFINE(MEDIAINFO_GXF_YES)     fi
 if test "$MediaInfohdsF4m"  = "no";  then AC_DEFINE(MEDIAINFO_HDSF4M_NO)  fi; if test "$MediaInfoHdsF4m"  = "yes"; then AC_DEFINE(MEDIAINFO_HDSF4M_YES)  fi
+if test "$MediaInfoHls"     = "no";  then AC_DEFINE(MEDIAINFO_HLS_NO)     fi; if test "$MediaInfoHls"     = "yes"; then AC_DEFINE(MEDIAINFO_HLS_YES)     fi
 if test "$MediaInfoMk"      = "no";  then AC_DEFINE(MEDIAINFO_MK_NO)      fi; if test "$MediaInfoMk"      = "yes"; then AC_DEFINE(MEDIAINFO_MK_YES)      fi
 if test "$MediaInfoMpeg4"   = "no";  then AC_DEFINE(MEDIAINFO_MPEG4_NO)   fi; if test "$MediaInfoMpeg4"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEG4_YES)   fi
 if test "$MediaInfoMpegPs"  = "no";  then AC_DEFINE(MEDIAINFO_MPEGPS_NO)  fi; if test "$MediaInfoMpegPs"  = "yes"; then AC_DEFINE(MEDIAINFO_MPEGPS_YES)  fi
@@ -832,7 +836,9 @@ Mcho "DvDif  " "$MediaInfoDvDif"
 Mcho "DvDifAnalyze" "$MediaInfoDvDifAnalyze"
 Mcho "Dvdv   " "$MediaInfoDvdv"
 Mcho "Dxw    " "$MediaInfoFlv"
+Mcho "Gxf "  "$MediaInfoHdsGxf"
 Mcho "HdsF4m " "$MediaInfoHdsF4m"
+Mcho "Hls    " "$MediaInfoHls"
 Mcho "Flv    " "$MediaInfoFlv"
 Mcho "Mk     " "$MediaInfoMk"
 Mcho "Mpeg4  " "$MediaInfoMpeg4"
