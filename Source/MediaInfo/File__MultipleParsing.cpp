@@ -27,7 +27,13 @@
     #include "MediaInfo/Multiple/File_DashMpd.h"
 #endif
 #if defined(MEDIAINFO_DCP_YES)
-    #include "MediaInfo/Multiple/File_Dcp.h"
+    #include "MediaInfo/Multiple/File_DcpAm.h"
+#endif
+#if defined(MEDIAINFO_DCP_YES)
+    #include "MediaInfo/Multiple/File_DcpCpl.h"
+#endif
+#if defined(MEDIAINFO_DCP_YES)
+    #include "MediaInfo/Multiple/File_DcpPkl.h"
 #endif
 #if defined(MEDIAINFO_DPG_YES)
     #include "MediaInfo/Multiple/File_Dpg.h"
@@ -354,7 +360,13 @@ File__MultipleParsing::File__MultipleParsing()
         Parser.push_back(new File_DashMpd());
     #endif
     #if defined(MEDIAINFO_DCP_YES)
-        Parser.push_back(new File_Dcp());
+        Parser.push_back(new File_DcpAm());
+    #endif
+    #if defined(MEDIAINFO_DCP_YES)
+        Parser.push_back(new File_DcpCpl());
+    #endif
+    #if defined(MEDIAINFO_DCP_YES)
+        Parser.push_back(new File_DcpPkl());
     #endif
     #if defined(MEDIAINFO_DPG_YES)
         Parser.push_back(new File_Dpg());

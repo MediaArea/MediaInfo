@@ -606,6 +606,15 @@ void File__ReferenceFilesHelper::ParseReference()
 //---------------------------------------------------------------------------
 void File__ReferenceFilesHelper::ParseReference_Finalize ()
 {
+    //Removing wrong initial value
+    if (Reference->MI->Count_Get(Reference->StreamKind)==0 && Reference->StreamPos!=(size_t)-1)
+    {
+        MI->Stream_Erase(Reference->StreamKind, Reference->StreamPos);
+        for (references::iterator ReferenceTemp=References.begin(); ReferenceTemp!=References.end(); ++ReferenceTemp)
+            if (ReferenceTemp->StreamKind==Reference->StreamKind && ReferenceTemp->StreamPos>Reference->StreamPos)
+                ReferenceTemp->StreamPos--;
+    }
+    
     bool StreamFound=false;
     for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
         for (size_t StreamPos=0; StreamPos<Reference->MI->Count_Get((stream_t)StreamKind); StreamPos++)

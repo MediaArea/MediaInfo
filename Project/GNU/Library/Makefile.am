@@ -98,7 +98,9 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Bdmv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Cdxa.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DashMpd.cpp \
-                       ../../../Source/MediaInfo/Multiple/File_Dcp.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_DcpAm.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_DcpCpl.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_DcpPkl.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dpg.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DvDif.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DvDif_Analysis.cpp \

@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.64 --> 0.7.65
+-----------------
+- DCP AssetMap: format name changed fro "DCP" to "DCP AM", in order to differentiate AM from PKL and CPL
+
 0.7.63 --> 0.7.64
 -----------------
 - QuickTime: time code name is moved from General "OriginalSourceMedium" field to time code "Title"

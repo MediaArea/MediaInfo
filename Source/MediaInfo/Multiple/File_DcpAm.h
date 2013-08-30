@@ -6,13 +6,13 @@
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about DCP files
+// Information about DCP AssetMap files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_DcpH
-#define MediaInfo_File_DcpH
+#ifndef MediaInfo_File_DcpAmH
+#define MediaInfo_File_DcpAmH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -26,15 +26,15 @@ namespace MediaInfoLib
 class File__ReferenceFilesHelper;
 
 //***************************************************************************
-// Class File_Dcp
+// Class File_DcpAm
 //***************************************************************************
 
-class File_Dcp : public File__Analyze
+class File_DcpAm : public File__Analyze
 {
 public :
     //Constructor/Destructor
-    File_Dcp();
-    ~File_Dcp();
+    File_DcpAm();
+    ~File_DcpAm();
 
 private :
     //Streams management

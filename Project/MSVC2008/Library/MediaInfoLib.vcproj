@@ -1080,7 +1080,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dcp.cpp"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DcpAm.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DcpCpl.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DcpPkl.cpp"
 					>
 				</File>
 				<File
@@ -1828,7 +1836,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dcp.h"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DcpAm.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DcpCpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DcpPkl.h"
 					>
 				</File>
 				<File

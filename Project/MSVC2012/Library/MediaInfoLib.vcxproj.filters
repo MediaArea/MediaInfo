@@ -554,9 +554,6 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.cpp">
-      <Filter>Source Files\Multiple</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scc.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
@@ -648,6 +645,15 @@
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_HdsF4m.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DcpCpl.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DcpAm.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DcpPkl.cpp">
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1096,9 +1102,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dcp.h">
-      <Filter>Header Files\Multiple</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scc.h">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
@@ -1202,6 +1205,15 @@
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_HdsF4m.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DcpCpl.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DcpAm.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DcpPkl.h">
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>
