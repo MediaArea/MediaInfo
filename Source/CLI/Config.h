@@ -54,7 +54,7 @@ inline void STRINGOUT(ZenLib::Ztring Text)
         #endif //_MSC_VER
     #else // UNICODE
         #if defined(STREAM_MISSING)
-            fwprintf(stdout, "%s\n", Text.c_str());
+            fprintf(stdout, "%s\n", Text.c_str());
         #else
             std::cout<<Text.c_str()<<std::endl;
         #endif //_MSC_VER
@@ -72,7 +72,7 @@ inline void STRINGERR(ZenLib::Ztring Text)
         #endif //_MSC_VER
     #else // UNICODE
         #if defined(STREAM_MISSING)
-            fwprintf(stderr, "%s\n", Text.c_str());
+            fprintf(stderr, "%s\n", Text.c_str());
         #else
             std::cerr<<Text.c_str()<<std::endl;
         #endif //_MSC_VER
