@@ -607,12 +607,14 @@ void File__ReferenceFilesHelper::ParseReference()
 void File__ReferenceFilesHelper::ParseReference_Finalize ()
 {
     //Removing wrong initial value
-    if (Reference->MI->Count_Get(Reference->StreamKind)==0 && Reference->StreamPos!=(size_t)-1)
+    if (Reference->MI->Count_Get(Reference->StreamKind)==0 && Reference->StreamPos!=(size_t)-1
+     && Reference->MI->Count_Get(Stream_Video)+Reference->MI->Count_Get(Stream_Audio)+Reference->MI->Count_Get(Stream_Image)+Reference->MI->Count_Get(Stream_Text)+Reference->MI->Count_Get(Stream_Other))
     {
         MI->Stream_Erase(Reference->StreamKind, Reference->StreamPos);
         for (references::iterator ReferenceTemp=References.begin(); ReferenceTemp!=References.end(); ++ReferenceTemp)
-            if (ReferenceTemp->StreamKind==Reference->StreamKind && ReferenceTemp->StreamPos>Reference->StreamPos)
+            if (ReferenceTemp->StreamKind==Reference->StreamKind && ReferenceTemp->StreamPos!=(size_t)-1 && ReferenceTemp->StreamPos>Reference->StreamPos)
                 ReferenceTemp->StreamPos--;
+        Reference->StreamPos=(size_t)-1;
     }
     
     bool StreamFound=false;

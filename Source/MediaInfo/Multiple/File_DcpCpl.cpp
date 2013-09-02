@@ -30,7 +30,9 @@
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
 #include "tinyxml2.h"
+#include <list>
 using namespace tinyxml2;
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -43,24 +45,47 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 extern void DcpCpl_MergeFromPkl(File__ReferenceFilesHelper* FromCpl, File__ReferenceFilesHelper* FromPkl)
 {
-    map<Ztring, Ztring> Map;
+    struct info
+    {
+        Ztring FileName; 
+        File__ReferenceFilesHelper::references::iterator Reference;
+    };
+    map<Ztring, info> Map;
+    list<File__ReferenceFilesHelper::references::iterator> List;
+    ZtringList ExtraFiles_Name;
     for (File__ReferenceFilesHelper::references::iterator Reference=FromPkl->References.begin(); Reference!=FromPkl->References.end(); Reference++)
     {
-        std::map<std::string, Ztring>::iterator UniqueID=Reference->Infos.find("UniqueID");
-        if (UniqueID!=Reference->Infos.end())
-        {
-            for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
-                Map[UniqueID->second]=Reference->FileNames[Pos];
-        }
+        map<string, Ztring>::iterator UniqueID=Reference->Infos.find("UniqueID");
+        for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
+            if (UniqueID!=Reference->Infos.end())
+            {
+                Map[UniqueID->second].FileName=Reference->FileNames[Pos];
+                Map[UniqueID->second].Reference=Reference;
+            }
+        List.push_back(Reference);
     }
 
     for (File__ReferenceFilesHelper::references::iterator Reference=FromCpl->References.begin(); Reference!=FromCpl->References.end(); Reference++)
         for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
         {
-            map<Ztring, Ztring>::iterator Map_Item=Map.find(Reference->FileNames[Pos]);
+            map<Ztring, info>::iterator Map_Item=Map.find(Reference->FileNames[Pos]);
             if (Map_Item!=Map.end())
-                Reference->FileNames[Pos]=Map_Item->second;
+            {
+                Reference->FileNames[Pos]=Map_Item->second.FileName;
+                for (list<File__ReferenceFilesHelper::references::iterator>::iterator Reference2=List.begin(); Reference2!=List.end(); Reference2++)
+                    if (*Reference2==Map_Item->second.Reference)
+                    {
+                        List.erase(Reference2);
+                        break;
+                    }
+            }
         }
+
+    for (list<File__ReferenceFilesHelper::references::iterator>::iterator Reference=List.begin(); Reference!=List.end(); Reference++)
+    {
+        FromCpl->References.push_back(**Reference);
+        FromCpl->References[FromCpl->References.size()-1].StreamID=FromCpl->References.size()-1;
+    }
 }
 
 //***************************************************************************

@@ -188,13 +188,10 @@ bool File_DcpAm::FileHeader_Begin()
                                         {
                                             ReferenceFile.FileNames.push_back(Ztring().From_UTF8(Chunk_Item->GetText()));
                                             string Text=Chunk_Item->GetText();
-                                            if (CPL_FileName.empty() && Text.size()>=8
-                                                && (Text.find("_cpl.xml")==Text.size()-8)
-                                                || (Text.find("CPL_")==0 && Text.find(".xml")==Text.size()-4))
-                                            {
+                                            if (Text.size()>=8
+                                             && (Text.find("_cpl.xml")==Text.size()-8)
+                                              || (Text.find("CPL_")==0 && Text.find(".xml")==Text.size()-4))
                                                 IsCPL=true;
-                                                CPL_FileName.From_UTF8(Chunk_Item->GetText()); //Using only the first CPL file meet
-                                            }
                                         }
                                     }
                                 }
@@ -202,11 +199,17 @@ bool File_DcpAm::FileHeader_Begin()
                         }
                     }
 
-                    if (!IsCPL)
+                    if (IsCPL)
                     {
-                        ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
-                        ReferenceFiles->References.push_back(ReferenceFile);
+                        for (size_t Pos=0; Pos<ReferenceFile.FileNames.size(); Pos++)
+                        {
+                            if (CPL_FileName.empty())
+                                CPL_FileName=ReferenceFile.FileNames[Pos]; //Using only the first CPL file meet
+                        }
                     }
+
+                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
+                    ReferenceFiles->References.push_back(ReferenceFile);
                 }
             }
         }

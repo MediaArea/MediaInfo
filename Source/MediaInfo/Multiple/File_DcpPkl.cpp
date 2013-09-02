@@ -172,7 +172,6 @@ bool File_DcpPkl::FileHeader_Begin()
                             else if (!strcmp(File_Item->GetText(), "text/xml;asdcpKind=CPL"))
                             {
                                 HasCpl=IsCPL=true;
-                                ReferenceFile.StreamKind=Stream_Other;
                             }
                             else
                                 ReferenceFile.StreamKind=Stream_Other;
@@ -183,21 +182,22 @@ bool File_DcpPkl::FileHeader_Begin()
                         {
                             ReferenceFile.FileNames.push_back(Ztring().From_UTF8(File_Item->GetText()));
                             string Text=File_Item->GetText();
-                            if (HasCpl && Text.size()>=8
-                                && (Text.find("_cpl.xml")==Text.size()-8)
-                                || (Text.find("CPL_")==0 && Text.find(".xml")==Text.size()-4))
-                            {
+                            if (Text.size()>=8
+                             && (Text.find("_cpl.xml")==Text.size()-8)
+                              || (Text.find("CPL_")==0 && Text.find(".xml")==Text.size()-4))
                                 HasCpl=IsCPL=true;
-                                CPL_FileName.From_UTF8(File_Item->GetText()); //Using only the first CPL file meet
-                            }
                         }
                     }
 
-                    if (!IsCPL)
-                    {
-                        ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
-                        ReferenceFiles->References.push_back(ReferenceFile);
-                    }
+                    if (IsCPL && CPL_FileName.empty())
+                        for (size_t Pos=0; Pos<ReferenceFile.FileNames.size(); Pos++)
+                        {
+                            CPL_FileName=ReferenceFile.FileNames[Pos]; //Using only the first CPL file meet
+                            break;
+                        }
+
+                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
+                    ReferenceFiles->References.push_back(ReferenceFile);
                 }
             }
         }

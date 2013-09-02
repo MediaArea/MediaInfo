@@ -80,6 +80,8 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream, size_t StreamPos)
         Fill(StreamKind_Last, Pos, General_StreamKindID, Pos, 10, true);
         if (Count_Get(StreamKind_Last)>1)
             Fill(StreamKind_Last, Pos, General_StreamKindPos, Pos+1, 10, true);
+        else
+            Clear(StreamKind_Last, Pos, General_StreamKindPos);
     }
 
     //Filling Lists & Counts
@@ -178,6 +180,31 @@ size_t File__Analyze::Stream_Erase (stream_t KindOfStream, size_t StreamPos)
     if (!Status[IsAccepted] || KindOfStream>Stream_Max || StreamPos>=Count_Get(KindOfStream))
         return Error;
 
+    //Filling Lists & Counts
+    if (!IsSub && KindOfStream!=Stream_General)
+    {
+        const Ztring& StreamKind_Text=Get(KindOfStream, 0, General_StreamKind, Info_Text);
+        ZtringList Temp; Temp.Separator_Set(0, __T(" / "));
+        Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+__T("_Codec_List")).To_Local().c_str()));
+        if (StreamPos<Temp.size())
+            Temp.erase(Temp.begin()+StreamPos);
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+__T("_Codec_List")).To_Local().c_str(), Temp.Read(), true);
+        Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+__T("_Language_List")).To_Local().c_str()));
+        if (StreamPos<Temp.size())
+            Temp.erase(Temp.begin()+StreamPos);
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+__T("_Language_List")).To_Local().c_str(), Temp.Read(), true);
+        Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+__T("_Format_List")).To_Local().c_str()));
+        if (StreamPos<Temp.size())
+            Temp.erase(Temp.begin()+StreamPos);
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+__T("_Format_List")).To_Local().c_str(), Temp.Read(), true);
+        Temp.Write(Retrieve(Stream_General, 0, Ztring(StreamKind_Text+__T("_Format_WithHint_List")).To_Local().c_str()));
+        if (StreamPos<Temp.size())
+            Temp.erase(Temp.begin()+StreamPos);
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+__T("_Format_WithHint_List")).To_Local().c_str(), Temp.Read(), true);
+
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+__T("Count")).To_Local().c_str(), Count_Get(KindOfStream)-1, 10, true);
+    }
+
     //Insert a stream
     (*Stream)[KindOfStream].erase((*Stream)[KindOfStream].begin()+StreamPos);
     (*Stream_More)[KindOfStream].erase((*Stream_More)[KindOfStream].begin()+StreamPos);
@@ -189,6 +216,8 @@ size_t File__Analyze::Stream_Erase (stream_t KindOfStream, size_t StreamPos)
         Fill(KindOfStream, Pos, General_StreamKindID, Pos, 10, true);
         if (Count_Get(KindOfStream)>1)
             Fill(KindOfStream, Pos, General_StreamKindPos, Pos+1, 10, true);
+        else
+            Clear(KindOfStream, Pos, General_StreamKindPos);
     }
 
     StreamKind_Last=Stream_Max;
