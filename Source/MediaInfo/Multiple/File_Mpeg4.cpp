@@ -822,6 +822,31 @@ void File_Mpeg4::Streams_Finish()
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelLayout, Mpeg4_chan_Layout(101));
         }
 
+        //Bitrate Mode
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+        {
+            if (Temp->second.stss.empty() && Temp->second.stss.size()!=Temp->second.stsz_Total.size() && !IsFragmented)
+            {
+                int64u Size_Min=(int64u)-1, Size_Max=0;
+                for (size_t Pos=0; Pos<Temp->second.stsz_Total.size(); Pos++)
+                {
+                    if (Temp->second.stsz_Total[Pos]<Size_Min)
+                        Size_Min=Temp->second.stsz_Total[Pos];
+                    if (Temp->second.stsz_Total[Pos]>Size_Max)
+                        Size_Max=Temp->second.stsz_Total[Pos];
+                }
+
+                if (Size_Min*(1.005+0.005)<Size_Max)
+                    Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "VBR");
+                else
+                    Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
+            }
+            else
+            {
+                //TODO: compute Bit rate mode from stsz and stss (in order to compute per GOP instead of per frame)
+            }
+        }
+
         ++Temp;
     }
     if (Vendor!=0x00000000 && Vendor!=0xFFFFFFFF)

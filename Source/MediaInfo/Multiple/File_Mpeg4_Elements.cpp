@@ -3508,10 +3508,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
     }
     if (!stss_PreviouslyEmpty)
         std::sort(Streams[moov_trak_tkhd_TrackID].stss.begin(), Streams[moov_trak_tkhd_TrackID].stss.end());
-
-    //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
-    //TODO: compute Bit rate mode from stps
-    Clear(StreamKind_Last, StreamPos_Last, "BitRate_Mode");
 }
 
 //---------------------------------------------------------------------------
@@ -5566,10 +5562,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
     }
     if (!stss_PreviouslyEmpty)
         std::sort(Streams[moov_trak_tkhd_TrackID].stss.begin(), Streams[moov_trak_tkhd_TrackID].stss.end());
-
-    //Bit rate mode is based on only 1 frame bit rate computing, not valid for P and B frames
-    //TODO: compute Bit rate mode from stss
-    Clear(StreamKind_Last, StreamPos_Last, "BitRate_Mode");
 }
 
 //---------------------------------------------------------------------------
@@ -5634,7 +5626,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     else
     {
         int32u Size;
-        int32u Size_Min=(int32u)-1, Size_Max=0;
         /*
         if (FieldSize==4)
             BS_Begin(); //Too much slow
@@ -5674,10 +5665,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
 
             Stream->second.stsz_StreamSize+=Size;
             Stream->second.stsz_Total.push_back(Size);
-            if (Size<Size_Min)
-                Size_Min=Size;
-            if (Size>Size_Max)
-                Size_Max=Size;
             if (Pos<FrameCount_MaxPerStream)
                 Stream->second.stsz.push_back(Size);
         }
@@ -5685,14 +5672,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         if (FieldSize==4)
             BS_End(); //Too much slow
         */
-
-        if (Stream->second.stss.empty() && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
-        {
-            if (Size_Min*(1.005+0.005)<Size_Max)
-                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "VBR");
-            else
-                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
-        }
     }
 }
 
