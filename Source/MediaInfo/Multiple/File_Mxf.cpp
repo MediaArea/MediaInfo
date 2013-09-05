@@ -2216,10 +2216,10 @@ void File_Mxf::Read_Buffer_Unsynched()
     FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
     Frame_Count_NotParsedIncluded=(int64u)-1;
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-        if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
-            FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
-        else if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+        if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
             FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+        else if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+            FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
 
         //Calculating the byte count not included in seek information (partition, index...)
         int64u FutureFileOffset=File_GoTo==(int64u)-1?(File_Offset+Buffer_Offset):File_GoTo;
@@ -2242,7 +2242,12 @@ void File_Mxf::Read_Buffer_Unsynched()
             Frame_Count_NotParsedIncluded=float64_int64s(Frame_Count_NotParsedIncluded_Precise);
             FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000+((float64)Frame_Count_NotParsedIncluded_Precise)*1000000000/Descriptors.begin()->second.SampleRate);
             FrameInfo.PTS=FrameInfo.DTS;
-            FrameInfo.DUR=float64_int64s(1000000000/Descriptors.begin()->second.SampleRate);
+            if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+                FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+            else if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+                FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
+            else
+                FrameInfo.DUR=float64_int64s(1000000000/Descriptors.begin()->second.SampleRate);
             Demux_random_access=true;
         }
         else if (!IndexTables.empty() && IndexTables[0].EditUnitByteCount)
@@ -2288,7 +2293,11 @@ void File_Mxf::Read_Buffer_Unsynched()
         }
         else if (!IndexTables.empty() && !IndexTables[0].Entries.empty())
         {
-            int64u StreamOffset=FutureFileOffset-StreamOffset_Offset;
+            int64u StreamOffset;
+            if (StreamOffset_Offset<FutureFileOffset)
+                StreamOffset=FutureFileOffset-StreamOffset_Offset;
+            else
+                StreamOffset=0;
             for (size_t Pos=0; Pos<IndexTables.size(); Pos++)
             {
                 //Searching the right index
@@ -2341,12 +2350,14 @@ void File_Mxf::Read_Buffer_Unsynched()
             FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
         }
 
-        if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
-            FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
-        else
     #endif //if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
-            if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
-                FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+
+    if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
+        FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
+    #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+        else if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
+            FrameInfo.DUR=float64_int64s(1000000000/IndexTables[0].IndexEditRate);
+    #endif //if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
         for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
