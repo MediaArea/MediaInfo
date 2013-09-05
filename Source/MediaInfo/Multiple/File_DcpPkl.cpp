@@ -185,7 +185,10 @@ bool File_DcpPkl::FileHeader_Begin()
                             if (Text.size()>=8
                              && (Text.find("_cpl.xml")==Text.size()-8)
                               || (Text.find("CPL_")==0 && Text.find(".xml")==Text.size()-4))
+                            {
                                 HasCpl=IsCPL=true;
+                                ReferenceFile.StreamKind=Stream_Max;
+                            }
                         }
                     }
 

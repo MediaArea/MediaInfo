@@ -216,9 +216,10 @@ bool File_DcpCpl::FileHeader_Begin()
                                     Ztring Id;
 
                                     if ((IsDcp && !strcmp(AssetList_Item->Value(), "MainPicture"))
-                                     || (IsImf && (!strcmp(AssetList_Item->Value(), "cc:MainImageSequence") || !strcmp(AssetList_Item->Value(), "cc:MainImage"))))
+                                     || (IsImf && !strcmp(AssetList_Item->Value(), "cc:MainImageSequence")))
                                         ReferenceFile.StreamKind=Stream_Video;
-                                    if ((IsDcp && !strcmp(AssetList_Item->Value(), "MainSound")))
+                                    if ((IsDcp && !strcmp(AssetList_Item->Value(), "MainSound"))
+                                     || (IsImf && !strcmp(AssetList_Item->Value(), "cc:MainAudioSequence")))
                                         ReferenceFile.StreamKind=Stream_Audio;
 
                                     for (XMLElement* File_Item=AssetList_Item->FirstChildElement(); File_Item; File_Item=File_Item->NextSiblingElement())
