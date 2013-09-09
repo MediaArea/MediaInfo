@@ -108,7 +108,7 @@ bool File_DcpAm::FileHeader_Begin()
        return false;
 
     bool IsDcp=false, IsImf=false;
-    
+
     std::string NameSpace;
     XMLElement* AssetMap=document.FirstChildElement("AssetMap");
     if (AssetMap==NULL)

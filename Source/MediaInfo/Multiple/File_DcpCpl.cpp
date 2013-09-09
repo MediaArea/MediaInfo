@@ -47,7 +47,7 @@ extern void DcpCpl_MergeFromPkl(File__ReferenceFilesHelper* FromCpl, File__Refer
 {
     struct info
     {
-        Ztring FileName; 
+        Ztring FileName;
         File__ReferenceFilesHelper::references::iterator Reference;
     };
     map<Ztring, info> Map;
@@ -154,7 +154,7 @@ bool File_DcpCpl::FileHeader_Begin()
        return false;
 
     bool IsDcp=false, IsImf=false;
-    
+
     XMLElement* Root=document.FirstChildElement("CompositionPlaylist");
     if (!Root)
     {

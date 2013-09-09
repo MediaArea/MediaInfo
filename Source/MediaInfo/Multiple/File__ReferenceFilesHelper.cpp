@@ -616,7 +616,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize ()
                 ReferenceTemp->StreamPos--;
         Reference->StreamPos=(size_t)-1;
     }
-    
+
     bool StreamFound=false;
     for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
         for (size_t StreamPos=0; StreamPos<Reference->MI->Count_Get((stream_t)StreamKind); StreamPos++)

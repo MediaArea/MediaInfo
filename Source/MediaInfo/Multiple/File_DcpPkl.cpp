@@ -109,7 +109,7 @@ bool File_DcpPkl::FileHeader_Begin()
        return false;
 
     bool IsDcp=false, IsImf=false;
-    
+
     XMLElement* PackingList=document.FirstChildElement("PackingList");
     if (!PackingList)
     {
@@ -141,7 +141,7 @@ bool File_DcpPkl::FileHeader_Begin()
 
     ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
     Ztring CPL_FileName;
-    
+
     //Parsing main elements
     for (XMLElement* PackingList_Item=PackingList->FirstChildElement(); PackingList_Item; PackingList_Item=PackingList_Item->NextSiblingElement())
     {
