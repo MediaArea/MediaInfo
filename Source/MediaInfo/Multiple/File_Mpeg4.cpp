@@ -1365,12 +1365,12 @@ bool File_Mpeg4::Header_Begin()
 {
     #if MEDIAINFO_DEMUX
         //Handling of multiple frames in one block
-        if (IsParsing_mdat && Config->Demux_Unpacketize_Get())
+        if (IsParsing_mdat && Config->Demux_Unpacketize_Get() && Streams[(int32u)Element_Code].Demux_EventWasSent)
         {
-            for (size_t Pos=0; Pos<Streams[(int32u)Element_Code].Parsers.size(); Pos++)
-                Open_Buffer_Continue(Streams[(int32u)Element_Code].Parsers[Pos], Buffer+Buffer_Offset, 0);
-                if (Config->Demux_EventWasSent)
-                    return false;
+            Open_Buffer_Continue(Streams[(int32u)Element_Code].Parsers[0], Buffer+Buffer_Offset, 0);
+            if (Config->Demux_EventWasSent)
+                return false;
+            Stream->second.Demux_EventWasSent=false;
         }
     #endif //MEDIAINFO_DEMUX
 

@@ -774,13 +774,13 @@ bool File_Gxf::Header_Begin()
 {
     #if MEDIAINFO_DEMUX
         //Handling of multiple frames in one block
-        if (Element_Code==0xBF && Config->Demux_Unpacketize_Get()) //media block
-            for (size_t Pos=0; Pos<Streams[TrackNumber].Parsers.size(); Pos++)
-            {
-                Open_Buffer_Continue(Streams[TrackNumber].Parsers[Pos], Buffer+Buffer_Offset, 0);
-                if (Config->Demux_EventWasSent)
-                    return false;
-            }
+        if (Element_Code==0xBF && Config->Demux_Unpacketize_Get() && Streams[TrackNumber].Demux_EventWasSent) //media block
+        {
+            Open_Buffer_Continue(Streams[TrackNumber].Parsers[0], Buffer+Buffer_Offset, 0);
+            if (Config->Demux_EventWasSent)
+                return false;
+            Streams[TrackNumber].Demux_EventWasSent=false;
+        }
     #endif //MEDIAINFO_DEMUX
 
     return true;
@@ -1455,6 +1455,10 @@ void File_Gxf::media()
     {
         Streams[TrackNumber].Parsers[Pos]->FrameInfo.DTS=FrameInfo.DTS;
         Open_Buffer_Continue(Streams[TrackNumber].Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent && Config->Demux_Unpacketize_Get())
+                Streams[TrackNumber].Demux_EventWasSent=true;
+        #endif //MEDIAINFO_DEMUX
 
         //Multiple parsers
         if (Streams[TrackNumber].Parsers.size()>1)

@@ -111,6 +111,9 @@ private :
         bool   DisplayInfo; //In case of channel grouping, info is about the complete (2*half) stream, so second stream info must not be used
         Ztring MediaName;
         std::map<std::string, Ztring> Infos;
+        #if MEDIAINFO_DEMUX
+            bool            Demux_EventWasSent;
+        #endif //MEDIAINFO_DEMUX
 
         stream()
         {
@@ -127,6 +130,9 @@ private :
             TrackID=(int8u)-1;
             IsChannelGrouping=false;
             DisplayInfo=true;
+            #if MEDIAINFO_DEMUX
+                Demux_EventWasSent=false;
+            #endif //MEDIAINFO_DEMUX
         }
         ~stream()
         {

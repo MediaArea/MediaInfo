@@ -1635,6 +1635,10 @@ void File_Mpeg4::mdat_xxxx()
         #endif //MEDIAINFO_DEMUX
 
         Open_Buffer_Continue(Stream->second.Parsers[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent && Config->Demux_Unpacketize_Get())
+                Stream->second.Demux_EventWasSent=true;
+        #endif //MEDIAINFO_DEMUX
         Element_Show();
 
         #if MEDIAINFO_DEMUX
