@@ -488,6 +488,25 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
 }
 
 //---------------------------------------------------------------------------
+void File_MpegPs::Streams_Update()
+{
+    //For each Streams
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        for (size_t Pos=0; Pos<Streams[StreamID].Parsers.size(); Pos++)
+            Streams[StreamID].Parsers[Pos]->Open_Buffer_Update();
+
+    //For each private Streams
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        for (size_t Pos=0; Pos<Streams_Private1[StreamID].Parsers.size(); Pos++)
+            Streams_Private1[StreamID].Parsers[Pos]->Open_Buffer_Update();
+
+    //For each extension Streams
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        for (size_t Pos=0; Pos<Streams_Extension[StreamID].Parsers.size(); Pos++)
+            Streams_Extension[StreamID].Parsers[Pos]->Open_Buffer_Update();
+}
+
+//---------------------------------------------------------------------------
 void File_MpegPs::Streams_Finish()
 {
     if (Streams.empty())

@@ -96,6 +96,11 @@ public :
         bool          File_Source_List_Get ();
     #endif //MEDIAINFO_ADVANCED
 
+    #if MEDIAINFO_ADVANCED
+        void          File_RiskyBitRateEstimation_Set (bool NewValue);
+        bool          File_RiskyBitRateEstimation_Get ();
+    #endif //MEDIAINFO_ADVANCED
+
     #if MEDIAINFO_DEMUX
         #if MEDIAINFO_ADVANCED
             void          File_Demux_Unpacketize_StreamLayoutChange_Skip_Set (bool NewValue);
@@ -301,6 +306,7 @@ private :
     #if MEDIAINFO_ADVANCED
         bool                File_IgnoreSequenceFileSize;
         bool                File_Source_List;
+        bool                File_RiskyBitRateEstimation;
         #if MEDIAINFO_DEMUX
             bool                File_Demux_Unpacketize_StreamLayoutChange_Skip;
         #endif //MEDIAINFO_DEMUX

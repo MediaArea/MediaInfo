@@ -58,6 +58,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #if MEDIAINFO_ADVANCED
         File_IgnoreSequenceFileSize=false;
         File_Source_List=false;
+        File_RiskyBitRateEstimation=false;
         #if MEDIAINFO_DEMUX
             File_Demux_Unpacketize_StreamLayoutChange_Skip=false;
         #endif //MEDIAINFO_DEMUX
@@ -292,6 +293,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //MEDIAINFO_MD5
             return __T("MD5 is disabled due to compilation options");
         #endif //MEDIAINFO_MD5
+    }
+    else if (Option_Lower==__T("file_riskybitrateestimation"))
+    {
+        #if MEDIAINFO_ADVANCED
+            File_RiskyBitRateEstimation_Set(!(Value==__T("0") || Value.empty()));
+            return Ztring();
+        #else //MEDIAINFO_ADVANCED
+            return __T("Advanced features are disabled due to compilation options");
+        #endif //MEDIAINFO_ADVANCED
     }
     else if (Option_Lower==__T("file_demux_unpacketize_streamlayoutchange_skip"))
     {
@@ -1063,6 +1073,21 @@ bool MediaInfo_Config_MediaInfo::File_Source_List_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_Source_List;
+}
+#endif //MEDIAINFO_ADVANCED
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED
+void MediaInfo_Config_MediaInfo::File_RiskyBitRateEstimation_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_RiskyBitRateEstimation=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_RiskyBitRateEstimation_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_RiskyBitRateEstimation;
 }
 #endif //MEDIAINFO_ADVANCED
 

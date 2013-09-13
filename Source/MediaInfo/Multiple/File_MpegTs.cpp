@@ -462,6 +462,9 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
     if (Temp->stream_type==0x20 && Temp->SubStream_pid) //Stereoscopic is not alone
         return;
 
+    if (Temp->Parser)
+        Temp->Parser->Open_Buffer_Update();
+
     //Merging from a previous merge
     size_t Count;
     if (Temp->StreamKind!=Stream_Max)
@@ -2820,8 +2823,11 @@ void File_MpegTs::PES_Parse_Finish()
     {
         if ((Complete_Stream->Streams[pid]->Searching_Payload_Start || Complete_Stream->Streams[pid]->Searching_Payload_Continue) && Config->ParseSpeed<1 && MpegTs_JumpTo_End)
         {
-            Complete_Stream->Streams[pid]->Searching_Payload_Start_Set(false);
-            Complete_Stream->Streams[pid]->Searching_Payload_Continue_Set(false);
+            if (Config->File_StopSubStreamAfterFilled_Get())
+            {
+                Complete_Stream->Streams[pid]->Searching_Payload_Start_Set(false);
+                Complete_Stream->Streams[pid]->Searching_Payload_Continue_Set(false);
+            }
             if (!Complete_Stream->Streams[pid]->IsParsed && Complete_Stream->Streams_NotParsedCount)
             {
                 Complete_Stream->Streams[pid]->IsParsed=true;
