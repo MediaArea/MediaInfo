@@ -44,6 +44,10 @@ const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
 
 MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 {
+    Demux_Offset_Frame=(int64u)-1;
+    Demux_Offset_DTS=(int64u)-1;
+    Demux_Offset_DTS_FromStream=(int64u)-1;
+    
     FileIsSeekable=true;
     FileIsSub=false;
     FileIsDetectingDuration=false;
@@ -1698,6 +1702,34 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
 {
     CriticalSectionLocker CSL(CS);
 
+    if (Source==NULL)
+    {
+        if (Demux_Offset_Frame!=(int64u)-1)
+        {
+            MediaInfo_Event_Generic* Temp=(MediaInfo_Event_Generic*)Data_Content;
+            if (Temp->FrameNumber!=(int64u)-1)
+                Temp->FrameNumber+=Demux_Offset_Frame;
+            if (Temp->FrameNumber_PresentationOrder!=(int64u)-1)
+                Temp->FrameNumber_PresentationOrder+=Demux_Offset_Frame;
+        }
+        if (Demux_Offset_DTS!=(int64u)-1) // && (Demux_Offset_DTS_FromStream==(int64u)-1 || Demux_Offset_DTS!=Demux_Offset_DTS_FromStream))
+        {
+            MediaInfo_Event_Generic* Temp=(MediaInfo_Event_Generic*)Data_Content;
+            if (Temp->DTS!=(int64u)-1)
+            {
+                Temp->DTS+=Demux_Offset_DTS;
+                if (Demux_Offset_DTS_FromStream!=(int64u)-1)
+                    Temp->DTS-=Demux_Offset_DTS_FromStream;
+            }
+            if (Temp->PTS!=(int64u)-1)
+            {
+                Temp->PTS+=Demux_Offset_DTS;
+                if (Demux_Offset_DTS_FromStream!=(int64u)-1)
+                    Temp->PTS-=Demux_Offset_DTS_FromStream;
+            }
+        }
+    }
+    
     if (Source)
     {
         event_delayed* Event=new event_delayed(Data_Content, Data_Size, File_Name);

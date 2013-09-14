@@ -123,6 +123,9 @@ namespace Elements
     //Item - Elements - Interpretive - Fundamental - Data Interpretations and Definitions - XML Constructs and Interpretations
     UUID(XmlDocumentText,                                       060E2B34, 01010105, 03010220, 01000000)
 
+    //Item - Elements - Interpretive - Fundamental - Data Interpretations and Definitions - ?
+    UUID(SubDescriptors,                                        060E2B34, 01010109, 06010104, 06100000) // SMPTE ST 0429-10
+
     //Item - Elements - User organization registred for public use - AAF Association - Generic Container - Version 1
     UUID(GenericContainer_Aaf,                                  060E2B34, 01020101, 0D010301, 00000000)
 
@@ -158,6 +161,7 @@ namespace Elements
     UUID(Identification,                                        060E2B34, 02530101, 0D010101, 01013000)
     UUID(NetworkLocator,                                        060E2B34, 02530101, 0D010101, 01013200)
     UUID(TextLocator,                                           060E2B34, 02530101, 0D010101, 01013300)
+    UUID(StereoscopicPictureSubDescriptor,                      060E2B34, 0253010C, 0D010101, 01016300) // SMPTE ST 0429-10
     UUID(MaterialPackage,                                       060E2B34, 02530101, 0D010101, 01013600)
     UUID(SourcePackage,                                         060E2B34, 02530101, 0D010101, 01013700)
     UUID(EventTrack,                                            060E2B34, 02530101, 0D010101, 01013900)
@@ -911,6 +915,7 @@ File_Mxf::File_Mxf()
     SystemScheme1_TimeCodeArray_StartTimecode_ms=(int64u)-1;
     SystemScheme1_FrameRateFromDescriptor=0;
     Essences_FirstEssence_Parsed=false;
+    StereoscopicPictureSubDescriptor_IsPresent=false;
     #if MEDIAINFO_ADVANCED
         Footer_Position=(int64u)-1;
     #endif //MEDIAINFO_ADVANCED
@@ -1706,6 +1711,12 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); ++Info)
             if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
             {
+                //Special case
+                if (StereoscopicPictureSubDescriptor_IsPresent && StreamKind_Last==Stream_Video && Info->first=="FrameRate")
+                {
+                    Info->second.From_Number(Descriptor->second.SampleRate/2, 3);
+                    Fill(Stream_Video, StreamPos_Last, Video_MultiView_Count, 2, 10, true);
+                }
                 if (Info->first=="BitRate" && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T(" / "))!=string::npos)
                 {
                     if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate)).empty() || Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T("-"))!=string::npos)
@@ -1962,6 +1973,9 @@ void File_Mxf::Streams_Finish_Component(const int128u ComponentUID, float64 Edit
                 Fill(StreamKind_Last, StreamPos_Last_Temp, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration*1000/EditRate, 0, true);
             }
         }
+
+        if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount)).empty())
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount), Component->second.Duration);
     }
 
     //For the sequence, searching Structural componenents
@@ -3265,6 +3279,7 @@ void File_Mxf::Data_Parse()
     ELEMENT(Filler02,                                           "Padding")
     ELEMENT(TerminatingFiller,                                  "Terminating Filler")
     ELEMENT(XmlDocumentText,                                    "XML Document Text")
+    ELEMENT(SubDescriptors,                                     "Sub Descriptors")
     ELEMENT(Sequence,                                           "Sequence")
     ELEMENT(SourceClip,                                         "Source Clip")
     ELEMENT(TimecodeComponent,                                  "Timecode Component")
@@ -3276,6 +3291,7 @@ void File_Mxf::Data_Parse()
     ELEMENT(Identification,                                     "Identification")
     ELEMENT(NetworkLocator,                                     "Network Locator")
     ELEMENT(TextLocator,                                        "Text Locator")
+    ELEMENT(StereoscopicPictureSubDescriptor,                   "Stereoscopic Picture Sub Descriptor")
     ELEMENT(MaterialPackage,                                    "Material Package")
     ELEMENT(SourcePackage,                                      "Source Package")
     ELEMENT(EventTrack,                                         "Event track")
@@ -3459,7 +3475,7 @@ void File_Mxf::Data_Parse()
                 if (!IsSub) //Updating for MXF only if MXF is not embedded in another container
                 {
                     Essence->second.Frame_Count_NotParsedIncluded=Frame_Count_NotParsedIncluded;
-                    Essence->second.FrameInfo.DTS=float64_int64s(DTS_Delay)*1000000000+FrameInfo.DTS;
+                    Essence->second.FrameInfo.DTS=FrameInfo.DTS;
                     if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
                         Essence->second.FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
                     else if (!IndexTables.empty() && IndexTables[0].IndexEditRate)
@@ -4348,6 +4364,25 @@ void File_Mxf::Primer()
 //---------------------------------------------------------------------------
 void File_Mxf::RGBAEssenceDescriptor()
 {
+    if (Code2>0x8000)
+    {
+        std::map<int16u, int128u>::iterator Primer_Value=Primer_Values.find(Code2);
+        if (Primer_Value==Primer_Values.end()) //if not a standard code or unknown user defined code
+        {
+            GenericPictureEssenceDescriptor();
+            return;
+        }
+
+        int32u Code_Compare1=Primer_Value->second.hi>>32;
+        int32u Code_Compare2=(int32u)Primer_Value->second.hi;
+        int32u Code_Compare3=Primer_Value->second.lo>>32;
+        int32u Code_Compare4=(int32u)Primer_Value->second.lo;
+        if(0);
+        ELEMENT_UUID(SubDescriptors,                                "Sub Descriptors")
+
+        return;
+    }
+
     switch(Code2)
     {
         ELEMENT(3401, RGBAEssenceDescriptor_PixelLayout,        "Pixel Layout")
@@ -4504,6 +4539,17 @@ void File_Mxf::TextLocator()
 }
 
 //---------------------------------------------------------------------------
+void File_Mxf::StereoscopicPictureSubDescriptor()
+{
+    StereoscopicPictureSubDescriptor_IsPresent=true;
+    
+    switch(Code2)
+    {
+        default: GenerationInterchangeObject();
+    }
+}
+    
+//---------------------------------------------------------------------------
 void File_Mxf::TimecodeComponent()
 {
     if (Element_Offset==4)
@@ -4512,6 +4558,7 @@ void File_Mxf::TimecodeComponent()
         TimeCode_RoundedTimecodeBase=0;
         TimeCode_DropFrame=false;
         DTS_Delay=0;
+        FrameInfo.DTS=0;
     }
 
     switch(Code2)
@@ -4601,6 +4648,21 @@ void File_Mxf::TerminatingFiller()
 void File_Mxf::XmlDocumentText()
 {
     Skip_XX(Element_Size,                                       "XML data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::SubDescriptors()
+{
+    //Parsing
+    //Vector
+    int32u Count, Length;
+    Get_B4 (Count,                                              "Count");
+    Get_B4 (Length,                                             "Length");
+    for (int32u Pos=0; Pos<Count; Pos++)
+    {
+        int128u Data;
+        Get_UUID(Data,                                          "Sub Descriptor");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -6936,6 +6998,8 @@ void File_Mxf::TimecodeComponent_StartTimecode()
                     DTS_Delay*=1001;
                     DTS_Delay/=1000;
                 }
+                FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
+                Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
             }
         }
 
@@ -6963,6 +7027,8 @@ void File_Mxf::TimecodeComponent_RoundedTimecodeBase()
                     DTS_Delay*=1001;
                     DTS_Delay/=1000;
                 }
+                FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
+                Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
             }
         }
 
@@ -6987,6 +7053,8 @@ void File_Mxf::TimecodeComponent_DropFrame()
                 DTS_Delay*=1001;
                 DTS_Delay/=1000;
             }
+            FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
+            Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
         }
 
         Components[InstanceUID].TimeCode_DropFrame=Data?true:false;

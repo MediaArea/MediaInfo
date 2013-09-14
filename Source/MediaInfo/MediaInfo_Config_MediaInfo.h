@@ -50,6 +50,11 @@ public :
     MediaInfo_Config_MediaInfo();
     ~MediaInfo_Config_MediaInfo();
 
+    //TEMP
+    int64u          Demux_Offset_Frame;
+    int64u          Demux_Offset_DTS;
+    int64u          Demux_Offset_DTS_FromStream;
+    
     //General
     Ztring Option (const String &Option, const String &Value=Ztring());
 

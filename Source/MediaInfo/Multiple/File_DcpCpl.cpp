@@ -292,6 +292,8 @@ bool File_DcpCpl::FileHeader_Begin()
         }
     }
 
+    ReferenceFiles->FilesForStorage=true;
+
     //All should be OK...
     return true;
 }
