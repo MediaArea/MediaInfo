@@ -75,11 +75,9 @@ public :
         #if MEDIAINFO_FILTER
             int64u          Enabled;
         #endif //MEDIAINFO_FILTER
-        #if MEDIAINFO_NEXTPACKET
-            std::bitset<32> Status;
-            #if MEDIAINFO_IBI
-                ibi::stream IbiStream;
-            #endif //MEDIAINFO_IBI
+        std::bitset<32> Status;
+        #if MEDIAINFO_NEXTPACKET && MEDIAINFO_IBI
+            ibi::stream IbiStream;
         #endif //MEDIAINFO_NEXTPACKET && MEDIAINFO_IBI
 
         reference()

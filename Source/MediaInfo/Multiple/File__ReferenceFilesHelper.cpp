@@ -478,37 +478,43 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
             MI2.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
             if (MiOpenResult)
             {
-                int64u Duration=MI2.Get(Reference->StreamKind, 0, __T("Duration")).To_int64u()*1000000;
-                int64u FrameCount=MI2.Get(Reference->StreamKind, 0, __T("FrameCount")).To_int64u();
-                if (Pos==0)
-                {
-                    int64u Delay=MI2.Get(Stream_Video, 0, Video_Delay).To_int64u()*1000000;
-                    if (Reference->StreamKind==Stream_Video && Offset_Video_DTS==0)
-                        Offset_Video_DTS=Delay;
-                    Reference->CompleteDuration[0]->Demux_Offset_DTS=Offset_Video_DTS;
-                    Reference->CompleteDuration[0]->Demux_Offset_Frame=0;
-                }
-                if (Pos+1<Reference->CompleteDuration.size())
-                {
-                    Reference->CompleteDuration[Pos+1]->Demux_Offset_DTS=Reference->CompleteDuration[Pos]->Demux_Offset_DTS+Duration;
-                    Reference->CompleteDuration[Pos+1]->Demux_Offset_Frame=Reference->CompleteDuration[Pos]->Demux_Offset_Frame+FrameCount;
-                }
-                else
-                    Duration=Reference->CompleteDuration[Pos]->Demux_Offset_DTS+Duration-Reference->CompleteDuration[0]->Demux_Offset_DTS;
+                #if MEDIAINFO_DEMUX
+                    int64u Duration=MI2.Get(Reference->StreamKind, 0, __T("Duration")).To_int64u()*1000000;
+                    int64u FrameCount=MI2.Get(Reference->StreamKind, 0, __T("FrameCount")).To_int64u();
+                    if (Pos==0)
+                    {
+                        int64u Delay=MI2.Get(Stream_Video, 0, Video_Delay).To_int64u()*1000000;
+                        if (Reference->StreamKind==Stream_Video && Offset_Video_DTS==0)
+                            Offset_Video_DTS=Delay;
+                        Reference->CompleteDuration[0]->Demux_Offset_DTS=Offset_Video_DTS;
+                        Reference->CompleteDuration[0]->Demux_Offset_Frame=0;
+                    }
+                    if (Pos+1<Reference->CompleteDuration.size())
+                    {
+                        Reference->CompleteDuration[Pos+1]->Demux_Offset_DTS=Reference->CompleteDuration[Pos]->Demux_Offset_DTS+Duration;
+                        Reference->CompleteDuration[Pos+1]->Demux_Offset_Frame=Reference->CompleteDuration[Pos]->Demux_Offset_Frame+FrameCount;
+                    }
+                    else
+                        Duration=Reference->CompleteDuration[Pos]->Demux_Offset_DTS+Duration-Reference->CompleteDuration[0]->Demux_Offset_DTS;
+                #endif //MEDIAINFO_DEMUX
             }
 
             if (Pos)
             {
                 Reference->CompleteDuration[Pos]->MI=MI_Create();
-                Reference->CompleteDuration[Pos]->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[Pos]->Demux_Offset_Frame;
-                Reference->CompleteDuration[Pos]->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[Pos]->Demux_Offset_DTS;
+                #if MEDIAINFO_DEMUX
+                    Reference->CompleteDuration[Pos]->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[Pos]->Demux_Offset_Frame;
+                    Reference->CompleteDuration[Pos]->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[Pos]->Demux_Offset_DTS;
+                #endif //MEDIAINFO_DEMUX
             }
         }
-        if (!Reference->CompleteDuration.empty())
-        {
-            Reference->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[0]->Demux_Offset_Frame;
-            Reference->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[0]->Demux_Offset_DTS;
-        }
+        #if MEDIAINFO_DEMUX
+            if (!Reference->CompleteDuration.empty())
+            {
+                Reference->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[0]->Demux_Offset_Frame;
+                Reference->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[0]->Demux_Offset_DTS;
+            }
+        #endif //MEDIAINFO_DEMUX
     }
 
     if (Reference->IsCircular)

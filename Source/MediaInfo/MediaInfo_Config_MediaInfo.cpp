@@ -44,10 +44,6 @@ const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
 
 MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 {
-    Demux_Offset_Frame=(int64u)-1;
-    Demux_Offset_DTS=(int64u)-1;
-    Demux_Offset_DTS_FromStream=(int64u)-1;
-    
     FileIsSeekable=true;
     FileIsSub=false;
     FileIsDetectingDuration=false;
@@ -147,6 +143,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
+        Demux_Offset_Frame=(int64u)-1;
+        Demux_Offset_DTS=(int64u)-1;
+        Demux_Offset_DTS_FromStream=(int64u)-1;
         Events_Delayed_CurrentSource=NULL;
         #if MEDIAINFO_SEEK
            Demux_IsSeeking=false;

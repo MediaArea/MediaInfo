@@ -49,11 +49,6 @@ public :
     //Constructor/Destructor
     MediaInfo_Config_MediaInfo();
     ~MediaInfo_Config_MediaInfo();
-
-    //TEMP
-    int64u          Demux_Offset_Frame;
-    int64u          Demux_Offset_DTS;
-    int64u          Demux_Offset_DTS_FromStream;
     
     //General
     Ztring Option (const String &Option, const String &Value=Ztring());
@@ -290,6 +285,9 @@ public :
     #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
     bool          Demux_EventWasSent;
+    int64u          Demux_Offset_Frame;
+    int64u          Demux_Offset_DTS;
+    int64u          Demux_Offset_DTS_FromStream;
     File__Analyze*  Events_Delayed_CurrentSource;
         #if MEDIAINFO_SEEK
         bool      Demux_IsSeeking;

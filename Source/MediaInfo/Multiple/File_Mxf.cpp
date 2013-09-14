@@ -4543,10 +4543,11 @@ void File_Mxf::StereoscopicPictureSubDescriptor()
 {
     StereoscopicPictureSubDescriptor_IsPresent=true;
     
-    switch(Code2)
-    {
-        default: GenerationInterchangeObject();
-    }
+    //switch(Code2)
+    //{
+    //    default:
+                    GenerationInterchangeObject();
+    //}
 }
     
 //---------------------------------------------------------------------------
@@ -6999,7 +7000,9 @@ void File_Mxf::TimecodeComponent_StartTimecode()
                     DTS_Delay/=1000;
                 }
                 FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
-                Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+                #if MEDIAINFO_DEMUX
+                    Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+                #endif //MEDIAINFO_DEMUX
             }
         }
 
@@ -7028,7 +7031,9 @@ void File_Mxf::TimecodeComponent_RoundedTimecodeBase()
                     DTS_Delay/=1000;
                 }
                 FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
-                Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+                #if MEDIAINFO_DEMUX
+                    Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+                #endif //MEDIAINFO_DEMUX
             }
         }
 
@@ -7054,7 +7059,9 @@ void File_Mxf::TimecodeComponent_DropFrame()
                 DTS_Delay/=1000;
             }
             FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
-            Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+            #if MEDIAINFO_DEMUX
+                Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+            #endif //MEDIAINFO_DEMUX
         }
 
         Components[InstanceUID].TimeCode_DropFrame=Data?true:false;

@@ -656,7 +656,7 @@ void File_Aac::Data_Parse()
     {
         case Mode_LATM    :
                             if (aac_frame_lengths.size()<1000) //TODO: find a way to detect properly when the container has finished to analyze
-                                aac_frame_lengths.push_back(Element_Size); break;
+                                aac_frame_lengths.push_back((int16u)Element_Size); break;
         default           : ;
     }
 
