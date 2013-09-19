@@ -2537,13 +2537,21 @@ void File_Riff::AVI__movi_xxxx___tx()
     //Parsing
     int32u Name_Size;
     Ztring Value;
-    Skip_C4(                                                    "GAB2");
-    Skip_L1(                                                    "Zero");
-    Skip_L2(                                                    "CodePage"); //2=Unicode
-    Get_L4 (Name_Size,                                          "Name_Size");
-    Skip_UTF16L(Name_Size,                                      "Name");
-    Skip_L2(                                                    "Four");
-    Skip_L4(                                                    "File_Size");
+    int32u GAB2;
+    Peek_B4(GAB2);
+    if (GAB2==0x47414232 && Element_Size>=17)
+    {
+        Skip_C4(                                                    "GAB2");
+        Skip_L1(                                                    "Zero");
+        Skip_L2(                                                    "CodePage"); //2=Unicode
+        Get_L4 (Name_Size,                                          "Name_Size");
+        Skip_UTF16L(Name_Size,                                      "Name");
+        Skip_L2(                                                    "Four");
+        Skip_L4(                                                    "File_Size");
+
+        if (Element_Offset>Element_Size)
+            Element_Offset=Element_Size; //Problem
+    }
 
     //Skip it
     Stream[Stream_ID].SearchingPayload=false;

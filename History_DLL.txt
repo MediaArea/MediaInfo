@@ -28,6 +28,7 @@ x AAC: detection of HE-AACv2 was missing if the library is configured with fast 
 x MPEG Video: wrong computing of duration of raw stream in case of drop frame time code
 x Automation, StreamKind type was set to integer, it is text
 x MPEG-4: was reading lot of useless bytes from disk when the raw stream format is not known
+x AVI: crash with some malformed text streams
 
 Version 0.7.64, 2013-07-05
 --------------
