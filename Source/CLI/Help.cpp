@@ -101,7 +101,7 @@ int Help()
     TEXTOUT("                    if the HOME environment variable is set, and just");
     TEXTOUT("                    \"known_hosts\" in the current directory");
     TEXTOUT("                    if HOME is not set.");
-    TEXTOUT("--Ssh_IgnoreSecurity=...");
+    TEXTOUT("--Ssh_IgnoreSecurity");
     TEXTOUT("                    Does not verify the authenticity of the peer");
     TEXTOUT("                    (you don't need to accept the key with ssh first)");
     TEXTOUT("                    Use it at your own risks");
