@@ -254,6 +254,16 @@ File_Vc1::~File_Vc1()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Vc1::Streams_Accept()
+{
+    //Filling
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "VC-1");
+    Fill(Stream_Video, 0, Video_Codec, From_WMV3?"WMV3":"VC-1"); //For compatibility with the old reaction
+    Fill(Stream_Video, 0, Video_BitDepth, 8);
+}
+
+//---------------------------------------------------------------------------
 void File_Vc1::Streams_Fill()
 {
     //Calculating - PixelAspectRatio
@@ -264,12 +274,6 @@ void File_Vc1::Streams_Fill()
         PixelAspectRatio=((float)AspectRatioX)/((float)AspectRatioY);
     else
         PixelAspectRatio=1; //Unknown
-
-    //Filling
-    Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "VC-1");
-    Fill(Stream_Video, 0, Video_Codec, From_WMV3?"WMV3":"VC-1"); //For compatibility with the old reaction
-    Fill(Stream_Video, 0, Video_BitDepth, 8);
 
     Ztring Profile;
     if (profile!=(int8u)-1)
