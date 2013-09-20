@@ -975,7 +975,7 @@ void File_Mpega::Data_Parse()
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)
         Frame_Count_Valid=Frame_Count; //Finish MPEG Audio frames in case of there are less than Frame_Count_Valid frames
-    if (Frame_Count==0)
+    if (Frame_Count==0 && Frame_Count_NotParsedIncluded==0)
         PTS_Begin=FrameInfo.PTS;
     Frame_Count++;
     Frame_Count_InThisBlock++;
