@@ -4833,13 +4833,14 @@ void File_Mxf::SDTI_PackageMetadataSet()
         Get_B1 (Type,                                            "Type");
         Get_B2 (Length,                                         "Length");
         int64u End=Element_Offset+Length;
-        Get_UL (Tag,                                            "Tag", NULL);
+        Get_UL (Tag,                                            "Tag", NULL); //TODO: check 10-byte UL with out_imx.mxf
         switch (Type)
         {
             case 0x83 : //UMID
                         {
                             Skip_UMID(                          );
-                            Skip_UL  (                          "Zeroes");
+                            if (Element_Offset<End)
+								Skip_UL  (                      "Zeroes");
                         }
                         break;
             case 0x88 : //KLV Metadata
