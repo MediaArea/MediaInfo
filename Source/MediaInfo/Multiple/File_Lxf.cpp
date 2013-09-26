@@ -1479,6 +1479,7 @@ void File_Lxf::Audio_Stream(size_t Pos)
         {
             Element_Code=0x200+Pos;
             Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Audios_Header.TimeStamp_End-Audios_Header.Duration))/TimeStamp_Rate*FrameRate);
+            Demux_Level=4; //Intermediate
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Audio_Sizes[Pos], ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
@@ -1557,6 +1558,7 @@ void File_Lxf::Video_Stream(size_t Pos)
         {
             Element_Code=0x100+Pos;
             Frame_Count_NotParsedIncluded=float64_int64s(((float64)(Videos_Header.TimeStamp_End-Videos_Header.Duration))/TimeStamp_Rate*FrameRate);
+            Demux_Level=2; //Container
             Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Video_Sizes[Pos], ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
