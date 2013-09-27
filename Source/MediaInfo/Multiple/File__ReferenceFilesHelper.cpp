@@ -143,17 +143,27 @@ void File__ReferenceFilesHelper::ParseReferences()
                 Ztring AbsoluteName;
                 if (Names[Pos].find(__T(':'))!=1 && Names[Pos].find(__T("/"))!=0 && Names[Pos].find(__T("\\\\"))!=0) //If absolute patch
                 {
-                    AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                    if (MI->File_Name.find(__T("://"))==string::npos)
+                        AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                    else
+                    {
+                        size_t Pos_Path=MI->File_Name.find_last_of('/');
+                        if (Pos_Path!=Ztring::npos)
+                            AbsoluteName=MI->File_Name.substr(0, Pos_Path);
+                    }
                     if (!AbsoluteName.empty())
                         AbsoluteName+=ZenLib::PathSeparator;
                 }
                 AbsoluteName+=Names[Pos];
                 #ifdef __WINDOWS__
-                    AbsoluteName.FindAndReplace(__T("/"), __T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                    if (AbsoluteName.find(__T("://"))==string::npos)
+                        AbsoluteName.FindAndReplace(__T("/"), __T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization local file
+                    else
+                        AbsoluteName.FindAndReplace(__T("\\"), __T("/"), 0, Ztring_Recursive); //Names[Pos] normalization with protocol (so "/" in all cases)
                 #endif //__WINDOWS__
                 AbsoluteNames.push_back(AbsoluteName);
             }
-            if (AbsoluteNames.empty() || !File::Exists(AbsoluteNames[0]))
+            if (AbsoluteNames.empty() || !(AbsoluteNames[0].find(__T("://"))!=string::npos || File::Exists(AbsoluteNames[0])))
             {
                 AbsoluteNames.clear();
 
@@ -164,7 +174,14 @@ void File__ReferenceFilesHelper::ParseReferences()
                     Ztring AbsoluteName;
                     if (Names[Pos].find(__T(':'))!=1 && Names[Pos].find(__T("/"))!=0 && Names[Pos].find(__T("\\\\"))!=0) //If absolute patch
                     {
-                        AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                        if (MI->File_Name.find(__T("://"))==string::npos)
+                            AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                        else
+                        {
+                            size_t Pos_Path=MI->File_Name.find_last_of('/');
+                            if (Pos_Path!=Ztring::npos)
+                                AbsoluteName=MI->File_Name.substr(0, Pos_Path);
+                        }
                         if (!AbsoluteName.empty())
                             AbsoluteName+=ZenLib::PathSeparator;
                     }
@@ -197,12 +214,23 @@ void File__ReferenceFilesHelper::ParseReferences()
                             for (size_t Pos=0; Pos<Names.size(); Pos++)
                             {
                                 Names[Pos].erase(0, PathSeparator_Pos+1);
-                                Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                Ztring AbsoluteName;
+                                if (MI->File_Name.find(__T("://"))==string::npos)
+                                    AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                else
+                                {
+                                    size_t Pos_Path=MI->File_Name.find_last_of('/');
+                                    if (Pos_Path!=Ztring::npos)
+                                        AbsoluteName=MI->File_Name.substr(0, Pos_Path);
+                                }
                                 if (!AbsoluteName.empty())
                                     AbsoluteName+=ZenLib::PathSeparator;
                                 AbsoluteName+=Names[Pos];
                                 #ifdef __WINDOWS__
-                                    AbsoluteName.FindAndReplace(__T("/"), __T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization
+                                    if (AbsoluteName.find(__T("://"))==string::npos)
+                                        AbsoluteName.FindAndReplace(__T("/"), __T("\\"), 0, Ztring_Recursive); //Names[Pos] normalization local file
+                                    else
+                                        AbsoluteName.FindAndReplace(__T("\\"), __T("/"), 0, Ztring_Recursive); //Names[Pos] normalization with protocol (so "/" in all cases)
                                 #endif //__WINDOWS__
                                 AbsoluteNames.push_back(AbsoluteName);
                             }
@@ -230,7 +258,15 @@ void File__ReferenceFilesHelper::ParseReferences()
                                         for (size_t Pos=0; Pos<Names.size(); Pos++)
                                         {
                                             Names[Pos].erase(0, PathSeparator_Pos+1);
-                                            Ztring AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                            Ztring AbsoluteName;
+                                            if (MI->File_Name.find(__T("://"))==string::npos)
+                                                AbsoluteName=ZenLib::FileName::Path_Get(MI->File_Name);
+                                            else
+                                            {
+                                                size_t Pos_Path=MI->File_Name.find_last_of('/');
+                                                if (Pos_Path!=Ztring::npos)
+                                                    AbsoluteName=MI->File_Name.substr(0, Pos_Path);
+                                            }
                                             if (!AbsoluteName.empty())
                                                 AbsoluteName+=ZenLib::PathSeparator;
                                             AbsoluteName+=Names[Pos];
@@ -908,7 +944,16 @@ void File__ReferenceFilesHelper::List_Compute()
                 {
                     if (MI->Retrieve(StreamKind_Target, StreamPos_Target, "Source").empty())
                     {
-                        Ztring SourcePath=FileName::Path_Get(MI->Retrieve(Stream_General, 0, General_CompleteName));
+                        Ztring SourcePath;
+                        Ztring SourceName=MI->Retrieve(Stream_General, 0, General_CompleteName);
+                        if (SourceName.find(__T("://"))==string::npos)
+                            SourcePath=ZenLib::FileName::Path_Get(SourceName);
+                        else
+                        {
+                            size_t Pos_Path=SourceName.find_last_of('/');
+                            if (Pos_Path!=Ztring::npos)
+                                SourcePath=SourceName.substr(0, Pos_Path);
+                        }
                         size_t SourcePath_Size=SourcePath.size()+1; //Path size + path separator size
                         Ztring Temp=Reference->MI->Config.File_Names[0];
                         if (!Config->File_IsReferenced_Get())
@@ -938,7 +983,16 @@ void File__ReferenceFilesHelper::List_Compute()
     #if MEDIAINFO_ADVANCED
         if (!HasMainFile && Config->File_Source_List_Get())
         {
-            Ztring SourcePath=FileName::Path_Get(MI->Retrieve(Stream_General, 0, General_CompleteName));
+            Ztring SourcePath;
+            Ztring SourceName=MI->Retrieve(Stream_General, 0, General_CompleteName);
+            if (SourceName.find(__T("://"))==string::npos)
+                SourcePath=ZenLib::FileName::Path_Get(SourceName);
+            else
+            {
+                size_t Pos_Path=SourceName.find_last_of('/');
+                if (Pos_Path!=Ztring::npos)
+                    SourcePath=SourceName.substr(0, Pos_Path);
+            }
             size_t SourcePath_Size=SourcePath.size()+1; //Path size + path separator size
             for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
             {
