@@ -1642,9 +1642,7 @@ void File_Mpeg_Descriptors::Descriptor_05()
                         break;
             default    : ;
         }
-    FILLING_END();
-    else
-    {
+    FILLING_ELSE()
         switch (table_id)
         {
             case 0x02 : //program_map_section
@@ -1660,7 +1658,7 @@ void File_Mpeg_Descriptors::Descriptor_05()
                         break;
             default    : ;
         }
-    }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
