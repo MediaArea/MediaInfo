@@ -1028,27 +1028,6 @@ public :
     bool Element_IsNotFinished ();
     bool Element_IsWaitingForMoreData ();
 
-    //Begin
-    #define FILLING_BEGIN() \
-        if (Element_IsOK()) \
-        {
-
-    #define FILLING_BEGIN_PRECISE() \
-        if (Element_Offset!=Element_Size) \
-            Trusted_IsNot("Size error"); \
-        else if (Element_IsOK()) \
-        {
-
-    //Else
-    #define FILLING_ELSE() \
-        } \
-        else \
-        { \
-
-    //End
-    #define FILLING_END() \
-        }
-
     //***************************************************************************
     // Merging
     //***************************************************************************
