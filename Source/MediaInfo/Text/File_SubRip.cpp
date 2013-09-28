@@ -46,7 +46,7 @@ int64u SubRip_str2timecode(const char* Value)
      && Value[3]>='0' && Value[3]<='9'
      && Value[4]>='0' && Value[4]<='9'
      && Value[5]==':'
-     && Value[6]>='0' && Value[7]<='9'
+     && Value[6]>='0' && Value[6]<='9'
      && Value[7]>='0' && Value[7]<='9')
     {
         int64u ToReturn=(int64u)(Value[0]-'0')*10*60*60*1000000000

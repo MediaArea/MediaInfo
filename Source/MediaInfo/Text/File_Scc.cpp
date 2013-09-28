@@ -43,7 +43,7 @@ int64u Scc_str2timecode(const char* Value)
      && Value[3]>='0' && Value[3]<='9'
      && Value[4]>='0' && Value[4]<='9'
      && Value[5]==':'
-     && Value[6]>='0' && Value[7]<='9'
+     && Value[6]>='0' && Value[6]<='9'
      && Value[7]>='0' && Value[7]<='9'
      && (Value[8]==':' || Value[8]==';')
      && Value[9]>='0' && Value[9]<='9'
