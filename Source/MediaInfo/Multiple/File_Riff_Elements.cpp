@@ -1640,7 +1640,7 @@ void File_Riff::AVI__hdlr_strl_strf_txts()
         Skip_XX(22,                                             "Unknown");
     }
 
-    FILLING_BEGIN_PRECISE()
+    FILLING_BEGIN_PRECISE();
         Stream_Prepare(Stream_Text);
 
         if (Element_Size==0)

@@ -324,7 +324,7 @@ void File_N19::FileHeader_Parse()
         FirstFrame_TCI=(int64u)-1;
         #if MEDIAINFO_DEMUX
             Frame_Count=0;
-            TCO_Latest=(int64u)-1;;
+            TCO_Latest=(int64u)-1;
         #endif //MEDIAINFO_DEMUX
     FILLING_END();
 }

@@ -1588,7 +1588,7 @@ void File_Mpeg_Descriptors::Descriptor_03()
     Skip_S1(3,                                                  "reserved");
     BS_End();
 
-    FILLING_BEGIN()
+    FILLING_BEGIN();
         if (elementary_PID_IsValid)
         {
             Complete_Stream->Streams[elementary_PID]->Infos["BitRate_Mode"]=variable_rate_audio_indicator?__T("VBR"):__T("CBR");
@@ -1642,7 +1642,7 @@ void File_Mpeg_Descriptors::Descriptor_05()
                         break;
             default    : ;
         }
-    FILLING_END()
+    FILLING_END();
     else
     {
         switch (table_id)

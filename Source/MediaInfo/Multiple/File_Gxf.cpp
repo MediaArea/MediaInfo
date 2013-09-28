@@ -1591,7 +1591,7 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
             return NULL; //Not a channel grouping
 
         Parser=new File_ChannelGrouping;
-        Parser->CanBePcm=true;;
+        Parser->CanBePcm=true;
         Parser->Channel_Pos=1;
         Parser->Common=((File_ChannelGrouping*)Streams[TrackID-1].Parsers[0])->Common;
         Parser->StreamID=TrackID-1;
@@ -1600,7 +1600,7 @@ File__Analyze* File_Gxf::ChooseParser_ChannelGrouping(int8u TrackID)
     else
     {
         Parser=new File_ChannelGrouping;
-        Parser->CanBePcm=true;;
+        Parser->CanBePcm=true;
         Parser->Channel_Pos=0;
         //if (Descriptor->second.Infos.find("SamplingRate")!=Descriptor->second.Infos.end())
         Streams[TrackID].IsChannelGrouping=true;

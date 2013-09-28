@@ -451,7 +451,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
         Skip_BS(Data_BS_Remain()-End,                           LastByte?"Unknown":"Padding");
     }
 
-    FILLING_BEGIN()
+    FILLING_BEGIN();
         AudioSpecificConfig_OutOfBand (sampling_frequency, audioObjectType, sbrData, psData, sbrPresentFlag, psPresentFlag);
 
         //Parsing the rest

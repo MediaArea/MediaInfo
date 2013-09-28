@@ -1166,9 +1166,9 @@ void File_Avc::Header_Parse()
         Get_S1 ( 5, nal_unit_type,                              "nal_unit_type");
         BS_End();
 
-        FILLING_BEGIN()
+        FILLING_BEGIN();
             Header_Fill_Size(Size?(Element_Offset-1+Size):(Buffer_Size-Buffer_Offset)); //If Size is 0, it is not normal, we skip the complete frame
-        FILLING_END()
+        FILLING_END();
     }
 
     //Filling
@@ -3212,7 +3212,7 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
         vui_parameters(vui_parameters_Item);
     TEST_SB_END();
 
-    FILLING_BEGIN()
+    FILLING_BEGIN();
         //Integrity
         if (Data_id>=32)
         {
@@ -3278,9 +3278,9 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
             TemporalReferences.resize(4*MaxNumber);
             TemporalReferences_Reserved=MaxNumber;
         }
-    FILLING_ELSE()
+    FILLING_ELSE();
         return false;
-    FILLING_END()
+    FILLING_END();
     return true;
 }
 
@@ -3515,11 +3515,11 @@ void File_Avc::seq_parameter_set_mvc_extension(int32u subset_seq_parameter_sets_
     Element_End0();
 
     std::vector<seq_parameter_set_struct*>::iterator subset_seq_parameter_sets_Item=subset_seq_parameter_sets.begin()+subset_seq_parameter_sets_id;
-    FILLING_BEGIN()
+    FILLING_BEGIN();
         (*subset_seq_parameter_sets_Item)->num_views_minus1                         =(int16u)num_views_minus1;
-    FILLING_ELSE()
+    FILLING_ELSE();
         delete (*subset_seq_parameter_sets_Item); (*subset_seq_parameter_sets_Item)=NULL;
-    FILLING_END()
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

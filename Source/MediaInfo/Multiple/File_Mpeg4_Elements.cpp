@@ -2675,10 +2675,10 @@ void File_Mpeg4::moov_mvex_trex()
         Skip_B2(                                                "sample_degradation_priority");
     Element_End0();
 
-    FILLING_BEGIN()
+    FILLING_BEGIN();
         Streams[moov_trak_tkhd_TrackID].mvex_trex_default_sample_duration=default_sample_duration;
         Streams[moov_trak_tkhd_TrackID].mvex_trex_default_sample_size=default_sample_size;
-    FILLING_END()
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

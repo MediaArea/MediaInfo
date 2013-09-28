@@ -1141,7 +1141,7 @@ void File_Mpeg4v::video_object_layer_start()
         video_object_layer_start_IsParsed=true;
         if (!Status[IsAccepted])
             Accept("MPEG-4 Visual");
-    FILLING_END()
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

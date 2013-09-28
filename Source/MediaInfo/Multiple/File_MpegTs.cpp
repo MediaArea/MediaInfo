@@ -1521,7 +1521,7 @@ bool File_MpegTs::Synched_Test()
                                                 {
                                                    if (!discontinuity_indicator)
                                                         Complete_Stream->Streams[pid]->TimeStamp_HasProblems++;
-                                                   float64 Bytes=(float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset);;
+                                                   float64 Bytes=(float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset);
                                                    int64u TimeToAdd;
                                                    if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Current_Raw)
                                                        TimeToAdd=float64_int64s(Bytes*8/Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Current_Raw*27000000);
@@ -2260,7 +2260,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                                     {
                                        if (!discontinuity_indicator)
                                             Complete_Stream->Streams[pid]->TimeStamp_HasProblems++;
-                                       float64 Bytes=(float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset);;
+                                       float64 Bytes=(float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset);
                                        int64u TimeToAdd;
                                        if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Current_Raw)
                                            TimeToAdd=float64_int64s(Bytes*8/Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Current_Raw*27000000);
@@ -2486,7 +2486,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                                     {
                                        if (!discontinuity_indicator)
                                             Complete_Stream->Streams[pid]->TimeStamp_HasProblems++;
-                                       float64 Bytes=(float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset);;
+                                       float64 Bytes=(float64)(File_Offset+Buffer_Offset-Complete_Stream->Streams[pid]->TimeStamp_End_Offset);
                                        int64u TimeToAdd;
                                        if (Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Current_Raw)
                                            TimeToAdd=float64_int64s(Bytes*8/Complete_Stream->Streams[pid]->TimeStamp_InstantaneousBitRate_Current_Raw*27000000);
