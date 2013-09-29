@@ -5166,12 +5166,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
             case 0x02 : Fill(Stream_Video, StreamPos_Last, Video_ScanType, "Interlaced", Unlimited, true, true);
                         switch(detail)
                         {
-                            case 1  :   // Split fields, TFF
-                            case 9  :   // Interleaved fields, TFF
+                            case  1  :  // T is displayed earliest, T is stored first in the file.
+                            case 14 :   // T is displayed earliest, B is stored first in the file.
                                         Fill(Stream_Video, StreamPos_Last, Video_ScanOrder, "TFF", Unlimited, true, true);
                                         break;
-                            case 6  :   // Split fields, BFF
-                            case 14 :   // Interleaved fields, BFF
+                            case  6  :  // B is displayed earliest, B is stored first in the file.
+                            case  9 :   // B is displayed earliest, T is stored first in the file.
                                         Fill(Stream_Video, StreamPos_Last, Video_ScanOrder, "BFF", Unlimited, true, true);
                                         break;
                             default  :  ;

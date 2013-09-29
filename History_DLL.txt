@@ -31,6 +31,7 @@ x Automation, StreamKind type was set to integer, it is text
 x MPEG-4: was reading lot of useless bytes from disk when the raw stream format is not known
 x AVI: crash with some malformed text streams
 x Reference/playlist files were not supported from FTP (custom builds only)
+x MPEG-4/MOV: ScanOrder was using "stored" value instead of "displayed" value
 
 Version 0.7.64, 2013-07-05
 --------------
