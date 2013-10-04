@@ -22,9 +22,12 @@
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest.cpp" />
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Basic.cpp" />
     <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Events.cpp" />
+    <ClCompile Include="..\..\..\Source\RegressionTest\RegressionTest_Md5.cpp" />
+    <ClCompile Include="..\..\..\Source\ThirdParty\md5\md5.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\RegressionTest\RegressionTest.h" />
+    <ClInclude Include="..\..\..\Source\ThirdParty\md5\md5.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91C094CA-1170-4CE4-9B79-17324C8DACA8}</ProjectGuid>
@@ -42,7 +45,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110_xp</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -56,7 +59,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110_xp</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -101,7 +104,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\Source\ThirdParty\md5;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -118,7 +121,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\Source\ThirdParty\md5;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -137,7 +140,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\Source\ThirdParty\md5;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -158,7 +161,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source;..\..\..\Source\ThirdParty\md5;..\..\..\..\ZenLib\Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
