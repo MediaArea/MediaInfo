@@ -89,7 +89,6 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
