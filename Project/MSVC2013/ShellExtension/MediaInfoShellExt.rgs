@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'MediaInfoShellExt'
+		'MediaInfo_InfoTip.dll'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}
