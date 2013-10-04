@@ -32,6 +32,7 @@ x MPEG-4: was reading lot of useless bytes from disk when the raw stream format 
 x AVI: crash with some malformed text streams
 x Reference/playlist files were not supported from FTP (custom builds only)
 x MPEG-4/MOV: ScanOrder was using "stored" value instead of "displayed" value
+x MXF: Detection of Dolby E was not working in some cases (regression in 0.7.62)
 
 Version 0.7.64, 2013-07-05
 --------------

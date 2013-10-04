@@ -8908,6 +8908,7 @@ void File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors
                                         case 0x01 : //Uncompressed Sound Coding
                                                     switch (Code5)
                                                     {
+                                                        case 0x01 :
                                                         case 0x7F : if (Descriptor->second.ChannelCount==1) //PCM, but one file is found with Dolby E in it
                                                                         ChooseParser_ChannelGrouping(Essence, Descriptor);
                                                                     if (Descriptor->second.ChannelCount==2) //PCM, but one file is found with Dolby E in it
