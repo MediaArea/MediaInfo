@@ -57,6 +57,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_ID_OnlyRoot=false;
     #if MEDIAINFO_ADVANCED
         File_IgnoreSequenceFileSize=false;
+        File_DefaultFrameRate=0;
         File_Source_List=false;
         File_RiskyBitRateEstimation=false;
         #if MEDIAINFO_DEMUX
@@ -286,6 +287,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             return Ztring();
         #else //MEDIAINFO_MD5
             return __T("Disabled due to compilation options");
+        #endif //MEDIAINFO_MD5
+    }
+    else if (Option_Lower==__T("file_defaultframerate"))
+    {
+        #if MEDIAINFO_MD5
+            File_DefaultFrameRate_Set(Ztring(Value).To_float64());
+            return Ztring();
+        #else //MEDIAINFO_MD5
+            return __T("File_DefaultFrameRate is disabled due to compilation options");
         #endif //MEDIAINFO_MD5
     }
     else if (Option_Lower==__T("file_source_list"))
@@ -1061,6 +1071,21 @@ bool MediaInfo_Config_MediaInfo::File_IgnoreSequenceFileSize_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_IgnoreSequenceFileSize;
+}
+#endif //MEDIAINFO_ADVANCED
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED
+void MediaInfo_Config_MediaInfo::File_DefaultFrameRate_Set (float64 NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_Rate=File_DefaultFrameRate=NewValue;
+}
+
+float64 MediaInfo_Config_MediaInfo::File_DefaultFrameRate_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_DefaultFrameRate;
 }
 #endif //MEDIAINFO_ADVANCED
 

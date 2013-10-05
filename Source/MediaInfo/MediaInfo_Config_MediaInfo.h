@@ -92,6 +92,11 @@ public :
     #endif //MEDIAINFO_ADVANCED
 
     #if MEDIAINFO_ADVANCED
+        void          File_DefaultFrameRate_Set (float64 NewValue);
+        float64       File_DefaultFrameRate_Get ();
+    #endif //MEDIAINFO_ADVANCED
+
+    #if MEDIAINFO_ADVANCED
         void          File_Source_List_Set (bool NewValue);
         bool          File_Source_List_Get ();
     #endif //MEDIAINFO_ADVANCED
@@ -308,6 +313,7 @@ private :
     bool                    File_ID_OnlyRoot;
     #if MEDIAINFO_ADVANCED
         bool                File_IgnoreSequenceFileSize;
+        float64             File_DefaultFrameRate;
         bool                File_Source_List;
         bool                File_RiskyBitRateEstimation;
         #if MEDIAINFO_DEMUX

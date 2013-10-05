@@ -47,6 +47,10 @@ void File__Analyze::Streams_Finish_Global()
     if (IsSub)
         return;
 
+    //Default frame rate
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, Video_FrameRate).empty() && Config->File_DefaultFrameRate_Get())
+        Fill(Stream_Video, 0, Video_FrameRate, Config->File_DefaultFrameRate_Get());
+
     //Video Frame count
     if (Count_Get(Stream_Video)==1 && Count_Get(Stream_Audio)==0 && Retrieve(Stream_Video, 0, Video_FrameCount).empty())
     {

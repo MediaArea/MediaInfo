@@ -3312,7 +3312,7 @@ bool File__Analyze::Demux_UnpacketizeContainer_Test_OneFramePerFile ()
 
     float64 Demux_Rate=Config->Demux_Rate_Get();
     if (!Demux_Rate)
-        Demux_Rate=25;
+        Demux_Rate=24;
     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
         FrameInfo.DTS=float64_int64s(Frame_Count_NotParsedIncluded*1000000000/Demux_Rate);
     else
