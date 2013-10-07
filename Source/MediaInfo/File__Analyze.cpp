@@ -1082,10 +1082,27 @@ size_t File__Analyze::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     #if MEDIAINFO_IBI
         if (!IsSub)
-            return Ibi_Read_Buffer_Seek(Method, Value, ID);
+        {
+            size_t ReturnValue=Ibi_Read_Buffer_Seek(Method, Value, ID);
+            if (ReturnValue!=(size_t)-1) // If IBI file is supported
+                return ReturnValue;
+        }
     #endif //MEDIAINFO_IBI
 
-    return (size_t)-1; //Not supported
+    //Parsing
+    switch (Method)
+    {
+        case 0  :   //Default stream seek (byte offset)
+                    GoTo(Value);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        case 1  :   //Default stream seek (percentage)
+                    GoTo(File_Size*Value/10000);
+                    Open_Buffer_Unsynch();
+                    return 1;
+        default :
+                    return (size_t)-1; //Not supported
+    }
 }
 #endif //MEDIAINFO_SEEK
 
