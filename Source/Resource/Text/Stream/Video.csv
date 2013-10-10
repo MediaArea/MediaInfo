@@ -261,3 +261,11 @@ Encoded_Date;;;Y YT;;;UTC time that the encoding of this item was completed bega
 Tagged_Date;;;Y YT;;;UTC time that the tags were done for this item.;;Temporal
 Encryption;;;Y YT;;;;;
 BufferSize;;;N YT;;;Defines the size of the buffer needed to decode the sequence.
+colour_description_present;;;N YT;;;Presence of colour description
+colour_primaries;;;Y YT;;;Chromaticity coordinates of the source primaries
+transfer_characteristics;;;Y YT;;;Opto-electronic transfer characteristic of the source picture
+matrix_coefficients;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries
+colour_description_present_Original;;;N YT;;;Presence of colour description
+colour_primaries_Original;;;Y YT;;;Chromaticity coordinates of the source primaries
+transfer_characteristics_Original;;;Y YT;;;Opto-electronic transfer characteristic of the source picture
+matrix_coefficients_Original;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries

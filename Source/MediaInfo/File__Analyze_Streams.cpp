@@ -1410,6 +1410,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
 
     //Specific stuff
     Ztring Width_Temp, Height_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp, FrameRate_Temp, FrameRate_Mode_Temp, ScanType_Temp, ScanOrder_Temp, Channels_Temp, Delay_Temp, Delay_DropFrame_Temp, Delay_Source_Temp, Delay_Settings_Temp, Source_Temp, Source_Kind_Temp, Source_Info_Temp;
+    Ztring colour_description_present_Temp, colour_primaries_Temp, transfer_characteristics_Temp, matrix_coefficients_Temp;
     if (StreamKind==Stream_Video)
     {
         Width_Temp=Retrieve(Stream_Video, StreamPos_To, Video_Width);
@@ -1420,6 +1421,17 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_To, Video_FrameRate_Mode); //We want to keep the FrameRate_Mode of AVI 120 fps
         ScanType_Temp=Retrieve(Stream_Video, StreamPos_To, Video_ScanType);
         ScanOrder_Temp=Retrieve(Stream_Video, StreamPos_To, Video_ScanOrder);
+        colour_description_present_Temp=Retrieve(Stream_Video, StreamPos_To, Video_colour_description_present);
+        if (!colour_description_present_Temp.empty())
+        {
+            colour_primaries_Temp=Retrieve(Stream_Video, StreamPos_To, Video_colour_primaries);
+            transfer_characteristics_Temp=Retrieve(Stream_Video, StreamPos_To, Video_transfer_characteristics);
+            matrix_coefficients_Temp=Retrieve(Stream_Video, StreamPos_To, Video_matrix_coefficients);
+        }
+        Clear(Stream_Video, StreamPos_To, Video_colour_description_present);
+        Clear(Stream_Video, StreamPos_To, Video_colour_primaries);
+        Clear(Stream_Video, StreamPos_To, Video_transfer_characteristics);
+        Clear(Stream_Video, StreamPos_To, Video_matrix_coefficients);
     }
     if (StreamKind==Stream_Audio)
     {
@@ -1520,6 +1532,30 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
             }
             else
                 Fill(Stream_Video, StreamPos_To, Video_ScanOrder, ScanOrder_Temp, true);
+        }
+        if (!colour_description_present_Temp.empty())
+        {
+            if (!colour_description_present_Temp.empty() && !Retrieve(Stream_Video, StreamPos_To, Video_colour_description_present).empty()
+             && (colour_primaries_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_colour_primaries)
+              || transfer_characteristics_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_transfer_characteristics)
+              || matrix_coefficients_Temp!=Retrieve(Stream_Video, StreamPos_To, Video_matrix_coefficients)))
+            {
+                Fill(Stream_Video, StreamPos_To, Video_colour_description_present_Original, (*Stream)[Stream_Video][StreamPos_To][Video_colour_description_present], true);
+                Fill(Stream_Video, StreamPos_To, Video_colour_description_present, colour_description_present_Temp, true);
+                Fill(Stream_Video, StreamPos_To, Video_colour_primaries_Original, (*Stream)[Stream_Video][StreamPos_To][Video_colour_primaries], true);
+                Fill(Stream_Video, StreamPos_To, Video_colour_primaries, colour_primaries_Temp, true);
+                Fill(Stream_Video, StreamPos_To, Video_transfer_characteristics_Original, (*Stream)[Stream_Video][StreamPos_To][Video_transfer_characteristics], true);
+                Fill(Stream_Video, StreamPos_To, Video_transfer_characteristics, transfer_characteristics_Temp, true);
+                Fill(Stream_Video, StreamPos_To, Video_matrix_coefficients_Original, (*Stream)[Stream_Video][StreamPos_To][Video_matrix_coefficients], true);
+                Fill(Stream_Video, StreamPos_To, Video_matrix_coefficients, matrix_coefficients_Temp, true);
+            }
+            else
+            {
+                Fill(Stream_Video, StreamPos_To, Video_colour_description_present, colour_description_present_Temp, true);
+                Fill(Stream_Video, StreamPos_To, Video_colour_primaries, colour_primaries_Temp, true);
+                Fill(Stream_Video, StreamPos_To, Video_transfer_characteristics, transfer_characteristics_Temp, true);
+                Fill(Stream_Video, StreamPos_To, Video_matrix_coefficients, matrix_coefficients_Temp, true);
+            }
         }
     }
     if (StreamKind==Stream_Audio)

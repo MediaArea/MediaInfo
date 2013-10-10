@@ -402,9 +402,10 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
             Fill(Stream_Video, 0, Video_Standard, Avc_video_format[(*seq_parameter_set_Item)->vui_parameters->video_format]);
             if ((*seq_parameter_set_Item)->vui_parameters->colour_description_present_flag)
             {
-                Fill(Stream_Video, 0, "colour_primaries", Mpegv_colour_primaries((*seq_parameter_set_Item)->vui_parameters->colour_primaries));
-                Fill(Stream_Video, 0, "transfer_characteristics", Mpegv_transfer_characteristics((*seq_parameter_set_Item)->vui_parameters->transfer_characteristics));
-                Fill(Stream_Video, 0, "matrix_coefficients", Mpegv_matrix_coefficients((*seq_parameter_set_Item)->vui_parameters->matrix_coefficients));
+                Fill(Stream_Video, 0, Video_colour_description_present, "Yes");
+                Fill(Stream_Video, 0, Video_colour_primaries, Mpegv_colour_primaries((*seq_parameter_set_Item)->vui_parameters->colour_primaries));
+                Fill(Stream_Video, 0, Video_transfer_characteristics, Mpegv_transfer_characteristics((*seq_parameter_set_Item)->vui_parameters->transfer_characteristics));
+                Fill(Stream_Video, 0, Video_matrix_coefficients, Mpegv_matrix_coefficients((*seq_parameter_set_Item)->vui_parameters->matrix_coefficients));
             }
         }
 

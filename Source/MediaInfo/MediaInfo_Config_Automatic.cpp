@@ -1330,8 +1330,8 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "apcn;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2\n"
     "apcs;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;LT;;YUV;4:2:2\n"
     "apco;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Proxy;;YUV;4:2:2\n"
-    "ap4c;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:4:4\n"
-    "ap4h;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:4:4\n"
+    "ap4c;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;;4:4:4\n"
+    "ap4h;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;;4:4:4\n"
     "ai12;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
     "ai15;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
     "ai1q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;\n"
@@ -4405,6 +4405,14 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     "Tagged_Date;;;Y YT;;;UTC time that the tags were done for this item.;;Temporal\n"
     "Encryption;;;Y YT;;;;\n"
     "BufferSize;;;N YT;;;Defines the size of the buffer needed to decode the sequence.\n"
+    "colour_description_present;;;N YT;;;Presence of colour description\n"
+    "colour_primaries;;;Y YT;;;Chromaticity coordinates of the source primaries\n"
+    "transfer_characteristics;;;Y YT;;;Opto-electronic transfer characteristic of the source picture\n"
+    "matrix_coefficients;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries\n"
+    "colour_description_present_Original;;;N YT;;;Presence of colour description\n"
+    "colour_primaries_Original;;;Y YT;;;Chromaticity coordinates of the source primaries\n"
+    "transfer_characteristics_Original;;;Y YT;;;Opto-electronic transfer characteristic of the source picture\n"
+    "matrix_coefficients_Original;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -5013,6 +5021,14 @@ void MediaInfo_Config_Image (ZtringListList &Info)
     "Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal\n"
     "Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal\n"
     "Encryption;;;Y YT;;;;\n"
+    "colour_description_present;;;N YT;;;Presence of colour description\n"
+    "colour_primaries;;;Y YT;;;Chromaticity coordinates of the source primaries\n"
+    "transfer_characteristics;;;Y YT;;;Opto-electronic transfer characteristic of the source picture\n"
+    "matrix_coefficients;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries\n"
+    "colour_description_present_Original;;;N YT;;;Presence of colour description\n"
+    "colour_primaries_Original;;;Y YT;;;Chromaticity coordinates of the source primaries\n"
+    "transfer_characteristics_Original;;;Y YT;;;Opto-electronic transfer characteristic of the source picture\n"
+    "matrix_coefficients_Original;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

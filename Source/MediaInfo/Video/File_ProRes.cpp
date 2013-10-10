@@ -227,9 +227,10 @@ void File_ProRes::Read_Buffer_Continue()
             Fill(Stream_Video, 0, Video_ChromaSubsampling, ProRes_chrominance_factor(chrominance_factor));
             Fill(Stream_Video, 0, Video_ScanType, ProRes_frame_type_ScanType(frame_type));
             Fill(Stream_Video, 0, Video_ScanOrder, ProRes_frame_type_ScanOrder(frame_type));
-            Fill(Stream_Video, 0, "colour_primaries", Mpegv_colour_primaries(primaries));
-            Fill(Stream_Video, 0, "transfer_characteristics", Mpegv_transfer_characteristics(transf_func));
-            Fill(Stream_Video, 0, "matrix_coefficients", Mpegv_matrix_coefficients(colorMatrix));
+            Fill(Stream_Video, 0, Video_colour_description_present, "Yes");
+            Fill(Stream_Video, 0, Video_colour_primaries, Mpegv_colour_primaries(primaries));
+            Fill(Stream_Video, 0, Video_transfer_characteristics, Mpegv_transfer_characteristics(transf_func));
+            Fill(Stream_Video, 0, Video_matrix_coefficients, Mpegv_matrix_coefficients(colorMatrix));
 
             Finish();
         }
