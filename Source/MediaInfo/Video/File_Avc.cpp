@@ -582,6 +582,10 @@ void File_Avc::Streams_Finish()
             Finish(GA94_03_Parser);
             Merge(*GA94_03_Parser);
 
+            Ztring LawRating=GA94_03_Parser->Retrieve(Stream_General, 0, General_LawRating);
+            if (!LawRating.empty())
+                Fill(Stream_General, 0, General_LawRating, LawRating, true);
+
             for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
             {
                 Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");

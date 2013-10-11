@@ -435,6 +435,10 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
 
                 Merge(*Temp.Parsers[0], Stream_Video, 0, StreamPos_Last);
 
+                Ztring LawRating=Temp.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+                if (!LawRating.empty())
+                    Fill(Stream_General, 0, General_LawRating, LawRating, true);
+                
                 Fill(Stream_Video, StreamPos_Last, Video_ID, StreamID, 10, true);
                 Fill(Stream_Video, StreamPos_Last, "Title", Temp.MediaName);
 
@@ -535,6 +539,10 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                     Fill(Stream_Text, StreamPos_Last, Text_Delay_Original_Source, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay_Original_Source), true);
                     Fill(Stream_Text, StreamPos_Last, "Title", Temp.MediaName);
                 }
+
+                Ztring LawRating=Temp.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+                if (!LawRating.empty())
+                    Fill(Stream_General, 0, General_LawRating, LawRating, true);
 
                 StreamKind_Last=Stream_Max;
                 StreamPos_Last=(size_t)-1;

@@ -1378,6 +1378,8 @@ enum menu
     Menu_Original_NetworkName,
     Menu_Countries,
     Menu_TimeZones,
+    Menu_LawRating,
+    Menu_LawRating_Reason,
     Menu_Chapters_Pos_Begin,
     Menu_Chapters_Pos_End,
 };

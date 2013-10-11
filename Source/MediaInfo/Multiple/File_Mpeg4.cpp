@@ -296,6 +296,11 @@ void File_Mpeg4::Streams_Finish()
                 Fill(Stream_Text, StreamPos_Last, "MuxingMode", __T("Final Cut"), Unlimited);
                 Merge(*Stream->second.Parsers[0], Stream_Text, 0, StreamPos_Last);
             }
+
+            //Law rating
+            Ztring LawRating=Stream->second.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+            if (!LawRating.empty())
+                Fill(Stream_General, 0, General_LawRating, LawRating, true);
         }
 
         return;
@@ -597,11 +602,19 @@ void File_Mpeg4::Streams_Finish()
                         for (size_t Pos=0; Pos<StreamMoreSave.size(); Pos++)
                             Fill(StreamKind_Last, StreamPos_Last, StreamMoreSave(Pos, 0).To_Local().c_str(), StreamMoreSave(Pos, 1));
                     }
+                    Ztring LawRating=Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+                    if (!LawRating.empty())
+                        Fill(Stream_General, 0, General_LawRating, LawRating, true);
                 }
                 else
                 {
                     //Temp->second.Parsers[0]->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
                     Merge(*Temp->second.Parsers[0], StreamKind_Last, 0, StreamPos_Last);
+
+                    //Law rating
+                    Ztring LawRating=Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+                    if (!LawRating.empty())
+                        Fill(Stream_General, 0, General_LawRating, LawRating, true);
                 }
 
                 //Hacks - After

@@ -71,5 +71,7 @@ NetworkName;;;Y YT;;;;;Legal
 Original/NetworkName;;;Y YT;;;;;Legal
 Countries;;;Y YT;;;;;Legal
 TimeZones;;;Y YT;;;;;Legal
+LawRating;;;Y YT;;;Depending on the country it's the format of the rating of a movie (P, R, X in the USA, an age in other countries or a URI defining a logo).;;Classification
+LawRating_Reason;;;Y YT;;;Reason for the law rating;;Classification
 Chapters_Pos_Begin;;;N NI;;;Used by third-party developers to know about the beginning of the chapters list, to be used by Get(Stream_Menu, x, Pos), where Pos is an Integer between Chapters_Pos_Begin and Chapters_Pos_End;;
 Chapters_Pos_End;;;N NI;;;Used by third-party developers to know about the end of the chapters list (this position excluded)

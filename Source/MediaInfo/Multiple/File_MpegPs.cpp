@@ -357,6 +357,10 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp, kindo
         }
         else
             Count=Merge(*Temp.Parsers[0]);
+
+        Ztring LawRating=Temp.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+        if (!LawRating.empty())
+            Fill(Stream_General, 0, General_LawRating, LawRating, true);
     }
 
     //By the TS stream_type
@@ -677,6 +681,11 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp, kin
             StreamKind_Last=Temp.StreamKind;
             StreamPos_Last=Temp.StreamPos;
         }
+
+        //Law rating
+        Ztring LawRating=Temp.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
+        if (!LawRating.empty())
+            Fill(Stream_General, 0, General_LawRating, LawRating, true);
     }
 
     //Duration if it is missing from the parser

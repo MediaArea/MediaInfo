@@ -304,7 +304,7 @@ void File_MpegTs::Streams_Update_Programs()
             if (Program->second.IsParsed)
             {
                 //Per pid
-                Ztring Languages, Codecs, Formats, StreamKinds, StreamPoss, elementary_PIDs, elementary_PIDs_String, Delay;
+                Ztring Languages, Codecs, Formats, StreamKinds, StreamPoss, elementary_PIDs, elementary_PIDs_String, Delay, LawRating;
                 for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
                 {
                     int16u elementary_PID=Program->second.elementary_PIDs[Pos];
@@ -347,6 +347,14 @@ void File_MpegTs::Streams_Update_Programs()
                         if (Complete_Stream->Streams[elementary_PID]->IsPCR)
                         {
                             Delay=Ztring::ToZtring(((float64)Complete_Stream->Streams[elementary_PID]->TimeStamp_Start)/27000, 6);
+                        }
+
+                        //Law rating
+                        if (Complete_Stream->Streams[elementary_PID] && Complete_Stream->Streams[elementary_PID]->Parser)
+                        {
+                            Ztring LawRating_Temp=Complete_Stream->Streams[elementary_PID]->Parser->Retrieve(Stream_General, 0, General_LawRating);
+                            if (!LawRating_Temp.empty())
+                                LawRating+=LawRating_Temp+__T(" / ");;
                         }
                     }
                 }
@@ -422,6 +430,11 @@ void File_MpegTs::Streams_Update_Programs()
                         if (!Languages.empty())
                             Languages.resize(Languages.size()-3);
                         Fill(Stream_Menu, StreamPos_Last, Menu_Language, Languages, true);
+                        if (!LawRating.empty())
+                            LawRating.resize(LawRating.size()-3);
+                        Fill(Stream_Menu, StreamPos_Last, "LawRating", LawRating, true);
+                        if (!LawRating.empty() && StreamPos_Last)
+                            Clear(Stream_General, 0, General_LawRating); //More than 1 menu, can not be in General part
                     }
                 }
 
@@ -832,6 +845,24 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
                     Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
             }
             Teletext->second.Infos.clear();
+        }
+    }
+
+    //Law rating
+    if (Temp->Parser)
+    {
+        Ztring LawRating=Temp->Parser->Retrieve(Stream_General, 0, General_LawRating);
+        if (!LawRating.empty())
+        {
+            if (Count_Get(Stream_Menu))
+            {
+                Ztring MenuID=Retrieve(Temp->StreamKind, Temp->StreamPos, General_MenuID);
+                for (size_t Pos=0; Pos<Count_Get(Stream_Menu); Pos++)
+                    if (Retrieve(Stream_Menu, Pos, General_MenuID)==MenuID)
+                        Fill(Stream_Menu, Pos, "LawRating", LawRating, true);
+            }
+            else
+                Fill(Stream_General, 0, General_LawRating, LawRating, true);
         }
     }
 }

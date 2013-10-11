@@ -1176,6 +1176,9 @@ void File_Mpegv::Streams_Update()
                     IsNewStream=true;
                 }
                 Merge(*(*Text_Positions[Text_Positions_Pos].Parser), Stream_Text, Pos, Text_Positions[Text_Positions_Pos].StreamPos+Pos);
+                Ztring LawRating=(*Text_Positions[Text_Positions_Pos].Parser)->Retrieve(Stream_General, 0, General_LawRating);
+                if (!LawRating.empty())
+                    Fill(Stream_General, 0, General_LawRating, LawRating, true);
 
                 if (IsNewStream)
                 {
@@ -1429,7 +1432,12 @@ void File_Mpegv::Streams_Fill()
         if (DTG1_Parser)
             Merge(*DTG1_Parser, Stream_Video, 0, 0);
         if (GA94_06_Parser)
+        {
             Merge(*GA94_06_Parser, Stream_Video, 0, 0);
+            Ztring LawRating=GA94_06_Parser->Retrieve(Stream_General, 0, General_LawRating);
+            if (!LawRating.empty())
+                Fill(Stream_General, 0, General_LawRating, LawRating, true);
+        }
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         if (AfdBarData_Parser)
