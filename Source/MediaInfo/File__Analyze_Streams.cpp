@@ -1203,10 +1203,17 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Pa
 {
     //Integrity
     if (StreamKind>=Stream_Max
-     || StreamPos>=(*Stream)[StreamKind].size()
      || Parameter==NULL
      || Parameter[0]=='\0')
         return;
+
+    if (StreamPos>=(*Stream)[StreamKind].size())
+    {
+        size_t Pos=Fill_Temp.Find(Ztring().From_UTF8(Parameter));
+        if (Pos!=string::npos)
+            Fill_Temp.erase(Fill_Temp.begin()+Pos);
+        return;
+    }
 
     size_t Parameter_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find(Ztring().From_Local(Parameter));
     if (Parameter_Pos==Error)

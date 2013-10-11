@@ -108,7 +108,7 @@ PIM1;MPEG Video;;;;;;YUV;
 PIM2;MPEG Video;;;;;;YUV;
 PNTG;MacPaint;;Apple MacPaint image format;http://www.apple.com/quicktime/download/standalone.html;;;;
 raw ;RGB;;;http://www.apple.com/quicktime/download/standalone.html;;;RGB;
-rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html;;;;
+rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html;;;RGB;
 rpza;Road Pizza;;;http://www.apple.com/quicktime/download/standalone.html;;;;
 s263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;;
 Shr0;SheerVideo;;Generic SheerVideo codec;http://www.bitjazz.com/;;;;

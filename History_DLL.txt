@@ -20,6 +20,7 @@ Version 0.7.65, 2013-
 + AAC: option for instantaneous bitrate in fast detect mode (MediaInfoLib only)
 + FTP (custom builds only): support of UTF-8 file names
 + Colour description: colour_description_present added, better separation between bitstream values and container values
++ MPEG-4: RLE, color space and bit depth
 x #B775, AVI: AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
 x #B780, MPEG-TS: crash with some files having PAT/PMT change between begin and end of the file
 x #B782, PBCore 1.2: some fields were not in the right order

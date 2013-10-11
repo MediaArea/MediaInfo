@@ -1430,7 +1430,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "PIM2;MPEG Video;;;;;;YUV\n"
     "PNTG;MacPaint;;Apple MacPaint image format;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "raw ;RGB;;;http://www.apple.com/quicktime/download/standalone.html;;;RGB\n"
-    "rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
+    "rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html;;;RGB\n"
     "rpza;Road Pizza;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "s263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;\n"
     "Shr0;SheerVideo;;Generic SheerVideo codec;http://www.bitjazz.com/;;;\n"

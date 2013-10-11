@@ -4423,11 +4423,20 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
         }
 
         //RGB(A)
-        if (Codec=="raw ")
+        if (Codec=="raw " || Codec=="rle ")
         {
-            if (Depth==32)
+            if (Depth==1)
             {
-                Fill(Stream_Video, StreamPos_Last, Video_Format, "RGBA", Unlimited, true, true);
+                Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "Y", Unlimited, true, true);
+                Fill(Stream_Video, StreamPos_Last, Video_BitDepth, 1);
+            }
+            else if (Depth<15)
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "RGB", Unlimited, true, true);
+                Fill(Stream_Video, StreamPos_Last, Video_BitDepth, 8);
+            }
+            else if (Depth==32 || Depth==36)
+            {
                 Fill(Stream_Video, StreamPos_Last, Video_ColorSpace, "RGBA", Unlimited, true, true);
                 Fill(Stream_Video, StreamPos_Last, Video_BitDepth, Depth/4);
             }
