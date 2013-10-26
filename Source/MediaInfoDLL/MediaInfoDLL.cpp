@@ -448,9 +448,6 @@ void*           __stdcall MediaInfo_New ()
     {
         MI_Handle[NULL]=new MI_List; //Generic Handle
         MI_Handle[NULL]->Ansi.clear();
-
-        //Localisation
-        setlocale(LC_ALL, """""");
     }
     v07Mode=true; //Application is compatible with v0.7+ interface
 
@@ -632,9 +629,6 @@ const wchar_t*     __stdcall MediaInfo_Option (void* Handle, const wchar_t* Opti
     {
         MI_Handle[NULL]=new MI_List; //Generic Handle
         MI_Handle[NULL]->Ansi.clear();
-
-        //Localisation
-        setlocale(LC_ALL, """""");
     }
 
     //DLL only option
@@ -692,9 +686,6 @@ void*           __stdcall MediaInfoList_New ()
     {
         MI_Handle[NULL]=new MI_List; //Generic Handle
         MI_Handle[NULL]->Ansi.clear();
-
-        //Localisation
-        setlocale(LC_ALL, """""");
     }
     v07Mode=true; //Application is compatible with v0.7+ interface
 
@@ -830,9 +821,6 @@ const wchar_t*     __stdcall MediaInfoList_Option (void* Handle, const wchar_t* 
     {
         MI_Handle[NULL]=new MI_List; //Generic Handle
         MI_Handle[NULL]->Ansi.clear();
-
-        //Localisation
-        setlocale(LC_ALL, """""");
     }
 
     //DLL only option
