@@ -518,7 +518,7 @@ const char* Mpeg4_jp2h_EnumCS(int32u EnumCS)
     switch (EnumCS)
     {
         case 0x10 : return "RGB"; //sRGB
-        case 0x11 : return "Grey";
+        case 0x11 : return "Y";
         case 0x12 : return "YUV"; //sYUV
         default   : return "";
     }
