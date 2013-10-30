@@ -336,41 +336,6 @@ void File_Mpeg4::Streams_Finish()
                 Temp->second.edts.resize(1);
         }
 
-        //Edit Lists
-        float64 Delay=0;
-        switch (Temp->second.edts.size())
-        {
-            case 0 :
-                    break;
-            case 1 :
-                    if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000)
-                    {
-                        Delay=Temp->second.edts[0].Delay;
-                        Delay=-Delay;
-                        if (Temp->second.mdhd_TimeScale)
-                            Delay/=Temp->second.mdhd_TimeScale; //In seconds
-                    }
-                    break;
-            case 2 :
-                    if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
-                    {
-                        Delay=Temp->second.edts[0].Duration;
-                        Temp->second.tkhd_Duration-=float64_int64s(Delay);
-                        Delay/=TimeScale; //In seconds
-                    }
-                    break;
-            default:
-                    break; //TODO: handle more complex Edit Lists
-        }
-        Delay+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)).To_float64()/1000; //TODO: use TimeCode value directly instead of the rounded value
-        if (!Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)).empty() && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source))!=__T("Container"))
-        {
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)));
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)));
-        }
-        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay), Delay*1000, 0, true);
-        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source), "Container", Unlimited, true, true);
-
         //Fragments
         if (IsFragmented)
         {
@@ -456,6 +421,46 @@ void File_Mpeg4::Streams_Finish()
                 if (Temp->second.stsz_StreamSize)
                     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, HasPadding?Generic_StreamSize_Encoded:Generic_StreamSize), Temp->second.stsz_StreamSize);
             }
+        }
+
+        //Edit Lists
+        float64 Delay=0;
+        switch (Temp->second.edts.size())
+        {
+            case 0 :
+                    break;
+            case 1 :
+                    if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000)
+                    {
+                        Delay=Temp->second.edts[0].Delay;
+                        Delay=-Delay;
+                        if (Temp->second.mdhd_TimeScale)
+                            Delay/=Temp->second.mdhd_TimeScale; //In seconds
+                    }
+                    break;
+            case 2 :
+                    if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
+                    {
+                        Delay=Temp->second.edts[0].Duration;
+                        Temp->second.tkhd_Duration-=float64_int64s(Delay);
+                        Delay/=TimeScale; //In seconds
+                    }
+                    break;
+            default:
+                    break; //TODO: handle more complex Edit Lists
+        }
+        if (Delay && !Retrieve(StreamKind_Last, StreamPos_Last, "Source_Duration").empty())
+        {
+            Delay+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)).To_float64()/1000; //TODO: use TimeCode value directly instead of the rounded value
+            if (!Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)).empty() && Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source))!=__T("Container"))
+            {
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay)));
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Original_Source), Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Delay_Source)));
+            }
+            Fill(StreamKind_Last, StreamPos_Last, "Source_Delay", Delay*1000, 0, true);
+            Fill(StreamKind_Last, StreamPos_Last, "Source_Delay_Source", "Container", Unlimited, true, true);
+            (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Source_Delay"), Info_Options)=__T("N NT");
+            (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Source_Delay_Source"), Info_Options)=__T("N NT");
         }
 
         if (StreamKind_Last==Stream_Video && Temp->second.TimeCode==NULL)
@@ -1565,14 +1570,20 @@ bool File_Mpeg4::BookMark_Needed()
         for (std::map<int32u, stream>::iterator Temp=Streams.begin(); Temp!=Streams.end(); ++Temp)
             if (!Temp->second.Parsers.empty())
         {
-            #if MEDIAINFO_DEMUX
-                if (Config_Demux && Config->File_Demux_Interleave_Get() && !Temp->second.File_Name.empty())
-                {
-                    //Remark: supporting both embedded and referenced streams is currently not supported
-                    mdat_Pos.clear();
-                    return false;
-                }
-            #endif // MEDIAINFO_DEMUX
+            if (!Temp->second.File_Name.empty())
+            {
+                #if MEDIAINFO_DEMUX
+                    if (Config_Demux && Config->File_Demux_Interleave_Get()
+                     && Temp->second.StreamKind!=Stream_Other) // e.g. a time code, we can live without demuxing the time code
+                    {
+                        //Remark: supporting both embedded and referenced streams is currently not supported
+                        mdat_Pos.clear();
+                        return false;
+                    }
+                    else
+                #endif // MEDIAINFO_DEMUX
+                       continue;
+             }
 
             if (!Temp->second.stsz.empty() || Temp->second.stsz_Sample_Size)
             {
