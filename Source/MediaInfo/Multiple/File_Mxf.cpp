@@ -2493,7 +2493,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                     //If in header
                     if ((Clip_Begin!=(int64u)-1 && Value<Clip_Begin) || Value<StreamOffset_Offset)
                     {
-                        GoTo(0);
+                        GoTo(StreamOffset_Offset);
                         Open_Buffer_Unsynch();
                         return 1;
                     }
