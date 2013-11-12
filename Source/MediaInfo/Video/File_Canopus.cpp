@@ -49,7 +49,6 @@ File_Canopus::File_Canopus()
 void File_Canopus::Streams_Fill()
 {
     Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "Canopus HQ");
 }
 
 //***************************************************************************

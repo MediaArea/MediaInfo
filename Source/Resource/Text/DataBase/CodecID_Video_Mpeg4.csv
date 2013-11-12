@@ -31,6 +31,9 @@ blit;RGBA;;;;;;RGBA;16:16:16:16
 blnd;Alpha Compositor;;;;;;;
 blur;Blur;;;;;;CMYK;
 CFHD;CineForm;;CineForm High-Definition (HD) wavelet codec;http://www.cineform.com/;;;;
+CHQX;Canopus HQX;;;;;;;
+CLLC;Canopus Lossless;;;;;;;
+CUVC;Canopus HQ;;;;;;;
 cmyk;CMYK;;;;;;;
 cvid;Cinepack;;;http://www.apple.com/quicktime/download/standalone.html;;;;
 drac;Dirac;;Dirac Video Coder;http://www.bbc.co.uk/rd/projects/dirac/index.shtml;;;;

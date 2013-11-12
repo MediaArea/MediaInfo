@@ -91,9 +91,10 @@ CFCC;JPEG;DPS Perception;Dummy format - only AVI header;;;;YUV
 CFHD;CineForm;;CineForm 10-bit Visually Perfect HD (Wavelet);;;;;
 CGDI;Camcorder;;Camcorder Video (MS Office 97);;;;;
 CHAM;Champagne;;Winnov Caviara Champagne;;;;;
+CHQX;Canopus HQX;;;;;;;
 CJPG;JPEG;Creative;Creative Video Blaster Webcam Go JPEG;;;;YUV
 CLJR;YUV;Cirrus Logic;Less than 8 bits per Y, U and V sample.;http://www.fourcc.org/indexyuv.htm;;;YUV;4:1:1
-CLLC;Canopus;;Canopus LossLess;;;;;
+CLLC;Canopus Lossless;;;;;;;
 CLPL;YUV;;Format similar to YV12 but including a level of indirection.;;;;YUV;
 CM10;MediaShow;;CyberLink Corporation;http://www.cyberlink.com;;;;
 CMYK;CMYK;;Common Data Format in Printing;;;;;
@@ -104,7 +105,7 @@ CRAM;MS Video;;Microsoft Video 1;;;;;
 CSCD;CamStudio;;RenderSoft CamStudio lossless (LZO & GZIP compression);;;;;
 CT10;TalkingShow;;CyberLink Corporation;http://www.cyberlink.com;;;;
 CTRX;Citrix;;Citrix Scalable Video;;;;;
-CUVC;Canopus HQ;;Canopus HQ;;;;;
+CUVC;Canopus HQ;;;;;;;
 CVID;Cinepack;;;http://www.cinepak.com/text.html;;;;
 cvid;Cinepack;;;http://www.cinepak.com/text.html;;;;
 CWLT;WLT;;Microsoft Color WLT DIB;;;;;
