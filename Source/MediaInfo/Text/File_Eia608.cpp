@@ -427,8 +427,7 @@ void File_Eia608::XDS_Current_ContentAdvisory()
     if (ContentAdvisory)
     {
         string ContentAdvisory_String=ContentAdvisory;
-        ContentDescriptors="FV";
-        if (ContentDescriptors.empty())
+        if (!ContentDescriptors.empty())
             ContentAdvisory_String+=" ("+ContentDescriptors+')';
         Fill(Stream_General, 0, General_LawRating, ContentAdvisory_String.c_str());
     }
