@@ -3906,6 +3906,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
     //Bug found in one file: sample size is 16 with a 24-bit CodecID ("in24")
     if (Element_Code==0x696E3234 && SampleSize==16)
         SampleSize=24; //Correcting the header
+    //Bug found in one file: sample size is 16 with a 32-bit CodecID ("fl32")
+    if (Element_Code==0x666C3332 && SampleSize==16)
+        SampleSize=32; //Correcting the header
 
     if (moov_trak_mdia_minf_stbl_stsd_Pos)
         return; //Handling only the first description

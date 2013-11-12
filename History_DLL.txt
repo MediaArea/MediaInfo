@@ -22,6 +22,7 @@ Version 0.7.65, 2013-
 + Colour description: colour_description_present added, better separation between bitstream values and container values
 + MPEG-4: RLE, color space and bit depth
 + Law rating: support of CEA-608 XDS Content Advisory in MPEG-PS, MPEG-Ts, LXF, GXF
++ MPEG-4/MOV: Bug found in one file, sample size is 16 with a 32-bit CodecID ("fl32"), correcting the output of MediaInfo
 x #B775, AVI: AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
 x #B780, MPEG-TS: crash with some files having PAT/PMT change between begin and end of the file
 x #B782, PBCore 1.2: some fields were not in the right order
@@ -37,7 +38,6 @@ x AVI: crash with some malformed text streams
 x Reference/playlist files were not supported from FTP (custom builds only)
 x MPEG-4/MOV: ScanOrder was using "stored" value instead of "displayed" value
 x MXF: Detection of Dolby E was not working in some cases (regression in 0.7.62)
-+ Canopus: better  detection of different kinds of codec (HQQ, HQX, Lossless)
 
 Version 0.7.64, 2013-07-05
 --------------
