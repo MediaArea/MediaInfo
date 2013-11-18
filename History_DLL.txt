@@ -38,6 +38,7 @@ x AVI: crash with some malformed text streams
 x Reference/playlist files were not supported from FTP (custom builds only)
 x MPEG-4/MOV: ScanOrder was using "stored" value instead of "displayed" value
 x MXF: Detection of Dolby E was not working in some cases (regression in 0.7.62)
+x MPEG-4/MOV: freeze with some files having mono 32-bit PCM
 
 Version 0.7.64, 2013-07-05
 --------------
