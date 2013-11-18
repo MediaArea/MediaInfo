@@ -29,6 +29,7 @@ x #B782, PBCore 1.2: some fields were not in the right order
 x #B784, some humain readable strings were not removed when the corresponding field is removed
 x #B787, MPEG-4/QuickTime: Erratic appereance of Bitrate Mode
 x #B798: setlocale() remove from DLL
+x #B785, DVCPRO HD: streams can be 8 or 10 bit, removing hard coded value from DV parser (MXF header value is used instead when applicable)
 x MPEG-4: wrong demux of some E-AC-3 streams
 x AAC: detection of HE-AACv2 was missing if the library is configured with fast detection
 x MPEG Video: wrong computing of duration of raw stream in case of drop frame time code
