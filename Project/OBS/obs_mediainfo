@@ -97,6 +97,8 @@ Download_Packages 1  1  1   x x ""           xUbuntu_12.10  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_12.10  amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_13.04  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_13.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_13.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_13.10  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -128,6 +130,8 @@ Download_Packages $1 $2 $3  x x ""           SLE_11_SP1      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      i586   .i586
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      ppc64  .ppc64
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      i586   .i586
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   i586   .i586
@@ -136,6 +140,8 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed i586   .i586
@@ -143,8 +149,8 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 }
 
 
-mediainfov="0.7.64"
-libmediainfov="0.7.64"
+mediainfov="0.7.65"
+libmediainfov="0.7.65"
 libzenv="0.4.29"
 destversion="1"
 

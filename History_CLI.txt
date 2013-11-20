@@ -8,6 +8,39 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.65, 2013-11-20
+--------------
++ MXF: forcing detection of MPEG Video in case EssenceCompression is not present but MPEG2VideoDescriptor is present
++ GXF: detection of some captions and time codes event if they are not present at the beginning of the file (testing middle of the file)
++ DASH MPD: basic support
++ HDS F4M (Flash Media Manifest): basic support
++ DCP AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): basic support
++ IMF AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): basic support
++ Mac dylib: looking for the dylib in @executable_path and CFBundleCopyExecutableURL dir
++ AAC: option for instantaneous bitrate in fast detect mode (MediaInfoLib only)
++ FTP (custom builds only): support of UTF-8 file names
++ Colour description: colour_description_present added, better separation between bitstream values and container values
++ MPEG-4: RLE, color space and bit depth
++ Law rating: support of CEA-608 XDS Content Advisory in MPEG-PS, MPEG-Ts, LXF, GXF
++ MPEG-4/MOV: Bug found in one file, sample size is 16 with a 32-bit CodecID ("fl32"), correcting the output of MediaInfo
+x #B775, AVI: AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
+x #B780, MPEG-TS: crash with some files having PAT/PMT change between begin and end of the file
+x #B782, PBCore 1.2: some fields were not in the right order
+x #B784, some humain readable strings were not removed when the corresponding field is removed
+x #B787, MPEG-4/QuickTime: Erratic appereance of Bitrate Mode
+x #B798: setlocale() remove from DLL
+x #B785, DVCPRO HD: streams can be 8 or 10 bit, removing hard coded value from DV parser (MXF header value is used instead when applicable)
+x MPEG-4: wrong demux of some E-AC-3 streams
+x AAC: detection of HE-AACv2 was missing if the library is configured with fast detection
+x MPEG Video: wrong computing of duration of raw stream in case of drop frame time code
+x Automation, StreamKind type was set to integer, it is text
+x MPEG-4: was reading lot of useless bytes from disk when the raw stream format is not known
+x AVI: crash with some malformed text streams
+x Reference/playlist files were not supported from FTP (custom builds only)
+x MPEG-4/MOV: ScanOrder was using "stored" value instead of "displayed" value
+x MXF: Detection of Dolby E was not working in some cases (regression in 0.7.62)
+x MPEG-4/MOV: freeze with some files having mono 32-bit PCM
+
 Version 0.7.64, 2013-07-05
 --------------
 + New canonical URL of the website: http://MediaArea.net/MediaInfo
