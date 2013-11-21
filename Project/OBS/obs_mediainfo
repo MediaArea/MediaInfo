@@ -154,7 +154,7 @@ libmediainfov="0.7.65"
 libzenv="0.4.29"
 destversion="1"
 
-Download_Global 7.1 4.1 246.1
+Download_Global 298.1 297.1 246.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
