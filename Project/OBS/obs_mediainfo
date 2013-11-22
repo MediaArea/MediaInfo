@@ -107,6 +107,8 @@ Download_Packages $1 $2 $3  x x ""           CentOS_5        i386   .i386
 Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_6        i686   .i686
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_17       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_18       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_18       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_19       i686   .i686
