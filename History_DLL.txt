@@ -10,6 +10,10 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 
 Version 0.7.65, 2013-11-20
 --------------
++ IMF AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): improved support
+
+Version 0.7.65, 2013-11-20
+--------------
 + MXF: forcing detection of MPEG Video in case EssenceCompression is not present but MPEG2VideoDescriptor is present
 + GXF: detection of some captions and time codes event if they are not present at the beginning of the file (testing middle of the file)
 + DASH MPD: basic support
