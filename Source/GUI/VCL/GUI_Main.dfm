@@ -2,7 +2,7 @@ object MainF: TMainF
   Left = 223
   Top = 273
   Caption = 'MainF'
-  ClientHeight = 869
+  ClientHeight = 909
   ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -154,10 +154,6 @@ object MainF: TMainF
     TabStop = False
     object Page_Easy: TTabSheet
       Caption = 'Easy'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Easy_Note: TLabel
         Left = 0
         Top = 318
@@ -464,10 +460,6 @@ object MainF: TMainF
       ImageIndex = 2
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Sheet_A_Web: TButton
         Left = 566
         Top = 173
@@ -607,10 +599,6 @@ object MainF: TMainF
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Tree_Tree: TTreeView
         Left = 0
         Top = 2
@@ -634,10 +622,6 @@ object MainF: TMainF
       Caption = 'Text'
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Text_Text: TMemo
         Left = 3
         Top = 0
@@ -663,10 +647,6 @@ object MainF: TMainF
     object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -686,10 +666,6 @@ object MainF: TMainF
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Custom_Text: TMemo
         Left = 2
         Top = 2
@@ -726,10 +702,6 @@ object MainF: TMainF
     object Page_System: TTabSheet
       Caption = 'Your system'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_System_Buttons: TGroupBox
         Left = 9
         Top = 0
@@ -805,7 +777,7 @@ object MainF: TMainF
     Left = 0
     Top = 0
     Width = 42
-    Height = 869
+    Height = 909
     Align = alLeft
     ButtonHeight = 39
     ButtonWidth = 39
@@ -821,6 +793,7 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
+    ExplicitHeight = 869
     object Tool_File: TToolButton
       Left = 0
       Top = 0
@@ -2201,6 +2174,10 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_PBCoreClick
       end
+      object M_View_EBUCore_1_4: TMenuItem
+        Caption = 'EBUCore 1.4'
+        OnClick = M_View_EBUCore_1_4Click
+      end
       object M_View_reVTMD: TMenuItem
         AutoCheck = True
         Caption = 'reVTMD'
@@ -2367,7 +2344,7 @@ object MainF: TMainF
     Left = 744
     Top = 136
     Bitmap = {
-      494C01010A000E00F00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A000E00F40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2776,7 +2753,7 @@ object MainF: TMainF
     Left = 744
     Top = 160
     Bitmap = {
-      494C010107000900680120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101070009006C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       000000000000000000000000000000000000F0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
@@ -3884,6 +3861,9 @@ object MainF: TMainF
     object ToolBar_View_PBCore: TMenuItem
       Caption = 'PBCore 1.2'
       RadioItem = True
+    end
+    object ToolBar_View_EBUCore_1_4: TMenuItem
+      Caption = 'EBUCore 1.4'
     end
     object ToolBar_View_reVTMD: TMenuItem
       Caption = 'reVTMD'

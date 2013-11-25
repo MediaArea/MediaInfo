@@ -236,6 +236,13 @@ void Core::Menu_View_MPEG7 ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_EBUCore_1_4 ()
+{
+    MI->Option(__T("Inform"), __T("EBUCore_1.4"));
+    Kind=Kind_EBUCore_1_4;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_Text ()
 {
     MI->Option(__T("Inform"), String());
