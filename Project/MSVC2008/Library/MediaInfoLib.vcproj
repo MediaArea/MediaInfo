@@ -1454,6 +1454,10 @@
 				Name="Export"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_EbuCore.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.cpp"
 					>
 				</File>
@@ -2207,6 +2211,10 @@
 			<Filter
 				Name="Export"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_EbuCore.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.h"
 					>
