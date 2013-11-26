@@ -204,7 +204,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>../../../Source;../../../Source/ThirdParty/tinyxml2;../../../Source/ThirdParty/md5;../../../Source/ThirdParty/base64;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_DLL_RUNTIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>MediaInfo/PreComp.h</PrecompiledHeaderFile>
@@ -416,6 +416,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0302.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0337.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_EbuCore.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
@@ -638,6 +639,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0302.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.h" />
     <ClInclude Include="..\..\..\source\mediainfo\audio\File_SmpteSt0337.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_EbuCore.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />
