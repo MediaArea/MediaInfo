@@ -1205,8 +1205,8 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         for (std::map<int32u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); ++Stream)
                             if (Stream->second.StreamKind==Stream_Video)
                             {
-                                if (Value>TimeCode_FrameOffset*1000000000/Stream->second.mdhd_TimeScale) //Removing Time Code offset
-                                    Value-=TimeCode_FrameOffset*1000000000/Stream->second.mdhd_TimeScale;
+                                if (Value>TimeCode_DtsOffset) //Removing Time Code offset
+                                    Value-=TimeCode_DtsOffset;
                                 else
                                     Value=0; //Sooner
                                 break;
